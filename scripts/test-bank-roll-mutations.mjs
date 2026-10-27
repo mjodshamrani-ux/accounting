@@ -170,7 +170,7 @@ const mutations = [
     '      .map((c) => ({ ...c, age: c.age + 1 })),',
     '      .map((c) => ({ ...c })),',
   ],
-  ['restore-roll-without-previous', LIFE, "  if (!previous) fail('SESSION');\n  return replayRolledStatement(", '  return replayRolledStatement('],
+  ['restore-roll-without-previous', LIFE, "  if (!previous || sheet) fail('SESSION');\n  return replayRolledStatement(", "  if (sheet) fail('SESSION');\n  return replayRolledStatement("],
   [
     'roll-state-any-version',
     REQUEST,
@@ -178,22 +178,22 @@ const mutations = [
     '    false\n',
   ],
   // The workpaper (W2b): each must be caught by the independent checker.
-  ['workpaper-without-previous-file', LIFE, "...('previous' in state ? [state.previous] : []),", ''],
+  ['workpaper-without-previous-file', LIFE, "...('previous' in state && state.previous ? [state.previous] : []),", ''],
   ['workpaper-outstanding-flag-inverted', LIFE, "left.has(c.key) ? 'yes' : 'no',", "left.has(c.key) ? 'no' : 'yes',"],
   ['workpaper-carried-age-at-end', LIFE, "left.get(c.key) ?? '',", "c.age,"],
   ['workpaper-carried-members-missing', LIFE, 'result.cases.flatMap((c) => (c.carried ?? []).map((k) => [c.id, k])),', '[],'],
   ['workpaper-withheld-missing', LIFE, "      ...roll.withheld.statement.map((id) => ['statement', id]),\n", ''],
   ['workpaper-previous-status', LIFE, "        ['Status', roll.previous.status],", "        ['Status', 'accepted'],"],
   // The roll session format.
-  ['roll-format-key-missing', LIFE, "...(roll ? ['previous'] : []),", '...([] as string[]),'],
-  ['any-session-version', LIFE, '(parsed.version !== BANK_STATEMENT_LIFECYCLE_VERSION && !roll) ||', 'false ||'],
-  ['restore-reads-roll-format', LIFE, '  if (previous) fail(\'SESSION\');\n  return state;', '  return state;'],
+  ['roll-format-key-missing', LIFE, "...(roll || withSheet ? ['previous'] : []),", "...(withSheet ? ['previous'] : []),"],
+  ['any-session-version', LIFE, '(parsed.version !== BANK_STATEMENT_LIFECYCLE_VERSION &&\n      !roll &&\n      !withSheet) ||', 'false ||'],
+  ['restore-reads-roll-format', LIFE, '  if (previous || sheet) fail(\'SESSION\');\n  return state;', '  if (sheet) fail(\'SESSION\');\n  return state;'],
   // The worker reply envelope (W3).
   ['envelope-version-mixed', PROTOCOL, '      value.result.version !== value.state.version ||\n', ''],
   [
     'envelope-any-version',
     PROTOCOL,
-    '      ![BANK_STATEMENT_LIFECYCLE_VERSION, BANK_STATEMENT_ROLL_VERSION].includes(\n        value.state.version as string,\n      ) ||\n',
+    '      ![\n        BANK_STATEMENT_LIFECYCLE_VERSION,\n        BANK_STATEMENT_ROLL_VERSION,\n        BANK_STATEMENT_SHEET_VERSION,\n      ].includes(\n        value.state.version as string,\n      ) ||\n',
     '',
   ],
 ];

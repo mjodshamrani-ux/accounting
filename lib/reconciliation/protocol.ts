@@ -3,6 +3,7 @@ import {
   BANK_STATEMENT_LIFECYCLE_VERSION,
   BANK_STATEMENT_ROLL_VERSION,
   BANK_STATEMENT_SESSION_LIMIT,
+  BANK_STATEMENT_SHEET_VERSION,
 } from './bank-statement-request.ts';
 import {
   STOCK_PDF_LIFECYCLE_VERSION,
@@ -216,7 +217,11 @@ export function validateWorkerValue(
       Object.keys(value).sort().join('|') !== 'result|state' ||
       !isRecord(value.state) ||
       !isRecord(value.result) ||
-      ![BANK_STATEMENT_LIFECYCLE_VERSION, BANK_STATEMENT_ROLL_VERSION].includes(
+      ![
+        BANK_STATEMENT_LIFECYCLE_VERSION,
+        BANK_STATEMENT_ROLL_VERSION,
+        BANK_STATEMENT_SHEET_VERSION,
+      ].includes(
         value.state.version as string,
       ) ||
       value.result.version !== value.state.version ||

@@ -1,7 +1,9 @@
-// WF-1 REPORT-1 R1 code mutations: each planted defect in a private copy of
-// the sheet engine (bank-statement-sheet.ts) must make its unit tests or the
-// proof against the sealed EXPECTED.json fail with an assertion. A survivor
-// is a rule nothing holds.
+// WF-1 REPORT-1 code mutations: each planted defect in a private copy of the
+// sheet engine (bank-statement-sheet.ts, R1) or of the sheet's lifecycle,
+// state, envelope and workbook (R2) must make the unit tests, the proof
+// against the sealed EXPECTED.json or the lifecycle proof with its
+// independent workbook check fail with an assertion. A survivor is a rule
+// nothing holds.
 //   node scripts/test-bank-sheet-mutations.mjs
 import {
   cp,
@@ -30,9 +32,18 @@ const out = await mkdtemp(join(output, 'run-'));
 // BANK_SHEET_PROOF_ONLY=1 measures the proof alone, without the unit tests.
 const tests = process.env.BANK_SHEET_PROOF_ONLY
   ? []
-  : ['tests/bank-statement-sheet.test.ts'];
-const proofs = ['scripts/bank-sheet-proof.mjs'];
+  : [
+      'tests/bank-statement-sheet.test.ts',
+      'tests/bank-statement-sheet-lifecycle.test.ts',
+    ];
+const proofs = [
+  'scripts/bank-sheet-proof.mjs',
+  'scripts/bank-sheet-lifecycle-proof.mjs',
+];
 const SHEET = 'lib/reconciliation/bank-statement-sheet.ts';
+const LIFE = 'lib/reconciliation/bank-statement-lifecycle.ts';
+const REQUEST = 'lib/reconciliation/bank-statement-request.ts';
+const PROTOCOL = 'lib/reconciliation/protocol.ts';
 const mutations = [
   // Refusals and their order.
   [
@@ -164,6 +175,103 @@ const mutations = [
     'Object.keys(v)\n            .sort()\n',
     'Object.keys(v)\n',
   ],
+  // R2: the sheet in the lifecycle.
+  [
+    'signoff-always-valid',
+    LIFE,
+    'valid: fingerprint !== null && s.fingerprint === fingerprint',
+    'valid: true',
+  ],
+  [
+    'sheet-previous-dropped',
+    LIFE,
+    '  const { result } = previous\n    ? await replayRolledStatement({',
+    '  const { result } = false\n    ? await replayRolledStatement({',
+  ],
+  [
+    'session-drops-sheet',
+    LIFE,
+    'sheet: withSheet ? snapshotSheetInputs(parsed.sheet) : null,',
+    'sheet: null,',
+  ],
+  [
+    'plain-restore-takes-sheet',
+    LIFE,
+    "if (previous || sheet) fail('SESSION');",
+    "if (previous) fail('SESSION');",
+  ],
+  [
+    'roll-restore-takes-sheet',
+    LIFE,
+    "if (!previous || sheet) fail('SESSION');",
+    "if (!previous) fail('SESSION');",
+  ],
+  [
+    'sheet-not-exported',
+    LIFE,
+    '  if (result.sheet) reconciliationWorksheet(book, result.sheet);\n',
+    '',
+  ],
+  [
+    'sheet-direction-ignored',
+    LIFE,
+    "ws.views = [{ rightToLeft: s.language === 'ar' }];",
+    'ws.views = [{ rightToLeft: false }];',
+  ],
+  [
+    'sheet-language-ignored',
+    LIFE,
+    'const copy = bankSheetCopy[s.language];',
+    'const copy = bankSheetCopy.en;',
+  ],
+  [
+    'amount-text-unsigned',
+    LIFE,
+    "const sign = minor < 0 ? '-' : '';",
+    "const sign = '';",
+  ],
+  [
+    'claim-unchanged',
+    LIFE,
+    "result.sheet\n          ? 'Statement-to-cashbook movement matching, and",
+    "false\n          ? 'Statement-to-cashbook movement matching, and",
+  ],
+  [
+    'worker-sheet-replayed-plain',
+    LIFE,
+    ': sheeted(capture)\n        ? await replaySheetStatement(capture)',
+    ': false\n        ? await replaySheetStatement(capture)',
+  ],
+  [
+    'worker-save-sheet-dropped',
+    LIFE,
+    '      saved = parts.sheet\n        ? {',
+    '      saved = false\n        ? {',
+  ],
+  [
+    'sheet-language-any',
+    REQUEST,
+    "    !['ar', 'en'].includes(value.language as string)\n",
+    '    false\n',
+  ],
+  [
+    'signoff-fingerprint-any',
+    REQUEST,
+    '      !/^[a-f0-9]{64}$/u.test(v.fingerprint)\n',
+    '      false\n',
+  ],
+  [
+    'sheet-dispatch-missing',
+    REQUEST,
+    '  if (statementPlain(value) && value.version === BANK_STATEMENT_SHEET_VERSION)\n    return snapshotSheetStatementState(value);\n',
+    '',
+  ],
+  [
+    'envelope-refuses-sheet',
+    PROTOCOL,
+    '        BANK_STATEMENT_SHEET_VERSION,\n      ].includes(',
+    '      ].includes(',
+  ],
 ];
 const files = [...new Set(mutations.map(([, file]) => file)), ...tests, ...proofs];
 const digest = (b) => createHash('sha256').update(b).digest('hex');
@@ -193,6 +301,7 @@ const run = (cwd) => {
       ...options,
       env: {
         ...process.env,
+        BANK_SHEET_LIFECYCLE_DIR: join(cwd, 'work/bank-sheet-lifecycle'),
       },
     });
     if (!completedSuccessfully(last)) return last;

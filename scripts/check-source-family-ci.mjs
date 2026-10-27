@@ -147,6 +147,7 @@ const required = [
   'test:bank-sheet:seal',
   'test:bank-sheet:baseline',
   'test:bank-sheet:proof',
+  'test:bank-sheet:lifecycle',
   'test:bank-sheet:mutations',
   'test:bank-roll:baseline',
   'test:bank-roll:proof',

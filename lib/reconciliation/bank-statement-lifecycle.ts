@@ -43,6 +43,22 @@ import {
 } from './bank-statement-roll.ts';
 import { MAX_FILE_BYTES } from './types.ts';
 import {
+  BANK_SHEET_FAMILY as BANK_SHEET_FAMILY_NAME,
+  reconciliationSheet,
+  sheetFingerprint,
+  type ReconciliationSheet,
+  type SheetOutcome,
+} from './bank-statement-sheet.ts';
+import { bankSheetCopy } from '../i18n/bank-sheet.ts';
+import {
+  BANK_STATEMENT_SHEET_VERSION,
+  snapshotSheetInputs,
+  snapshotSheetStatementState,
+  type AnyStatementState,
+  type BankStatementSheetState,
+  type SheetInputs,
+} from './bank-statement-request.ts';
+import {
   BANK_STATEMENT_EXPORT_LIMIT,
   BANK_STATEMENT_LIFECYCLE_VERSION,
   BANK_STATEMENT_ROLL_VERSION,
@@ -107,10 +123,28 @@ export type StatementRoll = {
    * then: in no case, or in a rejected one. */
   outstanding: CarriedItem[];
 };
+/** A sign-off and whether the sheet is still the one it was given on. */
+export type SheetSignoffStatus = {
+  name: string;
+  date: string;
+  fingerprint: string;
+  valid: boolean;
+};
+/** What a period with its closing sheet adds (bank-reconciliation-sheet-1,
+ * proposed): the sheet or the refusal in its place, its fingerprint, the
+ * language of its labels, and the sign-offs with their standing. */
+export type StatementSheet = {
+  outcome: SheetOutcome;
+  fingerprint: string | null;
+  language: SheetInputs['language'];
+  prepared: SheetSignoffStatus | null;
+  reviewed: SheetSignoffStatus | null;
+};
 export type BankStatementResult = {
   version:
     | typeof BANK_STATEMENT_LIFECYCLE_VERSION
-    | typeof BANK_STATEMENT_ROLL_VERSION;
+    | typeof BANK_STATEMENT_ROLL_VERSION
+    | typeof BANK_STATEMENT_SHEET_VERSION;
   context: string;
   /** held: nothing matched; needs-review: a case awaits the accountant;
    * reviewed: every case is automatic or decided. Outstanding items are
@@ -130,6 +164,8 @@ export type BankStatementResult = {
   decisions: StatementDecision[];
   /** Present only in a period that carries. */
   roll?: StatementRoll;
+  /** Present only in a period with its closing sheet. */
+  sheet?: StatementSheet;
 };
 export type BankStatementReplay = {
   state: BankStatementState;
@@ -137,6 +173,10 @@ export type BankStatementReplay = {
 };
 export type BankStatementRollReplay = {
   state: BankStatementRollState;
+  result: BankStatementResult;
+};
+export type BankStatementSheetReplay = {
+  state: BankStatementSheetState;
   result: BankStatementResult;
 };
 
@@ -507,8 +547,8 @@ export async function restoreBankStatement(
 /** The state a session file holds: its originals, scope and decisions. A
  * session in the proposed roll format is not restored here. */
 function sessionState(session: ArrayBuffer): BankStatementState {
-  const { state, previous } = statementSessionParts(session);
-  if (previous) fail('SESSION');
+  const { state, previous, sheet } = statementSessionParts(session);
+  if (previous || sheet) fail('SESSION');
   return state;
 }
 
@@ -518,6 +558,7 @@ function sessionState(session: ArrayBuffer): BankStatementState {
 export function statementSessionParts(session: ArrayBuffer): {
   state: BankStatementState;
   previous: StatementSource | null;
+  sheet: SheetInputs | null;
 } {
   statementBytes(session, BANK_STATEMENT_SESSION_LIMIT, 'SESSION');
   let parsed: unknown;
@@ -530,6 +571,10 @@ export function statementSessionParts(session: ArrayBuffer): {
   }
   const roll =
     statementPlain(parsed) && parsed.version === BANK_STATEMENT_ROLL_VERSION;
+  // The proposed sheet format: `previous` is null or the previous session
+  // file, and `sheet` holds the sheet inputs.
+  const withSheet =
+    statementPlain(parsed) && parsed.version === BANK_STATEMENT_SHEET_VERSION;
   if (
     !statementPlain(parsed) ||
     !statementKeys(parsed, [
@@ -538,10 +583,13 @@ export function statementSessionParts(session: ArrayBuffer): {
       'files',
       'scope',
       'decisions',
-      ...(roll ? ['previous'] : []),
+      ...(roll || withSheet ? ['previous'] : []),
+      ...(withSheet ? ['sheet'] : []),
     ]) ||
     parsed.format !== BANK_STATEMENT_SESSION_FORMAT ||
-    (parsed.version !== BANK_STATEMENT_LIFECYCLE_VERSION && !roll) ||
+    (parsed.version !== BANK_STATEMENT_LIFECYCLE_VERSION &&
+      !roll &&
+      !withSheet) ||
     !Array.isArray(parsed.files) ||
     parsed.files.length !== 2
   )
@@ -552,7 +600,7 @@ export function statementSessionParts(session: ArrayBuffer): {
     return { name: f.name, sha256: f.sha256, original: decode(f.data) };
   });
   let previous: StatementSource | null = null;
-  if (roll) {
+  if (roll || (withSheet && parsed.previous !== null)) {
     const p = parsed.previous;
     if (
       !statementPlain(p) ||
@@ -576,6 +624,7 @@ export function statementSessionParts(session: ArrayBuffer): {
       decisions: parsed.decisions,
     }),
     previous,
+    sheet: withSheet ? snapshotSheetInputs(parsed.sheet) : null,
   };
 }
 
@@ -716,12 +765,101 @@ export async function saveRolledStatement(
 export async function restoreRolledStatement(
   session: ArrayBuffer,
 ): Promise<BankStatementRollReplay> {
-  const { state, previous } = statementSessionParts(session);
-  if (!previous) fail('SESSION');
+  const { state, previous, sheet } = statementSessionParts(session);
+  if (!previous || sheet) fail('SESSION');
   return replayRolledStatement({
     ...state,
     version: BANK_STATEMENT_ROLL_VERSION,
     previous,
+  });
+}
+
+/** A period with its closing sheet (bank-reconciliation-sheet-1, proposed):
+ * the period replayed as it is, carrying or not, then the sheet built from
+ * its result and the declared book balance. A sign-off holds only while the
+ * sheet's fingerprint is the one it was given on. Decisions keep the context
+ * of the period they were taken in, so entering the sheet does not move them. */
+export async function replaySheetStatement(
+  input: unknown,
+): Promise<BankStatementSheetReplay> {
+  const state = snapshotSheetStatementState(input);
+  const { sheet, previous } = state;
+  const own = { files: state.files, scope: state.scope, decisions: state.decisions };
+  const { result } = previous
+    ? await replayRolledStatement({
+        ...own,
+        version: BANK_STATEMENT_ROLL_VERSION,
+        previous,
+      })
+    : await replayBankStatement({
+        ...own,
+        version: BANK_STATEMENT_LIFECYCLE_VERSION,
+      });
+  const outcome = reconciliationSheet(result, sheet.book);
+  const fingerprint = outcome.refusal
+    ? null
+    : await sheetFingerprint(outcome.sheet);
+  const standing = (s: SheetInputs['prepared']) =>
+    s && { ...s, valid: fingerprint !== null && s.fingerprint === fingerprint };
+  return {
+    state,
+    result: frozen({
+      ...result,
+      version: BANK_STATEMENT_SHEET_VERSION,
+      sheet: {
+        outcome,
+        fingerprint,
+        language: sheet.language,
+        prepared: standing(sheet.prepared),
+        reviewed: standing(sheet.reviewed),
+      },
+    }),
+  };
+}
+
+/** A period with its sheet is saved with its originals, scope, decisions,
+ * previous session file (or null) and sheet inputs, and restored before it
+ * is returned. */
+export async function saveSheetStatement(
+  input: unknown,
+): Promise<ArrayBuffer> {
+  const replay = await replaySheetStatement(input);
+  const { state } = replay;
+  const session = new TextEncoder().encode(
+    JSON.stringify({
+      format: BANK_STATEMENT_SESSION_FORMAT,
+      version: BANK_STATEMENT_SHEET_VERSION,
+      files: state.files.map((f) => ({
+        name: f.name,
+        sha256: f.sha256,
+        data: encode(f.original),
+      })),
+      scope: state.scope,
+      decisions: [...state.decisions],
+      previous: state.previous && {
+        name: state.previous.name,
+        sha256: state.previous.sha256,
+        data: encode(state.previous.original),
+      },
+      sheet: state.sheet,
+    }),
+  ).buffer;
+  statementBytes(session, BANK_STATEMENT_SESSION_LIMIT, 'SESSION');
+  if (!sameStatementData(await restoreSheetStatement(session), replay))
+    fail('SESSION');
+  return session;
+}
+
+export async function restoreSheetStatement(
+  session: ArrayBuffer,
+): Promise<BankStatementSheetReplay> {
+  const { state, previous, sheet } = statementSessionParts(session);
+  if (!sheet) fail('SESSION');
+  return replaySheetStatement({
+    ...state,
+    version: BANK_STATEMENT_SHEET_VERSION,
+    previous,
+    sheet,
   });
 }
 
@@ -735,7 +873,7 @@ export async function exportBankStatement(
   replay: (
     input: unknown,
   ) => Promise<
-    BankStatementReplay | BankStatementRollReplay
+    BankStatementReplay | BankStatementRollReplay | BankStatementSheetReplay
   > = replayBankStatement,
 ): Promise<ArrayBuffer> {
   const { state, result } = await replay(input);
@@ -743,6 +881,7 @@ export async function exportBankStatement(
   const { reading, match } = result;
   const book = new ExcelJS.Workbook();
   book.creator = 'Tarasuf';
+  if (result.sheet) reconciliationWorksheet(book, result.sheet);
   function table(name: string, headers: string[], rows: (string | number)[][]) {
     for (const row of [headers, ...rows])
       for (const value of row)
@@ -801,7 +940,9 @@ export async function exportBankStatement(
       ['Context', result.context],
       [
         'Claim',
-        'Statement-to-cashbook movement matching only. Completeness rests on printed page numbers with a closing balance, or on a closing balance the accountant confirmed; no balance bridge, fee or currency inference, ERP posting or source authenticity assurance',
+        result.sheet
+          ? 'Statement-to-cashbook movement matching, and the closing reconciliation sheet first in this workbook: the bank balance proved from the printed statement, the book balance declared by the accountant, every item not cleared listed alone. Completeness of the books, fee or currency inference, ERP posting and source authenticity are not claimed'
+          : 'Statement-to-cashbook movement matching only. Completeness rests on printed page numbers with a closing balance, or on a closing balance the accountant confirmed; no balance bridge, fee or currency inference, ERP posting or source authenticity assurance',
       ],
     ],
   );
@@ -1051,7 +1192,7 @@ export async function exportBankStatement(
   const chunks: (string | number)[][] = [];
   const originals = [
     ...state.files,
-    ...('previous' in state ? [state.previous] : []),
+    ...('previous' in state && state.previous ? [state.previous] : []),
   ];
   for (const [i, f] of originals.entries()) {
     const data = encode(f.original);
@@ -1070,29 +1211,135 @@ export async function exportBankStatement(
   return workbook;
 }
 
+/** Minor units as text in major units at the currency's precision, with a
+ * leading minus for a negative amount and no grouping. */
+function majorText(minor: number, decimals: number) {
+  const sign = minor < 0 ? '-' : '';
+  const digits = String(Math.abs(minor)).padStart(decimals + 1, '0');
+  return decimals
+    ? `${sign}${digits.slice(0, -decimals)}.${digits.slice(-decimals)}`
+    : `${sign}${digits}`;
+}
+
+/** The reconciliation sheet, first in the workbook. Column A holds a fixed
+ * English key for each row so the sheet reads the same in either language;
+ * column B the label in the sheet's language; the values follow. No
+ * formulas: every figure is stored as computed. */
+function reconciliationWorksheet(book: ExcelJS.Workbook, s: StatementSheet) {
+  const copy = bankSheetCopy[s.language];
+  const rows: (string | number)[][] = [
+    ['family', copy.title, BANK_SHEET_FAMILY_NAME],
+  ];
+  const { outcome } = s;
+  if (outcome.refusal)
+    rows.push([
+      'refusal',
+      copy.labels.refusal,
+      copy.refusals[outcome.refusal],
+      outcome.refusal,
+    ]);
+  else {
+    const sheet: ReconciliationSheet = outcome.sheet;
+    const money = (minor: number) => [majorText(minor, sheet.decimals), minor];
+    rows.push(
+      ['status', copy.labels.status, copy.status[sheet.status], sheet.status],
+      ['currency', copy.labels.currency, sheet.currency],
+      ['period', copy.labels.period, sheet.period.start, sheet.period.end],
+      [
+        'bank',
+        copy.bank,
+        ...money(sheet.bank.balance),
+        copy.bankSource(sheet.bank.page),
+      ],
+      ['book', copy.book, ...money(sheet.book.balance), copy.bookSource],
+      ['note', copy.bookNote, sheet.book.note],
+      ['headers', ...copy.itemHeaders],
+    );
+    for (const [name, section] of Object.entries(sheet.sections)) {
+      rows.push([
+        'section',
+        copy.sections[name as keyof typeof copy.sections],
+        ...money(section.total),
+        name,
+      ]);
+      for (const i of section.items)
+        rows.push([
+          'item',
+          copy.sides[i.side],
+          i.id,
+          `${i.period.start}/${i.period.end}`,
+          (i.page ?? i.row)!,
+          i.date,
+          i.reference,
+          ...money(i.amount),
+          copy.origins[i.origin],
+          i.origin,
+          i.case ?? '',
+          i.reason ?? '',
+          i.age ?? '',
+          i.source,
+        ]);
+    }
+    rows.push(
+      ['adjustedBank', copy.adjustedBank, ...money(sheet.adjustedBank)],
+      ['adjustedBook', copy.adjustedBook, ...money(sheet.adjustedBook)],
+      ['difference', copy.difference, ...money(sheet.difference)],
+    );
+  }
+  for (const kind of ['prepared', 'reviewed'] as const) {
+    const signoff = s[kind];
+    if (signoff)
+      rows.push([
+        kind,
+        copy[kind],
+        signoff.name,
+        signoff.date,
+        signoff.valid ? '' : copy.signoffVoid,
+        signoff.valid ? 'valid' : 'void',
+      ]);
+  }
+  rows.push(['claim', copy.labels.claim, copy.claim]);
+  for (const row of rows)
+    for (const value of row) validateExportText(value, 'BANK_SHEET_EXPORT_CELL');
+  const ws = book.addWorksheet(copy.sheetName);
+  ws.addRows(rows.map((row) => row.map(excelExportText)));
+  ws.views = [{ rightToLeft: s.language === 'ar' }];
+  ws.getColumn(1).width = 14;
+  for (let c = 2; c <= 16; c++) ws.getColumn(c).width = 22;
+}
+
 /** A period that carries, exported from its own replay. */
 export const exportRolledStatement = (input: unknown, expected: unknown) =>
   exportBankStatement(input, expected, replayRolledStatement);
+/** A period with its closing sheet, exported from its own replay: the sheet
+ * first, in the language of its labels. */
+export const exportSheetStatement = (input: unknown, expected: unknown) =>
+  exportBankStatement(input, expected, replaySheetStatement);
 
-/** Either kind of state, by its declared version: what the worker serves. */
-const rolled = (
-  state: BankStatementState | BankStatementRollState,
-): state is BankStatementRollState =>
+/** Any kind of state, by its declared version: what the worker serves. */
+const rolled = (state: AnyStatementState): state is BankStatementRollState =>
   state.version === BANK_STATEMENT_ROLL_VERSION;
+const sheeted = (state: AnyStatementState): state is BankStatementSheetState =>
+  state.version === BANK_STATEMENT_SHEET_VERSION;
 export async function replayAnyStatement(
   input: unknown,
-): Promise<BankStatementReplay | BankStatementRollReplay> {
+): Promise<
+  BankStatementReplay | BankStatementRollReplay | BankStatementSheetReplay
+> {
   const state = snapshotAnyStatementState(input);
+  if (sheeted(state)) return replaySheetStatement(state);
   return rolled(state)
     ? replayRolledStatement(state)
     : replayBankStatement(state);
 }
 export async function saveAnyStatement(input: unknown): Promise<ArrayBuffer> {
   const state = snapshotAnyStatementState(input);
+  if (sheeted(state)) return saveSheetStatement(state);
   return rolled(state) ? saveRolledStatement(state) : saveBankStatement(state);
 }
 export async function exportAnyStatement(input: unknown, expected: unknown) {
   const state = snapshotAnyStatementState(input);
+  if (sheeted(state)) return exportSheetStatement(state, expected);
   return rolled(state)
     ? exportRolledStatement(state, expected)
     : exportBankStatement(state, expected);
@@ -1103,8 +1350,17 @@ export async function restoreAnyStatement(
   replay: (
     input: unknown,
   ) => Promise<BankStatementReplay> = replayBankStatement,
-): Promise<BankStatementReplay | BankStatementRollReplay> {
-  const { state, previous } = statementSessionParts(session);
+): Promise<
+  BankStatementReplay | BankStatementRollReplay | BankStatementSheetReplay
+> {
+  const { state, previous, sheet } = statementSessionParts(session);
+  if (sheet)
+    return replaySheetStatement({
+      ...state,
+      version: BANK_STATEMENT_SHEET_VERSION,
+      previous,
+      sheet,
+    });
   return previous
     ? replayRolledStatement({
         ...state,
@@ -1128,14 +1384,23 @@ export async function validateBankStatementWorkerResponse(
   if (action === 'bank-statement-save') {
     statementBytes(value, BANK_STATEMENT_SESSION_LIMIT, 'ENVELOPE');
     const returned = value.slice(0);
-    const capture = requested as BankStatementState | BankStatementRollState;
-    const state = rolled(capture)
-      ? (await replayRolledStatement(capture)).state
-      : (await replayVerified(capture)).state;
-    let saved: BankStatementState | BankStatementRollState | undefined;
+    const capture = requested as AnyStatementState;
+    const state = sheeted(capture)
+      ? (await replaySheetStatement(capture)).state
+      : rolled(capture)
+        ? (await replayRolledStatement(capture)).state
+        : (await replayVerified(capture)).state;
+    let saved: AnyStatementState | undefined;
     try {
       const parts = statementSessionParts(returned);
-      saved = parts.previous
+      saved = parts.sheet
+        ? {
+            ...parts.state,
+            version: BANK_STATEMENT_SHEET_VERSION,
+            previous: parts.previous,
+            sheet: parts.sheet,
+          }
+        : parts.previous
         ? {
             ...parts.state,
             version: BANK_STATEMENT_ROLL_VERSION,
@@ -1152,9 +1417,11 @@ export async function validateBankStatementWorkerResponse(
     statementBytes(value, BANK_STATEMENT_EXPORT_LIMIT, 'ENVELOPE');
     const returned = value.slice(0);
     const { state, result } = requested as BankStatementExportRequest;
-    const expected = rolled(state)
-      ? await exportBankStatement(state, result, replayRolledStatement)
-      : await exportBankStatement(state, result, replayVerified);
+    const expected = sheeted(state)
+      ? await exportBankStatement(state, result, replaySheetStatement)
+      : rolled(state)
+        ? await exportBankStatement(state, result, replayRolledStatement)
+        : await exportBankStatement(state, result, replayVerified);
     const { sameStockWorkbook } =
       await import('./inventory-register-worker-binding.ts');
     const same = await sameStockWorkbook(returned, expected).catch(() => false);
@@ -1164,14 +1431,16 @@ export async function validateBankStatementWorkerResponse(
   if (!statementPlain(value) || !statementKeys(value, ['state', 'result']))
     fail('ENVELOPE');
   const captured = structuredClone(value);
-  const capture = requested as BankStatementState | BankStatementRollState;
+  const capture = requested as AnyStatementState;
   const expected =
     action === 'bank-statement-restore'
       ? await restoreAnyStatement(
           (requested as { buffer: ArrayBuffer }).buffer,
           replayVerified,
         )
-      : rolled(capture)
+      : sheeted(capture)
+        ? await replaySheetStatement(capture)
+        : rolled(capture)
         ? await replayRolledStatement(capture)
         : await replayVerified(requested);
   if (!sameStatementData(captured, expected)) fail('WORKER_BINDING');

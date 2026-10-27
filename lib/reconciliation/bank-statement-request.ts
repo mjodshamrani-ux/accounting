@@ -5,12 +5,17 @@
 // This module has no reader or workbook dependency, so the worker protocol
 // and client can capture a request before anything yields.
 import { currencyPrecision } from './currency-precision.ts';
+import { bookBalance, type BookBalance } from './bank-statement-sheet.ts';
 import { MAX_FILE_BYTES } from './types.ts';
 
 export const BANK_STATEMENT_LIFECYCLE_VERSION = 'bank-statement-lifecycle-1';
 /** The proposed roll format: a session that also keeps the previous
  * period's session file (audit/bank-roll-foundation/contract.json). */
 export const BANK_STATEMENT_ROLL_VERSION = 'bank-statement-roll-1';
+/** The proposed sheet format: a session, carrying or not, that also keeps
+ * what the accountant entered for the closing reconciliation sheet
+ * (audit/bank-sheet-foundation/contract.json). */
+export const BANK_STATEMENT_SHEET_VERSION = 'bank-reconciliation-sheet-1';
 export const BANK_STATEMENT_SESSION_FORMAT = 'tarasuf-bank-statement-session';
 export const BANK_STATEMENT_SESSION_LIMIT = 32 * 1024 * 1024;
 export const BANK_STATEMENT_EXPORT_LIMIT = 96 * 1024 * 1024;
@@ -56,10 +61,32 @@ export type BankStatementRollState = Omit<BankStatementState, 'version'> & {
   version: typeof BANK_STATEMENT_ROLL_VERSION;
   previous: StatementSource;
 };
+/** A sign-off as the user typed it, with the fingerprint of the sheet it
+ * was given on. Text only: not a digital signature or an identity check. */
+export type SheetSignoff = { name: string; date: string; fingerprint: string };
+export type SheetInputs = {
+  book: BookBalance | null;
+  language: 'ar' | 'en';
+  prepared: SheetSignoff | null;
+  reviewed: SheetSignoff | null;
+};
+/** A period with its closing sheet (bank-reconciliation-sheet-1, proposed):
+ * its own state, the previous period's session file if it carries, and the
+ * sheet inputs. */
+export type BankStatementSheetState = Omit<BankStatementState, 'version'> & {
+  version: typeof BANK_STATEMENT_SHEET_VERSION;
+  previous: StatementSource | null;
+  sheet: SheetInputs;
+};
+export type AnyStatementState =
+  | BankStatementState
+  | BankStatementRollState
+  | BankStatementSheetState;
 export type BankStatementExportRequest = {
-  state: BankStatementState | BankStatementRollState;
+  state: AnyStatementState;
   result: unknown;
 };
+export const SIGNOFF_NAME_LIMIT = 120;
 
 export const STATEMENT_FILE = /\.(pdf|csv|xlsx)$/iu;
 export const CASHBOOK_FILE = /\.(csv|xlsx)$/iu;
@@ -253,10 +280,85 @@ export function snapshotRolledStatementState(
     previous: { name: p.name, sha256: p.sha256, original: p.original.slice(0) },
   };
 }
-/** Captures a state of either kind, by its declared version. */
-export function snapshotAnyStatementState(
+/** The sheet inputs' own form; whether a sign-off still holds is decided on
+ * replay, from the sheet's fingerprint. */
+export function snapshotSheetInputs(value: unknown): SheetInputs {
+  if (
+    !statementPlain(value) ||
+    !statementKeys(value, ['book', 'language', 'prepared', 'reviewed']) ||
+    !['ar', 'en'].includes(value.language as string)
+  )
+    fail('SHEET');
+  let book: BookBalance | null = null;
+  if (value.book !== null)
+    try {
+      book = bookBalance(value.book);
+    } catch {
+      fail('SHEET');
+    }
+  const signoff = (v: unknown): SheetSignoff | null => {
+    if (v === null) return null;
+    if (
+      !statementPlain(v) ||
+      !statementKeys(v, ['name', 'date', 'fingerprint']) ||
+      !statementText(v.name, SIGNOFF_NAME_LIMIT) ||
+      !isoDay(v.date) ||
+      typeof v.fingerprint !== 'string' ||
+      !/^[a-f0-9]{64}$/u.test(v.fingerprint)
+    )
+      fail('SHEET');
+    return { name: v.name, date: v.date, fingerprint: v.fingerprint };
+  };
+  return {
+    book,
+    language: value.language as SheetInputs['language'],
+    prepared: signoff(value.prepared),
+    reviewed: signoff(value.reviewed),
+  };
+}
+/** Captures a sheet state synchronously: the period's own state, the
+ * previous session file if any, and the sheet inputs. */
+export function snapshotSheetStatementState(
   value: unknown,
-): BankStatementState | BankStatementRollState {
+): BankStatementSheetState {
+  if (
+    !statementPlain(value) ||
+    !statementKeys(value, [
+      'version',
+      'files',
+      'scope',
+      'decisions',
+      'previous',
+      'sheet',
+    ]) ||
+    value.version !== BANK_STATEMENT_SHEET_VERSION
+  )
+    fail('INPUT');
+  const { sheet, previous, ...own } = value;
+  const state =
+    previous === null
+      ? snapshotBankStatementState({
+          ...own,
+          version: BANK_STATEMENT_LIFECYCLE_VERSION,
+        })
+      : snapshotRolledStatementState({
+          ...own,
+          version: BANK_STATEMENT_ROLL_VERSION,
+          previous,
+        });
+  return {
+    version: BANK_STATEMENT_SHEET_VERSION,
+    files: state.files,
+    scope: state.scope,
+    decisions: state.decisions,
+    previous: 'previous' in state ? state.previous : null,
+    sheet: snapshotSheetInputs(sheet),
+  };
+}
+/** Captures a state of any kind, by its declared version. */
+export function snapshotAnyStatementState(value: unknown): AnyStatementState {
+  if (statementPlain(value) && value.version === BANK_STATEMENT_SHEET_VERSION)
+    return snapshotSheetStatementState(value);
   return statementPlain(value) && value.version === BANK_STATEMENT_ROLL_VERSION
     ? snapshotRolledStatementState(value)
     : snapshotBankStatementState(value);
@@ -265,11 +367,7 @@ export function snapshotAnyStatementState(
 export function snapshotBankStatementRequest(
   action: string,
   payload: unknown,
-):
-  | BankStatementState
-  | BankStatementRollState
-  | BankStatementExportRequest
-  | { buffer: ArrayBuffer } {
+): AnyStatementState | BankStatementExportRequest | { buffer: ArrayBuffer } {
   if (action === 'bank-statement-reconcile' || action === 'bank-statement-save')
     return snapshotAnyStatementState(payload);
   if (action === 'bank-statement-export') {
