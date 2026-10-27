@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 43359,
-      "sha256": "e07f1df5a27240041d3500df7c4a4bf509f564299983cb8f52966e0a5b6e5b9e",
+      "bytes": 43476,
+      "sha256": "582c4e0ed048b8af1e45eb742a9871d32ce31cc4683cebd60a7ffc61b910d42d",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 29251,
-      "sha256": "5577a5712e7594e98c2e245baa290ae1ec2db4aaeb5032d730f3b8e5e36af4dd",
+      "bytes": 29639,
+      "sha256": "25615b429eec47b6c65c642c6f9235bef0e4ef94518cd710323d46a837503284",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 10701,
-      "sha256": "d650d2824f318788a578c3ae712468da738954542e86826519d5bbf5c240e0a1",
+      "bytes": 10788,
+      "sha256": "e4fb87167c7b23c8021fd4a409df60556ae8255e4122c467d5fe1d4c24bfcd5f",
       "kind": "text"
     },
     {
@@ -47355,6 +47355,866 @@
       "path": "docs/audits/AR-PDF-1-A5.ar.md",
       "bytes": 14337,
       "sha256": "21610176c5ec81a645ed72b78cd06137a6187320232afc1a6f18b7f7ba03f288",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/README.ar.md",
+      "bytes": 6766,
+      "sha256": "5a9ff157abeae5d030b39c9813e7be0dc19bf04d1370d606b3dad703bda800d6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/check_seal.py",
+      "bytes": 2731,
+      "sha256": "74d4f7360a9bacde405fa3037dabe02bfbe58b907ab88142435f7078ae32e838",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/contract.json",
+      "bytes": 7482,
+      "sha256": "7c19cfe6a79062bd804575078f0253413eb39d94d88288399076e759b9cc9a94",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/EXPECTED.json",
+      "bytes": 12480,
+      "sha256": "65feea762ce62bceb779e9283d1b3fb67d333918c14981b37985275b52853ffa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/INPUT-MANIFEST.json",
+      "bytes": 13775,
+      "sha256": "b3b279cf89ed21a9e5f31b73e0500e8a373d6d62786ccad506e026d074da4846",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R01-AUG-cashbook.csv",
+      "bytes": 321,
+      "sha256": "ce9e42e3e8cfd6169733c39764713693d6686a34bbb332dd00d7a88e73973c31",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R01-AUG-statement.pdf",
+      "bytes": 22756,
+      "sha256": "f9529da00fef8a2fed54790394842c96b03e2d79896c67909fc96901b7033a40",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R01-JUL-cashbook.csv",
+      "bytes": 392,
+      "sha256": "af45032fa9d893a3da2d875f94545b0f5825db8ecd7f0aa2139d903adbe90180",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R01-JUL-statement.pdf",
+      "bytes": 22796,
+      "sha256": "f2e6c7807e25bb35e4de48e2434f1608814ccd83b9a9e811466e927da109d2b0",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R01-previous-session.json",
+      "bytes": 31328,
+      "sha256": "57e59d8649d907e045ae5266cefa9dd328592b268afdef68b099aa7962f01731",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R02-AUG-cashbook.csv",
+      "bytes": 322,
+      "sha256": "4e44498080e8c90717e2174eb794038d18c4a1c6b0c323e8e24f56e9bbf73632",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R02-AUG-statement.pdf",
+      "bytes": 23111,
+      "sha256": "4c1ef7dc30ba34cd87b54f3ae6cfd43bcb1d78cb67675a5e5aa4112e268218fc",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R02-JUL-cashbook.csv",
+      "bytes": 393,
+      "sha256": "8b087943ee6d367858eea629e77c19710c5a7a431113ae450810bef62505ecff",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R02-JUL-statement.pdf",
+      "bytes": 22807,
+      "sha256": "54b7593b6491e7a35fcc77d08d069fc8f5e874538ba5d628f9c553afe54647fb",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R02-previous-session.json",
+      "bytes": 31344,
+      "sha256": "32d50c87170de16c968197b4d852a8337263617ce00276fd022d60b9eb0d0318",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R03-AUG-cashbook.csv",
+      "bytes": 362,
+      "sha256": "6c5e68d22bc58a845f1378b36aa89cfe18c19c649b340883bf0f018ae5d8952d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R03-AUG-statement.pdf",
+      "bytes": 22288,
+      "sha256": "5042b9db18d9c5765feced8d8c949c1ecff4eba2d14c7ab10d9bb87f0e05457a",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R03-JUL-cashbook.csv",
+      "bytes": 312,
+      "sha256": "bd0ded73bc616f4fa0e9348fc82061e87a894547e773fb521d5df0871093f642",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R03-JUL-statement.pdf",
+      "bytes": 22937,
+      "sha256": "336788978226c15d81c9ee35f2f49878cdb69027ea21b87b2747c96d095f877f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R03-previous-session.json",
+      "bytes": 31408,
+      "sha256": "b9e1549a4f214a62b9e09ac512fcdbbb515d54cc6c051feadca98cd7941b52fc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R04-AUG-cashbook.csv",
+      "bytes": 321,
+      "sha256": "5d7fdfe6d8be2cae150707470f867222ecf473ba26305df9d75d4d50e7364b5a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R04-AUG-statement.pdf",
+      "bytes": 22674,
+      "sha256": "5bf81186fe60db815418e2bab9af63a0c3ff8866db93e8c12c575451cb279296",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R04-JUL-cashbook.csv",
+      "bytes": 393,
+      "sha256": "5cfb2cfd4561b86722c084fee53e701b5b0834e2ad4a3692ea3aa34553c0d578",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R04-JUL-statement.pdf",
+      "bytes": 22708,
+      "sha256": "5c632aa46c2807536838508fbdce78b058b5e0feb01a7fed32b3bee9ea292289",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R04-previous-session.json",
+      "bytes": 31212,
+      "sha256": "281b93dcc4166ba4dd6aeed79ec631032b91fbe4de1b3d6dce63f61ef77b9640",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R05-AUG-cashbook.csv",
+      "bytes": 321,
+      "sha256": "dbb57986c6d3b4954037e52a2f18ac810a3ffbfb4a4317bc848d55a6acef7caa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R05-AUG-statement.pdf",
+      "bytes": 22822,
+      "sha256": "1e3b967da1125349562277538a1078d847c677326edee1f39d703e5668d13713",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R05-JUL-cashbook.csv",
+      "bytes": 383,
+      "sha256": "99423d41ff50fcb4f716a974af1db370146e7c465d34bacf91731af0899ad704",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R05-JUL-statement.pdf",
+      "bytes": 22857,
+      "sha256": "b90d94636af7d49d759771769a6b5b8fb81e647ee3900e4ae992b6caebca20cb",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R05-SEP-cashbook.csv",
+      "bytes": 309,
+      "sha256": "620fabf62cf110bde03055d810d4984e947379b6bae86957f4afa78f72bf1589",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R05-SEP-statement.pdf",
+      "bytes": 22740,
+      "sha256": "887ac7a738e32e2af1944dc0ce08518cacf45e0764c975b4006a2473773e284f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R05-previous-session.json",
+      "bytes": 73256,
+      "sha256": "ebc5b994f367aa33ddcce3431595106d53b1499c75b4a17ff7ccd055e0790895",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R06-AUG-cashbook.csv",
+      "bytes": 322,
+      "sha256": "e02d7480e9e668f9586278a8cc4548ae54cb8099e08b07e8cf1fdbdfa07e8fa1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R06-AUG-statement.pdf",
+      "bytes": 22798,
+      "sha256": "2b36b16c4a032983767516b4f13770e1d599c9d2a8dc0f9e002bbde14ec1a434",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R06-JUL-cashbook.csv",
+      "bytes": 402,
+      "sha256": "4ca80a0eec4e9fb6e33ab7bd0812d3cb6a8667075312da4a5d4097cff371fa68",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R06-JUL-statement.pdf",
+      "bytes": 22702,
+      "sha256": "d96a80b442fc5474e51cd868b8393582d5df387b0a2dc8aa052a6c0f6802b29c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R06-previous-session.json",
+      "bytes": 31216,
+      "sha256": "0d8553490bb8175251a644f5b21cabc71f081a31af84551decf137333127972b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R07-AUG-cashbook.csv",
+      "bytes": 392,
+      "sha256": "466768351c7d940cf6bbba2bcfa5b3452c72056fea11232d3a4230953af0b0ab",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R07-AUG-statement.pdf",
+      "bytes": 22847,
+      "sha256": "150122a007ac6a5e1760927401f507706eacbe40ef410252a47d9da874c49626",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R07-JUL-cashbook.csv",
+      "bytes": 392,
+      "sha256": "0ca164a2e9d954139fac676d74d85d12a38d68f01a2b4dca2ffe2fbf028aca30",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R07-JUL-statement.pdf",
+      "bytes": 22711,
+      "sha256": "bc98f998cd52c4c825dc5a833e768d4ef33b18db5ce0d4a1f643015539acf680",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R07-previous-session.json",
+      "bytes": 31216,
+      "sha256": "b52bce248b34f309c034fb82f7c14a7aeb5b472c68805b2ace56dcc7f8780ec9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R08-AUG-cashbook.csv",
+      "bytes": 401,
+      "sha256": "9c579bb41d4d3b0787e369e634f0361f02f6252588353525270c5bd0d5039580",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R08-AUG-statement.pdf",
+      "bytes": 22661,
+      "sha256": "276ff918a406f01b595b4cd304ccd5c67cdcd5e92ecf1331fb412715cae44a7e",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R08-JUL-cashbook.csv",
+      "bytes": 392,
+      "sha256": "fa815b621e62ab85a8a145622b58f191a0a93b9dca01892e24cdc71d0806e285",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R08-JUL-statement.pdf",
+      "bytes": 22856,
+      "sha256": "e60ccfde413b01c29c1a45126b254edf59d366308fdaead5c736e1be3b88bc53",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R08-previous-session.json",
+      "bytes": 31408,
+      "sha256": "889f34896edbe70e088b0860cd1cbcf0f305fa9355404c6c11c398f45cc2332d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R09-AUG-cashbook.csv",
+      "bytes": 331,
+      "sha256": "aaa90f2623e2371136934fec234eb894578baa2f0d5c70f715d7575355244ac4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R09-AUG-statement.pdf",
+      "bytes": 22774,
+      "sha256": "ca82a336e37e1314d33e4b7bf6525cec82f84a76a47eb8ccaa0d42869673aaa2",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R09-JUL-cashbook.csv",
+      "bytes": 380,
+      "sha256": "88256e7d7c45b63e33f432b4bc9f24df2dc1afcb28b51b36f7d628cf7a43dcb4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R09-JUL-statement.pdf",
+      "bytes": 22857,
+      "sha256": "8bc1d2c55b1e8eb8f7e34fe4a48677cc8591caad21a4e98fcd2939327948aea6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R09-previous-session.json",
+      "bytes": 31844,
+      "sha256": "be2373d6ecdc0841dc8e6252f76fbf069cb3112d484b8479dc86f14526699a6a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R10-AUG-cashbook.csv",
+      "bytes": 312,
+      "sha256": "605390ce91b6498230fc882faaec62068683644af291ea4af96bbab517d8ba72",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R10-AUG-statement.pdf",
+      "bytes": 22769,
+      "sha256": "443a8aba855e415becd799b40d291b5407e72aa566435f061d82c5c87364b045",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R10-JUL-cashbook.csv",
+      "bytes": 381,
+      "sha256": "480229603172f8fb22ebb645a7b285cf7a04c234a6037fe72a1eff915dbfadca",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R10-JUL-statement.pdf",
+      "bytes": 22682,
+      "sha256": "729d2726b363b3bc3edaa3d088e13c5f0b6446ec33648ac7ce33fcfcfdb5957b",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R10-previous-session.json",
+      "bytes": 31160,
+      "sha256": "4dd235656c152f1055490b04e2b0c657c2fc617bdb44c8e617d6c7126b34f4b5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R11-AUG-cashbook.csv",
+      "bytes": 311,
+      "sha256": "dd010f73b5f6dae74e05f439087ea8cfb57afbde43cc9a9af3d1cc763e0ac47a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R11-AUG-statement.pdf",
+      "bytes": 22901,
+      "sha256": "87b50f682d0a99ecbb6868babaeedfed88fdbabe0f15de3fc777bec213656271",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R11-JUL-cashbook.csv",
+      "bytes": 390,
+      "sha256": "41206218d7580cd881e5b5d2f40c4b2bf28795908de0874e4feb4ebf8f94edab",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R11-JUL-statement.pdf",
+      "bytes": 22810,
+      "sha256": "4b34056f5a83179ae143c0ceb8df678cc36ca3ee3d0fdd24a3b546582c11dc82",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R11-previous-session.json",
+      "bytes": 31344,
+      "sha256": "5df373f6f8e564b1f85c364624768a5c14c9e93611c9647d2f1ad568949e14be",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R12-AUG-cashbook.csv",
+      "bytes": 332,
+      "sha256": "4fc235875cdbc755426e27e2948bf871119f0910598013dab865427e44d06ad8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R12-AUG-statement.pdf",
+      "bytes": 22842,
+      "sha256": "fa118f86ee7a294a28376d77b372d2a3be08cf9f127be63a6a188e43b373edd2",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R12-JUN-cashbook.csv",
+      "bytes": 382,
+      "sha256": "1c65d14473e027460c50be481129c4c3dc1a2ac342249f1fc57ea07e44810b22",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R12-JUN-statement.pdf",
+      "bytes": 22945,
+      "sha256": "ba33f5851aa2eedd9cd5311a9e80c68d879b9ac4b4818a0055f7577899d999e8",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R12-previous-session.json",
+      "bytes": 31516,
+      "sha256": "8951e9c387484ff319ce9a1da310e27595758901a4ef13046a69e06d87753ef8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R13-AUG-cashbook.csv",
+      "bytes": 312,
+      "sha256": "67035c957f4d7ce01da420b9e4fb8d4eb519415bbaa04d5f76eae93d869041f4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R13-AUG-statement.pdf",
+      "bytes": 22911,
+      "sha256": "0d466451bade97c5cf6d211a9fe2f6d20c71d2376eb7aa76839b54d44f8f3e6a",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R13-JUL-cashbook.csv",
+      "bytes": 391,
+      "sha256": "18790a2c9e902ec03813257700106f84d8e1b770298d798b6d8d3093da0922dc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R13-JUL-statement.pdf",
+      "bytes": 22869,
+      "sha256": "c68606a0572cefaa51d5ef34c2089d6d663f82f9b8675ee646a4b21dc05c5688",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R13-previous-session.json",
+      "bytes": 31424,
+      "sha256": "712308a7f8d95d13936e02664c335ffe02f365b1704a0c06e1856dd7117f8c64",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R14-AUG-cashbook.csv",
+      "bytes": 332,
+      "sha256": "a10a2b714a2dfc0083b27350ac3e823b4920b56f9a6de13a585d1b6ed90a5558",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R14-AUG-statement.pdf",
+      "bytes": 22918,
+      "sha256": "3a5102a4d1bff8c5c9e0a2b310220c453cc702fc0c57599bdb7b43b38fea1095",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R14-JUL-cashbook.csv",
+      "bytes": 439,
+      "sha256": "2ed9946f95458af39efb556247749a052d601384744a0151bb6a1d0a894ab16d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R14-JUL-statement.pdf",
+      "bytes": 22766,
+      "sha256": "5a09a999ed9b9c9f43b5d57d68abc28d18ab9469c16c039f6f2d05da734108a8",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R14-previous-session.json",
+      "bytes": 31352,
+      "sha256": "3c7db9003d675dd7a4736a88d40b959a4bb27167261d073dd4b5cbc14e3aab92",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R15-AUG-cashbook.csv",
+      "bytes": 311,
+      "sha256": "d3649e1bfdba3457e55045244bc14e3f3002aea7093e3b05bad7b754df573199",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R15-AUG-statement.pdf",
+      "bytes": 22915,
+      "sha256": "ea296e635b800d98cdfd184db87e29a34ae28a4ddcfc475e4775ece63b88a168",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R15-JUL-cashbook.csv",
+      "bytes": 402,
+      "sha256": "651860dd3ef06384e748349c4641770cd1aac1a64db28bc1e24b828a50853be1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R15-JUL-statement.pdf",
+      "bytes": 22789,
+      "sha256": "9a64bf6b935d668aea75c44c9aa63df5278e9deb51cab0e7f3d12debc8eee66e",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R15-previous-session.json",
+      "bytes": 31332,
+      "sha256": "cefb579cd5a049f6974fca9b346588262ce4f20828000dbf64c2b6d299f6aaa3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R16-AUG-cashbook.csv",
+      "bytes": 311,
+      "sha256": "2d58b7657bb55c11af7aa05d6b81f31b41f545fab0c9ca368f81967fdb25acb1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R16-AUG-statement.pdf",
+      "bytes": 22747,
+      "sha256": "258329e4cb502324014fec2175ab5d2d7f6baa8b78e9fd8b9e9cca3658662e08",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R16-JUL-cashbook.csv",
+      "bytes": 390,
+      "sha256": "e163137fcc792a183c6e15667925f69a1a8e8c798e960fe50d9ff1e521ed9d3d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R16-JUL-statement.pdf",
+      "bytes": 22854,
+      "sha256": "59851a3b44c892910dba3262132107e2fbf4fc2652dd44488cc5f20dff1275c0",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R16-previous-session.json",
+      "bytes": 31400,
+      "sha256": "8402241437a96f08ded9736dfebaf4bc0f157ca830b48a8ead2caf7c465b68b3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R17-AUG-cashbook.csv",
+      "bytes": 312,
+      "sha256": "a2615c2ffc6584fc39b82ab93079566a17bd087d0f0b8cca50483315847fd741",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R17-AUG-statement.pdf",
+      "bytes": 22828,
+      "sha256": "679a38ef113082a0b238caa9f82bd475ab489a892c271bb187189d32eedf167b",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R17-JUL-cashbook.csv",
+      "bytes": 401,
+      "sha256": "ca4304491f4101faae2ef530a81a5d79a33b5267e96777b3533e31fd208bbc6f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R17-JUL-statement.pdf",
+      "bytes": 22920,
+      "sha256": "5aea1e9555b1c53d58a8964f4c57bc69a804d4417d63b03cd44a8b57ab98cc1b",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R18-AUG-cashbook.csv",
+      "bytes": 331,
+      "sha256": "d21d79924a22ad890087e9cd16be4b172ed1aa34190ade1ad7db046c42dcca69",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R18-AUG-statement.pdf",
+      "bytes": 22916,
+      "sha256": "295992ebde4f564d9a65f775384397e669847a2e484a161864fd684509cc9d01",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R18-JUL-cashbook.csv",
+      "bytes": 441,
+      "sha256": "e1d4136d54ebeebbf3deb7e996d6412bbf921db32e2cb7110173f59b77040ad6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R18-JUL-statement.pdf",
+      "bytes": 22814,
+      "sha256": "5b2b4ec1ee15116b2437d496ad22c7f3f869af543ed13fb0dfd9bb7c2b08ed5d",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R18-previous-session.json",
+      "bytes": 31873,
+      "sha256": "5e8aa189982e0d8855be2b628e4de390716b40cd42c51b2ebeb7c49b115c245f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R19-AUG-cashbook.csv",
+      "bytes": 332,
+      "sha256": "a523c8a69a9d03be310bca48761f26cf909c8ff6a0a77109d1be5c9e2bd283e7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R19-AUG-statement.pdf",
+      "bytes": 22916,
+      "sha256": "6a1c254ce8a445222ecec5d3e682dde3afd1d71f6510fecbc2f42e0f0f84993a",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R19-JUL-cashbook.csv",
+      "bytes": 392,
+      "sha256": "4a547cd8de74cb07464c3cbf26cbdce2f3a0b90c7086de678fb598d79bfd1f3e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R19-JUL-statement.pdf",
+      "bytes": 22985,
+      "sha256": "83711984a587fe46b4b6cbbdb6b6c3f6d78b61a56a0058e1dc9a9b0f7c3f214c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R19-previous-session.json",
+      "bytes": 31580,
+      "sha256": "1b5438066d1b18bcc0f09cdc4b527f32cbcd75a794524f8b6d98eafe37653e17",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R20-AUG-cashbook.csv",
+      "bytes": 312,
+      "sha256": "72ad752ec2cbbf6f422320f8a02e022994c4a69736ca0e800061268495ad9f46",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R20-AUG-statement.pdf",
+      "bytes": 25026,
+      "sha256": "2d457cbdf279664d898db770d8714b9a646ff42605e09e7bcc11f9a8d0890881",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R20-JUL-cashbook.csv",
+      "bytes": 382,
+      "sha256": "e55a33e6792b02017d6bc97f27f45f9d8f7eb3291fd7747853d518ebfb268a9a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R20-JUL-statement.pdf",
+      "bytes": 24728,
+      "sha256": "130a67d2b99af707e92bc7f849b9340aad7ee2a10947ced98f328ae0fd1b83be",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template, from audit/bank-roll-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/R20-previous-session.json",
+      "bytes": 33892,
+      "sha256": "05fc21fb50c38295ce696b49ab18483fc3494e665e32ffb2ab51480e0497c29f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/SEAL.json",
+      "bytes": 1387,
+      "sha256": "ad865e8c030bb522305e0eddcd8b69a6eda8906f56360875659d4a41fb0f6391",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/VERIFY.json",
+      "bytes": 9531,
+      "sha256": "a84ab9f031c011886517c73a0e035d9bf81893f4dffd57722ceec0cff2060f6a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/frozen/stories.json",
+      "bytes": 135035,
+      "sha256": "96ad5375632b2a8e4c4190eb38d65658051da5754bca046e3e0b27562912727c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/mutate_oracle.py",
+      "bytes": 4544,
+      "sha256": "890d2807d2e5574fb87a5cb81c959eadbd1069351fc6f55398a1f53707ccf57e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/oracle.py",
+      "bytes": 17361,
+      "sha256": "936980876594b7128754fcb7bc254167a87608a13d43f193b012d5f65265c537",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/render.mjs",
+      "bytes": 9867,
+      "sha256": "bcb1fefb64115057f4e897086b9ce40272db517136cd41b5b9f2e5e86738d1ce",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/seal.py",
+      "bytes": 2016,
+      "sha256": "3096d4a096f33e4b62082704f6ebda65c1b080b503a6bc0ce11f74aa2e761cd1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/stories.mjs",
+      "bytes": 25407,
+      "sha256": "dcf36d9705d86f87955ce4c485da154c8e190207c10b0dc305a1dc1f3c5fa416",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/test_oracle.py",
+      "bytes": 7492,
+      "sha256": "f881ab50ecee397b0082b81f3ba4c475948a60e7c2e6c6a21fbe9db9b8a296b9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-foundation/verify.py",
+      "bytes": 3689,
+      "sha256": "c97b09415fb2085e042f3c2caa9c72b0e33ea925a6d13e8ba219a2063935b6c9",
       "kind": "text"
     }
   ],

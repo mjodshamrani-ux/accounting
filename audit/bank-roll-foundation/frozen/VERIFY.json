@@ -1,0 +1,399 @@
+{
+ "reader": "pdfminer.six (encryption support stubbed: these PDFs are unencrypted)",
+ "factsSha256": "96ad5375632b2a8e4c4190eb38d65658051da5754bca046e3e0b27562912727c",
+ "statements": [
+  {
+   "id": "R01-JUL",
+   "file": "R01-JUL-statement.pdf",
+   "sha256": "f2e6c7807e25bb35e4de48e2434f1608814ccd83b9a9e811466e927da109d2b0",
+   "pages": 1,
+   "valuesFound": 24,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R01-AUG",
+   "file": "R01-AUG-statement.pdf",
+   "sha256": "f9529da00fef8a2fed54790394842c96b03e2d79896c67909fc96901b7033a40",
+   "pages": 1,
+   "valuesFound": 29,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R02-JUL",
+   "file": "R02-JUL-statement.pdf",
+   "sha256": "54b7593b6491e7a35fcc77d08d069fc8f5e874538ba5d628f9c553afe54647fb",
+   "pages": 1,
+   "valuesFound": 24,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R02-AUG",
+   "file": "R02-AUG-statement.pdf",
+   "sha256": "4c1ef7dc30ba34cd87b54f3ae6cfd43bcb1d78cb67675a5e5aa4112e268218fc",
+   "pages": 1,
+   "valuesFound": 29,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R03-JUL",
+   "file": "R03-JUL-statement.pdf",
+   "sha256": "336788978226c15d81c9ee35f2f49878cdb69027ea21b87b2747c96d095f877f",
+   "pages": 1,
+   "valuesFound": 29,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R03-AUG",
+   "file": "R03-AUG-statement.pdf",
+   "sha256": "5042b9db18d9c5765feced8d8c949c1ecff4eba2d14c7ab10d9bb87f0e05457a",
+   "pages": 1,
+   "valuesFound": 23,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R04-JUL",
+   "file": "R04-JUL-statement.pdf",
+   "sha256": "5c632aa46c2807536838508fbdce78b058b5e0feb01a7fed32b3bee9ea292289",
+   "pages": 1,
+   "valuesFound": 24,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R04-AUG",
+   "file": "R04-AUG-statement.pdf",
+   "sha256": "5bf81186fe60db815418e2bab9af63a0c3ff8866db93e8c12c575451cb279296",
+   "pages": 1,
+   "valuesFound": 24,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R05-JUL",
+   "file": "R05-JUL-statement.pdf",
+   "sha256": "b90d94636af7d49d759771769a6b5b8fb81e647ee3900e4ae992b6caebca20cb",
+   "pages": 1,
+   "valuesFound": 24,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R05-AUG",
+   "file": "R05-AUG-statement.pdf",
+   "sha256": "1e3b967da1125349562277538a1078d847c677326edee1f39d703e5668d13713",
+   "pages": 1,
+   "valuesFound": 24,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R05-SEP",
+   "file": "R05-SEP-statement.pdf",
+   "sha256": "887ac7a738e32e2af1944dc0ce08518cacf45e0764c975b4006a2473773e284f",
+   "pages": 1,
+   "valuesFound": 29,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R06-JUL",
+   "file": "R06-JUL-statement.pdf",
+   "sha256": "d96a80b442fc5474e51cd868b8393582d5df387b0a2dc8aa052a6c0f6802b29c",
+   "pages": 1,
+   "valuesFound": 24,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R06-AUG",
+   "file": "R06-AUG-statement.pdf",
+   "sha256": "2b36b16c4a032983767516b4f13770e1d599c9d2a8dc0f9e002bbde14ec1a434",
+   "pages": 1,
+   "valuesFound": 34,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R07-JUL",
+   "file": "R07-JUL-statement.pdf",
+   "sha256": "bc98f998cd52c4c825dc5a833e768d4ef33b18db5ce0d4a1f643015539acf680",
+   "pages": 1,
+   "valuesFound": 24,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R07-AUG",
+   "file": "R07-AUG-statement.pdf",
+   "sha256": "150122a007ac6a5e1760927401f507706eacbe40ef410252a47d9da874c49626",
+   "pages": 1,
+   "valuesFound": 29,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R08-JUL",
+   "file": "R08-JUL-statement.pdf",
+   "sha256": "e60ccfde413b01c29c1a45126b254edf59d366308fdaead5c736e1be3b88bc53",
+   "pages": 1,
+   "valuesFound": 24,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R08-AUG",
+   "file": "R08-AUG-statement.pdf",
+   "sha256": "276ff918a406f01b595b4cd304ccd5c67cdcd5e92ecf1331fb412715cae44a7e",
+   "pages": 1,
+   "valuesFound": 24,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R09-JUL",
+   "file": "R09-JUL-statement.pdf",
+   "sha256": "8bc1d2c55b1e8eb8f7e34fe4a48677cc8591caad21a4e98fcd2939327948aea6",
+   "pages": 1,
+   "valuesFound": 28,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R09-AUG",
+   "file": "R09-AUG-statement.pdf",
+   "sha256": "ca82a336e37e1314d33e4b7bf6525cec82f84a76a47eb8ccaa0d42869673aaa2",
+   "pages": 1,
+   "valuesFound": 28,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R10-JUL",
+   "file": "R10-JUL-statement.pdf",
+   "sha256": "729d2726b363b3bc3edaa3d088e13c5f0b6446ec33648ac7ce33fcfcfdb5957b",
+   "pages": 1,
+   "valuesFound": 24,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R10-AUG",
+   "file": "R10-AUG-statement.pdf",
+   "sha256": "443a8aba855e415becd799b40d291b5407e72aa566435f061d82c5c87364b045",
+   "pages": 1,
+   "valuesFound": 29,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R11-JUL",
+   "file": "R11-JUL-statement.pdf",
+   "sha256": "4b34056f5a83179ae143c0ceb8df678cc36ca3ee3d0fdd24a3b546582c11dc82",
+   "pages": 1,
+   "valuesFound": 24,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R11-AUG",
+   "file": "R11-AUG-statement.pdf",
+   "sha256": "87b50f682d0a99ecbb6868babaeedfed88fdbabe0f15de3fc777bec213656271",
+   "pages": 1,
+   "valuesFound": 29,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R12-JUN",
+   "file": "R12-JUN-statement.pdf",
+   "sha256": "ba33f5851aa2eedd9cd5311a9e80c68d879b9ac4b4818a0055f7577899d999e8",
+   "pages": 1,
+   "valuesFound": 24,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R12-AUG",
+   "file": "R12-AUG-statement.pdf",
+   "sha256": "fa118f86ee7a294a28376d77b372d2a3be08cf9f127be63a6a188e43b373edd2",
+   "pages": 1,
+   "valuesFound": 29,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R13-JUL",
+   "file": "R13-JUL-statement.pdf",
+   "sha256": "c68606a0572cefaa51d5ef34c2089d6d663f82f9b8675ee646a4b21dc05c5688",
+   "pages": 1,
+   "valuesFound": 24,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R13-AUG",
+   "file": "R13-AUG-statement.pdf",
+   "sha256": "0d466451bade97c5cf6d211a9fe2f6d20c71d2376eb7aa76839b54d44f8f3e6a",
+   "pages": 1,
+   "valuesFound": 29,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R14-JUL",
+   "file": "R14-JUL-statement.pdf",
+   "sha256": "5a09a999ed9b9c9f43b5d57d68abc28d18ab9469c16c039f6f2d05da734108a8",
+   "pages": 1,
+   "valuesFound": 28,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R14-AUG",
+   "file": "R14-AUG-statement.pdf",
+   "sha256": "3a5102a4d1bff8c5c9e0a2b310220c453cc702fc0c57599bdb7b43b38fea1095",
+   "pages": 1,
+   "valuesFound": 29,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R15-JUL",
+   "file": "R15-JUL-statement.pdf",
+   "sha256": "9a64bf6b935d668aea75c44c9aa63df5278e9deb51cab0e7f3d12debc8eee66e",
+   "pages": 1,
+   "valuesFound": 24,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R15-AUG",
+   "file": "R15-AUG-statement.pdf",
+   "sha256": "ea296e635b800d98cdfd184db87e29a34ae28a4ddcfc475e4775ece63b88a168",
+   "pages": 1,
+   "valuesFound": 29,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R16-JUL",
+   "file": "R16-JUL-statement.pdf",
+   "sha256": "59851a3b44c892910dba3262132107e2fbf4fc2652dd44488cc5f20dff1275c0",
+   "pages": 1,
+   "valuesFound": 24,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R16-AUG",
+   "file": "R16-AUG-statement.pdf",
+   "sha256": "258329e4cb502324014fec2175ab5d2d7f6baa8b78e9fd8b9e9cca3658662e08",
+   "pages": 1,
+   "valuesFound": 29,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R17-JUL",
+   "file": "R17-JUL-statement.pdf",
+   "sha256": "5aea1e9555b1c53d58a8964f4c57bc69a804d4417d63b03cd44a8b57ab98cc1b",
+   "pages": 1,
+   "valuesFound": 24,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R17-AUG",
+   "file": "R17-AUG-statement.pdf",
+   "sha256": "679a38ef113082a0b238caa9f82bd475ab489a892c271bb187189d32eedf167b",
+   "pages": 1,
+   "valuesFound": 29,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R18-JUL",
+   "file": "R18-JUL-statement.pdf",
+   "sha256": "5b2b4ec1ee15116b2437d496ad22c7f3f869af543ed13fb0dfd9bb7c2b08ed5d",
+   "pages": 1,
+   "valuesFound": 29,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R18-AUG",
+   "file": "R18-AUG-statement.pdf",
+   "sha256": "295992ebde4f564d9a65f775384397e669847a2e484a161864fd684509cc9d01",
+   "pages": 1,
+   "valuesFound": 29,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R19-JUL",
+   "file": "R19-JUL-statement.pdf",
+   "sha256": "83711984a587fe46b4b6cbbdb6b6c3f6d78b61a56a0058e1dc9a9b0f7c3f214c",
+   "pages": 1,
+   "valuesFound": 24,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R19-AUG",
+   "file": "R19-AUG-statement.pdf",
+   "sha256": "6a1c254ce8a445222ecec5d3e682dde3afd1d71f6510fecbc2f42e0f0f84993a",
+   "pages": 1,
+   "valuesFound": 29,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R20-JUL",
+   "file": "R20-JUL-statement.pdf",
+   "sha256": "130a67d2b99af707e92bc7f849b9340aad7ee2a10947ced98f328ae0fd1b83be",
+   "pages": 1,
+   "valuesFound": 24,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "R20-AUG",
+   "file": "R20-AUG-statement.pdf",
+   "sha256": "2d457cbdf279664d898db770d8714b9a646ff42605e09e7bcc11f9a8d0890881",
+   "pages": 1,
+   "valuesFound": 29,
+   "ok": true,
+   "problems": []
+  }
+ ],
+ "ok": true,
+ "selfTest": [
+  {
+   "period": "R01-AUG",
+   "plant": "a carried cheque presented one halala off",
+   "rejected": true
+  },
+  {
+   "period": "R20-AUG",
+   "plant": "an Arabic reference changed",
+   "rejected": true
+  },
+  {
+   "period": "R13-AUG",
+   "plant": "the opening balance the continuity check reads",
+   "rejected": true
+  },
+  {
+   "period": "R13-JUL",
+   "plant": "the closing balance the continuity check reads",
+   "rejected": true
+  }
+ ],
+ "passed": true
+}

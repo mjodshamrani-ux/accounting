@@ -1,0 +1,620 @@
+{
+ "stories": {
+  "R01": {
+   "carried": [
+    {
+     "age": 1,
+     "amount": 482500,
+     "date": "2026-07-29",
+     "direction": "out",
+     "id": "PV-R01-90",
+     "item": "JUL:PV-R01-90",
+     "origin": "unmatched",
+     "period": "JUL",
+     "reference": "CHQ-R01-900",
+     "row": 6,
+     "session": "57e59d8649d907e045ae5266cefa9dd328592b268afdef68b099aa7962f01731",
+     "side": "cashbook",
+     "source": "af45032fa9d893a3da2d875f94545b0f5825db8ecd7f0aa2139d903adbe90180"
+    }
+   ],
+   "cases": [
+    {
+     "carried": [
+      "JUL:PV-R01-90"
+     ],
+     "current": [
+      "AUG:S2"
+     ],
+     "reason": "carried-reference"
+    }
+   ],
+   "own": {
+    "auto": 4,
+    "cashbookOnly": 0,
+    "review": [],
+    "statementOnly": 1
+   },
+   "previous": "accepted",
+   "stillCarried": [],
+   "withheld": []
+  },
+  "R02": {
+   "carried": [
+    {
+     "age": 1,
+     "amount": 1290000,
+     "date": "2026-07-31",
+     "direction": "in",
+     "id": "RV-R02-91",
+     "item": "JUL:RV-R02-91",
+     "origin": "unmatched",
+     "period": "JUL",
+     "reference": "DEP-R02-910",
+     "row": 6,
+     "session": "32d50c87170de16c968197b4d852a8337263617ce00276fd022d60b9eb0d0318",
+     "side": "cashbook",
+     "source": "8b087943ee6d367858eea629e77c19710c5a7a431113ae450810bef62505ecff"
+    }
+   ],
+   "cases": [
+    {
+     "carried": [
+      "JUL:RV-R02-91"
+     ],
+     "current": [
+      "AUG:S1"
+     ],
+     "reason": "carried-reference"
+    }
+   ],
+   "own": {
+    "auto": 4,
+    "cashbookOnly": 0,
+    "review": [],
+    "statementOnly": 1
+   },
+   "previous": "accepted",
+   "stillCarried": [],
+   "withheld": []
+  },
+  "R03": {
+   "carried": [
+    {
+     "age": 1,
+     "amount": 11500,
+     "date": "2026-07-31",
+     "direction": "out",
+     "id": "S5",
+     "item": "JUL:S5",
+     "origin": "unmatched",
+     "page": 1,
+     "period": "JUL",
+     "reference": "FEE-R03-0731",
+     "session": "b9e1549a4f214a62b9e09ac512fcdbbb515d54cc6c051feadca98cd7941b52fc",
+     "side": "statement",
+     "source": "336788978226c15d81c9ee35f2f49878cdb69027ea21b87b2747c96d095f877f"
+    }
+   ],
+   "cases": [
+    {
+     "carried": [
+      "JUL:S5"
+     ],
+     "current": [
+      "AUG:PV-R03-95"
+     ],
+     "reason": "carried-reference"
+    }
+   ],
+   "own": {
+    "auto": 4,
+    "cashbookOnly": 1,
+    "review": [],
+    "statementOnly": 0
+   },
+   "previous": "accepted",
+   "stillCarried": [],
+   "withheld": []
+  },
+  "R04": {
+   "carried": [
+    {
+     "age": 1,
+     "amount": 2150000,
+     "date": "2026-07-27",
+     "direction": "out",
+     "id": "PV-R04-93",
+     "item": "JUL:PV-R04-93",
+     "origin": "unmatched",
+     "period": "JUL",
+     "reference": "CHQ-R04-930",
+     "row": 6,
+     "session": "281b93dcc4166ba4dd6aeed79ec631032b91fbe4de1b3d6dce63f61ef77b9640",
+     "side": "cashbook",
+     "source": "5cfb2cfd4561b86722c084fee53e701b5b0834e2ad4a3692ea3aa34553c0d578"
+    }
+   ],
+   "cases": [],
+   "own": {
+    "auto": 4,
+    "cashbookOnly": 0,
+    "review": [],
+    "statementOnly": 0
+   },
+   "previous": "accepted",
+   "stillCarried": [
+    {
+     "age": 2,
+     "item": "JUL:PV-R04-93"
+    }
+   ],
+   "withheld": []
+  },
+  "R05": {
+   "carried": [
+    {
+     "age": 2,
+     "amount": 2150000,
+     "date": "2026-07-27",
+     "direction": "out",
+     "id": "PV-R05-93",
+     "item": "JUL:PV-R05-93",
+     "origin": "unmatched",
+     "period": "JUL",
+     "reference": "CHQ-R05-930",
+     "row": 6,
+     "session": "0a32d94e4d43e97143453ddf1029dce0658dc213d59a3c7e4c5de168d6656cc3",
+     "side": "cashbook",
+     "source": "99423d41ff50fcb4f716a974af1db370146e7c465d34bacf91731af0899ad704"
+    }
+   ],
+   "cases": [
+    {
+     "carried": [
+      "JUL:PV-R05-93"
+     ],
+     "current": [
+      "SEP:S2"
+     ],
+     "reason": "carried-reference"
+    }
+   ],
+   "own": {
+    "auto": 4,
+    "cashbookOnly": 0,
+    "review": [],
+    "statementOnly": 1
+   },
+   "previous": "accepted",
+   "stillCarried": [],
+   "withheld": []
+  },
+  "R06": {
+   "carried": [
+    {
+     "age": 1,
+     "amount": 760000,
+     "date": "2026-07-30",
+     "direction": "out",
+     "id": "PV-R06-94",
+     "item": "JUL:PV-R06-94",
+     "origin": "unmatched",
+     "period": "JUL",
+     "reference": "CHQ-R06-940",
+     "row": 6,
+     "session": "0d8553490bb8175251a644f5b21cabc71f081a31af84551decf137333127972b",
+     "side": "cashbook",
+     "source": "4ca80a0eec4e9fb6e33ab7bd0812d3cb6a8667075312da4a5d4097cff371fa68"
+    }
+   ],
+   "cases": [
+    {
+     "carried": [
+      "JUL:PV-R06-94"
+     ],
+     "current": [
+      "AUG:S2",
+      "AUG:S5"
+     ],
+     "reason": "carried-ambiguous"
+    }
+   ],
+   "own": {
+    "auto": 4,
+    "cashbookOnly": 0,
+    "review": [],
+    "statementOnly": 2
+   },
+   "previous": "accepted",
+   "stillCarried": [],
+   "withheld": []
+  },
+  "R07": {
+   "carried": [
+    {
+     "age": 1,
+     "amount": 330000,
+     "date": "2026-07-28",
+     "direction": "out",
+     "id": "PV-R07-95",
+     "item": "JUL:PV-R07-95",
+     "origin": "unmatched",
+     "period": "JUL",
+     "reference": "CHQ-R07-950",
+     "row": 6,
+     "session": "b52bce248b34f309c034fb82f7c14a7aeb5b472c68805b2ace56dcc7f8780ec9",
+     "side": "cashbook",
+     "source": "0ca164a2e9d954139fac676d74d85d12a38d68f01a2b4dca2ffe2fbf028aca30"
+    }
+   ],
+   "cases": [
+    {
+     "carried": [
+      "JUL:PV-R07-95"
+     ],
+     "current": [
+      "AUG:S2",
+      "AUG:PV-R07-95"
+     ],
+     "reason": "carried-repeated"
+    }
+   ],
+   "own": {
+    "auto": 4,
+    "cashbookOnly": 0,
+    "review": [],
+    "statementOnly": 0
+   },
+   "previous": "accepted",
+   "stillCarried": [],
+   "withheld": [
+    "AUG:PV-R07-95",
+    "AUG:S2"
+   ]
+  },
+  "R08": {
+   "carried": [
+    {
+     "age": 1,
+     "amount": 415000,
+     "date": "2026-07-28",
+     "direction": "out",
+     "id": "PV-R08-96",
+     "item": "JUL:PV-R08-96",
+     "origin": "unmatched",
+     "period": "JUL",
+     "reference": "CHQ-R08-960",
+     "row": 6,
+     "session": "889f34896edbe70e088b0860cd1cbcf0f305fa9355404c6c11c398f45cc2332d",
+     "side": "cashbook",
+     "source": "fa815b621e62ab85a8a145622b58f191a0a93b9dca01892e24cdc71d0806e285"
+    }
+   ],
+   "cases": [
+    {
+     "carried": [
+      "JUL:PV-R08-96"
+     ],
+     "current": [
+      "AUG:PV-R08-96"
+     ],
+     "reason": "carried-restated"
+    }
+   ],
+   "own": {
+    "auto": 4,
+    "cashbookOnly": 0,
+    "review": [],
+    "statementOnly": 0
+   },
+   "previous": "accepted",
+   "stillCarried": [],
+   "withheld": [
+    "AUG:PV-R08-96"
+   ]
+  },
+  "R09": {
+   "carried": [
+    {
+     "age": 1,
+     "amount": 123400,
+     "date": "2026-07-28",
+     "direction": "in",
+     "id": "S5",
+     "item": "JUL:S5",
+     "origin": "C5",
+     "page": 1,
+     "period": "JUL",
+     "reference": "",
+     "session": "be2373d6ecdc0841dc8e6252f76fbf069cb3112d484b8479dc86f14526699a6a",
+     "side": "statement",
+     "source": "8bc1d2c55b1e8eb8f7e34fe4a48677cc8591caad21a4e98fcd2939327948aea6"
+    },
+    {
+     "age": 1,
+     "amount": 123400,
+     "date": "2026-07-29",
+     "direction": "in",
+     "id": "RV-R09-97",
+     "item": "JUL:RV-R09-97",
+     "origin": "C5",
+     "period": "JUL",
+     "reference": "",
+     "row": 6,
+     "session": "be2373d6ecdc0841dc8e6252f76fbf069cb3112d484b8479dc86f14526699a6a",
+     "side": "cashbook",
+     "source": "88256e7d7c45b63e33f432b4bc9f24df2dc1afcb28b51b36f7d628cf7a43dcb4"
+    }
+   ],
+   "cases": [
+    {
+     "carried": [
+      "JUL:RV-R09-97"
+     ],
+     "current": [
+      "AUG:S2"
+     ],
+     "reason": "carried-amount-suggestion"
+    }
+   ],
+   "own": {
+    "auto": 4,
+    "cashbookOnly": 0,
+    "review": [],
+    "statementOnly": 1
+   },
+   "previous": "accepted",
+   "stillCarried": [
+    {
+     "age": 2,
+     "item": "JUL:S5"
+    }
+   ],
+   "withheld": []
+  },
+  "R10": {
+   "carried": [
+    {
+     "age": 1,
+     "amount": 150000,
+     "date": "2026-07-29",
+     "direction": "out",
+     "id": "PV-R10-97",
+     "item": "JUL:PV-R10-97",
+     "origin": "unmatched",
+     "period": "JUL",
+     "reference": "CHQ-R10-970",
+     "row": 6,
+     "session": "4dd235656c152f1055490b04e2b0c657c2fc617bdb44c8e617d6c7126b34f4b5",
+     "side": "cashbook",
+     "source": "480229603172f8fb22ebb645a7b285cf7a04c234a6037fe72a1eff915dbfadca"
+    }
+   ],
+   "cases": [
+    {
+     "carried": [
+      "JUL:PV-R10-97"
+     ],
+     "current": [
+      "AUG:S2"
+     ],
+     "reason": "carried-amount-difference"
+    }
+   ],
+   "own": {
+    "auto": 4,
+    "cashbookOnly": 0,
+    "review": [],
+    "statementOnly": 1
+   },
+   "previous": "accepted",
+   "stillCarried": [],
+   "withheld": []
+  },
+  "R11": {
+   "carried": [],
+   "cases": [],
+   "own": {
+    "auto": 4,
+    "cashbookOnly": 0,
+    "review": [],
+    "statementOnly": 1
+   },
+   "previous": "ROLL_CURRENCY",
+   "stillCarried": [],
+   "withheld": []
+  },
+  "R12": {
+   "carried": [],
+   "cases": [],
+   "own": {
+    "auto": 4,
+    "cashbookOnly": 0,
+    "review": [],
+    "statementOnly": 1
+   },
+   "previous": "ROLL_NOT_CONSECUTIVE",
+   "stillCarried": [],
+   "withheld": []
+  },
+  "R13": {
+   "carried": [],
+   "cases": [],
+   "own": {
+    "auto": 4,
+    "cashbookOnly": 0,
+    "review": [],
+    "statementOnly": 1
+   },
+   "previous": "ROLL_OPENING",
+   "stillCarried": [],
+   "withheld": []
+  },
+  "R14": {
+   "carried": [],
+   "cases": [],
+   "own": {
+    "auto": 4,
+    "cashbookOnly": 0,
+    "review": [],
+    "statementOnly": 1
+   },
+   "previous": "ROLL_PREVIOUS_UNDECIDED",
+   "stillCarried": [],
+   "withheld": []
+  },
+  "R15": {
+   "carried": [],
+   "cases": [],
+   "own": {
+    "auto": 4,
+    "cashbookOnly": 0,
+    "review": [],
+    "statementOnly": 1
+   },
+   "previous": "ROLL_PREVIOUS_HELD",
+   "stillCarried": [],
+   "withheld": []
+  },
+  "R16": {
+   "carried": [],
+   "cases": [],
+   "own": {
+    "auto": 4,
+    "cashbookOnly": 0,
+    "review": [],
+    "statementOnly": 1
+   },
+   "previous": "ROLL_PREVIOUS_UNREADABLE",
+   "stillCarried": [],
+   "withheld": []
+  },
+  "R17": {
+   "carried": [],
+   "cases": [],
+   "own": {
+    "auto": 4,
+    "cashbookOnly": 0,
+    "review": [],
+    "statementOnly": 1
+   },
+   "previous": "none",
+   "stillCarried": [],
+   "withheld": []
+  },
+  "R18": {
+   "carried": [
+    {
+     "age": 1,
+     "amount": 98000,
+     "date": "2026-07-30",
+     "direction": "out",
+     "id": "PV-R18-97",
+     "item": "JUL:PV-R18-97",
+     "origin": "unmatched",
+     "period": "JUL",
+     "reference": "CHQ-R18-907",
+     "row": 7,
+     "session": "5e8aa189982e0d8855be2b628e4de390716b40cd42c51b2ebeb7c49b115c245f",
+     "side": "cashbook",
+     "source": "e1d4136d54ebeebbf3deb7e996d6412bbf921db32e2cb7110173f59b77040ad6"
+    }
+   ],
+   "cases": [
+    {
+     "carried": [
+      "JUL:PV-R18-97"
+     ],
+     "current": [
+      "AUG:S2"
+     ],
+     "reason": "carried-reference"
+    }
+   ],
+   "own": {
+    "auto": 4,
+    "cashbookOnly": 0,
+    "review": [],
+    "statementOnly": 1
+   },
+   "previous": "accepted",
+   "stillCarried": [],
+   "withheld": []
+  },
+  "R19": {
+   "carried": [
+    {
+     "age": 1,
+     "amount": 250000,
+     "date": "2026-07-29",
+     "direction": "out",
+     "id": "PV-R19-98",
+     "item": "JUL:PV-R19-98",
+     "origin": "unmatched",
+     "period": "JUL",
+     "reference": "CHQ-R19-908",
+     "row": 6,
+     "session": "1b5438066d1b18bcc0f09cdc4b527f32cbcd75a794524f8b6d98eafe37653e17",
+     "side": "cashbook",
+     "source": "4a547cd8de74cb07464c3cbf26cbdce2f3a0b90c7086de678fb598d79bfd1f3e"
+    }
+   ],
+   "cases": [],
+   "own": {
+    "auto": 4,
+    "cashbookOnly": 0,
+    "review": [],
+    "statementOnly": 1
+   },
+   "previous": "accepted",
+   "stillCarried": [
+    {
+     "age": 2,
+     "item": "JUL:PV-R19-98"
+    }
+   ],
+   "withheld": []
+  },
+  "R20": {
+   "carried": [
+    {
+     "age": 1,
+     "amount": 365000,
+     "date": "2026-07-30",
+     "direction": "out",
+     "id": "PV-R20-99",
+     "item": "JUL:PV-R20-99",
+     "origin": "unmatched",
+     "period": "JUL",
+     "reference": "CHQ-R20-909",
+     "row": 6,
+     "session": "05fc21fb50c38295ce696b49ab18483fc3494e665e32ffb2ab51480e0497c29f",
+     "side": "cashbook",
+     "source": "e55a33e6792b02017d6bc97f27f45f9d8f7eb3291fd7747853d518ebfb268a9a"
+    }
+   ],
+   "cases": [
+    {
+     "carried": [
+      "JUL:PV-R20-99"
+     ],
+     "current": [
+      "AUG:S2"
+     ],
+     "reason": "carried-reference"
+    }
+   ],
+   "own": {
+    "auto": 4,
+    "cashbookOnly": 0,
+    "review": [],
+    "statementOnly": 1
+   },
+   "previous": "accepted",
+   "stillCarried": [],
+   "withheld": []
+  }
+ },
+ "version": "bank-roll-foundation-oracle-1"
+}
