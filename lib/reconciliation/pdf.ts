@@ -41,6 +41,9 @@ export type PdfToken = {
   direction?: string;
   extractionText?: string;
   glyphText?: string;
+  // Set where the text was put in reading order by glyph (pdf-glyph-order.ts)
+  // rather than by numeric glyph order.
+  extractionRule?: 'verified-rtl-glyph-order';
 };
 type PdfPoint = [number, number];
 const boxOverlaps = (a: number[], b: number[]) =>
@@ -976,7 +979,7 @@ export function layoutPdfPage(
           extractedText: token.extractionText,
           glyphText: token.glyphText ?? token.text,
           usedText: token.text,
-          rule: 'verified-numeric-glyph-order' as const,
+          rule: token.extractionRule ?? ('verified-numeric-glyph-order' as const),
         },
       ];
     });
@@ -1026,6 +1029,8 @@ async function readGuardedPdf<T>(
   project: (pages: GuardedPdfPage[], original: ArrayBuffer) => T | Promise<T>,
   captureLiteral = false,
   captureWords = false,
+  // Reading order by glyph for right-to-left runs, without the word split.
+  glyphOrder = captureWords,
 ): Promise<T> {
   if (input.byteLength > MAX_FILE_BYTES)
     throw new Error('حجم الملف يتجاوز 8 MB');
@@ -1165,7 +1170,7 @@ async function readGuardedPdf<T>(
             'PDF_NO_EXTRACTABLE_TEXT',
           );
         const rawRuns = new Map<number, string>();
-        const runPieces = captureWords
+        const runPieces = glyphOrder
           ? new Map<number, [number, number][]>()
           : undefined;
         const spaceAfter = captureWords ? new Map<number, number>() : undefined;
@@ -1260,17 +1265,19 @@ async function readGuardedPdf<T>(
           }
         }
         if (runPieces) {
-          const parts = splitTextItems(
-            tokens,
-            runPieces,
-            rawRuns,
-            placeGlyphs(OPS, operators.fnArray, operators.argsArray),
-            page.view[0],
-          );
-          for (const [index, words] of parts) tokens[index].parts = words;
-          // A space glyph drawn between two items: the item drawn before.
-          for (const [index, previous] of spaceAfter ?? [])
-            tokens[index].drawnSpaceAfter = tokens[previous].item;
+          if (captureWords) {
+            const parts = splitTextItems(
+              tokens,
+              runPieces,
+              rawRuns,
+              placeGlyphs(OPS, operators.fnArray, operators.argsArray),
+              page.view[0],
+            );
+            for (const [index, words] of parts) tokens[index].parts = words;
+            // A space glyph drawn between two items: the item drawn before.
+            for (const [index, previous] of spaceAfter ?? [])
+              tokens[index].drawnSpaceAfter = tokens[previous].item;
+          }
           // A run drawn with glyphs of several right-to-left letters reads by
           // glyph (pdf-glyph-order.ts); PDF.js's own reading stays beside it.
           for (const [index, raw] of rawRuns) {
@@ -1281,6 +1288,7 @@ async function readGuardedPdf<T>(
             if (text === undefined) continue;
             token.extractionText = token.text;
             token.text = text;
+            token.extractionRule = 'verified-rtl-glyph-order';
           }
         }
         pages.push({
@@ -1417,7 +1425,9 @@ export async function readPdf(
         ...(suggested ? { autoColumns: true } : {}),
       },
     };
-  });
+    // A right-to-left run reads by glyph here as in the statement reader:
+    // a lam-alef glyph keeps «لا», not «ال» (SUP-2 S3).
+  }, false, false, true);
 }
 
 /**

@@ -1,6 +1,7 @@
 import { headerLabels, headerCellIssues } from './header-view.ts';
 import type { Mapping, SheetData, Transaction } from './types.ts';
-import { headerMatches } from './header-labels.ts';
+import { headerMatches, normalizeHeaderLabel } from './header-labels.ts';
+import { summaryLabel } from './row-labels.ts';
 
 // Text that resembles executable spreadsheet syntax or a whole-cell error is
 // untrusted identity evidence, even in CSV. Keep the literal value for review;
@@ -131,7 +132,9 @@ export function transactionReferences(
   // text may finish this row's reference or begin a neighbour's; geometry
   // cannot say which. Nothing is joined, and the reference read is not
   // matching evidence for either row. Only a line the PDF reader placed on a
-  // page qualifies: a reviewed image table is rows, not lines.
+  // page qualifies: a reviewed image table is rows, not lines. A whole-cell
+  // total or balance label is the statement's own line, never the rest of a
+  // document number (an Arabic opening balance can stand in that column).
   const money =
     mapping.mode === 'split' ? [mapping.debit, mapping.credit] : [mapping.amount];
   for (const line of [rn - 1, rn + 1]) {
@@ -140,6 +143,7 @@ export function transactionReferences(
     if (
       sheet.rowPages?.[String(line)] &&
       rest &&
+      !summaryLabel.test(normalizeHeaderLabel(rest)) &&
       [mapping.date, ...money].every((column) => !(cells[column] ?? '').trim())
     )
       referenceEvidenceIssues.push(

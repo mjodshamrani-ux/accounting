@@ -437,9 +437,16 @@ export function structuralSummaryLabel(
   }
   // A statement may put Amount before Description. Only an explicitly mapped
   // description label can qualify in that position; arbitrary helper text cannot.
+  // A right-to-left table leads each row from the right: an Arabic label there
+  // is the row's last cell in column order, and is checked as one that is not
+  // first (every other cell an untouched amount).
+  const last = cells[cells.length - 1];
   const labelCell = summaryLabel.test(normalizeHeaderLabel(first.value))
     ? first
-    : cells.find(
+    : /\p{Script=Arabic}/u.test(last.value) &&
+        summaryLabel.test(normalizeHeaderLabel(last.value))
+      ? last
+      : cells.find(
         (cell) =>
           cell.column === mapping.description &&
           headerMatches(

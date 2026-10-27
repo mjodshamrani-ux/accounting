@@ -264,3 +264,21 @@ void test('S2 the flag survives save, restore and export from the original bytes
   });
   assert.ok(book.byteLength > 0);
 });
+
+void test('S3 a balance line in the reference column is the statement\'s own line, not the rest of a reference', async () => {
+  // A right-to-left statement's opening line can stand in this column (S3,
+  // S07); a document number never ends in a balance label.
+  const { result } = await run(
+    [
+      ['', 'Opening balance', '', ''],
+      ['2026-07-09', 'INV-2026-8', '1131.52', 'Goods'],
+      ['2026-07-11', 'INV-C2', '300.00', 'Goods'],
+    ],
+    [
+      ['2026-07-09', 'INV-2026-8', '1131.52'],
+      ['2026-07-11', 'INV-C2', '300.00'],
+    ],
+  );
+  assert.deepEqual(approved(result), ['INV-2026-8', 'INV-C2']);
+  assert.ok(!result.cases.some((c) => c.evidence.some((e) => WRAPPED.test(e))));
+});

@@ -81,6 +81,8 @@ const tests = [
   'tests/layered-xlsx-headers.test.ts',
   'tests/payment-missing-identity-review.test.ts',
   'tests/pdf-wrapped-reference.test.ts',
+  'tests/pdf-header-separators.test.ts',
+  'tests/pdf-arabic-supplier-lines.test.ts',
 ];
 const mutations = [
 {"name": "bank-ignore-scope", "file": "lib/reconciliation/bank.ts", "changes": [["if (get(h) !== input.scope[BANK_SCOPE_FIELDS[i]]) fail('ROW_SCOPE');", "if (false) fail('ROW_SCOPE');"]]},
@@ -1296,6 +1298,39 @@ const mutations = [
     name: 'sup2-wrap-ignore-the-debit-column',
     file: 'lib/reconciliation/transaction-references.ts',
     changes: [['[mapping.debit, mapping.credit]', '[mapping.credit]']],
+  },
+  // SUP-2 S3: the mark between labelled header fields is not part of a value.
+  {
+    name: 'sup2-s3-keep-the-field-separator',
+    file: 'lib/reconciliation/statement-metadata.ts',
+    changes: [["    value = value.replace(/[\\s·•|;؛]+$/u, '');\n", '']],
+  },
+  // SUP-2 S3: right-to-left supplier statements read by glyph, and their
+  // balance lines found where the row leads.
+  {
+    name: 'sup2-s3-supplier-pdf-without-glyph-order',
+    file: 'lib/reconciliation/pdf.ts',
+    changes: [['  }, false, false, true);', '  }, false, false, false);']],
+  },
+  {
+    name: 'sup2-s3-glyph-order-recorded-as-numeric',
+    file: 'lib/reconciliation/pdf.ts',
+    changes: [["            token.extractionRule = 'verified-rtl-glyph-order';\n", '']],
+  },
+  {
+    name: 'sup2-s3-rtl-label-not-looked-for',
+    file: 'lib/reconciliation/core.ts',
+    changes: [['    : /\\p{Script=Arabic}/u.test(last.value) &&', '    : false &&']],
+  },
+  {
+    name: 'sup2-s3-last-cell-label-in-any-script',
+    file: 'lib/reconciliation/core.ts',
+    changes: [['    : /\\p{Script=Arabic}/u.test(last.value) &&', '    : true &&']],
+  },
+  {
+    name: 'sup2-wrap-flag-a-balance-line',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['      !summaryLabel.test(normalizeHeaderLabel(rest)) &&\n', '']],
   },
 ];
 
