@@ -84,11 +84,18 @@ export function snapshotArInput(input: ArInput): ArInput {
     ].every((k) => text(input.scope[k as keyof typeof input.scope], 200))
   )
     throw Error('AR_WORKER_SCOPE');
-  for (const candidate of input.readings) {
+  // A printed customer statement has no columns to confirm; its reading is
+  // made from its bytes in the worker.
+  const printed = (reading: unknown, side: number) =>
+    side === 1 && isRecord(reading) && reading.family === 'ar-statement-pdf-1';
+  for (const [side, candidate] of input.readings.entries()) {
     const reading: unknown = candidate;
     if (!isRecord(reading)) throw Error('AR_WORKER_READING');
-    const columns =
-      reading.family === 'ar-scope-details-1' ? scopeColumns : legacyColumns;
+    const columns = printed(reading, side)
+      ? []
+      : reading.family === 'ar-scope-details-1'
+        ? scopeColumns
+        : legacyColumns;
     if (
       !keys(reading, [
         ...columns,
@@ -96,7 +103,9 @@ export function snapshotArInput(input: ArInput): ArInput {
         'perspective',
         'basis',
         'confirmed',
-        ...(reading.family === 'ar-scope-details-1' ? ['family'] : []),
+        ...(reading.family === 'ar-scope-details-1' || printed(reading, side)
+          ? ['family']
+          : []),
       ]) ||
       !columns.every(
         (k) => Number.isSafeInteger(reading[k]) && (reading[k] as number) >= -1,
@@ -121,17 +130,19 @@ export function snapshotArInput(input: ArInput): ArInput {
       !event.ids.every((id) => text(id, 1000))
     )
       throw Error('AR_WORKER_EVENT');
-  const files = input.files.map((file) => {
+  const files = input.files.map((file, side) => {
+    const pdf = printed(input.readings[1], side);
     if (
       !isRecord(file) ||
-      file.kind !== undefined ||
+      (file.kind !== undefined && !(pdf && file.kind === 'ar-statement-pdf')) ||
       !text(file.name, 255) ||
-      !/\.(csv|xlsx)$/i.test(file.name) ||
+      !(pdf ? /\.pdf$/i : /\.(csv|xlsx)$/i).test(file.name) ||
       !/^[a-f0-9]{64}$/.test(file.sha256 ?? '')
     )
       throw Error('AR_WORKER_SOURCE');
     bytes(file.original, MAX_FILE_BYTES);
-    // Parsed caches cannot cross this boundary as authoritative source data.
+    // Parsed caches cannot cross this boundary as authoritative source data;
+    // neither can a statement reading, which the worker makes from the bytes.
     return {
       name: file.name,
       sha256: file.sha256,
@@ -468,7 +479,8 @@ export async function validateArWorkerResponse(
     )
       throw Error('AR_WORKER_ENVELOPE');
     snapshotArInput(value.state as ArInput);
-    for (const file of (value.state as ArInput).files) assertSourceFile(file);
+    for (const file of (value.state as ArInput).files)
+      if (file.kind !== 'ar-statement-pdf') assertSourceFile(file);
     const io = await import('./ar-io.ts');
     const requested =
       action === 'ar-restore'

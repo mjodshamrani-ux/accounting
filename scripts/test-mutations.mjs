@@ -86,6 +86,7 @@ const tests = [
   'tests/pdf-column-proposals.test.ts',
   'tests/ar-statement-pdf.test.ts',
   'tests/ar-statement-match.test.ts',
+  'tests/ar-statement-lifecycle.test.ts',
 ];
 const mutations = [
 {"name": "bank-ignore-scope", "file": "lib/reconciliation/bank.ts", "changes": [["if (get(h) !== input.scope[BANK_SCOPE_FIELDS[i]]) fail('ROW_SCOPE');", "if (false) fail('ROW_SCOPE');"]]},
@@ -1507,6 +1508,46 @@ const mutations = [
     name: 'ar-pdf-statement-perspective-ignored',
     file: 'lib/reconciliation/ar.ts',
     changes: [["    !(r.perspective === 'seller-receivable' && r.basis === 'original-movement') ||\n", ""]],
+  },
+  {
+    name: "ar-pdf-life-bytes-parsed-before-hash",
+    file: "lib/reconciliation/ar-io.ts",
+    changes: [["  if ((await hex(original)) !== sha256) throw new Error('AR_SOURCE_HASH');\n", ""]],
+  },
+  {
+    name: "ar-pdf-life-any-source-name",
+    file: "lib/reconciliation/ar-io.ts",
+    changes: [["  statement && side === 1 ? /\\.pdf$/i : /\\.(csv|xlsx)$/i;", "  /\\.(csv|xlsx|pdf)$/i;"]],
+  },
+  {
+    name: "ar-pdf-life-session-family-ignored",
+    file: "lib/reconciliation/ar-io.ts",
+    changes: [["  const familyVersion = statement\n", "  const familyVersion = false\n"]],
+  },
+  {
+    name: "ar-pdf-life-sections-not-exported",
+    file: "lib/reconciliation/ar-io.ts",
+    changes: [["  if (printed)\n    table(\n      'Statement sections',", "  if (false)\n    table(\n      'Statement sections',"]],
+  },
+  {
+    name: "ar-pdf-life-movement-place-not-exported",
+    file: "lib/reconciliation/ar-io.ts",
+    changes: [["      ...(printed ? [place(r.pdf)] : []),", "      ...(printed ? [''] : []),"]],
+  },
+  {
+    name: "ar-pdf-life-reply-statement-as-table",
+    file: "lib/reconciliation/ar-worker-binding.ts",
+    changes: [["      if (file.kind !== 'ar-statement-pdf') assertSourceFile(file);", "      assertSourceFile(file);"]],
+  },
+  {
+    name: "ar-pdf-life-statement-reading-on-ledger-side",
+    file: "lib/reconciliation/ar-worker-binding.ts",
+    changes: [["    side === 1 && isRecord(reading) && reading.family === 'ar-statement-pdf-1';", "    isRecord(reading) && reading.family === 'ar-statement-pdf-1';"]],
+  },
+  {
+    name: "ar-pdf-life-envelope-any-family",
+    file: "lib/reconciliation/protocol.ts",
+    changes: [["      !['ar-limited-1', 'ar-scope-details-1', 'ar-statement-pdf-1'].includes(", "      !['ar-limited-1', 'ar-scope-details-1', 'ar-statement-pdf-1', 'ar-statement-pdf-2'].includes("]],
   },
   {
     name: 'sup2-s4-run-across-a-column-gap',

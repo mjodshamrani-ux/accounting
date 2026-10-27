@@ -1,5 +1,8 @@
 import ExcelJS from 'exceljs';
 import { readArFile } from './ar-source.ts';
+import { AR_STATEMENT_PDF, readArStatementPdf } from './ar-statement-pdf.ts';
+import type { ArStatementFile } from './ar-statement-scope.ts';
+import { readNativePdfWordSource } from './pdf.ts';
 import { validateExportText, excelExportText } from './export-text.ts';
 import { MAX_FILE_BYTES } from './types.ts';
 import {
@@ -21,6 +24,36 @@ function sourceBytes(value: unknown): asserts value is ArrayBuffer {
   )
     throw new Error('AR_SOURCE');
 }
+// A printed customer statement (ar-statement-pdf-1) is the second source when
+// its reading says so; it is a PDF, read from its own bytes on every replay.
+const printedStatement = (readings: unknown) =>
+  Array.isArray(readings) &&
+  !!readings[1] &&
+  typeof readings[1] === 'object' &&
+  (readings[1] as { family?: unknown }).family === AR_STATEMENT_PDF;
+const sourcePattern = (statement: boolean, side: number) =>
+  statement && side === 1 ? /\.pdf$/i : /\.(csv|xlsx)$/i;
+const hex = async (bytes: ArrayBuffer) =>
+  Array.from(
+    new Uint8Array(await crypto.subtle.digest('SHA-256', bytes)),
+    (n) => n.toString(16).padStart(2, '0'),
+  ).join('');
+// Changed bytes are refused before they are parsed.
+async function readStatementFile(
+  name: string,
+  original: ArrayBuffer,
+  sha256: unknown,
+): Promise<ArStatementFile & { original: ArrayBuffer }> {
+  if ((await hex(original)) !== sha256) throw new Error('AR_SOURCE_HASH');
+  const source = await readNativePdfWordSource(original.slice(0));
+  return {
+    kind: 'ar-statement-pdf',
+    name,
+    sha256: source.sha256,
+    reading: readArStatementPdf(source),
+    original,
+  };
+}
 // Capture authoritative request data synchronously: all readers below await.
 // Parsed rows and cached source metadata never authorize a save or export.
 function snapshot(input: ArInput): ArInput {
@@ -34,13 +67,15 @@ function snapshot(input: ArInput): ArInput {
     input.events.length > 1000
   )
     throw new Error('AR_INPUT');
-  const files = input.files.map((source) => {
+  const statement = printedStatement(input.readings);
+  const files = input.files.map((source, side) => {
     if (
       !source ||
       typeof source.name !== 'string' ||
       source.name.length > 255 ||
-      source.kind !== undefined ||
-      !/\.(csv|xlsx)$/i.test(source.name)
+      (source.kind !== undefined &&
+        !(statement && side === 1 && source.kind === 'ar-statement-pdf')) ||
+      !sourcePattern(statement, side).test(source.name)
     )
       throw new Error('AR_SOURCE');
     sourceBytes(source.original);
@@ -59,8 +94,15 @@ function snapshot(input: ArInput): ArInput {
 }
 export async function replayAr(input: ArInput) {
   const captured = snapshot(input);
+  const statement = printedStatement(captured.readings);
   const files = [];
   for (const [side, source] of captured.files.entries()) {
+    if (statement && side === 1) {
+      files.push(
+        await readStatementFile(source.name, source.original!, source.sha256),
+      );
+      continue;
+    }
     const file = await readArFile(
       source.name,
       source.original!,
@@ -128,14 +170,18 @@ export async function restoreAr(bytes: ArrayBuffer) {
     Object.keys(p).sort().join('|') !==
       'events|files|format|readings|scope|version' ||
     p.format !== 'tarasuf-ar-session' ||
-    ![AR_VERSION, AR_SCOPE_DETAILS_VERSION].includes(p.version) ||
+    ![AR_VERSION, AR_SCOPE_DETAILS_VERSION, AR_STATEMENT_PDF].includes(
+      p.version,
+    ) ||
     !Array.isArray(p.files) ||
     p.files.length !== 2
   )
     throw new Error('AR_SESSION');
-  const familyVersion =
-    Array.isArray(p.readings) &&
-    p.readings.some(
+  const statement = printedStatement(p.readings);
+  const familyVersion = statement
+    ? AR_STATEMENT_PDF
+    : Array.isArray(p.readings) &&
+        p.readings.some(
       (r: unknown) =>
         !!r &&
         typeof r === 'object' &&
@@ -154,9 +200,15 @@ export async function restoreAr(bytes: ArrayBuffer) {
       Object.keys(saved).sort().join('|') !== 'data|name|sha256' ||
       typeof saved.name !== 'string' ||
       saved.name.length > 255 ||
-      !/\.(csv|xlsx)$/i.test(saved.name)
+      !sourcePattern(statement, side).test(saved.name)
     )
       throw new Error('AR_SESSION');
+    if (statement && side === 1) {
+      files.push(
+        await readStatementFile(saved.name, decode(saved.data), saved.sha256),
+      );
+      continue;
+    }
     const file = await readArFile(
       saved.name,
       decode(saved.data),
@@ -181,7 +233,12 @@ export async function exportAr(
   const { state, result } = await replayAr(input);
   if (JSON.stringify(result) !== JSON.stringify(capturedExpected))
     throw new Error('AR_STALE_RESULT');
-  const extended = result.version === AR_SCOPE_DETAILS_VERSION;
+  // A printed statement adds its places and sections to the extended trail.
+  const printed = result.version === AR_STATEMENT_PDF ? result.statement : undefined;
+  if (result.version === AR_STATEMENT_PDF && !printed)
+    throw new Error('AR_STALE_RESULT');
+  const extended = result.version === AR_SCOPE_DETAILS_VERSION || !!printed;
+  const place = (pdf: unknown) => (pdf ? JSON.stringify(pdf) : '');
   // Diagnostic references are global. Serialize once and bound their repeated
   // case-cell footprint before building tables; error-heavy sources must never
   // allocate quadratic strings or silently truncate the independent trail.
@@ -255,6 +312,17 @@ export async function exportAr(
             ['Source scopes JSON', diagnostics!.scopes],
           ]
         : []),
+      ...(printed
+        ? [
+            ['Statement layout', printed.layout],
+            ['Statement document JSON', JSON.stringify(printed.document)],
+            [
+              'Compared section',
+              printed.compared === null ? '' : printed.compared + 1,
+            ],
+            ['Out of scope lines', printed.outOfScopeLines],
+          ]
+        : []),
     ],
   );
   const owner = new Map(
@@ -292,6 +360,7 @@ export async function exportAr(
             'Line span JSON',
           ]
         : []),
+      ...(printed ? ['PDF place JSON'] : []),
     ],
     result.rows.map((r) => [
       r.id,
@@ -310,9 +379,11 @@ export async function exportAr(
       JSON.stringify(r.relatedEvidence),
       ...(extended
         ? [
-            isArScopeReading(result.readings[r.side])
-              ? AR_SCOPE_DETAILS_VERSION
-              : AR_VERSION,
+            printed && r.side === 1
+              ? AR_STATEMENT_PDF
+              : isArScopeReading(result.readings[r.side])
+                ? AR_SCOPE_DETAILS_VERSION
+                : AR_VERSION,
             r.originalRaw ?? '',
             r.openBalanceRaw ?? '',
             r.openBalanceRole ?? '',
@@ -328,6 +399,7 @@ export async function exportAr(
               : '',
           ]
         : []),
+      ...(printed ? [place(r.pdf)] : []),
     ]),
   );
   table(
@@ -378,6 +450,7 @@ export async function exportAr(
         ...(extended
           ? ['Inventory ID', 'Classification', 'Errors JSON', 'Line span JSON']
           : []),
+        ...(printed ? ['PDF place JSON'] : []),
       ],
       inventory.map((i) => [
         i.row,
@@ -395,9 +468,42 @@ export async function exportAr(
               i.lineSpan ? JSON.stringify(i.lineSpan) : '',
             ]
           : []),
+        ...(printed ? [place(i.pdf)] : []),
       ]),
     );
   }
+  if (printed)
+    table(
+      'Statement sections',
+      [
+        'Section',
+        'Customer ID',
+        'Customer name',
+        'Account',
+        'Currency',
+        'Period start',
+        'Period end',
+        'Pages JSON',
+        'Header page',
+        'Header line',
+        'Detail lines',
+        'Compared',
+      ],
+      printed.sections.map((s, i) => [
+        i + 1,
+        s.scope?.customer ?? '',
+        s.name,
+        s.scope?.account ?? '',
+        s.scope?.currency ?? '',
+        s.scope?.start ?? '',
+        s.scope?.end ?? '',
+        JSON.stringify(s.pages),
+        s.header.page,
+        s.header.line,
+        s.lines,
+        String(s.compared),
+      ]),
+    );
   table(
     'Reading',
     ['Side', 'Field', 'Value'],

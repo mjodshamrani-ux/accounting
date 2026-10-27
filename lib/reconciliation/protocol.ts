@@ -244,7 +244,7 @@ export function validateWorkerValue(
       Object.keys(value).sort().join('|') !== 'result|state' ||
       !isRecord(value.state) ||
       !isRecord(value.result) ||
-      !['ar-limited-1', 'ar-scope-details-1'].includes(
+      !['ar-limited-1', 'ar-scope-details-1', 'ar-statement-pdf-1'].includes(
         value.result.version as string,
       ) ||
       typeof value.result.context !== 'string' ||
@@ -263,13 +263,17 @@ export function validateWorkerValue(
       value.result.cases.length > 2 * MAX_ROWS
     )
       throw Error('AR_WORKER_ENVELOPE');
-    for (const file of value.state.files) {
-      assertSourceFile(file);
+    for (const file of value.state.files as unknown[]) {
+      // A printed statement carries its reading, not a table; the client
+      // binding replays both from the originals.
+      if (!isRecord(file)) throw Error('AR_WORKER_ENVELOPE');
+      if (file.kind !== 'ar-statement-pdf') assertSourceFile(file);
       if (
         !(file.original instanceof ArrayBuffer) ||
         !file.original.byteLength ||
         file.original.byteLength > MAX_FILE_BYTES ||
-        !/^[a-f0-9]{64}$/.test(file.sha256 ?? '')
+        typeof file.sha256 !== 'string' ||
+        !/^[a-f0-9]{64}$/.test(file.sha256)
       )
         throw Error('AR_WORKER_ENVELOPE');
     }

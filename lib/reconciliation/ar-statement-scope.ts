@@ -26,6 +26,8 @@ export type ArStatementFile = {
   name: string;
   sha256: string;
   reading: ArStatementReading;
+  /** The bytes the reading was made from, kept for a session or export. */
+  original?: ArrayBuffer;
 };
 export type ArStatementSummary = {
   family: typeof AR_STATEMENT_PDF;

@@ -293,7 +293,11 @@ type ArSide = {
 function validateStatement(input: ArInput, file: ArStatementFile): ArSide {
   const r: unknown = input.readings[1];
   if (
-    !sameKeys(file, ['kind', 'name', 'sha256', 'reading']) ||
+    !(
+      sameKeys(file, ['kind', 'name', 'sha256', 'reading']) ||
+      (sameKeys(file, ['kind', 'name', 'sha256', 'reading', 'original']) &&
+        file.original instanceof ArrayBuffer)
+    ) ||
     typeof file.name !== 'string' ||
     file.name.length > 255 ||
     !/\.pdf$/i.test(file.name) ||

@@ -113,6 +113,7 @@ const required = [
   'test:ar-statement:baseline',
   'test:ar-statement:a1-proof',
   'test:ar-statement:a2-proof',
+  'test:ar-statement:a3-proof',
   'test:bank-statement:baseline',
   'test:bank-statement:g1-proof',
   'test:bank-statement:g1-mutations',

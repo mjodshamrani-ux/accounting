@@ -269,6 +269,7 @@ jobs:
           BNK_G2_DIFFERENTIAL_DIR: ${{ runner.temp }}/bank-statement-g2-differential
           BNK_G2_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g2-mutations
           BNK_G3_PROOF_DIR: ${{ runner.temp }}/bank-statement-g3
+          AR_STATEMENT_A3_DIR: ${{ runner.temp }}/ar-statement-a3
           BNK_G3_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g3-mutations
           BNK_G4_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g4-mutations
           BNK_G5_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g5-mutations
@@ -283,6 +284,7 @@ jobs:
           pnpm test:ar-statement:baseline
           pnpm test:ar-statement:a1-proof
           pnpm test:ar-statement:a2-proof
+          pnpm test:ar-statement:a3-proof
           pnpm test:bank-statement:baseline
           pnpm test:bank-statement:g1-proof
           pnpm test:bank-statement:g1-mutations
