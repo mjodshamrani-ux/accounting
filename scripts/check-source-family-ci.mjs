@@ -51,8 +51,34 @@ assert.deepEqual(workflow.permissions, baseline.permissions);
 assert.deepEqual(workflow.concurrency, baseline.concurrency);
 assert.deepEqual(workflow.jobs.build.if, baseline.jobs.build.if);
 assert.notEqual(workflow.jobs.build['continue-on-error'], true);
-for (const name of ['deploy', 'mutations', 'specialized-faults'])
+for (const name of ['deploy', 'specialized-faults'])
   assert.deepEqual(workflow.jobs[name], baseline.jobs[name]);
+// The mutation gate may be split into more shards than the frozen 0.4.43
+// job as its catalogue grows, never fewer: shards 1..N, each named and run
+// as i/N (the runner takes every Nth fault, so each still runs once).
+// Read back to the frozen shard count, nothing else in the job may differ.
+{
+  const job = structuredClone(workflow.jobs.mutations);
+  const frozen = baseline.jobs.mutations;
+  const shards = job.strategy.matrix.shard;
+  const count = shards.length;
+  assert.ok(
+    count >= frozen.strategy.matrix.shard.length,
+    'The mutation gate may only be split into more shards',
+  );
+  assert.deepEqual(
+    shards,
+    Array.from({ length: count }, (_, i) => i + 1),
+  );
+  const step = job.steps.find((s) => s.run === 'pnpm test:mutations');
+  const frozenStep = frozen.steps.find((s) => s.run === 'pnpm test:mutations');
+  assert.equal(job.name, `Accounting mutation gate (\${{ matrix.shard }}/${count})`);
+  assert.equal(step.env.MUTATION_SHARD, `\${{ matrix.shard }}/${count}`);
+  job.name = frozen.name;
+  job.strategy.matrix.shard = frozen.strategy.matrix.shard;
+  step.env.MUTATION_SHARD = frozenStep.env.MUTATION_SHARD;
+  assert.deepEqual(job, frozen);
+}
 let cursor = 0;
 for (const old of baseline.jobs.build.steps) {
   const i = workflow.jobs.build.steps.findIndex(
