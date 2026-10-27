@@ -63,6 +63,11 @@ PAGES = [
      every('drawing'), 'a sharp corner 0.87 points under the overshoot of a round digit: only its miter tip reaches it'),
     ('scaled-rule', TEXT + b'q 3 0 0 3 0 0 cm 1 w 10 49.5 m 40 49.5 l S Q',
      every('drawing'), 'a rule of width 1 drawn at three times its size: padded by 1.5 points, it meets the ink'),
+    ('white-on-traced-fill', b'q 0.2 0.3 0.4 rg 1 0 0 1 36 140 cm 0 0 m 0 20 l 114 20 l 114 0 l h f Q 1 g ' + TEXT,
+     NONE, 'white text on a dark fill traced by lines under a translation, as pdf-lib draws a rectangle (G23): '
+     'a background'),
+    ('white-on-skewed-fill', b'q 0.2 0.3 0.4 rg 1 0 0 1 36 140 cm 0 0 m 0 20 l 114 20 l 114 0.5 l h f Q 1 g ' + TEXT,
+     every('drawing'), 'the same fill with one corner half a point off: no rectangle, a drawing under the text'),
 ]
 
 

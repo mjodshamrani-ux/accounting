@@ -800,6 +800,17 @@ class Drawings(unittest.TestCase):
         self.assertEqual(rules('rectangle-traced-back'), (None, {'rectangleTraced': 1}))
         self.assertEqual(rules('rule-apart'), (None, {}))
 
+    def test_white_text_on_a_fill_traced_by_lines_is_judged_on_the_fill(self):
+        # G23: pdf-lib traces a rectangle by lines and closes it; the reader
+        # takes it for a background (filledRectangles), MuPDF gives four line
+        # items, and the check took `re` items alone for backgrounds, so it
+        # judged the white text against the white page. One corner off and it
+        # is no rectangle: a drawing under the text, on the white page.
+        self.assertEqual(found(self.path('white-on-traced-fill')), {})
+        skewed = found(self.path('white-on-skewed-fill'))
+        self.assertIn('contrast', skewed)
+        self.assertEqual(skewed['drawings'], [{'page': 1, 'at': {'kind': 'drawing', 'op': 0}}])
+
     def test_what_it_copies_is_still_the_readers(self):
         self.assertEqual(drawings.drift(), [])
 

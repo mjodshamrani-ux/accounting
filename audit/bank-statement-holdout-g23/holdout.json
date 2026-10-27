@@ -1,0 +1,170 @@
+{
+  "schema": "tarasuf-bnk-pdf1-holdout/1",
+  "status": "frozen synthetic holdout for BNK-PDF-1 G23; sealed and committed before the product was run on any of its files",
+  "synthetic": true,
+  "holdout": true,
+  "contract": "audit/bank-statement-foundation/contract.json",
+  "question": "G21 and G22 gave the eligibility check the reader's test of adjacent rows in its three forms and its drawing, clip and background tests with their three rules, and counted for each statement the nine rules the ablation switches off; each was measured on the reader and against every ablation record, on writers it had already met. On statements from HexaPDF, a pure Ruby library, and from a Node application drawing with pdf-lib, two writers not yet measured, with XLSX cashbooks from write_xlsx and SheetJS, sealed with the complete check, does bank-statement-native-1 complete every eligible positive with no false automatic approval; does the check before the seal say what the reader does with each file; and do the rules it counts for each positive say which rules the ablation finds that positive needs?",
+  "changed": {
+    "producers": [
+      "HexaPDF 1.11.2 (Ruby 3.3.6; AGPL, installed by Bundler outside the repository): a Ruby statement service drawing each page on HexaPDF's canvas, its own table of seven columns; each piece of text one text-showing operation at its baseline (the line's top plus the font's hhea ascent), a page's text in few BT blocks with a text matrix per piece and two-byte glyph codes in TJ arrays; fills as re f and rules as lines inside q and Q; every font a Type0 TrueType subset with a ToUnicode map and an Identity CIDToGIDMap; no shaping, so English only. HexaPDF sets its own Producer, the modification date and a new document identifier on writing, and stamps each subset font's head table with the clock",
+      "pdf-lib 1.17.1 with @pdf-lib/fontkit 1.1.1 and bidi-js 1.0.3 (Node 22): a statement application drawing its own table; each line put in display order by bidi-js and cut into runs of one embedding level, each run drawn by its own drawText call and shaped by fontkit, a run of Arabic script given to fontkit reversed from its display order as fontkit sets it right to left, Arabic-Indic digits included; each drawText call its own q BT Tf Tm Tj T* ET Q under a new font resource name for the same font object, so that a page names one font under hundreds of names; fills traced by lines (moveTo, three lineTo, closePath under a translation) and rules as lines; every font a Type0 TrueType subset with a ToUnicode map and an Identity CIDToGIDMap; object streams; pdf-lib's own Producer",
+      "write_xlsx 1.15.1 (Ruby) for X03's typed XLSX cashbook: dates as Excel dates styled yyyy-mm-dd, amounts as numbers in riyals styled #,##0.00, the other amount cell not written, strings in the shared table, the core properties with a fixed creation time",
+      "SheetJS (the xlsx package 0.18.5, Node) for X10's text XLSX cashbook: every cell a string as aoa_to_sheet stores it, amounts as plain decimals with two places, the other amount cell left out"
+    ],
+    "fonts": [
+      "Work Sans, Merriweather, Space Mono and Fira Sans for HexaPDF",
+      "Lemonada, Readex Pro and Rubik (English) and Alexandria, Cairo, Tajawal and Rubik (Arabic, each one file holding its Latin letters and its digits) for pdf-lib",
+      "the Google Fonts TrueType files packaged by @expo-google-fonts, used as installed, never converted, subset or merged here"
+    ],
+    "geometry": [
+      "A4 portrait",
+      "US Letter",
+      "A4 landscape",
+      "a full grid",
+      "a grid whose control lines span the first four columns with no edge through them",
+      "rules under every row",
+      "no rules but a heading rule",
+      "striped rows",
+      "a heading filled brown, violet, dark red, dark teal or slate, or grey",
+      "headings right-aligned over amounts, and left-aligned in X03",
+      "monospaced type in X03",
+      "descriptions wrapping over two lines in their cells",
+      "page totals",
+      "Arabic tables whose first column stands on the right, cells starting at their right edge, and in X07 and X12 amounts and their headings at the left edge of their cells"
+    ],
+    "periods": [
+      "2030-01-01..2030-01-31",
+      "2030-02-01..2030-02-28",
+      "2030-03-01..2030-03-31",
+      "2030-04-01..2030-06-30",
+      "2030-05-01..2030-05-31",
+      "2030-07-01..2030-07-31",
+      "2030-08-01..2030-08-31",
+      "2030-09-01..2030-09-30",
+      "2030-10-01..2030-10-31",
+      "2030-11-01..2030-11-30",
+      "2030-12-01..2030-12-31",
+      "2030-06-01..2030-06-30"
+    ],
+    "furniture": "one bank in English and one in English and Arabic (Sarawat Commercial Bank; Harrah Trade Bank, بنك الحرة التجاري), document titles and accounts other than the foundation's and earlier holdouts'",
+    "references": "card settlements by acquirer and day (POS-HMA-300101), café invoices (INV-3001-777), delivery app payouts by app and Monday (APP-WSL-300107), green coffee lots (LOT-300130), packaging orders by day and run (PO-300106-004), fuel card top-ups (FUEL-300102), the roaster lease by standing order (SO-RL-3001), electricity bills (SEC-3001-41234), WPS batches and GOSI by month, SADAD numbers for VAT, a chargeback (CBK-300119), credit notes, cheque numbers, movements with no reference",
+    "relationships": "a coffee roaster's operating account: the acquirer settling each business day's card sales from the roastery shop, booked that day or the next business day; cafés paying invoices by transfer, booked within three days; two delivery apps paying each Monday; importers paid for a lot every other Thursday; packers paid on Sundays; the vans' fuel cards topped up each Wednesday; the roaster lease by standing order; electricity, GOSI and the quarter's VAT by SADAD; WPS payroll by the 25th. A café's transfer booked seven and six days after it arrived; a delivery app's payout net of its commission against the gross booked, and a card settlement net of MDR against the gross booked; two equal fuel top-ups and two equal packaging payments on one day, without references; an importer paid and a café's transfer without their references on the statement; a refund to a café booked as a receipt and a delivery app's payout booked as a payment; an importer debited twice under one lot against one entry; a packaging payment booked twice in the cashbook; a settlement and a payout valued after the period and importer payments before it; a chargeback, a POS terminal fee, a gateway fee, a returned transfer with its fee and a credit note not yet booked; cheques not yet presented; an account overdrawn the whole month, with DR after each amount",
+    "text": "descriptions that wrap where the writer breaks them; a continuation at the top of page 2 in Arabic, in the description column; Arabic descriptions holding Latin references and batch numbers as runs of their own; dates in Arabic-Indic digits drawn as five runs; in the Arabic statement with Latin digits, the period's dates in the account line shown with their segments reversed, as the bidirectional algorithm treats European digits after Arabic letters as Arabic numbers",
+    "faults": "page 2's deposit total printed without one of its deposits; page 3 of a four-page statement printed as page 3 of 5; page 3's balance brought forward printed with two digits of its riyals swapped",
+    "cashbookXlsx": "X03 as a typed XLSX from write_xlsx and X10 as a text XLSX from SheetJS; every cashbook also as CSV"
+  },
+  "heldConstant": [
+    "the contract's column headings, control-line labels and Page n of N footer, in English and Arabic",
+    "the account/currency/period line as one line",
+    "dates as yyyy-mm-dd, SAR with two decimals, thousands separators, the DR suffix for an overdrawn balance",
+    "a real text layer; no scanned page; no image",
+    "the cashbook's six declared headings, one sheet, no hidden, merged, computed or reformatted cell"
+  ],
+  "independence": {
+    "author": "The same assistant wrote the product, the foundation, the oracle, the G6 to G20 holdouts, the fixes after them, the eligibility check with its G16 to G22 additions and the G23 change below, and this holdout, and knew the reader's rules when designing the stories. HexaPDF, the pdf-lib application and the two XLSX writers are new to the product; the author is not. This is not a blind holdout.",
+    "oracle": "audit/bank-statement-foundation/oracle.py, unchanged: it reads the printed lines in the facts, the cashbook CSV and the contract, never recipe or intent, and imports nothing from the generator or the product. expected.py only runs it story by story with each story's own period.",
+    "verifier": "pdfminer.six, a PDF reader unrelated to the product's pdf.js, finds every printed line of the facts on its own row with all its values, and every description's words in order across the rows the writer wraps it over, Arabic in reading order glyph by glyph; and MuPDF finds no glyph drawn as .notdef (verify.py, with its own self-test of 44 planted changes to the facts, two changed XLSX cashbooks, and a letter planted as .notdef in two HexaPDF and four pdf-lib statements, every font here a Type0 TrueType font with an Identity CIDToGIDMap).",
+    "eligibility": "audit/bank-statement-eligibility/eligibility.py, run on the frozen files before the seal with MuPDF, the raw content streams and the Python standard library, never the product: every refusal the reader declares that it can check, the text items as PDF.js builds them and the overlap within a line on them (G18), the reading by columns on those items (G19), the adjacent rows in their three forms (G21), the drawing, clip and background tests with their three rules (G22), each font's ToUnicode map as the prepared PDF.js reads it (G15), each XLSX cashbook as the product reads it (G16), the rules each statement exercises, nine of them the ablation's, and the decision story's case and outstanding item. Its report, ELIGIBILITY.json, names the modules it ran by hash, is sealed and bound to the PDF hashes.",
+    "generator": "stories.py is an eleventh lineage: a coffee roaster's operating account driven by a PCG32 generator (XSH RR); nothing is imported from the foundation's stories.mjs or from the G6 to G20 holdouts. common.py, expected.py and check_export.py are copied from G20, verify.py, check_seal.py and test_seal.py adapted from G20's.",
+    "drafts": "While the stories and writers were drafted, their PDFs and workbooks were read with pdfminer.six, MuPDF (text, glyph ids, drawings and page images), the eligibility check and its cashbook check only. No script that reads a file with the product's reader was run on any draft (DEV-61).",
+    "notTuned": "No product code changed between the start of G23 and the seal, and the product read none of these files. The eligibility check changed once, before the seal, for a reason found on the drafts and measured on planted pages (draftFindings)."
+  },
+  "eligibility": {
+    "decided": "before any product run on these files",
+    "positives": [
+      "X01",
+      "X02",
+      "X03",
+      "X04",
+      "X07",
+      "X08",
+      "X09",
+      "X10",
+      "X11"
+    ],
+    "held": {
+      "X05": "balance-broken",
+      "X06": "incomplete-pages",
+      "X12": "balance-broken"
+    },
+    "cashbookFormats": {
+      "X03": "typed XLSX (write_xlsx)",
+      "X10": "text XLSX (SheetJS)"
+    },
+    "writtenFor": {
+      "reversedDate": [
+        "X07",
+        "X08",
+        "X12"
+      ],
+      "endAligned": [
+        "X01",
+        "X02",
+        "X04",
+        "X07",
+        "X10",
+        "X11"
+      ],
+      "drAfterAmount": [
+        "X03"
+      ],
+      "continuation": [
+        "X08"
+      ],
+      "typedCashbook": [
+        "X03"
+      ],
+      "cashbookRead": [
+        "X03",
+        "X10"
+      ]
+    },
+    "why": "Every statement stays inside the contract: its headings, labels, footer, line kinds, number and date formats and matching policy; every cashbook keeps the six declared headings on one sheet. The writer, font, table style, geometry, period, furniture and story are what the contract leaves open. The eligibility check found nothing in any of the twelve statements that the reader declares a reason to refuse, built every page's PDF.js items with no overlap in a line, read every one by its columns, found no adjacent rows or drawing the reader would refuse, read every font's ToUnicode map as the prepared PDF.js reads it, and read both XLSX cashbooks as the product reads them, every entry (ELIGIBILITY.json). So a refusal of a positive is not a correct one unless it is for a reason no check before the seal covers, which the report then names.",
+    "exercised": "As ELIGIBILITY.json counts them: dates read with their segments reversed in the Arabic statements with Arabic-Indic digits (X07, X08, X12); values placed in their columns by the end edge of their heading in the English statements whose headings are right-aligned (all but X03) and in X07 and X12, whose amounts stand at the left edge; DR after each amount in X03; the continuation in X08; word parts in the English statements but X03; adjacent rows that only the glyphs' ink keeps apart in X03, X06 and X08 (rowsByInk), and that only glyph boxes keep apart in X07 (rowsByGlyphs); none of the drawing rules, and no visibility by ink alone; nothing at all in X09; X03's cashbook read with typed amounts and dates, X10's as text. The ablation after the first run says whether X03, X08 and X07 need the rows rules so counted, and whether every other positive completes with each rule off.",
+    "draftFindings": [
+      "Tajawal has no glyph for the Arabic decimal and thousands separators (U+066B, U+066C), and fontkit drew them as .notdef: the first drafts of X07 and X12, in Tajawal with Arabic-Indic digits, printed every amount with two empty boxes, and their text layer gave spaces for the separators. MuPDF's page images showed it. X07 was moved to Alexandria and X12 to Rubik, both holding the separators; Tajawal draws X09, whose digits are Latin. The renderers now refuse a job whose fonts lack a glyph for any character it draws (fonts.check_covers), as verify.py refuses a glyph drawn as .notdef.",
+      "The roaster's invoices were booked up to two business days after the transfer, which over a Friday and Saturday weekend is up to five calendar days, beyond the contract's three-day window: the oracle gave date-gap for ten ordinary invoices in seven stories that the stories meant to pair automatically, and expected.py reported the disagreement with intent. The generator now books an invoice on a business day up to three calendar days later.",
+      "The eligibility check found contrast refusals in the headings of X08, X09 and X10: white text on pdf-lib's filled headings. pdf-lib traces a rectangle by lines (moveTo, three lineTo, closePath under a translation); the reader takes such a path for a background (filledRectangles: four corners, axis-aligned, apart from the others), but MuPDF gives it as four line items, and the check took MuPDF's re items alone for backgrounds, so it judged the white text against the white page. HexaPDF's re fills were judged on their fill. The check now takes a filled path whose subpaths are axis-aligned rectangles, by re or by lines, as the reader does (eligibility.filled_boxes, since G23). Two planted pages in plant_drawings.py, white text on such a fill and on the same fill with one corner half a point off, a test and two mutants (killed) hold it. The reader read both before the seal (measure_drawings.mjs, on the planted pages and the statements sealed before G23): it reads the first in every configuration, its white text and all, and refuses the second for a drawing under the text, as the check now says; and it agrees with the check on every statement sealed before.",
+      "In Space Mono at 7.2 points X03's overdrawn balances with DR were wider than their cell and ran into the deposit column; the eligibility check found the balance outside its column (columns, COLUMN). Measured then for every story, Merriweather's dates in X02 and Lemonada's dates and Value Date heading in X06 were also wider than their cells, Merriweather's by 1 per cent and Lemonada's by 7, though no check found them. Both writers now refuse a line of text wider than its cell; Space Mono is set at 6.4 points, Merriweather at 7.0 and Lemonada at 6.6.",
+      "HexaPDF sets the modification date and a new document identifier itself on writing, and its subsetter stamps each subset font's head table with the clock, with no setting the service uses for either: two renders of a HexaPDF statement differ in those bytes alone. They are left as the writer writes them and recorded here; the pdf-lib statements and both workbooks render byte for byte.",
+      "In the Arabic statement with Latin digits (X09) the account line shows the period's dates with their segments reversed. That is the bidirectional algorithm, not a fault: European digits after Arabic letters take the type of Arabic numbers (rule W2), and a hyphen between Arabic numbers stays neutral. The date cells, which hold no Arabic letter, show their dates whole.",
+      "The drafts were read with pdfminer.six, MuPDF, the eligibility check and its cashbook check only. The reader read the planted pages above and the statements sealed before G23, never a G23 draft (DEV-61)."
+    ]
+  },
+  "browserDecision": {
+    "story": "X01",
+    "ifRefused": [
+      "X07",
+      "X02"
+    ],
+    "why": "The browser run accepts the first acceptable case of one story and the export checker's self-test alters that story's workbook. X01 has a case the page accepts (date-gap) and items outstanding on both sides, so every alteration has a target; ELIGIBILITY.json checks it. If the product refuses X01, the next of X07 (date-gap, an item outstanding) and X02 (amount-date-suggestion, an item outstanding) it does not refuse is decided."
+  },
+  "ablation": {
+    "script": "scripts/bank-statement-holdout-ablation.mjs",
+    "rules": [
+      "drawing by ink",
+      "rows by ink",
+      "DR after its amount",
+      "date runs joined",
+      "typed cashbook amounts",
+      "rectangle traced back to its start",
+      "drawings by glyph boxes",
+      "rows by glyph boxes",
+      "visibility by ink"
+    ],
+    "what": "After the first run, on the commit it ran on, each rule is switched off in a private copy of the product, one at a time, and the package run again: a positive that completes with every rule and not with one off needed it. It is a diagnostic, not a second result."
+  },
+  "measures": {
+    "reading": "Every printed line read from the PDF equals the facts: kind, page, dates, reference, amounts, balances; descriptions and continuation text after NFKC and whitespace normalisation.",
+    "result": "The matching result, in the facts' keys, equals EXPECTED.json: automatic pairs, review groups with their reasons, both outstanding sides, timing, and held statements with their counts.",
+    "capacity": "Eligible positives whose result equals EXPECTED.json from upload through matching, save, restore and Excel in the browser.",
+    "falseAutomatic": "Automatic pairs that EXPECTED.json does not hold, over all twelve statements. Must be zero.",
+    "held": "A held statement is held whole, with the oracle's status, and nothing in it approved, suggested or called outstanding.",
+    "refusal": "A positive the product refuses, or holds without the oracle holding it, is a failed positive, never a correct abstention.",
+    "cashbookAgreement": "For X03 and X10, the product's reading of the XLSX cashbook equals the CSV's, and equals what the eligibility check read before the seal.",
+    "prediction": "After the first run, the check before the seal against the reader on these files: PDF.js's items and the overlap verdict (measure_items.mjs), the reading by columns and the rules counted (measure_columns.mjs), the adjacent rows (measure_rows.mjs), the drawing, clip and background tests with each rule off (measure_drawings.mjs), each XLSX cashbook (measure_cashbook.mjs), recorded with the commit they ran on.",
+    "rules": "After the ablation, the nine rules counted in ELIGIBILITY.json against what the ablation finds each positive needs (measure_rules.py): a rule counted for a positive that completes without it, or needed by a positive for which it was not counted, is a disagreement, recorded as it comes."
+  },
+  "afterRun": "Results are recorded as they come, with the commit they ran on. A fix made after seeing them turns this set into regression for that fix; a new claim of generalisation needs a new holdout."
+}

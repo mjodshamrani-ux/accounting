@@ -8,7 +8,8 @@ prove, a rectangle clip's bounds; the rectangle traced back to its start, on
 always or never; today's targets without glyph boxes, or the padded boxes
 taken for ink with the drawing-by-ink rule off; the reader's long advances
 for a CFF FontMatrix; or stops the eligibility check counting a rule or
-finding today's refusal. The tool is copied with the mutant into a temporary
+finding today's refusal; or (G23) the backgrounds traced by lines taken for
+none, or for any four corners. The tool is copied with the mutant into a temporary
 tree (mutate_columns.tree), after its tests pass there unmutated. Exit
 status 1 if a mutant survives.
 """
@@ -40,6 +41,11 @@ MUTANTS = {
     'rectangle-uncounted': ('eligibility.py', "                         ('noRectangleReturn', 'rectangleTraced')):",
                             '                         ):'),
     'drawings-not-found': ('eligibility.py', "    return {'drawings': [today]} if today else {}", '    return {}'),
+    'traced-fill-not-a-background': ('eligibility.py', '            edges.append((p, q))\n', '            return None\n'),
+    'traced-fill-of-any-corners': ('eligibility.py',
+                                   '                if edges[-1][1] != edges[0][0] or any(a.x != b.x and a.y != b.y '
+                                   'for a, b in edges):',
+                                   '                if edges[-1][1] != edges[0][0]:'),
 }
 
 if __name__ == '__main__':

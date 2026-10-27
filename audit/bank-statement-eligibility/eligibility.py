@@ -458,11 +458,49 @@ def contrast(page, fills, ink, metrics, add, used):
             used['visibleByInk'] += 1
 
 
+def filled_boxes(drawing):
+    """The reader's filledRectangles on MuPDF's items for one path: the box
+    of each subpath if every one is an axis-aligned rectangle apart from the
+    others, else None. MuPDF gives an `re` operator as one item, and a
+    rectangle traced by lines as one line item per edge, its close included:
+    pdf-lib draws its fills so (moveTo, three lineTo, closePath under a
+    translation), and the reader takes them for rectangles (since G23; the
+    check took `re` alone before, and judged white text on such a fill
+    against the white page). A path the reader does not take for a
+    rectangle though MuPDF does, such as `re h f`, is a drawing to the
+    reader, which drawings.py finds."""
+    boxes, edges = [], []
+    for item in drawing['items']:
+        if item[0] == 're' and not edges:
+            r = pymupdf.Rect(item[1])
+            boxes.append([r.x0, r.y0, r.x1, r.y1])
+        elif item[0] == 'l':
+            p, q = item[1], item[2]
+            if edges and edges[-1][1] != p:
+                return None
+            edges.append((p, q))
+            if len(edges) == 4:
+                if edges[-1][1] != edges[0][0] or any(a.x != b.x and a.y != b.y for a, b in edges):
+                    return None
+                xs, ys = [a.x for a, _ in edges], [a.y for a, _ in edges]
+                boxes.append([min(xs), min(ys), max(xs), max(ys)])
+                edges = []
+        else:
+            return None
+    if edges or not boxes:
+        return None
+    for k, b in enumerate(boxes):
+        if b[0] == b[2] or b[1] == b[3] or any(
+                a[0] < b[2] and a[2] > b[0] and a[1] < b[3] and a[3] > b[1] for a in boxes[:k]):
+            return None
+    return boxes
+
+
 def backgrounds(page):
     """The reader's backgrounds: opaque rectangles filled and not stroked."""
-    return [(d['seqno'], pymupdf.Rect(d['rect']), rgb(d.get('fill'))) for d in page.get_drawings()
+    return [(d['seqno'], pymupdf.Rect(box), rgb(d.get('fill'))) for d in page.get_drawings()
             if d.get('fill') is not None and d.get('type') == 'f' and (d.get('fill_opacity') or 1) == 1
-            and all(item[0] == 're' for item in d['items'])]
+            for box in (filled_boxes(d) or [])]
 
 
 def glyph_ink(page):
@@ -732,7 +770,11 @@ def main():
     if cashbook.drift():
         raise SystemExit(f'the product no longer carries what cashbook.py copies: {cashbook.drift()}')
     package = Path(a.package)
-    report = {'package': package.name, 'clearancePt': a.clearance, 'statements': {}}
+    # The modules the report was written with, by hash, so that a seal can
+    # say which checks ran (since G23).
+    tool = {m.__file__.rsplit('/', 1)[-1]: hashlib.sha256(Path(m.__file__).read_bytes()).hexdigest()
+            for m in (sys.modules[__name__], items, columns, tounicode, rows, drawings, cashbook)}
+    report = {'package': package.name, 'tool': tool, 'clearancePt': a.clearance, 'statements': {}}
     for pdf in sorted((package / 'frozen').glob('*-statement.pdf')):
         story = pdf.name.split('-')[0]
         report['statements'][story] = check_pdf(pdf, a.clearance)
