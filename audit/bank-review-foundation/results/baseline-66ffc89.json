@@ -1,0 +1,652 @@
+{
+ "run": {
+  "name": "baseline",
+  "productCommit": "66ffc89",
+  "date": "2026-10-27",
+  "asItCame": true,
+  "command": "node --experimental-strip-types scripts/bank-review-baseline.mjs",
+  "note": "First product run on the REVIEW-1 foundation, after the seal. The product lists review cases by case number and decides them one by one."
+ },
+ "schema": "tarasuf-wf1-review1-baseline/1",
+ "inputManifestSha256": "1cc505dc51141c51b8c2ad0f4f9d31e9eeadacd413758c2cb0c4b1d4de927601",
+ "summary": {
+  "stories": 16,
+  "replayed": 16,
+  "heldAgrees": 16,
+  "casesEqual": "16/16",
+  "casesNeedingDecision": 130,
+  "orderEqualsContract": "3/14",
+  "storiesWithDecisions": 10,
+  "statusesEqual": "9/9",
+  "refusalAgrees": 16,
+  "decisionActions": {
+   "product": 112,
+   "withQueue": 17
+  }
+ },
+ "stories": {
+  "Q01": {
+   "held": false,
+   "cases": {
+    "expected": 20,
+    "product": 20,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "order": {
+    "product": [
+     "C5",
+     "C6",
+     "C7",
+     "C8",
+     "C9",
+     "C10",
+     "C11",
+     "C12",
+     "C13",
+     "C14",
+     "C15",
+     "C16",
+     "C17",
+     "C18",
+     "C19",
+     "C20",
+     "C21",
+     "C22",
+     "C23",
+     "C24"
+    ],
+    "contract": [
+     "C24",
+     "C20",
+     "C21",
+     "C16",
+     "C22",
+     "C15",
+     "C19",
+     "C23",
+     "C18",
+     "C17",
+     "C10",
+     "C5",
+     "C8",
+     "C13",
+     "C9",
+     "C7",
+     "C14",
+     "C6",
+     "C12",
+     "C11"
+    ],
+    "equal": false
+   },
+   "actions": {
+    "product": 21,
+    "withQueue": 3
+   },
+   "refusal": null,
+   "statusesEqual": true
+  },
+  "Q02": {
+   "held": false,
+   "cases": {
+    "expected": 8,
+    "product": 8,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "order": {
+    "product": [
+     "C5",
+     "C6",
+     "C7",
+     "C8",
+     "C9",
+     "C10",
+     "C11",
+     "C12"
+    ],
+    "contract": [
+     "C8",
+     "C7",
+     "C5",
+     "C6",
+     "C9",
+     "C12",
+     "C10",
+     "C11"
+    ],
+    "equal": false
+   },
+   "actions": {
+    "product": 0,
+    "withQueue": 0
+   },
+   "refusal": null,
+   "statusesEqual": true
+  },
+  "Q03": {
+   "held": false,
+   "cases": {
+    "expected": 4,
+    "product": 4,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "order": {
+    "product": [
+     "C5",
+     "C6",
+     "C7",
+     "C8"
+    ],
+    "contract": [
+     "C5",
+     "C7",
+     "C6",
+     "C8"
+    ],
+    "equal": false
+   },
+   "actions": {
+    "product": 0,
+    "withQueue": 0
+   },
+   "refusal": null,
+   "statusesEqual": true
+  },
+  "Q04": {
+   "held": false,
+   "cases": {
+    "expected": 6,
+    "product": 6,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "order": {
+    "product": [
+     "C5",
+     "C6",
+     "C7",
+     "C8",
+     "C9",
+     "C10"
+    ],
+    "contract": [
+     "C9",
+     "C10",
+     "C8",
+     "C5",
+     "C6",
+     "C7"
+    ],
+    "equal": false
+   },
+   "actions": {
+    "product": 3,
+    "withQueue": 1
+   },
+   "refusal": null,
+   "statusesEqual": true
+  },
+  "Q05": {
+   "held": false,
+   "cases": {
+    "expected": 3,
+    "product": 3,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "order": {
+    "product": [
+     "C5",
+     "C6",
+     "C7"
+    ],
+    "contract": [
+     "C5",
+     "C6",
+     "C7"
+    ],
+    "equal": true
+   },
+   "actions": {
+    "product": 2,
+    "withQueue": 1
+   },
+   "refusal": null,
+   "statusesEqual": true
+  },
+  "Q06": {
+   "held": false,
+   "cases": {
+    "expected": 3,
+    "product": 3,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "order": {
+    "product": [
+     "C5",
+     "C6",
+     "C7"
+    ],
+    "contract": [
+     "C7",
+     "C6",
+     "C5"
+    ],
+    "equal": false
+   },
+   "actions": {
+    "product": 3,
+    "withQueue": 1
+   },
+   "refusal": null,
+   "statusesEqual": true
+  },
+  "Q07": {
+   "held": false,
+   "cases": {
+    "expected": 4,
+    "product": 4,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "order": {
+    "product": [
+     "C5",
+     "C6",
+     "C7",
+     "C8"
+    ],
+    "contract": [
+     "C5",
+     "C8",
+     "C6",
+     "C7"
+    ],
+    "equal": false
+   },
+   "actions": {
+    "product": 4,
+    "withQueue": 2
+   },
+   "refusal": null,
+   "statusesEqual": true
+  },
+  "Q08": {
+   "held": false,
+   "cases": {
+    "expected": 3,
+    "product": 3,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "order": {
+    "product": [
+     "C5",
+     "C6",
+     "C7"
+    ],
+    "contract": [
+     "C7",
+     "C5",
+     "C6"
+    ],
+    "equal": false
+   },
+   "actions": {
+    "product": 3,
+    "withQueue": 1
+   },
+   "refusal": "BANK_STATEMENT_DECISION"
+  },
+  "Q09": {
+   "held": false,
+   "cases": {
+    "expected": 4,
+    "product": 4,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "order": {
+    "product": [
+     "C5",
+     "C6",
+     "C7",
+     "C8"
+    ],
+    "contract": [
+     "C5",
+     "C6",
+     "C7",
+     "C8"
+    ],
+    "equal": true
+   },
+   "actions": {
+    "product": 2,
+    "withQueue": 1
+   },
+   "refusal": null,
+   "statusesEqual": true
+  },
+  "Q10": {
+   "held": false,
+   "cases": {
+    "expected": 5,
+    "product": 5,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "order": {
+    "product": [
+     "C5",
+     "C6",
+     "C7",
+     "C8",
+     "C9"
+    ],
+    "contract": [
+     "C9",
+     "C5",
+     "C6",
+     "C7",
+     "C8"
+    ],
+    "equal": false
+   },
+   "actions": {
+    "product": 5,
+    "withQueue": 1
+   },
+   "refusal": null,
+   "statusesEqual": true
+  },
+  "Q11": {
+   "held": false,
+   "cases": {
+    "expected": 60,
+    "product": 60,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "order": {
+    "product": [
+     "C5",
+     "C6",
+     "C7",
+     "C8",
+     "C9",
+     "C10",
+     "C11",
+     "C12",
+     "C13",
+     "C14",
+     "C15",
+     "C16",
+     "C17",
+     "C18",
+     "C19",
+     "C20",
+     "C21",
+     "C22",
+     "C23",
+     "C24",
+     "C25",
+     "C26",
+     "C27",
+     "C28",
+     "C29",
+     "C30",
+     "C31",
+     "C32",
+     "C33",
+     "C34",
+     "C35",
+     "C36",
+     "C37",
+     "C38",
+     "C39",
+     "C40",
+     "C41",
+     "C42",
+     "C43",
+     "C44",
+     "C45",
+     "C46",
+     "C47",
+     "C48",
+     "C49",
+     "C50",
+     "C51",
+     "C52",
+     "C53",
+     "C54",
+     "C55",
+     "C56",
+     "C57",
+     "C58",
+     "C59",
+     "C60",
+     "C61",
+     "C62",
+     "C63",
+     "C64"
+    ],
+    "contract": [
+     "C7",
+     "C41",
+     "C29",
+     "C44",
+     "C10",
+     "C21",
+     "C15",
+     "C14",
+     "C28",
+     "C42",
+     "C31",
+     "C18",
+     "C27",
+     "C6",
+     "C43",
+     "C16",
+     "C5",
+     "C13",
+     "C33",
+     "C24",
+     "C35",
+     "C19",
+     "C36",
+     "C25",
+     "C11",
+     "C9",
+     "C39",
+     "C30",
+     "C32",
+     "C22",
+     "C26",
+     "C40",
+     "C12",
+     "C38",
+     "C8",
+     "C23",
+     "C17",
+     "C34",
+     "C20",
+     "C37",
+     "C58",
+     "C59",
+     "C61",
+     "C62",
+     "C52",
+     "C55",
+     "C51",
+     "C60",
+     "C46",
+     "C56",
+     "C49",
+     "C53",
+     "C64",
+     "C57",
+     "C48",
+     "C45",
+     "C63",
+     "C47",
+     "C50",
+     "C54"
+    ],
+    "equal": false
+   },
+   "actions": {
+    "product": 60,
+    "withQueue": 2
+   },
+   "refusal": null,
+   "statusesEqual": true
+  },
+  "Q12": {
+   "held": true,
+   "cases": {
+    "expected": 0,
+    "product": 0,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "order": {
+    "product": [],
+    "contract": [],
+    "equal": true
+   },
+   "actions": {
+    "product": 0,
+    "withQueue": 0
+   },
+   "refusal": null,
+   "statusesEqual": true
+  },
+  "Q13": {
+   "held": false,
+   "cases": {
+    "expected": 0,
+    "product": 0,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "order": {
+    "product": [],
+    "contract": [],
+    "equal": true
+   },
+   "actions": {
+    "product": 0,
+    "withQueue": 0
+   },
+   "refusal": null,
+   "statusesEqual": true
+  },
+  "Q14": {
+   "held": false,
+   "cases": {
+    "expected": 3,
+    "product": 3,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "order": {
+    "product": [
+     "C5",
+     "C6",
+     "C7"
+    ],
+    "contract": [
+     "C7",
+     "C6",
+     "C5"
+    ],
+    "equal": false
+   },
+   "actions": {
+    "product": 0,
+    "withQueue": 0
+   },
+   "refusal": null,
+   "statusesEqual": true
+  },
+  "Q15": {
+   "held": false,
+   "cases": {
+    "expected": 5,
+    "product": 5,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "order": {
+    "product": [
+     "C5",
+     "C6",
+     "C7",
+     "C8",
+     "C9"
+    ],
+    "contract": [
+     "C5",
+     "C8",
+     "C7",
+     "C9",
+     "C6"
+    ],
+    "equal": false
+   },
+   "actions": {
+    "product": 9,
+    "withQueue": 4
+   },
+   "refusal": null,
+   "statusesEqual": true
+  },
+  "Q16": {
+   "held": false,
+   "cases": {
+    "expected": 2,
+    "product": 2,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "order": {
+    "product": [
+     "C5",
+     "C6"
+    ],
+    "contract": [
+     "C5",
+     "C6"
+    ],
+    "equal": true
+   },
+   "actions": {
+    "product": 0,
+    "withQueue": 0
+   },
+   "refusal": null,
+   "statusesEqual": true
+  }
+ }
+}

@@ -150,6 +150,7 @@ const required = [
   'test:bank-review:oracle',
   'test:bank-review:oracle-mutants',
   'test:bank-review:seal',
+  'test:bank-review:baseline',
   'test:bank-sheet:baseline',
   'test:bank-sheet:proof',
   'test:bank-sheet:lifecycle',
