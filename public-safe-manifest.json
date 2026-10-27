@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 47923,
-      "sha256": "6ef65b22c74b0f60af171df3bd36ac6611dfc562aa355e604f07726de50091eb",
+      "bytes": 48046,
+      "sha256": "02f7fb73d5d5c70f6775aefec73a687baefa81a3a30141bc59ca889912c6afd1",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 25713,
-      "sha256": "8f3cb0f22055dbea66234ee4069b551decfc2bf0d11dc59a0c60ff7819a052e0",
+      "bytes": 26335,
+      "sha256": "3d0350b61dabf04ca25f7cd80a6e672bdf7c97c373d760a6bcc101b4b09438ac",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 19070,
-      "sha256": "1f0902c974546c9cea452c518dbbd3ec3798c3c8e26c60500fc39750254e83e5",
+      "bytes": 19159,
+      "sha256": "a00b6dbedc45e2f2647cf165cef508281aa7bf3b65541dc733fecd947858baa8",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 61964,
-      "sha256": "5b693263c35216fe7abc17bc99b5f0ad13b45fe88f86bb36cff3ea3f77351eae",
+      "bytes": 63141,
+      "sha256": "54e71ee45e06b07416e81eea5c5a0aac59a711c452901838fbc8c3b3e1c70014",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 71909,
-      "sha256": "49deb75454e4f267ab1af480a9b4ee03bc5214fde9230bf51599ade3675e68ea",
+      "bytes": 72271,
+      "sha256": "1ceb8d80f219c4f9fe0be4802bd32de48c27d827f15e862bbd0c0fa740f971a1",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 32415,
-      "sha256": "80c3e5225b1dfa8939fdfe82d3fc48bc8e94c130fa261d7bef442585d2a3a92b",
+      "bytes": 32818,
+      "sha256": "b9810808d1a939993c184d52605ec3f4887b1c1d5be29c8dead9a9b03422cba8",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 12640,
-      "sha256": "5cce8449714558888892b2032031c0e88d523fcdc81d380f4e97f366025f9765",
+      "bytes": 12733,
+      "sha256": "96ff2fb552fc38559805c62bc0e5a8f729a50a4419e301d9b9871faf5ff1c037",
       "kind": "text"
     },
     {
@@ -40805,8 +40805,8 @@
     },
     {
       "path": "docs/roadmap/workflow.ar.md",
-      "bytes": 12185,
-      "sha256": "876644bce3d6f7bca7da242cd7b2a8eaeb0bad623db40ab1bc72eee3ffd47d48",
+      "bytes": 13233,
+      "sha256": "a88c7871173d39a29ba5624c193383900b0381963269c9cd3c779abfbcfd699d",
       "kind": "text"
     },
     {
@@ -50769,6 +50769,364 @@
       "path": "docs/audits/WF-1-REPORT-R4.ar.md",
       "bytes": 10879,
       "sha256": "d38e870e2ad6851e9e4ac574a1923a50ee2244c44f8242f72cd288c01455bc27",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/README.ar.md",
+      "bytes": 6498,
+      "sha256": "f7aebb6ed9861404a9a04cf9daec20022319518359022689a50c2711c8e87aab",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/check_seal.py",
+      "bytes": 2749,
+      "sha256": "1f69c442011206623b064a2f191cfd593a8c3c7bd4a0c438fcbb78263244d834",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/contract.json",
+      "bytes": 4504,
+      "sha256": "47ca7924960307fd286b9006a5611af6ad64c53cdd6b6d099f7e46fb8b6beb6f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/EXPECTED.json",
+      "bytes": 50322,
+      "sha256": "f59a9311b77c0cbbea40f0b6615b91bdfdd778014b291f949416e4ff3cd4bd47",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/INPUT-MANIFEST.json",
+      "bytes": 4764,
+      "sha256": "1cc505dc51141c51b8c2ad0f4f9d31e9eeadacd413758c2cb0c4b1d4de927601",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q01-NOV-cashbook.csv",
+      "bytes": 1383,
+      "sha256": "7ccceb55abd7d35801c24cda5aa7b5b065822c3fecb418cce5a1bf0531b91d7f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q01-NOV-statement.pdf",
+      "bytes": 26344,
+      "sha256": "4d7b30d7c2279fb1629b39cefe132e2d9dc8efd839bf9db8fd2b849054c6b12d",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 REVIEW-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, from audit/bank-review-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and a balance sign check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q02-NOV-cashbook.csv",
+      "bytes": 729,
+      "sha256": "fd4cddc74ee3bfe9d785dc95e7d52f14e35cdd9d5969a1e26a9f319d9d00e00a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q02-NOV-statement.pdf",
+      "bytes": 25689,
+      "sha256": "bb6b0992e540b6c367a12c8bb51c93825bbd83ac2f72ffd199e0134715a68317",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 REVIEW-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, from audit/bank-review-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and a balance sign check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q03-NOV-cashbook.csv",
+      "bytes": 494,
+      "sha256": "8d8aec5493e0bf7b18da29ff0f7d8f99cf0d5556d1038447a36d8371d030aec1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q03-NOV-statement.pdf",
+      "bytes": 23137,
+      "sha256": "3fc149ac4f5b12896acd2454fbd15389fde48fbd915307d5cb862ce8683a89cc",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 REVIEW-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, from audit/bank-review-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and a balance sign check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q04-NOV-cashbook.csv",
+      "bytes": 604,
+      "sha256": "466a47c96af8dab3a267ee83904912800a70f28abcfae0da782e9500a91963b4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q04-NOV-statement.pdf",
+      "bytes": 23327,
+      "sha256": "fe92ee7bb7233bd247bd248d7093d6de8e944b4c367c18a9812d7d0af3e439c2",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 REVIEW-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, from audit/bank-review-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and a balance sign check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q05-NOV-cashbook.csv",
+      "bytes": 479,
+      "sha256": "2f3d380cf9f66b2b5ad77cadbbb3ca0631f46799c7face6f45e0e7fa0ba7240a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q05-NOV-statement.pdf",
+      "bytes": 22912,
+      "sha256": "b7f674bc87fdb061412ae5c4a1fea83f588097a26236f36061341b80c25b5590",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 REVIEW-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, from audit/bank-review-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and a balance sign check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q06-NOV-cashbook.csv",
+      "bytes": 478,
+      "sha256": "802d54674bad5591a170ec3166a2b8adfb49037411759706851b488952194ce5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q06-NOV-statement.pdf",
+      "bytes": 22903,
+      "sha256": "f53143186e1033776090aa07a96f6badee2d16dafba882390a1d28676646a54c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 REVIEW-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, from audit/bank-review-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and a balance sign check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q07-NOV-cashbook.csv",
+      "bytes": 491,
+      "sha256": "683c700e80451e31962cc6bac40705032bcd651338227e782bd79dc878885130",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q07-NOV-statement.pdf",
+      "bytes": 22523,
+      "sha256": "214c4dbcd34d6092fb780e3cc3d5d4835eda196a193107f457b3748cd721b247",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 REVIEW-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, from audit/bank-review-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and a balance sign check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q08-NOV-cashbook-corrected.csv",
+      "bytes": 511,
+      "sha256": "d0e4fa0e9ebd018717bd4a55c83a660c507a5eeccd7d3887ec7c4f7ca2df6c6c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q08-NOV-cashbook.csv",
+      "bytes": 453,
+      "sha256": "4f9fd4d6a1d1924bffe5a5d75d64a053de44dee44e5c800a9c3699b24ec765ee",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q08-NOV-statement.pdf",
+      "bytes": 23001,
+      "sha256": "2fb7106a22f3e10bdbb2289a5de4a5219effd7ec16fb7e45013eba34ecf0c9b9",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 REVIEW-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, from audit/bank-review-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and a balance sign check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q09-NOV-cashbook.csv",
+      "bytes": 540,
+      "sha256": "bbb4e57ce0ce99e5358f3312fc2706fa89c80612db65a7c765ba6c6fa8ff629b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q09-NOV-statement.pdf",
+      "bytes": 23445,
+      "sha256": "4f2d3ef6abf523abb02c8e5b7a3fd8325ea39d5f5d39a34dd2962c52e7bfc35f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 REVIEW-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, from audit/bank-review-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and a balance sign check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q10-NOV-cashbook.csv",
+      "bytes": 533,
+      "sha256": "b47cebd2813991f728a1c3e55b5cba918360474ff4d0baa9a3ee906b3f85950f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q10-NOV-statement.pdf",
+      "bytes": 24916,
+      "sha256": "5c00d7de10b9eef297d5bcdec4fb1b785d2be68a405e820db8388bb92bb23f52",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 REVIEW-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, from audit/bank-review-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and a balance sign check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q11-NOV-cashbook.csv",
+      "bytes": 3350,
+      "sha256": "bec778640cfbd118335fc26eeb1d8e39a0333546413f3751cbf7dfb81ed5b6ce",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q11-NOV-statement.pdf",
+      "bytes": 31372,
+      "sha256": "10d17e1afa8bd86fad28445b32804636b6b92e266a5f5d80c4af988779a153f7",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 REVIEW-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, from audit/bank-review-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and a balance sign check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q12-NOV-cashbook.csv",
+      "bytes": 455,
+      "sha256": "e54aa347748778907d50314cd2742f5babf02e3e57b0679e71dd8cd59578659f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q12-NOV-statement.pdf",
+      "bytes": 22991,
+      "sha256": "c5a8da26ed0db801c25943cac382fd9efb6712227227e2c3e7fe009f390043b6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 REVIEW-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, from audit/bank-review-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and a balance sign check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q13-NOV-cashbook.csv",
+      "bytes": 420,
+      "sha256": "a89a4c7eb54d1b0b95a45cb064a0c5f93142f7bc8a8397f41dd761c248757339",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q13-NOV-statement.pdf",
+      "bytes": 22381,
+      "sha256": "7dc29c6cfe81e5e6a2f301ae8128bedbf24899d8fbb226739bc757e0411dd217",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 REVIEW-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, from audit/bank-review-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and a balance sign check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q14-NOV-cashbook.csv",
+      "bytes": 540,
+      "sha256": "7bb4ec11dacdcbf548b83f7e14cd23f16db547dfff73f773f1af9ffbed0d0a99",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q14-NOV-statement.pdf",
+      "bytes": 23423,
+      "sha256": "439e13f8b217471680943dd7a9e32341fec0a685c3f922a8b44263c9d1369fe4",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 REVIEW-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, from audit/bank-review-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and a balance sign check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q15-NOV-cashbook.csv",
+      "bytes": 542,
+      "sha256": "870c327b149f0a92d1f0adbc4a6f260c08701e20ec27b296e7bf15787ccd7608",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q15-NOV-statement.pdf",
+      "bytes": 22712,
+      "sha256": "cfed82ec9dfa72cd3574b1e349787a3221ba3d06889260b2f2725f0aabcd9f08",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 REVIEW-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, from audit/bank-review-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and a balance sign check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q16-NOV-cashbook.csv",
+      "bytes": 409,
+      "sha256": "2ea0849a563b78c655f45587c6e56425980d141f0d7447b6ebd50923db8d9502",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/Q16-NOV-statement.pdf",
+      "bytes": 23163,
+      "sha256": "64fb56a4f34283817055822dd33501bf74bfe3c7fae2f66e5738d1328b74b114",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 REVIEW-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, from audit/bank-review-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and a balance sign check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/SEAL.json",
+      "bytes": 2040,
+      "sha256": "8015d7c6e2f063546e0679eaa6b012b665a7e4707264d0572f5270834c1094da",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/VERIFY.json",
+      "bytes": 4292,
+      "sha256": "9cad54bba995a5a84af13043a79d558e52d5f70a1e16a651aa8032542060e05d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/frozen/stories.json",
+      "bytes": 128976,
+      "sha256": "650cb3f15361cc38a63ec3d06fce71cce6715a86827056badc6b5ad86030a2fe",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/mutate_oracle.py",
+      "bytes": 4615,
+      "sha256": "51f2607669873c92e534a928b1fe171d7b01566d697fba577b4a57211300d585",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/oracle.py",
+      "bytes": 9190,
+      "sha256": "e4b6dc39faa1d6012643bb7b0ab9054e5a4732b3d45fa4eeefc8afc33deb061e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/render.mjs",
+      "bytes": 7182,
+      "sha256": "0969de30c8186376b780f349a0dd2bf885ce0b62b711302b0810e451984df925",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/seal.py",
+      "bytes": 2706,
+      "sha256": "56063e645b854f6044fe616441f376400a83817c2312537f0ee0ab7bbc04d2e5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/stories.mjs",
+      "bytes": 21241,
+      "sha256": "a4c872bea349264158e15340271ca47f74427f5cf6c117aa591c68a1f9e2313c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/test_oracle.py",
+      "bytes": 7788,
+      "sha256": "9db670c5643edbfff0261eb242bc662541ab61e18bb0539d35d489fa1f4cb51e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-review-foundation/verify.py",
+      "bytes": 4849,
+      "sha256": "657f6271dabc8db49ceb5f435bac3d10c2c1756a454eabf18fb08f3e0c8d247b",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/WF-1-REVIEW-FOUNDATION.ar.md",
+      "bytes": 12372,
+      "sha256": "fd4af964680bcfff10be0e8a56fdc5754da720c84e04ee876654db3a8359c05e",
       "kind": "text"
     }
   ],

@@ -301,6 +301,9 @@ jobs:
           pnpm test:bank-sheet:seal
           pnpm test:bank-sheet:r4-seal
           pnpm test:bank-sheet:r4-holdout
+          pnpm test:bank-review:oracle
+          pnpm test:bank-review:oracle-mutants
+          pnpm test:bank-review:seal
           pnpm test:bank-sheet:baseline
           pnpm test:bank-sheet:proof
           pnpm test:bank-sheet:lifecycle

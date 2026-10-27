@@ -1,0 +1,180 @@
+{
+ "reader": "pdfminer.six (encryption support stubbed: these PDFs are unencrypted)",
+ "factsSha256": "650cb3f15361cc38a63ec3d06fce71cce6715a86827056badc6b5ad86030a2fe",
+ "statements": [
+  {
+   "id": "Q01-NOV",
+   "file": "Q01-NOV-statement.pdf",
+   "sha256": "4d7b30d7c2279fb1629b39cefe132e2d9dc8efd839bf9db8fd2b849054c6b12d",
+   "pages": 2,
+   "valuesFound": 116,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "Q02-NOV",
+   "file": "Q02-NOV-statement.pdf",
+   "sha256": "bb6b0992e540b6c367a12c8bb51c93825bbd83ac2f72ffd199e0134715a68317",
+   "pages": 2,
+   "valuesFound": 71,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "Q03-NOV",
+   "file": "Q03-NOV-statement.pdf",
+   "sha256": "3fc149ac4f5b12896acd2454fbd15389fde48fbd915307d5cb862ce8683a89cc",
+   "pages": 1,
+   "valuesFound": 40,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "Q04-NOV",
+   "file": "Q04-NOV-statement.pdf",
+   "sha256": "fe92ee7bb7233bd247bd248d7093d6de8e944b4c367c18a9812d7d0af3e439c2",
+   "pages": 1,
+   "valuesFound": 48,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "Q05-NOV",
+   "file": "Q05-NOV-statement.pdf",
+   "sha256": "b7f674bc87fdb061412ae5c4a1fea83f588097a26236f36061341b80c25b5590",
+   "pages": 1,
+   "valuesFound": 39,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "Q06-NOV",
+   "file": "Q06-NOV-statement.pdf",
+   "sha256": "f53143186e1033776090aa07a96f6badee2d16dafba882390a1d28676646a54c",
+   "pages": 1,
+   "valuesFound": 39,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "Q07-NOV",
+   "file": "Q07-NOV-statement.pdf",
+   "sha256": "214c4dbcd34d6092fb780e3cc3d5d4835eda196a193107f457b3748cd721b247",
+   "pages": 1,
+   "valuesFound": 40,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "Q08-NOV",
+   "file": "Q08-NOV-statement.pdf",
+   "sha256": "2fb7106a22f3e10bdbb2289a5de4a5219effd7ec16fb7e45013eba34ecf0c9b9",
+   "pages": 1,
+   "valuesFound": 36,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "Q09-NOV",
+   "file": "Q09-NOV-statement.pdf",
+   "sha256": "4f2d3ef6abf523abb02c8e5b7a3fd8325ea39d5f5d39a34dd2962c52e7bfc35f",
+   "pages": 1,
+   "valuesFound": 44,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "Q10-NOV",
+   "file": "Q10-NOV-statement.pdf",
+   "sha256": "5c00d7de10b9eef297d5bcdec4fb1b785d2be68a405e820db8388bb92bb23f52",
+   "pages": 1,
+   "valuesFound": 44,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "Q11-NOV",
+   "file": "Q11-NOV-statement.pdf",
+   "sha256": "10d17e1afa8bd86fad28445b32804636b6b92e266a5f5d80c4af988779a153f7",
+   "pages": 4,
+   "valuesFound": 270,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "Q12-NOV",
+   "file": "Q12-NOV-statement.pdf",
+   "sha256": "c5a8da26ed0db801c25943cac382fd9efb6712227227e2c3e7fe009f390043b6",
+   "pages": 1,
+   "valuesFound": 36,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "Q13-NOV",
+   "file": "Q13-NOV-statement.pdf",
+   "sha256": "7dc29c6cfe81e5e6a2f301ae8128bedbf24899d8fbb226739bc757e0411dd217",
+   "pages": 1,
+   "valuesFound": 34,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "Q14-NOV",
+   "file": "Q14-NOV-statement.pdf",
+   "sha256": "439e13f8b217471680943dd7a9e32341fec0a685c3f922a8b44263c9d1369fe4",
+   "pages": 1,
+   "valuesFound": 49,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "Q15-NOV",
+   "file": "Q15-NOV-statement.pdf",
+   "sha256": "cfed82ec9dfa72cd3574b1e349787a3221ba3d06889260b2f2725f0aabcd9f08",
+   "pages": 1,
+   "valuesFound": 44,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "Q16-NOV",
+   "file": "Q16-NOV-statement.pdf",
+   "sha256": "64fb56a4f34283817055822dd33501bf74bfe3c7fae2f66e5738d1328b74b114",
+   "pages": 1,
+   "valuesFound": 33,
+   "ok": true,
+   "problems": []
+  }
+ ],
+ "ok": true,
+ "signs": [],
+ "selfTest": [
+  {
+   "period": "Q01-NOV",
+   "plant": "an unreferenced withdrawal of a suggestion one halala off",
+   "rejected": true
+  },
+  {
+   "period": "Q05-NOV",
+   "plant": "a date-gap cheque's date moved a day",
+   "rejected": true
+  },
+  {
+   "period": "Q02-NOV",
+   "plant": "a repeated reference changed on one of its movements",
+   "rejected": true
+  },
+  {
+   "period": "Q10-NOV",
+   "plant": "an Arabic unreferenced withdrawal one halala off",
+   "rejected": true
+  },
+  {
+   "period": "Q16-NOV",
+   "plant": "the large suggestion read as another amount",
+   "rejected": true
+  }
+ ],
+ "passed": true
+}
