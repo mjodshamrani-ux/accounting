@@ -626,6 +626,8 @@ jobs:
         env:
           BNK_HOLDOUT_DIR: ${{ runner.temp }}/bank-statement-holdout
         run: pnpm test:bank-statement:g23-holdout
+      - name: Read and match the sealed supplier statement holdout in Node against its recorded outcome (SUP-2 S3)
+        run: pnpm test:supplier-statement:s3-holdout
       - run: pnpm build
       - name: Run the sealed holdout through the built bank workspace against its recorded outcome
         env:

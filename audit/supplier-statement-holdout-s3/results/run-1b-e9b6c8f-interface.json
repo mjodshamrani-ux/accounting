@@ -1,0 +1,561 @@
+{
+ "version": "tarasuf-supplier-s3-run-2",
+ "provenance": {
+  "engine": {
+   "commit": "e9b6c8f452510a69e524b78a2b4ff2bee9f2185c",
+   "engineFilesModified": false
+  },
+  "holdout": {
+   "manifestSha256": "79a1be71a4b896fe1c25bc6d9f44b0735b181beaad5c798824c4655845774eff",
+   "judgeSha256": "6fe5ba02030b1843a051515ec4edd6ed92683e84fe1a40e4db4774074ecea997",
+   "runnerSha256": "b587de4716aaa70dae35d01cfdf0bfc31490b56b1d2fd158b5246ce61625ee36"
+  },
+  "node": "v22.22.0",
+  "judgeSelfTest": 14
+ },
+ "positives": {
+  "stories": 9,
+  "pass": 0
+ },
+ "reserved": {
+  "stories": 3,
+  "pass": 3
+ },
+ "unsafeRuns": 0,
+ "wrongApprovals": 0,
+ "unaided": {
+  "stopped": 12
+ },
+ "declared": {
+  "complete": 2,
+  "incomplete": 7,
+  "stopped": 3
+ },
+ "results": [
+  {
+   "id": "S01",
+   "kind": "positive",
+   "runs": {
+    "unaided": {
+     "verdict": "stopped",
+     "counts": {
+      "read": 0,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 0,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 0
+     },
+     "findings": [],
+     "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+    },
+    "declared": {
+     "verdict": "incomplete",
+     "counts": {
+      "read": 8,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 0,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 8
+     },
+     "findings": [],
+     "balance": {
+      "status": "BALANCE_ROW_NOT_FOUND",
+      "opening": null,
+      "closing": null,
+      "expected": {
+       "opening": 4788305,
+       "closing": 15634246,
+       "currency": "SAR"
+      }
+     }
+    }
+   },
+   "outcome": "short"
+  },
+  {
+   "id": "S02",
+   "kind": "positive",
+   "runs": {
+    "unaided": {
+     "verdict": "stopped",
+     "counts": {
+      "read": 0,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 0,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 0
+     },
+     "findings": [],
+     "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+    },
+    "declared": {
+     "verdict": "incomplete",
+     "counts": {
+      "read": 21,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 0,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 20
+     },
+     "findings": [],
+     "balance": {
+      "status": "BALANCE_ROW_NOT_FOUND",
+      "opening": null,
+      "closing": null,
+      "expected": {
+       "opening": 6167835,
+       "closing": 33382424,
+       "currency": "SAR"
+      }
+     }
+    }
+   },
+   "outcome": "short"
+  },
+  {
+   "id": "S03",
+   "kind": "positive",
+   "runs": {
+    "unaided": {
+     "verdict": "stopped",
+     "counts": {
+      "read": 0,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 0,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 0
+     },
+     "findings": [],
+     "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+    },
+    "declared": {
+     "verdict": "stopped",
+     "counts": {
+      "read": 0,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 0,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 0
+     },
+     "findings": [],
+     "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن"
+    }
+   },
+   "outcome": "short"
+  },
+  {
+   "id": "S04",
+   "kind": "positive",
+   "runs": {
+    "unaided": {
+     "verdict": "stopped",
+     "counts": {
+      "read": 0,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 0,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 0
+     },
+     "findings": [],
+     "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+    },
+    "declared": {
+     "verdict": "stopped",
+     "counts": {
+      "read": 0,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 0,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 0
+     },
+     "findings": [],
+     "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن"
+    }
+   },
+   "outcome": "short"
+  },
+  {
+   "id": "S05",
+   "kind": "positive",
+   "runs": {
+    "unaided": {
+     "verdict": "stopped",
+     "counts": {
+      "read": 0,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 0,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 0
+     },
+     "findings": [],
+     "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+    },
+    "declared": {
+     "verdict": "incomplete",
+     "counts": {
+      "read": 11,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 0,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 10
+     },
+     "findings": [],
+     "balance": {
+      "status": "BALANCE_ROW_NOT_FOUND",
+      "opening": null,
+      "closing": null,
+      "expected": {
+       "opening": 1867675,
+       "closing": 14327120,
+       "currency": "SAR"
+      }
+     }
+    }
+   },
+   "outcome": "short"
+  },
+  {
+   "id": "S06",
+   "kind": "positive",
+   "runs": {
+    "unaided": {
+     "verdict": "stopped",
+     "counts": {
+      "read": 0,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 0,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 0
+     },
+     "findings": [],
+     "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+    },
+    "declared": {
+     "verdict": "incomplete",
+     "counts": {
+      "read": 33,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 0,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 32
+     },
+     "findings": [],
+     "balance": {
+      "status": "BALANCE_ROW_NOT_FOUND",
+      "opening": null,
+      "closing": null,
+      "expected": {
+       "opening": 5551591,
+       "closing": 50680029,
+       "currency": "SAR"
+      }
+     }
+    }
+   },
+   "outcome": "short"
+  },
+  {
+   "id": "S07",
+   "kind": "positive",
+   "runs": {
+    "unaided": {
+     "verdict": "stopped",
+     "counts": {
+      "read": 0,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 0,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 0
+     },
+     "findings": [],
+     "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+    },
+    "declared": {
+     "verdict": "incomplete",
+     "counts": {
+      "read": 9,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 2,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 9
+     },
+     "findings": [],
+     "balance": {
+      "status": "BALANCE_ROW_NOT_FOUND",
+      "opening": null,
+      "closing": null,
+      "expected": {
+       "opening": 1624643,
+       "closing": 872591,
+       "currency": "SAR"
+      }
+     }
+    }
+   },
+   "outcome": "short"
+  },
+  {
+   "id": "S08",
+   "kind": "positive",
+   "runs": {
+    "unaided": {
+     "verdict": "stopped",
+     "counts": {
+      "read": 0,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 0,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 0
+     },
+     "findings": [],
+     "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+    },
+    "declared": {
+     "verdict": "incomplete",
+     "counts": {
+      "read": 18,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 4,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 17
+     },
+     "findings": [],
+     "balance": {
+      "status": "BALANCE_ROW_NOT_FOUND",
+      "opening": null,
+      "closing": null,
+      "expected": {
+       "opening": 2549151,
+       "closing": 16781971,
+       "currency": "SAR"
+      }
+     }
+    }
+   },
+   "outcome": "short"
+  },
+  {
+   "id": "S09",
+   "kind": "positive",
+   "runs": {
+    "unaided": {
+     "verdict": "stopped",
+     "counts": {
+      "read": 0,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 0,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 0
+     },
+     "findings": [],
+     "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+    },
+    "declared": {
+     "verdict": "incomplete",
+     "counts": {
+      "read": 30,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 7,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 29
+     },
+     "findings": [],
+     "balance": {
+      "status": "BALANCE_ROW_NOT_FOUND",
+      "opening": null,
+      "closing": null,
+      "expected": {
+       "opening": 2621098,
+       "closing": 39966794,
+       "currency": "SAR"
+      }
+     }
+    }
+   },
+   "outcome": "short"
+  },
+  {
+   "id": "R10",
+   "kind": "reserved",
+   "runs": {
+    "unaided": {
+     "verdict": "stopped",
+     "counts": {
+      "read": 0,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 0,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 0
+     },
+     "findings": [],
+     "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+    },
+    "declared": {
+     "verdict": "complete",
+     "counts": {
+      "read": 8,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 4,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 0
+     },
+     "findings": [],
+     "balance": {
+      "status": "BALANCE_ROW_NOT_FOUND",
+      "opening": null,
+      "closing": null,
+      "expected": {
+       "opening": 5988089,
+       "closing": 20605020,
+       "currency": "SAR"
+      }
+     }
+    }
+   },
+   "outcome": "pass"
+  },
+  {
+   "id": "R11",
+   "kind": "reserved",
+   "runs": {
+    "unaided": {
+     "verdict": "stopped",
+     "counts": {
+      "read": 0,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 0,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 0
+     },
+     "findings": [],
+     "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+    },
+    "declared": {
+     "verdict": "stopped",
+     "counts": {
+      "read": 0,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 0,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 0
+     },
+     "findings": [],
+     "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن"
+    }
+   },
+   "outcome": "pass"
+  },
+  {
+   "id": "R12",
+   "kind": "reserved",
+   "runs": {
+    "unaided": {
+     "verdict": "stopped",
+     "counts": {
+      "read": 0,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 0,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 0
+     },
+     "findings": [],
+     "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+    },
+    "declared": {
+     "verdict": "complete",
+     "counts": {
+      "read": 8,
+      "misreads": 0,
+      "currencyMisreads": 0,
+      "lost": 0,
+      "retained": 2,
+      "wrongApprovals": 0,
+      "approved": 0,
+      "missed": 0
+     },
+     "findings": [],
+     "balance": {
+      "status": "BALANCE_ROW_NOT_FOUND",
+      "opening": null,
+      "closing": null,
+      "expected": {
+       "opening": 8725008,
+       "closing": 15607245,
+       "currency": "SAR"
+      }
+     }
+    }
+   },
+   "outcome": "pass"
+  }
+ ]
+}
