@@ -25,19 +25,22 @@ for (const file of manifest.files) {
     throw Error(`Frozen lint original changed: ${file.path}`);
 }
 console.error(`Verified ${manifest.files.length} byte-exact frozen lint originals.`);
-// Literal bidirectional controls in code reorder what a reviewer reads; a
-// test or rule that needs one writes it as an escape. Frozen evidence keeps
-// its own bytes.
+// Literal bidirectional controls in code reorder what a reviewer reads, and
+// the implicit marks (LRM, RLM, ALM) are as invisible; a test or rule that
+// needs one writes it as an escape. Frozen evidence keeps its own bytes.
 const listed = spawnSync('git', ['ls-files', '-z', '--', '*.ts', '*.tsx', '*.mjs', '*.js', '*.py'], {
   cwd: root,
   encoding: 'utf8',
   maxBuffer: 64 * 1024 * 1024,
 });
 if (listed.status !== 0) throw Error('Cannot list the tracked code files.');
-const bidi = /[\u202A-\u202E\u2066-\u2069]/u;
+const bidi = /[\u061C\u200E\u200F\u202A-\u202E\u2066-\u2069]/u;
+// Pinned by the W4 and G23 holdout seals: its bytes are evidence too, and it
+// writes the marks it strips as literals. Nothing else is exempt.
+const sealedTools = new Set(['audit/bank-statement-eligibility/cashbook.py']);
 const literal = [];
 for (const path of listed.stdout.split('\0').filter(Boolean)) {
-  if (/^audit\/.*\/frozen\//u.test(path)) continue;
+  if (/^audit\/.*\/frozen\//u.test(path) || sealedTools.has(path)) continue;
   if (bidi.test(await readFile(resolve(root, path), 'utf8'))) literal.push(path);
 }
 if (literal.length)

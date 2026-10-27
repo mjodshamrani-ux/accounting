@@ -120,7 +120,7 @@ void test('a state is captured strictly, with its own copy of the bytes', async 
     { type: 'approve' },
     { at: '2026-10-21T09:00:00Z' },
     { note: '' },
-    { note: 'Seen‏' },
+    { note: 'Seen\u200f' },
     { statement: ['S1', 'S1 '] },
   ])
     cases.push([

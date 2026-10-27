@@ -31,6 +31,8 @@ const ar = {
   compare: 'طابق الكشف بالدفتر',
   claim:
     'مطابقة حركات الكشف بدفتر النقدية فقط. لا جسر أرصدة، ولا رسوم أو تحويل عملات مستنتج، ولا إثبات أصالة الكشف.',
+  claimWithSheet:
+    'مطابقة حركات الكشف بدفتر النقدية، وورقة التسوية أدناه: رصيد البنك من الكشف المطبوع المثبت، ورصيد الدفتر يعلنه المحاسب. لا رسوم أو تحويل عملات مستنتج، ولا إثبات لاكتمال الدفاتر أو لأصالة الكشف.',
   status: {
     held: 'الكشف محجوز ولم تُطابق أي حركة',
     'needs-review': 'حالات تنتظر قرارك',
@@ -125,8 +127,7 @@ const ar = {
     ROLL_OPENING:
       'الرصيد الافتتاحي لهذا الكشف لا يساوي الرصيد الختامي المطبوع للفترة السابقة.',
   },
-  priorRefusedNote:
-    'لم يُرحّل شيء، وطوبقت الفترة كما لو لم تُرفق جلسة سابقة.',
+  priorRefusedNote: 'لم يُرحّل شيء، وطوبقت الفترة كما لو لم تُرفق جلسة سابقة.',
   carriedCases: 'حالات بنود مرحّلة تحتاج قرارك',
   carriedCaseHeaders: [
     'الحالة',
@@ -220,6 +221,8 @@ const ar = {
     session: 'ملف الجلسة غير صالح أو تالف.',
     'scope-choice': 'النطاق المحدد لا يناسب هذا النوع من الكشف.',
     decision: 'لم يُقبل القرار. طابق من جديد ثم أعد المحاولة.',
+    sheet:
+      'لم تُقبل مدخلات الورقة: رصيد أو مصدر أو اسم أو تاريخ بصيغة لا تقبلها الجلسة.',
     other: 'لم تكتمل العملية ولم تصدر نتيجة جديدة.',
   },
   errorDetail: 'التفصيل',
@@ -257,6 +260,8 @@ const en: typeof ar = {
   compare: 'Match the statement to the cashbook',
   claim:
     'Statement-to-cashbook movement matching only. No balance bridge, no inferred fees or currency conversion, and no proof of statement authenticity.',
+  claimWithSheet:
+    'Statement-to-cashbook movement matching, and the reconciliation sheet below: the bank balance from the proved printed statement, the book balance declared by the accountant. No inferred fees or currency conversion, and no proof that the books are complete or that the statement is authentic.',
   status: {
     held: 'The statement is held and nothing was matched',
     'needs-review': 'Cases await your decision',
@@ -314,9 +319,11 @@ const en: typeof ar = {
     'amount-date-suggestion': 'Amount and date suggestion without a reference',
     'ambiguous-amount-date': 'Several candidates by amount and date',
     'carried-repeated': 'Carried item recorded again on its own side',
-    'carried-restated': 'Carried item restated with another amount, date or direction',
+    'carried-restated':
+      'Carried item restated with another amount, date or direction',
     'carried-reference': 'Carried item with its reference and amount',
-    'carried-amount-difference': 'Carried item with its reference and another amount',
+    'carried-amount-difference':
+      'Carried item with its reference and another amount',
     'carried-ambiguous': 'More than one counterpart for a carried item',
     'carried-amount-suggestion': 'Amount suggestion for a carried item',
   },
@@ -450,6 +457,8 @@ const en: typeof ar = {
     session: 'The session file is not valid or is damaged.',
     'scope-choice': 'The scope does not fit this kind of statement.',
     decision: 'The decision was not taken. Match again and retry.',
+    sheet:
+      'The sheet inputs were not taken: a balance, source, name or date in a form the session does not admit.',
     other: 'The operation did not complete and no new result was produced.',
   },
   errorDetail: 'Detail',

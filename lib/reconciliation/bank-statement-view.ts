@@ -12,11 +12,19 @@ import type {
 import {
   BANK_STATEMENT_LIFECYCLE_VERSION,
   BANK_STATEMENT_ROLL_VERSION,
+  BANK_STATEMENT_SHEET_VERSION,
+  SIGNOFF_NAME_LIMIT,
+  isoDay,
+  statementText,
   type BankStatementRollState,
+  type BankStatementSheetState,
   type BankStatementState,
+  type SheetInputs,
+  type SheetSignoff,
   type StatementDecision,
   type StatementSource,
 } from './bank-statement-request.ts';
+import { BOOK_NOTE_LIMIT } from './bank-statement-sheet.ts';
 import type { ReviewReason } from './bank-statement-match.ts';
 import type { CarriedItem, CarriedReason } from './bank-statement-roll.ts';
 
@@ -109,6 +117,74 @@ export function rolledStatementState(
   };
 }
 
+/** A printed statement's period with its closing sheet
+ * (bank-reconciliation-sheet-1, proposed): the period's own state, the
+ * previous session file or none, and the sheet inputs. */
+export function sheetStatementState(
+  statement: StatementSource,
+  cashbook: StatementSource,
+  decisions: StatementDecision[],
+  previous: StatementSource | null,
+  sheet: SheetInputs,
+): BankStatementSheetState {
+  return {
+    version: BANK_STATEMENT_SHEET_VERSION,
+    files: [statement, cashbook],
+    scope: { currency: null, period: null, confirmedClosing: null },
+    decisions,
+    previous,
+    sheet,
+  };
+}
+
+/**
+ * The sheet inputs as typed, or what stops them: a book balance that is not
+ * a plain amount in the statement currency's decimals, or a source note that
+ * is too long, holds control characters or names no balance. An empty
+ * balance is no balance: the sheet then says it needs one. Sign-offs given
+ * before are kept; the replay judges them against the new content.
+ */
+export function sheetInputs(
+  current: SheetInputs | null,
+  balance: string,
+  note: string,
+  language: SheetInputs['language'],
+  decimals: number,
+): SheetInputs | 'book' | 'note' {
+  const minor = balance.trim()
+    ? parseStatementClosing(balance, decimals)
+    : null;
+  if (balance.trim() && minor === null) return 'book';
+  const source = note.trim();
+  if (
+    source.length > BOOK_NOTE_LIMIT ||
+    /[\p{Cc}\p{Cf}]/u.test(source) ||
+    (source && minor === null)
+  )
+    return 'note';
+  return {
+    book: minor === null ? null : { balance: minor, note: source },
+    language,
+    prepared: current?.prepared ?? null,
+    reviewed: current?.reviewed ?? null,
+  };
+}
+
+/** A sign-off on the sheet now shown: the typed name and date, bound to its
+ * fingerprint; none while there is no sheet or the name or date is not one
+ * the session admits. */
+export function sheetSignoff(
+  result: BankStatementResult,
+  name: string,
+  date: string,
+): SheetSignoff | null {
+  const fingerprint = result.sheet?.fingerprint;
+  const typed = name.trim();
+  return fingerprint && statementText(typed, SIGNOFF_NAME_LIMIT) && isoDay(date)
+    ? { name: typed, date, fingerprint }
+    : null;
+}
+
 /** Where a carried item stands at this period's end: still carried, with
  * its age then, or held by a case that is not rejected. */
 export function carriedAtEnd(
@@ -177,9 +253,11 @@ export type StatementErrorKind =
   | 'session'
   | 'scope-choice'
   | 'decision'
+  | 'sheet'
   | 'other';
 /** The kind of a refusal message from the worker. */
 export function statementError(message: string): StatementErrorKind {
+  if (/^BANK_SHEET_[A-Z]/u.test(message)) return 'sheet';
   const code = /^BANK_(STATEMENT|CASHBOOK)_([A-Z_]+)\b/u.exec(message);
   if (!code) return 'other';
   if (code[1] === 'CASHBOOK') return 'cashbook';
@@ -208,6 +286,8 @@ export function statementError(message: string): StatementErrorKind {
     case 'UNDO':
     case 'HELD':
       return 'decision';
+    case 'SHEET':
+      return 'sheet';
     default:
       return 'other';
   }

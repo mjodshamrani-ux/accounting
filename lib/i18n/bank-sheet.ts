@@ -66,6 +66,53 @@ const ar = {
   reviewed: 'راجعه',
   signoffDate: 'التاريخ',
   signoffVoid: 'أُعطي على ورقة سابقة، ولم يعد قائمًا',
+  signoffValid: 'قائم على هذه الورقة',
+  screen: {
+    intro:
+      'أدخل رصيد حساب البنك في دفاترك بنهاية فترة الكشف لتُعد الورقة. تسرد الورقة كل بند لم يُصفَّ، ولا تُخفي فرقًا بقيد موازن أو سماحية.',
+    balance: 'رصيد الدفتر في نهاية الفترة',
+    balanceHint:
+      'بعملة الكشف ومنازلها العشرية. موجب: رصيد مدين، أموال لدى البنك. سالب: رصيد دائن، سحب على المكشوف. تعلنه أنت، ولا يُقرأ من ملف.',
+    note: 'مصدره (اختياري)',
+    language: 'لغة تسميات الورقة في Excel',
+    languages: { ar: 'العربية', en: 'English' },
+    apply: 'أعد الورقة',
+    invalid: {
+      book: 'رصيد الدفتر ليس مبلغًا بمنازل عملة الكشف العشرية.',
+      note: 'المصدر يحتاج رصيدًا، وحتى 200 حرف بلا محارف تحكم.',
+    },
+    declared: (note: string) =>
+      note ? `معلن من المحاسب: ${note}` : 'معلن من المحاسب، بلا مصدر مذكور',
+    signoffs: 'الإعداد والمراجعة',
+    signHint:
+      'اسم وتاريخ تكتبهما، يرتبطان بمحتوى الورقة المعروضة الآن. إن تغير رصيد أو بند أو قرار بعدها بطلا وظهرا باطلين.',
+    name: 'الاسم',
+    sign: { prepared: 'سجّل الإعداد', reviewed: 'سجّل المراجعة' },
+    none: 'لم يُسجل',
+    bridgeHeaders: ['البند', 'المبلغ', 'الأساس'],
+    count: (n: number) =>
+      n === 0
+        ? 'لا بنود'
+        : n === 1
+          ? 'بند واحد'
+          : n === 2
+            ? 'بندان'
+            : `${n} بنود`,
+    itemHeaders: [
+      'الجانب',
+      'المعرّف',
+      'الفترة',
+      'الصفحة أو الصف',
+      'التاريخ',
+      'المرجع',
+      'الاتجاه',
+      'المبلغ',
+      'الأصل',
+      'الحالة',
+      'السبب',
+      'العمر بنهايات الفترات',
+    ],
+  },
   claim:
     'رصيد البنك من الكشف المطبوع المثبت، ورصيد الدفتر يعلنه المحاسب، والبنود من نتيجة المطابقة والقرارات المسجلة فقط. ليست إثباتًا لاكتمال الدفتر، ولا رأيًا مهنيًا، ولا اعتمادًا للبنود. «أعده» و«راجعه» حقلان نصيان، لا توقيع رقمي ولا تحقق من هوية.',
 };
@@ -103,7 +150,8 @@ const en: Copy = {
     bookReceiptsNotOnStatement: 'Add: book receipts not on the statement',
     bookPaymentsNotOnStatement: 'Less: book payments not on the statement',
     statementDepositsNotInBook: 'Add: statement deposits not in the book',
-    statementWithdrawalsNotInBook: 'Less: statement withdrawals not in the book',
+    statementWithdrawalsNotInBook:
+      'Less: statement withdrawals not in the book',
   },
   total: 'Total',
   adjustedBank: 'Adjusted bank balance',
@@ -136,6 +184,49 @@ const en: Copy = {
   reviewed: 'Reviewed by',
   signoffDate: 'Date',
   signoffVoid: 'Given on an earlier sheet; no longer current',
+  signoffValid: 'Current on this sheet',
+  screen: {
+    intro:
+      "Enter the bank account's balance in your books at the statement period end to build the sheet. It lists every item not cleared and never hides a difference with a balancing entry or a tolerance.",
+    balance: 'Book balance at the period end',
+    balanceHint:
+      'In the statement currency and its decimals. Positive: a debit balance, funds held. Negative: a credit balance, an overdraft. You declare it; it is not read from a file.',
+    note: 'Its source (optional)',
+    language: "Language of the sheet's labels in Excel",
+    languages: { ar: 'العربية', en: 'English' },
+    apply: 'Build the sheet',
+    invalid: {
+      book: "The book balance is not an amount in the statement currency's decimals.",
+      note: 'A source needs a balance, and at most 200 characters without control characters.',
+    },
+    declared: (note: string) =>
+      note
+        ? `Declared by the accountant: ${note}`
+        : 'Declared by the accountant, no source given',
+    signoffs: 'Preparation and review',
+    signHint:
+      'A name and a date you type, bound to the content of the sheet shown now. If a balance, item or decision changes afterwards, they become void and are shown as void.',
+    name: 'Name',
+    sign: { prepared: 'Record preparation', reviewed: 'Record review' },
+    none: 'Not recorded',
+    bridgeHeaders: ['Item', 'Amount', 'Basis'],
+    count: (n: number) =>
+      n === 0 ? 'No items' : n === 1 ? '1 item' : `${n} items`,
+    itemHeaders: [
+      'Side',
+      'ID',
+      'Period',
+      'Page or row',
+      'Date',
+      'Reference',
+      'Direction',
+      'Amount',
+      'Origin',
+      'Case',
+      'Reason',
+      'Age in period ends',
+    ],
+  },
   claim:
     'Bank balance from the proved printed statement; book balance declared by the accountant; items from the matching result and the recorded decisions only. Not proof that the books are complete, not a professional opinion, not an approval of the items. Prepared and reviewed are text fields, not a digital signature or an identity check.',
 };

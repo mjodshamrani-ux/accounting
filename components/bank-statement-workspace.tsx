@@ -14,6 +14,7 @@ import {
 } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { bankStatementCopy } from '@/lib/i18n/bank-statement';
+import { bankSheetCopy } from '@/lib/i18n/bank-sheet';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
 import { money } from '@/lib/reconciliation/core';
 import { currencyPrecision } from '@/lib/reconciliation/currency-precision';
@@ -22,13 +23,17 @@ import type {
   BankStatementReplay,
   BankStatementResult,
   BankStatementRollReplay,
+  BankStatementSheetReplay,
   StatementCase,
 } from '@/lib/reconciliation/bank-statement-lifecycle';
 import {
   BANK_STATEMENT_SESSION_LIMIT,
+  type SheetInputs,
+  type SheetSignoff,
   type StatementDecision,
   type StatementSource,
 } from '@/lib/reconciliation/bank-statement-request';
+import { SHEET_SECTIONS } from '@/lib/reconciliation/bank-statement-sheet';
 import {
   BANK_CASHBOOK_FORMATS,
   BANK_STATEMENT_CURRENCIES,
@@ -36,6 +41,9 @@ import {
   carriedAtEnd,
   heldReason,
   parseStatementClosing,
+  sheetInputs,
+  sheetSignoff,
+  sheetStatementState,
   statementActions,
   statementDecision,
   statementError,
@@ -46,8 +54,27 @@ import {
 } from '@/lib/reconciliation/bank-statement-view';
 
 type Role = 'statement' | 'cashbook' | 'previous';
-type Replay = BankStatementReplay | BankStatementRollReplay;
+type Replay =
+  | BankStatementReplay
+  | BankStatementRollReplay
+  | BankStatementSheetReplay;
 type Failure = { kind: StatementErrorKind; detail: string };
+/** The sheet inputs as typed; the language is empty until chosen. */
+type SheetForm = {
+  balance: string;
+  note: string;
+  language: SheetInputs['language'] | '';
+};
+/** What the sheet form shows for applied inputs, or for none. */
+function sheetFormOf(inputs: SheetInputs | null, decimals: number): SheetForm {
+  return {
+    balance: inputs?.book
+      ? money(inputs.book.balance, decimals).replace(/,/gu, '')
+      : '',
+    note: inputs?.book?.note ?? '',
+    language: inputs?.language ?? '',
+  };
+}
 
 async function sourceOf(file: File): Promise<StatementSource> {
   const original = await file.arrayBuffer();
@@ -81,6 +108,8 @@ export function useBankStatement() {
     [end, setEnd] = useState(''),
     [closing, setClosing] = useState(''),
     [result, setResult] = useState<BankStatementResult | null>(null),
+    [sheet, setSheet] = useState<SheetInputs | null>(null),
+    [sheetForm, setSheetForm] = useState<SheetForm>(sheetFormOf(null, 0)),
     [note, setNote] = useState(''),
     [busy, setBusy] = useState(false),
     [failure, setFailure] = useState<Failure | null>(null);
@@ -111,10 +140,18 @@ export function useBankStatement() {
   const ready =
     !!statement && !!cashbook && (pdf || (!!currency && !closingInvalid));
   // A previous session is carried only into a printed statement.
-  const state = (decisions: StatementDecision[]) =>
+  const period = (decisions: StatementDecision[]) =>
     pdf && previous
       ? rolledStatementState(statement!, cashbook!, decisions, previous)
       : statementState(statement!, cashbook!, scope(), decisions);
+  // So is a closing sheet, once its inputs are applied.
+  const state = (
+    decisions: StatementDecision[],
+    inputs: SheetInputs | null = sheet,
+  ) =>
+    pdf && inputs
+      ? sheetStatementState(statement!, cashbook!, decisions, previous, inputs)
+      : period(decisions);
   function invalidate() {
     setResult(null);
     setFailure(null);
@@ -127,6 +164,11 @@ export function useBankStatement() {
     // comparison keeps a hidden one for when a printed statement returns.
     if ('previous' in v.state) setPrevious(v.state.previous);
     else if (restored) setPrevious(null);
+    // The sheet inputs come with the state that holds them: a comparison
+    // starts without them, and a session restores its own or none.
+    const inputs = 'sheet' in v.state ? v.state.sheet : null;
+    setSheet(inputs);
+    setSheetForm(sheetFormOf(inputs, v.result.reading.decimals));
     const { scope: chosen } = v.state;
     setCurrency(chosen.currency ?? '');
     setStart(chosen.period?.start ?? '');
@@ -174,6 +216,8 @@ export function useBankStatement() {
     closing,
     closingInvalid,
     result,
+    sheet,
+    sheetForm,
     note,
     busy,
     failure,
@@ -181,6 +225,9 @@ export function useBankStatement() {
     ready,
     hasWork: !!(statement || cashbook),
     setNote,
+    setSheetForm(change: Partial<SheetForm>) {
+      setSheetForm((form) => ({ ...form, ...change }));
+    },
     setScope(change: {
       currency?: string;
       start?: string;
@@ -231,7 +278,7 @@ export function useBankStatement() {
         install(
           await workerTask<Replay>(
             'bank-statement-reconcile',
-            state([]),
+            state([], null),
             signal,
           ),
         ),
@@ -251,6 +298,28 @@ export function useBankStatement() {
           await workerTask<Replay>(
             'bank-statement-reconcile',
             state([...result.decisions, decision]),
+            signal,
+          ),
+        );
+      }),
+    applySheet: (inputs: SheetInputs) =>
+      perform(async (signal) => {
+        if (!result) return;
+        install(
+          await workerTask<Replay>(
+            'bank-statement-reconcile',
+            state(result.decisions, inputs),
+            signal,
+          ),
+        );
+      }),
+    sign: (kind: 'prepared' | 'reviewed', signoff: SheetSignoff) =>
+      perform(async (signal) => {
+        if (!result || !sheet) return;
+        install(
+          await workerTask<Replay>(
+            'bank-statement-reconcile',
+            state(result.decisions, { ...sheet, [kind]: signoff }),
             signal,
           ),
         );
@@ -750,7 +819,10 @@ function Result({
           ],
         ]}
       />
-      <p className="bank-source-basis">{c.claim}</p>
+      <p className="bank-source-basis" data-bank-statement-claim>
+        {r.sheet ? c.claimWithSheet : c.claim}
+      </p>
+      {r.reading.format === 'pdf' && <Sheet r={r} s={s} locked={locked} />}
       <fieldset disabled={locked}>
         <div className="gl-tb-actions">
           <Button onClick={() => void s.save()}>{c.save}</Button>
@@ -922,6 +994,252 @@ function Result({
           ]}
         />
       </details>
+    </section>
+  );
+}
+
+/** The closing reconciliation sheet of a printed statement's period
+ * (bank-reconciliation-sheet-1, proposed): its inputs, the sheet or the
+ * refusal in its place, and the sign-offs with their standing. Every figure
+ * is the replayed result's; nothing here adds or nets an amount. */
+function Sheet({
+  r,
+  s,
+  locked,
+}: {
+  r: BankStatementResult;
+  s: BankStatementSession;
+  locked: boolean;
+}) {
+  const { lang } = useI18n(),
+    c = bankStatementCopy[lang],
+    h = bankSheetCopy[lang];
+  const [signers, setSigners] = useState({
+    prepared: { name: '', date: '' },
+    reviewed: { name: '', date: '' },
+  });
+  const language = s.sheetForm.language || lang;
+  const inputs = sheetInputs(
+    s.sheet,
+    s.sheetForm.balance,
+    s.sheetForm.note,
+    language,
+    r.reading.decimals,
+  );
+  const amount = (n: number) => (
+    <bdi dir="ltr">{money(n, r.reading.decimals)}</bdi>
+  );
+  const shown = r.sheet;
+  const sheet =
+    shown && shown.outcome.refusal === null ? shown.outcome.sheet : null;
+  return (
+    <section className="bank-sheet" data-bank-sheet>
+      <h2>{h.title}</h2>
+      <fieldset disabled={locked}>
+        <p className="bank-source-basis">{h.screen.intro}</p>
+        <div className="gl-tb-grid">
+          <label>
+            {h.screen.balance}
+            <input
+              inputMode="decimal"
+              dir="ltr"
+              aria-label={h.screen.balance}
+              aria-invalid={inputs === 'book'}
+              value={s.sheetForm.balance}
+              onChange={(e) => s.setSheetForm({ balance: e.target.value })}
+            />
+          </label>
+          <label>
+            {h.screen.note}
+            <input
+              aria-label={h.screen.note}
+              aria-invalid={inputs === 'note'}
+              value={s.sheetForm.note}
+              onChange={(e) => s.setSheetForm({ note: e.target.value })}
+            />
+          </label>
+          <label>
+            {h.screen.language}
+            <select
+              aria-label={h.screen.language}
+              value={language}
+              onChange={(e) =>
+                s.setSheetForm({
+                  language: e.target.value as SheetInputs['language'],
+                })
+              }
+            >
+              {(['ar', 'en'] as const).map((l) => (
+                <option key={l} value={l}>
+                  {h.screen.languages[l]}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+        <p className="bank-source-basis">{h.screen.balanceHint}</p>
+        {typeof inputs === 'string' && (
+          <p role="alert" data-bank-sheet-invalid={inputs}>
+            {h.screen.invalid[inputs]}
+          </p>
+        )}
+        <Button
+          disabled={typeof inputs === 'string'}
+          onClick={() => {
+            if (typeof inputs !== 'string') void s.applySheet(inputs);
+          }}
+        >
+          {h.screen.apply}
+        </Button>
+      </fieldset>
+      {shown?.outcome.refusal && (
+        <output
+          className="bank-statement-held"
+          data-bank-sheet-refusal={shown.outcome.refusal}
+        >
+          <p>{h.refusals[shown.outcome.refusal]}</p>
+        </output>
+      )}
+      {sheet && (
+        <>
+          <h3 data-bank-sheet-status={sheet.status}>
+            {h.status[sheet.status]}
+          </h3>
+          <Table
+            title={h.sheetName}
+            headers={h.screen.bridgeHeaders}
+            testId="sheet"
+            row={(cells) => cells}
+            items={[
+              [
+                h.bank,
+                amount(sheet.bank.balance),
+                h.bankSource(sheet.bank.page),
+              ],
+              ...SHEET_SECTIONS.slice(0, 2).map((name) => [
+                h.sections[name],
+                amount(sheet.sections[name].total),
+                h.screen.count(sheet.sections[name].items.length),
+              ]),
+              [h.adjustedBank, amount(sheet.adjustedBank), ''],
+              [
+                h.book,
+                amount(sheet.book.balance),
+                <bdi key="note">{h.screen.declared(sheet.book.note)}</bdi>,
+              ],
+              ...SHEET_SECTIONS.slice(2).map((name) => [
+                h.sections[name],
+                amount(sheet.sections[name].total),
+                h.screen.count(sheet.sections[name].items.length),
+              ]),
+              [h.adjustedBook, amount(sheet.adjustedBook), ''],
+              [h.difference, amount(sheet.difference), ''],
+            ]}
+          />
+          {SHEET_SECTIONS.filter(
+            (name) => sheet.sections[name].items.length > 0,
+          ).map((name) => (
+            <Table
+              key={name}
+              title={h.sections[name]}
+              headers={h.screen.itemHeaders}
+              testId={`sheet-${name}`}
+              items={sheet.sections[name].items}
+              row={(i) => [
+                h.sides[i.side],
+                <bdi key="id" className="bank-statement-id">
+                  {i.id}
+                </bdi>,
+                <bdi key="period" dir="ltr">
+                  {`${i.period.start} – ${i.period.end}`}
+                </bdi>,
+                i.page === null
+                  ? c.rowCitation(String(i.row))
+                  : c.pageOnly(i.page),
+                <bdi key="date" dir="ltr">
+                  {i.date}
+                </bdi>,
+                <bdi key="ref">{i.reference}</bdi>,
+                c.directions[i.direction],
+                amount(i.amount),
+                h.origins[i.origin],
+                i.case ?? '',
+                i.reason
+                  ? (c.reasons[i.reason as keyof typeof c.reasons] ?? i.reason)
+                  : '',
+                i.age ?? '',
+              ]}
+            />
+          ))}
+        </>
+      )}
+      {shown && (
+        <fieldset disabled={locked} data-bank-sheet-signoffs>
+          <legend>{h.screen.signoffs}</legend>
+          {(['prepared', 'reviewed'] as const).map((kind) => {
+            const given = shown[kind],
+              typed = signers[kind],
+              signoff = sheetSignoff(r, typed.name, typed.date);
+            const type = (change: Partial<typeof typed>) =>
+              setSigners((all) => ({
+                ...all,
+                [kind]: { ...all[kind], ...change },
+              }));
+            return (
+              <div
+                key={kind}
+                data-bank-sheet-signoff={kind}
+                data-bank-sheet-signoff-valid={
+                  given ? String(given.valid) : 'none'
+                }
+              >
+                <h3>{h[kind]}</h3>
+                <p>
+                  {given ? (
+                    <>
+                      <bdi>{given.name}</bdi> ·{' '}
+                      <bdi dir="ltr">{given.date}</bdi> ·{' '}
+                      {given.valid ? h.signoffValid : h.signoffVoid}
+                    </>
+                  ) : (
+                    h.screen.none
+                  )}
+                </p>
+                <div className="gl-tb-grid">
+                  <label>
+                    {h.screen.name}
+                    <input
+                      aria-label={`${h[kind]}: ${h.screen.name}`}
+                      value={typed.name}
+                      onChange={(e) => type({ name: e.target.value })}
+                    />
+                  </label>
+                  <label>
+                    {h.signoffDate}
+                    <input
+                      type="date"
+                      aria-label={`${h[kind]}: ${h.signoffDate}`}
+                      value={typed.date}
+                      onChange={(e) => type({ date: e.target.value })}
+                    />
+                  </label>
+                </div>
+                <Button
+                  variant="outline"
+                  disabled={!signoff}
+                  onClick={() => {
+                    if (signoff) void s.sign(kind, signoff);
+                  }}
+                >
+                  {h.screen.sign[kind]}
+                </Button>
+              </div>
+            );
+          })}
+          <p className="bank-source-basis">{h.screen.signHint}</p>
+        </fieldset>
+      )}
+      {shown && <p className="bank-source-basis">{h.claim}</p>}
     </section>
   );
 }

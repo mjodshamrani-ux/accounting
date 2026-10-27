@@ -127,6 +127,26 @@
   table {
   min-width: 0;
 }
+/* The sheet's own figures fit the frame at any width: its labels wrap and
+   its amounts never do. Its item tables scroll like the others. */
+.bank-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+.bank-statement-result [data-bank-statement-table='sheet'] .gl-tb-table table {
+  min-width: 0;
+}
+.bank-statement-result [data-bank-statement-table='sheet'] td:first-child {
+  white-space: normal;
+}
+.bank-statement-result [data-bank-statement-table='sheet'] td:nth-child(2) {
+  white-space: nowrap;
+}
+.bank-statement-result [data-bank-statement-table^='sheet-'] bdi[dir='ltr'] {
+  white-space: nowrap;
+}
 .bank-statement-result :is(th, td) {
   overflow-wrap: normal;
   word-break: normal;
