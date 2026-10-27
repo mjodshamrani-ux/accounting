@@ -155,6 +155,7 @@ const required = [
   'test:bank-map:oracle',
   'test:bank-map:oracle-mutants',
   'test:bank-map:seal',
+  'test:bank-map:baseline',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',

@@ -311,6 +311,7 @@ jobs:
           pnpm test:bank-map:oracle
           pnpm test:bank-map:oracle-mutants
           pnpm test:bank-map:seal
+          pnpm test:bank-map:baseline
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations
