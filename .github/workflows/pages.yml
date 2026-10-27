@@ -280,6 +280,7 @@ jobs:
           pnpm test:ar-statement:oracle
           pnpm test:ar-statement:oracle-mutants
           pnpm test:ar-statement:seal
+          pnpm test:ar-statement:baseline
           pnpm test:bank-statement:baseline
           pnpm test:bank-statement:g1-proof
           pnpm test:bank-statement:g1-mutations

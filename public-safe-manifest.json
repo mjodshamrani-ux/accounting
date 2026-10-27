@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 41575,
-      "sha256": "324cee5005b2d714b24313816a3b96429f64ab06f9496150e98f4b2b549987ad",
+      "bytes": 41617,
+      "sha256": "868e4f97e10bdd9cd57fdce97c4553d7f1555c9ffe77c14ee715ff9760c19517",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 18118,
-      "sha256": "36cc22c6d083730373ffb666a58b32fdbcadeb63a12f7ca3630a9950416ce961",
+      "bytes": 18513,
+      "sha256": "dcf8eaeded37f31b57f0fe254ebfbe9475b8a8fadc7ae8982dfdfd520eee1238",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 18204,
-      "sha256": "95941cfb0c08e38094305af64ea0297c40ff2df251098a63021eb8cc1f2b7ed0",
+      "bytes": 18273,
+      "sha256": "8ffe0c9db4e2755dac183ea451aea2d27d67104cef6277c1bccfcfded9b6a73d",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 42235,
-      "sha256": "a0e622d1222a5849c817148c36df05339615c082f9a0e25cd6b3c134e40ff875",
+      "bytes": 43180,
+      "sha256": "e562d88234f0a34f51b61e671a105483bc6e71c920af7b761d4291b532f03464",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 65847,
-      "sha256": "d22edb3b5fdfdae17e1c8f93648da154e33b2b94d2bd009c580282757fd3cd79",
+      "bytes": 66122,
+      "sha256": "d4b5fa29aec1f3f9a9257fa88c9a3966cedbda39a44cec75f4c44050d70e4ac4",
       "kind": "text"
     },
     {
@@ -36211,8 +36211,8 @@
     },
     {
       "path": "docs/roadmap/ar.ar.md",
-      "bytes": 3422,
-      "sha256": "309627305ccf916529b616ce054a6ece8c60c68f9d5ad77e8d4fbb81c81336cb",
+      "bytes": 4101,
+      "sha256": "8aa6ede9b52a98fb66561caba93cd0f1ee1441ecc597e95d3b043f741d4ef0cc",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 27939,
-      "sha256": "87ab2136f34b1f91f89cff9ec37b2d1fb028459e1430a03bd029c0a72eaccdc9",
+      "bytes": 28146,
+      "sha256": "1f9caa01577706c65e2c71898e80d6aa9cfa89662055d94f4819e5992347e85c",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 10396,
-      "sha256": "cbe39fd108bca2a907a78b796b9f017b38c877354bd0f0bcbeb04d83663f434d",
+      "bytes": 10428,
+      "sha256": "bd7ee11711ca91edce2e839c9d5e79c9133ff5f80ffc5828b93fb96a7b333548",
       "kind": "text"
     },
     {
@@ -46809,6 +46809,24 @@
       "path": "audit/ar-statement-foundation/verify_assets.py",
       "bytes": 6720,
       "sha256": "0d5450a831182a761126bcd663178c091c3fd2d4452538510e3a782904fcfb5a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-foundation/results/baseline-5f32c8c.json",
+      "bytes": 6776,
+      "sha256": "d3844f083ca0b1c69e51b4c8b3807ca68b8cfeeda5e355696cc3000981699360",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/AR-PDF-1-FOUNDATION.ar.md",
+      "bytes": 15209,
+      "sha256": "63ef6136594bbb239a5a414db9759fc909585c58411f345f1fdd6b1c9a963065",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/ar-statement-baseline.mjs",
+      "bytes": 4421,
+      "sha256": "b92fc6740d21d538c9e32b7da74a5ca65a98312e5935f34bb4718d594e5fb3a9",
       "kind": "text"
     }
   ],
