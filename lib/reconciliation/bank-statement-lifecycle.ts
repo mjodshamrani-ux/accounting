@@ -53,6 +53,7 @@ import {
   snapshotBankStatementRequest,
   snapshotBankStatementState,
   snapshotRolledStatementState,
+  snapshotAnyStatementState,
   statementBytes,
   statementKeys,
   statementPlain,
@@ -1073,6 +1074,46 @@ export async function exportBankStatement(
 export const exportRolledStatement = (input: unknown, expected: unknown) =>
   exportBankStatement(input, expected, replayRolledStatement);
 
+/** Either kind of state, by its declared version: what the worker serves. */
+const rolled = (
+  state: BankStatementState | BankStatementRollState,
+): state is BankStatementRollState =>
+  state.version === BANK_STATEMENT_ROLL_VERSION;
+export async function replayAnyStatement(
+  input: unknown,
+): Promise<BankStatementReplay | BankStatementRollReplay> {
+  const state = snapshotAnyStatementState(input);
+  return rolled(state)
+    ? replayRolledStatement(state)
+    : replayBankStatement(state);
+}
+export async function saveAnyStatement(input: unknown): Promise<ArrayBuffer> {
+  const state = snapshotAnyStatementState(input);
+  return rolled(state) ? saveRolledStatement(state) : saveBankStatement(state);
+}
+export async function exportAnyStatement(input: unknown, expected: unknown) {
+  const state = snapshotAnyStatementState(input);
+  return rolled(state)
+    ? exportRolledStatement(state, expected)
+    : exportBankStatement(state, expected);
+}
+/** A session file of either format; one that carries keeps its previous. */
+export async function restoreAnyStatement(
+  session: ArrayBuffer,
+  replay: (
+    input: unknown,
+  ) => Promise<BankStatementReplay> = replayBankStatement,
+): Promise<BankStatementReplay | BankStatementRollReplay> {
+  const { state, previous } = statementSessionParts(session);
+  return previous
+    ? replayRolledStatement({
+        ...state,
+        version: BANK_STATEMENT_ROLL_VERSION,
+        previous,
+      })
+    : replay(state);
+}
+
 /** A worker reply is installed only if this thread, from the captured
  * request's own originals, computes the same thing. The originals are read
  * here once per set of bytes and scope (replayVerified); a saved session is
@@ -1087,10 +1128,20 @@ export async function validateBankStatementWorkerResponse(
   if (action === 'bank-statement-save') {
     statementBytes(value, BANK_STATEMENT_SESSION_LIMIT, 'ENVELOPE');
     const returned = value.slice(0);
-    const state = (await replayVerified(requested)).state;
-    let saved: BankStatementState | undefined;
+    const capture = requested as BankStatementState | BankStatementRollState;
+    const state = rolled(capture)
+      ? (await replayRolledStatement(capture)).state
+      : (await replayVerified(capture)).state;
+    let saved: BankStatementState | BankStatementRollState | undefined;
     try {
-      saved = sessionState(returned);
+      const parts = statementSessionParts(returned);
+      saved = parts.previous
+        ? {
+            ...parts.state,
+            version: BANK_STATEMENT_ROLL_VERSION,
+            previous: parts.previous,
+          }
+        : parts.state;
     } catch {
       fail('WORKER_BINDING');
     }
@@ -1101,7 +1152,9 @@ export async function validateBankStatementWorkerResponse(
     statementBytes(value, BANK_STATEMENT_EXPORT_LIMIT, 'ENVELOPE');
     const returned = value.slice(0);
     const { state, result } = requested as BankStatementExportRequest;
-    const expected = await exportBankStatement(state, result, replayVerified);
+    const expected = rolled(state)
+      ? await exportBankStatement(state, result, replayRolledStatement)
+      : await exportBankStatement(state, result, replayVerified);
     const { sameStockWorkbook } =
       await import('./inventory-register-worker-binding.ts');
     const same = await sameStockWorkbook(returned, expected).catch(() => false);
@@ -1111,13 +1164,16 @@ export async function validateBankStatementWorkerResponse(
   if (!statementPlain(value) || !statementKeys(value, ['state', 'result']))
     fail('ENVELOPE');
   const captured = structuredClone(value);
+  const capture = requested as BankStatementState | BankStatementRollState;
   const expected =
     action === 'bank-statement-restore'
-      ? await restoreBankStatement(
+      ? await restoreAnyStatement(
           (requested as { buffer: ArrayBuffer }).buffer,
           replayVerified,
         )
-      : await replayVerified(requested);
+      : rolled(capture)
+        ? await replayRolledStatement(capture)
+        : await replayVerified(requested);
   if (!sameStatementData(captured, expected)) fail('WORKER_BINDING');
   return expected;
 }

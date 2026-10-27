@@ -1,6 +1,7 @@
 import {
   BANK_STATEMENT_EXPORT_LIMIT,
   BANK_STATEMENT_LIFECYCLE_VERSION,
+  BANK_STATEMENT_ROLL_VERSION,
   BANK_STATEMENT_SESSION_LIMIT,
 } from './bank-statement-request.ts';
 import {
@@ -215,8 +216,10 @@ export function validateWorkerValue(
       Object.keys(value).sort().join('|') !== 'result|state' ||
       !isRecord(value.state) ||
       !isRecord(value.result) ||
-      value.state.version !== BANK_STATEMENT_LIFECYCLE_VERSION ||
-      value.result.version !== BANK_STATEMENT_LIFECYCLE_VERSION ||
+      ![BANK_STATEMENT_LIFECYCLE_VERSION, BANK_STATEMENT_ROLL_VERSION].includes(
+        value.state.version as string,
+      ) ||
+      value.result.version !== value.state.version ||
       typeof value.result.context !== 'string' ||
       !Array.isArray(value.state.files) ||
       value.state.files.length !== 2 ||

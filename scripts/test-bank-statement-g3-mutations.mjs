@@ -258,6 +258,7 @@ if (report.baselinePassed)
         'tests/helpers',
         proof,
         'audit/bank-statement-foundation',
+        'audit/bank-roll-foundation',
         'package.json',
       ])
         await cp(join(root, name), join(tree, name), { recursive: true });

@@ -4,13 +4,18 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import {
   replayBankStatement,
+  replayRolledStatement,
   saveBankStatement,
   type BankStatementResult,
   type StatementCase,
 } from '../lib/reconciliation/bank-statement-lifecycle.ts';
-import type { BankStatementState } from '../lib/reconciliation/bank-statement-request.ts';
+import type {
+  BankStatementRollState,
+  BankStatementState,
+} from '../lib/reconciliation/bank-statement-request.ts';
 import {
   bankSessionFormat,
+  carriedAtEnd,
   heldReason,
   parseStatementClosing,
   statementActions,
@@ -18,6 +23,7 @@ import {
   statementError,
   statementMember,
   statementState,
+  rolledStatementState,
 } from '../lib/reconciliation/bank-statement-view.ts';
 
 // What the bank workspace offers for a statement session. The lifecycle is
@@ -311,5 +317,140 @@ void test('members are shown with the page and text items or the row they come f
   assert.equal(
     statementMember(other, 'cashbook', other.match.cashbook[0].id)?.citation,
     String(other.match.cashbook[0].row),
+  );
+});
+
+// A period that carries (bank-statement-roll-1), on the sealed stories of
+// audit/bank-roll-foundation: every carried reason, an item still carried,
+// and a refused previous period.
+const roll = async (id: string, current: string) => {
+  const file = async (name: string) => {
+    const b = await readFile(
+      new URL(`../audit/bank-roll-foundation/frozen/${name}`, import.meta.url),
+    );
+    return source(name, b);
+  };
+  return rolledStatementState(
+    await file(`${current}-statement.pdf`),
+    await file(`${current}-cashbook.csv`),
+    [],
+    await file(`${id}-previous-session.json`),
+  );
+};
+const takesRolled = async (state: BankStatementRollState) =>
+  replayRolledStatement(state).then(
+    () => true,
+    () => false,
+  );
+
+void test('on carried cases too, every action offered is one the lifecycle takes, and every one withheld it refuses', async () => {
+  const reasons = new Set<string>();
+  let compared = 0;
+  for (const [id, current] of [
+    ['R01', 'R01-AUG'],
+    ['R05', 'R05-SEP'],
+    ['R06', 'R06-AUG'],
+    ['R07', 'R07-AUG'],
+    ['R08', 'R08-AUG'],
+    ['R09', 'R09-AUG'],
+    ['R10', 'R10-AUG'],
+  ]) {
+    const base = await roll(id, current);
+    const { result } = await replayRolledStatement(base);
+    assert.equal(result.roll?.previous.status, 'accepted', id);
+    const sample = result.cases.filter((c) => c.kind === 'carried');
+    assert.ok(sample.length, id);
+    const states: BankStatementRollState[] = [base];
+    for (const c of sample) {
+      reasons.add(c.reason);
+      for (const type of ['accept', 'reject'] as const) {
+        const next = { ...base, decisions: [decide(result, c, type)] };
+        if (await takesRolled(next)) states.push(next);
+      }
+    }
+    for (const state of states) {
+      const { result: now } = await replayRolledStatement(state);
+      for (const c of now.cases.filter((x) => x.kind === 'carried')) {
+        const offered = statementActions(c, 'Seen');
+        for (const type of ['accept', 'reject', 'undo'] as const) {
+          const taken = await takesRolled({
+            ...state,
+            decisions: [...state.decisions, decide(now, c, type)],
+          });
+          assert.equal(
+            offered[type],
+            taken,
+            `${id} ${c.id} ${c.reason} ${c.status} ${type}`,
+          );
+          compared++;
+        }
+      }
+    }
+  }
+  assert.deepEqual(
+    [...reasons].sort((a, b) => a.localeCompare(b)),
+    [
+      'carried-ambiguous',
+      'carried-amount-difference',
+      'carried-amount-suggestion',
+      'carried-reference',
+      'carried-repeated',
+      'carried-restated',
+    ],
+  );
+  assert.ok(compared >= 30, `only ${compared} comparisons`);
+});
+
+void test('a carried item is shown still carried, with its age at the period end, only when no live case holds it', async () => {
+  // R04: the carried cheque has no counterpart; R09: one of two is suggested.
+  for (const [id, current, still] of [
+    ['R04', 'R04-AUG', 1],
+    ['R09', 'R09-AUG', 1],
+    ['R01', 'R01-AUG', 0],
+  ] as const) {
+    const state = await roll(id, current);
+    const { result } = await replayRolledStatement(state);
+    const held = new Set(
+      result.cases.flatMap((c) =>
+        c.kind === 'carried' && c.status !== 'rejected' ? c.carried! : [],
+      ),
+    );
+    const shown = result.roll!.carried.map((i) => carriedAtEnd(result, i));
+    assert.equal(shown.filter((a) => a !== null).length, still, id);
+    for (const [n, i] of result.roll!.carried.entries())
+      assert.equal(
+        shown[n],
+        held.has(i.key) ? null : i.age + 1,
+        `${id} ${i.key}`,
+      );
+    // A rejected carried case leaves its item carried, one period older.
+    const live = result.cases.find((c) => c.kind === 'carried');
+    if (live) {
+      const { result: after } = await replayRolledStatement({
+        ...state,
+        decisions: [decide(result, live, 'reject')],
+      });
+      for (const key of live.carried!) {
+        const i = after.roll!.carried.find((x) => x.key === key)!;
+        assert.equal(carriedAtEnd(after, i), i.age + 1, `${id} ${key}`);
+      }
+    }
+  }
+});
+
+void test('a period that carries is the printed statement path, with its previous file and no scope', async () => {
+  const state = await roll('R11', 'R11-AUG');
+  assert.deepEqual(
+    [state.version, state.scope, state.previous.name, state.files.length],
+    ['bank-statement-roll-1', NONE, 'R11-previous-session.json', 2],
+  );
+  const { result } = await replayRolledStatement(state);
+  assert.deepEqual(
+    [result.roll?.previous.status, result.roll?.carried.length],
+    ['refused', 0],
+  );
+  assert.equal(
+    result.roll?.previous.status === 'refused' && result.roll.previous.code,
+    'ROLL_CURRENCY',
   );
 });

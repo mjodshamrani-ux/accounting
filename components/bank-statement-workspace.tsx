@@ -21,16 +21,19 @@ import { MAX_FILE_BYTES } from '@/lib/reconciliation/types';
 import type {
   BankStatementReplay,
   BankStatementResult,
+  BankStatementRollReplay,
   StatementCase,
 } from '@/lib/reconciliation/bank-statement-lifecycle';
-import type {
-  StatementDecision,
-  StatementSource,
+import {
+  BANK_STATEMENT_SESSION_LIMIT,
+  type StatementDecision,
+  type StatementSource,
 } from '@/lib/reconciliation/bank-statement-request';
 import {
   BANK_CASHBOOK_FORMATS,
   BANK_STATEMENT_CURRENCIES,
   BANK_STATEMENT_FORMATS,
+  carriedAtEnd,
   heldReason,
   parseStatementClosing,
   statementActions,
@@ -38,10 +41,12 @@ import {
   statementError,
   statementMember,
   statementState,
+  rolledStatementState,
   type StatementErrorKind,
 } from '@/lib/reconciliation/bank-statement-view';
 
-type Role = 'statement' | 'cashbook';
+type Role = 'statement' | 'cashbook' | 'previous';
+type Replay = BankStatementReplay | BankStatementRollReplay;
 type Failure = { kind: StatementErrorKind; detail: string };
 
 async function sourceOf(file: File): Promise<StatementSource> {
@@ -70,6 +75,7 @@ const isPdf = (s: StatementSource | null) => !!s && /\.pdf$/iu.test(s.name);
 export function useBankStatement() {
   const [statement, setStatement] = useState<StatementSource | null>(null),
     [cashbook, setCashbook] = useState<StatementSource | null>(null),
+    [previous, setPrevious] = useState<StatementSource | null>(null),
     [currency, setCurrency] = useState(''),
     [start, setStart] = useState(''),
     [end, setEnd] = useState(''),
@@ -104,16 +110,23 @@ export function useBankStatement() {
         };
   const ready =
     !!statement && !!cashbook && (pdf || (!!currency && !closingInvalid));
+  // A previous session is carried only into a printed statement.
   const state = (decisions: StatementDecision[]) =>
-    statementState(statement!, cashbook!, scope(), decisions);
+    pdf && previous
+      ? rolledStatementState(statement!, cashbook!, decisions, previous)
+      : statementState(statement!, cashbook!, scope(), decisions);
   function invalidate() {
     setResult(null);
     setFailure(null);
   }
-  function install(v: BankStatementReplay) {
+  function install(v: Replay, restored = false) {
     const [s, c] = v.state.files;
     setStatement(s);
     setCashbook(c);
+    // A restored session brings its own previous file or none; a table's
+    // comparison keeps a hidden one for when a printed statement returns.
+    if ('previous' in v.state) setPrevious(v.state.previous);
+    else if (restored) setPrevious(null);
     const { scope: chosen } = v.state;
     setCurrency(chosen.currency ?? '');
     setStart(chosen.period?.start ?? '');
@@ -154,6 +167,7 @@ export function useBankStatement() {
   return {
     statement,
     cashbook,
+    previous,
     currency,
     start,
     end,
@@ -181,26 +195,41 @@ export function useBankStatement() {
     },
     async choose(role: Role, file: File) {
       const formats =
-        role === 'statement' ? BANK_STATEMENT_FORMATS : BANK_CASHBOOK_FORMATS;
+        role === 'statement'
+          ? BANK_STATEMENT_FORMATS
+          : role === 'cashbook'
+            ? BANK_CASHBOOK_FORMATS
+            : /\.json$/iu;
+      const limit =
+        role === 'previous' ? BANK_STATEMENT_SESSION_LIMIT : MAX_FILE_BYTES;
       // A late reply or digest for the previous file must never be installed.
       const id = ++serial.current;
       controller.current?.abort();
       controller.current = null;
       setBusy(false);
       invalidate();
-      if (file.size > MAX_FILE_BYTES || !formats.test(file.name)) {
+      if (file.size > limit || !formats.test(file.name)) {
         setFailure({ kind: 'other', detail: file.name });
         return;
       }
       const chosen = await sourceOf(file);
       if (id !== serial.current) return;
       if (role === 'statement') setStatement(chosen);
-      else setCashbook(chosen);
+      else if (role === 'cashbook') setCashbook(chosen);
+      else setPrevious(chosen);
+    },
+    removePrevious() {
+      serial.current++;
+      controller.current?.abort();
+      controller.current = null;
+      setBusy(false);
+      setPrevious(null);
+      invalidate();
     },
     compare: () =>
       perform(async (signal) =>
         install(
-          await workerTask<BankStatementReplay>(
+          await workerTask<Replay>(
             'bank-statement-reconcile',
             state([]),
             signal,
@@ -219,7 +248,7 @@ export function useBankStatement() {
           new Date().toISOString(),
         );
         install(
-          await workerTask<BankStatementReplay>(
+          await workerTask<Replay>(
             'bank-statement-reconcile',
             state([...result.decisions, decision]),
             signal,
@@ -255,11 +284,12 @@ export function useBankStatement() {
     restore: (buffer: ArrayBuffer) =>
       perform(async (signal) =>
         install(
-          await workerTask<BankStatementReplay>(
+          await workerTask<Replay>(
             'bank-statement-restore',
             { buffer },
             signal,
           ),
+          true,
         ),
       ),
     cancel() {
@@ -439,6 +469,33 @@ export function BankStatementSources({ s }: { s: BankStatementSession }) {
           </>
         )}
       </section>
+      <div className="workspace-sources" hidden={!s.pdf}>
+        <section
+          className="workspace-source"
+          data-testid="bank-statement-source-previous"
+        >
+          <h2>
+            <WorkspaceSourceHeading>{c.priorSession}</WorkspaceSourceHeading>
+          </h2>
+          <WorkspaceFileInput
+            type="file"
+            accept=".json"
+            aria-label={c.priorSession}
+            onChange={file('previous')}
+          />
+          {s.previous && (
+            <>
+              <p data-bank-statement-file="previous">
+                <bdi>{s.previous.name}</bdi>
+              </p>
+              <Button variant="outline" onClick={() => s.removePrevious()}>
+                {c.priorSessionRemove}
+              </Button>
+            </>
+          )}
+          <p className="bank-source-basis">{c.priorSessionHint}</p>
+        </section>
+      </div>
       <Button disabled={!s.ready} onClick={() => void s.compare()}>
         {c.compare}
       </Button>
@@ -532,7 +589,7 @@ function Result({
       members('cashbook', k.cashbook),
       c.caseStatus[k.status],
       <div className="gl-tb-actions" key="decide">
-        {k.kind === 'review' && (
+        {k.kind !== 'automatic' && (
           <Button
             disabled={locked || !can.accept}
             onClick={() => void s.decide(k, 'accept')}
@@ -556,6 +613,35 @@ function Result({
         </Button>
       </div>,
     ];
+  };
+  const carried = new Map((r.roll?.carried ?? []).map((i) => [i.key, i]));
+  const carriedRow = (k: StatementCase) => {
+    const cells = caseRow(k);
+    cells[2] = (
+      <ul className="bank-statement-members" key="carried">
+        {(k.carried ?? []).map((key) => {
+          const i = carried.get(key);
+          return (
+            <li key={key}>
+              <span>
+                <bdi className="bank-statement-id">{i?.id ?? key}</bdi>{' '}
+                <bdi dir="ltr">{format(i?.amount)}</bdi>{' '}
+                {i ? c.directions[i.direction] : ''}
+              </span>
+              {i && (
+                <small>
+                  <bdi dir="ltr">{i.date}</bdi> ·{' '}
+                  {i.page === null
+                    ? c.rowCitation(String(i.row))
+                    : c.pageOnly(i.page)}
+                </small>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    );
+    return cells;
   };
   const movementIds = new Map<number, string>();
   {
@@ -583,6 +669,35 @@ function Result({
             {held.detail && <bdi dir="ltr">{held.detail}</bdi>}
           </p>
           <p>{c.heldCounts(r.match.held.statement, r.match.held.cashbook)}</p>
+        </output>
+      )}
+      {r.roll && (
+        <output
+          className={
+            r.roll.previous.status === 'refused'
+              ? 'bank-statement-held'
+              : 'bank-source-basis'
+          }
+          data-bank-statement-previous={r.roll.previous.status}
+        >
+          {r.roll.previous.status === 'accepted' ? (
+            <p>
+              {c.priorAccepted(r.roll.previous.name, r.roll.carried.length)}
+            </p>
+          ) : (
+            <>
+              <p data-bank-statement-previous-code={r.roll.previous.code}>
+                {c.priorRefused[r.roll.previous.code]}{' '}
+                {r.roll.previous.detail && (
+                  <>
+                    {c.errorDetail}:{' '}
+                    <bdi dir="ltr">{r.roll.previous.detail}</bdi>
+                  </>
+                )}
+              </p>
+              <p>{c.priorRefusedNote}</p>
+            </>
+          )}
         </output>
       )}
       <Table
@@ -667,6 +782,15 @@ function Result({
           row={caseRow}
         />
       )}
+      {r.cases.some((k) => k.kind === 'carried') && (
+        <Table
+          title={c.carriedCases}
+          headers={c.carriedCaseHeaders}
+          testId="carried"
+          items={r.cases.filter((k) => k.kind === 'carried')}
+          row={carriedRow}
+        />
+      )}
       {r.cases.some((k) => k.kind === 'automatic') && (
         <Table
           title={c.automatic}
@@ -695,6 +819,40 @@ function Result({
                 {format(m?.amount)}
               </bdi>,
               where(o.side, o.id),
+            ];
+          }}
+        />
+      )}
+      {r.roll && r.roll.carried.length > 0 && (
+        <Table
+          title={c.carriedItems}
+          headers={c.carriedItemHeaders}
+          testId="carried-items"
+          items={r.roll.carried}
+          row={(i) => {
+            const age = carriedAtEnd(r, i);
+            return [
+              <bdi key="id">{i.id}</bdi>,
+              c.sides[i.side],
+              <bdi key="period" dir="ltr">
+                {`${i.period.start} – ${i.period.end}`}
+              </bdi>,
+              i.page === null
+                ? c.rowCitation(String(i.row))
+                : c.pageOnly(i.page),
+              <bdi key="date" dir="ltr">
+                {i.date}
+              </bdi>,
+              <bdi key="ref">{i.reference}</bdi>,
+              c.directions[i.direction],
+              <bdi key="amount" dir="ltr">
+                {format(i.amount)}
+              </bdi>,
+              i.origin === 'unmatched'
+                ? c.unmatched
+                : c.priorRejectedIn(i.origin),
+              i.age,
+              age === null ? c.inCase : c.stillCarried(age),
             ];
           }}
         />

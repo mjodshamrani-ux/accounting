@@ -20,6 +20,7 @@ import {
 import type { StatementDecision } from '../lib/reconciliation/bank-statement-request.ts';
 import type { CashbookEntry } from '../lib/reconciliation/bank-statement-match.ts';
 import type { BankStatementReading } from '../lib/reconciliation/bank-statement-native.ts';
+import { validateWorkerValue } from '../lib/reconciliation/protocol.ts';
 
 // bank-statement-roll-1 (proposed): the rules (bank-statement-roll.ts) and
 // the lifecycle of a period that carries (bank-statement-lifecycle.ts). The
@@ -500,4 +501,28 @@ void test('a decided carried case closes the period for the next one', async () 
   // it is closed, so the refusal is the continuity one, not UNDECIDED.
   const again = await rollBankStatement({ previous: saved, current: state });
   assert.equal(refused(again), 'ROLL_NOT_CONSECUTIVE');
+});
+
+void test('the worker reply envelope takes either version, the result in its state’s own', async () => {
+  const expected = await rolled(await current('R01-AUG'), await session('R01'));
+  const envelope = /BANK_STATEMENT_ENVELOPE/;
+  for (const action of ['bank-statement-reconcile', 'bank-statement-restore'])
+    assert.doesNotThrow(() => validateWorkerValue(action, expected, {}));
+  const plain = await replayBankStatement(await current('R01-AUG'));
+  assert.doesNotThrow(() => validateWorkerValue('bank-statement-reconcile', plain, {}));
+  // A result of the other version, either way round.
+  for (const [state, result] of [
+    [expected.state, plain.result],
+    [plain.state, expected.result],
+  ])
+    assert.throws(
+      () => validateWorkerValue('bank-statement-reconcile', { state, result }, {}),
+      envelope,
+    );
+  // A version neither path knows.
+  const later = {
+    state: { ...expected.state, version: 'bank-statement-roll-2' },
+    result: { ...expected.result, version: 'bank-statement-roll-2' },
+  };
+  assert.throws(() => validateWorkerValue('bank-statement-restore', later, {}), envelope);
 });

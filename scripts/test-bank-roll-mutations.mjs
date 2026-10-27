@@ -1,6 +1,6 @@
 // WF-1 ROLL-1 code mutations: each planted defect in a private copy of the
-// carrying rules, the matcher's withheld items, the roll lifecycle or the roll
-// session reading must make the roll and matching tests, the proof against
+// carrying rules, the matcher's withheld items, the roll lifecycle, the roll
+// session reading or the worker reply envelope must make the roll and matching tests, the proof against
 // the sealed EXPECTED.json or the lifecycle proof fail with an assertion. A
 // survivor is a rule nothing holds.
 //   node scripts/test-bank-roll-mutations.mjs
@@ -36,6 +36,7 @@ const ROLL = 'lib/reconciliation/bank-statement-roll.ts';
 const MATCH = 'lib/reconciliation/bank-statement-match.ts';
 const LIFE = 'lib/reconciliation/bank-statement-lifecycle.ts';
 const REQUEST = 'lib/reconciliation/bank-statement-request.ts';
+const PROTOCOL = 'lib/reconciliation/protocol.ts';
 const mutations = [
   // The previous period: read whole, printed, proved and closed.
   [
@@ -187,6 +188,14 @@ const mutations = [
   ['roll-format-key-missing', LIFE, "...(roll ? ['previous'] : []),", '...([] as string[]),'],
   ['any-session-version', LIFE, '(parsed.version !== BANK_STATEMENT_LIFECYCLE_VERSION && !roll) ||', 'false ||'],
   ['restore-reads-roll-format', LIFE, '  if (previous) fail(\'SESSION\');\n  return state;', '  return state;'],
+  // The worker reply envelope (W3).
+  ['envelope-version-mixed', PROTOCOL, '      value.result.version !== value.state.version ||\n', ''],
+  [
+    'envelope-any-version',
+    PROTOCOL,
+    '      ![BANK_STATEMENT_LIFECYCLE_VERSION, BANK_STATEMENT_ROLL_VERSION].includes(\n        value.state.version as string,\n      ) ||\n',
+    '',
+  ],
 ];
 
 const files = [...new Set(mutations.map(([, file]) => file)), ...tests, ...proofs];

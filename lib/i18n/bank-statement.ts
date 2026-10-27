@@ -106,7 +106,55 @@ const ar = {
   note: 'سبب القرار',
   noteHint: 'يُسجل السبب مع القرار في الجلسة وفي Excel، ولا يُتخذ قرار دونه.',
   acceptLimit:
-    'القبول متاح للاقتراح بالمبلغ والتاريخ ولتباعد التاريخ تحت مرجع واحد فقط. فرق المبلغ وتعارض الاتجاه والمجموعات المتعددة تُرفض أو تبقى للمراجعة.',
+    'القبول متاح للاقتراح بالمبلغ والتاريخ ولتباعد التاريخ تحت مرجع واحد فقط. فرق المبلغ وتعارض الاتجاه والمجموعات المتعددة تُرفض أو تبقى للمراجعة. وفي البنود المرحّلة يُقبل تقابل المرجع واقتراح المبلغ فقط.',
+  priorSession: 'جلسة الفترة السابقة (اختياري)',
+  priorSessionHint:
+    'ملف جلسة كشف حفظته تراصف للفترة التي تسبق هذا الكشف مباشرة. تُعاد من أصولها، وتُرحّل بنودها المعلقة دليلًا مرشحًا لا اعتمادًا، ولا يُصفّى بند مرحّل آليًا.',
+  priorSessionRemove: 'أزل الجلسة السابقة',
+  priorAccepted: (name: string, n: number) =>
+    `قُبلت الجلسة السابقة ${name}. البنود المرحّلة منها: ${n}.`,
+  priorRefused: {
+    ROLL_PREVIOUS_UNREADABLE:
+      'لا تُقرأ الجلسة السابقة من أصولها: صيغة أو بصمة أو قرار لا يُقبل، أو سلسلة جلساتها لا تتصل.',
+    ROLL_PREVIOUS_HELD: 'كشف الفترة السابقة محجوز، فلا بنود معلقة تُرحّل منه.',
+    ROLL_PREVIOUS_UNDECIDED:
+      'في الفترة السابقة حالة تنتظر قرارًا، فلم تُغلق ولا يُرحّل منها شيء.',
+    ROLL_CURRENCY: 'عملة الفترة السابقة غير عملة هذا الكشف.',
+    ROLL_NOT_CONSECUTIVE:
+      'الفترة السابقة لا تنتهي في اليوم السابق لبداية هذا الكشف.',
+    ROLL_OPENING:
+      'الرصيد الافتتاحي لهذا الكشف لا يساوي الرصيد الختامي المطبوع للفترة السابقة.',
+  },
+  priorRefusedNote:
+    'لم يُرحّل شيء، وطوبقت الفترة كما لو لم تُرفق جلسة سابقة.',
+  carriedCases: 'حالات بنود مرحّلة تحتاج قرارك',
+  carriedCaseHeaders: [
+    'الحالة',
+    'السبب',
+    'البند المرحّل',
+    'حركات الكشف',
+    'قيود الدفتر',
+    'الوضع',
+    'القرار',
+  ],
+  carriedItems: 'البنود المرحّلة من الفترة السابقة',
+  carriedItemHeaders: [
+    'البند',
+    'الجانب',
+    'الفترة',
+    'الموضع',
+    'التاريخ',
+    'المرجع',
+    'الاتجاه',
+    'المبلغ',
+    'الأصل',
+    'العمر',
+    'عند نهاية الفترة',
+  ],
+  priorRejectedIn: (id: string) => `رُفضت في ${id} من فترتها`,
+  pageOnly: (page: number) => `صفحة ${page}`,
+  stillCarried: (age: number) => `يبقى مرحّلًا بعمر ${age}`,
+  inCase: 'في حالة لم تُرفض',
   outstanding: 'بنود معلقة',
   outstandingHeaders: [
     'الجانب',
@@ -285,7 +333,57 @@ const en: typeof ar = {
   noteHint:
     'The reason is recorded with the decision in the session and in Excel; no decision is taken without one.',
   acceptLimit:
-    'Accepting is available only for an amount and date suggestion or a date gap under one reference. An amount difference, a direction conflict and groups of several members are rejected or stay for review.',
+    'Accepting is available only for an amount and date suggestion or a date gap under one reference. An amount difference, a direction conflict and groups of several members are rejected or stay for review. For carried items, only a reference pairing and an amount suggestion can be accepted.',
+  priorSession: 'Previous period session (optional)',
+  priorSessionHint:
+    'A statement session file Tarasuf saved for the period just before this statement. It is replayed from its originals; its outstanding items are carried as candidate evidence, not approval, and no carried item is cleared automatically.',
+  priorSessionRemove: 'Remove the previous session',
+  priorAccepted: (name: string, n: number) =>
+    `The previous session ${name} was accepted. Items carried from it: ${n}.`,
+  priorRefused: {
+    ROLL_PREVIOUS_UNREADABLE:
+      'The previous session cannot be read from its originals: its format, a fingerprint or a decision is refused, or its chain of sessions does not connect.',
+    ROLL_PREVIOUS_HELD:
+      'The previous period’s statement is held, so it has no outstanding items to carry.',
+    ROLL_PREVIOUS_UNDECIDED:
+      'A case in the previous period awaits a decision, so it is not closed and nothing is carried.',
+    ROLL_CURRENCY:
+      'The previous period is in another currency than this statement.',
+    ROLL_NOT_CONSECUTIVE:
+      'The previous period does not end the day before this statement starts.',
+    ROLL_OPENING:
+      'This statement’s opening balance differs from the previous period’s printed closing balance.',
+  },
+  priorRefusedNote:
+    'Nothing was carried; the period was matched as if no previous session were attached.',
+  carriedCases: 'Carried item cases awaiting your decision',
+  carriedCaseHeaders: [
+    'Case',
+    'Reason',
+    'Carried item',
+    'Statement movements',
+    'Cashbook entries',
+    'Status',
+    'Decision',
+  ],
+  carriedItems: 'Items carried from the previous period',
+  carriedItemHeaders: [
+    'Item',
+    'Side',
+    'Period',
+    'Location',
+    'Date',
+    'Reference',
+    'Direction',
+    'Amount',
+    'Origin',
+    'Age',
+    'At the period end',
+  ],
+  priorRejectedIn: (id: string) => `Rejected in ${id} of its period`,
+  pageOnly: (page: number) => `Page ${page}`,
+  stillCarried: (age: number) => `Still carried, age ${age}`,
+  inCase: 'In a case not rejected',
   outstanding: 'Outstanding items',
   outstandingHeaders: [
     'Side',

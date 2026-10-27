@@ -20,10 +20,10 @@ import {
 } from './bank-adjustment-io.ts';
 import { replayBank, saveBank, restoreBank, exportBank } from './bank-io.ts';
 import {
-  replayBankStatement,
-  saveBankStatement,
-  restoreBankStatement,
-  exportBankStatement,
+  replayAnyStatement,
+  saveAnyStatement,
+  restoreAnyStatement,
+  exportAnyStatement,
 } from './bank-statement-lifecycle.ts';
 import { snapshotBankStatementRequest } from './bank-statement-request.ts';
 import {
@@ -87,13 +87,13 @@ self.onmessage = async (event: MessageEvent) => {
     else if (action === 'bank-export')
       value = await exportBank(payload.state, payload.result);
     else if (action === 'bank-statement-reconcile')
-      value = await replayBankStatement(payload);
+      value = await replayAnyStatement(payload);
     else if (action === 'bank-statement-save')
-      value = await saveBankStatement(payload);
+      value = await saveAnyStatement(payload);
     else if (action === 'bank-statement-restore')
-      value = await restoreBankStatement(payload.buffer);
+      value = await restoreAnyStatement(payload.buffer);
     else if (action === 'bank-statement-export')
-      value = await exportBankStatement(payload.state, payload.result);
+      value = await exportAnyStatement(payload.state, payload.result);
     else if (action === 'allocation-reconcile')
       value = await replayAllocation(payload);
     else if (action === 'allocation-save')

@@ -124,6 +124,7 @@ const required = [
   'test:ar-statement:a3-proof',
   'test:ar-statement:a5-holdout',
   'test:ar-statement:browser',
+  'test:bank-roll:browser',
   'test:bank-statement:baseline',
   'test:bank-statement:g1-proof',
   'test:bank-statement:g1-mutations',
@@ -235,6 +236,7 @@ const separate = {
     'test:bank-statement:interface-mutations',
   ],
   'ar-statement-interface-mutations': ['test:ar-statement:interface-mutations'],
+  'bank-roll-interface-mutations': ['test:bank-roll:interface-mutations'],
   'bank-statement-holdout': [
     'test:bank-statement:g6-holdout',
     'test:bank-statement:g6-browser',

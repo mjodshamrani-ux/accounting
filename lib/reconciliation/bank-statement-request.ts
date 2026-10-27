@@ -57,7 +57,7 @@ export type BankStatementRollState = Omit<BankStatementState, 'version'> & {
   previous: StatementSource;
 };
 export type BankStatementExportRequest = {
-  state: BankStatementState;
+  state: BankStatementState | BankStatementRollState;
   result: unknown;
 };
 
@@ -253,13 +253,25 @@ export function snapshotRolledStatementState(
     previous: { name: p.name, sha256: p.sha256, original: p.original.slice(0) },
   };
 }
+/** Captures a state of either kind, by its declared version. */
+export function snapshotAnyStatementState(
+  value: unknown,
+): BankStatementState | BankStatementRollState {
+  return statementPlain(value) && value.version === BANK_STATEMENT_ROLL_VERSION
+    ? snapshotRolledStatementState(value)
+    : snapshotBankStatementState(value);
+}
 /** Captures a worker request before anything yields. */
 export function snapshotBankStatementRequest(
   action: string,
   payload: unknown,
-): BankStatementState | BankStatementExportRequest | { buffer: ArrayBuffer } {
+):
+  | BankStatementState
+  | BankStatementRollState
+  | BankStatementExportRequest
+  | { buffer: ArrayBuffer } {
   if (action === 'bank-statement-reconcile' || action === 'bank-statement-save')
-    return snapshotBankStatementState(payload);
+    return snapshotAnyStatementState(payload);
   if (action === 'bank-statement-export') {
     if (
       !statementPlain(payload) ||
@@ -268,7 +280,7 @@ export function snapshotBankStatementRequest(
     )
       fail('EXPORT_REQUEST');
     return {
-      state: snapshotBankStatementState(payload.state),
+      state: snapshotAnyStatementState(payload.state),
       result: structuredClone(payload.result),
     };
   }

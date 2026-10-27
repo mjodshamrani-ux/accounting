@@ -117,6 +117,31 @@ const mutations = [
     'citation: String(c.row),',
     'citation: c.id,',
   ],
+  // A period that carries (WF-1 ROLL-1 W3).
+  [
+    'carried-reference-not-offered',
+    VIEW,
+    "  'carried-reference',\n  'carried-amount-suggestion',\n]);",
+    "  'carried-amount-suggestion',\n]);",
+  ],
+  [
+    'carried-amount-suggestion-not-offered',
+    VIEW,
+    "  'carried-reference',\n  'carried-amount-suggestion',\n]);",
+    "  'carried-reference',\n]);",
+  ],
+  [
+    'carried-amount-difference-offered',
+    VIEW,
+    "  'carried-reference',\n  'carried-amount-suggestion',\n]);",
+    "  'carried-reference',\n  'carried-amount-suggestion',\n  'carried-amount-difference',\n]);",
+  ],
+  [
+    'carried-in-case-shown-still',
+    VIEW,
+    'result.roll?.outstanding.find((o) => o.key === item.key)?.age ?? null',
+    'result.roll?.outstanding.find((o) => o.key === item.key)?.age ?? item.age',
+  ],
 ];
 const files = [...new Set(mutations.map(([, file]) => file)), ...tests];
 const digest = (b) => createHash('sha256').update(b).digest('hex');
@@ -148,6 +173,7 @@ if (report.baselinePassed)
         'lib',
         ...tests,
         'audit/bank-statement-foundation',
+        'audit/bank-roll-foundation',
         'package.json',
       ])
         await cp(join(root, name), join(tree, name), { recursive: true });

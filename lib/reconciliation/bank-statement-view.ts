@@ -11,11 +11,14 @@ import type {
 } from './bank-statement-lifecycle.ts';
 import {
   BANK_STATEMENT_LIFECYCLE_VERSION,
+  BANK_STATEMENT_ROLL_VERSION,
+  type BankStatementRollState,
   type BankStatementState,
   type StatementDecision,
   type StatementSource,
 } from './bank-statement-request.ts';
 import type { ReviewReason } from './bank-statement-match.ts';
+import type { CarriedItem, CarriedReason } from './bank-statement-roll.ts';
 
 export const BANK_STATEMENT_FORMATS = /\.(pdf|csv|xlsx)$/iu;
 export const BANK_CASHBOOK_FORMATS = /\.(csv|xlsx)$/iu;
@@ -34,10 +37,13 @@ export const BANK_STATEMENT_CURRENCIES = [
   'JPY',
 ].filter((c) => currencyPrecision(c) !== undefined);
 
-/** Review reasons the lifecycle accepts as they stand. */
-const ACCEPTABLE: ReadonlySet<string> = new Set<ReviewReason>([
+/** Review reasons the lifecycle accepts as they stand; for carried items,
+ * the two the roll contract lets an accountant accept. */
+const ACCEPTABLE: ReadonlySet<string> = new Set<ReviewReason | CarriedReason>([
   'amount-date-suggestion',
   'date-gap',
+  'carried-reference',
+  'carried-amount-suggestion',
 ]);
 
 /** Which decisions the lifecycle would take on this case, given a note. */
@@ -84,6 +90,32 @@ export function statementState(
     scope,
     decisions,
   };
+}
+
+/** A period that carries: the same, with the previous period's session file.
+ * Only a printed statement carries (bank-statement-roll-1). */
+export function rolledStatementState(
+  statement: StatementSource,
+  cashbook: StatementSource,
+  decisions: StatementDecision[],
+  previous: StatementSource,
+): BankStatementRollState {
+  return {
+    version: BANK_STATEMENT_ROLL_VERSION,
+    files: [statement, cashbook],
+    scope: { currency: null, period: null, confirmedClosing: null },
+    decisions,
+    previous,
+  };
+}
+
+/** Where a carried item stands at this period's end: still carried, with
+ * its age then, or held by a case that is not rejected. */
+export function carriedAtEnd(
+  result: BankStatementResult,
+  item: CarriedItem,
+): number | null {
+  return result.roll?.outstanding.find((o) => o.key === item.key)?.age ?? null;
 }
 
 /**
