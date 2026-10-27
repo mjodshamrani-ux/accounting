@@ -1,0 +1,311 @@
+{
+ "schema": "tarasuf-wf1-map1-input-manifest/1",
+ "synthetic": true,
+ "producer": "stories.py: XLSX written from the Python standard library (shared strings, typed numbers, formulas with cached values, stored ZIP entries), CSV by the csv module, map files as JSON; every entry copied from a declared cashbook sealed by the ROLL-1 or REVIEW-1 foundation",
+ "files": {
+  "M01-AUG-cashbook.xlsx": {
+   "sha256": "f077623dbc561ceea10617b2e5d0344f27c5d124dd766a3364092755e8e5a88b",
+   "bytes": 6908
+  },
+  "M01-JUL-cashbook.xlsx": {
+   "sha256": "0bab6006cc7beffb55cc8217bded9e170c852622d5488ef3462b510c8b3bc61f",
+   "bytes": 7231
+  },
+  "M02-AUG-cashbook.xlsx": {
+   "sha256": "3a6dcc0e54611b1bc650e7692ab155d3526dc484403adcd654212085cecf843c",
+   "bytes": 6908
+  },
+  "M02-JUL-cashbook.xlsx": {
+   "sha256": "8dfb0e930e28341059c35eeaaaffb9368191fb66d892eda8e0cdd0551a8d9218",
+   "bytes": 7229
+  },
+  "M03-AUG-cashbook.xlsx": {
+   "sha256": "2272dbf6a0b789c10a0bcd82781cc67583f1f35cdb121f9881aa987f5aed37fb",
+   "bytes": 6630
+  },
+  "M03-JUL-cashbook.xlsx": {
+   "sha256": "aa642b59a6fed0dae615f7b62269f7a5c0c45a2dccf533f05ca2e94bc3bfaa90",
+   "bytes": 7275
+  },
+  "M04-A-cashbook.xlsx": {
+   "sha256": "a6d44bc7872d67cd2a5151d3c9a23f24ab61ee3c97e71e3c59701a6f280a4f0a",
+   "bytes": 7232
+  },
+  "M04-B-cashbook.xlsx": {
+   "sha256": "ed76dbf34a79b303a830d12b8712f087b9b83f8bd2126f00bfebe32a81ea081e",
+   "bytes": 6587
+  },
+  "M05-A-cashbook.xlsx": {
+   "sha256": "a6d44bc7872d67cd2a5151d3c9a23f24ab61ee3c97e71e3c59701a6f280a4f0a",
+   "bytes": 7232
+  },
+  "M05-C-cashbook.xlsx": {
+   "sha256": "987b8bd36e69f00b7c31e52e8c60838ecc6b8169916e4c84711adc2d5e3555da",
+   "bytes": 7524
+  },
+  "M06-AUG-cashbook.xlsx": {
+   "sha256": "7425a93be256a17a57eab4e0369dd0d8cbf13ccbbbe58457f325ef8f71e18bf1",
+   "bytes": 7316
+  },
+  "M06-JUL-cashbook.xlsx": {
+   "sha256": "76cf6ba4e33a974ff789b25f883083320d23a2ef442518dcc512e7872fa9f4fd",
+   "bytes": 6906
+  },
+  "M07-AUG-cashbook.xlsx": {
+   "sha256": "5c1d950f0dbea28080fc93d082684dd09f1c809fdb12015e541454b625e98ab3",
+   "bytes": 7101
+  },
+  "M07-JUL-cashbook.xlsx": {
+   "sha256": "2c69d933800516879171e874af19b8a35b250493cb29d10b5c4d3beb3fd3bdaa",
+   "bytes": 7233
+  },
+  "M08-AUG-cashbook.xlsx": {
+   "sha256": "c2b2c141cc5f8df5998672c8efa64a382fc201778c17b211aca755078aa8b611",
+   "bytes": 7097
+  },
+  "M08-JUL-cashbook.xlsx": {
+   "sha256": "d6a7b0e0602016a8cc8a25c5072a0d1d62969760d375ee91d0fdfc42e3561a25",
+   "bytes": 7233
+  },
+  "M09-AUG-cashbook.xlsx": {
+   "sha256": "ceacd32982ec232bac5134f9fd5fccf1ad9e1519b54cb5790e14b7e5be835fcf",
+   "bytes": 6974
+  },
+  "M09-JUL-cashbook.xlsx": {
+   "sha256": "5ca6b68a5704ba577110f20f54d7905d8bc7f2cd84cb3750791438b6776b63e9",
+   "bytes": 7226
+  },
+  "M10-AUG-cashbook.xlsx": {
+   "sha256": "0953139c8a97e7c36902feb8eb4af5fd1df73ddddf721bbec45299695d551a90",
+   "bytes": 7231
+  },
+  "M10-JUL-cashbook.xlsx": {
+   "sha256": "81d75b83a1bea56828ee78d0df44cc878ad6eb6a6bef44f96a154c6c85bbe532",
+   "bytes": 7231
+  },
+  "M11-AUG-cashbook.xlsx": {
+   "sha256": "2b663a4d2a5244b3fd201c02ba6bcb8013479e6a8bf4e30c4c0759c7e88d3d79",
+   "bytes": 6909
+  },
+  "M11-JUL-cashbook.xlsx": {
+   "sha256": "a049e33465522f8f0c95abfc0a9402d6e6389fe78a5ae93bd9a60991c8c29a7d",
+   "bytes": 7232
+  },
+  "M12-cashbook.xlsx": {
+   "sha256": "c89aa429831d04421738d27087d738463ff966c0cf18261a26a29dc3469d4f38",
+   "bytes": 8251
+  },
+  "M12-map.json": {
+   "sha256": "9979548d84e0a66b1895b4b3ab8fb246293572a8cd2f8d98aa33c2f8f27083be",
+   "bytes": 528
+  },
+  "M13-cashbook.xlsx": {
+   "sha256": "fa0f85d185ebb9e9a212d14bee5191175d0edbec393f5e00cb8774610f00c022",
+   "bytes": 24749
+  },
+  "M14-cashbook.xlsx": {
+   "sha256": "03fb44c9e831d0044ce904908934af0f429e8e62ae8df77612d3bcc0b721699b",
+   "bytes": 8943
+  },
+  "M14-formula-cashbook.xlsx": {
+   "sha256": "425b5b6540e0b3dd9e0a5cb65bb83b814a06cabc81b13528d3f449aea081d7ab",
+   "bytes": 8962
+  },
+  "M15-cashbook.xlsx": {
+   "sha256": "3ff85be56fee9632f2aeb881922192b385d541cbd21e00586e40a7af0a92a28f",
+   "bytes": 7741
+  },
+  "M15-totals-cashbook.xlsx": {
+   "sha256": "74453e440b3221b5a323b9ff6295e5881e2f42136774ac23d5c38d4cc895679a",
+   "bytes": 7901
+  },
+  "M16-cashbook.xlsx": {
+   "sha256": "f7e2681c93129386038446b7cae16b9347c09f9ef858b2dd50bd18d73b7df72c",
+   "bytes": 8055
+  },
+  "M16-two-sheets-cashbook.xlsx": {
+   "sha256": "a2c6053717243cf84f4f1ac79ee1bf2e190ef82f2869abbc8a503c0cc525d20d",
+   "bytes": 8900
+  },
+  "M17-cashbook.csv": {
+   "sha256": "dede8da804c95a6da4cc4735ac55c040a0084a8ea0947f5ab4d7c11a43806947",
+   "bytes": 1515
+  },
+  "M18-cashbook.xlsx": {
+   "sha256": "5c0590440385a0dade02dfe6355d175a5eaa770143ce06b649131aa6f4d72d0f",
+   "bytes": 7246
+  },
+  "M18-map-array.json": {
+   "sha256": "1fb3ffcf3df89e31f56932d4a64a23eede8a2f6707898bf14d1fc42a78286868",
+   "bytes": 7
+  },
+  "M18-map-column101.json": {
+   "sha256": "ed07648cb4cbda8b7039420e890b326428480912c26ea3f42c094d5acfa6a320",
+   "bytes": 502
+  },
+  "M18-map-control-label.json": {
+   "sha256": "cda62b73c768acdd36c11413c41e742325a7e06d1de4691d97d190212d799393",
+   "bytes": 505
+  },
+  "M18-map-currency.json": {
+   "sha256": "9fb3fb6df69ac9066dcdafd69b23f0cee8f2431b0eb463a6fa34ab91e9ad9b9b",
+   "bytes": 520
+  },
+  "M18-map-empty-label.json": {
+   "sha256": "933a99646d65409c016ae1599e094dce2a35ed03e6f93f2affc4cad002e52185",
+   "bytes": 490
+  },
+  "M18-map-header-fraction.json": {
+   "sha256": "283c5c51f8f10b364661ffb39878686378685d91c6c11aa3a8c84b525b86c1ca",
+   "bytes": 502
+  },
+  "M18-map-header0.json": {
+   "sha256": "15a8a0a0f49d9b7d18c43ed14baa3ebc969dec8c73f17d986f15e2cd3bffbc94",
+   "bytes": 500
+  },
+  "M18-map-header31.json": {
+   "sha256": "a5040178e586c54f3473e39956c3e217abd1c3145661b38893c67db3eaab34e9",
+   "bytes": 501
+  },
+  "M18-map-latin1.json": {
+   "sha256": "e34cc856a0aa2688677a6919b3b58669f745f34d24396f1234c30b4b0f68823f",
+   "bytes": 500
+  },
+  "M18-map-name-space.json": {
+   "sha256": "cc79d71130fa1b56d7d850783c4a64eb774aa94e0c0c4527d35c53599dd56f1c",
+   "bytes": 501
+  },
+  "M18-map-nan.json": {
+   "sha256": "66c7a4d4c6c718bc054ddeedd12990282af27986a7bb1d7b8eb22abba4bb6afe",
+   "bytes": 502
+  },
+  "M18-map-no-date.json": {
+   "sha256": "7b022471f83cbdbfac74c310850e2c7290e497a1a05d39c73eb98c541c5efae6",
+   "bytes": 460
+  },
+  "M18-map-oversize.json": {
+   "sha256": "9453b8fc404df2a1399d7ff9073d22e5e25bc55ffbe46b1c015b27a0217a4140",
+   "bytes": 16385
+  },
+  "M18-map-same-column.json": {
+   "sha256": "e01aad1924a120d548a8913cd53bbb9e850e1bf5931661ab7d2ae4770a046442",
+   "bytes": 500
+  },
+  "M18-map-sign.json": {
+   "sha256": "175dee6f94b972a626bffc4844b7ee83aca564ebfb37d957fc6b20d45849afdc",
+   "bytes": 514
+  },
+  "M18-map-supplier.json": {
+   "sha256": "350d3fce6939bf70c7db34327cfe28ae67758712ba0440c0c5bed916df573173",
+   "bytes": 502
+  },
+  "M18-map-template.json": {
+   "sha256": "359f32acb0aac1f324ce2b221ab1a4a7e6a487febbe6d53736adde8786e93f52",
+   "bytes": 505
+  },
+  "M18-map-truncated.json": {
+   "sha256": "c77bf06336ec8926fc75e59787a84b5be8b4f11e9260f177bafe0e83176e28e9",
+   "bytes": 60
+  },
+  "M18-map-version2.json": {
+   "sha256": "2f570541c72da445d0690ab2983122f8dcb6961a37549c5de74866e8fc88a515",
+   "bytes": 500
+  },
+  "M18-map.json": {
+   "sha256": "3b603a3d211e7ae028034f8fb656c001e9b5259886f0b04514e67fe7c7dea5fd",
+   "bytes": 500
+  },
+  "M19-carried-cashbook.xlsx": {
+   "sha256": "f30d365b21ae90a1c87a04ee838037c3f69fbddf278345abe876e56e209da7ce",
+   "bytes": 7417
+  },
+  "M19-note-cashbook.xlsx": {
+   "sha256": "3892c15be91fd383d3f09ecdf7c07357bceee9668cd481b570c84e6ed01c3a1d",
+   "bytes": 7418
+  },
+  "M20-balance-cashbook.csv": {
+   "sha256": "9706a5892b6f3ade43b97cdd84d92601f6bbd8aa1d0a9e929408ff130d661d97",
+   "bytes": 640
+  },
+  "M20-map.json": {
+   "sha256": "5d89e695327f1f8b7e245ba64d9d205f619fd98a1a6db4d4d3ea06ea7d3dd03d",
+   "bytes": 488
+  },
+  "M21-cashbook.xlsx": {
+   "sha256": "ed76dbf34a79b303a830d12b8712f087b9b83f8bd2126f00bfebe32a81ea081e",
+   "bytes": 6587
+  },
+  "M21-map.json": {
+   "sha256": "f1bf617b83a67684ea9eeb89d0a69ccfb422b2c7fb11936fe7bd3af24f0fb23b",
+   "bytes": 510
+  },
+  "stories.json": {
+   "sha256": "7dc5b91597f29df390662631f260e0324d2abc37fde174d45ead3af2c2e6d775",
+   "bytes": 35126
+  }
+ },
+ "external": {
+  "bank-review-foundation/frozen/Q01-NOV-cashbook.csv": "7ccceb55abd7d35801c24cda5aa7b5b065822c3fecb418cce5a1bf0531b91d7f",
+  "bank-review-foundation/frozen/Q01-NOV-statement.pdf": "4d7b30d7c2279fb1629b39cefe132e2d9dc8efd839bf9db8fd2b849054c6b12d",
+  "bank-review-foundation/frozen/Q02-NOV-cashbook.csv": "fd4cddc74ee3bfe9d785dc95e7d52f14e35cdd9d5969a1e26a9f319d9d00e00a",
+  "bank-review-foundation/frozen/Q02-NOV-statement.pdf": "bb6b0992e540b6c367a12c8bb51c93825bbd83ac2f72ffd199e0134715a68317",
+  "bank-review-foundation/frozen/Q03-NOV-cashbook.csv": "8d8aec5493e0bf7b18da29ff0f7d8f99cf0d5556d1038447a36d8371d030aec1",
+  "bank-review-foundation/frozen/Q03-NOV-statement.pdf": "3fc149ac4f5b12896acd2454fbd15389fde48fbd915307d5cb862ce8683a89cc",
+  "bank-review-foundation/frozen/Q04-NOV-cashbook.csv": "466a47c96af8dab3a267ee83904912800a70f28abcfae0da782e9500a91963b4",
+  "bank-review-foundation/frozen/Q04-NOV-statement.pdf": "fe92ee7bb7233bd247bd248d7093d6de8e944b4c367c18a9812d7d0af3e439c2",
+  "bank-review-foundation/frozen/Q05-NOV-cashbook.csv": "2f3d380cf9f66b2b5ad77cadbbb3ca0631f46799c7face6f45e0e7fa0ba7240a",
+  "bank-review-foundation/frozen/Q05-NOV-statement.pdf": "b7f674bc87fdb061412ae5c4a1fea83f588097a26236f36061341b80c25b5590",
+  "bank-review-foundation/frozen/Q10-NOV-cashbook.csv": "b47cebd2813991f728a1c3e55b5cba918360474ff4d0baa9a3ee906b3f85950f",
+  "bank-review-foundation/frozen/Q10-NOV-statement.pdf": "5c00d7de10b9eef297d5bcdec4fb1b785d2be68a405e820db8388bb92bb23f52",
+  "bank-review-foundation/frozen/Q11-NOV-cashbook.csv": "bec778640cfbd118335fc26eeb1d8e39a0333546413f3751cbf7dfb81ed5b6ce",
+  "bank-review-foundation/frozen/Q11-NOV-statement.pdf": "10d17e1afa8bd86fad28445b32804636b6b92e266a5f5d80c4af988779a153f7",
+  "bank-review-foundation/frozen/Q13-NOV-cashbook.csv": "a89a4c7eb54d1b0b95a45cb064a0c5f93142f7bc8a8397f41dd761c248757339",
+  "bank-review-foundation/frozen/Q13-NOV-statement.pdf": "7dc29c6cfe81e5e6a2f301ae8128bedbf24899d8fbb226739bc757e0411dd217",
+  "bank-review-foundation/frozen/Q14-NOV-cashbook.csv": "7bb4ec11dacdcbf548b83f7e14cd23f16db547dfff73f773f1af9ffbed0d0a99",
+  "bank-review-foundation/frozen/Q14-NOV-statement.pdf": "439e13f8b217471680943dd7a9e32341fec0a685c3f922a8b44263c9d1369fe4",
+  "bank-review-foundation/frozen/Q15-NOV-cashbook.csv": "870c327b149f0a92d1f0adbc4a6f260c08701e20ec27b296e7bf15787ccd7608",
+  "bank-review-foundation/frozen/Q15-NOV-statement.pdf": "cfed82ec9dfa72cd3574b1e349787a3221ba3d06889260b2f2725f0aabcd9f08",
+  "bank-review-foundation/frozen/Q16-NOV-cashbook.csv": "2ea0849a563b78c655f45587c6e56425980d141f0d7447b6ebd50923db8d9502",
+  "bank-review-foundation/frozen/Q16-NOV-statement.pdf": "64fb56a4f34283817055822dd33501bf74bfe3c7fae2f66e5738d1328b74b114",
+  "bank-review-foundation/frozen/stories.json": "650cb3f15361cc38a63ec3d06fce71cce6715a86827056badc6b5ad86030a2fe",
+  "bank-roll-foundation/frozen/R01-AUG-cashbook.csv": "ce9e42e3e8cfd6169733c39764713693d6686a34bbb332dd00d7a88e73973c31",
+  "bank-roll-foundation/frozen/R01-AUG-statement.pdf": "f9529da00fef8a2fed54790394842c96b03e2d79896c67909fc96901b7033a40",
+  "bank-roll-foundation/frozen/R01-JUL-cashbook.csv": "af45032fa9d893a3da2d875f94545b0f5825db8ecd7f0aa2139d903adbe90180",
+  "bank-roll-foundation/frozen/R01-JUL-statement.pdf": "f2e6c7807e25bb35e4de48e2434f1608814ccd83b9a9e811466e927da109d2b0",
+  "bank-roll-foundation/frozen/R02-AUG-cashbook.csv": "4e44498080e8c90717e2174eb794038d18c4a1c6b0c323e8e24f56e9bbf73632",
+  "bank-roll-foundation/frozen/R02-AUG-statement.pdf": "4c1ef7dc30ba34cd87b54f3ae6cfd43bcb1d78cb67675a5e5aa4112e268218fc",
+  "bank-roll-foundation/frozen/R02-JUL-cashbook.csv": "8b087943ee6d367858eea629e77c19710c5a7a431113ae450810bef62505ecff",
+  "bank-roll-foundation/frozen/R02-JUL-statement.pdf": "54b7593b6491e7a35fcc77d08d069fc8f5e874538ba5d628f9c553afe54647fb",
+  "bank-roll-foundation/frozen/R03-AUG-cashbook.csv": "6c5e68d22bc58a845f1378b36aa89cfe18c19c649b340883bf0f018ae5d8952d",
+  "bank-roll-foundation/frozen/R03-AUG-statement.pdf": "5042b9db18d9c5765feced8d8c949c1ecff4eba2d14c7ab10d9bb87f0e05457a",
+  "bank-roll-foundation/frozen/R03-JUL-cashbook.csv": "bd0ded73bc616f4fa0e9348fc82061e87a894547e773fb521d5df0871093f642",
+  "bank-roll-foundation/frozen/R03-JUL-statement.pdf": "336788978226c15d81c9ee35f2f49878cdb69027ea21b87b2747c96d095f877f",
+  "bank-roll-foundation/frozen/R04-AUG-cashbook.csv": "5d7fdfe6d8be2cae150707470f867222ecf473ba26305df9d75d4d50e7364b5a",
+  "bank-roll-foundation/frozen/R04-AUG-statement.pdf": "5bf81186fe60db815418e2bab9af63a0c3ff8866db93e8c12c575451cb279296",
+  "bank-roll-foundation/frozen/R04-JUL-cashbook.csv": "5cfb2cfd4561b86722c084fee53e701b5b0834e2ad4a3692ea3aa34553c0d578",
+  "bank-roll-foundation/frozen/R04-JUL-statement.pdf": "5c632aa46c2807536838508fbdce78b058b5e0feb01a7fed32b3bee9ea292289",
+  "bank-roll-foundation/frozen/R05-AUG-cashbook.csv": "dbb57986c6d3b4954037e52a2f18ac810a3ffbfb4a4317bc848d55a6acef7caa",
+  "bank-roll-foundation/frozen/R05-AUG-statement.pdf": "1e3b967da1125349562277538a1078d847c677326edee1f39d703e5668d13713",
+  "bank-roll-foundation/frozen/R05-JUL-cashbook.csv": "99423d41ff50fcb4f716a974af1db370146e7c465d34bacf91731af0899ad704",
+  "bank-roll-foundation/frozen/R05-JUL-statement.pdf": "b90d94636af7d49d759771769a6b5b8fb81e647ee3900e4ae992b6caebca20cb",
+  "bank-roll-foundation/frozen/R06-AUG-cashbook.csv": "e02d7480e9e668f9586278a8cc4548ae54cb8099e08b07e8cf1fdbdfa07e8fa1",
+  "bank-roll-foundation/frozen/R06-AUG-statement.pdf": "2b36b16c4a032983767516b4f13770e1d599c9d2a8dc0f9e002bbde14ec1a434",
+  "bank-roll-foundation/frozen/R06-JUL-cashbook.csv": "4ca80a0eec4e9fb6e33ab7bd0812d3cb6a8667075312da4a5d4097cff371fa68",
+  "bank-roll-foundation/frozen/R06-JUL-statement.pdf": "d96a80b442fc5474e51cd868b8393582d5df387b0a2dc8aa052a6c0f6802b29c",
+  "bank-roll-foundation/frozen/R07-AUG-cashbook.csv": "466768351c7d940cf6bbba2bcfa5b3452c72056fea11232d3a4230953af0b0ab",
+  "bank-roll-foundation/frozen/R07-AUG-statement.pdf": "150122a007ac6a5e1760927401f507706eacbe40ef410252a47d9da874c49626",
+  "bank-roll-foundation/frozen/R07-JUL-cashbook.csv": "0ca164a2e9d954139fac676d74d85d12a38d68f01a2b4dca2ffe2fbf028aca30",
+  "bank-roll-foundation/frozen/R07-JUL-statement.pdf": "bc98f998cd52c4c825dc5a833e768d4ef33b18db5ce0d4a1f643015539acf680",
+  "bank-roll-foundation/frozen/R17-AUG-cashbook.csv": "a2615c2ffc6584fc39b82ab93079566a17bd087d0f0b8cca50483315847fd741",
+  "bank-roll-foundation/frozen/R17-AUG-statement.pdf": "679a38ef113082a0b238caa9f82bd475ab489a892c271bb187189d32eedf167b",
+  "bank-roll-foundation/frozen/R17-JUL-cashbook.csv": "ca4304491f4101faae2ef530a81a5d79a33b5267e96777b3533e31fd208bbc6f",
+  "bank-roll-foundation/frozen/R17-JUL-statement.pdf": "5aea1e9555b1c53d58a8964f4c57bc69a804d4417d63b03cd44a8b57ab98cc1b",
+  "bank-roll-foundation/frozen/R19-JUL-cashbook.csv": "4a547cd8de74cb07464c3cbf26cbdce2f3a0b90c7086de678fb598d79bfd1f3e",
+  "bank-roll-foundation/frozen/R19-JUL-statement.pdf": "83711984a587fe46b4b6cbbdb6b6c3f6d78b61a56a0058e1dc9a9b0f7c3f214c",
+  "bank-roll-foundation/frozen/R20-AUG-cashbook.csv": "72ad752ec2cbbf6f422320f8a02e022994c4a69736ca0e800061268495ad9f46",
+  "bank-roll-foundation/frozen/R20-AUG-statement.pdf": "2d457cbdf279664d898db770d8714b9a646ff42605e09e7bcc11f9a8d0890881",
+  "bank-roll-foundation/frozen/R20-JUL-cashbook.csv": "e55a33e6792b02017d6bc97f27f45f9d8f7eb3291fd7747853d518ebfb268a9a",
+  "bank-roll-foundation/frozen/R20-JUL-statement.pdf": "130a67d2b99af707e92bc7f849b9340aad7ee2a10947ced98f328ae0fd1b83be",
+  "bank-roll-foundation/frozen/stories.json": "96ad5375632b2a8e4c4190eb38d65658051da5754bca046e3e0b27562912727c"
+ }
+}

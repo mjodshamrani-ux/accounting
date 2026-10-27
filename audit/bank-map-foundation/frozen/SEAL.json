@@ -1,0 +1,20 @@
+{
+ "schema": "tarasuf-wf1-map1-seal/1",
+ "statement": "Sealed before any product run on these files. The baseline that follows records the product as it is.",
+ "pins": {
+  "INPUT-MANIFEST.json": "da6e17f5cc8fa0f783dc15174a057e454d466a906152630c433c57391bd3064a",
+  "EXPECTED.json": "d69595a905e70ff5423ebf0cbd9ea11832738d8736209428dea6022b0bf98d1f",
+  "VERIFY.json": "2926c4d1f7a9a4e20502592cb5ce02e6c67271dfbd41aab11c1393d0ce970251",
+  "contract.json": "c95ad3b6930f2752858a21fa0155d9f64b82f5c6229c9730463ea185cd5bd5c1",
+  "stories.py": "ffc4c7335e0381fcef37ea1eb0b81ba6198de2b9e3f0c1887bc1740252375a4c",
+  "oracle.py": "889174feb69450384378fcee6f0a9ecb6b9d11cd15eb7a8d49d117d58e3cd693",
+  "verify.py": "fc8eb687815dfb97c732de9a83c757ccf101431dd27af96761ffed9bbfea051c",
+  "test_oracle.py": "09ed431a8c48e92f61b561c48014de589ea5f01fe66b90ff45d2d8d2ccf2f55d",
+  "mutate_oracle.py": "2a442ff5d4ca6fafc4bb4d972db91f71fbc968d428c1ca5525abe47888c83c49",
+  "../bank-statement-eligibility/cashbook.py": "f757c143b02b7d158da14b2e5aa82fa37989b464a9ada20acfaf31b8e8eaac2c",
+  "../bank-roll-foundation/contract.json": "7c19cfe6a79062bd804575078f0253413eb39d94d88288399076e759b9cc9a94",
+  "../bank-roll-foundation/oracle.py": "936980876594b7128754fcb7bc254167a87608a13d43f193b012d5f65265c537",
+  "../bank-statement-foundation/contract.json": "400b8cbcda2447bf36710d38a8f91786d1f07951fc20e8894f71a969c93f7e34",
+  "../bank-statement-foundation/oracle.py": "07033ecfcf3ce4bc5ae8617ee28d9cbb3f51623a41ccdb3c0cf3716ed8f543f2"
+ }
+}
