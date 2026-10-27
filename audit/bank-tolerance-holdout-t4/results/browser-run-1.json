@@ -1,0 +1,109 @@
+{
+ "suite": "audit/bank-tolerance-holdout-t4",
+ "stories": {
+  "U01": {
+   "lang": "en",
+   "outcome": "reconciled-within-tolerance",
+   "tolerated": 1
+  },
+  "U02": {
+   "lang": "ar",
+   "outcome": "reconciled-within-tolerance",
+   "tolerated": 3
+  },
+  "U03": {
+   "lang": "en",
+   "outcome": "draft",
+   "tolerated": 0
+  },
+  "U04": {
+   "lang": "ar",
+   "outcome": "reconciled-within-tolerance",
+   "tolerated": 2
+  },
+  "U05": {
+   "lang": "en",
+   "outcome": "reconciled-within-tolerance",
+   "tolerated": 2
+  },
+  "U06": {
+   "lang": "ar",
+   "outcome": "refused PER_ITEM"
+  },
+  "U07": {
+   "lang": "en",
+   "outcome": "refused PER_PERIOD"
+  },
+  "U08": {
+   "lang": "ar",
+   "outcome": "refused CURRENCY"
+  },
+  "U09": {
+   "lang": "en",
+   "outcome": "draft",
+   "tolerated": 0
+  },
+  "U10": {
+   "lang": "ar",
+   "outcome": "refused NOTE on screen"
+  },
+  "U11": {
+   "lang": "en",
+   "outcome": "reconciled",
+   "tolerated": 0
+  },
+  "U12": {
+   "lang": "ar",
+   "outcome": "draft",
+   "tolerated": 1
+  },
+  "U13": {
+   "lang": "en",
+   "outcome": "reconciled-within-tolerance",
+   "tolerated": 2
+  },
+  "U14": {
+   "lang": "ar",
+   "outcome": "difference",
+   "tolerated": 1
+  },
+  "U15": {
+   "lang": "en",
+   "outcome": "reconciled-within-tolerance",
+   "tolerated": 2
+  },
+  "U16": {
+   "lang": "ar",
+   "outcome": "reconciled-within-tolerance",
+   "tolerated": 2
+  },
+  "U17": {
+   "lang": "en",
+   "outcome": "draft",
+   "tolerated": 0
+  },
+  "U18": {
+   "lang": "ar",
+   "outcome": "reconciled-within-tolerance",
+   "tolerated": 2
+  },
+  "U19": {
+   "lang": "en",
+   "outcome": "reconciled-within-tolerance",
+   "tolerated": 6
+  },
+  "U20": {
+   "lang": "ar",
+   "outcome": "reconciled",
+   "tolerated": 0
+  }
+ },
+ "reconciled": 16,
+ "refused": 4,
+ "locked": 0,
+ "tolerated": 24,
+ "workbooks": 16,
+ "selfTest": 18,
+ "checks": 0,
+ "checker": null
+}
