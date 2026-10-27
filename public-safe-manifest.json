@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 53341,
-      "sha256": "10efbda35fe2b71bed288407fccd6f5ab6f387ed1520792764009c60a43856f0",
+      "bytes": 53473,
+      "sha256": "6e1d4e4568b8af9e04790d87120fce74b2f973ec5b82e591f0636a37c0045f0b",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 31550,
-      "sha256": "43ba275d8ff9261cc365363089dfb86e643a703570061d7973055730385b37f9",
+      "bytes": 31862,
+      "sha256": "db899cff4cc052980c3535571a26d607aa7a8b1d59b7b8f5976d7656d07414e5",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 19677,
-      "sha256": "9608ed0fcbad07e5f475adafba57ad0a95dcdbe25eb067727288ee1832a584fd",
+      "bytes": 19764,
+      "sha256": "4e4c1c90090e6952bd5853a651d5f0bd83d207d0d6d31a473012d8dd31e6c8e0",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 74755,
-      "sha256": "82ed19756963e627506cfee3c9cb08cc1c494d3e460a881fd988ee2aed903a6b",
+      "bytes": 75831,
+      "sha256": "dc68b3b2eeb55e4ea6cf8fcd62663e24875393907665a030b957f069c9ef92ec",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 74500,
-      "sha256": "2d0aeddf93befc58292bc6a91d1358b2e256ed5450b3be966459805ef8b4b0df",
+      "bytes": 74624,
+      "sha256": "580c32cf482b5e4c040273ea0277a43f314e7a35cdc9ef2d495e5ff89a0ed9e0",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 35731,
-      "sha256": "2a40c37d8b8a728634dbc723e1a637cdae52903f84dbf41b67b0ea290318d0dd",
+      "bytes": 36161,
+      "sha256": "7abac2e9e93eba6454403fbbf5e04e5c913a833204ff5d99dcf1e864bc39100d",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 13469,
-      "sha256": "2833988594d44dc7ef43a415d859fc6565710dfd19bd92c3b38f638d0f4886d4",
+      "bytes": 13571,
+      "sha256": "44776821b431ea97849a420003b4b6c2636744938974cd07ed76cb704202ebbb",
       "kind": "text"
     },
     {
@@ -40805,8 +40805,8 @@
     },
     {
       "path": "docs/roadmap/workflow.ar.md",
-      "bytes": 18392,
-      "sha256": "f975800925423a63353f7bc554507d1e8bd830f575515ad6a5bd2b9f6b006d8d",
+      "bytes": 19296,
+      "sha256": "7cb385dceeff95c5f1fd3d16b3ba107bcf3f7bc8bd8bdeccf19c458567934727",
       "kind": "text"
     },
     {
@@ -52897,6 +52897,476 @@
       "path": "docs/audits/WF-1-MAP-M4.ar.md",
       "bytes": 8866,
       "sha256": "944167fb266a13b6d20c6d8b88714b8050c2c2269ccd52d29a618c9ecd11c079",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/README.ar.md",
+      "bytes": 7216,
+      "sha256": "d996166b35e2c1bba8fd75b93d9090dd21e0095284b077ec24a2ef9ae79883c8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/check_seal.py",
+      "bytes": 2752,
+      "sha256": "ba230551d396dfcfa2127e9fac20e72d81452197c04b95793144a3bc1ea8e333",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/contract.json",
+      "bytes": 7499,
+      "sha256": "4594cb352cf36ff0f5f4cf1f71a344ad24d3278d8c9424770560805461c7cfc5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/EXPECTED.json",
+      "bytes": 47290,
+      "sha256": "444561a6f6804df10e15a3ce9133f6edc215e43832e08f0e4e0beda1982c815c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/INPUT-MANIFEST.json",
+      "bytes": 6481,
+      "sha256": "7d6122b6d967b6cb756f9f067d10094ec4986fdb256b9daaae078ef218280624",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/SEAL.json",
+      "bytes": 1930,
+      "sha256": "41d364cd7e4eb0e1666f826cbeec84dae6d4d31466c7df75553f368966df77ee",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T01-DEC-cashbook.csv",
+      "bytes": 358,
+      "sha256": "cfe96857c43138752a6ea8d148260bd8a150250a12a831caf9b22c6ba51cea77",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T01-DEC-statement.pdf",
+      "bytes": 22326,
+      "sha256": "06a173f4767a1bbc80972c9cf19744f4ed0f7a680defdaf9e6bda14b92c15b47",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T02-DEC-cashbook.csv",
+      "bytes": 361,
+      "sha256": "17c213b66d61d07df4c552627072b5d644df72614e0945d7f84f9331ad67c539",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T02-DEC-statement.pdf",
+      "bytes": 22397,
+      "sha256": "fd43672c18c2b9b6a15dbc8b38773193c5c55a5e2c37a187b699022d22eabc8b",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T03-DEC-cashbook.csv",
+      "bytes": 355,
+      "sha256": "a1c3f3a056cf20bbe013377ba2732bf82d220a3a8d11ea1d9c88ef31f557f610",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T03-DEC-statement.pdf",
+      "bytes": 22150,
+      "sha256": "aba436177a1148bdd15b75219c7587b3972feb3a4e8700c9eb38fb7d0745d4e1",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T04-DEC-cashbook.csv",
+      "bytes": 417,
+      "sha256": "c02be8ae7734b229b4980391c4764d56a1fac1ae737c0d6c333a95cca7f388a0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T04-DEC-statement.pdf",
+      "bytes": 22296,
+      "sha256": "51d4f7f160eab9a4cadd9b918cd81a737977f4ce7185cb22f0b0d5ce0a1b02ce",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T05-DEC-cashbook.csv",
+      "bytes": 412,
+      "sha256": "2dd56ea68211f5e708a4b6df57c1d5d8c250d4e46f9172697becb6a43ec26a2c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T05-DEC-statement.pdf",
+      "bytes": 22276,
+      "sha256": "988f92bcfad4bdd94c5934688035547828858d8f0260651c54742e6f1a19c734",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T06-DEC-cashbook.csv",
+      "bytes": 419,
+      "sha256": "089539cdb013a2065ae341b0e085647ce704c18468e88994564216756706f159",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T06-DEC-statement.pdf",
+      "bytes": 22454,
+      "sha256": "7d0086b7347af311a1456b7ca5ef38669b248f3a4c23e65e362abc9261815aa7",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T07-DEC-cashbook.csv",
+      "bytes": 421,
+      "sha256": "7d26d4b4dcb269af9e3081e60e57e18d6242694f139ae4d1aad1ddbea117c322",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T07-DEC-statement.pdf",
+      "bytes": 22812,
+      "sha256": "9dfd90372b4138a90a7f94aad2ce3835057912a99d32ff9bc44e70c872bb85fd",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T08-DEC-cashbook.csv",
+      "bytes": 362,
+      "sha256": "2a3a4e65c87489941ceba7c1ee9cea0ec3285f5fb806bca4281818db034a6bfd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T08-DEC-statement.pdf",
+      "bytes": 22350,
+      "sha256": "0274462ad6861f15f152d004dc2bd40f29159ee70b3c86a2194f93125c1e062b",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T09-DEC-cashbook.csv",
+      "bytes": 352,
+      "sha256": "af284fd773165c4028aa3afad572d2ee5719c6251372f43bfd209a588b82f127",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T09-DEC-statement.pdf",
+      "bytes": 22856,
+      "sha256": "2aa5c941723441f79601acc47d1b53ebe6ccdd66851cf1fb34ea52a1a23e5546",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T10-DEC-cashbook.csv",
+      "bytes": 359,
+      "sha256": "b87b507545481a6a3fbb0a35f5301564c3f0a1eb12b25aeed4c4f93c63503017",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T10-DEC-statement.pdf",
+      "bytes": 22398,
+      "sha256": "5058bfa64838dc1d932c1b26d114da23c94d70353682685ad355f649dba78776",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T11-DEC-cashbook.csv",
+      "bytes": 357,
+      "sha256": "a5470481874d851e686ea3ff76a1d00bbeb17b845b3b1f78751263038fb9e5a8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T11-DEC-statement.pdf",
+      "bytes": 22686,
+      "sha256": "4d1bc64aea1d06b5e110ae11fea4370ac0f673f3ad7139265c2eb74585d3c358",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T12-DEC-cashbook.csv",
+      "bytes": 360,
+      "sha256": "63bea29509ff5ff1fe91ac877d8d69fdff286209513cb4692188ce425846c3a1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T12-DEC-statement.pdf",
+      "bytes": 22805,
+      "sha256": "2155b0635fd35db836c891bbebd5e6bdfec92da2ba27d7bc2c7e5dfed6d62502",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T13-DEC-cashbook.csv",
+      "bytes": 358,
+      "sha256": "4e9800574811e939870a132d349d56889b92ca505804b05adf3bce7f556123b6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T13-DEC-statement.pdf",
+      "bytes": 22385,
+      "sha256": "209ed98277ece071a84dd8ce7b36f49cb25c599012a5dadeb82d8e214fd49f81",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T14-DEC-cashbook.csv",
+      "bytes": 363,
+      "sha256": "182f3d10a521fc61ce99fb938a3e6635a0db9f7f01b0534d3d08873b9df51a50",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T14-DEC-statement.pdf",
+      "bytes": 22281,
+      "sha256": "3a2610a74eb4c3b93250f2afe8a7ee4192ce193bbf8d782287e5074e32e62860",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T15-DEC-cashbook.csv",
+      "bytes": 361,
+      "sha256": "c405c5d07086c128dd73697810f5a643f050e85040d32a6418d7ab223181b73b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T15-DEC-statement.pdf",
+      "bytes": 22389,
+      "sha256": "1e97fe8cc592dc84437f6a3aba30a515adeea071e386c692e33b11769525c901",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T16-DEC-cashbook.csv",
+      "bytes": 358,
+      "sha256": "5f5cd26c144b037699a1e9ee84c2d94bd74ab2c39d24be4827d3208b935e778b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T16-DEC-statement.pdf",
+      "bytes": 22202,
+      "sha256": "58b2f47213846bb601b70bc0dd808c23991116499d307dacb59df51e5bb883d6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T17-DEC-cashbook.csv",
+      "bytes": 364,
+      "sha256": "25706cf18c27ae506b7c1d3429a608749092d64653d8e411cb92fbe52058ccf9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T17-DEC-statement.pdf",
+      "bytes": 22284,
+      "sha256": "eccf07d4bb042aa65dbdcf01e8ece6318206cdf5e4250a3ee004c58e037ab766",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T18-DEC-cashbook.csv",
+      "bytes": 357,
+      "sha256": "797daaaa6bfad8e6212419f40536b855b16ac9ae489254cb99c718406cd5fdec",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T18-DEC-statement.pdf",
+      "bytes": 22243,
+      "sha256": "fcc03e0b177ef41646cff76fed5a2c27eb0519f0299fdf1356aa0a2baff69269",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T19-DEC-cashbook.csv",
+      "bytes": 1101,
+      "sha256": "3a76cb6dcb8717cdace46ec6db92de9475de63b31e36662f53efccf81c5cd3d4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T19-DEC-statement.pdf",
+      "bytes": 31075,
+      "sha256": "2b9174a22af9c58f14f4377eb91a29980690aa624829690341b29f3b1a990f53",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T20-DEC-cashbook.csv",
+      "bytes": 408,
+      "sha256": "2902d778ed6c56236917843557647f25ac8c212292c2fda8623ed15e0b25d522",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T20-DEC-statement.pdf",
+      "bytes": 22367,
+      "sha256": "28d4eb1dffe47e5cb374e2827319ae71758e7d82e09b6d5cc05e6afaf3c3a8eb",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T21-DEC-cashbook.csv",
+      "bytes": 2833,
+      "sha256": "64461dcc2a995eafdc4bf17f29f284aa4675b93c0f094a05bcd1dc7c70521ed8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T21-DEC-statement.pdf",
+      "bytes": 30360,
+      "sha256": "8f62b3cf87ba0a1a08c260e0b9091fabc351fd2ce1e5ed7d901452d47cf64d65",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T22-DEC-cashbook.csv",
+      "bytes": 420,
+      "sha256": "7354caddfb59c82ff3d3bb7f9725cf71fd6679c3eefd65c4eaed9ba2220ede29",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T22-DEC-statement.pdf",
+      "bytes": 22370,
+      "sha256": "90c80ca49a3ae6cb2692682bb376d9abab70ad59587e6d6df360666017923277",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T23-DEC-cashbook.csv",
+      "bytes": 364,
+      "sha256": "b9067bbefd2b92b4d59c0803482bfddea8bcd959f0038272131d681695821507",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/T23-DEC-statement.pdf",
+      "bytes": 22402,
+      "sha256": "0c90d9e7e9900f38b252d5fc08b149e8c895bf65600e8c5a570b563fc9213bf8",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 foundation: printed by Chromium page.pdf with DejaVu Sans from the bank statement foundation template through the ROLL-1 foundation printedStatement, amounts to the currency exponent (SAR two decimals, KWD three), from audit/bank-tolerance-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six through the sealed ROLL-1 check, EXPECTED.json from the independent oracle). Fictional bank, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/VERIFY.json",
+      "bytes": 5867,
+      "sha256": "185b1850a9db5a10f45470e288f4952b5efbc6b0f94c7e238d926eea3e0c936d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/frozen/stories.json",
+      "bytes": 120866,
+      "sha256": "47b96aad4cf30065a5db621baaa9e50d618027cc7597538ae6f85132313ba5fd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/mutate_oracle.py",
+      "bytes": 5673,
+      "sha256": "a0ded7ea0c3ddb6aa7b8e784274a76e72da5fd29a4121a396b419f8cca373c8a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/oracle.py",
+      "bytes": 16486,
+      "sha256": "0e713875c7d0765edce6d004e0db3ed219339ea3785706e449abe6246720748c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/render.mjs",
+      "bytes": 7046,
+      "sha256": "ac15501c77a39c10318db4ab28e64d0051cf3fa8608b1ca7711a5b86477d2960",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/seal.py",
+      "bytes": 2733,
+      "sha256": "b07381a8d0c15db5631a49189be74ce6c2c3019528a8ad35e5aa8380590180cf",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/stories.mjs",
+      "bytes": 19540,
+      "sha256": "5d55122a04ccf5b451da725326ac170080160394b468a598215d4965ab7c55bb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/test_oracle.py",
+      "bytes": 7120,
+      "sha256": "856887ced24c65ee635c15a60a4b9c0564a32bf95a8a8705fe8e05d8f9f0feed",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/verify.py",
+      "bytes": 7152,
+      "sha256": "3515c149ef92baad6ed09e07887e23be96c501544d2654d7456143b6fc43bfcf",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/WF-1-TOL-FOUNDATION.ar.md",
+      "bytes": 11110,
+      "sha256": "3de50fb6158683232e5b45ccba30af5696149dae50dbbc8977cc40cb5e8e6f5e",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/bank-tolerance-baseline.mjs",
+      "bytes": 8532,
+      "sha256": "84edaa6d8c1db25fb472597b6994a61c4ebf8888b083526ec3787049fe5ee7c7",
       "kind": "text"
     }
   ],

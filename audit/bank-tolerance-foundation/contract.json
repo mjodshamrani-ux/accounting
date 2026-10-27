@@ -1,0 +1,58 @@
+{
+ "schema": "tarasuf-wf1-tol1-contract/1",
+ "family": "bank-tolerance-1",
+ "status": "proposed",
+ "synthetic": true,
+ "plan": "WF-1 TOL-1 (docs/roadmap/workflow.ar.md); CH-16 (docs/reference/CHALLENGES.ar.md)",
+ "scope": "The bank statement lifecycle (bank-statement-lifecycle-1) of one printed statement period and its cashbook, and the reconciliation sheet (REPORT-1) of that period when a book balance is declared. Carried cases (bank-statement-roll-1), table statements and the supplier and receivable domains are outside this foundation's stories.",
+ "question": "When may a difference between a statement movement and its cashbook entry stand as within a tolerance the accountant declares, and how does it stay visible?",
+ "policy": {
+  "fields": {
+   "perItem": "the largest absolute difference one pair may have, an integer in the statement currency's minor units",
+   "perPeriod": "the largest sum of absolute differences the period may hold within the tolerance, in the same units",
+   "note": "why the accountant declares it, required, one line"
+  },
+  "default": "No policy. Without a policy nothing is tolerated and the product behaves as before.",
+  "valid": "perItem and perPeriod are integers with 1 <= perItem <= perPeriod; perItem is less than one major unit (perItem < 10^exponent, the ISO 4217 exponent of the statement currency); perPeriod is less than one hundred major units (perPeriod < 100 * 10^exponent); the note is not empty after trimming and holds no line break. A currency without a minor unit (exponent 0) has no tolerance (T2).",
+  "refusal": "A policy that is not valid refuses the session with BANK_STATEMENT_TOLERANCE, naming the first rule it breaks in this order: CURRENCY, PER_ITEM, PER_PERIOD, NOTE. Nothing is read under it."
+ },
+ "eligible": "A pair is eligible only when the matching (bank-statement-native-1) holds it as amount-difference, that is one statement movement and one cashbook entry under the same explicit reference with the same direction and different amounts, and its dates are within the matching window, and the absolute difference of its amounts is at most perItem. Nothing else is eligible: no pair by amount and date, no duplicate reference, no direction conflict, no date gap, no carried case, no group (T1).",
+ "period": "Let E be the eligible pairs of the period and D the sum of their absolute differences, never netted. If D <= perPeriod, every pair of E is tolerated. Otherwise none is, every pair of E stays amount-difference, and the result says D and perPeriod (T3).",
+ "case": {
+  "tolerated": "A tolerated pair is a case of kind tolerated, reason within-tolerance, status matched-tolerated, with the statement amount, the cashbook amount and the difference (statement minus cashbook, in minor units). It keeps the number the case has without a policy. It is neither an automatic match nor a case awaiting a decision; its members are cleared. No amount is changed (T4).",
+  "order": "Case numbering is that of bank-statement-lifecycle-1 without a policy: automatic pairs, then reference review groups in ascending reference order, then amount components by their first member key."
+ },
+ "decisions": {
+  "tolerated": "A tolerated case may be rejected, its members then outstanding with the case as their origin, and the rejection may be undone. It cannot be accepted: there is nothing to accept (T5).",
+  "context": "The policy is part of the context every decision is bound to. A session whose policy differs from the one a decision was taken under is refused with BANK_STATEMENT_DECISION, as one whose source changed is; nothing survives silently (T5)."
+ },
+ "session": "The policy is saved with the period, as an optional member of the lifecycle state and of the session formats, absent when there is no policy, so a session without a policy keeps its form and its context (T6).",
+ "workbook": "The workbook names the policy (perItem, perPeriod, note) and lists every tolerated case with its members, its two amounts and its difference, and every eligible pair left as amount-difference because D exceeded perPeriod, with D and perPeriod (T6).",
+ "sheet": {
+  "cleared": "A tolerated case clears its members, as an automatic pair or an accepted case does. A rejected tolerated case does not.",
+  "tolerated": "The sheet lists every tolerated case in a section of its own, toleratedDifferences, each with its members, its amounts and its effect on the difference: statement amount minus cashbook amount for direction in, cashbook amount minus statement amount for direction out.",
+  "arithmetic": {
+   "difference": "adjustedBank - adjustedBook, as REPORT-1 defines them",
+   "tolerated": "the sum of the listed effects",
+   "unexplained": "difference - tolerated"
+  },
+  "status": {
+   "draft": "at least one case awaits a decision",
+   "reconciled": "no case awaits a decision, no case is tolerated and the difference is zero",
+   "reconciled-within-tolerance": "no case awaits a decision, at least one case is tolerated and unexplained is zero",
+   "difference": "no case awaits a decision and unexplained is not zero"
+  },
+  "never": "No amount is changed, no balancing entry is made, and no tolerated difference is netted out of view: the difference, the tolerated sum and the unexplained remainder are each shown (T7)."
+ },
+ "measure": "On the same stories, the number of cases left awaiting a decision with and without the policy. Reported, not a gate threshold.",
+ "ownerDecisions": {
+  "T1": "Only a pair already tied by an explicit shared reference, with the same direction and within the date window, may be tolerated; tolerance never makes a pair, never chooses between candidates and never applies to a group. Alternative: also tolerate pairs found by amount and date when the amounts differ by at most perItem.",
+  "T2": "The policy is an absolute amount per pair, below one major unit, and a total per period below one hundred major units, with a note; none for a currency without a minor unit. Alternatives: a percentage of the amount; no period total; a larger ceiling.",
+  "T3": "When the eligible differences of the period add up to more than perPeriod, none is tolerated. Alternative: tolerate in printed order until the total is reached, which makes the result depend on order.",
+  "T4": "A tolerated case is a class of its own, matched-tolerated, cleared without a decision because the accountant declared the policy before the matching. Alternative: show it as a suggestion the accountant accepts case by case, or by the review queue's group decision.",
+  "T5": "The policy is in the context of every decision, so changing it after any decision refuses the session. Alternative: bind only the decisions on cases the policy touches.",
+  "T6": "The policy is an optional member of the existing session formats. Alternative: a new session version for a session with a policy.",
+  "T7": "The sheet keeps the difference as REPORT-1 computes it and shows the tolerated sum and the unexplained remainder beside it, with a status of its own, reconciled-within-tolerance. Alternative: leave tolerated cases' members listed as items, the sheet unchanged."
+ },
+ "limits": "One period, one account and one currency; printed (PDF) statements in the layout of the bank statement foundation; SAR and KWD in these stories. The policy never changes an amount, never makes or moves a member, never decides a case and never hides a difference. Not a professional accounting opinion on what tolerance is acceptable."
+}

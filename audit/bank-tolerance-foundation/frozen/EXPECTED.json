@@ -1,0 +1,2778 @@
+{
+ "stories": {
+  "T01": {
+   "cases": [
+    {
+     "cashbook": [
+      "BP-01N01"
+     ],
+     "id": "C1",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S1"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-01N02"
+     ],
+     "id": "C2",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S3"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-01N03"
+     ],
+     "id": "C3",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S4"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-01N04"
+     ],
+     "id": "C4",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S5"
+     ],
+     "status": "matched"
+    },
+    {
+     "amounts": {
+      "cashbook": 125001,
+      "difference": -1,
+      "direction": "out",
+      "statement": 125000
+     },
+     "cashbook": [
+      "PV-T01-11"
+     ],
+     "id": "C5",
+     "kind": "tolerated",
+     "reason": "within-tolerance",
+     "statement": [
+      "S2"
+     ],
+     "status": "matched-tolerated"
+    }
+   ],
+   "exceeded": null,
+   "held": false,
+   "outstanding": [],
+   "policy": {
+    "note": "Rounding by the payment system",
+    "perItem": 1,
+    "perPeriod": 5
+   },
+   "refused": null,
+   "sheet": {
+    "adjustedBank": 64610693,
+    "adjustedBook": 64610692,
+    "bank": 64610693,
+    "book": 64610692,
+    "difference": 1,
+    "sections": {
+     "bookPaymentsNotOnStatement": [],
+     "bookReceiptsNotOnStatement": [],
+     "statementDepositsNotInBook": [],
+     "statementWithdrawalsNotInBook": []
+    },
+    "status": "reconciled-within-tolerance",
+    "tolerated": 1,
+    "toleratedDifferences": [
+     [
+      "C5",
+      1
+     ]
+    ],
+    "unexplained": 0
+   }
+  },
+  "T02": {
+   "cases": [
+    {
+     "cashbook": [
+      "BP-02N03"
+     ],
+     "id": "C1",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S4"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-02N04"
+     ],
+     "id": "C2",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S5"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-02N01"
+     ],
+     "id": "C3",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S1"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-02N02"
+     ],
+     "id": "C4",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S3"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "PV-T02-21"
+     ],
+     "id": "C5",
+     "kind": "review",
+     "reason": "amount-difference",
+     "statement": [
+      "S2"
+     ],
+     "status": "needs-review"
+    }
+   ],
+   "exceeded": null,
+   "held": false,
+   "outstanding": [],
+   "policy": {
+    "note": "Rounding by the payment system",
+    "perItem": 1,
+    "perPeriod": 5
+   },
+   "refused": null,
+   "sheet": {
+    "adjustedBank": 40981885,
+    "adjustedBook": 40981885,
+    "bank": 41106887,
+    "book": 41106885,
+    "difference": 0,
+    "sections": {
+     "bookPaymentsNotOnStatement": [
+      [
+       "PV-T02-21",
+       125002
+      ]
+     ],
+     "bookReceiptsNotOnStatement": [],
+     "statementDepositsNotInBook": [],
+     "statementWithdrawalsNotInBook": [
+      [
+       "S2",
+       125000
+      ]
+     ]
+    },
+    "status": "draft",
+    "tolerated": 0,
+    "toleratedDifferences": [],
+    "unexplained": 0
+   }
+  },
+  "T03": {
+   "cases": [
+    {
+     "cashbook": [
+      "BP-03N01"
+     ],
+     "id": "C1",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S1"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-03N02"
+     ],
+     "id": "C2",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S2"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-03N04"
+     ],
+     "id": "C3",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S5"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-03N03"
+     ],
+     "id": "C4",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S4"
+     ],
+     "status": "matched"
+    },
+    {
+     "amounts": {
+      "cashbook": 479995,
+      "difference": 5,
+      "direction": "in",
+      "statement": 480000
+     },
+     "cashbook": [
+      "RV-T03-31"
+     ],
+     "id": "C5",
+     "kind": "tolerated",
+     "reason": "within-tolerance",
+     "statement": [
+      "S3"
+     ],
+     "status": "matched-tolerated"
+    }
+   ],
+   "exceeded": null,
+   "held": false,
+   "outstanding": [],
+   "policy": {
+    "note": "Rounding by the payment system",
+    "perItem": 5,
+    "perPeriod": 5
+   },
+   "refused": null,
+   "sheet": {
+    "adjustedBank": 73330570,
+    "adjustedBook": 73330565,
+    "bank": 73330570,
+    "book": 73330565,
+    "difference": 5,
+    "sections": {
+     "bookPaymentsNotOnStatement": [],
+     "bookReceiptsNotOnStatement": [],
+     "statementDepositsNotInBook": [],
+     "statementWithdrawalsNotInBook": []
+    },
+    "status": "reconciled-within-tolerance",
+    "tolerated": 5,
+    "toleratedDifferences": [
+     [
+      "C5",
+      5
+     ]
+    ],
+    "unexplained": 0
+   }
+  },
+  "T04": {
+   "cases": [
+    {
+     "cashbook": [
+      "BP-04N03"
+     ],
+     "id": "C1",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S5"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-04N04"
+     ],
+     "id": "C2",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S6"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-04N01"
+     ],
+     "id": "C3",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S1"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-04N02"
+     ],
+     "id": "C4",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S3"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "PV-T04-41"
+     ],
+     "id": "C5",
+     "kind": "review",
+     "reason": "amount-difference",
+     "statement": [
+      "S2"
+     ],
+     "status": "needs-review"
+    },
+    {
+     "cashbook": [
+      "PV-T04-42"
+     ],
+     "id": "C6",
+     "kind": "review",
+     "reason": "amount-difference",
+     "statement": [
+      "S4"
+     ],
+     "status": "needs-review"
+    }
+   ],
+   "exceeded": {
+    "cap": 1,
+    "sum": 2
+   },
+   "held": false,
+   "outstanding": [],
+   "policy": {
+    "note": "Rounding by the payment system",
+    "perItem": 1,
+    "perPeriod": 1
+   },
+   "refused": null,
+   "sheet": {
+    "adjustedBank": 79637917,
+    "adjustedBook": 79637917,
+    "bank": 79739969,
+    "book": 79739967,
+    "difference": 0,
+    "sections": {
+     "bookPaymentsNotOnStatement": [
+      [
+       "PV-T04-41",
+       30001
+      ],
+      [
+       "PV-T04-42",
+       72051
+      ]
+     ],
+     "bookReceiptsNotOnStatement": [],
+     "statementDepositsNotInBook": [],
+     "statementWithdrawalsNotInBook": [
+      [
+       "S2",
+       30000
+      ],
+      [
+       "S4",
+       72050
+      ]
+     ]
+    },
+    "status": "draft",
+    "tolerated": 0,
+    "toleratedDifferences": [],
+    "unexplained": 0
+   }
+  },
+  "T05": {
+   "cases": [
+    {
+     "cashbook": [
+      "BP-05N01"
+     ],
+     "id": "C1",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S1"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-05N02"
+     ],
+     "id": "C2",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S3"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-05N04"
+     ],
+     "id": "C3",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S6"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-05N03"
+     ],
+     "id": "C4",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S4"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "PV-T05-51"
+     ],
+     "id": "C5",
+     "kind": "review",
+     "reason": "amount-difference",
+     "statement": [
+      "S2"
+     ],
+     "status": "needs-review"
+    },
+    {
+     "cashbook": [
+      "PV-T05-52"
+     ],
+     "id": "C6",
+     "kind": "review",
+     "reason": "amount-difference",
+     "statement": [
+      "S5"
+     ],
+     "status": "needs-review"
+    }
+   ],
+   "exceeded": {
+    "cap": 1,
+    "sum": 2
+   },
+   "held": false,
+   "outstanding": [],
+   "policy": {
+    "note": "Rounding by the payment system",
+    "perItem": 1,
+    "perPeriod": 1
+   },
+   "refused": null,
+   "sheet": {
+    "adjustedBank": 53621632,
+    "adjustedBook": 53621632,
+    "bank": 53651633,
+    "book": 53651633,
+    "difference": 0,
+    "sections": {
+     "bookPaymentsNotOnStatement": [
+      [
+       "PV-T05-51",
+       10001
+      ],
+      [
+       "PV-T05-52",
+       20000
+      ]
+     ],
+     "bookReceiptsNotOnStatement": [],
+     "statementDepositsNotInBook": [],
+     "statementWithdrawalsNotInBook": [
+      [
+       "S2",
+       10000
+      ],
+      [
+       "S5",
+       20001
+      ]
+     ]
+    },
+    "status": "draft",
+    "tolerated": 0,
+    "toleratedDifferences": [],
+    "unexplained": 0
+   }
+  },
+  "T06": {
+   "cases": [
+    {
+     "cashbook": [
+      "BP-06N03"
+     ],
+     "id": "C1",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S5"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-06N01"
+     ],
+     "id": "C2",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S1"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-06N02"
+     ],
+     "id": "C3",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S3"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-06N04"
+     ],
+     "id": "C4",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S6"
+     ],
+     "status": "matched"
+    },
+    {
+     "amounts": {
+      "cashbook": 30001,
+      "difference": -1,
+      "direction": "out",
+      "statement": 30000
+     },
+     "cashbook": [
+      "PV-T06-61"
+     ],
+     "id": "C5",
+     "kind": "tolerated",
+     "reason": "within-tolerance",
+     "statement": [
+      "S2"
+     ],
+     "status": "matched-tolerated"
+    },
+    {
+     "amounts": {
+      "cashbook": 72051,
+      "difference": -1,
+      "direction": "out",
+      "statement": 72050
+     },
+     "cashbook": [
+      "PV-T06-62"
+     ],
+     "id": "C6",
+     "kind": "tolerated",
+     "reason": "within-tolerance",
+     "statement": [
+      "S4"
+     ],
+     "status": "matched-tolerated"
+    }
+   ],
+   "exceeded": null,
+   "held": false,
+   "outstanding": [],
+   "policy": {
+    "note": "Rounding by the payment system",
+    "perItem": 1,
+    "perPeriod": 2
+   },
+   "refused": null,
+   "sheet": {
+    "adjustedBank": 86241872,
+    "adjustedBook": 86241870,
+    "bank": 86241872,
+    "book": 86241870,
+    "difference": 2,
+    "sections": {
+     "bookPaymentsNotOnStatement": [],
+     "bookReceiptsNotOnStatement": [],
+     "statementDepositsNotInBook": [],
+     "statementWithdrawalsNotInBook": []
+    },
+    "status": "reconciled-within-tolerance",
+    "tolerated": 2,
+    "toleratedDifferences": [
+     [
+      "C5",
+      1
+     ],
+     [
+      "C6",
+      1
+     ]
+    ],
+    "unexplained": 0
+   }
+  },
+  "T07": {
+   "cases": [
+    {
+     "cashbook": [
+      "BP-07N01"
+     ],
+     "id": "C1",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S1"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-07N02"
+     ],
+     "id": "C2",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S3"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-07N03"
+     ],
+     "id": "C3",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S5"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-07N04"
+     ],
+     "id": "C4",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S6"
+     ],
+     "status": "matched"
+    },
+    {
+     "amounts": {
+      "cashbook": 1001,
+      "difference": -1,
+      "direction": "out",
+      "statement": 1000
+     },
+     "cashbook": [
+      "PV-T07-71"
+     ],
+     "id": "C5",
+     "kind": "tolerated",
+     "reason": "within-tolerance",
+     "statement": [
+      "S2"
+     ],
+     "status": "matched-tolerated"
+    },
+    {
+     "cashbook": [
+      "RV-T07-72"
+     ],
+     "id": "C6",
+     "kind": "review",
+     "reason": "amount-difference",
+     "statement": [
+      "S4"
+     ],
+     "status": "rejected"
+    }
+   ],
+   "exceeded": null,
+   "held": false,
+   "outstanding": [
+    [
+     "S",
+     "S4",
+     "C6"
+    ],
+    [
+     "C",
+     "RV-T07-72",
+     "C6"
+    ]
+   ],
+   "policy": {
+    "note": "Fils rounding",
+    "perItem": 1,
+    "perPeriod": 10
+   },
+   "refused": null,
+   "sheet": {
+    "adjustedBank": 368926759,
+    "adjustedBook": 368926758,
+    "bank": 366426759,
+    "book": 366426748,
+    "difference": 1,
+    "sections": {
+     "bookPaymentsNotOnStatement": [],
+     "bookReceiptsNotOnStatement": [
+      [
+       "RV-T07-72",
+       2500000
+      ]
+     ],
+     "statementDepositsNotInBook": [
+      [
+       "S4",
+       2500010
+      ]
+     ],
+     "statementWithdrawalsNotInBook": []
+    },
+    "status": "reconciled-within-tolerance",
+    "tolerated": 1,
+    "toleratedDifferences": [
+     [
+      "C5",
+      1
+     ]
+    ],
+    "unexplained": 0
+   }
+  },
+  "T08": {
+   "cases": [
+    {
+     "cashbook": [
+      "BP-08N03"
+     ],
+     "id": "C1",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S4"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-08N01"
+     ],
+     "id": "C2",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S1"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-08N02"
+     ],
+     "id": "C3",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S3"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-08N04"
+     ],
+     "id": "C4",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S5"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "PV-T08-81"
+     ],
+     "id": "C5",
+     "kind": "review",
+     "reason": "amount-difference",
+     "statement": [
+      "S2"
+     ],
+     "status": "needs-review"
+    }
+   ],
+   "exceeded": null,
+   "held": false,
+   "outstanding": [],
+   "policy": null,
+   "refused": null,
+   "sheet": {
+    "adjustedBank": 80615787,
+    "adjustedBook": 80615787,
+    "bank": 80740788,
+    "book": 80740787,
+    "difference": 0,
+    "sections": {
+     "bookPaymentsNotOnStatement": [
+      [
+       "PV-T08-81",
+       125001
+      ]
+     ],
+     "bookReceiptsNotOnStatement": [],
+     "statementDepositsNotInBook": [],
+     "statementWithdrawalsNotInBook": [
+      [
+       "S2",
+       125000
+      ]
+     ]
+    },
+    "status": "draft",
+    "tolerated": 0,
+    "toleratedDifferences": [],
+    "unexplained": 0
+   }
+  },
+  "T09": {
+   "cases": [
+    {
+     "cashbook": [
+      "BP-09N01"
+     ],
+     "id": "C1",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S1"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-09N02"
+     ],
+     "id": "C2",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S2"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-09N03"
+     ],
+     "id": "C3",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S4"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-09N04"
+     ],
+     "id": "C4",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S5"
+     ],
+     "status": "matched"
+    }
+   ],
+   "exceeded": null,
+   "held": false,
+   "outstanding": [
+    [
+     "S",
+     "S3",
+     "unmatched"
+    ],
+    [
+     "C",
+     "PV-T09-91",
+     "unmatched"
+    ]
+   ],
+   "policy": {
+    "note": "Rounding by the payment system",
+    "perItem": 1,
+    "perPeriod": 5
+   },
+   "refused": null,
+   "sheet": {
+    "adjustedBank": 41660556,
+    "adjustedBook": 41660556,
+    "bank": 41710557,
+    "book": 41710556,
+    "difference": 0,
+    "sections": {
+     "bookPaymentsNotOnStatement": [
+      [
+       "PV-T09-91",
+       50001
+      ]
+     ],
+     "bookReceiptsNotOnStatement": [],
+     "statementDepositsNotInBook": [],
+     "statementWithdrawalsNotInBook": [
+      [
+       "S3",
+       50000
+      ]
+     ]
+    },
+    "status": "reconciled",
+    "tolerated": 0,
+    "toleratedDifferences": [],
+    "unexplained": 0
+   }
+  },
+  "T10": {
+   "cases": [
+    {
+     "cashbook": [
+      "BP-10N03"
+     ],
+     "id": "C1",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S4"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-10N04"
+     ],
+     "id": "C2",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S5"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-10N01"
+     ],
+     "id": "C3",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S1"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-10N02"
+     ],
+     "id": "C4",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S2"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "RV-T10-01"
+     ],
+     "id": "C5",
+     "kind": "review",
+     "reason": "direction-conflict",
+     "statement": [
+      "S3"
+     ],
+     "status": "needs-review"
+    }
+   ],
+   "exceeded": null,
+   "held": false,
+   "outstanding": [],
+   "policy": {
+    "note": "Rounding by the payment system",
+    "perItem": 1,
+    "perPeriod": 5
+   },
+   "refused": null,
+   "sheet": {
+    "adjustedBank": 39141516,
+    "adjustedBook": 39141516,
+    "bank": 39111515,
+    "book": 39171516,
+    "difference": 0,
+    "sections": {
+     "bookPaymentsNotOnStatement": [],
+     "bookReceiptsNotOnStatement": [
+      [
+       "RV-T10-01",
+       30001
+      ]
+     ],
+     "statementDepositsNotInBook": [],
+     "statementWithdrawalsNotInBook": [
+      [
+       "S3",
+       30000
+      ]
+     ]
+    },
+    "status": "draft",
+    "tolerated": 0,
+    "toleratedDifferences": [],
+    "unexplained": 0
+   }
+  },
+  "T11": {
+   "cases": [
+    {
+     "cashbook": [
+      "BP-11N01"
+     ],
+     "id": "C1",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S1"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-11N02"
+     ],
+     "id": "C2",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S2"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-11N04"
+     ],
+     "id": "C3",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S6"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-11N03"
+     ],
+     "id": "C4",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S5"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "PV-T11-01"
+     ],
+     "id": "C5",
+     "kind": "review",
+     "reason": "duplicate-reference",
+     "statement": [
+      "S3",
+      "S4"
+     ],
+     "status": "needs-review"
+    }
+   ],
+   "exceeded": null,
+   "held": false,
+   "outstanding": [],
+   "policy": {
+    "note": "Rounding by the payment system",
+    "perItem": 1,
+    "perPeriod": 5
+   },
+   "refused": null,
+   "sheet": {
+    "adjustedBank": 67065063,
+    "adjustedBook": 67065063,
+    "bank": 67090064,
+    "book": 67115063,
+    "difference": 0,
+    "sections": {
+     "bookPaymentsNotOnStatement": [
+      [
+       "PV-T11-01",
+       25001
+      ]
+     ],
+     "bookReceiptsNotOnStatement": [],
+     "statementDepositsNotInBook": [],
+     "statementWithdrawalsNotInBook": [
+      [
+       "S3",
+       25000
+      ],
+      [
+       "S4",
+       25000
+      ]
+     ]
+    },
+    "status": "draft",
+    "tolerated": 0,
+    "toleratedDifferences": [],
+    "unexplained": 0
+   }
+  },
+  "T12": {
+   "cases": [
+    {
+     "cashbook": [
+      "BP-12N03"
+     ],
+     "id": "C1",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S3"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-12N04"
+     ],
+     "id": "C2",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S5"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-12N01"
+     ],
+     "id": "C3",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S1"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-12N02"
+     ],
+     "id": "C4",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S2"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "PV-T12-01"
+     ],
+     "id": "C5",
+     "kind": "review",
+     "reason": "amount-difference",
+     "statement": [
+      "S4"
+     ],
+     "status": "needs-review"
+    }
+   ],
+   "exceeded": null,
+   "held": false,
+   "outstanding": [],
+   "policy": {
+    "note": "Rounding by the payment system",
+    "perItem": 1,
+    "perPeriod": 5
+   },
+   "refused": null,
+   "sheet": {
+    "adjustedBank": 78124430,
+    "adjustedBook": 78124430,
+    "bank": 78188431,
+    "book": 78188430,
+    "difference": 0,
+    "sections": {
+     "bookPaymentsNotOnStatement": [
+      [
+       "PV-T12-01",
+       64001
+      ]
+     ],
+     "bookReceiptsNotOnStatement": [],
+     "statementDepositsNotInBook": [],
+     "statementWithdrawalsNotInBook": [
+      [
+       "S4",
+       64000
+      ]
+     ]
+    },
+    "status": "draft",
+    "tolerated": 0,
+    "toleratedDifferences": [],
+    "unexplained": 0
+   }
+  },
+  "T13": {
+   "cases": [
+    {
+     "cashbook": [
+      "BP-13N01"
+     ],
+     "id": "C1",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S1"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-13N02"
+     ],
+     "id": "C2",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S3"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-13N04"
+     ],
+     "id": "C3",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S5"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-13N03"
+     ],
+     "id": "C4",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S4"
+     ],
+     "status": "matched"
+    },
+    {
+     "amounts": {
+      "cashbook": 125001,
+      "difference": -1,
+      "direction": "out",
+      "statement": 125000
+     },
+     "cashbook": [
+      "PV-T13-01"
+     ],
+     "id": "C5",
+     "kind": "tolerated",
+     "reason": "within-tolerance",
+     "statement": [
+      "S2"
+     ],
+     "status": "rejected"
+    }
+   ],
+   "exceeded": null,
+   "held": false,
+   "outstanding": [
+    [
+     "S",
+     "S2",
+     "C5"
+    ],
+    [
+     "C",
+     "PV-T13-01",
+     "C5"
+    ]
+   ],
+   "policy": {
+    "note": "Rounding by the payment system",
+    "perItem": 1,
+    "perPeriod": 5
+   },
+   "refused": null,
+   "sheet": {
+    "adjustedBank": 86492403,
+    "adjustedBook": 86492403,
+    "bank": 86617404,
+    "book": 86617403,
+    "difference": 0,
+    "sections": {
+     "bookPaymentsNotOnStatement": [
+      [
+       "PV-T13-01",
+       125001
+      ]
+     ],
+     "bookReceiptsNotOnStatement": [],
+     "statementDepositsNotInBook": [],
+     "statementWithdrawalsNotInBook": [
+      [
+       "S2",
+       125000
+      ]
+     ]
+    },
+    "status": "reconciled",
+    "tolerated": 0,
+    "toleratedDifferences": [],
+    "unexplained": 0
+   }
+  },
+  "T14": {
+   "cases": [
+    {
+     "cashbook": [
+      "BP-14N03"
+     ],
+     "id": "C1",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S4"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-14N01"
+     ],
+     "id": "C2",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S1"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-14N02"
+     ],
+     "id": "C3",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S3"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-14N04"
+     ],
+     "id": "C4",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S5"
+     ],
+     "status": "matched"
+    },
+    {
+     "amounts": {
+      "cashbook": 125001,
+      "difference": -1,
+      "direction": "out",
+      "statement": 125000
+     },
+     "cashbook": [
+      "PV-T14-01"
+     ],
+     "id": "C5",
+     "kind": "tolerated",
+     "reason": "within-tolerance",
+     "statement": [
+      "S2"
+     ],
+     "status": "matched-tolerated"
+    }
+   ],
+   "exceeded": null,
+   "held": false,
+   "outstanding": [],
+   "policy": {
+    "note": "Rounding by the payment system",
+    "perItem": 1,
+    "perPeriod": 5
+   },
+   "refused": null,
+   "sheet": {
+    "adjustedBank": 88777224,
+    "adjustedBook": 88777223,
+    "bank": 88777224,
+    "book": 88777223,
+    "difference": 1,
+    "sections": {
+     "bookPaymentsNotOnStatement": [],
+     "bookReceiptsNotOnStatement": [],
+     "statementDepositsNotInBook": [],
+     "statementWithdrawalsNotInBook": []
+    },
+    "status": "reconciled-within-tolerance",
+    "tolerated": 1,
+    "toleratedDifferences": [
+     [
+      "C5",
+      1
+     ]
+    ],
+    "unexplained": 0
+   }
+  },
+  "T15": {
+   "cases": [],
+   "exceeded": null,
+   "outstanding": [],
+   "policy": {
+    "note": "Rounding by the payment system",
+    "perItem": 2,
+    "perPeriod": 5
+   },
+   "refused": "DECISION",
+   "sheet": null
+  },
+  "T16": {
+   "cases": [],
+   "exceeded": null,
+   "outstanding": [],
+   "policy": {
+    "note": "Rounding by the payment system",
+    "perItem": 100,
+    "perPeriod": 500
+   },
+   "refused": "TOLERANCE:PER_ITEM",
+   "sheet": null
+  },
+  "T17": {
+   "cases": [],
+   "exceeded": null,
+   "outstanding": [],
+   "policy": {
+    "note": "Rounding by the payment system",
+    "perItem": 3,
+    "perPeriod": 2
+   },
+   "refused": "TOLERANCE:PER_PERIOD",
+   "sheet": null
+  },
+  "T18": {
+   "cases": [],
+   "exceeded": null,
+   "outstanding": [],
+   "policy": {
+    "note": "   ",
+    "perItem": 1,
+    "perPeriod": 5
+   },
+   "refused": "TOLERANCE:NOTE",
+   "sheet": null
+  },
+  "T19": {
+   "cases": [
+    {
+     "cashbook": [
+      "BP-19N06"
+     ],
+     "id": "C1",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S7"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-19N07"
+     ],
+     "id": "C2",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S8"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-19N09"
+     ],
+     "id": "C3",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S11"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-19N11"
+     ],
+     "id": "C4",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S13"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-19N01"
+     ],
+     "id": "C5",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S1"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-19N02"
+     ],
+     "id": "C6",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S2"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-19N03"
+     ],
+     "id": "C7",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S4"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-19N04"
+     ],
+     "id": "C8",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S5"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-19N05"
+     ],
+     "id": "C9",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S6"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-19N08"
+     ],
+     "id": "C10",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S10"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-19N10"
+     ],
+     "id": "C11",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S12"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-19N12"
+     ],
+     "id": "C12",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S14"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-19N13"
+     ],
+     "id": "C13",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S16"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-19N14"
+     ],
+     "id": "C14",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S17"
+     ],
+     "status": "matched"
+    },
+    {
+     "amounts": {
+      "cashbook": 410001,
+      "difference": -1,
+      "direction": "out",
+      "statement": 410000
+     },
+     "cashbook": [
+      "PV-T19-01"
+     ],
+     "id": "C15",
+     "kind": "tolerated",
+     "reason": "within-tolerance",
+     "statement": [
+      "S3"
+     ],
+     "status": "matched-tolerated"
+    },
+    {
+     "amounts": {
+      "cashbook": 15497,
+      "difference": 3,
+      "direction": "out",
+      "statement": 15500
+     },
+     "cashbook": [
+      "PV-T19-03"
+     ],
+     "id": "C16",
+     "kind": "tolerated",
+     "reason": "within-tolerance",
+     "statement": [
+      "S15"
+     ],
+     "status": "matched-tolerated"
+    },
+    {
+     "amounts": {
+      "cashbook": 96073,
+      "difference": 2,
+      "direction": "in",
+      "statement": 96075
+     },
+     "cashbook": [
+      "RV-T19-02"
+     ],
+     "id": "C17",
+     "kind": "tolerated",
+     "reason": "within-tolerance",
+     "statement": [
+      "S9"
+     ],
+     "status": "matched-tolerated"
+    }
+   ],
+   "exceeded": null,
+   "held": false,
+   "outstanding": [],
+   "policy": {
+    "note": "فروق التقريب",
+    "perItem": 3,
+    "perPeriod": 6
+   },
+   "refused": null,
+   "sheet": {
+    "adjustedBank": 63335713,
+    "adjustedBook": 63335713,
+    "bank": 63335713,
+    "book": 63335713,
+    "difference": 0,
+    "sections": {
+     "bookPaymentsNotOnStatement": [],
+     "bookReceiptsNotOnStatement": [],
+     "statementDepositsNotInBook": [],
+     "statementWithdrawalsNotInBook": []
+    },
+    "status": "reconciled-within-tolerance",
+    "tolerated": 0,
+    "toleratedDifferences": [
+     [
+      "C15",
+      1
+     ],
+     [
+      "C16",
+      -3
+     ],
+     [
+      "C17",
+      2
+     ]
+    ],
+    "unexplained": 0
+   }
+  },
+  "T20": {
+   "cases": [
+    {
+     "cashbook": [
+      "BP-20N01"
+     ],
+     "id": "C1",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S1"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-20N02"
+     ],
+     "id": "C2",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S2"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-20N03"
+     ],
+     "id": "C3",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S4"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-20N04"
+     ],
+     "id": "C4",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S5"
+     ],
+     "status": "matched"
+    },
+    {
+     "amounts": {
+      "cashbook": 99999,
+      "difference": 1,
+      "direction": "out",
+      "statement": 100000
+     },
+     "cashbook": [
+      "PV-T20-01"
+     ],
+     "id": "C5",
+     "kind": "tolerated",
+     "reason": "within-tolerance",
+     "statement": [
+      "S3"
+     ],
+     "status": "matched-tolerated"
+    }
+   ],
+   "exceeded": null,
+   "held": false,
+   "outstanding": [
+    [
+     "C",
+     "PV-T20-02",
+     "unmatched"
+    ]
+   ],
+   "policy": {
+    "note": "Rounding by the payment system",
+    "perItem": 1,
+    "perPeriod": 5
+   },
+   "refused": null,
+   "sheet": {
+    "adjustedBank": 65542618,
+    "adjustedBook": 65542619,
+    "bank": 65642618,
+    "book": 65542619,
+    "difference": -1,
+    "sections": {
+     "bookPaymentsNotOnStatement": [
+      [
+       "PV-T20-02",
+       100000
+      ]
+     ],
+     "bookReceiptsNotOnStatement": [],
+     "statementDepositsNotInBook": [],
+     "statementWithdrawalsNotInBook": []
+    },
+    "status": "reconciled-within-tolerance",
+    "tolerated": -1,
+    "toleratedDifferences": [
+     [
+      "C5",
+      -1
+     ]
+    ],
+    "unexplained": 0
+   }
+  },
+  "T21": {
+   "cases": [
+    {
+     "cashbook": [
+      "BP-21N05"
+     ],
+     "id": "C1",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S6"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-21N07"
+     ],
+     "id": "C2",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S8"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-21N08"
+     ],
+     "id": "C3",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S9"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-21N10"
+     ],
+     "id": "C4",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S11"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-21N13"
+     ],
+     "id": "C5",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S15"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-21N15"
+     ],
+     "id": "C6",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S17"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-21N16"
+     ],
+     "id": "C7",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S18"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-21N23"
+     ],
+     "id": "C8",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S26"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-21N25"
+     ],
+     "id": "C9",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S28"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-21N29"
+     ],
+     "id": "C10",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S32"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-21N34"
+     ],
+     "id": "C11",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S38"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-21N35"
+     ],
+     "id": "C12",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S39"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-21N37"
+     ],
+     "id": "C13",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S41"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-21N38"
+     ],
+     "id": "C14",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S42"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N01"
+     ],
+     "id": "C15",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S1"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N02"
+     ],
+     "id": "C16",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S2"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N03"
+     ],
+     "id": "C17",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S3"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N04"
+     ],
+     "id": "C18",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S5"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N06"
+     ],
+     "id": "C19",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S7"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N09"
+     ],
+     "id": "C20",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S10"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N11"
+     ],
+     "id": "C21",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S12"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N12"
+     ],
+     "id": "C22",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S14"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N14"
+     ],
+     "id": "C23",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S16"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N17"
+     ],
+     "id": "C24",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S19"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N18"
+     ],
+     "id": "C25",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S20"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N19"
+     ],
+     "id": "C26",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S22"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N20"
+     ],
+     "id": "C27",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S23"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N21"
+     ],
+     "id": "C28",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S24"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N22"
+     ],
+     "id": "C29",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S25"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N24"
+     ],
+     "id": "C30",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S27"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N26"
+     ],
+     "id": "C31",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S29"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N27"
+     ],
+     "id": "C32",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S30"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N28"
+     ],
+     "id": "C33",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S31"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N30"
+     ],
+     "id": "C34",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S33"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N31"
+     ],
+     "id": "C35",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S35"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N32"
+     ],
+     "id": "C36",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S36"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N33"
+     ],
+     "id": "C37",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S37"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N36"
+     ],
+     "id": "C38",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S40"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N39"
+     ],
+     "id": "C39",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S43"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-21N40"
+     ],
+     "id": "C40",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S45"
+     ],
+     "status": "matched"
+    },
+    {
+     "amounts": {
+      "cashbook": 18001,
+      "difference": -1,
+      "direction": "out",
+      "statement": 18000
+     },
+     "cashbook": [
+      "PV-T21-01"
+     ],
+     "id": "C41",
+     "kind": "tolerated",
+     "reason": "within-tolerance",
+     "statement": [
+      "S4"
+     ],
+     "status": "matched-tolerated"
+    },
+    {
+     "amounts": {
+      "cashbook": 7723,
+      "difference": 2,
+      "direction": "out",
+      "statement": 7725
+     },
+     "cashbook": [
+      "PV-T21-03"
+     ],
+     "id": "C42",
+     "kind": "tolerated",
+     "reason": "within-tolerance",
+     "statement": [
+      "S21"
+     ],
+     "status": "matched-tolerated"
+    },
+    {
+     "amounts": {
+      "cashbook": 330001,
+      "difference": -1,
+      "direction": "out",
+      "statement": 330000
+     },
+     "cashbook": [
+      "PV-T21-05"
+     ],
+     "id": "C43",
+     "kind": "tolerated",
+     "reason": "within-tolerance",
+     "statement": [
+      "S44"
+     ],
+     "status": "matched-tolerated"
+    },
+    {
+     "amounts": {
+      "cashbook": 250001,
+      "difference": -1,
+      "direction": "in",
+      "statement": 250000
+     },
+     "cashbook": [
+      "RV-T21-02"
+     ],
+     "id": "C44",
+     "kind": "tolerated",
+     "reason": "within-tolerance",
+     "statement": [
+      "S13"
+     ],
+     "status": "matched-tolerated"
+    },
+    {
+     "amounts": {
+      "cashbook": 61009,
+      "difference": 1,
+      "direction": "in",
+      "statement": 61010
+     },
+     "cashbook": [
+      "RV-T21-04"
+     ],
+     "id": "C45",
+     "kind": "tolerated",
+     "reason": "within-tolerance",
+     "statement": [
+      "S34"
+     ],
+     "status": "matched-tolerated"
+    }
+   ],
+   "exceeded": null,
+   "held": false,
+   "outstanding": [],
+   "policy": {
+    "note": "Rounding by the payment system",
+    "perItem": 2,
+    "perPeriod": 6
+   },
+   "refused": null,
+   "sheet": {
+    "adjustedBank": 63543979,
+    "adjustedBook": 63543979,
+    "bank": 63543979,
+    "book": 63543979,
+    "difference": 0,
+    "sections": {
+     "bookPaymentsNotOnStatement": [],
+     "bookReceiptsNotOnStatement": [],
+     "statementDepositsNotInBook": [],
+     "statementWithdrawalsNotInBook": []
+    },
+    "status": "reconciled-within-tolerance",
+    "tolerated": 0,
+    "toleratedDifferences": [
+     [
+      "C41",
+      1
+     ],
+     [
+      "C42",
+      -2
+     ],
+     [
+      "C43",
+      1
+     ],
+     [
+      "C44",
+      -1
+     ],
+     [
+      "C45",
+      1
+     ]
+    ],
+    "unexplained": 0
+   }
+  },
+  "T22": {
+   "cases": [
+    {
+     "cashbook": [
+      "BP-22N01"
+     ],
+     "id": "C1",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S1"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-22N02"
+     ],
+     "id": "C2",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S2"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-22N03"
+     ],
+     "id": "C3",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S3"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-22N04"
+     ],
+     "id": "C4",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S4"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BP-22N06"
+     ],
+     "id": "C5",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S6"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-22N05"
+     ],
+     "id": "C6",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S5"
+     ],
+     "status": "matched"
+    }
+   ],
+   "exceeded": null,
+   "held": false,
+   "outstanding": [],
+   "policy": {
+    "note": "Rounding by the payment system",
+    "perItem": 1,
+    "perPeriod": 5
+   },
+   "refused": null,
+   "sheet": {
+    "adjustedBank": 43778510,
+    "adjustedBook": 43778510,
+    "bank": 43778510,
+    "book": 43778510,
+    "difference": 0,
+    "sections": {
+     "bookPaymentsNotOnStatement": [],
+     "bookReceiptsNotOnStatement": [],
+     "statementDepositsNotInBook": [],
+     "statementWithdrawalsNotInBook": []
+    },
+    "status": "reconciled",
+    "tolerated": 0,
+    "toleratedDifferences": [],
+    "unexplained": 0
+   }
+  },
+  "T23": {
+   "cases": [
+    {
+     "cashbook": [
+      "BP-23N04"
+     ],
+     "id": "C1",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S5"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-23N01"
+     ],
+     "id": "C2",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S1"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-23N02"
+     ],
+     "id": "C3",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S3"
+     ],
+     "status": "matched"
+    },
+    {
+     "cashbook": [
+      "BR-23N03"
+     ],
+     "id": "C4",
+     "kind": "automatic",
+     "reason": "reference",
+     "statement": [
+      "S4"
+     ],
+     "status": "matched"
+    },
+    {
+     "amounts": {
+      "cashbook": 125001,
+      "difference": -1,
+      "direction": "out",
+      "statement": 125000
+     },
+     "cashbook": [
+      "PV-T23-01"
+     ],
+     "id": "C5",
+     "kind": "tolerated",
+     "reason": "within-tolerance",
+     "statement": [
+      "S2"
+     ],
+     "status": "matched-tolerated"
+    }
+   ],
+   "exceeded": null,
+   "held": false,
+   "outstanding": [],
+   "policy": {
+    "note": "Rounding by the payment system",
+    "perItem": 1,
+    "perPeriod": 5
+   },
+   "refused": null,
+   "sheet": {
+    "adjustedBank": 93954866,
+    "adjustedBook": 93949865,
+    "bank": 93954866,
+    "book": 93949865,
+    "difference": 5001,
+    "sections": {
+     "bookPaymentsNotOnStatement": [],
+     "bookReceiptsNotOnStatement": [],
+     "statementDepositsNotInBook": [],
+     "statementWithdrawalsNotInBook": []
+    },
+    "status": "difference",
+    "tolerated": 1,
+    "toleratedDifferences": [
+     [
+      "C5",
+      1
+     ]
+    ],
+    "unexplained": 5000
+   }
+  }
+ },
+ "version": "bank-tolerance-foundation-1",
+ "window": 3
+}

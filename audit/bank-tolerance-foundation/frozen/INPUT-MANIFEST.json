@@ -1,0 +1,195 @@
+{
+ "schema": "tarasuf-wf1-tol1-input-manifest/1",
+ "synthetic": true,
+ "producer": "Chromium page.pdf with DejaVu Sans (statements), printed by the ROLL-1 foundation printedStatement in the bank statement foundation layout, amounts to the currency exponent (SAR 2, KWD 3); CSV cashbooks",
+ "files": {
+  "T01-DEC-cashbook.csv": {
+   "sha256": "cfe96857c43138752a6ea8d148260bd8a150250a12a831caf9b22c6ba51cea77",
+   "bytes": 358
+  },
+  "T01-DEC-statement.pdf": {
+   "sha256": "06a173f4767a1bbc80972c9cf19744f4ed0f7a680defdaf9e6bda14b92c15b47",
+   "bytes": 22326
+  },
+  "T02-DEC-cashbook.csv": {
+   "sha256": "17c213b66d61d07df4c552627072b5d644df72614e0945d7f84f9331ad67c539",
+   "bytes": 361
+  },
+  "T02-DEC-statement.pdf": {
+   "sha256": "fd43672c18c2b9b6a15dbc8b38773193c5c55a5e2c37a187b699022d22eabc8b",
+   "bytes": 22397
+  },
+  "T03-DEC-cashbook.csv": {
+   "sha256": "a1c3f3a056cf20bbe013377ba2732bf82d220a3a8d11ea1d9c88ef31f557f610",
+   "bytes": 355
+  },
+  "T03-DEC-statement.pdf": {
+   "sha256": "aba436177a1148bdd15b75219c7587b3972feb3a4e8700c9eb38fb7d0745d4e1",
+   "bytes": 22150
+  },
+  "T04-DEC-cashbook.csv": {
+   "sha256": "c02be8ae7734b229b4980391c4764d56a1fac1ae737c0d6c333a95cca7f388a0",
+   "bytes": 417
+  },
+  "T04-DEC-statement.pdf": {
+   "sha256": "51d4f7f160eab9a4cadd9b918cd81a737977f4ce7185cb22f0b0d5ce0a1b02ce",
+   "bytes": 22296
+  },
+  "T05-DEC-cashbook.csv": {
+   "sha256": "2dd56ea68211f5e708a4b6df57c1d5d8c250d4e46f9172697becb6a43ec26a2c",
+   "bytes": 412
+  },
+  "T05-DEC-statement.pdf": {
+   "sha256": "988f92bcfad4bdd94c5934688035547828858d8f0260651c54742e6f1a19c734",
+   "bytes": 22276
+  },
+  "T06-DEC-cashbook.csv": {
+   "sha256": "089539cdb013a2065ae341b0e085647ce704c18468e88994564216756706f159",
+   "bytes": 419
+  },
+  "T06-DEC-statement.pdf": {
+   "sha256": "7d0086b7347af311a1456b7ca5ef38669b248f3a4c23e65e362abc9261815aa7",
+   "bytes": 22454
+  },
+  "T07-DEC-cashbook.csv": {
+   "sha256": "7d26d4b4dcb269af9e3081e60e57e18d6242694f139ae4d1aad1ddbea117c322",
+   "bytes": 421
+  },
+  "T07-DEC-statement.pdf": {
+   "sha256": "9dfd90372b4138a90a7f94aad2ce3835057912a99d32ff9bc44e70c872bb85fd",
+   "bytes": 22812
+  },
+  "T08-DEC-cashbook.csv": {
+   "sha256": "2a3a4e65c87489941ceba7c1ee9cea0ec3285f5fb806bca4281818db034a6bfd",
+   "bytes": 362
+  },
+  "T08-DEC-statement.pdf": {
+   "sha256": "0274462ad6861f15f152d004dc2bd40f29159ee70b3c86a2194f93125c1e062b",
+   "bytes": 22350
+  },
+  "T09-DEC-cashbook.csv": {
+   "sha256": "af284fd773165c4028aa3afad572d2ee5719c6251372f43bfd209a588b82f127",
+   "bytes": 352
+  },
+  "T09-DEC-statement.pdf": {
+   "sha256": "2aa5c941723441f79601acc47d1b53ebe6ccdd66851cf1fb34ea52a1a23e5546",
+   "bytes": 22856
+  },
+  "T10-DEC-cashbook.csv": {
+   "sha256": "b87b507545481a6a3fbb0a35f5301564c3f0a1eb12b25aeed4c4f93c63503017",
+   "bytes": 359
+  },
+  "T10-DEC-statement.pdf": {
+   "sha256": "5058bfa64838dc1d932c1b26d114da23c94d70353682685ad355f649dba78776",
+   "bytes": 22398
+  },
+  "T11-DEC-cashbook.csv": {
+   "sha256": "a5470481874d851e686ea3ff76a1d00bbeb17b845b3b1f78751263038fb9e5a8",
+   "bytes": 357
+  },
+  "T11-DEC-statement.pdf": {
+   "sha256": "4d1bc64aea1d06b5e110ae11fea4370ac0f673f3ad7139265c2eb74585d3c358",
+   "bytes": 22686
+  },
+  "T12-DEC-cashbook.csv": {
+   "sha256": "63bea29509ff5ff1fe91ac877d8d69fdff286209513cb4692188ce425846c3a1",
+   "bytes": 360
+  },
+  "T12-DEC-statement.pdf": {
+   "sha256": "2155b0635fd35db836c891bbebd5e6bdfec92da2ba27d7bc2c7e5dfed6d62502",
+   "bytes": 22805
+  },
+  "T13-DEC-cashbook.csv": {
+   "sha256": "4e9800574811e939870a132d349d56889b92ca505804b05adf3bce7f556123b6",
+   "bytes": 358
+  },
+  "T13-DEC-statement.pdf": {
+   "sha256": "209ed98277ece071a84dd8ce7b36f49cb25c599012a5dadeb82d8e214fd49f81",
+   "bytes": 22385
+  },
+  "T14-DEC-cashbook.csv": {
+   "sha256": "182f3d10a521fc61ce99fb938a3e6635a0db9f7f01b0534d3d08873b9df51a50",
+   "bytes": 363
+  },
+  "T14-DEC-statement.pdf": {
+   "sha256": "3a2610a74eb4c3b93250f2afe8a7ee4192ce193bbf8d782287e5074e32e62860",
+   "bytes": 22281
+  },
+  "T15-DEC-cashbook.csv": {
+   "sha256": "c405c5d07086c128dd73697810f5a643f050e85040d32a6418d7ab223181b73b",
+   "bytes": 361
+  },
+  "T15-DEC-statement.pdf": {
+   "sha256": "1e97fe8cc592dc84437f6a3aba30a515adeea071e386c692e33b11769525c901",
+   "bytes": 22389
+  },
+  "T16-DEC-cashbook.csv": {
+   "sha256": "5f5cd26c144b037699a1e9ee84c2d94bd74ab2c39d24be4827d3208b935e778b",
+   "bytes": 358
+  },
+  "T16-DEC-statement.pdf": {
+   "sha256": "58b2f47213846bb601b70bc0dd808c23991116499d307dacb59df51e5bb883d6",
+   "bytes": 22202
+  },
+  "T17-DEC-cashbook.csv": {
+   "sha256": "25706cf18c27ae506b7c1d3429a608749092d64653d8e411cb92fbe52058ccf9",
+   "bytes": 364
+  },
+  "T17-DEC-statement.pdf": {
+   "sha256": "eccf07d4bb042aa65dbdcf01e8ece6318206cdf5e4250a3ee004c58e037ab766",
+   "bytes": 22284
+  },
+  "T18-DEC-cashbook.csv": {
+   "sha256": "797daaaa6bfad8e6212419f40536b855b16ac9ae489254cb99c718406cd5fdec",
+   "bytes": 357
+  },
+  "T18-DEC-statement.pdf": {
+   "sha256": "fcc03e0b177ef41646cff76fed5a2c27eb0519f0299fdf1356aa0a2baff69269",
+   "bytes": 22243
+  },
+  "T19-DEC-cashbook.csv": {
+   "sha256": "3a76cb6dcb8717cdace46ec6db92de9475de63b31e36662f53efccf81c5cd3d4",
+   "bytes": 1101
+  },
+  "T19-DEC-statement.pdf": {
+   "sha256": "2b9174a22af9c58f14f4377eb91a29980690aa624829690341b29f3b1a990f53",
+   "bytes": 31075
+  },
+  "T20-DEC-cashbook.csv": {
+   "sha256": "2902d778ed6c56236917843557647f25ac8c212292c2fda8623ed15e0b25d522",
+   "bytes": 408
+  },
+  "T20-DEC-statement.pdf": {
+   "sha256": "28d4eb1dffe47e5cb374e2827319ae71758e7d82e09b6d5cc05e6afaf3c3a8eb",
+   "bytes": 22367
+  },
+  "T21-DEC-cashbook.csv": {
+   "sha256": "64461dcc2a995eafdc4bf17f29f284aa4675b93c0f094a05bcd1dc7c70521ed8",
+   "bytes": 2833
+  },
+  "T21-DEC-statement.pdf": {
+   "sha256": "8f62b3cf87ba0a1a08c260e0b9091fabc351fd2ce1e5ed7d901452d47cf64d65",
+   "bytes": 30360
+  },
+  "T22-DEC-cashbook.csv": {
+   "sha256": "7354caddfb59c82ff3d3bb7f9725cf71fd6679c3eefd65c4eaed9ba2220ede29",
+   "bytes": 420
+  },
+  "T22-DEC-statement.pdf": {
+   "sha256": "90c80ca49a3ae6cb2692682bb376d9abab70ad59587e6d6df360666017923277",
+   "bytes": 22370
+  },
+  "T23-DEC-cashbook.csv": {
+   "sha256": "b9067bbefd2b92b4d59c0803482bfddea8bcd959f0038272131d681695821507",
+   "bytes": 364
+  },
+  "T23-DEC-statement.pdf": {
+   "sha256": "0c90d9e7e9900f38b252d5fc08b149e8c895bf65600e8c5a570b563fc9213bf8",
+   "bytes": 22402
+  },
+  "stories.json": {
+   "sha256": "47b96aad4cf30065a5db621baaa9e50d618027cc7597538ae6f85132313ba5fd",
+   "bytes": 120866
+  }
+ }
+}
