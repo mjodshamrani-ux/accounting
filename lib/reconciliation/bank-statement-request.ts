@@ -8,6 +8,9 @@ import { currencyPrecision } from './currency-precision.ts';
 import { MAX_FILE_BYTES } from './types.ts';
 
 export const BANK_STATEMENT_LIFECYCLE_VERSION = 'bank-statement-lifecycle-1';
+/** The proposed roll format: a session that also keeps the previous
+ * period's session file (audit/bank-roll-foundation/contract.json). */
+export const BANK_STATEMENT_ROLL_VERSION = 'bank-statement-roll-1';
 export const BANK_STATEMENT_SESSION_FORMAT = 'tarasuf-bank-statement-session';
 export const BANK_STATEMENT_SESSION_LIMIT = 32 * 1024 * 1024;
 export const BANK_STATEMENT_EXPORT_LIMIT = 96 * 1024 * 1024;

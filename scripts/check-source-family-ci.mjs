@@ -115,6 +115,8 @@ const required = [
   'test:bank-roll:oracle-mutants',
   'test:bank-roll:seal',
   'test:bank-roll:baseline',
+  'test:bank-roll:proof',
+  'test:bank-roll:mutations',
   'test:ar-statement:baseline',
   'test:ar-statement:a1-proof',
   'test:ar-statement:a2-proof',

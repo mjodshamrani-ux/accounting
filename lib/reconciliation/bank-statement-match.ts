@@ -259,6 +259,10 @@ export function matchBankStatement(
     confirmedClosing?: number;
     /** The statement period, for a statement that does not print one. */
     period?: { start: string; end: string };
+    /** Items kept out of matching, as `S:<movement>` and `C:<voucher>`: a
+     * carried item's repetition holds them for review (bank-statement-roll-1).
+     * They are in no pair, group or one-sided list here. */
+    withheld?: ReadonlySet<string>;
   } = {},
 ): StatementMatchResult {
   const movements = statementMovements(reading);
@@ -308,7 +312,7 @@ export function matchBankStatement(
     );
   if (!period) return hold('no statement period');
 
-  const used = new Set<string>();
+  const used = new Set<string>(options.withheld);
   const auto: StatementMatchResult['auto'] = [];
   const review: ReviewGroup[] = [];
   const byReference = <T extends { reference: string }>(rows: T[]) => {
@@ -319,8 +323,12 @@ export function matchBankStatement(
     }
     return map;
   };
-  const statementRefs = byReference(movements);
-  const cashbookRefs = byReference(cashbook);
+  const statementRefs = byReference(
+    movements.filter((r) => !used.has(`S:${r.id}`)),
+  );
+  const cashbookRefs = byReference(
+    cashbook.filter((r) => !used.has(`C:${r.id}`)),
+  );
   // Step 1: an explicit identical reference on both sides.
   for (const ref of [...statementRefs.keys()].sort()) {
     const s = statementRefs.get(ref)!;

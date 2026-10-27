@@ -33,6 +33,7 @@ import { MAX_FILE_BYTES } from './types.ts';
 import {
   BANK_STATEMENT_EXPORT_LIMIT,
   BANK_STATEMENT_LIFECYCLE_VERSION,
+  BANK_STATEMENT_ROLL_VERSION,
   BANK_STATEMENT_SESSION_FORMAT,
   BANK_STATEMENT_SESSION_LIMIT,
   fail,
@@ -42,10 +43,12 @@ import {
   statementBytes,
   statementKeys,
   statementPlain,
+  statementText,
   type BankStatementExportRequest,
   type BankStatementState,
   type StatementDecision,
   type StatementScope,
+  type StatementSource,
 } from './bank-statement-request.ts';
 
 export type StatementCaseStatus =
@@ -343,16 +346,16 @@ function encode(buffer: ArrayBuffer) {
     parts.push(String.fromCharCode(...bytes.subarray(i, i + 16384)));
   return btoa(parts.join(''));
 }
-function decode(value: unknown) {
+function decode(value: unknown, limit = MAX_FILE_BYTES) {
   if (
     typeof value !== 'string' ||
     !value.length ||
-    value.length > Math.ceil(MAX_FILE_BYTES / 3) * 4 ||
+    value.length > Math.ceil(limit / 3) * 4 ||
     !/^[A-Za-z0-9+/]*={0,2}$/u.test(value)
   )
     fail('SESSION');
   const bytes = Uint8Array.from(atob(value), (c) => c.charCodeAt(0)).buffer;
-  statementBytes(bytes, MAX_FILE_BYTES, 'SESSION');
+  statementBytes(bytes, limit, 'SESSION');
   if (encode(bytes) !== value) fail('SESSION');
   return bytes;
 }
@@ -390,8 +393,21 @@ export async function restoreBankStatement(
   return replay(sessionState(session));
 }
 
-/** The state a session file holds: its originals, scope and decisions. */
+/** The state a session file holds: its originals, scope and decisions. A
+ * session in the proposed roll format is not restored here. */
 function sessionState(session: ArrayBuffer): BankStatementState {
+  const { state, previous } = statementSessionParts(session);
+  if (previous) fail('SESSION');
+  return state;
+}
+
+/** What a session file holds: its originals, scope and decisions, and, in the
+ * proposed roll format (bank-statement-roll-1), the previous period's session
+ * file as it was saved, unread. Its fingerprint is checked by its reader. */
+export function statementSessionParts(session: ArrayBuffer): {
+  state: BankStatementState;
+  previous: StatementSource | null;
+} {
   statementBytes(session, BANK_STATEMENT_SESSION_LIMIT, 'SESSION');
   let parsed: unknown;
   try {
@@ -401,6 +417,8 @@ function sessionState(session: ArrayBuffer): BankStatementState {
   } catch {
     fail('SESSION');
   }
+  const roll =
+    statementPlain(parsed) && parsed.version === BANK_STATEMENT_ROLL_VERSION;
   if (
     !statementPlain(parsed) ||
     !statementKeys(parsed, [
@@ -409,9 +427,10 @@ function sessionState(session: ArrayBuffer): BankStatementState {
       'files',
       'scope',
       'decisions',
+      ...(roll ? ['previous'] : []),
     ]) ||
     parsed.format !== BANK_STATEMENT_SESSION_FORMAT ||
-    parsed.version !== BANK_STATEMENT_LIFECYCLE_VERSION ||
+    (parsed.version !== BANK_STATEMENT_LIFECYCLE_VERSION && !roll) ||
     !Array.isArray(parsed.files) ||
     parsed.files.length !== 2
   )
@@ -421,12 +440,32 @@ function sessionState(session: ArrayBuffer): BankStatementState {
       fail('SESSION');
     return { name: f.name, sha256: f.sha256, original: decode(f.data) };
   });
-  return snapshotBankStatementState({
-    version: parsed.version,
-    files,
-    scope: parsed.scope,
-    decisions: parsed.decisions,
-  });
+  let previous: StatementSource | null = null;
+  if (roll) {
+    const p = parsed.previous;
+    if (
+      !statementPlain(p) ||
+      !statementKeys(p, ['name', 'sha256', 'data']) ||
+      !statementText(p.name, 255) ||
+      typeof p.sha256 !== 'string' ||
+      !/^[a-f0-9]{64}$/u.test(p.sha256)
+    )
+      fail('SESSION');
+    previous = {
+      name: p.name,
+      sha256: p.sha256,
+      original: decode(p.data, BANK_STATEMENT_SESSION_LIMIT),
+    };
+  }
+  return {
+    state: snapshotBankStatementState({
+      version: BANK_STATEMENT_LIFECYCLE_VERSION,
+      files,
+      scope: parsed.scope,
+      decisions: parsed.decisions,
+    }),
+    previous,
+  };
 }
 
 /** The workbook cites every value: statement lines by page and PDF.js text

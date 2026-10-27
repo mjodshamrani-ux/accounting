@@ -458,3 +458,47 @@ void test('a cashbook cell the reader marked as hidden, unreadable, computed or 
     ),
   );
 });
+
+void test('withheld items stay out of every pair, group and one-sided list', () => {
+  // bank-statement-roll-1: a carried item's repetition withholds these from
+  // the period's own matching; the rest is matched exactly as without them.
+  const reading = statement([
+    ['2026-07-10', 'CHQ-1', -5000],
+    ['2026-07-11', 'TRF-2', 7000],
+    ['2026-07-12', '', -900],
+  ]);
+  const cash = entries([
+    ['2026-07-09', 'CHQ-1', -5000],
+    ['2026-07-11', 'TRF-2', 7000],
+    ['2026-07-12', '', -900],
+    ['2026-07-13', 'CHQ-1', -5000],
+  ]);
+  assert.deepEqual(outcome(matchBankStatement(reading, cash)), {
+    auto: ['S2=V2'],
+    review: ['S1/V1,V4/duplicate-reference', 'S3/V3/amount-date-suggestion'],
+    statementOnly: [],
+    cashbookOnly: [],
+    timing: [],
+  });
+  const withheld = new Set(['S:S1', 'C:V4']);
+  const r = matchBankStatement(reading, cash, { withheld });
+  assert.deepEqual(outcome(r), {
+    auto: ['S2=V2'],
+    review: ['S3/V3/amount-date-suggestion'],
+    statementOnly: [],
+    // V1 keeps its reference but meets no unwithheld movement with it.
+    cashbookOnly: ['V1'],
+    timing: [],
+  });
+  assert.equal(r.movements.length, 3, 'the movements themselves stay listed');
+  assert.equal(r.cashbook.length, 4);
+  // A withheld entry is out of its reference too: the other entry with it
+  // pairs alone, rather than the reference counting as used twice.
+  assert.deepEqual(
+    outcome(matchBankStatement(reading, cash, { withheld: new Set(['C:V1']) })).auto,
+    ['S1=V4', 'S2=V2'],
+  );
+  // Withholding every entry of a reference leaves its movement unmatched.
+  const single = matchBankStatement(reading, cash, { withheld: new Set(['C:V1', 'C:V4']) });
+  assert.deepEqual(outcome(single).statementOnly, ['S1']);
+});

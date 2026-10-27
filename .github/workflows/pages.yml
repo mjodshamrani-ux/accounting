@@ -260,7 +260,7 @@ jobs:
           pnpm test:inventory-pdf:workspace
           pnpm test:inventory-pdf:workspace-proof
           pnpm test:inventory-pdf:workspace-mutations
-      - name: Verify bank statement source truth, independent oracle, native reading, matching and session lifecycle proofs, oracle differential, independent workbook check, code and interface-rule mutations and preserved pre-activation refusals (BNK-PDF-1)
+      - name: Verify bank statement source truth, independent oracle, native reading, matching and session lifecycle proofs, oracle differential, independent workbook check, code and interface-rule mutations and preserved pre-activation refusals (BNK-PDF-1), and carrying open items to the next period (WF-1 ROLL-1)
         env:
           BNK_PDF_BASELINE_DIR: ${{ runner.temp }}/bank-statement-baseline
           BNK_G1_PROOF_DIR: ${{ runner.temp }}/bank-statement-g1
@@ -272,6 +272,8 @@ jobs:
           AR_STATEMENT_A3_DIR: ${{ runner.temp }}/ar-statement-a3
           AR_HOLDOUT_DIR: ${{ runner.temp }}/ar-statement-holdout
           BANK_ROLL_BASELINE_DIR: ${{ runner.temp }}/bank-roll-baseline
+          BANK_ROLL_PROOF_DIR: ${{ runner.temp }}/bank-roll-proof
+          BANK_ROLL_MUTATION_DIR: ${{ runner.temp }}/bank-roll-mutations
           BNK_G3_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g3-mutations
           BNK_G4_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g4-mutations
           BNK_G5_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g5-mutations
@@ -288,6 +290,8 @@ jobs:
           pnpm test:bank-roll:oracle-mutants
           pnpm test:bank-roll:seal
           pnpm test:bank-roll:baseline
+          pnpm test:bank-roll:proof
+          pnpm test:bank-roll:mutations
           pnpm test:ar-statement:baseline
           pnpm test:ar-statement:a1-proof
           pnpm test:ar-statement:a2-proof
