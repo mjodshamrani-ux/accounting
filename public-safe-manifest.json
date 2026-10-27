@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 15803,
-      "sha256": "f6020d17c00202541db209ad6498b78021bae89e8fb80cb2a82b80c26d3f7ec1",
+      "bytes": 16681,
+      "sha256": "56d204334fdc2e53220405b7419d7d81cec9645e6b0683dac5841c68e7330b09",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 17888,
-      "sha256": "6a5ba3671e5325e934b88c8ea7f0c8fbaba4cbc7ccd1564d21bb2347adccb775",
+      "bytes": 17932,
+      "sha256": "eeb2299c13d1c9b2fa01b4dbf9281c5a291653ebff9843f8fbd2b326583c2b58",
       "kind": "text"
     },
     {
@@ -36151,14 +36151,14 @@
     },
     {
       "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
-      "bytes": 102226,
-      "sha256": "5eca2f5247fffc81a333b52e4200e5a1a28ca9958fe5de1a7cb14bf738aa0e6e",
+      "bytes": 104365,
+      "sha256": "727125925348f9225dd2f60d76b93ba8aaff9475d76045d4a2602613c6153210",
       "kind": "text"
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 36935,
-      "sha256": "1b2239112bbdceecdb9d41b8888b528db0eb2f3053df79aea5ac67b64db5f8c8",
+      "bytes": 38009,
+      "sha256": "4516deae9c8fd4007593eca18590dd43e761967ba148768de5001ab32ba6f278",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 63689,
-      "sha256": "4eff6ef3680e9aba66a50bbf5441057129a0ad37a3c83f965c4fed7fe2411ad0",
+      "bytes": 64026,
+      "sha256": "5f9ebb18b228b4f24291cfd335fbaa4b8be0bcf41113cdcfe24408243d969ded",
       "kind": "text"
     },
     {
@@ -36217,8 +36217,8 @@
     },
     {
       "path": "docs/roadmap/bank.ar.md",
-      "bytes": 30803,
-      "sha256": "6a6ee4b9c75bbc6c4f1f31e9cc7e347f38227782028a13ea38da66fb04c2de45",
+      "bytes": 32066,
+      "sha256": "788b5c851b3b1b6c5a55a25d42ef3bd6a6608d409fe02432dada2e46cdea2434",
       "kind": "text"
     },
     {
@@ -44439,8 +44439,8 @@
     },
     {
       "path": ".claude/skills/tarasuf-source-evidence/formats.md",
-      "bytes": 5038,
-      "sha256": "1dc959bdd2d265f05bae4dbc5989e81e467f35fe91dd57109da3cfff48d69e75",
+      "bytes": 5168,
+      "sha256": "0a0479ede95ee283d35deca5b4ddbdab44d3c5d99d9c92c04b4a4f4bb178d0fc",
       "kind": "text"
     },
     {
@@ -44469,8 +44469,8 @@
     },
     {
       "path": "docs/reference/LESSONS-INDEX.ar.md",
-      "bytes": 23889,
-      "sha256": "b973eecae1723451dedf39287ca708a8491ee8f516876dd93c2d04a23e8a66d0",
+      "bytes": 25088,
+      "sha256": "087f2410e06fde692745bc43053769baee63d248e6ede30f254f5bf4e258adf5",
       "kind": "text"
     },
     {
@@ -46001,6 +46001,12 @@
       "path": "audit/bank-statement-holdout-g23/results/run-1-748bd7c.json",
       "bytes": 7909,
       "sha256": "959bde2f87e448d616795ef789c0230c2cd464e079cd3181540a93db8bda7d90",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/BNK-PDF-1-G23.ar.md",
+      "bytes": 16168,
+      "sha256": "4eafc36219d4ddfc7d64c238cf54bdd275976fc1a32e7a89c7a1e570e23a0731",
       "kind": "text"
     }
   ],
