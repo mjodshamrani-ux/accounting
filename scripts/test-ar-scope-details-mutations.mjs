@@ -381,10 +381,12 @@ const mutations = [
     [witness],
     'legacy sessions preserve',
     [
+      // A printed statement (AR-1 PDF A2) made this a three-way choice; the
+      // fault is the same: a legacy comparison takes the new family.
       edit(
         engine,
-        'const version = newFamily ? AR_SCOPE_DETAILS_VERSION : AR_VERSION;',
-        'const version = AR_SCOPE_DETAILS_VERSION;',
+        '      ? AR_SCOPE_DETAILS_VERSION\n      : AR_VERSION;',
+        '      ? AR_SCOPE_DETAILS_VERSION\n      : AR_SCOPE_DETAILS_VERSION;',
       ),
     ],
     'Silently change legacy reconciliation/session family and its decision context.',
@@ -394,10 +396,12 @@ const mutations = [
     [witness],
     'independent export audit',
     [
+      // A3 added the printed statement to the extended trail; the fault is the
+      // same and still touches only scope-details rows.
       edit(
         arIo,
-        'const extended = result.version === AR_SCOPE_DETAILS_VERSION;',
-        `const extended = result.version === AR_SCOPE_DETAILS_VERSION;
+        'const extended = result.version === AR_SCOPE_DETAILS_VERSION || !!printed;',
+        `const extended = result.version === AR_SCOPE_DETAILS_VERSION || !!printed;
   if (extended) {
     for (const row of result.rows) {
       if (isArScopeReading(result.readings[row.side])) {
