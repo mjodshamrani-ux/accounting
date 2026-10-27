@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 47498,
-      "sha256": "eafc5028dce8c259c378d5be699e08ddc11f0d8bdaa02c90e0f27a67846a87ba",
+      "bytes": 47923,
+      "sha256": "6ef65b22c74b0f60af171df3bd36ac6611dfc562aa355e604f07726de50091eb",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 25156,
-      "sha256": "b2c605c8677503e5a69579c3d2569f555f9bb0d0ef5052b0f923e93eebaa57c9",
+      "bytes": 25713,
+      "sha256": "8f3cb0f22055dbea66234ee4069b551decfc2bf0d11dc59a0c60ff7819a052e0",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 19026,
-      "sha256": "1e6498d841d43b633ff2b72ac287e591117d30e1d16339e28b3b686ca7ae2aea",
+      "bytes": 19070,
+      "sha256": "1f0902c974546c9cea452c518dbbd3ec3798c3c8e26c60500fc39750254e83e5",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 60789,
-      "sha256": "d009f6905ea790ba40ceeabfb1996b1b49686f1704cf4c6df98a6b5acbe60fda",
+      "bytes": 61964,
+      "sha256": "5b693263c35216fe7abc17bc99b5f0ad13b45fe88f86bb36cff3ea3f77351eae",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 71511,
-      "sha256": "8782693241516a587716b52928441ea08f0336d21d1f0fa8cc2242b164b4475a",
+      "bytes": 71909,
+      "sha256": "49deb75454e4f267ab1af480a9b4ee03bc5214fde9230bf51599ade3675e68ea",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 32061,
-      "sha256": "64352cdbd170589f9833b6a4784378d555f1fee349dd052ef51207f2a615442e",
+      "bytes": 32415,
+      "sha256": "80c3e5225b1dfa8939fdfe82d3fc48bc8e94c130fa261d7bef442585d2a3a92b",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 12576,
-      "sha256": "2d985d5e004860e59f8d9aad09f68fb3a50a8eba497577ad62b2cfccfd4389d2",
+      "bytes": 12640,
+      "sha256": "5cce8449714558888892b2032031c0e88d523fcdc81d380f4e97f366025f9765",
       "kind": "text"
     },
     {
@@ -40805,8 +40805,8 @@
     },
     {
       "path": "docs/roadmap/workflow.ar.md",
-      "bytes": 11803,
-      "sha256": "87dc90311c23e62f53c8a7d44c5460933b2b700667cf7009122c914c65589dd2",
+      "bytes": 12185,
+      "sha256": "876644bce3d6f7bca7da242cd7b2a8eaeb0bad623db40ab1bc72eee3ffd47d48",
       "kind": "text"
     },
     {
@@ -50001,14 +50001,14 @@
     },
     {
       "path": "scripts/test-bank-sheet-mutations.mjs",
-      "bytes": 11115,
-      "sha256": "73c238428d53c1627378b7b69521ea361935a05ff0c2e65bd3a56229fddeb450",
+      "bytes": 12004,
+      "sha256": "38fce234fd507438a0f192696f4a0709d7081a89c87851c6edb8902931eccb5e",
       "kind": "text"
     },
     {
       "path": "tests/bank-statement-sheet.test.ts",
-      "bytes": 12311,
-      "sha256": "0ebb9e7f253db723351fc06076b2040e69f0146ba449bdebe143c4bcff9fdc66",
+      "bytes": 14452,
+      "sha256": "5e89d70cd12533ce4c9e730f9cc7dd1746a0e92e2eb27154ae0c2af2878ad240",
       "kind": "text"
     },
     {
@@ -50049,8 +50049,8 @@
     },
     {
       "path": "scripts/bank-sheet-browser.mjs",
-      "bytes": 29020,
-      "sha256": "e58b5e090979761aaeb948fb387a91c1be77886923a35444bca6fb6193030870",
+      "bytes": 35011,
+      "sha256": "127747943543497a278f0972485dd36985e3de8032370b639576df27d61d8106",
       "kind": "text"
     },
     {
@@ -50067,8 +50067,8 @@
     },
     {
       "path": "audit/bank-sheet-holdout-r4/README.ar.md",
-      "bytes": 8434,
-      "sha256": "2c5e1f44bed5f9eb9e560b02004a5e36acbdd1e8c85afc53da5c76c4a9f593ba",
+      "bytes": 9445,
+      "sha256": "6011d1c7a80f391624af75b1ddb99a7e028ae10c97ab2007f4a5e052a796649c",
       "kind": "text"
     },
     {
@@ -50751,6 +50751,24 @@
       "path": "scripts/bank-sheet-holdout.mjs",
       "bytes": 11649,
       "sha256": "e4bbfe961d0f4064450f15634e8ea00c67172ad896ed8cb926e3c261f2f56f05",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-sheet-holdout-r4/results/browser-run-1.json",
+      "bytes": 2533,
+      "sha256": "bab1d12db4d7f573e95ed8c9b705d435dc138d950f105d8a839ae9dfaa75ac0d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-sheet-holdout-r4/results/run-1.json",
+      "bytes": 2943,
+      "sha256": "f7c5c5116046d8000718cce655ecd2be817ccebb63153390a8c435cbee8c2e24",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/WF-1-REPORT-R4.ar.md",
+      "bytes": 10879,
+      "sha256": "d38e870e2ad6851e9e4ac574a1923a50ee2244c44f8242f72cd288c01455bc27",
       "kind": "text"
     }
   ],

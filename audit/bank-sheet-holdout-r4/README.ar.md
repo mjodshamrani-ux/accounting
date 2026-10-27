@@ -65,10 +65,21 @@ holdout مختوم للعقد المقترح `bank-reconciliation-sheet-1`، خ�
 
 `ELIGIBILITY.json` كتبته [أداة الأهلية](../bank-statement-eligibility/README.ar.md) على نسخة من الكشوف بأسماء بلا شرطة بين القصة والشهر، `K01JAN` لـ`K01-JAN`: لم تجد سببًا يرفض به القارئ كشفًا.
 
+## النتائج
+
+التشغيل الأول كما جاء، بعد دفع الختم، في [التقرير](../../docs/audits/WF-1-REPORT-R4.ar.md):
+
+- **على مسار الدورة** ([`scripts/bank-sheet-holdout.mjs`](../../scripts/bank-sheet-holdout.mjs)، [`results/run-1.json`](results/run-1.json)): 22/22 قصة تساوي `EXPECTED.json`، و6/6 رفوض، و16/16 ورقة، و22/22 حُفظت واستُعيدت، و22/22 ورقة عمل يقبلها المدقق المستقل.
+- **وفي المتصفح** ([`scripts/bank-sheet-browser.mjs --suite`](../../scripts/bank-sheet-browser.mjs)، [`results/browser-run-1.json`](results/browser-run-1.json)): 22/22 على الشاشة وفي النتيجة، و22/22 بعد الحفظ والاستعادة، و22/22 ورقة عمل.
+
+لم يتغير المنتج بعد الختم.
+
 ## الإعادة
 
 ```sh
 python3 -B audit/bank-sheet-holdout-r4/check_seal.py
+pnpm test:bank-sheet:r4-holdout   # يطلب أن يساوي التشغيل results/run-1.json
+pnpm build && pnpm test:bank-sheet:r4-browser   # results/browser-run-1.json
 # إعادة الرسم والقراءة المستقلة (لا تُستعمل لتغيير أصول مختومة):
 PYTHONPATH=<pymupdf, fontTools> python3 -B audit/bank-sheet-holdout-r4/render.py --modules <js>/node_modules --gems <ruby> --out <dir>
 python3 -B audit/bank-sheet-holdout-r4/stories.py --records > <dir>/records.json

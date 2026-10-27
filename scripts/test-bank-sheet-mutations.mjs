@@ -29,17 +29,27 @@ const output =
   join(root, 'work/bank-sheet-mutations');
 await mkdir(output, { recursive: true });
 const out = await mkdtemp(join(output, 'run-'));
-// BANK_SHEET_PROOF_ONLY=1 measures the proof alone, without the unit tests.
-const tests = process.env.BANK_SHEET_PROOF_ONLY
+// BANK_SHEET_PROOF_ONLY=1 measures the proofs alone, without the unit tests;
+// BANK_SHEET_PROOF_ONLY=holdout measures the R4 holdout's recorded first run
+// alone (scripts/bank-sheet-holdout.mjs --assert=run-1.json).
+const only = process.env.BANK_SHEET_PROOF_ONLY;
+const tests = only
   ? []
   : [
       'tests/bank-statement-sheet.test.ts',
       'tests/bank-statement-sheet-lifecycle.test.ts',
     ];
-const proofs = [
-  'scripts/bank-sheet-proof.mjs',
-  'scripts/bank-sheet-lifecycle-proof.mjs',
-];
+const proofs =
+  only === 'holdout'
+    ? [['scripts/bank-sheet-holdout.mjs', '--assert=run-1.json']]
+    : [
+        ['scripts/bank-sheet-proof.mjs'],
+        ['scripts/bank-sheet-lifecycle-proof.mjs'],
+      ];
+const packages =
+  only === 'holdout'
+    ? ['audit/bank-sheet-foundation', 'audit/bank-sheet-holdout-r4']
+    : ['audit/bank-sheet-foundation'];
 const SHEET = 'lib/reconciliation/bank-statement-sheet.ts';
 const LIFE = 'lib/reconciliation/bank-statement-lifecycle.ts';
 const REQUEST = 'lib/reconciliation/bank-statement-request.ts';
@@ -162,6 +172,13 @@ const mutations = [
     "item.side === 'statement' ? Number(item.id.slice(1)) : (item.row ?? 0),",
     "item.side === 'statement' ? 0 : (item.row ?? 0),",
   ],
+  // Book items in row order, as the cashbook recorded them (R4 K09).
+  [
+    'book-order-by-date',
+    SHEET,
+    "item.side === 'statement' ? Number(item.id.slice(1)) : (item.row ?? 0),",
+    "item.side === 'statement' ? Number(item.id.slice(1)) : Number(item.date.replace(/-/gu, '')),",
+  ],
   // The sign-off fingerprint.
   [
     'fingerprint-without-items',
@@ -273,7 +290,11 @@ const mutations = [
     '      ].includes(',
   ],
 ];
-const files = [...new Set(mutations.map(([, file]) => file)), ...tests, ...proofs];
+const files = [
+  ...new Set(mutations.map(([, file]) => file)),
+  ...tests,
+  ...proofs.map(([script]) => script),
+];
 const digest = (b) => createHash('sha256').update(b).digest('hex');
 const before = Object.fromEntries(
   await Promise.all(
@@ -296,14 +317,19 @@ const run = (cwd) => {
     );
     if (!completedSuccessfully(last)) return last;
   }
-  for (const proof of proofs) {
-    last = spawnSync(process.execPath, ['--experimental-strip-types', proof], {
-      ...options,
-      env: {
-        ...process.env,
-        BANK_SHEET_LIFECYCLE_DIR: join(cwd, 'work/bank-sheet-lifecycle'),
+  for (const [proof, ...args] of proofs) {
+    last = spawnSync(
+      process.execPath,
+      ['--experimental-strip-types', proof, ...args],
+      {
+        ...options,
+        env: {
+          ...process.env,
+          BANK_SHEET_LIFECYCLE_DIR: join(cwd, 'work/bank-sheet-lifecycle'),
+          BANK_SHEET_HOLDOUT_DIR: join(cwd, 'work/bank-sheet-holdout'),
+        },
       },
-    });
+    );
     if (!completedSuccessfully(last)) return last;
   }
   return last;
@@ -324,8 +350,8 @@ if (report.baselinePassed)
       for (const name of [
         'lib',
         ...tests,
-        ...proofs,
-        'audit/bank-sheet-foundation',
+        ...proofs.map(([script]) => script),
+        ...packages,
         'package.json',
       ])
         await cp(join(root, name), join(tree, name), { recursive: true });

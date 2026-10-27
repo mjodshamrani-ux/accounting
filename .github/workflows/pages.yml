@@ -278,6 +278,7 @@ jobs:
           BANK_ROLL_HOLDOUT_DIR: ${{ runner.temp }}/bank-roll-holdout
           BANK_SHEET_MUTATION_DIR: ${{ runner.temp }}/bank-sheet-mutations
           BANK_SHEET_LIFECYCLE_DIR: ${{ runner.temp }}/bank-sheet-lifecycle
+          BANK_SHEET_HOLDOUT_DIR: ${{ runner.temp }}/bank-sheet-holdout
           BNK_G3_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g3-mutations
           BNK_G4_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g4-mutations
           BNK_G5_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g5-mutations
@@ -299,6 +300,7 @@ jobs:
           pnpm test:bank-sheet:oracle-mutants
           pnpm test:bank-sheet:seal
           pnpm test:bank-sheet:r4-seal
+          pnpm test:bank-sheet:r4-holdout
           pnpm test:bank-sheet:baseline
           pnpm test:bank-sheet:proof
           pnpm test:bank-sheet:lifecycle
@@ -364,6 +366,10 @@ jobs:
         env:
           BANK_SHEET_BROWSER_DIR: ${{ runner.temp }}/bank-sheet-browser
         run: pnpm test:bank-sheet:browser
+      - name: Verify the closing reconciliation sheet on the sealed R4 holdout in the bank workspace through the actual Worker, against its recorded first run (WF-1 REPORT-1 R4)
+        env:
+          BANK_SHEET_BROWSER_DIR: ${{ runner.temp }}/bank-sheet-r4-browser
+        run: pnpm test:bank-sheet:r4-browser
       - run: pnpm test:browser
       - name: Verify sectioned inventory CSV and Excel uploads, Arabic and English source-bound downloads
         env:

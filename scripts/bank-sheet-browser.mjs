@@ -11,6 +11,11 @@
 // independent checker audit/bank-sheet-foundation/check_export.py, and every
 // saved session is read here from its JSON. Worker replies are only observed;
 // nothing is fabricated or injected.
+// With --suite=<sealed package> or BANK_SHEET_SUITE (R4: audit/bank-sheet-holdout-r4)
+// it plays that package's stories instead, records each story as it comes
+// (a failing story is recorded and the page reloaded, not thrown), saves and
+// restores each, and with --record=<file> writes the record to the package's
+// results/, or with --assert=<file> requires it to equal that record.
 //   pnpm build && node --experimental-strip-types scripts/bank-sheet-browser.mjs
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
@@ -29,8 +34,16 @@ const root = path.resolve(import.meta.dirname, '..'),
   // BANK_SHEET_DIST: another build of the same source, for the sheet
   // interface mutation gate (scripts/test-bank-sheet-interface-mutations.mjs).
   dist = process.env.BANK_SHEET_DIST ?? path.join(root, 'dist'),
-  suite = path.join(root, 'audit/bank-sheet-foundation'),
+  chosen =
+    process.argv
+      .find((a) => a.startsWith('--suite='))
+      ?.slice('--suite='.length) ?? process.env.BANK_SHEET_SUITE,
+  holdout = !!chosen,
+  suite = holdout
+    ? path.resolve(root, chosen)
+    : path.join(root, 'audit/bank-sheet-foundation'),
   frozen = path.join(suite, 'frozen'),
+  checker = path.join(root, 'audit/bank-sheet-foundation/check_export.py'),
   tables = path.join(root, 'audit/bank-statement-foundation/frozen');
 const output =
   process.env.BANK_SHEET_BROWSER_DIR ??
@@ -50,9 +63,36 @@ for (const [name, entry] of Object.entries(manifest.files))
   );
 const facts = await json(path.join(frozen, 'stories.json'));
 const expected = (await json(path.join(frozen, 'EXPECTED.json'))).stories;
-assert.equal(facts.stories.length, 24);
-const MONTHS = { 10: 'OCT', 11: 'NOV', 12: 'DEC' };
-const month = (period) => MONTHS[Number(period.start.slice(5, 7))];
+if (!holdout) assert.equal(facts.stories.length, 24);
+const MONTHS = [
+  'JAN',
+  'FEB',
+  'MAR',
+  'APR',
+  'MAY',
+  'JUN',
+  'JUL',
+  'AUG',
+  'SEP',
+  'OCT',
+  'NOV',
+  'DEC',
+];
+const month = (period) => MONTHS[Number(period.start.slice(5, 7)) - 1];
+const option = (name) =>
+  process.argv.find((a) => a.startsWith(`--${name}=`))?.slice(name.length + 3);
+const canonical = (v) =>
+  Array.isArray(v)
+    ? v.map(canonical)
+    : v && typeof v === 'object'
+      ? Object.fromEntries(
+          Object.keys(v)
+            .sort()
+            .map((k) => [k, canonical(v[k])]),
+        )
+      : v;
+const same = (a, b) =>
+  JSON.stringify(canonical(a)) === JSON.stringify(canonical(b));
 const byText = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
 /** A minor-unit amount as an accountant types it, written here and not by
  * the product: optionally with thousands separators or Arabic-Indic digits. */
@@ -110,7 +150,8 @@ const errors = [],
   nonGet = [],
   checks = [],
   exportsToCheck = [],
-  timing = {};
+  timing = {},
+  stories = {};
 let browser;
 async function open(lang, width) {
   const ctx = await browser.newContext({
@@ -373,7 +414,7 @@ async function shown(u, id) {
         (await u.table(key)).map((r) => [
           r[0],
           r[1],
-          MONTHS[Number(r[2].slice(5, 7))],
+          MONTHS[Number(r[2].slice(5, 7)) - 1],
           r[3],
           r[4],
           r[5],
@@ -589,221 +630,345 @@ try {
     en = await open('en', 390);
   const story = (id) => facts.stories.find((s) => s.id === id);
 
-  // A table statement has no sheet; a printed one offers it once compared.
-  {
-    const u = ar;
-    await u.choose('statement', 'BS01-statement.csv', tables);
-    await u.choose('cashbook', 'BS01-cashbook.csv', tables);
-    await u.field(u.c.currency).selectOption('SAR');
-    const table = await u.compare();
-    assert.equal(table.state.version, 'bank-statement-lifecycle-1');
-    assert.equal(
-      await u.w.locator('[data-bank-sheet]').count(),
-      0,
-      'no sheet for a table statement',
-    );
-    assert.equal(
-      await u.w.locator('[data-bank-statement-claim]').innerText(),
-      u.c.claim,
-    );
-    checks.push(
-      'a table statement offers no sheet, and its claim is unchanged',
-    );
-  }
-
-  // The inputs the screen refuses before anything is sent.
-  {
-    const u = ar;
-    await u.choose('statement', 'T02-NOV-statement.pdf');
-    await u.choose('cashbook', 'T02-NOV-cashbook.csv');
-    await u.compare();
-    const balance = u.field(u.h.screen.balance),
-      note = u.field(u.h.screen.note),
-      apply = u.button(u.h.screen.apply);
-    for (const [typedBalance, typedNote, refusal] of [
-      ['657,545.4', '', 'book'],
-      ['657545', '', 'book'],
-      ['', 'General ledger', 'note'],
-      ['657545.46', 'x'.repeat(201), 'note'],
-    ]) {
-      await balance.fill(typedBalance);
-      await note.fill(typedNote);
+  if (!holdout) {
+    // A table statement has no sheet; a printed one offers it once compared.
+    {
+      const u = ar;
+      await u.choose('statement', 'BS01-statement.csv', tables);
+      await u.choose('cashbook', 'BS01-cashbook.csv', tables);
+      await u.field(u.c.currency).selectOption('SAR');
+      const table = await u.compare();
+      assert.equal(table.state.version, 'bank-statement-lifecycle-1');
       assert.equal(
-        await u.w
-          .locator('[data-bank-sheet-invalid]')
-          .getAttribute('data-bank-sheet-invalid'),
-        refusal,
-        `${typedBalance} | ${typedNote.slice(0, 20)}`,
+        await u.w.locator('[data-bank-sheet]').count(),
+        0,
+        'no sheet for a table statement',
       );
       assert.equal(
-        await u.w.locator('[data-bank-sheet-invalid]').innerText(),
-        u.h.screen.invalid[refusal],
+        await u.w.locator('[data-bank-statement-claim]').innerText(),
+        u.c.claim,
       );
-      assert.equal(await apply.isEnabled(), false, `${refusal}: apply offered`);
+      checks.push(
+        'a table statement offers no sheet, and its claim is unchanged',
+      );
     }
-    assert.equal(
-      await u.w.locator('[data-bank-sheet-signoffs]').count(),
-      0,
-      'no sign-off before a sheet',
-    );
-    checks.push(
-      'the screen refuses a balance off the currency decimals and a source without a balance or over 200 characters',
-    );
-  }
 
-  // Every story, as its facts say: T01–T12 in Arabic at 1440, T13–T24 in
-  // English at 390. T04's balance is typed in Arabic-Indic digits, T10's
-  // with thousands separators; T02's review is recorded by keyboard alone.
-  for (const s of facts.stories) {
-    const n = Number(s.id.slice(1));
-    const u = n <= 12 ? ar : en;
-    const style =
-      s.id === 'T04' ? 'arabic' : s.id === 'T10' ? 'grouped' : 'plain';
-    const since = await u.page.evaluate(() => performance.now());
-    const { state, result } = await play(
-      u,
-      { ...s, keyboard: s.id === 'T02' },
-      style,
-    );
-    if (s.id === 'T23')
-      timing['T23 story'] = {
-        totalMs: Math.round(
-          (await u.page.evaluate(() => performance.now())) - since,
-        ),
-        longestTaskMs: Math.round(
-          await u.page.evaluate(
-            (since) =>
-              Math.max(
-                0,
-                ...globalThis.longTasks
-                  .filter(([t]) => t >= since)
-                  .map(([, d]) => d),
-              ),
-            since,
+    // The inputs the screen refuses before anything is sent.
+    {
+      const u = ar;
+      await u.choose('statement', 'T02-NOV-statement.pdf');
+      await u.choose('cashbook', 'T02-NOV-cashbook.csv');
+      await u.compare();
+      const balance = u.field(u.h.screen.balance),
+        note = u.field(u.h.screen.note),
+        apply = u.button(u.h.screen.apply);
+      for (const [typedBalance, typedNote, refusal] of [
+        ['657,545.4', '', 'book'],
+        ['657545', '', 'book'],
+        ['', 'General ledger', 'note'],
+        ['657545.46', 'x'.repeat(201), 'note'],
+      ]) {
+        await balance.fill(typedBalance);
+        await note.fill(typedNote);
+        assert.equal(
+          await u.w
+            .locator('[data-bank-sheet-invalid]')
+            .getAttribute('data-bank-sheet-invalid'),
+          refusal,
+          `${typedBalance} | ${typedNote.slice(0, 20)}`,
+        );
+        assert.equal(
+          await u.w.locator('[data-bank-sheet-invalid]').innerText(),
+          u.h.screen.invalid[refusal],
+        );
+        assert.equal(
+          await apply.isEnabled(),
+          false,
+          `${refusal}: apply offered`,
+        );
+      }
+      assert.equal(
+        await u.w.locator('[data-bank-sheet-signoffs]').count(),
+        0,
+        'no sign-off before a sheet',
+      );
+      checks.push(
+        'the screen refuses a balance off the currency decimals and a source without a balance or over 200 characters',
+      );
+    }
+
+    // Every story, as its facts say: T01–T12 in Arabic at 1440, T13–T24 in
+    // English at 390. T04's balance is typed in Arabic-Indic digits, T10's
+    // with thousands separators; T02's review is recorded by keyboard alone.
+    for (const s of facts.stories) {
+      const n = Number(s.id.slice(1));
+      const u = n <= 12 ? ar : en;
+      const style =
+        s.id === 'T04' ? 'arabic' : s.id === 'T10' ? 'grouped' : 'plain';
+      const since = await u.page.evaluate(() => performance.now());
+      const { state, result } = await play(
+        u,
+        { ...s, keyboard: s.id === 'T02' },
+        style,
+      );
+      if (s.id === 'T23')
+        timing['T23 story'] = {
+          totalMs: Math.round(
+            (await u.page.evaluate(() => performance.now())) - since,
           ),
-        ),
-      };
-    assert.deepEqual(
-      asOracle(result),
-      expected[s.id],
-      `${s.id}: the installed sheet against EXPECTED.json`,
+          longestTaskMs: Math.round(
+            await u.page.evaluate(
+              (since) =>
+                Math.max(
+                  0,
+                  ...globalThis.longTasks
+                    .filter(([t]) => t >= since)
+                    .map(([, d]) => d),
+                ),
+              since,
+            ),
+          ),
+        };
+      assert.deepEqual(
+        asOracle(result),
+        expected[s.id],
+        `${s.id}: the installed sheet against EXPECTED.json`,
+      );
+      assert.equal(state.sheet.language, s.language);
+      await shown(u, s.id);
+      if (s.id === 'T04')
+        await u.w
+          .locator('[data-bank-sheet]')
+          .screenshot({ path: path.join(out, 'ar-1440-T04-sheet.png') });
+      const book = await u.download(u.c.export, `${s.id}-sheet.xlsx`);
+      assert.equal(book.name, 'tarasuf-bank-statement-workpaper.xlsx');
+      exportsToCheck.push({ story: s.id, path: book.target });
+    }
+    checks.push(
+      '24/24 stories played on the page equal EXPECTED.json, on screen and in the installed result',
     );
-    assert.equal(state.sheet.language, s.language);
-    await shown(u, s.id);
-    if (s.id === 'T04')
-      await u.w
+    {
+      const width = await en.page.evaluate(() => [
+        document.documentElement.scrollWidth,
+        document.documentElement.clientWidth,
+      ]);
+      assert.ok(
+        width[0] <= width[1],
+        `at 390 the page scrolls sideways ${width}`,
+      );
+      await en.w
         .locator('[data-bank-sheet]')
-        .screenshot({ path: path.join(out, 'ar-1440-T04-sheet.png') });
-    const book = await u.download(u.c.export, `${s.id}-sheet.xlsx`);
-    assert.equal(book.name, 'tarasuf-bank-statement-workpaper.xlsx');
-    exportsToCheck.push({ story: s.id, path: book.target });
-  }
-  checks.push(
-    '24/24 stories played on the page equal EXPECTED.json, on screen and in the installed result',
-  );
-  {
-    const width = await en.page.evaluate(() => [
-      document.documentElement.scrollWidth,
-      document.documentElement.clientWidth,
-    ]);
-    assert.ok(
-      width[0] <= width[1],
-      `at 390 the page scrolls sideways ${width}`,
-    );
-    await en.w
-      .locator('[data-bank-sheet]')
-      .screenshot({ path: path.join(out, 'en-390-T24-sheet.png') });
-  }
+        .screenshot({ path: path.join(out, 'en-390-T24-sheet.png') });
+    }
 
-  // Saved, restored cold, and the next action keeps the restored inputs:
-  // T12 (a void preparation and a current review) and T23 (a chain).
-  for (const id of ['T12', 'T23']) {
-    const u = en;
-    const s = story(id);
-    const played = await play(u, s);
-    assert.deepEqual(asOracle(played.result), expected[id]);
-    const session = await u.download(u.c.save, `${id}-session.json`);
-    assert.equal(session.name, 'tarasuf-bank-statement-session.json');
-    const saved = await savedSession(session.target, s, played.state);
-    await u.page.reload();
-    const cold = await openDomainWorkspace(u.page, 'bank', {
-      advanced: false,
-      requiredSources: false,
-    });
-    assert.equal(await cold.locator('[data-bank-statement-result]').count(), 0);
-    const back = await u.restore(session.target);
-    assert.deepEqual(back.result, played.result, `${id}: the restored result`);
-    await shown(u, id);
-    assert.equal(
-      digitsOf(await u.field(u.h.screen.balance).inputValue()),
-      String(saved.sheet.book.balance),
-      `${id}: the restored balance is shown`,
-    );
-    assert.equal(
-      await u.field(u.h.screen.note).inputValue(),
-      saved.sheet.book.note,
-    );
-    assert.equal(await u.field(u.h.screen.language).inputValue(), s.language);
-    // The next action after a restore keeps every sheet input.
-    const again = await u.act(() => u.button(u.h.screen.apply).click());
-    assert.deepEqual(
-      again.state.sheet,
-      saved.sheet,
-      `${id}: the sheet inputs after a restore and an action`,
-    );
-    assert.deepEqual(
-      again.result,
-      back.result,
-      `${id}: the same sheet after a restore and an action`,
-    );
-    const restoredBook = await u.download(
-      u.c.export,
-      `${id}-restored-sheet.xlsx`,
-    );
-    exportsToCheck.push({ story: id, path: restoredBook.target });
-    checks.push(
-      `${id}: saved with its sheet inputs, restored cold, and kept through the next action`,
-    );
-  }
+    // Saved, restored cold, and the next action keeps the restored inputs:
+    // T12 (a void preparation and a current review) and T23 (a chain).
+    for (const id of ['T12', 'T23']) {
+      const u = en;
+      const s = story(id);
+      const played = await play(u, s);
+      assert.deepEqual(asOracle(played.result), expected[id]);
+      const session = await u.download(u.c.save, `${id}-session.json`);
+      assert.equal(session.name, 'tarasuf-bank-statement-session.json');
+      const saved = await savedSession(session.target, s, played.state);
+      await u.page.reload();
+      const cold = await openDomainWorkspace(u.page, 'bank', {
+        advanced: false,
+        requiredSources: false,
+      });
+      assert.equal(
+        await cold.locator('[data-bank-statement-result]').count(),
+        0,
+      );
+      const back = await u.restore(session.target);
+      assert.deepEqual(
+        back.result,
+        played.result,
+        `${id}: the restored result`,
+      );
+      await shown(u, id);
+      assert.equal(
+        digitsOf(await u.field(u.h.screen.balance).inputValue()),
+        String(saved.sheet.book.balance),
+        `${id}: the restored balance is shown`,
+      );
+      assert.equal(
+        await u.field(u.h.screen.note).inputValue(),
+        saved.sheet.book.note,
+      );
+      assert.equal(await u.field(u.h.screen.language).inputValue(), s.language);
+      // The next action after a restore keeps every sheet input.
+      const again = await u.act(() => u.button(u.h.screen.apply).click());
+      assert.deepEqual(
+        again.state.sheet,
+        saved.sheet,
+        `${id}: the sheet inputs after a restore and an action`,
+      );
+      assert.deepEqual(
+        again.result,
+        back.result,
+        `${id}: the same sheet after a restore and an action`,
+      );
+      const restoredBook = await u.download(
+        u.c.export,
+        `${id}-restored-sheet.xlsx`,
+      );
+      exportsToCheck.push({ story: id, path: restoredBook.target });
+      checks.push(
+        `${id}: saved with its sheet inputs, restored cold, and kept through the next action`,
+      );
+    }
 
-  // A comparison starts a new reconciliation: no sheet, no sign-off.
-  {
-    const u = ar;
-    await play(u, story('T02'));
-    const plain = await u.compare();
-    assert.equal(
-      plain.state.version,
-      'bank-statement-lifecycle-1',
-      'a comparison after a sheet carries none',
-    );
-    assert.equal(await u.field(u.h.screen.balance).inputValue(), '');
-    assert.equal(await u.w.locator('[data-bank-sheet-signoffs]').count(), 0);
-    // A plain session restored clears the sheet a page showed.
-    const session = await u.download(u.c.save, 'T02-plain-session.json');
-    await play(u, story('T24'));
-    const back = await u.restore(session.target);
-    assert.equal(back.state.version, 'bank-statement-lifecycle-1');
-    assert.equal(
-      await u.field(u.h.screen.balance).inputValue(),
-      '',
-      'a plain session brings no balance',
-    );
-    assert.equal(await u.w.locator('[data-bank-sheet-signoffs]').count(), 0);
-    checks.push(
-      'a comparison and a restored plain session bring no sheet inputs',
-    );
+    // A comparison starts a new reconciliation: no sheet, no sign-off.
+    {
+      const u = ar;
+      await play(u, story('T02'));
+      const plain = await u.compare();
+      assert.equal(
+        plain.state.version,
+        'bank-statement-lifecycle-1',
+        'a comparison after a sheet carries none',
+      );
+      assert.equal(await u.field(u.h.screen.balance).inputValue(), '');
+      assert.equal(await u.w.locator('[data-bank-sheet-signoffs]').count(), 0);
+      // A plain session restored clears the sheet a page showed.
+      const session = await u.download(u.c.save, 'T02-plain-session.json');
+      await play(u, story('T24'));
+      const back = await u.restore(session.target);
+      assert.equal(back.state.version, 'bank-statement-lifecycle-1');
+      assert.equal(
+        await u.field(u.h.screen.balance).inputValue(),
+        '',
+        'a plain session brings no balance',
+      );
+      assert.equal(await u.w.locator('[data-bank-sheet-signoffs]').count(), 0);
+      checks.push(
+        'a comparison and a restored plain session bring no sheet inputs',
+      );
+    }
+  } else {
+    // The sealed holdout, recorded as it comes: every story played on the
+    // page, alternately in Arabic at 1440 and English at 390; a balance in
+    // Arabic-Indic digits for an Arabic sheet, every fourth with thousands
+    // separators; the first review by the keyboard alone. Then saved,
+    // restored, and the next action after the restore.
+    const keyboard = facts.stories.find((x) =>
+      x.sheet.some((a) => a.review),
+    )?.id;
+    for (const [i, s] of facts.stories.entries()) {
+      const u = i % 2 ? en : ar;
+      const record = (stories[s.id] = { equal: false });
+      const style =
+        s.language === 'ar' ? 'arabic' : i % 4 === 1 ? 'grouped' : 'plain';
+      try {
+        const played = await play(
+          u,
+          { ...s, keyboard: s.id === keyboard },
+          style,
+        );
+        const got = asOracle(played.result);
+        record.equal = same(got, expected[s.id]);
+        if (!record.equal)
+          record.differences = Object.keys({
+            ...got,
+            ...expected[s.id],
+          }).filter((k) => !same(got[k], expected[s.id][k]));
+        await shown(u, s.id);
+        record.shown = true;
+        const book = await u.download(u.c.export, `${s.id}-sheet.xlsx`);
+        exportsToCheck.push({ story: s.id, path: book.target });
+        const session = await u.download(u.c.save, `${s.id}-session.json`);
+        await savedSession(session.target, s, played.state);
+        const back = await u.restore(session.target);
+        record.restored = same(back.result, played.result);
+        const again = await u.act(() => u.button(u.h.screen.apply).click());
+        record.keptAfterRestore =
+          same(again.state.sheet, played.state.sheet) &&
+          same(again.result, back.result);
+      } catch (error) {
+        record.error = String(
+          error instanceof Error ? error.message : error,
+        ).split('\n')[0];
+        await u.page.reload();
+        await openDomainWorkspace(u.page, 'bank', {
+          advanced: false,
+          requiredSources: false,
+        });
+        await u.w
+          .locator('[data-bank-source-mode] input[value="statement"]')
+          .check();
+      }
+    }
   }
 
   const seconds = Math.round((performance.now() - started) / 1000);
-  const check = spawnSync(
-    process.env.PYTHON ?? 'python3',
-    ['-B', path.join(suite, 'check_export.py')],
-    {
-      input: JSON.stringify({ frozen, exports: exportsToCheck }),
-      encoding: 'utf8',
-      maxBuffer: 64 * 1024 * 1024,
-    },
-  );
+  if (holdout) {
+    // Each workbook on its own, so that one rejected does not hide the others.
+    const workbooks = {
+      exported: exportsToCheck.length,
+      accepted: 0,
+      rejected: {},
+    };
+    for (const e of exportsToCheck) {
+      const one = spawnSync(process.env.PYTHON ?? 'python3', ['-B', checker], {
+        input: JSON.stringify({ frozen, exports: [e] }),
+        encoding: 'utf8',
+        maxBuffer: 64 * 1024 * 1024,
+      });
+      if (one.status === 0 && JSON.parse(one.stdout).checked === 1)
+        workbooks.accepted += 1;
+      else
+        workbooks.rejected[e.story] = `${one.stdout}${one.stderr}`
+          .trim()
+          .split('\n')
+          .at(-1);
+    }
+    assert.deepEqual(external, [], 'external requests');
+    assert.deepEqual(nonGet, [], 'non-GET requests');
+    const ids = Object.keys(stories);
+    const count = (f) => ids.filter((id) => f(stories[id])).length;
+    const summary = {
+      stories: ids.length,
+      equalToExpected: count((r) => r.equal),
+      shownAsExpected: count((r) => r.shown),
+      savedAndRestored: count((r) => r.restored),
+      keptAfterRestore: count((r) => r.keptAfterRestore),
+      failed: count((r) => r.error),
+      pageErrors: errors.length,
+      workbooks,
+    };
+    const report = { holdout: path.relative(root, suite), summary, stories };
+    await writeFile(
+      path.join(out, 'holdout.json'),
+      `${JSON.stringify(report, null, 1)}\n`,
+    );
+    console.log(
+      JSON.stringify({ out: path.relative(root, out), ...summary, seconds }),
+    );
+    const record = option('record');
+    if (record) {
+      await mkdir(path.join(suite, 'results'), { recursive: true });
+      await writeFile(
+        path.join(suite, 'results', record),
+        `${JSON.stringify(report, null, 1)}\n`,
+      );
+    }
+    const against = option('assert');
+    if (against) {
+      const recorded = await json(path.join(suite, 'results', against));
+      assert.deepEqual(
+        canonical(report),
+        canonical(recorded),
+        `the page's outcome differs from ${against}`,
+      );
+    }
+    process.exit(0);
+  }
+  const check = spawnSync(process.env.PYTHON ?? 'python3', ['-B', checker], {
+    input: JSON.stringify({ frozen, exports: exportsToCheck }),
+    encoding: 'utf8',
+    maxBuffer: 64 * 1024 * 1024,
+  });
   assert.equal(
     check.status,
     0,

@@ -29,7 +29,12 @@ function period({
     status,
     sources: [
       { role: 'statement', name: 's.pdf', sha256: 'a'.repeat(64), format },
-      { role: 'cashbook', name: 'c.csv', sha256: 'b'.repeat(64), format: 'csv' },
+      {
+        role: 'cashbook',
+        name: 'c.csv',
+        sha256: 'b'.repeat(64),
+        format: 'csv',
+      },
     ],
     reading: {
       format,
@@ -44,13 +49,36 @@ function period({
     match: {
       statement: { period: PERIOD },
       movements: statement.map(([id, direction, amount], i) => ({
-        id, page: 1, items: [], date: '2026-11-10', valueDate: '2026-11-10', description: '', reference: `R-${id}`, direction, amount, balance: i,
+        id,
+        page: 1,
+        items: [],
+        date: '2026-11-10',
+        valueDate: '2026-11-10',
+        description: '',
+        reference: `R-${id}`,
+        direction,
+        amount,
+        balance: i,
       })),
       cashbook: cashbook.map(([id, direction, amount], i) => ({
-        id, row: i + 2, date: '2026-11-09', description: '', reference: `R-${id}`, direction, amount,
+        id,
+        row: i + 2,
+        date: '2026-11-09',
+        description: '',
+        reference: `R-${id}`,
+        direction,
+        amount,
       })),
     },
-    cases: cases.map((c, i) => ({ id: `C${i + 1}`, kind: 'review', reference: '', statement: [], cashbook: [], decision: null, ...c })),
+    cases: cases.map((c, i) => ({
+      id: `C${i + 1}`,
+      kind: 'review',
+      reference: '',
+      statement: [],
+      cashbook: [],
+      decision: null,
+      ...c,
+    })),
     outstanding,
     roll,
   } as unknown as BankStatementResult;
@@ -62,7 +90,10 @@ const sheetOf = (outcome: SheetOutcome): ReconciliationSheet => {
 const book = (balance: number, note = 'General ledger') => ({ balance, note });
 const listed = (s: ReconciliationSheet) =>
   Object.entries(s.sections).flatMap(([name, x]) =>
-    x.items.map((i) => `${name}:${i.id}:${i.origin}${i.reason ? `:${i.reason}` : ''}${i.age === null ? '' : `:${i.age}`}`),
+    x.items.map(
+      (i) =>
+        `${name}:${i.id}:${i.origin}${i.reason ? `:${i.reason}` : ''}${i.age === null ? '' : `:${i.age}`}`,
+    ),
   );
 
 void test('a balanced sheet lists each item in its section and adds up', () => {
@@ -70,8 +101,14 @@ void test('a balanced sheet lists each item in its section and adds up', () => {
     reconciliationSheet(
       period({
         closing: 10_000_00,
-        statement: [['S1', 'out', 20_00], ['S2', 'in', 5_00]],
-        cashbook: [['PV-1', 'out', 300_00], ['RV-1', 'in', 120_00]],
+        statement: [
+          ['S1', 'out', 20_00],
+          ['S2', 'in', 5_00],
+        ],
+        cashbook: [
+          ['PV-1', 'out', 300_00],
+          ['RV-1', 'in', 120_00],
+        ],
         outstanding: [
           { side: 'statement', id: 'S1', origin: 'unmatched' },
           { side: 'statement', id: 'S2', origin: 'unmatched' },
@@ -90,7 +127,10 @@ void test('a balanced sheet lists each item in its section and adds up', () => {
     'statementDepositsNotInBook:S2:unmatched',
     'statementWithdrawalsNotInBook:S1:unmatched',
   ]);
-  assert.deepEqual([s.adjustedBank, s.adjustedBook, s.difference], [9_820_00, 9_820_00, 0]);
+  assert.deepEqual(
+    [s.adjustedBank, s.adjustedBook, s.difference],
+    [9_820_00, 9_820_00, 0],
+  );
   assert.deepEqual(s.bank, { balance: 10_000_00, page: 2 });
   assert.deepEqual(
     Object.values(s.sections).map((x) => x.total),
@@ -102,7 +142,10 @@ void test('equal and opposite items are both listed, never netted', () => {
   const s = sheetOf(
     reconciliationSheet(
       period({
-        cashbook: [['RV-1', 'in', 500_00], ['PV-1', 'out', 500_00]],
+        cashbook: [
+          ['RV-1', 'in', 500_00],
+          ['PV-1', 'out', 500_00],
+        ],
         outstanding: [
           { side: 'cashbook', id: 'RV-1', origin: 'unmatched' },
           { side: 'cashbook', id: 'PV-1', origin: 'unmatched' },
@@ -121,7 +164,10 @@ void test('a difference stays a difference: one minor unit, or the amount of a l
   assert.deepEqual([one.status, one.difference], ['difference', 1]);
   const cheque = sheetOf(
     reconciliationSheet(
-      period({ cashbook: [['PV-1', 'out', 230_00]], outstanding: [{ side: 'cashbook', id: 'PV-1', origin: 'unmatched' }] }),
+      period({
+        cashbook: [['PV-1', 'out', 230_00]],
+        outstanding: [{ side: 'cashbook', id: 'PV-1', origin: 'unmatched' }],
+      }),
       book(1_000_00),
     ),
   );
@@ -134,7 +180,14 @@ void test('a case awaiting a decision makes a draft; its members are pending eve
       period({
         statement: [['S1', 'in', 64_50]],
         cashbook: [['RV-1', 'in', 64_50]],
-        cases: [{ reason: 'amount-date-suggestion', status: 'needs-review', statement: ['S1'], cashbook: ['RV-1'] }],
+        cases: [
+          {
+            reason: 'amount-date-suggestion',
+            status: 'needs-review',
+            statement: ['S1'],
+            cashbook: ['RV-1'],
+          },
+        ],
         outstanding: [{ side: 'statement', id: 'S1', origin: 'unmatched' }],
       }),
       book(1_000_00),
@@ -152,12 +205,38 @@ void test('a rejected case leaves its members listed with the case; accepted and
   const s = sheetOf(
     reconciliationSheet(
       period({
-        statement: [['S1', 'out', 1_250_00], ['S2', 'in', 9_00], ['S3', 'out', 7_00]],
-        cashbook: [['PV-1', 'out', 1_205_00], ['RV-2', 'in', 9_00], ['PV-3', 'out', 7_00]],
+        statement: [
+          ['S1', 'out', 1_250_00],
+          ['S2', 'in', 9_00],
+          ['S3', 'out', 7_00],
+        ],
+        cashbook: [
+          ['PV-1', 'out', 1_205_00],
+          ['RV-2', 'in', 9_00],
+          ['PV-3', 'out', 7_00],
+        ],
         cases: [
-          { kind: 'automatic', reason: 'reference', status: 'matched-automatic', statement: ['S3'], cashbook: ['PV-3'] },
-          { reason: 'amount-difference', status: 'rejected', statement: ['S1'], cashbook: ['PV-1'], decision: 'D1' },
-          { reason: 'amount-date-suggestion', status: 'matched-accepted', statement: ['S2'], cashbook: ['RV-2'], decision: 'D2' },
+          {
+            kind: 'automatic',
+            reason: 'reference',
+            status: 'matched-automatic',
+            statement: ['S3'],
+            cashbook: ['PV-3'],
+          },
+          {
+            reason: 'amount-difference',
+            status: 'rejected',
+            statement: ['S1'],
+            cashbook: ['PV-1'],
+            decision: 'D1',
+          },
+          {
+            reason: 'amount-date-suggestion',
+            status: 'matched-accepted',
+            statement: ['S2'],
+            cashbook: ['RV-2'],
+            decision: 'D2',
+          },
         ],
         outstanding: [
           { side: 'statement', id: 'S1', origin: 'C2' },
@@ -176,25 +255,54 @@ void test('a rejected case leaves its members listed with the case; accepted and
 
 void test('carried items: outstanding with their age, rejected with their case, pending a year older', () => {
   const carried = (id: string, age: number, row: number) => ({
-    key: `C:${id}@2026-10-31`, side: 'cashbook', id, page: null, row, period: OCT, date: '2026-10-30',
-    direction: 'out', amount: 100_00, reference: `R-${id}`, origin: 'unmatched', age, source: 'c'.repeat(64), session: 'd'.repeat(64),
+    key: `C:${id}@2026-10-31`,
+    side: 'cashbook',
+    id,
+    page: null,
+    row,
+    period: OCT,
+    date: '2026-10-30',
+    direction: 'out',
+    amount: 100_00,
+    reference: `R-${id}`,
+    origin: 'unmatched',
+    age,
+    source: 'c'.repeat(64),
+    session: 'd'.repeat(64),
   });
   const roll = {
     previous: { name: 'p.json', sha256: 'e'.repeat(64), status: 'accepted' },
-    carried: [carried('PV-7', 1, 7), carried('PV-5', 1, 5), carried('PV-6', 2, 6)],
-    withheld: { statement: [], cashbook: [] },
-    outstanding: [
-      { ...carried('PV-7', 2, 7) },
-      { ...carried('PV-5', 2, 5) },
+    carried: [
+      carried('PV-7', 1, 7),
+      carried('PV-5', 1, 5),
+      carried('PV-6', 2, 6),
     ],
+    withheld: { statement: [], cashbook: [] },
+    outstanding: [{ ...carried('PV-7', 2, 7) }, { ...carried('PV-5', 2, 5) }],
   };
   const s = sheetOf(
     reconciliationSheet(
       period({
-        statement: [['S1', 'out', 100_00], ['S2', 'out', 99_00]],
+        statement: [
+          ['S1', 'out', 100_00],
+          ['S2', 'out', 99_00],
+        ],
         cases: [
-          { kind: 'carried', reason: 'carried-amount-difference', status: 'rejected', statement: ['S2'], carried: ['C:PV-7@2026-10-31'], decision: 'D1' },
-          { kind: 'carried', reason: 'carried-reference', status: 'needs-review', statement: ['S1'], carried: ['C:PV-6@2026-10-31'] },
+          {
+            kind: 'carried',
+            reason: 'carried-amount-difference',
+            status: 'rejected',
+            statement: ['S2'],
+            carried: ['C:PV-7@2026-10-31'],
+            decision: 'D1',
+          },
+          {
+            kind: 'carried',
+            reason: 'carried-reference',
+            status: 'needs-review',
+            statement: ['S1'],
+            carried: ['C:PV-6@2026-10-31'],
+          },
         ],
         outstanding: [{ side: 'statement', id: 'S2', origin: 'C1' }],
         roll,
@@ -219,7 +327,11 @@ void test('items come earlier periods first, then statement order and row order'
     reconciliationSheet(
       period({
         statement: ids.map((id) => [id, 'out', 1_00] as Item),
-        outstanding: ids.map((id) => ({ side: 'statement' as const, id, origin: 'unmatched' })),
+        outstanding: ids.map((id) => ({
+          side: 'statement' as const,
+          id,
+          origin: 'unmatched',
+        })),
       }),
       book(1_011_00),
     ),
@@ -230,28 +342,94 @@ void test('items come earlier periods first, then statement order and row order'
   );
 });
 
+void test('book items come in row order, not date order', () => {
+  // The later row dated earlier: an entry the cashbook recorded late (R4 K09).
+  const result = period({
+    cashbook: [
+      ['PV-1', 'out', 1_00],
+      ['PV-2', 'out', 2_00],
+    ],
+    outstanding: [
+      { side: 'cashbook', id: 'PV-2', origin: 'unmatched' },
+      { side: 'cashbook', id: 'PV-1', origin: 'unmatched' },
+    ],
+  });
+  const entries = result.match.cashbook as { date: string }[];
+  entries[0].date = '2026-11-09';
+  entries[1].date = '2026-11-05';
+  const s = sheetOf(reconciliationSheet(result, book(997_00)));
+  assert.deepEqual(
+    s.sections.bookPaymentsNotOnStatement.items.map((i) => [
+      i.id,
+      i.row,
+      i.date,
+    ]),
+    [
+      ['PV-1', 2, '2026-11-09'],
+      ['PV-2', 3, '2026-11-05'],
+    ],
+  );
+});
+
 void test('an overdrawn account keeps its signs', () => {
   const s = sheetOf(
     reconciliationSheet(
-      period({ closing: -48_249_50, cashbook: [['PV-1', 'out', 1_333_00]], outstanding: [{ side: 'cashbook', id: 'PV-1', origin: 'unmatched' }] }),
+      period({
+        closing: -48_249_50,
+        cashbook: [['PV-1', 'out', 1_333_00]],
+        outstanding: [{ side: 'cashbook', id: 'PV-1', origin: 'unmatched' }],
+      }),
       book(-49_582_50),
     ),
   );
-  assert.deepEqual([s.status, s.adjustedBank, s.difference], ['reconciled', -49_582_50, 0]);
+  assert.deepEqual(
+    [s.status, s.adjustedBank, s.difference],
+    ['reconciled', -49_582_50, 0],
+  );
 });
 
 void test('refusals in the contract order', () => {
-  const refused = { name: 'p.json', sha256: 'e'.repeat(64), status: 'refused', code: 'ROLL_CURRENCY', detail: '' };
-  const roll = { previous: refused, carried: [], withheld: { statement: [], cashbook: [] }, outstanding: [] };
-  assert.deepEqual(reconciliationSheet(period({ status: 'held', roll }), null), { refusal: 'SHEET_STATEMENT_HELD' });
-  assert.deepEqual(reconciliationSheet(period({ closing: null as unknown as number }), book(0)), { refusal: 'SHEET_STATEMENT_HELD' });
-  assert.deepEqual(reconciliationSheet(period({ roll }), null), { refusal: 'SHEET_PREVIOUS_REFUSED' });
-  assert.deepEqual(reconciliationSheet(period(), null), { refusal: 'SHEET_NO_BOOK_BALANCE' });
-  assert.throws(() => reconciliationSheet(period({ format: 'csv' }), book(0)), /BANK_SHEET_FORMAT/u);
+  const refused = {
+    name: 'p.json',
+    sha256: 'e'.repeat(64),
+    status: 'refused',
+    code: 'ROLL_CURRENCY',
+    detail: '',
+  };
+  const roll = {
+    previous: refused,
+    carried: [],
+    withheld: { statement: [], cashbook: [] },
+    outstanding: [],
+  };
+  assert.deepEqual(
+    reconciliationSheet(period({ status: 'held', roll }), null),
+    { refusal: 'SHEET_STATEMENT_HELD' },
+  );
+  assert.deepEqual(
+    reconciliationSheet(
+      period({ closing: null as unknown as number }),
+      book(0),
+    ),
+    { refusal: 'SHEET_STATEMENT_HELD' },
+  );
+  assert.deepEqual(reconciliationSheet(period({ roll }), null), {
+    refusal: 'SHEET_PREVIOUS_REFUSED',
+  });
+  assert.deepEqual(reconciliationSheet(period(), null), {
+    refusal: 'SHEET_NO_BOOK_BALANCE',
+  });
+  assert.throws(
+    () => reconciliationSheet(period({ format: 'csv' }), book(0)),
+    /BANK_SHEET_FORMAT/u,
+  );
 });
 
 void test('a declared book balance is an integer of minor units with a plain note', () => {
-  assert.deepEqual(bookBalance({ balance: -5, note: '' }), { balance: -5, note: '' });
+  assert.deepEqual(bookBalance({ balance: -5, note: '' }), {
+    balance: -5,
+    note: '',
+  });
   for (const bad of [
     { balance: 1.5, note: '' },
     { balance: 2 ** 53, note: '' },
@@ -262,19 +440,38 @@ void test('a declared book balance is an integer of minor units with a plain not
     { balance: 1 },
     null,
   ])
-    assert.throws(() => bookBalance(bad), /BANK_SHEET_BOOK/u, JSON.stringify(bad));
-  assert.throws(() => reconciliationSheet(period(), { balance: 1.5, note: '' }), /BANK_SHEET_BOOK/u);
+    assert.throws(
+      () => bookBalance(bad),
+      /BANK_SHEET_BOOK/u,
+      JSON.stringify(bad),
+    );
+  assert.throws(
+    () => reconciliationSheet(period(), { balance: 1.5, note: '' }),
+    /BANK_SHEET_BOOK/u,
+  );
 });
 
 void test('the fingerprint covers every field and ignores key order', async () => {
-  const s = sheetOf(reconciliationSheet(period({ cashbook: [['PV-1', 'out', 5_00]], outstanding: [{ side: 'cashbook', id: 'PV-1', origin: 'unmatched' }] }), book(995_00)));
+  const s = sheetOf(
+    reconciliationSheet(
+      period({
+        cashbook: [['PV-1', 'out', 5_00]],
+        outstanding: [{ side: 'cashbook', id: 'PV-1', origin: 'unmatched' }],
+      }),
+      book(995_00),
+    ),
+  );
   const f = await sheetFingerprint(s);
   assert.match(f, /^[0-9a-f]{64}$/u);
   const reversed = (v: unknown): unknown =>
     Array.isArray(v)
       ? v.map(reversed)
       : v && typeof v === 'object'
-        ? Object.fromEntries(Object.keys(v).reverse().map((k) => [k, reversed((v as Record<string, unknown>)[k])]))
+        ? Object.fromEntries(
+            Object.keys(v)
+              .reverse()
+              .map((k) => [k, reversed((v as Record<string, unknown>)[k])]),
+          )
         : v;
   assert.notEqual(JSON.stringify(reversed(s)), JSON.stringify(s));
   assert.equal(await sheetFingerprint(reversed(s) as ReconciliationSheet), f);
