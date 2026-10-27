@@ -61,6 +61,8 @@ pnpm test:bank-tolerance:seal
 pnpm test:bank-tolerance:baseline
 pnpm test:bank-tolerance:proof
 pnpm test:bank-tolerance:lifecycle   # الجلسة والمصنف، والمصنفات إلى check_export.py
+pnpm build && pnpm test:bank-tolerance:browser   # مساحة البنك بالعامل الفعلي (T3)
+pnpm test:bank-tolerance:interface-mutations       # طفرات الواجهة (T3)
 pnpm test:bank-tolerance:mutations
 # إعادة الطباعة والقراءة المستقلة (لا تُستعمل لتغيير أصول مختومة):
 MIZAN_CHROMIUM=... node audit/bank-tolerance-foundation/render.mjs --out <dir>

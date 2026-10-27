@@ -309,6 +309,10 @@ const separate = {
   ],
   'bank-map-interface-mutations': ['test:bank-map:interface-mutations'],
   'bank-map-browser': ['test:bank-map:browser', 'test:bank-map:m4-browser'],
+  'bank-tolerance-interface-mutations': [
+    'test:bank-tolerance:interface-mutations',
+  ],
+  'bank-tolerance-browser': ['test:bank-tolerance:browser'],
   'bank-statement-holdout': [
     'test:bank-statement:g6-holdout',
     'test:bank-statement:g6-browser',

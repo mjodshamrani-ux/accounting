@@ -225,9 +225,56 @@ const ar = {
     decision: 'لم يُقبل القرار. طابق من جديد ثم أعد المحاولة.',
     sheet:
       'لم تُقبل مدخلات الورقة: رصيد أو مصدر أو اسم أو تاريخ بصيغة لا تقبلها الجلسة.',
+    tolerance: 'لم تُقبل السماحية المعلنة لهذا الكشف، فلم تصدر نتيجة بها.',
     other: 'لم تكتمل العملية ولم تصدر نتيجة جديدة.',
   },
   errorDetail: 'التفصيل',
+  tolerance: {
+    title: 'السماحية المعلنة',
+    intro:
+      'إن أعلنتها، يُعد فرق صغير بين حركة الكشف وقيدها تحت المرجع نفسه مطابقةً ضمن السماحية، بمبلغيه وفرقه. لا تصنع زوجًا، ولا تغير مبلغًا، ولا تُخفي الفرق من الورقة. وإن زاد مجموع الفروق على حد الفترة لم يُسمح بأي منها.',
+    perItem: 'الحد للزوج الواحد',
+    perItemHint: 'دون وحدة واحدة من عملة الكشف',
+    perPeriod: 'الحد لمجموع الفترة',
+    perPeriodHint: 'مجموع الفروق المسموحة، دون مئة وحدة',
+    note: 'سبب السماحية',
+    noteHint: 'سطر واحد يُحفظ في الجلسة ويظهر في Excel',
+    apply: 'طبّق السماحية',
+    remove: 'أزل السماحية',
+    none: 'لا سماحية معلنة: كل فرق مبلغ ينتظر قرارك.',
+    declared: (perItem: string, perPeriod: string, note: string) =>
+      `السماحية المعلنة: ${perItem} للزوج، و${perPeriod} لمجموع الفترة. السبب: ${note}`,
+    locked:
+      'السماحية جزء من سياق كل قرار، فلا تتغير بعد قرار ولا تُزال. لتغييرها اختر الملفات من جديد وطابق.',
+    invalid: {
+      perItem: 'الحد للزوج ليس مبلغًا غير سالب بمنازل عملة الكشف العشرية.',
+      perPeriod: 'حد الفترة ليس مبلغًا غير سالب بمنازل عملة الكشف العشرية.',
+      note: 'السبب مطلوب: سطر واحد حتى 200 حرف بلا محارف تحكم.',
+    },
+    rules: {
+      CURRENCY: 'عملة الكشف بلا وحدة صغرى، فلا سماحية لها.',
+      PER_ITEM:
+        'الحد للزوج يجب أن يكون وحدة صغرى واحدة على الأقل، ودون وحدة واحدة من العملة.',
+      PER_PERIOD:
+        'حد الفترة يجب ألا يقل عن حد الزوج، وأن يكون دون مئة وحدة من العملة.',
+      NOTE: 'سبب السماحية يجب أن يكون سطرًا واحدًا غير فارغ.',
+    },
+    counts: (tolerated: number, eligible: number) =>
+      `${tolerated} من ${eligible} فرقًا مؤهلًا مسموح بها ضمن السماحية.`,
+    exceeded: (sum: string, cap: string) =>
+      `مجموع الفروق المؤهلة ${sum} يزيد على حد الفترة ${cap}، فلم يُسمح بأي منها وتبقى فروق مبالغ تنتظر قرارك.`,
+    cases: 'مطابقات ضمن السماحية',
+    caseHeaders: [
+      'الحالة',
+      'السبب',
+      'المرجع',
+      'حركة الكشف',
+      'قيد الدفتر',
+      'الفرق (الكشف − الدفتر)',
+      'الوضع',
+      'القرار',
+    ],
+  },
 };
 
 const en: typeof ar = {
@@ -464,9 +511,61 @@ const en: typeof ar = {
     decision: 'The decision was not taken. Match again and retry.',
     sheet:
       'The sheet inputs were not taken: a balance, source, name or date in a form the session does not admit.',
+    tolerance:
+      'The declared tolerance was not taken for this statement, so no result was produced with it.',
     other: 'The operation did not complete and no new result was produced.',
   },
   errorDetail: 'Detail',
+  tolerance: {
+    title: 'Declared tolerance',
+    intro:
+      'If you declare one, a small difference between a statement movement and its cashbook entry under the same reference counts as a match within the tolerance, with both amounts and its difference. It makes no pair, changes no amount and does not hide the difference from the sheet. If the differences add up to more than the period limit, none of them is tolerated.',
+    perItem: 'Limit per pair',
+    perItemHint: 'Less than one unit of the statement currency',
+    perPeriod: 'Limit for the period total',
+    perPeriodHint:
+      'Sum of the tolerated differences, less than one hundred units',
+    note: 'Reason for the tolerance',
+    noteHint: 'One line, saved in the session and shown in Excel',
+    apply: 'Apply the tolerance',
+    remove: 'Remove the tolerance',
+    none: 'No declared tolerance: every amount difference awaits your decision.',
+    declared: (perItem: string, perPeriod: string, note: string) =>
+      `Declared tolerance: ${perItem} per pair and ${perPeriod} for the period total. Reason: ${note}`,
+    locked:
+      'The tolerance is part of the context of every decision, so it does not change or go after a decision. To change it, choose the files again and match.',
+    invalid: {
+      perItem:
+        'The limit per pair is not a non-negative amount in the statement currency decimals.',
+      perPeriod:
+        'The period limit is not a non-negative amount in the statement currency decimals.',
+      note: 'A reason is required: one line of up to 200 characters with no control characters.',
+    },
+    rules: {
+      CURRENCY:
+        'The statement currency has no minor unit, so it takes no tolerance.',
+      PER_ITEM:
+        'The limit per pair must be at least one minor unit and less than one unit of the currency.',
+      PER_PERIOD:
+        'The period limit must be no less than the limit per pair and less than one hundred units of the currency.',
+      NOTE: 'The reason for the tolerance must be one line that is not empty.',
+    },
+    counts: (tolerated: number, eligible: number) =>
+      `${tolerated} of ${eligible} eligible differences are tolerated.`,
+    exceeded: (sum: string, cap: string) =>
+      `The eligible differences add up to ${sum}, more than the period limit of ${cap}, so none is tolerated and each remains an amount difference awaiting your decision.`,
+    cases: 'Matches within the tolerance',
+    caseHeaders: [
+      'Case',
+      'Reason',
+      'Reference',
+      'Statement movement',
+      'Cashbook entry',
+      'Difference (statement − cashbook)',
+      'Status',
+      'Decision',
+    ],
+  },
 };
 
 export const bankStatementCopy = { ar, en };

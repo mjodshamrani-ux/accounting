@@ -19,12 +19,18 @@ import {
   type BankStatementRollState,
   type BankStatementSheetState,
   type BankStatementState,
+  type DeclaredTolerance,
   type SheetInputs,
   type SheetSignoff,
   type StatementDecision,
   type StatementSource,
 } from './bank-statement-request.ts';
 import { BOOK_NOTE_LIMIT } from './bank-statement-sheet.ts';
+import {
+  TOLERANCE_NOTE_LIMIT,
+  TOLERANCE_RULES,
+  type ToleranceRule,
+} from './bank-statement-tolerance.ts';
 import type { ReviewReason } from './bank-statement-match.ts';
 import type { CarriedItem, CarriedReason } from './bank-statement-roll.ts';
 
@@ -217,6 +223,36 @@ export function parseStatementClosing(
   return m[1] ? -value : value;
 }
 
+/**
+ * A tolerance as typed (bank-tolerance-1, proposed): each limit a plain,
+ * non-negative amount in the statement currency's decimals, in minor units,
+ * and a reason of one line; or the first field that is not. Whether the
+ * limits are ones the contract admits is the lifecycle's to say on replay.
+ */
+export function toleranceInputs(
+  perItem: string,
+  perPeriod: string,
+  note: string,
+  decimals: number,
+): DeclaredTolerance | 'perItem' | 'perPeriod' | 'note' {
+  const item = parseStatementClosing(perItem, decimals);
+  if (item === null || item < 0) return 'perItem';
+  const period = parseStatementClosing(perPeriod, decimals);
+  if (period === null || period < 0) return 'perPeriod';
+  if (
+    !note.trim() ||
+    note.length > TOLERANCE_NOTE_LIMIT ||
+    /[\p{Cc}\p{Cf}]/u.test(note)
+  )
+    return 'note';
+  return { perItem: item, perPeriod: period, note };
+}
+/** The rule a refused tolerance broke, from the lifecycle's message. */
+export function toleranceRule(message: string): ToleranceRule | null {
+  const rule = /^BANK_STATEMENT_TOLERANCE: ([A-Z_]+)$/u.exec(message)?.[1];
+  return TOLERANCE_RULES.find((r) => r === rule) ?? null;
+}
+
 export type HeldReason =
   | 'confirm-closing'
   | 'closing-differs'
@@ -254,6 +290,7 @@ export type StatementErrorKind =
   | 'scope-choice'
   | 'decision'
   | 'sheet'
+  | 'tolerance'
   | 'other';
 /** The kind of a refusal message from the worker. */
 export function statementError(message: string): StatementErrorKind {
@@ -288,6 +325,8 @@ export function statementError(message: string): StatementErrorKind {
       return 'decision';
     case 'SHEET':
       return 'sheet';
+    case 'TOLERANCE':
+      return 'tolerance';
     default:
       return 'other';
   }

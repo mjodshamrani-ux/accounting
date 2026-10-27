@@ -34,6 +34,7 @@ import type {
 } from '@/lib/reconciliation/bank-statement-lifecycle';
 import {
   BANK_STATEMENT_SESSION_LIMIT,
+  type DeclaredTolerance,
   type SheetInputs,
   type SheetSignoff,
   type StatementDecision,
@@ -61,6 +62,8 @@ import {
   statementMember,
   statementState,
   rolledStatementState,
+  toleranceInputs,
+  toleranceRule,
   type StatementErrorKind,
 } from '@/lib/reconciliation/bank-statement-view';
 
@@ -84,6 +87,22 @@ function sheetFormOf(inputs: SheetInputs | null, decimals: number): SheetForm {
       : '',
     note: inputs?.book?.note ?? '',
     language: inputs?.language ?? '',
+  };
+}
+
+/** The tolerance as typed: each limit in major units, and its reason. */
+type ToleranceForm = { perItem: string; perPeriod: string; note: string };
+/** What the tolerance form shows for an applied policy, or for none. */
+function toleranceFormOf(
+  policy: DeclaredTolerance | null | undefined,
+  decimals: number,
+): ToleranceForm {
+  const limit = (v: DeclaredTolerance['perItem'] | undefined) =>
+    typeof v === 'number' ? money(v, decimals).replace(/,/gu, '') : '';
+  return {
+    perItem: limit(policy?.perItem),
+    perPeriod: limit(policy?.perPeriod),
+    note: typeof policy?.note === 'string' ? policy.note : '',
   };
 }
 
@@ -121,6 +140,11 @@ export function useBankStatement() {
     [result, setResult] = useState<BankStatementResult | null>(null),
     [sheet, setSheet] = useState<SheetInputs | null>(null),
     [sheetForm, setSheetForm] = useState<SheetForm>(sheetFormOf(null, 0)),
+    // The tolerance in force (bank-tolerance-1), and as typed.
+    [tolerance, setTolerance] = useState<DeclaredTolerance | null>(null),
+    [toleranceForm, setToleranceForm] = useState<ToleranceForm>(
+      toleranceFormOf(null, 0),
+    ),
     [note, setNote] = useState(''),
     [busy, setBusy] = useState(false),
     [failure, setFailure] = useState<Failure | null>(null),
@@ -158,16 +182,28 @@ export function useBankStatement() {
       ? rolledStatementState(statement!, cashbook!, decisions, previous)
       : statementState(statement!, cashbook!, scope(), decisions);
   // So is a closing sheet, once its inputs are applied.
-  const state = (
+  const untolerated = (
     decisions: StatementDecision[],
     inputs: SheetInputs | null = sheet,
   ) =>
     pdf && inputs
       ? sheetStatementState(statement!, cashbook!, decisions, previous, inputs)
       : period(decisions);
+  // And a declared tolerance, once applied: every request carries it.
+  const state = (
+    decisions: StatementDecision[],
+    inputs: SheetInputs | null = sheet,
+    policy: DeclaredTolerance | null = tolerance,
+  ) => {
+    const chosen = untolerated(decisions, inputs);
+    return policy ? { ...chosen, tolerance: policy } : chosen;
+  };
   function invalidate() {
     setResult(null);
     setFailure(null);
+    // Other files or another scope are another period: no tolerance yet.
+    setTolerance(null);
+    setToleranceForm(toleranceFormOf(null, 0));
   }
   function install(v: Replay, restored = false) {
     const [s, c] = v.state.files;
@@ -184,6 +220,11 @@ export function useBankStatement() {
     const inputs = 'sheet' in v.state ? v.state.sheet : null;
     setSheet(inputs);
     setSheetForm(sheetFormOf(inputs, v.result.reading.decimals));
+    // So does the tolerance: the one the state holds, or none.
+    setTolerance(v.state.tolerance ?? null);
+    setToleranceForm(
+      toleranceFormOf(v.state.tolerance, v.result.reading.decimals),
+    );
     const { scope: chosen } = v.state;
     setCurrency(chosen.currency ?? '');
     setStart(chosen.period?.start ?? '');
@@ -248,6 +289,8 @@ export function useBankStatement() {
     result,
     sheet,
     sheetForm,
+    tolerance,
+    toleranceForm,
     note,
     busy,
     failure,
@@ -260,6 +303,9 @@ export function useBankStatement() {
     setNote,
     setSheetForm(change: Partial<SheetForm>) {
       setSheetForm((form) => ({ ...form, ...change }));
+    },
+    setToleranceForm(change: Partial<ToleranceForm>) {
+      setToleranceForm((form) => ({ ...form, ...change }));
     },
     setScope(change: {
       currency?: string;
@@ -395,6 +441,19 @@ export function useBankStatement() {
           await workerTask<Replay>(
             'bank-statement-reconcile',
             state(result.decisions, inputs),
+            signal,
+          ),
+        );
+      }),
+    /** The period replayed under a tolerance, or under none; the lifecycle
+     * refuses it once a decision is bound to the one in force. */
+    applyTolerance: (policy: DeclaredTolerance | null) =>
+      perform(async (signal) => {
+        if (!result) return;
+        install(
+          await workerTask<Replay>(
+            'bank-statement-reconcile',
+            state(result.decisions, sheet, policy),
             signal,
           ),
         );
@@ -772,6 +831,39 @@ function Result({
       </div>,
     ];
   };
+  const toleratedRow = (k: StatementCase) => {
+    const can = statementActions(k, s.note),
+      status = c.caseStatus[k.status];
+    return [
+      k.id,
+      c.reasons[k.reason],
+      <bdi key="reference" className="bank-statement-id">
+        {k.reference}
+      </bdi>,
+      members('statement', k.statement),
+      members('cashbook', k.cashbook),
+      <bdi key="difference" dir="ltr" data-bank-tolerance-difference>
+        {format(k.amounts?.difference)}
+      </bdi>,
+      status,
+      <div className="gl-tb-actions" key="decide">
+        <Button
+          variant="outline"
+          disabled={locked || !can.reject}
+          onClick={() => void s.decide(k, 'reject')}
+        >
+          {c.reject}
+        </Button>
+        <Button
+          variant="outline"
+          disabled={locked || !can.undo}
+          onClick={() => void s.decide(k, 'undo')}
+        >
+          {c.undo}
+        </Button>
+      </div>,
+    ];
+  };
   const carried = new Map((r.roll?.carried ?? []).map((i) => [i.key, i]));
   const carriedRow = (k: StatementCase) => {
     const cells = caseRow(k);
@@ -912,6 +1004,7 @@ function Result({
       <p className="bank-source-basis" data-bank-statement-claim>
         {r.sheet ? c.claimWithSheet : c.claim}
       </p>
+      <Tolerance r={r} s={s} locked={locked} />
       {r.reading.format === 'pdf' && <Sheet r={r} s={s} locked={locked} />}
       <fieldset disabled={locked}>
         <div className="gl-tb-actions">
@@ -937,6 +1030,15 @@ function Result({
       </fieldset>
       {r.reading.format === 'pdf' && r.status !== 'held' && (
         <Queue r={r} s={s} locked={locked} members={members} format={format} />
+      )}
+      {r.cases.some((k) => k.kind === 'tolerated') && (
+        <Table
+          title={c.tolerance.cases}
+          headers={c.tolerance.caseHeaders}
+          testId="tolerated"
+          items={r.cases.filter((k) => k.kind === 'tolerated')}
+          row={toleratedRow}
+        />
       )}
       {r.cases.some((k) => k.kind === 'review') && (
         <Table
@@ -1087,6 +1189,152 @@ function Result({
           ]}
         />
       </details>
+    </section>
+  );
+}
+
+/** The tolerance the accountant declares (bank-tolerance-1, proposed): typed
+ * in the statement currency, applied by a replay the lifecycle may refuse,
+ * and fixed once a decision is bound to it. What it did is shown with it. */
+function Tolerance({
+  r,
+  s,
+  locked,
+}: {
+  r: BankStatementResult;
+  s: BankStatementSession;
+  locked: boolean;
+}) {
+  const { lang } = useI18n(),
+    t = bankStatementCopy[lang].tolerance;
+  const decimals = r.reading.decimals;
+  const show = (n: number) => money(n, decimals);
+  const form = s.toleranceForm;
+  const typed = toleranceInputs(
+    form.perItem,
+    form.perPeriod,
+    form.note,
+    decimals,
+  );
+  const touched = !!(form.perItem || form.perPeriod || form.note);
+  const applied = r.tolerance?.policy ?? null;
+  // A decision is bound to the context the tolerance is part of.
+  const bound = r.decisions.length > 0;
+  const rule =
+    s.failure?.kind === 'tolerance' ? toleranceRule(s.failure.detail) : null;
+  const tolerated = r.cases.filter(
+    (k) => k.status === 'matched-tolerated',
+  ).length;
+  return (
+    <section className="bank-tolerance" data-bank-tolerance>
+      <h2>{t.title}</h2>
+      <p className="bank-source-basis">{t.intro}</p>
+      <p data-bank-tolerance-applied={applied ? 'yes' : 'no'}>
+        {applied ? (
+          <>
+            <bdi>
+              {t.declared(
+                show(applied.perItem),
+                show(applied.perPeriod),
+                applied.note,
+              )}
+            </bdi>
+          </>
+        ) : (
+          t.none
+        )}
+      </p>
+      {r.tolerance && (
+        <output
+          className={
+            r.tolerance.exceeded ? 'bank-statement-held' : 'bank-source-basis'
+          }
+          data-bank-tolerance-outcome={
+            r.tolerance.exceeded ? 'exceeded' : 'tolerated'
+          }
+        >
+          <p>
+            {r.tolerance.exceeded
+              ? t.exceeded(
+                  show(r.tolerance.sum),
+                  show(r.tolerance.policy.perPeriod),
+                )
+              : t.counts(tolerated, r.tolerance.eligible.length)}
+          </p>
+        </output>
+      )}
+      <fieldset disabled={locked || bound}>
+        <div className="gl-tb-grid">
+          <label>
+            {t.perItem}
+            <input
+              inputMode="decimal"
+              dir="ltr"
+              aria-label={t.perItem}
+              aria-invalid={typed === 'perItem'}
+              value={form.perItem}
+              onChange={(e) => s.setToleranceForm({ perItem: e.target.value })}
+            />
+          </label>
+          <label>
+            {t.perPeriod}
+            <input
+              inputMode="decimal"
+              dir="ltr"
+              aria-label={t.perPeriod}
+              aria-invalid={typed === 'perPeriod'}
+              value={form.perPeriod}
+              onChange={(e) =>
+                s.setToleranceForm({ perPeriod: e.target.value })
+              }
+            />
+          </label>
+          <label>
+            {t.note}
+            <input
+              aria-label={t.note}
+              aria-invalid={typed === 'note'}
+              value={form.note}
+              onChange={(e) => s.setToleranceForm({ note: e.target.value })}
+            />
+          </label>
+        </div>
+        <p className="bank-source-basis">
+          {t.perItemHint}. {t.perPeriodHint}. {t.noteHint}.
+        </p>
+        {touched && typeof typed === 'string' && (
+          <p role="alert" data-bank-tolerance-invalid={typed}>
+            {t.invalid[typed]}
+          </p>
+        )}
+        <div className="gl-tb-actions">
+          <Button
+            disabled={typeof typed === 'string'}
+            onClick={() => {
+              if (typeof typed !== 'string') void s.applyTolerance(typed);
+            }}
+          >
+            {t.apply}
+          </Button>
+          <Button
+            variant="outline"
+            disabled={!applied}
+            onClick={() => void s.applyTolerance(null)}
+          >
+            {t.remove}
+          </Button>
+        </div>
+      </fieldset>
+      {bound && (
+        <p className="bank-source-basis" data-bank-tolerance-locked>
+          {t.locked}
+        </p>
+      )}
+      {rule && (
+        <p role="alert" data-bank-tolerance-refused={rule}>
+          {t.rules[rule]}
+        </p>
+      )}
     </section>
   );
 }
@@ -1322,8 +1570,39 @@ function Sheet({
               ]),
               [h.adjustedBook, amount(sheet.adjustedBook), ''],
               [h.difference, amount(sheet.difference), ''],
+              ...(sheet.toleratedDifferences
+                ? [
+                    [
+                      h.tolerance.section,
+                      amount(sheet.tolerated!),
+                      h.screen.count(sheet.toleratedDifferences.length),
+                    ],
+                    [h.tolerance.unexplained, amount(sheet.unexplained!), ''],
+                  ]
+                : []),
             ]}
           />
+          {!!sheet.toleratedDifferences?.length && (
+            <Table
+              title={h.tolerance.section}
+              headers={h.tolerance.screenHeaders}
+              testId="sheet-tolerated"
+              items={sheet.toleratedDifferences}
+              row={(d) => [
+                h.tolerance.directions[d.direction],
+                d.case,
+                <bdi key="statement" className="bank-statement-id">
+                  {d.statement}
+                </bdi>,
+                <bdi key="cashbook" className="bank-statement-id">
+                  {d.cashbook}
+                </bdi>,
+                amount(d.amounts.statement),
+                amount(d.amounts.cashbook),
+                amount(d.effect),
+              ]}
+            />
+          )}
           {SHEET_SECTIONS.filter(
             (name) => sheet.sections[name].items.length > 0,
           ).map((name) => (

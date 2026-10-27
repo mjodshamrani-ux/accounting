@@ -24,6 +24,8 @@ import {
   statementMember,
   statementState,
   rolledStatementState,
+  toleranceInputs,
+  toleranceRule,
 } from '../lib/reconciliation/bank-statement-view.ts';
 
 // What the bank workspace offers for a statement session. The lifecycle is
@@ -453,4 +455,52 @@ void test('a period that carries is the printed statement path, with its previou
     result.roll?.previous.status === 'refused' && result.roll.previous.code,
     'ROLL_CURRENCY',
   );
+});
+
+void test('a tolerance as typed is two limits in the currency decimals and one line, or the first field that is not', () => {
+  const note = 'Rounding by the payment system';
+  assert.deepEqual(toleranceInputs('0.01', '0.05', note, 2), {
+    perItem: 1,
+    perPeriod: 5,
+    note,
+  });
+  // Arabic-Indic digits and the Arabic decimal mark are read as written.
+  assert.deepEqual(toleranceInputs('٠٫٠١', '0.10', note, 2), {
+    perItem: 1,
+    perPeriod: 10,
+    note,
+  });
+  assert.deepEqual(toleranceInputs('0.001', '0.010', note, 3), {
+    perItem: 1,
+    perPeriod: 10,
+    note,
+  });
+  // Nothing is rounded or completed; a negative limit is no limit.
+  for (const perItem of ['', '0.1', '0.001', '-0.01', 'x'])
+    assert.equal(toleranceInputs(perItem, '0.05', note, 2), 'perItem', perItem);
+  assert.equal(toleranceInputs('0.01', '0.5', note, 2), 'perPeriod');
+  for (const bad of ['', '   ', 'two\nlines', 'mark\u200f', 'x'.repeat(201)])
+    assert.equal(
+      toleranceInputs('0.01', '0.05', bad, 2),
+      'note',
+      JSON.stringify(bad),
+    );
+  // The ranges are the lifecycle's to judge: one major unit is taken here.
+  assert.deepEqual(toleranceInputs('1.00', '5.00', note, 2), {
+    perItem: 100,
+    perPeriod: 500,
+    note,
+  });
+});
+
+void test('a refused tolerance names its rule, and is a kind of its own', () => {
+  for (const rule of ['CURRENCY', 'PER_ITEM', 'PER_PERIOD', 'NOTE'])
+    assert.equal(toleranceRule(`BANK_STATEMENT_TOLERANCE: ${rule}`), rule);
+  assert.equal(toleranceRule('BANK_STATEMENT_TOLERANCE: OTHER'), null);
+  assert.equal(toleranceRule('BANK_STATEMENT_DECISION'), null);
+  assert.equal(
+    statementError('BANK_STATEMENT_TOLERANCE: PER_ITEM'),
+    'tolerance',
+  );
+  assert.equal(statementError('BANK_STATEMENT_DECISION'), 'decision');
 });
