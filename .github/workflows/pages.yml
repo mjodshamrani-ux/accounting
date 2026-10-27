@@ -277,6 +277,9 @@ jobs:
           pnpm test:bank-statement:oracle-mutants
           pnpm test:bank-statement:holdout-seal
           pnpm test:supplier-statement:s3-seal
+          pnpm test:ar-statement:oracle
+          pnpm test:ar-statement:oracle-mutants
+          pnpm test:ar-statement:seal
           pnpm test:bank-statement:baseline
           pnpm test:bank-statement:g1-proof
           pnpm test:bank-statement:g1-mutations

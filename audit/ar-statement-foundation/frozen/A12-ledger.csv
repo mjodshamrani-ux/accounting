@@ -1,0 +1,7 @@
+Posting ID,Document type,Own document number,Posting date,Original signed amount,Entity,Ledger,Customer,Account,Currency,Related invoice,Description
+L0001,invoice,INV-1001,2026-09-02,1250.00,Synthetic Seller Co,AR Book,C0001,1200,SAR,,قطع غيار صمامات
+L0002,invoice,INV-1002,2026-09-04,480.10,Synthetic Seller Co,AR Book,C0001,1200,SAR,,غلاف منصات
+L0003,receipt,RC-501,2026-09-08,-1250.00,Synthetic Seller Co,AR Book,C0001,1200,SAR,,تحويل مستلم
+L0004,invoice,INV-1003,2026-09-11,2300.00,Synthetic Seller Co,AR Book,C0001,1200,SAR,,تجهيزات حديد
+L0005,credit-note,CN-71,2026-09-14,-120.00,Synthetic Seller Co,AR Book,C0001,1200,SAR,INV-1003,تسوية سعر
+L0006,invoice,INV-1004,2026-09-18,915.75,Synthetic Seller Co,AR Book,C0001,1200,SAR,,صناديق تعبئة

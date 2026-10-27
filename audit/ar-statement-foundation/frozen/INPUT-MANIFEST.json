@@ -1,0 +1,163 @@
+{
+ "schema": "tarasuf-ar-pdf1-input-manifest/1",
+ "synthetic": true,
+ "producer": "ReportLab 4.2.5 (Helvetica; DejaVu Sans embedded for Arabic), arabic-reshaper 3.0.0, python-bidi 0.4.2",
+ "files": {
+  "A01-ledger.csv": {
+   "sha256": "a835c1fae0120fa17269cbc0b432e0351ee1069c9de0b7b795e31e26a848fdb7",
+   "bytes": 971
+  },
+  "A01-statement.pdf": {
+   "sha256": "eba94ab105244efe220568d5a2b62b970e94695b07e670a5912dfd2715da88e9",
+   "bytes": 2523
+  },
+  "A02-ledger.csv": {
+   "sha256": "5253b268663ef03eb1d4bc44cdcde1d321a34f94380d8dca4f4301ab1480aad3",
+   "bytes": 549
+  },
+  "A02-statement.pdf": {
+   "sha256": "3029a444a688c659c37fd0cce9f0f538032c06149484a1c05b4aee3fd02153af",
+   "bytes": 2249
+  },
+  "A03-ledger.csv": {
+   "sha256": "5c522d3c754f4fcd8712f9066a19e72460f06de3b673340840a12699f2de8975",
+   "bytes": 334
+  },
+  "A03-statement.pdf": {
+   "sha256": "2ea6ae909bf938a857ac5abe414b7bc98a755947cf17849cf3bdea4d96e21e0c",
+   "bytes": 2289
+  },
+  "A04-ledger.csv": {
+   "sha256": "5afb85939703d4df6af3a57e06438b62f7c2f9490f4866003bb8307c5baee1a4",
+   "bytes": 334
+  },
+  "A04-statement.pdf": {
+   "sha256": "2ea6ae909bf938a857ac5abe414b7bc98a755947cf17849cf3bdea4d96e21e0c",
+   "bytes": 2289
+  },
+  "A05-ledger.csv": {
+   "sha256": "1b27653bcd807aa5d0e840ab769b4401a9f3798f0126a4454d9b7abdd70738bd",
+   "bytes": 4228
+  },
+  "A05-statement.pdf": {
+   "sha256": "2b508ae512de6863cbe795b693717067c65c5c4fe3861394d3bdef0ca09d163b",
+   "bytes": 5917
+  },
+  "A06-ledger.csv": {
+   "sha256": "453d3f7f00da4e5fa1720313d11025b987b970a06600c417a24758d396ad9c9a",
+   "bytes": 437
+  },
+  "A06-statement.pdf": {
+   "sha256": "e6c7f3e06cba1b9c077f242a0363a4d5e87954125752ab5da1514438f0344c3b",
+   "bytes": 3111
+  },
+  "A07-ledger.csv": {
+   "sha256": "6c16e5badc93d1dfaa50d3c8f57887d83ac67c3ac3775a35cdfced752bb73b55",
+   "bytes": 420
+  },
+  "A07-statement.pdf": {
+   "sha256": "2d64061776dd9675b46be168920c8e14cd6b0cb16bb6adaf4ba771776bb19cf5",
+   "bytes": 2214
+  },
+  "A08-ledger.csv": {
+   "sha256": "21a8815e0de55d6126be6547de2f8e86afe962470d340d2abe771ab590d668fa",
+   "bytes": 539
+  },
+  "A08-statement.pdf": {
+   "sha256": "3f6bdf7bc914c19028e4eaea9f7a41b0bcef32e5f35be57259baead94fa96d3c",
+   "bytes": 2255
+  },
+  "A09-ledger.csv": {
+   "sha256": "a835c1fae0120fa17269cbc0b432e0351ee1069c9de0b7b795e31e26a848fdb7",
+   "bytes": 971
+  },
+  "A09-statement.pdf": {
+   "sha256": "aaa0ba6b35f2202fe0a8e8d5cf87071eaeb65ef87109f4fa39df8c421ec54c78",
+   "bytes": 2528
+  },
+  "A10-ledger.csv": {
+   "sha256": "a835c1fae0120fa17269cbc0b432e0351ee1069c9de0b7b795e31e26a848fdb7",
+   "bytes": 971
+  },
+  "A10-statement.pdf": {
+   "sha256": "598be4048b15d77bdfa4f015978a0e4aedf8b5fac52ab88560a2c7c156dde408",
+   "bytes": 2618
+  },
+  "A11-ledger.csv": {
+   "sha256": "a835c1fae0120fa17269cbc0b432e0351ee1069c9de0b7b795e31e26a848fdb7",
+   "bytes": 971
+  },
+  "A11-statement.pdf": {
+   "sha256": "9900d876d60817a4876ddcfd313e6d4647aa615989a8354d6937e0539a318ab9",
+   "bytes": 2503
+  },
+  "A12-ledger.csv": {
+   "sha256": "c891466c6738e8d5c2c10b4dea11a0fbb76e5b50703ec2a18ea8cd11e9b719b9",
+   "bytes": 815
+  },
+  "A12-statement.pdf": {
+   "sha256": "fffac26572970ae5fc45926867b2d10788014e11ca11a04dd8b1e2316b319c91",
+   "bytes": 53192
+  },
+  "A13-ledger.csv": {
+   "sha256": "c8ba31e478caa5877613fc2341647ea6b2c8b32af956e5ee05af3b5fff0f2a6a",
+   "bytes": 971
+  },
+  "A13-statement.pdf": {
+   "sha256": "eba94ab105244efe220568d5a2b62b970e94695b07e670a5912dfd2715da88e9",
+   "bytes": 2523
+  },
+  "A14-ledger.csv": {
+   "sha256": "71d71c84948575a37dc255fd6e33b2a5bd5c8a0309fefc1e22241e2819a50a26",
+   "bytes": 657
+  },
+  "A14-statement.pdf": {
+   "sha256": "551d1053e58b45411e46d2df4a846c6f520f415eaa2f3b751ecb0fc6689a2077",
+   "bytes": 2386
+  },
+  "A15-ledger.csv": {
+   "sha256": "6bf28094d1aa4bdbe97b4bab35b6753335dc7cb955cc10528e452f4e2612eb8e",
+   "bytes": 768
+  },
+  "A15-statement.pdf": {
+   "sha256": "e3ae88d4304436411c450b9414a325a5dce6a62719c884577e35461e8a042866",
+   "bytes": 2693
+  },
+  "A16-ledger.csv": {
+   "sha256": "5c522d3c754f4fcd8712f9066a19e72460f06de3b673340840a12699f2de8975",
+   "bytes": 334
+  },
+  "A16-statement.pdf": {
+   "sha256": "a3d9256c62fce430d16abdf5e2a037c6d53366cdf46c71bb9379ed1d44a721bc",
+   "bytes": 2121
+  },
+  "A17-ledger.csv": {
+   "sha256": "30b21e222d6d10694e0af63c4793a987d26e9cce180942f15908b7ef791c6800",
+   "bytes": 80242
+  },
+  "A17-statement.pdf": {
+   "sha256": "249bc5e2217bd8e96b0d9124e6e745d0082bbcb06eb4b1da7f613fbad8065338",
+   "bytes": 68508
+  },
+  "A18-ledger.csv": {
+   "sha256": "4d400949283d87c63f2b032cb2ddcde94c5d8e3acd8f8c790fb639b3988abe26",
+   "bytes": 667
+  },
+  "A18-statement.pdf": {
+   "sha256": "d8ee74698320c3ab9edebe095c8642605282d754dcfb2e991c8a2a07b9b2f6ca",
+   "bytes": 2322
+  },
+  "A19-ledger.csv": {
+   "sha256": "a835c1fae0120fa17269cbc0b432e0351ee1069c9de0b7b795e31e26a848fdb7",
+   "bytes": 971
+  },
+  "A19-statement.pdf": {
+   "sha256": "6f70db259aff2ed5a6cb0a00087d356a99aca05ea1f21b9104979b82b11394b5",
+   "bytes": 2530
+  },
+  "stories.json": {
+   "sha256": "64fdfc1c98be405dd25208653e79933830cde233551464dfea2bb0ec5f6e758a",
+   "bytes": 460324
+  }
+ }
+}

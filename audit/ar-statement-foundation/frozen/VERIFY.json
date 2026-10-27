@@ -1,0 +1,101 @@
+{
+ "version": "ar-statement-foundation-verify-1",
+ "passed": true,
+ "values": 6215,
+ "stories": {
+  "A01": {
+   "values": 64
+  },
+  "A02": {
+   "values": 40
+  },
+  "A03": {
+   "values": 52
+  },
+  "A04": {
+   "values": 52
+  },
+  "A05": {
+   "values": 286
+  },
+  "A06": {
+   "values": 56
+  },
+  "A07": {
+   "values": 38
+  },
+  "A08": {
+   "values": 43
+  },
+  "A09": {
+   "values": 64
+  },
+  "A10": {
+   "values": 76
+  },
+  "A11": {
+   "values": 63
+  },
+  "A12": {
+   "values": 52
+  },
+  "A13": {
+   "values": 64
+  },
+  "A14": {
+   "values": 52
+  },
+  "A15": {
+   "values": 88
+  },
+  "A16": {
+   "values": 28
+  },
+  "A17": {
+   "values": 4981
+  },
+  "A18": {
+   "values": 52
+  },
+  "A19": {
+   "values": 64
+  }
+ },
+ "selfTest": [
+  {
+   "story": "A01",
+   "plant": "an amount one halala off",
+   "rejected": true
+  },
+  {
+   "story": "A12",
+   "plant": "an Arabic-Indic digit in an amount",
+   "rejected": true
+  },
+  {
+   "story": "A12",
+   "plant": "an Arabic word in a description",
+   "rejected": true
+  },
+  {
+   "story": "A12",
+   "plant": "an Arabic statement document number",
+   "rejected": true
+  },
+  {
+   "story": "A06",
+   "plant": "the currency of the second section",
+   "rejected": true
+  },
+  {
+   "story": "A01",
+   "plant": "a printed line dropped",
+   "rejected": true
+  },
+  {
+   "story": "A03",
+   "plant": "the second customer",
+   "rejected": true
+  }
+ ]
+}
