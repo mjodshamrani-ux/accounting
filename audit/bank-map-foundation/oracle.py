@@ -59,7 +59,7 @@ CODES = [rule.split(':', 1)[0] for rule in CONTRACT['map']['valid']]
 assert CODES == ['MAP_JSON', 'MAP_FORMAT', 'MAP_KEYS', 'MAP_NAME', 'MAP_HEADER', 'MAP_COLUMN', 'MAP_LABEL']
 MAX_BYTES, MAX_NAME, MAX_LABEL, MAX_HEADER, MAX_COLUMN = 16384, 80, 120, 30, 100
 # JavaScript's \s, which the contract names for white space.
-SPACE = '\t\n\x0b\x0c\r \xa0  -     　﻿'
+SPACE = '\t\n\x0b\x0c\r \xa0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff'
 SPACE_RUN = re.compile(f'[{SPACE}]+')
 EDGES = re.compile(f'^[{SPACE}]+|[{SPACE}]+$')
 CONTROL = re.compile('[\x00-\x08\x0e-\x1f\x7f]')
@@ -169,7 +169,7 @@ def parse_map(data):
         raise MapRefused('MAP_JSON')
     try:
         text = data.decode('utf-8')
-        if text.startswith('﻿'):
+        if text.startswith('\ufeff'):
             text = text[1:]
         obj = json.loads(text, parse_constant=no_constant)
     except (UnicodeDecodeError, ValueError):
@@ -182,7 +182,7 @@ def parse_map(data):
 def parse_csv(text):
     """lib/reconciliation/io.ts parseCSV: the delimiter of ',', ';' and tab
     that splits most of the first twenty non-empty rows, rows as written."""
-    text = text[1:] if text.startswith('﻿') else text
+    text = text[1:] if text.startswith('\ufeff') else text
 
     def tokenize(d):
         rows, row, cell, quoted, after = [], [], '', False, False

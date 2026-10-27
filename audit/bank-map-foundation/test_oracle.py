@@ -204,13 +204,13 @@ class Twins(unittest.TestCase):
 
 class Labels(unittest.TestCase):
     def test_normal_form(self):
-        self.assertEqual(oracle.normal(' Voucher \t No　'), 'Voucher No')
+        self.assertEqual(oracle.normal(' Voucher\u00a0\t No\u3000'), 'Voucher No')
         self.assertEqual(oracle.normal(unicodedata.normalize('NFD', 'الإيضاح')), 'الإيضاح')
         self.assertNotEqual(oracle.normal('المرجـع'), 'المرجع')
         self.assertNotEqual(oracle.normal('CREDIT'), 'Credit')
         self.assertNotEqual(oracle.normal('Ref.'), 'Ref')
         # Only JavaScript's white space: a zero-width space is not one.
-        self.assertEqual(oracle.normal('Ref​'), 'Ref​')
+        self.assertEqual(oracle.normal('Ref\u200b'), 'Ref\u200b')
 
     def test_a_map_fits_by_position_and_label_only(self):
         table = oracle.read_table(FROZEN / 'M02-AUG-cashbook.xlsx')
@@ -241,7 +241,7 @@ class MapFiles(unittest.TestCase):
 
     def test_as_javascript_reads_json(self):
         self.assertIsNone(self.code(self.VALID))
-        self.assertIsNone(self.code('﻿'.encode('utf-8') + self.VALID))
+        self.assertIsNone(self.code('\ufeff'.encode('utf-8') + self.VALID))
         self.assertIsNone(self.code(self.VALID.replace(b'"header": 1', b'"header": 1.0')))
         self.assertEqual(self.code(self.VALID.replace(b'"header": 1', b'"header": Infinity')), 'MAP_JSON')
         self.assertEqual(self.code(self.edit(lambda m: m.update(version=True))), 'MAP_FORMAT')

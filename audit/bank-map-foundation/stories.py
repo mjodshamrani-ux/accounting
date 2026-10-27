@@ -500,7 +500,7 @@ def build(out):
 
     # M09: the same labels with other white space.
     recipes = {}
-    spaced = [('Voucher  No', 'voucher'), (' Date', 'date'), ('Document No', 'doc'), ('Reference ', 'reference'),
+    spaced = [('Voucher  No', 'voucher'), (' Date', 'date'), ('Document No', 'doc'), ('Reference\u00a0', 'reference'),
               ('Narration\t', 'description'), ('Debit', 'receipts'), ('Credit', 'payments'), ('Balance', 'balance')]
     put('M09-JUL-cashbook.xlsx', xlsx([sheet(table('R06-JUL', EN_A, titles_en('July 2026')), merges=['A1:H1'])]),
         {'twin': 'R06-JUL', 'layout': 'EN_A', 'header': 4})

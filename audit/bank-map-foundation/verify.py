@@ -51,7 +51,7 @@ def sha(data):
 
 def fold(s):
     s = unicodedata.normalize('NFC', s).replace('ـ', '')
-    return ' '.join(s.replace(' ', ' ').split()).lower()
+    return ' '.join(s.replace('\u00a0', ' ').split()).lower()
 
 
 def xlsx_rows(path):
