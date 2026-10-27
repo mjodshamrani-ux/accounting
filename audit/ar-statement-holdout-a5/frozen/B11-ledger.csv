@@ -1,0 +1,61 @@
+Posting ID,Document type,Own document number,Posting date,Original signed amount,Entity,Ledger,Customer,Account,Currency,Related invoice,Description
+P00001,invoice,TI-5000,2026-08-01,210.98,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00002,invoice,TI-5001,2026-08-01,4873.64,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00003,invoice,TI-5002,2026-08-02,442.71,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00004,credit-note,TC-8003,2026-08-02,-44.27,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,TI-5002,Allowance
+P00005,receipt,TR-7004,2026-08-03,-442.71,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Bank transfer
+P00006,invoice,TI-5005,2026-08-03,1209.58,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00007,invoice,TI-5006,2026-08-04,1253.96,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00008,invoice,TI-5007,2026-08-04,2791.80,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00009,invoice,TI-5008,2026-08-05,1531.76,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00010,receipt,TR-7009,2026-08-05,-1531.76,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Bank transfer
+P00011,credit-note,TC-8010,2026-08-06,-153.17,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,TI-5008,Allowance
+P00012,invoice,TI-5011,2026-08-06,2670.30,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00013,invoice,TI-5012,2026-08-07,750.50,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00014,invoice,TI-5013,2026-08-07,5400.55,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00015,receipt,TR-7014,2026-08-08,-5400.55,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Bank transfer
+P00016,invoice,TI-5015,2026-08-08,3179.56,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00017,invoice,TI-5016,2026-08-09,4006.62,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00018,credit-note,TC-8017,2026-08-09,-400.66,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,TI-5016,Allowance
+P00019,invoice,TI-5018,2026-08-10,6285.27,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00020,receipt,TR-7019,2026-08-10,-6285.27,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Bank transfer
+P00021,invoice,TI-5020,2026-08-11,565.31,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00022,invoice,TI-5021,2026-08-11,5870.11,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00023,invoice,TI-5022,2026-08-12,1049.28,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00024,invoice,TI-5023,2026-08-12,4618.77,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00025,receipt,TR-7024,2026-08-13,-4573.77,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Bank transfer
+P00026,invoice,TI-5025,2026-08-13,4696.55,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00027,invoice,TI-5026,2026-08-14,5014.71,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00028,invoice,TI-5027,2026-08-14,6603.03,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00029,invoice,TI-5028,2026-08-15,808.03,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00030,receipt,TR-7029,2026-08-15,-808.03,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Bank transfer
+P00031,invoice,TI-5030,2026-08-16,898.11,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00032,credit-note,TC-8031,2026-08-16,-89.81,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,TI-5030,Allowance
+P00033,invoice,TI-5032,2026-08-17,49.99,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00034,invoice,TI-5033,2026-08-17,5128.62,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00035,receipt,TR-7034,2026-08-18,-5128.62,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Bank transfer
+P00036,invoice,TI-5035,2026-08-18,2990.05,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00037,invoice,TI-5036,2026-08-19,41.91,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00038,invoice,TI-5037,2026-08-19,1508.64,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00039,credit-note,TC-8038,2026-08-20,-150.86,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,TI-5037,Allowance
+P00040,receipt,TR-7039,2026-08-20,-1508.64,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Bank transfer
+P00041,invoice,TI-5040,2026-08-21,5166.58,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00042,invoice,TI-5041,2026-08-21,3104.96,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00043,invoice,TI-5042,2026-08-22,2062.89,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00044,invoice,TI-5043,2026-08-22,2786.84,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00045,receipt,TR-7044,2026-08-23,-2786.84,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Bank transfer
+P00046,credit-note,TC-8045,2026-08-23,-278.68,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,TI-5043,Allowance
+P00047,invoice,TI-5046,2026-08-24,281.26,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00048,invoice,TI-5047,2026-08-24,2803.09,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00049,invoice,TI-5048,2026-08-25,62.22,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00050,receipt,TR-7049,2026-08-25,-62.22,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Bank transfer
+P00051,invoice,TI-5050,2026-08-26,6633.10,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00052,invoice,TI-5051,2026-08-26,6905.66,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00053,credit-note,TC-8052,2026-08-27,-690.56,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,TI-5051,Allowance
+P00054,invoice,TI-5053,2026-08-27,7359.00,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00055,receipt,TR-7054,2026-08-28,-7359.00,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Bank transfer
+P00056,invoice,TI-5055,2026-08-28,5824.75,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00057,invoice,TI-5056,2026-08-29,1796.53,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00058,invoice,TI-5057,2026-08-29,2193.52,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00059,invoice,TI-5058,2026-08-30,6464.45,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Weekly delivery
+P00060,receipt,TR-7059,2026-08-31,-6464.45,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Bank transfer

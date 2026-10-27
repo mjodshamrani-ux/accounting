@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 43208,
-      "sha256": "b921621d6f1eff9e16fc6e9b56ffa6606f9993aea8ea50969e271b55299421ab",
+      "bytes": 43249,
+      "sha256": "cc475baf948ae002f9a7ef7a91c2689af3306bf79ba8d252cad84535b7323c5b",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 28851,
-      "sha256": "130f3333339be0a3fb5e8f01f81cbd748a254da180c7b602a7ae6719a66d4399",
+      "bytes": 29005,
+      "sha256": "69e81c4c5b5d320889c49f68fbbbb035ef4d079ed9a5abe0de1d62f3eee4d287",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 10636,
-      "sha256": "15d5b49bb3ba726bb557ef0a56d73f17d87505eda630701ec49f23b74659fd7b",
+      "bytes": 10667,
+      "sha256": "794ff5dc97a7726c1964b57d5f6118fc0426c787cede8356b94332300cb65f1a",
       "kind": "text"
     },
     {
@@ -46929,6 +46929,402 @@
       "path": "scripts/test-ar-statement-interface-mutations.mjs",
       "bytes": 7129,
       "sha256": "241aa7c761a5804e773f41face2f613bcea80bb5933d4db87c14145257118c90",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/README.ar.md",
+      "bytes": 10048,
+      "sha256": "6489b3914ea9bb8dab625282f508b3ba496bba613c5747ca76aa84520cce8763",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/check_seal.py",
+      "bytes": 4622,
+      "sha256": "345158fc4dc36f04dd5ca920df8b122da25442b243ebfac596c6d77ad78ec66f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B01-ledger.csv",
+      "bytes": 750,
+      "sha256": "7f44c7d8592c76155650f7b1e792d7f238e99271c630244751117636952e61a0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B01-statement.pdf",
+      "bytes": 56396,
+      "sha256": "c55424f7507322e6380be383478765b3292145c2caaa9ca43f8396085d40ce83",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic customer statement asset for the AR-1 PDF A5 holdout: printed by LibreOffice Writer 24.2.7.2 from flat OpenDocument text, or laid out by a statement service on iText Core 9.8.0 (Java 21), with system fonts (Liberation, Carlito, Caladea, Inter, DejaVu Sans, FreeSerif), from audit/ar-statement-holdout-a5/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed foundation oracle). Fictional companies, customers and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B02-ledger.csv",
+      "bytes": 5392,
+      "sha256": "12cc38cffc571bd29257da2de807f61186b22d5aabcff69500822021df8089ec",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B02-statement.pdf",
+      "bytes": 120124,
+      "sha256": "bfa92e9c46fccc315c35cf58e498e72332436dfae372ce21afcc740b07d5d6ab",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic customer statement asset for the AR-1 PDF A5 holdout: printed by LibreOffice Writer 24.2.7.2 from flat OpenDocument text, or laid out by a statement service on iText Core 9.8.0 (Java 21), with system fonts (Liberation, Carlito, Caladea, Inter, DejaVu Sans, FreeSerif), from audit/ar-statement-holdout-a5/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed foundation oracle). Fictional companies, customers and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B03-ledger.csv",
+      "bytes": 914,
+      "sha256": "e4e433124053269fc8f9a30cfd180f353f5d763a32f18f6248e36091471d7011",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B03-statement.pdf",
+      "bytes": 52943,
+      "sha256": "6161160d3407ce3c1a423f51fd7674ade63d07a65ba926e190002ea36ef2c78a",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic customer statement asset for the AR-1 PDF A5 holdout: printed by LibreOffice Writer 24.2.7.2 from flat OpenDocument text, or laid out by a statement service on iText Core 9.8.0 (Java 21), with system fonts (Liberation, Carlito, Caladea, Inter, DejaVu Sans, FreeSerif), from audit/ar-statement-holdout-a5/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed foundation oracle). Fictional companies, customers and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B04-ledger.csv",
+      "bytes": 896,
+      "sha256": "bd38ef43a8170158fce8119496ec420f3ee0a80a75826117440f940e661c73d6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B04-statement.pdf",
+      "bytes": 69288,
+      "sha256": "57b1abee5e2911f47e879df21e5e57bc212833fc78e545bac03cca1769b8cfbd",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic customer statement asset for the AR-1 PDF A5 holdout: printed by LibreOffice Writer 24.2.7.2 from flat OpenDocument text, or laid out by a statement service on iText Core 9.8.0 (Java 21), with system fonts (Liberation, Carlito, Caladea, Inter, DejaVu Sans, FreeSerif), from audit/ar-statement-holdout-a5/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed foundation oracle). Fictional companies, customers and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B05-ledger.csv",
+      "bytes": 3609,
+      "sha256": "3b6d84de535b8735676bbb1d731a248eb968d6f9b278d6cb36f94feb59932585",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B05-statement.pdf",
+      "bytes": 94715,
+      "sha256": "8222e16abe1a450af891f8fbbcd1c68f314c891633cc15be09bbf743da97aaaa",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic customer statement asset for the AR-1 PDF A5 holdout: printed by LibreOffice Writer 24.2.7.2 from flat OpenDocument text, or laid out by a statement service on iText Core 9.8.0 (Java 21), with system fonts (Liberation, Carlito, Caladea, Inter, DejaVu Sans, FreeSerif), from audit/ar-statement-holdout-a5/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed foundation oracle). Fictional companies, customers and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B06-ledger.csv",
+      "bytes": 493,
+      "sha256": "5a174330c508bdcdcfbc6226fd1d0ff3d7ac6aadba1889dd96953cf6af0a2690",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B06-statement.pdf",
+      "bytes": 36008,
+      "sha256": "985a6df6073c712bcaf8734ef1c0fa6e83c0d6d906f5bb6a9912e074e46ec7ee",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic customer statement asset for the AR-1 PDF A5 holdout: printed by LibreOffice Writer 24.2.7.2 from flat OpenDocument text, or laid out by a statement service on iText Core 9.8.0 (Java 21), with system fonts (Liberation, Carlito, Caladea, Inter, DejaVu Sans, FreeSerif), from audit/ar-statement-holdout-a5/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed foundation oracle). Fictional companies, customers and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B07-ledger.csv",
+      "bytes": 973,
+      "sha256": "922dce2507f846c55858283edb64e3141e0efa571995f879e2c62e197e98c78f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B07-statement.pdf",
+      "bytes": 45383,
+      "sha256": "a2e0c8466c7b1ae2d82a86e52970f53526300443dafd5ba2c9a401b35d1f286d",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic customer statement asset for the AR-1 PDF A5 holdout: printed by LibreOffice Writer 24.2.7.2 from flat OpenDocument text, or laid out by a statement service on iText Core 9.8.0 (Java 21), with system fonts (Liberation, Carlito, Caladea, Inter, DejaVu Sans, FreeSerif), from audit/ar-statement-holdout-a5/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed foundation oracle). Fictional companies, customers and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B08-ledger.csv",
+      "bytes": 867,
+      "sha256": "c2149646d6f768d33782e4ff1f0abe5fb7a1a6b115e8fd67f887b41c3e6dc9c9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B08-statement.pdf",
+      "bytes": 73521,
+      "sha256": "928a243cec5b6ff0a3c07727340ec3967661b883269278e23d69dba195100797",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic customer statement asset for the AR-1 PDF A5 holdout: printed by LibreOffice Writer 24.2.7.2 from flat OpenDocument text, or laid out by a statement service on iText Core 9.8.0 (Java 21), with system fonts (Liberation, Carlito, Caladea, Inter, DejaVu Sans, FreeSerif), from audit/ar-statement-holdout-a5/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed foundation oracle). Fictional companies, customers and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B09-ledger.csv",
+      "bytes": 999,
+      "sha256": "4bebbae546f4c3f021f08f9fc974ba5589201809ac2d773dced1c8b002f97be4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B09-statement.pdf",
+      "bytes": 25002,
+      "sha256": "427444fe32861f45915f49c48146dc19a0215640ec947841a11e4e3aa3016b02",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic customer statement asset for the AR-1 PDF A5 holdout: printed by LibreOffice Writer 24.2.7.2 from flat OpenDocument text, or laid out by a statement service on iText Core 9.8.0 (Java 21), with system fonts (Liberation, Carlito, Caladea, Inter, DejaVu Sans, FreeSerif), from audit/ar-statement-holdout-a5/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed foundation oracle). Fictional companies, customers and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B10-ledger.csv",
+      "bytes": 633,
+      "sha256": "7717a660e064530e34ea7e056a6d221c71d121fc32e77ecc186d8bc3e6a99b26",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B10-statement.pdf",
+      "bytes": 82211,
+      "sha256": "e1fdc689abab84a3dc7e32f715f1567ffc6d2058e43b6ccab57e4ccc5d76c071",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic customer statement asset for the AR-1 PDF A5 holdout: printed by LibreOffice Writer 24.2.7.2 from flat OpenDocument text, or laid out by a statement service on iText Core 9.8.0 (Java 21), with system fonts (Liberation, Carlito, Caladea, Inter, DejaVu Sans, FreeSerif), from audit/ar-statement-holdout-a5/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed foundation oracle). Fictional companies, customers and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B11-ledger.csv",
+      "bytes": 7114,
+      "sha256": "702abbba8ee01869de0f35a5414228862d79381b5fb9f9860ec875db1fa4a29c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B11-statement.pdf",
+      "bytes": 46207,
+      "sha256": "c21e30eae62b471af22a8f135b404d45c3aca94ff52292e4fe984cc0f6ae59f0",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic customer statement asset for the AR-1 PDF A5 holdout: printed by LibreOffice Writer 24.2.7.2 from flat OpenDocument text, or laid out by a statement service on iText Core 9.8.0 (Java 21), with system fonts (Liberation, Carlito, Caladea, Inter, DejaVu Sans, FreeSerif), from audit/ar-statement-holdout-a5/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed foundation oracle). Fictional companies, customers and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B12-ledger.csv",
+      "bytes": 503,
+      "sha256": "adcebbf6be60c287008fb98c9e02aa614a9534ce42d7975b596ef9e8cb752643",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B12-statement.pdf",
+      "bytes": 23892,
+      "sha256": "4ee45b7642b2d2066724093976422fdbb913c32d84aca5c5d8549c36797ea813",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic customer statement asset for the AR-1 PDF A5 holdout: printed by LibreOffice Writer 24.2.7.2 from flat OpenDocument text, or laid out by a statement service on iText Core 9.8.0 (Java 21), with system fonts (Liberation, Carlito, Caladea, Inter, DejaVu Sans, FreeSerif), from audit/ar-statement-holdout-a5/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed foundation oracle). Fictional companies, customers and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B13-ledger.csv",
+      "bytes": 622,
+      "sha256": "f790424ed3b307a0acd1030f3ea99465623f285f40af8b2949c3ae5f43e06698",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B13-statement.pdf",
+      "bytes": 81846,
+      "sha256": "87108bbe428eb57df3ef34c121a3ec2aef9cd9ca51e3574fb31f0384b7d1357a",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic customer statement asset for the AR-1 PDF A5 holdout: printed by LibreOffice Writer 24.2.7.2 from flat OpenDocument text, or laid out by a statement service on iText Core 9.8.0 (Java 21), with system fonts (Liberation, Carlito, Caladea, Inter, DejaVu Sans, FreeSerif), from audit/ar-statement-holdout-a5/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed foundation oracle). Fictional companies, customers and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B14-ledger.csv",
+      "bytes": 622,
+      "sha256": "f790424ed3b307a0acd1030f3ea99465623f285f40af8b2949c3ae5f43e06698",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B14-statement.pdf",
+      "bytes": 38492,
+      "sha256": "6c3e24ceeef471c9f5b09950683d03334aaf41567c3d9718f3d8f5f1c89239cd",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic customer statement asset for the AR-1 PDF A5 holdout: printed by LibreOffice Writer 24.2.7.2 from flat OpenDocument text, or laid out by a statement service on iText Core 9.8.0 (Java 21), with system fonts (Liberation, Carlito, Caladea, Inter, DejaVu Sans, FreeSerif), from audit/ar-statement-holdout-a5/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed foundation oracle). Fictional companies, customers and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B15-ledger.csv",
+      "bytes": 59292,
+      "sha256": "e6c514da7a3f34d18bf84d2e50e29d8e88f4a5b0aeb06f243ef4bd7d28c00165",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B15-statement.pdf",
+      "bytes": 54004,
+      "sha256": "69dfa3fd316eadcec004b2cd7fe9404125996a97832fa7b314664598ffd92237",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic customer statement asset for the AR-1 PDF A5 holdout: printed by LibreOffice Writer 24.2.7.2 from flat OpenDocument text, or laid out by a statement service on iText Core 9.8.0 (Java 21), with system fonts (Liberation, Carlito, Caladea, Inter, DejaVu Sans, FreeSerif), from audit/ar-statement-holdout-a5/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed foundation oracle). Fictional companies, customers and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B16-ledger.csv",
+      "bytes": 1027,
+      "sha256": "3c10271fece1af48545c77c6955704abb0f55a6eb420fd0d463749479d203c21",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B16-statement.pdf",
+      "bytes": 22599,
+      "sha256": "daa505a7662ed95b3eda698242e8896054fb1be21675a4109f5bda2f2b4bbd8b",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic customer statement asset for the AR-1 PDF A5 holdout: printed by LibreOffice Writer 24.2.7.2 from flat OpenDocument text, or laid out by a statement service on iText Core 9.8.0 (Java 21), with system fonts (Liberation, Carlito, Caladea, Inter, DejaVu Sans, FreeSerif), from audit/ar-statement-holdout-a5/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed foundation oracle). Fictional companies, customers and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B17-ledger.csv",
+      "bytes": 610,
+      "sha256": "122a41713370301a2b9c8882240939745c2f9118c96c27ad5841327c451bfb9c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B17-statement.pdf",
+      "bytes": 34258,
+      "sha256": "46825bfc477055e1db9e137bc925120eb872b3886baa7c30fa7529b377f7452e",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic customer statement asset for the AR-1 PDF A5 holdout: printed by LibreOffice Writer 24.2.7.2 from flat OpenDocument text, or laid out by a statement service on iText Core 9.8.0 (Java 21), with system fonts (Liberation, Carlito, Caladea, Inter, DejaVu Sans, FreeSerif), from audit/ar-statement-holdout-a5/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed foundation oracle). Fictional companies, customers and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B18-ledger.csv",
+      "bytes": 501,
+      "sha256": "63a376d521c332644d9aea1746a4d3e2fdc78aa2b298e75eb8e225a4428f89b5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/B18-statement.pdf",
+      "bytes": 24230,
+      "sha256": "32a1d85f543ff94533595a608fce472c6fdd7f02a9ea41617bf1098e3f19ae89",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic customer statement asset for the AR-1 PDF A5 holdout: printed by LibreOffice Writer 24.2.7.2 from flat OpenDocument text, or laid out by a statement service on iText Core 9.8.0 (Java 21), with system fonts (Liberation, Carlito, Caladea, Inter, DejaVu Sans, FreeSerif), from audit/ar-statement-holdout-a5/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed foundation oracle). Fictional companies, customers and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/ELIGIBILITY.json",
+      "bytes": 9964,
+      "sha256": "415adb1ee9839df945cccdee90602f3dc2ccfaeb5b4f8b6039656e3cf4a43f3f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/EXPECTED.json",
+      "bytes": 160429,
+      "sha256": "df5602eb0cacc73d8d3b5edc29342eaa0fe2eb94cf96da0115d30618901ff041",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/INPUT-MANIFEST.json",
+      "bytes": 4842,
+      "sha256": "ce94cf249a9f1070da131e843d8b92d055496cf771022da9b997025ca237e116",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/SEAL.json",
+      "bytes": 1475,
+      "sha256": "f025b04391d2cd4c9b2e15c1db639a39ee01251774c845ae6e41e17f2f367c95",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/VERIFY.json",
+      "bytes": 1776,
+      "sha256": "1a20d8ee04f7d4ef76b54654282546e1740613abaaba4d913ae8dadf13393072",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/frozen/stories.json",
+      "bytes": 386681,
+      "sha256": "85139a609c43465138ca72630171d7b0c8dbd72e4adddbb53b5634827f14f26f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/holdout.json",
+      "bytes": 1960,
+      "sha256": "a851db87645015c9613c9c4f9315afb0f8673581bd7fec859593a175ea053026",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/java/pom.xml",
+      "bytes": 1578,
+      "sha256": "79118123af822035ab0efc23f530881359f3e698d51fb181c28ee0d9bd378c83",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/java/src/main/java/tarasuf/holdout/ArStatements.java",
+      "bytes": 5520,
+      "sha256": "b4e9e09ab1d5110401aec00cf9a7be7fcdadf851b9feafe83dc67d666aadda38",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/render.py",
+      "bytes": 2481,
+      "sha256": "d300c5d1166838cb94dc4a005c3dac7ef23572393ff5d52fd42233b7ead837e4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/render_itext.py",
+      "bytes": 4755,
+      "sha256": "e54125ac92f49c72ae7a71b1247cf7ac314653aabbb5a6b2bdfa4ce8b5e0c91f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/render_libreoffice.py",
+      "bytes": 11328,
+      "sha256": "5f3bfa7abecf7fd191c955174477094ff550e1cab5e375f61b17a7ddffc455ad",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/seal.py",
+      "bytes": 2413,
+      "sha256": "ab66bd455593d68a1a35f1d4bac94621096ebbbbc7bee33a14d5af88b7679d2d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/stories.py",
+      "bytes": 33448,
+      "sha256": "9526c2714975a4768b12267ff0e6cb6f0bffc3f93ed578c9819e42520bd9fb6a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/test_seal.py",
+      "bytes": 3945,
+      "sha256": "4327473b96a89d20b681cadf1e60eda982b4533ceec94f9e557467116a96f74f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/verify.py",
+      "bytes": 11202,
+      "sha256": "e79f6ff61ccded19c2b0912c9f91c243af32641b31ea6be8b9b5d52f6c80c7b0",
       "kind": "text"
     }
   ],

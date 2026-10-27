@@ -110,6 +110,7 @@ const required = [
   'test:ar-statement:oracle',
   'test:ar-statement:oracle-mutants',
   'test:ar-statement:seal',
+  'test:ar-statement:a5-seal',
   'test:ar-statement:baseline',
   'test:ar-statement:a1-proof',
   'test:ar-statement:a2-proof',

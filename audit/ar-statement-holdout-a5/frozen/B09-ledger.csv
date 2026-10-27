@@ -1,0 +1,8 @@
+Posting ID,Document type,Own document number,Posting date,Original signed amount,Entity,Ledger,Customer,Account,Currency,Related invoice,Description
+P00001,invoice,INV/2026/0901,2026-08-03,1250000,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,JPY,,Precision bearings
+P00002,invoice,INV/2026/0902,2026-08-07,386400,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,JPY,,Belt drives
+P00003,receipt,RCT/2026/0410,2026-08-12,-386400,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,JPY,,Wire transfer
+P00004,credit-note,CRN/2026/0033,2026-08-15,-62500,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,JPY,INV/2026/0901,Rebate
+P00005,invoice,INV/2026/0907,2026-08-22,4890000,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,JPY,,Spindle assembly
+P00006,receipt,RCT/2026/0415,2026-08-28,-1187500,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,JPY,,Wire transfer
+P00007,invoice,INV/2026/0911,2026-08-31,72000,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,JPY,,Couplings

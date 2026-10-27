@@ -1,0 +1,7 @@
+Posting ID,Document type,Own document number,Posting date,Original signed amount,Entity,Ledger,Customer,Account,Currency,Related invoice,Description
+P00001,invoice,SI-26-0830,2026-08-02,2500.00,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,أرفف عرض
+P00002,invoice,SI-26-0831,2026-08-06,875.50,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,مسامير تثبيت
+P00003,credit-note,CN-26-0021,2026-08-10,-125.00,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,SI-26-0831,مرتجع جزئي
+P00004,receipt,RV-26-0140,2026-08-15,-2500.00,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,تحويل بنكي
+P00005,invoice,SI-26-0838,2026-08-21,1640.00,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,ألواح تبريد
+P00006,credit-note,CN-26-0024,2026-08-25,-164.00,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,SI-26-0831,خصم كمية
