@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+
+# The S3 statement writer (HexaPDF), installed outside the repository; the
+# same lock as G23, whose write_xlsx S3 does not use.
+gem 'hexapdf', '1.11.2'
+gem 'write_xlsx', '1.15.1'

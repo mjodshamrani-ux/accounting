@@ -106,6 +106,7 @@ const required = [
   'test:bank-statement:oracle',
   'test:bank-statement:oracle-mutants',
   'test:bank-statement:holdout-seal',
+  'test:supplier-statement:s3-seal',
   'test:bank-statement:baseline',
   'test:bank-statement:g1-proof',
   'test:bank-statement:g1-mutations',

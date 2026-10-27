@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 41234,
-      "sha256": "5c68260f112761011a9c21290fb72b120773057244c63ac8508fcf569bf6ece9",
+      "bytes": 41281,
+      "sha256": "be23905ac47a6913b59ac1ff4ce68d09095ac2cbdbea63dca493d3e407d44262",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 27046,
-      "sha256": "f1f0efb558fde6bd5bcfddd2daeb2fde20b1426f0209426ebeafe9e07e82d7ee",
+      "bytes": 27284,
+      "sha256": "bfa1e2cc8d346e2982a36e3e396906fdfef43432d109110d56fea0d0f226578f",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 10221,
-      "sha256": "d33391e74178294499c45cb70f448aba71a3e90238e65a5edf758da113a734a3",
+      "bytes": 10258,
+      "sha256": "de3fb2e01b8b24baec016a1916e7ee16dd2877f20077830317758751f77b3524",
       "kind": "text"
     },
     {
@@ -46031,6 +46031,330 @@
       "path": "tests/pdf-wrapped-reference.test.ts",
       "bytes": 10427,
       "sha256": "0a6ba6aa858aacc3158af3162a8dcffa2c4591319cb96d8f3f5c0ad327b764e2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/README.ar.md",
+      "bytes": 10871,
+      "sha256": "c9fa1e6d45e0334960cbe74d8552fad16b8e8fb8a3c8f347e04008a6a8dcfe81",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/check_seal.py",
+      "bytes": 5061,
+      "sha256": "7af8a40685314b5f13d75badc5c31523a0fa5def84442a7ddd98d9e8e642235b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/common.py",
+      "bytes": 7325,
+      "sha256": "c9a00328758f0d146b8cf7e165b0fa40fdef81e7d4b22567141d3408c2ce5efb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/expected.py",
+      "bytes": 3173,
+      "sha256": "e05e727d4568d1faf37948ac9b5781c7d073f4df84f9598bd49f6f6c5cfcc1bc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/fonts.py",
+      "bytes": 4553,
+      "sha256": "ed637f0679e0cf1edc5cf1905dfa318fb1ee6bdb470303a85fa82fbd3acad7b8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/ELIGIBILITY.json",
+      "bytes": 6881,
+      "sha256": "71d05227a01980aeceb017cd8f4dfa86e578b316c7b66dd4843dd01515d3cf11",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/INPUT-MANIFEST.json",
+      "bytes": 7131,
+      "sha256": "79a1be71a4b896fe1c25bc6d9f44b0735b181beaad5c798824c4655845774eff",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/R10-ledger.csv",
+      "bytes": 400,
+      "sha256": "d13034a65c78a0be6c93a70f710261214c38bd21a748e5c273f2e01c20ffa36b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/R10-statement.pdf",
+      "bytes": 11819,
+      "sha256": "eed700c82957be38d68a9e1642c1ccb47996526ab83841fbd53206ec0e5c0cf9",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the SUP-2 S3 holdout: written by a statement service on HexaPDF 1.11.2 (Ruby 3.3) or by a statement application on pdf-lib 1.17.1 with @pdf-lib/fontkit 1.1.1 and bidi-js 1.0.3, with Google Fonts TrueType files from @expo-google-fonts npm packages under the SIL Open Font License, from audit/supplier-statement-holdout-s3/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/R11-ledger.csv",
+      "bytes": 439,
+      "sha256": "8e6a737c1d0a96f323e857354863b89fea43219f6f153a0524b22a63bf20d0ea",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/R11-statement.pdf",
+      "bytes": 11354,
+      "sha256": "fa1a0838e693d1ed1b1ac14f726801157d939bda1663be53cd41d1ca89cf427a",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the SUP-2 S3 holdout: written by a statement service on HexaPDF 1.11.2 (Ruby 3.3) or by a statement application on pdf-lib 1.17.1 with @pdf-lib/fontkit 1.1.1 and bidi-js 1.0.3, with Google Fonts TrueType files from @expo-google-fonts npm packages under the SIL Open Font License, from audit/supplier-statement-holdout-s3/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/R12-ledger.csv",
+      "bytes": 489,
+      "sha256": "0469027972b18d4deafbac0ccd87c7655a7dd98ce3d5ba6ff86fdb8f1da00ca0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/R12-statement.pdf",
+      "bytes": 11658,
+      "sha256": "995b65873cce51c14040daa37e51e9a3acfed0804df775eda2ef1a9d4f84052f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the SUP-2 S3 holdout: written by a statement service on HexaPDF 1.11.2 (Ruby 3.3) or by a statement application on pdf-lib 1.17.1 with @pdf-lib/fontkit 1.1.1 and bidi-js 1.0.3, with Google Fonts TrueType files from @expo-google-fonts npm packages under the SIL Open Font License, from audit/supplier-statement-holdout-s3/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/S01-ledger.csv",
+      "bytes": 399,
+      "sha256": "36cde6c4ca7a7ac2397c90a768e8e6e74af8d7d33b91020fc516b03755a0cbb5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/S01-statement.pdf",
+      "bytes": 11848,
+      "sha256": "68bd1b2898383a369283a35fb16a6644863def21d2e769ed9b220e21c7468a97",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the SUP-2 S3 holdout: written by a statement service on HexaPDF 1.11.2 (Ruby 3.3) or by a statement application on pdf-lib 1.17.1 with @pdf-lib/fontkit 1.1.1 and bidi-js 1.0.3, with Google Fonts TrueType files from @expo-google-fonts npm packages under the SIL Open Font License, from audit/supplier-statement-holdout-s3/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/S02-ledger.csv",
+      "bytes": 987,
+      "sha256": "4a270c885da01c767bd8f7b43cf439dcee590458654c5beac9c3efc2616cb793",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/S02-statement.pdf",
+      "bytes": 20914,
+      "sha256": "5bb589cab18bd7602762b279adba6b8ce276cffe771860ea66bb4e3b0b7867f3",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the SUP-2 S3 holdout: written by a statement service on HexaPDF 1.11.2 (Ruby 3.3) or by a statement application on pdf-lib 1.17.1 with @pdf-lib/fontkit 1.1.1 and bidi-js 1.0.3, with Google Fonts TrueType files from @expo-google-fonts npm packages under the SIL Open Font License, from audit/supplier-statement-holdout-s3/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/S03-ledger.csv",
+      "bytes": 536,
+      "sha256": "122219590b3528e1e48e4c61d68fe7723a681782c4c8c46e4fe084d48d35be8e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/S03-statement.pdf",
+      "bytes": 14662,
+      "sha256": "6861685c8c1b09aaf9969549f01cf4e2a49538e23e74d559366fa3f47282d7cb",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the SUP-2 S3 holdout: written by a statement service on HexaPDF 1.11.2 (Ruby 3.3) or by a statement application on pdf-lib 1.17.1 with @pdf-lib/fontkit 1.1.1 and bidi-js 1.0.3, with Google Fonts TrueType files from @expo-google-fonts npm packages under the SIL Open Font License, from audit/supplier-statement-holdout-s3/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/S04-ledger.csv",
+      "bytes": 892,
+      "sha256": "0c5cd64c2aefc2d6a3531f440e8a47411ba57581481970c4177bb469d5c34b5a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/S04-statement.pdf",
+      "bytes": 20916,
+      "sha256": "93bb18e9bf7d55a9e47aeaafb82abf82e279bb1c9f39bf0a8bf98f2f6a078959",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the SUP-2 S3 holdout: written by a statement service on HexaPDF 1.11.2 (Ruby 3.3) or by a statement application on pdf-lib 1.17.1 with @pdf-lib/fontkit 1.1.1 and bidi-js 1.0.3, with Google Fonts TrueType files from @expo-google-fonts npm packages under the SIL Open Font License, from audit/supplier-statement-holdout-s3/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/S05-ledger.csv",
+      "bytes": 534,
+      "sha256": "3185ed342dc237cdf0127cc4a05d27d586e410321d8ba7d2f77d9fe2a0422596",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/S05-statement.pdf",
+      "bytes": 11876,
+      "sha256": "8ca42e46e79c91e8923c9e3618548707427e6918d21305ebcc98acc02c581380",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the SUP-2 S3 holdout: written by a statement service on HexaPDF 1.11.2 (Ruby 3.3) or by a statement application on pdf-lib 1.17.1 with @pdf-lib/fontkit 1.1.1 and bidi-js 1.0.3, with Google Fonts TrueType files from @expo-google-fonts npm packages under the SIL Open Font License, from audit/supplier-statement-holdout-s3/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/S06-ledger.csv",
+      "bytes": 1521,
+      "sha256": "95e09fa3c9f8474eb6b444feecef77048066b003205667d730d675d189db3ca5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/S06-statement.pdf",
+      "bytes": 18526,
+      "sha256": "47383a6c9e76bf61ab5cea5bca6218dc45a8071c5a69588a85ce58cb89fef0f0",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the SUP-2 S3 holdout: written by a statement service on HexaPDF 1.11.2 (Ruby 3.3) or by a statement application on pdf-lib 1.17.1 with @pdf-lib/fontkit 1.1.1 and bidi-js 1.0.3, with Google Fonts TrueType files from @expo-google-fonts npm packages under the SIL Open Font License, from audit/supplier-statement-holdout-s3/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/S07-ledger.csv",
+      "bytes": 441,
+      "sha256": "efe1df9298921f7b5c39b83e7eb126a632bdf300afa715ec630e4bcff80ab481",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/S07-statement.pdf",
+      "bytes": 14087,
+      "sha256": "5551200506ca8c05510ceab2742d271d1c04137f83aa2b26386a9d2a2730d239",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the SUP-2 S3 holdout: written by a statement service on HexaPDF 1.11.2 (Ruby 3.3) or by a statement application on pdf-lib 1.17.1 with @pdf-lib/fontkit 1.1.1 and bidi-js 1.0.3, with Google Fonts TrueType files from @expo-google-fonts npm packages under the SIL Open Font License, from audit/supplier-statement-holdout-s3/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/S08-ledger.csv",
+      "bytes": 851,
+      "sha256": "db8094f27aa4d8f06476a54c393e5d56ed56319f96320835ae6580c74025049c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/S08-statement.pdf",
+      "bytes": 21214,
+      "sha256": "a39f1c3286e9bef2d0b87a7367f112ed4ea2586ad6cca19782fa1c7896f78bd6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the SUP-2 S3 holdout: written by a statement service on HexaPDF 1.11.2 (Ruby 3.3) or by a statement application on pdf-lib 1.17.1 with @pdf-lib/fontkit 1.1.1 and bidi-js 1.0.3, with Google Fonts TrueType files from @expo-google-fonts npm packages under the SIL Open Font License, from audit/supplier-statement-holdout-s3/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/S09-ledger.csv",
+      "bytes": 1385,
+      "sha256": "56bb16ccb114004b123ecf6a8a742c76a86fb9e8424e56d1210f8d5933930c0c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/S09-statement.pdf",
+      "bytes": 25274,
+      "sha256": "a1b412fb459a986c9d3c7fd95e88f45b59ad78a864c7a55713e1b252c0de2845",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the SUP-2 S3 holdout: written by a statement service on HexaPDF 1.11.2 (Ruby 3.3) or by a statement application on pdf-lib 1.17.1 with @pdf-lib/fontkit 1.1.1 and bidi-js 1.0.3, with Google Fonts TrueType files from @expo-google-fonts npm packages under the SIL Open Font License, from audit/supplier-statement-holdout-s3/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/SEAL.json",
+      "bytes": 397,
+      "sha256": "60e3c94fc76c0331b942c3822b5652576851ac73f1e2ccac0fd04ae68a0d199b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/VERIFY.json",
+      "bytes": 8003,
+      "sha256": "3e3afecaf56e21b11ce16ab9faf172766e4aa342898052dd2fc10da0b6a7aaea",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/frozen/expected.json",
+      "bytes": 38400,
+      "sha256": "58c08ff630dd86835b9b6ce488e96e42b23bb1efae6671a3c8145b55ef1de63f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/js/package-lock.json",
+      "bytes": 10823,
+      "sha256": "078872e9c078bbe08668ad7565db7df8ad805d01dc56d0bd056b0896346eeef8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/js/package.json",
+      "bytes": 945,
+      "sha256": "a5bb40e62fb64a5d5ad84e4fb3ce2994cdabee977ba722010dae1a5f55930ef3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/js/render_pdflib.mjs",
+      "bytes": 10592,
+      "sha256": "017ec351d9c094ea720d927190aaecf78f7d42ddc007e7ac770339d9ed89e114",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/judge.mjs",
+      "bytes": 8668,
+      "sha256": "6fe5ba02030b1843a051515ec4edd6ed92683e84fe1a40e4db4774074ecea997",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/render.py",
+      "bytes": 10478,
+      "sha256": "eb2c1f61460191013e816444d74e26d0bf4ad799a2abee46f122826741920b75",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/ruby/Gemfile",
+      "bytes": 211,
+      "sha256": "5b90f2e7b29c3f4cf58003a697d44c95b7217249c643d13a723b8a39ed359abd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/ruby/Gemfile.lock",
+      "bytes": 1302,
+      "sha256": "7bf40acd65d4688a6f771427ef97a17a16259401568f0fefaa2a8657e2a41666",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/ruby/statements.rb",
+      "bytes": 7568,
+      "sha256": "effeeab62bf567ab5c893dac0f15e1ca9795cbc372bf40cf0506a39886d5d611",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/run.mjs",
+      "bytes": 6656,
+      "sha256": "b1be4cedc64f0a0e79464afe55c0461d90c7cd677dbd224588e85030e014dc0f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/stories.py",
+      "bytes": 13473,
+      "sha256": "3c5ee64457a7268991f891913e9fef8c21fe1526d863ab7136ce9f3eaf01aeab",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/test_seal.py",
+      "bytes": 3837,
+      "sha256": "cdc0af85eb7312a081387a8508baeef9dc34481b8d86ed0ae5762bc3e3ed4c49",
+      "kind": "text"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/verify.py",
+      "bytes": 23612,
+      "sha256": "f7e4ba87fd191f759f34099a4b18aa888874084e03638b84d2a2ee6a8a966ba6",
       "kind": "text"
     }
   ],
