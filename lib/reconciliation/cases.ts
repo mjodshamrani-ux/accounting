@@ -1,4 +1,4 @@
-import { money, parseDate, safeSum } from './core.ts';
+import { money, normalizeReference, parseDate, safeSum } from './core.ts';
 import {
   DOCUMENT_LABELS,
   chosenRelatedInvoice,
@@ -26,6 +26,8 @@ import type {
 const gap = (a: Transaction, b: Transaction) =>
   Math.abs(Date.parse(a.date) - Date.parse(b.date)) / 86400000;
 const strong = (r: string) => r.length >= 4 && /\p{L}/u.test(r) && /\d/.test(r);
+const MISSING_PAYMENT_IDENTITY =
+  'لم تثبت هوية دفعة واحدة من عمود مرجع بنكي أو رقم إيصال صريح ومشترك في جميع الحركات. المرجع العام وتساوي المجموع لا يثبتان أن الصفوف أجزاء دفعة واحدة.';
 export const MAX_AUTOMATIC_GROUP_MEMBERS = 100;
 const exactRef = (a: Transaction, b: Transaction) =>
   strong(a.normalizedReference) &&
@@ -678,9 +680,7 @@ export function buildReconciliationCases(
     groupReviewEvidence.set(ref, [
       ...new Set(group.flatMap((t) => automaticConflicts(single, t))),
       ...(single.documentType === 'Payment' && !paymentIdentity
-        ? [
-            'لم تثبت هوية دفعة واحدة من عمود مرجع بنكي أو رقم إيصال صريح ومشترك في جميع الحركات. المرجع العام وتساوي المجموع لا يثبتان أن الصفوف أجزاء دفعة واحدة.',
-          ]
+        ? [MISSING_PAYMENT_IDENTITY]
         : []),
       ...(paymentIdentityConflict
         ? ['توجد مراجع بنكية أو أرقام إيصالات صريحة متعارضة داخل المجموعة.']
@@ -748,6 +748,86 @@ export function buildReconciliationCases(
         ],
       );
     }
+  }
+  // SUP-2: the parts of one payment that do not carry its explicit bank or
+  // receipt identity fall into another reference group than the row that
+  // does. When no other row holds that identity and the whole group of
+  // payments on the other side under the payment's general reference holds
+  // its amount, they are shown together for review with the reason. Equal
+  // totals and a general reference never prove the parts: never a match.
+  // Whole groups only; nothing else under that reference on the single row's
+  // side, and no other payment of the whole amount on the other side.
+  for (const single of [...supplier.transactions, ...ledger.transactions]) {
+    const [same, other] =
+      single.side === 'supplier' ? [refA, refB] : [refB, refA];
+    const field = (['bankReference', 'receiptReference'] as const).find(
+      (f) => !!single[f] && single.paymentIdentityFields?.includes(f),
+    );
+    if (used.has(single.id) || single.documentType !== 'Payment' || !field)
+      continue;
+    const stated = single.documentReference || single.chosenReference || '';
+    const general = normalizeReference(stated);
+    if (
+      !strong(general) ||
+      general === single.normalizedReference ||
+      same.get(single.normalizedReference)?.length !== 1 ||
+      other.has(single.normalizedReference) ||
+      paymentIdentityIndex.get(`${field}\u0000${single[field]}`)?.length !==
+        1 ||
+      same.has(general)
+    )
+      continue;
+    const group = other.get(general) ?? [];
+    const dates = group.map((t) => Date.parse(t.date));
+    if (
+      group.length < 2 ||
+      !free(group) ||
+      single.referenceEvidenceIssues?.length ||
+      group.some(
+        (t) =>
+          t.documentType !== 'Payment' ||
+          t.referenceEvidenceIssues?.length ||
+          !compatible(single, t, scope),
+      ) ||
+      (Math.max(...dates) - Math.min(...dates)) / 86400000 >
+        scope.dateWindow ||
+      !readErrors.canMatch([single, ...group]) ||
+      safeSum(group.map((t) => t.amount)) !== single.amount
+    )
+      continue;
+    // A payment of the whole amount elsewhere on the other side is another
+    // reading of the single row, and nothing here separates the two.
+    const counterparts =
+      single.side === 'supplier' ? ledger.transactions : supplier.transactions;
+    if (
+      counterparts.some(
+        (t) =>
+          !group.includes(t) &&
+          t.documentType === 'Payment' &&
+          t.amount === single.amount &&
+          compatible(single, t, scope),
+      )
+    )
+      continue;
+    const [a, b] =
+      single.side === 'supplier' ? [[single], group] : [group, [single]];
+    if (rejectedGroup(a, b)) continue;
+    add(
+      'AMBIGUOUS_CANDIDATE',
+      'Needs Review',
+      a,
+      b,
+      'PAYMENT_GENERAL_REFERENCE_GROUP_REVIEW_V1',
+      [
+        MISSING_PAYMENT_IDENTITY,
+        `مرشح دفعة مجزأة للمراجعة، لا مطابقة: المرجع العام ${stated} يجمع ${group.length} حركة في الطرف الآخر بلا مرجع بنكي أو رقم إيصال صريح، وهوية ${field === 'bankReference' ? 'التحويل البنكي' : 'الإيصال'} ${single[field]} واردة في عمود صريح للحركة المفردة ولا يحملها أي صف آخر. المجموعان متساويان ${money(single.amount, scope.decimals)} ${scope.currency}، والإشارة والعملة متسقتان والتواريخ ضمن فرق الأيام المسموح، ولا توجد دفعة أخرى بالمبلغ كله.`,
+        ...([...a, ...b].some((t) => excludedIdentities.has(t.reference))
+          ? [
+              'يوجد صف مستبعد يحمل هوية المجموعة نفسها؛ يلزم التحقق من اكتمال أجزائها.',
+            ]
+          : []),
+      ],
+    );
   }
   for (const [ref, a] of refA) {
     const b = refB.get(ref) ?? [];

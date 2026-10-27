@@ -17,19 +17,6 @@
 export const TRIAGE = [
   {
     keys: [
-      'G01-payment-1n|missing-identity',
-      'G02-payment-n1|missing-identity',
-      'G08-two-dates|missing-identity',
-    ],
-    assist: ['declared', 'none'],
-    verdicts: ['fail-outcome'],
-    class: 'product-gap',
-    plan: 'SUP-2 (docs/roadmap/supplier.ar.md)',
-    evidence:
-      'Parts of one payment without a shared bank reference stay unmatched with a visible difference instead of being shown for review with the missing-identity reason: the bank reference is the payment’s primary identity, so the single row and its parts fall into different reference groups. Seen in V1, V1.1 and on 0.4.57; no approval is made.',
-  },
-  {
-    keys: [
       'R01-voucher-and-reference|voucher-differs',
       'R01-voucher-and-reference|voucher-shared-reference-differs',
       'C03-voucher-with-group|identity',

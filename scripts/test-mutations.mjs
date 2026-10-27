@@ -79,6 +79,7 @@ const tests = [
   'tests/partial-result-lifecycle.test.ts',
   'tests/excluded-source-integrity.test.ts',
   'tests/layered-xlsx-headers.test.ts',
+  'tests/payment-missing-identity-review.test.ts',
 ];
 const mutations = [
 {"name": "bank-ignore-scope", "file": "lib/reconciliation/bank.ts", "changes": [["if (get(h) !== input.scope[BANK_SCOPE_FIELDS[i]]) fail('ROW_SCOPE');", "if (false) fail('ROW_SCOPE');"]]},
@@ -1171,6 +1172,78 @@ const mutations = [
     name: 'corrupt-exported-amount',
     file: 'lib/reconciliation/io.ts',
     changes: [['t.amount / 10 ** dp,', '(t.amount + 1) / 10 ** dp,']],
+  },
+  // SUP-2: the parts of one payment without its identity are a review
+  // candidate, whole and unique, never a match.
+  {
+    name: 'sup2-approve-a-payment-without-its-identity',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      [
+        "'Needs Review',\n      a,\n      b,\n      'PAYMENT_GENERAL_REFERENCE_GROUP_REVIEW_V1',",
+        "'Matched',\n      a,\n      b,\n      'PAYMENT_GENERAL_REFERENCE_GROUP_REVIEW_V1',",
+      ],
+    ],
+  },
+  {
+    name: 'sup2-ignore-unequal-group-totals',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [['safeSum(group.map((t) => t.amount)) !== single.amount', 'false']],
+  },
+  {
+    name: 'sup2-ignore-a-competing-whole-payment',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [['!group.includes(t) &&', 'false &&']],
+  },
+  {
+    name: 'sup2-accept-a-single-counterpart',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [['group.length < 2 ||', 'group.length < 1 ||']],
+  },
+  {
+    name: 'sup2-ignore-another-holder-of-the-identity',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      [
+        /paymentIdentityIndex\.get\(`\$\{field\}\\u0000\$\{single\[field\]\}`\)\?\.length !==\s*1 \|\|/,
+        'false ||',
+      ],
+    ],
+  },
+  {
+    name: 'sup2-ignore-the-single-side-under-the-general-reference',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [[/\|\|\s*same\.has\(general\)/, '']],
+  },
+  {
+    name: 'sup2-ignore-the-group-date-span',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      [
+        /\(Math\.max\(\.\.\.dates\) - Math\.min\(\.\.\.dates\)\) \/ 86400000 >\s*scope\.dateWindow \|\|/,
+        '',
+      ],
+    ],
+  },
+  {
+    name: 'sup2-ignore-read-errors-in-the-group',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [['!readErrors.canMatch([single, ...group]) ||', '']],
+  },
+  {
+    name: 'sup2-accept-non-payment-parts',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      [
+        "t.documentType !== 'Payment' ||\n          t.referenceEvidenceIssues?.length ||\n          !compatible(single, t, scope),",
+        't.referenceEvidenceIssues?.length ||\n          !compatible(single, t, scope),',
+      ],
+    ],
+  },
+  {
+    name: 'sup2-ignore-part-compatibility',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [[/\|\|\s*!compatible\(single, t, scope\)/, '']],
   },
 ];
 
