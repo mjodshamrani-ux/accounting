@@ -325,6 +325,10 @@ jobs:
         env:
           BNK_G4_BROWSER_DIR: ${{ runner.temp }}/bank-statement-workspace-browser
         run: pnpm test:bank-statement:workspace-browser
+      - name: Verify customer statement PDFs in the AR workspace through the actual Worker, sealed outcomes on screen, keyboard, sessions and independently checked Excel (AR-1 PDF A4)
+        env:
+          AR_STATEMENT_BROWSER_DIR: ${{ runner.temp }}/ar-statement-browser
+        run: pnpm test:ar-statement:browser
       - run: pnpm test:browser
       - name: Verify sectioned inventory CSV and Excel uploads, Arabic and English source-bound downloads
         env:
@@ -575,6 +579,29 @@ jobs:
         env:
           BNK_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/bank-statement-interface-mutations
         run: pnpm test:bank-statement:interface-mutations
+  ar-statement-interface-mutations:
+    name: AR customer statement interface mutations in built browser copies (AR-1 PDF A4)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the browser acceptance to catch it
+        env:
+          AR_STATEMENT_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/ar-statement-interface-mutations
+        run: pnpm test:ar-statement:interface-mutations
   bank-statement-holdout:
     name: Bank statement holdouts from eighteen other PDF producers against their recorded outcomes (BNK-PDF-1 G6, G8, G9, G10, G12, G14, G15, G17, G20)
     runs-on: ubuntu-latest

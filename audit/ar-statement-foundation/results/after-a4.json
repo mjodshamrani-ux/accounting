@@ -1,0 +1,445 @@
+{
+ "schema": "tarasuf-ar-pdf1-baseline/2",
+ "productEnabled": true,
+ "family": "ar-statement-pdf-1",
+ "enabledIn": "AR-1 PDF A4, candidate 0.4.58",
+ "positiveCapacity": {
+  "eligible": 12,
+  "completed": 12
+ },
+ "heldAsSealed": 7,
+ "stories": [
+  {
+   "id": "A01",
+   "sealedOutcome": "matched",
+   "arWorkspace": "ledger csv-xlsx; statement csv-xlsx-pdf",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 19,
+    "proposedColumns": 6,
+    "linesWithIssues": 10
+   },
+   "statementPath": {
+    "status": "matched",
+    "matched": 8,
+    "errorCodes": []
+   },
+   "asSealed": true
+  },
+  {
+   "id": "A02",
+   "sealedOutcome": "review",
+   "arWorkspace": "ledger csv-xlsx; statement csv-xlsx-pdf",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 15,
+    "proposedColumns": 6,
+    "linesWithIssues": 10
+   },
+   "statementPath": {
+    "status": "review",
+    "matched": 3,
+    "errorCodes": []
+   },
+   "asSealed": true
+  },
+  {
+   "id": "A03",
+   "sealedOutcome": "matched",
+   "arWorkspace": "ledger csv-xlsx; statement csv-xlsx-pdf",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 22,
+    "proposedColumns": 6,
+    "linesWithIssues": 17
+   },
+   "statementPath": {
+    "status": "matched",
+    "matched": 2,
+    "errorCodes": []
+   },
+   "asSealed": true
+  },
+  {
+   "id": "A04",
+   "sealedOutcome": "matched",
+   "arWorkspace": "ledger csv-xlsx; statement csv-xlsx-pdf",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 22,
+    "proposedColumns": 6,
+    "linesWithIssues": 17
+   },
+   "statementPath": {
+    "status": "matched",
+    "matched": 2,
+    "errorCodes": []
+   },
+   "asSealed": true
+  },
+  {
+   "id": "A05",
+   "sealedOutcome": "matched",
+   "arWorkspace": "ledger csv-xlsx; statement csv-xlsx-pdf",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 3,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 71,
+    "proposedColumns": 6,
+    "linesWithIssues": 28
+   },
+   "statementPath": {
+    "status": "matched",
+    "matched": 40,
+    "errorCodes": []
+   },
+   "asSealed": true
+  },
+  {
+   "id": "A06",
+   "sealedOutcome": "review",
+   "arWorkspace": "ledger csv-xlsx; statement csv-xlsx-pdf",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 2,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 26,
+    "proposedColumns": 6,
+    "linesWithIssues": 20
+   },
+   "statementPath": {
+    "status": "review",
+    "matched": 2,
+    "errorCodes": []
+   },
+   "asSealed": true
+  },
+  {
+   "id": "A07",
+   "sealedOutcome": "review",
+   "arWorkspace": "ledger csv-xlsx; statement csv-xlsx-pdf",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 14,
+    "proposedColumns": 7,
+    "linesWithIssues": 11
+   },
+   "statementPath": {
+    "status": "review",
+    "matched": 2,
+    "errorCodes": []
+   },
+   "asSealed": true
+  },
+  {
+   "id": "A08",
+   "sealedOutcome": "review",
+   "arWorkspace": "ledger csv-xlsx; statement csv-xlsx-pdf",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 15,
+    "proposedColumns": 7,
+    "linesWithIssues": 10
+   },
+   "statementPath": {
+    "status": "review",
+    "matched": 3,
+    "errorCodes": []
+   },
+   "asSealed": true
+  },
+  {
+   "id": "A09",
+   "sealedOutcome": "source-error",
+   "arWorkspace": "ledger csv-xlsx; statement csv-xlsx-pdf",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 19,
+    "proposedColumns": 6,
+    "linesWithIssues": 10
+   },
+   "statementPath": {
+    "status": "source-error",
+    "matched": 0,
+    "errorCodes": [
+     "AR_AMOUNT"
+    ]
+   },
+   "asSealed": true
+  },
+  {
+   "id": "A10",
+   "sealedOutcome": "source-error",
+   "arWorkspace": "ledger csv-xlsx; statement csv-xlsx-pdf",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 21,
+    "proposedColumns": 6,
+    "linesWithIssues": 11
+   },
+   "statementPath": {
+    "status": "source-error",
+    "matched": 0,
+    "errorCodes": [
+     "AR_PDF_ORPHAN_LINE"
+    ]
+   },
+   "asSealed": true
+  },
+  {
+   "id": "A11",
+   "sealedOutcome": "source-error",
+   "arWorkspace": "ledger csv-xlsx; statement csv-xlsx-pdf",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 18,
+    "proposedColumns": 6,
+    "linesWithIssues": 9
+   },
+   "statementPath": {
+    "status": "source-error",
+    "matched": 0,
+    "errorCodes": [
+     "AR_PDF_HEADER"
+    ]
+   },
+   "asSealed": true
+  },
+  {
+   "id": "A12",
+   "sealedOutcome": "matched",
+   "arWorkspace": "ledger csv-xlsx; statement csv-xlsx-pdf",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 17,
+    "proposedColumns": 6,
+    "linesWithIssues": 8
+   },
+   "statementPath": {
+    "status": "matched",
+    "matched": 6,
+    "errorCodes": []
+   },
+   "asSealed": true
+  },
+  {
+   "id": "A13",
+   "sealedOutcome": "review",
+   "arWorkspace": "ledger csv-xlsx; statement csv-xlsx-pdf",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 19,
+    "proposedColumns": 6,
+    "linesWithIssues": 10
+   },
+   "statementPath": {
+    "status": "review",
+    "matched": 6,
+    "errorCodes": []
+   },
+   "asSealed": true
+  },
+  {
+   "id": "A14",
+   "sealedOutcome": "review",
+   "arWorkspace": "ledger csv-xlsx; statement csv-xlsx-pdf",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 17,
+    "proposedColumns": 6,
+    "linesWithIssues": 10
+   },
+   "statementPath": {
+    "status": "review",
+    "matched": 3,
+    "errorCodes": []
+   },
+   "asSealed": true
+  },
+  {
+   "id": "A15",
+   "sealedOutcome": "source-error",
+   "arWorkspace": "ledger csv-xlsx; statement csv-xlsx-pdf",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 33,
+    "proposedColumns": 6,
+    "linesWithIssues": 24
+   },
+   "statementPath": {
+    "status": "source-error",
+    "matched": 0,
+    "errorCodes": [
+     "AR_PDF_SCOPE_REPEATED"
+    ]
+   },
+   "asSealed": true
+  },
+  {
+   "id": "A16",
+   "sealedOutcome": "source-error",
+   "arWorkspace": "ledger csv-xlsx; statement csv-xlsx-pdf",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 13,
+    "proposedColumns": 6,
+    "linesWithIssues": 10
+   },
+   "statementPath": {
+    "status": "source-error",
+    "matched": 0,
+    "errorCodes": [
+     "AR_PDF_SCOPE_NOT_FOUND"
+    ]
+   },
+   "asSealed": true
+  },
+  {
+   "id": "A17",
+   "sealedOutcome": "matched",
+   "arWorkspace": "ledger csv-xlsx; statement csv-xlsx-pdf",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 32,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 1071,
+    "proposedColumns": 6,
+    "linesWithIssues": 257
+   },
+   "statementPath": {
+    "status": "matched",
+    "matched": 750,
+    "errorCodes": []
+   },
+   "asSealed": true
+  },
+  {
+   "id": "A18",
+   "sealedOutcome": "source-error",
+   "arWorkspace": "ledger csv-xlsx; statement csv-xlsx-pdf",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 16,
+    "proposedColumns": 7,
+    "linesWithIssues": 10
+   },
+   "statementPath": {
+    "status": "source-error",
+    "matched": 0,
+    "errorCodes": [
+     "AR_PDF_COLUMNS"
+    ]
+   },
+   "asSealed": true
+  },
+  {
+   "id": "A19",
+   "sealedOutcome": "source-error",
+   "arWorkspace": "ledger csv-xlsx; statement csv-xlsx-pdf",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 19,
+    "proposedColumns": 6,
+    "linesWithIssues": 10
+   },
+   "statementPath": {
+    "status": "source-error",
+    "matched": 0,
+    "errorCodes": [
+     "AR_PDF_SCOPE_NOT_FOUND"
+    ]
+   },
+   "asSealed": true
+  }
+ ]
+}

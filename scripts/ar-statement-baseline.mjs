@@ -1,9 +1,12 @@
-// AR-1 PDF before-support record. The product refusing a customer statement
-// PDF is the gap this plan closes, not a success. Checks the frozen seal,
-// then records, for each sealed statement, where the AR path stops and what
-// the shared PDF readers make of the file:
-// - the AR workspace offers only CSV and XLSX;
-// - the AR source reader refuses the file by its name (AR_SOURCE);
+// AR-1 PDF product record. Checks the frozen seal, then records, for each
+// sealed statement, what the product does with it:
+// - the AR workspace: the ledger stays CSV or XLSX; since A4 the statement may
+//   be the printed PDF (results/baseline-5f32c8c.json kept the before-support
+//   record, CSV and XLSX only, as history);
+// - the AR table reader still refuses the file by its name (AR_SOURCE); the
+//   statement goes through the statement path instead;
+// - the statement path from the original bytes (A3): status, matched pairs
+//   and error codes, against the sealed expectation;
 // - the guarded native PDF reader: pages and reading issues;
 // - the general PDF reading other workspaces use: lines, proposed columns.
 // --out writes the record; --assert compares a run with a recorded one.
@@ -37,13 +40,42 @@ const workspace = await readFile(
   path.join(root, 'components/ar-workspace.tsx'),
   'utf8',
 );
-assert.ok(workspace.includes('accept=".csv,.xlsx"'));
+// Only the statement side offers PDF.
+assert.ok(
+  workspace.includes("accept={side === 1 ? '.csv,.xlsx,.pdf' : '.csv,.xlsx'}"),
+);
 assert.ok(!/accept="[^"]*pdf/i.test(workspace));
 
 const load = (m) => import(path.join(root, m));
 const { readArFile } = await load('lib/reconciliation/ar-source.ts');
 const { readFile: readSource } = await load('lib/reconciliation/io.ts');
 const { readNativePdfSource } = await load('lib/reconciliation/pdf.ts');
+const { replayAr } = await load('lib/reconciliation/ar-io.ts');
+const facts = await json(path.join(frozen, 'stories.json'));
+const ledgerReading = (header) => ({
+  sheet: 0,
+  header: 0,
+  ...Object.fromEntries(
+    [
+      ['posting', 'Posting ID'],
+      ['kind', 'Document type'],
+      ['document', 'Own document number'],
+      ['date', 'Posting date'],
+      ['amount', 'Original signed amount'],
+      ['entity', 'Entity'],
+      ['ledger', 'Ledger'],
+      ['customer', 'Customer'],
+      ['account', 'Account'],
+      ['currency', 'Currency'],
+      ['related', 'Related invoice'],
+      ['description', 'Description'],
+    ].map(([key, name]) => [key, header.indexOf(name)]),
+  ),
+  role: 'company-ar-ledger',
+  perspective: 'seller-receivable',
+  basis: 'original-movement',
+  confirmed: true,
+});
 const buffer = async (name) =>
   Uint8Array.from(await readFile(path.join(frozen, name))).buffer;
 const failure = async (run) => {
@@ -72,10 +104,36 @@ for (const [id, judged] of Object.entries(expected.stories)) {
     general = await readSource(name, await buffer(name), undefined, true);
   });
   const sheet = general?.sheets[0];
+  const ledgerBytes = await buffer(`${id}-ledger.csv`);
+  const { result } = await replayAr({
+    files: [
+      { name: `${id}-ledger.csv`, sha256: sha(Buffer.from(ledgerBytes)), original: ledgerBytes },
+      { name, sha256: sha(Buffer.from(bytes)), original: await buffer(name) },
+    ],
+    readings: [
+      ledgerReading((await readArFile(`${id}-ledger.csv`, ledgerBytes.slice(0))).sheets[0].rows[0]),
+      {
+        family: 'ar-statement-pdf-1',
+        role: 'company-issued-customer-statement',
+        perspective: 'seller-receivable',
+        basis: 'original-movement',
+        confirmed: true,
+      },
+    ],
+    scope: { ...facts.stories.find((s) => s.id === id).scope, confirmed: true },
+    events: [],
+  });
+  const statementPath = {
+    status: result.status,
+    matched: result.cases.filter((c) => c.status === 'matched').length,
+    errorCodes: [...new Set(result.sourceIssues.map((i) => i.code))].sort(
+      (a, b) => (a < b ? -1 : a > b ? 1 : 0),
+    ),
+  };
   stories.push({
     id,
     sealedOutcome: judged.status,
-    arWorkspace: 'csv-xlsx-only',
+    arWorkspace: 'ledger csv-xlsx; statement csv-xlsx-pdf',
     arSource,
     sameBytesNamedCsv: asCsv,
     nativeReader: nativeError
@@ -91,18 +149,28 @@ for (const [id, judged] of Object.entries(expected.stories)) {
           proposedColumns: general.pdf?.autoColumns ? general.pdf.cuts.length + 1 : 0,
           linesWithIssues: Object.keys(sheet.rowIssues ?? {}).length,
         },
+    statementPath,
+    asSealed:
+      statementPath.status === judged.status &&
+      statementPath.matched === judged.matched &&
+      JSON.stringify(statementPath.errorCodes) === JSON.stringify(judged.errorCodes),
   });
 }
 for (const s of stories) assert.equal(s.arSource, 'AR_SOURCE', s.id);
 
+const positive = stories.filter((s) => s.sealedOutcome !== 'source-error');
 const record = {
-  schema: 'tarasuf-ar-pdf1-baseline/1',
-  productEnabled: false,
-  proposedFamily: 'ar-statement-pdf-1',
+  schema: 'tarasuf-ar-pdf1-baseline/2',
+  productEnabled: true,
+  family: 'ar-statement-pdf-1',
+  enabledIn: 'AR-1 PDF A4, candidate 0.4.58',
   positiveCapacity: {
-    eligible: stories.filter((s) => s.sealedOutcome !== 'source-error').length,
-    completed: 0,
+    eligible: positive.length,
+    completed: positive.filter((s) => s.asSealed).length,
   },
+  heldAsSealed: stories.filter(
+    (s) => s.sealedOutcome === 'source-error' && s.asSealed,
+  ).length,
   stories,
 };
 const text = `${JSON.stringify(record, null, 1)}\n`;
