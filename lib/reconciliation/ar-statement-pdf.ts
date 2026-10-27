@@ -206,8 +206,12 @@ function headerScope(
       (layout === 'ar' ? undefined : isoDate(d)),
   );
   if (dates.some((d) => !d)) return null;
-  // In a right-to-left line the two dates can arrive in either order.
-  const [start, end] = (dates as string[]).sort();
+  // The dates as printed, start first: a period that ends before it starts
+  // proves no scope (A5 B14). In every right-to-left statement measured
+  // (ReportLab and LibreOffice, Latin and Arabic-Indic digits) the two dates
+  // arrive in reading order.
+  const [start, end] = dates as string[];
+  if (start > end) return null;
   return {
     customer,
     account: latinDigits(account),
@@ -229,6 +233,44 @@ function amountOf(text: string, decimals: number): number | undefined {
   const value = Number(m[2].replace(/,/gu, '') + (m[3] ?? ''));
   if (!Number.isSafeInteger(value) || value === 0) return undefined;
   return m[1] ? -value : value;
+}
+
+/** A minus the bidirectional algorithm sets apart from its amount: in a
+ * right-to-left table «-٣٤٫٥٠» can arrive as the digits and, touching them
+ * on their right (its reading side), a run holding the minus alone. Under a
+ * heading narrower than the amount, aligned with the amount's end, the
+ * minus then lies beyond the heading: in no column, or where the next
+ * column starts (A5 B08). Where the minus and the number it touches would
+ * be placed apart, they are read as the one word textOf reads, and placed
+ * together. */
+const NUMBER = /^[\d\u0660-\u0669][\d\u0660-\u0669,.\u066b\u066c]*$/u;
+function signed(pieces: Piece[], columns: Columns): Piece[] {
+  const out = [...pieces];
+  for (const mark of pieces) {
+    if (mark.text !== '-') continue;
+    const amount = out.find((q) => {
+      const gap =
+        columns.direction === 'rtl' ? mark.x0 - q.x1 : q.x0 - mark.x1;
+      return (
+        q !== mark &&
+        NUMBER.test(q.text) &&
+        gap >= -0.5 &&
+        gap <= 0.15 * Math.min(q.height, mark.height)
+      );
+    });
+    if (!amount || columnOf(columns, amount) === columnOf(columns, mark))
+      continue;
+    const text = `-${amount.text}`;
+    out.splice(out.indexOf(amount), 1, {
+      ...amount,
+      text,
+      readings: [text],
+      x0: Math.min(amount.x0, mark.x0),
+      x1: Math.max(amount.x1, mark.x1),
+    });
+    out.splice(out.indexOf(mark), 1);
+  }
+  return out;
 }
 
 /** A heading line: its words in reading order are declared headings, the
@@ -400,13 +442,15 @@ export function readArStatementPdf(
       }
       const cells = new Map<ArStatementRole, Piece[]>();
       let outside = false;
-      for (const t of line.tokens)
-        for (const p of fitted(columns.geometry, t)) {
-          const col = columnOf(columns.geometry, p);
-          const role = col === undefined ? undefined : columns.roles[col];
-          if (!role) outside = true;
-          else cells.set(role, [...(cells.get(role) ?? []), p]);
-        }
+      for (const p of signed(
+        line.tokens.flatMap((t) => fitted(columns!.geometry, t)),
+        columns.geometry,
+      )) {
+        const col = columnOf(columns.geometry, p);
+        const role = col === undefined ? undefined : columns.roles[col];
+        if (!role) outside = true;
+        else cells.set(role, [...(cells.get(role) ?? []), p]);
+      }
       if (outside) {
         refuse('AR_PDF_LINE');
         continue;

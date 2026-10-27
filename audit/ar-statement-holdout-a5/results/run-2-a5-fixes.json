@@ -1,0 +1,489 @@
+{
+ "run": {
+  "name": "run-2",
+  "productCommit": "the commit that adds this record: A5 fixes on 22c8ae9",
+  "date": "2026-10-27",
+  "asItCame": false,
+  "regression": "The holdout was seen while fixing the two causes run-1 found (B14: a period that ends before it starts was read with its dates sorted; B08: a minus set apart from its amount in a right-to-left table fell in no column). From here it is regression, not independent evidence that the fixes generalise.",
+  "command": "node --experimental-strip-types scripts/ar-statement-holdout.mjs --suite=audit/ar-statement-holdout-a5",
+  "previous": "results/run-1-6a472f3.json, kept as history"
+ },
+ "schema": "tarasuf-ar-pdf1-holdout-run/1",
+ "suite": "audit/ar-statement-holdout-a5",
+ "inputManifestSha256": "ce94cf249a9f1070da131e843d8b92d055496cf771022da9b997025ca237e116",
+ "summary": {
+  "statements": 18,
+  "positivesAsSealed": "9/9",
+  "heldAsSealed": "9/9",
+  "readingsEqual": 18,
+  "readingsRefused": 0,
+  "falseApprovals": [],
+  "missedApprovals": []
+ },
+ "comparison": {
+  "story": "B01",
+  "keys in another order": "equal",
+  "reading keys in another order": "equal",
+  "a matched case given another reason": "different",
+  "a statement member moved a line": "different",
+  "another section compared": "different",
+  "a detail amount read one unit off": "different",
+  "a detail line read as an error": "different"
+ },
+ "stories": {
+  "B01": {
+   "positive": true,
+   "reading": {
+    "equal": true,
+    "lines": 37,
+    "details": 10,
+    "differences": []
+   },
+   "result": {
+    "equal": true,
+    "status": "matched",
+    "errorCodes": [],
+    "matched": 5,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": []
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": true
+  },
+  "B02": {
+   "positive": true,
+   "reading": {
+    "equal": true,
+    "lines": 61,
+    "details": 46,
+    "differences": []
+   },
+   "result": {
+    "equal": true,
+    "status": "review",
+    "errorCodes": [],
+    "matched": 44,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": []
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": true
+  },
+  "B03": {
+   "positive": true,
+   "reading": {
+    "equal": true,
+    "lines": 17,
+    "details": 6,
+    "differences": []
+   },
+   "result": {
+    "equal": true,
+    "status": "review",
+    "errorCodes": [],
+    "matched": 5,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": []
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": true
+  },
+  "B04": {
+   "positive": true,
+   "reading": {
+    "equal": true,
+    "lines": 27,
+    "details": 9,
+    "differences": []
+   },
+   "result": {
+    "equal": true,
+    "status": "matched",
+    "errorCodes": [],
+    "matched": 6,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": []
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": true
+  },
+  "B05": {
+   "positive": false,
+   "reading": {
+    "equal": true,
+    "lines": 46,
+    "details": 30,
+    "differences": []
+   },
+   "result": {
+    "equal": true,
+    "status": "source-error",
+    "errorCodes": [
+     "AR_PDF_DOCUMENT_HEADER"
+    ],
+    "matched": 0,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": []
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": true
+  },
+  "B06": {
+   "positive": false,
+   "reading": {
+    "equal": true,
+    "lines": 15,
+    "details": 2,
+    "differences": []
+   },
+   "result": {
+    "equal": true,
+    "status": "source-error",
+    "errorCodes": [
+     "AR_ORIGINAL_MISSING",
+     "AR_PERIOD"
+    ],
+    "matched": 0,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": []
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": true
+  },
+  "B07": {
+   "positive": false,
+   "reading": {
+    "equal": true,
+    "lines": 26,
+    "details": 7,
+    "differences": []
+   },
+   "result": {
+    "equal": true,
+    "status": "source-error",
+    "errorCodes": [
+     "AR_PDF_SCOPE_NOT_FOUND"
+    ],
+    "matched": 0,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": []
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": true
+  },
+  "B08": {
+   "positive": false,
+   "reading": {
+    "equal": true,
+    "lines": 41,
+    "details": 8,
+    "differences": []
+   },
+   "result": {
+    "equal": true,
+    "status": "source-error",
+    "errorCodes": [
+     "AR_PDF_SCOPE_REPEATED"
+    ],
+    "matched": 0,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": []
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": true
+  },
+  "B09": {
+   "positive": true,
+   "reading": {
+    "equal": true,
+    "lines": 18,
+    "details": 7,
+    "differences": []
+   },
+   "result": {
+    "equal": true,
+    "status": "matched",
+    "errorCodes": [],
+    "matched": 7,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": []
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": true
+  },
+  "B10": {
+   "positive": true,
+   "reading": {
+    "equal": true,
+    "lines": 46,
+    "details": 10,
+    "differences": []
+   },
+   "result": {
+    "equal": true,
+    "status": "review",
+    "errorCodes": [],
+    "matched": 3,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": []
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": true
+  },
+  "B11": {
+   "positive": true,
+   "reading": {
+    "equal": true,
+    "lines": 92,
+    "details": 61,
+    "differences": []
+   },
+   "result": {
+    "equal": true,
+    "status": "review",
+    "errorCodes": [],
+    "matched": 58,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": []
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": true
+  },
+  "B12": {
+   "positive": false,
+   "reading": {
+    "equal": true,
+    "lines": 15,
+    "details": 2,
+    "differences": []
+   },
+   "result": {
+    "equal": true,
+    "status": "source-error",
+    "errorCodes": [
+     "AR_DIRECTION",
+     "AR_KIND"
+    ],
+    "matched": 0,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": []
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": true
+  },
+  "B13": {
+   "positive": false,
+   "reading": {
+    "equal": true,
+    "lines": 24,
+    "details": 4,
+    "differences": []
+   },
+   "result": {
+    "equal": true,
+    "status": "source-error",
+    "errorCodes": [
+     "AR_PDF_COLUMNS"
+    ],
+    "matched": 0,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": []
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": true
+  },
+  "B14": {
+   "positive": false,
+   "reading": {
+    "equal": true,
+    "lines": 23,
+    "details": 4,
+    "differences": []
+   },
+   "result": {
+    "equal": true,
+    "status": "source-error",
+    "errorCodes": [
+     "AR_PDF_HEADER"
+    ],
+    "matched": 0,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": []
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": true
+  },
+  "B15": {
+   "positive": true,
+   "reading": {
+    "equal": true,
+    "lines": 626,
+    "details": 520,
+    "differences": []
+   },
+   "result": {
+    "equal": true,
+    "status": "matched",
+    "errorCodes": [],
+    "matched": 520,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": []
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": true
+  },
+  "B16": {
+   "positive": true,
+   "reading": {
+    "equal": true,
+    "lines": 15,
+    "details": 7,
+    "differences": []
+   },
+   "result": {
+    "equal": true,
+    "status": "matched",
+    "errorCodes": [],
+    "matched": 7,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": []
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": true
+  },
+  "B17": {
+   "positive": false,
+   "reading": {
+    "equal": true,
+    "lines": 14,
+    "details": 2,
+    "differences": []
+   },
+   "result": {
+    "equal": true,
+    "status": "source-error",
+    "errorCodes": [
+     "AR_DATE",
+     "AR_DOCUMENT"
+    ],
+    "matched": 0,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": []
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": true
+  },
+  "B18": {
+   "positive": false,
+   "reading": {
+    "equal": true,
+    "lines": 16,
+    "details": 2,
+    "differences": []
+   },
+   "result": {
+    "equal": true,
+    "status": "source-error",
+    "errorCodes": [
+     "AR_AMOUNT",
+     "AR_PDF_ORPHAN_LINE"
+    ],
+    "matched": 0,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": []
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": true
+  }
+ }
+}

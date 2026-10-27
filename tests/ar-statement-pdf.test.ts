@@ -181,3 +181,109 @@ void test('a date outside its section period, and a header that prints a field t
   );
   assert.deepEqual(codes(twice), ['AR_PDF_HEADER']);
 });
+
+// Right-to-left pages for the A5 causes: Arabic words in right-to-left
+// tokens placed from the right, Latin values in left-to-right ones.
+const rtl = (y: number, cells: [x1: number, text: string, width?: number, direction?: string][]) =>
+  cells.map(([x1, value, width = value.length * 5, direction]) => ({
+    text: value,
+    x: x1 - width,
+    y,
+    width,
+    height: 9,
+    item: 0,
+    direction: direction ?? (/[\p{Script=Arabic}٠-٩]/u.test(value) ? 'rtl' : 'ltr'),
+  }));
+const arTop = () => [
+  ...rtl(780, [[560, 'كشف حساب']]),
+  ...rtl(766, [[560, 'Synthetic Seller Co :صادر عن', 140, 'rtl']]),
+  ...rtl(754, [[560, 'AR Book :الدفتر', 80, 'rtl']]),
+];
+const arHeader = (period = '٢٠٢٦-٠٩-٠١ إلى ٢٠٢٦-٠٩-٣٠') => [
+  ...rtl(730, [[560, 'C0001 :رقم العميل', 90, 'rtl']]),
+  ...rtl(718, [[560, '١٢٠٠ :الحساب', 70, 'rtl']]),
+  ...rtl(706, [[560, 'SAR :العملة', 60, 'rtl']]),
+  ...rtl(694, [[560, `الفترة: ${period}`, 160, 'rtl']]),
+];
+// Amount headings end-aligned (left in a right-to-left table), the balance
+// heading narrower than the amounts under it.
+const arHeadings = (y: number) =>
+  rtl(y, [
+    [560, 'التاريخ'],
+    [470, 'النوع'],
+    [400, 'رقم المستند'],
+    [265, 'المبلغ الأصلي', 65],
+    [117, 'الرصيد', 17],
+  ]);
+
+void test('a period that ends before it starts proves no scope, in either layout', () => {
+  const en = (period: string) =>
+    readArStatementPdf(source(page(top(), header(730, { period }), headings(670), invoice(655))));
+  assert.deepEqual(codes(en('2026-09-30 to 2026-09-01')), ['AR_PDF_HEADER']);
+  assert.equal(en('2026-09-30 to 2026-09-01').sections[0].scope, null);
+  assert.deepEqual(en('2026-09-01 to 2026-09-30').sections[0].scope?.start, '2026-09-01');
+  const ar = (period: string) => readArStatementPdf(source(page(arTop(), arHeader(period), arHeadings(670))));
+  assert.equal(ar('٢٠٢٦-٠٩-٠١ إلى ٢٠٢٦-٠٩-٣٠').layout, 'ar');
+  assert.deepEqual(
+    [ar('٢٠٢٦-٠٩-٠١ إلى ٢٠٢٦-٠٩-٣٠').sections[0].scope?.start, ar('٢٠٢٦-٠٩-٠١ إلى ٢٠٢٦-٠٩-٣٠').sections[0].scope?.end],
+    ['2026-09-01', '2026-09-30'],
+  );
+  assert.deepEqual(codes(ar('٢٠٢٦-٠٩-٣٠ إلى ٢٠٢٦-٠٩-٠١')), ['AR_PDF_HEADER']);
+});
+
+void test('a minus set apart on the reading side of its amount is read with it, in a right-to-left table', () => {
+  // The digits start under their end-aligned heading; the minus, a run of
+  // its own touching them on the right, lies beyond the narrow heading:
+  // in no column (as in A5 B08), or where the next column starts.
+  const receipt = (balance: [x1: number, text: string, width?: number, direction?: string][]) =>
+    readArStatementPdf(
+      source(
+        page(
+          arTop(),
+          arHeader(),
+          arHeadings(670),
+          rtl(655, [
+            [560, '٢٠٢٦-٠٩-٠٣', 50, 'rtl'],
+            [470, 'قبض'],
+            [400, 'RC-9'],
+            [230, '٣٠٠٫٠٠', 30],
+            [233.1, '-', 3, 'ltr'],
+            ...balance,
+          ]),
+        ),
+      ),
+    );
+  const detail = (r: ReturnType<typeof readArStatementPdf>) => r.lines.find((l) => l.kind === 'detail')?.detail;
+  for (const balance of [
+    [[117.1, '٣٠٠٫٠٠', 17.1], [120.35, '-', 3, 'ltr']],
+    [[130, '٣٠٠٫٠٠', 30], [133.1, '-', 3, 'ltr']],
+  ] as [number, string, number?, string?][][]) {
+    const read = receipt(balance);
+    assert.deepEqual(codes(read), [], JSON.stringify(balance));
+    assert.deepEqual([detail(read)?.amount, detail(read)?.balanceText], [-30000, '-٣٠٠٫٠٠']);
+  }
+  // Near cases: a minus clear of the number is not its sign, and stays where
+  // it falls; a minus on the other side of the digits reads after them.
+  assert.deepEqual(codes(receipt([[130, '٣٠٠٫٠٠', 30], [136, '-', 3, 'ltr']])), ['AR_AMOUNT']);
+  const after = receipt([[130, '٣٠٠٫٠٠', 30], [99.9, '-', 3, 'ltr']]);
+  assert.deepEqual([codes(after), detail(after)?.balanceText], [[], '٣٠٠٫٠٠-']);
+  // Even where a minus on the far side falls in the next column, it is not
+  // taken as the sign of the amount it touches.
+  const invoice = readArStatementPdf(
+    source(
+      page(
+        arTop(),
+        arHeader(),
+        arHeadings(670),
+        rtl(655, [
+          [560, '٢٠٢٦-٠٩-٠٣', 50, 'rtl'],
+          [470, 'فاتورة'],
+          [400, 'INV-9'],
+          [148.5, '٣٠٠٫٠٠', 30],
+          [118.4, '-', 3, 'ltr'],
+        ]),
+      ),
+    ),
+  );
+  assert.deepEqual([codes(invoice), detail(invoice)?.amount], [[], 30000]);
+});

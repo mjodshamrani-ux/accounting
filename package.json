@@ -98,7 +98,7 @@
     "test:ar-statement:oracle-mutants": "python3 -B audit/ar-statement-foundation/mutate_oracle.py",
     "test:ar-statement:seal": "python3 -B audit/ar-statement-foundation/check_seal.py",
     "test:ar-statement:a5-seal": "python3 -B -m unittest discover -s audit/ar-statement-holdout-a5 -p test_seal.py -v",
-    "test:ar-statement:a5-holdout": "node --experimental-strip-types scripts/ar-statement-holdout.mjs --suite=audit/ar-statement-holdout-a5 --assert=audit/ar-statement-holdout-a5/results/run-1-6a472f3.json",
+    "test:ar-statement:a5-holdout": "node --experimental-strip-types scripts/ar-statement-holdout.mjs --suite=audit/ar-statement-holdout-a5 --assert=audit/ar-statement-holdout-a5/results/run-2-a5-fixes.json",
     "test:ar-statement:baseline": "node --experimental-strip-types scripts/ar-statement-baseline.mjs --assert=audit/ar-statement-foundation/results/after-a4.json",
     "test:ar-statement:a1-proof": "node --experimental-strip-types scripts/ar-statement-reading-proof.mjs",
     "test:ar-statement:a2-proof": "node --experimental-strip-types scripts/ar-statement-match-proof.mjs",

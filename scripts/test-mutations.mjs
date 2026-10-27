@@ -1432,7 +1432,33 @@ const mutations = [
   {
     name: 'ar-pdf-value-outside-columns-dropped',
     file: 'lib/reconciliation/ar-statement-pdf.ts',
-    changes: [["          if (!role) outside = true;", "          if (!role) continue;"]],
+    // Re-anchored in A5: the placement loop moved one level out, the fault unchanged.
+    changes: [["        if (!role) outside = true;", "        if (!role) continue;"]],
+  },
+  {
+    name: 'ar-pdf-period-dates-sorted',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["  const [start, end] = dates as string[];", "  const [start, end] = (dates as string[]).sort();"]],
+  },
+  {
+    name: 'ar-pdf-period-backwards-accepted',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["  if (start > end) return null;\n", ""]],
+  },
+  {
+    name: 'ar-pdf-sign-never-joined',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["    if (mark.text !== '-') continue;", "    continue;"]],
+  },
+  {
+    name: 'ar-pdf-sign-either-side',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["        columns.direction === 'rtl' ? mark.x0 - q.x1 : q.x0 - mark.x1;", "        Math.max(mark.x0 - q.x1, q.x0 - mark.x1);"]],
+  },
+  {
+    name: 'ar-pdf-sign-at-any-distance',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["        gap >= -0.5 &&\n        gap <= 0.15 * Math.min(q.height, mark.height)", "        gap >= -0.5"]],
   },
   {
     name: 'ar-pdf-reading-issues-ignored',
