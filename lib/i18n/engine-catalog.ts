@@ -796,6 +796,8 @@ export const engineCatalog: Record<string, string> = {
   'عنوان دليل مرجعي مكرر: ${…}': 'Duplicate reference-evidence heading: {0}',
   'دليل غير مقروء بثقة: ${…}، صف ${…}':
     'Evidence not read reliably: {0}, row {1}',
+  'قد يكون مرجع الصف ${…} ملتفًا: السطر ${…} من PDF يحمل «${…}» في عمود المرجع بلا تاريخ ولا مبلغ، وقد يكون بقية هذا المرجع أو مرجع الصف المجاور. لم يُضم النص، ولم يُعتمد المرجع دليلًا للمطابقة؛ راجعه في الملف الأصلي.':
+    'The reference in row {0} may be wrapped: PDF line {1} holds «{2}» in the reference column with no date or amount, and may be the rest of this reference or of the neighbouring row’s. The text was not joined, and the reference was not accepted as matching evidence; check it in the original file.',
   'نوع مستند غير متحقق: ${…}': 'Unverified document type: {0}',
   'يوجد رقم إشعار دائن «${…}» ولم يتضح نوع المستند. راجع دور الأرقام قبل المطابقة.':
     'Credit note number «{0}» is present, but the document type is unclear. Review the roles of the numbers before matching.',

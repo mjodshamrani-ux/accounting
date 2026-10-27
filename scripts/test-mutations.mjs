@@ -80,6 +80,7 @@ const tests = [
   'tests/excluded-source-integrity.test.ts',
   'tests/layered-xlsx-headers.test.ts',
   'tests/payment-missing-identity-review.test.ts',
+  'tests/pdf-wrapped-reference.test.ts',
 ];
 const mutations = [
 {"name": "bank-ignore-scope", "file": "lib/reconciliation/bank.ts", "changes": [["if (get(h) !== input.scope[BANK_SCOPE_FIELDS[i]]) fail('ROW_SCOPE');", "if (false) fail('ROW_SCOPE');"]]},
@@ -1244,6 +1245,57 @@ const mutations = [
     name: 'sup2-ignore-part-compatibility',
     file: 'lib/reconciliation/cases.ts',
     changes: [[/\|\|\s*!compatible\(single, t, scope\)/, '']],
+  },  // SUP-2 S2: a reference beside the rest of its wrapped PDF cell is flagged,
+  // never matching evidence.
+  {
+    name: 'sup2-wrap-not-flagged',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [[/referenceEvidenceIssues\.push\(\s*`قد يكون مرجع الصف/, '[].push(\n          `قد يكون مرجع الصف']],
+  },
+  {
+    name: 'sup2-wrap-flag-a-csv-row-too',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['sheet.rowPages?.[String(line)] &&', 'true &&']],
+  },
+  {
+    name: 'sup2-wrap-only-the-line-below',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['for (const line of [rn - 1, rn + 1]) {', 'for (const line of [rn + 1]) {']],
+  },
+  {
+    name: 'sup2-wrap-only-the-line-above',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['for (const line of [rn - 1, rn + 1]) {', 'for (const line of [rn - 1]) {']],
+  },
+  {
+    name: 'sup2-wrap-any-line-without-date-or-amount',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [[/rest &&\s*\[mapping\.date, \.\.\.money\]/, '[mapping.date, ...money]']],
+  },
+  {
+    name: 'sup2-wrap-ignore-the-date',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['[mapping.date, ...money].every(', '[...money].every(']],
+  },
+  {
+    name: 'sup2-wrap-ignore-the-amount',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['[mapping.date, ...money].every(', '[mapping.date].every(']],
+  },
+  {
+    name: 'sup2-wrap-signed-amount-in-split-columns',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [["mapping.mode === 'split' ? [mapping.debit, mapping.credit] : [mapping.amount];", '[mapping.amount];']],
+  },
+  {
+    name: 'sup2-wrap-ignore-the-credit-column',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['[mapping.debit, mapping.credit]', '[mapping.debit]']],
+  },
+  {
+    name: 'sup2-wrap-ignore-the-debit-column',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['[mapping.debit, mapping.credit]', '[mapping.credit]']],
   },
 ];
 
