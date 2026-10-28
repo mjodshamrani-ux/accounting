@@ -367,6 +367,8 @@ jobs:
           pnpm test:pay-long:oracle-mutants
           pnpm test:pay-long:seal
           pnpm test:pay-long:baseline
+          pnpm test:pay-long:run
+          pnpm test:pay-long:mutations
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations

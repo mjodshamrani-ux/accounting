@@ -15,6 +15,7 @@
 | [`verify.py`](verify.py) | فحص مستقل لكل ملف بقارئ آخر مكتوب هنا: الخلايا مطابقة للحقائق، والترميز، وعلامة ترتيب البايت، ونهايات الأسطر، والاقتباس، والمد، ونطاق كل قصة. ثم 10 تغييرات مزروعة يجب أن تُرفض |
 | [`seal.py`](seal.py) و[`check_seal.py`](check_seal.py) | الختم والتحقق منه |
 | [`baseline.mjs`](baseline.mjs) و`results/` | سجل المنتج كما هو، كُتب بعد الختم: المسير الطويل في دور المسير، ثم مطويًا باليد بتاريخي القصة، ثم مطويًا وتاريخا القيد والدفع بعد نهاية الفترة. التشغيل الأول في `results/baseline-1.json` كما جاء |
+| [`engine-run.mjs`](engine-run.mjs) | المحرك `payroll-long-register-1` على القصص المختومة عبر الإعادة من البايتات، مقارنًا بـ`EXPECTED.json` كاملًا. التشغيل الأول في `results/engine-run-1.json` كما جاء ([PAY-1b](../../docs/audits/PAY-1B.ar.md)) |
 | `frozen/` | 38 ملف CSV، و38 ملف نطاق، و`stories.json`، و`EXPECTED.json`، و`VERIFY.json`، و`INPUT-MANIFEST.json`، و`SEAL.json` |
 
 ## الإعادة

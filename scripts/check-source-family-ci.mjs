@@ -209,6 +209,8 @@ const required = [
   'test:pay-long:oracle-mutants',
   'test:pay-long:seal',
   'test:pay-long:baseline',
+  'test:pay-long:run',
+  'test:pay-long:mutations',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',
