@@ -1,0 +1,26 @@
+{
+ "name": "H21.csv",
+ "reading": {
+  "sheet": 0,
+  "header": 0,
+  "posting": 0,
+  "reference": 1,
+  "date": 2,
+  "amount": 3,
+  "debit": -1,
+  "credit": -1,
+  "account": 4,
+  "currency": 5,
+  "description": 6,
+  "mode": "signed"
+ },
+ "scope": {
+  "entity": "Synthetic Hotel Group LLC",
+  "ledger": "HTL-2027",
+  "account": "2430",
+  "currency": "SAR",
+  "start": "2027-11-01",
+  "end": "2027-11-30",
+  "confirmed": true
+ }
+}

@@ -1,0 +1,7 @@
+Voucher,Clearing Document,Value date,Amount,GL,Currency,Remarks
+V181,DEP-181,2027-11-02,100.00,2430,SAR,Folio
+V182,DEP-182,2027-11-02,200.00,2430,SAR,Folio
+V183,DEP-183,2027-11-02,300.00,2430,SAR,Folio
+V-SET,DEP-181,2027-11-09,-100.00,2430,SAR,Settlement line 1
+V-SET,DEP-182,2027-11-09,-200.00,2430,SAR,Settlement line 2
+V-SET,DEP-183,2027-11-09,-300.00,2430,SAR,Settlement line 3

@@ -1,0 +1,227 @@
+{
+ "schema": "tarasuf-clr1-groups-holdout-input-manifest/1",
+ "synthetic": true,
+ "producer": "stories.py facts; each clearing account extract written as CSV by PHP 8.3 fputcsv, a hand-written Java 21 writer with CRLF, Go 1.24 encoding/csv with UseCRLF and the story's separator, a hand-written Perl 5.38 writer with a byte-order mark and CR line ends, or LibreOffice Calc 24.2 CSV export from flat ODS, or as XLSX by LibreOffice Calc 24.2 from flat ODS with hidden rows and formulas; each file name, reading and confirmed scope as JSON",
+ "files": {
+  "H01-input.json": {
+   "sha256": "ca7cc442ad46516547b3c2dc321ec97ce36f2b47e683a6f784de6d8eb6eff4b8",
+   "bytes": 426
+  },
+  "H01.csv": {
+   "sha256": "58d428995d1c7e672eb704ff2b5ac2fffe62bd1a319ee201ff986bff52b885ad",
+   "bytes": 219
+  },
+  "H02-input.json": {
+   "sha256": "39980dbc9a915dca9dad1859201d475e9cbf60deb8126425eb4759a97c530490",
+   "bytes": 426
+  },
+  "H02.csv": {
+   "sha256": "bb32babc1f15da698776c44636b67cb6abe60271e6b4e872fc1226062df2f6af",
+   "bytes": 275
+  },
+  "H03-input.json": {
+   "sha256": "2eb6c94f27d2555100d90539d8e76ce7d9dbf1d2aad5227957ded98bc8438a67",
+   "bytes": 426
+  },
+  "H03.csv": {
+   "sha256": "82334e05bd68885004d0c1a969bc9ca0263650ccd2b6f7e5b6585e1e6e261a82",
+   "bytes": 210
+  },
+  "H04-input.json": {
+   "sha256": "74de0e1bc3cf17fb912e977baff8a9aeebf5d4e91f8e95839305a615b9ac85a1",
+   "bytes": 426
+  },
+  "H04.csv": {
+   "sha256": "787f4921674abb8210ffc8b9c4d75376aa0ead61a284a7051d22e9bee2f121da",
+   "bytes": 202
+  },
+  "H05-input.json": {
+   "sha256": "2ef15d495ddc5dc9a161aa93b6b1c7172ff93ed0acaa3ed8f9ea041adb898918",
+   "bytes": 426
+  },
+  "H05.csv": {
+   "sha256": "feb109f5c546cee0f0a9a91b9d42d3d467fe8de218b6b971109925cdc4812f6d",
+   "bytes": 165
+  },
+  "H06-input.json": {
+   "sha256": "132638a943c44cb0b6bbbf4078b00cb5b470ea7de6bd9498bdf84527d03a4ce0",
+   "bytes": 426
+  },
+  "H06.csv": {
+   "sha256": "c2e1811b2af932f07ae328c685145f27188b3e5871a690d6530146b04f6db3d9",
+   "bytes": 174
+  },
+  "H07-input.json": {
+   "sha256": "abff746a7dd64d0d6f4bbd774a46cfff2a693f6f24b2a47d4d3d455b447a2ba5",
+   "bytes": 426
+  },
+  "H07.csv": {
+   "sha256": "3ca750fdd289243ae5b692a4e813f0d6cef336eabdf7a9f4c8cf021b76c43a28",
+   "bytes": 231
+  },
+  "H08-input.json": {
+   "sha256": "1ad1df6af25a1fd07e21bce62552ff7fb9fe97eda7cc28c1c4f67029e74f402c",
+   "bytes": 426
+  },
+  "H08.csv": {
+   "sha256": "6e5931ad901c76e518d7bf7a35b9f8fdf524996631f6a05ea3735e1bbfc9e12a",
+   "bytes": 237
+  },
+  "H09-input.json": {
+   "sha256": "b81996541ac271db5d53e382cb234b90501ab7500d03ce29be7dce0456bb2221",
+   "bytes": 426
+  },
+  "H09.csv": {
+   "sha256": "29d46cec914f6ee2c0d574062834924f7a95d683b9e9fd537abf0f9abc19e0f9",
+   "bytes": 219
+  },
+  "H10-input.json": {
+   "sha256": "64247c25d10d4e96d8ae75e4ad69183205a8e47f7647e60788095557facb3eeb",
+   "bytes": 426
+  },
+  "H10.csv": {
+   "sha256": "8272f5b826a514cb9004bb2af81aeb1e05fe564894cc76257d5df5ea8f6c6509",
+   "bytes": 8812
+  },
+  "H11-input.json": {
+   "sha256": "d0bd972e0bad0aeee2647a3fe5856d795d61167ba10da60166780920d5b2c7ba",
+   "bytes": 426
+  },
+  "H11.csv": {
+   "sha256": "f37bc18fe6435a93eccf2768524adf241aaa8a81f6290b2e3cec04da20c05ba3",
+   "bytes": 199
+  },
+  "H12-input.json": {
+   "sha256": "5873cf96ca53e3c67a64bf0fe03b5086e1a3e1597b8f734918bb0b40149967a8",
+   "bytes": 426
+  },
+  "H12.csv": {
+   "sha256": "b8fd5affd27daef042bb7238a31c63f5e935e988fe357c47c1bd188fd53d2ab0",
+   "bytes": 252
+  },
+  "H13-input.json": {
+   "sha256": "20b252c707eb7d967b7b993b7158eb303efff1a89a08e68ac420f8fb689544b0",
+   "bytes": 424
+  },
+  "H13.csv": {
+   "sha256": "70ccec13fb7b1ae3e551567c46902b7e4d85fddd2389ba36cfe79a66ae382a95",
+   "bytes": 234
+  },
+  "H14-input.json": {
+   "sha256": "e9504faf90568417e1aa3c540666ff67a80f2da483a3b17fbfe6a0dd6056ea51",
+   "bytes": 427
+  },
+  "H14.xlsx": {
+   "sha256": "bb5d704ba94caa992ecb936776b98fb88b2bef49aac83a385a4cfa06ce063ec7",
+   "bytes": 5735
+  },
+  "H15-input.json": {
+   "sha256": "595a752a7eb8fdea15f8469e930cef1a59c61ec77228aee87f25a0d9493aa345",
+   "bytes": 427
+  },
+  "H15.xlsx": {
+   "sha256": "18beb145cd158ff0bbd9a8793f3b216ae4b1affb48b039c22a94bf4bd25cc736",
+   "bytes": 5743
+  },
+  "H16-input.json": {
+   "sha256": "77b5c3e44c62e91d5b655f2ce1fcc157a1f2a43ae8ffaaa3f10ea8d5e2ecdcad",
+   "bytes": 427
+  },
+  "H16.xlsx": {
+   "sha256": "4551d1aaf7c9380fcf06666a4a310163677d0fcb9595a8a1651c10c95e906af7",
+   "bytes": 5826
+  },
+  "H17-input.json": {
+   "sha256": "ec48503c6b0592b907d0b4c24cfdb2c21dd3f0bb255a4baad661bb1b93235275",
+   "bytes": 426
+  },
+  "H17.csv": {
+   "sha256": "65622428855162c6d9301eae5f84eeeff8ebf9535278d3a40e15da5c0aeb35ad",
+   "bytes": 216
+  },
+  "H18-input.json": {
+   "sha256": "2e236aefedb367ce0114a5538c86652c7816ddc4f10a2702d1bc8fe4664b4936",
+   "bytes": 426
+  },
+  "H18.csv": {
+   "sha256": "1c5c087dff971af09f460b9997a9c54d317f5cd957c337c6a8cc45be9a9520d1",
+   "bytes": 389
+  },
+  "H19-input.json": {
+   "sha256": "ec1824eb75bb179ded3a99b4af18c9603c61acc85204ce349974296dd21be4ea",
+   "bytes": 426
+  },
+  "H19.csv": {
+   "sha256": "b30cd0c70b91647278ffd08a1bebf9cafbfbd662ab5ccba6a18163d0b3469644",
+   "bytes": 298
+  },
+  "H20-input.json": {
+   "sha256": "9b6d96f3a7b96d73b61de6a9b71b1e0070b535a3e6e897d45fe63df5bdc83383",
+   "bytes": 426
+  },
+  "H20.csv": {
+   "sha256": "66d744a59b4269e62d280ffb470a10d9760971e57675456e26eca8dece26578a",
+   "bytes": 336
+  },
+  "H21-input.json": {
+   "sha256": "335fc39589988a816f3046315bc79973cd8aff24fe65c8d6aae2087434f071a2",
+   "bytes": 426
+  },
+  "H21.csv": {
+   "sha256": "b487d4b3dc1957fc6809ea7836d36ad98d3a098c00e2b28b076399621c30ae17",
+   "bytes": 78
+  },
+  "H22-input.json": {
+   "sha256": "3def94a2a5bca14014fea88e9bd1eb01f6dc0dc3f60ef53cbe0e225354c7a67b",
+   "bytes": 426
+  },
+  "H22.csv": {
+   "sha256": "d6bbcf0deba7cb9b50de4dba40228f9011456ad3fd9bd1fb8a3e21dc029e15c5",
+   "bytes": 213
+  },
+  "H23-input.json": {
+   "sha256": "9c4a940864b4a035ae010f110305815757cdf538d0105be79b0e7ddda4cbe10c",
+   "bytes": 426
+  },
+  "H23.csv": {
+   "sha256": "bb1362293d97c0887a49396a41674314cf7a78f00bcedc214599ed3c154a0657",
+   "bytes": 205
+  },
+  "H24-input.json": {
+   "sha256": "548deeb32d6f8b67ef841bd8c2068879c17e446818563e803b87e2203ddc96bf",
+   "bytes": 426
+  },
+  "H24.csv": {
+   "sha256": "7974e78de5e3816f9ac72dfe395e260c4f56a313d24c72a6ebb1feb54c4f6d72",
+   "bytes": 305
+  },
+  "H25-input.json": {
+   "sha256": "06e7851113227c8ee7b1760b45a3c7716691a2034cf716070b906fcb679cda3c",
+   "bytes": 426
+  },
+  "H25.csv": {
+   "sha256": "6fae4d1dc62becb7519b3a692989d9511d6a4bc225047d13d7fcded23c308a40",
+   "bytes": 204
+  },
+  "H26-input.json": {
+   "sha256": "651bb36e3032838e75f6ebeb987bb40df49b4175e4a0b83ff85c7e66be6a2ddf",
+   "bytes": 426
+  },
+  "H26.csv": {
+   "sha256": "df434a878fb12742f156fdafbd21a6fefce409d64732e0af52c203d668d66c44",
+   "bytes": 194
+  },
+  "H27-input.json": {
+   "sha256": "f3707fb29a7308630e2a681aae9fa9277422de9d919df108906900aa804a6ad9",
+   "bytes": 424
+  },
+  "H27.csv": {
+   "sha256": "45740468fa641e72dc791ea6392e6f68bee5a3046f12480ee634effe8575c52c",
+   "bytes": 420
+  },
+  "stories.json": {
+   "sha256": "0ea9f98b18b188d4d75ab8742d7c7016e1ab8ab9c37f8c264b4ac14c15469429",
+   "bytes": 40920
+  }
+ }
+}

@@ -64736,6 +64736,456 @@
       "bytes": 16404,
       "sha256": "66894f1f7dbbac3f42be8b8d73d53d56b268fcbf2e87c04897ed42a787edfb31",
       "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/README.ar.md",
+      "bytes": 8346,
+      "sha256": "b537013282444f3155e25c284fcae8db80233092e48a5ef2f904725c64ced6b0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/Render.java",
+      "bytes": 1993,
+      "sha256": "9ee8ad1f76b31c8cd8123066966921c2887c0104baea4582c0d40bbbbc3cd9bb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/check_seal.py",
+      "bytes": 3002,
+      "sha256": "3f92e858e57173363e3b0ea4b8ba7faca1797803c4f47a43cf71e3f34dde27f9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/eligibility.py",
+      "bytes": 4086,
+      "sha256": "b7af6acebcc72b94af32102dafb5e96895fa777ebb4842aba9a245925789f177",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/ELIGIBILITY.json",
+      "bytes": 222,
+      "sha256": "68d7642db81592bf254c3f466994a20628b27e50262b862a135282140a3fdc15",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/EXPECTED.json",
+      "bytes": 35847,
+      "sha256": "16599cd81cb270895734302f2fde2b2ee0aa99423ba119b94c8e67eb322fa778",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H01-input.json",
+      "bytes": 426,
+      "sha256": "ca7cc442ad46516547b3c2dc321ec97ce36f2b47e683a6f784de6d8eb6eff4b8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H01.csv",
+      "bytes": 219,
+      "sha256": "58d428995d1c7e672eb704ff2b5ac2fffe62bd1a319ee201ff986bff52b885ad",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H02-input.json",
+      "bytes": 426,
+      "sha256": "39980dbc9a915dca9dad1859201d475e9cbf60deb8126425eb4759a97c530490",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H02.csv",
+      "bytes": 275,
+      "sha256": "bb32babc1f15da698776c44636b67cb6abe60271e6b4e872fc1226062df2f6af",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H03-input.json",
+      "bytes": 426,
+      "sha256": "2eb6c94f27d2555100d90539d8e76ce7d9dbf1d2aad5227957ded98bc8438a67",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H03.csv",
+      "bytes": 210,
+      "sha256": "82334e05bd68885004d0c1a969bc9ca0263650ccd2b6f7e5b6585e1e6e261a82",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H04-input.json",
+      "bytes": 426,
+      "sha256": "74de0e1bc3cf17fb912e977baff8a9aeebf5d4e91f8e95839305a615b9ac85a1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H04.csv",
+      "bytes": 202,
+      "sha256": "787f4921674abb8210ffc8b9c4d75376aa0ead61a284a7051d22e9bee2f121da",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H05-input.json",
+      "bytes": 426,
+      "sha256": "2ef15d495ddc5dc9a161aa93b6b1c7172ff93ed0acaa3ed8f9ea041adb898918",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H05.csv",
+      "bytes": 165,
+      "sha256": "feb109f5c546cee0f0a9a91b9d42d3d467fe8de218b6b971109925cdc4812f6d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H06-input.json",
+      "bytes": 426,
+      "sha256": "132638a943c44cb0b6bbbf4078b00cb5b470ea7de6bd9498bdf84527d03a4ce0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H06.csv",
+      "bytes": 174,
+      "sha256": "c2e1811b2af932f07ae328c685145f27188b3e5871a690d6530146b04f6db3d9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H07-input.json",
+      "bytes": 426,
+      "sha256": "abff746a7dd64d0d6f4bbd774a46cfff2a693f6f24b2a47d4d3d455b447a2ba5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H07.csv",
+      "bytes": 231,
+      "sha256": "3ca750fdd289243ae5b692a4e813f0d6cef336eabdf7a9f4c8cf021b76c43a28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H08-input.json",
+      "bytes": 426,
+      "sha256": "1ad1df6af25a1fd07e21bce62552ff7fb9fe97eda7cc28c1c4f67029e74f402c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H08.csv",
+      "bytes": 237,
+      "sha256": "6e5931ad901c76e518d7bf7a35b9f8fdf524996631f6a05ea3735e1bbfc9e12a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H09-input.json",
+      "bytes": 426,
+      "sha256": "b81996541ac271db5d53e382cb234b90501ab7500d03ce29be7dce0456bb2221",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H09.csv",
+      "bytes": 219,
+      "sha256": "29d46cec914f6ee2c0d574062834924f7a95d683b9e9fd537abf0f9abc19e0f9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H10-input.json",
+      "bytes": 426,
+      "sha256": "64247c25d10d4e96d8ae75e4ad69183205a8e47f7647e60788095557facb3eeb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H10.csv",
+      "bytes": 8812,
+      "sha256": "8272f5b826a514cb9004bb2af81aeb1e05fe564894cc76257d5df5ea8f6c6509",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H11-input.json",
+      "bytes": 426,
+      "sha256": "d0bd972e0bad0aeee2647a3fe5856d795d61167ba10da60166780920d5b2c7ba",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H11.csv",
+      "bytes": 199,
+      "sha256": "f37bc18fe6435a93eccf2768524adf241aaa8a81f6290b2e3cec04da20c05ba3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H12-input.json",
+      "bytes": 426,
+      "sha256": "5873cf96ca53e3c67a64bf0fe03b5086e1a3e1597b8f734918bb0b40149967a8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H12.csv",
+      "bytes": 252,
+      "sha256": "b8fd5affd27daef042bb7238a31c63f5e935e988fe357c47c1bd188fd53d2ab0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H13-input.json",
+      "bytes": 424,
+      "sha256": "20b252c707eb7d967b7b993b7158eb303efff1a89a08e68ac420f8fb689544b0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H13.csv",
+      "bytes": 234,
+      "sha256": "70ccec13fb7b1ae3e551567c46902b7e4d85fddd2389ba36cfe79a66ae382a95",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H14-input.json",
+      "bytes": 427,
+      "sha256": "e9504faf90568417e1aa3c540666ff67a80f2da483a3b17fbfe6a0dd6056ea51",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H14.xlsx",
+      "bytes": 5735,
+      "sha256": "bb5d704ba94caa992ecb936776b98fb88b2bef49aac83a385a4cfa06ce063ec7",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic clearing account extract for the CLR-1 holdout H1, written as XLSX by LibreOffice Calc 24.2 from a flat ODS spreadsheet with text cells, one hidden row or one formula, from audit/clearing-groups-holdout-h1/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and the foundation oracle with zipfile and ElementTree. Invented vouchers, documents, accounts and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H15-input.json",
+      "bytes": 427,
+      "sha256": "595a752a7eb8fdea15f8469e930cef1a59c61ec77228aee87f25a0d9493aa345",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H15.xlsx",
+      "bytes": 5743,
+      "sha256": "18beb145cd158ff0bbd9a8793f3b216ae4b1affb48b039c22a94bf4bd25cc736",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic clearing account extract for the CLR-1 holdout H1, written as XLSX by LibreOffice Calc 24.2 from a flat ODS spreadsheet with text cells, one hidden row or one formula, from audit/clearing-groups-holdout-h1/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and the foundation oracle with zipfile and ElementTree. Invented vouchers, documents, accounts and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H16-input.json",
+      "bytes": 427,
+      "sha256": "77b5c3e44c62e91d5b655f2ce1fcc157a1f2a43ae8ffaaa3f10ea8d5e2ecdcad",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H16.xlsx",
+      "bytes": 5826,
+      "sha256": "4551d1aaf7c9380fcf06666a4a310163677d0fcb9595a8a1651c10c95e906af7",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic clearing account extract for the CLR-1 holdout H1, written as XLSX by LibreOffice Calc 24.2 from a flat ODS spreadsheet with text cells, one hidden row or one formula, from audit/clearing-groups-holdout-h1/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and the foundation oracle with zipfile and ElementTree. Invented vouchers, documents, accounts and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H17-input.json",
+      "bytes": 426,
+      "sha256": "ec48503c6b0592b907d0b4c24cfdb2c21dd3f0bb255a4baad661bb1b93235275",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H17.csv",
+      "bytes": 216,
+      "sha256": "65622428855162c6d9301eae5f84eeeff8ebf9535278d3a40e15da5c0aeb35ad",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H18-input.json",
+      "bytes": 426,
+      "sha256": "2e236aefedb367ce0114a5538c86652c7816ddc4f10a2702d1bc8fe4664b4936",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H18.csv",
+      "bytes": 389,
+      "sha256": "1c5c087dff971af09f460b9997a9c54d317f5cd957c337c6a8cc45be9a9520d1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H19-input.json",
+      "bytes": 426,
+      "sha256": "ec1824eb75bb179ded3a99b4af18c9603c61acc85204ce349974296dd21be4ea",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H19.csv",
+      "bytes": 298,
+      "sha256": "b30cd0c70b91647278ffd08a1bebf9cafbfbd662ab5ccba6a18163d0b3469644",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H20-input.json",
+      "bytes": 426,
+      "sha256": "9b6d96f3a7b96d73b61de6a9b71b1e0070b535a3e6e897d45fe63df5bdc83383",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H20.csv",
+      "bytes": 336,
+      "sha256": "66d744a59b4269e62d280ffb470a10d9760971e57675456e26eca8dece26578a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H21-input.json",
+      "bytes": 426,
+      "sha256": "335fc39589988a816f3046315bc79973cd8aff24fe65c8d6aae2087434f071a2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H21.csv",
+      "bytes": 78,
+      "sha256": "b487d4b3dc1957fc6809ea7836d36ad98d3a098c00e2b28b076399621c30ae17",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H22-input.json",
+      "bytes": 426,
+      "sha256": "3def94a2a5bca14014fea88e9bd1eb01f6dc0dc3f60ef53cbe0e225354c7a67b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H22.csv",
+      "bytes": 213,
+      "sha256": "d6bbcf0deba7cb9b50de4dba40228f9011456ad3fd9bd1fb8a3e21dc029e15c5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H23-input.json",
+      "bytes": 426,
+      "sha256": "9c4a940864b4a035ae010f110305815757cdf538d0105be79b0e7ddda4cbe10c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H23.csv",
+      "bytes": 205,
+      "sha256": "bb1362293d97c0887a49396a41674314cf7a78f00bcedc214599ed3c154a0657",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H24-input.json",
+      "bytes": 426,
+      "sha256": "548deeb32d6f8b67ef841bd8c2068879c17e446818563e803b87e2203ddc96bf",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H24.csv",
+      "bytes": 305,
+      "sha256": "7974e78de5e3816f9ac72dfe395e260c4f56a313d24c72a6ebb1feb54c4f6d72",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H25-input.json",
+      "bytes": 426,
+      "sha256": "06e7851113227c8ee7b1760b45a3c7716691a2034cf716070b906fcb679cda3c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H25.csv",
+      "bytes": 204,
+      "sha256": "6fae4d1dc62becb7519b3a692989d9511d6a4bc225047d13d7fcded23c308a40",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H26-input.json",
+      "bytes": 426,
+      "sha256": "651bb36e3032838e75f6ebeb987bb40df49b4175e4a0b83ff85c7e66be6a2ddf",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H26.csv",
+      "bytes": 194,
+      "sha256": "df434a878fb12742f156fdafbd21a6fefce409d64732e0af52c203d668d66c44",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H27-input.json",
+      "bytes": 424,
+      "sha256": "f3707fb29a7308630e2a681aae9fa9277422de9d919df108906900aa804a6ad9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/H27.csv",
+      "bytes": 420,
+      "sha256": "45740468fa641e72dc791ea6392e6f68bee5a3046f12480ee634effe8575c52c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/INPUT-MANIFEST.json",
+      "bytes": 7192,
+      "sha256": "4537264f4e8490bef443da613d33aa0d2d55ee138364180702fcf77e65ec2896",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/SEAL.json",
+      "bytes": 1618,
+      "sha256": "d640a89c4007224e509a0191ff6882468fc65c4654fbf10150750115248a1500",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/VERIFY.json",
+      "bytes": 1032,
+      "sha256": "57b3de5350c9df54ff8432403d632ca232d92db82696891492c78147ce45ce47",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/frozen/stories.json",
+      "bytes": 40920,
+      "sha256": "0ea9f98b18b188d4d75ab8742d7c7016e1ab8ab9c37f8c264b4ac14c15469429",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/judge.py",
+      "bytes": 1197,
+      "sha256": "46abd8bef02e349991729c37245cd09a45883c452aaaaac321ce4db72174920b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/render.go",
+      "bytes": 1075,
+      "sha256": "27525a2cd086fbb2d8b6490b7aaffcba7e06723805d692cf9dfa43ace7fd4e0f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/render.php",
+      "bytes": 563,
+      "sha256": "81fa92d2913ad33741dcda9c11a00d7087db31d84b549486a6ca74f4d70bd66f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/render.pl",
+      "bytes": 1027,
+      "sha256": "857096033e64a86fd75830d05c699b80d42281952c5ec90ab344c82ea3186309",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/render.py",
+      "bytes": 5435,
+      "sha256": "e99479bd53cfbf8fb080236d475c429721ff6a1c2a8abcad7ecb8ebcb1403aa6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/seal.py",
+      "bytes": 2631,
+      "sha256": "f8dc87e29c3903237c165cfa3916fab90913bb52b11f96711795a97a3dcd9b8c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/stories.py",
+      "bytes": 12871,
+      "sha256": "bad825c12f70d8cfb488ac6b863de82aa1acfe1262c582b227ad102d27d4406b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/test_intent.py",
+      "bytes": 2843,
+      "sha256": "8d3f49da6059553362fa833f64d66377ef71b9bc6ad98fdae3d3a294ffd790a6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-holdout-h1/verify.py",
+      "bytes": 9490,
+      "sha256": "bbb56c4da8081f5f5a8d8544ecca64df4555e1e0f2464b01f236dd7a05c23a72",
+      "kind": "text"
     }
   ],
   "distribution": [
