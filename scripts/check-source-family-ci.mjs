@@ -257,6 +257,8 @@ const required = [
   'test:fa-sections:oracle-mutants',
   'test:fa-sections:seal',
   'test:fa-sections:baseline',
+  'test:fa-sections:run',
+  'test:fa-sections:mutations',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',

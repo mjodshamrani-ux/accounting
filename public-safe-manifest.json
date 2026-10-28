@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 85604,
-      "sha256": "d480dbe8a5558609bb92a0040f9b019d9c7cd2318cbf2d489559872e29b0cc27",
+      "bytes": 85682,
+      "sha256": "a9ee72f8079c82f4ff3f185a567db9dc9868b2a4b10a22be5893fee45ce99544",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 56190,
-      "sha256": "30775dc1de559c9154ff9a4a0900aaeff6286a09d96387b3a13e274641d644eb",
+      "bytes": 56513,
+      "sha256": "5584287d99947d5f1f7cec5b64b689c86c4669189482e30c52a680ba6f7ffed4",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 23070,
-      "sha256": "72abcdca8c9371793cad884b6a8b4b4a405260db9ddd511c57a6e920677aaba6",
+      "bytes": 23116,
+      "sha256": "c6c583235e535b4402fa75be446d143d184c537fcab1b3ec2e08a00e17017d61",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 131386,
-      "sha256": "65856172eef7824c661482368f99c71b567b0f4a0167601edff9b99752d31ec4",
+      "bytes": 131991,
+      "sha256": "5c3f559225a16afedb57cc041c34062b1c94b627e9ac09271b650f4c295a4ba3",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 83976,
-      "sha256": "dfafc8ff6589cce9bcb83d12dab1a859b78822dcb30923ef989a9359ba6bf033",
+      "bytes": 84053,
+      "sha256": "8a51ee1f628e30a7086a60d54011ecd64ed2eca70964dbff7fba03e92160b094",
       "kind": "text"
     },
     {
@@ -36235,8 +36235,8 @@
     },
     {
       "path": "docs/roadmap/fixed-assets.ar.md",
-      "bytes": 3911,
-      "sha256": "2b13b839c8f919a7f35da0557b90cb153e46cd99edd22452c26f27f607bc9a20",
+      "bytes": 4238,
+      "sha256": "1d95c31cdb9e76adb5910221338c675d65934f32f3f2b2f529906b26ba53e64a",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 57358,
-      "sha256": "a5588f5876f67d4aef2d44b3642e7473e5900055cb9a2087cbf88a9f496464af",
+      "bytes": 57657,
+      "sha256": "8940e728c441fa8a387bc6b9b1878e01039a474e7f1bacb11ba00f80825635c5",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 18364,
-      "sha256": "9b7efc976bd221a57340046ba6cd80c6ada924c8cfea358c76bc48ab0eaa4bc1",
+      "bytes": 18422,
+      "sha256": "d798b3ce211d8be83b602f373fa2da25fcc98af098d1ef035a5c7fbed2fc238d",
       "kind": "text"
     },
     {
@@ -69977,8 +69977,8 @@
     },
     {
       "path": "audit/fixed-assets-sections-foundation/README.ar.md",
-      "bytes": 7566,
-      "sha256": "008ebce21a98b2a8809ae7e8bfbfb726b8505c3ff861931a1c0c5c759de1e2fe",
+      "bytes": 7890,
+      "sha256": "1fa7450555f4e468408bd81818ba506dec616d90ddd03c0389847d522584421e",
       "kind": "text"
     },
     {
@@ -71249,8 +71249,8 @@
     },
     {
       "path": "docs/audits/FA-1-FOUNDATION.ar.md",
-      "bytes": 14211,
-      "sha256": "04085d542473aa2469bbfa59ac68dcb280eb828ed5129e02862ea602a9dc8d39",
+      "bytes": 14280,
+      "sha256": "f65797b4404364235e43f68a04c67db14a6675ebf00dc6228b4fab391374cce3",
       "kind": "text"
     },
     {
@@ -71263,6 +71263,48 @@
       "path": "audit/fixed-assets-sections-foundation/results/baseline-1.json",
       "bytes": 46922,
       "sha256": "0db374bbac515183ed10fab7c5adb51eac23e6309eabb91b635e5c16dd5b7ce4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fixed-assets-sections-foundation/engine-run.mjs",
+      "bytes": 5775,
+      "sha256": "23db3452654719bdbdfa0897d10565a138664d961b0439d06302264f7966e58c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fixed-assets-sections-foundation/results/engine-run-1.json",
+      "bytes": 1913,
+      "sha256": "d5c450746ed333ea8ade798e7db2749c84ae9343a92a03fbaaaf5cdbc45d4fbc",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/FA-1B.ar.md",
+      "bytes": 7237,
+      "sha256": "f035cfd46f209f4e601bac976e920362fdf27fc53917daa6ff7f1fe309712010",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/fixed-assets-sections-io.ts",
+      "bytes": 3437,
+      "sha256": "dc828555676bfe19dede11b4fe924aed4d7cb42306f2aad4f9521db08229e4f1",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/fixed-assets-sections.ts",
+      "bytes": 28721,
+      "sha256": "d9ac77600a6c4d02750f79c2e1a875a85595ec7582046d6beeb57722ffa57d57",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-fixed-assets-sections-mutations.mjs",
+      "bytes": 13493,
+      "sha256": "104fb0b645eec6c2c29052fea40fa39cf6b326516916d940d4706f7ebb270e9c",
+      "kind": "text"
+    },
+    {
+      "path": "tests/fixed-assets-sections.test.ts",
+      "bytes": 39981,
+      "sha256": "fde3acca9775fec773bd36c4f44facdbbe02fd44f087dd80c69034b41865c813",
       "kind": "text"
     }
   ],

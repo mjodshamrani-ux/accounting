@@ -415,6 +415,8 @@ jobs:
           pnpm test:fa-sections:oracle-mutants
           pnpm test:fa-sections:seal
           pnpm test:fa-sections:baseline
+          pnpm test:fa-sections:run
+          pnpm test:fa-sections:mutations
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations
