@@ -118,7 +118,7 @@ const scopeKeys = [
   'end',
   'confirmed',
 ];
-const cleanId = (v: string) => {
+export const cleanId = (v: string) => {
   const s = v.trim();
   if (
     s.length > 200 ||
@@ -129,13 +129,13 @@ const cleanId = (v: string) => {
     refuse('IDENTITY');
   return s;
 };
-function amount(value: string, decimals: number) {
+export function amount(value: string, decimals: number) {
   const raw = latinDigits(value.trim()).replace(/−/g, '-').replace(/٫/g, '.');
   // No implicit thousands/decimal convention, parentheses or blank-as-zero.
   if (!/^[+-]?\d+(?:\.\d+)?$/.test(raw)) refuse('AMOUNT_FORMAT');
   return parseMoney(raw, 'dot', decimals);
 }
-function validate(input: ClearingInput) {
+export function validate(input: ClearingInput) {
   if (
     !plain(input) ||
     !plain(input.file) ||

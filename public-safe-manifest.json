@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 76391,
-      "sha256": "8c6c037a96202676e2b15981e4d928865b1491736cdaf1e62fb594adbb99b830",
+      "bytes": 76467,
+      "sha256": "6677da87e58752b34a8374942abeebc3b1504eeda3e903255942f4b6485f23c8",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 50291,
-      "sha256": "52ce67437b10adea78d96aa9a1017baa1501229fbc7f6a458f648c35dcaf4401",
+      "bytes": 50608,
+      "sha256": "41a910083f37fb4351aad63749e52e48ae8f22269d2b340bbca84b5c1d53315c",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 22231,
-      "sha256": "1522d5dcae8cd9a8407500c8e48d0e618781efaae6f23015854aaeaf5614d5c1",
+      "bytes": 22294,
+      "sha256": "5ec6634e38e96690a83bae152fe044d465d6fc4ef014b85fa071ddfb514452c6",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 114461,
-      "sha256": "08efbc71774fd8d5976a56d278fdc0ec38e33a9fbcd8fcad88732fa4944888ca",
+      "bytes": 115340,
+      "sha256": "0a9731742c7c486d6b80800269cfea2924beb39e2d650c41cbc9999d965bd63d",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 82278,
-      "sha256": "eb96f39a4b43dbe3b352f822e8d9484bc36789483d9d4549d6a5417dc88227ff",
+      "bytes": 82377,
+      "sha256": "d9e6ed293bb9949e402c0e7a291d983c4a356870e6330c5b5c4d5b6969893e8b",
       "kind": "text"
     },
     {
@@ -36223,8 +36223,8 @@
     },
     {
       "path": "docs/roadmap/clearing.ar.md",
-      "bytes": 4070,
-      "sha256": "024df43fa39b3d0596083ecd1a84ad8cc2315a7316ed57d432ea357430616bb8",
+      "bytes": 4364,
+      "sha256": "7e2f138bc239b9f1872be7070682ce23a10fe091e5df92a786e02b4c8006b853",
       "kind": "text"
     },
     {
@@ -36663,8 +36663,8 @@
     },
     {
       "path": "lib/reconciliation/clearing.ts",
-      "bytes": 13251,
-      "sha256": "4cd3e82584da5f1b7f2acfdd4e9ec7b8dfda83a920d969aced45c603ef9ce22c",
+      "bytes": 13272,
+      "sha256": "e0d8eba9ab68ef116047d52dd4c2726ebe69b6b57be79afa8d24db7ffa4e184d",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 51855,
-      "sha256": "ee1a682222ee4ed62c551916fa21c91f66a0c865888e58fa0f7d2baf8ee7f95f",
+      "bytes": 52138,
+      "sha256": "ee9d23f352297d2cc2313fd897f46866c320e7d8a8a9d739538662c38551de42",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 17065,
-      "sha256": "d46b157256c4ad8c8de6c59296490f0b972329c52f85c1ff7a9c90971c3914ac",
+      "bytes": 17121,
+      "sha256": "03545e956114b0080a375c82c458641801595d8e8992dbc4b5292faccf83d2b6",
       "kind": "text"
     },
     {
@@ -64699,6 +64699,42 @@
       "path": "audit/clearing-groups-foundation/results/baseline-1.json",
       "bytes": 513546,
       "sha256": "ca767fd4617a719c3cd49b869b319cd6483959c039f92f03706a2d53583fe6c2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-foundation/engine-run.mjs",
+      "bytes": 5738,
+      "sha256": "a525b21c021c7003121cb03a90552fa5dcfdabf856d07b3bff57bef4b5c5ae96",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-foundation/results/engine-run-1.json",
+      "bytes": 1386,
+      "sha256": "f5b08a72188ee627eff6d8ca6b16e84421e0ba6c86d615c867fb12ffc415132d",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/CLR-1B.ar.md",
+      "bytes": 5766,
+      "sha256": "fb8dee77c63f556f46a66e0c819408e9a47db67984d8b24845c4da81d406a445",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/clearing-groups.ts",
+      "bytes": 12095,
+      "sha256": "3fe20de6907afc79de034b354f43d3e8b5a7e9fdf5351249bd01398701447d95",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-clearing-groups-mutations.mjs",
+      "bytes": 7211,
+      "sha256": "96434ab27e0ac9096b1f12f6fea68efccdd5f2642024f82146fd9540d12ab784",
+      "kind": "text"
+    },
+    {
+      "path": "tests/clearing-groups.test.ts",
+      "bytes": 16404,
+      "sha256": "66894f1f7dbbac3f42be8b8d73d53d56b268fcbf2e87c04897ed42a787edfb31",
       "kind": "text"
     }
   ],

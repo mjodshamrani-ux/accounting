@@ -233,6 +233,8 @@ const required = [
   'test:clr-groups:oracle-mutants',
   'test:clr-groups:seal',
   'test:clr-groups:baseline',
+  'test:clr-groups:run',
+  'test:clr-groups:mutations',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',
