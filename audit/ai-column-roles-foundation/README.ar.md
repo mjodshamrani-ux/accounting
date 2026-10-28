@@ -142,6 +142,20 @@
 - **في X05 يختار المنتج عمود الرصيد الجاري «Outstanding» مبلغًا،** لأن الكلمة في قائمته. لا يُعتمد شيء دون مرجع، لكنه دور خاطئ يمسحه المحاسب، ولا يستطيع مقترح تغييره: التحقق يرفض استبدال دور محدد.
 - **وحيث لا يعرف المنتج أي عنوان** (N01 وN05 وD01 وD03 وK5 كلها) يختار صف العنوان العلوي صفًا للعناوين.
 
+## AI-1b: المحول والمزودون الوهميون
+
+[`providers.mjs`](providers.mjs) يسأل ثلاثة مزودين وهميين عبر [المحول](../../lib/reconciliation/column-role-proposals.ts)، ويحكم عليهم `score.mjs` بالتصحيح الأول:
+
+| المزود | العبء (المحرك وحده 88) | K3 (18) | اقتراحات خاطئة | في أدوار مالية | البوابات |
+|---|---:|---:|---:|---:|---|
+| [`abstain`](results/provider-abstain.json) | 88 | 18 | 0 | 0 | G1 وG2 لا |
+| [`oracle`](results/provider-oracle.json)، يعرف الحقيقة | **44** | 7 | 0 | 0 | كلها، **وG1 على الحد** |
+| [`near-miss`](results/provider-near-miss.json)، العمود المجاور | 146 | 31 | 58 | 19 | G1 وG2 وG3 لا |
+
+- **الصواب الكامل يصل حد G1 نفسه:** 26 فعلًا لا يحركها مقترح، وتطبيق الاقتراح فعل في كل كشف.
+- **فلا يجتاز G1 مزود يخطئ أو يمتنع في دور واحد** من الأدوار القابلة للحسم الاثنين والستين.
+- التفاصيل وقرار AI-2a لصاحب المشروع في [تقرير AI-1b](../../docs/audits/AI-1B.ar.md).
+
 ## الحدود
 
 - **ليس تقييمًا أعمى:** كاتب القصص والأوراكل والمقياس واحد، ورأى المنتج على كشوف تجريبية.
@@ -164,4 +178,5 @@ python3 -B -m unittest discover -s . -p 'test_*.py' -v
 node score.mjs --self-test
 node --experimental-strip-types measure.mjs --assert results/baseline-1.json
 node --experimental-strip-types correction-1/measure.mjs --assert results/baseline-1c1.json
+node --experimental-strip-types providers.mjs --provider=oracle --assert results/provider-oracle.json
 ```

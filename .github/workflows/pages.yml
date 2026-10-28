@@ -338,6 +338,8 @@ jobs:
           pnpm test:bank-cycle:c4-run
           pnpm test:ai-columns:seal
           pnpm test:ai-columns:baseline
+          pnpm test:ai-columns:providers
+          pnpm test:column-role:mutations
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations

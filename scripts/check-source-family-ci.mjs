@@ -180,6 +180,8 @@ const required = [
   'test:bank-cycle:c4-run',
   'test:ai-columns:seal',
   'test:ai-columns:baseline',
+  'test:ai-columns:providers',
+  'test:column-role:mutations',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',

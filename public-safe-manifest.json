@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 58355,
-      "sha256": "6d9a83408a4578a5d832d843c2b7ae94fd47d3540b0adcc37cc8390e84566b34",
+      "bytes": 58438,
+      "sha256": "c64d10b7fc790b524ee40709546e3436cb73301ad6d03656228363f2d004647c",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 37664,
-      "sha256": "37fc82393cf2f3a9368dff9bf119adf95e4acc0db0ee23acaf1838ecdfebe074",
+      "bytes": 38089,
+      "sha256": "251d00cc7bb91ccc7d773ab00b5d572f88fbe62195d9ea530133e4e083331046",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 20345,
-      "sha256": "2ad62177e3b9dbb2bbd23e0d3c67cdff13ede11b925cdda5a2ace4e597cae3e2",
+      "bytes": 20415,
+      "sha256": "d5e2d0dc65bd2b48dbb2b41942f4ded6e5aa96d35d16b079e433a59c19ad3b8a",
       "kind": "text"
     },
     {
@@ -36121,8 +36121,8 @@
     },
     {
       "path": "docs/reference/AI-AND-OCR.ar.md",
-      "bytes": 8530,
-      "sha256": "a3fba0971cd7313ff3ec006a18a68825266c24a8cec96f10a86ab62fcf3e75c0",
+      "bytes": 9029,
+      "sha256": "92d88d0b00d82bc9d4b8efcedffbdf2338c20a0c5a6dbd308da6370a9ef36d20",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 84506,
-      "sha256": "c15e6a2319eca253a25df6d414c88d538edc9c40576b44328149d5698ccd4a86",
+      "bytes": 85347,
+      "sha256": "edaa6ea6e048bf3c79b425f21bd3bc86c44df9a64180a106d30b0ecacaa7a2de",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 76593,
-      "sha256": "dffa6e9fa980240ad3f221bd2b10939cfbde8783d1fc536d5a90398500f943e8",
+      "bytes": 76905,
+      "sha256": "2ca6998182a80d800d2c58b93453c422a80ebc7ad944a3e5c3f9403e9ead3d5e",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 39591,
-      "sha256": "ee93501a0a1dd48185cdeef00f6ea8c9f2d476702c6d929863b885fe8d0cfcc9",
+      "bytes": 40295,
+      "sha256": "8922f97a84211df76468674653a8e47f3eb5b6d7d957a9d73d6692430aefb77d",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 14333,
-      "sha256": "a2b542683749c28011678567755dfc1c30f0f2a0fedde3bc03d910aae2a13fc1",
+      "bytes": 14396,
+      "sha256": "ebffb7a98acb5ba748fbf594e618fa44412c93a3ea1c27300bb3ecd6a7c2d479",
       "kind": "text"
     },
     {
@@ -55023,8 +55023,8 @@
     },
     {
       "path": "audit/ai-column-roles-foundation/README.ar.md",
-      "bytes": 17565,
-      "sha256": "5f431014a1e5576ede6524a02f5802496531337c7e8fa46f86df595743f57df1",
+      "bytes": 18888,
+      "sha256": "755a49c7de98ca6b5bf4f52285ffe2fea6257a9f66b0ff27cbe22f183a9dc55b",
       "kind": "text"
     },
     {
@@ -55589,6 +55589,54 @@
       "path": "docs/audits/AI-1A.ar.md",
       "bytes": 9221,
       "sha256": "320dda0457d2c1542cca1da5b8afd3e97b0b00f6cb15083e3385ad3a971128b0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/providers.mjs",
+      "bytes": 6780,
+      "sha256": "19f1d041a5fd8cfa562e5913a2c83bf8ca048a115a0d9aa3ba85091fef67c2a5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/results/provider-abstain.json",
+      "bytes": 49198,
+      "sha256": "92cd368d2ade003251833914234836937a6332b58874510dac09c1c3545d9384",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/results/provider-near-miss.json",
+      "bytes": 53481,
+      "sha256": "0b650574f312c3dd9d6627e9da12877bf092dfe14618aff543aab7b58724c1bc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/results/provider-oracle.json",
+      "bytes": 52619,
+      "sha256": "1fc4cad02297056a55171261911accfa125221ea068c34e012fd74eeab69131a",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/AI-1B.ar.md",
+      "bytes": 11089,
+      "sha256": "5170425ea6d8e060bef7562814ec44b7f703ca40f736c0ad0460af970f988444",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/column-role-proposals.ts",
+      "bytes": 13564,
+      "sha256": "daa457c9f7cf811f79bc07bdefae331f2fda4f47d16c9c8955b00cfa15f19191",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-column-role-mutations.mjs",
+      "bytes": 7272,
+      "sha256": "7343ea11f8d7e95aa9312cc0955d3c0b7eb5c03cad79268a55ea97f64a51d2dd",
+      "kind": "text"
+    },
+    {
+      "path": "tests/column-role-proposals.test.ts",
+      "bytes": 17246,
+      "sha256": "5f8c016de140f944dea8b56382119620fdfb128a23e85483ae98d19bb1e5d90d",
       "kind": "text"
     }
   ],
