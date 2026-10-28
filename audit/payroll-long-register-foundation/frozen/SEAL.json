@@ -1,0 +1,17 @@
+{
+ "schema": "tarasuf-pay1-long-register-seal/1",
+ "statement": "Sealed before any product run on these files. The baseline that follows records the product as it is.",
+ "pins": {
+  "INPUT-MANIFEST.json": "20ea2ba2e3fdd811974deb95f0030ea5632f5ee4bf88d4f422ee34dd547d75ea",
+  "EXPECTED.json": "0869e329c3f506be176deed2f4412c86adcab789d5bfede3ff9edbcecb870567",
+  "VERIFY.json": "cffcc0089688a06af8bc587a6d75518bf762a9c740a5809f123e9ff22e8c0ffa",
+  "contract.json": "3148cd0dd7ed7b929e11b3922421ee717f5e503ff4aa94ae7bc8cc309663c353",
+  "stories.py": "13b8c78e4731dece0e0b223b30f32c985132c681cfd8e8cb20005394bb108a5e",
+  "render.py": "12d0bc91bf32f69536a5f5703b95a4b74301d45f4dd5aeaa6119b9b865af786d",
+  "render.mjs": "bc0be51c98cc55dd298b7cee8496a9bf44b6b9a1928e02967d411ab5c111082b",
+  "oracle.py": "82031c490b8cd9ce2374a798b79d5032139beeb9ae4cdca2a5e0a19433613d7b",
+  "verify.py": "ac405d4c83cbe0aa68b8afa112c7a6e9bfa2cf53fe33af673e7a0797f5ecac95",
+  "test_oracle.py": "ba7085d5e91b9751734e6b4a47d5e95c75332bbf9b784ee99db5ee8582e31cf7",
+  "mutate_oracle.py": "9d930f722fd7895e53d62906cb77c6dec020711618a2a3e99bb2d7c59e00e213"
+ }
+}

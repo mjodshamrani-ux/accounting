@@ -1,0 +1,54 @@
+Section,PG-1
+Entity,Synthetic Clinics Co
+Payroll run,PR-2026-09
+Currency,SAR
+Period start,2026-09-01
+Period end,2026-09-30
+Payroll posting date,2026-09-27
+Payment date,2026-09-28
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+L-0001,E-1901,cc=ICU,ACCT-70181,Basic salary,earning,5000.00
+L-0002,E-1901,cc=ICU,ACCT-70181,Housing allowance,earning,1250.00
+L-0003,E-1901,cc=ICU,ACCT-70181,Transport allowance,allowance,500.00
+L-0004,E-1901,cc=ICU,ACCT-70181,Social insurance (employee),deduction,609.37
+L-0005,E-1901,cc=ICU,ACCT-70181,Social insurance (employer),employer,734.37
+L-0006,E-1901,cc=ICU,ACCT-70181,Net pay,net,6140.63
+L-0007,E-1902,cc=ICU,ACCT-70182,Basic salary,earning,5000.00
+L-0008,E-1902,cc=ICU,ACCT-70182,Housing allowance,earning,1250.00
+L-0009,E-1902,cc=ICU,ACCT-70182,Transport allowance,earning,500.00
+L-0010,E-1902,cc=ICU,ACCT-70182,Social insurance (employee),deduction,609.37
+L-0011,E-1902,cc=ICU,ACCT-70182,Social insurance (employer),employer,734.37
+L-0012,E-1902,cc=ICU,ACCT-70182,Net pay,net,6140.63
+Total earnings,13000.00
+Total deductions,1218.74
+Total employer,1468.74
+Total net,12281.26
+End section,PG-1
+
+Section,PG-2
+Entity,Synthetic Clinics Co
+Payroll run,PR-2026-09
+Currency,SAR
+Period start,2026-09-01
+Period end,2026-09-30
+Payroll posting date,2026-09-27
+Payment date,2026-09-28
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+L-0013,E-1903,cc=OPD,ACCT-70183,Basic salary,earning,5000.00
+L-0014,E-1903,cc=OPD,ACCT-70183,Housing allowance,earning,1250.00
+L-0015,E-1903,cc=OPD,ACCT-70183,Transport allowance,earning,500.00
+L-0016,E-1903,cc=OPD,ACCT-70183,Social insurance (employee),deduction,609.37
+L-0017,E-1903,cc=OPD,ACCT-70183,Social insurance (employer),employer,734.37
+L-0018,E-1903,cc=OPD,ACCT-70183,Net pay,net,6140.63
+Total earnings,6750.00
+Total deductions,609.37
+Total employer,734.37
+Total net,6140.63
+End section,PG-2
+
+Run totals,PR-2026-09
+Total earnings,20250.00
+Total deductions,1828.11
+Total employer,2203.11
+Total net,18421.89
+End run totals,PR-2026-09

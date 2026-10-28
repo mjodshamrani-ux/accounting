@@ -1,0 +1,48 @@
+﻿Section,PG-1,,,,,
+Entity,Synthetic Clinics Co,,,,,
+Payroll run,PR-2026-09,,,,,
+Currency,SAR,,,,,
+Period start,2026-09-01,,,,,
+Period end,2026-09-30,,,,,
+Payroll posting date,2026-09-27,,,,,
+Payment date,2026-09-28,,,,,
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+L-0001,E-2601,cc=ICU,ACCT-70251,Basic salary,earning,8200.00
+L-0002,E-2601,cc=ICU,ACCT-70251,Housing allowance,earning,2050.00
+L-0003,E-2601,cc=ICU,ACCT-70251,Transport allowance,earning,500.00
+L-0004,E-2601,cc=ICU,ACCT-70251,Social insurance (employee),deduction,999.37
+L-0005,E-2601,cc=ICU,ACCT-70251,Social insurance (employer),employer,1204.37
+L-0006,E-2601,cc=ICU,ACCT-70251,Net pay,net,9750.63
+Total earnings,10750.00,,,,,
+Total deductions,999.37,,,,,
+Total employer,1204.37,,,,,
+Total net,9750.63,,,,,
+End section,PG-1,,,,,
+,,,,,,
+Section,PG-1,,,,,
+Entity,Synthetic Clinics Co,,,,,
+Payroll run,PR-2026-09,,,,,
+Currency,SAR,,,,,
+Period start,2026-09-01,,,,,
+Period end,2026-09-30,,,,,
+Payroll posting date,2026-09-27,,,,,
+Payment date,2026-09-28,,,,,
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+L-0007,E-2602,cc=ICU,ACCT-70252,Basic salary,earning,8300.00
+L-0008,E-2602,cc=ICU,ACCT-70252,Housing allowance,earning,2075.00
+L-0009,E-2602,cc=ICU,ACCT-70252,Transport allowance,earning,500.00
+L-0010,E-2602,cc=ICU,ACCT-70252,Social insurance (employee),deduction,1011.56
+L-0011,E-2602,cc=ICU,ACCT-70252,Social insurance (employer),employer,1219.06
+L-0012,E-2602,cc=ICU,ACCT-70252,Net pay,net,9863.44
+Total earnings,10875.00,,,,,
+Total deductions,1011.56,,,,,
+Total employer,1219.06,,,,,
+Total net,9863.44,,,,,
+End section,PG-1,,,,,
+,,,,,,
+Run totals,PR-2026-09,,,,,
+Total earnings,21625.00,,,,,
+Total deductions,2010.93,,,,,
+Total employer,2423.43,,,,,
+Total net,19614.07,,,,,
+End run totals,PR-2026-09,,,,,

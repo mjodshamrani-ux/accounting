@@ -1,0 +1,799 @@
+Section,PG-1
+Entity,Synthetic Clinics Co
+Payroll run,PR-2026-09
+Currency,SAR
+Period start,2026-09-01
+Period end,2026-09-30
+Payroll posting date,2026-09-27
+Payment date,2026-09-28
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+L-0001,E-5000,cc=ICU,ACCT-80000,Basic salary,earning,16953.33
+L-0002,E-5000,cc=ICU,ACCT-80000,Overtime,earning,471.55
+L-0003,E-5000,cc=ICU,ACCT-80000,Phone allowance,earning,1724.40
+L-0004,E-5000,cc=ICU,ACCT-80000,Transport allowance,earning,288.36
+L-0005,E-5000,cc=ICU,ACCT-80000,Social insurance (employee),deduction,1652.94
+L-0006,E-5000,cc=ICU,ACCT-80000,Social insurance (employer),employer,1992.01
+L-0007,E-5000,cc=ICU,ACCT-80000,Net pay,net,17784.70
+L-0008,E-5003,cc=OPD,ACCT-80001,Basic salary,earning,9609.29
+L-0009,E-5003,cc=OPD,ACCT-80001,Social insurance (employee),deduction,936.90
+L-0010,E-5003,cc=OPD,ACCT-80001,Loan installment,deduction,485.88
+L-0011,E-5003,cc=OPD,ACCT-80001,Social insurance (employer),employer,1129.09
+L-0012,E-5003,cc=OPD,ACCT-80001,Net pay,net,8186.51
+L-0013,E-5006,cc=LAB,ACCT-80002,Basic salary,earning,18144.61
+L-0014,E-5006,cc=LAB,ACCT-80002,Transport allowance,earning,1290.77
+L-0015,E-5006,cc=LAB,ACCT-80002,Social insurance (employee),deduction,1769.09
+L-0016,E-5006,cc=LAB,ACCT-80002,Social insurance (employer),employer,2131.99
+L-0017,E-5006,cc=LAB,ACCT-80002,Net pay,net,17666.29
+L-0018,E-5009,cc=RAD,ACCT-80003,Basic salary,earning,17762.45
+L-0019,E-5009,cc=RAD,ACCT-80003,Overtime,earning,1482.99
+L-0020,E-5009,cc=RAD,ACCT-80003,Housing allowance,earning,612.21
+L-0021,E-5009,cc=RAD,ACCT-80003,Social insurance (employee),deduction,1731.83
+L-0022,E-5009,cc=RAD,ACCT-80003,Social insurance (employer),employer,2087.08
+L-0023,E-5009,cc=RAD,ACCT-80003,Net pay,net,18125.82
+L-0024,E-5012,cc=ICU,ACCT-80004,Basic salary,earning,24110.99
+L-0025,E-5012,cc=ICU,ACCT-80004,Overtime,earning,1976.26
+L-0026,E-5012,cc=ICU,ACCT-80004,Transport allowance,earning,1559.52
+L-0027,E-5012,cc=ICU,ACCT-80004,Housing allowance,earning,832.45
+L-0028,E-5012,cc=ICU,ACCT-80004,Social insurance (employee),deduction,2350.82
+L-0029,E-5012,cc=ICU,ACCT-80004,Social insurance (employer),employer,2833.04
+L-0030,E-5012,cc=ICU,ACCT-80004,Net pay,net,26128.40
+L-0031,E-5015,cc=OPD,ACCT-80005,Basic salary,earning,19275.32
+L-0032,E-5015,cc=OPD,ACCT-80005,Overtime,earning,1424.54
+L-0033,E-5015,cc=OPD,ACCT-80005,Phone allowance,earning,1953.53
+L-0034,E-5015,cc=OPD,ACCT-80005,Transport allowance,earning,999.76
+L-0035,E-5015,cc=OPD,ACCT-80005,Social insurance (employee),deduction,1879.34
+L-0036,E-5015,cc=OPD,ACCT-80005,Loan installment,deduction,765.29
+L-0037,E-5015,cc=OPD,ACCT-80005,Social insurance (employer),employer,2264.85
+L-0038,E-5015,cc=OPD,ACCT-80005,Net pay,net,21008.52
+L-0039,E-5018,cc=LAB,ACCT-80005,Basic salary,earning,5623.33
+L-0040,E-5018,cc=LAB,ACCT-80005,Social insurance (employee),deduction,548.27
+L-0041,E-5018,cc=LAB,ACCT-80005,Loan installment,deduction,378.54
+L-0042,E-5018,cc=LAB,ACCT-80005,Social insurance (employer),employer,660.74
+L-0043,E-5018,cc=LAB,ACCT-80005,Net pay,net,4696.52
+L-0044,E-5021,cc=RAD,ACCT-80007,Basic salary,earning,10679.72
+L-0045,E-5021,cc=RAD,ACCT-80007,Social insurance (employee),deduction,1041.27
+L-0046,E-5021,cc=RAD,ACCT-80007,Loan installment,deduction,279.14
+L-0047,E-5021,cc=RAD,ACCT-80007,Social insurance (employer),employer,1254.86
+L-0048,E-5021,cc=RAD,ACCT-80007,Net pay,net,9359.31
+L-0049,E-5024,cc=ICU,ACCT-80008,Basic salary,earning,4645.04
+L-0050,E-5024,cc=ICU,ACCT-80008,Transport allowance,earning,1949.52
+L-0051,E-5024,cc=ICU,ACCT-80008,Overtime,earning,875.03
+L-0052,E-5024,cc=ICU,ACCT-80008,Housing allowance,earning,376.81
+L-0053,E-5024,cc=ICU,ACCT-80008,Social insurance (employee),deduction,452.89
+L-0054,E-5024,cc=ICU,ACCT-80008,Loan installment,deduction,626.63
+L-0055,E-5024,cc=ICU,ACCT-80008,Social insurance (employer),employer,545.79
+L-0056,E-5024,cc=ICU,ACCT-80008,Net pay,net,6766.88
+L-0057,E-5027,cc=OPD,ACCT-80009,Basic salary,earning,4880.93
+L-0058,E-5027,cc=OPD,ACCT-80009,Phone allowance,earning,607.17
+L-0059,E-5027,cc=OPD,ACCT-80009,Housing allowance,earning,303.63
+L-0060,E-5027,cc=OPD,ACCT-80009,Overtime,earning,396.16
+L-0061,E-5027,cc=OPD,ACCT-80009,Social insurance (employee),deduction,475.89
+L-0062,E-5027,cc=OPD,ACCT-80009,Social insurance (employer),employer,573.50
+L-0063,E-5027,cc=OPD,ACCT-80009,Net pay,net,5712.00
+L-0064,E-5030,cc=LAB,ACCT-80010,Basic salary,earning,20867.15
+L-0065,E-5030,cc=LAB,ACCT-80010,Overtime,earning,965.44
+L-0066,E-5030,cc=LAB,ACCT-80010,Housing allowance,earning,932.30
+L-0067,E-5030,cc=LAB,ACCT-80010,Phone allowance,earning,1161.83
+L-0068,E-5030,cc=LAB,ACCT-80010,Social insurance (employee),deduction,2034.54
+L-0069,E-5030,cc=LAB,ACCT-80010,Social insurance (employer),employer,2451.89
+L-0070,E-5030,cc=LAB,ACCT-80010,Net pay,net,21892.18
+L-0071,E-5033,cc=RAD,ACCT-80011,Basic salary,earning,11849.84
+L-0072,E-5033,cc=RAD,ACCT-80011,Social insurance (employee),deduction,1155.35
+L-0073,E-5033,cc=RAD,ACCT-80011,Loan installment,deduction,895.92
+L-0074,E-5033,cc=RAD,ACCT-80011,Social insurance (employer),employer,1392.35
+L-0075,E-5033,cc=RAD,ACCT-80011,Net pay,net,9798.57
+L-0076,E-5036,cc=ICU,ACCT-80012,Basic salary,earning,11167.06
+L-0077,E-5036,cc=ICU,ACCT-80012,Social insurance (employee),deduction,1088.78
+L-0078,E-5036,cc=ICU,ACCT-80012,Social insurance (employer),employer,1312.12
+L-0079,E-5036,cc=ICU,ACCT-80012,Net pay,net,10078.28
+L-0080,E-5039,cc=OPD,ACCT-80013,Basic salary,earning,23910.92
+L-0081,E-5039,cc=OPD,ACCT-80013,Phone allowance,earning,846.58
+L-0082,E-5039,cc=OPD,ACCT-80013,Transport allowance,earning,305.54
+L-0083,E-5039,cc=OPD,ACCT-80013,Social insurance (employee),deduction,2331.31
+L-0084,E-5039,cc=OPD,ACCT-80013,Loan installment,deduction,206.15
+L-0085,E-5039,cc=OPD,ACCT-80013,Social insurance (employer),employer,2809.53
+L-0086,E-5039,cc=OPD,ACCT-80013,Net pay,net,22525.58
+L-0087,E-5042,cc=LAB,ACCT-80014,Basic salary,earning,16614.58
+L-0088,E-5042,cc=LAB,ACCT-80014,Overtime,earning,1310.60
+L-0089,E-5042,cc=LAB,ACCT-80014,Social insurance (employee),deduction,1619.92
+L-0090,E-5042,cc=LAB,ACCT-80014,Social insurance (employer),employer,1952.21
+L-0091,E-5042,cc=LAB,ACCT-80014,Net pay,net,16305.26
+L-0092,E-5045,cc=RAD,ACCT-80015,Basic salary,earning,14949.10
+L-0093,E-5045,cc=RAD,ACCT-80015,Housing allowance,earning,1775.92
+L-0094,E-5045,cc=RAD,ACCT-80015,Transport allowance,earning,1353.13
+L-0095,E-5045,cc=RAD,ACCT-80015,Overtime,earning,1916.23
+L-0096,E-5045,cc=RAD,ACCT-80015,Social insurance (employee),deduction,1457.53
+L-0097,E-5045,cc=RAD,ACCT-80015,Social insurance (employer),employer,1756.51
+L-0098,E-5045,cc=RAD,ACCT-80015,Net pay,net,18536.85
+L-0099,E-5048,cc=ICU,ACCT-80016,Basic salary,earning,19000.51
+L-0100,E-5048,cc=ICU,ACCT-80016,Social insurance (employee),deduction,1852.54
+L-0101,E-5048,cc=ICU,ACCT-80016,Loan installment,deduction,101.69
+L-0102,E-5048,cc=ICU,ACCT-80016,Social insurance (employer),employer,2232.55
+L-0103,E-5048,cc=ICU,ACCT-80016,Net pay,net,17046.28
+L-0104,E-5051,cc=OPD,ACCT-80017,Basic salary,earning,8707.32
+L-0105,E-5051,cc=OPD,ACCT-80017,Phone allowance,earning,301.11
+L-0106,E-5051,cc=OPD,ACCT-80017,Overtime,earning,946.93
+L-0107,E-5051,cc=OPD,ACCT-80017,Housing allowance,earning,1918.51
+L-0108,E-5051,cc=OPD,ACCT-80017,Social insurance (employee),deduction,848.96
+L-0109,E-5051,cc=OPD,ACCT-80017,Loan installment,deduction,805.85
+L-0110,E-5051,cc=OPD,ACCT-80017,Social insurance (employer),employer,1023.11
+L-0111,E-5051,cc=OPD,ACCT-80017,Net pay,net,10219.06
+L-0112,E-5054,cc=LAB,ACCT-80018,Basic salary,earning,15386.08
+L-0113,E-5054,cc=LAB,ACCT-80018,Housing allowance,earning,1421.54
+L-0114,E-5054,cc=LAB,ACCT-80018,Social insurance (employee),deduction,1500.14
+L-0115,E-5054,cc=LAB,ACCT-80018,Social insurance (employer),employer,1807.86
+L-0116,E-5054,cc=LAB,ACCT-80018,Net pay,net,15307.48
+L-0117,E-5057,cc=RAD,ACCT-80019,Basic salary,earning,12718.61
+L-0118,E-5057,cc=RAD,ACCT-80019,Overtime,earning,1838.18
+L-0119,E-5057,cc=RAD,ACCT-80019,Transport allowance,earning,335.18
+L-0120,E-5057,cc=RAD,ACCT-80019,Social insurance (employee),deduction,1240.06
+L-0121,E-5057,cc=RAD,ACCT-80019,Loan installment,deduction,691.67
+L-0122,E-5057,cc=RAD,ACCT-80019,Social insurance (employer),employer,1494.43
+L-0123,E-5057,cc=RAD,ACCT-80019,Net pay,net,12960.24
+Total earnings,323309.86
+Total deductions,33205.13
+Total employer,33705.51
+Total net,290104.73
+End section,PG-1
+
+Section,PG-2
+Entity,Synthetic Clinics Co
+Payroll run,PR-2026-09
+Currency,SAR
+Period start,2026-09-01
+Period end,2026-09-30
+Payroll posting date,2026-09-27
+Payment date,2026-09-28
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+L-0124,E-5060,cc=ICU,ACCT-80020,Basic salary,earning,11368.98
+L-0125,E-5060,cc=ICU,ACCT-80020,Social insurance (employee),deduction,1108.47
+L-0126,E-5060,cc=ICU,ACCT-80020,Social insurance (employer),employer,1335.85
+L-0127,E-5060,cc=ICU,ACCT-80020,Net pay,net,10260.51
+L-0128,E-5063,cc=OPD,ACCT-80021,Basic salary,earning,5982.88
+L-0129,E-5063,cc=OPD,ACCT-80021,Social insurance (employee),deduction,583.33
+L-0130,E-5063,cc=OPD,ACCT-80021,Social insurance (employer),employer,702.98
+L-0131,E-5063,cc=OPD,ACCT-80021,Net pay,net,5399.55
+L-0132,E-5066,cc=LAB,ACCT-80022,Basic salary,earning,11449.87
+L-0133,E-5066,cc=LAB,ACCT-80022,Phone allowance,earning,1537.25
+L-0134,E-5066,cc=LAB,ACCT-80022,Social insurance (employee),deduction,1116.36
+L-0135,E-5066,cc=LAB,ACCT-80022,Social insurance (employer),employer,1345.35
+L-0136,E-5066,cc=LAB,ACCT-80022,Net pay,net,11870.76
+L-0137,E-5069,cc=RAD,ACCT-80023,Basic salary,earning,19590.15
+L-0138,E-5069,cc=RAD,ACCT-80023,Overtime,earning,1766.67
+L-0139,E-5069,cc=RAD,ACCT-80023,Transport allowance,earning,506.58
+L-0140,E-5069,cc=RAD,ACCT-80023,Social insurance (employee),deduction,1910.03
+L-0141,E-5069,cc=RAD,ACCT-80023,Social insurance (employer),employer,2301.84
+L-0142,E-5069,cc=RAD,ACCT-80023,Net pay,net,19953.37
+L-0143,E-5072,cc=ICU,ACCT-80024,Basic salary,earning,9972.11
+L-0144,E-5072,cc=ICU,ACCT-80024,Overtime,earning,162.56
+L-0145,E-5072,cc=ICU,ACCT-80024,Social insurance (employee),deduction,972.28
+L-0146,E-5072,cc=ICU,ACCT-80024,Social insurance (employer),employer,1171.72
+L-0147,E-5072,cc=ICU,ACCT-80024,Net pay,net,9162.39
+L-0148,E-5075,cc=OPD,ACCT-80025,Basic salary,earning,11961.43
+L-0149,E-5075,cc=OPD,ACCT-80025,Housing allowance,earning,65.57
+L-0150,E-5075,cc=OPD,ACCT-80025,Transport allowance,earning,413.00
+L-0151,E-5075,cc=OPD,ACCT-80025,Social insurance (employee),deduction,1166.23
+L-0152,E-5075,cc=OPD,ACCT-80025,Social insurance (employer),employer,1405.46
+L-0153,E-5075,cc=OPD,ACCT-80025,Net pay,net,11273.77
+L-0154,E-5078,cc=LAB,ACCT-80026,Basic salary,earning,12736.82
+L-0155,E-5078,cc=LAB,ACCT-80026,Overtime,earning,879.94
+L-0156,E-5078,cc=LAB,ACCT-80026,Housing allowance,earning,183.18
+L-0157,E-5078,cc=LAB,ACCT-80026,Social insurance (employee),deduction,1241.83
+L-0158,E-5078,cc=LAB,ACCT-80026,Loan installment,deduction,641.40
+L-0159,E-5078,cc=LAB,ACCT-80026,Social insurance (employer),employer,1496.57
+L-0160,E-5078,cc=LAB,ACCT-80026,Net pay,net,11916.71
+L-0161,E-5081,cc=RAD,ACCT-80027,Basic salary,earning,20882.20
+L-0162,E-5081,cc=RAD,ACCT-80027,Phone allowance,earning,1049.01
+L-0163,E-5081,cc=RAD,ACCT-80027,Housing allowance,earning,1859.32
+L-0164,E-5081,cc=RAD,ACCT-80027,Transport allowance,earning,1260.57
+L-0165,E-5081,cc=RAD,ACCT-80027,Social insurance (employee),deduction,2036.01
+L-0166,E-5081,cc=RAD,ACCT-80027,Loan installment,deduction,338.33
+L-0167,E-5081,cc=RAD,ACCT-80027,Social insurance (employer),employer,2453.65
+L-0168,E-5081,cc=RAD,ACCT-80027,Net pay,net,22676.76
+L-0169,E-5084,cc=ICU,ACCT-80028,Basic salary,earning,12473.51
+L-0170,E-5084,cc=ICU,ACCT-80028,Housing allowance,earning,1002.92
+L-0171,E-5084,cc=ICU,ACCT-80028,Social insurance (employee),deduction,1216.16
+L-0172,E-5084,cc=ICU,ACCT-80028,Social insurance (employer),employer,1465.63
+L-0173,E-5084,cc=ICU,ACCT-80028,Net pay,net,12260.27
+L-0174,E-5087,cc=OPD,ACCT-80029,Basic salary,earning,11170.81
+L-0175,E-5087,cc=OPD,ACCT-80029,Transport allowance,earning,1148.71
+L-0176,E-5087,cc=OPD,ACCT-80029,Housing allowance,earning,190.15
+L-0177,E-5087,cc=OPD,ACCT-80029,Phone allowance,earning,1018.41
+L-0178,E-5087,cc=OPD,ACCT-80029,Social insurance (employee),deduction,1089.15
+L-0179,E-5087,cc=OPD,ACCT-80029,Loan installment,deduction,592.31
+L-0180,E-5087,cc=OPD,ACCT-80029,Social insurance (employer),employer,1312.57
+L-0181,E-5087,cc=OPD,ACCT-80029,Net pay,net,11846.62
+L-0182,E-5090,cc=LAB,ACCT-80030,Basic salary,earning,18228.04
+L-0183,E-5090,cc=LAB,ACCT-80030,Social insurance (employee),deduction,1777.23
+L-0184,E-5090,cc=LAB,ACCT-80030,Social insurance (employer),employer,2141.79
+L-0185,E-5090,cc=LAB,ACCT-80030,Net pay,net,16450.81
+L-0186,E-5093,cc=RAD,ACCT-80031,Basic salary,earning,12566.04
+L-0187,E-5093,cc=RAD,ACCT-80031,Phone allowance,earning,750.62
+L-0188,E-5093,cc=RAD,ACCT-80031,Housing allowance,earning,1732.53
+L-0189,E-5093,cc=RAD,ACCT-80031,Transport allowance,earning,619.11
+L-0190,E-5093,cc=RAD,ACCT-80031,Social insurance (employee),deduction,1225.18
+L-0191,E-5093,cc=RAD,ACCT-80031,Loan installment,deduction,313.45
+L-0192,E-5093,cc=RAD,ACCT-80031,Social insurance (employer),employer,1476.50
+L-0193,E-5093,cc=RAD,ACCT-80031,Net pay,net,14129.67
+L-0194,E-5096,cc=ICU,ACCT-80032,Basic salary,earning,9020.90
+L-0195,E-5096,cc=ICU,ACCT-80032,Transport allowance,earning,1105.43
+L-0196,E-5096,cc=ICU,ACCT-80032,Social insurance (employee),deduction,879.53
+L-0197,E-5096,cc=ICU,ACCT-80032,Social insurance (employer),employer,1059.95
+L-0198,E-5096,cc=ICU,ACCT-80032,Net pay,net,9246.80
+L-0199,E-5099,cc=OPD,ACCT-80033,Basic salary,earning,11460.14
+L-0200,E-5099,cc=OPD,ACCT-80033,Housing allowance,earning,1884.19
+L-0201,E-5099,cc=OPD,ACCT-80033,Social insurance (employee),deduction,1117.36
+L-0202,E-5099,cc=OPD,ACCT-80033,Social insurance (employer),employer,1346.56
+L-0203,E-5099,cc=OPD,ACCT-80033,Net pay,net,12226.97
+L-0204,E-5102,cc=LAB,ACCT-80034,Basic salary,earning,15001.34
+L-0205,E-5102,cc=LAB,ACCT-80034,Transport allowance,earning,1503.21
+L-0206,E-5102,cc=LAB,ACCT-80034,Social insurance (employee),deduction,1462.63
+L-0207,E-5102,cc=LAB,ACCT-80034,Social insurance (employer),employer,1762.65
+L-0208,E-5102,cc=LAB,ACCT-80034,Net pay,net,15041.92
+L-0209,E-5105,cc=RAD,ACCT-80035,Basic salary,earning,17037.19
+L-0210,E-5105,cc=RAD,ACCT-80035,Phone allowance,earning,1831.15
+L-0211,E-5105,cc=RAD,ACCT-80035,Overtime,earning,856.23
+L-0212,E-5105,cc=RAD,ACCT-80035,Housing allowance,earning,498.65
+L-0213,E-5105,cc=RAD,ACCT-80035,Social insurance (employee),deduction,1661.12
+L-0214,E-5105,cc=RAD,ACCT-80035,Social insurance (employer),employer,2001.86
+L-0215,E-5105,cc=RAD,ACCT-80035,Net pay,net,18562.10
+L-0216,E-5108,cc=ICU,ACCT-80036,Basic salary,earning,4357.17
+L-0217,E-5108,cc=ICU,ACCT-80036,Transport allowance,earning,980.09
+L-0218,E-5108,cc=ICU,ACCT-80036,Overtime,earning,1076.90
+L-0219,E-5108,cc=ICU,ACCT-80036,Social insurance (employee),deduction,424.82
+L-0220,E-5108,cc=ICU,ACCT-80036,Loan installment,deduction,310.39
+L-0221,E-5108,cc=ICU,ACCT-80036,Social insurance (employer),employer,511.96
+L-0222,E-5108,cc=ICU,ACCT-80036,Net pay,net,5678.95
+L-0223,E-5111,cc=OPD,ACCT-80037,Basic salary,earning,24627.99
+L-0224,E-5111,cc=OPD,ACCT-80037,Transport allowance,earning,292.53
+L-0225,E-5111,cc=OPD,ACCT-80037,Social insurance (employee),deduction,2401.22
+L-0226,E-5111,cc=OPD,ACCT-80037,Social insurance (employer),employer,2893.78
+L-0227,E-5111,cc=OPD,ACCT-80037,Net pay,net,22519.29
+L-0228,E-5114,cc=LAB,ACCT-80038,Basic salary,earning,8687.75
+L-0229,E-5114,cc=LAB,ACCT-80038,Housing allowance,earning,714.92
+L-0230,E-5114,cc=LAB,ACCT-80038,Phone allowance,earning,407.56
+L-0231,E-5114,cc=LAB,ACCT-80038,Social insurance (employee),deduction,847.05
+L-0232,E-5114,cc=LAB,ACCT-80038,Social insurance (employer),employer,1020.81
+L-0233,E-5114,cc=LAB,ACCT-80038,Net pay,net,8963.18
+L-0234,E-5117,cc=RAD,ACCT-80039,Basic salary,earning,6780.09
+L-0235,E-5117,cc=RAD,ACCT-80039,Social insurance (employee),deduction,661.05
+L-0236,E-5117,cc=RAD,ACCT-80039,Social insurance (employer),employer,796.66
+L-0237,E-5117,cc=RAD,ACCT-80039,Net pay,net,6119.04
+Total earnings,282652.37
+Total deductions,27092.92
+Total employer,30004.14
+Total net,255559.44
+End section,PG-2
+
+Section,PG-3
+Entity,Synthetic Clinics Co
+Payroll run,PR-2026-09
+Currency,SAR
+Period start,2026-09-01
+Period end,2026-09-30
+Payroll posting date,2026-09-27
+Payment date,2026-09-28
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+L-0238,E-5120,cc=ICU,ACCT-80040,Basic salary,earning,7312.06
+L-0239,E-5120,cc=ICU,ACCT-80040,Transport allowance,earning,1263.77
+L-0240,E-5120,cc=ICU,ACCT-80040,Overtime,earning,1216.51
+L-0241,E-5120,cc=ICU,ACCT-80040,Social insurance (employee),deduction,712.92
+L-0242,E-5120,cc=ICU,ACCT-80040,Loan installment,deduction,536.14
+L-0243,E-5120,cc=ICU,ACCT-80040,Social insurance (employer),employer,859.16
+L-0244,E-5120,cc=ICU,ACCT-80040,Net pay,net,8543.28
+L-0245,E-5123,cc=OPD,ACCT-80041,Basic salary,earning,13955.90
+L-0246,E-5123,cc=OPD,ACCT-80041,Phone allowance,earning,1006.94
+L-0247,E-5123,cc=OPD,ACCT-80041,Transport allowance,earning,1154.08
+L-0248,E-5123,cc=OPD,ACCT-80041,Social insurance (employee),deduction,1360.70
+L-0249,E-5123,cc=OPD,ACCT-80041,Loan installment,deduction,809.62
+L-0250,E-5123,cc=OPD,ACCT-80041,Social insurance (employer),employer,1639.81
+L-0251,E-5123,cc=OPD,ACCT-80041,Net pay,net,13946.60
+L-0252,E-5126,cc=LAB,ACCT-80042,Basic salary,earning,23612.07
+L-0253,E-5126,cc=LAB,ACCT-80042,Transport allowance,earning,931.66
+L-0254,E-5126,cc=LAB,ACCT-80042,Housing allowance,earning,97.40
+L-0255,E-5126,cc=LAB,ACCT-80042,Overtime,earning,370.03
+L-0256,E-5126,cc=LAB,ACCT-80042,Social insurance (employee),deduction,2302.17
+L-0257,E-5126,cc=LAB,ACCT-80042,Social insurance (employer),employer,2774.41
+L-0258,E-5126,cc=LAB,ACCT-80042,Net pay,net,22708.99
+L-0259,E-5129,cc=RAD,ACCT-80043,Basic salary,earning,3335.56
+L-0260,E-5129,cc=RAD,ACCT-80043,Housing allowance,earning,394.81
+L-0261,E-5129,cc=RAD,ACCT-80043,Phone allowance,earning,799.47
+L-0262,E-5129,cc=RAD,ACCT-80043,Social insurance (employee),deduction,325.21
+L-0263,E-5129,cc=RAD,ACCT-80043,Social insurance (employer),employer,391.92
+L-0264,E-5129,cc=RAD,ACCT-80043,Net pay,net,4204.63
+L-0265,E-5132,cc=ICU,ACCT-80044,Basic salary,earning,14796.91
+L-0266,E-5132,cc=ICU,ACCT-80044,Overtime,earning,567.61
+L-0267,E-5132,cc=ICU,ACCT-80044,Transport allowance,earning,1472.94
+L-0268,E-5132,cc=ICU,ACCT-80044,Phone allowance,earning,1124.27
+L-0269,E-5132,cc=ICU,ACCT-80044,Social insurance (employee),deduction,1442.69
+L-0270,E-5132,cc=ICU,ACCT-80044,Social insurance (employer),employer,1738.63
+L-0271,E-5132,cc=ICU,ACCT-80044,Net pay,net,16519.04
+L-0272,E-5135,cc=OPD,ACCT-80045,Basic salary,earning,6686.00
+L-0273,E-5135,cc=OPD,ACCT-80045,Housing allowance,earning,527.54
+L-0274,E-5135,cc=OPD,ACCT-80045,Social insurance (employee),deduction,651.88
+L-0275,E-5135,cc=OPD,ACCT-80045,Loan installment,deduction,293.37
+L-0276,E-5135,cc=OPD,ACCT-80045,Social insurance (employer),employer,785.60
+L-0277,E-5135,cc=OPD,ACCT-80045,Net pay,net,6268.29
+L-0278,E-5138,cc=LAB,ACCT-80046,Basic salary,earning,14486.00
+L-0279,E-5138,cc=LAB,ACCT-80046,Transport allowance,earning,1343.23
+L-0280,E-5138,cc=LAB,ACCT-80046,Housing allowance,earning,1228.92
+L-0281,E-5138,cc=LAB,ACCT-80046,Social insurance (employee),deduction,1412.38
+L-0282,E-5138,cc=LAB,ACCT-80046,Loan installment,deduction,596.27
+L-0283,E-5138,cc=LAB,ACCT-80046,Social insurance (employer),employer,1702.10
+L-0284,E-5138,cc=LAB,ACCT-80046,Net pay,net,15049.50
+L-0285,E-5141,cc=RAD,ACCT-80047,Basic salary,earning,19564.36
+L-0286,E-5141,cc=RAD,ACCT-80047,Overtime,earning,1279.03
+L-0287,E-5141,cc=RAD,ACCT-80047,Transport allowance,earning,1999.62
+L-0288,E-5141,cc=RAD,ACCT-80047,Social insurance (employee),deduction,1907.52
+L-0289,E-5141,cc=RAD,ACCT-80047,Loan installment,deduction,849.42
+L-0290,E-5141,cc=RAD,ACCT-80047,Social insurance (employer),employer,2298.81
+L-0291,E-5141,cc=RAD,ACCT-80047,Net pay,net,20086.07
+L-0292,E-5144,cc=ICU,ACCT-80048,Basic salary,earning,15568.23
+L-0293,E-5144,cc=ICU,ACCT-80048,Housing allowance,earning,259.73
+L-0294,E-5144,cc=ICU,ACCT-80048,Transport allowance,earning,32.61
+L-0295,E-5144,cc=ICU,ACCT-80048,Social insurance (employee),deduction,1517.90
+L-0296,E-5144,cc=ICU,ACCT-80048,Social insurance (employer),employer,1829.26
+L-0297,E-5144,cc=ICU,ACCT-80048,Net pay,net,14342.67
+L-0298,E-5147,cc=OPD,ACCT-80049,Basic salary,earning,11074.40
+L-0299,E-5147,cc=OPD,ACCT-80049,Transport allowance,earning,1209.21
+L-0300,E-5147,cc=OPD,ACCT-80049,Phone allowance,earning,1307.82
+L-0301,E-5147,cc=OPD,ACCT-80049,Overtime,earning,776.13
+L-0302,E-5147,cc=OPD,ACCT-80049,Social insurance (employee),deduction,1079.75
+L-0303,E-5147,cc=OPD,ACCT-80049,Social insurance (employer),employer,1301.24
+L-0304,E-5147,cc=OPD,ACCT-80049,Net pay,net,13287.81
+L-0305,E-5150,cc=LAB,ACCT-80050,Basic salary,earning,19215.19
+L-0306,E-5150,cc=LAB,ACCT-80050,Social insurance (employee),deduction,1873.48
+L-0307,E-5150,cc=LAB,ACCT-80050,Social insurance (employer),employer,2257.78
+L-0308,E-5150,cc=LAB,ACCT-80050,Net pay,net,17341.71
+L-0309,E-5153,cc=RAD,ACCT-80051,Basic salary,earning,24376.78
+L-0310,E-5153,cc=RAD,ACCT-80051,Housing allowance,earning,1701.33
+L-0311,E-5153,cc=RAD,ACCT-80051,Phone allowance,earning,1584.70
+L-0312,E-5153,cc=RAD,ACCT-80051,Transport allowance,earning,606.66
+L-0313,E-5153,cc=RAD,ACCT-80051,Social insurance (employee),deduction,2376.73
+L-0314,E-5153,cc=RAD,ACCT-80051,Loan installment,deduction,576.69
+L-0315,E-5153,cc=RAD,ACCT-80051,Social insurance (employer),employer,2864.27
+L-0316,E-5153,cc=RAD,ACCT-80051,Net pay,net,25316.05
+L-0317,E-5156,cc=ICU,ACCT-80052,Basic salary,earning,17786.73
+L-0318,E-5156,cc=ICU,ACCT-80052,Social insurance (employee),deduction,1734.20
+L-0319,E-5156,cc=ICU,ACCT-80052,Social insurance (employer),employer,2089.94
+L-0320,E-5156,cc=ICU,ACCT-80052,Net pay,net,16052.53
+L-0321,E-5159,cc=OPD,ACCT-80053,Basic salary,earning,17598.36
+L-0322,E-5159,cc=OPD,ACCT-80053,Social insurance (employee),deduction,1715.84
+L-0323,E-5159,cc=OPD,ACCT-80053,Social insurance (employer),employer,2067.80
+L-0324,E-5159,cc=OPD,ACCT-80053,Net pay,net,15882.52
+L-0325,E-5162,cc=LAB,ACCT-80054,Basic salary,earning,18542.24
+L-0326,E-5162,cc=LAB,ACCT-80054,Housing allowance,earning,1976.57
+L-0327,E-5162,cc=LAB,ACCT-80054,Overtime,earning,308.85
+L-0328,E-5162,cc=LAB,ACCT-80054,Phone allowance,earning,825.75
+L-0329,E-5162,cc=LAB,ACCT-80054,Social insurance (employee),deduction,1807.86
+L-0330,E-5162,cc=LAB,ACCT-80054,Loan installment,deduction,242.99
+L-0331,E-5162,cc=LAB,ACCT-80054,Social insurance (employer),employer,2178.71
+L-0332,E-5162,cc=LAB,ACCT-80054,Net pay,net,19602.56
+L-0333,E-5165,cc=RAD,ACCT-80055,Basic salary,earning,12454.53
+L-0334,E-5165,cc=RAD,ACCT-80055,Phone allowance,earning,817.04
+L-0335,E-5165,cc=RAD,ACCT-80055,Housing allowance,earning,1563.60
+L-0336,E-5165,cc=RAD,ACCT-80055,Social insurance (employee),deduction,1214.31
+L-0337,E-5165,cc=RAD,ACCT-80055,Loan installment,deduction,765.22
+L-0338,E-5165,cc=RAD,ACCT-80055,Social insurance (employer),employer,1463.40
+L-0339,E-5165,cc=RAD,ACCT-80055,Net pay,net,12855.64
+L-0340,E-5168,cc=ICU,ACCT-80056,Basic salary,earning,15242.29
+L-0341,E-5168,cc=ICU,ACCT-80056,Transport allowance,earning,1447.26
+L-0342,E-5168,cc=ICU,ACCT-80056,Phone allowance,earning,1760.27
+L-0343,E-5168,cc=ICU,ACCT-80056,Housing allowance,earning,148.49
+L-0344,E-5168,cc=ICU,ACCT-80056,Social insurance (employee),deduction,1486.12
+L-0345,E-5168,cc=ICU,ACCT-80056,Social insurance (employer),employer,1790.96
+L-0346,E-5168,cc=ICU,ACCT-80056,Net pay,net,17112.19
+L-0347,E-5171,cc=OPD,ACCT-80057,Basic salary,earning,17068.65
+L-0348,E-5171,cc=OPD,ACCT-80057,Social insurance (employee),deduction,1664.19
+L-0349,E-5171,cc=OPD,ACCT-80057,Social insurance (employer),employer,2005.56
+L-0350,E-5171,cc=OPD,ACCT-80057,Net pay,net,15404.46
+L-0351,E-5174,cc=LAB,ACCT-80058,Basic salary,earning,3611.84
+L-0352,E-5174,cc=LAB,ACCT-80058,Overtime,earning,708.87
+L-0353,E-5174,cc=LAB,ACCT-80058,Transport allowance,earning,1460.98
+L-0354,E-5174,cc=LAB,ACCT-80058,Social insurance (employee),deduction,352.15
+L-0355,E-5174,cc=LAB,ACCT-80058,Social insurance (employer),employer,424.39
+L-0356,E-5174,cc=LAB,ACCT-80058,Net pay,net,5429.54
+L-0357,E-5177,cc=RAD,ACCT-80059,Basic salary,earning,16360.92
+L-0358,E-5177,cc=RAD,ACCT-80059,Social insurance (employee),deduction,1595.18
+L-0359,E-5177,cc=RAD,ACCT-80059,Loan installment,deduction,339.13
+L-0360,E-5177,cc=RAD,ACCT-80059,Social insurance (employer),employer,1922.40
+L-0361,E-5177,cc=RAD,ACCT-80059,Net pay,net,14426.61
+Total earnings,327922.72
+Total deductions,33542.03
+Total employer,34386.15
+Total net,294380.69
+End section,PG-3
+
+Section,PG-4
+Entity,Synthetic Clinics Co
+Payroll run,PR-2026-09
+Currency,SAR
+Period start,2026-09-01
+Period end,2026-09-30
+Payroll posting date,2026-09-27
+Payment date,2026-09-28
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+L-0362,E-5180,cc=ICU,ACCT-80060,Basic salary,earning,15148.40
+L-0363,E-5180,cc=ICU,ACCT-80060,Social insurance (employee),deduction,1476.96
+L-0364,E-5180,cc=ICU,ACCT-80060,Loan installment,deduction,696.04
+L-0365,E-5180,cc=ICU,ACCT-80060,Social insurance (employer),employer,1779.93
+L-0366,E-5180,cc=ICU,ACCT-80060,Net pay,net,12975.40
+L-0367,E-5183,cc=OPD,ACCT-80061,Basic salary,earning,21234.63
+L-0368,E-5183,cc=OPD,ACCT-80061,Phone allowance,earning,1780.45
+L-0369,E-5183,cc=OPD,ACCT-80061,Housing allowance,earning,4.68
+L-0370,E-5183,cc=OPD,ACCT-80061,Social insurance (employee),deduction,2070.37
+L-0371,E-5183,cc=OPD,ACCT-80061,Social insurance (employer),employer,2495.06
+L-0372,E-5183,cc=OPD,ACCT-80061,Net pay,net,20949.39
+L-0373,E-5186,cc=LAB,ACCT-80062,Basic salary,earning,9516.58
+L-0374,E-5186,cc=LAB,ACCT-80062,Phone allowance,earning,672.03
+L-0375,E-5186,cc=LAB,ACCT-80062,Social insurance (employee),deduction,927.86
+L-0376,E-5186,cc=LAB,ACCT-80062,Social insurance (employer),employer,1118.19
+L-0377,E-5186,cc=LAB,ACCT-80062,Net pay,net,9260.75
+L-0378,E-5189,cc=RAD,ACCT-80063,Basic salary,earning,3228.96
+L-0379,E-5189,cc=RAD,ACCT-80063,Social insurance (employee),deduction,314.82
+L-0380,E-5189,cc=RAD,ACCT-80063,Loan installment,deduction,533.62
+L-0381,E-5189,cc=RAD,ACCT-80063,Social insurance (employer),employer,379.40
+L-0382,E-5189,cc=RAD,ACCT-80063,Net pay,net,2380.52
+L-0383,E-5192,cc=ICU,ACCT-80064,Basic salary,earning,3256.22
+L-0384,E-5192,cc=ICU,ACCT-80064,Phone allowance,earning,1230.37
+L-0385,E-5192,cc=ICU,ACCT-80064,Housing allowance,earning,1180.67
+L-0386,E-5192,cc=ICU,ACCT-80064,Social insurance (employee),deduction,317.48
+L-0387,E-5192,cc=ICU,ACCT-80064,Loan installment,deduction,395.36
+L-0388,E-5192,cc=ICU,ACCT-80064,Social insurance (employer),employer,382.60
+L-0389,E-5192,cc=ICU,ACCT-80064,Net pay,net,4954.42
+L-0390,E-5195,cc=OPD,ACCT-80065,Basic salary,earning,11516.17
+L-0391,E-5195,cc=OPD,ACCT-80065,Overtime,earning,1414.72
+L-0392,E-5195,cc=OPD,ACCT-80065,Social insurance (employee),deduction,1122.82
+L-0393,E-5195,cc=OPD,ACCT-80065,Social insurance (employer),employer,1353.14
+L-0394,E-5195,cc=OPD,ACCT-80065,Net pay,net,11808.07
+L-0395,E-5198,cc=LAB,ACCT-80066,Basic salary,earning,18607.50
+L-0396,E-5198,cc=LAB,ACCT-80066,Overtime,earning,499.82
+L-0397,E-5198,cc=LAB,ACCT-80066,Social insurance (employee),deduction,1814.23
+L-0398,E-5198,cc=LAB,ACCT-80066,Loan installment,deduction,547.89
+L-0399,E-5198,cc=LAB,ACCT-80066,Social insurance (employer),employer,2186.38
+L-0400,E-5198,cc=LAB,ACCT-80066,Net pay,net,16745.20
+L-0401,E-5201,cc=RAD,ACCT-80067,Basic salary,earning,8238.33
+L-0402,E-5201,cc=RAD,ACCT-80067,Transport allowance,earning,470.31
+L-0403,E-5201,cc=RAD,ACCT-80067,Social insurance (employee),deduction,803.23
+L-0404,E-5201,cc=RAD,ACCT-80067,Social insurance (employer),employer,968.00
+L-0405,E-5201,cc=RAD,ACCT-80067,Net pay,net,7905.41
+L-0406,E-5204,cc=ICU,ACCT-80068,Basic salary,earning,19641.51
+L-0407,E-5204,cc=ICU,ACCT-80068,Phone allowance,earning,1350.73
+L-0408,E-5204,cc=ICU,ACCT-80068,Housing allowance,earning,1795.62
+L-0409,E-5204,cc=ICU,ACCT-80068,Transport allowance,earning,1397.02
+L-0410,E-5204,cc=ICU,ACCT-80068,Social insurance (employee),deduction,1915.04
+L-0411,E-5204,cc=ICU,ACCT-80068,Social insurance (employer),employer,2307.87
+L-0412,E-5204,cc=ICU,ACCT-80068,Net pay,net,22269.84
+L-0413,E-5207,cc=OPD,ACCT-80069,Basic salary,earning,20270.45
+L-0414,E-5207,cc=OPD,ACCT-80069,Social insurance (employee),deduction,1976.36
+L-0415,E-5207,cc=OPD,ACCT-80069,Social insurance (employer),employer,2381.77
+L-0416,E-5207,cc=OPD,ACCT-80069,Net pay,net,18294.09
+L-0417,E-5210,cc=LAB,ACCT-80070,Basic salary,earning,12151.17
+L-0418,E-5210,cc=LAB,ACCT-80070,Overtime,earning,899.55
+L-0419,E-5210,cc=LAB,ACCT-80070,Housing allowance,earning,171.13
+L-0420,E-5210,cc=LAB,ACCT-80070,Transport allowance,earning,630.96
+L-0421,E-5210,cc=LAB,ACCT-80070,Social insurance (employee),deduction,1184.73
+L-0422,E-5210,cc=LAB,ACCT-80070,Social insurance (employer),employer,1427.76
+L-0423,E-5210,cc=LAB,ACCT-80070,Net pay,net,12668.08
+L-0424,E-5213,cc=RAD,ACCT-80071,Basic salary,earning,10154.50
+L-0425,E-5213,cc=RAD,ACCT-80071,Overtime,earning,304.75
+L-0426,E-5213,cc=RAD,ACCT-80071,Housing allowance,earning,543.11
+L-0427,E-5213,cc=RAD,ACCT-80071,Social insurance (employee),deduction,990.06
+L-0428,E-5213,cc=RAD,ACCT-80071,Social insurance (employer),employer,1193.15
+L-0429,E-5213,cc=RAD,ACCT-80071,Net pay,net,10012.30
+L-0430,E-5216,cc=ICU,ACCT-80072,Basic salary,earning,9275.73
+L-0431,E-5216,cc=ICU,ACCT-80072,Overtime,earning,90.27
+L-0432,E-5216,cc=ICU,ACCT-80072,Housing allowance,earning,1583.32
+L-0433,E-5216,cc=ICU,ACCT-80072,Social insurance (employee),deduction,904.38
+L-0434,E-5216,cc=ICU,ACCT-80072,Loan installment,deduction,180.50
+L-0435,E-5216,cc=ICU,ACCT-80072,Social insurance (employer),employer,1089.89
+L-0436,E-5216,cc=ICU,ACCT-80072,Net pay,net,9864.44
+L-0437,E-5219,cc=OPD,ACCT-80073,Basic salary,earning,24036.41
+L-0438,E-5219,cc=OPD,ACCT-80073,Housing allowance,earning,1090.06
+L-0439,E-5219,cc=OPD,ACCT-80073,Transport allowance,earning,930.37
+L-0440,E-5219,cc=OPD,ACCT-80073,Social insurance (employee),deduction,2343.54
+L-0441,E-5219,cc=OPD,ACCT-80073,Social insurance (employer),employer,2824.27
+L-0442,E-5219,cc=OPD,ACCT-80073,Net pay,net,23713.30
+L-0443,E-5222,cc=LAB,ACCT-80074,Basic salary,earning,16829.31
+L-0444,E-5222,cc=LAB,ACCT-80074,Overtime,earning,1367.18
+L-0445,E-5222,cc=LAB,ACCT-80074,Phone allowance,earning,1009.71
+L-0446,E-5222,cc=LAB,ACCT-80074,Transport allowance,earning,839.38
+L-0447,E-5222,cc=LAB,ACCT-80074,Social insurance (employee),deduction,1640.85
+L-0448,E-5222,cc=LAB,ACCT-80074,Social insurance (employer),employer,1977.44
+L-0449,E-5222,cc=LAB,ACCT-80074,Net pay,net,18404.73
+L-0450,E-5225,cc=RAD,ACCT-80075,Basic salary,earning,12910.89
+L-0451,E-5225,cc=RAD,ACCT-80075,Overtime,earning,957.68
+L-0452,E-5225,cc=RAD,ACCT-80075,Social insurance (employee),deduction,1258.81
+L-0453,E-5225,cc=RAD,ACCT-80075,Loan installment,deduction,669.92
+L-0454,E-5225,cc=RAD,ACCT-80075,Social insurance (employer),employer,1517.02
+L-0455,E-5225,cc=RAD,ACCT-80075,Net pay,net,11939.84
+L-0456,E-5228,cc=ICU,ACCT-80076,Basic salary,earning,4131.24
+L-0457,E-5228,cc=ICU,ACCT-80076,Transport allowance,earning,682.55
+L-0458,E-5228,cc=ICU,ACCT-80076,Social insurance (employee),deduction,402.79
+L-0459,E-5228,cc=ICU,ACCT-80076,Social insurance (employer),employer,485.42
+L-0460,E-5228,cc=ICU,ACCT-80076,Net pay,net,4411.00
+L-0461,E-5231,cc=OPD,ACCT-80077,Basic salary,earning,20705.44
+L-0462,E-5231,cc=OPD,ACCT-80077,Transport allowance,earning,1648.00
+L-0463,E-5231,cc=OPD,ACCT-80077,Housing allowance,earning,1138.15
+L-0464,E-5231,cc=OPD,ACCT-80077,Overtime,earning,687.27
+L-0465,E-5231,cc=OPD,ACCT-80077,Social insurance (employee),deduction,2018.78
+L-0466,E-5231,cc=OPD,ACCT-80077,Social insurance (employer),employer,2432.88
+L-0467,E-5231,cc=OPD,ACCT-80077,Net pay,net,22160.08
+L-0468,E-5234,cc=LAB,ACCT-80078,Basic salary,earning,6468.75
+L-0469,E-5234,cc=LAB,ACCT-80078,Social insurance (employee),deduction,630.70
+L-0470,E-5234,cc=LAB,ACCT-80078,Loan installment,deduction,337.21
+L-0471,E-5234,cc=LAB,ACCT-80078,Social insurance (employer),employer,760.07
+L-0472,E-5234,cc=LAB,ACCT-80078,Net pay,net,5500.84
+L-0473,E-5237,cc=RAD,ACCT-80079,Basic salary,earning,5915.19
+L-0474,E-5237,cc=RAD,ACCT-80079,Overtime,earning,1109.36
+L-0475,E-5237,cc=RAD,ACCT-80079,Phone allowance,earning,1943.04
+L-0476,E-5237,cc=RAD,ACCT-80079,Social insurance (employee),deduction,576.73
+L-0477,E-5237,cc=RAD,ACCT-80079,Social insurance (employer),employer,695.03
+L-0478,E-5237,cc=RAD,ACCT-80079,Net pay,net,8390.86
+Total earnings,282659.64
+Total deductions,28051.08
+Total employer,29755.27
+Total net,254608.56
+End section,PG-4
+
+Section,PG-5
+Entity,Synthetic Clinics Co
+Payroll run,PR-2026-09
+Currency,SAR
+Period start,2026-09-01
+Period end,2026-09-30
+Payroll posting date,2026-09-27
+Payment date,2026-09-28
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+L-0479,E-5240,cc=ICU,ACCT-80080,Basic salary,earning,11902.98
+L-0480,E-5240,cc=ICU,ACCT-80080,Housing allowance,earning,1646.18
+L-0481,E-5240,cc=ICU,ACCT-80080,Social insurance (employee),deduction,1160.54
+L-0482,E-5240,cc=ICU,ACCT-80080,Social insurance (employer),employer,1398.60
+L-0483,E-5240,cc=ICU,ACCT-80080,Net pay,net,12388.62
+L-0484,E-5243,cc=OPD,ACCT-80081,Basic salary,earning,19630.45
+L-0485,E-5243,cc=OPD,ACCT-80081,Phone allowance,earning,95.69
+L-0486,E-5243,cc=OPD,ACCT-80081,Social insurance (employee),deduction,1913.96
+L-0487,E-5243,cc=OPD,ACCT-80081,Loan installment,deduction,522.75
+L-0488,E-5243,cc=OPD,ACCT-80081,Social insurance (employer),employer,2306.57
+L-0489,E-5243,cc=OPD,ACCT-80081,Net pay,net,17289.43
+L-0490,E-5246,cc=LAB,ACCT-80082,Basic salary,earning,5085.60
+L-0491,E-5246,cc=LAB,ACCT-80082,Transport allowance,earning,676.47
+L-0492,E-5246,cc=LAB,ACCT-80082,Social insurance (employee),deduction,495.84
+L-0493,E-5246,cc=LAB,ACCT-80082,Loan installment,deduction,398.76
+L-0494,E-5246,cc=LAB,ACCT-80082,Social insurance (employer),employer,597.55
+L-0495,E-5246,cc=LAB,ACCT-80082,Net pay,net,4867.47
+L-0496,E-5249,cc=RAD,ACCT-80083,Basic salary,earning,12469.93
+L-0497,E-5249,cc=RAD,ACCT-80083,Transport allowance,earning,1157.36
+L-0498,E-5249,cc=RAD,ACCT-80083,Social insurance (employee),deduction,1215.81
+L-0499,E-5249,cc=RAD,ACCT-80083,Social insurance (employer),employer,1465.21
+L-0500,E-5249,cc=RAD,ACCT-80083,Net pay,net,12411.48
+L-0501,E-5252,cc=ICU,ACCT-80084,Basic salary,earning,24364.53
+L-0502,E-5252,cc=ICU,ACCT-80084,Overtime,earning,191.44
+L-0503,E-5252,cc=ICU,ACCT-80084,Housing allowance,earning,1536.98
+L-0504,E-5252,cc=ICU,ACCT-80084,Social insurance (employee),deduction,2375.54
+L-0505,E-5252,cc=ICU,ACCT-80084,Social insurance (employer),employer,2862.83
+L-0506,E-5252,cc=ICU,ACCT-80084,Net pay,net,23717.41
+L-0507,E-5255,cc=OPD,ACCT-80085,Basic salary,earning,22816.49
+L-0508,E-5255,cc=OPD,ACCT-80085,Housing allowance,earning,1953.80
+L-0509,E-5255,cc=OPD,ACCT-80085,Transport allowance,earning,1564.58
+L-0510,E-5255,cc=OPD,ACCT-80085,Social insurance (employee),deduction,2224.60
+L-0511,E-5255,cc=OPD,ACCT-80085,Loan installment,deduction,652.72
+L-0512,E-5255,cc=OPD,ACCT-80085,Social insurance (employer),employer,2680.93
+L-0513,E-5255,cc=OPD,ACCT-80085,Net pay,net,23457.55
+L-0514,E-5258,cc=LAB,ACCT-80086,Basic salary,earning,3387.22
+L-0515,E-5258,cc=LAB,ACCT-80086,Housing allowance,earning,1328.01
+L-0516,E-5258,cc=LAB,ACCT-80086,Phone allowance,earning,1471.27
+L-0517,E-5258,cc=LAB,ACCT-80086,Transport allowance,earning,1497.70
+L-0518,E-5258,cc=LAB,ACCT-80086,Social insurance (employee),deduction,330.25
+L-0519,E-5258,cc=LAB,ACCT-80086,Social insurance (employer),employer,397.99
+L-0520,E-5258,cc=LAB,ACCT-80086,Net pay,net,7353.95
+L-0521,E-5261,cc=RAD,ACCT-80087,Basic salary,earning,4836.61
+L-0522,E-5261,cc=RAD,ACCT-80087,Phone allowance,earning,1959.72
+L-0523,E-5261,cc=RAD,ACCT-80087,Social insurance (employee),deduction,471.56
+L-0524,E-5261,cc=RAD,ACCT-80087,Social insurance (employer),employer,568.30
+L-0525,E-5261,cc=RAD,ACCT-80087,Net pay,net,6324.77
+L-0526,E-5264,cc=ICU,ACCT-80088,Basic salary,earning,6543.36
+L-0527,E-5264,cc=ICU,ACCT-80088,Overtime,earning,900.10
+L-0528,E-5264,cc=ICU,ACCT-80088,Social insurance (employee),deduction,637.97
+L-0529,E-5264,cc=ICU,ACCT-80088,Social insurance (employer),employer,768.84
+L-0530,E-5267,cc=OPD,ACCT-80089,Basic salary,earning,6786.48
+L-0531,E-5267,cc=OPD,ACCT-80089,Phone allowance,earning,203.61
+L-0532,E-5267,cc=OPD,ACCT-80089,Transport allowance,earning,548.58
+L-0533,E-5267,cc=OPD,ACCT-80089,Social insurance (employee),deduction,661.68
+L-0534,E-5267,cc=OPD,ACCT-80089,Social insurance (employer),employer,797.41
+L-0535,E-5267,cc=OPD,ACCT-80089,Net pay,net,6876.99
+L-0536,E-5270,cc=LAB,ACCT-80090,Basic salary,earning,18858.56
+L-0537,E-5270,cc=LAB,ACCT-80090,Overtime,earning,110.59
+L-0538,E-5270,cc=LAB,ACCT-80090,Housing allowance,earning,387.67
+L-0539,E-5270,cc=LAB,ACCT-80090,Social insurance (employee),deduction,1838.70
+L-0540,E-5270,cc=LAB,ACCT-80090,Social insurance (employer),employer,2215.88
+L-0541,E-5270,cc=LAB,ACCT-80090,Net pay,net,17518.12
+L-0542,E-5273,cc=RAD,ACCT-80091,Basic salary,earning,19702.78
+L-0543,E-5273,cc=RAD,ACCT-80091,Social insurance (employee),deduction,1921.02
+L-0544,E-5273,cc=RAD,ACCT-80091,Social insurance (employer),employer,2315.07
+L-0545,E-5273,cc=RAD,ACCT-80091,Net pay,net,17781.76
+L-0546,E-5276,cc=ICU,ACCT-80092,Basic salary,earning,24545.26
+L-0547,E-5276,cc=ICU,ACCT-80092,Overtime,earning,172.33
+L-0548,E-5276,cc=ICU,ACCT-80092,Housing allowance,earning,730.13
+L-0549,E-5276,cc=ICU,ACCT-80092,Social insurance (employee),deduction,2393.16
+L-0550,E-5276,cc=ICU,ACCT-80092,Social insurance (employer),employer,2884.06
+L-0551,E-5276,cc=ICU,ACCT-80092,Net pay,net,23054.56
+L-0552,E-5279,cc=OPD,ACCT-80093,Basic salary,earning,7114.44
+L-0553,E-5279,cc=OPD,ACCT-80093,Overtime,earning,853.03
+L-0554,E-5279,cc=OPD,ACCT-80093,Social insurance (employee),deduction,693.65
+L-0555,E-5279,cc=OPD,ACCT-80093,Social insurance (employer),employer,835.94
+L-0556,E-5279,cc=OPD,ACCT-80093,Net pay,net,7273.82
+L-0557,E-5282,cc=LAB,ACCT-80094,Basic salary,earning,6107.69
+L-0558,E-5282,cc=LAB,ACCT-80094,Social insurance (employee),deduction,595.49
+L-0559,E-5282,cc=LAB,ACCT-80094,Social insurance (employer),employer,717.65
+L-0560,E-5282,cc=LAB,ACCT-80094,Net pay,net,5512.20
+L-0561,E-5285,cc=RAD,ACCT-80095,Basic salary,earning,5230.27
+L-0562,E-5285,cc=RAD,ACCT-80095,Housing allowance,earning,467.88
+L-0563,E-5285,cc=RAD,ACCT-80095,Overtime,earning,197.49
+L-0564,E-5285,cc=RAD,ACCT-80095,Transport allowance,earning,1216.27
+L-0565,E-5285,cc=RAD,ACCT-80095,Social insurance (employee),deduction,509.95
+L-0566,E-5285,cc=RAD,ACCT-80095,Social insurance (employer),employer,614.55
+L-0567,E-5285,cc=RAD,ACCT-80095,Net pay,net,6601.96
+L-0568,E-5288,cc=ICU,ACCT-80096,Basic salary,earning,18812.04
+L-0569,E-5288,cc=ICU,ACCT-80096,Social insurance (employee),deduction,1834.17
+L-0570,E-5288,cc=ICU,ACCT-80096,Loan installment,deduction,566.05
+L-0571,E-5288,cc=ICU,ACCT-80096,Social insurance (employer),employer,2210.41
+L-0572,E-5288,cc=ICU,ACCT-80096,Net pay,net,16411.82
+L-0573,E-5291,cc=OPD,ACCT-80097,Basic salary,earning,19900.52
+L-0574,E-5291,cc=OPD,ACCT-80097,Housing allowance,earning,341.41
+L-0575,E-5291,cc=OPD,ACCT-80097,Social insurance (employee),deduction,1940.30
+L-0576,E-5291,cc=OPD,ACCT-80097,Social insurance (employer),employer,2338.31
+L-0577,E-5291,cc=OPD,ACCT-80097,Net pay,net,18301.63
+L-0578,E-5294,cc=LAB,ACCT-80098,Basic salary,earning,5139.52
+L-0579,E-5294,cc=LAB,ACCT-80098,Housing allowance,earning,285.61
+L-0580,E-5294,cc=LAB,ACCT-80098,Overtime,earning,599.20
+L-0581,E-5294,cc=LAB,ACCT-80098,Transport allowance,earning,484.08
+L-0582,E-5294,cc=LAB,ACCT-80098,Social insurance (employee),deduction,501.10
+L-0583,E-5294,cc=LAB,ACCT-80098,Social insurance (employer),employer,603.89
+L-0584,E-5294,cc=LAB,ACCT-80098,Net pay,net,6007.31
+L-0585,E-5297,cc=RAD,ACCT-80099,Basic salary,earning,16856.30
+L-0586,E-5297,cc=RAD,ACCT-80099,Transport allowance,earning,1845.52
+L-0587,E-5297,cc=RAD,ACCT-80099,Housing allowance,earning,611.17
+L-0588,E-5297,cc=RAD,ACCT-80099,Social insurance (employee),deduction,1643.48
+L-0589,E-5297,cc=RAD,ACCT-80099,Loan installment,deduction,540.52
+L-0590,E-5297,cc=RAD,ACCT-80099,Social insurance (employer),employer,1980.61
+L-0591,E-5297,cc=RAD,ACCT-80099,Net pay,net,17128.99
+Total earnings,285124.90
+Total deductions,28039.57
+Total employer,30560.60
+Total net,250279.84
+End section,PG-5
+
+Section,PG-6
+Entity,Synthetic Clinics Co
+Payroll run,PR-2026-09
+Currency,SAR
+Period start,2026-09-01
+Period end,2026-09-30
+Payroll posting date,2026-09-27
+Payment date,2026-09-28
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+L-0592,E-5300,cc=ICU,ACCT-80100,Basic salary,earning,22040.57
+L-0593,E-5300,cc=ICU,ACCT-80100,Phone allowance,earning,1664.28
+L-0594,E-5300,cc=ICU,ACCT-80100,Social insurance (employee),deduction,2148.95
+L-0595,E-5300,cc=ICU,ACCT-80100,Loan installment,deduction,129.24
+L-0596,E-5300,cc=ICU,ACCT-80100,Social insurance (employer),employer,2589.76
+L-0597,E-5300,cc=ICU,ACCT-80100,Net pay,net,21426.66
+L-0598,E-5303,cc=OPD,ACCT-80101,Basic salary,earning,9617.03
+L-0599,E-5303,cc=OPD,ACCT-80101,Transport allowance,earning,46.80
+L-0600,E-5303,cc=OPD,ACCT-80101,Social insurance (employee),deduction,937.66
+L-0601,E-5303,cc=OPD,ACCT-80101,Social insurance (employer),employer,1130.00
+L-0602,E-5303,cc=OPD,ACCT-80101,Net pay,net,8726.17
+L-0603,E-5306,cc=LAB,ACCT-80102,Basic salary,earning,9025.42
+L-0604,E-5306,cc=LAB,ACCT-80102,Social insurance (employee),deduction,879.97
+L-0605,E-5306,cc=LAB,ACCT-80102,Social insurance (employer),employer,1060.48
+L-0606,E-5306,cc=LAB,ACCT-80102,Net pay,net,8145.45
+L-0607,E-5309,cc=RAD,ACCT-80103,Basic salary,earning,17483.39
+L-0608,E-5309,cc=RAD,ACCT-80103,Phone allowance,earning,362.48
+L-0609,E-5309,cc=RAD,ACCT-80103,Housing allowance,earning,658.54
+L-0610,E-5309,cc=RAD,ACCT-80103,Social insurance (employee),deduction,1704.63
+L-0611,E-5309,cc=RAD,ACCT-80103,Loan installment,deduction,810.05
+L-0612,E-5309,cc=RAD,ACCT-80103,Social insurance (employer),employer,2054.29
+L-0613,E-5309,cc=RAD,ACCT-80103,Net pay,net,15989.73
+L-0614,E-5312,cc=ICU,ACCT-80104,Basic salary,earning,19714.86
+L-0615,E-5312,cc=ICU,ACCT-80104,Social insurance (employee),deduction,1922.19
+L-0616,E-5312,cc=ICU,ACCT-80104,Loan installment,deduction,325.00
+L-0617,E-5312,cc=ICU,ACCT-80104,Social insurance (employer),employer,2316.49
+L-0618,E-5312,cc=ICU,ACCT-80104,Net pay,net,17467.67
+L-0619,E-5315,cc=OPD,ACCT-80105,Basic salary,earning,14709.06
+L-0620,E-5315,cc=OPD,ACCT-80105,Phone allowance,earning,841.42
+L-0621,E-5315,cc=OPD,ACCT-80105,Transport allowance,earning,782.75
+L-0622,E-5315,cc=OPD,ACCT-80105,Overtime,earning,1191.97
+L-0623,E-5315,cc=OPD,ACCT-80105,Social insurance (employee),deduction,1434.13
+L-0624,E-5315,cc=OPD,ACCT-80105,Social insurance (employer),employer,1728.31
+L-0625,E-5315,cc=OPD,ACCT-80105,Net pay,net,16091.07
+L-0626,E-5318,cc=LAB,ACCT-80106,Basic salary,earning,15384.35
+L-0627,E-5318,cc=LAB,ACCT-80106,Housing allowance,earning,861.43
+L-0628,E-5318,cc=LAB,ACCT-80106,Overtime,earning,245.83
+L-0629,E-5318,cc=LAB,ACCT-80106,Phone allowance,earning,1524.13
+L-0630,E-5318,cc=LAB,ACCT-80106,Social insurance (employee),deduction,1499.97
+L-0631,E-5318,cc=LAB,ACCT-80106,Social insurance (employer),employer,1807.66
+L-0632,E-5318,cc=LAB,ACCT-80106,Net pay,net,16515.77
+L-0633,E-5321,cc=RAD,ACCT-80107,Basic salary,earning,9013.22
+L-0634,E-5321,cc=RAD,ACCT-80107,Overtime,earning,722.08
+L-0635,E-5321,cc=RAD,ACCT-80107,Social insurance (employee),deduction,878.78
+L-0636,E-5321,cc=RAD,ACCT-80107,Loan installment,deduction,580.56
+L-0637,E-5321,cc=RAD,ACCT-80107,Social insurance (employer),employer,1059.05
+L-0638,E-5321,cc=RAD,ACCT-80107,Net pay,net,8275.96
+L-0639,E-5324,cc=ICU,ACCT-80108,Basic salary,earning,17923.79
+L-0640,E-5324,cc=ICU,ACCT-80108,Phone allowance,earning,1247.37
+L-0641,E-5324,cc=ICU,ACCT-80108,Overtime,earning,1173.29
+L-0642,E-5324,cc=ICU,ACCT-80108,Social insurance (employee),deduction,1747.56
+L-0643,E-5324,cc=ICU,ACCT-80108,Social insurance (employer),employer,2106.04
+L-0644,E-5324,cc=ICU,ACCT-80108,Net pay,net,18596.89
+L-0645,E-5327,cc=OPD,ACCT-80109,Basic salary,earning,23576.41
+L-0646,E-5327,cc=OPD,ACCT-80109,Overtime,earning,1276.80
+L-0647,E-5327,cc=OPD,ACCT-80109,Social insurance (employee),deduction,2298.69
+L-0648,E-5327,cc=OPD,ACCT-80109,Loan installment,deduction,821.34
+L-0649,E-5327,cc=OPD,ACCT-80109,Social insurance (employer),employer,2770.22
+L-0650,E-5327,cc=OPD,ACCT-80109,Net pay,net,21733.18
+L-0651,E-5330,cc=LAB,ACCT-80110,Basic salary,earning,22271.77
+L-0652,E-5330,cc=LAB,ACCT-80110,Overtime,earning,233.23
+L-0653,E-5330,cc=LAB,ACCT-80110,Social insurance (employee),deduction,2171.49
+L-0654,E-5330,cc=LAB,ACCT-80110,Social insurance (employer),employer,2616.93
+L-0655,E-5330,cc=LAB,ACCT-80110,Net pay,net,20333.51
+L-0656,E-5333,cc=RAD,ACCT-80111,Basic salary,earning,10696.65
+L-0657,E-5333,cc=RAD,ACCT-80111,Overtime,earning,361.23
+L-0658,E-5333,cc=RAD,ACCT-80111,Social insurance (employee),deduction,1042.92
+L-0659,E-5333,cc=RAD,ACCT-80111,Social insurance (employer),employer,1256.85
+L-0660,E-5333,cc=RAD,ACCT-80111,Net pay,net,10014.96
+L-0661,E-5336,cc=ICU,ACCT-80112,Basic salary,earning,4057.15
+L-0662,E-5336,cc=ICU,ACCT-80112,Social insurance (employee),deduction,395.57
+L-0663,E-5336,cc=ICU,ACCT-80112,Social insurance (employer),employer,476.71
+L-0664,E-5336,cc=ICU,ACCT-80112,Net pay,net,3661.58
+L-0665,E-5339,cc=OPD,ACCT-80113,Basic salary,earning,10636.00
+L-0666,E-5339,cc=OPD,ACCT-80113,Social insurance (employee),deduction,1037.01
+L-0667,E-5339,cc=OPD,ACCT-80113,Social insurance (employer),employer,1249.73
+L-0668,E-5339,cc=OPD,ACCT-80113,Net pay,net,9598.99
+L-0669,E-5342,cc=LAB,ACCT-80114,Basic salary,earning,24351.26
+L-0670,E-5342,cc=LAB,ACCT-80114,Transport allowance,earning,1765.12
+L-0671,E-5342,cc=LAB,ACCT-80114,Social insurance (employee),deduction,2374.24
+L-0672,E-5342,cc=LAB,ACCT-80114,Social insurance (employer),employer,2861.27
+L-0673,E-5342,cc=LAB,ACCT-80114,Net pay,net,23742.14
+L-0674,E-5345,cc=RAD,ACCT-80115,Basic salary,earning,10633.36
+L-0675,E-5345,cc=RAD,ACCT-80115,Housing allowance,earning,484.67
+L-0676,E-5345,cc=RAD,ACCT-80115,Transport allowance,earning,1789.64
+L-0677,E-5345,cc=RAD,ACCT-80115,Phone allowance,earning,242.46
+L-0678,E-5345,cc=RAD,ACCT-80115,Social insurance (employee),deduction,1036.75
+L-0679,E-5345,cc=RAD,ACCT-80115,Social insurance (employer),employer,1249.41
+L-0680,E-5345,cc=RAD,ACCT-80115,Net pay,net,12113.38
+L-0681,E-5348,cc=ICU,ACCT-80116,Basic salary,earning,10201.42
+L-0682,E-5348,cc=ICU,ACCT-80116,Overtime,earning,1787.25
+L-0683,E-5348,cc=ICU,ACCT-80116,Social insurance (employee),deduction,994.63
+L-0684,E-5348,cc=ICU,ACCT-80116,Loan installment,deduction,705.12
+L-0685,E-5348,cc=ICU,ACCT-80116,Social insurance (employer),employer,1198.66
+L-0686,E-5348,cc=ICU,ACCT-80116,Net pay,net,10288.92
+L-0687,E-5351,cc=OPD,ACCT-80117,Basic salary,earning,15621.50
+L-0688,E-5351,cc=OPD,ACCT-80117,Housing allowance,earning,849.10
+L-0689,E-5351,cc=OPD,ACCT-80117,Phone allowance,earning,1024.60
+L-0690,E-5351,cc=OPD,ACCT-80117,Overtime,earning,1357.04
+L-0691,E-5351,cc=OPD,ACCT-80117,Social insurance (employee),deduction,1523.09
+L-0692,E-5351,cc=OPD,ACCT-80117,Loan installment,deduction,124.34
+L-0693,E-5351,cc=OPD,ACCT-80117,Social insurance (employer),employer,1835.52
+L-0694,E-5351,cc=OPD,ACCT-80117,Net pay,net,17204.81
+L-0695,E-5354,cc=LAB,ACCT-80118,Basic salary,earning,12173.38
+L-0696,E-5354,cc=LAB,ACCT-80118,Housing allowance,earning,1065.25
+L-0697,E-5354,cc=LAB,ACCT-80118,Social insurance (employee),deduction,1186.90
+L-0698,E-5354,cc=LAB,ACCT-80118,Social insurance (employer),employer,1430.37
+L-0699,E-5354,cc=LAB,ACCT-80118,Net pay,net,12051.73
+L-0700,E-5357,cc=RAD,ACCT-80119,Basic salary,earning,5497.46
+L-0701,E-5357,cc=RAD,ACCT-80119,Social insurance (employee),deduction,536.00
+L-0702,E-5357,cc=RAD,ACCT-80119,Social insurance (employer),employer,645.95
+L-0703,E-5357,cc=RAD,ACCT-80119,Net pay,net,4961.46
+Total earnings,308186.81
+Total deductions,31246.78
+Total employer,33443.70
+Total net,276940.03
+End section,PG-6
+
+Run totals,PR-2026-09
+Total earnings,1809856.30
+Total deductions,181177.51
+Total employer,191855.37
+Total net,1621873.29
+End run totals,PR-2026-09

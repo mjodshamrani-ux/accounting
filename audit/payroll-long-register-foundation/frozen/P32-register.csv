@@ -1,0 +1,39 @@
+Section,PG-1
+Entity,Synthetic Clinics Co
+Payroll run,PR-2026-09
+Currency,SAR
+Period start,2026-09-01
+Period end,2026-09-30
+Payroll posting date,2026-09-27
+Payment date,2026-09-28
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+L-0001,0410,cc=LAB,ACCT-70311,Basic salary,earning,5000.00
+L-0002,0410,cc=LAB,ACCT-70311,Housing allowance,earning,1250.00
+L-0003,0410,cc=LAB,ACCT-70311,Transport allowance,earning,500.00
+L-0004,0410,cc=LAB,ACCT-70311,Social insurance (employee),deduction,609.37
+L-0005,0410,cc=LAB,ACCT-70311,Social insurance (employer),employer,734.37
+L-0006,0410,cc=LAB,ACCT-70311,Net pay,net,6140.63
+L-0007,410,cc=LAB,ACCT-70312,Basic salary,earning,5000.00
+L-0008,410,cc=LAB,ACCT-70312,Housing allowance,earning,1250.00
+L-0009,410,cc=LAB,ACCT-70312,Transport allowance,earning,500.00
+L-0010,410,cc=LAB,ACCT-70312,Social insurance (employee),deduction,609.37
+L-0011,410,cc=LAB,ACCT-70312,Social insurance (employer),employer,734.37
+L-0012,410,cc=LAB,ACCT-70312,Net pay,net,6140.63
+L-0013,0420,cc=LAB,ACCT-70313,Basic salary,earning,5100.00
+L-0014,0420,cc=LAB,ACCT-70313,Housing allowance,earning,1275.00
+L-0015,0420,cc=LAB,ACCT-70313,Transport allowance,earning,500.00
+L-0016,0420,cc=LAB,ACCT-70313,Social insurance (employee),deduction,621.56
+L-0017,0420,cc=LAB,ACCT-70313,Social insurance (employer),employer,749.06
+L-0018,420,cc=LAB,ACCT-70313,Net pay,net,6253.44
+Total earnings,20375.00
+Total deductions,1840.30
+Total employer,2217.80
+Total net,18534.70
+End section,PG-1
+
+Run totals,PR-2026-09
+Total earnings,20375.00
+Total deductions,1840.30
+Total employer,2217.80
+Total net,18534.70
+End run totals,PR-2026-09

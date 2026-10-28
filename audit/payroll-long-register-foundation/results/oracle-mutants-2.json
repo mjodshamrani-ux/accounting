@@ -1,0 +1,290 @@
+{
+ "faults": 71,
+ "detected": 71,
+ "results": [
+  {
+   "fault": "every-space-trimmed",
+   "detected": true
+  },
+  {
+   "fault": "byte-order-mark-kept",
+   "detected": true
+  },
+  {
+   "fault": "text-length-501",
+   "detected": true
+  },
+  {
+   "fault": "minus-prefix-allowed",
+   "detected": true
+  },
+  {
+   "fault": "excel-errors-case-sensitive",
+   "detected": true
+  },
+  {
+   "fault": "format-characters-allowed",
+   "detected": true
+  },
+  {
+   "fault": "other-spaces-allowed",
+   "detected": true
+  },
+  {
+   "fault": "impossible-dates-allowed",
+   "detected": true
+  },
+  {
+   "fault": "arabic-digits-not-read",
+   "detected": true
+  },
+  {
+   "fault": "arabic-decimal-not-read",
+   "detected": true
+  },
+  {
+   "fault": "extra-decimals-allowed",
+   "detected": true
+  },
+  {
+   "fault": "blank-amount-is-zero",
+   "detected": true
+  },
+  {
+   "fault": "no-amount-ceiling",
+   "detected": true
+  },
+  {
+   "fault": "stray-quote-tolerated",
+   "detected": true
+  },
+  {
+   "fault": "lone-cr-refused",
+   "detected": true
+  },
+  {
+   "fault": "doubled-quotes-kept",
+   "detected": true
+  },
+  {
+   "fault": "stray-rows-ignored",
+   "detected": true
+  },
+  {
+   "fault": "blank-rows-inside-kept",
+   "detected": true
+  },
+  {
+   "fault": "closure-ignores-the-id",
+   "detected": true
+  },
+  {
+   "fault": "closure-ignores-the-kind",
+   "detected": true
+  },
+  {
+   "fault": "closure-ignores-the-width",
+   "detected": true
+  },
+  {
+   "fault": "run-totals-row-not-a-boundary",
+   "detected": true
+  },
+  {
+   "fault": "unknown-labels-allowed",
+   "detected": true
+  },
+  {
+   "fault": "repeated-labels-allowed",
+   "detected": true
+  },
+  {
+   "fault": "dates-read-as-text",
+   "detected": true
+  },
+  {
+   "fault": "opening-width-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "columns-in-contract-order",
+   "detected": true
+  },
+  {
+   "fault": "column-count-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "broken-header-judged",
+   "detected": true
+  },
+  {
+   "fault": "unclosed-section-excludable",
+   "detected": true
+  },
+  {
+   "fault": "payment-date-not-compared",
+   "detected": true
+  },
+  {
+   "fault": "unclosed-other-scope-read",
+   "detected": true
+  },
+  {
+   "fault": "net-total-read-as-a-line",
+   "detected": true
+  },
+  {
+   "fault": "line-after-totals-allowed",
+   "detected": true
+  },
+  {
+   "fault": "kind-folded",
+   "detected": true
+  },
+  {
+   "fault": "wide-lines-allowed",
+   "detected": true
+  },
+  {
+   "fault": "section-mismatch-ignored",
+   "detected": true
+  },
+  {
+   "fault": "wide-totals-allowed",
+   "detected": true
+  },
+  {
+   "fault": "blank-total-compared",
+   "detected": true
+  },
+  {
+   "fault": "totals-labels-swapped",
+   "detected": true
+  },
+  {
+   "fault": "payment-before-posting-allowed",
+   "detected": true
+  },
+  {
+   "fault": "scope-dates-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "stray-holds-nothing",
+   "detected": true
+  },
+  {
+   "fault": "section-header-holds-nothing",
+   "detected": true
+  },
+  {
+   "fault": "section-columns-hold-nothing",
+   "detected": true
+  },
+  {
+   "fault": "unclosed-holds-nothing",
+   "detected": true
+  },
+  {
+   "fault": "duplicate-sections-allowed",
+   "detected": true
+  },
+  {
+   "fault": "excluded-sections-duplicate",
+   "detected": true
+  },
+  {
+   "fault": "unreadable-line-holds-nothing",
+   "detected": true
+  },
+  {
+   "fault": "kind-blind-run-check",
+   "detected": true
+  },
+  {
+   "fault": "run-totals-of-another-run",
+   "detected": true
+  },
+  {
+   "fault": "unclosed-run-totals-allowed",
+   "detected": true
+  },
+  {
+   "fault": "run-totals-twice-allowed",
+   "detected": true
+  },
+  {
+   "fault": "run-mismatch-ignored",
+   "detected": true
+  },
+  {
+   "fault": "run-earnings-only",
+   "detected": true
+  },
+  {
+   "fault": "payee-and-component-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "kind-holds-nothing",
+   "detected": true
+  },
+  {
+   "fault": "amount-holds-nothing",
+   "detected": true
+  },
+  {
+   "fault": "width-holds-nothing",
+   "detected": true
+  },
+  {
+   "fault": "duplicate-lines-allowed",
+   "detected": true
+  },
+  {
+   "fault": "section-totals-hold-nothing",
+   "detected": true
+  },
+  {
+   "fault": "payee-conflict-allowed",
+   "detected": true
+  },
+  {
+   "fault": "two-nets-allowed",
+   "detected": true
+  },
+  {
+   "fault": "run-codes-not-spread",
+   "detected": true
+  },
+  {
+   "fault": "employer-taken-from-net",
+   "detected": true
+  },
+  {
+   "fault": "net-equation-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "leading-zero-dropped",
+   "detected": true
+  },
+  {
+   "fault": "payee-is-the-employee",
+   "detected": true
+  },
+  {
+   "fault": "every-payee-listed",
+   "detected": true
+  },
+  {
+   "fault": "unplaced-in-found-order",
+   "detected": true
+  },
+  {
+   "fault": "zero-lines-dropped",
+   "detected": true
+  }
+ ]
+}

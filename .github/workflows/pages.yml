@@ -363,6 +363,9 @@ jobs:
           pnpm test:fin-hierarchy:run
           pnpm test:fin-hierarchy:h1-run
           pnpm test:fin-hierarchy:mutations
+          pnpm test:pay-long:oracle
+          pnpm test:pay-long:oracle-mutants
+          pnpm test:pay-long:seal
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations

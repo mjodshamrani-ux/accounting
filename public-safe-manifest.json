@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 67282,
-      "sha256": "43126732ac9e4718fb6931809d554cc09d70ea2e21d2b6859b2a27ce349638a8",
+      "bytes": 67396,
+      "sha256": "6324ce64abefcd7329fb7db1f700361bd470b0af21d12311e8a30e96093c0f80",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 43781,
-      "sha256": "5f8ee5dd7d70d39b7dac8bbfdac65ad0f19563e1ae8b7a624018cb935e49f37b",
+      "bytes": 44268,
+      "sha256": "51b7305a7feac8893b796bc204a1155a597688bb5f050018e8ed76e3bc3502f0",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 21246,
-      "sha256": "38b88a9f5ead9123cd37e0a1dda718579ecfc96d5cb9469baa5463b70e8b6855",
+      "bytes": 21343,
+      "sha256": "9efae74c60b4a009ceb630f3eb882267b05e15150a5c1c3d0a4908ddcba0ead7",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 97612,
-      "sha256": "df3b8905619383b5a5902e8b05b38814f96b2c5b51354164ed81f9c0f32e6e15",
+      "bytes": 98756,
+      "sha256": "e197e610f9952cd696f04b1c240be24b80f411742583a002793c0d6b2a9076e3",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 79946,
-      "sha256": "defa0d8b69090ebac81e3a556af849f31af75d9412545758e939ed7a127ed8ae",
+      "bytes": 80200,
+      "sha256": "d75b1885dd1130c7e4e20f9ed2d96d53d731ba8a4b814743ed7111527c545bac",
       "kind": "text"
     },
     {
@@ -36265,8 +36265,8 @@
     },
     {
       "path": "docs/roadmap/payroll.ar.md",
-      "bytes": 3524,
-      "sha256": "20cb3d7558cb09c2bc893170d9aa696716e103a26f646ccfefc66005587578de",
+      "bytes": 3903,
+      "sha256": "7a49256515a30bc746798fc7878bce3c3fd8b226f91b50abccbce31e2d0acd89",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 45829,
-      "sha256": "5376c1e85153ddfb6de289d8e472c50492000933b48afdff0ccb260261c52645",
+      "bytes": 46247,
+      "sha256": "192876978d3781cb35ffab6494dcb8597f2ea5ee58bab3f7ffe7f60f84b63e51",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 15693,
-      "sha256": "2a6272a5570d4a8b5c13577b70362125acd0c2cbfdae665cde08f5c28ff413b9",
+      "bytes": 15777,
+      "sha256": "1545a3e45e2b20d2085564145ce9f4e1c623ef2657345ea0a02645f6b12a9f07",
       "kind": "text"
     },
     {
@@ -59435,6 +59435,580 @@
       "path": "tests/tb-financial-hierarchy-protocol.test.ts",
       "bytes": 4190,
       "sha256": "adb40b214d5b9018d40ca62096f01eed38751c0cafd3c713a005e770c8565440",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/README.ar.md",
+      "bytes": 4595,
+      "sha256": "b09a3a48359aa2bfd8430c06a8d0f0f77c5d4bec15af3a6c98602d876cad71ef",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/check_seal.py",
+      "bytes": 2737,
+      "sha256": "d40eed49b55e56301984a7921a73f8ece5198e6861dc73f8393b06595cec4c5e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/contract.json",
+      "bytes": 15120,
+      "sha256": "3148cd0dd7ed7b929e11b3922421ee717f5e503ff4aa94ae7bc8cc309663c353",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/EXPECTED.json",
+      "bytes": 145727,
+      "sha256": "0869e329c3f506be176deed2f4412c86adcab789d5bfede3ff9edbcecb870567",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/INPUT-MANIFEST.json",
+      "bytes": 10064,
+      "sha256": "20ea2ba2e3fdd811974deb95f0030ea5632f5ee4bf88d4f422ee34dd547d75ea",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P01-register.csv",
+      "bytes": 3273,
+      "sha256": "567adb58a5609b873bcb1325ed322f518edd55922bf111b2f986993df68034ae",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P01-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P02-register.csv",
+      "bytes": 1577,
+      "sha256": "53fa14d093688bc1264f391bd234932fc8382bf262409461dd2f1ae7d824f5a2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P02-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P03-register.csv",
+      "bytes": 1759,
+      "sha256": "e16089d0e6a413805788b41e8098f2b0832a1db95bab753d55861b120d0e704a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P03-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P04-register.csv",
+      "bytes": 1723,
+      "sha256": "6162836b71f3e2e55b4a05117e3a54c2a59bc6615937092d26555a703cb7b48e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P04-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P05-register.csv",
+      "bytes": 3019,
+      "sha256": "c50214c73ba6eac9fde425b2b44c4ae94a9991e2e8de5cee8ba1016a09e940bb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P05-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P06-register.csv",
+      "bytes": 1777,
+      "sha256": "3aa7dc21da6b6d960da32cfc2054ac6fc8cc0915c323982f14efc23d5aeb058d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P06-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P07-register.csv",
+      "bytes": 1851,
+      "sha256": "f4e0f25de518449e64788af0481f437da80857e9c314b2df998339b0bfa4d8c1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P07-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P08-register.csv",
+      "bytes": 1241,
+      "sha256": "b301c2d1adac651ed7d58a26f2d33b21683bbf26262a81aff0abf9f5bc48ce32",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P08-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P09-register.csv",
+      "bytes": 1579,
+      "sha256": "04faab87b404e7c14b0649df69f47e2a4944707bd2f2b5ec04fd115707ce4bf6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P09-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P10-register.csv",
+      "bytes": 2060,
+      "sha256": "7daca493d008bf6c9e094b5faa4feec3971032adb7e1e65266a418b72a4f8e62",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P10-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P11-register.csv",
+      "bytes": 1438,
+      "sha256": "e00ac1be18dcbe0bb0ba56068bfbae367d1b5929a87c8da0a8e016804ed1ce75",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P11-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P12-register.csv",
+      "bytes": 2081,
+      "sha256": "deeeec662252576fd1e1f4deb2d94dbbdabb2408ef58023977b374408987effd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P12-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P13-register.csv",
+      "bytes": 2069,
+      "sha256": "e90a6a8cdec2eb551d6684d7f27709c4c1a5133f0217aa8cce3a5f3b92b8d6de",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P13-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P14-register.csv",
+      "bytes": 1994,
+      "sha256": "82bf549a78139c16a7d43600f5f8c072ae801a12c5765457d6744d2e72682921",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P14-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P15-register.csv",
+      "bytes": 2033,
+      "sha256": "b79fdac4830669c9f20b2815c12441541c9c1b4b7466ef3be9a35ea0615fe771",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P15-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P16-register.csv",
+      "bytes": 1307,
+      "sha256": "5a08ef8d70057a9b20fc71ae6a370de298fede4c2e5bdb0f1c74a54241643f25",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P16-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P17-register.csv",
+      "bytes": 1423,
+      "sha256": "ad68263345555658174ba96500d0b3e76d2dd0ba9854ea05b81f718231a90c4e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P17-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P18-register.csv",
+      "bytes": 1433,
+      "sha256": "a670a307ca5e1401619372b3209a9457199d43ddc5bf55c3ff970533e46e9177",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P18-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P19-register.csv",
+      "bytes": 2062,
+      "sha256": "37b00fa9658bf2f7d5d24e0605f1bfee25b246a136c6295ffc6dde4834ed602a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P19-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P20-register.csv",
+      "bytes": 1432,
+      "sha256": "bbf0af18199fbf38bec77b5a74f85c7edc7c427a71bb24ad3f23f063ca0cd3d0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P20-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P21-register.csv",
+      "bytes": 2044,
+      "sha256": "93c9e52c7632bcb171785c88e2bcbd5d2325b4b9ee86e8bb376c60f6a8132a04",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P21-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P22-register.csv",
+      "bytes": 1288,
+      "sha256": "4b284c213b7edbf90c8c42d634bbe942f43074dedd5bd498be18c3a6a009595d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P22-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P23-register.csv",
+      "bytes": 1842,
+      "sha256": "0c5b892a9e6b9f8c3036814dcd3dc8b288194933e49445e5dbd5b16b6356ca7c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P23-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P24-register.csv",
+      "bytes": 2029,
+      "sha256": "7103eff73c708a8c192095091f8a252c206cb8e94d0a5266733a105559006f81",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P24-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P25-register.csv",
+      "bytes": 1669,
+      "sha256": "df4e0e0f313caa109f1a35aa5d42344aa0ea12d6c9d5d294055eec7dc6a6aca5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P25-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P26-register.csv",
+      "bytes": 1888,
+      "sha256": "e8e0dee2e803bb3b6aa3c1ac7b3a2dc3d8f140d8ee0197a63caeafa013b74308",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P26-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P27-register.csv",
+      "bytes": 2535,
+      "sha256": "777ec67de1f651392bf55f317c523a1eddc72db589d493a86f14b3a931dd5f74",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P27-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P28-register.csv",
+      "bytes": 2066,
+      "sha256": "5def9e2c366e7dd795fc9c6c937322fd502537b53a9066df95b06e3f481c550e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P28-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P29-register.csv",
+      "bytes": 1295,
+      "sha256": "633a05d6bad84e4346c0bd7fdd68f5aeb5cb6006253946c22564f3a613320e9e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P29-scope.json",
+      "bytes": 218,
+      "sha256": "f12a809a5714a016efaad9ee43742ddb76139a285b0372915c7284588104b467",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P30-register.csv",
+      "bytes": 1439,
+      "sha256": "7156da054847a1048987f8a495adfe9df2482b13134e3061e148ff49c56334d8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P30-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P31-register.csv",
+      "bytes": 1410,
+      "sha256": "5f423e52c9e9a0345b1381899bd543b268bd7a572828906dd39be23c6c2bcbee",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P31-scope.json",
+      "bytes": 218,
+      "sha256": "df15212c6d0a4671f8d72877d6db50aa3dfb8311640c5088962e948c7ea5cd12",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P32-register.csv",
+      "bytes": 1657,
+      "sha256": "06c78099c2abf6c3e3713ec578801c83e921127a3750d74181e002fa22877f60",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P32-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P33-register.csv",
+      "bytes": 1095,
+      "sha256": "f43af8da409d648ba4d28b07e997ba163f57bf705d957abfe28a871141d7383f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P33-scope.json",
+      "bytes": 218,
+      "sha256": "1f97240c8ee9bd278dad1f3bb58a7c8295919f788f54552bbbcdc92c09a8e0c8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P34-register.csv",
+      "bytes": 957,
+      "sha256": "7c9fa9629936ff4c1d94a2d394dd52e93300383167a5f3857406e5bf787a89d5",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic long payroll register for the PAY-1 foundation, written by Python csv in Windows Arabic (cp1256) on purpose so that the proposed payroll-long-register-1 contract refuses it as not UTF-8 (ENCODING); from audit/payroll-long-register-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py. Invented employee IDs, payee accounts, components and amounts; no personal or customer data."
+      }
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P34-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P35-register.csv",
+      "bytes": 661,
+      "sha256": "477d2a5be5f8055360ed05299cf4923cb929dfe696981cfc088c5f8d4554afe8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P35-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P36-register.csv",
+      "bytes": 1446,
+      "sha256": "f6922c9b22c226cefaffe23f301dc68a81a0f9d67d93882ea573c24af46b54d3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P36-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P37-register.csv",
+      "bytes": 1683,
+      "sha256": "976e0cc953af083b19b15625f8b0169af3868139dc6b4f4d616565f107b33760",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P37-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P38-register.csv",
+      "bytes": 48831,
+      "sha256": "fa3e76348cea9f08c8b6c380e4d0079e5812bde4df52621cd99deefc5a983dce",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/P38-scope.json",
+      "bytes": 218,
+      "sha256": "dc2aa3ca7e554b09b1f19a1bdc70285007a26308830928bfe12478541872e6d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/SEAL.json",
+      "bytes": 1131,
+      "sha256": "261bf3c1815541b248f21cb3da5c69c4b30061c7a31b334f9005f925d1137d37",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/VERIFY.json",
+      "bytes": 865,
+      "sha256": "cffcc0089688a06af8bc587a6d75518bf762a9c740a5809f123e9ff22e8c0ffa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/frozen/stories.json",
+      "bytes": 294794,
+      "sha256": "4327a02509817590ac2840135e43ea747bcb6ed81def73cc12ed478e78252178",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/mutate_oracle.py",
+      "bytes": 9250,
+      "sha256": "9d930f722fd7895e53d62906cb77c6dec020711618a2a3e99bb2d7c59e00e213",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/oracle.py",
+      "bytes": 13217,
+      "sha256": "82031c490b8cd9ce2374a798b79d5032139beeb9ae4cdca2a5e0a19433613d7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/render.mjs",
+      "bytes": 522,
+      "sha256": "bc0be51c98cc55dd298b7cee8496a9bf44b6b9a1928e02967d411ab5c111082b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/render.py",
+      "bytes": 2205,
+      "sha256": "12d0bc91bf32f69536a5f5703b95a4b74301d45f4dd5aeaa6119b9b865af786d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/results/oracle-mutants-1.json",
+      "bytes": 4812,
+      "sha256": "38e9855a5b180233cad3d3f19c5c4b1df1a13f4da46d94fa4119ed854e8b526c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/results/oracle-mutants-2.json",
+      "bytes": 4810,
+      "sha256": "ab88b2b52b2b71de8a4f49ca7a5f114cc4027e9638a2929dcd199ddebcc683f7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/seal.py",
+      "bytes": 2013,
+      "sha256": "23c923011153efdd17fd76d5f1487844107c91d4e6aefed31b0c02db10e5bf80",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/stories.py",
+      "bytes": 33102,
+      "sha256": "13b8c78e4731dece0e0b223b30f32c985132c681cfd8e8cb20005394bb108a5e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/test_oracle.py",
+      "bytes": 34928,
+      "sha256": "ba7085d5e91b9751734e6b4a47d5e95c75332bbf9b784ee99db5ee8582e31cf7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-foundation/verify.py",
+      "bytes": 7240,
+      "sha256": "ac405d4c83cbe0aa68b8afa112c7a6e9bfa2cf53fe33af673e7a0797f5ecac95",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/PAY-1-FOUNDATION.ar.md",
+      "bytes": 18500,
+      "sha256": "36b3442c51c7a3b70d42041897f9258f65245cf17bd1459433866c479cbdbeb9",
       "kind": "text"
     }
   ],

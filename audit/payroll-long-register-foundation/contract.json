@@ -1,0 +1,185 @@
+{
+ "schema": "tarasuf-pay1-long-register-foundation/1",
+ "status": "proposed contract and frozen synthetic foundation before any product support for a long payroll register",
+ "synthetic": true,
+ "holdout": false,
+ "productEnabled": false,
+ "proposedFamily": "payroll-long-register-1",
+ "existingFamily": "payroll-posted-run-gl-bank-1, unchanged: a flat register of one row per employee and dimensions with Gross, Deductions, Employer contribution and Net, every row restating nineteen scope fields, compared with a map, policy evidence, the GL and a bank payout proof",
+ "plan": "docs/roadmap/payroll.ar.md#pay-1-مسير-طويل-بمكونات--مخطط-بعد-c-0-وc-1",
+ "challengeIds": [
+  "PAY",
+  "CH-04",
+  "CH-07",
+  "CH-08",
+  "CH-09"
+ ],
+ "why": "Payroll systems print a run as many lines per employee: one per allowance, deduction, employer contribution and the net paid, across pages that repeat their header. Today the accountant must fold that into one row per employee by hand. The dangers PAY-1 names are in that fold: an employee in two cost centres merged or a printed duplicate kept, the payee account taken for the employee, a deduction repeated legitimately dropped as a duplicate, the employer contribution taken out of net, a blank amount read as zero, a page that never arrived.",
+ "claim": "Consistency of one supplied long payroll register within one confirmed run scope: each employee and dimensions with its earnings, deductions, employer contributions and printed net, the net equal to earnings minus deductions, every section's printed totals and the run's printed totals equal to the lines as printed. No posting, no tax, social insurance or entitlement calculation, no payment proof and no completeness opinion on the run beyond its own printed totals.",
+ "runScope": {
+  "fields": [
+   "Entity",
+   "Payroll run",
+   "Currency",
+   "Period start",
+   "Period end",
+   "Payroll posting date",
+   "Payment date"
+  ],
+  "rule": "Confirmed by the accountant for the run. Each value is text by the reading rules; Currency one of the listed currencies; Period start, Period end, Payroll posting date and Payment date real dates, Period start not after Period end and Payroll posting date not after Payment date. Otherwise the run is refused (SCOPE) and nothing is judged. In this foundation the confirmation is <story>-scope.json, an object with exactly these seven fields."
+ },
+ "input": {
+  "role": "long-register",
+  "rule": "One CSV file. It holds sections and one run totals block; every non-blank row outside them is a stray row. A section starts at a row Section, <section ID>; the run totals block at a row Run totals, <payroll run>. Each ends at the first later row whose first cell is Section, End section, Run totals or End run totals, or at the end of the file. An End section or End run totals row that ends a block is part of it; a Section or Run totals row that ends one starts the next. A section is closed when it ends at a row End section, <the same section ID>; the run totals block when it ends at a row End run totals, <the same payroll run>.",
+  "sectionLabels": [
+   "Entity",
+   "Payroll run",
+   "Currency",
+   "Period start",
+   "Period end",
+   "Payroll posting date",
+   "Payment date"
+  ],
+  "sectionRule": "Inside a section, the first row with more than two meaningful cells is the column row. The rows before it are label rows, <label>, <value>, one for each section label, each exactly once, in any order, and no other. The column row holds the seven columns, each once, in any order. After it come line rows and then the total rows: a row whose first cell is a total label is a total row, every other row is a line row.",
+  "columns": [
+   "Line ID",
+   "Employee ID",
+   "Employee dimensions",
+   "Payee account",
+   "Component",
+   "Kind",
+   "Amount"
+  ],
+  "kinds": {
+   "earning": "Adds to the employee's earnings.",
+   "deduction": "Adds to the employee's deductions; taken from the earnings before net.",
+   "employer": "An employer contribution: reported for the employee, never taken from the employee's net.",
+   "net": "The net paid to the employee as printed. Exactly one per employee and dimensions."
+  },
+  "totalLabels": [
+   "Total earnings",
+   "Total deductions",
+   "Total employer",
+   "Total net"
+  ],
+  "totalsRule": "A section's totals and the run totals are each the four total labels, each exactly once, in any order, as rows <label>, <amount> with exactly two meaningful cells. In a section they follow its last line row. The run totals block holds nothing else.",
+  "format": "CSV, UTF-8 with an optional byte-order mark, comma separated, RFC 4180 quoting, LF, CRLF or CR line ends; a file that is not UTF-8 or not valid RFC 4180 refuses the run (ENCODING, CSV). Rows are CSV records, numbered from 1, blank ones included. A cell is empty when nothing is left after removing ordinary spaces (U+0020) at both ends. A row's meaningful cells run to its last non-empty cell, so spreadsheet exports that pad every row to one width read the same. A row whose cells are all empty is ignored anywhere. Section, End section, Run totals, End run totals, labels, column names, total labels and kinds are compared after removing ordinary spaces at both ends, exactly, case included. A Section, End section, Run totals or End run totals row has exactly two meaningful cells.",
+  "roles": "The accountant names the file as the long register. In this foundation: <story>-register.csv."
+ },
+ "reading": {
+  "text": "Section ID, payroll run in the run totals row, label values, Line ID, Employee ID, Employee dimensions, Payee account and Component: ordinary spaces at both ends removed; then non-empty, at most 500 code points, without control (Cc), format (Cf) or separator (Z) characters other than the ordinary space, not starting with = + @ or -, and not starting with an Excel error (#REF!, #VALUE!, #N/A, #DIV/0!, #NAME?, #NULL!, #NUM!, in any case). Compared as written, never folded: no case change, no leading zero added or removed.",
+  "dates": "Ordinary spaces at both ends removed; then YYYY-MM-DD in Latin digits, a real date. The four date labels of a section must be real dates.",
+  "amounts": "Ordinary spaces at both ends removed; Arabic-Indic and Persian digits read as Latin and the Arabic decimal separator as a point; then one or more digits, optionally a point and one or more digits, with no more fraction digits than the run currency has decimals; never negative; no thousands separator; at most 10^14 minor units. A blank amount is not zero (P5).",
+  "currencies": {
+   "SAR": 2,
+   "USD": 2,
+   "EUR": 2,
+   "GBP": 2,
+   "AED": 2,
+   "QAR": 2,
+   "EGP": 2,
+   "KWD": 3,
+   "BHD": 3,
+   "OMR": 3,
+   "JPY": 0
+  }
+ },
+ "sections": {
+  "SECTION_HEADER": "The Section row or a label row fails: the section ID fails the text rules; a label is absent, repeated or unknown; a value fails the text rules; a date label is not a real date. The section is not read and every employee is held: its lines could belong to any employee of any run (P7). Listed as unplaced.",
+  "SECTION_SCOPE": "A closed section whose header reads whole and whose seven label values differ in any one as text from the run scope is excluded and listed by its section ID. Its columns, lines and totals are not judged and count nowhere (P8).",
+  "SECTION_COLUMNS": "A section whose header reads whole and which is not excluded has no column row, or its column row is not the seven columns each once: the section is not read and every employee is held (P7). Listed as unplaced.",
+  "SECTION_UNCLOSED": "A section that ends anywhere but at a row End section with its own section ID: every employee is held, and it is never excluded (P7).",
+  "SECTION_DUPLICATE": "Two sections that are not excluded, whose section IDs read, with the same section ID: every employee is held (P7).",
+  "read": "A section is read when its header reads whole, its labels equal the run scope and its column row reads; closed or not. Only the lines and totals of read sections are judged."
+ },
+ "lines": {
+  "LINE_UNREADABLE": "A line row of a read section whose Employee ID or Employee dimensions fails the text rules: it could be any employee's, so every employee is held (P7). Listed as unplaced.",
+  "IDENTITY": "Line ID, Payee account or Component fails the text rules: the line's employee is held.",
+  "KIND": "Kind, ordinary spaces at both ends removed, is not earning, deduction, employer or net exactly: the line's employee is held.",
+  "AMOUNT": "Amount fails the amount rules, a blank one included: the line's employee is held.",
+  "LINE_WIDTH": "A line row with a non-empty cell beyond the seven columns: the line's employee is held.",
+  "DUPLICATE_LINE": "A Line ID that reads on two or more lines of read sections, in one section or across two: each of their employees is held, even when the lines agree (P2). Two lines with different Line IDs, the same component and the same amount are two lines.",
+  "PAYEE_CONFLICT": "An employee whose lines carry two or more different readable Payee accounts: held.",
+  "NET_REPEATED": "An employee with two or more net lines: held (P1)."
+ },
+ "totals": {
+  "TOTAL_FIELD": "A read section whose totals are not the four total labels each once with exactly two meaningful cells and a readable amount, or with a line row after a total row, or with a line whose kind or amount does not read: its totals cannot be checked, and each employee with a line in it is held.",
+  "TOTAL_MISMATCH": "Otherwise, a read section whose printed total for a kind differs from the sum of its lines of that kind: each employee with a line in it is held.",
+  "RUN_TOTALS": "The file has no run totals block or more than one; the block is not closed; its payroll run differs as text from the run scope or fails the text rules; its rows are not the four total labels each once with exactly two meaningful cells and a readable amount; or a line of a read section has a kind or amount that does not read, so the run totals cannot be checked: every employee is held (P6).",
+  "RUN_TOTAL_MISMATCH": "Otherwise, a printed run total for a kind that differs from the sum of the lines of that kind in every read section: every employee is held. A page that never arrived can hide any employee (P6)."
+ },
+ "judgement": {
+  "employees": "The employees judged are the Employee ID and Employee dimensions of every line of a read section where both read (P1).",
+  "status": "held when a blocking code applies (codes: every one that applies to the employee, the run codes included); otherwise missing when the employee has no net line (codes: NET_ABSENT); otherwise inconsistent when earnings minus deductions is not the printed net (codes: NET_EQUATION); otherwise consistent. The employer contribution is never part of the equation (P4).",
+  "components": "For an employee that is not held: earnings, deductions and employer, the sums of its lines of each kind in minor units; net, its net line's amount, or null when missing; its payee account; and every line as [Line ID, Component, Kind, amount], sorted by Line ID. A written zero is a line (P5). Null for a held employee.",
+  "isolation": "Each employee is decided from its own lines; one employee's difference never offsets another's. Equal amounts never join two employees (P1)."
+ },
+ "codes": {
+  "run": [
+   "STRAY_ROW",
+   "SECTION_HEADER",
+   "SECTION_COLUMNS",
+   "SECTION_UNCLOSED",
+   "SECTION_DUPLICATE",
+   "LINE_UNREADABLE",
+   "RUN_TOTALS",
+   "RUN_TOTAL_MISMATCH"
+  ],
+  "employee": [
+   "IDENTITY",
+   "KIND",
+   "AMOUNT",
+   "LINE_WIDTH",
+   "DUPLICATE_LINE",
+   "PAYEE_CONFLICT",
+   "NET_REPEATED",
+   "TOTAL_FIELD",
+   "TOTAL_MISMATCH"
+  ],
+  "missing": [
+   "NET_ABSENT"
+  ],
+  "inconsistent": [
+   "NET_EQUATION"
+  ],
+  "listed": [
+   "SECTION_SCOPE",
+   "SHARED_PAYEE"
+  ],
+  "STRAY_ROW": "A non-blank row outside every section and outside the run totals block: every employee is held and the row is listed as unplaced (P7).",
+  "refused": [
+   "SCOPE",
+   "ENCODING",
+   "CSV"
+  ]
+ },
+ "result": {
+  "employees": "For each employee (Employee ID|Employee dimensions): status, codes and the components above.",
+  "excludedSections": "Section IDs excluded by SECTION_SCOPE, sorted.",
+  "sharedPayees": "Each Payee account that reads on lines of read sections of two or more different Employee IDs, with those Employee IDs sorted; sorted by payee account. Listed only, never held (P3).",
+  "unplaced": "[row number, code] for each STRAY_ROW row, each LINE_UNREADABLE line row, and the Section row of each section with SECTION_HEADER or SECTION_COLUMNS, sorted by row number.",
+  "totals": "The sums of the lines of read sections by kind (earnings, deductions, employer, net) in minor units when every such line has a readable kind and amount; null otherwise.",
+  "run": "The run codes that apply, sorted.",
+  "refused": "SCOPE, ENCODING or CSV when the run is refused; then nothing else is judged."
+ },
+ "ownerDecisions": {
+  "P1": "An employee is the Employee ID and Employee dimensions as written: one employee in two cost centres is two employees, each with its own net line. The alternative, one net per Employee ID across centres, needs a split rule the register does not print.",
+  "P2": "A Line ID identifies a line: the same Line ID twice holds the employee even when both lines agree, as a page printed twice would. Different Line IDs with the same component and amount are two lines, as a recurring deduction is.",
+  "P3": "The payee account is never the employee. Two employees paid into one payee account stay two employees; the shared account is listed, not held.",
+  "P4": "The employer contribution is never in net: net is earnings minus deductions.",
+  "P5": "A blank amount is not zero; a zero is written. A written zero is a component.",
+  "P6": "The run totals are required and checked against the lines as printed. Without them, or when a line's amount cannot be read, a missing page cannot be seen, so every employee waits.",
+  "P7": "A broken structure anywhere holds every employee: an employee's lines may sit on any page, so a section that cannot be read, a row outside every section or a line whose employee cannot be read may be any employee's. The alternative is to hold only the section's employees.",
+  "P8": "A section of another run, period, currency or date is excluded and listed, and its lines count nowhere, not even in the run totals.",
+  "P9": "Using this register as the register of the five-source family (map, policy evidence, GL and bank payout) is not part of this contract and needs its own decision.",
+  "P10": "A column row printed again inside a section is a line row like any other: its words are not a kind or an amount, so nothing foots until it is removed. The alternative is to skip a row equal to the column row."
+ },
+ "notInScope": [
+  "XLSX and PDF sources",
+  "negative lines, reversals and correction runs (PAY-3)",
+  "tax, social insurance or entitlement calculation",
+  "bank payment proof (PAY-2) and GL comparison",
+  "sessions, decisions and Excel (later layers)",
+  "employee names or any personal field beyond identifiers"
+ ]
+}

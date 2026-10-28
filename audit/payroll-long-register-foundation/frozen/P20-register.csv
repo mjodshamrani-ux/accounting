@@ -1,0 +1,33 @@
+﻿Section,PG-1,,,,,
+Entity,Synthetic Clinics Co,,,,,
+Payroll run,PR-2026-09,,,,,
+Currency,SAR,,,,,
+Period start,2026-09-01,,,,,
+Period end,2026-09-30,,,,,
+Payroll posting date,2026-09-27,,,,,
+Payment date,2026-09-28,,,,,
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+L-0001,E-2001,cc=ICU,ACCT-70191,Basic salary,earning,6100.00
+L-0002,E-2001,cc=ICU,ACCT-70191,Housing allowance,earning,1525.00
+L-0003,E-2001,cc=ICU,ACCT-70191,Transport allowance,earning,500.00
+L-0004,E-2001,cc=ICU,ACCT-70191,Social insurance (employee),deduction,743.43
+L-0005,E-2001,cc=ICU,ACCT-70191,Social insurance (employer),employer,895.93
+L-0006,E-2001,cc=ICU,ACCT-70191,Net pay,net,7381.57
+L-0007,E-2002,cc=ICU,ACCT-70192,Basic salary,earning,6200.00
+L-0008,E-2002,,ACCT-70192,Housing allowance,earning,1550.00
+L-0009,E-2002,cc=ICU,ACCT-70192,Transport allowance,earning,500.00
+L-0010,E-2002,cc=ICU,ACCT-70192,Social insurance (employee),deduction,755.62
+L-0011,E-2002,cc=ICU,ACCT-70192,Social insurance (employer),employer,910.62
+L-0012,E-2002,cc=ICU,ACCT-70192,Net pay,net,7494.38
+Total earnings,16375.00,,,,,
+Total deductions,1499.05,,,,,
+Total employer,1806.55,,,,,
+Total net,14875.95,,,,,
+End section,PG-1,,,,,
+,,,,,,
+Run totals,PR-2026-09,,,,,
+Total earnings,16375.00,,,,,
+Total deductions,1499.05,,,,,
+Total employer,1806.55,,,,,
+Total net,14875.95,,,,,
+End run totals,PR-2026-09,,,,,
