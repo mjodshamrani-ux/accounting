@@ -1,0 +1,7 @@
+"Relation ID","Batch ID",Side,"Transaction ID","Relationship reference","Valid from","Valid to"
+L-901,B-NO,A,N-901,"Machine rental",2027-01-01,2027-12-31
+L-901,B-NO,B,O-901,"Machine rental",2027-01-01,2027-12-31
+L-902,B-NP,A,N-902,Shelving,2027-01-01,2027-12-31
+L-902,B-NP,B,P-902,Shelving,2027-01-01,2027-12-31
+L-904,B-OP,A,O-904,Pallets,2027-01-01,2027-12-31
+L-904,B-OP,B,P-904,Pallets,2027-01-01,2027-12-31

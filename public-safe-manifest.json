@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 60955,
-      "sha256": "42a0e9df94b213ce37449169a09bfc94b853ff280b8d33fd98a32623c88a383f",
+      "bytes": 60992,
+      "sha256": "8df2c17d5872514a50f8272630f52d62859a72d142ac5782b209e07aae76c435",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 39450,
-      "sha256": "d024f0a8a16f8498f49556582fb3a2c784ff44de5c3838407cc2672c4d8681cb",
+      "bytes": 39599,
+      "sha256": "889d256ef1baca8d65820cef4a005d5b6bb2aad231eac3c8897e70694ac8893a",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 41524,
-      "sha256": "34ba5e09c0ea8e8a30a30ce3fefba0f17d91901bbb90b95148c30cf32750567f",
+      "bytes": 41742,
+      "sha256": "1d0169c333bd18cc5db8efd4f1442a09f33f316d45908463ae86ecfd8137b4f7",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 14711,
-      "sha256": "d0bb301ccc0e23f665c3a4175a35a6c16473bbb86ab95674ab6b02a2d9a6942b",
+      "bytes": 14738,
+      "sha256": "35f320b933b0e2fcac603d4a7873598d63cd5d03a349155cc12d8b614862cd9c",
       "kind": "text"
     },
     {
@@ -56417,6 +56417,594 @@
       "path": "tests/intercompany-batch-protocol.test.ts",
       "bytes": 3772,
       "sha256": "f657562aacd488c5f822b9be17f18ad14e9a16cf63f9b4b38fbb7153286fcce2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/README.ar.md",
+      "bytes": 3132,
+      "sha256": "519f7ace1886dd2cde8e85c0414668f75c20482674a0865385f781fdb6a8b666",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/Render.java",
+      "bytes": 3384,
+      "sha256": "b9931e650f5561e0dd75a5fabbe2507ecbafe2c80cc8de0360703f2b0df5e634",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/check_seal.py",
+      "bytes": 2950,
+      "sha256": "2ce5060c7b526b4211a69711a8352d596d1429d4e45f3ca3ea51cbbf1b88db9b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/eligibility.py",
+      "bytes": 3400,
+      "sha256": "6cee0cddbccc85553ef7d486a70a0300e97ded46944367cc73abb6c7f078feae",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/ELIGIBILITY.json",
+      "bytes": 146,
+      "sha256": "28652f2080e218825ff725b3bac2937c10e547db91d50396495edf731d96186d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/EXPECTED.json",
+      "bytes": 194422,
+      "sha256": "5826df9e1cb0ef11c629c4c6eac12029d6f3004ad3638924c48ea50adef7616a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H01-batches.csv",
+      "bytes": 2455,
+      "sha256": "e0c3a17c0519be1d8ff54de6885f1a93f9505bc6a6f4686f731c52b22a26c634",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H01-ledger-1.csv",
+      "bytes": 1711,
+      "sha256": "652f8122faeced5d25bf63097888f9c989c07e62456d250737c71b8eecf1b5fe",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H01-ledger-2.csv",
+      "bytes": 1711,
+      "sha256": "04f0b75d119583b5dbe923cdcbc1c8310d77fd37089b3eb7fc5f8b30dce4f26c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H01-ledger-3.csv",
+      "bytes": 1489,
+      "sha256": "c49cdc1d9b99e448c0c98275de4a5206f5de01532def3d608253acad68d2f9fd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H01-ledger-4.csv",
+      "bytes": 2139,
+      "sha256": "b402dbbbdc1997835778b4b5b65cc3bbd4d04b8755260001a176818751f2f86f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H01-ledger-5.csv",
+      "bytes": 962,
+      "sha256": "57131edd373670efa75d40c8114ece9fe6551e0170e7533aee46c9b4666b2e86",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H01-relations.csv",
+      "bytes": 1972,
+      "sha256": "59a283bb893ee14ea37eca73522537cb9bb00b6664be1925a700fc01173566f4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H02-batches.csv",
+      "bytes": 645,
+      "sha256": "227b299c0339c34aad37937a3f7b6b11a971b6c23ff855d93054e027e0205381",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H02-ledger-1.csv",
+      "bytes": 675,
+      "sha256": "981c14ff35f2d97ea919bcfc4b6658d39563bab5eb1e074805046cbf93da6b3f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H02-ledger-2.csv",
+      "bytes": 674,
+      "sha256": "049fcb98cfe3a4b939323843f443629100b09741bb949f8073b617c1d506058a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H02-ledger-3.csv",
+      "bytes": 676,
+      "sha256": "319907e249fc5372ac9a65ed3065850a09477a3b5aa44512e3cd7608e39fce3e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H02-ledger-4.csv",
+      "bytes": 468,
+      "sha256": "f30b0ad42b0548a328e468c07fdf5be74b7b10be854076933332e17bb8404bb4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H02-relations.csv",
+      "bytes": 450,
+      "sha256": "f683836e71e967866ad3c11f926dcb35468a7268a41259bdd33576e511346c51",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H03-batches.csv",
+      "bytes": 792,
+      "sha256": "b5e0b308fa5990b9e79f49fcd2807ca0e6d1391966f94a8325b4edfddcb27220",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H03-ledger-1.csv",
+      "bytes": 532,
+      "sha256": "f993fafbad8f6e48983deac1186d0c36161839cb88beb34109a14f41e7c74ec0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H03-ledger-2.csv",
+      "bytes": 825,
+      "sha256": "a2b251eaddf8af91afb2247251c9ae03e0d2e898ea60ee2dffed11aef80d3ec6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H03-ledger-3.csv",
+      "bytes": 530,
+      "sha256": "354340c327f225f3c1944dd64800512d65000e023b019bdb419b55cd9d957a73",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H03-relations.csv",
+      "bytes": 488,
+      "sha256": "516f2da84aeb14d5801d3522cc312632d2db73eb105f093eeac524075f9b8401",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H04-batches.csv",
+      "bytes": 814,
+      "sha256": "af90af912549f9d911ed0941d5f0dc5ef02ba8bb4555b37c481b90e52d302c07",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H04-ledger-1.csv",
+      "bytes": 639,
+      "sha256": "0b53535f6cb8d065e6d7be9eb6a79e92673b18117a1ca489365c026810fecae4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H04-ledger-2.csv",
+      "bytes": 438,
+      "sha256": "84a87be905c9871d4cb238facfaff30865adaf7a078bc7855e41de7899774895",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H04-ledger-3.csv",
+      "bytes": 438,
+      "sha256": "5e482ccb7b4c41bf6c7938ad00cc81ce7c06bc880825e11ab391a5e7d5e84b56",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H04-relations.csv",
+      "bytes": 290,
+      "sha256": "2fefb7dea90f0d415f8387c6186d1a2c733397f7b31b972e0f10aad01b369d9d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H05-batches.csv",
+      "bytes": 646,
+      "sha256": "5d8028cd83c8120aeba1d729040d5107b811f9fc3398301723ef4fd08467075b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H05-ledger-1.csv",
+      "bytes": 1300,
+      "sha256": "044e8d6b784fdb6551de1e52db269ea272e5bb2a70d4fb9292d73fcf26e34ef7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H05-ledger-2.csv",
+      "bytes": 1093,
+      "sha256": "8dc0d470e500e596978ce6113c59ac3d7a69d1e4ae84883564b03e812756f9e4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H05-ledger-3.csv",
+      "bytes": 467,
+      "sha256": "e1c93290e2d3654239effc06c49ccc6c2c62b72046ce7112590b692fae83c2bf",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H05-relations.csv",
+      "bytes": 700,
+      "sha256": "6e66aa2114b7d87d815bb24a68898817078b960c0de9d284fb628f9821cd3c8a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H06-batches.csv",
+      "bytes": 746,
+      "sha256": "f511bb31dc08c66c56c75176425fd5c4f18675776f1e433a5acdc8d7902ad0e2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H06-ledger-1.csv",
+      "bytes": 795,
+      "sha256": "bb6746a8213cd7f2917f36b720c145486fa7df3133b66adcf9e90f7b08bd1e3a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H06-ledger-2.csv",
+      "bytes": 564,
+      "sha256": "a7e14f69990053a078f040e84f896ce670d9634975f6faf207c251d75e902d19",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H06-ledger-3.csv",
+      "bytes": 514,
+      "sha256": "b36e06492b517f0e260ad97bf4d2171bbb0fc9efc6913357c6307b76720f1f5e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H06-relations.csv",
+      "bytes": 403,
+      "sha256": "359aeb59b837c44252cd71fd526544c8321f5acc8088f39526ff53858b05483e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H07-batches.csv",
+      "bytes": 607,
+      "sha256": "a72e67cd4902c14d7bd4509214842be7aac453ef97edfd60360a485574440236",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H07-ledger-1.csv",
+      "bytes": 644,
+      "sha256": "361d7fffbbf47ac3e1fa6b6376f1bb706a6ead3bb3b2364f1da43c6dc739260b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H07-ledger-2.csv",
+      "bytes": 441,
+      "sha256": "a2b5fa485d1a7fd0a4c8449a7f6a56b9fd93a1c1cab54406efbeaea68378731e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H07-ledger-3.csv",
+      "bytes": 440,
+      "sha256": "196e32b11997fb04baab3d2eb9a42e94882c2e27e04a12d0ab92db7872c008d0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H07-relations.csv",
+      "bytes": 335,
+      "sha256": "1cfa7a633df530fc7eee6b85e8afd2adf2bfe8b6cedfaf489d8c0a0a6dcdae33",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H08-batches.csv",
+      "bytes": 843,
+      "sha256": "85c7bf4eef82948dd89d170f3aa79f55e95ab06864a080a29c859a345a9da6ce",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H08-ledger-1.csv",
+      "bytes": 858,
+      "sha256": "93c35fcd1580a903b108e9c11daa0e628e936fceb9074e5a8e6dd59fc75363c0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H08-ledger-2.csv",
+      "bytes": 438,
+      "sha256": "76e7c320da85e0cd2a1974c81c887aa392e1533a8e24de5dc73d44556be57664",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H08-ledger-3.csv",
+      "bytes": 436,
+      "sha256": "b3fdc270002b4ce29aeb79d5607be282dc1b89b14d37f5b9ec7557a5ad3317dc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H08-ledger-4.csv",
+      "bytes": 471,
+      "sha256": "bb47a7a306e458793b184ec62e0c0e3c6a01d4e801c5a8402651c75c71570877",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H08-relations.csv",
+      "bytes": 413,
+      "sha256": "88592df7e0682c33016f7caff4e7fbb4c078cac9e91daba9495666be8f581f74",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H09-batches.csv",
+      "bytes": 851,
+      "sha256": "157d17fa1f8d33fddab9ec0a793bf0ae9a83fecd2b4f14a7436815374242aa4b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H09-ledger-1.csv",
+      "bytes": 881,
+      "sha256": "4b0c868171a58f05d3f3dd2a761c971d85a80d1dbc34ec5bda268b6c7edb005d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H09-ledger-2.csv",
+      "bytes": 674,
+      "sha256": "df2e51057fbe624f6b325115bb1e86bf7e1c95bff22f662c29927a8dabae38c2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H09-ledger-3.csv",
+      "bytes": 674,
+      "sha256": "bc4fc379a107b85caa7e1b59fa1798a1edc7024d2f8d7a6a09c27c53672bf36d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H09-relations.csv",
+      "bytes": 410,
+      "sha256": "b9daf08f766e2f49708a8314f192315b061e3d5341f35b98cde65416db10a6e9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H10-batches.csv",
+      "bytes": 640,
+      "sha256": "cde69cf68bb7c13c2a0f6534d3d1503fa6496843c370b83691267eab743feab2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H10-ledger-1.csv",
+      "bytes": 870,
+      "sha256": "eea10db0308efefddb172a91cd28025531b15a701a3c253f5f74b548835fe01f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H10-ledger-2.csv",
+      "bytes": 476,
+      "sha256": "5a593510b35707e26f326bec473a88ac572ef4153405d4c0547b149dcb4c9eb6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H10-ledger-3.csv",
+      "bytes": 647,
+      "sha256": "92b0dbf50410eb5451d2de393b5b9ab155bc19a8e332a0ac2993a8e1474d683f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H10-relations.csv",
+      "bytes": 411,
+      "sha256": "cff9c260be46ae07d022a0d84143bef93d209e3ee2f3dadd6c59700a9d3f2c99",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H11-batches.csv",
+      "bytes": 603,
+      "sha256": "2c65bbf256b7334d0a022ac901ba6ae48504ae42f364c13f8b9a6d494e231ef7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H11-ledger-1.csv",
+      "bytes": 440,
+      "sha256": "2296d6e020eee0a743410b6496ef49a1c57be4c2e6d4f8c0cf36ffff0267cc3f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H11-ledger-2.csv",
+      "bytes": 643,
+      "sha256": "ea04bdbdef4f544032995be499d54ecf77baf1be1802f12ebcc5c05ecfb6cea3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H11-ledger-3.csv",
+      "bytes": 459,
+      "sha256": "e3018d1e8a5fe642e1c80f0f4500e0d6ebefcb4cd36853eb3ff92047b669cb61",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H11-relations.csv",
+      "bytes": 276,
+      "sha256": "9913fcfb76f8c0a05de45075e517133b656d41fc0ae9ce983766151c5a7cfa0b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H12-batches.csv",
+      "bytes": 1493,
+      "sha256": "e91be2ca109cb607065e03d7c048fe406e6314aa35d06b996eb44a2a2e134f83",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H12-ledger-1.csv",
+      "bytes": 770,
+      "sha256": "dfd0aaad0309742a0e6c9e7f8053012297924b73b6fffcef3501d8e4509aec7e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H12-ledger-2.csv",
+      "bytes": 754,
+      "sha256": "7e0fd30d7542dcea3137aad02c4c007f51237c18d199c5ba15a388471f046ff3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H12-ledger-3.csv",
+      "bytes": 755,
+      "sha256": "c04ea593b9f510524206e4a4bb99ea27ffb2dce71c42e5ac13fb2165e4d9a084",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H12-ledger-4.csv",
+      "bytes": 771,
+      "sha256": "8480cadd2b1c1e61ed23764e12426272033e2dda0655a8f4c06c1650a30e55be",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H12-ledger-5.csv",
+      "bytes": 821,
+      "sha256": "7e5228cd112a2be122ba37440a63e388ab6869c7afed3a02db58c214447fdac7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H12-relations.csv",
+      "bytes": 718,
+      "sha256": "0300674671b434b777bb040613790ff92f266e48b36363882e7d05ba6933a0b3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H13-batches.csv",
+      "bytes": 617,
+      "sha256": "e257808851f7625cec627ac86e842906665cb7ed65d9af4f21113de5ce5b1cf5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H13-ledger-1.csv",
+      "bytes": 650,
+      "sha256": "a5f86da3c11f363234d92c6f27357107a057dc71c6f5319df38f210e1a71851d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H13-ledger-2.csv",
+      "bytes": 650,
+      "sha256": "3c61220ee96e184e9b696fdbf17062be97b0805b0ea25632541a361fd0845f76",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H13-relations.csv",
+      "bytes": 337,
+      "sha256": "c33db1e10bb4013ba79a2f30312ec0e5fa76ae5d22e0c205aa7175c6bd877279",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H14-batches.csv",
+      "bytes": 682,
+      "sha256": "e7f768944da8263c6875d1b454c814a13b837c7b597b72d329f4eac637f0a54e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H14-ledger-1.csv",
+      "bytes": 922,
+      "sha256": "0ffc535a548ecea94c9dbc024f87c970b0ebc6b26d8236e5947a32dfe70c69c7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H14-ledger-2.csv",
+      "bytes": 1490,
+      "sha256": "f01a6c0328fcd87a176d6cef14c08a203c6d10fa9ce4a4bbc3644fa8778ef855",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H14-ledger-3.csv",
+      "bytes": 469,
+      "sha256": "7c28b7cd5090c890500812559de2b0334d7aa13810cc4f024f807abbf3ddfd86",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H14-relations.csv",
+      "bytes": 679,
+      "sha256": "738a3f8f1a018623d17bf1f31942de594bc1c72129a6b4b7e7e0c31d3732b25a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H15-batches.csv",
+      "bytes": 1421,
+      "sha256": "1bdcb3e3501a90a4543ba7083fec83679aee54db259ae4ae0197133a1f466ff5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H15-ledger-1.csv",
+      "bytes": 40209,
+      "sha256": "72e2969a94893f96a704ac8b23b03af421dc71ec21c20e5d7c734fdd88f30350",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H15-ledger-2.csv",
+      "bytes": 36079,
+      "sha256": "1c2f05d342dbfcb8e426f7cce3be4c166d2e638d965781b78eba068ada600594",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H15-ledger-3.csv",
+      "bytes": 36120,
+      "sha256": "e6b5d033a477706167960b1a11379815764e88ebe455a17e7be08c0b61034a31",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H15-ledger-4.csv",
+      "bytes": 37090,
+      "sha256": "fc6b6b79f97169b31b1b1ed49368a21ccf0ec379ef62cfd86e1cad44a4e4b4fa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/H15-relations.csv",
+      "bytes": 44415,
+      "sha256": "d4fd9c6d726b8343d18ed2800b8f7ba5313c581d2aa5c9aeafb8f0dfcaa3ef1d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/INPUT-MANIFEST.json",
+      "bytes": 10617,
+      "sha256": "f46ce0ae8432c8d96dc836e755db130e4bb8fdabfb70c1afd3e5c96982f33b24",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/SEAL.json",
+      "bytes": 1457,
+      "sha256": "91985322719330da96491a3f130305d3cb24aad6f0a597946de86d4c442e6fe0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/VERIFY.json",
+      "bytes": 11059,
+      "sha256": "a2b0e7073d6de0c94a072518428baace5233a2355e19144696f539a27ebd76a0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/frozen/stories.json",
+      "bytes": 569969,
+      "sha256": "3ea85ebcb92eada1bb24ea59b3ed74de71e51226a0df686f207254c7fba05517",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/render.go",
+      "bytes": 611,
+      "sha256": "faf29c69edf246df087c531808e7eadd5cead363fe7b487a6d96288afad53fde",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/render.php",
+      "bytes": 446,
+      "sha256": "770d1c0318bc9979bd15ac7be203a914d326af346fe2f31d1ed8aa2162fb2fc1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/render.py",
+      "bytes": 3375,
+      "sha256": "206bab8b6b5af279661afccbf7a88e4659586a1bb2ec7f6410c76ed7d1c14c8a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/seal.py",
+      "bytes": 2145,
+      "sha256": "6371c864d13dd37fd9713983f656b8bdb9f99e468390856fa41adb20b37e556f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/stories.py",
+      "bytes": 22910,
+      "sha256": "2cd7205eded8970640bc50702d9cd4571e0e7d6df70fd924b3c85d55bb103ec8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/test_intent.py",
+      "bytes": 2105,
+      "sha256": "8b58c268187da8b1d0bcf62170d6e080d9dd730514d8ba2c2f77985362a85229",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/verify.py",
+      "bytes": 5785,
+      "sha256": "649befa52291dc6412eb2bad6c32dafb186e1eea480eb0bb454698ce7b44c3ff",
       "kind": "text"
     }
   ],

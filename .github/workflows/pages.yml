@@ -346,6 +346,7 @@ jobs:
           pnpm test:ic-batch:baseline
           pnpm test:ic-batch:run
           pnpm test:ic-batch:mutations
+          pnpm test:ic-batch:h1-seal
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations

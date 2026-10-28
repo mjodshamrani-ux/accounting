@@ -1,0 +1,7 @@
+Batch ID,Entity A,Entity B,Ledger A,Ledger B,Account A,Account B,Dimensions A,Dimensions B,Currency,Currency basis,FX policy,Posting status,Posting layer,Period start,Period end,As of,Policy version
+S-NO,Nadir Industrial Co,Orbit Logistics LLC,NADIR-LEDGER,ORBIT-LEDGER,1378,2379,branch=JED,branch=DMM,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+S-NP,Nadir Industrial Co,Pillar Retail Est.,NADIR-LEDGER,PILLAR-LEDGER,1378,2380,branch=JED,branch=RUH,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+S-NQ,Nadir Industrial Co,Quartz Services WLL,NADIR-LEDGER,QUARTZ-LEDGER,1378,2381,branch=JED,branch=KWI,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+S-OP,Orbit Logistics LLC,Pillar Retail Est.,ORBIT-LEDGER,PILLAR-LEDGER,1379,2380,branch=DMM,branch=RUH,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+S-OQ,Orbit Logistics LLC,Quartz Services WLL,ORBIT-LEDGER,QUARTZ-LEDGER,1379,2381,branch=DMM,branch=KWI,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+S-PQ,Pillar Retail Est.,Quartz Services WLL,PILLAR-LEDGER,QUARTZ-LEDGER,1380,2381,branch=RUH,branch=KWI,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7

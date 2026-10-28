@@ -188,6 +188,7 @@ const required = [
   'test:ic-batch:baseline',
   'test:ic-batch:run',
   'test:ic-batch:mutations',
+  'test:ic-batch:h1-seal',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',

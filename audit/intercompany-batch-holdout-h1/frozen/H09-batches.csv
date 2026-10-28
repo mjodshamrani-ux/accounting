@@ -1,0 +1,4 @@
+"Batch ID","Entity A","Entity B","Ledger A","Ledger B","Account A","Account B","Dimensions A","Dimensions B",Currency,"Currency basis","FX policy","Posting status","Posting layer","Period start","Period end","As of","Policy version"
+B-NO,"Nadir Industrial Co","Orbit Logistics LLC",NADIR-LEDGER,ORBIT-LEDGER,1660,2660,branch=JED,branch=DMM,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+B-NP,"Nadir Industrial Co","Pillar Retail Est.",NADIR-LEDGER,PILLAR-LEDGER,1670,2670,branch=JED,branch=RUH,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+B-OP,"Orbit Logistics LLC","Pillar Retail Est.",ORBIT-LEDGER,PILLAR-LEDGER,1680,2680,branch=DMM,branch=RUH,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7

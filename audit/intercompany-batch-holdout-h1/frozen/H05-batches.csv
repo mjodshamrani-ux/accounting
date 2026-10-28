@@ -1,0 +1,3 @@
+"Batch ID","Entity A","Entity B","Ledger A","Ledger B","Account A","Account B","Dimensions A","Dimensions B",Currency,"Currency basis","FX policy","Posting status","Posting layer","Period start","Period end","As of","Policy version"
+B-PQ,"Pillar Retail Est.","Quartz Services WLL",PILLAR-LEDGER,QUARTZ-LEDGER,1570,2570,branch=RUH,branch=KWI,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+B-PN,"Pillar Retail Est.","Nadir Industrial Co",PILLAR-LEDGER,NADIR-LEDGER,1580,2580,branch=RUH,branch=JED,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
