@@ -14,6 +14,7 @@
 | [`mutate_oracle.py`](mutate_oracle.py) | 52 خطأ مزروعًا في نسخة من الأوراكل. يجب أن يفشل كل منها بـassertion |
 | [`verify.py`](verify.py) | فحص مستقل لكل ملف بقارئ مكتوب هنا: الخلايا مطابقة للحقائق، وعلامة ترتيب البايت، ونهايات الأسطر، والاقتباس، والمد بالخلايا الفارغة، ونطاق كل قصة. ثم 8 تغييرات مزروعة يجب أن تُرفض |
 | [`seal.py`](seal.py) و[`check_seal.py`](check_seal.py) | الختم والتحقق منه |
+| [`engine-run.mjs`](engine-run.mjs) | المحرك `gl-tb-sections-1` على القصص المختومة عبر الإعادة من البايتات، مقارنًا بـ`EXPECTED.json` كاملًا. التشغيل الأول في `results/engine-run-1.json` كما جاء ([GLT-1b](../../docs/audits/GLT-1B.ar.md)) |
 | [`baseline.mjs`](baseline.mjs) و`results/` | سجل المنتج كما هو، كُتب بعد الختم: الملفان في دوري العائلة القائمة، ثم مقسومين باليد حسابًا حسابًا. التشغيل الأول في `results/baseline-1.json` كما جاء |
 | `frozen/` | 58 ملف CSV، و29 ملف نطاق، و`stories.json`، و`EXPECTED.json`، و`VERIFY.json`، و`INPUT-MANIFEST.json`، و`SEAL.json` |
 

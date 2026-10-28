@@ -194,6 +194,8 @@ const required = [
   'test:glt-sections:oracle-mutants',
   'test:glt-sections:seal',
   'test:glt-sections:baseline',
+  'test:glt-sections:run',
+  'test:glt-sections:mutations',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',

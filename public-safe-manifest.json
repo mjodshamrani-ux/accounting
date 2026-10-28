@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 61522,
-      "sha256": "030c11eb04055a488c1297afe145e8fec178b08fd7036d540d50359b0c31c1fe",
+      "bytes": 61602,
+      "sha256": "1ee9c890abe41b3c4546af604e6881d7933b9f3217b1b6e226ce7183b71dd19a",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 40686,
-      "sha256": "3ffc60e5754a7c947dc995619004cca7aa88b348dc43624711570208ee4ab274",
+      "bytes": 40993,
+      "sha256": "372e9167bebda9dae053c4e477e92cff9448070cc0df4ef028f7c1044d4dde60",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 20764,
-      "sha256": "f31f7566c45127792562109fa55fdfbffd9c676febff4a356910c45e893a0862",
+      "bytes": 20838,
+      "sha256": "968fa7edf1ad4729a9c47055d67678ad4b3eb4de13962333c4a093da83374af4",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 91227,
-      "sha256": "7d679a454923280660e631d74cdbd6f7b460d816ac17050cac28994095a76f70",
+      "bytes": 91932,
+      "sha256": "8e2031d6f910e3d144a1e9a6b74e1394c991d938762867f07e44730c29d97e57",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 78265,
-      "sha256": "6379fb467f4952ea95d8da252887f527eb29bd463aae326a05c841c68616a492",
+      "bytes": 78487,
+      "sha256": "0e82def9077220bc567fadf07e3d6bb5f0b069f80bd74ae6a473e42086d112b0",
       "kind": "text"
     },
     {
@@ -36241,8 +36241,8 @@
     },
     {
       "path": "docs/roadmap/gl-tb.ar.md",
-      "bytes": 3564,
-      "sha256": "f89b4f9fcdcf283c988bb4ef1aba63909e886dd49340d45e67a67a0390cb133b",
+      "bytes": 3626,
+      "sha256": "fe3441cddaddf93c7852e5e3b22e65eb1065f8a1cb16b7607e836fd86d26db19",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 42833,
-      "sha256": "a0524597d58be60eda647dc43168a3ad0996d5ec71c95eea57cb10dddcafabf7",
+      "bytes": 43162,
+      "sha256": "cbc01462029f377bd08be80a593067dd965699f3929f695cde41e91fd4d02d1f",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 14933,
-      "sha256": "bd4b9c7db60f5ae434ba71d8ea767ab396851df77b88807f917d6e2c07a56c17",
+      "bytes": 14993,
+      "sha256": "2c6c81f71eb0587acec03c2bf0c7326b17a506b72f131c2ee1942db779f38d1f",
       "kind": "text"
     },
     {
@@ -57027,8 +57027,8 @@
     },
     {
       "path": "audit/gl-tb-sections-foundation/README.ar.md",
-      "bytes": 4780,
-      "sha256": "13be2c57660bc1b3fa557d9c4e2836b4c6ca419d0643a55c0f22ad58e7ad3905",
+      "bytes": 5099,
+      "sha256": "8beb78a6cc867c302403907613211f0b58c2ceafd88ededb0955bb1394a0840c",
       "kind": "text"
     },
     {
@@ -57659,6 +57659,48 @@
       "path": "audit/gl-tb-sections-foundation/results/baseline-1.json",
       "bytes": 73890,
       "sha256": "33f0d217c610b46f07c5880c80c326bb66a494c806a45e6d67ff2eeedce91d0b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/engine-run.mjs",
+      "bytes": 5417,
+      "sha256": "dd532b488e96c5d8463fc7e47fd58a647499464348b0b820a5483da613dc0c0d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/results/engine-run-1.json",
+      "bytes": 1244,
+      "sha256": "39305b04d724830d37526f4cf8d1549178d319d138db61b3414797a1043d837c",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/GLT-1B.ar.md",
+      "bytes": 5171,
+      "sha256": "05750e77aa5780da8901bd51cdb8040594203a89616f9cedab53bc4ff343ede5",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/gl-tb-sections-io.ts",
+      "bytes": 2163,
+      "sha256": "f91ff7f0b4f3d03e01862fab36fbb586de5d11497daedce31cbe1619eb6c4c31",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/gl-tb-sections.ts",
+      "bytes": 20905,
+      "sha256": "56e544f22391b97bc5c2134b81a59ed06904b8ac8a3fbc9c1d09d8ae600e8c6d",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-gl-tb-sections-mutations.mjs",
+      "bytes": 11485,
+      "sha256": "97cee97744c7e309046447bf2d11ad59d740e882358591f22922bebd6a64ef0d",
+      "kind": "text"
+    },
+    {
+      "path": "tests/gl-tb-sections.test.ts",
+      "bytes": 20735,
+      "sha256": "795664eece0da72b45fe40a1cc0074b4928e61a72b4f3f166b7c8c0a9379042a",
       "kind": "text"
     }
   ],
