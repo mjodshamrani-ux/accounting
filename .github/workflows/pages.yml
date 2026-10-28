@@ -410,6 +410,7 @@ jobs:
           pnpm test:pg-batches:run
           pnpm test:pg-batches:mutations
           pnpm test:pg-batches:h1-seal
+          pnpm test:pg-batches:h1-run
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations
@@ -1475,7 +1476,7 @@ jobs:
           ALL_ADVICE_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/allocation-advice-interface-mutations
         run: pnpm test:all-advice:interface-mutations
   payment-gateway-batches-browser:
-    name: Gateway batches and deposits in the built application, the 38 sealed PG-1 stories in the payment gateway workspace against the recorded run (PG-1c)
+    name: Gateway batches and deposits in the built application, the 38 sealed PG-1 stories and the 30 of holdout H1 in the payment gateway workspace against the recorded runs (PG-1c and PG-1d)
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -1498,6 +1499,10 @@ jobs:
         env:
           PG_BATCHES_BROWSER_DIR: ${{ runner.temp }}/payment-gateway-batches-browser
         run: pnpm test:pg-batches:browser
+      - name: Verify the sealed PG-1 holdout H1 in the gateway batches section through its five native file inputs and the actual Worker, against its recorded first run (PG-1d)
+        env:
+          PG_BATCHES_BROWSER_DIR: ${{ runner.temp }}/payment-gateway-batches-h1-browser
+        run: pnpm test:pg-batches:h1-browser
   payment-gateway-batches-interface-mutations:
     name: Gateway batches and deposits interface mutations in built browser copies (PG-1c)
     runs-on: ubuntu-latest

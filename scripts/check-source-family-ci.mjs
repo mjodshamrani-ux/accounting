@@ -252,6 +252,7 @@ const required = [
   'test:pg-batches:run',
   'test:pg-batches:mutations',
   'test:pg-batches:h1-seal',
+  'test:pg-batches:h1-run',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',
@@ -459,7 +460,10 @@ const separate = {
   'allocation-advice-interface-mutations': [
     'test:all-advice:interface-mutations',
   ],
-  'payment-gateway-batches-browser': ['test:pg-batches:browser'],
+  'payment-gateway-batches-browser': [
+    'test:pg-batches:browser',
+    'test:pg-batches:h1-browser',
+  ],
   'payment-gateway-batches-interface-mutations': [
     'test:pg-batches:interface-mutations',
   ],
