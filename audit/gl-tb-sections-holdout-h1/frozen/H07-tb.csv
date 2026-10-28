@@ -1,0 +1,41 @@
+"Page","TB-1",,,,,,,,
+"Entity","Rawabi Contracting Co",,,,,,,,
+"Ledger","Statutory GL",,,,,,,,
+"Currency","SAR",,,,,,,,
+"Currency basis","functional",,,,,,,,
+"Posting status","posted",,,,,,,,
+"Posting layer","actual",,,,,,,,
+"Period start","2027-01-01",,,,,,,,
+"Period end","2027-03-31",,,,,,,,
+"Account","Complete dimensions","Row type","Parent account","Opening debit","Opening credit","Period debit","Period credit","Closing debit","Closing credit"
+"7110","proj=G","account","7100","100.00","0.00","50.00","0.00","150.00","0.00"
+"7120","proj=G","account","7100","200.00","0.00","0.00","10.00","190.00","0.00"
+"7210","proj=G","account","7200","30.00","0.00","3.00","0.00","33.00","0.00"
+"End page","TB-1",,,,,,,,
+,,,,,,,,,
+"Page","TB-2",,,,,,,,
+"Entity","Rawabi Contracting Co",,,,,,,,
+"Ledger","Statutory GL",,,,,,,,
+"Currency","SAR",,,,,,,,
+"Currency basis","functional",,,,,,,,
+"Posting status","posted",,,,,,,,
+"Posting layer","actual",,,,,,,,
+"Period start","2027-01-01",,,,,,,,
+"Period end","2027-03-31",,,,,,,,
+"Account","Complete dimensions","Row type","Parent account","Opening debit","Opening credit","Period debit","Period credit","Closing debit","Closing credit"
+"7100","proj=G","total",,"300.00","0.00","50.00","10.00","340.00","0.00"
+"7200","proj=G","total",,"70.00","0.00","3.00","4.00","69.00","0.00"
+"End page","TB-2",,,,,,,,
+,,,,,,,,,
+"Page","TB-3",,,,,,,,
+"Entity","Rawabi Contracting Co",,,,,,,,
+"Ledger","Statutory GL",,,,,,,,
+"Currency","SAR",,,,,,,,
+"Currency basis","functional",,,,,,,,
+"Posting status","posted",,,,,,,,
+"Posting layer","actual",,,,,,,,
+"Period start","2026-10-01",,,,,,,,
+"Period end","2026-12-31",,,,,,,,
+"Account","Complete dimensions","Row type","Parent account","Opening debit","Opening credit","Period debit","Period credit","Closing debit","Closing credit"
+"7220","proj=G","account","7200","40.00","0.00","0.00","4.00","36.00","0.00"
+"End page","TB-3",,,,,,,,

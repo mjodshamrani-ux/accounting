@@ -1,0 +1,67 @@
+"Section","G-7110",,,
+"Entity","Rawabi Contracting Co",,,
+"Ledger","Statutory GL",,,
+"Account","7110",,,
+"Complete dimensions","proj=G",,,
+"Currency","SAR",,,
+"Currency basis","functional",,,
+"Posting status","posted",,,
+"Posting layer","actual",,,
+"Period start","2027-01-01",,,
+"Period end","2027-03-31",,,
+"Record ID","Record kind","Posting date","Debit","Credit"
+"G-7110/O","opening","2027-01-01","100.00","0.00"
+"J-71","movement","2027-01-02","50.00","0.00"
+"G-7110/C","closing","2027-03-31","150.00","0.00"
+"End section","G-7110",,,
+,,,,
+"Section","G-7120",,,
+"Entity","Rawabi Contracting Co",,,
+"Ledger","Statutory GL",,,
+"Account","7120",,,
+"Complete dimensions","proj=G",,,
+"Currency","SAR",,,
+"Currency basis","functional",,,
+"Posting status","posted",,,
+"Posting layer","actual",,,
+"Period start","2027-01-01",,,
+"Period end","2027-03-31",,,
+"Record ID","Record kind","Posting date","Debit","Credit"
+"G-7120/O","opening","2027-01-01","200.00","0.00"
+"J-72","movement","2027-01-03","0.00","10.00"
+"G-7120/C","closing","2027-03-31","190.00","0.00"
+"End section","G-7120",,,
+,,,,
+"Section","G-7210",,,
+"Entity","Rawabi Contracting Co",,,
+"Ledger","Statutory GL",,,
+"Account","7210",,,
+"Complete dimensions","proj=G",,,
+"Currency","SAR",,,
+"Currency basis","functional",,,
+"Posting status","posted",,,
+"Posting layer","actual",,,
+"Period start","2027-01-01",,,
+"Period end","2027-03-31",,,
+"Record ID","Record kind","Posting date","Debit","Credit"
+"G-7210/O","opening","2027-01-01","30.00","0.00"
+"J-73","movement","2027-01-04","3.00","0.00"
+"G-7210/C","closing","2027-03-31","33.00","0.00"
+"End section","G-7210",,,
+,,,,
+"Section","G-7220",,,
+"Entity","Rawabi Contracting Co",,,
+"Ledger","Statutory GL",,,
+"Account","7220",,,
+"Complete dimensions","proj=G",,,
+"Currency","SAR",,,
+"Currency basis","functional",,,
+"Posting status","posted",,,
+"Posting layer","actual",,,
+"Period start","2027-01-01",,,
+"Period end","2027-03-31",,,
+"Record ID","Record kind","Posting date","Debit","Credit"
+"G-7220/O","opening","2027-01-01","40.00","0.00"
+"J-74","movement","2027-01-05","0.00","4.00"
+"G-7220/C","closing","2027-03-31","36.00","0.00"
+"End section","G-7220",,,

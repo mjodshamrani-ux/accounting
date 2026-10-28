@@ -196,6 +196,7 @@ const required = [
   'test:glt-sections:baseline',
   'test:glt-sections:run',
   'test:glt-sections:mutations',
+  'test:glt-sections:h1-seal',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',

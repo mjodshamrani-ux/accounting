@@ -1,0 +1,34 @@
+Section,G-3010
+Period end,"  2027-03-31 "
+Period start,"  2027-01-01 "
+Posting layer,"  actual "
+Posting status,"  posted "
+Currency basis,"  functional "
+Currency,"  SAR "
+Complete dimensions,"  proj=C "
+Account,"  3010 "
+Ledger,"  Statutory GL "
+Entity,"  Rawabi Contracting Co "
+
+Record ID,Record kind,Posting date,Debit,Credit
+G-3010/O,opening,2027-01-01,77.00,0.00
+J-31,movement,2027-01-07,0.00,7.00
+G-3010/C,closing,2027-03-31,70.00,0.00
+End section,G-3010
+
+Section,G-3020
+Currency basis,"  functional "
+Posting status,"  posted "
+Posting layer,"  actual "
+Period start,"  2027-01-01 "
+Period end,"  2027-03-31 "
+Entity,"  Rawabi Contracting Co "
+Ledger,"  Statutory GL "
+Account,"  3020 "
+Complete dimensions,"  proj=C "
+Currency,"  SAR "
+Record ID,Record kind,Posting date,Debit,Credit
+G-3020/O,opening,2027-01-01,0.00,0.00
+J-32,movement,2027-01-08,15.00,0.00
+G-3020/C,closing,2027-03-31,15.00,0.00
+End section,G-3020

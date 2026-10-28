@@ -1,0 +1,33 @@
+"Section","قسم-١",,,
+"Entity","Rawabi Contracting Co",,,
+"Ledger","Statutory GL",,,
+"Account","4010",,,
+"Complete dimensions","cc=1, region=""N""",,,
+"Currency","SAR",,,
+"Currency basis","functional",,,
+"Posting status","posted",,,
+"Posting layer","actual",,,
+"Period start","2027-01-01",,,
+"Period end","2027-03-31",,,
+"Record ID","Record kind","Posting date","Debit","Credit"
+"قسم-١/O","opening","2027-01-01","500.00","0.00"
+"J-41","movement","2027-02-02","100.00","0.00"
+"قسم-١/C","closing","2027-03-31","600.00","0.00"
+"End section","قسم-١",,,
+,,,,
+"Section","قسم-٢",,,
+"Entity","Rawabi Contracting Co",,,
+"Ledger","Statutory GL",,,
+"Account","4020",,,
+"Complete dimensions","cc=1, region=""N""",,,
+"Currency","SAR",,,
+"Currency basis","functional",,,
+"Posting status","posted",,,
+"Posting layer","actual",,,
+"Period start","2027-01-01",,,
+"Period end","2027-03-31",,,
+"Record ID","Record kind","Posting date","Debit","Credit"
+"قسم-٢/O","opening","2027-01-01","0.00","0.00"
+"J-42","movement","2027-02-03","0.00","40.00"
+"قسم-٢/C","closing","2027-03-31","0.00","40.00"
+"End section","قسم-٢",,,

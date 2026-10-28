@@ -1,0 +1,20 @@
+{
+ "schema": "tarasuf-glt1-sections-holdout-seal/1",
+ "statement": "Sealed before any product run on these files. The first engine and browser runs are recorded as they come.",
+ "pins": {
+  "INPUT-MANIFEST.json": "d5f425ee9eea3024d3581d180d3e5cd7449a0e4a8a4622e41577795872a57ca3",
+  "EXPECTED.json": "a84de2f7127f0e0dbc0962676f9bb702b14d1776c984acd4e0df5cdba15769db",
+  "VERIFY.json": "6361ef4987886a062fd2649bf9cb335c46f1cf3589cffa148772bcba70bb74ad",
+  "ELIGIBILITY.json": "9c58672953674c347863787b7d56db232a2fd32e3e886801cafab4f1501e9833",
+  "stories.py": "854614885c725caff985bda8bc4b470a6b9ac1a994a55cc19e55e0a9f0101e72",
+  "render.py": "7d93e781e5e75f9409c78d7a8af893bd012182772820af4b60e74c18ccb3cb19",
+  "render.go": "6d7e32a3d982fa271955cde65dfd4c39cb5d2a2e6eb2e1b12721db912cf94c70",
+  "render.php": "b2b1785c9ae1b950ff491eefe5723436fd774e7780aae82cdc7f8edaba2d062f",
+  "Render.java": "6bd93d56b972e1f85829342e5237dd8bffcf567b02ba5b21dca7a5d73268c6a9",
+  "verify.py": "41db99276556eafbcb5f114c9efd66e6c14ff486ff9c45e9a51c1a511d66593c",
+  "eligibility.py": "e4e7a3208177499c2bd07e92c277a6c8ffd0ece25501da62be1251a8c749584b",
+  "test_intent.py": "b5b2395c6b2f6f082ae7d79008d5367537da976353a2ecd4d3a25cddccbd2e67",
+  "../gl-tb-sections-foundation/contract.json": "7095ffbaf784fa74ff7b6adec396bb02d4eede8ca244e386cb6f51a8a13d168e",
+  "../gl-tb-sections-foundation/oracle.py": "7764889344e9aa63cf26388c1bb0e1f4ce1a15159abba30ed67ca939634bb039"
+ }
+}

@@ -1,0 +1,33 @@
+Section,G-1510
+Entity,"Rawabi Contracting Co"
+Ledger,"Statutory GL"
+Account,1510
+"Complete dimensions",proj=N
+Currency,SAR
+"Currency basis",functional
+"Posting status",posted
+"Posting layer",actual
+"Period start",2027-01-01
+"Period end",2027-03-31
+"Record ID","Record kind","Posting date",Debit,Credit
+G-1510/O,opening,2027-01-01,7.00,0.00
+J-151,movement,2027-02-20,0.00,0.70
+G-1510/C,closing,2027-03-31,6.30,0.00
+"End section",G-1520
+
+Section,G-1520
+Entity,"Rawabi Contracting Co"
+Ledger,"Statutory GL"
+Account,1520
+"Complete dimensions",proj=N
+Currency,SAR
+"Currency basis",functional
+"Posting status",posted
+"Posting layer",actual
+"Period start",2027-01-01
+"Period end",2027-03-31
+"Record ID","Record kind","Posting date",Debit,Credit
+G-1520/O,opening,2027-01-01,0.50,0.00
+J-152,movement,2027-02-21,0.05,0.00
+G-1520/C,closing,2027-03-31,0.55,0.00
+"End section",G-1520

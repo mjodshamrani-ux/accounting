@@ -1,0 +1,66 @@
+Section,G-1710
+Entity,Rawabi Contracting Co
+Ledger,Statutory GL
+Account,1710
+Complete dimensions,proj=P
+Currency,JPY
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2027-01-01
+Period end,2027-03-31
+Record ID,Record kind,Posting date,Debit,Credit
+G-1710/O,opening,2027-01-01,99999999999000,0
+J-171,movement,2027-03-01,999,0
+G-1710/C,closing,2027-03-31,99999999999999,0
+End section,G-1710
+
+Section,G-1720
+Entity,Rawabi Contracting Co
+Ledger,Statutory GL
+Account,1720
+Complete dimensions,proj=P
+Currency,JPY
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2027-01-01
+Period end,2027-03-31
+Record ID,Record kind,Posting date,Debit,Credit
+G-1720/O,opening,2027-01-01,5000,0
+J-172,movement,2027-03-02,0,1000
+G-1720/C,closing,2027-03-31,4000,0
+End section,G-1720
+
+Section,G-1730
+Entity,Rawabi Contracting Co
+Ledger,Statutory GL
+Account,1730
+Complete dimensions,proj=P
+Currency,JPY
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2027-01-01
+Period end,2027-03-31
+Record ID,Record kind,Posting date,Debit,Credit
+G-1730/O,opening,2027-01-01,0,0
+J-173,movement,2027-03-03,1,0
+G-1730/C,closing,2027-03-31,1,0
+End section,G-1730
+
+Section,G-1740
+Entity,Rawabi Contracting Co
+Ledger,Statutory GL
+Account,1740
+Complete dimensions,proj=P
+Currency,JPY
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2027-01-01
+Period end,2027-03-31
+Record ID,Record kind,Posting date,Debit,Credit
+G-1740/O,opening,2027-01-01,100000000000001,0
+G-1740/C,closing,2027-03-31,100000000000001,0
+End section,G-1740

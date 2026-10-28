@@ -354,6 +354,7 @@ jobs:
           pnpm test:glt-sections:baseline
           pnpm test:glt-sections:run
           pnpm test:glt-sections:mutations
+          pnpm test:glt-sections:h1-seal
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations

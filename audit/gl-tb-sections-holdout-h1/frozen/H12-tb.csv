@@ -1,0 +1,26 @@
+Page,TB-1
+Entity,Rawabi Contracting Co
+Ledger,Statutory GL
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2027-01-01
+Period end,2027-03-31
+Account,Complete dimensions,Row type,Parent account,Opening debit,Opening credit,Period debit,Period credit,Closing debit,Closing credit
+1310,proj=L,account,,1.00,0.00,0.10,0.00,1.10,0.00
+End page,TB-1
+
+Page,TB-2
+Entity,Rawabi Contracting Co
+Ledger,Statutory GL
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2027-01-01
+Period end,2027-03-31
+Region,West
+Account,Complete dimensions,Row type,Parent account,Opening debit,Opening credit,Period debit,Period credit,Closing debit,Closing credit
+1320,proj=L,account,,2.00,0.00,0.00,0.20,1.80,0.00
+End page,TB-2

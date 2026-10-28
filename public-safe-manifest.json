@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 63893,
-      "sha256": "a8b5391a8424a25f85a62de8b0ce69853640e0b8230302aec9cc0f84ca589fd7",
+      "bytes": 63934,
+      "sha256": "dde05e82dba8bc7759899872d223fe590b79e84271b09fdc9673b757e50a2ec1",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 41286,
-      "sha256": "425cd61785d8fcf136ef809e6d57b77e6d2467da824d83f2508b4fe207b63e66",
+      "bytes": 41451,
+      "sha256": "c4e1a542647a1091144b96ef77c32fdf672e6020cd3b42e05d0fa0bc22d0ca39",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 43451,
-      "sha256": "274d625012f45628adc555e74789dec935a0993a780038b22cd8d68cc112bdac",
+      "bytes": 43669,
+      "sha256": "c47b2b6309a54f0dccd29828f504c7f8d21f71cb7cdefb3fa346518f73ddb04b",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 15144,
-      "sha256": "bce6936762dd7e1e4f05d6f44f1edb680aac319a400e7358f9d3d67ae7c509ab",
+      "bytes": 15175,
+      "sha256": "108d262efaf6cfccd21520b5f6eb0c289a8d7d3d1ba19ddd3b79f078b2adadb3",
       "kind": "text"
     },
     {
@@ -57743,6 +57743,432 @@
       "path": "tests/gl-tb-sections-protocol.test.ts",
       "bytes": 4416,
       "sha256": "df7c5e8369352292098a316c333f78d7963413a2f87a2e30d8312901b731f7ab",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/README.ar.md",
+      "bytes": 3796,
+      "sha256": "39f7187729a6ffd466d739ad47937a4e665da9ad15e2c09c9aafb6645e90769c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/Render.java",
+      "bytes": 3385,
+      "sha256": "6bd93d56b972e1f85829342e5237dd8bffcf567b02ba5b21dca7a5d73268c6a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/check_seal.py",
+      "bytes": 2953,
+      "sha256": "7bd37ea51f695c48f773f29dbfdd8be12c5933b979f1669a0fc405d6e3cc6b6f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/eligibility.py",
+      "bytes": 3506,
+      "sha256": "e4e7a3208177499c2bd07e92c277a6c8ffd0ece25501da62be1251a8c749584b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/ELIGIBILITY.json",
+      "bytes": 141,
+      "sha256": "9c58672953674c347863787b7d56db232a2fd32e3e886801cafab4f1501e9833",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/EXPECTED.json",
+      "bytes": 51257,
+      "sha256": "a84de2f7127f0e0dbc0962676f9bb702b14d1776c984acd4e0df5cdba15769db",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H01-gl.csv",
+      "bytes": 1259,
+      "sha256": "0753e9f2b72480d4fe2589ad2e663402b16d59d33d56cea671b2f0c716133fc5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H01-scope.json",
+      "bytes": 236,
+      "sha256": "965aa701474d322fff3b97176915e538ba48b32187d2324f4141145fc1a9c143",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H01-tb.csv",
+      "bytes": 844,
+      "sha256": "de20677c38c30656058778a7f4de4b11d9736f9419de6c8014bde3a8b9433c66",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H02-gl.csv",
+      "bytes": 1359,
+      "sha256": "c88bf43049ee08c82c730b1d63bf5bc0a89deb5c25d004f4d476655b81e92e5e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H02-scope.json",
+      "bytes": 236,
+      "sha256": "965aa701474d322fff3b97176915e538ba48b32187d2324f4141145fc1a9c143",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H02-tb.csv",
+      "bytes": 545,
+      "sha256": "afcdce787bc9504c89fddae88547ddac19cd4187926dfa0eda4caa546283ab21",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H03-gl.csv",
+      "bytes": 960,
+      "sha256": "5f32eb0c456fcbc94388ab79f7464c28bb6a395cd60c75ed0bb4846d3c24a2f8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H03-scope.json",
+      "bytes": 236,
+      "sha256": "965aa701474d322fff3b97176915e538ba48b32187d2324f4141145fc1a9c143",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H03-tb.csv",
+      "bytes": 501,
+      "sha256": "c51b6a5bef36d82e19667a21b2e7a5a9ac77a40af4f1facc606e46e535914d7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H04-gl.csv",
+      "bytes": 1129,
+      "sha256": "2da4a3958749662b52f9f528e3dfe921b04e8c9d18def115b336968c005616e8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H04-scope.json",
+      "bytes": 236,
+      "sha256": "965aa701474d322fff3b97176915e538ba48b32187d2324f4141145fc1a9c143",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H04-tb.csv",
+      "bytes": 647,
+      "sha256": "433da7c10c9feb378ad63ac5afec936c9179c9e6b31d8f4da4385660003079f3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H05-gl.csv",
+      "bytes": 1647,
+      "sha256": "6a9dc095e9e25965708dcf1851dec464750e058742bd650271a53a37fa1be5a4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H05-scope.json",
+      "bytes": 236,
+      "sha256": "965aa701474d322fff3b97176915e538ba48b32187d2324f4141145fc1a9c143",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H05-tb.csv",
+      "bytes": 546,
+      "sha256": "57198f6dcfc6307ad9e4006ebeacd9a7bff6d594f9c575e1bd20e012f9193fb6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H06-gl.csv",
+      "bytes": 1004,
+      "sha256": "6884f57978e15f9571a22eeeef235fb5be49a5c7e61ccb0284d933d2cc6d40be",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H06-scope.json",
+      "bytes": 236,
+      "sha256": "48f09d01e98f87d39e997a59d934d6b1d5cfb30355d886d5e4372be64970ca98",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H06-tb.csv",
+      "bytes": 494,
+      "sha256": "aea0c914f47ef65bfa754309ab00ea64aafbfd028bd3eccd81b8790aed0c2d95",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H07-gl.csv",
+      "bytes": 2165,
+      "sha256": "faaf151b1113ec86d2517f4ac093acf5a807e860b9e93073c9618b382a91d8f7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H07-scope.json",
+      "bytes": 236,
+      "sha256": "965aa701474d322fff3b97176915e538ba48b32187d2324f4141145fc1a9c143",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H07-tb.csv",
+      "bytes": 1910,
+      "sha256": "7958bc78d954ed1bf975d9a81b58eb97c39471531a2b9547b308a9e2c31f4492",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H08-gl.csv",
+      "bytes": 858,
+      "sha256": "578d41ba4f2f0b0f96bc50f479d151a7f4e4834a78d6d25754d5ad664045cb0b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H08-scope.json",
+      "bytes": 236,
+      "sha256": "965aa701474d322fff3b97176915e538ba48b32187d2324f4141145fc1a9c143",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H08-tb.csv",
+      "bytes": 635,
+      "sha256": "e4d41f5d4ca40d67d1023cf473a8b0f8455afa4bd3706909b5d262ab0f5e4e8d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H09-gl.csv",
+      "bytes": 827,
+      "sha256": "ad966c4be930862257eb190e43a7b238f7dd1ecd178174ffb01c9041fddfcdbc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H09-scope.json",
+      "bytes": 236,
+      "sha256": "965aa701474d322fff3b97176915e538ba48b32187d2324f4141145fc1a9c143",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H09-tb.csv",
+      "bytes": 446,
+      "sha256": "6513699a003918340a2e45d7f9b5ab20d244ebbd610576fb0077ee7f2e2d418c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H10-gl.csv",
+      "bytes": 801,
+      "sha256": "93a19fe114c67af3c14fc6743d8d1fe027abf276a236edd9b5a8316bd4d3ca5f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H10-scope.json",
+      "bytes": 236,
+      "sha256": "965aa701474d322fff3b97176915e538ba48b32187d2324f4141145fc1a9c143",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H10-tb.csv",
+      "bytes": 527,
+      "sha256": "7a2169e075c87e19f84a0462550447248b4436b1cd6b83067b8ba69319a7f841",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H11-gl.csv",
+      "bytes": 1075,
+      "sha256": "e3bca99f66747c8a1e11aa18743f04625aeb57e341e1dfab61b72fa6ab04821c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H11-scope.json",
+      "bytes": 236,
+      "sha256": "965aa701474d322fff3b97176915e538ba48b32187d2324f4141145fc1a9c143",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H11-tb.csv",
+      "bytes": 670,
+      "sha256": "19a091be138ee9c256f685c41114cb8075d79ea3e94d84963da7d8fcc8e2455a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H12-gl.csv",
+      "bytes": 856,
+      "sha256": "b1b77e33ae7a09438d922583f25d876310f102a1debdffd8bbbcd170980c226f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H12-scope.json",
+      "bytes": 236,
+      "sha256": "965aa701474d322fff3b97176915e538ba48b32187d2324f4141145fc1a9c143",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H12-tb.csv",
+      "bytes": 817,
+      "sha256": "fc1cdd0d24b52167704925c60f455204375a4ec75464196c9c66ee0cc75eab77",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H13-gl.csv",
+      "bytes": 859,
+      "sha256": "abc919a017a410bacaf00d66d3b63ceec5de2784a12950ab3187c7643cacf9e3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H13-scope.json",
+      "bytes": 236,
+      "sha256": "965aa701474d322fff3b97176915e538ba48b32187d2324f4141145fc1a9c143",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H13-tb.csv",
+      "bytes": 440,
+      "sha256": "d19a7de409530ba51fb8f63c27a1808013699197a8f40e6892a9ccc770d015c6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H14-gl.csv",
+      "bytes": 871,
+      "sha256": "ccec52b6a72f036c2c911f17fd625eaa6023ff83c6ca0abd847aadc85f63f131",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H14-scope.json",
+      "bytes": 236,
+      "sha256": "965aa701474d322fff3b97176915e538ba48b32187d2324f4141145fc1a9c143",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H14-tb.csv",
+      "bytes": 474,
+      "sha256": "b0daa99c0a22f5587853a8206a4082d1c105636fb1c6b25fe26e78b8ce11d838",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H15-gl.csv",
+      "bytes": 78457,
+      "sha256": "713eac8b285c50602b9276856a61062551a9c54607934efc8874908680bd5869",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H15-scope.json",
+      "bytes": 236,
+      "sha256": "965aa701474d322fff3b97176915e538ba48b32187d2324f4141145fc1a9c143",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H15-tb.csv",
+      "bytes": 11673,
+      "sha256": "adf71b78e219e1951495cbe0d9c259ca541b53ff5ac58e342ca528225253bfda",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H16-gl.csv",
+      "bytes": 1610,
+      "sha256": "597b8ce67cc6dda5b4d64db9d18638f6bd6c92232174dacc8465443fd060e9c7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H16-scope.json",
+      "bytes": 236,
+      "sha256": "167b5ab1054d446d05c6a62a749183db6dee68c9864f0c060f32b3ef9161ff30",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H16-tb.csv",
+      "bytes": 510,
+      "sha256": "2a466dbab02afceb727f19fd411b9882feb4c02b31f8acc4d1d9d54126faa6f4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H17-gl.csv",
+      "bytes": 1736,
+      "sha256": "4de8404f8305ab40f5cd7b27b4be526a80661f5aa7b6cb8620c08d5ef506b142",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H17-scope.json",
+      "bytes": 236,
+      "sha256": "965aa701474d322fff3b97176915e538ba48b32187d2324f4141145fc1a9c143",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H17-tb.csv",
+      "bytes": 576,
+      "sha256": "f428ca8dd540c001f5c26aa73bf6c1b17d6594551d489bce224e1df195b3b97f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H18-gl.csv",
+      "bytes": 1095,
+      "sha256": "d2e4c95d04274dfc298cda5912a9b2a3ba86461f04aba266136463432a647930",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H18-scope.json",
+      "bytes": 236,
+      "sha256": "965aa701474d322fff3b97176915e538ba48b32187d2324f4141145fc1a9c143",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/H18-tb.csv",
+      "bytes": 616,
+      "sha256": "a876948ed8d0d50064ed10d30223190c4cfd9fe55f647fcb20f933c59d281683",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/INPUT-MANIFEST.json",
+      "bytes": 6985,
+      "sha256": "d5f425ee9eea3024d3581d180d3e5cd7449a0e4a8a4622e41577795872a57ca3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/SEAL.json",
+      "bytes": 1453,
+      "sha256": "8fcfd21ec5f7d5c279b0335d7e024be68b0c2e2586479b83a47a0540a3d05810",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/VERIFY.json",
+      "bytes": 6981,
+      "sha256": "6361ef4987886a062fd2649bf9cb335c46f1cf3589cffa148772bcba70bb74ad",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/frozen/stories.json",
+      "bytes": 337218,
+      "sha256": "a4aeb81e56dbde4033e1a50763b5dbdeba80233afed2819b1a56abca82c940ab",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/render.go",
+      "bytes": 612,
+      "sha256": "6d7e32a3d982fa271955cde65dfd4c39cb5d2a2e6eb2e1b12721db912cf94c70",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/render.php",
+      "bytes": 447,
+      "sha256": "b2b1785c9ae1b950ff491eefe5723436fd774e7780aae82cdc7f8edaba2d062f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/render.py",
+      "bytes": 3634,
+      "sha256": "7d93e781e5e75f9409c78d7a8af893bd012182772820af4b60e74c18ccb3cb19",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/seal.py",
+      "bytes": 2166,
+      "sha256": "c03c46e75f2a31bf92dc7b5014e8495752042ccc61743bf540cc49c5f1914ee1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/stories.py",
+      "bytes": 21946,
+      "sha256": "854614885c725caff985bda8bc4b470a6b9ac1a994a55cc19e55e0a9f0101e72",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/test_intent.py",
+      "bytes": 2106,
+      "sha256": "b5b2395c6b2f6f082ae7d79008d5367537da976353a2ecd4d3a25cddccbd2e67",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/verify.py",
+      "bytes": 7069,
+      "sha256": "41db99276556eafbcb5f114c9efd66e6c14ff486ff9c45e9a51c1a511d66593c",
       "kind": "text"
     }
   ],

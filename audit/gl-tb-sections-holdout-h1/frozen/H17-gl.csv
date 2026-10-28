@@ -1,0 +1,67 @@
+Section,G-1810
+Entity,"Rawabi Contracting Co"
+Ledger,"Statutory GL"
+Account,1810
+"Complete dimensions",proj=Q
+Currency,SAR
+"Currency basis",functional
+"Posting status",posted
+"Posting layer",actual
+"Period start",2027-01-01
+"Period end",2027-03-31
+"Record ID","Record kind","Posting date",Debit,Credit
+G-1810/O,opening,2027-01-01,1.00,0.00
+J-181,movement,2027-01-17,0.10,0.00
+G-1810/C,closing,2027-03-31,1.10,0.00
+"End section",G-1810
+
+Section,G-1820
+Entity,"Rawabi Contracting Co"
+Ledger,#REF!
+Account,1820
+"Complete dimensions",proj=Q
+Currency,SAR
+"Currency basis",functional
+"Posting status",posted
+"Posting layer",actual
+"Period start",2027-01-01
+"Period end",2027-03-31
+"Record ID","Record kind","Posting date",Debit,Credit
+G-1820/O,opening,2027-01-01,1.00,0.00
+J-182,movement,2027-01-18,0.10,0.00
+G-1820/C,closing,2027-03-31,1.10,0.00
+"End section",G-1820
+
+Section,G-1830
+Entity,"Rawabi Contracting Co"
+Ledger,"Statutory GL"
+Account,1830
+"Complete dimensions",proj=Q
+Currency,SAR
+"Currency basis",functional
+"Posting status",posted
+"Posting layer",actual
+"Period start",2027-01-01
+"Period end",2027-03-31
+"Record ID","Record kind","Posting date",Debit,Credit
+G-1830/O,opening,2027-01-01,1.00,0.00
+J-183,movement,2027-01-19,0.00,(5.00)
+G-1830/C,closing,2027-03-31,1.00,0.00
+"End section",G-1830
+
+Section,G-1840
+Entity,"Rawabi Contracting Co"
+Ledger,"Statutory GL"
+Account,1840
+"Complete dimensions",proj=Q
+Currency,SAR
+"Currency basis",functional
+"Posting status",posted
+"Posting layer",actual
+"Period start",2027-01-01
+"Period end",2027-03-31
+"Record ID","Record kind","Posting date",Debit,Credit
+G-1840/O,opening,2027-01-01,1.00,0.00
+J-184,movement,2027-01-20,0.10,0.00
+G-1840/C,closing,2027-03-31,1.10,0.00
+"End section",G-1840
