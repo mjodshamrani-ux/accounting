@@ -158,7 +158,7 @@ async function splitByHand(story, want) {
       s.batchId,
     ];
   };
-  const [tx, fees, settlements, lines, credits] = story.sheets.map(table);
+  const [tx, fees, settlements, , credits] = story.sheets.map(table);
   const out = [];
   for (const b of want.batches) {
     const batchId = b.batch;

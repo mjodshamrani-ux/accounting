@@ -38,6 +38,8 @@
 | [`test_oracle.py`](test_oracle.py) و[`mutate_oracle.py`](mutate_oracle.py) | 34 اختبارًا، كل قاعدة وكل رفض وكل خطأ صف برمزه، و33 خطأً مزروعًا في نسخ الأوراكل تقتلها assertion |
 | [`verify.py`](verify.py) | فحص مستقل لكل ملف بقارئ آخر ولكل ملف مدخلات، و12 تغييرًا مزروعًا تُرفض |
 | [`dense.py`](dense.py) و[`seal.py`](seal.py) و[`check_seal.py`](check_seal.py) | توليد الكثيفة والتحقق منها، والختم والتحقق منه |
+| [`baseline.mjs`](baseline.mjs) | سجل المنتج كما هو بعد الختم، [`baseline-1.json`](results/baseline-1.json) |
+| [`engine-run.mjs`](engine-run.mjs) | تشغيل المحرك [PG-1b](../../docs/audits/PG-1B.ar.md) على كل قصة مختومة مقابل التوقع كاملًا، [`engine-run-1.json`](results/engine-run-1.json) |
 
 ## قبل الختم
 

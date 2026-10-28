@@ -249,6 +249,8 @@ const required = [
   'test:pg-batches:oracle-mutants',
   'test:pg-batches:seal',
   'test:pg-batches:baseline',
+  'test:pg-batches:run',
+  'test:pg-batches:mutations',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',

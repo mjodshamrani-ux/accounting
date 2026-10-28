@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 82446,
-      "sha256": "5f310086622fc7dd9a92dfe2418551413091476704b855d19e0a011aeb6c90f5",
+      "bytes": 82522,
+      "sha256": "bb6bc2e564354ea856e6f3959b40d2873efc1c9536eb4b9a7732456ce307f9cb",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 54371,
-      "sha256": "4fdbe0aeeec48c44bf399fcf3fb784d22e5959cc04d5e080a5cf7977f53838e7",
+      "bytes": 54597,
+      "sha256": "7fca079e7959b2d485278abbf949a742fa0c70e6f0111730d467e3a00a9bc7c0",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 22818,
-      "sha256": "9a206ee7ddccbcc87ffbcbc197acd4806eedf54e250a5f5477c170131883e75a",
+      "bytes": 22864,
+      "sha256": "a8e6544084b3a36bb37d9db46350d6c4c86f479c90b74e97ec32806158897064",
       "kind": "text"
     },
     {
@@ -36151,14 +36151,14 @@
     },
     {
       "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
-      "bytes": 135921,
-      "sha256": "f9643cb27dd85fbcaa1e9d2951a76cf3dc4f5650fba8795ebe9374b45c7006ca",
+      "bytes": 137125,
+      "sha256": "4803729067f3027d7ebc5fc91f4fd17a0442a7f6d01c5cba486518ee187b3b22",
       "kind": "text"
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 126015,
-      "sha256": "d30adeb42af04cc44bace340ac98a1090f7dbb68f2974f847f15df2effd95d6e",
+      "bytes": 127112,
+      "sha256": "a5f46230c820c6e577a81d86a3b54d77170a75878aabb0ffb0baf9d0e63feee0",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 83447,
-      "sha256": "96b1f653ef9c57b127c892000d64cc8cd11948decd60b5fc629b1a5064911ad0",
+      "bytes": 83524,
+      "sha256": "8ff720719520acd9f6c92052adbe0a845c572a0bcb0490cdb9fed7a3433eb73c",
       "kind": "text"
     },
     {
@@ -36259,8 +36259,8 @@
     },
     {
       "path": "docs/roadmap/payment-gateway.ar.md",
-      "bytes": 4015,
-      "sha256": "13f1e90a18ccc68ff65fe5b17e4dbbf48056bcb72d4a1723990ddb4bb2df445f",
+      "bytes": 4409,
+      "sha256": "c2fdd33a1aac4e4dc9387885e8c3b4bceeaf94d24000fa92c282b5dfcf0c52a1",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 55469,
-      "sha256": "5f60b47e2f6703deb22b05aba71c807463aadf4d27930ab34a25e0de2d8845ca",
+      "bytes": 55768,
+      "sha256": "6a31601592b799553fa19955877df56ed7aa4c957452226d3f6c25884006e145",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 17919,
-      "sha256": "0e2723aca2e60a74202cbb1d9f63b94764b5f26d9b486f8ad78669f576bafc55",
+      "bytes": 17975,
+      "sha256": "3e918da08e3a8aa6faa0592df89f39546dbc1f6baaec9606d10c1a22943e0b8b",
       "kind": "text"
     },
     {
@@ -44469,8 +44469,8 @@
     },
     {
       "path": "docs/reference/LESSONS-INDEX.ar.md",
-      "bytes": 42465,
-      "sha256": "8c95a20f56fcf310a257adb3c516e68205e7fa7be823374274bb14198f24552b",
+      "bytes": 43389,
+      "sha256": "78b36b10bd776701c04ff514969ebce63701ad86e4041ef0c72c3dbb401969d4",
       "kind": "text"
     },
     {
@@ -67185,8 +67185,8 @@
     },
     {
       "path": "audit/payment-gateway-batches-foundation/README.ar.md",
-      "bytes": 9234,
-      "sha256": "74034bb12ca3594ba8336b6f3a38c132f2b8855d723c173753a338d9b8a26e08",
+      "bytes": 9592,
+      "sha256": "d2275bc50504fcc661b1cd5282c504da43c958ce7d808c0990a3756859ad9e28",
       "kind": "text"
     },
     {
@@ -68611,20 +68611,62 @@
     },
     {
       "path": "docs/audits/PG-1-FOUNDATION.ar.md",
-      "bytes": 8687,
-      "sha256": "327192f9db6dba90ad8c67881ccbc187f8a766911e4c38654e41e8b457119fc4",
+      "bytes": 8834,
+      "sha256": "3a2223ae4297ee6ed0899d870025a24630d23cbd5ef669e5c98d6d469a0cbcde",
       "kind": "text"
     },
     {
       "path": "audit/payment-gateway-batches-foundation/baseline.mjs",
-      "bytes": 11906,
-      "sha256": "0e025e2108f28b7a6b147871489f2267fbd7c96c444d608d40a37d976be32d07",
+      "bytes": 11901,
+      "sha256": "e2d1eefb3fbfd35ada92940a067109e78a59eb7dc85064e9e6454d43536ff176",
       "kind": "text"
     },
     {
       "path": "audit/payment-gateway-batches-foundation/results/baseline-1.json",
       "bytes": 31858,
       "sha256": "5c89d37ea13e350dbb4fa58d5950b3e8d3034bc1d19a5836a67bf00d44422849",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/engine-run.mjs",
+      "bytes": 6232,
+      "sha256": "66954f0d4271904ec21ce1a2b79894c226786cc7e163ec4c6731ed4026219862",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/results/engine-run-1.json",
+      "bytes": 1428,
+      "sha256": "dfdc71f2c498d527dbf699cf02d0b561c7e5e65b8d59b6a8e74ccd852bb3ef04",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/PG-1B.ar.md",
+      "bytes": 9821,
+      "sha256": "0c7abb92e643a5d662ad9458db714317de89df85fc44729008aab022a1901697",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/payment-gateway-batches-io.ts",
+      "bytes": 5632,
+      "sha256": "c9e0b53d66ee902cd2416227109a042b3286c475f816f8acb1ccabc60463fcf6",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/payment-gateway-batches.ts",
+      "bytes": 22320,
+      "sha256": "7d40403811707576ec5bd2252f8d26f8e931e953a8c8e9a71c3b7ebb5d6f563c",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-payment-gateway-batches-mutations.mjs",
+      "bytes": 12337,
+      "sha256": "36d216a817b21f5fa7eab2f67a2fb3b0cf9f65b9543893b7953554f53750a806",
+      "kind": "text"
+    },
+    {
+      "path": "tests/payment-gateway-batches.test.ts",
+      "bytes": 24572,
+      "sha256": "84f75f91d28c33a790cdc09eceb3d48cbf4e3a7213a7d6d43df1e63acdc2ec66",
       "kind": "text"
     }
   ],
