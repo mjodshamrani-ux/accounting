@@ -1,0 +1,11 @@
+{
+ "schema": "tarasuf-inv2-movement-bridge-h1-eligibility/1",
+ "checks": [
+  "name",
+  "size",
+  "records",
+  "cells in a record",
+  "cell length"
+ ],
+ "beyondContract": {}
+}

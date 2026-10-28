@@ -1,0 +1,9 @@
+Movement ID,Item ID,Item dimensions,Kind,Quantity,Unit,Value,Movement date,Posting date,GL account,Transfer ID,Origin ID
+PH00001,AMX-500,store=MNM-1,opening,70,box,2975.000,2027-05-01,2027-05-01,14500,,
+PH00002,AMX-500,store=MNM-1,receipt,30,box,1275.000,2027-05-02,2027-05-02,14500,,
+PH00003,AMX-500,store=MNM-1,issue,41,box,1742.500,2027-05-04,2027-05-04,14500,,
+PH00004,AMX-500,store=MNM-1,closing,59,box,2507.500,2027-05-31,2027-05-31,14500,,
+PH00005,GLV-M,store=MNM-1,opening,12,carton,1420.800,2027-05-01,2027-05-01,14500,,
+PH00006,GLV-M,store=MNM-1,issue,3,carton,355.200,2027-05-06,2027-05-06,14500,,
+PH00007,GLV-M,store=MNM-1,adjustment-out,0,carton,0.125,2027-05-08,2027-05-08,14500,,
+PH00008,GLV-M,store=MNM-1,closing,9,carton,1065.475,2027-05-31,2027-05-31,14500,,

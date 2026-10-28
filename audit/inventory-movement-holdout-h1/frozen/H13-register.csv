@@ -1,0 +1,9 @@
+Movement ID,Item ID,Item dimensions,Kind,Quantity,Unit,Value,Movement date,Posting date,GL account,Transfer ID,Origin ID
+PH00001,AMX-500,store=DXB-A,opening,150,box,6375.00,2027-05-01,2027-05-01,14100,,
+PH00002,AMX-500,store=DXB-A,transfer-out,30,box,1275.00,2027-05-02,2027-05-02,14100,TRF-0520,
+PH00003,AMX-500,store=DXB-A,issue,50,box,2125.00,2027-05-04,2027-05-04,14100,,
+PH00004,AMX-500,store=DXB-A,closing,70,box,2975.00,2027-05-31,2027-05-31,14100,,
+PH00005,AMX-500,store=AUH-B,opening,10,box,425.00,2027-05-01,2027-05-01,14200,,
+PH00006,AMX-500,store=AUH-B,transfer-in,30,box,1275.00,2027-05-06,2027-05-06,14200,TRF-0520,
+PH00008,AMX-500,store=AUH-B,return-out,5,box,212.50,2027-05-08,2027-05-08,14200,,PH00006
+PH00009,AMX-500,store=AUH-B,closing,35,box,1487.50,2027-05-31,2027-05-31,14200,,

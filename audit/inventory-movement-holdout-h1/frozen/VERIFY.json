@@ -1,0 +1,54 @@
+{
+ "schema": "tarasuf-inv2-movement-bridge-h1-verify/1",
+ "factsSha256": "91eabec82395b4029581a77e05d5560b7963ab0542743ad6edb5589018f5606c",
+ "files": 96,
+ "cells": 9152,
+ "passed": true,
+ "problems": [],
+ "selfTest": [
+  {
+   "plant": "one value changed",
+   "rejected": true
+  },
+  {
+   "plant": "one line dropped",
+   "rejected": true
+  },
+  {
+   "plant": "byte-order mark removed",
+   "rejected": true
+  },
+  {
+   "plant": "LF in a CR file",
+   "rejected": true
+  },
+  {
+   "plant": "a field quoted that needs none",
+   "rejected": true
+  },
+  {
+   "plant": "a field with a space left unquoted by PHP",
+   "rejected": true
+  },
+  {
+   "plant": "LF in a CRLF file",
+   "rejected": true
+  },
+  {
+   "plant": "one GL value changed",
+   "rejected": true
+  },
+  {
+   "plant": "scope negative balances changed",
+   "rejected": true
+  },
+  {
+   "plant": "a file no story names",
+   "rejected": true
+  },
+  {
+   "plant": "an Arabic-Indic digit changed",
+   "rejected": true
+  }
+ ]
+}
