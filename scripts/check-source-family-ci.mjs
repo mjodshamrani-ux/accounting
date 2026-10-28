@@ -217,6 +217,8 @@ const required = [
   'test:inv-move:oracle-mutants',
   'test:inv-move:seal',
   'test:inv-move:baseline',
+  'test:inv-move:run',
+  'test:inv-move:mutations',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',

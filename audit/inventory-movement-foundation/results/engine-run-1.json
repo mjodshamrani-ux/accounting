@@ -1,0 +1,151 @@
+{
+ "schema": "tarasuf-inv2-movement-bridge-engine-run/1",
+ "family": "inventory-movement-bridge-1",
+ "suite": "audit/inventory-movement-foundation",
+ "rule": "equal to EXPECTED.json in full",
+ "equal": 47,
+ "of": 47,
+ "stories": {
+  "M01": {
+   "equal": true
+  },
+  "M02": {
+   "equal": true
+  },
+  "M03": {
+   "equal": true
+  },
+  "M04": {
+   "equal": true
+  },
+  "M05": {
+   "equal": true
+  },
+  "M06": {
+   "equal": true
+  },
+  "M07": {
+   "equal": true
+  },
+  "M08": {
+   "equal": true
+  },
+  "M09": {
+   "equal": true
+  },
+  "M10": {
+   "equal": true
+  },
+  "M11": {
+   "equal": true
+  },
+  "M12": {
+   "equal": true
+  },
+  "M13": {
+   "equal": true
+  },
+  "M14": {
+   "equal": true
+  },
+  "M15": {
+   "equal": true
+  },
+  "M16": {
+   "equal": true
+  },
+  "M17": {
+   "equal": true
+  },
+  "M18": {
+   "equal": true
+  },
+  "M19": {
+   "equal": true
+  },
+  "M20": {
+   "equal": true
+  },
+  "M21": {
+   "equal": true
+  },
+  "M22": {
+   "equal": true
+  },
+  "M23": {
+   "equal": true
+  },
+  "M24": {
+   "equal": true
+  },
+  "M25": {
+   "equal": true
+  },
+  "M26": {
+   "equal": true
+  },
+  "M27": {
+   "equal": true
+  },
+  "M28": {
+   "equal": true
+  },
+  "M29": {
+   "equal": true
+  },
+  "M30": {
+   "equal": true
+  },
+  "M31": {
+   "equal": true
+  },
+  "M32": {
+   "equal": true
+  },
+  "M33": {
+   "equal": true
+  },
+  "M34": {
+   "equal": true
+  },
+  "M35": {
+   "equal": true
+  },
+  "M36": {
+   "equal": true
+  },
+  "M37": {
+   "equal": true
+  },
+  "M38": {
+   "equal": true
+  },
+  "M39": {
+   "equal": true
+  },
+  "M40": {
+   "equal": true
+  },
+  "M41": {
+   "equal": true
+  },
+  "M42": {
+   "equal": true
+  },
+  "M43": {
+   "equal": true
+  },
+  "M44": {
+   "equal": true
+  },
+  "M45": {
+   "equal": true
+  },
+  "M46": {
+   "equal": true
+  },
+  "M47": {
+   "equal": true
+  }
+ }
+}

@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 70369,
-      "sha256": "9f9aa5d45cf7e68bf9d94d518e75b082189b2bf50c4db4ccc2ab6f8987295442",
+      "bytes": 70441,
+      "sha256": "073222f3e258dc5e740dfc196caf08bcbe1a7a9d9b1e93365f4941f46cb93760",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 46370,
-      "sha256": "79711eb02a9f86d359d89951f93585f1815f4b37846054e5b3ee4bd21e439dc1",
+      "bytes": 46662,
+      "sha256": "69d31e298444836b11102685cf80c3159c7a414b6832f432bafc199bc44de854",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 21626,
-      "sha256": "139bd8ed8bc50f159a58127275441cb4f403810d34f84d11f22ecbd0b9e5991c",
+      "bytes": 21692,
+      "sha256": "751b222795359df509968112a06103b36229bee466cb284fe2ac181232079363",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 104670,
-      "sha256": "3a87119f8a5f3a65568f059410acfbf74c14d9e8c618caa64a359823b8d921b0",
+      "bytes": 105594,
+      "sha256": "52afbddb61402190d5614188e812ef7f765c0cc97287f0f2277d9dc2633be851",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 80893,
-      "sha256": "72f1bd5907627b4a9341a2c56903d018d258493ae4eef66148b377f716d6c7b0",
+      "bytes": 80999,
+      "sha256": "d198ed35bf35a4e4549f332f32fc9f5cd1e71b74517bde9d09adfbf6ee4262f1",
       "kind": "text"
     },
     {
@@ -36253,8 +36253,8 @@
     },
     {
       "path": "docs/roadmap/inventory.ar.md",
-      "bytes": 25123,
-      "sha256": "0269f20de0e332043585854589446e2100d2db495978afdefb174a2b13cc2c6e",
+      "bytes": 25378,
+      "sha256": "7903ca2ff4b603702a96a093c0eaa2b1b2f0b579fef07c9303c300e7c9a7a927",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 48302,
-      "sha256": "6f375fff7420bd92043d8601d61ce32f020e67654368f9ac496c4cc5a1e4e7cf",
+      "bytes": 48590,
+      "sha256": "6d2da8107e95bd6c9839dd89ca7d710600f40eaed1fc8d8c11886a1236df26f3",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 16220,
-      "sha256": "91682a6fba86630ea13148bd90fefd37dbc585bf2f691c5dc0cbbe1c30ad103a",
+      "bytes": 16272,
+      "sha256": "e5b94968e2237fadb6020b0b5629de76da71de566284d45d5ccef2440bc88335",
       "kind": "text"
     },
     {
@@ -60625,8 +60625,8 @@
     },
     {
       "path": "audit/inventory-movement-foundation/README.ar.md",
-      "bytes": 7204,
-      "sha256": "be2ed67e77b7c779d11ab3ca00cd687fe7b9a91dd3e26003bd1ca2a811ea3bcf",
+      "bytes": 7534,
+      "sha256": "ef2dd80c30e183757a1297622a03e625ab283a145b6ce747c592f95aaa392590",
       "kind": "text"
     },
     {
@@ -61603,6 +61603,48 @@
       "path": "audit/inventory-movement-foundation/results/baseline-1.json",
       "bytes": 41436,
       "sha256": "1ea37eb3ef2069f26b315cb884aa03fa2b900c21734928cef42f750d2f688447",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/engine-run.mjs",
+      "bytes": 5841,
+      "sha256": "e54e17ebabe121e4f4c88949e34d9b55ca12ebf97e1c2dff82f09aede8728923",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/results/engine-run-1.json",
+      "bytes": 1786,
+      "sha256": "89dc2a5e814f0af9ab70d6d21d5efe50e6a5eb8d40e3ed67300811c91e5d5a26",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV-2B.ar.md",
+      "bytes": 7264,
+      "sha256": "05333db307fe084041c7dc9bfb4e6d02ea4cbaf2d219335165969736449f8425",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/inventory-movement-bridge-io.ts",
+      "bytes": 2976,
+      "sha256": "caa4319095b887883c51fa96076b3cd48c7cb77a782663238885b00732b8c0dc",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/inventory-movement-bridge.ts",
+      "bytes": 29343,
+      "sha256": "2f8b300f2b655e07beeb6b84128e71055ea8c7e5cded2f213bd464697fd5ec15",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-inventory-movement-bridge-mutations.mjs",
+      "bytes": 21547,
+      "sha256": "5417f4cc49dacfcbfb7d04c0542d3587060048d1d0f880908d00d60ec2b359d2",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-movement-bridge.test.ts",
+      "bytes": 41502,
+      "sha256": "8e1199f20b1ffa703ec1830edde48997cec8ff19d8ab1ebcc697e2e1d817db66",
       "kind": "text"
     }
   ],

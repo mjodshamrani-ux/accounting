@@ -15,6 +15,7 @@
 | [`verify.py`](verify.py) | فحص مستقل لكل ملف بقارئ آخر مكتوب هنا: الخلايا مطابقة للحقائق، والترميز، وعلامة ترتيب البايت، ونهايات الأسطر، والاقتباس، والمد، ونطاق كل قصة. ثم 11 تغييرًا مزروعًا يجب أن تُرفض |
 | [`seal.py`](seal.py) و[`check_seal.py`](check_seal.py) | الختم والتحقق منه |
 | [`baseline.mjs`](baseline.mjs) و`results/` | سجل المنتج كما هو، كُتب بعد الختم: السجل وGL كما يصلان، ثم مطويين باليد إلى العائلة القائمة بالختام وحده. التشغيل الأول في `results/baseline-1.json` كما جاء |
+| [`engine-run.mjs`](engine-run.mjs) | المحرك `inventory-movement-bridge-1` على القصص المختومة عبر الإعادة من البايتات، مقارنًا بـ`EXPECTED.json` كاملًا. التشغيل الأول في `results/engine-run-1.json` كما جاء ([INV-2b](../../docs/audits/INV-2B.ar.md)) |
 | `frozen/` | 47 سجل حركة، و47 ملخص GL، و47 ملف نطاق، و`stories.json`، و`EXPECTED.json`، و`VERIFY.json`، و`INPUT-MANIFEST.json`، و`SEAL.json` |
 
 ## الجولات قبل الختم
