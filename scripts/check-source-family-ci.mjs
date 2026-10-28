@@ -251,6 +251,7 @@ const required = [
   'test:pg-batches:baseline',
   'test:pg-batches:run',
   'test:pg-batches:mutations',
+  'test:pg-batches:h1-seal',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',

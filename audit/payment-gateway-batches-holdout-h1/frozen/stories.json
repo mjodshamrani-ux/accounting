@@ -1,0 +1,5394 @@
+{
+ "schema": "tarasuf-pg1-batches-h1-stories/1",
+ "synthetic": true,
+ "stories": [
+  {
+   "id": "H01",
+   "title": "three batches paid in one payout, credited in the period",
+   "writers": [
+    "java",
+    "go",
+    "perl",
+    "calc",
+    "php"
+   ],
+   "names": [
+    "H01-transactions.csv",
+    "H01-fees.csv",
+    "H01-settlements.csv",
+    "H01-payout-lines.csv",
+    "H01-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28030101",
+      "STL/0301/A",
+      "sale",
+      "2028-03-05",
+      "1200.00",
+      "Delivery order ORD-28030101",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "ORD-28030102",
+      "STL/0301/A",
+      "sale",
+      "2028-03-05",
+      "450.50",
+      "Delivery order ORD-28030102",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "ORD-28030103",
+      "STL/0301/A",
+      "refund",
+      "2028-03-09",
+      "50.50",
+      "Cancelled order ORD-28030103",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "ORD-28030104",
+      "STL/0301/B",
+      "sale",
+      "2028-03-05",
+      "800.00",
+      "Delivery order ORD-28030104",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "ORD-28030105",
+      "STL/0301/C",
+      "sale",
+      "2028-03-05",
+      "99.99",
+      "Delivery order ORD-28030105",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "CHG/01/001",
+      "STL/0301/A",
+      "36.00",
+      "Acquirer charge CHG/01/001",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "CHG/01/002",
+      "STL/0301/B",
+      "18.40",
+      "Acquirer charge CHG/01/002",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "CHG/01/003",
+      "STL/0301/C",
+      "3.00",
+      "Acquirer charge CHG/01/003",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0301/A",
+      "2028-03-14",
+      "1650.50",
+      "50.50",
+      "36.00",
+      "1564.00",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "STL/0301/B",
+      "2028-03-14",
+      "800.00",
+      "0.00",
+      "18.40",
+      "781.60",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "STL/0301/C",
+      "2028-03-14",
+      "99.99",
+      "0.00",
+      "3.00",
+      "96.99",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7001",
+      "STL/0301/A",
+      "1564.00",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "PYO-7001",
+      "STL/0301/B",
+      "781.60",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "PYO-7001",
+      "STL/0301/C",
+      "96.99",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803120001",
+      "PYO-7001",
+      "2028-03-12",
+      "2442.59",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2,
+       3
+      ],
+      [
+       4
+      ],
+      [
+       2
+      ],
+      156400,
+      [
+       "PYO-7001"
+      ]
+     ],
+     [
+      3,
+      "consistent",
+      [],
+      [
+       5
+      ],
+      [],
+      [
+       3
+      ],
+      78160,
+      [
+       "PYO-7001"
+      ]
+     ],
+     [
+      4,
+      "consistent",
+      [],
+      [
+       6
+      ],
+      [],
+      [
+       4
+      ],
+      9699,
+      [
+       "PYO-7001"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "PYO-7001",
+      "consistent",
+      [],
+      [
+       2,
+       3,
+       4
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "H02",
+   "title": "one batch paid in three payouts, each credited",
+   "writers": [
+    "go",
+    "perl",
+    "calc",
+    "php",
+    "java"
+   ],
+   "names": [
+    "H02-transactions.csv",
+    "H02-fees.csv",
+    "H02-settlements.csv",
+    "H02-payout-lines.csv",
+    "H02-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28030201",
+      "STL/0302",
+      "sale",
+      "2028-03-05",
+      "3000.00",
+      "Delivery order ORD-28030201",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "ORD-28030202",
+      "STL/0302",
+      "sale",
+      "2028-03-05",
+      "1500.00",
+      "Delivery order ORD-28030202",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "CHG/02/001",
+      "STL/0302",
+      "90.00",
+      "Acquirer charge CHG/02/001",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0302",
+      "2028-03-14",
+      "4500.00",
+      "0.00",
+      "90.00",
+      "4410.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7011",
+      "STL/0302",
+      "2000.00",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "PYO-7012",
+      "STL/0302",
+      "2000.00",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "PYO-7013",
+      "STL/0302",
+      "410.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803100011",
+      "PYO-7011",
+      "2028-03-10",
+      "2000.00",
+      "AE07-SYN-0331",
+      "AED"
+     ],
+     [
+      "FT2803170012",
+      "PYO-7012",
+      "2028-03-17",
+      "2000.00",
+      "AE07-SYN-0331",
+      "AED"
+     ],
+     [
+      "FT2803240013",
+      "PYO-7013",
+      "2028-03-24",
+      "410.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2,
+       3
+      ],
+      [],
+      [
+       2
+      ],
+      441000,
+      [
+       "PYO-7011",
+       "PYO-7012",
+       "PYO-7013"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "PYO-7011",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ],
+     [
+      "PYO-7012",
+      "consistent",
+      [],
+      [
+       3
+      ],
+      3
+     ],
+     [
+      "PYO-7013",
+      "consistent",
+      [],
+      [
+       4
+      ],
+      4
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "H03",
+   "title": "two batches crossing two payouts",
+   "writers": [
+    "perl",
+    "calc",
+    "php",
+    "java",
+    "go"
+   ],
+   "names": [
+    "H03-transactions.csv",
+    "H03-fees.csv",
+    "H03-settlements.csv",
+    "H03-payout-lines.csv",
+    "H03-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28030301",
+      "STL/0303/A",
+      "sale",
+      "2028-03-05",
+      "1000.00",
+      "Delivery order ORD-28030301",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "ORD-28030302",
+      "STL/0303/B",
+      "sale",
+      "2028-03-05",
+      "500.00",
+      "Delivery order ORD-28030302",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0303/A",
+      "2028-03-14",
+      "1000.00",
+      "0.00",
+      "0.00",
+      "1000.00",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "STL/0303/B",
+      "2028-03-14",
+      "500.00",
+      "0.00",
+      "0.00",
+      "500.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7021",
+      "STL/0303/A",
+      "600.00",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "PYO-7022",
+      "STL/0303/A",
+      "400.00",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "PYO-7022",
+      "STL/0303/B",
+      "500.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803150021",
+      "PYO-7021",
+      "2028-03-17",
+      "600.00",
+      "AE07-SYN-0331",
+      "AED"
+     ],
+     [
+      "FT2803160022",
+      "PYO-7022",
+      "2028-03-17",
+      "900.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2
+      ],
+      [],
+      [],
+      100000,
+      [
+       "PYO-7021",
+       "PYO-7022"
+      ]
+     ],
+     [
+      3,
+      "consistent",
+      [],
+      [
+       3
+      ],
+      [],
+      [],
+      50000,
+      [
+       "PYO-7022"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "PYO-7021",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ],
+     [
+      "PYO-7022",
+      "consistent",
+      [],
+      [
+       3,
+       4
+      ],
+      3
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "H04",
+   "title": "a sale written under the other batch: the payout is right, both batches are not",
+   "writers": [
+    "calc",
+    "php",
+    "java",
+    "go",
+    "perl"
+   ],
+   "names": [
+    "H04-transactions.csv",
+    "H04-fees.csv",
+    "H04-settlements.csv",
+    "H04-payout-lines.csv",
+    "H04-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28030401",
+      "STL/0304/A",
+      "sale",
+      "2028-03-05",
+      "700.00",
+      "Delivery order ORD-28030401",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "ORD-28030402",
+      "STL/0304/B",
+      "sale",
+      "2028-03-05",
+      "300.00",
+      "Delivery order ORD-28030402",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "ORD-28030403",
+      "STL/0304/B",
+      "sale",
+      "2028-03-05",
+      "200.00",
+      "Delivery order ORD-28030403",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "CHG/04/001",
+      "STL/0304/A",
+      "20.00",
+      "Acquirer charge CHG/04/001",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0304/A",
+      "2028-03-14",
+      "1000.00",
+      "0.00",
+      "20.00",
+      "980.00",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "STL/0304/B",
+      "2028-03-14",
+      "200.00",
+      "0.00",
+      "0.00",
+      "200.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7031",
+      "STL/0304/A",
+      "980.00",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "PYO-7031",
+      "STL/0304/B",
+      "200.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803180031",
+      "PYO-7031",
+      "2028-03-17",
+      "1180.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "review",
+      [
+       "SALES"
+      ],
+      [
+       2
+      ],
+      [],
+      [
+       2
+      ],
+      98000,
+      [
+       "PYO-7031"
+      ]
+     ],
+     [
+      3,
+      "review",
+      [
+       "SALES"
+      ],
+      [
+       3,
+       4
+      ],
+      [],
+      [],
+      20000,
+      [
+       "PYO-7031"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "PYO-7031",
+      "consistent",
+      [],
+      [
+       2,
+       3
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "H05",
+   "title": "a refund for another amount than the settlement row's refunds",
+   "writers": [
+    "php",
+    "java",
+    "go",
+    "perl",
+    "calc"
+   ],
+   "names": [
+    "H05-transactions.csv",
+    "H05-fees.csv",
+    "H05-settlements.csv",
+    "H05-payout-lines.csv",
+    "H05-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28030501",
+      "STL/0305",
+      "sale",
+      "2028-03-05",
+      "500.00",
+      "Delivery order ORD-28030501",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "ORD-28030502",
+      "STL/0305",
+      "refund",
+      "2028-03-09",
+      "70.00",
+      "Cancelled order ORD-28030502",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "CHG/05/001",
+      "STL/0305",
+      "10.00",
+      "Acquirer charge CHG/05/001",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0305",
+      "2028-03-14",
+      "500.00",
+      "75.00",
+      "10.00",
+      "415.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7041",
+      "STL/0305",
+      "415.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803190041",
+      "PYO-7041",
+      "2028-03-17",
+      "415.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "review",
+      [
+       "REFUNDS"
+      ],
+      [
+       2
+      ],
+      [
+       3
+      ],
+      [
+       2
+      ],
+      41500,
+      [
+       "PYO-7041"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "PYO-7041",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "H06",
+   "title": "one of two charges without its evidence",
+   "writers": [
+    "java",
+    "go",
+    "perl",
+    "calc",
+    "php"
+   ],
+   "names": [
+    "H06-transactions.csv",
+    "H06-fees.csv",
+    "H06-settlements.csv",
+    "H06-payout-lines.csv",
+    "H06-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28030601",
+      "STL/0306",
+      "sale",
+      "2028-03-05",
+      "800.00",
+      "Delivery order ORD-28030601",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "CHG/06/001",
+      "STL/0306",
+      "12.00",
+      "Acquirer charge CHG/06/001",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0306",
+      "2028-03-14",
+      "800.00",
+      "0.00",
+      "24.00",
+      "776.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7051",
+      "STL/0306",
+      "776.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803190051",
+      "PYO-7051",
+      "2028-03-17",
+      "776.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "review",
+      [
+       "FEES"
+      ],
+      [
+       2
+      ],
+      [],
+      [
+       2
+      ],
+      77600,
+      [
+       "PYO-7051"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "PYO-7051",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "H07",
+   "title": "a settlement row whose net is not its own arithmetic",
+   "writers": [
+    "go",
+    "perl",
+    "calc",
+    "php",
+    "java"
+   ],
+   "names": [
+    "H07-transactions.csv",
+    "H07-fees.csv",
+    "H07-settlements.csv",
+    "H07-payout-lines.csv",
+    "H07-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28030701",
+      "STL/0307",
+      "sale",
+      "2028-03-05",
+      "600.00",
+      "Delivery order ORD-28030701",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "CHG/07/001",
+      "STL/0307",
+      "15.00",
+      "Acquirer charge CHG/07/001",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0307",
+      "2028-03-14",
+      "600.00",
+      "0.00",
+      "15.00",
+      "586.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7061",
+      "STL/0307",
+      "586.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803200061",
+      "PYO-7061",
+      "2028-03-17",
+      "586.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "review",
+      [
+       "NET"
+      ],
+      [
+       2
+      ],
+      [],
+      [
+       2
+      ],
+      58600,
+      [
+       "PYO-7061"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "PYO-7061",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "H08",
+   "title": "the payout pays less than the net, and the bank received what it paid",
+   "writers": [
+    "perl",
+    "calc",
+    "php",
+    "java",
+    "go"
+   ],
+   "names": [
+    "H08-transactions.csv",
+    "H08-fees.csv",
+    "H08-settlements.csv",
+    "H08-payout-lines.csv",
+    "H08-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28030801",
+      "STL/0308",
+      "sale",
+      "2028-03-05",
+      "900.00",
+      "Delivery order ORD-28030801",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0308",
+      "2028-03-14",
+      "900.00",
+      "0.00",
+      "0.00",
+      "900.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7071",
+      "STL/0308",
+      "890.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803200071",
+      "PYO-7071",
+      "2028-03-17",
+      "890.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "review",
+      [
+       "PAID_SHORT"
+      ],
+      [
+       2
+      ],
+      [],
+      [],
+      89000,
+      [
+       "PYO-7071"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "PYO-7071",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "H09",
+   "title": "the payout pays more than the net",
+   "writers": [
+    "calc",
+    "php",
+    "java",
+    "go",
+    "perl"
+   ],
+   "names": [
+    "H09-transactions.csv",
+    "H09-fees.csv",
+    "H09-settlements.csv",
+    "H09-payout-lines.csv",
+    "H09-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28030901",
+      "STL/0309",
+      "sale",
+      "2028-03-05",
+      "400.00",
+      "Delivery order ORD-28030901",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0309",
+      "2028-03-14",
+      "400.00",
+      "0.00",
+      "0.00",
+      "400.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7081",
+      "STL/0309",
+      "401.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803210081",
+      "PYO-7081",
+      "2028-03-17",
+      "401.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "review",
+      [
+       "PAID_OVER"
+      ],
+      [
+       2
+      ],
+      [],
+      [],
+      40100,
+      [
+       "PYO-7081"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "PYO-7081",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "H10",
+   "title": "the bank received ten fils less than the payout lines",
+   "writers": [
+    "php",
+    "java",
+    "go",
+    "perl",
+    "calc"
+   ],
+   "names": [
+    "H10-transactions.csv",
+    "H10-fees.csv",
+    "H10-settlements.csv",
+    "H10-payout-lines.csv",
+    "H10-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28031001",
+      "STL/0310",
+      "sale",
+      "2028-03-05",
+      "700.00",
+      "Delivery order ORD-28031001",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0310",
+      "2028-03-14",
+      "700.00",
+      "0.00",
+      "0.00",
+      "700.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7091",
+      "STL/0310",
+      "700.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803210091",
+      "PYO-7091",
+      "2028-03-17",
+      "699.90",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "review",
+      [
+       "PAYOUT"
+      ],
+      [
+       2
+      ],
+      [],
+      [],
+      70000,
+      [
+       "PYO-7091"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "PYO-7091",
+      "review",
+      [
+       "CREDIT"
+      ],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "H11",
+   "title": "one payout never credited, beside one that was",
+   "writers": [
+    "java",
+    "go",
+    "perl",
+    "calc",
+    "php"
+   ],
+   "names": [
+    "H11-transactions.csv",
+    "H11-fees.csv",
+    "H11-settlements.csv",
+    "H11-payout-lines.csv",
+    "H11-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28031101",
+      "STL/0311/A",
+      "sale",
+      "2028-03-05",
+      "250.00",
+      "Delivery order ORD-28031101",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "ORD-28031102",
+      "STL/0311/B",
+      "sale",
+      "2028-03-05",
+      "125.00",
+      "Delivery order ORD-28031102",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0311/A",
+      "2028-03-14",
+      "250.00",
+      "0.00",
+      "0.00",
+      "250.00",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "STL/0311/B",
+      "2028-03-14",
+      "125.00",
+      "0.00",
+      "0.00",
+      "125.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7101",
+      "STL/0311/A",
+      "250.00",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "PYO-7102",
+      "STL/0311/B",
+      "125.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803220102",
+      "PYO-7102",
+      "2028-03-17",
+      "125.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "review",
+      [
+       "PAYOUT"
+      ],
+      [
+       2
+      ],
+      [],
+      [],
+      25000,
+      [
+       "PYO-7101"
+      ]
+     ],
+     [
+      3,
+      "consistent",
+      [],
+      [
+       3
+      ],
+      [],
+      [],
+      12500,
+      [
+       "PYO-7102"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "PYO-7101",
+      "review",
+      [
+       "NOT_DEPOSITED"
+      ],
+      [
+       2
+      ],
+      null
+     ],
+     [
+      "PYO-7102",
+      "consistent",
+      [],
+      [
+       3
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "H12",
+   "title": "a payout credited on 2 April, after the period and before the as-of date",
+   "writers": [
+    "go",
+    "perl",
+    "calc",
+    "php",
+    "java"
+   ],
+   "names": [
+    "H12-transactions.csv",
+    "H12-fees.csv",
+    "H12-settlements.csv",
+    "H12-payout-lines.csv",
+    "H12-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28031201",
+      "STL/0312/A",
+      "sale",
+      "2028-03-05",
+      "330.00",
+      "Delivery order ORD-28031201",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "ORD-28031202",
+      "STL/0312/B",
+      "sale",
+      "2028-03-05",
+      "100.00",
+      "Delivery order ORD-28031202",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0312/A",
+      "2028-03-30",
+      "330.00",
+      "0.00",
+      "0.00",
+      "330.00",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "STL/0312/B",
+      "2028-03-14",
+      "100.00",
+      "0.00",
+      "0.00",
+      "100.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7111",
+      "STL/0312/A",
+      "330.00",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "PYO-7112",
+      "STL/0312/B",
+      "100.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2804020111",
+      "PYO-7111",
+      "2028-04-02",
+      "330.00",
+      "AE07-SYN-0331",
+      "AED"
+     ],
+     [
+      "FT2803230112",
+      "PYO-7112",
+      "2028-03-31",
+      "100.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "in-transit",
+      [],
+      [
+       2
+      ],
+      [],
+      [],
+      33000,
+      [
+       "PYO-7111"
+      ]
+     ],
+     [
+      3,
+      "consistent",
+      [],
+      [
+       3
+      ],
+      [],
+      [],
+      10000,
+      [
+       "PYO-7112"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "PYO-7111",
+      "in-transit",
+      [],
+      [
+       2
+      ],
+      2
+     ],
+     [
+      "PYO-7112",
+      "consistent",
+      [],
+      [
+       3
+      ],
+      3
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "H13",
+   "title": "a late credit for another amount is not in transit",
+   "writers": [
+    "perl",
+    "calc",
+    "php",
+    "java",
+    "go"
+   ],
+   "names": [
+    "H13-transactions.csv",
+    "H13-fees.csv",
+    "H13-settlements.csv",
+    "H13-payout-lines.csv",
+    "H13-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28031301",
+      "STL/0313",
+      "sale",
+      "2028-03-05",
+      "330.00",
+      "Delivery order ORD-28031301",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0313",
+      "2028-03-30",
+      "330.00",
+      "0.00",
+      "0.00",
+      "330.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7121",
+      "STL/0313",
+      "330.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2804030121",
+      "PYO-7121",
+      "2028-04-03",
+      "329.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "review",
+      [
+       "PAYOUT"
+      ],
+      [
+       2
+      ],
+      [],
+      [],
+      33000,
+      [
+       "PYO-7121"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "PYO-7121",
+      "review",
+      [
+       "CREDIT"
+      ],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "H14",
+   "title": "a bank credit no payout line names, for the same amount as a real payout",
+   "writers": [
+    "calc",
+    "php",
+    "java",
+    "go",
+    "perl"
+   ],
+   "names": [
+    "H14-transactions.csv",
+    "H14-fees.csv",
+    "H14-settlements.csv",
+    "H14-payout-lines.csv",
+    "H14-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28031401",
+      "STL/0314",
+      "sale",
+      "2028-03-05",
+      "210.00",
+      "Delivery order ORD-28031401",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0314",
+      "2028-03-14",
+      "210.00",
+      "0.00",
+      "0.00",
+      "210.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7131",
+      "STL/0314",
+      "210.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803240131",
+      "PYO-7131",
+      "2028-03-17",
+      "210.00",
+      "AE07-SYN-0331",
+      "AED"
+     ],
+     [
+      "FT2803250199",
+      "PYO-7199",
+      "2028-03-25",
+      "210.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2
+      ],
+      [],
+      [],
+      21000,
+      [
+       "PYO-7131"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "PYO-7131",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": [
+     [
+      3,
+      "PYO-7199"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "H15",
+   "title": "one batch with four reasons, in the contract's order",
+   "writers": [
+    "php",
+    "java",
+    "go",
+    "perl",
+    "calc"
+   ],
+   "names": [
+    "H15-transactions.csv",
+    "H15-fees.csv",
+    "H15-settlements.csv",
+    "H15-payout-lines.csv",
+    "H15-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28031501",
+      "STL/0315",
+      "sale",
+      "2028-03-05",
+      "1000.00",
+      "Delivery order ORD-28031501",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "CHG/15/001",
+      "STL/0315",
+      "15.00",
+      "Acquirer charge CHG/15/001",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0315",
+      "2028-03-14",
+      "1010.00",
+      "0.00",
+      "20.00",
+      "990.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7141",
+      "STL/0315",
+      "980.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803260141",
+      "PYO-7141",
+      "2028-03-17",
+      "970.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "review",
+      [
+       "SALES",
+       "FEES",
+       "PAID_SHORT",
+       "PAYOUT"
+      ],
+      [
+       2
+      ],
+      [],
+      [
+       2
+      ],
+      98000,
+      [
+       "PYO-7141"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "PYO-7141",
+      "review",
+      [
+       "CREDIT"
+      ],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "H16",
+   "title": "Kuwaiti dinars to three places, with Arabic-Indic and extended Arabic-Indic digits",
+   "writers": [
+    "java",
+    "go",
+    "perl",
+    "calc",
+    "php"
+   ],
+   "names": [
+    "H16-transactions.csv",
+    "H16-fees.csv",
+    "H16-settlements.csv",
+    "H16-payout-lines.csv",
+    "H16-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "KWD",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28031601",
+      "STL/0316",
+      "sale",
+      "2028-03-05",
+      "١٢٫٥٠٠",
+      "Delivery order ORD-28031601",
+      "MER-UAE-3307",
+      "KWD"
+     ],
+     [
+      "ORD-28031602",
+      "STL/0316",
+      "sale",
+      "2028-03-05",
+      "٧٫٢٥٠",
+      "Delivery order ORD-28031602",
+      "MER-UAE-3307",
+      "KWD"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "CHG/16/001",
+      "STL/0316",
+      "۰٫۲۵۰",
+      "Acquirer charge CHG/16/001",
+      "MER-UAE-3307",
+      "KWD"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0316",
+      "2028-03-14",
+      "19.750",
+      "0.000",
+      "0.250",
+      "19.500",
+      "MER-UAE-3307",
+      "KWD"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7151",
+      "STL/0316",
+      "19.500",
+      "MER-UAE-3307",
+      "KWD"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803270151",
+      "PYO-7151",
+      "2028-03-17",
+      "١٩٫٥٠٠",
+      "AE07-SYN-0331",
+      "KWD"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2,
+       3
+      ],
+      [],
+      [
+       2
+      ],
+      19500,
+      [
+       "PYO-7151"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "PYO-7151",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "H17",
+   "title": "yen without minor units, and a zero charge written out",
+   "writers": [
+    "go",
+    "perl",
+    "calc",
+    "php",
+    "java"
+   ],
+   "names": [
+    "H17-transactions.csv",
+    "H17-fees.csv",
+    "H17-settlements.csv",
+    "H17-payout-lines.csv",
+    "H17-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "JPY",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 0,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28031701",
+      "STL/0317/A",
+      "sale",
+      "2028-03-05",
+      "120000",
+      "Delivery order ORD-28031701",
+      "MER-UAE-3307",
+      "JPY"
+     ],
+     [
+      "ORD-28031702",
+      "STL/0317/A",
+      "refund",
+      "2028-03-09",
+      "5000",
+      "Cancelled order ORD-28031702",
+      "MER-UAE-3307",
+      "JPY"
+     ],
+     [
+      "ORD-28031703",
+      "STL/0317/B",
+      "sale",
+      "2028-03-05",
+      "900",
+      "Delivery order ORD-28031703",
+      "MER-UAE-3307",
+      "JPY"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "CHG/17/001",
+      "STL/0317/A",
+      "3480",
+      "Acquirer charge CHG/17/001",
+      "MER-UAE-3307",
+      "JPY"
+     ],
+     [
+      "CHG/17/002",
+      "STL/0317/B",
+      "0",
+      "Acquirer charge CHG/17/002",
+      "MER-UAE-3307",
+      "JPY"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0317/A",
+      "2028-03-14",
+      "120000",
+      "5000",
+      "3480",
+      "111520",
+      "MER-UAE-3307",
+      "JPY"
+     ],
+     [
+      "STL/0317/B",
+      "2028-03-14",
+      "900",
+      "0",
+      "0",
+      "900",
+      "MER-UAE-3307",
+      "JPY"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7161",
+      "STL/0317/A",
+      "111520",
+      "MER-UAE-3307",
+      "JPY"
+     ],
+     [
+      "PYO-7161",
+      "STL/0317/B",
+      "900",
+      "MER-UAE-3307",
+      "JPY"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803280161",
+      "PYO-7161",
+      "2028-03-17",
+      "112420",
+      "AE07-SYN-0331",
+      "JPY"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2
+      ],
+      [
+       3
+      ],
+      [
+       2
+      ],
+      111520,
+      [
+       "PYO-7161"
+      ]
+     ],
+     [
+      3,
+      "consistent",
+      [],
+      [
+       4
+      ],
+      [],
+      [
+       3
+      ],
+      900,
+      [
+       "PYO-7161"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "PYO-7161",
+      "consistent",
+      [],
+      [
+       2,
+       3
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "H18",
+   "title": "every file's columns in another order, an Arabic entity, gateway and references",
+   "writers": [
+    "perl",
+    "calc",
+    "php",
+    "java",
+    "go"
+   ],
+   "names": [
+    "H18-transactions.csv",
+    "H18-fees.csv",
+    "H18-settlements.csv",
+    "H18-payout-lines.csv",
+    "H18-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "شركة صحراء للمأكولات (اصطناعية)",
+    "gateway": "بوابة نت باي الاصطناعية",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Currency",
+      "Merchant account",
+      "Reference",
+      "Amount",
+      "Posting date",
+      "Kind",
+      "Batch ID",
+      "Transaction ID"
+     ],
+     [
+      "AED",
+      "MER-UAE-3307",
+      "طلب توصيل",
+      "640.00",
+      "2028-03-05",
+      "sale",
+      "STL/0318",
+      "ORD-28031801"
+     ],
+     [
+      "AED",
+      "MER-UAE-3307",
+      "طلب توصيل",
+      "40.00",
+      "2028-03-09",
+      "refund",
+      "STL/0318",
+      "ORD-28031802"
+     ]
+    ],
+    [
+     [
+      "Currency",
+      "Merchant account",
+      "Reference",
+      "Amount",
+      "Batch ID",
+      "Fee ID"
+     ],
+     [
+      "AED",
+      "MER-UAE-3307",
+      "رسم المعالجة",
+      "16.00",
+      "STL/0318",
+      "CHG/18/001"
+     ]
+    ],
+    [
+     [
+      "Currency",
+      "Merchant account",
+      "Net",
+      "Fees",
+      "Refunds",
+      "Gross sales",
+      "Settlement date",
+      "Batch ID"
+     ],
+     [
+      "AED",
+      "MER-UAE-3307",
+      "584.00",
+      "16.00",
+      "40.00",
+      "640.00",
+      "2028-03-14",
+      "STL/0318"
+     ]
+    ],
+    [
+     [
+      "Currency",
+      "Merchant account",
+      "Amount",
+      "Batch ID",
+      "Payout ID"
+     ],
+     [
+      "AED",
+      "MER-UAE-3307",
+      "584.00",
+      "STL/0318",
+      "PYO-7171"
+     ]
+    ],
+    [
+     [
+      "Currency",
+      "Bank account",
+      "Credit",
+      "Value date",
+      "Payout ID",
+      "Bank reference"
+     ],
+     [
+      "AED",
+      "AE07-SYN-0331",
+      "584.00",
+      "2028-03-17",
+      "PYO-7171",
+      "FT2803290171"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2
+      ],
+      [
+       3
+      ],
+      [
+       2
+      ],
+      58400,
+      [
+       "PYO-7171"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "PYO-7171",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "H19",
+   "title": "five XLSX files with blank rows between the rows",
+   "writers": [
+    "lo-xlsx",
+    "lo-xlsx",
+    "lo-xlsx",
+    "lo-xlsx",
+    "lo-xlsx"
+   ],
+   "names": [
+    "H19-transactions.xlsx",
+    "H19-fees.xlsx",
+    "H19-settlements.xlsx",
+    "H19-payout-lines.xlsx",
+    "H19-bank-credits.xlsx"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28031901",
+      "STL/0319/A",
+      "sale",
+      "2028-03-05",
+      "300.00",
+      "Delivery order ORD-28031901",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [],
+     [
+      "ORD-28031902",
+      "STL/0319/B",
+      "sale",
+      "2028-03-05",
+      "200.00",
+      "Delivery order ORD-28031902",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "CHG/19/001",
+      "STL/0319/A",
+      "6.00",
+      "Acquirer charge CHG/19/001",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0319/A",
+      "2028-03-14",
+      "300.00",
+      "0.00",
+      "6.00",
+      "294.00",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "STL/0319/B",
+      "2028-03-14",
+      "200.00",
+      "0.00",
+      "0.00",
+      "200.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7181",
+      "STL/0319/A",
+      "294.00",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [],
+     [
+      "PYO-7181",
+      "STL/0319/B",
+      "200.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803300181",
+      "PYO-7181",
+      "2028-03-17",
+      "494.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2
+      ],
+      [],
+      [
+       2
+      ],
+      29400,
+      [
+       "PYO-7181"
+      ]
+     ],
+     [
+      3,
+      "consistent",
+      [],
+      [
+       4
+      ],
+      [],
+      [],
+      20000,
+      [
+       "PYO-7181"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "PYO-7181",
+      "consistent",
+      [],
+      [
+       2,
+       4
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "H20",
+   "title": "an XLSX fee file with a hidden charge",
+   "writers": [
+    "lo-xlsx",
+    "lo-xlsx",
+    "lo-xlsx",
+    "lo-xlsx",
+    "lo-xlsx"
+   ],
+   "names": [
+    "H20-transactions.xlsx",
+    "H20-fees.xlsx",
+    "H20-settlements.xlsx",
+    "H20-payout-lines.xlsx",
+    "H20-bank-credits.xlsx"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28032001",
+      "STL/0320",
+      "sale",
+      "2028-03-05",
+      "500.00",
+      "Delivery order ORD-28032001",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "CHG/20/001",
+      "STL/0320",
+      "10.00",
+      "Acquirer charge CHG/20/001",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "CHG/20/002",
+      "STL/0320",
+      "5.00",
+      "Acquirer charge CHG/20/002",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0320",
+      "2028-03-14",
+      "500.00",
+      "0.00",
+      "15.00",
+      "485.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7191",
+      "STL/0320",
+      "485.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803300191",
+      "PYO-7191",
+      "2028-03-17",
+      "485.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [
+     3
+    ],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "batches": [],
+    "payouts": [],
+    "credits": []
+   }
+  },
+  {
+   "id": "H21",
+   "title": "the bank file lists one reference twice",
+   "writers": [
+    "java",
+    "go",
+    "perl",
+    "calc",
+    "php"
+   ],
+   "names": [
+    "H21-transactions.csv",
+    "H21-fees.csv",
+    "H21-settlements.csv",
+    "H21-payout-lines.csv",
+    "H21-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28032101",
+      "STL/0321",
+      "sale",
+      "2028-03-05",
+      "150.00",
+      "Delivery order ORD-28032101",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0321",
+      "2028-03-14",
+      "150.00",
+      "0.00",
+      "0.00",
+      "150.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7201",
+      "STL/0321",
+      "75.00",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "PYO-7202",
+      "STL/0321",
+      "75.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803170201",
+      "PYO-7201",
+      "2028-03-17",
+      "75.00",
+      "AE07-SYN-0331",
+      "AED"
+     ],
+     [
+      "FT2803170201",
+      "PYO-7202",
+      "2028-03-17",
+      "75.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "batches": [],
+    "payouts": [],
+    "credits": []
+   }
+  },
+  {
+   "id": "H22",
+   "title": "a payout line naming a batch with no settlement row",
+   "writers": [
+    "go",
+    "perl",
+    "calc",
+    "php",
+    "java"
+   ],
+   "names": [
+    "H22-transactions.csv",
+    "H22-fees.csv",
+    "H22-settlements.csv",
+    "H22-payout-lines.csv",
+    "H22-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28032201",
+      "STL/0322",
+      "sale",
+      "2028-03-05",
+      "150.00",
+      "Delivery order ORD-28032201",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0322",
+      "2028-03-14",
+      "150.00",
+      "0.00",
+      "0.00",
+      "150.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7211",
+      "STL/0322",
+      "150.00",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "PYO-7211",
+      "STL/0399",
+      "5.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803180211",
+      "PYO-7211",
+      "2028-03-17",
+      "155.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "batches": [],
+    "payouts": [],
+    "credits": []
+   }
+  },
+  {
+   "id": "H23",
+   "title": "a transaction posted on 29 February, before the period",
+   "writers": [
+    "perl",
+    "calc",
+    "php",
+    "java",
+    "go"
+   ],
+   "names": [
+    "H23-transactions.csv",
+    "H23-fees.csv",
+    "H23-settlements.csv",
+    "H23-payout-lines.csv",
+    "H23-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28032301",
+      "STL/0323",
+      "sale",
+      "2028-02-29",
+      "150.00",
+      "Delivery order ORD-28032301",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0323",
+      "2028-03-14",
+      "150.00",
+      "0.00",
+      "0.00",
+      "150.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7221",
+      "STL/0323",
+      "150.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803180221",
+      "PYO-7221",
+      "2028-03-17",
+      "150.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "batches": [],
+    "payouts": [],
+    "credits": []
+   }
+  },
+  {
+   "id": "H24",
+   "title": "a dirham amount to three places",
+   "writers": [
+    "calc",
+    "php",
+    "java",
+    "go",
+    "perl"
+   ],
+   "names": [
+    "H24-transactions.csv",
+    "H24-fees.csv",
+    "H24-settlements.csv",
+    "H24-payout-lines.csv",
+    "H24-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28032401",
+      "STL/0324",
+      "sale",
+      "2028-03-05",
+      "150.005",
+      "Delivery order ORD-28032401",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0324",
+      "2028-03-14",
+      "150.00",
+      "0.00",
+      "0.00",
+      "150.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7231",
+      "STL/0324",
+      "150.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803180231",
+      "PYO-7231",
+      "2028-03-17",
+      "150.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "batches": [],
+    "payouts": [],
+    "credits": []
+   }
+  },
+  {
+   "id": "H25",
+   "title": "a transactions file without its Kind column",
+   "writers": [
+    "php",
+    "java",
+    "go",
+    "perl",
+    "calc"
+   ],
+   "names": [
+    "H25-transactions.csv",
+    "H25-fees.csv",
+    "H25-settlements.csv",
+    "H25-payout-lines.csv",
+    "H25-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28032501",
+      "STL/0325",
+      "2028-03-05",
+      "150.00",
+      "Delivery order ORD-28032501",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0325",
+      "2028-03-14",
+      "150.00",
+      "0.00",
+      "0.00",
+      "150.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7241",
+      "STL/0325",
+      "150.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803180241",
+      "PYO-7241",
+      "2028-03-17",
+      "150.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": "COLUMNS",
+    "batches": [],
+    "payouts": [],
+    "credits": []
+   }
+  },
+  {
+   "id": "H26",
+   "title": "a scope currency with no known minor units",
+   "writers": [
+    "java",
+    "go",
+    "perl",
+    "calc",
+    "php"
+   ],
+   "names": [
+    "H26-transactions.csv",
+    "H26-fees.csv",
+    "H26-settlements.csv",
+    "H26-payout-lines.csv",
+    "H26-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "XAU",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28032601",
+      "STL/0326",
+      "sale",
+      "2028-03-05",
+      "150.00",
+      "Delivery order ORD-28032601",
+      "MER-UAE-3307",
+      "XAU"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0326",
+      "2028-03-14",
+      "150.00",
+      "0.00",
+      "0.00",
+      "150.00",
+      "MER-UAE-3307",
+      "XAU"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7251",
+      "STL/0326",
+      "150.00",
+      "MER-UAE-3307",
+      "XAU"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803180251",
+      "PYO-7251",
+      "2028-03-17",
+      "150.00",
+      "AE07-SYN-0331",
+      "XAU"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": "SCOPE",
+    "batches": [],
+    "payouts": [],
+    "credits": []
+   }
+  },
+  {
+   "id": "H27",
+   "title": "a chargeback in the transactions file",
+   "writers": [
+    "go",
+    "perl",
+    "calc",
+    "php",
+    "java"
+   ],
+   "names": [
+    "H27-transactions.csv",
+    "H27-fees.csv",
+    "H27-settlements.csv",
+    "H27-payout-lines.csv",
+    "H27-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28032701",
+      "STL/0327",
+      "sale",
+      "2028-03-05",
+      "150.00",
+      "Delivery order ORD-28032701",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "ORD-28032702",
+      "STL/0327",
+      "chargeback",
+      "2028-03-05",
+      "20.00",
+      "Delivery order ORD-28032702",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0327",
+      "2028-03-14",
+      "150.00",
+      "0.00",
+      "0.00",
+      "150.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7261",
+      "STL/0327",
+      "150.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803180261",
+      "PYO-7261",
+      "2028-03-17",
+      "150.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "batches": [],
+    "payouts": [],
+    "credits": []
+   }
+  },
+  {
+   "id": "H28",
+   "title": "a bank credit dated the day after the as-of date",
+   "writers": [
+    "perl",
+    "calc",
+    "php",
+    "java",
+    "go"
+   ],
+   "names": [
+    "H28-transactions.csv",
+    "H28-fees.csv",
+    "H28-settlements.csv",
+    "H28-payout-lines.csv",
+    "H28-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28032801",
+      "STL/0328",
+      "sale",
+      "2028-03-29",
+      "150.00",
+      "Delivery order ORD-28032801",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0328",
+      "2028-03-14",
+      "150.00",
+      "0.00",
+      "0.00",
+      "150.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7271",
+      "STL/0328",
+      "150.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2804070271",
+      "PYO-7271",
+      "2028-04-07",
+      "150.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "batches": [],
+    "payouts": [],
+    "credits": []
+   }
+  },
+  {
+   "id": "H29",
+   "title": "a February sale refunded in March, and a zero charge beside a real one",
+   "writers": [
+    "calc",
+    "php",
+    "java",
+    "go",
+    "perl"
+   ],
+   "names": [
+    "H29-transactions.csv",
+    "H29-fees.csv",
+    "H29-settlements.csv",
+    "H29-payout-lines.csv",
+    "H29-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28032901",
+      "STL/0329",
+      "sale",
+      "2028-03-05",
+      "500.00",
+      "Delivery order ORD-28032901",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "ORD-28022977",
+      "STL/0329",
+      "refund",
+      "2028-03-04",
+      "50.00",
+      "Refund of a February order",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "CHG/29/001",
+      "STL/0329",
+      "0.00",
+      "Acquirer charge CHG/29/001",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "CHG/29/002",
+      "STL/0329",
+      "10.00",
+      "Acquirer charge CHG/29/002",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0329",
+      "2028-03-14",
+      "500.00",
+      "50.00",
+      "10.00",
+      "440.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7281",
+      "STL/0329",
+      "440.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803300281",
+      "PYO-7281",
+      "2028-03-17",
+      "440.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2
+      ],
+      [
+       3
+      ],
+      [
+       2,
+       3
+      ],
+      44000,
+      [
+       "PYO-7281"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "PYO-7281",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "H30",
+   "title": "a batch half in transit, and a batch whose only payout never arrived",
+   "writers": [
+    "php",
+    "java",
+    "go",
+    "perl",
+    "calc"
+   ],
+   "names": [
+    "H30-transactions.csv",
+    "H30-fees.csv",
+    "H30-settlements.csv",
+    "H30-payout-lines.csv",
+    "H30-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Desert Eats Marketplace LLC",
+    "gateway": "Synthetic NetPay Switch",
+    "merchantAccount": "MER-UAE-3307",
+    "bankAccount": "AE07-SYN-0331",
+    "currency": "AED",
+    "start": "2028-03-01",
+    "end": "2028-03-31",
+    "asOf": "2028-04-06",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "ORD-28033001",
+      "STL/0330/A",
+      "sale",
+      "2028-03-05",
+      "600.00",
+      "Delivery order ORD-28033001",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "ORD-28033002",
+      "STL/0330/B",
+      "sale",
+      "2028-03-05",
+      "80.00",
+      "Delivery order ORD-28033002",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "STL/0330/A",
+      "2028-03-29",
+      "600.00",
+      "0.00",
+      "0.00",
+      "600.00",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "STL/0330/B",
+      "2028-03-29",
+      "80.00",
+      "0.00",
+      "0.00",
+      "80.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "PYO-7291",
+      "STL/0330/A",
+      "300.00",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "PYO-7292",
+      "STL/0330/A",
+      "300.00",
+      "MER-UAE-3307",
+      "AED"
+     ],
+     [
+      "PYO-7293",
+      "STL/0330/B",
+      "80.00",
+      "MER-UAE-3307",
+      "AED"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "FT2803310291",
+      "PYO-7291",
+      "2028-03-31",
+      "300.00",
+      "AE07-SYN-0331",
+      "AED"
+     ],
+     [
+      "FT2804040292",
+      "PYO-7292",
+      "2028-04-04",
+      "300.00",
+      "AE07-SYN-0331",
+      "AED"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "in-transit",
+      [],
+      [
+       2
+      ],
+      [],
+      [],
+      60000,
+      [
+       "PYO-7291",
+       "PYO-7292"
+      ]
+     ],
+     [
+      3,
+      "review",
+      [
+       "PAYOUT"
+      ],
+      [
+       3
+      ],
+      [],
+      [],
+      8000,
+      [
+       "PYO-7293"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "PYO-7291",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ],
+     [
+      "PYO-7292",
+      "in-transit",
+      [],
+      [
+       3
+      ],
+      3
+     ],
+     [
+      "PYO-7293",
+      "review",
+      [
+       "NOT_DEPOSITED"
+      ],
+      [
+       4
+      ],
+      null
+     ]
+    ],
+    "credits": []
+   }
+  }
+ ]
+}

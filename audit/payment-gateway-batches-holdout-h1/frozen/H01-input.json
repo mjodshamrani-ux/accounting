@@ -1,0 +1,52 @@
+{
+ "names": [
+  "H01-transactions.csv",
+  "H01-fees.csv",
+  "H01-settlements.csv",
+  "H01-payout-lines.csv",
+  "H01-bank-credits.csv"
+ ],
+ "readings": [
+  {
+   "sheet": 0,
+   "role": "transactions",
+   "family": "payment-gateway-batches-1",
+   "confirmed": true
+  },
+  {
+   "sheet": 0,
+   "role": "fee-evidence",
+   "family": "payment-gateway-batches-1",
+   "confirmed": true
+  },
+  {
+   "sheet": 0,
+   "role": "settlements",
+   "family": "payment-gateway-batches-1",
+   "confirmed": true
+  },
+  {
+   "sheet": 0,
+   "role": "payout-lines",
+   "family": "payment-gateway-batches-1",
+   "confirmed": true
+  },
+  {
+   "sheet": 0,
+   "role": "bank-credits",
+   "family": "payment-gateway-batches-1",
+   "confirmed": true
+  }
+ ],
+ "scope": {
+  "entity": "Synthetic Desert Eats Marketplace LLC",
+  "gateway": "Synthetic NetPay Switch",
+  "merchantAccount": "MER-UAE-3307",
+  "bankAccount": "AE07-SYN-0331",
+  "currency": "AED",
+  "start": "2028-03-01",
+  "end": "2028-03-31",
+  "asOf": "2028-04-06",
+  "confirmed": true
+ }
+}

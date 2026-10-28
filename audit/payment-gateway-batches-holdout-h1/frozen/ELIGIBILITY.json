@@ -1,0 +1,47 @@
+{
+ "schema": "tarasuf-pg1-batches-h1-eligibility/1",
+ "checks": [
+  "name",
+  "size",
+  "a NUL",
+  "a quote the strict comma grammar refuses",
+  "cells in a record",
+  "sheets",
+  "a hidden sheet",
+  "a row of zero height",
+  "a cell that is not text",
+  "rows, columns or cells",
+  "merged cells",
+  "a hidden column",
+  "a conditional format",
+  "a character the reader refuses",
+  "cell length"
+ ],
+ "beyondContract": {},
+ "selfTest": [
+  {
+   "plant": "a stray quote in a CSV",
+   "found": true
+  },
+  {
+   "plant": "a NUL in a CSV",
+   "found": true
+  },
+  {
+   "plant": "a record of 101 cells",
+   "found": true
+  },
+  {
+   "plant": "a merged cell",
+   "found": true
+  },
+  {
+   "plant": "a number cell",
+   "found": true
+  },
+  {
+   "plant": "a row of zero height",
+   "found": true
+  }
+ ]
+}

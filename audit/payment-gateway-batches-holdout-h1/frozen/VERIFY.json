@@ -1,0 +1,59 @@
+{
+ "schema": "tarasuf-pg1-batches-h1-verify/1",
+ "factsSha256": "8ed00afb90a7a506178ea596acba54f93288e2fcbe79951df17fb5c7d5d24c97",
+ "stories": 30,
+ "files": 150,
+ "cells": 2247,
+ "passed": true,
+ "problems": [],
+ "selfTest": [
+  {
+   "plant": "one amount changed",
+   "rejected": true
+  },
+  {
+   "plant": "one row dropped",
+   "rejected": true
+  },
+  {
+   "plant": "byte-order mark removed",
+   "rejected": true
+  },
+  {
+   "plant": "LF in a CR file",
+   "rejected": true
+  },
+  {
+   "plant": "LF in a CRLF file",
+   "rejected": true
+  },
+  {
+   "plant": "a quoted cell unquoted by Calc",
+   "rejected": true
+  },
+  {
+   "plant": "an Arabic-Indic digit changed",
+   "rejected": true
+  },
+  {
+   "plant": "an XLSX row no longer hidden",
+   "rejected": true
+  },
+  {
+   "plant": "an XLSX cell changed",
+   "rejected": true
+  },
+  {
+   "plant": "an input as-of date changed",
+   "rejected": true
+  },
+  {
+   "plant": "an input naming another file",
+   "rejected": true
+  },
+  {
+   "plant": "a file no story names",
+   "rejected": true
+  }
+ ]
+}

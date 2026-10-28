@@ -1,0 +1,22 @@
+{
+ "schema": "tarasuf-pg1-batches-holdout-seal/1",
+ "statement": "Sealed and pushed before any product run on these files. The first engine and browser runs are recorded as they come.",
+ "pins": {
+  "INPUT-MANIFEST.json": "84865a4c2a4725dcd565460a80815715f1144bfe19c9eb8e56f72d8fc04116bf",
+  "EXPECTED.json": "8cf078133d403a658af5fdc94eddfeed15ca51f37395468d9d9ce13d788e9247",
+  "VERIFY.json": "a6c580367bb7f8d6bd1965077b92e85620af0f73ce4e57887326c295c6d78d98",
+  "ELIGIBILITY.json": "aed27e18c7cd3c6b4581216ab39146617abff4762e5537c9f4c0ecd42bc1c122",
+  "stories.py": "f17cf11754f82ad0ae19064852863eb94e3fa831880c6fd6285a41f9389fc2d3",
+  "render.py": "dc43d3f8766283e8885760fdeccbd809fa1ece5bbfe6e8e715ef99723dc8be6a",
+  "render.php": "3fc5fe7101b66173bf054e4aaae1a94b0d711e404d940b35b3771ba3f683f78a",
+  "Render.java": "8b1af4023a605cfa24fca35e6e29f3057fffaee8735ebe78904415366c18d3f9",
+  "render.go": "698b8bcb9da32fa45c4095d800976e80495ecbf21b6399264e614f59bd13bae4",
+  "render.pl": "1a3193e3d10cd662841eea0d5159d471479788953007ea8e18f3cbe9ae87f0aa",
+  "verify.py": "08a2ed73a3ad5858404df3cc06164cd8a63424f9545df33b42e3deebfd2a7bb7",
+  "eligibility.py": "086d5504fbe090cbe918ed97a972d03d27886e301b5f65875335a41682b605b9",
+  "judge.py": "b33567ddffed659a5fd27c589dfad2c10164f48293203c47104bf39d68496b4f",
+  "test_intent.py": "65b0e3e26867facb9166cb9bcf8132c7a60e591cbef68340712cd57a60f1e3b3",
+  "../payment-gateway-batches-foundation/contract.json": "5a97ea800cdc221eb06859b593015fc2b088602f4b0b24c3ca656d7e3cf06e13",
+  "../payment-gateway-batches-foundation/oracle.py": "093ab4cb8aa1ed0e0eb0d155c93ba90e5f53b86c7e91a9cbd34a51a5cdf94467"
+ }
+}

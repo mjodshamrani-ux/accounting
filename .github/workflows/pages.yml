@@ -409,6 +409,7 @@ jobs:
           pnpm test:pg-batches:baseline
           pnpm test:pg-batches:run
           pnpm test:pg-batches:mutations
+          pnpm test:pg-batches:h1-seal
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations
