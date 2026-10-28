@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 70331,
-      "sha256": "a395f0edf2684e3fe7724b559a4fcd4ab9ea8399e4924c113e8f64b09bd5e642",
+      "bytes": 70369,
+      "sha256": "9f9aa5d45cf7e68bf9d94d518e75b082189b2bf50c4db4ccc2ab6f8987295442",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 46047,
-      "sha256": "ad77e67815deb5f6b2067aaff3ddbb1f9c778a94458af5a80d724c98b4b1fee6",
+      "bytes": 46370,
+      "sha256": "79711eb02a9f86d359d89951f93585f1815f4b37846054e5b3ee4bd21e439dc1",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 103623,
-      "sha256": "355e0fe42dc0d07815938672611d9cbd8b70a49919c3894231dbca32b686862c",
+      "bytes": 104670,
+      "sha256": "3a87119f8a5f3a65568f059410acfbf74c14d9e8c618caa64a359823b8d921b0",
       "kind": "text"
     },
     {
@@ -36253,8 +36253,8 @@
     },
     {
       "path": "docs/roadmap/inventory.ar.md",
-      "bytes": 24832,
-      "sha256": "76d0010f7a3c8441d793eac1981a5101f7e9aa4298bb1b47797c623d80ae3063",
+      "bytes": 25123,
+      "sha256": "0269f20de0e332043585854589446e2100d2db495978afdefb174a2b13cc2c6e",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 48088,
-      "sha256": "b4e9304533c82fdeb165d113a731a9c390ebe6d4b6ac6f2a9e6d821f14987dc1",
+      "bytes": 48302,
+      "sha256": "6f375fff7420bd92043d8601d61ce32f020e67654368f9ac496c4cc5a1e4e7cf",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 16192,
-      "sha256": "4040ff83dbe6d88fc228eb25ea449312978c8909ed06598497bcec916d3d15ad",
+      "bytes": 16220,
+      "sha256": "91682a6fba86630ea13148bd90fefd37dbc585bf2f691c5dc0cbbe1c30ad103a",
       "kind": "text"
     },
     {
@@ -60625,8 +60625,8 @@
     },
     {
       "path": "audit/inventory-movement-foundation/README.ar.md",
-      "bytes": 6709,
-      "sha256": "c07dac7268aab6e4b146e293ede427b10ffafa8478f99d5e6c56dfc2b3268388",
+      "bytes": 7204,
+      "sha256": "be2ed67e77b7c779d11ab3ca00cd687fe7b9a91dd3e26003bd1ca2a811ea3bcf",
       "kind": "text"
     },
     {
@@ -61589,8 +61589,20 @@
     },
     {
       "path": "docs/audits/INV-2-FOUNDATION.ar.md",
-      "bytes": 19320,
-      "sha256": "543dbb72603715830a54cbbc0f720aaaabee454f63e75a3d269cb0a3ff143f2c",
+      "bytes": 25122,
+      "sha256": "64b18b1d71d7741bb3908a86f0a312aa50fa862bab3af2c7236a8dea90fd3902",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/baseline.mjs",
+      "bytes": 11344,
+      "sha256": "a872400ff7175fb3b1f8a9695a57ec28ce21a9d9133c44088269c93b8125e83d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/results/baseline-1.json",
+      "bytes": 41436,
+      "sha256": "1ea37eb3ef2069f26b315cb884aa03fa2b900c21734928cef42f750d2f688447",
       "kind": "text"
     }
   ],
