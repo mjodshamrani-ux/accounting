@@ -1,0 +1,1440 @@
+{
+ "schema": "tarasuf-ic1-batch-baseline/1",
+ "engine": "intercompany-ledger-1",
+ "commit": "5488d7d01aef474a05c2e1e155369383347282d5",
+ "summary": {
+  "stories": 20,
+  "asIsRefusedOrBlocked": 20,
+  "batches": 48,
+  "agree": 29,
+  "classes": {
+   "agree": 29,
+   "inexpressible": 12,
+   "held": 1,
+   "unsafe": 3,
+   "other": 1,
+   "refused": 2
+  },
+  "unsafe": [
+   "AB: ready where blocked",
+   "AG: ready where blocked",
+   "AB-1: ready where blocked"
+  ],
+  "droppedRows": 1,
+  "rowsPlacedTwice": 2
+ },
+ "stories": {
+  "I01": {
+   "asIs": {
+    "status": "source-error",
+    "issues": [
+     "COLUMNS",
+     "ROW_SCOPE"
+    ],
+    "missing": [
+     "relationship-left",
+     "relationship-right"
+    ],
+    "pairs": []
+   },
+   "batches": {
+    "AB": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "ready",
+     "run": {
+      "status": "needs-review",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-AB-01",
+        "status": "ready",
+        "residual": 0,
+        "left": "A-0901",
+        "right": "B-0901"
+       }
+      ]
+     },
+     "residuals": {
+      "AB/R-AB-01": 0
+     },
+     "class": "agree"
+    },
+    "AG": {
+     "oracle": "missing",
+     "oracleCodes": [
+      "RELATION_MEMBER_MISSING",
+      "SIDE_EMPTY"
+     ],
+     "verdict": "missing",
+     "run": {
+      "status": "missing",
+      "issues": [],
+      "missing": [
+       "right-ledger",
+       "right-transaction"
+      ],
+      "pairs": [
+       {
+        "relationId": "R-AG-01",
+        "status": "missing",
+        "residual": null,
+        "left": "A-0902",
+        "right": null
+       }
+      ]
+     },
+     "residuals": {
+      "AG/R-AG-01": null
+     },
+     "class": "agree"
+    },
+    "BG": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "ready",
+     "run": {
+      "status": "needs-review",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-BG-01",
+        "status": "ready",
+        "residual": 0,
+        "left": "B-0903",
+        "right": "G-0903"
+       }
+      ]
+     },
+     "residuals": {
+      "BG/R-BG-01": 0
+     },
+     "class": "agree"
+    }
+   },
+   "dropped": [],
+   "placedTwice": []
+  },
+  "I02": {
+   "asIs": {
+    "status": "source-error",
+    "issues": [
+     "COLUMNS",
+     "DUPLICATE"
+    ],
+    "missing": [
+     "relationship-left",
+     "relationship-right"
+    ],
+    "pairs": []
+   },
+   "batches": {
+    "AB": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "inexpressible",
+     "inexpressible": [
+      "R-1001 1:2"
+     ],
+     "class": "inexpressible"
+    }
+   },
+   "dropped": [],
+   "placedTwice": []
+  },
+  "I03": {
+   "asIs": {
+    "status": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "relationship-left",
+     "relationship-right"
+    ],
+    "pairs": []
+   },
+   "batches": {
+    "AB": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "blocked",
+     "run": {
+      "status": "source-error",
+      "issues": [
+       "CROSS_REFERENCE",
+       "RELATION_LINK"
+      ],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-3101",
+        "status": "blocked",
+        "residual": null,
+        "left": "A-3101",
+        "right": "JV-2026-0912"
+       },
+       {
+        "relationId": "R-3102",
+        "status": "blocked",
+        "residual": null,
+        "left": "A-3102",
+        "right": "JV-2026-0915"
+       }
+      ]
+     },
+     "residuals": {
+      "AB/R-3101": null,
+      "AB/R-3102": null
+     },
+     "class": "held"
+    }
+   },
+   "dropped": [],
+   "placedTwice": []
+  },
+  "I04": {
+   "asIs": {
+    "status": "source-error",
+    "issues": [
+     "COLUMNS",
+     "DUPLICATE",
+     "ROW_SCOPE"
+    ],
+    "missing": [
+     "relationship-left",
+     "relationship-right"
+    ],
+    "pairs": []
+   },
+   "batches": {
+    "AB": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "ready",
+     "run": {
+      "status": "needs-review",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-AB-RC77",
+        "status": "ready",
+        "residual": 0,
+        "left": "RC-77",
+        "right": "B-RC-77"
+       }
+      ]
+     },
+     "residuals": {
+      "AB/R-AB-RC77": 0
+     },
+     "class": "agree"
+    },
+    "AG": {
+     "oracle": "difference",
+     "oracleCodes": [],
+     "verdict": "difference",
+     "run": {
+      "status": "difference",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-AG-RC77",
+        "status": "difference",
+        "residual": 10000,
+        "left": "RC-77",
+        "right": "G-RC-77"
+       }
+      ]
+     },
+     "residuals": {
+      "AG/R-AG-RC77": 10000
+     },
+     "class": "agree"
+    }
+   },
+   "dropped": [],
+   "placedTwice": []
+  },
+  "I05": {
+   "asIs": {
+    "status": "source-error",
+    "issues": [
+     "COLUMNS",
+     "ROW_SCOPE"
+    ],
+    "missing": [
+     "relationship-left",
+     "relationship-right"
+    ],
+    "pairs": []
+   },
+   "batches": {
+    "AB": {
+     "oracle": "missing",
+     "oracleCodes": [
+      "RELATION_ONE_SIDED"
+     ],
+     "verdict": "inexpressible",
+     "inexpressible": [
+      "R-5002 1:0"
+     ],
+     "class": "inexpressible"
+    },
+    "AG": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "ready",
+     "run": {
+      "status": "needs-review",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-5003",
+        "status": "ready",
+        "residual": 0,
+        "left": "A-5003",
+        "right": "G-5003"
+       }
+      ]
+     },
+     "residuals": {
+      "AG/R-5003": 0
+     },
+     "class": "agree"
+    }
+   },
+   "dropped": [],
+   "placedTwice": []
+  },
+  "I06": {
+   "asIs": {
+    "status": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "relationship-left",
+     "relationship-right"
+    ],
+    "pairs": []
+   },
+   "batches": {
+    "AB": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "inexpressible",
+     "inexpressible": [
+      "R-7 2:2"
+     ],
+     "class": "inexpressible"
+    }
+   },
+   "dropped": [],
+   "placedTwice": []
+  },
+  "I07": {
+   "asIs": {
+    "status": "source-error",
+    "issues": [
+     "COLUMNS",
+     "ROW_SCOPE"
+    ],
+    "missing": [
+     "relationship-left",
+     "relationship-right"
+    ],
+    "pairs": []
+   },
+   "batches": {
+    "AB": {
+     "oracle": "blocked",
+     "oracleCodes": [
+      "UNASSIGNED"
+     ],
+     "verdict": "ready",
+     "run": {
+      "status": "needs-review",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-7001",
+        "status": "ready",
+        "residual": 0,
+        "left": "A-7001",
+        "right": "B-7001"
+       }
+      ]
+     },
+     "residuals": {
+      "AB/R-7001": 0
+     },
+     "class": "unsafe"
+    },
+    "AG": {
+     "oracle": "blocked",
+     "oracleCodes": [
+      "UNASSIGNED"
+     ],
+     "verdict": "ready",
+     "run": {
+      "status": "needs-review",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-7002",
+        "status": "ready",
+        "residual": 0,
+        "left": "A-7002",
+        "right": "G-7002"
+       }
+      ]
+     },
+     "residuals": {
+      "AG/R-7002": 0
+     },
+     "class": "unsafe"
+    },
+    "BG": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "ready",
+     "run": {
+      "status": "needs-review",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-7004",
+        "status": "ready",
+        "residual": 0,
+        "left": "B-7004",
+        "right": "G-7004"
+       }
+      ]
+     },
+     "residuals": {
+      "BG/R-7004": 0
+     },
+     "class": "agree"
+    }
+   },
+   "dropped": [
+    [
+     "I07-ledger-1.csv",
+     4
+    ]
+   ],
+   "placedTwice": []
+  },
+  "I08": {
+   "asIs": {
+    "status": "source-error",
+    "issues": [
+     "COLUMNS",
+     "DUPLICATE"
+    ],
+    "missing": [
+     "relationship-left",
+     "relationship-right"
+    ],
+    "pairs": []
+   },
+   "batches": {
+    "AB": {
+     "oracle": "missing",
+     "oracleCodes": [
+      "RELATION_MEMBER_MISSING",
+      "UNRELATED"
+     ],
+     "verdict": "inexpressible",
+     "inexpressible": [
+      "R-8000 1:3"
+     ],
+     "class": "inexpressible"
+    }
+   },
+   "dropped": [],
+   "placedTwice": []
+  },
+  "I09": {
+   "asIs": {
+    "status": "source-error",
+    "issues": [
+     "COLUMNS",
+     "ROW_SCOPE"
+    ],
+    "missing": [
+     "relationship-left",
+     "relationship-right"
+    ],
+    "pairs": []
+   },
+   "batches": {
+    "AB": {
+     "oracle": "blocked",
+     "oracleCodes": [
+      "RELATION_BATCHES"
+     ],
+     "verdict": "inexpressible",
+     "inexpressible": [
+      "R-9001 1:0",
+      "R-9002 0:1"
+     ],
+     "class": "inexpressible"
+    },
+    "AG": {
+     "oracle": "blocked",
+     "oracleCodes": [
+      "RELATION_BATCHES"
+     ],
+     "verdict": "inexpressible",
+     "inexpressible": [
+      "R-9001 0:1",
+      "R-9002 1:0"
+     ],
+     "class": "inexpressible"
+    },
+    "BG": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "ready",
+     "run": {
+      "status": "needs-review",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-9003",
+        "status": "ready",
+        "residual": 0,
+        "left": "B-9003",
+        "right": "G-9003"
+       }
+      ]
+     },
+     "residuals": {
+      "BG/R-9003": 0
+     },
+     "class": "agree"
+    }
+   },
+   "dropped": [],
+   "placedTwice": []
+  },
+  "I10": {
+   "asIs": {
+    "status": "source-error",
+    "issues": [
+     "COLUMNS",
+     "ROW_SCOPE"
+    ],
+    "missing": [
+     "relationship-left",
+     "relationship-right"
+    ],
+    "pairs": []
+   },
+   "batches": {
+    "AB": {
+     "oracle": "difference",
+     "oracleCodes": [],
+     "verdict": "difference",
+     "run": {
+      "status": "difference",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-1010",
+        "status": "difference",
+        "residual": 50000,
+        "left": "A-1010",
+        "right": "B-1010"
+       }
+      ]
+     },
+     "residuals": {
+      "AB/R-1010": 50000
+     },
+     "class": "agree"
+    },
+    "AG": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "ready",
+     "run": {
+      "status": "needs-review",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-1030",
+        "status": "ready",
+        "residual": 0,
+        "left": "A-1030",
+        "right": "G-1030"
+       }
+      ]
+     },
+     "residuals": {
+      "AG/R-1030": 0
+     },
+     "class": "agree"
+    },
+    "BG": {
+     "oracle": "difference",
+     "oracleCodes": [],
+     "verdict": "difference",
+     "run": {
+      "status": "difference",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-1020",
+        "status": "difference",
+        "residual": -50000,
+        "left": "B-1020",
+        "right": "G-1020"
+       }
+      ]
+     },
+     "residuals": {
+      "BG/R-1020": -50000
+     },
+     "class": "agree"
+    }
+   },
+   "dropped": [],
+   "placedTwice": []
+  },
+  "I11": {
+   "asIs": {
+    "status": "source-error",
+    "issues": [
+     "COLUMNS",
+     "DUPLICATE",
+     "ROW_SCOPE"
+    ],
+    "missing": [
+     "relationship-left",
+     "relationship-right"
+    ],
+    "pairs": []
+   },
+   "batches": {
+    "AB": {
+     "oracle": "blocked",
+     "oracleCodes": [
+      "RELATION_DUPLICATE_MEMBER"
+     ],
+     "verdict": "blocked",
+     "run": {
+      "status": "source-error",
+      "issues": [
+       "CROSS_REFERENCE",
+       "DUPLICATE",
+       "RELATION_LINK"
+      ],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-1101",
+        "status": "blocked",
+        "residual": null,
+        "left": "A-1101",
+        "right": "B-1101"
+       },
+       {
+        "relationId": "R-1102",
+        "status": "blocked",
+        "residual": null,
+        "left": "A-1101",
+        "right": "B-1102"
+       }
+      ]
+     },
+     "residuals": {
+      "AB/R-1101": null,
+      "AB/R-1102": null
+     },
+     "class": "agree"
+    },
+    "AG": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "ready",
+     "run": {
+      "status": "needs-review",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-1103",
+        "status": "ready",
+        "residual": 0,
+        "left": "A-1103",
+        "right": "G-1103"
+       }
+      ]
+     },
+     "residuals": {
+      "AG/R-1103": 0
+     },
+     "class": "agree"
+    }
+   },
+   "dropped": [],
+   "placedTwice": []
+  },
+  "I12": {
+   "asIs": {
+    "status": "source-error",
+    "issues": [
+     "COLUMNS",
+     "ROW_SCOPE"
+    ],
+    "missing": [
+     "relationship-left",
+     "relationship-right"
+    ],
+    "pairs": []
+   },
+   "batches": {
+    "AB-1": {
+     "oracle": "blocked",
+     "oracleCodes": [
+      "BATCH_OVERLAP",
+      "UNASSIGNED_AMBIGUOUS"
+     ],
+     "verdict": "ready",
+     "run": {
+      "status": "needs-review",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-1201",
+        "status": "ready",
+        "residual": 0,
+        "left": "A-1201",
+        "right": "B-1201"
+       }
+      ]
+     },
+     "residuals": {
+      "AB-1/R-1201": 0
+     },
+     "class": "unsafe"
+    },
+    "AB-2": {
+     "oracle": "blocked",
+     "oracleCodes": [
+      "BATCH_OVERLAP",
+      "UNASSIGNED_AMBIGUOUS"
+     ],
+     "verdict": "missing",
+     "run": {
+      "status": "missing",
+      "issues": [],
+      "missing": [
+       "relationship-left",
+       "relationship-right"
+      ],
+      "pairs": []
+     },
+     "residuals": {},
+     "class": "other"
+    },
+    "AG": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "ready",
+     "run": {
+      "status": "needs-review",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-1202",
+        "status": "ready",
+        "residual": 0,
+        "left": "A-1202",
+        "right": "G-1202"
+       }
+      ]
+     },
+     "residuals": {
+      "AG/R-1202": 0
+     },
+     "class": "agree"
+    }
+   },
+   "dropped": [],
+   "placedTwice": [
+    [
+     "I12-ledger-1.csv",
+     2
+    ],
+    [
+     "I12-ledger-2.csv",
+     2
+    ]
+   ]
+  },
+  "I13": {
+   "asIs": {
+    "status": "source-error",
+    "issues": [
+     "COLUMNS",
+     "ROW_SCOPE"
+    ],
+    "missing": [
+     "relationship-left",
+     "relationship-right"
+    ],
+    "pairs": []
+   },
+   "batches": {
+    "AB": {
+     "oracle": "blocked",
+     "oracleCodes": [
+      "COUNTERPARTY_CONFLICT"
+     ],
+     "verdict": "blocked",
+     "run": {
+      "status": "source-error",
+      "issues": [
+       "CROSS_REFERENCE",
+       "RELATION_LINK"
+      ],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-1301",
+        "status": "blocked",
+        "residual": null,
+        "left": "A-1301",
+        "right": "B-1301"
+       },
+       {
+        "relationId": "R-1302",
+        "status": "blocked",
+        "residual": null,
+        "left": "A-1302",
+        "right": "B-1302"
+       }
+      ]
+     },
+     "residuals": {
+      "AB/R-1301": null,
+      "AB/R-1302": null
+     },
+     "class": "agree"
+    },
+    "AG": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "ready",
+     "run": {
+      "status": "needs-review",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-1303",
+        "status": "ready",
+        "residual": 0,
+        "left": "A-1303",
+        "right": "G-1303"
+       }
+      ]
+     },
+     "residuals": {
+      "AG/R-1303": 0
+     },
+     "class": "agree"
+    }
+   },
+   "dropped": [],
+   "placedTwice": []
+  },
+  "I14": {
+   "asIs": {
+    "status": "source-error",
+    "issues": [
+     "COLUMNS",
+     "ROW_SCOPE"
+    ],
+    "missing": [
+     "relationship-left",
+     "relationship-right"
+    ],
+    "pairs": []
+   },
+   "batches": {
+    "AB": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "ready",
+     "run": {
+      "status": "needs-review",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-1401",
+        "status": "ready",
+        "residual": 0,
+        "left": "A-1401",
+        "right": "B-1401"
+       }
+      ]
+     },
+     "residuals": {
+      "AB/R-1401": 0
+     },
+     "class": "agree"
+    },
+    "AG-KWD": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "ready",
+     "run": {
+      "status": "needs-review",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-1402",
+        "status": "ready",
+        "residual": 0,
+        "left": "A-1402",
+        "right": "G-1402"
+       },
+       {
+        "relationId": "R-1404",
+        "status": "ready",
+        "residual": 0,
+        "left": "A-1404",
+        "right": "G-1404"
+       }
+      ]
+     },
+     "residuals": {
+      "AG-KWD/R-1402": 0,
+      "AG-KWD/R-1404": 0
+     },
+     "class": "agree"
+    },
+    "BG-JPY": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "ready",
+     "run": {
+      "status": "needs-review",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-1403",
+        "status": "ready",
+        "residual": 0,
+        "left": "B-1403",
+        "right": "G-1403"
+       }
+      ]
+     },
+     "residuals": {
+      "BG-JPY/R-1403": 0
+     },
+     "class": "agree"
+    }
+   },
+   "dropped": [],
+   "placedTwice": []
+  },
+  "I15": {
+   "asIs": {
+    "status": "source-error",
+    "issues": [
+     "COLUMNS",
+     "ROW_SCOPE"
+    ],
+    "missing": [
+     "relationship-left",
+     "relationship-right"
+    ],
+    "pairs": []
+   },
+   "batches": {
+    "AB": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "ready",
+     "run": {
+      "status": "needs-review",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-1501",
+        "status": "ready",
+        "residual": 0,
+        "left": "A-1501",
+        "right": "B-1501"
+       }
+      ]
+     },
+     "residuals": {
+      "AB/R-1501": 0
+     },
+     "class": "agree"
+    },
+    "AG": {
+     "oracle": "missing",
+     "oracleCodes": [
+      "RELATION_MEMBER_MISSING",
+      "SIDE_EMPTY"
+     ],
+     "verdict": "missing",
+     "run": {
+      "status": "missing",
+      "issues": [],
+      "missing": [
+       "right-ledger",
+       "right-transaction"
+      ],
+      "pairs": [
+       {
+        "relationId": "R-1502",
+        "status": "missing",
+        "residual": null,
+        "left": "A-1502",
+        "right": null
+       }
+      ]
+     },
+     "residuals": {
+      "AG/R-1502": null
+     },
+     "class": "agree"
+    },
+    "BG": {
+     "oracle": "missing",
+     "oracleCodes": [
+      "SIDE_EMPTY"
+     ],
+     "verdict": "refused",
+     "run": {
+      "refused": "IC_INDEPENDENT_SOURCES"
+     },
+     "residuals": {},
+     "class": "refused"
+    }
+   },
+   "dropped": [],
+   "placedTwice": []
+  },
+  "I16": {
+   "asIs": {
+    "status": "source-error",
+    "issues": [
+     "COLUMNS",
+     "ROW_SCOPE"
+    ],
+    "missing": [
+     "relationship-left",
+     "relationship-right"
+    ],
+    "pairs": []
+   },
+   "batches": {
+    "AB": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "ready",
+     "run": {
+      "status": "needs-review",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "ع-1",
+        "status": "ready",
+        "residual": 0,
+        "left": "ق-2001",
+        "right": "ب-3001"
+       }
+      ]
+     },
+     "residuals": {
+      "AB/ع-1": 0
+     },
+     "class": "agree"
+    },
+    "AG": {
+     "oracle": "difference",
+     "oracleCodes": [],
+     "verdict": "difference",
+     "run": {
+      "status": "difference",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "ع-2",
+        "status": "difference",
+        "residual": 5000,
+        "left": "ق-2002",
+        "right": "ج-4001"
+       }
+      ]
+     },
+     "residuals": {
+      "AG/ع-2": 5000
+     },
+     "class": "agree"
+    }
+   },
+   "dropped": [],
+   "placedTwice": []
+  },
+  "I17": {
+   "asIs": {
+    "status": "source-error",
+    "issues": [
+     "COLUMNS",
+     "DUPLICATE",
+     "ROW_SCOPE"
+    ],
+    "missing": [
+     "relationship-left",
+     "relationship-right"
+    ],
+    "pairs": []
+   },
+   "batches": {
+    "AB": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "inexpressible",
+     "inexpressible": [
+      "R-AB-01 1:3",
+      "R-AB-02 3:2",
+      "R-AB-04 1:2",
+      "R-AB-05 2:1",
+      "R-AB-06 2:2",
+      "R-AB-07 1:3",
+      "R-AB-08 3:2"
+     ],
+     "class": "inexpressible"
+    },
+    "AG": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "inexpressible",
+     "inexpressible": [
+      "R-AG-01 1:3",
+      "R-AG-02 3:2",
+      "R-AG-04 1:2",
+      "R-AG-05 2:1",
+      "R-AG-06 2:2",
+      "R-AG-07 1:3",
+      "R-AG-08 3:2"
+     ],
+     "class": "inexpressible"
+    },
+    "AD": {
+     "oracle": "difference",
+     "oracleCodes": [],
+     "verdict": "inexpressible",
+     "inexpressible": [
+      "R-AD-01 1:3",
+      "R-AD-02 3:2",
+      "R-AD-04 1:2",
+      "R-AD-05 2:1",
+      "R-AD-06 2:2",
+      "R-AD-07 1:3",
+      "R-AD-08 3:2"
+     ],
+     "class": "inexpressible"
+    },
+    "BG": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "inexpressible",
+     "inexpressible": [
+      "R-BG-02 1:2",
+      "R-BG-03 2:1",
+      "R-BG-04 2:2",
+      "R-BG-05 1:3",
+      "R-BG-06 3:2",
+      "R-BG-08 1:2"
+     ],
+     "class": "inexpressible"
+    },
+    "BD": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "inexpressible",
+     "inexpressible": [
+      "R-BD-02 1:2",
+      "R-BD-03 2:1",
+      "R-BD-04 2:2",
+      "R-BD-05 1:3",
+      "R-BD-06 3:2",
+      "R-BD-08 1:2"
+     ],
+     "class": "inexpressible"
+    },
+    "GD": {
+     "oracle": "missing",
+     "oracleCodes": [
+      "UNRELATED"
+     ],
+     "verdict": "inexpressible",
+     "inexpressible": [
+      "R-GD-01 1:3",
+      "R-GD-02 3:2",
+      "R-GD-04 1:2",
+      "R-GD-05 2:1",
+      "R-GD-06 2:2",
+      "R-GD-07 1:3",
+      "R-GD-08 3:2"
+     ],
+     "class": "inexpressible"
+    }
+   },
+   "dropped": [],
+   "placedTwice": []
+  },
+  "I18": {
+   "asIs": {
+    "status": "source-error",
+    "issues": [
+     "COLUMNS",
+     "ROW_SCOPE"
+    ],
+    "missing": [
+     "left-ledger",
+     "right-ledger"
+    ],
+    "pairs": []
+   },
+   "batches": {
+    "BG": {
+     "oracle": "difference",
+     "oracleCodes": [],
+     "verdict": "difference",
+     "run": {
+      "status": "difference",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-1020",
+        "status": "difference",
+        "residual": -50000,
+        "left": "B-1020",
+        "right": "G-1020"
+       }
+      ]
+     },
+     "residuals": {
+      "BG/R-1020": -50000
+     },
+     "class": "agree"
+    },
+    "AG": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "ready",
+     "run": {
+      "status": "needs-review",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-1030",
+        "status": "ready",
+        "residual": 0,
+        "left": "A-1030",
+        "right": "G-1030"
+       }
+      ]
+     },
+     "residuals": {
+      "AG/R-1030": 0
+     },
+     "class": "agree"
+    },
+    "AB": {
+     "oracle": "difference",
+     "oracleCodes": [],
+     "verdict": "difference",
+     "run": {
+      "status": "difference",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-1010",
+        "status": "difference",
+        "residual": 50000,
+        "left": "A-1010",
+        "right": "B-1010"
+       }
+      ]
+     },
+     "residuals": {
+      "AB/R-1010": 50000
+     },
+     "class": "agree"
+    }
+   },
+   "dropped": [],
+   "placedTwice": []
+  },
+  "I19": {
+   "asIs": {
+    "status": "source-error",
+    "issues": [
+     "COLUMNS",
+     "POSTING_PERIOD",
+     "ROW_SCOPE"
+    ],
+    "missing": [
+     "left-ledger",
+     "relationship-right"
+    ],
+    "pairs": []
+   },
+   "batches": {
+    "AB": {
+     "oracle": "blocked",
+     "oracleCodes": [
+      "POSTING_PERIOD"
+     ],
+     "verdict": "blocked",
+     "run": {
+      "status": "source-error",
+      "issues": [
+       "POSTING_PERIOD"
+      ],
+      "missing": [
+       "left-ledger",
+       "left-transaction"
+      ],
+      "pairs": [
+       {
+        "relationId": "R-1901",
+        "status": "blocked",
+        "residual": null,
+        "left": null,
+        "right": "B-1901"
+       }
+      ]
+     },
+     "residuals": {
+      "AB/R-1901": null
+     },
+     "class": "agree"
+    },
+    "AG": {
+     "oracle": "ready",
+     "oracleCodes": [],
+     "verdict": "ready",
+     "run": {
+      "status": "needs-review",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-1902",
+        "status": "ready",
+        "residual": 0,
+        "left": "A-1902",
+        "right": "G-1902"
+       }
+      ]
+     },
+     "residuals": {
+      "AG/R-1902": 0
+     },
+     "class": "agree"
+    },
+    "BG": {
+     "oracle": "blocked",
+     "oracleCodes": [
+      "BATCH_FIELD"
+     ],
+     "verdict": "refused",
+     "run": {
+      "refused": "IC_SCOPE"
+     },
+     "residuals": {},
+     "class": "refused"
+    }
+   },
+   "dropped": [],
+   "placedTwice": []
+  },
+  "I20": {
+   "asIs": {
+    "status": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "relationship-left",
+     "relationship-right"
+    ],
+    "pairs": []
+   },
+   "batches": {
+    "AB": {
+     "oracle": "difference",
+     "oracleCodes": [],
+     "verdict": "difference",
+     "run": {
+      "status": "difference",
+      "issues": [],
+      "missing": [],
+      "pairs": [
+       {
+        "relationId": "R-2001",
+        "status": "difference",
+        "residual": 30000,
+        "left": "A-2001",
+        "right": "B-2001"
+       },
+       {
+        "relationId": "R-2002",
+        "status": "difference",
+        "residual": -30000,
+        "left": "A-2002",
+        "right": "B-2002"
+       }
+      ]
+     },
+     "residuals": {
+      "AB/R-2001": 30000,
+      "AB/R-2002": -30000
+     },
+     "class": "agree"
+    }
+   },
+   "dropped": [],
+   "placedTwice": []
+  }
+ }
+}

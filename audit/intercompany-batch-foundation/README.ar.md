@@ -14,6 +14,7 @@
 | [`mutate_oracle.py`](mutate_oracle.py) | 32 خطأ مزروعًا في نسخة من الأوراكل. يجب أن يفشل كل منها بـassertion |
 | [`verify.py`](verify.py) | فحص مستقل لكل ملف بقارئ مكتوب هنا: الخلايا مطابقة للحقائق، وعلامة ترتيب البايت، ونهايات الأسطر، والاقتباس كما يكتبه كاتبه. ثم 7 تغييرات مزروعة يجب أن تُرفض |
 | [`seal.py`](seal.py) و[`check_seal.py`](check_seal.py) | الختم والتحقق منه |
+| [`baseline.mjs`](baseline.mjs) و`results/` | سجل المنتج كما هو، كُتب بعد الختم: ملفات القصة في أدوار المنتج الأربعة، ثم مقسومة باليد دفعة دفعة. التشغيل الأول في `results/baseline-1.json` كما جاء |
 | `frozen/` | 95 ملف CSV، و`stories.json`، و`EXPECTED.json`، و`VERIFY.json`، و`INPUT-MANIFEST.json`، و`SEAL.json` |
 
 ## الإعادة
@@ -32,6 +33,12 @@ python3 -B audit/intercompany-batch-foundation/render.py audit/intercompany-batc
 python3 -B audit/intercompany-batch-foundation/oracle.py audit/intercompany-batch-foundation/frozen > audit/intercompany-batch-foundation/frozen/EXPECTED.json
 python3 -B audit/intercompany-batch-foundation/verify.py audit/intercompany-batch-foundation/frozen
 python3 -B audit/intercompany-batch-foundation/seal.py
+```
+
+وسجل المنتج:
+
+```sh
+node --experimental-strip-types audit/intercompany-batch-foundation/baseline.mjs --assert audit/intercompany-batch-foundation/results/baseline-1.json
 ```
 
 `render.py` يحتاج Node وRuby 3.3. ولا يحتاجهما الفحص بعد الختم.

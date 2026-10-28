@@ -343,6 +343,7 @@ jobs:
           pnpm test:ic-batch:oracle
           pnpm test:ic-batch:oracle-mutants
           pnpm test:ic-batch:seal
+          pnpm test:ic-batch:baseline
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations
