@@ -6,9 +6,8 @@ import {
   type ClearingReading,
   type ClearingScope,
 } from './clearing.ts';
-import { readFile } from './io.ts';
 import { summaryLabel } from './row-labels.ts';
-import { MAX_ROWS, type SourceFile } from './types.ts';
+import type { SourceFile } from './types.ts';
 
 /** clearing-groups-1: the groups of one clearing account extract, read as
  * clearing-1 reads it, where a faulty line holds only the groups it can touch
@@ -85,7 +84,7 @@ export type ClearingGroupsResult = {
   decimals: number;
 };
 
-const refuse = (code: string): never => {
+export const refuse = (code: string): never => {
   throw new Error(`CLEARING_GROUPS_${code}`);
 };
 class Line extends Error {
@@ -375,42 +374,4 @@ export function groupClearing(
     total,
     decimals,
   };
-}
-
-/** The reader's own ceiling, by its exact message: the sheet holds more
- * rows than MAX_ROWS lines and the header. */
-const readerCeiling = `الحد ${MAX_ROWS} حركة تقريبًا مع صفوف العناوين`;
-
-/** Trust native bytes, never caller-supplied parsed sheets. */
-export async function replayClearingGroups(input: ClearingGroupsInput) {
-  if (
-    !input ||
-    !input.file ||
-    typeof input.file.name !== 'string' ||
-    input.file.name.length > 255 ||
-    input.file.kind !== undefined ||
-    !/\.(csv|xlsx)$/i.test(input.file.name) ||
-    !(input.file.original instanceof ArrayBuffer)
-  )
-    refuse('SOURCE');
-  const source = {
-    name: input.file.name,
-    sha256: input.file.sha256,
-    original: input.file.original!.slice(0),
-  };
-  const metadata = structuredClone({
-    reading: input.reading,
-    scope: input.scope,
-  });
-  let file: SourceFile;
-  try {
-    file = await readFile(source.name, source.original);
-  } catch (error) {
-    return refuse(
-      String((error as Error).message) === readerCeiling ? 'ROWS' : 'SOURCE',
-    );
-  }
-  if (file.sha256 !== source.sha256) refuse('SOURCE_HASH');
-  const state: ClearingGroupsInput = { file, ...metadata };
-  return { state, result: groupClearing(state) };
 }

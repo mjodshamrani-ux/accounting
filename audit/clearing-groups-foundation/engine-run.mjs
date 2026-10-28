@@ -25,8 +25,11 @@ const root = resolve(here, '../..');
 const SUITE = process.env.CLR_GROUPS_SUITE;
 const suite = SUITE ? resolve(root, SUITE) : here;
 const FROZEN = join(suite, 'frozen');
-const { CLEARING_GROUPS_VERSION, replayClearingGroups } = await import(
+const { CLEARING_GROUPS_VERSION } = await import(
   pathToFileURL(join(root, 'lib/reconciliation/clearing-groups.ts')).href
+);
+const { replayClearingGroups } = await import(
+  pathToFileURL(join(root, 'lib/reconciliation/clearing-groups-io.ts')).href
 );
 
 const byText = (a, b) => (a < b ? -1 : a > b ? 1 : 0);

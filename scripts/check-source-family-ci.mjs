@@ -235,6 +235,8 @@ const required = [
   'test:clr-groups:baseline',
   'test:clr-groups:run',
   'test:clr-groups:mutations',
+  'test:clr-groups:h1-seal',
+  'test:clr-groups:h1-run',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',
@@ -427,6 +429,13 @@ const separate = {
   ],
   'inventory-links-interface-mutations': [
     'test:inv-links:interface-mutations',
+  ],
+  'clearing-groups-browser': [
+    'test:clr-groups:browser',
+    'test:clr-groups:h1-browser',
+  ],
+  'clearing-groups-interface-mutations': [
+    'test:clr-groups:interface-mutations',
   ],
   'bank-statement-holdout': [
     'test:bank-statement:g6-holdout',

@@ -30,6 +30,7 @@ const out = await mkdtemp(join(output, 'run-'));
 const tests = ['tests/clearing-groups.test.ts', 'tests/clearing.test.ts'];
 const support = ['audit/clearing'];
 const ENGINE = 'lib/reconciliation/clearing-groups.ts';
+const IO = 'lib/reconciliation/clearing-groups-io.ts';
 const mutations = [
   [
     'unisolated-lines-ignored',
@@ -140,13 +141,13 @@ const mutations = [
   ],
   [
     'ceiling-read-as-source',
-    ENGINE,
+    IO,
     "? 'ROWS' : 'SOURCE'",
     "? 'SOURCE' : 'SOURCE'",
   ],
   [
     'hash-not-checked',
-    ENGINE,
+    IO,
     "if (file.sha256 !== source.sha256) refuse('SOURCE_HASH');",
     '',
   ],
@@ -164,7 +165,7 @@ const mutations = [
   ],
   ['blank-line-faulty', ENGINE, 'blank.push(row);', "fault('POSTING');"],
 ];
-const files = [ENGINE, ...tests];
+const files = [ENGINE, IO, ...tests];
 const digest = (b) => createHash('sha256').update(b).digest('hex');
 const before = Object.fromEntries(
   await Promise.all(

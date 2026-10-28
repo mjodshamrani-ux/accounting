@@ -5,9 +5,9 @@ import { readFile } from '../lib/reconciliation/io.ts';
 import { reconcileClearing } from '../lib/reconciliation/clearing.ts';
 import {
   groupClearing,
-  replayClearingGroups,
   type ClearingGroupsInput,
 } from '../lib/reconciliation/clearing-groups.ts';
+import { replayClearingGroups } from '../lib/reconciliation/clearing-groups-io.ts';
 
 // A freight forwarder's suspense account, in dirhams, for June 2027: a
 // lineage of its own, not the sealed CLR-1 stories.

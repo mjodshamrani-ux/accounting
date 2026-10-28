@@ -89,7 +89,7 @@ export function createWorkerClient(
         }
       }
       // Capture the requested originals and context before validation can yield.
-      if (action.startsWith('gl-tb-')) {
+      if (action.startsWith('gl-tb-') || action.startsWith('clearing-groups-')) {
         try {
           payload = structuredClone(payload);
         } catch (error) {
@@ -318,6 +318,50 @@ export function createWorkerClient(
                 throw Error('GL_TB_WORKER_BINDING');
             }
             // Install only sheets re-read from this request's originals.
+            response.value = requested;
+          }
+          if (action === 'clearing-groups-reconcile') {
+            const value = response.value;
+            if (
+              !isRecord(value) ||
+              !isRecord(value.state) ||
+              !isRecord(value.result) ||
+              !isRecord(value.state.file) ||
+              !(value.state.file.original instanceof ArrayBuffer) ||
+              !value.state.file.original.byteLength ||
+              value.state.file.original.byteLength > MAX_FILE_BYTES
+            )
+              throw Error('CLEARING_GROUPS_WORKER_BINDING');
+            const { replayClearingGroups } = await import(
+              './clearing-groups-io.ts'
+            );
+            const requested = await replayClearingGroups(
+              payload as import('./clearing-groups.ts').ClearingGroupsInput,
+            );
+            const returned = value as unknown as typeof requested;
+            const identity = (state: typeof requested.state) =>
+              JSON.stringify({
+                reading: state.reading,
+                scope: state.scope,
+                name: state.file.name,
+                kind: state.file.kind,
+                sha256: state.file.sha256,
+                originalBytes: state.file.original!.byteLength,
+              });
+            if (
+              identity(returned.state) !== identity(requested.state) ||
+              JSON.stringify(returned.result) !==
+                JSON.stringify(requested.result)
+            )
+              throw Error('CLEARING_GROUPS_WORKER_BINDING');
+            const a = new Uint8Array(returned.state.file.original!),
+              b = new Uint8Array(requested.state.file.original!);
+            if (
+              a.length !== b.length ||
+              a.some((byte, offset) => byte !== b[offset])
+            )
+              throw Error('CLEARING_GROUPS_WORKER_BINDING');
+            // Install only the sheet re-read from this request's original.
             response.value = requested;
           }
           if (action.startsWith('stock-')) {

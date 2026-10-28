@@ -16,6 +16,7 @@ import { replayGlTbSections } from './gl-tb-sections-io.ts';
 import { replayFinancialHierarchy } from './tb-financial-hierarchy-io.ts';
 import { replayLongRegister } from './payroll-long-register-io.ts';
 import { replayMovementBridge } from './inventory-movement-bridge-io.ts';
+import { replayClearingGroups } from './clearing-groups-io.ts';
 import { replayFinancialPosition, saveFinancialPosition, restoreFinancialPosition, exportFinancialPosition } from './tb-financial-io.ts';
 import {
   replayBankAdjustments,
@@ -144,6 +145,7 @@ self.onmessage = async (event: MessageEvent) => {
     else if (action === 'tb-financial-hierarchy-reconcile') value = await replayFinancialHierarchy(payload);
     else if (action === 'payroll-long-register-reconcile') value = await replayLongRegister(payload);
     else if (action === 'inventory-movement-bridge-reconcile') value = await replayMovementBridge(payload);
+    else if (action === 'clearing-groups-reconcile') value = await replayClearingGroups(payload);
     else if (action === 'tb-financial-reconcile') value = await replayFinancialPosition(payload);
     else if (action === 'tb-financial-save') value = await saveFinancialPosition(payload);
     else if (action === 'tb-financial-restore') value = await restoreFinancialPosition(payload.buffer);

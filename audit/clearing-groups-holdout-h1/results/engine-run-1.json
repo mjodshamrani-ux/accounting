@@ -1,0 +1,91 @@
+{
+ "schema": "tarasuf-clr1-engine-run/1",
+ "family": "clearing-groups-1",
+ "suite": "audit/clearing-groups-holdout-h1",
+ "rule": "equal to the sealed expectations in full",
+ "equal": 27,
+ "of": 27,
+ "stories": {
+  "H01": {
+   "equal": true
+  },
+  "H02": {
+   "equal": true
+  },
+  "H03": {
+   "equal": true
+  },
+  "H04": {
+   "equal": true
+  },
+  "H05": {
+   "equal": true
+  },
+  "H06": {
+   "equal": true
+  },
+  "H07": {
+   "equal": true
+  },
+  "H08": {
+   "equal": true
+  },
+  "H09": {
+   "equal": true
+  },
+  "H10": {
+   "equal": true
+  },
+  "H11": {
+   "equal": true
+  },
+  "H12": {
+   "equal": true
+  },
+  "H13": {
+   "equal": true
+  },
+  "H14": {
+   "equal": true
+  },
+  "H15": {
+   "equal": true
+  },
+  "H16": {
+   "equal": true
+  },
+  "H17": {
+   "equal": true
+  },
+  "H18": {
+   "equal": true
+  },
+  "H19": {
+   "equal": true
+  },
+  "H20": {
+   "equal": true
+  },
+  "H21": {
+   "equal": true
+  },
+  "H22": {
+   "equal": true
+  },
+  "H23": {
+   "equal": true
+  },
+  "H24": {
+   "equal": true
+  },
+  "H25": {
+   "equal": true
+  },
+  "H26": {
+   "equal": true
+  },
+  "H27": {
+   "equal": true
+  }
+ }
+}

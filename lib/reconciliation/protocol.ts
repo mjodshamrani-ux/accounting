@@ -49,6 +49,11 @@ import {
   type ImbInput,
 } from './inventory-movement-bridge.ts';
 import {
+  CLEARING_GROUPS_VERSION,
+  groupClearing,
+  type ClearingGroupsInput,
+} from './clearing-groups.ts';
+import {
   ENGINE_VERSION,
   MAX_ROWS,
   MAX_SHEETS,
@@ -138,6 +143,7 @@ export const WORKER_ACTIONS = [
   'tb-financial-hierarchy-reconcile',
   'payroll-long-register-reconcile',
   'inventory-movement-bridge-reconcile',
+  'clearing-groups-reconcile',
 ] as const;
 export type WorkerAction = (typeof WORKER_ACTIONS)[number];
 export const isRecord = (value: unknown): value is Record<string, unknown> =>
@@ -813,6 +819,53 @@ export function validateWorkerValue(
             readings: value.state.readings as ImbInput['readings'],
             scope: value.state.scope as ImbInput['scope'],
           }),
+        ) !== JSON.stringify(value.result)
+      )
+        throw new Error('invalid');
+    } catch {
+      throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+    }
+  }
+  if (action === 'clearing-groups-reconcile') {
+    try {
+      if (
+        !isRecord(value) ||
+        Object.keys(value).sort().join('|') !== 'result|state' ||
+        !isRecord(value.state) ||
+        !isRecord(value.result) ||
+        value.result.version !== CLEARING_GROUPS_VERSION ||
+        !isRecord(payload) ||
+        !isRecord(payload.file) ||
+        JSON.stringify(value.state.reading) !==
+          JSON.stringify(payload.reading) ||
+        JSON.stringify(value.state.scope) !== JSON.stringify(payload.scope)
+      )
+        throw new Error('invalid');
+      // The result must belong to the extract this request sent, byte for
+      // byte, under its name and hash.
+      const source = value.state.file,
+        supplied = payload.file;
+      assertSourceFile(source);
+      if (
+        source.name !== supplied.name ||
+        typeof source.sha256 !== 'string' ||
+        source.sha256 !== supplied.sha256 ||
+        !(source.original instanceof ArrayBuffer) ||
+        !(supplied.original instanceof ArrayBuffer) ||
+        !source.original.byteLength ||
+        source.original.byteLength > MAX_FILE_BYTES ||
+        supplied.original.byteLength !== source.original.byteLength
+      )
+        throw new Error('invalid');
+      const original = new Uint8Array(supplied.original),
+        bytes = new Uint8Array(source.original);
+      if (bytes.some((byte, index) => byte !== original[index]))
+        throw new Error('invalid');
+      // Compute every group again before installation; the client binding
+      // reads the bytes again for the sheet itself. Not an approval.
+      if (
+        JSON.stringify(
+          groupClearing(value.state as unknown as ClearingGroupsInput),
         ) !== JSON.stringify(value.result)
       )
         throw new Error('invalid');

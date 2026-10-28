@@ -1,4 +1,5 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
+import { ClearingGroupsPanel } from './clearing-groups-panel';
 import { useEffect, useRef, useState } from 'react';
 import {
   WorkspaceHeader,
@@ -711,6 +712,16 @@ export function ClearingWorkspace({
               </Button>
             </div>
           </section>
+        )}
+        {file && (
+          <ClearingGroupsPanel
+            key={JSON.stringify([file.sha256, reading, scope])}
+            file={file}
+            reading={reading}
+            scope={scope}
+            disabled={busy || !scope.confirmed}
+            run={perform}
+          />
         )}
       </main>
     </>
