@@ -1,0 +1,7 @@
+"Relation ID","Batch ID","Side","Transaction ID","Relationship reference","Valid from","Valid to"
+"R-9001","AB","A","A-9001","Cross-pair link 9001","2026-01-01","2026-12-31"
+"R-9001","AG","B","G-9002","Cross-pair link 9001","2026-01-01","2026-12-31"
+"R-9002","AG","A","A-9002","Cross-pair link 9002","2026-01-01","2026-12-31"
+"R-9002","AB","B","B-9001","Cross-pair link 9002","2026-01-01","2026-12-31"
+"R-9003","BG","A","B-9003","Invoice B-9003","2026-01-01","2026-12-31"
+"R-9003","BG","B","G-9003","Invoice B-9003","2026-01-01","2026-12-31"

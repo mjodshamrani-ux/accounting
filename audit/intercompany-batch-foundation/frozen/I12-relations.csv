@@ -1,0 +1,5 @@
+"Relation ID","Batch ID","Side","Transaction ID","Relationship reference","Valid from","Valid to"
+"R-1201","AB-1","A","A-1201","Invoice A-1201","2026-01-01","2026-12-31"
+"R-1201","AB-1","B","B-1201","Invoice A-1201","2026-01-01","2026-12-31"
+"R-1202","AG","A","A-1202","Invoice A-1202","2026-01-01","2026-12-31"
+"R-1202","AG","B","G-1202","Invoice A-1202","2026-01-01","2026-12-31"

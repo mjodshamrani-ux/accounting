@@ -1,0 +1,185 @@
+{
+ "schema": "tarasuf-ic1-batch-foundation/1",
+ "status": "proposed contract and frozen synthetic foundation before any product support for several entity pairs in one run",
+ "synthetic": true,
+ "holdout": false,
+ "productEnabled": false,
+ "proposedFamily": "intercompany-batch-1",
+ "existingFamily": "intercompany-ledger-1, unchanged: one confirmed pair scope, four fixed files (two ledgers, one-to-one relation evidence, timing evidence); any issue blocks every pair",
+ "plan": "docs/roadmap/intercompany.ar.md#ic-1-أزواج-ودفعات-متعددة--مخطط-بعد-c-0-وc-1",
+ "challengeIds": [
+  "IC",
+  "CH-02",
+  "CH-05",
+  "CH-06",
+  "CH-09"
+ ],
+ "domain": "Intercompany balances between several group entities in one run. VAL-1, which was to order the remaining domains, has not run; the plan's written order puts IC-1 first.",
+ "why": "An accountant with three or more group entities exports one intercompany ledger per entity, each holding rows for several counterparties, and one relation register. Today each entity pair must be cut by hand into four files of a single pair; a relation can join one transaction on each side only; and nothing stops one pair's balance from hiding another's: A-B can be short by what B-C is over while the group total is zero.",
+ "claim": "Consistency of supplied ledger transactions with confirmed relationship evidence, batch by batch; no posting, elimination, consolidation, netting between batches, currency translation, source authenticity or ERP completeness opinion",
+ "inputs": {
+  "batches": {
+   "role": "batch-declaration",
+   "headers": [
+    "Batch ID",
+    "Entity A",
+    "Entity B",
+    "Ledger A",
+    "Ledger B",
+    "Account A",
+    "Account B",
+    "Dimensions A",
+    "Dimensions B",
+    "Currency",
+    "Currency basis",
+    "FX policy",
+    "Posting status",
+    "Posting layer",
+    "Period start",
+    "Period end",
+    "As of",
+    "Policy version"
+   ],
+   "rule": "One row per batch: the scope of one entity pair as intercompany-ledger-1 confirms it today, named by a Batch ID. The declaration is the separation contract; the engine never infers a batch."
+  },
+  "ledgers": {
+   "role": "entity-ledger",
+   "headers": [
+    "Entity",
+    "Counterparty",
+    "Ledger",
+    "Account ID",
+    "Complete dimensions",
+    "Transaction ID",
+    "Counterparty transaction ID",
+    "Posting date",
+    "Debit",
+    "Credit",
+    "Currency",
+    "Currency basis",
+    "FX policy",
+    "Posting status",
+    "Posting layer",
+    "Period start",
+    "Period end",
+    "As of",
+    "Policy version"
+   ],
+   "rule": "One or more files, in practice one per entity, each row the intercompany ledger line of one entity with one named counterparty. The header is intercompany-ledger-1's ledger header unchanged."
+  },
+  "relations": {
+   "role": "relation-members",
+   "headers": [
+    "Relation ID",
+    "Batch ID",
+    "Side",
+    "Transaction ID",
+    "Relationship reference",
+    "Valid from",
+    "Valid to"
+   ],
+   "rule": "One row per member: a relation is the set of rows sharing a Relation ID; it names its batch, and each member by side (A or B) and Transaction ID."
+  },
+  "roles": "The accountant names each file's role, as each role is confirmed today. In this foundation the role is in the file name: <story>-batches.csv, <story>-relations.csv, <story>-ledger-<n>.csv.",
+  "format": "CSV, UTF-8 with an optional byte-order mark, comma separated, RFC 4180 quoting, LF or CRLF line ends. Columns in any order under the exact header set, as intercompany-ledger-1 reads them. XLSX is not in this foundation: the existing family's XLSX guard admits one canonical workbook style that this foundation does not re-derive before the seal (DEV-61).",
+  "timing": "No timing evidence. Timing and currency translation are IC-2."
+ },
+ "reading": {
+  "text": "Identity cells (every scope field, entity, counterparty, ledger, account, dimensions, Batch ID, Relation ID, Transaction ID, Counterparty transaction ID) are non-empty, without surrounding space or control or format characters, at most 500 characters, and do not start with = + @ - or an Excel error. Relationship reference: non-empty, trimmed, no control or format characters, at most 2000 characters.",
+  "dates": "YYYY-MM-DD in Latin digits, a real calendar date.",
+  "amounts": "Debit and Credit: Arabic-Indic and Persian digits read as Latin, the Arabic decimal separator as a point; then digits with an optional point and at most the batch currency's decimals; never negative; at most 10^14 minor units; not both above zero.",
+  "currencies": {
+   "SAR": 2,
+   "USD": 2,
+   "EUR": 2,
+   "GBP": 2,
+   "AED": 2,
+   "QAR": 2,
+   "EGP": 2,
+   "KWD": 3,
+   "BHD": 3,
+   "OMR": 3,
+   "JPY": 0
+  },
+  "blankRows": "A row whose cells are all empty is listed and ignored."
+ },
+ "batches": {
+  "valid": "Every field passes the reading rules; Entity A differs from Entity B; the currency has a known precision; Currency basis is functional; FX policy is same-currency-no-conversion; Posting status is posted; Period start is not after Period end; As of equals Period end; the row has the header's width.",
+  "BATCH_FIELD": "A declaration row fails one of these. When its Batch ID is readable that batch is declared and blocked; otherwise every batch is blocked, since no one can say which batch the row meant.",
+  "BATCH_DUPLICATE": "A Batch ID on two declaration rows: that batch is blocked.",
+  "BATCH_OVERLAP": "Two declared batches name the same two sides (entity, ledger, account, dimensions), in either orientation, with the same currency, currency basis, FX policy, posting status, posting layer and policy version, and their periods share a day: both are blocked."
+ },
+ "assignment": {
+  "rule": "A ledger row belongs to batch X, side A, when its Entity, Counterparty, Ledger, Account ID and Complete dimensions are X's Entity A, Entity B, Ledger A, Account A and Dimensions A, and its Currency, Currency basis, FX policy, Posting status, Posting layer, Period start, Period end, As of and Policy version are X's, character for character. Side B likewise with the sides exchanged. Nothing else assigns a row: not the file it is in, not its amount, not its references (B1).",
+  "UNASSIGNED": "No declared batch matches the row, or the row does not have the header's width. It blocks every batch that names the row's Entity on either side and every batch the row's file feeds (B2).",
+  "UNASSIGNED_AMBIGUOUS": "More than one declared batch, or both sides of one, match the row. It blocks each of them.",
+  "rowChecks": "An assigned row's Transaction ID, Counterparty transaction ID, Posting date and amounts pass the reading rules with its batch's currency (IDENTITY, DATE, AMOUNT, BOTH_SIDES), and its posting date falls in its batch's period (POSTING_PERIOD). A failing row blocks its batch.",
+  "DUPLICATE_TRANSACTION": "Two rows assigned to the same batch and side with the same Transaction ID: the batch is blocked. The same Transaction ID in two batches is allowed: one journal may carry lines for several counterparties."
+ },
+ "relations": {
+  "RELATION_UNATTRIBUTED": "A relation row without the header's width, or whose Batch ID is not a readable declared batch: every batch is blocked, since the row could have named any of them.",
+  "RELATION_FIELD": "An attributed relation row whose Relation ID, Side (A or B), Transaction ID, Relationship reference, Valid from or Valid to fails the reading rules: its batch is blocked.",
+  "RELATION_BATCHES": "Rows of one Relation ID name different batches: every batch they name is blocked (B5). A relation never crosses batches.",
+  "RELATION_FIELDS_DIFFER": "Rows of one Relation ID differ in Relationship reference, Valid from or Valid to: the batch is blocked.",
+  "VALIDITY": "Valid from is after the batch's Period start, Valid to is before its Period end, or Valid from is after Valid to: the batch is blocked.",
+  "RELATION_DUPLICATE_MEMBER": "The same side and Transaction ID named twice among the batch's relation rows, in one relation or two: the batch is blocked (B3).",
+  "COUNTERPARTY_CONFLICT": "A member's Counterparty transaction ID is the Transaction ID of a row on the other side of the same batch that is not a member of the same relation: the batch is blocked (B8). A Counterparty transaction ID that names no row on the other side is the counterparty's own document number; it is shown and proves nothing.",
+  "RELATION_MEMBER_MISSING": "A named member has no row assigned to that batch and side: the relation and the batch are missing.",
+  "RELATION_ONE_SIDED": "A relation names no member on one side: the relation and the batch are missing (B4).",
+  "UNRELATED": "A row assigned to the batch is a member of none of its relations: the batch is missing.",
+  "SIDE_EMPTY": "No row is assigned to one side of the batch: the batch is missing."
+ },
+ "results": {
+  "relation": "For a relation whose every member was found: net per side, the sum of Debit minus Credit over its members in minor units; residual, side A's net plus side B's. ready when the residual is zero, difference otherwise. Otherwise missing, with no residual.",
+  "batch": "blocked when any blocking code applies to it (its codes are those codes, and no relation is evaluated); otherwise missing when any missing code applies (its codes are those codes); otherwise difference when any relation's residual is not zero; otherwise ready. A ready batch is ready for review: acceptance, completeness confirmation, sessions and Excel are later layers.",
+  "isolation": "Each batch is decided from its own rows and relations. One batch's difference never offsets another's, and one batch's block blocks no other unless a code above says so (B5).",
+  "unassigned": "Every unassigned row is listed with its file, row and code, whatever it blocks."
+ },
+ "codes": {
+  "blocking": [
+   "HEADER",
+   "BATCH_FIELD",
+   "BATCH_DUPLICATE",
+   "BATCH_OVERLAP",
+   "UNASSIGNED",
+   "UNASSIGNED_AMBIGUOUS",
+   "IDENTITY",
+   "DATE",
+   "AMOUNT",
+   "BOTH_SIDES",
+   "POSTING_PERIOD",
+   "DUPLICATE_TRANSACTION",
+   "RELATION_UNATTRIBUTED",
+   "RELATION_FIELD",
+   "RELATION_BATCHES",
+   "RELATION_FIELDS_DIFFER",
+   "VALIDITY",
+   "RELATION_DUPLICATE_MEMBER",
+   "COUNTERPARTY_CONFLICT"
+  ],
+  "missing": [
+   "RELATION_MEMBER_MISSING",
+   "RELATION_ONE_SIDED",
+   "UNRELATED",
+   "SIDE_EMPTY"
+  ],
+  "HEADER": "A file whose first row is not its role's header set exactly (any order, no repeats): every batch is blocked."
+ },
+ "ownerDecisions": {
+  "B1": "A row's batch is its declared identity only. The alternative, letting the file or the counterparty's name decide, would place a row the accountant never confirmed.",
+  "B2": "An unassigned row blocks the batches it could belong to. The alternative is to list it and let the other batches proceed, which is how a row with an unclear counterparty would silently leave the reconciliation.",
+  "B3": "A relation lives in one batch, with members on both sides, each member in one relation only. One-to-many and many-to-many relations are allowed within a batch: a split invoice is one relation.",
+  "B4": "A relation with members on one side only is missing, never ready: a credit note or a reversal that only one entity booked needs review, even when it nets to zero on its side.",
+  "B5": "Each batch stands alone: no netting between batches and no relation across them, even when the group total is zero.",
+  "B6": "No timing evidence in this family: a counterpart booked after the period is a missing member here. Timing is IC-2.",
+  "B7": "One currency per batch, from the declaration, with its own precision; no conversion. Batches in different currencies may share a run and a ledger file.",
+  "B8": "A Counterparty transaction ID that names a row on the other side outside its relation contradicts the relation evidence and blocks the batch; one that names nothing there is the counterparty's own number and only shown."
+ },
+ "notInScope": [
+  "timing evidence and cut-off (IC-2)",
+  "currency translation (IC-2)",
+  "decisions, sessions, Excel and the workspace (later layers of IC-1 and IC-3)",
+  "eliminations, consolidation or any posting",
+  "XLSX inputs"
+ ]
+}

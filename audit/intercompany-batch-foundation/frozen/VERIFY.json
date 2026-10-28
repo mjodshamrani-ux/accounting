@@ -1,0 +1,615 @@
+{
+ "files": [
+  {
+   "name": "I01-batches.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I01-ledger-1.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I01-ledger-2.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I01-ledger-3.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I01-relations.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I02-batches.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I02-ledger-1.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I02-ledger-2.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I02-relations.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I03-batches.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I03-ledger-1.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I03-ledger-2.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I03-relations.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I04-batches.csv",
+   "writer": "py-crlf-bom",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I04-ledger-1.csv",
+   "writer": "py-crlf-bom",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I04-ledger-2.csv",
+   "writer": "py-crlf-bom",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I04-ledger-3.csv",
+   "writer": "py-crlf-bom",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I04-relations.csv",
+   "writer": "py-crlf-bom",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I05-batches.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I05-ledger-1.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I05-ledger-2.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I05-ledger-3.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I05-relations.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I06-batches.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I06-ledger-1.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I06-ledger-2.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I06-relations.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I07-batches.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I07-ledger-1.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I07-ledger-2.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I07-ledger-3.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I07-relations.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I08-batches.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I08-ledger-1.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I08-ledger-2.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I08-relations.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I09-batches.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I09-ledger-1.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I09-ledger-2.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I09-ledger-3.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I09-relations.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I10-batches.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I10-ledger-1.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I10-ledger-2.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I10-ledger-3.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I10-relations.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I11-batches.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I11-ledger-1.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I11-ledger-2.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I11-ledger-3.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I11-relations.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I12-batches.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I12-ledger-1.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I12-ledger-2.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I12-ledger-3.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I12-relations.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I13-batches.csv",
+   "writer": "py-crlf-bom",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I13-ledger-1.csv",
+   "writer": "py-crlf-bom",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I13-ledger-2.csv",
+   "writer": "py-crlf-bom",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I13-ledger-3.csv",
+   "writer": "py-crlf-bom",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I13-relations.csv",
+   "writer": "py-crlf-bom",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I14-batches.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I14-ledger-1.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I14-ledger-2.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I14-ledger-3.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I14-relations.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I15-batches.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I15-ledger-1.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I15-ledger-2.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I15-relations.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I16-batches.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I16-ledger-1.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I16-ledger-2.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I16-ledger-3.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I16-relations.csv",
+   "writer": "node",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I17-batches.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I17-ledger-1.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I17-ledger-2.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I17-ledger-3.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I17-ledger-4.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I17-relations.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I18-batches.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I18-ledger-1.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I18-ledger-2.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I18-ledger-3.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I18-relations.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I19-batches.csv",
+   "writer": "py-crlf-bom",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I19-ledger-1.csv",
+   "writer": "py-crlf-bom",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I19-ledger-2.csv",
+   "writer": "py-crlf-bom",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I19-ledger-3.csv",
+   "writer": "py-crlf-bom",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I19-relations.csv",
+   "writer": "py-crlf-bom",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I20-batches.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I20-ledger-1.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I20-ledger-2.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "I20-relations.csv",
+   "writer": "py",
+   "ok": true,
+   "problems": []
+  }
+ ],
+ "ok": true,
+ "cells": 9462,
+ "factsSha256": "5e96abb8d44be8544e9927329f13352a9cf99af6a03e4ba2c2636ca35f830dfb",
+ "selfTest": [
+  {
+   "file": "I10-ledger-2.csv",
+   "plant": "one amount changed in the file",
+   "rejected": true
+  },
+  {
+   "file": "I08-ledger-2.csv",
+   "plant": "a row dropped",
+   "rejected": true
+  },
+  {
+   "file": "I04-batches.csv",
+   "plant": "the byte-order mark removed",
+   "rejected": true
+  },
+  {
+   "file": "I02-relations.csv",
+   "plant": "one field left unquoted",
+   "rejected": true
+  },
+  {
+   "file": "I03-ledger-1.csv",
+   "plant": "CRLF where the writer writes LF",
+   "rejected": true
+  },
+  {
+   "file": "I16-ledger-1.csv",
+   "plant": "an Arabic-Indic digit replaced by a Latin one",
+   "rejected": true
+  },
+  {
+   "file": "I07-ledger-1.csv",
+   "plant": "the unclear counterparty made clear",
+   "rejected": true
+  }
+ ],
+ "passed": true
+}

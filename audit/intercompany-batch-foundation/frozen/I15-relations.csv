@@ -1,0 +1,5 @@
+Relation ID,Batch ID,Side,Transaction ID,Relationship reference,Valid from,Valid to
+R-1501,AB,A,A-1501,Invoice A-1501,2026-01-01,2026-12-31
+R-1501,AB,B,B-1501,Invoice A-1501,2026-01-01,2026-12-31
+R-1502,AG,A,A-1502,Invoice A-1502,2026-01-01,2026-12-31
+R-1502,AG,B,G-1502,Invoice A-1502,2026-01-01,2026-12-31

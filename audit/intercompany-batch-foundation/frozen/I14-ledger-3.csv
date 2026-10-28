@@ -1,0 +1,4 @@
+Entity,Counterparty,Ledger,Account ID,Complete dimensions,Transaction ID,Counterparty transaction ID,Posting date,Debit,Credit,Currency,Currency basis,FX policy,Posting status,Posting layer,Period start,Period end,As of,Policy version
+Synthetic Gamma Services,Synthetic Alpha Holding,Gamma GL,2361,cc=300,G-1402,A-1402,2026-09-04,0.000,1250.125,KWD,functional,same-currency-no-conversion,posted,actual,2026-09-01,2026-09-30,2026-09-30,IC-1-2026
+Synthetic Gamma Services,Synthetic Alpha Holding,Gamma GL,2361,cc=300,G-1404,A-1404,2026-09-22,0.000,310.5,KWD,functional,same-currency-no-conversion,posted,actual,2026-09-01,2026-09-30,2026-09-30,IC-1-2026
+Synthetic Gamma Services,Synthetic Beta Trading,Gamma GL,2362,cc=300,G-1403,B-1403,2026-09-05,0,480000,JPY,functional,same-currency-no-conversion,posted,actual,2026-09-01,2026-09-30,2026-09-30,IC-1-2026

@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 58438,
-      "sha256": "c64d10b7fc790b524ee40709546e3436cb73301ad6d03656228363f2d004647c",
+      "bytes": 58552,
+      "sha256": "868dd8058a3c4df347a2a90228d713c1162b7b56281f7dd862b9d177cb3b34dc",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 38089,
-      "sha256": "251d00cc7bb91ccc7d773ab00b5d572f88fbe62195d9ea530133e4e083331046",
+      "bytes": 38552,
+      "sha256": "4b67d8395c3d0baa42dbf84e48507f70e5d2b55c24a934e9dbdc1471f031654d",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 20415,
-      "sha256": "d5e2d0dc65bd2b48dbb2b41942f4ded6e5aa96d35d16b079e433a59c19ad3b8a",
+      "bytes": 20522,
+      "sha256": "f39e495d8a31dddce980329f8171dc271aae2d161f52479c8160dc0e51c33b4a",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 85347,
-      "sha256": "edaa6ea6e048bf3c79b425f21bd3bc86c44df9a64180a106d30b0ecacaa7a2de",
+      "bytes": 86338,
+      "sha256": "140fa6b62d195f644920df07cbf6e1a9485fc60f7a6b7d067c79ab220c16c85c",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 76905,
-      "sha256": "2ca6998182a80d800d2c58b93453c422a80ebc7ad944a3e5c3f9403e9ead3d5e",
+      "bytes": 77122,
+      "sha256": "db6f37204218f2be75bc2d7dca64e1c4b136e459e8c4f6bc80b3d5dcfdcb4c2e",
       "kind": "text"
     },
     {
@@ -36247,8 +36247,8 @@
     },
     {
       "path": "docs/roadmap/intercompany.ar.md",
-      "bytes": 3117,
-      "sha256": "4c4a112f1e2a013472b7fdad48b82f72ca1ef8a2ade526216d012c3a45831442",
+      "bytes": 3273,
+      "sha256": "785912ce60f53f4b32eb06ae8ecb73474561fe6d748e71829398f5c98f679a04",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 40295,
-      "sha256": "8922f97a84211df76468674653a8e47f3eb5b6d7d957a9d73d6692430aefb77d",
+      "bytes": 40704,
+      "sha256": "6fcfea864c70b76fb4cc755cd21b61aeef2914f8b67350cdeea4056fba90a63c",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 14396,
-      "sha256": "ebffb7a98acb5ba748fbf594e618fa44412c93a3ea1c27300bb3ecd6a7c2d479",
+      "bytes": 14480,
+      "sha256": "c1acdc2d151c32edc45c6a2e6e4504398a1bd668fcfe9c460a2f986ed826b3a7",
       "kind": "text"
     },
     {
@@ -55637,6 +55637,684 @@
       "path": "tests/column-role-proposals.test.ts",
       "bytes": 17246,
       "sha256": "5f8c016de140f944dea8b56382119620fdfb128a23e85483ae98d19bb1e5d90d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/README.ar.md",
+      "bytes": 3969,
+      "sha256": "3a612e4fd42f05eedd8b348936a88567a0de26cf4e8640ddeb384cda8dffed77",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/check_seal.py",
+      "bytes": 2578,
+      "sha256": "377d676725c072579e27a48c6051cb3fee79d5cdc79f432426b7823d075e6460",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/contract.json",
+      "bytes": 12168,
+      "sha256": "d8cf11147e4a0f35ac9a501ba1adaeb010b91610a20b8e777cc6046fb6d11351",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/EXPECTED.json",
+      "bytes": 75164,
+      "sha256": "8f5f210cf523e6f9c0fa7bf700f94eefad7e11b03e97a0857af99fbf299880a1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I01-batches.csv",
+      "bytes": 776,
+      "sha256": "560357a34986273517ff02feb2cba7aac00009d6e00ca68c4683035efb43ab94",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I01-ledger-1.csv",
+      "bytes": 651,
+      "sha256": "d0a7b0365ae75a3b642c0386fb519dde94b75b4d8e508c884dad54a447793bdb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I01-ledger-2.csv",
+      "bytes": 648,
+      "sha256": "6e264a8b22634dbd654c4c9ffc5a46302adfdb713db746d9c40417c2696eddd1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I01-ledger-3.csv",
+      "bytes": 443,
+      "sha256": "0753bacb0efb6f0617f9be88ede289e0f041f30637de690a304e965a927ded0a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I01-relations.csv",
+      "bytes": 408,
+      "sha256": "7ceea58d76bbbffb8299b6864e5ba8c8e9afde779784e905d51a09fa1cb4fc2a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I02-batches.csv",
+      "bytes": 464,
+      "sha256": "62aa4ef1565cb5ef5d6535b2c63a0c9d1f3157676891427219004b67adec779b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I02-ledger-1.csv",
+      "bytes": 765,
+      "sha256": "bff3349c4d21d1a29929edc0b57ffee6f1759a5657c334e4f3c7395d763adeec",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I02-ledger-2.csv",
+      "bytes": 1006,
+      "sha256": "8ff0f39dd24cc02512df97a14bb342f3aa58628548526606be969fc648dd22da",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I02-relations.csv",
+      "bytes": 514,
+      "sha256": "9777c739d7b3ff9027f1f77051bff84e8a2c93801fcd7bfd50f2c51d9c3ce2fe",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I03-batches.csv",
+      "bytes": 390,
+      "sha256": "646cca011cb46a49db1e3e21580b0ec6af70f15114aa7c280f1ff1ef343493a7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I03-ledger-1.csv",
+      "bytes": 657,
+      "sha256": "5996fc42b0e6aa0156a6d5b3c2a8e13a125384675b5cec8615b519d38754577b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I03-ledger-2.csv",
+      "bytes": 671,
+      "sha256": "456db7cafd65b74a69f57dcd0fb63d67aa942a892dd7eadeba8185a733a4ca20",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I03-relations.csv",
+      "bytes": 496,
+      "sha256": "652835ae63f0f27f702785ec45b1cd69f3fbc1bfe4b7e4be1a357cd40428bb3c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I04-batches.csv",
+      "bytes": 590,
+      "sha256": "0dc6cb2bd1a044e452dc802f8601246883fed8c3756a9c58446b6314e5f52099",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I04-ledger-1.csv",
+      "bytes": 655,
+      "sha256": "d81e6c23ece1b82f767a409e89813ed467149098c3b042e5117aa962c152932b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I04-ledger-2.csv",
+      "bytes": 445,
+      "sha256": "83b1a9d74eeebc6ecc42574504546f650768559e1e46e6020c9985fa92c74ae3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I04-ledger-3.csv",
+      "bytes": 448,
+      "sha256": "3ae204fbf58d67a2595cf16ed2c37c88abec1e2ae3941501a2e024d1d41b8efe",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I04-relations.csv",
+      "bytes": 392,
+      "sha256": "645d12ad226ba970f040880aa59ed6454542a0dfeba2c0d99d6fe3226801adf9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I05-batches.csv",
+      "bytes": 584,
+      "sha256": "4a9987e7ebbd6e3547a25aa51262f91254ce9ec5e8c4d6186a623ee706453af9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I05-ledger-1.csv",
+      "bytes": 856,
+      "sha256": "2efbdb2fdf61b922dad8c2baab288f6ce0b72f59f364b292e96057842efea72d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I05-ledger-2.csv",
+      "bytes": 440,
+      "sha256": "c04516bd484e6ca0a30c01db9d1b6a225e7c2d6e222676d936343487def885db",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I05-ledger-3.csv",
+      "bytes": 442,
+      "sha256": "630bda7e900476a1e38c1f4649e941999d8ebd19bbb969578a21aaad1e4c23cf",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I05-relations.csv",
+      "bytes": 417,
+      "sha256": "0820c8b2bad688db706ab730a16b3fbd77687397791700ebe17db8412aaa0d13",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I06-batches.csv",
+      "bytes": 464,
+      "sha256": "62aa4ef1565cb5ef5d6535b2c63a0c9d1f3157676891427219004b67adec779b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I06-ledger-1.csv",
+      "bytes": 1001,
+      "sha256": "d8b3ff1377645615dca0cbbf709088d41dee91468fa29c6696db64268e3cf012",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I06-ledger-2.csv",
+      "bytes": 998,
+      "sha256": "f953bc8366d295de050a37ab95c836d44d460e4628a2f8ecbe48af0db7fc3ecc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I06-relations.csv",
+      "bytes": 585,
+      "sha256": "8dc333e09e50917f1fd3370584435c5268c1491c4a71a6745471f68ee64e9172",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I07-batches.csv",
+      "bytes": 776,
+      "sha256": "560357a34986273517ff02feb2cba7aac00009d6e00ca68c4683035efb43ab94",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I07-ledger-1.csv",
+      "bytes": 887,
+      "sha256": "7c8e3d09fab9483141cad020db99c8943dd37e0c0fcf4b1f0f35238a0d755d05",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I07-ledger-2.csv",
+      "bytes": 645,
+      "sha256": "4c400ce1fa16c7df3c4ec3c1fde8a132266f31d70c8f055c19b7334242b46061",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I07-ledger-3.csv",
+      "bytes": 649,
+      "sha256": "c4c10a0d07dbec5550537580aeaab412203d7bb2bd90292d48ad8363bc85d11c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I07-relations.csv",
+      "bytes": 420,
+      "sha256": "f638539ad3c0bbdc5f3976d1dfa499733f292e6ed96fb986b0a2e736b83156b5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I08-batches.csv",
+      "bytes": 390,
+      "sha256": "646cca011cb46a49db1e3e21580b0ec6af70f15114aa7c280f1ff1ef343493a7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I08-ledger-1.csv",
+      "bytes": 441,
+      "sha256": "9fbb5604961dae81c17d647b12fda43ddfdfebd5683df6eeb3e7c259796da878",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I08-ledger-2.csv",
+      "bytes": 850,
+      "sha256": "d43578c643fd78ab582181eb6ff5b6bfb52ab3d0ccab5dbdeed819452c0be9ad",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I08-relations.csv",
+      "bytes": 416,
+      "sha256": "926b61366877f29c4320cb90da6ffee4c093fb1e142653db990a68715bf1addc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I09-batches.csv",
+      "bytes": 924,
+      "sha256": "2e7e4468088f86758bf76b42cd08f3a313c3ebbc7240f094b4b3c737192b2dec",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I09-ledger-1.csv",
+      "bytes": 781,
+      "sha256": "2b63229343c7f9576b19565a365b90d0f20972aa639edafe7963f91ba88f496d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I09-ledger-2.csv",
+      "bytes": 771,
+      "sha256": "66b348e10bdc85d60d34f1437a1df10034a7fd35a3a663a50369c44a1c0af11e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I09-ledger-3.csv",
+      "bytes": 775,
+      "sha256": "41e3934e578129f777d0a282b0c79d4f4cf89cf3eb0829b56d50fd669f6ea94c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I09-relations.csv",
+      "bytes": 549,
+      "sha256": "7204479dc66c09bd92a1424bb7330b82f023fa2f480c4fcbe5ccc179b3ee66b1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I10-batches.csv",
+      "bytes": 776,
+      "sha256": "560357a34986273517ff02feb2cba7aac00009d6e00ca68c4683035efb43ab94",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I10-ledger-1.csv",
+      "bytes": 650,
+      "sha256": "10a75be2711c67c57e20940bd19762a489420002ab2608c1b6bc323591706df9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I10-ledger-2.csv",
+      "bytes": 647,
+      "sha256": "e7b7616f467914abfc5eb418b466fe3afe887c641820c8aa441e189f34f5a154",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I10-ledger-3.csv",
+      "bytes": 650,
+      "sha256": "278ba3e0e3efe34ec1a5375054b424346b6308db5746aa7a73b8d9c5352a3ced",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I10-relations.csv",
+      "bytes": 420,
+      "sha256": "eee87653c12784cfc7a4edf1d4263bedc354c58d16943dffde095f3496abb4b0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I11-batches.csv",
+      "bytes": 584,
+      "sha256": "4a9987e7ebbd6e3547a25aa51262f91254ce9ec5e8c4d6186a623ee706453af9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I11-ledger-1.csv",
+      "bytes": 655,
+      "sha256": "7c52e8180769a5ed9df2695c3758bca58e5f66e6af7a94a4df286c81374e59d1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I11-ledger-2.csv",
+      "bytes": 645,
+      "sha256": "ea0093a4f8042f1095bf6d75bc82c65568a50758864863fe993ba8e93ec23997",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I11-ledger-3.csv",
+      "bytes": 442,
+      "sha256": "9736cfd6ae60a87d77d109b5ed6893f9f24c5d2b9de91e99fbc670b4b50427a6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I11-relations.csv",
+      "bytes": 432,
+      "sha256": "b0670ef5f64ba97e2c1ee88941e4626b854f4f9a4aea6219faa472afc680d11a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I12-batches.csv",
+      "bytes": 927,
+      "sha256": "01fe0615a9f180a41d27e8fd190e5a335c4a699bbc57da0e65398094bbb781dd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I12-ledger-1.csv",
+      "bytes": 765,
+      "sha256": "0544b2df5bbb1f63845d384d5e661a6e0e19cf4a1e699b57f775de69da8e1819",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I12-ledger-2.csv",
+      "bytes": 518,
+      "sha256": "2662c5fdd19c89dd43c3f243c2db7c8c4bd6d1ebc5618a14d886c50652f133c4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I12-ledger-3.csv",
+      "bytes": 520,
+      "sha256": "6a0cef5625328f168e60db1838c2f9d82faeb324c2825c506ae0ba089f4cf359",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I12-relations.csv",
+      "bytes": 387,
+      "sha256": "5b4a212c59101eef444aef19a65e255966a5d8e39b4d52c01ec2f8b48b2061f5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I13-batches.csv",
+      "bytes": 590,
+      "sha256": "0dc6cb2bd1a044e452dc802f8601246883fed8c3756a9c58446b6314e5f52099",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I13-ledger-1.csv",
+      "bytes": 861,
+      "sha256": "b493f8eb654b8bcd9072fd7ba06e24cb098c3eb146fef5b634635ca14f6d794e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I13-ledger-2.csv",
+      "bytes": 651,
+      "sha256": "8ce0e3ce69a9c4021712e3672f8004815558d272918010c52ae58968c68c2259",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I13-ledger-3.csv",
+      "bytes": 447,
+      "sha256": "1679421979e0975e87d6903238c74c8c459487afa00a63980aa159b65b438a41",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I13-relations.csv",
+      "bytes": 430,
+      "sha256": "f220b70dadbfa2ce64cd4a705404f85f43b18c9ea113a1fef8fbedec193230e1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I14-batches.csv",
+      "bytes": 784,
+      "sha256": "43606000521a7f05b4108b778c086fd4685c2e7430721b61047ad78cfc9d7b77",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I14-ledger-1.csv",
+      "bytes": 861,
+      "sha256": "ed071abd854c5587dc303fbcf499072993c446863690ee033f37d3615457fc3a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I14-ledger-2.csv",
+      "bytes": 643,
+      "sha256": "050cca29c74cb4b353042ba6629de951c6d699e98414592dc1e07555dc43f57e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I14-ledger-3.csv",
+      "bytes": 855,
+      "sha256": "10fab98889ff9387c95b6e6905f33bdc2af7ad9c64a35596118269264bee1fbf",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I14-relations.csv",
+      "bytes": 556,
+      "sha256": "3efdef04bc4d9b2358abc2d0536842dac95983ee7ffae3143accb0eacbc3f1fb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I15-batches.csv",
+      "bytes": 776,
+      "sha256": "560357a34986273517ff02feb2cba7aac00009d6e00ca68c4683035efb43ab94",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I15-ledger-1.csv",
+      "bytes": 648,
+      "sha256": "4c2b08972025ac2cfcb0babab1185d144d4e61512b317ac4b0013901e2aa3fc7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I15-ledger-2.csv",
+      "bytes": 440,
+      "sha256": "bd8f4dccb10fd79e02fed34343c0254c4d83c0facfcdf8f438e2bddf9cf898aa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I15-relations.csv",
+      "bytes": 308,
+      "sha256": "74643558aa00e6c87a6a6429088767ecba83849a3cde781c164c9860753de0ce",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I16-batches.csv",
+      "bytes": 788,
+      "sha256": "e312099c6e6ab3feb9dd7e9144edf2ebaa0e79310b3462e3146cc6a1ca84426b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I16-ledger-1.csv",
+      "bytes": 854,
+      "sha256": "934700421b1dd848edaadff5bc4c845c866ff7c6c00f00154c9e34a4639db820",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I16-ledger-2.csv",
+      "bytes": 565,
+      "sha256": "4cd0d417ad68d12c260202b507e82f8ac95b476a420d0bc5b53b4fcd17a7272d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I16-ledger-3.csv",
+      "bytes": 563,
+      "sha256": "394359d39f5df9ac6fa92400474cb0fdc0dce8c4aa87b580e7f469d0612621f1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I16-relations.csv",
+      "bytes": 515,
+      "sha256": "e443ca0275488549696e4ccdc86830bd61c3526fbaff5b61b77b33e4bfc62292",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I17-batches.csv",
+      "bytes": 1360,
+      "sha256": "6529fc7dd78c27cffc8046ab272a288af5873c99eed59650b3af8c42ce57516b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I17-ledger-1.csv",
+      "bytes": 9210,
+      "sha256": "86e7253f2663655cc622e5d8d31b4650b7f6d2f51711d33496fbddea47aea7d7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I17-ledger-2.csv",
+      "bytes": 8710,
+      "sha256": "b23b0d441c93c4ad2e6b6fcc1b7f097d5b18656a01d0f8af03653ff625b5ff7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I17-ledger-3.csv",
+      "bytes": 9673,
+      "sha256": "7af40588c080427f58c33aa47cc909a1ff55b67bf367f9c344de2fbdcc29fe24",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I17-ledger-4.csv",
+      "bytes": 10340,
+      "sha256": "3f17fe4457be45b7bf2db9f2bed90894cd594fa7168fff33e908546510de76d7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I17-relations.csv",
+      "bytes": 11264,
+      "sha256": "a1ec8c43290637983b88b502f3d569712ec941cdf295dc8c88d6f0b805512659",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I18-batches.csv",
+      "bytes": 776,
+      "sha256": "f7841315cc8903785edd110762986c6b9c161157ebc667a1fae5016b94236ad8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I18-ledger-1.csv",
+      "bytes": 650,
+      "sha256": "9349a6a7b3f3c852d475a173a2e56b04d727dcc95f331c100c29a851c07e7b5d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I18-ledger-2.csv",
+      "bytes": 647,
+      "sha256": "a892179874bcc889aeae0ddf1789c4d4acd9efcf124789accf9de1ce13cafd50",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I18-ledger-3.csv",
+      "bytes": 650,
+      "sha256": "562ee275e83e270f35123a90eb4b33d05a0aba1076f6b7eba1fc81b5395dc4ce",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I18-relations.csv",
+      "bytes": 420,
+      "sha256": "0d9b3e1b392299a1545df4740217118ccd5fbca09897c3e3e3ed904735e41bc2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I19-batches.csv",
+      "bytes": 784,
+      "sha256": "c2d585f1af278d62ad044aabaf18549f2df9b2ee3723281055c9c9dec77abf70",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I19-ledger-1.csv",
+      "bytes": 654,
+      "sha256": "60074a840b9b02d720b7a4d96c44e3db7dfebc1cc32abb8c420f7746acc16bd1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I19-ledger-2.csv",
+      "bytes": 652,
+      "sha256": "bd459fe3d6b4969125e2c655606edfd38029766bf9495e88690234ab6d1724f9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I19-ledger-3.csv",
+      "bytes": 655,
+      "sha256": "1998db3db63d5c787cf13a16f97d7e83d7167237b9591829b9b01f384f0db3a6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I19-relations.csv",
+      "bytes": 430,
+      "sha256": "3e127a39e685ef429cd5a98f583f6813b3e240e1eb17ac30b137663d3bfdaedc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I20-batches.csv",
+      "bytes": 390,
+      "sha256": "646cca011cb46a49db1e3e21580b0ec6af70f15114aa7c280f1ff1ef343493a7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I20-ledger-1.csv",
+      "bytes": 647,
+      "sha256": "808a09fb679aa31eb90ef699f2b015c661a43b5b165e30baf9e55a983cf52da9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I20-ledger-2.csv",
+      "bytes": 645,
+      "sha256": "9b803e37dec733f4b6b5b0b73f5a0d3351ab75fbf7ec8ec1c559bbf7be1a506a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/I20-relations.csv",
+      "bytes": 308,
+      "sha256": "3918cc4305d45bcb7a1d1e061a73f7c1938f88296508492ee9efd828828605b0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/INPUT-MANIFEST.json",
+      "bytes": 12368,
+      "sha256": "dcc3e102953d0b83cb5b0d5b6a8fb2d53828160333b21829b0992a534cbe15ce",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/SEAL.json",
+      "bytes": 1205,
+      "sha256": "0c4aa72210cd45b9b66a78f0dbff59755267c54a614e6fc543ae99b429ed5200",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/VERIFY.json",
+      "bytes": 9879,
+      "sha256": "8770fd864b5450296c05318269f52f15932f526e8d8a0ab5415f866f0468a5b4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/frozen/stories.json",
+      "bytes": 244483,
+      "sha256": "5e96abb8d44be8544e9927329f13352a9cf99af6a03e4ba2c2636ca35f830dfb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/mutate_oracle.py",
+      "bytes": 6863,
+      "sha256": "92b7a891b14595a81419e3842b7bb26aade4a950e27ecf157e6c030e575b2f86",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/oracle.py",
+      "bytes": 13800,
+      "sha256": "79080ebbc3c303e6eb3d02466b77a7684b736851d1d3008b4a62f46d064cca1e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/render.mjs",
+      "bytes": 487,
+      "sha256": "25b4da629ea9def6a3eec14fcd02ba0bdcdc92ecf067df2fac41d054d33ff475",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/render.py",
+      "bytes": 1460,
+      "sha256": "dc7ab70003362a9715ce231a6ce048f26cb576adb9ec58aa910f9f18412bb269",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/render.rb",
+      "bytes": 365,
+      "sha256": "8ded8157b631430b16b399c929337b444f31dc882e8311af74aaa3cf8d39297c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/seal.py",
+      "bytes": 1805,
+      "sha256": "25af72d47765b9eface7e81734cacd45c3b454e7e079d23bba3662c797f220b4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/stories.py",
+      "bytes": 27523,
+      "sha256": "8a2f28160632997ebbd585270aa67c38d1dd07e23eb5b026e6e30c71f24638f6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/test_oracle.py",
+      "bytes": 15014,
+      "sha256": "1e0c28c06db1104cab7da65e3a61b93f5746365df13cc96aaaeb4db4d83b1abb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-foundation/verify.py",
+      "bytes": 5993,
+      "sha256": "a588919fca099191d70887dd99860f43c3cbb54cdb2429d6ab24cad1125fedc4",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/IC-1-FOUNDATION.ar.md",
+      "bytes": 14203,
+      "sha256": "a2b7bbae2187f7d057a8096dcaa641662e49b4bb3e65cd6d6255c61485aed01e",
       "kind": "text"
     }
   ],
