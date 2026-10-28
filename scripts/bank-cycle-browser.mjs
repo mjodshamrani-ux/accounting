@@ -20,8 +20,9 @@
 // At each save the installed result, as the Worker replied it, is put in
 // the oracle's terms (scripts/bank-cycle-terms.mjs, as on the library path)
 // and held key by key to the sealed EXPECTED.json and to the corrected
-// expectation (correction-1/), never to the product. What the page shows is
-// held to the corrected expectation too: the previous verdict, the columns
+// expectation when the suite has one (correction-1/), never to the product.
+// What the page shows is held to the corrected expectation, or to
+// EXPECTED.json in a suite without one: the previous verdict, the columns
 // the result cites with the rows above the header and the columns left
 // unread, the misfit problems by kind, role, cell and labels, the review
 // queue before any decision, the sheet's status or refusal and the
@@ -73,9 +74,14 @@ if (seal.status !== 0)
   throw new Error(`the seal: ${seal.stdout}${seal.stderr}`);
 const facts = await json(path.join(frozen, 'stories.json'));
 const expected = (await json(path.join(frozen, 'EXPECTED.json'))).stories;
-const corrected = (
-  await json(path.join(suite, 'correction-1', 'EXPECTED.json'))
-).stories;
+// The corrected expectation when the suite has one (correction-1/); a suite
+// sealed with a corrected oracle has none, and its page is held to EXPECTED.json.
+const corrected = await json(
+  path.join(suite, 'correction-1', 'EXPECTED.json'),
+).then(
+  (c) => c.stories,
+  () => null,
+);
 const ROLES = [
   'date',
   'voucher',
@@ -627,7 +633,10 @@ try {
     const record = { saves: {} };
     stories[story.id] = record;
     const lang = story.layout === 'ar' ? 'ar' : 'en';
-    const u = await open(lang, story.id === 'Y05' ? 390 : 1440);
+    const u = await open(
+      lang,
+      story.width ?? (story.id === 'Y05' ? 390 : 1440),
+    );
     const style = story.digits === 'arabic-indic' ? 'arabic' : 'plain';
     const periods = new Map(story.periods.map((p) => [p.id, p]));
     const sessions = new Map();
@@ -666,6 +675,9 @@ try {
             'policy',
           );
           now.before = now.value.result;
+          // A policy comes before any decision of its month, so the queue it
+          // leaves is the month's queue before its decisions: shown again.
+          now.queueShown = null;
           continue;
         }
         if (
@@ -716,11 +728,13 @@ try {
             ),
           });
           const save = against(expected[story.id]?.[step.save]);
-          save.corrected = against(corrected[story.id]?.[step.save]);
-          if (!save.equal || !save.corrected.equal) save.outcome = got;
+          if (corrected)
+            save.corrected = against(corrected[story.id]?.[step.save]);
+          if (!save.equal || (corrected && !save.corrected.equal))
+            save.outcome = got;
           save.page = await pageAgrees(
             u,
-            corrected[story.id][step.save],
+            (corrected ?? expected)[story.id][step.save],
             now.queueShown,
           );
           const session = await download(
@@ -751,7 +765,9 @@ const summary = {
   stories: facts.stories.length,
   saves: saves.length,
   equalToExpected: saves.filter((s) => s.equal).length,
-  equalToCorrected: saves.filter((s) => s.corrected.equal).length,
+  ...(corrected
+    ? { equalToCorrected: saves.filter((s) => s.corrected.equal).length }
+    : {}),
   pageAgrees: saves.filter((s) => !s.page.length).length,
   sessionsRead: saves.filter((s) => s.session).length,
   errors: Object.values(stories).filter((s) => s.error).length,

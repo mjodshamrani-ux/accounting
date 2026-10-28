@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 57855,
-      "sha256": "93322abee36c13b3304bf829c1f8d354a05630761f612e768bcd51e27dd37659",
+      "bytes": 57894,
+      "sha256": "87cb21f11f2fda4cc88b32fff6482e7a38461400741b8e830bf448314cc97c79",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 35780,
-      "sha256": "fb8c855aa8280e26a3842203502cceeed3e4f2e698dedaf9196c7c73ae852ca8",
+      "bytes": 36565,
+      "sha256": "61f43642912fb5e4e66736ce59d929426b1e06271119930ebb2dc0521f89621a",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 38365,
-      "sha256": "c44dc8fb72e9025d056049ae09c9d5c5772a439676b7cda160192cfa2bd0adb7",
+      "bytes": 38484,
+      "sha256": "a4d698ae65d85c7d162c44d7ca529c382236b559072d2f069d1a63aa44524fc3",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 14177,
-      "sha256": "da7b75fcfa8ac5dd79441a0b3cf38d7feccf8575ec346a216a9e0991712d0e38",
+      "bytes": 14206,
+      "sha256": "74a1f3d5636750f7b4e1a8c9712e28235d2261f6c9bdcede7252e58290c4db0c",
       "kind": "text"
     },
     {
@@ -40805,8 +40805,8 @@
     },
     {
       "path": "docs/roadmap/workflow.ar.md",
-      "bytes": 27264,
-      "sha256": "50a06b842be4799a9befa5682bf4035d6e6b459ad93cb636894c03f09dbf9804",
+      "bytes": 28433,
+      "sha256": "5f7d8337b1d365c7e15f65acd55a5b3c5a1e1c071e823bca6966fe1222dfb887",
       "kind": "text"
     },
     {
@@ -54495,14 +54495,500 @@
     },
     {
       "path": "scripts/bank-cycle-browser.mjs",
-      "bytes": 27760,
-      "sha256": "fd3935f11355a6e35c4f68719fcdc053ab8a1440a63de68d6b556e0fcdb008b5",
+      "bytes": 28344,
+      "sha256": "883f5016039c4c6b991ff32cee9b78d292c4e03e66a900d6e7ec6427a3ca01d5",
       "kind": "text"
     },
     {
       "path": "scripts/bank-cycle-terms.mjs",
       "bytes": 6869,
       "sha256": "c5226d816882de95b4e9f002d706c32dcd7fb4e180d8740f091de25321672d44",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/README.ar.md",
+      "bytes": 13839,
+      "sha256": "a0bc38cde7c8880f2b774d68c4f879376c870769bc32fe899e2d1d2c4ce383e4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/check_seal.py",
+      "bytes": 4904,
+      "sha256": "13670879a098c8bce7e21ea9b0731ae03ef76979ccbe10164f68729139f3f11f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/common.py",
+      "bytes": 5386,
+      "sha256": "29d4ce9fd412623eaca0ba742df9f034d25c9beb1bf6b86cdd6b92fa985c0bb2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/expected.py",
+      "bytes": 1788,
+      "sha256": "49cabfc709a2b13b5fd269ffb3e3bb96000f83a717b16768a1601cc4cc900baa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/fonts.py",
+      "bytes": 3941,
+      "sha256": "f9c51113e1f5150f18a95170fa543ce9f147a79211288971c0310d9f2781ace9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/ELIGIBILITY.json",
+      "bytes": 4990,
+      "sha256": "303dcd7b1addb1375cff159f180f1811679a115430bf5b10132b880e54d0e781",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/EXPECTED.json",
+      "bytes": 143961,
+      "sha256": "c7691f1c13c96ea44885f1cae12b9d74846d3927cb6b2f3dcec27fca433543b3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/INPUT-MANIFEST.json",
+      "bytes": 7971,
+      "sha256": "79383debb852ad19b92fa0b2d8950e837b003167769deb12f504aaae25c064cb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/SEAL.json",
+      "bytes": 4648,
+      "sha256": "cd2f3422118f006e989f3ba8ea1987ea3163cc0cbcc12356b8fff9ede4e7f246",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/VERIFY.json",
+      "bytes": 10501,
+      "sha256": "a755155b452fd3c2d7fc230ae8004b75bdc4f926e051bd0db1dff88f306adfe0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z01-FEB-cashbook.csv",
+      "bytes": 641,
+      "sha256": "2ab3cb0a1a62b66dd7218e5d79bb52c62aa748277f8147045f6a14366d67d3dd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z01-FEB-ledger.xlsx",
+      "bytes": 4440,
+      "sha256": "de5648ba0a6b13522155715dfb00ff6fcbac788b2b576979b9f931ce53f17619",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z01-FEB-statement.pdf",
+      "bytes": 60967,
+      "sha256": "0676d507630ef6f5d3a0e7563f5ee497b54a7192a816593de7ad19795b6af8b7",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z01-MAR-cashbook.csv",
+      "bytes": 651,
+      "sha256": "345d0ba96df77fc31534f25d1f272b365e8e25fa2eb17bb25b1e6fed505766eb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z01-MAR-ledger.xlsx",
+      "bytes": 4503,
+      "sha256": "a64dfd271bdc23aadb2cc4b85ce5711ed267a5dd06e5e6f5306ec1623fbe4bb6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z01-MAR-statement.pdf",
+      "bytes": 60774,
+      "sha256": "c79aa61c4e27dd83e192720ce851c0633bee57e42a139f2930ac923fa60a8f67",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z02-APR-cashbook.csv",
+      "bytes": 630,
+      "sha256": "f3b199586f93e2de5cebf59569ec3d728a6acf534754493309ba89a9f1afd1a4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z02-APR-ledger.xlsx",
+      "bytes": 5230,
+      "sha256": "845783dfec34aaa14ebf3c402d79d9429ec568e3859831e59b6b5dabef72a1fd",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z02-APR-statement.pdf",
+      "bytes": 18535,
+      "sha256": "aa8a9b2e31a880547bcd49246030cdbcc2948ab8693295acff7976e4834e688d",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z02-MAR-cashbook.csv",
+      "bytes": 682,
+      "sha256": "2751f41e07b622ce2835463e7ac9cbd50df850983c57603c91ae38e7ca7a80fc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z02-MAR-ledger.xlsx",
+      "bytes": 5271,
+      "sha256": "f732fc5975fd06041e54087beeb29475ecc7c5a34787ed010dc08d7ae859f4b5",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z02-MAR-statement.pdf",
+      "bytes": 17678,
+      "sha256": "5ba56aa8fe82808ea96da10005031fcfc3c3ce0140a71b00557b593f9ee77d4c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z03-APR-cashbook.csv",
+      "bytes": 846,
+      "sha256": "2cf7632172e08444eedac33d7df6c15b53e6814cd111d5a8a9c5251b2a697f17",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z03-APR-ledger.xlsx",
+      "bytes": 4645,
+      "sha256": "1240c0d7914ffd71bc086b1ae92e06fa87159e26323e6fa8e6cbd169a8226737",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z03-APR-statement.pdf",
+      "bytes": 25174,
+      "sha256": "a01fdfeda29fe579a9df8b9edb22b31c8144f548fa3ea8bc0ee1619ba3a74d73",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z03-MAY-cashbook.csv",
+      "bytes": 663,
+      "sha256": "fb986cc84ae5ee74bfa78367690a34bc942eaa75253d98f02bf9c2df759b7b0e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z03-MAY-ledger.xlsx",
+      "bytes": 4501,
+      "sha256": "5abe3e919220eea3b1ac6be231b5567fbee97dd3262155d8db2039fd395faee9",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z03-MAY-statement.pdf",
+      "bytes": 25732,
+      "sha256": "66bf4e8d552a58a32498da757789fe7e05b24d7f6c2cbb09eed02f352587bf73",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z04-JUN-cashbook.csv",
+      "bytes": 659,
+      "sha256": "8e64a326969d6bf135362faa4f883f99f24803ccd8750c72cfd65306b302bb9f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z04-JUN-ledger.xlsx",
+      "bytes": 5280,
+      "sha256": "58c16b793d1a37b4b947abf22a3e80861d2f17cf5704490d17d186885af0869d",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z04-JUN-statement.pdf",
+      "bytes": 12022,
+      "sha256": "ab4b94ddbb00a3eb1dfadbd119231a95aec7d1b2cefc7730885d8aaca7bc94b4",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z04-MAY-cashbook.csv",
+      "bytes": 610,
+      "sha256": "ed24c3781aad8ce2ae4e9f6eeecb757962a5c8e21d7278e7fe73cd885543e8bd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z04-MAY-ledger.xlsx",
+      "bytes": 5221,
+      "sha256": "f8bc4a8e8645858ae48c32df850a35e58c185158c6d006e6b03b62a523c83676",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z04-MAY-statement.pdf",
+      "bytes": 11892,
+      "sha256": "4e5b7e19bbd30760e71d7632c8200bf73bd0d9794742f5d95923eb19b7770f38",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z05-JUL-cashbook.csv",
+      "bytes": 1430,
+      "sha256": "76359e1ee9812ea4b5aec2178d47672ee8263de5c8de4cfe75e09cd96b6efff3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z05-JUL-ledger.xlsx",
+      "bytes": 5364,
+      "sha256": "597924b645e2dd48293ca091f6ed83444f45f6147ebc2131b6c87420c8cc5ac6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z05-JUL-statement.pdf",
+      "bytes": 33612,
+      "sha256": "57485f51de6064144a617a12e80d1438555f4f3e5f8ae191a485f85bedf1a7c6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z05-JUN-cashbook.csv",
+      "bytes": 1641,
+      "sha256": "468b3f1d35fd7e3263dd85471d2c7ee7d26bc2ea0cfb2e846d2e1ed899b124c1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z05-JUN-ledger.xlsx",
+      "bytes": 5550,
+      "sha256": "3cc1c6a869ab7ffd5693fe9d0004c733a2cf16a3e8d29e20aef9ebe3e4afb5e5",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z05-JUN-statement.pdf",
+      "bytes": 33540,
+      "sha256": "d2f6e81c7ffd746716e1d43540b7023efdbdcb0d6240a32a462222b3081981e5",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z06-FEB-cashbook.csv",
+      "bytes": 1308,
+      "sha256": "d0d9f3de1c488b3d8b370c1c0ed5e4e1b09e547851d6b2529f8746a8a096aace",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z06-FEB-ledger.xlsx",
+      "bytes": 5845,
+      "sha256": "8021c364187685b7ec9dd11837274277b9e27eb41962d276bcfed346b0f4aa75",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z06-FEB-statement.pdf",
+      "bytes": 70105,
+      "sha256": "537dc9ee933106d666a18acf6313077d18490541ab02c0f52381b37d6e9fbfb0",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z06-JAN-cashbook.csv",
+      "bytes": 1364,
+      "sha256": "cb3ba43d50c2385fcf47ea46d6d82036fb1b55493979bbca96dfe38621e3aa56",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z06-JAN-ledger.xlsx",
+      "bytes": 5898,
+      "sha256": "7238627cd1d43e4bbfa8fdbe6bdcd99773edbebe41113c99999043da346af917",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/Z06-JAN-statement.pdf",
+      "bytes": 72407,
+      "sha256": "ce3e42529801476aab367f99ae885a85c7637f41ec9bb4762931c5d9568b1d41",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle holdout C4: bank statements drawn by the Prawn 2.5.0 statement job (Ruby, copied from the BNK-PDF-1 G17 holdout) or the PDFKit 0.20.2 statement application (Node, copied from the G20 holdout), and company ledger workbooks written by caxlsx 4.2.0 (Ruby) or OpenSpout 4.32.0 (PHP), from audit/bank-cycle-holdout-c4/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, and each ledger cell by cell with zipfile and ElementTree; ELIGIBILITY.json with MuPDF; EXPECTED.json from the cycle foundation oracle with its first correction). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/records.json",
+      "bytes": 100514,
+      "sha256": "c305f6dac7d929bb9916eefb7608f9fc75873acf1ed406e70b240b56a5ef690a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/frozen/stories.json",
+      "bytes": 191587,
+      "sha256": "0d53d394973165c7018fdcc3321a6cddef4e490d248f6763e3f23123d3bda348",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/js/package-lock.json",
+      "bytes": 12264,
+      "sha256": "d28fb7c778c2f4de6c8151ee3b76087997187dffe4d8f2cc1f13f52564182f81",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/js/package.json",
+      "bytes": 828,
+      "sha256": "a947a3f9218ac6e149fc6813c8c8bdb0367aa3466ce6b264499ca9ef7605906c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/js/render_pdfkit.mjs",
+      "bytes": 10431,
+      "sha256": "1a6e8bc150dfe6b83b36063acf0daea33193cfd01a8ac9dc51df62eaffb7d897",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/php/composer.json",
+      "bytes": 393,
+      "sha256": "2ddf9925f9d9c844289442de6e41bb21e1746f240732d80891d615d1e24e7cbf",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/php/composer.lock",
+      "bytes": 4019,
+      "sha256": "c2b188aca87011754858eaeb45e233dd03cd7d8764b2b8681db9d0518805bcb2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/php/ledgers.php",
+      "bytes": 2369,
+      "sha256": "c9e3dacb35ca5078d9e9fb078ed7ef70ae1cbff12dc0b9bc4c51693a19488cac",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/render.py",
+      "bytes": 8445,
+      "sha256": "61458de7d0ec3435379084de438497a669a375238198e99ee0b49bf095fad8ce",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/render_pdfkit.py",
+      "bytes": 2217,
+      "sha256": "5eb46dc26992f453d5223180cd9bbf07408b8505ec806ef25c7c93a834a5b16e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/render_prawn.py",
+      "bytes": 2401,
+      "sha256": "a99f0090e7f444613db24f0bbe3ede2d8d5c319eff3436ea67a86c8a9457a5f1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/ruby/Gemfile",
+      "bytes": 100,
+      "sha256": "c4c968077708771559505dce20c65254d158f2cd6512a51ec70f89f00eeada37",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/ruby/Gemfile.lock",
+      "bytes": 3203,
+      "sha256": "cd4fd41a72d4b4ce3a71f2f70d6c984fce68558dcdaa366ee08c89486d2d2fc5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/ruby/ledgers.rb",
+      "bytes": 1816,
+      "sha256": "962dcb40351fe405f2845f311a7bc3c1e9a269ad7de5763bfae307785bc80816",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/ruby/render_prawn.rb",
+      "bytes": 4084,
+      "sha256": "a3e146982555063102e3514f7993bb98934c224bd6539b706ffde18a64116008",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/seal.py",
+      "bytes": 4368,
+      "sha256": "cb0d50f86644b6fdf84d4f324073316ad3a1e09281bf2685ee359ba1146e7a67",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/stories.py",
+      "bytes": 48754,
+      "sha256": "89dd79996ea19e0d79622fd60bbfc93e45de011f8fbd826508c3706d8453d371",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/test_intent.py",
+      "bytes": 18624,
+      "sha256": "30cc84ec237effb862ab7ccd85367eff5e7c44f54121dce314f5926d44e05797",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-holdout-c4/verify.py",
+      "bytes": 32224,
+      "sha256": "92d62d2565f0ff2f31316b87d69c7c1028e1dea0156f56945188f07700d479fe",
       "kind": "text"
     }
   ],

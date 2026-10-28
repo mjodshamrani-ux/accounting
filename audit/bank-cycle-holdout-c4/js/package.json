@@ -1,0 +1,19 @@
+{
+  "name": "bank-statement-holdout-g20-js",
+  "private": true,
+  "description": "The G20 statement application (PDFKit, bidi-js), the text XLSX cashbook writer (write-excel-file) and the fonts (Google Fonts TTF files packaged by @expo-google-fonts; Source Sans 3 OpenType CFF from Adobe's source-sans); installed outside the repository.",
+  "dependencies": {
+    "pdfkit": "0.20.2",
+    "bidi-js": "1.0.3",
+    "write-excel-file": "4.1.1",
+    "source-sans": "3.52.0",
+    "@expo-google-fonts/karla": "0.4.2",
+    "@expo-google-fonts/lora": "0.4.2",
+    "@expo-google-fonts/roboto-mono": "0.4.2",
+    "@expo-google-fonts/inconsolata": "0.4.2",
+    "@expo-google-fonts/dm-sans": "0.4.2",
+    "@expo-google-fonts/changa": "0.4.2",
+    "@expo-google-fonts/kufam": "0.4.1",
+    "@expo-google-fonts/baloo-bhaijaan-2": "0.4.2"
+  }
+}

@@ -1,0 +1,4210 @@
+{
+ "stories": [
+  {
+   "id": "Z01-FEB",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "prawn",
+   "font": "Lora",
+   "paper": "A4",
+   "bank": "Najd Commerce Bank",
+   "documentTitle": "Current Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA03 1500 0000 2210 4471 0101",
+    "currency": "SAR",
+    "period": {
+     "start": "2029-02-01",
+     "end": "2029-02-28"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 35660000
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2029-02-02",
+        "valueDate": "2029-02-02",
+        "description": "Insurance premium",
+        "reference": "FT2902020100",
+        "withdrawal": 414495,
+        "deposit": 0,
+        "balance": 35245505
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2029-02-06",
+        "valueDate": "2029-02-06",
+        "description": "Card acquirer settlement",
+        "reference": "IC2902060101",
+        "withdrawal": 0,
+        "deposit": 55565,
+        "balance": 35301070
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2029-02-06",
+        "valueDate": "2029-02-06",
+        "description": "Supplier payment",
+        "reference": "INV-4471",
+        "withdrawal": 182003,
+        "deposit": 0,
+        "balance": 35119067
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2029-02-10",
+        "valueDate": "2029-02-10",
+        "description": "Utilities",
+        "reference": "FT2902100102",
+        "withdrawal": 502861,
+        "deposit": 0,
+        "balance": 34616206
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2029-02-13",
+        "valueDate": "2029-02-13",
+        "description": "Hospital remittance",
+        "reference": "RCV-8812",
+        "withdrawal": 0,
+        "deposit": 246500,
+        "balance": 34862706
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2029-02-14",
+        "valueDate": "2029-02-14",
+        "description": "Freight and clearance",
+        "reference": "FT2902140103",
+        "withdrawal": 358433,
+        "deposit": 0,
+        "balance": 34504273
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2029-02-15",
+        "valueDate": "2029-02-15",
+        "description": "Supplier payment",
+        "reference": "INV-4475",
+        "withdrawal": 93500,
+        "deposit": 0,
+        "balance": 34410773
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2029-02-18",
+        "valueDate": "2029-02-18",
+        "description": "Utilities",
+        "reference": "FT2902180104",
+        "withdrawal": 116025,
+        "deposit": 0,
+        "balance": 34294748
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2029-02-22",
+        "valueDate": "2029-02-22",
+        "description": "Pharmacy settlement",
+        "reference": "IC2902220105",
+        "withdrawal": 0,
+        "deposit": 264741,
+        "balance": 34559489
+       },
+       {
+        "kind": "movement",
+        "key": "S10",
+        "date": "2029-02-26",
+        "valueDate": "2029-02-26",
+        "description": "Insurance premium",
+        "reference": "FT2902260106",
+        "withdrawal": 300009,
+        "deposit": 0,
+        "balance": 34259480
+       },
+       {
+        "kind": "movement",
+        "key": "S11",
+        "date": "2029-02-28",
+        "valueDate": "2029-02-28",
+        "description": "Account service charge",
+        "reference": "CHG-2902",
+        "withdrawal": 4500,
+        "deposit": 0,
+        "balance": 34254980
+       },
+       {
+        "kind": "closing",
+        "balance": 34254980
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 1971826,
+        "deposit": 566806
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2029-02-01",
+     "voucher": "4101",
+     "description": "Purchase payment",
+     "reference": "FT2902020100",
+     "receipt": 0,
+     "payment": 414495
+    },
+    {
+     "date": "2029-02-05",
+     "voucher": "4102",
+     "description": "Sales receipt",
+     "reference": "IC2902060101",
+     "receipt": 55565,
+     "payment": 0
+    },
+    {
+     "date": "2029-02-06",
+     "voucher": "4201",
+     "description": "Purchase payment",
+     "reference": "INV-4471",
+     "receipt": 0,
+     "payment": 182000
+    },
+    {
+     "date": "2029-02-09",
+     "voucher": "4203",
+     "description": "Purchase payment",
+     "reference": "INV-4475",
+     "receipt": 0,
+     "payment": 93500
+    },
+    {
+     "date": "2029-02-10",
+     "voucher": "4103",
+     "description": "Purchase payment",
+     "reference": "FT2902100102",
+     "receipt": 0,
+     "payment": 502861
+    },
+    {
+     "date": "2029-02-13",
+     "voucher": "4104",
+     "description": "Purchase payment",
+     "reference": "FT2902140103",
+     "receipt": 0,
+     "payment": 358433
+    },
+    {
+     "date": "2029-02-13",
+     "voucher": "4202",
+     "description": "Sales receipt",
+     "reference": "RCV-8812",
+     "receipt": 246502,
+     "payment": 0
+    },
+    {
+     "date": "2029-02-16",
+     "voucher": "4105",
+     "description": "Purchase payment",
+     "reference": "FT2902180104",
+     "receipt": 0,
+     "payment": 116025
+    },
+    {
+     "date": "2029-02-22",
+     "voucher": "4106",
+     "description": "Sales receipt",
+     "reference": "IC2902220105",
+     "receipt": 264741,
+     "payment": 0
+    },
+    {
+     "date": "2029-02-24",
+     "voucher": "4107",
+     "description": "Purchase payment",
+     "reference": "FT2902260106",
+     "receipt": 0,
+     "payment": 300009
+    },
+    {
+     "date": "2029-02-27",
+     "voucher": "4204",
+     "description": "Cash lodgement",
+     "reference": "LDG-2902",
+     "receipt": 150000,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "Z01-MAR",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "prawn",
+   "font": "Lora",
+   "paper": "A4",
+   "bank": "Najd Commerce Bank",
+   "documentTitle": "Current Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA03 1500 0000 2210 4471 0101",
+    "currency": "SAR",
+    "period": {
+     "start": "2029-03-01",
+     "end": "2029-03-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 34254980
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2029-03-01",
+        "valueDate": "2029-03-01",
+        "description": "Cash lodgement",
+        "reference": "LDG-2902",
+        "withdrawal": 0,
+        "deposit": 150000,
+        "balance": 34404980
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2029-03-02",
+        "valueDate": "2029-03-02",
+        "description": "Supplier payment",
+        "reference": "FT2903020100",
+        "withdrawal": 159717,
+        "deposit": 0,
+        "balance": 34245263
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2029-03-06",
+        "valueDate": "2029-03-06",
+        "description": "Supplier payment",
+        "reference": "FT2903060101",
+        "withdrawal": 297849,
+        "deposit": 0,
+        "balance": 33947414
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2029-03-11",
+        "valueDate": "2029-03-11",
+        "description": "Utilities",
+        "reference": "FT2903110102",
+        "withdrawal": 409617,
+        "deposit": 0,
+        "balance": 33537797
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2029-03-15",
+        "valueDate": "2029-03-15",
+        "description": "Supplier payment",
+        "reference": "FT2903150103",
+        "withdrawal": 409839,
+        "deposit": 0,
+        "balance": 33127958
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2029-03-15",
+        "valueDate": "2029-03-15",
+        "description": "Supplier payment",
+        "reference": "INV-4490",
+        "withdrawal": 61000,
+        "deposit": 0,
+        "balance": 33066958
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2029-03-20",
+        "valueDate": "2029-03-20",
+        "description": "Card acquirer settlement",
+        "reference": "IC2903200104",
+        "withdrawal": 0,
+        "deposit": 367795,
+        "balance": 33434753
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2029-03-22",
+        "valueDate": "2029-03-22",
+        "description": "Freight and clearance",
+        "reference": "INV-4493",
+        "withdrawal": 38800,
+        "deposit": 0,
+        "balance": 33395953
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2029-03-24",
+        "valueDate": "2029-03-24",
+        "description": "Supplier payment",
+        "reference": "FT2903240105",
+        "withdrawal": 657851,
+        "deposit": 0,
+        "balance": 32738102
+       },
+       {
+        "kind": "movement",
+        "key": "S10",
+        "date": "2029-03-24",
+        "valueDate": "2029-03-24",
+        "description": "Pharmacy settlement",
+        "reference": "RCV-8840",
+        "withdrawal": 0,
+        "deposit": 77701,
+        "balance": 32815803
+       },
+       {
+        "kind": "movement",
+        "key": "S11",
+        "date": "2029-03-29",
+        "valueDate": "2029-03-29",
+        "description": "Utilities",
+        "reference": "FT2903290106",
+        "withdrawal": 306167,
+        "deposit": 0,
+        "balance": 32509636
+       },
+       {
+        "kind": "closing",
+        "balance": 32509636
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 2340840,
+        "deposit": 595496
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2029-03-01",
+     "voucher": "4108",
+     "description": "Purchase payment",
+     "reference": "FT2903020100",
+     "receipt": 0,
+     "payment": 159717
+    },
+    {
+     "date": "2029-03-03",
+     "voucher": "4301",
+     "description": "Bank charges, February",
+     "reference": "CHG-2902",
+     "receipt": 0,
+     "payment": 4500
+    },
+    {
+     "date": "2029-03-04",
+     "voucher": "4109",
+     "description": "Purchase payment",
+     "reference": "FT2903060101",
+     "receipt": 0,
+     "payment": 297849
+    },
+    {
+     "date": "2029-03-09",
+     "voucher": "4110",
+     "description": "Purchase payment",
+     "reference": "FT2903110102",
+     "receipt": 0,
+     "payment": 409617
+    },
+    {
+     "date": "2029-03-10",
+     "voucher": "4302",
+     "description": "Purchase payment",
+     "reference": "INV-4490",
+     "receipt": 0,
+     "payment": 61000
+    },
+    {
+     "date": "2029-03-13",
+     "voucher": "4111",
+     "description": "Purchase payment",
+     "reference": "FT2903150103",
+     "receipt": 0,
+     "payment": 409839
+    },
+    {
+     "date": "2029-03-17",
+     "voucher": "4303",
+     "description": "Purchase payment",
+     "reference": "INV-4493",
+     "receipt": 0,
+     "payment": 38800
+    },
+    {
+     "date": "2029-03-20",
+     "voucher": "4112",
+     "description": "Sales receipt",
+     "reference": "IC2903200104",
+     "receipt": 367795,
+     "payment": 0
+    },
+    {
+     "date": "2029-03-23",
+     "voucher": "4113",
+     "description": "Purchase payment",
+     "reference": "FT2903240105",
+     "receipt": 0,
+     "payment": 657851
+    },
+    {
+     "date": "2029-03-24",
+     "voucher": "4304",
+     "description": "Sales receipt",
+     "reference": "RCV-8840",
+     "receipt": 77700,
+     "payment": 0
+    },
+    {
+     "date": "2029-03-27",
+     "voucher": "4114",
+     "description": "Purchase payment",
+     "reference": "FT2903290106",
+     "receipt": 0,
+     "payment": 306167
+    }
+   ]
+  },
+  {
+   "id": "Z02-MAR",
+   "layout": "ar",
+   "digits": "latin",
+   "producer": "pdfkit",
+   "font": "Baloo Bhaijaan 2",
+   "paper": "A4",
+   "bank": "مصرف الواحة الوطني",
+   "documentTitle": "كشف حساب جار",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA61 4500 0000 1180 2290 0202",
+    "currency": "SAR",
+    "period": {
+     "start": "2029-03-01",
+     "end": "2029-03-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 29950000
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2029-03-02",
+        "valueDate": "2029-03-02",
+        "description": "تسوية صيدليات",
+        "reference": "IC2903020200",
+        "withdrawal": 0,
+        "deposit": 84353,
+        "balance": 30034353
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2029-03-05",
+        "valueDate": "2029-03-05",
+        "description": "دفعة مورد",
+        "reference": "PO-7731",
+        "withdrawal": 64005,
+        "deposit": 0,
+        "balance": 29970348
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2029-03-06",
+        "valueDate": "2029-03-06",
+        "description": "كهرباء ومياه",
+        "reference": "FT2903060201",
+        "withdrawal": 643019,
+        "deposit": 0,
+        "balance": 29327329
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2029-03-11",
+        "valueDate": "2029-03-11",
+        "description": "شحن وتخليص",
+        "reference": "FT2903110202",
+        "withdrawal": 165993,
+        "deposit": 0,
+        "balance": 29161336
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2029-03-11",
+        "valueDate": "2029-03-11",
+        "description": "شحن وتخليص",
+        "reference": "PO-7736",
+        "withdrawal": 31502,
+        "deposit": 0,
+        "balance": 29129834
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2029-03-15",
+        "valueDate": "2029-03-15",
+        "description": "كهرباء ومياه",
+        "reference": "FT2903150203",
+        "withdrawal": 122879,
+        "deposit": 0,
+        "balance": 29006955
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2029-03-19",
+        "valueDate": "2029-03-19",
+        "description": "حوالة مستشفى",
+        "reference": "SO-2207",
+        "withdrawal": 0,
+        "deposit": 98000,
+        "balance": 29104955
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2029-03-20",
+        "valueDate": "2029-03-20",
+        "description": "شحن وتخليص",
+        "reference": "FT2903200204",
+        "withdrawal": 603827,
+        "deposit": 0,
+        "balance": 28501128
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2029-03-24",
+        "valueDate": "2029-03-24",
+        "description": "دفعة مناقصة",
+        "reference": "IC2903240205",
+        "withdrawal": 0,
+        "deposit": 94799,
+        "balance": 28595927
+       },
+       {
+        "kind": "movement",
+        "key": "S10",
+        "date": "2029-03-29",
+        "valueDate": "2029-03-29",
+        "description": "حوالة مستشفى",
+        "reference": "IC2903290206",
+        "withdrawal": 0,
+        "deposit": 17197,
+        "balance": 28613124
+       },
+       {
+        "kind": "closing",
+        "balance": 28613124
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 1631225,
+        "deposit": 294349
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2029-03-02",
+     "voucher": "JV-29-0301",
+     "description": "سند قبض",
+     "reference": "IC2903020200",
+     "receipt": 84353,
+     "payment": 0
+    },
+    {
+     "date": "2029-03-05",
+     "voucher": "JV-29-0302",
+     "description": "سند صرف",
+     "reference": "FT2903060201",
+     "receipt": 0,
+     "payment": 643019
+    },
+    {
+     "date": "2029-03-05",
+     "voucher": "JV-29-0391",
+     "description": "سند صرف",
+     "reference": "PO-7731",
+     "receipt": 0,
+     "payment": 64000
+    },
+    {
+     "date": "2029-03-10",
+     "voucher": "JV-29-0303",
+     "description": "سند صرف",
+     "reference": "FT2903110202",
+     "receipt": 0,
+     "payment": 165993
+    },
+    {
+     "date": "2029-03-11",
+     "voucher": "JV-29-0392",
+     "description": "سند صرف",
+     "reference": "PO-7736",
+     "receipt": 0,
+     "payment": 31500
+    },
+    {
+     "date": "2029-03-14",
+     "voucher": "JV-29-0304",
+     "description": "سند صرف",
+     "reference": "FT2903150203",
+     "receipt": 0,
+     "payment": 122879
+    },
+    {
+     "date": "2029-03-18",
+     "voucher": "JV-29-0305",
+     "description": "سند صرف",
+     "reference": "FT2903200204",
+     "receipt": 0,
+     "payment": 603827
+    },
+    {
+     "date": "2029-03-19",
+     "voucher": "JV-29-0393",
+     "description": "سند قبض",
+     "reference": "SO-2207",
+     "receipt": 98004,
+     "payment": 0
+    },
+    {
+     "date": "2029-03-23",
+     "voucher": "JV-29-0306",
+     "description": "سند قبض",
+     "reference": "IC2903240205",
+     "receipt": 94799,
+     "payment": 0
+    },
+    {
+     "date": "2029-03-26",
+     "voucher": "JV-29-0394",
+     "description": "شيك صادر",
+     "reference": "CHQ-004512",
+     "receipt": 0,
+     "payment": 235000
+    },
+    {
+     "date": "2029-03-27",
+     "voucher": "JV-29-0307",
+     "description": "سند قبض",
+     "reference": "IC2903290206",
+     "receipt": 17197,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "Z02-APR",
+   "layout": "ar",
+   "digits": "latin",
+   "producer": "pdfkit",
+   "font": "Baloo Bhaijaan 2",
+   "paper": "A4",
+   "bank": "مصرف الواحة الوطني",
+   "documentTitle": "كشف حساب جار",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA61 4500 0000 1180 2290 0202",
+    "currency": "SAR",
+    "period": {
+     "start": "2029-04-01",
+     "end": "2029-04-30"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 28613124
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2029-04-02",
+        "valueDate": "2029-04-02",
+        "description": "دفعة مناقصة",
+        "reference": "IC2904020200",
+        "withdrawal": 0,
+        "deposit": 30269,
+        "balance": 28643393
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2029-04-04",
+        "valueDate": "2029-04-04",
+        "description": "صرف شيك",
+        "reference": "CHQ-004512",
+        "withdrawal": 235002,
+        "deposit": 0,
+        "balance": 28408391
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2029-04-06",
+        "valueDate": "2029-04-06",
+        "description": "شحن وتخليص",
+        "reference": "FT2904060201",
+        "withdrawal": 144647,
+        "deposit": 0,
+        "balance": 28263744
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2029-04-09",
+        "valueDate": "2029-04-09",
+        "description": "تسوية صيدليات",
+        "reference": "SO-2231",
+        "withdrawal": 0,
+        "deposit": 111100,
+        "balance": 28374844
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2029-04-10",
+        "valueDate": "2029-04-10",
+        "description": "حوالة مستشفى",
+        "reference": "IC2904100202",
+        "withdrawal": 0,
+        "deposit": 470965,
+        "balance": 28845809
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2029-04-14",
+        "valueDate": "2029-04-14",
+        "description": "سداد فاتورة",
+        "reference": "SADAD-77120",
+        "withdrawal": 15000,
+        "deposit": 0,
+        "balance": 28830809
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2029-04-15",
+        "valueDate": "2029-04-15",
+        "description": "كهرباء ومياه",
+        "reference": "FT2904150203",
+        "withdrawal": 434417,
+        "deposit": 0,
+        "balance": 28396392
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2029-04-15",
+        "valueDate": "2029-04-15",
+        "description": "سداد فاتورة",
+        "reference": "SADAD-77120",
+        "withdrawal": 15000,
+        "deposit": 0,
+        "balance": 28381392
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2029-04-16",
+        "valueDate": "2029-04-16",
+        "description": "كهرباء ومياه",
+        "reference": "PO-7790",
+        "withdrawal": 22222,
+        "deposit": 0,
+        "balance": 28359170
+       },
+       {
+        "kind": "movement",
+        "key": "S10",
+        "date": "2029-04-19",
+        "valueDate": "2029-04-19",
+        "description": "دفعة مورد",
+        "reference": "FT2904190204",
+        "withdrawal": 384773,
+        "deposit": 0,
+        "balance": 27974397
+       },
+       {
+        "kind": "movement",
+        "key": "S11",
+        "date": "2029-04-23",
+        "valueDate": "2029-04-23",
+        "description": "تسوية صيدليات",
+        "reference": "IC2904230205",
+        "withdrawal": 0,
+        "deposit": 178761,
+        "balance": 28153158
+       },
+       {
+        "kind": "movement",
+        "key": "S12",
+        "date": "2029-04-28",
+        "valueDate": "2029-04-28",
+        "description": "دفعة مورد",
+        "reference": "FT2904280206",
+        "withdrawal": 501775,
+        "deposit": 0,
+        "balance": 27651383
+       },
+       {
+        "kind": "closing",
+        "balance": 27651383
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 1752836,
+        "deposit": 791095
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2029-04-02",
+     "voucher": "JV-29-0308",
+     "description": "سند قبض",
+     "reference": "IC2904020200",
+     "receipt": 30269,
+     "payment": 0
+    },
+    {
+     "date": "2029-04-04",
+     "voucher": "JV-29-0309",
+     "description": "سند صرف",
+     "reference": "FT2904060201",
+     "receipt": 0,
+     "payment": 144647
+    },
+    {
+     "date": "2029-04-09",
+     "voucher": "JV-29-0310",
+     "description": "سند قبض",
+     "reference": "IC2904100202",
+     "receipt": 470965,
+     "payment": 0
+    },
+    {
+     "date": "2029-04-09",
+     "voucher": "JV-29-0491",
+     "description": "سند قبض",
+     "reference": "SO-2231",
+     "receipt": 111099,
+     "payment": 0
+    },
+    {
+     "date": "2029-04-14",
+     "voucher": "JV-29-0493",
+     "description": "سند صرف",
+     "reference": "SADAD-77120",
+     "receipt": 0,
+     "payment": 30000
+    },
+    {
+     "date": "2029-04-15",
+     "voucher": "JV-29-0311",
+     "description": "سند صرف",
+     "reference": "FT2904150203",
+     "receipt": 0,
+     "payment": 434417
+    },
+    {
+     "date": "2029-04-16",
+     "voucher": "JV-29-0492",
+     "description": "سند صرف",
+     "reference": "PO-7790",
+     "receipt": 0,
+     "payment": 22220
+    },
+    {
+     "date": "2029-04-17",
+     "voucher": "JV-29-0312",
+     "description": "سند صرف",
+     "reference": "FT2904190204",
+     "receipt": 0,
+     "payment": 384773
+    },
+    {
+     "date": "2029-04-22",
+     "voucher": "JV-29-0313",
+     "description": "سند قبض",
+     "reference": "IC2904230205",
+     "receipt": 178761,
+     "payment": 0
+    },
+    {
+     "date": "2029-04-26",
+     "voucher": "JV-29-0314",
+     "description": "سند صرف",
+     "reference": "FT2904280206",
+     "receipt": 0,
+     "payment": 501775
+    }
+   ]
+  },
+  {
+   "id": "Z03-APR",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "prawn",
+   "font": "Karla",
+   "paper": "Letter",
+   "bank": "Red Sea Merchant Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "none",
+     "heading": "rule",
+     "headings": "left"
+    }
+   },
+   "statement": {
+    "account": "SA26 2000 0000 6630 1185 0303",
+    "currency": "SAR",
+    "period": {
+     "start": "2029-04-01",
+     "end": "2029-04-30"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 43890000
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2029-04-02",
+        "valueDate": "2029-04-02",
+        "description": "Insurance premium",
+        "reference": "FT2904020300",
+        "withdrawal": 551823,
+        "deposit": 0,
+        "balance": 43338177
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2029-04-05",
+        "valueDate": "2029-04-05",
+        "description": "Utilities",
+        "reference": "FT2904050301",
+        "withdrawal": 323919,
+        "deposit": 0,
+        "balance": 43014258
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2029-04-08",
+        "valueDate": "2029-04-08",
+        "description": "Direct debit",
+        "reference": "DD-88120",
+        "withdrawal": 41250,
+        "deposit": 0,
+        "balance": 42973008
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2029-04-09",
+        "valueDate": "2029-04-09",
+        "description": "Utilities",
+        "reference": "FT2904090302",
+        "withdrawal": 134247,
+        "deposit": 0,
+        "balance": 42838761
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2029-04-13",
+        "valueDate": "2029-04-13",
+        "description": "Utilities",
+        "reference": "FT2904130303",
+        "withdrawal": 626033,
+        "deposit": 0,
+        "balance": 42212728
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2029-04-16",
+        "valueDate": "2029-04-16",
+        "description": "Lab consumables",
+        "reference": "FT2904160304",
+        "withdrawal": 332069,
+        "deposit": 0,
+        "balance": 41880659
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2029-04-18",
+        "valueDate": "2029-04-18",
+        "description": "Direct debit",
+        "reference": "DD-88121",
+        "withdrawal": 26840,
+        "deposit": 0,
+        "balance": 41853819
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2029-04-20",
+        "valueDate": "2029-04-20",
+        "description": "Freight and clearance",
+        "reference": "FT2904200305",
+        "withdrawal": 265271,
+        "deposit": 0,
+        "balance": 41588548
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2029-04-20",
+        "valueDate": "2029-04-20",
+        "description": "Tender payment",
+        "reference": "TND-5502",
+        "withdrawal": 0,
+        "deposit": 315000,
+        "balance": 41903548
+       },
+       {
+        "kind": "movement",
+        "key": "S10",
+        "date": "2029-04-24",
+        "valueDate": "2029-04-24",
+        "description": "Insurance premium",
+        "reference": "FT2904240306",
+        "withdrawal": 229733,
+        "deposit": 0,
+        "balance": 41673815
+       },
+       {
+        "kind": "movement",
+        "key": "S11",
+        "date": "2029-04-28",
+        "valueDate": "2029-04-28",
+        "description": "Freight and clearance",
+        "reference": "FT2904280307",
+        "withdrawal": 71043,
+        "deposit": 0,
+        "balance": 41602772
+       },
+       {
+        "kind": "closing",
+        "balance": 41602772
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 2602228,
+        "deposit": 315000
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2029-04-01",
+     "voucher": "BNK1/2029/0001",
+     "description": "Bank payment",
+     "reference": "FT2904020300",
+     "receipt": 0,
+     "payment": 551823
+    },
+    {
+     "date": "2029-04-05",
+     "voucher": "BNK1/2029/0002",
+     "description": "Bank payment",
+     "reference": "FT2904050301",
+     "receipt": 0,
+     "payment": 323919
+    },
+    {
+     "date": "2029-04-07",
+     "voucher": "BNK1/2029/0003",
+     "description": "Bank payment",
+     "reference": "FT2904090302",
+     "receipt": 0,
+     "payment": 134247
+    },
+    {
+     "date": "2029-04-07",
+     "voucher": "BNK1/2029/0101",
+     "description": "Electricity, April",
+     "reference": "ELEC-APR",
+     "receipt": 0,
+     "payment": 41250
+    },
+    {
+     "date": "2029-04-12",
+     "voucher": "BNK1/2029/0004",
+     "description": "Bank payment",
+     "reference": "FT2904130303",
+     "receipt": 0,
+     "payment": 626033
+    },
+    {
+     "date": "2029-04-16",
+     "voucher": "BNK1/2029/0005",
+     "description": "Bank payment",
+     "reference": "FT2904160304",
+     "receipt": 0,
+     "payment": 332069
+    },
+    {
+     "date": "2029-04-16",
+     "voucher": "BNK1/2029/0103",
+     "description": "Bank receipt",
+     "reference": "TND-5502",
+     "receipt": 315000,
+     "payment": 0
+    },
+    {
+     "date": "2029-04-18",
+     "voucher": "BNK1/2029/0102",
+     "description": "Telecom, April",
+     "reference": "TEL-APR",
+     "receipt": 0,
+     "payment": 26840
+    },
+    {
+     "date": "2029-04-20",
+     "voucher": "BNK1/2029/0006",
+     "description": "Bank payment",
+     "reference": "FT2904200305",
+     "receipt": 0,
+     "payment": 265271
+    },
+    {
+     "date": "2029-04-24",
+     "voucher": "BNK1/2029/0007",
+     "description": "Bank payment",
+     "reference": "FT2904240306",
+     "receipt": 0,
+     "payment": 229733
+    },
+    {
+     "date": "2029-04-27",
+     "voucher": "BNK1/2029/0008",
+     "description": "Bank payment",
+     "reference": "FT2904280307",
+     "receipt": 0,
+     "payment": 71043
+    },
+    {
+     "date": "2029-04-29",
+     "voucher": "BNK1/2029/0104",
+     "description": "Cash deposit",
+     "reference": "LDG-0429",
+     "receipt": 80000,
+     "payment": 0
+    },
+    {
+     "date": "2029-04-30",
+     "voucher": "BNK1/2029/0105",
+     "description": "Cash deposit",
+     "reference": "LDG-0430",
+     "receipt": 80000,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "Z03-MAY",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "prawn",
+   "font": "Karla",
+   "paper": "Letter",
+   "bank": "Red Sea Merchant Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "none",
+     "heading": "rule",
+     "headings": "left"
+    }
+   },
+   "statement": {
+    "account": "SA26 2000 0000 6630 1185 0303",
+    "currency": "SAR",
+    "period": {
+     "start": "2029-05-01",
+     "end": "2029-05-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 41602772
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2029-05-02",
+        "valueDate": "2029-05-02",
+        "description": "Insurance premium",
+        "reference": "FT2905020300",
+        "withdrawal": 312895,
+        "deposit": 0,
+        "balance": 41289877
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2029-05-02",
+        "valueDate": "2029-05-02",
+        "description": "Cash deposit",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 80000,
+        "balance": 41369877
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2029-05-03",
+        "valueDate": "2029-05-03",
+        "description": "Cash deposit",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 80000,
+        "balance": 41449877
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2029-05-05",
+        "valueDate": "2029-05-05",
+        "description": "Pharmacy settlement",
+        "reference": "IC2905050301",
+        "withdrawal": 0,
+        "deposit": 206933,
+        "balance": 41656810
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2029-05-09",
+        "valueDate": "2029-05-09",
+        "description": "Tender payment",
+        "reference": "IC2905090302",
+        "withdrawal": 0,
+        "deposit": 154891,
+        "balance": 41811701
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2029-05-12",
+        "valueDate": "2029-05-12",
+        "description": "Lab consumables",
+        "reference": "INV-3391",
+        "withdrawal": 45501,
+        "deposit": 0,
+        "balance": 41766200
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2029-05-13",
+        "valueDate": "2029-05-13",
+        "description": "Hospital remittance",
+        "reference": "IC2905130303",
+        "withdrawal": 0,
+        "deposit": 662137,
+        "balance": 42428337
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2029-05-17",
+        "valueDate": "2029-05-17",
+        "description": "Hospital remittance",
+        "reference": "IC2905170304",
+        "withdrawal": 0,
+        "deposit": 552383,
+        "balance": 42980720
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2029-05-21",
+        "valueDate": "2029-05-21",
+        "description": "Lab consumables",
+        "reference": "FT2905210305",
+        "withdrawal": 618713,
+        "deposit": 0,
+        "balance": 42362007
+       },
+       {
+        "kind": "movement",
+        "key": "S10",
+        "date": "2029-05-21",
+        "valueDate": "2029-05-21",
+        "description": "Supplier payment",
+        "reference": "INV-3398",
+        "withdrawal": 61002,
+        "deposit": 0,
+        "balance": 42301005
+       },
+       {
+        "kind": "movement",
+        "key": "S11",
+        "date": "2029-05-25",
+        "valueDate": "2029-05-25",
+        "description": "Hospital remittance",
+        "reference": "IC2905250306",
+        "withdrawal": 0,
+        "deposit": 262773,
+        "balance": 42563778
+       },
+       {
+        "kind": "movement",
+        "key": "S12",
+        "date": "2029-05-29",
+        "valueDate": "2029-05-29",
+        "description": "Card acquirer settlement",
+        "reference": "IC2905290307",
+        "withdrawal": 0,
+        "deposit": 65461,
+        "balance": 42629239
+       },
+       {
+        "kind": "closing",
+        "balance": 42629239
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 1038111,
+        "deposit": 2064578
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2029-05-01",
+     "voucher": "BNK1/2029/0009",
+     "description": "Bank payment",
+     "reference": "FT2905020300",
+     "receipt": 0,
+     "payment": 312895
+    },
+    {
+     "date": "2029-05-04",
+     "voucher": "BNK1/2029/0010",
+     "description": "Bank receipt",
+     "reference": "IC2905050301",
+     "receipt": 206933,
+     "payment": 0
+    },
+    {
+     "date": "2029-05-07",
+     "voucher": "BNK1/2029/0011",
+     "description": "Bank receipt",
+     "reference": "IC2905090302",
+     "receipt": 154891,
+     "payment": 0
+    },
+    {
+     "date": "2029-05-12",
+     "voucher": "BNK1/2029/0201",
+     "description": "Bank payment",
+     "reference": "INV-3391",
+     "receipt": 0,
+     "payment": 45500
+    },
+    {
+     "date": "2029-05-13",
+     "voucher": "BNK1/2029/0012",
+     "description": "Bank receipt",
+     "reference": "IC2905130303",
+     "receipt": 662137,
+     "payment": 0
+    },
+    {
+     "date": "2029-05-15",
+     "voucher": "BNK1/2029/0013",
+     "description": "Bank receipt",
+     "reference": "IC2905170304",
+     "receipt": 552383,
+     "payment": 0
+    },
+    {
+     "date": "2029-05-20",
+     "voucher": "BNK1/2029/0014",
+     "description": "Bank payment",
+     "reference": "FT2905210305",
+     "receipt": 0,
+     "payment": 618713
+    },
+    {
+     "date": "2029-05-21",
+     "voucher": "BNK1/2029/0202",
+     "description": "Bank payment",
+     "reference": "INV-3398",
+     "receipt": 0,
+     "payment": 61000
+    },
+    {
+     "date": "2029-05-23",
+     "voucher": "BNK1/2029/0015",
+     "description": "Bank receipt",
+     "reference": "IC2905250306",
+     "receipt": 262773,
+     "payment": 0
+    },
+    {
+     "date": "2029-05-28",
+     "voucher": "BNK1/2029/0016",
+     "description": "Bank receipt",
+     "reference": "IC2905290307",
+     "receipt": 65461,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "Z04-MAY",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "pdfkit",
+   "font": "DM Sans",
+   "paper": "A4-landscape",
+   "bank": "Gulf Pearl Bank",
+   "documentTitle": "Business Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "stripes",
+     "heading": "grey"
+    }
+   },
+   "statement": {
+    "account": "SA88 6000 0000 5507 7340 0404",
+    "currency": "SAR",
+    "period": {
+     "start": "2029-05-01",
+     "end": "2029-05-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 58410000
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2029-05-02",
+        "valueDate": "2029-05-02",
+        "description": "Lab consumables",
+        "reference": "FT2905020400",
+        "withdrawal": 228603,
+        "deposit": 0,
+        "balance": 58181397
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2029-05-05",
+        "valueDate": "2029-05-05",
+        "description": "Hospital remittance",
+        "reference": "IC2905050401",
+        "withdrawal": 0,
+        "deposit": 273611,
+        "balance": 58455008
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2029-05-08",
+        "valueDate": "2029-05-08",
+        "description": "Lab consumables",
+        "reference": "FT2905080402",
+        "withdrawal": 399527,
+        "deposit": 0,
+        "balance": 58055481
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2029-05-10",
+        "valueDate": "2029-05-10",
+        "description": "Hospital remittance",
+        "reference": "INV-30017",
+        "withdrawal": 0,
+        "deposit": 125000,
+        "balance": 58180481
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2029-05-12",
+        "valueDate": "2029-05-12",
+        "description": "Tender payment",
+        "reference": "IC2905120403",
+        "withdrawal": 0,
+        "deposit": 320257,
+        "balance": 58500738
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2029-05-15",
+        "valueDate": "2029-05-15",
+        "description": "Insurance premium",
+        "reference": "FT2905150404",
+        "withdrawal": 98667,
+        "deposit": 0,
+        "balance": 58402071
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2029-05-18",
+        "valueDate": "2029-05-18",
+        "description": "Lab consumables",
+        "reference": "FT2905180405",
+        "withdrawal": 526093,
+        "deposit": 0,
+        "balance": 57875978
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2029-05-22",
+        "valueDate": "2029-05-22",
+        "description": "Tender payment",
+        "reference": "IC2905220406",
+        "withdrawal": 0,
+        "deposit": 317061,
+        "balance": 58193039
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2029-05-25",
+        "valueDate": "2029-05-25",
+        "description": "Supplier payment",
+        "reference": "FT2905250407",
+        "withdrawal": 584753,
+        "deposit": 0,
+        "balance": 57608286
+       },
+       {
+        "kind": "movement",
+        "key": "S10",
+        "date": "2029-05-29",
+        "valueDate": "2029-05-29",
+        "description": "Hospital remittance",
+        "reference": "IC2905290408",
+        "withdrawal": 0,
+        "deposit": 199609,
+        "balance": 57807895
+       },
+       {
+        "kind": "movement",
+        "key": "S11",
+        "date": "2029-05-31",
+        "valueDate": "2029-05-31",
+        "description": "Credit interest",
+        "reference": "INT-0529",
+        "withdrawal": 0,
+        "deposit": 1234,
+        "balance": 57809129
+       },
+       {
+        "kind": "closing",
+        "balance": 57809129
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 1837643,
+        "deposit": 1236772
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2029-05-02",
+     "voucher": "CHK 2201",
+     "description": "Bank payment",
+     "reference": "FT2905020400",
+     "receipt": 0,
+     "payment": 228603
+    },
+    {
+     "date": "2029-05-04",
+     "voucher": "DEP 2202",
+     "description": "Bank receipt",
+     "reference": "IC2905050401",
+     "receipt": 273611,
+     "payment": 0
+    },
+    {
+     "date": "2029-05-06",
+     "voucher": "CHK 2203",
+     "description": "Bank payment",
+     "reference": "FT2905080402",
+     "receipt": 0,
+     "payment": 399527
+    },
+    {
+     "date": "2029-05-10",
+     "voucher": "DEP 2301",
+     "description": "Bank receipt",
+     "reference": "INV-30017",
+     "receipt": 124998,
+     "payment": 0
+    },
+    {
+     "date": "2029-05-12",
+     "voucher": "DEP 2204",
+     "description": "Bank receipt",
+     "reference": "IC2905120403",
+     "receipt": 320257,
+     "payment": 0
+    },
+    {
+     "date": "2029-05-14",
+     "voucher": "CHK 2205",
+     "description": "Bank payment",
+     "reference": "FT2905150404",
+     "receipt": 0,
+     "payment": 98667
+    },
+    {
+     "date": "2029-05-18",
+     "voucher": "CHK 2206",
+     "description": "Bank payment",
+     "reference": "FT2905180405",
+     "receipt": 0,
+     "payment": 526093
+    },
+    {
+     "date": "2029-05-21",
+     "voucher": "DEP 2207",
+     "description": "Bank receipt",
+     "reference": "IC2905220406",
+     "receipt": 317061,
+     "payment": 0
+    },
+    {
+     "date": "2029-05-24",
+     "voucher": "CHK 2208",
+     "description": "Bank payment",
+     "reference": "FT2905250407",
+     "receipt": 0,
+     "payment": 584753
+    },
+    {
+     "date": "2029-05-28",
+     "voucher": "DEP 2209",
+     "description": "Bank receipt",
+     "reference": "IC2905290408",
+     "receipt": 199609,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "Z04-JUN",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "pdfkit",
+   "font": "DM Sans",
+   "paper": "A4-landscape",
+   "bank": "Gulf Pearl Bank",
+   "documentTitle": "Business Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "stripes",
+     "heading": "grey"
+    }
+   },
+   "statement": {
+    "account": "SA88 6000 0000 5507 7340 0404",
+    "currency": "SAR",
+    "period": {
+     "start": "2029-06-01",
+     "end": "2029-06-30"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 57809129
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2029-06-02",
+        "valueDate": "2029-06-02",
+        "description": "Utilities",
+        "reference": "FT2906020400",
+        "withdrawal": 288137,
+        "deposit": 0,
+        "balance": 57520992
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2029-06-05",
+        "valueDate": "2029-06-05",
+        "description": "Card acquirer settlement",
+        "reference": "IC2906050401",
+        "withdrawal": 0,
+        "deposit": 447253,
+        "balance": 57968245
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2029-06-08",
+        "valueDate": "2029-06-08",
+        "description": "Tender payment",
+        "reference": "IC2906080402",
+        "withdrawal": 0,
+        "deposit": 500129,
+        "balance": 58468374
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2029-06-11",
+        "valueDate": "2029-06-11",
+        "description": "Insurance premium",
+        "reference": "FT2906110403",
+        "withdrawal": 486615,
+        "deposit": 0,
+        "balance": 57981759
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2029-06-13",
+        "valueDate": "2029-06-13",
+        "description": "Utilities",
+        "reference": "INV-30102",
+        "withdrawal": 9876,
+        "deposit": 0,
+        "balance": 57971883
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2029-06-15",
+        "valueDate": "2029-06-15",
+        "description": "Lab consumables",
+        "reference": "FT2906150404",
+        "withdrawal": 107015,
+        "deposit": 0,
+        "balance": 57864868
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2029-06-18",
+        "valueDate": "2029-06-18",
+        "description": "Hospital remittance",
+        "reference": "IC2906180405",
+        "withdrawal": 0,
+        "deposit": 54157,
+        "balance": 57919025
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2029-06-21",
+        "valueDate": "2029-06-21",
+        "description": "Lab consumables",
+        "reference": "FT2906210406",
+        "withdrawal": 203451,
+        "deposit": 0,
+        "balance": 57715574
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2029-06-24",
+        "valueDate": "2029-06-24",
+        "description": "Utilities",
+        "reference": "FT2906240407",
+        "withdrawal": 20321,
+        "deposit": 0,
+        "balance": 57695253
+       },
+       {
+        "kind": "movement",
+        "key": "S10",
+        "date": "2029-06-28",
+        "valueDate": "2029-06-28",
+        "description": "Pharmacy settlement",
+        "reference": "IC2906280408",
+        "withdrawal": 0,
+        "deposit": 86381,
+        "balance": 57781634
+       },
+       {
+        "kind": "closing",
+        "balance": 57781634
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 1115415,
+        "deposit": 1087920
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2029-06-01",
+     "voucher": "CHK 2210",
+     "description": "Bank payment",
+     "reference": "FT2906020400",
+     "receipt": 0,
+     "payment": 288137
+    },
+    {
+     "date": "2029-06-02",
+     "voucher": "DEP 2402",
+     "description": "Interest, May",
+     "reference": "INT-0529",
+     "receipt": 1234,
+     "payment": 0
+    },
+    {
+     "date": "2029-06-03",
+     "voucher": "DEP 2211",
+     "description": "Bank receipt",
+     "reference": "IC2906050401",
+     "receipt": 447253,
+     "payment": 0
+    },
+    {
+     "date": "2029-06-06",
+     "voucher": "DEP 2212",
+     "description": "Bank receipt",
+     "reference": "IC2906080402",
+     "receipt": 500129,
+     "payment": 0
+    },
+    {
+     "date": "2029-06-11",
+     "voucher": "CHK 2213",
+     "description": "Bank payment",
+     "reference": "FT2906110403",
+     "receipt": 0,
+     "payment": 486615
+    },
+    {
+     "date": "2029-06-13",
+     "voucher": "CHK 2401",
+     "description": "Bank payment",
+     "reference": "INV-30102",
+     "receipt": 0,
+     "payment": 9875
+    },
+    {
+     "date": "2029-06-14",
+     "voucher": "CHK 2214",
+     "description": "Bank payment",
+     "reference": "FT2906150404",
+     "receipt": 0,
+     "payment": 107015
+    },
+    {
+     "date": "2029-06-16",
+     "voucher": "DEP 2215",
+     "description": "Bank receipt",
+     "reference": "IC2906180405",
+     "receipt": 54157,
+     "payment": 0
+    },
+    {
+     "date": "2029-06-19",
+     "voucher": "CHK 2216",
+     "description": "Bank payment",
+     "reference": "FT2906210406",
+     "receipt": 0,
+     "payment": 203451
+    },
+    {
+     "date": "2029-06-23",
+     "voucher": "CHK 2217",
+     "description": "Bank payment",
+     "reference": "FT2906240407",
+     "receipt": 0,
+     "payment": 20321
+    },
+    {
+     "date": "2029-06-27",
+     "voucher": "DEP 2218",
+     "description": "Bank receipt",
+     "reference": "IC2906280408",
+     "receipt": 86381,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "Z05-JUN",
+   "layout": "ar",
+   "digits": "arabic",
+   "producer": "pdfkit",
+   "font": "Kufam",
+   "paper": "A4",
+   "bank": "بنك المرجان",
+   "documentTitle": "كشف حساب",
+   "recipe": {
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA14 8000 0000 9024 6612 0505",
+    "currency": "SAR",
+    "period": {
+     "start": "2029-06-01",
+     "end": "2029-06-30"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 3,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 27850000
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2029-06-02",
+        "valueDate": "2029-06-02",
+        "description": "دفعة مناقصة",
+        "reference": "IC2906020500",
+        "withdrawal": 0,
+        "deposit": 509159,
+        "balance": 28359159
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2029-06-03",
+        "valueDate": "2029-06-03",
+        "description": "تسوية نقاط البيع",
+        "reference": "IC2906030501",
+        "withdrawal": 0,
+        "deposit": 465505,
+        "balance": 28824664
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2029-06-04",
+        "valueDate": "2029-06-04",
+        "description": "دفعة مورد",
+        "reference": "FT2906040502",
+        "withdrawal": 467919,
+        "deposit": 0,
+        "balance": 28356745
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2029-06-04",
+        "valueDate": "2029-06-04",
+        "description": "دفعة مورد",
+        "reference": "PO-9101",
+        "withdrawal": 10101,
+        "deposit": 0,
+        "balance": 28346644
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2029-06-05",
+        "valueDate": "2029-06-05",
+        "description": "قسط تأمين",
+        "reference": "FT2906050503",
+        "withdrawal": 256747,
+        "deposit": 0,
+        "balance": 28089897
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2029-06-06",
+        "valueDate": "2029-06-06",
+        "description": "قسط تأمين",
+        "reference": "FT2906060504",
+        "withdrawal": 627983,
+        "deposit": 0,
+        "balance": 27461914
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2029-06-08",
+        "valueDate": "2029-06-08",
+        "description": "كهرباء ومياه",
+        "reference": "FT2906080505",
+        "withdrawal": 57491,
+        "deposit": 0,
+        "balance": 27404423
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2029-06-08",
+        "valueDate": "2029-06-08",
+        "description": "مستلزمات مختبر",
+        "reference": "PO-9102",
+        "withdrawal": 20201,
+        "deposit": 0,
+        "balance": 27384222
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2029-06-09",
+        "valueDate": "2029-06-09",
+        "description": "كهرباء ومياه",
+        "reference": "FT2906090506",
+        "withdrawal": 50055,
+        "deposit": 0,
+        "balance": 27334167
+       },
+       {
+        "kind": "movement",
+        "key": "S10",
+        "date": "2029-06-10",
+        "valueDate": "2029-06-10",
+        "description": "كهرباء ومياه",
+        "reference": "FT2906100507",
+        "withdrawal": 651575,
+        "deposit": 0,
+        "balance": 26682592
+       },
+       {
+        "kind": "carried-forward",
+        "balance": 26682592
+       }
+      ]
+     },
+     {
+      "number": 2,
+      "of": 3,
+      "lines": [
+       {
+        "kind": "brought-forward",
+        "balance": 26682592
+       },
+       {
+        "kind": "movement",
+        "key": "S11",
+        "date": "2029-06-10",
+        "valueDate": "2029-06-10",
+        "description": "شحن وتخليص",
+        "reference": "PO-9110",
+        "withdrawal": 175000,
+        "deposit": 0,
+        "balance": 26507592
+       },
+       {
+        "kind": "movement",
+        "key": "S12",
+        "date": "2029-06-11",
+        "valueDate": "2029-06-11",
+        "description": "قسط تأمين",
+        "reference": "FT2906110508",
+        "withdrawal": 571097,
+        "deposit": 0,
+        "balance": 25936495
+       },
+       {
+        "kind": "movement",
+        "key": "S13",
+        "date": "2029-06-12",
+        "valueDate": "2029-06-12",
+        "description": "تسوية صيدليات",
+        "reference": "SO-4401",
+        "withdrawal": 0,
+        "deposit": 30300,
+        "balance": 25966795
+       },
+       {
+        "kind": "movement",
+        "key": "S14",
+        "date": "2029-06-13",
+        "valueDate": "2029-06-13",
+        "description": "تسوية صيدليات",
+        "reference": "IC2906130509",
+        "withdrawal": 0,
+        "deposit": 465019,
+        "balance": 26431814
+       },
+       {
+        "kind": "movement",
+        "key": "S15",
+        "date": "2029-06-14",
+        "valueDate": "2029-06-14",
+        "description": "دفعة مورد",
+        "reference": "FT2906140510",
+        "withdrawal": 241345,
+        "deposit": 0,
+        "balance": 26190469
+       },
+       {
+        "kind": "movement",
+        "key": "S16",
+        "date": "2029-06-15",
+        "valueDate": "2029-06-15",
+        "description": "قسط تأمين",
+        "reference": "FT2906150511",
+        "withdrawal": 148565,
+        "deposit": 0,
+        "balance": 26041904
+       },
+       {
+        "kind": "movement",
+        "key": "S17",
+        "date": "2029-06-16",
+        "valueDate": "2029-06-16",
+        "description": "شحن وتخليص",
+        "reference": "FT2906160512",
+        "withdrawal": 92285,
+        "deposit": 0,
+        "balance": 25949619
+       },
+       {
+        "kind": "movement",
+        "key": "S18",
+        "date": "2029-06-17",
+        "valueDate": "2029-06-17",
+        "description": "حوالة مستشفى",
+        "reference": "SO-4402",
+        "withdrawal": 0,
+        "deposit": 40400,
+        "balance": 25990019
+       },
+       {
+        "kind": "movement",
+        "key": "S19",
+        "date": "2029-06-18",
+        "valueDate": "2029-06-18",
+        "description": "شحن وتخليص",
+        "reference": "FT2906180513",
+        "withdrawal": 297073,
+        "deposit": 0,
+        "balance": 25692946
+       },
+       {
+        "kind": "movement",
+        "key": "S20",
+        "date": "2029-06-19",
+        "valueDate": "2029-06-19",
+        "description": "كهرباء ومياه",
+        "reference": "FT2906190514",
+        "withdrawal": 139625,
+        "deposit": 0,
+        "balance": 25553321
+       },
+       {
+        "kind": "carried-forward",
+        "balance": 25553321
+       }
+      ]
+     },
+     {
+      "number": 3,
+      "of": 3,
+      "lines": [
+       {
+        "kind": "brought-forward",
+        "balance": 25553321
+       },
+       {
+        "kind": "movement",
+        "key": "S21",
+        "date": "2029-06-19",
+        "valueDate": "2029-06-19",
+        "description": "دفعة مورد",
+        "reference": "PO-9111",
+        "withdrawal": 264000,
+        "deposit": 0,
+        "balance": 25289321
+       },
+       {
+        "kind": "movement",
+        "key": "S22",
+        "date": "2029-06-20",
+        "valueDate": "2029-06-20",
+        "description": "دفعة مورد",
+        "reference": "FT2906200515",
+        "withdrawal": 402437,
+        "deposit": 0,
+        "balance": 24886884
+       },
+       {
+        "kind": "movement",
+        "key": "S23",
+        "date": "2029-06-21",
+        "valueDate": "2029-06-21",
+        "description": "تسوية صيدليات",
+        "reference": "IC2906210516",
+        "withdrawal": 0,
+        "deposit": 194709,
+        "balance": 25081593
+       },
+       {
+        "kind": "movement",
+        "key": "S24",
+        "date": "2029-06-23",
+        "valueDate": "2029-06-23",
+        "description": "كهرباء ومياه",
+        "reference": "FT2906230517",
+        "withdrawal": 382855,
+        "deposit": 0,
+        "balance": 24698738
+       },
+       {
+        "kind": "movement",
+        "key": "S25",
+        "date": "2029-06-24",
+        "valueDate": "2029-06-24",
+        "description": "مستلزمات مختبر",
+        "reference": "FT2906240518",
+        "withdrawal": 273245,
+        "deposit": 0,
+        "balance": 24425493
+       },
+       {
+        "kind": "movement",
+        "key": "S26",
+        "date": "2029-06-25",
+        "valueDate": "2029-06-25",
+        "description": "قسط تأمين",
+        "reference": "FT2906250519",
+        "withdrawal": 604985,
+        "deposit": 0,
+        "balance": 23820508
+       },
+       {
+        "kind": "movement",
+        "key": "S27",
+        "date": "2029-06-26",
+        "valueDate": "2029-06-26",
+        "description": "تسوية صيدليات",
+        "reference": "IC2906260520",
+        "withdrawal": 0,
+        "deposit": 546903,
+        "balance": 24367411
+       },
+       {
+        "kind": "movement",
+        "key": "S28",
+        "date": "2029-06-28",
+        "valueDate": "2029-06-28",
+        "description": "دفعة مورد",
+        "reference": "FT2906280521",
+        "withdrawal": 318863,
+        "deposit": 0,
+        "balance": 24048548
+       },
+       {
+        "kind": "closing",
+        "balance": 24048548
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 6053447,
+        "deposit": 2251995
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2029-06-01",
+     "voucher": "ق-6001",
+     "description": "سند قبض",
+     "reference": "IC2906020500",
+     "receipt": 509159,
+     "payment": 0
+    },
+    {
+     "date": "2029-06-01",
+     "voucher": "ق-6002",
+     "description": "سند قبض",
+     "reference": "IC2906030501",
+     "receipt": 465505,
+     "payment": 0
+    },
+    {
+     "date": "2029-06-03",
+     "voucher": "ص-6105",
+     "description": "سند صرف",
+     "reference": "PO-9110",
+     "receipt": 0,
+     "payment": 175000
+    },
+    {
+     "date": "2029-06-04",
+     "voucher": "ص-6003",
+     "description": "سند صرف",
+     "reference": "FT2906040502",
+     "receipt": 0,
+     "payment": 467919
+    },
+    {
+     "date": "2029-06-04",
+     "voucher": "ص-6004",
+     "description": "سند صرف",
+     "reference": "FT2906050503",
+     "receipt": 0,
+     "payment": 256747
+    },
+    {
+     "date": "2029-06-04",
+     "voucher": "ص-6101",
+     "description": "سند صرف",
+     "reference": "PO-9101",
+     "receipt": 0,
+     "payment": 10100
+    },
+    {
+     "date": "2029-06-06",
+     "voucher": "ص-6005",
+     "description": "سند صرف",
+     "reference": "FT2906060504",
+     "receipt": 0,
+     "payment": 627983
+    },
+    {
+     "date": "2029-06-06",
+     "voucher": "ص-6006",
+     "description": "سند صرف",
+     "reference": "FT2906080505",
+     "receipt": 0,
+     "payment": 57491
+    },
+    {
+     "date": "2029-06-07",
+     "voucher": "ص-6007",
+     "description": "سند صرف",
+     "reference": "FT2906090506",
+     "receipt": 0,
+     "payment": 50055
+    },
+    {
+     "date": "2029-06-08",
+     "voucher": "ص-6008",
+     "description": "سند صرف",
+     "reference": "FT2906100507",
+     "receipt": 0,
+     "payment": 651575
+    },
+    {
+     "date": "2029-06-08",
+     "voucher": "ص-6102",
+     "description": "سند صرف",
+     "reference": "PO-9102",
+     "receipt": 0,
+     "payment": 20200
+    },
+    {
+     "date": "2029-06-11",
+     "voucher": "ص-6009",
+     "description": "سند صرف",
+     "reference": "FT2906110508",
+     "receipt": 0,
+     "payment": 571097
+    },
+    {
+     "date": "2029-06-11",
+     "voucher": "ق-6010",
+     "description": "سند قبض",
+     "reference": "IC2906130509",
+     "receipt": 465019,
+     "payment": 0
+    },
+    {
+     "date": "2029-06-12",
+     "voucher": "ص-6011",
+     "description": "سند صرف",
+     "reference": "FT2906140510",
+     "receipt": 0,
+     "payment": 241345
+    },
+    {
+     "date": "2029-06-12",
+     "voucher": "ق-6103",
+     "description": "سند قبض",
+     "reference": "SO-4401",
+     "receipt": 30301,
+     "payment": 0
+    },
+    {
+     "date": "2029-06-12",
+     "voucher": "ص-6106",
+     "description": "سند صرف",
+     "reference": "PO-9111",
+     "receipt": 0,
+     "payment": 264000
+    },
+    {
+     "date": "2029-06-14",
+     "voucher": "ص-6012",
+     "description": "سند صرف",
+     "reference": "FT2906150511",
+     "receipt": 0,
+     "payment": 148565
+    },
+    {
+     "date": "2029-06-16",
+     "voucher": "ص-6013",
+     "description": "سند صرف",
+     "reference": "FT2906160512",
+     "receipt": 0,
+     "payment": 92285
+    },
+    {
+     "date": "2029-06-16",
+     "voucher": "ص-6014",
+     "description": "سند صرف",
+     "reference": "FT2906180513",
+     "receipt": 0,
+     "payment": 297073
+    },
+    {
+     "date": "2029-06-17",
+     "voucher": "ص-6015",
+     "description": "سند صرف",
+     "reference": "FT2906190514",
+     "receipt": 0,
+     "payment": 139625
+    },
+    {
+     "date": "2029-06-17",
+     "voucher": "ق-6104",
+     "description": "سند قبض",
+     "reference": "SO-4402",
+     "receipt": 40401,
+     "payment": 0
+    },
+    {
+     "date": "2029-06-19",
+     "voucher": "ص-6016",
+     "description": "سند صرف",
+     "reference": "FT2906200515",
+     "receipt": 0,
+     "payment": 402437
+    },
+    {
+     "date": "2029-06-19",
+     "voucher": "ق-6017",
+     "description": "سند قبض",
+     "reference": "IC2906210516",
+     "receipt": 194709,
+     "payment": 0
+    },
+    {
+     "date": "2029-06-21",
+     "voucher": "ص-6018",
+     "description": "سند صرف",
+     "reference": "FT2906230517",
+     "receipt": 0,
+     "payment": 382855
+    },
+    {
+     "date": "2029-06-22",
+     "voucher": "ص-6019",
+     "description": "سند صرف",
+     "reference": "FT2906240518",
+     "receipt": 0,
+     "payment": 273245
+    },
+    {
+     "date": "2029-06-24",
+     "voucher": "ق-6021",
+     "description": "سند قبض",
+     "reference": "IC2906260520",
+     "receipt": 546903,
+     "payment": 0
+    },
+    {
+     "date": "2029-06-25",
+     "voucher": "ص-6020",
+     "description": "سند صرف",
+     "reference": "FT2906250519",
+     "receipt": 0,
+     "payment": 604985
+    },
+    {
+     "date": "2029-06-26",
+     "voucher": "ص-6022",
+     "description": "سند صرف",
+     "reference": "FT2906280521",
+     "receipt": 0,
+     "payment": 318863
+    },
+    {
+     "date": "2029-06-28",
+     "voucher": "ص-6107",
+     "description": "شيك صادر",
+     "reference": "CHQ-001187",
+     "receipt": 0,
+     "payment": 420000
+    }
+   ]
+  },
+  {
+   "id": "Z05-JUL",
+   "layout": "ar",
+   "digits": "arabic",
+   "producer": "pdfkit",
+   "font": "Kufam",
+   "paper": "A4",
+   "bank": "بنك المرجان",
+   "documentTitle": "كشف حساب",
+   "recipe": {
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA14 8000 0000 9024 6612 0505",
+    "currency": "SAR",
+    "period": {
+     "start": "2029-07-01",
+     "end": "2029-07-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 3,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 24048548
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2029-07-02",
+        "valueDate": "2029-07-02",
+        "description": "دفعة مناقصة",
+        "reference": "IC2907020500",
+        "withdrawal": 0,
+        "deposit": 45845,
+        "balance": 24094393
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2029-07-03",
+        "valueDate": "2029-07-03",
+        "description": "مستلزمات مختبر",
+        "reference": "FT2907030501",
+        "withdrawal": 231041,
+        "deposit": 0,
+        "balance": 23863352
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2029-07-04",
+        "valueDate": "2029-07-04",
+        "description": "شحن وتخليص",
+        "reference": "FT2907040502",
+        "withdrawal": 255319,
+        "deposit": 0,
+        "balance": 23608033
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2029-07-05",
+        "valueDate": "2029-07-05",
+        "description": "مستلزمات مختبر",
+        "reference": "FT2907050503",
+        "withdrawal": 35387,
+        "deposit": 0,
+        "balance": 23572646
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2029-07-06",
+        "valueDate": "2029-07-06",
+        "description": "صرف شيك",
+        "reference": "CHQ-001187",
+        "withdrawal": 420000,
+        "deposit": 0,
+        "balance": 23152646
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2029-07-07",
+        "valueDate": "2029-07-07",
+        "description": "قسط تأمين",
+        "reference": "FT2907070504",
+        "withdrawal": 250617,
+        "deposit": 0,
+        "balance": 22902029
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2029-07-08",
+        "valueDate": "2029-07-08",
+        "description": "مستلزمات مختبر",
+        "reference": "FT2907080505",
+        "withdrawal": 486103,
+        "deposit": 0,
+        "balance": 22415926
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2029-07-09",
+        "valueDate": "2029-07-09",
+        "description": "تسوية نقاط البيع",
+        "reference": "IC2907090506",
+        "withdrawal": 0,
+        "deposit": 123849,
+        "balance": 22539775
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2029-07-09",
+        "valueDate": "2029-07-09",
+        "description": "كهرباء ومياه",
+        "reference": "PO-9150",
+        "withdrawal": 5501,
+        "deposit": 0,
+        "balance": 22534274
+       },
+       {
+        "kind": "movement",
+        "key": "S10",
+        "date": "2029-07-11",
+        "valueDate": "2029-07-11",
+        "description": "شحن وتخليص",
+        "reference": "FT2907110507",
+        "withdrawal": 306015,
+        "deposit": 0,
+        "balance": 22228259
+       },
+       {
+        "kind": "carried-forward",
+        "balance": 22228259
+       }
+      ]
+     },
+     {
+      "number": 2,
+      "of": 3,
+      "lines": [
+       {
+        "kind": "brought-forward",
+        "balance": 22228259
+       },
+       {
+        "kind": "movement",
+        "key": "S11",
+        "date": "2029-07-12",
+        "valueDate": "2029-07-12",
+        "description": "شحن وتخليص",
+        "reference": "FT2907120508",
+        "withdrawal": 195437,
+        "deposit": 0,
+        "balance": 22032822
+       },
+       {
+        "kind": "movement",
+        "key": "S12",
+        "date": "2029-07-13",
+        "valueDate": "2029-07-13",
+        "description": "دفعة مورد",
+        "reference": "FT2907130509",
+        "withdrawal": 168835,
+        "deposit": 0,
+        "balance": 21863987
+       },
+       {
+        "kind": "movement",
+        "key": "S13",
+        "date": "2029-07-14",
+        "valueDate": "2029-07-14",
+        "description": "قسط تأمين",
+        "reference": "FT2907140510",
+        "withdrawal": 303489,
+        "deposit": 0,
+        "balance": 21560498
+       },
+       {
+        "kind": "movement",
+        "key": "S14",
+        "date": "2029-07-14",
+        "valueDate": "2029-07-14",
+        "description": "دفعة مناقصة",
+        "reference": "SO-4460",
+        "withdrawal": 0,
+        "deposit": 6600,
+        "balance": 21567098
+       },
+       {
+        "kind": "movement",
+        "key": "S15",
+        "date": "2029-07-16",
+        "valueDate": "2029-07-16",
+        "description": "تسوية نقاط البيع",
+        "reference": "IC2907160511",
+        "withdrawal": 0,
+        "deposit": 191285,
+        "balance": 21758383
+       },
+       {
+        "kind": "movement",
+        "key": "S16",
+        "date": "2029-07-17",
+        "valueDate": "2029-07-17",
+        "description": "شحن وتخليص",
+        "reference": "FT2907170512",
+        "withdrawal": 214009,
+        "deposit": 0,
+        "balance": 21544374
+       },
+       {
+        "kind": "movement",
+        "key": "S17",
+        "date": "2029-07-18",
+        "valueDate": "2029-07-18",
+        "description": "مستلزمات مختبر",
+        "reference": "FT2907180513",
+        "withdrawal": 567781,
+        "deposit": 0,
+        "balance": 20976593
+       },
+       {
+        "kind": "movement",
+        "key": "S18",
+        "date": "2029-07-20",
+        "valueDate": "2029-07-20",
+        "description": "شحن وتخليص",
+        "reference": "FT2907200514",
+        "withdrawal": 582265,
+        "deposit": 0,
+        "balance": 20394328
+       },
+       {
+        "kind": "movement",
+        "key": "S19",
+        "date": "2029-07-21",
+        "valueDate": "2029-07-21",
+        "description": "تسوية نقاط البيع",
+        "reference": "IC2907210515",
+        "withdrawal": 0,
+        "deposit": 407619,
+        "balance": 20801947
+       },
+       {
+        "kind": "movement",
+        "key": "S20",
+        "date": "2029-07-22",
+        "valueDate": "2029-07-22",
+        "description": "شحن وتخليص",
+        "reference": "FT2907220516",
+        "withdrawal": 430357,
+        "deposit": 0,
+        "balance": 20371590
+       },
+       {
+        "kind": "carried-forward",
+        "balance": 20371590
+       }
+      ]
+     },
+     {
+      "number": 3,
+      "of": 3,
+      "lines": [
+       {
+        "kind": "brought-forward",
+        "balance": 20371590
+       },
+       {
+        "kind": "movement",
+        "key": "S21",
+        "date": "2029-07-23",
+        "valueDate": "2029-07-23",
+        "description": "دفعة مناقصة",
+        "reference": "IC2907230517",
+        "withdrawal": 0,
+        "deposit": 35967,
+        "balance": 20407557
+       },
+       {
+        "kind": "movement",
+        "key": "S22",
+        "date": "2029-07-23",
+        "valueDate": "2029-07-23",
+        "description": "قسط تأمين",
+        "reference": "PO-9158",
+        "withdrawal": 7701,
+        "deposit": 0,
+        "balance": 20399856
+       },
+       {
+        "kind": "movement",
+        "key": "S23",
+        "date": "2029-07-25",
+        "valueDate": "2029-07-25",
+        "description": "شحن وتخليص",
+        "reference": "FT2907250518",
+        "withdrawal": 515723,
+        "deposit": 0,
+        "balance": 19884133
+       },
+       {
+        "kind": "movement",
+        "key": "S24",
+        "date": "2029-07-26",
+        "valueDate": "2029-07-26",
+        "description": "مستلزمات مختبر",
+        "reference": "FT2907260519",
+        "withdrawal": 281995,
+        "deposit": 0,
+        "balance": 19602138
+       },
+       {
+        "kind": "movement",
+        "key": "S25",
+        "date": "2029-07-27",
+        "valueDate": "2029-07-27",
+        "description": "حوالة مستشفى",
+        "reference": "IC2907270520",
+        "withdrawal": 0,
+        "deposit": 223789,
+        "balance": 19825927
+       },
+       {
+        "kind": "movement",
+        "key": "S26",
+        "date": "2029-07-29",
+        "valueDate": "2029-07-29",
+        "description": "شحن وتخليص",
+        "reference": "FT2907290521",
+        "withdrawal": 611195,
+        "deposit": 0,
+        "balance": 19214732
+       },
+       {
+        "kind": "closing",
+        "balance": 19214732
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 5868770,
+        "deposit": 1034954
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2029-07-01",
+     "voucher": "ق-6023",
+     "description": "سند قبض",
+     "reference": "IC2907020500",
+     "receipt": 45845,
+     "payment": 0
+    },
+    {
+     "date": "2029-07-02",
+     "voucher": "ص-6024",
+     "description": "سند صرف",
+     "reference": "FT2907030501",
+     "receipt": 0,
+     "payment": 231041
+    },
+    {
+     "date": "2029-07-03",
+     "voucher": "ص-6025",
+     "description": "سند صرف",
+     "reference": "FT2907040502",
+     "receipt": 0,
+     "payment": 255319
+    },
+    {
+     "date": "2029-07-03",
+     "voucher": "ص-6026",
+     "description": "سند صرف",
+     "reference": "FT2907050503",
+     "receipt": 0,
+     "payment": 35387
+    },
+    {
+     "date": "2029-07-05",
+     "voucher": "ص-6027",
+     "description": "سند صرف",
+     "reference": "FT2907070504",
+     "receipt": 0,
+     "payment": 250617
+    },
+    {
+     "date": "2029-07-07",
+     "voucher": "ص-6028",
+     "description": "سند صرف",
+     "reference": "FT2907080505",
+     "receipt": 0,
+     "payment": 486103
+    },
+    {
+     "date": "2029-07-08",
+     "voucher": "ق-6029",
+     "description": "سند قبض",
+     "reference": "IC2907090506",
+     "receipt": 123849,
+     "payment": 0
+    },
+    {
+     "date": "2029-07-09",
+     "voucher": "ص-6030",
+     "description": "سند صرف",
+     "reference": "FT2907110507",
+     "receipt": 0,
+     "payment": 306015
+    },
+    {
+     "date": "2029-07-09",
+     "voucher": "ص-6201",
+     "description": "سند صرف",
+     "reference": "PO-9150",
+     "receipt": 0,
+     "payment": 5500
+    },
+    {
+     "date": "2029-07-10",
+     "voucher": "ص-6031",
+     "description": "سند صرف",
+     "reference": "FT2907120508",
+     "receipt": 0,
+     "payment": 195437
+    },
+    {
+     "date": "2029-07-11",
+     "voucher": "ص-6032",
+     "description": "سند صرف",
+     "reference": "FT2907130509",
+     "receipt": 0,
+     "payment": 168835
+    },
+    {
+     "date": "2029-07-12",
+     "voucher": "ص-6033",
+     "description": "سند صرف",
+     "reference": "FT2907140510",
+     "receipt": 0,
+     "payment": 303489
+    },
+    {
+     "date": "2029-07-14",
+     "voucher": "ق-6202",
+     "description": "سند قبض",
+     "reference": "SO-4460",
+     "receipt": 6601,
+     "payment": 0
+    },
+    {
+     "date": "2029-07-15",
+     "voucher": "ص-6035",
+     "description": "سند صرف",
+     "reference": "FT2907170512",
+     "receipt": 0,
+     "payment": 214009
+    },
+    {
+     "date": "2029-07-16",
+     "voucher": "ق-6034",
+     "description": "سند قبض",
+     "reference": "IC2907160511",
+     "receipt": 191285,
+     "payment": 0
+    },
+    {
+     "date": "2029-07-16",
+     "voucher": "ص-6036",
+     "description": "سند صرف",
+     "reference": "FT2907180513",
+     "receipt": 0,
+     "payment": 567781
+    },
+    {
+     "date": "2029-07-19",
+     "voucher": "ص-6037",
+     "description": "سند صرف",
+     "reference": "FT2907200514",
+     "receipt": 0,
+     "payment": 582265
+    },
+    {
+     "date": "2029-07-19",
+     "voucher": "ق-6038",
+     "description": "سند قبض",
+     "reference": "IC2907210515",
+     "receipt": 407619,
+     "payment": 0
+    },
+    {
+     "date": "2029-07-20",
+     "voucher": "ص-6039",
+     "description": "سند صرف",
+     "reference": "FT2907220516",
+     "receipt": 0,
+     "payment": 430357
+    },
+    {
+     "date": "2029-07-22",
+     "voucher": "ق-6040",
+     "description": "سند قبض",
+     "reference": "IC2907230517",
+     "receipt": 35967,
+     "payment": 0
+    },
+    {
+     "date": "2029-07-23",
+     "voucher": "ص-6203",
+     "description": "سند صرف",
+     "reference": "PO-9158",
+     "receipt": 0,
+     "payment": 7700
+    },
+    {
+     "date": "2029-07-24",
+     "voucher": "ص-6041",
+     "description": "سند صرف",
+     "reference": "FT2907250518",
+     "receipt": 0,
+     "payment": 515723
+    },
+    {
+     "date": "2029-07-26",
+     "voucher": "ص-6042",
+     "description": "سند صرف",
+     "reference": "FT2907260519",
+     "receipt": 0,
+     "payment": 281995
+    },
+    {
+     "date": "2029-07-27",
+     "voucher": "ق-6043",
+     "description": "سند قبض",
+     "reference": "IC2907270520",
+     "receipt": 223789,
+     "payment": 0
+    },
+    {
+     "date": "2029-07-27",
+     "voucher": "ص-6044",
+     "description": "سند صرف",
+     "reference": "FT2907290521",
+     "receipt": 0,
+     "payment": 611195
+    }
+   ]
+  },
+  {
+   "id": "Z06-JAN",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "prawn",
+   "font": "Inconsolata",
+   "paper": "A4",
+   "bank": "Najd Commerce Bank",
+   "documentTitle": "Current Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    }
+   },
+   "statement": {
+    "account": "SA03 1500 0000 2210 4471 0606",
+    "currency": "SAR",
+    "period": {
+     "start": "2029-01-01",
+     "end": "2029-01-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 2,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 29580000
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2029-01-02",
+        "valueDate": "2029-01-02",
+        "description": "Supplier payment",
+        "reference": "FT2901020600",
+        "withdrawal": 25259,
+        "deposit": 0,
+        "balance": 29554741
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2029-01-03",
+        "valueDate": "2029-01-03",
+        "description": "Card acquirer settlement",
+        "reference": "IC2901030601",
+        "withdrawal": 0,
+        "deposit": 89545,
+        "balance": 29644286
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2029-01-04",
+        "valueDate": "2029-01-04",
+        "description": "Freight and clearance",
+        "reference": "FT2901040602",
+        "withdrawal": 393771,
+        "deposit": 0,
+        "balance": 29250515
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2029-01-06",
+        "valueDate": "2029-01-06",
+        "description": "Tender payment",
+        "reference": "IC2901060603",
+        "withdrawal": 0,
+        "deposit": 607369,
+        "balance": 29857884
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2029-01-07",
+        "valueDate": "2029-01-07",
+        "description": "Supplier payment",
+        "reference": "FT2901070604",
+        "withdrawal": 95259,
+        "deposit": 0,
+        "balance": 29762625
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2029-01-09",
+        "valueDate": "2029-01-09",
+        "description": "Utilities",
+        "reference": "FT2901090605",
+        "withdrawal": 679521,
+        "deposit": 0,
+        "balance": 29083104
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2029-01-10",
+        "valueDate": "2029-01-10",
+        "description": "Supplier payment",
+        "reference": "FT2901100606",
+        "withdrawal": 518521,
+        "deposit": 0,
+        "balance": 28564583
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2029-01-11",
+        "valueDate": "2029-01-11",
+        "description": "Lab consumables",
+        "reference": "FT2901110607",
+        "withdrawal": 449391,
+        "deposit": 0,
+        "balance": 28115192
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2029-01-11",
+        "valueDate": "2029-01-11",
+        "description": "Card acquirer settlement",
+        "reference": "MPAY-5521",
+        "withdrawal": 0,
+        "deposit": 64000,
+        "balance": 28179192
+       },
+       {
+        "kind": "movement",
+        "key": "S10",
+        "date": "2029-01-12",
+        "valueDate": "2029-01-12",
+        "description": "Card acquirer settlement",
+        "reference": "MPAY-5522",
+        "withdrawal": 0,
+        "deposit": 64000,
+        "balance": 28243192
+       },
+       {
+        "kind": "movement",
+        "key": "S11",
+        "date": "2029-01-13",
+        "valueDate": "2029-01-13",
+        "description": "Freight and clearance",
+        "reference": "FT2901130608",
+        "withdrawal": 187265,
+        "deposit": 0,
+        "balance": 28055927
+       },
+       {
+        "kind": "movement",
+        "key": "S12",
+        "date": "2029-01-14",
+        "valueDate": "2029-01-14",
+        "description": "Insurance premium",
+        "reference": "FT2901140609",
+        "withdrawal": 153521,
+        "deposit": 0,
+        "balance": 27902406
+       },
+       {
+        "kind": "movement",
+        "key": "S13",
+        "date": "2029-01-16",
+        "valueDate": "2029-01-16",
+        "description": "Pharmacy settlement",
+        "reference": "IC2901160610",
+        "withdrawal": 0,
+        "deposit": 223945,
+        "balance": 28126351
+       },
+       {
+        "kind": "movement",
+        "key": "S14",
+        "date": "2029-01-17",
+        "valueDate": "2029-01-17",
+        "description": "Utilities",
+        "reference": "FT2901170611",
+        "withdrawal": 146587,
+        "deposit": 0,
+        "balance": 27979764
+       },
+       {
+        "kind": "carried-forward",
+        "balance": 27979764
+       }
+      ]
+     },
+     {
+      "number": 2,
+      "of": 2,
+      "lines": [
+       {
+        "kind": "brought-forward",
+        "balance": 27979764
+       },
+       {
+        "kind": "movement",
+        "key": "S15",
+        "date": "2029-01-19",
+        "valueDate": "2029-01-19",
+        "description": "Lab consumables",
+        "reference": "FT2901190612",
+        "withdrawal": 33333,
+        "deposit": 0,
+        "balance": 27946431
+       },
+       {
+        "kind": "movement",
+        "key": "S16",
+        "date": "2029-01-20",
+        "valueDate": "2029-01-20",
+        "description": "Freight and clearance",
+        "reference": "FT2901200613",
+        "withdrawal": 59417,
+        "deposit": 0,
+        "balance": 27887014
+       },
+       {
+        "kind": "movement",
+        "key": "S17",
+        "date": "2029-01-21",
+        "valueDate": "2029-01-21",
+        "description": "Lab consumables",
+        "reference": "FT2901210614",
+        "withdrawal": 662019,
+        "deposit": 0,
+        "balance": 27224995
+       },
+       {
+        "kind": "movement",
+        "key": "S18",
+        "date": "2029-01-23",
+        "valueDate": "2029-01-23",
+        "description": "Card acquirer settlement",
+        "reference": "IC2901230615",
+        "withdrawal": 0,
+        "deposit": 129297,
+        "balance": 27354292
+       },
+       {
+        "kind": "movement",
+        "key": "S19",
+        "date": "2029-01-24",
+        "valueDate": "2029-01-24",
+        "description": "Tender payment",
+        "reference": "IC2901240616",
+        "withdrawal": 0,
+        "deposit": 351329,
+        "balance": 27705621
+       },
+       {
+        "kind": "movement",
+        "key": "S20",
+        "date": "2029-01-24",
+        "valueDate": "2029-01-24",
+        "description": "Supplier payment",
+        "reference": "INV-6620",
+        "withdrawal": 132000,
+        "deposit": 0,
+        "balance": 27573621
+       },
+       {
+        "kind": "movement",
+        "key": "S21",
+        "date": "2029-01-26",
+        "valueDate": "2029-01-26",
+        "description": "Card acquirer settlement",
+        "reference": "IC2901260617",
+        "withdrawal": 0,
+        "deposit": 343525,
+        "balance": 27917146
+       },
+       {
+        "kind": "movement",
+        "key": "S22",
+        "date": "2029-01-27",
+        "valueDate": "2029-01-27",
+        "description": "Tender payment",
+        "reference": "IC2901270618",
+        "withdrawal": 0,
+        "deposit": 89773,
+        "balance": 28006919
+       },
+       {
+        "kind": "movement",
+        "key": "S23",
+        "date": "2029-01-29",
+        "valueDate": "2029-01-29",
+        "description": "Freight and clearance",
+        "reference": "FT2901290619",
+        "withdrawal": 65119,
+        "deposit": 0,
+        "balance": 27941800
+       },
+       {
+        "kind": "movement",
+        "key": "S24",
+        "date": "2029-01-31",
+        "valueDate": "2029-01-31",
+        "description": "Service charge",
+        "reference": "SVC-2901",
+        "withdrawal": 5750,
+        "deposit": 0,
+        "balance": 27936050
+       },
+       {
+        "kind": "closing",
+        "balance": 27936050
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 3606733,
+        "deposit": 1962783
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2029-01-02",
+     "voucher": "TRX-000701",
+     "description": "Bank payment",
+     "reference": "FT2901020600",
+     "receipt": 0,
+     "payment": 25259
+    },
+    {
+     "date": "2029-01-03",
+     "voucher": "TRX-000702",
+     "description": "Bank receipt",
+     "reference": "IC2901030601",
+     "receipt": 89545,
+     "payment": 0
+    },
+    {
+     "date": "2029-01-03",
+     "voucher": "TRX-000703",
+     "description": "Bank payment",
+     "reference": "FT2901040602",
+     "receipt": 0,
+     "payment": 393771
+    },
+    {
+     "date": "2029-01-04",
+     "voucher": "TRX-000704",
+     "description": "Bank receipt",
+     "reference": "IC2901060603",
+     "receipt": 607369,
+     "payment": 0
+    },
+    {
+     "date": "2029-01-06",
+     "voucher": "TRX-000705",
+     "description": "Bank payment",
+     "reference": "FT2901070604",
+     "receipt": 0,
+     "payment": 95259
+    },
+    {
+     "date": "2029-01-09",
+     "voucher": "TRX-000706",
+     "description": "Bank payment",
+     "reference": "FT2901090605",
+     "receipt": 0,
+     "payment": 679521
+    },
+    {
+     "date": "2029-01-09",
+     "voucher": "TRX-000707",
+     "description": "Bank payment",
+     "reference": "FT2901100606",
+     "receipt": 0,
+     "payment": 518521
+    },
+    {
+     "date": "2029-01-09",
+     "voucher": "TRX-000708",
+     "description": "Bank payment",
+     "reference": "FT2901110607",
+     "receipt": 0,
+     "payment": 449391
+    },
+    {
+     "date": "2029-01-11",
+     "voucher": "TRX-000709",
+     "description": "Bank payment",
+     "reference": "FT2901130608",
+     "receipt": 0,
+     "payment": 187265
+    },
+    {
+     "date": "2029-01-11",
+     "voucher": "TRX-000802",
+     "description": "Bank receipt",
+     "reference": "RCPT-118",
+     "receipt": 64000,
+     "payment": 0
+    },
+    {
+     "date": "2029-01-13",
+     "voucher": "TRX-000710",
+     "description": "Bank payment",
+     "reference": "FT2901140609",
+     "receipt": 0,
+     "payment": 153521
+    },
+    {
+     "date": "2029-01-15",
+     "voucher": "TRX-000712",
+     "description": "Bank payment",
+     "reference": "FT2901170611",
+     "receipt": 0,
+     "payment": 146587
+    },
+    {
+     "date": "2029-01-16",
+     "voucher": "TRX-000711",
+     "description": "Bank receipt",
+     "reference": "IC2901160610",
+     "receipt": 223945,
+     "payment": 0
+    },
+    {
+     "date": "2029-01-18",
+     "voucher": "TRX-000713",
+     "description": "Bank payment",
+     "reference": "FT2901190612",
+     "receipt": 0,
+     "payment": 33333
+    },
+    {
+     "date": "2029-01-19",
+     "voucher": "TRX-000714",
+     "description": "Bank payment",
+     "reference": "FT2901200613",
+     "receipt": 0,
+     "payment": 59417
+    },
+    {
+     "date": "2029-01-20",
+     "voucher": "TRX-000803",
+     "description": "Bank payment",
+     "reference": "INV-6620",
+     "receipt": 0,
+     "payment": 132000
+    },
+    {
+     "date": "2029-01-21",
+     "voucher": "TRX-000715",
+     "description": "Bank payment",
+     "reference": "FT2901210614",
+     "receipt": 0,
+     "payment": 662019
+    },
+    {
+     "date": "2029-01-22",
+     "voucher": "TRX-000716",
+     "description": "Bank receipt",
+     "reference": "IC2901230615",
+     "receipt": 129297,
+     "payment": 0
+    },
+    {
+     "date": "2029-01-22",
+     "voucher": "TRX-000717",
+     "description": "Bank receipt",
+     "reference": "IC2901240616",
+     "receipt": 351329,
+     "payment": 0
+    },
+    {
+     "date": "2029-01-26",
+     "voucher": "TRX-000718",
+     "description": "Bank receipt",
+     "reference": "IC2901260617",
+     "receipt": 343525,
+     "payment": 0
+    },
+    {
+     "date": "2029-01-26",
+     "voucher": "TRX-000719",
+     "description": "Bank receipt",
+     "reference": "IC2901270618",
+     "receipt": 89773,
+     "payment": 0
+    },
+    {
+     "date": "2029-01-28",
+     "voucher": "TRX-000720",
+     "description": "Bank payment",
+     "reference": "FT2901290619",
+     "receipt": 0,
+     "payment": 65119
+    },
+    {
+     "date": "2029-01-30",
+     "voucher": "TRX-000801",
+     "description": "Cheque deposited",
+     "reference": "",
+     "receipt": 300000,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "Z06-FEB",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "prawn",
+   "font": "Inconsolata",
+   "paper": "A4",
+   "bank": "Najd Commerce Bank",
+   "documentTitle": "Current Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    }
+   },
+   "statement": {
+    "account": "SA03 1500 0000 2210 4471 0606",
+    "currency": "SAR",
+    "period": {
+     "start": "2029-02-01",
+     "end": "2029-02-28"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 2,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 27936050
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2029-02-01",
+        "valueDate": "2029-02-01",
+        "description": "Cheque deposit",
+        "reference": "CHQDEP-7781",
+        "withdrawal": 0,
+        "deposit": 300000,
+        "balance": 28236050
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2029-02-02",
+        "valueDate": "2029-02-02",
+        "description": "Lab consumables",
+        "reference": "FT2902020600",
+        "withdrawal": 320479,
+        "deposit": 0,
+        "balance": 27915571
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2029-02-03",
+        "valueDate": "2029-02-03",
+        "description": "Lab consumables",
+        "reference": "FT2902030601",
+        "withdrawal": 180857,
+        "deposit": 0,
+        "balance": 27734714
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2029-02-04",
+        "valueDate": "2029-02-04",
+        "description": "Hospital remittance",
+        "reference": "IC2902040602",
+        "withdrawal": 0,
+        "deposit": 191537,
+        "balance": 27926251
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2029-02-05",
+        "valueDate": "2029-02-05",
+        "description": "Utilities",
+        "reference": "FT2902050603",
+        "withdrawal": 272225,
+        "deposit": 0,
+        "balance": 27654026
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2029-02-07",
+        "valueDate": "2029-02-07",
+        "description": "Tender payment",
+        "reference": "IC2902070604",
+        "withdrawal": 0,
+        "deposit": 212219,
+        "balance": 27866245
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2029-02-08",
+        "valueDate": "2029-02-08",
+        "description": "Tender payment",
+        "reference": "IC2902080605",
+        "withdrawal": 0,
+        "deposit": 310599,
+        "balance": 28176844
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2029-02-09",
+        "valueDate": "2029-02-09",
+        "description": "Supplier payment",
+        "reference": "FT2902090606",
+        "withdrawal": 64979,
+        "deposit": 0,
+        "balance": 28111865
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2029-02-10",
+        "valueDate": "2029-02-10",
+        "description": "Freight and clearance",
+        "reference": "FT2902100607",
+        "withdrawal": 660069,
+        "deposit": 0,
+        "balance": 27451796
+       },
+       {
+        "kind": "movement",
+        "key": "S10",
+        "date": "2029-02-12",
+        "valueDate": "2029-02-12",
+        "description": "Insurance premium",
+        "reference": "FT2902120608",
+        "withdrawal": 424593,
+        "deposit": 0,
+        "balance": 27027203
+       },
+       {
+        "kind": "movement",
+        "key": "S11",
+        "date": "2029-02-13",
+        "valueDate": "2029-02-13",
+        "description": "Utilities",
+        "reference": "FT2902130609",
+        "withdrawal": 194295,
+        "deposit": 0,
+        "balance": 26832908
+       },
+       {
+        "kind": "movement",
+        "key": "S12",
+        "date": "2029-02-14",
+        "valueDate": "2029-02-14",
+        "description": "Freight and clearance",
+        "reference": "FT2902140610",
+        "withdrawal": 43827,
+        "deposit": 0,
+        "balance": 26789081
+       },
+       {
+        "kind": "movement",
+        "key": "S13",
+        "date": "2029-02-15",
+        "valueDate": "2029-02-15",
+        "description": "Card acquirer settlement",
+        "reference": "IC2902150611",
+        "withdrawal": 0,
+        "deposit": 362823,
+        "balance": 27151904
+       },
+       {
+        "kind": "movement",
+        "key": "S14",
+        "date": "2029-02-15",
+        "valueDate": "2029-02-15",
+        "description": "Hospital remittance",
+        "reference": "SO-9930",
+        "withdrawal": 0,
+        "deposit": 200003,
+        "balance": 27351907
+       },
+       {
+        "kind": "carried-forward",
+        "balance": 27351907
+       }
+      ]
+     },
+     {
+      "number": 2,
+      "of": 2,
+      "lines": [
+       {
+        "kind": "brought-forward",
+        "balance": 27351907
+       },
+       {
+        "kind": "movement",
+        "key": "S15",
+        "date": "2029-02-17",
+        "valueDate": "2029-02-17",
+        "description": "Insurance premium",
+        "reference": "FT2902170612",
+        "withdrawal": 144987,
+        "deposit": 0,
+        "balance": 27206920
+       },
+       {
+        "kind": "movement",
+        "key": "S16",
+        "date": "2029-02-18",
+        "valueDate": "2029-02-18",
+        "description": "Hospital remittance",
+        "reference": "IC2902180613",
+        "withdrawal": 0,
+        "deposit": 566879,
+        "balance": 27773799
+       },
+       {
+        "kind": "movement",
+        "key": "S17",
+        "date": "2029-02-19",
+        "valueDate": "2029-02-19",
+        "description": "Hospital remittance",
+        "reference": "IC2902190614",
+        "withdrawal": 0,
+        "deposit": 450393,
+        "balance": 28224192
+       },
+       {
+        "kind": "movement",
+        "key": "S18",
+        "date": "2029-02-20",
+        "valueDate": "2029-02-20",
+        "description": "Supplier payment",
+        "reference": "FT2902200615",
+        "withdrawal": 419455,
+        "deposit": 0,
+        "balance": 27804737
+       },
+       {
+        "kind": "movement",
+        "key": "S19",
+        "date": "2029-02-22",
+        "valueDate": "2029-02-22",
+        "description": "Insurance premium",
+        "reference": "FT2902220616",
+        "withdrawal": 302983,
+        "deposit": 0,
+        "balance": 27501754
+       },
+       {
+        "kind": "movement",
+        "key": "S20",
+        "date": "2029-02-23",
+        "valueDate": "2029-02-23",
+        "description": "Lab consumables",
+        "reference": "FT2902230617",
+        "withdrawal": 412523,
+        "deposit": 0,
+        "balance": 27089231
+       },
+       {
+        "kind": "movement",
+        "key": "S21",
+        "date": "2029-02-24",
+        "valueDate": "2029-02-24",
+        "description": "Hospital remittance",
+        "reference": "IC2902240618",
+        "withdrawal": 0,
+        "deposit": 529763,
+        "balance": 27618994
+       },
+       {
+        "kind": "movement",
+        "key": "S22",
+        "date": "2029-02-26",
+        "valueDate": "2029-02-26",
+        "description": "Utilities",
+        "reference": "FT2902260619",
+        "withdrawal": 25945,
+        "deposit": 0,
+        "balance": 27593049
+       },
+       {
+        "kind": "closing",
+        "balance": 27593049
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 3467217,
+        "deposit": 3124216
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2029-02-01",
+     "voucher": "TRX-000721",
+     "description": "Bank payment",
+     "reference": "FT2902020600",
+     "receipt": 0,
+     "payment": 320479
+    },
+    {
+     "date": "2029-02-01",
+     "voucher": "TRX-000722",
+     "description": "Bank payment",
+     "reference": "FT2902030601",
+     "receipt": 0,
+     "payment": 180857
+    },
+    {
+     "date": "2029-02-02",
+     "voucher": "TRX-000723",
+     "description": "Bank receipt",
+     "reference": "IC2902040602",
+     "receipt": 191537,
+     "payment": 0
+    },
+    {
+     "date": "2029-02-02",
+     "voucher": "TRX-000901",
+     "description": "Bank charges",
+     "reference": "",
+     "receipt": 0,
+     "payment": 5750
+    },
+    {
+     "date": "2029-02-05",
+     "voucher": "TRX-000724",
+     "description": "Bank payment",
+     "reference": "FT2902050603",
+     "receipt": 0,
+     "payment": 272225
+    },
+    {
+     "date": "2029-02-06",
+     "voucher": "TRX-000726",
+     "description": "Bank receipt",
+     "reference": "IC2902080605",
+     "receipt": 310599,
+     "payment": 0
+    },
+    {
+     "date": "2029-02-07",
+     "voucher": "TRX-000725",
+     "description": "Bank receipt",
+     "reference": "IC2902070604",
+     "receipt": 212219,
+     "payment": 0
+    },
+    {
+     "date": "2029-02-07",
+     "voucher": "TRX-000727",
+     "description": "Bank payment",
+     "reference": "FT2902090606",
+     "receipt": 0,
+     "payment": 64979
+    },
+    {
+     "date": "2029-02-08",
+     "voucher": "TRX-000728",
+     "description": "Bank payment",
+     "reference": "FT2902100607",
+     "receipt": 0,
+     "payment": 660069
+    },
+    {
+     "date": "2029-02-11",
+     "voucher": "TRX-000729",
+     "description": "Bank payment",
+     "reference": "FT2902120608",
+     "receipt": 0,
+     "payment": 424593
+    },
+    {
+     "date": "2029-02-12",
+     "voucher": "TRX-000730",
+     "description": "Bank payment",
+     "reference": "FT2902130609",
+     "receipt": 0,
+     "payment": 194295
+    },
+    {
+     "date": "2029-02-12",
+     "voucher": "TRX-000731",
+     "description": "Bank payment",
+     "reference": "FT2902140610",
+     "receipt": 0,
+     "payment": 43827
+    },
+    {
+     "date": "2029-02-13",
+     "voucher": "TRX-000732",
+     "description": "Bank receipt",
+     "reference": "IC2902150611",
+     "receipt": 362823,
+     "payment": 0
+    },
+    {
+     "date": "2029-02-15",
+     "voucher": "TRX-000902",
+     "description": "Bank receipt",
+     "reference": "SO-9930",
+     "receipt": 200000,
+     "payment": 0
+    },
+    {
+     "date": "2029-02-16",
+     "voucher": "TRX-000733",
+     "description": "Bank payment",
+     "reference": "FT2902170612",
+     "receipt": 0,
+     "payment": 144987
+    },
+    {
+     "date": "2029-02-18",
+     "voucher": "TRX-000734",
+     "description": "Bank receipt",
+     "reference": "IC2902180613",
+     "receipt": 566879,
+     "payment": 0
+    },
+    {
+     "date": "2029-02-18",
+     "voucher": "TRX-000735",
+     "description": "Bank receipt",
+     "reference": "IC2902190614",
+     "receipt": 450393,
+     "payment": 0
+    },
+    {
+     "date": "2029-02-19",
+     "voucher": "TRX-000736",
+     "description": "Bank payment",
+     "reference": "FT2902200615",
+     "receipt": 0,
+     "payment": 419455
+    },
+    {
+     "date": "2029-02-21",
+     "voucher": "TRX-000737",
+     "description": "Bank payment",
+     "reference": "FT2902220616",
+     "receipt": 0,
+     "payment": 302983
+    },
+    {
+     "date": "2029-02-21",
+     "voucher": "TRX-000738",
+     "description": "Bank payment",
+     "reference": "FT2902230617",
+     "receipt": 0,
+     "payment": 412523
+    },
+    {
+     "date": "2029-02-24",
+     "voucher": "TRX-000739",
+     "description": "Bank receipt",
+     "reference": "IC2902240618",
+     "receipt": 529763,
+     "payment": 0
+    },
+    {
+     "date": "2029-02-25",
+     "voucher": "TRX-000740",
+     "description": "Bank payment",
+     "reference": "FT2902260619",
+     "receipt": 0,
+     "payment": 25945
+    }
+   ]
+  }
+ ]
+}

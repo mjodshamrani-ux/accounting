@@ -176,6 +176,7 @@ const required = [
   'test:bank-cycle:seal',
   'test:bank-cycle:correction',
   'test:bank-cycle:run',
+  'test:bank-cycle:c4-seal',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',
