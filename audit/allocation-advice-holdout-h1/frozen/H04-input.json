@@ -1,0 +1,38 @@
+{
+ "names": [
+  "H04-payments.csv",
+  "H04-invoices.csv",
+  "H04-advice.csv"
+ ],
+ "readings": [
+  {
+   "sheet": 0,
+   "role": "available-payments",
+   "family": "allocation-snapshot-1",
+   "confirmed": true
+  },
+  {
+   "sheet": 0,
+   "role": "open-invoices",
+   "family": "allocation-snapshot-1",
+   "confirmed": true
+  },
+  {
+   "sheet": 0,
+   "role": "proposed-remittance",
+   "family": "allocation-snapshot-1",
+   "confirmed": true
+  }
+ ],
+ "scope": {
+  "entity": "Synthetic Gulf Clinics WLL",
+  "ledger": "GC-AP-28",
+  "party": "Reagent House R4",
+  "account": "2150",
+  "currency": "OMR",
+  "cutoff": "2028-02-29",
+  "basis": "before-proposed-allocation",
+  "confirmed": true
+ },
+ "events": []
+}

@@ -1,0 +1,6131 @@
+{
+ "schema": "tarasuf-all1-h1-stories/1",
+ "synthetic": true,
+ "stories": [
+  {
+   "id": "H01",
+   "title": "one transfer settles three invoices exactly",
+   "writers": [
+    "php",
+    "php",
+    "php"
+   ],
+   "names": [
+    "H01-payments.csv",
+    "H01-invoices.csv",
+    "H01-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-0101",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "1500.000",
+      "1500.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/5501",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "700.000",
+      "700.000"
+     ],
+     [
+      "RH/5502",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.250",
+      "500.250"
+     ],
+     [
+      "RH/5503",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "299.750",
+      "299.750"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-0101",
+      "RH/5501",
+      "700.000"
+     ],
+     [
+      "RA-02",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-0101",
+      "RH/5502",
+      "500.250"
+     ],
+     [
+      "RA-03",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-0101",
+      "RH/5503",
+      "299.750"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2,
+    "RA-02": 3,
+    "RA-03": 4
+   },
+   "adviceMinor": {
+    "RA-01": 700000,
+    "RA-02": 500250,
+    "RA-03": 299750
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-0101",
+     "RH/5501"
+    ],
+    "RA-02": [
+     "TT-0101",
+     "RH/5502"
+    ],
+    "RA-03": [
+     "TT-0101",
+     "RH/5503"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-0101": 2
+    },
+    {
+     "RH/5501": 2,
+     "RH/5502": 3,
+     "RH/5503": 4
+    }
+   ],
+   "decisions": [],
+   "intent": {
+    "refused": null,
+    "lines": [
+     [
+      2,
+      "fits",
+      [],
+      [],
+      []
+     ],
+     [
+      3,
+      "fits",
+      [],
+      [],
+      []
+     ],
+     [
+      4,
+      "fits",
+      [],
+      [],
+      []
+     ]
+    ],
+    "items": [
+     [
+      0,
+      "TT-0101",
+      1500000,
+      1500000
+     ],
+     [
+      1,
+      "RH/5501",
+      700000,
+      700000
+     ],
+     [
+      1,
+      "RH/5502",
+      500250,
+      500250
+     ],
+     [
+      1,
+      "RH/5503",
+      299750,
+      299750
+     ]
+    ]
+   }
+  },
+  {
+   "id": "H02",
+   "title": "two transfers ask one invoice for more than it holds",
+   "writers": [
+    "java",
+    "java",
+    "java"
+   ],
+   "names": [
+    "H02-payments.csv",
+    "H02-invoices.csv",
+    "H02-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-0201",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "400.000",
+      "400.000"
+     ],
+     [
+      "TT-0202",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "400.000",
+      "400.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/5601",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "600.000",
+      "600.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-0201",
+      "RH/5601",
+      "400.000"
+     ],
+     [
+      "RA-02",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-0202",
+      "RH/5601",
+      "400.000"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2,
+    "RA-02": 3
+   },
+   "adviceMinor": {
+    "RA-01": 400000,
+    "RA-02": 400000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-0201",
+     "RH/5601"
+    ],
+    "RA-02": [
+     "TT-0202",
+     "RH/5601"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-0201": 2,
+     "TT-0202": 3
+    },
+    {
+     "RH/5601": 2
+    }
+   ],
+   "decisions": [],
+   "intent": {
+    "refused": null,
+    "lines": [
+     [
+      2,
+      "review",
+      [
+       "COMPETES_INVOICE"
+      ],
+      [
+       3
+      ],
+      []
+     ],
+     [
+      3,
+      "review",
+      [
+       "COMPETES_INVOICE"
+      ],
+      [
+       2
+      ],
+      []
+     ]
+    ],
+    "items": [
+     [
+      0,
+      "TT-0201",
+      400000,
+      400000
+     ],
+     [
+      0,
+      "TT-0202",
+      400000,
+      400000
+     ],
+     [
+      1,
+      "RH/5601",
+      600000,
+      800000
+     ]
+    ]
+   }
+  },
+  {
+   "id": "H03",
+   "title": "a line over its transfer by one baisa",
+   "writers": [
+    "go",
+    "go",
+    "go"
+   ],
+   "names": [
+    "H03-payments.csv",
+    "H03-invoices.csv",
+    "H03-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-0301",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "250.000",
+      "250.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/5701",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "300.000",
+      "300.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-0301",
+      "RH/5701",
+      "250.001"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2
+   },
+   "adviceMinor": {
+    "RA-01": 250001
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-0301",
+     "RH/5701"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-0301": 2
+    },
+    {
+     "RH/5701": 2
+    }
+   ],
+   "decisions": [],
+   "intent": {
+    "refused": null,
+    "lines": [
+     [
+      2,
+      "review",
+      [
+       "OVER_PAYMENT"
+      ],
+      [],
+      []
+     ]
+    ],
+    "items": [
+     [
+      0,
+      "TT-0301",
+      250000,
+      250001
+     ],
+     [
+      1,
+      "RH/5701",
+      300000,
+      250001
+     ]
+    ]
+   }
+  },
+  {
+   "id": "H04",
+   "title": "twins whose line IDs differ only in case",
+   "writers": [
+    "perl",
+    "perl",
+    "perl"
+   ],
+   "names": [
+    "H04-payments.csv",
+    "H04-invoices.csv",
+    "H04-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-0401",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "1000.000",
+      "1000.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/5801",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "1000.000",
+      "1000.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "ra-7",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-0401",
+      "RH/5801",
+      "200.000"
+     ],
+     [
+      "RA-7",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-0401",
+      "RH/5801",
+      "200.000"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "ra-7": 2,
+    "RA-7": 3
+   },
+   "adviceMinor": {
+    "ra-7": 200000,
+    "RA-7": 200000
+   },
+   "lineCells": {
+    "ra-7": [
+     "TT-0401",
+     "RH/5801"
+    ],
+    "RA-7": [
+     "TT-0401",
+     "RH/5801"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-0401": 2
+    },
+    {
+     "RH/5801": 2
+    }
+   ],
+   "decisions": [],
+   "intent": {
+    "refused": null,
+    "lines": [
+     [
+      2,
+      "review",
+      [
+       "TWIN"
+      ],
+      [],
+      [
+       3
+      ]
+     ],
+     [
+      3,
+      "review",
+      [
+       "TWIN"
+      ],
+      [],
+      [
+       2
+      ]
+     ]
+    ],
+    "items": [
+     [
+      0,
+      "TT-0401",
+      1000000,
+      400000
+     ],
+     [
+      1,
+      "RH/5801",
+      1000000,
+      400000
+     ]
+    ]
+   }
+  },
+  {
+   "id": "H05",
+   "title": "an approved line and its open twin",
+   "writers": [
+    "php",
+    "java",
+    "go"
+   ],
+   "names": [
+    "H05-payments.csv",
+    "H05-invoices.csv",
+    "H05-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-0501",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/5901",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-0501",
+      "RH/5901",
+      "300.000"
+     ],
+     [
+      "RA-02",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-0501",
+      "RH/5901",
+      "300.000"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2,
+    "RA-02": 3
+   },
+   "adviceMinor": {
+    "RA-01": 300000,
+    "RA-02": 300000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-0501",
+     "RH/5901"
+    ],
+    "RA-02": [
+     "TT-0501",
+     "RH/5901"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-0501": 2
+    },
+    {
+     "RH/5901": 2
+    }
+   ],
+   "decisions": [
+    {
+     "type": "remittance",
+     "id": "D1",
+     "lines": [
+      "RA-01"
+     ]
+    }
+   ],
+   "intent": {
+    "refused": null,
+    "lines": [
+     [
+      2,
+      "allocated",
+      [],
+      [],
+      [
+       3
+      ]
+     ],
+     [
+      3,
+      "review",
+      [
+       "OVER_PAYMENT",
+       "OVER_INVOICE",
+       "TWIN"
+      ],
+      [],
+      [
+       2
+      ]
+     ]
+    ],
+    "items": [
+     [
+      0,
+      "TT-0501",
+      200000,
+      300000
+     ],
+     [
+      1,
+      "RH/5901",
+      200000,
+      300000
+     ]
+    ]
+   }
+  },
+  {
+   "id": "H06",
+   "title": "an external confirmation takes most of a transfer",
+   "writers": [
+    "calc",
+    "calc",
+    "calc"
+   ],
+   "names": [
+    "H06-payments.csv",
+    "H06-invoices.csv",
+    "H06-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-0601",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "800.000",
+      "800.000"
+     ],
+     [
+      "TT-0602",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "300.000",
+      "300.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/6001",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ],
+     [
+      "RH/6002",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "400.000",
+      "400.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-0601",
+      "RH/6002",
+      "400.000"
+     ],
+     [
+      "RA-02",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-0602",
+      "RH/6001",
+      "50.000"
+     ],
+     [
+      "RA-03",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-0602",
+      "RH/6002",
+      "250.000"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2,
+    "RA-02": 3,
+    "RA-03": 4
+   },
+   "adviceMinor": {
+    "RA-01": 400000,
+    "RA-02": 50000,
+    "RA-03": 250000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-0601",
+     "RH/6002"
+    ],
+    "RA-02": [
+     "TT-0602",
+     "RH/6001"
+    ],
+    "RA-03": [
+     "TT-0602",
+     "RH/6002"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-0601": 2,
+     "TT-0602": 3
+    },
+    {
+     "RH/6001": 2,
+     "RH/6002": 3
+    }
+   ],
+   "decisions": [
+    {
+     "type": "human",
+     "id": "D1",
+     "kind": "external-confirmation",
+     "links": [
+      [
+       "TT-0601",
+       "RH/6001",
+       450000
+      ]
+     ]
+    }
+   ],
+   "intent": {
+    "refused": null,
+    "lines": [
+     [
+      2,
+      "review",
+      [
+       "OVER_PAYMENT",
+       "COMPETES_INVOICE"
+      ],
+      [
+       4
+      ],
+      []
+     ],
+     [
+      3,
+      "fits",
+      [],
+      [],
+      []
+     ],
+     [
+      4,
+      "review",
+      [
+       "COMPETES_INVOICE"
+      ],
+      [
+       2
+      ],
+      []
+     ]
+    ],
+    "items": [
+     [
+      0,
+      "TT-0601",
+      350000,
+      400000
+     ],
+     [
+      0,
+      "TT-0602",
+      300000,
+      300000
+     ],
+     [
+      1,
+      "RH/6001",
+      50000,
+      50000
+     ],
+     [
+      1,
+      "RH/6002",
+      400000,
+      650000
+     ]
+    ]
+   }
+  },
+  {
+   "id": "H07",
+   "title": "LibreOffice XLSX: two lines compete for a transfer, in dirhams",
+   "writers": [
+    "lo-xlsx",
+    "lo-xlsx",
+    "lo-xlsx"
+   ],
+   "names": [
+    "H07-payments.xlsx",
+    "H07-invoices.xlsx",
+    "H07-advice.xlsx"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "AED",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-0701",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "AED",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "1200.00",
+      "1200.00"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/6101",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "AED",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "800.00",
+      "800.00"
+     ],
+     [
+      "RH/6102",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "AED",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "700.00",
+      "700.00"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "AED",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-0701",
+      "RH/6101",
+      "800.00"
+     ],
+     [
+      "RA-02",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "AED",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-0701",
+      "RH/6102",
+      "700.00"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2,
+    "RA-02": 3
+   },
+   "adviceMinor": {
+    "RA-01": 80000,
+    "RA-02": 70000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-0701",
+     "RH/6101"
+    ],
+    "RA-02": [
+     "TT-0701",
+     "RH/6102"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-0701": 2
+    },
+    {
+     "RH/6101": 2,
+     "RH/6102": 3
+    }
+   ],
+   "decisions": [],
+   "intent": {
+    "refused": null,
+    "lines": [
+     [
+      2,
+      "review",
+      [
+       "COMPETES_PAYMENT"
+      ],
+      [
+       3
+      ],
+      []
+     ],
+     [
+      3,
+      "review",
+      [
+       "COMPETES_PAYMENT"
+      ],
+      [
+       2
+      ],
+      []
+     ]
+    ],
+    "items": [
+     [
+      0,
+      "TT-0701",
+      120000,
+      150000
+     ],
+     [
+      1,
+      "RH/6101",
+      80000,
+      80000
+     ],
+     [
+      1,
+      "RH/6102",
+      70000,
+      70000
+     ]
+    ]
+   }
+  },
+  {
+   "id": "H08",
+   "title": "LibreOffice XLSX advice with a hidden line",
+   "writers": [
+    "php",
+    "php",
+    "lo-xlsx"
+   ],
+   "names": [
+    "H08-payments.csv",
+    "H08-invoices.csv",
+    "H08-advice.xlsx"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-0801",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "300.000",
+      "300.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/6201",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "300.000",
+      "300.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-0801",
+      "RH/6201",
+      "300.000"
+     ],
+     [
+      "RA-02",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-0801",
+      "RH/6201",
+      "100.000"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [
+     3
+    ]
+   ],
+   "lineRows": {
+    "RA-01": 2,
+    "RA-02": 3
+   },
+   "adviceMinor": {
+    "RA-01": 300000,
+    "RA-02": 100000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-0801",
+     "RH/6201"
+    ],
+    "RA-02": [
+     "TT-0801",
+     "RH/6201"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-0801": 2
+    },
+    {
+     "RH/6201": 2
+    }
+   ],
+   "decisions": [],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "lines": [],
+    "items": []
+   }
+  },
+  {
+   "id": "H09",
+   "title": "approved, undone, and the other line approved instead",
+   "writers": [
+    "java",
+    "java",
+    "java"
+   ],
+   "names": [
+    "H09-payments.csv",
+    "H09-invoices.csv",
+    "H09-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-0901",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/6301",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "300.000",
+      "300.000"
+     ],
+     [
+      "RH/6302",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "300.000",
+      "300.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-0901",
+      "RH/6301",
+      "300.000"
+     ],
+     [
+      "RA-02",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-0901",
+      "RH/6302",
+      "300.000"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2,
+    "RA-02": 3
+   },
+   "adviceMinor": {
+    "RA-01": 300000,
+    "RA-02": 300000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-0901",
+     "RH/6301"
+    ],
+    "RA-02": [
+     "TT-0901",
+     "RH/6302"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-0901": 2
+    },
+    {
+     "RH/6301": 2,
+     "RH/6302": 3
+    }
+   ],
+   "decisions": [
+    {
+     "type": "remittance",
+     "id": "D1",
+     "lines": [
+      "RA-01"
+     ]
+    },
+    {
+     "type": "undo",
+     "id": "D2",
+     "target": "D1"
+    },
+    {
+     "type": "remittance",
+     "id": "D3",
+     "lines": [
+      "RA-02"
+     ]
+    }
+   ],
+   "intent": {
+    "refused": null,
+    "lines": [
+     [
+      2,
+      "review",
+      [
+       "OVER_PAYMENT"
+      ],
+      [],
+      []
+     ],
+     [
+      3,
+      "allocated",
+      [],
+      [],
+      []
+     ]
+    ],
+    "items": [
+     [
+      0,
+      "TT-0901",
+      200000,
+      300000
+     ],
+     [
+      1,
+      "RH/6301",
+      300000,
+      300000
+     ],
+     [
+      1,
+      "RH/6302",
+      0,
+      0
+     ]
+    ]
+   }
+  },
+  {
+   "id": "H10",
+   "title": "one line crowded on its transfer and its invoice",
+   "writers": [
+    "go",
+    "go",
+    "go"
+   ],
+   "names": [
+    "H10-payments.csv",
+    "H10-invoices.csv",
+    "H10-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-1001",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "600.000",
+      "600.000"
+     ],
+     [
+      "TT-1002",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "600.000",
+      "600.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/6401",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ],
+     [
+      "RH/6402",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1001",
+      "RH/6401",
+      "400.000"
+     ],
+     [
+      "RA-02",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1001",
+      "RH/6402",
+      "300.000"
+     ],
+     [
+      "RA-03",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1002",
+      "RH/6401",
+      "200.000"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2,
+    "RA-02": 3,
+    "RA-03": 4
+   },
+   "adviceMinor": {
+    "RA-01": 400000,
+    "RA-02": 300000,
+    "RA-03": 200000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-1001",
+     "RH/6401"
+    ],
+    "RA-02": [
+     "TT-1001",
+     "RH/6402"
+    ],
+    "RA-03": [
+     "TT-1002",
+     "RH/6401"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-1001": 2,
+     "TT-1002": 3
+    },
+    {
+     "RH/6401": 2,
+     "RH/6402": 3
+    }
+   ],
+   "decisions": [],
+   "intent": {
+    "refused": null,
+    "lines": [
+     [
+      2,
+      "review",
+      [
+       "COMPETES_PAYMENT",
+       "COMPETES_INVOICE"
+      ],
+      [
+       3,
+       4
+      ],
+      []
+     ],
+     [
+      3,
+      "review",
+      [
+       "COMPETES_PAYMENT"
+      ],
+      [
+       2
+      ],
+      []
+     ],
+     [
+      4,
+      "review",
+      [
+       "COMPETES_INVOICE"
+      ],
+      [
+       2
+      ],
+      []
+     ]
+    ],
+    "items": [
+     [
+      0,
+      "TT-1001",
+      600000,
+      700000
+     ],
+     [
+      0,
+      "TT-1002",
+      600000,
+      200000
+     ],
+     [
+      1,
+      "RH/6401",
+      500000,
+      600000
+     ],
+     [
+      1,
+      "RH/6402",
+      500000,
+      300000
+     ]
+    ]
+   }
+  },
+  {
+   "id": "H11",
+   "title": "extended Arabic-Indic digits in a transfer's amounts",
+   "writers": [
+    "perl",
+    "perl",
+    "perl"
+   ],
+   "names": [
+    "H11-payments.csv",
+    "H11-invoices.csv",
+    "H11-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-1101",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "۹۰۰.۰۰۰",
+      "۹۰۰.۰۰۰"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/6501",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "600.000",
+      "600.000"
+     ],
+     [
+      "RH/6502",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "300.000",
+      "300.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1101",
+      "RH/6501",
+      "600.000"
+     ],
+     [
+      "RA-02",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1101",
+      "RH/6502",
+      "300.000"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2,
+    "RA-02": 3
+   },
+   "adviceMinor": {
+    "RA-01": 600000,
+    "RA-02": 300000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-1101",
+     "RH/6501"
+    ],
+    "RA-02": [
+     "TT-1101",
+     "RH/6502"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-1101": 2
+    },
+    {
+     "RH/6501": 2,
+     "RH/6502": 3
+    }
+   ],
+   "decisions": [],
+   "intent": {
+    "refused": null,
+    "lines": [
+     [
+      2,
+      "fits",
+      [],
+      [],
+      []
+     ],
+     [
+      3,
+      "fits",
+      [],
+      [],
+      []
+     ]
+    ],
+    "items": [
+     [
+      0,
+      "TT-1101",
+      900000,
+      900000
+     ],
+     [
+      1,
+      "RH/6501",
+      600000,
+      600000
+     ],
+     [
+      1,
+      "RH/6502",
+      300000,
+      300000
+     ]
+    ]
+   }
+  },
+  {
+   "id": "H12",
+   "title": "an Arabic party and ledger, every file's columns in another order",
+   "writers": [
+    "calc",
+    "calc",
+    "calc"
+   ],
+   "names": [
+    "H12-payments.csv",
+    "H12-invoices.csv",
+    "H12-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "حسابات الموردين",
+    "party": "مختبرات الخليج للكواشف",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Available amount",
+      "Payment ID",
+      "Allocation basis",
+      "Snapshot date",
+      "Currency",
+      "Account",
+      "Party",
+      "Ledger",
+      "Entity",
+      "Original amount",
+      "Payment date"
+     ],
+     [
+      "500.000",
+      "TT-1201",
+      "before-proposed-allocation",
+      "2028-02-29",
+      "OMR",
+      "2150",
+      "مختبرات الخليج للكواشف",
+      "حسابات الموردين",
+      "Synthetic Gulf Clinics WLL",
+      "500.000",
+      "2028-02-15"
+     ]
+    ],
+    [
+     [
+      "Invoice date",
+      "Invoice ID",
+      "Available amount",
+      "Original amount",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis"
+     ],
+     [
+      "2028-01-20",
+      "RH/6601",
+      "200.000",
+      "200.000",
+      "Synthetic Gulf Clinics WLL",
+      "حسابات الموردين",
+      "مختبرات الخليج للكواشف",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation"
+     ],
+     [
+      "2028-01-20",
+      "RH/6602",
+      "300.000",
+      "300.000",
+      "Synthetic Gulf Clinics WLL",
+      "حسابات الموردين",
+      "مختبرات الخليج للكواشف",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation"
+     ]
+    ],
+    [
+     [
+      "Allocation amount",
+      "Invoice ID",
+      "Payment ID",
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis"
+     ],
+     [
+      "200.000",
+      "RH/6601",
+      "TT-1201",
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "حسابات الموردين",
+      "مختبرات الخليج للكواشف",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation"
+     ],
+     [
+      "350.000",
+      "RH/6602",
+      "TT-1201",
+      "RA-02",
+      "Synthetic Gulf Clinics WLL",
+      "حسابات الموردين",
+      "مختبرات الخليج للكواشف",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2,
+    "RA-02": 3
+   },
+   "adviceMinor": {
+    "RA-01": 200000,
+    "RA-02": 350000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-1201",
+     "RH/6601"
+    ],
+    "RA-02": [
+     "TT-1201",
+     "RH/6602"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-1201": 2
+    },
+    {
+     "RH/6601": 2,
+     "RH/6602": 3
+    }
+   ],
+   "decisions": [],
+   "intent": {
+    "refused": null,
+    "lines": [
+     [
+      2,
+      "review",
+      [
+       "COMPETES_PAYMENT"
+      ],
+      [
+       3
+      ],
+      []
+     ],
+     [
+      3,
+      "review",
+      [
+       "OVER_INVOICE",
+       "COMPETES_PAYMENT"
+      ],
+      [
+       2
+      ],
+      []
+     ]
+    ],
+    "items": [
+     [
+      0,
+      "TT-1201",
+      500000,
+      550000
+     ],
+     [
+      1,
+      "RH/6601",
+      200000,
+      200000
+     ],
+     [
+      1,
+      "RH/6602",
+      300000,
+      350000
+     ]
+    ]
+   }
+  },
+  {
+   "id": "H13",
+   "title": "an invoice part-paid before the snapshot, and a line asking its original",
+   "writers": [
+    "php",
+    "php",
+    "php"
+   ],
+   "names": [
+    "H13-payments.csv",
+    "H13-invoices.csv",
+    "H13-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-1301",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "1000.000",
+      "1000.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/6701",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "900.000",
+      "400.000"
+     ],
+     [
+      "RH/6702",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "100.000",
+      "100.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1301",
+      "RH/6701",
+      "900.000"
+     ],
+     [
+      "RA-02",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1301",
+      "RH/6702",
+      "100.000"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2,
+    "RA-02": 3
+   },
+   "adviceMinor": {
+    "RA-01": 900000,
+    "RA-02": 100000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-1301",
+     "RH/6701"
+    ],
+    "RA-02": [
+     "TT-1301",
+     "RH/6702"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-1301": 2
+    },
+    {
+     "RH/6701": 2,
+     "RH/6702": 3
+    }
+   ],
+   "decisions": [],
+   "intent": {
+    "refused": null,
+    "lines": [
+     [
+      2,
+      "review",
+      [
+       "OVER_INVOICE"
+      ],
+      [],
+      []
+     ],
+     [
+      3,
+      "fits",
+      [],
+      [],
+      []
+     ]
+    ],
+    "items": [
+     [
+      0,
+      "TT-1301",
+      1000000,
+      1000000
+     ],
+     [
+      1,
+      "RH/6701",
+      400000,
+      900000
+     ],
+     [
+      1,
+      "RH/6702",
+      100000,
+      100000
+     ]
+    ]
+   }
+  },
+  {
+   "id": "H14",
+   "title": "a transfer with nothing left",
+   "writers": [
+    "java",
+    "java",
+    "java"
+   ],
+   "names": [
+    "H14-payments.csv",
+    "H14-invoices.csv",
+    "H14-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-1401",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "0.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/6801",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "200.000",
+      "200.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1401",
+      "RH/6801",
+      "200.000"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2
+   },
+   "adviceMinor": {
+    "RA-01": 200000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-1401",
+     "RH/6801"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-1401": 2
+    },
+    {
+     "RH/6801": 2
+    }
+   ],
+   "decisions": [],
+   "intent": {
+    "refused": null,
+    "lines": [
+     [
+      2,
+      "review",
+      [
+       "OVER_PAYMENT"
+      ],
+      [],
+      []
+     ]
+    ],
+    "items": [
+     [
+      0,
+      "TT-1401",
+      0,
+      200000
+     ],
+     [
+      1,
+      "RH/6801",
+      200000,
+      200000
+     ]
+    ]
+   }
+  },
+  {
+   "id": "H15",
+   "title": "eleven lines fill a transfer exactly, a twelfth asks for one baisa",
+   "writers": [
+    "go",
+    "go",
+    "go"
+   ],
+   "names": [
+    "H15-payments.csv",
+    "H15-invoices.csv",
+    "H15-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-1501",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "1100.000",
+      "1100.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/6901",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "100.000",
+      "100.000"
+     ],
+     [
+      "RH/6902",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "100.000",
+      "100.000"
+     ],
+     [
+      "RH/6903",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "100.000",
+      "100.000"
+     ],
+     [
+      "RH/6904",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "100.000",
+      "100.000"
+     ],
+     [
+      "RH/6905",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "100.000",
+      "100.000"
+     ],
+     [
+      "RH/6906",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "100.000",
+      "100.000"
+     ],
+     [
+      "RH/6907",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "100.000",
+      "100.000"
+     ],
+     [
+      "RH/6908",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "100.000",
+      "100.000"
+     ],
+     [
+      "RH/6909",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "100.000",
+      "100.000"
+     ],
+     [
+      "RH/6910",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "100.000",
+      "100.000"
+     ],
+     [
+      "RH/6911",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "100.000",
+      "100.000"
+     ],
+     [
+      "RH/6912",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "100.000",
+      "100.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1501",
+      "RH/6901",
+      "100.000"
+     ],
+     [
+      "RA-02",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1501",
+      "RH/6902",
+      "100.000"
+     ],
+     [
+      "RA-03",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1501",
+      "RH/6903",
+      "100.000"
+     ],
+     [
+      "RA-04",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1501",
+      "RH/6904",
+      "100.000"
+     ],
+     [
+      "RA-05",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1501",
+      "RH/6905",
+      "100.000"
+     ],
+     [
+      "RA-06",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1501",
+      "RH/6906",
+      "100.000"
+     ],
+     [
+      "RA-07",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1501",
+      "RH/6907",
+      "100.000"
+     ],
+     [
+      "RA-08",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1501",
+      "RH/6908",
+      "100.000"
+     ],
+     [
+      "RA-09",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1501",
+      "RH/6909",
+      "100.000"
+     ],
+     [
+      "RA-10",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1501",
+      "RH/6910",
+      "100.000"
+     ],
+     [
+      "RA-11",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1501",
+      "RH/6911",
+      "100.000"
+     ],
+     [
+      "RA-12",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1501",
+      "RH/6912",
+      "0.001"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2,
+    "RA-02": 3,
+    "RA-03": 4,
+    "RA-04": 5,
+    "RA-05": 6,
+    "RA-06": 7,
+    "RA-07": 8,
+    "RA-08": 9,
+    "RA-09": 10,
+    "RA-10": 11,
+    "RA-11": 12,
+    "RA-12": 13
+   },
+   "adviceMinor": {
+    "RA-01": 100000,
+    "RA-02": 100000,
+    "RA-03": 100000,
+    "RA-04": 100000,
+    "RA-05": 100000,
+    "RA-06": 100000,
+    "RA-07": 100000,
+    "RA-08": 100000,
+    "RA-09": 100000,
+    "RA-10": 100000,
+    "RA-11": 100000,
+    "RA-12": 1
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-1501",
+     "RH/6901"
+    ],
+    "RA-02": [
+     "TT-1501",
+     "RH/6902"
+    ],
+    "RA-03": [
+     "TT-1501",
+     "RH/6903"
+    ],
+    "RA-04": [
+     "TT-1501",
+     "RH/6904"
+    ],
+    "RA-05": [
+     "TT-1501",
+     "RH/6905"
+    ],
+    "RA-06": [
+     "TT-1501",
+     "RH/6906"
+    ],
+    "RA-07": [
+     "TT-1501",
+     "RH/6907"
+    ],
+    "RA-08": [
+     "TT-1501",
+     "RH/6908"
+    ],
+    "RA-09": [
+     "TT-1501",
+     "RH/6909"
+    ],
+    "RA-10": [
+     "TT-1501",
+     "RH/6910"
+    ],
+    "RA-11": [
+     "TT-1501",
+     "RH/6911"
+    ],
+    "RA-12": [
+     "TT-1501",
+     "RH/6912"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-1501": 2
+    },
+    {
+     "RH/6901": 2,
+     "RH/6902": 3,
+     "RH/6903": 4,
+     "RH/6904": 5,
+     "RH/6905": 6,
+     "RH/6906": 7,
+     "RH/6907": 8,
+     "RH/6908": 9,
+     "RH/6909": 10,
+     "RH/6910": 11,
+     "RH/6911": 12,
+     "RH/6912": 13
+    }
+   ],
+   "decisions": [],
+   "intent": {
+    "refused": null,
+    "lines": [
+     [
+      2,
+      "review",
+      [
+       "COMPETES_PAYMENT"
+      ],
+      [
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12,
+       13
+      ],
+      []
+     ],
+     [
+      3,
+      "review",
+      [
+       "COMPETES_PAYMENT"
+      ],
+      [
+       2,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12,
+       13
+      ],
+      []
+     ],
+     [
+      4,
+      "review",
+      [
+       "COMPETES_PAYMENT"
+      ],
+      [
+       2,
+       3,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12,
+       13
+      ],
+      []
+     ],
+     [
+      5,
+      "review",
+      [
+       "COMPETES_PAYMENT"
+      ],
+      [
+       2,
+       3,
+       4,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12,
+       13
+      ],
+      []
+     ],
+     [
+      6,
+      "review",
+      [
+       "COMPETES_PAYMENT"
+      ],
+      [
+       2,
+       3,
+       4,
+       5,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12,
+       13
+      ],
+      []
+     ],
+     [
+      7,
+      "review",
+      [
+       "COMPETES_PAYMENT"
+      ],
+      [
+       2,
+       3,
+       4,
+       5,
+       6,
+       8,
+       9,
+       10,
+       11,
+       12,
+       13
+      ],
+      []
+     ],
+     [
+      8,
+      "review",
+      [
+       "COMPETES_PAYMENT"
+      ],
+      [
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       9,
+       10,
+       11,
+       12,
+       13
+      ],
+      []
+     ],
+     [
+      9,
+      "review",
+      [
+       "COMPETES_PAYMENT"
+      ],
+      [
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       10,
+       11,
+       12,
+       13
+      ],
+      []
+     ],
+     [
+      10,
+      "review",
+      [
+       "COMPETES_PAYMENT"
+      ],
+      [
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       11,
+       12,
+       13
+      ],
+      []
+     ],
+     [
+      11,
+      "review",
+      [
+       "COMPETES_PAYMENT"
+      ],
+      [
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       12,
+       13
+      ],
+      []
+     ],
+     [
+      12,
+      "review",
+      [
+       "COMPETES_PAYMENT"
+      ],
+      [
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       13
+      ],
+      []
+     ],
+     [
+      13,
+      "review",
+      [
+       "COMPETES_PAYMENT"
+      ],
+      [
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+       10,
+       11,
+       12
+      ],
+      []
+     ]
+    ],
+    "items": [
+     [
+      0,
+      "TT-1501",
+      1100000,
+      1100001
+     ],
+     [
+      1,
+      "RH/6901",
+      100000,
+      100000
+     ],
+     [
+      1,
+      "RH/6902",
+      100000,
+      100000
+     ],
+     [
+      1,
+      "RH/6903",
+      100000,
+      100000
+     ],
+     [
+      1,
+      "RH/6904",
+      100000,
+      100000
+     ],
+     [
+      1,
+      "RH/6905",
+      100000,
+      100000
+     ],
+     [
+      1,
+      "RH/6906",
+      100000,
+      100000
+     ],
+     [
+      1,
+      "RH/6907",
+      100000,
+      100000
+     ],
+     [
+      1,
+      "RH/6908",
+      100000,
+      100000
+     ],
+     [
+      1,
+      "RH/6909",
+      100000,
+      100000
+     ],
+     [
+      1,
+      "RH/6910",
+      100000,
+      100000
+     ],
+     [
+      1,
+      "RH/6911",
+      100000,
+      100000
+     ],
+     [
+      1,
+      "RH/6912",
+      100000,
+      1
+     ]
+    ]
+   }
+  },
+  {
+   "id": "H16",
+   "title": "yen without minor units, two lines over one transfer",
+   "writers": [
+    "perl",
+    "perl",
+    "perl"
+   ],
+   "names": [
+    "H16-payments.csv",
+    "H16-invoices.csv",
+    "H16-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "JPY",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 0,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-1601",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "JPY",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "50000",
+      "50000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/7001",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "JPY",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "30000",
+      "30000"
+     ],
+     [
+      "RH/7002",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "JPY",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "30000",
+      "30000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "JPY",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1601",
+      "RH/7001",
+      "30000"
+     ],
+     [
+      "RA-02",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "JPY",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1601",
+      "RH/7002",
+      "30000"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2,
+    "RA-02": 3
+   },
+   "adviceMinor": {
+    "RA-01": 30000,
+    "RA-02": 30000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-1601",
+     "RH/7001"
+    ],
+    "RA-02": [
+     "TT-1601",
+     "RH/7002"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-1601": 2
+    },
+    {
+     "RH/7001": 2,
+     "RH/7002": 3
+    }
+   ],
+   "decisions": [],
+   "intent": {
+    "refused": null,
+    "lines": [
+     [
+      2,
+      "review",
+      [
+       "COMPETES_PAYMENT"
+      ],
+      [
+       3
+      ],
+      []
+     ],
+     [
+      3,
+      "review",
+      [
+       "COMPETES_PAYMENT"
+      ],
+      [
+       2
+      ],
+      []
+     ]
+    ],
+    "items": [
+     [
+      0,
+      "TT-1601",
+      50000,
+      60000
+     ],
+     [
+      1,
+      "RH/7001",
+      30000,
+      30000
+     ],
+     [
+      1,
+      "RH/7002",
+      30000,
+      30000
+     ]
+    ]
+   }
+  },
+  {
+   "id": "H17",
+   "title": "one advice line ID on two lines",
+   "writers": [
+    "calc",
+    "calc",
+    "calc"
+   ],
+   "names": [
+    "H17-payments.csv",
+    "H17-invoices.csv",
+    "H17-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-1701",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/7101",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "200.000",
+      "200.000"
+     ],
+     [
+      "RH/7102",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "300.000",
+      "300.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1701",
+      "RH/7101",
+      "200.000"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1701",
+      "RH/7102",
+      "300.000"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2
+   },
+   "adviceMinor": {
+    "RA-01": 200000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-1701",
+     "RH/7101"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-1701": 2
+    },
+    {
+     "RH/7101": 2,
+     "RH/7102": 3
+    }
+   ],
+   "decisions": [],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "lines": [],
+    "items": []
+   }
+  },
+  {
+   "id": "H18",
+   "title": "an advice line naming a transfer that is not in the file",
+   "writers": [
+    "php",
+    "php",
+    "php"
+   ],
+   "names": [
+    "H18-payments.csv",
+    "H18-invoices.csv",
+    "H18-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-1801",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/7201",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1801",
+      "RH/7201",
+      "400.000"
+     ],
+     [
+      "RA-02",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-9999",
+      "RH/7201",
+      "100.000"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2,
+    "RA-02": 3
+   },
+   "adviceMinor": {
+    "RA-01": 400000,
+    "RA-02": 100000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-1801",
+     "RH/7201"
+    ],
+    "RA-02": [
+     "TT-9999",
+     "RH/7201"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-1801": 2
+    },
+    {
+     "RH/7201": 2
+    }
+   ],
+   "decisions": [],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "lines": [],
+    "items": []
+   }
+  },
+  {
+   "id": "H19",
+   "title": "an advice amount to four places of a baisa",
+   "writers": [
+    "java",
+    "java",
+    "java"
+   ],
+   "names": [
+    "H19-payments.csv",
+    "H19-invoices.csv",
+    "H19-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-1901",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/7301",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-1901",
+      "RH/7301",
+      "10.0005"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2
+   },
+   "adviceMinor": {
+    "RA-01": 10000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-1901",
+     "RH/7301"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-1901": 2
+    },
+    {
+     "RH/7301": 2
+    }
+   ],
+   "decisions": [],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "lines": [],
+    "items": []
+   }
+  },
+  {
+   "id": "H20",
+   "title": "an invoice dated the day after the leap-day cut-off",
+   "writers": [
+    "go",
+    "go",
+    "go"
+   ],
+   "names": [
+    "H20-payments.csv",
+    "H20-invoices.csv",
+    "H20-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-2001",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/7401",
+      "2028-03-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-2001",
+      "RH/7401",
+      "500.000"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2
+   },
+   "adviceMinor": {
+    "RA-01": 500000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-2001",
+     "RH/7401"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-2001": 2
+    },
+    {
+     "RH/7401": 2
+    }
+   ],
+   "decisions": [],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "lines": [],
+    "items": []
+   }
+  },
+  {
+   "id": "H21",
+   "title": "an advice line ID that begins with an equals sign",
+   "writers": [
+    "perl",
+    "perl",
+    "perl"
+   ],
+   "names": [
+    "H21-payments.csv",
+    "H21-invoices.csv",
+    "H21-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-2101",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/7501",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "=RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-2101",
+      "RH/7501",
+      "500.000"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "=RA-01": 2
+   },
+   "adviceMinor": {
+    "=RA-01": 500000
+   },
+   "lineCells": {
+    "=RA-01": [
+     "TT-2101",
+     "RH/7501"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-2101": 2
+    },
+    {
+     "RH/7501": 2
+    }
+   ],
+   "decisions": [],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "lines": [],
+    "items": []
+   }
+  },
+  {
+   "id": "H22",
+   "title": "an advice file without its invoice column",
+   "writers": [
+    "php",
+    "php",
+    "php"
+   ],
+   "names": [
+    "H22-payments.csv",
+    "H22-invoices.csv",
+    "H22-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-2201",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/7601",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-2201",
+      "500.000"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2
+   },
+   "adviceMinor": {
+    "RA-01": 500000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-2201",
+     "RH/7601"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-2201": 2
+    },
+    {
+     "RH/7601": 2
+    }
+   ],
+   "decisions": [],
+   "intent": {
+    "refused": "COLUMNS",
+    "lines": [],
+    "items": []
+   }
+  },
+  {
+   "id": "H23",
+   "title": "a session whose confirmation takes more than the transfer holds",
+   "writers": [
+    "java",
+    "java",
+    "java"
+   ],
+   "names": [
+    "H23-payments.csv",
+    "H23-invoices.csv",
+    "H23-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-2301",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/7701",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "800.000",
+      "800.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-2301",
+      "RH/7701",
+      "100.000"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2
+   },
+   "adviceMinor": {
+    "RA-01": 100000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-2301",
+     "RH/7701"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-2301": 2
+    },
+    {
+     "RH/7701": 2
+    }
+   ],
+   "decisions": [
+    {
+     "type": "human",
+     "id": "D1",
+     "kind": "external-confirmation",
+     "links": [
+      [
+       "TT-2301",
+       "RH/7701",
+       600000
+      ]
+     ]
+    }
+   ],
+   "intent": {
+    "refused": "OVER_AVAILABLE",
+    "lines": [],
+    "items": []
+   }
+  },
+  {
+   "id": "H24",
+   "title": "LibreOffice XLSX with blank rows between the advice lines",
+   "writers": [
+    "lo-xlsx",
+    "lo-xlsx",
+    "lo-xlsx"
+   ],
+   "names": [
+    "H24-payments.xlsx",
+    "H24-invoices.xlsx",
+    "H24-advice.xlsx"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "AED",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-2401",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "AED",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "1000.00",
+      "1000.00"
+     ],
+     [
+      "TT-2402",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "AED",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.00",
+      "500.00"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/7801",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "AED",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "600.00",
+      "600.00"
+     ],
+     [
+      "RH/7802",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "AED",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "400.00",
+      "400.00"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "AED",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-2401",
+      "RH/7801",
+      "600.00"
+     ],
+     [],
+     [
+      "RA-02",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "AED",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-2402",
+      "RH/7801",
+      "200.00"
+     ],
+     [],
+     [
+      "RA-03",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "AED",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-2401",
+      "RH/7802",
+      "400.00"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2,
+    "RA-02": 4,
+    "RA-03": 6
+   },
+   "adviceMinor": {
+    "RA-01": 60000,
+    "RA-02": 20000,
+    "RA-03": 40000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-2401",
+     "RH/7801"
+    ],
+    "RA-02": [
+     "TT-2402",
+     "RH/7801"
+    ],
+    "RA-03": [
+     "TT-2401",
+     "RH/7802"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-2401": 2,
+     "TT-2402": 3
+    },
+    {
+     "RH/7801": 2,
+     "RH/7802": 3
+    }
+   ],
+   "decisions": [],
+   "intent": {
+    "refused": null,
+    "lines": [
+     [
+      2,
+      "review",
+      [
+       "COMPETES_INVOICE"
+      ],
+      [
+       4
+      ],
+      []
+     ],
+     [
+      4,
+      "review",
+      [
+       "COMPETES_INVOICE"
+      ],
+      [
+       2
+      ],
+      []
+     ],
+     [
+      6,
+      "fits",
+      [],
+      [],
+      []
+     ]
+    ],
+    "items": [
+     [
+      0,
+      "TT-2401",
+      100000,
+      100000
+     ],
+     [
+      0,
+      "TT-2402",
+      50000,
+      20000
+     ],
+     [
+      1,
+      "RH/7801",
+      60000,
+      80000
+     ],
+     [
+      1,
+      "RH/7802",
+      40000,
+      40000
+     ]
+    ]
+   }
+  },
+  {
+   "id": "H25",
+   "title": "the same transfer and invoice for another amount, and the same amount elsewhere",
+   "writers": [
+    "calc",
+    "calc",
+    "calc"
+   ],
+   "names": [
+    "H25-payments.csv",
+    "H25-invoices.csv",
+    "H25-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-2501",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "1000.000",
+      "1000.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/7901",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "600.000",
+      "600.000"
+     ],
+     [
+      "RH/7902",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "600.000",
+      "600.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-2501",
+      "RH/7901",
+      "200.000"
+     ],
+     [
+      "RA-02",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-2501",
+      "RH/7901",
+      "250.000"
+     ],
+     [
+      "RA-03",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-2501",
+      "RH/7902",
+      "200.000"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2,
+    "RA-02": 3,
+    "RA-03": 4
+   },
+   "adviceMinor": {
+    "RA-01": 200000,
+    "RA-02": 250000,
+    "RA-03": 200000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-2501",
+     "RH/7901"
+    ],
+    "RA-02": [
+     "TT-2501",
+     "RH/7901"
+    ],
+    "RA-03": [
+     "TT-2501",
+     "RH/7902"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-2501": 2
+    },
+    {
+     "RH/7901": 2,
+     "RH/7902": 3
+    }
+   ],
+   "decisions": [],
+   "intent": {
+    "refused": null,
+    "lines": [
+     [
+      2,
+      "fits",
+      [],
+      [],
+      []
+     ],
+     [
+      3,
+      "fits",
+      [],
+      [],
+      []
+     ],
+     [
+      4,
+      "fits",
+      [],
+      [],
+      []
+     ]
+    ],
+    "items": [
+     [
+      0,
+      "TT-2501",
+      1000000,
+      650000
+     ],
+     [
+      1,
+      "RH/7901",
+      600000,
+      450000
+     ],
+     [
+      1,
+      "RH/7902",
+      600000,
+      200000
+     ]
+    ]
+   }
+  },
+  {
+   "id": "H26",
+   "title": "an invoice dated on the leap day, and two twins approved in one decision",
+   "writers": [
+    "go",
+    "go",
+    "go"
+   ],
+   "names": [
+    "H26-payments.csv",
+    "H26-invoices.csv",
+    "H26-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-2601",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "600.000",
+      "600.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/8001",
+      "2028-02-29",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "600.000",
+      "600.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-2601",
+      "RH/8001",
+      "300.000"
+     ],
+     [
+      "RA-02",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-2601",
+      "RH/8001",
+      "300.000"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2,
+    "RA-02": 3
+   },
+   "adviceMinor": {
+    "RA-01": 300000,
+    "RA-02": 300000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-2601",
+     "RH/8001"
+    ],
+    "RA-02": [
+     "TT-2601",
+     "RH/8001"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-2601": 2
+    },
+    {
+     "RH/8001": 2
+    }
+   ],
+   "decisions": [
+    {
+     "type": "remittance",
+     "id": "D1",
+     "lines": [
+      "RA-01",
+      "RA-02"
+     ]
+    }
+   ],
+   "intent": {
+    "refused": null,
+    "lines": [
+     [
+      2,
+      "allocated",
+      [],
+      [],
+      [
+       3
+      ]
+     ],
+     [
+      3,
+      "allocated",
+      [],
+      [],
+      [
+       2
+      ]
+     ]
+    ],
+    "items": [
+     [
+      0,
+      "TT-2601",
+      0,
+      0
+     ],
+     [
+      1,
+      "RH/8001",
+      0,
+      0
+     ]
+    ]
+   }
+  },
+  {
+   "id": "H27",
+   "title": "a session undoing a decision it does not hold",
+   "writers": [
+    "perl",
+    "perl",
+    "perl"
+   ],
+   "names": [
+    "H27-payments.csv",
+    "H27-invoices.csv",
+    "H27-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-2701",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/8101",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-2701",
+      "RH/8101",
+      "500.000"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2
+   },
+   "adviceMinor": {
+    "RA-01": 500000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-2701",
+     "RH/8101"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-2701": 2
+    },
+    {
+     "RH/8101": 2
+    }
+   ],
+   "decisions": [
+    {
+     "type": "remittance",
+     "id": "D1",
+     "lines": [
+      "RA-01"
+     ]
+    },
+    {
+     "type": "undo",
+     "id": "D2",
+     "target": "D9"
+    }
+   ],
+   "intent": {
+    "refused": "UNDO",
+    "lines": [],
+    "items": []
+   }
+  },
+  {
+   "id": "H28",
+   "title": "a transfer dated on a day not in the calendar, beside a decision",
+   "writers": [
+    "calc",
+    "calc",
+    "calc"
+   ],
+   "names": [
+    "H28-payments.csv",
+    "H28-invoices.csv",
+    "H28-advice.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Gulf Clinics WLL",
+    "ledger": "GC-AP-28",
+    "party": "Reagent House R4",
+    "account": "2150",
+    "currency": "OMR",
+    "cutoff": "2028-02-29",
+    "basis": "before-proposed-allocation",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "TT-2801",
+      "2028-02-15",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ],
+     [
+      "TT-2802",
+      "2028-02-30",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "200.000",
+      "200.000"
+     ]
+    ],
+    [
+     [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+     ],
+     [
+      "RH/8201",
+      "2028-01-20",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "500.000",
+      "500.000"
+     ]
+    ],
+    [
+     [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+     ],
+     [
+      "RA-01",
+      "Synthetic Gulf Clinics WLL",
+      "GC-AP-28",
+      "Reagent House R4",
+      "2150",
+      "OMR",
+      "2028-02-29",
+      "before-proposed-allocation",
+      "TT-2801",
+      "RH/8201",
+      "500.000"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    []
+   ],
+   "lineRows": {
+    "RA-01": 2
+   },
+   "adviceMinor": {
+    "RA-01": 500000
+   },
+   "lineCells": {
+    "RA-01": [
+     "TT-2801",
+     "RH/8201"
+    ]
+   },
+   "itemRows": [
+    {
+     "TT-2801": 2,
+     "TT-2802": 3
+    },
+    {
+     "RH/8201": 2
+    }
+   ],
+   "decisions": [
+    {
+     "type": "remittance",
+     "id": "D1",
+     "lines": [
+      "RA-01"
+     ]
+    }
+   ],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "lines": [],
+    "items": []
+   }
+  }
+ ]
+}

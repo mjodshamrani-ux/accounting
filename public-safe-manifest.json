@@ -66290,6 +66290,820 @@
       "bytes": 16147,
       "sha256": "07ce67398871127a5cf05c315280a25fcc796eb37741f1b62971978c479015d6",
       "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/README.ar.md",
+      "bytes": 7898,
+      "sha256": "3bb5342d709ea71c823fb628bfbacdbcec40da3a01f53d03d67a254ffb942840",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/Render.java",
+      "bytes": 1993,
+      "sha256": "1f0ec70045236b814b2f8e0619f586223a55dea383fb19f5d4bdfe41b71269f5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/check_seal.py",
+      "bytes": 3006,
+      "sha256": "48faae887158297908eda7e7857df06482f062a86400432ea77777ecd140d17b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/eligibility.py",
+      "bytes": 4050,
+      "sha256": "93118972b265ebeb58da9051e7c7c513714736c884d3464c27f4c31bc2ac6280",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/ELIGIBILITY.json",
+      "bytes": 222,
+      "sha256": "094993aa63e389578e3d773e09e7ca0b86f0ef95a2dce16f2f8810585b854443",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/EXPECTED.json",
+      "bytes": 34529,
+      "sha256": "48f37e71cc754ce4ef9674549bfcc7ad5c02176093f95231fa82a6b3b4893302",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H01-advice.csv",
+      "bytes": 537,
+      "sha256": "dd2594e93b0f0eea2a1a375328324c462ea5b1655d01576c9a391533b5de0a51",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H01-input.json",
+      "bytes": 701,
+      "sha256": "d890439508a60152d17757decc78c6f2fc6b9e68ae4fe0f1ba17eb1221b65279",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H01-invoices.csv",
+      "bytes": 554,
+      "sha256": "ca1a1bc9553adeca8538277239b099997c08309ae461549174b3868fb2598792",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H01-payments.csv",
+      "bytes": 278,
+      "sha256": "097f22b0a06b053805167f4563ebe715cb0eeb1d93edda605b5c8c2d0f3ac8ee",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H02-advice.csv",
+      "bytes": 386,
+      "sha256": "961daf08aee944f1dfe45d7579b3c52f45c93bd3249a4c16f5c9d8d27bad404d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H02-input.json",
+      "bytes": 701,
+      "sha256": "170ff8abba983e9665a6ff61c2a377c7af7af2cc2b302ffb82d4b7b311591b62",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H02-invoices.csv",
+      "bytes": 262,
+      "sha256": "ca4619f27338652a5ef84302df9be8e773ee3366f64ed5b5951fde67fa5f978f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H02-payments.csv",
+      "bytes": 398,
+      "sha256": "7368004557cc629516a76b53e1f7ea7a0e9f720e18eb701085296da29c10d662",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H03-advice.csv",
+      "bytes": 255,
+      "sha256": "ef536ef4a6d0817209147c596b6a3296f4465f24c6ba48e85f650c4d4be2d628",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H03-input.json",
+      "bytes": 701,
+      "sha256": "fb8c50aa315bc0bee02aa1d5f594e633ef8d8c2f8bc6cd99525c719a1fbdd1dc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H03-invoices.csv",
+      "bytes": 262,
+      "sha256": "44518e9ef9e0d94437ecf828ef56fe359d871b07d54f1c7d7a7b3fee29d388cd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H03-payments.csv",
+      "bytes": 262,
+      "sha256": "fb3dacad31266476b3d4d11980bdc00ceee93a853bcd9b05d72f901c69395360",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H04-advice.csv",
+      "bytes": 384,
+      "sha256": "809d93e317f37808af5d4c16f47d6e8cecbcb5bf58bd90f7a584bd8f6799d9ff",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H04-input.json",
+      "bytes": 701,
+      "sha256": "18b4b5645fc8c679ca468676e6e0be336d7590f2171680579ec3d41b22af689c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H04-invoices.csv",
+      "bytes": 265,
+      "sha256": "23e058d2b462ccc1bda109fedad84a7dc87d50bf005321df6aae50390c9c0da2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H04-payments.csv",
+      "bytes": 265,
+      "sha256": "67a476637e05fa6fad831ab5f31e97ca39984e1e565b30aa3f3b74e24db9fb9c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H05-advice.csv",
+      "bytes": 386,
+      "sha256": "adc89a75afb2408d30976f72b9b4fd2534988c548bf451988e5f6b4369a39661",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H05-input.json",
+      "bytes": 1842,
+      "sha256": "8597d6f4f8c7667c9d6a5c8eedde4ee55d38ee4649a9468b6d57cc5a463104a6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H05-invoices.csv",
+      "bytes": 262,
+      "sha256": "fa84e6a80c404e5ca533c1c7a817914f031e7717c8da62923e4ed9900ae3dd29",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H05-payments.csv",
+      "bytes": 276,
+      "sha256": "8c3eb073ce44b7cafe49add6b5163b73afba4dcd1a428a0305abfed17c877035",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H06-advice.csv",
+      "bytes": 600,
+      "sha256": "fd04f2cd40ed645d51d81cc3ccd6714198bbc59d3a7339f2d899b57794f941aa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H06-input.json",
+      "bytes": 1801,
+      "sha256": "0467bdedba8f5123db02a21f1a4e8c4234d94133a71bea1ed3dedb1d97f5384f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H06-invoices.csv",
+      "bytes": 461,
+      "sha256": "d604557e50f08d83bc2cdc36376fed95b93a147d966dc6e72b1383d6ed83af2c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H06-payments.csv",
+      "bytes": 461,
+      "sha256": "09b77795d1f9c570032b4ba44190949eb7c6d96cf31f230d67da1b8fa974b175",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H07-advice.xlsx",
+      "bytes": 5824,
+      "sha256": "b5d6cc80db41dc64f434c4efbb31251cb8aeb003e6c9c6fede58c79653c8113c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic allocation snapshot file (transfers, open invoices or a proposed remittance advice) for the ALL-1 holdout H1, written as XLSX by LibreOffice Calc 24.2 from a flat ODS spreadsheet with text cells and, in one file, a hidden row, from audit/allocation-advice-holdout-h1/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and the foundation oracle with zipfile and ElementTree. Invented parties, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H07-input.json",
+      "bytes": 704,
+      "sha256": "2f618d28eb1168c3d950713978e4b4b3685528e83b24d05aeb8b80b95ef200bf",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H07-invoices.xlsx",
+      "bytes": 5815,
+      "sha256": "6d894a0f9da426e7bb9c09cd0a41df9a1be67da615d99759d6f295066ddf7e74",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic allocation snapshot file (transfers, open invoices or a proposed remittance advice) for the ALL-1 holdout H1, written as XLSX by LibreOffice Calc 24.2 from a flat ODS spreadsheet with text cells and, in one file, a hidden row, from audit/allocation-advice-holdout-h1/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and the foundation oracle with zipfile and ElementTree. Invented parties, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H07-payments.xlsx",
+      "bytes": 5753,
+      "sha256": "6a6f195eae2ee7d23886a8513f92114f4f0163ddd395fee99d1e8848b5177228",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic allocation snapshot file (transfers, open invoices or a proposed remittance advice) for the ALL-1 holdout H1, written as XLSX by LibreOffice Calc 24.2 from a flat ODS spreadsheet with text cells and, in one file, a hidden row, from audit/allocation-advice-holdout-h1/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and the foundation oracle with zipfile and ElementTree. Invented parties, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H08-advice.xlsx",
+      "bytes": 5827,
+      "sha256": "692e476d3d32a8927d4f408b3827ae0622e36e6ae15ce00b29b78249f9c80646",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic allocation snapshot file (transfers, open invoices or a proposed remittance advice) for the ALL-1 holdout H1, written as XLSX by LibreOffice Calc 24.2 from a flat ODS spreadsheet with text cells and, in one file, a hidden row, from audit/allocation-advice-holdout-h1/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and the foundation oracle with zipfile and ElementTree. Invented parties, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H08-input.json",
+      "bytes": 702,
+      "sha256": "f935c6a497ce47e4c4ed57bb4f40c60414c1d589b56673b9491518f4c9626be3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H08-invoices.csv",
+      "bytes": 276,
+      "sha256": "473cec2468ec09d6f2092f4d000dbb334f2edb31e258af1dd0f137763c5317e0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H08-payments.csv",
+      "bytes": 276,
+      "sha256": "4559cee906eab7c0a962668e93dbae52407c7af94b6182658200dc0cd70ea000",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H09-advice.csv",
+      "bytes": 386,
+      "sha256": "ee46dcf44018711b1cf4b279d976ec61f61b39acab9c507c10be35d0d14adf04",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H09-input.json",
+      "bytes": 3684,
+      "sha256": "df35c1fa24642e7ff7b16b25e6eaed7a3666150efdf5a96519c93a3c3c71635f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H09-invoices.csv",
+      "bytes": 398,
+      "sha256": "5d38697cf488934c331db68d8e8fd5dae50e8f094bb894e66e72ebcc108a589e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H09-payments.csv",
+      "bytes": 262,
+      "sha256": "b860ead6db0fbeb92aae3429f5317c09f27b5e5d929bd42ad0310478afa0d4c2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H10-advice.csv",
+      "bytes": 517,
+      "sha256": "0c2c85419611e5814f5450bfc5c6a06515e5cc61347cdb2e9d0e21b41984b56b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H10-input.json",
+      "bytes": 701,
+      "sha256": "7f8a2a93d4ce6e11fc8b7459302e2d555c6293ec42cc4edde520b03419b4e266",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H10-invoices.csv",
+      "bytes": 398,
+      "sha256": "68d45decb0226fa5dcf81ae7aedac880e3b948e247eeeb73605efcb4239d4d4f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H10-payments.csv",
+      "bytes": 398,
+      "sha256": "fa19a9923320e1cc8a1097e49b993a4bb36561f3f5de767d9739a6347e72256d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H11-advice.csv",
+      "bytes": 386,
+      "sha256": "2b99fbae4a3ea0f488fa344873cf0bd4bbf70bdee90e51c4f0e3b2e1efa05c66",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H11-input.json",
+      "bytes": 701,
+      "sha256": "21f7234f84327c702f8ff485c8b5c745659c5c2b7bf6951cbde28cb415e24d31",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H11-invoices.csv",
+      "bytes": 398,
+      "sha256": "835255623df331edc788994797b44e83263147a719b65a4db70a9cd75a91fd7e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H11-payments.csv",
+      "bytes": 275,
+      "sha256": "530486fc79f38589809138b08450bf4fa74484a0060eab7cee637a8015ffc2cc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H12-advice.csv",
+      "bytes": 543,
+      "sha256": "492abdf2317e817ff73094ddf605b8899c43e6a64e1d3ff4373dc15f2cda8592",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H12-input.json",
+      "bytes": 748,
+      "sha256": "85519ae9728e4eca960343e4cc10285db1dd23771981e93f0c3e12f9a3c29f7a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H12-invoices.csv",
+      "bytes": 555,
+      "sha256": "cf622d775bef7fca670078785220b92d161c9b36fd5f72a14d3774be93fa37fd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H12-payments.csv",
+      "bytes": 351,
+      "sha256": "3d20610b9e0e38f58a6a308d432c8f78c2ef9cbc2f32ab8f653e9fbcd33b7545",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H13-advice.csv",
+      "bytes": 403,
+      "sha256": "639df5a2a5eac1fc16d05125a8cb988bdf531a082451f13274767c8953bcb7d9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H13-input.json",
+      "bytes": 701,
+      "sha256": "f01f1732c489e49bf2ab16bdd33e9684d1c57db8c634c6777edcfe9bde607d09",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H13-invoices.csv",
+      "bytes": 415,
+      "sha256": "a915d077143febf7235e597d47b2d0d6f92981b84c41770758f67f55812559fe",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H13-payments.csv",
+      "bytes": 278,
+      "sha256": "59f9f0db2f9bbc79f6c28d3abd43e25c6ba173dc826c0bebe0b108c89dc9c0d0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H14-advice.csv",
+      "bytes": 255,
+      "sha256": "668d9ecfa90e2d7d81e9eac6afbf58177d3fea3ca0fa1fd02ae0871deea20fbe",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H14-input.json",
+      "bytes": 701,
+      "sha256": "6b0d60798efba17bdeccf70b1c797384a0b3d128677e9b259dc0700d8434200b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H14-invoices.csv",
+      "bytes": 262,
+      "sha256": "cf0ba28a6f6612b6a3935720b556af945dfb1edfcb61364ec5232c4e3281be5d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H14-payments.csv",
+      "bytes": 260,
+      "sha256": "18c9123a87164597d393cce3beba73f7f0a0da156a1dac5bb01e7bc2020ee750",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H15-advice.csv",
+      "bytes": 1694,
+      "sha256": "f4f58bf3cb0b46e0b9bf18f3264eab659d9245ee0c38bd0c4e17810f1a5c5f09",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H15-input.json",
+      "bytes": 701,
+      "sha256": "560dd66781fa23c54f4e561e35cbe4008ad239fa8ca6a8c30ce94da5e43e051b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H15-invoices.csv",
+      "bytes": 1758,
+      "sha256": "9fdc604acac63c90c56751e988a631b0b2adb01217d95650099675373ccc0de0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H15-payments.csv",
+      "bytes": 264,
+      "sha256": "7a331e101d2d899d9c6c6720864dbd0b74248564c266226f701cd203efe1cae1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H16-advice.csv",
+      "bytes": 382,
+      "sha256": "059af36664b799e95e6101f7d3848ae752bfaec76ff72e39c5e6f84afe48ac23",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H16-input.json",
+      "bytes": 701,
+      "sha256": "1a83f9e9840f315502ebc7e2dc1f5572127e7583bc1fd2e0927305a828bc4bd9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H16-invoices.csv",
+      "bytes": 390,
+      "sha256": "3d82a3d41ba5e42dd5e02089fb81a16858bac75edf497e7636236cef24b79268",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H16-payments.csv",
+      "bytes": 259,
+      "sha256": "8973fb4661afea11c478cd4a280f99537d32394f9d026753646500852f23dae0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H17-advice.csv",
+      "bytes": 449,
+      "sha256": "81cf230e0dfbf49c34c74e86d909ca66e7b71d6f842964ed04eecbf2017eef45",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H17-input.json",
+      "bytes": 701,
+      "sha256": "3dce1d077f294a7dd6d053674362b58a0dbccd21f337b99292f261ff6280a50f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H17-invoices.csv",
+      "bytes": 461,
+      "sha256": "5ec2a89bf30c6c0347b93ba7b4cd51660c5e54b0cde395c9b1c5bff0c4e64f70",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H17-payments.csv",
+      "bytes": 304,
+      "sha256": "70398643c62e5dd2e62a7d92a423df65960d1a9bdaf26bbccd634801e2301a26",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H18-advice.csv",
+      "bytes": 403,
+      "sha256": "12d312a4f5fae036948cd723e2ff0a321748a26a0d99928e2d49108ed7f8fdf0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H18-input.json",
+      "bytes": 701,
+      "sha256": "088966675c07591d718db2ec3507fb2775e9d7f922fe90baad978856f4ad96ae",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H18-invoices.csv",
+      "bytes": 276,
+      "sha256": "cd549bfb9c2a11be953f698121e6ee723fef55e03f8b3659d1e54e79d18b9a8e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H18-payments.csv",
+      "bytes": 276,
+      "sha256": "f38b7a63f2ee18cf9d35c696a76f51e65d8ebf0838750c6884ef72385d97ddea",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H19-advice.csv",
+      "bytes": 255,
+      "sha256": "656ace8dde99190af6d9f486711f64709126fd30c8d065acf85b8bafa40de1c4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H19-input.json",
+      "bytes": 701,
+      "sha256": "67c9766bccf883775ba4fef460d6082c7076e2955926aaf006df2a2a3eab536e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H19-invoices.csv",
+      "bytes": 262,
+      "sha256": "0a5919aa75843ecd42fb82bbf41fa66a6accc81e5655af83a4cbde1d4a24ce4f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H19-payments.csv",
+      "bytes": 262,
+      "sha256": "534f58a5e348db2111cdc31014e527a22ff617d9af3baef6e5d98498a4b2d8b4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H20-advice.csv",
+      "bytes": 255,
+      "sha256": "ccd9c9e4953f89c0e23417601ff215fd63d7721ca533e90b433441de22613397",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H20-input.json",
+      "bytes": 701,
+      "sha256": "56ecdc7c3508efd6ece96e16ed92e23221130415896c8935ef5dedaf1352dc01",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H20-invoices.csv",
+      "bytes": 262,
+      "sha256": "1e0b586926365cdef3ddc684a2d20906acb66e907c0cb287de690d53997a6162",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H20-payments.csv",
+      "bytes": 262,
+      "sha256": "486f886999bab4575bf4734bdb75b1bb733bf7986c1e63e5afb1bb356bdc3abe",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H21-advice.csv",
+      "bytes": 257,
+      "sha256": "a8c4f38b044aa08409c3edca4d05b1aeb7ed806d853176cc41aeb10d530139cf",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H21-input.json",
+      "bytes": 701,
+      "sha256": "a1b2d9a17299c94b23dbf17f89da05c1b226a710038f3d45acb908353b60a589",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H21-invoices.csv",
+      "bytes": 263,
+      "sha256": "685635f28f3258e26dd552da69d0a862026cbafd1d735bbe9c5fbc638a45ca0f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H21-payments.csv",
+      "bytes": 263,
+      "sha256": "e5a14a68b12795d1dc159a864df5f8d1634d4f09eda20036d5b6ac68adcb3607",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H22-advice.csv",
+      "bytes": 248,
+      "sha256": "436c9e13e8f10bee6f1ed5a7b5040b6302caf63c2487c653fa9aaab96c8b9852",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H22-input.json",
+      "bytes": 701,
+      "sha256": "55eedbad8560c7e7f9dd4c90b7b24b6d0f296153655617a0518144977fa78ff6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H22-invoices.csv",
+      "bytes": 276,
+      "sha256": "18f5503c90aae1d7109fc9892b51acec73762232aa5f5badbe931be0e9d47f14",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H22-payments.csv",
+      "bytes": 276,
+      "sha256": "ba3598b9d740b61f50bafd65fe5fb71a6161e1519d8786fa04cf99b978708668",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H23-advice.csv",
+      "bytes": 255,
+      "sha256": "24a8df1322f38090c7f3410537bb4d53d75cc0290fd9feb60bde52cba4274d3d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H23-input.json",
+      "bytes": 1801,
+      "sha256": "da79b7f2ad4dfc97d53d2601a21399a257cd0f87dd0df08df08f11ff6d69e5ce",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H23-invoices.csv",
+      "bytes": 262,
+      "sha256": "c6b864ba1ed985e6ef2b6d1c798660b0af40c414f558bdcd5eb9aaff7e4f551f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H23-payments.csv",
+      "bytes": 262,
+      "sha256": "715346822a5b2b8214477fdccefb744550f7428b87523a4986ce7627d1c8a7b0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H24-advice.xlsx",
+      "bytes": 5885,
+      "sha256": "9e8e831e401cf31e485a008e2a0fc60d95ae65c457cc22a4e50d5efd1ff6aca1",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic allocation snapshot file (transfers, open invoices or a proposed remittance advice) for the ALL-1 holdout H1, written as XLSX by LibreOffice Calc 24.2 from a flat ODS spreadsheet with text cells and, in one file, a hidden row, from audit/allocation-advice-holdout-h1/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and the foundation oracle with zipfile and ElementTree. Invented parties, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H24-input.json",
+      "bytes": 704,
+      "sha256": "7a9e6fcf2b8b2a687558faac4af2920157686027fa154524f7c0f4f437e50591",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H24-invoices.xlsx",
+      "bytes": 5816,
+      "sha256": "5b82f4c12e8c623ee0d460776b32061abf556e43e808df24e58cc003125987d3",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic allocation snapshot file (transfers, open invoices or a proposed remittance advice) for the ALL-1 holdout H1, written as XLSX by LibreOffice Calc 24.2 from a flat ODS spreadsheet with text cells and, in one file, a hidden row, from audit/allocation-advice-holdout-h1/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and the foundation oracle with zipfile and ElementTree. Invented parties, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H24-payments.xlsx",
+      "bytes": 5812,
+      "sha256": "7a51d82bdbd0aa8650c14f8e8808e35733bd81bcc25dde790a884e11bab510be",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic allocation snapshot file (transfers, open invoices or a proposed remittance advice) for the ALL-1 holdout H1, written as XLSX by LibreOffice Calc 24.2 from a flat ODS spreadsheet with text cells and, in one file, a hidden row, from audit/allocation-advice-holdout-h1/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and the foundation oracle with zipfile and ElementTree. Invented parties, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H25-advice.csv",
+      "bytes": 601,
+      "sha256": "afcbb554cc24fe9ae4d4d1dfa4d9658126419987c3160512f7e07af9b56e6ebf",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H25-input.json",
+      "bytes": 701,
+      "sha256": "efe57497b27a28c6d890888e138293a2a0f9fb3cfbeb56708618b7b4a32903ce",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H25-invoices.csv",
+      "bytes": 461,
+      "sha256": "930a2efed8bc091c7e17a111a41140c169bef268a6d3ebd6b99a146f5b478905",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H25-payments.csv",
+      "bytes": 306,
+      "sha256": "f20d159801d43ba40d11cb006feb2009b462a95a28b822443971792b445c3ac5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H26-advice.csv",
+      "bytes": 386,
+      "sha256": "bcd4578d32f25755b741496bcc88ac35df215a88156034dd13d8db88cb8af715",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H26-input.json",
+      "bytes": 2276,
+      "sha256": "4d00314259594e740b840a36599dba4794c6301b07c9b2172dec89e27f3f8bda",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H26-invoices.csv",
+      "bytes": 262,
+      "sha256": "876c5f7411a52f6ffa01276522a9695bb8b4c01605e24638f4ee761700618750",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H26-payments.csv",
+      "bytes": 262,
+      "sha256": "00024e86fbf64d6c0e89f5110b3082a45205c6565442a695610f15bfdb2c4e88",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H27-advice.csv",
+      "bytes": 256,
+      "sha256": "819968cbf4a34872502c9a6a6ce874d678e230febd4a3afd474c466a4b2e4d98",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H27-input.json",
+      "bytes": 2544,
+      "sha256": "90b8e5cf79fcfae8aa4502f8dff8a9a355f43727b1b0aa33595ca4f71478e741",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H27-invoices.csv",
+      "bytes": 263,
+      "sha256": "d4bc7ddae6dae424f964b42d4f4723caa9abcb63f6e427f19eb9deb4b0896900",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H27-payments.csv",
+      "bytes": 263,
+      "sha256": "057d13fcbc16c308ced12ab426d6413166a775b488d6320b8eedfc418e9bdf53",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H28-advice.csv",
+      "bytes": 297,
+      "sha256": "764c19a2951ff2b98a4602417b711fe072a0cd2bdb676278f56e4077df5f8018",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H28-input.json",
+      "bytes": 1842,
+      "sha256": "618561e57da413c101654c26a6a9a0e23feaac9c7c6bb6e21849b7dc12b2d041",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H28-invoices.csv",
+      "bytes": 304,
+      "sha256": "64b7e9df70b0018b2f01c72055b74e3db1424de4131e74bb75408e084fed6ebd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/H28-payments.csv",
+      "bytes": 461,
+      "sha256": "89b4e7eb31cacad751d2542a9c81717f97fe78d67720266a08fb45b4951d47d5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/INPUT-MANIFEST.json",
+      "bytes": 14726,
+      "sha256": "f13748c579d139fc2ee01b7a0ee1e2d34b2280b953fbfbf53a5e8b7f633cbe19",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/SEAL.json",
+      "bytes": 1622,
+      "sha256": "862a23e76f4d010d747e2a7bc4e875ba59434caf390fbefd3e07033621a8fac0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/VERIFY.json",
+      "bytes": 1148,
+      "sha256": "474e1fe2a4ea2a0f1f5a5dec55c3c80e278d27fcb0a87dd38d6a575cbfe5e157",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/frozen/stories.json",
+      "bytes": 98595,
+      "sha256": "c72c4068d7d43537e058792d4dd747f8045b23e971ff11afe8652137dd0999f4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/judge.py",
+      "bytes": 1205,
+      "sha256": "be7f9d9aacb27a9e8074ff93bd72f441a687e9eb174cb966912dc2895967794f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/render.go",
+      "bytes": 1075,
+      "sha256": "cb5937cc2a23bb3e46780ae1b2cce3f68d6eaac2408bcdc16ba2257628cff4a7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/render.php",
+      "bytes": 563,
+      "sha256": "03533bec2c15a4dd3b892ea6df5c2b64b77bbc6b9ed582ad0129160400c1866c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/render.pl",
+      "bytes": 1027,
+      "sha256": "bc0f1bbe148718cd1a68cb3681faacbb70eda170f108229e4167ed9960ec7da2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/render.py",
+      "bytes": 7148,
+      "sha256": "2fd421f0c70136c89df67954ae8cff118f82f8919cd1c5ae9bfb5ae58e8d4b32",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/seal.py",
+      "bytes": 2684,
+      "sha256": "46d5a5dab5ef5b40d933f5975173731e599072f0ede77da1d27fd75bc4ac3e9f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/stories.py",
+      "bytes": 18924,
+      "sha256": "74f9d6c3d72b99e44eac1da2829112461111751bfda8e05a86f2fe6e729908f9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/test_intent.py",
+      "bytes": 1925,
+      "sha256": "8ce1bfcc57f7b84b45464af522d6e903de43c48af58039c8909a1f2d61a2f60b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-holdout-h1/verify.py",
+      "bytes": 13373,
+      "sha256": "23790af4a53813dd355384c58ebcceaa1ecc78bf6369909340d8edc1fc373d52",
+      "kind": "text"
     }
   ],
   "distribution": [

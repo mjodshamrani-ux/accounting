@@ -1,0 +1,1779 @@
+{
+ "schema": "tarasuf-all1-advice-h1-expected/1",
+ "oracle": "audit/allocation-advice-foundation/oracle.py",
+ "stories": {
+  "H01": {
+   "refused": null,
+   "decimals": 3,
+   "lines": [
+    {
+     "row": 2,
+     "reference": "RA-01",
+     "payment": "TT-0101",
+     "invoice": "RH/5501",
+     "amount": 700000,
+     "status": "fits",
+     "reasons": [],
+     "competitors": [],
+     "twins": []
+    },
+    {
+     "row": 3,
+     "reference": "RA-02",
+     "payment": "TT-0101",
+     "invoice": "RH/5502",
+     "amount": 500250,
+     "status": "fits",
+     "reasons": [],
+     "competitors": [],
+     "twins": []
+    },
+    {
+     "row": 4,
+     "reference": "RA-03",
+     "payment": "TT-0101",
+     "invoice": "RH/5503",
+     "amount": 299750,
+     "status": "fits",
+     "reasons": [],
+     "competitors": [],
+     "twins": []
+    }
+   ],
+   "items": [
+    {
+     "side": 0,
+     "row": 2,
+     "reference": "TT-0101",
+     "available": 1500000,
+     "allocated": 0,
+     "remaining": 1500000,
+     "advised": 1500000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 2,
+     "reference": "RH/5501",
+     "available": 700000,
+     "allocated": 0,
+     "remaining": 700000,
+     "advised": 700000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 3,
+     "reference": "RH/5502",
+     "available": 500250,
+     "allocated": 0,
+     "remaining": 500250,
+     "advised": 500250,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 4,
+     "reference": "RH/5503",
+     "available": 299750,
+     "allocated": 0,
+     "remaining": 299750,
+     "advised": 299750,
+     "excess": 0
+    }
+   ],
+   "sha256": [
+    "097f22b0a06b053805167f4563ebe715cb0eeb1d93edda605b5c8c2d0f3ac8ee",
+    "ca1a1bc9553adeca8538277239b099997c08309ae461549174b3868fb2598792",
+    "dd2594e93b0f0eea2a1a375328324c462ea5b1655d01576c9a391533b5de0a51"
+   ]
+  },
+  "H02": {
+   "refused": null,
+   "decimals": 3,
+   "lines": [
+    {
+     "row": 2,
+     "reference": "RA-01",
+     "payment": "TT-0201",
+     "invoice": "RH/5601",
+     "amount": 400000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_INVOICE"
+     ],
+     "competitors": [
+      3
+     ],
+     "twins": []
+    },
+    {
+     "row": 3,
+     "reference": "RA-02",
+     "payment": "TT-0202",
+     "invoice": "RH/5601",
+     "amount": 400000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_INVOICE"
+     ],
+     "competitors": [
+      2
+     ],
+     "twins": []
+    }
+   ],
+   "items": [
+    {
+     "side": 0,
+     "row": 2,
+     "reference": "TT-0201",
+     "available": 400000,
+     "allocated": 0,
+     "remaining": 400000,
+     "advised": 400000,
+     "excess": 0
+    },
+    {
+     "side": 0,
+     "row": 3,
+     "reference": "TT-0202",
+     "available": 400000,
+     "allocated": 0,
+     "remaining": 400000,
+     "advised": 400000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 2,
+     "reference": "RH/5601",
+     "available": 600000,
+     "allocated": 0,
+     "remaining": 600000,
+     "advised": 800000,
+     "excess": 200000
+    }
+   ],
+   "sha256": [
+    "7368004557cc629516a76b53e1f7ea7a0e9f720e18eb701085296da29c10d662",
+    "ca4619f27338652a5ef84302df9be8e773ee3366f64ed5b5951fde67fa5f978f",
+    "961daf08aee944f1dfe45d7579b3c52f45c93bd3249a4c16f5c9d8d27bad404d"
+   ]
+  },
+  "H03": {
+   "refused": null,
+   "decimals": 3,
+   "lines": [
+    {
+     "row": 2,
+     "reference": "RA-01",
+     "payment": "TT-0301",
+     "invoice": "RH/5701",
+     "amount": 250001,
+     "status": "review",
+     "reasons": [
+      "OVER_PAYMENT"
+     ],
+     "competitors": [],
+     "twins": []
+    }
+   ],
+   "items": [
+    {
+     "side": 0,
+     "row": 2,
+     "reference": "TT-0301",
+     "available": 250000,
+     "allocated": 0,
+     "remaining": 250000,
+     "advised": 250001,
+     "excess": 1
+    },
+    {
+     "side": 1,
+     "row": 2,
+     "reference": "RH/5701",
+     "available": 300000,
+     "allocated": 0,
+     "remaining": 300000,
+     "advised": 250001,
+     "excess": 0
+    }
+   ],
+   "sha256": [
+    "fb3dacad31266476b3d4d11980bdc00ceee93a853bcd9b05d72f901c69395360",
+    "44518e9ef9e0d94437ecf828ef56fe359d871b07d54f1c7d7a7b3fee29d388cd",
+    "ef536ef4a6d0817209147c596b6a3296f4465f24c6ba48e85f650c4d4be2d628"
+   ]
+  },
+  "H04": {
+   "refused": null,
+   "decimals": 3,
+   "lines": [
+    {
+     "row": 2,
+     "reference": "ra-7",
+     "payment": "TT-0401",
+     "invoice": "RH/5801",
+     "amount": 200000,
+     "status": "review",
+     "reasons": [
+      "TWIN"
+     ],
+     "competitors": [],
+     "twins": [
+      3
+     ]
+    },
+    {
+     "row": 3,
+     "reference": "RA-7",
+     "payment": "TT-0401",
+     "invoice": "RH/5801",
+     "amount": 200000,
+     "status": "review",
+     "reasons": [
+      "TWIN"
+     ],
+     "competitors": [],
+     "twins": [
+      2
+     ]
+    }
+   ],
+   "items": [
+    {
+     "side": 0,
+     "row": 2,
+     "reference": "TT-0401",
+     "available": 1000000,
+     "allocated": 0,
+     "remaining": 1000000,
+     "advised": 400000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 2,
+     "reference": "RH/5801",
+     "available": 1000000,
+     "allocated": 0,
+     "remaining": 1000000,
+     "advised": 400000,
+     "excess": 0
+    }
+   ],
+   "sha256": [
+    "67a476637e05fa6fad831ab5f31e97ca39984e1e565b30aa3f3b74e24db9fb9c",
+    "23e058d2b462ccc1bda109fedad84a7dc87d50bf005321df6aae50390c9c0da2",
+    "809d93e317f37808af5d4c16f47d6e8cecbcb5bf58bd90f7a584bd8f6799d9ff"
+   ]
+  },
+  "H05": {
+   "refused": null,
+   "decimals": 3,
+   "lines": [
+    {
+     "row": 2,
+     "reference": "RA-01",
+     "payment": "TT-0501",
+     "invoice": "RH/5901",
+     "amount": 300000,
+     "status": "allocated",
+     "reasons": [],
+     "competitors": [],
+     "twins": [
+      3
+     ]
+    },
+    {
+     "row": 3,
+     "reference": "RA-02",
+     "payment": "TT-0501",
+     "invoice": "RH/5901",
+     "amount": 300000,
+     "status": "review",
+     "reasons": [
+      "OVER_PAYMENT",
+      "OVER_INVOICE",
+      "TWIN"
+     ],
+     "competitors": [],
+     "twins": [
+      2
+     ]
+    }
+   ],
+   "items": [
+    {
+     "side": 0,
+     "row": 2,
+     "reference": "TT-0501",
+     "available": 500000,
+     "allocated": 300000,
+     "remaining": 200000,
+     "advised": 300000,
+     "excess": 100000
+    },
+    {
+     "side": 1,
+     "row": 2,
+     "reference": "RH/5901",
+     "available": 500000,
+     "allocated": 300000,
+     "remaining": 200000,
+     "advised": 300000,
+     "excess": 100000
+    }
+   ],
+   "sha256": [
+    "8c3eb073ce44b7cafe49add6b5163b73afba4dcd1a428a0305abfed17c877035",
+    "fa84e6a80c404e5ca533c1c7a817914f031e7717c8da62923e4ed9900ae3dd29",
+    "adc89a75afb2408d30976f72b9b4fd2534988c548bf451988e5f6b4369a39661"
+   ]
+  },
+  "H06": {
+   "refused": null,
+   "decimals": 3,
+   "lines": [
+    {
+     "row": 2,
+     "reference": "RA-01",
+     "payment": "TT-0601",
+     "invoice": "RH/6002",
+     "amount": 400000,
+     "status": "review",
+     "reasons": [
+      "OVER_PAYMENT",
+      "COMPETES_INVOICE"
+     ],
+     "competitors": [
+      4
+     ],
+     "twins": []
+    },
+    {
+     "row": 3,
+     "reference": "RA-02",
+     "payment": "TT-0602",
+     "invoice": "RH/6001",
+     "amount": 50000,
+     "status": "fits",
+     "reasons": [],
+     "competitors": [],
+     "twins": []
+    },
+    {
+     "row": 4,
+     "reference": "RA-03",
+     "payment": "TT-0602",
+     "invoice": "RH/6002",
+     "amount": 250000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_INVOICE"
+     ],
+     "competitors": [
+      2
+     ],
+     "twins": []
+    }
+   ],
+   "items": [
+    {
+     "side": 0,
+     "row": 2,
+     "reference": "TT-0601",
+     "available": 800000,
+     "allocated": 450000,
+     "remaining": 350000,
+     "advised": 400000,
+     "excess": 50000
+    },
+    {
+     "side": 0,
+     "row": 3,
+     "reference": "TT-0602",
+     "available": 300000,
+     "allocated": 0,
+     "remaining": 300000,
+     "advised": 300000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 2,
+     "reference": "RH/6001",
+     "available": 500000,
+     "allocated": 450000,
+     "remaining": 50000,
+     "advised": 50000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 3,
+     "reference": "RH/6002",
+     "available": 400000,
+     "allocated": 0,
+     "remaining": 400000,
+     "advised": 650000,
+     "excess": 250000
+    }
+   ],
+   "sha256": [
+    "09b77795d1f9c570032b4ba44190949eb7c6d96cf31f230d67da1b8fa974b175",
+    "d604557e50f08d83bc2cdc36376fed95b93a147d966dc6e72b1383d6ed83af2c",
+    "fd04f2cd40ed645d51d81cc3ccd6714198bbc59d3a7339f2d899b57794f941aa"
+   ]
+  },
+  "H07": {
+   "refused": null,
+   "decimals": 2,
+   "lines": [
+    {
+     "row": 2,
+     "reference": "RA-01",
+     "payment": "TT-0701",
+     "invoice": "RH/6101",
+     "amount": 80000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_PAYMENT"
+     ],
+     "competitors": [
+      3
+     ],
+     "twins": []
+    },
+    {
+     "row": 3,
+     "reference": "RA-02",
+     "payment": "TT-0701",
+     "invoice": "RH/6102",
+     "amount": 70000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_PAYMENT"
+     ],
+     "competitors": [
+      2
+     ],
+     "twins": []
+    }
+   ],
+   "items": [
+    {
+     "side": 0,
+     "row": 2,
+     "reference": "TT-0701",
+     "available": 120000,
+     "allocated": 0,
+     "remaining": 120000,
+     "advised": 150000,
+     "excess": 30000
+    },
+    {
+     "side": 1,
+     "row": 2,
+     "reference": "RH/6101",
+     "available": 80000,
+     "allocated": 0,
+     "remaining": 80000,
+     "advised": 80000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 3,
+     "reference": "RH/6102",
+     "available": 70000,
+     "allocated": 0,
+     "remaining": 70000,
+     "advised": 70000,
+     "excess": 0
+    }
+   ],
+   "sha256": [
+    "6a6f195eae2ee7d23886a8513f92114f4f0163ddd395fee99d1e8848b5177228",
+    "6d894a0f9da426e7bb9c09cd0a41df9a1be67da615d99759d6f295066ddf7e74",
+    "b5d6cc80db41dc64f434c4efbb31251cb8aeb003e6c9c6fede58c79653c8113c"
+   ]
+  },
+  "H08": {
+   "refused": "SOURCE_ERRORS",
+   "decimals": 3,
+   "lines": [],
+   "items": [],
+   "sha256": [
+    "4559cee906eab7c0a962668e93dbae52407c7af94b6182658200dc0cd70ea000",
+    "473cec2468ec09d6f2092f4d000dbb334f2edb31e258af1dd0f137763c5317e0",
+    "692e476d3d32a8927d4f408b3827ae0622e36e6ae15ce00b29b78249f9c80646"
+   ]
+  },
+  "H09": {
+   "refused": null,
+   "decimals": 3,
+   "lines": [
+    {
+     "row": 2,
+     "reference": "RA-01",
+     "payment": "TT-0901",
+     "invoice": "RH/6301",
+     "amount": 300000,
+     "status": "review",
+     "reasons": [
+      "OVER_PAYMENT"
+     ],
+     "competitors": [],
+     "twins": []
+    },
+    {
+     "row": 3,
+     "reference": "RA-02",
+     "payment": "TT-0901",
+     "invoice": "RH/6302",
+     "amount": 300000,
+     "status": "allocated",
+     "reasons": [],
+     "competitors": [],
+     "twins": []
+    }
+   ],
+   "items": [
+    {
+     "side": 0,
+     "row": 2,
+     "reference": "TT-0901",
+     "available": 500000,
+     "allocated": 300000,
+     "remaining": 200000,
+     "advised": 300000,
+     "excess": 100000
+    },
+    {
+     "side": 1,
+     "row": 2,
+     "reference": "RH/6301",
+     "available": 300000,
+     "allocated": 0,
+     "remaining": 300000,
+     "advised": 300000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 3,
+     "reference": "RH/6302",
+     "available": 300000,
+     "allocated": 300000,
+     "remaining": 0,
+     "advised": 0,
+     "excess": 0
+    }
+   ],
+   "sha256": [
+    "b860ead6db0fbeb92aae3429f5317c09f27b5e5d929bd42ad0310478afa0d4c2",
+    "5d38697cf488934c331db68d8e8fd5dae50e8f094bb894e66e72ebcc108a589e",
+    "ee46dcf44018711b1cf4b279d976ec61f61b39acab9c507c10be35d0d14adf04"
+   ]
+  },
+  "H10": {
+   "refused": null,
+   "decimals": 3,
+   "lines": [
+    {
+     "row": 2,
+     "reference": "RA-01",
+     "payment": "TT-1001",
+     "invoice": "RH/6401",
+     "amount": 400000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_PAYMENT",
+      "COMPETES_INVOICE"
+     ],
+     "competitors": [
+      3,
+      4
+     ],
+     "twins": []
+    },
+    {
+     "row": 3,
+     "reference": "RA-02",
+     "payment": "TT-1001",
+     "invoice": "RH/6402",
+     "amount": 300000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_PAYMENT"
+     ],
+     "competitors": [
+      2
+     ],
+     "twins": []
+    },
+    {
+     "row": 4,
+     "reference": "RA-03",
+     "payment": "TT-1002",
+     "invoice": "RH/6401",
+     "amount": 200000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_INVOICE"
+     ],
+     "competitors": [
+      2
+     ],
+     "twins": []
+    }
+   ],
+   "items": [
+    {
+     "side": 0,
+     "row": 2,
+     "reference": "TT-1001",
+     "available": 600000,
+     "allocated": 0,
+     "remaining": 600000,
+     "advised": 700000,
+     "excess": 100000
+    },
+    {
+     "side": 0,
+     "row": 3,
+     "reference": "TT-1002",
+     "available": 600000,
+     "allocated": 0,
+     "remaining": 600000,
+     "advised": 200000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 2,
+     "reference": "RH/6401",
+     "available": 500000,
+     "allocated": 0,
+     "remaining": 500000,
+     "advised": 600000,
+     "excess": 100000
+    },
+    {
+     "side": 1,
+     "row": 3,
+     "reference": "RH/6402",
+     "available": 500000,
+     "allocated": 0,
+     "remaining": 500000,
+     "advised": 300000,
+     "excess": 0
+    }
+   ],
+   "sha256": [
+    "fa19a9923320e1cc8a1097e49b993a4bb36561f3f5de767d9739a6347e72256d",
+    "68d45decb0226fa5dcf81ae7aedac880e3b948e247eeeb73605efcb4239d4d4f",
+    "0c2c85419611e5814f5450bfc5c6a06515e5cc61347cdb2e9d0e21b41984b56b"
+   ]
+  },
+  "H11": {
+   "refused": null,
+   "decimals": 3,
+   "lines": [
+    {
+     "row": 2,
+     "reference": "RA-01",
+     "payment": "TT-1101",
+     "invoice": "RH/6501",
+     "amount": 600000,
+     "status": "fits",
+     "reasons": [],
+     "competitors": [],
+     "twins": []
+    },
+    {
+     "row": 3,
+     "reference": "RA-02",
+     "payment": "TT-1101",
+     "invoice": "RH/6502",
+     "amount": 300000,
+     "status": "fits",
+     "reasons": [],
+     "competitors": [],
+     "twins": []
+    }
+   ],
+   "items": [
+    {
+     "side": 0,
+     "row": 2,
+     "reference": "TT-1101",
+     "available": 900000,
+     "allocated": 0,
+     "remaining": 900000,
+     "advised": 900000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 2,
+     "reference": "RH/6501",
+     "available": 600000,
+     "allocated": 0,
+     "remaining": 600000,
+     "advised": 600000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 3,
+     "reference": "RH/6502",
+     "available": 300000,
+     "allocated": 0,
+     "remaining": 300000,
+     "advised": 300000,
+     "excess": 0
+    }
+   ],
+   "sha256": [
+    "530486fc79f38589809138b08450bf4fa74484a0060eab7cee637a8015ffc2cc",
+    "835255623df331edc788994797b44e83263147a719b65a4db70a9cd75a91fd7e",
+    "2b99fbae4a3ea0f488fa344873cf0bd4bbf70bdee90e51c4f0e3b2e1efa05c66"
+   ]
+  },
+  "H12": {
+   "refused": null,
+   "decimals": 3,
+   "lines": [
+    {
+     "row": 2,
+     "reference": "RA-01",
+     "payment": "TT-1201",
+     "invoice": "RH/6601",
+     "amount": 200000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_PAYMENT"
+     ],
+     "competitors": [
+      3
+     ],
+     "twins": []
+    },
+    {
+     "row": 3,
+     "reference": "RA-02",
+     "payment": "TT-1201",
+     "invoice": "RH/6602",
+     "amount": 350000,
+     "status": "review",
+     "reasons": [
+      "OVER_INVOICE",
+      "COMPETES_PAYMENT"
+     ],
+     "competitors": [
+      2
+     ],
+     "twins": []
+    }
+   ],
+   "items": [
+    {
+     "side": 0,
+     "row": 2,
+     "reference": "TT-1201",
+     "available": 500000,
+     "allocated": 0,
+     "remaining": 500000,
+     "advised": 550000,
+     "excess": 50000
+    },
+    {
+     "side": 1,
+     "row": 2,
+     "reference": "RH/6601",
+     "available": 200000,
+     "allocated": 0,
+     "remaining": 200000,
+     "advised": 200000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 3,
+     "reference": "RH/6602",
+     "available": 300000,
+     "allocated": 0,
+     "remaining": 300000,
+     "advised": 350000,
+     "excess": 50000
+    }
+   ],
+   "sha256": [
+    "3d20610b9e0e38f58a6a308d432c8f78c2ef9cbc2f32ab8f653e9fbcd33b7545",
+    "cf622d775bef7fca670078785220b92d161c9b36fd5f72a14d3774be93fa37fd",
+    "492abdf2317e817ff73094ddf605b8899c43e6a64e1d3ff4373dc15f2cda8592"
+   ]
+  },
+  "H13": {
+   "refused": null,
+   "decimals": 3,
+   "lines": [
+    {
+     "row": 2,
+     "reference": "RA-01",
+     "payment": "TT-1301",
+     "invoice": "RH/6701",
+     "amount": 900000,
+     "status": "review",
+     "reasons": [
+      "OVER_INVOICE"
+     ],
+     "competitors": [],
+     "twins": []
+    },
+    {
+     "row": 3,
+     "reference": "RA-02",
+     "payment": "TT-1301",
+     "invoice": "RH/6702",
+     "amount": 100000,
+     "status": "fits",
+     "reasons": [],
+     "competitors": [],
+     "twins": []
+    }
+   ],
+   "items": [
+    {
+     "side": 0,
+     "row": 2,
+     "reference": "TT-1301",
+     "available": 1000000,
+     "allocated": 0,
+     "remaining": 1000000,
+     "advised": 1000000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 2,
+     "reference": "RH/6701",
+     "available": 400000,
+     "allocated": 0,
+     "remaining": 400000,
+     "advised": 900000,
+     "excess": 500000
+    },
+    {
+     "side": 1,
+     "row": 3,
+     "reference": "RH/6702",
+     "available": 100000,
+     "allocated": 0,
+     "remaining": 100000,
+     "advised": 100000,
+     "excess": 0
+    }
+   ],
+   "sha256": [
+    "59f9f0db2f9bbc79f6c28d3abd43e25c6ba173dc826c0bebe0b108c89dc9c0d0",
+    "a915d077143febf7235e597d47b2d0d6f92981b84c41770758f67f55812559fe",
+    "639df5a2a5eac1fc16d05125a8cb988bdf531a082451f13274767c8953bcb7d9"
+   ]
+  },
+  "H14": {
+   "refused": null,
+   "decimals": 3,
+   "lines": [
+    {
+     "row": 2,
+     "reference": "RA-01",
+     "payment": "TT-1401",
+     "invoice": "RH/6801",
+     "amount": 200000,
+     "status": "review",
+     "reasons": [
+      "OVER_PAYMENT"
+     ],
+     "competitors": [],
+     "twins": []
+    }
+   ],
+   "items": [
+    {
+     "side": 0,
+     "row": 2,
+     "reference": "TT-1401",
+     "available": 0,
+     "allocated": 0,
+     "remaining": 0,
+     "advised": 200000,
+     "excess": 200000
+    },
+    {
+     "side": 1,
+     "row": 2,
+     "reference": "RH/6801",
+     "available": 200000,
+     "allocated": 0,
+     "remaining": 200000,
+     "advised": 200000,
+     "excess": 0
+    }
+   ],
+   "sha256": [
+    "18c9123a87164597d393cce3beba73f7f0a0da156a1dac5bb01e7bc2020ee750",
+    "cf0ba28a6f6612b6a3935720b556af945dfb1edfcb61364ec5232c4e3281be5d",
+    "668d9ecfa90e2d7d81e9eac6afbf58177d3fea3ca0fa1fd02ae0871deea20fbe"
+   ]
+  },
+  "H15": {
+   "refused": null,
+   "decimals": 3,
+   "lines": [
+    {
+     "row": 2,
+     "reference": "RA-01",
+     "payment": "TT-1501",
+     "invoice": "RH/6901",
+     "amount": 100000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_PAYMENT"
+     ],
+     "competitors": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+     ],
+     "twins": []
+    },
+    {
+     "row": 3,
+     "reference": "RA-02",
+     "payment": "TT-1501",
+     "invoice": "RH/6902",
+     "amount": 100000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_PAYMENT"
+     ],
+     "competitors": [
+      2,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+     ],
+     "twins": []
+    },
+    {
+     "row": 4,
+     "reference": "RA-03",
+     "payment": "TT-1501",
+     "invoice": "RH/6903",
+     "amount": 100000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_PAYMENT"
+     ],
+     "competitors": [
+      2,
+      3,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+     ],
+     "twins": []
+    },
+    {
+     "row": 5,
+     "reference": "RA-04",
+     "payment": "TT-1501",
+     "invoice": "RH/6904",
+     "amount": 100000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_PAYMENT"
+     ],
+     "competitors": [
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+     ],
+     "twins": []
+    },
+    {
+     "row": 6,
+     "reference": "RA-05",
+     "payment": "TT-1501",
+     "invoice": "RH/6905",
+     "amount": 100000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_PAYMENT"
+     ],
+     "competitors": [
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+     ],
+     "twins": []
+    },
+    {
+     "row": 7,
+     "reference": "RA-06",
+     "payment": "TT-1501",
+     "invoice": "RH/6906",
+     "amount": 100000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_PAYMENT"
+     ],
+     "competitors": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+     ],
+     "twins": []
+    },
+    {
+     "row": 8,
+     "reference": "RA-07",
+     "payment": "TT-1501",
+     "invoice": "RH/6907",
+     "amount": 100000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_PAYMENT"
+     ],
+     "competitors": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13
+     ],
+     "twins": []
+    },
+    {
+     "row": 9,
+     "reference": "RA-08",
+     "payment": "TT-1501",
+     "invoice": "RH/6908",
+     "amount": 100000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_PAYMENT"
+     ],
+     "competitors": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      10,
+      11,
+      12,
+      13
+     ],
+     "twins": []
+    },
+    {
+     "row": 10,
+     "reference": "RA-09",
+     "payment": "TT-1501",
+     "invoice": "RH/6909",
+     "amount": 100000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_PAYMENT"
+     ],
+     "competitors": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11,
+      12,
+      13
+     ],
+     "twins": []
+    },
+    {
+     "row": 11,
+     "reference": "RA-10",
+     "payment": "TT-1501",
+     "invoice": "RH/6910",
+     "amount": 100000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_PAYMENT"
+     ],
+     "competitors": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      12,
+      13
+     ],
+     "twins": []
+    },
+    {
+     "row": 12,
+     "reference": "RA-11",
+     "payment": "TT-1501",
+     "invoice": "RH/6911",
+     "amount": 100000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_PAYMENT"
+     ],
+     "competitors": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      13
+     ],
+     "twins": []
+    },
+    {
+     "row": 13,
+     "reference": "RA-12",
+     "payment": "TT-1501",
+     "invoice": "RH/6912",
+     "amount": 1,
+     "status": "review",
+     "reasons": [
+      "COMPETES_PAYMENT"
+     ],
+     "competitors": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+     ],
+     "twins": []
+    }
+   ],
+   "items": [
+    {
+     "side": 0,
+     "row": 2,
+     "reference": "TT-1501",
+     "available": 1100000,
+     "allocated": 0,
+     "remaining": 1100000,
+     "advised": 1100001,
+     "excess": 1
+    },
+    {
+     "side": 1,
+     "row": 2,
+     "reference": "RH/6901",
+     "available": 100000,
+     "allocated": 0,
+     "remaining": 100000,
+     "advised": 100000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 3,
+     "reference": "RH/6902",
+     "available": 100000,
+     "allocated": 0,
+     "remaining": 100000,
+     "advised": 100000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 4,
+     "reference": "RH/6903",
+     "available": 100000,
+     "allocated": 0,
+     "remaining": 100000,
+     "advised": 100000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 5,
+     "reference": "RH/6904",
+     "available": 100000,
+     "allocated": 0,
+     "remaining": 100000,
+     "advised": 100000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 6,
+     "reference": "RH/6905",
+     "available": 100000,
+     "allocated": 0,
+     "remaining": 100000,
+     "advised": 100000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 7,
+     "reference": "RH/6906",
+     "available": 100000,
+     "allocated": 0,
+     "remaining": 100000,
+     "advised": 100000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 8,
+     "reference": "RH/6907",
+     "available": 100000,
+     "allocated": 0,
+     "remaining": 100000,
+     "advised": 100000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 9,
+     "reference": "RH/6908",
+     "available": 100000,
+     "allocated": 0,
+     "remaining": 100000,
+     "advised": 100000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 10,
+     "reference": "RH/6909",
+     "available": 100000,
+     "allocated": 0,
+     "remaining": 100000,
+     "advised": 100000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 11,
+     "reference": "RH/6910",
+     "available": 100000,
+     "allocated": 0,
+     "remaining": 100000,
+     "advised": 100000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 12,
+     "reference": "RH/6911",
+     "available": 100000,
+     "allocated": 0,
+     "remaining": 100000,
+     "advised": 100000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 13,
+     "reference": "RH/6912",
+     "available": 100000,
+     "allocated": 0,
+     "remaining": 100000,
+     "advised": 1,
+     "excess": 0
+    }
+   ],
+   "sha256": [
+    "7a331e101d2d899d9c6c6720864dbd0b74248564c266226f701cd203efe1cae1",
+    "9fdc604acac63c90c56751e988a631b0b2adb01217d95650099675373ccc0de0",
+    "f4f58bf3cb0b46e0b9bf18f3264eab659d9245ee0c38bd0c4e17810f1a5c5f09"
+   ]
+  },
+  "H16": {
+   "refused": null,
+   "decimals": 0,
+   "lines": [
+    {
+     "row": 2,
+     "reference": "RA-01",
+     "payment": "TT-1601",
+     "invoice": "RH/7001",
+     "amount": 30000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_PAYMENT"
+     ],
+     "competitors": [
+      3
+     ],
+     "twins": []
+    },
+    {
+     "row": 3,
+     "reference": "RA-02",
+     "payment": "TT-1601",
+     "invoice": "RH/7002",
+     "amount": 30000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_PAYMENT"
+     ],
+     "competitors": [
+      2
+     ],
+     "twins": []
+    }
+   ],
+   "items": [
+    {
+     "side": 0,
+     "row": 2,
+     "reference": "TT-1601",
+     "available": 50000,
+     "allocated": 0,
+     "remaining": 50000,
+     "advised": 60000,
+     "excess": 10000
+    },
+    {
+     "side": 1,
+     "row": 2,
+     "reference": "RH/7001",
+     "available": 30000,
+     "allocated": 0,
+     "remaining": 30000,
+     "advised": 30000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 3,
+     "reference": "RH/7002",
+     "available": 30000,
+     "allocated": 0,
+     "remaining": 30000,
+     "advised": 30000,
+     "excess": 0
+    }
+   ],
+   "sha256": [
+    "8973fb4661afea11c478cd4a280f99537d32394f9d026753646500852f23dae0",
+    "3d82a3d41ba5e42dd5e02089fb81a16858bac75edf497e7636236cef24b79268",
+    "059af36664b799e95e6101f7d3848ae752bfaec76ff72e39c5e6f84afe48ac23"
+   ]
+  },
+  "H17": {
+   "refused": "SOURCE_ERRORS",
+   "decimals": 3,
+   "lines": [],
+   "items": [],
+   "sha256": [
+    "70398643c62e5dd2e62a7d92a423df65960d1a9bdaf26bbccd634801e2301a26",
+    "5ec2a89bf30c6c0347b93ba7b4cd51660c5e54b0cde395c9b1c5bff0c4e64f70",
+    "81cf230e0dfbf49c34c74e86d909ca66e7b71d6f842964ed04eecbf2017eef45"
+   ]
+  },
+  "H18": {
+   "refused": "SOURCE_ERRORS",
+   "decimals": 3,
+   "lines": [],
+   "items": [],
+   "sha256": [
+    "f38b7a63f2ee18cf9d35c696a76f51e65d8ebf0838750c6884ef72385d97ddea",
+    "cd549bfb9c2a11be953f698121e6ee723fef55e03f8b3659d1e54e79d18b9a8e",
+    "12d312a4f5fae036948cd723e2ff0a321748a26a0d99928e2d49108ed7f8fdf0"
+   ]
+  },
+  "H19": {
+   "refused": "SOURCE_ERRORS",
+   "decimals": 3,
+   "lines": [],
+   "items": [],
+   "sha256": [
+    "534f58a5e348db2111cdc31014e527a22ff617d9af3baef6e5d98498a4b2d8b4",
+    "0a5919aa75843ecd42fb82bbf41fa66a6accc81e5655af83a4cbde1d4a24ce4f",
+    "656ace8dde99190af6d9f486711f64709126fd30c8d065acf85b8bafa40de1c4"
+   ]
+  },
+  "H20": {
+   "refused": "SOURCE_ERRORS",
+   "decimals": 3,
+   "lines": [],
+   "items": [],
+   "sha256": [
+    "486f886999bab4575bf4734bdb75b1bb733bf7986c1e63e5afb1bb356bdc3abe",
+    "1e0b586926365cdef3ddc684a2d20906acb66e907c0cb287de690d53997a6162",
+    "ccd9c9e4953f89c0e23417601ff215fd63d7721ca533e90b433441de22613397"
+   ]
+  },
+  "H21": {
+   "refused": "SOURCE_ERRORS",
+   "decimals": 3,
+   "lines": [],
+   "items": [],
+   "sha256": [
+    "e5a14a68b12795d1dc159a864df5f8d1634d4f09eda20036d5b6ac68adcb3607",
+    "685635f28f3258e26dd552da69d0a862026cbafd1d735bbe9c5fbc638a45ca0f",
+    "a8c4f38b044aa08409c3edca4d05b1aeb7ed806d853176cc41aeb10d530139cf"
+   ]
+  },
+  "H22": {
+   "refused": "COLUMNS",
+   "decimals": 3,
+   "lines": [],
+   "items": [],
+   "sha256": [
+    "ba3598b9d740b61f50bafd65fe5fb71a6161e1519d8786fa04cf99b978708668",
+    "18f5503c90aae1d7109fc9892b51acec73762232aa5f5badbe931be0e9d47f14",
+    "436c9e13e8f10bee6f1ed5a7b5040b6302caf63c2487c653fa9aaab96c8b9852"
+   ]
+  },
+  "H23": {
+   "refused": "OVER_AVAILABLE",
+   "decimals": 3,
+   "lines": [],
+   "items": [],
+   "sha256": [
+    "715346822a5b2b8214477fdccefb744550f7428b87523a4986ce7627d1c8a7b0",
+    "c6b864ba1ed985e6ef2b6d1c798660b0af40c414f558bdcd5eb9aaff7e4f551f",
+    "24a8df1322f38090c7f3410537bb4d53d75cc0290fd9feb60bde52cba4274d3d"
+   ]
+  },
+  "H24": {
+   "refused": null,
+   "decimals": 2,
+   "lines": [
+    {
+     "row": 2,
+     "reference": "RA-01",
+     "payment": "TT-2401",
+     "invoice": "RH/7801",
+     "amount": 60000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_INVOICE"
+     ],
+     "competitors": [
+      4
+     ],
+     "twins": []
+    },
+    {
+     "row": 4,
+     "reference": "RA-02",
+     "payment": "TT-2402",
+     "invoice": "RH/7801",
+     "amount": 20000,
+     "status": "review",
+     "reasons": [
+      "COMPETES_INVOICE"
+     ],
+     "competitors": [
+      2
+     ],
+     "twins": []
+    },
+    {
+     "row": 6,
+     "reference": "RA-03",
+     "payment": "TT-2401",
+     "invoice": "RH/7802",
+     "amount": 40000,
+     "status": "fits",
+     "reasons": [],
+     "competitors": [],
+     "twins": []
+    }
+   ],
+   "items": [
+    {
+     "side": 0,
+     "row": 2,
+     "reference": "TT-2401",
+     "available": 100000,
+     "allocated": 0,
+     "remaining": 100000,
+     "advised": 100000,
+     "excess": 0
+    },
+    {
+     "side": 0,
+     "row": 3,
+     "reference": "TT-2402",
+     "available": 50000,
+     "allocated": 0,
+     "remaining": 50000,
+     "advised": 20000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 2,
+     "reference": "RH/7801",
+     "available": 60000,
+     "allocated": 0,
+     "remaining": 60000,
+     "advised": 80000,
+     "excess": 20000
+    },
+    {
+     "side": 1,
+     "row": 3,
+     "reference": "RH/7802",
+     "available": 40000,
+     "allocated": 0,
+     "remaining": 40000,
+     "advised": 40000,
+     "excess": 0
+    }
+   ],
+   "sha256": [
+    "7a51d82bdbd0aa8650c14f8e8808e35733bd81bcc25dde790a884e11bab510be",
+    "5b82f4c12e8c623ee0d460776b32061abf556e43e808df24e58cc003125987d3",
+    "9e8e831e401cf31e485a008e2a0fc60d95ae65c457cc22a4e50d5efd1ff6aca1"
+   ]
+  },
+  "H25": {
+   "refused": null,
+   "decimals": 3,
+   "lines": [
+    {
+     "row": 2,
+     "reference": "RA-01",
+     "payment": "TT-2501",
+     "invoice": "RH/7901",
+     "amount": 200000,
+     "status": "fits",
+     "reasons": [],
+     "competitors": [],
+     "twins": []
+    },
+    {
+     "row": 3,
+     "reference": "RA-02",
+     "payment": "TT-2501",
+     "invoice": "RH/7901",
+     "amount": 250000,
+     "status": "fits",
+     "reasons": [],
+     "competitors": [],
+     "twins": []
+    },
+    {
+     "row": 4,
+     "reference": "RA-03",
+     "payment": "TT-2501",
+     "invoice": "RH/7902",
+     "amount": 200000,
+     "status": "fits",
+     "reasons": [],
+     "competitors": [],
+     "twins": []
+    }
+   ],
+   "items": [
+    {
+     "side": 0,
+     "row": 2,
+     "reference": "TT-2501",
+     "available": 1000000,
+     "allocated": 0,
+     "remaining": 1000000,
+     "advised": 650000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 2,
+     "reference": "RH/7901",
+     "available": 600000,
+     "allocated": 0,
+     "remaining": 600000,
+     "advised": 450000,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 3,
+     "reference": "RH/7902",
+     "available": 600000,
+     "allocated": 0,
+     "remaining": 600000,
+     "advised": 200000,
+     "excess": 0
+    }
+   ],
+   "sha256": [
+    "f20d159801d43ba40d11cb006feb2009b462a95a28b822443971792b445c3ac5",
+    "930a2efed8bc091c7e17a111a41140c169bef268a6d3ebd6b99a146f5b478905",
+    "afcbb554cc24fe9ae4d4d1dfa4d9658126419987c3160512f7e07af9b56e6ebf"
+   ]
+  },
+  "H26": {
+   "refused": null,
+   "decimals": 3,
+   "lines": [
+    {
+     "row": 2,
+     "reference": "RA-01",
+     "payment": "TT-2601",
+     "invoice": "RH/8001",
+     "amount": 300000,
+     "status": "allocated",
+     "reasons": [],
+     "competitors": [],
+     "twins": [
+      3
+     ]
+    },
+    {
+     "row": 3,
+     "reference": "RA-02",
+     "payment": "TT-2601",
+     "invoice": "RH/8001",
+     "amount": 300000,
+     "status": "allocated",
+     "reasons": [],
+     "competitors": [],
+     "twins": [
+      2
+     ]
+    }
+   ],
+   "items": [
+    {
+     "side": 0,
+     "row": 2,
+     "reference": "TT-2601",
+     "available": 600000,
+     "allocated": 600000,
+     "remaining": 0,
+     "advised": 0,
+     "excess": 0
+    },
+    {
+     "side": 1,
+     "row": 2,
+     "reference": "RH/8001",
+     "available": 600000,
+     "allocated": 600000,
+     "remaining": 0,
+     "advised": 0,
+     "excess": 0
+    }
+   ],
+   "sha256": [
+    "00024e86fbf64d6c0e89f5110b3082a45205c6565442a695610f15bfdb2c4e88",
+    "876c5f7411a52f6ffa01276522a9695bb8b4c01605e24638f4ee761700618750",
+    "bcd4578d32f25755b741496bcc88ac35df215a88156034dd13d8db88cb8af715"
+   ]
+  },
+  "H27": {
+   "refused": "UNDO",
+   "decimals": 3,
+   "lines": [],
+   "items": [],
+   "sha256": [
+    "057d13fcbc16c308ced12ab426d6413166a775b488d6320b8eedfc418e9bdf53",
+    "d4bc7ddae6dae424f964b42d4f4723caa9abcb63f6e427f19eb9deb4b0896900",
+    "819968cbf4a34872502c9a6a6ce874d678e230febd4a3afd474c466a4b2e4d98"
+   ]
+  },
+  "H28": {
+   "refused": "SOURCE_ERRORS",
+   "decimals": 3,
+   "lines": [],
+   "items": [],
+   "sha256": [
+    "89b4e7eb31cacad751d2542a9c81717f97fe78d67720266a08fb45b4951d47d5",
+    "64b7e9df70b0018b2f01c72055b74e3db1424de4131e74bb75408e084fed6ebd",
+    "764c19a2951ff2b98a4602417b711fe072a0cd2bdb676278f56e4077df5f8018"
+   ]
+  }
+ }
+}
