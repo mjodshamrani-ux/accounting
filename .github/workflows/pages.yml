@@ -382,6 +382,7 @@ jobs:
           pnpm test:inv-links:oracle
           pnpm test:inv-links:oracle-mutants
           pnpm test:inv-links:seal
+          pnpm test:inv-links:baseline
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations

@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 73313,
-      "sha256": "349d54ead00ebb9a0379e570dd48b6ec329b578d6b08a4dbc6ffb0009faaaacc",
+      "bytes": 73352,
+      "sha256": "84ab7b91cb6f04ebbe1590d2c4746b5d29eb17e0a38d1ace397017822bd854f8",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 48079,
-      "sha256": "3b9d3a62008dadbeb34e596d7717213421cd5ad5917035ade3cef2d02a0998ae",
+      "bytes": 48328,
+      "sha256": "6339f6d5d90edaf145c28f1acb5ef318aca6ccb7da90fc0fcc03699a81610b09",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 108517,
-      "sha256": "8ee6117e7daca1b8c301d4ce570463d9bc25c3cc4c54bfa34e8fe8b1a28a7893",
+      "bytes": 109253,
+      "sha256": "8b0a59c13305e28f0e2c18c8626b75f90859a0702e554e473fdb3488e3285bd2",
       "kind": "text"
     },
     {
@@ -36253,8 +36253,8 @@
     },
     {
       "path": "docs/roadmap/inventory.ar.md",
-      "bytes": 26898,
-      "sha256": "408688973760c537abdde86001949e6dc9c5b78afd5136158e925d451e03460b",
+      "bytes": 27210,
+      "sha256": "4cd24f0b50c6625ec6ae5140ff615ba94fe5b13ee6a7bd45064acd1984644589",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 49918,
-      "sha256": "41742c67f3f18ec53bfa397f222ab59dcd8b7120d9e9551c7e810dfaf9858c70",
+      "bytes": 50087,
+      "sha256": "e142b0b189f2d714e0a54f4a3f6816cb30697213455985968dd3b9e84dba7b66",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 16618,
-      "sha256": "0c8e0ea4c0de431720bf0bb8fc513e94e50507537276c1236fd717905ce8788d",
+      "bytes": 16647,
+      "sha256": "8feb24a34a26e1a0b6c8ab4c228528be7c354bef0b9bbbf2decdee4b7c5a584a",
       "kind": "text"
     },
     {
@@ -63299,8 +63299,20 @@
     },
     {
       "path": "docs/audits/INV-3-FOUNDATION.ar.md",
-      "bytes": 9395,
-      "sha256": "6726e7289d474ee4d9f2e199182d98dde40a0bae5e209bffd29f2f8bce4fdd0f",
+      "bytes": 11022,
+      "sha256": "06895661ae9390b74c31075ae923f5d059f0a1d6d1d848e1eb3590066edb1db4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/baseline.mjs",
+      "bytes": 8079,
+      "sha256": "74fd383f4bdd235195e26a666cdcabe10625b529804296b0fbbd0009c5be54b5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/results/baseline-1.json",
+      "bytes": 21008,
+      "sha256": "1f93a53750123dd3edf24e03fe3f291dbe3fa3d312fccae792703dd7883780fc",
       "kind": "text"
     }
   ],
