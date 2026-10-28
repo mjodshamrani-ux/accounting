@@ -1,0 +1,378 @@
+{
+ "schema": "tarasuf-fin1-engine-run/1",
+ "suite": "audit/tb-financial-hierarchy",
+ "engine": "tb-financial-hierarchy-1 through replayFinancialHierarchy",
+ "rule": "same status; required codes within the engine codes, engine codes within the oracle codes; eligible: same facts and ownership",
+ "cases": 18,
+ "agree": 18,
+ "rows": [
+  {
+   "id": "positive-nested",
+   "oracle": {
+    "status": "eligible",
+    "codes": []
+   },
+   "required": [],
+   "engine": {
+    "status": "eligible",
+    "codes": []
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "positive-reordered",
+   "oracle": {
+    "status": "eligible",
+    "codes": []
+   },
+   "required": [],
+   "engine": {
+    "status": "eligible",
+    "codes": []
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "equal-amount-wrong-owner",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "MAPPING_PROOF"
+    ]
+   },
+   "required": [
+    "MAPPING_PROOF"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "MAPPING_PROOF"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "two-parents",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "DUPLICATE_NODE"
+    ]
+   },
+   "required": [
+    "DUPLICATE_NODE"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "DUPLICATE_NODE"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "parent-cycle",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "CONTROL_TOTAL",
+     "CYCLE"
+    ]
+   },
+   "required": [
+    "CYCLE"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "CONTROL_TOTAL",
+     "CYCLE"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "missing-zero-leaf",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "MAPPING_TARGET",
+     "PROOF_LINE"
+    ]
+   },
+   "required": [
+    "PROOF_LINE",
+    "MAPPING_TARGET"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "MAPPING_TARGET",
+     "PROOF_LINE"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "blank-zero-amount",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "MONEY"
+    ]
+   },
+   "required": [
+    "MONEY"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "MONEY"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "wrong-control-total",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "CONTROL_TOTAL"
+    ]
+   },
+   "required": [
+    "CONTROL_TOTAL"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "CONTROL_TOTAL"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "wrong-classification-balanced",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "CLASSIFICATION"
+    ]
+   },
+   "required": [
+    "CLASSIFICATION"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "CLASSIFICATION"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "expired-proof",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "VALIDITY"
+    ]
+   },
+   "required": [
+    "VALIDITY"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "VALIDITY"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "duplicate-mapping",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "DUPLICATE_MAPPING_ACCOUNT",
+     "LEAF_TOTAL"
+    ]
+   },
+   "required": [
+    "DUPLICATE_MAPPING_ACCOUNT"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "DUPLICATE_MAPPING_ACCOUNT"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "unmapped-zero-account",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "UNMAPPED_ACCOUNT",
+     "UNMAPPED_LEAF",
+     "UNUSED_PROOF"
+    ]
+   },
+   "required": [
+    "UNMAPPED_ACCOUNT",
+    "UNMAPPED_LEAF"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "UNMAPPED_ACCOUNT",
+     "UNMAPPED_LEAF",
+     "UNUSED_PROOF"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "mapping-to-parent",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "CLASSIFICATION",
+     "MAPPING_TARGET",
+     "PROOF_LINE",
+     "UNMAPPED_LEAF"
+    ]
+   },
+   "required": [
+    "MAPPING_TARGET"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "CLASSIFICATION",
+     "MAPPING_TARGET",
+     "PROOF_LINE",
+     "UNMAPPED_LEAF"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "wrong-contra-sign",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "LEAF_TOTAL",
+     "SIGN_POLICY"
+    ]
+   },
+   "required": [
+    "LEAF_TOTAL"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "LEAF_TOTAL",
+     "SIGN_POLICY"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "late-unknown-row",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "KIND"
+    ]
+   },
+   "required": [
+    "KIND"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "KIND"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "foreign-scope",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "SCOPE"
+    ]
+   },
+   "required": [
+    "SCOPE"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "SCOPE"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "missing-parent",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "PARENT"
+    ]
+   },
+   "required": [
+    "PARENT"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "PARENT"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "subminor-value",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "MONEY",
+     "TB_BALANCE"
+    ]
+   },
+   "required": [
+    "MONEY"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "MONEY"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  }
+ ]
+}

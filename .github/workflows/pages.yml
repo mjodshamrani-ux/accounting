@@ -360,6 +360,8 @@ jobs:
           pnpm test:fin-hierarchy:oracle-mutants
           pnpm test:fin-hierarchy:h1-seal
           pnpm test:fin-hierarchy:baseline
+          pnpm test:fin-hierarchy:run
+          pnpm test:fin-hierarchy:mutations
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations
