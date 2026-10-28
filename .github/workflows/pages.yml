@@ -395,6 +395,9 @@ jobs:
           pnpm test:clr-groups:mutations
           pnpm test:clr-groups:h1-seal
           pnpm test:clr-groups:h1-run
+          pnpm test:all-advice:oracle
+          pnpm test:all-advice:oracle-mutants
+          pnpm test:all-advice:seal
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations

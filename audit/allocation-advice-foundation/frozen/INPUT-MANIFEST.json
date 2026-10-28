@@ -1,0 +1,539 @@
+{
+ "schema": "tarasuf-all1-advice-input-manifest/1",
+ "synthetic": true,
+ "producer": "stories.py facts; each payments, invoices and advice file written as CSV by Python csv (minimal quoting with LF or CRLF; every field quoted with a byte order mark and CRLF) or as XLSX by ExcelJS 4.4.0 (text cells and hidden rows); each session input as JSON, its decisions naming rows by the hash of their file",
+ "files": {
+  "F01-advice.csv": {
+   "sha256": "9f2fe3adfbbfa174ba8b5c72d671b2e62d989993409dc71974841c7f6191ce59",
+   "bytes": 345
+  },
+  "F01-input.json": {
+   "sha256": "71ded382e33c7229cc68b056e33974b72fcab9159df012f86c0dbc100c87afea",
+   "bytes": 696
+  },
+  "F01-invoices.csv": {
+   "sha256": "98f69736da6933ba9c3bfe30e39c38956d769c647c697886e9c5a7938dbeb389",
+   "bytes": 371
+  },
+  "F01-payments.csv": {
+   "sha256": "489d5cf58eebcaefcbb817a3b6ec970f79827662104bdffbdbd0948753058b51",
+   "bytes": 250
+  },
+  "F02-advice.csv": {
+   "sha256": "59bdfd7b0a98abbb58889f86fe15bebef2c71ba50160f31ba0dcea8f8b37d31d",
+   "bytes": 348
+  },
+  "F02-input.json": {
+   "sha256": "349f8135885fa19b6e3b3ecd0152ebde7837d6abf98be89e38d58b724bc82088",
+   "bytes": 696
+  },
+  "F02-invoices.csv": {
+   "sha256": "0f9fdc24db4a2a70f5b2ef65a9fee891f4423d923e8225426d2a4dc1f003c284",
+   "bytes": 252
+  },
+  "F02-payments.csv": {
+   "sha256": "c3332953c698ea4e26eaffe2733ff5461bf03709a82830f57828776bf8de95d7",
+   "bytes": 374
+  },
+  "F03-advice.csv": {
+   "sha256": "25c16eb01046f1e77b7660a1a49fc2c0022b0b1fa9389b1edcaf12ccd35367bf",
+   "bytes": 567
+  },
+  "F03-input.json": {
+   "sha256": "4edffddb14d04ab6ed243c749723cea51e7f65f0406419b3ff6354fa22025f7b",
+   "bytes": 696
+  },
+  "F03-invoices.csv": {
+   "sha256": "96044a0ef0b074e92359384c3942bc3714e9b3186943e8aec19572d86a2910ce",
+   "bytes": 494
+  },
+  "F03-payments.csv": {
+   "sha256": "6e06bb74a419a50056b4ed31437bd35270ce1dffff9a2aaa668667dabafeb163",
+   "bytes": 371
+  },
+  "F04-advice.csv": {
+   "sha256": "c58007c807360d113e0605d7d16ab3ea2460bc0316e0102038627b4daae1d38e",
+   "bytes": 456
+  },
+  "F04-input.json": {
+   "sha256": "55f62b97e0a537728ef62ec895038a1bc8cdd73e659bcc68ffa6ca963155a0af",
+   "bytes": 696
+  },
+  "F04-invoices.csv": {
+   "sha256": "2b8130c15a0dfaab78ff3e1964b66c861e2f39403b3ed9e7a7fcaa22f268ce6b",
+   "bytes": 248
+  },
+  "F04-payments.csv": {
+   "sha256": "d9d54569e2b9cea0f06e88e3e83f1e0cecd259201fcc6ad0e58e3104fb6318bd",
+   "bytes": 494
+  },
+  "F05-advice.csv": {
+   "sha256": "7c0a5562ab0440e3201617148a17fd1f9328205a5823bebd625a3964686deee3",
+   "bytes": 345
+  },
+  "F05-input.json": {
+   "sha256": "7ed043972f5ffe6398398cdfba8b1c8b5ecf7896c3196348c301125c826fc520",
+   "bytes": 696
+  },
+  "F05-invoices.csv": {
+   "sha256": "5ebcc3c12ed4140e88bd6091230caab8f177cc6f041f1c554b50d8f0aa823a80",
+   "bytes": 371
+  },
+  "F05-payments.csv": {
+   "sha256": "489d5cf58eebcaefcbb817a3b6ec970f79827662104bdffbdbd0948753058b51",
+   "bytes": 250
+  },
+  "F06-advice.csv": {
+   "sha256": "2496292867d742d5faa27a8ff19b9f7dd7b5cfb3776a08a0a46ab2923942d7c2",
+   "bytes": 235
+  },
+  "F06-input.json": {
+   "sha256": "b16579fb70258a02eccd52bc499e3916932fa4527d39281585f47639b148a888",
+   "bytes": 696
+  },
+  "F06-invoices.csv": {
+   "sha256": "450f5dcb3d752d6e8c894f4a7519f2f2fd9b4e2b5f9598f155f1f37c1355970a",
+   "bytes": 250
+  },
+  "F06-payments.csv": {
+   "sha256": "489d5cf58eebcaefcbb817a3b6ec970f79827662104bdffbdbd0948753058b51",
+   "bytes": 250
+  },
+  "F07-advice.csv": {
+   "sha256": "daeb4efe2112fa86111a328ac65db06b7e773912562d90051fd1d0205596d108",
+   "bytes": 235
+  },
+  "F07-input.json": {
+   "sha256": "94fd9da444267da8bde94d89d5821d775af2619d99be04f33a7083815fbfa179",
+   "bytes": 696
+  },
+  "F07-invoices.csv": {
+   "sha256": "450f5dcb3d752d6e8c894f4a7519f2f2fd9b4e2b5f9598f155f1f37c1355970a",
+   "bytes": 250
+  },
+  "F07-payments.csv": {
+   "sha256": "489d5cf58eebcaefcbb817a3b6ec970f79827662104bdffbdbd0948753058b51",
+   "bytes": 250
+  },
+  "F08-advice.csv": {
+   "sha256": "2aaf015988023aa4beabedb7ad06d03aea6484714128b3086a945af25a764dd9",
+   "bytes": 345
+  },
+  "F08-input.json": {
+   "sha256": "066beaa3742a489362e9e42fe2873807c17b7c271da5f31093f6856570f4c5b5",
+   "bytes": 696
+  },
+  "F08-invoices.csv": {
+   "sha256": "450f5dcb3d752d6e8c894f4a7519f2f2fd9b4e2b5f9598f155f1f37c1355970a",
+   "bytes": 250
+  },
+  "F08-payments.csv": {
+   "sha256": "489d5cf58eebcaefcbb817a3b6ec970f79827662104bdffbdbd0948753058b51",
+   "bytes": 250
+  },
+  "F09-advice.csv": {
+   "sha256": "2aaf015988023aa4beabedb7ad06d03aea6484714128b3086a945af25a764dd9",
+   "bytes": 345
+  },
+  "F09-input.json": {
+   "sha256": "a709f5fec04ff1eaa951f7ac379b2bd1e5bac9e6a2901cff7b0b0189c653fe6c",
+   "bytes": 696
+  },
+  "F09-invoices.csv": {
+   "sha256": "450f5dcb3d752d6e8c894f4a7519f2f2fd9b4e2b5f9598f155f1f37c1355970a",
+   "bytes": 250
+  },
+  "F09-payments.csv": {
+   "sha256": "3ef8b6d567a4412e679097c291500028ac4fbf3a599260613b5a5644ce19f145",
+   "bytes": 248
+  },
+  "F10-advice.csv": {
+   "sha256": "e91e5419a099545bda82f0434fd299908a81514c3874a4505c2e3a91a0ad2fb8",
+   "bytes": 345
+  },
+  "F10-input.json": {
+   "sha256": "36321bd31ec08e9744066eeb9ab5282f6efbd1fbc0a9334bcba211389effa169",
+   "bytes": 696
+  },
+  "F10-invoices.csv": {
+   "sha256": "76496b2685425012a0bd616ca861c3f48292d59ab6e8b536e6ab46613626a4cd",
+   "bytes": 248
+  },
+  "F10-payments.csv": {
+   "sha256": "3ef8b6d567a4412e679097c291500028ac4fbf3a599260613b5a5644ce19f145",
+   "bytes": 248
+  },
+  "F11-advice.csv": {
+   "sha256": "2aaf015988023aa4beabedb7ad06d03aea6484714128b3086a945af25a764dd9",
+   "bytes": 345
+  },
+  "F11-input.json": {
+   "sha256": "7ac43522d4adc4aeb12a398027ab61da292687a84e61949e7e7bf30816c928f4",
+   "bytes": 1822
+  },
+  "F11-invoices.csv": {
+   "sha256": "450f5dcb3d752d6e8c894f4a7519f2f2fd9b4e2b5f9598f155f1f37c1355970a",
+   "bytes": 250
+  },
+  "F11-payments.csv": {
+   "sha256": "489d5cf58eebcaefcbb817a3b6ec970f79827662104bdffbdbd0948753058b51",
+   "bytes": 250
+  },
+  "F12-advice.csv": {
+   "sha256": "383cf1613aca33e60a4a9f6f51f3574ee1584efd7d32ffa29372a20b365c1c08",
+   "bytes": 234
+  },
+  "F12-input.json": {
+   "sha256": "8bccdcb955fb549642f1609aeb60dd6355a089e47d67c12e122f1ce7df51745c",
+   "bytes": 1763
+  },
+  "F12-invoices.csv": {
+   "sha256": "7e6ec153739654a34f2e6671b1e4b190a10e428c05852f24e5d5d4b0debfdd91",
+   "bytes": 371
+  },
+  "F12-payments.csv": {
+   "sha256": "489d5cf58eebcaefcbb817a3b6ec970f79827662104bdffbdbd0948753058b51",
+   "bytes": 250
+  },
+  "F13-advice.csv": {
+   "sha256": "2c456a421a713b4a127bfa0d974afea8cdb0a60a319e3a35b7334b38ac32777d",
+   "bytes": 345
+  },
+  "F13-input.json": {
+   "sha256": "385c02c9ad9477aae717194c0f5c3f26d108cc39066ea9a99ff5439566fad790",
+   "bytes": 1822
+  },
+  "F13-invoices.csv": {
+   "sha256": "450f5dcb3d752d6e8c894f4a7519f2f2fd9b4e2b5f9598f155f1f37c1355970a",
+   "bytes": 250
+  },
+  "F13-payments.csv": {
+   "sha256": "7dbd22e759c8dde2960e8f426c56a98930e03dda9915391bb17fe9899542fb05",
+   "bytes": 371
+  },
+  "F14-advice.csv": {
+   "sha256": "aa5f7f22f090ca8ccc47de9763c0975402103421d53ed9956045def574d3dc93",
+   "bytes": 348
+  },
+  "F14-input.json": {
+   "sha256": "d093d728f223611ff19196b8dd0d4e77b9dc3bdc5515447925058f96efb6a0d5",
+   "bytes": 2512
+  },
+  "F14-invoices.csv": {
+   "sha256": "0f9fdc24db4a2a70f5b2ef65a9fee891f4423d923e8225426d2a4dc1f003c284",
+   "bytes": 252
+  },
+  "F14-payments.csv": {
+   "sha256": "c46628139b1c30295b8101f4a24d6aec375dbdb682a99895b7e101d4397c69b9",
+   "bytes": 374
+  },
+  "F15-advice.csv": {
+   "sha256": "cdb75b2bb50c6da27accc99d26663059cfc12f690105450ea53dc69e3652e40b",
+   "bytes": 345
+  },
+  "F15-input.json": {
+   "sha256": "b37c5924ba61aa9117859a6757b8d0395ed844b10c02f1f82f1d47312621369e",
+   "bytes": 696
+  },
+  "F15-invoices.csv": {
+   "sha256": "c4fd7beebce2903b67acd537b4616799967d4e90e93ad1006a93ccf0ad052e7a",
+   "bytes": 249
+  },
+  "F15-payments.csv": {
+   "sha256": "506c01eb49a7ea3bf9be0dfb03d25df9a26abdf09a6aa701c9c2c9c201e26365",
+   "bytes": 371
+  },
+  "F16-advice.csv": {
+   "sha256": "abc848b675f08372cacfb28b3d0bb361e89998f4fcf67478e2172ace91db76b9",
+   "bytes": 234
+  },
+  "F16-input.json": {
+   "sha256": "f33db9b1dac89d4a97900126c3cee8de09274fc40ba769ea47f8be73e6fb4208",
+   "bytes": 696
+  },
+  "F16-invoices.csv": {
+   "sha256": "b0db3263ba86b0c476e554fb36ca73b7434d4c924bac69b6cd0ce06bda4953f0",
+   "bytes": 248
+  },
+  "F16-payments.csv": {
+   "sha256": "ff0144362fc1a87a3fb7f9492cdc3c803a10ba43c894e3c27183713f5d563997",
+   "bytes": 246
+  },
+  "F17-advice.csv": {
+   "sha256": "e44a2dc2651d3da4167fc7de425c22d17f6bdd72d844ff1e71119bdf9fa50203",
+   "bytes": 343
+  },
+  "F17-input.json": {
+   "sha256": "4f8fdda596c48d7b1785e978e316454d488a814e3185063b38d993178cbd9b39",
+   "bytes": 696
+  },
+  "F17-invoices.csv": {
+   "sha256": "4039ca6d330e299ed273e5c062fed0ad2f8e4af71f9598eaa0fbc751bcc4edec",
+   "bytes": 367
+  },
+  "F17-payments.csv": {
+   "sha256": "94ffffed90f73c8705b799a210f96d1d6c7f4ea40432ad672ea4d6231241bf6f",
+   "bytes": 246
+  },
+  "F18-advice.csv": {
+   "sha256": "d2c38ede852201aee19a93dbf4bbfcc9591512b9862751f6a74db055b4bce459",
+   "bytes": 343
+  },
+  "F18-input.json": {
+   "sha256": "ac3fbf4cfb2f0406759bdcad141a808ec45936b2b1dd65697badb122e5f5b031",
+   "bytes": 696
+  },
+  "F18-invoices.csv": {
+   "sha256": "2153b21e54eb3f223ece2a72da794d4813cd3cf9ec5058d0660d9bc13c02e890",
+   "bytes": 367
+  },
+  "F18-payments.csv": {
+   "sha256": "859910d7de268e2df5eb666606f277bb924b5468b11c226b7ca235bbe02dea9c",
+   "bytes": 246
+  },
+  "F19-advice.csv": {
+   "sha256": "eaee81359ccdebf3a3052f5248bb7ff8c78e84ddfead0fd869e51c0535dd2178",
+   "bytes": 456
+  },
+  "F19-input.json": {
+   "sha256": "a40eb53b50b55e1d3d6a1bd07771f46a5479455e139a4f1f069f1246291c8f3b",
+   "bytes": 696
+  },
+  "F19-invoices.csv": {
+   "sha256": "24f2355a780a99ebf0a5d981718459dd47c1d062870bfe953ef1e8c168dab272",
+   "bytes": 371
+  },
+  "F19-payments.csv": {
+   "sha256": "3c172861e0354ba474f45f486d0cb833f425a2f2e4300a1d5fea71eeef1fd886",
+   "bytes": 371
+  },
+  "F20-advice.csv": {
+   "sha256": "807755ac0d9804fbd4f4bba80fdeeecb96b1fcd19690490c0de926259640939f",
+   "bytes": 456
+  },
+  "F20-input.json": {
+   "sha256": "24b8fd4f9244f65690c2778484e9084ca790b03530efb849eb0ff1ece7a9918c",
+   "bytes": 696
+  },
+  "F20-invoices.csv": {
+   "sha256": "3a5f7e69f50f62f22023e102f8d23d5824212f751ef3411e645cdcbb75a77e06",
+   "bytes": 371
+  },
+  "F20-payments.csv": {
+   "sha256": "b3963e8779eb9bfc3eeca7172a6af9dd5c9b9053df085d7bc4a2ad8f443d7c57",
+   "bytes": 373
+  },
+  "F21-advice.csv": {
+   "sha256": "6004027e329686a1dc0ffb2ec8574ebbb08946f65231d274d55a4c6972bb3ad3",
+   "bytes": 123
+  },
+  "F21-input.json": {
+   "sha256": "6bc92db31e85c586ae5997d816bbb9b5c5e10c50a5149ff37bf43075611e7c80",
+   "bytes": 696
+  },
+  "F21-invoices.csv": {
+   "sha256": "98f69736da6933ba9c3bfe30e39c38956d769c647c697886e9c5a7938dbeb389",
+   "bytes": 371
+  },
+  "F21-payments.csv": {
+   "sha256": "489d5cf58eebcaefcbb817a3b6ec970f79827662104bdffbdbd0948753058b51",
+   "bytes": 250
+  },
+  "F22-advice.csv": {
+   "sha256": "54c0b791276499d61873d8b2c7cf5d21dd5921090adea0ee86f8faa201b9dab7",
+   "bytes": 345
+  },
+  "F22-input.json": {
+   "sha256": "dc6659f6d47d46bd4b67c1f1996619e489e1041dd5c43e3de942f97d9f38e936",
+   "bytes": 696
+  },
+  "F22-invoices.csv": {
+   "sha256": "76496b2685425012a0bd616ca861c3f48292d59ab6e8b536e6ab46613626a4cd",
+   "bytes": 248
+  },
+  "F22-payments.csv": {
+   "sha256": "caf732d3720cde3ce8c468f4d0c508ade7c0fd6dba4e359fd70f71d67373ec17",
+   "bytes": 373
+  },
+  "F23-advice.csv": {
+   "sha256": "4d8df18a99c349670d863ec39cfa84d2d5e90a4326e88697ba4ffcee4c45a5e2",
+   "bytes": 417
+  },
+  "F23-input.json": {
+   "sha256": "20004153aaecb631d3b726835840590c206b240acb0c101a0bd58a9307a4794a",
+   "bytes": 696
+  },
+  "F23-invoices.csv": {
+   "sha256": "8c6855eef82006c3df592e69fe75a4028306e25bdde881403541a686c434808a",
+   "bytes": 443
+  },
+  "F23-payments.csv": {
+   "sha256": "8a5e5aa58df016160d68d5328fac70b486af5faee30220f103c1edc37e5b3c36",
+   "bytes": 299
+  },
+  "F24-advice.xlsx": {
+   "sha256": "46879a14022e80908ceb9a16f073be0b751cc6dd8b03cf1895f504d40b57315a",
+   "bytes": 6728
+  },
+  "F24-input.json": {
+   "sha256": "46e67a0dc9530e15ba7e675fc84df0bb5a186fa52ee54711ab2f6abc0f8c51d9",
+   "bytes": 699
+  },
+  "F24-invoices.xlsx": {
+   "sha256": "ad8777279e142119b7b2857b4ae07d8048169497e507156fcac91f6348855a75",
+   "bytes": 6681
+  },
+  "F24-payments.xlsx": {
+   "sha256": "71f9b3735d2601cc5b3ff91cdd32329c3f9b8bf8c6e632220fe3944c457cb666",
+   "bytes": 6719
+  },
+  "F25-advice.xlsx": {
+   "sha256": "083d1bb9623de611a26bfd70c07e2a9ec36f4c465e957c6c7acbfe66aae910b6",
+   "bytes": 6734
+  },
+  "F25-input.json": {
+   "sha256": "b0c4f4dbd28a82b4a129fa6b9909c3e5b1c80e14019e309ef28d256cb405c654",
+   "bytes": 699
+  },
+  "F25-invoices.xlsx": {
+   "sha256": "d846f7348ff368dc7a4025665dc53c2219de3415aebf351909fc97aa41205e39",
+   "bytes": 6681
+  },
+  "F25-payments.xlsx": {
+   "sha256": "59654e67d29334597b35a072bed5154b94783ab46e7021718a942f9cfaa6d1fe",
+   "bytes": 6676
+  },
+  "F26-advice.csv": {
+   "sha256": "7be682ce5aaa69c548e11cf32cc07ca1d20d2cdd7a601c976ef744c8e43e93e1",
+   "bytes": 345
+  },
+  "F26-input.json": {
+   "sha256": "957363510c4edb396a41181326d34385c57855e7884154c808bb19e6eadcbc12",
+   "bytes": 696
+  },
+  "F26-invoices.csv": {
+   "sha256": "76496b2685425012a0bd616ca861c3f48292d59ab6e8b536e6ab46613626a4cd",
+   "bytes": 248
+  },
+  "F26-payments.csv": {
+   "sha256": "3ef8b6d567a4412e679097c291500028ac4fbf3a599260613b5a5644ce19f145",
+   "bytes": 248
+  },
+  "F27-advice.csv": {
+   "sha256": "45bbac85cabd48125b2a97d6b7398289e1583553ee09917b182891abceffde0b",
+   "bytes": 345
+  },
+  "F27-input.json": {
+   "sha256": "7ca6a0c8aac04fe6973763b670168796c932beb7fb569fe78f93b7a5214fcd8d",
+   "bytes": 696
+  },
+  "F27-invoices.csv": {
+   "sha256": "76496b2685425012a0bd616ca861c3f48292d59ab6e8b536e6ab46613626a4cd",
+   "bytes": 248
+  },
+  "F27-payments.csv": {
+   "sha256": "3ef8b6d567a4412e679097c291500028ac4fbf3a599260613b5a5644ce19f145",
+   "bytes": 248
+  },
+  "F28-advice.csv": {
+   "sha256": "72b9a72ff3ef35047f1eb5db79cd05eb93d8b7453109d087a676a862727354b1",
+   "bytes": 345
+  },
+  "F28-input.json": {
+   "sha256": "50dab3e4cc794dc62b546ce781f0c321a79422e0286bd29ae2c768dbf1c196b9",
+   "bytes": 696
+  },
+  "F28-invoices.csv": {
+   "sha256": "76496b2685425012a0bd616ca861c3f48292d59ab6e8b536e6ab46613626a4cd",
+   "bytes": 248
+  },
+  "F28-payments.csv": {
+   "sha256": "3ef8b6d567a4412e679097c291500028ac4fbf3a599260613b5a5644ce19f145",
+   "bytes": 248
+  },
+  "F29-advice.csv": {
+   "sha256": "c482af86393fcc1656800ac3183055089f8745cb50c6b91162483c2d7cee6f3a",
+   "bytes": 234
+  },
+  "F29-input.json": {
+   "sha256": "19113274001cec169da2fb0291e436f774336bd9af4b9afacf035625151c6cbd",
+   "bytes": 1763
+  },
+  "F29-invoices.csv": {
+   "sha256": "64c8bd21465459684e79328f116cfb5de762688b189733f7bff45b163431427d",
+   "bytes": 248
+  },
+  "F29-payments.csv": {
+   "sha256": "3ef8b6d567a4412e679097c291500028ac4fbf3a599260613b5a5644ce19f145",
+   "bytes": 248
+  },
+  "F30-advice.csv": {
+   "sha256": "bb2421c9e208e9f49f76731e3e197af68fb54f1816e02eb0f4989457b0af4672",
+   "bytes": 209
+  },
+  "F30-input.json": {
+   "sha256": "b8d201383eed371aa314d24c1cc68516b0261ec5db4e47cd2a8f91d51574e54e",
+   "bytes": 696
+  },
+  "F30-invoices.csv": {
+   "sha256": "76496b2685425012a0bd616ca861c3f48292d59ab6e8b536e6ab46613626a4cd",
+   "bytes": 248
+  },
+  "F30-payments.csv": {
+   "sha256": "3ef8b6d567a4412e679097c291500028ac4fbf3a599260613b5a5644ce19f145",
+   "bytes": 248
+  },
+  "F31-advice.csv": {
+   "sha256": "301fcfb5fa63d4b6ed4079d24548787e9d3c0d054b7c87cdfb0ce24d48c9b54c",
+   "bytes": 234
+  },
+  "F31-input.json": {
+   "sha256": "1d820f16856c7587244f6fe9ad9f1986e5c3845a530e9de82b58b21c468196f1",
+   "bytes": 1767
+  },
+  "F31-invoices.csv": {
+   "sha256": "450f5dcb3d752d6e8c894f4a7519f2f2fd9b4e2b5f9598f155f1f37c1355970a",
+   "bytes": 250
+  },
+  "F31-payments.csv": {
+   "sha256": "83178a099d01a1117cd487b61bc9f5a24190d789c1c6947b1bddcf48f5cbbcf6",
+   "bytes": 371
+  },
+  "F32-advice.csv": {
+   "sha256": "cbb96365e42892742647d5dee8a7290cc1e4bdca3bccc0e800ff499a49a5f515",
+   "bytes": 411
+  },
+  "F32-input.json": {
+   "sha256": "62a95120c59b4f8279d0bba83224982c78fb784fe8c8460d06b8a5fb58607440",
+   "bytes": 726
+  },
+  "F32-invoices.csv": {
+   "sha256": "240e234c62e12a02c23fc6a1f97ca684f521a6253ef2a74d7fb2039bd0d210ea",
+   "bytes": 431
+  },
+  "F32-payments.csv": {
+   "sha256": "cc07eb94a87c0dc8c1748869df2027dbda1494a17b8a76ffe71c070dc4ce8a02",
+   "bytes": 280
+  },
+  "F33-advice.csv": {
+   "sha256": "e6c84bb9bde677c23279c96ea92ce60afddc2139c51208e101ba86856442e5ed",
+   "bytes": 1364
+  },
+  "F33-input.json": {
+   "sha256": "3b668c289b9cd7fb9c01aad2d9da6f9762885c0bd71205c4ea8ea9ac5bb4d04f",
+   "bytes": 696
+  },
+  "F33-invoices.csv": {
+   "sha256": "450f5dcb3d752d6e8c894f4a7519f2f2fd9b4e2b5f9598f155f1f37c1355970a",
+   "bytes": 250
+  },
+  "F33-payments.csv": {
+   "sha256": "b5f07c28e662044837934db57736f083016ccf8714b17d7e4d84c93f6cca7d8d",
+   "bytes": 1489
+  },
+  "stories.json": {
+   "sha256": "42ccac73ad713f49a9dfa3a40ad6e03e62262ee070c8d90ff94a687c2ecf0380",
+   "bytes": 68465
+  }
+ }
+}

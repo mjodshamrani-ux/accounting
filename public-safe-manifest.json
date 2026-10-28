@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 79226,
-      "sha256": "3f6574c14ee0915d81ca3214d777767ce4a107569b0bcb6e64f45e95ee6cb684",
+      "bytes": 79346,
+      "sha256": "ddc909f9a40775b67afe22a75d9a6efeda5a20536b5f61120fc9f3f7c6e223e8",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 51502,
-      "sha256": "572ec0cd7464a341b311928b251e595e921fe157392571859b2083c6fe0a00b2",
+      "bytes": 52204,
+      "sha256": "427e10b6ea58afda1d4f6d4817390684fd87dfa13e40a4501ee6e4ec2af7cdb4",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 22425,
-      "sha256": "f2bdfd03cff0a9c4c59c7b1270d01c77e342268448692deccd52cd428a0f2841",
+      "bytes": 22542,
+      "sha256": "9f083ee71423709c60400ece918f1e92ac0ba55219a56baf7f9538db385ec194",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 117533,
-      "sha256": "81843d593892e0ed4523b1a33e9d93ef47730efdf70a8a321d002b3335d4b62b",
+      "bytes": 118820,
+      "sha256": "4e91bd4ab422471bfd02bf9f35b9fa4af2f6ede97fa02e68bfab653efdf55cbc",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 82734,
-      "sha256": "4d389da26e7fac0ca8ec68c8d77a29bc86367fd7bbc7b3d4e35dcfc3990a0bbf",
+      "bytes": 82923,
+      "sha256": "1e7c61b67a1ff7d62389412adc1efce90f669674c1e4dafa50e82258c87b7195",
       "kind": "text"
     },
     {
@@ -36205,8 +36205,8 @@
     },
     {
       "path": "docs/roadmap/allocation.ar.md",
-      "bytes": 3267,
-      "sha256": "bf743d040de2439c357332d672ac122b5a1514811cfa0713f5df015c0ac94b93",
+      "bytes": 4277,
+      "sha256": "fd5c7685ac013c23a413ce1ed758c5ba2b13a19b532bd4d8ea945b2daaa47b16",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 53049,
-      "sha256": "6bc6a7127a1e984df68a4506fcc3b997d8cd7e368d87b107090f2d452bca3617",
+      "bytes": 53467,
+      "sha256": "30bcee219df3ec55ac5ab599a7a790ea635db94aa8d529a7ffcb33f8516f05db",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 17370,
-      "sha256": "48d88afef6d1bfce7568058d1b99e9cb00aa3a0d3897b1477d4f7f5fbe68022e",
+      "bytes": 17460,
+      "sha256": "e282b687ab8539af967675053d172c5a79b8653a2b0142d97a4a76eb2b882c60",
       "kind": "text"
     },
     {
@@ -65281,6 +65281,954 @@
       "path": "tests/clearing-groups-protocol.test.ts",
       "bytes": 3266,
       "sha256": "f00f49c13b4f93b9f209c5e539963c20c151806543198cb1805c1095bf4d5f56",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/README.ar.md",
+      "bytes": 8099,
+      "sha256": "af0f584d9ee8776bb3bbdfc21b7eb2a1020797909d7b54ab71ac6bd79d6f865c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/check_seal.py",
+      "bytes": 4198,
+      "sha256": "f2627a75fbc61dd8d69beec2836ab4ecfb7b631bbddf47754c906facacd7f5b1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/contract.json",
+      "bytes": 7690,
+      "sha256": "51e5ce4e5c50f0a3e040bbbc96724c3c93324fb12f43bff93d63a319cb43d7ab",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/dense.py",
+      "bytes": 1200,
+      "sha256": "e8ae1203f82a58e5938114a4c51185c193edae3a54e9bdae1a0d02d397b6af8f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/DENSE-MANIFEST.json",
+      "bytes": 2506,
+      "sha256": "ada8f9d4130eef469356246b4abba5d6463d84795560a08c7e2692874d76a01a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/EXPECTED.json",
+      "bytes": 42083,
+      "sha256": "b3f2807aa39687d8a389ccdadc48f6555647d02cef4294b43484e765745ff616",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F01-advice.csv",
+      "bytes": 345,
+      "sha256": "9f2fe3adfbbfa174ba8b5c72d671b2e62d989993409dc71974841c7f6191ce59",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F01-input.json",
+      "bytes": 696,
+      "sha256": "71ded382e33c7229cc68b056e33974b72fcab9159df012f86c0dbc100c87afea",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F01-invoices.csv",
+      "bytes": 371,
+      "sha256": "98f69736da6933ba9c3bfe30e39c38956d769c647c697886e9c5a7938dbeb389",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F01-payments.csv",
+      "bytes": 250,
+      "sha256": "489d5cf58eebcaefcbb817a3b6ec970f79827662104bdffbdbd0948753058b51",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F02-advice.csv",
+      "bytes": 348,
+      "sha256": "59bdfd7b0a98abbb58889f86fe15bebef2c71ba50160f31ba0dcea8f8b37d31d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F02-input.json",
+      "bytes": 696,
+      "sha256": "349f8135885fa19b6e3b3ecd0152ebde7837d6abf98be89e38d58b724bc82088",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F02-invoices.csv",
+      "bytes": 252,
+      "sha256": "0f9fdc24db4a2a70f5b2ef65a9fee891f4423d923e8225426d2a4dc1f003c284",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F02-payments.csv",
+      "bytes": 374,
+      "sha256": "c3332953c698ea4e26eaffe2733ff5461bf03709a82830f57828776bf8de95d7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F03-advice.csv",
+      "bytes": 567,
+      "sha256": "25c16eb01046f1e77b7660a1a49fc2c0022b0b1fa9389b1edcaf12ccd35367bf",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F03-input.json",
+      "bytes": 696,
+      "sha256": "4edffddb14d04ab6ed243c749723cea51e7f65f0406419b3ff6354fa22025f7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F03-invoices.csv",
+      "bytes": 494,
+      "sha256": "96044a0ef0b074e92359384c3942bc3714e9b3186943e8aec19572d86a2910ce",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F03-payments.csv",
+      "bytes": 371,
+      "sha256": "6e06bb74a419a50056b4ed31437bd35270ce1dffff9a2aaa668667dabafeb163",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F04-advice.csv",
+      "bytes": 456,
+      "sha256": "c58007c807360d113e0605d7d16ab3ea2460bc0316e0102038627b4daae1d38e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F04-input.json",
+      "bytes": 696,
+      "sha256": "55f62b97e0a537728ef62ec895038a1bc8cdd73e659bcc68ffa6ca963155a0af",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F04-invoices.csv",
+      "bytes": 248,
+      "sha256": "2b8130c15a0dfaab78ff3e1964b66c861e2f39403b3ed9e7a7fcaa22f268ce6b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F04-payments.csv",
+      "bytes": 494,
+      "sha256": "d9d54569e2b9cea0f06e88e3e83f1e0cecd259201fcc6ad0e58e3104fb6318bd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F05-advice.csv",
+      "bytes": 345,
+      "sha256": "7c0a5562ab0440e3201617148a17fd1f9328205a5823bebd625a3964686deee3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F05-input.json",
+      "bytes": 696,
+      "sha256": "7ed043972f5ffe6398398cdfba8b1c8b5ecf7896c3196348c301125c826fc520",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F05-invoices.csv",
+      "bytes": 371,
+      "sha256": "5ebcc3c12ed4140e88bd6091230caab8f177cc6f041f1c554b50d8f0aa823a80",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F05-payments.csv",
+      "bytes": 250,
+      "sha256": "489d5cf58eebcaefcbb817a3b6ec970f79827662104bdffbdbd0948753058b51",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F06-advice.csv",
+      "bytes": 235,
+      "sha256": "2496292867d742d5faa27a8ff19b9f7dd7b5cfb3776a08a0a46ab2923942d7c2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F06-input.json",
+      "bytes": 696,
+      "sha256": "b16579fb70258a02eccd52bc499e3916932fa4527d39281585f47639b148a888",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F06-invoices.csv",
+      "bytes": 250,
+      "sha256": "450f5dcb3d752d6e8c894f4a7519f2f2fd9b4e2b5f9598f155f1f37c1355970a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F06-payments.csv",
+      "bytes": 250,
+      "sha256": "489d5cf58eebcaefcbb817a3b6ec970f79827662104bdffbdbd0948753058b51",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F07-advice.csv",
+      "bytes": 235,
+      "sha256": "daeb4efe2112fa86111a328ac65db06b7e773912562d90051fd1d0205596d108",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F07-input.json",
+      "bytes": 696,
+      "sha256": "94fd9da444267da8bde94d89d5821d775af2619d99be04f33a7083815fbfa179",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F07-invoices.csv",
+      "bytes": 250,
+      "sha256": "450f5dcb3d752d6e8c894f4a7519f2f2fd9b4e2b5f9598f155f1f37c1355970a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F07-payments.csv",
+      "bytes": 250,
+      "sha256": "489d5cf58eebcaefcbb817a3b6ec970f79827662104bdffbdbd0948753058b51",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F08-advice.csv",
+      "bytes": 345,
+      "sha256": "2aaf015988023aa4beabedb7ad06d03aea6484714128b3086a945af25a764dd9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F08-input.json",
+      "bytes": 696,
+      "sha256": "066beaa3742a489362e9e42fe2873807c17b7c271da5f31093f6856570f4c5b5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F08-invoices.csv",
+      "bytes": 250,
+      "sha256": "450f5dcb3d752d6e8c894f4a7519f2f2fd9b4e2b5f9598f155f1f37c1355970a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F08-payments.csv",
+      "bytes": 250,
+      "sha256": "489d5cf58eebcaefcbb817a3b6ec970f79827662104bdffbdbd0948753058b51",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F09-advice.csv",
+      "bytes": 345,
+      "sha256": "2aaf015988023aa4beabedb7ad06d03aea6484714128b3086a945af25a764dd9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F09-input.json",
+      "bytes": 696,
+      "sha256": "a709f5fec04ff1eaa951f7ac379b2bd1e5bac9e6a2901cff7b0b0189c653fe6c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F09-invoices.csv",
+      "bytes": 250,
+      "sha256": "450f5dcb3d752d6e8c894f4a7519f2f2fd9b4e2b5f9598f155f1f37c1355970a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F09-payments.csv",
+      "bytes": 248,
+      "sha256": "3ef8b6d567a4412e679097c291500028ac4fbf3a599260613b5a5644ce19f145",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F10-advice.csv",
+      "bytes": 345,
+      "sha256": "e91e5419a099545bda82f0434fd299908a81514c3874a4505c2e3a91a0ad2fb8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F10-input.json",
+      "bytes": 696,
+      "sha256": "36321bd31ec08e9744066eeb9ab5282f6efbd1fbc0a9334bcba211389effa169",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F10-invoices.csv",
+      "bytes": 248,
+      "sha256": "76496b2685425012a0bd616ca861c3f48292d59ab6e8b536e6ab46613626a4cd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F10-payments.csv",
+      "bytes": 248,
+      "sha256": "3ef8b6d567a4412e679097c291500028ac4fbf3a599260613b5a5644ce19f145",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F11-advice.csv",
+      "bytes": 345,
+      "sha256": "2aaf015988023aa4beabedb7ad06d03aea6484714128b3086a945af25a764dd9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F11-input.json",
+      "bytes": 1822,
+      "sha256": "7ac43522d4adc4aeb12a398027ab61da292687a84e61949e7e7bf30816c928f4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F11-invoices.csv",
+      "bytes": 250,
+      "sha256": "450f5dcb3d752d6e8c894f4a7519f2f2fd9b4e2b5f9598f155f1f37c1355970a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F11-payments.csv",
+      "bytes": 250,
+      "sha256": "489d5cf58eebcaefcbb817a3b6ec970f79827662104bdffbdbd0948753058b51",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F12-advice.csv",
+      "bytes": 234,
+      "sha256": "383cf1613aca33e60a4a9f6f51f3574ee1584efd7d32ffa29372a20b365c1c08",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F12-input.json",
+      "bytes": 1763,
+      "sha256": "8bccdcb955fb549642f1609aeb60dd6355a089e47d67c12e122f1ce7df51745c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F12-invoices.csv",
+      "bytes": 371,
+      "sha256": "7e6ec153739654a34f2e6671b1e4b190a10e428c05852f24e5d5d4b0debfdd91",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F12-payments.csv",
+      "bytes": 250,
+      "sha256": "489d5cf58eebcaefcbb817a3b6ec970f79827662104bdffbdbd0948753058b51",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F13-advice.csv",
+      "bytes": 345,
+      "sha256": "2c456a421a713b4a127bfa0d974afea8cdb0a60a319e3a35b7334b38ac32777d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F13-input.json",
+      "bytes": 1822,
+      "sha256": "385c02c9ad9477aae717194c0f5c3f26d108cc39066ea9a99ff5439566fad790",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F13-invoices.csv",
+      "bytes": 250,
+      "sha256": "450f5dcb3d752d6e8c894f4a7519f2f2fd9b4e2b5f9598f155f1f37c1355970a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F13-payments.csv",
+      "bytes": 371,
+      "sha256": "7dbd22e759c8dde2960e8f426c56a98930e03dda9915391bb17fe9899542fb05",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F14-advice.csv",
+      "bytes": 348,
+      "sha256": "aa5f7f22f090ca8ccc47de9763c0975402103421d53ed9956045def574d3dc93",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F14-input.json",
+      "bytes": 2512,
+      "sha256": "d093d728f223611ff19196b8dd0d4e77b9dc3bdc5515447925058f96efb6a0d5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F14-invoices.csv",
+      "bytes": 252,
+      "sha256": "0f9fdc24db4a2a70f5b2ef65a9fee891f4423d923e8225426d2a4dc1f003c284",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F14-payments.csv",
+      "bytes": 374,
+      "sha256": "c46628139b1c30295b8101f4a24d6aec375dbdb682a99895b7e101d4397c69b9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F15-advice.csv",
+      "bytes": 345,
+      "sha256": "cdb75b2bb50c6da27accc99d26663059cfc12f690105450ea53dc69e3652e40b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F15-input.json",
+      "bytes": 696,
+      "sha256": "b37c5924ba61aa9117859a6757b8d0395ed844b10c02f1f82f1d47312621369e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F15-invoices.csv",
+      "bytes": 249,
+      "sha256": "c4fd7beebce2903b67acd537b4616799967d4e90e93ad1006a93ccf0ad052e7a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F15-payments.csv",
+      "bytes": 371,
+      "sha256": "506c01eb49a7ea3bf9be0dfb03d25df9a26abdf09a6aa701c9c2c9c201e26365",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F16-advice.csv",
+      "bytes": 234,
+      "sha256": "abc848b675f08372cacfb28b3d0bb361e89998f4fcf67478e2172ace91db76b9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F16-input.json",
+      "bytes": 696,
+      "sha256": "f33db9b1dac89d4a97900126c3cee8de09274fc40ba769ea47f8be73e6fb4208",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F16-invoices.csv",
+      "bytes": 248,
+      "sha256": "b0db3263ba86b0c476e554fb36ca73b7434d4c924bac69b6cd0ce06bda4953f0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F16-payments.csv",
+      "bytes": 246,
+      "sha256": "ff0144362fc1a87a3fb7f9492cdc3c803a10ba43c894e3c27183713f5d563997",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F17-advice.csv",
+      "bytes": 343,
+      "sha256": "e44a2dc2651d3da4167fc7de425c22d17f6bdd72d844ff1e71119bdf9fa50203",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F17-input.json",
+      "bytes": 696,
+      "sha256": "4f8fdda596c48d7b1785e978e316454d488a814e3185063b38d993178cbd9b39",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F17-invoices.csv",
+      "bytes": 367,
+      "sha256": "4039ca6d330e299ed273e5c062fed0ad2f8e4af71f9598eaa0fbc751bcc4edec",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F17-payments.csv",
+      "bytes": 246,
+      "sha256": "94ffffed90f73c8705b799a210f96d1d6c7f4ea40432ad672ea4d6231241bf6f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F18-advice.csv",
+      "bytes": 343,
+      "sha256": "d2c38ede852201aee19a93dbf4bbfcc9591512b9862751f6a74db055b4bce459",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F18-input.json",
+      "bytes": 696,
+      "sha256": "ac3fbf4cfb2f0406759bdcad141a808ec45936b2b1dd65697badb122e5f5b031",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F18-invoices.csv",
+      "bytes": 367,
+      "sha256": "2153b21e54eb3f223ece2a72da794d4813cd3cf9ec5058d0660d9bc13c02e890",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F18-payments.csv",
+      "bytes": 246,
+      "sha256": "859910d7de268e2df5eb666606f277bb924b5468b11c226b7ca235bbe02dea9c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F19-advice.csv",
+      "bytes": 456,
+      "sha256": "eaee81359ccdebf3a3052f5248bb7ff8c78e84ddfead0fd869e51c0535dd2178",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F19-input.json",
+      "bytes": 696,
+      "sha256": "a40eb53b50b55e1d3d6a1bd07771f46a5479455e139a4f1f069f1246291c8f3b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F19-invoices.csv",
+      "bytes": 371,
+      "sha256": "24f2355a780a99ebf0a5d981718459dd47c1d062870bfe953ef1e8c168dab272",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F19-payments.csv",
+      "bytes": 371,
+      "sha256": "3c172861e0354ba474f45f486d0cb833f425a2f2e4300a1d5fea71eeef1fd886",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F20-advice.csv",
+      "bytes": 456,
+      "sha256": "807755ac0d9804fbd4f4bba80fdeeecb96b1fcd19690490c0de926259640939f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F20-input.json",
+      "bytes": 696,
+      "sha256": "24b8fd4f9244f65690c2778484e9084ca790b03530efb849eb0ff1ece7a9918c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F20-invoices.csv",
+      "bytes": 371,
+      "sha256": "3a5f7e69f50f62f22023e102f8d23d5824212f751ef3411e645cdcbb75a77e06",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F20-payments.csv",
+      "bytes": 373,
+      "sha256": "b3963e8779eb9bfc3eeca7172a6af9dd5c9b9053df085d7bc4a2ad8f443d7c57",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F21-advice.csv",
+      "bytes": 123,
+      "sha256": "6004027e329686a1dc0ffb2ec8574ebbb08946f65231d274d55a4c6972bb3ad3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F21-input.json",
+      "bytes": 696,
+      "sha256": "6bc92db31e85c586ae5997d816bbb9b5c5e10c50a5149ff37bf43075611e7c80",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F21-invoices.csv",
+      "bytes": 371,
+      "sha256": "98f69736da6933ba9c3bfe30e39c38956d769c647c697886e9c5a7938dbeb389",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F21-payments.csv",
+      "bytes": 250,
+      "sha256": "489d5cf58eebcaefcbb817a3b6ec970f79827662104bdffbdbd0948753058b51",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F22-advice.csv",
+      "bytes": 345,
+      "sha256": "54c0b791276499d61873d8b2c7cf5d21dd5921090adea0ee86f8faa201b9dab7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F22-input.json",
+      "bytes": 696,
+      "sha256": "dc6659f6d47d46bd4b67c1f1996619e489e1041dd5c43e3de942f97d9f38e936",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F22-invoices.csv",
+      "bytes": 248,
+      "sha256": "76496b2685425012a0bd616ca861c3f48292d59ab6e8b536e6ab46613626a4cd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F22-payments.csv",
+      "bytes": 373,
+      "sha256": "caf732d3720cde3ce8c468f4d0c508ade7c0fd6dba4e359fd70f71d67373ec17",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F23-advice.csv",
+      "bytes": 417,
+      "sha256": "4d8df18a99c349670d863ec39cfa84d2d5e90a4326e88697ba4ffcee4c45a5e2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F23-input.json",
+      "bytes": 696,
+      "sha256": "20004153aaecb631d3b726835840590c206b240acb0c101a0bd58a9307a4794a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F23-invoices.csv",
+      "bytes": 443,
+      "sha256": "8c6855eef82006c3df592e69fe75a4028306e25bdde881403541a686c434808a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F23-payments.csv",
+      "bytes": 299,
+      "sha256": "8a5e5aa58df016160d68d5328fac70b486af5faee30220f103c1edc37e5b3c36",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F24-advice.xlsx",
+      "bytes": 6728,
+      "sha256": "46879a14022e80908ceb9a16f073be0b751cc6dd8b03cf1895f504d40b57315a",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic allocation snapshot file (available payments, open invoices or a proposed remittance advice) for the ALL-1 foundation, written as XLSX by ExcelJS 4.4.0 (the version the application depends on) with text cells and one hidden row, from audit/allocation-advice-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and oracle.py with zipfile and ElementTree. Invented parties, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F24-input.json",
+      "bytes": 699,
+      "sha256": "46e67a0dc9530e15ba7e675fc84df0bb5a186fa52ee54711ab2f6abc0f8c51d9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F24-invoices.xlsx",
+      "bytes": 6681,
+      "sha256": "ad8777279e142119b7b2857b4ae07d8048169497e507156fcac91f6348855a75",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic allocation snapshot file (available payments, open invoices or a proposed remittance advice) for the ALL-1 foundation, written as XLSX by ExcelJS 4.4.0 (the version the application depends on) with text cells and one hidden row, from audit/allocation-advice-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and oracle.py with zipfile and ElementTree. Invented parties, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F24-payments.xlsx",
+      "bytes": 6719,
+      "sha256": "71f9b3735d2601cc5b3ff91cdd32329c3f9b8bf8c6e632220fe3944c457cb666",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic allocation snapshot file (available payments, open invoices or a proposed remittance advice) for the ALL-1 foundation, written as XLSX by ExcelJS 4.4.0 (the version the application depends on) with text cells and one hidden row, from audit/allocation-advice-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and oracle.py with zipfile and ElementTree. Invented parties, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F25-advice.xlsx",
+      "bytes": 6734,
+      "sha256": "083d1bb9623de611a26bfd70c07e2a9ec36f4c465e957c6c7acbfe66aae910b6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic allocation snapshot file (available payments, open invoices or a proposed remittance advice) for the ALL-1 foundation, written as XLSX by ExcelJS 4.4.0 (the version the application depends on) with text cells and one hidden row, from audit/allocation-advice-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and oracle.py with zipfile and ElementTree. Invented parties, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F25-input.json",
+      "bytes": 699,
+      "sha256": "b0c4f4dbd28a82b4a129fa6b9909c3e5b1c80e14019e309ef28d256cb405c654",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F25-invoices.xlsx",
+      "bytes": 6681,
+      "sha256": "d846f7348ff368dc7a4025665dc53c2219de3415aebf351909fc97aa41205e39",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic allocation snapshot file (available payments, open invoices or a proposed remittance advice) for the ALL-1 foundation, written as XLSX by ExcelJS 4.4.0 (the version the application depends on) with text cells and one hidden row, from audit/allocation-advice-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and oracle.py with zipfile and ElementTree. Invented parties, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F25-payments.xlsx",
+      "bytes": 6676,
+      "sha256": "59654e67d29334597b35a072bed5154b94783ab46e7021718a942f9cfaa6d1fe",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic allocation snapshot file (available payments, open invoices or a proposed remittance advice) for the ALL-1 foundation, written as XLSX by ExcelJS 4.4.0 (the version the application depends on) with text cells and one hidden row, from audit/allocation-advice-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and oracle.py with zipfile and ElementTree. Invented parties, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F26-advice.csv",
+      "bytes": 345,
+      "sha256": "7be682ce5aaa69c548e11cf32cc07ca1d20d2cdd7a601c976ef744c8e43e93e1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F26-input.json",
+      "bytes": 696,
+      "sha256": "957363510c4edb396a41181326d34385c57855e7884154c808bb19e6eadcbc12",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F26-invoices.csv",
+      "bytes": 248,
+      "sha256": "76496b2685425012a0bd616ca861c3f48292d59ab6e8b536e6ab46613626a4cd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F26-payments.csv",
+      "bytes": 248,
+      "sha256": "3ef8b6d567a4412e679097c291500028ac4fbf3a599260613b5a5644ce19f145",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F27-advice.csv",
+      "bytes": 345,
+      "sha256": "45bbac85cabd48125b2a97d6b7398289e1583553ee09917b182891abceffde0b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F27-input.json",
+      "bytes": 696,
+      "sha256": "7ca6a0c8aac04fe6973763b670168796c932beb7fb569fe78f93b7a5214fcd8d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F27-invoices.csv",
+      "bytes": 248,
+      "sha256": "76496b2685425012a0bd616ca861c3f48292d59ab6e8b536e6ab46613626a4cd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F27-payments.csv",
+      "bytes": 248,
+      "sha256": "3ef8b6d567a4412e679097c291500028ac4fbf3a599260613b5a5644ce19f145",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F28-advice.csv",
+      "bytes": 345,
+      "sha256": "72b9a72ff3ef35047f1eb5db79cd05eb93d8b7453109d087a676a862727354b1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F28-input.json",
+      "bytes": 696,
+      "sha256": "50dab3e4cc794dc62b546ce781f0c321a79422e0286bd29ae2c768dbf1c196b9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F28-invoices.csv",
+      "bytes": 248,
+      "sha256": "76496b2685425012a0bd616ca861c3f48292d59ab6e8b536e6ab46613626a4cd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F28-payments.csv",
+      "bytes": 248,
+      "sha256": "3ef8b6d567a4412e679097c291500028ac4fbf3a599260613b5a5644ce19f145",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F29-advice.csv",
+      "bytes": 234,
+      "sha256": "c482af86393fcc1656800ac3183055089f8745cb50c6b91162483c2d7cee6f3a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F29-input.json",
+      "bytes": 1763,
+      "sha256": "19113274001cec169da2fb0291e436f774336bd9af4b9afacf035625151c6cbd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F29-invoices.csv",
+      "bytes": 248,
+      "sha256": "64c8bd21465459684e79328f116cfb5de762688b189733f7bff45b163431427d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F29-payments.csv",
+      "bytes": 248,
+      "sha256": "3ef8b6d567a4412e679097c291500028ac4fbf3a599260613b5a5644ce19f145",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F30-advice.csv",
+      "bytes": 209,
+      "sha256": "bb2421c9e208e9f49f76731e3e197af68fb54f1816e02eb0f4989457b0af4672",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F30-input.json",
+      "bytes": 696,
+      "sha256": "b8d201383eed371aa314d24c1cc68516b0261ec5db4e47cd2a8f91d51574e54e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F30-invoices.csv",
+      "bytes": 248,
+      "sha256": "76496b2685425012a0bd616ca861c3f48292d59ab6e8b536e6ab46613626a4cd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F30-payments.csv",
+      "bytes": 248,
+      "sha256": "3ef8b6d567a4412e679097c291500028ac4fbf3a599260613b5a5644ce19f145",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F31-advice.csv",
+      "bytes": 234,
+      "sha256": "301fcfb5fa63d4b6ed4079d24548787e9d3c0d054b7c87cdfb0ce24d48c9b54c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F31-input.json",
+      "bytes": 1767,
+      "sha256": "1d820f16856c7587244f6fe9ad9f1986e5c3845a530e9de82b58b21c468196f1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F31-invoices.csv",
+      "bytes": 250,
+      "sha256": "450f5dcb3d752d6e8c894f4a7519f2f2fd9b4e2b5f9598f155f1f37c1355970a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F31-payments.csv",
+      "bytes": 371,
+      "sha256": "83178a099d01a1117cd487b61bc9f5a24190d789c1c6947b1bddcf48f5cbbcf6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F32-advice.csv",
+      "bytes": 411,
+      "sha256": "cbb96365e42892742647d5dee8a7290cc1e4bdca3bccc0e800ff499a49a5f515",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F32-input.json",
+      "bytes": 726,
+      "sha256": "62a95120c59b4f8279d0bba83224982c78fb784fe8c8460d06b8a5fb58607440",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F32-invoices.csv",
+      "bytes": 431,
+      "sha256": "240e234c62e12a02c23fc6a1f97ca684f521a6253ef2a74d7fb2039bd0d210ea",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F32-payments.csv",
+      "bytes": 280,
+      "sha256": "cc07eb94a87c0dc8c1748869df2027dbda1494a17b8a76ffe71c070dc4ce8a02",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F33-advice.csv",
+      "bytes": 1364,
+      "sha256": "e6c84bb9bde677c23279c96ea92ce60afddc2139c51208e101ba86856442e5ed",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F33-input.json",
+      "bytes": 696,
+      "sha256": "3b668c289b9cd7fb9c01aad2d9da6f9762885c0bd71205c4ea8ea9ac5bb4d04f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F33-invoices.csv",
+      "bytes": 250,
+      "sha256": "450f5dcb3d752d6e8c894f4a7519f2f2fd9b4e2b5f9598f155f1f37c1355970a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/F33-payments.csv",
+      "bytes": 1489,
+      "sha256": "b5f07c28e662044837934db57736f083016ccf8714b17d7e4d84c93f6cca7d8d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/INPUT-MANIFEST.json",
+      "bytes": 17060,
+      "sha256": "a1d324de8cae3163c4ed4955b0622f847da839707ba74b5df5b4ee8d8fa62aa9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/SEAL.json",
+      "bytes": 1299,
+      "sha256": "51a1a7b7b7d7a34145a54733336191b5cf6643f919a34799e806ddb8aa902a82",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/VERIFY.json",
+      "bytes": 1035,
+      "sha256": "4926fbe4c83cd8dd2c70dd8a6a0a765c574d7b8e0e56f4b83bf226e96ea254a5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/frozen/stories.json",
+      "bytes": 68465,
+      "sha256": "42ccac73ad713f49a9dfa3a40ad6e03e62262ee070c8d90ff94a687c2ecf0380",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/mutate_oracle.py",
+      "bytes": 5681,
+      "sha256": "47bbaa44a2e85bfc10af3ec8a15f62b579be5cafdad656d554daf2433bf97023",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/oracle.py",
+      "bytes": 15870,
+      "sha256": "467d12e9ed5a9519869315b0e7b3fa97b1cbf02f03d3765b83741e2a811ebb4d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/render.mjs",
+      "bytes": 583,
+      "sha256": "a27cd5e7dd125fef64cd07112a26ff5535c113c574340affc5cbc5e3c91acbec",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/render.py",
+      "bytes": 4912,
+      "sha256": "73f53274fb347d8dd1023df0a2a3e589e3544eb57cf74e272ab785ba678f751e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/results/oracle-mutants-1.json",
+      "bytes": 3407,
+      "sha256": "1c58565dc3e441759b295ee80c62ed5ddee1d8b673b5cebf2f02c67205dcd038",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/results/oracle-mutants-2.json",
+      "bytes": 3403,
+      "sha256": "5f379b72fe79a7ff3ba36f2a7f77e69308cd07f5f3d35aaaaba42c6787ec8ebc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/results/oracle-mutants-3.json",
+      "bytes": 3401,
+      "sha256": "e1a763084d1853002fdb769459420cfdbd2cada974ce176ec45c53cd819e4ba4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/seal.py",
+      "bytes": 3698,
+      "sha256": "c20affb63c02894b4da0ba4c03c432dd5e93071b60d3a2a6aa40ec94f941dce4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/stories.py",
+      "bytes": 20922,
+      "sha256": "0ecc33b7e78513669620d7549d0e96622666a20fafcef6988b05d56ea3c9618b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/test_oracle.py",
+      "bytes": 14441,
+      "sha256": "840504e208cbc1bebbaa228784c81852338174e90411d1f2fd9d2dd4475af17e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/verify.py",
+      "bytes": 11205,
+      "sha256": "10869b1227e109ed1696967998cf8ae2ed596a40cf92b47eca6b9319e368a397",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/ALL-1-FOUNDATION.ar.md",
+      "bytes": 7418,
+      "sha256": "ae93a5390500be162129708a77cb90789d17884857d7ec2e55c9022dcc776211",
       "kind": "text"
     }
   ],
