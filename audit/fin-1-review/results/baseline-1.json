@@ -1,0 +1,2222 @@
+{
+ "schema": "tarasuf-fin1-flat-baseline/1",
+ "product": "tb-financial-position-1 through replayFinancialPosition, unchanged",
+ "cases": 50,
+ "asArrives": {
+  "agree": 40,
+  "readsEligibleWhereContractBlocks": [],
+  "blocksWhereContractEligible": [
+   "FIN-1A positive-nested",
+   "FIN-1A positive-reordered",
+   "H1 H01",
+   "H1 H02",
+   "H1 H03",
+   "H1 H11",
+   "H1 H14",
+   "H1 H15",
+   "H1 H17",
+   "H1 H19"
+  ]
+ },
+ "leavesByHand": {
+  "agree": 38,
+  "readsEligibleWhereContractBlocks": [
+   "FIN-1A parent-cycle",
+   "FIN-1A wrong-control-total",
+   "FIN-1A late-unknown-row",
+   "FIN-1A missing-parent",
+   "H1 H07",
+   "H1 H16",
+   "H1 H21",
+   "H1 H22",
+   "H1 H23",
+   "H1 H24",
+   "H1 H25"
+  ],
+  "blocksWhereContractEligible": [
+   "H1 H02"
+  ]
+ },
+ "everyRowByHand": {
+  "agree": 41,
+  "readsEligibleWhereContractBlocks": [],
+  "blocksWhereContractEligible": [
+   "FIN-1A positive-nested",
+   "FIN-1A positive-reordered",
+   "H1 H01",
+   "H1 H02",
+   "H1 H11",
+   "H1 H14",
+   "H1 H15",
+   "H1 H17",
+   "H1 H19"
+  ]
+ },
+ "rows": [
+  {
+   "suite": "FIN-1A",
+   "id": "positive-nested",
+   "contract": {
+    "status": "eligible",
+    "codes": []
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "needs-review",
+    "reads": "eligible",
+    "codes": [],
+    "lines": 7,
+    "differences": 0,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts"
+    ],
+    "lines": 11,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "FIN-1A",
+   "id": "positive-reordered",
+   "contract": {
+    "status": "eligible",
+    "codes": []
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "needs-review",
+    "reads": "eligible",
+    "codes": [],
+    "lines": 7,
+    "differences": 0,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts"
+    ],
+    "lines": 11,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "FIN-1A",
+   "id": "equal-amount-wrong-owner",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "MAPPING_PROOF"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "WRONG_LINE",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "WRONG_LINE"
+    ],
+    "lines": 7,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "WRONG_LINE",
+     "missing:line-accounts"
+    ],
+    "lines": 11,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "FIN-1A",
+   "id": "two-parents",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "DUPLICATE_NODE"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "DUPLICATE",
+     "missing:statement-line"
+    ],
+    "lines": 8,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "DUPLICATE",
+     "missing:line-accounts",
+     "missing:statement-line"
+    ],
+    "lines": 12,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "FIN-1A",
+   "id": "parent-cycle",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "CYCLE"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "needs-review",
+    "reads": "eligible",
+    "codes": [],
+    "lines": 7,
+    "differences": 0,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts"
+    ],
+    "lines": 11,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "FIN-1A",
+   "id": "missing-zero-leaf",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "PROOF_LINE",
+     "MAPPING_TARGET"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:statement-line"
+    ],
+    "lines": 6,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts",
+     "missing:statement-line"
+    ],
+    "lines": 10,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "FIN-1A",
+   "id": "blank-zero-amount",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "MONEY"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "AMOUNT",
+     "missing:statement-line"
+    ],
+    "lines": 6,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "AMOUNT",
+     "missing:line-accounts",
+     "missing:statement-line"
+    ],
+    "lines": 10,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "FIN-1A",
+   "id": "wrong-control-total",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "CONTROL_TOTAL"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "needs-review",
+    "reads": "eligible",
+    "codes": [],
+    "lines": 7,
+    "differences": 0,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts"
+    ],
+    "lines": 11,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "FIN-1A",
+   "id": "wrong-classification-balanced",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "CLASSIFICATION"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "CLASSIFICATION",
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "CLASSIFICATION"
+    ],
+    "lines": 7,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "CLASSIFICATION",
+     "missing:line-accounts"
+    ],
+    "lines": 11,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "FIN-1A",
+   "id": "expired-proof",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "VALIDITY"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "VALIDITY",
+     "missing:evidence",
+     "missing:evidence-id",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "VALIDITY",
+     "missing:evidence",
+     "missing:evidence-id"
+    ],
+    "lines": 7,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "VALIDITY",
+     "missing:evidence",
+     "missing:evidence-id",
+     "missing:line-accounts"
+    ],
+    "lines": 11,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "FIN-1A",
+   "id": "duplicate-mapping",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "DUPLICATE_MAPPING_ACCOUNT"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "DUPLICATE",
+     "missing:financial-position",
+     "missing:mapping",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "DUPLICATE",
+     "missing:mapping"
+    ],
+    "lines": 7,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "DUPLICATE",
+     "missing:line-accounts",
+     "missing:mapping"
+    ],
+    "lines": 11,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "FIN-1A",
+   "id": "unmapped-zero-account",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "UNMAPPED_ACCOUNT",
+     "UNMAPPED_LEAF"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:mapping",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts",
+     "missing:mapping"
+    ],
+    "lines": 7,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts",
+     "missing:mapping"
+    ],
+    "lines": 11,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "FIN-1A",
+   "id": "mapping-to-parent",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "MAPPING_TARGET"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts",
+     "missing:statement-line"
+    ],
+    "lines": 7,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "PRESENTATION",
+     "missing:line-accounts"
+    ],
+    "lines": 11,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "FIN-1A",
+   "id": "wrong-contra-sign",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "LEAF_TOTAL"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "SIGN_POLICY",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "SIGN_POLICY"
+    ],
+    "lines": 7,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "SIGN_POLICY",
+     "missing:line-accounts"
+    ],
+    "lines": 11,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "FIN-1A",
+   "id": "late-unknown-row",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "KIND"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "needs-review",
+    "reads": "eligible",
+    "codes": [],
+    "lines": 7,
+    "differences": 0,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts"
+    ],
+    "lines": 12,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "FIN-1A",
+   "id": "foreign-scope",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "SCOPE"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "ROW_SCOPE",
+     "UNKNOWN_ACCOUNT",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "ROW_SCOPE",
+     "UNKNOWN_ACCOUNT"
+    ],
+    "lines": 7,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "ROW_SCOPE",
+     "UNKNOWN_ACCOUNT",
+     "missing:line-accounts"
+    ],
+    "lines": 11,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "FIN-1A",
+   "id": "missing-parent",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "PARENT"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "needs-review",
+    "reads": "eligible",
+    "codes": [],
+    "lines": 7,
+    "differences": 0,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts"
+    ],
+    "lines": 11,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "FIN-1A",
+   "id": "subminor-value",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "MONEY"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "AMOUNT",
+     "COLUMNS",
+     "UNKNOWN_ACCOUNT",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "AMOUNT",
+     "UNKNOWN_ACCOUNT"
+    ],
+    "lines": 7,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "AMOUNT",
+     "UNKNOWN_ACCOUNT",
+     "missing:line-accounts"
+    ],
+    "lines": 11,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H01",
+   "contract": {
+    "status": "eligible",
+    "codes": []
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "needs-review",
+    "reads": "eligible",
+    "codes": [],
+    "lines": 16,
+    "differences": 0,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts"
+    ],
+    "lines": 24,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H02",
+   "contract": {
+    "status": "eligible",
+    "codes": []
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "IDENTITY",
+     "missing:evidence",
+     "missing:evidence-id",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "IDENTITY",
+     "missing:evidence",
+     "missing:evidence-id",
+     "missing:statement-line"
+    ],
+    "lines": 15,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "IDENTITY",
+     "missing:evidence",
+     "missing:evidence-id",
+     "missing:line-accounts",
+     "missing:statement-line"
+    ],
+    "lines": 23,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H03",
+   "contract": {
+    "status": "eligible",
+    "codes": []
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "needs-review",
+    "reads": "eligible",
+    "codes": [],
+    "lines": 8,
+    "differences": 0,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "needs-review",
+    "reads": "eligible",
+    "codes": [],
+    "lines": 8,
+    "differences": 0,
+    "equation": 0
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H04",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "MAPPING_TARGET",
+     "PROOF_LINE",
+     "STATEMENT_EQUATION"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:statement-line"
+    ],
+    "lines": 14,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts",
+     "missing:statement-line"
+    ],
+    "lines": 21,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H05",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "UNMAPPED_ACCOUNT"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:evidence",
+     "missing:financial-position",
+     "missing:mapping",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:evidence",
+     "missing:mapping"
+    ],
+    "lines": 15,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:evidence",
+     "missing:line-accounts",
+     "missing:mapping"
+    ],
+    "lines": 23,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H06",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "CONTROL_TOTAL",
+     "DUPLICATE_NODE"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "DUPLICATE",
+     "missing:statement-line"
+    ],
+    "lines": 17,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "DUPLICATE",
+     "missing:line-accounts",
+     "missing:statement-line"
+    ],
+    "lines": 25,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H07",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "CONTROL_TOTAL",
+     "CYCLE"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "needs-review",
+    "reads": "eligible",
+    "codes": [],
+    "lines": 16,
+    "differences": 0,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts"
+    ],
+    "lines": 24,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H08",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "LEAF_TOTAL",
+     "MAPPING_ACCOUNT",
+     "PROOF_ACCOUNT",
+     "UNMAPPED_ACCOUNT"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "UNKNOWN_ACCOUNT",
+     "missing:evidence",
+     "missing:financial-position",
+     "missing:mapping",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "UNKNOWN_ACCOUNT",
+     "missing:evidence",
+     "missing:mapping"
+    ],
+    "lines": 16,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "UNKNOWN_ACCOUNT",
+     "missing:evidence",
+     "missing:line-accounts",
+     "missing:mapping"
+    ],
+    "lines": 24,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H09",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "SIGN_POLICY",
+     "STATEMENT_EQUATION"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "SIGN_POLICY",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "SIGN_POLICY"
+    ],
+    "lines": 16,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "SIGN_POLICY",
+     "missing:line-accounts"
+    ],
+    "lines": 24,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H10",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "DUPLICATE_PROOF_ACCOUNT",
+     "UNUSED_PROOF",
+     "VALIDITY"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "DUPLICATE",
+     "VALIDITY",
+     "missing:evidence",
+     "missing:evidence-id",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "DUPLICATE",
+     "VALIDITY",
+     "missing:evidence",
+     "missing:evidence-id"
+    ],
+    "lines": 16,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "DUPLICATE",
+     "VALIDITY",
+     "missing:evidence",
+     "missing:evidence-id",
+     "missing:line-accounts"
+    ],
+    "lines": 24,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H11",
+   "contract": {
+    "status": "eligible",
+    "codes": []
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "needs-review",
+    "reads": "eligible",
+    "codes": [],
+    "lines": 16,
+    "differences": 0,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts"
+    ],
+    "lines": 24,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H12",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "CLASSIFICATION",
+     "SIGN_POLICY"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "CLASSIFICATION",
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "CLASSIFICATION"
+    ],
+    "lines": 16,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "CLASSIFICATION",
+     "missing:line-accounts"
+    ],
+    "lines": 24,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H13",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "MISSING_PROOF",
+     "PROOF_REFERENCE"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "IDENTITY",
+     "missing:evidence",
+     "missing:evidence-id",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "IDENTITY",
+     "missing:evidence",
+     "missing:evidence-id"
+    ],
+    "lines": 16,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "IDENTITY",
+     "missing:evidence",
+     "missing:evidence-id",
+     "missing:line-accounts"
+    ],
+    "lines": 24,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H14",
+   "contract": {
+    "status": "eligible",
+    "codes": []
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "needs-review",
+    "reads": "eligible",
+    "codes": [],
+    "lines": 9,
+    "differences": 0,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts"
+    ],
+    "lines": 12,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H15",
+   "contract": {
+    "status": "eligible",
+    "codes": []
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "needs-review",
+    "reads": "eligible",
+    "codes": [],
+    "lines": 3,
+    "differences": 0,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts"
+    ],
+    "lines": 22,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H16",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "DEPTH"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "needs-review",
+    "reads": "eligible",
+    "codes": [],
+    "lines": 3,
+    "differences": 0,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts"
+    ],
+    "lines": 23,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H17",
+   "contract": {
+    "status": "eligible",
+    "codes": []
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "needs-review",
+    "reads": "eligible",
+    "codes": [],
+    "lines": 40,
+    "differences": 0,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts"
+    ],
+    "lines": 57,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H18",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "LEAF_TOTAL"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "difference",
+    "reads": "blocked",
+    "codes": [],
+    "lines": 40,
+    "differences": 2,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts"
+    ],
+    "lines": 57,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H19",
+   "contract": {
+    "status": "eligible",
+    "codes": []
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "needs-review",
+    "reads": "eligible",
+    "codes": [],
+    "lines": 4,
+    "differences": 0,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts"
+    ],
+    "lines": 5,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H20",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "SUM"
+    ]
+   },
+   "asArrives": {
+    "status": "refused",
+    "reads": "blocked",
+    "codes": [
+     "TB_FIN_SUM"
+    ]
+   },
+   "leavesByHand": {
+    "status": "refused",
+    "reads": "blocked",
+    "codes": [
+     "TB_FIN_SUM"
+    ]
+   },
+   "everyRowByHand": {
+    "status": "refused",
+    "reads": "blocked",
+    "codes": [
+     "TB_FIN_SUM"
+    ]
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H21",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "EMPTY_SOURCE",
+     "HEADERS",
+     "MAPPING_TARGET",
+     "NO_FINANCIAL_LEAF",
+     "PROOF_LINE"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "needs-review",
+    "reads": "eligible",
+    "codes": [],
+    "lines": 16,
+    "differences": 0,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts"
+    ],
+    "lines": 24,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H22",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "WIDTH"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "needs-review",
+    "reads": "eligible",
+    "codes": [],
+    "lines": 16,
+    "differences": 0,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts"
+    ],
+    "lines": 24,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H23",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "MONEY",
+     "STATEMENT_EQUATION"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "needs-review",
+    "reads": "eligible",
+    "codes": [],
+    "lines": 16,
+    "differences": 0,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "AMOUNT",
+     "missing:line-accounts"
+    ],
+    "lines": 23,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H24",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "PARENT"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "needs-review",
+    "reads": "eligible",
+    "codes": [],
+    "lines": 16,
+    "differences": 0,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts"
+    ],
+    "lines": 24,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H25",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "EMPTY_PARENT"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "needs-review",
+    "reads": "eligible",
+    "codes": [],
+    "lines": 16,
+    "differences": 0,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts"
+    ],
+    "lines": 25,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H26",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "BOTH_SIDES"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "BOTH_SIDES",
+     "COLUMNS",
+     "UNKNOWN_ACCOUNT",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "BOTH_SIDES",
+     "UNKNOWN_ACCOUNT"
+    ],
+    "lines": 16,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "BOTH_SIDES",
+     "UNKNOWN_ACCOUNT",
+     "missing:line-accounts"
+    ],
+    "lines": 24,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H27",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "LEAF_TOTAL",
+     "TB_BALANCE"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "inconsistent",
+    "reads": "blocked",
+    "codes": [],
+    "lines": 16,
+    "differences": 1,
+    "equation": 0
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts"
+    ],
+    "lines": 24,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H28",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "DUPLICATE_MAPPING_ID"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "DUPLICATE",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "DUPLICATE"
+    ],
+    "lines": 16,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "DUPLICATE",
+     "missing:line-accounts"
+    ],
+    "lines": 24,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H29",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "SCOPE"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "ROW_SCOPE",
+     "missing:statement-line"
+    ],
+    "lines": 15,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "ROW_SCOPE",
+     "missing:line-accounts",
+     "missing:statement-line"
+    ],
+    "lines": 23,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H30",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "CONTROL_TOTAL",
+     "KIND",
+     "MAPPING_TARGET",
+     "PROOF_LINE",
+     "STATEMENT_EQUATION"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:statement-line"
+    ],
+    "lines": 15,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "missing",
+    "reads": "blocked",
+    "codes": [
+     "missing:line-accounts"
+    ],
+    "lines": 24,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H31",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "DUPLICATE_ACCOUNT",
+     "LEAF_TOTAL",
+     "TB_BALANCE"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "DUPLICATE",
+     "UNKNOWN_ACCOUNT",
+     "missing:financial-position",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "DUPLICATE",
+     "UNKNOWN_ACCOUNT"
+    ],
+    "lines": 16,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "DUPLICATE",
+     "UNKNOWN_ACCOUNT",
+     "missing:line-accounts"
+    ],
+    "lines": 24,
+    "differences": 0,
+    "equation": null
+   }
+  },
+  {
+   "suite": "H1",
+   "id": "H32",
+   "contract": {
+    "status": "blocked",
+    "codes": [
+     "EMPTY_SOURCE",
+     "HEADERS",
+     "UNMAPPED_ACCOUNT",
+     "UNMAPPED_LEAF",
+     "UNUSED_PROOF"
+    ]
+   },
+   "asArrives": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:financial-position",
+     "missing:mapping",
+     "missing:statement-line"
+    ],
+    "lines": 0,
+    "differences": 0,
+    "equation": null
+   },
+   "leavesByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:line-accounts",
+     "missing:mapping"
+    ],
+    "lines": 16,
+    "differences": 0,
+    "equation": null
+   },
+   "everyRowByHand": {
+    "status": "source-error",
+    "reads": "blocked",
+    "codes": [
+     "COLUMNS",
+     "missing:line-accounts",
+     "missing:mapping"
+    ],
+    "lines": 24,
+    "differences": 0,
+    "equation": null
+   }
+  }
+ ]
+}

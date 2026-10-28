@@ -201,6 +201,7 @@ const required = [
   'test:fin-hierarchy:review',
   'test:fin-hierarchy:oracle-mutants',
   'test:fin-hierarchy:h1-seal',
+  'test:fin-hierarchy:baseline',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',
