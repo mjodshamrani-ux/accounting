@@ -189,6 +189,7 @@ const required = [
   'test:ic-batch:run',
   'test:ic-batch:mutations',
   'test:ic-batch:h1-seal',
+  'test:ic-batch:h1-run',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',
@@ -340,7 +341,10 @@ const separate = {
     'test:bank-cycle:browser',
     'test:bank-cycle:c4-browser',
   ],
-  'intercompany-batch-browser': ['test:ic-batch:browser'],
+  'intercompany-batch-browser': [
+    'test:ic-batch:browser',
+    'test:ic-batch:h1-browser',
+  ],
   'intercompany-batch-interface-mutations': [
     'test:ic-batch:interface-mutations',
   ],

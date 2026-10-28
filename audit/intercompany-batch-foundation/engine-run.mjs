@@ -16,7 +16,8 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, '../..');
-const FROZEN = resolve(here, 'frozen');
+// IC_BATCH_SUITE names another sealed suite with the same layout (H1).
+const FROZEN = resolve(process.env.IC_BATCH_SUITE ?? here, 'frozen');
 const lib = (name) =>
   import(pathToFileURL(resolve(root, 'lib/reconciliation', name)).href);
 const { readIntercompanyFile } = await lib('intercompany-source.ts');

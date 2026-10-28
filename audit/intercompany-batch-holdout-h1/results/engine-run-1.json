@@ -1,0 +1,344 @@
+{
+ "schema": "tarasuf-ic1-batch-engine-run/1",
+ "engine": "intercompany-batch-1",
+ "commit": "e8700b1e5cd2e2dffaaf904d0fb389d80c4de93f",
+ "summary": {
+  "stories": "15/15",
+  "batchStatuses": "48/48",
+  "relations": "230/230"
+ },
+ "stories": {
+  "H01": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "B-NO": [
+     "ready",
+     []
+    ],
+    "B-NP": [
+     "ready",
+     []
+    ],
+    "B-NQ": [
+     "ready",
+     []
+    ],
+    "B-NR": [
+     "ready",
+     []
+    ],
+    "B-OP": [
+     "ready",
+     []
+    ],
+    "B-OQ": [
+     "ready",
+     []
+    ],
+    "B-OR": [
+     "ready",
+     []
+    ],
+    "B-PQ": [
+     "ready",
+     []
+    ],
+    "B-PR": [
+     "missing",
+     [
+      "SIDE_EMPTY"
+     ]
+    ],
+    "B-QR": [
+     "ready",
+     []
+    ]
+   }
+  },
+  "H02": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "B-NO": [
+     "ready",
+     []
+    ],
+    "B-NP": [
+     "blocked",
+     [
+      "DUPLICATE_TRANSACTION"
+     ]
+    ]
+   }
+  },
+  "H03": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "دفعة ن-ر 2027": [
+     "ready",
+     []
+    ],
+    "B-OR": [
+     "blocked",
+     [
+      "RELATION_FIELD"
+     ]
+    ]
+   }
+  },
+  "H04": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "B-OP-MAR": [
+     "blocked",
+     [
+      "BATCH_OVERLAP"
+     ]
+    ],
+    "B-OP-MID": [
+     "blocked",
+     [
+      "BATCH_OVERLAP"
+     ]
+    ],
+    "B-OQ": [
+     "ready",
+     []
+    ]
+   }
+  },
+  "H05": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "B-PQ": [
+     "ready",
+     []
+    ],
+    "B-PN": [
+     "difference",
+     []
+    ]
+   }
+  },
+  "H06": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "B-QR": [
+     "ready",
+     []
+    ],
+    "B-QN": [
+     "difference",
+     []
+    ]
+   }
+  },
+  "H07": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "B-NO": [
+     "blocked",
+     [
+      "VALIDITY"
+     ]
+    ],
+    "B-NQ": [
+     "ready",
+     []
+    ]
+   }
+  },
+  "H08": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "B-OP": [
+     "blocked",
+     [
+      "BOTH_SIDES"
+     ]
+    ],
+    "B-OQ-JPY": [
+     "blocked",
+     [
+      "AMOUNT"
+     ]
+    ],
+    "B-OR": [
+     "ready",
+     []
+    ]
+   }
+  },
+  "H09": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "B-NO": [
+     "blocked",
+     [
+      "UNASSIGNED"
+     ]
+    ],
+    "B-NP": [
+     "blocked",
+     [
+      "UNASSIGNED"
+     ]
+    ],
+    "B-OP": [
+     "ready",
+     []
+    ]
+   }
+  },
+  "H10": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "B-PR": [
+     "ready",
+     []
+    ],
+    "B-PQ": [
+     "blocked",
+     [
+      "COUNTERPARTY_CONFLICT",
+      "RELATION_FIELD"
+     ]
+    ]
+   }
+  },
+  "H11": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "B-NO": [
+     "blocked",
+     [
+      "HEADER"
+     ]
+    ],
+    "B-OP": [
+     "blocked",
+     [
+      "HEADER"
+     ]
+    ]
+   }
+  },
+  "H12": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "C-NO": [
+     "difference",
+     []
+    ],
+    "C-OP": [
+     "difference",
+     []
+    ],
+    "C-PQ": [
+     "difference",
+     []
+    ],
+    "C-QR": [
+     "difference",
+     []
+    ],
+    "C-RN": [
+     "difference",
+     []
+    ]
+   }
+  },
+  "H13": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "B-NO-TRADE": [
+     "missing",
+     [
+      "RELATION_MEMBER_MISSING"
+     ]
+    ],
+    "B-NO-LOAN": [
+     "missing",
+     [
+      "UNRELATED"
+     ]
+    ]
+   }
+  },
+  "H14": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "B-QR": [
+     "blocked",
+     [
+      "COUNTERPARTY_CONFLICT"
+     ]
+    ],
+    "B-QP": [
+     "ready",
+     []
+    ]
+   }
+  },
+  "H15": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "S-NO": [
+     "ready",
+     []
+    ],
+    "S-NP": [
+     "ready",
+     []
+    ],
+    "S-NQ": [
+     "difference",
+     []
+    ],
+    "S-OP": [
+     "difference",
+     []
+    ],
+    "S-OQ": [
+     "ready",
+     []
+    ],
+    "S-PQ": [
+     "missing",
+     [
+      "UNRELATED"
+     ]
+    ]
+   }
+  }
+ }
+}

@@ -15,7 +15,12 @@ import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
 
 const root = path.resolve(process.env.IC_BATCH_DIST ?? 'dist');
-const SUITE = path.resolve('audit/intercompany-batch-foundation');
+// IC_BATCH_SUITE names another sealed suite with the same layout (H1); the
+// language, width, keyboard and stale-result checks use the foundation's stories.
+const SUITE = path.resolve(
+  process.env.IC_BATCH_SUITE ?? 'audit/intercompany-batch-foundation',
+);
+const FOUNDATION = !process.env.IC_BATCH_SUITE;
 const FROZEN = path.join(SUITE, 'frozen');
 const arg = (k) =>
   process.argv.find((a) => a.startsWith(`--${k}=`))?.slice(k.length + 3);
@@ -250,63 +255,67 @@ try {
     const differ = judge(sid, await shown(batch));
     report.stories[sid] = { equal: !differ.length, differ };
   }
-  // Arabic, right to left.
-  {
-    const batch = await open(page, 'ar');
-    await load(page, batch, filesOf('I16'));
-    const seen = await shown(batch);
-    report.checks.arabic = {
-      dir: await page.evaluate(() => document.documentElement.dir),
-      equal: !judge('I16', seen).length,
-      heading: await batch.locator('[data-ic-batch="AG"] h4').innerText(),
-    };
-  }
-  // A phone width: nothing wider than the page.
-  {
-    await page.setViewportSize({ width: 390, height: 844 });
-    const batch = await open(page, 'en');
-    await load(page, batch, filesOf('I07'));
-    report.checks.phone = await page.evaluate(
-      () =>
-        document.documentElement.scrollWidth <=
-        document.documentElement.clientWidth,
-    );
-    await page.setViewportSize({ width: 1280, height: 900 });
-  }
-  // A new file clears the shown result; nothing stale stays on the page.
-  {
-    const batch = await open(page, 'en');
-    await load(page, batch, filesOf('I10'));
-    await batch
-      .locator('fieldset')
-      .nth(2)
-      .locator('input[type="file"]')
-      .setInputFiles(filesOf('I20').relations);
-    await idle(page);
-    report.checks.staleCleared =
-      (await batch.locator('[data-ic-batch-result]').count()) === 0 &&
-      (await batch
-        .getByRole('button', { name: 'Check every batch' })
-        .isDisabled());
-  }
-  // The keyboard reaches the batch section's summary and opens it.
-  {
-    await page.goto(url);
-    await page.getByRole('button', { name: 'EN English', exact: true }).click();
-    const panel = await openDomainWorkspace(page, 'intercompany');
-    const summary = panel.locator(
-      'details[data-intercompany-batch-details] > summary',
-    );
-    await summary.focus();
-    await page.keyboard.press('Enter');
-    report.checks.keyboard =
-      (await panel
-        .locator('details[data-intercompany-batch-details]')
-        .getAttribute('open')) !== null &&
-      (await panel
-        .locator('[data-intercompany-batch] input[type="file"]')
-        .first()
-        .isVisible());
+  if (FOUNDATION) {
+    // Arabic, right to left.
+    {
+      const batch = await open(page, 'ar');
+      await load(page, batch, filesOf('I16'));
+      const seen = await shown(batch);
+      report.checks.arabic = {
+        dir: await page.evaluate(() => document.documentElement.dir),
+        equal: !judge('I16', seen).length,
+        heading: await batch.locator('[data-ic-batch="AG"] h4').innerText(),
+      };
+    }
+    // A phone width: nothing wider than the page.
+    {
+      await page.setViewportSize({ width: 390, height: 844 });
+      const batch = await open(page, 'en');
+      await load(page, batch, filesOf('I07'));
+      report.checks.phone = await page.evaluate(
+        () =>
+          document.documentElement.scrollWidth <=
+          document.documentElement.clientWidth,
+      );
+      await page.setViewportSize({ width: 1280, height: 900 });
+    }
+    // A new file clears the shown result; nothing stale stays on the page.
+    {
+      const batch = await open(page, 'en');
+      await load(page, batch, filesOf('I10'));
+      await batch
+        .locator('fieldset')
+        .nth(2)
+        .locator('input[type="file"]')
+        .setInputFiles(filesOf('I20').relations);
+      await idle(page);
+      report.checks.staleCleared =
+        (await batch.locator('[data-ic-batch-result]').count()) === 0 &&
+        (await batch
+          .getByRole('button', { name: 'Check every batch' })
+          .isDisabled());
+    }
+    // The keyboard reaches the batch section's summary and opens it.
+    {
+      await page.goto(url);
+      await page
+        .getByRole('button', { name: 'EN English', exact: true })
+        .click();
+      const panel = await openDomainWorkspace(page, 'intercompany');
+      const summary = panel.locator(
+        'details[data-intercompany-batch-details] > summary',
+      );
+      await summary.focus();
+      await page.keyboard.press('Enter');
+      report.checks.keyboard =
+        (await panel
+          .locator('details[data-intercompany-batch-details]')
+          .getAttribute('open')) !== null &&
+        (await panel
+          .locator('[data-intercompany-batch] input[type="file"]')
+          .first()
+          .isVisible());
+    }
   }
   report.errors = errors;
   report.external = external;

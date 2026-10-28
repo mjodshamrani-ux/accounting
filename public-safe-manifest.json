@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 60992,
-      "sha256": "8df2c17d5872514a50f8272630f52d62859a72d142ac5782b209e07aae76c435",
+      "bytes": 61354,
+      "sha256": "93a3be72ebbccfea1ed6ca11c69b786d5759adbaef806fb38eea9455054a424c",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 39599,
-      "sha256": "889d256ef1baca8d65820cef4a005d5b6bb2aad231eac3c8897e70694ac8893a",
+      "bytes": 39803,
+      "sha256": "461c7874b86f86f06a3f6e8b33130dbe529c43fb6233adaa1f53722387b34c5b",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 20643,
-      "sha256": "f28c9fd13b97b6ab0b0588dd7302bb3262e3c953a08942cfe4986ef50a08a481",
+      "bytes": 20685,
+      "sha256": "35bc02d598537b7f8cb727afd653763af07c9cd6f62fcfcaf859a3e567aa7a77",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 88441,
-      "sha256": "c700976625299580303ab87783c694fbc32138e7e4d7f8496671b3b0824d5793",
+      "bytes": 89400,
+      "sha256": "e93365327ccf65942f11811dcd8e5c4e07fa86d006f9fb4f1c5ced538f5ec051",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 77642,
-      "sha256": "1b3c47d7e9c7c33e2fdb66286bb72796ffea39c131a8bc2a5499ce60b0c808c2",
+      "bytes": 77841,
+      "sha256": "af3b5b284eb5f0d7d8af597c6444e51ae238bc344d8a86f512da682fa7312cd5",
       "kind": "text"
     },
     {
@@ -36247,8 +36247,8 @@
     },
     {
       "path": "docs/roadmap/intercompany.ar.md",
-      "bytes": 3399,
-      "sha256": "edb9e996caad0a3a6f395a4131f322b2982a74d8be8b0af10c78c816a11812ff",
+      "bytes": 3576,
+      "sha256": "2d72927f52d04f77d588f9e099a5dbb126da679a82b98ef1d151a07786777238",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 41742,
-      "sha256": "1d0169c333bd18cc5db8efd4f1442a09f33f316d45908463ae86ecfd8137b4f7",
+      "bytes": 42198,
+      "sha256": "79792605ce0a5ed2cdadd140d3a6df916b107b3b150255f8ffd89a2b624e774e",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 14738,
-      "sha256": "35f320b933b0e2fcac603d4a7873598d63cd5d03a349155cc12d8b614862cd9c",
+      "bytes": 14805,
+      "sha256": "626c6562b1882a14c8fc1fd1025c3f4c6125c4613dfcb9d31b5c28bd8f85f309",
       "kind": "text"
     },
     {
@@ -56331,8 +56331,8 @@
     },
     {
       "path": "audit/intercompany-batch-foundation/engine-run.mjs",
-      "bytes": 6522,
-      "sha256": "29b6bcb7f92fc41b9d5202e82f60f27b372773e20328fbcbe21ac63d8b4ca8fa",
+      "bytes": 6624,
+      "sha256": "822b4ff02f87b2da251b268a1a62b1f391f9bd9bbe2f5fbdf83b8d1d38b7ba82",
       "kind": "text"
     },
     {
@@ -56403,8 +56403,8 @@
     },
     {
       "path": "scripts/intercompany-batch-browser.mjs",
-      "bytes": 12092,
-      "sha256": "1566a9bdf62ce427bc0fd3942cc3b373eaba7e37d924be7b61ac1c7d9e53d14d",
+      "bytes": 12492,
+      "sha256": "ccb67801ed70acb62a51d7b5c689d360077e4258fea587a11cb18e1daa577bb5",
       "kind": "text"
     },
     {
@@ -56421,8 +56421,8 @@
     },
     {
       "path": "audit/intercompany-batch-holdout-h1/README.ar.md",
-      "bytes": 3132,
-      "sha256": "519f7ace1886dd2cde8e85c0414668f75c20482674a0865385f781fdb6a8b666",
+      "bytes": 3216,
+      "sha256": "526f2306097d440fcd79e9687bc5634ae8972fb4ae0aee50784e6b98595777a0",
       "kind": "text"
     },
     {
@@ -57005,6 +57005,24 @@
       "path": "audit/intercompany-batch-holdout-h1/verify.py",
       "bytes": 5785,
       "sha256": "649befa52291dc6412eb2bad6c32dafb186e1eea480eb0bb454698ce7b44c3ff",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/results/browser-run-1.json",
+      "bytes": 872,
+      "sha256": "de982a17dd6b3234757978b4c65be55d5029628f9f38489928a53c28ae66a153",
+      "kind": "text"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/results/engine-run-1.json",
+      "bytes": 4268,
+      "sha256": "e6f0e38046c8eb0bd4b4e59b413f12b77bb41faacc0990577c25b12d30cee096",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/IC-1D.ar.md",
+      "bytes": 6368,
+      "sha256": "bf33f16e2c7e998a52f1f08ee23ce9f4beaab41e97eb5b4eb81800eb66c2e534",
       "kind": "text"
     }
   ],

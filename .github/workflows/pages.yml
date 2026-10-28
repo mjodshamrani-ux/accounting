@@ -347,6 +347,7 @@ jobs:
           pnpm test:ic-batch:run
           pnpm test:ic-batch:mutations
           pnpm test:ic-batch:h1-seal
+          pnpm test:ic-batch:h1-run
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations
@@ -1004,7 +1005,7 @@ jobs:
           BNK_HOLDOUT_BROWSER_DIR: ${{ runner.temp }}/bank-statement-holdout-browser
         run: pnpm test:bank-statement:g23-browser
   intercompany-batch-browser:
-    name: Intercompany batches in the built application, all 20 sealed IC-1 stories on screen against the recorded run (IC-1c)
+    name: Intercompany batches in the built application, the 20 sealed IC-1 stories and the H1 holdout on screen against their recorded runs (IC-1c, IC-1d)
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -1027,6 +1028,10 @@ jobs:
         env:
           IC_BATCH_BROWSER_DIR: ${{ runner.temp }}/intercompany-batch-browser
         run: pnpm test:ic-batch:browser
+      - name: Verify the sealed IC-1 holdout H1 in the intercompany workspace's batch section through the actual Worker, against its recorded first run (IC-1d)
+        env:
+          IC_BATCH_BROWSER_DIR: ${{ runner.temp }}/intercompany-batch-h1-browser
+        run: pnpm test:ic-batch:h1-browser
   intercompany-batch-interface-mutations:
     name: Intercompany batch interface mutations in built browser copies (IC-1c)
     runs-on: ubuntu-latest
