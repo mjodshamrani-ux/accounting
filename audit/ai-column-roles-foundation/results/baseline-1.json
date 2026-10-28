@@ -1,0 +1,1677 @@
+{
+ "measure": "tarasuf-ai1-columns-measure-1",
+ "engineVersion": "0.3.26-experimental",
+ "commit": "1138e64362458fd982ff943c4973328377faecf3",
+ "engineFilesModified": false,
+ "manifestSha256": "de3be0343d931b9c3fa7feae84f8b091bbc8f37074d4d06bf90f62dbf29d9074",
+ "judgeSelfTest": 14,
+ "provider": null,
+ "summary": {
+  "stories": 24,
+  "unreadable": [
+   "N04",
+   "A03",
+   "D02",
+   "D04"
+  ],
+  "byClass": {
+   "K0": {
+    "stories": 2,
+    "header": 0,
+    "mode": 0,
+    "picks": 0,
+    "asked": 0,
+    "declaredComplete": 2
+   },
+   "K1": {
+    "stories": 4,
+    "header": 2,
+    "mode": 1,
+    "picks": 16,
+    "asked": 4,
+    "declaredComplete": 4
+   },
+   "K2": {
+    "stories": 3,
+    "header": 0,
+    "mode": 1,
+    "picks": 9,
+    "asked": 3,
+    "declaredComplete": 3
+   },
+   "K3": {
+    "stories": 3,
+    "header": 2,
+    "mode": 0,
+    "picks": 11,
+    "asked": 3,
+    "declaredComplete": 3
+   },
+   "K4": {
+    "stories": 5,
+    "header": 0,
+    "mode": 1,
+    "picks": 16,
+    "asked": 5,
+    "declaredComplete": 5
+   },
+   "K5": {
+    "stories": 3,
+    "header": 3,
+    "mode": 0,
+    "picks": 12,
+    "asked": 3,
+    "declaredComplete": 3
+   }
+  },
+  "engineAlone": {
+   "burdenAlone": 74,
+   "burdenAloneK3": 13,
+   "burdenAssisted": null,
+   "burdenAssistedK3": null,
+   "wrongProposals": null,
+   "moneyWrong": null,
+   "controlsAsked": 0,
+   "unsafe": 0,
+   "G1": false,
+   "G2": false,
+   "G3": false,
+   "G4": true,
+   "G5": true,
+   "pass": false
+  }
+ },
+ "stories": [
+  {
+   "id": "C01",
+   "class": "K0",
+   "language": "en",
+   "producer": "hexapdf",
+   "product": {
+    "header": 3,
+    "mode": "signed",
+    "date": 0,
+    "reference": 1,
+    "description": 2,
+    "amount": 3,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": true,
+   "truth": {
+    "header": 3,
+    "mode": "signed",
+    "date": 0,
+    "reference": 1,
+    "description": 2,
+    "amount": 3,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "afterHeader": {
+    "header": 3,
+    "mode": "signed",
+    "date": 0,
+    "reference": 1,
+    "description": 2,
+    "amount": 3,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "alone": {
+    "header": 0,
+    "mode": 0,
+    "picks": 0,
+    "wrong": []
+   },
+   "asked": false,
+   "unresolved": [
+    "debit",
+    "credit",
+    "currencyColumn"
+   ],
+   "declared": {
+    "verdict": "complete",
+    "counts": {
+     "read": 9,
+     "misreads": 0,
+     "currencyMisreads": 0,
+     "lost": 0,
+     "retained": 0,
+     "wrongApprovals": 0,
+     "approved": 9,
+     "missed": 0
+    },
+    "stopped": null,
+    "findings": []
+   },
+   "unsafe": false,
+   "pdfSha256": "85b594df710229b752f32cc99012198c7c706533ab30ef0e7ba077f32e0b8f9c"
+  },
+  {
+   "id": "C02",
+   "class": "K0",
+   "language": "ar",
+   "producer": "pdflib",
+   "product": {
+    "header": 3,
+    "mode": "split",
+    "date": 5,
+    "reference": 4,
+    "description": 3,
+    "amount": -1,
+    "debit": 2,
+    "credit": 1,
+    "currencyColumn": -1
+   },
+   "readable": true,
+   "truth": {
+    "header": 3,
+    "mode": "split",
+    "date": 5,
+    "reference": 4,
+    "description": 3,
+    "amount": -1,
+    "debit": 2,
+    "credit": 1,
+    "currencyColumn": -1
+   },
+   "afterHeader": {
+    "header": 3,
+    "mode": "split",
+    "date": 5,
+    "reference": 4,
+    "description": 3,
+    "amount": -1,
+    "debit": 2,
+    "credit": 1,
+    "currencyColumn": -1
+   },
+   "alone": {
+    "header": 0,
+    "mode": 0,
+    "picks": 0,
+    "wrong": []
+   },
+   "asked": false,
+   "unresolved": [
+    "amount",
+    "currencyColumn"
+   ],
+   "declared": {
+    "verdict": "complete",
+    "counts": {
+     "read": 9,
+     "misreads": 0,
+     "currencyMisreads": 0,
+     "lost": 0,
+     "retained": 0,
+     "wrongApprovals": 0,
+     "approved": 9,
+     "missed": 0
+    },
+    "stopped": null,
+    "findings": []
+   },
+   "unsafe": false,
+   "pdfSha256": "989d1a21cca2d645dcb77412f9b4e8e6b53f5866f7d194b3650029ffe38281ab"
+  },
+  {
+   "id": "N01",
+   "class": "K1",
+   "language": "en",
+   "producer": "hexapdf",
+   "product": {
+    "header": 0,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": -1,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": true,
+   "truth": {
+    "header": 3,
+    "mode": "signed",
+    "date": 0,
+    "reference": 1,
+    "description": 2,
+    "amount": 3,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "afterHeader": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": -1,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "alone": {
+    "header": 1,
+    "mode": 0,
+    "picks": 4,
+    "wrong": [
+     "date",
+     "reference",
+     "description",
+     "amount"
+    ]
+   },
+   "asked": true,
+   "unresolved": [
+    "date",
+    "reference",
+    "description",
+    "amount",
+    "debit",
+    "credit",
+    "currencyColumn"
+   ],
+   "declared": {
+    "verdict": "complete",
+    "counts": {
+     "read": 11,
+     "misreads": 0,
+     "currencyMisreads": 0,
+     "lost": 0,
+     "retained": 0,
+     "wrongApprovals": 0,
+     "approved": 11,
+     "missed": 0
+    },
+    "stopped": null,
+    "findings": []
+   },
+   "unsafe": false,
+   "pdfSha256": "512e60aacadab7b0203049daa363a4e20b39198d954b41ae519dd1b8798afb00"
+  },
+  {
+   "id": "N02",
+   "class": "K1",
+   "language": "en",
+   "producer": "pdflib",
+   "product": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": 3,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": true,
+   "truth": {
+    "header": 3,
+    "mode": "signed",
+    "date": 0,
+    "reference": 1,
+    "description": 3,
+    "amount": 4,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "afterHeader": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": 3,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "alone": {
+    "header": 0,
+    "mode": 0,
+    "picks": 3,
+    "wrong": [
+     "date",
+     "reference",
+     "amount"
+    ]
+   },
+   "asked": true,
+   "unresolved": [
+    "date",
+    "reference",
+    "amount",
+    "debit",
+    "credit",
+    "currencyColumn"
+   ],
+   "declared": {
+    "verdict": "complete",
+    "counts": {
+     "read": 13,
+     "misreads": 0,
+     "currencyMisreads": 0,
+     "lost": 0,
+     "retained": 0,
+     "wrongApprovals": 0,
+     "approved": 13,
+     "missed": 0
+    },
+    "stopped": null,
+    "findings": []
+   },
+   "unsafe": false,
+   "pdfSha256": "ef695e658c0b083baca83d08049a5265cbabfc66dc0fbdf8aa5d48f9adf107df"
+  },
+  {
+   "id": "N03",
+   "class": "K1",
+   "language": "en",
+   "producer": "hexapdf",
+   "product": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": 2,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": true,
+   "truth": {
+    "header": 3,
+    "mode": "split",
+    "date": 1,
+    "reference": 0,
+    "description": 2,
+    "amount": -1,
+    "debit": 3,
+    "credit": 4,
+    "currencyColumn": -1
+   },
+   "afterHeader": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": 2,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "alone": {
+    "header": 0,
+    "mode": 1,
+    "picks": 4,
+    "wrong": [
+     "date",
+     "reference",
+     "debit",
+     "credit"
+    ]
+   },
+   "asked": true,
+   "unresolved": [
+    "date",
+    "reference",
+    "amount",
+    "debit",
+    "credit",
+    "currencyColumn"
+   ],
+   "declared": {
+    "verdict": "complete",
+    "counts": {
+     "read": 11,
+     "misreads": 0,
+     "currencyMisreads": 0,
+     "lost": 0,
+     "retained": 0,
+     "wrongApprovals": 0,
+     "approved": 11,
+     "missed": 0
+    },
+    "stopped": null,
+    "findings": []
+   },
+   "unsafe": false,
+   "pdfSha256": "60398134c444494d60613e4b61c9fe6df1d9863d1df1ed3e48e8cf11f350bc8c"
+  },
+  {
+   "id": "N04",
+   "class": "K1",
+   "language": "en",
+   "producer": "pdflib",
+   "product": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": 2,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": false
+  },
+  {
+   "id": "N05",
+   "class": "K1",
+   "language": "en",
+   "producer": "hexapdf",
+   "product": {
+    "header": 0,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": -1,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": true,
+   "truth": {
+    "header": 3,
+    "mode": "signed",
+    "date": 0,
+    "reference": 1,
+    "description": 2,
+    "amount": 4,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": 3
+   },
+   "afterHeader": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": -1,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "alone": {
+    "header": 1,
+    "mode": 0,
+    "picks": 5,
+    "wrong": [
+     "date",
+     "reference",
+     "description",
+     "amount",
+     "currencyColumn"
+    ]
+   },
+   "asked": true,
+   "unresolved": [
+    "date",
+    "reference",
+    "description",
+    "amount",
+    "debit",
+    "credit",
+    "currencyColumn"
+   ],
+   "declared": {
+    "verdict": "complete",
+    "counts": {
+     "read": 9,
+     "misreads": 0,
+     "currencyMisreads": 0,
+     "lost": 0,
+     "retained": 0,
+     "wrongApprovals": 0,
+     "approved": 9,
+     "missed": 0
+    },
+    "stopped": null,
+    "findings": []
+   },
+   "unsafe": false,
+   "pdfSha256": "74eab6375611b2bc59437bb07954590072b25be0ec45403604de5b6e9aab390a"
+  },
+  {
+   "id": "A01",
+   "class": "K2",
+   "language": "ar",
+   "producer": "pdflib",
+   "product": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": 1,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": true,
+   "truth": {
+    "header": 3,
+    "mode": "signed",
+    "date": 3,
+    "reference": 2,
+    "description": 1,
+    "amount": 0,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "afterHeader": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": 1,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "alone": {
+    "header": 0,
+    "mode": 0,
+    "picks": 3,
+    "wrong": [
+     "date",
+     "reference",
+     "amount"
+    ]
+   },
+   "asked": true,
+   "unresolved": [
+    "date",
+    "reference",
+    "amount",
+    "debit",
+    "credit",
+    "currencyColumn"
+   ],
+   "declared": {
+    "verdict": "complete",
+    "counts": {
+     "read": 10,
+     "misreads": 0,
+     "currencyMisreads": 0,
+     "lost": 0,
+     "retained": 0,
+     "wrongApprovals": 0,
+     "approved": 10,
+     "missed": 0
+    },
+    "stopped": null,
+    "findings": []
+   },
+   "unsafe": false,
+   "pdfSha256": "9e242848f365ecfa5ac57b2d43e567cabc8ae578366d9dd337dfa8b7fbe5cbb2"
+  },
+  {
+   "id": "A02",
+   "class": "K2",
+   "language": "ar",
+   "producer": "pdflib",
+   "product": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": 3,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": true,
+   "truth": {
+    "header": 3,
+    "mode": "split",
+    "date": 5,
+    "reference": 4,
+    "description": 3,
+    "amount": -1,
+    "debit": 2,
+    "credit": 1,
+    "currencyColumn": -1
+   },
+   "afterHeader": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": 3,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "alone": {
+    "header": 0,
+    "mode": 1,
+    "picks": 4,
+    "wrong": [
+     "date",
+     "reference",
+     "debit",
+     "credit"
+    ]
+   },
+   "asked": true,
+   "unresolved": [
+    "date",
+    "reference",
+    "amount",
+    "debit",
+    "credit",
+    "currencyColumn"
+   ],
+   "declared": {
+    "verdict": "complete",
+    "counts": {
+     "read": 12,
+     "misreads": 0,
+     "currencyMisreads": 0,
+     "lost": 0,
+     "retained": 0,
+     "wrongApprovals": 0,
+     "approved": 12,
+     "missed": 0
+    },
+    "stopped": null,
+    "findings": []
+   },
+   "unsafe": false,
+   "pdfSha256": "78a1d7333d76eef462f67d6b2dea5dea63e083d096ffb56c6199a595aabd8367"
+  },
+  {
+   "id": "A03",
+   "class": "K2",
+   "language": "ar",
+   "producer": "pdflib",
+   "product": {
+    "header": 3,
+    "mode": "signed",
+    "date": 5,
+    "reference": -1,
+    "description": 3,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": false
+  },
+  {
+   "id": "A04",
+   "class": "K2",
+   "language": "ar",
+   "producer": "pdflib",
+   "product": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": 3,
+    "description": 1,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": true,
+   "truth": {
+    "header": 3,
+    "mode": "signed",
+    "date": 4,
+    "reference": 3,
+    "description": 1,
+    "amount": 0,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "afterHeader": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": 3,
+    "description": 1,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "alone": {
+    "header": 0,
+    "mode": 0,
+    "picks": 2,
+    "wrong": [
+     "date",
+     "amount"
+    ]
+   },
+   "asked": true,
+   "unresolved": [
+    "date",
+    "amount",
+    "debit",
+    "credit",
+    "currencyColumn"
+   ],
+   "declared": {
+    "verdict": "complete",
+    "counts": {
+     "read": 12,
+     "misreads": 0,
+     "currencyMisreads": 0,
+     "lost": 0,
+     "retained": 0,
+     "wrongApprovals": 0,
+     "approved": 12,
+     "missed": 0
+    },
+    "stopped": null,
+    "findings": []
+   },
+   "unsafe": false,
+   "pdfSha256": "023decdb89cbf0204bcff68537bb6aef9c9c27e1a14d88bcb38f8da5b56b60e1"
+  },
+  {
+   "id": "D01",
+   "class": "K3",
+   "language": "en",
+   "producer": "hexapdf",
+   "product": {
+    "header": 0,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": -1,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": true,
+   "truth": {
+    "header": 3,
+    "mode": "signed",
+    "date": 0,
+    "reference": 1,
+    "description": 2,
+    "amount": 3,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "afterHeader": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": -1,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "alone": {
+    "header": 1,
+    "mode": 0,
+    "picks": 4,
+    "wrong": [
+     "date",
+     "reference",
+     "description",
+     "amount"
+    ]
+   },
+   "asked": true,
+   "unresolved": [
+    "date",
+    "reference",
+    "description",
+    "amount",
+    "debit",
+    "credit",
+    "currencyColumn"
+   ],
+   "declared": {
+    "verdict": "complete",
+    "counts": {
+     "read": 9,
+     "misreads": 0,
+     "currencyMisreads": 0,
+     "lost": 0,
+     "retained": 0,
+     "wrongApprovals": 0,
+     "approved": 9,
+     "missed": 0
+    },
+    "stopped": null,
+    "findings": []
+   },
+   "unsafe": false,
+   "pdfSha256": "ca7f476bd97487717be9227f2bad376ff821222df0dc3129a5e66e85ce4d68c3"
+  },
+  {
+   "id": "D02",
+   "class": "K3",
+   "language": "en",
+   "producer": "pdflib",
+   "product": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": 2,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": false
+  },
+  {
+   "id": "D03",
+   "class": "K3",
+   "language": "ar",
+   "producer": "pdflib",
+   "product": {
+    "header": 0,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": -1,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": true,
+   "truth": {
+    "header": 3,
+    "mode": "signed",
+    "date": 3,
+    "reference": 2,
+    "description": 1,
+    "amount": 0,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "afterHeader": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": -1,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "alone": {
+    "header": 1,
+    "mode": 0,
+    "picks": 4,
+    "wrong": [
+     "date",
+     "reference",
+     "description",
+     "amount"
+    ]
+   },
+   "asked": true,
+   "unresolved": [
+    "date",
+    "reference",
+    "description",
+    "amount",
+    "debit",
+    "credit",
+    "currencyColumn"
+   ],
+   "declared": {
+    "verdict": "complete",
+    "counts": {
+     "read": 10,
+     "misreads": 0,
+     "currencyMisreads": 0,
+     "lost": 0,
+     "retained": 0,
+     "wrongApprovals": 0,
+     "approved": 10,
+     "missed": 0
+    },
+    "stopped": null,
+    "findings": []
+   },
+   "unsafe": false,
+   "pdfSha256": "9c4cae10cf57181b7e39b3d4f0399ae325a4b045853b91a80b2ff835ad5d0ea6"
+  },
+  {
+   "id": "D04",
+   "class": "K3",
+   "language": "ar",
+   "producer": "pdflib",
+   "product": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": 3,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": false
+  },
+  {
+   "id": "D05",
+   "class": "K3",
+   "language": "en",
+   "producer": "hexapdf",
+   "product": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": 0,
+    "description": -1,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": true,
+   "truth": {
+    "header": 3,
+    "mode": "signed",
+    "date": 1,
+    "reference": 0,
+    "description": 2,
+    "amount": 3,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "afterHeader": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": 0,
+    "description": -1,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "alone": {
+    "header": 0,
+    "mode": 0,
+    "picks": 3,
+    "wrong": [
+     "date",
+     "description",
+     "amount"
+    ]
+   },
+   "asked": true,
+   "unresolved": [
+    "date",
+    "description",
+    "amount",
+    "debit",
+    "credit",
+    "currencyColumn"
+   ],
+   "declared": {
+    "verdict": "complete",
+    "counts": {
+     "read": 10,
+     "misreads": 0,
+     "currencyMisreads": 0,
+     "lost": 0,
+     "retained": 0,
+     "wrongApprovals": 0,
+     "approved": 10,
+     "missed": 0
+    },
+    "stopped": null,
+    "findings": []
+   },
+   "unsafe": false,
+   "pdfSha256": "ce30fc3bfc776417805ac005387f69dc97b23fdee3eb43227a26391fbf1d190c"
+  },
+  {
+   "id": "X01",
+   "class": "K4",
+   "language": "en",
+   "producer": "hexapdf",
+   "product": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": 3,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": true,
+   "truth": {
+    "header": 3,
+    "mode": "signed",
+    "date": 0,
+    "reference": 2,
+    "description": 3,
+    "amount": 4,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "afterHeader": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": 3,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "alone": {
+    "header": 0,
+    "mode": 0,
+    "picks": 3,
+    "wrong": [
+     "date",
+     "reference",
+     "amount"
+    ]
+   },
+   "asked": true,
+   "unresolved": [
+    "date",
+    "reference",
+    "amount",
+    "debit",
+    "credit",
+    "currencyColumn"
+   ],
+   "declared": {
+    "verdict": "complete",
+    "counts": {
+     "read": 10,
+     "misreads": 0,
+     "currencyMisreads": 0,
+     "lost": 0,
+     "retained": 0,
+     "wrongApprovals": 0,
+     "approved": 10,
+     "missed": 0
+    },
+    "stopped": null,
+    "findings": []
+   },
+   "unsafe": false,
+   "pdfSha256": "8ac998ac1f58c6bfdccbe7078571653dfcee723cad1dca4aabaf3f814e78a188"
+  },
+  {
+   "id": "X02",
+   "class": "K4",
+   "language": "en",
+   "producer": "pdflib",
+   "product": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": 3,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": true,
+   "truth": {
+    "header": 3,
+    "mode": "signed",
+    "date": 0,
+    "reference": 1,
+    "description": 3,
+    "amount": 5,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "afterHeader": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": 3,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "alone": {
+    "header": 0,
+    "mode": 0,
+    "picks": 3,
+    "wrong": [
+     "date",
+     "reference",
+     "amount"
+    ]
+   },
+   "asked": true,
+   "unresolved": [
+    "date",
+    "reference",
+    "amount",
+    "debit",
+    "credit",
+    "currencyColumn"
+   ],
+   "declared": {
+    "verdict": "complete",
+    "counts": {
+     "read": 12,
+     "misreads": 0,
+     "currencyMisreads": 0,
+     "lost": 0,
+     "retained": 0,
+     "wrongApprovals": 0,
+     "approved": 12,
+     "missed": 0
+    },
+    "stopped": null,
+    "findings": []
+   },
+   "unsafe": false,
+   "pdfSha256": "76d7d10a83e29ae6fcf50e5b67664427f72f891cd87726762d48fc0a76d80abf"
+  },
+  {
+   "id": "X03",
+   "class": "K4",
+   "language": "ar",
+   "producer": "pdflib",
+   "product": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": 2,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": true,
+   "truth": {
+    "header": 3,
+    "mode": "signed",
+    "date": 5,
+    "reference": 3,
+    "description": 2,
+    "amount": 0,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "afterHeader": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": 2,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "alone": {
+    "header": 0,
+    "mode": 0,
+    "picks": 3,
+    "wrong": [
+     "date",
+     "reference",
+     "amount"
+    ]
+   },
+   "asked": true,
+   "unresolved": [
+    "date",
+    "reference",
+    "amount",
+    "debit",
+    "credit",
+    "currencyColumn"
+   ],
+   "declared": {
+    "verdict": "complete",
+    "counts": {
+     "read": 10,
+     "misreads": 0,
+     "currencyMisreads": 0,
+     "lost": 0,
+     "retained": 0,
+     "wrongApprovals": 0,
+     "approved": 10,
+     "missed": 0
+    },
+    "stopped": null,
+    "findings": []
+   },
+   "unsafe": false,
+   "pdfSha256": "07f35c6d4e83c4e2ce9f6419b23a7c5afa9792b6581470d9dff3ece596429990"
+  },
+  {
+   "id": "X04",
+   "class": "K4",
+   "language": "en",
+   "producer": "hexapdf",
+   "product": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": 2,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": true,
+   "truth": {
+    "header": 3,
+    "mode": "signed",
+    "date": 0,
+    "reference": 1,
+    "description": 2,
+    "amount": 4,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "afterHeader": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": 2,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "alone": {
+    "header": 0,
+    "mode": 0,
+    "picks": 3,
+    "wrong": [
+     "date",
+     "reference",
+     "amount"
+    ]
+   },
+   "asked": true,
+   "unresolved": [
+    "date",
+    "reference",
+    "amount",
+    "debit",
+    "credit",
+    "currencyColumn"
+   ],
+   "declared": {
+    "verdict": "complete",
+    "counts": {
+     "read": 12,
+     "misreads": 0,
+     "currencyMisreads": 0,
+     "lost": 0,
+     "retained": 0,
+     "wrongApprovals": 0,
+     "approved": 12,
+     "missed": 0
+    },
+    "stopped": null,
+    "findings": []
+   },
+   "unsafe": false,
+   "pdfSha256": "66cfaf55be0b501fcacf79f981c7603c3a9a39161d2bca04d1db9ebde3329493"
+  },
+  {
+   "id": "X05",
+   "class": "K4",
+   "language": "en",
+   "producer": "pdflib",
+   "product": {
+    "header": 3,
+    "mode": "signed",
+    "date": 0,
+    "reference": -1,
+    "description": 3,
+    "amount": 6,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": true,
+   "truth": {
+    "header": 3,
+    "mode": "split",
+    "date": 0,
+    "reference": 2,
+    "description": 3,
+    "amount": -1,
+    "debit": 4,
+    "credit": 5,
+    "currencyColumn": -1
+   },
+   "afterHeader": {
+    "header": 3,
+    "mode": "signed",
+    "date": 0,
+    "reference": -1,
+    "description": 3,
+    "amount": 6,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "alone": {
+    "header": 0,
+    "mode": 1,
+    "picks": 4,
+    "wrong": [
+     "reference",
+     "amount",
+     "debit",
+     "credit"
+    ]
+   },
+   "asked": true,
+   "unresolved": [
+    "reference",
+    "debit",
+    "credit",
+    "currencyColumn"
+   ],
+   "declared": {
+    "verdict": "complete",
+    "counts": {
+     "read": 11,
+     "misreads": 0,
+     "currencyMisreads": 0,
+     "lost": 0,
+     "retained": 0,
+     "wrongApprovals": 0,
+     "approved": 11,
+     "missed": 0
+    },
+    "stopped": null,
+    "findings": []
+   },
+   "unsafe": false,
+   "pdfSha256": "10dcfbf0b034e0ae3869eeca5c1dd5dce3588998139c888000db9c1c3912f4b9"
+  },
+  {
+   "id": "U01",
+   "class": "K5",
+   "language": "en",
+   "producer": "hexapdf",
+   "product": {
+    "header": 0,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": -1,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": true,
+   "truth": {
+    "header": 3,
+    "mode": "signed",
+    "date": 0,
+    "reference": 2,
+    "description": 4,
+    "amount": 5,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "afterHeader": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": -1,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "alone": {
+    "header": 1,
+    "mode": 0,
+    "picks": 4,
+    "wrong": [
+     "date",
+     "reference",
+     "description",
+     "amount"
+    ]
+   },
+   "asked": true,
+   "unresolved": [
+    "date",
+    "reference",
+    "description",
+    "amount",
+    "debit",
+    "credit",
+    "currencyColumn"
+   ],
+   "declared": {
+    "verdict": "complete",
+    "counts": {
+     "read": 9,
+     "misreads": 0,
+     "currencyMisreads": 0,
+     "lost": 0,
+     "retained": 0,
+     "wrongApprovals": 0,
+     "approved": 9,
+     "missed": 0
+    },
+    "stopped": null,
+    "findings": []
+   },
+   "unsafe": false,
+   "pdfSha256": "0638e8458c3895f9ea8a09cec7bc0f4ae1eeff01d9609c54340cb8844ae89636"
+  },
+  {
+   "id": "U02",
+   "class": "K5",
+   "language": "en",
+   "producer": "pdflib",
+   "product": {
+    "header": 0,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": -1,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": true,
+   "truth": {
+    "header": 3,
+    "mode": "signed",
+    "date": 1,
+    "reference": 3,
+    "description": 4,
+    "amount": 6,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "afterHeader": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": -1,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "alone": {
+    "header": 1,
+    "mode": 0,
+    "picks": 4,
+    "wrong": [
+     "date",
+     "reference",
+     "description",
+     "amount"
+    ]
+   },
+   "asked": true,
+   "unresolved": [
+    "date",
+    "reference",
+    "description",
+    "amount",
+    "debit",
+    "credit",
+    "currencyColumn"
+   ],
+   "declared": {
+    "verdict": "complete",
+    "counts": {
+     "read": 10,
+     "misreads": 0,
+     "currencyMisreads": 0,
+     "lost": 0,
+     "retained": 0,
+     "wrongApprovals": 0,
+     "approved": 10,
+     "missed": 0
+    },
+    "stopped": null,
+    "findings": []
+   },
+   "unsafe": false,
+   "pdfSha256": "c60e422e8c4d007fc55d61fe6078fffa23ea83d8f1102749adee3db8482084ba"
+  },
+  {
+   "id": "U03",
+   "class": "K5",
+   "language": "ar",
+   "producer": "pdflib",
+   "product": {
+    "header": 0,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": -1,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "readable": true,
+   "truth": {
+    "header": 3,
+    "mode": "signed",
+    "date": 6,
+    "reference": 4,
+    "description": 2,
+    "amount": 1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "afterHeader": {
+    "header": 3,
+    "mode": "signed",
+    "date": -1,
+    "reference": -1,
+    "description": -1,
+    "amount": -1,
+    "debit": -1,
+    "credit": -1,
+    "currencyColumn": -1
+   },
+   "alone": {
+    "header": 1,
+    "mode": 0,
+    "picks": 4,
+    "wrong": [
+     "date",
+     "reference",
+     "description",
+     "amount"
+    ]
+   },
+   "asked": true,
+   "unresolved": [
+    "date",
+    "reference",
+    "description",
+    "amount",
+    "debit",
+    "credit",
+    "currencyColumn"
+   ],
+   "declared": {
+    "verdict": "complete",
+    "counts": {
+     "read": 9,
+     "misreads": 0,
+     "currencyMisreads": 0,
+     "lost": 0,
+     "retained": 0,
+     "wrongApprovals": 0,
+     "approved": 9,
+     "missed": 0
+    },
+    "stopped": null,
+    "findings": []
+   },
+   "unsafe": false,
+   "pdfSha256": "5e2a923b10b0a224aa3d8de9d87bf0d21c834cd647274aad32a9551a2bf3c592"
+  }
+ ]
+}

@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 58315,
-      "sha256": "cb8caab4d4723ed649e56d17ee696c5a969649fb96074569a3700750075afc11",
+      "bytes": 58355,
+      "sha256": "6d9a83408a4578a5d832d843c2b7ae94fd47d3540b0adcc37cc8390e84566b34",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 37120,
-      "sha256": "22f80c9f8f2d6475d0a178022e6b95de4ad1dab695ddb1109ada35838a32ed1b",
+      "bytes": 37664,
+      "sha256": "37fc82393cf2f3a9368dff9bf119adf95e4acc0db0ee23acaf1838ecdfebe074",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 20233,
-      "sha256": "cdb2a1f5940b975bf3191ef75a569a9dcd49d5350d5b7861272531998cee349f",
+      "bytes": 20345,
+      "sha256": "2ad62177e3b9dbb2bbd23e0d3c67cdff13ede11b925cdda5a2ace4e597cae3e2",
       "kind": "text"
     },
     {
@@ -36121,8 +36121,8 @@
     },
     {
       "path": "docs/reference/AI-AND-OCR.ar.md",
-      "bytes": 8141,
-      "sha256": "0e19e4477e8227771cd39200d6ff7a11aaaa9f783f83e1856d3a2bb23c101f04",
+      "bytes": 8530,
+      "sha256": "a3fba0971cd7313ff3ec006a18a68825266c24a8cec96f10a86ab62fcf3e75c0",
       "kind": "text"
     },
     {
@@ -36151,14 +36151,14 @@
     },
     {
       "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
-      "bytes": 129463,
-      "sha256": "719adf643a184f7d5ff22f7e770e712c8e6df9e09c23db90e9a9c5a106bea813",
+      "bytes": 131338,
+      "sha256": "a2d5be6976d43a7d9044c7c7416fb9d5aa05ee55c51bfdce308e45ed285f58de",
       "kind": "text"
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 83550,
-      "sha256": "d7e9a3a3395bd6e4529983105495c34cc04809b3019a41ce397255c080797cb7",
+      "bytes": 84506,
+      "sha256": "c15e6a2319eca253a25df6d414c88d538edc9c40576b44328149d5698ccd4a86",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 76305,
-      "sha256": "04946305185eecb5100be17d719f9e08540a91202bc2c4f2f595cde1a3dbe0d0",
+      "bytes": 76593,
+      "sha256": "dffa6e9fa980240ad3f221bd2b10939cfbde8783d1fc536d5a90398500f943e8",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 39143,
-      "sha256": "80668d842926011daa5e2b8ef614053a59a512d9353239e0f78b1b7b8a978116",
+      "bytes": 39591,
+      "sha256": "ee93501a0a1dd48185cdeef00f6ea8c9f2d476702c6d929863b885fe8d0cfcc9",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 14303,
-      "sha256": "5cb3583415ce32c91d8a9c4e5660f6e9b18253f636d4d38c4ec8ea99f2856dc3",
+      "bytes": 14333,
+      "sha256": "a2b542683749c28011678567755dfc1c30f0f2a0fedde3bc03d910aae2a13fc1",
       "kind": "text"
     },
     {
@@ -44469,8 +44469,8 @@
     },
     {
       "path": "docs/reference/LESSONS-INDEX.ar.md",
-      "bytes": 39610,
-      "sha256": "4e0f5157540889d3c41fa6fa67be195f9043c9a399f76ac32fcc80956311a69d",
+      "bytes": 40911,
+      "sha256": "1bfc797cc7283680f3e3b845ba061877409c7342b13b6b2a3b802c71317a1920",
       "kind": "text"
     },
     {
@@ -55023,8 +55023,8 @@
     },
     {
       "path": "audit/ai-column-roles-foundation/README.ar.md",
-      "bytes": 13675,
-      "sha256": "f2ddbe669e895f343b142a41bd6b1221988cffc67d557c842b04f7757bbbe1f1",
+      "bytes": 17565,
+      "sha256": "5f431014a1e5576ede6524a02f5802496531337c7e8fa46f86df595743f57df1",
       "kind": "text"
     },
     {
@@ -55559,6 +55559,36 @@
       "path": "audit/ai-column-roles-foundation/verify.py",
       "bytes": 25926,
       "sha256": "420547c3b54e5452b0743651d50a4d2259b30a62144e4b8908b18e34ad2e8ae7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/correction-1/measure.mjs",
+      "bytes": 6622,
+      "sha256": "8ebe90de19086c471df5a7728b11ab38074a0621ab0ca5f1de683148683d5ac0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/correction-1/truth.mjs",
+      "bytes": 3641,
+      "sha256": "09b6efb884ca76e7559bbd2d43cbe01af52804bead356f3711e860663f9f9f99",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/results/baseline-1.json",
+      "bytes": 29836,
+      "sha256": "4535e89556542bd3e0571506423a7548062799a17452ed4ab61512967ed1ab57",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/results/baseline-1c1.json",
+      "bytes": 33020,
+      "sha256": "856b5a6388185ee464131e93313005a5575a891b5c48c11f9103d716a37cda23",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/AI-1A.ar.md",
+      "bytes": 9221,
+      "sha256": "320dda0457d2c1542cca1da5b8afd3e97b0b00f6cb15083e3385ad3a971128b0",
       "kind": "text"
     }
   ],

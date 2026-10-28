@@ -179,6 +179,7 @@ const required = [
   'test:bank-cycle:c4-seal',
   'test:bank-cycle:c4-run',
   'test:ai-columns:seal',
+  'test:ai-columns:baseline',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',
