@@ -1,0 +1,381 @@
+{
+ "schema": "tarasuf-ic1-batch-engine-run/1",
+ "engine": "intercompany-batch-1",
+ "commit": "8896ee1be68d7b21fde0c955e9d5bf5190dec466",
+ "summary": {
+  "stories": "20/20",
+  "batchStatuses": "48/48",
+  "relations": "98/98"
+ },
+ "stories": {
+  "I01": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "AB": [
+     "ready",
+     []
+    ],
+    "AG": [
+     "missing",
+     [
+      "RELATION_MEMBER_MISSING",
+      "SIDE_EMPTY"
+     ]
+    ],
+    "BG": [
+     "ready",
+     []
+    ]
+   }
+  },
+  "I02": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "AB": [
+     "ready",
+     []
+    ]
+   }
+  },
+  "I03": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "AB": [
+     "ready",
+     []
+    ]
+   }
+  },
+  "I04": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "AB": [
+     "ready",
+     []
+    ],
+    "AG": [
+     "difference",
+     []
+    ]
+   }
+  },
+  "I05": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "AB": [
+     "missing",
+     [
+      "RELATION_ONE_SIDED"
+     ]
+    ],
+    "AG": [
+     "ready",
+     []
+    ]
+   }
+  },
+  "I06": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "AB": [
+     "ready",
+     []
+    ]
+   }
+  },
+  "I07": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "AB": [
+     "blocked",
+     [
+      "UNASSIGNED"
+     ]
+    ],
+    "AG": [
+     "blocked",
+     [
+      "UNASSIGNED"
+     ]
+    ],
+    "BG": [
+     "ready",
+     []
+    ]
+   }
+  },
+  "I08": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "AB": [
+     "missing",
+     [
+      "RELATION_MEMBER_MISSING",
+      "UNRELATED"
+     ]
+    ]
+   }
+  },
+  "I09": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "AB": [
+     "blocked",
+     [
+      "RELATION_BATCHES"
+     ]
+    ],
+    "AG": [
+     "blocked",
+     [
+      "RELATION_BATCHES"
+     ]
+    ],
+    "BG": [
+     "ready",
+     []
+    ]
+   }
+  },
+  "I10": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "AB": [
+     "difference",
+     []
+    ],
+    "AG": [
+     "ready",
+     []
+    ],
+    "BG": [
+     "difference",
+     []
+    ]
+   }
+  },
+  "I11": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "AB": [
+     "blocked",
+     [
+      "RELATION_DUPLICATE_MEMBER"
+     ]
+    ],
+    "AG": [
+     "ready",
+     []
+    ]
+   }
+  },
+  "I12": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "AB-1": [
+     "blocked",
+     [
+      "BATCH_OVERLAP",
+      "UNASSIGNED_AMBIGUOUS"
+     ]
+    ],
+    "AB-2": [
+     "blocked",
+     [
+      "BATCH_OVERLAP",
+      "UNASSIGNED_AMBIGUOUS"
+     ]
+    ],
+    "AG": [
+     "ready",
+     []
+    ]
+   }
+  },
+  "I13": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "AB": [
+     "blocked",
+     [
+      "COUNTERPARTY_CONFLICT"
+     ]
+    ],
+    "AG": [
+     "ready",
+     []
+    ]
+   }
+  },
+  "I14": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "AB": [
+     "ready",
+     []
+    ],
+    "AG-KWD": [
+     "ready",
+     []
+    ],
+    "BG-JPY": [
+     "ready",
+     []
+    ]
+   }
+  },
+  "I15": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "AB": [
+     "ready",
+     []
+    ],
+    "AG": [
+     "missing",
+     [
+      "RELATION_MEMBER_MISSING",
+      "SIDE_EMPTY"
+     ]
+    ],
+    "BG": [
+     "missing",
+     [
+      "SIDE_EMPTY"
+     ]
+    ]
+   }
+  },
+  "I16": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "AB": [
+     "ready",
+     []
+    ],
+    "AG": [
+     "difference",
+     []
+    ]
+   }
+  },
+  "I17": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "AB": [
+     "ready",
+     []
+    ],
+    "AG": [
+     "ready",
+     []
+    ],
+    "AD": [
+     "difference",
+     []
+    ],
+    "BG": [
+     "ready",
+     []
+    ],
+    "BD": [
+     "ready",
+     []
+    ],
+    "GD": [
+     "missing",
+     [
+      "UNRELATED"
+     ]
+    ]
+   }
+  },
+  "I18": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "BG": [
+     "difference",
+     []
+    ],
+    "AG": [
+     "ready",
+     []
+    ],
+    "AB": [
+     "difference",
+     []
+    ]
+   }
+  },
+  "I19": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "AB": [
+     "blocked",
+     [
+      "POSTING_PERIOD"
+     ]
+    ],
+    "AG": [
+     "ready",
+     []
+    ],
+    "BG": [
+     "blocked",
+     [
+      "BATCH_FIELD"
+     ]
+    ]
+   }
+  },
+  "I20": {
+   "equal": true,
+   "error": null,
+   "differ": [],
+   "statuses": {
+    "AB": [
+     "difference",
+     []
+    ]
+   }
+  }
+ }
+}

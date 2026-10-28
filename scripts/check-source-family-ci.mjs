@@ -186,6 +186,8 @@ const required = [
   'test:ic-batch:oracle-mutants',
   'test:ic-batch:seal',
   'test:ic-batch:baseline',
+  'test:ic-batch:run',
+  'test:ic-batch:mutations',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',
