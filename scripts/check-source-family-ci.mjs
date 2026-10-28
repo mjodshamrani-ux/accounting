@@ -458,6 +458,10 @@ const separate = {
   'allocation-advice-interface-mutations': [
     'test:all-advice:interface-mutations',
   ],
+  'payment-gateway-batches-browser': ['test:pg-batches:browser'],
+  'payment-gateway-batches-interface-mutations': [
+    'test:pg-batches:interface-mutations',
+  ],
   'bank-statement-holdout': [
     'test:bank-statement:g6-holdout',
     'test:bank-statement:g6-browser',

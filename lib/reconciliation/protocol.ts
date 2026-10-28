@@ -64,6 +64,12 @@ import {
   reviewAllocationAdvice,
 } from './allocation-advice.ts';
 import type { AllocationResult } from './allocation.ts';
+import {
+  PG_BATCHES_ROLES,
+  PG_BATCHES_VERSION,
+  reviewGatewayBatches,
+  type GatewayBatchesInput,
+} from './payment-gateway-batches.ts';
 import type { SourceFile } from './types.ts';
 import {
   registerNativeHeaderSource,
@@ -150,6 +156,7 @@ export const WORKER_ACTIONS = [
   'inventory-movement-bridge-reconcile',
   'clearing-groups-reconcile',
   'allocation-advice-review',
+  'payment-gateway-batches-reconcile',
 ] as const;
 export type WorkerAction = (typeof WORKER_ACTIONS)[number];
 export const isRecord = (value: unknown): value is Record<string, unknown> =>
@@ -927,6 +934,59 @@ export function validateWorkerValue(
         JSON.stringify(
           reviewAllocationAdvice(value.result as unknown as AllocationResult),
         ) !== JSON.stringify(value.review)
+      )
+        throw new Error('invalid');
+    } catch {
+      throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+    }
+  }
+  if (action === 'payment-gateway-batches-reconcile') {
+    try {
+      const roles = PG_BATCHES_ROLES.length;
+      if (
+        !isRecord(value) ||
+        Object.keys(value).sort().join('|') !== 'result|state' ||
+        !isRecord(value.state) ||
+        !isRecord(value.result) ||
+        value.result.version !== PG_BATCHES_VERSION ||
+        !isRecord(payload) ||
+        !Array.isArray(payload.files) ||
+        !Array.isArray(value.state.files) ||
+        payload.files.length !== roles ||
+        value.state.files.length !== roles ||
+        JSON.stringify(value.state.readings) !==
+          JSON.stringify(payload.readings) ||
+        JSON.stringify(value.state.scope) !== JSON.stringify(payload.scope)
+      )
+        throw new Error('invalid');
+      // The five gateway and bank files must be the ones this request sent,
+      // byte for byte, under their names and hashes.
+      const sentFiles: unknown[] = payload.files;
+      value.state.files.forEach((returned: unknown, side: number) => {
+        const requested = sentFiles[side];
+        assertSourceFile(returned);
+        if (
+          !isRecord(requested) ||
+          returned.name !== requested.name ||
+          typeof returned.sha256 !== 'string' ||
+          returned.sha256 !== requested.sha256 ||
+          !(returned.original instanceof ArrayBuffer) ||
+          !(requested.original instanceof ArrayBuffer) ||
+          returned.original.byteLength > MAX_FILE_BYTES ||
+          requested.original.byteLength !== returned.original.byteLength
+        )
+          throw new Error('invalid');
+        const asked = new Uint8Array(requested.original),
+          given = new Uint8Array(returned.original);
+        for (let at = 0; at < given.length; at++)
+          if (given[at] !== asked[at]) throw new Error('invalid');
+      });
+      // Review every batch, payout and credit again from the sheets carried;
+      // the client binding reads the bytes again. Not an approval.
+      if (
+        JSON.stringify(
+          reviewGatewayBatches(value.state as unknown as GatewayBatchesInput),
+        ) !== JSON.stringify(value.result)
       )
         throw new Error('invalid');
     } catch {

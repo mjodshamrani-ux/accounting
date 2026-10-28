@@ -112,6 +112,14 @@ export function createWorkerClient(
           return reject(error);
         }
       }
+      // The five gateway batch snapshots, their readings and scope.
+      if (action === 'payment-gateway-batches-reconcile') {
+        try {
+          payload = structuredClone(payload);
+        } catch (error) {
+          return reject(error);
+        }
+      }
       // Capture the statement originals, scope and decisions synchronously.
       if (action.startsWith('bank-statement-')) {
         try {
@@ -424,6 +432,57 @@ export function createWorkerClient(
             }
             // Install only what this page replayed from its own request.
             response.value = fresh;
+          }
+          if (action === 'payment-gateway-batches-reconcile') {
+            const answer = response.value;
+            if (
+              !isRecord(answer) ||
+              !isRecord(answer.state) ||
+              !isRecord(answer.result) ||
+              !Array.isArray(answer.state.files) ||
+              answer.state.files.length !== 5
+            )
+              throw Error('PG_BATCHES_WORKER_BINDING');
+            const { replayGatewayBatches } = await import(
+              './payment-gateway-batches-io.ts'
+            );
+            let own: Awaited<ReturnType<typeof replayGatewayBatches>>;
+            try {
+              own = await replayGatewayBatches(
+                payload as import('./payment-gateway-batches-io.ts').GatewayBatchesReplayInput,
+              );
+            } catch {
+              // The worker answered where this page refuses: not this request.
+              throw Error('PG_BATCHES_WORKER_BINDING');
+            }
+            const theirs = answer as unknown as typeof own;
+            const evidence = (state: typeof own.state) =>
+              JSON.stringify([
+                state.readings,
+                state.scope,
+                state.files.map((f) => [
+                  f.name,
+                  f.kind,
+                  f.sha256,
+                  f.original?.byteLength,
+                ]),
+              ]);
+            if (
+              evidence(theirs.state) !== evidence(own.state) ||
+              JSON.stringify(theirs.result) !== JSON.stringify(own.result)
+            )
+              throw Error('PG_BATCHES_WORKER_BINDING');
+            theirs.state.files.forEach((f, side) => {
+              const left = new Uint8Array(f.original!),
+                right = new Uint8Array(own.state.files[side].original!);
+              if (
+                left.length !== right.length ||
+                left.some((v, at) => v !== right[at])
+              )
+                throw Error('PG_BATCHES_WORKER_BINDING');
+            });
+            // Install only the review this page computed from its own bytes.
+            response.value = own;
           }
           if (action.startsWith('stock-')) {
             response.value = await (

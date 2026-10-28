@@ -1,6 +1,7 @@
 // PG-1b code mutations: each planted defect in a private copy of
-// payment-gateway-batches-1 (payment-gateway-batches.ts) or its replay from
-// bytes (payment-gateway-batches-io.ts) must make its tests fail with an
+// payment-gateway-batches-1 (payment-gateway-batches.ts), its replay from
+// bytes (payment-gateway-batches-io.ts), or since PG-1c the worker protocol
+// and the page's binding for it, must make its tests fail with an
 // assertion. A survivor is a guard nothing holds.
 //   node scripts/test-payment-gateway-batches-mutations.mjs
 import {
@@ -27,10 +28,16 @@ const output =
   join(root, 'work/payment-gateway-batches-mutations');
 await mkdir(output, { recursive: true });
 const out = await mkdtemp(join(output, 'run-'));
-const tests = ['tests/payment-gateway-batches.test.ts'];
-const support = [];
+const tests = [
+  'tests/payment-gateway-batches.test.ts',
+  'tests/payment-gateway-batches-protocol.test.ts',
+  'tests/payment-gateway-batches-binding.test.ts',
+];
+const support = ['tests/helpers'];
 const ENGINE = 'lib/reconciliation/payment-gateway-batches.ts';
 const IO = 'lib/reconciliation/payment-gateway-batches-io.ts';
+const PROTOCOL = 'lib/reconciliation/protocol.ts';
+const CLIENT = 'lib/reconciliation/worker-client.ts';
 const mutations = [
   [
     'reading-family-unchecked',
@@ -392,8 +399,50 @@ const mutations = [
     '    gatewayBatchesColumns(file.sheets[0], side);\n',
     '',
   ],
+  [
+    'protocol-bytes-unchecked',
+    PROTOCOL,
+    "          if (given[at] !== asked[at]) throw new Error('invalid');",
+    "          if (false) throw new Error('invalid');",
+  ],
+  [
+    'protocol-review-not-recomputed',
+    PROTOCOL,
+    '          reviewGatewayBatches(value.state as unknown as GatewayBatchesInput),\n        ) !== JSON.stringify(value.result)',
+    '          value.result,\n        ) !== JSON.stringify(value.result)',
+  ],
+  [
+    'protocol-scope-unchecked',
+    PROTOCOL,
+    "        JSON.stringify(value.state.scope) !== JSON.stringify(payload.scope)\n      )\n        throw new Error('invalid');\n      // The five gateway",
+    "        false\n      )\n        throw new Error('invalid');\n      // The five gateway",
+  ],
+  [
+    'protocol-file-order-unchecked',
+    PROTOCOL,
+    '          returned.name !== requested.name ||\n',
+    '          false ||\n',
+  ],
+  [
+    'client-review-not-compared',
+    CLIENT,
+    '              JSON.stringify(theirs.result) !== JSON.stringify(own.result)',
+    '              false',
+  ],
+  [
+    'client-bytes-unchecked',
+    CLIENT,
+    '                left.some((v, at) => v !== right[at])',
+    '                false',
+  ],
+  [
+    'csv-cells-uncapped',
+    IO,
+    "      if (row.length === 99) refuseGatewayBatches('ROWS');\n",
+    '',
+  ],
 ];
-const files = [ENGINE, IO, ...tests];
+const files = [ENGINE, IO, PROTOCOL, CLIENT, ...tests];
 const digest = (b) => createHash('sha256').update(b).digest('hex');
 const before = Object.fromEntries(
   await Promise.all(

@@ -38,8 +38,10 @@ const hex = async (bytes: ArrayBuffer) =>
 
 /** Comma CSV as the contract reads it: UTF-8, where the decoder drops one
  * leading byte order mark and keeps any other, a blank physical line is a row
- * with no cells, and a quoted field may hold commas, quotes and line breaks. A stray or unclosed quote is SOURCE, not
- * repaired, and the reader's ceiling is ROWS. No delimiter is inferred. */
+ * with no cells, and a quoted field may hold commas, quotes and line breaks.
+ * A stray or unclosed quote is SOURCE, not repaired, and the reader's ceiling
+ * (MAX_ROWS lines and the header, 100 cells in a row) is ROWS. No delimiter
+ * is inferred. */
 export function gatewayBatchesCSV(original: ArrayBuffer): string[][] {
   let text: string;
   try {
@@ -80,6 +82,7 @@ export function gatewayBatchesCSV(original: ArrayBuffer): string[][] {
       quoted = true;
       touched = true;
     } else if (c === ',') {
+      if (row.length === 99) refuseGatewayBatches('ROWS');
       row.push(cell);
       cell = '';
       closed = false;

@@ -1473,6 +1473,53 @@ jobs:
         env:
           ALL_ADVICE_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/allocation-advice-interface-mutations
         run: pnpm test:all-advice:interface-mutations
+  payment-gateway-batches-browser:
+    name: Gateway batches and deposits in the built application, the 38 sealed PG-1 stories in the payment gateway workspace against the recorded run (PG-1c)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm build
+      - name: Verify every sealed PG-1 story's batches, payouts and unlinked credits in the payment gateway workspace through its five native file inputs and the actual Worker, the dense stories, the unconfirmed scope, Arabic, a phone width, the keyboard and a stale review cleared, against its recorded run (PG-1c)
+        env:
+          PG_BATCHES_BROWSER_DIR: ${{ runner.temp }}/payment-gateway-batches-browser
+        run: pnpm test:pg-batches:browser
+  payment-gateway-batches-interface-mutations:
+    name: Gateway batches and deposits interface mutations in built browser copies (PG-1c)
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the gateway batches browser acceptance to catch it
+        env:
+          PG_BATCHES_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/payment-gateway-batches-interface-mutations
+        run: pnpm test:pg-batches:interface-mutations
   deploy:
     if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
     needs:

@@ -39,6 +39,7 @@ import {
   exportAllocation,
 } from './allocation-io.ts';
 import { replayAllocationAdvice } from './allocation-advice-io.ts';
+import { replayGatewayBatches } from './payment-gateway-batches-io.ts';
 import { replayGlTb, saveGlTb, restoreGlTb, exportGlTb } from './gl-tb-io.ts';
 import { replayAr, saveAr, restoreAr, exportAr } from './ar-io.ts';
 import { snapshotArRequest } from './ar-worker-binding.ts';
@@ -111,6 +112,8 @@ self.onmessage = async (event: MessageEvent) => {
       value = await exportAllocation(payload.state, payload.result);
     else if (action === 'allocation-advice-review')
       value = await replayAllocationAdvice(payload);
+    else if (action === 'payment-gateway-batches-reconcile')
+      value = await replayGatewayBatches(payload);
     else if (action === 'gateway-read') value = await readGatewayFile(payload.name,payload.buffer);
     else if (action === 'payroll-read') value = await readPayrollFile(payload.name,payload.buffer);
     else if (action === 'payroll-reconcile') value = await replayPayroll(payload);
