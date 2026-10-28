@@ -1,0 +1,136 @@
+{
+ "schema": "tarasuf-inv3-workbook-selftest/1",
+ "workbooks": "downloaded by scripts/inventory-links-browser.mjs in browser-run-1",
+ "stories": [
+  {
+   "story": "L14",
+   "passed": true,
+   "problems": [],
+   "selfTest": [
+    {
+     "plant": "linked read as unlinked",
+     "planted": true,
+     "rejected": true
+    },
+    {
+     "plant": "a reason changed",
+     "planted": true,
+     "rejected": true
+    },
+    {
+     "plant": "a leading zero dropped",
+     "planted": true,
+     "rejected": true
+    },
+    {
+     "plant": "last link row dropped",
+     "planted": true,
+     "rejected": true
+    },
+    {
+     "plant": "last member row dropped",
+     "planted": true,
+     "rejected": true
+    }
+   ]
+  },
+  {
+   "story": "L26",
+   "passed": true,
+   "problems": [],
+   "selfTest": [
+    {
+     "plant": "linked read as unlinked",
+     "planted": true,
+     "rejected": true
+    },
+    {
+     "plant": "a reason changed",
+     "planted": true,
+     "rejected": true
+    },
+    {
+     "plant": "a leading zero dropped",
+     "planted": false,
+     "rejected": false
+    },
+    {
+     "plant": "last link row dropped",
+     "planted": true,
+     "rejected": true
+    },
+    {
+     "plant": "last member row dropped",
+     "planted": true,
+     "rejected": true
+    }
+   ]
+  },
+  {
+   "story": "L12",
+   "passed": true,
+   "problems": [],
+   "selfTest": [
+    {
+     "plant": "linked read as unlinked",
+     "planted": true,
+     "rejected": true
+    },
+    {
+     "plant": "a reason changed",
+     "planted": true,
+     "rejected": true
+    },
+    {
+     "plant": "a leading zero dropped",
+     "planted": false,
+     "rejected": false
+    },
+    {
+     "plant": "last link row dropped",
+     "planted": true,
+     "rejected": true
+    },
+    {
+     "plant": "last member row dropped",
+     "planted": true,
+     "rejected": true
+    }
+   ]
+  },
+  {
+   "story": "L13",
+   "passed": true,
+   "problems": [],
+   "selfTest": [
+    {
+     "plant": "linked read as unlinked",
+     "planted": true,
+     "rejected": true
+    },
+    {
+     "plant": "a reason changed",
+     "planted": false,
+     "rejected": false
+    },
+    {
+     "plant": "a leading zero dropped",
+     "planted": false,
+     "rejected": false
+    },
+    {
+     "plant": "last link row dropped",
+     "planted": true,
+     "rejected": true
+    },
+    {
+     "plant": "last member row dropped",
+     "planted": true,
+     "rejected": true
+    }
+   ]
+  }
+ ],
+ "planted": 16,
+ "rejected": 16
+}

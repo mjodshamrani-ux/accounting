@@ -113,7 +113,7 @@ export function snapshotStockRequest(action: string, payload: unknown): unknown 
   if (!plain(payload)) throw Error('STOCK_WORKER_INPUT');
   if (action === 'stock-reconcile' || action === 'stock-save')
     return snapshotStockInputRequest(payload as unknown as StockInput);
-  if (action === 'stock-export') {
+  if (action === 'stock-export' || action === 'stock-links-export') {
     if (!keys(payload, ['state', 'result']) || !plain(payload.result))
       throw Error('STOCK_WORKER_INPUT');
     return { state: snapshotStockInputRequest(payload.state as StockInput), result: snapshotStockTransportData(payload.result) };

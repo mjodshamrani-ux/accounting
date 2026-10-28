@@ -346,5 +346,10 @@ export async function validateStockWorkerResponse(action: string, value: unknown
     if (!await sameStockWorkbook(captured as ArrayBuffer, expected)) throw Error('STOCK_WORKER_BINDING');
     return expected;
   }
+  if (action === 'stock-links-export') {
+    const expected = await io.exportStockLinks(payload.state as StockInput, payload.result as StockResult);
+    if (!await sameStockWorkbook(captured as ArrayBuffer, expected)) throw Error('STOCK_WORKER_BINDING');
+    return expected;
+  }
   throw Error('STOCK_WORKER_ACTION');
 }

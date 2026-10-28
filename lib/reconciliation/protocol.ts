@@ -115,6 +115,7 @@ export const WORKER_ACTIONS = [
   'stock-save',
   'stock-restore',
   'stock-export',
+  'stock-links-export',
   'gateway-reconcile',
   'gateway-save',
   'gateway-restore',
@@ -397,6 +398,7 @@ export function validateWorkerValue(
     action === 'asset-export' ||
     action === 'stock-save' ||
     action === 'stock-export' ||
+    action === 'stock-links-export' ||
     action === 'gateway-export' ||
     action === 'intercompany-save' ||
     action === 'intercompany-export' ||

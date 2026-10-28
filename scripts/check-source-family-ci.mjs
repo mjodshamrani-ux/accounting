@@ -413,6 +413,10 @@ const separate = {
   'inventory-movement-bridge-interface-mutations': [
     'test:inv-move:interface-mutations',
   ],
+  'inventory-links-browser': ['test:inv-links:browser'],
+  'inventory-links-interface-mutations': [
+    'test:inv-links:interface-mutations',
+  ],
   'bank-statement-holdout': [
     'test:bank-statement:g6-holdout',
     'test:bank-statement:g6-browser',
