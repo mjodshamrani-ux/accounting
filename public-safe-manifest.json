@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 76351,
-      "sha256": "ebd813f3349070644cc231b13990a52812b9f29f31109cdc6b2ecf0d34b76fb9",
+      "bytes": 76391,
+      "sha256": "8c6c037a96202676e2b15981e4d928865b1491736cdaf1e62fb594adbb99b830",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 50104,
-      "sha256": "1e36e356b928cc86c36acd0d1f25866e7763b10ef3bd0257fc0409e7b9369e69",
+      "bytes": 50291,
+      "sha256": "52ce67437b10adea78d96aa9a1017baa1501229fbc7f6a458f648c35dcaf4401",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 113651,
-      "sha256": "bea4eda09d93f21c273240e964ec6658bdccdc5598b77a1d7cb855f2764e71e6",
+      "bytes": 114461,
+      "sha256": "08efbc71774fd8d5976a56d278fdc0ec38e33a9fbcd8fcad88732fa4944888ca",
       "kind": "text"
     },
     {
@@ -36223,8 +36223,8 @@
     },
     {
       "path": "docs/roadmap/clearing.ar.md",
-      "bytes": 3725,
-      "sha256": "17acc13970c4866fd7922cf91d86c4433a5aab0b2812ab71c5dc1248381a8258",
+      "bytes": 4070,
+      "sha256": "024df43fa39b3d0596083ecd1a84ad8cc2315a7316ed57d432ea357430616bb8",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 51684,
-      "sha256": "deaa9aa90afd2754c93cf7b2b991a32fc1de6e108c3377afbe23a6ee2e87a703",
+      "bytes": 51855,
+      "sha256": "ee1a682222ee4ed62c551916fa21c91f66a0c865888e58fa0f7d2baf8ee7f95f",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 17035,
-      "sha256": "9d476d5b05d30e66f6cae4f4078a17acc078c7313d75aa4d37ec08d7b3d02622",
+      "bytes": 17065,
+      "sha256": "d46b157256c4ad8c8de6c59296490f0b972329c52f85c1ff7a9c90971c3914ac",
       "kind": "text"
     },
     {
@@ -64685,8 +64685,20 @@
     },
     {
       "path": "docs/audits/CLR-1-FOUNDATION.ar.md",
-      "bytes": 7989,
-      "sha256": "24f4642681b4c366b53b77b8f54e6dec5613227eab6a9735b06b1a75e465a391",
+      "bytes": 9985,
+      "sha256": "3334aad61929685f49e86dce508daf2c6394c44df491f0cc3553a59327fda081",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-foundation/baseline.mjs",
+      "bytes": 6722,
+      "sha256": "51349b5a3caed279c7a88540188c6871e690813e6e527d463558f23978734962",
+      "kind": "text"
+    },
+    {
+      "path": "audit/clearing-groups-foundation/results/baseline-1.json",
+      "bytes": 513546,
+      "sha256": "ca767fd4617a719c3cd49b869b319cd6483959c039f92f03706a2d53583fe6c2",
       "kind": "text"
     }
   ],

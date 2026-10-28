@@ -390,6 +390,7 @@ jobs:
           pnpm test:clr-groups:oracle
           pnpm test:clr-groups:oracle-mutants
           pnpm test:clr-groups:seal
+          pnpm test:clr-groups:baseline
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations
