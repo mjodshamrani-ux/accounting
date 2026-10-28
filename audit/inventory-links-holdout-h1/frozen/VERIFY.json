@@ -1,0 +1,62 @@
+{
+ "schema": "tarasuf-inv3-links-h1-verify/1",
+ "factsSha256": "cf84d7891b4233ef6c53f019054b3ad04699f84d08d6c681860ba3a96cfb0719",
+ "files": 84,
+ "cells": 79576,
+ "passed": true,
+ "problems": [],
+ "selfTest": [
+  {
+   "plant": "one value changed",
+   "rejected": true
+  },
+  {
+   "plant": "one line dropped",
+   "rejected": true
+  },
+  {
+   "plant": "byte-order mark removed",
+   "rejected": true
+  },
+  {
+   "plant": "LF in a CR file",
+   "rejected": true
+  },
+  {
+   "plant": "a field quoted that needs none",
+   "rejected": true
+  },
+  {
+   "plant": "a field with a space left unquoted by PHP",
+   "rejected": true
+  },
+  {
+   "plant": "LF in a CRLF file",
+   "rejected": true
+  },
+  {
+   "plant": "one GL value changed",
+   "rejected": true
+  },
+  {
+   "plant": "a doubled quote undone",
+   "rejected": true
+  },
+  {
+   "plant": "a leading zero dropped",
+   "rejected": true
+  },
+  {
+   "plant": "an Arabic letter changed",
+   "rejected": true
+  },
+  {
+   "plant": "scope currency changed",
+   "rejected": true
+  },
+  {
+   "plant": "a file no story names",
+   "rejected": true
+  }
+ ]
+}

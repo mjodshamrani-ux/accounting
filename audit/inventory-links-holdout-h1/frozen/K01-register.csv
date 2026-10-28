@@ -1,0 +1,4 @@
+"Item ID","Item dimensions",Quantity,Unit,"Quantity precision","Posted value","Valuation reference",Entity,"Inventory ledger","GL ledger",Currency,"Currency basis","Posting status","Posting layer","As of","Chart version","Map version","Valuation policy version","Inventory account set version"
+IMP-220,port=DMM;rack=1,3,pcs,0,4125.50,VAL-001,"شركة قطع الغيار البحرية الاصطناعية",MS-STOCK-K01,MS-GL-K01,SAR,functional,posted,"Quarter close",2027-06-30,MS-COA-3,MS-MAP-K01,MS-VAL-2,MS-SET-1
+IMP-220,port=JED;rack=4,3,pcs,0,980.00,VAL-002,"شركة قطع الغيار البحرية الاصطناعية",MS-STOCK-K01,MS-GL-K01,SAR,functional,posted,"Quarter close",2027-06-30,MS-COA-3,MS-MAP-K01,MS-VAL-2,MS-SET-1
+SEAL-9,port=DMM;rack=2,3,set,0,150.25,VAL-003,"شركة قطع الغيار البحرية الاصطناعية",MS-STOCK-K01,MS-GL-K01,SAR,functional,posted,"Quarter close",2027-06-30,MS-COA-3,MS-MAP-K01,MS-VAL-2,MS-SET-1
