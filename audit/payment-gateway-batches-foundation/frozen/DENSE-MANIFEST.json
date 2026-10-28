@@ -1,0 +1,125 @@
+{
+ "schema": "tarasuf-pg1-dense-manifest/1",
+ "synthetic": true,
+ "producer": "stories.py dense(), fixed rules and no randomness, written by render.py --dense with Python csv only; regenerated and checked by dense.py before any run",
+ "files": {
+  "D1-bank-credits.csv": {
+   "sha256": "1cf71f1038a08a4ba61900d525f474cca7863a6d4e48a50ee8a94b8a378cbb02",
+   "bytes": 667
+  },
+  "D1-fees.csv": {
+   "sha256": "1b38dc8caec3b5edf7f1f6e45daf335b04e38001d7d96a788b61ee5b59ad4333",
+   "bytes": 1779
+  },
+  "D1-input.json": {
+   "sha256": "ba6af4c944a178165264d4e6a80486acfc0a115b452d77c7fafda399a40bff3e",
+   "bytes": 985
+  },
+  "D1-payout-lines.csv": {
+   "sha256": "8cca524362b1cccef78c4c0e74987d992efddbc16b168b9f5208caacf495e59d",
+   "bytes": 1212
+  },
+  "D1-settlements.csv": {
+   "sha256": "1794555925c43616e3034e894db3c1bb457e0a3e9c9706338e86ca420493fd92",
+   "bytes": 2400
+  },
+  "D1-transactions.csv": {
+   "sha256": "068fe5a8e9274d3bab868a4d2bbbd621919b08d9c1582cc6f3d85fda2faca060",
+   "bytes": 1168193
+  },
+  "D2-bank-credits.csv": {
+   "sha256": "678d49e0d107f214b4ed9aa810c2b8caa634c3107d0a4997dfa1c1ecb3603904",
+   "bytes": 107
+  },
+  "D2-fees.csv": {
+   "sha256": "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+   "bytes": 59
+  },
+  "D2-input.json": {
+   "sha256": "743ef8e4c82abd4b32dda592f5b2f4f81405fe7826cf47826c07a2c7a75bb6f1",
+   "bytes": 985
+  },
+  "D2-payout-lines.csv": {
+   "sha256": "77e4e1b3a10287ac29fb690cf82e6787d954202fd452a79704d84af6262c3f7f",
+   "bytes": 80
+  },
+  "D2-settlements.csv": {
+   "sha256": "f2a76a1a7ded02f18db3803afc88dfcee3d51708c348c446dbad77cd37e31a1b",
+   "bytes": 136
+  },
+  "D2-transactions.csv": {
+   "sha256": "380ffd40e4d356301e022b091b3206512e9b27f817cd8505960c785fcc30db2f",
+   "bytes": 1141795
+  },
+  "D3-bank-credits.csv": {
+   "sha256": "4010f940f5887eb0f953cd13e10e4520485e7392c4933774a350ac6c332cdb41",
+   "bytes": 178265
+  },
+  "D3-fees.csv": {
+   "sha256": "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+   "bytes": 59
+  },
+  "D3-input.json": {
+   "sha256": "cbdcadba7f45653d40ee25aab8877d98baf37ae5c25c7b036f3ea3a08590055b",
+   "bytes": 985
+  },
+  "D3-payout-lines.csv": {
+   "sha256": "85e5721fff3546c1e16a028a405259367ff7f9cc2b8890bbe50d6a897904cec7",
+   "bytes": 124052
+  },
+  "D3-settlements.csv": {
+   "sha256": "ed402b6ef9e1c460f49caccc65c55d57101790ad53bec2b603cfac1220d4657e",
+   "bytes": 212080
+  },
+  "D3-transactions.csv": {
+   "sha256": "5db4a5a0b634c9497fc9cbf8857c747967476c989726954626cb2e6b9d055a36",
+   "bytes": 236085
+  }
+ },
+ "expectedSha256": "4e9ff861eb97c378f2e07d4aaea397c82031c77e9c2d082aec6180f720fc1cee",
+ "summary": {
+  "D1": {
+   "refused": null,
+   "batches": {
+    "consistent": 35,
+    "review": 5
+   },
+   "payouts": {
+    "consistent": 13,
+    "review": 1
+   },
+   "credits": 0
+  },
+  "D2": {
+   "refused": "ROWS",
+   "batches": {},
+   "payouts": {},
+   "credits": 0
+  },
+  "D3": {
+   "refused": null,
+   "batches": {
+    "consistent": 3800,
+    "in-transit": 160,
+    "review": 40
+   },
+   "payouts": {
+    "consistent": 3800,
+    "in-transit": 160,
+    "review": 40
+   },
+   "credits": 0
+  }
+ },
+ "verify": {
+  "schema": "tarasuf-pg1-batches-verify/1",
+  "dense": true,
+  "factsSha256": "dbe8b0d49eb884f794d00e45473e4447c4eefb453c360875ee8aea05ba397c01",
+  "stories": 3,
+  "files": 15,
+  "cells": 429194,
+  "passed": true,
+  "problems": [],
+  "selfTest": []
+ }
+}

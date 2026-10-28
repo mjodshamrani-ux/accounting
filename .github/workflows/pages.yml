@@ -403,6 +403,9 @@ jobs:
           pnpm test:all-advice:mutations
           pnpm test:all-advice:h1-seal
           pnpm test:all-advice:h1-run
+          pnpm test:pg-batches:oracle
+          pnpm test:pg-batches:oracle-mutants
+          pnpm test:pg-batches:seal
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations

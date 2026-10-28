@@ -1,0 +1,72 @@
+{
+ "schema": "tarasuf-pg1-batches-foundation/1",
+ "status": "proposed: review only, not enabled in the product, awaiting the owner's decisions P1 to P6",
+ "synthetic": true,
+ "holdout": false,
+ "productEnabled": false,
+ "proposedEvidence": "payment-gateway-batches-1",
+ "family": "payment-gateway-batch-1, unchanged: one merchant account, one batch, one settlement row and one bank payout, with transactions and independently evidenced fees; accept, reject and undo of the whole batch",
+ "plan": "docs/roadmap/payment-gateway.ar.md#pg-1-عدة-دفعات-وتسويات-وإيداعات--مخطط-بعد-c-0-وc-1-وbnk-1",
+ "challengeIds": [
+  "PG",
+  "CH-01",
+  "CH-02",
+  "CH-04",
+  "CH-05",
+  "CH-06"
+ ],
+ "why": "The family compares one batch with one payout: a settlement file or a payout file with a second row is a source error (CARDINALITY), every row must carry the one batch of the scope, and the payout is linked by its ID alone. A gateway that pays one batch in two deposits, or one deposit for several batches, cannot be read at all; split by hand into one batch at a time, the family compares each batch's net with a whole deposit, so a deposit for two batches is a difference on both and a batch paid in two deposits has no payout to compare with. Nothing states which batch each deposit pays, so the only check left is the total, and two deposits whose total is right can hide two wrong deposits.",
+ "claim": "For a confirmed scope of one merchant account, one bank account and one currency over a period: every batch with its sales, refunds and fees as the members that name it, against its settlement row and that row's own arithmetic, and what the gateway's payout lines say it paid against its net; every payout with its lines and the batches they name, against the bank credit that names it, received in the period, after it, or not at all; and every bank credit that no payout line explains. No batch, payout or credit is matched by amount or date, and nothing is decided.",
+ "reading": {
+  "sources": "Five CSV or XLSX files, each with its role's headers in any column order and one confirmed reading (sheet 0): transactions (Transaction ID, Batch ID, Kind, Posting date, Amount, Reference, Merchant account, Currency); fee-evidence (Fee ID, Batch ID, Amount, Reference, Merchant account, Currency); settlements (Batch ID, Settlement date, Gross sales, Refunds, Fees, Net, Merchant account, Currency); payout-lines (Payout ID, Batch ID, Amount, Merchant account, Currency); bank-credits (Bank reference, Payout ID, Value date, Credit, Bank account, Currency).",
+  "scope": "Confirmed by the accountant: entity, gateway, merchant account, bank account, currency, period start, period end and as-of date, with start on or before end and end on or before as-of. The currency is one whose minor units are known (SAR, AED, USD, EUR to 2 places, KWD, BHD, OMR to 3, JPY to 0).",
+  "rows": "A row with every cell blank is skipped. Every other row: its Merchant account (Bank account for bank credits) and Currency cells equal the scope; every ID is text without control characters, surrounding spaces, a leading = + @ or -, or an Excel error; a Reference is text without control characters; Kind is sale or refund; an amount is digits (Latin, Arabic-Indic or extended Arabic-Indic, with a full stop or the Arabic decimal separator) to at most the currency's places, zero allowed, no sign and no grouping; dates are calendar dates as YYYY-MM-DD, posting and settlement dates within the period, value dates from period start to as-of. A hidden row, a formula or a cell issue is a row error (CELL).",
+  "keys": "Transaction ID, Fee ID, the Batch ID of a settlement row, Bank reference and the Payout ID of a bank credit are each unique in their file, and the pair of Payout ID and Batch ID is unique among payout lines (DUPLICATE on every row of a repeated key). A transaction, fee or payout line naming a Batch ID that no readable settlement row carries is a row error (MEMBER); a settlement row in error therefore makes its members row errors too.",
+  "refusals": "ROWS for the reader's ceiling of 20,030 rows in a sheet with the header; SOURCE for a file that cannot be read as a CSV or XLSX snapshot; SCOPE; READING; COLUMNS for a missing, repeated or unknown header. Any row error in any file refuses the whole review: SOURCE_ERRORS."
+ },
+ "review": {
+  "batches": "One per settlement row, in row order. Its members are the sale and refund transactions and the fees that name its Batch ID, by row. Its components are the sums of those members; its settlement values are the row's Gross sales, Refunds, Fees and Net; paid is the sum of the payout lines naming it, and its payouts are their Payout IDs in the order of their first line.",
+  "batchReasons": {
+   "SALES": "The sale transactions naming the batch do not sum to its Gross sales.",
+   "REFUNDS": "The refund transactions naming the batch do not sum to its Refunds.",
+   "FEES": "The fees naming the batch do not sum to its Fees.",
+   "NET": "Gross sales minus Refunds minus Fees on the settlement row is not its Net.",
+   "PAID_SHORT": "The payout lines naming the batch sum to less than its Net.",
+   "PAID_OVER": "The payout lines naming the batch sum to more than its Net.",
+   "PAYOUT": "A payout of the batch needs review."
+  },
+  "payouts": "One per Payout ID among the payout lines, in the order of its first line: its lines by row with their batches, their sum, and the bank credit that names it with its row, value date and credit, or none.",
+  "payoutReasons": {
+   "CREDIT": "The bank credit naming the payout is not the sum of its lines.",
+   "NOT_DEPOSITED": "No bank credit names the payout by the as-of date."
+  },
+  "credits": "Every bank credit whose Payout ID no payout line names, in row order, with the reason UNLINKED_CREDIT: the bank received it, and nothing in the gateway's files says which batches it pays.",
+  "order": "Reasons in the order above.",
+  "status": "A payout: review when any reason applies; in-transit when its credit is equal and dated after the period end; consistent otherwise. A batch: review when any reason applies; in-transit when none does and a payout of it is in transit; consistent otherwise. An unlinked credit: review."
+ },
+ "consistency": [
+  "Every readable transaction and fee is a member of exactly one batch, and every payout line belongs to exactly one payout; every bank credit belongs to one payout or is unlinked.",
+  "The sum over batches of each component equals the sum of its members in the files; the sum over payouts of their lines equals the payout-lines file.",
+  "No batch, payout or credit is linked by amount or date: two batches with the same net, two payouts with the same amount and two credits with the same value stay apart by their IDs.",
+  "Reordering the rows of a file changes row numbers only: the same statuses, reasons and members by ID."
+ ],
+ "screen": "A review-only section of the payment gateway workspace with its own five file inputs, readings and scope, beside the single-batch family and not instead of it: every batch with its members, components, settlement values, paid amount, payouts, status and reasons, every payout with its lines, credit, status and reasons, and every unlinked credit, in Arabic and English. No decision is taken here.",
+ "workbook": "Not in this foundation. The section's export is decided with the screen.",
+ "unchanged": "payment-gateway-batch-1 and payment-gateway-signed-kind-1: their reading, cases, refusals, decisions, sessions and workbooks. The payment gateway workspace keeps its single-batch decisions; none is taken from payment-gateway-batches-1.",
+ "density": "The reader admits at most 20,030 rows in a sheet, the header included: 20,029 transactions. One more is refused before any review (ROWS).",
+ "ownerDecisions": {
+  "P1": "A deposit pays the batches the gateway's payout lines name, and only those. No link is inferred from equal amounts, nearby dates or a closing total; a bank credit no line names is shown unlinked.",
+  "P2": "Membership is by the Batch ID written on each transaction, fee and payout line. A fee that names another batch is that batch's fee, and both batches show the difference.",
+  "P3": "A payout whose equal credit arrives after the period end and by the as-of date is in transit at the period end, not a difference; one with no credit by the as-of date needs review.",
+  "P4": "A source error anywhere refuses the review, as the family refuses the batch then (SOURCE_ERRORS). A negative amount, a negative zero, a repeated key and a member naming a batch with no settlement row are source errors.",
+  "P5": "The settlement row's own arithmetic is checked (Net equals Gross sales minus Refunds minus Fees) apart from its members, so a row that adds up wrongly is not hidden by members that match it.",
+  "P6": "Review only, beside payment-gateway-batch-1: payment-gateway-batches-1 takes no decision, changes no session and writes no workbook."
+ },
+ "notInScope": [
+  "A batch whose net is negative (a debit from the bank), reserves, holds, chargebacks and disputes (PG-2).",
+  "Gateway report formats, fixed columns of a named provider, and the source lifecycle (PG-3).",
+  "More than one merchant account, bank account or currency in one review, and currency conversion.",
+  "Inferring a payout's batches from amounts or dates when the gateway gives no payout lines.",
+  "Decisions, sessions and workbooks for payment-gateway-batches-1."
+ ]
+}

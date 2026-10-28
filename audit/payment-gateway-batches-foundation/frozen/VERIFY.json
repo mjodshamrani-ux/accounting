@@ -1,0 +1,60 @@
+{
+ "schema": "tarasuf-pg1-batches-verify/1",
+ "dense": false,
+ "factsSha256": "ab282a583fc31ca132e5e6fb7e6111ec92a14dc591f40158f211e4daab70e356",
+ "stories": 35,
+ "files": 175,
+ "cells": 2655,
+ "passed": true,
+ "problems": [],
+ "selfTest": [
+  {
+   "plant": "a fee amount changed",
+   "rejected": true
+  },
+  {
+   "plant": "a sale moved to another batch",
+   "rejected": true
+  },
+  {
+   "plant": "a byte-order mark removed",
+   "rejected": true
+  },
+  {
+   "plant": "an LF in a CRLF file",
+   "rejected": true
+  },
+  {
+   "plant": "a field quoted where the writer does not",
+   "rejected": true
+  },
+  {
+   "plant": "a payout line dropped",
+   "rejected": true
+  },
+  {
+   "plant": "an Arabic-Indic digit changed",
+   "rejected": true
+  },
+  {
+   "plant": "an XLSX sale no longer hidden",
+   "rejected": true
+  },
+  {
+   "plant": "an XLSX payout renamed",
+   "rejected": true
+  },
+  {
+   "plant": "a reading of the single-batch family",
+   "rejected": true
+  },
+  {
+   "plant": "an as-of date changed",
+   "rejected": true
+  },
+  {
+   "plant": "a file no story names",
+   "rejected": true
+  }
+ ]
+}

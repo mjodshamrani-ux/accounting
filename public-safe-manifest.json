@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 82286,
-      "sha256": "aef2ac89e32785c5b2d7a7f3fb997036ce0a4bcc4a022f6d0f99aedcd848adee",
+      "bytes": 82406,
+      "sha256": "b54146a3462b6dbc06d5895efbae828b5d27703cbfb93a65d82522c6982f303f",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 53492,
-      "sha256": "9e0adc67d9c73058e73409566adff2f667f34b07c8bbe0a8ac85a30493c4eb8f",
+      "bytes": 54043,
+      "sha256": "e68c9a6e366b4214b14c286cf80c5fe77549812292ba41cbea4f7169e97d8e7e",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 22732,
-      "sha256": "eb259efeac868f85c47917d01c2fbeb2323d3466aa1e5f824247c78fb02329fa",
+      "bytes": 22818,
+      "sha256": "9a206ee7ddccbcc87ffbcbc197acd4806eedf54e250a5f5477c170131883e75a",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 124184,
-      "sha256": "95d89c54ca17712258ae2903ad33ac100a104c7907c001629c099819fd81f1ee",
+      "bytes": 125206,
+      "sha256": "f4c61f3a05ca5ed37ab35473f377a064b7ee0cf2e10ab0217e6c495fc548dab2",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 83289,
-      "sha256": "0bd8402e6f8bb775c34997db80310b74b56fe8867970de68b2429798dc9c9be6",
+      "bytes": 83447,
+      "sha256": "96b1f653ef9c57b127c892000d64cc8cd11948decd60b5fc629b1a5064911ad0",
       "kind": "text"
     },
     {
@@ -36259,8 +36259,8 @@
     },
     {
       "path": "docs/roadmap/payment-gateway.ar.md",
-      "bytes": 3217,
-      "sha256": "a2d7906b1b781c8a7953050ac6e55c1906ad4e8976b90c5c74160b65889086b8",
+      "bytes": 3791,
+      "sha256": "3e088be1d50a5a40afa4b694da46697f53768445060aa6656f41c4c860ad9b3e",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 54854,
-      "sha256": "b5ce84e3ea3ee44f77a325cd746ba62609f0d052030112e567b93d28e3de39e1",
+      "bytes": 55290,
+      "sha256": "99593392d39cd1413f71ad0257ba9fa793e2a6a795821d6e0960da8e7b4f778b",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 17799,
-      "sha256": "82e46a5a9c3e18bebb6c167043387668b8860f98df115c542dc82dcc771a3b5e",
+      "bytes": 17889,
+      "sha256": "6545ee5ca165181454c0721f19be0b4d88a9e3b3038866e243f10279d7ef781e",
       "kind": "text"
     },
     {
@@ -67181,6 +67181,1438 @@
       "path": "tests/allocation-advice-protocol.test.ts",
       "bytes": 7055,
       "sha256": "f6c098ef61b6e1e41845e8930e853a362872c6a56e2d37900c551c2a3b46250a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/README.ar.md",
+      "bytes": 9234,
+      "sha256": "74034bb12ca3594ba8336b6f3a38c132f2b8855d723c173753a338d9b8a26e08",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/check_seal.py",
+      "bytes": 4377,
+      "sha256": "c47dfbbb6be022a994eb2fae4e48c39fd8667e803aa89131aa046b9eccb84359",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/contract.json",
+      "bytes": 9488,
+      "sha256": "5a97ea800cdc221eb06859b593015fc2b088602f4b0b24c3ca656d7e3cf06e13",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/dense.py",
+      "bytes": 1205,
+      "sha256": "5e8cdc175189ed38774ba075316e908124570e37b6a488d2a8084b94890e1122",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/DENSE-MANIFEST.json",
+      "bytes": 3400,
+      "sha256": "19664808b474d76ecab4730af39664dad93c86d173ccee3884b82ca3e3fea4ce",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/EXPECTED.json",
+      "bytes": 42097,
+      "sha256": "1aeb5b34179cf26d8f48de1b05feab08f35282f131fa42785d6a717723cffc5c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F01-bank-credits.csv",
+      "bytes": 105,
+      "sha256": "c2bcfcb2cb01dfc7f62c147f70838e9627b8ec44f26b7253b271b0bf5940e1c0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F01-fees.csv",
+      "bytes": 100,
+      "sha256": "3715574fc78023a4312f99fb8beba97378f30de3c0416b0b3dcc94c1e580ce61",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F01-input.json",
+      "bytes": 990,
+      "sha256": "0dd0bf1fb0fc70035f5fec074743af0dcd1d6631bb7d05a9ac3d6a18dbbde7c7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F01-payout-lines.csv",
+      "bytes": 78,
+      "sha256": "650e5232ca0335d21adf2140cbcef4ea0084f87477fd5425419b140d330b7fb0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F01-settlements.csv",
+      "bytes": 135,
+      "sha256": "c0b149411fabdbef3a07c3424f33cf8b3f620baf5926977a12f0f18bc013197d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F01-transactions.csv",
+      "bytes": 239,
+      "sha256": "35795f169bb8ed942ca6714b634575c1730e99d3541eb02a7cdbed6f263a03c0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F02-bank-credits.csv",
+      "bytes": 147,
+      "sha256": "4e9713dde83ff01799f71ba576571db9e06c4beb0452e5632d103ebea7cc82fb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F02-fees.csv",
+      "bytes": 102,
+      "sha256": "058c0c3dac0b8236dee7d518b3e3ebacf7da889fc98e60ac4a379a140a3e97cb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F02-input.json",
+      "bytes": 990,
+      "sha256": "1f5653b96672b2ceed68fc0f0059d95638412c6c6c4f40f86623d09e78292e4d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F02-payout-lines.csv",
+      "bytes": 106,
+      "sha256": "f1e72c353661f3df11989274729b0ba476d7f9648d49d4677c3bfcf5ed5a29d6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F02-settlements.csv",
+      "bytes": 135,
+      "sha256": "de34f19d25aaff9bdfd74d029e97e071b96766d3fbd5ccb61a5f0d9f7d354482",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F02-transactions.csv",
+      "bytes": 138,
+      "sha256": "870aac1522f35a1d5b5066dcedeb309b82540fcebfdade7fad956c51b8dfedea",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F03-bank-credits.csv",
+      "bytes": 105,
+      "sha256": "c77c1789bc0194be26fdac2581cca2e33aefa649df9d2f10bac9d2d4c2557a2d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F03-fees.csv",
+      "bytes": 182,
+      "sha256": "4ed7743d7aadb9b0518efff800ae089dba4f0c9bb2ce475951f3b2357fc5822f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F03-input.json",
+      "bytes": 990,
+      "sha256": "375bac0cf8b23bf401c8f84d47145bc2c0c0ced7846c2b532e9b29575b3b80a6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F03-payout-lines.csv",
+      "bytes": 127,
+      "sha256": "c8b77b7057935125265c8e3a1f85a7b016990cc9acea7084429122c39be047e4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F03-settlements.csv",
+      "bytes": 234,
+      "sha256": "8bc4d5478be88a63584a15e578f90080d682ef9a489e078d870432eb9d43e583",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F03-transactions.csv",
+      "bytes": 236,
+      "sha256": "99f8475fdc843bb35014a41288590a918decb12ec3fc7ce42d93fec277a33237",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F04-bank-credits.csv",
+      "bytes": 143,
+      "sha256": "7e2f0cfa46d5b5280e0618eb22f34752420b436b99e5c32173a6a5c06f4b2448",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F04-fees.csv",
+      "bytes": 140,
+      "sha256": "6c627be2b705fb53b56c2ccd43766f59b5e13ee45413955e7f7e1531db64db20",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F04-input.json",
+      "bytes": 990,
+      "sha256": "0924974680a40c1cc01f3dd93918cde21167c6b1da8aed3783a640554512cc83",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F04-payout-lines.csv",
+      "bytes": 102,
+      "sha256": "c4b566e43b7dcb71b33031777791c2d746d3ade31842fba928b1f53d46e86b17",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F04-settlements.csv",
+      "bytes": 183,
+      "sha256": "8a6df4bdc7a0afb162ac7f31d7f0e44160e450e825835d32cbb4c1c03b2408c9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F04-transactions.csv",
+      "bytes": 287,
+      "sha256": "bd56a7a4454de19627ce918c8598420ad674dc71557e5dfbae552a96dc838b5d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F05-bank-credits.csv",
+      "bytes": 105,
+      "sha256": "80ced6f34a85524d40a431df06d1ec592b1046fd558089431235ac9e01aab42f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F05-fees.csv",
+      "bytes": 59,
+      "sha256": "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F05-input.json",
+      "bytes": 990,
+      "sha256": "b365d39258c2b9861e749d279a5ef9e0d4bd92b3b299ce9916d51a2f3a64a927",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F05-payout-lines.csv",
+      "bytes": 102,
+      "sha256": "fb03410c390049fde7923ad2056b29db853070a9e53ae11d48a1013f02b3acf0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F05-settlements.csv",
+      "bytes": 180,
+      "sha256": "151ec8cf8c6a907bf71fb9785afd21c6b216ab37c7a75752107669fb1e949420",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F05-transactions.csv",
+      "bytes": 235,
+      "sha256": "ab11041db13f584d9dfb880a58cdbf9a4880428dd7713b33c41f635ce0b27ec0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F06-bank-credits.csv",
+      "bytes": 143,
+      "sha256": "5bbb72770230ff1e624f65b4d8fcfabde6dbac70c4157f77115fff55b639a172",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F06-fees.csv",
+      "bytes": 181,
+      "sha256": "4a354433de2c2d827c2f66bf6729e397c1fbb288049cc81d67b06b7226ba6af8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F06-input.json",
+      "bytes": 990,
+      "sha256": "a5b3e011483d2b9ca26c13be7f835b0d9f2dfd29c8561953047644b0953efcc2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F06-payout-lines.csv",
+      "bytes": 102,
+      "sha256": "dfdd34e5e2fb5a09a46d040a060f36ddf3dfb3fe7fccd21da7a28bb084f717f9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F06-settlements.csv",
+      "bytes": 184,
+      "sha256": "56a60362b0eb5db434b6b038bfb9b5b232fbf65cf2f0e19b4e415413248a8fb7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F06-transactions.csv",
+      "bytes": 187,
+      "sha256": "6a79fea38689cddb5fb716c537c23667fe9184e79514a8e41843be3f5f90e346",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F07-bank-credits.csv",
+      "bytes": 143,
+      "sha256": "6dcc58f86268f8cefa3cb64b0049e38ae0ebcb07ce6d9332a4499fc18b593b22",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F07-fees.csv",
+      "bytes": 59,
+      "sha256": "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F07-input.json",
+      "bytes": 990,
+      "sha256": "7fb2a6761aa2cf31cc87f7fa4d3528401740c80c7826abbb1ccae11c748148ad",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F07-payout-lines.csv",
+      "bytes": 102,
+      "sha256": "fc9279fd325094145b108a60852755862f642ab8a6def44536df35f13e81b006",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F07-settlements.csv",
+      "bytes": 180,
+      "sha256": "9197ca40e5f9588543aff2c947080a23f0c174f3b391bca83bba33f6e7115f70",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F07-transactions.csv",
+      "bytes": 185,
+      "sha256": "581ddb6c3578096ef8f3552e8edcb4d322224be698ed8c4bc6654bee69f335d1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F08-bank-credits.csv",
+      "bytes": 104,
+      "sha256": "0ad2bc8e749f7c05d0337fbae6c3cd7e1c39df00a1166e712b653a32236e535a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F08-fees.csv",
+      "bytes": 59,
+      "sha256": "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F08-input.json",
+      "bytes": 990,
+      "sha256": "1f176abf3e41214c1ad9768be67ccfce2adbd0ce051dc8daf11c296f67e434e8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F08-payout-lines.csv",
+      "bytes": 102,
+      "sha256": "30fda74d442855b6bc427c2e5e6511382596100ddfeefbf9a41fd4818ad08e31",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F08-settlements.csv",
+      "bytes": 132,
+      "sha256": "054419f446396358895e5a1e53c0fd09a1719cc4942793afa57ee9acf7a8e114",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F08-transactions.csv",
+      "bytes": 136,
+      "sha256": "2c851faa966c584ca2727972d34e7594ac95d60b45c18301b7e16e840b2f54ec",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F09-bank-credits.csv",
+      "bytes": 104,
+      "sha256": "7d49387aaa2a74b88a282a75fcd70d28f9e593365dfe68b0dd770957a651c868",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F09-fees.csv",
+      "bytes": 100,
+      "sha256": "371ef6b285bd0c2929c26d41c2336dde1bb16150115e8cab71a60ec007c06e29",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F09-input.json",
+      "bytes": 990,
+      "sha256": "afedc1fbbe7274dc2152ccc3ce6edca01a593909650582706e707cd74a014a83",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F09-payout-lines.csv",
+      "bytes": 77,
+      "sha256": "595c1a12edf2ff19c85279da454219f75959457f5a0fd2714a9f77f7bd71bc08",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F09-settlements.csv",
+      "bytes": 132,
+      "sha256": "ab44c8d3c5b0f96e7b2b8c9611d3f85931bc475e28b6cb1ea58698435eb895f5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F09-transactions.csv",
+      "bytes": 136,
+      "sha256": "2c851faa966c584ca2727972d34e7594ac95d60b45c18301b7e16e840b2f54ec",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F10-bank-credits.csv",
+      "bytes": 105,
+      "sha256": "05308b344b7143caae0097d821a855a54e284800db741021941ae6e10f20f52e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F10-fees.csv",
+      "bytes": 100,
+      "sha256": "371ef6b285bd0c2929c26d41c2336dde1bb16150115e8cab71a60ec007c06e29",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F10-input.json",
+      "bytes": 990,
+      "sha256": "c7f880a1f498a9a087571ef268b2ecab354974f7d4385bb2e1a2a0bfe562522c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F10-payout-lines.csv",
+      "bytes": 78,
+      "sha256": "58a464cd27b1a5564b00107d98dc593124054b80e9f4a126ff7d5ed8f577f61b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F10-settlements.csv",
+      "bytes": 132,
+      "sha256": "ab44c8d3c5b0f96e7b2b8c9611d3f85931bc475e28b6cb1ea58698435eb895f5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F10-transactions.csv",
+      "bytes": 136,
+      "sha256": "2c851faa966c584ca2727972d34e7594ac95d60b45c18301b7e16e840b2f54ec",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F11-bank-credits.csv",
+      "bytes": 104,
+      "sha256": "9efd1d6fbb6ec9f6fd42dd061f121f8678f9d013b9e2721eb6a434a612ff63b9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F11-fees.csv",
+      "bytes": 100,
+      "sha256": "522ad6412f8374fb33d14b1394e3808b62ab1e7d7db6c086b6c2bfc75f2aa337",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F11-input.json",
+      "bytes": 990,
+      "sha256": "e18f2aed5699f1b2aba534d5ce18d7d61ef412c3f3f255f6df8ac7b4b0bb99c9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F11-payout-lines.csv",
+      "bytes": 77,
+      "sha256": "650a085ece34e4b2acaa1a74c398705987bd989fd18ed0849ab9a1e2ae41f32a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F11-settlements.csv",
+      "bytes": 134,
+      "sha256": "c2aa803eab620f77343427800227b8b4aaa8e904ef6eb932711e09dbb28d1071",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F11-transactions.csv",
+      "bytes": 189,
+      "sha256": "7538856593eec352c323cc0493c451145c10f9af5ff13e9de0d40051379804af",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F12-bank-credits.csv",
+      "bytes": 104,
+      "sha256": "b762ce9527951e22d85a66d4038537e60b0f70e46a4ab7d8ccb79dc1d634ecb3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F12-fees.csv",
+      "bytes": 59,
+      "sha256": "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F12-input.json",
+      "bytes": 990,
+      "sha256": "068cdd4fbfdf21354a03b8be1cdd97659cb3f0a76a9b8be5255dd3661dbd0a84",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F12-payout-lines.csv",
+      "bytes": 77,
+      "sha256": "ae951f0d1e7d21744971c5cf3c529dec4276f34367b275961aecc7fb9a28c1da",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F12-settlements.csv",
+      "bytes": 132,
+      "sha256": "958acb40ef474c8eb50085d84bc8898e7fe0a6b1c8d75ff088d94cbe996e5cf5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F12-transactions.csv",
+      "bytes": 265,
+      "sha256": "c90ae45dd1c8848e94d4b12d9c9ac9cddd7139fa2f63afb3ff28bf17f36837bf",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F13-bank-credits.csv",
+      "bytes": 143,
+      "sha256": "7afe95058235d2b136780f72e913a2039bd087d5d1053355d7568b0d48c769e6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F13-fees.csv",
+      "bytes": 59,
+      "sha256": "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F13-input.json",
+      "bytes": 990,
+      "sha256": "cd3f6530e0aa48c4a06616dfb70b751e826f00b72a96d2c03c484090baa36412",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F13-payout-lines.csv",
+      "bytes": 102,
+      "sha256": "86fbc649bddb206041381549426db9ac967306a67eb5525af5245a511896ab35",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F13-settlements.csv",
+      "bytes": 180,
+      "sha256": "04e3927e467a693cb3995b8cae43e30c05fe29ecd35b4a406bda2b70b2f30dd7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F13-transactions.csv",
+      "bytes": 185,
+      "sha256": "4b2fe7f5c0bc303184e925a7362b6ae44fc474ebaab018ad5027c894b7e44f97",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F14-bank-credits.csv",
+      "bytes": 104,
+      "sha256": "802e36314a5cebd85fe3e78afda6bfa0518f1b3fab5977230895654860c2d520",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F14-fees.csv",
+      "bytes": 59,
+      "sha256": "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F14-input.json",
+      "bytes": 990,
+      "sha256": "2c3eb5b858ca3a1a22b58b7bcb16329a8b3ceed817f4dac997f35747b3376481",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F14-payout-lines.csv",
+      "bytes": 77,
+      "sha256": "51abda72a64d6286ad9f7f99a556a0764d049026b149c36c05b5f138b1c78637",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F14-settlements.csv",
+      "bytes": 130,
+      "sha256": "99e8ca08f7e448af1c80282cac033e5f97f20f32fd4a69af145dc23b7f7fcab5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F14-transactions.csv",
+      "bytes": 135,
+      "sha256": "df300df752cacea5470efaf30d48812d6b4a5f91e7825abe0354bd83329e1784",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F15-bank-credits.csv",
+      "bytes": 104,
+      "sha256": "d0326439e241d2209b16e5c103507a170373ca2a615a630914470c6f0ec333d5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F15-fees.csv",
+      "bytes": 139,
+      "sha256": "e9218db08cd66927ba25d1ca5e61b8bde22e905f6bd7153aafc67e2179d70343",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F15-input.json",
+      "bytes": 990,
+      "sha256": "5387bac0f02b199565b7d2fa167d0bdee0cc6d7d940b2b2c91314024ea38305e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F15-payout-lines.csv",
+      "bytes": 77,
+      "sha256": "671de4e31132b0eaf1d67e3e248ced94499a162df5d2e923aae292516fe42f3b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F15-settlements.csv",
+      "bytes": 130,
+      "sha256": "970e2feea1c390991688ac1f9d8b7486471c131370405551f276faccf152dd36",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F15-transactions.csv",
+      "bytes": 135,
+      "sha256": "b36090422bf9162938b65ba15c94e656a98353bb187da308c59d38673f1b3cb7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F16-bank-credits.csv",
+      "bytes": 104,
+      "sha256": "b762ce9527951e22d85a66d4038537e60b0f70e46a4ab7d8ccb79dc1d634ecb3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F16-fees.csv",
+      "bytes": 59,
+      "sha256": "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F16-input.json",
+      "bytes": 990,
+      "sha256": "021728bbef44ec44a95869188257509dd5307860d02e376cc44be65fe2f1c8d3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F16-payout-lines.csv",
+      "bytes": 77,
+      "sha256": "ae951f0d1e7d21744971c5cf3c529dec4276f34367b275961aecc7fb9a28c1da",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F16-settlements.csv",
+      "bytes": 130,
+      "sha256": "d19f4f370297b91b581b44c1032c6b9f18d2823afdf184121d1e6648ea99a81a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F16-transactions.csv",
+      "bytes": 135,
+      "sha256": "b36090422bf9162938b65ba15c94e656a98353bb187da308c59d38673f1b3cb7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F17-bank-credits.csv",
+      "bytes": 143,
+      "sha256": "c4a4f93499689aef46353b6569c5e11d4fef142f33e2dd427df9b8c672c8b701",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F17-fees.csv",
+      "bytes": 59,
+      "sha256": "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F17-input.json",
+      "bytes": 990,
+      "sha256": "07b117397ec28e955e845227416e8df9ef3cffa430e990c7ac09bd1dafda699a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F17-payout-lines.csv",
+      "bytes": 77,
+      "sha256": "ae951f0d1e7d21744971c5cf3c529dec4276f34367b275961aecc7fb9a28c1da",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F17-settlements.csv",
+      "bytes": 130,
+      "sha256": "d19f4f370297b91b581b44c1032c6b9f18d2823afdf184121d1e6648ea99a81a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F17-transactions.csv",
+      "bytes": 135,
+      "sha256": "b36090422bf9162938b65ba15c94e656a98353bb187da308c59d38673f1b3cb7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F18-bank-credits.csv",
+      "bytes": 104,
+      "sha256": "5e64479bd10d561b8faf55a8d17adef1a1397432246ec40db614b0b4b24a1be1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F18-fees.csv",
+      "bytes": 100,
+      "sha256": "0175fb2acd24bfde958d81b1e7d3469e15d3d2f4a84166b7925d434d9030c972",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F18-input.json",
+      "bytes": 990,
+      "sha256": "5dcade3f1aa83aa35d038b57d868aec1167d128789fb79d5c385e1ddf8fa2471",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F18-payout-lines.csv",
+      "bytes": 77,
+      "sha256": "c385dd0ff7e2c292ac15c3c51143a194480c2b9c63a44fdbab55bb4b9f7e8186",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F18-settlements.csv",
+      "bytes": 132,
+      "sha256": "237c48ce8a7ec7797a5577d45dd11b55423d13752360100fd9caafcf2b97a857",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F18-transactions.csv",
+      "bytes": 135,
+      "sha256": "31a03955f0164cbd87779098d8ebb23901976ecd735ae1ffca90df64b76a9ffe",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F19-bank-credits.csv",
+      "bytes": 105,
+      "sha256": "3945393d1051e420d3b3f9683d97ce46654194fa24f79af4b4d24fbf7267fe18",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F19-fees.csv",
+      "bytes": 141,
+      "sha256": "e3b25f71a29ece82f8892518fe1b0afb0a298affe58520b69e424dce875b0a90",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F19-input.json",
+      "bytes": 990,
+      "sha256": "82e3efc332634b2c5aa79c94c0b9182abf6574d37e5b102df1c139f0ef7366d0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F19-payout-lines.csv",
+      "bytes": 103,
+      "sha256": "ed35e23fff45d486c9ed90531acb71e08d5b832f1439ca38e6a11cf03c03d6c4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F19-settlements.csv",
+      "bytes": 186,
+      "sha256": "46ad6ffe7e91d0bd5ded08a706096df6d0f3d06be6af84432179a5eee9f097fd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F19-transactions.csv",
+      "bytes": 186,
+      "sha256": "ba33e1e0274072ff023f51804b91ca477edbb6ae4352c03aede6e9bf16b9ca31",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F20-bank-credits.csv",
+      "bytes": 103,
+      "sha256": "f7ba3910f6a644d0e4b1cf52d7ba4d34ddfefb71e370df6483b0ae2927407d1b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F20-fees.csv",
+      "bytes": 99,
+      "sha256": "7c6f9da4501b3aa5f06188d95974c395b0c143b0566601cb70de42df00b37700",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F20-input.json",
+      "bytes": 990,
+      "sha256": "3e178929a216cbc41162d98340894c031853d1f5279103809480072073a96325",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F20-payout-lines.csv",
+      "bytes": 76,
+      "sha256": "76b9f8e21c67b5c76114240cf1c0316f363e8fe45e3bc1edb90fc9decbb51716",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F20-settlements.csv",
+      "bytes": 130,
+      "sha256": "2b4217bad46a8b5d57e487239cd0010b03f40b92b8ab735429ae3cbd3e9997bb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F20-transactions.csv",
+      "bytes": 187,
+      "sha256": "c4d898762ac9e5fe4c76d5e1b2c34d133b2c66d4478afd73fd5194477ab26f88",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F21-bank-credits.csv",
+      "bytes": 185,
+      "sha256": "5dae75e0d70a24330294ab3d50e63facaed10ab89c98e3a43338931a58ea1205",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F21-fees.csv",
+      "bytes": 129,
+      "sha256": "da57f02e683ca7f6ea3fa68e9375926409a7efe3d3ce860ed47cf7d1d1a6b529",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F21-input.json",
+      "bytes": 990,
+      "sha256": "1e70f480840ce8c8b3cf06af9ade8a0de597b616640fa08d61c99d9f5c4b78ee",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F21-payout-lines.csv",
+      "bytes": 138,
+      "sha256": "55c94abc842f196a5fc6b5b1354a91679a66546af6fd9e1093e583755f7138d3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F21-settlements.csv",
+      "bytes": 235,
+      "sha256": "41d0b6e9e6f41875285594291ecbd939ed5fecec3834f2c3e6bc35002da6239c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F21-transactions.csv",
+      "bytes": 239,
+      "sha256": "97101296f7fbeaf30bbf86864da8c7ff85608cc14594573d6742824c1d028260",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F22-bank-credits.xlsx",
+      "bytes": 6585,
+      "sha256": "3815d1f9689c5f0129150e623dc27c4e95fb464c1d76b316dab0c1d6d08133cb",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic payment gateway file (transactions, fee evidence, settlements, payout lines or bank credits) for the PG-1 foundation, written as XLSX by ExcelJS 4.4.0 (the version the application depends on) with text cells and one hidden row, from audit/payment-gateway-batches-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and oracle.py with zipfile and ElementTree. Invented merchants, batches, payouts, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F22-fees.xlsx",
+      "bytes": 6466,
+      "sha256": "1413630aae39c15c48f0735d6f7502d95e47d86c8218c65336fa9757d9e1ccdd",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic payment gateway file (transactions, fee evidence, settlements, payout lines or bank credits) for the PG-1 foundation, written as XLSX by ExcelJS 4.4.0 (the version the application depends on) with text cells and one hidden row, from audit/payment-gateway-batches-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and oracle.py with zipfile and ElementTree. Invented merchants, batches, payouts, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F22-input.json",
+      "bytes": 995,
+      "sha256": "85d3c4281a187c86214e2d3bb0d904869026e58511c1d24eaccc2252118f1b3f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F22-payout-lines.xlsx",
+      "bytes": 6575,
+      "sha256": "5d0c72667c3a8cb5c90e050e7cfcb0f842f53f9706f6a40506a910a4b21caa78",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic payment gateway file (transactions, fee evidence, settlements, payout lines or bank credits) for the PG-1 foundation, written as XLSX by ExcelJS 4.4.0 (the version the application depends on) with text cells and one hidden row, from audit/payment-gateway-batches-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and oracle.py with zipfile and ElementTree. Invented merchants, batches, payouts, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F22-settlements.xlsx",
+      "bytes": 6617,
+      "sha256": "1cdbcba78b5bb843377c7fbc33270bcd0cf0a5273543aede946dd1529fded5db",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic payment gateway file (transactions, fee evidence, settlements, payout lines or bank credits) for the PG-1 foundation, written as XLSX by ExcelJS 4.4.0 (the version the application depends on) with text cells and one hidden row, from audit/payment-gateway-batches-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and oracle.py with zipfile and ElementTree. Invented merchants, batches, payouts, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F22-transactions.xlsx",
+      "bytes": 6640,
+      "sha256": "d395fa0b8e9e2a6759c061d6c46c7e2657837ae3b4bf198d981742d3807fae07",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic payment gateway file (transactions, fee evidence, settlements, payout lines or bank credits) for the PG-1 foundation, written as XLSX by ExcelJS 4.4.0 (the version the application depends on) with text cells and one hidden row, from audit/payment-gateway-batches-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and oracle.py with zipfile and ElementTree. Invented merchants, batches, payouts, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F23-bank-credits.xlsx",
+      "bytes": 6545,
+      "sha256": "8e0ec30a62b093cd543ffee695c9098bf197429894434e7cf88fb70408dfabc8",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic payment gateway file (transactions, fee evidence, settlements, payout lines or bank credits) for the PG-1 foundation, written as XLSX by ExcelJS 4.4.0 (the version the application depends on) with text cells and one hidden row, from audit/payment-gateway-batches-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and oracle.py with zipfile and ElementTree. Invented merchants, batches, payouts, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F23-fees.xlsx",
+      "bytes": 6466,
+      "sha256": "1413630aae39c15c48f0735d6f7502d95e47d86c8218c65336fa9757d9e1ccdd",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic payment gateway file (transactions, fee evidence, settlements, payout lines or bank credits) for the PG-1 foundation, written as XLSX by ExcelJS 4.4.0 (the version the application depends on) with text cells and one hidden row, from audit/payment-gateway-batches-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and oracle.py with zipfile and ElementTree. Invented merchants, batches, payouts, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F23-input.json",
+      "bytes": 995,
+      "sha256": "c83dfd1f6f964f631972b4625b861746dcd6ddd015270b11e5e0946605392a59",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F23-payout-lines.xlsx",
+      "bytes": 6513,
+      "sha256": "70648b18ca5aa4e4adae5c57a10ef2d548d823409d1c17bbfe602c3892ff7ec1",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic payment gateway file (transactions, fee evidence, settlements, payout lines or bank credits) for the PG-1 foundation, written as XLSX by ExcelJS 4.4.0 (the version the application depends on) with text cells and one hidden row, from audit/payment-gateway-batches-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and oracle.py with zipfile and ElementTree. Invented merchants, batches, payouts, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F23-settlements.xlsx",
+      "bytes": 6578,
+      "sha256": "23ed04c7e191c68edbc82acaf9da779bea14b0504aa763e437b884a27e360ab9",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic payment gateway file (transactions, fee evidence, settlements, payout lines or bank credits) for the PG-1 foundation, written as XLSX by ExcelJS 4.4.0 (the version the application depends on) with text cells and one hidden row, from audit/payment-gateway-batches-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and oracle.py with zipfile and ElementTree. Invented merchants, batches, payouts, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F23-transactions.xlsx",
+      "bytes": 6644,
+      "sha256": "7a0dd74a8070c80e94abc6f6e2ada2a6169ae0bcde69edccf44f61449ddfc6b3",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic payment gateway file (transactions, fee evidence, settlements, payout lines or bank credits) for the PG-1 foundation, written as XLSX by ExcelJS 4.4.0 (the version the application depends on) with text cells and one hidden row, from audit/payment-gateway-batches-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py and oracle.py with zipfile and ElementTree. Invented merchants, batches, payouts, references and amounts; no customer data."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F24-bank-credits.csv",
+      "bytes": 105,
+      "sha256": "05308b344b7143caae0097d821a855a54e284800db741021941ae6e10f20f52e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F24-fees.csv",
+      "bytes": 59,
+      "sha256": "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F24-input.json",
+      "bytes": 990,
+      "sha256": "d41401e1192110bef6bb6e8a5236b0efdae93a2940c405130080567d747e8381",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F24-payout-lines.csv",
+      "bytes": 78,
+      "sha256": "58a464cd27b1a5564b00107d98dc593124054b80e9f4a126ff7d5ed8f577f61b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F24-settlements.csv",
+      "bytes": 132,
+      "sha256": "054419f446396358895e5a1e53c0fd09a1719cc4942793afa57ee9acf7a8e114",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F24-transactions.csv",
+      "bytes": 185,
+      "sha256": "c65fab4bbe57c46f8290955ae7e4f76df8b4cc6cca045baff67840597744e6f0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F25-bank-credits.csv",
+      "bytes": 104,
+      "sha256": "d9fb6ed9b20a7182ac864807895f84f6345137493b2a880219f8e6241dcda1db",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F25-fees.csv",
+      "bytes": 59,
+      "sha256": "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F25-input.json",
+      "bytes": 990,
+      "sha256": "cf59183448a5e5d2cb118732b4da7e33430b4aaf7ba8d379ce669ebf1a919caa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F25-payout-lines.csv",
+      "bytes": 77,
+      "sha256": "ba73e62ba496528f1774d05d9f0abdda2d1d5674240d63d3b4515fe892eb9466",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F25-settlements.csv",
+      "bytes": 131,
+      "sha256": "91b61339d3804a6db02735fa8f20a500e65d270ad7723ae4ee662205aee1b665",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F25-transactions.csv",
+      "bytes": 188,
+      "sha256": "c62c85099b4e03bba29c4d6e5c80a7f9176fadf845dc0db8e69ef561a026e41e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F26-bank-credits.csv",
+      "bytes": 104,
+      "sha256": "d1d47655cd0785127cdee4a5286585a44502f8153f1e4ec2773640434072eacd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F26-fees.csv",
+      "bytes": 100,
+      "sha256": "35f8ec8dd587224f3de9902c2959050fca0125b98a09d11a3776232770e9d41d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F26-input.json",
+      "bytes": 990,
+      "sha256": "bec744362697c68359969adbb12619f61e69ce2507bf7e56f310a1236fe0d1c8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F26-payout-lines.csv",
+      "bytes": 77,
+      "sha256": "7717271f1e21a902b4408813c303261c4db8c7e2d345c192e1d57c6491889ec2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F26-settlements.csv",
+      "bytes": 130,
+      "sha256": "c615bb538f9580c7f70dd0bfe7efad38070b93adf6301a2f4f1517620aeb68d8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F26-transactions.csv",
+      "bytes": 135,
+      "sha256": "d17145afb3d4a475e1d895029dd71fada803218cd2611e20b02db68341a5ffa5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F27-bank-credits.csv",
+      "bytes": 104,
+      "sha256": "d1d47655cd0785127cdee4a5286585a44502f8153f1e4ec2773640434072eacd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F27-fees.csv",
+      "bytes": 59,
+      "sha256": "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F27-input.json",
+      "bytes": 990,
+      "sha256": "8efbc67af306237bbd7081d5891559aa5cf51bccf11212d7ff4075a45cd94d2d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F27-payout-lines.csv",
+      "bytes": 77,
+      "sha256": "7717271f1e21a902b4408813c303261c4db8c7e2d345c192e1d57c6491889ec2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F27-settlements.csv",
+      "bytes": 130,
+      "sha256": "c615bb538f9580c7f70dd0bfe7efad38070b93adf6301a2f4f1517620aeb68d8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F27-transactions.csv",
+      "bytes": 185,
+      "sha256": "3cd26c161b82370e09b5df08dc549568e1cf19962c0d135ef14377f0af75f17a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F28-bank-credits.csv",
+      "bytes": 143,
+      "sha256": "dd2d5c258701902e83e5879eca322df9cc5d18ea5099dc4047981ea060503cb7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F28-fees.csv",
+      "bytes": 59,
+      "sha256": "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F28-input.json",
+      "bytes": 990,
+      "sha256": "d271effc0d0e35c23c2567b3ac76436c39bb957bf6e522cacb94abac8bd10f41",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F28-payout-lines.csv",
+      "bytes": 77,
+      "sha256": "7717271f1e21a902b4408813c303261c4db8c7e2d345c192e1d57c6491889ec2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F28-settlements.csv",
+      "bytes": 130,
+      "sha256": "c615bb538f9580c7f70dd0bfe7efad38070b93adf6301a2f4f1517620aeb68d8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F28-transactions.csv",
+      "bytes": 135,
+      "sha256": "d17145afb3d4a475e1d895029dd71fada803218cd2611e20b02db68341a5ffa5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F29-bank-credits.csv",
+      "bytes": 104,
+      "sha256": "d1d47655cd0785127cdee4a5286585a44502f8153f1e4ec2773640434072eacd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F29-fees.csv",
+      "bytes": 59,
+      "sha256": "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F29-input.json",
+      "bytes": 990,
+      "sha256": "450406b241b9b9dad02f8576f7f94e79e697c068b74564131b5924de09086991",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F29-payout-lines.csv",
+      "bytes": 77,
+      "sha256": "7717271f1e21a902b4408813c303261c4db8c7e2d345c192e1d57c6491889ec2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F29-settlements.csv",
+      "bytes": 130,
+      "sha256": "c615bb538f9580c7f70dd0bfe7efad38070b93adf6301a2f4f1517620aeb68d8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F29-transactions.csv",
+      "bytes": 135,
+      "sha256": "846a503d311fa8f7ab4a1070b408828e25626def62e2e97e0af3c1e0979655d9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F30-bank-credits.csv",
+      "bytes": 91,
+      "sha256": "82a439312c76fe23bdad7ca88fca4ae7704ba682843346006f28889dbce803fa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F30-fees.csv",
+      "bytes": 59,
+      "sha256": "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F30-input.json",
+      "bytes": 990,
+      "sha256": "dbadf889081e4b73ea846e13559f2c7beeb635938cef8520f72abf7e4f026a3c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F30-payout-lines.csv",
+      "bytes": 77,
+      "sha256": "7717271f1e21a902b4408813c303261c4db8c7e2d345c192e1d57c6491889ec2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F30-settlements.csv",
+      "bytes": 130,
+      "sha256": "c615bb538f9580c7f70dd0bfe7efad38070b93adf6301a2f4f1517620aeb68d8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F30-transactions.csv",
+      "bytes": 135,
+      "sha256": "d17145afb3d4a475e1d895029dd71fada803218cd2611e20b02db68341a5ffa5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F31-bank-credits.csv",
+      "bytes": 104,
+      "sha256": "d1d47655cd0785127cdee4a5286585a44502f8153f1e4ec2773640434072eacd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F31-fees.csv",
+      "bytes": 59,
+      "sha256": "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F31-input.json",
+      "bytes": 991,
+      "sha256": "4c6167bb62291702e0ecb4c1a028673612a04f323ceb621be21c2e53ce2371d0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F31-payout-lines.csv",
+      "bytes": 77,
+      "sha256": "7717271f1e21a902b4408813c303261c4db8c7e2d345c192e1d57c6491889ec2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F31-settlements.csv",
+      "bytes": 130,
+      "sha256": "c615bb538f9580c7f70dd0bfe7efad38070b93adf6301a2f4f1517620aeb68d8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F31-transactions.csv",
+      "bytes": 135,
+      "sha256": "d17145afb3d4a475e1d895029dd71fada803218cd2611e20b02db68341a5ffa5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F32-bank-credits.csv",
+      "bytes": 104,
+      "sha256": "2c0ec7f7e1a1a9630ec3088ba02ad4085862959492639b3ac09c7c780ebed437",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F32-fees.csv",
+      "bytes": 105,
+      "sha256": "f2ed3a8e3f5550d22b4918f3fc46b97bf309ed77513c3feaf78ade87db05236c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F32-input.json",
+      "bytes": 1016,
+      "sha256": "694e5bbad093bf23a3e37c76c6f00f2603cdfcbeb72c2eddc9175902ddf2b8b2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F32-payout-lines.csv",
+      "bytes": 77,
+      "sha256": "5d20166c5beabcd58f9a994ec34c3d3548190258afdb8c0e0f8f4dccc21e48ad",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F32-settlements.csv",
+      "bytes": 131,
+      "sha256": "5587e1847be351d2bba16afe1a165c536dabc294a0e2215c6a8c2fd3f9bd5a48",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F32-transactions.csv",
+      "bytes": 135,
+      "sha256": "7a94e618dabd99e591b76e580e13548a5e1b5ed3dcedf7b1fb6aa05c20602873",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F33-bank-credits.csv",
+      "bytes": 144,
+      "sha256": "bd813eb5893d654314ba91b0a956e279877b5fb4e028e02a6675579d1eaa9be4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F33-fees.csv",
+      "bytes": 59,
+      "sha256": "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F33-input.json",
+      "bytes": 990,
+      "sha256": "fe681b470ada28cc62468d93cc7ddec29a335624c9d2ea5138dffb2574f87e2d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F33-payout-lines.csv",
+      "bytes": 152,
+      "sha256": "e0be9f51ef6654d29dcc197fe25a252676fad52996542130b63833aafd2848e2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F33-settlements.csv",
+      "bytes": 184,
+      "sha256": "fc0eb4f853244d45b7c9e5ffcae29011eccd6c264346457ac4b60023eb255a2b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F33-transactions.csv",
+      "bytes": 187,
+      "sha256": "6a79fea38689cddb5fb716c537c23667fe9184e79514a8e41843be3f5f90e346",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F34-bank-credits.csv",
+      "bytes": 104,
+      "sha256": "d1d47655cd0785127cdee4a5286585a44502f8153f1e4ec2773640434072eacd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F34-fees.csv",
+      "bytes": 59,
+      "sha256": "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F34-input.json",
+      "bytes": 990,
+      "sha256": "deb4dca87031de2415c5e149e32b6a3adb14c64de9661b35419266621dee2366",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F34-payout-lines.csv",
+      "bytes": 102,
+      "sha256": "087b8961f1988374bb935a86cc4837df64ce40668e178f5fc8a9fe53fc482ad7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F34-settlements.csv",
+      "bytes": 130,
+      "sha256": "c615bb538f9580c7f70dd0bfe7efad38070b93adf6301a2f4f1517620aeb68d8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F34-transactions.csv",
+      "bytes": 135,
+      "sha256": "d17145afb3d4a475e1d895029dd71fada803218cd2611e20b02db68341a5ffa5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F35-bank-credits.csv",
+      "bytes": 104,
+      "sha256": "a5364cabca35ff44bd338c1be3e3ea6afff66da71c8a22fa9286faec09ceecc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F35-fees.csv",
+      "bytes": 59,
+      "sha256": "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F35-input.json",
+      "bytes": 990,
+      "sha256": "ad20eb411b1352e93e76cdd62cde7e76b5957d5231077a64bb24a693aaa12395",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F35-payout-lines.csv",
+      "bytes": 77,
+      "sha256": "7717271f1e21a902b4408813c303261c4db8c7e2d345c192e1d57c6491889ec2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F35-settlements.csv",
+      "bytes": 130,
+      "sha256": "c615bb538f9580c7f70dd0bfe7efad38070b93adf6301a2f4f1517620aeb68d8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/F35-transactions.csv",
+      "bytes": 135,
+      "sha256": "d17145afb3d4a475e1d895029dd71fada803218cd2611e20b02db68341a5ffa5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/INPUT-MANIFEST.json",
+      "bytes": 27325,
+      "sha256": "2f0a669a88e7b08195e42cc7582c6dd8cbbaa33187a487d9c7edc7b2877cb9e7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/SEAL.json",
+      "bytes": 1299,
+      "sha256": "43e3e9efb6a83d9316b1974115f757ea1a4f3c4aec804d0a1a4a8cbec3db6e3d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/VERIFY.json",
+      "bytes": 1099,
+      "sha256": "cfcfe13172ff9039cdb87133fabfabbc44941920f3a24fca0ff560a9cbcfa9a3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/frozen/stories.json",
+      "bytes": 88161,
+      "sha256": "ab282a583fc31ca132e5e6fb7e6111ec92a14dc591f40158f211e4daab70e356",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/mutate_oracle.py",
+      "bytes": 6117,
+      "sha256": "c751229857c082df99fbe386a71619ac9917a91b2f479ee28f7a45c4e4bf86d5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/oracle.py",
+      "bytes": 14541,
+      "sha256": "093ab4cb8aa1ed0e0eb0d155c93ba90e5f53b86c7e91a9cbd34a51a5cdf94467",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/render.mjs",
+      "bytes": 579,
+      "sha256": "bb0cef0f3c7b493ad4f26c95c3ac74f854091fca1d2dc5ed5e1004383bfd8e07",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/render.py",
+      "bytes": 2747,
+      "sha256": "3663bf082f66ef598c5f7a87a7228a48dd935e06fecac629d53964c7ca47a7b5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/results/oracle-mutants-1.json",
+      "bytes": 4252,
+      "sha256": "ed3903eb1523c6173682b0ccba354407af8ec1763267ddf700d42f43100c1cf9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/results/oracle-mutants-2.json",
+      "bytes": 4252,
+      "sha256": "ed3903eb1523c6173682b0ccba354407af8ec1763267ddf700d42f43100c1cf9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/results/oracle-mutants-3.json",
+      "bytes": 4252,
+      "sha256": "3620a7243d74013e5038ed17a552c9a1a987cc6cad47073ac8515528d9ef38f5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/seal.py",
+      "bytes": 3783,
+      "sha256": "8c087200fe45926a7812a67fcc913e794c93ce5a9e6d23926eb9f10a78c6e072",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/stories.py",
+      "bytes": 27289,
+      "sha256": "0cebbf6ea164d40970be5d11c4db1d3659fefd93bbba639ba70f7b30ace76d9b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/test_oracle.py",
+      "bytes": 17526,
+      "sha256": "4628ce7deb5520da4f6691781d2563504d37c41f65c5079c393f170d8b073de6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-batches-foundation/verify.py",
+      "bytes": 9697,
+      "sha256": "5160d2897ddc520f5e8103fb43ed278fde79ffc89a3d9bc21596f18c6a31abed",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/PG-1-FOUNDATION.ar.md",
+      "bytes": 6221,
+      "sha256": "6643a9dae60f29ff3fefab9034b14662f8c5d9b059b2b0b9e68649340fb410db",
       "kind": "text"
     }
   ],

@@ -1,0 +1,239 @@
+{
+ "schema": "tarasuf-pg1-oracle-mutants/1",
+ "baselinePassed": true,
+ "killed": 31,
+ "of": 33,
+ "faults": [
+  {
+   "fault": "sales-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "refunds-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "fees-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "net-arithmetic-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "net-ignores-refunds",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "paid-short-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "paid-over-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "payout-review-not-held",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "credit-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "missing-credit-called-a-difference",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "in-transit-on-the-end-day",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "late-credit-consistent",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "batch-in-transit-ignored",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "unlinked-credits-dropped",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "sales-of-every-batch",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "refunds-read-as-sales",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "fees-of-every-batch",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "lines-of-every-batch",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "row-scope-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "kind-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "posting-period-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "value-date-only-in-the-period",
+   "killed": false,
+   "returncode": 1,
+   "assertion": true,
+   "error": true
+  },
+  {
+   "fault": "signed-amounts-accepted",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "extra-decimals-accepted",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "duplicates-kept",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "a-payout-credited-twice-kept",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "members-without-a-settlement-kept",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "hidden-rows-read",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "ceiling-one-short",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "columns-in-fixed-order",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "arabic-indic-digits-unread",
+   "killed": false,
+   "returncode": 1,
+   "assertion": true,
+   "error": true
+  },
+  {
+   "fault": "scope-dates-in-any-order",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "payouts-in-id-order",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  }
+ ]
+}
