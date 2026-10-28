@@ -240,6 +240,7 @@ const required = [
   'test:all-advice:oracle',
   'test:all-advice:oracle-mutants',
   'test:all-advice:seal',
+  'test:all-advice:baseline',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',

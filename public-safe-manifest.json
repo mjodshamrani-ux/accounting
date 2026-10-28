@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 79346,
-      "sha256": "ddc909f9a40775b67afe22a75d9a6efeda5a20536b5f61120fc9f3f7c6e223e8",
+      "bytes": 79386,
+      "sha256": "2606bc870015a5f43fe679e71bf59973e56fb5b042cde1456c3deb88ac9f03a0",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 52204,
-      "sha256": "427e10b6ea58afda1d4f6d4817390684fd87dfa13e40a4501ee6e4ec2af7cdb4",
+      "bytes": 52525,
+      "sha256": "da556c2d7c0c1d0bf993adb4dea3fdc79a1285f1f68d09c38dc4f1d5098f53f8",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 118820,
-      "sha256": "4e91bd4ab422471bfd02bf9f35b9fa4af2f6ede97fa02e68bfab653efdf55cbc",
+      "bytes": 119519,
+      "sha256": "d670f0f0b465e288af74b0365ddefb9292677fd54d7220f4fbfd0a470e24f0a0",
       "kind": "text"
     },
     {
@@ -36205,8 +36205,8 @@
     },
     {
       "path": "docs/roadmap/allocation.ar.md",
-      "bytes": 4277,
-      "sha256": "fd5c7685ac013c23a413ce1ed758c5ba2b13a19b532bd4d8ea945b2daaa47b16",
+      "bytes": 4658,
+      "sha256": "6a0d4654b962bea29eecb1d24cfe62bb90ef0c20cbf862e9a10cc9a3e497e21b",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 53467,
-      "sha256": "30bcee219df3ec55ac5ab599a7a790ea635db94aa8d529a7ffcb33f8516f05db",
+      "bytes": 53640,
+      "sha256": "e7c56683bc8d1e5fb7831f1c87c299cc5514c1f8e9b8c061241a3289c32bfb0f",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 17460,
-      "sha256": "e282b687ab8539af967675053d172c5a79b8653a2b0142d97a4a76eb2b882c60",
+      "bytes": 17490,
+      "sha256": "749e2501ce5f514c016e98902ad7afc26682e6183b78fb69d5e007f25537c0cb",
       "kind": "text"
     },
     {
@@ -66227,8 +66227,20 @@
     },
     {
       "path": "docs/audits/ALL-1-FOUNDATION.ar.md",
-      "bytes": 7418,
-      "sha256": "ae93a5390500be162129708a77cb90789d17884857d7ec2e55c9022dcc776211",
+      "bytes": 9285,
+      "sha256": "7ba61155cb2d3b5412603bd42b6e4e7fb076c810eaaf8829fcd62c60c2e9f48b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/baseline.mjs",
+      "bytes": 9458,
+      "sha256": "5969856a77952a977c606f229b85433cee8eca9e9bf976b168fe5ea044fa6f5d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/results/baseline-1.json",
+      "bytes": 14434,
+      "sha256": "b969f4575abe7aefc99a816b21ad0ebb8f886a177917c990e30b1fc09a1558a0",
       "kind": "text"
     }
   ],

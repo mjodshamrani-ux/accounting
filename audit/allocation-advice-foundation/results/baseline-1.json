@@ -1,0 +1,717 @@
+{
+ "schema": "tarasuf-all1-baseline/1",
+ "family": "allocation-snapshot-1",
+ "rule": "the product as it is, on the sealed stories, beside the proposed contract",
+ "summary": {
+  "stories": 36,
+  "refusalsAgree": 36,
+  "lines": 26090,
+  "contractFits": 24908,
+  "contractReview": 180,
+  "contractAllocated": 1002,
+  "productOffered": 25088,
+  "productAllocated": 1002,
+  "offeredButReview": 180,
+  "allocatedDisagree": 0,
+  "approvedInRowOrder": 40,
+  "refusedWhenTried": 19,
+  "competingAccepted": 21,
+  "competingRefused": 13,
+  "overAccepted": 0,
+  "twinsAllocatedTogether": 2
+ },
+ "stories": {
+  "F01": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 2,
+   "contractFits": 2,
+   "contractReview": 0,
+   "contractAllocated": 0,
+   "productOffered": 2,
+   "productAllocated": 0,
+   "offeredButReview": 0,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [
+    2,
+    3
+   ],
+   "refusedWhenTried": [],
+   "competingAccepted": 0,
+   "competingRefused": 0,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F02": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 2,
+   "contractFits": 2,
+   "contractReview": 0,
+   "contractAllocated": 0,
+   "productOffered": 2,
+   "productAllocated": 0,
+   "offeredButReview": 0,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [
+    2,
+    3
+   ],
+   "refusedWhenTried": [],
+   "competingAccepted": 0,
+   "competingRefused": 0,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F03": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 4,
+   "contractFits": 4,
+   "contractReview": 0,
+   "contractAllocated": 0,
+   "productOffered": 4,
+   "productAllocated": 0,
+   "offeredButReview": 0,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [
+    2,
+    3,
+    4,
+    5
+   ],
+   "refusedWhenTried": [],
+   "competingAccepted": 0,
+   "competingRefused": 0,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F04": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 3,
+   "contractFits": 0,
+   "contractReview": 3,
+   "contractAllocated": 0,
+   "productOffered": 3,
+   "productAllocated": 0,
+   "offeredButReview": 3,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [
+    2
+   ],
+   "refusedWhenTried": [
+    [
+     3,
+     "OVER_AVAILABLE"
+    ],
+    [
+     4,
+     "OVER_AVAILABLE"
+    ]
+   ],
+   "competingAccepted": 1,
+   "competingRefused": 2,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F05": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 2,
+   "contractFits": 0,
+   "contractReview": 2,
+   "contractAllocated": 0,
+   "productOffered": 2,
+   "productAllocated": 0,
+   "offeredButReview": 2,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [
+    2
+   ],
+   "refusedWhenTried": [
+    [
+     3,
+     "OVER_AVAILABLE"
+    ]
+   ],
+   "competingAccepted": 1,
+   "competingRefused": 1,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F06": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 1,
+   "contractFits": 0,
+   "contractReview": 1,
+   "contractAllocated": 0,
+   "productOffered": 1,
+   "productAllocated": 0,
+   "offeredButReview": 1,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [],
+   "refusedWhenTried": [
+    [
+     2,
+     "OVER_AVAILABLE"
+    ]
+   ],
+   "competingAccepted": 0,
+   "competingRefused": 0,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F07": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 1,
+   "contractFits": 1,
+   "contractReview": 0,
+   "contractAllocated": 0,
+   "productOffered": 1,
+   "productAllocated": 0,
+   "offeredButReview": 0,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [
+    2
+   ],
+   "refusedWhenTried": [],
+   "competingAccepted": 0,
+   "competingRefused": 0,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F08": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 2,
+   "contractFits": 0,
+   "contractReview": 2,
+   "contractAllocated": 0,
+   "productOffered": 2,
+   "productAllocated": 0,
+   "offeredButReview": 2,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [
+    2,
+    3
+   ],
+   "refusedWhenTried": [],
+   "competingAccepted": 0,
+   "competingRefused": 0,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 1
+  },
+  "F09": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 2,
+   "contractFits": 0,
+   "contractReview": 2,
+   "contractAllocated": 0,
+   "productOffered": 2,
+   "productAllocated": 0,
+   "offeredButReview": 2,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [
+    2
+   ],
+   "refusedWhenTried": [
+    [
+     3,
+     "OVER_AVAILABLE"
+    ]
+   ],
+   "competingAccepted": 1,
+   "competingRefused": 1,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F10": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 2,
+   "contractFits": 2,
+   "contractReview": 0,
+   "contractAllocated": 0,
+   "productOffered": 2,
+   "productAllocated": 0,
+   "offeredButReview": 0,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [
+    2,
+    3
+   ],
+   "refusedWhenTried": [],
+   "competingAccepted": 0,
+   "competingRefused": 0,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F11": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 2,
+   "contractFits": 0,
+   "contractReview": 1,
+   "contractAllocated": 1,
+   "productOffered": 1,
+   "productAllocated": 1,
+   "offeredButReview": 1,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [
+    3
+   ],
+   "refusedWhenTried": [],
+   "competingAccepted": 0,
+   "competingRefused": 0,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 1
+  },
+  "F12": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 1,
+   "contractFits": 0,
+   "contractReview": 1,
+   "contractAllocated": 0,
+   "productOffered": 1,
+   "productAllocated": 0,
+   "offeredButReview": 1,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [],
+   "refusedWhenTried": [
+    [
+     2,
+     "OVER_AVAILABLE"
+    ]
+   ],
+   "competingAccepted": 0,
+   "competingRefused": 0,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F13": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 2,
+   "contractFits": 0,
+   "contractReview": 1,
+   "contractAllocated": 1,
+   "productOffered": 1,
+   "productAllocated": 1,
+   "offeredButReview": 1,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [],
+   "refusedWhenTried": [
+    [
+     3,
+     "OVER_AVAILABLE"
+    ]
+   ],
+   "competingAccepted": 0,
+   "competingRefused": 0,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F14": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 2,
+   "contractFits": 0,
+   "contractReview": 2,
+   "contractAllocated": 0,
+   "productOffered": 2,
+   "productAllocated": 0,
+   "offeredButReview": 2,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [
+    2
+   ],
+   "refusedWhenTried": [
+    [
+     3,
+     "OVER_AVAILABLE"
+    ]
+   ],
+   "competingAccepted": 1,
+   "competingRefused": 1,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F15": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 2,
+   "contractFits": 0,
+   "contractReview": 2,
+   "contractAllocated": 0,
+   "productOffered": 2,
+   "productAllocated": 0,
+   "offeredButReview": 2,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [
+    2
+   ],
+   "refusedWhenTried": [
+    [
+     3,
+     "OVER_AVAILABLE"
+    ]
+   ],
+   "competingAccepted": 1,
+   "competingRefused": 1,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F16": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 1,
+   "contractFits": 0,
+   "contractReview": 1,
+   "contractAllocated": 0,
+   "productOffered": 1,
+   "productAllocated": 0,
+   "offeredButReview": 1,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [],
+   "refusedWhenTried": [
+    [
+     2,
+     "OVER_AVAILABLE"
+    ]
+   ],
+   "competingAccepted": 0,
+   "competingRefused": 0,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F17": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 2,
+   "contractFits": 0,
+   "contractReview": 2,
+   "contractAllocated": 0,
+   "productOffered": 2,
+   "productAllocated": 0,
+   "offeredButReview": 2,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [
+    2
+   ],
+   "refusedWhenTried": [
+    [
+     3,
+     "OVER_AVAILABLE"
+    ]
+   ],
+   "competingAccepted": 1,
+   "competingRefused": 1,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F18": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 2,
+   "contractFits": 2,
+   "contractReview": 0,
+   "contractAllocated": 0,
+   "productOffered": 2,
+   "productAllocated": 0,
+   "offeredButReview": 0,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [
+    2,
+    3
+   ],
+   "refusedWhenTried": [],
+   "competingAccepted": 0,
+   "competingRefused": 0,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F19": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 3,
+   "contractFits": 0,
+   "contractReview": 3,
+   "contractAllocated": 0,
+   "productOffered": 3,
+   "productAllocated": 0,
+   "offeredButReview": 3,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [
+    2
+   ],
+   "refusedWhenTried": [
+    [
+     3,
+     "OVER_AVAILABLE"
+    ],
+    [
+     4,
+     "OVER_AVAILABLE"
+    ]
+   ],
+   "competingAccepted": 1,
+   "competingRefused": 2,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F20": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 3,
+   "contractFits": 1,
+   "contractReview": 2,
+   "contractAllocated": 0,
+   "productOffered": 3,
+   "productAllocated": 0,
+   "offeredButReview": 2,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [
+    2,
+    4
+   ],
+   "refusedWhenTried": [
+    [
+     3,
+     "OVER_AVAILABLE"
+    ]
+   ],
+   "competingAccepted": 1,
+   "competingRefused": 1,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F21": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 0,
+   "contractFits": 0,
+   "contractReview": 0,
+   "contractAllocated": 0,
+   "productOffered": 0,
+   "productAllocated": 0,
+   "offeredButReview": 0,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [],
+   "refusedWhenTried": [],
+   "competingAccepted": 0,
+   "competingRefused": 0,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F22": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 2,
+   "contractFits": 0,
+   "contractReview": 2,
+   "contractAllocated": 0,
+   "productOffered": 2,
+   "productAllocated": 0,
+   "offeredButReview": 2,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [
+    3
+   ],
+   "refusedWhenTried": [
+    [
+     2,
+     "OVER_AVAILABLE"
+    ]
+   ],
+   "competingAccepted": 1,
+   "competingRefused": 0,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F23": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 2,
+   "contractFits": 0,
+   "contractReview": 2,
+   "contractAllocated": 0,
+   "productOffered": 2,
+   "productAllocated": 0,
+   "offeredButReview": 2,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [
+    2
+   ],
+   "refusedWhenTried": [
+    [
+     3,
+     "OVER_AVAILABLE"
+    ]
+   ],
+   "competingAccepted": 1,
+   "competingRefused": 1,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F24": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 2,
+   "contractFits": 0,
+   "contractReview": 2,
+   "contractAllocated": 0,
+   "productOffered": 2,
+   "productAllocated": 0,
+   "offeredButReview": 2,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [
+    2
+   ],
+   "refusedWhenTried": [
+    [
+     3,
+     "OVER_AVAILABLE"
+    ]
+   ],
+   "competingAccepted": 1,
+   "competingRefused": 1,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F25": {
+   "productRefused": "SOURCE_ERRORS",
+   "contractRefused": "SOURCE_ERRORS"
+  },
+  "F26": {
+   "productRefused": "SOURCE_ERRORS",
+   "contractRefused": "SOURCE_ERRORS"
+  },
+  "F27": {
+   "productRefused": "SOURCE_ERRORS",
+   "contractRefused": "SOURCE_ERRORS"
+  },
+  "F28": {
+   "productRefused": "SOURCE_ERRORS",
+   "contractRefused": "SOURCE_ERRORS"
+  },
+  "F29": {
+   "productRefused": "OVER_AVAILABLE",
+   "contractRefused": "OVER_AVAILABLE"
+  },
+  "F30": {
+   "productRefused": "COLUMNS",
+   "contractRefused": "COLUMNS"
+  },
+  "F31": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 1,
+   "contractFits": 0,
+   "contractReview": 1,
+   "contractAllocated": 0,
+   "productOffered": 1,
+   "productAllocated": 0,
+   "offeredButReview": 1,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [],
+   "refusedWhenTried": [
+    [
+     2,
+     "OVER_AVAILABLE"
+    ]
+   ],
+   "competingAccepted": 0,
+   "competingRefused": 0,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F32": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 2,
+   "contractFits": 2,
+   "contractReview": 0,
+   "contractAllocated": 0,
+   "productOffered": 2,
+   "productAllocated": 0,
+   "offeredButReview": 0,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [
+    2,
+    3
+   ],
+   "refusedWhenTried": [],
+   "competingAccepted": 0,
+   "competingRefused": 0,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "F33": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 11,
+   "contractFits": 0,
+   "contractReview": 11,
+   "contractAllocated": 0,
+   "productOffered": 11,
+   "productAllocated": 0,
+   "offeredButReview": 11,
+   "allocatedDisagree": 0,
+   "approvedInRowOrder": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ],
+   "refusedWhenTried": [
+    [
+     12,
+     "OVER_AVAILABLE"
+    ]
+   ],
+   "competingAccepted": 10,
+   "competingRefused": 1,
+   "overAccepted": 0,
+   "twinsAllocatedTogether": 0
+  },
+  "D1": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 20029,
+   "contractFits": 19942,
+   "contractReview": 87,
+   "contractAllocated": 0,
+   "productOffered": 20029,
+   "productAllocated": 0,
+   "offeredButReview": 87,
+   "allocatedDisagree": 0
+  },
+  "D2": {
+   "productRefused": "ROWS",
+   "contractRefused": "ROWS"
+  },
+  "D3": {
+   "productRefused": null,
+   "contractRefused": null,
+   "lines": 6000,
+   "contractFits": 4950,
+   "contractReview": 50,
+   "contractAllocated": 1000,
+   "productOffered": 5000,
+   "productAllocated": 1000,
+   "offeredButReview": 50,
+   "allocatedDisagree": 0
+  }
+ }
+}
