@@ -1,0 +1,201 @@
+{
+ "schema": "tarasuf-glt1-sections-foundation/1",
+ "status": "proposed contract and frozen synthetic foundation before any product support for several accounts in one GL-TB run",
+ "synthetic": true,
+ "holdout": false,
+ "productEnabled": false,
+ "proposedFamily": "gl-tb-sections-1",
+ "existingFamilies": "gl-tb-canonical-1 and GL_TB_VERTICAL_BALANCES_V1, unchanged: one confirmed account scope, every row restating it, two sources",
+ "plan": "docs/roadmap/gl-tb.ar.md#glt-1-أقسام-حسابات-متعددة--مخطط-بعد-c-0-وc-1",
+ "challengeIds": [
+  "GLT",
+  "CH-06",
+  "CH-07",
+  "CH-09",
+  "CH-13"
+ ],
+ "why": "A general ledger detail report and a trial balance cover many accounts. Today each account must be cut by hand into two files whose every row restates the full scope. The danger in doing it by hand is the one GLT-1 names: a section's dimensions carried into the next, an account code that lost a leading zero matched to another, a blank cell read as zero, a TB page from another period merged in, a parent total compared as an account.",
+ "claim": "Consistency of supplied GL detail sections with supplied trial balance account rows, account by account and component by component, within one confirmed scope; no posting, no reclassification, no completeness opinion on the ledger or the trial balance",
+ "runScope": {
+  "fields": [
+   "Entity",
+   "Ledger",
+   "Currency",
+   "Currency basis",
+   "Posting status",
+   "Posting layer",
+   "Period start",
+   "Period end"
+  ],
+  "rule": "Confirmed by the accountant for the run, as the existing family confirms its scope. Account and dimensions are not part of it: they come from each GL section and each TB row. Each value is text by the reading rules; Currency one of the listed currencies; Currency basis functional; Posting status posted; Period start and Period end real dates, start not after end. Otherwise the run is refused (SCOPE) and nothing is judged. In this foundation the confirmation is <story>-scope.json, an object with exactly these eight fields."
+ },
+ "inputs": {
+  "glDetail": {
+   "role": "gl-sections",
+   "rule": "A CSV of sections. A section starts at a row Section, <section ID> and ends at the first later row whose first cell is End section or Section, or at the end of the file. Inside it, the first row with more than two meaningful cells is the column row; the rows before it are label rows, <label>, <value>, one for each of Entity, Ledger, Account, Complete dimensions, Currency, Currency basis, Posting status, Posting layer, Period start, Period end, each exactly once in any order; the rows after it are records. The column row holds Record ID, Record kind, Posting date, Debit, Credit, each once, in any order. The section is closed when it ends at a row End section, <the same section ID>.",
+   "sectionLabels": [
+    "Entity",
+    "Ledger",
+    "Account",
+    "Complete dimensions",
+    "Currency",
+    "Currency basis",
+    "Posting status",
+    "Posting layer",
+    "Period start",
+    "Period end"
+   ],
+   "columns": [
+    "Record ID",
+    "Record kind",
+    "Posting date",
+    "Debit",
+    "Credit"
+   ]
+  },
+  "trialBalance": {
+   "role": "tb-pages",
+   "rule": "A CSV of pages. A page starts at a row Page, <page ID> and ends at the first later row whose first cell is End page or Page, or at the end of the file. Inside it, the first row with more than two meaningful cells is the column row; the rows before it are label rows for each of Entity, Ledger, Currency, Currency basis, Posting status, Posting layer, Period start, Period end, each exactly once in any order; the rows after it are TB rows. The column row holds the ten columns, each once, in any order. The page is closed when it ends at a row End page, <the same page ID>.",
+   "pageLabels": [
+    "Entity",
+    "Ledger",
+    "Currency",
+    "Currency basis",
+    "Posting status",
+    "Posting layer",
+    "Period start",
+    "Period end"
+   ],
+   "columns": [
+    "Account",
+    "Complete dimensions",
+    "Row type",
+    "Parent account",
+    "Opening debit",
+    "Opening credit",
+    "Period debit",
+    "Period credit",
+    "Closing debit",
+    "Closing credit"
+   ]
+  },
+  "format": "CSV, UTF-8 with an optional byte-order mark, comma separated, RFC 4180 quoting, LF or CRLF; a file that is not UTF-8 or not valid RFC 4180 refuses the run (ENCODING, CSV). Rows are CSV records, numbered from 1 in each file, blank ones included. A cell is empty when nothing is left after removing ordinary spaces (U+0020) at both ends. A row's meaningful cells run to its last non-empty cell; the cells after them are empty, so spreadsheet exports that pad every row to one width read the same. A row whose cells are all empty is ignored anywhere. Section, End section, Page, End page and every label and column name are compared after removing ordinary spaces at both ends, exactly, case included. A Section, End section, Page or End page row has exactly two meaningful cells.",
+  "roles": "The accountant names which file is the GL detail and which the trial balance. In this foundation: <story>-gl.csv and <story>-tb.csv."
+ },
+ "reading": {
+  "text": "Section ID, page ID, scope values, account, dimensions, parent account and Record ID: ordinary spaces at both ends removed; then non-empty, at most 500 code points, without control (Cc), format (Cf) or separator (Z) characters other than the ordinary space, not starting with = + @ or -, and not starting with an Excel error (#REF!, #VALUE!, #N/A, #DIV/0!, #NAME?, #NULL!, #NUM!, in any case). Compared as written, never folded: no case change, no leading zero added or removed.",
+  "dates": "Ordinary spaces at both ends removed; then YYYY-MM-DD in Latin digits, a real date.",
+  "amounts": "Ordinary spaces at both ends removed; Arabic-Indic and Persian digits read as Latin and the Arabic decimal separator as a point; then one or more digits, optionally a point and one or more digits, with no more fraction digits than the run currency has decimals; never negative; at most 10^14 minor units. A blank amount cell is not zero (G4).",
+  "currencies": {
+   "SAR": 2,
+   "USD": 2,
+   "EUR": 2,
+   "GBP": 2,
+   "AED": 2,
+   "QAR": 2,
+   "EGP": 2,
+   "KWD": 3,
+   "BHD": 3,
+   "OMR": 3,
+   "JPY": 0
+  }
+ },
+ "glSections": {
+  "SECTION_UNREADABLE": "The section's Account label is absent, repeated, or its value fails the text rules: it could be any account, so every account is held and the section is listed as unplaced (G8).",
+  "SECTION_HEADER": "Otherwise, when the Section row or a label row fails: the section ID fails the text rules; a label is absent, repeated or unknown; a value fails the text rules; Period start or Period end is not a real date. The section's account is held and its records are not judged. When the dimensions are the failing label, every account with the section's account code is held, whatever its dimensions, and the section is listed as unplaced (no inheritance, G1).",
+  "SECTION_SCOPE": "A closed section whose labels all read, and whose Entity, Ledger, Currency, Currency basis, Posting status, Posting layer, Period start or Period end differs as text from the run scope, is excluded and listed by its section ID. Its columns and records are not judged; it holds nothing; its account counts as absent from the GL (G2).",
+  "SECTION_COLUMNS": "The section has no column row, its column row is not the five GL columns each once, or a record has a non-empty cell beyond the column row: the section's account is held; its records are not judged.",
+  "SECTION_UNCLOSED": "The section ends anywhere but at a row End section with its own section ID: the section's account is held, its records are not judged, and it is never excluded.",
+  "records": "Record ID by the text rules (IDENTITY); Record kind opening, movement or closing as written (KIND); Posting date a real date (DATE), the opening on Period start and the closing on Period end (DATE), a movement from Period start to Period end (POSTING_PERIOD); Debit and Credit by the amount rules, both written (AMOUNT); no Record ID twice in the section (DUPLICATE_RECORD); at most one opening and one closing (ROLE_REPEATED). Any of these holds the section's account.",
+  "SECTION_DUPLICATE": "Two sections that are not excluded, with the same account and dimensions, or with the same section ID: each of their accounts is held.",
+  "missingRoles": "A section that is otherwise sound without an opening record (GL_OPENING_ABSENT) or a closing record (GL_CLOSING_ABSENT) makes its account missing."
+ },
+ "tbPages": {
+  "PAGE_SCOPE": "A page that is not unreadable and whose label values differ as text from the run scope is excluded with all its rows and listed by its page ID. It holds nothing; its accounts count as absent from the TB (G2).",
+  "PAGE_UNREADABLE": "A page whose Page row or label rows fail as a section's would, with no column row, whose column row is not the ten TB columns each once, or that is not closed by End page with its page ID: any account could be on it, so every account is held and the page is listed as unplaced (G8).",
+  "ROW_UNREADABLE": "A TB row on a read page (neither excluded nor unreadable) whose Account or Complete dimensions fails the text rules, or whose Row type, ordinary spaces at both ends removed, is not account or total exactly: it could be any account, or a total over any, so every account is held and the row is listed as unplaced (G8).",
+  "ROW_FIELD": "An account row whose Parent account is neither empty nor readable by the text rules, or with a non-empty cell beyond the ten columns: its account is held.",
+  "AMOUNT": "An account row whose six amounts do not all read by the amount rules: its account is held.",
+  "TB_CONFLICT": "Two account rows for the same account and dimensions on read pages: the account is held, even when they agree (G6).",
+  "totals": "A total row on a read page stands for the account rows on read pages whose Parent account is its Account and whose dimensions are its dimensions. When the total's own Parent account, extra cells or amounts fail, or any of those rows has an amount that fails, the total cannot be checked and holds each of those rows (TOTAL_FIELD). Otherwise each of its six amounts must equal the sum of theirs, or each of them is held (TOTAL_MISMATCH). A total with no such rows, a total over totals included, is listed as an orphan and holds nothing. A total is never compared with the GL (G5)."
+ },
+ "comparison": {
+  "key": "Account and Complete dimensions as written (G3).",
+  "glComponents": "Opening debit and credit from the opening record; period debit and credit, the sums of the movement records; closing debit and credit from the closing record.",
+  "tbComponents": "The six amounts of the TB account row as written.",
+  "bridge": "For each source alone: closing debit - closing credit - opening debit + opening credit - period debit + period credit.",
+  "status": "held when a blocking code applies (codes: those codes, every one that applies); otherwise missing when the account has no section or no account row, or its section lacks a role (codes: GL_SECTION_ABSENT, TB_ROW_ABSENT, GL_OPENING_ABSENT, GL_CLOSING_ABSENT); otherwise inconsistent when either bridge is not zero (codes: GL_BRIDGE, TB_BRIDGE); otherwise difference when any of the six components differs (codes: the components that differ); otherwise consistent. Equal nets never stand in for equal components.",
+  "isolation": "Each account is decided from its own section and row; one account's difference never offsets another's.",
+  "accounts": "The accounts judged are the account and dimensions of every section that is not excluded and whose account and dimensions read, and of every readable account row on a page that is neither excluded nor unreadable. A code that holds every account holds each of these; a code that holds an account code holds each of these with that code."
+ },
+ "codes": {
+  "blocking": [
+   "STRAY_ROW",
+   "SECTION_UNREADABLE",
+   "PAGE_UNREADABLE",
+   "ROW_UNREADABLE",
+   "SECTION_HEADER",
+   "SECTION_COLUMNS",
+   "SECTION_UNCLOSED",
+   "SECTION_DUPLICATE",
+   "IDENTITY",
+   "KIND",
+   "DATE",
+   "POSTING_PERIOD",
+   "AMOUNT",
+   "DUPLICATE_RECORD",
+   "ROLE_REPEATED",
+   "ROW_FIELD",
+   "TB_CONFLICT",
+   "TOTAL_FIELD",
+   "TOTAL_MISMATCH"
+  ],
+  "missing": [
+   "GL_SECTION_ABSENT",
+   "TB_ROW_ABSENT",
+   "GL_OPENING_ABSENT",
+   "GL_CLOSING_ABSENT"
+  ],
+  "inconsistent": [
+   "GL_BRIDGE",
+   "TB_BRIDGE"
+  ],
+  "listed": [
+   "SECTION_SCOPE",
+   "PAGE_SCOPE",
+   "TOTAL_ORPHAN"
+  ],
+  "STRAY_ROW": "A non-blank row outside every section in the GL file or outside every page in the TB file: every account is held and the row is listed as unplaced (G8).",
+  "refused": [
+   "SCOPE",
+   "ENCODING",
+   "CSV"
+  ]
+ },
+ "result": {
+  "accounts": "For each account (Account|Complete dimensions): status, codes, and the six GL and the six TB components in minor units where that side is present and sound, null otherwise; null on both sides when held.",
+  "excludedSections": "Section IDs excluded by SECTION_SCOPE, sorted.",
+  "excludedPages": "Page IDs excluded by PAGE_SCOPE, sorted.",
+  "orphanTotals": "Account|Complete dimensions of each orphan total, sorted.",
+  "unplaced": "What could not be placed under one account: [file gl or tb, row N of its Section, Page or TB row, [the code that left it unplaced]], for STRAY_ROW, SECTION_UNREADABLE, a section whose dimensions fail (SECTION_HEADER), PAGE_UNREADABLE and ROW_UNREADABLE, sorted by file and row number.",
+  "run": "The codes that held every account, sorted.",
+  "refused": "SCOPE, ENCODING or CSV when the run is refused; then nothing else is judged."
+ },
+ "ownerDecisions": {
+  "G1": "Each section and page restates its scope; nothing is inherited from the one before. The alternative, carrying a label forward, is how a cost centre's movements land in the next.",
+  "G2": "A section or page with another scope is excluded and listed, and holds nothing else. The alternative is to hold the whole run.",
+  "G3": "Account and dimensions are compared as written: 0410 and 410 are two accounts.",
+  "G4": "A blank amount is not zero; a zero is written.",
+  "G5": "Totals are checked against the rows that name them and never compared with the GL; a total that disagrees holds those rows.",
+  "G6": "Two TB rows for one account and dimensions hold the account, even when equal: a second snapshot is not a confirmation.",
+  "G7": "A TB account without a GL section is missing even when all six amounts are zero; listing zero accounts is part of the inventory, not a pass.",
+  "G8": "A row outside every section or page, a section whose account cannot be read, a page that cannot be read, or a TB row whose account, dimensions or type cannot be read holds every account. A section whose dimensions cannot be read holds every account with its code."
+ },
+ "notInScope": [
+  "XLSX and PDF sources",
+  "signed or single-column balances (GLT-2)",
+  "sessions, decisions and Excel (later layers)",
+  "reclassification or presentation mappings (FIN)",
+  "foreign currency translation"
+ ]
+}

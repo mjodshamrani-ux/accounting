@@ -1,0 +1,13 @@
+﻿Page,P-1,,,,,,,,
+Entity,Synthetic Holding Co,,,,,,,,
+Ledger,Main GL,,,,,,,,
+Currency,SAR,,,,,,,,
+Currency basis,functional,,,,,,,,
+Posting status,posted,,,,,,,,
+Posting layer,actual,,,,,,,,
+Period start,2026-09-01,,,,,,,,
+Period end,2026-09-30,,,,,,,,
+Account,Complete dimensions,Row type,Parent account,Opening debit,Opening credit,Period debit,Period credit,Closing debit,Closing credit
+3000,cc=11,account,,10000.00,0.00,2000.00,1000.00,11000.00,0.00
+3000,cc=12,account,,10000.00,0.00,5000.00,1000.00,14000.00,0.00
+End page,P-1,,,,,,,,

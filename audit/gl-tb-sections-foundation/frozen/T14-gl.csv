@@ -1,0 +1,33 @@
+﻿Section,S-2600,,,
+Entity,Synthetic Holding Co,,,
+Ledger,Main GL,,,
+Account,2600,,,
+Complete dimensions,cc=10,,,
+Currency,SAR,,,
+Currency basis,functional,,,
+Posting status,posted,,,
+Posting layer,actual,,,
+Period start,2026-09-01,,,
+Period end,2026-09-30,,,
+Record ID,Record kind,Posting date,Debit,Credit
+S-2600-O,opening,2026-09-01,40.00,0.00
+G-141,movement,2026-09-22,10.00,0.00
+S-2600-C,closing,2026-09-30,50.00,0.00
+End section,S-2600,,,
+,,,,
+Section,S-2700-AUG,,,
+Entity,Synthetic Holding Co,,,
+Ledger,Main GL,,,
+Account,2700,,,
+Complete dimensions,cc=10,,,
+Currency,SAR,,,
+Currency basis,functional,,,
+Posting status,posted,,,
+Posting layer,actual,,,
+Period start,2026-08-01,,,
+Period end,2026-08-31,,,
+Record ID,Record kind,Posting date,Debit,Credit
+S-2700-AUG-O,opening,2026-08-01,9.00,0.00
+G-142,movement,2026-08-22,1.00,0.00
+S-2700-AUG-C,closing,2026-08-31,10.00,0.00
+End section,S-2700-AUG,,,

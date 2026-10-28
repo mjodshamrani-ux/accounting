@@ -1,0 +1,17 @@
+{
+ "schema": "tarasuf-glt1-sections-seal/1",
+ "statement": "Sealed before any product run on these files. The baseline that follows records the product as it is.",
+ "pins": {
+  "INPUT-MANIFEST.json": "406104b202c8f9d37d0725ee08bbf933c398559ea8025eefd573d7ea936eb4b4",
+  "EXPECTED.json": "d68a9e25a8f44f17527f164708fd0e0b9f659b79502d85b32990c630aff323b1",
+  "VERIFY.json": "4d29676435151e3968fcf18e7241f59811d814bcd7263ef09e7a9997d5f79360",
+  "contract.json": "7095ffbaf784fa74ff7b6adec396bb02d4eede8ca244e386cb6f51a8a13d168e",
+  "stories.py": "da20fb5310f6eadcc303d066bc7bf38854c934ea49ebb516f9715dce8fea14ed",
+  "render.py": "8a5f7298990d86e7edc8886bd83957ceba11fa838c4c01fffbbb356b6b2fd6f4",
+  "render.mjs": "34726d924aa658ad1f5c773f97d4a76dde4a000e6bec7e73e1c3788ad46f7be2",
+  "oracle.py": "7764889344e9aa63cf26388c1bb0e1f4ce1a15159abba30ed67ca939634bb039",
+  "verify.py": "d0474ce6b4b25edf7c880af5a14e38097a84cc05b9fdf6ed15e2801013892b8d",
+  "test_oracle.py": "f23209db72a3d8e9bff76d3c3340b9cf8059522172824854acc3bc3f46cca138",
+  "mutate_oracle.py": "8fb1de0c2157780beb62219493abea44308d69b74b625320992115ee43499a4e"
+ }
+}

@@ -1,0 +1,50 @@
+Section,S-5610
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,5610
+Complete dimensions,cc=10
+Currency,JPY
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-5610-O,opening,2026-09-01,150000,0
+G-261,movement,2026-09-08,2500,0
+S-5610-C,closing,2026-09-30,152500,0
+End section,S-5610
+
+Section,S-5620
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,5620
+Complete dimensions,cc=10
+Currency,JPY
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-5620-O,opening,2026-09-01,1500,0
+G-262,movement,2026-09-09,0,300
+S-5620-C,closing,2026-09-30,1200,0
+End section,S-5620
+
+Section,S-5630
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,5630
+Complete dimensions,cc=10
+Currency,JPY
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-5630-O,opening,2026-09-01,0,4000
+G-263,movement,2026-09-10,700,0
+S-5630-C,closing,2026-09-30,0,3300
+End section,S-5630

@@ -1,0 +1,33 @@
+﻿Section,S-0410,,,
+Entity,Synthetic Holding Co,,,
+Ledger,Main GL,,,
+Account,0410,,,
+Complete dimensions,cc=10,,,
+Currency,SAR,,,
+Currency basis,functional,,,
+Posting status,posted,,,
+Posting layer,actual,,,
+Period start,2026-09-01,,,
+Period end,2026-09-30,,,
+Record ID,Record kind,Posting date,Debit,Credit
+S-0410-O,opening,2026-09-01,120.00,0.00
+G-111,movement,2026-09-16,40.00,10.00
+S-0410-C,closing,2026-09-30,150.00,0.00
+End section,S-0410,,,
+,,,,
+Section,S-0420,,,
+Entity,Synthetic Holding Co,,,
+Ledger,Main GL,,,
+Account,0420,,,
+Complete dimensions,cc=10,,,
+Currency,SAR,,,
+Currency basis,functional,,,
+Posting status,posted,,,
+Posting layer,actual,,,
+Period start,2026-09-01,,,
+Period end,2026-09-30,,,
+Record ID,Record kind,Posting date,Debit,Credit
+S-0420-O,opening,2026-09-01,5.00,0.00
+G-112,movement,2026-09-17,0.00,5.00
+S-0420-C,closing,2026-09-30,0.00,0.00
+End section,S-0420,,,

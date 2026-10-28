@@ -1,0 +1,33 @@
+﻿Section,S-3400,,,
+Entity,Synthetic Holding Co,,,
+Ledger,Main GL,,,
+Account,3400,,,
+Complete dimensions,cc=10,,,
+Currency,SAR,,,
+Currency basis,functional,,,
+Posting status,posted,,,
+Posting layer,actual,,,
+Period start,2026-09-01,,,
+Period end,2026-09-30,,,
+Record ID,Record kind,Posting date,Debit,Credit
+S-3400-O,opening,2026-09-01,60.00,0.00
+G-181,movement,2026-09-04,20.00,5.00
+S-3400-C,closing,2026-09-30,75.00,0.00
+End section,S-3400,,,
+,,,,
+Section,S-3500,,,
+Entity,Synthetic Holding Co,,,
+Ledger,Main GL,,,
+Account,3500,,,
+Complete dimensions,cc=10,,,
+Currency,SAR,,,
+Currency basis,functional,,,
+Posting status,posted,,,
+Posting layer,actual,,,
+Period start,2026-09-01,,,
+Period end,2026-09-30,,,
+Record ID,Record kind,Posting date,Debit,Credit
+S-3500-O,opening,2026-09-01,1.00,0.00
+G-182,movement,2026-09-05,0.50,0.00
+S-3500-C,closing,2026-09-30,1.50,0.00
+End section,S-3500,,,

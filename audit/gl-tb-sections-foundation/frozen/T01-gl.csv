@@ -1,0 +1,51 @@
+Section,S-1100
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,1100
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-1100-O,opening,2026-09-01,5000.00,0.00
+G-11,movement,2026-09-04,1200.00,0.00
+G-12,movement,2026-09-18,0.00,300.00
+S-1100-C,closing,2026-09-30,5900.00,0.00
+End section,S-1100
+
+Section,S-1200
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,1200
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-1200-O,opening,2026-09-01,0.00,2000.00
+G-13,movement,2026-09-07,150.00,450.00
+S-1200-C,closing,2026-09-30,0.00,2300.00
+End section,S-1200
+
+Section,S-2100
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,2100
+Complete dimensions,cc=20
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-2100-O,opening,2026-09-01,0.00,0.00
+G-14,movement,2026-09-30,0.00,777.00
+S-2100-C,closing,2026-09-30,0.00,777.00
+End section,S-2100

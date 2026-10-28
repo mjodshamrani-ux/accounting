@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 61354,
-      "sha256": "93a3be72ebbccfea1ed6ca11c69b786d5759adbaef806fb38eea9455054a424c",
+      "bytes": 61480,
+      "sha256": "cb5a84c35e3e853217f957cada96bf87bba4e9a97e6cfb47cdb11c98719939c8",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 39803,
-      "sha256": "461c7874b86f86f06a3f6e8b33130dbe529c43fb6233adaa1f53722387b34c5b",
+      "bytes": 40302,
+      "sha256": "ecd6b5410ee48ef2331265ff4da71842c5d660635ca437b0f47c05ae6dfb98fd",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 20685,
-      "sha256": "35bc02d598537b7f8cb727afd653763af07c9cd6f62fcfcaf859a3e567aa7a77",
+      "bytes": 20764,
+      "sha256": "f31f7566c45127792562109fa55fdfbffd9c676febff4a356910c45e893a0862",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 89400,
-      "sha256": "e93365327ccf65942f11811dcd8e5c4e07fa86d006f9fb4f1c5ced538f5ec051",
+      "bytes": 90808,
+      "sha256": "6f059927d44b9a5d87d0eaa66edae2f6cd9871f483487ec30154654138829e48",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 77841,
-      "sha256": "af3b5b284eb5f0d7d8af597c6444e51ae238bc344d8a86f512da682fa7312cd5",
+      "bytes": 78114,
+      "sha256": "05564e35274badd0489e767ad9e7611cf4d301be9209002f0bbf2e5a173f1ee5",
       "kind": "text"
     },
     {
@@ -36241,8 +36241,8 @@
     },
     {
       "path": "docs/roadmap/gl-tb.ar.md",
-      "bytes": 3360,
-      "sha256": "39f17e3ae3c48eb1a572892e7f2c651a8f03daf54070ef2e27fcfc8a2a583ed2",
+      "bytes": 3564,
+      "sha256": "f89b4f9fcdcf283c988bb4ef1aba63909e886dd49340d45e67a67a0390cb133b",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 42198,
-      "sha256": "79792605ce0a5ed2cdadd140d3a6df916b107b3b150255f8ffd89a2b624e774e",
+      "bytes": 42619,
+      "sha256": "bbd8580d4bc0f9fcb345e8fd98486da00e431b3a6704d673581485a770404132",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 14805,
-      "sha256": "626c6562b1882a14c8fc1fd1025c3f4c6125c4613dfcb9d31b5c28bd8f85f309",
+      "bytes": 14901,
+      "sha256": "eb358c9d718dc6d0626fc5f47f75c2cdd96ae3af55806be51a70bea7241b5650",
       "kind": "text"
     },
     {
@@ -57023,6 +57023,630 @@
       "path": "docs/audits/IC-1D.ar.md",
       "bytes": 6368,
       "sha256": "bf33f16e2c7e998a52f1f08ee23ce9f4beaab41e97eb5b4eb81800eb66c2e534",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/README.ar.md",
+      "bytes": 4301,
+      "sha256": "17e94cf8f7721fe5b1e62652e116261b8daea78e66431c26d9ccaa33e3480227",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/check_seal.py",
+      "bytes": 2730,
+      "sha256": "c8e0523f04c435994f1f513dca882879d75a5b764dc9500096ebd65cb1b7ff96",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/contract.json",
+      "bytes": 15069,
+      "sha256": "7095ffbaf784fa74ff7b6adec396bb02d4eede8ca244e386cb6f51a8a13d168e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/EXPECTED.json",
+      "bytes": 33969,
+      "sha256": "d68a9e25a8f44f17527f164708fd0e0b9f659b79502d85b32990c630aff323b1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/INPUT-MANIFEST.json",
+      "bytes": 11035,
+      "sha256": "406104b202c8f9d37d0725ee08bbf933c398559ea8025eefd573d7ea936eb4b4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/SEAL.json",
+      "bytes": 1126,
+      "sha256": "1c5cb071b6d116cbf519c39ef17145d7875a885be739dcb94b681ace1ac92f4c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T01-gl.csv",
+      "bytes": 1271,
+      "sha256": "00d212d0f7966ff088acebbb5c9c078c9629b0aa48abbdae072615673e57bd6a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T01-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T01-tb.csv",
+      "bytes": 505,
+      "sha256": "03d0959808437b34c47770e1108d4cee1c765ebf358177bafbfdc0d34fcc5f38",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T02-gl.csv",
+      "bytes": 1043,
+      "sha256": "b0205808eb97d51da9e0e8e303dfe41d9a8c15ca6ef26a5e44eb479d4f1f131f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T02-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T02-tb.csv",
+      "bytes": 554,
+      "sha256": "b1dfcd1cc91b5be20c714312a97cbc8e7fd16c01c9a8d054b0dbaac6a81df628",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T03-gl.csv",
+      "bytes": 1076,
+      "sha256": "682260da0ffbb6006991008603d646b8a10ca12ac175228f4a4ed2b7d524c342",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T03-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T03-tb.csv",
+      "bytes": 557,
+      "sha256": "2480b2c872c116d7e5ce52d2fe222bf8b2f13ebf5153c1c4d961e9eee66f9e03",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T04-gl.csv",
+      "bytes": 1184,
+      "sha256": "52a677d4d5c68ff03f7a2449d8ea1bbb1f44aff9f00646a386bfaa907cb33e88",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T04-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T04-tb.csv",
+      "bytes": 484,
+      "sha256": "65b60f0ea0254458e30f6cde32a37d98fe307322877203639e17bc9fbec8facd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T05-gl.csv",
+      "bytes": 893,
+      "sha256": "0d31db732a48889ea21acd32f5302f5b12c47a511acdaef6c9660b691bf0ed42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T05-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T05-tb.csv",
+      "bytes": 539,
+      "sha256": "4cba7c618706fc2812a7d30f2434b6eace55f6f7aba32ad21c9a5ae6a6452654",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T06-gl.csv",
+      "bytes": 1068,
+      "sha256": "ea839ffe09d4acfce83468fe997ab9b5abd721ca9effdd4737b744b68351bc17",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T06-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T06-tb.csv",
+      "bytes": 549,
+      "sha256": "af4d0b6fdedc804b57614b06daa589dbfb88dced977ad742028adaef9bd7314c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T07-gl.csv",
+      "bytes": 1217,
+      "sha256": "aac5384937a0d357b2f49ddf4ff036abbef172c595b0b1be46c9498efde0d274",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T07-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T07-tb.csv",
+      "bytes": 817,
+      "sha256": "d281964211cb2ad9f90841e7a538a3a24ba91d8e4c76e3f0c3c40df410fb24ac",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T08-gl.csv",
+      "bytes": 931,
+      "sha256": "6dd9c5298a61c94519b7aeb14cd0899e82f07ef88537d5a35ce2a9150e619f52",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T08-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T08-tb.csv",
+      "bytes": 606,
+      "sha256": "78d36c1549b5805f984f98fea8406db44f8f14abf885426215b45aa94d71f361",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T09-gl.csv",
+      "bytes": 1538,
+      "sha256": "ca57d67ffd685f7f49c044e6f81d8959f67a63659ebc1fa26b9312c053fa780c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T09-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T09-tb.csv",
+      "bytes": 716,
+      "sha256": "77eca32b2e2a06319d5b4beaf145188cc9c6aa2a4e34743c22471cab7d2af776",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T10-gl.csv",
+      "bytes": 813,
+      "sha256": "77b7a7914ebbee8293b9491057c677ca5b48264cb3fcab268c9f8f36d9700718",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T10-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T10-tb.csv",
+      "bytes": 819,
+      "sha256": "f9fb1d8ed167d56a0a8cc6b640ab06acbed0f51b305b2b5bf3680685f40daef6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T11-gl.csv",
+      "bytes": 927,
+      "sha256": "133aad56249b8b7314a1bc6c6a321887404c706de3853f6245a5e70bae1264ac",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T11-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T11-tb.csv",
+      "bytes": 531,
+      "sha256": "8dd411152b4f2d6e9ce2970547cef976c916a2ab218c473d19ba2375056161be",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T12-gl.csv",
+      "bytes": 1527,
+      "sha256": "a0d20ff8c580792c319f40349c041b701a719d10af31fa543b29b44be11e85cc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T12-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T12-tb.csv",
+      "bytes": 620,
+      "sha256": "9d5b006f2c3bacef22ab564cb0322f2d60933a90cdc62b657a7bba2d0ce40bda",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T13-gl.csv",
+      "bytes": 405,
+      "sha256": "3e28c05e58b7d99e9758b53c31c6f0dcca463e2a892060e600c9c60d1e21a395",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T13-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T13-tb.csv",
+      "bytes": 431,
+      "sha256": "f5e2ab9ed78c8d0e51e3adb8e055b3c136dd5f27a84c3eee9207f4cfc1c21194",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T14-gl.csv",
+      "bytes": 941,
+      "sha256": "1078e8a04e2e38957249de6e4f392a18fe32bf0f9af2fd67340c0c1ef6b5c0aa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T14-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T14-tb.csv",
+      "bytes": 531,
+      "sha256": "4a745de29be9e19867367f96a6f8fbbab10cd99d9d8d617dee34c620dc10af12",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T15-gl.csv",
+      "bytes": 1548,
+      "sha256": "c54d512b2f0f00db3fde5bf220d52ed3639de2dc733e04d3f2b0441679a66778",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T15-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T15-tb.csv",
+      "bytes": 545,
+      "sha256": "c7ee68d3149f667799f7bcb2d53a22290adbcf53713c2aefed01f30186f3dafd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T16-gl.csv",
+      "bytes": 838,
+      "sha256": "1b760812d0aba0a6b1cd4020e48be32ee1b3eb8891265e50560a233b92175fe3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T16-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T16-tb.csv",
+      "bytes": 432,
+      "sha256": "a707dfec9d80b36117ec2d77eceedfdc1b3fc6cedd7aef7572af9550bc8bfe29",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T17-gl.csv",
+      "bytes": 1047,
+      "sha256": "7fbf52305791deffe840c33bbc0bf42c5c7a1c6c946e50ed7a0ad09444c8f6b3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T17-scope.json",
+      "bytes": 230,
+      "sha256": "446600fb7e1a8664ae3c60238619321f61b505ff11be3a9140d47fd0fcc4af2f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T17-tb.csv",
+      "bytes": 607,
+      "sha256": "ac3633e160a9813e5f5b8a4822f1da0ebf42ce71df62282267b67720c3443eeb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T18-gl.csv",
+      "bytes": 924,
+      "sha256": "23d9a8401354ad01e2b503b753f8c229244042a80e6a9bcf2179a2b865ce2816",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T18-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T18-tb.csv",
+      "bytes": 530,
+      "sha256": "d4a308d3b98de72ea390a45b6595676a9015a8c5efbeeb88eadf5be00fac2fbe",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T19-gl.csv",
+      "bytes": 997,
+      "sha256": "9bd246a66b076e4ec8882d193ef53a6984693289ea715a81d230a0a05348809c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T19-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T19-tb.csv",
+      "bytes": 546,
+      "sha256": "be5e7fc4497025f5a52cfa30e6f64f098fa36a0c8fe8c4e1976ab6c51a965c57",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T20-gl.csv",
+      "bytes": 773,
+      "sha256": "3d6c82c20ae1b46c42f36688a9db4d87967d814e7899dbc2c9ffba23c7da0d2e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T20-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T20-tb.csv",
+      "bytes": 432,
+      "sha256": "7bfceda96a37e04dcfab41cd9893d2f6902ec622dd9d8010d986fdc686d1f6f2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T21-gl.csv",
+      "bytes": 1388,
+      "sha256": "81f0e8776975bf13ca1ede44d800cdf9bcad4ad7c1bca97aaaa26a871bad0d18",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T21-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T21-tb.csv",
+      "bytes": 992,
+      "sha256": "c8e2ae2c58616a6d11636c9ffffe00b2cb7de1b8f48492e3f709e1b1ac53fdc1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T22-gl.csv",
+      "bytes": 1021,
+      "sha256": "54d8d82e4882e6cfe44e940b274006cb7be23ecc28f3f065f486953c3edeee96",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T22-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T22-tb.csv",
+      "bytes": 545,
+      "sha256": "d23c39c652b866d422094684c59a7597b13c9f7b6cbb8424485a887f46cda17a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T23-gl.csv",
+      "bytes": 1219,
+      "sha256": "eba6058e1be00a42664429d529571e76148472a2be5da88ec32cb0c0343bb264",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T23-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T23-tb.csv",
+      "bytes": 588,
+      "sha256": "23239a91e4c9f1941b50f97fd9ebe737dcdc8a2b94c41ed45ad38390194116e5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T24-gl.csv",
+      "bytes": 1384,
+      "sha256": "eb748e737b2beb54918379cd2cc9b2e141d76833517a583407303138caecfa3b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T24-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T24-tb.csv",
+      "bytes": 577,
+      "sha256": "e9aeb19fb5be490b751df9db008d6752567b8adbf8b1e9cd05c96ac2a241024a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T25-gl.csv",
+      "bytes": 2139,
+      "sha256": "222fcb719c6fcf8325bd6acdbd5172ca14445d27f48e05e2584f2d44796758ee",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T25-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T25-tb.csv",
+      "bytes": 690,
+      "sha256": "43c16a5ef9b5be7eb8d26084f55d2fb26b90c394260f6709deadcae3f64d878e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T26-gl.csv",
+      "bytes": 1189,
+      "sha256": "f3cea53a48dfd77a529af585c6427c77c8b2e6abe6dfa8327a31503f91f149a8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T26-scope.json",
+      "bytes": 230,
+      "sha256": "6761fbf0cba4280623931713897a21c7bb1c43c6c58e58f005c66e541fb31d47",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T26-tb.csv",
+      "bytes": 465,
+      "sha256": "08114dcba8a177ef907acfbf2b22f143fe0c2c5063c95f662e6d481b3ac28a82",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T27-gl.csv",
+      "bytes": 1018,
+      "sha256": "04130fc2165c3836906a15aa8aff328cc28976c5d21ce2d4928530102367149b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T27-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T27-tb.csv",
+      "bytes": 543,
+      "sha256": "87f6f2d4d1601baf2f683dc05cc35cb02bcb942960dbb58827379431936182bb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T28-gl.csv",
+      "bytes": 923,
+      "sha256": "b79af834860e5828b53647cadf630c12350a21f293faba09085631dc16ee3465",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T28-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T28-tb.csv",
+      "bytes": 528,
+      "sha256": "92ba21d20ed83d4d0961c13da96667bf0842f238202444d61609f089c2e8d16c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T29-gl.csv",
+      "bytes": 32332,
+      "sha256": "5b30506db4d8c5af63f9b0d5a8801c53ef071c693657f657168a31b635a7b1b9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T29-scope.json",
+      "bytes": 230,
+      "sha256": "34c82ddb5e8fe96b129076e0957227d536c0de2590c92683e03c6e9470670a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/T29-tb.csv",
+      "bytes": 4813,
+      "sha256": "f81de0f2692cb959fc5381357040e43cc6cb64bd8c4311dd08688441329c6016",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/VERIFY.json",
+      "bytes": 718,
+      "sha256": "4d29676435151e3968fcf18e7241f59811d814bcd7263ef09e7a9997d5f79360",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/frozen/stories.json",
+      "bytes": 242569,
+      "sha256": "0656d63aa5bd50d5e86a7900b59b65ae8171a191022d99e9cbf9b261c2fffd75",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/mutate_oracle.py",
+      "bytes": 8145,
+      "sha256": "8fb1de0c2157780beb62219493abea44308d69b74b625320992115ee43499a4e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/oracle.py",
+      "bytes": 13976,
+      "sha256": "7764889344e9aa63cf26388c1bb0e1f4ce1a15159abba30ed67ca939634bb039",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/render.mjs",
+      "bytes": 522,
+      "sha256": "34726d924aa658ad1f5c773f97d4a76dde4a000e6bec7e73e1c3788ad46f7be2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/render.py",
+      "bytes": 1767,
+      "sha256": "8a5f7298990d86e7edc8886bd83957ceba11fa838c4c01fffbbb356b6b2fd6f4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/seal.py",
+      "bytes": 1910,
+      "sha256": "026a18d6b01256ca52e02eafbcf53a5902a14c0030cfb135d9f8b519f85694ca",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/stories.py",
+      "bytes": 27233,
+      "sha256": "da20fb5310f6eadcc303d066bc7bf38854c934ea49ebb516f9715dce8fea14ed",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/test_oracle.py",
+      "bytes": 26609,
+      "sha256": "f23209db72a3d8e9bff76d3c3340b9cf8059522172824854acc3bc3f46cca138",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/verify.py",
+      "bytes": 6025,
+      "sha256": "d0474ce6b4b25edf7c880af5a14e38097a84cc05b9fdf6ed15e2801013892b8d",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/GLT-1-FOUNDATION.ar.md",
+      "bytes": 16629,
+      "sha256": "3d6636eb477a0133377da40606f79ec76d25122581a24c59948a8ac440aecab2",
       "kind": "text"
     }
   ],

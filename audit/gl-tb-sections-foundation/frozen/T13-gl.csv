@@ -1,0 +1,16 @@
+Section,S-2500
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,2500
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-2500-O,opening,2026-09-01,8.00,0.00
+G-131,movement,2026-09-21,2.00,0.00
+S-2500-C,closing,2026-09-30,10.00,0.00
+End section,S-2500
