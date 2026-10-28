@@ -14,6 +14,7 @@
 | [`mutate_oracle.py`](mutate_oracle.py) | 52 خطأ مزروعًا في نسخة من الأوراكل. يجب أن يفشل كل منها بـassertion |
 | [`verify.py`](verify.py) | فحص مستقل لكل ملف بقارئ مكتوب هنا: الخلايا مطابقة للحقائق، وعلامة ترتيب البايت، ونهايات الأسطر، والاقتباس، والمد بالخلايا الفارغة، ونطاق كل قصة. ثم 8 تغييرات مزروعة يجب أن تُرفض |
 | [`seal.py`](seal.py) و[`check_seal.py`](check_seal.py) | الختم والتحقق منه |
+| [`baseline.mjs`](baseline.mjs) و`results/` | سجل المنتج كما هو، كُتب بعد الختم: الملفان في دوري العائلة القائمة، ثم مقسومين باليد حسابًا حسابًا. التشغيل الأول في `results/baseline-1.json` كما جاء |
 | `frozen/` | 58 ملف CSV، و29 ملف نطاق، و`stories.json`، و`EXPECTED.json`، و`VERIFY.json`، و`INPUT-MANIFEST.json`، و`SEAL.json` |
 
 ## الإعادة
@@ -22,6 +23,12 @@
 python3 -B -m unittest discover -s audit/gl-tb-sections-foundation -p test_oracle.py -v
 python3 -B audit/gl-tb-sections-foundation/mutate_oracle.py
 python3 -B audit/gl-tb-sections-foundation/check_seal.py
+```
+
+وسجل المنتج:
+
+```sh
+node --experimental-strip-types audit/gl-tb-sections-foundation/baseline.mjs --assert audit/gl-tb-sections-foundation/results/baseline-1.json
 ```
 
 وإعادة التوليد، قبل الختم فقط:

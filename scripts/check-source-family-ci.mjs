@@ -193,6 +193,7 @@ const required = [
   'test:glt-sections:oracle',
   'test:glt-sections:oracle-mutants',
   'test:glt-sections:seal',
+  'test:glt-sections:baseline',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',

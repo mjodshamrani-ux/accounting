@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 61480,
-      "sha256": "cb5a84c35e3e853217f957cada96bf87bba4e9a97e6cfb47cdb11c98719939c8",
+      "bytes": 61522,
+      "sha256": "030c11eb04055a488c1297afe145e8fec178b08fd7036d540d50359b0c31c1fe",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 40302,
-      "sha256": "ecd6b5410ee48ef2331265ff4da71842c5d660635ca437b0f47c05ae6dfb98fd",
+      "bytes": 40686,
+      "sha256": "3ffc60e5754a7c947dc995619004cca7aa88b348dc43624711570208ee4ab274",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 90808,
-      "sha256": "6f059927d44b9a5d87d0eaa66edae2f6cd9871f483487ec30154654138829e48",
+      "bytes": 91227,
+      "sha256": "7d679a454923280660e631d74cdbd6f7b460d816ac17050cac28994095a76f70",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 78114,
-      "sha256": "05564e35274badd0489e767ad9e7611cf4d301be9209002f0bbf2e5a173f1ee5",
+      "bytes": 78265,
+      "sha256": "6379fb467f4952ea95d8da252887f527eb29bd463aae326a05c841c68616a492",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 42619,
-      "sha256": "bbd8580d4bc0f9fcb345e8fd98486da00e431b3a6704d673581485a770404132",
+      "bytes": 42833,
+      "sha256": "a0524597d58be60eda647dc43168a3ad0996d5ec71c95eea57cb10dddcafabf7",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 14901,
-      "sha256": "eb358c9d718dc6d0626fc5f47f75c2cdd96ae3af55806be51a70bea7241b5650",
+      "bytes": 14933,
+      "sha256": "bd4b9c7db60f5ae434ba71d8ea767ab396851df77b88807f917d6e2c07a56c17",
       "kind": "text"
     },
     {
@@ -57027,8 +57027,8 @@
     },
     {
       "path": "audit/gl-tb-sections-foundation/README.ar.md",
-      "bytes": 4301,
-      "sha256": "17e94cf8f7721fe5b1e62652e116261b8daea78e66431c26d9ccaa33e3480227",
+      "bytes": 4780,
+      "sha256": "13be2c57660bc1b3fa557d9c4e2836b4c6ca419d0643a55c0f22ad58e7ad3905",
       "kind": "text"
     },
     {
@@ -57645,8 +57645,20 @@
     },
     {
       "path": "docs/audits/GLT-1-FOUNDATION.ar.md",
-      "bytes": 16629,
-      "sha256": "3d6636eb477a0133377da40606f79ec76d25122581a24c59948a8ac440aecab2",
+      "bytes": 21215,
+      "sha256": "6d29d24f512e6e170e8afc47b54c4f0dc9808f24d1e52e3bd84f0dedcf729315",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/baseline.mjs",
+      "bytes": 13029,
+      "sha256": "16aca6a3f11fd96d9ee9acde7bb4a5c40c6c05576440d7eff0b4b41d063cf888",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/results/baseline-1.json",
+      "bytes": 73890,
+      "sha256": "33f0d217c610b46f07c5880c80c326bb66a494c806a45e6d67ff2eeedce91d0b",
       "kind": "text"
     }
   ],

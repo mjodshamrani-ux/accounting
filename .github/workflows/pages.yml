@@ -351,6 +351,7 @@ jobs:
           pnpm test:glt-sections:oracle
           pnpm test:glt-sections:oracle-mutants
           pnpm test:glt-sections:seal
+          pnpm test:glt-sections:baseline
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations

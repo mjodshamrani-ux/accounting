@@ -1,0 +1,5022 @@
+{
+ "schema": "tarasuf-glt1-sections-baseline/1",
+ "engine": "gl-tb-canonical-1",
+ "commit": "f07498ae1fc90bcde72a12a27c3135de38eaec2a",
+ "summary": {
+  "stories": 29,
+  "asIsRefusedOrHeld": 29,
+  "runs": 130,
+  "classes": {
+   "agree": 109,
+   "held": 2,
+   "unsafe": 14,
+   "not-an-account": 2,
+   "other": 3
+  },
+  "unsafe": [
+   "T09 9110|cc=10: consistent where held",
+   "T09 9120|cc=10: consistent where held",
+   "T12 2200|cc=31: consistent where held",
+   "T16 3110|cc=10: consistent where held",
+   "T16 3120|cc=10: consistent where held",
+   "T19 3600|cc=10: consistent where held",
+   "T21 4500|cc=10: consistent where held",
+   "T21 4600|cc=10: consistent where held",
+   "T21 4700|cc=10: consistent where held",
+   "T22 4900|cc=10: consistent where held",
+   "T23 5110|cc=10: consistent where held",
+   "T23 5120|cc=10: consistent where held",
+   "T26 5610|cc=10: consistent where held",
+   "T27 5720|cc=10: consistent where held"
+  ],
+  "notRun": 0,
+  "rowsLeftBehind": 6
+ },
+ "stories": {
+  "T01": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "1100|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       500000,
+       0,
+       120000,
+       30000,
+       590000,
+       0
+      ],
+      "tb": [
+       500000,
+       0,
+       120000,
+       30000,
+       590000,
+       0
+      ]
+     }
+    },
+    "1200|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       200000,
+       15000,
+       45000,
+       0,
+       230000
+      ],
+      "tb": [
+       0,
+       200000,
+       15000,
+       45000,
+       0,
+       230000
+      ]
+     }
+    },
+    "2100|cc=20": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       0,
+       0,
+       77700,
+       0,
+       77700
+      ],
+      "tb": [
+       0,
+       0,
+       0,
+       77700,
+       0,
+       77700
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T02": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "3000|cc=11": {
+     "oracle": [
+      "difference",
+      [
+       "closingDebit",
+       "periodDebit"
+      ]
+     ],
+     "product": [
+      "difference",
+      [
+       "closingDebit",
+       "periodDebit"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "difference",
+      "errors": [],
+      "missing": [],
+      "differences": [
+       "periodDebit",
+       "closingDebit"
+      ],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       1000000,
+       0,
+       500000,
+       100000,
+       1400000,
+       0
+      ],
+      "tb": [
+       1000000,
+       0,
+       200000,
+       100000,
+       1100000,
+       0
+      ]
+     }
+    },
+    "3000|cc=12": {
+     "oracle": [
+      "difference",
+      [
+       "closingDebit",
+       "periodDebit"
+      ]
+     ],
+     "product": [
+      "difference",
+      [
+       "closingDebit",
+       "periodDebit"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "difference",
+      "errors": [],
+      "missing": [],
+      "differences": [
+       "periodDebit",
+       "closingDebit"
+      ],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       1000000,
+       0,
+       200000,
+       100000,
+       1100000,
+       0
+      ],
+      "tb": [
+       1000000,
+       0,
+       500000,
+       100000,
+       1400000,
+       0
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T03": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "4100|cc=10": {
+     "oracle": [
+      "difference",
+      [
+       "periodCredit",
+       "periodDebit"
+      ]
+     ],
+     "product": [
+      "difference",
+      [
+       "periodCredit",
+       "periodDebit"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "difference",
+      "errors": [],
+      "missing": [],
+      "differences": [
+       "periodDebit",
+       "periodCredit"
+      ],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       0,
+       900000,
+       400000,
+       500000,
+       0
+      ],
+      "tb": [
+       0,
+       0,
+       700000,
+       200000,
+       500000,
+       0
+      ]
+     }
+    },
+    "4200|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       30000,
+       0,
+       5000,
+       0,
+       35000,
+       0
+      ],
+      "tb": [
+       30000,
+       0,
+       5000,
+       0,
+       35000,
+       0
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T04": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "5100|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "tb": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    "5200|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "AMOUNT"
+      ]
+     ],
+     "product": [
+      "held",
+      [
+       "GL_TB_AMOUNT"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "source-error",
+      "errors": [
+       "GL_TB_AMOUNT"
+      ],
+      "missing": [
+       "tb-balance"
+      ],
+      "differences": null,
+      "glBridge": 0,
+      "tbBridge": null,
+      "gl": [
+       10000,
+       0,
+       2500,
+       0,
+       12500,
+       0
+      ],
+      "tb": null
+     }
+    },
+    "5300|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       5000,
+       0,
+       1000,
+       0,
+       6000
+      ],
+      "tb": [
+       0,
+       5000,
+       0,
+       1000,
+       0,
+       6000
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T05": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "6100|cc=10": {
+     "oracle": [
+      "inconsistent",
+      [
+       "GL_BRIDGE"
+      ]
+     ],
+     "product": [
+      "inconsistent",
+      [
+       "GL_BRIDGE"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "inconsistent",
+      "errors": [],
+      "missing": [],
+      "differences": [
+       "periodDebit"
+      ],
+      "glBridge": 500000,
+      "tbBridge": 0,
+      "gl": [
+       1000000,
+       0,
+       0,
+       0,
+       1500000,
+       0
+      ],
+      "tb": [
+       1000000,
+       0,
+       500000,
+       0,
+       1500000,
+       0
+      ]
+     }
+    },
+    "6200|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       0,
+       4000,
+       0,
+       4000,
+       0
+      ],
+      "tb": [
+       0,
+       0,
+       4000,
+       0,
+       4000,
+       0
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T06": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "7100|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "POSTING_PERIOD"
+      ]
+     ],
+     "product": [
+      "held",
+      [
+       "GL_TB_DATE"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "source-error",
+      "errors": [
+       "GL_TB_DATE"
+      ],
+      "missing": [],
+      "differences": [
+       "periodDebit"
+      ],
+      "glBridge": 2000,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       0,
+       8000,
+       0,
+       10000,
+       0
+      ],
+      "tb": [
+       0,
+       0,
+       10000,
+       0,
+       10000,
+       0
+      ]
+     }
+    },
+    "7200|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       0,
+       0,
+       6000,
+       0,
+       6000
+      ],
+      "tb": [
+       0,
+       0,
+       0,
+       6000,
+       0,
+       6000
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T07": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "8100|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       1000,
+       0,
+       500,
+       0,
+       1500,
+       0
+      ],
+      "tb": [
+       1000,
+       0,
+       500,
+       0,
+       1500,
+       0
+      ]
+     }
+    },
+    "8200|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       2000,
+       0,
+       0,
+       500,
+       1500,
+       0
+      ],
+      "tb": [
+       2000,
+       0,
+       0,
+       500,
+       1500,
+       0
+      ]
+     }
+    },
+    "8300|cc=10": {
+     "oracle": [
+      "missing",
+      [
+       "TB_ROW_ABSENT"
+      ]
+     ],
+     "product": [
+      "held",
+      [
+       "GL_TB_ROW_SCOPE"
+      ]
+     ],
+     "class": "held",
+     "run": {
+      "status": "source-error",
+      "errors": [
+       "GL_TB_ROW_SCOPE"
+      ],
+      "missing": [
+       "tb-balance"
+      ],
+      "differences": null,
+      "glBridge": 0,
+      "tbBridge": null,
+      "gl": [
+       3000,
+       0,
+       700,
+       0,
+       3700,
+       0
+      ],
+      "tb": null
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T08": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "9110|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       40000,
+       0,
+       10000,
+       2000,
+       48000,
+       0
+      ],
+      "tb": [
+       40000,
+       0,
+       10000,
+       2000,
+       48000,
+       0
+      ]
+     }
+    },
+    "9120|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       15000,
+       0,
+       3000,
+       0,
+       18000
+      ],
+      "tb": [
+       0,
+       15000,
+       0,
+       3000,
+       0,
+       18000
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": [
+     13
+    ]
+   }
+  },
+  "T09": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "9110|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "TOTAL_MISMATCH"
+      ]
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "unsafe",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       40000,
+       0,
+       10000,
+       2000,
+       48000,
+       0
+      ],
+      "tb": [
+       40000,
+       0,
+       10000,
+       2000,
+       48000,
+       0
+      ]
+     }
+    },
+    "9120|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "TOTAL_MISMATCH"
+      ]
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "unsafe",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       15000,
+       0,
+       3000,
+       0,
+       18000
+      ],
+      "tb": [
+       0,
+       15000,
+       0,
+       3000,
+       0,
+       18000
+      ]
+     }
+    },
+    "9300|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       900,
+       0,
+       100,
+       0,
+       1000,
+       0
+      ],
+      "tb": [
+       900,
+       0,
+       100,
+       0,
+       1000,
+       0
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": [
+     13
+    ]
+   }
+  },
+  "T10": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "1500|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "TB_CONFLICT"
+      ]
+     ],
+     "product": [
+      "held",
+      [
+       "GL_TB_DUPLICATE"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "source-error",
+      "errors": [
+       "GL_TB_DUPLICATE"
+      ],
+      "missing": [
+       "tb-balance"
+      ],
+      "differences": null,
+      "glBridge": 0,
+      "tbBridge": null,
+      "gl": [
+       7000,
+       0,
+       3000,
+       0,
+       10000,
+       0
+      ],
+      "tb": null
+     }
+    },
+    "1600|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       0,
+       0,
+       400,
+       0,
+       400
+      ],
+      "tb": [
+       0,
+       0,
+       0,
+       400,
+       0,
+       400
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T11": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "0410|cc=10": {
+     "oracle": [
+      "missing",
+      [
+       "TB_ROW_ABSENT"
+      ]
+     ],
+     "product": [
+      "missing",
+      [
+       "TB_ROW_ABSENT"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "missing",
+      "errors": [],
+      "missing": [
+       "tb-balance"
+      ],
+      "differences": null,
+      "glBridge": 0,
+      "tbBridge": null,
+      "gl": [
+       12000,
+       0,
+       4000,
+       1000,
+       15000,
+       0
+      ],
+      "tb": null
+     }
+    },
+    "0420|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       500,
+       0,
+       0,
+       500,
+       0,
+       0
+      ],
+      "tb": [
+       500,
+       0,
+       0,
+       500,
+       0,
+       0
+      ]
+     }
+    },
+    "410|cc=10": {
+     "oracle": [
+      "missing",
+      [
+       "GL_SECTION_ABSENT"
+      ]
+     ],
+     "product": [
+      "missing",
+      [
+       "GL_SECTION_ABSENT"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "missing",
+      "errors": [],
+      "missing": [
+       "gl-closing",
+       "gl-opening"
+      ],
+      "differences": null,
+      "glBridge": null,
+      "tbBridge": 0,
+      "gl": null,
+      "tb": [
+       12000,
+       0,
+       4000,
+       1000,
+       15000,
+       0
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T12": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "2200|": {
+     "oracle": null,
+     "product": [
+      "refused",
+      [
+       "GL_TB_IDENTITY"
+      ]
+     ],
+     "class": "not-an-account",
+     "run": {
+      "refused": "GL_TB_IDENTITY"
+     }
+    },
+    "2200|cc=31": {
+     "oracle": [
+      "held",
+      [
+       "SECTION_HEADER"
+      ]
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "unsafe",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       3000,
+       0,
+       1000,
+       0,
+       4000,
+       0
+      ],
+      "tb": [
+       3000,
+       0,
+       1000,
+       0,
+       4000,
+       0
+      ]
+     }
+    },
+    "2200|cc=32": {
+     "oracle": [
+      "held",
+      [
+       "SECTION_HEADER"
+      ]
+     ],
+     "product": [
+      "missing",
+      [
+       "GL_SECTION_ABSENT"
+      ]
+     ],
+     "class": "other",
+     "run": {
+      "status": "missing",
+      "errors": [],
+      "missing": [
+       "gl-closing",
+       "gl-opening"
+      ],
+      "differences": null,
+      "glBridge": null,
+      "tbBridge": 0,
+      "gl": null,
+      "tb": [
+       6000,
+       0,
+       0,
+       2000,
+       4000,
+       0
+      ]
+     }
+    },
+    "2300|cc=31": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       100,
+       0,
+       0,
+       100,
+       0,
+       0
+      ],
+      "tb": [
+       100,
+       0,
+       0,
+       100,
+       0,
+       0
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T13": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "2400|cc=10": {
+     "oracle": [
+      "missing",
+      [
+       "GL_SECTION_ABSENT"
+      ]
+     ],
+     "product": [
+      "missing",
+      [
+       "GL_SECTION_ABSENT"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "missing",
+      "errors": [],
+      "missing": [
+       "gl-closing",
+       "gl-opening"
+      ],
+      "differences": null,
+      "glBridge": null,
+      "tbBridge": 0,
+      "gl": null,
+      "tb": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    "2500|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       800,
+       0,
+       200,
+       0,
+       1000,
+       0
+      ],
+      "tb": [
+       800,
+       0,
+       200,
+       0,
+       1000,
+       0
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T14": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "2600|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       4000,
+       0,
+       1000,
+       0,
+       5000,
+       0
+      ],
+      "tb": [
+       4000,
+       0,
+       1000,
+       0,
+       5000,
+       0
+      ]
+     }
+    },
+    "2700|cc=10": {
+     "oracle": [
+      "missing",
+      [
+       "GL_SECTION_ABSENT"
+      ]
+     ],
+     "product": [
+      "held",
+      [
+       "GL_TB_ROW_SCOPE"
+      ]
+     ],
+     "class": "held",
+     "run": {
+      "status": "source-error",
+      "errors": [
+       "GL_TB_ROW_SCOPE"
+      ],
+      "missing": [
+       "gl-closing",
+       "gl-opening"
+      ],
+      "differences": null,
+      "glBridge": null,
+      "tbBridge": 0,
+      "gl": null,
+      "tb": [
+       1000,
+       0,
+       0,
+       0,
+       1000,
+       0
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T15": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "2800|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "SECTION_DUPLICATE"
+      ]
+     ],
+     "product": [
+      "held",
+      [
+       "GL_TB_DUPLICATE"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "source-error",
+      "errors": [
+       "GL_TB_DUPLICATE"
+      ],
+      "missing": [
+       "gl-closing",
+       "gl-opening"
+      ],
+      "differences": null,
+      "glBridge": null,
+      "tbBridge": 0,
+      "gl": null,
+      "tb": [
+       1000,
+       0,
+       500,
+       0,
+       1500,
+       0
+      ]
+     }
+    },
+    "2900|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       0,
+       0,
+       50,
+       0,
+       50
+      ],
+      "tb": [
+       0,
+       0,
+       0,
+       50,
+       0,
+       50
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T16": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "3110|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "STRAY_ROW"
+      ]
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "unsafe",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       2000,
+       0,
+       300,
+       0,
+       2300,
+       0
+      ],
+      "tb": [
+       2000,
+       0,
+       300,
+       0,
+       2300,
+       0
+      ]
+     }
+    },
+    "3120|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "STRAY_ROW"
+      ]
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "unsafe",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       0,
+       0,
+       70,
+       0,
+       70
+      ],
+      "tb": [
+       0,
+       0,
+       0,
+       70,
+       0,
+       70
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [
+     18
+    ],
+    "tb": []
+   }
+  },
+  "T17": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "3310|مركز=١": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       125500,
+       0,
+       10250,
+       0,
+       135750,
+       0
+      ],
+      "tb": [
+       125500,
+       0,
+       10250,
+       0,
+       135750,
+       0
+      ]
+     }
+    },
+    "3320|مركز=٢": {
+     "oracle": [
+      "difference",
+      [
+       "closingCredit",
+       "periodCredit"
+      ]
+     ],
+     "product": [
+      "difference",
+      [
+       "closingCredit",
+       "periodCredit"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "difference",
+      "errors": [],
+      "missing": [],
+      "differences": [
+       "periodCredit",
+       "closingCredit"
+      ],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       7000,
+       0,
+       1005,
+       0,
+       8005
+      ],
+      "tb": [
+       0,
+       7000,
+       0,
+       1010,
+       0,
+       8010
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T18": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "3400|cc=10": {
+     "oracle": [
+      "inconsistent",
+      [
+       "TB_BRIDGE"
+      ]
+     ],
+     "product": [
+      "inconsistent",
+      [
+       "TB_BRIDGE"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "inconsistent",
+      "errors": [],
+      "missing": [],
+      "differences": [
+       "closingDebit"
+      ],
+      "glBridge": 0,
+      "tbBridge": 10000,
+      "gl": [
+       6000,
+       0,
+       2000,
+       500,
+       7500,
+       0
+      ],
+      "tb": [
+       6000,
+       0,
+       2000,
+       500,
+       17500,
+       0
+      ]
+     }
+    },
+    "3500|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       100,
+       0,
+       50,
+       0,
+       150,
+       0
+      ],
+      "tb": [
+       100,
+       0,
+       50,
+       0,
+       150,
+       0
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T19": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "3600|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "SECTION_UNCLOSED"
+      ]
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "unsafe",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       5000,
+       0,
+       0,
+       2500,
+       2500,
+       0
+      ],
+      "tb": [
+       5000,
+       0,
+       0,
+       2500,
+       2500,
+       0
+      ]
+     }
+    },
+    "3700|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       0,
+       900,
+       0,
+       900,
+       0
+      ],
+      "tb": [
+       0,
+       0,
+       900,
+       0,
+       900,
+       0
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T20": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "3800|cc=10": {
+     "oracle": [
+      "missing",
+      [
+       "GL_OPENING_ABSENT"
+      ]
+     ],
+     "product": [
+      "missing",
+      [
+       "GL_OPENING_ABSENT"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "missing",
+      "errors": [],
+      "missing": [
+       "gl-opening"
+      ],
+      "differences": null,
+      "glBridge": null,
+      "tbBridge": 0,
+      "gl": null,
+      "tb": [
+       0,
+       0,
+       400,
+       0,
+       400,
+       0
+      ]
+     }
+    },
+    "3900|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       2500,
+       0,
+       0,
+       250,
+       2250,
+       0
+      ],
+      "tb": [
+       2500,
+       0,
+       0,
+       250,
+       2250,
+       0
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T21": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "4500|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "PAGE_UNREADABLE"
+      ]
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "unsafe",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       6000,
+       0,
+       1000,
+       0,
+       7000,
+       0
+      ],
+      "tb": [
+       6000,
+       0,
+       1000,
+       0,
+       7000,
+       0
+      ]
+     }
+    },
+    "4600|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "PAGE_UNREADABLE"
+      ]
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "unsafe",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       0,
+       0,
+       2000,
+       0,
+       2000
+      ],
+      "tb": [
+       0,
+       0,
+       0,
+       2000,
+       0,
+       2000
+      ]
+     }
+    },
+    "4700|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "PAGE_UNREADABLE"
+      ]
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "unsafe",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       300,
+       0,
+       0,
+       300,
+       0,
+       0
+      ],
+      "tb": [
+       300,
+       0,
+       0,
+       300,
+       0,
+       0
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T22": {
+   "asIs": {
+    "refused": "GL_TB_IDENTITY"
+   },
+   "accounts": {
+    "4800|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "SECTION_UNREADABLE"
+      ]
+     ],
+     "product": [
+      "missing",
+      [
+       "GL_SECTION_ABSENT"
+      ]
+     ],
+     "class": "other",
+     "run": {
+      "status": "missing",
+      "errors": [],
+      "missing": [
+       "gl-closing",
+       "gl-opening"
+      ],
+      "differences": null,
+      "glBridge": null,
+      "tbBridge": 0,
+      "gl": null,
+      "tb": [
+       1500,
+       0,
+       500,
+       0,
+       2000,
+       0
+      ]
+     }
+    },
+    "4900|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "SECTION_UNREADABLE"
+      ]
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "unsafe",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       0,
+       0,
+       900,
+       0,
+       900
+      ],
+      "tb": [
+       0,
+       0,
+       0,
+       900,
+       0,
+       900
+      ]
+     }
+    },
+    "=4800|cc=10": {
+     "oracle": null,
+     "product": [
+      "refused",
+      [
+       "GL_TB_IDENTITY"
+      ]
+     ],
+     "class": "not-an-account",
+     "run": {
+      "refused": "GL_TB_IDENTITY"
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T23": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "5110|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "TOTAL_FIELD"
+      ]
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "unsafe",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       2000,
+       0,
+       700,
+       0,
+       2700,
+       0
+      ],
+      "tb": [
+       2000,
+       0,
+       700,
+       0,
+       2700,
+       0
+      ]
+     }
+    },
+    "5120|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "TOTAL_FIELD"
+      ]
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "unsafe",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       3000,
+       0,
+       0,
+       1000,
+       2000,
+       0
+      ],
+      "tb": [
+       3000,
+       0,
+       0,
+       1000,
+       2000,
+       0
+      ]
+     }
+    },
+    "5200|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       100,
+       0,
+       100,
+       0,
+       200,
+       0
+      ],
+      "tb": [
+       100,
+       0,
+       100,
+       0,
+       200,
+       0
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": [
+     13,
+     15
+    ]
+   }
+  },
+  "T24": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "5410|cc=10": {
+     "oracle": [
+      "missing",
+      [
+       "GL_CLOSING_ABSENT"
+      ]
+     ],
+     "product": [
+      "missing",
+      [
+       "GL_CLOSING_ABSENT"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "missing",
+      "errors": [],
+      "missing": [
+       "gl-closing"
+      ],
+      "differences": null,
+      "glBridge": null,
+      "tbBridge": 0,
+      "gl": null,
+      "tb": [
+       400,
+       0,
+       100,
+       0,
+       500,
+       0
+      ]
+     }
+    },
+    "5420|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "ROLE_REPEATED"
+      ]
+     ],
+     "product": [
+      "held",
+      [
+       "GL_TB_DUPLICATE"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "source-error",
+      "errors": [
+       "GL_TB_DUPLICATE"
+      ],
+      "missing": [
+       "gl-opening"
+      ],
+      "differences": null,
+      "glBridge": null,
+      "tbBridge": 0,
+      "gl": null,
+      "tb": [
+       800,
+       0,
+       0,
+       200,
+       600,
+       0
+      ]
+     }
+    },
+    "5430|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       0,
+       50,
+       0,
+       50,
+       0
+      ],
+      "tb": [
+       0,
+       0,
+       50,
+       0,
+       50,
+       0
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T25": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "5510|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "DUPLICATE_RECORD"
+      ]
+     ],
+     "product": [
+      "held",
+      [
+       "GL_TB_DUPLICATE"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "source-error",
+      "errors": [
+       "GL_TB_DUPLICATE"
+      ],
+      "missing": [],
+      "differences": [
+       "periodDebit"
+      ],
+      "glBridge": 200,
+      "tbBridge": 0,
+      "gl": [
+       1000,
+       0,
+       0,
+       0,
+       1200,
+       0
+      ],
+      "tb": [
+       1000,
+       0,
+       200,
+       0,
+       1200,
+       0
+      ]
+     }
+    },
+    "5520|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "DATE"
+      ]
+     ],
+     "product": [
+      "held",
+      [
+       "GL_TB_DATE"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "source-error",
+      "errors": [
+       "GL_TB_DATE"
+      ],
+      "missing": [
+       "gl-opening"
+      ],
+      "differences": null,
+      "glBridge": null,
+      "tbBridge": 0,
+      "gl": null,
+      "tb": [
+       1000,
+       0,
+       0,
+       100,
+       900,
+       0
+      ]
+     }
+    },
+    "5530|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "KIND"
+      ]
+     ],
+     "product": [
+      "held",
+      [
+       "GL_TB_KIND"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "source-error",
+      "errors": [
+       "GL_TB_KIND"
+      ],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       1000,
+       0,
+       0,
+       100,
+       900,
+       0
+      ],
+      "tb": [
+       1000,
+       0,
+       0,
+       100,
+       900,
+       0
+      ]
+     }
+    },
+    "5540|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       1000,
+       0,
+       0,
+       100,
+       900,
+       0
+      ],
+      "tb": [
+       1000,
+       0,
+       0,
+       100,
+       900,
+       0
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T26": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "5610|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "ROW_FIELD"
+      ]
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "unsafe",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       150000,
+       0,
+       2500,
+       0,
+       152500,
+       0
+      ],
+      "tb": [
+       150000,
+       0,
+       2500,
+       0,
+       152500,
+       0
+      ]
+     }
+    },
+    "5620|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "AMOUNT"
+      ]
+     ],
+     "product": [
+      "held",
+      [
+       "المبلغ غير صالح أو يتجاوز عدد المنازل العشرية للعملة"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "source-error",
+      "errors": [
+       "المبلغ غير صالح أو يتجاوز عدد المنازل العشرية للعملة"
+      ],
+      "missing": [
+       "tb-balance"
+      ],
+      "differences": null,
+      "glBridge": 0,
+      "tbBridge": null,
+      "gl": [
+       1500,
+       0,
+       0,
+       300,
+       1200,
+       0
+      ],
+      "tb": null
+     }
+    },
+    "5630|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       4000,
+       700,
+       0,
+       0,
+       3300
+      ],
+      "tb": [
+       0,
+       4000,
+       700,
+       0,
+       0,
+       3300
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T27": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "5710|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "ROW_UNREADABLE"
+      ]
+     ],
+     "product": [
+      "missing",
+      [
+       "TB_ROW_ABSENT"
+      ]
+     ],
+     "class": "other",
+     "run": {
+      "status": "missing",
+      "errors": [],
+      "missing": [
+       "tb-balance"
+      ],
+      "differences": null,
+      "glBridge": 0,
+      "tbBridge": null,
+      "gl": [
+       900,
+       0,
+       0,
+       90,
+       810,
+       0
+      ],
+      "tb": null
+     }
+    },
+    "5720|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "ROW_UNREADABLE"
+      ]
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "unsafe",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       0,
+       60,
+       0,
+       60,
+       0
+      ],
+      "tb": [
+       0,
+       0,
+       60,
+       0,
+       60,
+       0
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": [
+     11
+    ]
+   }
+  },
+  "T28": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "5810|cc=10": {
+     "oracle": [
+      "held",
+      [
+       "SECTION_COLUMNS"
+      ]
+     ],
+     "product": [
+      "held",
+      [
+       "GL_TB_AMOUNT"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "source-error",
+      "errors": [
+       "GL_TB_AMOUNT"
+      ],
+      "missing": [
+       "gl-closing",
+       "gl-opening"
+      ],
+      "differences": null,
+      "glBridge": null,
+      "tbBridge": 0,
+      "gl": null,
+      "tb": [
+       2000,
+       0,
+       0,
+       500,
+       1500,
+       0
+      ]
+     }
+    },
+    "5820|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       0,
+       30,
+       0,
+       30,
+       0
+      ],
+      "tb": [
+       0,
+       0,
+       30,
+       0,
+       30,
+       0
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  },
+  "T29": {
+   "asIs": {
+    "refused": "GL_TB_COLUMNS"
+   },
+   "accounts": {
+    "6000|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       5252160,
+       4330137,
+       11361192,
+       0,
+       12283215
+      ],
+      "tb": [
+       0,
+       5252160,
+       4330137,
+       11361192,
+       0,
+       12283215
+      ]
+     }
+    },
+    "6007|cc=11": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       5166454,
+       0,
+       0,
+       0,
+       5166454,
+       0
+      ],
+      "tb": [
+       5166454,
+       0,
+       0,
+       0,
+       5166454,
+       0
+      ]
+     }
+    },
+    "6014|cc=12": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       4643085,
+       0,
+       0,
+       0,
+       4643085
+      ],
+      "tb": [
+       0,
+       4643085,
+       0,
+       0,
+       0,
+       4643085
+      ]
+     }
+    },
+    "6021|cc=13": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       2232843,
+       7510325,
+       8230061,
+       0,
+       2952579
+      ],
+      "tb": [
+       0,
+       2232843,
+       7510325,
+       8230061,
+       0,
+       2952579
+      ]
+     }
+    },
+    "6028|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       6851695,
+       0,
+       16307245,
+       13907995,
+       9250945,
+       0
+      ],
+      "tb": [
+       6851695,
+       0,
+       16307245,
+       13907995,
+       9250945,
+       0
+      ]
+     }
+    },
+    "6035|cc=11": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       2371329,
+       9626098,
+       13234442,
+       0,
+       5979673
+      ],
+      "tb": [
+       0,
+       2371329,
+       9626098,
+       13234442,
+       0,
+       5979673
+      ]
+     }
+    },
+    "6042|cc=12": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       2345476,
+       0,
+       0,
+       1953946,
+       391530,
+       0
+      ],
+      "tb": [
+       2345476,
+       0,
+       0,
+       1953946,
+       391530,
+       0
+      ]
+     }
+    },
+    "6049|cc=13": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       650457,
+       2906214,
+       1205557,
+       1050200,
+       0
+      ],
+      "tb": [
+       0,
+       650457,
+       2906214,
+       1205557,
+       1050200,
+       0
+      ]
+     }
+    },
+    "6056|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       2895427,
+       0,
+       2860222,
+       89792,
+       5665857,
+       0
+      ],
+      "tb": [
+       2895427,
+       0,
+       2860222,
+       89792,
+       5665857,
+       0
+      ]
+     }
+    },
+    "6063|cc=11": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       7460299,
+       15621944,
+       10679919,
+       0,
+       2518274
+      ],
+      "tb": [
+       0,
+       7460299,
+       15621944,
+       10679919,
+       0,
+       2518274
+      ]
+     }
+    },
+    "6070|cc=12": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       3614727,
+       545471,
+       912574,
+       0,
+       3981830
+      ],
+      "tb": [
+       0,
+       3614727,
+       545471,
+       912574,
+       0,
+       3981830
+      ]
+     }
+    },
+    "6077|cc=13": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       2382339,
+       0,
+       11244813,
+       2064321,
+       11562831,
+       0
+      ],
+      "tb": [
+       2382339,
+       0,
+       11244813,
+       2064321,
+       11562831,
+       0
+      ]
+     }
+    },
+    "6084|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       2623988,
+       0,
+       6813543,
+       7801018,
+       1636513,
+       0
+      ],
+      "tb": [
+       2623988,
+       0,
+       6813543,
+       7801018,
+       1636513,
+       0
+      ]
+     }
+    },
+    "6091|cc=11": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       5507589,
+       10300612,
+       10014121,
+       0,
+       5221098
+      ],
+      "tb": [
+       0,
+       5507589,
+       10300612,
+       10014121,
+       0,
+       5221098
+      ]
+     }
+    },
+    "6098|cc=12": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       2086779,
+       0,
+       13656313,
+       12945253,
+       2797839,
+       0
+      ],
+      "tb": [
+       2086779,
+       0,
+       13656313,
+       12945253,
+       2797839,
+       0
+      ]
+     }
+    },
+    "6105|cc=13": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       4723354,
+       3762424,
+       3762424,
+       0,
+       4723354
+      ],
+      "tb": [
+       0,
+       4723354,
+       3762424,
+       3762424,
+       0,
+       4723354
+      ]
+     }
+    },
+    "6112|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       725889,
+       0,
+       9590495,
+       3966372,
+       6350012,
+       0
+      ],
+      "tb": [
+       725889,
+       0,
+       9590495,
+       3966372,
+       6350012,
+       0
+      ]
+     }
+    },
+    "6119|cc=11": {
+     "oracle": [
+      "difference",
+      [
+       "closingCredit",
+       "periodCredit"
+      ]
+     ],
+     "product": [
+      "difference",
+      [
+       "closingCredit",
+       "periodCredit"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "difference",
+      "errors": [],
+      "missing": [],
+      "differences": [
+       "periodCredit",
+       "closingCredit"
+      ],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       2941718,
+       4287392,
+       4397028,
+       0,
+       3051354
+      ],
+      "tb": [
+       0,
+       2941718,
+       4287392,
+       4409373,
+       0,
+       3063699
+      ]
+     }
+    },
+    "6126|cc=12": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       8504110,
+       7732434,
+       6095323,
+       0,
+       6866999
+      ],
+      "tb": [
+       0,
+       8504110,
+       7732434,
+       6095323,
+       0,
+       6866999
+      ]
+     }
+    },
+    "6133|cc=13": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       7658534,
+       0,
+       8214880,
+       11120145,
+       4753269,
+       0
+      ],
+      "tb": [
+       7658534,
+       0,
+       8214880,
+       11120145,
+       4753269,
+       0
+      ]
+     }
+    },
+    "6140|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       6171890,
+       11236101,
+       5097669,
+       0,
+       33458
+      ],
+      "tb": [
+       0,
+       6171890,
+       11236101,
+       5097669,
+       0,
+       33458
+      ]
+     }
+    },
+    "6147|cc=11": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       6834549,
+       4080123,
+       1476226,
+       0,
+       4230652
+      ],
+      "tb": [
+       0,
+       6834549,
+       4080123,
+       1476226,
+       0,
+       4230652
+      ]
+     }
+    },
+    "6154|cc=12": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       3052214,
+       13408793,
+       4971509,
+       5385070,
+       0
+      ],
+      "tb": [
+       0,
+       3052214,
+       13408793,
+       4971509,
+       5385070,
+       0
+      ]
+     }
+    },
+    "6161|cc=13": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       6286890,
+       0,
+       1157092,
+       4821700,
+       2622282,
+       0
+      ],
+      "tb": [
+       6286890,
+       0,
+       1157092,
+       4821700,
+       2622282,
+       0
+      ]
+     }
+    },
+    "6168|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       1247578,
+       7818675,
+       3445871,
+       3125226,
+       0
+      ],
+      "tb": [
+       0,
+       1247578,
+       7818675,
+       3445871,
+       3125226,
+       0
+      ]
+     }
+    },
+    "6175|cc=11": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       2300546,
+       0,
+       2033647,
+       0,
+       4334193
+      ],
+      "tb": [
+       0,
+       2300546,
+       0,
+       2033647,
+       0,
+       4334193
+      ]
+     }
+    },
+    "6182|cc=12": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       2162591,
+       0,
+       1238686,
+       0,
+       3401277
+      ],
+      "tb": [
+       0,
+       2162591,
+       0,
+       1238686,
+       0,
+       3401277
+      ]
+     }
+    },
+    "6189|cc=13": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       7909782,
+       0,
+       12097515,
+       16545272,
+       3462025,
+       0
+      ],
+      "tb": [
+       7909782,
+       0,
+       12097515,
+       16545272,
+       3462025,
+       0
+      ]
+     }
+    },
+    "6196|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       2384068,
+       0,
+       3311001,
+       0,
+       5695069
+      ],
+      "tb": [
+       0,
+       2384068,
+       0,
+       3311001,
+       0,
+       5695069
+      ]
+     }
+    },
+    "6203|cc=11": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       6209977,
+       0,
+       0,
+       0,
+       6209977,
+       0
+      ],
+      "tb": [
+       6209977,
+       0,
+       0,
+       0,
+       6209977,
+       0
+      ]
+     }
+    },
+    "6210|cc=12": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       42084,
+       0,
+       6885180,
+       10023766,
+       0,
+       3096502
+      ],
+      "tb": [
+       42084,
+       0,
+       6885180,
+       10023766,
+       0,
+       3096502
+      ]
+     }
+    },
+    "6217|cc=13": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       2030374,
+       0,
+       1063671,
+       4610808,
+       0,
+       1516763
+      ],
+      "tb": [
+       2030374,
+       0,
+       1063671,
+       4610808,
+       0,
+       1516763
+      ]
+     }
+    },
+    "6224|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       8067593,
+       15916999,
+       22581228,
+       0,
+       14731822
+      ],
+      "tb": [
+       0,
+       8067593,
+       15916999,
+       22581228,
+       0,
+       14731822
+      ]
+     }
+    },
+    "6231|cc=11": {
+     "oracle": [
+      "inconsistent",
+      [
+       "GL_BRIDGE"
+      ]
+     ],
+     "product": [
+      "inconsistent",
+      [
+       "GL_BRIDGE"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "inconsistent",
+      "errors": [],
+      "missing": [],
+      "differences": [
+       "closingCredit"
+      ],
+      "glBridge": -1,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       6077814,
+       8943658,
+       10690223,
+       0,
+       7824380
+      ],
+      "tb": [
+       0,
+       6077814,
+       8943658,
+       10690223,
+       0,
+       7824379
+      ]
+     }
+    },
+    "6238|cc=12": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       180823,
+       0,
+       0,
+       0,
+       180823,
+       0
+      ],
+      "tb": [
+       180823,
+       0,
+       0,
+       0,
+       180823,
+       0
+      ]
+     }
+    },
+    "6245|cc=13": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       3119724,
+       0,
+       13323675,
+       16605138,
+       0,
+       161739
+      ],
+      "tb": [
+       3119724,
+       0,
+       13323675,
+       16605138,
+       0,
+       161739
+      ]
+     }
+    },
+    "6252|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       2094745,
+       0,
+       1374933,
+       10222411,
+       0,
+       6752733
+      ],
+      "tb": [
+       2094745,
+       0,
+       1374933,
+       10222411,
+       0,
+       6752733
+      ]
+     }
+    },
+    "6259|cc=11": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       121655,
+       0,
+       6552202,
+       2422057,
+       4251800,
+       0
+      ],
+      "tb": [
+       121655,
+       0,
+       6552202,
+       2422057,
+       4251800,
+       0
+      ]
+     }
+    },
+    "6266|cc=12": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       5965670,
+       14616019,
+       10834266,
+       0,
+       2183917
+      ],
+      "tb": [
+       0,
+       5965670,
+       14616019,
+       10834266,
+       0,
+       2183917
+      ]
+     }
+    },
+    "6273|cc=13": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       326259,
+       0,
+       0,
+       0,
+       326259,
+       0
+      ],
+      "tb": [
+       326259,
+       0,
+       0,
+       0,
+       326259,
+       0
+      ]
+     }
+    },
+    "6280|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       493037,
+       0,
+       0,
+       0,
+       493037,
+       0
+      ],
+      "tb": [
+       493037,
+       0,
+       0,
+       0,
+       493037,
+       0
+      ]
+     }
+    },
+    "6287|cc=11": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       1832366,
+       0,
+       1795780,
+       0,
+       3628146
+      ],
+      "tb": [
+       0,
+       1832366,
+       0,
+       1795780,
+       0,
+       3628146
+      ]
+     }
+    },
+    "6294|cc=12": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       7753611,
+       1128278,
+       1128278,
+       0,
+       7753611
+      ],
+      "tb": [
+       0,
+       7753611,
+       1128278,
+       1128278,
+       0,
+       7753611
+      ]
+     }
+    },
+    "6301|cc=13": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       1505941,
+       0,
+       6754834,
+       0,
+       8260775
+      ],
+      "tb": [
+       0,
+       1505941,
+       0,
+       6754834,
+       0,
+       8260775
+      ]
+     }
+    },
+    "6308|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       2260986,
+       0,
+       11319914,
+       13093494,
+       487406,
+       0
+      ],
+      "tb": [
+       2260986,
+       0,
+       11319914,
+       13093494,
+       487406,
+       0
+      ]
+     }
+    },
+    "6315|cc=11": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       5826196,
+       0,
+       5188562,
+       11342223,
+       0,
+       327465
+      ],
+      "tb": [
+       5826196,
+       0,
+       5188562,
+       11342223,
+       0,
+       327465
+      ]
+     }
+    },
+    "6322|cc=12": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       4370747,
+       0,
+       16133030,
+       0,
+       20503777
+      ],
+      "tb": [
+       0,
+       4370747,
+       0,
+       16133030,
+       0,
+       20503777
+      ]
+     }
+    },
+    "6329|cc=13": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       4816343,
+       0,
+       4138302,
+       9099636,
+       0,
+       144991
+      ],
+      "tb": [
+       4816343,
+       0,
+       4138302,
+       9099636,
+       0,
+       144991
+      ]
+     }
+    },
+    "6336|cc=10": {
+     "oracle": [
+      "missing",
+      [
+       "TB_ROW_ABSENT"
+      ]
+     ],
+     "product": [
+      "missing",
+      [
+       "TB_ROW_ABSENT"
+      ]
+     ],
+     "class": "agree",
+     "run": {
+      "status": "missing",
+      "errors": [],
+      "missing": [
+       "tb-balance"
+      ],
+      "differences": null,
+      "glBridge": 0,
+      "tbBridge": null,
+      "gl": [
+       3271686,
+       0,
+       4012234,
+       4012234,
+       3271686,
+       0
+      ],
+      "tb": null
+     }
+    },
+    "6343|cc=11": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       6919041,
+       0,
+       4028324,
+       7428686,
+       3518679,
+       0
+      ],
+      "tb": [
+       6919041,
+       0,
+       4028324,
+       7428686,
+       3518679,
+       0
+      ]
+     }
+    },
+    "6350|cc=12": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       2974526,
+       0,
+       4002669,
+       4002669,
+       2974526,
+       0
+      ],
+      "tb": [
+       2974526,
+       0,
+       4002669,
+       4002669,
+       2974526,
+       0
+      ]
+     }
+    },
+    "6357|cc=13": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       2755247,
+       0,
+       11021911,
+       11281800,
+       2495358,
+       0
+      ],
+      "tb": [
+       2755247,
+       0,
+       11021911,
+       11281800,
+       2495358,
+       0
+      ]
+     }
+    },
+    "6364|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       2950143,
+       9856830,
+       11294919,
+       0,
+       4388232
+      ],
+      "tb": [
+       0,
+       2950143,
+       9856830,
+       11294919,
+       0,
+       4388232
+      ]
+     }
+    },
+    "6371|cc=11": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       3280342,
+       0,
+       3812579,
+       3812579,
+       3280342,
+       0
+      ],
+      "tb": [
+       3280342,
+       0,
+       3812579,
+       3812579,
+       3280342,
+       0
+      ]
+     }
+    },
+    "6378|cc=12": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       4063198,
+       531516,
+       531516,
+       0,
+       4063198
+      ],
+      "tb": [
+       0,
+       4063198,
+       531516,
+       531516,
+       0,
+       4063198
+      ]
+     }
+    },
+    "6385|cc=13": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       6853431,
+       0,
+       4039112,
+       5265674,
+       5626869,
+       0
+      ],
+      "tb": [
+       6853431,
+       0,
+       4039112,
+       5265674,
+       5626869,
+       0
+      ]
+     }
+    },
+    "6392|cc=10": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       861838,
+       3087147,
+       3087147,
+       0,
+       861838
+      ],
+      "tb": [
+       0,
+       861838,
+       3087147,
+       3087147,
+       0,
+       861838
+      ]
+     }
+    },
+    "6399|cc=11": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       785053,
+       0,
+       2540471,
+       7258323,
+       0,
+       3932799
+      ],
+      "tb": [
+       785053,
+       0,
+       2540471,
+       7258323,
+       0,
+       3932799
+      ]
+     }
+    },
+    "6406|cc=12": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       6137491,
+       15646249,
+       11896877,
+       0,
+       2388119
+      ],
+      "tb": [
+       0,
+       6137491,
+       15646249,
+       11896877,
+       0,
+       2388119
+      ]
+     }
+    },
+    "6413|cc=13": {
+     "oracle": [
+      "consistent",
+      []
+     ],
+     "product": [
+      "consistent",
+      []
+     ],
+     "class": "agree",
+     "run": {
+      "status": "consistent",
+      "errors": [],
+      "missing": [],
+      "differences": [],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "gl": [
+       0,
+       6469041,
+       0,
+       0,
+       0,
+       6469041
+      ],
+      "tb": [
+       0,
+       6469041,
+       0,
+       0,
+       0,
+       6469041
+      ]
+     }
+    }
+   },
+   "notRun": [],
+   "leftBehind": {
+    "gl": [],
+    "tb": []
+   }
+  }
+ }
+}
