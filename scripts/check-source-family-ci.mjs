@@ -203,6 +203,7 @@ const required = [
   'test:fin-hierarchy:h1-seal',
   'test:fin-hierarchy:baseline',
   'test:fin-hierarchy:run',
+  'test:fin-hierarchy:h1-run',
   'test:fin-hierarchy:mutations',
   'test:bank-review:baseline',
   'test:bank-review:proof',
@@ -368,6 +369,13 @@ const separate = {
   ],
   'gl-tb-sections-interface-mutations': [
     'test:glt-sections:interface-mutations',
+  ],
+  'tb-financial-hierarchy-browser': [
+    'test:fin-hierarchy:browser',
+    'test:fin-hierarchy:h1-browser',
+  ],
+  'tb-financial-hierarchy-interface-mutations': [
+    'test:fin-hierarchy:interface-mutations',
   ],
   'bank-statement-holdout': [
     'test:bank-statement:g6-holdout',

@@ -295,6 +295,12 @@ void test('a parent amount is a control, never a second contribution', () => {
 void test('a byte-order mark, a blank line and an unreadable file stay what the contract says', () => {
   const bom = judge(undefined, { 'financial-position': (s) => '\uFEFF' + s });
   assert.deepEqual(codes(bom), ['HEADERS']);
+  // A writer that quotes every field puts the mark before the first quote.
+  const quotedBom = judge(undefined, {
+    'financial-position': (s) => '\uFEFF"Node ID"' + s.slice('Node ID'.length),
+  });
+  assert.deepEqual(at(quotedBom, 'HEADERS'), [[3, 1, null]]);
+  assert.deepEqual(codes(quotedBom), ['HEADERS']);
   assert.equal(bom.sources[3].readable, false);
   assert.deepEqual(bom.lines, []);
   assert.deepEqual(

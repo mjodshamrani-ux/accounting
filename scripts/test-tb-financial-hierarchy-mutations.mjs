@@ -92,6 +92,12 @@ const mutations = [
     '{ fatal: true, ignoreBOM: false }',
   ],
   [
+    'bom-read-as-a-broken-quote',
+    ENGINE,
+    "    if (text.startsWith('\\uFEFF')) {",
+    '    if (false) {',
+  ],
+  [
     'bad-utf8-replaced',
     ENGINE,
     '{ fatal: true, ignoreBOM: true }',

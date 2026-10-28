@@ -361,6 +361,7 @@ jobs:
           pnpm test:fin-hierarchy:h1-seal
           pnpm test:fin-hierarchy:baseline
           pnpm test:fin-hierarchy:run
+          pnpm test:fin-hierarchy:h1-run
           pnpm test:fin-hierarchy:mutations
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
@@ -1120,6 +1121,57 @@ jobs:
         env:
           GLS_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/gl-tb-sections-interface-mutations
         run: pnpm test:glt-sections:interface-mutations
+  tb-financial-hierarchy-browser:
+    name: The hierarchical statement section in the built application, the 18 FIN-1A cases and the H1 holdout on screen against their recorded runs (FIN-1c, FIN-1d)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm build
+      - name: Verify every FIN-1A case in the TB and financial position workspace's hierarchical statement section through the actual Worker, Arabic, a phone width, the keyboard and a stale result, against its recorded run (FIN-1c)
+        env:
+          FINH_BROWSER_DIR: ${{ runner.temp }}/tb-financial-hierarchy-browser
+        run: pnpm test:fin-hierarchy:browser
+      - name: Verify the sealed FIN-1 holdout H1 in the hierarchical statement section through the actual Worker, against its recorded first run (FIN-1d)
+        env:
+          FINH_BROWSER_DIR: ${{ runner.temp }}/tb-financial-hierarchy-h1-browser
+        run: pnpm test:fin-hierarchy:h1-browser
+  tb-financial-hierarchy-interface-mutations:
+    name: Hierarchical statement interface mutations in built browser copies (FIN-1c)
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the hierarchical statement browser acceptance to catch it
+        env:
+          FINH_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/tb-financial-hierarchy-interface-mutations
+        run: pnpm test:fin-hierarchy:interface-mutations
   deploy:
     if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
     needs:

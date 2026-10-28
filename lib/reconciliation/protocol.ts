@@ -34,6 +34,11 @@ import {
   type GlsInput,
 } from './gl-tb-sections.ts';
 import {
+  FINH_VERSION,
+  reconcileFinancialHierarchy,
+  type FinHInput,
+} from './tb-financial-hierarchy.ts';
+import {
   ENGINE_VERSION,
   MAX_ROWS,
   MAX_SHEETS,
@@ -119,6 +124,7 @@ export const WORKER_ACTIONS = [
   'gl-tb-restore',
   'gl-tb-export',
   'gl-tb-sections-reconcile',
+  'tb-financial-hierarchy-reconcile',
 ] as const;
 export type WorkerAction = (typeof WORKER_ACTIONS)[number];
 export const isRecord = (value: unknown): value is Record<string, unknown> =>
@@ -628,6 +634,62 @@ export function validateWorkerValue(
       if (
         JSON.stringify(
           reconcileGlTbSections(value.state as unknown as GlsInput),
+        ) !== JSON.stringify(value.result)
+      )
+        throw new Error('invalid');
+    } catch {
+      throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+    }
+  }
+  if (action === 'tb-financial-hierarchy-reconcile') {
+    try {
+      if (
+        !isRecord(value) ||
+        Object.keys(value).sort().join('|') !== 'result|state' ||
+        !isRecord(value.state) ||
+        !isRecord(value.result) ||
+        value.result.version !== FINH_VERSION ||
+        !Array.isArray(value.state.files) ||
+        value.state.files.length !== 4 ||
+        !isRecord(payload) ||
+        !Array.isArray(payload.files) ||
+        payload.files.length !== 4 ||
+        JSON.stringify(value.state.readings) !==
+          JSON.stringify(payload.readings) ||
+        JSON.stringify(value.state.scope) !== JSON.stringify(payload.scope)
+      )
+        throw new Error('invalid');
+      // The result must belong to the four files this request sent, byte for byte.
+      const sent = payload.files as unknown[];
+      const files = value.state.files.map((source: unknown, i: number) => {
+        const supplied = sent[i];
+        if (
+          !isRecord(source) ||
+          !isRecord(supplied) ||
+          typeof source.name !== 'string' ||
+          source.name !== supplied.name ||
+          typeof source.sha256 !== 'string' ||
+          source.sha256 !== supplied.sha256 ||
+          !(source.original instanceof ArrayBuffer) ||
+          !(supplied.original instanceof ArrayBuffer) ||
+          supplied.original.byteLength !== source.original.byteLength
+        )
+          throw new Error('invalid');
+        const original = new Uint8Array(supplied.original),
+          bytes = new Uint8Array(source.original);
+        if (bytes.some((byte, index) => byte !== original[index]))
+          throw new Error('invalid');
+        return { name: source.name, sha256: source.sha256, bytes };
+      });
+      // Compute the statement again from those bytes before installation.
+      // Not source authenticity or an accounting approval.
+      if (
+        JSON.stringify(
+          reconcileFinancialHierarchy({
+            files: files as FinHInput['files'],
+            readings: value.state.readings as FinHInput['readings'],
+            scope: value.state.scope as FinHInput['scope'],
+          }),
         ) !== JSON.stringify(value.result)
       )
         throw new Error('invalid');

@@ -1,0 +1,661 @@
+{
+ "schema": "tarasuf-fin1-engine-run/1",
+ "suite": "audit/fin-hierarchy-holdout-h1",
+ "engine": "tb-financial-hierarchy-1 through replayFinancialHierarchy",
+ "rule": "same status; required codes within the engine codes, engine codes within the oracle codes; eligible: same facts and ownership",
+ "cases": 32,
+ "agree": 31,
+ "rows": [
+  {
+   "id": "H01",
+   "oracle": {
+    "status": "eligible",
+    "codes": []
+   },
+   "required": [],
+   "engine": {
+    "status": "eligible",
+    "codes": []
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H02",
+   "oracle": {
+    "status": "eligible",
+    "codes": []
+   },
+   "required": [],
+   "engine": {
+    "status": "eligible",
+    "codes": []
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H03",
+   "oracle": {
+    "status": "eligible",
+    "codes": []
+   },
+   "required": [],
+   "engine": {
+    "status": "eligible",
+    "codes": []
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H04",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "MAPPING_TARGET",
+     "PROOF_LINE",
+     "STATEMENT_EQUATION"
+    ]
+   },
+   "required": [
+    "MAPPING_TARGET",
+    "PROOF_LINE",
+    "STATEMENT_EQUATION"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "MAPPING_TARGET",
+     "PROOF_LINE",
+     "STATEMENT_EQUATION"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H05",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "UNMAPPED_ACCOUNT"
+    ]
+   },
+   "required": [
+    "UNMAPPED_ACCOUNT"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "UNMAPPED_ACCOUNT"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H06",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "CONTROL_TOTAL",
+     "DUPLICATE_NODE"
+    ]
+   },
+   "required": [
+    "DUPLICATE_NODE"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "DUPLICATE_NODE"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H07",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "CONTROL_TOTAL",
+     "CYCLE"
+    ]
+   },
+   "required": [
+    "CONTROL_TOTAL",
+    "CYCLE"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "CONTROL_TOTAL",
+     "CYCLE"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H08",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "LEAF_TOTAL",
+     "MAPPING_ACCOUNT",
+     "PROOF_ACCOUNT",
+     "UNMAPPED_ACCOUNT"
+    ]
+   },
+   "required": [
+    "LEAF_TOTAL",
+    "MAPPING_ACCOUNT",
+    "PROOF_ACCOUNT",
+    "UNMAPPED_ACCOUNT"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "LEAF_TOTAL",
+     "MAPPING_ACCOUNT",
+     "PROOF_ACCOUNT",
+     "UNMAPPED_ACCOUNT"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H09",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "SIGN_POLICY",
+     "STATEMENT_EQUATION"
+    ]
+   },
+   "required": [
+    "SIGN_POLICY",
+    "STATEMENT_EQUATION"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "SIGN_POLICY",
+     "STATEMENT_EQUATION"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H10",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "DUPLICATE_PROOF_ACCOUNT",
+     "UNUSED_PROOF",
+     "VALIDITY"
+    ]
+   },
+   "required": [
+    "DUPLICATE_PROOF_ACCOUNT",
+    "UNUSED_PROOF",
+    "VALIDITY"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "DUPLICATE_PROOF_ACCOUNT",
+     "UNUSED_PROOF",
+     "VALIDITY"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H11",
+   "oracle": {
+    "status": "eligible",
+    "codes": []
+   },
+   "required": [],
+   "engine": {
+    "status": "eligible",
+    "codes": []
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H12",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "CLASSIFICATION",
+     "SIGN_POLICY"
+    ]
+   },
+   "required": [
+    "CLASSIFICATION",
+    "SIGN_POLICY"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "CLASSIFICATION",
+     "SIGN_POLICY"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H13",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "MISSING_PROOF",
+     "PROOF_REFERENCE"
+    ]
+   },
+   "required": [
+    "MISSING_PROOF",
+    "PROOF_REFERENCE"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "MISSING_PROOF",
+     "PROOF_REFERENCE"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H14",
+   "oracle": {
+    "status": "eligible",
+    "codes": []
+   },
+   "required": [],
+   "engine": {
+    "status": "eligible",
+    "codes": []
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H15",
+   "oracle": {
+    "status": "eligible",
+    "codes": []
+   },
+   "required": [],
+   "engine": {
+    "status": "eligible",
+    "codes": []
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H16",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "DEPTH"
+    ]
+   },
+   "required": [
+    "DEPTH"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "DEPTH"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H17",
+   "oracle": {
+    "status": "eligible",
+    "codes": []
+   },
+   "required": [],
+   "engine": {
+    "status": "eligible",
+    "codes": []
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H18",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "LEAF_TOTAL"
+    ]
+   },
+   "required": [
+    "LEAF_TOTAL"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "LEAF_TOTAL"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H19",
+   "oracle": {
+    "status": "eligible",
+    "codes": []
+   },
+   "required": [],
+   "engine": {
+    "status": "eligible",
+    "codes": []
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H20",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "SUM"
+    ]
+   },
+   "required": [
+    "SUM"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "SUM"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H21",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "EMPTY_SOURCE",
+     "HEADERS",
+     "MAPPING_TARGET",
+     "NO_FINANCIAL_LEAF",
+     "PROOF_LINE"
+    ]
+   },
+   "required": [
+    "HEADERS"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "CSV"
+    ]
+   },
+   "agrees": false,
+   "problems": [
+    "required codes absent: HEADERS",
+    "codes the oracle does not give: CSV"
+   ]
+  },
+  {
+   "id": "H22",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "WIDTH"
+    ]
+   },
+   "required": [
+    "WIDTH"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "WIDTH"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H23",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "MONEY",
+     "STATEMENT_EQUATION"
+    ]
+   },
+   "required": [
+    "MONEY"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "MONEY"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H24",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "PARENT"
+    ]
+   },
+   "required": [
+    "PARENT"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "PARENT"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H25",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "EMPTY_PARENT"
+    ]
+   },
+   "required": [
+    "EMPTY_PARENT"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "EMPTY_PARENT"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H26",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "BOTH_SIDES"
+    ]
+   },
+   "required": [
+    "BOTH_SIDES"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "BOTH_SIDES"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H27",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "LEAF_TOTAL",
+     "TB_BALANCE"
+    ]
+   },
+   "required": [
+    "LEAF_TOTAL",
+    "TB_BALANCE"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "LEAF_TOTAL",
+     "TB_BALANCE"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H28",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "DUPLICATE_MAPPING_ID"
+    ]
+   },
+   "required": [
+    "DUPLICATE_MAPPING_ID"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "DUPLICATE_MAPPING_ID"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H29",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "SCOPE"
+    ]
+   },
+   "required": [
+    "SCOPE"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "SCOPE"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H30",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "CONTROL_TOTAL",
+     "KIND",
+     "MAPPING_TARGET",
+     "PROOF_LINE",
+     "STATEMENT_EQUATION"
+    ]
+   },
+   "required": [
+    "KIND"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "CONTROL_TOTAL",
+     "KIND",
+     "MAPPING_TARGET",
+     "PROOF_LINE",
+     "STATEMENT_EQUATION"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H31",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "DUPLICATE_ACCOUNT",
+     "LEAF_TOTAL",
+     "TB_BALANCE"
+    ]
+   },
+   "required": [
+    "DUPLICATE_ACCOUNT"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "DUPLICATE_ACCOUNT"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  },
+  {
+   "id": "H32",
+   "oracle": {
+    "status": "blocked",
+    "codes": [
+     "EMPTY_SOURCE",
+     "HEADERS",
+     "UNMAPPED_ACCOUNT",
+     "UNMAPPED_LEAF",
+     "UNUSED_PROOF"
+    ]
+   },
+   "required": [
+    "HEADERS"
+   ],
+   "engine": {
+    "status": "blocked",
+    "codes": [
+     "HEADERS"
+    ]
+   },
+   "agrees": true,
+   "problems": []
+  }
+ ]
+}

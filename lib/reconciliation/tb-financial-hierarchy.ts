@@ -368,6 +368,12 @@ export function reconcileFinancialHierarchy(input: FinHInput): FinHResult {
       problem('CSV', source);
       continue;
     }
+    // A byte-order mark belongs to the first header name, quoted or not, so
+    // the header is not the contract's (F1); it is not a broken quote.
+    if (text.startsWith('\uFEFF')) {
+      problem('HEADERS', source, 1);
+      continue;
+    }
     const parsed = readCSV(text);
     if (parsed.reason === 'CSV') {
       problem('CSV', source, parsed.records.length + 1);

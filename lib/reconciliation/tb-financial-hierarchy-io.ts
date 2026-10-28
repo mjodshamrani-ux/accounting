@@ -26,12 +26,15 @@ const plain = (v: unknown): v is Record<string, unknown> =>
  */
 export async function replayFinancialHierarchy(
   input: FinHReplayInput,
-): Promise<{ result: FinHResult }> {
-  if (
-    !plain(input) ||
-    !Array.isArray(input.files) ||
-    input.files.length !== 4
-  )
+): Promise<{
+  state: {
+    files: { name: string; sha256: string; original: ArrayBuffer }[];
+    readings: FinHInput['readings'];
+    scope: FinHInput['scope'];
+  };
+  result: FinHResult;
+}> {
+  if (!plain(input) || !Array.isArray(input.files) || input.files.length !== 4)
     throw new Error('FINH_INPUT');
   const copies = input.files.map((f) => {
     if (
@@ -61,7 +64,18 @@ export async function replayFinancialHierarchy(
       throw new Error('FINH_SOURCE_HASH');
     files.push({ name: c.name, sha256, bytes: c.bytes });
   }
+  // The state carries the copies the result was computed from, so the page
+  // can hold them to its own request byte for byte and compute it again.
   return {
+    state: {
+      files: files.map((f) => ({
+        name: f.name,
+        sha256: f.sha256,
+        original: f.bytes.slice().buffer,
+      })),
+      readings,
+      scope,
+    },
     result: reconcileFinancialHierarchy({
       files: files as FinHInput['files'],
       readings,
