@@ -355,6 +355,7 @@ jobs:
           pnpm test:glt-sections:run
           pnpm test:glt-sections:mutations
           pnpm test:glt-sections:h1-seal
+          pnpm test:glt-sections:h1-run
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations
@@ -1063,7 +1064,7 @@ jobs:
           IC_BATCH_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/intercompany-batch-interface-mutations
         run: pnpm test:ic-batch:interface-mutations
   gl-tb-sections-browser:
-    name: GL sections and TB pages in the built application, the 29 sealed GLT-1 stories on screen against their recorded run (GLT-1c)
+    name: GL sections and TB pages in the built application, the 29 sealed GLT-1 stories and the H1 holdout on screen against their recorded runs (GLT-1c, GLT-1d)
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -1086,6 +1087,10 @@ jobs:
         env:
           GLS_BROWSER_DIR: ${{ runner.temp }}/gl-tb-sections-browser
         run: pnpm test:glt-sections:browser
+      - name: Verify the sealed GLT-1 holdout H1 in the GL/TB workspace's sections section through the actual Worker, against its recorded first run (GLT-1d)
+        env:
+          GLS_BROWSER_DIR: ${{ runner.temp }}/gl-tb-sections-h1-browser
+        run: pnpm test:glt-sections:h1-browser
   gl-tb-sections-interface-mutations:
     name: GL sections and TB pages interface mutations in built browser copies (GLT-1c)
     runs-on: ubuntu-latest

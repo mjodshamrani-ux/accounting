@@ -197,6 +197,7 @@ const required = [
   'test:glt-sections:run',
   'test:glt-sections:mutations',
   'test:glt-sections:h1-seal',
+  'test:glt-sections:h1-run',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',
@@ -355,7 +356,10 @@ const separate = {
   'intercompany-batch-interface-mutations': [
     'test:ic-batch:interface-mutations',
   ],
-  'gl-tb-sections-browser': ['test:glt-sections:browser'],
+  'gl-tb-sections-browser': [
+    'test:glt-sections:browser',
+    'test:glt-sections:h1-browser',
+  ],
   'gl-tb-sections-interface-mutations': [
     'test:glt-sections:interface-mutations',
   ],

@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 63934,
-      "sha256": "dde05e82dba8bc7759899872d223fe590b79e84271b09fdc9673b757e50a2ec1",
+      "bytes": 64292,
+      "sha256": "927d6213591110b438cc7b8a26c546e339e954fb4643890d6b783cca2657d203",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 41451,
-      "sha256": "c4e1a542647a1091144b96ef77c32fdf672e6020cd3b42e05d0fa0bc22d0ca39",
+      "bytes": 41725,
+      "sha256": "33169c8d2f9dfcdd057e04be70ea8da7f4a91523808e8ceea36a34816a504144",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 20906,
-      "sha256": "956af66f3acaa2fb28283b35c30bea4a061b37904aff820dcfc383b533f453cb",
+      "bytes": 20950,
+      "sha256": "ec3677a99c652c9099c509286e6963f011b7314a15b0613c7dec3ec645b84e66",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 92909,
-      "sha256": "db0ee9f8da0ef557bbf99542f8bdf24fa7e44e9e8477e9377a1a42de581b5484",
+      "bytes": 93926,
+      "sha256": "fa782bbcf2cc12301eddd63e074eb3136849af8f54ac1581b08c0ff86cd25203",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 78676,
-      "sha256": "af6fae95610dc9fa38a322251121d29199b1eb4b251d67872a3309360a358614",
+      "bytes": 78877,
+      "sha256": "9ef0764dee5cbc78b8e02fdf89d480fe429ee289a6d0136c73ec9ad63fccf99f",
       "kind": "text"
     },
     {
@@ -36241,8 +36241,8 @@
     },
     {
       "path": "docs/roadmap/gl-tb.ar.md",
-      "bytes": 3683,
-      "sha256": "76c4c6eaceacfe1c0756900590253e2a5f2f520f5aa76120f7567d18b0172da5",
+      "bytes": 3849,
+      "sha256": "ea100ab7e122810d1060975900d5865741736835a49011fdea91b936f1720294",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 43669,
-      "sha256": "c47b2b6309a54f0dccd29828f504c7f8d21f71cb7cdefb3fa346518f73ddb04b",
+      "bytes": 44111,
+      "sha256": "fc05ab0f35099e2fd8415512244da0a9902d64d2a9a964769ddc2a7cbddc3953",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 15175,
-      "sha256": "108d262efaf6cfccd21520b5f6eb0c289a8d7d3d1ba19ddd3b79f078b2adadb3",
+      "bytes": 15250,
+      "sha256": "9b93a1913e2b4c08bac103ad74858840d0e36fb92aaf64d9ddfc3d43d72fe5dd",
       "kind": "text"
     },
     {
@@ -57747,8 +57747,8 @@
     },
     {
       "path": "audit/gl-tb-sections-holdout-h1/README.ar.md",
-      "bytes": 3796,
-      "sha256": "39f7187729a6ffd466d739ad47937a4e665da9ad15e2c09c9aafb6645e90769c",
+      "bytes": 3882,
+      "sha256": "3e749c737e5db915d1bb593eb4dcd326bebcaa7994b96450c6807fccd7264fc0",
       "kind": "text"
     },
     {
@@ -58169,6 +58169,24 @@
       "path": "audit/gl-tb-sections-holdout-h1/verify.py",
       "bytes": 7069,
       "sha256": "41db99276556eafbcb5f114c9efd66e6c14ff486ff9c45e9a51c1a511d66593c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/results/browser-run-1.json",
+      "bytes": 1022,
+      "sha256": "f2dac6953e0a92d6d390f1cac1f55b8205183cdc76169a979a797a94ddb9a134",
+      "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-holdout-h1/results/engine-run-1.json",
+      "bytes": 881,
+      "sha256": "5378424920f5098ba5c79deb81628b6d297ff938445c7fa06f0ef7de624cd3d1",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/GLT-1D.ar.md",
+      "bytes": 6597,
+      "sha256": "5c7d754f75b19d799fa01b2d213354968935ee56b9503fd115105f7122cbad71",
       "kind": "text"
     }
   ],
