@@ -1,0 +1,640 @@
+{
+ "package": "ai-column-roles-foundation",
+ "tool": {
+  "eligibility.py": "f4cfd84770066871f01386b23f34c15d66abcc3a97f14ec0b65cec31887a4eb3",
+  "items.py": "6b9722fd314af6df178ce85444390e212962e03b3b9a58fcab95ded907dbf3bf",
+  "columns.py": "fa5309e91c8c0af7a794dd549a5a5e9c15931ed12dcfca36462dc06858c6c05b",
+  "tounicode.py": "66c78bfb6231160d8b057b3b83696fbefa8d2d93514c39f7d43c9923919e6848",
+  "rows.py": "72bef92be3845bdd784829e6771114147ddadf7862fa3dff350b3cc56de50f76",
+  "drawings.py": "222b44ea845a53cc59372ee41daa3c0b61dd6d0e0dd5258ab8867e8e06f61c0a",
+  "cashbook.py": "f757c143b02b7d158da14b2e5aa82fa37989b464a9ada20acfaf31b8e8eaac2c"
+ },
+ "clearancePt": 0.05,
+ "statements": {
+  "A01": {
+   "sha256": "9e242848f365ecfa5ac57b2d43e567cabc8ae578366d9dd337dfa8b7fbe5cbb2",
+   "pages": 1,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 11.92,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 1.0,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "A02": {
+   "sha256": "78a1d7333d76eef462f67d6b2dea5dea63e083d096ffb56c6199a595aabd8367",
+   "pages": 1,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 2.07,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "A03": {
+   "sha256": "5577fe7c2396135f93dac8650a83937c0ea702063a5fa9090c720c6baf80480f",
+   "pages": 2,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 12.08,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 1.63,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "A04": {
+   "sha256": "023decdb89cbf0204bcff68537bb6aef9c9c27e1a14d88bcb38f8da5b56b60e1",
+   "pages": 1,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 11.92,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 1.0,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "C01": {
+   "sha256": "85b594df710229b752f32cc99012198c7c706533ab30ef0e7ba077f32e0b8f9c",
+   "pages": 1,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 11.17,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "C02": {
+   "sha256": "989d1a21cca2d645dcb77412f9b4e8e6b53f5866f7d194b3650029ffe38281ab",
+   "pages": 1,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 10.65,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 1.57,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "D01": {
+   "sha256": "ca7f476bd97487717be9227f2bad376ff821222df0dc3129a5e66e85ce4d68c3",
+   "pages": 1,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 11.32,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "D02": {
+   "sha256": "37a47ca2f9ef43fb40c6c660798b78554b0e47194117f1df4ac41093d19193de",
+   "pages": 1,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 12.08,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "D03": {
+   "sha256": "9c4cae10cf57181b7e39b3d4f0399ae325a4b045853b91a80b2ff835ad5d0ea6",
+   "pages": 1,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 2.07,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "D04": {
+   "sha256": "2882afa4eab04cdc1f095b958109fe9ff559f0e2c19679efcc220b7675825970",
+   "pages": 2,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 10.65,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 1.57,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "D05": {
+   "sha256": "ce30fc3bfc776417805ac005387f69dc97b23fdee3eb43227a26391fbf1d190c",
+   "pages": 1,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 11.4,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 2.72,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "N01": {
+   "sha256": "512e60aacadab7b0203049daa363a4e20b39198d954b41ae519dd1b8798afb00",
+   "pages": 1,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 11.32,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 3.01,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "N02": {
+   "sha256": "ef695e658c0b083baca83d08049a5265cbabfc66dc0fbdf8aa5d48f9adf107df",
+   "pages": 1,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 11.92,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "N03": {
+   "sha256": "60398134c444494d60613e4b61c9fe6df1d9863d1df1ed3e48e8cf11f350bc8c",
+   "pages": 1,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 11.4,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 3.72,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "N04": {
+   "sha256": "ea170c8c6633eb0e49bcc19dd43f34cd4aa20e84d06cca9fb9d140bb3ea33994",
+   "pages": 2,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 12.08,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 3.56,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "N05": {
+   "sha256": "74eab6375611b2bc59437bb07954590072b25be0ec45403604de5b6e9aab390a",
+   "pages": 1,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 11.17,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U01": {
+   "sha256": "0638e8458c3895f9ea8a09cec7bc0f4ae1eeff01d9609c54340cb8844ae89636",
+   "pages": 1,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 11.4,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U02": {
+   "sha256": "c60e422e8c4d007fc55d61fe6078fffa23ea83d8f1102749adee3db8482084ba",
+   "pages": 1,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 11.92,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 3.76,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U03": {
+   "sha256": "5e2a923b10b0a224aa3d8de9d87bf0d21c834cd647274aad32a9551a2bf3c592",
+   "pages": 1,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 10.65,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 1.57,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "X01": {
+   "sha256": "8ac998ac1f58c6bfdccbe7078571653dfcee723cad1dca4aabaf3f814e78a188",
+   "pages": 1,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 11.17,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "X02": {
+   "sha256": "76d7d10a83e29ae6fcf50e5b67664427f72f891cd87726762d48fc0a76d80abf",
+   "pages": 1,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 11.92,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 3.76,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "X03": {
+   "sha256": "07f35c6d4e83c4e2ce9f6419b23a7c5afa9792b6581470d9dff3ece596429990",
+   "pages": 1,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 2.07,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "X04": {
+   "sha256": "66cfaf55be0b501fcacf79f981c7603c3a9a39161d2bca04d1db9ebde3329493",
+   "pages": 1,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 11.32,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 3.59,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "X05": {
+   "sha256": "10dcfbf0b034e0ae3869eeca5c1dd5dce3588998139c888000db9c1c3912f4b9",
+   "pages": 1,
+   "found": {
+    "columns": [
+     {
+      "layout": "en",
+      "code": "HEADER",
+      "page": 1,
+      "line": 0,
+      "detail": "no line carries the declared column headers in order"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 12.08,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  }
+ },
+ "cashbooks": {}
+}

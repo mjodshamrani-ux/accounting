@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 58279,
-      "sha256": "aa07fe0957c0498767d50d976c21a992c05d5968ae423aa7992df029ffb8877a",
+      "bytes": 58315,
+      "sha256": "cb8caab4d4723ed649e56d17ee696c5a969649fb96074569a3700750075afc11",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 38871,
-      "sha256": "4ac416d5a00faa30138ec2f98e483a098ef0f837ed7088d5d70f52052a39e480",
+      "bytes": 39143,
+      "sha256": "80668d842926011daa5e2b8ef614053a59a512d9353239e0f78b1b7b8a978116",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 14277,
-      "sha256": "ee9727712607f91156cc640a10c8b7162971165058d998b019f1b8b572b20d9f",
+      "bytes": 14303,
+      "sha256": "5cb3583415ce32c91d8a9c4e5660f6e9b18253f636d4d38c4ec8ea99f2856dc3",
       "kind": "text"
     },
     {
@@ -55019,6 +55019,546 @@
       "path": "docs/audits/WF-1-CYCLE-C4.ar.md",
       "bytes": 10010,
       "sha256": "963c2aa4d1f7d22a9aea4408030ea0f4edcda4c18a1a363a03cbb4a465f48e19",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/README.ar.md",
+      "bytes": 13675,
+      "sha256": "f2ddbe669e895f343b142a41bd6b1221988cffc67d557c842b04f7757bbbe1f1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/check_seal.py",
+      "bytes": 6014,
+      "sha256": "60c6dc8dc97e8de9d3bbff8d18b40ba93573ac8dc8402bdf15c3bdf67f89729a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/common.py",
+      "bytes": 6484,
+      "sha256": "82ef674603c27e30dec49ad8dfb493e390f4669d2f204210214fb71c173b207a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/expected.py",
+      "bytes": 3931,
+      "sha256": "b284513e09c687e8a28dbf02d2d8d821abc1bc34e6e5416bdbca54e33f9c7ab5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/fonts.py",
+      "bytes": 4553,
+      "sha256": "ed637f0679e0cf1edc5cf1905dfa318fb1ee6bdb470303a85fa82fbd3acad7b8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/A01-ledger.csv",
+      "bytes": 488,
+      "sha256": "ee1dcd5ac46380c7e379f2b06594fd93526bbaa3aedf9876bdaccf6a00c235e9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/A01-statement.pdf",
+      "bytes": 15477,
+      "sha256": "9e242848f365ecfa5ac57b2d43e567cabc8ae578366d9dd337dfa8b7fbe5cbb2",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/A02-ledger.csv",
+      "bytes": 579,
+      "sha256": "3cb62763fcf6c8977bfa7a787735e1d2ae9dbbe85886cf9866ee0970e8d9658e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/A02-statement.pdf",
+      "bytes": 19187,
+      "sha256": "78a1d7333d76eef462f67d6b2dea5dea63e083d096ffb56c6199a595aabd8367",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/A03-ledger.csv",
+      "bytes": 982,
+      "sha256": "ae6fcbff42769af67e648d490965394609d5ce0a86e0507a1cd889e6c516528c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/A03-statement.pdf",
+      "bytes": 22334,
+      "sha256": "5577fe7c2396135f93dac8650a83937c0ea702063a5fa9090c720c6baf80480f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/A04-ledger.csv",
+      "bytes": 580,
+      "sha256": "65f0a3b5d01d80dd5265a131dc4d1eed2fcfb10af05186d0756d3edd23f9ec7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/A04-statement.pdf",
+      "bytes": 16605,
+      "sha256": "023decdb89cbf0204bcff68537bb6aef9c9c27e1a14d88bcb38f8da5b56b60e1",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/C01-ledger.csv",
+      "bytes": 443,
+      "sha256": "1c24a5247ec047a61941f263f15538fafedc240720511e3f46fba0ff9931fea1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/C01-statement.pdf",
+      "bytes": 11687,
+      "sha256": "85b594df710229b752f32cc99012198c7c706533ab30ef0e7ba077f32e0b8f9c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/C02-ledger.csv",
+      "bytes": 444,
+      "sha256": "67b44b9523698785d1b0b54f776b587164f9a16bc546f8b8dbbdf7b4a802e26e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/C02-statement.pdf",
+      "bytes": 14207,
+      "sha256": "989d1a21cca2d645dcb77412f9b4e8e6b53f5866f7d194b3650029ffe38281ab",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/D01-ledger.csv",
+      "bytes": 445,
+      "sha256": "8133b83b1291fb63d42c0cc1f59d5b89c4ef8622dbc23f28177c6e192ae8bda2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/D01-statement.pdf",
+      "bytes": 19019,
+      "sha256": "ca7f476bd97487717be9227f2bad376ff821222df0dc3129a5e66e85ce4d68c3",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/D02-ledger.csv",
+      "bytes": 534,
+      "sha256": "998977fa3f3c8169d0faacbdccbd1337be29b3bee604c490346d1dcaff3e6a77",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/D02-statement.pdf",
+      "bytes": 13006,
+      "sha256": "37a47ca2f9ef43fb40c6c660798b78554b0e47194117f1df4ac41093d19193de",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/D03-ledger.csv",
+      "bytes": 490,
+      "sha256": "a34b18c4743b0a5b089809f981b1c3647098da4dfc705458a5e01161a0669a16",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/D03-statement.pdf",
+      "bytes": 18662,
+      "sha256": "9c4cae10cf57181b7e39b3d4f0399ae325a4b045853b91a80b2ff835ad5d0ea6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/D04-ledger.csv",
+      "bytes": 1024,
+      "sha256": "c42d35bc5d0f1afbe3804f8c8391f678edc2c7c1d4ee1d83c8e84855f3927ad5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/D04-statement.pdf",
+      "bytes": 17940,
+      "sha256": "2882afa4eab04cdc1f095b958109fe9ff559f0e2c19679efcc220b7675825970",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/D05-ledger.csv",
+      "bytes": 489,
+      "sha256": "e36428cb640dd922d185f2cbafc047d2fbe66ef24ffe5004165c91981e742752",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/D05-statement.pdf",
+      "bytes": 14331,
+      "sha256": "ce30fc3bfc776417805ac005387f69dc97b23fdee3eb43227a26391fbf1d190c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/ELIGIBILITY.json",
+      "bytes": 13006,
+      "sha256": "909f57d1ea6f1f77553a4ceb087c9bef4d97558e630f67c26035e76cd0182126",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/INPUT-MANIFEST.json",
+      "bytes": 10026,
+      "sha256": "de3be0343d931b9c3fa7feae84f8b091bbc8f37074d4d06bf90f62dbf29d9074",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/N01-ledger.csv",
+      "bytes": 533,
+      "sha256": "b0116e059668162444e4c30d6001148b8a47e851aaca18bc13df6b07cd57d3b4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/N01-statement.pdf",
+      "bytes": 18831,
+      "sha256": "512e60aacadab7b0203049daa363a4e20b39198d954b41ae519dd1b8798afb00",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/N02-ledger.csv",
+      "bytes": 624,
+      "sha256": "accc3fd1121e11f487fc3be5aeb6b485af125fb13ccbb314fc514e220e6d0028",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/N02-statement.pdf",
+      "bytes": 12176,
+      "sha256": "ef695e658c0b083baca83d08049a5265cbabfc66dc0fbdf8aa5d48f9adf107df",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/N03-ledger.csv",
+      "bytes": 530,
+      "sha256": "a515cfb0eb8164f18ff44b02755240b23b0f410a98a438ab2d6f21c551092d8f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/N03-statement.pdf",
+      "bytes": 14855,
+      "sha256": "60398134c444494d60613e4b61c9fe6df1d9863d1df1ed3e48e8cf11f350bc8c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/N04-ledger.csv",
+      "bytes": 1116,
+      "sha256": "4e9f66be314137827b5d112d534debe56587b48ed571bb896e184d3ccb75faaa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/N04-statement.pdf",
+      "bytes": 15811,
+      "sha256": "ea170c8c6633eb0e49bcc19dd43f34cd4aa20e84d06cca9fb9d140bb3ea33994",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/N05-ledger.csv",
+      "bytes": 446,
+      "sha256": "baa7215d456094fc5985f610793c3f9b7f073302f5a239dd8dc67e4d855c9f1d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/N05-statement.pdf",
+      "bytes": 12080,
+      "sha256": "74eab6375611b2bc59437bb07954590072b25be0ec45403604de5b6e9aab390a",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/SEAL.json",
+      "bytes": 1990,
+      "sha256": "e85a1aaec422615eeb5f055498006efdd8f5d7228b18c7d00fdebb83250ffd51",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/U01-ledger.csv",
+      "bytes": 445,
+      "sha256": "2a68b3e83e1194358d1318fade692cde8caebcc11ff704c337d922c8c6a7d1ca",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/U01-statement.pdf",
+      "bytes": 14225,
+      "sha256": "0638e8458c3895f9ea8a09cec7bc0f4ae1eeff01d9609c54340cb8844ae89636",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/U02-ledger.csv",
+      "bytes": 488,
+      "sha256": "16899e6dc3f3b65934b0d9903578c9adc798833f705ccbd49828cac5a1d1883e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/U02-statement.pdf",
+      "bytes": 11441,
+      "sha256": "c60e422e8c4d007fc55d61fe6078fffa23ea83d8f1102749adee3db8482084ba",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/U03-ledger.csv",
+      "bytes": 444,
+      "sha256": "5d29a2dcfc4e4da3608ae635d0294ae76dc794f1b71f2ab6e1faf7a719774a4b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/U03-statement.pdf",
+      "bytes": 14906,
+      "sha256": "5e2a923b10b0a224aa3d8de9d87bf0d21c834cd647274aad32a9551a2bf3c592",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/VERIFY.json",
+      "bytes": 14139,
+      "sha256": "3521b139423a82c68f3cb0ed45e6186c4f8fdf00e8e7e1abf25e126ac35d811c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/X01-ledger.csv",
+      "bytes": 490,
+      "sha256": "584e406f5a2e2c4f6b7faba0379d12afe621ba180be297904415cccd953abd9d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/X01-statement.pdf",
+      "bytes": 11917,
+      "sha256": "8ac998ac1f58c6bfdccbe7078571653dfcee723cad1dca4aabaf3f814e78a188",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/X02-ledger.csv",
+      "bytes": 579,
+      "sha256": "68e2aa088353b5cb1bf086c4dcf869e08bbab506e5b0a516ebed5117328e812f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/X02-statement.pdf",
+      "bytes": 11402,
+      "sha256": "76d7d10a83e29ae6fcf50e5b67664427f72f891cd87726762d48fc0a76d80abf",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/X03-ledger.csv",
+      "bytes": 488,
+      "sha256": "9f2c965c1db2fdc3817cc43ff4ac0229c0ac4822c94fd31a198a20b2d4c4e309",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/X03-statement.pdf",
+      "bytes": 19486,
+      "sha256": "07f35c6d4e83c4e2ce9f6419b23a7c5afa9792b6581470d9dff3ece596429990",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/X04-ledger.csv",
+      "bytes": 578,
+      "sha256": "091e211b41ec73b3a32b75d7605d89b1026b8ba41e18eceb6af691be28850fe5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/X04-statement.pdf",
+      "bytes": 19066,
+      "sha256": "66cfaf55be0b501fcacf79f981c7603c3a9a39161d2bca04d1db9ebde3329493",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/X05-ledger.csv",
+      "bytes": 535,
+      "sha256": "d49cf5202f686703dc10a9204e7662571fe4be01d2a49c9d76970fab17431e17",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/X05-statement.pdf",
+      "bytes": 13324,
+      "sha256": "10dcfbf0b034e0ae3869eeca5c1dd5dce3588998139c888000db9c1c3912f4b9",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic supplier statement asset for the AI-1a column-role set: drawn by the HexaPDF 1.11.2 statement service (Ruby) or the pdf-lib 1.17.1 statement application (Node), both copied as they are from the SUP-2 S3 holdout with its locks and Google Fonts files from @expo-google-fonts, from audit/ai-column-roles-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, headings in column order included; ELIGIBILITY.json with MuPDF; expected.json from the story facts). Fictional suppliers, customers, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/frozen/expected.json",
+      "bytes": 72525,
+      "sha256": "b03dd035227c1c4d23dc2b24762e5197b706c0c12237d953caa436b094e4855f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/js/package-lock.json",
+      "bytes": 10823,
+      "sha256": "078872e9c078bbe08668ad7565db7df8ad805d01dc56d0bd056b0896346eeef8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/js/package.json",
+      "bytes": 945,
+      "sha256": "a5bb40e62fb64a5d5ad84e4fb3ce2994cdabee977ba722010dae1a5f55930ef3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/js/render_pdflib.mjs",
+      "bytes": 10592,
+      "sha256": "017ec351d9c094ea720d927190aaecf78f7d42ddc007e7ac770339d9ed89e114",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/judge.mjs",
+      "bytes": 8668,
+      "sha256": "6fe5ba02030b1843a051515ec4edd6ed92683e84fe1a40e4db4774074ecea997",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/measure.mjs",
+      "bytes": 11343,
+      "sha256": "5128c359c34db013ef9bd7353a1bfdaa30d315519834798526630b78eeff6d49",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/render.py",
+      "bytes": 10594,
+      "sha256": "7365763429e0436bb9a4acc5673245361bb5a9d5eaaa586a03cc7f70fbaec014",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/roles.py",
+      "bytes": 1204,
+      "sha256": "4a1fb238d34d6b7205c1ce60e582a45e5c1ddd650a69688c6c9b310544929339",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/ruby/Gemfile",
+      "bytes": 211,
+      "sha256": "5b90f2e7b29c3f4cf58003a697d44c95b7217249c643d13a723b8a39ed359abd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/ruby/Gemfile.lock",
+      "bytes": 1302,
+      "sha256": "7bf40acd65d4688a6f771427ef97a17a16259401568f0fefaa2a8657e2a41666",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/ruby/statements.rb",
+      "bytes": 7568,
+      "sha256": "effeeab62bf567ab5c893dac0f15e1ca9795cbc372bf40cf0506a39886d5d611",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/score.mjs",
+      "bytes": 11205,
+      "sha256": "edfcdd0e2c49f58fc22021c4972cced0faeebacf4824b27593a19f5e1b10e235",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/seal.py",
+      "bytes": 1649,
+      "sha256": "dbc40c86bdbd9a4d7a00bdb1878eeed90f74d219e6385ee13ee94c4b4d3fa83a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/stories.py",
+      "bytes": 19448,
+      "sha256": "16f78120f320e45c0980eeb17326bdd16a9edc19a4dec5e83c47a6f467dffddf",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/test_intent.py",
+      "bytes": 7698,
+      "sha256": "ea15d052992fc3572fdb30a5d88f48d6712788e333620f903d14b55f07b03779",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/test_seal.py",
+      "bytes": 4910,
+      "sha256": "0ebf77a42db19cfc8fdab91a98753fbd7273cc22acf1bdb0edc799ce50cb2a3b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ai-column-roles-foundation/verify.py",
+      "bytes": 25926,
+      "sha256": "420547c3b54e5452b0743651d50a4d2259b30a62144e4b8908b18e34ad2e8ae7",
       "kind": "text"
     }
   ],
