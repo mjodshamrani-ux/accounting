@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 79386,
-      "sha256": "2606bc870015a5f43fe679e71bf59973e56fb5b042cde1456c3deb88ac9f03a0",
+      "bytes": 79462,
+      "sha256": "410b0bbf2a53fdc988d75fe3f01eca2792624163d2d334720784a07cb456a3a3",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 52525,
-      "sha256": "da556c2d7c0c1d0bf993adb4dea3fdc79a1285f1f68d09c38dc4f1d5098f53f8",
+      "bytes": 52807,
+      "sha256": "becc11eabaf67e159a560ad2ba70365af8842ce0c8536f2fd534ffafdf39d567",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 22542,
-      "sha256": "9f083ee71423709c60400ece918f1e92ac0ba55219a56baf7f9538db385ec194",
+      "bytes": 22603,
+      "sha256": "9b111a7546df26a45d2499cbd66e9bb17ebb274c919e9a4f024e8f3435690eae",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 119519,
-      "sha256": "d670f0f0b465e288af74b0365ddefb9292677fd54d7220f4fbfd0a470e24f0a0",
+      "bytes": 120486,
+      "sha256": "49e54988347ca295d7f0aada5f432daba5a059b5c5ab9e4aefd4d837c486c374",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 82923,
-      "sha256": "1e7c61b67a1ff7d62389412adc1efce90f669674c1e4dafa50e82258c87b7195",
+      "bytes": 83022,
+      "sha256": "bbf1ed7266f5cc34c5f54412828c4a2b5c95e679d6b00d957c891e46cda7c015",
       "kind": "text"
     },
     {
@@ -36205,8 +36205,8 @@
     },
     {
       "path": "docs/roadmap/allocation.ar.md",
-      "bytes": 4658,
-      "sha256": "6a0d4654b962bea29eecb1d24cfe62bb90ef0c20cbf862e9a10cc9a3e497e21b",
+      "bytes": 5136,
+      "sha256": "f40c0fda8875ae1f119ef89d9e9827550e90ae69ddd9a84eeffddca4a6d0d502",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 53640,
-      "sha256": "e7c56683bc8d1e5fb7831f1c87c299cc5514c1f8e9b8c061241a3289c32bfb0f",
+      "bytes": 53927,
+      "sha256": "f3de54d0ea3275814a82b1f66a6fddc807b07f334e6a99652de965ee59727c8e",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 17490,
-      "sha256": "749e2501ce5f514c016e98902ad7afc26682e6183b78fb69d5e007f25537c0cb",
+      "bytes": 17546,
+      "sha256": "abec6bdc52e0993c216c91b966b6d46a18c725bbc4852ea33d9e67dda03927dd",
       "kind": "text"
     },
     {
@@ -66241,6 +66241,54 @@
       "path": "audit/allocation-advice-foundation/results/baseline-1.json",
       "bytes": 14434,
       "sha256": "b969f4575abe7aefc99a816b21ad0ebb8f886a177917c990e30b1fc09a1558a0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/engine-run.mjs",
+      "bytes": 5195,
+      "sha256": "65069fbd91550a1f659399304bd3136eef0c6700af093753370102e2ebd72600",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/results/engine-run-1.json",
+      "bytes": 2759,
+      "sha256": "2a8a57f566a984ead4453c44fc3fe7e8bf96d9a9bcd385370cecff9274ddaf0a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/allocation-advice-foundation/results/engine-run-2.json",
+      "bytes": 2759,
+      "sha256": "2a8a57f566a984ead4453c44fc3fe7e8bf96d9a9bcd385370cecff9274ddaf0a",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/ALL-1B.ar.md",
+      "bytes": 5489,
+      "sha256": "e89bd8ca05fd96a8bde2f36f66ca1eeb701c9dcb46911ec3cc42dcfcc03fbcdc",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/allocation-advice-io.ts",
+      "bytes": 1176,
+      "sha256": "d9455cb63932cc41c323f1bd32f594831ab6cce572881d217bfe3455587b4646",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/allocation-advice.ts",
+      "bytes": 5479,
+      "sha256": "851674166bbfc9e7ef6ec17fff28d1a4ca6feef53b8c9337eac460fa14bccd40",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-allocation-advice-mutations.mjs",
+      "bytes": 7328,
+      "sha256": "80313f812adf088b880f9e39e3150ceeebbfb5dc0725be480ad67b2a5b99461d",
+      "kind": "text"
+    },
+    {
+      "path": "tests/allocation-advice.test.ts",
+      "bytes": 16147,
+      "sha256": "07ce67398871127a5cf05c315280a25fcc796eb37741f1b62971978c479015d6",
       "kind": "text"
     }
   ],

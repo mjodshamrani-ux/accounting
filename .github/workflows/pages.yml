@@ -399,6 +399,8 @@ jobs:
           pnpm test:all-advice:oracle-mutants
           pnpm test:all-advice:seal
           pnpm test:all-advice:baseline
+          pnpm test:all-advice:run
+          pnpm test:all-advice:mutations
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations

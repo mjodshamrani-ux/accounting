@@ -241,6 +241,8 @@ const required = [
   'test:all-advice:oracle-mutants',
   'test:all-advice:seal',
   'test:all-advice:baseline',
+  'test:all-advice:run',
+  'test:all-advice:mutations',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',
