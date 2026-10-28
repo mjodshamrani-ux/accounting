@@ -227,6 +227,8 @@ const required = [
   'test:inv-links:baseline',
   'test:inv-links:run',
   'test:inv-links:mutations',
+  'test:inv-links:h1-seal',
+  'test:inv-links:h1-run',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',
@@ -413,7 +415,10 @@ const separate = {
   'inventory-movement-bridge-interface-mutations': [
     'test:inv-move:interface-mutations',
   ],
-  'inventory-links-browser': ['test:inv-links:browser'],
+  'inventory-links-browser': [
+    'test:inv-links:browser',
+    'test:inv-links:h1-browser',
+  ],
   'inventory-links-interface-mutations': [
     'test:inv-links:interface-mutations',
   ],

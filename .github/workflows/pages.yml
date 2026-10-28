@@ -385,6 +385,8 @@ jobs:
           pnpm test:inv-links:baseline
           pnpm test:inv-links:run
           pnpm test:inv-links:mutations
+          pnpm test:inv-links:h1-seal
+          pnpm test:inv-links:h1-run
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations
@@ -1297,7 +1299,7 @@ jobs:
           IMB_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/inventory-movement-bridge-interface-mutations
         run: pnpm test:inv-move:interface-mutations
   inventory-links-browser:
-    name: Inventory register links in the built application, the 31 sealed INV-3 stories on screen and in their links workbooks against the recorded run (INV-3c)
+    name: Inventory register links in the built application, the 31 sealed INV-3 stories and the 21 of holdout H1 on screen and in their links workbooks against the recorded runs (INV-3c and INV-3d)
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -1320,6 +1322,10 @@ jobs:
         env:
           INV_LINKS_BROWSER_DIR: ${{ runner.temp }}/inventory-links-browser
         run: pnpm test:inv-links:browser
+      - name: Verify the sealed INV-3 holdout H1 in the register links section and its links workbooks through the actual Worker, against its recorded first run (INV-3d)
+        env:
+          INV_LINKS_BROWSER_DIR: ${{ runner.temp }}/inventory-links-h1-browser
+        run: pnpm test:inv-links:h1-browser
   inventory-links-interface-mutations:
     name: Inventory register links interface mutations in built browser copies (INV-3c)
     runs-on: ubuntu-latest

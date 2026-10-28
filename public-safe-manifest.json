@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 75813,
-      "sha256": "fef25cfa0ea5bcc161a1e83af770c607a46264d94f4ab273ec2db0dc16348679",
+      "bytes": 76231,
+      "sha256": "a9542f0e062a2791f64031fa35d905c1d7857641950deb8576d375db781faa07",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 49064,
-      "sha256": "2d941002e9268dfa4525e45f45c2f8838115813759a0c5a073226fc79201906a",
+      "bytes": 49434,
+      "sha256": "b46050743f44bda7b3be08887c8bcb8f7a96b4600006398df5666a9e75768c93",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 22076,
-      "sha256": "b34171fe9357cc2f8659f50800ba2286743797ef566edd26586647c0241ad27b",
+      "bytes": 22122,
+      "sha256": "4a10438b9f2670a4d1f89b4b348102f977fb6dd3b5653cc6313162cf056a9c5d",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 111449,
-      "sha256": "4e74b8b523f037a79a9ad304daeca612f28d88aa65bbbd0b3e87bde2f5d5d513",
+      "bytes": 112475,
+      "sha256": "16edda671e604a2d25085f1a7875bdbaa8bc694fbc75a0b561eba5c1a5ebd0ea",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 81919,
-      "sha256": "54617bd4dc4db15fd6835d43d1774d6199310b758ee7b28a8060338d6ef91f2f",
+      "bytes": 82061,
+      "sha256": "a045cd529b33203cdce937e0ba1642f09dc524acc91d38f7605fd4801a024304",
       "kind": "text"
     },
     {
@@ -36253,8 +36253,8 @@
     },
     {
       "path": "docs/roadmap/inventory.ar.md",
-      "bytes": 28279,
-      "sha256": "9ee76e0b0d9b4567df359f180e6035184eca04a35dc41be3d5cc67390bfefac5",
+      "bytes": 28707,
+      "sha256": "1f8d880cbc19e0104496bf81ed9b8cfe6cfee2e078d54dcbd7b8bc160096c086",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 50652,
-      "sha256": "b6294ddbca2283514eab94e43938fd7dc1211ecb92b88ff9b5151d24fab905d5",
+      "bytes": 51272,
+      "sha256": "e3e2735d9c3a16fdc375f8bb197860be029bbe21cac401073c28925f3ec7f3dc",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 16848,
-      "sha256": "7a13585d7c33111b39bebf156a14f89829c5ab33c47b7aefbf50d7ff82536d87",
+      "bytes": 16945,
+      "sha256": "5a0fc14ce4867d140e624deb1ee5d578fe13d6713819ba06c82b8e3b14234da3",
       "kind": "text"
     },
     {
@@ -63317,8 +63317,8 @@
     },
     {
       "path": "audit/inventory-links-foundation/engine-run.mjs",
-      "bytes": 6069,
-      "sha256": "dbd27c9088b6f2853fa1bdfa0c03fbd249282f2951037d0c070869582f31374f",
+      "bytes": 6446,
+      "sha256": "455d45204285c7d327fe33bd8cbe078450c473745ddaf16ab03e17f422991fa1",
       "kind": "text"
     },
     {
@@ -64147,6 +64147,24 @@
       "path": "tests/inventory-register-links-export.test.ts",
       "bytes": 5742,
       "sha256": "1ec3583433ca23751fed8c8c457da777bf8c32b8d01b93292418d507e5270eb5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-holdout-h1/results/browser-run-1.json",
+      "bytes": 1609,
+      "sha256": "e46d13b03ec71e8535b259130a78ce491476283e97ab759284b3c88970158608",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-holdout-h1/results/engine-run-1.json",
+      "bytes": 922,
+      "sha256": "b7c0299d4633b7c3684520e32d664da66e94ccb7c7427c08e6d4dd7c98799043",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV-3D.ar.md",
+      "bytes": 4832,
+      "sha256": "80c0ca329f013cc0e54fcfb4d1a7d3e57ebc823de9f1535fd96d8d0500712b95",
       "kind": "text"
     }
   ],

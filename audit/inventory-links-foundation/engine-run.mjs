@@ -6,6 +6,10 @@
 // dense stories are regenerated and checked against the seal first.
 //
 //   node --experimental-strip-types audit/inventory-links-foundation/engine-run.mjs [--out name] [--assert name]
+//
+// INV_LINKS_SUITE selects another sealed suite (a holdout) with the same
+// layout and no dense stories; --out and --assert name a file in that suite's
+// results/.
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -16,7 +20,9 @@ import { parseArgs } from 'node:util';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, '../..');
-const FROZEN = join(here, 'frozen');
+const SUITE = process.env.INV_LINKS_SUITE;
+const suite = SUITE ? resolve(root, SUITE) : here;
+const FROZEN = join(suite, 'frozen');
 const lib = (name) =>
   pathToFileURL(join(root, 'lib/reconciliation', name)).href;
 const { STOCK_ROLES, STOCK_VERSION } = await import(
@@ -127,16 +133,7 @@ async function judge(folder, sid, want) {
   return where ? { equal: false, firstDifference: where } : { equal: true };
 }
 
-async function main() {
-  const { values: args } = parseArgs({
-    options: { out: { type: 'string' }, assert: { type: 'string' } },
-  });
-  const focused = JSON.parse(
-    readFileSync(join(FROZEN, 'EXPECTED.json'), 'utf8'),
-  ).stories;
-  const stories = {};
-  for (const sid of Object.keys(focused).sort(byText))
-    stories[sid] = await judge(FROZEN, sid, focused[sid]);
+async function dense(stories) {
   const dir = mkdtempSync(join(tmpdir(), 'inv3-dense-'));
   try {
     execFileSync('python3', ['-B', join(here, 'dense.py'), dir], {
@@ -157,20 +154,34 @@ async function main() {
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
+}
+
+async function main() {
+  const { values: args } = parseArgs({
+    options: { out: { type: 'string' }, assert: { type: 'string' } },
+  });
+  const focused = JSON.parse(
+    readFileSync(join(FROZEN, 'EXPECTED.json'), 'utf8'),
+  ).stories;
+  const stories = {};
+  for (const sid of Object.keys(focused).sort(byText))
+    stories[sid] = await judge(FROZEN, sid, focused[sid]);
+  if (!SUITE) await dense(stories);
   const equal = Object.values(stories).filter((s) => s.equal).length;
   const record = {
     schema: 'tarasuf-inv3-engine-run/1',
     family: STOCK_VERSION,
+    ...(SUITE ? { suite: SUITE } : {}),
     rule: 'equal to the sealed expectations in full',
     equal,
     of: Object.keys(stories).length,
     stories,
   };
   const text = JSON.stringify(record, null, 1) + '\n';
-  if (args.out) writeFileSync(join(here, 'results', args.out), text);
+  if (args.out) writeFileSync(join(suite, 'results', args.out), text);
   if (
     args.assert &&
-    readFileSync(join(here, 'results', args.assert), 'utf8') !== text
+    readFileSync(join(suite, 'results', args.assert), 'utf8') !== text
   ) {
     console.error('the engine run differs from its record');
     process.exit(1);
