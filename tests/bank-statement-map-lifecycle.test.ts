@@ -313,7 +313,8 @@ void test('a roll or sheet state carries the cashbook columns as a period does',
   );
 });
 
-void test('next month carries from a session whose cashbook was read with columns', async () => {
+/** August read with columns, carrying July's session read with columns. */
+async function august(choice = CHOICE.columns) {
   const { statement, cashbook, columns } = await inputs();
   const saved = await settled(() =>
     saveBankStatement(
@@ -322,34 +323,38 @@ void test('next month carries from a session whose cashbook was read with column
   );
   assert.equal(saved.error, null);
   const session = saved.value!;
-  const august = await bytes(
+  const ledger = await bytes(
     '../audit/bank-map-foundation/frozen/M01-AUG-cashbook.xlsx',
   );
   const augustStatement = await bytes(
     '../audit/bank-roll-foundation/frozen/R17-AUG-statement.pdf',
   );
   const chosen = chooseCashbookColumns(
-    await readFile('M01-AUG-cashbook.xlsx', august.slice(0)),
-    CHOICE,
+    await readFile('M01-AUG-cashbook.xlsx', ledger.slice(0)),
+    { header: CHOICE.header, columns: choice },
   );
   assert.ok('columns' in chosen);
   const own = state(
     augustStatement,
-    august,
+    ledger,
     'M01-AUG-cashbook.xlsx',
     chosen.columns,
   );
   own.files[0].name = 'R17-AUG-statement.pdf';
-  const rolled = await settled(() =>
-    replayRolledStatement({
-      ...own,
-      version: 'bank-statement-roll-1',
-      previous: {
-        name: 'R17-JUL.json',
-        sha256: sha(session),
-        original: session,
-      },
-    }),
+  return {
+    ...own,
+    version: 'bank-statement-roll-1',
+    previous: {
+      name: 'R17-JUL.json',
+      sha256: sha(session),
+      original: session,
+    },
+  };
+}
+
+void test('next month carries from a session whose cashbook was read with columns', async () => {
+  const rolled = await settled(async () =>
+    replayRolledStatement(await august()),
   );
   assert.equal(rolled.error, null);
   const { roll, cases } = rolled.value!.result;
@@ -363,4 +368,50 @@ void test('next month carries from a session whose cashbook was read with column
     cases.filter((c) => c.kind === 'carried').map((c) => c.reason),
     ['carried-reference'],
   );
+});
+
+// A period that carries reads its own cashbook as any period does: what the
+// mapped reading left out is reported, and its decisions are bound to the
+// columns (bank-cashbook-map-1 reading.rows, session.context).
+void test('a period that carries reports what its columns left out', async () => {
+  const rolled = await settled(async () =>
+    replayRolledStatement(await august()),
+  );
+  assert.equal(rolled.error, null);
+  const cited = rolled.value!.result.sources[1] as Record<string, unknown>;
+  assert.equal(cited.above, 3);
+  assert.deepEqual(
+    (cited.unread as { label: string }[]).map((u) => u.label),
+    ['Document No', 'Balance'],
+  );
+});
+
+void test('a decision in a period that carries is refused under other columns', async () => {
+  const own = await august();
+  const first = await replayRolledStatement(own);
+  const carried = first.result.cases.find((c) => c.kind === 'carried')!;
+  const decision = {
+    id: 'D1',
+    type: 'accept',
+    context: first.result.context,
+    at: '2026-08-31T09:00:00.000Z',
+    case: carried.id,
+    statement: [...carried.statement],
+    cashbook: [...carried.cashbook],
+    note: 'synthetic',
+  };
+  const kept = await settled(() =>
+    replayRolledStatement({ ...own, decisions: [decision] }),
+  );
+  assert.equal(kept.error, null);
+  assert.equal(
+    kept.value!.result.cases.find((c) => c.id === carried.id)!.status,
+    'matched-accepted',
+  );
+  // The same file, its description read from another labelled column.
+  const other = await august({ ...CHOICE.columns, description: 3 });
+  const moved = await settled(() =>
+    replayRolledStatement({ ...other, decisions: [decision] }),
+  );
+  assert.equal(moved.error, 'BANK_STATEMENT_DECISION');
 });

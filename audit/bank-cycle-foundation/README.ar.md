@@ -71,12 +71,26 @@
 
 `ELIGIBILITY.json` كتبته [أداة الأهلية](../bank-statement-eligibility/README.ar.md) على روابط إلى الكشوف بأسماء بلا شرطة بين القصة والشهر، `Y01JUL` لـ`Y01-JUL`، كما في W4، لأن الأداة تأخذ اسم القصة مما قبل أول شرطة. لم تجد سببًا يرفض به القارئ كشفًا. **ودفاتر الشركة لا يفحصها فحص الدفتر المعلن،** فهي تُقرأ بالأعمدة؛ ويقرؤها الأوراكل بقارئ المصنف الذي يقرأ به أوراكل MAP-1، فيرفض ما فيه خلية مخفية أو مدمجة أو صيغة.
 
+## النتائج والتصحيح الأول
+
+سجلات المنتج في `results/`، كل منها كما جاء ولا يُعاد كتابته. [التقرير](../../docs/audits/WF-1-CYCLE-RUN.ar.md).
+
+| السجل | المنتج | مقابل `frozen/EXPECTED.json` | مقابل `correction-1/EXPECTED.json` |
+|---|---|---|---|
+| `run-1.json`، الأول كما جاء | 561ee06 | 2/14 | — |
+| `run-2.json` | 561ee06 نفسه | 2/14 | 7/14 |
+| `run-3.json`، يؤكده CI | بعد إصلاح الشهر المرحِّل بالأعمدة | 4/14 | 14/14 |
+
+**في `correction-1/` تصحيح للتوقع المختوم لا يمسه:** كان الأوراكل يذكر قيود الدفتر بصفوفها في التوأم المعلن مع بصمة الدفتر. `correction-1/oracle.py` طبقة فوق `oracle.py` المختوم تذكرها بصفوفها في الدفتر، و`correction-1/check.py` يثبت أن الختم سليم، وأن الفرق 26 صف دفتر لا غير، وأن كل بند دفتر في ورقة في صفه من دفتره بقارئ مستقل، ويكتشف ستة عيوب مزروعة. صُنع بعد التشغيل الأول، فليس أعمى. و`CORRECTION.json` يسجل ما صحّحه ومتى وبصمات ملفاته.
+
 ## الإعادة
 
 ```sh
 python3 -B audit/bank-cycle-foundation/check_seal.py
 python3 -B -m unittest discover -s audit/bank-cycle-foundation -p test_oracle.py
 python3 -B audit/bank-cycle-foundation/mutate_oracle.py
+python3 -B audit/bank-cycle-foundation/correction-1/check.py
+node --experimental-strip-types scripts/bank-cycle-run.mjs --assert=run-3.json
 # إعادة الرسم والقراءة المستقلة (لا تُستعمل لتغيير أصول مختومة):
 PYTHONPATH=<pymupdf, fontTools> python3 -B audit/bank-cycle-foundation/render.py --modules <js>/node_modules --gems <ruby> --out <dir>
 python3 -B audit/bank-cycle-foundation/stories.py --records > <dir>/records.json

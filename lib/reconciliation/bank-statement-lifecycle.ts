@@ -804,10 +804,20 @@ export async function replayRolledStatement(
     scope.confirmedClosing,
     clearing.match.statement.completeness,
     file.sha256,
+    // As in a period alone: a decision taken under other columns is
+    // refused, and a cashbook without columns keeps its context.
+    ...(state.files[1].columns ? [state.files[1].columns] : []),
   ]);
+  // And what the mapped reading left out is still said.
+  const { unread } = base;
   return settleStatement(
     state,
-    frozen({ reading: base.reading, match: clearing.match, context }),
+    frozen({
+      reading: base.reading,
+      match: clearing.match,
+      context,
+      ...(unread ? { unread } : {}),
+    }),
     frozen({ previous, carried, clearing }),
   );
 }

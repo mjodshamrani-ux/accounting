@@ -332,6 +332,8 @@ jobs:
           pnpm test:bank-cycle:oracle
           pnpm test:bank-cycle:oracle-mutants
           pnpm test:bank-cycle:seal
+          pnpm test:bank-cycle:correction
+          pnpm test:bank-cycle:run
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations

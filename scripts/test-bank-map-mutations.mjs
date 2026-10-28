@@ -263,6 +263,19 @@ const mutations = [
     '          ? { columns: structuredClone(f.columns), ...base.unread }',
     '          ? { columns: structuredClone(f.columns) }',
   ],
+  // The same two in a period that carries (WF-1 cycle).
+  [
+    'carrying-context-without-columns',
+    LIFE,
+    '    ...(state.files[1].columns ? [state.files[1].columns] : []),\n  ]);',
+    '  ]);',
+  ],
+  [
+    'carrying-result-without-what-was-left-out',
+    LIFE,
+    '      ...(unread ? { unread } : {}),\n',
+    '',
+  ],
   [
     'mapped-reading-writable',
     LIFE,

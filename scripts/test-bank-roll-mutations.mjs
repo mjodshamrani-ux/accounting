@@ -151,7 +151,12 @@ const mutations = [
     "  'carried-amount-suggestion',\n];",
     "  'carried-amount-suggestion',\n  'carried-amount-difference',\n];",
   ],
-  ['context-without-previous', LIFE, '    file.sha256,\n  ]);', '  ]);'],
+  [
+    'context-without-previous',
+    LIFE,
+    '    file.sha256,\n    // As in a period alone',
+    '    // As in a period alone',
+  ],
   [
     'carried-members-outstanding',
     LIFE,
