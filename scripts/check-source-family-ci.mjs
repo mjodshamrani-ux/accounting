@@ -177,6 +177,7 @@ const required = [
   'test:bank-cycle:correction',
   'test:bank-cycle:run',
   'test:bank-cycle:c4-seal',
+  'test:bank-cycle:c4-run',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',
@@ -324,7 +325,10 @@ const separate = {
     'test:bank-tolerance:browser',
     'test:bank-tolerance:t4-browser',
   ],
-  'bank-cycle-browser': ['test:bank-cycle:browser'],
+  'bank-cycle-browser': [
+    'test:bank-cycle:browser',
+    'test:bank-cycle:c4-browser',
+  ],
   'bank-statement-holdout': [
     'test:bank-statement:g6-holdout',
     'test:bank-statement:g6-browser',

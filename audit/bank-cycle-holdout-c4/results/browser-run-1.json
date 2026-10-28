@@ -1,0 +1,89 @@
+{
+ "suite": "audit/bank-cycle-holdout-c4",
+ "summary": {
+  "stories": 6,
+  "saves": 7,
+  "equalToExpected": 7,
+  "pageAgrees": 7,
+  "sessionsRead": 7,
+  "errors": 6,
+  "stepsRefused": 0,
+  "pageErrors": 0,
+  "externalRequests": 0,
+  "nonGetRequests": 0
+ },
+ "stories": {
+  "Z01": {
+   "saves": {
+    "Z01-FEB": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    }
+   },
+   "error": "Cannot read properties of null (reading 'Z01')"
+  },
+  "Z02": {
+   "saves": {
+    "Z02-MAR": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    }
+   },
+   "error": "Cannot read properties of null (reading 'Z02')"
+  },
+  "Z03": {
+   "saves": {
+    "Z03-APR": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    }
+   },
+   "error": "Cannot read properties of null (reading 'Z03')"
+  },
+  "Z04": {
+   "saves": {
+    "Z04-MAY-open": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    },
+    "Z04-MAY": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    }
+   },
+   "error": "Cannot read properties of null (reading 'Z04')"
+  },
+  "Z05": {
+   "saves": {
+    "Z05-JUN": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    }
+   },
+   "error": "Cannot read properties of null (reading 'Z05')"
+  },
+  "Z06": {
+   "saves": {
+    "Z06-JAN": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    }
+   },
+   "error": "Cannot read properties of null (reading 'Z06')"
+  }
+ }
+}

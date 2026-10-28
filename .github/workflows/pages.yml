@@ -335,6 +335,7 @@ jobs:
           pnpm test:bank-cycle:correction
           pnpm test:bank-cycle:run
           pnpm test:bank-cycle:c4-seal
+          pnpm test:bank-cycle:c4-run
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations
@@ -862,9 +863,9 @@ jobs:
           BANK_TOLERANCE_BROWSER_DIR: ${{ runner.temp }}/bank-tolerance-t4-browser
         run: pnpm test:bank-tolerance:t4-browser
   bank-cycle-browser:
-    name: Bank two-month cycle in the built application, on the sealed cycle stories against the corrected reference (WF-1 cycle)
+    name: Bank two-month cycle in the built application, on the sealed cycle stories against the corrected reference and on the C4 holdout (WF-1 cycle)
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
@@ -885,6 +886,10 @@ jobs:
         env:
           BANK_CYCLE_BROWSER_DIR: ${{ runner.temp }}/bank-cycle-browser
         run: pnpm test:bank-cycle:browser
+      - name: Verify the two-month cycle on the sealed C4 holdout in the bank workspace through the actual Worker, other statement and ledger writers, against its recorded run (WF-1 cycle C4)
+        env:
+          BANK_CYCLE_BROWSER_DIR: ${{ runner.temp }}/bank-cycle-c4-browser
+        run: pnpm test:bank-cycle:c4-browser
   bank-statement-holdout:
     name: Bank statement holdouts from eighteen other PDF producers against their recorded outcomes (BNK-PDF-1 G6, G8, G9, G10, G12, G14, G15, G17, G20)
     runs-on: ubuntu-latest

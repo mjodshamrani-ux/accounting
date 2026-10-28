@@ -392,7 +392,7 @@ async function openMonth(u, story, step, sessions) {
       panel(u).locator('[data-bank-map-read="map"]'),
       `${pid}: read with the map`,
     );
-    const want = corrected[story.id];
+    const want = (corrected ?? expected)[story.id];
     const label = story.steps.find(
       (s, k) => k > story.steps.indexOf(step) && s.save,
     )?.save;

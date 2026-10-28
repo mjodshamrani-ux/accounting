@@ -71,6 +71,17 @@
   - وصار عرض المتصفح يُقرأ من القصة (`width`).
 - **قرأت المسودات pdfminer.six وMuPDF وأداة الأهلية والأوراكل وحدها.** لم يُشغَّل على أي مسودة ولا على الملفات المختومة سكربت يقرأ بقارئ المنتج قبل الدفع ([DEV-61](../../docs/reference/DEVELOPMENT-LESSONS.ar.md)).
 
+## النتائج
+
+سجلات المنتج في `results/`، كل منها كما جاء ولا يُعاد كتابته. [التقرير](../../docs/audits/WF-1-CYCLE-C4.ar.md).
+
+| السجل | المسار | المنتج | مقابل `frozen/EXPECTED.json` |
+|---|---|---|---|
+| `run-1.json`، الأول كما جاء، يؤكده CI | المكتبة | 23b6a05 | **15/15** |
+| `browser-run-1.json`، الأول كما جاء | المتصفح | 23b6a05 | 7 حفظات مساوية، ثم خطأ في المشغّل في الشهر الثاني من كل قصة |
+| `browser-run-2.json`، يؤكده CI | المتصفح | 23b6a05، بعد إصلاح المشغّل | **15/15، والصفحة 15/15** |
+| `run-561ee06.json` | المكتبة | 561ee06، قبل إصلاح DEV-82 | 7/15 |
+
 ## الملفات
 
 | الملف | دوره |
@@ -89,6 +100,8 @@
 ```sh
 python3 -B audit/bank-cycle-holdout-c4/check_seal.py
 python3 -B -m unittest discover -s audit/bank-cycle-holdout-c4 -p test_intent.py
+pnpm test:bank-cycle:c4-run
+pnpm build && pnpm test:bank-cycle:c4-browser
 # إعادة الرسم والقراءة المستقلة (لا تُستعمل لتغيير أصول مختومة):
 cp js/package.json js/package-lock.json <js dir> && npm ci --prefix <js dir> --ignore-scripts
 cp php/composer.json php/composer.lock <php dir> && composer install --no-plugins --no-scripts --working-dir <php dir>

@@ -1,0 +1,4043 @@
+{
+ "suite": "audit/bank-cycle-holdout-c4",
+ "summary": {
+  "stories": 6,
+  "savesExpected": 15,
+  "saves": 15,
+  "equalToExpected": 7,
+  "savedAndRestored": 15,
+  "errors": 0,
+  "actionsRefused": 0,
+  "sessionHashes": {
+   "carried": 25,
+   "equal": 25
+  },
+  "toleranceSections": {
+   "sheets": 14,
+   "presentExactlyWithPolicy": 14
+  },
+  "workbooksWritten": 15
+ },
+ "stories": {
+  "Z01": {
+   "saves": {
+    "Z01-FEB": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    },
+    "Z01-MAR": {
+     "equal": false,
+     "differences": [
+      "reading"
+     ],
+     "outcome": {
+      "period": "Z01-MAR",
+      "previous": "accepted",
+      "reading": {
+       "by": "map",
+       "map": "Sage bank export",
+       "misfit": null,
+       "header": 1,
+       "columns": {
+        "date": 3,
+        "voucher": 1,
+        "description": 5,
+        "reference": 4,
+        "receipts": 7,
+        "payments": 6
+       },
+       "entries": 11
+      },
+      "policy": null,
+      "refused": null,
+      "held": false,
+      "cases": [
+       {
+        "id": "C1",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S2"
+        ],
+        "cashbook": [
+         "4108"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C2",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S3"
+        ],
+        "cashbook": [
+         "4109"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C3",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S4"
+        ],
+        "cashbook": [
+         "4110"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C4",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S5"
+        ],
+        "cashbook": [
+         "4111"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C5",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S9"
+        ],
+        "cashbook": [
+         "4113"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C6",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S11"
+        ],
+        "cashbook": [
+         "4114"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C7",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S7"
+        ],
+        "cashbook": [
+         "4112"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C8",
+        "kind": "review",
+        "reason": "date-gap",
+        "status": "matched-accepted",
+        "statement": [
+         "S6"
+        ],
+        "cashbook": [
+         "4302"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C9",
+        "kind": "review",
+        "reason": "date-gap",
+        "status": "matched-accepted",
+        "statement": [
+         "S8"
+        ],
+        "cashbook": [
+         "4303"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C10",
+        "kind": "review",
+        "reason": "amount-difference",
+        "status": "rejected",
+        "statement": [
+         "S10"
+        ],
+        "cashbook": [
+         "4304"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C11",
+        "kind": "carried",
+        "reason": "carried-reference",
+        "status": "matched-accepted",
+        "statement": [],
+        "cashbook": [
+         "4301"
+        ],
+        "carried": [
+         "FEB:S11"
+        ]
+       },
+       {
+        "id": "C12",
+        "kind": "carried",
+        "reason": "carried-reference",
+        "status": "matched-accepted",
+        "statement": [
+         "S1"
+        ],
+        "cashbook": [],
+        "carried": [
+         "FEB:4204"
+        ]
+       }
+      ],
+      "exceeded": null,
+      "tolerated": [],
+      "queue": [
+       {
+        "reason": "amount-difference",
+        "class": "exception",
+        "direction": "in",
+        "shape": "1:1",
+        "gap": null,
+        "cases": [
+         "C10"
+        ],
+        "impact": 77701,
+        "offers": {
+         "accept": false,
+         "reject": false
+        }
+       },
+       {
+        "reason": "date-gap",
+        "class": "suggestion",
+        "direction": "out",
+        "shape": "1:1",
+        "gap": 5,
+        "cases": [
+         "C8",
+         "C9"
+        ],
+        "impact": 61000,
+        "offers": {
+         "accept": true,
+         "reject": true
+        }
+       }
+      ],
+      "carried": [
+       {
+        "item": "FEB:S3",
+        "side": "statement",
+        "id": "S3",
+        "period": "FEB",
+        "date": "2029-02-06",
+        "direction": "out",
+        "amount": 182003,
+        "reference": "INV-4471",
+        "origin": "C8",
+        "age": 1
+       },
+       {
+        "item": "FEB:S11",
+        "side": "statement",
+        "id": "S11",
+        "period": "FEB",
+        "date": "2029-02-28",
+        "direction": "out",
+        "amount": 4500,
+        "reference": "CHG-2902",
+        "origin": "unmatched",
+        "age": 1
+       },
+       {
+        "item": "FEB:4201",
+        "side": "cashbook",
+        "id": "4201",
+        "period": "FEB",
+        "date": "2029-02-06",
+        "direction": "out",
+        "amount": 182000,
+        "reference": "INV-4471",
+        "origin": "C8",
+        "age": 1
+       },
+       {
+        "item": "FEB:4204",
+        "side": "cashbook",
+        "id": "4204",
+        "period": "FEB",
+        "date": "2029-02-27",
+        "direction": "in",
+        "amount": 150000,
+        "reference": "LDG-2902",
+        "origin": "unmatched",
+        "age": 1
+       }
+      ],
+      "withheld": [],
+      "still": [
+       {
+        "item": "FEB:S3",
+        "age": 2
+       },
+       {
+        "item": "FEB:4201",
+        "age": 2
+       }
+      ],
+      "pending": 0,
+      "outstanding": [
+       {
+        "item": "MAR:S10",
+        "side": "statement",
+        "id": "S10",
+        "period": "MAR",
+        "date": "2029-03-24",
+        "direction": "in",
+        "amount": 77701,
+        "reference": "RCV-8840",
+        "origin": "C10",
+        "age": 1
+       },
+       {
+        "item": "MAR:4304",
+        "side": "cashbook",
+        "id": "4304",
+        "period": "MAR",
+        "date": "2029-03-24",
+        "direction": "in",
+        "amount": 77700,
+        "reference": "RCV-8840",
+        "origin": "C10",
+        "age": 1
+       },
+       {
+        "item": "FEB:S3",
+        "side": "statement",
+        "id": "S3",
+        "period": "FEB",
+        "date": "2029-02-06",
+        "direction": "out",
+        "amount": 182003,
+        "reference": "INV-4471",
+        "origin": "C8",
+        "age": 2
+       },
+       {
+        "item": "FEB:4201",
+        "side": "cashbook",
+        "id": "4201",
+        "period": "FEB",
+        "date": "2029-02-06",
+        "direction": "out",
+        "amount": 182000,
+        "reference": "INV-4471",
+        "origin": "C8",
+        "age": 2
+       }
+      ],
+      "sheet": {
+       "refusal": null,
+       "status": "difference",
+       "bank": {
+        "balance": 32509636,
+        "page": 1
+       },
+       "book": {
+        "balance": 32509640,
+        "note": "Bank account balance per general ledger"
+       },
+       "sections": {
+        "bookReceiptsNotOnStatement": {
+         "total": 77700,
+         "items": [
+          {
+           "item": "MAR:4304",
+           "side": "cashbook",
+           "id": "4304",
+           "period": "MAR",
+           "page": null,
+           "row": 11,
+           "date": "2029-03-24",
+           "direction": "in",
+           "amount": 77700,
+           "reference": "RCV-8840",
+           "origin": "rejected",
+           "reason": "amount-difference",
+           "age": null,
+           "source": "a64dfd271bdc23aadb2cc4b85ce5711ed267a5dd06e5e6f5306ec1623fbe4bb6"
+          }
+         ]
+        },
+        "bookPaymentsNotOnStatement": {
+         "total": 182000,
+         "items": [
+          {
+           "item": "FEB:4201",
+           "side": "cashbook",
+           "id": "4201",
+           "period": "FEB",
+           "page": null,
+           "row": 4,
+           "date": "2029-02-06",
+           "direction": "out",
+           "amount": 182000,
+           "reference": "INV-4471",
+           "origin": "carried",
+           "reason": null,
+           "age": 2,
+           "source": "de5648ba0a6b13522155715dfb00ff6fcbac788b2b576979b9f931ce53f17619"
+          }
+         ]
+        },
+        "statementDepositsNotInBook": {
+         "total": 77701,
+         "items": [
+          {
+           "item": "MAR:S10",
+           "side": "statement",
+           "id": "S10",
+           "period": "MAR",
+           "page": 1,
+           "row": null,
+           "date": "2029-03-24",
+           "direction": "in",
+           "amount": 77701,
+           "reference": "RCV-8840",
+           "origin": "rejected",
+           "reason": "amount-difference",
+           "age": null,
+           "source": "c79aa61c4e27dd83e192720ce851c0633bee57e42a139f2930ac923fa60a8f67"
+          }
+         ]
+        },
+        "statementWithdrawalsNotInBook": {
+         "total": 182003,
+         "items": [
+          {
+           "item": "FEB:S3",
+           "side": "statement",
+           "id": "S3",
+           "period": "FEB",
+           "page": 1,
+           "row": null,
+           "date": "2029-02-06",
+           "direction": "out",
+           "amount": 182003,
+           "reference": "INV-4471",
+           "origin": "carried",
+           "reason": null,
+           "age": 2,
+           "source": "0676d507630ef6f5d3a0e7563f5ee497b54a7192a816593de7ad19795b6af8b7"
+          }
+         ]
+        }
+       },
+       "adjustedBank": 32405336,
+       "adjustedBook": 32405338,
+       "difference": -2,
+       "toleratedDifferences": [],
+       "tolerated": 0,
+       "unexplained": -2,
+       "policy": null
+      },
+      "language": "en",
+      "signoffs": {
+       "prepared": {
+        "name": "Lina Haddad",
+        "date": "2029-04-02",
+        "valid": true
+       },
+       "reviewed": {
+        "name": "Faisal Qureshi",
+        "date": "2029-04-03",
+        "valid": true
+       }
+      }
+     },
+     "savedAndRestored": true
+    }
+   }
+  },
+  "Z02": {
+   "saves": {
+    "Z02-MAR": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    },
+    "Z02-APR": {
+     "equal": false,
+     "differences": [
+      "reading"
+     ],
+     "outcome": {
+      "period": "Z02-APR",
+      "previous": "accepted",
+      "reading": {
+       "by": "map",
+       "map": "حساب البنك الجاري",
+       "misfit": null,
+       "header": 4,
+       "columns": {
+        "date": 1,
+        "voucher": 2,
+        "description": 4,
+        "reference": 5,
+        "receipts": 6,
+        "payments": 7
+       },
+       "entries": 10
+      },
+      "policy": {
+       "perItem": 2,
+       "perPeriod": 5,
+       "note": "فروق تقريب التحصيل"
+      },
+      "refused": null,
+      "held": false,
+      "cases": [
+       {
+        "id": "C1",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S3"
+        ],
+        "cashbook": [
+         "JV-29-0309"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C2",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S7"
+        ],
+        "cashbook": [
+         "JV-29-0311"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C3",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S10"
+        ],
+        "cashbook": [
+         "JV-29-0312"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C4",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S12"
+        ],
+        "cashbook": [
+         "JV-29-0314"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C5",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S1"
+        ],
+        "cashbook": [
+         "JV-29-0308"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C6",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S5"
+        ],
+        "cashbook": [
+         "JV-29-0310"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C7",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S11"
+        ],
+        "cashbook": [
+         "JV-29-0313"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C8",
+        "kind": "tolerated",
+        "reason": "within-tolerance",
+        "status": "matched-tolerated",
+        "statement": [
+         "S9"
+        ],
+        "cashbook": [
+         "JV-29-0492"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C9",
+        "kind": "review",
+        "reason": "duplicate-reference",
+        "status": "rejected",
+        "statement": [
+         "S6",
+         "S8"
+        ],
+        "cashbook": [
+         "JV-29-0493"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C10",
+        "kind": "tolerated",
+        "reason": "within-tolerance",
+        "status": "matched-tolerated",
+        "statement": [
+         "S4"
+        ],
+        "cashbook": [
+         "JV-29-0491"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C11",
+        "kind": "carried",
+        "reason": "carried-amount-difference",
+        "status": "rejected",
+        "statement": [
+         "S2"
+        ],
+        "cashbook": [],
+        "carried": [
+         "MAR:JV-29-0394"
+        ]
+       }
+      ],
+      "exceeded": null,
+      "tolerated": [
+       "C8",
+       "C10"
+      ],
+      "queue": [
+       {
+        "reason": "duplicate-reference",
+        "class": "exception",
+        "direction": "out",
+        "shape": "2:1",
+        "gap": null,
+        "cases": [
+         "C9"
+        ],
+        "impact": 30000,
+        "offers": {
+         "accept": false,
+         "reject": false
+        }
+       }
+      ],
+      "carried": [
+       {
+        "item": "MAR:S2",
+        "side": "statement",
+        "id": "S2",
+        "period": "MAR",
+        "date": "2029-03-05",
+        "direction": "out",
+        "amount": 64005,
+        "reference": "PO-7731",
+        "origin": "C8",
+        "age": 1
+       },
+       {
+        "item": "MAR:S5",
+        "side": "statement",
+        "id": "S5",
+        "period": "MAR",
+        "date": "2029-03-11",
+        "direction": "out",
+        "amount": 31502,
+        "reference": "PO-7736",
+        "origin": "C9",
+        "age": 1
+       },
+       {
+        "item": "MAR:S7",
+        "side": "statement",
+        "id": "S7",
+        "period": "MAR",
+        "date": "2029-03-19",
+        "direction": "in",
+        "amount": 98000,
+        "reference": "SO-2207",
+        "origin": "C10",
+        "age": 1
+       },
+       {
+        "item": "MAR:JV-29-0391",
+        "side": "cashbook",
+        "id": "JV-29-0391",
+        "period": "MAR",
+        "date": "2029-03-05",
+        "direction": "out",
+        "amount": 64000,
+        "reference": "PO-7731",
+        "origin": "C8",
+        "age": 1
+       },
+       {
+        "item": "MAR:JV-29-0392",
+        "side": "cashbook",
+        "id": "JV-29-0392",
+        "period": "MAR",
+        "date": "2029-03-11",
+        "direction": "out",
+        "amount": 31500,
+        "reference": "PO-7736",
+        "origin": "C9",
+        "age": 1
+       },
+       {
+        "item": "MAR:JV-29-0393",
+        "side": "cashbook",
+        "id": "JV-29-0393",
+        "period": "MAR",
+        "date": "2029-03-19",
+        "direction": "in",
+        "amount": 98004,
+        "reference": "SO-2207",
+        "origin": "C10",
+        "age": 1
+       },
+       {
+        "item": "MAR:JV-29-0394",
+        "side": "cashbook",
+        "id": "JV-29-0394",
+        "period": "MAR",
+        "date": "2029-03-26",
+        "direction": "out",
+        "amount": 235000,
+        "reference": "CHQ-004512",
+        "origin": "unmatched",
+        "age": 1
+       }
+      ],
+      "withheld": [],
+      "still": [
+       {
+        "item": "MAR:S2",
+        "age": 2
+       },
+       {
+        "item": "MAR:S5",
+        "age": 2
+       },
+       {
+        "item": "MAR:S7",
+        "age": 2
+       },
+       {
+        "item": "MAR:JV-29-0391",
+        "age": 2
+       },
+       {
+        "item": "MAR:JV-29-0392",
+        "age": 2
+       },
+       {
+        "item": "MAR:JV-29-0393",
+        "age": 2
+       }
+      ],
+      "pending": 0,
+      "outstanding": [
+       {
+        "item": "APR:S2",
+        "side": "statement",
+        "id": "S2",
+        "period": "APR",
+        "date": "2029-04-04",
+        "direction": "out",
+        "amount": 235002,
+        "reference": "CHQ-004512",
+        "origin": "C11",
+        "age": 1
+       },
+       {
+        "item": "APR:S6",
+        "side": "statement",
+        "id": "S6",
+        "period": "APR",
+        "date": "2029-04-14",
+        "direction": "out",
+        "amount": 15000,
+        "reference": "SADAD-77120",
+        "origin": "C9",
+        "age": 1
+       },
+       {
+        "item": "APR:S8",
+        "side": "statement",
+        "id": "S8",
+        "period": "APR",
+        "date": "2029-04-15",
+        "direction": "out",
+        "amount": 15000,
+        "reference": "SADAD-77120",
+        "origin": "C9",
+        "age": 1
+       },
+       {
+        "item": "APR:JV-29-0493",
+        "side": "cashbook",
+        "id": "JV-29-0493",
+        "period": "APR",
+        "date": "2029-04-14",
+        "direction": "out",
+        "amount": 30000,
+        "reference": "SADAD-77120",
+        "origin": "C9",
+        "age": 1
+       },
+       {
+        "item": "MAR:S2",
+        "side": "statement",
+        "id": "S2",
+        "period": "MAR",
+        "date": "2029-03-05",
+        "direction": "out",
+        "amount": 64005,
+        "reference": "PO-7731",
+        "origin": "C8",
+        "age": 2
+       },
+       {
+        "item": "MAR:S5",
+        "side": "statement",
+        "id": "S5",
+        "period": "MAR",
+        "date": "2029-03-11",
+        "direction": "out",
+        "amount": 31502,
+        "reference": "PO-7736",
+        "origin": "C9",
+        "age": 2
+       },
+       {
+        "item": "MAR:S7",
+        "side": "statement",
+        "id": "S7",
+        "period": "MAR",
+        "date": "2029-03-19",
+        "direction": "in",
+        "amount": 98000,
+        "reference": "SO-2207",
+        "origin": "C10",
+        "age": 2
+       },
+       {
+        "item": "MAR:JV-29-0391",
+        "side": "cashbook",
+        "id": "JV-29-0391",
+        "period": "MAR",
+        "date": "2029-03-05",
+        "direction": "out",
+        "amount": 64000,
+        "reference": "PO-7731",
+        "origin": "C8",
+        "age": 2
+       },
+       {
+        "item": "MAR:JV-29-0392",
+        "side": "cashbook",
+        "id": "JV-29-0392",
+        "period": "MAR",
+        "date": "2029-03-11",
+        "direction": "out",
+        "amount": 31500,
+        "reference": "PO-7736",
+        "origin": "C9",
+        "age": 2
+       },
+       {
+        "item": "MAR:JV-29-0393",
+        "side": "cashbook",
+        "id": "JV-29-0393",
+        "period": "MAR",
+        "date": "2029-03-19",
+        "direction": "in",
+        "amount": 98004,
+        "reference": "SO-2207",
+        "origin": "C10",
+        "age": 2
+       },
+       {
+        "item": "MAR:JV-29-0394",
+        "side": "cashbook",
+        "id": "JV-29-0394",
+        "period": "MAR",
+        "date": "2029-03-26",
+        "direction": "out",
+        "amount": 235000,
+        "reference": "CHQ-004512",
+        "origin": "unmatched",
+        "age": 2
+       }
+      ],
+      "sheet": {
+       "refusal": null,
+       "status": "reconciled-within-tolerance",
+       "bank": {
+        "balance": 27651383,
+        "page": 1
+       },
+       "book": {
+        "balance": 27651397,
+        "note": "رصيد حساب البنك في دفتر الأستاذ"
+       },
+       "sections": {
+        "bookReceiptsNotOnStatement": {
+         "total": 98004,
+         "items": [
+          {
+           "item": "MAR:JV-29-0393",
+           "side": "cashbook",
+           "id": "JV-29-0393",
+           "period": "MAR",
+           "page": null,
+           "row": 12,
+           "date": "2029-03-19",
+           "direction": "in",
+           "amount": 98004,
+           "reference": "SO-2207",
+           "origin": "carried",
+           "reason": null,
+           "age": 2,
+           "source": "f732fc5975fd06041e54087beeb29475ecc7c5a34787ed010dc08d7ae859f4b5"
+          }
+         ]
+        },
+        "bookPaymentsNotOnStatement": {
+         "total": 360500,
+         "items": [
+          {
+           "item": "MAR:JV-29-0391",
+           "side": "cashbook",
+           "id": "JV-29-0391",
+           "period": "MAR",
+           "page": null,
+           "row": 7,
+           "date": "2029-03-05",
+           "direction": "out",
+           "amount": 64000,
+           "reference": "PO-7731",
+           "origin": "carried",
+           "reason": null,
+           "age": 2,
+           "source": "f732fc5975fd06041e54087beeb29475ecc7c5a34787ed010dc08d7ae859f4b5"
+          },
+          {
+           "item": "MAR:JV-29-0392",
+           "side": "cashbook",
+           "id": "JV-29-0392",
+           "period": "MAR",
+           "page": null,
+           "row": 9,
+           "date": "2029-03-11",
+           "direction": "out",
+           "amount": 31500,
+           "reference": "PO-7736",
+           "origin": "carried",
+           "reason": null,
+           "age": 2,
+           "source": "f732fc5975fd06041e54087beeb29475ecc7c5a34787ed010dc08d7ae859f4b5"
+          },
+          {
+           "item": "MAR:JV-29-0394",
+           "side": "cashbook",
+           "id": "JV-29-0394",
+           "period": "MAR",
+           "page": null,
+           "row": 14,
+           "date": "2029-03-26",
+           "direction": "out",
+           "amount": 235000,
+           "reference": "CHQ-004512",
+           "origin": "rejected",
+           "reason": "carried-amount-difference",
+           "age": 2,
+           "source": "f732fc5975fd06041e54087beeb29475ecc7c5a34787ed010dc08d7ae859f4b5"
+          },
+          {
+           "item": "APR:JV-29-0493",
+           "side": "cashbook",
+           "id": "JV-29-0493",
+           "period": "APR",
+           "page": null,
+           "row": 9,
+           "date": "2029-04-14",
+           "direction": "out",
+           "amount": 30000,
+           "reference": "SADAD-77120",
+           "origin": "rejected",
+           "reason": "duplicate-reference",
+           "age": null,
+           "source": "845783dfec34aaa14ebf3c402d79d9429ec568e3859831e59b6b5dabef72a1fd"
+          }
+         ]
+        },
+        "statementDepositsNotInBook": {
+         "total": 98000,
+         "items": [
+          {
+           "item": "MAR:S7",
+           "side": "statement",
+           "id": "S7",
+           "period": "MAR",
+           "page": 1,
+           "row": null,
+           "date": "2029-03-19",
+           "direction": "in",
+           "amount": 98000,
+           "reference": "SO-2207",
+           "origin": "carried",
+           "reason": null,
+           "age": 2,
+           "source": "5ba56aa8fe82808ea96da10005031fcfc3c3ce0140a71b00557b593f9ee77d4c"
+          }
+         ]
+        },
+        "statementWithdrawalsNotInBook": {
+         "total": 360509,
+         "items": [
+          {
+           "item": "MAR:S2",
+           "side": "statement",
+           "id": "S2",
+           "period": "MAR",
+           "page": 1,
+           "row": null,
+           "date": "2029-03-05",
+           "direction": "out",
+           "amount": 64005,
+           "reference": "PO-7731",
+           "origin": "carried",
+           "reason": null,
+           "age": 2,
+           "source": "5ba56aa8fe82808ea96da10005031fcfc3c3ce0140a71b00557b593f9ee77d4c"
+          },
+          {
+           "item": "MAR:S5",
+           "side": "statement",
+           "id": "S5",
+           "period": "MAR",
+           "page": 1,
+           "row": null,
+           "date": "2029-03-11",
+           "direction": "out",
+           "amount": 31502,
+           "reference": "PO-7736",
+           "origin": "carried",
+           "reason": null,
+           "age": 2,
+           "source": "5ba56aa8fe82808ea96da10005031fcfc3c3ce0140a71b00557b593f9ee77d4c"
+          },
+          {
+           "item": "APR:S2",
+           "side": "statement",
+           "id": "S2",
+           "period": "APR",
+           "page": 1,
+           "row": null,
+           "date": "2029-04-04",
+           "direction": "out",
+           "amount": 235002,
+           "reference": "CHQ-004512",
+           "origin": "rejected",
+           "reason": "carried-amount-difference",
+           "age": null,
+           "source": "aa8a9b2e31a880547bcd49246030cdbcc2948ab8693295acff7976e4834e688d"
+          },
+          {
+           "item": "APR:S6",
+           "side": "statement",
+           "id": "S6",
+           "period": "APR",
+           "page": 1,
+           "row": null,
+           "date": "2029-04-14",
+           "direction": "out",
+           "amount": 15000,
+           "reference": "SADAD-77120",
+           "origin": "rejected",
+           "reason": "duplicate-reference",
+           "age": null,
+           "source": "aa8a9b2e31a880547bcd49246030cdbcc2948ab8693295acff7976e4834e688d"
+          },
+          {
+           "item": "APR:S8",
+           "side": "statement",
+           "id": "S8",
+           "period": "APR",
+           "page": 1,
+           "row": null,
+           "date": "2029-04-15",
+           "direction": "out",
+           "amount": 15000,
+           "reference": "SADAD-77120",
+           "origin": "rejected",
+           "reason": "duplicate-reference",
+           "age": null,
+           "source": "aa8a9b2e31a880547bcd49246030cdbcc2948ab8693295acff7976e4834e688d"
+          }
+         ]
+        }
+       },
+       "adjustedBank": 27388887,
+       "adjustedBook": 27388888,
+       "difference": -1,
+       "toleratedDifferences": [
+        {
+         "case": "C8",
+         "statement": [
+          "S9"
+         ],
+         "cashbook": [
+          "JV-29-0492"
+         ],
+         "amounts": {
+          "statement": 22222,
+          "cashbook": 22220,
+          "difference": 2,
+          "direction": "out"
+         },
+         "effect": -2
+        },
+        {
+         "case": "C10",
+         "statement": [
+          "S4"
+         ],
+         "cashbook": [
+          "JV-29-0491"
+         ],
+         "amounts": {
+          "statement": 111100,
+          "cashbook": 111099,
+          "difference": 1,
+          "direction": "in"
+         },
+         "effect": 1
+        }
+       ],
+       "tolerated": -1,
+       "unexplained": 0,
+       "policy": {
+        "perItem": 2,
+        "perPeriod": 5,
+        "note": "فروق تقريب التحصيل"
+       }
+      },
+      "language": "ar",
+      "signoffs": {
+       "prepared": {
+        "name": "لينا حداد",
+        "date": "2029-05-02",
+        "valid": true
+       },
+       "reviewed": null
+      }
+     },
+     "savedAndRestored": true
+    }
+   }
+  },
+  "Z03": {
+   "saves": {
+    "Z03-APR": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    },
+    "Z03-MAY": {
+     "equal": false,
+     "differences": [
+      "reading"
+     ],
+     "outcome": {
+      "period": "Z03-MAY",
+      "previous": "accepted",
+      "reading": {
+       "by": "map",
+       "map": "Odoo BNK1",
+       "misfit": [
+        {
+         "kind": "column",
+         "role": "date",
+         "column": 2,
+         "label": "Date",
+         "found": "",
+         "elsewhere": [
+          "B5"
+         ]
+        },
+        {
+         "kind": "column",
+         "role": "voucher",
+         "column": 1,
+         "label": "Number",
+         "found": "Printed by finance.ops on 2029-06-02",
+         "elsewhere": [
+          "A5"
+         ]
+        },
+        {
+         "kind": "column",
+         "role": "description",
+         "column": 5,
+         "label": "Label",
+         "found": "",
+         "elsewhere": [
+          "E5"
+         ]
+        },
+        {
+         "kind": "column",
+         "role": "reference",
+         "column": 4,
+         "label": "Reference",
+         "found": "",
+         "elsewhere": [
+          "D5"
+         ]
+        },
+        {
+         "kind": "column",
+         "role": "receipts",
+         "column": 6,
+         "label": "Debit",
+         "found": "",
+         "elsewhere": [
+          "F5"
+         ]
+        },
+        {
+         "kind": "column",
+         "role": "payments",
+         "column": 7,
+         "label": "Credit",
+         "found": "",
+         "elsewhere": [
+          "G5"
+         ]
+        }
+       ],
+       "header": 5,
+       "columns": {
+        "date": 2,
+        "voucher": 1,
+        "description": 5,
+        "reference": 4,
+        "receipts": 6,
+        "payments": 7
+       },
+       "entries": 10
+      },
+      "policy": {
+       "perItem": 1,
+       "perPeriod": 1,
+       "note": "Supplier bank rounding"
+      },
+      "refused": null,
+      "held": false,
+      "cases": [
+       {
+        "id": "C1",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S1"
+        ],
+        "cashbook": [
+         "BNK1/2029/0009"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C2",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S9"
+        ],
+        "cashbook": [
+         "BNK1/2029/0014"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C3",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S4"
+        ],
+        "cashbook": [
+         "BNK1/2029/0010"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C4",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S5"
+        ],
+        "cashbook": [
+         "BNK1/2029/0011"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C5",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S7"
+        ],
+        "cashbook": [
+         "BNK1/2029/0012"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C6",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S8"
+        ],
+        "cashbook": [
+         "BNK1/2029/0013"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C7",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S11"
+        ],
+        "cashbook": [
+         "BNK1/2029/0015"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C8",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S12"
+        ],
+        "cashbook": [
+         "BNK1/2029/0016"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C9",
+        "kind": "tolerated",
+        "reason": "within-tolerance",
+        "status": "matched-tolerated",
+        "statement": [
+         "S6"
+        ],
+        "cashbook": [
+         "BNK1/2029/0201"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C10",
+        "kind": "review",
+        "reason": "amount-difference",
+        "status": "rejected",
+        "statement": [
+         "S10"
+        ],
+        "cashbook": [
+         "BNK1/2029/0202"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C11",
+        "kind": "carried",
+        "reason": "carried-ambiguous",
+        "status": "rejected",
+        "statement": [
+         "S2",
+         "S3"
+        ],
+        "cashbook": [],
+        "carried": [
+         "APR:BNK1/2029/0104",
+         "APR:BNK1/2029/0105"
+        ]
+       }
+      ],
+      "exceeded": null,
+      "tolerated": [
+       "C9"
+      ],
+      "queue": [
+       {
+        "reason": "amount-difference",
+        "class": "exception",
+        "direction": "out",
+        "shape": "1:1",
+        "gap": null,
+        "cases": [
+         "C10"
+        ],
+        "impact": 61002,
+        "offers": {
+         "accept": false,
+         "reject": false
+        }
+       }
+      ],
+      "carried": [
+       {
+        "item": "APR:BNK1/2029/0104",
+        "side": "cashbook",
+        "id": "BNK1/2029/0104",
+        "period": "APR",
+        "date": "2029-04-29",
+        "direction": "in",
+        "amount": 80000,
+        "reference": "LDG-0429",
+        "origin": "unmatched",
+        "age": 1
+       },
+       {
+        "item": "APR:BNK1/2029/0105",
+        "side": "cashbook",
+        "id": "BNK1/2029/0105",
+        "period": "APR",
+        "date": "2029-04-30",
+        "direction": "in",
+        "amount": 80000,
+        "reference": "LDG-0430",
+        "origin": "unmatched",
+        "age": 1
+       }
+      ],
+      "withheld": [],
+      "still": [],
+      "pending": 0,
+      "outstanding": [
+       {
+        "item": "MAY:S2",
+        "side": "statement",
+        "id": "S2",
+        "period": "MAY",
+        "date": "2029-05-02",
+        "direction": "in",
+        "amount": 80000,
+        "reference": "",
+        "origin": "C11",
+        "age": 1
+       },
+       {
+        "item": "MAY:S3",
+        "side": "statement",
+        "id": "S3",
+        "period": "MAY",
+        "date": "2029-05-03",
+        "direction": "in",
+        "amount": 80000,
+        "reference": "",
+        "origin": "C11",
+        "age": 1
+       },
+       {
+        "item": "MAY:S10",
+        "side": "statement",
+        "id": "S10",
+        "period": "MAY",
+        "date": "2029-05-21",
+        "direction": "out",
+        "amount": 61002,
+        "reference": "INV-3398",
+        "origin": "C10",
+        "age": 1
+       },
+       {
+        "item": "MAY:BNK1/2029/0202",
+        "side": "cashbook",
+        "id": "BNK1/2029/0202",
+        "period": "MAY",
+        "date": "2029-05-21",
+        "direction": "out",
+        "amount": 61000,
+        "reference": "INV-3398",
+        "origin": "C10",
+        "age": 1
+       },
+       {
+        "item": "APR:BNK1/2029/0104",
+        "side": "cashbook",
+        "id": "BNK1/2029/0104",
+        "period": "APR",
+        "date": "2029-04-29",
+        "direction": "in",
+        "amount": 80000,
+        "reference": "LDG-0429",
+        "origin": "unmatched",
+        "age": 2
+       },
+       {
+        "item": "APR:BNK1/2029/0105",
+        "side": "cashbook",
+        "id": "BNK1/2029/0105",
+        "period": "APR",
+        "date": "2029-04-30",
+        "direction": "in",
+        "amount": 80000,
+        "reference": "LDG-0430",
+        "origin": "unmatched",
+        "age": 2
+       }
+      ],
+      "sheet": {
+       "refusal": null,
+       "status": "reconciled-within-tolerance",
+       "bank": {
+        "balance": 42629239,
+        "page": 1
+       },
+       "book": {
+        "balance": 42629242,
+        "note": "Bank account balance per general ledger"
+       },
+       "sections": {
+        "bookReceiptsNotOnStatement": {
+         "total": 160000,
+         "items": [
+          {
+           "item": "APR:BNK1/2029/0104",
+           "side": "cashbook",
+           "id": "BNK1/2029/0104",
+           "period": "APR",
+           "page": null,
+           "row": 16,
+           "date": "2029-04-29",
+           "direction": "in",
+           "amount": 80000,
+           "reference": "LDG-0429",
+           "origin": "rejected",
+           "reason": "carried-ambiguous",
+           "age": 2,
+           "source": "1240c0d7914ffd71bc086b1ae92e06fa87159e26323e6fa8e6cbd169a8226737"
+          },
+          {
+           "item": "APR:BNK1/2029/0105",
+           "side": "cashbook",
+           "id": "BNK1/2029/0105",
+           "period": "APR",
+           "page": null,
+           "row": 17,
+           "date": "2029-04-30",
+           "direction": "in",
+           "amount": 80000,
+           "reference": "LDG-0430",
+           "origin": "rejected",
+           "reason": "carried-ambiguous",
+           "age": 2,
+           "source": "1240c0d7914ffd71bc086b1ae92e06fa87159e26323e6fa8e6cbd169a8226737"
+          }
+         ]
+        },
+        "bookPaymentsNotOnStatement": {
+         "total": 61000,
+         "items": [
+          {
+           "item": "MAY:BNK1/2029/0202",
+           "side": "cashbook",
+           "id": "BNK1/2029/0202",
+           "period": "MAY",
+           "page": null,
+           "row": 13,
+           "date": "2029-05-21",
+           "direction": "out",
+           "amount": 61000,
+           "reference": "INV-3398",
+           "origin": "rejected",
+           "reason": "amount-difference",
+           "age": null,
+           "source": "5abe3e919220eea3b1ac6be231b5567fbee97dd3262155d8db2039fd395faee9"
+          }
+         ]
+        },
+        "statementDepositsNotInBook": {
+         "total": 160000,
+         "items": [
+          {
+           "item": "MAY:S2",
+           "side": "statement",
+           "id": "S2",
+           "period": "MAY",
+           "page": 1,
+           "row": null,
+           "date": "2029-05-02",
+           "direction": "in",
+           "amount": 80000,
+           "reference": "",
+           "origin": "rejected",
+           "reason": "carried-ambiguous",
+           "age": null,
+           "source": "66bf4e8d552a58a32498da757789fe7e05b24d7f6c2cbb09eed02f352587bf73"
+          },
+          {
+           "item": "MAY:S3",
+           "side": "statement",
+           "id": "S3",
+           "period": "MAY",
+           "page": 1,
+           "row": null,
+           "date": "2029-05-03",
+           "direction": "in",
+           "amount": 80000,
+           "reference": "",
+           "origin": "rejected",
+           "reason": "carried-ambiguous",
+           "age": null,
+           "source": "66bf4e8d552a58a32498da757789fe7e05b24d7f6c2cbb09eed02f352587bf73"
+          }
+         ]
+        },
+        "statementWithdrawalsNotInBook": {
+         "total": 61002,
+         "items": [
+          {
+           "item": "MAY:S10",
+           "side": "statement",
+           "id": "S10",
+           "period": "MAY",
+           "page": 1,
+           "row": null,
+           "date": "2029-05-21",
+           "direction": "out",
+           "amount": 61002,
+           "reference": "INV-3398",
+           "origin": "rejected",
+           "reason": "amount-difference",
+           "age": null,
+           "source": "66bf4e8d552a58a32498da757789fe7e05b24d7f6c2cbb09eed02f352587bf73"
+          }
+         ]
+        }
+       },
+       "adjustedBank": 42728239,
+       "adjustedBook": 42728240,
+       "difference": -1,
+       "toleratedDifferences": [
+        {
+         "case": "C9",
+         "statement": [
+          "S6"
+         ],
+         "cashbook": [
+          "BNK1/2029/0201"
+         ],
+         "amounts": {
+          "statement": 45501,
+          "cashbook": 45500,
+          "difference": 1,
+          "direction": "out"
+         },
+         "effect": -1
+        }
+       ],
+       "tolerated": -1,
+       "unexplained": 0,
+       "policy": {
+        "perItem": 1,
+        "perPeriod": 1,
+        "note": "Supplier bank rounding"
+       }
+      },
+      "language": "en",
+      "signoffs": {
+       "prepared": {
+        "name": "Lina Haddad",
+        "date": "2029-06-03",
+        "valid": true
+       },
+       "reviewed": {
+        "name": "Faisal Qureshi",
+        "date": "2029-06-04",
+        "valid": true
+       }
+      }
+     },
+     "savedAndRestored": true
+    }
+   }
+  },
+  "Z04": {
+   "saves": {
+    "Z04-MAY-open": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    },
+    "Z04-MAY": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    },
+    "Z04-JUN-refused": {
+     "equal": false,
+     "differences": [
+      "reading"
+     ],
+     "outcome": {
+      "period": "Z04-JUN",
+      "previous": "ROLL_PREVIOUS_UNDECIDED",
+      "reading": {
+       "by": "map",
+       "map": "QB register",
+       "misfit": null,
+       "header": 5,
+       "columns": {
+        "date": 1,
+        "voucher": 3,
+        "description": 6,
+        "reference": 4,
+        "receipts": 8,
+        "payments": 7
+       },
+       "entries": 11
+      },
+      "policy": null,
+      "refused": null,
+      "held": false,
+      "cases": [
+       {
+        "id": "C1",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S1"
+        ],
+        "cashbook": [
+         "CHK 2210"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C2",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S4"
+        ],
+        "cashbook": [
+         "CHK 2213"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C3",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S6"
+        ],
+        "cashbook": [
+         "CHK 2214"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C4",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S8"
+        ],
+        "cashbook": [
+         "CHK 2216"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C5",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S9"
+        ],
+        "cashbook": [
+         "CHK 2217"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C6",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S2"
+        ],
+        "cashbook": [
+         "DEP 2211"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C7",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S3"
+        ],
+        "cashbook": [
+         "DEP 2212"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C8",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S7"
+        ],
+        "cashbook": [
+         "DEP 2215"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C9",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S10"
+        ],
+        "cashbook": [
+         "DEP 2218"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C10",
+        "kind": "review",
+        "reason": "amount-difference",
+        "status": "needs-review",
+        "statement": [
+         "S5"
+        ],
+        "cashbook": [
+         "CHK 2401"
+        ],
+        "carried": []
+       }
+      ],
+      "exceeded": null,
+      "tolerated": [],
+      "queue": [
+       {
+        "reason": "amount-difference",
+        "class": "exception",
+        "direction": "out",
+        "shape": "1:1",
+        "gap": null,
+        "cases": [
+         "C10"
+        ],
+        "impact": 9876,
+        "offers": {
+         "accept": false,
+         "reject": false
+        }
+       }
+      ],
+      "carried": [],
+      "withheld": [],
+      "still": [],
+      "pending": 1,
+      "outstanding": [
+       {
+        "item": "JUN:DEP 2402",
+        "side": "cashbook",
+        "id": "DEP 2402",
+        "period": "JUN",
+        "date": "2029-06-02",
+        "direction": "in",
+        "amount": 1234,
+        "reference": "INT-0529",
+        "origin": "unmatched",
+        "age": 1
+       }
+      ],
+      "sheet": {
+       "refusal": "SHEET_PREVIOUS_REFUSED"
+      },
+      "language": "en",
+      "signoffs": {
+       "prepared": null,
+       "reviewed": null
+      }
+     },
+     "savedAndRestored": true
+    },
+    "Z04-JUN-draft": {
+     "equal": false,
+     "differences": [
+      "reading"
+     ],
+     "outcome": {
+      "period": "Z04-JUN",
+      "previous": "accepted",
+      "reading": {
+       "by": "map",
+       "map": "QB register",
+       "misfit": null,
+       "header": 5,
+       "columns": {
+        "date": 1,
+        "voucher": 3,
+        "description": 6,
+        "reference": 4,
+        "receipts": 8,
+        "payments": 7
+       },
+       "entries": 11
+      },
+      "policy": null,
+      "refused": null,
+      "held": false,
+      "cases": [
+       {
+        "id": "C1",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S1"
+        ],
+        "cashbook": [
+         "CHK 2210"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C2",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S4"
+        ],
+        "cashbook": [
+         "CHK 2213"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C3",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S6"
+        ],
+        "cashbook": [
+         "CHK 2214"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C4",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S8"
+        ],
+        "cashbook": [
+         "CHK 2216"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C5",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S9"
+        ],
+        "cashbook": [
+         "CHK 2217"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C6",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S2"
+        ],
+        "cashbook": [
+         "DEP 2211"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C7",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S3"
+        ],
+        "cashbook": [
+         "DEP 2212"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C8",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S7"
+        ],
+        "cashbook": [
+         "DEP 2215"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C9",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S10"
+        ],
+        "cashbook": [
+         "DEP 2218"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C10",
+        "kind": "review",
+        "reason": "amount-difference",
+        "status": "needs-review",
+        "statement": [
+         "S5"
+        ],
+        "cashbook": [
+         "CHK 2401"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C11",
+        "kind": "carried",
+        "reason": "carried-reference",
+        "status": "needs-review",
+        "statement": [],
+        "cashbook": [
+         "DEP 2402"
+        ],
+        "carried": [
+         "MAY:S11"
+        ]
+       }
+      ],
+      "exceeded": null,
+      "tolerated": [],
+      "queue": [
+       {
+        "reason": "amount-difference",
+        "class": "exception",
+        "direction": "out",
+        "shape": "1:1",
+        "gap": null,
+        "cases": [
+         "C10"
+        ],
+        "impact": 9876,
+        "offers": {
+         "accept": false,
+         "reject": false
+        }
+       }
+      ],
+      "carried": [
+       {
+        "item": "MAY:S11",
+        "side": "statement",
+        "id": "S11",
+        "period": "MAY",
+        "date": "2029-05-31",
+        "direction": "in",
+        "amount": 1234,
+        "reference": "INT-0529",
+        "origin": "unmatched",
+        "age": 1
+       }
+      ],
+      "withheld": [],
+      "still": [],
+      "pending": 2,
+      "outstanding": [],
+      "sheet": {
+       "refusal": null,
+       "status": "draft",
+       "bank": {
+        "balance": 57781634,
+        "page": 1
+       },
+       "book": {
+        "balance": 57781633,
+        "note": "Bank account balance per general ledger"
+       },
+       "sections": {
+        "bookReceiptsNotOnStatement": {
+         "total": 1234,
+         "items": [
+          {
+           "item": "JUN:DEP 2402",
+           "side": "cashbook",
+           "id": "DEP 2402",
+           "period": "JUN",
+           "page": null,
+           "row": 7,
+           "date": "2029-06-02",
+           "direction": "in",
+           "amount": 1234,
+           "reference": "INT-0529",
+           "origin": "pending",
+           "reason": "carried-reference",
+           "age": null,
+           "source": "58c16b793d1a37b4b947abf22a3e80861d2f17cf5704490d17d186885af0869d"
+          }
+         ]
+        },
+        "bookPaymentsNotOnStatement": {
+         "total": 9875,
+         "items": [
+          {
+           "item": "JUN:CHK 2401",
+           "side": "cashbook",
+           "id": "CHK 2401",
+           "period": "JUN",
+           "page": null,
+           "row": 11,
+           "date": "2029-06-13",
+           "direction": "out",
+           "amount": 9875,
+           "reference": "INV-30102",
+           "origin": "pending",
+           "reason": "amount-difference",
+           "age": null,
+           "source": "58c16b793d1a37b4b947abf22a3e80861d2f17cf5704490d17d186885af0869d"
+          }
+         ]
+        },
+        "statementDepositsNotInBook": {
+         "total": 1234,
+         "items": [
+          {
+           "item": "MAY:S11",
+           "side": "statement",
+           "id": "S11",
+           "period": "MAY",
+           "page": 1,
+           "row": null,
+           "date": "2029-05-31",
+           "direction": "in",
+           "amount": 1234,
+           "reference": "INT-0529",
+           "origin": "pending",
+           "reason": "carried-reference",
+           "age": 2,
+           "source": "4e5b7e19bbd30760e71d7632c8200bf73bd0d9794742f5d95923eb19b7770f38"
+          }
+         ]
+        },
+        "statementWithdrawalsNotInBook": {
+         "total": 9876,
+         "items": [
+          {
+           "item": "JUN:S5",
+           "side": "statement",
+           "id": "S5",
+           "period": "JUN",
+           "page": 1,
+           "row": null,
+           "date": "2029-06-13",
+           "direction": "out",
+           "amount": 9876,
+           "reference": "INV-30102",
+           "origin": "pending",
+           "reason": "amount-difference",
+           "age": null,
+           "source": "ab4b94ddbb00a3eb1dfadbd119231a95aec7d1b2cefc7730885d8aaca7bc94b4"
+          }
+         ]
+        }
+       },
+       "adjustedBank": 57772993,
+       "adjustedBook": 57772991,
+       "difference": 2,
+       "toleratedDifferences": [],
+       "tolerated": 0,
+       "unexplained": 2,
+       "policy": null
+      },
+      "language": "en",
+      "signoffs": {
+       "prepared": null,
+       "reviewed": null
+      }
+     },
+     "savedAndRestored": true
+    },
+    "Z04-JUN": {
+     "equal": false,
+     "differences": [
+      "reading"
+     ],
+     "outcome": {
+      "period": "Z04-JUN",
+      "previous": "accepted",
+      "reading": {
+       "by": "map",
+       "map": "QB register",
+       "misfit": null,
+       "header": 5,
+       "columns": {
+        "date": 1,
+        "voucher": 3,
+        "description": 6,
+        "reference": 4,
+        "receipts": 8,
+        "payments": 7
+       },
+       "entries": 11
+      },
+      "policy": null,
+      "refused": null,
+      "held": false,
+      "cases": [
+       {
+        "id": "C1",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S1"
+        ],
+        "cashbook": [
+         "CHK 2210"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C2",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S4"
+        ],
+        "cashbook": [
+         "CHK 2213"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C3",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S6"
+        ],
+        "cashbook": [
+         "CHK 2214"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C4",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S8"
+        ],
+        "cashbook": [
+         "CHK 2216"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C5",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S9"
+        ],
+        "cashbook": [
+         "CHK 2217"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C6",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S2"
+        ],
+        "cashbook": [
+         "DEP 2211"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C7",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S3"
+        ],
+        "cashbook": [
+         "DEP 2212"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C8",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S7"
+        ],
+        "cashbook": [
+         "DEP 2215"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C9",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S10"
+        ],
+        "cashbook": [
+         "DEP 2218"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C10",
+        "kind": "review",
+        "reason": "amount-difference",
+        "status": "rejected",
+        "statement": [
+         "S5"
+        ],
+        "cashbook": [
+         "CHK 2401"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C11",
+        "kind": "carried",
+        "reason": "carried-reference",
+        "status": "matched-accepted",
+        "statement": [],
+        "cashbook": [
+         "DEP 2402"
+        ],
+        "carried": [
+         "MAY:S11"
+        ]
+       }
+      ],
+      "exceeded": null,
+      "tolerated": [],
+      "queue": [
+       {
+        "reason": "amount-difference",
+        "class": "exception",
+        "direction": "out",
+        "shape": "1:1",
+        "gap": null,
+        "cases": [
+         "C10"
+        ],
+        "impact": 9876,
+        "offers": {
+         "accept": false,
+         "reject": false
+        }
+       }
+      ],
+      "carried": [
+       {
+        "item": "MAY:S11",
+        "side": "statement",
+        "id": "S11",
+        "period": "MAY",
+        "date": "2029-05-31",
+        "direction": "in",
+        "amount": 1234,
+        "reference": "INT-0529",
+        "origin": "unmatched",
+        "age": 1
+       }
+      ],
+      "withheld": [],
+      "still": [],
+      "pending": 0,
+      "outstanding": [
+       {
+        "item": "JUN:S5",
+        "side": "statement",
+        "id": "S5",
+        "period": "JUN",
+        "date": "2029-06-13",
+        "direction": "out",
+        "amount": 9876,
+        "reference": "INV-30102",
+        "origin": "C10",
+        "age": 1
+       },
+       {
+        "item": "JUN:CHK 2401",
+        "side": "cashbook",
+        "id": "CHK 2401",
+        "period": "JUN",
+        "date": "2029-06-13",
+        "direction": "out",
+        "amount": 9875,
+        "reference": "INV-30102",
+        "origin": "C10",
+        "age": 1
+       }
+      ],
+      "sheet": {
+       "refusal": null,
+       "status": "difference",
+       "bank": {
+        "balance": 57781634,
+        "page": 1
+       },
+       "book": {
+        "balance": 57781633,
+        "note": "Bank account balance per general ledger"
+       },
+       "sections": {
+        "bookReceiptsNotOnStatement": {
+         "total": 0,
+         "items": []
+        },
+        "bookPaymentsNotOnStatement": {
+         "total": 9875,
+         "items": [
+          {
+           "item": "JUN:CHK 2401",
+           "side": "cashbook",
+           "id": "CHK 2401",
+           "period": "JUN",
+           "page": null,
+           "row": 11,
+           "date": "2029-06-13",
+           "direction": "out",
+           "amount": 9875,
+           "reference": "INV-30102",
+           "origin": "rejected",
+           "reason": "amount-difference",
+           "age": null,
+           "source": "58c16b793d1a37b4b947abf22a3e80861d2f17cf5704490d17d186885af0869d"
+          }
+         ]
+        },
+        "statementDepositsNotInBook": {
+         "total": 0,
+         "items": []
+        },
+        "statementWithdrawalsNotInBook": {
+         "total": 9876,
+         "items": [
+          {
+           "item": "JUN:S5",
+           "side": "statement",
+           "id": "S5",
+           "period": "JUN",
+           "page": 1,
+           "row": null,
+           "date": "2029-06-13",
+           "direction": "out",
+           "amount": 9876,
+           "reference": "INV-30102",
+           "origin": "rejected",
+           "reason": "amount-difference",
+           "age": null,
+           "source": "ab4b94ddbb00a3eb1dfadbd119231a95aec7d1b2cefc7730885d8aaca7bc94b4"
+          }
+         ]
+        }
+       },
+       "adjustedBank": 57771759,
+       "adjustedBook": 57771757,
+       "difference": 2,
+       "toleratedDifferences": [],
+       "tolerated": 0,
+       "unexplained": 2,
+       "policy": null
+      },
+      "language": "en",
+      "signoffs": {
+       "prepared": {
+        "name": "Lina Haddad",
+        "date": "2029-07-02",
+        "valid": true
+       },
+       "reviewed": {
+        "name": "Faisal Qureshi",
+        "date": "2029-07-03",
+        "valid": true
+       }
+      }
+     },
+     "savedAndRestored": true
+    }
+   }
+  },
+  "Z05": {
+   "saves": {
+    "Z05-JUN": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    },
+    "Z05-JUL": {
+     "equal": false,
+     "differences": [
+      "reading"
+     ],
+     "outcome": {
+      "period": "Z05-JUL",
+      "previous": "accepted",
+      "reading": {
+       "by": "map",
+       "map": "كشف حركة البنك",
+       "misfit": [
+        {
+         "kind": "column",
+         "role": "reference",
+         "column": 5,
+         "label": "المرجع",
+         "found": "رقم المرجع",
+         "elsewhere": []
+        }
+       ],
+       "header": 1,
+       "columns": {
+        "date": 3,
+        "voucher": 2,
+        "description": 4,
+        "reference": 5,
+        "receipts": 7,
+        "payments": 6
+       },
+       "entries": 25
+      },
+      "policy": {
+       "perItem": 1,
+       "perPeriod": 2,
+       "note": "فروق تقريب"
+      },
+      "refused": null,
+      "held": false,
+      "cases": [
+       {
+        "id": "C1",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S2"
+        ],
+        "cashbook": [
+         "ص-6024"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C2",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S3"
+        ],
+        "cashbook": [
+         "ص-6025"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C3",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S4"
+        ],
+        "cashbook": [
+         "ص-6026"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C4",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S6"
+        ],
+        "cashbook": [
+         "ص-6027"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C5",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S7"
+        ],
+        "cashbook": [
+         "ص-6028"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C6",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S10"
+        ],
+        "cashbook": [
+         "ص-6030"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C7",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S11"
+        ],
+        "cashbook": [
+         "ص-6031"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C8",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S12"
+        ],
+        "cashbook": [
+         "ص-6032"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C9",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S13"
+        ],
+        "cashbook": [
+         "ص-6033"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C10",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S16"
+        ],
+        "cashbook": [
+         "ص-6035"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C11",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S17"
+        ],
+        "cashbook": [
+         "ص-6036"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C12",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S18"
+        ],
+        "cashbook": [
+         "ص-6037"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C13",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S20"
+        ],
+        "cashbook": [
+         "ص-6039"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C14",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S23"
+        ],
+        "cashbook": [
+         "ص-6041"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C15",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S24"
+        ],
+        "cashbook": [
+         "ص-6042"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C16",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S26"
+        ],
+        "cashbook": [
+         "ص-6044"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C17",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S1"
+        ],
+        "cashbook": [
+         "ق-6023"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C18",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S8"
+        ],
+        "cashbook": [
+         "ق-6029"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C19",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S15"
+        ],
+        "cashbook": [
+         "ق-6034"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C20",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S19"
+        ],
+        "cashbook": [
+         "ق-6038"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C21",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S21"
+        ],
+        "cashbook": [
+         "ق-6040"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C22",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S25"
+        ],
+        "cashbook": [
+         "ق-6043"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C23",
+        "kind": "review",
+        "reason": "amount-difference",
+        "status": "rejected",
+        "statement": [
+         "S9"
+        ],
+        "cashbook": [
+         "ص-6201"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C24",
+        "kind": "review",
+        "reason": "amount-difference",
+        "status": "rejected",
+        "statement": [
+         "S22"
+        ],
+        "cashbook": [
+         "ص-6203"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C25",
+        "kind": "review",
+        "reason": "amount-difference",
+        "status": "rejected",
+        "statement": [
+         "S14"
+        ],
+        "cashbook": [
+         "ق-6202"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C26",
+        "kind": "carried",
+        "reason": "carried-reference",
+        "status": "matched-accepted",
+        "statement": [
+         "S5"
+        ],
+        "cashbook": [],
+        "carried": [
+         "JUN:ص-6107"
+        ]
+       }
+      ],
+      "exceeded": {
+       "sum": 3,
+       "cap": 2
+      },
+      "tolerated": [],
+      "queue": [
+       {
+        "reason": "amount-difference",
+        "class": "exception",
+        "direction": "out",
+        "shape": "1:1",
+        "gap": null,
+        "cases": [
+         "C24",
+         "C23"
+        ],
+        "impact": 7701,
+        "offers": {
+         "accept": false,
+         "reject": true
+        }
+       },
+       {
+        "reason": "amount-difference",
+        "class": "exception",
+        "direction": "in",
+        "shape": "1:1",
+        "gap": null,
+        "cases": [
+         "C25"
+        ],
+        "impact": 6601,
+        "offers": {
+         "accept": false,
+         "reject": false
+        }
+       }
+      ],
+      "carried": [
+       {
+        "item": "JUN:S11",
+        "side": "statement",
+        "id": "S11",
+        "period": "JUN",
+        "date": "2029-06-10",
+        "direction": "out",
+        "amount": 175000,
+        "reference": "PO-9110",
+        "origin": "C25",
+        "age": 1
+       },
+       {
+        "item": "JUN:S21",
+        "side": "statement",
+        "id": "S21",
+        "period": "JUN",
+        "date": "2029-06-19",
+        "direction": "out",
+        "amount": 264000,
+        "reference": "PO-9111",
+        "origin": "C26",
+        "age": 1
+       },
+       {
+        "item": "JUN:ص-6105",
+        "side": "cashbook",
+        "id": "ص-6105",
+        "period": "JUN",
+        "date": "2029-06-03",
+        "direction": "out",
+        "amount": 175000,
+        "reference": "PO-9110",
+        "origin": "C25",
+        "age": 1
+       },
+       {
+        "item": "JUN:ص-6106",
+        "side": "cashbook",
+        "id": "ص-6106",
+        "period": "JUN",
+        "date": "2029-06-12",
+        "direction": "out",
+        "amount": 264000,
+        "reference": "PO-9111",
+        "origin": "C26",
+        "age": 1
+       },
+       {
+        "item": "JUN:ص-6107",
+        "side": "cashbook",
+        "id": "ص-6107",
+        "period": "JUN",
+        "date": "2029-06-28",
+        "direction": "out",
+        "amount": 420000,
+        "reference": "CHQ-001187",
+        "origin": "unmatched",
+        "age": 1
+       }
+      ],
+      "withheld": [],
+      "still": [
+       {
+        "item": "JUN:S11",
+        "age": 2
+       },
+       {
+        "item": "JUN:S21",
+        "age": 2
+       },
+       {
+        "item": "JUN:ص-6105",
+        "age": 2
+       },
+       {
+        "item": "JUN:ص-6106",
+        "age": 2
+       }
+      ],
+      "pending": 0,
+      "outstanding": [
+       {
+        "item": "JUL:S9",
+        "side": "statement",
+        "id": "S9",
+        "period": "JUL",
+        "date": "2029-07-09",
+        "direction": "out",
+        "amount": 5501,
+        "reference": "PO-9150",
+        "origin": "C23",
+        "age": 1
+       },
+       {
+        "item": "JUL:S14",
+        "side": "statement",
+        "id": "S14",
+        "period": "JUL",
+        "date": "2029-07-14",
+        "direction": "in",
+        "amount": 6600,
+        "reference": "SO-4460",
+        "origin": "C25",
+        "age": 1
+       },
+       {
+        "item": "JUL:S22",
+        "side": "statement",
+        "id": "S22",
+        "period": "JUL",
+        "date": "2029-07-23",
+        "direction": "out",
+        "amount": 7701,
+        "reference": "PO-9158",
+        "origin": "C24",
+        "age": 1
+       },
+       {
+        "item": "JUL:ص-6201",
+        "side": "cashbook",
+        "id": "ص-6201",
+        "period": "JUL",
+        "date": "2029-07-09",
+        "direction": "out",
+        "amount": 5500,
+        "reference": "PO-9150",
+        "origin": "C23",
+        "age": 1
+       },
+       {
+        "item": "JUL:ق-6202",
+        "side": "cashbook",
+        "id": "ق-6202",
+        "period": "JUL",
+        "date": "2029-07-14",
+        "direction": "in",
+        "amount": 6601,
+        "reference": "SO-4460",
+        "origin": "C25",
+        "age": 1
+       },
+       {
+        "item": "JUL:ص-6203",
+        "side": "cashbook",
+        "id": "ص-6203",
+        "period": "JUL",
+        "date": "2029-07-23",
+        "direction": "out",
+        "amount": 7700,
+        "reference": "PO-9158",
+        "origin": "C24",
+        "age": 1
+       },
+       {
+        "item": "JUN:S11",
+        "side": "statement",
+        "id": "S11",
+        "period": "JUN",
+        "date": "2029-06-10",
+        "direction": "out",
+        "amount": 175000,
+        "reference": "PO-9110",
+        "origin": "C25",
+        "age": 2
+       },
+       {
+        "item": "JUN:S21",
+        "side": "statement",
+        "id": "S21",
+        "period": "JUN",
+        "date": "2029-06-19",
+        "direction": "out",
+        "amount": 264000,
+        "reference": "PO-9111",
+        "origin": "C26",
+        "age": 2
+       },
+       {
+        "item": "JUN:ص-6105",
+        "side": "cashbook",
+        "id": "ص-6105",
+        "period": "JUN",
+        "date": "2029-06-03",
+        "direction": "out",
+        "amount": 175000,
+        "reference": "PO-9110",
+        "origin": "C25",
+        "age": 2
+       },
+       {
+        "item": "JUN:ص-6106",
+        "side": "cashbook",
+        "id": "ص-6106",
+        "period": "JUN",
+        "date": "2029-06-12",
+        "direction": "out",
+        "amount": 264000,
+        "reference": "PO-9111",
+        "origin": "C26",
+        "age": 2
+       }
+      ],
+      "sheet": {
+       "refusal": null,
+       "status": "difference",
+       "bank": {
+        "balance": 19214732,
+        "page": 3
+       },
+       "book": {
+        "balance": 19214739,
+        "note": "Bank account balance per general ledger"
+       },
+       "sections": {
+        "bookReceiptsNotOnStatement": {
+         "total": 6601,
+         "items": [
+          {
+           "item": "JUL:ق-6202",
+           "side": "cashbook",
+           "id": "ق-6202",
+           "period": "JUL",
+           "page": null,
+           "row": 14,
+           "date": "2029-07-14",
+           "direction": "in",
+           "amount": 6601,
+           "reference": "SO-4460",
+           "origin": "rejected",
+           "reason": "amount-difference",
+           "age": null,
+           "source": "597924b645e2dd48293ca091f6ed83444f45f6147ebc2131b6c87420c8cc5ac6"
+          }
+         ]
+        },
+        "bookPaymentsNotOnStatement": {
+         "total": 452200,
+         "items": [
+          {
+           "item": "JUN:ص-6105",
+           "side": "cashbook",
+           "id": "ص-6105",
+           "period": "JUN",
+           "page": null,
+           "row": 4,
+           "date": "2029-06-03",
+           "direction": "out",
+           "amount": 175000,
+           "reference": "PO-9110",
+           "origin": "carried",
+           "reason": null,
+           "age": 2,
+           "source": "3cc1c6a869ab7ffd5693fe9d0004c733a2cf16a3e8d29e20aef9ebe3e4afb5e5"
+          },
+          {
+           "item": "JUN:ص-6106",
+           "side": "cashbook",
+           "id": "ص-6106",
+           "period": "JUN",
+           "page": null,
+           "row": 17,
+           "date": "2029-06-12",
+           "direction": "out",
+           "amount": 264000,
+           "reference": "PO-9111",
+           "origin": "carried",
+           "reason": null,
+           "age": 2,
+           "source": "3cc1c6a869ab7ffd5693fe9d0004c733a2cf16a3e8d29e20aef9ebe3e4afb5e5"
+          },
+          {
+           "item": "JUL:ص-6201",
+           "side": "cashbook",
+           "id": "ص-6201",
+           "period": "JUL",
+           "page": null,
+           "row": 10,
+           "date": "2029-07-09",
+           "direction": "out",
+           "amount": 5500,
+           "reference": "PO-9150",
+           "origin": "rejected",
+           "reason": "amount-difference",
+           "age": null,
+           "source": "597924b645e2dd48293ca091f6ed83444f45f6147ebc2131b6c87420c8cc5ac6"
+          },
+          {
+           "item": "JUL:ص-6203",
+           "side": "cashbook",
+           "id": "ص-6203",
+           "period": "JUL",
+           "page": null,
+           "row": 22,
+           "date": "2029-07-23",
+           "direction": "out",
+           "amount": 7700,
+           "reference": "PO-9158",
+           "origin": "rejected",
+           "reason": "amount-difference",
+           "age": null,
+           "source": "597924b645e2dd48293ca091f6ed83444f45f6147ebc2131b6c87420c8cc5ac6"
+          }
+         ]
+        },
+        "statementDepositsNotInBook": {
+         "total": 6600,
+         "items": [
+          {
+           "item": "JUL:S14",
+           "side": "statement",
+           "id": "S14",
+           "period": "JUL",
+           "page": 2,
+           "row": null,
+           "date": "2029-07-14",
+           "direction": "in",
+           "amount": 6600,
+           "reference": "SO-4460",
+           "origin": "rejected",
+           "reason": "amount-difference",
+           "age": null,
+           "source": "57485f51de6064144a617a12e80d1438555f4f3e5f8ae191a485f85bedf1a7c6"
+          }
+         ]
+        },
+        "statementWithdrawalsNotInBook": {
+         "total": 452202,
+         "items": [
+          {
+           "item": "JUN:S11",
+           "side": "statement",
+           "id": "S11",
+           "period": "JUN",
+           "page": 2,
+           "row": null,
+           "date": "2029-06-10",
+           "direction": "out",
+           "amount": 175000,
+           "reference": "PO-9110",
+           "origin": "carried",
+           "reason": null,
+           "age": 2,
+           "source": "d2f6e81c7ffd746716e1d43540b7023efdbdcb0d6240a32a462222b3081981e5"
+          },
+          {
+           "item": "JUN:S21",
+           "side": "statement",
+           "id": "S21",
+           "period": "JUN",
+           "page": 3,
+           "row": null,
+           "date": "2029-06-19",
+           "direction": "out",
+           "amount": 264000,
+           "reference": "PO-9111",
+           "origin": "carried",
+           "reason": null,
+           "age": 2,
+           "source": "d2f6e81c7ffd746716e1d43540b7023efdbdcb0d6240a32a462222b3081981e5"
+          },
+          {
+           "item": "JUL:S9",
+           "side": "statement",
+           "id": "S9",
+           "period": "JUL",
+           "page": 1,
+           "row": null,
+           "date": "2029-07-09",
+           "direction": "out",
+           "amount": 5501,
+           "reference": "PO-9150",
+           "origin": "rejected",
+           "reason": "amount-difference",
+           "age": null,
+           "source": "57485f51de6064144a617a12e80d1438555f4f3e5f8ae191a485f85bedf1a7c6"
+          },
+          {
+           "item": "JUL:S22",
+           "side": "statement",
+           "id": "S22",
+           "period": "JUL",
+           "page": 3,
+           "row": null,
+           "date": "2029-07-23",
+           "direction": "out",
+           "amount": 7701,
+           "reference": "PO-9158",
+           "origin": "rejected",
+           "reason": "amount-difference",
+           "age": null,
+           "source": "57485f51de6064144a617a12e80d1438555f4f3e5f8ae191a485f85bedf1a7c6"
+          }
+         ]
+        }
+       },
+       "adjustedBank": 18769133,
+       "adjustedBook": 18769137,
+       "difference": -4,
+       "toleratedDifferences": [],
+       "tolerated": 0,
+       "unexplained": -4,
+       "policy": {
+        "perItem": 1,
+        "perPeriod": 2,
+        "note": "فروق تقريب"
+       }
+      },
+      "language": "en",
+      "signoffs": {
+       "prepared": {
+        "name": "Lina Haddad",
+        "date": "2029-08-02",
+        "valid": true
+       },
+       "reviewed": null
+      }
+     },
+     "savedAndRestored": true
+    }
+   }
+  },
+  "Z06": {
+   "saves": {
+    "Z06-JAN": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    },
+    "Z06-FEB": {
+     "equal": false,
+     "differences": [
+      "reading"
+     ],
+     "outcome": {
+      "period": "Z06-FEB",
+      "previous": "accepted",
+      "reading": {
+       "by": "map",
+       "map": "Xero account transactions",
+       "misfit": null,
+       "header": 5,
+       "columns": {
+        "date": 1,
+        "voucher": 4,
+        "description": 2,
+        "reference": 3,
+        "receipts": 6,
+        "payments": 5
+       },
+       "entries": 22
+      },
+      "policy": {
+       "perItem": 3,
+       "perPeriod": 3,
+       "note": "Acquirer rounding"
+      },
+      "refused": null,
+      "held": false,
+      "cases": [
+       {
+        "id": "C1",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S2"
+        ],
+        "cashbook": [
+         "TRX-000721"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C2",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S3"
+        ],
+        "cashbook": [
+         "TRX-000722"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C3",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S5"
+        ],
+        "cashbook": [
+         "TRX-000724"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C4",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S8"
+        ],
+        "cashbook": [
+         "TRX-000727"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C5",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S9"
+        ],
+        "cashbook": [
+         "TRX-000728"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C6",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S10"
+        ],
+        "cashbook": [
+         "TRX-000729"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C7",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S11"
+        ],
+        "cashbook": [
+         "TRX-000730"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C8",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S12"
+        ],
+        "cashbook": [
+         "TRX-000731"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C9",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S15"
+        ],
+        "cashbook": [
+         "TRX-000733"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C10",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S18"
+        ],
+        "cashbook": [
+         "TRX-000736"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C11",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S19"
+        ],
+        "cashbook": [
+         "TRX-000737"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C12",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S20"
+        ],
+        "cashbook": [
+         "TRX-000738"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C13",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S22"
+        ],
+        "cashbook": [
+         "TRX-000740"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C14",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S4"
+        ],
+        "cashbook": [
+         "TRX-000723"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C15",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S6"
+        ],
+        "cashbook": [
+         "TRX-000725"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C16",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S7"
+        ],
+        "cashbook": [
+         "TRX-000726"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C17",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S13"
+        ],
+        "cashbook": [
+         "TRX-000732"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C18",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S16"
+        ],
+        "cashbook": [
+         "TRX-000734"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C19",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S17"
+        ],
+        "cashbook": [
+         "TRX-000735"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C20",
+        "kind": "automatic",
+        "reason": "reference",
+        "status": "matched-automatic",
+        "statement": [
+         "S21"
+        ],
+        "cashbook": [
+         "TRX-000739"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C21",
+        "kind": "tolerated",
+        "reason": "within-tolerance",
+        "status": "matched-tolerated",
+        "statement": [
+         "S14"
+        ],
+        "cashbook": [
+         "TRX-000902"
+        ],
+        "carried": []
+       },
+       {
+        "id": "C22",
+        "kind": "carried",
+        "reason": "carried-amount-suggestion",
+        "status": "matched-accepted",
+        "statement": [],
+        "cashbook": [
+         "TRX-000901"
+        ],
+        "carried": [
+         "JAN:S24"
+        ]
+       },
+       {
+        "id": "C23",
+        "kind": "carried",
+        "reason": "carried-amount-suggestion",
+        "status": "matched-accepted",
+        "statement": [
+         "S1"
+        ],
+        "cashbook": [],
+        "carried": [
+         "JAN:TRX-000801"
+        ]
+       }
+      ],
+      "exceeded": null,
+      "tolerated": [
+       "C21"
+      ],
+      "queue": [],
+      "carried": [
+       {
+        "item": "JAN:S9",
+        "side": "statement",
+        "id": "S9",
+        "period": "JAN",
+        "date": "2029-01-11",
+        "direction": "in",
+        "amount": 64000,
+        "reference": "MPAY-5521",
+        "origin": "C22",
+        "age": 1
+       },
+       {
+        "item": "JAN:S10",
+        "side": "statement",
+        "id": "S10",
+        "period": "JAN",
+        "date": "2029-01-12",
+        "direction": "in",
+        "amount": 64000,
+        "reference": "MPAY-5522",
+        "origin": "C22",
+        "age": 1
+       },
+       {
+        "item": "JAN:S24",
+        "side": "statement",
+        "id": "S24",
+        "period": "JAN",
+        "date": "2029-01-31",
+        "direction": "out",
+        "amount": 5750,
+        "reference": "SVC-2901",
+        "origin": "unmatched",
+        "age": 1
+       },
+       {
+        "item": "JAN:TRX-000802",
+        "side": "cashbook",
+        "id": "TRX-000802",
+        "period": "JAN",
+        "date": "2029-01-11",
+        "direction": "in",
+        "amount": 64000,
+        "reference": "RCPT-118",
+        "origin": "C22",
+        "age": 1
+       },
+       {
+        "item": "JAN:TRX-000801",
+        "side": "cashbook",
+        "id": "TRX-000801",
+        "period": "JAN",
+        "date": "2029-01-30",
+        "direction": "in",
+        "amount": 300000,
+        "reference": "",
+        "origin": "unmatched",
+        "age": 1
+       }
+      ],
+      "withheld": [],
+      "still": [
+       {
+        "item": "JAN:S9",
+        "age": 2
+       },
+       {
+        "item": "JAN:S10",
+        "age": 2
+       },
+       {
+        "item": "JAN:TRX-000802",
+        "age": 2
+       }
+      ],
+      "pending": 0,
+      "outstanding": [
+       {
+        "item": "JAN:S9",
+        "side": "statement",
+        "id": "S9",
+        "period": "JAN",
+        "date": "2029-01-11",
+        "direction": "in",
+        "amount": 64000,
+        "reference": "MPAY-5521",
+        "origin": "C22",
+        "age": 2
+       },
+       {
+        "item": "JAN:S10",
+        "side": "statement",
+        "id": "S10",
+        "period": "JAN",
+        "date": "2029-01-12",
+        "direction": "in",
+        "amount": 64000,
+        "reference": "MPAY-5522",
+        "origin": "C22",
+        "age": 2
+       },
+       {
+        "item": "JAN:TRX-000802",
+        "side": "cashbook",
+        "id": "TRX-000802",
+        "period": "JAN",
+        "date": "2029-01-11",
+        "direction": "in",
+        "amount": 64000,
+        "reference": "RCPT-118",
+        "origin": "C22",
+        "age": 2
+       }
+      ],
+      "sheet": {
+       "refusal": null,
+       "status": "reconciled-within-tolerance",
+       "bank": {
+        "balance": 27593049,
+        "page": 2
+       },
+       "book": {
+        "balance": 27529046,
+        "note": "Bank account balance per general ledger"
+       },
+       "sections": {
+        "bookReceiptsNotOnStatement": {
+         "total": 64000,
+         "items": [
+          {
+           "item": "JAN:TRX-000802",
+           "side": "cashbook",
+           "id": "TRX-000802",
+           "period": "JAN",
+           "page": null,
+           "row": 15,
+           "date": "2029-01-11",
+           "direction": "in",
+           "amount": 64000,
+           "reference": "RCPT-118",
+           "origin": "carried",
+           "reason": null,
+           "age": 2,
+           "source": "7238627cd1d43e4bbfa8fdbe6bdcd99773edbebe41113c99999043da346af917"
+          }
+         ]
+        },
+        "bookPaymentsNotOnStatement": {
+         "total": 0,
+         "items": []
+        },
+        "statementDepositsNotInBook": {
+         "total": 128000,
+         "items": [
+          {
+           "item": "JAN:S9",
+           "side": "statement",
+           "id": "S9",
+           "period": "JAN",
+           "page": 1,
+           "row": null,
+           "date": "2029-01-11",
+           "direction": "in",
+           "amount": 64000,
+           "reference": "MPAY-5521",
+           "origin": "carried",
+           "reason": null,
+           "age": 2,
+           "source": "ce3e42529801476aab367f99ae885a85c7637f41ec9bb4762931c5d9568b1d41"
+          },
+          {
+           "item": "JAN:S10",
+           "side": "statement",
+           "id": "S10",
+           "period": "JAN",
+           "page": 1,
+           "row": null,
+           "date": "2029-01-12",
+           "direction": "in",
+           "amount": 64000,
+           "reference": "MPAY-5522",
+           "origin": "carried",
+           "reason": null,
+           "age": 2,
+           "source": "ce3e42529801476aab367f99ae885a85c7637f41ec9bb4762931c5d9568b1d41"
+          }
+         ]
+        },
+        "statementWithdrawalsNotInBook": {
+         "total": 0,
+         "items": []
+        }
+       },
+       "adjustedBank": 27657049,
+       "adjustedBook": 27657046,
+       "difference": 3,
+       "toleratedDifferences": [
+        {
+         "case": "C21",
+         "statement": [
+          "S14"
+         ],
+         "cashbook": [
+          "TRX-000902"
+         ],
+         "amounts": {
+          "statement": 200003,
+          "cashbook": 200000,
+          "difference": 3,
+          "direction": "in"
+         },
+         "effect": 3
+        }
+       ],
+       "tolerated": 3,
+       "unexplained": 0,
+       "policy": {
+        "perItem": 3,
+        "perPeriod": 3,
+        "note": "Acquirer rounding"
+       }
+      },
+      "language": "en",
+      "signoffs": {
+       "prepared": {
+        "name": "Lina Haddad",
+        "date": "2029-03-02",
+        "valid": true
+       },
+       "reviewed": {
+        "name": "Faisal Qureshi",
+        "date": "2029-03-03",
+        "valid": true
+       }
+      }
+     },
+     "savedAndRestored": true
+    }
+   }
+  }
+ }
+}
