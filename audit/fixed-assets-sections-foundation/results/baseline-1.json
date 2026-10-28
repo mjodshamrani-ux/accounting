@@ -1,0 +1,3152 @@
+{
+ "schema": "tarasuf-fa1-baseline/1",
+ "family": "fixed-assets-long-components-gl-1",
+ "rule": "A: each story as it arrives, its three files in the family roles with a policy evidence file of its header alone; B: cut by hand into the family four files, each section scope copied onto its rows, a mapping and an evidence row per asset and component from the first category map row valid at the as-of date",
+ "asItComes": {
+  "CSV": 1,
+  "CURRENCY": 1,
+  "ROWS": 1,
+  "SOURCE_LIMIT": 2,
+  "source-error": 45
+ },
+ "cut": {
+  "ROWS": 1,
+  "difference": 5,
+  "missing": 6,
+  "ready": 16,
+  "source-error": 16
+ },
+ "totals": {
+  "accounts": 325,
+  "contractConsistentFamilyAgrees": 116,
+  "contractConsistentFamilyWithholds": 55,
+  "contractConsistentFamilyOther": 9,
+  "contractNotConsistentFamilyAgrees": 59,
+  "contractNotConsistentFamilyOther": 86
+ },
+ "stories": {
+  "F01": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "ready",
+    "issues": [],
+    "missing": [],
+    "rows": [
+     24,
+     18,
+     18,
+     9
+    ]
+   },
+   "accounts": 9,
+   "contractConsistentFamilyAgrees": 9,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 0,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1530|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1538|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1539|BU-01",
+     "consistent",
+     0
+    ]
+   ]
+  },
+  "F02": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "ready",
+    "issues": [],
+    "missing": [],
+    "rows": [
+     20,
+     15,
+     15,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 6,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 0,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "consistent",
+     0
+    ]
+   ]
+  },
+  "F03": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "source-error",
+    "issues": [
+     "COMPONENT_SET",
+     "DUPLICATE"
+    ],
+    "missing": [
+     "orphan-evidence",
+     "orphan-mapping"
+    ],
+    "rows": [
+     20,
+     12,
+     12,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 0,
+   "contractConsistentFamilyWithholds": 3,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 3,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1518|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1519|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1529|BU-01",
+     "consistent",
+     null
+    ]
+   ]
+  },
+  "F04": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "ready",
+    "issues": [],
+    "missing": [],
+    "rows": [
+     24,
+     18,
+     18,
+     9
+    ]
+   },
+   "accounts": 9,
+   "contractConsistentFamilyAgrees": 3,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 6,
+   "contractNotConsistentFamilyOther": 0,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1530|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1538|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1539|BU-01",
+     "held",
+     0
+    ]
+   ]
+  },
+  "F05": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "ready",
+    "issues": [],
+    "missing": [],
+    "rows": [
+     16,
+     12,
+     12,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 6,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 0,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "consistent",
+     0
+    ]
+   ]
+  },
+  "F06": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "source-error",
+    "issues": [
+     "COMPONENT_SET",
+     "DUPLICATE"
+    ],
+    "missing": [
+     "orphan-evidence",
+     "orphan-mapping"
+    ],
+    "rows": [
+     17,
+     12,
+     12,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 0,
+   "contractConsistentFamilyWithholds": 3,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 3,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1518|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1519|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1529|BU-01",
+     "consistent",
+     null
+    ]
+   ]
+  },
+  "F07": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "source-error",
+    "issues": [
+     "COMPONENT_SET",
+     "DUPLICATE"
+    ],
+    "missing": [
+     "orphan-evidence",
+     "orphan-mapping",
+     "unmapped-gl"
+    ],
+    "rows": [
+     17,
+     12,
+     12,
+     9
+    ]
+   },
+   "accounts": 9,
+   "contractConsistentFamilyAgrees": 0,
+   "contractConsistentFamilyWithholds": 6,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 3,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1518|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1519|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1529|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1530|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1538|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1539|BU-01",
+     "consistent",
+     null
+    ]
+   ]
+  },
+  "F08": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "difference",
+    "issues": [],
+    "missing": [],
+    "rows": [
+     16,
+     12,
+     12,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 4,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 2,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "difference",
+     100000
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "difference",
+     100000
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "consistent",
+     0
+    ]
+   ]
+  },
+  "F09": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "difference",
+    "issues": [],
+    "missing": [],
+    "rows": [
+     12,
+     9,
+     9,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 4,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 2,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "difference",
+     2700000
+    ],
+    [
+     "1519|BU-01",
+     "difference",
+     -2700000
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "consistent",
+     0
+    ]
+   ]
+  },
+  "F10": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "ready",
+    "issues": [],
+    "missing": [],
+    "rows": [
+     12,
+     9,
+     9,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 6,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 0,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1530|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1538|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1539|BU-01",
+     "consistent",
+     0
+    ]
+   ]
+  },
+  "F11": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "source-error",
+    "issues": [
+     "COMPONENT_SET"
+    ],
+    "missing": [
+     "orphan-evidence",
+     "orphan-mapping",
+     "unmapped-gl"
+    ],
+    "rows": [
+     14,
+     12,
+     12,
+     9
+    ]
+   },
+   "accounts": 9,
+   "contractConsistentFamilyAgrees": 0,
+   "contractConsistentFamilyWithholds": 3,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 6,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1519|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1520|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1528|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1529|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1530|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1538|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1539|BU-01",
+     "held",
+     null
+    ]
+   ]
+  },
+  "F12": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "source-error",
+    "issues": [
+     "NUMBER"
+    ],
+    "missing": [
+     "orphan-evidence",
+     "orphan-mapping",
+     "unmapped-gl"
+    ],
+    "rows": [
+     20,
+     15,
+     15,
+     9
+    ]
+   },
+   "accounts": 9,
+   "contractConsistentFamilyAgrees": 0,
+   "contractConsistentFamilyWithholds": 3,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 6,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1518|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1519|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1520|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1528|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1529|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1530|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1538|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1539|BU-01",
+     "consistent",
+     null
+    ]
+   ]
+  },
+  "F13": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "missing",
+    "issues": [],
+    "missing": [
+     "mapping",
+     "unmapped-gl"
+    ],
+    "rows": [
+     20,
+     13,
+     13,
+     9
+    ]
+   },
+   "accounts": 9,
+   "contractConsistentFamilyAgrees": 6,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 2,
+   "contractNotConsistentFamilyOther": 1,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "held",
+     -10050000
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1530|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1538|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1539|BU-01",
+     "held",
+     0
+    ]
+   ]
+  },
+  "F14": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "ready",
+    "issues": [],
+    "missing": [],
+    "rows": [
+     16,
+     12,
+     12,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 6,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 0,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "consistent",
+     0
+    ]
+   ]
+  },
+  "F15": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "source-error",
+    "issues": [
+     "POLICY"
+    ],
+    "missing": [
+     "evidence",
+     "unmapped-gl"
+    ],
+    "rows": [
+     20,
+     15,
+     15,
+     9
+    ]
+   },
+   "accounts": 9,
+   "contractConsistentFamilyAgrees": 0,
+   "contractConsistentFamilyWithholds": 3,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 6,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1519|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1520|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1529|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1530|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1538|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1539|BU-01",
+     "held",
+     null
+    ]
+   ]
+  },
+  "F16": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "missing",
+    "issues": [],
+    "missing": [
+     "gl",
+     "unmapped-gl"
+    ],
+    "rows": [
+     16,
+     12,
+     12,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 5,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 1,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "held",
+     -2055010
+    ]
+   ]
+  },
+  "F17": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "ready",
+    "issues": [],
+    "missing": [],
+    "rows": [
+     24,
+     18,
+     18,
+     9
+    ]
+   },
+   "accounts": 9,
+   "contractConsistentFamilyAgrees": 6,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 3,
+   "contractNotConsistentFamilyOther": 0,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1520|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1530|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1538|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1539|BU-01",
+     "consistent",
+     0
+    ]
+   ]
+  },
+  "F18": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "source-error",
+    "issues": [
+     "COMPONENT_SET",
+     "DUPLICATE",
+     "ROW_SCOPE"
+    ],
+    "missing": [
+     "orphan-evidence",
+     "orphan-mapping"
+    ],
+    "rows": [
+     20,
+     12,
+     12,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 0,
+   "contractConsistentFamilyWithholds": 6,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 0,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1519|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1529|BU-01",
+     "consistent",
+     null
+    ]
+   ]
+  },
+  "F19": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "source-error",
+    "issues": [
+     "ROW_SCOPE"
+    ],
+    "missing": [
+     "orphan-evidence",
+     "orphan-mapping",
+     "unmapped-gl"
+    ],
+    "rows": [
+     12,
+     9,
+     9,
+     9
+    ]
+   },
+   "accounts": 9,
+   "contractConsistentFamilyAgrees": 0,
+   "contractConsistentFamilyWithholds": 6,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 3,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1519|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1529|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1530|BU-01",
+     "missing",
+     null
+    ],
+    [
+     "1538|BU-01",
+     "missing",
+     null
+    ],
+    [
+     "1539|BU-01",
+     "missing",
+     null
+    ]
+   ]
+  },
+  "F20": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "source-error",
+    "issues": [
+     "COMPONENT_SET",
+     "IDENTITY"
+    ],
+    "missing": [],
+    "rows": [
+     17,
+     15,
+     15,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 0,
+   "contractConsistentFamilyWithholds": 3,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 3,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1518|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1519|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1529|BU-01",
+     "consistent",
+     null
+    ]
+   ]
+  },
+  "F21": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "difference",
+    "issues": [],
+    "missing": [],
+    "rows": [
+     20,
+     15,
+     15,
+     9
+    ]
+   },
+   "accounts": 9,
+   "contractConsistentFamilyAgrees": 3,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 3,
+   "contractNotConsistentFamilyOther": 3,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "held",
+     -9500000
+    ],
+    [
+     "1518|BU-01",
+     "held",
+     -150000
+    ],
+    [
+     "1519|BU-01",
+     "held",
+     -2850000
+    ],
+    [
+     "1520|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1530|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1538|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1539|BU-01",
+     "consistent",
+     0
+    ]
+   ]
+  },
+  "F22": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "ready",
+    "issues": [],
+    "missing": [],
+    "rows": [
+     20,
+     15,
+     15,
+     12
+    ]
+   },
+   "accounts": 12,
+   "contractConsistentFamilyAgrees": 3,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 9,
+   "contractNotConsistentFamilyOther": 0,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1520|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1530|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1538|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1539|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1540|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1548|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1549|BU-01",
+     "held",
+     0
+    ]
+   ]
+  },
+  "F23": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "ready",
+    "issues": [],
+    "missing": [],
+    "rows": [
+     16,
+     12,
+     12,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 3,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 3,
+   "contractNotConsistentFamilyOther": 0,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "consistent",
+     0
+    ]
+   ]
+  },
+  "F24": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "ready",
+    "issues": [],
+    "missing": [],
+    "rows": [
+     16,
+     12,
+     12,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 0,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 6,
+   "contractNotConsistentFamilyOther": 0,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1520|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "held",
+     0
+    ]
+   ]
+  },
+  "F25": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "missing",
+    "issues": [],
+    "missing": [
+     "mapping",
+     "unmapped-gl"
+    ],
+    "rows": [
+     16,
+     9,
+     9,
+     9
+    ]
+   },
+   "accounts": 9,
+   "contractConsistentFamilyAgrees": 0,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 9,
+   "contractNotConsistentFamilyOther": 0,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1520|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1530|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1538|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1539|BU-01",
+     "held",
+     0
+    ]
+   ]
+  },
+  "F26": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "missing",
+    "issues": [],
+    "missing": [
+     "gl",
+     "unmapped-gl"
+    ],
+    "rows": [
+     16,
+     12,
+     12,
+     7
+    ]
+   },
+   "accounts": 10,
+   "contractConsistentFamilyAgrees": 5,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 1,
+   "contractNotConsistentFamilyOther": 4,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1530|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1538|BU-01",
+     "missing",
+     "absent"
+    ],
+    [
+     "1539|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1540|BU-01",
+     "missing",
+     0
+    ],
+    [
+     "1548|BU-01",
+     "missing",
+     "absent"
+    ],
+    [
+     "1549|BU-01",
+     "missing",
+     "absent"
+    ],
+    [
+     "1595|BU-01",
+     "missing",
+     -4875000
+    ]
+   ]
+  },
+  "F27": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "difference",
+    "issues": [],
+    "missing": [],
+    "rows": [
+     16,
+     12,
+     12,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 4,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 2,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "difference",
+     25000
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1520|BU-01",
+     "difference",
+     -25000
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "consistent",
+     0
+    ]
+   ]
+  },
+  "F28": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "difference",
+    "issues": [],
+    "missing": [],
+    "rows": [
+     12,
+     9,
+     9,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 5,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 1,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "difference",
+     4055010
+    ]
+   ]
+  },
+  "F29": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "ready",
+    "issues": [],
+    "missing": [],
+    "rows": [
+     12,
+     9,
+     9,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 6,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 0,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "consistent",
+     0
+    ]
+   ]
+  },
+  "F30": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "source-error",
+    "issues": [
+     "PRECISION"
+    ],
+    "missing": [
+     "orphan-evidence",
+     "orphan-mapping",
+     "unmapped-gl"
+    ],
+    "rows": [
+     8,
+     6,
+     6,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 0,
+   "contractConsistentFamilyWithholds": 3,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 3,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1519|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1520|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1528|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1529|BU-01",
+     "held",
+     null
+    ]
+   ]
+  },
+  "F31": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "source-error",
+    "issues": [
+     "NUMBER"
+    ],
+    "missing": [
+     "orphan-evidence",
+     "orphan-mapping",
+     "unmapped-gl"
+    ],
+    "rows": [
+     12,
+     9,
+     9,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 0,
+   "contractConsistentFamilyWithholds": 3,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 3,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1519|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1520|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1528|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1529|BU-01",
+     "held",
+     null
+    ]
+   ]
+  },
+  "F32": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "source-error",
+    "issues": [
+     "IDENTITY",
+     "VALUATION_REFERENCE"
+    ],
+    "missing": [
+     "orphan-evidence",
+     "orphan-mapping",
+     "unmapped-gl"
+    ],
+    "rows": [
+     16,
+     12,
+     12,
+     9
+    ]
+   },
+   "accounts": 9,
+   "contractConsistentFamilyAgrees": 0,
+   "contractConsistentFamilyWithholds": 3,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 6,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1518|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1519|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1520|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1528|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1529|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1530|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1538|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1539|BU-01",
+     "consistent",
+     null
+    ]
+   ]
+  },
+  "F33": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "source-error",
+    "issues": [
+     "COMPONENT",
+     "COMPONENT_SET"
+    ],
+    "missing": [
+     "orphan-evidence",
+     "orphan-mapping"
+    ],
+    "rows": [
+     16,
+     12,
+     12,
+     9
+    ]
+   },
+   "accounts": 9,
+   "contractConsistentFamilyAgrees": 0,
+   "contractConsistentFamilyWithholds": 3,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 6,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1518|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1519|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1520|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1528|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1529|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1530|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1538|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1539|BU-01",
+     "consistent",
+     null
+    ]
+   ]
+  },
+  "F34": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "missing",
+    "issues": [],
+    "missing": [
+     "gl",
+     "unmapped-gl"
+    ],
+    "rows": [
+     16,
+     12,
+     12,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 4,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 1,
+   "contractNotConsistentFamilyOther": 1,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "missing",
+     -150000
+    ],
+    [
+     "1519|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "consistent",
+     0
+    ]
+   ]
+  },
+  "F35": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS",
+     "DUPLICATE"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "source-error",
+    "issues": [
+     "DUPLICATE",
+     "ROW_SCOPE"
+    ],
+    "missing": [
+     "gl",
+     "unmapped-gl"
+    ],
+    "rows": [
+     16,
+     12,
+     12,
+     7
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 0,
+   "contractConsistentFamilyWithholds": 4,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 2,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1519|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1529|BU-01",
+     "held",
+     "absent"
+    ]
+   ]
+  },
+  "F36": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "missing",
+    "issues": [],
+    "missing": [
+     "mapping",
+     "unmapped-gl"
+    ],
+    "rows": [
+     12,
+     7,
+     7,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 4,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 1,
+   "contractNotConsistentFamilyOther": 1,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1530|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1538|BU-01",
+     "held",
+     -300000
+    ],
+    [
+     "1539|BU-01",
+     "consistent",
+     0
+    ]
+   ]
+  },
+  "F37": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "ready",
+    "issues": [],
+    "missing": [],
+    "rows": [
+     12,
+     9,
+     9,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 0,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 6,
+   "contractNotConsistentFamilyOther": 0,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1520|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "held",
+     0
+    ]
+   ]
+  },
+  "F38": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "source-error",
+    "issues": [
+     "IDENTITY"
+    ],
+    "missing": [],
+    "rows": [
+     12,
+     9,
+     9,
+     7
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 0,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 6,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1518|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1519|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1520|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1528|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1529|BU-01",
+     "held",
+     null
+    ]
+   ]
+  },
+  "F39": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "ready",
+    "issues": [],
+    "missing": [],
+    "rows": [
+     24,
+     18,
+     18,
+     9
+    ]
+   },
+   "accounts": 9,
+   "contractConsistentFamilyAgrees": 9,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 0,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1530|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1538|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1539|BU-01",
+     "consistent",
+     0
+    ]
+   ]
+  },
+  "F40": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "source-error",
+    "issues": [
+     "CARRYING_EQUATION"
+    ],
+    "missing": [
+     "orphan-evidence",
+     "orphan-mapping",
+     "unmapped-gl"
+    ],
+    "rows": [
+     20,
+     15,
+     15,
+     9
+    ]
+   },
+   "accounts": 9,
+   "contractConsistentFamilyAgrees": 0,
+   "contractConsistentFamilyWithholds": 3,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 6,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1518|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1519|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1529|BU-01",
+     "consistent",
+     null
+    ],
+    [
+     "1530|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1538|BU-01",
+     "held",
+     null
+    ],
+    [
+     "1539|BU-01",
+     "held",
+     null
+    ]
+   ]
+  },
+  "F41": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "ready",
+    "issues": [],
+    "missing": [],
+    "rows": [
+     12,
+     9,
+     9,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 0,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 6,
+   "contractNotConsistentFamilyOther": 0,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1520|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "held",
+     0
+    ]
+   ]
+  },
+  "F42": {
+   "contractRefused": "SCOPE",
+   "asItComes": {
+    "refused": "CURRENCY"
+   }
+  },
+  "F43": {
+   "contractRefused": "SOURCE",
+   "asItComes": {
+    "refused": "CSV"
+   }
+  },
+  "F44": {
+   "contractRefused": "COLUMNS",
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   }
+  },
+  "F45": {
+   "contractRefused": "CAPACITY",
+   "asItComes": {
+    "refused": "SOURCE_LIMIT"
+   }
+  },
+  "F46": {
+   "contractRefused": "READING",
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   }
+  },
+  "F47": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "ready",
+    "issues": [],
+    "missing": [],
+    "rows": [
+     8,
+     6,
+     6,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 3,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 3,
+   "contractNotConsistentFamilyOther": 0,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "held",
+     0
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "consistent",
+     0
+    ]
+   ]
+  },
+  "F48": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "empty-source"
+    ]
+   },
+   "cut": {
+    "refused": null,
+    "financial": "ready",
+    "issues": [],
+    "missing": [],
+    "rows": [
+     20,
+     15,
+     15,
+     6
+    ]
+   },
+   "accounts": 6,
+   "contractConsistentFamilyAgrees": 6,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 0,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 0,
+   "perAccount": [
+    [
+     "1510|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1518|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1519|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1520|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1528|BU-01",
+     "consistent",
+     0
+    ],
+    [
+     "1529|BU-01",
+     "consistent",
+     0
+    ]
+   ]
+  },
+  "D1": {
+   "contractRefused": null,
+   "asItComes": {
+    "refused": "ROWS"
+   },
+   "cut": {
+    "refused": "ROWS",
+    "financial": null,
+    "issues": [],
+    "missing": [],
+    "rows": [
+     19560,
+     14670,
+     14670,
+     12
+    ]
+   },
+   "accounts": 12,
+   "contractConsistentFamilyAgrees": 0,
+   "contractConsistentFamilyWithholds": 0,
+   "contractConsistentFamilyOther": 9,
+   "contractNotConsistentFamilyAgrees": 0,
+   "contractNotConsistentFamilyOther": 3
+  },
+  "D2": {
+   "contractRefused": "CAPACITY",
+   "asItComes": {
+    "refused": "SOURCE_LIMIT"
+   }
+  }
+ }
+}

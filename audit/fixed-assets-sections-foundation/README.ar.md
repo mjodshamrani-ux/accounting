@@ -15,7 +15,7 @@
 | [`verify.py`](verify.py) | فحص مستقل لكل ملف بوحدة `csv` في Python لا بمحلل الأوراكل: الخلايا مطابقة للحقائق، وعلامات ترتيب البايت، ونهايات الأسطر، والاقتباس، والمد، والرقعة، والمدخلات. ثم 12 تغييرًا مزروعًا يجب أن تُرفض |
 | [`dense.py`](dense.py) و[`seal.py`](seal.py) و[`check_seal.py`](check_seal.py) | إعادة توليد الكثيفتين والتحقق منهما، والختم والتحقق منه |
 | `frozen/` | 144 ملف CSV و48 ملف مدخلات، و`stories.json` و`EXPECTED.json` و`VERIFY.json` و`DENSE-MANIFEST.json` و`INPUT-MANIFEST.json` و`SEAL.json` |
-| `results/` | سجلا الأخطاء المزروعة في الأوراكل كما جاءا |
+| [`baseline.mjs`](baseline.mjs) و`results/` | سجل المنتج كما هو، كُتب بعد الختم: القصة كما تصل في أدوار العائلة الطويلة، ثم مقطوعة باليد إلى ملفاتها الأربعة. التشغيل الأول في `results/baseline-1.json` كما جاء. وسجلا الأخطاء المزروعة في الأوراكل كما جاءا |
 
 ## قبل الختم
 
@@ -33,6 +33,12 @@
 python3 -B -m unittest discover -s audit/fixed-assets-sections-foundation -p test_oracle.py -v
 python3 -B audit/fixed-assets-sections-foundation/mutate_oracle.py
 python3 -B audit/fixed-assets-sections-foundation/check_seal.py
+```
+
+وسجل المنتج:
+
+```sh
+node --experimental-strip-types audit/fixed-assets-sections-foundation/baseline.mjs --assert baseline-1.json
 ```
 
 وإعادة التوليد، قبل الختم فقط:
