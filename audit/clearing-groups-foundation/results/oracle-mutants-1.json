@@ -1,0 +1,162 @@
+{
+ "schema": "tarasuf-clr1-oracle-mutants/1",
+ "baselinePassed": true,
+ "killed": 22,
+ "of": 22,
+ "faults": [
+  {
+   "fault": "unisolated-lines-ignored",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "connected-by-reference-cell-only",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "posting-numbers-not-keys",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "connected-lines-ignored",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "empty-reference-isolated",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "summary-labels-isolated",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "cells-past-the-header-ignored",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "header-copies-isolated",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "formula-lines-isolated",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "hidden-lines-isolated",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "isolation-without-a-clearing-header",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "duplicates-ignored",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "duplicates-by-amount-only",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "repeated-posting-is-an-error",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "group-limit-one-short",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "period-end-excluded",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "currency-not-checked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "extra-decimals-accepted",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "ceiling-one-short",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "unreferenced-lines-pooled",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "one-sided-zero-cleared",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "hidden-lines-read",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  }
+ ]
+}

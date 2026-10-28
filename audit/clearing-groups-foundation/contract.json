@@ -1,0 +1,77 @@
+{
+ "schema": "tarasuf-clr1-groups-foundation/1",
+ "status": {
+  "cleared": "A group is cleared when its reference is non-empty, the reference column has a clearing-reference header, its net is zero, it has a positive and a negative member, it has at most 100 members, and no reason below applies.",
+  "review": "Every other group, with every reason that applies, in this order.",
+  "reasons": {
+   "UNISOLATED_ERROR": "An error row that is not isolated exists in the file.",
+   "CONNECTED_ERROR": "An isolated error row has a key equal to the group's reference. The rows and their codes are listed with the group.",
+   "DUPLICATE_MEMBER": "Two or more members are equal in every selected cell. The sets are listed with the group.",
+   "GROUP_LIMIT": "The group has more than 100 members.",
+   "MISSING_REFERENCE": "The group has no reference: one movement on its own.",
+   "UNVERIFIED_REFERENCE_ROLE": "The reference column's header is not a clearing-reference header.",
+   "RESIDUAL": "The group's net is not zero, or it has no positive or no negative member."
+  }
+ },
+ "synthetic": true,
+ "holdout": false,
+ "productEnabled": false,
+ "proposedEvidence": "clearing-groups-1",
+ "family": "clearing-1, unchanged: one clearing account in one file, one currency, one period, groups by an explicit clearing reference, human decisions on whole groups",
+ "plan": "docs/roadmap/clearing.ar.md#clr-1-مجموعة-مقاصة-كاملة--مخطط-بعد-c-0-وc-1",
+ "challengeIds": [
+  "CLR",
+  "CH-02",
+  "CH-06",
+  "CH-08",
+  "CH-09"
+ ],
+ "why": "A clearing account extract of a month holds a few thousand lines. Today one line that cannot be read, one line of another account, currency or month, or one posting number used on two lines, holds every group in the file, including groups that the faulty line cannot touch, and the reason is the same for all of them: source errors. A posting number that a journal entry repeats on two lines of the account is refused as a duplicate, although the physical row, not the document number, is the movement. And no group says which line held it.",
+ "claim": "For every group: its members with the basis that put each one in it, its net, its status, and every reason it is not cleared, including the faulty lines that hold it by row and code. A faulty line holds only the groups it can touch when its reading proves what it can touch, and every group otherwise. A clearing is never wider than clearing-1 would make it on the same file without the faulty lines, and never narrower than one whole reference.",
+ "reading": {
+  "file": "One CSV or XLSX sheet, the header on the first row. A CSV is UTF-8, a byte order mark dropped, its separator the one of comma, semicolon or tab that splits most of the first twenty non-empty rows into more than one cell, and refused (SOURCE) when two tie. The columns and the scope as clearing-1 reads them: posting, clearing reference, date, amount or debit and credit, account, currency, description optional; entity, ledger, account, currency, start and end, confirmed.",
+  "movement": "A physical row that reads completely: a posting value, the scope's account and currency, a yyyy-mm-dd date inside the period, an exact amount in the currency's minor units (or a debit and a credit, one of them zero, neither negative), no hidden row, no row issue, no cell issue, reference issue or formula in a selected cell, and identities (posting, reference, account) without control characters, a leading = + @ or -, or an Excel error. The movement's identity is its sheet and row.",
+  "error": "Any other non-blank row after the header, kept with its cells and its code (CELL, POSTING, IDENTITY, ROW_SCOPE, DATE, PERIOD, AMOUNT_FORMAT, SPLIT). Never counted, never dropped.",
+  "blank": "A row whose cells are all empty after trimming, when it has no hidden flag, row issue, cell issue, reference issue or formula."
+ },
+ "groups": {
+  "membership": "Every movement with the same non-empty clearing reference, all of them, in row order; a movement with an empty reference is a group of its own. No subset of a reference is ever chosen, whatever it nets to.",
+  "basis": "REFERENCE for a member of a referenced group; ROW for the only member of a group without a reference.",
+  "net": "The sum of the members' amounts in minor units: the remainder that stays visible when the group is not cleared.",
+  "order": "Groups in the order of their first member's row."
+ },
+ "postingNumbers": "A posting value may repeat on different rows: a journal entry can carry several lines in the account. It is a document number, not the movement's identity, and its repetition is not an error.",
+ "duplicates": "Two or more movements equal in every selected cell as read (posting, reference, date, amount in minor units, and the description when it is selected) form a duplicate set. None of them is dropped, merged or chosen; the group they belong to is held (DUPLICATE_MEMBER).",
+ "isolation": {
+  "isolated": "An error row is isolated when every one of these holds: the clearing reference column has a clearing-reference header (Clearing Reference, Clearing Document, or the Arabic مرجع المقاصة or رقم المقاصة, ignoring case and spaces); the row is not hidden and has no row issue; no cell of the row holds a formula; no non-empty cell lies past the header's last non-empty cell; the row's cells up to that cell are not the header's labels in any order; its reference cell has no cell or reference issue, is not empty, passes the identity rule, and is not a summary label such as Total or المجموع (with or without a colon).",
+  "keys": "An isolated error row's keys are all of its non-empty cells, trimmed. A failed amount or date cannot tell a corrupted value from a displaced reference, so every cell is a possible reference.",
+  "connected": "An isolated error row holds every group whose reference, or one of whose members' posting numbers, equals one of its keys (CONNECTED_ERROR), and no other group. A posting number shared with a member may be another line of the same entry.",
+  "unisolated": "An error row that is not isolated holds every group (UNISOLATED_ERROR), as clearing-1 does today.",
+  "scope": "A row of another account, currency or period is an error row like any other: if it is isolated and shares a reference with a group, that group is held; the reference repeated outside the scope is not counted and does not complete the group."
+ },
+ "consistency": [
+  "Every movement belongs to exactly one group; the groups' nets sum to the movements' total.",
+  "Every error row is listed with its row, cells and code, whether or not it holds a group.",
+  "A group cleared here would be cleared by clearing-1 on the same file with the error rows removed and the posting numbers made unique; a group held there is held here.",
+  "Reordering the rows changes row numbers only: the same members by posting and reference, the same statuses and reasons."
+ ],
+ "screen": "A review-only section of the clearing workspace, beside clearing-1 and not instead of it: each group with its reference, members, net, status and reasons, the faulty lines that hold it, and the error rows, in Arabic and English. No decision is taken here.",
+ "workbook": "Not in this foundation. The section's export is decided with the screen.",
+ "unchanged": "clearing-1: its reading, its cases, its reasons, its decisions, its session and its workbook. The existing clearing workspace keeps its decisions; a decision is never taken from clearing-groups-1.",
+ "density": "The reader admits at most 20,030 rows in a sheet, the header included: 20,029 lines. One line more is refused before any group is formed (ROWS).",
+ "ownerDecisions": {
+  "C1": "A posting number repeated on different lines is not an error under clearing-groups-1. clearing-1 refuses it and holds every group.",
+  "C2": "Lines equal in every selected cell hold their group as DUPLICATE_MEMBER; none is dropped. Proposed: a double export and two genuine identical lines cannot be told apart from the file.",
+  "C3": "The isolation envelope above, the same shape as the AP reader's: an isolated faulty line holds only the groups it can touch; a faulty line that is not isolated holds every group.",
+  "C4": "A line of another account, currency or period that shares a group's reference holds that group; it is never used to complete it.",
+  "C5": "Review only, beside clearing-1: clearing-groups-1 takes no decision and changes no session.",
+  "C6": "The group limit of 100 members and the clearing-reference header names are clearing-1's, unchanged."
+ },
+ "notInScope": [
+  "Clearing across accounts, currencies, entities or periods.",
+  "Choosing a subset of a reference, or forming a group from amounts alone.",
+  "Reversal links by a separate column: a reversal is a member of its reference like any line.",
+  "PDF sources.",
+  "Decisions, sessions and workbooks for clearing-groups-1."
+ ]
+}

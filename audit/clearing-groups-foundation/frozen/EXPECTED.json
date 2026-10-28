@@ -1,0 +1,2435 @@
+{
+ "schema": "tarasuf-clr1-expected/1",
+ "oracle": "audit/clearing-groups-foundation/oracle.py",
+ "stories": {
+  "F01": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C001",
+     "members": [
+      [
+       2,
+       "P001",
+       100000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P002",
+       -60000,
+       "REFERENCE"
+      ],
+      [
+       4,
+       "P003",
+       -40000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "b3d90d9bf1b65f1ba2ffcb1b987dc76f23daf75b479cc0e3fdcad963ee90b210"
+  },
+  "F02": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C010",
+     "members": [
+      [
+       2,
+       "P010",
+       10000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 10000,
+     "status": "review",
+     "reasons": [
+      "RESIDUAL"
+     ],
+     "connected": [],
+     "duplicates": []
+    },
+    {
+     "reference": "C011",
+     "members": [
+      [
+       3,
+       "P011",
+       -10000,
+       "REFERENCE"
+      ]
+     ],
+     "net": -10000,
+     "status": "review",
+     "reasons": [
+      "RESIDUAL"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "98f5681e5b928aff2b2a6c2e4cca3ffb6471c53b4551d4ba918f13dfb9984488"
+  },
+  "F03": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "",
+     "members": [
+      [
+       2,
+       "P020",
+       7500,
+       "ROW"
+      ]
+     ],
+     "net": 7500,
+     "status": "review",
+     "reasons": [
+      "MISSING_REFERENCE"
+     ],
+     "connected": [],
+     "duplicates": []
+    },
+    {
+     "reference": "",
+     "members": [
+      [
+       3,
+       "P021",
+       -7500,
+       "ROW"
+      ]
+     ],
+     "net": -7500,
+     "status": "review",
+     "reasons": [
+      "MISSING_REFERENCE"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "94bf6fc8a16149af5c2b5db9154c5af38a8c5282a674dbd7e0a890e8d3727c81"
+  },
+  "F04": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C020",
+     "members": [
+      [
+       2,
+       "P030",
+       50000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P031",
+       -50000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "CONNECTED_ERROR"
+     ],
+     "connected": [
+      [
+       4,
+       "PERIOD"
+      ]
+     ],
+     "duplicates": []
+    },
+    {
+     "reference": "C021",
+     "members": [
+      [
+       5,
+       "P033",
+       30000,
+       "REFERENCE"
+      ],
+      [
+       6,
+       "P034",
+       -30000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "PERIOD",
+     true
+    ]
+   ],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "d3047c1bbfb7dab995b1e08cf2a9c5ef8001f982fcc7ce76aabda4cc52c7828c"
+  },
+  "F05": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C030",
+     "members": [
+      [
+       2,
+       "P040",
+       80000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P041",
+       -80000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    },
+    {
+     "reference": "C031",
+     "members": [
+      [
+       4,
+       "P042",
+       80000,
+       "REFERENCE"
+      ],
+      [
+       5,
+       "P043",
+       -80000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "c108b1153de11496d3c8a41566e5cd93927994528cb15e713fd9058a112a9860"
+  },
+  "F06": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C040",
+     "members": [
+      [
+       2,
+       "P050",
+       30000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P051",
+       -30000,
+       "REFERENCE"
+      ],
+      [
+       4,
+       "P051",
+       -30000,
+       "REFERENCE"
+      ]
+     ],
+     "net": -30000,
+     "status": "review",
+     "reasons": [
+      "DUPLICATE_MEMBER",
+      "RESIDUAL"
+     ],
+     "connected": [],
+     "duplicates": [
+      [
+       3,
+       4
+      ]
+     ]
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": -30000,
+   "sha256": "cf21ed10d10447650a5b48b8add828597004b30b2ea11c124e7b52da5efbb1d9"
+  },
+  "F07": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C041",
+     "members": [
+      [
+       2,
+       "P060",
+       30000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P060",
+       30000,
+       "REFERENCE"
+      ],
+      [
+       4,
+       "P061",
+       -60000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "DUPLICATE_MEMBER"
+     ],
+     "connected": [],
+     "duplicates": [
+      [
+       2,
+       3
+      ]
+     ]
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "e7e39efadee01c04096ff3b9baeadb275f4c626cb6f723b40df7d41b25a982aa"
+  },
+  "F08": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C050",
+     "members": [
+      [
+       2,
+       "P070",
+       100000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P071",
+       -100000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "CONNECTED_ERROR"
+     ],
+     "connected": [
+      [
+       4,
+       "AMOUNT_FORMAT"
+      ]
+     ],
+     "duplicates": []
+    },
+    {
+     "reference": "C051",
+     "members": [
+      [
+       5,
+       "P073",
+       25000,
+       "REFERENCE"
+      ],
+      [
+       6,
+       "P074",
+       -25000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "AMOUNT_FORMAT",
+     true
+    ]
+   ],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "4f1bd449e8b50ee1913140f0fc32abdbd93447b8812acced4530f7347ad8d86e"
+  },
+  "F09": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C060",
+     "members": [
+      [
+       2,
+       "P080",
+       12000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P081",
+       -12000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    },
+    {
+     "reference": "C061",
+     "members": [
+      [
+       4,
+       "P082",
+       4500,
+       "REFERENCE"
+      ],
+      [
+       5,
+       "P083",
+       -4500,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     6,
+     "AMOUNT_FORMAT",
+     true
+    ]
+   ],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "dcefa8e0d39da1e49a5517999bbea153f5e96c18b579b4d545740a0e3153b5a8"
+  },
+  "F10": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C070",
+     "members": [
+      [
+       2,
+       "P090",
+       9000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P091",
+       -9000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "UNISOLATED_ERROR"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "AMOUNT_FORMAT",
+     false
+    ]
+   ],
+   "blank": [],
+   "unisolated": [
+    4
+   ],
+   "total": 0,
+   "sha256": "4b843510a53fa6b13857bceb708ecbd296db01645c0627e39dda1326a32480cb"
+  },
+  "F11": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C080",
+     "members": [
+      [
+       2,
+       "P100",
+       6000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P101",
+       -6000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "CONNECTED_ERROR"
+     ],
+     "connected": [
+      [
+       8,
+       "AMOUNT_FORMAT"
+      ]
+     ],
+     "duplicates": []
+    },
+    {
+     "reference": "C081",
+     "members": [
+      [
+       4,
+       "P102",
+       7000,
+       "REFERENCE"
+      ],
+      [
+       5,
+       "P103",
+       -7000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "CONNECTED_ERROR"
+     ],
+     "connected": [
+      [
+       8,
+       "AMOUNT_FORMAT"
+      ]
+     ],
+     "duplicates": []
+    },
+    {
+     "reference": "C082",
+     "members": [
+      [
+       6,
+       "P104",
+       8000,
+       "REFERENCE"
+      ],
+      [
+       7,
+       "P105",
+       -8000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     8,
+     "AMOUNT_FORMAT",
+     true
+    ]
+   ],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "ab495a58bc8bd3061c42d19de864eb01d460c3a6632481f35395bf510e517faf"
+  },
+  "F12": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C051",
+     "members": [
+      [
+       3,
+       "P074",
+       -25000,
+       "REFERENCE"
+      ],
+      [
+       5,
+       "P073",
+       25000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    },
+    {
+     "reference": "C050",
+     "members": [
+      [
+       4,
+       "P071",
+       -100000,
+       "REFERENCE"
+      ],
+      [
+       6,
+       "P070",
+       100000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "CONNECTED_ERROR"
+     ],
+     "connected": [
+      [
+       2,
+       "AMOUNT_FORMAT"
+      ]
+     ],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     2,
+     "AMOUNT_FORMAT",
+     true
+    ]
+   ],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "a2801ea15a419aee5b8401c72429c93afd78789bc85ecaf0ca207a4ea79492e7"
+  },
+  "F13": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C090",
+     "members": [
+      [
+       2,
+       "P110",
+       60000,
+       "REFERENCE"
+      ],
+      [
+       4,
+       "P112",
+       -60000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    },
+    {
+     "reference": "C091",
+     "members": [
+      [
+       3,
+       "P111",
+       40000,
+       "REFERENCE"
+      ],
+      [
+       5,
+       "P112",
+       -40000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "1f12801fd8394c12503e8ed71479f19c47d611b0e8fd44adc6134ba5857c99f6"
+  },
+  "F14": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C100",
+     "members": [
+      [
+       2,
+       "P120",
+       15000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P121",
+       -15000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "CONNECTED_ERROR"
+     ],
+     "connected": [
+      [
+       4,
+       "ROW_SCOPE"
+      ]
+     ],
+     "duplicates": []
+    },
+    {
+     "reference": "C101",
+     "members": [
+      [
+       5,
+       "P123",
+       5000,
+       "REFERENCE"
+      ],
+      [
+       6,
+       "P124",
+       -5000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "ROW_SCOPE",
+     true
+    ]
+   ],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "712edc97ecbc2fc0d2fcec7c6e9edce657efffa99b768fb1dadbb60923ddb874"
+  },
+  "F15": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C110",
+     "members": [
+      [
+       2,
+       "P130",
+       37500,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P131",
+       -37500,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "CONNECTED_ERROR"
+     ],
+     "connected": [
+      [
+       4,
+       "ROW_SCOPE"
+      ]
+     ],
+     "duplicates": []
+    },
+    {
+     "reference": "C111",
+     "members": [
+      [
+       5,
+       "P133",
+       1000,
+       "REFERENCE"
+      ],
+      [
+       6,
+       "P134",
+       -1000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "ROW_SCOPE",
+     true
+    ]
+   ],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "ce12948219f14a882865b69330c80c014dd056b2916fb0accbb2ab9f346c763d"
+  },
+  "F16": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C120",
+     "members": [
+      [
+       2,
+       "P140",
+       4000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P141",
+       -4000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "UNISOLATED_ERROR"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "POSTING",
+     false
+    ]
+   ],
+   "blank": [],
+   "unisolated": [
+    4
+   ],
+   "total": 0,
+   "sha256": "dc5a866076b9e499510c4ffb3d7c5e44201c42355c694cd33bc027a5e407945a"
+  },
+  "F17": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C130",
+     "members": [
+      [
+       2,
+       "P2000",
+       -10000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P2001",
+       100,
+       "REFERENCE"
+      ],
+      [
+       4,
+       "P2002",
+       100,
+       "REFERENCE"
+      ],
+      [
+       5,
+       "P2003",
+       100,
+       "REFERENCE"
+      ],
+      [
+       6,
+       "P2004",
+       100,
+       "REFERENCE"
+      ],
+      [
+       7,
+       "P2005",
+       100,
+       "REFERENCE"
+      ],
+      [
+       8,
+       "P2006",
+       100,
+       "REFERENCE"
+      ],
+      [
+       9,
+       "P2007",
+       100,
+       "REFERENCE"
+      ],
+      [
+       10,
+       "P2008",
+       100,
+       "REFERENCE"
+      ],
+      [
+       11,
+       "P2009",
+       100,
+       "REFERENCE"
+      ],
+      [
+       12,
+       "P2010",
+       100,
+       "REFERENCE"
+      ],
+      [
+       13,
+       "P2011",
+       100,
+       "REFERENCE"
+      ],
+      [
+       14,
+       "P2012",
+       100,
+       "REFERENCE"
+      ],
+      [
+       15,
+       "P2013",
+       100,
+       "REFERENCE"
+      ],
+      [
+       16,
+       "P2014",
+       100,
+       "REFERENCE"
+      ],
+      [
+       17,
+       "P2015",
+       100,
+       "REFERENCE"
+      ],
+      [
+       18,
+       "P2016",
+       100,
+       "REFERENCE"
+      ],
+      [
+       19,
+       "P2017",
+       100,
+       "REFERENCE"
+      ],
+      [
+       20,
+       "P2018",
+       100,
+       "REFERENCE"
+      ],
+      [
+       21,
+       "P2019",
+       100,
+       "REFERENCE"
+      ],
+      [
+       22,
+       "P2020",
+       100,
+       "REFERENCE"
+      ],
+      [
+       23,
+       "P2021",
+       100,
+       "REFERENCE"
+      ],
+      [
+       24,
+       "P2022",
+       100,
+       "REFERENCE"
+      ],
+      [
+       25,
+       "P2023",
+       100,
+       "REFERENCE"
+      ],
+      [
+       26,
+       "P2024",
+       100,
+       "REFERENCE"
+      ],
+      [
+       27,
+       "P2025",
+       100,
+       "REFERENCE"
+      ],
+      [
+       28,
+       "P2026",
+       100,
+       "REFERENCE"
+      ],
+      [
+       29,
+       "P2027",
+       100,
+       "REFERENCE"
+      ],
+      [
+       30,
+       "P2028",
+       100,
+       "REFERENCE"
+      ],
+      [
+       31,
+       "P2029",
+       100,
+       "REFERENCE"
+      ],
+      [
+       32,
+       "P2030",
+       100,
+       "REFERENCE"
+      ],
+      [
+       33,
+       "P2031",
+       100,
+       "REFERENCE"
+      ],
+      [
+       34,
+       "P2032",
+       100,
+       "REFERENCE"
+      ],
+      [
+       35,
+       "P2033",
+       100,
+       "REFERENCE"
+      ],
+      [
+       36,
+       "P2034",
+       100,
+       "REFERENCE"
+      ],
+      [
+       37,
+       "P2035",
+       100,
+       "REFERENCE"
+      ],
+      [
+       38,
+       "P2036",
+       100,
+       "REFERENCE"
+      ],
+      [
+       39,
+       "P2037",
+       100,
+       "REFERENCE"
+      ],
+      [
+       40,
+       "P2038",
+       100,
+       "REFERENCE"
+      ],
+      [
+       41,
+       "P2039",
+       100,
+       "REFERENCE"
+      ],
+      [
+       42,
+       "P2040",
+       100,
+       "REFERENCE"
+      ],
+      [
+       43,
+       "P2041",
+       100,
+       "REFERENCE"
+      ],
+      [
+       44,
+       "P2042",
+       100,
+       "REFERENCE"
+      ],
+      [
+       45,
+       "P2043",
+       100,
+       "REFERENCE"
+      ],
+      [
+       46,
+       "P2044",
+       100,
+       "REFERENCE"
+      ],
+      [
+       47,
+       "P2045",
+       100,
+       "REFERENCE"
+      ],
+      [
+       48,
+       "P2046",
+       100,
+       "REFERENCE"
+      ],
+      [
+       49,
+       "P2047",
+       100,
+       "REFERENCE"
+      ],
+      [
+       50,
+       "P2048",
+       100,
+       "REFERENCE"
+      ],
+      [
+       51,
+       "P2049",
+       100,
+       "REFERENCE"
+      ],
+      [
+       52,
+       "P2050",
+       100,
+       "REFERENCE"
+      ],
+      [
+       53,
+       "P2051",
+       100,
+       "REFERENCE"
+      ],
+      [
+       54,
+       "P2052",
+       100,
+       "REFERENCE"
+      ],
+      [
+       55,
+       "P2053",
+       100,
+       "REFERENCE"
+      ],
+      [
+       56,
+       "P2054",
+       100,
+       "REFERENCE"
+      ],
+      [
+       57,
+       "P2055",
+       100,
+       "REFERENCE"
+      ],
+      [
+       58,
+       "P2056",
+       100,
+       "REFERENCE"
+      ],
+      [
+       59,
+       "P2057",
+       100,
+       "REFERENCE"
+      ],
+      [
+       60,
+       "P2058",
+       100,
+       "REFERENCE"
+      ],
+      [
+       61,
+       "P2059",
+       100,
+       "REFERENCE"
+      ],
+      [
+       62,
+       "P2060",
+       100,
+       "REFERENCE"
+      ],
+      [
+       63,
+       "P2061",
+       100,
+       "REFERENCE"
+      ],
+      [
+       64,
+       "P2062",
+       100,
+       "REFERENCE"
+      ],
+      [
+       65,
+       "P2063",
+       100,
+       "REFERENCE"
+      ],
+      [
+       66,
+       "P2064",
+       100,
+       "REFERENCE"
+      ],
+      [
+       67,
+       "P2065",
+       100,
+       "REFERENCE"
+      ],
+      [
+       68,
+       "P2066",
+       100,
+       "REFERENCE"
+      ],
+      [
+       69,
+       "P2067",
+       100,
+       "REFERENCE"
+      ],
+      [
+       70,
+       "P2068",
+       100,
+       "REFERENCE"
+      ],
+      [
+       71,
+       "P2069",
+       100,
+       "REFERENCE"
+      ],
+      [
+       72,
+       "P2070",
+       100,
+       "REFERENCE"
+      ],
+      [
+       73,
+       "P2071",
+       100,
+       "REFERENCE"
+      ],
+      [
+       74,
+       "P2072",
+       100,
+       "REFERENCE"
+      ],
+      [
+       75,
+       "P2073",
+       100,
+       "REFERENCE"
+      ],
+      [
+       76,
+       "P2074",
+       100,
+       "REFERENCE"
+      ],
+      [
+       77,
+       "P2075",
+       100,
+       "REFERENCE"
+      ],
+      [
+       78,
+       "P2076",
+       100,
+       "REFERENCE"
+      ],
+      [
+       79,
+       "P2077",
+       100,
+       "REFERENCE"
+      ],
+      [
+       80,
+       "P2078",
+       100,
+       "REFERENCE"
+      ],
+      [
+       81,
+       "P2079",
+       100,
+       "REFERENCE"
+      ],
+      [
+       82,
+       "P2080",
+       100,
+       "REFERENCE"
+      ],
+      [
+       83,
+       "P2081",
+       100,
+       "REFERENCE"
+      ],
+      [
+       84,
+       "P2082",
+       100,
+       "REFERENCE"
+      ],
+      [
+       85,
+       "P2083",
+       100,
+       "REFERENCE"
+      ],
+      [
+       86,
+       "P2084",
+       100,
+       "REFERENCE"
+      ],
+      [
+       87,
+       "P2085",
+       100,
+       "REFERENCE"
+      ],
+      [
+       88,
+       "P2086",
+       100,
+       "REFERENCE"
+      ],
+      [
+       89,
+       "P2087",
+       100,
+       "REFERENCE"
+      ],
+      [
+       90,
+       "P2088",
+       100,
+       "REFERENCE"
+      ],
+      [
+       91,
+       "P2089",
+       100,
+       "REFERENCE"
+      ],
+      [
+       92,
+       "P2090",
+       100,
+       "REFERENCE"
+      ],
+      [
+       93,
+       "P2091",
+       100,
+       "REFERENCE"
+      ],
+      [
+       94,
+       "P2092",
+       100,
+       "REFERENCE"
+      ],
+      [
+       95,
+       "P2093",
+       100,
+       "REFERENCE"
+      ],
+      [
+       96,
+       "P2094",
+       100,
+       "REFERENCE"
+      ],
+      [
+       97,
+       "P2095",
+       100,
+       "REFERENCE"
+      ],
+      [
+       98,
+       "P2096",
+       100,
+       "REFERENCE"
+      ],
+      [
+       99,
+       "P2097",
+       100,
+       "REFERENCE"
+      ],
+      [
+       100,
+       "P2098",
+       100,
+       "REFERENCE"
+      ],
+      [
+       101,
+       "P2099",
+       100,
+       "REFERENCE"
+      ],
+      [
+       102,
+       "P2100",
+       100,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "GROUP_LIMIT"
+     ],
+     "connected": [],
+     "duplicates": []
+    },
+    {
+     "reference": "C131",
+     "members": [
+      [
+       103,
+       "P300",
+       900,
+       "REFERENCE"
+      ],
+      [
+       104,
+       "P301",
+       -900,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "d58124823326c53f86371c0d7640af7b0781f1170f4f5ca7e49a8b405ebc7ea6"
+  },
+  "F18": {
+   "refused": null,
+   "decimals": 2,
+   "role": false,
+   "groups": [
+    {
+     "reference": "C140",
+     "members": [
+      [
+       2,
+       "P310",
+       2000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P311",
+       -2000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "UNISOLATED_ERROR",
+      "UNVERIFIED_REFERENCE_ROLE"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "AMOUNT_FORMAT",
+     false
+    ]
+   ],
+   "blank": [],
+   "unisolated": [
+    4
+   ],
+   "total": 0,
+   "sha256": "00c38934c0ec8dc7bcff0a13ec8abda269b37ce50e97f97ddc6f4df2bf86f43a"
+  },
+  "F19": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C150",
+     "members": [
+      [
+       2,
+       "P320",
+       0,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P321",
+       50000,
+       "REFERENCE"
+      ],
+      [
+       4,
+       "P322",
+       -50000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    },
+    {
+     "reference": "C151",
+     "members": [
+      [
+       5,
+       "P323",
+       2500,
+       "REFERENCE"
+      ],
+      [
+       6,
+       "P324",
+       -2500,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "CONNECTED_ERROR"
+     ],
+     "connected": [
+      [
+       7,
+       "AMOUNT_FORMAT"
+      ]
+     ],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     7,
+     "AMOUNT_FORMAT",
+     true
+    ]
+   ],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "f612d08024277729f1a0ca4406d8ac6b1cd12229edfbe9aa7ce2cbfbe2f05b54"
+  },
+  "F20": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C160",
+     "members": [
+      [
+       2,
+       "P330",
+       10000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P331",
+       -10000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    },
+    {
+     "reference": "C161",
+     "members": [
+      [
+       4,
+       "P332",
+       5000,
+       "REFERENCE"
+      ],
+      [
+       5,
+       "P333",
+       -5000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    },
+    {
+     "reference": "",
+     "members": [
+      [
+       6,
+       "P334",
+       10000,
+       "ROW"
+      ]
+     ],
+     "net": 10000,
+     "status": "review",
+     "reasons": [
+      "MISSING_REFERENCE"
+     ],
+     "connected": [],
+     "duplicates": []
+    },
+    {
+     "reference": "",
+     "members": [
+      [
+       7,
+       "P335",
+       -5000,
+       "ROW"
+      ]
+     ],
+     "net": -5000,
+     "status": "review",
+     "reasons": [
+      "MISSING_REFERENCE"
+     ],
+     "connected": [],
+     "duplicates": []
+    },
+    {
+     "reference": "",
+     "members": [
+      [
+       8,
+       "P336",
+       -5000,
+       "ROW"
+      ]
+     ],
+     "net": -5000,
+     "status": "review",
+     "reasons": [
+      "MISSING_REFERENCE"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "24a83d5c67ee4ec23e390ff5d9e58fac8d3093dc133d6ea8d68120654f44dc37"
+  },
+  "F21": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C170",
+     "members": [
+      [
+       2,
+       "P340",
+       90000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P341",
+       -50000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 40000,
+     "status": "review",
+     "reasons": [
+      "RESIDUAL"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 40000,
+   "sha256": "d60ac724dd584d9dfd0966248d8508d596b52ea78197e78c9a1426c29c13b288"
+  },
+  "F22": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C170",
+     "members": [
+      [
+       2,
+       "P340",
+       90000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P341",
+       -50000,
+       "REFERENCE"
+      ],
+      [
+       4,
+       "P342",
+       -40000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "2dee2f1f05f19614e51bbe65f250736008c3c31f1a5d9d266d6799b74415a58e"
+  },
+  "F23": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C180",
+     "members": [
+      [
+       2,
+       "P350",
+       33000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P351",
+       -33000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "CONNECTED_ERROR"
+     ],
+     "connected": [
+      [
+       4,
+       "SPLIT"
+      ]
+     ],
+     "duplicates": []
+    },
+    {
+     "reference": "C181",
+     "members": [
+      [
+       5,
+       "P353",
+       7000,
+       "REFERENCE"
+      ],
+      [
+       6,
+       "P354",
+       -7000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "SPLIT",
+     true
+    ]
+   ],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "bafe0c62c3a2b14224d93a29b28098c00330a639b028cf4f108a8e8f5f785630"
+  },
+  "F24": {
+   "refused": null,
+   "decimals": 3,
+   "role": true,
+   "groups": [
+    {
+     "reference": "م-٠٠١",
+     "members": [
+      [
+       2,
+       "ق-001",
+       1250500,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "ق-002",
+       -1250500,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    },
+    {
+     "reference": "م-٠٠٣",
+     "members": [
+      [
+       5,
+       "ق-004",
+       125,
+       "REFERENCE"
+      ],
+      [
+       6,
+       "ق-005",
+       -125,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "AMOUNT_FORMAT",
+     true
+    ]
+   ],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "a08f2c811aee3180ca83deb40ef199373080653de1a0ba436099aca88fbb4ba4"
+  },
+  "F25": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C190",
+     "members": [
+      [
+       2,
+       "P360",
+       1000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P361",
+       -1000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "UNISOLATED_ERROR"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "CELL",
+     false
+    ]
+   ],
+   "blank": [],
+   "unisolated": [
+    4
+   ],
+   "total": 0,
+   "sha256": "00abbff54dafe5a862102f63dbbc5729239c8b8bbd4eeb3e6b04de705be8f9c8"
+  },
+  "F26": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C200",
+     "members": [
+      [
+       2,
+       "P370",
+       1000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P371",
+       -1000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "UNISOLATED_ERROR"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "CELL",
+     false
+    ]
+   ],
+   "blank": [],
+   "unisolated": [
+    4
+   ],
+   "total": 0,
+   "sha256": "f383155cb55ac104925149108a8700d88929692296bb40bd2613fd063f918502"
+  },
+  "F27": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C210",
+     "members": [
+      [
+       2,
+       "P380",
+       4400,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P381",
+       -4400,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "CONNECTED_ERROR"
+     ],
+     "connected": [
+      [
+       4,
+       "DATE"
+      ]
+     ],
+     "duplicates": []
+    },
+    {
+     "reference": "C211",
+     "members": [
+      [
+       5,
+       "P383",
+       2200,
+       "REFERENCE"
+      ],
+      [
+       6,
+       "P384",
+       -2200,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "DATE",
+     true
+    ]
+   ],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "a17b69af6f179b7bc298dd24b1209a631be0887236ba0b4e7eb2e878a1cf0ee1"
+  },
+  "F28": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C220",
+     "members": [
+      [
+       2,
+       "P390",
+       6600,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P391",
+       -6600,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "UNISOLATED_ERROR"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "AMOUNT_FORMAT",
+     false
+    ]
+   ],
+   "blank": [],
+   "unisolated": [
+    4
+   ],
+   "total": 0,
+   "sha256": "97f165af87cf3ba1b6d0a30150ea0a6713297daf224f64a9010fb94cb2bdff0f"
+  },
+  "F29": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C230",
+     "members": [
+      [
+       2,
+       "P400",
+       1200,
+       "REFERENCE"
+      ],
+      [
+       4,
+       "P401",
+       -1200,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "UNISOLATED_ERROR"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     3,
+     "ROW_SCOPE",
+     false
+    ]
+   ],
+   "blank": [],
+   "unisolated": [
+    3
+   ],
+   "total": 0,
+   "sha256": "14e3960d753ff31dc5b5e3231b70bee6e2c6ae32e085efe41c8ced8282975193"
+  },
+  "F30": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C240",
+     "members": [
+      [
+       2,
+       "P410",
+       3000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P411",
+       -3000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "UNISOLATED_ERROR"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "IDENTITY",
+     false
+    ]
+   ],
+   "blank": [],
+   "unisolated": [
+    4
+   ],
+   "total": 0,
+   "sha256": "47ab6c2593b3b1b912d2d7993772967ba11d5208254672673ed7d97b07c37220"
+  },
+  "F31": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C250",
+     "members": [
+      [
+       2,
+       "P420",
+       8800,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "P421",
+       -8800,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "CONNECTED_ERROR"
+     ],
+     "connected": [
+      [
+       4,
+       "AMOUNT_FORMAT"
+      ]
+     ],
+     "duplicates": []
+    },
+    {
+     "reference": "C251",
+     "members": [
+      [
+       5,
+       "P422",
+       1100,
+       "REFERENCE"
+      ],
+      [
+       6,
+       "P423",
+       -1100,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "AMOUNT_FORMAT",
+     true
+    ]
+   ],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "fc6497ce0b76e302681d9d140217b0c6ca3b06aaf50739e4cd4ba35bbffa4980"
+  },
+  "F32": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "C260",
+     "members": [
+      [
+       2,
+       "P430",
+       500,
+       "REFERENCE"
+      ],
+      [
+       4,
+       "P431",
+       -500,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "UNISOLATED_ERROR"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     5,
+     "AMOUNT_FORMAT",
+     false
+    ]
+   ],
+   "blank": [
+    3
+   ],
+   "unisolated": [
+    5
+   ],
+   "total": 0,
+   "sha256": "d7957548023f30c0973e5a94ca0789076611b96e73e2315eec80388e426e5113"
+  }
+ }
+}

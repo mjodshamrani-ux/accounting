@@ -1,0 +1,105 @@
+{
+ "schema": "tarasuf-clr1-dense-manifest/1",
+ "synthetic": true,
+ "producer": "stories.py dense(), fixed rules and no randomness, written by render.py --dense with Python csv only; regenerated and checked by dense.py before any run",
+ "files": {
+  "D1-input.json": {
+   "sha256": "963227f7676f0016383211dfb3ee8b02aad633f5595b6325a6fca27c0852bd2d",
+   "bytes": 428
+  },
+  "D1.csv": {
+   "sha256": "51a77a52e6df1d3652cfc1fe353f3806998d72d486fab1e537dc07a703759cd6",
+   "bytes": 1094981
+  },
+  "D2-input.json": {
+   "sha256": "0ac6c832e406b85e1071df9b5c448fde6cb440b406b2bfe01fc50062bd0b8ef9",
+   "bytes": 428
+  },
+  "D2.csv": {
+   "sha256": "591fb6a904a69f39b994eee425e8fe5c07a36bc788a73f6d5318b1a1c9131854",
+   "bytes": 1092639
+  },
+  "D3-input.json": {
+   "sha256": "2c320234060ceff616120f4366cee3d362920c142eb17bd652419ddf08b45d0c",
+   "bytes": 428
+  },
+  "D3.csv": {
+   "sha256": "03add842508b4dadb472dd6138017e7ad5942da214476c00f6af5c541161af91",
+   "bytes": 1094972
+  },
+  "D4-input.json": {
+   "sha256": "2bc5082d31ce52eece7d48b0f6d5c234981a949c17604500fb5abaab9e614b6d",
+   "bytes": 428
+  },
+  "D4.csv": {
+   "sha256": "c0e168ba60832915acaefc6b8db9f51bf41445c3ffab799fb5090749b5f9086f",
+   "bytes": 1095027
+  },
+  "D5-input.json": {
+   "sha256": "5052dadcc248d41dd375af8d32af7f694e2030683e01b42d008808b2d54e28eb",
+   "bytes": 428
+  },
+  "D5.csv": {
+   "sha256": "c100cb89dea248562bad71733b2a59506ebfa11cff359664aad5be1714810031",
+   "bytes": 1083657
+  }
+ },
+ "expectedSha256": {
+  "D1": "a49ec428cbb17d1cafbfbc2062bf0a221f946db38ab23dcafbade3e906c83b09",
+  "D2": "4b9fc1bbd7050f76e0b0d8e1e702cbdfccdd925800afc679033b246e2ac5aa60",
+  "D3": "a244b4f79e4417b7c9dfcd48e45ca5e4455c2064bf231e28a5cf89afd88920fe",
+  "D4": "d31e8848bdf0ca02fd809a79f6d428ee0653eff062289a8fd5b959a8273fd12f",
+  "D5": "72b5c2a93e060941db9e9de3bdfb9bf5c50f61c2409808aa7b45cff0e62380cc"
+ },
+ "summary": {
+  "D1": {
+   "refused": null,
+   "movements": 20029,
+   "groups": 6677,
+   "cleared": 6676,
+   "reasons": {
+    "MISSING_REFERENCE": 1
+   },
+   "errors": 0
+  },
+  "D2": {
+   "refused": null,
+   "movements": 19829,
+   "groups": 6611,
+   "cleared": 6409,
+   "reasons": {
+    "CONNECTED_ERROR": 200,
+    "MISSING_REFERENCE": 2
+   },
+   "errors": 200
+  },
+  "D3": {
+   "refused": null,
+   "movements": 20028,
+   "groups": 6676,
+   "cleared": 0,
+   "reasons": {
+    "UNISOLATED_ERROR": 6676
+   },
+   "errors": 1
+  },
+  "D4": {
+   "refused": "ROWS"
+  },
+  "D5": {
+   "refused": null,
+   "movements": 20029,
+   "groups": 10015,
+   "cleared": 10014,
+   "reasons": {
+    "MISSING_REFERENCE": 1
+   },
+   "errors": 0
+  }
+ },
+ "verify": {
+  "schema": "tarasuf-clr1-verify-dense/1",
+  "passed": true,
+  "problems": []
+ }
+}
