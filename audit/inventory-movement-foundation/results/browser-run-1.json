@@ -1,0 +1,259 @@
+{
+ "cases": {
+  "M01": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M02": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M03": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M04": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M05": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M06": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M07": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M08": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M09": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M10": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M11": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M12": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M13": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M14": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M15": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M16": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M17": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M18": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M19": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M20": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M21": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M22": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M23": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M24": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M25": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M26": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M27": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M28": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M29": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M30": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M31": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M32": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M33": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M34": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M35": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M36": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M37": {
+   "equal": true,
+   "status": "refused",
+   "differ": []
+  },
+  "M38": {
+   "equal": true,
+   "status": "refused",
+   "differ": []
+  },
+  "M39": {
+   "equal": true,
+   "status": "refused",
+   "differ": []
+  },
+  "M40": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M41": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M42": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M43": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M44": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M45": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M46": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "M47": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  }
+ },
+ "checks": {
+  "arabic": {
+   "dir": "rtl",
+   "equal": true
+  },
+  "phone": true,
+  "staleCleared": true,
+  "keyboard": true
+ },
+ "errors": [],
+ "external": [],
+ "summary": {
+  "cases": "47/47",
+  "checks": {
+   "arabic": true,
+   "phone": true,
+   "staleCleared": true,
+   "keyboard": true
+  }
+ }
+}

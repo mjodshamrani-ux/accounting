@@ -44,6 +44,11 @@ import {
   type PlrInput,
 } from './payroll-long-register.ts';
 import {
+  IMB_VERSION,
+  reconcileMovementBridge,
+  type ImbInput,
+} from './inventory-movement-bridge.ts';
+import {
   ENGINE_VERSION,
   MAX_ROWS,
   MAX_SHEETS,
@@ -131,6 +136,7 @@ export const WORKER_ACTIONS = [
   'gl-tb-sections-reconcile',
   'tb-financial-hierarchy-reconcile',
   'payroll-long-register-reconcile',
+  'inventory-movement-bridge-reconcile',
 ] as const;
 export type WorkerAction = (typeof WORKER_ACTIONS)[number];
 export const isRecord = (value: unknown): value is Record<string, unknown> =>
@@ -748,6 +754,62 @@ export function validateWorkerValue(
             files: [{ name: source.name, sha256: source.sha256, bytes }],
             readings: value.state.readings as PlrInput['readings'],
             scope: value.state.scope as PlrInput['scope'],
+          }),
+        ) !== JSON.stringify(value.result)
+      )
+        throw new Error('invalid');
+    } catch {
+      throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+    }
+  }
+  if (action === 'inventory-movement-bridge-reconcile') {
+    try {
+      if (
+        !isRecord(value) ||
+        Object.keys(value).sort().join('|') !== 'result|state' ||
+        !isRecord(value.state) ||
+        !isRecord(value.result) ||
+        value.result.version !== IMB_VERSION ||
+        !Array.isArray(value.state.files) ||
+        value.state.files.length !== 2 ||
+        !isRecord(payload) ||
+        !Array.isArray(payload.files) ||
+        payload.files.length !== 2 ||
+        JSON.stringify(value.state.readings) !==
+          JSON.stringify(payload.readings) ||
+        JSON.stringify(value.state.scope) !== JSON.stringify(payload.scope)
+      )
+        throw new Error('invalid');
+      // The result must belong to the register and GL summary this request
+      // sent, each byte for byte.
+      const files = (value.state.files as unknown[]).map((source, i) => {
+        const supplied: unknown = (payload.files as unknown[])[i];
+        if (
+          !isRecord(source) ||
+          !isRecord(supplied) ||
+          typeof source.name !== 'string' ||
+          source.name !== supplied.name ||
+          typeof source.sha256 !== 'string' ||
+          source.sha256 !== supplied.sha256 ||
+          !(source.original instanceof ArrayBuffer) ||
+          !(supplied.original instanceof ArrayBuffer) ||
+          supplied.original.byteLength !== source.original.byteLength
+        )
+          throw new Error('invalid');
+        const original = new Uint8Array(supplied.original),
+          bytes = new Uint8Array(source.original);
+        if (bytes.some((byte, index) => byte !== original[index]))
+          throw new Error('invalid');
+        return { name: source.name, sha256: source.sha256, bytes };
+      });
+      // Compute every position and account again from those bytes before
+      // installation. Not source authenticity, a count or an approval.
+      if (
+        JSON.stringify(
+          reconcileMovementBridge({
+            files: [files[0], files[1]],
+            readings: value.state.readings as ImbInput['readings'],
+            scope: value.state.scope as ImbInput['scope'],
           }),
         ) !== JSON.stringify(value.result)
       )

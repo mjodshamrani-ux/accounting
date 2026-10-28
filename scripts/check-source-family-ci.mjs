@@ -219,6 +219,8 @@ const required = [
   'test:inv-move:baseline',
   'test:inv-move:run',
   'test:inv-move:mutations',
+  'test:inv-move:h1-seal',
+  'test:inv-move:h1-run',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',
@@ -397,6 +399,13 @@ const separate = {
   ],
   'payroll-long-register-interface-mutations': [
     'test:pay-long:interface-mutations',
+  ],
+  'inventory-movement-bridge-browser': [
+    'test:inv-move:browser',
+    'test:inv-move:h1-browser',
+  ],
+  'inventory-movement-bridge-interface-mutations': [
+    'test:inv-move:interface-mutations',
   ],
   'bank-statement-holdout': [
     'test:bank-statement:g6-holdout',

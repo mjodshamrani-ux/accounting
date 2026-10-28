@@ -27,6 +27,7 @@ import {
 } from '../lib/reconciliation/inventory-hierarchy-sections.ts';
 import { stockHierarchyCitationRows } from '../lib/reconciliation/inventory-hierarchy-evidence.ts';
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
+import { InventoryMovementBridgePanel } from '@/components/inventory-movement-bridge-panel';
 import { useEffect, useRef, useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -1132,6 +1133,7 @@ export function StockWorkspace({
             )}
           </section>
         )}
+        <InventoryMovementBridgePanel />
       </section>
     </div>
   );

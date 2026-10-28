@@ -377,6 +377,8 @@ jobs:
           pnpm test:inv-move:baseline
           pnpm test:inv-move:run
           pnpm test:inv-move:mutations
+          pnpm test:inv-move:h1-seal
+          pnpm test:inv-move:h1-run
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations
@@ -1237,6 +1239,57 @@ jobs:
         env:
           PLR_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/payroll-long-register-interface-mutations
         run: pnpm test:pay-long:interface-mutations
+  inventory-movement-bridge-browser:
+    name: The inventory movement bridges section in the built application, the 47 INV-2 stories and the H1 holdout on screen against their recorded runs (INV-2c, INV-2d)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm build
+      - name: Verify every sealed INV-2 story in the inventory workspace's movement bridges section through the actual Worker, Arabic, a phone width, the keyboard and a stale result, against its recorded run (INV-2c)
+        env:
+          IMB_BROWSER_DIR: ${{ runner.temp }}/inventory-movement-bridge-browser
+        run: pnpm test:inv-move:browser
+      - name: Verify the sealed INV-2 holdout H1 in the movement bridges section through the actual Worker, against its recorded first run (INV-2d)
+        env:
+          IMB_BROWSER_DIR: ${{ runner.temp }}/inventory-movement-bridge-h1-browser
+        run: pnpm test:inv-move:h1-browser
+  inventory-movement-bridge-interface-mutations:
+    name: Inventory movement bridges interface mutations in built browser copies (INV-2c)
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the inventory movement bridges browser acceptance to catch it
+        env:
+          IMB_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/inventory-movement-bridge-interface-mutations
+        run: pnpm test:inv-move:interface-mutations
   deploy:
     if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
     needs:
