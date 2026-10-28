@@ -225,6 +225,8 @@ const required = [
   'test:inv-links:oracle-mutants',
   'test:inv-links:seal',
   'test:inv-links:baseline',
+  'test:inv-links:run',
+  'test:inv-links:mutations',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',

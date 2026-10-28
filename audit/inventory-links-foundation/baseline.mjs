@@ -14,13 +14,7 @@
 //   node --experimental-strip-types audit/inventory-links-foundation/baseline.mjs [--out name] [--assert name]
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import {
-  mkdtempSync,
-  readFileSync,
-  readdirSync,
-  rmSync,
-  writeFileSync,
-} from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';

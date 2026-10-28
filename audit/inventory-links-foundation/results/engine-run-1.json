@@ -1,0 +1,103 @@
+{
+ "schema": "tarasuf-inv3-engine-run/1",
+ "family": "inventory-posted-register-gl-1",
+ "rule": "equal to the sealed expectations in full",
+ "equal": 30,
+ "of": 31,
+ "stories": {
+  "L01": {
+   "equal": true
+  },
+  "L02": {
+   "equal": true
+  },
+  "L03": {
+   "equal": true
+  },
+  "L04": {
+   "equal": true
+  },
+  "L05": {
+   "equal": true
+  },
+  "L06": {
+   "equal": true
+  },
+  "L07": {
+   "equal": true
+  },
+  "L08": {
+   "equal": true
+  },
+  "L09": {
+   "equal": true
+  },
+  "L10": {
+   "equal": true
+  },
+  "L11": {
+   "equal": true
+  },
+  "L12": {
+   "equal": true
+  },
+  "L13": {
+   "equal": true
+  },
+  "L14": {
+   "equal": true
+  },
+  "L15": {
+   "equal": true
+  },
+  "L16": {
+   "equal": true
+  },
+  "L17": {
+   "equal": true
+  },
+  "L18": {
+   "equal": true
+  },
+  "L19": {
+   "equal": true
+  },
+  "L20": {
+   "equal": true
+  },
+  "L21": {
+   "equal": true
+  },
+  "L22": {
+   "equal": true
+  },
+  "L23": {
+   "equal": true
+  },
+  "L24": {
+   "equal": true
+  },
+  "L25": {
+   "equal": true
+  },
+  "L26": {
+   "equal": true
+  },
+  "D1": {
+   "equal": true
+  },
+  "D2": {
+   "equal": true
+  },
+  "D3": {
+   "equal": true
+  },
+  "D4": {
+   "equal": true
+  },
+  "D5": {
+   "equal": false,
+   "firstDifference": "/issues/0/1"
+  }
+ }
+}
