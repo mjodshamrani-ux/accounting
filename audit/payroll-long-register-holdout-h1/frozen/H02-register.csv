@@ -1,0 +1,38 @@
+Section,S1
+Entity,Synthetic Marine Services LLC
+Payroll run,MS-2027-11
+Currency,OMR
+Period start,2027-11-01
+Period end,2027-11-30
+Payroll posting date,2027-11-25
+Payment date,2027-11-26
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+H02-001,MS-0201,vessel=Al Noor,BK-56201,Base pay,earning,400.000
+H02-002,MS-0201,vessel=Al Noor,BK-56201,Sea allowance,earning,60.000
+H02-003,MS-0201,vessel=Al Noor,BK-56201,Pension (employee),deduction,28.000
+H02-004,MS-0201,vessel=Al Noor,BK-56201,Pension (employer),employer,42.000
+H02-005,MS-0201,vessel=Al Noor,BK-56201,Net salary,net,432.000
+H02-006,MS-0201,vessel=Bahar 2,BK-56201,Base pay,earning,250.000
+H02-007,MS-0201,vessel=Bahar 2,BK-56201,Sea allowance,earning,40.000
+H02-008,MS-0201,vessel=Bahar 2,BK-56201,Pension (employee),deduction,17.500
+H02-009,MS-0201,vessel=Bahar 2,BK-56201,Pension (employer),employer,26.250
+H02-010,MS-0201,vessel=Bahar 2,BK-56201,Net salary,net,272.500
+H02-011,MS-0201,سفينة=الوفاء,BK-56201,Base pay,earning,125.000
+H02-012,MS-0201,سفينة=الوفاء,BK-56201,Pension (employee),deduction,8.750
+H02-013,MS-0201,سفينة=الوفاء,BK-56201,Pension (employer),employer,13.125
+H02-014,MS-0201,سفينة=الوفاء,BK-56201,Net salary,net,116.250
+H02-015,MS-0202,vessel=Bahar 2,BK-56202,Base pay,earning,380.000
+H02-016,MS-0202,vessel=Bahar 2,BK-56202,Pension (employee),deduction,26.600
+H02-017,MS-0202,vessel=Bahar 2,BK-56202,Pension (employer),employer,39.900
+H02-018,MS-0202,vessel=Bahar 2,BK-56202,Net salary,net,353.400
+Total earnings,1255.000
+Total deductions,80.850
+Total employer,121.275
+Total net,1174.150
+End section,S1
+Run totals,MS-2027-11
+Total earnings,1255.000
+Total deductions,80.850
+Total employer,121.275
+Total net,1174.150
+End run totals,MS-2027-11

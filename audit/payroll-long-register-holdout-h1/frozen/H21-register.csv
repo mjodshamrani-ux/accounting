@@ -1,0 +1,25 @@
+Section,S1
+Entity,"Synthetic Marine Services LLC"
+"Payroll run",MS-2027-11
+Currency,OMR
+"Period start",2027-11-01
+"Period end",2027-11-30
+"Payroll posting date",2027-11-25
+"Payment date",2027-11-26
+"Line ID","Employee ID","Employee dimensions","Payee account",Component,Kind,Amount
+H21-001,MS-2101,depot=Sur,BK-54201,"Net salary",net,0.000
+H21-002,MS-2102,depot=Sur,BK-54202,"Base pay",earning,470.000
+H21-003,MS-2102,depot=Sur,BK-54202,"Pension (employee)",deduction,32.900
+H21-004,MS-2102,depot=Sur,BK-54202,"Pension (employer)",employer,49.350
+H21-005,MS-2102,depot=Sur,BK-54202,"Net salary",net,437.100
+"Total earnings",470.000
+"Total deductions",32.900
+"Total employer",49.350
+"Total net",437.100
+"End section",S1
+"Run totals",MS-2027-11
+"Total earnings",470.000
+"Total deductions",32.900
+"Total employer",49.350
+"Total net",437.100
+"End run totals",MS-2027-11

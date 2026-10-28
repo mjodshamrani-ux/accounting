@@ -1,0 +1,11 @@
+{
+ "schema": "tarasuf-pay1-long-register-h1-eligibility/1",
+ "checks": [
+  "name",
+  "size",
+  "records",
+  "cells in a record",
+  "cell length"
+ ],
+ "beyondContract": {}
+}

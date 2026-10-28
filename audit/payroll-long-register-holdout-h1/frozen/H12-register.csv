@@ -1,0 +1,42 @@
+Section,S1
+Payment date,2027-11-26
+Currency,OMR
+Payroll run,MS-2027-11
+Entity,Synthetic Marine Services LLC
+Period end,2027-11-30
+Period start,2027-11-01
+Payroll posting date,2027-11-25
+ Line ID,Employee ID ,Employee dimensions, Payee account ,Component,Kind, Amount
+H12-001,MS-1201,vessel=Al Noor,BK-55201,Base pay,earning,560.000
+H12-002,MS-1201,vessel=Al Noor,BK-55201,Pension (employee),deduction,39.200
+H12-003,MS-1201,vessel=Al Noor,BK-55201,Pension (employer),employer,58.800
+H12-004,MS-1201,vessel=Al Noor,BK-55201,Net salary,net,520.800
+Total earnings,560.000
+Total deductions,39.200
+Total employer,58.800
+Total net,520.800
+End section,S1
+Section,S2
+Entity,Synthetic Marine Services LLC
+Payroll run, MS-2027-11  
+Currency,OMR
+Period start,2027-11-01
+Period end,2027-11-30
+Payroll posting date,2027-11-25
+Payment date,2027-11-26
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+H12-005,MS-1202,vessel=Al Noor,BK-55202,Base pay,earning,570.000
+H12-006,MS-1202,vessel=Al Noor,BK-55202,Pension (employee),deduction,39.900
+H12-007,MS-1202,vessel=Al Noor,BK-55202,Pension (employer),employer,59.850
+H12-008,MS-1202,vessel=Al Noor,BK-55202,Net salary,net,530.100
+Total earnings,570.000
+Total deductions,39.900
+Total employer,59.850
+Total net,530.100
+End section,S2
+Run totals,MS-2027-11
+Total earnings,1130.000
+Total deductions,79.100
+Total employer,118.650
+Total net,1050.900
+End run totals,MS-2027-11

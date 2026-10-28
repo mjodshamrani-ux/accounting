@@ -1,0 +1,29 @@
+Section,ص١
+Entity,"Synthetic Marine Services LLC"
+"Payroll run",MS-2027-11
+Currency,BHD
+"Period start",2027-11-01
+"Period end",2027-11-30
+"Payroll posting date",2027-11-25
+"Payment date",2027-11-26
+"Line ID","Employee ID","Employee dimensions","Payee account",Component,Kind,Amount
+H31-001,م-٣١٠١,مستودع=المنامة,حساب-٧١,"Base pay",earning,455.500
+H31-002,م-٣١٠١,مستودع=المنامة,حساب-٧١,"Sea allowance",earning,20.250
+H31-003,م-٣١٠١,مستودع=المنامة,حساب-٧١,"Pension (employee)",deduction,31.885
+H31-004,م-٣١٠١,مستودع=المنامة,حساب-٧١,"Pension (employer)",employer,47.827
+H31-005,م-٣١٠١,مستودع=المنامة,حساب-٧١,"Net salary",net,443.865
+H31-006,م-٣١٠٢,مستودع=المنامة,حساب-٧٢,"Base pay",earning,460.125
+H31-007,م-٣١٠٢,مستودع=المنامة,حساب-٧٢,"Pension (employee)",deduction,32.208
+H31-008,م-٣١٠٢,مستودع=المنامة,حساب-٧٢,"Pension (employer)",employer,48.313
+H31-009,م-٣١٠٢,مستودع=المنامة,حساب-٧٢,"Net salary",net,427.917
+"Total earnings",935.875
+"Total deductions",64.093
+"Total employer",96.140
+"Total net",871.782
+"End section",ص١
+"Run totals",MS-2027-11
+"Total earnings",935.875
+"Total deductions",64.093
+"Total employer",96.140
+"Total net",871.782
+"End run totals",MS-2027-11

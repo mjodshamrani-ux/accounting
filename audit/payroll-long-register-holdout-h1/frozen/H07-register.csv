@@ -1,0 +1,30 @@
+Section,S1
+Entity,Synthetic Marine Services LLC
+Payroll run,MS-2027-11
+Currency,OMR
+Period start,2027-11-01
+Period end,2027-11-30
+Payroll posting date,2027-11-25
+Payment date,2027-11-26
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+H07-001,MS-0701,vessel=Bahar 2,BK-JOINT-1,Base pay,earning,450.000
+H07-002,MS-0701,vessel=Bahar 2,BK-JOINT-1,Sea allowance,earning,50.000
+H07-003,MS-0701,vessel=Bahar 2,BK-JOINT-1,Pension (employee),deduction,31.500
+H07-004,MS-0701,vessel=Bahar 2,BK-JOINT-1,Pension (employer),employer,47.250
+H07-005,MS-0701,vessel=Bahar 2,BK-JOINT-1,Net salary,net,468.500
+H07-006,MS-0702,vessel=Bahar 2,BK-JOINT-1,Base pay,earning,450.000
+H07-007,MS-0702,vessel=Bahar 2,BK-JOINT-1,Sea allowance,earning,50.000
+H07-008,MS-0702,vessel=Bahar 2,BK-JOINT-1,Pension (employee),deduction,31.500
+H07-009,MS-0702,vessel=Bahar 2,BK-JOINT-1,Pension (employer),employer,47.250
+H07-010,MS-0702,vessel=Bahar 2,BK-JOINT-1,Net salary,net,468.500
+Total earnings,1000.000
+Total deductions,63.000
+Total employer,94.500
+Total net,937.000
+End section,S1
+Run totals,MS-2027-11
+Total earnings,1000.000
+Total deductions,63.000
+Total employer,94.500
+Total net,937.000
+End run totals,MS-2027-11

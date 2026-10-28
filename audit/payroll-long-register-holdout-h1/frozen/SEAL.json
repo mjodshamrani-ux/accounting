@@ -1,0 +1,22 @@
+{
+ "schema": "tarasuf-pay1-long-register-holdout-seal/1",
+ "statement": "Sealed before any product run on these files. The first engine and browser runs are recorded as they come.",
+ "pins": {
+  "INPUT-MANIFEST.json": "0d4b8952900f7cd74b46fb644826ce42d8c626bb3152c9958737b5d6d1dcde29",
+  "EXPECTED.json": "264ca87e26fd5f2386df17837055e82fc03ad952498fd791fa596a832096c181",
+  "VERIFY.json": "b0917a37741d342c2d16175236410640cde52be02ace99f8153371a35812e6f3",
+  "ELIGIBILITY.json": "d74f707af8d0dfdda667fc2dd50f9c68644cd833d22c9054b04a0ac17e61b9ec",
+  "stories.py": "23908eff69e1aaf1774f26ccd5f5c687a8b69f1d2cd38801167b45dd3ecbb090",
+  "render.py": "765cf9c69e1c1eb05054d0a7793cab20c6c45ccb29ad0fd009bb3bf9451706db",
+  "render.php": "f579cc543238d3fee974cf11851e30bf6fe0e2c3a496108f8846fa16562d59fa",
+  "Render.java": "41ccb483e0faf7b08b1054c5fea0696e80ccbb915799f96e747710a1f3f44bd9",
+  "render.go": "33003bbf723c8cfe6b01c6fd7c43b889cc827a31c6fad0904e354afd836508b9",
+  "render.pl": "103bf1de172b9807208e62aa8217770574dff744c3db88f5434fc806d6504fc5",
+  "verify.py": "a59f715e205633a5268039f08b893fca428db231cefdf7e11ea3f848aad3ff1c",
+  "eligibility.py": "5319b973a39cfa591ad8568b74e3bd9fac09b3acd34207833f38f25f7531b67c",
+  "judge.py": "9bb4c82206cdcda3ebd4cc9418794caccaba20670e7b8e4462b9643abacce5ef",
+  "test_intent.py": "07fc27c603800398639fb01f233ce1011c060876a31042e798724e5f2c201f92",
+  "../payroll-long-register-foundation/contract.json": "3148cd0dd7ed7b929e11b3922421ee717f5e503ff4aa94ae7bc8cc309663c353",
+  "../payroll-long-register-foundation/oracle.py": "82031c490b8cd9ce2374a798b79d5032139beeb9ae4cdca2a5e0a19433613d7b"
+ }
+}

@@ -60064,6 +60064,504 @@
       "bytes": 26125,
       "sha256": "c9f27ccb36e586efad8450fd9652a889517a7c98143614df4312f4f543d41d60",
       "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/README.ar.md",
+      "bytes": 7023,
+      "sha256": "c4b2b25a9b04118e9767265cb1f8ae5282d061e6b85c2d7985409b1ab1d36f29",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/Render.java",
+      "bytes": 1993,
+      "sha256": "41ccb483e0faf7b08b1054c5fea0696e80ccbb915799f96e747710a1f3f44bd9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/check_seal.py",
+      "bytes": 3014,
+      "sha256": "e5f7baac0ce42f91b615a228071773e3da4c8c924caff661dd64d8d5b36259b5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/eligibility.py",
+      "bytes": 1982,
+      "sha256": "5319b973a39cfa591ad8568b74e3bd9fac09b3acd34207833f38f25f7531b67c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/ELIGIBILITY.json",
+      "bytes": 173,
+      "sha256": "d74f707af8d0dfdda667fc2dd50f9c68644cd833d22c9054b04a0ac17e61b9ec",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/EXPECTED.json",
+      "bytes": 191285,
+      "sha256": "264ca87e26fd5f2386df17837055e82fc03ad952498fd791fa596a832096c181",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H01-register.csv",
+      "bytes": 4713,
+      "sha256": "987bae92b4fffb8c40a2f5bd64780a0f67dc014d599119b6fd9bcc3a7c10ae7f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H01-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H02-register.csv",
+      "bytes": 1832,
+      "sha256": "1681cd4bd93214d1e9147822151872d4e10c726c19b3844cc328205f3af01da0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H02-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H03-register.csv",
+      "bytes": 1263,
+      "sha256": "da7d4e51a0e97d34d886d66980b781301ead44be6349ddc2071f177317137707",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H03-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H04-register.csv",
+      "bytes": 1535,
+      "sha256": "58c20be881fe55a3dd85a80ab1b867577e458bbf12c56835338d2f68ae488898",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H04-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H05-register.csv",
+      "bytes": 1361,
+      "sha256": "555741c962e04c777d9a2b9eb3105379b6ca47c4115c77addc01b8c6690f3929",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H05-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H06-register.csv",
+      "bytes": 1196,
+      "sha256": "aa36b5741175f42df46dc924f5b19e91a9de83b1848268e3795bfb2f18d15310",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H06-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H07-register.csv",
+      "bytes": 1247,
+      "sha256": "10dfb3f9849b3fe74b268e6b4457c3228d8bcbea16d878da64755ebdbe2924d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H07-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H08-register.csv",
+      "bytes": 1442,
+      "sha256": "d3b98e81d8aee8d72f3d60a43f52ae543194aef10ef3e87b7b8b6b902266b5cd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H08-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H09-register.csv",
+      "bytes": 1416,
+      "sha256": "c40fdf6879d1fc14a692abd434589ffee64b964c3dc4f89bb58fdac9f20229c1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H09-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H10-register.csv",
+      "bytes": 1788,
+      "sha256": "3cf73c0e7e8e5cc3219f13e028a848b11e1e5ad9a12030de65aca5e1ded3271a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H10-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H11-register.csv",
+      "bytes": 1557,
+      "sha256": "af49c5b4986b642302c37bdff5819dcd9aed19d4b0b57d60a96c98ffae3a5001",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H11-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H12-register.csv",
+      "bytes": 1474,
+      "sha256": "7fbe42c0bd1e8a900af96d2024a6602dc90fdc41283abcf9f9f31da0c931048c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H12-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H13-register.csv",
+      "bytes": 1101,
+      "sha256": "80c59537deed81cd4629a583d99723a6df491fa12ee240e9a3cc88a1c2aa920f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H13-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H14-register.csv",
+      "bytes": 1138,
+      "sha256": "42bcbfe817f5157dfde7708934a4af61cf5cfe025e60524b72174fa2ab775b88",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H14-scope.json",
+      "bytes": 227,
+      "sha256": "08c3d987e85cbb044b9d1c27e06c330f4af8ac211dcf8e101f6c0ac330cc8e32",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H15-register.csv",
+      "bytes": 1323,
+      "sha256": "050f688ff827f35a373f81e365fc134804843f26dd54ff70fb48319da488625f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H15-scope.json",
+      "bytes": 227,
+      "sha256": "8b5af16450859b9f87d53f5d209c9bbcc5513834586c7670b6059865990ed993",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H16-register.csv",
+      "bytes": 1097,
+      "sha256": "7c5413e553c8643232c584890c88d3bcad74e2124f63c9a8824071ec3ee5a911",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H16-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H17-register.csv",
+      "bytes": 1154,
+      "sha256": "673afe29c4e7a9d0f785d541bbf2c6ddb17beb64d9d8ae7bea4024d270b4424a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H17-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H18-register.csv",
+      "bytes": 1045,
+      "sha256": "d4f2894f0dc5e243e88e3eb9b66bba1b00ac585996103cfbad9775a02213ff72",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H18-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H19-register.csv",
+      "bytes": 1064,
+      "sha256": "52a34fa1bd78e5c21e73b82e8aba0443961acbf150ebc8cae5ee1e925f256100",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H19-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H20-register.csv",
+      "bytes": 1328,
+      "sha256": "d198a91a3d8a3dded843dc65f129e47d550fcd00b58e3cdb9cbb5a2b03118ef5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H20-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H21-register.csv",
+      "bytes": 866,
+      "sha256": "4d8d9652186f1b74b1f97afea912ca21f7f0d3956075f71117c90c03b801831f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H21-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H22-register.csv",
+      "bytes": 1717,
+      "sha256": "777558fda24e5112b5172431dbebba8dec2f194206fe1cfae67e1d6b76e34352",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H22-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H23-register.csv",
+      "bytes": 1091,
+      "sha256": "95003e2c697dba4314135de075bef1284d8d95f17eafcb19a090069cdbba28e9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H23-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H24-register.csv",
+      "bytes": 1384,
+      "sha256": "e72c34cba5d40e6ca006bdb7baf7c26940a1d648f701c84c4284377764d49a54",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H24-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H25-register.csv",
+      "bytes": 1003,
+      "sha256": "c7c53addf634d09a1f3071a543e1476e08b949509ec58c71777da45839aafa57",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H25-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H26-register.csv",
+      "bytes": 844,
+      "sha256": "d96a562cead2b687c8736f7766bc50046f75c41974fef63e74067e3a09cd3920",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H26-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H27-register.csv",
+      "bytes": 782,
+      "sha256": "88333a0ad0d22c7da27578a4b8e4ea0ad6b27703d9f0ed796a56690eb37d3c94",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H27-scope.json",
+      "bytes": 227,
+      "sha256": "af3a91f57b7ec554793ab060a6a80af4f875b03db2b3b5002d3be82850aa736e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H28-register.csv",
+      "bytes": 1174,
+      "sha256": "b8193f696202ba82fc18ae54445a9c25abd0b07c8b309de9f16dbb74e78b1c6f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H28-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H29-register.csv",
+      "bytes": 1470,
+      "sha256": "1a99e4ea2f380b429ead2fc0e465179781631691a0ed90061225c9afb958b38e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H29-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H30-register.csv",
+      "bytes": 1314,
+      "sha256": "ec2d371f9721e12ef907faf89dd00c524bbb7bb2fc71978af40e2990f4d93110",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H30-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H31-register.csv",
+      "bytes": 1388,
+      "sha256": "d0635eb78ed47cd7c07f2b40cd8d252959ffe4d3f3e133dc2cf7405e1199146a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H31-scope.json",
+      "bytes": 227,
+      "sha256": "c311913222df7d525b6202d96fb1f46e5c9f89e8d12bd34ab1bda8375279267f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H32-register.csv",
+      "bytes": 80638,
+      "sha256": "5d891501dc64fff140217ad3459239b8a858810c0e8b7a70a3eebbc27cc4a3dd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/H32-scope.json",
+      "bytes": 227,
+      "sha256": "5e28660aca04469d80dce45b60991b2d969610c11cf5e9403aab2f4ccdfd23a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/INPUT-MANIFEST.json",
+      "bytes": 8549,
+      "sha256": "0d4b8952900f7cd74b46fb644826ce42d8c626bb3152c9958737b5d6d1dcde29",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/SEAL.json",
+      "bytes": 1637,
+      "sha256": "837982211c0b136d72630a55851a4e8242ba156383acee64da3e79b1d2ead486",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/VERIFY.json",
+      "bytes": 892,
+      "sha256": "b0917a37741d342c2d16175236410640cde52be02ace99f8153371a35812e6f3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/frozen/stories.json",
+      "bytes": 332457,
+      "sha256": "2c02d4fb9890bfdfcd94b5142492fe85fc8654468616e2ff12d45e0b6c01e9eb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/judge.py",
+      "bytes": 1105,
+      "sha256": "9bb4c82206cdcda3ebd4cc9418794caccaba20670e7b8e4462b9643abacce5ef",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/render.go",
+      "bytes": 903,
+      "sha256": "33003bbf723c8cfe6b01c6fd7c43b889cc827a31c6fad0904e354afd836508b9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/render.php",
+      "bytes": 563,
+      "sha256": "f579cc543238d3fee974cf11851e30bf6fe0e2c3a496108f8846fa16562d59fa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/render.pl",
+      "bytes": 1027,
+      "sha256": "103bf1de172b9807208e62aa8217770574dff744c3db88f5434fc806d6504fc5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/render.py",
+      "bytes": 4285,
+      "sha256": "765cf9c69e1c1eb05054d0a7793cab20c6c45ccb29ad0fd009bb3bf9451706db",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/seal.py",
+      "bytes": 2448,
+      "sha256": "8db65df23547dae34435e955df5672d98e7b8c66c7dcd3942b4c8d9d4d1d2a14",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/stories.py",
+      "bytes": 26780,
+      "sha256": "23908eff69e1aaf1774f26ccd5f5c687a8b69f1d2cd38801167b45dd3ecbb090",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/test_intent.py",
+      "bytes": 2081,
+      "sha256": "07fc27c603800398639fb01f233ce1011c060876a31042e798724e5f2c201f92",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payroll-long-register-holdout-h1/verify.py",
+      "bytes": 7076,
+      "sha256": "a59f715e205633a5268039f08b893fca428db231cefdf7e11ea3f848aad3ff1c",
+      "kind": "text"
     }
   ],
   "distribution": [

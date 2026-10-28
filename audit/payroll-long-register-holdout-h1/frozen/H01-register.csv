@@ -1,0 +1,138 @@
+Section,S1
+Entity,"Synthetic Marine Services LLC"
+"Payroll run",MS-2027-11
+Currency,OMR
+"Period start",2027-11-01
+"Period end",2027-11-30
+"Payroll posting date",2027-11-25
+"Payment date",2027-11-26
+"Line ID","Employee ID","Employee dimensions","Payee account",Component,Kind,Amount
+H01-001,MS-0101,"vessel=Al Noor",BK-55101,"Base pay",earning,812.500
+H01-002,MS-0101,"vessel=Al Noor",BK-55101,"Sea allowance",earning,120.000
+"Total earnings",932.500
+"Total deductions",0.000
+"Total employer",0.000
+"Total net",0.000
+"End section",S1
+Section,S2
+Entity,"Synthetic Marine Services LLC"
+"Payroll run",MS-2027-11
+Currency,OMR
+"Period start",2027-11-01
+"Period end",2027-11-30
+"Payroll posting date",2027-11-25
+"Payment date",2027-11-26
+"Line ID","Employee ID","Employee dimensions","Payee account",Component,Kind,Amount
+H01-003,MS-0101,"vessel=Al Noor",BK-55101,"Pension (employee)",deduction,56.875
+H01-004,MS-0101,"vessel=Al Noor",BK-55101,"Pension (employer)",employer,85.312
+H01-005,MS-0101,"vessel=Al Noor",BK-55101,"Net salary",net,875.625
+"Total earnings",0.000
+"Total deductions",56.875
+"Total employer",85.312
+"Total net",875.625
+"End section",S2
+Section,S3
+Entity,"Synthetic Marine Services LLC"
+"Payroll run",MS-2027-11
+Currency,OMR
+"Period start",2027-11-01
+"Period end",2027-11-30
+"Payroll posting date",2027-11-25
+"Payment date",2027-11-26
+"Line ID","Employee ID","Employee dimensions","Payee account",Component,Kind,Amount
+H01-006,MS-0102,"vessel=Al Noor",BK-55102,"Base pay",earning,655.000
+H01-007,MS-0102,"vessel=Al Noor",BK-55102,"Sea allowance",earning,95.000
+"Total earnings",750.000
+"Total deductions",0.000
+"Total employer",0.000
+"Total net",0.000
+"End section",S3
+Section,S4
+Entity,"Synthetic Marine Services LLC"
+"Payroll run",MS-2027-11
+Currency,OMR
+"Period start",2027-11-01
+"Period end",2027-11-30
+"Payroll posting date",2027-11-25
+"Payment date",2027-11-26
+"Line ID","Employee ID","Employee dimensions","Payee account",Component,Kind,Amount
+H01-008,MS-0102,"vessel=Al Noor",BK-55102,Overtime,earning,43.250
+H01-009,MS-0102,"vessel=Al Noor",BK-55102,"Pension (employee)",deduction,45.850
+H01-010,MS-0102,"vessel=Al Noor",BK-55102,"Pension (employer)",employer,68.775
+"Total earnings",43.250
+"Total deductions",45.850
+"Total employer",68.775
+"Total net",0.000
+"End section",S4
+Section,S5
+Entity,"Synthetic Marine Services LLC"
+"Payroll run",MS-2027-11
+Currency,OMR
+"Period start",2027-11-01
+"Period end",2027-11-30
+"Payroll posting date",2027-11-25
+"Payment date",2027-11-26
+"Line ID","Employee ID","Employee dimensions","Payee account",Component,Kind,Amount
+H01-011,MS-0102,"vessel=Al Noor",BK-55102,"Net salary",net,747.400
+H01-012,MS-0103,depot=Sohar,BK-55103,"Base pay",earning,540.250
+"Total earnings",540.250
+"Total deductions",0.000
+"Total employer",0.000
+"Total net",747.400
+"End section",S5
+Section,S6
+Entity,"Synthetic Marine Services LLC"
+"Payroll run",MS-2027-11
+Currency,OMR
+"Period start",2027-11-01
+"Period end",2027-11-30
+"Payroll posting date",2027-11-25
+"Payment date",2027-11-26
+"Line ID","Employee ID","Employee dimensions","Payee account",Component,Kind,Amount
+H01-013,MS-0103,depot=Sohar,BK-55103,"Pension (employee)",deduction,37.817
+H01-014,MS-0103,depot=Sohar,BK-55103,"Pension (employer)",employer,56.726
+H01-015,MS-0103,depot=Sohar,BK-55103,"Net salary",net,502.433
+"Total earnings",0.000
+"Total deductions",37.817
+"Total employer",56.726
+"Total net",502.433
+"End section",S6
+Section,S7
+Entity,"Synthetic Marine Services LLC"
+"Payroll run",MS-2027-11
+Currency,OMR
+"Period start",2027-11-01
+"Period end",2027-11-30
+"Payroll posting date",2027-11-25
+"Payment date",2027-11-26
+"Line ID","Employee ID","Employee dimensions","Payee account",Component,Kind,Amount
+H01-016,MS-0104,depot=Sohar,BK-55104,"Base pay",earning,1210.000
+H01-017,MS-0104,depot=Sohar,BK-55104,"Pension (employee)",deduction,84.700
+"Total earnings",1210.000
+"Total deductions",84.700
+"Total employer",0.000
+"Total net",0.000
+"End section",S7
+Section,S8
+Entity,"Synthetic Marine Services LLC"
+"Payroll run",MS-2027-11
+Currency,OMR
+"Period start",2027-11-01
+"Period end",2027-11-30
+"Payroll posting date",2027-11-25
+"Payment date",2027-11-26
+"Line ID","Employee ID","Employee dimensions","Payee account",Component,Kind,Amount
+H01-018,MS-0104,depot=Sohar,BK-55104,"Advance recovery",deduction,150.000
+H01-019,MS-0104,depot=Sohar,BK-55104,"Pension (employer)",employer,127.050
+H01-020,MS-0104,depot=Sohar,BK-55104,"Net salary",net,975.300
+"Total earnings",0.000
+"Total deductions",150.000
+"Total employer",127.050
+"Total net",975.300
+"End section",S8
+"Run totals",MS-2027-11
+"Total earnings",3476.000
+"Total deductions",375.242
+"Total employer",337.863
+"Total net",3100.758
+"End run totals",MS-2027-11
