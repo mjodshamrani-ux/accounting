@@ -1,0 +1,227 @@
+{
+ "schema": "tarasuf-wf1-cycle-input-manifest/1",
+ "synthetic": true,
+ "version": "bank-cycle-foundation-1",
+ "producers": {
+  "hexapdf": "1.11.2",
+  "ruby": "3.3.6",
+  "pdf-lib": "1.17.1",
+  "@pdf-lib/fontkit": "1.1.1",
+  "bidi-js": "1.0.3",
+  "node": "22.22.0",
+  "cashbookCsv": "Python csv, UTF-8, CRLF",
+  "openpyxl": "3.1.5",
+  "xlsxwriter": "3.2.9"
+ },
+ "fonts": {
+  "Cairo_400Regular.ttf": {
+   "source": "@expo-google-fonts/cairo 0.4.2: 400Regular/Cairo_400Regular.ttf",
+   "sha256": "44786a38e27c58262cbd65341beda4fa4f6c7085ec42e830b35ba1ae37807030"
+  },
+  "Cairo_700Bold.ttf": {
+   "source": "@expo-google-fonts/cairo 0.4.2: 700Bold/Cairo_700Bold.ttf",
+   "sha256": "a0e58d71b85b15902ea87914d8e31a6d22da48ac2db70213dcfd1a7dad3f198a"
+  },
+  "Merriweather_400Regular.ttf": {
+   "source": "@expo-google-fonts/merriweather 0.4.2: 400Regular/Merriweather_400Regular.ttf",
+   "sha256": "f1541057f1765ffa5ee7eb873f01bec1dd2238c85a8b1602c462fd8eda92b6df"
+  },
+  "Merriweather_700Bold.ttf": {
+   "source": "@expo-google-fonts/merriweather 0.4.2: 700Bold/Merriweather_700Bold.ttf",
+   "sha256": "d9587d1266fb18da859f44a0ada7bdc5e7cb68af29ea87aa7caab2607cd74579"
+  },
+  "ReadexPro_400Regular.ttf": {
+   "source": "@expo-google-fonts/readex-pro 0.4.1: 400Regular/ReadexPro_400Regular.ttf",
+   "sha256": "cf8d20680d810289ebbd85f219ecaf77d79a5a78094a1806ca1a42fcaf6fa81f"
+  },
+  "ReadexPro_700Bold.ttf": {
+   "source": "@expo-google-fonts/readex-pro 0.4.1: 700Bold/ReadexPro_700Bold.ttf",
+   "sha256": "49876d8f5acf89135beabfe25216a4f29771d5e1ac45c382fa0e197d65da9273"
+  },
+  "Rubik_400Regular.ttf": {
+   "source": "@expo-google-fonts/rubik 0.4.2: 400Regular/Rubik_400Regular.ttf",
+   "sha256": "6b94e23adedab4522e1b65d21158e83c75f377fc99f916c58f8ec40ecc7dd035"
+  },
+  "Rubik_700Bold.ttf": {
+   "source": "@expo-google-fonts/rubik 0.4.2: 700Bold/Rubik_700Bold.ttf",
+   "sha256": "2fb105e3a66c3540e2308321e7c5bd786ce98a232930cd31c62e20d47747ad20"
+  },
+  "Tajawal_400Regular.ttf": {
+   "source": "@expo-google-fonts/tajawal 0.4.1: 400Regular/Tajawal_400Regular.ttf",
+   "sha256": "386997fcfcd22020b47265f9c02587791867e4df5f74a36be36ad6264a50d321"
+  },
+  "Tajawal_700Bold.ttf": {
+   "source": "@expo-google-fonts/tajawal 0.4.1: 700Bold/Tajawal_700Bold.ttf",
+   "sha256": "ca2c8ca040b6725b6b058c8470fe5bbf5c4c2b77356fe8c38c41716decb206bd"
+  },
+  "WorkSans_400Regular.ttf": {
+   "source": "@expo-google-fonts/work-sans 0.4.2: 400Regular/WorkSans_400Regular.ttf",
+   "sha256": "e67985a843df0d3cdee51a3d0f329eb1774a344ad9ff0c9ab923751f1577e2a4"
+  },
+  "WorkSans_700Bold.ttf": {
+   "source": "@expo-google-fonts/work-sans 0.4.2: 700Bold/WorkSans_700Bold.ttf",
+   "sha256": "240d125fc9f8561363dc1ea3f513501253bd70942f41468f48f0b0cafb0c82e2"
+  }
+ },
+ "facts": {
+  "file": "stories.json",
+  "stored": true,
+  "recipe": "python3 -B audit/bank-cycle-foundation/stories.py",
+  "sha256": "8c0b1496b43ed9734aefd558883e4a17c83615e6a2c5693174b8109b8926fd4a",
+  "bytes": 143393
+ },
+ "files": {
+  "Y01-AUG-cashbook.csv": {
+   "sha256": "f9fe9d72d4eb3996ca0ce5f29f3331368d66406ca78a85cdc632bcac8b8f515b",
+   "bytes": 568
+  },
+  "Y01-AUG-ledger.xlsx": {
+   "sha256": "365bf3ac3a6b736899cc68132a62f2c3d4d0d5ee5837132f609d8e62d686a451",
+   "bytes": 5490
+  },
+  "Y01-AUG-statement.pdf": {
+   "sha256": "c0716d3145d67cb85624f2643179573b3e17704f380f5ea86f18263a61b1bdb5",
+   "bytes": 12863
+  },
+  "Y01-JUL-cashbook.csv": {
+   "sha256": "f239bd128ec9bc1bddefb160f2606552d9dbd89dec16ff7c51185b763ae1be5b",
+   "bytes": 623
+  },
+  "Y01-JUL-ledger.xlsx": {
+   "sha256": "2f1b3f0d0a5035baffc412d670d5fbe6657dd1632cb8a33bee315c6d11a79b17",
+   "bytes": 5544
+  },
+  "Y01-JUL-statement.pdf": {
+   "sha256": "e2e94c07bc907b83a53779460c5d2d676d1deb6dbcb80e6858862bb354e877f8",
+   "bytes": 12855
+  },
+  "Y02-AUG-cashbook.csv": {
+   "sha256": "eb0afd59984ae634153539c89ffbab5aeff2c2ba0151846bd30bf9fe40816f6f",
+   "bytes": 720
+  },
+  "Y02-AUG-ledger.xlsx": {
+   "sha256": "0b6bfdc0b68a463b4b8f17c79ebd2c303bb00a1336092600a272856529bc3e6a",
+   "bytes": 6115
+  },
+  "Y02-AUG-statement.pdf": {
+   "sha256": "c534f963cf9f44c980a7cfd6abbdae63fe96a47c80736e59692140fb47185f81",
+   "bytes": 19182
+  },
+  "Y02-SEP-cashbook.csv": {
+   "sha256": "8185b88016d47d03d76160218d73ad79997664aff5f6d8942e633c3e4396f3ce",
+   "bytes": 548
+  },
+  "Y02-SEP-ledger.xlsx": {
+   "sha256": "e421351150d0f091ce94d34fee930ed2bcc50cb11533ada36289bfb3999beb2e",
+   "bytes": 5972
+  },
+  "Y02-SEP-statement.pdf": {
+   "sha256": "30d367822ede72c8841806a0d700d46987a47b0c0d14b6dc3e31c27ecb9e89f0",
+   "bytes": 18661
+  },
+  "Y03-OCT-cashbook.csv": {
+   "sha256": "4e6b894a74da2dec847249470b6569e95d44445bc4baf2ff3b6b7f595e5971c7",
+   "bytes": 460
+  },
+  "Y03-OCT-ledger.xlsx": {
+   "sha256": "fb791b065c882a6048313ee1febf745c0406a93496a73e1f8f255c07b5bdb0d7",
+   "bytes": 5362
+  },
+  "Y03-OCT-statement.pdf": {
+   "sha256": "d9eef5f167986b805adb4a9072bac8ff7f1f03bf7cbcad6030dc77d3c18692e1",
+   "bytes": 11893
+  },
+  "Y03-SEP-cashbook.csv": {
+   "sha256": "6547d9a97614f8eecfa778448d9f61be1c423bbea6f88e3b88f1c6ac3ed3b0de",
+   "bytes": 568
+  },
+  "Y03-SEP-ledger.xlsx": {
+   "sha256": "b17b2f6bb55d36742c7b0d31b3838a51a8cc637b23996314dcad882fb0794eae",
+   "bytes": 5462
+  },
+  "Y03-SEP-statement.pdf": {
+   "sha256": "0c4ff317b2808034f389a54ade7f05f9f1cb2ddf216277c75f23903801d4d09e",
+   "bytes": 12372
+  },
+  "Y04-NOV-cashbook.csv": {
+   "sha256": "7c616df31fb751385babc2d91b2b394b3c8946e551ce940e65fd63d800d32adb",
+   "bytes": 395
+  },
+  "Y04-NOV-ledger.xlsx": {
+   "sha256": "67cbc8c99ac67e894b955cc7349ac5278b900a1c6856333b3e5dd4e75aee563f",
+   "bytes": 5187
+  },
+  "Y04-NOV-statement.pdf": {
+   "sha256": "1052f91ca6d020195ec7e985a1b14bf879c13ac619bf4c4176bfb2d5109a4b2c",
+   "bytes": 14568
+  },
+  "Y04-OCT-cashbook.csv": {
+   "sha256": "0f0fd84d7da71e12bfa6dca473171cd9854b5dc06eaa3cca6c44173892a045c8",
+   "bytes": 506
+  },
+  "Y04-OCT-ledger.xlsx": {
+   "sha256": "d582440929934b36bab4b5165252759f0126bf54d37b584866307ab117ea3839",
+   "bytes": 5270
+  },
+  "Y04-OCT-statement.pdf": {
+   "sha256": "875c14163ae2018eb67a6799770dd383901402f6db18a5d0e6af2f84cc4a8345",
+   "bytes": 14487
+  },
+  "Y05-DEC-cashbook.csv": {
+   "sha256": "ff465c5936355c82c663cde28d400e8ce798602f8c7c735d01483d65d3bf497d",
+   "bytes": 438
+  },
+  "Y05-DEC-ledger.xlsx": {
+   "sha256": "67645fe1ca1c162d0615d9015fc11b90fc9fb536475620174685e0cce57923c1",
+   "bytes": 5934
+  },
+  "Y05-DEC-statement.pdf": {
+   "sha256": "81c49148988d37e3553a6c07565fed524d14fd1e954950bc686d11760f2df21c",
+   "bytes": 14149
+  },
+  "Y05-NOV-cashbook.csv": {
+   "sha256": "8d0604fbce8b5ce11f5ec8a634c7066b20bee3ad0a430dbf997d5ed66144f892",
+   "bytes": 607
+  },
+  "Y05-NOV-ledger.xlsx": {
+   "sha256": "46b82197a6924812a308fe52e87b348631c56b6a799a3aac48b3fe2e68d9101c",
+   "bytes": 6055
+  },
+  "Y05-NOV-statement.pdf": {
+   "sha256": "c1fbd587de15a019555bbf48b59de022b5ccdbd6f657fd5cd777f460a40420d4",
+   "bytes": 13939
+  },
+  "Y06-DEC-cashbook.csv": {
+   "sha256": "d3b4303afdee393a71a662a48a52a2cf78372185e95d7bab88fb0a5f5e4984d8",
+   "bytes": 1964
+  },
+  "Y06-DEC-ledger.xlsx": {
+   "sha256": "231a3f4182925bc29062f0cbb656d0c793a027a3daaa1afaf0b9f5626bd0e973",
+   "bytes": 7188
+  },
+  "Y06-DEC-statement.pdf": {
+   "sha256": "6bb5eedf71dae167afc3fa072324e46c3b87a608afec1eb8a40a662623929ab6",
+   "bytes": 22532
+  },
+  "Y06-JAN-cashbook.csv": {
+   "sha256": "bb6e00c2ce711704d5335b28ccafbbe415b09baae13240cccf297e61a630db55",
+   "bytes": 1734
+  },
+  "Y06-JAN-ledger.xlsx": {
+   "sha256": "e028cfe5cf9ffb991ed4af3118b3b42dd70c3b618bdd285e3bc754ef59fc09cd",
+   "bytes": 6938
+  },
+  "Y06-JAN-statement.pdf": {
+   "sha256": "b89597e2d44e9dcc7e7f9627cb285e33a8b99afba65da9bec69ace2256e877fe",
+   "bytes": 21792
+  },
+  "records.json": {
+   "sha256": "1f85623ddf69a5a46f60d491d4ea4c534c1002766765c766552f3978f20500b5",
+   "bytes": 82682
+  },
+  "stories.json": {
+   "sha256": "8c0b1496b43ed9734aefd558883e4a17c83615e6a2c5693174b8109b8926fd4a",
+   "bytes": 143393
+  }
+ }
+}

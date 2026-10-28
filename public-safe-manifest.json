@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 56405,
-      "sha256": "325a5586b4379c954007b6cff374594a9d3d1917eee41538ba3622324d5b7403",
+      "bytes": 56525,
+      "sha256": "4a6d49928b20f411c94a9059da004b5834bae9d701cb630f95c420369ce000ea",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 34491,
-      "sha256": "f5961bc881b61653616799fbc85f3d12edba44506c9ab7d75086b5b803f37aa1",
+      "bytes": 34881,
+      "sha256": "e19899af13990e22794bdd2138434f78b0ff95c467b66d8b9c0a31fe69b7afe5",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 20001,
-      "sha256": "2d6c3504feb81247d1fc4738522c61f6ca89d48b5ea02ed12aaa5eb71b9edfaa",
+      "bytes": 20076,
+      "sha256": "c3368623b7abc9deab7e58ee699231bdc1c28172a949509736ceea7d69590bf0",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 81380,
-      "sha256": "5d76a75bb2a111266f658dbf6c388598a5c3852225cde5f2de19e796d05cb3ec",
+      "bytes": 82067,
+      "sha256": "e92302f87ead93b56bcbc83f64be811e9b94ae3de17625841ee768b19aa5a7ac",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 75421,
-      "sha256": "82be8ad6a327c040642b1843d19edc8956bed6bf8f9282f59f9ab4beec0fe0d1",
+      "bytes": 75582,
+      "sha256": "e5aef9a686e4a35bd33bb5885a02d6b1c5a55b06cc32256b44957b4ffe1eafc7",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 37544,
-      "sha256": "fc9ac4b81098468604bb881d772beabccaa0315b86d2cb83814e500a2a609814",
+      "bytes": 37938,
+      "sha256": "ec6078c2672a5951fea96c5d59aa9787795b6988674ce482c79475e7e57be916",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 13977,
-      "sha256": "b690f53f839b58cd645b07e86454bb2615cad367b266536a8609557634df292d",
+      "bytes": 14067,
+      "sha256": "8f18590ec44cb7d27a70af95a20a2006a5860f0baea28409cd1bfeb6019d2dff",
       "kind": "text"
     },
     {
@@ -40805,8 +40805,8 @@
     },
     {
       "path": "docs/roadmap/workflow.ar.md",
-      "bytes": 24192,
-      "sha256": "9b46045f6e49bd588abad8300d96025c967dcdcf951e740d972bea8a96f23e45",
+      "bytes": 25991,
+      "sha256": "877db31ebbe9ad7733f86d78c6a865dcec729878a18744b0151e719485a0a4da",
       "kind": "text"
     },
     {
@@ -53933,6 +53933,492 @@
       "path": "docs/audits/WF-1-TOL-T4.ar.md",
       "bytes": 12686,
       "sha256": "7f5596c235d54eb67c0753443e56968670593877db7d70405d61e82bd2516cde",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/README.ar.md",
+      "bytes": 12585,
+      "sha256": "48564e52f6bce44d61ce78aa71e102c06f37bbe10b58babe13c36c1c7c3897f5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/check_seal.py",
+      "bytes": 4355,
+      "sha256": "8a378bbc3a76cd79817e4056f05d21b8dbeb4d534f91c5d092a6a8f73af74f79",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/common.py",
+      "bytes": 5386,
+      "sha256": "29d4ce9fd412623eaca0ba742df9f034d25c9beb1bf6b86cdd6b92fa985c0bb2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/contract.json",
+      "bytes": 6337,
+      "sha256": "e77f7bb9903727e4b2b84dc7a2c3fe63770719352bd251409ce5e43031de9b4e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/fonts.py",
+      "bytes": 4479,
+      "sha256": "a05ce927ba79aa61c23cb6956672854910f3734a5d5650bf75e37b1a05fdcd87",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/ELIGIBILITY.json",
+      "bytes": 5023,
+      "sha256": "9c5d63a0e058536b794112a1feb5e56540c686ac834ec9b432614fe986caa12a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/EXPECTED.json",
+      "bytes": 118358,
+      "sha256": "78423fab8c65bbe5f178be7c62848b741765af1a8c6358e41b99df8b3bc32a0c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/INPUT-MANIFEST.json",
+      "bytes": 7943,
+      "sha256": "a7712b1ed88604b1318b89d9ddba9fcb343db2c862ecf6796cbc52285315ca2d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/SEAL.json",
+      "bytes": 4211,
+      "sha256": "3e668be9625e2c1bc1d5e4966fabc280a293f1e8332bfbfae48b309ae03091b8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/VERIFY.json",
+      "bytes": 7411,
+      "sha256": "257530ce77b5460028d40a4b3be25bc9d037e6bd77b47c323330e57c824e34d8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y01-AUG-cashbook.csv",
+      "bytes": 568,
+      "sha256": "f9fe9d72d4eb3996ca0ce5f29f3331368d66406ca78a85cdc632bcac8b8f515b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y01-AUG-ledger.xlsx",
+      "bytes": 5490,
+      "sha256": "365bf3ac3a6b736899cc68132a62f2c3d4d0d5ee5837132f609d8e62d686a451",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y01-AUG-statement.pdf",
+      "bytes": 12863,
+      "sha256": "c0716d3145d67cb85624f2643179573b3e17704f380f5ea86f18263a61b1bdb5",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y01-JUL-cashbook.csv",
+      "bytes": 623,
+      "sha256": "f239bd128ec9bc1bddefb160f2606552d9dbd89dec16ff7c51185b763ae1be5b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y01-JUL-ledger.xlsx",
+      "bytes": 5544,
+      "sha256": "2f1b3f0d0a5035baffc412d670d5fbe6657dd1632cb8a33bee315c6d11a79b17",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y01-JUL-statement.pdf",
+      "bytes": 12855,
+      "sha256": "e2e94c07bc907b83a53779460c5d2d676d1deb6dbcb80e6858862bb354e877f8",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y02-AUG-cashbook.csv",
+      "bytes": 720,
+      "sha256": "eb0afd59984ae634153539c89ffbab5aeff2c2ba0151846bd30bf9fe40816f6f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y02-AUG-ledger.xlsx",
+      "bytes": 6115,
+      "sha256": "0b6bfdc0b68a463b4b8f17c79ebd2c303bb00a1336092600a272856529bc3e6a",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y02-AUG-statement.pdf",
+      "bytes": 19182,
+      "sha256": "c534f963cf9f44c980a7cfd6abbdae63fe96a47c80736e59692140fb47185f81",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y02-SEP-cashbook.csv",
+      "bytes": 548,
+      "sha256": "8185b88016d47d03d76160218d73ad79997664aff5f6d8942e633c3e4396f3ce",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y02-SEP-ledger.xlsx",
+      "bytes": 5972,
+      "sha256": "e421351150d0f091ce94d34fee930ed2bcc50cb11533ada36289bfb3999beb2e",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y02-SEP-statement.pdf",
+      "bytes": 18661,
+      "sha256": "30d367822ede72c8841806a0d700d46987a47b0c0d14b6dc3e31c27ecb9e89f0",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y03-OCT-cashbook.csv",
+      "bytes": 460,
+      "sha256": "4e6b894a74da2dec847249470b6569e95d44445bc4baf2ff3b6b7f595e5971c7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y03-OCT-ledger.xlsx",
+      "bytes": 5362,
+      "sha256": "fb791b065c882a6048313ee1febf745c0406a93496a73e1f8f255c07b5bdb0d7",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y03-OCT-statement.pdf",
+      "bytes": 11893,
+      "sha256": "d9eef5f167986b805adb4a9072bac8ff7f1f03bf7cbcad6030dc77d3c18692e1",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y03-SEP-cashbook.csv",
+      "bytes": 568,
+      "sha256": "6547d9a97614f8eecfa778448d9f61be1c423bbea6f88e3b88f1c6ac3ed3b0de",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y03-SEP-ledger.xlsx",
+      "bytes": 5462,
+      "sha256": "b17b2f6bb55d36742c7b0d31b3838a51a8cc637b23996314dcad882fb0794eae",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y03-SEP-statement.pdf",
+      "bytes": 12372,
+      "sha256": "0c4ff317b2808034f389a54ade7f05f9f1cb2ddf216277c75f23903801d4d09e",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y04-NOV-cashbook.csv",
+      "bytes": 395,
+      "sha256": "7c616df31fb751385babc2d91b2b394b3c8946e551ce940e65fd63d800d32adb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y04-NOV-ledger.xlsx",
+      "bytes": 5187,
+      "sha256": "67cbc8c99ac67e894b955cc7349ac5278b900a1c6856333b3e5dd4e75aee563f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y04-NOV-statement.pdf",
+      "bytes": 14568,
+      "sha256": "1052f91ca6d020195ec7e985a1b14bf879c13ac619bf4c4176bfb2d5109a4b2c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y04-OCT-cashbook.csv",
+      "bytes": 506,
+      "sha256": "0f0fd84d7da71e12bfa6dca473171cd9854b5dc06eaa3cca6c44173892a045c8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y04-OCT-ledger.xlsx",
+      "bytes": 5270,
+      "sha256": "d582440929934b36bab4b5165252759f0126bf54d37b584866307ab117ea3839",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y04-OCT-statement.pdf",
+      "bytes": 14487,
+      "sha256": "875c14163ae2018eb67a6799770dd383901402f6db18a5d0e6af2f84cc4a8345",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y05-DEC-cashbook.csv",
+      "bytes": 438,
+      "sha256": "ff465c5936355c82c663cde28d400e8ce798602f8c7c735d01483d65d3bf497d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y05-DEC-ledger.xlsx",
+      "bytes": 5934,
+      "sha256": "67645fe1ca1c162d0615d9015fc11b90fc9fb536475620174685e0cce57923c1",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y05-DEC-statement.pdf",
+      "bytes": 14149,
+      "sha256": "81c49148988d37e3553a6c07565fed524d14fd1e954950bc686d11760f2df21c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y05-NOV-cashbook.csv",
+      "bytes": 607,
+      "sha256": "8d0604fbce8b5ce11f5ec8a634c7066b20bee3ad0a430dbf997d5ed66144f892",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y05-NOV-ledger.xlsx",
+      "bytes": 6055,
+      "sha256": "46b82197a6924812a308fe52e87b348631c56b6a799a3aac48b3fe2e68d9101c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y05-NOV-statement.pdf",
+      "bytes": 13939,
+      "sha256": "c1fbd587de15a019555bbf48b59de022b5ccdbd6f657fd5cd777f460a40420d4",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y06-DEC-cashbook.csv",
+      "bytes": 1964,
+      "sha256": "d3b4303afdee393a71a662a48a52a2cf78372185e95d7bab88fb0a5f5e4984d8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y06-DEC-ledger.xlsx",
+      "bytes": 7188,
+      "sha256": "231a3f4182925bc29062f0cbb656d0c793a027a3daaa1afaf0b9f5626bd0e973",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y06-DEC-statement.pdf",
+      "bytes": 22532,
+      "sha256": "6bb5eedf71dae167afc3fa072324e46c3b87a608afec1eb8a40a662623929ab6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y06-JAN-cashbook.csv",
+      "bytes": 1734,
+      "sha256": "bb6e00c2ce711704d5335b28ccafbbe415b09baae13240cccf297e61a630db55",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y06-JAN-ledger.xlsx",
+      "bytes": 6938,
+      "sha256": "e028cfe5cf9ffb991ed4af3118b3b42dd70c3b618bdd285e3bc754ef59fc09cd",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/Y06-JAN-statement.pdf",
+      "bytes": 21792,
+      "sha256": "b89597e2d44e9dcc7e7f9627cb285e33a8b99afba65da9bec69ace2256e877fe",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic asset for the WF-1 two-month cycle foundation: bank statements drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), copied from the WF-1 TOL-1 T4 holdout, and company ledger workbooks written by openpyxl 3.1.5 or XlsxWriter 3.2.9 (write_python.py, copied from the MAP-1 M4 holdout), from audit/bank-cycle-foundation/stories.py, with Google Fonts files from @expo-google-fonts, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, each ledger by the workbook reader of the sealed MAP-1 oracle against its declared cashbook, EXPECTED.json from the cycle oracle composing the five sealed WF-1 oracles). Fictional banks, companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/records.json",
+      "bytes": 82682,
+      "sha256": "1f85623ddf69a5a46f60d491d4ea4c534c1002766765c766552f3978f20500b5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/frozen/stories.json",
+      "bytes": 143393,
+      "sha256": "8c0b1496b43ed9734aefd558883e4a17c83615e6a2c5693174b8109b8926fd4a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/js/package-lock.json",
+      "bytes": 10823,
+      "sha256": "078872e9c078bbe08668ad7565db7df8ad805d01dc56d0bd056b0896346eeef8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/js/package.json",
+      "bytes": 927,
+      "sha256": "2b30084612d1b2794ab38d2d42a02f5df42774a298979e1f13cb660ae3ddacb7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/js/render_pdflib.mjs",
+      "bytes": 10839,
+      "sha256": "16e4dd57f9d3fc0ab786d82741ddf0c1fda72df2a4ec3ef9c414c7b8c2895d26",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/mutate_oracle.py",
+      "bytes": 5841,
+      "sha256": "801e8305502a9d578a0579bd390c6207b874e9fd3cf0a5d599ae0133211cc304",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/oracle.py",
+      "bytes": 22906,
+      "sha256": "8b8261a0c7ab770085a431a7b38befd5e3620d7c4ace8c874641ede19fa4a0bf",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/render.py",
+      "bytes": 7374,
+      "sha256": "3d67654b7e7feea69a042bf0b1a77bd55c5b06a25244c5bd0bf75abcfb54e3d8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/render_hexapdf.py",
+      "bytes": 2659,
+      "sha256": "00780b61ce62e2f8861ff5e370eba43bf62c9790f370550c4d934fe22c73965e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/render_pdflib.py",
+      "bytes": 2363,
+      "sha256": "6cdf284ef56a373f0db991894e00c6bfc0b842b6f049f0a95d9ecddc89b93d8d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/ruby/Gemfile",
+      "bytes": 204,
+      "sha256": "bb0540b65b96b5b7c3723bdbbf50b7a99c25ed80cd4e469dda669b7a5e527d5f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/ruby/Gemfile.lock",
+      "bytes": 1302,
+      "sha256": "7bf40acd65d4688a6f771427ef97a17a16259401568f0fefaa2a8657e2a41666",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/ruby/statements.rb",
+      "bytes": 7624,
+      "sha256": "53db6a930b68896b8093453c6cc16d82789d1da28a7a6d6fe0abb7767c26d37b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/seal.py",
+      "bytes": 4206,
+      "sha256": "ed9f96b12cda925e9e919917f8cc402c14646da1de96dbe37cdbc262dc6f3ca3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/stories.py",
+      "bytes": 38235,
+      "sha256": "0d1ef47297975ca2221b7138b12bb653ca59eff1d2213024a7cdc74e09d1406c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/test_oracle.py",
+      "bytes": 16017,
+      "sha256": "6aa50a0eed035d0d8844ce5cbd1737de13194f3ff4d91802d2fccea5731ee002",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/verify.py",
+      "bytes": 29025,
+      "sha256": "7aad66c2dfa27f06ff76f5582612bafd904d2b536235a44af44564d8047484bc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/write_python.py",
+      "bytes": 3050,
+      "sha256": "6a222e17570e36d094003ce16269e3178ad0f1bc2b8ea69494eef18a474fd9e2",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/WF-1-CYCLE-FOUNDATION.ar.md",
+      "bytes": 7319,
+      "sha256": "135f7581f151e881b09c8675afe0e60c94d8e5995fefc8a4bae0595fdf2effaa",
       "kind": "text"
     }
   ],

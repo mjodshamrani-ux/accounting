@@ -1,0 +1,35 @@
+{
+ "schema": "tarasuf-acceptance-contract-1",
+ "family": "bank-period-cycle-1",
+ "status": "proposed",
+ "synthetic": true,
+ "plan": "docs/CURRENT-PLAN.ar.md, row 5 (WF-1): its closing criterion, a cycle of two consecutive months on the first domain from the files to the closing sheet",
+ "scope": "Two consecutive months of one bank account on the bank statement path: a printed statement (PDF) and the company's ledger export (XLSX) each month, the second month taking the first month's saved session as its previous session. One currency (SAR) and one account per story.",
+ "question": "Do the five layers built one by one (bank-cashbook-map-1, bank-review-queue-1, bank-tolerance-1, bank-reconciliation-sheet-1, bank-statement-roll-1) give, together and in the order an accountant uses them, what each contract says, where their contracts meet?",
+ "newRules": "None. The composition below adds no accounting rule: each line states what two or more sealed contracts already say where they meet, with the clauses it rests on. Where they say nothing, the point is an open question below and is not asserted.",
+ "flow": {
+  "month": "Open the month's statement and ledger (and, in the second month, the first month's saved session); read the ledger by columns chosen by hand, or by a saved map, or by hand again when the saved map does not fit; declare a tolerance or not; decide groups from the review queue and single cases; declare the book balance and the sheet's language; prepare and review the sheet; save the session.",
+  "order": "A policy is declared before any decision of its month (bank-tolerance-1 decisions.context, T5)."
+ },
+ "composition": {
+  "C1": {"rule": "The ledger read by the columns the accountant chose gives the entries of the declared cashbook of the same rows; the month is settled on them as on the declared file, and the cashbook's fingerprint is the ledger's.", "rests": ["bank-cashbook-map-1 reading", "bank-cashbook-map-1 session (M6)"]},
+  "C2": {"rule": "A month's policy applies to that month's own amount-difference cases only, never to a carried case, whatever its reason.", "rests": ["bank-tolerance-1 eligible ('no carried case')"]},
+  "C3": {"rule": "The queue holds the month's own review cases that need a decision. A tolerated case needs none, so it is not in the queue. A group decision is the decisions of its cases.", "rests": ["bank-review-queue-1 queue.members", "bank-review-queue-1 bulk (Q3)", "bank-tolerance-1 case.tolerated"]},
+  "C4": {"rule": "The first month's saved session is the second month's previous session, replayed from its originals with its own policy, columns and decisions.", "rests": ["bank-statement-roll-1 previousSession.replay", "bank-tolerance-1 session (T6)", "bank-cashbook-map-1 session (M6)"]},
+  "C5": {"rule": "The first month is closed when no case of it needs review. A tolerated case does not; a month left with a case awaiting a decision is refused as previous with ROLL_PREVIOUS_UNDECIDED, and its sheet with SHEET_PREVIOUS_REFUSED.", "rests": ["bank-statement-roll-1 previousSession.refusals", "bank-tolerance-1 case.tolerated", "bank-reconciliation-sheet-1 refusals (P3)"]},
+  "C6": {"rule": "The second month carries the first month's outstanding items: those left unmatched and the members of rejected cases, a rejected tolerated case included; never the members of a standing tolerated case, which are cleared.", "rests": ["bank-statement-roll-1 carried.items", "bank-tolerance-1 decisions.tolerated", "bank-tolerance-1 sheet.cleared"]},
+  "C7": {"rule": "Each month's sheet is REPORT-1's over the month's own and carried items, with the tolerance section of that month's tolerated cases: tolerated sum and unexplained rest. Items of earlier periods are listed first in each section.", "rests": ["bank-reconciliation-sheet-1 sheet", "bank-tolerance-1 sheet (T7)"]},
+  "C8": {"rule": "Each month's policy is its own: the second month has a policy only when the accountant declares one for it.", "rests": ["bank-tolerance-1 session (T6)"]}
+ },
+ "acceptance": {
+  "perSave": "At each save: the previous session's verdict; how the ledger was read (by hand or map, the misfit when there is one, the header row, the columns, the columns left unread); the cases by number with kind, reason, status and members; the tolerated cases and the period limit exceeded; the queue's groups before any decision, with their cases and the decisions offered; the carried items, those still carried, and the items the month leaves outstanding with their origin and age; the cases awaiting a decision; the sheet or its refusal, with each section's items in order, the difference, the tolerated sum and the unexplained rest; the sign-offs and whether each still stands.",
+  "expected": "frozen/EXPECTED.json, from oracle.py, which composes the sealed oracles of the five layers and adds only the composition above.",
+  "notAsserted": "Whether carried cases appear in the queue (Y1). The session file's own hash, which the product writes: a carried item's provenance is compared without it, and the run checks it equals the hash of the file it gave."
+ },
+ "openQuestions": {
+  "Y1": "Carried cases need a decision but the queue contract names neither their class nor their order. The product shows them in their own table, not in the queue. Alternative: the queue holds them as a class of their own, after exceptions and before suggestions.",
+  "Y2": "A month's policy is not offered to the next month: the accountant declares it again. Alternative: the next month opens with the previous month's policy shown for confirmation, never applied silently.",
+  "Y3": "A difference tolerated in one month and never posted to the book is between bank and book in the next month too, and the next month's sheet shows it unexplained, since its tolerance section holds only that month's tolerated cases. Alternative: the next month's sheet lists the previous months' tolerated differences still unposted as explained by them."
+ },
+ "limits": "Six stories, two months each, written by the same author as the product and the five layers: an acceptance of the composition on synthetic stories, not a field measurement and not a blind evaluation. SAR only (the roll oracle reads two decimals); PDF statements and XLSX ledgers only; no sign-off made void, no undo, no third month."
+}
