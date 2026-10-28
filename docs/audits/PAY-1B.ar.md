@@ -76,4 +76,4 @@ node --experimental-strip-types audit/payroll-long-register-foundation/engine-ru
 
 ## التالي
 
-قسم المسير الطويل في مساحة الرواتب عبر العامل، للقراءة والمراجعة: PAY-1c. ثم holdout H1 مختوم قبل أي تشغيل.
+قسم المسير الطويل في مساحة الرواتب عبر العامل، للقراءة والمراجعة: [PAY-1c](PAY-1C.ar.md). ثم التشغيل الأول لـholdout H1 المختوم: [PAY-1d](PAY-1D.ar.md).

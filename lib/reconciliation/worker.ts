@@ -14,6 +14,7 @@ import { readIntercompanyFile } from './intercompany-source.ts';
 import { replayIntercompanyBatches } from './intercompany-batch-io.ts';
 import { replayGlTbSections } from './gl-tb-sections-io.ts';
 import { replayFinancialHierarchy } from './tb-financial-hierarchy-io.ts';
+import { replayLongRegister } from './payroll-long-register-io.ts';
 import { replayFinancialPosition, saveFinancialPosition, restoreFinancialPosition, exportFinancialPosition } from './tb-financial-io.ts';
 import {
   replayBankAdjustments,
@@ -139,6 +140,7 @@ self.onmessage = async (event: MessageEvent) => {
     else if (action === 'intercompany-batch-reconcile') value = await replayIntercompanyBatches(payload);
     else if (action === 'gl-tb-sections-reconcile') value = await replayGlTbSections(payload);
     else if (action === 'tb-financial-hierarchy-reconcile') value = await replayFinancialHierarchy(payload);
+    else if (action === 'payroll-long-register-reconcile') value = await replayLongRegister(payload);
     else if (action === 'tb-financial-reconcile') value = await replayFinancialPosition(payload);
     else if (action === 'tb-financial-save') value = await saveFinancialPosition(payload);
     else if (action === 'tb-financial-restore') value = await restoreFinancialPosition(payload.buffer);

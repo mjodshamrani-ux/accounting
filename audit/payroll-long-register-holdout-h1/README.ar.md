@@ -1,6 +1,6 @@
 # PAY-1 holdout H1
 
-اثنتان وثلاثون قصة جديدة لمسير الرواتب الطويل على [العقد المقترح](../payroll-long-register-foundation/contract.json)، كُتبت بعد [محرك PAY-1b](../../docs/audits/PAY-1B.ar.md) **وخُتمت ودُفعت قبل أي تشغيل للمنتج عليها.**
+اثنتان وثلاثون قصة جديدة لمسير الرواتب الطويل على [العقد المقترح](../payroll-long-register-foundation/contract.json)، كُتبت بعد [محرك PAY-1b](../../docs/audits/PAY-1B.ar.md) **وخُتمت ودُفعت قبل أي تشغيل للمنتج عليها.** التشغيل الأول والتقرير: [PAY-1d](../../docs/audits/PAY-1D.ar.md).
 
 ## ما الجديد فيها
 

@@ -211,6 +211,8 @@ const required = [
   'test:pay-long:baseline',
   'test:pay-long:run',
   'test:pay-long:mutations',
+  'test:pay-long:h1-seal',
+  'test:pay-long:h1-run',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',
@@ -382,6 +384,13 @@ const separate = {
   ],
   'tb-financial-hierarchy-interface-mutations': [
     'test:fin-hierarchy:interface-mutations',
+  ],
+  'payroll-long-register-browser': [
+    'test:pay-long:browser',
+    'test:pay-long:h1-browser',
+  ],
+  'payroll-long-register-interface-mutations': [
+    'test:pay-long:interface-mutations',
   ],
   'bank-statement-holdout': [
     'test:bank-statement:g6-holdout',

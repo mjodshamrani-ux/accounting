@@ -1,0 +1,214 @@
+{
+ "cases": {
+  "P01": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P02": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P03": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P04": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P05": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P06": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P07": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P08": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P09": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P10": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P11": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P12": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P13": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P14": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P15": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P16": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P17": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P18": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P19": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P20": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P21": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P22": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P23": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P24": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P25": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P26": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P27": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P28": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P29": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P30": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P31": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P32": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P33": {
+   "equal": true,
+   "status": "refused",
+   "differ": []
+  },
+  "P34": {
+   "equal": true,
+   "status": "refused",
+   "differ": []
+  },
+  "P35": {
+   "equal": true,
+   "status": "refused",
+   "differ": []
+  },
+  "P36": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P37": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  },
+  "P38": {
+   "equal": true,
+   "status": "judged",
+   "differ": []
+  }
+ },
+ "checks": {
+  "arabic": {
+   "dir": "rtl",
+   "equal": true
+  },
+  "phone": true,
+  "staleCleared": true,
+  "keyboard": true
+ },
+ "errors": [],
+ "external": [],
+ "summary": {
+  "cases": "38/38",
+  "checks": {
+   "arabic": true,
+   "phone": true,
+   "staleCleared": true,
+   "keyboard": true
+  }
+ }
+}

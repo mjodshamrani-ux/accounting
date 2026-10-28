@@ -39,6 +39,11 @@ import {
   type FinHInput,
 } from './tb-financial-hierarchy.ts';
 import {
+  PLR_VERSION,
+  reconcileLongRegister,
+  type PlrInput,
+} from './payroll-long-register.ts';
+import {
   ENGINE_VERSION,
   MAX_ROWS,
   MAX_SHEETS,
@@ -125,6 +130,7 @@ export const WORKER_ACTIONS = [
   'gl-tb-export',
   'gl-tb-sections-reconcile',
   'tb-financial-hierarchy-reconcile',
+  'payroll-long-register-reconcile',
 ] as const;
 export type WorkerAction = (typeof WORKER_ACTIONS)[number];
 export const isRecord = (value: unknown): value is Record<string, unknown> =>
@@ -689,6 +695,59 @@ export function validateWorkerValue(
             files: files as FinHInput['files'],
             readings: value.state.readings as FinHInput['readings'],
             scope: value.state.scope as FinHInput['scope'],
+          }),
+        ) !== JSON.stringify(value.result)
+      )
+        throw new Error('invalid');
+    } catch {
+      throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+    }
+  }
+  if (action === 'payroll-long-register-reconcile') {
+    try {
+      if (
+        !isRecord(value) ||
+        Object.keys(value).sort().join('|') !== 'result|state' ||
+        !isRecord(value.state) ||
+        !isRecord(value.result) ||
+        value.result.version !== PLR_VERSION ||
+        !Array.isArray(value.state.files) ||
+        value.state.files.length !== 1 ||
+        !isRecord(payload) ||
+        !Array.isArray(payload.files) ||
+        payload.files.length !== 1 ||
+        JSON.stringify(value.state.readings) !==
+          JSON.stringify(payload.readings) ||
+        JSON.stringify(value.state.scope) !== JSON.stringify(payload.scope)
+      )
+        throw new Error('invalid');
+      // The result must belong to the register this request sent, byte for byte.
+      const source: unknown = value.state.files[0],
+        supplied: unknown = (payload.files as unknown[])[0];
+      if (
+        !isRecord(source) ||
+        !isRecord(supplied) ||
+        typeof source.name !== 'string' ||
+        source.name !== supplied.name ||
+        typeof source.sha256 !== 'string' ||
+        source.sha256 !== supplied.sha256 ||
+        !(source.original instanceof ArrayBuffer) ||
+        !(supplied.original instanceof ArrayBuffer) ||
+        supplied.original.byteLength !== source.original.byteLength
+      )
+        throw new Error('invalid');
+      const original = new Uint8Array(supplied.original),
+        bytes = new Uint8Array(source.original);
+      if (bytes.some((byte, index) => byte !== original[index]))
+        throw new Error('invalid');
+      // Compute every employee again from those bytes before installation.
+      // Not source authenticity, a payment proof or an accounting approval.
+      if (
+        JSON.stringify(
+          reconcileLongRegister({
+            files: [{ name: source.name, sha256: source.sha256, bytes }],
+            readings: value.state.readings as PlrInput['readings'],
+            scope: value.state.scope as PlrInput['scope'],
           }),
         ) !== JSON.stringify(value.result)
       )
