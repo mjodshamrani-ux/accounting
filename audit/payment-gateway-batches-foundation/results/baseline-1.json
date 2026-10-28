@@ -1,0 +1,1891 @@
+{
+ "schema": "tarasuf-pg1-baseline/1",
+ "family": "payment-gateway-batch-1",
+ "rule": "A: each story as it arrives, its four sources but the payout lines; B: split by hand into one batch at a time in the family format, as-of equal to the period end",
+ "asItComes": {
+  "F01": {
+   "financial": "source-error",
+   "issues": [
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F02": {
+   "financial": "source-error",
+   "issues": [
+    "CARDINALITY",
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F03": {
+   "financial": "source-error",
+   "issues": [
+    "CARDINALITY",
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F04": {
+   "financial": "source-error",
+   "issues": [
+    "CARDINALITY",
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F05": {
+   "financial": "source-error",
+   "issues": [
+    "CARDINALITY",
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F06": {
+   "financial": "source-error",
+   "issues": [
+    "CARDINALITY",
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F07": {
+   "financial": "source-error",
+   "issues": [
+    "CARDINALITY",
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F08": {
+   "financial": "source-error",
+   "issues": [
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F09": {
+   "financial": "source-error",
+   "issues": [
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F10": {
+   "financial": "source-error",
+   "issues": [
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F11": {
+   "financial": "source-error",
+   "issues": [
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F12": {
+   "financial": "source-error",
+   "issues": [
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F13": {
+   "financial": "source-error",
+   "issues": [
+    "CARDINALITY",
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F14": {
+   "financial": "source-error",
+   "issues": [
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F15": {
+   "financial": "source-error",
+   "issues": [
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F16": {
+   "financial": "source-error",
+   "issues": [
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F17": {
+   "financial": "source-error",
+   "issues": [
+    "CARDINALITY",
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F18": {
+   "financial": "source-error",
+   "issues": [
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F19": {
+   "financial": "source-error",
+   "issues": [
+    "CARDINALITY",
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F20": {
+   "financial": "source-error",
+   "issues": [
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F21": {
+   "financial": "source-error",
+   "issues": [
+    "CARDINALITY",
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F22": {
+   "refused": "NATIVE_DISPLAY"
+  },
+  "F23": {
+   "refused": "NATIVE_DISPLAY"
+  },
+  "F24": {
+   "financial": "source-error",
+   "issues": [
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F25": {
+   "financial": "source-error",
+   "issues": [
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F26": {
+   "financial": "source-error",
+   "issues": [
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F27": {
+   "financial": "source-error",
+   "issues": [
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F28": {
+   "financial": "source-error",
+   "issues": [
+    "CARDINALITY",
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F29": {
+   "financial": "source-error",
+   "issues": [
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F30": {
+   "financial": "source-error",
+   "issues": [
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F31": {
+   "financial": "source-error",
+   "issues": [
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F32": {
+   "financial": "source-error",
+   "issues": [
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F33": {
+   "financial": "source-error",
+   "issues": [
+    "CARDINALITY",
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F34": {
+   "financial": "source-error",
+   "issues": [
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "F35": {
+   "financial": "source-error",
+   "issues": [
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  },
+  "D1": {
+   "refused": "SOURCE_LIMIT"
+  },
+  "D2": {
+   "refused": "ROWS"
+  },
+  "D3": {
+   "financial": "source-error",
+   "issues": [
+    "CARDINALITY",
+    "COLUMNS"
+   ],
+   "missing": [
+    "transactions",
+    "settlement",
+    "payout"
+   ],
+   "residuals": null
+  }
+ },
+ "totals": {
+  "batches": 4075,
+  "notExpressible": 5,
+  "familyRefusedSplit": 0,
+  "contractConsistentFamilyReady": 3813,
+  "contractConsistentFamilyNot": 199,
+  "contractReviewFamilyReady": 0,
+  "contractReviewFamilyNot": 58,
+  "unlinkedCreditsNoBatchCarries": 1
+ },
+ "stories": {
+  "F01": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 1,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 1,
+   "contractConsistentFamilyNot": 0,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 0,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "consistent",
+      []
+     ],
+     "family": {
+      "financial": "ready",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   ]
+  },
+  "F02": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "CARDINALITY",
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 1,
+   "notExpressible": 1,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 0,
+   "contractConsistentFamilyNot": 0,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 0,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "consistent",
+      []
+     ],
+     "family": "not expressible: 2 payouts"
+    }
+   ]
+  },
+  "F03": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "CARDINALITY",
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 3,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 0,
+   "contractConsistentFamilyNot": 3,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 0,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "consistent",
+      []
+     ],
+     "family": {
+      "financial": "difference",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       -137200
+      ]
+     }
+    },
+    {
+     "batch": "B2",
+     "contract": [
+      "consistent",
+      []
+     ],
+     "family": {
+      "financial": "difference",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       -156800
+      ]
+     }
+    },
+    {
+     "batch": "B3",
+     "contract": [
+      "consistent",
+      []
+     ],
+     "family": {
+      "financial": "difference",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       -176400
+      ]
+     }
+    }
+   ]
+  },
+  "F04": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "CARDINALITY",
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 2,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 2,
+   "contractConsistentFamilyNot": 0,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 0,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "consistent",
+      []
+     ],
+     "family": {
+      "financial": "ready",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "batch": "B2",
+     "contract": [
+      "consistent",
+      []
+     ],
+     "family": {
+      "financial": "ready",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   ]
+  },
+  "F05": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "CARDINALITY",
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 2,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 0,
+   "contractConsistentFamilyNot": 0,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 2,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "review",
+      [
+       "SALES"
+      ]
+     ],
+     "family": {
+      "financial": "difference",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       40000,
+       0,
+       0,
+       40000,
+       -60000
+      ]
+     }
+    },
+    {
+     "batch": "B2",
+     "contract": [
+      "review",
+      [
+       "SALES"
+      ]
+     ],
+     "family": {
+      "financial": "difference",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       -40000,
+       0,
+       0,
+       -40000,
+       -60000
+      ]
+     }
+    }
+   ]
+  },
+  "F06": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "CARDINALITY",
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 2,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 0,
+   "contractConsistentFamilyNot": 0,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 2,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "review",
+      [
+       "FEES"
+      ]
+     ],
+     "family": {
+      "financial": "difference",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       -500,
+       500,
+       0
+      ]
+     }
+    },
+    {
+     "batch": "B2",
+     "contract": [
+      "review",
+      [
+       "FEES"
+      ]
+     ],
+     "family": {
+      "financial": "difference",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       500,
+       -500,
+       0
+      ]
+     }
+    }
+   ]
+  },
+  "F07": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "CARDINALITY",
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 2,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 0,
+   "contractConsistentFamilyNot": 0,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 2,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "review",
+      [
+       "PAYOUT"
+      ]
+     ],
+     "family": {
+      "financial": "difference",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       20000
+      ]
+     }
+    },
+    {
+     "batch": "B2",
+     "contract": [
+      "review",
+      [
+       "PAYOUT"
+      ]
+     ],
+     "family": {
+      "financial": "difference",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       -20000
+      ]
+     }
+    }
+   ]
+  },
+  "F08": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 1,
+   "notExpressible": 1,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 0,
+   "contractConsistentFamilyNot": 0,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 0,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "review",
+      [
+       "PAYOUT"
+      ]
+     ],
+     "family": "not expressible: 2 payouts"
+    }
+   ]
+  },
+  "F09": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 1,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 0,
+   "contractConsistentFamilyNot": 0,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 1,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "review",
+      [
+       "PAID_SHORT"
+      ]
+     ],
+     "family": {
+      "financial": "difference",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       9000
+      ]
+     }
+    }
+   ]
+  },
+  "F10": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 1,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 0,
+   "contractConsistentFamilyNot": 0,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 1,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "review",
+      [
+       "PAID_OVER"
+      ]
+     ],
+     "family": {
+      "financial": "difference",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       -1000
+      ]
+     }
+    }
+   ]
+  },
+  "F11": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 1,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 0,
+   "contractConsistentFamilyNot": 0,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 1,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "review",
+      [
+       "NET"
+      ]
+     ],
+     "family": {
+      "financial": "difference",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       -1000,
+       0
+      ]
+     }
+    }
+   ]
+  },
+  "F12": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 1,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 1,
+   "contractConsistentFamilyNot": 0,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 0,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "consistent",
+      []
+     ],
+     "family": {
+      "financial": "ready",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   ]
+  },
+  "F13": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "CARDINALITY",
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 2,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 1,
+   "contractConsistentFamilyNot": 1,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 0,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "consistent",
+      []
+     ],
+     "family": {
+      "financial": "ready",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "batch": "B2",
+     "contract": [
+      "in-transit",
+      []
+     ],
+     "family": {
+      "financial": "source-error",
+      "issues": [
+       "PERIOD"
+      ],
+      "missing": [
+       "payout"
+      ],
+      "residuals": null
+     }
+    }
+   ]
+  },
+  "F14": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 1,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 0,
+   "contractConsistentFamilyNot": 0,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 1,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "review",
+      [
+       "PAYOUT"
+      ]
+     ],
+     "family": {
+      "financial": "source-error",
+      "issues": [
+       "PERIOD"
+      ],
+      "missing": [
+       "payout"
+      ],
+      "residuals": null
+     }
+    }
+   ]
+  },
+  "F15": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 1,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 1,
+   "contractConsistentFamilyNot": 0,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 0,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "consistent",
+      []
+     ],
+     "family": {
+      "financial": "ready",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   ]
+  },
+  "F16": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 1,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 1,
+   "contractConsistentFamilyNot": 0,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 0,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "consistent",
+      []
+     ],
+     "family": {
+      "financial": "ready",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   ]
+  },
+  "F17": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "CARDINALITY",
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 1,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 1,
+   "contractConsistentFamilyNot": 0,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 0,
+   "unlinkedCreditsNoBatchCarries": 1,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "consistent",
+      []
+     ],
+     "family": {
+      "financial": "ready",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   ]
+  },
+  "F18": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 1,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 0,
+   "contractConsistentFamilyNot": 0,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 1,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "review",
+      [
+       "REFUNDS"
+      ]
+     ],
+     "family": {
+      "financial": "difference",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       -5000,
+       0,
+       5000,
+       0
+      ]
+     }
+    }
+   ]
+  },
+  "F19": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "CARDINALITY",
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 2,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 0,
+   "contractConsistentFamilyNot": 0,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 2,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "review",
+      [
+       "PAYOUT"
+      ]
+     ],
+     "family": {
+      "financial": "difference",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       -73506
+      ]
+     }
+    },
+    {
+     "batch": "B2",
+     "contract": [
+      "review",
+      [
+       "PAYOUT"
+      ]
+     ],
+     "family": {
+      "financial": "difference",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       -124244
+      ]
+     }
+    }
+   ]
+  },
+  "F20": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 1,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 1,
+   "contractConsistentFamilyNot": 0,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 0,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "consistent",
+      []
+     ],
+     "family": {
+      "financial": "ready",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   ]
+  },
+  "F21": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "CARDINALITY",
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 2,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 2,
+   "contractConsistentFamilyNot": 0,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 0,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "consistent",
+      []
+     ],
+     "family": {
+      "financial": "ready",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    {
+     "batch": "B2",
+     "contract": [
+      "consistent",
+      []
+     ],
+     "family": {
+      "financial": "ready",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   ]
+  },
+  "F22": {
+   "contractRefused": null,
+   "asItComes": {
+    "refused": "NATIVE_DISPLAY"
+   },
+   "batches": 2,
+   "notExpressible": 1,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 0,
+   "contractConsistentFamilyNot": 1,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 0,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "consistent",
+      []
+     ],
+     "family": "not expressible: 2 payouts"
+    },
+    {
+     "batch": "B2",
+     "contract": [
+      "consistent",
+      []
+     ],
+     "family": {
+      "financial": "difference",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       -30000
+      ]
+     }
+    }
+   ]
+  },
+  "F23": {
+   "contractRefused": "SOURCE_ERRORS",
+   "asItComes": {
+    "refused": "NATIVE_DISPLAY"
+   }
+  },
+  "F24": {
+   "contractRefused": "SOURCE_ERRORS",
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   }
+  },
+  "F25": {
+   "contractRefused": "SOURCE_ERRORS",
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   }
+  },
+  "F26": {
+   "contractRefused": "SOURCE_ERRORS",
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   }
+  },
+  "F27": {
+   "contractRefused": "SOURCE_ERRORS",
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   }
+  },
+  "F28": {
+   "contractRefused": "SOURCE_ERRORS",
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "CARDINALITY",
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   }
+  },
+  "F29": {
+   "contractRefused": "SOURCE_ERRORS",
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   }
+  },
+  "F30": {
+   "contractRefused": "COLUMNS",
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   }
+  },
+  "F31": {
+   "contractRefused": "SCOPE",
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   }
+  },
+  "F32": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 1,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 1,
+   "contractConsistentFamilyNot": 0,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 0,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "consistent",
+      []
+     ],
+     "family": {
+      "financial": "ready",
+      "issues": [],
+      "missing": [],
+      "residuals": [
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    }
+   ]
+  },
+  "F33": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "CARDINALITY",
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 2,
+   "notExpressible": 2,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 0,
+   "contractConsistentFamilyNot": 0,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 0,
+   "unlinkedCreditsNoBatchCarries": 0,
+   "perBatch": [
+    {
+     "batch": "B1",
+     "contract": [
+      "consistent",
+      []
+     ],
+     "family": "not expressible: 2 payouts"
+    },
+    {
+     "batch": "B2",
+     "contract": [
+      "review",
+      [
+       "PAID_SHORT"
+      ]
+     ],
+     "family": "not expressible: 2 payouts"
+    }
+   ]
+  },
+  "F34": {
+   "contractRefused": "SOURCE_ERRORS",
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   }
+  },
+  "F35": {
+   "contractRefused": "SOURCE_ERRORS",
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   }
+  },
+  "D1": {
+   "contractRefused": null,
+   "asItComes": {
+    "refused": "SOURCE_LIMIT"
+   },
+   "batches": 40,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 1,
+   "contractConsistentFamilyNot": 34,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 5,
+   "unlinkedCreditsNoBatchCarries": 0
+  },
+  "D2": {
+   "contractRefused": "ROWS",
+   "asItComes": {
+    "refused": "ROWS"
+   }
+  },
+  "D3": {
+   "contractRefused": null,
+   "asItComes": {
+    "financial": "source-error",
+    "issues": [
+     "CARDINALITY",
+     "COLUMNS"
+    ],
+    "missing": [
+     "transactions",
+     "settlement",
+     "payout"
+    ],
+    "residuals": null
+   },
+   "batches": 4000,
+   "notExpressible": 0,
+   "familyRefusedSplit": 0,
+   "contractConsistentFamilyReady": 3800,
+   "contractConsistentFamilyNot": 160,
+   "contractReviewFamilyReady": 0,
+   "contractReviewFamilyNot": 40,
+   "unlinkedCreditsNoBatchCarries": 0
+  }
+ }
+}
