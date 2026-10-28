@@ -1,0 +1,150 @@
+{
+ "schema": "tarasuf-all1-engine-run/1",
+ "review": "allocation-advice-review-1",
+ "suite": "audit/allocation-advice-holdout-h1",
+ "rule": "equal to the sealed expectations in full",
+ "equal": 28,
+ "of": 28,
+ "stories": {
+  "H01": {
+   "equal": true,
+   "differ": [],
+   "refused": null
+  },
+  "H02": {
+   "equal": true,
+   "differ": [],
+   "refused": null
+  },
+  "H03": {
+   "equal": true,
+   "differ": [],
+   "refused": null
+  },
+  "H04": {
+   "equal": true,
+   "differ": [],
+   "refused": null
+  },
+  "H05": {
+   "equal": true,
+   "differ": [],
+   "refused": null
+  },
+  "H06": {
+   "equal": true,
+   "differ": [],
+   "refused": null
+  },
+  "H07": {
+   "equal": true,
+   "differ": [],
+   "refused": null
+  },
+  "H08": {
+   "equal": true,
+   "differ": [],
+   "refused": "SOURCE_ERRORS"
+  },
+  "H09": {
+   "equal": true,
+   "differ": [],
+   "refused": null
+  },
+  "H10": {
+   "equal": true,
+   "differ": [],
+   "refused": null
+  },
+  "H11": {
+   "equal": true,
+   "differ": [],
+   "refused": null
+  },
+  "H12": {
+   "equal": true,
+   "differ": [],
+   "refused": null
+  },
+  "H13": {
+   "equal": true,
+   "differ": [],
+   "refused": null
+  },
+  "H14": {
+   "equal": true,
+   "differ": [],
+   "refused": null
+  },
+  "H15": {
+   "equal": true,
+   "differ": [],
+   "refused": null
+  },
+  "H16": {
+   "equal": true,
+   "differ": [],
+   "refused": null
+  },
+  "H17": {
+   "equal": true,
+   "differ": [],
+   "refused": "SOURCE_ERRORS"
+  },
+  "H18": {
+   "equal": true,
+   "differ": [],
+   "refused": "SOURCE_ERRORS"
+  },
+  "H19": {
+   "equal": true,
+   "differ": [],
+   "refused": "SOURCE_ERRORS"
+  },
+  "H20": {
+   "equal": true,
+   "differ": [],
+   "refused": "SOURCE_ERRORS"
+  },
+  "H21": {
+   "equal": true,
+   "differ": [],
+   "refused": "SOURCE_ERRORS"
+  },
+  "H22": {
+   "equal": true,
+   "differ": [],
+   "refused": "COLUMNS"
+  },
+  "H23": {
+   "equal": true,
+   "differ": [],
+   "refused": "OVER_AVAILABLE"
+  },
+  "H24": {
+   "equal": true,
+   "differ": [],
+   "refused": null
+  },
+  "H25": {
+   "equal": true,
+   "differ": [],
+   "refused": null
+  },
+  "H26": {
+   "equal": true,
+   "differ": [],
+   "refused": null
+  },
+  "H27": {
+   "equal": true,
+   "differ": [],
+   "refused": "UNDO"
+  },
+  "H28": {
+   "equal": true,
+   "differ": [],
+   "refused": "SOURCE_ERRORS"
+  }
+ }
+}

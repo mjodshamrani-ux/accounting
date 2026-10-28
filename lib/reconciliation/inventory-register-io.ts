@@ -270,7 +270,7 @@ export async function writeStockLinksWorkbook(
         v.id,
         v.row,
         ...(located ? [v.column ?? null] : []),
-        ...(r.pdfEvidence ? [v.page ?? null] : []),
+        ...(r.pdfEvidence ? [v.page === undefined ? null : v.page] : []),
         v.item,
         v.dimensions,
         v.status,

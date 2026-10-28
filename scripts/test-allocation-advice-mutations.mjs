@@ -1,7 +1,8 @@
-// ALL-1b code mutations: each planted defect in a private copy of
-// allocation-advice-review-1 (allocation-advice.ts and its replay) must make
-// its tests fail with an assertion; allocation-snapshot-1's own tests run
-// beside them. A survivor is a guard nothing holds.
+// ALL-1b and ALL-1c code mutations: each planted defect in a private copy of
+// allocation-advice-review-1 (allocation-advice.ts and its replay), of the
+// worker protocol's check of its reply, or of the page's replay of the bytes
+// it sent, must make its tests fail with an assertion; allocation-snapshot-1's
+// own tests run beside them. A survivor is a guard nothing holds.
 //   node scripts/test-allocation-advice-mutations.mjs
 import {
   cp,
@@ -27,10 +28,17 @@ const output =
   join(root, 'work/allocation-advice-mutations');
 await mkdir(output, { recursive: true });
 const out = await mkdtemp(join(output, 'run-'));
-const tests = ['tests/allocation-advice.test.ts', 'tests/allocation.test.ts'];
-const support = ['audit/allocation'];
+const tests = [
+  'tests/allocation-advice.test.ts',
+  'tests/allocation.test.ts',
+  'tests/allocation-advice-protocol.test.ts',
+  'tests/allocation-advice-binding.test.ts',
+];
+const support = ['audit/allocation', 'tests/helpers'];
 const ENGINE = 'lib/reconciliation/allocation-advice.ts';
 const IO = 'lib/reconciliation/allocation-advice-io.ts';
+const PROTOCOL = 'lib/reconciliation/protocol.ts';
+const CLIENT = 'lib/reconciliation/worker-client.ts';
 const mutations = [
   [
     'source-errors-reviewed',
@@ -176,8 +184,44 @@ const mutations = [
     "refuseAdvice(message === readerCeiling ? 'ROWS' : 'SOURCE');",
     "refuseAdvice('SOURCE');",
   ],
+  [
+    'protocol-review-not-recomputed',
+    PROTOCOL,
+    '        JSON.stringify(\n          reviewAllocationAdvice(value.result as unknown as AllocationResult),\n        ) !== JSON.stringify(value.review)\n',
+    '        false\n',
+  ],
+  [
+    'protocol-bytes-not-compared',
+    PROTOCOL,
+    'if (theirs.some((byte, at) => byte !== mine[at]))',
+    'if (false)',
+  ],
+  [
+    'protocol-decisions-not-compared',
+    PROTOCOL,
+    '        JSON.stringify(value.state.events) !== JSON.stringify(payload.events)\n',
+    '        false\n',
+  ],
+  [
+    'binding-result-and-review-not-compared',
+    CLIENT,
+    '              JSON.stringify(sent.result) !== JSON.stringify(fresh.result) ||\n              JSON.stringify(sent.review) !== JSON.stringify(fresh.review)\n',
+    '              false\n',
+  ],
+  [
+    'binding-sources-not-compared',
+    CLIENT,
+    '              sources(sent.state) !== sources(fresh.state) ||\n',
+    '',
+  ],
+  [
+    'binding-bytes-not-compared',
+    CLIENT,
+    'if (x.length !== y.length || x.some((v, at) => v !== y[at]))',
+    'if (false)',
+  ],
 ];
-const files = [ENGINE, IO, ...tests];
+const files = [ENGINE, IO, PROTOCOL, CLIENT, ...tests];
 const digest = (b) => createHash('sha256').update(b).digest('hex');
 const before = Object.fromEntries(
   await Promise.all(

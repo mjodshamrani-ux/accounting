@@ -104,6 +104,14 @@ export function createWorkerClient(
           return reject(error);
         }
       }
+      // The three allocation snapshots, their readings, scope and events.
+      if (action === 'allocation-advice-review') {
+        try {
+          payload = structuredClone(payload);
+        } catch (error) {
+          return reject(error);
+        }
+      }
       // Capture the statement originals, scope and decisions synchronously.
       if (action.startsWith('bank-statement-')) {
         try {
@@ -371,6 +379,51 @@ export function createWorkerClient(
               throw Error('CLEARING_GROUPS_WORKER_BINDING');
             // Install only the sheet re-read from this request's original.
             response.value = recomputed;
+          }
+          if (action === 'allocation-advice-review') {
+            const reply = response.value;
+            if (
+              !isRecord(reply) ||
+              !isRecord(reply.state) ||
+              !isRecord(reply.result) ||
+              !isRecord(reply.review) ||
+              !Array.isArray(reply.state.files) ||
+              reply.state.files.length !== 3
+            )
+              throw Error('ALLOCATION_ADVICE_WORKER_BINDING');
+            const { replayAllocationAdvice } = await import(
+              './allocation-advice-io.ts'
+            );
+            const fresh = await replayAllocationAdvice(
+              payload as import('./allocation.ts').AllocationInput,
+            );
+            const sent = reply as unknown as typeof fresh;
+            const sources = (snapshot: typeof fresh.state) =>
+              JSON.stringify({
+                readings: snapshot.readings,
+                scope: snapshot.scope,
+                events: snapshot.events,
+                files: snapshot.files.map((f) => [
+                  f.name,
+                  f.kind,
+                  f.sha256,
+                  f.original?.byteLength,
+                ]),
+              });
+            if (
+              sources(sent.state) !== sources(fresh.state) ||
+              JSON.stringify(sent.result) !== JSON.stringify(fresh.result) ||
+              JSON.stringify(sent.review) !== JSON.stringify(fresh.review)
+            )
+              throw Error('ALLOCATION_ADVICE_WORKER_BINDING');
+            for (const [side, f] of sent.state.files.entries()) {
+              const x = new Uint8Array(f.original!),
+                y = new Uint8Array(fresh.state.files[side].original!);
+              if (x.length !== y.length || x.some((v, at) => v !== y[at]))
+                throw Error('ALLOCATION_ADVICE_WORKER_BINDING');
+            }
+            // Install only what this page replayed from its own request.
+            response.value = fresh;
           }
           if (action.startsWith('stock-')) {
             response.value = await (

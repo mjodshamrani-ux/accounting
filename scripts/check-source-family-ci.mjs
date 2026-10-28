@@ -243,6 +243,8 @@ const required = [
   'test:all-advice:baseline',
   'test:all-advice:run',
   'test:all-advice:mutations',
+  'test:all-advice:h1-seal',
+  'test:all-advice:h1-run',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',
@@ -442,6 +444,13 @@ const separate = {
   ],
   'clearing-groups-interface-mutations': [
     'test:clr-groups:interface-mutations',
+  ],
+  'allocation-advice-browser': [
+    'test:all-advice:browser',
+    'test:all-advice:h1-browser',
+  ],
+  'allocation-advice-interface-mutations': [
+    'test:all-advice:interface-mutations',
   ],
   'bank-statement-holdout': [
     'test:bank-statement:g6-holdout',

@@ -59,6 +59,11 @@ import {
   MAX_SHEETS,
   MAX_FILE_BYTES,
 } from './types.ts';
+import {
+  ALLOCATION_ADVICE_VERSION,
+  reviewAllocationAdvice,
+} from './allocation-advice.ts';
+import type { AllocationResult } from './allocation.ts';
 import type { SourceFile } from './types.ts';
 import {
   registerNativeHeaderSource,
@@ -144,6 +149,7 @@ export const WORKER_ACTIONS = [
   'payroll-long-register-reconcile',
   'inventory-movement-bridge-reconcile',
   'clearing-groups-reconcile',
+  'allocation-advice-review',
 ] as const;
 export type WorkerAction = (typeof WORKER_ACTIONS)[number];
 export const isRecord = (value: unknown): value is Record<string, unknown> =>
@@ -867,6 +873,60 @@ export function validateWorkerValue(
         JSON.stringify(
           groupClearing(value.state as unknown as ClearingGroupsInput),
         ) !== JSON.stringify(value.result)
+      )
+        throw new Error('invalid');
+    } catch {
+      throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+    }
+  }
+  if (action === 'allocation-advice-review') {
+    try {
+      if (
+        !isRecord(value) ||
+        Object.keys(value).sort().join('|') !== 'result|review|state' ||
+        !isRecord(value.state) ||
+        !isRecord(value.result) ||
+        !isRecord(value.review) ||
+        value.review.version !== ALLOCATION_ADVICE_VERSION ||
+        !isRecord(payload) ||
+        !Array.isArray(payload.files) ||
+        !Array.isArray(value.state.files) ||
+        payload.files.length !== 3 ||
+        value.state.files.length !== 3 ||
+        JSON.stringify(value.state.readings) !==
+          JSON.stringify(payload.readings) ||
+        JSON.stringify(value.state.scope) !== JSON.stringify(payload.scope) ||
+        JSON.stringify(value.state.events) !== JSON.stringify(payload.events)
+      )
+        throw new Error('invalid');
+      // Each of the three snapshots must be the one this request sent, byte
+      // for byte, under its name and hash.
+      for (const [side, snapshot] of value.state.files.entries()) {
+        const sent = payload.files[side] as Record<string, unknown>;
+        assertSourceFile(snapshot);
+        if (
+          !isRecord(sent) ||
+          snapshot.name !== sent.name ||
+          typeof snapshot.sha256 !== 'string' ||
+          snapshot.sha256 !== sent.sha256 ||
+          !(snapshot.original instanceof ArrayBuffer) ||
+          !(sent.original instanceof ArrayBuffer) ||
+          !snapshot.original.byteLength ||
+          snapshot.original.byteLength > MAX_FILE_BYTES ||
+          sent.original.byteLength !== snapshot.original.byteLength
+        )
+          throw new Error('invalid');
+        const mine = new Uint8Array(sent.original),
+          theirs = new Uint8Array(snapshot.original);
+        if (theirs.some((byte, at) => byte !== mine[at]))
+          throw new Error('invalid');
+      }
+      // The review must follow from the family result it carries; the client
+      // binding replays the family from the bytes. Not an approval.
+      if (
+        JSON.stringify(
+          reviewAllocationAdvice(value.result as unknown as AllocationResult),
+        ) !== JSON.stringify(value.review)
       )
         throw new Error('invalid');
     } catch {
