@@ -1,0 +1,58 @@
+{
+ "schema": "tarasuf-fa1-verify/1",
+ "passed": true,
+ "stories": 48,
+ "files": 144,
+ "problems": [],
+ "selfTest": [
+  {
+   "plant": "an amount digit changed",
+   "rejected": true
+  },
+  {
+   "plant": "a map row dropped",
+   "rejected": true
+  },
+  {
+   "plant": "a byte order mark dropped",
+   "rejected": true
+  },
+  {
+   "plant": "CRLF written as LF",
+   "rejected": true
+  },
+  {
+   "plant": "a scope currency changed",
+   "rejected": true
+  },
+  {
+   "plant": "a padded record unpadded",
+   "rejected": true
+  },
+  {
+   "plant": "a quoted field unquoted",
+   "rejected": true
+  },
+  {
+   "plant": "a file the facts do not name",
+   "rejected": true
+  },
+  {
+   "plant": "a GL debit and credit swapped",
+   "rejected": true
+  },
+  {
+   "plant": "the stray quote escaped",
+   "rejected": true
+  },
+  {
+   "plant": "the second byte order mark dropped",
+   "rejected": true
+  },
+  {
+   "plant": "CR written as CRLF",
+   "rejected": true
+  }
+ ],
+ "factsSha256": "6504ac03f45241b68e28745ace9cf0a315685979d74e50f709b11df481fb093a"
+}

@@ -1,0 +1,35 @@
+{
+ "names": [
+  "F39-register.csv",
+  "F39-map.csv",
+  "F39-gl.csv"
+ ],
+ "readings": [
+  {
+   "sheet": 0,
+   "role": "register-sections",
+   "family": "fixed-assets-sections-1",
+   "confirmed": true
+  },
+  {
+   "sheet": 0,
+   "role": "category-map",
+   "family": "fixed-assets-sections-1",
+   "confirmed": true
+  },
+  {
+   "sheet": 0,
+   "role": "gl-balances",
+   "family": "fixed-assets-sections-1",
+   "confirmed": true
+  }
+ ],
+ "scope": {
+  "entity": "Synthetic Dunes Logistics Co",
+  "assetLedger": "FA-MAIN",
+  "glLedger": "GL-2027",
+  "currency": "SAR",
+  "asOf": "2027-12-31",
+  "confirmed": true
+ }
+}

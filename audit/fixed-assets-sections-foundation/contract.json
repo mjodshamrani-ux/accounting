@@ -1,0 +1,147 @@
+{
+ "schema": "tarasuf-fa1-sections-foundation/1",
+ "status": "proposed: review only, not enabled in the product, awaiting the owner's decisions F1 to F10",
+ "synthetic": true,
+ "holdout": false,
+ "productEnabled": false,
+ "proposedFamily": "fixed-assets-sections-1",
+ "existingFamilies": "fixed-assets-posted-components-gl-1 and fixed-assets-long-components-gl-1, unchanged: four sources (register, mapping per asset and component, policy evidence per asset and component, GL), the twelve scope fields restated on every row, a header in the first row, and one source error anywhere withholds every comparison",
+ "plan": "docs/roadmap/fixed-assets.ar.md#fa-1-سجل-متعدد-الأقسام--مخطط-بعد-c-0-وc-1",
+ "challengeIds": ["FA", "CH-01", "CH-06", "CH-07", "CH-08", "CH-09", "CH-12"],
+ "why": "An asset register is printed and exported by location and category: a section heading, its column row, the assets of that place and class, perhaps a section total, then the next section. The long family reads one table whose first row is its header and whose every row restates the twelve scope fields, and it takes its accounts from a mapping row and a policy evidence row for every asset and component: ten rows an asset before the GL, so its 20,000 rows hold about 2,000 assets. Cut by hand into that form, a section's location or category is carried into the next, a section of another date is merged in, a section total becomes an asset, and one bad row in any section withholds every account of the register.",
+ "claim": "Consistency of the component amounts of a sectioned asset register (cost, accumulated depreciation, impairment and carrying, one row each, as supplied) with supplied GL balances, through a category account map valid at the as-of date, account by account and component by component, within one confirmed scope. No depreciation, life or value is computed, no carrying amount is derived, nothing is decided, and nothing is said about the existence, ownership or completeness of the assets.",
+ "runScope": {
+  "fields": ["entity", "assetLedger", "glLedger", "currency", "asOf"],
+  "rule": "Confirmed by the accountant for the run: exactly these five fields and confirmed true. Each value by the text rules; currency one of the listed currencies; asOf a real date. Otherwise the run is refused (SCOPE) and nothing is judged. The three readings name the roles register-sections, category-map and gl-balances in that order, family fixed-assets-sections-1, sheet 0, each confirmed; otherwise the run is refused (READING). In this foundation both are <story>-input.json."
+ },
+ "files": {
+  "names": "The accountant names which file is the register, which the map and which the GL. Each must be a .csv name and hold at least one byte; otherwise the run is refused (SOURCE).",
+  "encoding": "UTF-8, strictly. One byte order mark at the very start is dropped; any other is text. Bytes that are not UTF-8, or any of U+0000 to U+0008, U+000B, U+000C, U+000E to U+001F, U+FFFE, U+FFFF anywhere in the text, refuse the run (SOURCE).",
+  "grammar": "Comma separated. A record ends at CR, LF or CR LF; a record with no characters is a blank record of no cells; a final record need not end with a line end, and a line end at the end of the file adds no record. A cell is quoted only when its first character is a double quote; inside it two double quotes are one and one double quote closes it; after the closing quote only a comma or the record's end may follow. A double quote inside an unquoted cell, text after a closing quote, or a quote left open refuses the run (SOURCE). No delimiter is guessed, and a cell is never trimmed.",
+  "capacity": "A file over 8 MiB, with more than 20,001 records, with a record of more than 100 cells, or with a cell longer than 32,767 UTF-16 code units refuses the run (CAPACITY). Blank records count.",
+  "order": "Refusals are checked in this order: READING, SCOPE, then each file in role order (SOURCE and CAPACITY as met while reading it, first met first), then the map's header and the GL's header (COLUMNS), and TOTAL_LIMIT last. The first that applies is the run's.",
+  "cells": "A cell is empty when it is the empty string. A record is blank when it has no cells or every cell is empty. A record's meaningful cells run from its first cell to its last non-empty cell, so exports that pad every record to one width read the same."
+ },
+ "reading": {
+  "text": "Section ID, label values, Asset ID, Asset dimensions, Valuation reference, Category, GL account, GL dimensions and every scope value: non-empty; at most 500 UTF-16 code units; no control (Cc) or format (Cf) character anywhere; not starting or ending with a space separator (Zs), U+2028 or U+2029; not starting with = + @ or -; not starting with #REF!, #VALUE!, #N/A or #DIV/0! in any case. Never trimmed, folded or normalised: 001 and 1 are two values.",
+  "dates": "YYYY-MM-DD in ASCII digits, a real Gregorian date from 0001-01-01 to 9999-12-31.",
+  "amounts": "ASCII digits, optionally a point and one or more ASCII digits, with no more fraction digits than the currency has decimals; never a sign, an exponent, a thousands separator, a space or another digit script; at most 10^14 minor units. A blank amount is not zero; a zero is written (F5, F8).",
+  "components": "cost, depreciation, impairment and carrying, exactly so, in the register; cost, depreciation and impairment in the map. Their account classes are fixed-asset-cost, accumulated-depreciation and accumulated-impairment.",
+  "currencies": {"SAR": 2, "AED": 2, "USD": 2, "EUR": 2, "KWD": 3, "BHD": 3, "OMR": 3, "JPY": 0},
+  "totalLimit": "Every sum is exact. A sum the review computes (a section total's rows, an account's register amount) or a difference beyond 2^53 - 1 in magnitude refuses the run (TOTAL_LIMIT)."
+ },
+ "register": {
+  "role": "register-sections",
+  "sections": "A section starts at a record whose first cell is Section and ends at the first later record whose first cell is Section or End section, or at the end of the file. It is closed when it ends at a record whose meaningful cells are exactly End section and the section ID as written in its Section record; that record, whatever it says, belongs to the section that it ends. A Section record has exactly two meaningful cells, the second the section ID.",
+  "header": "After the Section record, the first non-blank record with more than two meaningful cells is the section's column row. Every non-blank record between them is a label record of exactly two meaningful cells: one of Entity, Asset ledger, Currency, As of, Location and Category, then its value. Each label appears exactly once, in any order; nothing is inherited from another section (F4).",
+  "columns": "The column row's meaningful cells are exactly Asset ID, Asset dimensions, Component, Amount and Valuation reference, each once, in any order. A record's fields are read by these positions; a field past the record's last cell is absent.",
+  "records": "Every non-blank record after the column row, up to the section's end, is a record row, except one whose first cell is Section total: a total row of exactly three meaningful cells, Section total, a component and an amount.",
+  "stray": "A non-blank record outside every section, an End section record that ends no section included: STRAY_ROW."
+ },
+ "sectionOrder": [
+  ["SECTION_UNREADABLE", "The section has no label record Category, more than one, or its value fails the text rules: its assets could be of any category, so every account is held (run) and the Section record is listed as unplaced."],
+  ["SECTION_UNCLOSED", "The section is not closed. Its category's accounts are held and its records are not judged; it is never excluded."],
+  ["SECTION_HEADER", "The section ID fails the text rules; a record before the column row is not a label record; a label is unknown, absent or repeated; a label value fails the text rules; As of is not a real date. Its category's accounts are held and its records are not judged."],
+  ["SECTION_SCOPE", "Its Entity, Asset ledger, Currency or As of differs as written from the run scope: the section is excluded and listed. It holds nothing, its records are not judged, and its assets are not in the register (F2)."],
+  ["SECTION_COLUMNS", "No column row, or a column row that is not the five columns each once. Its category's accounts are held and its records are not judged."]
+ ],
+ "sectionRule": "Each section takes the first code in this order that applies, and only that one. A section with none of them is judged: its records are read.",
+ "judgedSections": {
+  "SECTION_DUPLICATE": "Two or more judged sections with the same section ID: each is held.",
+  "ROW_UNPLACED": "A record row whose Asset ID or Asset dimensions is absent or fails the text rules cannot be put under an asset: its section is held and the row is listed as unplaced.",
+  "TOTAL_FIELD": "A total row that is not three meaningful cells, whose component is not one of the four, whose amount fails, or whose component another total row of the section repeats; or a readable total that cannot be checked because a record row of the section has a component that is not one of the four, or a record row with the total's component has an amount that fails: the section is held.",
+  "TOTAL_MISMATCH": "A total whose amount is not the sum of the amounts of every record row of the section whose component is the total's: the section is held. A total is never compared with the GL (F7).",
+  "held": "A held section's category's accounts are held. Its records are still read, its assets listed and their codes given."
+ },
+ "assets": {
+  "identity": "Section ID, Asset ID and Asset dimensions as written. The section gives the asset its location and category.",
+  "rowCodes": {
+   "CELLS": "The record row has a non-empty cell past the five columns.",
+   "COMPONENT": "Its Component is not one of the four.",
+   "AMOUNT": "Its Amount is absent or fails the amount rules.",
+   "TEXT": "Its Valuation reference is absent or fails the text rules."
+  },
+  "assetCodes": {
+   "COMPONENT_MISSING": "One of the four components has no record row of the asset. Never derived from the others (F5).",
+   "COMPONENT_REPEATED": "One of the four has more than one record row, equal or not.",
+   "VALUATION": "The asset's readable valuation references are not all the same.",
+   "CARRYING": "When each component has exactly one row and all four amounts read: cost minus depreciation minus impairment is not carrying.",
+   "ID_SECTIONS": "Its Asset ID is the Asset ID of an asset of another judged section, whatever the dimensions: one asset is in one place under one class, and the register cannot say whether it moved, was split or is listed twice (F1)."
+  },
+  "status": "held when the asset or any of its rows has a code, every one listed; otherwise read. A held asset holds every account its category's placed map rows name (F6).",
+  "amounts": "For each component, the amount in minor units when the asset has exactly one row of it and its amount reads; otherwise null. A row whose component is not one of the four is listed among the asset's unread rows."
+ },
+ "map": {
+  "role": "category-map",
+  "header": "The first record's meaningful cells are exactly Category, Component, GL account, GL dimensions, Account class, Valid from and Valid to, each once, in any order; otherwise the run is refused (COLUMNS). Blank records after it are ignored.",
+  "MAP_UNREADABLE": "A row whose Category fails the text rules or whose Component is not cost, depreciation or impairment cannot be put under a pair: every account is held (run) and the row is listed as unplaced.",
+  "MAP_CLASS": "Its Account class is not the class of its component.",
+  "MAP_ROW": "Its GL account or GL dimensions fails the text rules, Valid from or Valid to is not a real date, Valid from is after Valid to, or it has a non-empty cell past the seven columns.",
+  "pair": "Each category and component is a pair. A pair with a row coded MAP_CLASS or MAP_ROW is not placed and takes those codes. Otherwise, of its rows those valid at As of (Valid from and Valid to inclusive) decide: exactly one places the pair on that row's GL account and GL dimensions; none, when the pair has rows, is MAP_EXPIRED; more than one is MAP_REPEATED. A pair of a register category with no row is MAP_ABSENT.",
+  "registerCategories": "The categories of the sections that are not excluded and whose Category reads.",
+  "hold": "A pair of a register category that is not placed holds every account of its component, whatever its amounts: its amounts belong to some account of that component, and the map does not say which (F6). A pair of another category that is not placed holds nothing and is not listed. Classes come from the map, never from an account's name or number (F3)."
+ },
+ "gl": {
+  "role": "gl-balances",
+  "header": "The first record's meaningful cells are exactly GL account, GL dimensions, Account class, Debit, Credit, Entity, GL ledger, Currency and As of, each once, in any order; otherwise the run is refused (COLUMNS). Blank records after it are ignored.",
+  "GL_UNREADABLE": "A row whose GL account or GL dimensions is absent or fails the text rules: every account is held (run) and the row is listed as unplaced.",
+  "GL_ROW": "Its Account class is not one of the three classes, Debit or Credit is absent or fails, or it has a non-empty cell past the nine columns.",
+  "GL_SCOPE": "Its Entity, GL ledger, Currency or As of differs as written from the run scope's entity, glLedger, currency and asOf.",
+  "GL_REPEATED": "Two or more rows for one GL account and GL dimensions, equal or not.",
+  "normal": "Debit minus credit for a cost account, credit minus debit for a depreciation or impairment account. A negative balance stays negative."
+ },
+ "accounts": {
+  "key": "GL account and GL dimensions as written.",
+  "judged": "Every account a placed pair names, and every account of a GL row that reads its GL account and GL dimensions.",
+  "component": "The component of the placed pairs naming it when they agree; when they do not, ACCOUNT_COMPONENTS and null. With no placed pair, the component of its GL row's class when there is one GL row and its class is one of the three; otherwise null.",
+  "members": "Each asset of a judged section, held or not, with each component whose pair, for the asset's category, is placed on this account: [section ID, Asset ID, Asset dimensions, component], sorted.",
+  "CLASS_CONFLICT": "A placed pair names the account, and its one GL row's readable class is not the class of the account's component.",
+  "holds": "An account is held by every code that reaches it: a run code (STRAY_ROW, SECTION_UNREADABLE, MAP_UNREADABLE, GL_UNREADABLE); the code of a held section whose category has a placed pair on it; the codes of a held asset whose category has a placed pair on it; the codes of a pair of a register category that is not placed, when the account's component is the pair's; and its own GL_ROW, GL_SCOPE, GL_REPEATED, CLASS_CONFLICT and ACCOUNT_COMPONENTS.",
+  "status": "held when any code reaches it (codes: all of them, sorted); otherwise missing when no placed pair names it (UNMAPPED), it has no GL row (GL_ABSENT), or a placed pair names it and it has no member (REGISTER_ABSENT), every one that applies, sorted; otherwise difference when the register amount differs from the GL balance; otherwise consistent. A missing account is missing even when every amount is zero (F10).",
+  "amounts": "register: the sum of its members' amounts, null when it is held or has no member. gl: its GL row's normal balance, null when it is held or has no GL row. difference: register minus gl when both are present, otherwise null.",
+  "isolation": "Each account is decided by its own members, map pairs and GL row. One account's difference never offsets another's, and equal carrying amounts never stand in for equal components."
+ },
+ "codes": {
+  "refused": ["READING", "SCOPE", "SOURCE", "CAPACITY", "COLUMNS", "TOTAL_LIMIT"],
+  "run": ["STRAY_ROW", "SECTION_UNREADABLE", "MAP_UNREADABLE", "GL_UNREADABLE"],
+  "section": ["SECTION_UNCLOSED", "SECTION_HEADER", "SECTION_COLUMNS", "SECTION_DUPLICATE", "ROW_UNPLACED", "TOTAL_FIELD", "TOTAL_MISMATCH"],
+  "listed": ["SECTION_SCOPE"],
+  "asset": ["CELLS", "COMPONENT", "AMOUNT", "TEXT", "COMPONENT_MISSING", "COMPONENT_REPEATED", "VALUATION", "CARRYING", "ID_SECTIONS"],
+  "pair": ["MAP_ABSENT", "MAP_EXPIRED", "MAP_REPEATED", "MAP_ROW", "MAP_CLASS"],
+  "account": ["GL_ROW", "GL_SCOPE", "GL_REPEATED", "CLASS_CONFLICT", "ACCOUNT_COMPONENTS"],
+  "missing": ["UNMAPPED", "GL_ABSENT", "REGISTER_ABSENT"]
+ },
+ "result": {
+  "refused": "The refusal code, or null. When refused, nothing else is judged and every other field is empty or null.",
+  "decimals": "The currency's decimals.",
+  "hashes": "SHA-256 of the three files' bytes, in role order.",
+  "run": "The run codes that apply, sorted.",
+  "sections": "Every section in file order: [Section record number, End record number or null, section ID as written or null, Location or null, Category or null, status read, held or excluded, codes sorted]. A label value is given when its label appears once and the value reads.",
+  "assets": "Every asset of a judged section, sorted by section ID, Asset ID and Asset dimensions: section ID, Asset ID, Asset dimensions, Location, Category, status, codes sorted, amounts by component, rows by component and unread rows, and the valuation reference when there is one readable value, otherwise null.",
+  "unmapped": "[category, component, code] for each pair of a register category that is not placed, every code, sorted.",
+  "accounts": "Every judged account, sorted by GL account and GL dimensions: GL account, GL dimensions, component, status, codes, register, gl, difference, GL row number or null, members.",
+  "unplaced": "[role, record number, code] for STRAY_ROW, SECTION_UNREADABLE, ROW_UNPLACED, MAP_UNREADABLE and GL_UNREADABLE, sorted by role order and record number.",
+  "inventory": "For the register, the number of records of each kind: blank, section (Section records), end (End section records that end a section), stray, label (non-blank records between a Section record and its column row, or every non-blank record after it in a section with no column row), columns, total and record. For the map and the GL: header, blank and row. The kinds add up to the number of records: a row that is refused, held or unplaced is still counted, and every record row of a judged section is a row of exactly one asset or unplaced."
+ },
+ "ownerDecisions": {
+  "F1": "An Asset ID in two judged sections is held in both, whatever its dimensions: one asset is in one place under one class. The alternative, the long family's identity, reads two dimensions as two assets.",
+  "F2": "A section whose Entity, Asset ledger, Currency or As of is not the run's is excluded and listed, and holds nothing. The alternative is to hold the run.",
+  "F3": "Accounts come from a category map valid at the as-of date, not from a mapping row and a policy evidence row for every asset and component as in the long family. A class is never read from an account's name or number.",
+  "F4": "Each section restates its Entity, Asset ledger, Currency, As of, Location and Category; nothing is carried from the section before.",
+  "F5": "A missing component is never derived from the others, a blank amount is not zero, and a written zero is a component.",
+  "F6": "What cannot be placed holds every account it could reach: a held asset or section every account of its category, a pair with no valid map every account of its component. The alternative holds only the component in doubt.",
+  "F7": "A section total is checked against its own record rows and never against the GL; a total that disagrees holds the section.",
+  "F8": "Amounts are ASCII digits, as in the long family's reading policy. The alternative maps Arabic-Indic digits and the Arabic decimal separator, as other families of the product do.",
+  "F9": "There is no valuation policy evidence in this family: the valuation reference is read, must be one per asset, and is shown, not proven against a policy.",
+  "F10": "An account with no member, no GL row or no placed map row is missing even when every amount is zero."
+ },
+ "unchanged": "fixed-assets-posted-components-gl-1 and fixed-assets-long-components-gl-1: their reading, cases, refusals, decisions, sessions and workbooks. The fixed assets workspace keeps its decisions; none is taken from fixed-assets-sections-1.",
+ "density": "A register of 20,001 records, the most a file may hold, is read; one more record, blank or not, refuses the run (CAPACITY).",
+ "notInScope": [
+  "Movements across the period: opening, additions, transfers, disposals (FA-2).",
+  "Computing depreciation, lives, rates, impairment or a missing carrying amount.",
+  "XLSX and PDF registers, and printed page headers or footers.",
+  "Several entities, ledgers, currencies or as-of dates in one run, and currency translation.",
+  "Valuation policy evidence per asset (F9), decisions, sessions and workbooks for fixed-assets-sections-1."
+ ]
+}

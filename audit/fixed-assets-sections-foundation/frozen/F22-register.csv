@@ -1,0 +1,56 @@
+Section,S-RUH-VEH,,,
+Entity,Synthetic Dunes Logistics Co,,,
+Asset ledger,FA-MAIN,,,
+Currency,SAR,,,
+As of,2027-12-31,,,
+Location,Riyadh HQ,,,
+Category,Vehicles,,,
+Asset ID,Asset dimensions,Component,Amount,Valuation reference
+VEH-0101,CC-110,cost,180000.00,VAL-2027-VEH
+VEH-0101,CC-110,depreciation,72000.00,VAL-2027-VEH
+VEH-0101,CC-110,impairment,0.00,VAL-2027-VEH
+VEH-0101,CC-110,carrying,108000.00,VAL-2027-VEH
+End section,S-RUH-VEH-X,,,
+Section,S-JED-FUR,,,
+Entity,Synthetic Dunes Logistics Co,,,
+Asset ledger,FA-MAIN,,,
+Currency,SAR,,,
+As of,2027-12-31,,,
+Location,Jeddah depot,,,
+Category,Furniture,,,
+Cost centre,CC-120,,,
+Asset ID,Asset dimensions,Component,Amount,Valuation reference
+FUR-0201,CC-120,cost,42000.00,VAL-2027-FUR
+FUR-0201,CC-120,depreciation,16800.00,VAL-2027-FUR
+FUR-0201,CC-120,impairment,0.00,VAL-2027-FUR
+FUR-0201,CC-120,carrying,25200.00,VAL-2027-FUR
+End section,S-JED-FUR,,,
+Section,S-DMM-ITE,,,
+Entity,Synthetic Dunes Logistics Co,,,
+Asset ledger,FA-MAIN,,,
+Currency,SAR,,,
+As of,2027-12-31,,,
+Location,Dammam yard,,,
+Category,IT equipment,,,
+Asset ID,Asset dimensions,Component,Amount,Valuation reference
+ITE-0301,CC-130,cost,36000.00,VAL-2027-ITE
+ITE-0301,CC-130,depreciation,24000.00,VAL-2027-ITE
+ITE-0301,CC-130,impairment,3000.00,VAL-2027-ITE
+ITE-0301,CC-130,carrying,9000.00,VAL-2027-ITE
+ITE-0302,CC-130,cost,12500.00,VAL-2027-ITE
+ITE-0302,CC-130,depreciation,12500.00,VAL-2027-ITE
+ITE-0302,CC-130,impairment,0.00,VAL-2027-ITE
+ITE-0302,CC-130,carrying,0.00,VAL-2027-ITE
+End section,S-DMM-ITE,,,
+Section,S-RUH-BLD,,,
+Entity,Synthetic Dunes Logistics Co,,,
+Asset ledger,FA-MAIN,,,
+Currency,SAR,,,
+As of,2027-12-31,,,
+Location,Riyadh HQ,,,
+Category,Buildings,,,
+Asset ID,Asset dimensions,Component,Amount,Valuation reference
+BLD-0401,CC-100,cost,2500000.00,VAL-2027-BLD
+BLD-0401,CC-100,depreciation,375000.00,VAL-2027-BLD
+BLD-0401,CC-100,impairment,25000.00,VAL-2027-BLD
+BLD-0401,CC-100,carrying,2100000.00,VAL-2027-BLD
