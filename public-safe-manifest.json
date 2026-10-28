@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 61602,
-      "sha256": "1ee9c890abe41b3c4546af604e6881d7933b9f3217b1b6e226ce7183b71dd19a",
+      "bytes": 63893,
+      "sha256": "a8b5391a8424a25f85a62de8b0ce69853640e0b8230302aec9cc0f84ca589fd7",
       "kind": "text"
     },
     {
@@ -35337,8 +35337,8 @@
     },
     {
       "path": "components/gl-tb-workspace.tsx",
-      "bytes": 21124,
-      "sha256": "eac196580ae3c623cf3773611ca269a58dc0719f1e361c0a8c96a27959c4e199",
+      "bytes": 21223,
+      "sha256": "6b07936168d2b2ed8301a3ce3b4d818162bb78f55064d65f0c0640a8f81d07a6",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 40993,
-      "sha256": "372e9167bebda9dae053c4e477e92cff9448070cc0df4ef028f7c1044d4dde60",
+      "bytes": 41286,
+      "sha256": "425cd61785d8fcf136ef809e6d57b77e6d2467da824d83f2508b4fe207b63e66",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 20838,
-      "sha256": "968fa7edf1ad4729a9c47055d67678ad4b3eb4de13962333c4a093da83374af4",
+      "bytes": 20906,
+      "sha256": "956af66f3acaa2fb28283b35c30bea4a061b37904aff820dcfc383b533f453cb",
       "kind": "text"
     },
     {
@@ -36020,8 +36020,8 @@
     {
       "path": "docs/WORKSPACE-IDENTITY.ar.md",
       "kind": "text",
-      "bytes": 7881,
-      "sha256": "4b752e2950ec5457eda72620941bb89fd3b6fab81d7a778cdf4120d35a475229"
+      "bytes": 8268,
+      "sha256": "6805a99c2d7a86c34faadad4040df6af61c816d9a2b87c98670f5637237c1ffc"
     },
     {
       "path": "docs/audits/C0-SOURCE-DIVERSITY.ar.md",
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 91932,
-      "sha256": "8e2031d6f910e3d144a1e9a6b74e1394c991d938762867f07e44730c29d97e57",
+      "bytes": 92909,
+      "sha256": "db0ee9f8da0ef557bbf99542f8bdf24fa7e44e9e8477e9377a1a42de581b5484",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 78487,
-      "sha256": "0e82def9077220bc567fadf07e3d6bb5f0b069f80bd74ae6a473e42086d112b0",
+      "bytes": 78676,
+      "sha256": "af6fae95610dc9fa38a322251121d29199b1eb4b251d67872a3309360a358614",
       "kind": "text"
     },
     {
@@ -36241,8 +36241,8 @@
     },
     {
       "path": "docs/roadmap/gl-tb.ar.md",
-      "bytes": 3626,
-      "sha256": "fe3441cddaddf93c7852e5e3b22e65eb1065f8a1cb16b7607e836fd86d26db19",
+      "bytes": 3683,
+      "sha256": "76c4c6eaceacfe1c0756900590253e2a5f2f520f5aa76120f7567d18b0172da5",
       "kind": "text"
     },
     {
@@ -37143,8 +37143,8 @@
     },
     {
       "path": "lib/reconciliation/protocol.ts",
-      "bytes": 23890,
-      "sha256": "efe7af6a3c5f9807a467251b3b8e0db4843482476ce1dc4e7dfa69d0bb3f42df",
+      "bytes": 26091,
+      "sha256": "b4ed0c9c6fc1261518079c7f74a0b4e13018449c620027b1556b348d4bf1419a",
       "kind": "text"
     },
     {
@@ -37377,8 +37377,8 @@
     },
     {
       "path": "lib/reconciliation/worker.ts",
-      "bytes": 12443,
-      "sha256": "b2510cbbc92b6ef25baa698aa5fee80d841d4b37916762c71d005b5bdeb02812",
+      "bytes": 12599,
+      "sha256": "c9aa9f7a3a9475cf2431a0dcb6a5b851326848a1fc3e1891087a25ec075596ae",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 43162,
-      "sha256": "cbc01462029f377bd08be80a593067dd965699f3929f695cde41e91fd4d02d1f",
+      "bytes": 43451,
+      "sha256": "274d625012f45628adc555e74789dec935a0993a780038b22cd8d68cc112bdac",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 14993,
-      "sha256": "2c6c81f71eb0587acec03c2bf0c7326b17a506b72f131c2ee1942db779f38d1f",
+      "bytes": 15144,
+      "sha256": "bce6936762dd7e1e4f05d6f44f1edb680aac319a400e7358f9d3d67ae7c509ab",
       "kind": "text"
     },
     {
@@ -57702,6 +57702,48 @@
       "bytes": 20735,
       "sha256": "795664eece0da72b45fe40a1cc0074b4928e61a72b4f3f166b7c8c0a9379042a",
       "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/results/browser-run-1.json",
+      "bytes": 1772,
+      "sha256": "de18f2665421209c1ac5aef8c677a368615377f1558e861e00bd97905f3ae576",
+      "kind": "text"
+    },
+    {
+      "path": "components/gl-tb-sections-panel.tsx",
+      "bytes": 13435,
+      "sha256": "42edcb4cb62937a41b6f46e4c98880e46004a149a4d97ca0a3833d4ec92e32a9",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/GLT-1C.ar.md",
+      "bytes": 7848,
+      "sha256": "46fa8326a0b723e8e0de21196f9dbc04230f9ec32ba7ebe630bf6f9ea9a79ee2",
+      "kind": "text"
+    },
+    {
+      "path": "lib/i18n/gl-tb-sections.ts",
+      "bytes": 9387,
+      "sha256": "dc9acec6f1055acdf37af18663d6311a33b60e0dc10f6687c8dfd95a9a3a304e",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/gl-tb-sections-browser.mjs",
+      "bytes": 13255,
+      "sha256": "26ee7b2ea38b315b4180a687174742064aa7cb05e38beed2d8f8bbaec5cd3cca",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-gl-tb-sections-interface-mutations.mjs",
+      "bytes": 7467,
+      "sha256": "c20dd2b00abd9c93ba77c64acab7db30cd130ed201851043c975c96f09fc73b0",
+      "kind": "text"
+    },
+    {
+      "path": "tests/gl-tb-sections-protocol.test.ts",
+      "bytes": 4416,
+      "sha256": "df7c5e8369352292098a316c333f78d7963413a2f87a2e30d8312901b731f7ab",
+      "kind": "text"
     }
   ],
   "distribution": [
@@ -57712,21 +57754,21 @@
       "kind": "text"
     },
     {
-      "path": "assets/ar-io-D7Ov2iQp.js",
+      "path": "assets/ar-io-DB7NUHvM.js",
       "bytes": 12931,
-      "sha256": "a61e2fc73ef7dc63ca54feb5cfe842ad428a45793055bdf1e0be40526aabb24a",
+      "sha256": "02854af5501bc6ab1fba90639fffc396c076eff3fc1cbd98a1b965f63b8ab109",
       "kind": "text"
     },
     {
-      "path": "assets/bank-adjustment-io-BmPmlPgr.js",
+      "path": "assets/bank-adjustment-io-gbK8ArQq.js",
       "bytes": 12101,
-      "sha256": "6e97be4edc67928ae99138e2b7e6bf5efca8f0771454bc4f89798763536d7115",
+      "sha256": "03dff77b35dbe8fcf07bf38624873ae471ca1066e0412cc1da74c6aefb039753",
       "kind": "text"
     },
     {
-      "path": "assets/bank-io-CjmiEhDq.js",
+      "path": "assets/bank-io-CsRdMBz3.js",
       "bytes": 6331,
-      "sha256": "d1ea988641d815673e610e91b1beb5bbaa7b64ced1e2232724671002471aab67",
+      "sha256": "1af1a07c26b1d3d1c10a60dcff7c223751b8f6f3978e6d31dd12a46bcb0e89c5",
       "kind": "text"
     },
     {
@@ -57762,15 +57804,15 @@
       }
     },
     {
-      "path": "assets/fixed-assets-io-CgegJ_pl.js",
+      "path": "assets/fixed-assets-io-BeXuK-Ze.js",
       "bytes": 9830,
-      "sha256": "237de1e95d9bddd674d04393e1c5670eec87334fe9565507c200ecaf5ad497fd",
+      "sha256": "8d6983e04d31e170a3a519261043e662a8b665ac9c55b6b6c84205acc47c5f6c",
       "kind": "text"
     },
     {
-      "path": "assets/gl-tb-io-DHYuj8pw.js",
+      "path": "assets/gl-tb-io-Bq5GdKnd.js",
       "bytes": 2184,
-      "sha256": "193e58399ceab27acf24a5163fedfbef5bb7b8c40498311ebdcbb336d98aedb3",
+      "sha256": "791362433627db7a2b075f1bde97a4020df5c23297abb85e3f4c4b7511fc3e90",
       "kind": "text"
     },
     {
@@ -57780,32 +57822,32 @@
       "kind": "text"
     },
     {
-      "path": "assets/index-C8Rv0dJN.js",
-      "bytes": 6658348,
-      "sha256": "d33fb8dec7f16802ea2bd8195ce4b65ef2f1bae42ae70dcecc6389a970eb1d5a",
+      "path": "assets/index-DPFFelyF.js",
+      "bytes": 6684229,
+      "sha256": "e35f0c104212c8dbeb9908fd7f2fbc99c2ad99b26549ccdc03d85cae884a1c91",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
-        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1B section, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1C matrix, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only; rebuilt from reviewed INV-1F-G4 original PDF Worker, versioned local sessions and request-bound decisions; fixed G3 accounting and locked dependencies, unchanged local fonts/artwork and no financial network processing; synthetic lifecycle proofs only; rebuilt from reviewed INV-1F-G5a original-bound PDF workbook transport and complete local evidence chunks; unchanged accounting policy, locked dependencies and local fonts/artwork; no PDF UI activation or financial network processing; rebuilt from reviewed INV-1F-G5b original-bound native PDF workspace, deterministic read-only evidence assistant and bilingual full-evidence workbook labels; unchanged financial policy, frozen source oracle, locked dependencies, licensed local fonts and original upload artwork; no new model, OCR approval or financial network processing; preserved legacy inventory export filename and verified native PDF language-specific download filenames, no accounting or privacy policy change; rebuilt from reviewed BNK-PDF-1 G1 glyph-ink clip test, proved word geometry and the bank statement reader (not wired into the interface) with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G3 bank statement session lifecycle and its four worker actions with main-thread recomputation (not wired into the interface), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G4 bank statement path in the bank workspace (explicit source-type choice, statement and cashbook upload, decisions, session and Excel through the existing worker actions), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G5 bank statement path without main-thread freezes (client verified reading kept once per bytes and scope, page-sized PDF turns on the main thread, tables built per shown page), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G6 native statement reader (amount headers aligned with their column's end, heading words read in order from joined runs), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G7 guarded PDF reader (right-to-left runs ordered by glyph so a ligature of several letters keeps its mapped order, and a DR balance printed as its own run read in right-to-left tables), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G8 guarded PDF reader and statement reader (drawings and rows judged by proved glyph ink, a DR run after its amount in either direction, Arabic-Indic dates as touching runs, typed cashbook amounts by value), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G10 guarded PDF reader (a rectangle traced back to its start read as closed, drawings and neighbouring rows judged by each proved glyph box where the replay reproduces the run), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G12 guarded PDF reader (white or coloured text judged visible by the ink its glyph outlines prove, as the clip test already was), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G15 workbook preparation (core properties ExcelJS would refuse only for their prefixes left out of the copy it reads), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G16 cashbook reading (a cashbook row whose six cells carry an issue the generic workbook reader recorded is refused), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G17 word reading (a space glyph the writer drew between two words is kept however tight the kerning sets them), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from the reviewed SUP-2 S1 supplier case builder (the parts of one payment without its explicit bank or receipt identity are one review candidate, never a match), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt again for the later reviewed source changes on this branch (SUP-2 S2 to S4, AR-1 PDF A2 to A5, and WF-1 ROLL-1 W1 to W3, REPORT-1 R2 and R3, REVIEW-1 R1 and R2, MAP-1 M1 to M3, TOL-1 T1 to T3 and the two-month cycle run; the A5 reader reads a period in its printed order and a minus set apart from its amount in a right-to-left table; W1 lets the bank statement matcher leave withheld items out and reads the proposed roll session format; W3 lets the worker and the bank workspace carry open items from a previous printed statement session, as candidates for review only; REPORT-1 adds a reconciliation sheet, REVIEW-1 an exceptions-first review queue with group decisions, MAP-1 cashbook column maps the accountant chooses and keeps on the device, and TOL-1 T1 to T3 a tolerance the accountant declares in the bank workspace, applied by the bank statement library, kept in the session and shown in the workbook; the cycle run makes a period that carries keep what its cashbook columns left out and bind its decisions to those columns; IC-1c adds the review-only batch section of the intercompany workspace and its worker action), with unchanged locked dependencies and local assets; synthetic proofs only (earlier rebuilds repeated the S1 note, corrected in A5, and the W3 note, corrected in MAP-1 M3)"
+        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1B section, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1C matrix, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only; rebuilt from reviewed INV-1F-G4 original PDF Worker, versioned local sessions and request-bound decisions; fixed G3 accounting and locked dependencies, unchanged local fonts/artwork and no financial network processing; synthetic lifecycle proofs only; rebuilt from reviewed INV-1F-G5a original-bound PDF workbook transport and complete local evidence chunks; unchanged accounting policy, locked dependencies and local fonts/artwork; no PDF UI activation or financial network processing; rebuilt from reviewed INV-1F-G5b original-bound native PDF workspace, deterministic read-only evidence assistant and bilingual full-evidence workbook labels; unchanged financial policy, frozen source oracle, locked dependencies, licensed local fonts and original upload artwork; no new model, OCR approval or financial network processing; preserved legacy inventory export filename and verified native PDF language-specific download filenames, no accounting or privacy policy change; rebuilt from reviewed BNK-PDF-1 G1 glyph-ink clip test, proved word geometry and the bank statement reader (not wired into the interface) with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G3 bank statement session lifecycle and its four worker actions with main-thread recomputation (not wired into the interface), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G4 bank statement path in the bank workspace (explicit source-type choice, statement and cashbook upload, decisions, session and Excel through the existing worker actions), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G5 bank statement path without main-thread freezes (client verified reading kept once per bytes and scope, page-sized PDF turns on the main thread, tables built per shown page), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G6 native statement reader (amount headers aligned with their column's end, heading words read in order from joined runs), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G7 guarded PDF reader (right-to-left runs ordered by glyph so a ligature of several letters keeps its mapped order, and a DR balance printed as its own run read in right-to-left tables), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G8 guarded PDF reader and statement reader (drawings and rows judged by proved glyph ink, a DR run after its amount in either direction, Arabic-Indic dates as touching runs, typed cashbook amounts by value), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G10 guarded PDF reader (a rectangle traced back to its start read as closed, drawings and neighbouring rows judged by each proved glyph box where the replay reproduces the run), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G12 guarded PDF reader (white or coloured text judged visible by the ink its glyph outlines prove, as the clip test already was), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G15 workbook preparation (core properties ExcelJS would refuse only for their prefixes left out of the copy it reads), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G16 cashbook reading (a cashbook row whose six cells carry an issue the generic workbook reader recorded is refused), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G17 word reading (a space glyph the writer drew between two words is kept however tight the kerning sets them), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from the reviewed SUP-2 S1 supplier case builder (the parts of one payment without its explicit bank or receipt identity are one review candidate, never a match), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt again for the later reviewed source changes on this branch (SUP-2 S2 to S4, AR-1 PDF A2 to A5, and WF-1 ROLL-1 W1 to W3, REPORT-1 R2 and R3, REVIEW-1 R1 and R2, MAP-1 M1 to M3, TOL-1 T1 to T3 and the two-month cycle run; the A5 reader reads a period in its printed order and a minus set apart from its amount in a right-to-left table; W1 lets the bank statement matcher leave withheld items out and reads the proposed roll session format; W3 lets the worker and the bank workspace carry open items from a previous printed statement session, as candidates for review only; REPORT-1 adds a reconciliation sheet, REVIEW-1 an exceptions-first review queue with group decisions, MAP-1 cashbook column maps the accountant chooses and keeps on the device, and TOL-1 T1 to T3 a tolerance the accountant declares in the bank workspace, applied by the bank statement library, kept in the session and shown in the workbook; the cycle run makes a period that carries keep what its cashbook columns left out and bind its decisions to those columns; IC-1c adds the review-only batch section of the intercompany workspace and its worker action; GLT-1c adds the review-only sections and pages section of the GL and TB workspace, its worker action and the gl-tb-sections-1 engine it calls), with unchanged locked dependencies and local assets; synthetic proofs only (earlier rebuilds repeated the S1 note, corrected in A5, and the W3 note, corrected in MAP-1 M3)"
       }
     },
     {
-      "path": "assets/inventory-pdf-assistant-B6QNtNF4.js",
+      "path": "assets/inventory-pdf-assistant-CB6SWjoy.js",
       "bytes": 1671,
-      "sha256": "a4818d23f2d4336abf948c44283bb70f214ae1050218aef6bc589aa2cec9fcc2",
+      "sha256": "f2233319390350738929042719f97a718a6be6ba0acc7ad4d6cbb2f4e64fc516",
       "kind": "text"
     },
     {
-      "path": "assets/inventory-pdf-workbook-x4-Dw99B.js",
-      "bytes": 473,
-      "sha256": "919fe0c8329bb4f1245a355f0a8559e67361c1500ddfc71ab341b9b363d14e81",
+      "path": "assets/inventory-pdf-workbook-CFHJePZt.js",
+      "bytes": 474,
+      "sha256": "ae8a7e4ced10ee5e05e456a681d5e906327c92420ab504e3512cc94faccf5e1e",
       "kind": "text"
     },
     {
-      "path": "assets/inventory-register-io-CaQiEwHq.js",
+      "path": "assets/inventory-register-io-DsryVYq6.js",
       "kind": "text",
       "bytes": 25143,
-      "sha256": "d88454d103a9454b1253ae2e4a0915407f0a374e10e16e05d87807a56c35dd43"
+      "sha256": "fdcf2279fbd3f91cd737837789afa12d1bfe3b18d2851c8750884538b53492cb"
     },
     {
       "path": "assets/jszip.min-Lqf3Qs4v.js",
@@ -57818,15 +57860,15 @@
       }
     },
     {
-      "path": "assets/payment-gateway-io-DNgq1Etp.js",
+      "path": "assets/payment-gateway-io-CJW3waTr.js",
       "bytes": 6391,
-      "sha256": "3f3ff9abc6f62c51d7398b8cf01ef21708c1ead73ff03047daa4bb451bb0369e",
+      "sha256": "ce27c3b7d6b53c9889899f74b35904a8ba0c0f515520c924579db3a7bfc09342",
       "kind": "text"
     },
     {
-      "path": "assets/payment-gateway-source-C8dZvzvI.js",
+      "path": "assets/payment-gateway-source-D8uJVI26.js",
       "bytes": 6798,
-      "sha256": "5b0d937c3a5e9143384558c7a38a480cdbd3256726bb48e43fc1ee0c63b29a43",
+      "sha256": "64d480d2371a68dc721e86009614e354e67b142729337e62fddb5cfb3d55ee2a",
       "kind": "text"
     },
     {
@@ -57856,9 +57898,9 @@
       }
     },
     {
-      "path": "assets/protocol-BEEjuWtt.js",
-      "bytes": 150664,
-      "sha256": "d11aac2ee0efdeb23c2e237e28a1d1e5cc6c920b91636ca2c1300b963d464889",
+      "path": "assets/protocol-BWky9IiJ.js",
+      "bytes": 161325,
+      "sha256": "10fc8367596dcdf38dcfb7efcad94f625b6c0fe7e3e84409e5000b64a29dd898",
       "kind": "text"
     },
     {
@@ -57986,7 +58028,7 @@
     {
       "path": "index.html",
       "bytes": 4111,
-      "sha256": "dc97151af3ac8f546f6f5f0dac1c9caa2f86bb77c34240716e94e27b1514239a",
+      "sha256": "3df458af57f9b53435a30bfc5e69ee7d8656879859d6db648a64152273e59aa0",
       "kind": "text"
     },
     {
@@ -58020,9 +58062,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/bank-statement-lifecycle-wibDyHcX.js",
+      "path": "assets/bank-statement-lifecycle-CfQwOiVR.js",
       "bytes": 30339,
-      "sha256": "29b19d08cbf945010d67aaab4e8e1a502ca2875a8b88ab527e9e9c1a7d855d79",
+      "sha256": "bfa19e01eaa18544976e58c4ca45f06fc54321a1559c2dbcd30da0b52ac40bec",
       "kind": "text"
     },
     {

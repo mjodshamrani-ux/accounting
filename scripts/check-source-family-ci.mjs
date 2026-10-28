@@ -354,6 +354,10 @@ const separate = {
   'intercompany-batch-interface-mutations': [
     'test:ic-batch:interface-mutations',
   ],
+  'gl-tb-sections-browser': ['test:glt-sections:browser'],
+  'gl-tb-sections-interface-mutations': [
+    'test:glt-sections:interface-mutations',
+  ],
   'bank-statement-holdout': [
     'test:bank-statement:g6-holdout',
     'test:bank-statement:g6-browser',

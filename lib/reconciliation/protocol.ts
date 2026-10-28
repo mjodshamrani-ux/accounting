@@ -29,6 +29,11 @@ import {
   type FinancialInput,
 } from './tb-financial.ts';
 import {
+  GLS_VERSION,
+  reconcileGlTbSections,
+  type GlsInput,
+} from './gl-tb-sections.ts';
+import {
   ENGINE_VERSION,
   MAX_ROWS,
   MAX_SHEETS,
@@ -113,6 +118,7 @@ export const WORKER_ACTIONS = [
   'gl-tb-save',
   'gl-tb-restore',
   'gl-tb-export',
+  'gl-tb-sections-reconcile',
 ] as const;
 export type WorkerAction = (typeof WORKER_ACTIONS)[number];
 export const isRecord = (value: unknown): value is Record<string, unknown> =>
@@ -573,6 +579,58 @@ export function validateWorkerValue(
         ) !== JSON.stringify(value.result)
       )
         throw Error('invalid');
+    } catch {
+      throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+    }
+  }
+  if (action === 'gl-tb-sections-reconcile') {
+    try {
+      if (
+        !isRecord(value) ||
+        Object.keys(value).sort().join('|') !== 'result|state' ||
+        !isRecord(value.state) ||
+        !isRecord(value.result) ||
+        value.result.version !== GLS_VERSION ||
+        !Array.isArray(value.state.files) ||
+        value.state.files.length !== 2 ||
+        !isRecord(payload) ||
+        !Array.isArray(payload.files) ||
+        payload.files.length !== 2 ||
+        JSON.stringify(value.state.readings) !==
+          JSON.stringify(payload.readings) ||
+        JSON.stringify(value.state.scope) !== JSON.stringify(payload.scope)
+      )
+        throw new Error('invalid');
+      // The result must belong to the sources this request sent, byte for byte.
+      for (const [side, source] of value.state.files.entries()) {
+        assertSourceFile(source);
+        const supplied = payload.files[side];
+        if (
+          !(source.original instanceof ArrayBuffer) ||
+          !/^[a-f0-9]{64}$/.test(source.sha256 ?? '') ||
+          !isRecord(supplied) ||
+          source.name !== supplied.name ||
+          source.sha256 !== supplied.sha256 ||
+          !(supplied.original instanceof ArrayBuffer) ||
+          supplied.original.byteLength !== source.original.byteLength
+        )
+          throw new Error('invalid');
+        const suppliedBytes = new Uint8Array(supplied.original);
+        if (
+          new Uint8Array(source.original).some(
+            (byte, index) => byte !== suppliedBytes[index],
+          )
+        )
+          throw new Error('invalid');
+      }
+      // Recompute every account from the returned sources before installation.
+      // Not source authenticity or an accounting approval.
+      if (
+        JSON.stringify(
+          reconcileGlTbSections(value.state as unknown as GlsInput),
+        ) !== JSON.stringify(value.result)
+      )
+        throw new Error('invalid');
     } catch {
       throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
     }
