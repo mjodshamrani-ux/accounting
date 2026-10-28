@@ -89,7 +89,15 @@ export function createWorkerClient(
         }
       }
       // Capture the requested originals and context before validation can yield.
-      if (action.startsWith('gl-tb-') || action.startsWith('clearing-groups-')) {
+      if (action.startsWith('gl-tb-')) {
+        try {
+          payload = structuredClone(payload);
+        } catch (error) {
+          return reject(error);
+        }
+      }
+      // The clearing extract, its reading and scope, the same way.
+      if (action.startsWith('clearing-groups-')) {
         try {
           payload = structuredClone(payload);
         } catch (error) {
@@ -335,11 +343,11 @@ export function createWorkerClient(
             const { replayClearingGroups } = await import(
               './clearing-groups-io.ts'
             );
-            const requested = await replayClearingGroups(
+            const recomputed = await replayClearingGroups(
               payload as import('./clearing-groups.ts').ClearingGroupsInput,
             );
-            const returned = value as unknown as typeof requested;
-            const identity = (state: typeof requested.state) =>
+            const forwarded = value as unknown as typeof recomputed;
+            const fileOf = (state: typeof recomputed.state) =>
               JSON.stringify({
                 reading: state.reading,
                 scope: state.scope,
@@ -349,20 +357,20 @@ export function createWorkerClient(
                 originalBytes: state.file.original!.byteLength,
               });
             if (
-              identity(returned.state) !== identity(requested.state) ||
-              JSON.stringify(returned.result) !==
-                JSON.stringify(requested.result)
+              fileOf(forwarded.state) !== fileOf(recomputed.state) ||
+              JSON.stringify(forwarded.result) !==
+                JSON.stringify(recomputed.result)
             )
               throw Error('CLEARING_GROUPS_WORKER_BINDING');
-            const a = new Uint8Array(returned.state.file.original!),
-              b = new Uint8Array(requested.state.file.original!);
+            const a = new Uint8Array(forwarded.state.file.original!),
+              b = new Uint8Array(recomputed.state.file.original!);
             if (
               a.length !== b.length ||
               a.some((byte, offset) => byte !== b[offset])
             )
               throw Error('CLEARING_GROUPS_WORKER_BINDING');
             // Install only the sheet re-read from this request's original.
-            response.value = requested;
+            response.value = recomputed;
           }
           if (action.startsWith('stock-')) {
             response.value = await (
