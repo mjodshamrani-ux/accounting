@@ -379,6 +379,9 @@ jobs:
           pnpm test:inv-move:mutations
           pnpm test:inv-move:h1-seal
           pnpm test:inv-move:h1-run
+          pnpm test:inv-links:oracle
+          pnpm test:inv-links:oracle-mutants
+          pnpm test:inv-links:seal
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations

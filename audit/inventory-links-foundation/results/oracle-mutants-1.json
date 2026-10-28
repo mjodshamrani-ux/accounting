@@ -1,0 +1,147 @@
+{
+ "schema": "tarasuf-inv3-oracle-mutants/1",
+ "killed": 0,
+ "of": 20,
+ "faults": [
+  {
+   "fault": "no-mapping-read-as-two",
+   "killed": false,
+   "returncode": 1,
+   "assertion": false,
+   "error": true
+  },
+  {
+   "fault": "first-of-two-mappings-chosen",
+   "killed": false,
+   "returncode": 1,
+   "assertion": false,
+   "error": true
+  },
+  {
+   "fault": "no-evidence-read-as-two",
+   "killed": false,
+   "returncode": 1,
+   "assertion": false,
+   "error": true
+  },
+  {
+   "fault": "first-of-two-evidence-chosen",
+   "killed": false,
+   "returncode": 1,
+   "assertion": false,
+   "error": true
+  },
+  {
+   "fault": "first-differing-field-only",
+   "killed": false,
+   "returncode": 1,
+   "assertion": false,
+   "error": true
+  },
+  {
+   "fault": "account-fields-not-compared",
+   "killed": false,
+   "returncode": 1,
+   "assertion": false,
+   "error": true
+  },
+  {
+   "fault": "dimensions-case-folded",
+   "killed": false,
+   "returncode": 1,
+   "assertion": false,
+   "error": true
+  },
+  {
+   "fault": "leading-zeros-dropped",
+   "killed": false,
+   "returncode": 1,
+   "assertion": false,
+   "error": true
+  },
+  {
+   "fault": "gl-rows-not-listed",
+   "killed": false,
+   "returncode": 1,
+   "assertion": false,
+   "error": true
+  },
+  {
+   "fault": "unlinked-rows-make-accounts-linked",
+   "killed": false,
+   "returncode": 1,
+   "assertion": false,
+   "error": true
+  },
+  {
+   "fault": "orphan-mappings-missed",
+   "killed": false,
+   "returncode": 1,
+   "assertion": false,
+   "error": true
+  },
+  {
+   "fault": "orphan-evidence-missed",
+   "killed": false,
+   "returncode": 1,
+   "assertion": false,
+   "error": true
+  },
+  {
+   "fault": "unused-gl-rows-missed",
+   "killed": false,
+   "returncode": 1,
+   "assertion": false,
+   "error": true
+  },
+  {
+   "fault": "accounts-without-gl-missed",
+   "killed": false,
+   "returncode": 1,
+   "assertion": false,
+   "error": true
+  },
+  {
+   "fault": "no-row-budget",
+   "killed": false,
+   "returncode": 1,
+   "assertion": false,
+   "error": true
+  },
+  {
+   "fault": "budget-one-short",
+   "killed": false,
+   "returncode": 1,
+   "assertion": false,
+   "error": true
+  },
+  {
+   "fault": "reference-check-removed",
+   "killed": false,
+   "returncode": 1,
+   "assertion": false,
+   "error": true
+  },
+  {
+   "fault": "product-key-spaced",
+   "killed": false,
+   "returncode": 1,
+   "assertion": false,
+   "error": true
+  },
+  {
+   "fault": "related-rows-reversed",
+   "killed": false,
+   "returncode": 1,
+   "assertion": false,
+   "error": true
+  },
+  {
+   "fault": "evidence-rows-dropped",
+   "killed": false,
+   "returncode": 1,
+   "assertion": false,
+   "error": true
+  }
+ ]
+}

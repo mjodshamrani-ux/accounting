@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 73196,
-      "sha256": "e89be1713e84f22bcd88a2a3f27f99a6103d0d058dff9f88b610c5b537f3b9a0",
+      "bytes": 73313,
+      "sha256": "349d54ead00ebb9a0379e570dd48b6ec329b578d6b08a4dbc6ffb0009faaaacc",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 47252,
-      "sha256": "10d61c60ffb11a9ff6fd229642bec4c74caa5ca611f855d7047cbe2a5b7ef1f0",
+      "bytes": 48079,
+      "sha256": "3b9d3a62008dadbeb34e596d7717213421cd5ad5917035ade3cef2d02a0998ae",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 21815,
-      "sha256": "b2fddb3bba6f52e17babe524f213b64fe70846d59f20033831c33bb1adca8974",
+      "bytes": 21918,
+      "sha256": "8ab931c96ede1b0d69eae8efdc5fb562e43ea1a788cf034468d47df35dad1f1f",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 107334,
-      "sha256": "03b0855b1c581a798bf344830c55459565e35cb0819c89e3cec47bd14b672d00",
+      "bytes": 108517,
+      "sha256": "8ee6117e7daca1b8c301d4ce570463d9bc25c3cc4c54bfa34e8fe8b1a28a7893",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 81329,
-      "sha256": "d3e0a0dd4e69f365d6e4e85e3f4a9f6555a1f3ff94e1260f7b577f67c9c85c50",
+      "bytes": 81589,
+      "sha256": "4ae84fe447190866f903c595d49e489b0aa3aaaa6df7cebd08e2b5ed2678bd63",
       "kind": "text"
     },
     {
@@ -36253,8 +36253,8 @@
     },
     {
       "path": "docs/roadmap/inventory.ar.md",
-      "bytes": 26042,
-      "sha256": "0d6dc9121856fb9efafbe63740987e043f40583af0b1ebf41eeb8ea784343631",
+      "bytes": 26898,
+      "sha256": "408688973760c537abdde86001949e6dc9c5b78afd5136158e925d451e03460b",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 49512,
-      "sha256": "e27df03f368b33fbbd7b924a5924158433ae9201be330b7caf2377b01c6774c4",
+      "bytes": 49918,
+      "sha256": "41742c67f3f18ec53bfa397f222ab59dcd8b7120d9e9551c7e810dfaf9858c70",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 16531,
-      "sha256": "09c27515f47c4118754d60d1db9705bd4b952a000de6da295fff1248e9d9f46a",
+      "bytes": 16618,
+      "sha256": "0c8e0ea4c0de431720bf0bb8fc513e94e50507537276c1236fd717905ce8788d",
       "kind": "text"
     },
     {
@@ -62395,6 +62395,912 @@
       "path": "tests/inventory-movement-bridge-protocol.test.ts",
       "bytes": 3768,
       "sha256": "82207be90654b755e508ca68add4455ea827f79609acccc0df71528ced53f2ee",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/README.ar.md",
+      "bytes": 6515,
+      "sha256": "8959362c1cdc3eb43c156bf3aa34e2816f0ea1eb763bd136c6657fe7f9da444a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/check_seal.py",
+      "bytes": 4178,
+      "sha256": "3dd92442a126152c695b4cba3c7ca88c258317e1d8bc80470cd09f549544810e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/contract.json",
+      "bytes": 8915,
+      "sha256": "271615cc832b766f7f5044566f5efdc23c11df683d15a9b992f7ee44c0d42486",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/dense.py",
+      "bytes": 1198,
+      "sha256": "26bfac70f7e8ba215aba0b47f50919a4c1cb6cf761bd3ade213a292813bbe7f6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/DENSE-MANIFEST.json",
+      "bytes": 4875,
+      "sha256": "834d6c6229d9cce38524ac501c2d0271517e702068f9fec2a309ddcff27bd9e2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/EXPECTED.json",
+      "bytes": 73240,
+      "sha256": "b27aed2e2f9a7d2addbaf08183599e635e9c3b8ddec73d351917f68805bdecd9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/INPUT-MANIFEST.json",
+      "bytes": 16718,
+      "sha256": "e79863908b18444900e5a59766a2085c171c3eecb9ab1e570caf3c925316b2a1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L01-evidence.csv",
+      "bytes": 1511,
+      "sha256": "066d592d952405c1c01b0dd68419eff1a1973c3438e190ca6e477e1a9408f080",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L01-gl.csv",
+      "bytes": 502,
+      "sha256": "5e34b581eed3e662cb04de8cf679b1c72aaad9163ac3bf94bffc7d9fb9ff6e15",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L01-mapping.csv",
+      "bytes": 1064,
+      "sha256": "7a2eeab4a0297f1f0222ae87ebf9939d40bcf777aa8e9306519c804fe1e9cb88",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L01-register.csv",
+      "bytes": 920,
+      "sha256": "33448563677d96752f42b90d1d56c54b836a067bf943b06c8b65d577228a1738",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L01-scope.json",
+      "bytes": 350,
+      "sha256": "5b31ac4b588cae98ffbef9815a701a6aa467f75122af01538d3158ec45b77cde",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L02-evidence.csv",
+      "bytes": 614,
+      "sha256": "bfcccd8be411440c5e9d5eaa124610ad9fca60f960a4562fa27e5be443a4fe06",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L02-gl.csv",
+      "bytes": 396,
+      "sha256": "af1b6f3860c663edd6ec1529540867caab645f8b9ecfeff29a50d6a86a474548",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L02-mapping.csv",
+      "bytes": 404,
+      "sha256": "e06a798d790f48e9aa42912232a363c35a564fd0b59bc18b0be9bc5f174fa7d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L02-register.csv",
+      "bytes": 714,
+      "sha256": "ff66cc0eb24ac7e7568378894c35b27618af5c28f062a85f1e0753e091464201",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L02-scope.json",
+      "bytes": 350,
+      "sha256": "4e0d8b44751aa49a9a6039d0a1a11c144feb9fe207e0e9ed275895d3c648c6c5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L03-evidence.csv",
+      "bytes": 949,
+      "sha256": "953d254230e0b47978461a1ecf80581f82c7e51697002843863d7ecb158c173b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L03-gl.csv",
+      "bytes": 364,
+      "sha256": "7d674495ef30d596ada2732e97fd9d788db715d3b4c57f28744b8a564d166940",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L03-mapping.csv",
+      "bytes": 871,
+      "sha256": "008c3a06f362a9b77c77c39b464e3318d95f5db0c9262be2ef26871915745eb9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L03-register.csv",
+      "bytes": 594,
+      "sha256": "8e588d452650a06e2e6c75128896315edf42ebcab4266506dfcb2a517f966128",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L03-scope.json",
+      "bytes": 350,
+      "sha256": "bbcd7a06043de3f0f81f342b8f19103daf72416067dd51d5238a8f4fa5642f24",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L04-evidence.csv",
+      "bytes": 723,
+      "sha256": "aeec453865b9fa6ba9a3f4059ef7cf266ffa60e45175d2bba3189689a989b966",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L04-gl.csv",
+      "bytes": 364,
+      "sha256": "5609615af7603bb5254daa552a10cafc4a21b47c22e418bb8ecd2e7ba41d6b32",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L04-mapping.csv",
+      "bytes": 562,
+      "sha256": "1c80c2988ec57b1cbbc95ccbe166216b341227785678b75822b2fb0a732132f4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L04-register.csv",
+      "bytes": 639,
+      "sha256": "c568167b4309d0917d87deb1aac55ced8ffdad7c14cafe54b93080b4af0ab2b8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L04-scope.json",
+      "bytes": 350,
+      "sha256": "eb7ce21d94bd8f3cf38baa015fc96f2a6d5dc90d52aa4bcdc128bea5e7d51c6b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L05-evidence.csv",
+      "bytes": 1230,
+      "sha256": "141969e8081d8729335c9517108dd84e676679e69b0ed98a01529f0c4dd52393",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L05-gl.csv",
+      "bytes": 364,
+      "sha256": "70af732b1134f71dcc3a5016f32a983f78fc9fa5f77f236cc5bd285456e25aa7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L05-mapping.csv",
+      "bytes": 676,
+      "sha256": "5818bff93353ea76449fe89946f12e02cf35dfb01a4d6704da8c9d1195b2a7da",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L05-register.csv",
+      "bytes": 594,
+      "sha256": "6360f0598961c5fb632dc2d988f609615726959d29dc60bf7bece5e13ecba5fe",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L05-scope.json",
+      "bytes": 350,
+      "sha256": "88dad3326694dbfe03bf21b7ae678da07f21e40799670a136a5d2c5d9157ac7f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L06-evidence.csv",
+      "bytes": 888,
+      "sha256": "c5cd7a127183798da5bb986d4fc6b7b20f488129a8c6f0c9e10bf0db3d3c2152",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L06-gl.csv",
+      "bytes": 437,
+      "sha256": "a801d6345128b8a39d9ba26f8a95d5f1daa5641dfa289d98e33bebb850f22e99",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L06-mapping.csv",
+      "bytes": 609,
+      "sha256": "64648515bc45b8a7ecfbc2b77bbd0de3721556c07fbbeec820ac35d97c407477",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L06-register.csv",
+      "bytes": 595,
+      "sha256": "956684b17ee298520894251e7ce8e1205aad0a5860e508231a1259228d546742",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L06-scope.json",
+      "bytes": 350,
+      "sha256": "d9a2dddb6691a8869888e46bd542c17abf34b26dfbb7212a959ada3be526d8c9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L07-evidence.csv",
+      "bytes": 947,
+      "sha256": "e0840822a1df2dabc0c12a67613640ed4253b150154ba008a74e7fc5812dbea9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L07-gl.csv",
+      "bytes": 364,
+      "sha256": "fb4d7bb9ae5cc3826f1c91bee65749a55aaac836533a5056c95590cfae7e493b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L07-mapping.csv",
+      "bytes": 675,
+      "sha256": "11426221453d96d8a56d5bf2c8844a5124ad54a86227b7e7df6e9c47715c7654",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L07-register.csv",
+      "bytes": 593,
+      "sha256": "fc1e32c5b22a1d3ece3962c88640a3cf9ba881b1c84d8bacc938a6e2beddddd5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L07-scope.json",
+      "bytes": 350,
+      "sha256": "50954daf617aa737849657f287800eae642ba9cbaeff2cbf88c323fb834dbe5b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L08-evidence.csv",
+      "bytes": 932,
+      "sha256": "9e7cd97f37d5efe3facc11dc502333432e1ea9af5f2b682d300ae041c62bd059",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L08-gl.csv",
+      "bytes": 437,
+      "sha256": "a8f5bb42d9b49818bb902a5edec7866648ccb659b325cadd09839c5e29d6767d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L08-mapping.csv",
+      "bytes": 562,
+      "sha256": "6cd244cbba8bbefe20b923e045760c3a2245bdab5e615e2e2af366a39898bf9d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L08-register.csv",
+      "bytes": 579,
+      "sha256": "cbecdc55e3e601613f28acaebe4b48523933e3447261dd45b2547b73968e84f1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L08-scope.json",
+      "bytes": 350,
+      "sha256": "5fc7ac2fce17c2a74c36cb4955b7796e6dc56a7baf50af6c78a9f9f9aa370009",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L09-evidence.csv",
+      "bytes": 949,
+      "sha256": "73b95e5b9d2db97b783ea3526d2bf37563b663e8e2d6948847569935477b490a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L09-gl.csv",
+      "bytes": 364,
+      "sha256": "a4a1d67a0f252baed57eda94a4180e1e285234c7cd14ff49e4f3f37997105d52",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L09-mapping.csv",
+      "bytes": 676,
+      "sha256": "6f4d802bc3b7ecda512fd1a8361819ff7ed455fcead5ade97570c6a9b79387c4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L09-register.csv",
+      "bytes": 594,
+      "sha256": "3bd9a12ec1eaa5490b453404e0004166a862234a94b7936782ab2450e339b7fa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L09-scope.json",
+      "bytes": 350,
+      "sha256": "a737b49645f804ade00e26b3feda2bd9a300b7ff1b561e2dad006f5ffc555277",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L10-evidence.csv",
+      "bytes": 606,
+      "sha256": "adc412de167e59a5aa4c6ac60d1e6604878f6dea52ad287d89bd97221872d1bb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L10-gl.csv",
+      "bytes": 370,
+      "sha256": "c4790128b37890b9ff9cc1f33b06a62339f47f41aa4da028d00ce2df1d4a1102",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L10-mapping.csv",
+      "bytes": 623,
+      "sha256": "cb4c4bdfb6b0190ba6b883ab5646598154cee9189e8d548e7eac98f66c7c4694",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L10-register.csv",
+      "bytes": 694,
+      "sha256": "6936b1ca9cabcd641352142ff2b0fdd0303507d011ffc2d830819a1b2d31bb5a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L10-scope.json",
+      "bytes": 356,
+      "sha256": "b90c77415f6c3135266a9d9c0b5cb11e462afb509848f9071064c4c9501b97ea",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L11-evidence.csv",
+      "bytes": 940,
+      "sha256": "5337bf9a119edceec74890fafd06ce62d1ef1614149bfa14dec057c5d2aec102",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L11-gl.csv",
+      "bytes": 370,
+      "sha256": "8db792d529162a9bd23c24025f358f391f6ab9f9e1d9139dda1159fd247c7dd8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L11-mapping.csv",
+      "bytes": 686,
+      "sha256": "ed61d061bb21b101e2305730fb03e5c380f92186afa0be9bc274eb7f51d65a92",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L11-register.csv",
+      "bytes": 587,
+      "sha256": "7b320acf42cf79d130604c1db04ae68eb0c5ef0ff212c59b4a93a508d6cd9a76",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L11-scope.json",
+      "bytes": 356,
+      "sha256": "55c7baf989beedaeb928d756302ba7f951bf2d5c3a6c1eba58c1be875b82c7d1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L12-evidence.csv",
+      "bytes": 1375,
+      "sha256": "2e6d54e2cffeef2ab8f9339c46c33fd9a0312db380bf954feed559d8b84dce53",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L12-gl.csv",
+      "bytes": 370,
+      "sha256": "b7e706b674dd7af8559e530af97fc5a9b4968b06e8ff7fd1c289497a8a5bd05d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L12-mapping.csv",
+      "bytes": 739,
+      "sha256": "83476052f4a1c9f083b54bf6833ec5d8127ebb48b976cb4d492fc678d7502a4b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L12-register.csv",
+      "bytes": 651,
+      "sha256": "f253df92b8f194b5a2f12abaee84ed5f93393c705ffa16036a4ace33ddf0df2f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L12-scope.json",
+      "bytes": 356,
+      "sha256": "f141d0aed25e96c2695a12cf42515b94b8cd0727b06de5b409daa97e67bee77e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L13-evidence.csv",
+      "bytes": 961,
+      "sha256": "b2109b3d44d18a47122798ba68db0c512b56f45c230e2953ce155ef20d0c9dcd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L13-gl.csv",
+      "bytes": 515,
+      "sha256": "4a74b0dbe655203e936d2c2e02b3b5e29631d5806b41540dd92c96630bbebc58",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L13-mapping.csv",
+      "bytes": 688,
+      "sha256": "4e09ecda93de3bba3b0382a3022093550bb169902a6463e3efc220718fdba5cc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L13-register.csv",
+      "bytes": 606,
+      "sha256": "e0dd9be460ec4e76bfeba7fff1c891f6bcb22861a0ca8d0aa5e00f80206694cc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L13-scope.json",
+      "bytes": 356,
+      "sha256": "568d77bee6f5867befa27887127fdadea9204b6370c63eddefb9c1281df82fc7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L14-evidence.csv",
+      "bytes": 608,
+      "sha256": "57aeef7a4004a2fd0f402182cd180cf684d6c8007340ed5acebfc6c32a7ac71a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L14-gl.csv",
+      "bytes": 370,
+      "sha256": "d28536898433cdb552497da52e6dcfdea4d4594c7816aa5e36c84d7c1209a95c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L14-mapping.csv",
+      "bytes": 404,
+      "sha256": "3d989501129704f7a8131a2386e56fd9ec36cc40d4cd21cec56a86f86fa2026a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L14-register.csv",
+      "bytes": 586,
+      "sha256": "3144b0a328ef1c1198d0a84aac58b75f6a36f139cdbeb8771155f040d0e732fa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L14-scope.json",
+      "bytes": 356,
+      "sha256": "6e138ea4142fe90f0a1728339936168b5632b946946f5561745aabc7460b4c0d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L15-evidence.csv",
+      "bytes": 1077,
+      "sha256": "9856ba05dcdcd89bef52941826da3d6686470267702348557626cd4827d45bea",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L15-gl.csv",
+      "bytes": 417,
+      "sha256": "ae6a1137766fd85375606a4ec9b91552bb86a1189daac778332d173463c72e6a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L15-mapping.csv",
+      "bytes": 760,
+      "sha256": "7b1d0dcc120d88ffa8de987626e03b0e391dd285177800a31671bbec56db22b6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L15-register.csv",
+      "bytes": 840,
+      "sha256": "594bdcee3208859ad6a0d698d57c05ceb71090fca02dd8eba90267a2a07e6da9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L15-scope.json",
+      "bytes": 371,
+      "sha256": "61cc260daecfcd382ca2db4dd58d6a551a4194d33924e328d15abcfab94a144d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L16-evidence.csv",
+      "bytes": 670,
+      "sha256": "7bdfdefe4a7bc9d6f4ff2fe82e212dffedb69551bfef98d0955fa21838c640e5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L16-gl.csv",
+      "bytes": 370,
+      "sha256": "8671d1aa72d65a1d8d7455974615dc6aae0bbbf134401da4770394494bb8a7a6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L16-mapping.csv",
+      "bytes": 686,
+      "sha256": "154fbceb28698ac0ae2244ffdbdee4598f08b533a02cb0552956440b54f7959e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L16-register.csv",
+      "bytes": 602,
+      "sha256": "89a67d3fb95f31622dfb80eeae2be1ee149303e7d5a6704460789b6ba95e0115",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L16-scope.json",
+      "bytes": 356,
+      "sha256": "80a51ca9319effb0ba5c260857496d0d8bf9738d224d31b5aa4bcb0e5126a110",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L17-evidence.csv",
+      "bytes": 1688,
+      "sha256": "7dd1b3c577285629eafb87d878be2fb3ae2f196f7d2b9456f1412e5a6f967eb0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L17-gl.csv",
+      "bytes": 402,
+      "sha256": "beaa008268c0b01737a61ca7dc60abbce8bcd2b3b91b2ffed82ab04d150230b4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L17-mapping.csv",
+      "bytes": 882,
+      "sha256": "a8ca4e6ac1b84e7f203addc9465058dae0e66a5385857c4a715ad32c7d0da94a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L17-register.csv",
+      "bytes": 908,
+      "sha256": "190b6dac6d54d56949c9198bdd8e1fb557f19fe93d4ec16f0596a3ec232f589e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L17-scope.json",
+      "bytes": 356,
+      "sha256": "ec1564f6bc2a199a3d711742dc2b715d21141e91a44792f8c0e6b8e16c6e2217",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L18-evidence.csv",
+      "bytes": 961,
+      "sha256": "dcf1a7cf9026e529cffafe86904ad9adc8276c1f02387eb5bf240698467c561c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L18-gl.csv",
+      "bytes": 370,
+      "sha256": "bcc461c6fd4d1fb5fa4c3ea4f05220460cec04cf6fcf886adc2fa9e95492e81b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L18-mapping.csv",
+      "bytes": 688,
+      "sha256": "2c5056fe9ab3cc407e79968ffbdd9a3eb0101691ab2c636f676e0395b21ff1a4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L18-register.csv",
+      "bytes": 759,
+      "sha256": "a845dc46d653f3542015d8ddf6aea41e479436f79204ebaa933232ec46eb05e7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L18-scope.json",
+      "bytes": 356,
+      "sha256": "9ff4c800bf77ce29077054c957cec39aff4d9469bf552ffbc76f66b5f6823369",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L19-evidence.csv",
+      "bytes": 900,
+      "sha256": "92c0ea7a84ce4fd16fdd03759f15470c852b39e72798489a122ea67adefbc094",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L19-gl.csv",
+      "bytes": 370,
+      "sha256": "9200e4c0dab56a1116f34e00ec1b2aa977447bd97b975f5570bbb0bdc9385ea8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L19-mapping.csv",
+      "bytes": 678,
+      "sha256": "432b011c6e86bb735f619a692b18e22e8c3aed6abb4603a878662118e8931e6a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L19-register.csv",
+      "bytes": 651,
+      "sha256": "71052e8ccf28181db5c64189921ca2487096f4db3c8472ee20bc05b94fa92d42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L19-scope.json",
+      "bytes": 356,
+      "sha256": "1d19240f9f550099449504e5146d85b87f5acd15e14568a9be0ce0ffd02fb333",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L20-evidence.csv",
+      "bytes": 939,
+      "sha256": "3a46dde376e3889b581a217088fda935daca0ea2d4dd3d81ace6c4daa4a6d4cb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L20-gl.csv",
+      "bytes": 373,
+      "sha256": "f80fc8a28c019a1716041a1a41af3d1e34754f9a65e0c9594f08b9fc633b97e8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L20-mapping.csv",
+      "bytes": 688,
+      "sha256": "b00bb3ad94105c005d2988477ef1e3a22d9f508aa884c638ea4670072d5ccfa2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L20-register.csv",
+      "bytes": 589,
+      "sha256": "8f6ce4fc63711a9644d0cc45b9a77054ae4e71398b0c40abc6eb77f8129af12e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L20-scope.json",
+      "bytes": 356,
+      "sha256": "f5860c4d468dac00461bf3247a1a1b3573599d73f71589b10b141e222cae27a0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L21-evidence.csv",
+      "bytes": 961,
+      "sha256": "7a414cb7c32506e74e49ab48eb2f79f298d2fe4e314d7b219af0252b5632156c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L21-gl.csv",
+      "bytes": 368,
+      "sha256": "1a72ce314935f6249c42ac9616a350c91498179470cc533a9a740928c75e2ec3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L21-mapping.csv",
+      "bytes": 574,
+      "sha256": "c5aa8c1d1912b75dd52029a1ab2ba7ddc54230fc7514d7f216ebf93684295b64",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L21-register.csv",
+      "bytes": 726,
+      "sha256": "f39ea43307270c82d4cc06bcf0fc3e8a127c72d35255bce24ad94d430ebc8723",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L21-scope.json",
+      "bytes": 356,
+      "sha256": "33f29b74e81fda6baa718c48a420c8b82a44d90a3e55e8ec14b59bc5a3f42ddb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L22-evidence.csv",
+      "bytes": 957,
+      "sha256": "b18c9da4459ea7c923149ed0a5bc2670941239c1c4dea238b3eef16f9c16956a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L22-gl.csv",
+      "bytes": 370,
+      "sha256": "fc4602589a67d653c1e5e512958dd0d5949af810d3937ec0d6756f1d7b7c0bcd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L22-mapping.csv",
+      "bytes": 686,
+      "sha256": "9c3705ac58b8a1219d3b945a8342d571e9215a5c4e030cc9766e4baf5626595a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L22-register.csv",
+      "bytes": 771,
+      "sha256": "98b8e85ecba97f7ac461475fd09fd2843bdd07d1d8bb4405a200d5e16d3adb28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L22-scope.json",
+      "bytes": 356,
+      "sha256": "7229e6d679a5b940fdb7bb4a86faa8678ae8c3eb15021c232177aa8b8b189708",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L23-evidence.csv",
+      "bytes": 961,
+      "sha256": "ebf450753e502a733a5274f2fd9af4ecb78c2e9349caf84028ffbf0cc5f6a448",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L23-gl.csv",
+      "bytes": 370,
+      "sha256": "8a6d3cecb1c604f46b77008323e151b762394d4c2abadbaaddcd99b26ed6b54a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L23-mapping.csv",
+      "bytes": 688,
+      "sha256": "827073e0f32833435d20d00f6a23ca1063ed445d2f14daba4aba5ca7b2298f0f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L23-register.csv",
+      "bytes": 777,
+      "sha256": "3b4f8c3375f4f1a84d31c6894aaf7535928627f056c511128d5b92230fc9461e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L23-scope.json",
+      "bytes": 356,
+      "sha256": "0b322945465a2c534d5c5ffb0acb7918723404bad504811de8d1079da859b233",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L24-evidence.csv",
+      "bytes": 1177,
+      "sha256": "31f9d5120f35bfd4974c2d13cfdcf9228c2873a36584fbc7e1f62a9c2aedfd83",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L24-gl.csv",
+      "bytes": 370,
+      "sha256": "e94298e6aca21af7e3971522f0c1e0ca0de4024f70b9e57866023e99f1806194",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L24-mapping.csv",
+      "bytes": 834,
+      "sha256": "8ba88bd36808c907370d82eb2b6d63c50a5342d73eb834b87a0af372ef794fc3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L24-register.csv",
+      "bytes": 822,
+      "sha256": "db03748ac1a8aabf7ada456adeb6760d6d15cb9a80f984585089d283acb22509",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L24-scope.json",
+      "bytes": 356,
+      "sha256": "fbdb60834a04039f0d6547090071c31470c63686531878ae6af39cae6e1415c0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L25-evidence.csv",
+      "bytes": 96096,
+      "sha256": "8fd93468931b257507ede08cabec126b2b9a1da3389dca902c0d94bddc879ef9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L25-gl.csv",
+      "bytes": 518,
+      "sha256": "4fa8e22ed0fe61997a482a2f0b041c94889e3c2301346921e599f3be1f0a4d35",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L25-mapping.csv",
+      "bytes": 47502,
+      "sha256": "ec9b6169f9d59a18b98640f23befa71f658df14d329c4a5ad5aa7a4f0b4fe607",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L25-register.csv",
+      "bytes": 47364,
+      "sha256": "0ec05430fa5c3d8f37b43092a18336f863d2e769eb95c0dad05dd51890075079",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L25-scope.json",
+      "bytes": 356,
+      "sha256": "cb9f45dd9203a8f280d9294a5e7a5dd920a07b83e70f07477dc870f7d89f8721",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L26-evidence.csv",
+      "bytes": 1933,
+      "sha256": "e0b5377a2995ad55cf1695d1161e101942cbf618febf8fdf35b28180308145d9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L26-gl.csv",
+      "bytes": 370,
+      "sha256": "831ece51f3466d1b5d490b640576d10c07af3ebbc231bb5db455a9fd92f9f9ba",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L26-mapping.csv",
+      "bytes": 1587,
+      "sha256": "74fa117875c395999feaffcf917538b1572f756e46fabc00d4715fdd673ecfd0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L26-register.csv",
+      "bytes": 1252,
+      "sha256": "79fe308241dce863d6e1cfc7ed1612ff18a6c02a88cc954d722d0dff15f3d4ad",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/L26-scope.json",
+      "bytes": 356,
+      "sha256": "0939db63d9e197e223bb9d6a147d5f07036e25502c6cf1a9c49d2fc89d442a71",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/SEAL.json",
+      "bytes": 1406,
+      "sha256": "2d18ae2a2a1b41dc91e4d46da0c2a02917367b89a0b029ca37fdf4484a0f0a5e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/VERIFY.json",
+      "bytes": 857,
+      "sha256": "c57dd736b05da1fcf14fd0355abf0a41c90376ad6c93b6ec15a13f68fc2ab421",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/frozen/stories.json",
+      "bytes": 346156,
+      "sha256": "28f15363cf2c43b1be8c187967811e78233ca4c8a533d5fc2d16d1b6e7194166",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/mutate_oracle.py",
+      "bytes": 4666,
+      "sha256": "c23dbefe724cb228ad01bd97589e22fc1395a4565d3fadf6eff5d67e2845e41e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/oracle.py",
+      "bytes": 6348,
+      "sha256": "4742a3f9d335466dd230925da9267d6f4c982cd143c4ae4258b8d701a6d13371",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/render.mjs",
+      "bytes": 564,
+      "sha256": "6c88093cb6f29aeb4842e8f536a5450a95d29ff15ce38f77542ae7ea9b52c058",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/render.py",
+      "bytes": 2624,
+      "sha256": "acf231779156dd1c9645b12f507afe62ae180b4f7bc09ca3c5dd52c2abc0646f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/results/oracle-mutants-1.json",
+      "bytes": 2640,
+      "sha256": "7723ec636d2ce5c8744aec6f1fe20f68441192f32638bff03a4c910d6dcfe4d3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/results/oracle-mutants-2.json",
+      "bytes": 2646,
+      "sha256": "d450acd6ae1d56ef3776a1f1117acf09b066a1f8d835bf164babf2963b1c0e25",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/seal.py",
+      "bytes": 4131,
+      "sha256": "cf3629c33f1a39f31533ad42efb4b55e77458b0ba8838bd220afca47877171ba",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/stories.py",
+      "bytes": 20180,
+      "sha256": "839cf8a1cb8a9df377279287c1795b35353098074a71534dc07106afaa106a86",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/test_oracle.py",
+      "bytes": 10772,
+      "sha256": "2fe326aa7d452217fa7701bfe5cc90435e358e29d3ad8050dadb0e8eb077649b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-links-foundation/verify.py",
+      "bytes": 6421,
+      "sha256": "dfc7acff9b5be80154848414cd4b7add3694876fafcdcefedec9f49bc31c80c2",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV-3-FOUNDATION.ar.md",
+      "bytes": 9395,
+      "sha256": "6726e7289d474ee4d9f2e199182d98dde40a0bae5e209bffd29f2f8bce4fdd0f",
       "kind": "text"
     }
   ],

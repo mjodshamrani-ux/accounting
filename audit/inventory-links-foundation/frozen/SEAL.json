@@ -1,0 +1,20 @@
+{
+ "schema": "tarasuf-inv3-links-seal/1",
+ "statement": "Sealed before any product run on these files. The baseline that follows records the product as it is.",
+ "pins": {
+  "INPUT-MANIFEST.json": "e79863908b18444900e5a59766a2085c171c3eecb9ab1e570caf3c925316b2a1",
+  "EXPECTED.json": "b27aed2e2f9a7d2addbaf08183599e635e9c3b8ddec73d351917f68805bdecd9",
+  "VERIFY.json": "c57dd736b05da1fcf14fd0355abf0a41c90376ad6c93b6ec15a13f68fc2ab421",
+  "DENSE-MANIFEST.json": "834d6c6229d9cce38524ac501c2d0271517e702068f9fec2a309ddcff27bd9e2",
+  "contract.json": "271615cc832b766f7f5044566f5efdc23c11df683d15a9b992f7ee44c0d42486",
+  "stories.py": "839cf8a1cb8a9df377279287c1795b35353098074a71534dc07106afaa106a86",
+  "render.py": "acf231779156dd1c9645b12f507afe62ae180b4f7bc09ca3c5dd52c2abc0646f",
+  "render.mjs": "6c88093cb6f29aeb4842e8f536a5450a95d29ff15ce38f77542ae7ea9b52c058",
+  "oracle.py": "4742a3f9d335466dd230925da9267d6f4c982cd143c4ae4258b8d701a6d13371",
+  "verify.py": "dfc7acff9b5be80154848414cd4b7add3694876fafcdcefedec9f49bc31c80c2",
+  "dense.py": "26bfac70f7e8ba215aba0b47f50919a4c1cb6cf761bd3ade213a292813bbe7f6",
+  "test_oracle.py": "2fe326aa7d452217fa7701bfe5cc90435e358e29d3ad8050dadb0e8eb077649b",
+  "mutate_oracle.py": "c23dbefe724cb228ad01bd97589e22fc1395a4565d3fadf6eff5d67e2845e41e",
+  "../inventory-register/reference.py": "bbf904f64796806bbf8d99d5e13a4b72285cb265d2c3a0f50ce6c179b33f8820"
+ }
+}
