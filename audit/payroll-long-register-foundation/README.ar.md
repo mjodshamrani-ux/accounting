@@ -14,6 +14,7 @@
 | [`mutate_oracle.py`](mutate_oracle.py) | 71 خطأ مزروعًا في نسخة من الأوراكل. يجب أن يفشل كل منها بـassertion. الجولتان في `results/` |
 | [`verify.py`](verify.py) | فحص مستقل لكل ملف بقارئ آخر مكتوب هنا: الخلايا مطابقة للحقائق، والترميز، وعلامة ترتيب البايت، ونهايات الأسطر، والاقتباس، والمد، ونطاق كل قصة. ثم 10 تغييرات مزروعة يجب أن تُرفض |
 | [`seal.py`](seal.py) و[`check_seal.py`](check_seal.py) | الختم والتحقق منه |
+| [`baseline.mjs`](baseline.mjs) و`results/` | سجل المنتج كما هو، كُتب بعد الختم: المسير الطويل في دور المسير، ثم مطويًا باليد بتاريخي القصة، ثم مطويًا وتاريخا القيد والدفع بعد نهاية الفترة. التشغيل الأول في `results/baseline-1.json` كما جاء |
 | `frozen/` | 38 ملف CSV، و38 ملف نطاق، و`stories.json`، و`EXPECTED.json`، و`VERIFY.json`، و`INPUT-MANIFEST.json`، و`SEAL.json` |
 
 ## الإعادة
@@ -22,6 +23,12 @@
 python3 -B -m unittest discover -s audit/payroll-long-register-foundation -p test_oracle.py -v
 python3 -B audit/payroll-long-register-foundation/mutate_oracle.py
 python3 -B audit/payroll-long-register-foundation/check_seal.py
+```
+
+وسجل المنتج:
+
+```sh
+node --experimental-strip-types audit/payroll-long-register-foundation/baseline.mjs --assert audit/payroll-long-register-foundation/results/baseline-1.json
 ```
 
 وإعادة التوليد، قبل الختم فقط:

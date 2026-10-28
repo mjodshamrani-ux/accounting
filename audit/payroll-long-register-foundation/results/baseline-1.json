@@ -1,0 +1,3196 @@
+{
+ "schema": "tarasuf-pay1-long-register-baseline/1",
+ "family": "payroll-posted-run-gl-bank-1",
+ "counts": {
+  "agree": 154,
+  "both stop": 16,
+  "reads where the contract does not": 33,
+  "reads with other amounts": 3,
+  "not in the fold": 1
+ },
+ "stories": {
+  "P01": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-1001|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1550000,
+      146250,
+      176250,
+      1403750
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-1002|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1237500,
+      115781,
+      139531,
+      1121719
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-1003|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1025000,
+      95062,
+      114562,
+      929938
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-1004|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      850000,
+      78000,
+      94000,
+      772000
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-1005|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1925000,
+      182812,
+      220312,
+      1742188
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-1006|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      700000,
+      63375,
+      76375,
+      636625
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    }
+   }
+  },
+  "P02": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-2001|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1532550,
+      134062,
+      161562,
+      1398488
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-2002|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      925000,
+      85312,
+      102812,
+      839688
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    }
+   }
+  },
+  "P03": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-3001|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1175000,
+      209687,
+      132187,
+      965313
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-3002|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1175000,
+      109687,
+      132187,
+      1065313
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    }
+   }
+  },
+  "P04": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "source-error",
+    "registerIssues": [
+     "NET_EQUATION"
+    ]
+   },
+   "employees": {
+    "E-4001|cc=OPD": {
+     "contract": "held",
+     "product": "row refused",
+     "codes": [
+      "NET_EQUATION"
+     ],
+     "amounts": null,
+     "sameAmounts": null,
+     "class": "both stop"
+    },
+    "E-4002|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      812500,
+      74343,
+      89593,
+      738157
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    }
+   }
+  },
+  "P05": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-5001|cc=LAB": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1050000,
+      97500,
+      117500,
+      952500
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    },
+    "E-5002|cc=LAB": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1925000,
+      177936,
+      214436,
+      1747064
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    },
+    "E-5003|cc=LAB": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      912500,
+      84093,
+      101343,
+      828407
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    }
+   }
+  },
+  "P06": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-6001|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      950000,
+      87750,
+      105750,
+      862250
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-6001|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      600000,
+      58500,
+      70500,
+      541500
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-6002|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      950000,
+      87750,
+      105750,
+      862250
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    }
+   }
+  },
+  "P07": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "source-error",
+    "registerIssues": [
+     "NET_EQUATION"
+    ]
+   },
+   "employees": {
+    "E-7001|cc=ICU": {
+     "contract": "inconsistent",
+     "product": "row refused",
+     "codes": [
+      "NET_EQUATION"
+     ],
+     "amounts": null,
+     "sameAmounts": null,
+     "class": "both stop"
+    },
+    "E-7001|cc=OPD": {
+     "contract": "missing",
+     "product": "row refused",
+     "codes": [
+      "NET_EQUATION"
+     ],
+     "amounts": null,
+     "sameAmounts": null,
+     "class": "both stop"
+    },
+    "E-7002|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      675000,
+      60937,
+      73437,
+      614063
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    }
+   }
+  },
+  "P08": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "source-error",
+    "registerIssues": [
+     "NET_EQUATION"
+    ]
+   },
+   "employees": {
+    "E-8001|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1300000,
+      121875,
+      146875,
+      1178125
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-8002|cc=ICU": {
+     "contract": "inconsistent",
+     "product": "row refused",
+     "codes": [
+      "NET_EQUATION"
+     ],
+     "amounts": null,
+     "sameAmounts": null,
+     "class": "both stop"
+    }
+   }
+  },
+  "P09": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-9001|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      700000,
+      68250,
+      82250,
+      631750
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-9002|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      750000,
+      68250,
+      82250,
+      681750
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    }
+   }
+  },
+  "P10": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "source-error",
+    "registerIssues": [
+     "NET_EQUATION"
+    ]
+   },
+   "employees": {
+    "E-1011|cc=ICU": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1087500,
+      101156,
+      121906,
+      986344
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    },
+    "E-1012|cc=OPD": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1000000,
+      92625,
+      111625,
+      907375
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    },
+    "E-1013|cc=OPD": {
+     "contract": "held",
+     "product": "row refused",
+     "codes": [
+      "NET_EQUATION"
+     ],
+     "amounts": null,
+     "sameAmounts": null,
+     "class": "both stop"
+    }
+   }
+  },
+  "P11": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-1101|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      862500,
+      79218,
+      95468,
+      783282
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-1102|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      862500,
+      79218,
+      95468,
+      783282
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    }
+   }
+  },
+  "P12": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-1201|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      612500,
+      54843,
+      66093,
+      557657
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-1202|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      637500,
+      57281,
+      69031,
+      580219
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-1203|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      650000,
+      58500,
+      70500,
+      591500
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    }
+   }
+  },
+  "P13": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-1301|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1287500,
+      120656,
+      145406,
+      1166844
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-1302|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1137500,
+      106031,
+      127781,
+      1031469
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-1303|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      812500,
+      74343,
+      89593,
+      738157
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    }
+   }
+  },
+  "P14": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-1401|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1075000,
+      70687,
+      85187,
+      1004313
+     ],
+     "sameAmounts": false,
+     "class": "reads with other amounts"
+    },
+    "E-1402|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      787500,
+      71906,
+      86656,
+      715594
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    }
+   }
+  },
+  "P15": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-1501|cc=ICU": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      925000,
+      85312,
+      102812,
+      839688
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    },
+    "E-1502|cc=OPD": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      937500,
+      86531,
+      104281,
+      850969
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    }
+   }
+  },
+  "P16": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-1601|cc=ICU": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1150000,
+      107250,
+      129250,
+      1042750
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    },
+    "E-1602|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1150000,
+      107250,
+      129250,
+      1042750
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    }
+   }
+  },
+  "P17": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-1701|cc=LAB": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      750000,
+      73125,
+      88125,
+      676875
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    },
+    "E-1702|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      800000,
+      73125,
+      88125,
+      726875
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    }
+   }
+  },
+  "P18": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "source-error",
+    "registerIssues": [
+     "NET_EQUATION"
+    ]
+   },
+   "employees": {
+    "E-1801|cc=OPD": {
+     "contract": "missing",
+     "product": "row refused",
+     "codes": [
+      "NET_EQUATION"
+     ],
+     "amounts": null,
+     "sameAmounts": null,
+     "class": "both stop"
+    },
+    "E-1802|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      425000,
+      36562,
+      44062,
+      388438
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    }
+   }
+  },
+  "P19": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "source-error",
+    "registerIssues": [
+     "NET_EQUATION"
+    ]
+   },
+   "employees": {
+    "E-1901|cc=ICU": {
+     "contract": "held",
+     "product": "row refused",
+     "codes": [
+      "NET_EQUATION"
+     ],
+     "amounts": null,
+     "sameAmounts": null,
+     "class": "both stop"
+    },
+    "E-1902|cc=ICU": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      675000,
+      60937,
+      73437,
+      614063
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    },
+    "E-1903|cc=OPD": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      675000,
+      60937,
+      73437,
+      614063
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    }
+   }
+  },
+  "P20": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "source-error",
+    "registerIssues": [
+     "NET_EQUATION"
+    ]
+   },
+   "employees": {
+    "E-2001|cc=ICU": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      812500,
+      74343,
+      89593,
+      738157
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    },
+    "E-2002|": {
+     "contract": "not an employee",
+     "product": "row refused",
+     "codes": [
+      "NET_EQUATION"
+     ],
+     "amounts": null,
+     "sameAmounts": null,
+     "class": "both stop"
+    },
+    "E-2002|cc=ICU": {
+     "contract": "held",
+     "product": "row refused",
+     "codes": [
+      "NET_EQUATION"
+     ],
+     "amounts": null,
+     "sameAmounts": null,
+     "class": "both stop"
+    }
+   }
+  },
+  "P21": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-2101|cc=LAB": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      612500,
+      54843,
+      66093,
+      557657
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    },
+    "E-2102|cc=LAB": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      625000,
+      56062,
+      67562,
+      568938
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    }
+   }
+  },
+  "P22": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "source-error",
+    "registerIssues": [
+     "NET_EQUATION"
+    ]
+   },
+   "employees": {
+    "E-2201|cc=ICU": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1012500,
+      93843,
+      113093,
+      918657
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    },
+    "E-2202|cc=OPD": {
+     "contract": "held",
+     "product": "row refused",
+     "codes": [
+      "NET_EQUATION"
+     ],
+     "amounts": null,
+     "sameAmounts": null,
+     "class": "both stop"
+    }
+   }
+  },
+  "P23": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-2301|cc=OPD": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      762500,
+      69468,
+      83718,
+      693032
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    },
+    "E-2302|cc=OPD": {
+     "contract": "not an employee",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      775000,
+      70687,
+      85187,
+      704313
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    }
+   }
+  },
+  "P24": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-2401|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      850000,
+      78000,
+      94000,
+      772000
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-2402|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      862500,
+      79218,
+      95468,
+      783282
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    }
+   }
+  },
+  "P25": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-2501|cc=OPD": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      712500,
+      64593,
+      77843,
+      647907
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    },
+    "E-2502|cc=OPD": {
+     "contract": "not an employee",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      725000,
+      65812,
+      79312,
+      659188
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    }
+   }
+  },
+  "P26": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-2601|cc=ICU": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1075000,
+      99937,
+      120437,
+      975063
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    },
+    "E-2602|cc=ICU": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1087500,
+      101156,
+      121906,
+      986344
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    }
+   }
+  },
+  "P27": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-2701|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1187500,
+      110906,
+      133656,
+      1076594
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-2702|cc=OPD": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1200000,
+      112125,
+      135125,
+      1087875
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    },
+    "E-2703|cc=OPD": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1212500,
+      113343,
+      136593,
+      1099157
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    }
+   }
+  },
+  "P28": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-2801|cc=ICU": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1050000,
+      142625,
+      111625,
+      907375
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    },
+    "E-2802|cc=ICU": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1012500,
+      93843,
+      113093,
+      918657
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    },
+    "E-2803|cc=LAB": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1025000,
+      95062,
+      114562,
+      929938
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    }
+   }
+  },
+  "P29": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "source-error",
+    "registerIssues": [
+     "ZERO_RUN_UNSUPPORTED"
+    ]
+   },
+   "employees": {
+    "E-2901|مركز=١": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "sameAmounts": false,
+     "class": "reads with other amounts"
+    },
+    "E-2902|مركز=٢": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "sameAmounts": false,
+     "class": "reads with other amounts"
+    }
+   }
+  },
+  "P30": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-3001|cc=OPD": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      725000,
+      65812,
+      79312,
+      659188
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    },
+    "E-3002|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      737500,
+      67031,
+      80781,
+      670469
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    }
+   }
+  },
+  "P31": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "source-error",
+    "registerIssues": [
+     "PRECISION"
+    ]
+   },
+   "employees": {
+    "E-3101|cc=ICU": {
+     "contract": "held",
+     "product": "row refused",
+     "codes": [
+      "PRECISION"
+     ],
+     "amounts": null,
+     "sameAmounts": null,
+     "class": "both stop"
+    },
+    "E-3102|cc=ICU": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      537500,
+      52406,
+      63156,
+      485094
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    }
+   }
+  },
+  "P32": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "source-error",
+    "registerIssues": [
+     "NET_EQUATION"
+    ]
+   },
+   "employees": {
+    "0410|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      675000,
+      60937,
+      73437,
+      614063
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "0420|cc=LAB": {
+     "contract": "missing",
+     "product": "row refused",
+     "codes": [
+      "NET_EQUATION"
+     ],
+     "amounts": null,
+     "sameAmounts": null,
+     "class": "both stop"
+    },
+    "410|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      675000,
+      60937,
+      73437,
+      614063
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "420|cc=LAB": {
+     "contract": "inconsistent",
+     "product": "row refused",
+     "codes": [
+      "NET_EQUATION"
+     ],
+     "amounts": null,
+     "sameAmounts": null,
+     "class": "both stop"
+    }
+   }
+  },
+  "P33": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "employees": {
+    "E-3301|cc=ICU": {
+     "contract": "not an employee",
+     "product": "run refused",
+     "codes": [],
+     "amounts": null,
+     "sameAmounts": null,
+     "class": "both stop"
+    }
+   }
+  },
+  "P34": {
+   "asItArrives": {
+    "refused": "ERR_ENCODING_INVALID_ENCODED_DATA"
+   },
+   "folded": "not UTF-8: the fold reads nothing"
+  },
+  "P35": {
+   "asItArrives": {
+    "refused": "PAYROLL_CSV"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-3501|cc=OPD": {
+     "contract": "not an employee",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      520000,
+      0,
+      0,
+      520000
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    }
+   }
+  },
+  "P36": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-3601|cc=ICU": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      750000,
+      68250,
+      82250,
+      681750
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    },
+    "E-3602|cc=OPD": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      762500,
+      69468,
+      83718,
+      693032
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    }
+   }
+  },
+  "P37": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "missing",
+    "registerIssues": []
+   },
+   "employees": {
+    "E-3701|cc=LAB": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      787500,
+      71906,
+      86656,
+      715594
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    },
+    "E-3702|cc=LAB": {
+     "contract": "held",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      800000,
+      73125,
+      88125,
+      726875
+     ],
+     "sameAmounts": null,
+     "class": "reads where the contract does not"
+    },
+    "Employee ID|Employee dimensions": {
+     "contract": "held",
+     "product": "not in the fold",
+     "codes": [],
+     "amounts": null,
+     "sameAmounts": null,
+     "class": "not in the fold"
+    }
+   }
+  },
+  "P38": {
+   "asItArrives": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "folded": {
+    "refused": "PAYROLL_SCOPE_DATES"
+   },
+   "foldedDatesMoved": {
+    "status": "source-error",
+    "registerIssues": [
+     "NET_EQUATION"
+    ]
+   },
+   "employees": {
+    "E-5000|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1943764,
+      165294,
+      199201,
+      1778470
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5003|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      960929,
+      142278,
+      112909,
+      818651
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5006|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1943538,
+      176909,
+      213199,
+      1766629
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5009|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1985765,
+      173183,
+      208708,
+      1812582
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5012|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2847922,
+      235082,
+      283304,
+      2612840
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5015|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2365315,
+      264463,
+      226485,
+      2100852
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5018|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      562333,
+      92681,
+      66074,
+      469652
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5021|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1067972,
+      132041,
+      125486,
+      935931
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5024|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      784640,
+      107952,
+      54579,
+      676688
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5027|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      618789,
+      47589,
+      57350,
+      571200
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5030|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2392672,
+      203454,
+      245189,
+      2189218
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5033|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1184984,
+      205127,
+      139235,
+      979857
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5036|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1116706,
+      108878,
+      131212,
+      1007828
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5039|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2506304,
+      253746,
+      280953,
+      2252558
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5042|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1792518,
+      161992,
+      195221,
+      1630526
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5045|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1999438,
+      145753,
+      175651,
+      1853685
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5048|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1900051,
+      195423,
+      223255,
+      1704628
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5051|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1187387,
+      165481,
+      102311,
+      1021906
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5054|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1680762,
+      150014,
+      180786,
+      1530748
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5057|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1489197,
+      193173,
+      149443,
+      1296024
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5060|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1136898,
+      110847,
+      133585,
+      1026051
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5063|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      598288,
+      58333,
+      70298,
+      539955
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5066|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1298712,
+      111636,
+      134535,
+      1187076
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5069|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2186340,
+      191003,
+      230184,
+      1995337
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5072|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1013467,
+      97228,
+      117172,
+      916239
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5075|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1244000,
+      116623,
+      140546,
+      1127377
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5078|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1379994,
+      188323,
+      149657,
+      1191671
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5081|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2505110,
+      237434,
+      245365,
+      2267676
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5084|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1347643,
+      121616,
+      146563,
+      1226027
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5087|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1352808,
+      168146,
+      131257,
+      1184662
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5090|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1822804,
+      177723,
+      214179,
+      1645081
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5093|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1566830,
+      153863,
+      147650,
+      1412967
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5096|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1012633,
+      87953,
+      105995,
+      924680
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5099|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1334433,
+      111736,
+      134656,
+      1222697
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5102|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1650455,
+      146263,
+      176265,
+      1504192
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5105|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2022322,
+      166112,
+      200186,
+      1856210
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5108|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      641416,
+      73521,
+      51196,
+      567895
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5111|cc=OPD": {
+     "contract": "inconsistent",
+     "product": "row refused",
+     "codes": [
+      "NET_EQUATION"
+     ],
+     "amounts": null,
+     "sameAmounts": null,
+     "class": "both stop"
+    },
+    "E-5114|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      981023,
+      84705,
+      102081,
+      896318
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5117|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      678009,
+      66105,
+      79666,
+      611904
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5120|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      979234,
+      124906,
+      85916,
+      854328
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5123|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1611692,
+      217032,
+      163981,
+      1394660
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5126|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2501116,
+      230217,
+      277441,
+      2270899
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5129|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      452984,
+      32521,
+      39192,
+      420463
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5132|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1796173,
+      144269,
+      173863,
+      1651904
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5135|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      721354,
+      94525,
+      78560,
+      626829
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5138|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1705815,
+      200865,
+      170210,
+      1504950
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5141|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2284301,
+      275694,
+      229881,
+      2008607
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5144|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1586057,
+      151790,
+      182926,
+      1434267
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5147|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1436756,
+      107975,
+      130124,
+      1328781
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5150|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1921519,
+      187348,
+      225778,
+      1734171
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5153|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2826947,
+      295342,
+      286427,
+      2531605
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5156|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1778673,
+      173420,
+      208994,
+      1605253
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5159|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1759836,
+      171584,
+      206780,
+      1588252
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5162|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2165341,
+      205085,
+      217871,
+      1960256
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5165|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1483517,
+      197953,
+      146340,
+      1285564
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5168|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1859831,
+      148612,
+      179096,
+      1711219
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5171|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1706865,
+      166419,
+      200556,
+      1540446
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5174|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      578169,
+      35215,
+      42439,
+      542954
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5177|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1636092,
+      193431,
+      192240,
+      1442661
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5180|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1514840,
+      217300,
+      177993,
+      1297540
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5183|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2301976,
+      207037,
+      249506,
+      2094939
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5186|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1018861,
+      92786,
+      111819,
+      926075
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5189|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      322896,
+      84844,
+      37940,
+      238052
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5192|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      566726,
+      71284,
+      38260,
+      495442
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5195|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1293089,
+      112282,
+      135314,
+      1180807
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5198|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1910732,
+      236212,
+      218638,
+      1674520
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5201|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      870864,
+      80323,
+      96800,
+      790541
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5204|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2418488,
+      191504,
+      230787,
+      2226984
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5207|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2027045,
+      197636,
+      238177,
+      1829409
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5210|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1385281,
+      118473,
+      142776,
+      1266808
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5213|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1100236,
+      99006,
+      119315,
+      1001230
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5216|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1094932,
+      108488,
+      108989,
+      986444
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5219|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2605684,
+      234354,
+      282427,
+      2371330
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5222|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2004558,
+      164085,
+      197744,
+      1840473
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5225|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1386857,
+      192873,
+      151702,
+      1193984
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5228|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      481379,
+      40279,
+      48542,
+      441100
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5231|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2417886,
+      201878,
+      243288,
+      2216008
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5234|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      646875,
+      96791,
+      76007,
+      550084
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5237|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      896759,
+      57673,
+      69503,
+      839086
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5240|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1354916,
+      116054,
+      139860,
+      1238862
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5243|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1972614,
+      243671,
+      230657,
+      1728943
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5246|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      576207,
+      89460,
+      59755,
+      486747
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5249|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1362729,
+      121581,
+      146521,
+      1241148
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5252|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2609295,
+      237554,
+      286283,
+      2371741
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5255|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2633487,
+      287732,
+      268093,
+      2345755
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5258|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      768420,
+      33025,
+      39799,
+      735395
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5261|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      679633,
+      47156,
+      56830,
+      632477
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5264|cc=ICU": {
+     "contract": "missing",
+     "product": "row refused",
+     "codes": [
+      "NET_EQUATION"
+     ],
+     "amounts": null,
+     "sameAmounts": null,
+     "class": "both stop"
+    },
+    "E-5267|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      753867,
+      66168,
+      79741,
+      687699
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5270|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1935682,
+      183870,
+      221588,
+      1751812
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5273|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1970278,
+      192102,
+      231507,
+      1778176
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5276|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2544772,
+      239316,
+      288406,
+      2305456
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5279|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      796747,
+      69365,
+      83594,
+      727382
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5282|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      610769,
+      59549,
+      71765,
+      551220
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5285|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      711191,
+      50995,
+      61455,
+      660196
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5288|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1881204,
+      240022,
+      221041,
+      1641182
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5291|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2024193,
+      194030,
+      233831,
+      1830163
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5294|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      650841,
+      50110,
+      60389,
+      600731
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5297|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1931299,
+      218400,
+      198061,
+      1712899
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5300|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2370485,
+      227819,
+      258976,
+      2142666
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5303|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      966383,
+      93766,
+      113000,
+      872617
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5306|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      902542,
+      87997,
+      106048,
+      814545
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5309|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1850441,
+      251468,
+      205429,
+      1598973
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5312|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1971486,
+      224719,
+      231649,
+      1746767
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5315|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1752520,
+      143413,
+      172831,
+      1609107
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5318|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1801574,
+      149997,
+      180766,
+      1651577
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5321|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      973530,
+      145934,
+      105905,
+      827596
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5324|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2034445,
+      174756,
+      210604,
+      1859689
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5327|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2485321,
+      312003,
+      277022,
+      2173318
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5330|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2250500,
+      217149,
+      261693,
+      2033351
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5333|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1105788,
+      104292,
+      125685,
+      1001496
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5336|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      405715,
+      39557,
+      47671,
+      366158
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5339|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1063600,
+      103701,
+      124973,
+      959899
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5342|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      2611638,
+      237424,
+      286127,
+      2374214
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5345|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1315013,
+      103675,
+      124941,
+      1211338
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5348|cc=ICU": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1198867,
+      169975,
+      119866,
+      1028892
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5351|cc=OPD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1885224,
+      164743,
+      183552,
+      1720481
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5354|cc=LAB": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      1323863,
+      118690,
+      143037,
+      1205173
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    },
+    "E-5357|cc=RAD": {
+     "contract": "consistent",
+     "product": "row reads",
+     "codes": [],
+     "amounts": [
+      549746,
+      53600,
+      64595,
+      496146
+     ],
+     "sameAmounts": true,
+     "class": "agree"
+    }
+   }
+  }
+ }
+}
