@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 56602,
-      "sha256": "14c7de2b8393c54787b825ba29a730d31e6c40139cfb7f22ad85fd3d24cf756a",
+      "bytes": 57855,
+      "sha256": "93322abee36c13b3304bf829c1f8d354a05630761f612e768bcd51e27dd37659",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 35487,
-      "sha256": "806976693e44d30046a54247881b59af61bdf9b80ff3014e3635baaae8b1dad1",
+      "bytes": 35780,
+      "sha256": "fb8c855aa8280e26a3842203502cceeed3e4f2e698dedaf9196c7c73ae852ca8",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 20155,
-      "sha256": "b681d3c51c133ca5ae3974f4f152432ab4be8b5479c5f33275d6d09a4a906803",
+      "bytes": 20177,
+      "sha256": "5dc4f43ba10d1981d295090ceee17ffbb69c90540bce857b6ae646407c6ebeaa",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 82757,
-      "sha256": "80ea481b74092bd6cd1051947d6709e06a4679360568bb3f223a8429938eb7fd",
+      "bytes": 82808,
+      "sha256": "02bdf91ad42150de8047b28048a44ddbeb8252d0e02aae762c1cf1ae20157591",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 75915,
-      "sha256": "998209b28b3047b22ca04194a223e3155266cbc71b7933ec972dd183f7d69fc0",
+      "bytes": 76005,
+      "sha256": "82d7bc045f205583e582c6b31963bb623e03a097a42bd2cf6d636e63d3499e67",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 38208,
-      "sha256": "25bcd797951f399bbd64abe5f8455f159c73520f9dbb3c15494494870a5e6e04",
+      "bytes": 38365,
+      "sha256": "c44dc8fb72e9025d056049ae09c9d5c5772a439676b7cda160192cfa2bd0adb7",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 14124,
-      "sha256": "f0b12f6e3ecb449f2c21f122757b519b0c14b11c44ab98a2a8ee18dfc7a4a799",
+      "bytes": 14177,
+      "sha256": "da7b75fcfa8ac5dd79441a0b3cf38d7feccf8575ec346a216a9e0991712d0e38",
       "kind": "text"
     },
     {
@@ -40805,8 +40805,8 @@
     },
     {
       "path": "docs/roadmap/workflow.ar.md",
-      "bytes": 26900,
-      "sha256": "1d8a2c6530fc93b399139b62de6a66b3758673f24d77b67d3e55a004daaae5b3",
+      "bytes": 27264,
+      "sha256": "50a06b842be4799a9befa5682bf4035d6e6b459ad93cb636894c03f09dbf9804",
       "kind": "text"
     },
     {
@@ -53937,8 +53937,8 @@
     },
     {
       "path": "audit/bank-cycle-foundation/README.ar.md",
-      "bytes": 14007,
-      "sha256": "24ba58919953f3c688818d511db32e8c3e11193d09b6b78dfaf88d224148469f",
+      "bytes": 14461,
+      "sha256": "bf608aa901338b534dde0678249bf93c6f0230262f00e0ffcbc0ec4f1dfcef21",
       "kind": "text"
     },
     {
@@ -54465,14 +54465,44 @@
     },
     {
       "path": "docs/audits/WF-1-CYCLE-RUN.ar.md",
-      "bytes": 9260,
-      "sha256": "6f92494b45ce7d242ffac834170825f99151c970236a99421ea6a31338b5d9f5",
+      "bytes": 13170,
+      "sha256": "aab330e136813f6cdc40931634b6e5aec6558920e4f58cd03556a2d246df20c4",
       "kind": "text"
     },
     {
       "path": "scripts/bank-cycle-run.mjs",
-      "bytes": 21205,
-      "sha256": "2d44d361be7e946940f66c10c14bb89d3412010cdc6edc5413bac92e4ee65a71",
+      "bytes": 15374,
+      "sha256": "2932743834e2d89cb375b7e11af5a5b38793846da0ffae7de83fd28494e2a32a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/results/browser-561ee06.json",
+      "bytes": 121860,
+      "sha256": "fed9eb0e6b3919b9711886dba87d7810b32f26ae86b7adf980befe434dd9980e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/results/browser-run-1.json",
+      "bytes": 116005,
+      "sha256": "cf2e1538a7b98b2112a49cd72800517d42e9362f6c783042363f23e03107e902",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/results/browser-run-2.json",
+      "bytes": 115768,
+      "sha256": "fb7cce0e1a153580348ebe7be5add11eb6ed1181465e69c528c63bcf931af982",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/bank-cycle-browser.mjs",
+      "bytes": 27760,
+      "sha256": "fd3935f11355a6e35c4f68719fcdc053ab8a1440a63de68d6b556e0fcdb008b5",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/bank-cycle-terms.mjs",
+      "bytes": 6869,
+      "sha256": "c5226d816882de95b4e9f002d706c32dcd7fb4e180d8740f091de25321672d44",
       "kind": "text"
     }
   ],
