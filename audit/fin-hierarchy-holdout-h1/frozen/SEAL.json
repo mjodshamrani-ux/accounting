@@ -1,0 +1,22 @@
+{
+ "schema": "tarasuf-fin1-hierarchy-holdout-seal/1",
+ "statement": "Sealed before any FIN-1 product run on these files. The first engine and browser runs are recorded as they come.",
+ "pins": {
+  "INPUT-MANIFEST.json": "19632af781dc53c9001ce16e9b357ce34fdd6d3eee7da2027a34bd70680583f3",
+  "EXPECTED.json": "6c15f7fd200c72fbc891d6a00e93fea1cd9859bbcae49f2403323987c148d8ba",
+  "VERIFY.json": "3305a2249f9a0a3133bb231d803eafb1dec2b0366c775bc0eb2904e63c1c7a90",
+  "ELIGIBILITY.json": "58eabadf1ae3a5c2b9d6fb17e3a4413d8c0570670d229c28fd8bbf7d5ba8a6f9",
+  "stories.py": "10f915a1c375da621c706e712342347605b1ef61974a7fd9e61132e3dec5afc4",
+  "render.py": "a34f4a08dce7ea2c239a363e9571e9e0d2e02cd70197383a6f5a4dea30e4d890",
+  "render.go": "808558afecf9ab76ca86209e5bfc3f7d6efb29b1f6d8d4e6317a43a8ac08dd18",
+  "render.rb": "548a88cacb8a8b908707e07e3e9c9549b400e0119a40cf16924168a47b6c2f15",
+  "render.pl": "c39348843f21ca0dc907b71651f972d595c853801668be9a053ae405398d1d99",
+  "render.rs": "b9d77b7d4102b97d9d932819a0a8b0ebd071f5bb76588e0a3eb323111cbf4a63",
+  "verify.py": "4cd681211c27336823a10424b47ea2b6605adcf3b303de5196e69d663c771769",
+  "eligibility.py": "bf1fcd8be588ebf74823cef5ba37da1c39107bbc0bfa51cd49530191feb3659a",
+  "judge.py": "df114276cc914cc18d623e3491f308d0ded255f3927c4e0d8fca854e38a70f08",
+  "test_intent.py": "ea8c06d2da0d506570d7f4454bbbbe2ffe70dba78040f435a41c5b284bf95575",
+  "../tb-financial-hierarchy/contract.json": "8643ccf0c98498df8317c2ed296539336b8dc67317edf2aa8f9329852774a63c",
+  "../tb-financial-hierarchy/oracle.py": "b58290a8d51966ead568ce653341ed11dcb76a9f485812705bac020e14a3de3d"
+ }
+}

@@ -1,0 +1,1266 @@
+{
+ "ok": true,
+ "files": [
+  {
+   "name": "H01/financial-position.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 460
+  },
+  {
+   "name": "H01/presentation-evidence.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H01/proposed-mapping.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H01/trial-balance.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H02/financial-position.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 468
+  },
+  {
+   "name": "H02/presentation-evidence.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 414
+  },
+  {
+   "name": "H02/proposed-mapping.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 324
+  },
+  {
+   "name": "H02/trial-balance.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 324
+  },
+  {
+   "name": "H03/financial-position.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 10,
+   "quoted": 11
+  },
+  {
+   "name": "H03/presentation-evidence.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 10,
+   "quoted": 0
+  },
+  {
+   "name": "H03/proposed-mapping.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 10,
+   "quoted": 0
+  },
+  {
+   "name": "H03/trial-balance.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 10,
+   "quoted": 0
+  },
+  {
+   "name": "H04/financial-position.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 23,
+   "quoted": 0
+  },
+  {
+   "name": "H04/presentation-evidence.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H04/proposed-mapping.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H04/trial-balance.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H05/financial-position.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 25,
+   "quoted": 0
+  },
+  {
+   "name": "H05/presentation-evidence.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 17,
+   "quoted": 0
+  },
+  {
+   "name": "H05/proposed-mapping.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 17,
+   "quoted": 0
+  },
+  {
+   "name": "H05/trial-balance.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H06/financial-position.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 27,
+   "quoted": 486
+  },
+  {
+   "name": "H06/presentation-evidence.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 414
+  },
+  {
+   "name": "H06/proposed-mapping.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 324
+  },
+  {
+   "name": "H06/trial-balance.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 324
+  },
+  {
+   "name": "H07/financial-position.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 461
+  },
+  {
+   "name": "H07/presentation-evidence.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 414
+  },
+  {
+   "name": "H07/proposed-mapping.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 324
+  },
+  {
+   "name": "H07/trial-balance.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 324
+  },
+  {
+   "name": "H08/financial-position.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 8
+  },
+  {
+   "name": "H08/presentation-evidence.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H08/proposed-mapping.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H08/trial-balance.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H09/financial-position.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 0
+  },
+  {
+   "name": "H09/presentation-evidence.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H09/proposed-mapping.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H09/trial-balance.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H10/financial-position.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 0
+  },
+  {
+   "name": "H10/presentation-evidence.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 19,
+   "quoted": 0
+  },
+  {
+   "name": "H10/proposed-mapping.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H10/trial-balance.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H11/financial-position.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 0
+  },
+  {
+   "name": "H11/presentation-evidence.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H11/proposed-mapping.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H11/trial-balance.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 324
+  },
+  {
+   "name": "H12/financial-position.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 468
+  },
+  {
+   "name": "H12/presentation-evidence.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 414
+  },
+  {
+   "name": "H12/proposed-mapping.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 324
+  },
+  {
+   "name": "H12/trial-balance.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 324
+  },
+  {
+   "name": "H13/financial-position.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 8
+  },
+  {
+   "name": "H13/presentation-evidence.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 17,
+   "quoted": 1
+  },
+  {
+   "name": "H13/proposed-mapping.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H13/trial-balance.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H14/financial-position.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 14,
+   "quoted": 0
+  },
+  {
+   "name": "H14/presentation-evidence.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 11,
+   "quoted": 0
+  },
+  {
+   "name": "H14/proposed-mapping.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 11,
+   "quoted": 0
+  },
+  {
+   "name": "H14/trial-balance.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 11,
+   "quoted": 0
+  },
+  {
+   "name": "H15/financial-position.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 24,
+   "quoted": 0
+  },
+  {
+   "name": "H15/presentation-evidence.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 4,
+   "quoted": 0
+  },
+  {
+   "name": "H15/proposed-mapping.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 4,
+   "quoted": 0
+  },
+  {
+   "name": "H15/trial-balance.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 4,
+   "quoted": 0
+  },
+  {
+   "name": "H16/financial-position.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 25,
+   "quoted": 450
+  },
+  {
+   "name": "H16/presentation-evidence.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 4,
+   "quoted": 92
+  },
+  {
+   "name": "H16/proposed-mapping.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 4,
+   "quoted": 72
+  },
+  {
+   "name": "H16/trial-balance.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 4,
+   "quoted": 72
+  },
+  {
+   "name": "H17/financial-position.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 59,
+   "quoted": 1054
+  },
+  {
+   "name": "H17/presentation-evidence.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 161,
+   "quoted": 0
+  },
+  {
+   "name": "H17/proposed-mapping.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 161,
+   "quoted": 0
+  },
+  {
+   "name": "H17/trial-balance.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 161,
+   "quoted": 0
+  },
+  {
+   "name": "H18/financial-position.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 59,
+   "quoted": 8
+  },
+  {
+   "name": "H18/presentation-evidence.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 161,
+   "quoted": 0
+  },
+  {
+   "name": "H18/proposed-mapping.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 161,
+   "quoted": 0
+  },
+  {
+   "name": "H18/trial-balance.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 161,
+   "quoted": 0
+  },
+  {
+   "name": "H19/financial-position.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 7,
+   "quoted": 6
+  },
+  {
+   "name": "H19/presentation-evidence.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 5,
+   "quoted": 0
+  },
+  {
+   "name": "H19/proposed-mapping.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 5,
+   "quoted": 0
+  },
+  {
+   "name": "H19/trial-balance.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 5,
+   "quoted": 0
+  },
+  {
+   "name": "H20/financial-position.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 6,
+   "quoted": 0
+  },
+  {
+   "name": "H20/presentation-evidence.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 5,
+   "quoted": 0
+  },
+  {
+   "name": "H20/proposed-mapping.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 5,
+   "quoted": 0
+  },
+  {
+   "name": "H20/trial-balance.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 5,
+   "quoted": 0
+  },
+  {
+   "name": "H21/financial-position.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 468
+  },
+  {
+   "name": "H21/presentation-evidence.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H21/proposed-mapping.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H21/trial-balance.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H22/financial-position.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 0
+  },
+  {
+   "name": "H22/presentation-evidence.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H22/proposed-mapping.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H22/trial-balance.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 19,
+   "quoted": 0
+  },
+  {
+   "name": "H23/financial-position.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 460
+  },
+  {
+   "name": "H23/presentation-evidence.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 414
+  },
+  {
+   "name": "H23/proposed-mapping.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 324
+  },
+  {
+   "name": "H23/trial-balance.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 324
+  },
+  {
+   "name": "H24/financial-position.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 8
+  },
+  {
+   "name": "H24/presentation-evidence.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H24/proposed-mapping.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H24/trial-balance.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H25/financial-position.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 27,
+   "quoted": 0
+  },
+  {
+   "name": "H25/presentation-evidence.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H25/proposed-mapping.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H25/trial-balance.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H26/financial-position.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 468
+  },
+  {
+   "name": "H26/presentation-evidence.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 414
+  },
+  {
+   "name": "H26/proposed-mapping.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 324
+  },
+  {
+   "name": "H26/trial-balance.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 324
+  },
+  {
+   "name": "H27/financial-position.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 460
+  },
+  {
+   "name": "H27/presentation-evidence.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 414
+  },
+  {
+   "name": "H27/proposed-mapping.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 324
+  },
+  {
+   "name": "H27/trial-balance.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 324
+  },
+  {
+   "name": "H28/financial-position.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 0
+  },
+  {
+   "name": "H28/presentation-evidence.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H28/proposed-mapping.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H28/trial-balance.csv",
+   "writer": "perl",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H29/financial-position.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 8
+  },
+  {
+   "name": "H29/presentation-evidence.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H29/proposed-mapping.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H29/trial-balance.csv",
+   "writer": "ruby",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H30/financial-position.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 0
+  },
+  {
+   "name": "H30/presentation-evidence.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H30/proposed-mapping.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H30/trial-balance.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 0
+  },
+  {
+   "name": "H31/financial-position.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 468
+  },
+  {
+   "name": "H31/presentation-evidence.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 414
+  },
+  {
+   "name": "H31/proposed-mapping.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 324
+  },
+  {
+   "name": "H31/trial-balance.csv",
+   "writer": "rust",
+   "ok": true,
+   "problems": [],
+   "rows": 19,
+   "quoted": 342
+  },
+  {
+   "name": "H32/financial-position.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 460
+  },
+  {
+   "name": "H32/presentation-evidence.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 414
+  },
+  {
+   "name": "H32/proposed-mapping.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 342
+  },
+  {
+   "name": "H32/trial-balance.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 18,
+   "quoted": 324
+  },
+  {
+   "name": "H01/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H02/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H03/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H04/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H05/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H06/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H07/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H08/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H09/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H10/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H11/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H12/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H13/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H14/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H15/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H16/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H17/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H18/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H19/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H20/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H21/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H22/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H23/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H24/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H25/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H26/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H27/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H28/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H29/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H30/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H31/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H32/scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  }
+ ],
+ "cells": 61650,
+ "factsSha256": "c7b71464778a42eccb74a0c1ece95a3390ab7d52739669ddca0b5ab0357f4519",
+ "selfTest": [
+  {
+   "file": "H01/trial-balance.csv",
+   "plant": "one cent moved between two TB rows",
+   "rejected": true
+  },
+  {
+   "file": "H02/financial-position.csv",
+   "plant": "the line break in a label dropped",
+   "rejected": true
+  },
+  {
+   "file": "H03/trial-balance.csv",
+   "plant": "an Arabic-Indic digit made Latin",
+   "rejected": true
+  },
+  {
+   "file": "H07/financial-position.csv",
+   "plant": "the cycle broken by restoring one parent",
+   "rejected": true
+  },
+  {
+   "file": "H10/presentation-evidence.csv",
+   "plant": "CR where Perl writes CR alone",
+   "rejected": true
+  },
+  {
+   "file": "H21/financial-position.csv",
+   "plant": "the byte-order mark removed",
+   "rejected": true
+  },
+  {
+   "file": "H17/trial-balance.csv",
+   "plant": "a TB row dropped",
+   "rejected": true
+  },
+  {
+   "file": "H29/scope.json",
+   "plant": "the map version of the scope moved",
+   "rejected": true
+  }
+ ],
+ "passed": true
+}

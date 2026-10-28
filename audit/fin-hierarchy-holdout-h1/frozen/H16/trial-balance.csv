@@ -1,0 +1,4 @@
+"Account ID","Complete dimensions","Account label","Account class","Debit","Credit","Entity","Ledger","Currency","Currency basis","Posting status","Posting layer","Period start","Period end","As of","Chart version","Map version","Closing basis"
+"10-01","unit=HOLD","Cash","current-asset","75000000.00","0.00","SYN-QIMMA-HOLDING","HOLD-1","SAR","functional","posted","actual","2027-01-01","2027-03-31","2027-03-31","HCOA-1","HMAP-1","post-closing"
+"40-01","unit=HOLD","Shareholder loan","noncurrent-liability","0.00","25000000.00","SYN-QIMMA-HOLDING","HOLD-1","SAR","functional","posted","actual","2027-01-01","2027-03-31","2027-03-31","HCOA-1","HMAP-1","post-closing"
+"50-01","unit=HOLD","Capital","equity","0.00","50000000.00","SYN-QIMMA-HOLDING","HOLD-1","SAR","functional","posted","actual","2027-01-01","2027-03-31","2027-03-31","HCOA-1","HMAP-1","post-closing"

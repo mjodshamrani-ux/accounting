@@ -1,0 +1,5 @@
+Account ID,Complete dimensions,Account label,Account class,Debit,Credit,Entity,Ledger,Currency,Currency basis,Posting status,Posting layer,Period start,Period end,As of,Chart version,Map version,Closing basis
+9001,fund=ONE,Portfolio one,noncurrent-asset,600000000000.00,0.00,SYN-JABAL-SOVEREIGN,SOV-1,SAR,functional,posted,actual,2027-01-01,2027-12-31,2027-12-31,SCOA-1,SMAP-1,post-closing
+9002,fund=TWO,Portfolio two,noncurrent-asset,400000000000.00,0.00,SYN-JABAL-SOVEREIGN,SOV-1,SAR,functional,posted,actual,2027-01-01,2027-12-31,2027-12-31,SCOA-1,SMAP-1,post-closing
+9501,fund=ONE,Bonds issued,noncurrent-liability,0.00,300000000000.00,SYN-JABAL-SOVEREIGN,SOV-1,SAR,functional,posted,actual,2027-01-01,2027-12-31,2027-12-31,SCOA-1,SMAP-1,post-closing
+9901,fund=ONE,Endowment,equity,0.00,700000000000.00,SYN-JABAL-SOVEREIGN,SOV-1,SAR,functional,posted,actual,2027-01-01,2027-12-31,2027-12-31,SCOA-1,SMAP-1,post-closing

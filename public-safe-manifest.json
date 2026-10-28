@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 64292,
-      "sha256": "927d6213591110b438cc7b8a26c546e339e954fb4643890d6b783cca2657d203",
+      "bytes": 64424,
+      "sha256": "f0bb5bed30540cfc7a33a9dada7aa9c6e5a9bd880cd13bb93db481416b8ca770",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 41755,
-      "sha256": "df2afa5556f7686a2077b82cca6586c25727bb92e20ef90e02cb79ee544d8574",
+      "bytes": 42535,
+      "sha256": "29327035fd94dfffa97dce50c918349064019e605a40aee65105c13ad2fcfd3a",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 20950,
-      "sha256": "ec3677a99c652c9099c509286e6963f011b7314a15b0613c7dec3ec645b84e66",
+      "bytes": 21047,
+      "sha256": "7bed63c626576db17dc81e4bfd23dcd5fef01c1d9e49c70771a9f339068b3fdf",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 93987,
-      "sha256": "9fa3881e0a31a64258f614e867783b68a5b047d8fdabee45cedd5b3c03b5fd4e",
+      "bytes": 95106,
+      "sha256": "14726f454eae3c8f54646125e6ce057bca32682707e09e962c0c1d92a67d0454",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 78905,
-      "sha256": "974d43a2cacb85495de156a09e3de68aef6ae3a947c74dab5a32cbf266c26a80",
+      "bytes": 79314,
+      "sha256": "9d3a916d509359776a0cac6d4c61951a12206a11d7322f4f3d2078f8b00adf50",
       "kind": "text"
     },
     {
@@ -36283,8 +36283,8 @@
     },
     {
       "path": "docs/roadmap/tb-financial.ar.md",
-      "bytes": 3490,
-      "sha256": "effd8e27fb9e7bdb459c4eeb9b3375ce68d25546cc3ee9c9196c648d1caee515",
+      "bytes": 4143,
+      "sha256": "7172f029d8989713e6ef433f27f281e3ddd7eb9a685bc93a1c12e0ebde63606b",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 44111,
-      "sha256": "fc05ab0f35099e2fd8415512244da0a9902d64d2a9a964769ddc2a7cbddc3953",
+      "bytes": 44660,
+      "sha256": "14a08f787c7d7abd0220b0b30abfa9ef7c63336d0c184d18d6763786bc067bed",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 15250,
-      "sha256": "9b93a1913e2b4c08bac103ad74858840d0e36fb92aaf64d9ddfc3d43d72fe5dd",
+      "bytes": 15352,
+      "sha256": "adcf2ff2e491d1ab089bf1084650bd2de73d7ad5d451b4dac261eef316456508",
       "kind": "text"
     },
     {
@@ -58187,6 +58187,1122 @@
       "path": "docs/audits/GLT-1D.ar.md",
       "bytes": 6597,
       "sha256": "5c7d754f75b19d799fa01b2d213354968935ee56b9503fd115105f7122cbad71",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-1-review/README.ar.md",
+      "bytes": 1500,
+      "sha256": "a19c5e51e57e2d9334d14ba42c858395521345058040aa3aab0eb979082d3286",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-1-review/mutate_oracle.py",
+      "bytes": 16338,
+      "sha256": "7e77ca7eac5911413c3e9cbfdc162ce874d0f06782effe0bd5df5b4030556884",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-1-review/results/oracle-mutants-1.json",
+      "bytes": 9932,
+      "sha256": "11e84e4eabd28e6a434bbe5306cf48ac5c3f3985837a0ba60e1ff4d0cd34a972",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-1-review/results/oracle-mutants-2.json",
+      "bytes": 14925,
+      "sha256": "f356867fd190825aabaeca8d781ce89cd58ce767af92d53e65288fd468a9d4ca",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-1-review/results/oracle-mutants-3.json",
+      "bytes": 19950,
+      "sha256": "907eddc3942a29b2e15b9d8f84984b3e9ed751b5f0f700454aea36e8e218238e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-1-review/test_review.py",
+      "bytes": 11885,
+      "sha256": "5f0d33b3ab021d03cf11278008601720b1496e0e5e7853f6edffb032dddc2a35",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/README.ar.md",
+      "bytes": 8893,
+      "sha256": "6b1cf9e653e3622c4d9242dbe490f59ee353dc729a92fcef166c3b3e535bbdc1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/check_seal.py",
+      "bytes": 2722,
+      "sha256": "c7c139cc804606e945f496030e5ec5010525e9525aa144d23cb680e42e6fb4b8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/eligibility.py",
+      "bytes": 4146,
+      "sha256": "bf1fcd8be588ebf74823cef5ba37da1c39107bbc0bfa51cd49530191feb3659a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/ELIGIBILITY.json",
+      "bytes": 2035,
+      "sha256": "58eabadf1ae3a5c2b9d6fb17e3a4413d8c0570670d229c28fd8bbf7d5ba8a6f9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/EXPECTED.json",
+      "bytes": 115777,
+      "sha256": "6c15f7fd200c72fbc891d6a00e93fea1cd9859bbcae49f2403323987c148d8ba",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H01/financial-position.csv",
+      "bytes": 5724,
+      "sha256": "50a71e6657004e319f2a1a8925910ffb6c2c9b295e9c5a79cec560e385766c02",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H01/presentation-evidence.csv",
+      "bytes": 4636,
+      "sha256": "e9f7181cbf6a819cf240f624d104efd701464d402c9703b83cb10a43fbb3f495",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H01/proposed-mapping.csv",
+      "bytes": 3011,
+      "sha256": "6369023326fc069c8b225e62952c53d3758d848caad6ba254c2b6388d9e8f175",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H01/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H01/trial-balance.csv",
+      "bytes": 3107,
+      "sha256": "331e8cedbac6160d6d627fb82061ecc2886d9d4fe0d5c9c61734f5879d2a972b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H02/financial-position.csv",
+      "bytes": 5792,
+      "sha256": "5b4f74cc17a08df9aed8a1e165a1625b275e53efc0947eaa6ad705889cc0e347",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H02/presentation-evidence.csv",
+      "bytes": 5508,
+      "sha256": "0b7dd3978b000de508c7b004d4f2dc3126b41d4cf1c90614f02c6c4450e38dd2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H02/proposed-mapping.csv",
+      "bytes": 3677,
+      "sha256": "b225732ffa1400194b7c914c581a8aa8af31c8242c15059b779144ca4496fe48",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H02/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H02/trial-balance.csv",
+      "bytes": 3773,
+      "sha256": "7e5544c0045d5d463c9738e0ec0b5091182793ce14487d38983d6c99f6465311",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H03/financial-position.csv",
+      "bytes": 1900,
+      "sha256": "df10259be8e697aaebd4554cbbf29f8a18bb5d5d2d7639fa700b635339cb755a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H03/presentation-evidence.csv",
+      "bytes": 2730,
+      "sha256": "b7cfedf48b38fca7027089e2f41cbff7a3031347761b5f358859be2279580920",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H03/proposed-mapping.csv",
+      "bytes": 2005,
+      "sha256": "090b0536a5d583f3a9744d4d0af76eb1dba19b069e16bb264443a2d8d94d1b2b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H03/scope.json",
+      "bytes": 358,
+      "sha256": "16dfcf7fea104cdc3639a51e4f1acc939c30366510773167fa73913b58340270",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H03/trial-balance.csv",
+      "bytes": 2066,
+      "sha256": "61b1ceb21dbff468139816d57383bda00f10385f9367ad04f62b605d68ea3a35",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H04/financial-position.csv",
+      "bytes": 4245,
+      "sha256": "baeb829b6b14f7cd91466372eeac55ba8ca3504fde1054c93e8cb58725197564",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H04/presentation-evidence.csv",
+      "bytes": 4636,
+      "sha256": "0eb5286dfbd00df35b975226e5679062249170f47d0928ff8547cce9d75abffa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H04/proposed-mapping.csv",
+      "bytes": 3011,
+      "sha256": "b1705167eba29406480bc9107a9b82b50eeecae2d74d0d9b935cfbbb2a7f9d7f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H04/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H04/trial-balance.csv",
+      "bytes": 3107,
+      "sha256": "638c83329f603d2ae90c20dddda9c92398b1393c06e514465e5cc5eb68f8ff76",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H05/financial-position.csv",
+      "bytes": 4615,
+      "sha256": "c1fcdf233f6c44782f6996b5e579a88a1688cbbeaf5dca33539cdda5b2879954",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H05/presentation-evidence.csv",
+      "bytes": 4370,
+      "sha256": "991343f31a7418c4e044b6b1ea5c7a622fc59c6363a36e673de4b62599948337",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H05/proposed-mapping.csv",
+      "bytes": 2844,
+      "sha256": "b07dc3351ab3849c088f4f60fe35507cdb646337f8d20d9a28eca397ef66097e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H05/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H05/trial-balance.csv",
+      "bytes": 3107,
+      "sha256": "a51956216a608748c03343dba0ce05bab78128b911e2bf30b3d10ee93dbbabeb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H06/financial-position.csv",
+      "bytes": 5979,
+      "sha256": "e18ddc8c05e465df298d509b38eda2b9890608f4a174af538b6404bf4475c3a0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H06/presentation-evidence.csv",
+      "bytes": 5482,
+      "sha256": "6955ce334d39626229bd0ea655a3594d25e6d1ada6860b952ab0ea40873a3285",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H06/proposed-mapping.csv",
+      "bytes": 3677,
+      "sha256": "1b62937e8136ff83d0c765691ee6a12b77902212a8bce1233d9443f4762a54ad",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H06/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H06/trial-balance.csv",
+      "bytes": 3773,
+      "sha256": "79e2c0df61e4624542afd3c82f07dd8fcc76086e056dd0322da1e94aec41fc2a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H07/financial-position.csv",
+      "bytes": 5731,
+      "sha256": "cf72775602b8f6088bc62ac0ee7f98ff7077ea9b60c035cd3e991c79334cd2e3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H07/presentation-evidence.csv",
+      "bytes": 5464,
+      "sha256": "dae3741e8b2b618b193a16af78215bfc286350ca9511884086a84afd3d3f1275",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H07/proposed-mapping.csv",
+      "bytes": 3659,
+      "sha256": "500bb949cb47205f55ffe040adabeca206470d7d72fd73c5c69efe64b054a3e4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H07/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H07/trial-balance.csv",
+      "bytes": 3755,
+      "sha256": "fd96cd899c25bf50f8b70017bf461e0ee5626189e2cae6b7c82c8da480cb51d6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H08/financial-position.csv",
+      "bytes": 4820,
+      "sha256": "a4c17cdc8ac0ad151fc228acfd1f15ad4f4ef5bc143cdf2527cd5f027f38b2bd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H08/presentation-evidence.csv",
+      "bytes": 4636,
+      "sha256": "8ff012327abb1139e92ab1720e937f8998cdb6a18c354852a66f64b9d3d8165c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H08/proposed-mapping.csv",
+      "bytes": 3011,
+      "sha256": "a1f0ac9bcd8c126765c666dadfe454cf7e5916012cf6da0b022b66d4462ec296",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H08/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H08/trial-balance.csv",
+      "bytes": 3107,
+      "sha256": "638c83329f603d2ae90c20dddda9c92398b1393c06e514465e5cc5eb68f8ff76",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H09/financial-position.csv",
+      "bytes": 4803,
+      "sha256": "7d2769426a6d7626d2d09c8bfcc16d05b5b728849ac65727f33f19abfef8f118",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H09/presentation-evidence.csv",
+      "bytes": 4635,
+      "sha256": "4aad560e92d2eaed52f55635e699dad40f3f978fd19abef1b9b390608f524ae4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H09/proposed-mapping.csv",
+      "bytes": 3010,
+      "sha256": "490ef9f6d5e16b32493c8eb2b6d1b88d0c6efe54be3b2bfdd87bb5a5f06bbcdc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H09/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H09/trial-balance.csv",
+      "bytes": 3107,
+      "sha256": "a5babecdfbc21752cd6dc76bf92f4bfa31e0d44fcfb9a2162cfae3eb1437e154",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H10/financial-position.csv",
+      "bytes": 4804,
+      "sha256": "9386c5d443a6eb438636a194f2e7839c17ec4e56309c59f15d1aade24c345cc4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H10/presentation-evidence.csv",
+      "bytes": 4906,
+      "sha256": "9953270f0087b16625bee0fc50dfc9966fb9d1602fabe5fba93eb4b4ecbc6a49",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H10/proposed-mapping.csv",
+      "bytes": 3011,
+      "sha256": "5713d8384a7daf4ac42eb29cae6531e273702239817ade1d6a50c2e79416f4d8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H10/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H10/trial-balance.csv",
+      "bytes": 3107,
+      "sha256": "a51956216a608748c03343dba0ce05bab78128b911e2bf30b3d10ee93dbbabeb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H11/financial-position.csv",
+      "bytes": 4756,
+      "sha256": "332d8d3cf65c08d305cd928f26e9163e23451c233cd98eebfa8c7ab196a7b67e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H11/presentation-evidence.csv",
+      "bytes": 4636,
+      "sha256": "dc403fd06047d23511460f654468a5b17bda0101498f106f1f1f8e59227c4a29",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H11/proposed-mapping.csv",
+      "bytes": 3011,
+      "sha256": "b1705167eba29406480bc9107a9b82b50eeecae2d74d0d9b935cfbbb2a7f9d7f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H11/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H11/trial-balance.csv",
+      "bytes": 3674,
+      "sha256": "f7d22d787b0df7888a0cf83c3ed1e2b0e5485f92a4c54fa8401884556831735c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H12/financial-position.csv",
+      "bytes": 5769,
+      "sha256": "003bcf4e394b5d02f05f0c376f132147700dda718a9fd0a25f1a25b3817efa11",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H12/presentation-evidence.csv",
+      "bytes": 5487,
+      "sha256": "15617d0db1a82e66a8285d4bd20cda9eeb0fe9b3d2a6d0e0e546a47fe52bac68",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H12/proposed-mapping.csv",
+      "bytes": 3678,
+      "sha256": "f6792ed5132eafd13fa6969ee3109e2d5de98c885bebc4413bc8d0293c73e6c6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H12/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H12/trial-balance.csv",
+      "bytes": 3773,
+      "sha256": "79e2c0df61e4624542afd3c82f07dd8fcc76086e056dd0322da1e94aec41fc2a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H13/financial-position.csv",
+      "bytes": 4820,
+      "sha256": "a4c17cdc8ac0ad151fc228acfd1f15ad4f4ef5bc143cdf2527cd5f027f38b2bd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H13/presentation-evidence.csv",
+      "bytes": 4362,
+      "sha256": "6b565fac425f0151f148f02cfc385310211d8b534459ce3f462f3d960e9561ac",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H13/proposed-mapping.csv",
+      "bytes": 3019,
+      "sha256": "c53f473836641ba49db4574b9bb36d01095857b09464f6f64a2d1dad76b9a2c4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H13/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H13/trial-balance.csv",
+      "bytes": 3107,
+      "sha256": "638c83329f603d2ae90c20dddda9c92398b1393c06e514465e5cc5eb68f8ff76",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H14/financial-position.csv",
+      "bytes": 2614,
+      "sha256": "888b2db77db0c8649bda00b5635ecedd4ba39af1a3801da61d3a17c91887b903",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H14/presentation-evidence.csv",
+      "bytes": 2992,
+      "sha256": "6fbc3599820caec66c5b5a7e34793725e91f4f93261f190871fcc035263f2f36",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H14/proposed-mapping.csv",
+      "bytes": 2205,
+      "sha256": "74f46cd626f968acc72eeec746430a7c8a2b253209f1f0f38f669f668e949bdc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H14/scope.json",
+      "bytes": 358,
+      "sha256": "16dfcf7fea104cdc3639a51e4f1acc939c30366510773167fa73913b58340270",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H14/trial-balance.csv",
+      "bytes": 2267,
+      "sha256": "3c11513e2c457c6246e19b6283f616be2f899bdd763dac61dc037af7b2e595e7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H15/financial-position.csv",
+      "bytes": 4023,
+      "sha256": "7ab86d12bb25e1c24e9908ee2443aafd704486653d0ef5e0807f589b19583896",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H15/presentation-evidence.csv",
+      "bytes": 1021,
+      "sha256": "4a4bcf9718ce18814a7f3e798613f92a1da07678cfb34c5fafccf6ef1ca774a4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H15/proposed-mapping.csv",
+      "bytes": 724,
+      "sha256": "1683dec1fea9657318d6b509dc2585f365f6b6166bd220b9ea5d27d2871a2a6f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H15/scope.json",
+      "bytes": 338,
+      "sha256": "dc146267a3826a364a321e1d73a44ba2505ac172623004f1e9fbf2d612099d96",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H15/trial-balance.csv",
+      "bytes": 722,
+      "sha256": "d95bfb71f38e57ec86b5e2ae340400d6d1344958d572593acf67741595220248",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H16/financial-position.csv",
+      "bytes": 5114,
+      "sha256": "c5ef729e6517c7d5eaecf07beb17bb19807b60584a717b5610a852794a2098f2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H16/presentation-evidence.csv",
+      "bytes": 1209,
+      "sha256": "ccc9a3d21b8e848d6cbc9becae15879dde9e186fa6a143400f0f4653a485705e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H16/proposed-mapping.csv",
+      "bytes": 872,
+      "sha256": "5f1bda0c06e4431f16b9ed2e20c8a9c8af496da5ade63ab0675cddfa5c9028c6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H16/scope.json",
+      "bytes": 338,
+      "sha256": "dc146267a3826a364a321e1d73a44ba2505ac172623004f1e9fbf2d612099d96",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H16/trial-balance.csv",
+      "bytes": 870,
+      "sha256": "df9a094cf2e7ece6b32c74516fad52100b2379e55f1be020c8de2eaea7770b2a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H17/financial-position.csv",
+      "bytes": 12938,
+      "sha256": "db381aeacad5e2b71db86532874b97332e0e5ab389450f99a04cc9852bb58159",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H17/presentation-evidence.csv",
+      "bytes": 43132,
+      "sha256": "e68046d797220da144f703641e0700538ac4df59bb789e784f9176f0a805ae22",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H17/proposed-mapping.csv",
+      "bytes": 29452,
+      "sha256": "4d8e51359149e9c055d68e070f54332d62c8a9344d0fd7e28ee3541a58bd2b29",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H17/scope.json",
+      "bytes": 340,
+      "sha256": "72c720e4b2cf91f7fca4d39bbc550827713b46b40f81dc3689a1b46a87e5e699",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H17/trial-balance.csv",
+      "bytes": 28872,
+      "sha256": "4f1274a637d73a42aa093d6fdc6866b8bda068f1ad53a7af26e373c5b6815984",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H18/financial-position.csv",
+      "bytes": 10846,
+      "sha256": "66a27f635e849a6793d636e8e3ddddeec6b349eea3ae6829944d88a399ba2aeb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H18/presentation-evidence.csv",
+      "bytes": 43132,
+      "sha256": "e00aabac8f474e2640b31fd235085b0baaf0531fceb5effa247b00fdb4ea5133",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H18/proposed-mapping.csv",
+      "bytes": 29452,
+      "sha256": "95d5f3f112513645e8339642a1c92a464c6052cb9cec4546d7c778eb2c59b61f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H18/scope.json",
+      "bytes": 340,
+      "sha256": "72c720e4b2cf91f7fca4d39bbc550827713b46b40f81dc3689a1b46a87e5e699",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H18/trial-balance.csv",
+      "bytes": 28872,
+      "sha256": "c545e2d1241d0830f7f4f50a20cc3193ec508cde6c656803f76cf681cb9792a5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H19/financial-position.csv",
+      "bytes": 1277,
+      "sha256": "5738c5ee76e1e9fc82e1e98a7f92d672210cb804cb02009379258da4fc150d05",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H19/presentation-evidence.csv",
+      "bytes": 1268,
+      "sha256": "6c6b35638a8246eecbe11a6a01197a30c8d42db277185b5c134970a8ddfcfd98",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H19/proposed-mapping.csv",
+      "bytes": 887,
+      "sha256": "b711aa3120b2ff956ac5cd9a95b52034be004d05244d28c0ea21c6a2fa73749b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H19/scope.json",
+      "bytes": 339,
+      "sha256": "ad4c15997241f309afa04ac8ba842ee473d472ba868fd3825dad6993fda7bd99",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H19/trial-balance.csv",
+      "bytes": 922,
+      "sha256": "ad6d3f9ae8f818c47830c1cb237ca8f93fe3dfe35b5e9e8e8ae03ad1c8605dac",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H20/financial-position.csv",
+      "bytes": 1071,
+      "sha256": "648129bc9b44d645c2c4c3a64e484e86892d103c926bd724eb6126199890b1d5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H20/presentation-evidence.csv",
+      "bytes": 1268,
+      "sha256": "25c1a91c8b8fd32041c9fd411c1d0f93ee2de1dcc6b27758dc4e10fadd07daf0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H20/proposed-mapping.csv",
+      "bytes": 887,
+      "sha256": "fb80d16a78c2012dfb619b8081f0b989775bae3aff993d6254b8925174023f64",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H20/scope.json",
+      "bytes": 339,
+      "sha256": "ad4c15997241f309afa04ac8ba842ee473d472ba868fd3825dad6993fda7bd99",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H20/trial-balance.csv",
+      "bytes": 922,
+      "sha256": "b3db4e2fc9b1e030001b5b25c9c127bbf945e12da444a85f6661a536ad546141",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H21/financial-position.csv",
+      "bytes": 5769,
+      "sha256": "7e1d37a334a12160bb2a26865849b77a3b3a21f533abe8e9777bd27f203bd2a4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H21/presentation-evidence.csv",
+      "bytes": 4636,
+      "sha256": "0eb5286dfbd00df35b975226e5679062249170f47d0928ff8547cce9d75abffa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H21/proposed-mapping.csv",
+      "bytes": 3011,
+      "sha256": "b1705167eba29406480bc9107a9b82b50eeecae2d74d0d9b935cfbbb2a7f9d7f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H21/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H21/trial-balance.csv",
+      "bytes": 3107,
+      "sha256": "638c83329f603d2ae90c20dddda9c92398b1393c06e514465e5cc5eb68f8ff76",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H22/financial-position.csv",
+      "bytes": 4804,
+      "sha256": "9386c5d443a6eb438636a194f2e7839c17ec4e56309c59f15d1aade24c345cc4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H22/presentation-evidence.csv",
+      "bytes": 4636,
+      "sha256": "66d8d6dcbc683db0cf772abf236ec839b4580ab34b0b4d0ce105bf304bc47393",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H22/proposed-mapping.csv",
+      "bytes": 3011,
+      "sha256": "5713d8384a7daf4ac42eb29cae6531e273702239817ade1d6a50c2e79416f4d8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H22/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H22/trial-balance.csv",
+      "bytes": 3108,
+      "sha256": "1c808ef28d59ebb06eeee4a97448faaf90a56dcb0b02d2062f20c5f085c03ec8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H23/financial-position.csv",
+      "bytes": 5733,
+      "sha256": "acee414a222438364d25a914eb04b293c8c33580e57147f6eb0d550f62787999",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H23/presentation-evidence.csv",
+      "bytes": 5464,
+      "sha256": "f4e12487c50b1b18f11c558d663ba432afdfd26b6fd3a44a23aaa182d1364c4a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H23/proposed-mapping.csv",
+      "bytes": 3659,
+      "sha256": "c967617c66ee1b9559883918535a37f94088d1225b3ae0f541cf8e56ef82d3c4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H23/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H23/trial-balance.csv",
+      "bytes": 3755,
+      "sha256": "acd43c6aa67f09643de1936c0a039aae4e19269885222019e5de9760e252f2c8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H24/financial-position.csv",
+      "bytes": 4820,
+      "sha256": "f34ea0006615bf85631d0a43dd86017b403c1d090aec625af483b164bdd893a0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H24/presentation-evidence.csv",
+      "bytes": 4636,
+      "sha256": "0eb5286dfbd00df35b975226e5679062249170f47d0928ff8547cce9d75abffa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H24/proposed-mapping.csv",
+      "bytes": 3011,
+      "sha256": "b1705167eba29406480bc9107a9b82b50eeecae2d74d0d9b935cfbbb2a7f9d7f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H24/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H24/trial-balance.csv",
+      "bytes": 3107,
+      "sha256": "638c83329f603d2ae90c20dddda9c92398b1393c06e514465e5cc5eb68f8ff76",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H25/financial-position.csv",
+      "bytes": 4983,
+      "sha256": "fe740761cf7fa46ac3961aeca609b93ff29c6823d3439cebef04c12f5511742b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H25/presentation-evidence.csv",
+      "bytes": 4636,
+      "sha256": "0eb5286dfbd00df35b975226e5679062249170f47d0928ff8547cce9d75abffa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H25/proposed-mapping.csv",
+      "bytes": 3011,
+      "sha256": "b1705167eba29406480bc9107a9b82b50eeecae2d74d0d9b935cfbbb2a7f9d7f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H25/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H25/trial-balance.csv",
+      "bytes": 3107,
+      "sha256": "638c83329f603d2ae90c20dddda9c92398b1393c06e514465e5cc5eb68f8ff76",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H26/financial-position.csv",
+      "bytes": 5766,
+      "sha256": "08ed2fde038273bc0094ec2d5487095a2540276402cc4a6f22c86d51d41f753d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H26/presentation-evidence.csv",
+      "bytes": 5482,
+      "sha256": "6955ce334d39626229bd0ea655a3594d25e6d1ada6860b952ab0ea40873a3285",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H26/proposed-mapping.csv",
+      "bytes": 3677,
+      "sha256": "1b62937e8136ff83d0c765691ee6a12b77902212a8bce1233d9443f4762a54ad",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H26/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H26/trial-balance.csv",
+      "bytes": 3776,
+      "sha256": "203242ded5747cd933202d9b117edf40bd5df6b76ade0b2493ef4fd09cd559c7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H27/financial-position.csv",
+      "bytes": 5724,
+      "sha256": "50a71e6657004e319f2a1a8925910ffb6c2c9b295e9c5a79cec560e385766c02",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H27/presentation-evidence.csv",
+      "bytes": 5464,
+      "sha256": "f4e12487c50b1b18f11c558d663ba432afdfd26b6fd3a44a23aaa182d1364c4a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H27/proposed-mapping.csv",
+      "bytes": 3659,
+      "sha256": "c967617c66ee1b9559883918535a37f94088d1225b3ae0f541cf8e56ef82d3c4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H27/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H27/trial-balance.csv",
+      "bytes": 3755,
+      "sha256": "e242676a736c03f1659507989fcaac040c3ce4d6b53a467a33b6c6593c3f4f54",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H28/financial-position.csv",
+      "bytes": 4804,
+      "sha256": "9386c5d443a6eb438636a194f2e7839c17ec4e56309c59f15d1aade24c345cc4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H28/presentation-evidence.csv",
+      "bytes": 4636,
+      "sha256": "66d8d6dcbc683db0cf772abf236ec839b4580ab34b0b4d0ce105bf304bc47393",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H28/proposed-mapping.csv",
+      "bytes": 3011,
+      "sha256": "9ccbc9a3f1bf70dcd758a95df7eece0753acc10e9bd71bfe9e6a91522a9025b8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H28/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H28/trial-balance.csv",
+      "bytes": 3107,
+      "sha256": "a51956216a608748c03343dba0ce05bab78128b911e2bf30b3d10ee93dbbabeb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H29/financial-position.csv",
+      "bytes": 4820,
+      "sha256": "191305c91b1d63b929b2b0b36965ea2da7ee014bb522eaa8b4ba84301c20efb5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H29/presentation-evidence.csv",
+      "bytes": 4636,
+      "sha256": "0eb5286dfbd00df35b975226e5679062249170f47d0928ff8547cce9d75abffa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H29/proposed-mapping.csv",
+      "bytes": 3011,
+      "sha256": "b1705167eba29406480bc9107a9b82b50eeecae2d74d0d9b935cfbbb2a7f9d7f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H29/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H29/trial-balance.csv",
+      "bytes": 3107,
+      "sha256": "638c83329f603d2ae90c20dddda9c92398b1393c06e514465e5cc5eb68f8ff76",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H30/financial-position.csv",
+      "bytes": 4804,
+      "sha256": "371c173d4e49ccaa9e3520991a536ea9319b987dbedbdd198991410b7f10c4c1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H30/presentation-evidence.csv",
+      "bytes": 4636,
+      "sha256": "0eb5286dfbd00df35b975226e5679062249170f47d0928ff8547cce9d75abffa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H30/proposed-mapping.csv",
+      "bytes": 3011,
+      "sha256": "b1705167eba29406480bc9107a9b82b50eeecae2d74d0d9b935cfbbb2a7f9d7f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H30/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H30/trial-balance.csv",
+      "bytes": 3107,
+      "sha256": "638c83329f603d2ae90c20dddda9c92398b1393c06e514465e5cc5eb68f8ff76",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H31/financial-position.csv",
+      "bytes": 5766,
+      "sha256": "08ed2fde038273bc0094ec2d5487095a2540276402cc4a6f22c86d51d41f753d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H31/presentation-evidence.csv",
+      "bytes": 5482,
+      "sha256": "6955ce334d39626229bd0ea655a3594d25e6d1ada6860b952ab0ea40873a3285",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H31/proposed-mapping.csv",
+      "bytes": 3677,
+      "sha256": "1b62937e8136ff83d0c765691ee6a12b77902212a8bce1233d9443f4762a54ad",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H31/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H31/trial-balance.csv",
+      "bytes": 3991,
+      "sha256": "c9a405b7b7fc040d92cabd569a789601ebaffe147bbe48183a6aa9e9b9638e2c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H32/financial-position.csv",
+      "bytes": 5724,
+      "sha256": "50a71e6657004e319f2a1a8925910ffb6c2c9b295e9c5a79cec560e385766c02",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H32/presentation-evidence.csv",
+      "bytes": 5464,
+      "sha256": "f4e12487c50b1b18f11c558d663ba432afdfd26b6fd3a44a23aaa182d1364c4a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H32/proposed-mapping.csv",
+      "bytes": 3856,
+      "sha256": "e62f35f0e9b6a3a32951fd44c2d775dde823c73cc25041b7c49b3f3adef530f3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H32/scope.json",
+      "bytes": 337,
+      "sha256": "edc459571cce0c5fb2ee117a373b58f6ebdf464b6c5c67260197c909096fadc9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/H32/trial-balance.csv",
+      "bytes": 3755,
+      "sha256": "acd43c6aa67f09643de1936c0a039aae4e19269885222019e5de9760e252f2c8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/INPUT-MANIFEST.json",
+      "bytes": 21865,
+      "sha256": "19632af781dc53c9001ce16e9b357ce34fdd6d3eee7da2027a34bd70680583f3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/SEAL.json",
+      "bytes": 1616,
+      "sha256": "f61e1c158ab46608950bfb90eecd81f4ed9c49dc478d4a0afc3e7995085c8b50",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/VERIFY.json",
+      "bytes": 21332,
+      "sha256": "3305a2249f9a0a3133bb231d803eafb1dec2b0366c775bc0eb2904e63c1c7a90",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/frozen/stories.json",
+      "bytes": 811085,
+      "sha256": "c7b71464778a42eccb74a0c1ece95a3390ab7d52739669ddca0b5ab0357f4519",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/judge.py",
+      "bytes": 1966,
+      "sha256": "df114276cc914cc18d623e3491f308d0ded255f3927c4e0d8fca854e38a70f08",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/render.go",
+      "bytes": 659,
+      "sha256": "808558afecf9ab76ca86209e5bfc3f7d6efb29b1f6d8d4e6317a43a8ac08dd18",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/render.pl",
+      "bytes": 724,
+      "sha256": "c39348843f21ca0dc907b71651f972d595c853801668be9a053ae405398d1d99",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/render.py",
+      "bytes": 4608,
+      "sha256": "a34f4a08dce7ea2c239a363e9571e9e0d2e02cd70197383a6f5a4dea30e4d890",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/render.rb",
+      "bytes": 365,
+      "sha256": "548a88cacb8a8b908707e07e3e9c9549b400e0119a40cf16924168a47b6c2f15",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/render.rs",
+      "bytes": 1883,
+      "sha256": "b9d77b7d4102b97d9d932819a0a8b0ebd071f5bb76588e0a3eb323111cbf4a63",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/seal.py",
+      "bytes": 2339,
+      "sha256": "ba3fef675c84896860bac8fdd884194fca90c124d09102c926ec510610aa007d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/stories.py",
+      "bytes": 32008,
+      "sha256": "10f915a1c375da621c706e712342347605b1ef61974a7fd9e61132e3dec5afc4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/test_intent.py",
+      "bytes": 2143,
+      "sha256": "ea8c06d2da0d506570d7f4454bbbbe2ffe70dba78040f435a41c5b284bf95575",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fin-hierarchy-holdout-h1/verify.py",
+      "bytes": 6993,
+      "sha256": "4cd681211c27336823a10424b47ea2b6605adcf3b303de5196e69d663c771769",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/FIN-1-REVIEW.ar.md",
+      "bytes": 11060,
+      "sha256": "9b61f0b7d51867821db886965982cea9da89ababb85814ef2f13ce04929981d4",
       "kind": "text"
     }
   ],

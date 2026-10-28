@@ -356,6 +356,9 @@ jobs:
           pnpm test:glt-sections:mutations
           pnpm test:glt-sections:h1-seal
           pnpm test:glt-sections:h1-run
+          pnpm test:fin-hierarchy:review
+          pnpm test:fin-hierarchy:oracle-mutants
+          pnpm test:fin-hierarchy:h1-seal
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations

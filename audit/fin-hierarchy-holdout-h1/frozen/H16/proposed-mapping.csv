@@ -1,0 +1,4 @@
+"Mapping ID","Account ID","Complete dimensions","Line ID","Sign","Evidence ID","Entity","Ledger","Currency","Currency basis","Posting status","Posting layer","Period start","Period end","As of","Chart version","Map version","Closing basis"
+"QIM-M001","10-01","unit=HOLD","DEEP-CASH","debit-positive","QIM-E001","SYN-QIMMA-HOLDING","HOLD-1","SAR","functional","posted","actual","2027-01-01","2027-03-31","2027-03-31","HCOA-1","HMAP-1","post-closing"
+"QIM-M002","40-01","unit=HOLD","LOAN-HOLD","credit-positive","QIM-E002","SYN-QIMMA-HOLDING","HOLD-1","SAR","functional","posted","actual","2027-01-01","2027-03-31","2027-03-31","HCOA-1","HMAP-1","post-closing"
+"QIM-M003","50-01","unit=HOLD","CAP-HOLD","credit-positive","QIM-E003","SYN-QIMMA-HOLDING","HOLD-1","SAR","functional","posted","actual","2027-01-01","2027-03-31","2027-03-31","HCOA-1","HMAP-1","post-closing"

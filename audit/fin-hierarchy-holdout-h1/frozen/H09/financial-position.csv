@@ -1,0 +1,26 @@
+Closing basis,Map version,Chart version,As of,Period end,Period start,Posting layer,Posting status,Currency basis,Currency,Ledger,Entity,Amount,Line class,Line label,Kind,Parent ID,Node ID
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,,,قائمة المركز المالي (اصطناعية),title,,BS
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,684500.00,noncurrent-asset,الأصول غير المتداولة,parent,,NCA
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,639500.00,noncurrent-asset,الممتلكات والآلات والمعدات,parent,NCA,PPE
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,850000.00,noncurrent-asset,التكلفة,leaf,PPE,PPE-COST
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,-210500.00,noncurrent-asset,مجمع الإهلاك,leaf,PPE,PPE-DEP
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,45000.00,noncurrent-asset,أصول غير ملموسة,leaf,NCA,INTANG
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,455678.16,current-asset,الأصول المتداولة,parent,,CA
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,151851.00,current-asset,النقد وما في حكمه,parent,CA,CASH
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,150351.00,current-asset,أرصدة البنوك,leaf,CASH,BANK
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,1500.00,current-asset,صندوق المصروفات النثرية,leaf,CASH,PETTY
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,93827.16,current-asset,الذمم المدينة,parent,CA,REC
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,98765.43,current-asset,ذمم العملاء,leaf,REC,AR
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,-4938.27,current-asset,مخصص الخسائر الائتمانية المتوقعة,leaf,REC,ALLOW
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,210000.00,current-asset,المخزون,leaf,CA,INVENT
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,0.00,current-asset,مصروفات مدفوعة مقدمًا,leaf,CA,PREPAID
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,412000.00,noncurrent-liability,المطلوبات غير المتداولة,parent,,NCL
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,400000.00,noncurrent-liability,قرض طويل الأجل,leaf,NCL,LOAN
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,12000.00,noncurrent-liability,خصم إصدار القرض غير المطفأ,leaf,NCL,LOANDISC
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,186178.16,current-liability,المطلوبات المتداولة,parent,,CL
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,145321.09,current-liability,ذمم الموردين,leaf,CL,AP
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,23456.78,current-liability,مصروفات مستحقة,leaf,CL,ACCR
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,17400.29,current-liability,ضريبة القيمة المضافة المستحقة,leaf,CL,VAT
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,566000.00,equity,حقوق الملكية,parent,,EQ
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,500000.00,equity,رأس المال,leaf,EQ,CAP
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,66000.00,equity,الأرباح المبقاة,leaf,EQ,RE
