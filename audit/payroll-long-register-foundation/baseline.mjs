@@ -50,6 +50,7 @@ const TOTALS = [
   'Total employer',
   'Total net',
 ];
+const byText = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
 const trim = (v) => (v ?? '').replace(/^ +| +$/g, '');
 const filled = (r) => r.filter((v) => trim(v)).length;
 
@@ -240,7 +241,7 @@ const verdict = (r) =>
           ...new Set(
             r.result.issues.filter((x) => x.source === 0).map((x) => x.code),
           ),
-        ].sort(),
+        ].sort(byText),
       };
 
 function compare(story, expected, r, pivot) {
@@ -249,7 +250,7 @@ function compare(story, expected, r, pivot) {
   const issues = r.result ? r.result.issues.filter((x) => x.source === 0) : [];
   const keys = [
     ...new Set([...Object.keys(expected.employees ?? {}), ...pivot.keys()]),
-  ].sort();
+  ].sort(byText);
   [...pivot.keys()].forEach((key, i) => {
     pivot.get(key).row = i + 2;
   });
@@ -260,7 +261,7 @@ function compare(story, expected, r, pivot) {
     const codes = p
       ? [
           ...new Set(issues.filter((x) => x.row === p.row).map((x) => x.code)),
-        ].sort()
+        ].sort(byText)
       : [];
     const product = !p
       ? 'not in the fold'
