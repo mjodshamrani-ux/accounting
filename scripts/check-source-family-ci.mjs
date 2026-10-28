@@ -339,6 +339,10 @@ const separate = {
     'test:bank-cycle:browser',
     'test:bank-cycle:c4-browser',
   ],
+  'intercompany-batch-browser': ['test:ic-batch:browser'],
+  'intercompany-batch-interface-mutations': [
+    'test:ic-batch:interface-mutations',
+  ],
   'bank-statement-holdout': [
     'test:bank-statement:g6-holdout',
     'test:bank-statement:g6-browser',

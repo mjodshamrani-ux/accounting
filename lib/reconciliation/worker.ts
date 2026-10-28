@@ -11,6 +11,7 @@ import { replayGateway, saveGateway, restoreGateway, exportGateway } from './pay
 import { readGatewayFile } from './payment-gateway-source.ts';
 import { replayIntercompany, saveIntercompany, restoreIntercompany, exportIntercompany } from './intercompany-io.ts';
 import { readIntercompanyFile } from './intercompany-source.ts';
+import { replayIntercompanyBatches } from './intercompany-batch-io.ts';
 import { replayFinancialPosition, saveFinancialPosition, restoreFinancialPosition, exportFinancialPosition } from './tb-financial-io.ts';
 import {
   replayBankAdjustments,
@@ -133,6 +134,7 @@ self.onmessage = async (event: MessageEvent) => {
     else if (action === 'intercompany-save') value = await saveIntercompany(payload);
     else if (action === 'intercompany-restore') value = await restoreIntercompany(payload.buffer);
     else if (action === 'intercompany-export') value = await exportIntercompany(payload.state, payload.result);
+    else if (action === 'intercompany-batch-reconcile') value = await replayIntercompanyBatches(payload);
     else if (action === 'tb-financial-reconcile') value = await replayFinancialPosition(payload);
     else if (action === 'tb-financial-save') value = await saveFinancialPosition(payload);
     else if (action === 'tb-financial-restore') value = await restoreFinancialPosition(payload.buffer);

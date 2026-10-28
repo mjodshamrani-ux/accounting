@@ -2,6 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readIntercompanyFile } from '../lib/reconciliation/intercompany-source.ts';
 import {
+  IC_HEADERS,
+  IC_SCOPE_HEADERS,
+} from '../lib/reconciliation/intercompany.ts';
+import {
   IC_BATCH_HEADERS,
   IC_BATCH_VERSION,
   reconcileIntercompanyBatches,
@@ -696,4 +700,12 @@ void test('IC batches: two relations of one pair that offset each other are both
       ['difference', -4000],
     ],
   );
+});
+
+void test('IC batches: the ledger and scope headers are those of intercompany-ledger-1', () => {
+  assert.deepEqual(IC_BATCH_HEADERS['entity-ledger'], [...IC_HEADERS[0]]);
+  assert.deepEqual(IC_BATCH_HEADERS['batch-declaration'], [
+    'Batch ID',
+    ...IC_SCOPE_HEADERS,
+  ]);
 });

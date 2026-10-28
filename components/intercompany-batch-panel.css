@@ -1,0 +1,38 @@
+/* The batch path's source cards, drawn as the workspace's own cards but not
+   counted among its declared single-pair source roles. */
+.reconciliation-workspace .workspace-batch-source {
+  position: relative;
+  padding: 24px;
+  margin: 0;
+  border: 1px solid #dbe4f2;
+  border-radius: 17px;
+  background: linear-gradient(155deg, #fff 10%, #f4f8ff);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.reconciliation-workspace .workspace-batch-source legend {
+  float: inline-start;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 18px;
+}
+.reconciliation-workspace .workspace-batch-source legend + * {
+  clear: both;
+}
+.reconciliation-workspace .workspace-batch-source > p {
+  color: #63718a;
+  font-size: 13px;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+}
+.intercompany-batch > summary {
+  display: list-item;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 650;
+}
+.intercompany-batch [data-ic-batch] {
+  border-top: 1px solid #dbe4f2;
+  padding-block: 12px;
+}

@@ -20,6 +20,11 @@ import {
   type IntercompanyInput,
 } from './intercompany.ts';
 import {
+  IC_BATCH_VERSION,
+  reconcileIntercompanyBatches,
+  type IntercompanyBatchInput,
+} from './intercompany-batch.ts';
+import {
   reconcileFinancialPosition,
   type FinancialInput,
 } from './tb-financial.ts';
@@ -99,6 +104,7 @@ export const WORKER_ACTIONS = [
   'intercompany-save',
   'intercompany-restore',
   'intercompany-export',
+  'intercompany-batch-reconcile',
   'tb-financial-reconcile',
   'tb-financial-save',
   'tb-financial-restore',
@@ -527,6 +533,43 @@ export function validateWorkerValue(
       if (
         JSON.stringify(
           reconcileIntercompany(value.state as unknown as IntercompanyInput),
+        ) !== JSON.stringify(value.result)
+      )
+        throw Error('invalid');
+    } catch {
+      throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+    }
+  }
+  if (action === 'intercompany-batch-reconcile') {
+    if (
+      !isRecord(value) ||
+      Object.keys(value).sort().join('|') !== 'result|state' ||
+      !isRecord(value.state) ||
+      !isRecord(value.result) ||
+      value.result.version !== IC_BATCH_VERSION ||
+      typeof value.result.context !== 'string' ||
+      !Array.isArray(value.state.files) ||
+      !Array.isArray(value.result.batches)
+    )
+      throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+    for (const file of value.state.files) {
+      assertSourceFile(file);
+      if (
+        !(file.original instanceof ArrayBuffer) ||
+        !/^[a-f0-9]{64}$/.test(file.sha256 ?? '')
+      )
+        throw new Error(
+          'استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.',
+        );
+    }
+    // Recompute every batch from the returned sources before installation, as
+    // for the single pair. Not source authenticity or an accounting approval.
+    try {
+      if (
+        JSON.stringify(
+          reconcileIntercompanyBatches(
+            value.state as unknown as IntercompanyBatchInput,
+          ),
         ) !== JSON.stringify(value.result)
       )
         throw Error('invalid');

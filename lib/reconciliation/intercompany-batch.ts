@@ -1,7 +1,5 @@
 import {
-  IC_HEADERS,
   IC_SCOPE_FIELDS,
-  IC_SCOPE_HEADERS,
   icAmount,
   icDate,
   icSum,
@@ -20,9 +18,52 @@ export const IC_BATCH_ROLES = [
   'entity-ledger',
   'relation-members',
 ] as const;
+// Literal copies of intercompany-ledger-1's scope and ledger headers, which a
+// unit test holds equal: protocol.ts imports both engines, and the existing
+// engine imports protocol.ts, so its constants are not ready when this module
+// is first evaluated.
+const SCOPE_HEADERS = [
+  'Entity A',
+  'Entity B',
+  'Ledger A',
+  'Ledger B',
+  'Account A',
+  'Account B',
+  'Dimensions A',
+  'Dimensions B',
+  'Currency',
+  'Currency basis',
+  'FX policy',
+  'Posting status',
+  'Posting layer',
+  'Period start',
+  'Period end',
+  'As of',
+  'Policy version',
+] as const;
 export const IC_BATCH_HEADERS = {
-  'batch-declaration': ['Batch ID', ...IC_SCOPE_HEADERS],
-  'entity-ledger': [...IC_HEADERS[0]],
+  'batch-declaration': ['Batch ID', ...SCOPE_HEADERS],
+  'entity-ledger': [
+    'Entity',
+    'Counterparty',
+    'Ledger',
+    'Account ID',
+    'Complete dimensions',
+    'Transaction ID',
+    'Counterparty transaction ID',
+    'Posting date',
+    'Debit',
+    'Credit',
+    'Currency',
+    'Currency basis',
+    'FX policy',
+    'Posting status',
+    'Posting layer',
+    'Period start',
+    'Period end',
+    'As of',
+    'Policy version',
+  ],
   'relation-members': [
     'Relation ID',
     'Batch ID',
@@ -127,7 +168,7 @@ const plain = (v: unknown): v is Record<string, unknown> =>
 function fail(code: string): never {
   throw new Error(`IC_BATCH_${code}`);
 }
-const COMMON = IC_SCOPE_HEADERS.slice(8);
+const COMMON = SCOPE_HEADERS.slice(8);
 const valid = (check: () => unknown) => {
   try {
     check();
@@ -625,7 +666,7 @@ export function reconcileIntercompanyBatches(
       id: bid,
       declarations: list.map((x) => ({ source: x.source, row: x.row })),
       scope: Object.fromEntries(
-        IC_SCOPE_FIELDS.map((k, i) => [k, d[IC_SCOPE_HEADERS[i]]]),
+        IC_SCOPE_FIELDS.map((k, i) => [k, d[SCOPE_HEADERS[i]]]),
       ) as IntercompanyBatch['scope'],
       decimals,
       status: 'blocked',
