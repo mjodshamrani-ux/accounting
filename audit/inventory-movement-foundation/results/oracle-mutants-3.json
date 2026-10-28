@@ -1,0 +1,438 @@
+{
+ "faults": 108,
+ "detected": 108,
+ "results": [
+  {
+   "fault": "every-space-trimmed",
+   "detected": true
+  },
+  {
+   "fault": "byte-order-mark-kept",
+   "detected": true
+  },
+  {
+   "fault": "encoding-errors-replaced",
+   "detected": true
+  },
+  {
+   "fault": "text-length-501",
+   "detected": true
+  },
+  {
+   "fault": "minus-prefix-allowed",
+   "detected": true
+  },
+  {
+   "fault": "excel-errors-case-sensitive",
+   "detected": true
+  },
+  {
+   "fault": "format-characters-allowed",
+   "detected": true
+  },
+  {
+   "fault": "other-spaces-allowed",
+   "detected": true
+  },
+  {
+   "fault": "impossible-dates-allowed",
+   "detected": true
+  },
+  {
+   "fault": "arabic-digits-not-read",
+   "detected": true
+  },
+  {
+   "fault": "arabic-decimal-not-read",
+   "detected": true
+  },
+  {
+   "fault": "extra-decimals-allowed",
+   "detected": true
+  },
+  {
+   "fault": "blank-number-is-zero",
+   "detected": true
+  },
+  {
+   "fault": "no-ceiling",
+   "detected": true
+  },
+  {
+   "fault": "minus-everywhere",
+   "detected": true
+  },
+  {
+   "fault": "minus-nowhere",
+   "detected": true
+  },
+  {
+   "fault": "minus-dropped",
+   "detected": true
+  },
+  {
+   "fault": "stray-quote-tolerated",
+   "detected": true
+  },
+  {
+   "fault": "lone-cr-refused",
+   "detected": true
+  },
+  {
+   "fault": "doubled-quotes-kept",
+   "detected": true
+  },
+  {
+   "fault": "header-count-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "header-in-contract-order",
+   "detected": true
+  },
+  {
+   "fault": "repeated-header-read-as-line",
+   "detected": true
+  },
+  {
+   "fault": "repeated-header-in-any-order",
+   "detected": true
+  },
+  {
+   "fault": "first-row-is-the-header",
+   "detected": true
+  },
+  {
+   "fault": "kind-folded",
+   "detected": true
+  },
+  {
+   "fault": "quantity-in-hundredths",
+   "detected": true
+  },
+  {
+   "fault": "sign-on-every-line",
+   "detected": true
+  },
+  {
+   "fault": "sign-on-no-line",
+   "detected": true
+  },
+  {
+   "fault": "unit-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "account-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "kind-holds-nothing",
+   "detected": true
+  },
+  {
+   "fault": "movement-date-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "transfer-origin-allowed",
+   "detected": true
+  },
+  {
+   "fault": "return-transfer-allowed",
+   "detected": true
+  },
+  {
+   "fault": "links-unchecked-elsewhere",
+   "detected": true
+  },
+  {
+   "fault": "only-origins-checked-elsewhere",
+   "detected": true
+  },
+  {
+   "fault": "width-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "width-counts-blank-cells",
+   "detected": true
+  },
+  {
+   "fault": "faulty-lines-excludable",
+   "detected": true
+  },
+  {
+   "fault": "unreadable-line-holds-nothing",
+   "detected": true
+  },
+  {
+   "fault": "excluded-by-movement-date",
+   "detected": true
+  },
+  {
+   "fault": "balances-excludable",
+   "detected": true
+  },
+  {
+   "fault": "dated-by-posting-date",
+   "detected": true
+  },
+  {
+   "fault": "excluded-lines-are-positions",
+   "detected": true
+  },
+  {
+   "fault": "duplicates-allowed",
+   "detected": true
+  },
+  {
+   "fault": "duplicates-ignore-excluded",
+   "detected": true
+  },
+  {
+   "fault": "opening-dates-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "closing-movement-date-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "negative-always-allowed",
+   "detected": true
+  },
+  {
+   "fault": "negative-value-only",
+   "detected": true
+  },
+  {
+   "fault": "unit-conflict-allowed",
+   "detected": true
+  },
+  {
+   "fault": "account-conflict-allowed",
+   "detected": true
+  },
+  {
+   "fault": "two-closings-allowed",
+   "detected": true
+  },
+  {
+   "fault": "two-openings-allowed",
+   "detected": true
+  },
+  {
+   "fault": "transfers-of-any-period",
+   "detected": true
+  },
+  {
+   "fault": "repeated-transfers-allowed",
+   "detected": true
+  },
+  {
+   "fault": "repeated-outs-only",
+   "detected": true
+  },
+  {
+   "fault": "unpaired-allowed",
+   "detected": true
+  },
+  {
+   "fault": "transfer-item-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "transfer-unit-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "transfer-quantity-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "transfer-value-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "unread-sides-equal",
+   "detected": true
+  },
+  {
+   "fault": "mismatch-holds-the-out-side-only",
+   "detected": true
+  },
+  {
+   "fault": "returns-of-any-period",
+   "detected": true
+  },
+  {
+   "fault": "unseen-origin-holds",
+   "detected": true
+  },
+  {
+   "fault": "two-origins-allowed",
+   "detected": true
+  },
+  {
+   "fault": "origin-need-not-read-whole",
+   "detected": true
+  },
+  {
+   "fault": "origin-kind-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "return-in-needs-a-receipt",
+   "detected": true
+  },
+  {
+   "fault": "origin-item-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "origin-unit-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "capacity-by-quantity-only",
+   "detected": true
+  },
+  {
+   "fault": "capacity-by-value-only",
+   "detected": true
+  },
+  {
+   "fault": "capacity-ignores-unread-returns",
+   "detected": true
+  },
+  {
+   "fault": "capacity-holds-the-first-only",
+   "detected": true
+  },
+  {
+   "fault": "run-codes-not-spread",
+   "detected": true
+  },
+  {
+   "fault": "return-in-not-an-inflow",
+   "detected": true
+  },
+  {
+   "fault": "adjustment-out-not-an-outflow",
+   "detected": true
+  },
+  {
+   "fault": "quantity-bridge-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "value-bridge-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "missing-opening-is-zero",
+   "detected": true
+  },
+  {
+   "fault": "missing-codes-unsorted",
+   "detected": true
+  },
+  {
+   "fault": "lines-unsorted",
+   "detected": true
+  },
+  {
+   "fault": "gl-file-holds-nothing",
+   "detected": true
+  },
+  {
+   "fault": "gl-unreadable-holds-nothing",
+   "detected": true
+  },
+  {
+   "fault": "gl-duplicate-allowed",
+   "detected": true
+  },
+  {
+   "fault": "gl-amounts-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "gl-closing-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "gl-debit-signed",
+   "detected": true
+  },
+  {
+   "fault": "gl-opening-unsigned",
+   "detected": true
+  },
+  {
+   "fault": "gl-width-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "position-holds-no-account",
+   "detected": true
+  },
+  {
+   "fault": "inconsistent-position-compared",
+   "detected": true
+  },
+  {
+   "fault": "internal-transfers-counted",
+   "detected": true
+  },
+  {
+   "fault": "every-transfer-internal",
+   "detected": true
+  },
+  {
+   "fault": "absences-swapped",
+   "detected": true
+  },
+  {
+   "fault": "difference-sign-flipped",
+   "detected": true
+  },
+  {
+   "fault": "closing-difference-ignored",
+   "detected": true
+  },
+  {
+   "fault": "transfers-as-receipts",
+   "detected": true
+  },
+  {
+   "fault": "totals-despite-missing",
+   "detected": true
+  },
+  {
+   "fault": "totals-despite-unreadable-lines",
+   "detected": true
+  },
+  {
+   "fault": "unplaced-unsorted",
+   "detected": true
+  },
+  {
+   "fault": "negative-scope-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "period-may-run-backwards",
+   "detected": true
+  },
+  {
+   "fault": "scope-text-unchecked",
+   "detected": true
+  },
+  {
+   "fault": "scope-extra-fields",
+   "detected": true
+  }
+ ]
+}

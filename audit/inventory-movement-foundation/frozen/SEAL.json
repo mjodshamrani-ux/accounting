@@ -1,0 +1,17 @@
+{
+ "schema": "tarasuf-inv2-movement-bridge-seal/1",
+ "statement": "Sealed before any product run on these files. The baseline that follows records the product as it is.",
+ "pins": {
+  "INPUT-MANIFEST.json": "cc0fc6349ee2ac18e1359236473a87a3efee485148b957cb4733c4258b9b1b3f",
+  "EXPECTED.json": "9cc0cf977cb35f399d07386e65704da42bd31992b65f7ab000ab8837b6820747",
+  "VERIFY.json": "909511bbfd519ba7867687c6f1b3d8161f28f7d28ccf464f105c8127933383d1",
+  "contract.json": "d91d1323eca6b3650c9b6cdd1a5d8340a0a62cc373798e7fd1c3f7e41bba4ef6",
+  "stories.py": "384a4cbd18fc813e92d8d842bb2af06ee649d99094ee5d5fe6f84d42bd60147c",
+  "render.py": "afa690e98e39b18474e1b8753d275773bfed2762b6c70384016256d365370685",
+  "render.mjs": "1af8fb99082f52344b3cb81fc2554f39aaa5a34b21e6b53c8f1a8e0a7e724fa9",
+  "oracle.py": "7845c6b14eb4ebc9aa1e21dcfce241423a420b99b1829ceac45d946a5f13f654",
+  "verify.py": "8841c83a3e940933a5eaae7d71202fb0bfbb93c6bd9d8bcb34b494165d014b5c",
+  "test_oracle.py": "eb5596ae76cdda838916c87398730a60e82ca20ab9455a8fb750e3cd7d72b2ef",
+  "mutate_oracle.py": "726e5b23b3bd28da3de0945aa7b9fa17080606799d5d6e08ebd32bf7d34de909"
+ }
+}

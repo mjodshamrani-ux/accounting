@@ -1,0 +1,244 @@
+{
+ "schema": "tarasuf-inv2-movement-bridge-foundation/1",
+ "status": "proposed contract and frozen synthetic foundation before any product support for presented inventory movement bridges",
+ "synthetic": true,
+ "holdout": false,
+ "productEnabled": false,
+ "proposedFamily": "inventory-movement-bridge-1",
+ "existingFamily": "inventory-posted-register-gl-1 and its section, matrix, hierarchy, column and PDF readings, unchanged: one posted value per item and dimensions at one date, every row restating twelve scope fields, compared with a map, policy evidence and GL balances. It has no opening, movements or closing, no transfer, return or adjustment, and no period.",
+ "plan": "docs/roadmap/inventory.ar.md#inv-2-جسور-الحركة-المقدمة--قائمة-الانتظار-بعد-val-1",
+ "challengeIds": [
+  "INV",
+  "CH-06",
+  "CH-07",
+  "CH-08",
+  "CH-09"
+ ],
+ "why": "An accountant closing inventory has a movement report from the stock system, one line per movement: the opening and closing balance of each item in each warehouse and every receipt, issue, transfer, adjustment and return between them, and a GL summary of the inventory accounts. Today the product compares one value per item with the GL and cannot see how the value moved. The dangers INV-2 names are in the bridge: a transfer counted as a receipt in the second warehouse, a transfer whose other side never arrived, a box counted as a piece, a movement posted in another period, a return of another item, a closing value taken from the GL to close a difference, and two GL accounts swapped with the same total.",
+ "claim": "Consistency of one supplied movement register and one supplied GL summary of inventory accounts within one confirmed period: for each item and dimensions, the printed opening plus the movements posted in the period equals the printed closing, in quantity and in value; transfers and returns proven by their own lines; and, for each GL account, the register's opening, debits, credits and closing equal the GL's. No costing, valuation, write-down, count or existence opinion, no unit conversion and no posting.",
+ "runScope": {
+  "fields": [
+   "Entity",
+   "Currency",
+   "Period start",
+   "Period end",
+   "Negative balances"
+  ],
+  "rule": "Confirmed by the accountant for the run. Entity is text by the reading rules and names the run; the files do not print it. Currency is one of the listed currencies; Period start and Period end are real dates, Period start not after Period end; Negative balances is allowed or not allowed. Otherwise the run is refused (SCOPE) and nothing is judged. In this foundation the confirmation is <story>-scope.json, an object with exactly these five fields."
+ },
+ "format": "Both files: CSV, UTF-8 with an optional byte-order mark, comma separated, RFC 4180 quoting, LF, CRLF or CR line ends. Rows are CSV records, numbered from 1, blank ones included. A cell is empty when nothing is left after removing ordinary spaces (U+0020) at both ends. A row's meaningful cells run to its last non-empty cell, so exports that pad every row to one width read the same. A row whose cells are all empty is ignored. The header row is the first row with a non-empty cell; its meaningful cells, ordinary spaces at both ends removed, must be the file's columns, each exactly once, in any order. A later row whose meaningful cells, ordinary spaces at both ends removed, equal the header row's in the same order repeats the header: it is listed and is not a line (I10). Every other later row with a non-empty cell is a line.",
+ "register": {
+  "role": "movement-register",
+  "columns": [
+   "Movement ID",
+   "Item ID",
+   "Item dimensions",
+   "Kind",
+   "Quantity",
+   "Unit",
+   "Value",
+   "Movement date",
+   "Posting date",
+   "GL account",
+   "Transfer ID",
+   "Origin ID"
+  ],
+  "kinds": {
+   "opening": "The item's printed balance at the start of the period: posting and movement date both Period start.",
+   "closing": "The item's printed balance at the end of the period: posting and movement date both Period end.",
+   "receipt": "In: received from outside the entity.",
+   "issue": "Out: issued, sold or consumed.",
+   "transfer-in": "In: moved from another position of the entity; names its Transfer ID.",
+   "transfer-out": "Out: moved to another position of the entity; names its Transfer ID.",
+   "adjustment-in": "In: a counted or valued increase. A zero quantity with a value is a value adjustment.",
+   "adjustment-out": "Out: a counted or valued decrease, a write-down among them.",
+   "return-in": "In: returned by a customer; names the issue it returns as Origin ID.",
+   "return-out": "Out: returned to a supplier; names the receipt it returns as Origin ID."
+  },
+  "inflows": [
+   "receipt",
+   "transfer-in",
+   "adjustment-in",
+   "return-in"
+  ],
+  "outflows": [
+   "issue",
+   "transfer-out",
+   "adjustment-out",
+   "return-out"
+  ],
+  "refused": "The register is not UTF-8 (ENCODING) or not valid RFC 4180 (CSV), or has no header row or its header row is not the twelve columns (HEADER): the run is refused and nothing is judged.",
+  "roles": "The accountant names the file as the movement register. In this foundation: <story>-register.csv."
+ },
+ "gl": {
+  "role": "gl-summary",
+  "columns": [
+   "GL account",
+   "Opening",
+   "Debit",
+   "Credit",
+   "Closing"
+  ],
+  "rule": "One line per inventory GL account for the period: its opening balance, the debits and credits posted in the period and its closing balance. Opening and Closing are balances, debit positive, and may carry a minus sign; Debit and Credit never do.",
+  "file": "A GL file that is not UTF-8, not valid RFC 4180, or has no header row or a header row that is not the five columns, holds every account (GL_FILE); the bridges are still judged (I10).",
+  "roles": "The accountant names the file as the GL summary. In this foundation: <story>-gl.csv."
+ },
+ "reading": {
+  "text": "Movement ID, Item ID, Item dimensions, Unit, GL account, Transfer ID and Origin ID, and GL account in the GL file: ordinary spaces at both ends removed; then non-empty, at most 500 code points, without control (Cc), format (Cf) or separator (Z) characters other than the ordinary space, not starting with = + @ or -, and not starting with an Excel error (#REF!, #VALUE!, #N/A, #DIV/0!, #NAME?, #NULL!, #NUM!, in any case). Compared as written, never folded: no case change, no leading zero added or removed (I1).",
+  "dates": "Ordinary spaces at both ends removed; then YYYY-MM-DD in Latin digits, a real date.",
+  "numbers": "Ordinary spaces at both ends removed; Arabic-Indic and Persian digits read as Latin and the Arabic decimal separator as a point; then an optional minus sign where allowed, one or more digits, optionally a point and one or more digits; no thousands separator, no plus sign. A minus sign before a number that reads as zero reads as zero.",
+  "quantity": "A number with at most three fraction digits, in thousandths, at most 10^14 thousandths. A minus sign only on an opening or closing line (I6).",
+  "value": "A number with no more fraction digits than the run currency has decimals, in minor units, at most 10^14 minor units. A minus sign only on an opening or closing line, and on Opening and Closing in the GL file (I6).",
+  "currencies": {
+   "SAR": 2,
+   "USD": 2,
+   "EUR": 2,
+   "GBP": 2,
+   "AED": 2,
+   "QAR": 2,
+   "EGP": 2,
+   "KWD": 3,
+   "BHD": 3,
+   "OMR": 3,
+   "JPY": 0
+  }
+ },
+ "lines": {
+  "LINE_UNREADABLE": "A register line whose Item ID or Item dimensions fails the text rules: it could be any position's, so every position and every account is held (I8). Listed as unplaced.",
+  "IDENTITY": "Movement ID, Unit or GL account fails the text rules: the line's position is held.",
+  "KIND": "Kind, ordinary spaces at both ends removed, is not one of the ten kinds exactly: the line's position is held.",
+  "QUANTITY": "Quantity fails the quantity rules, a blank one and a minus sign on a movement line included: the line's position is held.",
+  "VALUE": "Value fails the value rules, a blank one and a minus sign on a movement line included: the line's position is held.",
+  "DATE": "Movement date or Posting date is not a real date: the line's position is held.",
+  "LINK": "A transfer line whose Transfer ID fails the text rules or whose Origin ID is not empty, a return line whose Origin ID fails the text rules or whose Transfer ID is not empty, or any other line, one whose kind does not read included, whose Transfer ID or Origin ID is not empty: the line's position is held.",
+  "LINE_WIDTH": "A line with a non-empty cell beyond the header's columns: the line's position is held.",
+  "whole": "A line reads whole when none of these codes applies to it.",
+  "excluded": "A line that reads whole, whose kind is a movement kind and whose posting date is outside the period, is excluded: listed by row and Movement ID, and judged for nothing else. It belongs to no position, but its Movement ID still counts for DUPLICATE_MOVEMENT and it can be a return's origin (I2).",
+  "datedOutside": "A line that reads whole, whose kind is a movement kind, whose posting date is in the period and whose movement date is outside it, is in the bridge and listed by row and Movement ID (I2)."
+ },
+ "positions": {
+  "position": "A position is the Item ID and Item dimensions of every register line that is not excluded and whose Item ID and Item dimensions read (I1).",
+  "DUPLICATE_MOVEMENT": "A Movement ID that reads on two or more register lines, excluded ones included: each position with one of those lines is held, even when the lines agree.",
+  "UNIT_CONFLICT": "The position's lines carry two or more different readable units: held. No unit is converted (I1).",
+  "ACCOUNT_CONFLICT": "The position's lines carry two or more different readable GL accounts: held.",
+  "BALANCE_DATE": "An opening line whose movement or posting date reads and is not Period start, or a closing line whose movement or posting date reads and is not Period end: held.",
+  "BALANCE_REPEATED": "Two or more opening lines, or two or more closing lines: held.",
+  "NEGATIVE_BALANCE": "When the scope does not allow negative balances, an opening or closing line whose quantity or value reads below zero: held (I6).",
+  "TRANSFER_REPEATED": "Among the transfer lines in the period whose Transfer ID reads, a Transfer ID on two or more transfer-out lines or two or more transfer-in lines: each position with a line of that Transfer ID is held (I3).",
+  "TRANSFER_UNPAIRED": "A Transfer ID on one transfer-out and no transfer-in in the period, or the reverse: that line's position is held (I3).",
+  "TRANSFER_MISMATCH": "A Transfer ID on exactly one transfer-out and one transfer-in in the period whose Item ID, Unit, Quantity or Value differ, or do not read on either line: both positions are held (I3).",
+  "RETURN_ORIGIN": "A return line in the period whose Origin ID reads, and either names two or more register lines, or names exactly one that does not read whole, or names one whose kind is not receipt for a return-out or issue for a return-in, or whose Item ID or Unit differs from the return's: the return's position is held. An Origin ID that names no register line is listed and holds nothing (I5).",
+  "RETURN_CAPACITY": "For each origin named validly by one or more return lines in the period: when the sum of their quantities exceeds the origin's quantity, the sum of their values exceeds the origin's value, or one of them has a quantity or value that does not read, each of their positions is held (I5).",
+  "OPENING_ABSENT": "A position that is not held and has no opening line: missing. Never taken as zero, never computed and never taken from the GL (I7).",
+  "CLOSING_ABSENT": "A position that is not held and has no closing line: missing (I7).",
+  "QUANTITY_BRIDGE": "Otherwise, opening quantity plus the quantities of the in-period inflow lines minus those of the in-period outflow lines differs from the closing quantity: inconsistent.",
+  "VALUE_BRIDGE": "Otherwise, the same in value: inconsistent.",
+  "status": "held when a blocking code applies (codes: every blocking code that applies, LINE_UNREADABLE included); otherwise missing (codes: OPENING_ABSENT and CLOSING_ABSENT as they apply); otherwise inconsistent (codes: QUANTITY_BRIDGE and VALUE_BRIDGE as they apply); otherwise consistent.",
+  "components": "For a position that is not held: its unit and GL account; the opening and closing as printed, each {quantity, value} or null when absent; for each of the eight movement kinds the sums of its in-period lines {quantity, value}; the computed closing {quantity, value}, null when the opening is absent; and every line as [Movement ID, kind, quantity, value], sorted. Null for a held position.",
+  "isolation": "Each position is decided from its own lines; one position's difference never offsets another's, and equal values never join two positions."
+ },
+ "accounts": {
+  "accounts": "Every GL account that reads on a register line of a position, and every GL account that reads on a GL line.",
+  "GL_FILE": "The GL file is refused as a file: every account is held (I10).",
+  "GL_UNREADABLE": "A GL line whose GL account fails the text rules: it could be any account's, so every account is held. Listed as unplaced.",
+  "GL_AMOUNT": "A GL line whose Opening or Closing fails the value rules with a minus sign allowed, or whose Debit or Credit fails them without one: the account is held.",
+  "GL_WIDTH": "A GL line with a non-empty cell beyond the header's columns: the account is held.",
+  "GL_DUPLICATE": "The account on two or more GL lines: held.",
+  "POSITION": "A position with a line naming the account is not consistent: the account is held, since its register side is not proven (I9).",
+  "GL_ABSENT": "Otherwise, an account named by the register and on no GL line: missing.",
+  "REGISTER_ABSENT": "Otherwise, an account on a GL line and named by no position's line: missing.",
+  "compare": "Otherwise the register side is: opening, the sum of its positions' printed opening values; debit, the sum of their in-period inflow values; credit, the sum of their in-period outflow values; closing, the sum of their printed closing values. A proven transfer whose two lines name the same account adds to neither its debit nor its credit (I4). Each component is compared with the GL line's: OPENING_DIFF, DEBIT_DIFF, CREDIT_DIFF and CLOSING_DIFF as they differ make the account difference; none makes it consistent (I9).",
+  "status": "held (codes: every account blocking code that applies, the run codes LINE_UNREADABLE, GL_FILE and GL_UNREADABLE included), missing, difference or consistent.",
+  "result": "For each account: status, codes; register {opening, debit, credit, closing} or null when held or REGISTER_ABSENT; gl {opening, debit, credit, closing} or null when held or GL_ABSENT; difference, register minus GL for each component, or null unless difference or consistent."
+ },
+ "codes": {
+  "refused": [
+   "SCOPE",
+   "ENCODING",
+   "CSV",
+   "HEADER"
+  ],
+  "run": [
+   "LINE_UNREADABLE",
+   "GL_FILE",
+   "GL_UNREADABLE"
+  ],
+  "position": [
+   "IDENTITY",
+   "KIND",
+   "QUANTITY",
+   "VALUE",
+   "DATE",
+   "LINK",
+   "LINE_WIDTH",
+   "DUPLICATE_MOVEMENT",
+   "UNIT_CONFLICT",
+   "ACCOUNT_CONFLICT",
+   "BALANCE_DATE",
+   "BALANCE_REPEATED",
+   "NEGATIVE_BALANCE",
+   "TRANSFER_REPEATED",
+   "TRANSFER_UNPAIRED",
+   "TRANSFER_MISMATCH",
+   "RETURN_ORIGIN",
+   "RETURN_CAPACITY"
+  ],
+  "missing": [
+   "OPENING_ABSENT",
+   "CLOSING_ABSENT"
+  ],
+  "inconsistent": [
+   "QUANTITY_BRIDGE",
+   "VALUE_BRIDGE"
+  ],
+  "account": [
+   "GL_AMOUNT",
+   "GL_WIDTH",
+   "GL_DUPLICATE",
+   "POSITION"
+  ],
+  "accountMissing": [
+   "GL_ABSENT",
+   "REGISTER_ABSENT"
+  ],
+  "difference": [
+   "OPENING_DIFF",
+   "DEBIT_DIFF",
+   "CREDIT_DIFF",
+   "CLOSING_DIFF"
+  ]
+ },
+ "result": {
+  "positions": "For each position (Item ID|Item dimensions): status, codes, the components above, and the row numbers of its lines, sorted.",
+  "accounts": "For each account: as above.",
+  "excluded": "[row, Movement ID] for each excluded line, sorted by row.",
+  "datedOutside": "[row, Movement ID] for each line in the bridge whose movement date is outside the period, sorted by row.",
+  "unseenOrigins": "[row, Movement ID, Origin ID] for each return line in the period whose Origin ID reads and names no register line, sorted by row.",
+  "repeatedHeaders": "[file, row] for each row repeating its file's header, file register or gl, sorted.",
+  "unplaced": "[file, row, code] for each LINE_UNREADABLE register line and each GL_UNREADABLE GL line, sorted.",
+  "totals": "When no run code holds the positions and every position is consistent or inconsistent: the entity's values by kind, {opening, receipt, issue, adjustment-in, adjustment-out, return-in, return-out, closing, transferred}, where opening and closing are the printed balances and transferred the sum of the in-period transfer-out values. Transfers are in no other total, so a transfer is never an entity receipt or issue (I3). Quantities are never totalled across positions. Null otherwise.",
+  "run": "The run codes that apply, sorted.",
+  "refused": "SCOPE, ENCODING, CSV or HEADER when the run is refused; then nothing else is judged."
+ },
+ "ownerDecisions": {
+  "I1": "A position is the Item ID and Item dimensions as written: one item in two warehouses is two positions, and 0420 and 420 are two items. A unit is compared as written: box and pcs, or kg and KG, are two units, and a position with two is held. No unit is converted.",
+  "I2": "The posting date places a movement in the period. A movement posted outside it is excluded and listed even when it happened inside it; a movement posted inside it that happened outside is in the bridge and listed.",
+  "I3": "A transfer is proven only by one transfer-out and one transfer-in in the period with the same Transfer ID, Item ID, Unit, Quantity and Value. Otherwise every position with a line of that Transfer ID is held, since stock in transit, a mislabelled issue and a receipt counted twice look alike. A proven transfer is never an entity receipt or issue.",
+  "I4": "A proven transfer whose two lines name the same GL account is not a debit or credit of that account. The alternative is that the GL posts every transfer in gross.",
+  "I5": "A return names its origin: a return-out a receipt, a return-in an issue, of the same Item ID and Unit; the warehouse may differ, since stock may have moved. The returns in the period that name one origin cannot exceed its quantity or value. An origin that is not in the register, a receipt of an earlier period, is listed and holds nothing, and returns of earlier periods are not counted against it.",
+  "I6": "Movement lines carry no sign: the kind gives the direction, and a minus sign on one does not read. An opening or closing balance may be negative only when the confirmed scope allows negative balances; otherwise the position is held.",
+  "I7": "A missing opening or closing is missing. It is never taken as zero, never computed from the movements and never taken from the GL.",
+  "I8": "A register line whose Item ID or Item dimensions cannot be read could be any position's: every position and every account is held. The alternative is to hold nothing beyond the line.",
+  "I9": "An account is compared only when every position that names it is consistent, and then component by component: opening, debit, credit and closing. Equal totals across accounts never stand for equal accounts, and a GL difference is never explained by a cost, a write-down or a closing value taken from the GL.",
+  "I10": "A GL file that cannot be read holds every account but not the bridges. A row that repeats its file's header, as a paged export prints it, is listed and is not a line. The alternative is to read it as a line, which holds its position."
+ },
+ "notInScope": [
+  "XLSX and PDF sources",
+  "costing methods (FIFO, weighted average, standard), unit costs and valuation",
+  "unit conversion and units of measure tables",
+  "goods in transit as a position",
+  "counts, existence and ownership",
+  "a map or policy evidence between items and GL accounts beyond the account printed on each line",
+  "sessions, decisions and Excel (later layers)"
+ ]
+}

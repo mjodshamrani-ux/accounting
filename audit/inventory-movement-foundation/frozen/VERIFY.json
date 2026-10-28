@@ -1,0 +1,53 @@
+{
+ "schema": "tarasuf-inv2-movement-bridge-verify/1",
+ "factsSha256": "7b01eca5f2cdab7ca94328d6c6c9b59dd5c57a3190d4f52eb9cdf8841a3798a7",
+ "files": 141,
+ "passed": true,
+ "problems": [],
+ "selfTest": [
+  {
+   "plant": "one value changed",
+   "rejected": true
+  },
+  {
+   "plant": "one line dropped",
+   "rejected": true
+  },
+  {
+   "plant": "byte-order mark removed",
+   "rejected": true
+  },
+  {
+   "plant": "LF in a CRLF file",
+   "rejected": true
+  },
+  {
+   "plant": "a field quoted that needs none",
+   "rejected": true
+  },
+  {
+   "plant": "padding removed",
+   "rejected": true
+  },
+  {
+   "plant": "scope negative balances changed",
+   "rejected": true
+  },
+  {
+   "plant": "a file no story names",
+   "rejected": true
+  },
+  {
+   "plant": "Windows Arabic saved as UTF-8",
+   "rejected": true
+  },
+  {
+   "plant": "the raw file quoted",
+   "rejected": true
+  },
+  {
+   "plant": "one GL amount changed",
+   "rejected": true
+  }
+ ]
+}

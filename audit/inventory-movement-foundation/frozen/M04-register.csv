@@ -1,0 +1,9 @@
+Movement ID,Item ID,Item dimensions,Kind,Quantity,Unit,Value,Movement date,Posting date,GL account,Transfer ID,Origin ID
+MV-0001,CEM-50,wh=RIY-1,opening,800,bag,14800.00,2026-10-01,2026-10-01,1310,,
+MV-0002,CEM-50,wh=RIY-1,transfer-out,200,bag,3700.00,2026-10-03,2026-10-03,1310,TR-4001,
+MV-0003,CEM-50,wh=RIY-1,issue,150,bag,2775.00,2026-10-05,2026-10-05,1310,,
+MV-0004,CEM-50,wh=RIY-1,closing,450,bag,8325.00,2026-10-31,2026-10-31,1310,,
+MV-0005,CEM-50,wh=JED-2,opening,300,bag,5550.00,2026-10-01,2026-10-01,1320,,
+MV-0006,CEM-50,wh=JED-2,receipt,100,bag,1850.00,2026-10-07,2026-10-07,1320,,
+MV-0007,CEM-50,wh=JED-2,issue,120,bag,2220.00,2026-10-09,2026-10-09,1320,,
+MV-0008,CEM-50,wh=JED-2,closing,280,bag,5180.00,2026-10-31,2026-10-31,1320,,

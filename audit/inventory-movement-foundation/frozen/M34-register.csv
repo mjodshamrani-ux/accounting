@@ -1,0 +1,22 @@
+﻿Movement ID,Item ID,Item dimensions,Kind,Quantity,Unit,Value,Movement date,Posting date,GL account,Transfer ID,Origin ID
+MV-0001,CEM-50,wh=RIY-1,opening,900,bag,16650.00,2026-10-01,2026-10-01,1310,,
+MV-0002,CEM-50,wh=RIY-1,receipt,300,bag,5550.00,2026-10-03,2026-10-03,1310,,
+MV-0003,CEM-50,wh=RIY-1,issue,250,bag,4625.00,2026-10-05,2026-10-05,1310,,
+MV-0004,CEM-50,wh=RIY-1,issue,180,bag,3330.00,2026-10-07,2026-10-07,1310,,
+MV-0005,CEM-50,wh=RIY-1,closing,770,bag,14245.00,2026-10-31,2026-10-31,1310,,
+MV-0006,GYP-12,wh=RIY-1,opening,400,sheet,10920.00,2026-10-01,2026-10-01,1310,,
+MV-0007,GYP-12,wh=RIY-1,receipt,120,sheet,3276.00,2026-10-09,2026-10-09,1310,,
+MV-0008,GYP-12,wh=RIY-1,issue,90,sheet,2457.00,2026-10-12,2026-10-12,1310,,
+Movement ID,Item ID,Item dimensions,Kind,Quantity,Unit,Value,Movement date,Posting date,GL account,Transfer ID,Origin ID
+MV-0009,GYP-12,wh=RIY-1,issue,60,sheet,1638.00,2026-10-14,2026-10-14,1310,,
+MV-0010,GYP-12,wh=RIY-1,closing,370,sheet,10101.00,2026-10-31,2026-10-31,1310,,
+MV-0011,CEM-50,wh=JED-2,opening,300,bag,5550.00,2026-10-01,2026-10-01,1320,,
+MV-0012,CEM-50,wh=JED-2,receipt,200,bag,3700.00,2026-10-16,2026-10-16,1320,,
+MV-0013,CEM-50,wh=JED-2,issue,150,bag,2775.00,2026-10-19,2026-10-19,1320,,
+MV-0014,CEM-50,wh=JED-2,closing,350,bag,6475.00,2026-10-31,2026-10-31,1320,,
+MV-0015,PIP-110,wh=JED-2,opening,210,pcs,13104.00,2026-10-01,2026-10-01,1320,,
+MV-0016,PIP-110,wh=JED-2,receipt,50,pcs,3120.00,2026-10-21,2026-10-21,1320,,
+Movement ID,Item ID,Item dimensions,Kind,Quantity,Unit,Value,Movement date,Posting date,GL account,Transfer ID,Origin ID
+MV-0017,PIP-110,wh=JED-2,issue,75,pcs,4680.00,2026-10-23,2026-10-23,1320,,
+MV-0018,PIP-110,wh=JED-2,issue,30,pcs,1872.00,2026-10-26,2026-10-26,1320,,
+MV-0019,PIP-110,wh=JED-2,closing,155,pcs,9672.00,2026-10-31,2026-10-31,1320,,

@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 70217,
-      "sha256": "5e86ec28b2ba3abb78842160391dce8d89a39f0b7535fb62a71891627712739e",
+      "bytes": 70331,
+      "sha256": "a395f0edf2684e3fe7724b559a4fcd4ab9ea8399e4924c113e8f64b09bd5e642",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 45605,
-      "sha256": "86b2682d4d6e03d4a79960052956b98e7b2194c1b9f8a607184e12122c71c3d6",
+      "bytes": 46047,
+      "sha256": "ad77e67815deb5f6b2067aaff3ddbb1f9c778a94458af5a80d724c98b4b1fee6",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 21540,
-      "sha256": "e97fc0daf832ba8612ccf0bf9e565f705d4afb45f39d9ff9ec5dc6b9f3c6a6ec",
+      "bytes": 21626,
+      "sha256": "139bd8ed8bc50f159a58127275441cb4f403810d34f84d11f22ecbd0b9e5991c",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 102340,
-      "sha256": "fa4be02e3d5734138045b1077ef65a4bf7928e8f756c3811348519f1d92f6b70",
+      "bytes": 103623,
+      "sha256": "355e0fe42dc0d07815938672611d9cbd8b70a49919c3894231dbca32b686862c",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 80606,
-      "sha256": "258fc7a3c44a0a8e2406602eb5bf187ff0e8ebf4acc926ea3cdeb856d04b7988",
+      "bytes": 80893,
+      "sha256": "72f1bd5907627b4a9341a2c56903d018d258493ae4eef66148b377f716d6c7b0",
       "kind": "text"
     },
     {
@@ -36253,8 +36253,8 @@
     },
     {
       "path": "docs/roadmap/inventory.ar.md",
-      "bytes": 24376,
-      "sha256": "555f1341a1f8cf3e407cc0b7b14df401a57c8a96a4d8118e6ba249a35933a141",
+      "bytes": 24832,
+      "sha256": "76d0010f7a3c8441d793eac1981a5101f7e9aa4298bb1b47797c623d80ae3063",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 47679,
-      "sha256": "19622d660cf2194d66ed16797d1976a24e6c13138c5aba7d0920d006482cc3eb",
+      "bytes": 48088,
+      "sha256": "b4e9304533c82fdeb165d113a731a9c390ebe6d4b6ac6f2a9e6d821f14987dc1",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 16108,
-      "sha256": "3b849373dc4ba6538dadfa9380a182dd1d65a0c66ee5fac3f6b09ca85047f9d6",
+      "bytes": 16192,
+      "sha256": "4040ff83dbe6d88fc228eb25ea449312978c8909ed06598497bcec916d3d15ad",
       "kind": "text"
     },
     {
@@ -60621,6 +60621,976 @@
       "path": "tests/payroll-long-register-protocol.test.ts",
       "bytes": 3494,
       "sha256": "15a3f22113c27d5fd038902c02deb6d4df9b2059aab20a73ba7d754c8610b3cf",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/README.ar.md",
+      "bytes": 6709,
+      "sha256": "c07dac7268aab6e4b146e293ede427b10ffafa8478f99d5e6c56dfc2b3268388",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/check_seal.py",
+      "bytes": 2734,
+      "sha256": "b7b7ae95ccf93cea189d607ad85ff7b427054b0e8ae091d53e00a3b7ebc63513",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/contract.json",
+      "bytes": 20257,
+      "sha256": "d91d1323eca6b3650c9b6cdd1a5d8340a0a62cc373798e7fd1c3f7e41bba4ef6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/EXPECTED.json",
+      "bytes": 242144,
+      "sha256": "9cc0cf977cb35f399d07386e65704da42bd31992b65f7ab000ab8837b6820747",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/INPUT-MANIFEST.json",
+      "bytes": 17971,
+      "sha256": "cc0fc6349ee2ac18e1359236473a87a3efee485148b957cb4733c4258b9b1b3f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M01-gl.csv",
+      "bytes": 121,
+      "sha256": "948bdc6e20f31212dd5a20b4e19c0ad224bb97f91933d09e1c3801377fa0e627",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M01-register.csv",
+      "bytes": 1431,
+      "sha256": "6e50486233909f3ddb6bf539005ceae765a4cec30a39de4a9262370891c4e02d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M01-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M02-gl.csv",
+      "bytes": 122,
+      "sha256": "205e1a99287eca795c593f7e932fc44c3ce2d1ec83b663e65f81b2e820453846",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M02-register.csv",
+      "bytes": 1505,
+      "sha256": "23b26189bc7f0a9a064877b2ab99d96fed762f4d3c15730c8836b31469c01777",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M02-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M03-gl.csv",
+      "bytes": 115,
+      "sha256": "1f2c7f5d1913d7588bf455df9f589676c7e726f6f88c53aad2b04bebd030a002",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M03-register.csv",
+      "bytes": 1089,
+      "sha256": "b22ec8e34ad273127fe92083ad4c5692ff975f759976f30f0a2c56297aeb4254",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M03-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M04-gl.csv",
+      "bytes": 145,
+      "sha256": "80acc19c0bf8034a32861a9cbc10df695516e625a0438e0e979b13a25be06bf2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M04-register.csv",
+      "bytes": 746,
+      "sha256": "c47f7cc6ab8c031985645143b64842783e01ef28651aab70912888d5452929a7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M04-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M05-gl.csv",
+      "bytes": 114,
+      "sha256": "e1113af72c35179fcb4fca8edb31397805bcbf5c060fcdaabc090d9c5e2f06e2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M05-register.csv",
+      "bytes": 980,
+      "sha256": "50319159a26d412ea3f428b05cc5cb99ca1d1286fdcb0d9b235c2788e88fd5c2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M05-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M06-gl.csv",
+      "bytes": 155,
+      "sha256": "af48b26671c4d4f2b42a10de706f8808764b4cb9dcc18c0b7db90a1e4a95d038",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M06-register.csv",
+      "bytes": 1156,
+      "sha256": "f7841e98390fee8509b07499ecb0ee61bc4e08879a2c8a1ea3fb533c65d266dc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M06-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M07-gl.csv",
+      "bytes": 151,
+      "sha256": "7e1cc7910dea03caad0988f67ff33a5f72ce643bb49c7396c14c409600ea40f2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M07-register.csv",
+      "bytes": 761,
+      "sha256": "c475efb19731ea6b024623a7a1f65b066a4006c3c32116d9b0a427849df8658f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M07-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M08-gl.csv",
+      "bytes": 182,
+      "sha256": "ec56f719f818b42507f7d1b90bb4e0afd1d9847b81ae99c4e9e24cf712752286",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M08-register.csv",
+      "bytes": 1249,
+      "sha256": "338a888d8d7e3450c94f6e72990df7d6cd3b9d5cba1c6128f2a474b931ce345f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M08-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M09-gl.csv",
+      "bytes": 110,
+      "sha256": "4cd02c2de54596f39d93d08707aad2ecb6d2277737212295f0935d9c924ec8f8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M09-register.csv",
+      "bytes": 853,
+      "sha256": "ec442a342ccddf812e73b862ee23bdc1fca8a0cf7731f005a120304feaa010e9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M09-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M10-gl.csv",
+      "bytes": 110,
+      "sha256": "4cd02c2de54596f39d93d08707aad2ecb6d2277737212295f0935d9c924ec8f8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M10-register.csv",
+      "bytes": 853,
+      "sha256": "ec442a342ccddf812e73b862ee23bdc1fca8a0cf7731f005a120304feaa010e9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M10-scope.json",
+      "bytes": 161,
+      "sha256": "887efc25a79dc869d81f8e720cd1d7e0f7bd891d9154394bb9f5243b5e4f8694",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M11-gl.csv",
+      "bytes": 112,
+      "sha256": "ec57984af160f6475fd6efbe29c2df32232d03e7dbf5eca360e499e989b9e45e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M11-register.csv",
+      "bytes": 728,
+      "sha256": "6327c7101691e9202a529edddbc850b6f95b878b119a3e5adb9a033739207f5c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M11-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M12-gl.csv",
+      "bytes": 200,
+      "sha256": "10559dd84ee259fce3d52aeee3bfd4944894d4ab55c6e20ee066b2614840defd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M12-register.csv",
+      "bytes": 1030,
+      "sha256": "5a4b2df78030e62579d17a317a60b2aa0e788ec5a9c5985b6b07e3a233f7b068",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M12-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M13-gl.csv",
+      "bytes": 81,
+      "sha256": "40589a0104840393e4faec0dbf3f7dbad585623cb4410851aae94a14e25daaf6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M13-register.csv",
+      "bytes": 732,
+      "sha256": "c0e08a7f2253d0083231972c1b49ab16ecf923fc58992571a315195b229dfb0d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M13-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M14-gl.csv",
+      "bytes": 84,
+      "sha256": "915c6ddbd38c9fd8b26da6907b37b6ec6e0d62557ce922520ff2cb89ec47d180",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M14-register.csv",
+      "bytes": 963,
+      "sha256": "06e5a61101d69b147269ef4c290e8d2e7c4e76bc2b12b1094a18b7daee512d4c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M14-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M15-gl.csv",
+      "bytes": 145,
+      "sha256": "62f8bf875bd4f59aa92b3583475c8d805e46481007b783574c5cd47ee4ae699a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M15-register.csv",
+      "bytes": 746,
+      "sha256": "898878e677c5b3cd449fe4f8afbcfe1a2d4f1004c40ca2ed081b3ca11f1526a7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M15-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M16-gl.csv",
+      "bytes": 116,
+      "sha256": "464efdd92924c54acef652da71b18fe8989fea813829cf5ec44a93ce573d0065",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M16-register.csv",
+      "bytes": 836,
+      "sha256": "37c13f606b22abcde668c295d721051f15341fc53e8a411ca3ec7f4b361def4d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M16-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M17-gl.csv",
+      "bytes": 80,
+      "sha256": "965d7ff3f1f8b03439f7329f93bc2c89536ad61cbdb32b80550df30ddab98f96",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M17-register.csv",
+      "bytes": 1080,
+      "sha256": "96f6df88c592763ccb90f5605f821b4a2f49664e24322206287be3d75c87df37",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M17-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M18-gl.csv",
+      "bytes": 116,
+      "sha256": "6d6c8ff2739e0a65da6e12967cee66c2b56d47e269e4101a812f87a2b499e170",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M18-register.csv",
+      "bytes": 824,
+      "sha256": "1e4391d059d686bfb39c2e1e39438af87932edb158a855442ab3e1ddef721efd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M18-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M19-gl.csv",
+      "bytes": 148,
+      "sha256": "4bbd06bd0607a9c08f572e2b28145ad10b82ce56d3231691bf3706c7757cc34f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M19-register.csv",
+      "bytes": 747,
+      "sha256": "6e3b6efceddf8a412411ea3ef21d3326d0fb7d81697e3dc978ecceb574faded7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M19-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M20-gl.csv",
+      "bytes": 155,
+      "sha256": "462255b3e98687c4adbea4a768e50bfc02ea6be8134899846c165193ca60e9de",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M20-register.csv",
+      "bytes": 1139,
+      "sha256": "c8042536ee6f23274499e292a9930037f398bea82c6c3e36f47af375757a0f76",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M20-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M21-gl.csv",
+      "bytes": 79,
+      "sha256": "a6b22ac0e46098e5ed5490c17fa31494cbf3b1a28050463ebc7d469910c06987",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M21-register.csv",
+      "bytes": 664,
+      "sha256": "28975c2030cb93d66c128fb2650c14e3be7c8b7fa1e3d4433c2e0c412f883e8b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M21-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M22-gl.csv",
+      "bytes": 116,
+      "sha256": "a69120e85124b901d9b9710a3ddd2a70ba82227a4559bb57a5dd7763676db187",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M22-register.csv",
+      "bytes": 743,
+      "sha256": "5b1422c3526d094c15a30eaa3cd59a68d64c0fb5718cd2e31c15d114c44d46ff",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M22-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M23-gl.csv",
+      "bytes": 108,
+      "sha256": "523363743c1b1e552e595a48a69d7ce13325cb300ecb58ab96a88ebbd6508c95",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M23-register.csv",
+      "bytes": 731,
+      "sha256": "eb14886cb815210d574f1ff321c1a128cce38714e532a05de1812d86e085e2da",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M23-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M24-gl.csv",
+      "bytes": 148,
+      "sha256": "8f7c6db54fc2b96bfa216f43ff27ca61ddb4cae1a02f951584c345a48362ff6e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M24-register.csv",
+      "bytes": 951,
+      "sha256": "8b2ce92d7ea791a95cbb935172256655c0c49ae3d90ca823b8ec0c41606d2daf",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M24-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M25-gl.csv",
+      "bytes": 114,
+      "sha256": "69a6742ab0cde2d47e4126d3da7673b5075c1c30a7ad9b708cd91bcb202edfee",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M25-register.csv",
+      "bytes": 1044,
+      "sha256": "7c1311f8392730b4e27cf78ff3006171d90a0fb501739f654c56a3123f781620",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M25-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M26-gl.csv",
+      "bytes": 115,
+      "sha256": "596688cfba6c6066b10a2104cca656a693faabff249a4051dbb2393ecff88bca",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M26-register.csv",
+      "bytes": 882,
+      "sha256": "15f43df31ad3ed831add18c57161ba19e50b53ab8ca180be201156d5053fded7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M26-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M27-gl.csv",
+      "bytes": 114,
+      "sha256": "2a9e43c7f7a81c34b78152f76b19494d414ffb757c8746cce955ad8a1d5443cc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M27-register.csv",
+      "bytes": 963,
+      "sha256": "52953bbf279a6cac6336c5768d8601edcfbc5fe00212275bec14083627d2675d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M27-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M28-gl.csv",
+      "bytes": 114,
+      "sha256": "411d471f13d22fd13c2df49466cad497be0c0f58a6df2b43e3f51c5f95c82ae9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M28-register.csv",
+      "bytes": 747,
+      "sha256": "890635cab9b740df495ac3ba32d7b25488d8d01eb010c6eb978fdd6f39704524",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M28-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M29-gl.csv",
+      "bytes": 198,
+      "sha256": "01d4e6671e95394d9947d03a32db1a1fc71a22837194409d71f1be0969255f9f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M29-register.csv",
+      "bytes": 1337,
+      "sha256": "fda8a7f7910a47d22dd6fd1e870387d24c219090ea6ad11709d80d2c4adf44d0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M29-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M30-gl.csv",
+      "bytes": 117,
+      "sha256": "4e2d977147b36214df17e7a98d0347dce81c413f26b8b2d7357bc1f62f0c278d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M30-register.csv",
+      "bytes": 849,
+      "sha256": "2e453692763876b748319cc1b6673c75ac93cc7d91ef820064096846f47b5d11",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M30-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M31-gl.csv",
+      "bytes": 115,
+      "sha256": "24728d5aab84cb21ad0a00726128eac510474de49cd7be69111dec64367bec52",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M31-register.csv",
+      "bytes": 733,
+      "sha256": "b955dbfa6a9abad9e669d9b2d6f80828f5fd630ae3b8b7ff4e1c0414a2fd79d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M31-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M32-gl.csv",
+      "bytes": 148,
+      "sha256": "1fa1198cb367ea4eff36b003d11a01f50fe91903e5cd4c79668606ec3c677b10",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M32-register.csv",
+      "bytes": 755,
+      "sha256": "62a6a031976edec21d7be5bcaf775e8959ca2607a84063dddbdbe34c91ade2dc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M32-scope.json",
+      "bytes": 165,
+      "sha256": "97b1dd9a595db4122ad2d1bbd192aafb09dd61a498f8b5b5f83c2382ed6c9117",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M33-gl.csv",
+      "bytes": 98,
+      "sha256": "6bd6f0270af862e709932e154df04ef2451c9156ee9864423a6ed55184043892",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M33-register.csv",
+      "bytes": 934,
+      "sha256": "79e708a44967b050316402ba3c2090b5a600b9fbb45fdc6bde037efa3986f2f9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M33-scope.json",
+      "bytes": 165,
+      "sha256": "bdab015de8c2fe7f6cdd88ac68cc8e5060cabdd512c9afe61c61e8d7e987262c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M34-gl.csv",
+      "bytes": 166,
+      "sha256": "8623e83f09bd83c03d4485be3545bd5f94d51308beb5e5590884f75676fd6ba9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M34-register.csv",
+      "bytes": 1852,
+      "sha256": "ee7e772b888b4a6a84f230e78f5511cc468476eb7ad91b7f2bf0df277c4a3541",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M34-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M35-gl.csv",
+      "bytes": 139,
+      "sha256": "d619c386cc9f45d4bb107a0e25cefcd14023d4c3fd082429b85d39eedaeddd25",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M35-register.csv",
+      "bytes": 732,
+      "sha256": "abd0f30fd05d49bc8d4b1e0d2939045608d6ede09cae80a75ce2cafe8155573d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M35-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M36-gl.csv",
+      "bytes": 115,
+      "sha256": "92380ee0b34a9d69f3931d679db13af7fc6416b7c2b2aa1bbfabf5d59130045c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M36-register.csv",
+      "bytes": 739,
+      "sha256": "821396be38413a9514c7769650155ecc8f21f718c02c97ff8acd6ed02e83a7c6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M36-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M37-gl.csv",
+      "bytes": 77,
+      "sha256": "25b75c3a6022db6ee68e8d5efc4ca250874460b0d258d5d03ac0d48cd5f4997a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M37-register.csv",
+      "bytes": 452,
+      "sha256": "ba483599b7ca674ebec014c1d541646de7000842d1ebaa44c1627ce50a6b9bcc",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic inventory movement register for the INV-2 foundation, written by Python csv in Windows Arabic (cp1256) on purpose so that the proposed inventory-movement-bridge-1 contract refuses it as not UTF-8 (ENCODING); from audit/inventory-movement-foundation/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run and read back independently by verify.py. Invented items, warehouses, accounts, quantities and values; no customer data."
+      }
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M37-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M38-gl.csv",
+      "bytes": 77,
+      "sha256": "25b75c3a6022db6ee68e8d5efc4ca250874460b0d258d5d03ac0d48cd5f4997a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M38-register.csv",
+      "bytes": 406,
+      "sha256": "2f636fa9c0fb69f8626a111d170ecfea144ab1590fed66b02f12fe6fdd4205ef",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M38-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M39-gl.csv",
+      "bytes": 99,
+      "sha256": "1ddc183b4410b2b595f08a29cebb717324441583bdd44d1bb734eef60aa87f6d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M39-register.csv",
+      "bytes": 552,
+      "sha256": "d3406754feaffa2e8769c25adb553ee4df39da3f4bb06485827d77af058a4f4f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M39-scope.json",
+      "bytes": 165,
+      "sha256": "5b895d63972d907ff220edc7486f355f40c7d4de4f8552dec8af1d4cc570dcfb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M40-gl.csv",
+      "bytes": 116,
+      "sha256": "9357c4f5d853dbf87698a49501257319bf7c4fbd4788d409ec23774c1d883d8d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M40-register.csv",
+      "bytes": 893,
+      "sha256": "eda50afbff97b0cfd7e68cabdcc2266a3237af8923295de3a98ef3fb9765c6b7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M40-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M41-gl.csv",
+      "bytes": 271,
+      "sha256": "f125f268795392635566c6e270b6c60ef8c82d270db74839a76384d239bc5213",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M41-register.csv",
+      "bytes": 26056,
+      "sha256": "9068e7ce53fed2d74e33e5e21170f150b5259a712bdb9e1567289e1e859b90da",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M41-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M42-gl.csv",
+      "bytes": 146,
+      "sha256": "0616db688b99a21e5595ba5518b3246ebdac391b214faf397b01fa43886a0153",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M42-register.csv",
+      "bytes": 974,
+      "sha256": "3fcb25e1dbd7b9c95bbce03f8852488041d732112acfce36d496daac5681ccab",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M42-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M43-gl.csv",
+      "bytes": 154,
+      "sha256": "afd90e3d4a34eaa6f206bf697d6d42e7f84ddab61218b3976254be7d931c0543",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M43-register.csv",
+      "bytes": 1055,
+      "sha256": "77ad5e58a5d1ab0366323166be786f1f3d412f634cffbf9a8ff776c0776a4feb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M43-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M44-gl.csv",
+      "bytes": 108,
+      "sha256": "5b7c1633482b93d5bf915fea7c81a4afc16c0829e3b3e0303469be4caa6aec04",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M44-register.csv",
+      "bytes": 1029,
+      "sha256": "307dac78fa814cb668ec2631c1752b2f5c23b26e63855cdc6bf89a404750b657",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M44-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M45-gl.csv",
+      "bytes": 114,
+      "sha256": "1a196a7f22fea98bd8db2f28a5713618bdb3f80a6634916660918140ffa648c1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M45-register.csv",
+      "bytes": 761,
+      "sha256": "9c92abb4612e01301668c1fb0c24eb4571385c5f8a25f2175da58146ec3628b7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M45-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M46-gl.csv",
+      "bytes": 146,
+      "sha256": "7e4ad60d3fadc8d3f67e633aaed350da0d88b5b2ef5edbb835a0264266c5c74c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M46-register.csv",
+      "bytes": 744,
+      "sha256": "4343575acd829201057e51fe9baefb7b02d0b1626e8fac16764b41fa8ff50efa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M46-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M47-gl.csv",
+      "bytes": 209,
+      "sha256": "9b593245792377d5288b59709909211c9821fdb392659ebd402a21910cdc64b3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M47-register.csv",
+      "bytes": 1373,
+      "sha256": "49466c35a7d06dc0cb03f1948afd613bab60693fd33cd7a263c6cd6bdd148f72",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/M47-scope.json",
+      "bytes": 165,
+      "sha256": "7647a593c61791c5469caf7264e08c31d327933b9c7000ad627262de7a946f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/SEAL.json",
+      "bytes": 1133,
+      "sha256": "28675c111d19b5760b4436e9e2ac949c290010441e1541517089acfdab312ecc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/VERIFY.json",
+      "bytes": 940,
+      "sha256": "909511bbfd519ba7867687c6f1b3d8161f28f7d28ccf464f105c8127933383d1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/frozen/stories.json",
+      "bytes": 474117,
+      "sha256": "7b01eca5f2cdab7ca94328d6c6c9b59dd5c57a3190d4f52eb9cdf8841a3798a7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/mutate_oracle.py",
+      "bytes": 14802,
+      "sha256": "726e5b23b3bd28da3de0945aa7b9fa17080606799d5d6e08ebd32bf7d34de909",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/oracle.py",
+      "bytes": 18255,
+      "sha256": "7845c6b14eb4ebc9aa1e21dcfce241423a420b99b1829ceac45d946a5f13f654",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/render.mjs",
+      "bytes": 522,
+      "sha256": "1af8fb99082f52344b3cb81fc2554f39aaa5a34b21e6b53c8f1a8e0a7e724fa9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/render.py",
+      "bytes": 2214,
+      "sha256": "afa690e98e39b18474e1b8753d275773bfed2762b6c70384016256d365370685",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/results/oracle-mutants-1.json",
+      "bytes": 7272,
+      "sha256": "22131a4d6556d084daa84b313b361ad616a5f1ffef1c767e0164fc976cb4d5f2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/results/oracle-mutants-2.json",
+      "bytes": 7269,
+      "sha256": "cbe1d027a85dc10eea59771e50d66f5c943d31752697ccbc621e8287ca209a81",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/results/oracle-mutants-3.json",
+      "bytes": 7269,
+      "sha256": "cbe1d027a85dc10eea59771e50d66f5c943d31752697ccbc621e8287ca209a81",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/seal.py",
+      "bytes": 2058,
+      "sha256": "197936c07a104999b028a13305a5b8599b9fad1d9d7294ac342d37a2885ed806",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/stories.py",
+      "bytes": 51297,
+      "sha256": "384a4cbd18fc813e92d8d842bb2af06ee649d99094ee5d5fe6f84d42bd60147c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/test_oracle.py",
+      "bytes": 42068,
+      "sha256": "eb5596ae76cdda838916c87398730a60e82ca20ab9455a8fb750e3cd7d72b2ef",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-movement-foundation/verify.py",
+      "bytes": 7356,
+      "sha256": "8841c83a3e940933a5eaae7d71202fb0bfbb93c6bd9d8bcb34b494165d014b5c",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV-2-FOUNDATION.ar.md",
+      "bytes": 19320,
+      "sha256": "543dbb72603715830a54cbbc0f720aaaabee454f63e75a3d269cb0a3ff143f2c",
       "kind": "text"
     }
   ],

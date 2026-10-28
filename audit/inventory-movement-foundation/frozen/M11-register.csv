@@ -1,0 +1,9 @@
+Movement ID,Item ID,Item dimensions,Kind,Quantity,Unit,Value,Movement date,Posting date,GL account,Transfer ID,Origin ID
+MV-0001,PNT-20,wh=JED-2,opening,80,can,11600.00,2026-10-01,2026-10-01,1320,,
+MV-0002,PNT-20,wh=JED-2,receipt,-12,can,-1740.00,2026-10-03,2026-10-03,1320,,
+MV-0003,PNT-20,wh=JED-2,issue,30,can,4350.00,2026-10-05,2026-10-05,1320,,
+MV-0004,PNT-20,wh=JED-2,closing,38,can,5510.00,2026-10-31,2026-10-31,1320,,
+MV-0005,PNT-20,wh=RIY-1,opening,40,can,5800.00,2026-10-01,2026-10-01,1310,,
+MV-0006,PNT-20,wh=RIY-1,receipt,20,can,2900.00,2026-10-07,2026-10-07,1310,,
+MV-0007,PNT-20,wh=RIY-1,issue,25,can,3625.00,2026-10-09,2026-10-09,1310,,
+MV-0008,PNT-20,wh=RIY-1,closing,35,can,5075.00,2026-10-31,2026-10-31,1310,,
