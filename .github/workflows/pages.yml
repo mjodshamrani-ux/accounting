@@ -418,6 +418,7 @@ jobs:
           pnpm test:fa-sections:run
           pnpm test:fa-sections:mutations
           pnpm test:fa-sections:h1-seal
+          pnpm test:fa-sections:h1-run
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations
@@ -1534,7 +1535,7 @@ jobs:
           PG_BATCHES_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/payment-gateway-batches-interface-mutations
         run: pnpm test:pg-batches:interface-mutations
   fixed-assets-sections-browser:
-    name: Asset register sections in the built application, the 50 sealed FA-1 stories in the fixed assets workspace against the recorded run (FA-1c)
+    name: Asset register sections in the built application, the 50 sealed FA-1 stories and the 39 of holdout H1 in the fixed assets workspace against the recorded runs (FA-1c and FA-1d)
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -1557,6 +1558,10 @@ jobs:
         env:
           FA_SECTIONS_BROWSER_DIR: ${{ runner.temp }}/fixed-assets-sections-browser
         run: pnpm test:fa-sections:browser
+      - name: Verify the sealed FA-1 holdout H1 in the asset register sections through its three native file inputs and the actual Worker, against its recorded first run (FA-1d)
+        env:
+          FA_SECTIONS_BROWSER_DIR: ${{ runner.temp }}/fixed-assets-sections-h1-browser
+        run: pnpm test:fa-sections:h1-browser
   fixed-assets-sections-interface-mutations:
     name: Asset register sections interface mutations in built browser copies (FA-1c)
     runs-on: ubuntu-latest

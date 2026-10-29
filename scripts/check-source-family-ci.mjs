@@ -260,6 +260,7 @@ const required = [
   'test:fa-sections:run',
   'test:fa-sections:mutations',
   'test:fa-sections:h1-seal',
+  'test:fa-sections:h1-run',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',
@@ -474,7 +475,10 @@ const separate = {
   'payment-gateway-batches-interface-mutations': [
     'test:pg-batches:interface-mutations',
   ],
-  'fixed-assets-sections-browser': ['test:fa-sections:browser'],
+  'fixed-assets-sections-browser': [
+    'test:fa-sections:browser',
+    'test:fa-sections:h1-browser',
+  ],
   'fixed-assets-sections-interface-mutations': [
     'test:fa-sections:interface-mutations',
   ],
