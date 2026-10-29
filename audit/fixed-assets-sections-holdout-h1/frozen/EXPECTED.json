@@ -1,0 +1,8930 @@
+{
+ "schema": "tarasuf-fa1-sections-h1-expected/1",
+ "oracle": "audit/fixed-assets-sections-foundation/oracle.py",
+ "stories": {
+  "H01": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "fb1dcf567d5a4eeed308c54ab1390ac6a4195a94e6b45ad410781812c281eb7d",
+    "65fda0bbe38ee2be2bfe2997911e5c431c601273fdd789fca44d07e8c20d534c",
+    "a0d6540751c98c7c2b577eea649fa19b24279ada3f5036b89d9a76553e3e6985"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SAL-KIT",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "read",
+     []
+    ],
+    [
+     18,
+     34,
+     "SEC-FIN-RM",
+     "Fintas beach resort",
+     "Guest room furniture",
+     "read",
+     []
+    ],
+    [
+     35,
+     47,
+     "SEC-JAH-LFT",
+     "Jahra inn",
+     "Lifts",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-FIN-RM",
+     "sectionRow": 18,
+     "assetId": "RM-1101",
+     "dimensions": "FIN-W2",
+     "location": "Fintas beach resort",
+     "category": "Guest room furniture",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 2750000,
+      "depreciation": 1100000,
+      "impairment": 0,
+      "carrying": 1650000
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-FIN-RM"
+    },
+    {
+     "section": "SEC-FIN-RM",
+     "sectionRow": 18,
+     "assetId": "RM-1102",
+     "dimensions": "FIN-W2",
+     "location": "Fintas beach resort",
+     "category": "Guest room furniture",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 2750000,
+      "depreciation": 1375000,
+      "impairment": 137500,
+      "carrying": 1237500
+     },
+     "rows": {
+      "cost": [
+       30
+      ],
+      "depreciation": [
+       31
+      ],
+      "impairment": [
+       32
+      ],
+      "carrying": [
+       33
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-FIN-RM"
+    },
+    {
+     "section": "SEC-JAH-LFT",
+     "sectionRow": 35,
+     "assetId": "LFT-0301",
+     "dimensions": "JAH-C",
+     "location": "Jahra inn",
+     "category": "Lifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 64000000,
+      "depreciation": 25600000,
+      "impairment": 3200000,
+      "carrying": 35200000
+     },
+     "rows": {
+      "cost": [
+       43
+      ],
+      "depreciation": [
+       44
+      ],
+      "impairment": [
+       45
+      ],
+      "carrying": [
+       46
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LFT"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 1,
+     "assetId": "KIT/0001",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 18500000,
+      "depreciation": 7400000,
+      "impairment": 0,
+      "carrying": 11100000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 1,
+     "assetId": "KIT/0002",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 9250500,
+      "depreciation": 3700200,
+      "impairment": 462500,
+      "carrying": 5087800
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2610",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 27750500,
+     "gl": 27750500,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "cost"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 462500,
+     "gl": 462500,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "impairment"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 11100200,
+     "gl": 11100200,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "depreciation"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2620",
+     "dimensions": "HTL-ROOM",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 5500000,
+     "gl": 5500000,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "cost"
+      ],
+      [
+       "SEC-FIN-RM",
+       "RM-1102",
+       "FIN-W2",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2628",
+     "dimensions": "HTL-ROOM",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 137500,
+     "gl": 137500,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "impairment"
+      ],
+      [
+       "SEC-FIN-RM",
+       "RM-1102",
+       "FIN-W2",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2629",
+     "dimensions": "HTL-ROOM",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 2475000,
+     "gl": 2475000,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "depreciation"
+      ],
+      [
+       "SEC-FIN-RM",
+       "RM-1102",
+       "FIN-W2",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2630",
+     "dimensions": "HTL-ENG",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 64000000,
+     "gl": 64000000,
+     "difference": 0,
+     "glRow": 8,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2638",
+     "dimensions": "HTL-ENG",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 3200000,
+     "gl": 3200000,
+     "difference": 0,
+     "glRow": 9,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2639",
+     "dimensions": "HTL-ENG",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 25600000,
+     "gl": 25600000,
+     "difference": 0,
+     "glRow": 10,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 3,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 0,
+     "record": 20
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    }
+   }
+  },
+  "H02": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "15ff438eea3e304f23c046b616c53c0aeca5c76146c34fc9d77b1abdbde46a84",
+    "3c6f92bbe9a3715ee4738361ae3cf618156243f920c037c33c920047781e62af",
+    "112dc5a2778d34cd8fb44a894682ae09c2ef6487caf1c0412bf3eed42e8605a4"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     21,
+     "SEC-SAL-KIT",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "read",
+     []
+    ],
+    [
+     23,
+     43,
+     "SEC-JAH-LDY",
+     "Jahra inn",
+     "Laundry machines",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-JAH-LDY",
+     "sectionRow": 23,
+     "assetId": "LDY-0901",
+     "dimensions": "JAH-B",
+     "location": "Jahra inn",
+     "category": "Laundry machines",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 7300375,
+      "depreciation": 2920150,
+      "impairment": 0,
+      "carrying": 4380225
+     },
+     "rows": {
+      "cost": [
+       31
+      ],
+      "depreciation": [
+       32
+      ],
+      "impairment": [
+       33
+      ],
+      "carrying": [
+       34
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LDY"
+    },
+    {
+     "section": "SEC-JAH-LDY",
+     "sectionRow": 23,
+     "assetId": "LDY-0902",
+     "dimensions": "JAH-B",
+     "location": "Jahra inn",
+     "category": "Laundry machines",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 1999999,
+      "depreciation": 999999,
+      "impairment": 1,
+      "carrying": 999999
+     },
+     "rows": {
+      "cost": [
+       35
+      ],
+      "depreciation": [
+       36
+      ],
+      "impairment": [
+       37
+      ],
+      "carrying": [
+       38
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LDY"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 1,
+     "assetId": "KIT/0001",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 18500000,
+      "depreciation": 7400000,
+      "impairment": 0,
+      "carrying": 11100000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 1,
+     "assetId": "KIT/0002",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 9250500,
+      "depreciation": 3700200,
+      "impairment": 462500,
+      "carrying": 5087800
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2610",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 27750500,
+     "gl": 27750500,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "cost"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 462500,
+     "gl": 462500,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "impairment"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 11100200,
+     "gl": 11100200,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "depreciation"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2640",
+     "dimensions": "HTL-LDY",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 9300374,
+     "gl": 9300374,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0901",
+       "JAH-B",
+       "cost"
+      ],
+      [
+       "SEC-JAH-LDY",
+       "LDY-0902",
+       "JAH-B",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2648",
+     "dimensions": "HTL-LDY",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 1,
+     "gl": 1,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0901",
+       "JAH-B",
+       "impairment"
+      ],
+      [
+       "SEC-JAH-LDY",
+       "LDY-0902",
+       "JAH-B",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2649",
+     "dimensions": "HTL-LDY",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 3920149,
+     "gl": 3920149,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0901",
+       "JAH-B",
+       "depreciation"
+      ],
+      [
+       "SEC-JAH-LDY",
+       "LDY-0902",
+       "JAH-B",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 1,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 8,
+     "record": 16
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "H03": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "d21c0ea8d52423f0529d63d65c2e7abb0af175ffb0a1bd7fb40860fae5cd0c6e",
+    "7f6d07473432f876534f8628a375abc6ecb4b13079fbccc5184e9994e957f67f",
+    "0d786e976f20ba7faaa81ff3ba9aaabe92b1e5db8f8df3b02210e5f227158ece"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     13,
+     "SEC-KHR-KIT",
+     "منتجع الخيران",
+     "معدات المطبخ",
+     "read",
+     []
+    ],
+    [
+     14,
+     26,
+     "SEC-SAL-KIT",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-KHR-KIT",
+     "sectionRow": 1,
+     "assetId": "KIT/0003",
+     "dimensions": "FIN-G",
+     "location": "منتجع الخيران",
+     "category": "معدات المطبخ",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 4100000,
+      "depreciation": 4100000,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-KHR-KIT"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 14,
+     "assetId": "KIT/0001",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 18500000,
+      "depreciation": 7400000,
+      "impairment": 0,
+      "carrying": 11100000
+     },
+     "rows": {
+      "cost": [
+       22
+      ],
+      "depreciation": [
+       23
+      ],
+      "impairment": [
+       24
+      ],
+      "carrying": [
+       25
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2610",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 18500000,
+     "gl": 18500000,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 7400000,
+     "gl": 7400000,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2660",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 4100000,
+     "gl": 4100000,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-KHR-KIT",
+       "KIT/0003",
+       "FIN-G",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2668",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-KHR-KIT",
+       "KIT/0003",
+       "FIN-G",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2669",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 4100000,
+     "gl": 4100000,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-KHR-KIT",
+       "KIT/0003",
+       "FIN-G",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 8
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "H04": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "ad2aceafd8c7e55ecdb62e4c273ad1b3a41d42c654b3a6cb9f1c6b0170aef70e",
+    "79b114a4396cd93a97db35bdeccc911fca4558ef0c282f9e970a3867de1d0f90",
+    "b518fd3bb59f8cedee8cbefa5c14f652a690993ff1891ac5bd3ccb3c768503d8"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SAL-KIT",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "read",
+     []
+    ],
+    [
+     18,
+     30,
+     "SEC-FIN-KIT",
+     "Fintas beach resort",
+     "Kitchen equipment",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-FIN-KIT",
+     "sectionRow": 18,
+     "assetId": "KIT/0003",
+     "dimensions": "FIN-G",
+     "location": "Fintas beach resort",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 4100000,
+      "depreciation": 4100000,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-FIN-KIT"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 1,
+     "assetId": "KIT/0001",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 18500000,
+      "depreciation": 7400000,
+      "impairment": 0,
+      "carrying": 11100000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 1,
+     "assetId": "KIT/0002",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 9250500,
+      "depreciation": 3700200,
+      "impairment": 462500,
+      "carrying": 5087800
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2610",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 31850500,
+     "gl": 31850500,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-FIN-KIT",
+       "KIT/0003",
+       "FIN-G",
+       "cost"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "cost"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 462500,
+     "gl": 462500,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-FIN-KIT",
+       "KIT/0003",
+       "FIN-G",
+       "impairment"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "impairment"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "difference",
+     "codes": [],
+     "register": 15200200,
+     "gl": 15200195,
+     "difference": 5,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-FIN-KIT",
+       "KIT/0003",
+       "FIN-G",
+       "depreciation"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "depreciation"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 12
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 3
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 3
+    }
+   }
+  },
+  "H05": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "d8bb10455be4852e5fa20d4b5c4960dac137cb63d32cfc199fe60f07021efefb",
+    "f65f8b8c0e894be5f0790913498cd03a4309f6a4c3e89e7513fcf6c19603ed24",
+    "6696da6a3c1b4f86daff71203bf43a5bc81911c9d716dd9205d45d900fb4dda3"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     13,
+     "SEC-JAH-LFT",
+     "Jahra inn",
+     "Lifts",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-JAH-LFT",
+     "sectionRow": 1,
+     "assetId": "LFT-0302",
+     "dimensions": "JAH-C",
+     "location": "Jahra inn",
+     "category": "Lifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 30000000,
+      "depreciation": 6000000,
+      "impairment": 0,
+      "carrying": 24000000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LFT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2630",
+     "dimensions": "HTL-ENG",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 30000000,
+     "gl": 30000000,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0302",
+       "JAH-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2638",
+     "dimensions": "HTL-ENG",
+     "component": "impairment",
+     "status": "difference",
+     "codes": [],
+     "register": 0,
+     "gl": -250000,
+     "difference": 250000,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0302",
+       "JAH-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2639",
+     "dimensions": "HTL-ENG",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 6000000,
+     "gl": 6000000,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0302",
+       "JAH-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 1,
+     "end": 1,
+     "stray": 0,
+     "label": 6,
+     "columns": 1,
+     "total": 0,
+     "record": 4
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 3
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 3
+    }
+   }
+  },
+  "H06": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "6f795427739b2b7d5193da2c2eab2a8b530ff246b1b9b7685c46a20a9a84e01a",
+    "65fda0bbe38ee2be2bfe2997911e5c431c601273fdd789fca44d07e8c20d534c",
+    "3f93baef1db9698f4e3a47283b708fedc427c26e7585120c8ab4720254786f59"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     13,
+     "SEC-JAH-LFT",
+     "Jahra inn",
+     "Lifts",
+     "read",
+     []
+    ],
+    [
+     14,
+     30,
+     "SEC-SAL-KIT",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "read",
+     []
+    ],
+    [
+     31,
+     43,
+     "SEC-FIN-RM",
+     "Fintas beach resort",
+     "Guest room furniture",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-FIN-RM",
+     "sectionRow": 31,
+     "assetId": "RM-1101",
+     "dimensions": "FIN-W2",
+     "location": "Fintas beach resort",
+     "category": "Guest room furniture",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 2750000,
+      "depreciation": 1100000,
+      "impairment": 0,
+      "carrying": 1650000
+     },
+     "rows": {
+      "cost": [
+       39
+      ],
+      "depreciation": [
+       40
+      ],
+      "impairment": [
+       41
+      ],
+      "carrying": [
+       42
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-FIN-RM"
+    },
+    {
+     "section": "SEC-JAH-LFT",
+     "sectionRow": 1,
+     "assetId": "LFT-0301",
+     "dimensions": "JAH-C",
+     "location": "Jahra inn",
+     "category": "Lifts",
+     "status": "held",
+     "codes": [
+      "ID_SECTIONS"
+     ],
+     "amounts": {
+      "cost": 64000000,
+      "depreciation": 25600000,
+      "impairment": 3200000,
+      "carrying": 35200000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LFT"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 14,
+     "assetId": "KIT/0001",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 18500000,
+      "depreciation": 7400000,
+      "impairment": 0,
+      "carrying": 11100000
+     },
+     "rows": {
+      "cost": [
+       22
+      ],
+      "depreciation": [
+       23
+      ],
+      "impairment": [
+       24
+      ],
+      "carrying": [
+       25
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 14,
+     "assetId": "LFT-0301",
+     "dimensions": "SAL-F9",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "held",
+     "codes": [
+      "ID_SECTIONS"
+     ],
+     "amounts": {
+      "cost": 900000,
+      "depreciation": 90000,
+      "impairment": 0,
+      "carrying": 810000
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2610",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "ID_SECTIONS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "cost"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "LFT-0301",
+       "SAL-F9",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "ID_SECTIONS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "impairment"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "LFT-0301",
+       "SAL-F9",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "ID_SECTIONS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "depreciation"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "LFT-0301",
+       "SAL-F9",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2620",
+     "dimensions": "HTL-ROOM",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 2750000,
+     "gl": 2750000,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2628",
+     "dimensions": "HTL-ROOM",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2629",
+     "dimensions": "HTL-ROOM",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 1100000,
+     "gl": 1100000,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2630",
+     "dimensions": "HTL-ENG",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "ID_SECTIONS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 8,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2638",
+     "dimensions": "HTL-ENG",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "ID_SECTIONS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 9,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2639",
+     "dimensions": "HTL-ENG",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "ID_SECTIONS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 10,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 3,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 0,
+     "record": 16
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    }
+   }
+  },
+  "H07": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "3d9978d58719ff31d7c60ba3d73e9287e17cc5776180affc81d15a94cb5a8214",
+    "490695c9de7acf57455ca74673c0c76670b0911a37e90a3928ebd471b858bfd4",
+    "2ff9e756b85ccc982b2e7254db4af6713ceb9e62e20b43117dab86f9a1ce72e3"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     16,
+     "SEC-FIN-RM",
+     "Fintas beach resort",
+     "Guest room furniture",
+     "read",
+     []
+    ],
+    [
+     17,
+     29,
+     "SEC-JAH-LDY",
+     "Jahra inn",
+     "Laundry machines",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-FIN-RM",
+     "sectionRow": 1,
+     "assetId": "RM-1101",
+     "dimensions": "FIN-W2",
+     "location": "Fintas beach resort",
+     "category": "Guest room furniture",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 2750000,
+      "depreciation": 1100000,
+      "impairment": 0,
+      "carrying": 1650000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-FIN-RM"
+    },
+    {
+     "section": "SEC-FIN-RM",
+     "sectionRow": 1,
+     "assetId": "RM-1103",
+     "dimensions": "FIN-W3",
+     "location": "Fintas beach resort",
+     "category": "Guest room furniture",
+     "status": "held",
+     "codes": [
+      "COMPONENT_MISSING"
+     ],
+     "amounts": {
+      "cost": 1800000,
+      "depreciation": 360000,
+      "impairment": null,
+      "carrying": 1440000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [],
+      "carrying": [
+       15
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-RM"
+    },
+    {
+     "section": "SEC-JAH-LDY",
+     "sectionRow": 17,
+     "assetId": "LDY-0901",
+     "dimensions": "JAH-B",
+     "location": "Jahra inn",
+     "category": "Laundry machines",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 7300375,
+      "depreciation": 2920150,
+      "impairment": 0,
+      "carrying": 4380225
+     },
+     "rows": {
+      "cost": [
+       25
+      ],
+      "depreciation": [
+       26
+      ],
+      "impairment": [
+       27
+      ],
+      "carrying": [
+       28
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LDY"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2620",
+     "dimensions": "HTL-ROOM",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "COMPONENT_MISSING"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "cost"
+      ],
+      [
+       "SEC-FIN-RM",
+       "RM-1103",
+       "FIN-W3",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2628",
+     "dimensions": "HTL-ROOM",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "COMPONENT_MISSING"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "impairment"
+      ],
+      [
+       "SEC-FIN-RM",
+       "RM-1103",
+       "FIN-W3",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2629",
+     "dimensions": "HTL-ROOM",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "COMPONENT_MISSING"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "depreciation"
+      ],
+      [
+       "SEC-FIN-RM",
+       "RM-1103",
+       "FIN-W3",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2640",
+     "dimensions": "HTL-LDY",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 7300375,
+     "gl": 7300375,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0901",
+       "JAH-B",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2648",
+     "dimensions": "HTL-LDY",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0901",
+       "JAH-B",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2649",
+     "dimensions": "HTL-LDY",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 2920150,
+     "gl": 2920150,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0901",
+       "JAH-B",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 11
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "H08": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "9e88ca7d2e4b585726b25ed679caad12e2ea77a2b88a372d4b17025a5d806d31",
+    "80a92457ff449a494761c6ea38f2cad978d5a51266f43f44686a7997eb99ce0b",
+    "bf8b1035137e968eed4c0d5e5a5e17f48dbdbbe7bd6fdd048ca37e286cfc814f"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     18,
+     "SEC-JAH-LDY",
+     "Jahra inn",
+     "Laundry machines",
+     "read",
+     []
+    ],
+    [
+     19,
+     31,
+     "SEC-SAL-KIT",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-JAH-LDY",
+     "sectionRow": 1,
+     "assetId": "LDY-0901",
+     "dimensions": "JAH-B",
+     "location": "Jahra inn",
+     "category": "Laundry machines",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 7300375,
+      "depreciation": 2920150,
+      "impairment": 0,
+      "carrying": 4380225
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LDY"
+    },
+    {
+     "section": "SEC-JAH-LDY",
+     "sectionRow": 1,
+     "assetId": "LDY-0903",
+     "dimensions": "JAH-B",
+     "location": "Jahra inn",
+     "category": "Laundry machines",
+     "status": "held",
+     "codes": [
+      "COMPONENT_REPEATED"
+     ],
+     "amounts": {
+      "cost": 500000,
+      "depreciation": null,
+      "impairment": 0,
+      "carrying": 400000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14,
+       15
+      ],
+      "impairment": [
+       16
+      ],
+      "carrying": [
+       17
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-LD"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 19,
+     "assetId": "KIT/0002",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 9250500,
+      "depreciation": 3700200,
+      "impairment": 462500,
+      "carrying": 5087800
+     },
+     "rows": {
+      "cost": [
+       27
+      ],
+      "depreciation": [
+       28
+      ],
+      "impairment": [
+       29
+      ],
+      "carrying": [
+       30
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2610",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 9250500,
+     "gl": 9250500,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 462500,
+     "gl": 462500,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 3700200,
+     "gl": 3700200,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2640",
+     "dimensions": "HTL-LDY",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "COMPONENT_REPEATED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0901",
+       "JAH-B",
+       "cost"
+      ],
+      [
+       "SEC-JAH-LDY",
+       "LDY-0903",
+       "JAH-B",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2648",
+     "dimensions": "HTL-LDY",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "COMPONENT_REPEATED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0901",
+       "JAH-B",
+       "impairment"
+      ],
+      [
+       "SEC-JAH-LDY",
+       "LDY-0903",
+       "JAH-B",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2649",
+     "dimensions": "HTL-LDY",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "COMPONENT_REPEATED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0901",
+       "JAH-B",
+       "depreciation"
+      ],
+      [
+       "SEC-JAH-LDY",
+       "LDY-0903",
+       "JAH-B",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 13
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "H09": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "fa87c6a840f18f24c9a7f91123eacab4e55976b1f305d655473da91c297abdb0",
+    "c10c9e38f9ee51ff4ee6e05c5d8ebc11586018a93c8a3b650457671ace9f2fde",
+    "04c5be9ec96436ae75073d59345a3d0bec220136dd0fbf6ab2c2fafea70ec0df"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SAL-KIT",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "read",
+     []
+    ],
+    [
+     18,
+     30,
+     "SEC-JAH-LFT",
+     "Jahra inn",
+     "Lifts",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-JAH-LFT",
+     "sectionRow": 18,
+     "assetId": "LFT-0301",
+     "dimensions": "JAH-C",
+     "location": "Jahra inn",
+     "category": "Lifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 64000000,
+      "depreciation": 25600000,
+      "impairment": 3200000,
+      "carrying": 35200000
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LFT"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 1,
+     "assetId": "KIT/0001",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 18500000,
+      "depreciation": 7400000,
+      "impairment": 0,
+      "carrying": 11100000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 1,
+     "assetId": "KIT/0002",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "held",
+     "codes": [
+      "CARRYING"
+     ],
+     "amounts": {
+      "cost": 9250500,
+      "depreciation": 3700200,
+      "impairment": 462500,
+      "carrying": 5087801
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2610",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "CARRYING"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "cost"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "CARRYING"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "impairment"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "CARRYING"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "depreciation"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2630",
+     "dimensions": "HTL-ENG",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 64000000,
+     "gl": 64000000,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2638",
+     "dimensions": "HTL-ENG",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 3200000,
+     "gl": 3200000,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2639",
+     "dimensions": "HTL-ENG",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 25600000,
+     "gl": 25600000,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 12
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "H10": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "dc3854092be8fa7e5f4d749a8b70dc37e84a1c95362195f20bd6f74763ca6346",
+    "e79057e60afff4de057c93242fdc90ad6742ac562691c6c591bce4cc86694179",
+    "d3bf71621cf59173420a2298354b88dc7883ba97ce89f52fb8c4563b4b93816e"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-FIN-RM",
+     "Fintas beach resort",
+     "Guest room furniture",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-FIN-RM",
+     "sectionRow": 1,
+     "assetId": "RM-1101",
+     "dimensions": "FIN-W2",
+     "location": "Fintas beach resort",
+     "category": "Guest room furniture",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 2750000,
+      "depreciation": 1100000,
+      "impairment": 0,
+      "carrying": 1650000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-FIN-RM"
+    },
+    {
+     "section": "SEC-FIN-RM",
+     "sectionRow": 1,
+     "assetId": "RM-1104",
+     "dimensions": "FIN-W4",
+     "location": "Fintas beach resort",
+     "category": "Guest room furniture",
+     "status": "held",
+     "codes": [
+      "VALUATION"
+     ],
+     "amounts": {
+      "cost": 1000000,
+      "depreciation": 200000,
+      "impairment": 0,
+      "carrying": 800000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": null
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2620",
+     "dimensions": "HTL-ROOM",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "VALUATION"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "cost"
+      ],
+      [
+       "SEC-FIN-RM",
+       "RM-1104",
+       "FIN-W4",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2628",
+     "dimensions": "HTL-ROOM",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "VALUATION"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "impairment"
+      ],
+      [
+       "SEC-FIN-RM",
+       "RM-1104",
+       "FIN-W4",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2629",
+     "dimensions": "HTL-ROOM",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "VALUATION"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "depreciation"
+      ],
+      [
+       "SEC-FIN-RM",
+       "RM-1104",
+       "FIN-W4",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 1,
+     "end": 1,
+     "stray": 0,
+     "label": 6,
+     "columns": 1,
+     "total": 0,
+     "record": 8
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 3
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 3
+    }
+   }
+  },
+  "H11": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "99f2d0b15d7986643a301719a021c629858250174062fb93104e961209a9098e",
+    "6a42000c6e772f28a51c3af27827d01636ddccb390cac68397e1dae8415f920f",
+    "e6cfcc5970fbfbb8112906465e848f40a7964d3a52f236104332215e54620296"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     13,
+     "SEC-JAH-LFT",
+     "Jahra inn",
+     "Lifts",
+     "read",
+     []
+    ],
+    [
+     14,
+     26,
+     "SEC-SAL-KIT",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-JAH-LFT",
+     "sectionRow": 1,
+     "assetId": "LFT-0303",
+     "dimensions": "JAH-D",
+     "location": "Jahra inn",
+     "category": "Lifts",
+     "status": "held",
+     "codes": [
+      "CELLS"
+     ],
+     "amounts": {
+      "cost": 12000000,
+      "depreciation": 4800000,
+      "impairment": 0,
+      "carrying": 7200000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-LF"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 14,
+     "assetId": "KIT/0001",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 18500000,
+      "depreciation": 7400000,
+      "impairment": 0,
+      "carrying": 11100000
+     },
+     "rows": {
+      "cost": [
+       22
+      ],
+      "depreciation": [
+       23
+      ],
+      "impairment": [
+       24
+      ],
+      "carrying": [
+       25
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2610",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 18500000,
+     "gl": 18500000,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 7400000,
+     "gl": 7400000,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2630",
+     "dimensions": "HTL-ENG",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "CELLS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0303",
+       "JAH-D",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2638",
+     "dimensions": "HTL-ENG",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "CELLS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0303",
+       "JAH-D",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2639",
+     "dimensions": "HTL-ENG",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "CELLS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0303",
+       "JAH-D",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 8
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "H12": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "65b08adf2ad3a9d3f88ac7b86e3b41f231b0cfa4af357bf94ea3e1faf12d5a2b",
+    "9ff69581eac5249e0ce50e0ebc32f75d09e0ce5d3188bced0b723a1722b983fa",
+    "49895e0ac4da6a8726266ec6f865b09ffeef2e4e9ab36d06c687bc9ef210ede3"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SAL-KIT",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "read",
+     []
+    ],
+    [
+     18,
+     30,
+     "SEC-FIN-RM",
+     "Fintas beach resort",
+     "Guest room furniture",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-FIN-RM",
+     "sectionRow": 18,
+     "assetId": "RM-1102",
+     "dimensions": "FIN-W2",
+     "location": "Fintas beach resort",
+     "category": "Guest room furniture",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 2750000,
+      "depreciation": 1375000,
+      "impairment": 137500,
+      "carrying": 1237500
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-FIN-RM"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 1,
+     "assetId": "KIT/0004",
+     "dimensions": "SAL-F2",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "held",
+     "codes": [
+      "AMOUNT"
+     ],
+     "amounts": {
+      "cost": null,
+      "depreciation": 2500000,
+      "impairment": 0,
+      "carrying": 10000000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-K"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 1,
+     "assetId": "KIT/0005",
+     "dimensions": "SAL-F2",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "held",
+     "codes": [
+      "AMOUNT"
+     ],
+     "amounts": {
+      "cost": 600000,
+      "depreciation": null,
+      "impairment": 0,
+      "carrying": 480000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-K"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2610",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "AMOUNT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0004",
+       "SAL-F2",
+       "cost"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0005",
+       "SAL-F2",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "AMOUNT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0004",
+       "SAL-F2",
+       "impairment"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0005",
+       "SAL-F2",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "AMOUNT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0004",
+       "SAL-F2",
+       "depreciation"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0005",
+       "SAL-F2",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2620",
+     "dimensions": "HTL-ROOM",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 2750000,
+     "gl": 2750000,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1102",
+       "FIN-W2",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2628",
+     "dimensions": "HTL-ROOM",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 137500,
+     "gl": 137500,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1102",
+       "FIN-W2",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2629",
+     "dimensions": "HTL-ROOM",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 1375000,
+     "gl": 1375000,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1102",
+       "FIN-W2",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 12
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "H13": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "c47187c67a9e02a97ec2738947e1ee72c09970f191b944755dbce6b0e50acc34",
+    "dceed3ef86234ad4ecf8a20246089d2403cd2b7e208b6e9f2f802af4691993b7",
+    "7e886274641d866ed9cff7332a4b4015b9d61c3e32d9849723ffb160c10e5ff6"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     13,
+     "SEC-JAH-LDY",
+     "Jahra inn",
+     "Laundry machines",
+     "read",
+     []
+    ],
+    [
+     14,
+     26,
+     "SEC-JAH-LFT",
+     "Jahra inn",
+     "Lifts",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-JAH-LDY",
+     "sectionRow": 1,
+     "assetId": "LDY-0904",
+     "dimensions": "JAH-B",
+     "location": "Jahra inn",
+     "category": "Laundry machines",
+     "status": "held",
+     "codes": [
+      "TEXT"
+     ],
+     "amounts": {
+      "cost": 800000,
+      "depreciation": 160000,
+      "impairment": 0,
+      "carrying": 640000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": null
+    },
+    {
+     "section": "SEC-JAH-LFT",
+     "sectionRow": 14,
+     "assetId": "LFT-0301",
+     "dimensions": "JAH-C",
+     "location": "Jahra inn",
+     "category": "Lifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 64000000,
+      "depreciation": 25600000,
+      "impairment": 3200000,
+      "carrying": 35200000
+     },
+     "rows": {
+      "cost": [
+       22
+      ],
+      "depreciation": [
+       23
+      ],
+      "impairment": [
+       24
+      ],
+      "carrying": [
+       25
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LFT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2630",
+     "dimensions": "HTL-ENG",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 64000000,
+     "gl": 64000000,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2638",
+     "dimensions": "HTL-ENG",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 3200000,
+     "gl": 3200000,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2639",
+     "dimensions": "HTL-ENG",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 25600000,
+     "gl": 25600000,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2640",
+     "dimensions": "HTL-LDY",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "TEXT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0904",
+       "JAH-B",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2648",
+     "dimensions": "HTL-LDY",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "TEXT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0904",
+       "JAH-B",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2649",
+     "dimensions": "HTL-LDY",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "TEXT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0904",
+       "JAH-B",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 8
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "H14": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "b40144999c391c233f8513330a3bbb4c5e34271af34f86de362be1c358b8a31c",
+    "2ac72c568e7071f8980a0c06db4adae7b648d7cb90530bb470b2872ac1be019e",
+    "7f94b9447a34a53baf6f430cbe32026df13dcb68a5a2e9f9b7be43a052648751"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-FIN-RM",
+     "Fintas beach resort",
+     "Guest room furniture",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-FIN-RM",
+     "sectionRow": 1,
+     "assetId": "RM-1101",
+     "dimensions": "FIN-W2",
+     "location": "Fintas beach resort",
+     "category": "Guest room furniture",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 2750000,
+      "depreciation": 1100000,
+      "impairment": 0,
+      "carrying": 1650000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-FIN-RM"
+    },
+    {
+     "section": "SEC-FIN-RM",
+     "sectionRow": 1,
+     "assetId": "RM-1105",
+     "dimensions": "FIN-W5",
+     "location": "Fintas beach resort",
+     "category": "Guest room furniture",
+     "status": "held",
+     "codes": [
+      "COMPONENT",
+      "COMPONENT_MISSING"
+     ],
+     "amounts": {
+      "cost": null,
+      "depreciation": 450000,
+      "impairment": 0,
+      "carrying": 450000
+     },
+     "rows": {
+      "cost": [],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [
+      9
+     ],
+     "valuation": "VAL-R"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2620",
+     "dimensions": "HTL-ROOM",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "COMPONENT",
+      "COMPONENT_MISSING"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "cost"
+      ],
+      [
+       "SEC-FIN-RM",
+       "RM-1105",
+       "FIN-W5",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2628",
+     "dimensions": "HTL-ROOM",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "COMPONENT",
+      "COMPONENT_MISSING"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "impairment"
+      ],
+      [
+       "SEC-FIN-RM",
+       "RM-1105",
+       "FIN-W5",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2629",
+     "dimensions": "HTL-ROOM",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "COMPONENT",
+      "COMPONENT_MISSING"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "depreciation"
+      ],
+      [
+       "SEC-FIN-RM",
+       "RM-1105",
+       "FIN-W5",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 1,
+     "end": 1,
+     "stray": 0,
+     "label": 6,
+     "columns": 1,
+     "total": 0,
+     "record": 8
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 3
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 3
+    }
+   }
+  },
+  "H15": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "0ccf662c1bfe8b619c9454e659c0da702b0d06f23eeef97d37877893f7705f9e",
+    "9e4b51f2ca3c56dde0922b13277187477c0d08e038fbf37902c88270245a86c1",
+    "79688ea9132066f40d08db9c409db8b2b10c32af9fcce547b14da278d792b865"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     14,
+     "SEC-SAL-KIT",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "held",
+     [
+      "ROW_UNPLACED"
+     ]
+    ],
+    [
+     15,
+     27,
+     "SEC-JAH-LDY",
+     "Jahra inn",
+     "Laundry machines",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-JAH-LDY",
+     "sectionRow": 15,
+     "assetId": "LDY-0902",
+     "dimensions": "JAH-B",
+     "location": "Jahra inn",
+     "category": "Laundry machines",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 1999999,
+      "depreciation": 999999,
+      "impairment": 1,
+      "carrying": 999999
+     },
+     "rows": {
+      "cost": [
+       23
+      ],
+      "depreciation": [
+       24
+      ],
+      "impairment": [
+       25
+      ],
+      "carrying": [
+       26
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LDY"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 1,
+     "assetId": "KIT/0001",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 18500000,
+      "depreciation": 7400000,
+      "impairment": 0,
+      "carrying": 11100000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2610",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "ROW_UNPLACED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "ROW_UNPLACED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "ROW_UNPLACED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2640",
+     "dimensions": "HTL-LDY",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 1999999,
+     "gl": 1999999,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0902",
+       "JAH-B",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2648",
+     "dimensions": "HTL-LDY",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 1,
+     "gl": 1,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0902",
+       "JAH-B",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2649",
+     "dimensions": "HTL-LDY",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 999999,
+     "gl": 999999,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0902",
+       "JAH-B",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [
+    [
+     "register-sections",
+     13,
+     "ROW_UNPLACED"
+    ]
+   ],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 9
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "H16": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "fa2390c405cbef597d1bf366a20e58ce588299b6c734fa1825f93bd7b59429ec",
+    "65fda0bbe38ee2be2bfe2997911e5c431c601273fdd789fca44d07e8c20d534c",
+    "242e5b1cd8813c7f635df1460510570dcfdfe2f652660b247d2eef6dba740c1b"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     13,
+     "SEC-0001",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "held",
+     [
+      "SECTION_DUPLICATE"
+     ]
+    ],
+    [
+     14,
+     26,
+     "SEC-0001",
+     "Fintas beach resort",
+     "Guest room furniture",
+     "held",
+     [
+      "SECTION_DUPLICATE"
+     ]
+    ],
+    [
+     27,
+     39,
+     "SEC-0002",
+     "Jahra inn",
+     "Lifts",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-0001",
+     "sectionRow": 1,
+     "assetId": "KIT/0002",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 9250500,
+      "depreciation": 3700200,
+      "impairment": 462500,
+      "carrying": 5087800
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-0001"
+    },
+    {
+     "section": "SEC-0001",
+     "sectionRow": 14,
+     "assetId": "RM-1102",
+     "dimensions": "FIN-W2",
+     "location": "Fintas beach resort",
+     "category": "Guest room furniture",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 2750000,
+      "depreciation": 1375000,
+      "impairment": 137500,
+      "carrying": 1237500
+     },
+     "rows": {
+      "cost": [
+       22
+      ],
+      "depreciation": [
+       23
+      ],
+      "impairment": [
+       24
+      ],
+      "carrying": [
+       25
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-0001"
+    },
+    {
+     "section": "SEC-0002",
+     "sectionRow": 27,
+     "assetId": "LFT-0301",
+     "dimensions": "JAH-C",
+     "location": "Jahra inn",
+     "category": "Lifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 64000000,
+      "depreciation": 25600000,
+      "impairment": 3200000,
+      "carrying": 35200000
+     },
+     "rows": {
+      "cost": [
+       35
+      ],
+      "depreciation": [
+       36
+      ],
+      "impairment": [
+       37
+      ],
+      "carrying": [
+       38
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-0002"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2610",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "SECTION_DUPLICATE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-0001",
+       "KIT/0002",
+       "SAL-F1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "SECTION_DUPLICATE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-0001",
+       "KIT/0002",
+       "SAL-F1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "SECTION_DUPLICATE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-0001",
+       "KIT/0002",
+       "SAL-F1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2620",
+     "dimensions": "HTL-ROOM",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "SECTION_DUPLICATE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-0001",
+       "RM-1102",
+       "FIN-W2",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2628",
+     "dimensions": "HTL-ROOM",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "SECTION_DUPLICATE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-0001",
+       "RM-1102",
+       "FIN-W2",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2629",
+     "dimensions": "HTL-ROOM",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "SECTION_DUPLICATE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-0001",
+       "RM-1102",
+       "FIN-W2",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2630",
+     "dimensions": "HTL-ENG",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 64000000,
+     "gl": 64000000,
+     "difference": 0,
+     "glRow": 8,
+     "members": [
+      [
+       "SEC-0002",
+       "LFT-0301",
+       "JAH-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2638",
+     "dimensions": "HTL-ENG",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 3200000,
+     "gl": 3200000,
+     "difference": 0,
+     "glRow": 9,
+     "members": [
+      [
+       "SEC-0002",
+       "LFT-0301",
+       "JAH-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2639",
+     "dimensions": "HTL-ENG",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 25600000,
+     "gl": 25600000,
+     "difference": 0,
+     "glRow": 10,
+     "members": [
+      [
+       "SEC-0002",
+       "LFT-0301",
+       "JAH-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 3,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 0,
+     "record": 12
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    }
+   }
+  },
+  "H17": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "51386cdeb8e621f8386c5b5038c810dbc87fda1cbbe18b5b49f80e42aab269db",
+    "de3e645f0413490fb912e3940492687bb0f91fa4485156323a19e15f2633891b",
+    "0357d3ad93a84578bed91aaafc376c21f339c542d653cda3633c27ee4ba47e5c"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     18,
+     "SEC-SAL-KIT",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "held",
+     [
+      "TOTAL_MISMATCH"
+     ]
+    ],
+    [
+     19,
+     32,
+     "SEC-JAH-LDY",
+     "Jahra inn",
+     "Laundry machines",
+     "held",
+     [
+      "TOTAL_FIELD"
+     ]
+    ],
+    [
+     33,
+     47,
+     "SEC-FIN-RM",
+     "Fintas beach resort",
+     "Guest room furniture",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-FIN-RM",
+     "sectionRow": 33,
+     "assetId": "RM-1101",
+     "dimensions": "FIN-W2",
+     "location": "Fintas beach resort",
+     "category": "Guest room furniture",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 2750000,
+      "depreciation": 1100000,
+      "impairment": 0,
+      "carrying": 1650000
+     },
+     "rows": {
+      "cost": [
+       41
+      ],
+      "depreciation": [
+       42
+      ],
+      "impairment": [
+       43
+      ],
+      "carrying": [
+       44
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-FIN-RM"
+    },
+    {
+     "section": "SEC-JAH-LDY",
+     "sectionRow": 19,
+     "assetId": "LDY-0901",
+     "dimensions": "JAH-B",
+     "location": "Jahra inn",
+     "category": "Laundry machines",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 7300375,
+      "depreciation": 2920150,
+      "impairment": 0,
+      "carrying": 4380225
+     },
+     "rows": {
+      "cost": [
+       27
+      ],
+      "depreciation": [
+       28
+      ],
+      "impairment": [
+       29
+      ],
+      "carrying": [
+       30
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LDY"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 1,
+     "assetId": "KIT/0001",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 18500000,
+      "depreciation": 7400000,
+      "impairment": 0,
+      "carrying": 11100000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 1,
+     "assetId": "KIT/0002",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 9250500,
+      "depreciation": 3700200,
+      "impairment": 462500,
+      "carrying": 5087800
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2610",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "TOTAL_MISMATCH"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "cost"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "TOTAL_MISMATCH"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "impairment"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "TOTAL_MISMATCH"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "depreciation"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2620",
+     "dimensions": "HTL-ROOM",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 2750000,
+     "gl": 2750000,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2628",
+     "dimensions": "HTL-ROOM",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2629",
+     "dimensions": "HTL-ROOM",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 1100000,
+     "gl": 1100000,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2640",
+     "dimensions": "HTL-LDY",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "TOTAL_FIELD"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 8,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0901",
+       "JAH-B",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2648",
+     "dimensions": "HTL-LDY",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "TOTAL_FIELD"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 9,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0901",
+       "JAH-B",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2649",
+     "dimensions": "HTL-LDY",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "TOTAL_FIELD"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 10,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0901",
+       "JAH-B",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 3,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 4,
+     "record": 16
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    }
+   }
+  },
+  "H18": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "1efa56ac54c502d149240ed90284ac633c3e172a156acc201d00fd5c318b42e3",
+    "050fca905f58fdba8a963ffd153dc102a3a133b9ae6442389f0ed517136edde5",
+    "bc0cc5684b8091a306808ac6d0079d28a46865863ba34310805f956f173dcebc"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     13,
+     "SEC-FIN-RM",
+     "Fintas beach resort",
+     "Guest room furniture",
+     "read",
+     []
+    ],
+    [
+     14,
+     25,
+     "SEC-FIN-LDY",
+     null,
+     "Laundry machines",
+     "held",
+     [
+      "SECTION_HEADER"
+     ]
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-FIN-RM",
+     "sectionRow": 1,
+     "assetId": "RM-1101",
+     "dimensions": "FIN-W2",
+     "location": "Fintas beach resort",
+     "category": "Guest room furniture",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 2750000,
+      "depreciation": 1100000,
+      "impairment": 0,
+      "carrying": 1650000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-FIN-RM"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2620",
+     "dimensions": "HTL-ROOM",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 2750000,
+     "gl": 2750000,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2628",
+     "dimensions": "HTL-ROOM",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2629",
+     "dimensions": "HTL-ROOM",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 1100000,
+     "gl": 1100000,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2640",
+     "dimensions": "HTL-LDY",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "SECTION_HEADER"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": []
+    },
+    {
+     "account": "2648",
+     "dimensions": "HTL-LDY",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "SECTION_HEADER"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": []
+    },
+    {
+     "account": "2649",
+     "dimensions": "HTL-LDY",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "SECTION_HEADER"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": []
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 11,
+     "columns": 2,
+     "total": 0,
+     "record": 8
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "H19": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "b16972c3dbbd1e40525d89c32fac6b39e99a96e739dd3684d2eaff2d74065ac5",
+    "c10c9e38f9ee51ff4ee6e05c5d8ebc11586018a93c8a3b650457671ace9f2fde",
+    "b08d95362a4505e25f0b7c63e30722f63869bd8e04c27257a0a9bfa8e5ac9932"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     13,
+     "SEC-SAL-KIT",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "read",
+     []
+    ],
+    [
+     14,
+     30,
+     "SEC-SAL-KIT-2027",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "excluded",
+     [
+      "SECTION_SCOPE"
+     ]
+    ],
+    [
+     31,
+     43,
+     "SEC-JAH-LFT",
+     "Jahra inn",
+     "Lifts",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-JAH-LFT",
+     "sectionRow": 31,
+     "assetId": "LFT-0301",
+     "dimensions": "JAH-C",
+     "location": "Jahra inn",
+     "category": "Lifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 64000000,
+      "depreciation": 25600000,
+      "impairment": 3200000,
+      "carrying": 35200000
+     },
+     "rows": {
+      "cost": [
+       39
+      ],
+      "depreciation": [
+       40
+      ],
+      "impairment": [
+       41
+      ],
+      "carrying": [
+       42
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LFT"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 1,
+     "assetId": "KIT/0001",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 18500000,
+      "depreciation": 7400000,
+      "impairment": 0,
+      "carrying": 11100000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2610",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 18500000,
+     "gl": 18500000,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 7400000,
+     "gl": 7400000,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2630",
+     "dimensions": "HTL-ENG",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 64000000,
+     "gl": 64000000,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2638",
+     "dimensions": "HTL-ENG",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 3200000,
+     "gl": 3200000,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2639",
+     "dimensions": "HTL-ENG",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 25600000,
+     "gl": 25600000,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 3,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 0,
+     "record": 16
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "H20": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "8df46ce6a830cb7daf4ad15f12bd75f74c3f539da89ee941ba60a38fc6544a21",
+    "fcc112bb490a88bec2189ce098cb17f86e9c7bfc3a94a4e823f843553549c745",
+    "298016d29293af5c089937c2130cffcd5be98f095aff7d806f9684cdd12249d1"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     13,
+     "SEC-JAH-LFT",
+     "Jahra inn",
+     "Lifts",
+     "held",
+     [
+      "SECTION_COLUMNS"
+     ]
+    ],
+    [
+     14,
+     26,
+     "SEC-FIN-RM",
+     "Fintas beach resort",
+     "Guest room furniture",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-FIN-RM",
+     "sectionRow": 14,
+     "assetId": "RM-1102",
+     "dimensions": "FIN-W2",
+     "location": "Fintas beach resort",
+     "category": "Guest room furniture",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 2750000,
+      "depreciation": 1375000,
+      "impairment": 137500,
+      "carrying": 1237500
+     },
+     "rows": {
+      "cost": [
+       22
+      ],
+      "depreciation": [
+       23
+      ],
+      "impairment": [
+       24
+      ],
+      "carrying": [
+       25
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-FIN-RM"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2620",
+     "dimensions": "HTL-ROOM",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 2750000,
+     "gl": 2750000,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1102",
+       "FIN-W2",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2628",
+     "dimensions": "HTL-ROOM",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 137500,
+     "gl": 137500,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1102",
+       "FIN-W2",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2629",
+     "dimensions": "HTL-ROOM",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 1375000,
+     "gl": 1375000,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1102",
+       "FIN-W2",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2630",
+     "dimensions": "HTL-ENG",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "SECTION_COLUMNS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": []
+    },
+    {
+     "account": "2638",
+     "dimensions": "HTL-ENG",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "SECTION_COLUMNS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": []
+    },
+    {
+     "account": "2639",
+     "dimensions": "HTL-ENG",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "SECTION_COLUMNS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": []
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 8
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "H21": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "e7aaaa27d4b27f37604f0c5be5e8d97c5f89f23b0c51e782c0cc6b45f7b9d0e8",
+    "3c6f92bbe9a3715ee4738361ae3cf618156243f920c037c33c920047781e62af",
+    "a2b5a7c9664eb20e2df5b6af0a08a5b3fa258ad9f9f74bca500a3d334a0c26b9"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     13,
+     "SEC-SAL-KIT",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "held",
+     [
+      "SECTION_UNCLOSED"
+     ]
+    ],
+    [
+     14,
+     26,
+     "SEC-JAH-LDY",
+     "Jahra inn",
+     "Laundry machines",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-JAH-LDY",
+     "sectionRow": 14,
+     "assetId": "LDY-0902",
+     "dimensions": "JAH-B",
+     "location": "Jahra inn",
+     "category": "Laundry machines",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 1999999,
+      "depreciation": 999999,
+      "impairment": 1,
+      "carrying": 999999
+     },
+     "rows": {
+      "cost": [
+       22
+      ],
+      "depreciation": [
+       23
+      ],
+      "impairment": [
+       24
+      ],
+      "carrying": [
+       25
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LDY"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2610",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "SECTION_UNCLOSED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": []
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "SECTION_UNCLOSED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": []
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "SECTION_UNCLOSED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": []
+    },
+    {
+     "account": "2640",
+     "dimensions": "HTL-LDY",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 1999999,
+     "gl": 1999999,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0902",
+       "JAH-B",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2648",
+     "dimensions": "HTL-LDY",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 1,
+     "gl": 1,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0902",
+       "JAH-B",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2649",
+     "dimensions": "HTL-LDY",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 999999,
+     "gl": 999999,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0902",
+       "JAH-B",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 8
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "H22": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "81a90fceb1e7ae6131fd4d6cb2f6e70db00f89ff3cce354f220ffe5deed427c2",
+    "f1671d8a2f4cbaf6d44dd3b2e2fdf37c856b63f80b68aa142a34078bd5680197",
+    "306f514835b063064715c26be6c827c9f7735496cb9578cc74033db2d9a2f8a5"
+   ],
+   "run": [
+    "SECTION_UNREADABLE"
+   ],
+   "sections": [
+    [
+     1,
+     13,
+     "SEC-FIN-RM",
+     "Fintas beach resort",
+     null,
+     "held",
+     [
+      "SECTION_UNREADABLE"
+     ]
+    ],
+    [
+     14,
+     26,
+     "SEC-JAH-LFT",
+     "Jahra inn",
+     "Lifts",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-JAH-LFT",
+     "sectionRow": 14,
+     "assetId": "LFT-0301",
+     "dimensions": "JAH-C",
+     "location": "Jahra inn",
+     "category": "Lifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 64000000,
+      "depreciation": 25600000,
+      "impairment": 3200000,
+      "carrying": 35200000
+     },
+     "rows": {
+      "cost": [
+       22
+      ],
+      "depreciation": [
+       23
+      ],
+      "impairment": [
+       24
+      ],
+      "carrying": [
+       25
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LFT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2620",
+     "dimensions": "HTL-ROOM",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "SECTION_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": []
+    },
+    {
+     "account": "2628",
+     "dimensions": "HTL-ROOM",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "SECTION_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": []
+    },
+    {
+     "account": "2629",
+     "dimensions": "HTL-ROOM",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "SECTION_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": []
+    },
+    {
+     "account": "2630",
+     "dimensions": "HTL-ENG",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "SECTION_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2638",
+     "dimensions": "HTL-ENG",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "SECTION_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2639",
+     "dimensions": "HTL-ENG",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "SECTION_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [
+    [
+     "register-sections",
+     1,
+     "SECTION_UNREADABLE"
+    ]
+   ],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 8
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "H23": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "928ba87348b51ce5df4ebe3a9ecb286795af7095335ea1f611bee6592b7b8186",
+    "c5d86e7cdcbc53af362eceb1c755570eee9797eeecfe81559699657c7e5a544c",
+    "201f51076da171dbb264ea3c3c3e904f8116b47a053c12cfc0272e97ae335b6d"
+   ],
+   "run": [
+    "STRAY_ROW"
+   ],
+   "sections": [
+    [
+     1,
+     13,
+     "SEC-SAL-KIT",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "read",
+     []
+    ],
+    [
+     15,
+     27,
+     "SEC-JAH-LFT",
+     "Jahra inn",
+     "Lifts",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-JAH-LFT",
+     "sectionRow": 15,
+     "assetId": "LFT-0301",
+     "dimensions": "JAH-C",
+     "location": "Jahra inn",
+     "category": "Lifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 64000000,
+      "depreciation": 25600000,
+      "impairment": 3200000,
+      "carrying": 35200000
+     },
+     "rows": {
+      "cost": [
+       23
+      ],
+      "depreciation": [
+       24
+      ],
+      "impairment": [
+       25
+      ],
+      "carrying": [
+       26
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LFT"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 1,
+     "assetId": "KIT/0001",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 18500000,
+      "depreciation": 7400000,
+      "impairment": 0,
+      "carrying": 11100000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2610",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "STRAY_ROW"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "STRAY_ROW"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "STRAY_ROW"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2630",
+     "dimensions": "HTL-ENG",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "STRAY_ROW"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2638",
+     "dimensions": "HTL-ENG",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "STRAY_ROW"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2639",
+     "dimensions": "HTL-ENG",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "STRAY_ROW"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [
+    [
+     "register-sections",
+     14,
+     "STRAY_ROW"
+    ]
+   ],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 1,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 8
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "H24": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "12c4e1133fff3db31f455c597ddca4ab24d5bf9fe7e2d6f45eba4558d0097ba2",
+    "b634be276f6f89c857538b62c908d679c4182eab071b1fcfc3abbc760ba79737",
+    "d24dc97f419af614653f83acda028b28bceeb77790494eec925125997241f5d1"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-JAH-LDY",
+     "Jahra inn",
+     "Laundry machines",
+     "read",
+     []
+    ],
+    [
+     18,
+     30,
+     "SEC-SAL-KIT",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-JAH-LDY",
+     "sectionRow": 1,
+     "assetId": "LDY-0901",
+     "dimensions": "JAH-B",
+     "location": "Jahra inn",
+     "category": "Laundry machines",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 7300375,
+      "depreciation": 2920150,
+      "impairment": 0,
+      "carrying": 4380225
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LDY"
+    },
+    {
+     "section": "SEC-JAH-LDY",
+     "sectionRow": 1,
+     "assetId": "LDY-0902",
+     "dimensions": "JAH-B",
+     "location": "Jahra inn",
+     "category": "Laundry machines",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 1999999,
+      "depreciation": 999999,
+      "impairment": 1,
+      "carrying": 999999
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LDY"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 18,
+     "assetId": "KIT/0002",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 9250500,
+      "depreciation": 3700200,
+      "impairment": 462500,
+      "carrying": 5087800
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    }
+   ],
+   "unmapped": [
+    [
+     "Laundry machines",
+     "cost",
+     "MAP_EXPIRED"
+    ]
+   ],
+   "accounts": [
+    {
+     "account": "2610",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "MAP_EXPIRED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 462500,
+     "gl": 462500,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 3700200,
+     "gl": 3700200,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2640",
+     "dimensions": "HTL-LDY",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "MAP_EXPIRED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": []
+    },
+    {
+     "account": "2648",
+     "dimensions": "HTL-LDY",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 1,
+     "gl": 1,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0901",
+       "JAH-B",
+       "impairment"
+      ],
+      [
+       "SEC-JAH-LDY",
+       "LDY-0902",
+       "JAH-B",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2649",
+     "dimensions": "HTL-LDY",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 3920149,
+     "gl": 3920149,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0901",
+       "JAH-B",
+       "depreciation"
+      ],
+      [
+       "SEC-JAH-LDY",
+       "LDY-0902",
+       "JAH-B",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 12
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "H25": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "f12025b8454932b1a534a9fb6d358c55d6b52dec8a76729fabb09c1428badb62",
+    "279c9a0ff1502e8c62dc1c00deec0c8e04210321c161ec63da300b42361cc0cb",
+    "0f8c05d1d0cd85cc45d6023e558019208fa5ca68a251e430ca03524761cf4f2b"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     13,
+     "SEC-SAL-KIT",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "read",
+     []
+    ],
+    [
+     14,
+     26,
+     "SEC-FIN-RM",
+     "Fintas beach resort",
+     "Guest room furniture",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-FIN-RM",
+     "sectionRow": 14,
+     "assetId": "RM-1101",
+     "dimensions": "FIN-W2",
+     "location": "Fintas beach resort",
+     "category": "Guest room furniture",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 2750000,
+      "depreciation": 1100000,
+      "impairment": 0,
+      "carrying": 1650000
+     },
+     "rows": {
+      "cost": [
+       22
+      ],
+      "depreciation": [
+       23
+      ],
+      "impairment": [
+       24
+      ],
+      "carrying": [
+       25
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-FIN-RM"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 1,
+     "assetId": "KIT/0001",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 18500000,
+      "depreciation": 7400000,
+      "impairment": 0,
+      "carrying": 11100000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    }
+   ],
+   "unmapped": [
+    [
+     "Kitchen equipment",
+     "depreciation",
+     "MAP_REPEATED"
+    ]
+   ],
+   "accounts": [
+    {
+     "account": "2610",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 18500000,
+     "gl": 18500000,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "MAP_REPEATED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": []
+    },
+    {
+     "account": "2620",
+     "dimensions": "HTL-ROOM",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 2750000,
+     "gl": 2750000,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2621",
+     "dimensions": "HTL-ROOM",
+     "component": "cost",
+     "status": "missing",
+     "codes": [
+      "UNMAPPED"
+     ],
+     "register": null,
+     "gl": 0,
+     "difference": null,
+     "glRow": 8,
+     "members": []
+    },
+    {
+     "account": "2628",
+     "dimensions": "HTL-ROOM",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2629",
+     "dimensions": "HTL-ROOM",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "MAP_REPEATED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 8
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 8
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 7
+    }
+   }
+  },
+  "H26": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "c42741e3bfa639ee5f287bc6319d4c70f07be15e038eeada270e33896ab79440",
+    "e313a38d493a8d0b383bb314b66dea4d2f121dbb925752c013af2e1dadf7def7",
+    "07293e5c6fb1812cb3a492316799b28e998f33a6d8c36da169ecbb5416060e63"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     13,
+     "SEC-JAH-LFT",
+     "Jahra inn",
+     "Lifts",
+     "read",
+     []
+    ],
+    [
+     14,
+     26,
+     "SEC-FIN-RM",
+     "Fintas beach resort",
+     "Guest room furniture",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-FIN-RM",
+     "sectionRow": 14,
+     "assetId": "RM-1101",
+     "dimensions": "FIN-W2",
+     "location": "Fintas beach resort",
+     "category": "Guest room furniture",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 2750000,
+      "depreciation": 1100000,
+      "impairment": 0,
+      "carrying": 1650000
+     },
+     "rows": {
+      "cost": [
+       22
+      ],
+      "depreciation": [
+       23
+      ],
+      "impairment": [
+       24
+      ],
+      "carrying": [
+       25
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-FIN-RM"
+    },
+    {
+     "section": "SEC-JAH-LFT",
+     "sectionRow": 1,
+     "assetId": "LFT-0301",
+     "dimensions": "JAH-C",
+     "location": "Jahra inn",
+     "category": "Lifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 64000000,
+      "depreciation": 25600000,
+      "impairment": 3200000,
+      "carrying": 35200000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LFT"
+    }
+   ],
+   "unmapped": [
+    [
+     "Lifts",
+     "impairment",
+     "MAP_CLASS"
+    ]
+   ],
+   "accounts": [
+    {
+     "account": "2620",
+     "dimensions": "HTL-ROOM",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "CLASS_CONFLICT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2628",
+     "dimensions": "HTL-ROOM",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "MAP_CLASS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2629",
+     "dimensions": "HTL-ROOM",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 1100000,
+     "gl": 1100000,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2630",
+     "dimensions": "HTL-ENG",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 64000000,
+     "gl": 64000000,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2638",
+     "dimensions": "HTL-ENG",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "MAP_CLASS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": []
+    },
+    {
+     "account": "2639",
+     "dimensions": "HTL-ENG",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 25600000,
+     "gl": 25600000,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 8
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "H27": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "d94f53c5fd3454269a8a34d4572c9cdfb2c205619972f4a17b3267fbdde6c15c",
+    "b95d96b275cf553b546ad2bd27dff883534f473a2f21e53863674e23ec226f09",
+    "13c307b843c816a440b3b33a5e7dcdf6e59ac948436f424d5798af47e74896cb"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SAL-KIT",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "read",
+     []
+    ],
+    [
+     18,
+     30,
+     "SEC-JAH-LDY",
+     "Jahra inn",
+     "Laundry machines",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-JAH-LDY",
+     "sectionRow": 18,
+     "assetId": "LDY-0901",
+     "dimensions": "JAH-B",
+     "location": "Jahra inn",
+     "category": "Laundry machines",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 7300375,
+      "depreciation": 2920150,
+      "impairment": 0,
+      "carrying": 4380225
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LDY"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 1,
+     "assetId": "KIT/0001",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 18500000,
+      "depreciation": 7400000,
+      "impairment": 0,
+      "carrying": 11100000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 1,
+     "assetId": "KIT/0002",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 9250500,
+      "depreciation": 3700200,
+      "impairment": 462500,
+      "carrying": 5087800
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2610",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "GL_SCOPE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "cost"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "missing",
+     "codes": [
+      "GL_ABSENT"
+     ],
+     "register": 462500,
+     "gl": null,
+     "difference": null,
+     "glRow": null,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "impairment"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "GL_REPEATED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": null,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "depreciation"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2640",
+     "dimensions": "HTL-LDY",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 7300375,
+     "gl": 7300375,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0901",
+       "JAH-B",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2648",
+     "dimensions": "HTL-LDY",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0901",
+       "JAH-B",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2649",
+     "dimensions": "HTL-LDY",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 2920150,
+     "gl": 2920150,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0901",
+       "JAH-B",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2650",
+     "dimensions": "HTL-POOL",
+     "component": "cost",
+     "status": "missing",
+     "codes": [
+      "REGISTER_ABSENT"
+     ],
+     "register": null,
+     "gl": 0,
+     "difference": null,
+     "glRow": 8,
+     "members": []
+    },
+    {
+     "account": "2658",
+     "dimensions": "HTL-POOL",
+     "component": "impairment",
+     "status": "missing",
+     "codes": [
+      "GL_ABSENT",
+      "REGISTER_ABSENT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": null,
+     "members": []
+    },
+    {
+     "account": "2659",
+     "dimensions": "HTL-POOL",
+     "component": "depreciation",
+     "status": "missing",
+     "codes": [
+      "GL_ABSENT",
+      "REGISTER_ABSENT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": null,
+     "members": []
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 12
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 7
+    }
+   }
+  },
+  "H28": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "93c76810dde07a3fc66f618b67ae5602c7f4b3f9156cbcc2d79c4a6d21aea859",
+    "207febed8d3412acade5e90529286b209f6059494413dfaae6b4c23e56ee0e95",
+    "da6c39a44ef0e49cd4f903da420fa2911180a2a34909e3435922c8b515202b2c"
+   ],
+   "run": [
+    "GL_UNREADABLE"
+   ],
+   "sections": [
+    [
+     1,
+     13,
+     "SEC-SAL-KIT",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 1,
+     "assetId": "KIT/0001",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 18500000,
+      "depreciation": 7400000,
+      "impairment": 0,
+      "carrying": 11100000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2610",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "GL_ROW",
+      "GL_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "GL_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "GL_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [
+    [
+     "gl-balances",
+     5,
+     "GL_UNREADABLE"
+    ]
+   ],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 1,
+     "end": 1,
+     "stray": 0,
+     "label": 6,
+     "columns": 1,
+     "total": 0,
+     "record": 4
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 3
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 4
+    }
+   }
+  },
+  "H29": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "00f3f3a862eea1b66e1c0d5cc20486ec8fc0ff76bc8db4cf033fa68f8762939c",
+    "6d3d0dac7c72dc7f32f6a05f5420d32184d1a8013c7e701c7eaace02394e58f7",
+    "29e2018f5f86686ecf4050c9813cde2a18f1493d390325ea3409539cf61b3369"
+   ],
+   "run": [
+    "MAP_UNREADABLE"
+   ],
+   "sections": [
+    [
+     1,
+     13,
+     "SEC-JAH-LFT",
+     "Jahra inn",
+     "Lifts",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-JAH-LFT",
+     "sectionRow": 1,
+     "assetId": "LFT-0301",
+     "dimensions": "JAH-C",
+     "location": "Jahra inn",
+     "category": "Lifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 64000000,
+      "depreciation": 25600000,
+      "impairment": 3200000,
+      "carrying": 35200000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LFT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2630",
+     "dimensions": "HTL-ENG",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "MAP_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2638",
+     "dimensions": "HTL-ENG",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "MAP_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2639",
+     "dimensions": "HTL-ENG",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "MAP_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [
+    [
+     "category-map",
+     5,
+     "MAP_UNREADABLE"
+    ]
+   ],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 1,
+     "end": 1,
+     "stray": 0,
+     "label": 6,
+     "columns": 1,
+     "total": 0,
+     "record": 4
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 4
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 3
+    }
+   }
+  },
+  "H30": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "f12025b8454932b1a534a9fb6d358c55d6b52dec8a76729fabb09c1428badb62",
+    "fc4917b6587da7c2e02baacceb09364f2bb47f77231fe8bded9af0cbdd69f10e",
+    "875c09476c0738e133a4e4dbd57524a8aad3aec5c1982234aa520209df603860"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     13,
+     "SEC-SAL-KIT",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "read",
+     []
+    ],
+    [
+     14,
+     26,
+     "SEC-FIN-RM",
+     "Fintas beach resort",
+     "Guest room furniture",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-FIN-RM",
+     "sectionRow": 14,
+     "assetId": "RM-1101",
+     "dimensions": "FIN-W2",
+     "location": "Fintas beach resort",
+     "category": "Guest room furniture",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 2750000,
+      "depreciation": 1100000,
+      "impairment": 0,
+      "carrying": 1650000
+     },
+     "rows": {
+      "cost": [
+       22
+      ],
+      "depreciation": [
+       23
+      ],
+      "impairment": [
+       24
+      ],
+      "carrying": [
+       25
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-FIN-RM"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 1,
+     "assetId": "KIT/0001",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 18500000,
+      "depreciation": 7400000,
+      "impairment": 0,
+      "carrying": 11100000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2600",
+     "dimensions": "HTL-SHARED",
+     "component": null,
+     "status": "held",
+     "codes": [
+      "ACCOUNT_COMPONENTS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "depreciation"
+      ],
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 7400000,
+     "gl": 7400000,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0001",
+       "SAL-F1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2620",
+     "dimensions": "HTL-ROOM",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 2750000,
+     "gl": 2750000,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2628",
+     "dimensions": "HTL-ROOM",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "impairment"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 8
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 5
+    }
+   }
+  },
+  "H31": {
+   "refused": null,
+   "decimals": 0,
+   "hashes": [
+    "307e52d7f3d9321581b9d168ff86029187741decafcaf68cee95af7e821788a2",
+    "151ed0ecb230821f65ce900398bc25c280c09bc3b4483eccd2f4bcf8d74c876e",
+    "7cb0f906e97c61256ade153c6e00e28347a62f46afd6064726ed88541ce3de2c"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     13,
+     "SEC-JAH-LFT",
+     "Jahra inn",
+     "Lifts",
+     "read",
+     []
+    ],
+    [
+     14,
+     26,
+     "SEC-JAH-LDY",
+     "Jahra inn",
+     "Laundry machines",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-JAH-LDY",
+     "sectionRow": 14,
+     "assetId": "LDY-0910",
+     "dimensions": "JAH-B",
+     "location": "Jahra inn",
+     "category": "Laundry machines",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 2400000,
+      "depreciation": 960000,
+      "impairment": 0,
+      "carrying": 1440000
+     },
+     "rows": {
+      "cost": [
+       22
+      ],
+      "depreciation": [
+       23
+      ],
+      "impairment": [
+       24
+      ],
+      "carrying": [
+       25
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LDY"
+    },
+    {
+     "section": "SEC-JAH-LFT",
+     "sectionRow": 1,
+     "assetId": "LFT-0310",
+     "dimensions": "JAH-C",
+     "location": "Jahra inn",
+     "category": "Lifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 48000000,
+      "depreciation": 16000000,
+      "impairment": 800000,
+      "carrying": 31200000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LFT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2630",
+     "dimensions": "HTL-ENG",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 48000000,
+     "gl": 48000000,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0310",
+       "JAH-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2638",
+     "dimensions": "HTL-ENG",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 800000,
+     "gl": 800000,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0310",
+       "JAH-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2639",
+     "dimensions": "HTL-ENG",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 16000000,
+     "gl": 16000000,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0310",
+       "JAH-C",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2640",
+     "dimensions": "HTL-LDY",
+     "component": "cost",
+     "status": "difference",
+     "codes": [],
+     "register": 2400000,
+     "gl": 2400001,
+     "difference": -1,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0910",
+       "JAH-B",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2648",
+     "dimensions": "HTL-LDY",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0910",
+       "JAH-B",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2649",
+     "dimensions": "HTL-LDY",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 960000,
+     "gl": 960000,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0910",
+       "JAH-B",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 8
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "H32": {
+   "refused": null,
+   "decimals": 2,
+   "hashes": [
+    "3b6f61c1e4ffcaaaa1f89e667e150dfc58a9b12d4533e3655b207439d983c1d7",
+    "857a0072e58c4838cf7b27ba97ab4a845deb23cff7c6cdeb52cac992cfe281a7",
+    "26c56991a65a033f9d4397d257e1b3da866887f708d5705ebc092331c5bc14e0"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-KHR-RM",
+     "منتجع الخيران",
+     "Guest room furniture",
+     "read",
+     []
+    ],
+    [
+     18,
+     30,
+     "SEC-JAH-KIT",
+     "فندق الجهراء",
+     "Kitchen equipment",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-JAH-KIT",
+     "sectionRow": 18,
+     "assetId": "KIT/0101",
+     "dimensions": "JAH-K",
+     "location": "فندق الجهراء",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 2210075,
+      "depreciation": 442015,
+      "impairment": 110000,
+      "carrying": 1658060
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-KIT"
+    },
+    {
+     "section": "SEC-KHR-RM",
+     "sectionRow": 1,
+     "assetId": "RM-2201",
+     "dimensions": "KHR-1",
+     "location": "منتجع الخيران",
+     "category": "Guest room furniture",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 1520050,
+      "depreciation": 304010,
+      "impairment": 0,
+      "carrying": 1216040
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-KHR-RM"
+    },
+    {
+     "section": "SEC-KHR-RM",
+     "sectionRow": 1,
+     "assetId": "RM-2202",
+     "dimensions": "KHR-1",
+     "location": "منتجع الخيران",
+     "category": "Guest room furniture",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 980000,
+      "depreciation": 980000,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-KHR-RM"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "2610",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 2210075,
+     "gl": 2210075,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-JAH-KIT",
+       "KIT/0101",
+       "JAH-K",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 110000,
+     "gl": 110000,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-JAH-KIT",
+       "KIT/0101",
+       "JAH-K",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 442015,
+     "gl": 442015,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-JAH-KIT",
+       "KIT/0101",
+       "JAH-K",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2620",
+     "dimensions": "HTL-ROOM",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 2500050,
+     "gl": 2500050,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-KHR-RM",
+       "RM-2201",
+       "KHR-1",
+       "cost"
+      ],
+      [
+       "SEC-KHR-RM",
+       "RM-2202",
+       "KHR-1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2628",
+     "dimensions": "HTL-ROOM",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-KHR-RM",
+       "RM-2201",
+       "KHR-1",
+       "impairment"
+      ],
+      [
+       "SEC-KHR-RM",
+       "RM-2202",
+       "KHR-1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2629",
+     "dimensions": "HTL-ROOM",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 1284010,
+     "gl": 1284010,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-KHR-RM",
+       "RM-2201",
+       "KHR-1",
+       "depreciation"
+      ],
+      [
+       "SEC-KHR-RM",
+       "RM-2202",
+       "KHR-1",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 12
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "H33": {
+   "refused": "SCOPE",
+   "decimals": null,
+   "hashes": [],
+   "run": [],
+   "sections": [],
+   "assets": [],
+   "unmapped": [],
+   "accounts": [],
+   "unplaced": [],
+   "inventory": null
+  },
+  "H34": {
+   "refused": "SOURCE",
+   "decimals": null,
+   "hashes": [],
+   "run": [],
+   "sections": [],
+   "assets": [],
+   "unmapped": [],
+   "accounts": [],
+   "unplaced": [],
+   "inventory": null
+  },
+  "H35": {
+   "refused": "COLUMNS",
+   "decimals": null,
+   "hashes": [],
+   "run": [],
+   "sections": [],
+   "assets": [],
+   "unmapped": [],
+   "accounts": [],
+   "unplaced": [],
+   "inventory": null
+  },
+  "H36": {
+   "refused": "CAPACITY",
+   "decimals": null,
+   "hashes": [],
+   "run": [],
+   "sections": [],
+   "assets": [],
+   "unmapped": [],
+   "accounts": [],
+   "unplaced": [],
+   "inventory": null
+  },
+  "H37": {
+   "refused": "TOTAL_LIMIT",
+   "decimals": null,
+   "hashes": [],
+   "run": [],
+   "sections": [],
+   "assets": [],
+   "unmapped": [],
+   "accounts": [],
+   "unplaced": [],
+   "inventory": null
+  },
+  "H38": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "f7298a6ecbe414703fc3f00784106f55aae0b948f38ba2398d5162447985d8e6",
+    "2d88e804df601fe9b7cdfccdf42644306e16ece123d6afe108ad2b17bad4165f",
+    "564dea3bdbbb441da77a0ca79e294d39cd36f1900f4d9d2980bc880527511298"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-JAH-LDY",
+     "Jahra inn",
+     "Laundry machines",
+     "read",
+     []
+    ],
+    [
+     18,
+     30,
+     "SEC-SAL-KIT",
+     "Salmiya tower",
+     "Kitchen equipment",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-JAH-LDY",
+     "sectionRow": 1,
+     "assetId": "LDY-0901",
+     "dimensions": "JAH-B",
+     "location": "Jahra inn",
+     "category": "Laundry machines",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 7300375,
+      "depreciation": 2920150,
+      "impairment": 0,
+      "carrying": 4380225
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LDY"
+    },
+    {
+     "section": "SEC-JAH-LDY",
+     "sectionRow": 1,
+     "assetId": "LDY-0902",
+     "dimensions": "JAH-B",
+     "location": "Jahra inn",
+     "category": "Laundry machines",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 1999999,
+      "depreciation": 999999,
+      "impairment": 1,
+      "carrying": 999999
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LDY"
+    },
+    {
+     "section": "SEC-SAL-KIT",
+     "sectionRow": 18,
+     "assetId": "KIT/0002",
+     "dimensions": "SAL-F1",
+     "location": "Salmiya tower",
+     "category": "Kitchen equipment",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 9250500,
+      "depreciation": 3700200,
+      "impairment": 462500,
+      "carrying": 5087800
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SAL-KIT"
+    }
+   ],
+   "unmapped": [
+    [
+     "Laundry machines",
+     "impairment",
+     "MAP_ABSENT"
+    ]
+   ],
+   "accounts": [
+    {
+     "account": "2610",
+     "dimensions": "HTL-KIT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 9250500,
+     "gl": 9250500,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2618",
+     "dimensions": "HTL-KIT",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "MAP_ABSENT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2619",
+     "dimensions": "HTL-KIT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 3700200,
+     "gl": 3700200,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SAL-KIT",
+       "KIT/0002",
+       "SAL-F1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "2640",
+     "dimensions": "HTL-LDY",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 9300374,
+     "gl": 9300374,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0901",
+       "JAH-B",
+       "cost"
+      ],
+      [
+       "SEC-JAH-LDY",
+       "LDY-0902",
+       "JAH-B",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2648",
+     "dimensions": "HTL-LDY",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "MAP_ABSENT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": []
+    },
+    {
+     "account": "2649",
+     "dimensions": "HTL-LDY",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 3920149,
+     "gl": 3920149,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-JAH-LDY",
+       "LDY-0901",
+       "JAH-B",
+       "depreciation"
+      ],
+      [
+       "SEC-JAH-LDY",
+       "LDY-0902",
+       "JAH-B",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 12
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 5
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "H39": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "c669ae544f005e241b142a68e40940574cedd2b90321f4ea4f32d2699fd696f0",
+    "fa08ee26cb2e5e36086f69806dace1b3a678946828ca139c245b2dbe144024f3",
+    "a995938a06c8f7b406cd11de5804cff95bec69fcb7e6fc4c3afef45a16f47e1d"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-FIN-RM",
+     "Fintas beach resort",
+     "Guest room furniture",
+     "read",
+     []
+    ],
+    [
+     18,
+     30,
+     "SEC-JAH-LFT",
+     "Jahra inn",
+     "Lifts",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-FIN-RM",
+     "sectionRow": 1,
+     "assetId": "RM-1101",
+     "dimensions": "FIN-W2",
+     "location": "Fintas beach resort",
+     "category": "Guest room furniture",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 2750000,
+      "depreciation": 1100000,
+      "impairment": 0,
+      "carrying": 1650000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-FIN-RM"
+    },
+    {
+     "section": "SEC-FIN-RM",
+     "sectionRow": 1,
+     "assetId": "RM-1102",
+     "dimensions": "FIN-W2",
+     "location": "Fintas beach resort",
+     "category": "Guest room furniture",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 2750000,
+      "depreciation": 1375000,
+      "impairment": 137500,
+      "carrying": 1237500
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-FIN-RM"
+    },
+    {
+     "section": "SEC-JAH-LFT",
+     "sectionRow": 18,
+     "assetId": "LFT-0301",
+     "dimensions": "JAH-C",
+     "location": "Jahra inn",
+     "category": "Lifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 64000000,
+      "depreciation": 25600000,
+      "impairment": 3200000,
+      "carrying": 35200000
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-JAH-LFT"
+    }
+   ],
+   "unmapped": [
+    [
+     "Guest room furniture",
+     "depreciation",
+     "MAP_ROW"
+    ]
+   ],
+   "accounts": [
+    {
+     "account": "2620",
+     "dimensions": "HTL-ROOM",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 5500000,
+     "gl": 5500000,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "cost"
+      ],
+      [
+       "SEC-FIN-RM",
+       "RM-1102",
+       "FIN-W2",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2628",
+     "dimensions": "HTL-ROOM",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 137500,
+     "gl": 137500,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-FIN-RM",
+       "RM-1101",
+       "FIN-W2",
+       "impairment"
+      ],
+      [
+       "SEC-FIN-RM",
+       "RM-1102",
+       "FIN-W2",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2629",
+     "dimensions": "HTL-ROOM",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "MAP_ROW"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": []
+    },
+    {
+     "account": "2630",
+     "dimensions": "HTL-ENG",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 64000000,
+     "gl": 64000000,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "2638",
+     "dimensions": "HTL-ENG",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 3200000,
+     "gl": 3200000,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "2639",
+     "dimensions": "HTL-ENG",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "MAP_ROW"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-JAH-LFT",
+       "LFT-0301",
+       "JAH-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 12
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  }
+ }
+}

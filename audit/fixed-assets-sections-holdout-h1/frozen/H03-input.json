@@ -1,0 +1,35 @@
+{
+ "names": [
+  "H03-register.csv",
+  "H03-map.csv",
+  "H03-gl.csv"
+ ],
+ "readings": [
+  {
+   "sheet": 0,
+   "role": "register-sections",
+   "family": "fixed-assets-sections-1",
+   "confirmed": true
+  },
+  {
+   "sheet": 0,
+   "role": "category-map",
+   "family": "fixed-assets-sections-1",
+   "confirmed": true
+  },
+  {
+   "sheet": 0,
+   "role": "gl-balances",
+   "family": "fixed-assets-sections-1",
+   "confirmed": true
+  }
+ ],
+ "scope": {
+  "entity": "Synthetic Pearl Coast Hotels Co",
+  "assetLedger": "FAR-HTL",
+  "glLedger": "GL-HTL",
+  "currency": "KWD",
+  "asOf": "2028-03-31",
+  "confirmed": true
+ }
+}

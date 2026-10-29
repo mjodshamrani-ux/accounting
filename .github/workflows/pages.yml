@@ -417,6 +417,7 @@ jobs:
           pnpm test:fa-sections:baseline
           pnpm test:fa-sections:run
           pnpm test:fa-sections:mutations
+          pnpm test:fa-sections:h1-seal
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations

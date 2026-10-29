@@ -1,0 +1,59 @@
+{
+ "schema": "tarasuf-fa1-sections-h1-verify/1",
+ "factsSha256": "9297aa6780731be073f9b13eee93209df7a032db09162427c484106d2641fa16",
+ "stories": 39,
+ "files": 117,
+ "cells": 9516,
+ "passed": true,
+ "problems": [],
+ "selfTest": [
+  {
+   "plant": "one amount changed",
+   "rejected": true
+  },
+  {
+   "plant": "one row dropped",
+   "rejected": true
+  },
+  {
+   "plant": "byte-order mark removed",
+   "rejected": true
+  },
+  {
+   "plant": "LF in a CR file",
+   "rejected": true
+  },
+  {
+   "plant": "LF in a CRLF file",
+   "rejected": true
+  },
+  {
+   "plant": "a quoted cell unquoted by Calc",
+   "rejected": true
+  },
+  {
+   "plant": "an Arabic letter changed",
+   "rejected": true
+  },
+  {
+   "plant": "a blank record removed",
+   "rejected": true
+  },
+  {
+   "plant": "the byte patch undone",
+   "rejected": true
+  },
+  {
+   "plant": "an input as-of date changed",
+   "rejected": true
+  },
+  {
+   "plant": "an input naming another file",
+   "rejected": true
+  },
+  {
+   "plant": "a file no story names",
+   "rejected": true
+  }
+ ]
+}

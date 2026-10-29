@@ -1,0 +1,43 @@
+Section,SEC-SAL-KIT
+Category,Kitchen equipment
+Location,Salmiya tower
+As of,2028-03-31
+Currency,KWD
+Asset ledger,FAR-HTL
+Entity,Synthetic Pearl Coast Hotels Co
+Amount,Component,Valuation reference,Asset dimensions,Asset ID
+18500.000,cost,VAL-SEC-SAL-KIT,SAL-F1,KIT/0001
+7400.000,depreciation,VAL-SEC-SAL-KIT,SAL-F1,KIT/0001
+0.000,impairment,VAL-SEC-SAL-KIT,SAL-F1,KIT/0001
+11100.000,carrying,VAL-SEC-SAL-KIT,SAL-F1,KIT/0001
+9250.500,cost,VAL-SEC-SAL-KIT,SAL-F1,KIT/0002
+3700.200,depreciation,VAL-SEC-SAL-KIT,SAL-F1,KIT/0002
+462.500,impairment,VAL-SEC-SAL-KIT,SAL-F1,KIT/0002
+5087.800,carrying,VAL-SEC-SAL-KIT,SAL-F1,KIT/0002
+Section total,cost,27750.500
+Section total,depreciation,11100.200
+Section total,impairment,462.500
+Section total,carrying,16187.800
+End section,SEC-SAL-KIT
+
+Section,SEC-JAH-LDY
+Category,Laundry machines
+Location,Jahra inn
+As of,2028-03-31
+Currency,KWD
+Asset ledger,FAR-HTL
+Entity,Synthetic Pearl Coast Hotels Co
+Amount,Component,Valuation reference,Asset dimensions,Asset ID
+7300.375,cost,VAL-SEC-JAH-LDY,JAH-B,LDY-0901
+2920.150,depreciation,VAL-SEC-JAH-LDY,JAH-B,LDY-0901
+0.000,impairment,VAL-SEC-JAH-LDY,JAH-B,LDY-0901
+4380.225,carrying,VAL-SEC-JAH-LDY,JAH-B,LDY-0901
+1999.999,cost,VAL-SEC-JAH-LDY,JAH-B,LDY-0902
+999.999,depreciation,VAL-SEC-JAH-LDY,JAH-B,LDY-0902
+0.001,impairment,VAL-SEC-JAH-LDY,JAH-B,LDY-0902
+999.999,carrying,VAL-SEC-JAH-LDY,JAH-B,LDY-0902
+Section total,cost,9300.374
+Section total,depreciation,3920.149
+Section total,impairment,0.001
+Section total,carrying,5380.224
+End section,SEC-JAH-LDY

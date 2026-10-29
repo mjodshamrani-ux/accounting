@@ -1,0 +1,26 @@
+Section,SEC-JAH-LFT
+Entity,"Synthetic Pearl Coast Hotels Co"
+"Asset ledger",FAR-HTL
+Currency,JPY
+"As of",2028-03-31
+Location,"Jahra inn"
+Category,Lifts
+"Asset ID","Asset dimensions",Component,Amount,"Valuation reference"
+LFT-0310,JAH-C,cost,48000000,VAL-SEC-JAH-LFT
+LFT-0310,JAH-C,depreciation,16000000,VAL-SEC-JAH-LFT
+LFT-0310,JAH-C,impairment,800000,VAL-SEC-JAH-LFT
+LFT-0310,JAH-C,carrying,31200000,VAL-SEC-JAH-LFT
+"End section",SEC-JAH-LFT
+Section,SEC-JAH-LDY
+Entity,"Synthetic Pearl Coast Hotels Co"
+"Asset ledger",FAR-HTL
+Currency,JPY
+"As of",2028-03-31
+Location,"Jahra inn"
+Category,"Laundry machines"
+"Asset ID","Asset dimensions",Component,Amount,"Valuation reference"
+LDY-0910,JAH-B,cost,2400000,VAL-SEC-JAH-LDY
+LDY-0910,JAH-B,depreciation,960000,VAL-SEC-JAH-LDY
+LDY-0910,JAH-B,impairment,0,VAL-SEC-JAH-LDY
+LDY-0910,JAH-B,carrying,1440000,VAL-SEC-JAH-LDY
+"End section",SEC-JAH-LDY

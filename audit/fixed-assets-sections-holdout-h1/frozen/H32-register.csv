@@ -1,0 +1,30 @@
+Section,SEC-KHR-RM
+Entity,Synthetic Pearl Coast Hotels Co
+Asset ledger,FAR-HTL
+Currency,AED
+As of,2028-03-31
+Location,منتجع الخيران
+Category,Guest room furniture
+Asset ID,Asset dimensions,Component,Amount,Valuation reference
+RM-2201,KHR-1,cost,15200.50,VAL-SEC-KHR-RM
+RM-2201,KHR-1,depreciation,3040.10,VAL-SEC-KHR-RM
+RM-2201,KHR-1,impairment,0.00,VAL-SEC-KHR-RM
+RM-2201,KHR-1,carrying,12160.40,VAL-SEC-KHR-RM
+RM-2202,KHR-1,cost,9800.00,VAL-SEC-KHR-RM
+RM-2202,KHR-1,depreciation,9800.00,VAL-SEC-KHR-RM
+RM-2202,KHR-1,impairment,0.00,VAL-SEC-KHR-RM
+RM-2202,KHR-1,carrying,0.00,VAL-SEC-KHR-RM
+End section,SEC-KHR-RM
+Section,SEC-JAH-KIT
+Entity,Synthetic Pearl Coast Hotels Co
+Asset ledger,FAR-HTL
+Currency,AED
+As of,2028-03-31
+Location,فندق الجهراء
+Category,Kitchen equipment
+Asset ID,Asset dimensions,Component,Amount,Valuation reference
+KIT/0101,JAH-K,cost,22100.75,VAL-SEC-JAH-KIT
+KIT/0101,JAH-K,depreciation,4420.15,VAL-SEC-JAH-KIT
+KIT/0101,JAH-K,impairment,1100.00,VAL-SEC-JAH-KIT
+KIT/0101,JAH-K,carrying,16580.60,VAL-SEC-JAH-KIT
+End section,SEC-JAH-KIT
