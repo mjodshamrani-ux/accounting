@@ -264,10 +264,8 @@ jobs:
         env:
           BNK_PDF_BASELINE_DIR: ${{ runner.temp }}/bank-statement-baseline
           BNK_G1_PROOF_DIR: ${{ runner.temp }}/bank-statement-g1
-          BNK_G1_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g1-mutations
           BNK_G2_PROOF_DIR: ${{ runner.temp }}/bank-statement-g2
           BNK_G2_DIFFERENTIAL_DIR: ${{ runner.temp }}/bank-statement-g2-differential
-          BNK_G2_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g2-mutations
           BNK_G3_PROOF_DIR: ${{ runner.temp }}/bank-statement-g3
           AR_STATEMENT_A3_DIR: ${{ runner.temp }}/ar-statement-a3
           AR_HOLDOUT_DIR: ${{ runner.temp }}/ar-statement-holdout
@@ -283,9 +281,6 @@ jobs:
           BANK_REVIEW_HOLDOUT_DIR: ${{ runner.temp }}/bank-review-holdout
           BANK_MAP_MUTATION_DIR: ${{ runner.temp }}/bank-map-mutations
           BANK_MAP_LIFECYCLE_DIR: ${{ runner.temp }}/bank-map-lifecycle
-          BNK_G3_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g3-mutations
-          BNK_G4_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g4-mutations
-          BNK_G5_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g5-mutations
         run: |
           pnpm test:bank-statement:oracle
           pnpm test:bank-statement:oracle-mutants
@@ -345,7 +340,6 @@ jobs:
           pnpm test:ic-batch:seal
           pnpm test:ic-batch:baseline
           pnpm test:ic-batch:run
-          pnpm test:ic-batch:mutations
           pnpm test:ic-batch:h1-seal
           pnpm test:ic-batch:h1-run
           pnpm test:glt-sections:oracle
@@ -353,7 +347,6 @@ jobs:
           pnpm test:glt-sections:seal
           pnpm test:glt-sections:baseline
           pnpm test:glt-sections:run
-          pnpm test:glt-sections:mutations
           pnpm test:glt-sections:h1-seal
           pnpm test:glt-sections:h1-run
           pnpm test:fin-hierarchy:review
@@ -362,13 +355,11 @@ jobs:
           pnpm test:fin-hierarchy:baseline
           pnpm test:fin-hierarchy:run
           pnpm test:fin-hierarchy:h1-run
-          pnpm test:fin-hierarchy:mutations
           pnpm test:pay-long:oracle
           pnpm test:pay-long:oracle-mutants
           pnpm test:pay-long:seal
           pnpm test:pay-long:baseline
           pnpm test:pay-long:run
-          pnpm test:pay-long:mutations
           pnpm test:pay-long:h1-seal
           pnpm test:pay-long:h1-run
           pnpm test:inv-move:oracle
@@ -376,7 +367,6 @@ jobs:
           pnpm test:inv-move:seal
           pnpm test:inv-move:baseline
           pnpm test:inv-move:run
-          pnpm test:inv-move:mutations
           pnpm test:inv-move:h1-seal
           pnpm test:inv-move:h1-run
           pnpm test:inv-links:oracle
@@ -384,7 +374,6 @@ jobs:
           pnpm test:inv-links:seal
           pnpm test:inv-links:baseline
           pnpm test:inv-links:run
-          pnpm test:inv-links:mutations
           pnpm test:inv-links:h1-seal
           pnpm test:inv-links:h1-run
           pnpm test:clr-groups:oracle
@@ -392,7 +381,6 @@ jobs:
           pnpm test:clr-groups:seal
           pnpm test:clr-groups:baseline
           pnpm test:clr-groups:run
-          pnpm test:clr-groups:mutations
           pnpm test:clr-groups:h1-seal
           pnpm test:clr-groups:h1-run
           pnpm test:all-advice:oracle
@@ -400,7 +388,6 @@ jobs:
           pnpm test:all-advice:seal
           pnpm test:all-advice:baseline
           pnpm test:all-advice:run
-          pnpm test:all-advice:mutations
           pnpm test:all-advice:h1-seal
           pnpm test:all-advice:h1-run
           pnpm test:pg-batches:oracle
@@ -408,7 +395,6 @@ jobs:
           pnpm test:pg-batches:seal
           pnpm test:pg-batches:baseline
           pnpm test:pg-batches:run
-          pnpm test:pg-batches:mutations
           pnpm test:pg-batches:h1-seal
           pnpm test:pg-batches:h1-run
           pnpm test:fa-sections:oracle
@@ -416,7 +402,6 @@ jobs:
           pnpm test:fa-sections:seal
           pnpm test:fa-sections:baseline
           pnpm test:fa-sections:run
-          pnpm test:fa-sections:mutations
           pnpm test:fa-sections:h1-seal
           pnpm test:fa-sections:h1-run
           pnpm test:bank-review:baseline
@@ -437,14 +422,9 @@ jobs:
           pnpm test:ar-statement:a5-holdout
           pnpm test:bank-statement:baseline
           pnpm test:bank-statement:g1-proof
-          pnpm test:bank-statement:g1-mutations
           pnpm test:bank-statement:g2-proof
           pnpm test:bank-statement:g2-differential
-          pnpm test:bank-statement:g2-mutations
           pnpm test:bank-statement:g3-proof
-          pnpm test:bank-statement:g3-mutations
-          pnpm test:bank-statement:g4-mutations
-          pnpm test:bank-statement:g5-mutations
       - name: Verify the pre-seal cashbook check, its mutants and its recorded agreement with the product's cashbook reading (BNK-PDF-1 G16)
         run: pnpm test:bank-statement:cashbook-check
       - name: Verify column hierarchy financial membership, native intervals, replay, independent exports and guard faults
@@ -1585,6 +1565,82 @@ jobs:
         env:
           FA_SECTIONS_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/fixed-assets-sections-interface-mutations
         run: pnpm test:fa-sections:interface-mutations
+  bank-statement-code-mutations:
+    name: Bank statement PDF code mutations G1 to G5 beside the build (BNK-PDF-1)
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - name: Plant each G1 reading defect and require its tests to fail by assertion
+        env:
+          BNK_G1_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g1-mutations
+        run: pnpm test:bank-statement:g1-mutations
+      - name: Plant each G2 matching defect and require its tests to fail by assertion
+        env:
+          BNK_G2_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g2-mutations
+        run: pnpm test:bank-statement:g2-mutations
+      - name: Plant each G3 session lifecycle defect and require its tests to fail by assertion
+        env:
+          BNK_G3_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g3-mutations
+        run: pnpm test:bank-statement:g3-mutations
+      - name: Plant each G4 workspace view defect and require its tests to fail by assertion
+        env:
+          BNK_G4_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g4-mutations
+        run: pnpm test:bank-statement:g4-mutations
+      - name: Plant each G5 long statements and verified view defect and require its tests to fail by assertion
+        env:
+          BNK_G5_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g5-mutations
+        run: pnpm test:bank-statement:g5-mutations
+  domain-code-mutations:
+    name: Domain code mutations IC-1 to FA-1 beside the build
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - name: Plant each IC-1 engine, replay, protocol or binding defect and require its tests to fail by assertion
+        run: pnpm test:ic-batch:mutations
+      - name: Plant each GLT-1 engine, replay, protocol or binding defect and require its tests to fail by assertion
+        run: pnpm test:glt-sections:mutations
+      - name: Plant each FIN-1 engine, replay, protocol or binding defect and require its tests to fail by assertion
+        run: pnpm test:fin-hierarchy:mutations
+      - name: Plant each PAY-1 engine, replay, protocol or binding defect and require its tests to fail by assertion
+        run: pnpm test:pay-long:mutations
+      - name: Plant each INV-2 engine, replay, protocol or binding defect and require its tests to fail by assertion
+        run: pnpm test:inv-move:mutations
+      - name: Plant each INV-3 engine, replay, protocol or binding defect and require its tests to fail by assertion
+        run: pnpm test:inv-links:mutations
+      - name: Plant each CLR-1 engine, replay, protocol or binding defect and require its tests to fail by assertion
+        run: pnpm test:clr-groups:mutations
+      - name: Plant each ALL-1 engine, replay, protocol or binding defect and require its tests to fail by assertion
+        run: pnpm test:all-advice:mutations
+      - name: Plant each PG-1 engine, replay, protocol or binding defect and require its tests to fail by assertion
+        run: pnpm test:pg-batches:mutations
+      - name: Plant each FA-1 engine, replay, protocol or binding defect and require its tests to fail by assertion
+        run: pnpm test:fa-sections:mutations
   deploy:
     if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
     needs:
