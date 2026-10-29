@@ -16,6 +16,7 @@
 | [`dense.py`](dense.py) و[`seal.py`](seal.py) و[`check_seal.py`](check_seal.py) | إعادة توليد الكثيفتين والتحقق منهما، والختم والتحقق منه |
 | `frozen/` | 144 ملف CSV و48 ملف مدخلات، و`stories.json` و`EXPECTED.json` و`VERIFY.json` و`DENSE-MANIFEST.json` و`INPUT-MANIFEST.json` و`SEAL.json` |
 | [`engine-run.mjs`](engine-run.mjs) | المحرك `fixed-assets-sections-1` على القصص المختومة عبر الإعادة من البايتات، مقارنًا بـ`EXPECTED.json` كاملًا. التشغيل الأول في `results/engine-run-1.json` كما جاء ([FA-1b](../../docs/audits/FA-1B.ar.md)) |
+| [`../../scripts/fixed-assets-sections-browser.mjs`](../../scripts/fixed-assets-sections-browser.mjs) | القسم في مساحة الأصول الثابتة عبر التطبيق المبني والعامل الفعلي، مقارنًا بـ`EXPECTED.json` كما تعرضه الصفحة. التشغيل الأول في `results/browser-run-1.json` كما جاء ([FA-1c](../../docs/audits/FA-1C.ar.md)) |
 | [`baseline.mjs`](baseline.mjs) و`results/` | سجل المنتج كما هو، كُتب بعد الختم: القصة كما تصل في أدوار العائلة الطويلة، ثم مقطوعة باليد إلى ملفاتها الأربعة. التشغيل الأول في `results/baseline-1.json` كما جاء. وسجلا الأخطاء المزروعة في الأوراكل كما جاءا |
 
 ## قبل الختم

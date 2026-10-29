@@ -70,6 +70,11 @@ import {
   reviewGatewayBatches,
   type GatewayBatchesInput,
 } from './payment-gateway-batches.ts';
+import {
+  FA_SECTIONS_ROLES,
+  reviewAssetSections,
+  type AssetSectionsInput,
+} from './fixed-assets-sections.ts';
 import type { SourceFile } from './types.ts';
 import {
   registerNativeHeaderSource,
@@ -157,6 +162,7 @@ export const WORKER_ACTIONS = [
   'clearing-groups-reconcile',
   'allocation-advice-review',
   'payment-gateway-batches-reconcile',
+  'fixed-assets-sections-review',
 ] as const;
 export type WorkerAction = (typeof WORKER_ACTIONS)[number];
 export const isRecord = (value: unknown): value is Record<string, unknown> =>
@@ -986,6 +992,58 @@ export function validateWorkerValue(
       if (
         JSON.stringify(
           reviewGatewayBatches(value.state as unknown as GatewayBatchesInput),
+        ) !== JSON.stringify(value.result)
+      )
+        throw new Error('invalid');
+    } catch {
+      throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+    }
+  }
+  if (action === 'fixed-assets-sections-review') {
+    try {
+      const roles = FA_SECTIONS_ROLES.length;
+      if (
+        !isRecord(value) ||
+        Object.keys(value).sort().join('|') !== 'result|state' ||
+        !isRecord(value.state) ||
+        !isRecord(value.result) ||
+        !isRecord(payload) ||
+        !Array.isArray(payload.files) ||
+        !Array.isArray(value.state.files) ||
+        payload.files.length !== roles ||
+        value.state.files.length !== roles ||
+        JSON.stringify(value.state.readings) !==
+          JSON.stringify(payload.readings) ||
+        JSON.stringify(value.state.scope) !== JSON.stringify(payload.scope)
+      )
+        throw new Error('invalid');
+      // The register, the category map and the GL balances must be the files
+      // this request sent, byte for byte, under their names and hashes.
+      const sentFiles: unknown[] = payload.files;
+      value.state.files.forEach((returned: unknown, side: number) => {
+        const requested = sentFiles[side];
+        assertSourceFile(returned);
+        if (
+          !isRecord(requested) ||
+          requested.name !== returned.name ||
+          typeof returned.sha256 !== 'string' ||
+          returned.sha256 !== requested.sha256 ||
+          !(returned.original instanceof ArrayBuffer) ||
+          !(requested.original instanceof ArrayBuffer) ||
+          returned.original.byteLength > MAX_FILE_BYTES ||
+          requested.original.byteLength !== returned.original.byteLength
+        )
+          throw new Error('invalid');
+        const sent = new Uint8Array(requested.original),
+          back = new Uint8Array(returned.original);
+        for (let at = 0; at < back.length; at++)
+          if (back[at] !== sent[at]) throw new Error('invalid');
+      });
+      // Review every section, asset and account again from the sheets
+      // carried; the client binding reads the bytes again. Not an approval.
+      if (
+        JSON.stringify(
+          reviewAssetSections(value.state as unknown as AssetSectionsInput),
         ) !== JSON.stringify(value.result)
       )
         throw new Error('invalid');

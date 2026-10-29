@@ -1,0 +1,278 @@
+{
+ "cases": {
+  "F01": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F02": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F03": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F04": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F05": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F06": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F07": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F08": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F09": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F10": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F11": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F12": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F13": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F14": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F15": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F16": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F17": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F18": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F19": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F20": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F21": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F22": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F23": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F24": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F25": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F26": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F27": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F28": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F29": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F30": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F31": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F32": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F33": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F34": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F35": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F36": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F37": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F38": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F39": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F40": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F41": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F42": {
+   "equal": true,
+   "status": "refused",
+   "differ": []
+  },
+  "F43": {
+   "equal": true,
+   "status": "refused",
+   "differ": []
+  },
+  "F44": {
+   "equal": true,
+   "status": "refused",
+   "differ": []
+  },
+  "F45": {
+   "equal": true,
+   "status": "refused",
+   "differ": []
+  },
+  "F47": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "F48": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "D1": {
+   "equal": true,
+   "status": "shown",
+   "differ": []
+  },
+  "D2": {
+   "equal": true,
+   "status": "refused",
+   "differ": []
+  }
+ },
+ "notExpressible": {
+  "F46": {
+   "refused": "READING",
+   "reviewWaitsForReading": true
+  }
+ },
+ "checks": {
+  "arabic": {
+   "dir": "rtl",
+   "equal": true
+  },
+  "phone": true,
+  "staleCleared": true,
+  "keyboard": true
+ },
+ "errors": [],
+ "external": [],
+ "summary": {
+  "cases": "49/49",
+  "notExpressible": [
+   "F46"
+  ],
+  "checks": {
+   "arabic": true,
+   "phone": true,
+   "staleCleared": true,
+   "keyboard": true
+  }
+ }
+}

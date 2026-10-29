@@ -1,7 +1,8 @@
-// FA-1b code mutations: each planted defect in a private copy of
-// fixed-assets-sections-1 (fixed-assets-sections.ts) or its replay from
-// bytes (fixed-assets-sections-io.ts) must make its tests fail with an
-// assertion. A survivor is a guard nothing holds.
+// FA-1b and FA-1c code mutations: each planted defect in a private copy of
+// fixed-assets-sections-1 (fixed-assets-sections.ts), its replay from bytes
+// (fixed-assets-sections-io.ts), the worker protocol or the page's binding
+// must make its tests fail with an assertion. A survivor is a guard nothing
+// holds.
 //   node scripts/test-fixed-assets-sections-mutations.mjs
 import {
   cp,
@@ -27,10 +28,17 @@ const output =
   join(root, 'work/fixed-assets-sections-mutations');
 await mkdir(output, { recursive: true });
 const out = await mkdtemp(join(output, 'run-'));
-const tests = ['tests/fixed-assets-sections.test.ts'];
-const support = [];
+const tests = [
+  'tests/fixed-assets-sections.test.ts',
+  'tests/fixed-assets-sections-protocol.test.ts',
+  'tests/fixed-assets-sections-binding.test.ts',
+];
+const support = ['tests/helpers'];
 const ENGINE = 'lib/reconciliation/fixed-assets-sections.ts';
 const IO = 'lib/reconciliation/fixed-assets-sections-io.ts';
+const PROTOCOL = 'lib/reconciliation/protocol.ts';
+const WORKER = 'lib/reconciliation/worker.ts';
+const CLIENT = 'lib/reconciliation/worker-client.ts';
 const mutations = [
   [
     'reading-family-unchecked',
@@ -414,8 +422,62 @@ const mutations = [
     '  assetSectionsPlaces(snapshot.readings, snapshot.scope);\n  if',
     '  if',
   ],
+  [
+    'protocol-action-unlisted',
+    PROTOCOL,
+    "  'fixed-assets-sections-review',\n] as const;",
+    '] as const;',
+  ],
+  [
+    'protocol-scope-unchecked',
+    PROTOCOL,
+    "        JSON.stringify(value.state.scope) !== JSON.stringify(payload.scope)\n      )\n        throw new Error('invalid');\n      // The register,",
+    "        false\n      )\n        throw new Error('invalid');\n      // The register,",
+  ],
+  [
+    'protocol-file-name-unchecked',
+    PROTOCOL,
+    '          requested.name !== returned.name ||\n',
+    '          false ||\n',
+  ],
+  [
+    'protocol-bytes-unchecked',
+    PROTOCOL,
+    "          if (back[at] !== sent[at]) throw new Error('invalid');",
+    "          if (false) throw new Error('invalid');",
+  ],
+  [
+    'protocol-review-not-recomputed',
+    PROTOCOL,
+    '          reviewAssetSections(value.state as unknown as AssetSectionsInput),\n        ) !== JSON.stringify(value.result)',
+    '          value.result,\n        ) !== JSON.stringify(value.result)',
+  ],
+  [
+    'worker-not-dispatched',
+    WORKER,
+    "    else if (action === 'fixed-assets-sections-review')\n      value = await replayAssetSections(payload);\n",
+    '',
+  ],
+  [
+    'client-review-not-compared',
+    CLIENT,
+    '              JSON.stringify(given.result) !== JSON.stringify(mine.result)',
+    '              false',
+  ],
+  [
+    'client-sources-not-compared',
+    CLIENT,
+    '              sources(given.state) !== sources(mine.state) ||',
+    '              false ||',
+  ],
+  [
+    'client-bytes-unchecked',
+    CLIENT,
+    '              if (a.length !== b.length || a.some((v, at) => v !== b[at]))',
+    '              if (false)',
+  ],
 ];
-const files = [ENGINE, IO, ...tests];
+const files = [ENGINE, IO, PROTOCOL, WORKER, CLIENT, ...tests];
 const digest = (b) => createHash('sha256').update(b).digest('hex');
 const before = Object.fromEntries(
   await Promise.all(

@@ -120,6 +120,14 @@ export function createWorkerClient(
           return reject(error);
         }
       }
+      // The three asset section snapshots, their readings and scope.
+      if (action === 'fixed-assets-sections-review') {
+        try {
+          payload = structuredClone(payload);
+        } catch (error) {
+          return reject(error);
+        }
+      }
       // Capture the statement originals, scope and decisions synchronously.
       if (action.startsWith('bank-statement-')) {
         try {
@@ -483,6 +491,53 @@ export function createWorkerClient(
             });
             // Install only the review this page computed from its own bytes.
             response.value = own;
+          }
+          if (action === 'fixed-assets-sections-review') {
+            const answer = response.value;
+            if (
+              !isRecord(answer) ||
+              !isRecord(answer.state) ||
+              !isRecord(answer.result) ||
+              !Array.isArray(answer.state.files) ||
+              answer.state.files.length !== 3
+            )
+              throw Error('FA_SECTIONS_WORKER_BINDING');
+            const { replayAssetSections } = await import(
+              './fixed-assets-sections-io.ts'
+            );
+            let mine: Awaited<ReturnType<typeof replayAssetSections>>;
+            try {
+              mine = await replayAssetSections(
+                payload as import('./fixed-assets-sections-io.ts').AssetSectionsReplayInput,
+              );
+            } catch {
+              // This page refuses what the worker reviewed: another request.
+              throw Error('FA_SECTIONS_WORKER_BINDING');
+            }
+            const given = answer as unknown as typeof mine;
+            const sources = (state: typeof mine.state) =>
+              JSON.stringify([
+                state.readings,
+                state.scope,
+                state.files.map((f) => [
+                  f.name,
+                  f.sha256,
+                  f.original?.byteLength,
+                ]),
+              ]);
+            if (
+              sources(given.state) !== sources(mine.state) ||
+              JSON.stringify(given.result) !== JSON.stringify(mine.result)
+            )
+              throw Error('FA_SECTIONS_WORKER_BINDING');
+            given.state.files.forEach((f, side) => {
+              const a = new Uint8Array(f.original!),
+                b = new Uint8Array(mine.state.files[side].original!);
+              if (a.length !== b.length || a.some((v, at) => v !== b[at]))
+                throw Error('FA_SECTIONS_WORKER_BINDING');
+            });
+            // The page keeps its own review of the bytes it sent.
+            response.value = mine;
           }
           if (action.startsWith('stock-')) {
             response.value = await (

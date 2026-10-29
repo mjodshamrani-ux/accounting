@@ -1,4 +1,5 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
+import { FixedAssetsSectionsPanel } from '@/components/fixed-assets-sections-panel';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -826,6 +827,7 @@ export function AssetWorkspace({
             )}
           </section>
         )}
+        <FixedAssetsSectionsPanel />
       </section>
     </div>
   );
