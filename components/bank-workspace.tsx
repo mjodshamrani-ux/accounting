@@ -219,7 +219,7 @@ export function BankWorkspace({
     cells: (r: T) => ReactNode[],
   ) {
     return (
-      <section>
+      <section className="bank-movement-table">
         <h2>{title}</h2>
         <div className="gl-tb-table">
           <table>
@@ -250,9 +250,29 @@ export function BankWorkspace({
       .flatMap((g) => [...g.bankIds, ...g.cashIds]),
   );
   const format = (n: number) => money(n, result?.decimals ?? 2),
+    // Amounts and identities keep their own direction and never wrap: the
+    // tables scroll inside their frame instead (bank-workspace.css).
+    amount = (n: number) => (
+      <bdi dir="ltr" className="bank-movement-amount">
+        {format(n)}
+      </bdi>
+    ),
+    id = (text: string) => <bdi className="bank-movement-id">{text}</bdi>,
+    date = (text: string) => (
+      <bdi dir="ltr" className="bank-movement-date">
+        {text}
+      </bdi>
+    ),
     byId = new Map(result?.records.map((r) => [r.id, r])),
     memberNames = (ids: string[]) =>
       ids.map((id) => byId.get(id)?.reference ?? id).join(' · '),
+    members = (ids: string[]) =>
+      ids.flatMap((member, i) => [
+        i ? ' · ' : '',
+        <bdi key={member} className="bank-movement-id">
+          {byId.get(member)?.reference ?? member}
+        </bdi>,
+      ]),
     evidence = byId.get(evidenceId),
     canDecide =
       !!result &&
@@ -634,13 +654,16 @@ export function BankWorkspace({
                   ],
                   result.cases,
                   (g) => [
-                    g.kind === 'reference' ? g.key : t.caseKinds[g.kind],
+                    g.kind === 'reference' ? id(g.key) : t.caseKinds[g.kind],
                     t.caseKinds[g.kind],
                     g.policy ? t.policies[g.policy] : '',
-                    format(g.bankMinor),
-                    format(g.cashMinor),
-                    format(g.deltaMinor),
-                    `${t.sides[0]}: ${memberNames(g.bankIds)}; ${t.sides[1]}: ${memberNames(g.cashIds)}`,
+                    amount(g.bankMinor),
+                    amount(g.cashMinor),
+                    amount(g.deltaMinor),
+                    <span key="members">
+                      {t.sides[0]}: {members(g.bankIds)}; {t.sides[1]}:{' '}
+                      {members(g.cashIds)}
+                    </span>,
                     g.eligible ? t.yes : t.no,
                     t.reasons[g.reason],
                     <div key="status-approve">
@@ -726,15 +749,15 @@ export function BankWorkspace({
                   (r) => [
                     t.sides[r.side],
                     r.row,
-                    r.reference,
-                    r.settlement,
-                    r.movementDate,
-                    r.valueDate,
+                    id(r.reference),
+                    r.settlement && id(r.settlement),
+                    date(r.movementDate),
+                    date(r.valueDate),
                     t.directions[r.direction],
                     t.roles[r.role],
-                    r.parent,
-                    r.reverses,
-                    format(r.signed),
+                    r.parent && id(r.parent),
+                    r.reverses && id(r.reverses),
+                    amount(r.signed),
                     <Button
                       key="evidence"
                       variant="outline"
@@ -803,9 +826,9 @@ export function BankWorkspace({
                   (r) => [
                     t.sides[r.side],
                     r.row,
-                    r.reference,
-                    r.movementDate,
-                    r.valueDate,
+                    id(r.reference),
+                    date(r.movementDate),
+                    date(r.valueDate),
                     r.validMovement ? t.yes : t.no,
                   ],
                 )}
@@ -823,7 +846,7 @@ export function BankWorkspace({
                   (e) => [
                     e.id,
                     t.eventType[e.type],
-                    e.at,
+                    date(e.at),
                     e.reference,
                     e.note,
                     `${memberNames(e.bankIds)} · ${memberNames(e.cashIds)}`,

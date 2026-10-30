@@ -103,6 +103,10 @@
 .bank-statement-held p {
   margin: 0;
 }
+/* The reader's own detail, last and on its own line in the wrapping box. */
+.bank-statement-held > details {
+  flex-basis: 100%;
+}
 .bank-statement-members {
   margin: 0;
   padding: 0;
@@ -116,6 +120,21 @@
 .bank-statement-lines > summary {
   cursor: pointer;
   font-weight: 600;
+}
+/* Movement tables scroll inside their frame rather than breaking words or
+   amounts mid-token, as the statement tables below do. */
+.bank-movement-table .gl-tb-table table {
+  min-width: 60rem;
+}
+.bank-movement-table :is(th, td),
+.bank-workspace .bank-movement-table .gl-tb-table td button {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+.bank-movement-amount,
+.bank-movement-id,
+.bank-movement-date {
+  white-space: nowrap;
 }
 /* Statement tables scroll inside their frame rather than breaking words. */
 .bank-statement-result .gl-tb-table table {

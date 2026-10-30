@@ -16,6 +16,7 @@ import type {
 import {
   bankSessionFormat,
   carriedAtEnd,
+  heldDetail,
   heldReason,
   parseStatementClosing,
   statementActions,
@@ -220,6 +221,102 @@ void test('a held statement’s reason is named, citing what is printed and neve
     kind: 'other',
     detail: 'something else',
   });
+});
+
+void test('a held statement’s detail is read into page, line and amounts, or kept as written', async () => {
+  // The two the sealed statements give, as the reader wrote them.
+  const bs09 = await replayBankStatement(await pdf('BS09'));
+  assert.deepEqual(
+    heldDetail(heldReason(bs09.result.match.held!.reason).detail),
+    {
+      kind: 'balance',
+      page: 2,
+      line: 'movement',
+      printed: 3711179,
+      computed: 3710179,
+      items: '46,48,50,52,54,56',
+    },
+  );
+  const bs10 = await replayBankStatement(await pdf('BS10'));
+  assert.deepEqual(
+    heldDetail(heldReason(bs10.result.match.held!.reason).detail),
+    {
+      kind: 'pages',
+      read: [1, 3],
+      declared: [3],
+    },
+  );
+  // Every other detail the native reader writes for a held statement.
+  const forms: [string, ReturnType<typeof heldDetail>][] = [
+    [
+      'page 3: carried-forward -125 != 0',
+      {
+        kind: 'balance',
+        page: 3,
+        line: 'carried-forward',
+        printed: -125,
+        computed: 0,
+        items: '',
+      },
+    ],
+    [
+      'page 1: closing 10 != -10',
+      {
+        kind: 'balance',
+        page: 1,
+        line: 'closing',
+        printed: 10,
+        computed: -10,
+        items: '',
+      },
+    ],
+    [
+      'page 2: brought-forward 500 != 400',
+      {
+        kind: 'balance',
+        page: 2,
+        line: 'brought-forward',
+        printed: 500,
+        computed: 400,
+        items: '',
+      },
+    ],
+    [
+      'page 4: page totals differ from its movements',
+      { kind: 'page-totals', page: 4 },
+    ],
+    [
+      'page 2 does not start with its carried balance',
+      { kind: 'page-start', page: 2 },
+    ],
+    [
+      'page 1 does not end with a carried-forward line',
+      { kind: 'page-end', page: 1 },
+    ],
+    [
+      'statement totals differ from its movements',
+      { kind: 'statement-totals' },
+    ],
+    ['a second opening balance', { kind: 'second-opening' }],
+    ['no closing balance and totals', { kind: 'no-closing' }],
+    ['pages 1,2 of 3,4', { kind: 'pages', read: [1, 2], declared: [3, 4] }],
+    ['pages  of 2', { kind: 'as-written', text: 'pages  of 2' }],
+  ];
+  for (const [detail, want] of forms)
+    assert.deepEqual(heldDetail(detail), want, detail);
+  // A detail of another form, or a near miss, is shown as the reader wrote
+  // it rather than read into the wrong words.
+  for (const detail of [
+    'page 2: printed balance 1.5 != 2 (items 4)',
+    'page 2: opening 1 != 2',
+    'Page 2: closing 1 != 2',
+    'completeness not proved',
+  ])
+    assert.deepEqual(
+      heldDetail(detail),
+      { kind: 'as-written', text: detail },
+      detail,
+    );
 });
 
 void test('worker refusals are named by their code', async () => {

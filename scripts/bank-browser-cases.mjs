@@ -76,6 +76,56 @@ export async function verifyBank(page, url, out = 'work/qa') {
     await page.getByRole('button', { name: button, exact: true }).click();
     await (await promise).saveAs(`${out}/${file}`);
   }
+  // The movement tables scroll inside their frame: no line breaks inside a
+  // word, an amount or an identity, and the page itself does not overflow.
+  async function wholeTokens(width) {
+    await page.setViewportSize({ width, height: 1050 });
+    const broken = await page.evaluate(() => {
+      const found = [];
+      // The movement result's own tables, whatever their class.
+      const cells = document.querySelectorAll(
+        '[data-testid="bank-result"] ~ fieldset .gl-tb-table :is(th, td)',
+      );
+      for (const cell of cells) {
+        const walker = document.createTreeWalker(cell, NodeFilter.SHOW_TEXT, {
+          acceptNode: (n) =>
+            n.parentElement.closest('pre')
+              ? NodeFilter.FILTER_REJECT
+              : NodeFilter.FILTER_ACCEPT,
+        });
+        for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+          const text = node.textContent;
+          const range = document.createRange();
+          let line = null;
+          for (let i = 0; i < text.length; i++) {
+            if (/\s/u.test(text[i])) {
+              line = null;
+              continue;
+            }
+            range.setStart(node, i);
+            range.setEnd(node, i + 1);
+            const box = range.getClientRects()[0];
+            if (!box) continue;
+            if (line !== null && Math.abs(box.top - line) > box.height / 2)
+              found.push(text);
+            line = box.top;
+          }
+        }
+      }
+      return { cells: cells.length, found };
+    });
+    assert.ok(broken.cells > 50, `${width}px: no movement table cells`);
+    assert.deepEqual(broken.found, [], `${width}px: broken inside a word`);
+    assert.equal(
+      await page.evaluate(
+        () =>
+          document.documentElement.scrollWidth -
+          document.documentElement.clientWidth,
+      ),
+      0,
+      `${width}px: the page overflows`,
+    );
+  }
   async function exportFile(file) {
     await download('Download bank movement workpaper', file);
   }
@@ -190,6 +240,9 @@ export async function verifyBank(page, url, out = 'work/qa') {
   assert.equal(await rows('Whole movement cases').count(), 2);
   await exportFile('bank-noidentity-undo.xlsx');
   await upload('balanced-extra-members');
+  await wholeTokens(1440);
+  await wholeTokens(390);
+  await page.setViewportSize({ width: 1440, height: 1050 });
   await evidence();
   assert.equal(
     await page

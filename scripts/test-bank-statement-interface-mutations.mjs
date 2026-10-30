@@ -74,8 +74,22 @@ const mutations = [
   [
     'held-shows-engine-reason',
     CMP,
-    "{c.held[held.kind]}{' '}",
-    "{r.match.held.reason}{' '}",
+    '{c.held[held.kind]} {held.detail && heldText(held.detail)}',
+    '{r.match.held.reason} {held.detail && heldText(held.detail)}',
+  ],
+  // The held detail in the reader's own words and minor units, and the
+  // reader's detail no longer one click away.
+  [
+    'held-detail-as-written',
+    CMP,
+    '{c.held[held.kind]} {held.detail && heldText(held.detail)}',
+    '{c.held[held.kind]} {held.detail}',
+  ],
+  [
+    'held-raw-detail-dropped',
+    CMP,
+    '<code>{held.detail}</code>',
+    '<code>{c.heldRaw}</code>',
   ],
   [
     'save-without-decisions',

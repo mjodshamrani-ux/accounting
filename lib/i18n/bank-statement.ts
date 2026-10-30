@@ -50,6 +50,42 @@ const ar = {
   },
   heldCounts: (statement: number, cashbook: number) =>
     `حُجزت ${statement} حركة في الكشف و${cashbook} قيدًا في الدفتر دون مطابقة.`,
+  // A held statement's detail in the page's words, its amounts at the
+  // currency's precision; the reader's own detail stays one click away.
+  heldLines: {
+    movement: 'رصيد سطر الحركة',
+    'brought-forward': 'الرصيد المرحل إليها',
+    'carried-forward': 'الرصيد المرحل منها',
+    closing: 'الرصيد الختامي',
+  },
+  heldDetail: {
+    balance: <T>(
+      where: string,
+      line: string,
+      printed: T,
+      computed: T,
+      difference: T,
+    ) => [
+      `${where}: ${line} المطبوع `,
+      printed,
+      '، والمحسوب من الرصيد الافتتاحي والحركات ',
+      computed,
+      '؛ المطبوع ناقص المحسوب ',
+      difference,
+      '.',
+    ],
+    pageTotals: (where: string) =>
+      `${where}: مجموعا السحب والإيداع المطبوعان لا يساويان حركاتها.`,
+    pageStart: (where: string) => `${where} لا تبدأ برصيد مرحل إليها.`,
+    pageEnd: (where: string) => `${where} لا تنتهي بسطر رصيد مرحل منها.`,
+    statementTotals: 'مجموعا الكشف المطبوعان لا يساويان حركاته.',
+    secondOpening: 'في الكشف رصيد افتتاحي ثانٍ.',
+    noClosing: 'لا رصيد ختاميًا ولا مجاميع في الكشف.',
+    pages: (read: string, declared: string) =>
+      `قُرئت الصفحات ${read} من أصل ${declared}.`,
+    list: (numbers: number[]) => numbers.join('، '),
+  },
+  heldRaw: 'تفصيل القارئ كما كتبه',
   counts: (automatic: number, review: number, outstanding: number) =>
     `مطابقات آلية: ${automatic} · تحتاج قرارك: ${review} · بنود معلقة: ${outstanding}`,
   summary: 'الكشف كما قُرئ',
@@ -328,6 +364,43 @@ const en: typeof ar = {
   },
   heldCounts: (statement: number, cashbook: number) =>
     `${statement} statement movements and ${cashbook} cashbook entries were held unmatched.`,
+  heldLines: {
+    movement: 'movement line balance',
+    'brought-forward': 'brought-forward balance',
+    'carried-forward': 'carried-forward balance',
+    closing: 'closing balance',
+  },
+  heldDetail: {
+    balance: <T>(
+      where: string,
+      line: string,
+      printed: T,
+      computed: T,
+      difference: T,
+    ) => [
+      `${where}: the printed ${line} is `,
+      printed,
+      '; the opening balance and the movements give ',
+      computed,
+      '; printed minus computed is ',
+      difference,
+      '.',
+    ],
+    pageTotals: (where: string) =>
+      `${where}: its printed withdrawal and deposit totals differ from its movements.`,
+    pageStart: (where: string) =>
+      `${where} does not start with its brought-forward balance.`,
+    pageEnd: (where: string) =>
+      `${where} does not end with a carried-forward line.`,
+    statementTotals:
+      'The statement’s printed totals differ from its movements.',
+    secondOpening: 'The statement has a second opening balance.',
+    noClosing: 'The statement has no closing balance and totals.',
+    pages: (read: string, declared: string) =>
+      `Pages read: ${read} of ${declared}.`,
+    list: (numbers: number[]) => numbers.join(', '),
+  },
+  heldRaw: 'The reader’s own detail',
   counts: (automatic: number, review: number, outstanding: number) =>
     `Automatic matches: ${automatic} · Awaiting your decision: ${review} · Outstanding items: ${outstanding}`,
   summary: 'The statement as read',
