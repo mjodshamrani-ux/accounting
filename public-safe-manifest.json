@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 140832,
-      "sha256": "41fe5eebdd38b17083511392bb16aa4ec7f067f2c179c3bbe9216c9a616534cf",
+      "bytes": 141507,
+      "sha256": "d13aedd3f471b83ad5b8b111caaba0ac9972cd981f768011edae2f585ba16a53",
       "kind": "text"
     },
     {
@@ -71321,8 +71321,8 @@
     },
     {
       "path": "docs/audits/FA-1C.ar.md",
-      "bytes": 12458,
-      "sha256": "6a642b446a5e4c995df4f6a25879333bf935325fb65c4da3dc393977dd42bd97",
+      "bytes": 14181,
+      "sha256": "d92382f3ec4ac983c48ecb0e6d353ca77f5ab3fd3ebd07bfeede33027aa9425c",
       "kind": "text"
     },
     {
@@ -72439,6 +72439,18 @@
       "path": "tests/fixed-assets-sections-copy.test.ts",
       "bytes": 3085,
       "sha256": "d46f4abed90d85e37f325dca7d379e949adc0c923b561d7b91869efecdfc4bb5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fixed-assets-sections-foundation/results/main-thread-1.json",
+      "bytes": 1332,
+      "sha256": "8fcf5b21ea7135b2d4a150db502bff240d41939e55336cf9591b23c8cb53bf63",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/fixed-assets-sections-main-thread.mjs",
+      "bytes": 5814,
+      "sha256": "14bad509155a773ea12a9ea2b42c907306aab3a11b85ec0193e8b4cfdec4eab9",
       "kind": "text"
     }
   ],
