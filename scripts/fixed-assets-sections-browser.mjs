@@ -12,7 +12,8 @@
 // A story whose reading names another family cannot be given through the
 // page, which reads every file as this family's role: it is listed apart,
 // and the page is checked to wait for every file's reading confirmation.
-// Also, on the foundation: Arabic, a phone width, the keyboard, a stale
+// Also, on the foundation: every story again in Arabic, a phone width in
+// both languages, the keyboard, a stale
 // review cleared by a new file or a scope change, and no request off the
 // page.
 //
@@ -106,6 +107,16 @@ const WORDS = {
     summary: (n, c, d, m, h, s, a) =>
       `${n} accounts: ${c} consistent, ${d} with a difference, ${m} missing, ${h} held. ${s} sections, ${a} assets.`,
     check: 'Review the register',
+    refused: 'Refused: nothing was reviewed',
+    refusals: {
+      READING: 'The readings are incomplete',
+      SCOPE: 'The scope is incomplete, not confirmed or not readable',
+      SOURCE: 'A file could not be read as a CSV snapshot',
+      SOURCE_HASH: 'A file changed while it was read',
+      CAPACITY: 'A file holds more than the reader admits',
+      COLUMNS: 'The map or the GL has a missing, repeated or unknown header',
+      TOTAL_LIMIT: 'A total is too large to be held exactly',
+    },
   },
   ar: {
     list: '، ',
@@ -163,6 +174,16 @@ const WORDS = {
     summary: (n, c, d, m, h, s, a) =>
       `${n} حسابًا: ${c} متسقة، و${d} بفرق، و${m} ناقصة، و${h} محجوزة. ${s} قسمًا، و${a} أصلًا.`,
     check: 'راجع السجل',
+    refused: 'مرفوض: لم يُراجع شيء',
+    refusals: {
+      READING: 'القراءات ناقصة',
+      SCOPE: 'النطاق ناقص أو غير مؤكد أو لا يُقرأ',
+      SOURCE: 'تعذرت قراءة ملف لقطة CSV',
+      SOURCE_HASH: 'تغير ملف أثناء قراءته',
+      CAPACITY: 'في ملف أكثر مما يقبله القارئ',
+      COLUMNS: 'في الخريطة أو GL عنوان غائب أو مكرر أو غير معروف',
+      TOTAL_LIMIT: 'مجموع أكبر من أن يُحمل بدقة',
+    },
   },
 };
 const minor = (v, decimals) => {
@@ -327,12 +348,16 @@ async function shown(fas, dense) {
     summary: JSON.parse(await summary.getAttribute('data-fas-summary')),
     summaryText: await summary.textContent(),
     inventory: JSON.parse(
-      await fas.locator('[data-fas-inventory]').getAttribute('data-fas-inventory'),
+      await fas
+        .locator('[data-fas-inventory]')
+        .getAttribute('data-fas-inventory'),
     ),
     run: (await run.count())
       ? (await run.getAttribute('data-fas-run')).split(' ')
       : [],
-    runText: (await run.count()) ? await run.locator('li').allTextContents() : [],
+    runText: (await run.count())
+      ? await run.locator('li').allTextContents()
+      : [],
     accounts: await rows(fas, 'accounts', 'tr[data-fas-account]', dense),
     unmapped: await rows(fas, 'unmapped', 'tr[data-fas-unmapped]', dense),
     unplaced: await rows(fas, 'unplaced', 'tr[data-fas-unplaced]', dense),
@@ -358,7 +383,8 @@ function judge(c, seen, lang = 'en') {
       seen.state !== 'refused' ||
       seen.refused !== o.refused ||
       seen.result !== 0 ||
-      !seen.heading?.includes(`(${o.refused})`)
+      seen.heading?.replace(/\s+/g, ' ').trim() !==
+        `${w.refused}: ${w.refusals[o.refused]} (${o.refused})`
     )
       differ.push('refusal');
     return differ;
@@ -476,7 +502,10 @@ function judge(c, seen, lang = 'en') {
 let browser;
 const errors = [],
   external = [];
-const report = { cases: {}, notExpressible: {}, checks: {} };
+// A sealed holdout's record has no Arabic pass, so it has no such key.
+const report = SUITE
+  ? { cases: {}, notExpressible: {}, checks: {} }
+  : { cases: {}, arabic: {}, notExpressible: {}, checks: {} };
 try {
   browser = await chromium.launch({
     headless: true,
@@ -527,14 +556,26 @@ try {
   }
   if (!SUITE) {
     const byId = Object.fromEntries(cases.map((c) => [c.id, c]));
-    // Arabic, right to left: the same facts, the words in Arabic.
+    // Arabic, right to left: every story again, the same facts, the words
+    // in Arabic.
     {
-      const fas = await open(page, 'ar');
-      await load(page, fas, byId.F15, 'ar');
-      const seen = await shown(fas, false);
+      let dir = null;
+      for (const c of cases) {
+        if (!expressible(c)) continue;
+        const fas = await open(page, 'ar');
+        dir ??= await page.evaluate(() => document.documentElement.dir);
+        await load(page, fas, c, 'ar');
+        const differ = judge(c, await shown(fas, c.dense), 'ar');
+        report.arabic[c.id] = { equal: !differ.length, differ };
+        if (FAIL_FAST)
+          assert.ok(
+            !differ.length,
+            `${c.id} in Arabic differs: ${differ.join(', ')}`,
+          );
+      }
       report.checks.arabic = {
-        dir: await page.evaluate(() => document.documentElement.dir),
-        equal: !judge(byId.F15, seen, 'ar').length,
+        dir,
+        equal: Object.values(report.arabic).every((s) => s.equal),
       };
     }
     // A phone width: nothing wider than the page.
@@ -542,11 +583,16 @@ try {
       await page.setViewportSize({ width: 390, height: 844 });
       const fas = await open(page, 'en');
       await load(page, fas, byId.F41);
-      report.checks.phone = await page.evaluate(
-        () =>
-          document.documentElement.scrollWidth <=
-          document.documentElement.clientWidth,
-      );
+      const fits = () =>
+        page.evaluate(
+          () =>
+            document.documentElement.scrollWidth <=
+            document.documentElement.clientWidth,
+        );
+      report.checks.phone = await fits();
+      const ar = await open(page, 'ar');
+      await load(page, ar, byId.F41, 'ar');
+      report.checks.phoneArabic = await fits();
       await page.setViewportSize({ width: 1280, height: 900 });
     }
     // A new file, or another scope value, clears the shown review.
@@ -595,6 +641,11 @@ try {
   const all = Object.values(report.cases);
   report.summary = {
     cases: `${all.filter((s) => s.equal).length}/${all.length}`,
+    ...(SUITE
+      ? {}
+      : {
+          arabic: `${Object.values(report.arabic).filter((s) => s.equal).length}/${Object.keys(report.arabic).length}`,
+        }),
     notExpressible: Object.keys(report.notExpressible),
     checks: Object.fromEntries(
       Object.entries(report.checks).map(([k, v]) => [
@@ -610,6 +661,8 @@ try {
   );
   for (const [id, s] of Object.entries(report.cases))
     console.log(id, s.equal ? 'equal' : `DIFFERS ${s.differ.join(', ')}`);
+  for (const [id, s] of Object.entries(report.arabic ?? {}))
+    console.log(id, 'ar', s.equal ? 'equal' : `DIFFERS ${s.differ.join(', ')}`);
   for (const [id, s] of Object.entries(report.notExpressible))
     console.log(
       id,
@@ -632,6 +685,8 @@ try {
       s.equal,
       `${id} shows what EXPECTED says: ${s.differ.join(', ')}`,
     );
+  for (const [id, s] of Object.entries(report.arabic ?? {}))
+    assert.ok(s.equal, `${id} in Arabic: ${s.differ.join(', ')}`);
   for (const [id, s] of Object.entries(report.notExpressible))
     assert.ok(s.reviewWaitsForReading, `${id}: the review does not wait`);
   for (const [k, v] of Object.entries(report.summary.checks)) assert.ok(v, k);

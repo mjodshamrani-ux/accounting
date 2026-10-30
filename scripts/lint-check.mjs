@@ -28,7 +28,9 @@ console.error(`Verified ${manifest.files.length} byte-exact frozen lint original
 // Literal bidirectional controls in code reorder what a reviewer reads, and
 // the implicit marks (LRM, RLM, ALM) are as invisible; a test or rule that
 // needs one writes it as an escape. Frozen evidence keeps its own bytes.
-const listed = spawnSync('git', ['ls-files', '-z', '--', '*.ts', '*.tsx', '*.mjs', '*.js', '*.py'], {
+// Untracked files that are not ignored too: a new file is checked before it
+// is added, not first in CI.
+const listed = spawnSync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard', '--', '*.ts', '*.tsx', '*.mjs', '*.js', '*.py'], {
   cwd: root,
   encoding: 'utf8',
   maxBuffer: 64 * 1024 * 1024,

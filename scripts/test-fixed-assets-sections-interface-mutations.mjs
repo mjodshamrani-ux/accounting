@@ -190,6 +190,27 @@ const mutations = [
     "    MAP_CLASS: 'صف خريطة بفئة حساب أخرى',",
     "    MAP_CLASS: 'A map row of another account class',",
   ],
+  // Added on 30 October with the Arabic pass over every story and the
+  // refusal words: none is caught by F15 in Arabic or by the code in
+  // brackets alone.
+  [
+    'refusal-words-dropped',
+    PANEL,
+    '{copy.refused}: {copy.refusals[refused] ?? refused} (',
+    '{copy.refused}: {refused} (',
+  ],
+  [
+    'arabic-refusal-word-english',
+    COPY,
+    "    SOURCE: 'تعذرت قراءة ملف لقطة CSV',",
+    "    SOURCE: 'A file could not be read as a CSV snapshot',",
+  ],
+  [
+    'arabic-code-word-of-another',
+    COPY,
+    "    TOTAL_MISMATCH: 'مجموع قسم ليس مجموع صفوفه',",
+    "    TOTAL_MISMATCH: 'مجموع قسم لا يُقرأ أو لا يمكن فحصه',",
+  ],
 ];
 const buildInputs = [
   'app',

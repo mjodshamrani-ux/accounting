@@ -578,7 +578,7 @@ export function AssetWorkspace({
         </div>
         {error && <p role="alert">{copy.failed}</p>}
         {result && (
-          <section className="workspace-results">
+          <section className="workspace-results" data-asset-result>
             <DomainEvidenceAssistant
               result={result}
               snapshot={() => ({

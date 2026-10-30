@@ -400,6 +400,12 @@ try {
             );
             report.review.push({ lang, width, id, acceptedAndUndone: true });
             if (width === 1440) {
+              // The long family's own result hook, so the counts below do not
+              // depend on a class other sections share (FA-1c).
+              assert.equal(
+                await panel.locator('[data-asset-result]').count(),
+                1,
+              );
               await panel
                 .getByLabel(copy.scopeConfirm, { exact: true })
                 .uncheck();
@@ -407,7 +413,7 @@ try {
                 .getByLabel(copy.scopeConfirm, { exact: true })
                 .check();
               assert.equal(
-                await panel.locator('.workspace-results').count(),
+                await panel.locator('[data-asset-result]').count(),
                 0,
               );
               const start = await page.evaluate(
@@ -475,7 +481,7 @@ try {
               );
               await idle(panel);
               assert.equal(
-                await panel.locator('.workspace-results').count(),
+                await panel.locator('[data-asset-result]').count(),
                 0,
               );
               assert.equal(
@@ -486,7 +492,7 @@ try {
               );
               await page.waitForTimeout(100);
               assert.equal(
-                await panel.locator('.workspace-results').count(),
+                await panel.locator('[data-asset-result]').count(),
                 0,
                 'bounded observation: no cancelled result installed',
               );

@@ -247,7 +247,7 @@
     "test:fa-sections:h1-run": "FA_SECTIONS_SUITE=audit/fixed-assets-sections-holdout-h1 node --experimental-strip-types audit/fixed-assets-sections-foundation/engine-run.mjs --assert engine-run-1.json",
     "test:fa-sections:h1-browser": "FA_SECTIONS_SUITE=audit/fixed-assets-sections-holdout-h1 node scripts/fixed-assets-sections-browser.mjs --assert=browser-run-1.json",
     "test:fa-sections:h1-seal": "python3 -B -m unittest discover -s audit/fixed-assets-sections-holdout-h1 -p test_intent.py -v && python3 -B audit/fixed-assets-sections-holdout-h1/check_seal.py",
-    "test:fa-sections:browser": "node scripts/fixed-assets-sections-browser.mjs --assert=browser-run-1.json",
+    "test:fa-sections:browser": "node scripts/fixed-assets-sections-browser.mjs --assert=browser-run-2.json",
     "test:fa-sections:interface-mutations": "node scripts/test-fixed-assets-sections-interface-mutations.mjs",
     "test:bank-cycle:c4-run": "BANK_CYCLE_SUITE=audit/bank-cycle-holdout-c4 node --experimental-strip-types scripts/bank-cycle-run.mjs --assert=run-1.json",
     "test:bank-cycle:c4-browser": "node --experimental-strip-types scripts/bank-cycle-browser.mjs --suite=audit/bank-cycle-holdout-c4 --assert=browser-run-2.json",
