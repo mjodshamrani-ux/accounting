@@ -29,6 +29,16 @@
   color: #637088;
 }
 
+/* A movement's evidence takes focus when it opens; its heading clears the
+   sticky top bar and shows the shared focus ring. */
+.bank-movement-evidence > h2 {
+  scroll-margin-block-start: 6rem;
+}
+.bank-movement-evidence > h2:focus-visible {
+  outline: 3px solid #8a69dc;
+  outline-offset: 3px;
+}
+
 /* Bank source type: two plain choices, each with its accepted formats. The
    radio follows the shared checkbox treatment; the shared field rule sizes
    every other input as a text box. */

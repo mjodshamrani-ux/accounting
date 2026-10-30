@@ -201,6 +201,17 @@ export const en: Messages = {
     next: 'Next',
     retainedTiming:
       'Value dates outside the period stay visible after approval and undo; they are inputs to a later balance reconciliation.',
+    caseState: 'Status',
+    decisionHint: {
+      sourceError:
+        'Source errors block every decision; correct the source in its original file, then compare again.',
+      both: 'Write the “Evidence reference” and the “Decision or undo reason” to enable approval, undo and the human pairing.',
+      reference: 'Write the “Evidence reference” to enable a decision.',
+      reason: 'Write the “Decision or undo reason” to enable a decision.',
+      ready:
+        'Approval is offered only for an eligible case that needs review, undo only for a matched case, and the human pairing once a movement is chosen on each side.',
+    },
+    backToMovement: 'Back to the movement in its table',
   },
   allocation: {
     entry: 'Payment allocation',
