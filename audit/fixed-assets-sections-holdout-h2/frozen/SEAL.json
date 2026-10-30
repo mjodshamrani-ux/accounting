@@ -1,0 +1,20 @@
+{
+ "schema": "tarasuf-fa1-sections-holdout-seal/1",
+ "statement": "Sealed and pushed before any product run on these files. The first engine and browser runs are recorded as they come.",
+ "pins": {
+  "INPUT-MANIFEST.json": "89a4acfef2e2256d7c764cc659922bc919fe3b7cba7f9d164282231869804872",
+  "EXPECTED.json": "3d39c516d1d630d1d0a3274be74e2d90322810bc6471d37c17491b95b616956d",
+  "VERIFY.json": "a4ff2ac3fd563271b8e8ba524c2ffc81c788c55264b1f25fdf696da0d33a3a08",
+  "stories.py": "f077cc2e295ecef27b4e018746d26bfee4445234096bec4f5a36d71a4fb1b400",
+  "render.py": "fdeca7eba9a9a527a96fdefbeadcb95c4d67599d877d4c6ca2c9bfa104ab0f12",
+  "render.rb": "a754a01cf8a8db216b052f3a407fb4b03aee0633fe6885d6859662e442d2a122",
+  "render.jq": "6ae13c4b2f47f0871702a251698247c46672edc54df6d1164385cceed589e796",
+  "render.awk": "e52b6d162f4be3abedefe46dc4e75f0bc47eda508ea3b167709928f707372bf4",
+  "render.rs": "8d0ce5c18baafe8bd24c2e119fb2224c2cf6c93ef9f10adaea8f3777e4e0aca3",
+  "verify.py": "ae1bc33f15aa0eebfca09c85414ad4b2e07db66be802411f23510a1cb416dfb3",
+  "judge.py": "73e241b89efa0f0b35885d68cf3dc92cabd54b279da475cdc111d670666ebe82",
+  "test_intent.py": "8abc099fe06fcc748b22f4a790cfe192432bce50b814e190aa2c1f34b0c1cf37",
+  "../fixed-assets-sections-foundation/contract.json": "80a952997d2b9c990b0d20a9cf5bf3df248c4058e808ce312aa3eb53f172e6d8",
+  "../fixed-assets-sections-foundation/oracle.py": "f083419050b901b6f690d5553b38310d3b4d620e8b32cadb71c93a274a179055"
+ }
+}

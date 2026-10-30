@@ -1,0 +1,43 @@
+Section,SEC-MCT-RCK
+Entity,Synthetic Sohar Freight LLC
+Asset ledger,FAR-LOG
+Currency,OMR
+As of,2028-09-30
+Location,Muscat depot
+Category,Pallet racking
+Asset ID,Asset dimensions,Component,Amount,Valuation reference
+RCK 12,MCT-A,cost,3200.500,VAL-SEC-MCT-RCK
+RCK 12,MCT-A,depreciation,1280.200,VAL-SEC-MCT-RCK
+RCK 12,MCT-A,impairment,0.000,VAL-SEC-MCT-RCK
+RCK 12,MCT-A,carrying,1920.300,VAL-SEC-MCT-RCK
+RCK 13,MCT-A,cost,3200.500,VAL-SEC-MCT-RCK
+RCK 13,MCT-A,depreciation,3200.500,VAL-SEC-MCT-RCK
+RCK 13,MCT-A,impairment,0.000,VAL-SEC-MCT-RCK
+RCK 13,MCT-A,carrying,0.000,VAL-SEC-MCT-RCK
+End section,SEC-MCT-RCK
+Section,SEC-MCT-TRK
+Entity,Synthetic Sohar Freight LLC
+Asset ledger,FAR-LOG
+Currency,OMR
+As of,2028-09-30
+Location,Muscat depot
+Category,Delivery trucks
+Asset ID,Asset dimensions,Component,Amount,Valuation reference
+TRK#7,MCT-F,cost,27800.000,VAL-SEC-MCT-TRK
+TRK#7,MCT-F,depreciation,13900.000,VAL-SEC-MCT-TRK
+TRK#7,MCT-F,impairment,0.000,VAL-SEC-MCT-TRK
+TRK#7,MCT-F,carrying,13900.000,VAL-SEC-MCT-TRK
+End section,SEC-MCT-TRK
+Section,SEC-MCT-SRV
+Entity,Synthetic Sohar Freight LLC
+Asset ledger,FAR-LOG
+Currency,OMR
+As of,2028-09-30
+Location,Muscat depot
+Category,Server room
+Asset ID,Asset dimensions,Component,Amount,Valuation reference
+SRV_01,MCT-DC,cost,9600.000,VAL-SEC-MCT-SRV
+SRV_01,MCT-DC,depreciation,9600.000,VAL-SEC-MCT-SRV
+SRV_01,MCT-DC,impairment,0.000,VAL-SEC-MCT-SRV
+SRV_01,MCT-DC,carrying,0.000,VAL-SEC-MCT-SRV
+End section,SEC-MCT-SRV

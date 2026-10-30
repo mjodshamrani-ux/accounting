@@ -1,0 +1,17 @@
+Section,SEC-SOH-SRV
+Entity,Synthetic Sohar Freight LLC
+Asset ledger,FAR-LOG
+Currency,SAR
+As of,2028-02-29
+Location,"Sohar, berth 4"
+Category,Server room
+Asset ID,Asset dimensions,Component,Amount,Valuation reference
+SRV_09,SOH-B4,cost,12500.00,VAL-SEC-SOH-SRV
+SRV_09,SOH-B4,depreciation,12500.00,VAL-SEC-SOH-SRV
+SRV_09,SOH-B4,impairment,0.00,VAL-SEC-SOH-SRV
+SRV_09,SOH-B4,carrying,0.00,VAL-SEC-SOH-SRV
+SRV_10,SOH-B4,cost,9900.99,VAL-SEC-SOH-SRV
+SRV_10,SOH-B4,depreciation,3300.33,VAL-SEC-SOH-SRV
+SRV_10,SOH-B4,impairment,0.00,VAL-SEC-SOH-SRV
+SRV_10,SOH-B4,carrying,6600.66,VAL-SEC-SOH-SRV
+End section,SEC-SOH-SRV

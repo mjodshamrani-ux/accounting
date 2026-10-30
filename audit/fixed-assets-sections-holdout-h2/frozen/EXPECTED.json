@@ -1,0 +1,10575 @@
+{
+ "schema": "tarasuf-fa1-sections-h2-expected/1",
+ "oracle": "audit/fixed-assets-sections-foundation/oracle.py",
+ "stories": {
+  "O01": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "6b2963f8891a6701c43c75ab1f45b513164b9df442fdc5c54f7529f4f6337d12",
+    "1242f632d18d9222ca9079a6e64c02f067182a05462df874ed070d83de36e7cb",
+    "0c71de7129ea05e5ba323c0ecf2b6ed2960edf48f28263d5dfbb99d738324016"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     18,
+     34,
+     "SEC-MCT-RCK",
+     "Muscat depot",
+     "Pallet racking",
+     "read",
+     []
+    ],
+    [
+     35,
+     47,
+     "SEC-SLL-RFR",
+     "Salalah cold store",
+     "Reefer units",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 12",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 1280200,
+      "impairment": 0,
+      "carrying": 1920300
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 13",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 3200500,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       30
+      ],
+      "depreciation": [
+       31
+      ],
+      "impairment": [
+       32
+      ],
+      "carrying": [
+       33
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-SLL-RFR",
+     "sectionRow": 35,
+     "assetId": "RF-000123",
+     "dimensions": "SLL-C",
+     "location": "Salalah cold store",
+     "category": "Reefer units",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 41500000,
+      "depreciation": 8300000,
+      "impairment": 4150000,
+      "carrying": 29050000
+     },
+     "rows": {
+      "cost": [
+       43
+      ],
+      "depreciation": [
+       44
+      ],
+      "impairment": [
+       45
+      ],
+      "carrying": [
+       46
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SLL-RFR"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 28249999,
+     "gl": 28249999,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 250000,
+     "gl": 250000,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 12699999,
+     "gl": 12699999,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1720",
+     "dimensions": "LOG-RCK",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 6401000,
+     "gl": 6401000,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "cost"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1728",
+     "dimensions": "LOG-RCK",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "impairment"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1729",
+     "dimensions": "LOG-RCK",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 4480700,
+     "gl": 4480700,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "depreciation"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1730",
+     "dimensions": "LOG-RFR",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 41500000,
+     "gl": 41500000,
+     "difference": 0,
+     "glRow": 8,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1738",
+     "dimensions": "LOG-RFR",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 4150000,
+     "gl": 4150000,
+     "difference": 0,
+     "glRow": 9,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1739",
+     "dimensions": "LOG-RFR",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 8300000,
+     "gl": 8300000,
+     "difference": 0,
+     "glRow": 10,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 3,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 0,
+     "record": 20
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    }
+   }
+  },
+  "O02": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "73ac726b3adc60b702048d0e70a10951992d2aee6bdf96531237d5fd0863142d",
+    "dce721001b14aa798c57bbf276d5869de4008635699902c9dd4474eb41c3646b",
+    "7858099b93b05fe42ec0f13e772c8690bcde9a493287f298ee4c230b78af5bfb"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     21,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     24,
+     40,
+     "SEC-SLL-RFR",
+     "Salalah cold store",
+     "Reefer units",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-SLL-RFR",
+     "sectionRow": 24,
+     "assetId": "RF-000123",
+     "dimensions": "SLL-C",
+     "location": "Salalah cold store",
+     "category": "Reefer units",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 41500000,
+      "depreciation": 8300000,
+      "impairment": 4150000,
+      "carrying": 29050000
+     },
+     "rows": {
+      "cost": [
+       32
+      ],
+      "depreciation": [
+       33
+      ],
+      "impairment": [
+       34
+      ],
+      "carrying": [
+       35
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SLL-RFR"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 28249999,
+     "gl": 28249999,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 250000,
+     "gl": 250000,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 12699999,
+     "gl": 12699999,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1730",
+     "dimensions": "LOG-RFR",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 41500000,
+     "gl": 41500000,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1738",
+     "dimensions": "LOG-RFR",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 4150000,
+     "gl": 4150000,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1739",
+     "dimensions": "LOG-RFR",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 8300000,
+     "gl": 8300000,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 2,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 8,
+     "record": 12
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "O03": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "51cbf441452ddbc732114b14652087df7c42f0d918f4ec250a62c718622fe4cb",
+    "652d1562e73e4551106a131e4a82fa56959741c8cc6194a8223ca32ecd7e8d6a",
+    "1d5ecc4b1d634c2bd9461dd5fcda518bcfd9c285e9e0904110e710cf6a6287e1"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     16,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     17,
+     33,
+     "SEC-MCT-RCK",
+     "Muscat depot",
+     "Pallet racking",
+     "read",
+     []
+    ],
+    [
+     34,
+     46,
+     "SEC-SLL-RFR",
+     "Salalah cold store",
+     "Reefer units",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 17,
+     "assetId": "RCK 12",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 1280200,
+      "impairment": 0,
+      "carrying": 1920300
+     },
+     "rows": {
+      "cost": [
+       25
+      ],
+      "depreciation": [
+       26
+      ],
+      "impairment": [
+       27
+      ],
+      "carrying": [
+       28
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 17,
+     "assetId": "RCK 13",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 3200500,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       29
+      ],
+      "depreciation": [
+       30
+      ],
+      "impairment": [
+       31
+      ],
+      "carrying": [
+       32
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-SLL-RFR",
+     "sectionRow": 34,
+     "assetId": "RF-000123",
+     "dimensions": "SLL-C",
+     "location": "Salalah cold store",
+     "category": "Reefer units",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 41500000,
+      "depreciation": 8300000,
+      "impairment": 4150000,
+      "carrying": 29050000
+     },
+     "rows": {
+      "cost": [
+       42
+      ],
+      "depreciation": [
+       43
+      ],
+      "impairment": [
+       44
+      ],
+      "carrying": [
+       45
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SLL-RFR"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "held",
+     "codes": [
+      "COMPONENT_MISSING"
+     ],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": null,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [],
+      "carrying": [
+       15
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-F2"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "COMPONENT_MISSING"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "COMPONENT_MISSING"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "COMPONENT_MISSING"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1720",
+     "dimensions": "LOG-RCK",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 6401000,
+     "gl": 6401000,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "cost"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1728",
+     "dimensions": "LOG-RCK",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "impairment"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1729",
+     "dimensions": "LOG-RCK",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 4480700,
+     "gl": 4480700,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "depreciation"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1730",
+     "dimensions": "LOG-RFR",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 41500000,
+     "gl": 41500000,
+     "difference": 0,
+     "glRow": 8,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1738",
+     "dimensions": "LOG-RFR",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 4150000,
+     "gl": 4150000,
+     "difference": 0,
+     "glRow": 9,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1739",
+     "dimensions": "LOG-RFR",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 8300000,
+     "gl": 8300000,
+     "difference": 0,
+     "glRow": 10,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 3,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 0,
+     "record": 19
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    }
+   }
+  },
+  "O04": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "2d0d26cc2bb6fd885a18af864e94973a54b41b155d0393a28b20980c91e78dc8",
+    "fa87976e3e77709a0c6cd22151bce050e1a67e0e287d617c98b77a85e1f4177d",
+    "c2541939d6539e3ed29427822c8f14d0d437dcc5bf092e2002fa8aec070ed5b7"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     18,
+     35,
+     "SEC-MCT-RCK",
+     "Muscat depot",
+     "Pallet racking",
+     "read",
+     []
+    ],
+    [
+     36,
+     48,
+     "SEC-SLL-RFR",
+     "Salalah cold store",
+     "Reefer units",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 12",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "held",
+     "codes": [
+      "COMPONENT_REPEATED"
+     ],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": null,
+      "impairment": 0,
+      "carrying": 1920300
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27,
+       30
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-R1"
+    },
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 13",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 3200500,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       31
+      ],
+      "depreciation": [
+       32
+      ],
+      "impairment": [
+       33
+      ],
+      "carrying": [
+       34
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-SLL-RFR",
+     "sectionRow": 36,
+     "assetId": "RF-000123",
+     "dimensions": "SLL-C",
+     "location": "Salalah cold store",
+     "category": "Reefer units",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 41500000,
+      "depreciation": 8300000,
+      "impairment": 4150000,
+      "carrying": 29050000
+     },
+     "rows": {
+      "cost": [
+       44
+      ],
+      "depreciation": [
+       45
+      ],
+      "impairment": [
+       46
+      ],
+      "carrying": [
+       47
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SLL-RFR"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 28249999,
+     "gl": 28249999,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 250000,
+     "gl": 250000,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 12699999,
+     "gl": 12699999,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1720",
+     "dimensions": "LOG-RCK",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "COMPONENT_REPEATED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "cost"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1728",
+     "dimensions": "LOG-RCK",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "COMPONENT_REPEATED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "impairment"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1729",
+     "dimensions": "LOG-RCK",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "COMPONENT_REPEATED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "depreciation"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1730",
+     "dimensions": "LOG-RFR",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 41500000,
+     "gl": 41500000,
+     "difference": 0,
+     "glRow": 8,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1738",
+     "dimensions": "LOG-RFR",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 4150000,
+     "gl": 4150000,
+     "difference": 0,
+     "glRow": 9,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1739",
+     "dimensions": "LOG-RFR",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 8300000,
+     "gl": 8300000,
+     "difference": 0,
+     "glRow": 10,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 3,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 0,
+     "record": 21
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    }
+   }
+  },
+  "O05": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "7e7d5663542b3c63206c97abec987a20b5f78dc74490136bbeeb9eb170ddda07",
+    "1242f632d18d9222ca9079a6e64c02f067182a05462df874ed070d83de36e7cb",
+    "0c71de7129ea05e5ba323c0ecf2b6ed2960edf48f28263d5dfbb99d738324016"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     18,
+     34,
+     "SEC-MCT-RCK",
+     "Muscat depot",
+     "Pallet racking",
+     "read",
+     []
+    ],
+    [
+     35,
+     47,
+     "SEC-SLL-RFR",
+     "Salalah cold store",
+     "Reefer units",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 12",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 1280200,
+      "impairment": 0,
+      "carrying": 1920300
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 13",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 3200500,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       30
+      ],
+      "depreciation": [
+       31
+      ],
+      "impairment": [
+       32
+      ],
+      "carrying": [
+       33
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-SLL-RFR",
+     "sectionRow": 35,
+     "assetId": "RF-000123",
+     "dimensions": "SLL-C",
+     "location": "Salalah cold store",
+     "category": "Reefer units",
+     "status": "held",
+     "codes": [
+      "CARRYING"
+     ],
+     "amounts": {
+      "cost": 41500000,
+      "depreciation": 8300000,
+      "impairment": 4150000,
+      "carrying": 29050001
+     },
+     "rows": {
+      "cost": [
+       43
+      ],
+      "depreciation": [
+       44
+      ],
+      "impairment": [
+       45
+      ],
+      "carrying": [
+       46
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SLL-RFR"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 28249999,
+     "gl": 28249999,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 250000,
+     "gl": 250000,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 12699999,
+     "gl": 12699999,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1720",
+     "dimensions": "LOG-RCK",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 6401000,
+     "gl": 6401000,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "cost"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1728",
+     "dimensions": "LOG-RCK",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "impairment"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1729",
+     "dimensions": "LOG-RCK",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 4480700,
+     "gl": 4480700,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "depreciation"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1730",
+     "dimensions": "LOG-RFR",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "CARRYING"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 8,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1738",
+     "dimensions": "LOG-RFR",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "CARRYING"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 9,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1739",
+     "dimensions": "LOG-RFR",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "CARRYING"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 10,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 3,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 0,
+     "record": 20
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    }
+   }
+  },
+  "O06": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "de465db898d3b23cd0db8742de0d8d1d8d462581167fd79d46975ea98015ed4d",
+    "bc9d8a94cd63d05ce97b189a17c681182c7e88b0eca971a389b765ccf906f89c",
+    "cd5d79f9d3120155fdc742bcceda25660123f53656e422242d9d3fa372d00f0d"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     18,
+     30,
+     "SEC-MCT-TRK",
+     "Muscat depot",
+     "Delivery trucks",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT-TRK",
+     "sectionRow": 18,
+     "assetId": "TRK#7",
+     "dimensions": "MCT-F",
+     "location": "Muscat depot",
+     "category": "Delivery trucks",
+     "status": "held",
+     "codes": [
+      "VALUATION"
+     ],
+     "amounts": {
+      "cost": 27800000,
+      "depreciation": 13900000,
+      "impairment": 0,
+      "carrying": 13900000
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": null
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 28249999,
+     "gl": 28249999,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 250000,
+     "gl": 250000,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 12699999,
+     "gl": 12699999,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1740",
+     "dimensions": "LOG-TRK",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "VALUATION"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-MCT-TRK",
+       "TRK#7",
+       "MCT-F",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1748",
+     "dimensions": "LOG-TRK",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "VALUATION"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-MCT-TRK",
+       "TRK#7",
+       "MCT-F",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1749",
+     "dimensions": "LOG-TRK",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "VALUATION"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-MCT-TRK",
+       "TRK#7",
+       "MCT-F",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 12
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "O07": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "f6fa384c273312c5b39b76f5e0a3485c875f54c0ad3f1f4fe05d928a83b9580b",
+    "652d1562e73e4551106a131e4a82fa56959741c8cc6194a8223ca32ecd7e8d6a",
+    "26f0de3d37a6426384eb220b1a435a7e391bf0cb78ce5c84fb05c1936398f26f"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     18,
+     34,
+     "SEC-MCT-RCK",
+     "Muscat depot",
+     "Pallet racking",
+     "read",
+     []
+    ],
+    [
+     35,
+     47,
+     "SEC-SLL-RFR",
+     "Salalah cold store",
+     "Reefer units",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "FL.0001",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "held",
+     "codes": [
+      "ID_SECTIONS"
+     ],
+     "amounts": {
+      "cost": 500000,
+      "depreciation": 100000,
+      "impairment": 0,
+      "carrying": 400000
+     },
+     "rows": {
+      "cost": [
+       30
+      ],
+      "depreciation": [
+       31
+      ],
+      "impairment": [
+       32
+      ],
+      "carrying": [
+       33
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 12",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 1280200,
+      "impairment": 0,
+      "carrying": 1920300
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-SLL-RFR",
+     "sectionRow": 35,
+     "assetId": "RF-000123",
+     "dimensions": "SLL-C",
+     "location": "Salalah cold store",
+     "category": "Reefer units",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 41500000,
+      "depreciation": 8300000,
+      "impairment": 4150000,
+      "carrying": 29050000
+     },
+     "rows": {
+      "cost": [
+       43
+      ],
+      "depreciation": [
+       44
+      ],
+      "impairment": [
+       45
+      ],
+      "carrying": [
+       46
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SLL-RFR"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "held",
+     "codes": [
+      "ID_SECTIONS"
+     ],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "ID_SECTIONS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "ID_SECTIONS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "ID_SECTIONS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1720",
+     "dimensions": "LOG-RCK",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "ID_SECTIONS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "FL.0001",
+       "MCT-A",
+       "cost"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1728",
+     "dimensions": "LOG-RCK",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "ID_SECTIONS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "FL.0001",
+       "MCT-A",
+       "impairment"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1729",
+     "dimensions": "LOG-RCK",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "ID_SECTIONS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "FL.0001",
+       "MCT-A",
+       "depreciation"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1730",
+     "dimensions": "LOG-RFR",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 41500000,
+     "gl": 41500000,
+     "difference": 0,
+     "glRow": 8,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1738",
+     "dimensions": "LOG-RFR",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 4150000,
+     "gl": 4150000,
+     "difference": 0,
+     "glRow": 9,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1739",
+     "dimensions": "LOG-RFR",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 8300000,
+     "gl": 8300000,
+     "difference": 0,
+     "glRow": 10,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 3,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 0,
+     "record": 20
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    }
+   }
+  },
+  "O08": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "7244dca705bacb936ac34d41b7784428500e778dea80d52be48bf22f1494225e",
+    "fa87976e3e77709a0c6cd22151bce050e1a67e0e287d617c98b77a85e1f4177d",
+    "c2541939d6539e3ed29427822c8f14d0d437dcc5bf092e2002fa8aec070ed5b7"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     18,
+     34,
+     "SEC-MCT-RCK",
+     "Muscat depot",
+     "Pallet racking",
+     "read",
+     []
+    ],
+    [
+     35,
+     47,
+     "SEC-SLL-RFR",
+     "Salalah cold store",
+     "Reefer units",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 12",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 1280200,
+      "impairment": 0,
+      "carrying": 1920300
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 13",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "held",
+     "codes": [
+      "CELLS"
+     ],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 3200500,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       30
+      ],
+      "depreciation": [
+       31
+      ],
+      "impairment": [
+       32
+      ],
+      "carrying": [
+       33
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-R2"
+    },
+    {
+     "section": "SEC-SLL-RFR",
+     "sectionRow": 35,
+     "assetId": "RF-000123",
+     "dimensions": "SLL-C",
+     "location": "Salalah cold store",
+     "category": "Reefer units",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 41500000,
+      "depreciation": 8300000,
+      "impairment": 4150000,
+      "carrying": 29050000
+     },
+     "rows": {
+      "cost": [
+       43
+      ],
+      "depreciation": [
+       44
+      ],
+      "impairment": [
+       45
+      ],
+      "carrying": [
+       46
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SLL-RFR"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 28249999,
+     "gl": 28249999,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 250000,
+     "gl": 250000,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 12699999,
+     "gl": 12699999,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1720",
+     "dimensions": "LOG-RCK",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "CELLS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "cost"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1728",
+     "dimensions": "LOG-RCK",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "CELLS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "impairment"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1729",
+     "dimensions": "LOG-RCK",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "CELLS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "depreciation"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1730",
+     "dimensions": "LOG-RFR",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 41500000,
+     "gl": 41500000,
+     "difference": 0,
+     "glRow": 8,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1738",
+     "dimensions": "LOG-RFR",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 4150000,
+     "gl": 4150000,
+     "difference": 0,
+     "glRow": 9,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1739",
+     "dimensions": "LOG-RFR",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 8300000,
+     "gl": 8300000,
+     "difference": 0,
+     "glRow": 10,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 3,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 0,
+     "record": 20
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    }
+   }
+  },
+  "O09": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "d4a3e6be5819eb77241536579e7e93f59a0db13bdaab83ceac18818e0a880e19",
+    "1242f632d18d9222ca9079a6e64c02f067182a05462df874ed070d83de36e7cb",
+    "0c71de7129ea05e5ba323c0ecf2b6ed2960edf48f28263d5dfbb99d738324016"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     18,
+     35,
+     "SEC-MCT-RCK",
+     "Muscat depot",
+     "Pallet racking",
+     "read",
+     []
+    ],
+    [
+     36,
+     48,
+     "SEC-SLL-RFR",
+     "Salalah cold store",
+     "Reefer units",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 12",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "held",
+     "codes": [
+      "COMPONENT"
+     ],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 1280200,
+      "impairment": 0,
+      "carrying": 1920300
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [
+      30
+     ],
+     "valuation": "VAL-R1"
+    },
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 13",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 3200500,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       31
+      ],
+      "depreciation": [
+       32
+      ],
+      "impairment": [
+       33
+      ],
+      "carrying": [
+       34
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-SLL-RFR",
+     "sectionRow": 36,
+     "assetId": "RF-000123",
+     "dimensions": "SLL-C",
+     "location": "Salalah cold store",
+     "category": "Reefer units",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 41500000,
+      "depreciation": 8300000,
+      "impairment": 4150000,
+      "carrying": 29050000
+     },
+     "rows": {
+      "cost": [
+       44
+      ],
+      "depreciation": [
+       45
+      ],
+      "impairment": [
+       46
+      ],
+      "carrying": [
+       47
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SLL-RFR"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 28249999,
+     "gl": 28249999,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 250000,
+     "gl": 250000,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 12699999,
+     "gl": 12699999,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1720",
+     "dimensions": "LOG-RCK",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "COMPONENT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "cost"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1728",
+     "dimensions": "LOG-RCK",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "COMPONENT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "impairment"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1729",
+     "dimensions": "LOG-RCK",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "COMPONENT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "depreciation"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1730",
+     "dimensions": "LOG-RFR",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 41500000,
+     "gl": 41500000,
+     "difference": 0,
+     "glRow": 8,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1738",
+     "dimensions": "LOG-RFR",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 4150000,
+     "gl": 4150000,
+     "difference": 0,
+     "glRow": 9,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1739",
+     "dimensions": "LOG-RFR",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 8300000,
+     "gl": 8300000,
+     "difference": 0,
+     "glRow": 10,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 3,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 0,
+     "record": 21
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    }
+   }
+  },
+  "O10": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "9e1c3da9e88329e4413ca468a13eb4f32db819a0e5cd125efa7283c3bde1fc6b",
+    "e2db4519182cd8c8f08dd4a5c0f65f81ce9b942e97b2c1284953733f588120f5",
+    "fb9eed920e77a3b86a2a08c045958bdc9d8f9d6e54bec13cdd91b45b17b2bb98"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     18,
+     30,
+     "SEC-MCT-SRV",
+     "Muscat depot",
+     "Server room",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT-SRV",
+     "sectionRow": 18,
+     "assetId": "SRV_01",
+     "dimensions": "MCT-DC",
+     "location": "Muscat depot",
+     "category": "Server room",
+     "status": "held",
+     "codes": [
+      "AMOUNT"
+     ],
+     "amounts": {
+      "cost": 9600000,
+      "depreciation": null,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SRV"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 28249999,
+     "gl": 28249999,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 250000,
+     "gl": 250000,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 12699999,
+     "gl": 12699999,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1750",
+     "dimensions": "LOG-IT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "AMOUNT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-MCT-SRV",
+       "SRV_01",
+       "MCT-DC",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1758",
+     "dimensions": "LOG-IT",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "AMOUNT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-MCT-SRV",
+       "SRV_01",
+       "MCT-DC",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1759",
+     "dimensions": "LOG-IT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "AMOUNT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-MCT-SRV",
+       "SRV_01",
+       "MCT-DC",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 12
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "O11": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "80be870bf5074cf6a624aab7cc492c29c90ebaedf25b40a73569c07bf2d1b2a2",
+    "652d1562e73e4551106a131e4a82fa56959741c8cc6194a8223ca32ecd7e8d6a",
+    "1d5ecc4b1d634c2bd9461dd5fcda518bcfd9c285e9e0904110e710cf6a6287e1"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     18,
+     34,
+     "SEC-MCT-RCK",
+     "Muscat depot",
+     "Pallet racking",
+     "read",
+     []
+    ],
+    [
+     35,
+     47,
+     "SEC-SLL-RFR",
+     "Salalah cold store",
+     "Reefer units",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 12",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 1280200,
+      "impairment": 0,
+      "carrying": 1920300
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 13",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 3200500,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       30
+      ],
+      "depreciation": [
+       31
+      ],
+      "impairment": [
+       32
+      ],
+      "carrying": [
+       33
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-SLL-RFR",
+     "sectionRow": 35,
+     "assetId": "RF-000123",
+     "dimensions": "SLL-C",
+     "location": "Salalah cold store",
+     "category": "Reefer units",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 41500000,
+      "depreciation": 8300000,
+      "impairment": 4150000,
+      "carrying": 29050000
+     },
+     "rows": {
+      "cost": [
+       43
+      ],
+      "depreciation": [
+       44
+      ],
+      "impairment": [
+       45
+      ],
+      "carrying": [
+       46
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SLL-RFR"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "held",
+     "codes": [
+      "TEXT"
+     ],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-F1"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "TEXT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "TEXT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "TEXT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1720",
+     "dimensions": "LOG-RCK",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 6401000,
+     "gl": 6401000,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "cost"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1728",
+     "dimensions": "LOG-RCK",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "impairment"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1729",
+     "dimensions": "LOG-RCK",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 4480700,
+     "gl": 4480700,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "depreciation"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1730",
+     "dimensions": "LOG-RFR",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 41500000,
+     "gl": 41500000,
+     "difference": 0,
+     "glRow": 8,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1738",
+     "dimensions": "LOG-RFR",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 4150000,
+     "gl": 4150000,
+     "difference": 0,
+     "glRow": 9,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1739",
+     "dimensions": "LOG-RFR",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 8300000,
+     "gl": 8300000,
+     "difference": 0,
+     "glRow": 10,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 3,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 0,
+     "record": 20
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    }
+   }
+  },
+  "O12": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "63e05663e7faace832d0d125ffc440083f47b6e569ff30a10c25ee00450055fe",
+    "fa87976e3e77709a0c6cd22151bce050e1a67e0e287d617c98b77a85e1f4177d",
+    "b04bffebe6d935b4994e0ec47178e2bed63346a80366d80c7e3d4d71ce628cde"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     18,
+     null,
+     "SEC-MCT-RCK",
+     "Muscat depot",
+     "Pallet racking",
+     "held",
+     [
+      "SECTION_UNCLOSED"
+     ]
+    ],
+    [
+     34,
+     46,
+     "SEC-SLL-RFR",
+     "Salalah cold store",
+     "Reefer units",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-SLL-RFR",
+     "sectionRow": 34,
+     "assetId": "RF-000123",
+     "dimensions": "SLL-C",
+     "location": "Salalah cold store",
+     "category": "Reefer units",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 41500000,
+      "depreciation": 8300000,
+      "impairment": 4150000,
+      "carrying": 29050000
+     },
+     "rows": {
+      "cost": [
+       42
+      ],
+      "depreciation": [
+       43
+      ],
+      "impairment": [
+       44
+      ],
+      "carrying": [
+       45
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SLL-RFR"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 28249999,
+     "gl": 28249999,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 250000,
+     "gl": 250000,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 12699999,
+     "gl": 12699999,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1720",
+     "dimensions": "LOG-RCK",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "SECTION_UNCLOSED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": []
+    },
+    {
+     "account": "1728",
+     "dimensions": "LOG-RCK",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "SECTION_UNCLOSED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": []
+    },
+    {
+     "account": "1729",
+     "dimensions": "LOG-RCK",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "SECTION_UNCLOSED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": []
+    },
+    {
+     "account": "1730",
+     "dimensions": "LOG-RFR",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 41500000,
+     "gl": 41500000,
+     "difference": 0,
+     "glRow": 8,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1738",
+     "dimensions": "LOG-RFR",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 4150000,
+     "gl": 4150000,
+     "difference": 0,
+     "glRow": 9,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1739",
+     "dimensions": "LOG-RFR",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 8300000,
+     "gl": 8300000,
+     "difference": 0,
+     "glRow": 10,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 2,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 0,
+     "record": 20
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    }
+   }
+  },
+  "O13": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "72c3ce7b76a545980bbe04a669924eff152635d382f705bf2b54f2fd6aaa0451",
+    "8a74174721bba800fd8e7297a04d0bf9378704fc5233ed1edcfd13413bd8df58",
+    "c95c52e004be2ad4b21fd1d888ab22b3cabb968b4487b530b21cc3ee5f2e9536"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     18,
+     "SEC-SOH-FLT",
+     null,
+     "Forklifts",
+     "held",
+     [
+      "SECTION_HEADER"
+     ]
+    ],
+    [
+     19,
+     35,
+     "SEC-MCT-RCK",
+     "Muscat depot",
+     "Pallet racking",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 19,
+     "assetId": "RCK 12",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 1280200,
+      "impairment": 0,
+      "carrying": 1920300
+     },
+     "rows": {
+      "cost": [
+       27
+      ],
+      "depreciation": [
+       28
+      ],
+      "impairment": [
+       29
+      ],
+      "carrying": [
+       30
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 19,
+     "assetId": "RCK 13",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 3200500,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       31
+      ],
+      "depreciation": [
+       32
+      ],
+      "impairment": [
+       33
+      ],
+      "carrying": [
+       34
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "SECTION_HEADER"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": []
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "SECTION_HEADER"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": []
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "SECTION_HEADER"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": []
+    },
+    {
+     "account": "1720",
+     "dimensions": "LOG-RCK",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 6401000,
+     "gl": 6401000,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "cost"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1728",
+     "dimensions": "LOG-RCK",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "impairment"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1729",
+     "dimensions": "LOG-RCK",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 4480700,
+     "gl": 4480700,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "depreciation"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 13,
+     "columns": 2,
+     "total": 0,
+     "record": 16
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "O14": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "b9d67c20b1f722411c878094f70bbc22fb24ced5dd980fffbfa73a69a583ed86",
+    "bc9d8a94cd63d05ce97b189a17c681182c7e88b0eca971a389b765ccf906f89c",
+    "c70e4553fb735bdde49f46045cdfef2dcdbbdfcdb919e7eb10524f8c95fd6c24"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     18,
+     30,
+     "SEC-MCT-TRK",
+     "Muscat depot",
+     "Delivery trucks",
+     "excluded",
+     [
+      "SECTION_SCOPE"
+     ]
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 28249999,
+     "gl": 28249999,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 250000,
+     "gl": 250000,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 12699999,
+     "gl": 12699999,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1740",
+     "dimensions": "LOG-TRK",
+     "component": "cost",
+     "status": "missing",
+     "codes": [
+      "REGISTER_ABSENT"
+     ],
+     "register": null,
+     "gl": 0,
+     "difference": null,
+     "glRow": 5,
+     "members": []
+    },
+    {
+     "account": "1748",
+     "dimensions": "LOG-TRK",
+     "component": "impairment",
+     "status": "missing",
+     "codes": [
+      "REGISTER_ABSENT"
+     ],
+     "register": null,
+     "gl": 0,
+     "difference": null,
+     "glRow": 6,
+     "members": []
+    },
+    {
+     "account": "1749",
+     "dimensions": "LOG-TRK",
+     "component": "depreciation",
+     "status": "missing",
+     "codes": [
+      "REGISTER_ABSENT"
+     ],
+     "register": null,
+     "gl": 0,
+     "difference": null,
+     "glRow": 7,
+     "members": []
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 12
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "O15": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "9f896e7b4f0bd9742791edabab176dd585bca2917c2d32475e67c311ecd7af33",
+    "77f7d39cb133e34e526d054d58116e9b2955f9e96397961866255f8dff0f5b2c",
+    "ab7273982f998250863495f9eae6c7cf687dfe94799fb9f909969117089722b8"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     18,
+     30,
+     "SEC-SLL-RFR",
+     "Salalah cold store",
+     "Reefer units",
+     "held",
+     [
+      "SECTION_COLUMNS"
+     ]
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 28249999,
+     "gl": 28249999,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 250000,
+     "gl": 250000,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 12699999,
+     "gl": 12699999,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1730",
+     "dimensions": "LOG-RFR",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "SECTION_COLUMNS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": []
+    },
+    {
+     "account": "1738",
+     "dimensions": "LOG-RFR",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "SECTION_COLUMNS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": []
+    },
+    {
+     "account": "1739",
+     "dimensions": "LOG-RFR",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "SECTION_COLUMNS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": []
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 12
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "O16": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "c3921984c07df45ca3e3cb3188c8b8e3c7cfdf34b2a64567434001c94c60fe29",
+    "fa87976e3e77709a0c6cd22151bce050e1a67e0e287d617c98b77a85e1f4177d",
+    "ab68811e64835a1b08968c7ac152f6096698309e20b237c8ccfa1a4f83e953cd"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     13,
+     "SEC-MCT",
+     "Muscat depot",
+     "Forklifts",
+     "held",
+     [
+      "SECTION_DUPLICATE"
+     ]
+    ],
+    [
+     14,
+     30,
+     "SEC-MCT",
+     "Muscat depot",
+     "Pallet racking",
+     "held",
+     [
+      "SECTION_DUPLICATE"
+     ]
+    ],
+    [
+     31,
+     43,
+     "SEC-SLL-RFR",
+     "Salalah cold store",
+     "Reefer units",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT",
+     "sectionRow": 1,
+     "assetId": "FL.0003",
+     "dimensions": "MCT-Y2",
+     "location": "Muscat depot",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 8800000,
+      "depreciation": 1760000,
+      "impairment": 0,
+      "carrying": 7040000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT"
+    },
+    {
+     "section": "SEC-MCT",
+     "sectionRow": 14,
+     "assetId": "RCK 12",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 1280200,
+      "impairment": 0,
+      "carrying": 1920300
+     },
+     "rows": {
+      "cost": [
+       22
+      ],
+      "depreciation": [
+       23
+      ],
+      "impairment": [
+       24
+      ],
+      "carrying": [
+       25
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT"
+    },
+    {
+     "section": "SEC-MCT",
+     "sectionRow": 14,
+     "assetId": "RCK 13",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 3200500,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT"
+    },
+    {
+     "section": "SEC-SLL-RFR",
+     "sectionRow": 31,
+     "assetId": "RF-000123",
+     "dimensions": "SLL-C",
+     "location": "Salalah cold store",
+     "category": "Reefer units",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 41500000,
+      "depreciation": 8300000,
+      "impairment": 4150000,
+      "carrying": 29050000
+     },
+     "rows": {
+      "cost": [
+       39
+      ],
+      "depreciation": [
+       40
+      ],
+      "impairment": [
+       41
+      ],
+      "carrying": [
+       42
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SLL-RFR"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "SECTION_DUPLICATE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-MCT",
+       "FL.0003",
+       "MCT-Y2",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "SECTION_DUPLICATE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-MCT",
+       "FL.0003",
+       "MCT-Y2",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "SECTION_DUPLICATE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-MCT",
+       "FL.0003",
+       "MCT-Y2",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1720",
+     "dimensions": "LOG-RCK",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "SECTION_DUPLICATE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-MCT",
+       "RCK 12",
+       "MCT-A",
+       "cost"
+      ],
+      [
+       "SEC-MCT",
+       "RCK 13",
+       "MCT-A",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1728",
+     "dimensions": "LOG-RCK",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "SECTION_DUPLICATE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-MCT",
+       "RCK 12",
+       "MCT-A",
+       "impairment"
+      ],
+      [
+       "SEC-MCT",
+       "RCK 13",
+       "MCT-A",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1729",
+     "dimensions": "LOG-RCK",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "SECTION_DUPLICATE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-MCT",
+       "RCK 12",
+       "MCT-A",
+       "depreciation"
+      ],
+      [
+       "SEC-MCT",
+       "RCK 13",
+       "MCT-A",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1730",
+     "dimensions": "LOG-RFR",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 41500000,
+     "gl": 41500000,
+     "difference": 0,
+     "glRow": 8,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1738",
+     "dimensions": "LOG-RFR",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 4150000,
+     "gl": 4150000,
+     "difference": 0,
+     "glRow": 9,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1739",
+     "dimensions": "LOG-RFR",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 8300000,
+     "gl": 8300000,
+     "difference": 0,
+     "glRow": 10,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 3,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 0,
+     "record": 16
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    }
+   }
+  },
+  "O17": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "936723a2926ba58d28924998ea3d9bd55b8d0527e94784cae2d71abe122036b2",
+    "8a74174721bba800fd8e7297a04d0bf9378704fc5233ed1edcfd13413bd8df58",
+    "4a06a0c9f500956240c5b6b0c6c1a82272c31a7365ec9a84f302063c77135506"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     18,
+     35,
+     "SEC-MCT-RCK",
+     "Muscat depot",
+     "Pallet racking",
+     "held",
+     [
+      "ROW_UNPLACED"
+     ]
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 12",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 1280200,
+      "impairment": 0,
+      "carrying": 1920300
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 13",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 3200500,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       30
+      ],
+      "depreciation": [
+       31
+      ],
+      "impairment": [
+       32
+      ],
+      "carrying": [
+       33
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 28249999,
+     "gl": 28249999,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 250000,
+     "gl": 250000,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 12699999,
+     "gl": 12699999,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1720",
+     "dimensions": "LOG-RCK",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "ROW_UNPLACED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "cost"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1728",
+     "dimensions": "LOG-RCK",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "ROW_UNPLACED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "impairment"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1729",
+     "dimensions": "LOG-RCK",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "ROW_UNPLACED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "depreciation"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [
+    [
+     "register-sections",
+     34,
+     "ROW_UNPLACED"
+    ]
+   ],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 17
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "O18": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "41e2d77684a49af84719a80ae1185f2a40b47b6e612879c56fc19c4aa8d57b33",
+    "249d81e96fbdf71855f0b78e69301c2c7b1af85cf1e36938528f02f71cd4283c",
+    "be2360b020ee994d2355a38fe046b80aac6061c76a8995372eae3eff9b289c89"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     19,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "held",
+     [
+      "TOTAL_MISMATCH"
+     ]
+    ],
+    [
+     20,
+     37,
+     "SEC-MCT-RCK",
+     "Muscat depot",
+     "Pallet racking",
+     "held",
+     [
+      "TOTAL_FIELD"
+     ]
+    ],
+    [
+     38,
+     51,
+     "SEC-SLL-RFR",
+     "Salalah cold store",
+     "Reefer units",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 20,
+     "assetId": "RCK 12",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 1280200,
+      "impairment": 0,
+      "carrying": 1920300
+     },
+     "rows": {
+      "cost": [
+       28
+      ],
+      "depreciation": [
+       29
+      ],
+      "impairment": [
+       30
+      ],
+      "carrying": [
+       31
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 20,
+     "assetId": "RCK 13",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 3200500,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       32
+      ],
+      "depreciation": [
+       33
+      ],
+      "impairment": [
+       34
+      ],
+      "carrying": [
+       35
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-SLL-RFR",
+     "sectionRow": 38,
+     "assetId": "RF-000123",
+     "dimensions": "SLL-C",
+     "location": "Salalah cold store",
+     "category": "Reefer units",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 41500000,
+      "depreciation": 8300000,
+      "impairment": 4150000,
+      "carrying": 29050000
+     },
+     "rows": {
+      "cost": [
+       46
+      ],
+      "depreciation": [
+       47
+      ],
+      "impairment": [
+       48
+      ],
+      "carrying": [
+       49
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SLL-RFR"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "TOTAL_MISMATCH"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "TOTAL_MISMATCH"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "TOTAL_MISMATCH"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1720",
+     "dimensions": "LOG-RCK",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "TOTAL_FIELD"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "cost"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1728",
+     "dimensions": "LOG-RCK",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "TOTAL_FIELD"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "impairment"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1729",
+     "dimensions": "LOG-RCK",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "TOTAL_FIELD"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "depreciation"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1730",
+     "dimensions": "LOG-RFR",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 41500000,
+     "gl": 41500000,
+     "difference": 0,
+     "glRow": 8,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1738",
+     "dimensions": "LOG-RFR",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 4150000,
+     "gl": 4150000,
+     "difference": 0,
+     "glRow": 9,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1739",
+     "dimensions": "LOG-RFR",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 8300000,
+     "gl": 8300000,
+     "difference": 0,
+     "glRow": 10,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 3,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 4,
+     "record": 20
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    }
+   }
+  },
+  "O19": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "a7984c7009ae51a119bba741ad658d967396d83dff7fc20e4e0d8265381a2bb6",
+    "7fbdbde97350c276e02e5b68ee8001982c6014047544d57bbdc435495301af0f",
+    "f20ee37ba2d6d28bed00499ccba4b0c8ef5bf038dcd7dd4a972cd1b860d00707"
+   ],
+   "run": [
+    "SECTION_UNREADABLE",
+    "STRAY_ROW"
+   ],
+   "sections": [
+    [
+     2,
+     18,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     19,
+     34,
+     "SEC-MCT-RCK",
+     "Muscat depot",
+     null,
+     "held",
+     [
+      "SECTION_UNREADABLE"
+     ]
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 2,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       10
+      ],
+      "depreciation": [
+       11
+      ],
+      "impairment": [
+       12
+      ],
+      "carrying": [
+       13
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 2,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       14
+      ],
+      "depreciation": [
+       15
+      ],
+      "impairment": [
+       16
+      ],
+      "carrying": [
+       17
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "SECTION_UNREADABLE",
+      "STRAY_ROW"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "SECTION_UNREADABLE",
+      "STRAY_ROW"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "SECTION_UNREADABLE",
+      "STRAY_ROW"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1720",
+     "dimensions": "LOG-RCK",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "SECTION_UNREADABLE",
+      "STRAY_ROW"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": []
+    },
+    {
+     "account": "1728",
+     "dimensions": "LOG-RCK",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "SECTION_UNREADABLE",
+      "STRAY_ROW"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": []
+    },
+    {
+     "account": "1729",
+     "dimensions": "LOG-RCK",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "SECTION_UNREADABLE",
+      "STRAY_ROW"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": []
+    }
+   ],
+   "unplaced": [
+    [
+     "register-sections",
+     1,
+     "STRAY_ROW"
+    ],
+    [
+     "register-sections",
+     19,
+     "SECTION_UNREADABLE"
+    ]
+   ],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 1,
+     "label": 11,
+     "columns": 2,
+     "total": 0,
+     "record": 16
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "O20": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "703a24960c2f42b38427ca8694eac678559844140873ae1b4bf28d89c31dd323",
+    "0c7a46c597b7433b79b8798f80c1ea3323661f25860a5bedb04eb3d05a508c8c",
+    "a38fcc2b7ea7e8e4b717cb82ac179e4088179a80d63b6262bb1dfd9f88c67e4e"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     18,
+     34,
+     "SEC-MCT-RCK",
+     "Muscat depot",
+     "Pallet racking",
+     "read",
+     []
+    ],
+    [
+     35,
+     47,
+     "SEC-SLL-RFR",
+     "Salalah cold store",
+     "Reefer units",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 12",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 1280200,
+      "impairment": 0,
+      "carrying": 1920300
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 13",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 3200500,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       30
+      ],
+      "depreciation": [
+       31
+      ],
+      "impairment": [
+       32
+      ],
+      "carrying": [
+       33
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-SLL-RFR",
+     "sectionRow": 35,
+     "assetId": "RF-000123",
+     "dimensions": "SLL-C",
+     "location": "Salalah cold store",
+     "category": "Reefer units",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 41500000,
+      "depreciation": 8300000,
+      "impairment": 4150000,
+      "carrying": 29050000
+     },
+     "rows": {
+      "cost": [
+       43
+      ],
+      "depreciation": [
+       44
+      ],
+      "impairment": [
+       45
+      ],
+      "carrying": [
+       46
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SLL-RFR"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [
+    [
+     "Forklifts",
+     "depreciation",
+     "MAP_EXPIRED"
+    ],
+    [
+     "Reefer units",
+     "impairment",
+     "MAP_ABSENT"
+    ]
+   ],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 28249999,
+     "gl": 28249999,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "MAP_ABSENT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "MAP_EXPIRED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 9,
+     "members": []
+    },
+    {
+     "account": "1720",
+     "dimensions": "LOG-RCK",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 6401000,
+     "gl": 6401000,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "cost"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1728",
+     "dimensions": "LOG-RCK",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "MAP_ABSENT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "impairment"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1729",
+     "dimensions": "LOG-RCK",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "MAP_EXPIRED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "depreciation"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1730",
+     "dimensions": "LOG-RFR",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 41500000,
+     "gl": 41500000,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1739",
+     "dimensions": "LOG-RFR",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "MAP_EXPIRED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 8,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 3,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 0,
+     "record": 20
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 8
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 8
+    }
+   }
+  },
+  "O21": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "8ab1c51a769c9e3dcbaeb433b7900a9ae60a4c2f18ffe3fabf6558f62571bf02",
+    "098427f695cee2e40f80104ace5e43855f32a16cf5c64c8ac5202069b899c118",
+    "832c4d31a33b0f612bed624586c3de208e355817ca4f84616a6a0dab36b317db"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-MCT-RCK",
+     "Muscat depot",
+     "Pallet racking",
+     "read",
+     []
+    ],
+    [
+     18,
+     30,
+     "SEC-MCT-TRK",
+     "Muscat depot",
+     "Delivery trucks",
+     "read",
+     []
+    ],
+    [
+     31,
+     43,
+     "SEC-MCT-SRV",
+     "Muscat depot",
+     "Server room",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 1,
+     "assetId": "RCK 12",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 1280200,
+      "impairment": 0,
+      "carrying": 1920300
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 1,
+     "assetId": "RCK 13",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 3200500,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-MCT-SRV",
+     "sectionRow": 31,
+     "assetId": "SRV_01",
+     "dimensions": "MCT-DC",
+     "location": "Muscat depot",
+     "category": "Server room",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 9600000,
+      "depreciation": 9600000,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       39
+      ],
+      "depreciation": [
+       40
+      ],
+      "impairment": [
+       41
+      ],
+      "carrying": [
+       42
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-SRV"
+    },
+    {
+     "section": "SEC-MCT-TRK",
+     "sectionRow": 18,
+     "assetId": "TRK#7",
+     "dimensions": "MCT-F",
+     "location": "Muscat depot",
+     "category": "Delivery trucks",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 27800000,
+      "depreciation": 13900000,
+      "impairment": 0,
+      "carrying": 13900000
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-TRK"
+    }
+   ],
+   "unmapped": [
+    [
+     "Delivery trucks",
+     "depreciation",
+     "MAP_CLASS"
+    ],
+    [
+     "Pallet racking",
+     "cost",
+     "MAP_REPEATED"
+    ],
+    [
+     "Server room",
+     "impairment",
+     "MAP_ROW"
+    ]
+   ],
+   "accounts": [
+    {
+     "account": "1720",
+     "dimensions": "LOG-RCK",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "MAP_REPEATED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 8,
+     "members": []
+    },
+    {
+     "account": "1728",
+     "dimensions": "LOG-RCK",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "MAP_ROW"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "impairment"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1729",
+     "dimensions": "LOG-RCK",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "MAP_CLASS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "depreciation"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1740",
+     "dimensions": "LOG-TRK",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "MAP_REPEATED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-MCT-TRK",
+       "TRK#7",
+       "MCT-F",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1748",
+     "dimensions": "LOG-TRK",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "MAP_ROW"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-MCT-TRK",
+       "TRK#7",
+       "MCT-F",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1750",
+     "dimensions": "LOG-IT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "MAP_REPEATED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-MCT-SRV",
+       "SRV_01",
+       "MCT-DC",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1759",
+     "dimensions": "LOG-IT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "MAP_CLASS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-MCT-SRV",
+       "SRV_01",
+       "MCT-DC",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 3,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 0,
+     "record": 16
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 10
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 7
+    }
+   }
+  },
+  "O22": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "9c1be87b06501891450dcb8f7bed0c730baecfb2e159d2b786b6a5f6dcf05e0b",
+    "fd2db7fa94ddf35d6383f8e6be377e3fb2d05c060180e7cd5cf99bd85495077a",
+    "278c074a0f452ff8b27b486999436d5e6184bb143dd9b3f6b83b6fb0f4e95b81"
+   ],
+   "run": [
+    "MAP_UNREADABLE"
+   ],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     18,
+     34,
+     "SEC-MCT-RCK",
+     "Muscat depot",
+     "Pallet racking",
+     "read",
+     []
+    ],
+    [
+     35,
+     47,
+     "SEC-SLL-RFR",
+     "Salalah cold store",
+     "Reefer units",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 12",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 1280200,
+      "impairment": 0,
+      "carrying": 1920300
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 13",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 3200500,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       30
+      ],
+      "depreciation": [
+       31
+      ],
+      "impairment": [
+       32
+      ],
+      "carrying": [
+       33
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-SLL-RFR",
+     "sectionRow": 35,
+     "assetId": "RF-000123",
+     "dimensions": "SLL-C",
+     "location": "Salalah cold store",
+     "category": "Reefer units",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 41500000,
+      "depreciation": 8300000,
+      "impairment": 4150000,
+      "carrying": 29050000
+     },
+     "rows": {
+      "cost": [
+       43
+      ],
+      "depreciation": [
+       44
+      ],
+      "impairment": [
+       45
+      ],
+      "carrying": [
+       46
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SLL-RFR"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [
+    [
+     "Forklifts",
+     "depreciation",
+     "MAP_ABSENT"
+    ]
+   ],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "MAP_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "MAP_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "MAP_ABSENT",
+      "MAP_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 10,
+     "members": []
+    },
+    {
+     "account": "1720",
+     "dimensions": "LOG-RCK",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "MAP_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "cost"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1728",
+     "dimensions": "LOG-RCK",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "MAP_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "impairment"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1729",
+     "dimensions": "LOG-RCK",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "MAP_ABSENT",
+      "MAP_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "depreciation"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1730",
+     "dimensions": "LOG-RFR",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "MAP_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1738",
+     "dimensions": "LOG-RFR",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "MAP_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 8,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1739",
+     "dimensions": "LOG-RFR",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "MAP_ABSENT",
+      "MAP_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 9,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [
+    [
+     "category-map",
+     10,
+     "MAP_UNREADABLE"
+    ]
+   ],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 3,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 0,
+     "record": 20
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    }
+   }
+  },
+  "O23": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "09860d880bd65fdae6bbc58db2e45b0f1418713bb2bd7f13fc8dd8a734a981c5",
+    "1dbd0b4be57a66cb3dd27bebc1d95ed4b89e98d510cf751f38526b49fdc77781",
+    "101899de26850e90f7beac578b358042a162ed2321d6f3a57df1f853011ab89b"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     18,
+     34,
+     "SEC-MCT-RCK",
+     "Muscat depot",
+     "Pallet racking",
+     "read",
+     []
+    ],
+    [
+     35,
+     47,
+     "SEC-SLL-RFR",
+     "Salalah cold store",
+     "Reefer units",
+     "read",
+     []
+    ],
+    [
+     48,
+     60,
+     "SEC-MCT-TRK",
+     "Muscat depot",
+     "Delivery trucks",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 12",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 1280200,
+      "impairment": 0,
+      "carrying": 1920300
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 13",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 3200500,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       30
+      ],
+      "depreciation": [
+       31
+      ],
+      "impairment": [
+       32
+      ],
+      "carrying": [
+       33
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-MCT-TRK",
+     "sectionRow": 48,
+     "assetId": "TRK#7",
+     "dimensions": "MCT-F",
+     "location": "Muscat depot",
+     "category": "Delivery trucks",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 27800000,
+      "depreciation": 13900000,
+      "impairment": 0,
+      "carrying": 13900000
+     },
+     "rows": {
+      "cost": [
+       56
+      ],
+      "depreciation": [
+       57
+      ],
+      "impairment": [
+       58
+      ],
+      "carrying": [
+       59
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-TRK"
+    },
+    {
+     "section": "SEC-SLL-RFR",
+     "sectionRow": 35,
+     "assetId": "RF-000123",
+     "dimensions": "SLL-C",
+     "location": "Salalah cold store",
+     "category": "Reefer units",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 41500000,
+      "depreciation": 8300000,
+      "impairment": 4150000,
+      "carrying": 29050000
+     },
+     "rows": {
+      "cost": [
+       43
+      ],
+      "depreciation": [
+       44
+      ],
+      "impairment": [
+       45
+      ],
+      "carrying": [
+       46
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SLL-RFR"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "GL_ROW"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 250000,
+     "gl": 250000,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "GL_SCOPE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1720",
+     "dimensions": "LOG-RCK",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "GL_REPEATED"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": null,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "cost"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1728",
+     "dimensions": "LOG-RCK",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 8,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "impairment"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1729",
+     "dimensions": "LOG-RCK",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "CLASS_CONFLICT"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "depreciation"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1730",
+     "dimensions": "LOG-RFR",
+     "component": "cost",
+     "status": "missing",
+     "codes": [
+      "GL_ABSENT"
+     ],
+     "register": 41500000,
+     "gl": null,
+     "difference": null,
+     "glRow": null,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1738",
+     "dimensions": "LOG-RFR",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 4150000,
+     "gl": 4150000,
+     "difference": 0,
+     "glRow": 9,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1739",
+     "dimensions": "LOG-RFR",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 8300000,
+     "gl": 8300000,
+     "difference": 0,
+     "glRow": 10,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1740",
+     "dimensions": "LOG-TRK",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 27800000,
+     "gl": 27800000,
+     "difference": 0,
+     "glRow": 11,
+     "members": [
+      [
+       "SEC-MCT-TRK",
+       "TRK#7",
+       "MCT-F",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1748",
+     "dimensions": "LOG-TRK",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 12,
+     "members": [
+      [
+       "SEC-MCT-TRK",
+       "TRK#7",
+       "MCT-F",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1749",
+     "dimensions": "LOG-TRK",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 13900000,
+     "gl": 13900000,
+     "difference": 0,
+     "glRow": 13,
+     "members": [
+      [
+       "SEC-MCT-TRK",
+       "TRK#7",
+       "MCT-F",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 4,
+     "end": 4,
+     "stray": 0,
+     "label": 24,
+     "columns": 4,
+     "total": 0,
+     "record": 24
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 12
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 12
+    }
+   }
+  },
+  "O24": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "703a24960c2f42b38427ca8694eac678559844140873ae1b4bf28d89c31dd323",
+    "fa87976e3e77709a0c6cd22151bce050e1a67e0e287d617c98b77a85e1f4177d",
+    "8f73f5c704f3153324f1193208ac3334e5447329c132799a16f721cf91032670"
+   ],
+   "run": [
+    "GL_UNREADABLE"
+   ],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     18,
+     34,
+     "SEC-MCT-RCK",
+     "Muscat depot",
+     "Pallet racking",
+     "read",
+     []
+    ],
+    [
+     35,
+     47,
+     "SEC-SLL-RFR",
+     "Salalah cold store",
+     "Reefer units",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 12",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 1280200,
+      "impairment": 0,
+      "carrying": 1920300
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 13",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 3200500,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       30
+      ],
+      "depreciation": [
+       31
+      ],
+      "impairment": [
+       32
+      ],
+      "carrying": [
+       33
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-SLL-RFR",
+     "sectionRow": 35,
+     "assetId": "RF-000123",
+     "dimensions": "SLL-C",
+     "location": "Salalah cold store",
+     "category": "Reefer units",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 41500000,
+      "depreciation": 8300000,
+      "impairment": 4150000,
+      "carrying": 29050000
+     },
+     "rows": {
+      "cost": [
+       43
+      ],
+      "depreciation": [
+       44
+      ],
+      "impairment": [
+       45
+      ],
+      "carrying": [
+       46
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SLL-RFR"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "GL_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "GL_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "GL_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1720",
+     "dimensions": "LOG-RCK",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "GL_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "cost"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1728",
+     "dimensions": "LOG-RCK",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "GL_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "impairment"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1729",
+     "dimensions": "LOG-RCK",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "GL_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "depreciation"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1730",
+     "dimensions": "LOG-RFR",
+     "component": "cost",
+     "status": "held",
+     "codes": [
+      "GL_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 8,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1738",
+     "dimensions": "LOG-RFR",
+     "component": "impairment",
+     "status": "held",
+     "codes": [
+      "GL_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 9,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1739",
+     "dimensions": "LOG-RFR",
+     "component": "depreciation",
+     "status": "held",
+     "codes": [
+      "GL_UNREADABLE"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 10,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [
+    [
+     "gl-balances",
+     11,
+     "GL_UNREADABLE"
+    ]
+   ],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 3,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 0,
+     "record": 20
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 10
+    }
+   }
+  },
+  "O25": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "6b2963f8891a6701c43c75ab1f45b513164b9df442fdc5c54f7529f4f6337d12",
+    "cfefc0aaa2ba51f69954b90f23771b4fe6cc0f8fa29e57a58671805caafed4d3",
+    "49f31afd73956b8fd0fe95619e31154c2607f61e8e39a48d5ed94b669fec6314"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     18,
+     34,
+     "SEC-MCT-RCK",
+     "Muscat depot",
+     "Pallet racking",
+     "read",
+     []
+    ],
+    [
+     35,
+     47,
+     "SEC-SLL-RFR",
+     "Salalah cold store",
+     "Reefer units",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 12",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 1280200,
+      "impairment": 0,
+      "carrying": 1920300
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 13",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 3200500,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       30
+      ],
+      "depreciation": [
+       31
+      ],
+      "impairment": [
+       32
+      ],
+      "carrying": [
+       33
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-SLL-RFR",
+     "sectionRow": 35,
+     "assetId": "RF-000123",
+     "dimensions": "SLL-C",
+     "location": "Salalah cold store",
+     "category": "Reefer units",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 41500000,
+      "depreciation": 8300000,
+      "impairment": 4150000,
+      "carrying": 29050000
+     },
+     "rows": {
+      "cost": [
+       43
+      ],
+      "depreciation": [
+       44
+      ],
+      "impairment": [
+       45
+      ],
+      "carrying": [
+       46
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SLL-RFR"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1700",
+     "dimensions": "LOG-OLD",
+     "component": "cost",
+     "status": "missing",
+     "codes": [
+      "UNMAPPED"
+     ],
+     "register": null,
+     "gl": 0,
+     "difference": null,
+     "glRow": 13,
+     "members": []
+    },
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 28249999,
+     "gl": 28249999,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 12699999,
+     "gl": 12699999,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1720",
+     "dimensions": "LOG-RCK",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 6401000,
+     "gl": 6401000,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "cost"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1728",
+     "dimensions": "LOG-RCK",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "impairment"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1730",
+     "dimensions": "LOG-RFR",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 41500000,
+     "gl": 41500000,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1738",
+     "dimensions": "LOG-RFR",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 4150000,
+     "gl": 4150000,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1739",
+     "dimensions": "LOG-RFR",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 8300000,
+     "gl": 8300000,
+     "difference": 0,
+     "glRow": 8,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1750",
+     "dimensions": "LOG-IT",
+     "component": "cost",
+     "status": "missing",
+     "codes": [
+      "REGISTER_ABSENT"
+     ],
+     "register": null,
+     "gl": 0,
+     "difference": null,
+     "glRow": 9,
+     "members": []
+    },
+    {
+     "account": "1758",
+     "dimensions": "LOG-IT",
+     "component": "impairment",
+     "status": "missing",
+     "codes": [
+      "REGISTER_ABSENT"
+     ],
+     "register": null,
+     "gl": 0,
+     "difference": null,
+     "glRow": 10,
+     "members": []
+    },
+    {
+     "account": "1759",
+     "dimensions": "LOG-IT",
+     "component": "depreciation",
+     "status": "missing",
+     "codes": [
+      "REGISTER_ABSENT"
+     ],
+     "register": null,
+     "gl": 0,
+     "difference": null,
+     "glRow": 11,
+     "members": []
+    },
+    {
+     "account": "1799",
+     "dimensions": "LOG-MIX",
+     "component": null,
+     "status": "held",
+     "codes": [
+      "ACCOUNT_COMPONENTS"
+     ],
+     "register": null,
+     "gl": null,
+     "difference": null,
+     "glRow": 12,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "depreciation"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 3,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 0,
+     "record": 20
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 12
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 12
+    }
+   }
+  },
+  "O26": {
+   "refused": null,
+   "decimals": 3,
+   "hashes": [
+    "9c1be87b06501891450dcb8f7bed0c730baecfb2e159d2b786b6a5f6dcf05e0b",
+    "249d81e96fbdf71855f0b78e69301c2c7b1af85cf1e36938528f02f71cd4283c",
+    "75a14b60f77d99f7b099b53b9c35c3dafad483eb451bc948c98d4d3df14d081b"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SOH-FLT",
+     "Sohar port yard",
+     "Forklifts",
+     "read",
+     []
+    ],
+    [
+     18,
+     34,
+     "SEC-MCT-RCK",
+     "Muscat depot",
+     "Pallet racking",
+     "read",
+     []
+    ],
+    [
+     35,
+     47,
+     "SEC-SLL-RFR",
+     "Salalah cold store",
+     "Reefer units",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 12",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 1280200,
+      "impairment": 0,
+      "carrying": 1920300
+     },
+     "rows": {
+      "cost": [
+       26
+      ],
+      "depreciation": [
+       27
+      ],
+      "impairment": [
+       28
+      ],
+      "carrying": [
+       29
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-MCT-RCK",
+     "sectionRow": 18,
+     "assetId": "RCK 13",
+     "dimensions": "MCT-A",
+     "location": "Muscat depot",
+     "category": "Pallet racking",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 3200500,
+      "depreciation": 3200500,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       30
+      ],
+      "depreciation": [
+       31
+      ],
+      "impairment": [
+       32
+      ],
+      "carrying": [
+       33
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-RCK"
+    },
+    {
+     "section": "SEC-SLL-RFR",
+     "sectionRow": 35,
+     "assetId": "RF-000123",
+     "dimensions": "SLL-C",
+     "location": "Salalah cold store",
+     "category": "Reefer units",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 41500000,
+      "depreciation": 8300000,
+      "impairment": 4150000,
+      "carrying": 29050000
+     },
+     "rows": {
+      "cost": [
+       43
+      ],
+      "depreciation": [
+       44
+      ],
+      "impairment": [
+       45
+      ],
+      "carrying": [
+       46
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SLL-RFR"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0001",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 14250000,
+      "depreciation": 5700000,
+      "impairment": 0,
+      "carrying": 8550000
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    },
+    {
+     "section": "SEC-SOH-FLT",
+     "sectionRow": 1,
+     "assetId": "FL.0002",
+     "dimensions": "SOH-Y1",
+     "location": "Sohar port yard",
+     "category": "Forklifts",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 13999999,
+      "depreciation": 6999999,
+      "impairment": 250000,
+      "carrying": 6750000
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-FLT"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1710",
+     "dimensions": "LOG-FLT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 28249999,
+     "gl": 28249999,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "cost"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1718",
+     "dimensions": "LOG-FLT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 250000,
+     "gl": 250000,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1719",
+     "dimensions": "LOG-FLT",
+     "component": "depreciation",
+     "status": "difference",
+     "codes": [],
+     "register": 12699999,
+     "gl": 12699749,
+     "difference": 250,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-FLT",
+       "FL.0001",
+       "SOH-Y1",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-FLT",
+       "FL.0002",
+       "SOH-Y1",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1720",
+     "dimensions": "LOG-RCK",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 6401000,
+     "gl": 6401000,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "cost"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1728",
+     "dimensions": "LOG-RCK",
+     "component": "impairment",
+     "status": "difference",
+     "codes": [],
+     "register": 0,
+     "gl": -500,
+     "difference": 500,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "impairment"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1729",
+     "dimensions": "LOG-RCK",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 4480700,
+     "gl": 4480700,
+     "difference": 0,
+     "glRow": 8,
+     "members": [
+      [
+       "SEC-MCT-RCK",
+       "RCK 12",
+       "MCT-A",
+       "depreciation"
+      ],
+      [
+       "SEC-MCT-RCK",
+       "RCK 13",
+       "MCT-A",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1730",
+     "dimensions": "LOG-RFR",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 41500000,
+     "gl": 41500000,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1738",
+     "dimensions": "LOG-RFR",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 4150000,
+     "gl": 4150000,
+     "difference": 0,
+     "glRow": 9,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1739",
+     "dimensions": "LOG-RFR",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 8300000,
+     "gl": 8300000,
+     "difference": 0,
+     "glRow": 10,
+     "members": [
+      [
+       "SEC-SLL-RFR",
+       "RF-000123",
+       "SLL-C",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 3,
+     "end": 3,
+     "stray": 0,
+     "label": 18,
+     "columns": 3,
+     "total": 0,
+     "record": 20
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 9
+    }
+   }
+  },
+  "O27": {
+   "refused": null,
+   "decimals": 2,
+   "hashes": [
+    "369da478b854261a84f24e7c4f1f38e7f84ad9057e2178a7194e622baeb3aca8",
+    "0df12463eabddc0b827e949c1eeeeee141238d05afedb6e622456128282841e0",
+    "bc6a3f827f44e673f0f36b6abd701219ccf66bb9738209865815c4f2789d9474"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     13,
+     "SEC-NZW-TRK",
+     "مستودع نزوى",
+     "شاحنات التوصيل",
+     "read",
+     []
+    ],
+    [
+     14,
+     26,
+     "SEC-MCT-TRK",
+     "Muscat depot",
+     "Delivery trucks",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-MCT-TRK",
+     "sectionRow": 14,
+     "assetId": "TRK#22",
+     "dimensions": "MCT-F",
+     "location": "Muscat depot",
+     "category": "Delivery trucks",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 6150025,
+      "depreciation": 2460010,
+      "impairment": 61500,
+      "carrying": 3628515
+     },
+     "rows": {
+      "cost": [
+       22
+      ],
+      "depreciation": [
+       23
+      ],
+      "impairment": [
+       24
+      ],
+      "carrying": [
+       25
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-MCT-TRK"
+    },
+    {
+     "section": "SEC-NZW-TRK",
+     "sectionRow": 1,
+     "assetId": "TRK#21",
+     "dimensions": "NZW-1",
+     "location": "مستودع نزوى",
+     "category": "شاحنات التوصيل",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 6150025,
+      "depreciation": 1230005,
+      "impairment": 0,
+      "carrying": 4920020
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-NZW-TRK"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1740",
+     "dimensions": "LOG-TRK",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 6150025,
+     "gl": 6150025,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-MCT-TRK",
+       "TRK#22",
+       "MCT-F",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1748",
+     "dimensions": "LOG-TRK",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 61500,
+     "gl": 61500,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-MCT-TRK",
+       "TRK#22",
+       "MCT-F",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1749",
+     "dimensions": "LOG-TRK",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 2460010,
+     "gl": 2460010,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-MCT-TRK",
+       "TRK#22",
+       "MCT-F",
+       "depreciation"
+      ]
+     ]
+    },
+    {
+     "account": "1760",
+     "dimensions": "LOG-TRK",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 6150025,
+     "gl": 6150025,
+     "difference": 0,
+     "glRow": 5,
+     "members": [
+      [
+       "SEC-NZW-TRK",
+       "TRK#21",
+       "NZW-1",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1768",
+     "dimensions": "LOG-TRK",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 6,
+     "members": [
+      [
+       "SEC-NZW-TRK",
+       "TRK#21",
+       "NZW-1",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1769",
+     "dimensions": "LOG-TRK",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 1230005,
+     "gl": 1230005,
+     "difference": 0,
+     "glRow": 7,
+     "members": [
+      [
+       "SEC-NZW-TRK",
+       "TRK#21",
+       "NZW-1",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 2,
+     "end": 2,
+     "stray": 0,
+     "label": 12,
+     "columns": 2,
+     "total": 0,
+     "record": 8
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 6
+    }
+   }
+  },
+  "O28": {
+   "refused": null,
+   "decimals": 2,
+   "hashes": [
+    "e188f7eb17315a9a2b02a0287c82f2f29c0fb225dcbb8279cadae50d982fd86b",
+    "1948f6669ee852219136ad659c0c4c9d50e5020958ccaf975964f7397b670210",
+    "2414584b99c20d4b37fbddb0b9afb2a0723f41ebb2ca379462206446fb623023"
+   ],
+   "run": [],
+   "sections": [
+    [
+     1,
+     17,
+     "SEC-SOH-SRV",
+     "Sohar, berth 4",
+     "Server room",
+     "read",
+     []
+    ]
+   ],
+   "assets": [
+    {
+     "section": "SEC-SOH-SRV",
+     "sectionRow": 1,
+     "assetId": "SRV_09",
+     "dimensions": "SOH-B4",
+     "location": "Sohar, berth 4",
+     "category": "Server room",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 1250000,
+      "depreciation": 1250000,
+      "impairment": 0,
+      "carrying": 0
+     },
+     "rows": {
+      "cost": [
+       9
+      ],
+      "depreciation": [
+       10
+      ],
+      "impairment": [
+       11
+      ],
+      "carrying": [
+       12
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-SRV"
+    },
+    {
+     "section": "SEC-SOH-SRV",
+     "sectionRow": 1,
+     "assetId": "SRV_10",
+     "dimensions": "SOH-B4",
+     "location": "Sohar, berth 4",
+     "category": "Server room",
+     "status": "read",
+     "codes": [],
+     "amounts": {
+      "cost": 990099,
+      "depreciation": 330033,
+      "impairment": 0,
+      "carrying": 660066
+     },
+     "rows": {
+      "cost": [
+       13
+      ],
+      "depreciation": [
+       14
+      ],
+      "impairment": [
+       15
+      ],
+      "carrying": [
+       16
+      ]
+     },
+     "unread": [],
+     "valuation": "VAL-SEC-SOH-SRV"
+    }
+   ],
+   "unmapped": [],
+   "accounts": [
+    {
+     "account": "1750",
+     "dimensions": "LOG-IT",
+     "component": "cost",
+     "status": "consistent",
+     "codes": [],
+     "register": 2240099,
+     "gl": 2240099,
+     "difference": 0,
+     "glRow": 2,
+     "members": [
+      [
+       "SEC-SOH-SRV",
+       "SRV_09",
+       "SOH-B4",
+       "cost"
+      ],
+      [
+       "SEC-SOH-SRV",
+       "SRV_10",
+       "SOH-B4",
+       "cost"
+      ]
+     ]
+    },
+    {
+     "account": "1758",
+     "dimensions": "LOG-IT",
+     "component": "impairment",
+     "status": "consistent",
+     "codes": [],
+     "register": 0,
+     "gl": 0,
+     "difference": 0,
+     "glRow": 3,
+     "members": [
+      [
+       "SEC-SOH-SRV",
+       "SRV_09",
+       "SOH-B4",
+       "impairment"
+      ],
+      [
+       "SEC-SOH-SRV",
+       "SRV_10",
+       "SOH-B4",
+       "impairment"
+      ]
+     ]
+    },
+    {
+     "account": "1759",
+     "dimensions": "LOG-IT",
+     "component": "depreciation",
+     "status": "consistent",
+     "codes": [],
+     "register": 1580033,
+     "gl": 1580033,
+     "difference": 0,
+     "glRow": 4,
+     "members": [
+      [
+       "SEC-SOH-SRV",
+       "SRV_09",
+       "SOH-B4",
+       "depreciation"
+      ],
+      [
+       "SEC-SOH-SRV",
+       "SRV_10",
+       "SOH-B4",
+       "depreciation"
+      ]
+     ]
+    }
+   ],
+   "unplaced": [],
+   "inventory": {
+    "register": {
+     "blank": 0,
+     "section": 1,
+     "end": 1,
+     "stray": 0,
+     "label": 6,
+     "columns": 1,
+     "total": 0,
+     "record": 8
+    },
+    "map": {
+     "header": 1,
+     "blank": 0,
+     "row": 3
+    },
+    "gl": {
+     "header": 1,
+     "blank": 0,
+     "row": 3
+    }
+   }
+  },
+  "O29": {
+   "refused": "SCOPE",
+   "decimals": null,
+   "hashes": [],
+   "run": [],
+   "sections": [],
+   "assets": [],
+   "unmapped": [],
+   "accounts": [],
+   "unplaced": [],
+   "inventory": null
+  },
+  "O30": {
+   "refused": "SOURCE",
+   "decimals": null,
+   "hashes": [],
+   "run": [],
+   "sections": [],
+   "assets": [],
+   "unmapped": [],
+   "accounts": [],
+   "unplaced": [],
+   "inventory": null
+  },
+  "O31": {
+   "refused": "COLUMNS",
+   "decimals": null,
+   "hashes": [],
+   "run": [],
+   "sections": [],
+   "assets": [],
+   "unmapped": [],
+   "accounts": [],
+   "unplaced": [],
+   "inventory": null
+  },
+  "O32": {
+   "refused": "CAPACITY",
+   "decimals": null,
+   "hashes": [],
+   "run": [],
+   "sections": [],
+   "assets": [],
+   "unmapped": [],
+   "accounts": [],
+   "unplaced": [],
+   "inventory": null
+  }
+ }
+}

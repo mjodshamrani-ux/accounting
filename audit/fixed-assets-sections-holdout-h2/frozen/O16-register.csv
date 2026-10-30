@@ -1,0 +1,43 @@
+Section,SEC-MCT
+Entity,Synthetic Sohar Freight LLC
+Asset ledger,FAR-LOG
+Currency,OMR
+As of,2028-09-30
+Location,Muscat depot
+Category,Forklifts
+Asset ID,Asset dimensions,Component,Amount,Valuation reference
+FL.0003,MCT-Y2,cost,8800.000,VAL-SEC-MCT
+FL.0003,MCT-Y2,depreciation,1760.000,VAL-SEC-MCT
+FL.0003,MCT-Y2,impairment,0.000,VAL-SEC-MCT
+FL.0003,MCT-Y2,carrying,7040.000,VAL-SEC-MCT
+End section,SEC-MCT
+Section,SEC-MCT
+Entity,Synthetic Sohar Freight LLC
+Asset ledger,FAR-LOG
+Currency,OMR
+As of,2028-09-30
+Location,Muscat depot
+Category,Pallet racking
+Asset ID,Asset dimensions,Component,Amount,Valuation reference
+RCK 12,MCT-A,cost,3200.500,VAL-SEC-MCT
+RCK 12,MCT-A,depreciation,1280.200,VAL-SEC-MCT
+RCK 12,MCT-A,impairment,0.000,VAL-SEC-MCT
+RCK 12,MCT-A,carrying,1920.300,VAL-SEC-MCT
+RCK 13,MCT-A,cost,3200.500,VAL-SEC-MCT
+RCK 13,MCT-A,depreciation,3200.500,VAL-SEC-MCT
+RCK 13,MCT-A,impairment,0.000,VAL-SEC-MCT
+RCK 13,MCT-A,carrying,0.000,VAL-SEC-MCT
+End section,SEC-MCT
+Section,SEC-SLL-RFR
+Entity,Synthetic Sohar Freight LLC
+Asset ledger,FAR-LOG
+Currency,OMR
+As of,2028-09-30
+Location,Salalah cold store
+Category,Reefer units
+Asset ID,Asset dimensions,Component,Amount,Valuation reference
+RF-000123,SLL-C,cost,41500.000,VAL-SEC-SLL-RFR
+RF-000123,SLL-C,depreciation,8300.000,VAL-SEC-SLL-RFR
+RF-000123,SLL-C,impairment,4150.000,VAL-SEC-SLL-RFR
+RF-000123,SLL-C,carrying,29050.000,VAL-SEC-SLL-RFR
+End section,SEC-SLL-RFR
