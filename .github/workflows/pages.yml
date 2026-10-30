@@ -654,7 +654,7 @@ jobs:
         with:
           path: dist
   mutations:
-    name: Accounting mutation gate (${{ matrix.shard }}/8)
+    name: Accounting mutation gate (${{ matrix.shard }}/12)
     runs-on: ubuntu-latest
     timeout-minutes: 45
     strategy:
@@ -669,6 +669,10 @@ jobs:
           - 6
           - 7
           - 8
+          - 9
+          - 10
+          - 11
+          - 12
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
@@ -685,7 +689,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Verify regression tests detect deliberate accounting faults
         env:
-          MUTATION_SHARD: ${{ matrix.shard }}/8
+          MUTATION_SHARD: ${{ matrix.shard }}/12
           MUTATION_TEST_CONCURRENCY: '2'
         run: pnpm test:mutations
   specialized-faults:
