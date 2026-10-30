@@ -51,8 +51,26 @@ assert.deepEqual(workflow.permissions, baseline.permissions);
 assert.deepEqual(workflow.concurrency, baseline.concurrency);
 assert.deepEqual(workflow.jobs.build.if, baseline.jobs.build.if);
 assert.notEqual(workflow.jobs.build['continue-on-error'], true);
-for (const name of ['deploy', 'specialized-faults'])
-  assert.deepEqual(workflow.jobs[name], baseline.jobs[name]);
+assert.deepEqual(
+  workflow.jobs['specialized-faults'],
+  baseline.jobs['specialized-faults'],
+);
+// Jobs beside the build that hold required gates. The deployment waits for
+// each of them after the frozen 0.4.43 jobs, in this order; read back to the
+// frozen needs, nothing else in the deployment may differ.
+const deployGated = ['domain-oracle-mutants', 'source-family-proofs'];
+{
+  const deploy = structuredClone(workflow.jobs.deploy);
+  assert.deepEqual(deploy.needs, [...baseline.jobs.deploy.needs, ...deployGated]);
+  for (const name of deployGated) {
+    const job = workflow.jobs[name];
+    assert(job, `Deployment-gated job missing: ${name}`);
+    assert.equal(job.if, undefined, `Deployment-gated job cannot be conditional: ${name}`);
+    assert.notEqual(job['continue-on-error'], true);
+  }
+  deploy.needs = baseline.jobs.deploy.needs;
+  assert.deepEqual(deploy, baseline.jobs.deploy);
+}
 // The mutation gate may be split into more shards than the frozen 0.4.43
 // job as its catalogue grows, never fewer: shards 1..N, each named and run
 // as i/N (the runner takes every Nth fault, so each still runs once).
@@ -324,12 +342,27 @@ const required = [
   'test:fixed-assets-long:mutations',
   'test:fixed-assets-long:browser',
 ];
+const deployed = ['build', ...deployGated].flatMap(
+  (name) => workflow.jobs[name].steps,
+);
 for (const name of required) {
   assert(refs.has(name), `Required gate not wired: ${name}`);
-  const owners = workflow.jobs.build.steps.filter((step) =>
-    (step.run ?? '').split('\n').some((line) => line.trim() === `pnpm ${name}`),
-  );
+  const owners = Object.values(workflow.jobs)
+    .flatMap((job) => job.steps ?? [])
+    .filter((step) =>
+      (step.run ?? '').split('\n').some((line) => line.trim() === `pnpm ${name}`),
+    );
   assert.equal(owners.length, 1, `Gate must execute exactly once: ${name}`);
+  assert.equal(
+    owners[0].run.split('\n').filter((line) => line.trim() === `pnpm ${name}`)
+      .length,
+    1,
+    `Gate must execute exactly once: ${name}`,
+  );
+  assert(
+    deployed.includes(owners[0]),
+    `Required gate outside the jobs the deployment waits for: ${name}`,
+  );
   const owner = owners[0];
   assert.equal(
     owner.if,
@@ -368,8 +401,8 @@ for (const name of required) {
 // Gates that build the application themselves, and the code and oracle
 // mutation gates that would hold the build past its limit, run as their own
 // jobs beside the build: each unconditional, failing, exactly once, and in
-// check. The product checks of each domain (seal, baseline, run) stay in the
-// build, which the deployment waits for.
+// check. The required gates above stay in the build or in a job the
+// deployment waits for.
 const separate = {
   'domain-oracle-mutants': [
     'test:column-role:mutations',
