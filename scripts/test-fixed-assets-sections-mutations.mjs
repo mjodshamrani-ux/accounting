@@ -403,11 +403,38 @@ const mutations = [
     "  if (!original.byteLength) refuseAssetSections('SOURCE');\n",
     '',
   ],
+  // Re-anchored on 30 October, the same fault: the reader's capacity errors
+  // now map through assetSectionsReadCode, which also throws on any error
+  // that names no cause in the file instead of reading it as SOURCE.
   [
     'csv-capacity-called-source',
     IO,
-    "      refuseAssetSections('CAPACITY');\n    return refuseAssetSections('SOURCE');",
-    "      refuseAssetSections('SOURCE');\n    return refuseAssetSections('SOURCE');",
+    "  if (CAPACITY_ERRORS.has(message)) return 'CAPACITY';",
+    "  if (CAPACITY_ERRORS.has(message)) return 'SOURCE';",
+  ],
+  [
+    'csv-quote-error-not-source',
+    IO,
+    "  if (message === 'ASSET_CSV') return 'SOURCE';\n",
+    '',
+  ],
+  [
+    'csv-defect-read-as-source',
+    IO,
+    "    return 'SOURCE';\n  }\n  throw error;\n}",
+    "    return 'SOURCE';\n  }\n  return 'SOURCE';\n}",
+  ],
+  [
+    'csv-undecodable-thrown-on',
+    IO,
+    "  } catch {\n    return 'SOURCE';\n  }\n  try {\n    validateCellText(text);",
+    "  } catch {\n    throw error;\n  }\n  try {\n    validateCellText(text);",
+  ],
+  [
+    'csv-forbidden-code-point-thrown-on',
+    IO,
+    "    validateCellText(text);\n  } catch {\n    return 'SOURCE';\n  }",
+    "    validateCellText(text);\n  } catch {\n    throw error;\n  }",
   ],
   ['file-type-unchecked', IO, '    !/\\.csv$/i.test(name) ||\n', ''],
   [

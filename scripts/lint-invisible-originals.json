@@ -1,0 +1,201 @@
+{
+  "sourceCommit": "bd92ca39d1d5eed21f8ea5b5672af61d3b72aef2",
+  "scope": "Tracked code files that held a literal invisible character when the rule came (DEV-79), pinned by their bytes. Sealed tools keep their bytes; any other file that changes escapes its characters and leaves this list.",
+  "files": [
+    {
+      "path": "audit/ai-column-roles-foundation/js/render_pdflib.mjs",
+      "bytes": 10592,
+      "sha256": "017ec351d9c094ea720d927190aaecf78f7d42ddc007e7ac770339d9ed89e114"
+    },
+    {
+      "path": "audit/ar-statement-foundation/verify_assets.py",
+      "bytes": 6720,
+      "sha256": "0d5450a831182a761126bcd663178c091c3fd2d4452538510e3a782904fcfb5a"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/verify.py",
+      "bytes": 11202,
+      "sha256": "e79f6ff61ccded19c2b0912c9f91c243af32641b31ea6be8b9b5d52f6c80c7b0"
+    },
+    {
+      "path": "audit/bank-cycle-foundation/js/render_pdflib.mjs",
+      "bytes": 10839,
+      "sha256": "16e4dd57f9d3fc0ab786d82741ddf0c1fda72df2a4ec3ef9c414c7b8c2895d26"
+    },
+    {
+      "path": "audit/bank-review-holdout-r3/js/render_pdflib.mjs",
+      "bytes": 10839,
+      "sha256": "16e4dd57f9d3fc0ab786d82741ddf0c1fda72df2a4ec3ef9c414c7b8c2895d26"
+    },
+    {
+      "path": "audit/bank-review-holdout-r3/verify.py",
+      "bytes": 29316,
+      "sha256": "283f9c9f6be0d5c6c6d2a8785293fdf9cef441839f18cf98b24291ba4fb3a9d3"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/js/render_pdflib.mjs",
+      "bytes": 10839,
+      "sha256": "16e4dd57f9d3fc0ab786d82741ddf0c1fda72df2a4ec3ef9c414c7b8c2895d26"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/verify.py",
+      "bytes": 28955,
+      "sha256": "6ff96facb949a1c8158db11e70bbd20ecb378af3a150c0c3f4d2b71754fb4b7e"
+    },
+    {
+      "path": "audit/bank-sheet-holdout-r4/js/render_pdflib.mjs",
+      "bytes": 10839,
+      "sha256": "16e4dd57f9d3fc0ab786d82741ddf0c1fda72df2a4ec3ef9c414c7b8c2895d26"
+    },
+    {
+      "path": "audit/bank-sheet-holdout-r4/verify.py",
+      "bytes": 29000,
+      "sha256": "78bf3402b465ce5c601cbac3972ffb8a5fd40367bb64c958dad46cc8d6bbf842"
+    },
+    {
+      "path": "audit/bank-statement-eligibility/cashbook.py",
+      "bytes": 35657,
+      "sha256": "f757c143b02b7d158da14b2e5aa82fa37989b464a9ada20acfaf31b8e8eaac2c"
+    },
+    {
+      "path": "audit/bank-statement-eligibility/items.py",
+      "bytes": 29065,
+      "sha256": "6b9722fd314af6df178ce85444390e212962e03b3b9a58fcab95ded907dbf3bf"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g10/verify.py",
+      "bytes": 26112,
+      "sha256": "b5bccdc208dd629a85d67f7d7b3000d4145a898b3766378e2773514979a85ee1"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g12/verify.py",
+      "bytes": 24158,
+      "sha256": "19c1d87887fecc5c2442f1326b209fbf2e0ae662113c517dd8af316297de8993"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g14/verify.py",
+      "bytes": 23913,
+      "sha256": "12a9541eb436b039fdaa13800b33bb5cc850782008d987ca3caa165d296f1e91"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/verify.py",
+      "bytes": 26072,
+      "sha256": "b6b1630910ac8371ba488b8e0625d9ba35b544014b153df97f3f0a16478ce8b2"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/verify.py",
+      "bytes": 28719,
+      "sha256": "8645fbcc1f8090e4a700b96cdeee8cccf02acf98f34b595c11917434faf353a8"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g20/verify.py",
+      "bytes": 32182,
+      "sha256": "9c23b30ff4c1e18b46a0ec65149001c9e17cd0c8c40ba2b6fc4f76daf1998120"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g23/js/render_pdflib.mjs",
+      "bytes": 10839,
+      "sha256": "16e4dd57f9d3fc0ab786d82741ddf0c1fda72df2a4ec3ef9c414c7b8c2895d26"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g23/verify.py",
+      "bytes": 32937,
+      "sha256": "f129b89ccc91c5b2a35301d83b311b751cdf05d04ba14e770ab47a732e323210"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/verify.py",
+      "bytes": 19581,
+      "sha256": "e200e5f178e97e3b38c20bffd9d6377e4cf54ac15e60eb941aa62fb389059734"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g9/verify.py",
+      "bytes": 23040,
+      "sha256": "3943b2ef2fe017bb691779b080ab0f0056d459c4b19ddd4654e1685db02730c1"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/check_export.py",
+      "bytes": 20470,
+      "sha256": "b4bfd59d38c7ce101f5749419e7e5bad5a4cd4570bff87a8c19966541c7c1e83"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/js/render_pdflib.mjs",
+      "bytes": 10839,
+      "sha256": "16e4dd57f9d3fc0ab786d82741ddf0c1fda72df2a4ec3ef9c414c7b8c2895d26"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/stories.py",
+      "bytes": 29619,
+      "sha256": "3fcb34c04536a4072b9752c5b88f13649176c91f9da0bfdf6d3e2b9c28d0189f"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/verify.py",
+      "bytes": 29923,
+      "sha256": "4582962dd482a5e456936d3d5aa096602c20ed4002800b35465f0b90009515f4"
+    },
+    {
+      "path": "audit/fin-1-review/baseline.mjs",
+      "bytes": 7883,
+      "sha256": "d48fec8b37086bb4aeff1b42d546bce88b0baac1a237216381e871f8fd7ce6e4"
+    },
+    {
+      "path": "audit/fixed-assets-sections-foundation/baseline.mjs",
+      "bytes": 14832,
+      "sha256": "90a7fbebe310f3450b53e5fd37a275697f27b5ff85c072dacf976ae429756ec8"
+    },
+    {
+      "path": "audit/gl-tb-sections-foundation/baseline.mjs",
+      "bytes": 13029,
+      "sha256": "16aca6a3f11fd96d9ee9acde7bb4a5c40c6c05576440d7eff0b4b41d063cf888"
+    },
+    {
+      "path": "audit/hard-cases/pdf-composite-run.mjs",
+      "bytes": 15445,
+      "sha256": "c0a9951745d83863216994913b48dd7b8df7e65716b8535fd58fc0669b893774"
+    },
+    {
+      "path": "audit/intercompany-batch-holdout-h1/eligibility.py",
+      "bytes": 3400,
+      "sha256": "6cee0cddbccc85553ef7d486a70a0300e97ded46944367cc73abb6c7f078feae"
+    },
+    {
+      "path": "audit/partial-input/browser/run.mjs",
+      "bytes": 18618,
+      "sha256": "421fbadaeb4e4ed713c2d700c3111f658c6df6aebac3dfc124f9a6f94bd6e5c0"
+    },
+    {
+      "path": "audit/supplier-statement-holdout-s3/js/render_pdflib.mjs",
+      "bytes": 10592,
+      "sha256": "017ec351d9c094ea720d927190aaecf78f7d42ddc007e7ac770339d9ed89e114"
+    },
+    {
+      "path": "lib/i18n/engine.ts",
+      "bytes": 5624,
+      "sha256": "b2678f2da3cf23bb3be40f5394e4d756676efd14b248c860d2a43ffc05fbc089"
+    },
+    {
+      "path": "scripts/browser-acceptance-bilingual.mjs",
+      "bytes": 23762,
+      "sha256": "7021f5d721a39d18b56d7061beb11cdcd1500981777145b5d6cfaf27cd49f5b7"
+    },
+    {
+      "path": "scripts/language-browser-cases.mjs",
+      "bytes": 13133,
+      "sha256": "eeea3058010f2b4c43346c1bd495c631f387f59a6bcc8704727bb0ee5cf88c42"
+    },
+    {
+      "path": "tests/helpers/i18n-source-scan.ts",
+      "bytes": 2730,
+      "sha256": "81c5abab76fa950c61819a20b8c4915c8bc736a5aca8170af93b34b37d51e12c"
+    },
+    {
+      "path": "tests/p2-group-lifecycle.test.ts",
+      "bytes": 13046,
+      "sha256": "685efa50b1f3861ed7808e62a3f554d685c56cf3afba53f75571c6edcb8b521f"
+    },
+    {
+      "path": "tests/partial-result-lifecycle.test.ts",
+      "bytes": 9437,
+      "sha256": "28ada4328f774227f3f38bfe30450306e5618abddc5f6ca182cf7eb619c0ee29"
+    }
+  ]
+}

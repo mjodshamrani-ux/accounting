@@ -8,7 +8,11 @@ import {
   FA_SECTIONS_ROLES,
   FA_SECTIONS_VERSION,
 } from '../lib/reconciliation/fixed-assets-sections.ts';
-import { replayAssetSections } from '../lib/reconciliation/fixed-assets-sections-io.ts';
+import {
+  assetSectionsCSV,
+  assetSectionsReadCode,
+  replayAssetSections,
+} from '../lib/reconciliation/fixed-assets-sections-io.ts';
 
 // A fabrication plant's asset register in Bahraini dinars at 30 June 2028:
 // a lineage of its own, not the sealed FA-1 stories.
@@ -1319,5 +1323,52 @@ void test('sums beyond exact integers are refused', async () => {
       gl: [[...FA_SECTIONS_GL_HEADER]],
     }),
     'TOTAL_LIMIT',
+  );
+});
+
+void test('a reader error that names no cause in the file is thrown on, never read as SOURCE', () => {
+  const bytes = (text: string) => new TextEncoder().encode(text).buffer;
+  const code = (error: unknown, original: ArrayBuffer) => {
+    try {
+      return assetSectionsReadCode(error, original);
+    } catch (thrown) {
+      return thrown;
+    }
+  };
+  const clean = bytes('Section,Plant\n');
+  const defect = new TypeError('a defect in the reader');
+  assert.equal(code(defect, clean), defect);
+  const unknown = new Error('ASSET_OTHER');
+  assert.equal(code(unknown, clean), unknown);
+  assert.equal(code('not an error', clean), 'not an error');
+  // The reader's own errors, by name.
+  assert.equal(code(new Error('ASSET_CSV'), clean), 'SOURCE');
+  for (const name of [
+    'ASSET_SOURCE_LIMIT',
+    'ASSET_CELL_LIMIT',
+    'ASSET_SOURCE_CAPACITY',
+  ])
+    assert.equal(code(new Error(name), clean), 'CAPACITY', name);
+  // The decoder and the code point check name no code: the bytes say so.
+  const undecodable = new Uint8Array([0x61, 0xff, 0x0a]).buffer;
+  const forbidden = bytes('a' + String.fromCharCode(1) + '\n');
+  assert.equal(code(new TypeError('decoder'), undecodable), 'SOURCE');
+  assert.equal(code(new Error('code points'), forbidden), 'SOURCE');
+  // And through the reader itself.
+  assert.throws(
+    () => assetSectionsCSV(undecodable),
+    /^Error: FA_SECTIONS_SOURCE$/,
+  );
+  assert.throws(
+    () => assetSectionsCSV(forbidden),
+    /^Error: FA_SECTIONS_SOURCE$/,
+  );
+  assert.throws(
+    () => assetSectionsCSV(bytes('a"b\n')),
+    /^Error: FA_SECTIONS_SOURCE$/,
+  );
+  assert.throws(
+    () => assetSectionsCSV(bytes('a'.repeat(32768) + '\n')),
+    /^Error: FA_SECTIONS_CAPACITY$/,
   );
 });

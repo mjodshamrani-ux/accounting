@@ -1,4 +1,5 @@
 import { assetCSV } from './fixed-assets-csv.ts';
+import { validateCellText } from './io.ts';
 import {
   FA_SECTIONS_ROLES,
   assetSectionsPlaces,
@@ -23,26 +24,50 @@ const hex = async (bytes: ArrayBuffer) =>
     (n) => n.toString(16).padStart(2, '0'),
   ).join('');
 
+const CAPACITY_ERRORS = new Set([
+  'ASSET_SOURCE_LIMIT',
+  'ASSET_CELL_LIMIT',
+  'ASSET_SOURCE_CAPACITY',
+]);
+
+/** The contract code for an error assetCSV threw on these bytes. Its own
+ * errors are named. The decoder's and the code point check's are not, so the
+ * bytes are checked again for those two causes. Any other error is a defect,
+ * not a refusal of the file: it is thrown on, never read as SOURCE. */
+export function assetSectionsReadCode(
+  error: unknown,
+  original: ArrayBuffer,
+): 'SOURCE' | 'CAPACITY' {
+  const message = error instanceof Error ? error.message : '';
+  if (CAPACITY_ERRORS.has(message)) return 'CAPACITY';
+  if (message === 'ASSET_CSV') return 'SOURCE';
+  let text: string;
+  try {
+    text = new TextDecoder('utf-8', { fatal: true }).decode(original);
+  } catch {
+    return 'SOURCE';
+  }
+  try {
+    validateCellText(text);
+  } catch {
+    return 'SOURCE';
+  }
+  throw error;
+}
+
 /** The family reads CSV as the long asset family does (assetCSV): strict
  * UTF-8 whose decoder drops one leading byte order mark, the XML-forbidden
  * code points refused, comma cells with quotes only at a cell's start, a
  * blank line a record of no cells. An empty file or one it cannot decode,
  * a stray or unclosed quote, or a forbidden code point is SOURCE; more than
  * 8 MiB, 20,001 records, 100 cells in a record or 32,767 code units in a
- * cell is CAPACITY. */
+ * cell is CAPACITY. Anything else the reader throws is thrown on. */
 export function assetSectionsCSV(original: ArrayBuffer): string[][] {
   if (!original.byteLength) refuseAssetSections('SOURCE');
   try {
     return assetCSV(original);
   } catch (error) {
-    const message = String((error as Error)?.message ?? error);
-    if (
-      message === 'ASSET_SOURCE_LIMIT' ||
-      message === 'ASSET_CELL_LIMIT' ||
-      message === 'ASSET_SOURCE_CAPACITY'
-    )
-      refuseAssetSections('CAPACITY');
-    return refuseAssetSections('SOURCE');
+    return refuseAssetSections(assetSectionsReadCode(error, original));
   }
 }
 

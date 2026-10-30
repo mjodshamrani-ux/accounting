@@ -352,12 +352,7 @@ const mutations = [
     'if (touched) finish();\n  return rows;',
     'return rows;',
   ],
-  [
-    'cell-limit-read-as-source',
-    IO,
-    "message === 'ASSET_CELL_LIMIT' ||",
-    "message === 'ASSET_CELL_LIMIT-' ||",
-  ],
+  ['cell-limit-not-capacity', IO, "  'ASSET_CELL_LIMIT',\n", ''],
 ];
 
 // A private copy of the reader and its caller, every other import pointing
