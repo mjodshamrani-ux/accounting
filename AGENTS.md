@@ -22,6 +22,10 @@ For visual implementation, use the [scene construction and motion reference](doc
 - App version, engine version and session/protocol versions are separate. Branding changes must not silently migrate evidence formats or rename protocol identifiers such as `mizan-accounting-v1`.
 - Never weaken a frozen oracle, expected amounts/members, mutation gate, publication guard or source contract to get green tests. Retain failures as historical failures; create a fresh holdout after learning from a case.
 
+## Tarasuf UI Craft
+
+For interface audits, refinement, new experiences or implementation review, use [tarasuf-ui-craft](.agents/skills/tarasuf-ui-craft/SKILL.md). Choose Audit, Refine, Design or Review from the task; load only the relevant references. The skill supplements the identity and accounting contracts above and does not authorize engine, session, export or brand changes. See [integration and validation](docs/reference/TARASUF-UI-CRAFT.ar.md).
+
 ## Delivery
 
 Use [delivery guidance](docs/reference/DELIVERY.ar.md). Keep changes scoped, inspect concurrent changes, and run checks appropriate to the change plus the unchanged required CI gates. Update documentation in the same change when behavior or scope changes. The exact public allowlist must include reviewed documentation changes too; do not bulk-approve unknown files or regenerate distribution hashes for a docs-only change.
