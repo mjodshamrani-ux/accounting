@@ -33,14 +33,14 @@
     },
     {
       "path": "AGENTS.md",
-      "bytes": 5319,
-      "sha256": "44ad16270af8004b85ffbd54b82be492787fd6b76f45cc9ebc3f73c75e856142",
+      "bytes": 5776,
+      "sha256": "04ed220bc4d93258739c10f7b5f5384899afb2910120d1fda1b0a4c86f0ea3a2",
       "kind": "text"
     },
     {
       "path": "CLAUDE.md",
-      "bytes": 3504,
-      "sha256": "09323c4d77032c6a37bf1f9b38b04ea62ec1614b1b2ce08afbba5faf01ad4f25",
+      "bytes": 3747,
+      "sha256": "29af31474892ecf85a88ad3322febf10f3bf2cfaf5298be8d0951c01b5216551",
       "kind": "text"
     },
     {
@@ -44349,8 +44349,8 @@
     },
     {
       "path": ".claude/rules/interface-code.md",
-      "bytes": 579,
-      "sha256": "a25c63809709ab3f2dc3d943e6a9b8694b6d65f6ac2fefedd8a18adc42105e24",
+      "bytes": 894,
+      "sha256": "ef0ee1c17d42caae92f96381dbf092547a430f8275074336641f21f70e8c9f56",
       "kind": "text"
     },
     {
@@ -44475,8 +44475,8 @@
     },
     {
       "path": "docs/reference/SKILLS.ar.md",
-      "bytes": 15931,
-      "sha256": "c69b2986b157a1fc5671675f1d3667847266f69dce8cf858129c2314d75d4a2c",
+      "bytes": 17628,
+      "sha256": "347c7deadd82ef08c13edb8a6967fac7a3d4cf91210585dc0484ff2ce2732915",
       "kind": "text"
     },
     {
@@ -73339,6 +73339,96 @@
       "path": "docs/audits/FA-1E.ar.md",
       "bytes": 4699,
       "sha256": "f3ad98094ac6411bcabadc8e7cfc4e30c2f1c5a8b17b8a6c71681c0bc1b3181f",
+      "kind": "text"
+    },
+    {
+      "path": ".agents/skills/tarasuf-ui-craft/SKILL.md",
+      "bytes": 7043,
+      "sha256": "330766822f64b35771e090bc7536d955fd1477f40944946094d2c8d1e30adca5",
+      "kind": "text"
+    },
+    {
+      "path": ".agents/skills/tarasuf-ui-craft/agents/openai.yaml",
+      "bytes": 231,
+      "sha256": "8be21c66aead8bb99beb2547b979706aeb33d525adc165174c75919dd8d9961f",
+      "kind": "text"
+    },
+    {
+      "path": ".agents/skills/tarasuf-ui-craft/licenses/unslop-CC-BY-4.0.txt",
+      "bytes": 18657,
+      "sha256": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411",
+      "kind": "text"
+    },
+    {
+      "path": ".agents/skills/tarasuf-ui-craft/licenses/unslop-ai-ui-Apache-2.0.txt",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "kind": "text"
+    },
+    {
+      "path": ".agents/skills/tarasuf-ui-craft/references/creative-motion.md",
+      "bytes": 4784,
+      "sha256": "1525b9f01746240099b6d6afd70f227d5399ce72d34e63b26ed9a02ed1a0f7d1",
+      "kind": "text"
+    },
+    {
+      "path": ".agents/skills/tarasuf-ui-craft/references/domains.md",
+      "bytes": 4981,
+      "sha256": "443b1c3d549032c01e55aeb522572a55cb46747c3e9e153ab8ace9a23b908005",
+      "kind": "text"
+    },
+    {
+      "path": ".agents/skills/tarasuf-ui-craft/references/engineering.md",
+      "bytes": 6707,
+      "sha256": "51d7b0b9804cbb491176226c7d4f97e0e68c5f4aa51fd6f4dd84d54c01151941",
+      "kind": "text"
+    },
+    {
+      "path": ".agents/skills/tarasuf-ui-craft/references/financial-ux.md",
+      "bytes": 7008,
+      "sha256": "cf1edbd9e45734f99c780ac18ee36e1412050d5ebaf815867485ee31ba733ba5",
+      "kind": "text"
+    },
+    {
+      "path": ".agents/skills/tarasuf-ui-craft/references/identity.md",
+      "bytes": 4646,
+      "sha256": "3f88b559ef54510a2ad6fbbcd901c8750000b84ab7d222413d7188cd68c6dc07",
+      "kind": "text"
+    },
+    {
+      "path": ".agents/skills/tarasuf-ui-craft/references/provenance.md",
+      "bytes": 1972,
+      "sha256": "f4006fe2fa4def46fbf237c920416fe564a95652e2a3ccc901853cfc122d7798",
+      "kind": "text"
+    },
+    {
+      "path": ".agents/skills/tarasuf-ui-craft/references/verification.md",
+      "bytes": 5040,
+      "sha256": "e7265bdab05d524bb9948469e8667f875e52250e9deb1d4d598b119f1de1371a",
+      "kind": "text"
+    },
+    {
+      "path": ".agents/skills/tarasuf-ui-craft/scripts/validate.py",
+      "bytes": 7469,
+      "sha256": "8da869ba77058139af014fdcca2c86f5336c50fdee741afc8080025671840325",
+      "kind": "text"
+    },
+    {
+      "path": ".claude/skills/tarasuf-ui-craft/SKILL.md",
+      "bytes": 2526,
+      "sha256": "9849809ed1038aaa3aa510fbc3c316cadf522786e0294edcb77f187f53cf1e84",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/TARASUF-UI-CRAFT-REVIEW.ar.md",
+      "bytes": 13061,
+      "sha256": "4e72056f257eb61a31485d9a5b45de43ded5c915d06eb35c61d796093545f2ef",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/TARASUF-UI-CRAFT.ar.md",
+      "bytes": 15045,
+      "sha256": "6c145ef85bfb515910ab284339e39df59f58d975d828f2deb61dbf4f40a9e1bb",
       "kind": "text"
     }
   ],

@@ -1,5 +1,7 @@
 # Tarasuf cloud handoff
 
+For UI work, use [tarasuf-ui-craft](.claude/skills/tarasuf-ui-craft/SKILL.md), a thin entry to the canonical project skill. Its Audit/Refine/Design/Review modes supplement, and do not override, the instructions and financial contracts below.
+
 Read [AGENTS.md](AGENTS.md) first, then the [Arabic project portal](docs/README.ar.md) and [current execution queue](docs/CURRENT-PLAN.ar.md). They are the maintained project reference for Claude, Codex and other contributors.
 
 Claude Code reads this file instead of AGENTS.md when both exist, so AGENTS.md is imported here and loads with it:

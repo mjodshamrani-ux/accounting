@@ -31,10 +31,13 @@
 | `tarasuf-regression-release` | اختيار الفحوص وتشغيلها وتسجيلها، والتمييز بين فشل قديم وجديد | [selection.md](../../.claude/skills/tarasuf-regression-release/selection.md) |
 | `tarasuf-product-workflow` | مسار المستخدم في الواجهة: الرفع والمراجعة والقرارات والتصدير وRTL والوصول | — |
 | `tarasuf-ai-integration` | تقييم اقتراحات AI وOCR ضمن حدودها؛ تقييم فقط، لا تفويض بإضافة مزود أو نموذج | — |
+| `tarasuf-ui-craft` | تدقيق الواجهة وصقلها وتصميمها ومراجعتها بأربعة أوضاع: Audit وRefine وDesign وReview، ضمن هوية تراصف وعقوده | الأصل في `.agents/skills/tarasuf-ui-craft/` بمراجعه السبعة وفاحصه؛ والمدخل هنا يحيل إليه. انظر [دليل الدمج](TARASUF-UI-CRAFT.ar.md) |
 
 **قرار الدمج:** أُبقيت المهارات الثماني المقترحة منفصلة لأن لكل منها مدخلات وفحوصًا مختلفة. فصلنا تصميم الحالات (`tarasuf-adversarial-testing`) عن اختيار الفحوص وتسجيلها (`tarasuf-regression-release`)، وفصلنا صحة المعنى المحاسبي (`tarasuf-accounting-review`) عن صحة القراءة والأصل (`tarasuf-source-evidence`). وتُحمّل مهارة AI تلقائيًا لأن في الشفرة مسارات AI قائمة، لكنها تقييمية فقط.
 
 **الاستدعاء:** يحمّل Claude المهارة حين تطابق المهمة وصفها. للطلب الصريح اكتب `/tarasuf-accounting-review` مثلًا، ويمكن إضافة نص المهمة بعدها.
+
+**`tarasuf-ui-craft` مختلفة البنية:** قواعدها في مصدر واحد يقرؤه Codex وClaude، [`.agents/skills/tarasuf-ui-craft/SKILL.md`](../../.agents/skills/tarasuf-ui-craft/SKILL.md). ومدخلها في `.claude/skills/` يحيل إليه، وأقسامه الثمانية التي يطلبها الفحص الهيكلي توجيه إلى الأصل لا قواعد. ومعها `tarasuf-product-workflow` في الواجهة: الأولى للصنعة البصرية والإتاحة، والثانية لمسار المستخدم واتفاق الشاشة والمحرك والحالة. يستدعى صراحة بـ`/tarasuf-ui-craft Audit` مع نص المهمة، أو Refine أو Design أو Review. وفاحصها الخاص `python3 .agents/skills/tarasuf-ui-craft/scripts/validate.py --self-test`، وليس في CI بعد.
 
 ## خريطة المهمة إلى المهارات والفحوص
 
@@ -45,7 +48,8 @@
 | holdout جديد | `tarasuf-adversarial-testing` | الختم والتحقق المستقل قبل أي تشغيل للمنتج | أول تشغيل كما جاء، ثم التشخيص |
 | مراجعة نتيجة أو قاعدة مطابقة | `tarasuf-accounting-review` | [checklist.md](../../.claude/skills/tarasuf-accounting-review/checklist.md) | — |
 | تغيير شبكة أو اعتمادية أو CSP أو تخزين | `tarasuf-privacy-security` | خريطة التدفق، ثم رصد فعلي | `pnpm test:browser`، وحارس المحتوى |
-| تغيير في الواجهة | `tarasuf-product-workflow` | `pnpm typecheck` و`pnpm lint` | سكربت المتصفح للمجال |
+| تغيير في الواجهة | `tarasuf-product-workflow`، و`tarasuf-ui-craft` للتخطيط والجداول والمشاهد والحركة والإتاحة | `pnpm typecheck` و`pnpm lint` | سكربت المتصفح للمجال |
+| تدقيق واجهة أو مراجعة تعديل بصري | `tarasuf-ui-craft` بوضع Audit أو Review، بلا تعديل | قراءة المصدر والحالات المعروضة ببيانات اصطناعية | فحوص [verification](../../.agents/skills/tarasuf-ui-craft/references/verification.md) للسطح المتأثر |
 | مسار AI أو OCR | `tarasuf-ai-integration` و`tarasuf-privacy-security` | تصنيف الطلب، ثم ظرف الاقتراح | تفويض المستخدم قبل أي مزود أو تنزيل |
 | فشل CI | `tarasuf-regression-release` | إعادة الفشل على الأساس في نسخة منفصلة | نتيجة CI على الرأس نفسه |
 | توثيق فقط | لا مهارة | `tests/docs-status.test.ts` | حارس المحتوى العام |
