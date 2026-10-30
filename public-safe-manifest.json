@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 91934,
-      "sha256": "718320ef6c6077ea56144641c97dc3ecb8cd9d3cb3ba60fbd4e411ea92070a84",
+      "bytes": 91986,
+      "sha256": "eb8a89b175261084877b3bed4e13e674073a4ace7a1e60a886a7c95fb39a2fc9",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 137071,
-      "sha256": "bb74551fd75bd7110fb3a8a62520b661a44e609e3102928a2d6bd7bb9153eb4b",
+      "bytes": 137710,
+      "sha256": "2970f43efb9efcf8cec19665d66851215ce0688f4ad99eb882f77a0247df7395",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 58730,
-      "sha256": "ee43332cf6e9653f83030ade8ea9484e8e6326b0afd770683184919be69f5d5e",
+      "bytes": 58908,
+      "sha256": "272b00e03cf9c919c8e0b4fdd3a1a9c90eb680728f24cded2690fa2fbb3c3e73",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 18895,
-      "sha256": "42ad67f06f679db666b1ffc9603637df2093a8290e6ba7c5f10a4199fb89391e",
+      "bytes": 18937,
+      "sha256": "054f855fe77be0ef512e65ec70a7911f570f373d98314f54afde89571cd32b3b",
       "kind": "text"
     },
     {
@@ -71279,8 +71279,8 @@
     },
     {
       "path": "docs/audits/FA-1B.ar.md",
-      "bytes": 7237,
-      "sha256": "f035cfd46f209f4e601bac976e920362fdf27fc53917daa6ff7f1fe309712010",
+      "bytes": 9437,
+      "sha256": "b3e3dd49153faae3b78c7dd98fc5dcd23c0c07ed5022f57c925bb8d29f9f4cdc",
       "kind": "text"
     },
     {
@@ -72413,8 +72413,14 @@
     },
     {
       "path": "scripts/check-mutation-anchors.mjs",
-      "bytes": 11422,
-      "sha256": "ebbca88d300f0fa794bdb59f30fa332690c5e9f0712d3f943234557f19ac35a1",
+      "bytes": 11496,
+      "sha256": "ca7ff5b3b4e38bf9a6ca810e0651454f065cfa934b92d37ba02c23b5078fd726",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/fixed-assets-sections-reader-differential.mjs",
+      "bytes": 13201,
+      "sha256": "af09d7216438c5e3f3da9af7914b156d2a5a3d0695a9a5e7254f2cb010d4d168",
       "kind": "text"
     }
   ],

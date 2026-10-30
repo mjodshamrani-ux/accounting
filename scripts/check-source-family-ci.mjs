@@ -252,6 +252,7 @@ const required = [
   'test:fa-sections:run',
   'test:fa-sections:h1-seal',
   'test:fa-sections:h1-run',
+  'test:fa-sections:reader-differential',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',

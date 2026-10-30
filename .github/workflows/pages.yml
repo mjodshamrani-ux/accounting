@@ -406,6 +406,7 @@ jobs:
           pnpm test:fa-sections:run
           pnpm test:fa-sections:h1-seal
           pnpm test:fa-sections:h1-run
+          pnpm test:fa-sections:reader-differential
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations

@@ -1,7 +1,8 @@
 // Every mutation and fault gate changes product files at text anchors. An
 // anchor found twice, or not at all, stops the gate only when CI reaches that
 // fault, often after many minutes (DEV-75). This check reads the fault list of
-// every scripts/test-*mutations.mjs and scripts/*faults.mjs without running a
+// every scripts/test-*mutations.mjs, scripts/*faults.mjs and
+// scripts/*-differential.mjs without running a
 // fault or writing a file, applies each fault's edits in order to its own copy
 // of the target text, and requires each anchor exactly once.
 //
@@ -38,7 +39,8 @@ const gateNames = (root) =>
     .filter(
       (n) =>
         (n.startsWith('test-') && n.endsWith('mutations.mjs')) ||
-        n.endsWith('faults.mjs'),
+        n.endsWith('faults.mjs') ||
+        n.endsWith('-differential.mjs'),
     )
     .sort();
 
