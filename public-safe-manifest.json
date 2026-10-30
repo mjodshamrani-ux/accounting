@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 92087,
-      "sha256": "07a6cac1ef4eeacc624e87c1da796cc3ee83944791c4f615bfff8e0ba09b25c3",
+      "bytes": 92517,
+      "sha256": "1075acd53b06b2e3e857188e197201486a0bb48fae464170056c3ff457c2c26d",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 57462,
-      "sha256": "848db82b3b9abac1e37eeea3f3e6356f9d727cb7868ea77fd23f5a664a8431d9",
+      "bytes": 58586,
+      "sha256": "f6887ae861108b1263f48a3755f86b4d6a8a8c520ad63135941453fd53085d5a",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 23248,
-      "sha256": "1b4000878d24a8605fee53862f34e247f7e5db4e173b549094250aef08fb1a62",
+      "bytes": 23292,
+      "sha256": "bc6ff58c45c7d87757938b3b4706e31270df8d09738250b5dc6650f06cd59d0e",
       "kind": "text"
     },
     {
@@ -36151,14 +36151,14 @@
     },
     {
       "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
-      "bytes": 145636,
-      "sha256": "682b107aeaed449dba3864ede5b445f4d8d3ba3ad91c6ea391267500a90f5e62",
+      "bytes": 146261,
+      "sha256": "d5cf30d7fe61300b5087c7279d2b72d5ff53a6609fffb0ab99a646905b61cc46",
       "kind": "text"
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 142525,
-      "sha256": "417f69cc4dd69680d386b014e3c1d0d149972a7869b229bdf12d7bf48d123d3b",
+      "bytes": 143045,
+      "sha256": "d223839aed108a4496de58be4bcaf2a80c142a6da2bbf3ac1171a28a4010e7f9",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 84590,
-      "sha256": "7b5d4af2d23145c4b9c7c5b6514c3d87876e238b586141bfebd54e4c03855ef3",
+      "bytes": 84817,
+      "sha256": "62269395cba13f3b16a7ec22cf02cbb54eb98faf15a39dc803a1fadc9635a629",
       "kind": "text"
     },
     {
@@ -36235,8 +36235,8 @@
     },
     {
       "path": "docs/roadmap/fixed-assets.ar.md",
-      "bytes": 5086,
-      "sha256": "e1b91ce79fddd5610829454097fb68696d86961201924e49dada2eb250a43450",
+      "bytes": 5472,
+      "sha256": "8e74aee786653c715c561a68f4d16a8cbe5dee3bb9145a4a3be1c1ecf3bad223",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 59138,
-      "sha256": "61ae5f7f2950839e8d5f6ddcff1b92f19fcd363eb4fedbad29339f32105e0d19",
+      "bytes": 59580,
+      "sha256": "92f28ab4401972c261b413844641f5c7969215ae9ed9dc253198ab080435ed7d",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 18967,
-      "sha256": "d473ba0b94dffb022f3245193d6184fa58c0b821cc8c6bf6c3c5aaa882581b35",
+      "bytes": 19031,
+      "sha256": "be60e1dcdae9cd94f003de8306dbfd11edca7d26662f8e1caae3a08ef391c681",
       "kind": "text"
     },
     {
@@ -73321,6 +73321,24 @@
       "path": "audit/fixed-assets-sections-holdout-h2/verify.py",
       "bytes": 9172,
       "sha256": "ae1bc33f15aa0eebfca09c85414ad4b2e07db66be802411f23510a1cb416dfb3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fixed-assets-sections-holdout-h2/results/browser-run-1.json",
+      "bytes": 2477,
+      "sha256": "68a355c8e1105a49e27bdbf77df0eedb8323b6186521ee0c35993f65e696f88f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fixed-assets-sections-holdout-h2/results/engine-run-1.json",
+      "bytes": 1321,
+      "sha256": "690a1d896b6a4f4659574ca40098f01c9e03f3481eb92ac1c842b9a630b9bbbc",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/FA-1E.ar.md",
+      "bytes": 4699,
+      "sha256": "f3ad98094ac6411bcabadc8e7cfc4e30c2f1c5a8b17b8a6c71681c0bc1b3181f",
       "kind": "text"
     }
   ],

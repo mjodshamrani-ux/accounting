@@ -253,6 +253,7 @@ const required = [
   'test:fa-sections:h1-seal',
   'test:fa-sections:h1-run',
   'test:fa-sections:h2-seal',
+  'test:fa-sections:h2-run',
   'test:fa-sections:reader-differential',
   'test:bank-review:baseline',
   'test:bank-review:proof',
@@ -486,6 +487,7 @@ const separate = {
   'fixed-assets-sections-browser': [
     'test:fa-sections:browser',
     'test:fa-sections:h1-browser',
+    'test:fa-sections:h2-browser',
   ],
   'fixed-assets-sections-interface-mutations': [
     'test:fa-sections:interface-mutations',
