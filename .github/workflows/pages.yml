@@ -146,130 +146,6 @@ jobs:
           pnpm test:gl-tb-vertical
           pnpm test:gl-tb-vertical:proof
           pnpm test:gl-tb-vertical:mutations
-      - name: Verify withdrawal-deposit original sources, six-source lifecycle and assertion mutations
-        env:
-          BANK_WD_PROOF_DIR: ${{ runner.temp }}/bank-wd-proof
-          BANK_WD_MUTATION_DIR: ${{ runner.temp }}/bank-wd-mutations
-        run: |
-          pnpm test:bank-wd:mutations
-          node --experimental-strip-types audit/bank-withdrawal-deposit/prove.mjs
-          node --experimental-strip-types audit/bank-withdrawal-deposit/lifecycle-proof.mjs "${{ runner.temp }}/bank-wd-lifecycle"
-          python3 -B audit/bank-withdrawal-deposit/check-evidence.py "$BANK_WD_PROOF_DIR"/attempt-* "${{ runner.temp }}/bank-wd-lifecycle" --output "${{ runner.temp }}/bank-wd-evidence-check.json"
-      - name: Verify supplied long asset components, original lifecycle, oracle and mutations
-        env:
-          ASSET_LONG_REPORT_DIR: ${{ runner.temp }}/fixed-assets-long-proof
-          ASSET_LONG_ORACLE_REPORT_DIR: ${{ runner.temp }}/fixed-assets-long-oracle
-          ASSET_LONG_MUTATION_DIR: ${{ runner.temp }}/fixed-assets-long-mutations
-        run: |
-          pnpm test:fixed-assets-long
-          pnpm test:fixed-assets-long:oracle
-          pnpm test:fixed-assets-long:proof
-          pnpm test:fixed-assets-long:mutations
-      - name: Verify explicit signed-kind gateway originals, lifecycle, independent exports and mutations
-        env:
-          PG_SIGNED_PROOF_DIR: ${{ runner.temp }}/payment-gateway-signed-proof
-          PG_SIGNED_EXPORT_CHECK_DIR: ${{ runner.temp }}/payment-gateway-signed-export-check
-          PG_SIGNED_ORACLE_DIR: ${{ runner.temp }}/payment-gateway-signed-oracle
-          PG_SIGNED_MUTATION_REPORT_DIR: ${{ runner.temp }}/payment-gateway-signed-mutations
-        run: |
-          pnpm test:payment-gateway-signed
-          pnpm test:payment-gateway-signed:oracle
-          pnpm test:payment-gateway-signed:proof
-          pnpm test:payment-gateway-signed:mutations
-      - name: Verify AR scope headers, original amounts, sessions, independent exports and semantic mutations
-        env:
-          AR_SCOPE_DETAILS_REPORT_DIR: ${{ runner.temp }}/ar-scope-details-proof
-          AR_SCOPE_CHECK_DIR: ${{ runner.temp }}/ar-scope-details-check
-          AR_SCOPE_MUTATION_DIR: ${{ runner.temp }}/ar-scope-details-mutations
-        run: |
-          pnpm test:ar-scope-details
-          pnpm test:ar-scope-details:oracle
-          pnpm test:ar-scope-details:proof
-          pnpm test:ar-scope-details:mutations
-      - name: Verify sectioned inventory originals, literal citations, financial links and worker binding
-        env:
-          INV_SECTION_PROOF_DIR: ${{ runner.temp }}/inventory-section-proof
-          INV_SECTION_MUTATION_DIR: ${{ runner.temp }}/inventory-section-mutations
-        run: |
-          pnpm test:inventory-sections
-          pnpm test:inventory-sections:oracle
-          pnpm test:inventory-sections:proof
-          pnpm test:inventory-sections:mutations
-      - name: Verify inventory matrix originals, quantities, dimensions, column ownership and worker binding
-        env:
-          INV_MATRIX_PROOF_DIR: ${{ runner.temp }}/inventory-matrix-proof
-          INV_MATRIX_MUTATION_DIR: ${{ runner.temp }}/inventory-matrix-mutations
-        run: |
-          pnpm test:inventory-matrix
-          pnpm test:inventory-matrix:oracle
-          pnpm test:inventory-matrix:proof
-          pnpm test:inventory-matrix:mutations
-      - name: Verify hierarchy inventory originals, parent ownership, merge payload and independent outputs
-        env:
-          INV_HIERARCHY_PROOF_DIR: ${{ runner.temp }}/inventory-hierarchy-proof
-          INV_HIERARCHY_MUTATION_DIR: ${{ runner.temp }}/inventory-hierarchy-mutations
-        run: |
-          pnpm test:inventory-hierarchy
-          pnpm test:inventory-hierarchy:oracle
-          pnpm test:inventory-hierarchy:proof
-          pnpm test:inventory-hierarchy:mutations
-      - name: Verify column-header source truth and preserve pre-implementation product refusals
-        env:
-          INV_COLUMN_BASELINE_DIR: ${{ runner.temp }}/inventory-column-baseline
-        run: |
-          pnpm test:inventory-column:oracle
-          pnpm test:inventory-column:baseline
-      - name: Verify inventory PDF source truth, page boundaries and preserved pre-activation capacity gap
-        env:
-          INV_PDF_ACCOUNTING_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-accounting
-          INV_PDF_ACCOUNTING_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-accounting-mutations
-          INV_PDF_FIELDS_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-fields
-          INV_PDF_FIELDS_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-fields-mutations
-          INV_PDF_NATIVE_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-native-source
-          PDF_NATIVE_SOURCE_MUTATION_DIR: ${{ runner.temp }}/pdf-native-source-mutations
-          INV_PDF_BASELINE_DIR: ${{ runner.temp }}/inventory-pdf-baseline
-        run: |
-          pnpm test:inventory-pdf:oracle
-          pnpm test:inventory-pdf:baseline
-          pnpm test:inventory-pdf:native-proof
-          pnpm test:inventory-pdf:native-mutations
-          pnpm test:inventory-pdf:fields-proof
-          pnpm test:inventory-pdf:fields-mutations
-          pnpm test:inventory-pdf:accounting
-          pnpm test:inventory-pdf:accounting-proof
-          pnpm test:inventory-pdf:accounting-mutations
-      - name: Verify inventory PDF original Worker, versioned sessions, decisions and stale evidence faults
-        env:
-          INV_PDF_LIFECYCLE_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-lifecycle
-          INV_PDF_LIFECYCLE_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-lifecycle-mutations
-        run: |
-          pnpm test:inventory-pdf:lifecycle
-          pnpm test:inventory-pdf:lifecycle-proof
-          pnpm test:inventory-pdf:lifecycle-mutations
-      - name: Verify inventory PDF original-bound Excel, native Worker, independent OpenXML and mutations
-        env:
-          INV_PDF_WORKBOOK_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-workbook
-          INV_PDF_WORKBOOK_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-workbook-mutations
-        run: |
-          pnpm test:inventory-pdf:workbook
-          pnpm test:inventory-pdf:workbook-proof
-          pnpm test:inventory-pdf:workbook-mutations
-      - name: Verify inventory PDF workspace original preview, read-only assistant and bilingual evidence contracts
-        env:
-          INV_PDF_WORKSPACE_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-workspace
-          INV_PDF_WORKSPACE_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-workspace-mutations
-        run: |
-          pnpm test:inventory-pdf:workspace
-          pnpm test:inventory-pdf:workspace-proof
-          pnpm test:inventory-pdf:workspace-mutations
-      - name: Verify column hierarchy financial membership, native intervals, replay, independent exports and guard faults
-        env:
-          INV_COLUMN_PROOF_DIR: ${{ runner.temp }}/inventory-column-proof
-          INV_COLUMN_MUTATION_DIR: ${{ runner.temp }}/inventory-column-mutations
-        run: |
-          pnpm test:inventory-column
-          pnpm test:inventory-column:proof
-          pnpm test:inventory-column:mutations
       - run: pnpm build
       - name: Verify reviewed distribution immediately after build
         run: node scripts/public-content-check.mjs --dist
@@ -1701,6 +1577,148 @@ jobs:
           pnpm test:bank-statement:g3-proof
       - name: Verify the pre-seal cashbook check, its mutants and its recorded agreement with the product's cashbook reading (BNK-PDF-1 G16)
         run: pnpm test:bank-statement:cashbook-check
+  family-source-proofs:
+    name: Withdrawal-deposit, long asset, signed gateway, AR scope, inventory and inventory PDF source proofs beside the build, waited for by the deployment
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - name: Verify withdrawal-deposit original sources, six-source lifecycle and assertion mutations
+        env:
+          BANK_WD_PROOF_DIR: ${{ runner.temp }}/bank-wd-proof
+          BANK_WD_MUTATION_DIR: ${{ runner.temp }}/bank-wd-mutations
+        run: |
+          pnpm test:bank-wd:mutations
+          node --experimental-strip-types audit/bank-withdrawal-deposit/prove.mjs
+          node --experimental-strip-types audit/bank-withdrawal-deposit/lifecycle-proof.mjs "${{ runner.temp }}/bank-wd-lifecycle"
+          python3 -B audit/bank-withdrawal-deposit/check-evidence.py "$BANK_WD_PROOF_DIR"/attempt-* "${{ runner.temp }}/bank-wd-lifecycle" --output "${{ runner.temp }}/bank-wd-evidence-check.json"
+      - name: Verify supplied long asset components, original lifecycle, oracle and mutations
+        env:
+          ASSET_LONG_REPORT_DIR: ${{ runner.temp }}/fixed-assets-long-proof
+          ASSET_LONG_ORACLE_REPORT_DIR: ${{ runner.temp }}/fixed-assets-long-oracle
+          ASSET_LONG_MUTATION_DIR: ${{ runner.temp }}/fixed-assets-long-mutations
+        run: |
+          pnpm test:fixed-assets-long
+          pnpm test:fixed-assets-long:oracle
+          pnpm test:fixed-assets-long:proof
+          pnpm test:fixed-assets-long:mutations
+      - name: Verify explicit signed-kind gateway originals, lifecycle, independent exports and mutations
+        env:
+          PG_SIGNED_PROOF_DIR: ${{ runner.temp }}/payment-gateway-signed-proof
+          PG_SIGNED_EXPORT_CHECK_DIR: ${{ runner.temp }}/payment-gateway-signed-export-check
+          PG_SIGNED_ORACLE_DIR: ${{ runner.temp }}/payment-gateway-signed-oracle
+          PG_SIGNED_MUTATION_REPORT_DIR: ${{ runner.temp }}/payment-gateway-signed-mutations
+        run: |
+          pnpm test:payment-gateway-signed
+          pnpm test:payment-gateway-signed:oracle
+          pnpm test:payment-gateway-signed:proof
+          pnpm test:payment-gateway-signed:mutations
+      - name: Verify AR scope headers, original amounts, sessions, independent exports and semantic mutations
+        env:
+          AR_SCOPE_DETAILS_REPORT_DIR: ${{ runner.temp }}/ar-scope-details-proof
+          AR_SCOPE_CHECK_DIR: ${{ runner.temp }}/ar-scope-details-check
+          AR_SCOPE_MUTATION_DIR: ${{ runner.temp }}/ar-scope-details-mutations
+        run: |
+          pnpm test:ar-scope-details
+          pnpm test:ar-scope-details:oracle
+          pnpm test:ar-scope-details:proof
+          pnpm test:ar-scope-details:mutations
+      - name: Verify sectioned inventory originals, literal citations, financial links and worker binding
+        env:
+          INV_SECTION_PROOF_DIR: ${{ runner.temp }}/inventory-section-proof
+          INV_SECTION_MUTATION_DIR: ${{ runner.temp }}/inventory-section-mutations
+        run: |
+          pnpm test:inventory-sections
+          pnpm test:inventory-sections:oracle
+          pnpm test:inventory-sections:proof
+          pnpm test:inventory-sections:mutations
+      - name: Verify inventory matrix originals, quantities, dimensions, column ownership and worker binding
+        env:
+          INV_MATRIX_PROOF_DIR: ${{ runner.temp }}/inventory-matrix-proof
+          INV_MATRIX_MUTATION_DIR: ${{ runner.temp }}/inventory-matrix-mutations
+        run: |
+          pnpm test:inventory-matrix
+          pnpm test:inventory-matrix:oracle
+          pnpm test:inventory-matrix:proof
+          pnpm test:inventory-matrix:mutations
+      - name: Verify hierarchy inventory originals, parent ownership, merge payload and independent outputs
+        env:
+          INV_HIERARCHY_PROOF_DIR: ${{ runner.temp }}/inventory-hierarchy-proof
+          INV_HIERARCHY_MUTATION_DIR: ${{ runner.temp }}/inventory-hierarchy-mutations
+        run: |
+          pnpm test:inventory-hierarchy
+          pnpm test:inventory-hierarchy:oracle
+          pnpm test:inventory-hierarchy:proof
+          pnpm test:inventory-hierarchy:mutations
+      - name: Verify column-header source truth and preserve pre-implementation product refusals
+        env:
+          INV_COLUMN_BASELINE_DIR: ${{ runner.temp }}/inventory-column-baseline
+        run: |
+          pnpm test:inventory-column:oracle
+          pnpm test:inventory-column:baseline
+      - name: Verify inventory PDF source truth, page boundaries and preserved pre-activation capacity gap
+        env:
+          INV_PDF_ACCOUNTING_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-accounting
+          INV_PDF_ACCOUNTING_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-accounting-mutations
+          INV_PDF_FIELDS_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-fields
+          INV_PDF_FIELDS_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-fields-mutations
+          INV_PDF_NATIVE_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-native-source
+          PDF_NATIVE_SOURCE_MUTATION_DIR: ${{ runner.temp }}/pdf-native-source-mutations
+          INV_PDF_BASELINE_DIR: ${{ runner.temp }}/inventory-pdf-baseline
+        run: |
+          pnpm test:inventory-pdf:oracle
+          pnpm test:inventory-pdf:baseline
+          pnpm test:inventory-pdf:native-proof
+          pnpm test:inventory-pdf:native-mutations
+          pnpm test:inventory-pdf:fields-proof
+          pnpm test:inventory-pdf:fields-mutations
+          pnpm test:inventory-pdf:accounting
+          pnpm test:inventory-pdf:accounting-proof
+          pnpm test:inventory-pdf:accounting-mutations
+      - name: Verify inventory PDF original Worker, versioned sessions, decisions and stale evidence faults
+        env:
+          INV_PDF_LIFECYCLE_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-lifecycle
+          INV_PDF_LIFECYCLE_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-lifecycle-mutations
+        run: |
+          pnpm test:inventory-pdf:lifecycle
+          pnpm test:inventory-pdf:lifecycle-proof
+          pnpm test:inventory-pdf:lifecycle-mutations
+      - name: Verify inventory PDF original-bound Excel, native Worker, independent OpenXML and mutations
+        env:
+          INV_PDF_WORKBOOK_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-workbook
+          INV_PDF_WORKBOOK_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-workbook-mutations
+        run: |
+          pnpm test:inventory-pdf:workbook
+          pnpm test:inventory-pdf:workbook-proof
+          pnpm test:inventory-pdf:workbook-mutations
+      - name: Verify inventory PDF workspace original preview, read-only assistant and bilingual evidence contracts
+        env:
+          INV_PDF_WORKSPACE_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-workspace
+          INV_PDF_WORKSPACE_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-workspace-mutations
+        run: |
+          pnpm test:inventory-pdf:workspace
+          pnpm test:inventory-pdf:workspace-proof
+          pnpm test:inventory-pdf:workspace-mutations
+      - name: Verify column hierarchy financial membership, native intervals, replay, independent exports and guard faults
+        env:
+          INV_COLUMN_PROOF_DIR: ${{ runner.temp }}/inventory-column-proof
+          INV_COLUMN_MUTATION_DIR: ${{ runner.temp }}/inventory-column-mutations
+        run: |
+          pnpm test:inventory-column
+          pnpm test:inventory-column:proof
+          pnpm test:inventory-column:mutations
   deploy:
     if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
     needs:
@@ -1709,6 +1727,7 @@ jobs:
       - specialized-faults
       - domain-oracle-mutants
       - source-family-proofs
+      - family-source-proofs
     permissions:
       pages: write
       id-token: write

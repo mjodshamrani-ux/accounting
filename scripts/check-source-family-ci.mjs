@@ -58,7 +58,11 @@ assert.deepEqual(
 // Jobs beside the build that hold required gates. The deployment waits for
 // each of them after the frozen 0.4.43 jobs, in this order; read back to the
 // frozen needs, nothing else in the deployment may differ.
-const deployGated = ['domain-oracle-mutants', 'source-family-proofs'];
+const deployGated = [
+  'domain-oracle-mutants',
+  'source-family-proofs',
+  'family-source-proofs',
+];
 {
   const deploy = structuredClone(workflow.jobs.deploy);
   assert.deepEqual(deploy.needs, [...baseline.jobs.deploy.needs, ...deployGated]);
