@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 91810,
-      "sha256": "fa676190a3097ea990fd3eb6f1c7fbd8f39409699243f7bb41351aa3a14007dc",
+      "bytes": 91934,
+      "sha256": "718320ef6c6077ea56144641c97dc3ecb8cd9d3cb3ba60fbd4e411ea92070a84",
       "kind": "text"
     },
     {
@@ -36139,8 +36139,8 @@
     },
     {
       "path": "docs/reference/DELIVERY.ar.md",
-      "bytes": 6933,
-      "sha256": "c87ddda2f1cc8eb6c30ae86cfb20865b6e66784feb1a2c892c407ebd1ead5561",
+      "bytes": 6960,
+      "sha256": "9667b1d35b67d952acd606a2e72b2209eaf3afba4f0442bdcea162f6c9afd4dd",
       "kind": "text"
     },
     {
@@ -36151,14 +36151,14 @@
     },
     {
       "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
-      "bytes": 137125,
-      "sha256": "4803729067f3027d7ebc5fc91f4fd17a0442a7f6d01c5cba486518ee187b3b22",
+      "bytes": 139506,
+      "sha256": "79daa700f9d3991e5bfd3df2db06bd0271e77ce28dc1dbacb1a50301d8b13149",
       "kind": "text"
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 135630,
-      "sha256": "5ffa50a2c45d1e20adf7f40669f68fc4afecea0d7749f7d2a27cce37ffda2c29",
+      "bytes": 137071,
+      "sha256": "bb74551fd75bd7110fb3a8a62520b661a44e609e3102928a2d6bd7bb9153eb4b",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 58628,
-      "sha256": "23be8b1c2c1637083ca48b683c9e62172de51533c0ab2a00220f41a31678244c",
+      "bytes": 58730,
+      "sha256": "ee43332cf6e9653f83030ade8ea9484e8e6326b0afd770683184919be69f5d5e",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 18868,
-      "sha256": "5e99b8e5d4125cdbcc0838e7d77ad1ffee23a93c3c59da784f0bac3415104a4e",
+      "bytes": 18895,
+      "sha256": "42ad67f06f679db666b1ffc9603637df2093a8290e6ba7c5f10a4199fb89391e",
       "kind": "text"
     },
     {
@@ -44427,8 +44427,8 @@
     },
     {
       "path": ".claude/skills/tarasuf-regression-release/selection.md",
-      "bytes": 4044,
-      "sha256": "9af6e925c1e83f6683c0a9e6b213ae5af83d7f44ded925370b395bdc46160125",
+      "bytes": 4118,
+      "sha256": "bb003118b877eca55a04f1e96863af73fdd9ac0be1f03ed0a520bf74d6903be1",
       "kind": "text"
     },
     {
@@ -44469,8 +44469,8 @@
     },
     {
       "path": "docs/reference/LESSONS-INDEX.ar.md",
-      "bytes": 43389,
-      "sha256": "78b36b10bd776701c04ff514969ebce63701ad86e4041ef0c72c3dbb401969d4",
+      "bytes": 43662,
+      "sha256": "dca588291e130fe5860368bfec8f0fd68806984b58f19518c06ed9ba4f18ce96",
       "kind": "text"
     },
     {
@@ -67143,8 +67143,8 @@
     },
     {
       "path": "docs/audits/ALL-1C.ar.md",
-      "bytes": 11598,
-      "sha256": "15e976e506a3864ff026a484c21d013c78e46ccb88ab40e96a8e6aedf3cb1341",
+      "bytes": 11703,
+      "sha256": "23532bf0c7d4b996c41a2492e4fd21ac6ff6a14daeb8d128cf2d30e7d7bc69e0",
       "kind": "text"
     },
     {
@@ -71321,8 +71321,8 @@
     },
     {
       "path": "docs/audits/FA-1C.ar.md",
-      "bytes": 8661,
-      "sha256": "eebb4fd175506707a412e90a85d5ec62e20d014a42e1da72afe0dc3eb41eabcc",
+      "bytes": 8971,
+      "sha256": "ecc104ae06a00c1caa7411f572127979350bc62b14ff230442d075234647c213",
       "kind": "text"
     },
     {
@@ -72409,6 +72409,12 @@
       "path": "docs/audits/FA-1D.ar.md",
       "bytes": 5252,
       "sha256": "b6cebc21e055f596670bf4fbe0fc3900907414c36e04ee626af726f78f710c3d",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/check-mutation-anchors.mjs",
+      "bytes": 11422,
+      "sha256": "ebbca88d300f0fa794bdb59f30fa332690c5e9f0712d3f943234557f19ac35a1",
       "kind": "text"
     }
   ],

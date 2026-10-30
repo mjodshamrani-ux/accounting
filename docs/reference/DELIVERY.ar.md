@@ -41,6 +41,7 @@ pnpm lint
 pnpm typecheck
 pnpm test
 pnpm test:mutation-runner
+pnpm test:mutation-anchors
 pnpm test:hard-cases
 pnpm test:source-families:ci
 pnpm build

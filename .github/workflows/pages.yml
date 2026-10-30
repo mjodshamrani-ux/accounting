@@ -40,6 +40,8 @@ jobs:
         env:
           RUNNING_SESSION_REPORT_DIR: ${{ runner.temp }}/running-balance-session
       - run: pnpm test:mutation-runner
+      - name: Check every mutation and fault anchor once, after a planted self-test
+        run: pnpm test:mutation-anchors
       - name: Verify GL-TB request source and session binding with independent exports and guard faults
         env:
           GL_TB_BINDING_REPORT_DIR: ${{ runner.temp }}/gl-tb-binding-exports

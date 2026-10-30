@@ -252,8 +252,8 @@
 - **السبب:** فحص المراسي يغطي `test-mutations.mjs` وحده، ولم تُشغَّل بوابة العائلة التي تغير ملفها.
 - **الدليل:** [الدرس](DEVELOPMENT-LESSONS.ar.md#dev-75-كل-بوابة-طفرات-ترسو-على-ملف-تُشغَّل-حين-يتغير-الملف).
 - **الحالة الكاشفة:** `legacy-session-break` و`export-original-open-swap` في `test-ar-scope-details-mutations.mjs`؛ **وتكرر في CLR-1c:** `snapshot-reconcile` وثلاثة مراسٍ نُسخ نصها في `test-gl-tb-binding-mutations.mjs`.
-- **الاختبار:** `pnpm test:ar-scope-details:mutations`، 26/26 بعد إعادة الترسية؛ و`node scripts/test-gl-tb-binding-mutations.mjs`، 9/9.
-- **الإجراء:** ابحث في `scripts/` عن كل ملف غيرته وشغّل كل بوابة تذكره قبل الدفع، ولا تنسخ نص كتلة قائمة إلى فرع جديد في ملف مشترك. المهارة: `tarasuf-regression-release`.
+- **الاختبار:** `pnpm test:ar-scope-details:mutations`، 26/26 بعد إعادة الترسية؛ و`node scripts/test-gl-tb-binding-mutations.mjs`، 9/9؛ **و`pnpm test:mutation-anchors` في CI منذ 30 أكتوبر،** يعد كل مرسى في كل بوابة بعد فحص نفسه على شجرة مزروعة، بعد أن كان المسح قبله خارج المستودع.
+- **الإجراء:** شغّل `pnpm test:mutation-anchors`، وابحث في `scripts/` عن كل ملف غيرته وشغّل كل بوابة تذكره قبل الدفع، ولا تنسخ نص كتلة قائمة إلى فرع جديد في ملف مشترك. المهارة: `tarasuf-regression-release`.
 
 ### DEV-76 أداة القياس تقارن البيانات لا تمثيلها، وتُختبر قبل أن يُسجَّل ما تقوله
 
