@@ -24,6 +24,8 @@ BINDINGS = {
     'stock': ('inventory-register-workspace', [0, 3]), 'assets': ('fixed-assets-workspace', [0, 3]),
     'payroll': ('payroll-workspace', [0, 3]),
 }
+# A domain with a second source path in another component.
+MORE_BINDINGS = {'bank': ('bank-statement-workspace', [0, 1])}
 DOCS = [ENTRY, ADAPTER, *(f'{SKILL}/references/{r}.md' for r in REFS),
         'docs/audits/TARASUF-UI-CRAFT-REVIEW.ar.md', 'docs/reference/TARASUF-UI-CRAFT.ar.md']
 
@@ -103,8 +105,10 @@ def check(overrides=None):
     rows = dict(re.findall(r'^\| `([^`]+)` \| (.+)$', domain_doc, re.M))
     if set(rows) != domains or len(domains) != 12:
         errors.append('Domain map drift: inspect current union and skill table')
-    for domain, (component, indices) in BINDINGS.items():
+    for domain, (component, indices) in [*BINDINGS.items(), *MORE_BINDINGS.items()]:
         source = text(f'components/{component}.tsx')
+        if f'(../../../../components/{component}.tsx)' not in rows.get(domain, ''):
+            errors.append(f'Domain table does not link its source: {domain}: {component}')
         pattern = r'primaryIndices=\{\[\s*' + r'\s*,\s*'.join(map(str, indices)) + r'\s*\]\}'
         if not re.search(pattern, source):
             errors.append(f'Primary source binding drift: {domain}')
@@ -131,6 +135,8 @@ def self_test():
         'reference': {f'{SKILL}/references/identity.md': None},
         'domain': {domain_path: read(domain_path).replace(b'`payroll`', b'`unknown`')},
         'binding': {'components/payroll-workspace.tsx': read('components/payroll-workspace.tsx').replace(b'primaryIndices={[0, 3]}', b'primaryIndices={[0, 2]}')},
+        'second-binding': {'components/bank-statement-workspace.tsx': read('components/bank-statement-workspace.tsx').replace(b'primaryIndices={[0, 1]}', b'primaryIndices={[1, 0]}')},
+        'unlinked-path': {domain_path: read(domain_path).replace(b'[printed statement](../../../../components/bank-statement-workspace.tsx), ', b'')},
         'adapter': {ADAPTER: read(ADAPTER).replace(b'../../../.agents/', b'../../.agents/')},
         'metadata': {meta_path: read(meta_path).replace(b'$tarasuf-ui-craft', b'$wrong-skill')},
         'license': {f'{SKILL}/licenses/unslop-CC-BY-4.0.txt': b'changed'},
