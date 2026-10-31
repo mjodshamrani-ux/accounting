@@ -3,7 +3,7 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount, Figures } from '@/components/amount';
 import { RecordPager, RecordTable } from '@/components/record-table';
-import { recordPage } from '@/lib/record-page';
+import { pageOfRow, recordPage } from '@/lib/record-page';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -245,12 +245,12 @@ export function FinancialWorkspace({
     }, shown);
   }
   // The decision platform (UX-3): after a decision on a statement line the
-  // focus returns to that line's heading, which holds its state, not to the
-  // page.
+  // focus returns to that line's heading, which holds its state, on the page
+  // that shows it, not to the page.
   const hint = useId(),
     lineHeading = useId(),
     settle = useDecisionFocus();
-  const headingOf = (id: string) => `${lineHeading}-${id}`;
+  const headingAt = (at: number) => `${lineHeading}-${at}`;
   async function decide(line: string, type: FinancialEvent['type']) {
     if (!result) return;
     const l = result.lines.find((l) => l.lineId === line)!;
@@ -273,7 +273,10 @@ export function FinancialWorkspace({
         ),
       (v) => {
         install(v);
-        settle(headingOf(l.id));
+        const at = v.result.lines.findIndex((n) => n.lineId === line);
+        if (at < 0) return;
+        setLinePage(pageOfRow(at));
+        settle(headingAt(at));
       },
     );
   }
@@ -643,9 +646,13 @@ export function FinancialWorkspace({
                 }}
               />
             </fieldset>
-            {result.lines.slice(linesShown.from, linesShown.to).map((l) => (
+            {result.lines.slice(linesShown.from, linesShown.to).map((l, i) => (
               <section key={l.id}>
-                <h3 id={headingOf(l.id)} tabIndex={-1}>
+                <h3
+                  id={headingAt(linesShown.from + i)}
+                  tabIndex={-1}
+                  data-decision-item
+                >
                   {l.lineId} · {l.label} · {t.financial.categories[l.category]}{' '}
                   · {status(l.review)}
                 </h3>
@@ -695,7 +702,8 @@ export function FinancialWorkspace({
                   }}
                   labels={t.financial.decisionLabels}
                   busy={busy}
-                  describedBy={`${hint} ${headingOf(l.id)}`}
+                  describedBy={`${hint} ${headingAt(linesShown.from + i)}`}
+                  target={headingAt(linesShown.from + i)}
                   onDecide={(type) => void decide(l.lineId, type)}
                 />
               </section>

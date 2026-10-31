@@ -1,10 +1,11 @@
 // UX-3 decision platform interface mutations: each planted defect in the
-// platform the six workspaces share (the sentence under the decision
-// buttons, the buttons it describes, the focus after a decision, and the
-// reasons of the other closed buttons) is built into a private copy of the
-// application, and the decision platform browser acceptance
-// (scripts/decision-platform-browser.mjs, against that build) must fail with
-// an assertion. A survivor is behaviour no check holds.
+// platform the workspaces share (the sentence under the decision buttons,
+// the buttons it describes, the focus after a decision and the page that
+// shows the item decided on, and the reasons of the other closed buttons)
+// is built into a private copy of the application, and the decision
+// platform browser acceptance (scripts/decision-platform-browser.mjs,
+// against that build) must fail with an assertion. A survivor is behaviour
+// no check holds.
 //   node scripts/test-decision-platform-interface-mutations.mjs
 import {
   cp,
@@ -63,7 +64,7 @@ const mutations = [
   [
     'pair-focus-nowhere',
     'components/intercompany-workspace.tsx',
-    '        settle(headingOf(p.relationRecord));',
+    '        settle(headingAt(at));',
     "        settle('');",
   ],
   [
@@ -84,6 +85,91 @@ const mutations = [
     'components/payroll-workspace.tsx',
     '                  aria-describedby={hint}\n                  maxLength={2000}\n                  value={reference}',
     '                  maxLength={2000}\n                  value={reference}',
+  ],
+  // Step 3b: receivables, clearing, allocation and the bank.
+  [
+    'note-length-unnamed',
+    KIT,
+    '      {ready ? children : decisionPlatformCopy[lang].note(label, NOTE_MINIMUM)}',
+    '      {children}',
+  ],
+  [
+    'note-minimum-ignored',
+    LOGIC,
+    'export const noteReady = (note: string) => note.trim().length >= NOTE_MINIMUM;',
+    'export const noteReady = (note: string) => note.trim().length > 0;',
+  ],
+  [
+    'decided-pair-page-forgotten',
+    'components/ar-workspace.tsx',
+    '      setPage(pageOfRow(at));\n      settle(headingAt(at));',
+    '      settle(headingAt(at));',
+  ],
+  [
+    'decided-pair-focus-nowhere',
+    'components/ar-workspace.tsx',
+    '      setPage(pageOfRow(at));\n      settle(headingAt(at));',
+    '      setPage(pageOfRow(at));',
+  ],
+  [
+    'clearing-takes-any-selection',
+    'components/clearing-workspace.tsx',
+    "disabled={busy || selection !== 'ready' || !noteReady(note)}",
+    'disabled={busy || selected.length < 2 || !noteReady(note)}',
+  ],
+  [
+    'clearing-focus-nowhere',
+    'components/clearing-workspace.tsx',
+    '      settle(rowAt(at));',
+    "      settle('');",
+  ],
+  [
+    'decided-row-unnamed',
+    'components/record-table.tsx',
+    '                {...focusTarget(target?.(row, from + i))}\n',
+    '',
+  ],
+  [
+    'example-reason-hidden',
+    'components/clearing-workspace.tsx',
+    '              closed={!!file}',
+    '              closed={false}',
+  ],
+  [
+    'advice-wait-unnamed',
+    LOGIC,
+    '  const advice = !d.selected,',
+    '  const advice = false,',
+  ],
+  [
+    'allocation-focus-nowhere',
+    'components/allocation-workspace.tsx',
+    '        settle(`${eventEntry}-${e.id}`);',
+    "        settle('');",
+  ],
+  [
+    'bank-case-focus-nowhere',
+    'components/bank-workspace.tsx',
+    '      settle(caseAt(at));',
+    "      settle('');",
+  ],
+  [
+    'balance-step-hidden',
+    'components/bank-adjustment-workspace.tsx',
+    '          closed={!!step}',
+    '          closed={false}',
+  ],
+  [
+    'balance-lifecycle-focus-nowhere',
+    'components/bank-adjustment-workspace.tsx',
+    '      settle(cycleAt(at));',
+    "      settle('');",
+  ],
+  [
+    'balance-hint-ignores-the-fields',
+    'components/bank-adjustment-workspace.tsx',
+    "        : (need ?? 'each'),",
+    "        : 'each',",
   ],
 ];
 const buildInputs = [

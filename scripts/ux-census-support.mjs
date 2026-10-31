@@ -38,17 +38,18 @@ export const METRICS = [
 ];
 
 // The decision each workspace offers after its example, by the names the
-// reader sees (UX-3): the two fields every decision needs, and the reject
-// button, open on what needs review. The census decides once per language,
-// after the states are measured, and reads where the focus went. A
-// workspace without an entry is not decided on.
+// reader sees (UX-3): the fields its decisions need, what the reader runs or
+// selects first where the workspace asks for it, and the decision buttons
+// tried in order, the first open one pressed. The census decides once per
+// language, after the states are measured, and reads where the focus went.
+// A workspace without an entry is not decided on.
 export const DECISIONS = {
   'tb-financial': {
     fields: {
       ar: ['مرجع القرار', 'سبب القرار'],
       en: ['Decision reference', 'Decision reason'],
     },
-    reject: { ar: 'رفض البند كاملًا', en: 'Reject whole line' },
+    press: { ar: ['رفض البند كاملًا'], en: ['Reject whole line'] },
   },
   intercompany: {
     fields: {
@@ -58,23 +59,23 @@ export const DECISIONS = {
         'Intercompany decision explanation',
       ],
     },
-    reject: { ar: 'رفض الزوج كاملًا', en: 'Reject whole pair' },
+    press: { ar: ['رفض الزوج كاملًا'], en: ['Reject whole pair'] },
   },
   gateway: {
     fields: {
       ar: ['مرجع قرار بوابة الدفع', 'شرح قرار بوابة الدفع'],
       en: ['Gateway decision reference', 'Gateway decision explanation'],
     },
-    reject: { ar: 'رفض الدفعة كاملة', en: 'Reject whole batch' },
+    press: { ar: ['رفض الدفعة كاملة'], en: ['Reject whole batch'] },
   },
   stock: {
     fields: {
       ar: ['مرجع قرار المخزون', 'توضيح قرار المخزون'],
       en: ['Inventory decision reference', 'Inventory decision explanation'],
     },
-    reject: {
-      ar: 'ارفض كامل نطاق المخزون',
-      en: 'Reject whole inventory scope',
+    press: {
+      ar: ['ارفض كامل نطاق المخزون'],
+      en: ['Reject whole inventory scope'],
     },
   },
   assets: {
@@ -82,14 +83,44 @@ export const DECISIONS = {
       ar: ['مرجع قرار الأصول', 'توضيح قرار الأصول'],
       en: ['Asset decision reference', 'Asset decision explanation'],
     },
-    reject: { ar: 'ارفض كامل نطاق الأصول', en: 'Reject whole asset scope' },
+    press: { ar: ['ارفض كامل نطاق الأصول'], en: ['Reject whole asset scope'] },
   },
   payroll: {
     fields: {
       ar: ['مرجع قرار الرواتب', 'توضيح قرار الرواتب'],
       en: ['Payroll decision reference', 'Payroll decision explanation'],
     },
-    reject: { ar: 'ارفض كامل نطاق الرواتب', en: 'Reject whole payroll scope' },
+    press: {
+      ar: ['ارفض كامل نطاق الرواتب'],
+      en: ['Reject whole payroll scope'],
+    },
+  },
+  ar: {
+    fields: { ar: ['سبب مراجعة المستند'], en: ['Document review reason'] },
+    press: { ar: ['إعادة فتح زوج المستندات'], en: ['Reopen document pair'] },
+  },
+  clearing: {
+    run: { ar: 'فحص المقاصة', en: 'Check clearing' },
+    fields: { ar: ['سبب قرار المراجعة'], en: ['Review decision reason'] },
+    press: { ar: ['إلغاء مقاصة المجموعة'], en: ['Reopen cleared group'] },
+  },
+  allocation: {
+    fields: { ar: ['سبب القرار أو الإلغاء'], en: ['Decision or undo reason'] },
+    select: '[data-testid="allocation-proof"] input:not(:disabled)',
+    press: {
+      ar: ['اعتماد الخطوط المحددة كاملة'],
+      en: ['Approve selected advice atomically'],
+    },
+  },
+  bank: {
+    fields: {
+      ar: ['مرجع الدليل', 'سبب القرار أو الإلغاء'],
+      en: ['Evidence reference', 'Decision or undo reason'],
+    },
+    press: {
+      ar: ['اعتمد الحالة المؤهلة كاملة', 'ألغ حالة الحركات كاملة'],
+      en: ['Approve complete eligible case', 'Undo complete movement case'],
+    },
   },
 };
 

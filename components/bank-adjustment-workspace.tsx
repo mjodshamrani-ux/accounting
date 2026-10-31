@@ -6,8 +6,12 @@ import {
   WorkspaceAdvanced,
 } from './workspace-chrome';
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { useResultFocus } from '@/components/result-focus';
+import { ClosedReason, useDecisionFocus } from '@/components/decision-platform';
+import { decisionNeed } from '@/lib/decision-platform';
+import { decisionPlatformCopy } from '@/lib/i18n/decision-platform';
+import { pageOfRow } from '@/lib/record-page';
 import { RecordRows } from '@/components/record-table';
 import './bank-adjustment-workspace.css';
 import { Button } from '@/components/ui/button';
@@ -104,7 +108,8 @@ export function BankAdjustmentWorkspace({
     [note, setNote] = useState(''),
     [selected, setSelected] = useState<
       { field: string; column: number; text: string }[] | null
-    >(null);
+    >(null),
+    [cyclePage, setCyclePage] = useState(0);
   const controller = useRef<AbortController | null>(null),
     serial = useRef(0),
     lastBank = useRef(bankKey(bank)),
@@ -234,6 +239,15 @@ export function BankAdjustmentWorkspace({
       invalidate();
     });
   }
+  // The decision platform (UX-3): the sentence under the two fields says
+  // which decisions are open and why the others are closed; after a decision
+  // the focus returns to the lifecycle it changed, on the page that shows
+  // it, not to the page.
+  const hint = useId(),
+    compareWhy = useId(),
+    cycleRow = useId(),
+    settle = useDecisionFocus();
+  const cycleAt = (at: number) => `${cycleRow}-${at}`;
   async function decide(type: AdjustmentEvent['type'], itemIds: string[]) {
     if (!result) return;
     const event: AdjustmentEvent = {
@@ -254,7 +268,14 @@ export function BankAdjustmentWorkspace({
         { ...input(), events: [...events, event] },
         signal,
       );
-      if (!signal.aborted) install(v);
+      if (signal.aborted) return;
+      install(v);
+      const at = v.result.lifecycles.findIndex((l) =>
+        l.itemIds.includes(itemIds[0]),
+      );
+      if (at < 0) return;
+      setCyclePage(pageOfRow(at));
+      settle(cycleAt(at));
     });
   }
   // Each evidence table pages on its own through the record kit (UX-3), so
@@ -263,8 +284,13 @@ export function BankAdjustmentWorkspace({
     title: string,
     headers: readonly string[],
     rows: readonly T[],
-    cells: (r: T) => ReactNode[],
+    cells: (r: T, at: number) => ReactNode[],
     testid?: string,
+    decided?: {
+      page: number;
+      onPage: (page: number) => void;
+      target: (r: T, at: number) => string;
+    },
   ) {
     return (
       <section>
@@ -275,6 +301,7 @@ export function BankAdjustmentWorkspace({
           rows={rows}
           cells={cells}
           frame={{ 'data-testid': testid }}
+          {...decided}
         />
       </section>
     );
@@ -287,7 +314,36 @@ export function BankAdjustmentWorkspace({
       !!result &&
       !['source-error', 'missing'].includes(result.status) &&
       !!reference.trim() &&
-      !!note.trim();
+      !!note.trim(),
+    // The same conditions, in the reader's words: a source error or a
+    // missing balance closes every decision; then the two fields.
+    words = decisionPlatformCopy[lang],
+    need = decisionNeed({
+      reference,
+      reason: note,
+      review: 'needs-review',
+      acceptBlock: null,
+    }),
+    hintKey =
+      result && ['source-error', 'missing'].includes(result.status)
+        ? 'blocked'
+        : (need ?? 'each'),
+    // What the reconciliation still waits for, the first missing.
+    step = !bank
+      ? t.steps.bank
+      : files.some((f) => !f)
+        ? t.steps.files
+        : readings.some((r) => !r.confirmed)
+          ? t.steps.readings
+          : !coverage
+            ? t.steps.coverage
+            : !complete
+              ? t.steps.complete
+              : !coverageRef.trim()
+                ? t.written(t.coverageRef)
+                : !coverageNote.trim()
+                  ? t.written(t.coverageNote)
+                  : '';
   return (
     <section
       className="gl-tb-workspace bank-balance-section"
@@ -529,6 +585,7 @@ export function BankAdjustmentWorkspace({
           />
         </label>
         <Button
+          aria-describedby={compareWhy}
           disabled={
             !bank ||
             files.some((f) => !f) ||
@@ -550,6 +607,13 @@ export function BankAdjustmentWorkspace({
         >
           {t.compare}
         </Button>
+        <ClosedReason
+          id={compareWhy}
+          closed={!!step}
+          waits="step"
+          label={t.compare}
+          step={step}
+        />
       </fieldset>
       {busy && (
         <>
@@ -703,6 +767,7 @@ export function BankAdjustmentWorkspace({
               {t.reference}
               <input
                 aria-label={t.reference}
+                aria-describedby={hint}
                 value={reference}
                 onChange={(e) => setReference(e.target.value)}
               />
@@ -711,21 +776,36 @@ export function BankAdjustmentWorkspace({
               {t.note}
               <textarea
                 aria-label={t.note}
+                aria-describedby={hint}
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
               />
             </label>
+            <p id={hint} className="decision-hint" data-decision-hint={hintKey}>
+              {hintKey === 'blocked'
+                ? t.blocked
+                : hintKey === 'both'
+                  ? words.both(t.reference, t.note)
+                  : hintKey === 'reference'
+                    ? words.reference(t.reference)
+                    : hintKey === 'reason'
+                      ? words.reason(t.note)
+                      : words.each}
+            </p>
             {table(
               t.cycles,
               t.cycleHead,
               result.lifecycles,
-              (l) => [
+              (l, at) => [
                 l.reference,
                 t.cycleStatus[l.status],
                 l.itemIds.map((id) => itemsById.get(id)).join(' · '),
                 l.proofIds.map((id) => proofsById.get(id)).join(' · '),
                 <div key="actions" className="gl-tb-actions">
                   <Button
+                    data-decision-action="accept"
+                    data-decision-target={cycleAt(at)}
+                    aria-describedby={hint}
                     disabled={!canDecide || l.status !== 'needs-review'}
                     onClick={() => decide('accept', l.itemIds)}
                     aria-label={`${t.accept} ${l.reference}`}
@@ -734,6 +814,9 @@ export function BankAdjustmentWorkspace({
                   </Button>
                   <Button
                     variant="outline"
+                    data-decision-action="reject"
+                    data-decision-target={cycleAt(at)}
+                    aria-describedby={hint}
                     disabled={!canDecide || l.status !== 'needs-review'}
                     onClick={() => decide('reject', l.itemIds)}
                     aria-label={`${t.reject} ${l.reference}`}
@@ -742,6 +825,9 @@ export function BankAdjustmentWorkspace({
                   </Button>
                   <Button
                     variant="outline"
+                    data-decision-action="undo"
+                    data-decision-target={cycleAt(at)}
+                    aria-describedby={hint}
                     disabled={
                       !canDecide || !['accepted', 'rejected'].includes(l.status)
                     }
@@ -753,6 +839,11 @@ export function BankAdjustmentWorkspace({
                 </div>,
               ],
               'bank-balance-lifecycles',
+              {
+                page: cyclePage,
+                onPage: setCyclePage,
+                target: (_, at) => cycleAt(at),
+              },
             )}
             {table(
               t.items,

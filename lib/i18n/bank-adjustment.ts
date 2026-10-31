@@ -122,6 +122,17 @@ export const bankAdjustmentCopy = {
     ],
     reference: 'Adjustment decision evidence reference',
     note: 'Adjustment decision reason',
+    // What the reconciliation waits for, the first missing named (UX-3).
+    steps: {
+      bank: 'the bank movements above are compared',
+      files: 'the four balance and item sources are chosen',
+      readings: 'each source table is reviewed',
+      coverage: 'the balance dates are reviewed',
+      complete: 'the evidence inventory is reviewed',
+    },
+    written: (label: string) => `the “${label}” is written`,
+    blocked:
+      'Decisions stay closed while a source has an error or a balance is missing; correct the source in its original file, then reconcile again.',
     accept: 'Approve lifecycle',
     reject: 'Reject lifecycle',
     undo: 'Undo lifecycle decision',
@@ -277,6 +288,16 @@ export const bankAdjustmentCopy = {
     historyHead: ['النوع', 'وقت UTC', 'مرجع الدليل', 'السبب', 'كامل الأعضاء'],
     reference: 'مرجع دليل قرار البند',
     note: 'سبب قرار البند',
+    steps: {
+      bank: 'مقارنة حركات البنك أعلاه',
+      files: 'اختيار مصادر الأرصدة والبنود الأربعة',
+      readings: 'مراجعة جدول كل مصدر',
+      coverage: 'مراجعة تواريخ الأرصدة',
+      complete: 'مراجعة حصر الأدلة',
+    },
+    written: (label: string) => `كتابة «${label}»`,
+    blocked:
+      'القرارات مغلقة ما دام في مصدر خطأ أو رصيد ناقص؛ صحّح المصدر في ملفه الأصلي ثم أعد التسوية.',
     accept: 'اعتمد الدورة',
     reject: 'ارفض الدورة',
     undo: 'ألغ قرار الدورة',

@@ -156,17 +156,21 @@
 }
 /* The decision platform (UX-3): the sentence that says which decisions are
    open and why the others are closed, as the bank's movement path says it;
-   and the state or item heading the focus returns to after a decision,
-   clear of the sticky top bar. */
+   and the state line, or the heading or row of the item decided on, that
+   the focus returns to after a decision, clear of the sticky top bar. */
 .decision-hint {
   margin-block: 0.75rem;
   line-height: 1.7;
   color: #637088;
 }
-:is([data-decision-state], h3[tabindex='-1']) {
+:is([data-decision-state], [data-decision-item], h3[tabindex='-1']) {
   scroll-margin-block-start: 6rem;
 }
-:is([data-decision-state], h3[tabindex='-1']):focus-visible {
+:is(
+  [data-decision-state],
+  [data-decision-item],
+  h3[tabindex='-1']
+):focus-visible {
   outline: 3px solid #8a69dc;
   outline-offset: 3px;
 }

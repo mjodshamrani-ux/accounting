@@ -1,6 +1,9 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { useId, useLayoutEffect, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
+import { useDecisionFocus } from '@/components/decision-platform';
+import { allocationNeed } from '@/lib/decision-platform';
+import { decisionPlatformCopy } from '@/lib/i18n/decision-platform';
 import type { AllocationWorkflowHandoff } from '@/lib/reconciliation/allocation-workflow-handoff';
 import { allocationWorkflowHandoffCopy } from '@/lib/i18n/allocation-workflow-handoff';
 import { Button } from '@/components/ui/button';
@@ -229,6 +232,13 @@ export function AllocationWorkspace({
       },
     );
   }
+  // The decision platform (UX-3): the sentence under the reason says what
+  // each decision still waits for; after a decision the focus goes to the
+  // dated decision it recorded, not to the page.
+  const hint = useId(),
+    linksWhy = useId(),
+    eventEntry = useId(),
+    settle = useDecisionFocus();
   async function decide(links: AllocationLink[], target?: string) {
     if (!result) return;
     const owned = structuredClone(input());
@@ -257,7 +267,10 @@ export function AllocationWorkspace({
           owned,
           signal,
         ),
-      install,
+      (v) => {
+        install(v);
+        settle(`${eventEntry}-${e.id}`);
+      },
     );
   }
   function readLedger() {
@@ -342,6 +355,18 @@ export function AllocationWorkspace({
         .filter((l) => l.basis.kind === 'remittance')
         .map((l) => l.basis.proofId),
     ),
+    // What each decision waits for, as its button: the sentence under the
+    // reason names it.
+    need = allocationNeed({
+      ready: result?.status === 'ready',
+      reason,
+      selected: selected.length,
+      reference,
+      linksComplete: drafts.every(
+        (d) => d.paymentId && d.invoiceId && d.amount.trim(),
+      ),
+    }),
+    words = decisionPlatformCopy[lang],
     // The ledger, the advice lines, the allocations and the source rows each
     // page on their own through the record kit (UX-3).
     turn = (name: string) => (to: number) =>
@@ -610,9 +635,34 @@ export function AllocationWorkspace({
               {t.decisionOrUndoReason}
               <input
                 value={reason}
+                aria-describedby={hint}
                 onChange={(e) => editReview(() => setReason(e.target.value))}
               />
             </label>
+            <p
+              id={hint}
+              className="decision-hint"
+              data-decision-hint={need.key}
+              data-decision-wait={
+                [need.advice && 'advice', need.human && 'human']
+                  .filter(Boolean)
+                  .join(' ') || undefined
+              }
+            >
+              {need.key === 'blocked'
+                ? words.allocation.blocked
+                : need.key === 'reason'
+                  ? words.reason(t.decisionOrUndoReason)
+                  : need.key === 'ready'
+                    ? words.allocation.ready
+                    : [
+                        need.advice && words.allocation.advice,
+                        need.human &&
+                          words.allocation.human(t.humanEvidenceReference),
+                      ]
+                        .filter(Boolean)
+                        .join(' ')}
+            </p>
             <h3>{t.adviceLinesForReview}</h3>
             {paged('proofs', result.proofs).map((p) => (
               <label key={p.id} data-testid="allocation-proof">
@@ -639,6 +689,8 @@ export function AllocationWorkspace({
             ))}
             {pager('proofs', t.adviceLinesForReview, result.proofs.length)}
             <Button
+              data-decision-action="accept"
+              aria-describedby={hint}
               disabled={!selected.length || !reason.trim()}
               onClick={() =>
                 decide(
@@ -739,6 +791,7 @@ export function AllocationWorkspace({
                 {drafts.length > 1 && (
                   <Button
                     variant="outline"
+                    aria-describedby={hint}
                     onClick={() =>
                       editReview(() =>
                         setDrafts(drafts.filter((_, j) => j !== index)),
@@ -752,6 +805,7 @@ export function AllocationWorkspace({
             ))}
             <Button
               variant="outline"
+              aria-describedby={`${hint} ${linksWhy}`}
               disabled={drafts.length >= 100}
               onClick={() =>
                 editReview(() =>
@@ -764,7 +818,16 @@ export function AllocationWorkspace({
             >
               {t.addAllocationLink}
             </Button>
+            <p
+              id={linksWhy}
+              className="decision-hint"
+              hidden={drafts.length < 100}
+            >
+              {words.allocation.links}
+            </p>
             <Button
+              data-decision-action="accept"
+              aria-describedby={hint}
               disabled={
                 !reason.trim() ||
                 !reference.trim() ||
@@ -805,7 +868,13 @@ export function AllocationWorkspace({
             </Button>
             <h3>{t.datedDecisions}</h3>
             {result.events.map((e) => (
-              <div key={e.id} data-testid="allocation-event">
+              <div
+                key={e.id}
+                data-testid="allocation-event"
+                id={`${eventEntry}-${e.id}`}
+                tabIndex={-1}
+                data-decision-item
+              >
                 <p>
                   {e.id} · {t.eventTypes[e.type]} · {e.at} · {e.note}
                   {e.type === 'undo' ? ` → ${e.target}` : ''}
@@ -814,6 +883,8 @@ export function AllocationWorkspace({
                   result.activeDecisions.includes(e.id) && (
                     <Button
                       variant="outline"
+                      data-decision-action="undo"
+                      aria-describedby={hint}
                       disabled={!reason.trim()}
                       onClick={() => decide([], e.id)}
                     >

@@ -1,7 +1,12 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { ClearingGroupsPanel } from './clearing-groups-panel';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
+import {
+  ClosedReason,
+  NoteHint,
+  useDecisionFocus,
+} from '@/components/decision-platform';
 import {
   WorkspaceHeader,
   WorkspaceIntro,
@@ -13,6 +18,9 @@ import {
 } from './workspace-chrome';
 import { Button } from './ui/button';
 import { useI18n } from '@/lib/i18n/context';
+import { decisionPlatformCopy } from '@/lib/i18n/decision-platform';
+import { clearingSelection, noteReady } from '@/lib/decision-platform';
+import { pageOfRow } from '@/lib/record-page';
 import { workerTask, prepareWorker } from '@/lib/reconciliation/client';
 import { money } from '@/lib/reconciliation/core';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
@@ -70,7 +78,7 @@ export function ClearingWorkspace({
   active: boolean;
   onBack: () => void;
 }) {
-  const { t: catalogue } = useI18n();
+  const { t: catalogue, lang } = useI18n();
   const t = catalogue.clearing;
   const [file, setFile] = useState<SourceFile | null>(null),
     [reading, setReading] = useState(freshReading),
@@ -149,22 +157,35 @@ export function ClearingWorkspace({
     perform(async (signal) =>
       shown(await workerTask('clearing-reconcile', input(), signal)),
     );
+  // The decision platform (UX-3): a decision needs a review reason of eight
+  // characters, as the engine requires, and clearing by hand a selection
+  // the engine accepts; the sentence under the reason says which is
+  // missing. After a decision the focus returns to the group it changed,
+  // on the page that shows it, not to the page.
+  const hint = useId(),
+    caseRow = useId(),
+    exampleWhy = useId(),
+    settle = useDecisionFocus();
+  const rowAt = (at: number) => `${caseRow}-${at}`;
   const decide = (action: ClearingEvent['action'], ids: string[]) =>
-    perform(async (signal) =>
-      install(
-        await workerTask(
-          'clearing-reconcile',
-          {
-            ...input(),
-            events: [
-              ...events,
-              { context: result!.context, action, ids, note },
-            ],
-          },
-          signal,
-        ),
-      ),
-    );
+    perform(async (signal) => {
+      const value = await workerTask<{
+        state: ClearingInput;
+        result: ClearingResult;
+      }>(
+        'clearing-reconcile',
+        {
+          ...input(),
+          events: [...events, { context: result!.context, action, ids, note }],
+        },
+        signal,
+      );
+      install(value);
+      const at = value.result.cases.findIndex((c) => c.ids.includes(ids[0]));
+      if (at < 0) return;
+      setPage(pageOfRow(at));
+      settle(rowAt(at));
+    });
   async function upload(uploaded: File) {
     if (
       uploaded.size > MAX_FILE_BYTES ||
@@ -228,12 +249,21 @@ export function ClearingWorkspace({
   const owners = result
     ? new Map(result.rows.map((row) => [row.id, row]))
     : new Map();
+  const selection = clearingSelection(
+    selected.map((id) => owners.get(id)?.amount ?? Number.NaN),
+  );
+  // While the source has reading errors no member can be selected, and the
+  // engine clears nothing by hand: the sentence says so instead.
+  const wait = result?.inventory.some((r) => r.kind === 'error')
+    ? 'errors'
+    : selection;
   if (!active) return null;
   return (
     <>
       <main
         className="workspace clearing-workspace reconciliation-workspace"
         id="clearing"
+        aria-busy={busy}
       >
         <WorkspaceHeader
           onBack={onBack}
@@ -250,6 +280,7 @@ export function ClearingWorkspace({
               <Button
                 variant="outline"
                 disabled={busy || !!file}
+                aria-describedby={exampleWhy}
                 onClick={() =>
                   void perform(async (signal) => {
                     const f: SourceFile = await workerTask(
@@ -300,6 +331,12 @@ export function ClearingWorkspace({
                 />
               </label>
             </div>
+            <ClosedReason
+              id={exampleWhy}
+              closed={!!file}
+              waits="example"
+              label={t.sample}
+            />
           </WorkspaceAdvanced>
           <WorkspaceSources primaryIndices={[0]} primaryReady={!!file}>
             <section className="workspace-source">
@@ -537,7 +574,8 @@ export function ClearingWorkspace({
               onPage={setPage}
               rows={result.cases}
               mark={() => ({ 'data-testid': 'clearing-case' })}
-              cells={(c) => [
+              target={(_, at) => rowAt(at)}
+              cells={(c, at) => [
                 <label key="members">
                   <input
                     type="checkbox"
@@ -576,7 +614,10 @@ export function ClearingWorkspace({
                   {c.status === 'cleared' && (
                     <Button
                       variant="outline"
-                      disabled={busy || note.trim().length < 8}
+                      data-decision-action="reopen"
+                      data-decision-target={rowAt(at)}
+                      aria-describedby={hint}
+                      disabled={busy || !noteReady(note)}
                       onClick={() => void decide('reopen', c.ids)}
                     >
                       {t.reopen}
@@ -591,16 +632,18 @@ export function ClearingWorkspace({
                 value={note}
                 maxLength={200}
                 disabled={busy}
+                aria-describedby={hint}
                 onChange={(e) => setNote(e.target.value)}
               />
             </label>
+            <NoteHint id={hint} note={note} label={t.note} wait={wait}>
+              {decisionPlatformCopy[lang].clearing.reopen}{' '}
+              {decisionPlatformCopy[lang].clearing[wait]}
+            </NoteHint>
             <Button
-              disabled={
-                busy ||
-                selected.length < 2 ||
-                selected.length > 100 ||
-                note.trim().length < 8
-              }
+              data-decision-action="clear"
+              aria-describedby={hint}
+              disabled={busy || selection !== 'ready' || !noteReady(note)}
               onClick={() => void decide('clear', selected)}
             >
               {t.manual}

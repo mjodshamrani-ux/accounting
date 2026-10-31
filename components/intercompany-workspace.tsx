@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount, Figures } from '@/components/amount';
 import { RecordPager, RecordTable } from '@/components/record-table';
-import { recordPage } from '@/lib/record-page';
+import { pageOfRow, recordPage } from '@/lib/record-page';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -242,11 +242,12 @@ export function IntercompanyWorkspace({
     }, shown);
   }
   // The decision platform (UX-3): after a decision on a pair the focus
-  // returns to that pair's heading, which holds its state, not to the page.
+  // returns to that pair's heading, which holds its state, on the page that
+  // shows it, not to the page.
   const hint = useId(),
     pairHeading = useId(),
     settle = useDecisionFocus();
-  const headingOf = (record: string) => `${pairHeading}-${record}`;
+  const headingAt = (at: number) => `${pairHeading}-${at}`;
   async function decide(relation: string, type: IntercompanyEvent['type']) {
     if (!result) return;
     const p = result.pairs.find((p) => p.relationId === relation)!;
@@ -269,7 +270,10 @@ export function IntercompanyWorkspace({
         ),
       (v) => {
         install(v);
-        settle(headingOf(p.relationRecord));
+        const at = v.result.pairs.findIndex((q) => q.relationId === relation);
+        if (at < 0) return;
+        setPairPage(pageOfRow(at));
+        settle(headingAt(at));
       },
     );
   }
@@ -581,12 +585,16 @@ export function IntercompanyWorkspace({
             <h3>
               {copy.pairs} ({result.pairs.length})
             </h3>
-            {result.pairs.slice(pairsShown.from, pairsShown.to).map((p) => (
+            {result.pairs.slice(pairsShown.from, pairsShown.to).map((p, i) => (
               <section
                 key={p.relationRecord}
                 data-intercompany-pair={p.relationId}
               >
-                <h3 id={headingOf(p.relationRecord)} tabIndex={-1}>
+                <h3
+                  id={headingAt(pairsShown.from + i)}
+                  tabIndex={-1}
+                  data-decision-item
+                >
                   {p.relationId} · {status(p.status)} · {status(p.review)}
                 </h3>
                 <p>
@@ -634,7 +642,8 @@ export function IntercompanyWorkspace({
                   }}
                   labels={copy}
                   busy={busy}
-                  describedBy={`${hint} ${headingOf(p.relationRecord)}`}
+                  describedBy={`${hint} ${headingAt(pairsShown.from + i)}`}
+                  target={headingAt(pairsShown.from + i)}
                   onDecide={(type) => void decide(p.relationId, type)}
                 />
               </section>

@@ -143,6 +143,9 @@ export function RecordFrame({
   );
 }
 
+const focusTarget = (id: string | undefined) =>
+  id === undefined ? {} : { id, tabIndex: -1, 'data-decision-item': '' };
+
 type RecordName =
   | { label: string; source?: never }
   | { source: string; label?: never };
@@ -166,7 +169,10 @@ type RecordPaging = {
  * much taller or shorter than most keeps the page size it has always had
  * with `size`. A table of the rows read from a source is named after the
  * source with `source`, apart from the source's own file input; `rowHeader`
- * names the column whose cell heads its row. */
+ * names the column whose cell heads its row. A row a decision acts on is
+ * named by `target`, so that the focus returns to it after the decision
+ * (UX-3): it then holds that id and takes the focus from script, not from
+ * the keyboard. */
 export function RecordRows<T>({
   label,
   source,
@@ -175,6 +181,7 @@ export function RecordRows<T>({
   cells,
   mark,
   rowHeader,
+  target,
   page,
   onPage,
   size,
@@ -187,6 +194,7 @@ export function RecordRows<T>({
     cells: (row: T, index: number) => ReactNode[];
     mark?: (row: T, index: number) => RecordHook | undefined;
     rowHeader?: number;
+    target?: (row: T, index: number) => string | undefined;
   }) {
   const { lang } = useI18n();
   const copy = recordTableCopy[lang];
@@ -209,7 +217,11 @@ export function RecordRows<T>({
           </thead>
           <tbody>
             {rows.slice(from, to).map((row, i) => (
-              <tr key={from + i} {...mark?.(row, from + i)}>
+              <tr
+                key={from + i}
+                {...mark?.(row, from + i)}
+                {...focusTarget(target?.(row, from + i))}
+              >
                 {cells(row, from + i).map((cell, j) => {
                   const shown =
                     typeof cell === 'string' || typeof cell === 'number' ? (

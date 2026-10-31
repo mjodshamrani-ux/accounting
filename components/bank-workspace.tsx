@@ -2,6 +2,7 @@ import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant'
 import { BankAdjustmentWorkspace } from './bank-adjustment-workspace';
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { useResultFocus } from '@/components/result-focus';
+import { useDecisionFocus } from '@/components/decision-platform';
 import { RecordRows } from '@/components/record-table';
 import { Button } from '@/components/ui/button';
 import {
@@ -215,6 +216,11 @@ export function BankWorkspace({
       invalidate();
     });
   }
+  // The decision platform (UX-3): after a decision the focus returns to
+  // the case it changed, on the page that shows it, not to the page.
+  const caseRow = useId(),
+    settle = useDecisionFocus();
+  const caseAt = (at: number) => `${caseRow}-${at}`;
   async function decide(
     type: BankEvent['type'],
     bankIds: string[],
@@ -241,6 +247,13 @@ export function BankWorkspace({
       setResult(next.result);
       setBankId('');
       setCashId('');
+      const member = bankIds[0] ?? cashIds[0],
+        at = next.result.cases.findIndex(
+          (g) => g.bankIds.includes(member) || g.cashIds.includes(member),
+        );
+      if (at < 0) return;
+      setPages((p) => ({ ...p, cases: pageOfRow(at) }));
+      settle(caseAt(at));
     });
   }
   // Each table pages on its own through the record kit (UX-3), as the
@@ -252,7 +265,8 @@ export function BankWorkspace({
     title: string,
     headers: string[],
     data: T[],
-    cells: (r: T) => ReactNode[],
+    cells: (r: T, at: number) => ReactNode[],
+    target?: (r: T, at: number) => string,
   ) {
     return (
       <section className="bank-movement-table" data-bank-movement-table={name}>
@@ -262,6 +276,7 @@ export function BankWorkspace({
           headers={headers}
           rows={data}
           cells={cells}
+          target={target}
           page={pages[name] ?? 0}
           onPage={(to) => setPages((p) => ({ ...p, [name]: to }))}
         />
@@ -689,6 +704,7 @@ export function BankWorkspace({
                   id={decisionHint}
                   className="bank-source-basis"
                   data-bank-decision-hint={hint}
+                  data-decision-hint={hint}
                 >
                   {t.decisionHint[hint]}
                 </p>
@@ -710,7 +726,7 @@ export function BankWorkspace({
                     t.undo,
                   ],
                   result.cases,
-                  (g) => [
+                  (g, at) => [
                     g.kind === 'reference' ? id(g.key) : t.caseKinds[g.kind],
                     t.caseKinds[g.kind],
                     g.policy ? t.policies[g.policy] : '',
@@ -726,6 +742,8 @@ export function BankWorkspace({
                     t.caseStatus[g.status],
                     <Button
                       key="approve"
+                      data-decision-action="accept"
+                      data-decision-target={caseAt(at)}
                       aria-describedby={decisionHint}
                       disabled={
                         !canDecide || !g.eligible || g.status !== 'needs-review'
@@ -737,6 +755,8 @@ export function BankWorkspace({
                     <Button
                       key="undo"
                       variant="outline"
+                      data-decision-action="undo"
+                      data-decision-target={caseAt(at)}
                       aria-describedby={decisionHint}
                       disabled={!canDecide || !g.status.startsWith('matched')}
                       onClick={() => decide('undo', g.bankIds, g.cashIds)}
@@ -744,6 +764,7 @@ export function BankWorkspace({
                       {t.undo}
                     </Button>,
                   ],
+                  (_, at) => caseAt(at),
                 )}
                 <section>
                   <h2>{t.manual}</h2>
@@ -779,6 +800,7 @@ export function BankWorkspace({
                     ))}
                   </div>
                   <Button
+                    data-decision-action="accept"
                     aria-describedby={decisionHint}
                     disabled={!canDecide || !bankId || !cashId}
                     onClick={() => decide('accept', [bankId], [cashId])}

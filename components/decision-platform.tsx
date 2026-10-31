@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { Button } from './ui/button';
 import { useI18n } from '@/lib/i18n/context';
 import { decisionPlatformCopy } from '@/lib/i18n/decision-platform';
 import {
   decisionHint,
   decisionOpen,
+  NOTE_MINIMUM,
+  noteReady,
   type DecisionInput,
   type DecisionReview,
   type DecisionType,
@@ -68,18 +70,20 @@ export function DecisionHint({
 
 /** Approve, reject and undo for one review, each open only as the hint says,
  * and each described by it (and by the item's heading, when it decides one
- * of many items). */
+ * of many items, which `target` names as where the focus returns). */
 export function DecisionButtons({
   input,
   labels,
   busy,
   describedBy,
+  target,
   onDecide,
 }: {
   input: DecisionInput;
   labels: Record<DecisionType, string>;
   busy: boolean;
   describedBy: string;
+  target?: string;
   onDecide: (type: DecisionType) => void;
 }) {
   const open = decisionOpen(input);
@@ -90,6 +94,7 @@ export function DecisionButtons({
           key={type}
           variant="outline"
           data-decision-action={type}
+          data-decision-target={target}
           aria-describedby={describedBy}
           disabled={busy || !open[type]}
           onClick={() => onDecide(type)}
@@ -101,20 +106,56 @@ export function DecisionButtons({
   );
 }
 
+/** The sentence under the one note that opens the decisions on each of
+ * many items (receivables, clearing): how long the note must be, as the
+ * engine requires, and once it is, what each item takes (`children`). The
+ * note and every decision button are described by it; `wait` marks what a
+ * decision outside the items still waits for. */
+export function NoteHint({
+  id,
+  note,
+  label,
+  wait,
+  children,
+}: {
+  id: string;
+  note: string;
+  label: string;
+  wait?: string;
+  children: ReactNode;
+}) {
+  const { lang } = useI18n();
+  const ready = noteReady(note);
+  return (
+    <p
+      id={id}
+      className="decision-hint"
+      data-decision-hint={ready ? 'each' : 'note'}
+      data-decision-wait={ready ? wait : undefined}
+    >
+      {ready ? children : decisionPlatformCopy[lang].note(label, NOTE_MINIMUM)}
+    </p>
+  );
+}
+
 /** Why a closed button that is not a decision is closed: what the reader
- * does to open it, shown under it while it is closed (UX-3). */
+ * does to open it, shown under it while it is closed (UX-3). `step` names
+ * the first thing missing where the button waits for several. */
 export function ClosedReason({
   id,
   closed,
   waits,
   label,
+  step = '',
 }: {
   id: string;
   closed: boolean;
-  waits: 'ask' | 'check';
+  waits: 'ask' | 'check' | 'example' | 'step';
   label: string;
+  step?: string;
 }) {
   const { lang } = useI18n();
+  const copy = decisionPlatformCopy[lang].waits;
   return (
     <p
       id={id}
@@ -122,7 +163,7 @@ export function ClosedReason({
       data-closed-reason={waits}
       hidden={!closed}
     >
-      {decisionPlatformCopy[lang].waits[waits](label)}
+      {waits === 'step' ? copy.step(label, step) : copy[waits](label)}
     </p>
   );
 }

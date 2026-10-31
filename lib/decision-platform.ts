@@ -88,3 +88,56 @@ export function decisionHint(
     return { key: 'pending', accept: d.acceptBlock };
   return { key: 'decided', accept: null };
 }
+
+/** The decisions of receivables and clearing need one note, at least this
+ * long once trimmed, as their engines require; the sentence under the note
+ * says so until it is. */
+export const NOTE_MINIMUM = 8;
+
+export const noteReady = (note: string) => note.trim().length >= NOTE_MINIMUM;
+
+/** Clearing by hand, from the signed amounts of the members the reader
+ * selected, in minor units: open only on a selection the clearing engine
+ * accepts, two to a hundred members netting to zero with a debit and a
+ * credit, and otherwise the first thing it lacks. */
+export type ClearingSelection = 'select' | 'net' | 'limit' | 'ready';
+
+export function clearingSelection(
+  amounts: readonly number[],
+): ClearingSelection {
+  if (amounts.length > 100) return 'limit';
+  if (amounts.length < 2) return 'select';
+  let net = 0n;
+  for (const amount of amounts) {
+    if (!Number.isSafeInteger(amount)) return 'net';
+    net += BigInt(amount);
+  }
+  return net === 0n &&
+    amounts.some((amount) => amount > 0) &&
+    amounts.some((amount) => amount < 0)
+    ? 'ready'
+    : 'net';
+}
+
+/** Allocation: what each decision still waits for. A source error closes
+ * them all, as the closed fieldset does; then the reason; then each
+ * approval its own evidence, as its button does. */
+export type AllocationNeed = {
+  key: 'blocked' | 'reason' | 'waiting' | 'ready';
+  advice: boolean;
+  human: boolean;
+};
+
+export function allocationNeed(d: {
+  ready: boolean;
+  reason: string;
+  selected: number;
+  reference: string;
+  linksComplete: boolean;
+}): AllocationNeed {
+  const advice = !d.selected,
+    human = !d.reference.trim() || !d.linksComplete;
+  if (!d.ready) return { key: 'blocked', advice: false, human: false };
+  if (!d.reason.trim()) return { key: 'reason', advice: false, human: false };
+  return { key: advice || human ? 'waiting' : 'ready', advice, human };
+}

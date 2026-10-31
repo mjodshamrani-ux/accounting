@@ -1,13 +1,18 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
+  allocationNeed,
+  clearingSelection,
   decisionHint,
   decisionNeed,
   decisionOpen,
+  NOTE_MINIMUM,
+  noteReady,
   type AcceptBlock,
   type DecisionReview,
 } from '../lib/decision-platform.ts';
 import { decisionPlatformCopy } from '../lib/i18n/decision-platform.ts';
+import { bankAdjustmentCopy } from '../lib/i18n/bank-adjustment.ts';
 
 // The decision platform (UX-3) writes once the conditions each workspace
 // applied to its own decision buttons. These tests hold it to those
@@ -187,6 +192,100 @@ void test('the sentence names the first thing missing, then the state', () => {
   );
 });
 
+void test("one note opens receivables and clearing at the engines' length", () => {
+  // The engines refuse a decision whose note is shorter than eight
+  // characters once trimmed (ar.ts, clearing.ts); the buttons applied the
+  // same rule inline.
+  assert.equal(NOTE_MINIMUM, 8);
+  for (const note of [
+    '',
+    '       ',
+    'Seven c',
+    ' Seven c ',
+    'Eight ch',
+    '  Eight ch  ',
+  ])
+    assert.equal(
+      noteReady(note),
+      note.trim().length >= 8,
+      JSON.stringify(note),
+    );
+});
+
+void test('clearing by hand opens only on a selection the engine accepts', () => {
+  // Every selection of up to four members from these signed amounts, and
+  // selections at and past the limit: open exactly when the clearing
+  // engine accepts the decision (two to a hundred members, netting to zero,
+  // with a debit and a credit), and never where the button was closed
+  // before (fewer than two or more than a hundred members).
+  const amounts = [-250, -100, 0, 100, 150, 250];
+  const engine = (a: number[]) =>
+    a.length >= 2 &&
+    a.length <= 100 &&
+    a.reduce((n, v) => n + v, 0) === 0 &&
+    a.some((v) => v > 0) &&
+    a.some((v) => v < 0);
+  const before = (a: number[]) => a.length >= 2 && a.length <= 100;
+  let cases = 0;
+  const visit = (chosen: number[]) => {
+    const open = clearingSelection(chosen) === 'ready';
+    assert.equal(open, engine(chosen), JSON.stringify(chosen));
+    if (open) assert.ok(before(chosen), JSON.stringify(chosen));
+    cases++;
+    if (chosen.length < 4) for (const v of amounts) visit([...chosen, v]);
+  };
+  visit([]);
+  assert.equal(cases, 1 + 6 + 36 + 216 + 1296);
+  for (const n of [99, 100, 101]) {
+    const a: number[] = Array.from({ length: n }, (_, i) => (i % 2 ? 5 : -5));
+    if (n % 2) a[n - 1] = 0;
+    assert.equal(clearingSelection(a) === 'ready', engine(a), String(n));
+  }
+  assert.equal(clearingSelection(Array(101).fill(0)), 'limit');
+  assert.equal(clearingSelection([100]), 'select');
+  assert.equal(clearingSelection([100, -50]), 'net');
+  assert.equal(clearingSelection([0, 0]), 'net');
+  assert.equal(clearingSelection([Number.NaN, 5, -5]), 'net');
+});
+
+void test('allocation decisions open exactly as before', () => {
+  let cases = 0;
+  for (const ready of [false, true])
+    for (const reason of ['', ' ', 'Checked'])
+      for (const selected of [0, 1, 3])
+        for (const reference of ['', '  ', 'REF-1'])
+          for (const linksComplete of [false, true]) {
+            const need = allocationNeed({
+              ready,
+              reason,
+              selected,
+              reference,
+              linksComplete,
+            });
+            // The fieldset closed every decision without a ready result;
+            // the buttons applied the rest inline.
+            const advice = ready && !(!selected || !reason.trim()),
+              human =
+                ready &&
+                !(!reason.trim() || !reference.trim() || !linksComplete),
+              undo = ready && !!reason.trim();
+            const free = need.key === 'waiting' || need.key === 'ready';
+            const at = JSON.stringify({
+              ready,
+              reason,
+              selected,
+              reference,
+              linksComplete,
+            });
+            assert.equal(free && !need.advice, advice, `advice ${at}`);
+            assert.equal(free && !need.human, human, `human ${at}`);
+            assert.equal(free, undo, `undo ${at}`);
+            assert.equal(need.key === 'ready', advice && human, `ready ${at}`);
+            cases++;
+          }
+  assert.equal(cases, 2 * 3 * 3 * 3 * 2);
+});
+
 void test('every sentence and block has words in both languages', () => {
   for (const lang of ['en', 'ar'] as const) {
     const c = decisionPlatformCopy[lang];
@@ -204,6 +303,37 @@ void test('every sentence and block has words in both languages', () => {
     assert.match(c.both('A', 'B'), /A.*B/su);
     assert.match(c.reference('A'), /A/u);
     assert.match(c.reason('B'), /B/u);
+    assert.match(c.note('N', NOTE_MINIMUM), /N.*8|8.*N/su);
+    assert.ok(c.receivables.trim(), `${lang} receivables`);
+    for (const key of [
+      'reopen',
+      'select',
+      'net',
+      'limit',
+      'ready',
+      'errors',
+    ] as const)
+      assert.ok(c.clearing[key].trim(), `${lang} clearing ${key}`);
+    for (const key of ['advice', 'ready', 'blocked', 'links'] as const)
+      assert.ok(c.allocation[key].trim(), `${lang} allocation ${key}`);
+    assert.match(c.allocation.human('R'), /R/u);
+    for (const key of ['ask', 'check', 'example'] as const)
+      assert.match(c.waits[key]('L'), /L/u, `${lang} waits ${key}`);
+    assert.match(c.waits.step('L', 'S'), /L.*S/su);
+  }
+  // The steps the balance reconciliation waits for, in both languages.
+  for (const lang of ['en', 'ar'] as const) {
+    const c = bankAdjustmentCopy[lang];
+    assert.deepEqual(Object.keys(c.steps), [
+      'bank',
+      'files',
+      'readings',
+      'coverage',
+      'complete',
+    ]);
+    for (const step of Object.values(c.steps)) assert.ok(step.trim());
+    assert.match(c.written(c.coverageRef), new RegExp(c.coverageRef, 'u'));
+    assert.ok(c.blocked.trim());
   }
   // Western digits only, as everywhere in the interface copy.
   assert.doesNotMatch(JSON.stringify(decisionPlatformCopy.ar), /[٠-٩]/u);

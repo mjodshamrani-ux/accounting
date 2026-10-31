@@ -1,6 +1,7 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
+import { NoteHint, useDecisionFocus } from '@/components/decision-platform';
 import {
   WorkspaceHeader,
   WorkspaceIntro,
@@ -12,6 +13,8 @@ import {
 } from './workspace-chrome';
 import { Button } from './ui/button';
 import { useI18n } from '@/lib/i18n/context';
+import { decisionPlatformCopy } from '@/lib/i18n/decision-platform';
+import { noteReady } from '@/lib/decision-platform';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
 import { money } from '@/lib/reconciliation/core';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
@@ -37,7 +40,7 @@ import {
   arDemoScope,
 } from '@/lib/reconciliation/ar-demo';
 import { RecordPager, RecordRows } from '@/components/record-table';
-import { recordPage } from '@/lib/record-page';
+import { pageOfRow, recordPage } from '@/lib/record-page';
 import './clearing-workspace.css';
 import './ar-workspace.css';
 const columns = [
@@ -132,7 +135,7 @@ export function ArWorkspace({
   active: boolean;
   onBack: () => void;
 }) {
-  const { t: catalogue } = useI18n(),
+  const { t: catalogue, lang } = useI18n(),
     t = catalogue.arDocuments;
   const [files, setFiles] = useState<[SourceFile | null, SourceFile | null]>([
     null,
@@ -258,28 +261,39 @@ export function ArWorkspace({
     perform(async (signal) =>
       shown(await workerTask('ar-reconcile', input(), signal)),
     );
+  // The decision platform (UX-3): a decision needs a review reason of eight
+  // characters, as the engine requires, and the sentence under the reason
+  // says so; after a decision the focus returns to the pair's heading, on
+  // the page that shows it, not to the page.
+  const hint = useId(),
+    caseHeading = useId(),
+    settle = useDecisionFocus();
+  const headingAt = (at: number) => `${caseHeading}-${at}`;
   const decide = (action: ArEvent['action'], target: ArCase) =>
-    perform(async (signal) =>
-      install(
-        await workerTask(
-          'ar-reconcile',
-          {
-            ...input(),
-            events: [
-              ...events,
-              {
-                context: result!.context,
-                at: new Date().toISOString(),
-                action,
-                ids: target.ids,
-                note,
-              },
-            ],
-          },
-          signal,
-        ),
-      ),
-    );
+    perform(async (signal) => {
+      const value = await workerTask<{ state: ArInput; result: ArResult }>(
+        'ar-reconcile',
+        {
+          ...input(),
+          events: [
+            ...events,
+            {
+              context: result!.context,
+              at: new Date().toISOString(),
+              action,
+              ids: target.ids,
+              note,
+            },
+          ],
+        },
+        signal,
+      );
+      install(value);
+      const at = value.result.cases.findIndex((c) => c.id === target.id);
+      if (at < 0) return;
+      setPage(pageOfRow(at));
+      settle(headingAt(at));
+    });
   const rowById = new Map(result?.rows.map((r) => [r.id, r]));
   if (!active) return null;
   const casesShown = recordPage(result?.cases.length ?? 0, page);
@@ -775,11 +789,15 @@ export function ArWorkspace({
               {t.note}
               <textarea
                 aria-label={t.note}
+                aria-describedby={hint}
                 maxLength={200}
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
               />
             </label>
+            <NoteHint id={hint} note={note} label={t.note}>
+              {decisionPlatformCopy[lang].receivables}
+            </NoteHint>
             <div className="clearing-actions">
               <Button
                 onClick={() =>
@@ -812,9 +830,14 @@ export function ArWorkspace({
                 {t.export}
               </Button>
             </div>
-            {result.cases.slice(casesShown.from, casesShown.to).map((c) => (
+            {result.cases.slice(casesShown.from, casesShown.to).map((c, i) => (
               <article key={c.id} data-testid="ar-case" className="ar-case">
-                <div className="ar-case-heading">
+                <div
+                  className="ar-case-heading"
+                  id={headingAt(casesShown.from + i)}
+                  tabIndex={-1}
+                  data-decision-item
+                >
                   <h3>
                     {t.kind[c.kind]}: {c.document}
                   </h3>
@@ -945,7 +968,10 @@ export function ArWorkspace({
                 {c.status === 'matched' ? (
                   <Button
                     variant="outline"
-                    disabled={note.trim().length < 8}
+                    data-decision-action="reopen"
+                    data-decision-target={headingAt(casesShown.from + i)}
+                    aria-describedby={`${hint} ${headingAt(casesShown.from + i)}`}
+                    disabled={!noteReady(note)}
                     onClick={() => decide('reopen', c)}
                   >
                     {t.reopen}
@@ -955,7 +981,10 @@ export function ArWorkspace({
                     c.reason,
                   ) && (
                     <Button
-                      disabled={note.trim().length < 8}
+                      data-decision-action="accept"
+                      data-decision-target={headingAt(casesShown.from + i)}
+                      aria-describedby={`${hint} ${headingAt(casesShown.from + i)}`}
+                      disabled={!noteReady(note)}
                       onClick={() => decide('accept', c)}
                     >
                       {t.accept}

@@ -1,7 +1,7 @@
 {
   "note": "Interface census baseline: each metric summed over the four states of a domain (Arabic and English at 390 and 1440 px) after its synthetic example ran. Recorded by scripts/ux-census-browser.mjs --record; the gate fails on any change.",
   "recorded": {
-    "commit": "638837c9227f8e0222663f9b648225f1ccf94493",
+    "commit": "6c5135109d91f77b992b3d4df90645bcd35aecd5",
     "date": "2026-10-31",
     "chromium": "141.0.7390.37"
   },
@@ -37,7 +37,7 @@
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 4,
+      "disabledUnexplained": 0,
       "focusLost": 0,
       "wideUnnamed": 0,
       "focusAfterDecision": 0
@@ -49,7 +49,7 @@
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 12,
+      "disabledUnexplained": 0,
       "focusLost": 0,
       "wideUnnamed": 0,
       "focusAfterDecision": 0
@@ -73,7 +73,7 @@
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 8,
+      "disabledUnexplained": 0,
       "focusLost": 0,
       "wideUnnamed": 0,
       "focusAfterDecision": 0
@@ -85,7 +85,7 @@
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 4,
+      "disabledUnexplained": 0,
       "focusLost": 0,
       "wideUnnamed": 0,
       "focusAfterDecision": 0
