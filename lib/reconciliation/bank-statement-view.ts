@@ -279,6 +279,77 @@ export function heldReason(reason: string): {
   return { kind: 'other', detail: reason };
 }
 
+export type HeldBalanceLine =
+  | 'movement'
+  | 'brought-forward'
+  | 'carried-forward'
+  | 'closing';
+/**
+ * A held statement's detail as the page states it. The native reader writes
+ * it in English with balances in minor units; the page shows its words and
+ * formats the amounts. A detail of no known form is shown as written.
+ */
+export type HeldDetail =
+  | {
+      kind: 'balance';
+      page: number;
+      line: HeldBalanceLine;
+      printed: number;
+      computed: number;
+      items: string;
+    }
+  | { kind: 'page-totals' | 'page-start' | 'page-end'; page: number }
+  | { kind: 'statement-totals' | 'second-opening' | 'no-closing' }
+  | { kind: 'pages'; read: number[]; declared: number[] }
+  | { kind: 'as-written'; text: string };
+export function heldDetail(detail: string): HeldDetail {
+  const numbers = (list: string) => list.split(',').map(Number);
+  let m =
+    /^page (\d+): printed balance (-?\d+) != (-?\d+) \(items ([\d,]+)\)$/u.exec(
+      detail,
+    );
+  if (m)
+    return {
+      kind: 'balance',
+      page: Number(m[1]),
+      line: 'movement',
+      printed: Number(m[2]),
+      computed: Number(m[3]),
+      items: m[4],
+    };
+  m =
+    /^page (\d+): (brought-forward|carried-forward|closing) (-?\d+) != (-?\d+)$/u.exec(
+      detail,
+    );
+  if (m)
+    return {
+      kind: 'balance',
+      page: Number(m[1]),
+      line: m[2] as HeldBalanceLine,
+      printed: Number(m[3]),
+      computed: Number(m[4]),
+      items: '',
+    };
+  m = /^page (\d+): page totals differ from its movements$/u.exec(detail);
+  if (m) return { kind: 'page-totals', page: Number(m[1]) };
+  m = /^page (\d+) does not start with its carried balance$/u.exec(detail);
+  if (m) return { kind: 'page-start', page: Number(m[1]) };
+  m = /^page (\d+) does not end with a carried-forward line$/u.exec(detail);
+  if (m) return { kind: 'page-end', page: Number(m[1]) };
+  if (detail === 'statement totals differ from its movements')
+    return { kind: 'statement-totals' };
+  if (detail === 'a second opening balance') return { kind: 'second-opening' };
+  if (detail === 'no closing balance and totals') return { kind: 'no-closing' };
+  m = /^pages ([\d,]+) of ([\d,]+)$/u.exec(detail);
+  if (m)
+    return {
+      kind: 'pages',
+      read: numbers(m[1]),
+      declared: numbers(m[2]),
+    };
+  return { kind: 'as-written', text: detail };
+}
+
 export type StatementErrorKind =
   | 'statement-reading'
   | 'statement-layout'

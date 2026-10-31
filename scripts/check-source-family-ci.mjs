@@ -345,6 +345,9 @@ const required = [
   'test:fixed-assets-long:proof',
   'test:fixed-assets-long:mutations',
   'test:fixed-assets-long:browser',
+  'test:ux-census:unit',
+  'test:browser:ux-census:self-test',
+  'test:browser:ux-census',
 ];
 const deployed = ['build', ...deployGated].flatMap(
   (name) => workflow.jobs[name].steps,

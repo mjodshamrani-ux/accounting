@@ -29,6 +29,16 @@
   color: #637088;
 }
 
+/* A movement's evidence takes focus when it opens; its heading clears the
+   sticky top bar and shows the shared focus ring. */
+.bank-movement-evidence > h2 {
+  scroll-margin-block-start: 6rem;
+}
+.bank-movement-evidence > h2:focus-visible {
+  outline: 3px solid #8a69dc;
+  outline-offset: 3px;
+}
+
 /* Bank source type: two plain choices, each with its accepted formats. The
    radio follows the shared checkbox treatment; the shared field rule sizes
    every other input as a text box. */
@@ -103,6 +113,10 @@
 .bank-statement-held p {
   margin: 0;
 }
+/* The reader's own detail, last and on its own line in the wrapping box. */
+.bank-statement-held > details {
+  flex-basis: 100%;
+}
 .bank-statement-members {
   margin: 0;
   padding: 0;
@@ -116,6 +130,21 @@
 .bank-statement-lines > summary {
   cursor: pointer;
   font-weight: 600;
+}
+/* Movement tables scroll inside their frame rather than breaking words or
+   amounts mid-token, as the statement tables below do. */
+.bank-movement-table .gl-tb-table table {
+  min-width: 60rem;
+}
+.bank-movement-table :is(th, td),
+.bank-workspace .bank-movement-table .gl-tb-table td button {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+.bank-movement-amount,
+.bank-movement-id,
+.bank-movement-date {
+  white-space: nowrap;
 }
 /* Statement tables scroll inside their frame rather than breaking words. */
 .bank-statement-result .gl-tb-table table {

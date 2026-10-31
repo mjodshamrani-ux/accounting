@@ -18,7 +18,11 @@ import { chromium } from 'playwright';
 import { bankStatementCopy } from '../lib/i18n/bank-statement.ts';
 import { ar as arCatalogue } from '../lib/i18n/locales/ar.ts';
 import { en as enCatalogue } from '../lib/i18n/locales/en.ts';
-import { heldReason } from '../lib/reconciliation/bank-statement-view.ts';
+import { money as formatMoney } from '../lib/reconciliation/core.ts';
+import {
+  heldDetail,
+  heldReason,
+} from '../lib/reconciliation/bank-statement-view.ts';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
 
 const root = path.resolve(import.meta.dirname, '..'),
@@ -356,8 +360,19 @@ async function rendered(u, result) {
     // The accountant reads the reason in the page's words, never the engine's.
     assert.equal(
       (await message.innerText()).replace(/\s+/g, ' ').trim(),
-      [u.c.held[held.kind], held.detail].filter(Boolean).join(' '),
+      [
+        u.c.held[held.kind],
+        held.detail && heldWords(u.c, held.detail, result.reading.decimals),
+      ]
+        .filter(Boolean)
+        .join(' '),
     );
+    if (heldDetail(held.detail).kind !== 'as-written')
+      assert.equal(
+        await u.w.locator('[data-bank-statement-held-raw] code').textContent(),
+        held.detail,
+        'the reader’s own detail stays one click away',
+      );
     for (const key of ['review', 'automatic', 'outstanding'])
       assert.equal(
         await u.w.locator(`[data-bank-statement-table="${key}"]`).count(),
@@ -599,6 +614,36 @@ try {
   );
   checks.push(
     'decisions: reason required, accept, reject, undo, refusal of an amount difference, cold restore',
+  );
+
+  // A printed statement held on a broken balance chain, and one with a
+  // missing page: the reason in the page's words, the amounts at the
+  // currency's precision (never its minor units), written out here by hand.
+  for (const [id, want] of [
+    [
+      'BS09',
+      'سلسلة الرصيد في الكشف لا تتصل: صفحة 2، عناصر 46,48,50,52,54,56: رصيد سطر الحركة المطبوع 37,111.79، والمحسوب من الرصيد الافتتاحي والحركات 37,101.79؛ المطبوع ناقص المحسوب 10.00.',
+    ],
+    [
+      'BS10',
+      'صفحات الكشف ناقصة أو خارج الترتيب: قُرئت الصفحات 1، 3 من أصل 3.',
+    ],
+  ]) {
+    await u.choose('statement', `${id}-statement.pdf`);
+    await u.choose('cashbook', `${id}-cashbook.csv`);
+    result = (await u.compare()).value.result;
+    assert.equal(result.status, 'held', id);
+    const shown = (
+      await u.w.locator('[data-bank-statement-held]').innerText()
+    )
+      .replace(/\s+/g, ' ')
+      .trim();
+    assert.equal(shown, want, `${id}: the held reason as the page states it`);
+    assert.ok(!/\d{7}/u.test(shown), `${id}: no amount in minor units`);
+    await rendered(u, result);
+  }
+  checks.push(
+    'held printed statements: the reason in the page’s words, amounts at the currency’s precision, the reader’s detail one click away',
   );
 
   // BS01 as a table: held until its closing balance is confirmed.
@@ -948,6 +993,42 @@ function bs01Closing() {
   return storyOf('BS01')
     .statement.pages.flatMap((p) => p.lines)
     .find((l) => l.kind === 'closing').balance;
+}
+/** The held detail as the page should word it, amounts as strings. */
+function heldWords(c, detail, decimals) {
+  const d = heldDetail(detail);
+  const f = (n) => formatMoney(n, decimals);
+  switch (d.kind) {
+    case 'balance':
+      return c.heldDetail
+        .balance(
+          d.items ? c.pageCitation(d.page, d.items) : c.pageOnly(d.page),
+          c.heldLines[d.line],
+          f(d.printed),
+          f(d.computed),
+          f(d.printed - d.computed),
+        )
+        .join('');
+    case 'page-totals':
+      return c.heldDetail.pageTotals(c.pageOnly(d.page));
+    case 'page-start':
+      return c.heldDetail.pageStart(c.pageOnly(d.page));
+    case 'page-end':
+      return c.heldDetail.pageEnd(c.pageOnly(d.page));
+    case 'statement-totals':
+      return c.heldDetail.statementTotals;
+    case 'second-opening':
+      return c.heldDetail.secondOpening;
+    case 'no-closing':
+      return c.heldDetail.noClosing;
+    case 'pages':
+      return c.heldDetail.pages(
+        c.heldDetail.list(d.read),
+        c.heldDetail.list(d.declared),
+      );
+    case 'as-written':
+      return d.text;
+  }
 }
 function money(minor) {
   const sign = minor < 0 ? '-' : '';

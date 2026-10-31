@@ -51,6 +51,7 @@ import {
   BANK_STATEMENT_CURRENCIES,
   BANK_STATEMENT_FORMATS,
   carriedAtEnd,
+  heldDetail,
   heldReason,
   parseStatementClosing,
   sheetInputs,
@@ -767,6 +768,45 @@ function Result({
   const format = (n: number | null | undefined) =>
     n === null || n === undefined ? '' : money(n, r.reading.decimals);
   const held = r.match.held ? heldReason(r.match.held.reason) : null;
+  // The reader's detail in the page's words, amounts at the currency's
+  // precision; a detail of no known form is shown as the reader wrote it.
+  const heldText = (detail: string) => {
+    const d = heldDetail(detail);
+    const amount = (n: number, key: string) => (
+      <bdi key={key} dir="ltr">
+        {format(n)}
+      </bdi>
+    );
+    switch (d.kind) {
+      case 'balance':
+        return c.heldDetail.balance(
+          d.items ? c.pageCitation(d.page, d.items) : c.pageOnly(d.page),
+          c.heldLines[d.line],
+          amount(d.printed, 'printed'),
+          amount(d.computed, 'computed'),
+          amount(d.printed - d.computed, 'difference'),
+        );
+      case 'page-totals':
+        return c.heldDetail.pageTotals(c.pageOnly(d.page));
+      case 'page-start':
+        return c.heldDetail.pageStart(c.pageOnly(d.page));
+      case 'page-end':
+        return c.heldDetail.pageEnd(c.pageOnly(d.page));
+      case 'statement-totals':
+        return c.heldDetail.statementTotals;
+      case 'second-opening':
+        return c.heldDetail.secondOpening;
+      case 'no-closing':
+        return c.heldDetail.noClosing;
+      case 'pages':
+        return c.heldDetail.pages(
+          c.heldDetail.list(d.read),
+          c.heldDetail.list(d.declared),
+        );
+      case 'as-written':
+        return <bdi dir="ltr">{d.text}</bdi>;
+    }
+  };
   const where = (side: 'statement' | 'cashbook', id: string) => {
     const m = statementMember(r, side, id);
     if (!m) return id;
@@ -915,10 +955,17 @@ function Result({
       {held && r.match.held && (
         <output className="bank-statement-held">
           <p data-bank-statement-held={held.kind}>
-            {c.held[held.kind]}{' '}
-            {held.detail && <bdi dir="ltr">{held.detail}</bdi>}
+            {c.held[held.kind]} {held.detail && heldText(held.detail)}
           </p>
           <p>{c.heldCounts(r.match.held.statement, r.match.held.cashbook)}</p>
+          {held.detail && heldDetail(held.detail).kind !== 'as-written' && (
+            <details data-bank-statement-held-raw>
+              <summary>{c.heldRaw}</summary>
+              <bdi dir="ltr">
+                <code>{held.detail}</code>
+              </bdi>
+            </details>
+          )}
         </output>
       )}
       {r.roll && (

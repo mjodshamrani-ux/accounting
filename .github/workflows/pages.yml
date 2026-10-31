@@ -230,6 +230,13 @@ jobs:
           pnpm test:browser:main-integration
       - name: Verify official fonts and unified workspace sources with retained work
         run: pnpm test:browser:unified-workspace
+      - name: Count the interface defect classes of the October 2026 audit in every workspace against the recorded baseline, after the census proves it counts each planted fault
+        env:
+          UX_CENSUS_DIR: ${{ runner.temp }}/ux-census
+        run: |
+          pnpm test:ux-census:unit
+          pnpm test:browser:ux-census:self-test
+          pnpm test:browser:ux-census
       - name: Verify native Chrome section families and qualified currencies
         env:
           MIZAN_CHROMIUM: /usr/bin/google-chrome

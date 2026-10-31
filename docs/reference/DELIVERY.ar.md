@@ -51,6 +51,9 @@ pnpm test:browser:main-integration
 pnpm test:browser:domain-navigation
 pnpm test:browser:reconciliation-entry
 pnpm test:browser:unified-workspace
+pnpm test:ux-census:unit
+pnpm test:browser:ux-census:self-test
+pnpm test:browser:ux-census
 ```
 
 هذه نقطة دخول وليست بديلًا عن جميع أوامر [CI](../../.github/workflows/pages.yml)، الذي يشغل أيضًا الطفرات المجزأة والأوراكل وPDF الطويل والصادرات المستقلة والبوابات المتخصصة. لا يعاد اختبار مالي شامل محليًا بلا داع لكل تعديل لغوي، لكن لا تحذف بوابة بعيدة أو تستخدم skip لتزعم نجاح إصدار.
