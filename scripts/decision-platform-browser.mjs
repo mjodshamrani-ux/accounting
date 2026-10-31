@@ -22,6 +22,7 @@ import {
   openWorkspaceDisclosures,
 } from './domain-navigation-support.mjs';
 import { DECISIONS } from './ux-census-support.mjs';
+import { closedSay, focused, pause } from './decision-platform-support.mjs';
 
 const dist = path.resolve(
   process.env.DECISION_PLATFORM_DIST ??
@@ -159,15 +160,6 @@ const read = (panel, labels) =>
         })),
     };
   }, labels);
-const pause = (page) =>
-  page.evaluate(
-    () =>
-      new Promise((resolve) =>
-        requestAnimationFrame(() =>
-          requestAnimationFrame(() => setTimeout(resolve, 150)),
-        ),
-      ),
-  );
 // The text of the element a decision names as where the focus returns; a
 // decision that names an element the page lacks fails here by assertion.
 async function textOf(page, id, at) {
@@ -178,43 +170,6 @@ async function textOf(page, id, at) {
   assert.notEqual(text, null, `${at}: the decision names an element (${id})`);
   return text;
 }
-// Every closed button the reader sees says what opens it: a sentence it is
-// described by, shown and not empty.
-async function closedSay(panel, at) {
-  const closed = await panel.evaluate((root) => {
-    const shown = (el) => {
-      const box = el?.getBoundingClientRect();
-      return !!box && box.width > 0 && box.height > 0;
-    };
-    return [...root.querySelectorAll('button')]
-      .filter((b) => b.disabled && shown(b))
-      .map((b) => ({
-        name: b.textContent.trim(),
-        said: (b.getAttribute('aria-describedby') ?? '')
-          .split(/\s+/u)
-          .map((id) => id && document.getElementById(id))
-          .some((el) => el && shown(el) && el.textContent.trim()),
-      }));
-  });
-  for (const b of closed)
-    assert.ok(b.said, `${at}: the closed «${b.name}» says what opens it`);
-  return closed.length;
-}
-// Where the focus is, and whether it is in view.
-const focused = (page) =>
-  page.evaluate(() => {
-    const active = document.activeElement;
-    const box = active.getBoundingClientRect();
-    return {
-      id: active.id,
-      tag: active.tagName,
-      item:
-        active.hasAttribute('data-decision-item') ||
-        active.hasAttribute('data-decision-state'),
-      text: active.textContent.trim(),
-      inView: box.bottom > 0 && box.top < innerHeight,
-    };
-  });
 // Presses a decision button and waits until the decision is applied: the
 // workspace was busy and is no longer, and the first field is open again.
 async function press(page, panel, button, field, at) {

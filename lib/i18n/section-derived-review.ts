@@ -61,6 +61,8 @@ const copy = {
       'أفهم أن CSV قراءة مشتقة منفصلة وأن قرار المرجع ليس اعتماداً مالياً أو إلحاقاً تلقائياً بالتسوية.',
     accept: 'تسجيل قبول الاختيار المراجع',
     reject: 'تسجيل رفض الاختيار',
+    rejected: 'سُجل رفض الاختيار؛ لا تُنشأ منه قراءة مشتقة.',
+    dotChoice: 'اختيار النقطة العشرية صيغةً لأرقام الأصل في ربط الأعمدة',
     receipt: 'قرار المراجع مرتبط بالاختيار الحالي',
     apply: 'تطبيق القرار وإنشاء القراءة المشتقة',
     downloadCsv: 'تنزيل CSV المشتق',
@@ -137,6 +139,10 @@ const copy = {
       'I understand that the CSV is a separate derived reading and that this reference decision is not financial approval or automatic attachment to reconciliation.',
     accept: 'Record acceptance of reviewed selection',
     reject: 'Record rejection of selection',
+    rejected:
+      'Rejection of the selection recorded; no derived reading is created from it.',
+    dotChoice:
+      'the decimal point chosen as the number format of the original in the column mapping',
     receipt: 'Reviewer decision bound to current selection',
     apply: 'Apply decision and create derived reading',
     downloadCsv: 'Download derived CSV',

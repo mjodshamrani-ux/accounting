@@ -639,6 +639,9 @@ export const en: Messages = {
     resume: 'Resume effort measurement',
     finish: 'Finish effort measurement',
     export: 'Export effort record',
+    // What opens starting and exporting (UX-3).
+    startWaits: 'a case type is chosen',
+    exportWaits: 'the measurement is finished',
     newMeasurement:
       'Start a new record and discard the previous measurement from this window',
     stage: 'Effort measurement stage',
@@ -779,6 +782,13 @@ export const en: Messages = {
     unlink: 'Unlink and return to review',
     link: 'Confirm link manually',
     reviewOnly: 'Record review without a match',
+    // What the decisions wait for once the reason is written (UX-3).
+    hint: {
+      link: (review: string, link: string) =>
+        `“${review}” is open; “${link}” waits for a counterpart transaction with the same amount.`,
+      both: (link: string, review: string) =>
+        `“${link}” and “${review}” are open.`,
+    },
   },
   common: {
     listSeparator: '; ',
@@ -808,6 +818,11 @@ export const en: Messages = {
     nextPage: 'Next PDF page',
     jumpPage: 'Page number',
     goToPage: 'Go to page',
+    // What opens “Go to page” and “Apply boundaries and re-read” (UX-3).
+    jumpWaits: {
+      number: (pages: number) => `a page number from 1 to ${pages} is written`,
+      other: 'a page other than the one shown is written',
+    },
     pageOf: (page: number, pages: number) => `PDF page ${page} of ${pages}`,
     hideCuts: 'Hide column boundaries',
     editCuts: 'Edit column boundaries',
@@ -817,6 +832,7 @@ export const en: Messages = {
     cutsHint:
       'Measure from the left edge of the page. 25, 45, 65 splits it into four columns. Place each boundary in the gap between two columns, or leave the field empty to read the page as one column.',
     applyCuts: 'Apply boundaries and re-read',
+    applyWaits: 'the boundaries differ from those in use',
     undoCuts: 'Undo the change',
     cutsInvalid:
       'Enter numbers separated by commas or spaces, such as 25, 45, 65.',
@@ -907,6 +923,12 @@ export const en: Messages = {
       'This reviews the range and row inventory only. It neither confirms unreviewed values nor resolves unreadable rows. Changing a row, value or frame cancels it.',
     covered: 'Range review recorded',
     pending: 'Range review not recorded',
+    // What the range review waits for, first missing first (UX-3).
+    coverageWaits: {
+      unclassified: 'every row has a type',
+      exclusions: 'every excluded row is checked',
+      crops: 'every reviewed crop in the range is linked to a row',
+    },
     unassigned: (n: number) =>
       `Reviewed crops inside the range not linked to a row or reviewed exclusion: ${n}`,
     counts: (
@@ -956,6 +978,11 @@ export const en: Messages = {
     confirm:
       'I checked the column meanings, currency, signs and scope of this image',
     use: 'Use reviewed values in comparison',
+    // What using the table waits for besides its fields (UX-3).
+    useNeeds: {
+      coverage: 'the range review recorded above',
+      headers: 'header evidence for every column',
+    },
     busy: 'Verifying the reviewed source',
     failed:
       'The source could not be verified. Check header and currency evidence, period and formats.',
@@ -977,6 +1004,8 @@ export const en: Messages = {
     addCrop: 'Select a value from the image',
     changeCrop: 'Change the selected crop',
     useCrop: 'Use this crop',
+    // What opens using a crop and saving the record (UX-3).
+    useCropWaits: 'a frame is drawn around the value',
     cancelCrop: 'Cancel selection',
     removeCrop: 'Remove this value',
     selectSurface: 'Select a crop from the original image',
@@ -1006,9 +1035,12 @@ export const en: Messages = {
     reviewed: 'This value was checked against the crop',
     pending: 'This value has not been reviewed',
     confirm: 'Confirm this value review',
+    confirmWaits:
+      'a role is chosen and the value is written as shown in the original',
     count: (reviewed: number, total: number) =>
       `${reviewed} reviewed values out of ${total} recorded — this does not confirm complete page coverage`,
     save: 'Save review record',
+    saveWaits: 'a value from the image is recorded',
     restore: 'Open saved review record',
     restoreLabel: 'Image review record in JSON format',
     saving: 'Checking the image and values before saving',

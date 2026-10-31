@@ -3,6 +3,7 @@ import {
   verifyActualAllocationPending,
 } from './supplier-main-pending-browser.mjs';
 import assert from 'node:assert/strict';
+import { closedSay, settledOn } from './decision-platform-support.mjs';
 import { createServer } from 'node:http';
 import { readFile, mkdir, mkdtemp, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
@@ -242,6 +243,17 @@ async function currencyDriftProbe(
   assert.equal(await currency.inputValue(), 'SAR');
 }
 async function decisions(panel, t, c, beforeCommit) {
+  // UX-3: before the fields are written, every closed button of the review
+  // says what opens it, and each component's sentence says what it waits for.
+  await closedSay(panel, `${c.id}: overlap`);
+  assert.equal(
+    await panel
+      .locator('[data-overlap-component] [data-decision-hint]')
+      .first()
+      .getAttribute('data-decision-hint'),
+    'before',
+    `${c.id}: the component's decisions wait`,
+  );
   await panel
     .locator('[data-overlap-reviewer]')
     .fill('Native synthetic source reviewer');
@@ -290,6 +302,13 @@ async function decisions(panel, t, c, beforeCommit) {
   const component = panel.locator('[data-overlap-component]');
   await component.locator('[data-overlap-rows-ack]').check();
   await component.locator('[data-overlap-decisions-ack]').check();
+  assert.equal(
+    await component
+      .locator('[data-decision-hint]')
+      .getAttribute('data-decision-hint'),
+    'open',
+    `${c.id}: the component's decisions open`,
+  );
   if (beforeCommit) await beforeCommit();
   await button(component, t.commit).click();
   await panel
@@ -299,6 +318,13 @@ async function decisions(panel, t, c, beforeCommit) {
     .locator('strong')
     .getByText(String(c.accept.length), { exact: true })
     .waitFor();
+  // The commit makes the review read its sources again: the focus is on the
+  // review's title, not on the page.
+  await settledOn(
+    panel.page(),
+    panel.locator('h2[data-decision-item]'),
+    `${c.id}: the commit`,
+  );
   await panel.locator('[data-overlap-scope-ack]').check();
   await button(panel, t.inspect).click();
   await panel.locator('[data-overlap-active-receipt]').waitFor();
@@ -683,6 +709,11 @@ try {
       await live
         .locator('[data-overlap-active-receipt]')
         .waitFor({ state: 'detached' });
+      await settledOn(
+        page,
+        live.locator('h2[data-decision-item]'),
+        `${c.id}-${lang}: the undo`,
+      );
       await metrics(page, t, c.afterUndo);
       const afterUndoSnapshot = await mainSnapshot(page, t);
       assert.deepEqual(afterUndoSnapshot, baselineSnapshot);

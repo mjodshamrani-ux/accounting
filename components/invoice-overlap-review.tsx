@@ -1,5 +1,11 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import {
+  ClosedReason,
+  ReviewHint,
+  useDecisionFocus,
+  type ReviewNeed,
+} from '@/components/decision-platform';
 import { Input } from '@/components/ui/input';
 import { RecordRows } from '@/components/record-table';
 import { useI18n } from '@/lib/i18n/context';
@@ -151,6 +157,15 @@ function InvoiceOverlapPanel({
   const current = view?.input === input ? view : null;
   const archiveSession = archived?.input === input ? archived.session : mainReview?.coordinator.archivedReviewDraft;
   const active = busy?.input === input && busy.active;
+  // The decision platform (UX-3): the search says what it waits for, each
+  // component's decisions say what they still need, and the exports say
+  // what opens them.
+  const missingWhy = useId(),
+    blockedWhy = useId(),
+    hintBase = useId(),
+    exportWhy = useId(),
+    title = useId();
+  const settle = useDecisionFocus();
   const cancelOperations = useCallback(() => {
     ++ticket.current;
     ledger.invalidatePending();
@@ -169,6 +184,7 @@ function InvoiceOverlapPanel({
     action: (
       live: SupplierMainReviewInput,
     ) => Promise<InvoiceOverlapReviewSnapshot | null | { mainResult: Comparison }>,
+    then?: () => void,
   ) {
     const scopeDrift = mainReview && (localScope.currency !== scope.currency || localScope.decimals !== scope.decimals);
     if (mainReview?.blockedReason || scopeDrift) {
@@ -190,6 +206,7 @@ function InvoiceOverlapPanel({
         if (outcome && 'mainResult' in outcome) mainReview?.onResult(outcome.mainResult);
         if (snapshot) setView({ input, snapshot, state: ledger.state });
         else if (current) setView({ ...current, state: ledger.state });
+        then?.();
       }
     } catch (e) {
       if (id === ticket.current && !controller.signal.aborted)
@@ -310,7 +327,9 @@ function InvoiceOverlapPanel({
       data-testid="invoice-overlap-review"
       className="min-w-0 max-w-full border rounded p-3 space-y-3"
     >
-      <h2>{t.title}</h2>
+      <h2 id={title} tabIndex={-1} data-decision-item="">
+        {t.title}
+      </h2>
       <p>{t.intro}</p>
       {files.map(
         (file, i) =>
@@ -363,6 +382,7 @@ function InvoiceOverlapPanel({
         <Button
           type="button"
           className={buttonClass}
+          aria-describedby={`${missingWhy} ${blockedWhy}`}
           disabled={!files.every(Boolean) || active || !!mainReview?.blockedReason}
           onClick={() => void run((live) => ledger.inspect(live))}
         >
@@ -379,8 +399,12 @@ function InvoiceOverlapPanel({
           </Button>
         )}
       </div>
-      {!files.every(Boolean) && <p>{t.missing}</p>}
-      {mainReview?.blockedReason && <p className="hint warn">{mainReview.blockedReason}</p>}
+      {!files.every(Boolean) && <p id={missingWhy}>{t.missing}</p>}
+      {mainReview?.blockedReason && (
+        <p className="hint warn" id={blockedWhy}>
+          {mainReview.blockedReason}
+        </p>
+      )}
       {active && <output>{t.searching}</output>}
       {error?.input === input && (
         <p role="alert">
@@ -471,7 +495,7 @@ function InvoiceOverlapPanel({
               ))}
             </details>
           )}
-          {current.snapshot.search.components.map((component) => {
+          {current.snapshot.search.components.map((component, index) => {
             const form = formFor(component.id);
             const recorded = current.state.receipts.find(
               (r) =>
@@ -481,13 +505,63 @@ function InvoiceOverlapPanel({
             const rows = current.snapshot.search.rows.filter((r) =>
               component.rowKeys.includes(r.key),
             );
+            // What the component's one decision button still waits for: a
+            // hold or a blocking reason first, since nothing the reader
+            // writes opens it then; otherwise the fields, a decision with
+            // its reason on every candidate, and the two confirmations.
+            const hint = `${hintBase}-${index}`;
+            const held = !!mainReview?.blockedReason;
+            const blocked =
+              !current.snapshot.search.searchComplete ||
+              current.snapshot.search.reasons.some((reason) =>
+                INVOICE_OVERLAP_HARD_REASONS.includes(reason),
+              ) ||
+              component.reasons.some((reason) =>
+                INVOICE_OVERLAP_HARD_REASONS.includes(reason),
+              ) ||
+              !component.complete;
+            const named = (field: string, value: string): ReviewNeed[] =>
+              value.trim() ? [] : [{ field }];
+            const commitNeeds: ReviewNeed[] = held
+              ? [{ text: t.commitNeeds.held }]
+              : blocked
+                ? [{ text: t.commitNeeds.blocked }]
+                : [
+                    ...named(t.reviewer, reviewer),
+                    ...named(t.rationale, rationale),
+                    ...(component.candidateIds.some(
+                      (id) =>
+                        !form.decisions[id]?.decision ||
+                        !form.decisions[id]?.rationale.trim(),
+                    )
+                      ? [{ text: t.commitNeeds.each }]
+                      : []),
+                    ...(form.rowsReviewed && form.authorized
+                      ? []
+                      : [
+                          {
+                            confirmations: [
+                              Number(form.rowsReviewed) +
+                                Number(form.authorized),
+                              2,
+                            ] as const,
+                          },
+                        ]),
+                  ];
+            const undoNeeds: ReviewNeed[] = held
+              ? [{ text: t.commitNeeds.held }]
+              : [
+                  ...named(t.reviewer, reviewer),
+                  ...named(t.undoReason, form.undoRationale),
+                  ...(form.undoAuthorized ? [] : [{ confirmation: t.undoAck }]),
+                ];
             return (
               <article
                 data-overlap-component={component.id}
                 key={component.id}
                 className="min-w-0 border p-2 space-y-2"
               >
-                <h3>
+                <h3 id={`${hint}-heading`} tabIndex={-1} data-decision-item="">
                   {t.component}:{' '}
                   <mark>
                     <bdi>{component.invoice}</bdi>
@@ -659,6 +733,7 @@ function InvoiceOverlapPanel({
                     <Button
                       className={buttonClass}
                       type="button"
+                      aria-describedby={`${hint} ${blockedWhy}`}
                       disabled={
                         active ||
                         !!mainReview?.blockedReason ||
@@ -698,17 +773,21 @@ function InvoiceOverlapPanel({
                             })),
                           });
                           return 'result' in outcome ? { mainResult: outcome.result } : null;
-                        })
+                        }, () => settle(`${hint}-receipt`, title))
                       }
                     >
                       {t.commit}
                     </Button>
+                    <ReviewHint id={hint} needs={commitNeeds} opens={t.commit} />
                   </>
                 )}
                 {recorded && (
                   <>
                     <p
                       className="break-all"
+                      id={`${hint}-receipt`}
+                      tabIndex={-1}
+                      data-decision-state
                       data-overlap-active-receipt={recorded.id}
                     >
                       {t.receipt}: <bdi>{recorded.id}</bdi>
@@ -745,6 +824,7 @@ function InvoiceOverlapPanel({
                       className={buttonClass}
                       type="button"
                       variant="outline"
+                      aria-describedby={`${hint} ${blockedWhy}`}
                       disabled={
                         active ||
                         !!mainReview?.blockedReason ||
@@ -768,11 +848,12 @@ function InvoiceOverlapPanel({
                               return { input, values };
                             });
                           return 'result' in outcome ? { mainResult: outcome.result } : null;
-                        })
+                        }, () => settle(`${hint}-heading`, title))
                       }
                     >
                       {t.undo}
                     </Button>
+                    <ReviewHint id={hint} needs={undoNeeds} opens={t.undo} />
                   </>
                 )}
               </article>
@@ -830,6 +911,7 @@ function InvoiceOverlapPanel({
               className={buttonClass}
               type="button"
               variant="outline"
+              aria-describedby={exportWhy}
               disabled={active || !current.state.receipts.length}
               onClick={() =>
                 void run(async (live) => {
@@ -850,6 +932,7 @@ function InvoiceOverlapPanel({
               className={buttonClass}
               type="button"
               variant="outline"
+              aria-describedby={exportWhy}
               disabled={active || !current.state.receipts.length}
               onClick={() =>
                 void run(async (live) => {
@@ -867,6 +950,13 @@ function InvoiceOverlapPanel({
               {t.exportSession}
             </Button>
           </div>
+          <ClosedReason
+            id={exportWhy}
+            closed={!current.state.receipts.length}
+            waits="step"
+            label={[t.exportWorkbook, t.exportSession]}
+            step={t.exportWaits}
+          />
           {archiveSession && (
             <details>
               <summary>

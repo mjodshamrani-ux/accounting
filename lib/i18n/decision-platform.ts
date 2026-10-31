@@ -53,6 +53,23 @@ const en = {
       'Decisions stay closed while a source has an error; correct it in its original file.',
     links: 'A decision holds at most 100 links.',
   },
+  // A source-reading review (UX-3): what is still missing before any
+  // decision, what approval also waits for, then that both are open. The
+  // items are the reader's own words: the fields by their labels, the
+  // confirmations counted, the selection and the state.
+  review: {
+    before: (items: string[]) => `Before deciding: ${items.join('; ')}.`,
+    acceptAlso: (items: string[]) =>
+      `Reject is open; approval also waits for ${items.join('; ')}.`,
+    open: 'Approve and reject are open.',
+    opens: (label: string) => `“${label}” is open.`,
+    field: (label: string) => `the “${label}”`,
+    confirmations: (ticked: number, of: number) =>
+      `every confirmation ticked (${ticked} of ${of})`,
+    confirmation: (label: string) => `the confirmation “${label}”`,
+    everyRow: 'every movement and proposal selected',
+    ready: 'a reading ready to approve',
+  },
   // A closed button that is not a decision says what opens it.
   waits: {
     ask: (ask: string) => `“${ask}” opens once a question is written.`,
@@ -61,6 +78,8 @@ const en = {
     example: (example: string) =>
       `“${example}” opens only before a file is chosen, so it never replaces your file.`,
     step: (label: string, step: string) => `“${label}” opens once ${step}.`,
+    steps: (labels: readonly string[], step: string) =>
+      `${labels.map((label) => `“${label}”`).join(' and ')} open once ${step}.`,
   },
 };
 
@@ -105,6 +124,18 @@ const ar: typeof en = {
     blocked: 'القرارات مغلقة ما دام في مصدر خطأ؛ صحّحه في ملفه الأصلي.',
     links: 'يحمل القرار 100 رابط على الأكثر.',
   },
+  review: {
+    before: (items) => `قبل القرار: ${items.join('؛ ')}.`,
+    acceptAlso: (items) =>
+      `الرفض مفتوح، والاعتماد ينتظر أيضًا ${items.join('؛ ')}.`,
+    open: 'الاعتماد والرفض مفتوحان.',
+    opens: (label) => `«${label}» مفتوح.`,
+    field: (label) => `«${label}»`,
+    confirmations: (ticked, of) => `تحديد كل التأكيدات (${ticked} من ${of})`,
+    confirmation: (label) => `التأكيد «${label}»`,
+    everyRow: 'اختيار كل حركة واقتراح',
+    ready: 'قراءة جاهزة للاعتماد',
+  },
   waits: {
     ask: (ask) => `يُفتح «${ask}» بعد كتابة سؤال.`,
     check: (check) =>
@@ -112,6 +143,8 @@ const ar: typeof en = {
     example: (example) =>
       `يُفتح «${example}» قبل اختيار ملف فقط، فلا يحل محل ملفك.`,
     step: (label, step) => `يُفتح «${label}» بعد ${step}.`,
+    steps: (labels, step) =>
+      `يُفتح ${labels.map((label) => `«${label}»`).join(' و')} بعد ${step}.`,
   },
 };
 

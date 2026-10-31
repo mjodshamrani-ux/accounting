@@ -15,19 +15,25 @@ import {
 /** After a decision, the pressed button is closed while the request runs, so
  * the focus would fall to the page. The platform takes it to what the
  * decision changed: the line that holds the state, or, for a decision on one
- * of many items, that item's heading. The workspace calls the returned
- * function with that element's id where it applies the reply, so a late
- * reply never moves the focus; a run, an example or a restored session goes
- * to the result heading instead (UX-2). */
+ * of many items, that item's heading; or, where the decision makes the view
+ * read its source again and that element is gone, to `fallback`. The
+ * workspace calls the returned function with those ids where it applies the
+ * reply, so a late reply never moves the focus; a run, an example or a
+ * restored session goes to the result heading instead (UX-2). */
 export function useDecisionFocus() {
-  const [target, setTarget] = useState<{ id: string } | null>(null);
+  const [target, setTarget] = useState<{
+    id: string;
+    fallback?: string;
+  } | null>(null);
   useEffect(() => {
     if (!target) return;
-    const element = document.getElementById(target.id);
+    const element =
+      document.getElementById(target.id) ??
+      (target.fallback ? document.getElementById(target.fallback) : null);
     element?.scrollIntoView({ block: 'nearest' });
     element?.focus({ preventScroll: true });
   }, [target]);
-  return (id: string) => setTarget({ id });
+  return (id: string, fallback?: string) => setTarget({ id, fallback });
 }
 
 /** The sentence under the decision buttons: which decisions are open and
@@ -138,9 +144,67 @@ export function NoteHint({
   );
 }
 
+/** What a source-reading review still needs before a decision: a field by
+ * its label, the confirmations ticked out of all, one confirmation, a phrase
+ * of the review's own, every row selected, or a reading ready to approve. */
+export type ReviewNeed =
+  | { field: string }
+  | { confirmations: readonly [ticked: number, of: number] }
+  | { confirmation: string }
+  | { text: string }
+  | 'everyRow'
+  | 'ready';
+
+/** The sentence under the decisions of a source-reading review (UX-3): what
+ * is still missing before any decision (`needs`), then what approval alone
+ * still waits for (`acceptNeeds`), then that both are open, or, for a review
+ * that records its decisions with one button, that this button (`opens`) is
+ * open. The review's decision buttons and its fields are described by it. */
+export function ReviewHint({
+  id,
+  needs,
+  acceptNeeds = [],
+  opens,
+}: {
+  id: string;
+  needs: readonly ReviewNeed[];
+  acceptNeeds?: readonly ReviewNeed[];
+  opens?: string;
+}) {
+  const { lang } = useI18n();
+  const copy = decisionPlatformCopy[lang].review;
+  const word = (need: ReviewNeed) =>
+    need === 'everyRow' || need === 'ready'
+      ? copy[need]
+      : 'field' in need
+        ? copy.field(need.field)
+        : 'confirmations' in need
+          ? copy.confirmations(...need.confirmations)
+          : 'confirmation' in need
+            ? copy.confirmation(need.confirmation)
+            : need.text;
+  const key = needs.length
+    ? 'before'
+    : acceptNeeds.length
+      ? 'acceptAlso'
+      : 'open';
+  return (
+    <p id={id} className="decision-hint" data-decision-hint={key}>
+      {key === 'before'
+        ? copy.before(needs.map(word))
+        : key === 'acceptAlso'
+          ? copy.acceptAlso(acceptNeeds.map(word))
+          : opens
+            ? copy.opens(opens)
+            : copy.open}
+    </p>
+  );
+}
+
 /** Why a closed button that is not a decision is closed: what the reader
  * does to open it, shown under it while it is closed (UX-3). `step` names
- * the first thing missing where the button waits for several. */
+ * the first thing missing where the button waits for several; a list of
+ * labels names the buttons that wait for the same step. */
 export function ClosedReason({
   id,
   closed,
@@ -151,11 +215,17 @@ export function ClosedReason({
   id: string;
   closed: boolean;
   waits: 'ask' | 'check' | 'example' | 'step';
-  label: string;
+  label: string | readonly string[];
   step?: string;
 }) {
   const { lang } = useI18n();
   const copy = decisionPlatformCopy[lang].waits;
+  const text =
+    typeof label !== 'string'
+      ? copy.steps(label, step)
+      : waits === 'step'
+        ? copy.step(label, step)
+        : copy[waits](label);
   return (
     <p
       id={id}
@@ -163,7 +233,7 @@ export function ClosedReason({
       data-closed-reason={waits}
       hidden={!closed}
     >
-      {waits === 'step' ? copy.step(label, step) : copy[waits](label)}
+      {text}
     </p>
   );
 }

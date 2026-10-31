@@ -1,5 +1,10 @@
 import assert from 'node:assert/strict';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import {
+  closedSay,
+  settledOn,
+  shownReason,
+} from './decision-platform-support.mjs';
 
 export async function verifyVisualTable(page, baseUrl) {
   const original = await readFile('audit/visual-table/fixtures/statement.png');
@@ -131,6 +136,9 @@ export async function verifyVisualTable(page, baseUrl) {
       exact: true,
     });
     assert.ok(await coverage.isDisabled());
+    // UX-3: the range review waits, named, for a type on every row.
+    await shownReason(table, /تحديد نوع كل صف/u, 'table review: untyped');
+    await closedSay(table, 'table review: rows untyped');
     const row1 = table.getByRole('region', { name: 'الصف 1', exact: true });
     await row1.getByLabel('نوع الصف', { exact: true }).selectOption('movement');
     for (const [role, label] of [
@@ -160,6 +168,12 @@ export async function verifyVisualTable(page, baseUrl) {
       .getByLabel('سبب الاستبعاد أو مشكلة القراءة', { exact: true })
       .fill(contract.rows[2].note);
     assert.ok(await coverage.isDisabled());
+    // Then for the excluded row to be checked.
+    await shownReason(
+      table,
+      /تأكيد كل صف مستبعد/u,
+      'table review: unchecked exclusion',
+    );
     await row3
       .getByRole('button', {
         name: 'راجعت هذا الصف وهو لا يمثل حركة',
@@ -167,8 +181,20 @@ export async function verifyVisualTable(page, baseUrl) {
       })
       .click();
     await row3.getByText('استبعاد مُراجع مع الأصل', { exact: true }).waitFor();
+    // The check takes the focus to the line that states it, in its row.
+    await settledOn(
+      page,
+      row3.locator('output[data-decision-state]'),
+      'table review: exclusion checked',
+    );
     await coverage.click();
     await table.getByText('مراجعة النطاق مسجلة', { exact: true }).waitFor();
+    await settledOn(
+      page,
+      table.getByText('مراجعة النطاق مسجلة', { exact: true }),
+      'table review: range recorded',
+    );
+    await closedSay(table, 'table review: range recorded');
     async function save(label = 'حفظ سجل الجدول') {
       const waiting = page.waitForEvent('download');
       await table.getByRole('button', { name: label, exact: true }).click();

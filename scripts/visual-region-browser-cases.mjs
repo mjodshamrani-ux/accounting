@@ -1,5 +1,10 @@
 import assert from 'node:assert/strict';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import {
+  closedSay,
+  settledOn,
+  shownReason,
+} from './decision-platform-support.mjs';
 
 export async function verifyVisualRegions(page, baseUrl) {
   const original = await readFile('audit/visual-numeric/fixtures/amounts.png');
@@ -90,6 +95,27 @@ export async function verifyVisualRegions(page, baseUrl) {
     await panel
       .getByRole('button', { name: 'حدد قيمة من الصورة', exact: true })
       .click();
+    // UX-3: pressing on the image drops the frame until the pointer moves,
+    // so using the crop closes and says it waits for one; every closed
+    // button here says why. Read while pressed: a release on the same
+    // point may leave a frame one pixel wide.
+    {
+      const surface = panel.getByRole('button', {
+        name: 'تحديد قصاصة من الصورة الأصلية',
+        exact: true,
+      });
+      await surface.scrollIntoViewIfNeeded();
+      const r = await surface.boundingBox();
+      await page.mouse.move(r.x + r.width / 2, r.y + r.height / 2);
+      await page.mouse.down();
+      await shownReason(
+        panel,
+        /استخدم هذه القصاصة.*رسم إطار حول القيمة/u,
+        'region review: no frame',
+      );
+      await closedSay(panel, 'region review: no frame');
+      await page.mouse.up();
+    }
     await draw();
     await panel
       .getByRole('button', { name: 'استخدم هذه القصاصة', exact: true })
@@ -100,6 +126,12 @@ export async function verifyVisualRegions(page, baseUrl) {
       'manual selection must not invent or copy a numeric guess',
     );
     assert.ok(await confirm.isDisabled());
+    await shownReason(
+      regionEditor,
+      /اختيار نوعها وكتابة القيمة/u,
+      'region review: no value',
+    );
+    await closedSay(regionEditor, 'region review: no value');
     await role.selectOption('amount');
     await literal.fill(target.expected);
     assert.ok(!(await confirm.isDisabled()));
@@ -107,6 +139,11 @@ export async function verifyVisualRegions(page, baseUrl) {
     await regionEditor
       .getByText('راجعت هذه القيمة مع القصاصة', { exact: true })
       .waitFor();
+    await settledOn(
+      page,
+      regionEditor.locator('output[data-decision-state]'),
+      'region review: confirmed',
+    );
     const initial = await saved();
     assert.equal(initial.version, 2);
     assert.equal(initial.cells.length, 0);
@@ -132,6 +169,13 @@ export async function verifyVisualRegions(page, baseUrl) {
       await save.isDisabled(),
       'empty manual literal must leave no hidden reviewed value',
     );
+    // Saving the record, closed with no value, says it waits for one.
+    await shownReason(
+      panel,
+      /تسجيل قيمة من الصورة/u,
+      'region review: empty literal',
+    );
+    await closedSay(panel, 'region review: empty literal');
     await literal.fill(target.expected);
     await confirm.click();
     await regionEditor

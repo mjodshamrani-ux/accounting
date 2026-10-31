@@ -4,7 +4,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { verifyMultilineSourceReview } from './multiline-source-review-browser-cases.mjs';
-const root = path.resolve('dist');
+const root = path.resolve(process.env.MIZAN_DIST_DIR ?? 'dist');
 const server = createServer(async (request, response) => {
   try {
     const relative = new URL(request.url, 'http://localhost').pathname;

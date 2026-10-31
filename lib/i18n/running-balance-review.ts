@@ -14,6 +14,11 @@ export const runningBalanceCopy = {
     ledger: 'السجل المحاسبي',
     empty: 'اختر كشفًا نصيًا من الملفات المرفوعة لبدء المراجعة.',
     cuts: 'راجعت الحقول السبعة وأدوارها وحدود أعمدتها الثابتة: 10، 25، 40، 65، 77، 88.',
+    // What «فحص الكشف» waits for, the first missing named (UX-3).
+    inspectWaits: {
+      cuts: 'تأكيد مراجعة الحقول السبعة وحدود أعمدتها في المربع أعلاه',
+      scope: 'نطاق بعملة SAR ودقة 2',
+    },
     inspect: 'فحص الكشف',
     cancel: 'إلغاء العملية',
     checking: 'جارٍ فحص الأصل والأدلة…',
@@ -96,6 +101,10 @@ export const runningBalanceCopy = {
     ledger: 'Accounting ledger',
     empty: 'Choose a text PDF from the uploaded sources to start reviewing.',
     cuts: 'I reviewed the seven fields, their roles and fixed column boundaries: 10, 25, 40, 65, 77, 88.',
+    inspectWaits: {
+      cuts: 'the review of the seven fields and their column boundaries is ticked above',
+      scope: 'the scope is SAR with 2 decimals',
+    },
     inspect: 'Inspect statement',
     cancel: 'Cancel operation',
     checking: 'Checking original source and evidence…',

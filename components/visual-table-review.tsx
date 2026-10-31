@@ -2,6 +2,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { useI18n } from '@/lib/i18n/context';
 import { Button } from './ui/button';
+import { ClosedReason, useDecisionFocus } from './decision-platform';
 import { VisualCropPicker } from './visual-crop-picker';
 import {
   VisualAccountingReview,
@@ -42,12 +43,16 @@ function coordinates(input: string): number[] {
 function RowReview({
   table,
   index,
+  stateId,
   disabled,
   onEdit,
   onConfirm,
 }: {
   table: VisualTable;
   index: number;
+  /** The line that states the row's checked exclusion, which takes the
+   * focus once it is recorded (UX-3). */
+  stateId: string;
   disabled: boolean;
   onEdit: (index: number, fields: Omit<TableRow, 'id' | 'review'>) => void;
   onConfirm: (index: number) => void;
@@ -174,9 +179,14 @@ function RowReview({
       )}
       {row.disposition === 'non-movement' && (
         <>
-          {row.review && <output>{v.exclusionChecked}</output>}
+          {row.review && (
+            <output id={stateId} tabIndex={-1} data-decision-state>
+              {v.exclusionChecked}
+            </output>
+          )}
           <Button
             variant="outline"
+            aria-describedby={stateId}
             disabled={disabled || !!row.review}
             onClick={() => onConfirm(index)}
           >
@@ -223,6 +233,12 @@ export function VisualTableReview({
   );
   const [busy, setBusy] = useState(false),
     [error, setError] = useState(false);
+  // A recorded check takes the focus to the line that states it, and the
+  // range check says what it still waits for (UX-3).
+  const rowState = useId(),
+    coverageState = useId(),
+    coverageWhy = useId();
+  const settle = useDecisionFocus();
   useEffect(() => {
     onBusy?.(busy);
     return () => onBusy?.(false);
@@ -293,8 +309,11 @@ export function VisualTableReview({
           setTimeout(() => URL.revokeObjectURL(url), 1000);
         }
       }
-      if (next && operation.current === token && current.current === snapshot)
+      if (next && operation.current === token && current.current === snapshot) {
         update(next);
+        if (action === 'exclusion') settle(`${rowState}-${row}`);
+        if (action === 'coverage') settle(coverageState);
+      }
     } catch {
       if (operation.current === token) setError(true);
     } finally {
@@ -433,6 +452,7 @@ export function VisualTableReview({
               key={`${table.revision}:${r.id}`}
               table={table}
               index={i}
+              stateId={`${rowState}-${i}`}
               disabled={disabled || busy}
               onEdit={(index, fields) => {
                 try {
@@ -453,10 +473,13 @@ export function VisualTableReview({
             />
           ))}
           <p className="hint">{v.coverageHint}</p>
-          <output>{table.coverage ? v.covered : v.pending}</output>
+          <output id={coverageState} tabIndex={-1} data-decision-state>
+            {table.coverage ? v.covered : v.pending}
+          </output>
           <div className="visual-crop-actions">
             <Button
               variant="outline"
+              aria-describedby={`${coverageState} ${coverageWhy}`}
               disabled={
                 disabled ||
                 busy ||
@@ -477,6 +500,26 @@ export function VisualTableReview({
               {v.save}
             </Button>
           </div>
+          <ClosedReason
+            id={coverageWhy}
+            closed={
+              !table.coverage &&
+              !!(
+                counts.unclassified ||
+                counts.uncheckedExclusions ||
+                counts.unassignedCrops
+              )
+            }
+            waits="step"
+            label={v.coverage}
+            step={
+              counts.unclassified
+                ? v.coverageWaits.unclassified
+                : counts.uncheckedExclusions
+                  ? v.coverageWaits.exclusions
+                  : v.coverageWaits.crops
+            }
+          />
           <p className="hint">{v.onlyEvidence}</p>
           {scope && onSource && (
             <VisualAccountingReview

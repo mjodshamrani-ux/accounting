@@ -249,6 +249,8 @@ jobs:
         run: pnpm test:browser:record-table
       - name: In the ten workspaces with decisions, Arabic and English at 390 px, no closed button goes without a shown sentence that says why, approval stays closed while that sentence says it waits, and after a decision the focus is on what it changed, on the page that shows it (UX-3)
         run: pnpm test:browser:decision-platform
+      - name: In a transaction's review, the PDF review and the image reader, every closed button says what opens it, and after a decision the focus is on what it changed, in view; closing a transaction's review returns to its opener (UX-3)
+        run: pnpm test:browser:review-platform
       - name: Verify native Chrome section families and qualified currencies
         env:
           MIZAN_CHROMIUM: /usr/bin/google-chrome
@@ -1126,6 +1128,29 @@ jobs:
         env:
           DECISION_PLATFORM_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/decision-platform-interface-mutations
         run: pnpm test:decision-platform:interface-mutations
+  review-platform-interface-mutations:
+    name: Review decision platform interface mutations in built browser copies (UX-3)
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted defect in a review and require that review's browser check to catch it
+        env:
+          REVIEW_PLATFORM_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/review-platform-interface-mutations
+        run: pnpm test:review-platform:interface-mutations
   clearing-groups-browser:
     name: Clearing groups in the built application, the 37 sealed CLR-1 stories and the 27 of holdout H1 in the clearing workspace against the recorded runs (CLR-1c and CLR-1d)
     runs-on: ubuntu-latest

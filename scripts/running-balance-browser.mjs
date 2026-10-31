@@ -11,12 +11,13 @@ import {
   runningBalanceCopy,
   runningDiagnostic,
 } from '../lib/i18n/running-balance-review.ts';
+import { closedSay, settledOn } from './decision-platform-support.mjs';
 
 const root = path.resolve(
   process.env.RUNNING_BROWSER_REPORT_DIR || '../evidence/running-browser',
 );
 const frozen = path.resolve('audit/running-balance/frozen');
-const dist = path.resolve('dist');
+const dist = path.resolve(process.env.MIZAN_DIST_DIR ?? 'dist');
 await mkdir(root, { recursive: true });
 const hash = (b) => createHash('sha256').update(b).digest('hex');
 const ids = [
@@ -242,6 +243,11 @@ try {
       await page.getByTestId('running-balance-toggle').click();
       const panel = page.getByTestId('running-balance-panel');
       await panel.getByTestId('running-balance-source').selectOption('0');
+      // UX-3: reading waits for the confirmed column cuts, and says so.
+      assert.ok(
+        await closedSay(panel, `${lang}-${id}`),
+        `${lang}-${id}: reading is closed before the cuts are confirmed`,
+      );
       await panel.getByTestId('running-balance-cuts-ack').check();
       const cancelled = await page.evaluate(async () => {
         document
@@ -306,6 +312,15 @@ try {
         );
         await panel.getByTestId('running-balance-select-all').click();
         await idle(panel);
+        // UX-3: every closed button says what opens it, and the decisions
+        // wait, named, for the reviewer, the rationale and the confirmations.
+        await closedSay(panel, `${lang}-${id}`);
+        const hint = panel.locator('[data-decision-hint]');
+        assert.equal(
+          await hint.getAttribute('data-decision-hint'),
+          'before',
+          `${lang}-${id}: the decisions wait`,
+        );
         const first = panel.getByTestId('running-balance-movement').first();
         await first.locator('summary').focus();
         await first.locator('summary').press('Enter');
@@ -331,8 +346,18 @@ try {
           'derivedSourceUnderstood',
         ])
           await panel.getByTestId(`running-balance-ack-${key}`).check();
+        assert.equal(
+          await hint.getAttribute('data-decision-hint'),
+          'open',
+          `${lang}-${id}: both decisions open`,
+        );
         await panel.getByTestId('running-balance-accept').click();
         await panel.getByTestId('running-balance-receipt').waitFor();
+        await settledOn(
+          page,
+          panel.getByTestId('running-balance-receipt'),
+          `${lang}-${id}: approval`,
+        );
         // Reviewer edits invalidate a concrete live receipt; a fresh decision is required.
         await panel
           .getByTestId('running-balance-rationale')

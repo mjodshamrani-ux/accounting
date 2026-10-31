@@ -320,7 +320,19 @@ void test('every sentence and block has words in both languages', () => {
     for (const key of ['ask', 'check', 'example'] as const)
       assert.match(c.waits[key]('L'), /L/u, `${lang} waits ${key}`);
     assert.match(c.waits.step('L', 'S'), /L.*S/su);
+    // A review recorded by one button, and several buttons that wait for
+    // the same step (UX-3, the reviews).
+    assert.match(c.review.opens('L'), /L/u);
+    assert.match(c.waits.steps(['A', 'B'], 'S'), /A.*B.*S/su);
   }
+  assert.equal(
+    decisionPlatformCopy.en.waits.steps(['A', 'B'], 'a decision is recorded'),
+    '“A” and “B” open once a decision is recorded.',
+  );
+  assert.equal(
+    decisionPlatformCopy.ar.waits.steps(['أ', 'ب'], 'تسجيل قرار'),
+    'يُفتح «أ» و«ب» بعد تسجيل قرار.',
+  );
   // The steps the balance reconciliation waits for, in both languages.
   for (const lang of ['en', 'ar'] as const) {
     const c = bankAdjustmentCopy[lang];

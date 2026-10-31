@@ -1,6 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
+import {
+  ReviewHint,
+  useDecisionFocus,
+  type ReviewNeed,
+} from '@/components/decision-platform';
 import { RecordRows } from '@/components/record-table';
 import { Input } from '@/components/ui/input';
 import { useI18n } from '@/lib/i18n/context';
@@ -204,6 +209,7 @@ function SplitPanel({
   const [reviewer, setReviewer] = useState('');
   const [rationale, setRationale] = useState('');
   const [ack, setAck] = useState<Ack>(emptyAck);
+  const [rejected, setRejected] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [progress, setProgress] = useState('');
@@ -221,6 +227,7 @@ function SplitPanel({
   function invalidate() {
     setReceipt(null);
     setArtifact(null);
+    setRejected(false);
     session.updateReviewer(reviewer, rationale);
   }
   async function run(
@@ -282,6 +289,21 @@ function SplitPanel({
     reviewer.trim() !== '' &&
     rationale.trim() !== '' &&
     fields.every((key) => ack[key]);
+  // The decision platform (UX-3): the sentence under the review says what a
+  // decision still needs, in the order the reader meets it, and after a
+  // decision the focus goes to its receipt, not to the page.
+  const ticked = fields.filter((key) => ack[key]).length;
+  const needs: ReviewNeed[] = [
+    ...(reviewer.trim() ? [] : [{ field: t.reviewer }]),
+    ...(rationale.trim() ? [] : [{ field: t.rationale }]),
+    ...(ticked === fields.length
+      ? []
+      : [{ confirmations: [ticked, fields.length] as const }]),
+  ];
+  const acceptNeeds: ReviewNeed[] = [
+    ...(allSelected ? [] : (['everyRow'] as const)),
+    ...(selection?.review.state === 'review-ready' ? [] : (['ready'] as const)),
+  ];
   async function choose(rows: number[], ids: string[]) {
     invalidate();
     setAck(emptyAck());
@@ -290,6 +312,11 @@ function SplitPanel({
       if (!options.signal.aborted) setSelection(next);
     });
   }
+  const hint = useId(),
+    scopeWhy = useId(),
+    receiptLine = useId(),
+    rejectedLine = useId(),
+    settle = useDecisionFocus();
   function record(decision: 'accept' | 'reject') {
     if (!selection) return;
     invalidate();
@@ -315,7 +342,10 @@ function SplitPanel({
         },
         { ...options, currentSelection: selection },
       );
-      if (!options.signal.aborted) setReceipt(next);
+      if (options.signal.aborted) return;
+      setReceipt(next);
+      setRejected(!next);
+      settle(next ? receiptLine : rejectedLine);
     });
   }
   const money = (minor: string) => (
@@ -326,11 +356,16 @@ function SplitPanel({
       className="min-w-0 max-w-full space-y-3"
       data-testid="split-section-review"
     >
-      {!scopeReady && <p role="alert">{t.scope}</p>}
+      {!scopeReady && (
+        <p role="alert" id={scopeWhy}>
+          {t.scope}
+        </p>
+      )}
       <div className="flex flex-wrap gap-2">
         <Button
           className={buttonClass}
           data-testid="split-section-inspect"
+          aria-describedby={scopeReady ? undefined : scopeWhy}
           disabled={busy || !scopeReady}
           onClick={() => {
             invalidate();
@@ -583,6 +618,7 @@ function SplitPanel({
               <Input
                 maxLength={200}
                 data-testid="split-section-reviewer"
+                aria-describedby={hint}
                 disabled={busy}
                 value={reviewer}
                 onChange={(e) => {
@@ -597,6 +633,7 @@ function SplitPanel({
               <Input
                 maxLength={4000}
                 data-testid="split-section-rationale"
+                aria-describedby={hint}
                 disabled={busy}
                 value={rationale}
                 onChange={(e) => {
@@ -622,10 +659,12 @@ function SplitPanel({
               {t[key]}
             </label>
           ))}
+          <ReviewHint id={hint} needs={needs} acceptNeeds={acceptNeeds} />
           <div className="flex flex-wrap gap-2">
             <Button
               className={buttonClass}
               data-testid="split-section-accept"
+              aria-describedby={hint}
               disabled={
                 !canRecord ||
                 !allSelected ||
@@ -639,15 +678,33 @@ function SplitPanel({
               className={buttonClass}
               variant="outline"
               data-testid="split-section-reject"
+              aria-describedby={hint}
               disabled={!canRecord}
               onClick={() => record('reject')}
             >
               {t.reject}
             </Button>
           </div>
+          {rejected && (
+            <output
+              id={rejectedLine}
+              tabIndex={-1}
+              data-decision-state
+              data-testid="split-section-rejected"
+            >
+              {t.rejected}
+            </output>
+          )}
           {receipt && (
             <>
-              <p data-testid="split-section-receipt">{t.receipt}</p>
+              <p
+                id={receiptLine}
+                tabIndex={-1}
+                data-decision-state
+                data-testid="split-section-receipt"
+              >
+                {t.receipt}
+              </p>
               <Button
                 className={buttonClass}
                 data-testid="split-section-apply"

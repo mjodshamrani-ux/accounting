@@ -1,6 +1,11 @@
 import assert from 'node:assert/strict';
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import {
+  closedSay,
+  settledOn,
+  shownReason,
+} from './decision-platform-support.mjs';
 const fixtureRoot = new URL(
   '../audit/local-provider/multiline-source-v1/frozen/',
   import.meta.url,
@@ -74,6 +79,13 @@ export async function verifyMultilineSourceReview(page, url, out) {
         await waitEnabled('[data-source-review-accept]');
         await ui.locator('[data-source-review-accept]').click();
         await state('approved');
+        // UX-3: the decision closes its buttons; the focus is on the line
+        // that states the review.
+        await settledOn(
+          page,
+          ui.locator('[data-source-review-state]'),
+          `multiline/${lang}/${width}: approval`,
+        );
       };
       const assertFinancialUnchanged = async () => {
         assert.deepEqual(
@@ -96,6 +108,18 @@ export async function verifyMultilineSourceReview(page, url, out) {
       await upload();
       await state('candidate');
       await waitEnabled('[data-source-review-reread]');
+      // UX-3: approval and applying are closed, and say what opens them.
+      assert.ok(
+        (await closedSay(ui, `multiline/${lang}/${width}`)) >= 2,
+        `multiline/${lang}/${width}: approval and applying are closed`,
+      );
+      await shownReason(
+        ui,
+        lang === 'en'
+          ? /the source interpretation is accepted/u
+          : /قبول تفسير المصدر/u,
+        `multiline/${lang}/${width}: applying`,
+      );
       assert.equal(
         await ui.locator('[data-source-review-original]').textContent(),
         original.toString('utf8'),
@@ -243,6 +267,11 @@ export async function verifyMultilineSourceReview(page, url, out) {
       await review();
       await ui.locator('[data-source-review-reject]').click();
       await state('rejected');
+      await settledOn(
+        page,
+        ui.locator('[data-source-review-state]'),
+        `multiline/${lang}/${width}: rejection`,
+      );
       assert.equal(
         await ui.locator('[data-source-review-apply]').isDisabled(),
         true,

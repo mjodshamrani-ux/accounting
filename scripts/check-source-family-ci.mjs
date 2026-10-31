@@ -354,6 +354,7 @@ const required = [
   'test:browser:visual-identity:self-test',
   'test:browser:record-table',
   'test:browser:decision-platform',
+  'test:browser:review-platform',
 ];
 const deployed = ['build', ...deployGated].flatMap(
   (name) => workflow.jobs[name].steps,
@@ -515,6 +516,9 @@ const separate = {
   ],
   'decision-platform-interface-mutations': [
     'test:decision-platform:interface-mutations',
+  ],
+  'review-platform-interface-mutations': [
+    'test:review-platform:interface-mutations',
   ],
   'clearing-groups-browser': [
     'test:clr-groups:browser',

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useId, useMemo, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { RecordFrame, RecordPager } from '@/components/record-table';
@@ -63,6 +63,9 @@ function SourceStructureReviewPanel({
   const { lang, engineText } = useI18n();
   const t = sourceStructureReviewCopy(lang);
   const controller = useMemo(() => new SourceStructureReviewController(), []);
+  // The inspection is described by the line that says a file is missing
+  // (UX-3).
+  const runWhy = useId();
   const binding = useMemo(
     () => ({ files, mappings, scope, extractionRevision }),
     [files, mappings, scope, extractionRevision],
@@ -188,6 +191,7 @@ function SourceStructureReviewPanel({
           className="h-auto max-w-full min-w-0 whitespace-normal text-start"
           type="button"
           onClick={() => void run()}
+          aria-describedby={runWhy}
           disabled={!files.every(Boolean) || !!current?.busy}
         >
           {t.run}
@@ -204,7 +208,7 @@ function SourceStructureReviewPanel({
           {t.clear}
         </Button>
       </div>
-      {!files.every(Boolean) && <p>{t.missing}</p>}
+      {!files.every(Boolean) && <p id={runWhy}>{t.missing}</p>}
       {current?.busy && <output>{t.busy}</output>}
       {result && (
         <>

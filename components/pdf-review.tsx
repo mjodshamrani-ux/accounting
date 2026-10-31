@@ -1,9 +1,16 @@
-import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
+import {
+  useEffect,
+  useId,
+  useMemo,
+  useState,
+  useSyncExternalStore,
+} from 'react';
 import type { SourceFile } from '../lib/reconciliation/types';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Checkbox } from './ui/checkbox';
 import { RecordFrame, RecordPager } from './record-table';
+import { ClosedReason } from './decision-platform';
 import { recordPage } from '@/lib/record-page';
 import { useI18n } from '@/lib/i18n/context';
 
@@ -59,6 +66,12 @@ export function PdfReview({
   const [pageDraft, setPageDraft] = useState('1');
   const [rowWindow, setRowWindow] = useState(0);
   const [open, setOpen] = useState(false);
+  // Each closed button here says what opens it (UX-3): the page buttons by
+  // the line that names the page, the others by a sentence under them.
+  const pageLine = useId(),
+    jumpWhy = useId(),
+    applyWhy = useId(),
+    invalidWhy = useId();
   const [reading, setReading] = useState({ file, page, header });
   if (reading.file !== file) {
     setReading({ file, page: 1, header });
@@ -198,15 +211,19 @@ export function PdfReview({
               <Button
                 variant="outline"
                 size="sm"
+                aria-describedby={pageLine}
                 disabled={page <= 1}
                 onClick={() => setPage((p) => p - 1)}
               >
                 {r.previousPage}
               </Button>
-              <span className="muted">{r.pageOf(page, file.pdf!.pages)}</span>
+              <span className="muted" id={pageLine}>
+                {r.pageOf(page, file.pdf!.pages)}
+              </span>
               <Button
                 variant="outline"
                 size="sm"
+                aria-describedby={pageLine}
                 disabled={page >= file.pdf!.pages}
                 onClick={() => setPage((p) => p + 1)}
               >
@@ -236,6 +253,7 @@ export function PdfReview({
               <Button
                 variant="outline"
                 size="sm"
+                aria-describedby={jumpWhy}
                 disabled={!validPage || requestedPage === page}
                 onClick={jumpToPage}
               >
@@ -252,6 +270,19 @@ export function PdfReview({
             {open ? r.hideCuts : r.editCuts}
           </button>
         </div>
+        {file.pdf!.pages > 1 && (
+          <ClosedReason
+            id={jumpWhy}
+            closed={!validPage || requestedPage === page}
+            waits="step"
+            label={r.goToPage}
+            step={
+              validPage
+                ? r.jumpWaits.other
+                : r.jumpWaits.number(file.pdf!.pages)
+            }
+          />
+        )}
         {open && (
           <div className="stack">
             <label className="field">
@@ -269,6 +300,7 @@ export function PdfReview({
               <Button
                 variant="outline"
                 size="sm"
+                aria-describedby={`${invalidWhy} ${applyWhy}`}
                 disabled={!pending || !parsed}
                 onClick={() => parsed && onApply(parsed)}
               >
@@ -283,11 +315,22 @@ export function PdfReview({
                   {r.undoCuts}
                 </Button>
               )}
-              {!parsed && <span className="hint warn">{r.cutsInvalid}</span>}
+              {!parsed && (
+                <span className="hint warn" id={invalidWhy}>
+                  {r.cutsInvalid}
+                </span>
+              )}
               {parsed && pending && (
                 <span className="hint">{r.cutsPending}</span>
               )}
             </div>
+            <ClosedReason
+              id={applyWhy}
+              closed={!pending}
+              waits="step"
+              label={r.applyCuts}
+              step={r.applyWaits}
+            />
           </div>
         )}
       </details>

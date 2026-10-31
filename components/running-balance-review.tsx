@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import {
   CheckCircle2,
   ChevronDown,
@@ -6,6 +6,12 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  ClosedReason,
+  ReviewHint,
+  useDecisionFocus,
+  type ReviewNeed,
+} from '@/components/decision-platform';
 import { Input } from '@/components/ui/input';
 import { RecordPager, RecordRows } from '@/components/record-table';
 import { recordPage } from '@/lib/record-page';
@@ -249,6 +255,29 @@ function RunningSourcePanel({
     !!reviewer.trim() &&
     !!rationale.trim() &&
     ackKeys.every((key) => ack[key]);
+  // The decision platform (UX-3): the sentence under the review says what a
+  // decision still needs, and after a decision the focus goes to its receipt
+  // or to the notice of a rejection, not to the page. The inspection says
+  // what it waits for.
+  const ticked = ackKeys.filter((key) => ack[key]).length;
+  const needs: ReviewNeed[] = [
+    ...(reviewer.trim() ? [] : [{ field: t.reviewer }]),
+    ...(rationale.trim() ? [] : [{ field: t.rationale }]),
+    ...(ticked === ackKeys.length
+      ? []
+      : [{ confirmations: [ticked, ackKeys.length] as const }]),
+  ];
+  const acceptNeeds: ReviewNeed[] = allSelected ? [] : ['everyRow'];
+  const inspectWait = !cutsReviewed
+    ? t.inspectWaits.cuts
+    : scope.currency !== 'SAR' || scope.decimals !== 2
+      ? t.inspectWaits.scope
+      : '';
+  const hint = useId(),
+    inspectWhy = useId(),
+    receiptLine = useId(),
+    noticeLine = useId(),
+    settle = useDecisionFocus();
   function choose(rows: number[], ids: string[]) {
     invalidateDecision();
     if (session.current)
@@ -279,6 +308,7 @@ function RunningSourcePanel({
       (result) => {
         setReceipt(result);
         if (!result) setNotice(t.rejected);
+        settle(result ? receiptLine : noticeLine);
       },
     );
   }
@@ -372,6 +402,7 @@ function RunningSourcePanel({
           <div className="running-review__actions">
             <Button
               data-testid="running-balance-inspect"
+              aria-describedby={inspectWhy}
               disabled={
                 busy ||
                 !cutsReviewed ||
@@ -422,6 +453,13 @@ function RunningSourcePanel({
             )}
             <output aria-live="polite">{progress}</output>
           </div>
+          <ClosedReason
+            id={inspectWhy}
+            closed={!!inspectWait}
+            waits="step"
+            label={t.inspect}
+            step={inspectWait}
+          />
         </>
       ) : (
         <p>{t.empty}</p>
@@ -435,7 +473,11 @@ function RunningSourcePanel({
           {error}
         </p>
       )}
-      {notice && <output>{notice}</output>}
+      {notice && (
+        <output id={noticeLine} tabIndex={-1} data-decision-state>
+          {notice}
+        </output>
+      )}
       {review && (
         <>
           <div
@@ -729,6 +771,7 @@ function RunningSourcePanel({
                     {t.reviewer}
                     <Input
                       data-testid="running-balance-reviewer"
+                      aria-describedby={hint}
                       disabled={busy}
                       maxLength={200}
                       value={reviewer}
@@ -746,6 +789,7 @@ function RunningSourcePanel({
                     {t.rationale}
                     <textarea
                       data-testid="running-balance-rationale"
+                      aria-describedby={hint}
                       disabled={busy}
                       maxLength={4000}
                       value={rationale}
@@ -778,9 +822,11 @@ function RunningSourcePanel({
                     {t[key]}
                   </label>
                 ))}
+                <ReviewHint id={hint} needs={needs} acceptNeeds={acceptNeeds} />
                 <div className="running-review__actions">
                   <Button
                     data-testid="running-balance-accept"
+                    aria-describedby={hint}
                     disabled={!canRecord || !allSelected}
                     onClick={() => record('accept')}
                   >
@@ -789,6 +835,7 @@ function RunningSourcePanel({
                   <Button
                     variant="outline"
                     data-testid="running-balance-reject"
+                    aria-describedby={hint}
                     disabled={!canRecord}
                     onClick={() => record('reject')}
                   >
@@ -797,7 +844,14 @@ function RunningSourcePanel({
                 </div>
                 {receipt && (
                   <>
-                    <p data-testid="running-balance-receipt">{t.receipt}</p>
+                    <p
+                      id={receiptLine}
+                      tabIndex={-1}
+                      data-decision-state
+                      data-testid="running-balance-receipt"
+                    >
+                      {t.receipt}
+                    </p>
                     <Button
                       data-testid="running-balance-apply"
                       disabled={busy}

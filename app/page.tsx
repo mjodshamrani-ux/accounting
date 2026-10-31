@@ -57,6 +57,7 @@ import { SplitSectionReview } from '@/components/split-section-review';
 import { RunningBalanceReview } from '@/components/running-balance-review';
 import { APP_VERSION } from '@/lib/brand';
 import { TransactionReview } from '@/components/transaction-review';
+import { useDecisionFocus } from '@/components/decision-platform';
 import { PdfReview } from '@/components/pdf-review';
 import type { AuditEvent } from '@/lib/reconciliation/types';
 import { AccountingAssistant } from '@/components/accounting-assistant';
@@ -75,6 +76,7 @@ import {
   useCallback,
   useEffect,
   useEffectEvent,
+  useId,
   useMemo,
   useRef,
   useState,
@@ -366,6 +368,45 @@ function ReadingIssueList({
       />
     </details>
   );
+}
+
+// The cases a results tab lists, each by its first member, as the search
+// narrows them: the list itself, and where a transaction stands in it after a
+// decision taken in its review.
+function caseRows(result: Comparison | null, tab: string, query: string) {
+  if (!result) return [];
+  const visibleCases = result.cases.filter((c) =>
+    tab === 'matches'
+      ? c.status === 'Matched'
+      : tab === 'ambiguities'
+        ? c.status === 'Needs Review' || c.status === 'Rejected'
+        : c.status === 'Unmatched',
+  );
+  const q = query.trim().toLowerCase();
+  return visibleCases
+    .filter(
+      (c) =>
+        !q ||
+        [
+          c.caseId,
+          ...c.supplierMembers.flatMap((t) => [
+            t.reference,
+            t.documentReference,
+            t.description,
+            String(t.row),
+          ]),
+          ...c.ledgerMembers.flatMap((t) => [
+            t.reference,
+            t.documentReference,
+            t.description,
+            String(t.row),
+          ]),
+        ]
+          .join(' ')
+          .toLowerCase()
+          .includes(q),
+    )
+    .map((c) => c.supplierMembers[0] ?? c.ledgerMembers[0]);
 }
 
 export default function App() {
@@ -759,6 +800,13 @@ export default function App() {
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(0);
   const [selected, setSelected] = useState('');
+  // A decision taken in a transaction's review, or closing the review,
+  // returns the focus to that transaction in the list, on its page, or to
+  // the list when the decision moved it out of the tab shown (UX-3).
+  const settleCase = useDecisionFocus();
+  const caseRow = useId(),
+    caseList = useId();
+  const decidedCase = useRef('');
   const [privacy, setPrivacy] = useState(false);
   const [resetOpen, setResetOpen] = useState(false);
   const job = useRef<{ id: number; controller: AbortController } | null>(null);
@@ -1249,11 +1297,18 @@ export default function App() {
       },
     );
   }
+  function returnToCase(id: string, list: ReturnType<typeof caseRows>) {
+    const at = list.findIndex((tx) => tx.id === id);
+    setPage(at < 0 ? 0 : Math.floor(at / 30));
+    settleCase(at < 0 ? caseList : `${caseRow}-${at}`);
+  }
   async function reconcile(
     nextDecisions = decisions,
     nextRejected = rejected,
     event?: Omit<AuditEvent, 'time'>,
   ) {
+    const decided = decidedCase.current;
+    decidedCase.current = '';
     await task(
       uiText((m) => m.app.tasks.reconcile),
       async (signal, alive) => {
@@ -1332,7 +1387,8 @@ export default function App() {
         setReview((v) => ({ ...v, checked: false }));
         setStep(2);
         setSelected('');
-        setPage(0);
+        if (decided) returnToCase(decided, caseRows(r, tab, query));
+        else setPage(0);
       },
     );
   }
@@ -1499,42 +1555,10 @@ export default function App() {
     () => new Map(result?.matches.map((m) => [m.supplierId, m]) ?? []),
     [result],
   );
-  const rows = useMemo(() => {
-    if (!result) return [];
-    const visibleCases = result.cases.filter((c) =>
-      tab === 'matches'
-        ? c.status === 'Matched'
-        : tab === 'ambiguities'
-          ? c.status === 'Needs Review' || c.status === 'Rejected'
-          : c.status === 'Unmatched',
-    );
-    const q = query.trim().toLowerCase();
-    const tx = visibleCases
-      .filter(
-        (c) =>
-          !q ||
-          [
-            c.caseId,
-            ...c.supplierMembers.flatMap((t) => [
-              t.reference,
-              t.documentReference,
-              t.description,
-              String(t.row),
-            ]),
-            ...c.ledgerMembers.flatMap((t) => [
-              t.reference,
-              t.documentReference,
-              t.description,
-              String(t.row),
-            ]),
-          ]
-            .join(' ')
-            .toLowerCase()
-            .includes(q),
-      )
-      .map((c) => c.supplierMembers[0] ?? c.ledgerMembers[0]);
-    return tx;
-  }, [result, tab, query]);
+  const rows = useMemo(
+    () => caseRows(result, tab, query),
+    [result, tab, query],
+  );
   // The case list is named after the tab it shows, and pages through the
   // record kit thirty cases at a time, as it always has (UX-3).
   const listName = `${t.app.results.workspace} · ${
@@ -2740,7 +2764,9 @@ export default function App() {
                       <section className="surface">
                         <div className="section-heading">
                           <div>
-                            <h2>{t.app.results.workspace}</h2>
+                            <h2 id={caseList} tabIndex={-1}>
+                              {t.app.results.workspace}
+                            </h2>
                             <p>{t.app.results.workspaceIntro}</p>
                           </div>
                           <Button
@@ -2812,7 +2838,7 @@ export default function App() {
                             <TableBody>
                               {rows
                                 .slice(listShown.from, listShown.to)
-                                .map((tx) => {
+                                .map((tx, i) => {
                                   const activeCase = result.cases.find((c) =>
                                     c.sourceTrace.some(
                                       (trace) => trace.sourceRowId === tx.id,
@@ -2883,6 +2909,7 @@ export default function App() {
                                         <Button
                                           size="sm"
                                           variant="outline"
+                                          id={`${caseRow}-${listShown.from + i}`}
                                           disabled={!!busy}
                                           onClick={() => setSelected(tx.id)}
                                         >
@@ -2924,14 +2951,22 @@ export default function App() {
                           result={result}
                           id={selected}
                           busy={!!busy}
-                          onClose={() => setSelected('')}
-                          onLink={(d) =>
+                          reviewed={auditEvents.some(
+                            (e) =>
+                              e.action === 'review' && e.ids.includes(selected),
+                          )}
+                          onClose={() => {
+                            returnToCase(selected, rows);
+                            setSelected('');
+                          }}
+                          onLink={(d) => {
+                            decidedCase.current = selected;
                             void reconcile([...decisions, d], rejected, {
                               action: 'link',
                               ids: [d.supplierId, d.ledgerId],
                               note: d.note,
-                            })
-                          }
+                            });
+                          }}
                           onUnlink={(a, b, note) => {
                             const match = result.matches.find(
                               (m) => m.supplierId === a && m.ledgerId === b,
@@ -2947,6 +2982,7 @@ export default function App() {
                                   ...(match.ledgerIds ?? [b]),
                                 ]
                               : [a, b];
+                            decidedCase.current = selected;
                             void reconcile(
                               decisions.filter((d) => d.supplierId !== a),
                               [...rejected, `${a}|${b}`],

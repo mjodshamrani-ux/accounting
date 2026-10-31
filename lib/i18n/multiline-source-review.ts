@@ -85,6 +85,9 @@ const copy = {
     'Value and role positions in the text',
   ],
   reread: ['أعد قراءة المصدر', 'Read source again'],
+  // What a closed button waits for (UX-3).
+  rereadWaits: ['قراءة ملف', 'a file is read'],
+  applyWaits: ['قبول تفسير المصدر', 'the source interpretation is accepted'],
   clear: ['إلغاء المراجعة', 'Cancel review'],
   reviewer: ['اسم المراجع أو تسميته', 'Reviewer name or label'],
   rationale: ['تعليل قرار المراجعة', 'Review decision rationale'],

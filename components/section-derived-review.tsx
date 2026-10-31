@@ -1,5 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import {
+  ReviewHint,
+  useDecisionFocus,
+  type ReviewNeed,
+} from '@/components/decision-platform';
 import { Input } from '@/components/ui/input';
 import { RecordFrame, RecordPager } from '@/components/record-table';
 import { recordPage } from '@/lib/record-page';
@@ -179,6 +184,12 @@ function SectionDerivedPanel({
     message: string;
   } | null>(null);
   const active = busy?.binding === binding && busy.active;
+  // A rejection leaves no receipt; it is said, and the focus goes to it.
+  const [rejected, setRejected] = useState(false);
+  const hint = useId(),
+    receiptLine = useId(),
+    rejectedLine = useId(),
+    settle = useDecisionFocus();
   useEffect(
     () => () => {
       ++ticket.current;
@@ -189,6 +200,7 @@ function SectionDerivedPanel({
   function invalidateReview(label = reviewer, reason = rationale) {
     ++ticket.current;
     setBusy(null);
+    setRejected(false);
     session.updateReviewer(label, reason);
     if (current) setView({ ...current, receipt: null, artifact: null });
   }
@@ -198,10 +210,12 @@ function SectionDerivedPanel({
       receipt?: SectionDerivedReceipt | null;
       artifact?: SectionDerivedReadingArtifact | null;
     }>,
+    then?: (result: { receipt?: SectionDerivedReceipt | null }) => void,
   ) {
     const id = ++ticket.current;
     setBusy({ binding, active: true });
     setError(null);
+    setRejected(false);
     try {
       const result = await action();
       if (id === ticket.current)
@@ -217,6 +231,7 @@ function SectionDerivedPanel({
               ? (current?.artifact ?? null)
               : result.artifact,
         });
+      if (id === ticket.current) then?.(result);
     } catch (e) {
       if (id === ticket.current)
         setError({
@@ -266,28 +281,62 @@ function SectionDerivedPanel({
         mapping.formatChoice?.numberFormat?.value === 'dot'));
   function record(decision: 'accept' | 'reject') {
     if (!current) return;
-    void run(async () => ({
-      receipt: await session.recordReviewerDecision({
-        decision,
-        reviewerLabel: reviewer,
-        rationale,
-        reviewedSourceHash: current.selection.review.sourceHash,
-        reviewedExtractionHash: current.selection.review.extractionHash,
-        reviewedExtractionRevision: current.selection.review.extractionRevision,
-        reviewedSelectionHash: current.selection.selectionHash,
-        acknowledgements: {
-          originalRowsReviewed: true,
-          referenceRolesReviewed: true,
-          signedAmountsPreserved: true,
-          derivedSourceUnderstood: true,
-          ...(requiresOriginalInterpretation
-            ? { originalDotInterpretationReviewed: true as const }
-            : {}),
-        },
+    void run(
+      async () => ({
+        receipt: await session.recordReviewerDecision({
+          decision,
+          reviewerLabel: reviewer,
+          rationale,
+          reviewedSourceHash: current.selection.review.sourceHash,
+          reviewedExtractionHash: current.selection.review.extractionHash,
+          reviewedExtractionRevision:
+            current.selection.review.extractionRevision,
+          reviewedSelectionHash: current.selection.selectionHash,
+          acknowledgements: {
+            originalRowsReviewed: true,
+            referenceRolesReviewed: true,
+            signedAmountsPreserved: true,
+            derivedSourceUnderstood: true,
+            ...(requiresOriginalInterpretation
+              ? { originalDotInterpretationReviewed: true as const }
+              : {}),
+          },
+        }),
+        artifact: null,
       }),
-      artifact: null,
-    }));
+      (result) => {
+        // The decision platform (UX-3): the focus goes to what the decision
+        // recorded, its receipt or its rejection, not to the page.
+        if (result.receipt) settle(receiptLine);
+        else {
+          setRejected(true);
+          settle(rejectedLine);
+        }
+      },
+    );
   }
+  // What a decision still needs, in the reader's words.
+  const required = [
+    ack.originalRowsReviewed,
+    ack.referenceRolesReviewed,
+    ack.signedAmountsPreserved,
+    ack.derivedSourceUnderstood,
+    ...(requiresOriginalInterpretation
+      ? [ack.originalDotInterpretationReviewed]
+      : []),
+  ];
+  const ticked = required.filter(Boolean).length;
+  const needs: ReviewNeed[] = [
+    ...(reviewer.trim() ? [] : [{ field: t.reviewer }]),
+    ...(rationale.trim() ? [] : [{ field: t.rationale }]),
+    ...(ticked === required.length
+      ? []
+      : [{ confirmations: [ticked, required.length] as const }]),
+    ...(requiresOriginalInterpretation &&
+    mapping.formatChoice?.numberFormat?.value !== 'dot'
+      ? [{ text: t.dotChoice }]
+      : []),
+  ];
   return (
     <section
       data-testid="section-derived-review"
@@ -488,6 +537,7 @@ function SectionDerivedPanel({
             <label>
               {t.reviewer}
               <Input
+                aria-describedby={hint}
                 data-derived-reviewer
                 value={reviewer}
                 onChange={(e) => reviewerChanged('reviewer', e.target.value)}
@@ -496,6 +546,7 @@ function SectionDerivedPanel({
             <label>
               {t.rationale}
               <Input
+                aria-describedby={hint}
                 data-derived-rationale
                 value={rationale}
                 onChange={(e) => reviewerChanged('rationale', e.target.value)}
@@ -550,10 +601,12 @@ function SectionDerivedPanel({
               {t.originalInterpretationAck}
             </label>
           )}
+          <ReviewHint id={hint} needs={needs} />
           <div className="flex flex-wrap gap-2">
             <Button
               className={buttonClass}
               type="button"
+              aria-describedby={hint}
               disabled={!canReview}
               onClick={() => record('accept')}
             >
@@ -563,15 +616,26 @@ function SectionDerivedPanel({
               className={buttonClass}
               type="button"
               variant="outline"
+              aria-describedby={hint}
               disabled={!canReview}
               onClick={() => record('reject')}
             >
               {t.reject}
             </Button>
           </div>
+          {rejected && (
+            <output id={rejectedLine} tabIndex={-1} data-decision-state>
+              {t.rejected}
+            </output>
+          )}
           {current.receipt && (
             <div>
-              <p className="break-all">
+              <p
+                className="break-all"
+                id={receiptLine}
+                tabIndex={-1}
+                data-decision-state
+              >
                 {t.receipt}: <bdi>{current.receipt.id}</bdi>
               </p>
               <Button

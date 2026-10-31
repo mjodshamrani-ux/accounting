@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { Button } from './ui/button';
+import { ClosedReason } from './decision-platform';
 import { VisualCellReview } from './visual-cell-review';
 import { VisualCropPicker } from './visual-crop-picker';
 import { VisualRegionReview } from './visual-region-review';
@@ -56,6 +57,8 @@ export function VisualReader({
   const v = t.visualReader;
   const [draft, setDraft] = useState<VisualDraft | null>(null);
   const [busy, setBusy] = useState<UiText | null>(null);
+  // Saving the record waits for a value recorded from the image (UX-3).
+  const saveWhy = useId();
   const [error, setError] = useState<UiText | null>(null);
   const [pageIndex, setPageIndex] = useState(0);
   const [selected, setSelected] = useState('');
@@ -578,6 +581,7 @@ export function VisualReader({
                   )}
                   <Button
                     variant="outline"
+                    aria-describedby={saveWhy}
                     disabled={
                       !!busy ||
                       !(review.cells.length + visualRegions(review).length)
@@ -586,6 +590,15 @@ export function VisualReader({
                   >
                     {t.visualReview.save}
                   </Button>
+                  <ClosedReason
+                    id={saveWhy}
+                    closed={
+                      !(review.cells.length + visualRegions(review).length)
+                    }
+                    waits="step"
+                    label={t.visualReview.save}
+                    step={t.visualReview.saveWaits}
+                  />
                   <VisualTableReview
                     key={reviewEpoch}
                     image={review}

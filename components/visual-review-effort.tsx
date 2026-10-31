@@ -1,12 +1,14 @@
 import {
   useCallback,
   useEffect,
+  useId,
   useRef,
   useState,
   type ReactNode,
 } from 'react';
 import { useI18n } from '@/lib/i18n/context';
 import { Button } from './ui/button';
+import { ClosedReason } from './decision-platform';
 import {
   startReviewEffort,
   advanceReviewEffort,
@@ -115,6 +117,12 @@ export function VisualReviewEffort({
           )
       : null;
   const controlsDisabled = disabled || !state || state.finished || error;
+  // Each closed button says what opens it: the line that states the
+  // measurement, the failure, or the step it waits for (UX-3).
+  const startWhy = useId(),
+    stateLine = useId(),
+    failedLine = useId(),
+    exportWhy = useId();
   const seconds = (ms: number) => Math.floor(ms / 1000);
   function download() {
     if (!record || error) return;
@@ -155,6 +163,7 @@ export function VisualReviewEffort({
         </label>
         {!record && (
           <Button
+            aria-describedby={startWhy}
             disabled={!sample || disabled}
             onClick={() => {
               if (!sample || document.hidden || !document.hasFocus()) return;
@@ -173,9 +182,18 @@ export function VisualReviewEffort({
             {v.start}
           </Button>
         )}
+        {!record && (
+          <ClosedReason
+            id={startWhy}
+            closed={!sample}
+            waits="step"
+            label={v.start}
+            step={v.startWaits}
+          />
+        )}
         {state && (
           <>
-            <output>
+            <output id={stateLine}>
               {state.finished
                 ? v.finished
                 : state.paused
@@ -213,6 +231,7 @@ export function VisualReviewEffort({
             <div className="visual-crop-actions">
               <Button
                 variant="outline"
+                aria-describedby={`${stateLine} ${failedLine}`}
                 disabled={controlsDisabled}
                 onClick={() => {
                   if (state.paused) {
@@ -225,6 +244,7 @@ export function VisualReviewEffort({
               </Button>
               <Button
                 variant="outline"
+                aria-describedby={`${stateLine} ${failedLine}`}
                 disabled={!state || state.finished || error}
                 onClick={() => emit({ type: 'finish', reason: 'user' })}
               >
@@ -232,12 +252,20 @@ export function VisualReviewEffort({
               </Button>
               <Button
                 variant="outline"
+                aria-describedby={`${exportWhy} ${failedLine}`}
                 disabled={!state.finished || error}
                 onClick={download}
               >
                 {v.export}
               </Button>
             </div>
+            <ClosedReason
+              id={exportWhy}
+              closed={!state.finished && !error}
+              waits="step"
+              label={v.export}
+              step={v.exportWaits}
+            />
             {totals && (
               <ul>
                 <li>{v.active(seconds(totals.activeMs))}</li>
@@ -282,7 +310,11 @@ export function VisualReviewEffort({
             )}
           </>
         )}
-        {error && <p role="alert">{v.failed}</p>}
+        {error && (
+          <p role="alert" id={failedLine}>
+            {v.failed}
+          </p>
+        )}
       </details>
       {children}
     </div>

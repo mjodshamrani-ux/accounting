@@ -1,5 +1,6 @@
-import { useRef, useState, type PointerEvent } from 'react';
+import { useId, useRef, useState, type PointerEvent } from 'react';
 import { Button } from './ui/button';
+import { ClosedReason } from './decision-platform';
 import { useI18n } from '@/lib/i18n/context';
 import {
   cropBetween,
@@ -33,6 +34,9 @@ export function VisualCropPicker({
     v = t.visualReview;
   const [active, setActive] = useState(false);
   const [box, setBox] = useState<VisualBox | null>(null);
+  // Using the crop waits for a frame, and says so under the help (UX-3).
+  const help = useId(),
+    useWhy = useId();
   const [fresh, setFresh] = useState(true);
   const anchor = useRef<{ point: [number, number]; pointerId: number } | null>(
     null,
@@ -157,10 +161,11 @@ export function VisualCropPicker({
         <div className="stack">
           {active ? (
             <>
-              <small>{v.selectHelp}</small>
+              <small id={help}>{v.selectHelp}</small>
               <div className="visual-crop-actions">
                 <Button
                   variant="outline"
+                  aria-describedby={`${useWhy} ${help}`}
                   disabled={disabled || !box}
                   onClick={accept}
                 >
@@ -177,6 +182,13 @@ export function VisualCropPicker({
                   {v.cancelCrop}
                 </Button>
               </div>
+              <ClosedReason
+                id={useWhy}
+                closed={!box}
+                waits="step"
+                label={v.useCrop}
+                step={v.useCropWaits}
+              />
             </>
           ) : (
             <div className="visual-crop-actions">

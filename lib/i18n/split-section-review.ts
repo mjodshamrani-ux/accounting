@@ -42,6 +42,8 @@ const copy = {
       'I understand this separate derivative has no financial approval or confirmed scope.',
     accept: 'Record reviewed acceptance',
     reject: 'Record rejection',
+    rejected:
+      'Rejection recorded; no derived reading is created from this selection.',
     receipt: 'Live decision bound to this review',
     apply: 'Apply live decision',
     artifact:
@@ -114,6 +116,7 @@ const copy = {
       'أفهم أن هذه القراءة المشتقة المنفصلة لا تحمل اعتماداً مالياً أو نطاقاً مؤكداً.',
     accept: 'تسجيل قبول المراجعة',
     reject: 'تسجيل الرفض',
+    rejected: 'سُجل الرفض؛ لا تُنشأ قراءة مشتقة من هذا الاختيار.',
     receipt: 'قرار حي مرتبط بهذه المراجعة',
     apply: 'تطبيق القرار الحي',
     artifact: 'أُنشئت قراءة مشتقة منفصلة. الاعتماد المالي: لا. تأكيد النطاق: لا.',
