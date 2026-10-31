@@ -36139,8 +36139,8 @@
     },
     {
       "path": "docs/reference/DELIVERY.ar.md",
-      "bytes": 7051,
-      "sha256": "939a9858c750a3657164a3c5bc6bf64bf5e746619d59d1c1ab39934751fe7b71",
+      "bytes": 7400,
+      "sha256": "b31bd6841957cba408d1c56853e4f41712895c265f6cad1b7b4732409ce92c0b",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 159119,
-      "sha256": "aadffc7e4f51eccbf7dc5c33b2ae5513c4faf22d763638f9257fbe332c1600e5",
+      "bytes": 161229,
+      "sha256": "d63f032fd671f54c7f1e7fd4084de75ffa1d9834a25b84fa042ce55842cc28c3",
       "kind": "text"
     },
     {
@@ -37431,8 +37431,8 @@
     },
     {
       "path": "pnpm-workspace.yaml",
-      "bytes": 294,
-      "sha256": "cb5fd5663690cd52a94ebc886b95f587c272b851dce76bc122406aaf80f17530",
+      "bytes": 795,
+      "sha256": "7b8b71e8aaedbeb921c4a686db194b516cce4df5b00aa8c6a1c32f23c66e1842",
       "kind": "text"
     },
     {
@@ -73465,6 +73465,12 @@
       "path": "docs/reference/TARASUF-UI-CRAFT.ar.md",
       "bytes": 16577,
       "sha256": "c3ac99bdd719b59dc6653c8972914deba79f0d550f9532c736bd7a33175a3544",
+      "kind": "text"
+    },
+    {
+      "path": "tests/dependency-advisories.test.ts",
+      "bytes": 4883,
+      "sha256": "a001ab5d61dd9878965c205b2ddb2e326b2338a171c2789df681f56574b1e139",
       "kind": "text"
     }
   ],
