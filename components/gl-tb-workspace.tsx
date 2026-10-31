@@ -1,5 +1,6 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
+import { useResultFocus } from '@/components/result-focus';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -13,7 +14,7 @@ import {
 import { useI18n } from '@/lib/i18n/context';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
-import { money } from '@/lib/reconciliation/core';
+import { Amount } from '@/components/amount';
 import {
   BALANCE_FIELDS,
   GL_TB_VERSION,
@@ -32,7 +33,8 @@ import {
   glTbDemo,
 } from '@/lib/reconciliation/gl-tb-demo';
 import { GlTbSectionsPanel } from '@/components/gl-tb-sections-panel';
-import './gl-tb-workspace.css';
+import { RecordFields, RecordRows } from '@/components/record-table';
+import './workspace-record.css';
 const freshScope = (): GlTbScope => ({
   ...glDemoScope,
   entity: '',
@@ -104,6 +106,14 @@ export function GlTbWorkspace({
     setResult(value.result);
     setPage(0);
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
+  const statusId = useId();
   async function perform(work: (signal: AbortSignal) => Promise<void>) {
     const id = ++serial.current,
       control = new AbortController();
@@ -151,7 +161,11 @@ export function GlTbWorkspace({
     invalidate();
   }
   const formatted = (n: number | null | undefined) =>
-    n === null || n === undefined ? t.missing : money(n, result!.decimals);
+    n === null || n === undefined ? (
+      t.missing
+    ) : (
+      <Amount minor={n} decimals={result!.decimals} />
+    );
   const rowById = new Map(result?.rows.map((r) => [`${r.side}:${r.row}`, r]));
   const tbRoles = ['opening', 'period', 'closing'] as const;
   if (!active) return null;
@@ -179,7 +193,7 @@ export function GlTbWorkspace({
                   const source: SourceFile[] = [];
                   for (const demo of glTbDemo())
                     source.push(await workerTask('read', demo, signal));
-                  install(
+                  shown(
                     await workerTask(
                       'gl-tb-reconcile',
                       {
@@ -202,7 +216,7 @@ export function GlTbWorkspace({
                   const source: SourceFile[] = [];
                   for (const demo of glTbDemo(true))
                     source.push(await workerTask('read', demo, signal));
-                  install(
+                  shown(
                     await workerTask(
                       'gl-tb-reconcile',
                       {
@@ -230,7 +244,7 @@ export function GlTbWorkspace({
                     void perform(async (signal) => {
                       if (file.size > 32 * 1024 * 1024)
                         throw Error('GL_TB_SESSION');
-                      install(
+                      shown(
                         await workerTask(
                           'gl-tb-restore',
                           { buffer: await file.arrayBuffer() },
@@ -401,7 +415,7 @@ export function GlTbWorkspace({
           }
           onClick={() =>
             perform(async (signal) =>
-              install(await workerTask('gl-tb-reconcile', input(), signal)),
+              shown(await workerTask('gl-tb-reconcile', input(), signal)),
             )
           }
         >
@@ -425,13 +439,22 @@ export function GlTbWorkspace({
       {failed && <p role="alert">{t.failure}</p>}
       {result && (
         <section data-testid="gl-tb-result">
-          <h2>{t.result}</h2>
+          <h2
+            ref={resultHeading}
+            tabIndex={-1}
+            data-result-heading="result"
+            aria-describedby={statusId}
+          >
+            {t.result}
+          </h2>
           <DomainEvidenceAssistant
             result={result}
             snapshot={() => ({ domain: 'gl-tb', input: input(), result })}
             busy={busy}
           />
-          <p data-testid="gl-tb-status">{t.status[result.status]}</p>
+          <p id={statusId} data-testid="gl-tb-status">
+            {t.status[result.status]}
+          </p>
           <p>
             {t.glBridge}: <strong>{formatted(result.glBridge)}</strong>
           </p>
@@ -489,27 +512,19 @@ export function GlTbWorkspace({
               </div>
             </section>
           )}
-          <div className="gl-tb-table">
-            <table data-testid="gl-tb-balances">
-              <thead>
-                <tr>
-                  {[t.component, t.gl, t.tb, t.difference].map((label) => (
-                    <th key={label}>{label}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {BALANCE_FIELDS.map((field) => (
-                  <tr key={field}>
-                    <th>{t.components[field]}</th>
-                    <td>{formatted(result.gl?.[field])}</td>
-                    <td>{formatted(result.tb?.[field])}</td>
-                    <td>{formatted(result.differences?.[field])}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <RecordRows
+            label={t.balances}
+            headers={[t.component, t.gl, t.tb, t.difference]}
+            rows={BALANCE_FIELDS}
+            rowHeader={0}
+            frame={{ 'data-testid': 'gl-tb-balances' }}
+            cells={(field) => [
+              t.components[field],
+              formatted(result.gl?.[field]),
+              formatted(result.tb?.[field]),
+              formatted(result.differences?.[field]),
+            ]}
+          />
           <div className="gl-tb-actions">
             <Button
               disabled={busy}
@@ -545,84 +560,51 @@ export function GlTbWorkspace({
             </Button>
           </div>
           <h3>{t.inventory}</h3>
-          <div className="gl-tb-table">
-            <table data-testid="gl-tb-inventory">
-              <thead>
-                <tr>
-                  {[
-                    t.sides.join(' / '),
-                    t.row,
-                    t.kind,
-                    t.error,
-                    t.original,
-                  ].map((label) => (
-                    <th key={label}>{label}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {result.inventory.slice(page * 50, (page + 1) * 50).map((i) => {
-                  const row = rowById.get(`${i.side}:${i.row}`);
-                  return (
-                    <tr key={`${i.side}:${i.row}`}>
-                      <td>{t.sides[i.side]}</td>
-                      <td>{i.row}</td>
-                      <td>{t.kinds[i.kind]}</td>
-                      <td>
-                        {i.error
-                          ? (t.rowErrors[i.error as keyof typeof t.rowErrors] ??
-                            t.failure)
-                          : ''}
-                      </td>
-                      <td>
-                        <details>
-                          <summary>{t.original}</summary>
-                          <pre dir="auto">{JSON.stringify(i.values)}</pre>
-                          {row && (
-                            <>
-                              <p>
-                                {t.record}: {row.record}
-                              </p>
-                              <p>{t.cellEvidence}</p>
-                              <ul>
-                                {row.trace.map((cell) => (
-                                  <li key={cell.column}>
-                                    {t.column} {cell.column}:{' '}
-                                    <bdi>{cell.text}</bdi> → {cell.amount} (
-                                    {t.minor})
-                                  </li>
-                                ))}
-                              </ul>
-                            </>
-                          )}
-                        </details>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-          <div className="gl-tb-actions">
-            <Button
-              variant="outline"
-              disabled={page === 0}
-              onClick={() => setPage(page - 1)}
-            >
-              {t.previous}
-            </Button>
-            <span>
-              {page + 1} /{' '}
-              {Math.max(1, Math.ceil(result.inventory.length / 50))}
-            </span>
-            <Button
-              variant="outline"
-              disabled={(page + 1) * 50 >= result.inventory.length}
-              onClick={() => setPage(page + 1)}
-            >
-              {t.next}
-            </Button>
-          </div>
+          <RecordRows
+            label={t.inventory}
+            headers={[t.sides.join(' / '), t.row, t.kind, t.error, t.original]}
+            frame={{ 'data-testid': 'gl-tb-inventory' }}
+            wrap={[4]}
+            page={page}
+            onPage={setPage}
+            rows={result.inventory}
+            cells={(i) => {
+              const row = rowById.get(`${i.side}:${i.row}`);
+              return [
+                t.sides[i.side],
+                i.row,
+                t.kinds[i.kind],
+                i.error
+                  ? (t.rowErrors[i.error as keyof typeof t.rowErrors] ??
+                    t.failure)
+                  : '',
+                <details key="original">
+                  <summary>{t.original}</summary>
+                  <p>
+                    <RecordFields values={i.values} />
+                  </p>
+                  {row && (
+                    <>
+                      <p>
+                        {t.record}:{' '}
+                        <bdi className="record-field">{row.record}</bdi>
+                      </p>
+                      <p>{t.cellEvidence}</p>
+                      <ul>
+                        {row.trace.map((cell) => (
+                          <li key={cell.column}>
+                            {t.column} {cell.column}:{' '}
+                            <bdi className="record-field">{cell.text}</bdi> →{' '}
+                            {cell.amount} ({t.minor})
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
+                </details>,
+              ];
+            }}
+          />
         </section>
       )}
       <GlTbSectionsPanel />

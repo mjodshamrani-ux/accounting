@@ -20,6 +20,17 @@ export async function verifyFinancial(
           ?.getAttribute('aria-busy') === 'false',
     );
   const button = (name) => w.getByRole('button', { name, exact: true });
+  // The heading shows the engine's status as a word, and keeps the status
+  // itself in its data attribute.
+  const LABEL = {
+    'needs-review': 'Needs review',
+    'consistent-with-evidence': 'Consistent with the evidence provided',
+    'source-error': 'Source evidence is invalid',
+  };
+  const shows = async (key) => {
+    assert.equal(await status.getAttribute('data-financial-status'), key);
+    assert.equal(await status.innerText(), LABEL[key]);
+  };
   const download = async (name, file) => {
     const p = page.waitForEvent('download');
     await button(name).click();
@@ -29,7 +40,7 @@ export async function verifyFinancial(
   await button('Synthetic example').click();
   await status.waitFor();
   await wait();
-  assert.equal(await status.innerText(), 'needs-review');
+  await shows('needs-review');
   assert.equal(await button('Accept whole line').first().isEnabled(), false);
   await download('Export evidence', 'ui-pending.xlsx');
   await w
@@ -44,7 +55,7 @@ export async function verifyFinancial(
     await button('Accept whole line').nth(i).click();
     await wait();
   }
-  assert.equal(await status.innerText(), 'consistent-with-evidence');
+  await shows('consistent-with-evidence');
   await download('Export evidence', 'ui-accepted.xlsx');
   await download('Save session', 'ui-session.json');
   const saved = JSON.parse(await readFile(`${out}/ui-session.json`, 'utf8'));
@@ -54,17 +65,17 @@ export async function verifyFinancial(
   assert.ok(saved.files.every((f) => !Object.hasOwn(f, 'sheets')));
   await button('Undo decision').nth(1).click();
   await wait();
-  assert.equal(await status.innerText(), 'needs-review');
+  await shows('needs-review');
   await download('Export evidence', 'ui-undo.xlsx');
   await button('Reject whole line').nth(1).click();
   await wait();
-  assert.equal(await status.innerText(), 'needs-review');
+  await shows('needs-review');
   await download('Export evidence', 'ui-reject.xlsx');
   await w
     .getByLabel('Restore session', { exact: true })
     .setInputFiles(`${out}/ui-session.json`);
   await wait();
-  assert.equal(await status.innerText(), 'consistent-with-evidence');
+  await shows('consistent-with-evidence');
   await download('Export evidence', 'ui-restored.xlsx');
   await writeFile(
     `${out}/bad-session.json`,
@@ -78,7 +89,7 @@ export async function verifyFinancial(
     .setInputFiles(`${out}/bad-session.json`);
   await wait();
   await w.getByRole('alert').waitFor();
-  assert.equal(await status.innerText(), 'consistent-with-evidence');
+  await shows('consistent-with-evidence');
   // Changing an original invalidates both results and decisions, never reuses an approval.
   await w
     .getByLabel('Proposed mapping', { exact: true })
@@ -95,7 +106,7 @@ export async function verifyFinancial(
     .check();
   await button('Check mapping and amounts').click();
   await wait();
-  assert.equal(await status.innerText(), 'source-error');
+  await shows('source-error');
   assert.equal(await button('Accept whole line').first().isEnabled(), false);
   // Whole-line and two-column controls remain usable on mobile, both languages.
   for (const width of [320, 390]) {

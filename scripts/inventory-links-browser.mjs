@@ -174,14 +174,48 @@ async function load(page, w, c, times) {
   await idle(page);
   times.check = Date.now() - t;
 }
+// Reads a register table page by page, and checks its pages as the reader
+// meets them (the shared record table of UX-3): no pager when the rows fit
+// one page; otherwise both buttons described by the line naming the page
+// and its rows, that line agreeing with the rows on screen, a button closed
+// only at its end, and the focus kept on the pager when the last page closes
+// the button just pressed.
 async function rows(w, pager, selector, read) {
   const found = [];
+  const bar = w.locator(`[data-stock-pager="${pager}"]`);
   for (;;) {
-    for (const row of await w.locator(selector).all())
-      found.push(await read(row));
-    const next = w.locator(`[data-stock-pager="${pager}"] button`).last();
-    if (!(await next.count()) || (await next.isDisabled())) break;
-    await next.click();
+    const shown = await w.locator(selector).all();
+    for (const row of shown) found.push(await read(row));
+    if (!(await bar.count())) {
+      assert.ok(found.length <= 50, `${pager}: ${found.length} rows, no pager`);
+      break;
+    }
+    const at = await bar.evaluate((nav) => {
+      const [previous, next] = nav.querySelectorAll('button');
+      const line = nav.querySelector('output');
+      return {
+        described: [previous, next].map(
+          (b) => b.getAttribute('aria-describedby') === line.id && !!line.id,
+        ),
+        closed: [previous.disabled, next.disabled],
+        focus:
+          document.activeElement === previous
+            ? 'previous'
+            : document.activeElement === next
+              ? 'next'
+              : 'elsewhere',
+        figures: (line.textContent.match(/\d+/gu) ?? []).map(Number),
+      };
+    });
+    const [page, pages, from, to, of] = at.figures;
+    assert.deepEqual(at.described, [true, true], `${pager}: described`);
+    assert.ok(of > 50 && pages > 1, `${pager}: a pager for ${of} rows`);
+    assert.equal(to - from + 1, shown.length, `${pager}: rows ${from}–${to}`);
+    assert.deepEqual(at.closed, [page === 1, page === pages], `${pager}: ends`);
+    if (page > 1 && page === pages)
+      assert.equal(at.focus, 'previous', `${pager}: focus on the last page`);
+    if (page === pages) break;
+    await bar.locator('button').last().click();
   }
   return found;
 }

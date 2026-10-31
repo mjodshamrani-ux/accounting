@@ -43,13 +43,19 @@ const KINDS = {
   Net: 'net',
 };
 const SUMS = ['earnings', 'deductions', 'employer', 'net'];
+// The page writes an amount at the run's decimals with grouped thousands and
+// the minus first; written here on its own, not taken from the application.
 const minor = (v, decimals) => {
   if (v === null || v === undefined) return '—';
   const sign = v < 0 ? '-' : '',
     digits = String(Math.abs(v)).padStart(decimals + 1, '0');
+  const whole = (decimals ? digits.slice(0, -decimals) : digits).replace(
+    /\B(?=(\d{3})+(?!\d))/gu,
+    ',',
+  );
   return decimals
-    ? `${sign}${digits.slice(0, -decimals)}.${digits.slice(-decimals)}`
-    : `${sign}${digits}`;
+    ? `${sign}${whole}.${digits.slice(-decimals)}`
+    : `${sign}${whole}`;
 };
 
 const frozen = path.join(suiteDir, 'frozen');

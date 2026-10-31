@@ -1,6 +1,15 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { IntercompanyBatchPanel } from '@/components/intercompany-batch-panel';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
+import { useResultFocus } from '@/components/result-focus';
+import { Amount, Figures } from '@/components/amount';
+import {
+  RecordFields,
+  RecordPager,
+  RecordTable,
+  memberPlace,
+} from '@/components/record-table';
+import { pageOfRow, recordPage } from '@/lib/record-page';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -28,7 +37,13 @@ import {
   intercompanyDemoScope,
 } from '@/lib/reconciliation/intercompany-demo';
 import { intercompanyCopy } from '@/lib/i18n/intercompany';
-import './gl-tb-workspace.css';
+import './workspace-record.css';
+import {
+  DecisionButtons,
+  DecisionHint,
+  useDecisionFocus,
+} from './decision-platform';
+import type { AcceptBlock } from '@/lib/decision-platform';
 const emptyScope = (): IntercompanyScope => ({
   entityA: '',
   entityB: '',
@@ -63,62 +78,6 @@ function download(buffer: ArrayBuffer, name: string, type: string) {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-function Table({
-  headers,
-  rows,
-}: {
-  headers: string[];
-  rows: (string | number | null)[][];
-}) {
-  const { lang } = useI18n();
-  const copy = intercompanyCopy[lang];
-  const [page, setPage] = useState(0);
-  const safe = Math.min(page, Math.max(0, Math.ceil(rows.length / 50) - 1));
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table>
-          <thead>
-            <tr>
-              {headers.map((h, i) => (
-                <th key={i}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i}>
-                {row.map((v, j) => (
-                  <td key={j}>{v ?? '—'}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="gl-tb-actions">
-        <Button
-          variant="outline"
-          disabled={!safe}
-          onClick={() => setPage(safe - 1)}
-        >
-          {copy.previous}
-        </Button>
-        <span>
-          {safe + 1} / {Math.max(1, Math.ceil(rows.length / 50))} ·{' '}
-          {rows.length}
-        </span>
-        <Button
-          variant="outline"
-          disabled={(safe + 1) * 50 >= rows.length}
-          onClick={() => setPage(safe + 1)}
-        >
-          {copy.next}
-        </Button>
-      </div>
-    </>
-  );
 }
 export function IntercompanyWorkspace({
   active,
@@ -194,6 +153,13 @@ export function IntercompanyWorkspace({
     setPairPage(0);
     setResult(v.result);
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
   async function perform<T>(
     work: (signal: AbortSignal) => Promise<T>,
     apply: (v: T) => void,
@@ -278,8 +244,15 @@ export function IntercompanyWorkspace({
         state: IntercompanyInput;
         result: IntercompanyResult;
       }>('intercompany-reconcile', s, signal);
-    }, install);
+    }, shown);
   }
+  // The decision platform (UX-3): after a decision on a pair the focus
+  // returns to that pair's heading, which holds its state, on the page that
+  // shows it, not to the page.
+  const hint = useId(),
+    pairHeading = useId(),
+    settle = useDecisionFocus();
+  const headingAt = (at: number) => `${pairHeading}-${at}`;
   async function decide(relation: string, type: IntercompanyEvent['type']) {
     if (!result) return;
     const p = result.pairs.find((p) => p.relationId === relation)!;
@@ -300,17 +273,32 @@ export function IntercompanyWorkspace({
           { ...state(), events: [...events, e] },
           signal,
         ),
-      install,
+      (v) => {
+        install(v);
+        const at = v.result.pairs.findIndex((q) => q.relationId === relation);
+        if (at < 0) return;
+        setPairPage(pageOfRow(at));
+        settle(headingAt(at));
+      },
     );
   }
+  const pairsShown = recordPage(result?.pairs.length ?? 0, pairPage);
   const status = (value: string) =>
     (copy.status as Record<string, string>)[value] ?? value;
-  const canAccept =
-    result &&
-    complete.confirmed &&
-    !result.issues.length &&
-    !result.missing.length &&
-    result.pairs.every((p) => p.status === 'ready');
+  // What the decision buttons open on, as before: approval also needs the
+  // completeness confirmation and every pair ready, and the sentence under
+  // the fields says which of these is missing.
+  const acceptBlock: AcceptBlock | null = !result
+    ? null
+    : !complete.confirmed
+      ? 'unconfirmed'
+      : result.issues.length
+        ? 'source-error'
+        : result.missing.length
+          ? 'missing'
+          : result.pairs.every((p) => p.status === 'ready')
+            ? null
+            : 'pairs';
   return (
     <div hidden={!active}>
       <section
@@ -353,7 +341,7 @@ export function IntercompanyWorkspace({
                         { buffer: await f.arrayBuffer() },
                         signal,
                       );
-                    }, install);
+                    }, shown);
                 }}
               />
             </label>
@@ -481,7 +469,7 @@ export function IntercompanyWorkspace({
                     state: IntercompanyInput;
                     result: IntercompanyResult;
                   }>('intercompany-reconcile', state(), signal),
-                install,
+                shown,
               )
             }
           >
@@ -537,7 +525,14 @@ export function IntercompanyWorkspace({
         )}
         {result && (
           <section className="workspace-results">
-            <h2 data-intercompany-status>{status(result.status)}</h2>
+            <h2
+              data-intercompany-status
+              ref={resultHeading}
+              tabIndex={-1}
+              data-result-heading="result"
+            >
+              {status(result.status)}
+            </h2>
             <DomainEvidenceAssistant
               result={result}
               snapshot={() => ({
@@ -548,55 +543,81 @@ export function IntercompanyWorkspace({
               busy={busy}
             />
             <p>
-              {copy.units}: {result.decimals} · {result.scope.currency}
+              {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>
             </p>
-            <Table
+            <RecordTable
+              label={copy.tableNames.totals}
               headers={copy.totals}
               rows={
                 result.totals
                   ? result.totals.map((t, i) => [
                       copy.roles[i],
-                      t.debit,
-                      t.credit,
-                      t.net,
+                      ...(['debit', 'credit', 'net'] as const).map((k) => (
+                        <Amount
+                          key={k}
+                          minor={t[k]}
+                          decimals={result.decimals}
+                        />
+                      )),
                     ])
                   : []
               }
             />
-            <fieldset disabled={busy}>
+            <fieldset disabled={busy} data-decision-platform>
               <legend>{copy.decisionTitle}</legend>
               <label>
                 {copy.reference}
                 <input
+                  aria-describedby={hint}
                   value={reference}
                   onChange={(e) => setReference(e.target.value)}
                 />
               </label>
               <label>
                 {copy.note}
-                <input value={note} onChange={(e) => setNote(e.target.value)} />
+                <input
+                  aria-describedby={hint}
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                />
               </label>
+              <DecisionHint
+                id={hint}
+                input={{ reference, reason: note, review: 'each', acceptBlock }}
+                labels={{ reference: copy.reference, reason: copy.note }}
+              />
             </fieldset>
             <h3>
               {copy.pairs} ({result.pairs.length})
             </h3>
-            {result.pairs.slice(pairPage * 50, pairPage * 50 + 50).map((p) => (
+            {result.pairs.slice(pairsShown.from, pairsShown.to).map((p, i) => (
               <section
                 key={p.relationRecord}
                 data-intercompany-pair={p.relationId}
               >
-                <h3>
+                <h3
+                  id={headingAt(pairsShown.from + i)}
+                  tabIndex={-1}
+                  data-decision-item
+                >
                   {p.relationId} · {status(p.status)} · {status(p.review)}
                 </h3>
                 <p>
-                  {copy.residual}: {p.left?.net ?? '—'} / {p.right?.net ?? '—'}{' '}
-                  / {p.residual ?? '—'}
+                  <Figures
+                    decimals={result.decimals}
+                    items={[
+                      [copy.residualFigures[0], p.left?.net],
+                      [copy.residualFigures[1], p.right?.net],
+                      [copy.residualFigures[2], p.residual],
+                    ]}
+                  />
                 </p>
                 <details>
                   <summary>
                     {copy.entries} ({p.members.length})
                   </summary>
-                  <Table
+                  <RecordTable
+                    label={`${copy.entries} · ${p.relationId}`}
                     headers={copy.pairHeaders}
                     rows={p.members.map((e) => [
                       p.relationId,
@@ -606,60 +627,44 @@ export function IntercompanyWorkspace({
                       e.account,
                       e.dimensions,
                       e.date,
-                      e.debit,
-                      e.credit,
-                      e.net,
+                      ...(['debit', 'credit', 'net'] as const).map((k) => (
+                        <Amount
+                          key={k}
+                          minor={e[k]}
+                          decimals={result.decimals}
+                        />
+                      )),
                     ])}
                   />
                 </details>
-                <div className="gl-tb-actions">
-                  {(['accept', 'reject', 'undo'] as const).map((type) => (
-                    <Button
-                      variant="outline"
-                      key={type}
-                      disabled={
-                        busy ||
-                        !reference.trim() ||
-                        !note.trim() ||
-                        !p.members.length ||
-                        (type === 'undo'
-                          ? p.review === 'needs-review'
-                          : p.review !== 'needs-review') ||
-                        (type === 'accept' && !canAccept)
-                      }
-                      onClick={() => void decide(p.relationId, type)}
-                    >
-                      {copy[type]}
-                    </Button>
-                  ))}
-                </div>
+                <DecisionButtons
+                  input={{
+                    reference,
+                    reason: note,
+                    members: p.members.length,
+                    review: p.review,
+                    acceptBlock,
+                  }}
+                  labels={copy}
+                  busy={busy}
+                  describedBy={`${hint} ${headingAt(pairsShown.from + i)}`}
+                  target={headingAt(pairsShown.from + i)}
+                  onDecide={(type) => void decide(p.relationId, type)}
+                />
               </section>
             ))}
-            <div className="gl-tb-actions">
-              <Button
-                variant="outline"
-                disabled={!pairPage}
-                onClick={() => setPairPage(pairPage - 1)}
-              >
-                {copy.previous}
-              </Button>
-              <span>
-                {pairPage + 1} /{' '}
-                {Math.max(1, Math.ceil(result.pairs.length / 50))}
-              </span>
-              <Button
-                variant="outline"
-                disabled={(pairPage + 1) * 50 >= result.pairs.length}
-                onClick={() => setPairPage(pairPage + 1)}
-              >
-                {copy.next}
-              </Button>
-            </div>
+            <RecordPager
+              label={copy.pairs}
+              length={result.pairs.length}
+              page={pairPage}
+              onPage={setPairPage}
+            />
             <details>
               <summary>
                 {copy.relations} ({result.relations.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.relations}
                 headers={copy.relationHeaders}
                 rows={result.relations.map((r) => [
                   r.relationId,
@@ -675,7 +680,8 @@ export function IntercompanyWorkspace({
               <summary>
                 {copy.timing} ({result.timing.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.timing}
                 headers={copy.timingHeaders}
                 rows={result.timing.map((r) => [
                   r.evidenceId,
@@ -692,7 +698,8 @@ export function IntercompanyWorkspace({
               <summary>
                 {copy.missing} ({result.missing.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.missing}
                 headers={copy.missingHeaders}
                 rows={result.missing.map((r) => [r.kind, r.key])}
               />
@@ -701,7 +708,8 @@ export function IntercompanyWorkspace({
               <summary>
                 {copy.issues} ({result.issues.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.issues}
                 headers={copy.issueHeaders}
                 rows={result.issues.map((r) => [
                   r.code,
@@ -716,22 +724,25 @@ export function IntercompanyWorkspace({
               <summary>
                 {copy.inventory} ({result.inventory.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.inventory}
                 headers={copy.inventoryHeaders}
                 rows={result.inventory.map((r) => [
                   copy.roles[r.source],
                   r.row,
                   r.kind,
                   r.errors.join(', '),
-                  JSON.stringify(r.values),
+                  <RecordFields key="values" values={r.values} />,
                 ])}
+                wrap={[4]}
               />
             </details>
             <details>
               <summary>
                 {copy.history} ({events.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.history}
                 headers={copy.eventHeaders}
                 rows={events.map((e) => [
                   copy[e.type],
@@ -739,8 +750,14 @@ export function IntercompanyWorkspace({
                   e.at,
                   e.reference,
                   e.note,
-                  JSON.stringify(e.memberIds),
+                  <RecordFields
+                    key="members"
+                    values={e.memberIds.map((id) =>
+                      memberPlace(id, copy.roles),
+                    )}
+                  />,
                 ])}
+                wrap={[5]}
               />
             </details>
           </section>

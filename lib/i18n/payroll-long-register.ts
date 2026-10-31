@@ -74,8 +74,6 @@ const en = {
   totalNames: ['Earnings', 'Deductions', 'Employer', 'Net'],
   excluded: 'Excluded sections',
   shared: 'Payee accounts shared by employees (listed, not held)',
-  previous: 'Previous',
-  next: 'Next',
   comma: ', ',
   semi: '; ',
   codes: {
@@ -181,8 +179,6 @@ const ar: typeof en = {
   totalNames: ['الاستحقاق', 'الاستقطاع', 'صاحب العمل', 'الصافي'],
   excluded: 'الأقسام المستبعدة',
   shared: 'حسابات مستفيد يتقاسمها موظفون (تُسرد ولا توقف)',
-  previous: 'السابق',
-  next: 'التالي',
   comma: '، ',
   semi: '؛ ',
   codes: {

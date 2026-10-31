@@ -1,8 +1,17 @@
-import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
+import {
+  useEffect,
+  useId,
+  useMemo,
+  useState,
+  useSyncExternalStore,
+} from 'react';
 import type { SourceFile } from '../lib/reconciliation/types';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Checkbox } from './ui/checkbox';
+import { RecordFrame, RecordPager } from './record-table';
+import { ClosedReason } from './decision-platform';
+import { recordPage } from '@/lib/record-page';
 import { useI18n } from '@/lib/i18n/context';
 
 const format = (cuts: number[]) => cuts.join(', ');
@@ -55,19 +64,25 @@ export function PdfReview({
   const [cuts, setCuts] = useState(format(applied));
   const [page, setPage] = useState(1);
   const [pageDraft, setPageDraft] = useState('1');
-  const [offset, setOffset] = useState(0);
+  const [rowWindow, setRowWindow] = useState(0);
   const [open, setOpen] = useState(false);
+  // Each closed button here says what opens it (UX-3): the page buttons by
+  // the line that names the page, the others by a sentence under them.
+  const pageLine = useId(),
+    jumpWhy = useId(),
+    applyWhy = useId(),
+    invalidWhy = useId();
   const [reading, setReading] = useState({ file, page, header });
   if (reading.file !== file) {
     setReading({ file, page: 1, header });
     setPage(1);
     setPageDraft('1');
-    setOffset(0);
+    setRowWindow(0);
     setOpen(false);
     setCuts(format(applied));
   } else if (reading.page !== page || reading.header !== header) {
     setReading({ file, page, header });
-    setOffset(0);
+    setRowWindow(0);
     if (reading.page !== page) setPageDraft(String(page));
   }
   const originalUrl = useMemo(
@@ -93,6 +108,8 @@ export function PdfReview({
     return pages;
   }, [sheet, header]);
   const rows = rowsByPage.get(page) ?? [];
+  // The rows of one PDF page, fifty at a time through the record kit (UX-3).
+  const shown = recordPage(rows.length, rowWindow);
   const requestedPage = Number(pageDraft);
   const validPage =
     /^\d+$/.test(pageDraft) &&
@@ -144,8 +161,12 @@ export function PdfReview({
       </div>
       <details open>
         <summary>{r.tableSummary}</summary>
-        <div className="preview" style={{ maxHeight: 240 }}>
-          <table>
+        <RecordFrame
+          name={r.tableSummary}
+          className="preview"
+          style={{ maxHeight: 240 }}
+        >
+          <table aria-label={r.tableSummary}>
             <thead>
               <tr>
                 <th>{r.rowColumn}</th>
@@ -156,7 +177,7 @@ export function PdfReview({
               </tr>
             </thead>
             <tbody>
-              {rows.slice(offset, offset + 50).map(({ row, rn }) => (
+              {rows.slice(shown.from, shown.to).map(({ row, rn }) => (
                 <tr key={rn}>
                   <td>{rn}</td>
                   {row.map((text, i) => (
@@ -177,22 +198,32 @@ export function PdfReview({
               ))}
             </tbody>
           </table>
-        </div>
+        </RecordFrame>
+        <RecordPager
+          label={r.tableSummary}
+          length={rows.length}
+          page={rowWindow}
+          onPage={setRowWindow}
+        />
         <div className="actions">
           {file.pdf!.pages > 1 && (
             <>
               <Button
                 variant="outline"
                 size="sm"
+                aria-describedby={pageLine}
                 disabled={page <= 1}
                 onClick={() => setPage((p) => p - 1)}
               >
                 {r.previousPage}
               </Button>
-              <span className="muted">{r.pageOf(page, file.pdf!.pages)}</span>
+              <span className="muted" id={pageLine}>
+                {r.pageOf(page, file.pdf!.pages)}
+              </span>
               <Button
                 variant="outline"
                 size="sm"
+                aria-describedby={pageLine}
                 disabled={page >= file.pdf!.pages}
                 onClick={() => setPage((p) => p + 1)}
               >
@@ -222,37 +253,11 @@ export function PdfReview({
               <Button
                 variant="outline"
                 size="sm"
+                aria-describedby={jumpWhy}
                 disabled={!validPage || requestedPage === page}
                 onClick={jumpToPage}
               >
                 {r.goToPage}
-              </Button>
-            </>
-          )}
-          {rows.length > 50 && (
-            <>
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={offset === 0}
-                onClick={() => setOffset((n) => Math.max(0, n - 50))}
-              >
-                {r.previousRows}
-              </Button>
-              <span className="muted">
-                {r.rangeOf(
-                  offset + 1,
-                  Math.min(offset + 50, rows.length),
-                  rows.length,
-                )}
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={offset + 50 >= rows.length}
-                onClick={() => setOffset((n) => n + 50)}
-              >
-                {r.nextRows}
               </Button>
             </>
           )}
@@ -265,6 +270,19 @@ export function PdfReview({
             {open ? r.hideCuts : r.editCuts}
           </button>
         </div>
+        {file.pdf!.pages > 1 && (
+          <ClosedReason
+            id={jumpWhy}
+            closed={!validPage || requestedPage === page}
+            waits="step"
+            label={r.goToPage}
+            step={
+              validPage
+                ? r.jumpWaits.other
+                : r.jumpWaits.number(file.pdf!.pages)
+            }
+          />
+        )}
         {open && (
           <div className="stack">
             <label className="field">
@@ -282,6 +300,7 @@ export function PdfReview({
               <Button
                 variant="outline"
                 size="sm"
+                aria-describedby={`${invalidWhy} ${applyWhy}`}
                 disabled={!pending || !parsed}
                 onClick={() => parsed && onApply(parsed)}
               >
@@ -296,11 +315,22 @@ export function PdfReview({
                   {r.undoCuts}
                 </Button>
               )}
-              {!parsed && <span className="hint warn">{r.cutsInvalid}</span>}
+              {!parsed && (
+                <span className="hint warn" id={invalidWhy}>
+                  {r.cutsInvalid}
+                </span>
+              )}
               {parsed && pending && (
                 <span className="hint">{r.cutsPending}</span>
               )}
             </div>
+            <ClosedReason
+              id={applyWhy}
+              closed={!pending}
+              waits="step"
+              label={r.applyCuts}
+              step={r.applyWaits}
+            />
           </div>
         )}
       </details>

@@ -14,6 +14,7 @@ import { stockCopy } from '../lib/i18n/inventory-register.ts';
 import { inventoryPdfCopy } from '../lib/i18n/inventory-pdf.ts';
 import { domainEvidenceCopy } from '../lib/i18n/domain-evidence.ts';
 import { STOCK_FIELDS } from '../lib/reconciliation/inventory-register.ts';
+import { money } from '../lib/reconciliation/core.ts';
 import {
   openDomainWorkspace,
   openWorkspaceDisclosures,
@@ -265,26 +266,43 @@ try {
             rows.map((row) => row.map((v) => String(v ?? '—'))).slice(0, 50),
           );
         };
+        // The page shows money in major units at the currency's precision and
+        // a register quantity at its own precision; the engine's integers are
+        // formatted here independently of the page before comparing.
+        const amount = (v) =>
+          v === null || v === undefined ? v : money(v, r.decimals);
         rendered(
           t().totals,
-          r.totals ? [[r.totals.registerMinor, r.totals.glMinor]] : [],
+          r.totals
+            ? [[amount(r.totals.registerMinor), amount(r.totals.glMinor)]]
+            : [],
         );
         rendered(
           t().comparisons,
           r.comparisons.map((c) => [
             c.account,
             c.dimensions,
-            c.registerMinor,
-            c.debitMinor,
-            c.creditMinor,
-            c.glMinor,
-            c.differenceMinor,
+            amount(c.registerMinor),
+            amount(c.debitMinor),
+            amount(c.creditMinor),
+            amount(c.glMinor),
+            amount(c.differenceMinor),
           ]),
         );
+        const recordCell = (role, values) =>
+          values.map((v, j) =>
+            role === 0 && j === 2 && typeof v === 'number'
+              ? money(v, Number(values[4]))
+              : ((role === 0 && j === 5) ||
+                    (role === 3 && (j === 3 || j === 4))) &&
+                  typeof v === 'number'
+                ? amount(v)
+                : v,
+          );
         for (const [i, records] of r.records.entries())
           rendered(
             t().records[i],
-            records.map((v) => [v.row, ...v.values]),
+            records.map((v) => [v.row, ...recordCell(i, v.values)]),
           );
         await download(
           'export',

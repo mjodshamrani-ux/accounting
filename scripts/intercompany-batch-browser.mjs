@@ -50,13 +50,20 @@ const filesOf = (sid) => {
     relations: p(own.find((n) => n.endsWith('-relations.csv'))),
   };
 };
+// The page writes an amount at the currency's decimals with grouped
+// thousands and the minus first; written here on its own, not taken from the
+// application.
 const minor = (value, decimals) => {
   if (value === null) return '—';
   const sign = value < 0 ? '-' : '',
     digits = String(Math.abs(value)).padStart(decimals + 1, '0');
+  const whole = (decimals ? digits.slice(0, -decimals) : digits).replace(
+    /\B(?=(\d{3})+(?!\d))/gu,
+    ',',
+  );
   return decimals
-    ? `${sign}${digits.slice(0, -decimals)}.${digits.slice(-decimals)}`
-    : `${sign}${digits}`;
+    ? `${sign}${whole}.${digits.slice(-decimals)}`
+    : `${sign}${whole}`;
 };
 const DECIMALS = { SAR: 2, KWD: 3, JPY: 0 };
 

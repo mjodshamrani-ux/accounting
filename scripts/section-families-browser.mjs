@@ -9,6 +9,7 @@ import path from 'node:path';
 import { chromium } from 'playwright';
 import { sectionDerivedReviewCopy } from '../lib/i18n/section-derived-review.ts';
 import { sourceStructureReviewCopy } from '../lib/i18n/source-structure-review.ts';
+import { closedSay, settledOn } from './decision-platform-support.mjs';
 import { en } from '../lib/i18n/locales/en.ts';
 import { ar } from '../lib/i18n/locales/ar.ts';
 import { readFile as readNativeFile } from '../lib/reconciliation/io.ts';
@@ -71,7 +72,7 @@ for (const spec of [...contract.positiveCases, ...contract.negativeCases]) {
     mapping: { ...defaultMapping(), ...familyContract.mapping }, cuts: caseContract?.cuts || familyContract.cuts,
     allowedBands: familyContract.allowedBands });
 }
-const dist = path.resolve('dist');
+const dist = path.resolve(process.env.MIZAN_DIST_DIR ?? 'dist');
 const distFiles = {};
 const walk = async (dir) => {
   for (const entry of await readdir(dir, { withFileTypes: true })) {
@@ -343,6 +344,7 @@ try {
     for (const [index, proposal] of fixture.expected.proposals.entries())
       await assertCitations(panel.locator('[data-derived-proposal]').nth(index), 'data-derived-cell', proposalCells(proposal, fixture.expected, fixture.mapping));
     if (diagnosticOnly(spec)) {
+      await closedSay(panel, key);
       assert.equal(await panel.locator('[data-derived-reviewer]').count(), 0, 'refused inspection has no review form or receipt');
       assert.equal(await panel.getByRole('button', { name: t.accept, exact: true }).count(), 0);
       for (const label of [t.downloadCsv, t.downloadProvenance, t.downloadOriginal])
@@ -374,13 +376,18 @@ try {
         await panel.getByText(t.busy, { exact: true }).waitFor({ state: 'detached' });
       }
       assert.equal(await panel.getByRole('button', { name: t.accept, exact: true }).isEnabled(), false, 'missing reviewer/rationale/acknowledgements refuse review');
+      // UX-3: every closed button says what opens it; the decisions wait, named.
+      await closedSay(panel, key);
+      assert.equal(await panel.locator('[data-decision-hint]').getAttribute('data-decision-hint'), 'before', `${key}: the decisions wait`);
       await panel.locator('[data-derived-reviewer]').fill('Synthetic Accountant A');
       assert.equal(await panel.getByRole('button', { name: t.accept, exact: true }).isEnabled(), false, 'reviewer alone is insufficient');
       await panel.locator('[data-derived-rationale]').fill('Reviewed every native PDF row, each physical parent and continuation cell, original header bands and signed literals. This is source interpretation only.');
       assert.equal(await panel.getByRole('button', { name: t.accept, exact: true }).isEnabled(), false, 'unreviewed acknowledgements refuse review');
       await acknowledge(panel);
+      assert.equal(await panel.locator('[data-decision-hint]').getAttribute('data-decision-hint'), 'open', `${key}: the decisions open`);
       await panel.getByRole('button', { name: t.accept, exact: true }).click();
       await panel.getByRole('button', { name: t.apply, exact: true }).waitFor();
+      await settledOn(page, panel.locator('[data-decision-state]'), `${key}: approval`);
       await panel.locator('[data-derived-reviewer]').fill('Synthetic Accountant B');
       assert.equal(await panel.getByRole('button', { name: t.apply, exact: true }).count(), 0, 'reviewer edit invalidates receipt');
       await acknowledge(panel);

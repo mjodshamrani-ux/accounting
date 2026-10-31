@@ -28,7 +28,14 @@ import {
 import { stockHierarchyCitationRows } from '../lib/reconciliation/inventory-hierarchy-evidence.ts';
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { InventoryMovementBridgePanel } from '@/components/inventory-movement-bridge-panel';
-import { useEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useId, useRef, useState, useMemo, type ReactNode } from 'react';
+import { useResultFocus } from '@/components/result-focus';
+import { Amount, Quantity } from '@/components/amount';
+import {
+  RecordFields,
+  RecordTable,
+  identityFields,
+} from '@/components/record-table';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -64,7 +71,13 @@ import {
 } from '@/lib/reconciliation/inventory-section-evidence';
 import { stockMatrixCitationRows } from '@/lib/reconciliation/inventory-matrix-evidence';
 import { stockCopy } from '@/lib/i18n/inventory-register';
-import './gl-tb-workspace.css';
+import './workspace-record.css';
+import {
+  DecisionButtons,
+  DecisionHint,
+  useDecisionFocus,
+} from './decision-platform';
+import type { DecisionInput } from '@/lib/decision-platform';
 const emptyScope = (): StockScope =>
   ({
     ...Object.fromEntries(STOCK_FIELDS.map((k) => [k, ''])),
@@ -127,66 +140,6 @@ function download(buffer: ArrayBuffer, name: string, type: string) {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-function Table({
-  headers,
-  rows,
-  marks,
-  pager,
-}: {
-  headers: string[];
-  rows: (string | number | null)[][];
-  marks?: Record<string, string>[];
-  pager?: string;
-}) {
-  const { lang } = useI18n();
-  const copy = stockCopy[lang];
-  const [page, setPage] = useState(0);
-  const safe = Math.min(page, Math.max(0, Math.ceil(rows.length / 50) - 1));
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table>
-          <thead>
-            <tr>
-              {headers.map((h, i) => (
-                <th key={i}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i} {...marks?.[safe * 50 + i]}>
-                {row.map((v, j) => (
-                  <td key={j}>{v ?? '—'}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="gl-tb-actions" data-stock-pager={pager}>
-        <Button
-          variant="outline"
-          disabled={!safe}
-          onClick={() => setPage(safe - 1)}
-        >
-          {copy.previous}
-        </Button>
-        <span>
-          {safe + 1} / {Math.max(1, Math.ceil(rows.length / 50))} ·{' '}
-          {rows.length}
-        </span>
-        <Button
-          variant="outline"
-          disabled={(safe + 1) * 50 >= rows.length}
-          onClick={() => setPage(safe + 1)}
-        >
-          {copy.next}
-        </Button>
-      </div>
-    </>
-  );
 }
 export function StockWorkspace({
   active,
@@ -344,6 +297,13 @@ export function StockWorkspace({
       );
     return { replay, preview, companion };
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
   async function perform<T>(
     work: (signal: AbortSignal) => Promise<T>,
     apply: (v: T) => void,
@@ -497,8 +457,17 @@ export function StockWorkspace({
         state: StockInput;
         result: StockResult;
       }>('stock-reconcile', s, signal);
-    }, install);
+    }, shown);
   }
+  // The decision platform (UX-3): after a decision the focus returns to the
+  // line that holds the state, not to the page.
+  const hint = useId(),
+    decisionState = useId(),
+    settle = useDecisionFocus();
+  const decided: typeof install = (v) => {
+    install(v);
+    settle(decisionState);
+  };
   async function decide(type: StockEvent['type']) {
     if (!result) return;
     const e: StockEvent = {
@@ -510,21 +479,55 @@ export function StockWorkspace({
       reference,
       note,
     };
-    await perform((signal) => compute(signal, [...events, e]), install);
+    await perform((signal) => compute(signal, [...events, e]), decided);
   }
   const status = (value: string) =>
     (copy.status as Record<string, string>)[value] ?? value;
-  const canAccept =
-    result &&
-    complete.confirmed &&
-    !result.issues.length &&
-    !result.missing.length &&
-    result.financial === 'ready';
+  // What the decision buttons open on, as before: approval also needs the
+  // completeness confirmation and a ready result, and the sentence under the
+  // buttons says which of these is missing.
+  const decision: DecisionInput | null = result
+    ? {
+        reference,
+        reason: note,
+        members: result.memberIds.length,
+        review: result.review,
+        acceptBlock: !complete.confirmed
+          ? 'unconfirmed'
+          : result.issues.length
+            ? 'source-error'
+            : result.missing.length
+              ? 'missing'
+              : result.financial === 'ready'
+                ? null
+                : result.financial,
+      }
+    : null;
+  // Money is shown in major units at the currency's precision, and the
+  // register's quantity as a decimal at its own precision; the engine keeps
+  // both as integers. Register values: item, dimensions, quantity, unit,
+  // quantity precision, posted value, valuation reference. GL values:
+  // account, dimensions, class, debit, credit.
+  const amount = (minor: number | null | undefined) => (
+    <Amount minor={minor} decimals={result?.decimals ?? 2} />
+  );
+  const recordCells = (role: number, values: (string | number | null)[]) =>
+    values.map((v, j): ReactNode =>
+      role === 0 && j === 2 && typeof v === 'number' ? (
+        <Quantity key={j} scaled={v} precision={Number(values[4])} />
+      ) : ((role === 0 && j === 5) || (role === 3 && (j === 3 || j === 4))) &&
+        typeof v === 'number' ? (
+        <Amount key={j} minor={v} decimals={result?.decimals ?? 2} />
+      ) : (
+        v
+      ),
+    );
   const detail = (
     title: string,
     headers: string[],
-    rows: (string | number | null)[][],
+    rows: (ReactNode | null)[][],
     fingerprint?: string,
+    wrap?: readonly number[],
   ) => (
     <WorkspaceAdvanced
       summary={
@@ -538,7 +541,7 @@ export function StockWorkspace({
           <bdi>{fingerprint}</bdi>
         </p>
       )}
-      <Table headers={headers} rows={rows} />
+      <RecordTable source={title} headers={headers} rows={rows} wrap={wrap} />
     </WorkspaceAdvanced>
   );
   return (
@@ -579,8 +582,8 @@ export function StockWorkspace({
                         if ('replay' in value) {
                           setPdf(value.preview);
                           setFiles([null, ...value.companion]);
-                          install(value.replay);
-                        } else install(value);
+                          shown(value.replay);
+                        } else shown(value);
                       },
                     );
                 }}
@@ -792,7 +795,7 @@ export function StockWorkspace({
           )}
           <Button
             disabled={busy || !ready}
-            onClick={() => void perform((signal) => compute(signal), install)}
+            onClick={() => void perform((signal) => compute(signal), shown)}
           >
             {copy.compare}
           </Button>
@@ -966,28 +969,36 @@ export function StockWorkspace({
                 copy.observationHeaders,
                 stockSourceObservations(files),
               )}
-            <h2 data-stock-status>{status(result.status)}</h2>
+            <h2 data-stock-status ref={resultHeading} tabIndex={-1} data-result-heading="result">{status(result.status)}</h2>
             <p>
-              {copy.units} · {result.scope.currency} · {result.decimals}
+              {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>.{' '}
+              {copy.quantityNote}
             </p>
-            <Table
+            <RecordTable
+              label={copy.tableNames.totals}
               headers={copy.totals}
               rows={
                 result.totals
-                  ? [[result.totals.registerMinor, result.totals.glMinor]]
+                  ? [
+                      [
+                        amount(result.totals.registerMinor),
+                        amount(result.totals.glMinor),
+                      ],
+                    ]
                   : []
               }
             />
-            <Table
+            <RecordTable
+              label={copy.tableNames.comparisons}
               headers={copy.comparisons}
               rows={result.comparisons.map((v) => [
                 v.account,
                 v.dimensions,
-                v.registerMinor,
-                v.debitMinor,
-                v.creditMinor,
-                v.glMinor,
-                v.differenceMinor,
+                amount(v.registerMinor),
+                amount(v.debitMinor),
+                amount(v.creditMinor),
+                amount(v.glMinor),
+                amount(v.differenceMinor),
               ])}
             />
             <section
@@ -1006,9 +1017,10 @@ export function StockWorkspace({
               {result.links.some((l) => l.status === 'unlinked') ? (
                 <>
                   <h4>{copy.unlinkedTitle}</h4>
-                  <Table
+                  <RecordTable
+                    label={copy.unlinkedTitle}
                     headers={copy.unlinkedHeaders}
-                    pager="unlinked"
+                    pager={{ 'data-stock-pager': 'unlinked' }}
                     rows={result.links
                       .filter((l) => l.status === 'unlinked')
                       .map((l) => [
@@ -1046,9 +1058,10 @@ export function StockWorkspace({
               {result.unlinked.length > 0 && (
                 <>
                   <h4>{copy.othersTitle}</h4>
-                  <Table
+                  <RecordTable
+                    label={copy.othersTitle}
                     headers={copy.othersHeaders}
-                    pager="others"
+                    pager={{ 'data-stock-pager': 'others' }}
                     rows={result.unlinked.map((u) => [
                       copy.linkRoles[u.role],
                       u.record?.row ?? null,
@@ -1093,11 +1106,12 @@ export function StockWorkspace({
                 </div>
               )}
             </section>
-            <fieldset disabled={busy}>
+            <fieldset disabled={busy} data-decision-platform>
               <legend>{copy.decision}</legend>
               <label>
                 {copy.reference}
                 <input
+                  aria-describedby={hint}
                   maxLength={2000}
                   value={reference}
                   onChange={(e) => setReference(e.target.value)}
@@ -1106,36 +1120,32 @@ export function StockWorkspace({
               <label>
                 {copy.note}
                 <input
+                  aria-describedby={hint}
                   maxLength={2000}
                   value={note}
                   onChange={(e) => setNote(e.target.value)}
                 />
               </label>
-              <p>
+              <p id={decisionState} tabIndex={-1} data-decision-state>
                 {status(result.review)} · {copy.members}:{' '}
                 {result.memberIds.length}
               </p>
-              <div className="gl-tb-actions">
-                {(['accept', 'reject', 'undo'] as const).map((type) => (
-                  <Button
-                    key={type}
-                    variant="outline"
-                    disabled={
-                      busy ||
-                      !reference.trim() ||
-                      !note.trim() ||
-                      !result.memberIds.length ||
-                      (type === 'undo'
-                        ? result.review === 'needs-review'
-                        : result.review !== 'needs-review') ||
-                      (type === 'accept' && !canAccept)
-                    }
-                    onClick={() => void decide(type)}
-                  >
-                    {copy[type]}
-                  </Button>
-                ))}
-              </div>
+              {decision && (
+                <>
+                  <DecisionButtons
+                    input={decision}
+                    labels={copy}
+                    busy={busy}
+                    describedBy={hint}
+                    onDecide={(type) => void decide(type)}
+                  />
+                  <DecisionHint
+                    id={hint}
+                    input={decision}
+                    labels={{ reference: copy.reference, reason: copy.note }}
+                  />
+                </>
+              )}
             </fieldset>
             {result.records.map((rows, i) => (
               <div key={i}>
@@ -1154,7 +1164,7 @@ export function StockWorkspace({
                     (result.matrixEvidence || result.columnEvidence)
                       ? [v.column ?? null]
                       : []),
-                    ...v.values,
+                    ...recordCells(i, v.values),
                   ]),
                 )}
               </div>
@@ -1164,8 +1174,14 @@ export function StockWorkspace({
               copy.memberHeaders,
               result.memberIds.map((id) => {
                 const v = JSON.parse(id);
-                return [copy.roles[v[1]], v[4], id];
+                return [
+                  copy.roles[v[1]],
+                  v[4],
+                  <RecordFields key="id" values={identityFields(id)} />,
+                ];
               }),
+              undefined,
+              [2],
             )}
             {detail(
               copy.missing,

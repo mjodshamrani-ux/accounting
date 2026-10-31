@@ -189,8 +189,6 @@ export const ar = {
       movement: 'حركة',
       error: 'خطأ',
     },
-    previous: 'السابق',
-    next: 'التالي',
     retainedTiming:
       'تبقى تواريخ القيمة خارج الفترة ظاهرة بعد الاعتماد والإلغاء؛ وهي أدلة لمرحلة تسوية الأرصدة اللاحقة.',
     caseState: 'الوضع',
@@ -271,8 +269,6 @@ export const ar = {
     undoDecision: 'إلغاء القرار',
     activeAllocations: 'التخصيصات النشطة',
     inventoryOfEverySourceRow: 'جرد كل صف مصدر',
-    previous: 'السابق',
-    next: 'التالي',
   },
   glTb: {
     functionalLabel: 'وظيفية',
@@ -338,6 +334,7 @@ export const ar = {
     gl: 'الأستاذ',
     tb: 'ميزان المراجعة',
     difference: 'الأستاذ ناقص الميزان',
+    balances: 'الأستاذ وميزان المراجعة حسب المكون',
     glBridge: 'ختام الأستاذ ناقص الافتتاح وصافي الفترة',
     tbBridge: 'ختام الميزان ناقص الافتتاح وصافي الفترة',
     missing: 'مفقود',
@@ -381,8 +378,6 @@ export const ar = {
     failure:
       'تعذر إكمال العملية وفق سياسة مصدر الأستاذ والميزان. راجع أدوار المصدر الأصلي وسلامة الرؤوس والمبالغ الصريحة والنطاق المؤكد. يبقى المصدر السابق متاحًا إذا فشل الرفع.',
     error: 'السبب',
-    previous: 'الصفوف السابقة',
-    next: 'الصفوف التالية',
   },
   arDocuments: {
     title: 'مستندات ذمم العملاء',
@@ -450,8 +445,6 @@ export const ar = {
     accept: 'تسجيل تأكيد بشري',
     save: 'حفظ جلسة ذمم العملاء',
     export: 'تنزيل ورقة عمل ذمم العملاء',
-    prev: 'السابق',
-    next: 'التالي',
     row: 'الصف',
     inventory: 'جرد المصدر الأصلي',
     review: 'للمراجعة',
@@ -586,8 +579,6 @@ export const ar = {
     automatic: 'مرجع صريح كامل',
     human: 'قرار بشري',
     none: 'لا دليل اعتماد',
-    prev: 'السابق',
-    next: 'التالي',
     source: 'المصدر الأصلي',
     missing: 'بلا مرجع مقاصة',
     error:
@@ -631,6 +622,8 @@ export const ar = {
     resume: 'استئناف قياس الجهد',
     finish: 'إنهاء قياس الجهد',
     export: 'حفظ سجل قياس الجهد',
+    startWaits: 'اختيار نوع الحالة',
+    exportWaits: 'إنهاء القياس',
     newMeasurement: 'بدء سجل جديد وحذف القياس السابق من النافذة',
     stage: 'مرحلة قياس الجهد',
     stages: {
@@ -766,6 +759,11 @@ export const ar = {
     unlink: 'فك الربط وإعادته للمراجعة',
     link: 'تأكيد الربط يدويًا',
     reviewOnly: 'تسجيل مراجعة دون مطابقة',
+    hint: {
+      link: (review: string, link: string) =>
+        `«${review}» مفتوح، و«${link}» ينتظر حركة مقابلة بالمبلغ نفسه.`,
+      both: (link: string, review: string) => `«${link}» و«${review}» مفتوحان.`,
+    },
   },
   common: {
     // Joins several engine notes in one cell.
@@ -791,15 +789,15 @@ export const ar = {
     noteColumn: 'ملاحظة',
     beforeTable: 'قبل الجدول',
     headerRow: 'صف العناوين',
-    previousPage: 'الصفحة السابقة',
-    nextPage: 'الصفحة التالية',
+    previousPage: 'صفحة PDF السابقة',
+    nextPage: 'صفحة PDF التالية',
     jumpPage: 'رقم الصفحة',
     goToPage: 'انتقال إلى الصفحة',
-    pageOf: (page: number, pages: number) => `صفحة ${page} من ${pages}`,
-    previousRows: 'الصفوف السابقة',
-    nextRows: 'الصفوف التالية',
-    rangeOf: (from: number, to: number, total: number) =>
-      `${from}–${to} من ${total}`,
+    jumpWaits: {
+      number: (pages: number) => `كتابة رقم صفحة من 1 إلى ${pages}`,
+      other: 'كتابة صفحة غير المعروضة',
+    },
+    pageOf: (page: number, pages: number) => `صفحة PDF ${page} من ${pages}`,
     hideCuts: 'إخفاء حدود الأعمدة',
     editCuts: 'تعديل حدود الأعمدة',
     cutsField: 'مواقع حدود الأعمدة بالنسبة المئوية من يسار الصفحة',
@@ -807,6 +805,7 @@ export const ar = {
     cutsHint:
       'ابدأ القياس من يسار الصفحة. الأرقام 25, 45, 65 تقسمها إلى أربعة أعمدة. ضع كل حد في الفراغ بين عمودين، أو اترك الحقل فارغًا لقراءتها كعمود واحد.',
     applyCuts: 'تطبيق الحدود وإعادة القراءة',
+    applyWaits: 'تغيير الحدود عن المستعملة',
     undoCuts: 'التراجع عن التعديل',
     cutsInvalid: 'اكتب أرقامًا وافصل بينها بفاصلة أو مسافة، مثل 25, 45, 65.',
     cutsPending: 'لم نستخدم الحدود الجديدة بعد. طبّقها لإعادة قراءة الجدول.',
@@ -893,6 +892,11 @@ export const ar = {
       'هذه مراجعة نطاق وصفوف فقط. لا تعتمد القيم غير المراجعة ولا تحل الصفوف غير المقروءة. تغيير صف أو قيمة أو إطار يلغيها.',
     covered: 'مراجعة النطاق مسجلة',
     pending: 'مراجعة النطاق لم تُسجّل',
+    coverageWaits: {
+      unclassified: 'تحديد نوع كل صف',
+      exclusions: 'تأكيد كل صف مستبعد',
+      crops: 'ربط كل قصاصة مراجعة في النطاق بصف',
+    },
     unassigned: (n: number) =>
       `قصاصات مُراجعة داخل النطاق لم تُربط بصف أو استبعاد مراجع: ${n}`,
     counts: (
@@ -940,6 +944,10 @@ export const ar = {
     choose: 'اختر ما يوافق الأصل',
     confirm: 'راجعت معاني الأعمدة والعملة والإشارات ونطاق هذه الصورة',
     use: 'استخدم القيم المراجعة في المقارنة',
+    useNeeds: {
+      coverage: 'تسجيل مراجعة النطاق أعلاه',
+      headers: 'دليل عنوان لكل عمود',
+    },
     busy: 'نتحقق من المصدر المراجع',
     failed: 'تعذر التحقق من المصدر. راجع أدلة العناوين والعملة والفترة والصيغ.',
     limits:
@@ -960,6 +968,7 @@ export const ar = {
     addCrop: 'حدد قيمة من الصورة',
     changeCrop: 'غيّر القصاصة المحددة',
     useCrop: 'استخدم هذه القصاصة',
+    useCropWaits: 'رسم إطار حول القيمة',
     cancelCrop: 'إلغاء التحديد',
     removeCrop: 'حذف هذه القيمة',
     selectSurface: 'تحديد قصاصة من الصورة الأصلية',
@@ -989,9 +998,11 @@ export const ar = {
     reviewed: 'راجعت هذه القيمة مع القصاصة',
     pending: 'هذه القيمة لم تُراجع بعد',
     confirm: 'تأكيد مراجعة هذه القيمة',
+    confirmWaits: 'اختيار نوعها وكتابة القيمة كما تظهر في الأصل',
     count: (reviewed: number, total: number) =>
       `${reviewed} قيم مراجعة من ${total} قيم مسجلة — هذا ليس تأكيدًا لاكتمال حركات الصفحة`,
     save: 'حفظ سجل المراجعة',
+    saveWaits: 'تسجيل قيمة من الصورة',
     restore: 'فتح سجل مراجعة محفوظ',
     restoreLabel: 'ملف سجل مراجعة الصور',
     saving: 'نتحقق من الصورة والقيم قبل الحفظ',
@@ -1066,19 +1077,19 @@ export const ar = {
         'اختر نوع التسوية وأضف ملفاتها، ثم راجع النتيجة واحتفظ بورقة العمل',
       steps: [
         {
-          number: '١',
+          number: '1',
           title: 'أضف ملفات التسوية',
           text: 'أضف السجلات التي تريد مقارنتها. يوضح لك كل نوع تسوية ملفاته والمستندات المساندة التي يحتاجها',
           detail: 'ابدأ بالبيانات المتاحة',
         },
         {
-          number: '٢',
+          number: '2',
           title: 'راجع المطابقات والفروق',
           text: 'تظهر لك الحركات المتطابقة والفروق والحالات التي تحتاج قرارك، مع مصدر كل حركة.',
           detail: 'المصدر بجانب النتيجة',
         },
         {
-          number: '٣',
+          number: '3',
           title: 'نزّل ورقة العمل',
           text: 'نزّل ملف Excel يجمع النتائج والمصادر وملاحظاتك، ليكون جاهزًا للمراجعة مع فريقك.',
           detail: 'احتفظ بالنتائج والتفاصيل',
@@ -1193,10 +1204,6 @@ export const ar = {
       row: (row: number) => `صف ${row}`,
       page: (page: number) => `صفحة PDF ${page}`,
       noOriginal: 'لا تنطبق على صف بيانات',
-      previous: 'الملاحظات السابقة',
-      next: 'الملاحظات التالية',
-      range: (from: number, to: number, total: number) =>
-        `${from}–${to} من ${total}`,
     },
     processing: {
       preparingRead: 'تجهيز قراءة صفحات PDF على جهازك',
@@ -1436,11 +1443,7 @@ export const ar = {
       caseDetails: 'تفاصيل الحالة',
       reviewedStillOpen: 'تمت مراجعته وما زال غير مطابق',
       empty: 'لا توجد حركات في هذه القائمة.',
-      pageSummary: (cases: number, page: number, pages: number) =>
-        `عدد الحالات ${cases} · الصفحة ${page} من ${pages}`,
-      pagination: 'التنقل بين الصفحات',
-      previousPage: 'الصفحة السابقة',
-      nextPage: 'الصفحة التالية',
+      cases: (cases: number) => `عدد الحالات ${cases}`,
       prepareWorkpaper: 'إعداد ورقة العمل',
     },
     finish: {
@@ -1565,8 +1568,8 @@ export const ar = {
     },
   },
   financial: {
-    trialBalanceDebitsCreditsResidual: 'مدين الميزان / دائن الميزان / الفرق',
-    amount: 'المقدار بالوحدات الصغرى',
+    trialBalanceFigures: ['مدين الميزان', 'دائن الميزان', 'الفرق، المدين ناقص الدائن'],
+    amount: 'المبلغ',
     categories: {
       'current-asset': 'أصول متداولة',
       'noncurrent-asset': 'أصول غير متداولة',
@@ -1607,8 +1610,7 @@ export const ar = {
     accounts: 'الحسابات',
     statementLines: 'بنود القائمة',
     preservedSourceRows: 'صفوف الأصول المحفوظة',
-    allAmountsBelowAreIntegerMinorUnitsDecimals:
-      'جميع المقادير التالية وحدات عملة صغرى صحيحة؛ عدد المنازل',
+    amountsIn: 'المبالغ بعملة',
     basisLabels: {
       calculated: 'المحسوب',
       reported: 'المقدم',
@@ -1620,15 +1622,17 @@ export const ar = {
     reviewDecisionEvidence: 'دليل قرار المراجعة',
     decisionReference: 'مرجع القرار',
     decisionReason: 'سبب القرار',
-    calculatedReportedDifference: 'المحسوب / المقدم / الفرق',
+    lineFigures: ['المحسوب', 'المقدم', 'الفرق، المحسوب ناقص المقدم'],
     allMappingMembersAndEvidence: 'جميع أعضاء الربط ودليلهم',
     mapping: 'الربط',
     account: 'الحساب',
     dimensions: 'الأبعاد',
     evidence: 'الدليل',
     contribution: 'المساهمة',
-    previousLines: 'بنود سابقة',
-    nextLines: 'بنود تالية',
+    tableNames: {
+      byClass: 'حسب الأساس والفئة',
+      position: 'المركز المالي حسب الأساس',
+    },
     sourceInventoryAndErrors: 'جرد الأصول والأخطاء',
     source: 'الأصل',
     row: 'الصف',
@@ -1685,7 +1689,5 @@ export const ar = {
       accepted: 'معتمد بالدليل',
       rejected: 'مرفوض',
     },
-    previous: 'السابق',
-    next: 'التالي',
   },
 };

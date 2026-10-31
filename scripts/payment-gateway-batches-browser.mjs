@@ -96,11 +96,16 @@ const WORDS = {
     check: 'راجع الدفعات',
   },
 };
+// The page writes an amount at the scope's decimals with grouped thousands
+// and the minus first; written here on its own, not taken from the
+// application.
 const minor = (v, decimals) => {
-  const digits = String(v).padStart(decimals + 1, '0');
-  return decimals
-    ? `${digits.slice(0, -decimals)}.${digits.slice(-decimals)}`
-    : digits;
+  const digits = String(Math.abs(v)).padStart(decimals + 1, '0');
+  const whole = (decimals ? digits.slice(0, -decimals) : digits).replace(
+    /\B(?=(\d{3})+(?!\d))/gu,
+    ',',
+  );
+  return `${v < 0 ? '-' : ''}${whole}${decimals ? `.${digits.slice(-decimals)}` : ''}`;
 };
 
 async function suiteCases(folder, oracle, dense) {
@@ -216,8 +221,11 @@ async function load(page, pgb, c, lang = 'en') {
 async function rows(pgb, pager, selector, read, dense) {
   const found = [];
   const bar = pgb.locator(`[data-pgb-pager="${pager}"]`);
+  // The shared pager names the page, then the number of pages (UX-3).
   const pages = (await bar.count())
-    ? Number(/\/\s*(\d+)/.exec(await bar.locator('span').textContent())[1])
+    ? Number(
+        /(\d+)\D+(\d+)/u.exec(await bar.locator('output').textContent())[2],
+      )
     : 1;
   for (let page = 0; page < pages; page++) {
     if (!dense || page === 0 || page === pages - 1)

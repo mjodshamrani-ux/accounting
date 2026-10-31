@@ -1,5 +1,12 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
+import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
+import {
+  ReviewHint,
+  useDecisionFocus,
+  type ReviewNeed,
+} from '@/components/decision-platform';
+import { RecordRows } from '@/components/record-table';
 import { Input } from '@/components/ui/input';
 import { useI18n } from '@/lib/i18n/context';
 import {
@@ -202,10 +209,11 @@ function SplitPanel({
   const [reviewer, setReviewer] = useState('');
   const [rationale, setRationale] = useState('');
   const [ack, setAck] = useState<Ack>(emptyAck);
+  const [rejected, setRejected] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [progress, setProgress] = useState('');
-  const [offset, setOffset] = useState(0);
+  const [page, setPage] = useState(0);
   const operation = useMemo(() => new PendingOperation(), []);
   const scopeReady = scope.currency === 'SAR' && scope.decimals === 2;
   useEffect(
@@ -219,6 +227,7 @@ function SplitPanel({
   function invalidate() {
     setReceipt(null);
     setArtifact(null);
+    setRejected(false);
     session.updateReviewer(reviewer, rationale);
   }
   async function run(
@@ -280,6 +289,21 @@ function SplitPanel({
     reviewer.trim() !== '' &&
     rationale.trim() !== '' &&
     fields.every((key) => ack[key]);
+  // The decision platform (UX-3): the sentence under the review says what a
+  // decision still needs, in the order the reader meets it, and after a
+  // decision the focus goes to its receipt, not to the page.
+  const ticked = fields.filter((key) => ack[key]).length;
+  const needs: ReviewNeed[] = [
+    ...(reviewer.trim() ? [] : [{ field: t.reviewer }]),
+    ...(rationale.trim() ? [] : [{ field: t.rationale }]),
+    ...(ticked === fields.length
+      ? []
+      : [{ confirmations: [ticked, fields.length] as const }]),
+  ];
+  const acceptNeeds: ReviewNeed[] = [
+    ...(allSelected ? [] : (['everyRow'] as const)),
+    ...(selection?.review.state === 'review-ready' ? [] : (['ready'] as const)),
+  ];
   async function choose(rows: number[], ids: string[]) {
     invalidate();
     setAck(emptyAck());
@@ -288,6 +312,11 @@ function SplitPanel({
       if (!options.signal.aborted) setSelection(next);
     });
   }
+  const hint = useId(),
+    scopeWhy = useId(),
+    receiptLine = useId(),
+    rejectedLine = useId(),
+    settle = useDecisionFocus();
   function record(decision: 'accept' | 'reject') {
     if (!selection) return;
     invalidate();
@@ -313,25 +342,36 @@ function SplitPanel({
         },
         { ...options, currentSelection: selection },
       );
-      if (!options.signal.aborted) setReceipt(next);
+      if (options.signal.aborted) return;
+      setReceipt(next);
+      setRejected(!next);
+      settle(next ? receiptLine : rejectedLine);
     });
   }
+  const money = (minor: string) => (
+    <Amount minor={minor} decimals={context.decimals} />
+  );
   return (
     <section
       className="min-w-0 max-w-full space-y-3"
       data-testid="split-section-review"
     >
-      {!scopeReady && <p role="alert">{t.scope}</p>}
+      {!scopeReady && (
+        <p role="alert" id={scopeWhy}>
+          {t.scope}
+        </p>
+      )}
       <div className="flex flex-wrap gap-2">
         <Button
           className={buttonClass}
           data-testid="split-section-inspect"
+          aria-describedby={scopeReady ? undefined : scopeWhy}
           disabled={busy || !scopeReady}
           onClick={() => {
             invalidate();
             setAck(emptyAck());
             setSelection(null);
-            setOffset(0);
+            setPage(0);
             void run(async (options) => {
               const next = await session.inspect(options);
               if (!options.signal.aborted) setSelection(next);
@@ -432,63 +472,28 @@ function SplitPanel({
             ))}
           </details>
           <h3>{t.rows}</h3>
-          <div className="overflow-x-auto">
-            <table data-testid="split-section-inventory">
-              <thead>
-                <tr>
-                  <th>{t.row}</th>
-                  <th>{t.page}</th>
-                  <th>{t.classification}</th>
-                  {['Date', 'Reference', 'Description', 'Debit', 'Credit'].map(
-                    (h) => (
-                      <th key={h}>
-                        <bdi>{h}</bdi>
-                      </th>
-                    ),
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                {selection.review.rows
-                  .slice(offset, offset + 100)
-                  .map((row) => (
-                    <tr key={row.originalRow}>
-                      <td>{row.originalRow}</td>
-                      <td>{row.page}</td>
-                      <td>
-                        <bdi>{splitSectionKind(row.kind, lang)}</bdi>
-                      </td>
-                      {row.values.map((value, i) => (
-                        <td key={i}>
-                          <bdi>{value || '∅'}</bdi>
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Button
-              variant="outline"
-              disabled={!offset}
-              onClick={() => setOffset(Math.max(0, offset - 100))}
-            >
-              {t.previous}
-            </Button>
-            <output>
-              {offset + 1}–
-              {Math.min(offset + 100, selection.review.rows.length)} /{' '}
-              {selection.review.rows.length}
-            </output>
-            <Button
-              variant="outline"
-              disabled={offset + 100 >= selection.review.rows.length}
-              onClick={() => setOffset(offset + 100)}
-            >
-              {t.next}
-            </Button>
-          </div>
+          <RecordRows
+            label={t.rows}
+            headers={[
+              t.row,
+              t.page,
+              t.classification,
+              ...['Date', 'Reference', 'Description', 'Debit', 'Credit'].map(
+                (h) => <bdi key={h}>{h}</bdi>,
+              ),
+            ]}
+            rows={selection.review.rows}
+            size={100}
+            page={page}
+            onPage={setPage}
+            frame={{ 'data-testid': 'split-section-inventory' }}
+            cells={(row) => [
+              row.originalRow,
+              row.page,
+              splitSectionKind(row.kind, lang),
+              ...row.values.map((value) => value || '∅'),
+            ]}
+          />
           <p>{t.partial}</p>
           <Button
             className={buttonClass}
@@ -588,21 +593,22 @@ function SplitPanel({
             </details>
           ))}
           <h3>{t.totals}</h3>
-          <p>
+          <p data-testid="split-section-gross">
             <bdi>
-              {t.debit} {selection.review.grossDebitMinor} · {t.credit}{' '}
-              {selection.review.grossCreditMinor} · {t.net}{' '}
-              {selection.review.netMinor} ({t.minor})
+              {t.debit} {money(selection.review.grossDebitMinor)} · {t.credit}{' '}
+              {money(selection.review.grossCreditMinor)} · {t.net}{' '}
+              {money(selection.review.netMinor)}
             </bdi>
           </p>
           {selection.review.totals.map((total, i) => (
             <p key={i} data-testid="split-section-total">
               <bdi>
                 {t.row} {total.originalRow} · {t.page} {total.page} ·{' '}
-                {total.role} · {t.debit} {t.expected} {total.expectedDebitMinor}{' '}
-                / {t.actual} {total.actualDebitMinor} · {t.credit} {t.expected}{' '}
-                {total.expectedCreditMinor} / {t.actual}{' '}
-                {total.actualCreditMinor} ({t.minor})
+                {total.role} · {t.debit} {t.expected}{' '}
+                {money(total.expectedDebitMinor)} / {t.actual}{' '}
+                {money(total.actualDebitMinor)} · {t.credit} {t.expected}{' '}
+                {money(total.expectedCreditMinor)} / {t.actual}{' '}
+                {money(total.actualCreditMinor)}
               </bdi>
             </p>
           ))}
@@ -612,6 +618,7 @@ function SplitPanel({
               <Input
                 maxLength={200}
                 data-testid="split-section-reviewer"
+                aria-describedby={hint}
                 disabled={busy}
                 value={reviewer}
                 onChange={(e) => {
@@ -626,6 +633,7 @@ function SplitPanel({
               <Input
                 maxLength={4000}
                 data-testid="split-section-rationale"
+                aria-describedby={hint}
                 disabled={busy}
                 value={rationale}
                 onChange={(e) => {
@@ -651,10 +659,12 @@ function SplitPanel({
               {t[key]}
             </label>
           ))}
+          <ReviewHint id={hint} needs={needs} acceptNeeds={acceptNeeds} />
           <div className="flex flex-wrap gap-2">
             <Button
               className={buttonClass}
               data-testid="split-section-accept"
+              aria-describedby={hint}
               disabled={
                 !canRecord ||
                 !allSelected ||
@@ -668,15 +678,33 @@ function SplitPanel({
               className={buttonClass}
               variant="outline"
               data-testid="split-section-reject"
+              aria-describedby={hint}
               disabled={!canRecord}
               onClick={() => record('reject')}
             >
               {t.reject}
             </Button>
           </div>
+          {rejected && (
+            <output
+              id={rejectedLine}
+              tabIndex={-1}
+              data-decision-state
+              data-testid="split-section-rejected"
+            >
+              {t.rejected}
+            </output>
+          )}
           {receipt && (
             <>
-              <p data-testid="split-section-receipt">{t.receipt}</p>
+              <p
+                id={receiptLine}
+                tabIndex={-1}
+                data-decision-state
+                data-testid="split-section-receipt"
+              >
+                {t.receipt}
+              </p>
               <Button
                 className={buttonClass}
                 data-testid="split-section-apply"

@@ -243,15 +243,16 @@ async function installObservation(context) {
 const labels = {
   ar: {
     supplier: 'كشف المورد', ledger: 'تقرير الحسابات الدائنة', confirm: 'تأكيد البيانات',
-    pageNumber: 'رقم الصفحة', go: 'انتقال إلى الصفحة', previous: 'الصفحة السابقة',
-    pageOf: (n, total) => `صفحة ${n} من ${total}`,
+    // The PDF file's own page buttons name themselves apart from a table's (UX-3).
+    pageNumber: 'رقم الصفحة', go: 'انتقال إلى الصفحة', previous: 'صفحة PDF السابقة',
+    pageOf: (n, total) => `صفحة PDF ${n} من ${total}`,
     currency: 'العملة', cutoff: 'تاريخ المقارنة', scope: 'تعديل نطاق المقارنة',
     run: 'تحقق وقارن', workspace: 'مساحة المراجعة',
   },
   en: {
     supplier: 'Supplier statement', ledger: 'Accounts payable report', confirm: 'Confirm data',
-    pageNumber: 'Page number', go: 'Go to page', previous: 'Previous page',
-    pageOf: (n, total) => `Page ${n} of ${total}`,
+    pageNumber: 'Page number', go: 'Go to page', previous: 'Previous PDF page',
+    pageOf: (n, total) => `PDF page ${n} of ${total}`,
     currency: 'Currency', cutoff: 'Cut-off date', scope: 'Edit reconciliation scope',
     run: 'Check and compare', workspace: 'Review workspace',
   },

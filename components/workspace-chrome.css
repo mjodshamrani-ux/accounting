@@ -217,7 +217,8 @@
   flex-direction: column;
   gap: 24px;
 }
-.reconciliation-workspace :is(.gl-tb-actions, .clearing-actions) {
+.reconciliation-workspace
+  :is(.gl-tb-actions, .clearing-actions, .record-pager) {
   gap: 10px;
   align-items: center;
 }
@@ -684,7 +685,7 @@
   background: #f2eefb;
   color: #573790;
 }
-.reconciliation-workspace :is(.gl-tb-table, .clearing-scroll) {
+.reconciliation-workspace :is(.gl-tb-table, .clearing-scroll, .record-frame) {
   overflow-x: auto;
   max-width: 100%;
   border: 1px solid #e1e6ef;

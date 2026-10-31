@@ -176,7 +176,7 @@ export async function verifyBank(page, url, out = 'work/qa') {
     assert.equal(await rows('Every original source row').count(), 50);
     assert.equal(await rows('Whole movement cases').count(), 30);
     const next = (heading) =>
-      section(heading).getByRole('button', { name: 'Next', exact: true });
+      section(heading).getByRole('button', { name: 'Next page', exact: true });
     assert.equal(
       await next('Original movements').count(),
       1,
@@ -213,7 +213,7 @@ export async function verifyBank(page, url, out = 'work/qa') {
       const found = [];
       // The movement result's own tables, whatever their class.
       const cells = document.querySelectorAll(
-        '[data-testid="bank-result"] ~ fieldset .gl-tb-table :is(th, td)',
+        '[data-testid="bank-result"] ~ fieldset :is(.gl-tb-table, .record-frame) :is(th, td)',
       );
       for (const cell of cells) {
         const walker = document.createTreeWalker(cell, NodeFilter.SHOW_TEXT, {
@@ -393,7 +393,7 @@ export async function verifyBank(page, url, out = 'work/qa') {
   await ownPages();
   const later = await evidenceFocus(4);
   await section('Original movements')
-    .getByRole('button', { name: 'Previous', exact: true })
+    .getByRole('button', { name: 'Previous page', exact: true })
     .click();
   await page
     .getByRole('button', {

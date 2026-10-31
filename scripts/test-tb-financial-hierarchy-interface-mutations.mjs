@@ -106,15 +106,16 @@ const mutations = [
     '                {false && result.categories && result.equation && (\n',
   ],
   [
+    // The panel's amounts take their sign from the shared formatter.
     'minus-sign-dropped',
-    PANEL,
-    "return `${value < 0 ? '-' : ''}${digits.slice(0, -2)}.${digits.slice(-2)}`;",
-    'return `${digits.slice(0, -2)}.${digits.slice(-2)}`;',
+    'lib/reconciliation/core.ts',
+    "const sign = value < 0 ? '-' : '';",
+    "const sign = '';",
   ],
   [
     'difference-column-blank',
     PANEL,
-    "                      line ? minorText(line.difference) : '',\n",
+    "                      line ? amount(line.difference) : '',\n",
     "                      '',\n",
   ],
 ];

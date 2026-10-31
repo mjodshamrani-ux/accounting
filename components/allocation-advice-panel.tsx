@@ -3,7 +3,8 @@ import { Button } from './ui/button';
 import { useI18n } from '@/lib/i18n/context';
 import { allocationAdviceCopy } from '@/lib/i18n/allocation-advice';
 import { workerTask } from '@/lib/reconciliation/client';
-import { money } from '@/lib/reconciliation/core';
+import { Amount } from '@/components/amount';
+import { RecordRows, RecordTable } from '@/components/record-table';
 import type {
   AllocationInput,
   AllocationResult,
@@ -13,43 +14,6 @@ import {
   twinsOf,
   type AllocationAdviceReview,
 } from '@/lib/reconciliation/allocation-advice';
-
-const PAGE = 50;
-
-function Pager({
-  name,
-  page,
-  pages,
-  onPage,
-}: {
-  name: string;
-  page: number;
-  pages: number;
-  onPage: (page: number) => void;
-}) {
-  const { lang } = useI18n();
-  const copy = allocationAdviceCopy[lang];
-  if (pages <= 1) return null;
-  return (
-    <nav className="clearing-actions" data-advice-pager={name}>
-      <Button
-        variant="outline"
-        disabled={page === 0}
-        onClick={() => onPage(page - 1)}
-      >
-        {copy.previous}
-      </Button>
-      <output>{copy.page(page + 1, pages)}</output>
-      <Button
-        variant="outline"
-        disabled={page >= pages - 1}
-        onClick={() => onPage(page + 1)}
-      >
-        {copy.next}
-      </Button>
-    </nav>
-  );
-}
 
 /** allocation-advice-review-1 beside allocation-snapshot-1: review only. The
  * parent remounts this panel whenever its files, readings, scope or
@@ -93,7 +57,9 @@ export function AllocationAdvicePanel({
         setRefused(code);
       }
     });
-  const amount = (minor: number) => money(minor, review?.decimals ?? 2);
+  const amount = (minor: number) => (
+    <Amount minor={minor} decimals={review?.decimals ?? 2} />
+  );
   const counts = review
     ? {
         fits: review.lines.filter((l) => l.status === 'fits').length,
@@ -113,8 +79,6 @@ export function AllocationAdvicePanel({
         )
         .filter(([, n]) => n)
     : [];
-  const linePages = review ? Math.ceil(review.lines.length / PAGE) : 0,
-    itemPages = review ? Math.ceil(review.items.length / PAGE) : 0;
   return (
     <section
       className="surface pad stack"
@@ -162,121 +126,81 @@ export function AllocationAdvicePanel({
             </section>
           )}
           <h3>{copy.linesTitle}</h3>
-          <div className="clearing-scroll">
-            <table>
-              <thead>
-                <tr>
-                  {copy.lineHeaders.map((h) => (
-                    <th key={h}>{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {review.lines
-                  .slice(linePage * PAGE, (linePage + 1) * PAGE)
-                  .map((l) => {
-                    const competitors = competitorsOf(review, l),
-                      twins = twinsOf(review, l);
-                    return (
-                      <tr
-                        key={l.id}
-                        data-advice-line={JSON.stringify([
-                          l.row,
-                          l.status,
-                          l.reasons,
-                          competitors,
-                          twins,
-                        ])}
-                      >
-                        <td>{l.row}</td>
-                        <td>
-                          <bdi>{l.reference}</bdi>
-                        </td>
-                        <td>
-                          <bdi>
-                            {l.payment} → {l.invoice}
-                          </bdi>
-                        </td>
-                        <td>
-                          <bdi>{amount(l.amount)}</bdi>
-                        </td>
-                        <td data-advice-status>{copy.status[l.status]}</td>
-                        <td data-advice-reasons>
-                          {l.reasons.map((code) => (
-                            <p key={code}>
-                              {copy.reasons[code]} ({code})
-                            </p>
-                          ))}
-                        </td>
-                        <td data-advice-competitors>
-                          {copy.rows(competitors)}
-                        </td>
-                        <td data-advice-twins>{copy.rows(twins)}</td>
-                      </tr>
-                    );
-                  })}
-              </tbody>
-            </table>
-          </div>
-          <Pager
-            name="lines"
+          <RecordRows
+            label={copy.linesTitle}
+            headers={copy.lineHeaders}
             page={linePage}
-            pages={linePages}
             onPage={setLinePage}
+            pager={{ 'data-advice-pager': 'lines' }}
+            rows={review.lines.map((l) => {
+              // Worked out for the rows of the page shown, once each.
+              let competitors: number[] | undefined,
+                twins: number[] | undefined;
+              return {
+                line: l,
+                competitors: () => (competitors ??= competitorsOf(review, l)),
+                twins: () => (twins ??= twinsOf(review, l)),
+              };
+            })}
+            cells={({ line: l, competitors, twins }) => [
+              l.row,
+              <bdi key="reference">{l.reference}</bdi>,
+              <bdi key="pair">
+                {l.payment} → {l.invoice}
+              </bdi>,
+              amount(l.amount),
+              <span key="status" data-advice-status>
+                {copy.status[l.status]}
+              </span>,
+              <div key="reasons" data-advice-reasons>
+                {l.reasons.map((code) => (
+                  <p key={code}>
+                    {copy.reasons[code]} ({code})
+                  </p>
+                ))}
+              </div>,
+              <span key="competitors" data-advice-competitors>
+                {copy.rows(competitors())}
+              </span>,
+              <span key="twins" data-advice-twins>
+                {copy.rows(twins())}
+              </span>,
+            ]}
+            mark={({ line: l, competitors, twins }) => ({
+              'data-advice-line': JSON.stringify([
+                l.row,
+                l.status,
+                l.reasons,
+                competitors(),
+                twins(),
+              ]),
+            })}
           />
           <h3>{copy.itemsTitle}</h3>
-          <div className="clearing-scroll">
-            <table>
-              <thead>
-                <tr>
-                  {copy.itemHeaders.map((h) => (
-                    <th key={h}>{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {review.items
-                  .slice(itemPage * PAGE, (itemPage + 1) * PAGE)
-                  .map((i) => (
-                    <tr
-                      key={i.id}
-                      data-advice-item={JSON.stringify([
-                        i.side,
-                        i.reference,
-                        i.remaining,
-                        i.advised,
-                        i.excess,
-                      ])}
-                    >
-                      <td>{copy.sides[i.side]}</td>
-                      <td>
-                        <bdi>{i.reference}</bdi>
-                      </td>
-                      <td>
-                        <bdi>{amount(i.available)}</bdi>
-                      </td>
-                      <td>
-                        <bdi>{amount(i.allocated)}</bdi>
-                      </td>
-                      <td>
-                        <bdi>{amount(i.remaining)}</bdi>
-                      </td>
-                      <td>
-                        <bdi>{amount(i.advised)}</bdi>
-                      </td>
-                      <td>
-                        <bdi>{amount(i.excess)}</bdi>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-          <Pager
-            name="items"
+          <RecordTable
+            label={copy.itemsTitle}
+            headers={copy.itemHeaders}
             page={itemPage}
-            pages={itemPages}
             onPage={setItemPage}
+            pager={{ 'data-advice-pager': 'items' }}
+            rows={review.items.map((i) => [
+              copy.sides[i.side],
+              <bdi key="reference">{i.reference}</bdi>,
+              amount(i.available),
+              amount(i.allocated),
+              amount(i.remaining),
+              amount(i.advised),
+              amount(i.excess),
+            ])}
+            marks={review.items.map((i) => ({
+              'data-advice-item': JSON.stringify([
+                i.side,
+                i.reference,
+                i.remaining,
+                i.advised,
+                i.excess,
+              ]),
+            }))}
           />
         </>
       )}

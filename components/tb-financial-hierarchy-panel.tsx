@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
+import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
@@ -16,7 +17,9 @@ import {
 } from '@/lib/reconciliation/tb-financial-hierarchy-contract';
 import type { FinHReplayInput } from '@/lib/reconciliation/tb-financial-hierarchy-io';
 import { tbFinancialHierarchyCopy } from '@/lib/i18n/tb-financial-hierarchy';
-import './intercompany-batch-panel.css';
+import { RecordTable } from '@/components/record-table';
+import './review-section.css';
+import { ClosedReason } from './decision-platform';
 
 type Picked = {
   name: string;
@@ -24,84 +27,13 @@ type Picked = {
   sha256: string;
   confirmed: boolean;
 };
-// Minor units shown with two decimals, the contract's; never a float sum.
-function minorText(value: number | null) {
-  if (value === null) return '—';
-  const digits = String(Math.abs(value)).padStart(3, '0');
-  return `${value < 0 ? '-' : ''}${digits.slice(0, -2)}.${digits.slice(-2)}`;
-}
+// An amount at two decimals, the contract's, through the shared component.
+const amount = (minor: number | null) => <Amount minor={minor} decimals={2} />;
 const blankScope = () =>
   Object.fromEntries(FIN_HIERARCHY_SCOPE_HEADERS.map((k) => [k, ''])) as Record<
     (typeof FIN_HIERARCHY_SCOPE_HEADERS)[number],
     string
   >;
-
-function Paged({
-  headers,
-  rows,
-  label,
-  marks,
-  pager,
-}: {
-  headers: string[];
-  rows: string[][];
-  label: string;
-  marks?: Record<string, string>[];
-  pager?: string;
-}) {
-  const { lang } = useI18n();
-  const copy = tbFinancialHierarchyCopy[lang];
-  const [page, setPage] = useState(0);
-  const pages = Math.max(1, Math.ceil(rows.length / 50)),
-    safe = Math.min(page, pages - 1);
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table aria-label={label}>
-          <thead>
-            <tr>
-              {headers.map((h) => (
-                <th key={h}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i} {...marks?.[safe * 50 + i]}>
-                {row.map((v, j) => (
-                  <td key={j}>
-                    <bdi>{v}</bdi>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {pages > 1 && (
-        <div className="gl-tb-actions" data-finh-pager={pager}>
-          <Button
-            variant="outline"
-            disabled={!safe}
-            onClick={() => setPage(safe - 1)}
-          >
-            {copy.previous}
-          </Button>
-          <span>
-            {safe + 1} / {pages} · {rows.length}
-          </span>
-          <Button
-            variant="outline"
-            disabled={safe + 1 >= pages}
-            onClick={() => setPage(safe + 1)}
-          >
-            {copy.next}
-          </Button>
-        </div>
-      )}
-    </>
-  );
-}
 
 export function TbFinancialHierarchyPanel() {
   const { lang } = useI18n();
@@ -167,6 +99,7 @@ export function TbFinancialHierarchyPanel() {
   };
   const setFile = (i: number, value: Picked | null) =>
     setFiles((old) => old.map((f, j) => (j === i ? value : f)));
+  const checkWhy = useId();
   const ready = files.every((f) => f?.confirmed) && scopeConfirmed;
   function check() {
     const input: FinHReplayInput = {
@@ -313,7 +246,11 @@ export function TbFinancialHierarchyPanel() {
           </label>
         </fieldset>
         <div className="gl-tb-actions workspace-run-actions">
-          <Button disabled={busy || !ready} onClick={check}>
+          <Button
+            disabled={busy || !ready}
+            aria-describedby={checkWhy}
+            onClick={check}
+          >
             {copy.check}
           </Button>
           {busy && (
@@ -322,6 +259,12 @@ export function TbFinancialHierarchyPanel() {
             </Button>
           )}
         </div>
+        <ClosedReason
+          id={checkWhy}
+          closed={!ready}
+          waits="check"
+          label={copy.check}
+        />
         {error && (
           <p role="alert" data-finh-error>
             {error}
@@ -340,9 +283,9 @@ export function TbFinancialHierarchyPanel() {
                 <h3>
                   {copy.issues} ({result.issues.length})
                 </h3>
-                <Paged
+                <RecordTable
                   label={copy.issues}
-                  pager="issues"
+                  pager={{ 'data-finh-pager': 'issues' }}
                   headers={copy.issueHeaders}
                   rows={result.issues.map((x) => [
                     reason(x.code),
@@ -361,9 +304,9 @@ export function TbFinancialHierarchyPanel() {
                 <h3>
                   {copy.tree} ({result.nodes.length})
                 </h3>
-                <Paged
+                <RecordTable
                   label={copy.tree}
-                  pager="tree"
+                  pager={{ 'data-finh-pager': 'tree' }}
                   headers={copy.treeHeaders}
                   rows={result.nodes.map((n) => {
                     const line = n.kind === 'leaf' ? lineOf(n.id) : undefined;
@@ -375,9 +318,9 @@ export function TbFinancialHierarchyPanel() {
                       n.label,
                       copy.classes[n.lineClass] ?? n.lineClass,
                       n.depth === null ? '—' : String(n.depth),
-                      n.kind === 'title' ? '' : minorText(n.amount),
-                      line ? minorText(line.calculated) : '',
-                      line ? minorText(line.difference) : '',
+                      n.kind === 'title' ? '' : amount(n.amount),
+                      line ? amount(line.calculated) : '',
+                      line ? amount(line.difference) : '',
                     ];
                   })}
                   marks={result.nodes.map((n) => ({
@@ -391,9 +334,9 @@ export function TbFinancialHierarchyPanel() {
             {result.lines.some((l) => l.members.length) && (
               <section>
                 <h3>{copy.members}</h3>
-                <Paged
+                <RecordTable
                   label={copy.members}
-                  pager="members"
+                  pager={{ 'data-finh-pager': 'members' }}
                   headers={copy.memberHeaders}
                   rows={result.lines.flatMap((l) =>
                     l.members.map((m) => [
@@ -403,7 +346,7 @@ export function TbFinancialHierarchyPanel() {
                       String(m.mappingRow),
                       m.evidenceRow === null ? '—' : String(m.evidenceRow),
                       m.tbRow === null ? '—' : String(m.tbRow),
-                      minorText(m.contribution),
+                      amount(m.contribution),
                     ]),
                   )}
                   marks={result.lines.flatMap((l) =>
@@ -417,16 +360,16 @@ export function TbFinancialHierarchyPanel() {
             {result.controls.length > 0 && (
               <section>
                 <h3>{copy.controls}</h3>
-                <Paged
+                <RecordTable
                   label={copy.controls}
-                  pager="controls"
+                  pager={{ 'data-finh-pager': 'controls' }}
                   headers={copy.controlHeaders}
                   rows={result.controls.map((c) => [
                     c.id,
                     String(c.row),
-                    minorText(c.supplied),
-                    minorText(c.childTotal),
-                    minorText(c.difference),
+                    amount(c.supplied),
+                    amount(c.childTotal),
+                    amount(c.difference),
                     c.children.join(', '),
                   ])}
                   marks={result.controls.map((c) => ({
@@ -440,25 +383,24 @@ export function TbFinancialHierarchyPanel() {
                 <h3>{copy.totals}</h3>
                 {result.tb && (
                   <p data-finh-tb>
-                    {copy.tbTotals}: <bdi>{minorText(result.tb.debit)}</bdi> ·{' '}
-                    <bdi>{minorText(result.tb.credit)}</bdi>
+                    {copy.tbTotals}: {amount(result.tb.debit)} ·{' '}
+                    {amount(result.tb.credit)}
                   </p>
                 )}
                 {result.categories && result.equation && (
                   <>
-                    <Paged
+                    <RecordTable
                       label={copy.totals}
                       headers={copy.categoryHeaders}
                       rows={FIN_HIERARCHY_CATEGORIES.map((c) => [
                         copy.classes[c],
-                        minorText(result.categories!.reported[c]),
-                        minorText(result.categories!.calculated[c]),
+                        amount(result.categories!.reported[c]),
+                        amount(result.categories!.calculated[c]),
                       ])}
                     />
                     <p data-finh-equation>
-                      {copy.equation}:{' '}
-                      <bdi>{minorText(result.equation.reported)}</bdi> ·{' '}
-                      <bdi>{minorText(result.equation.calculated)}</bdi>
+                      {copy.equation}: {amount(result.equation.reported)} ·{' '}
+                      {amount(result.equation.calculated)}
                     </p>
                   </>
                 )}

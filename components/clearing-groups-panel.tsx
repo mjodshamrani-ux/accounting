@@ -3,7 +3,8 @@ import { Button } from './ui/button';
 import { useI18n } from '@/lib/i18n/context';
 import { clearingGroupsCopy } from '@/lib/i18n/clearing-groups';
 import { workerTask } from '@/lib/reconciliation/client';
-import { money } from '@/lib/reconciliation/core';
+import { Amount } from '@/components/amount';
+import { RecordRows } from '@/components/record-table';
 import type { SourceFile } from '@/lib/reconciliation/types';
 import type {
   ClearingReading,
@@ -13,43 +14,6 @@ import type {
   ClearingGroupsInput,
   ClearingGroupsResult,
 } from '@/lib/reconciliation/clearing-groups';
-
-const PAGE = 50;
-
-function Pager({
-  name,
-  page,
-  pages,
-  onPage,
-}: {
-  name: string;
-  page: number;
-  pages: number;
-  onPage: (page: number) => void;
-}) {
-  const { lang } = useI18n();
-  const copy = clearingGroupsCopy[lang];
-  if (pages <= 1) return null;
-  return (
-    <nav className="clearing-actions" data-groups-pager={name}>
-      <Button
-        variant="outline"
-        disabled={page === 0}
-        onClick={() => onPage(page - 1)}
-      >
-        {copy.previous}
-      </Button>
-      <output>{copy.page(page + 1, pages)}</output>
-      <Button
-        variant="outline"
-        disabled={page >= pages - 1}
-        onClick={() => onPage(page + 1)}
-      >
-        {copy.next}
-      </Button>
-    </nav>
-  );
-}
 
 /** clearing-groups-1 beside clearing-1: review only. The parent remounts this
  * panel whenever the file, its reading or its scope changes, so a shown
@@ -94,7 +58,9 @@ export function ClearingGroupsPanel({
         setRefused(code);
       }
     });
-  const amount = (minor: number) => money(minor, result?.decimals ?? 2);
+  const amount = (minor: number) => (
+    <Amount minor={minor} decimals={result?.decimals ?? 2} />
+  );
   const reasonCounts = result
     ? Object.entries(copy.reasons)
         .map(
@@ -108,8 +74,6 @@ export function ClearingGroupsPanel({
         )
         .filter(([, n]) => n)
     : [];
-  const groupPages = result ? Math.ceil(result.groups.length / PAGE) : 0,
-    faultyPages = result ? Math.ceil(result.faulty.length / PAGE) : 0;
   return (
     <section
       className="surface pad stack"
@@ -157,129 +121,78 @@ export function ClearingGroupsPanel({
             </section>
           )}
           <h3>{copy.groupsTitle}</h3>
-          <div className="clearing-scroll">
-            <table>
-              <thead>
-                <tr>
-                  {copy.groupHeaders.map((h) => (
-                    <th key={h}>{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {result.groups
-                  .slice(groupPage * PAGE, (groupPage + 1) * PAGE)
-                  .map((g) => (
-                    <tr
-                      key={g.id}
-                      data-group={JSON.stringify([
-                        g.reference,
-                        g.members.map((m) => [
-                          m.row,
-                          m.posting,
-                          m.amount,
-                          m.basis,
-                        ]),
-                        g.net,
-                        g.status,
-                        g.reasons,
-                        g.connected.map((c) => [c.row, c.code]),
-                        g.duplicates,
-                      ])}
-                    >
-                      <td>
-                        <bdi>{g.reference || copy.noReference}</bdi>
-                      </td>
-                      <td>
-                        <ul>
-                          {g.members.map((m) => (
-                            <li key={m.row}>
-                              <bdi>
-                                {copy.member(
-                                  m.row,
-                                  m.posting,
-                                  amount(m.amount),
-                                )}
-                              </bdi>
-                            </li>
-                          ))}
-                        </ul>
-                        {g.duplicates.map((rows) => (
-                          <p key={rows.join(',')}>{copy.duplicates(rows)}</p>
-                        ))}
-                      </td>
-                      <td>
-                        <bdi>{amount(g.net)}</bdi>
-                      </td>
-                      <td>{copy.status[g.status]}</td>
-                      <td data-group-reasons>
-                        {g.reasons.map((code) => (
-                          <p key={code}>
-                            {copy.reasons[code]} ({code})
-                          </p>
-                        ))}
-                      </td>
-                      <td>
-                        {g.connected.map((c) => (
-                          <p key={c.row}>{copy.heldBy(c.row, c.code)}</p>
-                        ))}
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-          <Pager
-            name="groups"
+          <RecordRows
+            label={copy.groupsTitle}
+            headers={copy.groupHeaders}
             page={groupPage}
-            pages={groupPages}
             onPage={setGroupPage}
+            pager={{ 'data-groups-pager': 'groups' }}
+            rows={result.groups}
+            mark={(g) => ({
+              'data-group': JSON.stringify([
+                g.reference,
+                g.members.map((m) => [m.row, m.posting, m.amount, m.basis]),
+                g.net,
+                g.status,
+                g.reasons,
+                g.connected.map((c) => [c.row, c.code]),
+                g.duplicates,
+              ]),
+            })}
+            cells={(g) => [
+              <bdi key="reference">{g.reference || copy.noReference}</bdi>,
+              <div key="members">
+                <ul>
+                  {g.members.map((m) => (
+                    <li key={m.row}>
+                      <bdi>{copy.member(m.row, m.posting)}</bdi>
+                      {' · '}
+                      {amount(m.amount)}
+                    </li>
+                  ))}
+                </ul>
+                {g.duplicates.map((rows) => (
+                  <p key={rows.join(',')}>{copy.duplicates(rows)}</p>
+                ))}
+              </div>,
+              amount(g.net),
+              copy.status[g.status],
+              <div key="reasons" data-group-reasons>
+                {g.reasons.map((code) => (
+                  <p key={code}>
+                    {copy.reasons[code]} ({code})
+                  </p>
+                ))}
+              </div>,
+              <div key="held">
+                {g.connected.map((c) => (
+                  <p key={c.row}>{copy.heldBy(c.row, c.code)}</p>
+                ))}
+              </div>,
+            ]}
           />
           <h3>{copy.faultyTitle}</h3>
           {result.faulty.length ? (
-            <div className="clearing-scroll">
-              <table>
-                <thead>
-                  <tr>
-                    {copy.faultyHeaders.map((h) => (
-                      <th key={h}>{h}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {result.faulty
-                    .slice(faultyPage * PAGE, (faultyPage + 1) * PAGE)
-                    .map((f) => (
-                      <tr
-                        key={f.row}
-                        data-faulty={JSON.stringify([
-                          f.row,
-                          f.code,
-                          f.isolated,
-                        ])}
-                      >
-                        <td>{f.row}</td>
-                        <td>
-                          {copy.codes[f.code]} ({f.code})
-                        </td>
-                        <td>{copy.isolated[String(f.isolated)]}</td>
-                        <td>
-                          <bdi>{f.values.join(' | ')}</bdi>
-                        </td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
-            </div>
+            <RecordRows
+              label={copy.faultyTitle}
+              headers={copy.faultyHeaders}
+              page={faultyPage}
+              onPage={setFaultyPage}
+              pager={{ 'data-groups-pager': 'faulty' }}
+              rows={result.faulty}
+              mark={(f) => ({
+                'data-faulty': JSON.stringify([f.row, f.code, f.isolated]),
+              })}
+              cells={(f) => [
+                f.row,
+                `${copy.codes[f.code]} (${f.code})`,
+                copy.isolated[String(f.isolated)],
+                f.values.join(' | '),
+              ]}
+            />
           ) : (
             <p>{copy.noFaulty}</p>
           )}
-          <Pager
-            name="faulty"
-            page={faultyPage}
-            pages={faultyPages}
-            onPage={setFaultyPage}
-          />
           {result.blank.length > 0 && (
             <p data-groups-blank={JSON.stringify(result.blank)}>
               {copy.blank(result.blank)}

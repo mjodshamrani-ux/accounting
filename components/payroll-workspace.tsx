@@ -1,5 +1,12 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
+import { useResultFocus } from '@/components/result-focus';
+import { Amount } from '@/components/amount';
+import {
+  RecordFields,
+  RecordTable,
+  identityFields,
+} from '@/components/record-table';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -30,7 +37,13 @@ import {
 } from '@/lib/reconciliation/payroll-demo';
 import { payrollCopy } from '@/lib/i18n/payroll';
 import { PayrollLongRegisterPanel } from '@/components/payroll-long-register-panel';
-import './gl-tb-workspace.css';
+import './workspace-record.css';
+import {
+  DecisionButtons,
+  DecisionHint,
+  useDecisionFocus,
+} from './decision-platform';
+import type { DecisionInput } from '@/lib/decision-platform';
 const emptyScope = (): PayrollScope =>
   ({
     ...Object.fromEntries(PAYROLL_FIELDS.map((k) => [k, ''])),
@@ -52,62 +65,6 @@ function download(buffer: ArrayBuffer, name: string, type: string) {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-function Table({
-  headers,
-  rows,
-}: {
-  headers: string[];
-  rows: (string | number | null)[][];
-}) {
-  const { lang } = useI18n();
-  const copy = payrollCopy[lang];
-  const [page, setPage] = useState(0);
-  const safe = Math.min(page, Math.max(0, Math.ceil(rows.length / 50) - 1));
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table>
-          <thead>
-            <tr>
-              {headers.map((h, i) => (
-                <th key={i}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i}>
-                {row.map((v, j) => (
-                  <td key={j}>{v ?? '—'}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="gl-tb-actions">
-        <Button
-          variant="outline"
-          disabled={!safe}
-          onClick={() => setPage(safe - 1)}
-        >
-          {copy.previous}
-        </Button>
-        <span>
-          {safe + 1} / {Math.max(1, Math.ceil(rows.length / 50))} ·{' '}
-          {rows.length}
-        </span>
-        <Button
-          variant="outline"
-          disabled={(safe + 1) * 50 >= rows.length}
-          onClick={() => setPage(safe + 1)}
-        >
-          {copy.next}
-        </Button>
-      </div>
-    </>
-  );
 }
 export function PayrollWorkspace({
   active,
@@ -178,6 +135,13 @@ export function PayrollWorkspace({
     setEvents(v.state.events);
     setResult(v.result);
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
   async function perform<T>(
     work: (signal: AbortSignal) => Promise<T>,
     apply: (v: T) => void,
@@ -264,8 +228,17 @@ export function PayrollWorkspace({
         state: PayrollInput;
         result: PayrollResult;
       }>('payroll-reconcile', s, signal);
-    }, install);
+    }, shown);
   }
+  // The decision platform (UX-3): after a decision the focus returns to the
+  // line that holds the state, not to the page.
+  const hint = useId(),
+    decisionState = useId(),
+    settle = useDecisionFocus();
+  const decided: typeof install = (v) => {
+    install(v);
+    settle(decisionState);
+  };
   async function decide(type: PayrollEvent['type']) {
     if (!result) return;
     const e: PayrollEvent = {
@@ -284,22 +257,40 @@ export function PayrollWorkspace({
           { ...state(), events: [...events, e] },
           signal,
         ),
-      install,
+      decided,
     );
   }
   const status = (value: string) =>
     (copy.status as Record<string, string>)[value] ?? value;
-  const canAccept =
-    result &&
-    complete.confirmed &&
-    !result.issues.length &&
-    !result.missing.length &&
-    result.financial === 'ready';
+  // What the decision buttons open on, as before: approval also needs the
+  // completeness confirmation and a ready result, and the sentence under the
+  // buttons says which of these is missing.
+  const decision: DecisionInput | null = result
+    ? {
+        reference,
+        reason: note,
+        members: result.memberIds.length,
+        review: result.review,
+        acceptBlock: !complete.confirmed
+          ? 'unconfirmed'
+          : result.issues.length
+            ? 'source-error'
+            : result.missing.length
+              ? 'missing'
+              : result.financial === 'ready'
+                ? null
+                : result.financial,
+      }
+    : null;
+  const amount = (minor: number | null | undefined) => (
+    <Amount minor={minor} decimals={result?.decimals ?? 2} />
+  );
   const detail = (
     title: string,
     headers: string[],
-    rows: (string | number | null)[][],
+    rows: (ReactNode | null)[][],
     fingerprint?: string,
+    wrap?: readonly number[],
   ) => (
     <WorkspaceAdvanced
       summary={
@@ -313,7 +304,7 @@ export function PayrollWorkspace({
           <bdi>{fingerprint}</bdi>
         </p>
       )}
-      <Table headers={headers} rows={rows} />
+      <RecordTable source={title} headers={headers} rows={rows} wrap={wrap} />
     </WorkspaceAdvanced>
   );
   return (
@@ -359,7 +350,7 @@ export function PayrollWorkspace({
                         { buffer: await f.arrayBuffer() },
                         signal,
                       );
-                    }, install);
+                    }, shown);
                 }}
               />
             </label>
@@ -502,7 +493,7 @@ export function PayrollWorkspace({
                     state(),
                     signal,
                   ),
-                install,
+                shown,
               )
             }
           >
@@ -552,9 +543,17 @@ export function PayrollWorkspace({
         {error && <p role="alert">{copy.failed}</p>}
         {result && (
           <section className="workspace-results">
-            <h2 data-payroll-status>{status(result.status)}</h2>
+            <h2
+              data-payroll-status
+              ref={resultHeading}
+              tabIndex={-1}
+              data-result-heading="result"
+            >
+              {status(result.status)}
+            </h2>
             <p>
-              {copy.units} · {result.scope.currency} · {result.decimals}
+              {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>.{' '}
+              {copy.componentsNote}
             </p>
             <DomainEvidenceAssistant
               result={result}
@@ -579,40 +578,44 @@ export function PayrollWorkspace({
                 };
               }}
             />
-            <Table
+            <RecordTable
+              label={copy.tableNames.totals}
               headers={copy.totals}
               rows={PAYROLL_COMPONENTS.map((c, i) => [
                 copy.components[c],
-                result.totals?.register[PAYROLL_AMOUNT_KEYS[i]] ?? null,
-                result.totals?.gl[c] ?? null,
+                amount(result.totals?.register[PAYROLL_AMOUNT_KEYS[i]]),
+                amount(result.totals?.gl[c]),
               ])}
             />
-            <Table
+            <RecordTable
+              label={copy.tableNames.bank}
               headers={copy.bankComparison}
               rows={[
                 [
-                  result.bankComparison.register,
-                  result.bankComparison.bank,
-                  result.bankComparison.difference,
+                  amount(result.bankComparison.register),
+                  amount(result.bankComparison.bank),
+                  amount(result.bankComparison.difference),
                 ],
               ]}
             />
-            <Table
+            <RecordTable
+              label={copy.tableNames.comparisons}
               headers={copy.comparisons}
               rows={result.comparisons.map((v) => [
                 v.account,
                 v.dimensions,
                 copy.components[v.component],
-                v.register,
-                v.gl,
-                v.difference,
+                amount(v.register),
+                amount(v.gl),
+                amount(v.difference),
               ])}
             />
-            <fieldset disabled={busy}>
+            <fieldset disabled={busy} data-decision-platform>
               <legend>{copy.decision}</legend>
               <label>
                 {copy.reference}
                 <input
+                  aria-describedby={hint}
                   maxLength={2000}
                   value={reference}
                   onChange={(e) => setReference(e.target.value)}
@@ -621,36 +624,32 @@ export function PayrollWorkspace({
               <label>
                 {copy.note}
                 <input
+                  aria-describedby={hint}
                   maxLength={2000}
                   value={note}
                   onChange={(e) => setNote(e.target.value)}
                 />
               </label>
-              <p>
+              <p id={decisionState} tabIndex={-1} data-decision-state>
                 {status(result.review)} · {copy.members}:{' '}
                 {result.memberIds.length}
               </p>
-              <div className="gl-tb-actions">
-                {(['accept', 'reject', 'undo'] as const).map((type) => (
-                  <Button
-                    key={type}
-                    variant="outline"
-                    disabled={
-                      busy ||
-                      !reference.trim() ||
-                      !note.trim() ||
-                      !result.memberIds.length ||
-                      (type === 'undo'
-                        ? result.review === 'needs-review'
-                        : result.review !== 'needs-review') ||
-                      (type === 'accept' && !canAccept)
-                    }
-                    onClick={() => void decide(type)}
-                  >
-                    {copy[type]}
-                  </Button>
-                ))}
-              </div>
+              {decision && (
+                <>
+                  <DecisionButtons
+                    input={decision}
+                    labels={copy}
+                    busy={busy}
+                    describedBy={hint}
+                    onDecide={(type) => void decide(type)}
+                  />
+                  <DecisionHint
+                    id={hint}
+                    input={decision}
+                    labels={{ reference: copy.reference, reason: copy.note }}
+                  />
+                </>
+              )}
             </fieldset>
             {detail(
               copy.roles[0],
@@ -659,10 +658,10 @@ export function PayrollWorkspace({
                 v.row,
                 v.employee,
                 v.dimensions,
-                v.gross,
-                v.deductions,
-                v.employer,
-                v.net,
+                amount(v.gross),
+                amount(v.deductions),
+                amount(v.employer),
+                amount(v.net),
                 v.payrollReference,
               ]),
             )}
@@ -711,11 +710,11 @@ export function PayrollWorkspace({
                 v.account,
                 v.glDimensions,
                 v.accountClass,
-                v.debit,
-                v.credit,
+                amount(v.debit),
+                amount(v.credit),
                 v.entryDate,
                 v.postingReference,
-                v.normal,
+                amount(v.normal),
               ]),
             )}
             {detail(
@@ -726,7 +725,7 @@ export function PayrollWorkspace({
                 v.id,
                 v.bankAccount,
                 v.direction,
-                v.amount,
+                amount(v.amount),
                 v.valueDate,
                 v.payoutReference,
               ]),
@@ -736,8 +735,14 @@ export function PayrollWorkspace({
               copy.memberHeaders,
               result.memberIds.map((id) => {
                 const v = JSON.parse(id);
-                return [copy.roles[v[1]], v[4], id];
+                return [
+                  copy.roles[v[1]],
+                  v[4],
+                  <RecordFields key="id" values={identityFields(id)} />,
+                ];
               }),
+              undefined,
+              [2],
             )}
             {detail(
               copy.missing,

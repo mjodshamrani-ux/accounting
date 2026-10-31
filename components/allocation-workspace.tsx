@@ -1,5 +1,9 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useId, useLayoutEffect, useRef, useState } from 'react';
+import { useResultFocus } from '@/components/result-focus';
+import { useDecisionFocus } from '@/components/decision-platform';
+import { allocationNeed } from '@/lib/decision-platform';
+import { decisionPlatformCopy } from '@/lib/i18n/decision-platform';
 import type { AllocationWorkflowHandoff } from '@/lib/reconciliation/allocation-workflow-handoff';
 import { allocationWorkflowHandoffCopy } from '@/lib/i18n/allocation-workflow-handoff';
 import { Button } from '@/components/ui/button';
@@ -14,7 +18,8 @@ import {
 } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
-import { money, parseMoney } from '@/lib/reconciliation/core';
+import { parseMoney } from '@/lib/reconciliation/core';
+import { Amount } from '@/components/amount';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
 import {
   ALLOCATION_SCOPE_FIELDS,
@@ -29,7 +34,9 @@ import {
   allocationDemoReadings,
 } from '@/lib/reconciliation/allocation-demo';
 import { AllocationAdvicePanel } from './allocation-advice-panel';
-import './gl-tb-workspace.css';
+import { RecordPager, RecordRows } from './record-table';
+import { recordPage } from '@/lib/record-page';
+import './workspace-record.css';
 
 export function AllocationWorkspace({
   active,
@@ -69,7 +76,7 @@ export function AllocationWorkspace({
     [result, setResult] = useState<AllocationResult | null>(null),
     [busy, setBusy] = useState(false),
     [failed, setFailed] = useState(false),
-    [page, setPage] = useState(0),
+    [pages, setPages] = useState<Record<string, number>>({}),
     [selected, setSelected] = useState<string[]>([]),
     [reason, setReason] = useState(''),
     [reference, setReference] = useState(''),
@@ -109,7 +116,7 @@ export function AllocationWorkspace({
       setReference('');
       setBasis('accountant-review');
       setDrafts([{ paymentId: '', invoiceId: '', amount: '' }]);
-      setPage(0);
+      setPages({});
     }
   }
   useLayoutEffect(() => {
@@ -146,7 +153,7 @@ export function AllocationWorkspace({
     setReference('');
     setBasis('accountant-review');
     setFailed(false);
-    setPage(0);
+    setPages({});
   }
   function editReview(edit: () => void) {
     cancelPending();
@@ -160,8 +167,16 @@ export function AllocationWorkspace({
     setEvents(v.state.events);
     setResult(v.result);
     setSelected([]);
-    setPage(0);
+    setPages({});
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
+  const statusId = useId();
   async function perform<T>(
     work: (signal: AbortSignal) => Promise<T>,
     publish: (value: T) => void,
@@ -217,6 +232,13 @@ export function AllocationWorkspace({
       },
     );
   }
+  // The decision platform (UX-3): the sentence under the reason says what
+  // each decision still waits for; after a decision the focus goes to the
+  // dated decision it recorded, not to the page.
+  const hint = useId(),
+    linksWhy = useId(),
+    eventEntry = useId(),
+    settle = useDecisionFocus();
   async function decide(links: AllocationLink[], target?: string) {
     if (!result) return;
     const owned = structuredClone(input());
@@ -245,7 +267,10 @@ export function AllocationWorkspace({
           owned,
           signal,
         ),
-      install,
+      (v) => {
+        install(v);
+        settle(`${eventEntry}-${e.id}`);
+      },
     );
   }
   function readLedger() {
@@ -257,7 +282,7 @@ export function AllocationWorkspace({
           owned,
           signal,
         ),
-      install,
+      shown,
     );
   }
   function openDemo() {
@@ -279,7 +304,7 @@ export function AllocationWorkspace({
         },
         signal,
       );
-    }, install);
+    }, shown);
   }
   function restoreSession(f: File) {
     invalidate();
@@ -291,7 +316,7 @@ export function AllocationWorkspace({
         { buffer },
         signal,
       );
-    }, install);
+    }, shown);
   }
   function saveSession() {
     const owned = structuredClone(input());
@@ -323,14 +348,41 @@ export function AllocationWorkspace({
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
   if (!active) return null;
-  const fmt = (v: number) => money(v, result!.decimals),
+  const fmt = (v: number) => <Amount minor={v} decimals={result!.decimals} />,
     balances = new Map(result?.balances.map((b) => [b.id, b])),
     usedProofs = new Set(
       result?.links
         .filter((l) => l.basis.kind === 'remittance')
         .map((l) => l.basis.proofId),
     ),
-    slice = <T,>(v: T[]) => v.slice(page * 50, page * 50 + 50);
+    // What each decision waits for, as its button: the sentence under the
+    // reason names it.
+    need = allocationNeed({
+      ready: result?.status === 'ready',
+      reason,
+      selected: selected.length,
+      reference,
+      linksComplete: drafts.every(
+        (d) => d.paymentId && d.invoiceId && d.amount.trim(),
+      ),
+    }),
+    words = decisionPlatformCopy[lang],
+    // The ledger, the advice lines, the allocations and the source rows each
+    // page on their own through the record kit (UX-3).
+    turn = (name: string) => (to: number) =>
+      setPages((p) => ({ ...p, [name]: to })),
+    paged = <T,>(name: string, v: T[]) => {
+      const { from, to } = recordPage(v.length, pages[name] ?? 0);
+      return v.slice(from, to);
+    },
+    pager = (name: string, label: string, length: number) => (
+      <RecordPager
+        label={label}
+        length={length}
+        page={pages[name] ?? 0}
+        onPage={turn(name)}
+      />
+    );
   return (
     <main
       className="app-shell gl-tb-workspace reconciliation-workspace"
@@ -519,13 +571,20 @@ export function AllocationWorkspace({
       {failed && <p role="alert">{t.failure}</p>}
       {result && (
         <section data-testid="allocation-result">
-          <h2>{t.valueLedger}</h2>
+          <h2
+            ref={resultHeading}
+            tabIndex={-1}
+            data-result-heading="result"
+            aria-describedby={statusId}
+          >
+            {t.valueLedger}
+          </h2>
           <DomainEvidenceAssistant
             result={result}
             snapshot={() => ({ domain: 'allocation', input: input(), result })}
             busy={busy}
           />
-          <p data-testid="allocation-status">
+          <p id={statusId} data-testid="allocation-status">
             {result.status === 'ready' ? t.ready : t.sourceError}
           </p>
           <div className="gl-tb-actions">
@@ -536,63 +595,76 @@ export function AllocationWorkspace({
               {t.downloadAllocationWorkpaper}
             </Button>
           </div>
-          <div className="gl-tb-table">
-            <table data-testid="allocation-ledger">
-              <thead>
-                <tr>
-                  {[
-                    t.side,
-                    t.ownReference,
-                    t.original,
-                    t.available,
-                    t.allocated,
-                    t.remaining,
-                    t.cellEvidence,
-                  ].map((x) => (
-                    <th key={x}>{x}</th>
+          <RecordRows
+            label={t.valueLedger}
+            headers={[
+              t.side,
+              t.ownReference,
+              t.original,
+              t.available,
+              t.allocated,
+              t.remaining,
+              t.cellEvidence,
+            ]}
+            rows={result.items}
+            rowHeader={1}
+            page={pages.items ?? 0}
+            onPage={turn('items')}
+            frame={{ 'data-testid': 'allocation-ledger' }}
+            cells={(i) => {
+              const b = balances.get(i.id)!;
+              return [
+                sides[i.side],
+                i.reference,
+                ...[b.original, b.available, b.allocated, b.remaining].map(fmt),
+                <details key="cells">
+                  <summary>
+                    {result.sources[i.side].name} · {i.row}
+                  </summary>
+                  {i.traces.map((x) => (
+                    <p key={x.field}>
+                      {x.field}: {x.text} · {x.column}
+                    </p>
                   ))}
-                </tr>
-              </thead>
-              <tbody>
-                {slice(result.items).map((i) => {
-                  const b = balances.get(i.id)!;
-                  return (
-                    <tr key={i.id}>
-                      <td>{sides[i.side]}</td>
-                      <th>{i.reference}</th>
-                      {[b.original, b.available, b.allocated, b.remaining].map(
-                        (n, k) => (
-                          <td key={k}>{fmt(n)}</td>
-                        ),
-                      )}
-                      <td>
-                        <details>
-                          <summary>
-                            {result.sources[i.side].name} · {i.row}
-                          </summary>
-                          {i.traces.map((x) => (
-                            <p key={x.field}>
-                              {x.field}: {x.text} · {x.column}
-                            </p>
-                          ))}
-                        </details>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                </details>,
+              ];
+            }}
+          />
           <fieldset disabled={busy || result.status !== 'ready'}>
             <label>
               {t.decisionOrUndoReason}
               <input
                 value={reason}
+                aria-describedby={hint}
                 onChange={(e) => editReview(() => setReason(e.target.value))}
               />
             </label>
+            <p
+              id={hint}
+              className="decision-hint"
+              data-decision-hint={need.key}
+              data-decision-wait={
+                [need.advice && 'advice', need.human && 'human']
+                  .filter(Boolean)
+                  .join(' ') || undefined
+              }
+            >
+              {need.key === 'blocked'
+                ? words.allocation.blocked
+                : need.key === 'reason'
+                  ? words.reason(t.decisionOrUndoReason)
+                  : need.key === 'ready'
+                    ? words.allocation.ready
+                    : [
+                        need.advice && words.allocation.advice,
+                        need.human &&
+                          words.allocation.human(t.humanEvidenceReference),
+                      ]
+                        .filter(Boolean)
+                        .join(' ')}
+            </p>
             <h3>{t.adviceLinesForReview}</h3>
-            {slice(result.proofs).map((p) => (
+            {paged('proofs', result.proofs).map((p) => (
               <label key={p.id} data-testid="allocation-proof">
                 <input
                   type="checkbox"
@@ -615,7 +687,10 @@ export function AllocationWorkspace({
                 {usedProofs.has(p.id) ? t.used : ''}
               </label>
             ))}
+            {pager('proofs', t.adviceLinesForReview, result.proofs.length)}
             <Button
+              data-decision-action="accept"
+              aria-describedby={hint}
               disabled={!selected.length || !reason.trim()}
               onClick={() =>
                 decide(
@@ -716,6 +791,7 @@ export function AllocationWorkspace({
                 {drafts.length > 1 && (
                   <Button
                     variant="outline"
+                    aria-describedby={hint}
                     onClick={() =>
                       editReview(() =>
                         setDrafts(drafts.filter((_, j) => j !== index)),
@@ -729,6 +805,7 @@ export function AllocationWorkspace({
             ))}
             <Button
               variant="outline"
+              aria-describedby={`${hint} ${linksWhy}`}
               disabled={drafts.length >= 100}
               onClick={() =>
                 editReview(() =>
@@ -741,7 +818,16 @@ export function AllocationWorkspace({
             >
               {t.addAllocationLink}
             </Button>
+            <p
+              id={linksWhy}
+              className="decision-hint"
+              hidden={drafts.length < 100}
+            >
+              {words.allocation.links}
+            </p>
             <Button
+              data-decision-action="accept"
+              aria-describedby={hint}
               disabled={
                 !reason.trim() ||
                 !reference.trim() ||
@@ -782,7 +868,13 @@ export function AllocationWorkspace({
             </Button>
             <h3>{t.datedDecisions}</h3>
             {result.events.map((e) => (
-              <div key={e.id} data-testid="allocation-event">
+              <div
+                key={e.id}
+                data-testid="allocation-event"
+                id={`${eventEntry}-${e.id}`}
+                tabIndex={-1}
+                data-decision-item
+              >
                 <p>
                   {e.id} · {t.eventTypes[e.type]} · {e.at} · {e.note}
                   {e.type === 'undo' ? ` → ${e.target}` : ''}
@@ -791,6 +883,8 @@ export function AllocationWorkspace({
                   result.activeDecisions.includes(e.id) && (
                     <Button
                       variant="outline"
+                      data-decision-action="undo"
+                      aria-describedby={hint}
                       disabled={!reason.trim()}
                       onClick={() => decide([], e.id)}
                     >
@@ -801,7 +895,7 @@ export function AllocationWorkspace({
             ))}
           </fieldset>
           <h3>{t.activeAllocations}</h3>
-          {slice(result.links).map((l) => (
+          {paged('links', result.links).map((l) => (
             <p key={l.id}>
               {result.items.find((i) => i.id === l.paymentId)!.reference} →{' '}
               {result.items.find((i) => i.id === l.invoiceId)!.reference}:{' '}
@@ -809,36 +903,21 @@ export function AllocationWorkspace({
               {l.basis.reference} · {l.basis.reason}
             </p>
           ))}
+          {pager('links', t.activeAllocations, result.links.length)}
           <details>
             <summary>{t.inventoryOfEverySourceRow}</summary>
-            {slice(result.inventory).map((i) => (
+            {paged('inventory', result.inventory).map((i) => (
               <p key={`${i.side}:${i.row}`}>
                 {sides[i.side]} · {i.row} · {i.kind} · {i.error ?? ''} ·{' '}
                 {i.values.join(' | ')}
               </p>
             ))}
+            {pager(
+              'inventory',
+              t.inventoryOfEverySourceRow,
+              result.inventory.length,
+            )}
           </details>
-          <div className="gl-tb-actions">
-            <Button disabled={busy || !page} onClick={() => setPage(page - 1)}>
-              {t.previous}
-            </Button>
-            <span>{page + 1}</span>
-            <Button
-              disabled={
-                busy ||
-                (page + 1) * 50 >=
-                  Math.max(
-                    result.items.length,
-                    result.proofs.length,
-                    result.inventory.length,
-                    result.links.length,
-                  )
-              }
-              onClick={() => setPage(page + 1)}
-            >
-              {t.next}
-            </Button>
-          </div>
         </section>
       )}
       {result && (

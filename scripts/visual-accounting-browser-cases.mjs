@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { closedSay } from './decision-platform-support.mjs';
 import { knownVisualSource } from '../audit/visual-accounting/make_record.mjs';
 
 export async function verifyVisualAccounting(page, baseUrl) {
@@ -84,7 +85,19 @@ export async function verifyVisualAccounting(page, baseUrl) {
         name: 'استخدم القيم المراجعة في المقارنة',
         exact: true,
       });
+    // UX-3: until the confirmation is ticked, using the table is closed and
+    // the sentence under it names that confirmation as what it waits for.
+    const hint = form.locator('[data-decision-hint]');
+    assert.equal(
+      await hint.count(),
+      1,
+      'image table: a sentence under using the table says what it waits for',
+    );
+    assert.equal(await hint.getAttribute('data-decision-hint'), 'before');
+    assert.match(await hint.innerText(), /راجعت معاني الأعمدة/u);
+    await closedSay(form, 'image table: before the confirmation');
     await acknowledgement.check();
+    assert.equal(await hint.getAttribute('data-decision-hint'), 'open');
     await form.getByLabel('عملة الصورة', { exact: true }).fill('USD');
     assert.ok(
       !(await acknowledgement.isChecked()),

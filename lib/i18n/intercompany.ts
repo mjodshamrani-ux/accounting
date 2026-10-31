@@ -56,9 +56,7 @@ const en = {
   accept: 'Approve whole pair',
   reject: 'Reject whole pair',
   undo: 'Undo pair decision',
-  previous: 'Previous',
-  next: 'Next',
-  units: 'Amounts are integer minor units; decimal places',
+  amountsIn: 'Amounts in',
   pairs: 'Counterpart pairs',
   entries: 'Original ledger entries',
   relations: 'Relationship evidence',
@@ -67,6 +65,7 @@ const en = {
   issues: 'Source errors',
   inventory: 'All original rows',
   history: 'Whole pair decisions',
+  tableNames: { totals: 'Debit, credit and net by side' },
   totals: ['Side', 'Debit', 'Credit', 'Net'],
   pairHeaders: [
     'Relation',
@@ -108,7 +107,11 @@ const en = {
     'Explanation',
     'Whole physical membership',
   ],
-  residual: 'Left net / Right net / Residual',
+  residualFigures: [
+    'Left net',
+    'Right net',
+    'Residual, left net plus right net',
+  ],
   sourceRow: 'Source row',
   aggregate: 'Aggregate of original rows',
   status: {
@@ -182,9 +185,7 @@ const ar: typeof en = {
   accept: 'اعتماد الزوج كاملًا',
   reject: 'رفض الزوج كاملًا',
   undo: 'التراجع عن قرار الزوج',
-  previous: 'السابق',
-  next: 'التالي',
-  units: 'المبالغ وحدات عملة صغرى صحيحة؛ المنازل العشرية',
+  amountsIn: 'المبالغ بعملة',
   pairs: 'أزواج المعاملات',
   entries: 'معاملات الدفتر الأصلية',
   relations: 'أدلة العلاقة',
@@ -193,6 +194,7 @@ const ar: typeof en = {
   issues: 'أخطاء المصدر',
   inventory: 'جميع الصفوف الأصلية',
   history: 'قرارات الأزواج الكاملة',
+  tableNames: { totals: 'المدين والدائن والصافي لكل طرف' },
   totals: ['الطرف', 'المدين', 'الدائن', 'الصافي'],
   pairHeaders: [
     'العلاقة',
@@ -234,7 +236,11 @@ const ar: typeof en = {
     'التفسير',
     'الأعضاء الفيزيائيون كاملًا',
   ],
-  residual: 'صافي اليسار / صافي اليمين / الفرق',
+  residualFigures: [
+    'صافي اليسار',
+    'صافي اليمين',
+    'المتبقي، صافي اليسار زائد صافي اليمين',
+  ],
   sourceRow: 'صف المصدر',
   aggregate: 'إجمالي الصفوف الأصلية',
   status: {

@@ -79,6 +79,31 @@ void test('English interface copy contains no Arabic', () => {
   }
 });
 
+// Digits are Western in both languages: a figure reads the same in Arabic
+// and English, and copied numbers stay the numbers the engine wrote. The one
+// exception names the Arabic-Indic digits the image reader struggles with.
+void test('interface copy and source write numbers in Western digits only', () => {
+  const indic = /[\u0660-\u0669\u06F0-\u06F9]/u;
+  const files = [
+    ...fs
+      .readdirSync('lib/i18n', { recursive: true, encoding: 'utf8' })
+      .filter((file) => file.endsWith('.ts'))
+      .map((file) => path.join('lib/i18n', file)),
+    ...uiFiles,
+  ];
+  const found = files.flatMap((file) =>
+    fs
+      .readFileSync(file, 'utf8')
+      .split('\n')
+      .flatMap((line, i) =>
+        indic.test(line.split('١٢٣').join(''))
+          ? [`${file}:${i + 1}: ${line.trim()}`]
+          : [],
+      ),
+  );
+  assert.deepEqual(found, []);
+});
+
 void test('Arabic interface copy has no stray English words', () => {
   // File formats, units, currency codes and names that stay in Latin script.
   const latin = new Set(

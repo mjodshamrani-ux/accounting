@@ -140,8 +140,6 @@ const en = {
     `Register: ${records} rows, ${record} asset rows, ${blank} blank, ${stray} outside every section.`,
   none: '—',
   list: ', ',
-  previous: 'Previous page',
-  next: 'Next page',
 };
 
 const ar: typeof en = {
@@ -277,8 +275,6 @@ const ar: typeof en = {
     `السجل: ${records} صفًا، منها ${record} صف أصل، و${blank} فارغًا، و${stray} خارج كل الأقسام.`,
   none: '—',
   list: '، ',
-  previous: 'الصفحة السابقة',
-  next: 'الصفحة التالية',
 };
 
 export const fixedAssetsSectionsCopy = { en, ar };

@@ -1,4 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import {
+  Fragment,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
+import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
@@ -14,7 +22,9 @@ import {
 } from '@/lib/reconciliation/payroll-long-register';
 import type { PlrReplayInput } from '@/lib/reconciliation/payroll-long-register-io';
 import { payrollLongRegisterCopy } from '@/lib/i18n/payroll-long-register';
-import './intercompany-batch-panel.css';
+import { RecordTable } from '@/components/record-table';
+import './review-section.css';
+import { ClosedReason } from './decision-platform';
 
 type Picked = {
   name: string;
@@ -22,15 +32,6 @@ type Picked = {
   sha256: string;
   confirmed: boolean;
 };
-// Integer minor units as the engine returns them, shown with the run
-// currency's decimals; never a float.
-function minorText(value: string | null, decimals: number) {
-  if (value === null) return '—';
-  const negative = value.startsWith('-'),
-    digits = (negative ? value.slice(1) : value).padStart(decimals + 1, '0');
-  const whole = decimals ? digits.slice(0, -decimals) : digits;
-  return `${negative ? '-' : ''}${whole}${decimals ? '.' + digits.slice(-decimals) : ''}`;
-}
 const difference = (a: string | null, b: string | null) =>
   a === null || b === null ? null : String(BigInt(a) - BigInt(b));
 const blankScope = () =>
@@ -39,73 +40,6 @@ const blankScope = () =>
     string
   >;
 const SUMS = ['earnings', 'deductions', 'employer', 'net'] as const;
-
-function Paged({
-  headers,
-  rows,
-  label,
-  marks,
-  pager,
-}: {
-  headers: string[];
-  rows: string[][];
-  label: string;
-  marks?: Record<string, string>[];
-  pager?: string;
-}) {
-  const { lang } = useI18n();
-  const copy = payrollLongRegisterCopy[lang];
-  const [page, setPage] = useState(0);
-  const pages = Math.max(1, Math.ceil(rows.length / 50)),
-    safe = Math.min(page, pages - 1);
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table aria-label={label}>
-          <thead>
-            <tr>
-              {headers.map((h) => (
-                <th key={h}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i} {...marks?.[safe * 50 + i]}>
-                {row.map((v, j) => (
-                  <td key={j}>
-                    <bdi>{v}</bdi>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {pages > 1 && (
-        <div className="gl-tb-actions" data-plr-pager={pager}>
-          <Button
-            variant="outline"
-            disabled={!safe}
-            onClick={() => setPage(safe - 1)}
-          >
-            {copy.previous}
-          </Button>
-          <span>
-            {safe + 1} / {pages} · {rows.length}
-          </span>
-          <Button
-            variant="outline"
-            disabled={safe + 1 >= pages}
-            onClick={() => setPage(safe + 1)}
-          >
-            {copy.next}
-          </Button>
-        </div>
-      )}
-    </>
-  );
-}
 
 export function PayrollLongRegisterPanel() {
   const { lang } = useI18n();
@@ -164,6 +98,7 @@ export function PayrollLongRegisterPanel() {
     setResult(null);
     setError('');
   };
+  const checkWhy = useId();
   const ready = !!file?.confirmed && scopeConfirmed;
   function check() {
     const input: PlrReplayInput = {
@@ -186,8 +121,20 @@ export function PayrollLongRegisterPanel() {
   const reason = (code: string) => `${copy.codes[code] ?? code} (${code})`;
   const { comma, semi } = copy;
   const decimals = result?.decimals ?? 2;
-  const sums = (s: PlrSums | null) =>
-    s ? SUMS.map((k) => minorText(s[k], decimals)).join(' · ') : '—';
+  // Integer minor units as the engine returns them, kept as strings, read at
+  // the run currency's decimals through the shared component.
+  const amount = (minor: string | null) => (
+    <Amount minor={minor} decimals={decimals} />
+  );
+  const sums = (s: PlrSums | null): ReactNode =>
+    s
+      ? SUMS.map((k, i) => (
+          <Fragment key={k}>
+            {i > 0 && ' · '}
+            {amount(s[k])}
+          </Fragment>
+        ))
+      : '—';
   const counts = result
     ? (['consistent', 'inconsistent', 'missing', 'held'] as const).map(
         (s) =>
@@ -297,7 +244,11 @@ export function PayrollLongRegisterPanel() {
           </label>
         </fieldset>
         <div className="gl-tb-actions workspace-run-actions">
-          <Button disabled={busy || !ready} onClick={check}>
+          <Button
+            disabled={busy || !ready}
+            aria-describedby={checkWhy}
+            onClick={check}
+          >
             {copy.check}
           </Button>
           {busy && (
@@ -306,6 +257,12 @@ export function PayrollLongRegisterPanel() {
             </Button>
           )}
         </div>
+        <ClosedReason
+          id={checkWhy}
+          closed={!ready}
+          waits="check"
+          label={copy.check}
+        />
         {error && (
           <p role="alert" data-plr-error>
             {error}
@@ -344,9 +301,9 @@ export function PayrollLongRegisterPanel() {
                 {result.unplaced.length > 0 && (
                   <section>
                     <h3>{copy.unplaced}</h3>
-                    <Paged
+                    <RecordTable
                       label={copy.unplaced}
-                      pager="unplaced"
+                      pager={{ 'data-plr-pager': 'unplaced' }}
                       headers={copy.unplacedHeaders}
                       rows={result.unplaced.map((u) => [
                         String(u.row),
@@ -363,23 +320,20 @@ export function PayrollLongRegisterPanel() {
                     <h3>
                       {copy.employees} ({result.employees.length})
                     </h3>
-                    <Paged
+                    <RecordTable
                       label={copy.employees}
-                      pager="employees"
+                      pager={{ 'data-plr-pager': 'employees' }}
                       headers={copy.employeeHeaders}
                       rows={result.employees.map((e) => [
                         e.employee,
                         e.dims,
                         copy.status[e.status],
                         e.codes.map(reason).join(semi) || '—',
-                        minorText(e.earnings, decimals),
-                        minorText(e.deductions, decimals),
-                        minorText(e.employer, decimals),
-                        minorText(e.net, decimals),
-                        minorText(
-                          difference(e.earnings, e.deductions),
-                          decimals,
-                        ),
+                        amount(e.earnings),
+                        amount(e.deductions),
+                        amount(e.employer),
+                        amount(e.net),
+                        amount(difference(e.earnings, e.deductions)),
                         e.payee ?? '—',
                         e.rows.join(', '),
                       ])}
@@ -394,9 +348,9 @@ export function PayrollLongRegisterPanel() {
                 {result.employees.some((e) => e.lines) && (
                   <section>
                     <h3>{copy.lines}</h3>
-                    <Paged
+                    <RecordTable
                       label={copy.lines}
-                      pager="lines"
+                      pager={{ 'data-plr-pager': 'lines' }}
                       headers={copy.lineHeaders}
                       rows={result.employees.flatMap((e) =>
                         (e.lines ?? []).map((l) => [
@@ -404,7 +358,7 @@ export function PayrollLongRegisterPanel() {
                           l.id,
                           l.component,
                           copy.kinds[l.kind],
-                          minorText(l.amount, decimals),
+                          amount(l.amount),
                           String(l.row),
                         ]),
                       )}
@@ -419,9 +373,9 @@ export function PayrollLongRegisterPanel() {
                 {result.sections.length > 0 && (
                   <section>
                     <h3>{copy.sections}</h3>
-                    <Paged
+                    <RecordTable
                       label={copy.sections}
-                      pager="sections"
+                      pager={{ 'data-plr-pager': 'sections' }}
                       headers={copy.sectionHeaders}
                       rows={result.sections.map((s) => [
                         String(s.row),

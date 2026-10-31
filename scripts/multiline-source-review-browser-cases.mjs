@@ -1,11 +1,24 @@
 import assert from 'node:assert/strict';
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import {
+  closedSay,
+  settledOn,
+  shownReason,
+} from './decision-platform-support.mjs';
 const fixtureRoot = new URL(
   '../audit/local-provider/multiline-source-v1/frozen/',
   import.meta.url,
 );
 const hash = (bytes) => createHash('sha256').update(bytes).digest('hex');
+// The reader's integer in major units at two decimals, written here without
+// the product's formatter: thousands grouped, the minus first.
+function major(minor) {
+  const value = BigInt(minor);
+  const digits = (value < 0n ? -value : value).toString().padStart(3, '0');
+  const whole = digits.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/gu, ',');
+  return `${value < 0n ? '-' : ''}${whole}.${digits.slice(-2)}`;
+}
 export async function verifyMultilineSourceReview(page, url, out) {
   await mkdir(out, { recursive: true });
   const records = [];
@@ -66,6 +79,13 @@ export async function verifyMultilineSourceReview(page, url, out) {
         await waitEnabled('[data-source-review-accept]');
         await ui.locator('[data-source-review-accept]').click();
         await state('approved');
+        // UX-3: the decision closes its buttons; the focus is on the line
+        // that states the review.
+        await settledOn(
+          page,
+          ui.locator('[data-source-review-state]'),
+          `multiline/${lang}/${width}: approval`,
+        );
       };
       const assertFinancialUnchanged = async () => {
         assert.deepEqual(
@@ -88,6 +108,18 @@ export async function verifyMultilineSourceReview(page, url, out) {
       await upload();
       await state('candidate');
       await waitEnabled('[data-source-review-reread]');
+      // UX-3: approval and applying are closed, and say what opens them.
+      assert.ok(
+        (await closedSay(ui, `multiline/${lang}/${width}`)) >= 2,
+        `multiline/${lang}/${width}: approval and applying are closed`,
+      );
+      await shownReason(
+        ui,
+        lang === 'en'
+          ? /the source interpretation is accepted/u
+          : /قبول تفسير المصدر/u,
+        `multiline/${lang}/${width}: applying`,
+      );
       assert.equal(
         await ui.locator('[data-source-review-original]').textContent(),
         original.toString('utf8'),
@@ -158,9 +190,14 @@ export async function verifyMultilineSourceReview(page, url, out) {
       await assertFinancialUnchanged();
       await ui.locator('[data-source-review-apply]').click();
       await state('applied');
+      const read = ui.locator('[data-source-review-minor]');
       assert.equal(
-        await ui.locator('[data-source-review-minor]').textContent(),
+        await read.getAttribute('data-source-review-minor'),
         expected.amountMinor,
+      );
+      assert.equal(
+        await read.textContent(),
+        `${major(expected.amountMinor)} SAR`,
       );
       await assertFinancialUnchanged();
       const downloading = page.waitForEvent('download');
@@ -230,6 +267,11 @@ export async function verifyMultilineSourceReview(page, url, out) {
       await review();
       await ui.locator('[data-source-review-reject]').click();
       await state('rejected');
+      await settledOn(
+        page,
+        ui.locator('[data-source-review-state]'),
+        `multiline/${lang}/${width}: rejection`,
+      );
       assert.equal(
         await ui.locator('[data-source-review-apply]').isDisabled(),
         true,

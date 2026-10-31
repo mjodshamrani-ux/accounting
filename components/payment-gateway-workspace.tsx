@@ -1,6 +1,14 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { PaymentGatewayBatchesPanel } from '@/components/payment-gateway-batches-panel';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
+import { useResultFocus } from '@/components/result-focus';
+import { Amount } from '@/components/amount';
+import {
+  RecordFields,
+  RecordTable,
+  identityFields,
+  memberPlace,
+} from '@/components/record-table';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -33,7 +41,17 @@ import {
   gatewaySignedDemoScope,
 } from '@/lib/reconciliation/payment-gateway-signed-demo';
 import { gatewayCopy } from '@/lib/i18n/payment-gateway';
-import './gl-tb-workspace.css';
+import './workspace-record.css';
+import {
+  DecisionButtons,
+  DecisionHint,
+  useDecisionFocus,
+} from './decision-platform';
+import type { DecisionInput } from '@/lib/decision-platform';
+// The value positions that hold money in each role's records, after the
+// source row: the transaction amount, the fee amount, the four summary
+// totals, and the bank credit.
+const AMOUNT_VALUES = [[3], [2], [2, 3, 4, 5], [2]];
 const emptyScope = (): GatewayScope =>
   ({
     ...Object.fromEntries(PG_SCOPE_FIELDS.map((k) => [k, ''])),
@@ -55,62 +73,6 @@ function download(buffer: ArrayBuffer, name: string, type: string) {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-function Table({
-  headers,
-  rows,
-}: {
-  headers: string[];
-  rows: (string | number | null)[][];
-}) {
-  const { lang } = useI18n();
-  const copy = gatewayCopy[lang];
-  const [page, setPage] = useState(0);
-  const safe = Math.min(page, Math.max(0, Math.ceil(rows.length / 50) - 1));
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table>
-          <thead>
-            <tr>
-              {headers.map((h, i) => (
-                <th key={i}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i}>
-                {row.map((v, j) => (
-                  <td key={j}>{v ?? '—'}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="gl-tb-actions">
-        <Button
-          variant="outline"
-          disabled={!safe}
-          onClick={() => setPage(safe - 1)}
-        >
-          {copy.previous}
-        </Button>
-        <span>
-          {safe + 1} / {Math.max(1, Math.ceil(rows.length / 50))} ·{' '}
-          {rows.length}
-        </span>
-        <Button
-          variant="outline"
-          disabled={(safe + 1) * 50 >= rows.length}
-          onClick={() => setPage(safe + 1)}
-        >
-          {copy.next}
-        </Button>
-      </div>
-    </>
-  );
 }
 export function GatewayWorkspace({
   active,
@@ -180,6 +142,13 @@ export function GatewayWorkspace({
     setEvents(v.state.events);
     setResult(v.result);
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
   async function perform<T>(
     work: (signal: AbortSignal) => Promise<T>,
     apply: (v: T) => void,
@@ -270,8 +239,17 @@ export function GatewayWorkspace({
         state: GatewayInput;
         result: GatewayResult;
       }>('gateway-reconcile', s, signal);
-    }, install);
+    }, shown);
   }
+  // The decision platform (UX-3): after a decision the focus returns to the
+  // line that holds the state, not to the page.
+  const hint = useId(),
+    decisionState = useId(),
+    settle = useDecisionFocus();
+  const decided: typeof install = (v) => {
+    install(v);
+    settle(decisionState);
+  };
   async function decide(type: GatewayEvent['type']) {
     if (!result) return;
     const e: GatewayEvent = {
@@ -291,17 +269,35 @@ export function GatewayWorkspace({
           { ...state(), events: [...events, e] },
           signal,
         ),
-      install,
+      decided,
     );
   }
+  const amounts = (values: number[]) =>
+    values.map((v, i) => (
+      <Amount key={i} minor={v} decimals={result?.decimals ?? 2} />
+    ));
   const status = (value: string) =>
     (copy.status as Record<string, string>)[value] ?? value;
-  const canAccept =
-    result &&
-    complete.confirmed &&
-    !result.issues.length &&
-    !result.missing.length &&
-    result.financial === 'ready';
+  // What the decision buttons open on, as before: approval also needs the
+  // completeness confirmation and a ready result, and the sentence under the
+  // buttons says which of these is missing.
+  const decision: DecisionInput | null = result
+    ? {
+        reference,
+        reason: note,
+        members: result.memberIds.length,
+        review: result.review,
+        acceptBlock: !complete.confirmed
+          ? 'unconfirmed'
+          : result.issues.length
+            ? 'source-error'
+            : result.missing.length
+              ? 'missing'
+              : result.financial === 'ready'
+                ? null
+                : result.financial,
+      }
+    : null;
   return (
     <div hidden={!active}>
       <section
@@ -351,7 +347,7 @@ export function GatewayWorkspace({
                         { buffer: await f.arrayBuffer() },
                         signal,
                       );
-                    }, install);
+                    }, shown);
                 }}
               />
             </label>
@@ -513,7 +509,7 @@ export function GatewayWorkspace({
                     state: GatewayInput;
                     result: GatewayResult;
                   }>('gateway-reconcile', state(), signal),
-                install,
+                shown,
               )
             }
           >
@@ -569,68 +565,79 @@ export function GatewayWorkspace({
         )}
         {result && (
           <section className="workspace-results">
-            <h2 data-gateway-status>{status(result.status)}</h2>
+            <h2
+              data-gateway-status
+              ref={resultHeading}
+              tabIndex={-1}
+              data-result-heading="result"
+            >
+              {status(result.status)}
+            </h2>
             <DomainEvidenceAssistant
               result={result}
               snapshot={() => ({ domain: 'gateway', input: state(), result })}
               busy={busy}
             />
             <p>
-              {copy.units}: {result.decimals} · {result.scope.currency}
+              {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>
             </p>
-            <Table
+            <RecordTable
+              label={copy.tableNames.totals}
               headers={copy.totals}
-              rows={result.totals ? [result.totals] : []}
+              rows={result.totals ? [amounts(result.totals)] : []}
             />
-            <Table
+            <RecordTable
+              label={copy.tableNames.residuals}
+              wrapHeaders
               headers={copy.residuals}
-              rows={result.residuals ? [result.residuals] : []}
+              rows={result.residuals ? [amounts(result.residuals)] : []}
             />
-            <fieldset disabled={busy}>
+            <fieldset disabled={busy} data-decision-platform>
               <legend>{copy.decisionTitle}</legend>
               <label>
                 {copy.reference}
                 <input
+                  aria-describedby={hint}
                   value={reference}
                   onChange={(e) => setReference(e.target.value)}
                 />
               </label>
               <label>
                 {copy.note}
-                <input value={note} onChange={(e) => setNote(e.target.value)} />
+                <input
+                  aria-describedby={hint}
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                />
               </label>
-              <p>
+              <p id={decisionState} tabIndex={-1} data-decision-state>
                 {result.scope.batchId} · {status(result.review)} ·{' '}
                 {copy.members}: {result.memberIds.length}
               </p>
-              <div className="gl-tb-actions">
-                {(['accept', 'reject', 'undo'] as const).map((type) => (
-                  <Button
-                    key={type}
-                    variant="outline"
-                    disabled={
-                      busy ||
-                      !reference.trim() ||
-                      !note.trim() ||
-                      !result.memberIds.length ||
-                      (type === 'undo'
-                        ? result.review === 'needs-review'
-                        : result.review !== 'needs-review') ||
-                      (type === 'accept' && !canAccept)
-                    }
-                    onClick={() => void decide(type)}
-                  >
-                    {copy[type]}
-                  </Button>
-                ))}
-              </div>
+              {decision && (
+                <>
+                  <DecisionButtons
+                    input={decision}
+                    labels={copy}
+                    busy={busy}
+                    describedBy={hint}
+                    onDecide={(type) => void decide(type)}
+                  />
+                  <DecisionHint
+                    id={hint}
+                    input={decision}
+                    labels={{ reference: copy.reference, reason: copy.note }}
+                  />
+                </>
+              )}
             </fieldset>
             {result.records.map((records, i) => (
               <details key={i}>
                 <summary>
                   {copy.roles[i]} ({records.length})
                 </summary>
-                <Table
+                <RecordTable
+                  source={copy.roles[i]}
                   headers={
                     i === 0 && result.readings[0].family === PG_SIGNED_VERSION
                       ? copy.signedRecords
@@ -639,16 +646,26 @@ export function GatewayWorkspace({
                   rows={records.map((e) => [
                     e.row,
                     ...e.values.map((v, j) =>
-                      i === 0 && j === 1
-                        ? v === 'sale'
-                          ? copy.sale
-                          : copy.refund
-                        : i === 0 && j === 3 && e.signedAmount
-                          ? e.signedAmount.raw
-                          : v,
+                      i === 0 && j === 1 ? (
+                        v === 'sale' ? (
+                          copy.sale
+                        ) : (
+                          copy.refund
+                        )
+                      ) : i === 0 && j === 3 && e.signedAmount ? (
+                        e.signedAmount.raw
+                      ) : AMOUNT_VALUES[i].includes(j) &&
+                        typeof v === 'number' ? (
+                        <Amount key={j} minor={v} decimals={result.decimals} />
+                      ) : (
+                        v
+                      ),
                     ),
                     ...(e.signedAmount
-                      ? [e.signedAmount.signedMinor, e.signedAmount.magnitude]
+                      ? amounts([
+                          e.signedAmount.signedMinor,
+                          e.signedAmount.magnitude,
+                        ])
                       : []),
                   ])}
                 />
@@ -658,7 +675,8 @@ export function GatewayWorkspace({
               <summary>
                 {copy.members} ({result.memberIds.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.members}
                 headers={copy.memberHeaders}
                 rows={result.memberIds.map((id) => {
                   const original = JSON.parse(id) as [
@@ -668,15 +686,21 @@ export function GatewayWorkspace({
                     number,
                     number,
                   ];
-                  return [copy.roles[original[1]], original[4], id];
+                  return [
+                    copy.roles[original[1]],
+                    original[4],
+                    <RecordFields key="id" values={identityFields(id)} />,
+                  ];
                 })}
+                wrap={[2]}
               />
             </details>
             <details>
               <summary>
                 {copy.missing} ({result.missing.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.missing}
                 headers={[copy.missing]}
                 rows={result.missing.map((k) => [
                   copy.roles[PG_ROLES.indexOf(k as (typeof PG_ROLES)[number])],
@@ -687,7 +711,8 @@ export function GatewayWorkspace({
               <summary>
                 {copy.issues} ({result.issues.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.issues}
                 headers={copy.issueHeaders}
                 rows={result.issues.map((e) => [
                   (copy.issueReasons as Record<string, string>)[e.code] ??
@@ -702,22 +727,28 @@ export function GatewayWorkspace({
               <summary>
                 {copy.inventory} ({result.inventory.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.inventory}
                 headers={copy.inventoryHeaders}
                 rows={result.inventory.map((e) => [
                   copy.roles[e.source],
                   e.row,
                   e.kind,
                   e.errors.join(' | '),
-                  JSON.stringify(files[e.source]!.sheets[0].rows[e.row - 1]),
+                  <RecordFields
+                    key="values"
+                    values={files[e.source]!.sheets[0].rows[e.row - 1]}
+                  />,
                 ])}
+                wrap={[4]}
               />
             </details>
             <details>
               <summary>
                 {copy.history} ({result.events.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.history}
                 headers={copy.eventHeaders}
                 rows={result.events.map((e) => [
                   copy[e.type],
@@ -725,8 +756,14 @@ export function GatewayWorkspace({
                   e.at,
                   e.reference,
                   e.note,
-                  JSON.stringify(e.memberIds),
+                  <RecordFields
+                    key="members"
+                    values={e.memberIds.map((id) =>
+                      memberPlace(id, copy.roles),
+                    )}
+                  />,
                 ])}
+                wrap={[5]}
               />
             </details>
           </section>

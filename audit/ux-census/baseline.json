@@ -1,127 +1,192 @@
 {
   "note": "Interface census baseline: each metric summed over the four states of a domain (Arabic and English at 390 and 1440 px) after its synthetic example ran. Recorded by scripts/ux-census-browser.mjs --record; the gate fails on any change.",
   "recorded": {
-    "commit": "ab2f9b4edf8f0c3096336b1af15bb3f65a06257a",
+    "commit": "d24f5cd9f374a2fbfa0a5413d96199f532356c57",
     "date": "2026-10-31",
     "chromium": "141.0.7390.37"
   },
   "metrics": [
     "minorUnits",
+    "minorUnitsInText",
     "minusAfterDigits",
     "unisolatedAmounts",
     "brokenInsideWord",
     "pageOverflow",
     "disabledUnexplained",
-    "focusLost"
+    "focusLost",
+    "wideUnnamed",
+    "focusAfterDecision",
+    "clippedText",
+    "jsonText"
   ],
   "domains": {
     "supplier": {
       "minorUnits": 0,
+      "minorUnitsInText": 0,
       "minusAfterDigits": 0,
-      "unisolatedAmounts": 12,
+      "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 8,
-      "focusLost": 0
+      "disabledUnexplained": 0,
+      "focusLost": 0,
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0,
+      "clippedText": 0,
+      "jsonText": 0
     },
     "clearing": {
       "minorUnits": 0,
+      "minorUnitsInText": 0,
       "minusAfterDigits": 0,
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 4,
-      "focusLost": 2
+      "disabledUnexplained": 0,
+      "focusLost": 0,
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0,
+      "clippedText": 0,
+      "jsonText": 0
     },
     "ar": {
       "minorUnits": 0,
+      "minorUnitsInText": 0,
       "minusAfterDigits": 0,
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 32,
-      "focusLost": 2
+      "disabledUnexplained": 0,
+      "focusLost": 0,
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0,
+      "clippedText": 0,
+      "jsonText": 0
     },
     "gl-tb": {
       "minorUnits": 0,
+      "minorUnitsInText": 0,
       "minusAfterDigits": 0,
-      "unisolatedAmounts": 8,
+      "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 16,
-      "focusLost": 2
+      "disabledUnexplained": 0,
+      "focusLost": 0,
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0,
+      "clippedText": 0,
+      "jsonText": 0
     },
     "allocation": {
       "minorUnits": 0,
+      "minorUnitsInText": 0,
       "minusAfterDigits": 0,
-      "unisolatedAmounts": 6,
+      "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 20,
-      "focusLost": 2
+      "disabledUnexplained": 0,
+      "focusLost": 0,
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0,
+      "clippedText": 0,
+      "jsonText": 0
     },
     "bank": {
       "minorUnits": 0,
+      "minorUnitsInText": 0,
       "minusAfterDigits": 0,
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 8,
-      "focusLost": 2
+      "disabledUnexplained": 0,
+      "focusLost": 0,
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0,
+      "clippedText": 0,
+      "jsonText": 0
     },
     "tb-financial": {
-      "minorUnits": 92,
-      "minusAfterDigits": 2,
+      "minorUnits": 0,
+      "minorUnitsInText": 0,
+      "minusAfterDigits": 0,
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 184,
-      "focusLost": 2
+      "disabledUnexplained": 0,
+      "focusLost": 0,
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0,
+      "clippedText": 0,
+      "jsonText": 0
     },
     "intercompany": {
-      "minorUnits": 24,
-      "minusAfterDigits": 10,
+      "minorUnits": 0,
+      "minorUnitsInText": 0,
+      "minusAfterDigits": 0,
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 132,
-      "focusLost": 2
+      "disabledUnexplained": 0,
+      "focusLost": 0,
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0,
+      "clippedText": 0,
+      "jsonText": 0
     },
     "gateway": {
-      "minorUnits": 8,
+      "minorUnits": 0,
+      "minorUnitsInText": 0,
       "minusAfterDigits": 0,
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 108,
-      "focusLost": 2
+      "disabledUnexplained": 0,
+      "focusLost": 0,
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0,
+      "clippedText": 0,
+      "jsonText": 0
     },
     "stock": {
-      "minorUnits": 32,
+      "minorUnits": 0,
+      "minorUnitsInText": 0,
       "minusAfterDigits": 0,
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 152,
-      "focusLost": 2
+      "disabledUnexplained": 0,
+      "focusLost": 0,
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0,
+      "clippedText": 0,
+      "jsonText": 0
     },
     "assets": {
-      "minorUnits": 80,
+      "minorUnits": 0,
+      "minorUnitsInText": 0,
       "minusAfterDigits": 0,
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 152,
-      "focusLost": 2
+      "disabledUnexplained": 0,
+      "focusLost": 0,
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0,
+      "clippedText": 0,
+      "jsonText": 0
     },
     "payroll": {
-      "minorUnits": 152,
+      "minorUnits": 0,
+      "minorUnitsInText": 0,
       "minusAfterDigits": 0,
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 176,
-      "focusLost": 2
+      "disabledUnexplained": 0,
+      "focusLost": 0,
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0,
+      "clippedText": 0,
+      "jsonText": 0
     }
   }
 }

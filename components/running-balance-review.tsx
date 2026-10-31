@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import {
   CheckCircle2,
   ChevronDown,
@@ -6,7 +6,15 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  ClosedReason,
+  ReviewHint,
+  useDecisionFocus,
+  type ReviewNeed,
+} from '@/components/decision-platform';
 import { Input } from '@/components/ui/input';
+import { RecordPager, RecordRows } from '@/components/record-table';
+import { recordPage } from '@/lib/record-page';
 import { useI18n } from '@/lib/i18n/context';
 import {
   runningBalanceCopy,
@@ -140,10 +148,10 @@ function RunningSourcePanel({
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
   const [progress, setProgress] = useState('');
-  const [offset, setOffset] = useState(0);
-  const [movementOffset, setMovementOffset] = useState(0);
-  const [proposalOffset, setProposalOffset] = useState(0);
-  const [controlOffset, setControlOffset] = useState(0);
+  const [page, setPage] = useState(0);
+  const [movementPage, setMovementPage] = useState(0);
+  const [proposalPage, setProposalPage] = useState(0);
+  const [controlPage, setControlPage] = useState(0);
   const operation = useRef({
     generation: 0,
     abort: null as AbortController | null,
@@ -247,6 +255,29 @@ function RunningSourcePanel({
     !!reviewer.trim() &&
     !!rationale.trim() &&
     ackKeys.every((key) => ack[key]);
+  // The decision platform (UX-3): the sentence under the review says what a
+  // decision still needs, and after a decision the focus goes to its receipt
+  // or to the notice of a rejection, not to the page. The inspection says
+  // what it waits for.
+  const ticked = ackKeys.filter((key) => ack[key]).length;
+  const needs: ReviewNeed[] = [
+    ...(reviewer.trim() ? [] : [{ field: t.reviewer }]),
+    ...(rationale.trim() ? [] : [{ field: t.rationale }]),
+    ...(ticked === ackKeys.length
+      ? []
+      : [{ confirmations: [ticked, ackKeys.length] as const }]),
+  ];
+  const acceptNeeds: ReviewNeed[] = allSelected ? [] : ['everyRow'];
+  const inspectWait = !cutsReviewed
+    ? t.inspectWaits.cuts
+    : scope.currency !== 'SAR' || scope.decimals !== 2
+      ? t.inspectWaits.scope
+      : '';
+  const hint = useId(),
+    inspectWhy = useId(),
+    receiptLine = useId(),
+    noticeLine = useId(),
+    settle = useDecisionFocus();
   function choose(rows: number[], ids: string[]) {
     invalidateDecision();
     if (session.current)
@@ -277,6 +308,7 @@ function RunningSourcePanel({
       (result) => {
         setReceipt(result);
         if (!result) setNotice(t.rejected);
+        settle(result ? receiptLine : noticeLine);
       },
     );
   }
@@ -306,27 +338,26 @@ function RunningSourcePanel({
     'credit',
     'balance',
   ] as const;
-  function pager(start: number, total: number, update: (n: number) => void) {
+  // Twenty rows or proofs a page through the record kit (UX-3), as these
+  // lists have always shown.
+  function shown<T>(items: readonly T[], at: number) {
+    const { from, to } = recordPage(items.length, at, 20);
+    return items.slice(from, to);
+  }
+  function pager(
+    label: string,
+    at: number,
+    total: number,
+    update: (n: number) => void,
+  ) {
     return (
-      <div className="running-review__actions">
-        <Button
-          variant="outline"
-          disabled={!start}
-          onClick={() => update(Math.max(0, start - 20))}
-        >
-          {t.previous}
-        </Button>
-        <output>
-          {Math.min(start + 1, total)}–{Math.min(start + 20, total)} / {total}
-        </output>
-        <Button
-          variant="outline"
-          disabled={start + 20 >= total}
-          onClick={() => update(start + 20)}
-        >
-          {t.next}
-        </Button>
-      </div>
+      <RecordPager
+        label={label}
+        length={total}
+        page={at}
+        onPage={update}
+        size={20}
+      />
     );
   }
   return (
@@ -371,6 +402,7 @@ function RunningSourcePanel({
           <div className="running-review__actions">
             <Button
               data-testid="running-balance-inspect"
+              aria-describedby={inspectWhy}
               disabled={
                 busy ||
                 !cutsReviewed ||
@@ -382,7 +414,7 @@ function RunningSourcePanel({
                 setArtifact(null);
                 setSelection(null);
                 setAck(emptyAck());
-                setOffset(0);
+                setPage(0);
                 void run(async (options) => {
                   const source = await readFile(
                     file.name,
@@ -421,6 +453,13 @@ function RunningSourcePanel({
             )}
             <output aria-live="polite">{progress}</output>
           </div>
+          <ClosedReason
+            id={inspectWhy}
+            closed={!!inspectWait}
+            waits="step"
+            label={t.inspect}
+            step={inspectWait}
+          />
         </>
       ) : (
         <p>{t.empty}</p>
@@ -434,7 +473,11 @@ function RunningSourcePanel({
           {error}
         </p>
       )}
-      {notice && <output>{notice}</output>}
+      {notice && (
+        <output id={noticeLine} tabIndex={-1} data-decision-state>
+          {notice}
+        </output>
+      )}
       {review && (
         <>
           <div
@@ -493,53 +536,16 @@ function RunningSourcePanel({
           </div>
           <div className="running-review__section">
             <h3>{t.original}</h3>
-            <section className="running-review__scroll" aria-label={t.original}>
-              <table data-testid="running-balance-inventory">
-                <thead>
-                  <tr>
-                    <th>{t.row}</th>
-                    <th>{t.page}</th>
-                    {fields.map((f) => (
-                      <th key={f}>{t[f]}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {review.rows.slice(offset, offset + 20).map((r) => (
-                    <tr key={r.originalRow}>
-                      <td>{r.originalRow}</td>
-                      <td>{r.page}</td>
-                      {r.values.map((value, i) => (
-                        <td key={i}>
-                          <bdi>{value}</bdi>
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </section>
-            <div className="running-review__actions">
-              <Button
-                variant="outline"
-                disabled={!offset}
-                onClick={() => setOffset(Math.max(0, offset - 20))}
-              >
-                {t.previous}
-              </Button>
-              <output>
-                {Math.min(offset + 1, review.rows.length)}–
-                {Math.min(offset + 20, review.rows.length)} /{' '}
-                {review.rows.length}
-              </output>
-              <Button
-                variant="outline"
-                disabled={offset + 20 >= review.rows.length}
-                onClick={() => setOffset(offset + 20)}
-              >
-                {t.next}
-              </Button>
-            </div>
+            <RecordRows
+              label={t.original}
+              headers={[t.row, t.page, ...fields.map((f) => t[f])]}
+              rows={review.rows}
+              size={20}
+              page={page}
+              onPage={setPage}
+              frame={{ 'data-testid': 'running-balance-inventory' }}
+              cells={(r) => [r.originalRow, r.page, ...r.values]}
+            />
           </div>
           <details data-testid="running-balance-steps">
             <summary>
@@ -547,39 +553,37 @@ function RunningSourcePanel({
             </summary>
             <div className="running-review__section">
               <p>{t.minor}</p>
-              {review.balanceSteps
-                .slice(movementOffset, movementOffset + 20)
-                .map((s, i) => (
-                  <div className="running-review__proof" key={i}>
-                    <strong>
-                      {t.row} {s.originalRow}
-                    </strong>
-                    <span>
-                      {t.previousBalance}:{' '}
-                      <bdi>{s.previousProvidedMinor ?? '—'}</bdi>
-                    </span>
-                    <span>
-                      {t.debit}: <bdi>{s.debitProvidedMinor ?? '—'}</bdi> ·{' '}
-                      {t.credit}: <bdi>{s.creditProvidedMinor ?? '—'}</bdi>
-                    </span>
-                    <span>
-                      {t.computed}: <bdi>{s.computedMinor ?? '—'}</bdi>
-                    </span>
-                    <span>
-                      {t.provided}: <bdi>{s.nextProvidedMinor ?? '—'}</bdi>
-                    </span>
-                    <span>
-                      {t.difference}: <bdi>{s.differenceMinor ?? '—'}</bdi>
-                    </span>
-                    {s.previousEvidence &&
-                      proof(s.previousEvidence, 'previous')}
-                    {proof(s.nextEvidence, 'next')}
-                  </div>
-                ))}
+              {shown(review.balanceSteps, movementPage).map((s, i) => (
+                <div className="running-review__proof" key={i}>
+                  <strong>
+                    {t.row} {s.originalRow}
+                  </strong>
+                  <span>
+                    {t.previousBalance}:{' '}
+                    <bdi>{s.previousProvidedMinor ?? '—'}</bdi>
+                  </span>
+                  <span>
+                    {t.debit}: <bdi>{s.debitProvidedMinor ?? '—'}</bdi> ·{' '}
+                    {t.credit}: <bdi>{s.creditProvidedMinor ?? '—'}</bdi>
+                  </span>
+                  <span>
+                    {t.computed}: <bdi>{s.computedMinor ?? '—'}</bdi>
+                  </span>
+                  <span>
+                    {t.provided}: <bdi>{s.nextProvidedMinor ?? '—'}</bdi>
+                  </span>
+                  <span>
+                    {t.difference}: <bdi>{s.differenceMinor ?? '—'}</bdi>
+                  </span>
+                  {s.previousEvidence && proof(s.previousEvidence, 'previous')}
+                  {proof(s.nextEvidence, 'next')}
+                </div>
+              ))}
               {pager(
-                movementOffset,
+                t.steps,
+                movementPage,
                 review.balanceSteps.length,
-                setMovementOffset,
+                setMovementPage,
               )}
             </div>
           </details>
@@ -588,31 +592,34 @@ function RunningSourcePanel({
               {t.controls} · {review.controls.length}
             </summary>
             <div className="running-review__section">
-              {review.controls
-                .slice(controlOffset, controlOffset + 20)
-                .map((c, i) => (
-                  <div className="running-review__proof" key={i}>
-                    <strong>
-                      <bdi>{review.rows[c.originalRow - 1]?.values[0]}</bdi> ·{' '}
-                      {t.page} {c.page}
-                    </strong>
-                    <span>
-                      {t.difference}:{' '}
-                      <bdi>
-                        {c.differenceMinor ?? c.debitDifferenceMinor ?? '—'}
-                      </bdi>
-                      {c.creditDifferenceMinor !== undefined && (
-                        <>
-                          {' '}
-                          · {t.credit}:{' '}
-                          <bdi>{c.creditDifferenceMinor ?? '—'}</bdi>
-                        </>
-                      )}
-                    </span>
-                    {c.evidence.map((e, n) => proof(e, n))}
-                  </div>
-                ))}
-              {pager(controlOffset, review.controls.length, setControlOffset)}
+              {shown(review.controls, controlPage).map((c, i) => (
+                <div className="running-review__proof" key={i}>
+                  <strong>
+                    <bdi>{review.rows[c.originalRow - 1]?.values[0]}</bdi> ·{' '}
+                    {t.page} {c.page}
+                  </strong>
+                  <span>
+                    {t.difference}:{' '}
+                    <bdi>
+                      {c.differenceMinor ?? c.debitDifferenceMinor ?? '—'}
+                    </bdi>
+                    {c.creditDifferenceMinor !== undefined && (
+                      <>
+                        {' '}
+                        · {t.credit}:{' '}
+                        <bdi>{c.creditDifferenceMinor ?? '—'}</bdi>
+                      </>
+                    )}
+                  </span>
+                  {c.evidence.map((e, n) => proof(e, n))}
+                </div>
+              ))}
+              {pager(
+                t.controls,
+                controlPage,
+                review.controls.length,
+                setControlPage,
+              )}
             </div>
           </details>
           {review.state === 'review-ready' && (
@@ -641,122 +648,120 @@ function RunningSourcePanel({
                     {review.proposals.length}
                   </output>
                 </div>
-                {review.movements
-                  .slice(movementOffset, movementOffset + 20)
-                  .map((m) => (
-                    <details
-                      key={m.originalRow}
-                      data-testid="running-balance-movement"
+                {shown(review.movements, movementPage).map((m) => (
+                  <details
+                    key={m.originalRow}
+                    data-testid="running-balance-movement"
+                  >
+                    <summary
+                      aria-label={`${t.movement} ${m.seq} · ${m.reference}`}
                     >
-                      <summary
-                        aria-label={`${t.movement} ${m.seq} · ${m.reference}`}
+                      <label
+                        className="running-review__check"
+                        aria-label={`${t.movement} ${m.seq}`}
                       >
-                        <label
-                          className="running-review__check"
+                        <input
+                          type="checkbox"
                           aria-label={`${t.movement} ${m.seq}`}
-                        >
-                          <input
-                            type="checkbox"
-                            aria-label={`${t.movement} ${m.seq}`}
-                            data-testid={`running-balance-movement-${m.seq}`}
-                            disabled={busy}
-                            checked={selection!.selectedMovementRows.includes(
-                              m.originalRow,
-                            )}
-                            onChange={(e) =>
-                              choose(
-                                e.target.checked
-                                  ? [
-                                      ...selection!.selectedMovementRows,
-                                      m.originalRow,
-                                    ]
-                                  : selection!.selectedMovementRows.filter(
-                                      (r) => r !== m.originalRow,
-                                    ),
-                                selection!.selectedProposalIds,
-                              )
-                            }
-                          />
-                          <span>
-                            <bdi>
-                              {m.seq} · {m.date} · {m.reference} · {t.balance}:{' '}
-                              {m.balance}
-                            </bdi>
-                          </span>
-                        </label>
-                      </summary>
-                      <div className="running-review__section">
-                        <p>
-                          {m.referenceOrigin === 'explicit-source-cell'
-                            ? t.explicit
-                            : t.inherited}
-                        </p>
-                        {[
-                          m.seqEvidence,
-                          m.dateEvidence,
-                          m.referenceEvidence,
-                          m.descriptionEvidence,
-                          m.debitEvidence,
-                          m.creditEvidence,
-                          m.balanceEvidence,
-                          m.parentEvidence,
-                          ...m.continuationEvidence,
-                        ].map((e, i) => proof(e, i))}
-                      </div>
-                    </details>
-                  ))}
+                          data-testid={`running-balance-movement-${m.seq}`}
+                          disabled={busy}
+                          checked={selection!.selectedMovementRows.includes(
+                            m.originalRow,
+                          )}
+                          onChange={(e) =>
+                            choose(
+                              e.target.checked
+                                ? [
+                                    ...selection!.selectedMovementRows,
+                                    m.originalRow,
+                                  ]
+                                : selection!.selectedMovementRows.filter(
+                                    (r) => r !== m.originalRow,
+                                  ),
+                              selection!.selectedProposalIds,
+                            )
+                          }
+                        />
+                        <span>
+                          <bdi>
+                            {m.seq} · {m.date} · {m.reference} · {t.balance}:{' '}
+                            {m.balance}
+                          </bdi>
+                        </span>
+                      </label>
+                    </summary>
+                    <div className="running-review__section">
+                      <p>
+                        {m.referenceOrigin === 'explicit-source-cell'
+                          ? t.explicit
+                          : t.inherited}
+                      </p>
+                      {[
+                        m.seqEvidence,
+                        m.dateEvidence,
+                        m.referenceEvidence,
+                        m.descriptionEvidence,
+                        m.debitEvidence,
+                        m.creditEvidence,
+                        m.balanceEvidence,
+                        m.parentEvidence,
+                        ...m.continuationEvidence,
+                      ].map((e, i) => proof(e, i))}
+                    </div>
+                  </details>
+                ))}
                 {pager(
-                  movementOffset,
+                  t.selection,
+                  movementPage,
                   review.movements.length,
-                  setMovementOffset,
+                  setMovementPage,
                 )}
-                {review.proposals
-                  .slice(proposalOffset, proposalOffset + 20)
-                  .map((p) => (
-                    <details key={p.id}>
-                      <summary
-                        aria-label={`${t.reference} ${p.reference} · ${t.row} ${p.evidence.target.row}`}
-                      >
-                        <label className="running-review__check">
-                          <input
-                            type="checkbox"
-                            aria-label={`${t.reference} ${p.reference} · ${t.row} ${p.evidence.target.row}`}
-                            data-testid="running-balance-proposal"
-                            disabled={busy}
-                            checked={selection!.selectedProposalIds.includes(
-                              p.id,
-                            )}
-                            onChange={(e) =>
-                              choose(
-                                selection!.selectedMovementRows,
-                                e.target.checked
-                                  ? [...selection!.selectedProposalIds, p.id]
-                                  : selection!.selectedProposalIds.filter(
-                                      (id) => id !== p.id,
-                                    ),
-                              )
-                            }
-                          />
-                          <span>
-                            {t.reference} · <bdi>{p.reference}</bdi> · {t.row}{' '}
-                            {p.evidence.target.row}
-                          </span>
-                        </label>
-                      </summary>
-                      <div className="running-review__section">
-                        {[
-                          p.evidence.target,
-                          p.evidence.parent,
-                          ...p.evidence.continuations,
-                          ...p.evidence.headers.flat(),
-                        ].map((e, i) => proof(e, i))}
-                      </div>
-                    </details>
-                  ))}
+                {shown(review.proposals, proposalPage).map((p) => (
+                  <details key={p.id}>
+                    <summary
+                      aria-label={`${t.reference} ${p.reference} · ${t.row} ${p.evidence.target.row}`}
+                    >
+                      <label className="running-review__check">
+                        <input
+                          type="checkbox"
+                          aria-label={`${t.reference} ${p.reference} · ${t.row} ${p.evidence.target.row}`}
+                          data-testid="running-balance-proposal"
+                          disabled={busy}
+                          checked={selection!.selectedProposalIds.includes(
+                            p.id,
+                          )}
+                          onChange={(e) =>
+                            choose(
+                              selection!.selectedMovementRows,
+                              e.target.checked
+                                ? [...selection!.selectedProposalIds, p.id]
+                                : selection!.selectedProposalIds.filter(
+                                    (id) => id !== p.id,
+                                  ),
+                            )
+                          }
+                        />
+                        <span>
+                          {t.reference} · <bdi>{p.reference}</bdi> · {t.row}{' '}
+                          {p.evidence.target.row}
+                        </span>
+                      </label>
+                    </summary>
+                    <div className="running-review__section">
+                      {[
+                        p.evidence.target,
+                        p.evidence.parent,
+                        ...p.evidence.continuations,
+                        ...p.evidence.headers.flat(),
+                      ].map((e, i) => proof(e, i))}
+                    </div>
+                  </details>
+                ))}
                 {pager(
-                  proposalOffset,
+                  t.proposals,
+                  proposalPage,
                   review.proposals.length,
-                  setProposalOffset,
+                  setProposalPage,
                 )}
               </div>
               <div className="running-review__decision">
@@ -766,6 +771,7 @@ function RunningSourcePanel({
                     {t.reviewer}
                     <Input
                       data-testid="running-balance-reviewer"
+                      aria-describedby={hint}
                       disabled={busy}
                       maxLength={200}
                       value={reviewer}
@@ -783,6 +789,7 @@ function RunningSourcePanel({
                     {t.rationale}
                     <textarea
                       data-testid="running-balance-rationale"
+                      aria-describedby={hint}
                       disabled={busy}
                       maxLength={4000}
                       value={rationale}
@@ -815,9 +822,11 @@ function RunningSourcePanel({
                     {t[key]}
                   </label>
                 ))}
+                <ReviewHint id={hint} needs={needs} acceptNeeds={acceptNeeds} />
                 <div className="running-review__actions">
                   <Button
                     data-testid="running-balance-accept"
+                    aria-describedby={hint}
                     disabled={!canRecord || !allSelected}
                     onClick={() => record('accept')}
                   >
@@ -826,6 +835,7 @@ function RunningSourcePanel({
                   <Button
                     variant="outline"
                     data-testid="running-balance-reject"
+                    aria-describedby={hint}
                     disabled={!canRecord}
                     onClick={() => record('reject')}
                   >
@@ -834,7 +844,14 @@ function RunningSourcePanel({
                 </div>
                 {receipt && (
                   <>
-                    <p data-testid="running-balance-receipt">{t.receipt}</p>
+                    <p
+                      id={receiptLine}
+                      tabIndex={-1}
+                      data-decision-state
+                      data-testid="running-balance-receipt"
+                    >
+                      {t.receipt}
+                    </p>
                     <Button
                       data-testid="running-balance-apply"
                       disabled={busy}

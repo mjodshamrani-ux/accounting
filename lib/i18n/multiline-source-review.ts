@@ -85,6 +85,9 @@ const copy = {
     'Value and role positions in the text',
   ],
   reread: ['أعد قراءة المصدر', 'Read source again'],
+  // What a closed button waits for (UX-3).
+  rereadWaits: ['قراءة ملف', 'a file is read'],
+  applyWaits: ['قبول تفسير المصدر', 'the source interpretation is accepted'],
   clear: ['إلغاء المراجعة', 'Cancel review'],
   reviewer: ['اسم المراجع أو تسميته', 'Reviewer name or label'],
   rationale: ['تعليل قرار المراجعة', 'Review decision rationale'],
@@ -100,7 +103,7 @@ const copy = {
     'القراءة المثبتة للنسخة المشتقة',
     'Verified reading of the derived copy',
   ],
-  minor: ['المبلغ بوحداته الصغرى من القارئ', 'Reader amount in minor units'],
+  amount: ['المبلغ كما قرأه القارئ', 'Amount as read'],
   editInvalidation: [
     'تغيير النص أو إعادة قراءته أو اختيار الحقول أو بيانات المراجع يلغي القرار السابق.',
     'Changing the text, rereading it, changing field selection or reviewer details revokes the previous decision.',

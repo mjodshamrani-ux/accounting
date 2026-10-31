@@ -1,5 +1,13 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
+import { useResultFocus } from '@/components/result-focus';
+import { Amount, Figures } from '@/components/amount';
+import {
+  RecordFields,
+  RecordPager,
+  RecordTable,
+} from '@/components/record-table';
+import { pageOfRow, recordPage } from '@/lib/record-page';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -25,7 +33,13 @@ import {
 } from '@/lib/reconciliation/tb-financial';
 import { financialDemo } from '@/lib/reconciliation/tb-financial-demo';
 import { TbFinancialHierarchyPanel } from '@/components/tb-financial-hierarchy-panel';
-import './gl-tb-workspace.css';
+import './workspace-record.css';
+import {
+  DecisionButtons,
+  DecisionHint,
+  useDecisionFocus,
+} from './decision-platform';
+import type { AcceptBlock } from '@/lib/decision-platform';
 const emptyScope = (): FinancialScope => ({
   entity: '',
   ledger: '',
@@ -55,61 +69,6 @@ function download(buffer: ArrayBuffer, name: string, type: string) {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-function Table({
-  headers,
-  rows,
-}: {
-  headers: string[];
-  rows: (string | number | null)[][];
-}) {
-  const { t } = useI18n();
-  const [page, setPage] = useState(0);
-  const safe = Math.min(page, Math.max(0, Math.ceil(rows.length / 50) - 1));
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table>
-          <thead>
-            <tr>
-              {headers.map((h, i) => (
-                <th key={i}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i}>
-                {row.map((v, j) => (
-                  <td key={j}>{v ?? '—'}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="gl-tb-actions">
-        <Button
-          variant="outline"
-          disabled={!safe}
-          onClick={() => setPage(safe - 1)}
-        >
-          {t.financial.previous}
-        </Button>
-        <span>
-          {safe + 1} / {Math.max(1, Math.ceil(rows.length / 50))} ·{' '}
-          {rows.length}
-        </span>
-        <Button
-          variant="outline"
-          disabled={(safe + 1) * 50 >= rows.length}
-          onClick={() => setPage(safe + 1)}
-        >
-          {t.financial.next}
-        </Button>
-      </div>
-    </>
-  );
 }
 export function FinancialWorkspace({
   active,
@@ -181,6 +140,13 @@ export function FinancialWorkspace({
     setLinePage(0);
     setResult(v.result);
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
   async function perform<T>(
     work: (signal: AbortSignal) => Promise<T>,
     apply: (v: T) => void,
@@ -280,8 +246,15 @@ export function FinancialWorkspace({
         s,
         signal,
       );
-    }, install);
+    }, shown);
   }
+  // The decision platform (UX-3): after a decision on a statement line the
+  // focus returns to that line's heading, which holds its state, on the page
+  // that shows it, not to the page.
+  const hint = useId(),
+    lineHeading = useId(),
+    settle = useDecisionFocus();
+  const headingAt = (at: number) => `${lineHeading}-${at}`;
   async function decide(line: string, type: FinancialEvent['type']) {
     if (!result) return;
     const l = result.lines.find((l) => l.lineId === line)!;
@@ -302,9 +275,27 @@ export function FinancialWorkspace({
           { ...state(), events: [...events, e] },
           signal,
         ),
-      install,
+      (v) => {
+        install(v);
+        const at = v.result.lines.findIndex((n) => n.lineId === line);
+        if (at < 0) return;
+        setLinePage(pageOfRow(at));
+        settle(headingAt(at));
+      },
     );
   }
+  // What the decision buttons open on, as before: approval also needs the
+  // completeness confirmation and a result without a source error, a gap,
+  // an inconsistency or a difference, and the sentence under the fields says
+  // which of these is missing.
+  const acceptBlock: AcceptBlock | null = !result
+    ? null
+    : !complete.confirmed
+      ? 'unconfirmed'
+      : ((
+          ['source-error', 'missing', 'inconsistent', 'difference'] as const
+        ).find((s) => s === result.status) ?? null);
+  const linesShown = recordPage(result?.lines.length ?? 0, linePage);
   const status = (value: string) =>
     (t.financial.status as Record<string, string>)[value] ?? value;
   return (
@@ -356,7 +347,7 @@ export function FinancialWorkspace({
                           { buffer: await f.arrayBuffer() },
                           signal,
                         ),
-                      install,
+                      shown,
                     );
                 }}
               />
@@ -490,7 +481,7 @@ export function FinancialWorkspace({
                     state: FinancialInput;
                     result: FinancialResult;
                   }>('tb-financial-reconcile', state(), signal),
-                install,
+                shown,
               )
             }
           >
@@ -546,7 +537,14 @@ export function FinancialWorkspace({
         )}
         {result && (
           <section className="workspace-results">
-            <h2 data-financial-status>{status(result.status)}</h2>
+            <h2
+              data-financial-status={result.status}
+              ref={resultHeading}
+              tabIndex={-1}
+              data-result-heading="result"
+            >
+              {status(result.status)}
+            </h2>
             <DomainEvidenceAssistant
               result={result}
               snapshot={() => ({ domain: 'financial', input: state(), result })}
@@ -558,15 +556,21 @@ export function FinancialWorkspace({
               {t.financial.preservedSourceRows}: {result.inventory.length}
             </p>
             <p>
-              {t.financial.allAmountsBelowAreIntegerMinorUnitsDecimals}:{' '}
-              {result.decimals} · {result.scope.currency}
+              {t.financial.amountsIn}{' '}
+              <bdi dir="ltr">{result.scope.currency}</bdi>
             </p>
             <p>
-              {t.financial.trialBalanceDebitsCreditsResidual}:{' '}
-              {result.tb?.debit ?? '—'} / {result.tb?.credit ?? '—'} /{' '}
-              {result.tb?.residual ?? '—'}
+              <Figures
+                decimals={result.decimals}
+                items={[
+                  [t.financial.trialBalanceFigures[0], result.tb?.debit],
+                  [t.financial.trialBalanceFigures[1], result.tb?.credit],
+                  [t.financial.trialBalanceFigures[2], result.tb?.residual],
+                ]}
+              />
             </p>
-            <Table
+            <RecordTable
+              label={t.financial.tableNames.byClass}
               headers={[
                 t.financial.basis,
                 t.financial.class,
@@ -578,13 +582,18 @@ export function FinancialWorkspace({
                       FINANCIAL_CATEGORIES.map((c) => [
                         t.financial.basisLabels[b],
                         t.financial.categories[c],
-                        result.totals![b][c],
+                        <Amount
+                          key="amount"
+                          minor={result.totals![b][c]}
+                          decimals={result.decimals}
+                        />,
                       ]),
                     )
                   : []
               }
             />
-            <Table
+            <RecordTable
+              label={t.financial.tableNames.position}
               headers={[
                 t.financial.basis,
                 t.financial.assets,
@@ -596,44 +605,78 @@ export function FinancialWorkspace({
                 result.grandTotals
                   ? (['calculated', 'reported'] as const).map((b) => [
                       t.financial.basisLabels[b],
-                      result.grandTotals![b].assets,
-                      result.grandTotals![b].liabilities,
-                      result.grandTotals![b].equity,
-                      result.grandTotals![b].equation,
+                      ...(
+                        ['assets', 'liabilities', 'equity', 'equation'] as const
+                      ).map((k) => (
+                        <Amount
+                          key={k}
+                          minor={result.grandTotals![b][k]}
+                          decimals={result.decimals}
+                        />
+                      )),
                     ])
                   : []
               }
             />
-            <fieldset disabled={busy}>
+            <fieldset disabled={busy} data-decision-platform>
               <legend>{t.financial.reviewDecisionEvidence}</legend>
               <label>
                 {t.financial.decisionReference}
                 <input
+                  aria-describedby={hint}
                   value={reference}
                   onChange={(e) => setReference(e.target.value)}
                 />
               </label>
               <label>
                 {t.financial.decisionReason}
-                <input value={note} onChange={(e) => setNote(e.target.value)} />
+                <input
+                  aria-describedby={hint}
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                />
               </label>
+              <DecisionHint
+                id={hint}
+                input={{
+                  reference,
+                  reason: note,
+                  review: 'eachBlocked',
+                  acceptBlock,
+                }}
+                labels={{
+                  reference: t.financial.decisionReference,
+                  reason: t.financial.decisionReason,
+                }}
+              />
             </fieldset>
-            {result.lines.slice(linePage * 50, linePage * 50 + 50).map((l) => (
+            {result.lines.slice(linesShown.from, linesShown.to).map((l, i) => (
               <section key={l.id}>
-                <h3>
+                <h3
+                  id={headingAt(linesShown.from + i)}
+                  tabIndex={-1}
+                  data-decision-item
+                >
                   {l.lineId} · {l.label} · {t.financial.categories[l.category]}{' '}
                   · {status(l.review)}
                 </h3>
                 <p>
-                  {t.financial.calculatedReportedDifference}:{' '}
-                  {l.calculated ?? '—'} / {l.reported} / {l.difference ?? '—'}
+                  <Figures
+                    decimals={result.decimals}
+                    items={[
+                      [t.financial.lineFigures[0], l.calculated],
+                      [t.financial.lineFigures[1], l.reported],
+                      [t.financial.lineFigures[2], l.difference],
+                    ]}
+                  />
                 </p>
                 <details>
                   <summary>
                     {t.financial.allMappingMembersAndEvidence} (
                     {l.members.length})
                   </summary>
-                  <Table
+                  <RecordTable
+                    label={`${t.financial.allMappingMembersAndEvidence} · ${l.lineId}`}
                     headers={[
                       t.financial.mapping,
                       t.financial.account,
@@ -646,66 +689,42 @@ export function FinancialWorkspace({
                       m.account,
                       m.dimensions,
                       m.evidenceId,
-                      m.contribution,
+                      <Amount
+                        key="contribution"
+                        minor={m.contribution}
+                        decimals={result.decimals}
+                      />,
                     ])}
                   />
                 </details>
-                <div className="gl-tb-actions">
-                  {(['accept', 'reject', 'undo'] as const).map((type) => (
-                    <Button
-                      variant="outline"
-                      key={type}
-                      disabled={
-                        busy ||
-                        !reference.trim() ||
-                        !note.trim() ||
-                        l.review === 'blocked' ||
-                        (type === 'undo'
-                          ? l.review === 'needs-review'
-                          : l.review !== 'needs-review') ||
-                        (type === 'accept' &&
-                          (!complete.confirmed ||
-                            [
-                              'source-error',
-                              'missing',
-                              'inconsistent',
-                              'difference',
-                            ].includes(result.status)))
-                      }
-                      onClick={() => void decide(l.lineId, type)}
-                    >
-                      {t.financial.decisionLabels[type]}
-                    </Button>
-                  ))}
-                </div>
+                <DecisionButtons
+                  input={{
+                    reference,
+                    reason: note,
+                    review: l.review,
+                    acceptBlock,
+                  }}
+                  labels={t.financial.decisionLabels}
+                  busy={busy}
+                  describedBy={`${hint} ${headingAt(linesShown.from + i)}`}
+                  target={headingAt(linesShown.from + i)}
+                  onDecide={(type) => void decide(l.lineId, type)}
+                />
               </section>
             ))}
-            <div className="gl-tb-actions">
-              <Button
-                variant="outline"
-                disabled={!linePage}
-                onClick={() => setLinePage(linePage - 1)}
-              >
-                {t.financial.previousLines}
-              </Button>
-              <span>
-                {linePage + 1} /{' '}
-                {Math.max(1, Math.ceil(result.lines.length / 50))}
-              </span>
-              <Button
-                variant="outline"
-                disabled={(linePage + 1) * 50 >= result.lines.length}
-                onClick={() => setLinePage(linePage + 1)}
-              >
-                {t.financial.nextLines}
-              </Button>
-            </div>
+            <RecordPager
+              label={t.financial.statementLines}
+              length={result.lines.length}
+              page={linePage}
+              onPage={setLinePage}
+            />
             <details>
               <summary>
                 {t.financial.sourceInventoryAndErrors} (
                 {result.inventory.length})
               </summary>
-              <Table
+              <RecordTable
+                label={t.financial.sourceInventoryAndErrors}
                 headers={[
                   t.financial.source,
                   t.financial.row,
@@ -718,15 +737,17 @@ export function FinancialWorkspace({
                   i.row,
                   i.kind,
                   i.errors.join(', '),
-                  JSON.stringify(i.values),
+                  <RecordFields key="values" values={i.values} />,
                 ])}
+                wrap={[4]}
               />
             </details>
             <details>
               <summary>
                 {t.financial.missingEvidence} ({result.missing.length})
               </summary>
-              <Table
+              <RecordTable
+                label={t.financial.missingEvidence}
                 headers={[t.financial.kind, t.financial.key]}
                 rows={result.missing.map((m) => [m.kind, m.key])}
               />
@@ -736,7 +757,8 @@ export function FinancialWorkspace({
                 {t.financial.presentationAndPeriodEvidence} (
                 {result.evidence.length})
               </summary>
-              <Table
+              <RecordTable
+                label={t.financial.presentationAndPeriodEvidence}
                 headers={[
                   t.financial.evidence,
                   t.financial.account,
@@ -765,7 +787,8 @@ export function FinancialWorkspace({
               <summary>
                 {t.financial.decisionHistory} ({events.length})
               </summary>
-              <Table
+              <RecordTable
+                label={t.financial.decisionHistory}
                 headers={[
                   t.financial.decision,
                   t.financial.line,

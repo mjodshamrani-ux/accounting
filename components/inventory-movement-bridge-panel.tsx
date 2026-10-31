@@ -1,4 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import {
+  Fragment,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
+import { Amount, Quantity } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
@@ -19,7 +27,9 @@ import {
 } from '@/lib/reconciliation/inventory-movement-bridge';
 import type { ImbReplayInput } from '@/lib/reconciliation/inventory-movement-bridge-io';
 import { inventoryMovementBridgeCopy } from '@/lib/i18n/inventory-movement-bridge';
-import './intercompany-batch-panel.css';
+import { RecordTable } from '@/components/record-table';
+import './review-section.css';
+import { ClosedReason } from './decision-platform';
 
 type Picked = {
   name: string;
@@ -27,88 +37,12 @@ type Picked = {
   sha256: string;
   confirmed: boolean;
 };
-// Integers as the engine returns them, shown with their decimals: three for
-// a quantity, the period currency's for a value; never a float.
-function fixed(value: string | null, decimals: number) {
-  if (value === null) return '—';
-  const negative = value.startsWith('-'),
-    digits = (negative ? value.slice(1) : value).padStart(decimals + 1, '0');
-  const whole = decimals ? digits.slice(0, -decimals) : digits;
-  return `${negative ? '-' : ''}${whole}${decimals ? '.' + digits.slice(-decimals) : ''}`;
-}
 const blankScope = () =>
   Object.fromEntries(IMB_SCOPE_FIELDS.map((k) => [k, ''])) as Record<
     ImbScopeField,
     string
   >;
 const SIDES = ['opening', 'debit', 'credit', 'closing'] as const;
-
-function Paged({
-  headers,
-  rows,
-  label,
-  marks,
-  pager,
-}: {
-  headers: string[];
-  rows: string[][];
-  label: string;
-  marks?: Record<string, string>[];
-  pager?: string;
-}) {
-  const { lang } = useI18n();
-  const copy = inventoryMovementBridgeCopy[lang];
-  const [page, setPage] = useState(0);
-  const pages = Math.max(1, Math.ceil(rows.length / 50)),
-    safe = Math.min(page, pages - 1);
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table aria-label={label}>
-          <thead>
-            <tr>
-              {headers.map((h) => (
-                <th key={h}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i} {...marks?.[safe * 50 + i]}>
-                {row.map((v, j) => (
-                  <td key={j}>
-                    <bdi>{v}</bdi>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {pages > 1 && (
-        <div className="gl-tb-actions" data-imb-pager={pager}>
-          <Button
-            variant="outline"
-            disabled={!safe}
-            onClick={() => setPage(safe - 1)}
-          >
-            {copy.previous}
-          </Button>
-          <span>
-            {safe + 1} / {pages} · {rows.length}
-          </span>
-          <Button
-            variant="outline"
-            disabled={safe + 1 >= pages}
-            onClick={() => setPage(safe + 1)}
-          >
-            {copy.next}
-          </Button>
-        </div>
-      )}
-    </>
-  );
-}
 
 export function InventoryMovementBridgePanel() {
   const { lang } = useI18n();
@@ -176,6 +110,7 @@ export function InventoryMovementBridgePanel() {
       next[i] = picked;
       return next;
     });
+  const checkWhy = useId();
   const ready = files.every((f) => f?.confirmed) && scopeConfirmed;
   function check() {
     const [register, gl] = files as [Picked, Picked];
@@ -207,10 +142,32 @@ export function InventoryMovementBridgePanel() {
   const reason = (code: string) => `${copy.codes[code] ?? code} (${code})`;
   const { comma, semi } = copy;
   const decimals = result?.decimals ?? 2;
-  const pair = (p: ImbPair | null) =>
-    p ? `${fixed(p.quantity, 3)} · ${fixed(p.value, decimals)}` : '—';
-  const side = (s: ImbSide | null) =>
-    s ? SIDES.map((k) => fixed(s[k], decimals)).join(' · ') : '—';
+  // Integers as the engine returns them, kept as strings, read through the
+  // shared components: three decimals for a quantity, the period currency's
+  // for a value.
+  const quantity = (scaled: string | null) => (
+    <Quantity scaled={scaled} precision={3} />
+  );
+  const amount = (minor: string | null) => (
+    <Amount minor={minor} decimals={decimals} />
+  );
+  const pair = (p: ImbPair | null): ReactNode =>
+    p ? (
+      <>
+        {quantity(p.quantity)} · {amount(p.value)}
+      </>
+    ) : (
+      '—'
+    );
+  const side = (s: ImbSide | null): ReactNode =>
+    s
+      ? SIDES.map((k, i) => (
+          <Fragment key={k}>
+            {i > 0 && ' · '}
+            {amount(s[k])}
+          </Fragment>
+        ))
+      : '—';
   const flowSum = (
     flows: Record<string, ImbPair>,
     kinds: readonly string[],
@@ -358,7 +315,11 @@ export function InventoryMovementBridgePanel() {
           </label>
         </fieldset>
         <div className="gl-tb-actions workspace-run-actions">
-          <Button disabled={busy || !ready} onClick={check}>
+          <Button
+            disabled={busy || !ready}
+            aria-describedby={checkWhy}
+            onClick={check}
+          >
             {copy.check}
           </Button>
           {busy && (
@@ -367,6 +328,12 @@ export function InventoryMovementBridgePanel() {
             </Button>
           )}
         </div>
+        <ClosedReason
+          id={checkWhy}
+          closed={!ready}
+          waits="check"
+          label={copy.check}
+        />
         {error && (
           <p role="alert" data-imb-error>
             {error}
@@ -410,9 +377,9 @@ export function InventoryMovementBridgePanel() {
                 {result.unplaced.length > 0 && (
                   <section>
                     <h3>{copy.unplaced}</h3>
-                    <Paged
+                    <RecordTable
                       label={copy.unplaced}
-                      pager="unplaced"
+                      pager={{ 'data-imb-pager': 'unplaced' }}
                       headers={copy.unplacedHeaders}
                       rows={result.unplaced.map((u) => [
                         copy.files[u.file],
@@ -434,9 +401,9 @@ export function InventoryMovementBridgePanel() {
                     <h3>
                       {copy.positions} ({result.positions.length}) · {copy.pair}
                     </h3>
-                    <Paged
+                    <RecordTable
                       label={copy.positions}
-                      pager="positions"
+                      pager={{ 'data-imb-pager': 'positions' }}
                       headers={copy.positionHeaders}
                       rows={result.positions.map((p) => [
                         p.item,
@@ -463,9 +430,9 @@ export function InventoryMovementBridgePanel() {
                 {result.positions.some((p) => p.flows) && (
                   <section>
                     <h3>{copy.flows}</h3>
-                    <Paged
+                    <RecordTable
                       label={copy.flows}
-                      pager="flows"
+                      pager={{ 'data-imb-pager': 'flows' }}
                       headers={copy.flowHeaders}
                       rows={result.positions.flatMap((p) =>
                         IMB_MOVES.filter(
@@ -476,8 +443,8 @@ export function InventoryMovementBridgePanel() {
                         ).map((k) => [
                           p.key,
                           copy.kinds[k],
-                          fixed(p.flows![k].quantity, 3),
-                          fixed(p.flows![k].value, decimals),
+                          quantity(p.flows![k].quantity),
+                          amount(p.flows![k].value),
                         ]),
                       )}
                       marks={result.positions.flatMap((p) =>
@@ -496,17 +463,17 @@ export function InventoryMovementBridgePanel() {
                 {result.positions.some((p) => p.lines) && (
                   <section>
                     <h3>{copy.lines}</h3>
-                    <Paged
+                    <RecordTable
                       label={copy.lines}
-                      pager="lines"
+                      pager={{ 'data-imb-pager': 'lines' }}
                       headers={copy.lineHeaders}
                       rows={result.positions.flatMap((p) =>
                         (p.lines ?? []).map((l) => [
                           p.key,
                           l.id,
                           copy.kinds[l.kind],
-                          fixed(l.quantity, 3),
-                          fixed(l.value, decimals),
+                          quantity(l.quantity),
+                          amount(l.value),
                           String(l.row),
                         ]),
                       )}
@@ -523,9 +490,9 @@ export function InventoryMovementBridgePanel() {
                     <h3>
                       {copy.accounts} ({result.accounts.length}) · {copy.sides}
                     </h3>
-                    <Paged
+                    <RecordTable
                       label={copy.accounts}
-                      pager="accounts"
+                      pager={{ 'data-imb-pager': 'accounts' }}
                       headers={copy.accountHeaders}
                       rows={result.accounts.map((a) => [
                         a.account,
@@ -554,9 +521,9 @@ export function InventoryMovementBridgePanel() {
                     list.length > 0 && (
                       <section key={name}>
                         <h3>{title}</h3>
-                        <Paged
+                        <RecordTable
                           label={title}
-                          pager={name}
+                          pager={{ 'data-imb-pager': name }}
                           headers={copy.listHeaders}
                           rows={list.map((x) => [String(x.row), x.id])}
                           marks={list.map((x) => ({
@@ -569,9 +536,9 @@ export function InventoryMovementBridgePanel() {
                 {result.unseenOrigins.length > 0 && (
                   <section>
                     <h3>{copy.unseen}</h3>
-                    <Paged
+                    <RecordTable
                       label={copy.unseen}
-                      pager="unseen"
+                      pager={{ 'data-imb-pager': 'unseen' }}
                       headers={copy.unseenHeaders}
                       rows={result.unseenOrigins.map((x) => [
                         String(x.row),
@@ -591,9 +558,9 @@ export function InventoryMovementBridgePanel() {
                 {result.repeatedHeaders.length > 0 && (
                   <section>
                     <h3>{copy.repeated}</h3>
-                    <Paged
+                    <RecordTable
                       label={copy.repeated}
-                      pager="repeated"
+                      pager={{ 'data-imb-pager': 'repeated' }}
                       headers={copy.repeatedHeaders}
                       rows={result.repeatedHeaders.map((x) => [
                         copy.files[x.file],
@@ -611,8 +578,7 @@ export function InventoryMovementBridgePanel() {
                     <ul>
                       {IMB_TOTALS.map((k) => (
                         <li key={k} data-imb-total={k}>
-                          {copy.totalNames[k]}:{' '}
-                          <bdi>{fixed(result.totals![k], decimals)}</bdi>
+                          {copy.totalNames[k]}: {amount(result.totals![k])}
                         </li>
                       ))}
                     </ul>

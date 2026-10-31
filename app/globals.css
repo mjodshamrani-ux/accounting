@@ -415,6 +415,13 @@ td {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+/* Reading issues are long text: their cells wrap, as the list did before it
+   took the record table (UX-3), instead of the rule above cutting them off. */
+.record-frame[data-reading-issues] table {
+  white-space: normal;
+  table-layout: fixed;
+  overflow-wrap: anywhere;
+}
 th {
   font-weight: 500;
   background: #f6f8fa;
@@ -2358,4 +2365,16 @@ td {
     gap: 6px;
     padding-inline: 6px;
   }
+}
+/* A money amount (components/amount.tsx): its own left-to-right run, never
+   wrapped, digits of one width. Labelled amounts sit on one line and wrap
+   between figures, never inside one. */
+.tarasuf-amount {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.tarasuf-figures {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
 }

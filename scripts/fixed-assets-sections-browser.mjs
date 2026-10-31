@@ -186,11 +186,16 @@ const WORDS = {
     },
   },
 };
+// The page writes an amount at the scope's decimals with grouped thousands
+// and the minus first; written here on its own, not taken from the
+// application.
 const minor = (v, decimals) => {
   const digits = String(Math.abs(v)).padStart(decimals + 1, '0');
-  const text = decimals
-    ? `${digits.slice(0, -decimals)}.${digits.slice(-decimals)}`
-    : digits;
+  const whole = (decimals ? digits.slice(0, -decimals) : digits).replace(
+    /\B(?=(\d{3})+(?!\d))/gu,
+    ',',
+  );
+  const text = decimals ? `${whole}.${digits.slice(-decimals)}` : whole;
   return v < 0 ? `-${text}` : text;
 };
 
@@ -318,8 +323,11 @@ async function load(page, fas, c, lang = 'en') {
 async function rows(fas, pager, selector, dense) {
   const found = [];
   const bar = fas.locator(`[data-fas-pager="${pager}"]`);
+  // The shared pager names the page, then the number of pages (UX-3).
   const pages = (await bar.count())
-    ? Number(/\/\s*(\d+)/.exec(await bar.locator('span').textContent())[1])
+    ? Number(
+        /(\d+)\D+(\d+)/u.exec(await bar.locator('output').textContent())[2],
+      )
     : 1;
   for (let page = 0; page < pages; page++) {
     if (!dense || page === 0 || page === pages - 1)

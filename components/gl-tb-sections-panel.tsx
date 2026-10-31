@@ -1,4 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import {
+  Fragment,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
+import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
@@ -14,89 +22,17 @@ import {
   type GlsScope,
 } from '@/lib/reconciliation/gl-tb-sections';
 import { glTbSectionsCopy } from '@/lib/i18n/gl-tb-sections';
-import './intercompany-batch-panel.css';
+import { RecordTable } from '@/components/record-table';
+import './review-section.css';
+import { ClosedReason } from './decision-platform';
 
 type Picked = { file: SourceFile; confirmed: boolean };
 type Field = (typeof GLS_SCOPE_FIELDS)[number];
-// Minor units shown with the run currency's decimals; never a float sum.
-function minorText(value: number, decimals: number) {
-  const digits = String(value).padStart(decimals + 1, '0');
-  return decimals
-    ? `${digits.slice(0, -decimals)}.${digits.slice(-decimals)}`
-    : digits;
-}
 const blankScope = () =>
   Object.fromEntries(GLS_SCOPE_FIELDS.map((k) => [k, ''])) as Record<
     Field,
     string
   >;
-
-function Paged({
-  headers,
-  rows,
-  label,
-  marks,
-  pager,
-}: {
-  headers: string[];
-  rows: string[][];
-  label: string;
-  marks?: Record<string, string>[];
-  pager?: string;
-}) {
-  const { lang } = useI18n();
-  const copy = glTbSectionsCopy[lang];
-  const [page, setPage] = useState(0);
-  const pages = Math.max(1, Math.ceil(rows.length / 50)),
-    safe = Math.min(page, pages - 1);
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table aria-label={label}>
-          <thead>
-            <tr>
-              {headers.map((h) => (
-                <th key={h}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i} {...marks?.[safe * 50 + i]}>
-                {row.map((v, j) => (
-                  <td key={j}>
-                    <bdi>{v}</bdi>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {pages > 1 && (
-        <div className="gl-tb-actions" data-gls-pager={pager}>
-          <Button
-            variant="outline"
-            disabled={!safe}
-            onClick={() => setPage(safe - 1)}
-          >
-            {copy.previous}
-          </Button>
-          <span>
-            {safe + 1} / {pages} · {rows.length}
-          </span>
-          <Button
-            variant="outline"
-            disabled={safe + 1 >= pages}
-            onClick={() => setPage(safe + 1)}
-          >
-            {copy.next}
-          </Button>
-        </div>
-      )}
-    </>
-  );
-}
 
 export function GlTbSectionsPanel() {
   const { lang } = useI18n();
@@ -156,6 +92,7 @@ export function GlTbSectionsPanel() {
     setResult(null);
     setError('');
   };
+  const checkWhy = useId();
   const ready = !!gl?.confirmed && !!tb?.confirmed && scopeConfirmed;
   function check() {
     const input: GlsInput = {
@@ -227,20 +164,25 @@ export function GlTbSectionsPanel() {
       </label>
     </fieldset>
   );
-  const show = (a: GlsAccount, decimals: number) => {
+  // Each component's GL and TB amounts at the run currency's decimals,
+  // through the shared component.
+  const show = (a: GlsAccount, decimals: number): ReactNode => {
     if (!a.gl && !a.tb) return '';
     const side = (v: number[] | null, i: number) =>
-      v ? minorText(v[i], decimals) : '—';
+      v ? <Amount minor={v[i]} decimals={decimals} /> : '—';
     const fields =
       a.status === 'difference'
         ? GLS_COMPONENTS.filter((c) => a.codes.includes(c))
         : GLS_COMPONENTS;
-    return fields
-      .map((c) => {
-        const i = GLS_COMPONENTS.indexOf(c);
-        return `${copy.components[c]}: ${side(a.gl, i)} · ${side(a.tb, i)}`;
-      })
-      .join('; ');
+    return fields.map((c, n) => {
+      const i = GLS_COMPONENTS.indexOf(c);
+      return (
+        <Fragment key={c}>
+          {n > 0 && '; '}
+          {copy.components[c]}: {side(a.gl, i)} · {side(a.tb, i)}
+        </Fragment>
+      );
+    });
   };
   const where = (a: GlsAccount) =>
     [
@@ -305,7 +247,11 @@ export function GlTbSectionsPanel() {
           </label>
         </fieldset>
         <div className="gl-tb-actions workspace-run-actions">
-          <Button disabled={busy || !ready} onClick={check}>
+          <Button
+            disabled={busy || !ready}
+            aria-describedby={checkWhy}
+            onClick={check}
+          >
             {copy.check}
           </Button>
           {busy && (
@@ -314,6 +260,12 @@ export function GlTbSectionsPanel() {
             </Button>
           )}
         </div>
+        <ClosedReason
+          id={checkWhy}
+          closed={!ready}
+          waits="check"
+          label={copy.check}
+        />
         {error && (
           <p role="alert" data-gls-error>
             {error}
@@ -339,9 +291,9 @@ export function GlTbSectionsPanel() {
             <p data-gls-counts>
               {counts.map(([k, n]) => `${copy.status[k]}: ${n}`).join(' · ')}
             </p>
-            <Paged
+            <RecordTable
               label={copy.accounts}
-              pager="accounts"
+              pager={{ 'data-gls-pager': 'accounts' }}
               headers={copy.headers}
               rows={result.accounts.map((a) => [
                 a.account,
@@ -368,7 +320,7 @@ export function GlTbSectionsPanel() {
                   .join(' ')}
               >
                 <h3>{copy.excludedSections}</h3>
-                <Paged
+                <RecordTable
                   label={copy.excludedSections}
                   headers={copy.listHeaders}
                   rows={result.excludedSections.map((s) => [
@@ -385,7 +337,7 @@ export function GlTbSectionsPanel() {
                   .join(' ')}
               >
                 <h3>{copy.excludedPages}</h3>
-                <Paged
+                <RecordTable
                   label={copy.excludedPages}
                   headers={copy.listHeaders}
                   rows={result.excludedPages.map((p) => [
@@ -398,7 +350,7 @@ export function GlTbSectionsPanel() {
             {result.orphanTotals.length > 0 && (
               <section data-gls-orphans={result.orphanTotals.length}>
                 <h3>{copy.orphans}</h3>
-                <Paged
+                <RecordTable
                   label={copy.orphans}
                   headers={copy.orphanHeaders}
                   rows={result.orphanTotals.map((t) => [t.key, String(t.row)])}
@@ -411,7 +363,7 @@ export function GlTbSectionsPanel() {
             {result.unplaced.length > 0 && (
               <section data-gls-unplaced={result.unplaced.length}>
                 <h3>{copy.unplaced}</h3>
-                <Paged
+                <RecordTable
                   label={copy.unplaced}
                   headers={copy.unplacedHeaders}
                   rows={result.unplaced.map((u) => [

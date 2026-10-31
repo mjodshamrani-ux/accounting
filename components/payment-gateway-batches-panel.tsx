@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
+import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
@@ -14,7 +15,9 @@ import {
 } from '@/lib/reconciliation/payment-gateway-batches';
 import type { GatewayBatchesReplayInput } from '@/lib/reconciliation/payment-gateway-batches-io';
 import { paymentGatewayBatchesCopy } from '@/lib/i18n/payment-gateway-batches';
-import './intercompany-batch-panel.css';
+import { RecordTable } from '@/components/record-table';
+import './review-section.css';
+import { ClosedReason } from './decision-platform';
 
 type Picked = {
   name: string;
@@ -23,87 +26,11 @@ type Picked = {
   confirmed: boolean;
 };
 type ScopeKey = (typeof PG_BATCHES_SCOPE_FIELDS)[number];
-const PAGE = 50;
-// Integer minor units as the engine returns them, shown with the scope
-// currency's decimals; never a float.
-function minorText(value: number, decimals: number) {
-  const digits = String(value).padStart(decimals + 1, '0');
-  return decimals
-    ? `${digits.slice(0, -decimals)}.${digits.slice(-decimals)}`
-    : digits;
-}
 const blankScope = () =>
   Object.fromEntries(PG_BATCHES_SCOPE_FIELDS.map((k) => [k, ''])) as Record<
     ScopeKey,
     string
   >;
-
-function Paged({
-  headers,
-  rows,
-  label,
-  marks,
-  pager,
-}: {
-  headers: string[];
-  rows: string[][];
-  label: string;
-  marks: Record<string, string>[];
-  pager: string;
-}) {
-  const { lang } = useI18n();
-  const copy = paymentGatewayBatchesCopy[lang];
-  const [page, setPage] = useState(0);
-  const pages = Math.max(1, Math.ceil(rows.length / PAGE)),
-    safe = Math.min(page, pages - 1);
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table aria-label={label}>
-          <thead>
-            <tr>
-              {headers.map((h) => (
-                <th key={h}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * PAGE, safe * PAGE + PAGE).map((row, i) => (
-              <tr key={i} {...marks[safe * PAGE + i]}>
-                {row.map((v, j) => (
-                  <td key={j}>
-                    <bdi>{v}</bdi>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {pages > 1 && (
-        <div className="gl-tb-actions" data-pgb-pager={pager}>
-          <Button
-            variant="outline"
-            disabled={!safe}
-            onClick={() => setPage(safe - 1)}
-          >
-            {copy.previous}
-          </Button>
-          <span>
-            {safe + 1} / {pages} · {rows.length}
-          </span>
-          <Button
-            variant="outline"
-            disabled={safe + 1 >= pages}
-            onClick={() => setPage(safe + 1)}
-          >
-            {copy.next}
-          </Button>
-        </div>
-      )}
-    </>
-  );
-}
 
 export function PaymentGatewayBatchesPanel() {
   const { lang } = useI18n();
@@ -166,6 +93,7 @@ export function PaymentGatewayBatchesPanel() {
     setRefused('');
     setError('');
   };
+  const checkWhy = useId();
   const ready = files.every((f) => f?.confirmed) && scopeConfirmed;
   function check() {
     const input: GatewayBatchesReplayInput = {
@@ -207,7 +135,17 @@ export function PaymentGatewayBatchesPanel() {
     );
   }
   const decimals = result?.decimals ?? 2;
-  const amount = (minor: number) => minorText(minor, decimals);
+  // Integer minor units as the engine returns them, read at the scope
+  // currency's decimals through the shared component; a pair is the batch's
+  // own figure beside the settlement's.
+  const amount = (minor: number) => (
+    <Amount minor={minor} decimals={decimals} />
+  );
+  const pair = (own: number, settled: number) => (
+    <>
+      {amount(own)} / {amount(settled)}
+    </>
+  );
   const rowList = (rows: number[]) =>
     rows.length ? rows.join(copy.list) : copy.none;
   const reasons = (codes: string[]) =>
@@ -358,7 +296,11 @@ export function PaymentGatewayBatchesPanel() {
           </label>
         </fieldset>
         <div className="gl-tb-actions workspace-run-actions">
-          <Button disabled={busy || !ready} onClick={check}>
+          <Button
+            disabled={busy || !ready}
+            aria-describedby={checkWhy}
+            onClick={check}
+          >
             {copy.check}
           </Button>
           {busy && (
@@ -367,6 +309,12 @@ export function PaymentGatewayBatchesPanel() {
             </Button>
           )}
         </div>
+        <ClosedReason
+          id={checkWhy}
+          closed={!ready}
+          waits="check"
+          label={copy.check}
+        />
         {error && (
           <p role="alert" data-pgb-error>
             {error}
@@ -383,9 +331,9 @@ export function PaymentGatewayBatchesPanel() {
                 <h4>
                   {copy.errorsTitle} ({result.errors.length})
                 </h4>
-                <Paged
+                <RecordTable
                   label={copy.errorsTitle}
-                  pager="errors"
+                  pager={{ 'data-pgb-pager': 'errors' }}
                   headers={copy.errorHeaders}
                   rows={result.errors.map((e) => [
                     `${copy.roles[e.source]} · ${result.sources[e.source].name}`,
@@ -436,16 +384,16 @@ export function PaymentGatewayBatchesPanel() {
             <h3>
               {copy.batchesTitle} ({result.batches.length})
             </h3>
-            <Paged
+            <RecordTable
               label={copy.batchesTitle}
-              pager="batches"
+              pager={{ 'data-pgb-pager': 'batches' }}
               headers={copy.batchHeaders}
               rows={result.batches.map((b) => [
                 b.batch,
                 String(b.row),
-                `${amount(b.components.sales)} / ${amount(b.settlement.gross)}`,
-                `${amount(b.components.refunds)} / ${amount(b.settlement.refunds)}`,
-                `${amount(b.components.fees)} / ${amount(b.settlement.fees)}`,
+                pair(b.components.sales, b.settlement.gross),
+                pair(b.components.refunds, b.settlement.refunds),
+                pair(b.components.fees, b.settlement.fees),
                 amount(b.settlement.net),
                 amount(b.paid),
                 b.payouts.length ? b.payouts.join(copy.list) : copy.none,
@@ -464,9 +412,9 @@ export function PaymentGatewayBatchesPanel() {
             <h3>
               {copy.payoutsTitle} ({result.payouts.length})
             </h3>
-            <Paged
+            <RecordTable
               label={copy.payoutsTitle}
-              pager="payouts"
+              pager={{ 'data-pgb-pager': 'payouts' }}
               headers={copy.payoutHeaders}
               rows={result.payouts.map((p) => [
                 p.payout,
@@ -490,9 +438,9 @@ export function PaymentGatewayBatchesPanel() {
                 <h3>
                   {copy.creditsTitle} ({result.credits.length})
                 </h3>
-                <Paged
+                <RecordTable
                   label={copy.creditsTitle}
-                  pager="credits"
+                  pager={{ 'data-pgb-pager': 'credits' }}
                   headers={copy.creditHeaders}
                   rows={result.credits.map((c) => [
                     String(c.row),

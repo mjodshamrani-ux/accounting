@@ -57,11 +57,12 @@ import { SplitSectionReview } from '@/components/split-section-review';
 import { RunningBalanceReview } from '@/components/running-balance-review';
 import { APP_VERSION } from '@/lib/brand';
 import { TransactionReview } from '@/components/transaction-review';
+import { useDecisionFocus } from '@/components/decision-platform';
 import { PdfReview } from '@/components/pdf-review';
 import type { AuditEvent } from '@/lib/reconciliation/types';
 import { AccountingAssistant } from '@/components/accounting-assistant';
 import { LanguageSwitcher } from '@/components/language-switcher';
-import { BackArrow, ForwardArrow } from '@/components/direction';
+import { ForwardArrow } from '@/components/direction';
 import { useI18n } from '@/lib/i18n/context';
 import type { Messages } from '@/lib/i18n/messages';
 import {
@@ -75,6 +76,7 @@ import {
   useCallback,
   useEffect,
   useEffectEvent,
+  useId,
   useMemo,
   useRef,
   useState,
@@ -125,10 +127,12 @@ import {
   TableCell,
 } from '@/components/ui/table';
 import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-} from '@/components/ui/pagination';
+  RecordFields,
+  RecordFrame,
+  RecordPager,
+  RecordRows,
+} from '@/components/record-table';
+import { recordPage } from '@/lib/record-page';
 import { workerTask, prepareWorker } from '@/lib/reconciliation/client';
 import type { ProcessingProgress } from '@/lib/reconciliation/processing-progress';
 import {
@@ -319,97 +323,90 @@ function ReadingIssueList({
     setPageBinding(issueBinding);
     setPage(0);
   }
-  const current = Math.min(
-    page,
-    Math.max(0, Math.ceil(issues.length / 10) - 1),
-  );
-  const offset = current * 10;
   if (!issues.length) return null;
+  // Ten issues a page, as this list has always shown: each one is several
+  // lines tall (UX-3).
   return (
     <details className="panel stack">
       <summary>{r.show(issues.length)}</summary>
-      <div className="preview" style={{ maxHeight: 440 }}>
-        <table
-          aria-label={r.table}
-          style={{
-            whiteSpace: 'normal',
-            tableLayout: 'fixed',
-            overflowWrap: 'anywhere',
-          }}
-        >
-          <thead>
-            <tr>
-              <th>{r.source}</th>
-              <th>{r.location}</th>
-              <th>{r.reason}</th>
-              <th>{r.original}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {issues.slice(offset, offset + 10).map((issue, index) => (
-              <tr key={`${issue.side}:${issue.row}:${offset + index}`}>
-                <td>
-                  {t.app.sides[issue.side === 'supplier' ? 0 : 1]}
-                  <br />
-                  <bdi>{issue.file}</bdi>
-                  <br />
-                  <bdi>{issue.sheet}</bdi>
-                </td>
-                <td>
-                  {issue.kind === 'source'
-                    ? r.sourceWide
-                    : issue.kind === 'balance'
-                      ? r.balance
-                      : r.row(issue.row!)}
-                  {issue.page !== null && (
-                    <>
-                      <br />
-                      {r.page(issue.page)}
-                    </>
-                  )}
-                </td>
-                <td>{engineText(issue.reason)}</td>
-                <td>
-                  <bdi
-                    style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}
-                  >
-                    {issue.values.length
-                      ? JSON.stringify(issue.values)
-                      : r.noOriginal}
-                  </bdi>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="actions">
-        <Button
-          variant="outline"
-          size="sm"
-          disabled={current === 0}
-          onClick={() => setPage(current - 1)}
-        >
-          {r.previous}
-        </Button>
-        <span>
-          {r.range(
-            offset + 1,
-            Math.min(offset + 10, issues.length),
-            issues.length,
-          )}
-        </span>
-        <Button
-          variant="outline"
-          size="sm"
-          disabled={offset + 10 >= issues.length}
-          onClick={() => setPage(current + 1)}
-        >
-          {r.next}
-        </Button>
-      </div>
+      <RecordRows
+        label={r.table}
+        headers={[r.source, r.location, r.reason, r.original]}
+        rows={issues}
+        size={10}
+        frame={{ 'data-reading-issues': '' }}
+        page={page}
+        onPage={setPage}
+        cells={(issue) => [
+          <>
+            {t.app.sides[issue.side === 'supplier' ? 0 : 1]}
+            <br />
+            <bdi>{issue.file}</bdi>
+            <br />
+            <bdi>{issue.sheet}</bdi>
+          </>,
+          <>
+            {issue.kind === 'source'
+              ? r.sourceWide
+              : issue.kind === 'balance'
+                ? r.balance
+                : r.row(issue.row!)}
+            {issue.page !== null && (
+              <>
+                <br />
+                {r.page(issue.page)}
+              </>
+            )}
+          </>,
+          engineText(issue.reason),
+          issue.values.length ? (
+            <RecordFields key="original" values={issue.values} />
+          ) : (
+            r.noOriginal
+          ),
+        ]}
+      />
     </details>
   );
+}
+
+// The cases a results tab lists, each by its first member, as the search
+// narrows them: the list itself, and where a transaction stands in it after a
+// decision taken in its review.
+function caseRows(result: Comparison | null, tab: string, query: string) {
+  if (!result) return [];
+  const visibleCases = result.cases.filter((c) =>
+    tab === 'matches'
+      ? c.status === 'Matched'
+      : tab === 'ambiguities'
+        ? c.status === 'Needs Review' || c.status === 'Rejected'
+        : c.status === 'Unmatched',
+  );
+  const q = query.trim().toLowerCase();
+  return visibleCases
+    .filter(
+      (c) =>
+        !q ||
+        [
+          c.caseId,
+          ...c.supplierMembers.flatMap((t) => [
+            t.reference,
+            t.documentReference,
+            t.description,
+            String(t.row),
+          ]),
+          ...c.ledgerMembers.flatMap((t) => [
+            t.reference,
+            t.documentReference,
+            t.description,
+            String(t.row),
+          ]),
+        ]
+          .join(' ')
+          .toLowerCase()
+          .includes(q),
+    )
+    .map((c) => c.supplierMembers[0] ?? c.ledgerMembers[0]);
 }
 
 export default function App() {
@@ -803,6 +800,13 @@ export default function App() {
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(0);
   const [selected, setSelected] = useState('');
+  // A decision taken in a transaction's review, or closing the review,
+  // returns the focus to that transaction in the list, on its page, or to
+  // the list when the decision moved it out of the tab shown (UX-3).
+  const settleCase = useDecisionFocus();
+  const caseRow = useId(),
+    caseList = useId();
+  const decidedCase = useRef('');
   const [privacy, setPrivacy] = useState(false);
   const [resetOpen, setResetOpen] = useState(false);
   const job = useRef<{ id: number; controller: AbortController } | null>(null);
@@ -1293,11 +1297,18 @@ export default function App() {
       },
     );
   }
+  function returnToCase(id: string, list: ReturnType<typeof caseRows>) {
+    const at = list.findIndex((tx) => tx.id === id);
+    setPage(at < 0 ? 0 : Math.floor(at / 30));
+    settleCase(at < 0 ? caseList : `${caseRow}-${at}`);
+  }
   async function reconcile(
     nextDecisions = decisions,
     nextRejected = rejected,
     event?: Omit<AuditEvent, 'time'>,
   ) {
+    const decided = decidedCase.current;
+    decidedCase.current = '';
     await task(
       uiText((m) => m.app.tasks.reconcile),
       async (signal, alive) => {
@@ -1376,7 +1387,8 @@ export default function App() {
         setReview((v) => ({ ...v, checked: false }));
         setStep(2);
         setSelected('');
-        setPage(0);
+        if (decided) returnToCase(decided, caseRows(r, tab, query));
+        else setPage(0);
       },
     );
   }
@@ -1543,42 +1555,20 @@ export default function App() {
     () => new Map(result?.matches.map((m) => [m.supplierId, m]) ?? []),
     [result],
   );
-  const rows = useMemo(() => {
-    if (!result) return [];
-    const visibleCases = result.cases.filter((c) =>
+  const rows = useMemo(
+    () => caseRows(result, tab, query),
+    [result, tab, query],
+  );
+  // The case list is named after the tab it shows, and pages through the
+  // record kit thirty cases at a time, as it always has (UX-3).
+  const listName = `${t.app.results.workspace} · ${
       tab === 'matches'
-        ? c.status === 'Matched'
+        ? t.app.results.tabMatched
         : tab === 'ambiguities'
-          ? c.status === 'Needs Review' || c.status === 'Rejected'
-          : c.status === 'Unmatched',
-    );
-    const q = query.trim().toLowerCase();
-    const tx = visibleCases
-      .filter(
-        (c) =>
-          !q ||
-          [
-            c.caseId,
-            ...c.supplierMembers.flatMap((t) => [
-              t.reference,
-              t.documentReference,
-              t.description,
-              String(t.row),
-            ]),
-            ...c.ledgerMembers.flatMap((t) => [
-              t.reference,
-              t.documentReference,
-              t.description,
-              String(t.row),
-            ]),
-          ]
-            .join(' ')
-            .toLowerCase()
-            .includes(q),
-      )
-      .map((c) => c.supplierMembers[0] ?? c.ledgerMembers[0]);
-    return tx;
-  }, [result, tab, query]);
+          ? t.app.results.tabReview(result?.caseCounts.needsReviewCases ?? 0)
+          : t.app.results.tabUnmatched
+    }`,
+    listShown = recordPage(rows.length, page, 30);
   const startSyntheticDemo = useEffectEvent(() => {
     if (files.some(Boolean) || busy)
       throw new Error('Cannot replace an active session');
@@ -2774,7 +2764,9 @@ export default function App() {
                       <section className="surface">
                         <div className="section-heading">
                           <div>
-                            <h2>{t.app.results.workspace}</h2>
+                            <h2 id={caseList} tabIndex={-1}>
+                              {t.app.results.workspace}
+                            </h2>
                             <p>{t.app.results.workspaceIntro}</p>
                           </div>
                           <Button
@@ -2830,8 +2822,12 @@ export default function App() {
                             </div>
                           </div>
                         </div>
-                        <div style={{ overflowX: 'auto' }}>
-                          <Table>
+                        <RecordFrame name={listName} className="results-frame">
+                          <table
+                            data-slot="table"
+                            className="w-full caption-bottom text-sm"
+                            aria-label={listName}
+                          >
                             <TableHeader>
                               <TableRow>
                                 {t.app.results.columns.map((h, i) => (
@@ -2841,8 +2837,8 @@ export default function App() {
                             </TableHeader>
                             <TableBody>
                               {rows
-                                .slice(page * 30, (page + 1) * 30)
-                                .map((tx) => {
+                                .slice(listShown.from, listShown.to)
+                                .map((tx, i) => {
                                   const activeCase = result.cases.find((c) =>
                                     c.sourceTrace.some(
                                       (trace) => trace.sourceRowId === tx.id,
@@ -2913,6 +2909,7 @@ export default function App() {
                                         <Button
                                           size="sm"
                                           variant="outline"
+                                          id={`${caseRow}-${listShown.from + i}`}
                                           disabled={!!busy}
                                           onClick={() => setSelected(tx.id)}
                                         >
@@ -2932,46 +2929,20 @@ export default function App() {
                                   );
                                 })}
                             </TableBody>
-                          </Table>
-                        </div>
+                          </table>
+                        </RecordFrame>
                         {!rows.length && (
                           <div className="empty">{t.app.results.empty}</div>
                         )}
                         <div className="surface-footer">
-                          <span>
-                            {t.app.results.pageSummary(
-                              rows.length,
-                              page + 1,
-                              Math.max(1, Math.ceil(rows.length / 30)),
-                            )}
-                          </span>
-                          <Pagination
-                            aria-label={t.app.results.pagination}
-                            style={{ width: 'auto', margin: 0 }}
-                          >
-                            <PaginationContent>
-                              <PaginationItem>
-                                <Button
-                                  variant="ghost"
-                                  aria-label={t.app.results.previousPage}
-                                  disabled={page === 0}
-                                  onClick={() => setPage((p) => p - 1)}
-                                >
-                                  <BackArrow size={16} />
-                                </Button>
-                              </PaginationItem>
-                              <PaginationItem>
-                                <Button
-                                  variant="ghost"
-                                  aria-label={t.app.results.nextPage}
-                                  disabled={(page + 1) * 30 >= rows.length}
-                                  onClick={() => setPage((p) => p + 1)}
-                                >
-                                  <ForwardArrow size={16} />
-                                </Button>
-                              </PaginationItem>
-                            </PaginationContent>
-                          </Pagination>
+                          <span>{t.app.results.cases(rows.length)}</span>
+                          <RecordPager
+                            label={listName}
+                            length={rows.length}
+                            page={page}
+                            onPage={setPage}
+                            size={30}
+                          />
                         </div>
                       </section>
                       {selected && (
@@ -2980,14 +2951,22 @@ export default function App() {
                           result={result}
                           id={selected}
                           busy={!!busy}
-                          onClose={() => setSelected('')}
-                          onLink={(d) =>
+                          reviewed={auditEvents.some(
+                            (e) =>
+                              e.action === 'review' && e.ids.includes(selected),
+                          )}
+                          onClose={() => {
+                            returnToCase(selected, rows);
+                            setSelected('');
+                          }}
+                          onLink={(d) => {
+                            decidedCase.current = selected;
                             void reconcile([...decisions, d], rejected, {
                               action: 'link',
                               ids: [d.supplierId, d.ledgerId],
                               note: d.note,
-                            })
-                          }
+                            });
+                          }}
                           onUnlink={(a, b, note) => {
                             const match = result.matches.find(
                               (m) => m.supplierId === a && m.ledgerId === b,
@@ -3003,6 +2982,7 @@ export default function App() {
                                   ...(match.ledgerIds ?? [b]),
                                 ]
                               : [a, b];
+                            decidedCase.current = selected;
                             void reconcile(
                               decisions.filter((d) => d.supplierId !== a),
                               [...rejected, `${a}|${b}`],

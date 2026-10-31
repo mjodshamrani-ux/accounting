@@ -1,15 +1,23 @@
 import {
   useEffect,
+  useId,
   useMemo,
   useRef,
   useState,
   type CSSProperties,
   type ReactNode,
 } from 'react';
+import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useI18n } from '@/lib/i18n/context';
+import {
+  ClosedReason,
+  ReviewHint,
+  useDecisionFocus,
+  type ReviewNeed,
+} from '@/components/decision-platform';
 import {
   multilineSourceReviewCopy,
   multilineSourceReviewDemo,
@@ -88,6 +96,13 @@ export function MultilineSourceReview() {
   const [label, setLabel] = useState('');
   const [rationale, setRationale] = useState('');
   const [acknowledged, setAcknowledged] = useState(false);
+  const hint = useId(),
+    stateLine = useId(),
+    rereadWhy = useId(),
+    applyWhy = useId();
+  // A decision closes both its buttons; the focus goes to the line that
+  // states the review (UX-3).
+  const settle = useDecisionFocus();
   const mounted = useRef(true);
   const fileInput = useRef<HTMLInputElement>(null);
   useEffect(() => {
@@ -143,9 +158,21 @@ export function MultilineSourceReview() {
     !['reading', 'applying', 'applied'].includes(view.phase) &&
     !!label.trim() &&
     !!rationale.trim();
+  // The decision platform (UX-3): the sentence under the review says what a
+  // decision still needs; the state line says when the review itself is not
+  // open to one; and the closed rereading and application say what opens
+  // them.
+  const needs: ReviewNeed[] = [
+    ...(label.trim() ? [] : [{ field: t.reviewer }]),
+    ...(rationale.trim() ? [] : [{ field: t.rationale }]),
+  ];
+  const acceptNeeds: ReviewNeed[] = acknowledged
+    ? []
+    : [{ confirmation: t.acknowledge }];
   function decide(decision: 'accept' | 'reject') {
     controller.recordReview(label, rationale, acknowledged, decision);
     refresh();
+    settle(stateLine);
   }
   function download() {
     if (!view.applied) return;
@@ -237,6 +264,7 @@ export function MultilineSourceReview() {
               style={reviewButtonStyle}
               variant="outline"
               data-source-review-reread
+              aria-describedby={rereadWhy}
               disabled={!view.originalSha256}
               onClick={() => {
                 resetReviewer();
@@ -246,8 +274,21 @@ export function MultilineSourceReview() {
               {t.reread}
             </Button>
           </div>
+          <ClosedReason
+            id={rereadWhy}
+            closed={!view.originalSha256}
+            waits="step"
+            label={t.reread}
+            step={t.rereadWaits}
+          />
           {view.synthetic && <p data-source-review-synthetic>{t.synthetic}</p>}
-          <output aria-live="polite" data-source-review-state={view.phase}>
+          <output
+            id={stateLine}
+            tabIndex={-1}
+            aria-live="polite"
+            data-decision-state
+            data-source-review-state={view.phase}
+          >
             {t[view.phase]}
           </output>
           {view.reason && (
@@ -372,6 +413,7 @@ export function MultilineSourceReview() {
                 <span>{t.reviewer}</span>
                 <Input
                   aria-label={t.reviewer}
+                  aria-describedby={hint}
                   data-source-review-reviewer
                   value={label}
                   maxLength={120}
@@ -385,6 +427,7 @@ export function MultilineSourceReview() {
                 <span>{t.rationale}</span>
                 <Textarea
                   aria-label={t.rationale}
+                  aria-describedby={hint}
                   data-source-review-rationale
                   value={rationale}
                   maxLength={1000}
@@ -406,10 +449,12 @@ export function MultilineSourceReview() {
                 />
                 <span>{t.acknowledge}</span>
               </label>
+              <ReviewHint id={hint} needs={needs} acceptNeeds={acceptNeeds} />
               <div className="actions">
                 <Button
                   style={reviewButtonStyle}
                   data-source-review-accept
+                  aria-describedby={`${hint} ${stateLine}`}
                   disabled={!canReview || !acknowledged}
                   onClick={() => decide('accept')}
                 >
@@ -419,6 +464,7 @@ export function MultilineSourceReview() {
                   style={reviewButtonStyle}
                   variant="outline"
                   data-source-review-reject
+                  aria-describedby={`${hint} ${stateLine}`}
                   disabled={!canReview}
                   onClick={() => decide('reject')}
                 >
@@ -427,12 +473,22 @@ export function MultilineSourceReview() {
                 <Button
                   style={reviewButtonStyle}
                   data-source-review-apply
+                  aria-describedby={`${applyWhy} ${stateLine}`}
                   disabled={view.phase !== 'approved'}
                   onClick={() => void run(controller.apply())}
                 >
                   {t.apply}
                 </Button>
               </div>
+              <ClosedReason
+                id={applyWhy}
+                closed={
+                  !['approved', 'applying', 'applied'].includes(view.phase)
+                }
+                waits="step"
+                label={t.apply}
+                step={t.applyWaits}
+              />
               {view.reviewer && (
                 <p
                   data-source-review-recorded-review
@@ -452,9 +508,16 @@ export function MultilineSourceReview() {
                 <bdi>{view.applied.engine.originalAmount} SAR</bdi>
               </p>
               <p>
-                {t.minor}:{' '}
-                <bdi data-source-review-minor>
-                  {view.applied.engine.amountMinor}
+                {t.amount}:{' '}
+                <bdi
+                  dir="ltr"
+                  data-source-review-minor={view.applied.engine.amountMinor}
+                >
+                  <Amount
+                    minor={view.applied.engine.amountMinor}
+                    decimals={2}
+                  />{' '}
+                  SAR
                 </bdi>
               </p>
               <p className="muted">{t.boundary}</p>

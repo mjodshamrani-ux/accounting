@@ -1,6 +1,9 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { BankAdjustmentWorkspace } from './bank-adjustment-workspace';
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
+import { useResultFocus } from '@/components/result-focus';
+import { useDecisionFocus } from '@/components/decision-platform';
+import { RecordRows } from '@/components/record-table';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -20,6 +23,7 @@ import {
   useBankStatement,
 } from './bank-statement-workspace';
 import { workspaceCopy } from '@/lib/i18n/workspace';
+import { pageOfRow } from '@/lib/record-page';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
 import { money } from '@/lib/reconciliation/core';
@@ -38,7 +42,7 @@ import {
   bankDemoReadings,
   bankDemoScope,
 } from '@/lib/reconciliation/bank-demo';
-import './gl-tb-workspace.css';
+import './workspace-record.css';
 import './bank-workspace.css';
 const freshScope = (): BankScope => ({
   ...bankDemoScope,
@@ -158,6 +162,13 @@ export function BankWorkspace({
     setReference('');
     setNote('');
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
   async function perform(work: (signal: AbortSignal) => Promise<void>) {
     const id = ++serial.current,
       control = new AbortController();
@@ -205,6 +216,11 @@ export function BankWorkspace({
       invalidate();
     });
   }
+  // The decision platform (UX-3): after a decision the focus returns to
+  // the case it changed, on the page that shows it, not to the page.
+  const caseRow = useId(),
+    settle = useDecisionFocus();
+  const caseAt = (at: number) => `${caseRow}-${at}`;
   async function decide(
     type: BankEvent['type'],
     bankIds: string[],
@@ -231,64 +247,39 @@ export function BankWorkspace({
       setResult(next.result);
       setBankId('');
       setCashId('');
+      const member = bankIds[0] ?? cashIds[0],
+        at = next.result.cases.findIndex(
+          (g) => g.bankIds.includes(member) || g.cashIds.includes(member),
+        );
+      if (at < 0) return;
+      setPages((p) => ({ ...p, cases: pageOfRow(at) }));
+      settle(caseAt(at));
     });
   }
-  // Each table pages on its own, as the printed statement tables do, so
-  // turning one table's page leaves the others where they are.
+  // Each table pages on its own through the record kit (UX-3), as the
+  // printed statement tables do, so turning one table's page leaves the
+  // others where they are. The pages are held here, so that the evidence can
+  // return the reader to its movement's page.
   function table<T>(
     name: string,
     title: string,
     headers: string[],
     data: T[],
-    cells: (r: T) => ReactNode[],
+    cells: (r: T, at: number) => ReactNode[],
+    target?: (r: T, at: number) => string,
   ) {
-    const count = Math.max(1, Math.ceil(data.length / 50)),
-      at = Math.min(pages[name] ?? 0, count - 1),
-      turn = (to: number) => setPages((p) => ({ ...p, [name]: to }));
     return (
       <section className="bank-movement-table" data-bank-movement-table={name}>
         <h2>{title}</h2>
-        <div className="gl-tb-table">
-          <table>
-            <thead>
-              <tr>
-                {headers.map((h, i) => (
-                  <th key={i}>{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {data.slice(at * 50, (at + 1) * 50).map((r, i) => (
-                <tr key={at * 50 + i}>
-                  {cells(r).map((cell, c) => (
-                    <td key={c}>{cell}</td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        {count > 1 && (
-          <div className="gl-tb-actions">
-            <Button
-              variant="outline"
-              disabled={!at}
-              onClick={() => turn(at - 1)}
-            >
-              {t.previous}
-            </Button>
-            <span>
-              {at + 1} / {count}
-            </span>
-            <Button
-              variant="outline"
-              disabled={at + 1 >= count}
-              onClick={() => turn(at + 1)}
-            >
-              {t.next}
-            </Button>
-          </div>
-        )}
+        <RecordRows
+          label={title}
+          headers={headers}
+          rows={data}
+          cells={cells}
+          target={target}
+          page={pages[name] ?? 0}
+          onPage={(to) => setPages((p) => ({ ...p, [name]: to }))}
+        />
       </section>
     );
   }
@@ -346,7 +337,7 @@ export function BankWorkspace({
   function backToMovement() {
     const index = result?.records.findIndex((r) => r.id === evidenceId) ?? -1;
     if (index < 0) return;
-    setPages((p) => ({ ...p, movements: Math.floor(index / 50) }));
+    setPages((p) => ({ ...p, movements: pageOfRow(index) }));
     setFocusRequest({ to: 'row', id: evidenceId });
   }
   const locked = busy || balanceBusy || statement.busy;
@@ -377,7 +368,7 @@ export function BankWorkspace({
                       const sources: SourceFile[] = [];
                       for (const demo of bankDemo())
                         sources.push(await workerTask('read', demo, signal));
-                      install(
+                      shown(
                         await workerTask(
                           'bank-reconcile',
                           {
@@ -417,7 +408,7 @@ export function BankWorkspace({
                         }
                         setMode('movements');
                         return perform(async (signal) =>
-                          install(
+                          shown(
                             await workerTask(
                               'bank-restore',
                               { buffer },
@@ -611,7 +602,7 @@ export function BankWorkspace({
                   }
                   onClick={() =>
                     perform(async (signal) =>
-                      install(
+                      shown(
                         await workerTask('bank-reconcile', input(), signal),
                       ),
                     )
@@ -645,7 +636,14 @@ export function BankWorkspace({
           )}
           {mode === 'movements' && result && (
             <>
-              <h2 data-testid="bank-result">{t.status[result.status]}</h2>
+              <h2
+                data-testid="bank-result"
+                ref={resultHeading}
+                tabIndex={-1}
+                data-result-heading="result"
+              >
+                {t.status[result.status]}
+              </h2>
               <DomainEvidenceAssistant
                 result={result}
                 snapshot={() => ({ domain: 'bank', input: input(), result })}
@@ -706,6 +704,7 @@ export function BankWorkspace({
                   id={decisionHint}
                   className="bank-source-basis"
                   data-bank-decision-hint={hint}
+                  data-decision-hint={hint}
                 >
                   {t.decisionHint[hint]}
                 </p>
@@ -727,7 +726,7 @@ export function BankWorkspace({
                     t.undo,
                   ],
                   result.cases,
-                  (g) => [
+                  (g, at) => [
                     g.kind === 'reference' ? id(g.key) : t.caseKinds[g.kind],
                     t.caseKinds[g.kind],
                     g.policy ? t.policies[g.policy] : '',
@@ -743,6 +742,8 @@ export function BankWorkspace({
                     t.caseStatus[g.status],
                     <Button
                       key="approve"
+                      data-decision-action="accept"
+                      data-decision-target={caseAt(at)}
                       aria-describedby={decisionHint}
                       disabled={
                         !canDecide || !g.eligible || g.status !== 'needs-review'
@@ -754,6 +755,8 @@ export function BankWorkspace({
                     <Button
                       key="undo"
                       variant="outline"
+                      data-decision-action="undo"
+                      data-decision-target={caseAt(at)}
                       aria-describedby={decisionHint}
                       disabled={!canDecide || !g.status.startsWith('matched')}
                       onClick={() => decide('undo', g.bankIds, g.cashIds)}
@@ -761,6 +764,7 @@ export function BankWorkspace({
                       {t.undo}
                     </Button>,
                   ],
+                  (_, at) => caseAt(at),
                 )}
                 <section>
                   <h2>{t.manual}</h2>
@@ -796,6 +800,7 @@ export function BankWorkspace({
                     ))}
                   </div>
                   <Button
+                    data-decision-action="accept"
                     aria-describedby={decisionHint}
                     disabled={!canDecide || !bankId || !cashId}
                     onClick={() => decide('accept', [bankId], [cashId])}
@@ -852,49 +857,36 @@ export function BankWorkspace({
                     <Button variant="outline" onClick={backToMovement}>
                       {t.backToMovement}
                     </Button>
-                    <div className="gl-tb-table">
-                      <table>
-                        <thead>
-                          <tr>
-                            <th>{t.field}</th>
-                            <th>{t.column}</th>
-                            <th>{t.original}</th>
-                            {evidence.withdrawalDeposit && (
-                              <th>{t.cashCellState}</th>
-                            )}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {evidence.traces.map((c) => (
-                            <tr key={c.field}>
-                              <td>
-                                {
-                                  t.sourceFields[
-                                    c.field as keyof typeof t.sourceFields
+                    <RecordRows
+                      label={`${t.evidence} · ${evidence.reference}`}
+                      headers={[
+                        t.field,
+                        t.column,
+                        t.original,
+                        ...(evidence.withdrawalDeposit
+                          ? [t.cashCellState]
+                          : []),
+                      ]}
+                      rows={evidence.traces}
+                      cells={(c) => [
+                        t.sourceFields[c.field as keyof typeof t.sourceFields],
+                        c.column,
+                        c.text,
+                        ...(evidence.withdrawalDeposit
+                          ? [
+                              c.field === 'Withdrawal' || c.field === 'Deposit'
+                                ? t.cashCellStates[
+                                    evidence.withdrawalDeposit[
+                                      c.field === 'Withdrawal'
+                                        ? 'withdrawal'
+                                        : 'deposit'
+                                    ].state
                                   ]
-                                }
-                              </td>
-                              <td>{c.column}</td>
-                              <td>{c.text}</td>
-                              {evidence.withdrawalDeposit && (
-                                <td>
-                                  {c.field === 'Withdrawal' ||
-                                  c.field === 'Deposit'
-                                    ? t.cashCellStates[
-                                        evidence.withdrawalDeposit[
-                                          c.field === 'Withdrawal'
-                                            ? 'withdrawal'
-                                            : 'deposit'
-                                        ].state
-                                      ]
-                                    : ''}
-                                </td>
-                              )}
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
+                                : '',
+                            ]
+                          : []),
+                      ]}
+                    />
                   </section>
                 )}
                 <p>{t.retainedTiming}</p>

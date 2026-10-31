@@ -1,6 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useId, useMemo, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { RecordFrame, RecordPager } from '@/components/record-table';
+import { recordPage } from '@/lib/record-page';
 import { useI18n } from '@/lib/i18n/context';
 import {
   sourceStructureReviewCopy,
@@ -61,6 +63,9 @@ function SourceStructureReviewPanel({
   const { lang, engineText } = useI18n();
   const t = sourceStructureReviewCopy(lang);
   const controller = useMemo(() => new SourceStructureReviewController(), []);
+  // The inspection is described by the line that says a file is missing
+  // (UX-3).
+  const runWhy = useId();
   const binding = useMemo(
     () => ({ files, mappings, scope, extractionRevision }),
     [files, mappings, scope, extractionRevision],
@@ -186,6 +191,7 @@ function SourceStructureReviewPanel({
           className="h-auto max-w-full min-w-0 whitespace-normal text-start"
           type="button"
           onClick={() => void run()}
+          aria-describedby={runWhy}
           disabled={!files.every(Boolean) || !!current?.busy}
         >
           {t.run}
@@ -202,7 +208,7 @@ function SourceStructureReviewPanel({
           {t.clear}
         </Button>
       </div>
-      {!files.every(Boolean) && <p>{t.missing}</p>}
+      {!files.every(Boolean) && <p id={runWhy}>{t.missing}</p>}
       {current?.busy && <output>{t.busy}</output>}
       {result && (
         <>
@@ -427,52 +433,28 @@ function SourceStructureReviewPanel({
   );
 }
 
-/** Every row remains reachable, while rendering at most 100 rows at a time. */
+/** Every row remains reachable, while rendering at most 100 rows at a time,
+ * through the record kit's frame and pager (UX-3). */
 function PhysicalRows({ rows }: { rows: SectionContinuationReview['rows'] }) {
   const { lang } = useI18n();
   const t = sourceStructureReviewCopy(lang);
-  const [offset, setOffset] = useState(0);
+  const [page, setPage] = useState(0);
+  const { from, to } = recordPage(rows.length, page, 100);
   return (
     <details>
       <summary>
         {t.rows} ({rows.length})
       </summary>
-      <p>
-        <bdi>
-          {rows.length ? offset + 1 : 0}–{Math.min(offset + 100, rows.length)}
-        </bdi>{' '}
-        {t.of} {rows.length}
-      </p>
-      <div className="flex flex-wrap gap-2">
-        <Button
-          className="h-auto max-w-full min-w-0 whitespace-normal text-start"
-          type="button"
-          variant="outline"
-          disabled={!offset}
-          onClick={() => setOffset((n) => Math.max(0, n - 100))}
-        >
-          {t.previous}
-        </Button>
-        <Button
-          className="h-auto max-w-full min-w-0 whitespace-normal text-start"
-          type="button"
-          variant="outline"
-          disabled={offset + 100 >= rows.length}
-          onClick={() => setOffset((n) => n + 100)}
-        >
-          {t.next}
-        </Button>
-      </div>
-      <div className="overflow-auto">
-        <table className="w-full text-sm">
+      <RecordFrame name={t.rows}>
+        <table aria-label={t.rows}>
           <tbody>
-            {rows.slice(offset, offset + 100).map((r) => (
+            {rows.slice(from, to).map((r) => (
               <tr key={r.row} data-physical-row={r.row}>
-                <th>
+                <th scope="row">
                   {t.page} {r.page} · {t.row} {r.row}
                 </th>
                 {r.values.map((v, col) => (
-                  <td key={col} className="p-2">
+                  <td key={col}>
                     <bdi>{v}</bdi>
                   </td>
                 ))}
@@ -480,7 +462,14 @@ function PhysicalRows({ rows }: { rows: SectionContinuationReview['rows'] }) {
             ))}
           </tbody>
         </table>
-      </div>
+      </RecordFrame>
+      <RecordPager
+        label={t.rows}
+        length={rows.length}
+        page={page}
+        onPage={setPage}
+        size={100}
+      />
     </details>
   );
 }

@@ -1,6 +1,12 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { ClearingGroupsPanel } from './clearing-groups-panel';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
+import { useResultFocus } from '@/components/result-focus';
+import {
+  ClosedReason,
+  NoteHint,
+  useDecisionFocus,
+} from '@/components/decision-platform';
 import {
   WorkspaceHeader,
   WorkspaceIntro,
@@ -12,6 +18,9 @@ import {
 } from './workspace-chrome';
 import { Button } from './ui/button';
 import { useI18n } from '@/lib/i18n/context';
+import { decisionPlatformCopy } from '@/lib/i18n/decision-platform';
+import { clearingSelection, noteReady } from '@/lib/decision-platform';
+import { pageOfRow } from '@/lib/record-page';
 import { workerTask, prepareWorker } from '@/lib/reconciliation/client';
 import { money } from '@/lib/reconciliation/core';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
@@ -27,6 +36,7 @@ import {
   clearingDemoReading,
   clearingDemoScope,
 } from '@/lib/reconciliation/clearing-demo';
+import { RecordRows } from '@/components/record-table';
 import './clearing-workspace.css';
 
 const freshReading = (): ClearingReading => ({
@@ -68,7 +78,7 @@ export function ClearingWorkspace({
   active: boolean;
   onBack: () => void;
 }) {
-  const { t: catalogue } = useI18n();
+  const { t: catalogue, lang } = useI18n();
   const t = catalogue.clearing;
   const [file, setFile] = useState<SourceFile | null>(null),
     [reading, setReading] = useState(freshReading),
@@ -114,6 +124,15 @@ export function ClearingWorkspace({
     setSelected([]);
     setError(false);
   };
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
+  // An example that only loads sources takes the reader to what it loaded.
+  const { heading: loadedHeading, reveal: revealLoaded } = useResultFocus();
   async function perform(work: (signal: AbortSignal) => Promise<void>) {
     const id = ++serial.current;
     const control = new AbortController();
@@ -136,24 +155,37 @@ export function ClearingWorkspace({
   const input = (): ClearingInput => ({ file: file!, reading, scope, events });
   const check = () =>
     perform(async (signal) =>
-      install(await workerTask('clearing-reconcile', input(), signal)),
+      shown(await workerTask('clearing-reconcile', input(), signal)),
     );
+  // The decision platform (UX-3): a decision needs a review reason of eight
+  // characters, as the engine requires, and clearing by hand a selection
+  // the engine accepts; the sentence under the reason says which is
+  // missing. After a decision the focus returns to the group it changed,
+  // on the page that shows it, not to the page.
+  const hint = useId(),
+    caseRow = useId(),
+    exampleWhy = useId(),
+    settle = useDecisionFocus();
+  const rowAt = (at: number) => `${caseRow}-${at}`;
   const decide = (action: ClearingEvent['action'], ids: string[]) =>
-    perform(async (signal) =>
-      install(
-        await workerTask(
-          'clearing-reconcile',
-          {
-            ...input(),
-            events: [
-              ...events,
-              { context: result!.context, action, ids, note },
-            ],
-          },
-          signal,
-        ),
-      ),
-    );
+    perform(async (signal) => {
+      const value = await workerTask<{
+        state: ClearingInput;
+        result: ClearingResult;
+      }>(
+        'clearing-reconcile',
+        {
+          ...input(),
+          events: [...events, { context: result!.context, action, ids, note }],
+        },
+        signal,
+      );
+      install(value);
+      const at = value.result.cases.findIndex((c) => c.ids.includes(ids[0]));
+      if (at < 0) return;
+      setPage(pageOfRow(at));
+      settle(rowAt(at));
+    });
   async function upload(uploaded: File) {
     if (
       uploaded.size > MAX_FILE_BYTES ||
@@ -217,12 +249,21 @@ export function ClearingWorkspace({
   const owners = result
     ? new Map(result.rows.map((row) => [row.id, row]))
     : new Map();
+  const selection = clearingSelection(
+    selected.map((id) => owners.get(id)?.amount ?? Number.NaN),
+  );
+  // While the source has reading errors no member can be selected, and the
+  // engine clears nothing by hand: the sentence says so instead.
+  const wait = result?.inventory.some((r) => r.kind === 'error')
+    ? 'errors'
+    : selection;
   if (!active) return null;
   return (
     <>
       <main
         className="workspace clearing-workspace reconciliation-workspace"
         id="clearing"
+        aria-busy={busy}
       >
         <WorkspaceHeader
           onBack={onBack}
@@ -239,6 +280,7 @@ export function ClearingWorkspace({
               <Button
                 variant="outline"
                 disabled={busy || !!file}
+                aria-describedby={exampleWhy}
                 onClick={() =>
                   void perform(async (signal) => {
                     const f: SourceFile = await workerTask(
@@ -254,6 +296,7 @@ export function ClearingWorkspace({
                     setFile(f);
                     setReading({ ...clearingDemoReading });
                     setScope({ ...clearingDemoScope });
+                    revealLoaded();
                   })
                 }
               >
@@ -280,7 +323,7 @@ export function ClearingWorkspace({
                         );
                         if (!signal.aborted) {
                           invalidate();
-                          install(restored);
+                          shown(restored);
                         }
                       });
                     e.target.value = '';
@@ -288,6 +331,12 @@ export function ClearingWorkspace({
                 />
               </label>
             </div>
+            <ClosedReason
+              id={exampleWhy}
+              closed={!!file}
+              waits="example"
+              label={t.sample}
+            />
           </WorkspaceAdvanced>
           <WorkspaceSources primaryIndices={[0]} primaryReady={!!file}>
             <section className="workspace-source">
@@ -329,7 +378,9 @@ export function ClearingWorkspace({
         </section>
         {file && (
           <section className="surface pad stack">
-            <h2>{file.name}</h2>
+            <h2 ref={loadedHeading} tabIndex={-1} data-result-heading="loaded">
+              {file.name}
+            </h2>
             <fieldset disabled={busy}>
               <div className="clearing-grid">
                 <label>
@@ -474,7 +525,14 @@ export function ClearingWorkspace({
             className="surface pad stack"
             aria-labelledby="clearing-result-title"
           >
-            <h2 id="clearing-result-title">{t.results}</h2>
+            <h2
+              id="clearing-result-title"
+              ref={resultHeading}
+              tabIndex={-1}
+              data-result-heading="result"
+            >
+              {t.results}
+            </h2>
             <DomainEvidenceAssistant
               result={result}
               snapshot={() => ({ domain: 'clearing', input: input(), result })}
@@ -502,116 +560,90 @@ export function ClearingWorkspace({
               ))}
             </div>
             <p className="muted">{t.coverage}</p>
-            <div className="clearing-scroll">
-              <table>
-                <thead>
-                  <tr>
-                    <th>{t.members}</th>
-                    <th>{t.reference}</th>
-                    <th>{t.net}</th>
-                    <th>{t.status}</th>
-                    <th>{t.basis}</th>
-                    <th>{t.note}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {result.cases.slice(page * 50, (page + 1) * 50).map((c) => (
-                    <tr key={c.id} data-testid="clearing-case">
-                      <td>
-                        <label>
-                          <input
-                            type="checkbox"
-                            aria-label={`${t.members}: ${c.ids.map((id) => owners.get(id)?.posting).join(', ')}`}
-                            disabled={
-                              busy ||
-                              c.status === 'cleared' ||
-                              result.inventory.some((r) => r.kind === 'error')
-                            }
-                            checked={c.ids.every((id) => selected.includes(id))}
-                            onChange={(e) =>
-                              setSelected(
-                                e.target.checked
-                                  ? [...new Set([...selected, ...c.ids])]
-                                  : selected.filter(
-                                      (id) => !c.ids.includes(id),
-                                    ),
-                              )
-                            }
-                          />
-                          <bdi>
-                            {c.ids
-                              .map((id) => owners.get(id)?.posting)
-                              .join(', ')}
-                          </bdi>
-                        </label>
-                      </td>
-                      <td>
-                        <bdi>{c.reference || t.missing}</bdi>
-                      </td>
-                      <td>
-                        <bdi>{money(c.net, result.decimals)}</bdi>
-                      </td>
-                      <td>{c.status === 'cleared' ? t.cleared : t.review}</td>
-                      <td>
-                        {c.basis === 'explicit-reference'
-                          ? t.automatic
-                          : c.basis === 'human-decision'
-                            ? t.human
-                            : t.none}
-                        <p className="muted">{t.reason[c.reason]}</p>
-                      </td>
-                      <td>
-                        {c.note}
-                        {c.status === 'cleared' && (
-                          <Button
-                            variant="outline"
-                            disabled={busy || note.trim().length < 8}
-                            onClick={() => void decide('reopen', c.ids)}
-                          >
-                            {t.reopen}
-                          </Button>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="clearing-actions">
-              <Button
-                variant="outline"
-                disabled={page === 0}
-                onClick={() => setPage(page - 1)}
-              >
-                {t.prev}
-              </Button>
-              <span>
-                {page + 1}/{Math.max(1, Math.ceil(result.cases.length / 50))}
-              </span>
-              <Button
-                variant="outline"
-                disabled={(page + 1) * 50 >= result.cases.length}
-                onClick={() => setPage(page + 1)}
-              >
-                {t.next}
-              </Button>
-            </div>
+            <RecordRows
+              label={t.results}
+              headers={[
+                t.members,
+                t.reference,
+                t.net,
+                t.status,
+                t.basis,
+                t.note,
+              ]}
+              page={page}
+              onPage={setPage}
+              rows={result.cases}
+              mark={() => ({ 'data-testid': 'clearing-case' })}
+              target={(_, at) => rowAt(at)}
+              cells={(c, at) => [
+                <label key="members">
+                  <input
+                    type="checkbox"
+                    aria-label={`${t.members}: ${c.ids.map((id) => owners.get(id)?.posting).join(', ')}`}
+                    disabled={
+                      busy ||
+                      c.status === 'cleared' ||
+                      result.inventory.some((r) => r.kind === 'error')
+                    }
+                    checked={c.ids.every((id) => selected.includes(id))}
+                    onChange={(e) =>
+                      setSelected(
+                        e.target.checked
+                          ? [...new Set([...selected, ...c.ids])]
+                          : selected.filter((id) => !c.ids.includes(id)),
+                      )
+                    }
+                  />
+                  <bdi>
+                    {c.ids.map((id) => owners.get(id)?.posting).join(', ')}
+                  </bdi>
+                </label>,
+                c.reference || t.missing,
+                money(c.net, result.decimals),
+                c.status === 'cleared' ? t.cleared : t.review,
+                <div key="basis">
+                  {c.basis === 'explicit-reference'
+                    ? t.automatic
+                    : c.basis === 'human-decision'
+                      ? t.human
+                      : t.none}
+                  <p className="muted">{t.reason[c.reason]}</p>
+                </div>,
+                <div key="note">
+                  {c.note}
+                  {c.status === 'cleared' && (
+                    <Button
+                      variant="outline"
+                      data-decision-action="reopen"
+                      data-decision-target={rowAt(at)}
+                      aria-describedby={hint}
+                      disabled={busy || !noteReady(note)}
+                      onClick={() => void decide('reopen', c.ids)}
+                    >
+                      {t.reopen}
+                    </Button>
+                  )}
+                </div>,
+              ]}
+            />
             <label>
               {t.note}
               <textarea
                 value={note}
                 maxLength={200}
                 disabled={busy}
+                aria-describedby={hint}
                 onChange={(e) => setNote(e.target.value)}
               />
             </label>
+            <NoteHint id={hint} note={note} label={t.note} wait={wait}>
+              {decisionPlatformCopy[lang].clearing.reopen}{' '}
+              {decisionPlatformCopy[lang].clearing[wait]}
+            </NoteHint>
             <Button
-              disabled={
-                busy ||
-                selected.length < 2 ||
-                selected.length > 100 ||
-                note.trim().length < 8
-              }
+              data-decision-action="clear"
+              aria-describedby={hint}
+              disabled={busy || selection !== 'ready' || !noteReady(note)}
               onClick={() => void decide('clear', selected)}
             >
               {t.manual}
@@ -620,54 +652,19 @@ export function ClearingWorkspace({
               <summary>
                 {t.source} · {t.errors}
               </summary>
-              <div className="clearing-scroll">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>{t.row}</th>
-                      <th>{t.status}</th>
-                      <th>{t.source}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {result.inventory
-                      .slice(inventoryPage * 50, (inventoryPage + 1) * 50)
-                      .map((row) => (
-                        <tr key={row.row}>
-                          <th>{row.row}</th>
-                          <td>
-                            {row.kind === 'error'
-                              ? t.readingIssue
-                              : t.inventory[row.kind]}
-                          </td>
-                          <td>
-                            <bdi>{row.values.join(' | ')}</bdi>
-                          </td>
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="clearing-actions">
-                <Button
-                  variant="outline"
-                  disabled={!inventoryPage}
-                  onClick={() => setInventoryPage(inventoryPage - 1)}
-                >
-                  {t.prev}
-                </Button>
-                <span>
-                  {inventoryPage + 1}/
-                  {Math.max(1, Math.ceil(result.inventory.length / 50))}
-                </span>
-                <Button
-                  variant="outline"
-                  disabled={(inventoryPage + 1) * 50 >= result.inventory.length}
-                  onClick={() => setInventoryPage(inventoryPage + 1)}
-                >
-                  {t.next}
-                </Button>
-              </div>
+              <RecordRows
+                label={`${t.source} · ${t.errors}`}
+                headers={[t.row, t.status, t.source]}
+                rowHeader={0}
+                page={inventoryPage}
+                onPage={setInventoryPage}
+                rows={result.inventory}
+                cells={(row) => [
+                  row.row,
+                  row.kind === 'error' ? t.readingIssue : t.inventory[row.kind],
+                  row.values.join(' | '),
+                ]}
+              />
             </details>
             <div className="clearing-actions">
               <Button

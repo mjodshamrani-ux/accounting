@@ -56,6 +56,13 @@ const copy = {
     decisionAck:
       'أصرّح بتسجيل قرارات المجموعات المراجعة لهذا المكوّن كوحدة واحدة. هذه القرارات لا توزّع المبالغ بين صفوف فردية.',
     commit: 'تسجيل قرارات المكوّن كاملة',
+    // What the component decisions still need, and what opens the exports (UX-3).
+    commitNeeds: {
+      held: 'زوال السبب الحاجز الظاهر أعلاه',
+      blocked: 'بحث ومكوّن مكتملان بلا سبب حاجز (أسبابهما ظاهرة أعلاه)',
+      each: 'قرار وسببه لكل مرشح',
+    },
+    exportWaits: 'تسجيل قرار مكوّن',
     undo: 'التراجع عن قرار المكوّن',
     undoReason: 'سبب التراجع عن المكوّن كله',
     undoAck:
@@ -73,9 +80,6 @@ const copy = {
     unmatched: 'باقٍ دون مطابقة',
     busy: 'جارٍ التحقق من القرار…',
     error: 'تعذر إثبات الإجراء',
-    previous: 'الصفوف السابقة',
-    next: 'الصفوف التالية',
-    of: 'من',
     limits: 'حدود البحث',
   },
   en: {
@@ -137,6 +141,12 @@ const copy = {
     decisionAck:
       'I authorize recording these reviewed group decisions together for the whole component. These decisions do not allocate amounts between individual rows.',
     commit: 'Record complete component decisions',
+    commitNeeds: {
+      held: 'the blocking reason shown above resolved',
+      blocked: 'a complete search and component with no blocking reason (their reasons are shown above)',
+      each: 'a decision and its reason for every candidate',
+    },
+    exportWaits: 'a component decision is recorded',
     undo: 'Undo component decision',
     undoReason: 'Rationale for undoing the entire component',
     undoAck:
@@ -154,9 +164,6 @@ const copy = {
     unmatched: 'Unmatched residual',
     busy: 'Revalidating the decision…',
     error: 'Action could not be proven',
-    previous: 'Previous rows',
-    next: 'Next rows',
-    of: 'of',
     limits: 'Search limits',
   },
 };

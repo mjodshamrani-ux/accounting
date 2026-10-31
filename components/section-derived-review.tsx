@@ -1,6 +1,13 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import {
+  ReviewHint,
+  useDecisionFocus,
+  type ReviewNeed,
+} from '@/components/decision-platform';
 import { Input } from '@/components/ui/input';
+import { RecordFrame, RecordPager } from '@/components/record-table';
+import { recordPage } from '@/lib/record-page';
 import { useI18n } from '@/lib/i18n/context';
 import {
   sectionDerivedReviewCopy,
@@ -177,6 +184,12 @@ function SectionDerivedPanel({
     message: string;
   } | null>(null);
   const active = busy?.binding === binding && busy.active;
+  // A rejection leaves no receipt; it is said, and the focus goes to it.
+  const [rejected, setRejected] = useState(false);
+  const hint = useId(),
+    receiptLine = useId(),
+    rejectedLine = useId(),
+    settle = useDecisionFocus();
   useEffect(
     () => () => {
       ++ticket.current;
@@ -187,6 +200,7 @@ function SectionDerivedPanel({
   function invalidateReview(label = reviewer, reason = rationale) {
     ++ticket.current;
     setBusy(null);
+    setRejected(false);
     session.updateReviewer(label, reason);
     if (current) setView({ ...current, receipt: null, artifact: null });
   }
@@ -196,10 +210,12 @@ function SectionDerivedPanel({
       receipt?: SectionDerivedReceipt | null;
       artifact?: SectionDerivedReadingArtifact | null;
     }>,
+    then?: (result: { receipt?: SectionDerivedReceipt | null }) => void,
   ) {
     const id = ++ticket.current;
     setBusy({ binding, active: true });
     setError(null);
+    setRejected(false);
     try {
       const result = await action();
       if (id === ticket.current)
@@ -215,6 +231,7 @@ function SectionDerivedPanel({
               ? (current?.artifact ?? null)
               : result.artifact,
         });
+      if (id === ticket.current) then?.(result);
     } catch (e) {
       if (id === ticket.current)
         setError({
@@ -264,28 +281,62 @@ function SectionDerivedPanel({
         mapping.formatChoice?.numberFormat?.value === 'dot'));
   function record(decision: 'accept' | 'reject') {
     if (!current) return;
-    void run(async () => ({
-      receipt: await session.recordReviewerDecision({
-        decision,
-        reviewerLabel: reviewer,
-        rationale,
-        reviewedSourceHash: current.selection.review.sourceHash,
-        reviewedExtractionHash: current.selection.review.extractionHash,
-        reviewedExtractionRevision: current.selection.review.extractionRevision,
-        reviewedSelectionHash: current.selection.selectionHash,
-        acknowledgements: {
-          originalRowsReviewed: true,
-          referenceRolesReviewed: true,
-          signedAmountsPreserved: true,
-          derivedSourceUnderstood: true,
-          ...(requiresOriginalInterpretation
-            ? { originalDotInterpretationReviewed: true as const }
-            : {}),
-        },
+    void run(
+      async () => ({
+        receipt: await session.recordReviewerDecision({
+          decision,
+          reviewerLabel: reviewer,
+          rationale,
+          reviewedSourceHash: current.selection.review.sourceHash,
+          reviewedExtractionHash: current.selection.review.extractionHash,
+          reviewedExtractionRevision:
+            current.selection.review.extractionRevision,
+          reviewedSelectionHash: current.selection.selectionHash,
+          acknowledgements: {
+            originalRowsReviewed: true,
+            referenceRolesReviewed: true,
+            signedAmountsPreserved: true,
+            derivedSourceUnderstood: true,
+            ...(requiresOriginalInterpretation
+              ? { originalDotInterpretationReviewed: true as const }
+              : {}),
+          },
+        }),
+        artifact: null,
       }),
-      artifact: null,
-    }));
+      (result) => {
+        // The decision platform (UX-3): the focus goes to what the decision
+        // recorded, its receipt or its rejection, not to the page.
+        if (result.receipt) settle(receiptLine);
+        else {
+          setRejected(true);
+          settle(rejectedLine);
+        }
+      },
+    );
   }
+  // What a decision still needs, in the reader's words.
+  const required = [
+    ack.originalRowsReviewed,
+    ack.referenceRolesReviewed,
+    ack.signedAmountsPreserved,
+    ack.derivedSourceUnderstood,
+    ...(requiresOriginalInterpretation
+      ? [ack.originalDotInterpretationReviewed]
+      : []),
+  ];
+  const ticked = required.filter(Boolean).length;
+  const needs: ReviewNeed[] = [
+    ...(reviewer.trim() ? [] : [{ field: t.reviewer }]),
+    ...(rationale.trim() ? [] : [{ field: t.rationale }]),
+    ...(ticked === required.length
+      ? []
+      : [{ confirmations: [ticked, required.length] as const }]),
+    ...(requiresOriginalInterpretation &&
+    mapping.formatChoice?.numberFormat?.value !== 'dot'
+      ? [{ text: t.dotChoice }]
+      : []),
+  ];
   return (
     <section
       data-testid="section-derived-review"
@@ -486,6 +537,7 @@ function SectionDerivedPanel({
             <label>
               {t.reviewer}
               <Input
+                aria-describedby={hint}
                 data-derived-reviewer
                 value={reviewer}
                 onChange={(e) => reviewerChanged('reviewer', e.target.value)}
@@ -494,6 +546,7 @@ function SectionDerivedPanel({
             <label>
               {t.rationale}
               <Input
+                aria-describedby={hint}
                 data-derived-rationale
                 value={rationale}
                 onChange={(e) => reviewerChanged('rationale', e.target.value)}
@@ -548,10 +601,12 @@ function SectionDerivedPanel({
               {t.originalInterpretationAck}
             </label>
           )}
+          <ReviewHint id={hint} needs={needs} />
           <div className="flex flex-wrap gap-2">
             <Button
               className={buttonClass}
               type="button"
+              aria-describedby={hint}
               disabled={!canReview}
               onClick={() => record('accept')}
             >
@@ -561,15 +616,26 @@ function SectionDerivedPanel({
               className={buttonClass}
               type="button"
               variant="outline"
+              aria-describedby={hint}
               disabled={!canReview}
               onClick={() => record('reject')}
             >
               {t.reject}
             </Button>
           </div>
+          {rejected && (
+            <output id={rejectedLine} tabIndex={-1} data-decision-state>
+              {t.rejected}
+            </output>
+          )}
           {current.receipt && (
             <div>
-              <p className="break-all">
+              <p
+                className="break-all"
+                id={receiptLine}
+                tabIndex={-1}
+                data-decision-state
+              >
                 {t.receipt}: <bdi>{current.receipt.id}</bdi>
               </p>
               <Button
@@ -663,7 +729,9 @@ function DerivedRows({
 }) {
   const { lang } = useI18n();
   const t = sectionDerivedReviewCopy(lang);
-  const [offset, setOffset] = useState(0);
+  // A hundred rows a page through the record kit's frame and pager (UX-3).
+  const [page, setPage] = useState(0);
+  const { from, to } = recordPage(rows.length, page, 100);
   function interpretation(literal: string, format: 'dot' | 'comma') {
     try {
       return String(parseMoney(literal, format, interpretationDecimals!));
@@ -676,45 +744,21 @@ function DerivedRows({
       <summary>
         {t.rows} ({rows.length})
       </summary>
-      <p>
-        {rows.length ? offset + 1 : 0}–{Math.min(offset + 100, rows.length)}{' '}
-        {t.of} {rows.length}
-      </p>
-      <div className="flex flex-wrap gap-2">
-        <Button
-          className={buttonClass}
-          type="button"
-          variant="outline"
-          disabled={!offset}
-          onClick={() => setOffset((value) => Math.max(0, value - 100))}
-        >
-          {t.previous}
-        </Button>
-        <Button
-          className={buttonClass}
-          type="button"
-          variant="outline"
-          disabled={offset + 100 >= rows.length}
-          onClick={() => setOffset((value) => value + 100)}
-        >
-          {t.next}
-        </Button>
-      </div>
-      <div className="overflow-auto">
-        <table className="w-full text-sm">
+      <RecordFrame name={t.rows}>
+        <table aria-label={t.rows}>
           <tbody>
-            {rows.slice(offset, offset + 100).map((row) => (
+            {rows.slice(from, to).map((row) => (
               <tr key={row.row} data-derived-original-row={row.row}>
-                <th>
+                <th scope="row">
                   {t.page} {row.page} · {t.row} {row.row}
                 </th>
                 {row.values.map((value, i) => (
-                  <td key={i} className="p-2">
+                  <td key={i}>
                     <bdi>{value}</bdi>
                   </td>
                 ))}
                 {interpretationDecimals !== undefined && (
-                  <td className="p-2" data-derived-amount-interpretations>
+                  <td data-derived-amount-interpretations>
                     {row.amounts.map((amount) => (
                       <div
                         key={`${amount.sheet}:${amount.page}:${amount.row}:${amount.column}`}
@@ -738,7 +782,14 @@ function DerivedRows({
             ))}
           </tbody>
         </table>
-      </div>
+      </RecordFrame>
+      <RecordPager
+        label={t.rows}
+        length={rows.length}
+        page={page}
+        onPage={setPage}
+        size={100}
+      />
     </details>
   );
 }

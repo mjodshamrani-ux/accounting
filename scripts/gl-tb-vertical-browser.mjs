@@ -237,7 +237,11 @@ async function evidence(page, t, facts) {
       rows.map((row) => ({
         side: row.querySelector('td').textContent,
         row: row.querySelectorAll('td')[1].textContent,
-        values: JSON.parse(row.querySelector('pre').textContent),
+        // The source row is shown by its fields (UX-3), each the value as
+        // read; the record line and the cell evidence follow it.
+        values: [
+          ...row.querySelectorAll('details > p:first-of-type .record-field'),
+        ].map((field) => field.textContent),
       })),
     );
   assert.deepEqual(

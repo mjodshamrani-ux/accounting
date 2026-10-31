@@ -112,8 +112,9 @@ const en = {
   inventory: 'Physical inventory',
   events: 'Decision history',
   sources: 'Original source hashes',
-  units:
-    'Monetary minor units; quantity scaled integers have their own per-item precision and unit. No combined quantity total.',
+  amountsIn: 'Amounts in',
+  quantityNote:
+    "Each quantity is in its item's unit; there is no combined quantity total.",
   status: {
     'source-error': 'Source blocked; financial totals withheld',
     missing: 'Evidence or account coverage missing',
@@ -123,28 +124,29 @@ const en = {
     accepted: 'Accepted',
     rejected: 'Rejected',
   },
-  totals: [
-    'Register value supported by GL mapping, minor units',
-    'GL monetary minor units',
-  ],
+  tableNames: {
+    totals: 'Register value against the GL',
+    comparisons: 'Comparison by account',
+  },
+  totals: ['Register value supported by GL mapping', 'GL net'],
   comparisons: [
     'GL account',
     'Complete GL dimensions',
-    'Register minor',
-    'Debit minor',
-    'Credit minor',
-    'GL net minor',
-    'Difference minor',
+    'Register value',
+    'Debit',
+    'Credit',
+    'GL net',
+    'Difference, register minus GL',
   ],
   records: [
     [
       'Source row',
       'Item ID',
       'Complete item dimensions',
-      'Quantity scaled integer',
+      'Quantity',
       'Unit',
       'Quantity precision',
-      'Posted value minor',
+      'Posted value',
       'Valuation reference',
     ],
     [
@@ -178,8 +180,8 @@ const en = {
       'GL account',
       'Complete GL dimensions',
       'Account class',
-      'Debit minor',
-      'Credit minor',
+      'Debit',
+      'Credit',
     ],
   ],
   memberHeaders: ['Source', 'Source row', 'Member identity'],
@@ -349,8 +351,6 @@ const en = {
   } as Record<string, string>,
   linkComma: ', ',
   linkSemi: '; ',
-  previous: 'Previous',
-  next: 'Next',
 };
 const ar: typeof en = {
   scopePrefix: 'نطاق المخزون: ',
@@ -487,8 +487,8 @@ const ar: typeof en = {
   inventory: 'الجرد الفيزيائي',
   events: 'سجل القرارات',
   sources: 'بصمات الأصول الأصلية',
-  units:
-    'الأموال بوحدات العملة المصغرة؛ لكل كمية صحيحة مصغرة دقة ووحدة منفصلتان. لا يوجد إجمالي يجمع الكميات.',
+  amountsIn: 'المبالغ بعملة',
+  quantityNote: 'كل كمية بوحدة صنفها، ولا مجموع يجمع الكميات.',
   status: {
     'source-error': 'المصدر محجوب؛ المجاميع المالية غير متاحة',
     missing: 'دليل أو تغطية حساب مفقودان',
@@ -498,28 +498,29 @@ const ar: typeof en = {
     accepted: 'معتمد',
     rejected: 'مرفوض',
   },
-  totals: [
-    'قيمة السجل المرتبطة بأدلة الأستاذ بوحدات العملة المصغرة',
-    'صافي الأستاذ بوحدات العملة المصغرة',
-  ],
+  tableNames: {
+    totals: 'قيمة السجل مقابل الأستاذ',
+    comparisons: 'المقارنة حسب الحساب',
+  },
+  totals: ['قيمة السجل المرتبطة بأدلة الأستاذ', 'صافي الأستاذ'],
   comparisons: [
     'حساب الأستاذ',
     'أبعاد الأستاذ الكاملة',
-    'قيمة السجل المصغرة',
-    'المدين المصغر',
-    'الدائن المصغر',
-    'صافي الأستاذ المصغر',
-    'الفرق المصغر',
+    'قيمة السجل',
+    'المدين',
+    'الدائن',
+    'صافي الأستاذ',
+    'الفرق، السجل ناقص الأستاذ',
   ],
   records: [
     [
       'صف الأصل',
       'الصنف',
       'أبعاد الصنف الكاملة',
-      'الكمية الصحيحة المصغرة',
+      'الكمية',
       'الوحدة',
       'دقة الكمية',
-      'القيمة المرحلة المصغرة',
+      'القيمة المرحلة',
       'مرجع التقييم',
     ],
     [
@@ -553,8 +554,8 @@ const ar: typeof en = {
       'حساب الأستاذ',
       'أبعاد الأستاذ الكاملة',
       'صنف الحساب',
-      'المدين المصغر',
-      'الدائن المصغر',
+      'المدين',
+      'الدائن',
     ],
   ],
   memberHeaders: ['الأصل', 'صف الأصل', 'هوية العضو'],
@@ -710,7 +711,5 @@ const ar: typeof en = {
   },
   linkComma: '، ',
   linkSemi: '؛ ',
-  previous: 'السابق',
-  next: 'التالي',
 };
 export const stockCopy = { en, ar };
