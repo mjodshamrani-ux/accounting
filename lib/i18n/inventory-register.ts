@@ -124,6 +124,10 @@ const en = {
     accepted: 'Accepted',
     rejected: 'Rejected',
   },
+  tableNames: {
+    totals: 'Register value against the GL',
+    comparisons: 'Comparison by account',
+  },
   totals: ['Register value supported by GL mapping', 'GL net'],
   comparisons: [
     'GL account',
@@ -347,8 +351,6 @@ const en = {
   } as Record<string, string>,
   linkComma: ', ',
   linkSemi: '; ',
-  previous: 'Previous',
-  next: 'Next',
 };
 const ar: typeof en = {
   scopePrefix: 'نطاق المخزون: ',
@@ -495,6 +497,10 @@ const ar: typeof en = {
     'consistent-with-evidence': 'متسق ضمن الأدلة المؤكدة',
     accepted: 'معتمد',
     rejected: 'مرفوض',
+  },
+  tableNames: {
+    totals: 'قيمة السجل مقابل الأستاذ',
+    comparisons: 'المقارنة حسب الحساب',
   },
   totals: ['قيمة السجل المرتبطة بأدلة الأستاذ', 'صافي الأستاذ'],
   comparisons: [
@@ -705,7 +711,5 @@ const ar: typeof en = {
   },
   linkComma: '، ',
   linkSemi: '؛ ',
-  previous: 'السابق',
-  next: 'التالي',
 };
 export const stockCopy = { en, ar };

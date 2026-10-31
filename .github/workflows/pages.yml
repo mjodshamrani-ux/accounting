@@ -245,6 +245,8 @@ jobs:
         env:
           VISUAL_IDENTITY_DIR: ${{ runner.temp }}/visual-identity
         run: pnpm test:browser:visual-identity:self-test
+      - name: In Arabic and English at 390 px, every record table wider than its frame is a named region the keyboard reaches, and its shade follows the side where columns lie out of view (UX-3)
+        run: pnpm test:browser:record-table
       - name: Verify native Chrome section families and qualified currencies
         env:
           MIZAN_CHROMIUM: /usr/bin/google-chrome

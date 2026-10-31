@@ -19,8 +19,6 @@ const controls = (c: typeof stockCopy.en) => ({
   kinds: c.kinds,
   actions: c.actions,
   failed: c.failed,
-  previous: c.previous,
-  next: c.next,
 });
 const en = {
   ...controls(stockCopy.en),
@@ -115,6 +113,10 @@ const en = {
     depreciation: 'Accumulated depreciation',
     impairment: 'Accumulated impairment',
     carrying: 'Carrying amount',
+  },
+  tableNames: {
+    totals: 'Component totals',
+    comparisons: 'Comparison by account and component',
   },
   totals: ['Component', 'Register', 'GL'],
   comparisons: [
@@ -297,6 +299,10 @@ const ar: typeof en = {
     depreciation: 'الاستهلاك المتراكم',
     impairment: 'الانخفاض المتراكم',
     carrying: 'الصافي الدفتري',
+  },
+  tableNames: {
+    totals: 'مجاميع المكونات',
+    comparisons: 'المقارنة حسب الحساب والمكون',
   },
   totals: ['المكون', 'السجل', 'الأستاذ'],
   comparisons: [

@@ -1,7 +1,9 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount, Figures } from '@/components/amount';
+import { RecordPager, RecordTable } from '@/components/record-table';
+import { recordPage } from '@/lib/record-page';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -57,61 +59,6 @@ function download(buffer: ArrayBuffer, name: string, type: string) {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-function Table({
-  headers,
-  rows,
-}: {
-  headers: string[];
-  rows: (ReactNode | null)[][];
-}) {
-  const { t } = useI18n();
-  const [page, setPage] = useState(0);
-  const safe = Math.min(page, Math.max(0, Math.ceil(rows.length / 50) - 1));
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table>
-          <thead>
-            <tr>
-              {headers.map((h, i) => (
-                <th key={i}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i}>
-                {row.map((v, j) => (
-                  <td key={j}>{v ?? '—'}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="gl-tb-actions">
-        <Button
-          variant="outline"
-          disabled={!safe}
-          onClick={() => setPage(safe - 1)}
-        >
-          {t.financial.previous}
-        </Button>
-        <span>
-          {safe + 1} / {Math.max(1, Math.ceil(rows.length / 50))} ·{' '}
-          {rows.length}
-        </span>
-        <Button
-          variant="outline"
-          disabled={(safe + 1) * 50 >= rows.length}
-          onClick={() => setPage(safe + 1)}
-        >
-          {t.financial.next}
-        </Button>
-      </div>
-    </>
-  );
 }
 export function FinancialWorkspace({
   active,
@@ -314,6 +261,7 @@ export function FinancialWorkspace({
       install,
     );
   }
+  const linesShown = recordPage(result?.lines.length ?? 0, linePage);
   const status = (value: string) =>
     (t.financial.status as Record<string, string>)[value] ?? value;
   return (
@@ -587,7 +535,8 @@ export function FinancialWorkspace({
                 ]}
               />
             </p>
-            <Table
+            <RecordTable
+              label={t.financial.tableNames.byClass}
               headers={[
                 t.financial.basis,
                 t.financial.class,
@@ -609,7 +558,8 @@ export function FinancialWorkspace({
                   : []
               }
             />
-            <Table
+            <RecordTable
+              label={t.financial.tableNames.position}
               headers={[
                 t.financial.basis,
                 t.financial.assets,
@@ -648,7 +598,7 @@ export function FinancialWorkspace({
                 <input value={note} onChange={(e) => setNote(e.target.value)} />
               </label>
             </fieldset>
-            {result.lines.slice(linePage * 50, linePage * 50 + 50).map((l) => (
+            {result.lines.slice(linesShown.from, linesShown.to).map((l) => (
               <section key={l.id}>
                 <h3>
                   {l.lineId} · {l.label} · {t.financial.categories[l.category]}{' '}
@@ -669,7 +619,8 @@ export function FinancialWorkspace({
                     {t.financial.allMappingMembersAndEvidence} (
                     {l.members.length})
                   </summary>
-                  <Table
+                  <RecordTable
+                    label={`${t.financial.allMappingMembersAndEvidence} · ${l.lineId}`}
                     headers={[
                       t.financial.mapping,
                       t.financial.account,
@@ -720,32 +671,19 @@ export function FinancialWorkspace({
                 </div>
               </section>
             ))}
-            <div className="gl-tb-actions">
-              <Button
-                variant="outline"
-                disabled={!linePage}
-                onClick={() => setLinePage(linePage - 1)}
-              >
-                {t.financial.previousLines}
-              </Button>
-              <span>
-                {linePage + 1} /{' '}
-                {Math.max(1, Math.ceil(result.lines.length / 50))}
-              </span>
-              <Button
-                variant="outline"
-                disabled={(linePage + 1) * 50 >= result.lines.length}
-                onClick={() => setLinePage(linePage + 1)}
-              >
-                {t.financial.nextLines}
-              </Button>
-            </div>
+            <RecordPager
+              label={t.financial.statementLines}
+              length={result.lines.length}
+              page={linePage}
+              onPage={setLinePage}
+            />
             <details>
               <summary>
                 {t.financial.sourceInventoryAndErrors} (
                 {result.inventory.length})
               </summary>
-              <Table
+              <RecordTable
+                label={t.financial.sourceInventoryAndErrors}
                 headers={[
                   t.financial.source,
                   t.financial.row,
@@ -766,7 +704,8 @@ export function FinancialWorkspace({
               <summary>
                 {t.financial.missingEvidence} ({result.missing.length})
               </summary>
-              <Table
+              <RecordTable
+                label={t.financial.missingEvidence}
                 headers={[t.financial.kind, t.financial.key]}
                 rows={result.missing.map((m) => [m.kind, m.key])}
               />
@@ -776,7 +715,8 @@ export function FinancialWorkspace({
                 {t.financial.presentationAndPeriodEvidence} (
                 {result.evidence.length})
               </summary>
-              <Table
+              <RecordTable
+                label={t.financial.presentationAndPeriodEvidence}
                 headers={[
                   t.financial.evidence,
                   t.financial.account,
@@ -805,7 +745,8 @@ export function FinancialWorkspace({
               <summary>
                 {t.financial.decisionHistory} ({events.length})
               </summary>
-              <Table
+              <RecordTable
+                label={t.financial.decisionHistory}
                 headers={[
                   t.financial.decision,
                   t.financial.line,

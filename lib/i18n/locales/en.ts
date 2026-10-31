@@ -1694,8 +1694,10 @@ export const en: Messages = {
     dimensions: 'Dimensions',
     evidence: 'Evidence',
     contribution: 'Contribution',
-    previousLines: 'Previous lines',
-    nextLines: 'Next lines',
+    tableNames: {
+      byClass: 'By basis and class',
+      position: 'Financial position by basis',
+    },
     sourceInventoryAndErrors: 'Source inventory and errors',
     source: 'Source',
     row: 'Row',
@@ -1752,7 +1754,5 @@ export const en: Messages = {
       accepted: 'Accepted on evidence',
       rejected: 'Rejected',
     },
-    previous: 'Previous',
-    next: 'Next',
   },
 };

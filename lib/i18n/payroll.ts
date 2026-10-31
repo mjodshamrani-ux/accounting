@@ -19,8 +19,6 @@ const controls = (c: typeof stockCopy.en) => ({
   kinds: c.kinds,
   actions: c.actions,
   failed: c.failed,
-  previous: c.previous,
-  next: c.next,
 });
 const en = {
   ...controls(stockCopy.en),
@@ -102,6 +100,11 @@ const en = {
     'employer-payable': 'Employer contribution liability',
     'net-clearing': 'Net liability clearing',
     'bank-cash': 'Bank cash outflow',
+  },
+  tableNames: {
+    totals: 'Component totals',
+    bank: 'Register net against the bank outflow',
+    comparisons: 'Comparison by account and component',
   },
   totals: ['Component', 'Expected from register', 'GL normal'],
   bankComparison: [
@@ -296,6 +299,11 @@ const ar: typeof en = {
     'employer-payable': 'التزام مساهمة صاحب العمل',
     'net-clearing': 'رفع التزام الصافي عند الصرف',
     'bank-cash': 'الصرف من حساب البنك',
+  },
+  tableNames: {
+    totals: 'مجاميع المكونات',
+    bank: 'صافي المسير مقابل الصرف البنكي',
+    comparisons: 'المقارنة حسب الحساب والمكون',
   },
   totals: ['المكون', 'المتوقع من المسير', 'صافي الأستاذ'],
   bankComparison: [

@@ -56,8 +56,6 @@ const en = {
   accept: 'Approve whole pair',
   reject: 'Reject whole pair',
   undo: 'Undo pair decision',
-  previous: 'Previous',
-  next: 'Next',
   amountsIn: 'Amounts in',
   pairs: 'Counterpart pairs',
   entries: 'Original ledger entries',
@@ -67,6 +65,7 @@ const en = {
   issues: 'Source errors',
   inventory: 'All original rows',
   history: 'Whole pair decisions',
+  tableNames: { totals: 'Debit, credit and net by side' },
   totals: ['Side', 'Debit', 'Credit', 'Net'],
   pairHeaders: [
     'Relation',
@@ -186,8 +185,6 @@ const ar: typeof en = {
   accept: 'اعتماد الزوج كاملًا',
   reject: 'رفض الزوج كاملًا',
   undo: 'التراجع عن قرار الزوج',
-  previous: 'السابق',
-  next: 'التالي',
   amountsIn: 'المبالغ بعملة',
   pairs: 'أزواج المعاملات',
   entries: 'معاملات الدفتر الأصلية',
@@ -197,6 +194,7 @@ const ar: typeof en = {
   issues: 'أخطاء المصدر',
   inventory: 'جميع الصفوف الأصلية',
   history: 'قرارات الأزواج الكاملة',
+  tableNames: { totals: 'المدين والدائن والصافي لكل طرف' },
   totals: ['الطرف', 'المدين', 'الدائن', 'الصافي'],
   pairHeaders: [
     'العلاقة',

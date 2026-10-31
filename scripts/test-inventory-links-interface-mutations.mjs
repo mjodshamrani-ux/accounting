@@ -32,6 +32,7 @@ await mkdir(output, { recursive: true });
 const out = await mkdtemp(join(output, 'run-'));
 const acceptance = 'scripts/inventory-links-browser.mjs';
 const PANEL = 'components/inventory-register-workspace.tsx';
+const RECORD = 'components/record-table.tsx';
 const IO = 'lib/reconciliation/inventory-register-io.ts';
 const COPY = 'lib/i18n/inventory-register.ts';
 const mutations = [
@@ -77,17 +78,56 @@ const mutations = [
     "                        u.key.join('|'),\n                        u.reason,",
     "                        u.key.join('|'),\n                        'NO_REGISTER',",
   ],
+  // The register's tables page through the shared record table (UX-3);
+  // these two keep their meaning there.
   [
     'every-page-shows-the-first-marks',
-    PANEL,
-    '<tr key={i} {...marks?.[safe * 50 + i]}>',
-    '<tr key={i} {...marks?.[i]}>',
+    RECORD,
+    '<tr key={from + i} {...marks?.[from + i]}>',
+    '<tr key={from + i} {...marks?.[i]}>',
   ],
   [
     'pager-unmarked',
-    PANEL,
-    '<div className="gl-tb-actions" data-stock-pager={pager}>',
-    '<div className="gl-tb-actions">',
+    RECORD,
+    '<nav className="record-pager" aria-label={copy.pages(label)} {...hook}>',
+    '<nav className="record-pager" aria-label={copy.pages(label)}>',
+  ],
+  // The shared pager itself, which the register tables are read through.
+  [
+    'pager-on-one-page',
+    RECORD,
+    '  if (pages <= 1) return null;',
+    '  if (pages < 1) return null;',
+  ],
+  [
+    'pager-previous-undescribed',
+    RECORD,
+    '        disabled={!at}\n        aria-describedby={status}\n',
+    '        disabled={!at}\n',
+  ],
+  [
+    'pager-line-counts-from-zero',
+    RECORD,
+    'copy.status(at + 1, pages, from + 1, to, length)',
+    'copy.status(at + 1, pages, from, to, length)',
+  ],
+  [
+    'pager-drops-the-focus-on-the-last-page',
+    RECORD,
+    '    else if (target === pages - 1) previous.current?.focus();\n',
+    '',
+  ],
+  [
+    'record-every-page-shows-the-first',
+    RECORD,
+    '{rows.slice(from, to).map((row, i) => (',
+    '{rows.slice(0, to - from).map((row, i) => (',
+  ],
+  [
+    'record-last-page-unreachable',
+    RECORD,
+    'disabled={at + 1 >= pages}',
+    'disabled={at + 2 >= pages}',
   ],
   [
     'links-button-exports-evidence',

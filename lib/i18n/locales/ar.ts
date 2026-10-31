@@ -1626,8 +1626,10 @@ export const ar = {
     dimensions: 'الأبعاد',
     evidence: 'الدليل',
     contribution: 'المساهمة',
-    previousLines: 'بنود سابقة',
-    nextLines: 'بنود تالية',
+    tableNames: {
+      byClass: 'حسب الأساس والفئة',
+      position: 'المركز المالي حسب الأساس',
+    },
     sourceInventoryAndErrors: 'جرد الأصول والأخطاء',
     source: 'الأصل',
     row: 'الصف',
@@ -1684,7 +1686,5 @@ export const ar = {
       accepted: 'معتمد بالدليل',
       rejected: 'مرفوض',
     },
-    previous: 'السابق',
-    next: 'التالي',
   },
 };

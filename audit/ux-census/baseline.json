@@ -1,7 +1,7 @@
 {
   "note": "Interface census baseline: each metric summed over the four states of a domain (Arabic and English at 390 and 1440 px) after its synthetic example ran. Recorded by scripts/ux-census-browser.mjs --record; the gate fails on any change.",
   "recorded": {
-    "commit": "bb9b422f57830144b20e9335367ac26c84695d82",
+    "commit": "5c4b45bab10f57ae9323192b14b14376f3ed509d",
     "date": "2026-10-31",
     "chromium": "141.0.7390.37"
   },
@@ -13,7 +13,8 @@
     "brokenInsideWord",
     "pageOverflow",
     "disabledUnexplained",
-    "focusLost"
+    "focusLost",
+    "wideUnnamed"
   ],
   "domains": {
     "supplier": {
@@ -24,7 +25,8 @@
       "brokenInsideWord": 0,
       "pageOverflow": 0,
       "disabledUnexplained": 8,
-      "focusLost": 0
+      "focusLost": 0,
+      "wideUnnamed": 2
     },
     "clearing": {
       "minorUnits": 0,
@@ -34,7 +36,8 @@
       "brokenInsideWord": 0,
       "pageOverflow": 0,
       "disabledUnexplained": 4,
-      "focusLost": 0
+      "focusLost": 0,
+      "wideUnnamed": 0
     },
     "ar": {
       "minorUnits": 0,
@@ -44,7 +47,8 @@
       "brokenInsideWord": 0,
       "pageOverflow": 0,
       "disabledUnexplained": 32,
-      "focusLost": 0
+      "focusLost": 0,
+      "wideUnnamed": 2
     },
     "gl-tb": {
       "minorUnits": 0,
@@ -54,7 +58,8 @@
       "brokenInsideWord": 0,
       "pageOverflow": 0,
       "disabledUnexplained": 16,
-      "focusLost": 0
+      "focusLost": 0,
+      "wideUnnamed": 4
     },
     "allocation": {
       "minorUnits": 0,
@@ -64,7 +69,8 @@
       "brokenInsideWord": 0,
       "pageOverflow": 0,
       "disabledUnexplained": 20,
-      "focusLost": 0
+      "focusLost": 0,
+      "wideUnnamed": 2
     },
     "bank": {
       "minorUnits": 0,
@@ -74,7 +80,8 @@
       "brokenInsideWord": 0,
       "pageOverflow": 0,
       "disabledUnexplained": 8,
-      "focusLost": 0
+      "focusLost": 0,
+      "wideUnnamed": 12
     },
     "tb-financial": {
       "minorUnits": 0,
@@ -83,8 +90,9 @@
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 184,
-      "focusLost": 0
+      "disabledUnexplained": 80,
+      "focusLost": 0,
+      "wideUnnamed": 0
     },
     "intercompany": {
       "minorUnits": 0,
@@ -93,8 +101,9 @@
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 132,
-      "focusLost": 0
+      "disabledUnexplained": 44,
+      "focusLost": 0,
+      "wideUnnamed": 0
     },
     "gateway": {
       "minorUnits": 0,
@@ -103,8 +112,9 @@
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 108,
-      "focusLost": 0
+      "disabledUnexplained": 20,
+      "focusLost": 0,
+      "wideUnnamed": 0
     },
     "stock": {
       "minorUnits": 0,
@@ -113,8 +123,9 @@
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 152,
-      "focusLost": 0
+      "disabledUnexplained": 20,
+      "focusLost": 0,
+      "wideUnnamed": 0
     },
     "assets": {
       "minorUnits": 0,
@@ -123,8 +134,9 @@
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 152,
-      "focusLost": 0
+      "disabledUnexplained": 20,
+      "focusLost": 0,
+      "wideUnnamed": 0
     },
     "payroll": {
       "minorUnits": 0,
@@ -133,8 +145,9 @@
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 176,
-      "focusLost": 0
+      "disabledUnexplained": 20,
+      "focusLost": 0,
+      "wideUnnamed": 0
     }
   }
 }

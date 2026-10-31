@@ -76,9 +76,11 @@ const en = {
   accept: 'Approve whole batch',
   reject: 'Reject whole batch',
   undo: 'Undo batch decision',
-  previous: 'Previous',
-  next: 'Next',
   amountsIn: 'Amounts in',
+  tableNames: {
+    totals: 'Calculated totals',
+    residuals: 'Residuals, calculated minus summary',
+  },
   totals: ['Gross sales', 'Refunds', 'Evidenced fees', 'Calculated net'],
   residuals: [
     'Gross sales residual, calculated minus summary',
@@ -224,9 +226,11 @@ const ar: typeof en = {
   accept: 'اعتماد الدفعة كاملة',
   reject: 'رفض الدفعة كاملة',
   undo: 'إلغاء قرار الدفعة',
-  previous: 'السابق',
-  next: 'التالي',
   amountsIn: 'المبالغ بعملة',
+  tableNames: {
+    totals: 'المجاميع المحسوبة',
+    residuals: 'الفروق، المحسوب ناقص الملخص',
+  },
   totals: ['إجمالي المبيعات', 'المرتجعات', 'الرسوم المثبتة', 'الصافي المحسوب'],
   residuals: [
     'فرق المبيعات، المحسوب ناقص الملخص',

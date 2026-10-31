@@ -3,6 +3,7 @@ import { FixedAssetsSectionsPanel } from '@/components/fixed-assets-sections-pan
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount } from '@/components/amount';
+import { RecordTable } from '@/components/record-table';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -54,62 +55,6 @@ function download(buffer: ArrayBuffer, name: string, type: string) {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-function Table({
-  headers,
-  rows,
-}: {
-  headers: string[];
-  rows: (ReactNode | null)[][];
-}) {
-  const { lang } = useI18n();
-  const copy = assetCopy[lang];
-  const [page, setPage] = useState(0);
-  const safe = Math.min(page, Math.max(0, Math.ceil(rows.length / 50) - 1));
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table>
-          <thead>
-            <tr>
-              {headers.map((h, i) => (
-                <th key={i}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i}>
-                {row.map((v, j) => (
-                  <td key={j}>{v ?? '—'}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="gl-tb-actions">
-        <Button
-          variant="outline"
-          disabled={!safe}
-          onClick={() => setPage(safe - 1)}
-        >
-          {copy.previous}
-        </Button>
-        <span>
-          {safe + 1} / {Math.max(1, Math.ceil(rows.length / 50))} ·{' '}
-          {rows.length}
-        </span>
-        <Button
-          variant="outline"
-          disabled={(safe + 1) * 50 >= rows.length}
-          onClick={() => setPage(safe + 1)}
-        >
-          {copy.next}
-        </Button>
-      </div>
-    </>
-  );
 }
 export function AssetWorkspace({
   active,
@@ -324,7 +269,7 @@ export function AssetWorkspace({
           <bdi>{fingerprint}</bdi>
         </p>
       )}
-      <Table headers={headers} rows={rows} />
+      <RecordTable source={title} headers={headers} rows={rows} />
     </WorkspaceAdvanced>
   );
   return (
@@ -630,7 +575,8 @@ export function AssetWorkspace({
               {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>.{' '}
               {copy.componentsNote}
             </p>
-            <Table
+            <RecordTable
+              label={copy.tableNames.totals}
               headers={copy.totals}
               rows={[...ASSET_COMPONENTS, 'carrying' as const].map((k) => [
                 copy.components[k],
@@ -638,7 +584,8 @@ export function AssetWorkspace({
                 amount(result.totals?.gl[k]),
               ])}
             />
-            <Table
+            <RecordTable
+              label={copy.tableNames.comparisons}
               headers={copy.comparisons}
               rows={result.comparisons.map((v) => [
                 v.account,

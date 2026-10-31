@@ -50,25 +50,58 @@
   max-width: 100%;
   font-size: 0.8rem;
 }
-.gl-tb-table {
+:is(.gl-tb-table, .record-frame) {
   min-width: 0;
   max-width: 100%;
   overflow-x: auto;
 }
-.gl-tb-table table {
+:is(.gl-tb-table, .record-frame) table {
   width: 100%;
   min-width: 30rem;
   border-collapse: collapse;
 }
-.gl-tb-table td,
-.gl-tb-table th {
+:is(.gl-tb-table, .record-frame) td,
+:is(.gl-tb-table, .record-frame) th {
   padding: 0.6rem;
   text-align: start;
   border-bottom: 1px solid #e2e8f0;
   vertical-align: top;
 }
-.gl-tb-table td:last-child {
+:is(.gl-tb-table, .record-frame) td:last-child {
   max-width: 25rem;
+}
+/* A record table wider than its frame scrolls inside it. A soft shade on
+   the side where columns lie out of view says that the table continues; the
+   frame marks that side as the reader scrolls (record-table.tsx). The shade
+   lies under the cells, so it shows on the rows of the table and the header
+   row's own background covers it. */
+.record-frame[data-more-left] {
+  box-shadow: inset 14px 0 12px -12px rgb(15 23 42 / 24%);
+}
+.record-frame[data-more-right] {
+  box-shadow: inset -14px 0 12px -12px rgb(15 23 42 / 24%);
+}
+.record-frame[data-more-left][data-more-right] {
+  box-shadow:
+    inset 14px 0 12px -12px rgb(15 23 42 / 24%),
+    inset -14px 0 12px -12px rgb(15 23 42 / 24%);
+}
+.record-frame:focus-visible {
+  outline: 2px solid #6738d3;
+  outline-offset: 2px;
+}
+/* The pages of a record table: two buttons around the line that names the
+   page and the rows it shows. */
+.record-pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+.record-pager output {
+  color: var(--muted-foreground);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
 }
 .gl-tb-role-evidence {
   margin-block: 1.5rem;

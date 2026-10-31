@@ -31,6 +31,7 @@ import { InventoryMovementBridgePanel } from '@/components/inventory-movement-br
 import { useEffect, useRef, useState, useMemo, type ReactNode } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount, Quantity } from '@/components/amount';
+import { RecordTable } from '@/components/record-table';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -129,66 +130,6 @@ function download(buffer: ArrayBuffer, name: string, type: string) {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-function Table({
-  headers,
-  rows,
-  marks,
-  pager,
-}: {
-  headers: string[];
-  rows: (ReactNode | null)[][];
-  marks?: Record<string, string>[];
-  pager?: string;
-}) {
-  const { lang } = useI18n();
-  const copy = stockCopy[lang];
-  const [page, setPage] = useState(0);
-  const safe = Math.min(page, Math.max(0, Math.ceil(rows.length / 50) - 1));
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table>
-          <thead>
-            <tr>
-              {headers.map((h, i) => (
-                <th key={i}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i} {...marks?.[safe * 50 + i]}>
-                {row.map((v, j) => (
-                  <td key={j}>{v ?? '—'}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="gl-tb-actions" data-stock-pager={pager}>
-        <Button
-          variant="outline"
-          disabled={!safe}
-          onClick={() => setPage(safe - 1)}
-        >
-          {copy.previous}
-        </Button>
-        <span>
-          {safe + 1} / {Math.max(1, Math.ceil(rows.length / 50))} ·{' '}
-          {rows.length}
-        </span>
-        <Button
-          variant="outline"
-          disabled={(safe + 1) * 50 >= rows.length}
-          onClick={() => setPage(safe + 1)}
-        >
-          {copy.next}
-        </Button>
-      </div>
-    </>
-  );
 }
 export function StockWorkspace({
   active,
@@ -566,7 +507,7 @@ export function StockWorkspace({
           <bdi>{fingerprint}</bdi>
         </p>
       )}
-      <Table headers={headers} rows={rows} />
+      <RecordTable source={title} headers={headers} rows={rows} />
     </WorkspaceAdvanced>
   );
   return (
@@ -999,7 +940,8 @@ export function StockWorkspace({
               {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>.{' '}
               {copy.quantityNote}
             </p>
-            <Table
+            <RecordTable
+              label={copy.tableNames.totals}
               headers={copy.totals}
               rows={
                 result.totals
@@ -1012,7 +954,8 @@ export function StockWorkspace({
                   : []
               }
             />
-            <Table
+            <RecordTable
+              label={copy.tableNames.comparisons}
               headers={copy.comparisons}
               rows={result.comparisons.map((v) => [
                 v.account,
@@ -1040,9 +983,10 @@ export function StockWorkspace({
               {result.links.some((l) => l.status === 'unlinked') ? (
                 <>
                   <h4>{copy.unlinkedTitle}</h4>
-                  <Table
+                  <RecordTable
+                    label={copy.unlinkedTitle}
                     headers={copy.unlinkedHeaders}
-                    pager="unlinked"
+                    pager={{ 'data-stock-pager': 'unlinked' }}
                     rows={result.links
                       .filter((l) => l.status === 'unlinked')
                       .map((l) => [
@@ -1080,9 +1024,10 @@ export function StockWorkspace({
               {result.unlinked.length > 0 && (
                 <>
                   <h4>{copy.othersTitle}</h4>
-                  <Table
+                  <RecordTable
+                    label={copy.othersTitle}
                     headers={copy.othersHeaders}
-                    pager="others"
+                    pager={{ 'data-stock-pager': 'others' }}
                     rows={result.unlinked.map((u) => [
                       copy.linkRoles[u.role],
                       u.record?.row ?? null,

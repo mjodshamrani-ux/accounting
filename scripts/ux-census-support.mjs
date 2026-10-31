@@ -33,6 +33,7 @@ export const METRICS = [
   'pageOverflow',
   'disabledUnexplained',
   'focusLost',
+  'wideUnnamed',
 ];
 
 /** Counts the defect classes inside one domain panel, with samples. */
@@ -195,6 +196,17 @@ export function censusInPage(selector) {
         b.title
       ),
   ).length;
+  // A frame the reader sees scrolling sideways with no name: Chromium lets
+  // the keyboard reach it, but nothing says what it holds or that it
+  // scrolls. Content inside a closed section is not seen, so it counts once
+  // the section is opened.
+  const wideUnnamed = [...root.querySelectorAll('*')].filter(
+    (el) =>
+      el.scrollWidth > el.clientWidth + 1 &&
+      el.checkVisibility() &&
+      /^(auto|scroll)$/u.test(getComputedStyle(el).overflowX) &&
+      !(el.getAttribute('aria-label') || el.getAttribute('aria-labelledby')),
+  ).length;
   return {
     cells,
     controls: buttons.length,
@@ -212,6 +224,7 @@ export function censusInPage(selector) {
     pageOverflow: overflowPx > 0 ? 1 : 0,
     overflowPx,
     disabledUnexplained,
+    wideUnnamed,
   };
 }
 
@@ -281,6 +294,13 @@ export function plantInPage(selector) {
   button.textContent = 'planted';
   root.append(button);
   planted.push('disabledUnexplained');
+  const frame = document.createElement('div');
+  frame.style.cssText = 'overflow-x:auto;width:120px';
+  const content = document.createElement('div');
+  content.style.cssText = 'width:600px;height:4px';
+  frame.append(content);
+  root.append(frame);
+  planted.push('wideUnnamed');
   return planted;
 }
 

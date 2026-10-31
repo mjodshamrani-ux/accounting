@@ -1,8 +1,10 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { IntercompanyBatchPanel } from '@/components/intercompany-batch-panel';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount, Figures } from '@/components/amount';
+import { RecordPager, RecordTable } from '@/components/record-table';
+import { recordPage } from '@/lib/record-page';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -65,62 +67,6 @@ function download(buffer: ArrayBuffer, name: string, type: string) {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-function Table({
-  headers,
-  rows,
-}: {
-  headers: string[];
-  rows: (ReactNode | null)[][];
-}) {
-  const { lang } = useI18n();
-  const copy = intercompanyCopy[lang];
-  const [page, setPage] = useState(0);
-  const safe = Math.min(page, Math.max(0, Math.ceil(rows.length / 50) - 1));
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table>
-          <thead>
-            <tr>
-              {headers.map((h, i) => (
-                <th key={i}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i}>
-                {row.map((v, j) => (
-                  <td key={j}>{v ?? '—'}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="gl-tb-actions">
-        <Button
-          variant="outline"
-          disabled={!safe}
-          onClick={() => setPage(safe - 1)}
-        >
-          {copy.previous}
-        </Button>
-        <span>
-          {safe + 1} / {Math.max(1, Math.ceil(rows.length / 50))} ·{' '}
-          {rows.length}
-        </span>
-        <Button
-          variant="outline"
-          disabled={(safe + 1) * 50 >= rows.length}
-          onClick={() => setPage(safe + 1)}
-        >
-          {copy.next}
-        </Button>
-      </div>
-    </>
-  );
 }
 export function IntercompanyWorkspace({
   active,
@@ -312,6 +258,7 @@ export function IntercompanyWorkspace({
       install,
     );
   }
+  const pairsShown = recordPage(result?.pairs.length ?? 0, pairPage);
   const status = (value: string) =>
     (copy.status as Record<string, string>)[value] ?? value;
   const canAccept =
@@ -566,7 +513,8 @@ export function IntercompanyWorkspace({
             <p>
               {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>
             </p>
-            <Table
+            <RecordTable
+              label={copy.tableNames.totals}
               headers={copy.totals}
               rows={
                 result.totals
@@ -600,7 +548,7 @@ export function IntercompanyWorkspace({
             <h3>
               {copy.pairs} ({result.pairs.length})
             </h3>
-            {result.pairs.slice(pairPage * 50, pairPage * 50 + 50).map((p) => (
+            {result.pairs.slice(pairsShown.from, pairsShown.to).map((p) => (
               <section
                 key={p.relationRecord}
                 data-intercompany-pair={p.relationId}
@@ -622,7 +570,8 @@ export function IntercompanyWorkspace({
                   <summary>
                     {copy.entries} ({p.members.length})
                   </summary>
-                  <Table
+                  <RecordTable
+                    label={`${copy.entries} · ${p.relationId}`}
                     headers={copy.pairHeaders}
                     rows={p.members.map((e) => [
                       p.relationId,
@@ -665,31 +614,18 @@ export function IntercompanyWorkspace({
                 </div>
               </section>
             ))}
-            <div className="gl-tb-actions">
-              <Button
-                variant="outline"
-                disabled={!pairPage}
-                onClick={() => setPairPage(pairPage - 1)}
-              >
-                {copy.previous}
-              </Button>
-              <span>
-                {pairPage + 1} /{' '}
-                {Math.max(1, Math.ceil(result.pairs.length / 50))}
-              </span>
-              <Button
-                variant="outline"
-                disabled={(pairPage + 1) * 50 >= result.pairs.length}
-                onClick={() => setPairPage(pairPage + 1)}
-              >
-                {copy.next}
-              </Button>
-            </div>
+            <RecordPager
+              label={copy.pairs}
+              length={result.pairs.length}
+              page={pairPage}
+              onPage={setPairPage}
+            />
             <details>
               <summary>
                 {copy.relations} ({result.relations.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.relations}
                 headers={copy.relationHeaders}
                 rows={result.relations.map((r) => [
                   r.relationId,
@@ -705,7 +641,8 @@ export function IntercompanyWorkspace({
               <summary>
                 {copy.timing} ({result.timing.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.timing}
                 headers={copy.timingHeaders}
                 rows={result.timing.map((r) => [
                   r.evidenceId,
@@ -722,7 +659,8 @@ export function IntercompanyWorkspace({
               <summary>
                 {copy.missing} ({result.missing.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.missing}
                 headers={copy.missingHeaders}
                 rows={result.missing.map((r) => [r.kind, r.key])}
               />
@@ -731,7 +669,8 @@ export function IntercompanyWorkspace({
               <summary>
                 {copy.issues} ({result.issues.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.issues}
                 headers={copy.issueHeaders}
                 rows={result.issues.map((r) => [
                   r.code,
@@ -746,7 +685,8 @@ export function IntercompanyWorkspace({
               <summary>
                 {copy.inventory} ({result.inventory.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.inventory}
                 headers={copy.inventoryHeaders}
                 rows={result.inventory.map((r) => [
                   copy.roles[r.source],
@@ -761,7 +701,8 @@ export function IntercompanyWorkspace({
               <summary>
                 {copy.history} ({events.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.history}
                 headers={copy.eventHeaders}
                 rows={events.map((e) => [
                   copy[e.type],

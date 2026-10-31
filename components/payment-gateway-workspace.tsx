@@ -1,8 +1,9 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { PaymentGatewayBatchesPanel } from '@/components/payment-gateway-batches-panel';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount } from '@/components/amount';
+import { RecordTable } from '@/components/record-table';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -61,62 +62,6 @@ function download(buffer: ArrayBuffer, name: string, type: string) {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-function Table({
-  headers,
-  rows,
-}: {
-  headers: string[];
-  rows: (ReactNode | null)[][];
-}) {
-  const { lang } = useI18n();
-  const copy = gatewayCopy[lang];
-  const [page, setPage] = useState(0);
-  const safe = Math.min(page, Math.max(0, Math.ceil(rows.length / 50) - 1));
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table>
-          <thead>
-            <tr>
-              {headers.map((h, i) => (
-                <th key={i}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i}>
-                {row.map((v, j) => (
-                  <td key={j}>{v ?? '—'}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="gl-tb-actions">
-        <Button
-          variant="outline"
-          disabled={!safe}
-          onClick={() => setPage(safe - 1)}
-        >
-          {copy.previous}
-        </Button>
-        <span>
-          {safe + 1} / {Math.max(1, Math.ceil(rows.length / 50))} ·{' '}
-          {rows.length}
-        </span>
-        <Button
-          variant="outline"
-          disabled={(safe + 1) * 50 >= rows.length}
-          onClick={() => setPage(safe + 1)}
-        >
-          {copy.next}
-        </Button>
-      </div>
-    </>
-  );
 }
 export function GatewayWorkspace({
   active,
@@ -602,11 +547,13 @@ export function GatewayWorkspace({
             <p>
               {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>
             </p>
-            <Table
+            <RecordTable
+              label={copy.tableNames.totals}
               headers={copy.totals}
               rows={result.totals ? [amounts(result.totals)] : []}
             />
-            <Table
+            <RecordTable
+              label={copy.tableNames.residuals}
               headers={copy.residuals}
               rows={result.residuals ? [amounts(result.residuals)] : []}
             />
@@ -654,7 +601,8 @@ export function GatewayWorkspace({
                 <summary>
                   {copy.roles[i]} ({records.length})
                 </summary>
-                <Table
+                <RecordTable
+                  source={copy.roles[i]}
                   headers={
                     i === 0 && result.readings[0].family === PG_SIGNED_VERSION
                       ? copy.signedRecords
@@ -692,7 +640,8 @@ export function GatewayWorkspace({
               <summary>
                 {copy.members} ({result.memberIds.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.members}
                 headers={copy.memberHeaders}
                 rows={result.memberIds.map((id) => {
                   const original = JSON.parse(id) as [
@@ -710,7 +659,8 @@ export function GatewayWorkspace({
               <summary>
                 {copy.missing} ({result.missing.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.missing}
                 headers={[copy.missing]}
                 rows={result.missing.map((k) => [
                   copy.roles[PG_ROLES.indexOf(k as (typeof PG_ROLES)[number])],
@@ -721,7 +671,8 @@ export function GatewayWorkspace({
               <summary>
                 {copy.issues} ({result.issues.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.issues}
                 headers={copy.issueHeaders}
                 rows={result.issues.map((e) => [
                   (copy.issueReasons as Record<string, string>)[e.code] ??
@@ -736,7 +687,8 @@ export function GatewayWorkspace({
               <summary>
                 {copy.inventory} ({result.inventory.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.inventory}
                 headers={copy.inventoryHeaders}
                 rows={result.inventory.map((e) => [
                   copy.roles[e.source],
@@ -751,7 +703,8 @@ export function GatewayWorkspace({
               <summary>
                 {copy.history} ({result.events.length})
               </summary>
-              <Table
+              <RecordTable
+                label={copy.history}
                 headers={copy.eventHeaders}
                 rows={result.events.map((e) => [
                   copy[e.type],
