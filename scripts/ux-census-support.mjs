@@ -26,6 +26,7 @@ export const STATES = [
 ];
 export const METRICS = [
   'minorUnits',
+  'minorUnitsInText',
   'minusAfterDigits',
   'unisolatedAmounts',
   'brokenInsideWord',
@@ -73,6 +74,21 @@ export function censusInPage(selector) {
         [cell.cellIndex]?.textContent.trim() ?? '?';
     minorUnitsByHeader[header] = (minorUnitsByHeader[header] ?? 0) + 1;
   }
+  // The same integer in running text outside a cell, as in a label line
+  // "Debit / Credit / Residual: 150000 / 150000 / 0". A token runs between
+  // spaces and the separators of such a line, so an identifier, a date or a
+  // file name stays one token and is not counted.
+  const textSamples = [];
+  let minorUnitsInText = 0;
+  for (const node of texts) {
+    if (node.parentElement.closest('td, th')) continue;
+    for (const token of node.textContent.split(/[\s/:()·،؛;|=]+/u)) {
+      if (!/^-?\d{5,}$/u.test(token.replace(/[.,،]+$/u, ''))) continue;
+      minorUnitsInText++;
+      if (textSamples.length < 5)
+        textSamples.push(node.textContent.trim().slice(0, 60));
+    }
+  }
   // A minus drawn to the right of its digits: a negative number laid out by
   // the bidi algorithm without isolation. A negative number follows the
   // start, a space, a bracket or a separator, so the hyphen of a date or an
@@ -97,14 +113,32 @@ export function censusInPage(selector) {
       }
     }
   }
-  // A formatted amount in running text with no left-to-right isolation.
+  // A formatted amount in running text that is not laid out left to right.
+  // The nearest element that sets a direction decides, as the browser
+  // computed it: a dir attribute, a block, or an inline isolate or
+  // embedding. A plain inline element such as a span sets none, so an amount
+  // in it takes the direction of the Arabic text around it.
   const unisolatedSamples = [];
   let unisolatedAmounts = 0;
   const amount =
     /(?:^|[^\d.,-])-?\d{1,3}(?:,\d{3})+(?:\.\d+)?(?![\d,])|(?:^|[^\d.,])-\d+\.\d+(?!\d)/u;
+  const leftToRight = (el) => {
+    for (let e = el; e; e = e.parentElement) {
+      const attribute = e.getAttribute('dir');
+      if (attribute === 'ltr' || attribute === 'rtl')
+        return attribute === 'ltr';
+      const s = getComputedStyle(e);
+      if (
+        s.display !== 'inline' ||
+        /isolate|embed|plaintext|override/u.test(s.unicodeBidi)
+      )
+        return s.direction === 'ltr';
+    }
+    return false;
+  };
   for (const node of texts) {
     if (!amount.test(node.textContent)) continue;
-    if (node.parentElement.closest('[dir="ltr"], bdi, time')) continue;
+    if (leftToRight(node.parentElement)) continue;
     unisolatedAmounts++;
     if (unisolatedSamples.length < 5)
       unisolatedSamples.push(node.textContent.trim().slice(0, 40));
@@ -167,6 +201,8 @@ export function censusInPage(selector) {
     disabled: disabled.length,
     minorUnits,
     minorUnitsByHeader,
+    minorUnitsInText,
+    textSamples,
     minusAfterDigits,
     minusSamples,
     unisolatedAmounts,
@@ -210,6 +246,10 @@ export function plantInPage(selector) {
     formatted.textContent = formatted.textContent.trim().replace(/[.,]/gu, '');
     planted.push('minorUnits');
   }
+  const line = document.createElement('p');
+  line.textContent = 'planted: 150000 / 150000 / 0';
+  root.append(line);
+  planted.push('minorUnitsInText');
   const table = [...root.querySelectorAll('table')].find(
     (t) => t.tBodies[0] && t.getBoundingClientRect().width > 0,
   );
@@ -219,6 +259,9 @@ export function plantInPage(selector) {
     negative.textContent = '-5000';
     const amount = document.createElement('td');
     amount.textContent = '1,234.56';
+    const span = document.createElement('span');
+    span.textContent = '-2,500.00';
+    amount.append(' ', span);
     const narrow = document.createElement('td');
     const block = document.createElement('div');
     block.textContent = '1,000.00';
