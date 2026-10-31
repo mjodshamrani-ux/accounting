@@ -38,9 +38,11 @@ export function VisualCropPicker({
   const help = useId(),
     useWhy = useId();
   const [fresh, setFresh] = useState(true);
-  const anchor = useRef<{ point: [number, number]; pointerId: number } | null>(
-    null,
-  );
+  const anchor = useRef<{
+    point: [number, number];
+    pointerId: number;
+    client: [number, number];
+  } | null>(null);
   const shown = active ? box : highlight;
   function start(newRegion: boolean) {
     setFresh(newRegion);
@@ -108,7 +110,11 @@ export function VisualCropPicker({
             e.preventDefault();
             e.currentTarget.focus();
             e.currentTarget.setPointerCapture(e.pointerId);
-            anchor.current = { point: point(e), pointerId: e.pointerId };
+            anchor.current = {
+              point: point(e),
+              pointerId: e.pointerId,
+              client: [e.clientX, e.clientY],
+            };
             setBox(null);
           }}
           onPointerMove={(e) => {
@@ -119,7 +125,15 @@ export function VisualCropPicker({
           onPointerUp={(e) => {
             if (!anchor.current || anchor.current.pointerId !== e.pointerId)
               return;
-            setBox(cropBetween(anchor.current.point, point(e), width, height));
+            // A click is not a frame (UX-3): released within two screen
+            // pixels of the press, it would leave a frame a pixel or two
+            // wide that shows no value, so it leaves none.
+            const [cx, cy] = anchor.current.client;
+            setBox(
+              Math.max(Math.abs(e.clientX - cx), Math.abs(e.clientY - cy)) <= 2
+                ? null
+                : cropBetween(anchor.current.point, point(e), width, height),
+            );
             anchor.current = null;
             e.currentTarget.releasePointerCapture(e.pointerId);
           }}

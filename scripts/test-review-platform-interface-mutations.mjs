@@ -217,6 +217,14 @@ const mutations = [
     only: 'ranges',
   },
   {
+    id: 'a-click-leaves-a-frame',
+    file: 'components/visual-crop-picker.tsx',
+    from: 'Math.abs(e.clientY - cy)) <= 2',
+    to: 'Math.abs(e.clientY - cy)) < 0',
+    acceptance: 'review',
+    only: 'ranges',
+  },
+  {
     id: 'range-check-names-the-wrong-step',
     file: 'components/visual-table-review.tsx',
     from: '              counts.unclassified\n                ? v.coverageWaits.unclassified',
