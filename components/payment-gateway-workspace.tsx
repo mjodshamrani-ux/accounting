@@ -3,7 +3,12 @@ import { PaymentGatewayBatchesPanel } from '@/components/payment-gateway-batches
 import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount } from '@/components/amount';
-import { RecordTable } from '@/components/record-table';
+import {
+  RecordFields,
+  RecordTable,
+  identityFields,
+  memberPlace,
+} from '@/components/record-table';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -681,8 +686,13 @@ export function GatewayWorkspace({
                     number,
                     number,
                   ];
-                  return [copy.roles[original[1]], original[4], id];
+                  return [
+                    copy.roles[original[1]],
+                    original[4],
+                    <RecordFields key="id" values={identityFields(id)} />,
+                  ];
                 })}
+                wrap={[2]}
               />
             </details>
             <details>
@@ -725,8 +735,12 @@ export function GatewayWorkspace({
                   e.row,
                   e.kind,
                   e.errors.join(' | '),
-                  JSON.stringify(files[e.source]!.sheets[0].rows[e.row - 1]),
+                  <RecordFields
+                    key="values"
+                    values={files[e.source]!.sheets[0].rows[e.row - 1]}
+                  />,
                 ])}
+                wrap={[4]}
               />
             </details>
             <details>
@@ -742,8 +756,14 @@ export function GatewayWorkspace({
                   e.at,
                   e.reference,
                   e.note,
-                  JSON.stringify(e.memberIds),
+                  <RecordFields
+                    key="members"
+                    values={e.memberIds.map((id) =>
+                      memberPlace(id, copy.roles),
+                    )}
+                  />,
                 ])}
+                wrap={[5]}
               />
             </details>
           </section>

@@ -36,6 +36,7 @@ export const METRICS = [
   'wideUnnamed',
   'focusAfterDecision',
   'clippedText',
+  'jsonText',
 ];
 
 // The decision each workspace offers after its example, by the names the
@@ -311,6 +312,27 @@ export function censusInPage(selector) {
       clippedSamples.push(cell.textContent.trim().slice(0, 60));
     return true;
   }).length;
+  // A source row or a list of ids shown as JSON, with the brackets and
+  // quotes the program wrote, where the reader expects its fields (audit
+  // B6). Counted shown, or one closed disclosure away as a reader opens it.
+  const jsonSamples = [];
+  let jsonText = 0;
+  const all = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  for (let node = all.nextNode(); node; node = all.nextNode()) {
+    const el = node.parentElement,
+      text = node.textContent.trim();
+    if (!el || el.closest('script, style, template, [hidden]')) continue;
+    if (!/^[[{][\s\S]*"[\s\S]*[\]}]$/u.test(text)) continue;
+    const shut = el.closest('details:not([open])');
+    if (!(el.checkVisibility() || (shut && shut.checkVisibility()))) continue;
+    try {
+      if (typeof JSON.parse(text) !== 'object') continue;
+    } catch {
+      continue;
+    }
+    jsonText++;
+    if (jsonSamples.length < 5) jsonSamples.push(text.slice(0, 60));
+  }
   return {
     cells,
     controls: buttons.length,
@@ -331,6 +353,8 @@ export function censusInPage(selector) {
     wideUnnamed,
     clippedText,
     clippedSamples,
+    jsonText,
+    jsonSamples,
   };
 }
 
@@ -432,6 +456,16 @@ export function plantInPage(selector) {
   frame.append(content);
   root.append(frame);
   planted.push('wideUnnamed');
+  // A source row shown as JSON inside a closed disclosure, one click away,
+  // as the trial balance inventory showed it (audit B6).
+  const disclosure = document.createElement('details');
+  const summary = document.createElement('summary');
+  summary.textContent = 'planted source row';
+  const json = document.createElement('pre');
+  json.textContent = JSON.stringify(['planted', 'source row']);
+  disclosure.append(summary, json);
+  root.append(disclosure);
+  planted.push('jsonText');
   return planted;
 }
 

@@ -3,7 +3,12 @@ import { IntercompanyBatchPanel } from '@/components/intercompany-batch-panel';
 import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount, Figures } from '@/components/amount';
-import { RecordPager, RecordTable } from '@/components/record-table';
+import {
+  RecordFields,
+  RecordPager,
+  RecordTable,
+  memberPlace,
+} from '@/components/record-table';
 import { pageOfRow, recordPage } from '@/lib/record-page';
 import { Button } from '@/components/ui/button';
 import {
@@ -727,8 +732,9 @@ export function IntercompanyWorkspace({
                   r.row,
                   r.kind,
                   r.errors.join(', '),
-                  JSON.stringify(r.values),
+                  <RecordFields key="values" values={r.values} />,
                 ])}
+                wrap={[4]}
               />
             </details>
             <details>
@@ -744,8 +750,14 @@ export function IntercompanyWorkspace({
                   e.at,
                   e.reference,
                   e.note,
-                  JSON.stringify(e.memberIds),
+                  <RecordFields
+                    key="members"
+                    values={e.memberIds.map((id) =>
+                      memberPlace(id, copy.roles),
+                    )}
+                  />,
                 ])}
+                wrap={[5]}
               />
             </details>
           </section>

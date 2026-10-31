@@ -84,6 +84,13 @@
 .record-field {
   white-space: nowrap;
 }
+/* A disclosure in such a column keeps its title on one line, so the column
+   is never narrower than the title it shows while closed: a workspace that
+   lets its text break anywhere (overflow-wrap: anywhere) would otherwise
+   let the column shrink and the title break inside its words. */
+[data-record-wrap] summary {
+  white-space: nowrap;
+}
 /* A table the kit does not draw keeps its own look inside the kit's frame
    (RecordFrame), as the supplier's case list does. */
 .results-frame {

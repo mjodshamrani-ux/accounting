@@ -276,6 +276,11 @@ async function issues(page, lang, tag) {
   );
 
   let body = await table.innerText();
+  assert.doesNotMatch(
+    body,
+    /\["/u,
+    'Original values are shown by field, not as JSON',
+  );
   assert.ok(
     body.includes('INV-PART-ERR-1') &&
       body.includes('INV-PART-ERR-10') &&

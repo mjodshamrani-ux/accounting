@@ -1,7 +1,7 @@
 {
   "note": "Interface census baseline: each metric summed over the four states of a domain (Arabic and English at 390 and 1440 px) after its synthetic example ran. Recorded by scripts/ux-census-browser.mjs --record; the gate fails on any change.",
   "recorded": {
-    "commit": "239171afed16a3351b5fb70014537615ea007bf4",
+    "commit": "d24f5cd9f374a2fbfa0a5413d96199f532356c57",
     "date": "2026-10-31",
     "chromium": "141.0.7390.37"
   },
@@ -16,7 +16,8 @@
     "focusLost",
     "wideUnnamed",
     "focusAfterDecision",
-    "clippedText"
+    "clippedText",
+    "jsonText"
   ],
   "domains": {
     "supplier": {
@@ -30,7 +31,8 @@
       "focusLost": 0,
       "wideUnnamed": 0,
       "focusAfterDecision": 0,
-      "clippedText": 0
+      "clippedText": 0,
+      "jsonText": 0
     },
     "clearing": {
       "minorUnits": 0,
@@ -43,7 +45,8 @@
       "focusLost": 0,
       "wideUnnamed": 0,
       "focusAfterDecision": 0,
-      "clippedText": 0
+      "clippedText": 0,
+      "jsonText": 0
     },
     "ar": {
       "minorUnits": 0,
@@ -56,7 +59,8 @@
       "focusLost": 0,
       "wideUnnamed": 0,
       "focusAfterDecision": 0,
-      "clippedText": 0
+      "clippedText": 0,
+      "jsonText": 0
     },
     "gl-tb": {
       "minorUnits": 0,
@@ -69,7 +73,8 @@
       "focusLost": 0,
       "wideUnnamed": 0,
       "focusAfterDecision": 0,
-      "clippedText": 0
+      "clippedText": 0,
+      "jsonText": 0
     },
     "allocation": {
       "minorUnits": 0,
@@ -82,7 +87,8 @@
       "focusLost": 0,
       "wideUnnamed": 0,
       "focusAfterDecision": 0,
-      "clippedText": 0
+      "clippedText": 0,
+      "jsonText": 0
     },
     "bank": {
       "minorUnits": 0,
@@ -95,7 +101,8 @@
       "focusLost": 0,
       "wideUnnamed": 0,
       "focusAfterDecision": 0,
-      "clippedText": 0
+      "clippedText": 0,
+      "jsonText": 0
     },
     "tb-financial": {
       "minorUnits": 0,
@@ -108,7 +115,8 @@
       "focusLost": 0,
       "wideUnnamed": 0,
       "focusAfterDecision": 0,
-      "clippedText": 0
+      "clippedText": 0,
+      "jsonText": 0
     },
     "intercompany": {
       "minorUnits": 0,
@@ -121,7 +129,8 @@
       "focusLost": 0,
       "wideUnnamed": 0,
       "focusAfterDecision": 0,
-      "clippedText": 0
+      "clippedText": 0,
+      "jsonText": 0
     },
     "gateway": {
       "minorUnits": 0,
@@ -134,7 +143,8 @@
       "focusLost": 0,
       "wideUnnamed": 0,
       "focusAfterDecision": 0,
-      "clippedText": 0
+      "clippedText": 0,
+      "jsonText": 0
     },
     "stock": {
       "minorUnits": 0,
@@ -147,7 +157,8 @@
       "focusLost": 0,
       "wideUnnamed": 0,
       "focusAfterDecision": 0,
-      "clippedText": 0
+      "clippedText": 0,
+      "jsonText": 0
     },
     "assets": {
       "minorUnits": 0,
@@ -160,7 +171,8 @@
       "focusLost": 0,
       "wideUnnamed": 0,
       "focusAfterDecision": 0,
-      "clippedText": 0
+      "clippedText": 0,
+      "jsonText": 0
     },
     "payroll": {
       "minorUnits": 0,
@@ -173,7 +185,8 @@
       "focusLost": 0,
       "wideUnnamed": 0,
       "focusAfterDecision": 0,
-      "clippedText": 0
+      "clippedText": 0,
+      "jsonText": 0
     }
   }
 }

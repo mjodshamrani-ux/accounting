@@ -127,6 +127,7 @@ import {
   TableCell,
 } from '@/components/ui/table';
 import {
+  RecordFields,
   RecordFrame,
   RecordPager,
   RecordRows,
@@ -358,12 +359,11 @@ function ReadingIssueList({
             )}
           </>,
           engineText(issue.reason),
-          <bdi
-            key="original"
-            style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}
-          >
-            {issue.values.length ? JSON.stringify(issue.values) : r.noOriginal}
-          </bdi>,
+          issue.values.length ? (
+            <RecordFields key="original" values={issue.values} />
+          ) : (
+            r.noOriginal
+          ),
         ]}
       />
     </details>

@@ -12,7 +12,7 @@ import { ClosedReason, useDecisionFocus } from '@/components/decision-platform';
 import { decisionNeed } from '@/lib/decision-platform';
 import { decisionPlatformCopy } from '@/lib/i18n/decision-platform';
 import { pageOfRow } from '@/lib/record-page';
-import { RecordRows } from '@/components/record-table';
+import { RecordFields, RecordRows } from '@/components/record-table';
 import './bank-adjustment-workspace.css';
 import { Button } from '@/components/ui/button';
 import { useI18n } from '@/lib/i18n/context';
@@ -291,6 +291,7 @@ export function BankAdjustmentWorkspace({
       onPage: (page: number) => void;
       target: (r: T, at: number) => string;
     },
+    wrap?: readonly number[],
   ) {
     return (
       <section>
@@ -301,6 +302,7 @@ export function BankAdjustmentWorkspace({
           rows={rows}
           cells={cells}
           frame={{ 'data-testid': testid }}
+          wrap={wrap}
           {...decided}
         />
       </section>
@@ -759,9 +761,11 @@ export function BankAdjustmentWorkspace({
                       ) as keyof typeof t.balanceReason
                     ] ?? t.other)
                   : '',
-                JSON.stringify(i.values),
+                <RecordFields key="values" values={i.values} />,
               ],
               'bank-balance-inventory',
+              undefined,
+              [4],
             )}
             <label>
               {t.reference}
@@ -898,9 +902,11 @@ export function BankAdjustmentWorkspace({
                       ) as keyof typeof t.reason
                     ] ?? t.other)
                   : '',
-                JSON.stringify(i.values),
+                <RecordFields key="values" values={i.values} />,
               ],
               'bank-balance-inventory',
+              undefined,
+              [4],
             )}
             {table(
               t.history,

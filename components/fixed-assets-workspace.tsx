@@ -3,7 +3,11 @@ import { FixedAssetsSectionsPanel } from '@/components/fixed-assets-sections-pan
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount } from '@/components/amount';
-import { RecordTable } from '@/components/record-table';
+import {
+  RecordFields,
+  RecordTable,
+  identityFields,
+} from '@/components/record-table';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -285,6 +289,7 @@ export function AssetWorkspace({
     headers: string[],
     rows: (ReactNode | null)[][],
     fingerprint?: string,
+    wrap?: readonly number[],
   ) => (
     <WorkspaceAdvanced
       summary={
@@ -298,7 +303,7 @@ export function AssetWorkspace({
           <bdi>{fingerprint}</bdi>
         </p>
       )}
-      <RecordTable source={title} headers={headers} rows={rows} />
+      <RecordTable source={title} headers={headers} rows={rows} wrap={wrap} />
     </WorkspaceAdvanced>
   );
   return (
@@ -758,8 +763,14 @@ export function AssetWorkspace({
               copy.memberHeaders,
               result.memberIds.map((id) => {
                 const v = JSON.parse(id);
-                return [copy.roles[v[1]], v[4], id];
+                return [
+                  copy.roles[v[1]],
+                  v[4],
+                  <RecordFields key="id" values={identityFields(id)} />,
+                ];
               }),
+              undefined,
+              [2],
             )}
             {detail(
               copy.missing,

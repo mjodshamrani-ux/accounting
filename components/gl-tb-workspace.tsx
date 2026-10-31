@@ -33,7 +33,7 @@ import {
   glTbDemo,
 } from '@/lib/reconciliation/gl-tb-demo';
 import { GlTbSectionsPanel } from '@/components/gl-tb-sections-panel';
-import { RecordRows } from '@/components/record-table';
+import { RecordFields, RecordRows } from '@/components/record-table';
 import './workspace-record.css';
 const freshScope = (): GlTbScope => ({
   ...glDemoScope,
@@ -564,6 +564,7 @@ export function GlTbWorkspace({
             label={t.inventory}
             headers={[t.sides.join(' / '), t.row, t.kind, t.error, t.original]}
             frame={{ 'data-testid': 'gl-tb-inventory' }}
+            wrap={[4]}
             page={page}
             onPage={setPage}
             rows={result.inventory}
@@ -579,17 +580,21 @@ export function GlTbWorkspace({
                   : '',
                 <details key="original">
                   <summary>{t.original}</summary>
-                  <pre dir="auto">{JSON.stringify(i.values)}</pre>
+                  <p>
+                    <RecordFields values={i.values} />
+                  </p>
                   {row && (
                     <>
                       <p>
-                        {t.record}: {row.record}
+                        {t.record}:{' '}
+                        <bdi className="record-field">{row.record}</bdi>
                       </p>
                       <p>{t.cellEvidence}</p>
                       <ul>
                         {row.trace.map((cell) => (
                           <li key={cell.column}>
-                            {t.column} {cell.column}: <bdi>{cell.text}</bdi> →{' '}
+                            {t.column} {cell.column}:{' '}
+                            <bdi className="record-field">{cell.text}</bdi> →{' '}
                             {cell.amount} ({t.minor})
                           </li>
                         ))}

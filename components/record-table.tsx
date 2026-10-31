@@ -294,6 +294,32 @@ export function RecordTable({
   );
 }
 
+/** A physical member identity as the engine writes it, a JSON array
+ * (protocol, source, file fingerprint, sheet, row), read back into its
+ * fields for RecordFields; anything else is one field (UX-3). */
+export function identityFields(id: string): string[] {
+  try {
+    const v: unknown = JSON.parse(id);
+    if (
+      Array.isArray(v) &&
+      v.length &&
+      v.every((x) => typeof x === 'string' || typeof x === 'number')
+    )
+      return v.map(String);
+  } catch {
+    // not an engine identity: shown as it is
+  }
+  return [id];
+}
+
+/** Where a physical member was read, as the reader names it: the role of
+ * its source and its row (UX-3). */
+export function memberPlace(id: string, roles: readonly string[]): string {
+  const v = identityFields(id);
+  const role = v.length === 5 ? roles[Number(v[1])] : undefined;
+  return role ? `${role} · ${v[4]}` : id;
+}
+
 /** The fields of one source row as read, in order, each kept whole in its
  * own direction. In a column marked `wrap` the row wraps between its
  * fields, never inside a date, an identity or a hyphenated word (UX-3). */

@@ -2,7 +2,11 @@ import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant'
 import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount, Figures } from '@/components/amount';
-import { RecordPager, RecordTable } from '@/components/record-table';
+import {
+  RecordFields,
+  RecordPager,
+  RecordTable,
+} from '@/components/record-table';
 import { pageOfRow, recordPage } from '@/lib/record-page';
 import { Button } from '@/components/ui/button';
 import {
@@ -733,8 +737,9 @@ export function FinancialWorkspace({
                   i.row,
                   i.kind,
                   i.errors.join(', '),
-                  JSON.stringify(i.values),
+                  <RecordFields key="values" values={i.values} />,
                 ])}
+                wrap={[4]}
               />
             </details>
             <details>

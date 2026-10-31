@@ -31,7 +31,11 @@ import { InventoryMovementBridgePanel } from '@/components/inventory-movement-br
 import { useEffect, useId, useRef, useState, useMemo, type ReactNode } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount, Quantity } from '@/components/amount';
-import { RecordTable } from '@/components/record-table';
+import {
+  RecordFields,
+  RecordTable,
+  identityFields,
+} from '@/components/record-table';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -523,6 +527,7 @@ export function StockWorkspace({
     headers: string[],
     rows: (ReactNode | null)[][],
     fingerprint?: string,
+    wrap?: readonly number[],
   ) => (
     <WorkspaceAdvanced
       summary={
@@ -536,7 +541,7 @@ export function StockWorkspace({
           <bdi>{fingerprint}</bdi>
         </p>
       )}
-      <RecordTable source={title} headers={headers} rows={rows} />
+      <RecordTable source={title} headers={headers} rows={rows} wrap={wrap} />
     </WorkspaceAdvanced>
   );
   return (
@@ -1169,8 +1174,14 @@ export function StockWorkspace({
               copy.memberHeaders,
               result.memberIds.map((id) => {
                 const v = JSON.parse(id);
-                return [copy.roles[v[1]], v[4], id];
+                return [
+                  copy.roles[v[1]],
+                  v[4],
+                  <RecordFields key="id" values={identityFields(id)} />,
+                ];
               }),
+              undefined,
+              [2],
             )}
             {detail(
               copy.missing,

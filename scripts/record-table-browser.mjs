@@ -10,8 +10,14 @@
 // receivables and gateway examples, Arabic and English at 390 and 1440 px,
 // no cell of a record table is cut off, and the fields of a source row each
 // stay on one line, so a wrapped row breaks between fields, never inside a
-// date, an identity or a hyphenated word. Synthetic example only; no
-// financial truth is asserted.
+// date, an identity or a hyphenated word. Last, source text is read by
+// field (audit B6): in the trial balance, financial position,
+// intercompany, gateway, inventory, assets and payroll examples, the bank
+// balance reconciliation example, and the gateway and intercompany
+// decision histories after a decision, every disclosure of the result is
+// opened as a reader would, and no source row, member identity or list of
+// members is shown as the JSON the program wrote. Synthetic example only;
+// no financial truth is asserted.
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
@@ -148,7 +154,9 @@ const words = {
 };
 let checked = 0,
   whole = 0,
-  fields = 0;
+  fields = 0,
+  jsonFree = 0,
+  shownFields = 0;
 // Long text read whole (UX-3): no cell cut off, no field of a source row
 // broken across lines.
 async function readWhole(domain, language, width) {
@@ -226,6 +234,183 @@ async function readWhole(domain, language, width) {
     assert.ok(seen.parts > 0, `${label}: the source rows are shown by field`);
   whole += seen.cells;
   fields += seen.parts;
+  await context.close();
+}
+// Source text by field (UX-3, audit B6). Opens every disclosure of the
+// panel but the source picker, then reads what is shown: no text is a JSON
+// array or object, and the source rows and identities are shown by field.
+const opened = (s) => {
+  for (const d of document.querySelectorAll(`${s} details`))
+    if (!d.matches('[data-workspace-required-sources]')) d.open = true;
+};
+const shownJson = (s) => {
+  const found = [];
+  const all = document.createTreeWalker(
+    document.querySelector(s),
+    NodeFilter.SHOW_TEXT,
+  );
+  for (let node = all.nextNode(); node; node = all.nextNode()) {
+    const text = node.textContent.trim();
+    if (
+      !/^[[{][\s\S]*"[\s\S]*[\]}]$/u.test(text) ||
+      !node.parentElement.checkVisibility()
+    )
+      continue;
+    try {
+      if (typeof JSON.parse(text) === 'object') found.push(text.slice(0, 60));
+    } catch {
+      // not JSON
+    }
+  }
+  const fields = [...document.querySelectorAll(`${s} .record-field`)].filter(
+    (f) => f.checkVisibility(),
+  ).length;
+  return { found, fields };
+};
+// A disclosure title in a record table stays on one line while closed, so
+// its column is never narrower than the title. Read before any disclosure
+// opens, since what opens widens the column; and the lines are those of the
+// title's text, since a block reports one box however many lines it holds.
+const wrappedTitles = (s) =>
+  [...document.querySelectorAll(`${s} .record-frame summary`)]
+    .filter((t) => t.checkVisibility())
+    .filter((t) => {
+      const text = document.createRange();
+      text.selectNodeContents(t);
+      return (
+        new Set([...text.getClientRects()].map((r) => Math.round(r.top))).size >
+        1
+      );
+    })
+    .map((t) => t.textContent.trim().slice(0, 40));
+const reject = {
+  gateway: {
+    ar: ['مرجع قرار بوابة الدفع', 'شرح قرار بوابة الدفع', 'رفض الدفعة كاملة'],
+    en: [
+      'Gateway decision reference',
+      'Gateway decision explanation',
+      'Reject whole batch',
+    ],
+  },
+  intercompany: {
+    ar: [
+      'مرجع قرار معاملات المنشآت',
+      'تفسير قرار معاملات المنشآت',
+      'رفض الزوج كاملًا',
+    ],
+    en: [
+      'Intercompany decision reference',
+      'Intercompany decision explanation',
+      'Reject whole pair',
+    ],
+  },
+};
+const balanceExample = {
+  ar: 'افتح مثال تسوية أرصدة اصطناعيًا',
+  en: 'Open a synthetic balance reconciliation example',
+};
+async function readByField(domain, language) {
+  const label = `${domain}/${language}/390`;
+  const context = await browser.newContext({
+    viewport: { width: 390, height: 844 },
+    reducedMotion: 'reduce',
+  });
+  await context.route('**/*', (route) => {
+    const url = route.request().url();
+    if (
+      url.startsWith(base + '/') ||
+      url.startsWith('blob:') ||
+      url.startsWith('data:')
+    )
+      return route.continue();
+    external.push(url);
+    return route.abort();
+  });
+  const page = await context.newPage();
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.goto(base + '/');
+  await page
+    .getByRole('button', { name: words[language].language, exact: true })
+    .click();
+  const panel = await openDomainWorkspace(page, domain, {
+    advanced: true,
+    requiredSources: false,
+  });
+  const selector = `[data-domain-panel="${domain}"]`;
+  const idle = () =>
+    page.waitForFunction(
+      (s) => !document.querySelector(`${s} [aria-busy="true"]`),
+      selector,
+      { timeout: 60000 },
+    );
+  if (domain === 'bank') {
+    // The balance reconciliation under the movements, from its own example.
+    await page.evaluate(opened, selector);
+    await panel
+      .getByRole('button', { name: balanceExample[language], exact: true })
+      .click();
+    await panel
+      .locator('[data-testid="bank-balance-inventory"]')
+      .first()
+      .waitFor({ timeout: 60000 });
+  } else {
+    await panel
+      .getByRole('button', { name: words[language].example })
+      .first()
+      .click();
+    await page.waitForFunction(
+      (s) => !!document.querySelector(`${s} .record-frame tbody td`),
+      selector,
+      { timeout: 60000 },
+    );
+  }
+  await idle();
+  assert.deepEqual(
+    await page.evaluate(wrappedTitles, selector),
+    [],
+    `${label}: a disclosure title in a record table stays on one line`,
+  );
+  await page.evaluate(opened, selector);
+  await page.waitForTimeout(300);
+  let seen = await page.evaluate(shownJson, selector);
+  assert.deepEqual(seen.found, [], `${label}: no source text is shown as JSON`);
+  assert.ok(
+    seen.fields > 0,
+    `${label}: source rows and identities are shown by field`,
+  );
+  if (reject[domain]) {
+    // A whole decision records its members in the history.
+    const [reference, reason, press] = reject[domain][language];
+    await panel
+      .getByLabel(reference, { exact: true })
+      .fill('UX-3 record table reference');
+    await panel
+      .getByLabel(reason, { exact: true })
+      .fill('UX-3 record table decision, members by field');
+    const buttons = panel.getByRole('button', { name: press, exact: true });
+    let button = null;
+    for (let i = 0; i < (await buttons.count()) && !button; i++)
+      if (await buttons.nth(i).isEnabled()) button = buttons.nth(i);
+    assert.ok(button, `${label}: an open whole decision`);
+    await button.click();
+    await page.waitForTimeout(300);
+    await idle();
+    await page.evaluate(opened, selector);
+    await page.waitForTimeout(300);
+    const before = seen.fields;
+    seen = await page.evaluate(shownJson, selector);
+    assert.deepEqual(
+      seen.found,
+      [],
+      `${label}: the members of a decision are not shown as JSON`,
+    );
+    assert.ok(
+      seen.fields > before,
+      `${label}: the members of a decision are shown by field`,
+    );
+  }
+  jsonFree++;
+  shownFields += seen.fields;
   await context.close();
 }
 try {
@@ -376,6 +561,17 @@ try {
   for (const domain of ['ar', 'gateway'])
     for (const language of ['ar', 'en'])
       for (const width of [390, 1440]) await readWhole(domain, language, width);
+  for (const domain of [
+    'gl-tb',
+    'tb-financial',
+    'intercompany',
+    'gateway',
+    'stock',
+    'assets',
+    'payroll',
+    'bank',
+  ])
+    for (const language of ['ar', 'en']) await readByField(domain, language);
   assert.deepEqual(external, [], 'all requests remain local');
   assert.deepEqual(errors, [], 'no browser page errors');
 } finally {
@@ -384,5 +580,5 @@ try {
   await new Promise((resolve) => server.close(resolve));
 }
 console.log(
-  `Record table frames: PASS, ${checked} wide frames in Arabic and English at 390 px; the shade measured on both sides of ${drawn / 2} with rows, ${headersOnly / 2} of headers alone; long text read whole in ${whole} cells and ${fields} source row fields of the receivables and gateway examples`,
+  `Record table frames: PASS, ${checked} wide frames in Arabic and English at 390 px; the shade measured on both sides of ${drawn / 2} with rows, ${headersOnly / 2} of headers alone; long text read whole in ${whole} cells and ${fields} source row fields of the receivables and gateway examples; source text read by field, not JSON, in ${jsonFree} results (${shownFields} fields shown)`,
 );
