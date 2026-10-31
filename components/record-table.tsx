@@ -97,33 +97,45 @@ function useWider(box: { readonly current: HTMLDivElement | null }) {
   return wider;
 }
 
-/** One evidence table of the record kit (UX-3): named, framed and paged.
- * Each cell is isolated, so a reference or an amount keeps its own
- * direction, and a missing value reads as a dash. A table wider than its
- * frame scrolls inside it: the frame then takes the keyboard and says so,
- * and a shade at either edge shows that columns continue. A workspace that
- * must return the reader to a row holds the page with `page` and `onPage`.
- * A table of the rows read from a source is named after the source with
- * `source`, apart from the source's own file input. */
-export function RecordTable({
-  label,
-  source,
-  headers,
-  rows,
-  marks,
-  page,
-  onPage,
-  pager,
-  frame,
-}: ({ label: string; source?: never } | { source: string; label?: never }) & {
-  headers: ReactNode[];
-  rows: ReactNode[][];
-  marks?: (RecordHook | undefined)[];
+type RecordName =
+  | { label: string; source?: never }
+  | { source: string; label?: never };
+type RecordPaging = {
   page?: number;
   onPage?: (page: number) => void;
   pager?: RecordHook;
   frame?: RecordHook;
-}) {
+};
+
+/** One evidence table of the record kit (UX-3): named, framed and paged.
+ * Only the rows of the page shown are drawn: `cells` and `mark` run for
+ * those rows alone, with each row's index in the whole table. A cell of
+ * plain text is isolated, so a reference or a number keeps its own
+ * direction; an element isolates itself where it needs to, and a missing
+ * value reads as a dash. A table wider than its frame scrolls inside it:
+ * the frame then takes the keyboard and says so, and a shade at either edge
+ * shows that columns continue. A workspace that must return the reader to a
+ * row holds the page with `page` and `onPage`. A table of the rows read
+ * from a source is named after the source with `source`, apart from the
+ * source's own file input. */
+export function RecordRows<T>({
+  label,
+  source,
+  headers,
+  rows,
+  cells,
+  mark,
+  page,
+  onPage,
+  pager,
+  frame,
+}: RecordName &
+  RecordPaging & {
+    headers: readonly ReactNode[];
+    rows: readonly T[];
+    cells: (row: T, index: number) => ReactNode[];
+    mark?: (row: T, index: number) => RecordHook | undefined;
+  }) {
   const { lang } = useI18n();
   const copy = recordTableCopy[lang];
   const name = label ?? copy.rowsOf(source);
@@ -154,12 +166,16 @@ export function RecordTable({
           </thead>
           <tbody>
             {rows.slice(from, to).map((row, i) => (
-              <tr key={from + i} {...marks?.[from + i]}>
-                {row.map((cell, j) => (
-                  <td key={j}>
-                    <bdi>{cell ?? '—'}</bdi>
-                  </td>
-                ))}
+              <tr key={from + i} {...mark?.(row, from + i)}>
+                {cells(row, from + i).map((cell, j) => {
+                  const shown =
+                    typeof cell === 'string' || typeof cell === 'number' ? (
+                      <bdi>{cell}</bdi>
+                    ) : (
+                      (cell ?? '—')
+                    );
+                  return <td key={j}>{shown}</td>;
+                })}
               </tr>
             ))}
           </tbody>
@@ -173,5 +189,27 @@ export function RecordTable({
         hook={pager}
       />
     </>
+  );
+}
+
+const asCells = (row: ReactNode[]) => row;
+
+/** A record table whose rows are already written as cells, with the data
+ * attributes of each row, by its index in the table, in `marks`. */
+export function RecordTable({
+  marks,
+  ...table
+}: RecordName &
+  RecordPaging & {
+    headers: readonly ReactNode[];
+    rows: ReactNode[][];
+    marks?: (RecordHook | undefined)[];
+  }) {
+  return (
+    <RecordRows<ReactNode[]>
+      {...table}
+      cells={asCells}
+      mark={marks && ((_, index) => marks[index])}
+    />
   );
 }

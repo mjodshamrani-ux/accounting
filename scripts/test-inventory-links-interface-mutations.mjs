@@ -83,8 +83,8 @@ const mutations = [
   [
     'every-page-shows-the-first-marks',
     RECORD,
-    '<tr key={from + i} {...marks?.[from + i]}>',
-    '<tr key={from + i} {...marks?.[i]}>',
+    '<tr key={from + i} {...mark?.(row, from + i)}>',
+    '<tr key={from + i} {...mark?.(rows[i], i)}>',
   ],
   [
     'pager-unmarked',

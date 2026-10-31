@@ -46,8 +46,6 @@ const en = {
   ],
   findingHeaders: ['Reason', 'File', 'Row'],
   unassignedHeaders: ['File', 'Row', 'Entity', 'Reason'],
-  previous: 'Previous',
-  next: 'Next',
   codes: {
     HEADER: 'A file does not have its role’s columns',
     BATCH_FIELD: 'A batch declaration row is not valid',
@@ -123,8 +121,6 @@ const ar: typeof en = {
   ],
   findingHeaders: ['السبب', 'الملف', 'الصف'],
   unassignedHeaders: ['الملف', 'الصف', 'الشركة', 'السبب'],
-  previous: 'السابق',
-  next: 'التالي',
   codes: {
     HEADER: 'ملف ليست فيه أعمدة دوره',
     BATCH_FIELD: 'صف في تصريح الدفعات غير صالح',

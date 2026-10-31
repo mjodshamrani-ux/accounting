@@ -221,8 +221,11 @@ async function load(page, pgb, c, lang = 'en') {
 async function rows(pgb, pager, selector, read, dense) {
   const found = [];
   const bar = pgb.locator(`[data-pgb-pager="${pager}"]`);
+  // The shared pager names the page, then the number of pages (UX-3).
   const pages = (await bar.count())
-    ? Number(/\/\s*(\d+)/.exec(await bar.locator('span').textContent())[1])
+    ? Number(
+        /(\d+)\D+(\d+)/u.exec(await bar.locator('output').textContent())[2],
+      )
     : 1;
   for (let page = 0; page < pages; page++) {
     if (!dense || page === 0 || page === pages - 1)

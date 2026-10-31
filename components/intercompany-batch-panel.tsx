@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
@@ -12,6 +12,7 @@ import {
   type IntercompanyBatchResult,
 } from '@/lib/reconciliation/intercompany-batch';
 import { intercompanyBatchCopy } from '@/lib/i18n/intercompany-batch';
+import { RecordTable } from '@/components/record-table';
 import './review-section.css';
 
 type Picked = { file: SourceFile; confirmed: boolean };
@@ -19,69 +20,6 @@ type Picked = { file: SourceFile; confirmed: boolean };
 // a batch without a known precision shows none.
 function amount(minor: number | null, decimals: number | null) {
   return decimals === null ? '—' : <Amount minor={minor} decimals={decimals} />;
-}
-
-function Paged({
-  headers,
-  rows,
-  label,
-}: {
-  headers: string[];
-  rows: ReactNode[][];
-  label: string;
-}) {
-  const { lang } = useI18n();
-  const copy = intercompanyBatchCopy[lang];
-  const [page, setPage] = useState(0);
-  const pages = Math.max(1, Math.ceil(rows.length / 50)),
-    safe = Math.min(page, pages - 1);
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table aria-label={label}>
-          <thead>
-            <tr>
-              {headers.map((h) => (
-                <th key={h}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i}>
-                {row.map((v, j) => (
-                  <td key={j}>
-                    <bdi>{v}</bdi>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {pages > 1 && (
-        <div className="gl-tb-actions">
-          <Button
-            variant="outline"
-            disabled={!safe}
-            onClick={() => setPage(safe - 1)}
-          >
-            {copy.previous}
-          </Button>
-          <span>
-            {safe + 1} / {pages} · {rows.length}
-          </span>
-          <Button
-            variant="outline"
-            disabled={safe + 1 >= pages}
-            onClick={() => setPage(safe + 1)}
-          >
-            {copy.next}
-          </Button>
-        </div>
-      )}
-    </>
-  );
 }
 
 function BatchView({
@@ -118,7 +56,7 @@ function BatchView({
           ))}
         </ul>
       )}
-      <Paged
+      <RecordTable
         label={`${batch.id} ${copy.relationsTitle}`}
         headers={copy.relationHeaders}
         rows={batch.relations.map((r) => [
@@ -136,7 +74,7 @@ function BatchView({
           <summary>
             {copy.findingsTitle} ({batch.findings.length})
           </summary>
-          <Paged
+          <RecordTable
             label={`${batch.id} ${copy.findingsTitle}`}
             headers={copy.findingHeaders}
             rows={batch.findings.map((f) => [
@@ -414,7 +352,7 @@ export function IntercompanyBatchPanel() {
                 <h3>
                   {copy.unassigned} ({result.unassigned.length})
                 </h3>
-                <Paged
+                <RecordTable
                   label={copy.unassigned}
                   headers={copy.unassignedHeaders}
                   rows={result.unassigned.map((u) => [

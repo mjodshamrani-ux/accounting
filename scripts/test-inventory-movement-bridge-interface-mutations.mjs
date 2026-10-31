@@ -32,6 +32,7 @@ await mkdir(output, { recursive: true });
 const out = await mkdtemp(join(output, 'run-'));
 const acceptance = 'scripts/inventory-movement-bridge-browser.mjs';
 const PANEL = 'components/inventory-movement-bridge-panel.tsx';
+const RECORD = 'components/record-table.tsx';
 const mutations = [
   [
     'file-confirmation-not-required',
@@ -207,15 +208,15 @@ const mutations = [
   ],
   [
     'every-page-shows-the-first',
-    PANEL,
-    'rows.slice(safe * 50, safe * 50 + 50)',
-    'rows.slice(0, 50)',
+    RECORD,
+    '{rows.slice(from, to).map((row, i) => (',
+    '{rows.slice(0, to - from).map((row, i) => (',
   ],
   [
     'last-page-unreachable',
-    PANEL,
-    'disabled={safe + 1 >= pages}',
-    'disabled={safe + 2 >= pages}',
+    RECORD,
+    'disabled={at + 1 >= pages}',
+    'disabled={at + 2 >= pages}',
   ],
 ];
 const buildInputs = [

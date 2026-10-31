@@ -15,6 +15,7 @@ import {
 } from '@/lib/reconciliation/payroll-long-register';
 import type { PlrReplayInput } from '@/lib/reconciliation/payroll-long-register-io';
 import { payrollLongRegisterCopy } from '@/lib/i18n/payroll-long-register';
+import { RecordTable } from '@/components/record-table';
 import './review-section.css';
 
 type Picked = {
@@ -31,73 +32,6 @@ const blankScope = () =>
     string
   >;
 const SUMS = ['earnings', 'deductions', 'employer', 'net'] as const;
-
-function Paged({
-  headers,
-  rows,
-  label,
-  marks,
-  pager,
-}: {
-  headers: string[];
-  rows: ReactNode[][];
-  label: string;
-  marks?: Record<string, string>[];
-  pager?: string;
-}) {
-  const { lang } = useI18n();
-  const copy = payrollLongRegisterCopy[lang];
-  const [page, setPage] = useState(0);
-  const pages = Math.max(1, Math.ceil(rows.length / 50)),
-    safe = Math.min(page, pages - 1);
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table aria-label={label}>
-          <thead>
-            <tr>
-              {headers.map((h) => (
-                <th key={h}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i} {...marks?.[safe * 50 + i]}>
-                {row.map((v, j) => (
-                  <td key={j}>
-                    <bdi>{v}</bdi>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {pages > 1 && (
-        <div className="gl-tb-actions" data-plr-pager={pager}>
-          <Button
-            variant="outline"
-            disabled={!safe}
-            onClick={() => setPage(safe - 1)}
-          >
-            {copy.previous}
-          </Button>
-          <span>
-            {safe + 1} / {pages} · {rows.length}
-          </span>
-          <Button
-            variant="outline"
-            disabled={safe + 1 >= pages}
-            onClick={() => setPage(safe + 1)}
-          >
-            {copy.next}
-          </Button>
-        </div>
-      )}
-    </>
-  );
-}
 
 export function PayrollLongRegisterPanel() {
   const { lang } = useI18n();
@@ -348,9 +282,9 @@ export function PayrollLongRegisterPanel() {
                 {result.unplaced.length > 0 && (
                   <section>
                     <h3>{copy.unplaced}</h3>
-                    <Paged
+                    <RecordTable
                       label={copy.unplaced}
-                      pager="unplaced"
+                      pager={{ 'data-plr-pager': 'unplaced' }}
                       headers={copy.unplacedHeaders}
                       rows={result.unplaced.map((u) => [
                         String(u.row),
@@ -367,9 +301,9 @@ export function PayrollLongRegisterPanel() {
                     <h3>
                       {copy.employees} ({result.employees.length})
                     </h3>
-                    <Paged
+                    <RecordTable
                       label={copy.employees}
-                      pager="employees"
+                      pager={{ 'data-plr-pager': 'employees' }}
                       headers={copy.employeeHeaders}
                       rows={result.employees.map((e) => [
                         e.employee,
@@ -395,9 +329,9 @@ export function PayrollLongRegisterPanel() {
                 {result.employees.some((e) => e.lines) && (
                   <section>
                     <h3>{copy.lines}</h3>
-                    <Paged
+                    <RecordTable
                       label={copy.lines}
-                      pager="lines"
+                      pager={{ 'data-plr-pager': 'lines' }}
                       headers={copy.lineHeaders}
                       rows={result.employees.flatMap((e) =>
                         (e.lines ?? []).map((l) => [
@@ -420,9 +354,9 @@ export function PayrollLongRegisterPanel() {
                 {result.sections.length > 0 && (
                   <section>
                     <h3>{copy.sections}</h3>
-                    <Paged
+                    <RecordTable
                       label={copy.sections}
-                      pager="sections"
+                      pager={{ 'data-plr-pager': 'sections' }}
                       headers={copy.sectionHeaders}
                       rows={result.sections.map((s) => [
                         String(s.row),

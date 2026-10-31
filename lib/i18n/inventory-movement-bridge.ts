@@ -115,8 +115,6 @@ const en = {
   } as Record<string, string>,
   noTotals:
     'Not given while a register line cannot be read, or a position is held or missing a balance.',
-  previous: 'Previous',
-  next: 'Next',
   comma: ', ',
   semi: '; ',
   codes: {
@@ -276,8 +274,6 @@ const ar: typeof en = {
     transferred: 'المحوّل بين المراكز',
   },
   noTotals: 'لا تُعطى ما دام سطر في السجل لا يُقرأ، أو مركز موقوفًا أو ينقصه رصيد.',
-  previous: 'السابق',
-  next: 'التالي',
   comma: '، ',
   semi: '؛ ',
   codes: {

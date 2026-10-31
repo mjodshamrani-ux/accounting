@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
@@ -17,6 +17,7 @@ import {
 } from '@/lib/reconciliation/tb-financial-hierarchy-contract';
 import type { FinHReplayInput } from '@/lib/reconciliation/tb-financial-hierarchy-io';
 import { tbFinancialHierarchyCopy } from '@/lib/i18n/tb-financial-hierarchy';
+import { RecordTable } from '@/components/record-table';
 import './review-section.css';
 
 type Picked = {
@@ -32,73 +33,6 @@ const blankScope = () =>
     (typeof FIN_HIERARCHY_SCOPE_HEADERS)[number],
     string
   >;
-
-function Paged({
-  headers,
-  rows,
-  label,
-  marks,
-  pager,
-}: {
-  headers: string[];
-  rows: ReactNode[][];
-  label: string;
-  marks?: Record<string, string>[];
-  pager?: string;
-}) {
-  const { lang } = useI18n();
-  const copy = tbFinancialHierarchyCopy[lang];
-  const [page, setPage] = useState(0);
-  const pages = Math.max(1, Math.ceil(rows.length / 50)),
-    safe = Math.min(page, pages - 1);
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table aria-label={label}>
-          <thead>
-            <tr>
-              {headers.map((h) => (
-                <th key={h}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i} {...marks?.[safe * 50 + i]}>
-                {row.map((v, j) => (
-                  <td key={j}>
-                    <bdi>{v}</bdi>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {pages > 1 && (
-        <div className="gl-tb-actions" data-finh-pager={pager}>
-          <Button
-            variant="outline"
-            disabled={!safe}
-            onClick={() => setPage(safe - 1)}
-          >
-            {copy.previous}
-          </Button>
-          <span>
-            {safe + 1} / {pages} · {rows.length}
-          </span>
-          <Button
-            variant="outline"
-            disabled={safe + 1 >= pages}
-            onClick={() => setPage(safe + 1)}
-          >
-            {copy.next}
-          </Button>
-        </div>
-      )}
-    </>
-  );
-}
 
 export function TbFinancialHierarchyPanel() {
   const { lang } = useI18n();
@@ -337,9 +271,9 @@ export function TbFinancialHierarchyPanel() {
                 <h3>
                   {copy.issues} ({result.issues.length})
                 </h3>
-                <Paged
+                <RecordTable
                   label={copy.issues}
-                  pager="issues"
+                  pager={{ 'data-finh-pager': 'issues' }}
                   headers={copy.issueHeaders}
                   rows={result.issues.map((x) => [
                     reason(x.code),
@@ -358,9 +292,9 @@ export function TbFinancialHierarchyPanel() {
                 <h3>
                   {copy.tree} ({result.nodes.length})
                 </h3>
-                <Paged
+                <RecordTable
                   label={copy.tree}
-                  pager="tree"
+                  pager={{ 'data-finh-pager': 'tree' }}
                   headers={copy.treeHeaders}
                   rows={result.nodes.map((n) => {
                     const line = n.kind === 'leaf' ? lineOf(n.id) : undefined;
@@ -388,9 +322,9 @@ export function TbFinancialHierarchyPanel() {
             {result.lines.some((l) => l.members.length) && (
               <section>
                 <h3>{copy.members}</h3>
-                <Paged
+                <RecordTable
                   label={copy.members}
-                  pager="members"
+                  pager={{ 'data-finh-pager': 'members' }}
                   headers={copy.memberHeaders}
                   rows={result.lines.flatMap((l) =>
                     l.members.map((m) => [
@@ -414,9 +348,9 @@ export function TbFinancialHierarchyPanel() {
             {result.controls.length > 0 && (
               <section>
                 <h3>{copy.controls}</h3>
-                <Paged
+                <RecordTable
                   label={copy.controls}
-                  pager="controls"
+                  pager={{ 'data-finh-pager': 'controls' }}
                   headers={copy.controlHeaders}
                   rows={result.controls.map((c) => [
                     c.id,
@@ -443,7 +377,7 @@ export function TbFinancialHierarchyPanel() {
                 )}
                 {result.categories && result.equation && (
                   <>
-                    <Paged
+                    <RecordTable
                       label={copy.totals}
                       headers={copy.categoryHeaders}
                       rows={FIN_HIERARCHY_CATEGORIES.map((c) => [

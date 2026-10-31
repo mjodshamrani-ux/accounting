@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
@@ -16,6 +16,7 @@ import {
 } from '@/lib/reconciliation/fixed-assets-sections';
 import type { AssetSectionsReplayInput } from '@/lib/reconciliation/fixed-assets-sections-io';
 import { fixedAssetsSectionsCopy } from '@/lib/i18n/fixed-assets-sections';
+import { RecordTable } from '@/components/record-table';
 import './review-section.css';
 
 type Picked = {
@@ -25,79 +26,11 @@ type Picked = {
   confirmed: boolean;
 };
 type ScopeKey = (typeof FA_SECTIONS_SCOPE_FIELDS)[number];
-const PAGE = 50;
 const blankScope = () =>
   Object.fromEntries(FA_SECTIONS_SCOPE_FIELDS.map((k) => [k, ''])) as Record<
     ScopeKey,
     string
   >;
-
-function Paged({
-  headers,
-  rows,
-  label,
-  marks,
-  pager,
-}: {
-  headers: string[];
-  rows: ReactNode[][];
-  label: string;
-  marks: Record<string, string>[];
-  pager: string;
-}) {
-  const { lang } = useI18n();
-  const copy = fixedAssetsSectionsCopy[lang];
-  const [page, setPage] = useState(0);
-  const pages = Math.max(1, Math.ceil(rows.length / PAGE)),
-    safe = Math.min(page, pages - 1);
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table aria-label={label}>
-          <thead>
-            <tr>
-              {headers.map((h) => (
-                <th key={h}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * PAGE, safe * PAGE + PAGE).map((row, i) => (
-              <tr key={i} {...marks[safe * PAGE + i]}>
-                {row.map((v, j) => (
-                  <td key={j}>
-                    <bdi>{v}</bdi>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {pages > 1 && (
-        <div className="gl-tb-actions" data-fas-pager={pager}>
-          <Button
-            variant="outline"
-            disabled={!safe}
-            onClick={() => setPage(safe - 1)}
-          >
-            {copy.previous}
-          </Button>
-          <span>
-            {safe + 1} / {pages} · {rows.length}
-          </span>
-          <Button
-            variant="outline"
-            disabled={safe + 1 >= pages}
-            onClick={() => setPage(safe + 1)}
-          >
-            {copy.next}
-          </Button>
-        </div>
-      )}
-    </>
-  );
-}
 
 export function FixedAssetsSectionsPanel() {
   const { lang } = useI18n();
@@ -414,9 +347,9 @@ export function FixedAssetsSectionsPanel() {
             <h3>
               {copy.accountsTitle} ({result.accounts.length})
             </h3>
-            <Paged
+            <RecordTable
               label={copy.accountsTitle}
-              pager="accounts"
+              pager={{ 'data-fas-pager': 'accounts' }}
               headers={copy.accountHeaders}
               rows={result.accounts.map((a) => [
                 a.account,
@@ -441,9 +374,9 @@ export function FixedAssetsSectionsPanel() {
                 <h3>
                   {copy.unmappedTitle} ({result.unmapped.length})
                 </h3>
-                <Paged
+                <RecordTable
                   label={copy.unmappedTitle}
-                  pager="unmapped"
+                  pager={{ 'data-fas-pager': 'unmapped' }}
                   headers={copy.unmappedHeaders}
                   rows={result.unmapped.map(([cat, comp, code]) => [
                     cat,
@@ -461,9 +394,9 @@ export function FixedAssetsSectionsPanel() {
                 <h3>
                   {copy.unplacedTitle} ({result.unplaced.length})
                 </h3>
-                <Paged
+                <RecordTable
                   label={copy.unplacedTitle}
-                  pager="unplaced"
+                  pager={{ 'data-fas-pager': 'unplaced' }}
                   headers={copy.unplacedHeaders}
                   rows={result.unplaced.map(([role, row, code]) => [
                     copy.roles[
@@ -483,9 +416,9 @@ export function FixedAssetsSectionsPanel() {
             <h3>
               {copy.sectionsTitle} ({result.sections.length})
             </h3>
-            <Paged
+            <RecordTable
               label={copy.sectionsTitle}
-              pager="sections"
+              pager={{ 'data-fas-pager': 'sections' }}
               headers={copy.sectionHeadersTable}
               rows={result.sections.map((s) => [
                 String(s[0]),
@@ -505,9 +438,9 @@ export function FixedAssetsSectionsPanel() {
             <h3>
               {copy.assetsTitle} ({result.assets.length})
             </h3>
-            <Paged
+            <RecordTable
               label={copy.assetsTitle}
-              pager="assets"
+              pager={{ 'data-fas-pager': 'assets' }}
               headers={copy.assetHeaders}
               rows={result.assets.map((a) => [
                 a.section,

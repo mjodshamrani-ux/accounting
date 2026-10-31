@@ -123,8 +123,6 @@ const en = {
   } as Record<string, string>,
   none: '—',
   list: ', ',
-  previous: 'Previous page',
-  next: 'Next page',
 };
 
 const ar: typeof en = {
@@ -244,8 +242,6 @@ const ar: typeof en = {
   },
   none: '—',
   list: '، ',
-  previous: 'الصفحة السابقة',
-  next: 'الصفحة التالية',
 };
 
 export const paymentGatewayBatchesCopy = { en, ar };

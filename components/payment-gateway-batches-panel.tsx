@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
@@ -15,6 +15,7 @@ import {
 } from '@/lib/reconciliation/payment-gateway-batches';
 import type { GatewayBatchesReplayInput } from '@/lib/reconciliation/payment-gateway-batches-io';
 import { paymentGatewayBatchesCopy } from '@/lib/i18n/payment-gateway-batches';
+import { RecordTable } from '@/components/record-table';
 import './review-section.css';
 
 type Picked = {
@@ -24,79 +25,11 @@ type Picked = {
   confirmed: boolean;
 };
 type ScopeKey = (typeof PG_BATCHES_SCOPE_FIELDS)[number];
-const PAGE = 50;
 const blankScope = () =>
   Object.fromEntries(PG_BATCHES_SCOPE_FIELDS.map((k) => [k, ''])) as Record<
     ScopeKey,
     string
   >;
-
-function Paged({
-  headers,
-  rows,
-  label,
-  marks,
-  pager,
-}: {
-  headers: string[];
-  rows: ReactNode[][];
-  label: string;
-  marks: Record<string, string>[];
-  pager: string;
-}) {
-  const { lang } = useI18n();
-  const copy = paymentGatewayBatchesCopy[lang];
-  const [page, setPage] = useState(0);
-  const pages = Math.max(1, Math.ceil(rows.length / PAGE)),
-    safe = Math.min(page, pages - 1);
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table aria-label={label}>
-          <thead>
-            <tr>
-              {headers.map((h) => (
-                <th key={h}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * PAGE, safe * PAGE + PAGE).map((row, i) => (
-              <tr key={i} {...marks[safe * PAGE + i]}>
-                {row.map((v, j) => (
-                  <td key={j}>
-                    <bdi>{v}</bdi>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {pages > 1 && (
-        <div className="gl-tb-actions" data-pgb-pager={pager}>
-          <Button
-            variant="outline"
-            disabled={!safe}
-            onClick={() => setPage(safe - 1)}
-          >
-            {copy.previous}
-          </Button>
-          <span>
-            {safe + 1} / {pages} · {rows.length}
-          </span>
-          <Button
-            variant="outline"
-            disabled={safe + 1 >= pages}
-            onClick={() => setPage(safe + 1)}
-          >
-            {copy.next}
-          </Button>
-        </div>
-      )}
-    </>
-  );
-}
 
 export function PaymentGatewayBatchesPanel() {
   const { lang } = useI18n();
@@ -386,9 +319,9 @@ export function PaymentGatewayBatchesPanel() {
                 <h4>
                   {copy.errorsTitle} ({result.errors.length})
                 </h4>
-                <Paged
+                <RecordTable
                   label={copy.errorsTitle}
-                  pager="errors"
+                  pager={{ 'data-pgb-pager': 'errors' }}
                   headers={copy.errorHeaders}
                   rows={result.errors.map((e) => [
                     `${copy.roles[e.source]} · ${result.sources[e.source].name}`,
@@ -439,9 +372,9 @@ export function PaymentGatewayBatchesPanel() {
             <h3>
               {copy.batchesTitle} ({result.batches.length})
             </h3>
-            <Paged
+            <RecordTable
               label={copy.batchesTitle}
-              pager="batches"
+              pager={{ 'data-pgb-pager': 'batches' }}
               headers={copy.batchHeaders}
               rows={result.batches.map((b) => [
                 b.batch,
@@ -467,9 +400,9 @@ export function PaymentGatewayBatchesPanel() {
             <h3>
               {copy.payoutsTitle} ({result.payouts.length})
             </h3>
-            <Paged
+            <RecordTable
               label={copy.payoutsTitle}
-              pager="payouts"
+              pager={{ 'data-pgb-pager': 'payouts' }}
               headers={copy.payoutHeaders}
               rows={result.payouts.map((p) => [
                 p.payout,
@@ -493,9 +426,9 @@ export function PaymentGatewayBatchesPanel() {
                 <h3>
                   {copy.creditsTitle} ({result.credits.length})
                 </h3>
-                <Paged
+                <RecordTable
                   label={copy.creditsTitle}
-                  pager="credits"
+                  pager={{ 'data-pgb-pager': 'credits' }}
                   headers={copy.creditHeaders}
                   rows={result.credits.map((c) => [
                     String(c.row),

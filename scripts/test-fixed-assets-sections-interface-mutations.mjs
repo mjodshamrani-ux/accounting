@@ -172,7 +172,12 @@ const mutations = [
     'a.valuation ?? copy.none,',
     'copy.none,',
   ],
-  ['assets-pager-unmarked', PANEL, 'pager="assets"', 'pager="asset-list"'],
+  [
+    'assets-pager-unmarked',
+    PANEL,
+    "'data-fas-pager': 'assets'",
+    "'data-fas-pager': 'asset-list'",
+  ],
   [
     'summary-sections-as-assets',
     PANEL,

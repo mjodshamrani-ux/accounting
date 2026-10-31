@@ -20,6 +20,7 @@ import {
 } from '@/lib/reconciliation/inventory-movement-bridge';
 import type { ImbReplayInput } from '@/lib/reconciliation/inventory-movement-bridge-io';
 import { inventoryMovementBridgeCopy } from '@/lib/i18n/inventory-movement-bridge';
+import { RecordTable } from '@/components/record-table';
 import './review-section.css';
 
 type Picked = {
@@ -34,73 +35,6 @@ const blankScope = () =>
     string
   >;
 const SIDES = ['opening', 'debit', 'credit', 'closing'] as const;
-
-function Paged({
-  headers,
-  rows,
-  label,
-  marks,
-  pager,
-}: {
-  headers: string[];
-  rows: ReactNode[][];
-  label: string;
-  marks?: Record<string, string>[];
-  pager?: string;
-}) {
-  const { lang } = useI18n();
-  const copy = inventoryMovementBridgeCopy[lang];
-  const [page, setPage] = useState(0);
-  const pages = Math.max(1, Math.ceil(rows.length / 50)),
-    safe = Math.min(page, pages - 1);
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table aria-label={label}>
-          <thead>
-            <tr>
-              {headers.map((h) => (
-                <th key={h}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i} {...marks?.[safe * 50 + i]}>
-                {row.map((v, j) => (
-                  <td key={j}>
-                    <bdi>{v}</bdi>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {pages > 1 && (
-        <div className="gl-tb-actions" data-imb-pager={pager}>
-          <Button
-            variant="outline"
-            disabled={!safe}
-            onClick={() => setPage(safe - 1)}
-          >
-            {copy.previous}
-          </Button>
-          <span>
-            {safe + 1} / {pages} · {rows.length}
-          </span>
-          <Button
-            variant="outline"
-            disabled={safe + 1 >= pages}
-            onClick={() => setPage(safe + 1)}
-          >
-            {copy.next}
-          </Button>
-        </div>
-      )}
-    </>
-  );
-}
 
 export function InventoryMovementBridgePanel() {
   const { lang } = useI18n();
@@ -424,9 +358,9 @@ export function InventoryMovementBridgePanel() {
                 {result.unplaced.length > 0 && (
                   <section>
                     <h3>{copy.unplaced}</h3>
-                    <Paged
+                    <RecordTable
                       label={copy.unplaced}
-                      pager="unplaced"
+                      pager={{ 'data-imb-pager': 'unplaced' }}
                       headers={copy.unplacedHeaders}
                       rows={result.unplaced.map((u) => [
                         copy.files[u.file],
@@ -448,9 +382,9 @@ export function InventoryMovementBridgePanel() {
                     <h3>
                       {copy.positions} ({result.positions.length}) · {copy.pair}
                     </h3>
-                    <Paged
+                    <RecordTable
                       label={copy.positions}
-                      pager="positions"
+                      pager={{ 'data-imb-pager': 'positions' }}
                       headers={copy.positionHeaders}
                       rows={result.positions.map((p) => [
                         p.item,
@@ -477,9 +411,9 @@ export function InventoryMovementBridgePanel() {
                 {result.positions.some((p) => p.flows) && (
                   <section>
                     <h3>{copy.flows}</h3>
-                    <Paged
+                    <RecordTable
                       label={copy.flows}
-                      pager="flows"
+                      pager={{ 'data-imb-pager': 'flows' }}
                       headers={copy.flowHeaders}
                       rows={result.positions.flatMap((p) =>
                         IMB_MOVES.filter(
@@ -510,9 +444,9 @@ export function InventoryMovementBridgePanel() {
                 {result.positions.some((p) => p.lines) && (
                   <section>
                     <h3>{copy.lines}</h3>
-                    <Paged
+                    <RecordTable
                       label={copy.lines}
-                      pager="lines"
+                      pager={{ 'data-imb-pager': 'lines' }}
                       headers={copy.lineHeaders}
                       rows={result.positions.flatMap((p) =>
                         (p.lines ?? []).map((l) => [
@@ -537,9 +471,9 @@ export function InventoryMovementBridgePanel() {
                     <h3>
                       {copy.accounts} ({result.accounts.length}) · {copy.sides}
                     </h3>
-                    <Paged
+                    <RecordTable
                       label={copy.accounts}
-                      pager="accounts"
+                      pager={{ 'data-imb-pager': 'accounts' }}
                       headers={copy.accountHeaders}
                       rows={result.accounts.map((a) => [
                         a.account,
@@ -568,9 +502,9 @@ export function InventoryMovementBridgePanel() {
                     list.length > 0 && (
                       <section key={name}>
                         <h3>{title}</h3>
-                        <Paged
+                        <RecordTable
                           label={title}
-                          pager={name}
+                          pager={{ 'data-imb-pager': name }}
                           headers={copy.listHeaders}
                           rows={list.map((x) => [String(x.row), x.id])}
                           marks={list.map((x) => ({
@@ -583,9 +517,9 @@ export function InventoryMovementBridgePanel() {
                 {result.unseenOrigins.length > 0 && (
                   <section>
                     <h3>{copy.unseen}</h3>
-                    <Paged
+                    <RecordTable
                       label={copy.unseen}
-                      pager="unseen"
+                      pager={{ 'data-imb-pager': 'unseen' }}
                       headers={copy.unseenHeaders}
                       rows={result.unseenOrigins.map((x) => [
                         String(x.row),
@@ -605,9 +539,9 @@ export function InventoryMovementBridgePanel() {
                 {result.repeatedHeaders.length > 0 && (
                   <section>
                     <h3>{copy.repeated}</h3>
-                    <Paged
+                    <RecordTable
                       label={copy.repeated}
-                      pager="repeated"
+                      pager={{ 'data-imb-pager': 'repeated' }}
                       headers={copy.repeatedHeaders}
                       rows={result.repeatedHeaders.map((x) => [
                         copy.files[x.file],

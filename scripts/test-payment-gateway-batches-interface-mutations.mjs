@@ -147,7 +147,12 @@ const mutations = [
     '{result.credits.length > 0 && (',
     '{false && (',
   ],
-  ['batches-pager-unmarked', PANEL, 'pager="batches"', 'pager="batch-list"'],
+  [
+    'batches-pager-unmarked',
+    PANEL,
+    "'data-pgb-pager': 'batches'",
+    "'data-pgb-pager': 'batch-list'",
+  ],
   [
     'reason-counts-of-one-dropped',
     PANEL,

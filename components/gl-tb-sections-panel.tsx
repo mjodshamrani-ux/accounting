@@ -15,6 +15,7 @@ import {
   type GlsScope,
 } from '@/lib/reconciliation/gl-tb-sections';
 import { glTbSectionsCopy } from '@/lib/i18n/gl-tb-sections';
+import { RecordTable } from '@/components/record-table';
 import './review-section.css';
 
 type Picked = { file: SourceFile; confirmed: boolean };
@@ -24,73 +25,6 @@ const blankScope = () =>
     Field,
     string
   >;
-
-function Paged({
-  headers,
-  rows,
-  label,
-  marks,
-  pager,
-}: {
-  headers: string[];
-  rows: ReactNode[][];
-  label: string;
-  marks?: Record<string, string>[];
-  pager?: string;
-}) {
-  const { lang } = useI18n();
-  const copy = glTbSectionsCopy[lang];
-  const [page, setPage] = useState(0);
-  const pages = Math.max(1, Math.ceil(rows.length / 50)),
-    safe = Math.min(page, pages - 1);
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table aria-label={label}>
-          <thead>
-            <tr>
-              {headers.map((h) => (
-                <th key={h}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i} {...marks?.[safe * 50 + i]}>
-                {row.map((v, j) => (
-                  <td key={j}>
-                    <bdi>{v}</bdi>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {pages > 1 && (
-        <div className="gl-tb-actions" data-gls-pager={pager}>
-          <Button
-            variant="outline"
-            disabled={!safe}
-            onClick={() => setPage(safe - 1)}
-          >
-            {copy.previous}
-          </Button>
-          <span>
-            {safe + 1} / {pages} · {rows.length}
-          </span>
-          <Button
-            variant="outline"
-            disabled={safe + 1 >= pages}
-            onClick={() => setPage(safe + 1)}
-          >
-            {copy.next}
-          </Button>
-        </div>
-      )}
-    </>
-  );
-}
 
 export function GlTbSectionsPanel() {
   const { lang } = useI18n();
@@ -338,9 +272,9 @@ export function GlTbSectionsPanel() {
             <p data-gls-counts>
               {counts.map(([k, n]) => `${copy.status[k]}: ${n}`).join(' · ')}
             </p>
-            <Paged
+            <RecordTable
               label={copy.accounts}
-              pager="accounts"
+              pager={{ 'data-gls-pager': 'accounts' }}
               headers={copy.headers}
               rows={result.accounts.map((a) => [
                 a.account,
@@ -367,7 +301,7 @@ export function GlTbSectionsPanel() {
                   .join(' ')}
               >
                 <h3>{copy.excludedSections}</h3>
-                <Paged
+                <RecordTable
                   label={copy.excludedSections}
                   headers={copy.listHeaders}
                   rows={result.excludedSections.map((s) => [
@@ -384,7 +318,7 @@ export function GlTbSectionsPanel() {
                   .join(' ')}
               >
                 <h3>{copy.excludedPages}</h3>
-                <Paged
+                <RecordTable
                   label={copy.excludedPages}
                   headers={copy.listHeaders}
                   rows={result.excludedPages.map((p) => [
@@ -397,7 +331,7 @@ export function GlTbSectionsPanel() {
             {result.orphanTotals.length > 0 && (
               <section data-gls-orphans={result.orphanTotals.length}>
                 <h3>{copy.orphans}</h3>
-                <Paged
+                <RecordTable
                   label={copy.orphans}
                   headers={copy.orphanHeaders}
                   rows={result.orphanTotals.map((t) => [t.key, String(t.row)])}
@@ -410,7 +344,7 @@ export function GlTbSectionsPanel() {
             {result.unplaced.length > 0 && (
               <section data-gls-unplaced={result.unplaced.length}>
                 <h3>{copy.unplaced}</h3>
-                <Paged
+                <RecordTable
                   label={copy.unplaced}
                   headers={copy.unplacedHeaders}
                   rows={result.unplaced.map((u) => [

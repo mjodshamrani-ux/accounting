@@ -65,9 +65,6 @@ const en = {
   } as Record<string, string>,
   noFaulty: 'No faulty line.',
   blank: (rows: number[]) => `Blank lines: ${rows.join(', ')}`,
-  previous: 'Previous page',
-  next: 'Next page',
-  page: (page: number, pages: number) => `Page ${page} of ${pages}`,
 };
 
 const ar: typeof en = {
@@ -126,9 +123,6 @@ const ar: typeof en = {
   },
   noFaulty: 'لا سطر معيب.',
   blank: (rows) => `أسطر فارغة: ${rows.join('، ')}`,
-  previous: 'الصفحة السابقة',
-  next: 'الصفحة التالية',
-  page: (page, pages) => `الصفحة ${page} من ${pages}`,
 };
 
 export const clearingGroupsCopy = { en, ar };
