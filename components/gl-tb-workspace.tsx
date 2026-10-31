@@ -33,7 +33,7 @@ import {
   glTbDemo,
 } from '@/lib/reconciliation/gl-tb-demo';
 import { GlTbSectionsPanel } from '@/components/gl-tb-sections-panel';
-import './gl-tb-workspace.css';
+import './workspace-record.css';
 const freshScope = (): GlTbScope => ({
   ...glDemoScope,
   entity: '',

@@ -30,7 +30,7 @@ import {
   intercompanyDemoScope,
 } from '@/lib/reconciliation/intercompany-demo';
 import { intercompanyCopy } from '@/lib/i18n/intercompany';
-import './gl-tb-workspace.css';
+import './workspace-record.css';
 const emptyScope = (): IntercompanyScope => ({
   entityA: '',
   entityB: '',

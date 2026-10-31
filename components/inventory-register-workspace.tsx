@@ -66,7 +66,7 @@ import {
 } from '@/lib/reconciliation/inventory-section-evidence';
 import { stockMatrixCitationRows } from '@/lib/reconciliation/inventory-matrix-evidence';
 import { stockCopy } from '@/lib/i18n/inventory-register';
-import './gl-tb-workspace.css';
+import './workspace-record.css';
 const emptyScope = (): StockScope =>
   ({
     ...Object.fromEntries(STOCK_FIELDS.map((k) => [k, ''])),

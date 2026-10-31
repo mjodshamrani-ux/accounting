@@ -32,7 +32,7 @@ import {
 } from '@/lib/reconciliation/payroll-demo';
 import { payrollCopy } from '@/lib/i18n/payroll';
 import { PayrollLongRegisterPanel } from '@/components/payroll-long-register-panel';
-import './gl-tb-workspace.css';
+import './workspace-record.css';
 const emptyScope = (): PayrollScope =>
   ({
     ...Object.fromEntries(PAYROLL_FIELDS.map((k) => [k, ''])),

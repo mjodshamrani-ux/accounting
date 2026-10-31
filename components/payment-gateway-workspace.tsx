@@ -35,7 +35,7 @@ import {
   gatewaySignedDemoScope,
 } from '@/lib/reconciliation/payment-gateway-signed-demo';
 import { gatewayCopy } from '@/lib/i18n/payment-gateway';
-import './gl-tb-workspace.css';
+import './workspace-record.css';
 // The value positions that hold money in each role's records, after the
 // source row: the transaction amount, the fee amount, the four summary
 // totals, and the bank credit.

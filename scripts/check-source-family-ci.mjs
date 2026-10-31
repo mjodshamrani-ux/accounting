@@ -350,6 +350,7 @@ const required = [
   'test:browser:ux-census',
   'test:multiline-review:browser',
   'test:browser:result-focus',
+  'test:browser:visual-identity:self-test',
 ];
 const deployed = ['build', ...deployGated].flatMap(
   (name) => workflow.jobs[name].steps,

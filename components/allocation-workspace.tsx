@@ -31,7 +31,7 @@ import {
   allocationDemoReadings,
 } from '@/lib/reconciliation/allocation-demo';
 import { AllocationAdvicePanel } from './allocation-advice-panel';
-import './gl-tb-workspace.css';
+import './workspace-record.css';
 
 export function AllocationWorkspace({
   active,

@@ -39,7 +39,7 @@ import {
   bankDemoReadings,
   bankDemoScope,
 } from '@/lib/reconciliation/bank-demo';
-import './gl-tb-workspace.css';
+import './workspace-record.css';
 import './bank-workspace.css';
 const freshScope = (): BankScope => ({
   ...bankDemoScope,

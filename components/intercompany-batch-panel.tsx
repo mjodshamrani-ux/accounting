@@ -12,7 +12,7 @@ import {
   type IntercompanyBatchResult,
 } from '@/lib/reconciliation/intercompany-batch';
 import { intercompanyBatchCopy } from '@/lib/i18n/intercompany-batch';
-import './intercompany-batch-panel.css';
+import './review-section.css';
 
 type Picked = { file: SourceFile; confirmed: boolean };
 // An amount at the batch currency's decimals through the shared component;

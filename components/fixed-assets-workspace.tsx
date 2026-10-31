@@ -32,7 +32,7 @@ import {
   assetDemoScope,
 } from '@/lib/reconciliation/fixed-assets-demo';
 import { assetCopy } from '@/lib/i18n/fixed-assets';
-import './gl-tb-workspace.css';
+import './workspace-record.css';
 const emptyScope = (): AssetScope =>
   ({
     ...Object.fromEntries(ASSET_FIELDS.map((k) => [k, ''])),

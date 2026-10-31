@@ -27,7 +27,7 @@ import {
 } from '@/lib/reconciliation/tb-financial';
 import { financialDemo } from '@/lib/reconciliation/tb-financial-demo';
 import { TbFinancialHierarchyPanel } from '@/components/tb-financial-hierarchy-panel';
-import './gl-tb-workspace.css';
+import './workspace-record.css';
 const emptyScope = (): FinancialScope => ({
   entity: '',
   ledger: '',

@@ -20,7 +20,7 @@ import {
 } from '@/lib/reconciliation/inventory-movement-bridge';
 import type { ImbReplayInput } from '@/lib/reconciliation/inventory-movement-bridge-io';
 import { inventoryMovementBridgeCopy } from '@/lib/i18n/inventory-movement-bridge';
-import './intercompany-batch-panel.css';
+import './review-section.css';
 
 type Picked = {
   name: string;

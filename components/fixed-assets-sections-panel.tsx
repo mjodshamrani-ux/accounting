@@ -16,7 +16,7 @@ import {
 } from '@/lib/reconciliation/fixed-assets-sections';
 import type { AssetSectionsReplayInput } from '@/lib/reconciliation/fixed-assets-sections-io';
 import { fixedAssetsSectionsCopy } from '@/lib/i18n/fixed-assets-sections';
-import './intercompany-batch-panel.css';
+import './review-section.css';
 
 type Picked = {
   name: string;

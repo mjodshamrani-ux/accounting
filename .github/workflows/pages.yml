@@ -241,6 +241,10 @@ jobs:
         env:
           RESULT_FOCUS_DIR: ${{ runner.temp }}/result-focus
         run: pnpm test:browser:result-focus
+      - name: Prove that the visual identity comparison between two builds sees a faint planted outline and a one-pixel padding, and returns to zero without them
+        env:
+          VISUAL_IDENTITY_DIR: ${{ runner.temp }}/visual-identity
+        run: pnpm test:browser:visual-identity:self-test
       - name: Verify native Chrome section families and qualified currencies
         env:
           MIZAN_CHROMIUM: /usr/bin/google-chrome

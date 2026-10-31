@@ -15,7 +15,7 @@ import {
   type GlsScope,
 } from '@/lib/reconciliation/gl-tb-sections';
 import { glTbSectionsCopy } from '@/lib/i18n/gl-tb-sections';
-import './intercompany-batch-panel.css';
+import './review-section.css';
 
 type Picked = { file: SourceFile; confirmed: boolean };
 type Field = (typeof GLS_SCOPE_FIELDS)[number];

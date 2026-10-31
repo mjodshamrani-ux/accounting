@@ -15,7 +15,7 @@ import {
 } from '@/lib/reconciliation/payroll-long-register';
 import type { PlrReplayInput } from '@/lib/reconciliation/payroll-long-register-io';
 import { payrollLongRegisterCopy } from '@/lib/i18n/payroll-long-register';
-import './intercompany-batch-panel.css';
+import './review-section.css';
 
 type Picked = {
   name: string;

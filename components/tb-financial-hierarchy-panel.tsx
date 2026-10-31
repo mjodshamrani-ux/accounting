@@ -17,7 +17,7 @@ import {
 } from '@/lib/reconciliation/tb-financial-hierarchy-contract';
 import type { FinHReplayInput } from '@/lib/reconciliation/tb-financial-hierarchy-io';
 import { tbFinancialHierarchyCopy } from '@/lib/i18n/tb-financial-hierarchy';
-import './intercompany-batch-panel.css';
+import './review-section.css';
 
 type Picked = {
   name: string;

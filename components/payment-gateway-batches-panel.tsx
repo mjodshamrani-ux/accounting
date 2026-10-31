@@ -15,7 +15,7 @@ import {
 } from '@/lib/reconciliation/payment-gateway-batches';
 import type { GatewayBatchesReplayInput } from '@/lib/reconciliation/payment-gateway-batches-io';
 import { paymentGatewayBatchesCopy } from '@/lib/i18n/payment-gateway-batches';
-import './intercompany-batch-panel.css';
+import './review-section.css';
 
 type Picked = {
   name: string;
