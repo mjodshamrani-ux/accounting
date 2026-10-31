@@ -281,7 +281,7 @@ async function issues(page, lang, tag) {
       body.includes('INV-PART-ERR-10') &&
       body.includes('unread'),
   );
-  if (lang === 'en') assert.doesNotMatch(body, /[؀-ۿ]/);
+  if (lang === 'en') assert.doesNotMatch(body, /[\u0600-\u06FF]/);
   await details.getByRole('button', { name: text.next, exact: true }).click();
   await page.waitForFunction(
     (label) =>
