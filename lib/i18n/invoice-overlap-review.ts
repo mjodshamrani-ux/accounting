@@ -73,9 +73,6 @@ const copy = {
     unmatched: 'باقٍ دون مطابقة',
     busy: 'جارٍ التحقق من القرار…',
     error: 'تعذر إثبات الإجراء',
-    previous: 'الصفوف السابقة',
-    next: 'الصفوف التالية',
-    of: 'من',
     limits: 'حدود البحث',
   },
   en: {
@@ -154,9 +151,6 @@ const copy = {
     unmatched: 'Unmatched residual',
     busy: 'Revalidating the decision…',
     error: 'Action could not be proven',
-    previous: 'Previous rows',
-    next: 'Next rows',
-    of: 'of',
     limits: 'Search limits',
   },
 };

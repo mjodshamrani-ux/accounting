@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { RecordRows } from '@/components/record-table';
 import { useI18n } from '@/lib/i18n/context';
 import {
   invoiceOverlapReviewCopy,
@@ -929,99 +930,60 @@ function OverlapRows({
 }) {
   const { lang } = useI18n();
   const t = invoiceOverlapReviewCopy(lang);
-  const [offset, setOffset] = useState(0);
-  const safeOffset = Math.min(
-    offset,
-    Math.max(0, Math.floor((rows.length - 1) / 100) * 100),
-  );
+  const [page, setPage] = useState(0);
+  // A hundred rows a page through the record kit (UX-3), as before.
   return (
     <details>
       <summary>
         {title} ({rows.length})
       </summary>
-      <p>
-        {rows.length ? safeOffset + 1 : 0}–
-        {Math.min(safeOffset + 100, rows.length)} {t.of} {rows.length}
-      </p>
-      <div className="flex flex-wrap gap-2">
-        <Button
-          className={buttonClass}
-          type="button"
-          variant="outline"
-          disabled={!safeOffset}
-          onClick={() => setOffset(Math.max(0, safeOffset - 100))}
-        >
-          {t.previous}
-        </Button>
-        <Button
-          className={buttonClass}
-          type="button"
-          variant="outline"
-          disabled={safeOffset + 100 >= rows.length}
-          onClick={() => setOffset(safeOffset + 100)}
-        >
-          {t.next}
-        </Button>
-      </div>
-      <div className="overflow-auto">
-        <table className="w-full text-sm">
-          <thead>
-            <tr>
-              {[
-                t.sheet,
-                t.row,
-                t.date,
-                t.amount,
-                t.identity,
-                t.disposition,
-                t.originalRow,
-                t.hash,
-              ].map((label) => (
-                <th key={label}>{label}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safeOffset, safeOffset + 100).map((row) => (
-              <tr key={row.key} data-overlap-row={row.key}>
-                <td>
-                  {row.side === 'supplier' ? t.supplier : t.ledger} ·{' '}
-                  <bdi>{row.sheet}</bdi>
-                </td>
-                <td>{row.row}</td>
-                <td>
-                  <bdi>{row.date}</bdi>
-                </td>
-                <td>
-                  <bdi>
-                    {row.amountMinor === null
-                      ? t.unknown
-                      : `${money(row.amountMinor, decimals)} ${currency}`}
-                  </bdi>{' '}
-                  · {acceptedRows.has(row.key) ? t.accepted : t.unmatched}
-                </td>
-                <td>
-                  {row.identities.map((identity, i) => (
-                    <p key={i}>
-                      {sourceStructureReason(identity.role, lang)}:{' '}
-                      <mark>
-                        <bdi>{identity.value}</bdi>
-                      </mark>
-                    </p>
-                  ))}
-                </td>
-                <td>{invoiceOverlapDisposition(row.disposition, lang)}</td>
-                <td className="break-all max-w-64">
-                  <bdi>{originalCells.get(row.key)?.join(' | ')}</bdi>
-                </td>
-                <td className="break-all max-w-40">
-                  <bdi>{row.sourceHash}</bdi>
-                </td>
-              </tr>
+      <RecordRows
+        label={title}
+        headers={[
+          t.sheet,
+          t.row,
+          t.date,
+          t.amount,
+          t.identity,
+          t.disposition,
+          t.originalRow,
+          t.hash,
+        ]}
+        rows={rows}
+        size={100}
+        page={page}
+        onPage={setPage}
+        mark={(row) => ({ 'data-overlap-row': row.key })}
+        cells={(row) => [
+          <>
+            {row.side === 'supplier' ? t.supplier : t.ledger} ·{' '}
+            <bdi>{row.sheet}</bdi>
+          </>,
+          row.row,
+          row.date,
+          <>
+            <bdi>
+              {row.amountMinor === null
+                ? t.unknown
+                : `${money(row.amountMinor, decimals)} ${currency}`}
+            </bdi>{' '}
+            · {acceptedRows.has(row.key) ? t.accepted : t.unmatched}
+          </>,
+          <>
+            {row.identities.map((identity, i) => (
+              <p key={i}>
+                {sourceStructureReason(identity.role, lang)}:{' '}
+                <mark>
+                  <bdi>{identity.value}</bdi>
+                </mark>
+              </p>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </>,
+          invoiceOverlapDisposition(row.disposition, lang),
+          originalCells.get(row.key)?.join(' | '),
+          row.sourceHash,
+        ]}
+      />
     </details>
   );
 }

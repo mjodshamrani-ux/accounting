@@ -3,6 +3,8 @@ import type { SourceFile } from '../lib/reconciliation/types';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Checkbox } from './ui/checkbox';
+import { RecordFrame, RecordPager } from './record-table';
+import { recordPage } from '@/lib/record-page';
 import { useI18n } from '@/lib/i18n/context';
 
 const format = (cuts: number[]) => cuts.join(', ');
@@ -55,19 +57,19 @@ export function PdfReview({
   const [cuts, setCuts] = useState(format(applied));
   const [page, setPage] = useState(1);
   const [pageDraft, setPageDraft] = useState('1');
-  const [offset, setOffset] = useState(0);
+  const [rowWindow, setRowWindow] = useState(0);
   const [open, setOpen] = useState(false);
   const [reading, setReading] = useState({ file, page, header });
   if (reading.file !== file) {
     setReading({ file, page: 1, header });
     setPage(1);
     setPageDraft('1');
-    setOffset(0);
+    setRowWindow(0);
     setOpen(false);
     setCuts(format(applied));
   } else if (reading.page !== page || reading.header !== header) {
     setReading({ file, page, header });
-    setOffset(0);
+    setRowWindow(0);
     if (reading.page !== page) setPageDraft(String(page));
   }
   const originalUrl = useMemo(
@@ -93,6 +95,8 @@ export function PdfReview({
     return pages;
   }, [sheet, header]);
   const rows = rowsByPage.get(page) ?? [];
+  // The rows of one PDF page, fifty at a time through the record kit (UX-3).
+  const shown = recordPage(rows.length, rowWindow);
   const requestedPage = Number(pageDraft);
   const validPage =
     /^\d+$/.test(pageDraft) &&
@@ -144,8 +148,12 @@ export function PdfReview({
       </div>
       <details open>
         <summary>{r.tableSummary}</summary>
-        <div className="preview" style={{ maxHeight: 240 }}>
-          <table>
+        <RecordFrame
+          name={r.tableSummary}
+          className="preview"
+          style={{ maxHeight: 240 }}
+        >
+          <table aria-label={r.tableSummary}>
             <thead>
               <tr>
                 <th>{r.rowColumn}</th>
@@ -156,7 +164,7 @@ export function PdfReview({
               </tr>
             </thead>
             <tbody>
-              {rows.slice(offset, offset + 50).map(({ row, rn }) => (
+              {rows.slice(shown.from, shown.to).map(({ row, rn }) => (
                 <tr key={rn}>
                   <td>{rn}</td>
                   {row.map((text, i) => (
@@ -177,7 +185,13 @@ export function PdfReview({
               ))}
             </tbody>
           </table>
-        </div>
+        </RecordFrame>
+        <RecordPager
+          label={r.tableSummary}
+          length={rows.length}
+          page={rowWindow}
+          onPage={setRowWindow}
+        />
         <div className="actions">
           {file.pdf!.pages > 1 && (
             <>
@@ -226,33 +240,6 @@ export function PdfReview({
                 onClick={jumpToPage}
               >
                 {r.goToPage}
-              </Button>
-            </>
-          )}
-          {rows.length > 50 && (
-            <>
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={offset === 0}
-                onClick={() => setOffset((n) => Math.max(0, n - 50))}
-              >
-                {r.previousRows}
-              </Button>
-              <span className="muted">
-                {r.rangeOf(
-                  offset + 1,
-                  Math.min(offset + 50, rows.length),
-                  rows.length,
-                )}
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={offset + 50 >= rows.length}
-                onClick={() => setOffset((n) => n + 50)}
-              >
-                {r.nextRows}
               </Button>
             </>
           )}

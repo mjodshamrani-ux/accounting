@@ -40,6 +40,41 @@ void test('every row is on exactly one page, in its order', () => {
   }
 });
 
+void test('a table that keeps its own page size pages by it, with every row on one page', () => {
+  assert.deepEqual(recordPage(25, 0, 10), { pages: 3, at: 0, from: 0, to: 10 });
+  assert.deepEqual(recordPage(25, 2, 10), {
+    pages: 3,
+    at: 2,
+    from: 20,
+    to: 25,
+  });
+  assert.deepEqual(recordPage(250, 1, 100), {
+    pages: 3,
+    at: 1,
+    from: 100,
+    to: 200,
+  });
+  assert.deepEqual(recordPage(20, 0, 20), { pages: 1, at: 0, from: 0, to: 20 });
+  for (const size of [10, 20, 30, 100])
+    for (const length of [0, 1, size - 1, size, size + 1, 3 * size + 7]) {
+      const seen: number[] = [];
+      const { pages } = recordPage(length, 0, size);
+      for (let page = 0; page < pages; page++) {
+        const { from, to } = recordPage(length, page, size);
+        assert.ok(to - from <= size, `${length} rows by ${size}`);
+        for (let row = from; row < to; row++) seen.push(row);
+      }
+      assert.deepEqual(
+        seen,
+        Array.from({ length }, (_, i) => i),
+      );
+      for (let row = 0; row < length; row++) {
+        const { from, to } = recordPage(length, pageOfRow(row, size), size);
+        assert.ok(from <= row && row < to, `row ${row} by ${size}`);
+      }
+    }
+});
+
 void test('a row is found again on the page that shows it', () => {
   assert.equal(pageOfRow(0), 0);
   assert.equal(pageOfRow(49), 0);

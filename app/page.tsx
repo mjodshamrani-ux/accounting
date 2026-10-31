@@ -61,7 +61,7 @@ import { PdfReview } from '@/components/pdf-review';
 import type { AuditEvent } from '@/lib/reconciliation/types';
 import { AccountingAssistant } from '@/components/accounting-assistant';
 import { LanguageSwitcher } from '@/components/language-switcher';
-import { BackArrow, ForwardArrow } from '@/components/direction';
+import { ForwardArrow } from '@/components/direction';
 import { useI18n } from '@/lib/i18n/context';
 import type { Messages } from '@/lib/i18n/messages';
 import {
@@ -125,10 +125,11 @@ import {
   TableCell,
 } from '@/components/ui/table';
 import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-} from '@/components/ui/pagination';
+  RecordFrame,
+  RecordPager,
+  RecordRows,
+} from '@/components/record-table';
+import { recordPage } from '@/lib/record-page';
 import { workerTask, prepareWorker } from '@/lib/reconciliation/client';
 import type { ProcessingProgress } from '@/lib/reconciliation/processing-progress';
 import {
@@ -319,95 +320,49 @@ function ReadingIssueList({
     setPageBinding(issueBinding);
     setPage(0);
   }
-  const current = Math.min(
-    page,
-    Math.max(0, Math.ceil(issues.length / 10) - 1),
-  );
-  const offset = current * 10;
   if (!issues.length) return null;
+  // Ten issues a page, as this list has always shown: each one is several
+  // lines tall (UX-3).
   return (
     <details className="panel stack">
       <summary>{r.show(issues.length)}</summary>
-      <div className="preview" style={{ maxHeight: 440 }}>
-        <table
-          aria-label={r.table}
-          style={{
-            whiteSpace: 'normal',
-            tableLayout: 'fixed',
-            overflowWrap: 'anywhere',
-          }}
-        >
-          <thead>
-            <tr>
-              <th>{r.source}</th>
-              <th>{r.location}</th>
-              <th>{r.reason}</th>
-              <th>{r.original}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {issues.slice(offset, offset + 10).map((issue, index) => (
-              <tr key={`${issue.side}:${issue.row}:${offset + index}`}>
-                <td>
-                  {t.app.sides[issue.side === 'supplier' ? 0 : 1]}
-                  <br />
-                  <bdi>{issue.file}</bdi>
-                  <br />
-                  <bdi>{issue.sheet}</bdi>
-                </td>
-                <td>
-                  {issue.kind === 'source'
-                    ? r.sourceWide
-                    : issue.kind === 'balance'
-                      ? r.balance
-                      : r.row(issue.row!)}
-                  {issue.page !== null && (
-                    <>
-                      <br />
-                      {r.page(issue.page)}
-                    </>
-                  )}
-                </td>
-                <td>{engineText(issue.reason)}</td>
-                <td>
-                  <bdi
-                    style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}
-                  >
-                    {issue.values.length
-                      ? JSON.stringify(issue.values)
-                      : r.noOriginal}
-                  </bdi>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="actions">
-        <Button
-          variant="outline"
-          size="sm"
-          disabled={current === 0}
-          onClick={() => setPage(current - 1)}
-        >
-          {r.previous}
-        </Button>
-        <span>
-          {r.range(
-            offset + 1,
-            Math.min(offset + 10, issues.length),
-            issues.length,
-          )}
-        </span>
-        <Button
-          variant="outline"
-          size="sm"
-          disabled={offset + 10 >= issues.length}
-          onClick={() => setPage(current + 1)}
-        >
-          {r.next}
-        </Button>
-      </div>
+      <RecordRows
+        label={r.table}
+        headers={[r.source, r.location, r.reason, r.original]}
+        rows={issues}
+        size={10}
+        page={page}
+        onPage={setPage}
+        cells={(issue) => [
+          <>
+            {t.app.sides[issue.side === 'supplier' ? 0 : 1]}
+            <br />
+            <bdi>{issue.file}</bdi>
+            <br />
+            <bdi>{issue.sheet}</bdi>
+          </>,
+          <>
+            {issue.kind === 'source'
+              ? r.sourceWide
+              : issue.kind === 'balance'
+                ? r.balance
+                : r.row(issue.row!)}
+            {issue.page !== null && (
+              <>
+                <br />
+                {r.page(issue.page)}
+              </>
+            )}
+          </>,
+          engineText(issue.reason),
+          <bdi
+            key="original"
+            style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}
+          >
+            {issue.values.length ? JSON.stringify(issue.values) : r.noOriginal}
+          </bdi>,
+        ]}
+      />
     </details>
   );
 }
@@ -1579,6 +1534,16 @@ export default function App() {
       .map((c) => c.supplierMembers[0] ?? c.ledgerMembers[0]);
     return tx;
   }, [result, tab, query]);
+  // The case list is named after the tab it shows, and pages through the
+  // record kit thirty cases at a time, as it always has (UX-3).
+  const listName = `${t.app.results.workspace} · ${
+      tab === 'matches'
+        ? t.app.results.tabMatched
+        : tab === 'ambiguities'
+          ? t.app.results.tabReview(result?.caseCounts.needsReviewCases ?? 0)
+          : t.app.results.tabUnmatched
+    }`,
+    listShown = recordPage(rows.length, page, 30);
   const startSyntheticDemo = useEffectEvent(() => {
     if (files.some(Boolean) || busy)
       throw new Error('Cannot replace an active session');
@@ -2830,8 +2795,12 @@ export default function App() {
                             </div>
                           </div>
                         </div>
-                        <div style={{ overflowX: 'auto' }}>
-                          <Table>
+                        <RecordFrame name={listName} className="results-frame">
+                          <table
+                            data-slot="table"
+                            className="w-full caption-bottom text-sm"
+                            aria-label={listName}
+                          >
                             <TableHeader>
                               <TableRow>
                                 {t.app.results.columns.map((h, i) => (
@@ -2841,7 +2810,7 @@ export default function App() {
                             </TableHeader>
                             <TableBody>
                               {rows
-                                .slice(page * 30, (page + 1) * 30)
+                                .slice(listShown.from, listShown.to)
                                 .map((tx) => {
                                   const activeCase = result.cases.find((c) =>
                                     c.sourceTrace.some(
@@ -2932,46 +2901,20 @@ export default function App() {
                                   );
                                 })}
                             </TableBody>
-                          </Table>
-                        </div>
+                          </table>
+                        </RecordFrame>
                         {!rows.length && (
                           <div className="empty">{t.app.results.empty}</div>
                         )}
                         <div className="surface-footer">
-                          <span>
-                            {t.app.results.pageSummary(
-                              rows.length,
-                              page + 1,
-                              Math.max(1, Math.ceil(rows.length / 30)),
-                            )}
-                          </span>
-                          <Pagination
-                            aria-label={t.app.results.pagination}
-                            style={{ width: 'auto', margin: 0 }}
-                          >
-                            <PaginationContent>
-                              <PaginationItem>
-                                <Button
-                                  variant="ghost"
-                                  aria-label={t.app.results.previousPage}
-                                  disabled={page === 0}
-                                  onClick={() => setPage((p) => p - 1)}
-                                >
-                                  <BackArrow size={16} />
-                                </Button>
-                              </PaginationItem>
-                              <PaginationItem>
-                                <Button
-                                  variant="ghost"
-                                  aria-label={t.app.results.nextPage}
-                                  disabled={(page + 1) * 30 >= rows.length}
-                                  onClick={() => setPage((p) => p + 1)}
-                                >
-                                  <ForwardArrow size={16} />
-                                </Button>
-                              </PaginationItem>
-                            </PaginationContent>
-                          </Pagination>
+                          <span>{t.app.results.cases(rows.length)}</span>
+                          <RecordPager
+                            label={listName}
+                            length={rows.length}
+                            page={page}
+                            onPage={setPage}
+                            size={30}
+                          />
                         </div>
                       </section>
                       {selected && (

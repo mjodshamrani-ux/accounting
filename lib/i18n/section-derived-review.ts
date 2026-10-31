@@ -70,9 +70,6 @@ const copy = {
       'قراءة مشتقة صراحة؛ يلزم التحقق المالي المستقل قبل استخدامها في التسوية.',
     error: 'تعذر إثبات المراجعة أو الاشتقاق',
     technical: 'التفاصيل الفنية',
-    previous: 'الصفوف السابقة',
-    next: 'الصفوف التالية',
-    of: 'من',
   },
   en: {
     open: 'Open PDF section derivative review',
@@ -149,9 +146,6 @@ const copy = {
       'Explicitly derived reading; independent financial verification is required before reconciliation use.',
     error: 'Review or derivation could not be proven',
     technical: 'Technical details',
-    previous: 'Previous rows',
-    next: 'Next rows',
-    of: 'of',
   },
 };
 export const sectionDerivedReviewCopy = (lang: 'ar' | 'en') => copy[lang];

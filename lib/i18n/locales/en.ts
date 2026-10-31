@@ -804,15 +804,11 @@ export const en: Messages = {
     noteColumn: 'Note',
     beforeTable: 'Before the table',
     headerRow: 'Header row',
-    previousPage: 'Previous page',
-    nextPage: 'Next page',
+    previousPage: 'Previous PDF page',
+    nextPage: 'Next PDF page',
     jumpPage: 'Page number',
     goToPage: 'Go to page',
-    pageOf: (page: number, pages: number) => `Page ${page} of ${pages}`,
-    previousRows: 'Previous rows',
-    nextRows: 'Next rows',
-    rangeOf: (from: number, to: number, total: number) =>
-      `${from}–${to} of ${total}`,
+    pageOf: (page: number, pages: number) => `PDF page ${page} of ${pages}`,
     hideCuts: 'Hide column boundaries',
     editCuts: 'Edit column boundaries',
     cutsField:
@@ -1227,10 +1223,6 @@ export const en: Messages = {
       row: (row: number) => `Row ${row}`,
       page: (page: number) => `PDF page ${page}`,
       noOriginal: 'Not associated with a data row',
-      previous: 'Previous issues',
-      next: 'Next issues',
-      range: (from: number, to: number, total: number) =>
-        `${from}–${to} of ${total}`,
     },
     processing: {
       preparingRead: 'Preparing to read the PDF pages on your device',
@@ -1485,11 +1477,7 @@ export const en: Messages = {
       caseDetails: 'Case details',
       reviewedStillOpen: 'Reviewed, still unmatched',
       empty: 'There are no transactions in this list.',
-      pageSummary: (cases: number, page: number, pages: number) =>
-        `Cases: ${cases} · Page ${page} of ${pages}`,
-      pagination: 'Pagination',
-      previousPage: 'Previous page',
-      nextPage: 'Next page',
+      cases: (cases: number) => `Cases: ${cases}`,
       prepareWorkpaper: 'Prepare the workpaper',
     },
     finish: {

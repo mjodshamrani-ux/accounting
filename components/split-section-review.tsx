@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
+import { RecordRows } from '@/components/record-table';
 import { Input } from '@/components/ui/input';
 import { useI18n } from '@/lib/i18n/context';
 import {
@@ -206,7 +207,7 @@ function SplitPanel({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [progress, setProgress] = useState('');
-  const [offset, setOffset] = useState(0);
+  const [page, setPage] = useState(0);
   const operation = useMemo(() => new PendingOperation(), []);
   const scopeReady = scope.currency === 'SAR' && scope.decimals === 2;
   useEffect(
@@ -335,7 +336,7 @@ function SplitPanel({
             invalidate();
             setAck(emptyAck());
             setSelection(null);
-            setOffset(0);
+            setPage(0);
             void run(async (options) => {
               const next = await session.inspect(options);
               if (!options.signal.aborted) setSelection(next);
@@ -436,63 +437,28 @@ function SplitPanel({
             ))}
           </details>
           <h3>{t.rows}</h3>
-          <div className="overflow-x-auto">
-            <table data-testid="split-section-inventory">
-              <thead>
-                <tr>
-                  <th>{t.row}</th>
-                  <th>{t.page}</th>
-                  <th>{t.classification}</th>
-                  {['Date', 'Reference', 'Description', 'Debit', 'Credit'].map(
-                    (h) => (
-                      <th key={h}>
-                        <bdi>{h}</bdi>
-                      </th>
-                    ),
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                {selection.review.rows
-                  .slice(offset, offset + 100)
-                  .map((row) => (
-                    <tr key={row.originalRow}>
-                      <td>{row.originalRow}</td>
-                      <td>{row.page}</td>
-                      <td>
-                        <bdi>{splitSectionKind(row.kind, lang)}</bdi>
-                      </td>
-                      {row.values.map((value, i) => (
-                        <td key={i}>
-                          <bdi>{value || '∅'}</bdi>
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Button
-              variant="outline"
-              disabled={!offset}
-              onClick={() => setOffset(Math.max(0, offset - 100))}
-            >
-              {t.previous}
-            </Button>
-            <output>
-              {offset + 1}–
-              {Math.min(offset + 100, selection.review.rows.length)} /{' '}
-              {selection.review.rows.length}
-            </output>
-            <Button
-              variant="outline"
-              disabled={offset + 100 >= selection.review.rows.length}
-              onClick={() => setOffset(offset + 100)}
-            >
-              {t.next}
-            </Button>
-          </div>
+          <RecordRows
+            label={t.rows}
+            headers={[
+              t.row,
+              t.page,
+              t.classification,
+              ...['Date', 'Reference', 'Description', 'Debit', 'Credit'].map(
+                (h) => <bdi key={h}>{h}</bdi>,
+              ),
+            ]}
+            rows={selection.review.rows}
+            size={100}
+            page={page}
+            onPage={setPage}
+            frame={{ 'data-testid': 'split-section-inventory' }}
+            cells={(row) => [
+              row.originalRow,
+              row.page,
+              splitSectionKind(row.kind, lang),
+              ...row.values.map((value) => value || '∅'),
+            ]}
+          />
           <p>{t.partial}</p>
           <Button
             className={buttonClass}

@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { RecordFrame, RecordPager } from '@/components/record-table';
+import { recordPage } from '@/lib/record-page';
 import { useI18n } from '@/lib/i18n/context';
 import {
   sectionDerivedReviewCopy,
@@ -663,7 +665,9 @@ function DerivedRows({
 }) {
   const { lang } = useI18n();
   const t = sectionDerivedReviewCopy(lang);
-  const [offset, setOffset] = useState(0);
+  // A hundred rows a page through the record kit's frame and pager (UX-3).
+  const [page, setPage] = useState(0);
+  const { from, to } = recordPage(rows.length, page, 100);
   function interpretation(literal: string, format: 'dot' | 'comma') {
     try {
       return String(parseMoney(literal, format, interpretationDecimals!));
@@ -676,45 +680,21 @@ function DerivedRows({
       <summary>
         {t.rows} ({rows.length})
       </summary>
-      <p>
-        {rows.length ? offset + 1 : 0}–{Math.min(offset + 100, rows.length)}{' '}
-        {t.of} {rows.length}
-      </p>
-      <div className="flex flex-wrap gap-2">
-        <Button
-          className={buttonClass}
-          type="button"
-          variant="outline"
-          disabled={!offset}
-          onClick={() => setOffset((value) => Math.max(0, value - 100))}
-        >
-          {t.previous}
-        </Button>
-        <Button
-          className={buttonClass}
-          type="button"
-          variant="outline"
-          disabled={offset + 100 >= rows.length}
-          onClick={() => setOffset((value) => value + 100)}
-        >
-          {t.next}
-        </Button>
-      </div>
-      <div className="overflow-auto">
-        <table className="w-full text-sm">
+      <RecordFrame name={t.rows}>
+        <table aria-label={t.rows}>
           <tbody>
-            {rows.slice(offset, offset + 100).map((row) => (
+            {rows.slice(from, to).map((row) => (
               <tr key={row.row} data-derived-original-row={row.row}>
-                <th>
+                <th scope="row">
                   {t.page} {row.page} · {t.row} {row.row}
                 </th>
                 {row.values.map((value, i) => (
-                  <td key={i} className="p-2">
+                  <td key={i}>
                     <bdi>{value}</bdi>
                   </td>
                 ))}
                 {interpretationDecimals !== undefined && (
-                  <td className="p-2" data-derived-amount-interpretations>
+                  <td data-derived-amount-interpretations>
                     {row.amounts.map((amount) => (
                       <div
                         key={`${amount.sheet}:${amount.page}:${amount.row}:${amount.column}`}
@@ -738,7 +718,14 @@ function DerivedRows({
             ))}
           </tbody>
         </table>
-      </div>
+      </RecordFrame>
+      <RecordPager
+        label={t.rows}
+        length={rows.length}
+        page={page}
+        onPage={setPage}
+        size={100}
+      />
     </details>
   );
 }

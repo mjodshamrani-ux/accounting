@@ -782,15 +782,11 @@ export const ar = {
     noteColumn: 'ملاحظة',
     beforeTable: 'قبل الجدول',
     headerRow: 'صف العناوين',
-    previousPage: 'الصفحة السابقة',
-    nextPage: 'الصفحة التالية',
+    previousPage: 'صفحة PDF السابقة',
+    nextPage: 'صفحة PDF التالية',
     jumpPage: 'رقم الصفحة',
     goToPage: 'انتقال إلى الصفحة',
-    pageOf: (page: number, pages: number) => `صفحة ${page} من ${pages}`,
-    previousRows: 'الصفوف السابقة',
-    nextRows: 'الصفوف التالية',
-    rangeOf: (from: number, to: number, total: number) =>
-      `${from}–${to} من ${total}`,
+    pageOf: (page: number, pages: number) => `صفحة PDF ${page} من ${pages}`,
     hideCuts: 'إخفاء حدود الأعمدة',
     editCuts: 'تعديل حدود الأعمدة',
     cutsField: 'مواقع حدود الأعمدة بالنسبة المئوية من يسار الصفحة',
@@ -1184,10 +1180,6 @@ export const ar = {
       row: (row: number) => `صف ${row}`,
       page: (page: number) => `صفحة PDF ${page}`,
       noOriginal: 'لا تنطبق على صف بيانات',
-      previous: 'الملاحظات السابقة',
-      next: 'الملاحظات التالية',
-      range: (from: number, to: number, total: number) =>
-        `${from}–${to} من ${total}`,
     },
     processing: {
       preparingRead: 'تجهيز قراءة صفحات PDF على جهازك',
@@ -1427,11 +1419,7 @@ export const ar = {
       caseDetails: 'تفاصيل الحالة',
       reviewedStillOpen: 'تمت مراجعته وما زال غير مطابق',
       empty: 'لا توجد حركات في هذه القائمة.',
-      pageSummary: (cases: number, page: number, pages: number) =>
-        `عدد الحالات ${cases} · الصفحة ${page} من ${pages}`,
-      pagination: 'التنقل بين الصفحات',
-      previousPage: 'الصفحة السابقة',
-      nextPage: 'الصفحة التالية',
+      cases: (cases: number) => `عدد الحالات ${cases}`,
       prepareWorkpaper: 'إعداد ورقة العمل',
     },
     finish: {

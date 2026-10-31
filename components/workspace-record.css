@@ -70,23 +70,30 @@
 :is(.gl-tb-table, .record-frame) td:last-child {
   max-width: 25rem;
 }
+/* A table the kit does not draw keeps its own look inside the kit's frame
+   (RecordFrame), as the supplier's case list does. */
+.results-frame {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+}
 /* A record table wider than its frame scrolls inside it. A soft shade on
    the side where columns lie out of view says that the table continues; the
    frame marks that side as the reader scrolls (record-table.tsx). The shade
    lies under the cells, so it shows on the rows of the table and the header
    row's own background covers it. */
-.record-frame[data-more-left] {
+:is(.record-frame, .results-frame, .preview)[data-more-left] {
   box-shadow: inset 14px 0 12px -12px rgb(15 23 42 / 24%);
 }
-.record-frame[data-more-right] {
+:is(.record-frame, .results-frame, .preview)[data-more-right] {
   box-shadow: inset -14px 0 12px -12px rgb(15 23 42 / 24%);
 }
-.record-frame[data-more-left][data-more-right] {
+:is(.record-frame, .results-frame, .preview)[data-more-left][data-more-right] {
   box-shadow:
     inset 14px 0 12px -12px rgb(15 23 42 / 24%),
     inset -14px 0 12px -12px rgb(15 23 42 / 24%);
 }
-.record-frame:focus-visible {
+:is(.record-frame, .results-frame, .preview):focus-visible {
   outline: 2px solid #6738d3;
   outline-offset: 2px;
 }

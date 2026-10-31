@@ -1,7 +1,7 @@
 {
   "note": "Interface census baseline: each metric summed over the four states of a domain (Arabic and English at 390 and 1440 px) after its synthetic example ran. Recorded by scripts/ux-census-browser.mjs --record; the gate fails on any change.",
   "recorded": {
-    "commit": "87442406f9836f58a32f5c8fe6281e3a95eeac6c",
+    "commit": "9936b2d1ea6b99f4327db0097cd3a89c0922ca43",
     "date": "2026-10-31",
     "chromium": "141.0.7390.37"
   },
@@ -24,9 +24,9 @@
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 8,
+      "disabledUnexplained": 0,
       "focusLost": 0,
-      "wideUnnamed": 2
+      "wideUnnamed": 0
     },
     "clearing": {
       "minorUnits": 0,

@@ -276,6 +276,10 @@ jobs:
         env:
           MIZAN_CHROMIUM: /usr/bin/google-chrome
         run: pnpm test:multiline-review:browser
+      - name: Verify the source structure review with real uploaded files in Arabic and English, closed and open, without overflow at 320 and 390 px
+        env:
+          MIZAN_CHROMIUM: /usr/bin/google-chrome
+        run: pnpm test:source-structure:browser
       - name: Verify running-balance review UI and independently check Arabic and English downloads
         env:
           MIZAN_CHROMIUM: /usr/bin/google-chrome

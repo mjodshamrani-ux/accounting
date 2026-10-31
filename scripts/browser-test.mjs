@@ -1760,7 +1760,7 @@ try {
   assert.equal(await bothCompare.isDisabled(), true);
   await supplierReview.check();
   await supplierPdfCard
-    .getByRole('button', { name: 'الصفحة التالية', exact: true })
+    .getByRole('button', { name: 'صفحة PDF التالية', exact: true })
     .click();
   await supplierPdfCard
     .locator('.preview tbody')
@@ -1786,7 +1786,7 @@ try {
     .click();
   assert.equal(
     await supplierPdfCard
-      .getByRole('button', { name: 'الصفحة التالية', exact: true })
+      .getByRole('button', { name: 'صفحة PDF التالية', exact: true })
       .count(),
     0,
   );

@@ -1,4 +1,11 @@
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
+import {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from 'react';
 import { Button } from './ui/button';
 import { useI18n } from '@/lib/i18n/context';
 import { recordTableCopy } from '@/lib/i18n/record-table';
@@ -17,12 +24,14 @@ export function RecordPager({
   length,
   page,
   onPage,
+  size,
   hook,
 }: {
   label: string;
   length: number;
   page: number;
   onPage: (page: number) => void;
+  size?: number;
   hook?: RecordHook;
 }) {
   const { lang } = useI18n();
@@ -30,7 +39,7 @@ export function RecordPager({
   const status = useId();
   const previous = useRef<HTMLButtonElement>(null),
     next = useRef<HTMLButtonElement>(null);
-  const { pages, at, from, to } = recordPage(length, page);
+  const { pages, at, from, to } = recordPage(length, page, size);
   if (pages <= 1) return null;
   const turn = (target: number) => {
     onPage(target);
@@ -97,12 +106,50 @@ function useWider(box: { readonly current: HTMLDivElement | null }) {
   return wider;
 }
 
+/** The frame of a record table. A table wider than it scrolls inside it,
+ * and the frame then becomes a region the keyboard reaches, named after the
+ * table and saying that it scrolls, with the side where columns lie out of
+ * view marked for its shade. A table the kit does not draw keeps its own
+ * look and takes the same frame with its own `className`. */
+export function RecordFrame({
+  name,
+  className = 'record-frame',
+  style,
+  hook,
+  children,
+}: {
+  name: string;
+  className?: string;
+  style?: CSSProperties;
+  hook?: RecordHook;
+  children: ReactNode;
+}) {
+  const { lang } = useI18n();
+  const copy = recordTableCopy[lang];
+  const box = useRef<HTMLDivElement>(null);
+  const wider = useWider(box);
+  return (
+    <div
+      ref={box}
+      className={className}
+      style={style}
+      {...hook}
+      {...(wider
+        ? { role: 'region', tabIndex: 0, 'aria-label': copy.wide(name) }
+        : {})}
+    >
+      {children}
+    </div>
+  );
+}
+
 type RecordName =
   | { label: string; source?: never }
   | { source: string; label?: never };
 type RecordPaging = {
   page?: number;
   onPage?: (page: number) => void;
+  size?: number;
   pager?: RecordHook;
   frame?: RecordHook;
 };
@@ -115,10 +162,11 @@ type RecordPaging = {
  * value reads as a dash. A table wider than its frame scrolls inside it:
  * the frame then takes the keyboard and says so, and a shade at either edge
  * shows that columns continue. A workspace that must return the reader to a
- * row holds the page with `page` and `onPage`. A table of the rows read
- * from a source is named after the source with `source`, apart from the
- * source's own file input; `rowHeader` names the column whose cell heads
- * its row. */
+ * row holds the page with `page` and `onPage`, and a table whose rows are
+ * much taller or shorter than most keeps the page size it has always had
+ * with `size`. A table of the rows read from a source is named after the
+ * source with `source`, apart from the source's own file input; `rowHeader`
+ * names the column whose cell heads its row. */
 export function RecordRows<T>({
   label,
   source,
@@ -129,6 +177,7 @@ export function RecordRows<T>({
   rowHeader,
   page,
   onPage,
+  size,
   pager,
   frame,
 }: RecordName &
@@ -144,19 +193,10 @@ export function RecordRows<T>({
   const name = label ?? copy.rowsOf(source);
   const [own, setOwn] = useState(0);
   const at = page ?? own;
-  const { from, to } = recordPage(rows.length, at);
-  const box = useRef<HTMLDivElement>(null);
-  const wider = useWider(box);
+  const { from, to } = recordPage(rows.length, at, size);
   return (
     <>
-      <div
-        ref={box}
-        className="record-frame"
-        {...frame}
-        {...(wider
-          ? { role: 'region', tabIndex: 0, 'aria-label': copy.wide(name) }
-          : {})}
-      >
+      <RecordFrame name={name} hook={frame}>
         <table aria-label={name}>
           <thead>
             <tr>
@@ -189,12 +229,13 @@ export function RecordRows<T>({
             ))}
           </tbody>
         </table>
-      </div>
+      </RecordFrame>
       <RecordPager
         label={name}
         length={rows.length}
         page={at}
         onPage={onPage ?? setOwn}
+        size={size}
         hook={pager}
       />
     </>

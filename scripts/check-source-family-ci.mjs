@@ -349,6 +349,7 @@ const required = [
   'test:browser:ux-census:self-test',
   'test:browser:ux-census',
   'test:multiline-review:browser',
+  'test:source-structure:browser',
   'test:browser:result-focus',
   'test:browser:visual-identity:self-test',
   'test:browser:record-table',
