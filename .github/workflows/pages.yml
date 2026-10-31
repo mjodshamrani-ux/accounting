@@ -1132,6 +1132,9 @@ jobs:
     name: Review decision platform interface mutations in built browser copies (UX-3)
     runs-on: ubuntu-latest
     timeout-minutes: 180
+    # The section checks run in native Chrome, as the build job runs them.
+    env:
+      MIZAN_CHROMIUM: /usr/bin/google-chrome
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
@@ -1147,6 +1150,8 @@ jobs:
           node scripts/public-content-check.mjs --source
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec playwright install --with-deps chromium
+      - name: Native Chrome for the section checks is installed
+        run: test -x "$MIZAN_CHROMIUM"
       - name: Build each planted defect in a review and require that review's browser check to catch it
         env:
           REVIEW_PLATFORM_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/review-platform-interface-mutations

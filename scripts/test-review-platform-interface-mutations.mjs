@@ -5,8 +5,10 @@
 // review must fail with an assertion against that build. The supplier
 // review sections are checked by their own browser checks, the other
 // reviews by scripts/review-platform-browser.mjs, one review at a time. A
-// survivor is behaviour no check holds.
-//   node scripts/test-review-platform-interface-mutations.mjs
+// survivor is behaviour no check holds. The section checks run in the
+// native Chrome that MIZAN_CHROMIUM names, as the build job runs them.
+//   MIZAN_CHROMIUM=/usr/bin/google-chrome node scripts/test-review-platform-interface-mutations.mjs
+import assert from 'node:assert/strict';
 import {
   cp,
   mkdir,
@@ -27,6 +29,12 @@ import {
 } from './mutation-runner-support.mjs';
 
 const root = resolve(import.meta.dirname, '..');
+// Without it the section checks fail before any review, so the baseline
+// fails with no reason in the report; say it here instead.
+assert.ok(
+  process.env.MIZAN_CHROMIUM,
+  'Set MIZAN_CHROMIUM to the native Chrome the section checks run in',
+);
 const output =
   process.env.REVIEW_PLATFORM_INTERFACE_MUTATION_DIR ??
   join(root, 'work/review-platform-interface-mutations');
