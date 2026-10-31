@@ -1,5 +1,6 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useId, useLayoutEffect, useRef, useState } from 'react';
+import { useResultFocus } from '@/components/result-focus';
 import type { AllocationWorkflowHandoff } from '@/lib/reconciliation/allocation-workflow-handoff';
 import { allocationWorkflowHandoffCopy } from '@/lib/i18n/allocation-workflow-handoff';
 import { Button } from '@/components/ui/button';
@@ -163,6 +164,14 @@ export function AllocationWorkspace({
     setSelected([]);
     setPage(0);
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
+  const statusId = useId();
   async function perform<T>(
     work: (signal: AbortSignal) => Promise<T>,
     publish: (value: T) => void,
@@ -258,7 +267,7 @@ export function AllocationWorkspace({
           owned,
           signal,
         ),
-      install,
+      shown,
     );
   }
   function openDemo() {
@@ -280,7 +289,7 @@ export function AllocationWorkspace({
         },
         signal,
       );
-    }, install);
+    }, shown);
   }
   function restoreSession(f: File) {
     invalidate();
@@ -292,7 +301,7 @@ export function AllocationWorkspace({
         { buffer },
         signal,
       );
-    }, install);
+    }, shown);
   }
   function saveSession() {
     const owned = structuredClone(input());
@@ -520,13 +529,20 @@ export function AllocationWorkspace({
       {failed && <p role="alert">{t.failure}</p>}
       {result && (
         <section data-testid="allocation-result">
-          <h2>{t.valueLedger}</h2>
+          <h2
+            ref={resultHeading}
+            tabIndex={-1}
+            data-result-heading="result"
+            aria-describedby={statusId}
+          >
+            {t.valueLedger}
+          </h2>
           <DomainEvidenceAssistant
             result={result}
             snapshot={() => ({ domain: 'allocation', input: input(), result })}
             busy={busy}
           />
-          <p data-testid="allocation-status">
+          <p id={statusId} data-testid="allocation-status">
             {result.status === 'ready' ? t.ready : t.sourceError}
           </p>
           <div className="gl-tb-actions">

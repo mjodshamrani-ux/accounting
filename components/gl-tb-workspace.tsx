@@ -1,5 +1,6 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
+import { useResultFocus } from '@/components/result-focus';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -104,6 +105,14 @@ export function GlTbWorkspace({
     setResult(value.result);
     setPage(0);
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
+  const statusId = useId();
   async function perform(work: (signal: AbortSignal) => Promise<void>) {
     const id = ++serial.current,
       control = new AbortController();
@@ -183,7 +192,7 @@ export function GlTbWorkspace({
                   const source: SourceFile[] = [];
                   for (const demo of glTbDemo())
                     source.push(await workerTask('read', demo, signal));
-                  install(
+                  shown(
                     await workerTask(
                       'gl-tb-reconcile',
                       {
@@ -206,7 +215,7 @@ export function GlTbWorkspace({
                   const source: SourceFile[] = [];
                   for (const demo of glTbDemo(true))
                     source.push(await workerTask('read', demo, signal));
-                  install(
+                  shown(
                     await workerTask(
                       'gl-tb-reconcile',
                       {
@@ -234,7 +243,7 @@ export function GlTbWorkspace({
                     void perform(async (signal) => {
                       if (file.size > 32 * 1024 * 1024)
                         throw Error('GL_TB_SESSION');
-                      install(
+                      shown(
                         await workerTask(
                           'gl-tb-restore',
                           { buffer: await file.arrayBuffer() },
@@ -405,7 +414,7 @@ export function GlTbWorkspace({
           }
           onClick={() =>
             perform(async (signal) =>
-              install(await workerTask('gl-tb-reconcile', input(), signal)),
+              shown(await workerTask('gl-tb-reconcile', input(), signal)),
             )
           }
         >
@@ -429,13 +438,22 @@ export function GlTbWorkspace({
       {failed && <p role="alert">{t.failure}</p>}
       {result && (
         <section data-testid="gl-tb-result">
-          <h2>{t.result}</h2>
+          <h2
+            ref={resultHeading}
+            tabIndex={-1}
+            data-result-heading="result"
+            aria-describedby={statusId}
+          >
+            {t.result}
+          </h2>
           <DomainEvidenceAssistant
             result={result}
             snapshot={() => ({ domain: 'gl-tb', input: input(), result })}
             busy={busy}
           />
-          <p data-testid="gl-tb-status">{t.status[result.status]}</p>
+          <p id={statusId} data-testid="gl-tb-status">
+            {t.status[result.status]}
+          </p>
           <p>
             {t.glBridge}: <strong>{formatted(result.glBridge)}</strong>
           </p>

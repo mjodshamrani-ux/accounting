@@ -1,6 +1,7 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { BankAdjustmentWorkspace } from './bank-adjustment-workspace';
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
+import { useResultFocus } from '@/components/result-focus';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -158,6 +159,13 @@ export function BankWorkspace({
     setReference('');
     setNote('');
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
   async function perform(work: (signal: AbortSignal) => Promise<void>) {
     const id = ++serial.current,
       control = new AbortController();
@@ -377,7 +385,7 @@ export function BankWorkspace({
                       const sources: SourceFile[] = [];
                       for (const demo of bankDemo())
                         sources.push(await workerTask('read', demo, signal));
-                      install(
+                      shown(
                         await workerTask(
                           'bank-reconcile',
                           {
@@ -417,7 +425,7 @@ export function BankWorkspace({
                         }
                         setMode('movements');
                         return perform(async (signal) =>
-                          install(
+                          shown(
                             await workerTask(
                               'bank-restore',
                               { buffer },
@@ -611,7 +619,7 @@ export function BankWorkspace({
                   }
                   onClick={() =>
                     perform(async (signal) =>
-                      install(
+                      shown(
                         await workerTask('bank-reconcile', input(), signal),
                       ),
                     )
@@ -645,7 +653,14 @@ export function BankWorkspace({
           )}
           {mode === 'movements' && result && (
             <>
-              <h2 data-testid="bank-result">{t.status[result.status]}</h2>
+              <h2
+                data-testid="bank-result"
+                ref={resultHeading}
+                tabIndex={-1}
+                data-result-heading="result"
+              >
+                {t.status[result.status]}
+              </h2>
               <DomainEvidenceAssistant
                 result={result}
                 snapshot={() => ({ domain: 'bank', input: input(), result })}

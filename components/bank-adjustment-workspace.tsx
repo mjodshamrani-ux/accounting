@@ -7,6 +7,7 @@ import {
 } from './workspace-chrome';
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useResultFocus } from '@/components/result-focus';
 import './bank-adjustment-workspace.css';
 import { Button } from '@/components/ui/button';
 import { useI18n } from '@/lib/i18n/context';
@@ -184,6 +185,13 @@ export function BankAdjustmentWorkspace({
       result: v.result.balance.bank,
     });
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
   async function perform(work: (signal: AbortSignal) => Promise<void>) {
     const id = ++serial.current,
       control = new AbortController();
@@ -376,7 +384,7 @@ export function BankAdjustmentWorkspace({
                     state: BankAdjustmentInput;
                     result: BankAdjustmentResult;
                   }>('bank-adjustment-reconcile', state, signal);
-                  if (!signal.aborted) install(v);
+                  if (!signal.aborted) shown(v);
                 })
               }
             >
@@ -405,7 +413,7 @@ export function BankAdjustmentWorkspace({
                       { buffer: await blob.arrayBuffer() },
                       signal,
                     );
-                    if (!signal.aborted) install(v);
+                    if (!signal.aborted) shown(v);
                   });
                 }}
               />
@@ -562,7 +570,7 @@ export function BankAdjustmentWorkspace({
                 state: BankAdjustmentInput;
                 result: BankAdjustmentResult;
               }>('bank-adjustment-reconcile', input(), signal);
-              if (!signal.aborted) install(v);
+              if (!signal.aborted) shown(v);
             })
           }
         >
@@ -588,7 +596,14 @@ export function BankAdjustmentWorkspace({
       {failed && <p role="alert">{t.failed}</p>}
       {result && (
         <>
-          <h3 data-testid="bank-balance-result">{t.status[result.status]}</h3>
+          <h3
+            data-testid="bank-balance-result"
+            ref={resultHeading}
+            tabIndex={-1}
+            data-result-heading="result"
+          >
+            {t.status[result.status]}
+          </h3>
           <DomainEvidenceAssistant
             result={result}
             snapshot={() => ({

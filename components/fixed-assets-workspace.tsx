@@ -1,6 +1,7 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { FixedAssetsSectionsPanel } from '@/components/fixed-assets-sections-panel';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useResultFocus } from '@/components/result-focus';
 import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import {
@@ -178,6 +179,13 @@ export function AssetWorkspace({
     setEvents(v.state.events);
     setResult(v.result);
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
   async function perform<T>(
     work: (signal: AbortSignal) => Promise<T>,
     apply: (v: T) => void,
@@ -264,7 +272,7 @@ export function AssetWorkspace({
         state: AssetInput;
         result: AssetResult;
       }>('asset-reconcile', s, signal);
-    }, install);
+    }, shown);
   }
   async function decide(type: AssetEvent['type']) {
     if (!result) return;
@@ -362,7 +370,7 @@ export function AssetWorkspace({
                         { buffer: await f.arrayBuffer() },
                         signal,
                       );
-                    }, install);
+                    }, shown);
                 }}
               />
             </label>
@@ -533,7 +541,7 @@ export function AssetWorkspace({
                     state(),
                     signal,
                   ),
-                install,
+                shown,
               )
             }
           >
@@ -610,7 +618,14 @@ export function AssetWorkspace({
                 };
               }}
             />
-            <h2 data-asset-status>{status(result.status)}</h2>
+            <h2
+              data-asset-status
+              ref={resultHeading}
+              tabIndex={-1}
+              data-result-heading="result"
+            >
+              {status(result.status)}
+            </h2>
             <p>
               {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>.{' '}
               {copy.componentsNote}

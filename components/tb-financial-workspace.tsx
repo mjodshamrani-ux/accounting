@@ -1,5 +1,6 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useResultFocus } from '@/components/result-focus';
 import { Amount, Figures } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import {
@@ -182,6 +183,13 @@ export function FinancialWorkspace({
     setLinePage(0);
     setResult(v.result);
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
   async function perform<T>(
     work: (signal: AbortSignal) => Promise<T>,
     apply: (v: T) => void,
@@ -281,7 +289,7 @@ export function FinancialWorkspace({
         s,
         signal,
       );
-    }, install);
+    }, shown);
   }
   async function decide(line: string, type: FinancialEvent['type']) {
     if (!result) return;
@@ -357,7 +365,7 @@ export function FinancialWorkspace({
                           { buffer: await f.arrayBuffer() },
                           signal,
                         ),
-                      install,
+                      shown,
                     );
                 }}
               />
@@ -491,7 +499,7 @@ export function FinancialWorkspace({
                     state: FinancialInput;
                     result: FinancialResult;
                   }>('tb-financial-reconcile', state(), signal),
-                install,
+                shown,
               )
             }
           >
@@ -547,7 +555,12 @@ export function FinancialWorkspace({
         )}
         {result && (
           <section className="workspace-results">
-            <h2 data-financial-status={result.status}>
+            <h2
+              data-financial-status={result.status}
+              ref={resultHeading}
+              tabIndex={-1}
+              data-result-heading="result"
+            >
               {status(result.status)}
             </h2>
             <DomainEvidenceAssistant

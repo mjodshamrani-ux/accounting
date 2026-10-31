@@ -1,5 +1,6 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useResultFocus } from '@/components/result-focus';
 import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import {
@@ -179,6 +180,13 @@ export function PayrollWorkspace({
     setEvents(v.state.events);
     setResult(v.result);
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
   async function perform<T>(
     work: (signal: AbortSignal) => Promise<T>,
     apply: (v: T) => void,
@@ -265,7 +273,7 @@ export function PayrollWorkspace({
         state: PayrollInput;
         result: PayrollResult;
       }>('payroll-reconcile', s, signal);
-    }, install);
+    }, shown);
   }
   async function decide(type: PayrollEvent['type']) {
     if (!result) return;
@@ -363,7 +371,7 @@ export function PayrollWorkspace({
                         { buffer: await f.arrayBuffer() },
                         signal,
                       );
-                    }, install);
+                    }, shown);
                 }}
               />
             </label>
@@ -506,7 +514,7 @@ export function PayrollWorkspace({
                     state(),
                     signal,
                   ),
-                install,
+                shown,
               )
             }
           >
@@ -556,7 +564,14 @@ export function PayrollWorkspace({
         {error && <p role="alert">{copy.failed}</p>}
         {result && (
           <section className="workspace-results">
-            <h2 data-payroll-status>{status(result.status)}</h2>
+            <h2
+              data-payroll-status
+              ref={resultHeading}
+              tabIndex={-1}
+              data-result-heading="result"
+            >
+              {status(result.status)}
+            </h2>
             <p>
               {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>.{' '}
               {copy.componentsNote}

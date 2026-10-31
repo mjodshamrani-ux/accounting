@@ -5,6 +5,7 @@ import {
   type ChangeEvent,
   type ReactNode,
 } from 'react';
+import { usePendingResultFocus } from '@/components/result-focus';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceFileInput,
@@ -151,6 +152,9 @@ export function useBankStatement() {
     [failure, setFailure] = useState<Failure | null>(null),
     // The cashbook as read, for choosing its columns by hand or by a map.
     [layout, setLayout] = useState<SourceFile | null>(null);
+  // A comparison, a reading with chosen columns or a restored session takes
+  // the reader to the result; a decision, sheet or tolerance does not (UX-2).
+  const [revealPending, setRevealPending] = useState(false);
   const serial = useRef(0),
     controller = useRef<AbortController | null>(null);
   useEffect(
@@ -288,6 +292,8 @@ export function useBankStatement() {
     closing,
     closingInvalid,
     result,
+    revealPending,
+    revealed: () => setRevealPending(false),
     sheet,
     sheetForm,
     tolerance,
@@ -364,6 +370,7 @@ export function useBankStatement() {
               signal,
             ),
           );
+          setRevealPending(true);
         } catch (error) {
           // The declared reading comes first; once it refuses the header
           // row, the cashbook is read for its columns, for the accountant
@@ -393,6 +400,7 @@ export function useBankStatement() {
             signal,
           ),
         );
+        setRevealPending(true);
       }),
     loadLayout: () => perform(readLayout),
     decide: (c: StatementCase, type: StatementDecision['type']) =>
@@ -497,7 +505,7 @@ export function useBankStatement() {
         );
       }),
     restore: (buffer: ArrayBuffer) =>
-      perform(async (signal) =>
+      perform(async (signal) => {
         install(
           await workerTask<Replay>(
             'bank-statement-restore',
@@ -505,8 +513,9 @@ export function useBankStatement() {
             signal,
           ),
           true,
-        ),
-      ),
+        );
+        setRevealPending(true);
+      }),
     cancel() {
       serial.current++;
       controller.current?.abort();
@@ -765,6 +774,7 @@ function Result({
 }) {
   const { lang } = useI18n(),
     c = bankStatementCopy[lang];
+  const heading = usePendingResultFocus(s.revealPending, s.revealed);
   const format = (n: number | null | undefined) =>
     n === null || n === undefined ? '' : money(n, r.reading.decimals);
   const held = r.match.held ? heldReason(r.match.held.reason) : null;
@@ -942,7 +952,14 @@ function Result({
   const period = r.match.statement.period;
   return (
     <section className="bank-statement-result" data-bank-statement-result>
-      <h2 data-bank-statement-status={r.status}>{c.status[r.status]}</h2>
+      <h2
+        data-bank-statement-status={r.status}
+        ref={heading}
+        tabIndex={-1}
+        data-result-heading="result"
+      >
+        {c.status[r.status]}
+      </h2>
       {!r.match.held && (
         <p className="bank-source-basis" data-bank-statement-counts>
           {c.counts(

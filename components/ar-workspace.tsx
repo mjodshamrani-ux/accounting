@@ -1,5 +1,6 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { useEffect, useRef, useState } from 'react';
+import { useResultFocus } from '@/components/result-focus';
 import {
   WorkspaceHeader,
   WorkspaceIntro,
@@ -176,6 +177,15 @@ export function ArWorkspace({
     setInventoryPage(0);
     setMemberPages({});
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
+  // An example that only loads sources takes the reader to what it loaded.
+  const { heading: loadedHeading, reveal: revealLoaded } = useResultFocus();
   async function perform(work: (signal: AbortSignal) => Promise<void>) {
     const id = ++serial.current,
       control = new AbortController();
@@ -244,7 +254,7 @@ export function ArWorkspace({
   }
   const check = () =>
     perform(async (signal) =>
-      install(await workerTask('ar-reconcile', input(), signal)),
+      shown(await workerTask('ar-reconcile', input(), signal)),
     );
   const decide = (action: ArEvent['action'], target: ArCase) =>
     perform(async (signal) =>
@@ -295,7 +305,7 @@ export function ArWorkspace({
                   const source: SourceFile[] = [];
                   for (const demo of arDemo())
                     source.push(await workerTask('read', demo, signal));
-                  install(
+                  shown(
                     await workerTask(
                       'ar-reconcile',
                       {
@@ -326,6 +336,7 @@ export function ArWorkspace({
                   ]);
                   setScope({ ...arScopeDemoScope });
                   invalidate();
+                  revealLoaded();
                 })
               }
             >
@@ -345,7 +356,7 @@ export function ArWorkspace({
                       return;
                     }
                     void perform(async (signal) =>
-                      install(
+                      shown(
                         await workerTask(
                           'ar-restore',
                           { buffer: await file.arrayBuffer() },
@@ -374,7 +385,11 @@ export function ArWorkspace({
                 key={side}
                 data-testid={`ar-source-${side}`}
               >
-                <h2>
+                <h2
+                  ref={side === 0 ? loadedHeading : undefined}
+                  tabIndex={side === 0 ? -1 : undefined}
+                  data-result-heading={side === 0 ? 'loaded' : undefined}
+                >
                   <WorkspaceSourceHeading>
                     {t.sides[side]}
                   </WorkspaceSourceHeading>
@@ -638,7 +653,7 @@ export function ArWorkspace({
       {error && <p role="alert">{t.error}</p>}
       {result && (
         <section>
-          <h2>{t.results}</h2>
+          <h2 ref={resultHeading} tabIndex={-1} data-result-heading="result">{t.results}</h2>
           <DomainEvidenceAssistant
             result={result}
             snapshot={() => ({ domain: 'ar', input: input(), result })}

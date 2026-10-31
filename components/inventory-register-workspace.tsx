@@ -29,6 +29,7 @@ import { stockHierarchyCitationRows } from '../lib/reconciliation/inventory-hier
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { InventoryMovementBridgePanel } from '@/components/inventory-movement-bridge-panel';
 import { useEffect, useRef, useState, useMemo, type ReactNode } from 'react';
+import { useResultFocus } from '@/components/result-focus';
 import { Amount, Quantity } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import {
@@ -345,6 +346,13 @@ export function StockWorkspace({
       );
     return { replay, preview, companion };
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
   async function perform<T>(
     work: (signal: AbortSignal) => Promise<T>,
     apply: (v: T) => void,
@@ -498,7 +506,7 @@ export function StockWorkspace({
         state: StockInput;
         result: StockResult;
       }>('stock-reconcile', s, signal);
-    }, install);
+    }, shown);
   }
   async function decide(type: StockEvent['type']) {
     if (!result) return;
@@ -599,8 +607,8 @@ export function StockWorkspace({
                         if ('replay' in value) {
                           setPdf(value.preview);
                           setFiles([null, ...value.companion]);
-                          install(value.replay);
-                        } else install(value);
+                          shown(value.replay);
+                        } else shown(value);
                       },
                     );
                 }}
@@ -812,7 +820,7 @@ export function StockWorkspace({
           )}
           <Button
             disabled={busy || !ready}
-            onClick={() => void perform((signal) => compute(signal), install)}
+            onClick={() => void perform((signal) => compute(signal), shown)}
           >
             {copy.compare}
           </Button>
@@ -986,7 +994,7 @@ export function StockWorkspace({
                 copy.observationHeaders,
                 stockSourceObservations(files),
               )}
-            <h2 data-stock-status>{status(result.status)}</h2>
+            <h2 data-stock-status ref={resultHeading} tabIndex={-1} data-result-heading="result">{status(result.status)}</h2>
             <p>
               {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>.{' '}
               {copy.quantityNote}

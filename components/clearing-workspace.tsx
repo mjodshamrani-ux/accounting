@@ -1,6 +1,7 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { ClearingGroupsPanel } from './clearing-groups-panel';
 import { useEffect, useRef, useState } from 'react';
+import { useResultFocus } from '@/components/result-focus';
 import {
   WorkspaceHeader,
   WorkspaceIntro,
@@ -114,6 +115,15 @@ export function ClearingWorkspace({
     setSelected([]);
     setError(false);
   };
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
+  // An example that only loads sources takes the reader to what it loaded.
+  const { heading: loadedHeading, reveal: revealLoaded } = useResultFocus();
   async function perform(work: (signal: AbortSignal) => Promise<void>) {
     const id = ++serial.current;
     const control = new AbortController();
@@ -136,7 +146,7 @@ export function ClearingWorkspace({
   const input = (): ClearingInput => ({ file: file!, reading, scope, events });
   const check = () =>
     perform(async (signal) =>
-      install(await workerTask('clearing-reconcile', input(), signal)),
+      shown(await workerTask('clearing-reconcile', input(), signal)),
     );
   const decide = (action: ClearingEvent['action'], ids: string[]) =>
     perform(async (signal) =>
@@ -254,6 +264,7 @@ export function ClearingWorkspace({
                     setFile(f);
                     setReading({ ...clearingDemoReading });
                     setScope({ ...clearingDemoScope });
+                    revealLoaded();
                   })
                 }
               >
@@ -280,7 +291,7 @@ export function ClearingWorkspace({
                         );
                         if (!signal.aborted) {
                           invalidate();
-                          install(restored);
+                          shown(restored);
                         }
                       });
                     e.target.value = '';
@@ -329,7 +340,9 @@ export function ClearingWorkspace({
         </section>
         {file && (
           <section className="surface pad stack">
-            <h2>{file.name}</h2>
+            <h2 ref={loadedHeading} tabIndex={-1} data-result-heading="loaded">
+              {file.name}
+            </h2>
             <fieldset disabled={busy}>
               <div className="clearing-grid">
                 <label>
@@ -474,7 +487,14 @@ export function ClearingWorkspace({
             className="surface pad stack"
             aria-labelledby="clearing-result-title"
           >
-            <h2 id="clearing-result-title">{t.results}</h2>
+            <h2
+              id="clearing-result-title"
+              ref={resultHeading}
+              tabIndex={-1}
+              data-result-heading="result"
+            >
+              {t.results}
+            </h2>
             <DomainEvidenceAssistant
               result={result}
               snapshot={() => ({ domain: 'clearing', input: input(), result })}

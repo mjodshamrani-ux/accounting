@@ -1,6 +1,7 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { PaymentGatewayBatchesPanel } from '@/components/payment-gateway-batches-panel';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useResultFocus } from '@/components/result-focus';
 import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import {
@@ -185,6 +186,13 @@ export function GatewayWorkspace({
     setEvents(v.state.events);
     setResult(v.result);
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
   async function perform<T>(
     work: (signal: AbortSignal) => Promise<T>,
     apply: (v: T) => void,
@@ -275,7 +283,7 @@ export function GatewayWorkspace({
         state: GatewayInput;
         result: GatewayResult;
       }>('gateway-reconcile', s, signal);
-    }, install);
+    }, shown);
   }
   async function decide(type: GatewayEvent['type']) {
     if (!result) return;
@@ -360,7 +368,7 @@ export function GatewayWorkspace({
                         { buffer: await f.arrayBuffer() },
                         signal,
                       );
-                    }, install);
+                    }, shown);
                 }}
               />
             </label>
@@ -522,7 +530,7 @@ export function GatewayWorkspace({
                     state: GatewayInput;
                     result: GatewayResult;
                   }>('gateway-reconcile', state(), signal),
-                install,
+                shown,
               )
             }
           >
@@ -578,7 +586,14 @@ export function GatewayWorkspace({
         )}
         {result && (
           <section className="workspace-results">
-            <h2 data-gateway-status>{status(result.status)}</h2>
+            <h2
+              data-gateway-status
+              ref={resultHeading}
+              tabIndex={-1}
+              data-result-heading="result"
+            >
+              {status(result.status)}
+            </h2>
             <DomainEvidenceAssistant
               result={result}
               snapshot={() => ({ domain: 'gateway', input: state(), result })}

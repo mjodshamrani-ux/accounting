@@ -1,7 +1,7 @@
 {
   "note": "Interface census baseline: each metric summed over the four states of a domain (Arabic and English at 390 and 1440 px) after its synthetic example ran. Recorded by scripts/ux-census-browser.mjs --record; the gate fails on any change.",
   "recorded": {
-    "commit": "7af9d6254b447e1afc99d99e6436818b12b4cb9f",
+    "commit": "bb9b422f57830144b20e9335367ac26c84695d82",
     "date": "2026-10-31",
     "chromium": "141.0.7390.37"
   },
@@ -34,7 +34,7 @@
       "brokenInsideWord": 0,
       "pageOverflow": 0,
       "disabledUnexplained": 4,
-      "focusLost": 2
+      "focusLost": 0
     },
     "ar": {
       "minorUnits": 0,
@@ -44,7 +44,7 @@
       "brokenInsideWord": 0,
       "pageOverflow": 0,
       "disabledUnexplained": 32,
-      "focusLost": 2
+      "focusLost": 0
     },
     "gl-tb": {
       "minorUnits": 0,
@@ -54,7 +54,7 @@
       "brokenInsideWord": 0,
       "pageOverflow": 0,
       "disabledUnexplained": 16,
-      "focusLost": 2
+      "focusLost": 0
     },
     "allocation": {
       "minorUnits": 0,
@@ -64,7 +64,7 @@
       "brokenInsideWord": 0,
       "pageOverflow": 0,
       "disabledUnexplained": 20,
-      "focusLost": 2
+      "focusLost": 0
     },
     "bank": {
       "minorUnits": 0,
@@ -74,7 +74,7 @@
       "brokenInsideWord": 0,
       "pageOverflow": 0,
       "disabledUnexplained": 8,
-      "focusLost": 2
+      "focusLost": 0
     },
     "tb-financial": {
       "minorUnits": 0,
@@ -84,7 +84,7 @@
       "brokenInsideWord": 0,
       "pageOverflow": 0,
       "disabledUnexplained": 184,
-      "focusLost": 2
+      "focusLost": 0
     },
     "intercompany": {
       "minorUnits": 0,
@@ -94,7 +94,7 @@
       "brokenInsideWord": 0,
       "pageOverflow": 0,
       "disabledUnexplained": 132,
-      "focusLost": 2
+      "focusLost": 0
     },
     "gateway": {
       "minorUnits": 0,
@@ -104,7 +104,7 @@
       "brokenInsideWord": 0,
       "pageOverflow": 0,
       "disabledUnexplained": 108,
-      "focusLost": 2
+      "focusLost": 0
     },
     "stock": {
       "minorUnits": 0,
@@ -114,7 +114,7 @@
       "brokenInsideWord": 0,
       "pageOverflow": 0,
       "disabledUnexplained": 152,
-      "focusLost": 2
+      "focusLost": 0
     },
     "assets": {
       "minorUnits": 0,
@@ -124,7 +124,7 @@
       "brokenInsideWord": 0,
       "pageOverflow": 0,
       "disabledUnexplained": 152,
-      "focusLost": 2
+      "focusLost": 0
     },
     "payroll": {
       "minorUnits": 0,
@@ -134,7 +134,7 @@
       "brokenInsideWord": 0,
       "pageOverflow": 0,
       "disabledUnexplained": 176,
-      "focusLost": 2
+      "focusLost": 0
     }
   }
 }
