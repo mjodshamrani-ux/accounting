@@ -100,7 +100,7 @@ const copy = {
     'القراءة المثبتة للنسخة المشتقة',
     'Verified reading of the derived copy',
   ],
-  minor: ['المبلغ بوحداته الصغرى من القارئ', 'Reader amount in minor units'],
+  amount: ['المبلغ كما قرأه القارئ', 'Amount as read'],
   editInvalidation: [
     'تغيير النص أو إعادة قراءته أو اختيار الحقول أو بيانات المراجع يلغي القرار السابق.',
     'Changing the text, rereading it, changing field selection or reviewer details revokes the previous decision.',

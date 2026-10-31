@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useI18n } from '@/lib/i18n/context';
@@ -316,6 +317,9 @@ function SplitPanel({
       if (!options.signal.aborted) setReceipt(next);
     });
   }
+  const money = (minor: string) => (
+    <Amount minor={minor} decimals={context.decimals} />
+  );
   return (
     <section
       className="min-w-0 max-w-full space-y-3"
@@ -588,21 +592,22 @@ function SplitPanel({
             </details>
           ))}
           <h3>{t.totals}</h3>
-          <p>
+          <p data-testid="split-section-gross">
             <bdi>
-              {t.debit} {selection.review.grossDebitMinor} · {t.credit}{' '}
-              {selection.review.grossCreditMinor} · {t.net}{' '}
-              {selection.review.netMinor} ({t.minor})
+              {t.debit} {money(selection.review.grossDebitMinor)} · {t.credit}{' '}
+              {money(selection.review.grossCreditMinor)} · {t.net}{' '}
+              {money(selection.review.netMinor)}
             </bdi>
           </p>
           {selection.review.totals.map((total, i) => (
             <p key={i} data-testid="split-section-total">
               <bdi>
                 {t.row} {total.originalRow} · {t.page} {total.page} ·{' '}
-                {total.role} · {t.debit} {t.expected} {total.expectedDebitMinor}{' '}
-                / {t.actual} {total.actualDebitMinor} · {t.credit} {t.expected}{' '}
-                {total.expectedCreditMinor} / {t.actual}{' '}
-                {total.actualCreditMinor} ({t.minor})
+                {total.role} · {t.debit} {t.expected}{' '}
+                {money(total.expectedDebitMinor)} / {t.actual}{' '}
+                {money(total.actualDebitMinor)} · {t.credit} {t.expected}{' '}
+                {money(total.expectedCreditMinor)} / {t.actual}{' '}
+                {money(total.actualCreditMinor)}
               </bdi>
             </p>
           ))}

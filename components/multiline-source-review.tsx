@@ -6,6 +6,7 @@ import {
   type CSSProperties,
   type ReactNode,
 } from 'react';
+import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -452,9 +453,16 @@ export function MultilineSourceReview() {
                 <bdi>{view.applied.engine.originalAmount} SAR</bdi>
               </p>
               <p>
-                {t.minor}:{' '}
-                <bdi data-source-review-minor>
-                  {view.applied.engine.amountMinor}
+                {t.amount}:{' '}
+                <bdi
+                  dir="ltr"
+                  data-source-review-minor={view.applied.engine.amountMinor}
+                >
+                  <Amount
+                    minor={view.applied.engine.amountMinor}
+                    decimals={2}
+                  />{' '}
+                  SAR
                 </bdi>
               </p>
               <p className="muted">{t.boundary}</p>

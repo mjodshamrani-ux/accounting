@@ -262,6 +262,10 @@ jobs:
           MIZAN_CHROMIUM: /usr/bin/google-chrome
           P4_REPORT_DIR: ${{ runner.temp }}/split-section-browser
         run: pnpm test:split-section:browser
+      - name: Verify the multiline source review UI in Arabic and English at phone widths, its reader amount in major units
+        env:
+          MIZAN_CHROMIUM: /usr/bin/google-chrome
+        run: pnpm test:multiline-review:browser
       - name: Verify running-balance review UI and independently check Arabic and English downloads
         env:
           MIZAN_CHROMIUM: /usr/bin/google-chrome

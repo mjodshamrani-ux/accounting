@@ -6,6 +6,14 @@ const fixtureRoot = new URL(
   import.meta.url,
 );
 const hash = (bytes) => createHash('sha256').update(bytes).digest('hex');
+// The reader's integer in major units at two decimals, written here without
+// the product's formatter: thousands grouped, the minus first.
+function major(minor) {
+  const value = BigInt(minor);
+  const digits = (value < 0n ? -value : value).toString().padStart(3, '0');
+  const whole = digits.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/gu, ',');
+  return `${value < 0n ? '-' : ''}${whole}.${digits.slice(-2)}`;
+}
 export async function verifyMultilineSourceReview(page, url, out) {
   await mkdir(out, { recursive: true });
   const records = [];
@@ -158,9 +166,14 @@ export async function verifyMultilineSourceReview(page, url, out) {
       await assertFinancialUnchanged();
       await ui.locator('[data-source-review-apply]').click();
       await state('applied');
+      const read = ui.locator('[data-source-review-minor]');
       assert.equal(
-        await ui.locator('[data-source-review-minor]').textContent(),
+        await read.getAttribute('data-source-review-minor'),
         expected.amountMinor,
+      );
+      assert.equal(
+        await read.textContent(),
+        `${major(expected.amountMinor)} SAR`,
       );
       await assertFinancialUnchanged();
       const downloading = page.waitForEvent('download');

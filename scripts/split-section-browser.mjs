@@ -16,6 +16,35 @@ const root = path.resolve(
 );
 await mkdir(root, { recursive: true });
 const hash = (bytes) => createHash('sha256').update(bytes).digest('hex');
+// Money as the accountant reads it (UX-1), written here without the product's
+// formatter: a printed cell to minor units, and minor units to major text with
+// thousands grouped and the minus first.
+const minorOf = (text) => {
+  const m = /^(-?)(\d[\d,]*)(?:\.(\d{1,2}))?$/u.exec(text);
+  assert.ok(m, `printed amount ${JSON.stringify(text)}`);
+  return BigInt(
+    `${m[1]}${m[2].replaceAll(',', '')}${(m[3] ?? '').padEnd(2, '0')}`,
+  );
+};
+const major = (minor) => {
+  const value = BigInt(minor);
+  const digits = (value < 0n ? -value : value).toString().padStart(3, '0');
+  const whole = digits.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/gu, ',');
+  return `${value < 0n ? '-' : ''}${whole}.${digits.slice(-2)}`;
+};
+const amounts = (text) =>
+  text.match(/(?<![\d,.])-?\d{1,3}(?:,\d{3})*\.\d{2}(?!\d)/gu) ?? [];
+const totalKinds = new Set([
+  'carried',
+  'brought',
+  'page-total',
+  'section-total',
+  'grand-total',
+]);
+const isMovement = (row) =>
+  row.kind
+    ? row.kind === 'movement'
+    : /^\d{4}-\d{2}-\d{2}$/u.test(row.values[0]);
 const ids = [
   'P05-carry-and-component-totals',
   'P02-zero-and-separated-sections',
@@ -391,6 +420,35 @@ try {
         observation.totals = await panel
           .getByTestId('split-section-total')
           .allTextContents();
+        // Gross totals and each printed total row read in major units at the
+        // reading's two decimals, derived from the frozen truth (UX-1).
+        const moved = fixture.truth.inventory.filter(isMovement);
+        const debit = moved.reduce((s, row) => s + minorOf(row.values[3]), 0n);
+        const credit = moved.reduce((s, row) => s + minorOf(row.values[4]), 0n);
+        if (fixture.truth.totals)
+          assert.deepEqual(
+            [debit, credit, debit - credit],
+            ['debitMinor', 'creditMinor', 'netMinor'].map((k) =>
+              BigInt(fixture.truth.totals[k]),
+            ),
+          );
+        observation.gross = await panel
+          .getByTestId('split-section-gross')
+          .allTextContents();
+        assert.deepEqual(observation.gross.map(amounts), [
+          [debit, credit, debit - credit].map(major),
+        ]);
+        assert.deepEqual(
+          observation.totals.map(amounts),
+          fixture.truth.inventory
+            .filter((row) => totalKinds.has(row.kind))
+            .map((row) => {
+              const [d, c] = [row.values[3], row.values[4]].map((v) =>
+                major(minorOf(v)),
+              );
+              return [d, d, c, c];
+            }),
+        );
         await panel
           .getByTestId('split-section-reviewer')
           .fill('SYNTHETIC REVIEWER');
