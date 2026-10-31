@@ -1628,9 +1628,12 @@ export const en: Messages = {
     },
   },
   financial: {
-    trialBalanceDebitsCreditsResidual:
-      'Trial balance debit / credit / residual',
-    amount: 'Amount in minor units',
+    trialBalanceFigures: [
+      'Trial balance debit',
+      'Trial balance credit',
+      'Residual, debit minus credit',
+    ],
+    amount: 'Amount',
     categories: {
       'current-asset': 'Current assets',
       'noncurrent-asset': 'Noncurrent assets',
@@ -1672,8 +1675,7 @@ export const en: Messages = {
     accounts: 'Accounts',
     statementLines: 'Statement lines',
     preservedSourceRows: 'Preserved source rows',
-    allAmountsBelowAreIntegerMinorUnitsDecimals:
-      'All amounts below are integer minor units; decimals',
+    amountsIn: 'Amounts in',
     basisLabels: {
       calculated: 'calculated',
       reported: 'reported',
@@ -1685,7 +1687,7 @@ export const en: Messages = {
     reviewDecisionEvidence: 'Review decision evidence',
     decisionReference: 'Decision reference',
     decisionReason: 'Decision reason',
-    calculatedReportedDifference: 'Calculated / Reported / Difference',
+    lineFigures: ['Calculated', 'Reported', 'Difference, calculated minus reported'],
     allMappingMembersAndEvidence: 'All mapping members and evidence',
     mapping: 'Mapping',
     account: 'Account',

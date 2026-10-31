@@ -1,6 +1,7 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { PaymentGatewayBatchesPanel } from '@/components/payment-gateway-batches-panel';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -34,6 +35,10 @@ import {
 } from '@/lib/reconciliation/payment-gateway-signed-demo';
 import { gatewayCopy } from '@/lib/i18n/payment-gateway';
 import './gl-tb-workspace.css';
+// The value positions that hold money in each role's records, after the
+// source row: the transaction amount, the fee amount, the four summary
+// totals, and the bank credit.
+const AMOUNT_VALUES = [[3], [2], [2, 3, 4, 5], [2]];
 const emptyScope = (): GatewayScope =>
   ({
     ...Object.fromEntries(PG_SCOPE_FIELDS.map((k) => [k, ''])),
@@ -61,7 +66,7 @@ function Table({
   rows,
 }: {
   headers: string[];
-  rows: (string | number | null)[][];
+  rows: (ReactNode | null)[][];
 }) {
   const { lang } = useI18n();
   const copy = gatewayCopy[lang];
@@ -294,6 +299,10 @@ export function GatewayWorkspace({
       install,
     );
   }
+  const amounts = (values: number[]) =>
+    values.map((v, i) => (
+      <Amount key={i} minor={v} decimals={result?.decimals ?? 2} />
+    ));
   const status = (value: string) =>
     (copy.status as Record<string, string>)[value] ?? value;
   const canAccept =
@@ -576,15 +585,15 @@ export function GatewayWorkspace({
               busy={busy}
             />
             <p>
-              {copy.units}: {result.decimals} · {result.scope.currency}
+              {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>
             </p>
             <Table
               headers={copy.totals}
-              rows={result.totals ? [result.totals] : []}
+              rows={result.totals ? [amounts(result.totals)] : []}
             />
             <Table
               headers={copy.residuals}
-              rows={result.residuals ? [result.residuals] : []}
+              rows={result.residuals ? [amounts(result.residuals)] : []}
             />
             <fieldset disabled={busy}>
               <legend>{copy.decisionTitle}</legend>
@@ -639,16 +648,26 @@ export function GatewayWorkspace({
                   rows={records.map((e) => [
                     e.row,
                     ...e.values.map((v, j) =>
-                      i === 0 && j === 1
-                        ? v === 'sale'
-                          ? copy.sale
-                          : copy.refund
-                        : i === 0 && j === 3 && e.signedAmount
-                          ? e.signedAmount.raw
-                          : v,
+                      i === 0 && j === 1 ? (
+                        v === 'sale' ? (
+                          copy.sale
+                        ) : (
+                          copy.refund
+                        )
+                      ) : i === 0 && j === 3 && e.signedAmount ? (
+                        e.signedAmount.raw
+                      ) : AMOUNT_VALUES[i].includes(j) &&
+                        typeof v === 'number' ? (
+                        <Amount key={j} minor={v} decimals={result.decimals} />
+                      ) : (
+                        v
+                      ),
                     ),
                     ...(e.signedAmount
-                      ? [e.signedAmount.signedMinor, e.signedAmount.magnitude]
+                      ? amounts([
+                          e.signedAmount.signedMinor,
+                          e.signedAmount.magnitude,
+                        ])
                       : []),
                   ])}
                 />

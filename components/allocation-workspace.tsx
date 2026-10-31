@@ -14,7 +14,8 @@ import {
 } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
-import { money, parseMoney } from '@/lib/reconciliation/core';
+import { parseMoney } from '@/lib/reconciliation/core';
+import { Amount } from '@/components/amount';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
 import {
   ALLOCATION_SCOPE_FIELDS,
@@ -323,7 +324,7 @@ export function AllocationWorkspace({
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
   if (!active) return null;
-  const fmt = (v: number) => money(v, result!.decimals),
+  const fmt = (v: number) => <Amount minor={v} decimals={result!.decimals} />,
     balances = new Map(result?.balances.map((b) => [b.id, b])),
     usedProofs = new Set(
       result?.links

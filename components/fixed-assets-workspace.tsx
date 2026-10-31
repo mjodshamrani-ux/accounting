@@ -1,6 +1,7 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { FixedAssetsSectionsPanel } from '@/components/fixed-assets-sections-panel';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -58,7 +59,7 @@ function Table({
   rows,
 }: {
   headers: string[];
-  rows: (string | number | null)[][];
+  rows: (ReactNode | null)[][];
 }) {
   const { lang } = useI18n();
   const copy = assetCopy[lang];
@@ -294,10 +295,13 @@ export function AssetWorkspace({
     !result.issues.length &&
     !result.missing.length &&
     result.financial === 'ready';
+  const amount = (minor: number | null | undefined) => (
+    <Amount minor={minor} decimals={result?.decimals ?? 2} />
+  );
   const detail = (
     title: string,
     headers: string[],
-    rows: (string | number | null)[][],
+    rows: (ReactNode | null)[][],
     fingerprint?: string,
   ) => (
     <WorkspaceAdvanced
@@ -608,14 +612,15 @@ export function AssetWorkspace({
             />
             <h2 data-asset-status>{status(result.status)}</h2>
             <p>
-              {copy.units} · {result.scope.currency} · {result.decimals}
+              {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>.{' '}
+              {copy.componentsNote}
             </p>
             <Table
               headers={copy.totals}
               rows={[...ASSET_COMPONENTS, 'carrying' as const].map((k) => [
                 copy.components[k],
-                result.totals?.register[k] ?? null,
-                result.totals?.gl[k] ?? null,
+                amount(result.totals?.register[k]),
+                amount(result.totals?.gl[k]),
               ])}
             />
             <Table
@@ -624,9 +629,9 @@ export function AssetWorkspace({
                 v.account,
                 v.dimensions,
                 copy.components[v.component],
-                v.register,
-                v.gl,
-                v.difference,
+                amount(v.register),
+                amount(v.gl),
+                amount(v.difference),
               ])}
             />
             <fieldset disabled={busy}>
@@ -684,10 +689,10 @@ export function AssetWorkspace({
                   : v.row,
                 v.asset,
                 v.dimensions,
-                v.cost,
-                v.depreciation,
-                v.impairment,
-                v.carrying,
+                amount(v.cost),
+                amount(v.depreciation),
+                amount(v.impairment),
+                amount(v.carrying),
                 v.valuation,
               ]),
             )}
@@ -705,7 +710,7 @@ export function AssetWorkspace({
                   ] ?? v.component,
                   v.present ? copy.presentCell : copy.absentCell,
                   v.present && v.text === '' ? copy.emptyCell : v.text,
-                  v.minor,
+                  amount(v.minor),
                   v.valuation,
                   v.memberId,
                   v.sourceHash,
@@ -754,10 +759,10 @@ export function AssetWorkspace({
                 v.account,
                 v.glDimensions,
                 v.accountClass,
-                v.debit,
-                v.credit,
+                amount(v.debit),
+                amount(v.credit),
                 copy.components[v.component],
-                v.normal,
+                amount(v.normal),
               ]),
             )}
             {detail(

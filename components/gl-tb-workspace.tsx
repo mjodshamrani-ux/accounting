@@ -13,7 +13,7 @@ import {
 import { useI18n } from '@/lib/i18n/context';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
-import { money } from '@/lib/reconciliation/core';
+import { Amount } from '@/components/amount';
 import {
   BALANCE_FIELDS,
   GL_TB_VERSION,
@@ -151,7 +151,11 @@ export function GlTbWorkspace({
     invalidate();
   }
   const formatted = (n: number | null | undefined) =>
-    n === null || n === undefined ? t.missing : money(n, result!.decimals);
+    n === null || n === undefined ? (
+      t.missing
+    ) : (
+      <Amount minor={n} decimals={result!.decimals} />
+    );
   const rowById = new Map(result?.rows.map((r) => [`${r.side}:${r.row}`, r]));
   const tbRoles = ['opening', 'period', 'closing'] as const;
   if (!active) return null;

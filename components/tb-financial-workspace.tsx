@@ -1,5 +1,6 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { Amount, Figures } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -61,7 +62,7 @@ function Table({
   rows,
 }: {
   headers: string[];
-  rows: (string | number | null)[][];
+  rows: (ReactNode | null)[][];
 }) {
   const { t } = useI18n();
   const [page, setPage] = useState(0);
@@ -558,13 +559,18 @@ export function FinancialWorkspace({
               {t.financial.preservedSourceRows}: {result.inventory.length}
             </p>
             <p>
-              {t.financial.allAmountsBelowAreIntegerMinorUnitsDecimals}:{' '}
-              {result.decimals} · {result.scope.currency}
+              {t.financial.amountsIn}{' '}
+              <bdi dir="ltr">{result.scope.currency}</bdi>
             </p>
             <p>
-              {t.financial.trialBalanceDebitsCreditsResidual}:{' '}
-              {result.tb?.debit ?? '—'} / {result.tb?.credit ?? '—'} /{' '}
-              {result.tb?.residual ?? '—'}
+              <Figures
+                decimals={result.decimals}
+                items={[
+                  [t.financial.trialBalanceFigures[0], result.tb?.debit],
+                  [t.financial.trialBalanceFigures[1], result.tb?.credit],
+                  [t.financial.trialBalanceFigures[2], result.tb?.residual],
+                ]}
+              />
             </p>
             <Table
               headers={[
@@ -578,7 +584,11 @@ export function FinancialWorkspace({
                       FINANCIAL_CATEGORIES.map((c) => [
                         t.financial.basisLabels[b],
                         t.financial.categories[c],
-                        result.totals![b][c],
+                        <Amount
+                          key="amount"
+                          minor={result.totals![b][c]}
+                          decimals={result.decimals}
+                        />,
                       ]),
                     )
                   : []
@@ -596,10 +606,15 @@ export function FinancialWorkspace({
                 result.grandTotals
                   ? (['calculated', 'reported'] as const).map((b) => [
                       t.financial.basisLabels[b],
-                      result.grandTotals![b].assets,
-                      result.grandTotals![b].liabilities,
-                      result.grandTotals![b].equity,
-                      result.grandTotals![b].equation,
+                      ...(
+                        ['assets', 'liabilities', 'equity', 'equation'] as const
+                      ).map((k) => (
+                        <Amount
+                          key={k}
+                          minor={result.grandTotals![b][k]}
+                          decimals={result.decimals}
+                        />
+                      )),
                     ])
                   : []
               }
@@ -625,8 +640,14 @@ export function FinancialWorkspace({
                   · {status(l.review)}
                 </h3>
                 <p>
-                  {t.financial.calculatedReportedDifference}:{' '}
-                  {l.calculated ?? '—'} / {l.reported} / {l.difference ?? '—'}
+                  <Figures
+                    decimals={result.decimals}
+                    items={[
+                      [t.financial.lineFigures[0], l.calculated],
+                      [t.financial.lineFigures[1], l.reported],
+                      [t.financial.lineFigures[2], l.difference],
+                    ]}
+                  />
                 </p>
                 <details>
                   <summary>
@@ -646,7 +667,11 @@ export function FinancialWorkspace({
                       m.account,
                       m.dimensions,
                       m.evidenceId,
-                      m.contribution,
+                      <Amount
+                        key="contribution"
+                        minor={m.contribution}
+                        decimals={result.decimals}
+                      />,
                     ])}
                   />
                 </details>

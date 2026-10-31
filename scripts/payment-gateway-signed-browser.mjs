@@ -178,7 +178,12 @@ try {
         .locator('summary')
         .click();
       assert.ok((await w.locator('td').allTextContents()).includes('-20.00'));
-      assert.ok((await w.locator('td').allTextContents()).includes('-2000'));
+      // The engine's signed amount, -2000 minor units, reads at the currency's
+      // precision with its minus first.
+      assert.equal(
+        await w.locator('td [data-amount-minor="-2000"]').first().innerText(),
+        '-20.00',
+      );
       await pair('sar-mixed', 'pending');
       await w
         .getByLabel(copy.reference, { exact: true })

@@ -2359,3 +2359,15 @@ td {
     padding-inline: 6px;
   }
 }
+/* A money amount (components/amount.tsx): its own left-to-right run, never
+   wrapped, digits of one width. Labelled amounts sit on one line and wrap
+   between figures, never inside one. */
+.tarasuf-amount {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.tarasuf-figures {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}

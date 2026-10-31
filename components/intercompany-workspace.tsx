@@ -1,6 +1,7 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { IntercompanyBatchPanel } from '@/components/intercompany-batch-panel';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { Amount, Figures } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -69,7 +70,7 @@ function Table({
   rows,
 }: {
   headers: string[];
-  rows: (string | number | null)[][];
+  rows: (ReactNode | null)[][];
 }) {
   const { lang } = useI18n();
   const copy = intercompanyCopy[lang];
@@ -548,7 +549,7 @@ export function IntercompanyWorkspace({
               busy={busy}
             />
             <p>
-              {copy.units}: {result.decimals} · {result.scope.currency}
+              {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>
             </p>
             <Table
               headers={copy.totals}
@@ -556,9 +557,13 @@ export function IntercompanyWorkspace({
                 result.totals
                   ? result.totals.map((t, i) => [
                       copy.roles[i],
-                      t.debit,
-                      t.credit,
-                      t.net,
+                      ...(['debit', 'credit', 'net'] as const).map((k) => (
+                        <Amount
+                          key={k}
+                          minor={t[k]}
+                          decimals={result.decimals}
+                        />
+                      )),
                     ])
                   : []
               }
@@ -589,8 +594,14 @@ export function IntercompanyWorkspace({
                   {p.relationId} · {status(p.status)} · {status(p.review)}
                 </h3>
                 <p>
-                  {copy.residual}: {p.left?.net ?? '—'} / {p.right?.net ?? '—'}{' '}
-                  / {p.residual ?? '—'}
+                  <Figures
+                    decimals={result.decimals}
+                    items={[
+                      [copy.residualFigures[0], p.left?.net],
+                      [copy.residualFigures[1], p.right?.net],
+                      [copy.residualFigures[2], p.residual],
+                    ]}
+                  />
                 </p>
                 <details>
                   <summary>
@@ -606,9 +617,13 @@ export function IntercompanyWorkspace({
                       e.account,
                       e.dimensions,
                       e.date,
-                      e.debit,
-                      e.credit,
-                      e.net,
+                      ...(['debit', 'credit', 'net'] as const).map((k) => (
+                        <Amount
+                          key={k}
+                          minor={e[k]}
+                          decimals={result.decimals}
+                        />
+                      )),
                     ])}
                   />
                 </details>

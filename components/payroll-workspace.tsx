@@ -1,5 +1,6 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -58,7 +59,7 @@ function Table({
   rows,
 }: {
   headers: string[];
-  rows: (string | number | null)[][];
+  rows: (ReactNode | null)[][];
 }) {
   const { lang } = useI18n();
   const copy = payrollCopy[lang];
@@ -295,10 +296,13 @@ export function PayrollWorkspace({
     !result.issues.length &&
     !result.missing.length &&
     result.financial === 'ready';
+  const amount = (minor: number | null | undefined) => (
+    <Amount minor={minor} decimals={result?.decimals ?? 2} />
+  );
   const detail = (
     title: string,
     headers: string[],
-    rows: (string | number | null)[][],
+    rows: (ReactNode | null)[][],
     fingerprint?: string,
   ) => (
     <WorkspaceAdvanced
@@ -554,7 +558,8 @@ export function PayrollWorkspace({
           <section className="workspace-results">
             <h2 data-payroll-status>{status(result.status)}</h2>
             <p>
-              {copy.units} · {result.scope.currency} · {result.decimals}
+              {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>.{' '}
+              {copy.componentsNote}
             </p>
             <DomainEvidenceAssistant
               result={result}
@@ -583,17 +588,17 @@ export function PayrollWorkspace({
               headers={copy.totals}
               rows={PAYROLL_COMPONENTS.map((c, i) => [
                 copy.components[c],
-                result.totals?.register[PAYROLL_AMOUNT_KEYS[i]] ?? null,
-                result.totals?.gl[c] ?? null,
+                amount(result.totals?.register[PAYROLL_AMOUNT_KEYS[i]]),
+                amount(result.totals?.gl[c]),
               ])}
             />
             <Table
               headers={copy.bankComparison}
               rows={[
                 [
-                  result.bankComparison.register,
-                  result.bankComparison.bank,
-                  result.bankComparison.difference,
+                  amount(result.bankComparison.register),
+                  amount(result.bankComparison.bank),
+                  amount(result.bankComparison.difference),
                 ],
               ]}
             />
@@ -603,9 +608,9 @@ export function PayrollWorkspace({
                 v.account,
                 v.dimensions,
                 copy.components[v.component],
-                v.register,
-                v.gl,
-                v.difference,
+                amount(v.register),
+                amount(v.gl),
+                amount(v.difference),
               ])}
             />
             <fieldset disabled={busy}>
@@ -659,10 +664,10 @@ export function PayrollWorkspace({
                 v.row,
                 v.employee,
                 v.dimensions,
-                v.gross,
-                v.deductions,
-                v.employer,
-                v.net,
+                amount(v.gross),
+                amount(v.deductions),
+                amount(v.employer),
+                amount(v.net),
                 v.payrollReference,
               ]),
             )}
@@ -711,11 +716,11 @@ export function PayrollWorkspace({
                 v.account,
                 v.glDimensions,
                 v.accountClass,
-                v.debit,
-                v.credit,
+                amount(v.debit),
+                amount(v.credit),
                 v.entryDate,
                 v.postingReference,
-                v.normal,
+                amount(v.normal),
               ]),
             )}
             {detail(
@@ -726,7 +731,7 @@ export function PayrollWorkspace({
                 v.id,
                 v.bankAccount,
                 v.direction,
-                v.amount,
+                amount(v.amount),
                 v.valueDate,
                 v.payoutReference,
               ]),

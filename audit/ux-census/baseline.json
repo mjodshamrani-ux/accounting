@@ -1,7 +1,7 @@
 {
   "note": "Interface census baseline: each metric summed over the four states of a domain (Arabic and English at 390 and 1440 px) after its synthetic example ran. Recorded by scripts/ux-census-browser.mjs --record; the gate fails on any change.",
   "recorded": {
-    "commit": "f8052b536d748facc2913753262a91930573cf1a",
+    "commit": "7af9d6254b447e1afc99d99e6436818b12b4cb9f",
     "date": "2026-10-31",
     "chromium": "141.0.7390.37"
   },
@@ -50,7 +50,7 @@
       "minorUnits": 0,
       "minorUnitsInText": 0,
       "minusAfterDigits": 0,
-      "unisolatedAmounts": 8,
+      "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
       "disabledUnexplained": 16,
@@ -60,7 +60,7 @@
       "minorUnits": 0,
       "minorUnitsInText": 0,
       "minusAfterDigits": 0,
-      "unisolatedAmounts": 6,
+      "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
       "disabledUnexplained": 20,
@@ -77,9 +77,9 @@
       "focusLost": 2
     },
     "tb-financial": {
-      "minorUnits": 92,
-      "minorUnitsInText": 56,
-      "minusAfterDigits": 2,
+      "minorUnits": 0,
+      "minorUnitsInText": 0,
+      "minusAfterDigits": 0,
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
@@ -87,9 +87,9 @@
       "focusLost": 2
     },
     "intercompany": {
-      "minorUnits": 24,
-      "minorUnitsInText": 8,
-      "minusAfterDigits": 10,
+      "minorUnits": 0,
+      "minorUnitsInText": 0,
+      "minusAfterDigits": 0,
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
@@ -97,7 +97,7 @@
       "focusLost": 2
     },
     "gateway": {
-      "minorUnits": 8,
+      "minorUnits": 0,
       "minorUnitsInText": 0,
       "minusAfterDigits": 0,
       "unisolatedAmounts": 0,
@@ -107,7 +107,7 @@
       "focusLost": 2
     },
     "stock": {
-      "minorUnits": 32,
+      "minorUnits": 0,
       "minorUnitsInText": 0,
       "minusAfterDigits": 0,
       "unisolatedAmounts": 0,
@@ -117,7 +117,7 @@
       "focusLost": 2
     },
     "assets": {
-      "minorUnits": 80,
+      "minorUnits": 0,
       "minorUnitsInText": 0,
       "minusAfterDigits": 0,
       "unisolatedAmounts": 0,
@@ -127,7 +127,7 @@
       "focusLost": 2
     },
     "payroll": {
-      "minorUnits": 152,
+      "minorUnits": 0,
       "minorUnitsInText": 0,
       "minusAfterDigits": 0,
       "unisolatedAmounts": 0,

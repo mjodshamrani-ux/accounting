@@ -1066,19 +1066,19 @@ export const ar = {
         'اختر نوع التسوية وأضف ملفاتها، ثم راجع النتيجة واحتفظ بورقة العمل',
       steps: [
         {
-          number: '١',
+          number: '1',
           title: 'أضف ملفات التسوية',
           text: 'أضف السجلات التي تريد مقارنتها. يوضح لك كل نوع تسوية ملفاته والمستندات المساندة التي يحتاجها',
           detail: 'ابدأ بالبيانات المتاحة',
         },
         {
-          number: '٢',
+          number: '2',
           title: 'راجع المطابقات والفروق',
           text: 'تظهر لك الحركات المتطابقة والفروق والحالات التي تحتاج قرارك، مع مصدر كل حركة.',
           detail: 'المصدر بجانب النتيجة',
         },
         {
-          number: '٣',
+          number: '3',
           title: 'نزّل ورقة العمل',
           text: 'نزّل ملف Excel يجمع النتائج والمصادر وملاحظاتك، ليكون جاهزًا للمراجعة مع فريقك.',
           detail: 'احتفظ بالنتائج والتفاصيل',
@@ -1565,8 +1565,8 @@ export const ar = {
     },
   },
   financial: {
-    trialBalanceDebitsCreditsResidual: 'مدين الميزان / دائن الميزان / الفرق',
-    amount: 'المقدار بالوحدات الصغرى',
+    trialBalanceFigures: ['مدين الميزان', 'دائن الميزان', 'الفرق، المدين ناقص الدائن'],
+    amount: 'المبلغ',
     categories: {
       'current-asset': 'أصول متداولة',
       'noncurrent-asset': 'أصول غير متداولة',
@@ -1607,8 +1607,7 @@ export const ar = {
     accounts: 'الحسابات',
     statementLines: 'بنود القائمة',
     preservedSourceRows: 'صفوف الأصول المحفوظة',
-    allAmountsBelowAreIntegerMinorUnitsDecimals:
-      'جميع المقادير التالية وحدات عملة صغرى صحيحة؛ عدد المنازل',
+    amountsIn: 'المبالغ بعملة',
     basisLabels: {
       calculated: 'المحسوب',
       reported: 'المقدم',
@@ -1620,7 +1619,7 @@ export const ar = {
     reviewDecisionEvidence: 'دليل قرار المراجعة',
     decisionReference: 'مرجع القرار',
     decisionReason: 'سبب القرار',
-    calculatedReportedDifference: 'المحسوب / المقدم / الفرق',
+    lineFigures: ['المحسوب', 'المقدم', 'الفرق، المحسوب ناقص المقدم'],
     allMappingMembersAndEvidence: 'جميع أعضاء الربط ودليلهم',
     mapping: 'الربط',
     account: 'الحساب',

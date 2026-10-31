@@ -58,7 +58,7 @@ const en = {
   undo: 'Undo pair decision',
   previous: 'Previous',
   next: 'Next',
-  units: 'Amounts are integer minor units; decimal places',
+  amountsIn: 'Amounts in',
   pairs: 'Counterpart pairs',
   entries: 'Original ledger entries',
   relations: 'Relationship evidence',
@@ -108,7 +108,11 @@ const en = {
     'Explanation',
     'Whole physical membership',
   ],
-  residual: 'Left net / Right net / Residual',
+  residualFigures: [
+    'Left net',
+    'Right net',
+    'Residual, left net plus right net',
+  ],
   sourceRow: 'Source row',
   aggregate: 'Aggregate of original rows',
   status: {
@@ -184,7 +188,7 @@ const ar: typeof en = {
   undo: 'التراجع عن قرار الزوج',
   previous: 'السابق',
   next: 'التالي',
-  units: 'المبالغ وحدات عملة صغرى صحيحة؛ المنازل العشرية',
+  amountsIn: 'المبالغ بعملة',
   pairs: 'أزواج المعاملات',
   entries: 'معاملات الدفتر الأصلية',
   relations: 'أدلة العلاقة',
@@ -234,7 +238,11 @@ const ar: typeof en = {
     'التفسير',
     'الأعضاء الفيزيائيون كاملًا',
   ],
-  residual: 'صافي اليسار / صافي اليمين / الفرق',
+  residualFigures: [
+    'صافي اليسار',
+    'صافي اليمين',
+    'المتبقي، صافي اليسار زائد صافي اليمين',
+  ],
   sourceRow: 'صف المصدر',
   aggregate: 'إجمالي الصفوف الأصلية',
   status: {

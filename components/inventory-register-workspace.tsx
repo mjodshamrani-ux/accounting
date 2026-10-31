@@ -28,7 +28,8 @@ import {
 import { stockHierarchyCitationRows } from '../lib/reconciliation/inventory-hierarchy-evidence.ts';
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { InventoryMovementBridgePanel } from '@/components/inventory-movement-bridge-panel';
-import { useEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useRef, useState, useMemo, type ReactNode } from 'react';
+import { Amount, Quantity } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -135,7 +136,7 @@ function Table({
   pager,
 }: {
   headers: string[];
-  rows: (string | number | null)[][];
+  rows: (ReactNode | null)[][];
   marks?: Record<string, string>[];
   pager?: string;
 }) {
@@ -520,10 +521,29 @@ export function StockWorkspace({
     !result.issues.length &&
     !result.missing.length &&
     result.financial === 'ready';
+  // Money is shown in major units at the currency's precision, and the
+  // register's quantity as a decimal at its own precision; the engine keeps
+  // both as integers. Register values: item, dimensions, quantity, unit,
+  // quantity precision, posted value, valuation reference. GL values:
+  // account, dimensions, class, debit, credit.
+  const amount = (minor: number | null | undefined) => (
+    <Amount minor={minor} decimals={result?.decimals ?? 2} />
+  );
+  const recordCells = (role: number, values: (string | number | null)[]) =>
+    values.map((v, j): ReactNode =>
+      role === 0 && j === 2 && typeof v === 'number' ? (
+        <Quantity key={j} scaled={v} precision={Number(values[4])} />
+      ) : ((role === 0 && j === 5) || (role === 3 && (j === 3 || j === 4))) &&
+        typeof v === 'number' ? (
+        <Amount key={j} minor={v} decimals={result?.decimals ?? 2} />
+      ) : (
+        v
+      ),
+    );
   const detail = (
     title: string,
     headers: string[],
-    rows: (string | number | null)[][],
+    rows: (ReactNode | null)[][],
     fingerprint?: string,
   ) => (
     <WorkspaceAdvanced
@@ -968,13 +988,19 @@ export function StockWorkspace({
               )}
             <h2 data-stock-status>{status(result.status)}</h2>
             <p>
-              {copy.units} · {result.scope.currency} · {result.decimals}
+              {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>.{' '}
+              {copy.quantityNote}
             </p>
             <Table
               headers={copy.totals}
               rows={
                 result.totals
-                  ? [[result.totals.registerMinor, result.totals.glMinor]]
+                  ? [
+                      [
+                        amount(result.totals.registerMinor),
+                        amount(result.totals.glMinor),
+                      ],
+                    ]
                   : []
               }
             />
@@ -983,11 +1009,11 @@ export function StockWorkspace({
               rows={result.comparisons.map((v) => [
                 v.account,
                 v.dimensions,
-                v.registerMinor,
-                v.debitMinor,
-                v.creditMinor,
-                v.glMinor,
-                v.differenceMinor,
+                amount(v.registerMinor),
+                amount(v.debitMinor),
+                amount(v.creditMinor),
+                amount(v.glMinor),
+                amount(v.differenceMinor),
               ])}
             />
             <section
@@ -1154,7 +1180,7 @@ export function StockWorkspace({
                     (result.matrixEvidence || result.columnEvidence)
                       ? [v.column ?? null]
                       : []),
-                    ...v.values,
+                    ...recordCells(i, v.values),
                   ]),
                 )}
               </div>
