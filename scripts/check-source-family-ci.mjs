@@ -353,6 +353,7 @@ const required = [
   'test:browser:result-focus',
   'test:browser:visual-identity:self-test',
   'test:browser:record-table',
+  'test:browser:decision-platform',
 ];
 const deployed = ['build', ...deployGated].flatMap(
   (name) => workflow.jobs[name].steps,
@@ -511,6 +512,9 @@ const separate = {
   ],
   'inventory-links-interface-mutations': [
     'test:inv-links:interface-mutations',
+  ],
+  'decision-platform-interface-mutations': [
+    'test:decision-platform:interface-mutations',
   ],
   'clearing-groups-browser': [
     'test:clr-groups:browser',

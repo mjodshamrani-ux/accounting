@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { RecordRows } from '@/components/record-table';
@@ -16,6 +16,7 @@ import {
   type DomainEvidenceAnswer,
 } from '@/lib/reconciliation/domain-assistant';
 import { money } from '@/lib/reconciliation/core';
+import { ClosedReason } from './decision-platform';
 
 export function DomainEvidenceAssistant({
   result,
@@ -36,6 +37,7 @@ export function DomainEvidenceAssistant({
   const t = domainEvidenceCopy(lang);
   const [answer, setAnswer] = useState<DomainEvidenceAnswer | null>(null);
   const [question, setQuestion] = useState('');
+  const askWhy = useId();
   const [previous, setPrevious] = useState(result);
   const [checking, setChecking] = useState(false);
   const [citationPage, setCitationPage] = useState(0);
@@ -133,10 +135,20 @@ export function DomainEvidenceAssistant({
           disabled={busy || checking}
           onChange={(e) => setQuestion(e.target.value)}
         />
-        <Button type="submit" disabled={busy || checking || !question.trim()}>
+        <Button
+          type="submit"
+          aria-describedby={askWhy}
+          disabled={busy || checking || !question.trim()}
+        >
           {t.ask}
         </Button>
       </form>
+      <ClosedReason
+        id={askWhy}
+        closed={!question.trim()}
+        waits="ask"
+        label={t.ask}
+      />
       {checking && <output>{t.checking}</output>}
       {answer && (
         <div

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
@@ -18,6 +18,7 @@ import type { AssetSectionsReplayInput } from '@/lib/reconciliation/fixed-assets
 import { fixedAssetsSectionsCopy } from '@/lib/i18n/fixed-assets-sections';
 import { RecordTable } from '@/components/record-table';
 import './review-section.css';
+import { ClosedReason } from './decision-platform';
 
 type Picked = {
   name: string;
@@ -93,6 +94,7 @@ export function FixedAssetsSectionsPanel() {
     setRefused('');
     setError('');
   };
+  const checkWhy = useId();
   const ready = files.every((f) => f?.confirmed) && scopeConfirmed;
   function check() {
     const input: AssetSectionsReplayInput = {
@@ -280,7 +282,11 @@ export function FixedAssetsSectionsPanel() {
           </label>
         </fieldset>
         <div className="gl-tb-actions workspace-run-actions">
-          <Button disabled={busy || !ready} onClick={check}>
+          <Button
+            disabled={busy || !ready}
+            aria-describedby={checkWhy}
+            onClick={check}
+          >
             {copy.check}
           </Button>
           {busy && (
@@ -289,6 +295,12 @@ export function FixedAssetsSectionsPanel() {
             </Button>
           )}
         </div>
+        <ClosedReason
+          id={checkWhy}
+          closed={!ready}
+          waits="check"
+          label={copy.check}
+        />
         {error && (
           <p role="alert" data-fas-error>
             {error}

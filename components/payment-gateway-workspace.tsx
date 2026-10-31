@@ -1,6 +1,6 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { PaymentGatewayBatchesPanel } from '@/components/payment-gateway-batches-panel';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount } from '@/components/amount';
 import { RecordTable } from '@/components/record-table';
@@ -37,6 +37,12 @@ import {
 } from '@/lib/reconciliation/payment-gateway-signed-demo';
 import { gatewayCopy } from '@/lib/i18n/payment-gateway';
 import './workspace-record.css';
+import {
+  DecisionButtons,
+  DecisionHint,
+  useDecisionFocus,
+} from './decision-platform';
+import type { DecisionInput } from '@/lib/decision-platform';
 // The value positions that hold money in each role's records, after the
 // source row: the transaction amount, the fee amount, the four summary
 // totals, and the bank credit.
@@ -230,6 +236,15 @@ export function GatewayWorkspace({
       }>('gateway-reconcile', s, signal);
     }, shown);
   }
+  // The decision platform (UX-3): after a decision the focus returns to the
+  // line that holds the state, not to the page.
+  const hint = useId(),
+    decisionState = useId(),
+    settle = useDecisionFocus();
+  const decided: typeof install = (v) => {
+    install(v);
+    settle(decisionState);
+  };
   async function decide(type: GatewayEvent['type']) {
     if (!result) return;
     const e: GatewayEvent = {
@@ -249,7 +264,7 @@ export function GatewayWorkspace({
           { ...state(), events: [...events, e] },
           signal,
         ),
-      install,
+      decided,
     );
   }
   const amounts = (values: number[]) =>
@@ -258,12 +273,26 @@ export function GatewayWorkspace({
     ));
   const status = (value: string) =>
     (copy.status as Record<string, string>)[value] ?? value;
-  const canAccept =
-    result &&
-    complete.confirmed &&
-    !result.issues.length &&
-    !result.missing.length &&
-    result.financial === 'ready';
+  // What the decision buttons open on, as before: approval also needs the
+  // completeness confirmation and a ready result, and the sentence under the
+  // buttons says which of these is missing.
+  const decision: DecisionInput | null = result
+    ? {
+        reference,
+        reason: note,
+        members: result.memberIds.length,
+        review: result.review,
+        acceptBlock: !complete.confirmed
+          ? 'unconfirmed'
+          : result.issues.length
+            ? 'source-error'
+            : result.missing.length
+              ? 'missing'
+              : result.financial === 'ready'
+                ? null
+                : result.financial,
+      }
+    : null;
   return (
     <div hidden={!active}>
       <section
@@ -557,44 +586,44 @@ export function GatewayWorkspace({
               headers={copy.residuals}
               rows={result.residuals ? [amounts(result.residuals)] : []}
             />
-            <fieldset disabled={busy}>
+            <fieldset disabled={busy} data-decision-platform>
               <legend>{copy.decisionTitle}</legend>
               <label>
                 {copy.reference}
                 <input
+                  aria-describedby={hint}
                   value={reference}
                   onChange={(e) => setReference(e.target.value)}
                 />
               </label>
               <label>
                 {copy.note}
-                <input value={note} onChange={(e) => setNote(e.target.value)} />
+                <input
+                  aria-describedby={hint}
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                />
               </label>
-              <p>
+              <p id={decisionState} tabIndex={-1} data-decision-state>
                 {result.scope.batchId} · {status(result.review)} ·{' '}
                 {copy.members}: {result.memberIds.length}
               </p>
-              <div className="gl-tb-actions">
-                {(['accept', 'reject', 'undo'] as const).map((type) => (
-                  <Button
-                    key={type}
-                    variant="outline"
-                    disabled={
-                      busy ||
-                      !reference.trim() ||
-                      !note.trim() ||
-                      !result.memberIds.length ||
-                      (type === 'undo'
-                        ? result.review === 'needs-review'
-                        : result.review !== 'needs-review') ||
-                      (type === 'accept' && !canAccept)
-                    }
-                    onClick={() => void decide(type)}
-                  >
-                    {copy[type]}
-                  </Button>
-                ))}
-              </div>
+              {decision && (
+                <>
+                  <DecisionButtons
+                    input={decision}
+                    labels={copy}
+                    busy={busy}
+                    describedBy={hint}
+                    onDecide={(type) => void decide(type)}
+                  />
+                  <DecisionHint
+                    id={hint}
+                    input={decision}
+                    labels={{ reference: copy.reference, reason: copy.note }}
+                  />
+                </>
+              )}
             </fieldset>
             {result.records.map((records, i) => (
               <details key={i}>

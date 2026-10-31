@@ -14,6 +14,7 @@ import path from 'node:path';
 import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
 import {
+  DECISIONS,
   DOMAINS,
   METRICS,
   STATES,
@@ -134,6 +135,43 @@ async function runExample(page, panel, domain, language) {
   await settle(page);
   return label;
 }
+// Waits until a condition holds, polling, or fails with what was awaited.
+async function until(check, what, timeout = 30000) {
+  const end = Date.now() + timeout;
+  while (!(await check())) {
+    assert.ok(Date.now() < end, `timed out waiting for ${what}`);
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+}
+// Decides as the reader would (UX-3): fills the two fields every decision
+// needs, presses the first open reject button, and waits until the decision
+// is applied: the fields open again and that button has closed. A recipe
+// whose words no longer match fails here instead of counting nothing.
+async function decide(page, panel, recipe, language) {
+  const [reference, reason] = recipe.fields[language];
+  const field = panel.getByLabel(reference, { exact: true });
+  await field.fill('UX census reference', { timeout: 5000 });
+  await panel
+    .getByLabel(reason, { exact: true })
+    .fill('UX census decision, to read where the focus goes', {
+      timeout: 5000,
+    });
+  const buttons = panel.getByRole('button', {
+    name: recipe.reject[language],
+    exact: true,
+  });
+  let index = -1;
+  for (let i = 0; i < (await buttons.count()) && index < 0; i++)
+    if (await buttons.nth(i).isEnabled()) index = i;
+  assert.ok(index >= 0, `${language}: an open decision to make`);
+  await buttons.nth(index).click();
+  await until(
+    async () =>
+      (await field.isEnabled()) && !(await buttons.nth(index).isEnabled()),
+    `${language}: the decision applied`,
+  );
+  await settle(page);
+}
 async function measureDomain(domain) {
   const states = [];
   for (const language of ['ar', 'en']) {
@@ -166,7 +204,18 @@ async function measureDomain(domain) {
           ...census,
           focusLost: i === 0 && !focus.inside ? 1 : 0,
           focus,
+          focusAfterDecision: 0,
         });
+      }
+      // Focus is read once per language after a decision too, once every
+      // state of the language is measured, since a decision changes them.
+      const recipe = DECISIONS[domain];
+      if (recipe) {
+        await decide(page, panel, recipe, language);
+        const decided = await page.evaluate(focusInPage, selector);
+        const first = states[states.length - widths.length];
+        first.focusAfterDecision = decided.inside ? 0 : 1;
+        first.decisionFocus = decided;
       }
     } finally {
       await context.close();
@@ -213,7 +262,14 @@ try {
     const planted = await page.evaluate(plantInPage, selector);
     await settle(page);
     const after = await page.evaluate(censusInPage, selector);
-    for (const metric of METRICS.filter((m) => m !== 'focusLost')) {
+    assert.equal(
+      after.disabledUnexplained - before.disabledUnexplained,
+      2,
+      'disabledUnexplained: a button described by an empty element and one described by text not shown are both counted',
+    );
+    for (const metric of METRICS.filter(
+      (m) => m !== 'focusLost' && m !== 'focusAfterDecision',
+    )) {
       assert.ok(planted.includes(metric), `${metric}: the fault was planted`);
       assert.ok(
         after[metric] > before[metric],
@@ -222,6 +278,33 @@ try {
     }
     report.domains.bank = { before, after, planted };
     await context.close();
+    // The decision recipes: the census decides where it has one, and a
+    // recipe whose words do not match the page fails instead of counting
+    // nothing (UX-3).
+    const decision = await open('ar', 390);
+    try {
+      const payroll = await openDomainWorkspace(decision.page, 'payroll', {
+        advanced: true,
+        requiredSources: false,
+      });
+      await runExample(decision.page, payroll, 'payroll', 'ar');
+      await assert.rejects(
+        decide(
+          decision.page,
+          payroll,
+          { fields: { ar: ['حقل غير موجود', 'ولا هذا'] }, reject: { ar: '' } },
+          'ar',
+        ),
+        'a recipe that does not match the page fails',
+      );
+      await decide(decision.page, payroll, DECISIONS.payroll, 'ar');
+      report.decision = await decision.page.evaluate(
+        focusInPage,
+        '[data-domain-panel="payroll"]',
+      );
+    } finally {
+      await decision.context.close();
+    }
   } else {
     for (const domain of DOMAINS) {
       const states = await measureDomain(domain);

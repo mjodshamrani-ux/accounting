@@ -1,6 +1,6 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { FixedAssetsSectionsPanel } from '@/components/fixed-assets-sections-panel';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount } from '@/components/amount';
 import { RecordTable } from '@/components/record-table';
@@ -34,6 +34,12 @@ import {
 } from '@/lib/reconciliation/fixed-assets-demo';
 import { assetCopy } from '@/lib/i18n/fixed-assets';
 import './workspace-record.css';
+import {
+  DecisionButtons,
+  DecisionHint,
+  useDecisionFocus,
+} from './decision-platform';
+import type { DecisionInput } from '@/lib/decision-platform';
 const emptyScope = (): AssetScope =>
   ({
     ...Object.fromEntries(ASSET_FIELDS.map((k) => [k, ''])),
@@ -219,6 +225,15 @@ export function AssetWorkspace({
       }>('asset-reconcile', s, signal);
     }, shown);
   }
+  // The decision platform (UX-3): after a decision the focus returns to the
+  // line that holds the state, not to the page.
+  const hint = useId(),
+    decisionState = useId(),
+    settle = useDecisionFocus();
+  const decided: typeof install = (v) => {
+    install(v);
+    settle(decisionState);
+  };
   async function decide(type: AssetEvent['type']) {
     if (!result) return;
     const e: AssetEvent = {
@@ -237,17 +252,31 @@ export function AssetWorkspace({
           { ...state(), events: [...events, e] },
           signal,
         ),
-      install,
+      decided,
     );
   }
   const status = (value: string) =>
     (copy.status as Record<string, string>)[value] ?? value;
-  const canAccept =
-    result &&
-    complete.confirmed &&
-    !result.issues.length &&
-    !result.missing.length &&
-    result.financial === 'ready';
+  // What the decision buttons open on, as before: approval also needs the
+  // completeness confirmation and a ready result, and the sentence under the
+  // buttons says which of these is missing.
+  const decision: DecisionInput | null = result
+    ? {
+        reference,
+        reason: note,
+        members: result.memberIds.length,
+        review: result.review,
+        acceptBlock: !complete.confirmed
+          ? 'unconfirmed'
+          : result.issues.length
+            ? 'source-error'
+            : result.missing.length
+              ? 'missing'
+              : result.financial === 'ready'
+                ? null
+                : result.financial,
+      }
+    : null;
   const amount = (minor: number | null | undefined) => (
     <Amount minor={minor} decimals={result?.decimals ?? 2} />
   );
@@ -596,11 +625,12 @@ export function AssetWorkspace({
                 amount(v.difference),
               ])}
             />
-            <fieldset disabled={busy}>
+            <fieldset disabled={busy} data-decision-platform>
               <legend>{copy.decision}</legend>
               <label>
                 {copy.reference}
                 <input
+                  aria-describedby={hint}
                   maxLength={2000}
                   value={reference}
                   onChange={(e) => setReference(e.target.value)}
@@ -609,36 +639,32 @@ export function AssetWorkspace({
               <label>
                 {copy.note}
                 <input
+                  aria-describedby={hint}
                   maxLength={2000}
                   value={note}
                   onChange={(e) => setNote(e.target.value)}
                 />
               </label>
-              <p>
+              <p id={decisionState} tabIndex={-1} data-decision-state>
                 {status(result.review)} · {copy.members}:{' '}
                 {result.memberIds.length}
               </p>
-              <div className="gl-tb-actions">
-                {(['accept', 'reject', 'undo'] as const).map((type) => (
-                  <Button
-                    key={type}
-                    variant="outline"
-                    disabled={
-                      busy ||
-                      !reference.trim() ||
-                      !note.trim() ||
-                      !result.memberIds.length ||
-                      (type === 'undo'
-                        ? result.review === 'needs-review'
-                        : result.review !== 'needs-review') ||
-                      (type === 'accept' && !canAccept)
-                    }
-                    onClick={() => void decide(type)}
-                  >
-                    {copy[type]}
-                  </Button>
-                ))}
-              </div>
+              {decision && (
+                <>
+                  <DecisionButtons
+                    input={decision}
+                    labels={copy}
+                    busy={busy}
+                    describedBy={hint}
+                    onDecide={(type) => void decide(type)}
+                  />
+                  <DecisionHint
+                    id={hint}
+                    input={decision}
+                    labels={{ reference: copy.reference, reason: copy.note }}
+                  />
+                </>
+              )}
             </fieldset>
             {detail(
               copy.roles[0],

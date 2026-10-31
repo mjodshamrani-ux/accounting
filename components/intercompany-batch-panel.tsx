@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
@@ -14,6 +14,7 @@ import {
 import { intercompanyBatchCopy } from '@/lib/i18n/intercompany-batch';
 import { RecordTable } from '@/components/record-table';
 import './review-section.css';
+import { ClosedReason } from './decision-platform';
 
 type Picked = { file: SourceFile; confirmed: boolean };
 // An amount at the batch currency's decimals through the shared component;
@@ -163,6 +164,7 @@ export function IntercompanyBatchPanel() {
     }
     return out;
   };
+  const checkWhy = useId();
   const ready =
     !!declaration?.confirmed &&
     !!relations?.confirmed &&
@@ -310,7 +312,11 @@ export function IntercompanyBatchPanel() {
           {single(copy.relations, relations, setRelations)}
         </div>
         <div className="gl-tb-actions workspace-run-actions">
-          <Button disabled={busy || !ready} onClick={check}>
+          <Button
+            disabled={busy || !ready}
+            aria-describedby={checkWhy}
+            onClick={check}
+          >
             {copy.check}
           </Button>
           {busy && (
@@ -319,6 +325,12 @@ export function IntercompanyBatchPanel() {
             </Button>
           )}
         </div>
+        <ClosedReason
+          id={checkWhy}
+          closed={!ready}
+          waits="check"
+          label={copy.check}
+        />
         {error && (
           <p role="alert" data-ic-batch-error>
             {error}

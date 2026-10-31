@@ -1,6 +1,6 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { IntercompanyBatchPanel } from '@/components/intercompany-batch-panel';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount, Figures } from '@/components/amount';
 import { RecordPager, RecordTable } from '@/components/record-table';
@@ -33,6 +33,12 @@ import {
 } from '@/lib/reconciliation/intercompany-demo';
 import { intercompanyCopy } from '@/lib/i18n/intercompany';
 import './workspace-record.css';
+import {
+  DecisionButtons,
+  DecisionHint,
+  useDecisionFocus,
+} from './decision-platform';
+import type { AcceptBlock } from '@/lib/decision-platform';
 const emptyScope = (): IntercompanyScope => ({
   entityA: '',
   entityB: '',
@@ -235,6 +241,12 @@ export function IntercompanyWorkspace({
       }>('intercompany-reconcile', s, signal);
     }, shown);
   }
+  // The decision platform (UX-3): after a decision on a pair the focus
+  // returns to that pair's heading, which holds its state, not to the page.
+  const hint = useId(),
+    pairHeading = useId(),
+    settle = useDecisionFocus();
+  const headingOf = (record: string) => `${pairHeading}-${record}`;
   async function decide(relation: string, type: IntercompanyEvent['type']) {
     if (!result) return;
     const p = result.pairs.find((p) => p.relationId === relation)!;
@@ -255,18 +267,29 @@ export function IntercompanyWorkspace({
           { ...state(), events: [...events, e] },
           signal,
         ),
-      install,
+      (v) => {
+        install(v);
+        settle(headingOf(p.relationRecord));
+      },
     );
   }
   const pairsShown = recordPage(result?.pairs.length ?? 0, pairPage);
   const status = (value: string) =>
     (copy.status as Record<string, string>)[value] ?? value;
-  const canAccept =
-    result &&
-    complete.confirmed &&
-    !result.issues.length &&
-    !result.missing.length &&
-    result.pairs.every((p) => p.status === 'ready');
+  // What the decision buttons open on, as before: approval also needs the
+  // completeness confirmation and every pair ready, and the sentence under
+  // the fields says which of these is missing.
+  const acceptBlock: AcceptBlock | null = !result
+    ? null
+    : !complete.confirmed
+      ? 'unconfirmed'
+      : result.issues.length
+        ? 'source-error'
+        : result.missing.length
+          ? 'missing'
+          : result.pairs.every((p) => p.status === 'ready')
+            ? null
+            : 'pairs';
   return (
     <div hidden={!active}>
       <section
@@ -531,19 +554,29 @@ export function IntercompanyWorkspace({
                   : []
               }
             />
-            <fieldset disabled={busy}>
+            <fieldset disabled={busy} data-decision-platform>
               <legend>{copy.decisionTitle}</legend>
               <label>
                 {copy.reference}
                 <input
+                  aria-describedby={hint}
                   value={reference}
                   onChange={(e) => setReference(e.target.value)}
                 />
               </label>
               <label>
                 {copy.note}
-                <input value={note} onChange={(e) => setNote(e.target.value)} />
+                <input
+                  aria-describedby={hint}
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                />
               </label>
+              <DecisionHint
+                id={hint}
+                input={{ reference, reason: note, review: 'each', acceptBlock }}
+                labels={{ reference: copy.reference, reason: copy.note }}
+              />
             </fieldset>
             <h3>
               {copy.pairs} ({result.pairs.length})
@@ -553,7 +586,7 @@ export function IntercompanyWorkspace({
                 key={p.relationRecord}
                 data-intercompany-pair={p.relationId}
               >
-                <h3>
+                <h3 id={headingOf(p.relationRecord)} tabIndex={-1}>
                   {p.relationId} · {status(p.status)} · {status(p.review)}
                 </h3>
                 <p>
@@ -591,27 +624,19 @@ export function IntercompanyWorkspace({
                     ])}
                   />
                 </details>
-                <div className="gl-tb-actions">
-                  {(['accept', 'reject', 'undo'] as const).map((type) => (
-                    <Button
-                      variant="outline"
-                      key={type}
-                      disabled={
-                        busy ||
-                        !reference.trim() ||
-                        !note.trim() ||
-                        !p.members.length ||
-                        (type === 'undo'
-                          ? p.review === 'needs-review'
-                          : p.review !== 'needs-review') ||
-                        (type === 'accept' && !canAccept)
-                      }
-                      onClick={() => void decide(p.relationId, type)}
-                    >
-                      {copy[type]}
-                    </Button>
-                  ))}
-                </div>
+                <DecisionButtons
+                  input={{
+                    reference,
+                    reason: note,
+                    members: p.members.length,
+                    review: p.review,
+                    acceptBlock,
+                  }}
+                  labels={copy}
+                  busy={busy}
+                  describedBy={`${hint} ${headingOf(p.relationRecord)}`}
+                  onDecide={(type) => void decide(p.relationId, type)}
+                />
               </section>
             ))}
             <RecordPager

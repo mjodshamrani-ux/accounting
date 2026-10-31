@@ -34,7 +34,64 @@ export const METRICS = [
   'disabledUnexplained',
   'focusLost',
   'wideUnnamed',
+  'focusAfterDecision',
 ];
+
+// The decision each workspace offers after its example, by the names the
+// reader sees (UX-3): the two fields every decision needs, and the reject
+// button, open on what needs review. The census decides once per language,
+// after the states are measured, and reads where the focus went. A
+// workspace without an entry is not decided on.
+export const DECISIONS = {
+  'tb-financial': {
+    fields: {
+      ar: ['مرجع القرار', 'سبب القرار'],
+      en: ['Decision reference', 'Decision reason'],
+    },
+    reject: { ar: 'رفض البند كاملًا', en: 'Reject whole line' },
+  },
+  intercompany: {
+    fields: {
+      ar: ['مرجع قرار معاملات المنشآت', 'تفسير قرار معاملات المنشآت'],
+      en: [
+        'Intercompany decision reference',
+        'Intercompany decision explanation',
+      ],
+    },
+    reject: { ar: 'رفض الزوج كاملًا', en: 'Reject whole pair' },
+  },
+  gateway: {
+    fields: {
+      ar: ['مرجع قرار بوابة الدفع', 'شرح قرار بوابة الدفع'],
+      en: ['Gateway decision reference', 'Gateway decision explanation'],
+    },
+    reject: { ar: 'رفض الدفعة كاملة', en: 'Reject whole batch' },
+  },
+  stock: {
+    fields: {
+      ar: ['مرجع قرار المخزون', 'توضيح قرار المخزون'],
+      en: ['Inventory decision reference', 'Inventory decision explanation'],
+    },
+    reject: {
+      ar: 'ارفض كامل نطاق المخزون',
+      en: 'Reject whole inventory scope',
+    },
+  },
+  assets: {
+    fields: {
+      ar: ['مرجع قرار الأصول', 'توضيح قرار الأصول'],
+      en: ['Asset decision reference', 'Asset decision explanation'],
+    },
+    reject: { ar: 'ارفض كامل نطاق الأصول', en: 'Reject whole asset scope' },
+  },
+  payroll: {
+    fields: {
+      ar: ['مرجع قرار الرواتب', 'توضيح قرار الرواتب'],
+      en: ['Payroll decision reference', 'Payroll decision explanation'],
+    },
+    reject: { ar: 'ارفض كامل نطاق الرواتب', en: 'Reject whole payroll scope' },
+  },
+};
 
 /** Counts the defect classes inside one domain panel, with samples. */
 export function censusInPage(selector) {
@@ -185,17 +242,19 @@ export function censusInPage(selector) {
   // The page itself scrolling sideways.
   const overflowPx =
     document.documentElement.scrollWidth - document.documentElement.clientWidth;
-  // A disabled button that says nothing about why.
+  // A disabled button that says nothing about why: no description, or one
+  // that names elements missing, empty or not shown, so the reader who sees
+  // the page reads no reason either (UX-3).
   const buttons = [...root.querySelectorAll('button')].filter(visible);
   const disabled = buttons.filter((b) => b.matches(':disabled'));
-  const disabledUnexplained = disabled.filter(
-    (b) =>
-      !(
-        b.getAttribute('aria-describedby') ||
-        b.getAttribute('aria-description') ||
-        b.title
-      ),
-  ).length;
+  const said = (b) =>
+    (b.getAttribute('aria-describedby') ?? '')
+      .split(/\s+/u)
+      .map((id) => id && document.getElementById(id))
+      .some((el) => el && visible(el) && el.textContent.trim()) ||
+    !!b.getAttribute('aria-description')?.trim() ||
+    !!b.title.trim();
+  const disabledUnexplained = disabled.filter((b) => !said(b)).length;
   // A frame the reader sees scrolling sideways with no name: Chromium lets
   // the keyboard reach it, but nothing says what it holds or that it
   // scrolls. Content inside a closed section is not seen, so it counts once
@@ -289,10 +348,23 @@ export function plantInPage(selector) {
   wide.style.cssText = 'width:6000px;height:1px';
   document.body.append(wide);
   planted.push('pageOverflow');
-  const button = document.createElement('button');
-  button.disabled = true;
-  button.textContent = 'planted';
-  root.append(button);
+  // Disabled buttons described by nothing a reader sees: one by an empty
+  // element and one by text that is not shown. A rule that only asked for
+  // aria-describedby would count neither (UX-3).
+  const empty = document.createElement('span');
+  empty.id = 'census-planted-empty';
+  const hidden = document.createElement('span');
+  hidden.id = 'census-planted-hidden';
+  hidden.textContent = 'planted reason';
+  hidden.hidden = true;
+  root.append(empty, hidden);
+  for (const id of [empty.id, hidden.id]) {
+    const button = document.createElement('button');
+    button.disabled = true;
+    button.textContent = 'planted';
+    button.setAttribute('aria-describedby', id);
+    root.append(button);
+  }
   planted.push('disabledUnexplained');
   const frame = document.createElement('div');
   frame.style.cssText = 'overflow-x:auto;width:120px';

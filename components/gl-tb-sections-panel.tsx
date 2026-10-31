@@ -1,4 +1,11 @@
-import { Fragment, useEffect, useRef, useState, type ReactNode } from 'react';
+import {
+  Fragment,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
 import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
@@ -17,6 +24,7 @@ import {
 import { glTbSectionsCopy } from '@/lib/i18n/gl-tb-sections';
 import { RecordTable } from '@/components/record-table';
 import './review-section.css';
+import { ClosedReason } from './decision-platform';
 
 type Picked = { file: SourceFile; confirmed: boolean };
 type Field = (typeof GLS_SCOPE_FIELDS)[number];
@@ -84,6 +92,7 @@ export function GlTbSectionsPanel() {
     setResult(null);
     setError('');
   };
+  const checkWhy = useId();
   const ready = !!gl?.confirmed && !!tb?.confirmed && scopeConfirmed;
   function check() {
     const input: GlsInput = {
@@ -238,7 +247,11 @@ export function GlTbSectionsPanel() {
           </label>
         </fieldset>
         <div className="gl-tb-actions workspace-run-actions">
-          <Button disabled={busy || !ready} onClick={check}>
+          <Button
+            disabled={busy || !ready}
+            aria-describedby={checkWhy}
+            onClick={check}
+          >
             {copy.check}
           </Button>
           {busy && (
@@ -247,6 +260,12 @@ export function GlTbSectionsPanel() {
             </Button>
           )}
         </div>
+        <ClosedReason
+          id={checkWhy}
+          closed={!ready}
+          waits="check"
+          label={copy.check}
+        />
         {error && (
           <p role="alert" data-gls-error>
             {error}

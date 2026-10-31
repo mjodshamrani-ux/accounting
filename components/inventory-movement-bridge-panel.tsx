@@ -1,4 +1,11 @@
-import { Fragment, useEffect, useRef, useState, type ReactNode } from 'react';
+import {
+  Fragment,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
 import { Amount, Quantity } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
@@ -22,6 +29,7 @@ import type { ImbReplayInput } from '@/lib/reconciliation/inventory-movement-bri
 import { inventoryMovementBridgeCopy } from '@/lib/i18n/inventory-movement-bridge';
 import { RecordTable } from '@/components/record-table';
 import './review-section.css';
+import { ClosedReason } from './decision-platform';
 
 type Picked = {
   name: string;
@@ -102,6 +110,7 @@ export function InventoryMovementBridgePanel() {
       next[i] = picked;
       return next;
     });
+  const checkWhy = useId();
   const ready = files.every((f) => f?.confirmed) && scopeConfirmed;
   function check() {
     const [register, gl] = files as [Picked, Picked];
@@ -306,7 +315,11 @@ export function InventoryMovementBridgePanel() {
           </label>
         </fieldset>
         <div className="gl-tb-actions workspace-run-actions">
-          <Button disabled={busy || !ready} onClick={check}>
+          <Button
+            disabled={busy || !ready}
+            aria-describedby={checkWhy}
+            onClick={check}
+          >
             {copy.check}
           </Button>
           {busy && (
@@ -315,6 +328,12 @@ export function InventoryMovementBridgePanel() {
             </Button>
           )}
         </div>
+        <ClosedReason
+          id={checkWhy}
+          closed={!ready}
+          waits="check"
+          label={copy.check}
+        />
         {error && (
           <p role="alert" data-imb-error>
             {error}

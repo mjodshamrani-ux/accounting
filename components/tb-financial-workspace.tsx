@@ -1,5 +1,5 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount, Figures } from '@/components/amount';
 import { RecordPager, RecordTable } from '@/components/record-table';
@@ -30,6 +30,12 @@ import {
 import { financialDemo } from '@/lib/reconciliation/tb-financial-demo';
 import { TbFinancialHierarchyPanel } from '@/components/tb-financial-hierarchy-panel';
 import './workspace-record.css';
+import {
+  DecisionButtons,
+  DecisionHint,
+  useDecisionFocus,
+} from './decision-platform';
+import type { AcceptBlock } from '@/lib/decision-platform';
 const emptyScope = (): FinancialScope => ({
   entity: '',
   ledger: '',
@@ -238,6 +244,13 @@ export function FinancialWorkspace({
       );
     }, shown);
   }
+  // The decision platform (UX-3): after a decision on a statement line the
+  // focus returns to that line's heading, which holds its state, not to the
+  // page.
+  const hint = useId(),
+    lineHeading = useId(),
+    settle = useDecisionFocus();
+  const headingOf = (id: string) => `${lineHeading}-${id}`;
   async function decide(line: string, type: FinancialEvent['type']) {
     if (!result) return;
     const l = result.lines.find((l) => l.lineId === line)!;
@@ -258,9 +271,23 @@ export function FinancialWorkspace({
           { ...state(), events: [...events, e] },
           signal,
         ),
-      install,
+      (v) => {
+        install(v);
+        settle(headingOf(l.id));
+      },
     );
   }
+  // What the decision buttons open on, as before: approval also needs the
+  // completeness confirmation and a result without a source error, a gap,
+  // an inconsistency or a difference, and the sentence under the fields says
+  // which of these is missing.
+  const acceptBlock: AcceptBlock | null = !result
+    ? null
+    : !complete.confirmed
+      ? 'unconfirmed'
+      : ((
+          ['source-error', 'missing', 'inconsistent', 'difference'] as const
+        ).find((s) => s === result.status) ?? null);
   const linesShown = recordPage(result?.lines.length ?? 0, linePage);
   const status = (value: string) =>
     (t.financial.status as Record<string, string>)[value] ?? value;
@@ -584,23 +611,41 @@ export function FinancialWorkspace({
                   : []
               }
             />
-            <fieldset disabled={busy}>
+            <fieldset disabled={busy} data-decision-platform>
               <legend>{t.financial.reviewDecisionEvidence}</legend>
               <label>
                 {t.financial.decisionReference}
                 <input
+                  aria-describedby={hint}
                   value={reference}
                   onChange={(e) => setReference(e.target.value)}
                 />
               </label>
               <label>
                 {t.financial.decisionReason}
-                <input value={note} onChange={(e) => setNote(e.target.value)} />
+                <input
+                  aria-describedby={hint}
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                />
               </label>
+              <DecisionHint
+                id={hint}
+                input={{
+                  reference,
+                  reason: note,
+                  review: 'eachBlocked',
+                  acceptBlock,
+                }}
+                labels={{
+                  reference: t.financial.decisionReference,
+                  reason: t.financial.decisionReason,
+                }}
+              />
             </fieldset>
             {result.lines.slice(linesShown.from, linesShown.to).map((l) => (
               <section key={l.id}>
-                <h3>
+                <h3 id={headingOf(l.id)} tabIndex={-1}>
                   {l.lineId} · {l.label} · {t.financial.categories[l.category]}{' '}
                   · {status(l.review)}
                 </h3>
@@ -641,34 +686,18 @@ export function FinancialWorkspace({
                     ])}
                   />
                 </details>
-                <div className="gl-tb-actions">
-                  {(['accept', 'reject', 'undo'] as const).map((type) => (
-                    <Button
-                      variant="outline"
-                      key={type}
-                      disabled={
-                        busy ||
-                        !reference.trim() ||
-                        !note.trim() ||
-                        l.review === 'blocked' ||
-                        (type === 'undo'
-                          ? l.review === 'needs-review'
-                          : l.review !== 'needs-review') ||
-                        (type === 'accept' &&
-                          (!complete.confirmed ||
-                            [
-                              'source-error',
-                              'missing',
-                              'inconsistent',
-                              'difference',
-                            ].includes(result.status)))
-                      }
-                      onClick={() => void decide(l.lineId, type)}
-                    >
-                      {t.financial.decisionLabels[type]}
-                    </Button>
-                  ))}
-                </div>
+                <DecisionButtons
+                  input={{
+                    reference,
+                    reason: note,
+                    review: l.review,
+                    acceptBlock,
+                  }}
+                  labels={t.financial.decisionLabels}
+                  busy={busy}
+                  describedBy={`${hint} ${headingOf(l.id)}`}
+                  onDecide={(type) => void decide(l.lineId, type)}
+                />
               </section>
             ))}
             <RecordPager

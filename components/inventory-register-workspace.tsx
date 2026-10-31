@@ -28,7 +28,7 @@ import {
 import { stockHierarchyCitationRows } from '../lib/reconciliation/inventory-hierarchy-evidence.ts';
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { InventoryMovementBridgePanel } from '@/components/inventory-movement-bridge-panel';
-import { useEffect, useRef, useState, useMemo, type ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, useMemo, type ReactNode } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount, Quantity } from '@/components/amount';
 import { RecordTable } from '@/components/record-table';
@@ -68,6 +68,12 @@ import {
 import { stockMatrixCitationRows } from '@/lib/reconciliation/inventory-matrix-evidence';
 import { stockCopy } from '@/lib/i18n/inventory-register';
 import './workspace-record.css';
+import {
+  DecisionButtons,
+  DecisionHint,
+  useDecisionFocus,
+} from './decision-platform';
+import type { DecisionInput } from '@/lib/decision-platform';
 const emptyScope = (): StockScope =>
   ({
     ...Object.fromEntries(STOCK_FIELDS.map((k) => [k, ''])),
@@ -449,6 +455,15 @@ export function StockWorkspace({
       }>('stock-reconcile', s, signal);
     }, shown);
   }
+  // The decision platform (UX-3): after a decision the focus returns to the
+  // line that holds the state, not to the page.
+  const hint = useId(),
+    decisionState = useId(),
+    settle = useDecisionFocus();
+  const decided: typeof install = (v) => {
+    install(v);
+    settle(decisionState);
+  };
   async function decide(type: StockEvent['type']) {
     if (!result) return;
     const e: StockEvent = {
@@ -460,16 +475,30 @@ export function StockWorkspace({
       reference,
       note,
     };
-    await perform((signal) => compute(signal, [...events, e]), install);
+    await perform((signal) => compute(signal, [...events, e]), decided);
   }
   const status = (value: string) =>
     (copy.status as Record<string, string>)[value] ?? value;
-  const canAccept =
-    result &&
-    complete.confirmed &&
-    !result.issues.length &&
-    !result.missing.length &&
-    result.financial === 'ready';
+  // What the decision buttons open on, as before: approval also needs the
+  // completeness confirmation and a ready result, and the sentence under the
+  // buttons says which of these is missing.
+  const decision: DecisionInput | null = result
+    ? {
+        reference,
+        reason: note,
+        members: result.memberIds.length,
+        review: result.review,
+        acceptBlock: !complete.confirmed
+          ? 'unconfirmed'
+          : result.issues.length
+            ? 'source-error'
+            : result.missing.length
+              ? 'missing'
+              : result.financial === 'ready'
+                ? null
+                : result.financial,
+      }
+    : null;
   // Money is shown in major units at the currency's precision, and the
   // register's quantity as a decimal at its own precision; the engine keeps
   // both as integers. Register values: item, dimensions, quantity, unit,
@@ -1072,11 +1101,12 @@ export function StockWorkspace({
                 </div>
               )}
             </section>
-            <fieldset disabled={busy}>
+            <fieldset disabled={busy} data-decision-platform>
               <legend>{copy.decision}</legend>
               <label>
                 {copy.reference}
                 <input
+                  aria-describedby={hint}
                   maxLength={2000}
                   value={reference}
                   onChange={(e) => setReference(e.target.value)}
@@ -1085,36 +1115,32 @@ export function StockWorkspace({
               <label>
                 {copy.note}
                 <input
+                  aria-describedby={hint}
                   maxLength={2000}
                   value={note}
                   onChange={(e) => setNote(e.target.value)}
                 />
               </label>
-              <p>
+              <p id={decisionState} tabIndex={-1} data-decision-state>
                 {status(result.review)} · {copy.members}:{' '}
                 {result.memberIds.length}
               </p>
-              <div className="gl-tb-actions">
-                {(['accept', 'reject', 'undo'] as const).map((type) => (
-                  <Button
-                    key={type}
-                    variant="outline"
-                    disabled={
-                      busy ||
-                      !reference.trim() ||
-                      !note.trim() ||
-                      !result.memberIds.length ||
-                      (type === 'undo'
-                        ? result.review === 'needs-review'
-                        : result.review !== 'needs-review') ||
-                      (type === 'accept' && !canAccept)
-                    }
-                    onClick={() => void decide(type)}
-                  >
-                    {copy[type]}
-                  </Button>
-                ))}
-              </div>
+              {decision && (
+                <>
+                  <DecisionButtons
+                    input={decision}
+                    labels={copy}
+                    busy={busy}
+                    describedBy={hint}
+                    onDecide={(type) => void decide(type)}
+                  />
+                  <DecisionHint
+                    id={hint}
+                    input={decision}
+                    labels={{ reference: copy.reference, reason: copy.note }}
+                  />
+                </>
+              )}
             </fieldset>
             {result.records.map((rows, i) => (
               <div key={i}>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
@@ -19,6 +19,7 @@ import type { FinHReplayInput } from '@/lib/reconciliation/tb-financial-hierarch
 import { tbFinancialHierarchyCopy } from '@/lib/i18n/tb-financial-hierarchy';
 import { RecordTable } from '@/components/record-table';
 import './review-section.css';
+import { ClosedReason } from './decision-platform';
 
 type Picked = {
   name: string;
@@ -98,6 +99,7 @@ export function TbFinancialHierarchyPanel() {
   };
   const setFile = (i: number, value: Picked | null) =>
     setFiles((old) => old.map((f, j) => (j === i ? value : f)));
+  const checkWhy = useId();
   const ready = files.every((f) => f?.confirmed) && scopeConfirmed;
   function check() {
     const input: FinHReplayInput = {
@@ -244,7 +246,11 @@ export function TbFinancialHierarchyPanel() {
           </label>
         </fieldset>
         <div className="gl-tb-actions workspace-run-actions">
-          <Button disabled={busy || !ready} onClick={check}>
+          <Button
+            disabled={busy || !ready}
+            aria-describedby={checkWhy}
+            onClick={check}
+          >
             {copy.check}
           </Button>
           {busy && (
@@ -253,6 +259,12 @@ export function TbFinancialHierarchyPanel() {
             </Button>
           )}
         </div>
+        <ClosedReason
+          id={checkWhy}
+          closed={!ready}
+          waits="check"
+          label={copy.check}
+        />
         {error && (
           <p role="alert" data-finh-error>
             {error}

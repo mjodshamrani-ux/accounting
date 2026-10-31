@@ -1,7 +1,7 @@
 {
   "note": "Interface census baseline: each metric summed over the four states of a domain (Arabic and English at 390 and 1440 px) after its synthetic example ran. Recorded by scripts/ux-census-browser.mjs --record; the gate fails on any change.",
   "recorded": {
-    "commit": "9936b2d1ea6b99f4327db0097cd3a89c0922ca43",
+    "commit": "638837c9227f8e0222663f9b648225f1ccf94493",
     "date": "2026-10-31",
     "chromium": "141.0.7390.37"
   },
@@ -14,7 +14,8 @@
     "pageOverflow",
     "disabledUnexplained",
     "focusLost",
-    "wideUnnamed"
+    "wideUnnamed",
+    "focusAfterDecision"
   ],
   "domains": {
     "supplier": {
@@ -26,7 +27,8 @@
       "pageOverflow": 0,
       "disabledUnexplained": 0,
       "focusLost": 0,
-      "wideUnnamed": 0
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0
     },
     "clearing": {
       "minorUnits": 0,
@@ -37,7 +39,8 @@
       "pageOverflow": 0,
       "disabledUnexplained": 4,
       "focusLost": 0,
-      "wideUnnamed": 0
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0
     },
     "ar": {
       "minorUnits": 0,
@@ -46,9 +49,10 @@
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 16,
+      "disabledUnexplained": 12,
       "focusLost": 0,
-      "wideUnnamed": 0
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0
     },
     "gl-tb": {
       "minorUnits": 0,
@@ -57,9 +61,10 @@
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 8,
+      "disabledUnexplained": 0,
       "focusLost": 0,
-      "wideUnnamed": 0
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0
     },
     "allocation": {
       "minorUnits": 0,
@@ -68,9 +73,10 @@
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 12,
+      "disabledUnexplained": 8,
       "focusLost": 0,
-      "wideUnnamed": 0
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0
     },
     "bank": {
       "minorUnits": 0,
@@ -79,9 +85,10 @@
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 8,
+      "disabledUnexplained": 4,
       "focusLost": 0,
-      "wideUnnamed": 0
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0
     },
     "tb-financial": {
       "minorUnits": 0,
@@ -90,9 +97,10 @@
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 80,
+      "disabledUnexplained": 0,
       "focusLost": 0,
-      "wideUnnamed": 0
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0
     },
     "intercompany": {
       "minorUnits": 0,
@@ -101,9 +109,10 @@
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 44,
+      "disabledUnexplained": 0,
       "focusLost": 0,
-      "wideUnnamed": 0
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0
     },
     "gateway": {
       "minorUnits": 0,
@@ -112,9 +121,10 @@
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 20,
+      "disabledUnexplained": 0,
       "focusLost": 0,
-      "wideUnnamed": 0
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0
     },
     "stock": {
       "minorUnits": 0,
@@ -123,9 +133,10 @@
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 20,
+      "disabledUnexplained": 0,
       "focusLost": 0,
-      "wideUnnamed": 0
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0
     },
     "assets": {
       "minorUnits": 0,
@@ -134,9 +145,10 @@
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 20,
+      "disabledUnexplained": 0,
       "focusLost": 0,
-      "wideUnnamed": 0
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0
     },
     "payroll": {
       "minorUnits": 0,
@@ -145,9 +157,10 @@
       "unisolatedAmounts": 0,
       "brokenInsideWord": 0,
       "pageOverflow": 0,
-      "disabledUnexplained": 20,
+      "disabledUnexplained": 0,
       "focusLost": 0,
-      "wideUnnamed": 0
+      "wideUnnamed": 0,
+      "focusAfterDecision": 0
     }
   }
 }
