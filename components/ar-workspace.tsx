@@ -39,7 +39,11 @@ import {
   arDemoReadings,
   arDemoScope,
 } from '@/lib/reconciliation/ar-demo';
-import { RecordPager, RecordRows } from '@/components/record-table';
+import {
+  RecordFields,
+  RecordPager,
+  RecordRows,
+} from '@/components/record-table';
 import { pageOfRow, recordPage } from '@/lib/record-page';
 import './clearing-workspace.css';
 import './ar-workspace.css';
@@ -543,7 +547,9 @@ export function ArWorkspace({
                                   .map((values, index) => (
                                     <tr key={index}>
                                       <td>{index + 1}</td>
-                                      <td>{values.join(' | ')}</td>
+                                      <td data-record-wrap>
+                                        <RecordFields values={values} />
+                                      </td>
                                     </tr>
                                   ))}
                               </tbody>
@@ -1007,12 +1013,13 @@ export function ArWorkspace({
             page={inventoryPage}
             onPage={setInventoryPage}
             rows={result.inventory}
+            wrap={[0, 2]}
             cells={(i) => [
               `${t.sides[i.side]} · ${t.inventoryKind[i.kind]}`,
               i.pdf
                 ? `${t.page} ${i.pdf.page} · ${t.line} ${i.pdf.line}`
                 : i.row,
-              i.values.join(' | '),
+              <RecordFields key="values" values={i.values} />,
               i.error ? t.readingIssue : '',
             ]}
           />

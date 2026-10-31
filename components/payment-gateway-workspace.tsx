@@ -583,6 +583,7 @@ export function GatewayWorkspace({
             />
             <RecordTable
               label={copy.tableNames.residuals}
+              wrapHeaders
               headers={copy.residuals}
               rows={result.residuals ? [amounts(result.residuals)] : []}
             />

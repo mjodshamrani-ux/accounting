@@ -1,4 +1,5 @@
 import {
+  Fragment,
   useEffect,
   useId,
   useRef,
@@ -172,7 +173,9 @@ type RecordPaging = {
  * names the column whose cell heads its row. A row a decision acts on is
  * named by `target`, so that the focus returns to it after the decision
  * (UX-3): it then holds that id and takes the focus from script, not from
- * the keyboard. */
+ * the keyboard. A column of long text, such as a whole source row, is
+ * named in `wrap`, and long column names are wrapped with `wrapHeaders`:
+ * those cells wrap between words instead of being cut off. */
 export function RecordRows<T>({
   label,
   source,
@@ -182,6 +185,8 @@ export function RecordRows<T>({
   mark,
   rowHeader,
   target,
+  wrap,
+  wrapHeaders,
   page,
   onPage,
   size,
@@ -195,6 +200,8 @@ export function RecordRows<T>({
     mark?: (row: T, index: number) => RecordHook | undefined;
     rowHeader?: number;
     target?: (row: T, index: number) => string | undefined;
+    wrap?: readonly number[];
+    wrapHeaders?: boolean;
   }) {
   const { lang } = useI18n();
   const copy = recordTableCopy[lang];
@@ -209,7 +216,11 @@ export function RecordRows<T>({
           <thead>
             <tr>
               {headers.map((header, i) => (
-                <th key={i} scope="col">
+                <th
+                  key={i}
+                  scope="col"
+                  {...(wrapHeaders ? { 'data-record-wrap': '' } : {})}
+                >
                   {header}
                 </th>
               ))}
@@ -229,12 +240,17 @@ export function RecordRows<T>({
                     ) : (
                       (cell ?? '—')
                     );
+                  const long = wrap?.includes(j)
+                    ? { 'data-record-wrap': '' }
+                    : {};
                   return j === rowHeader ? (
-                    <th key={j} scope="row">
+                    <th key={j} scope="row" {...long}>
                       {shown}
                     </th>
                   ) : (
-                    <td key={j}>{shown}</td>
+                    <td key={j} {...long}>
+                      {shown}
+                    </td>
                   );
                 })}
               </tr>
@@ -266,6 +282,8 @@ export function RecordTable({
     headers: readonly ReactNode[];
     rows: ReactNode[][];
     marks?: (RecordHook | undefined)[];
+    wrap?: readonly number[];
+    wrapHeaders?: boolean;
   }) {
   return (
     <RecordRows<ReactNode[]>
@@ -274,4 +292,16 @@ export function RecordTable({
       mark={marks && ((_, index) => marks[index])}
     />
   );
+}
+
+/** The fields of one source row as read, in order, each kept whole in its
+ * own direction. In a column marked `wrap` the row wraps between its
+ * fields, never inside a date, an identity or a hyphenated word (UX-3). */
+export function RecordFields({ values }: { values: readonly string[] }) {
+  return values.map((value, i) => (
+    <Fragment key={i}>
+      {i > 0 && ' | '}
+      <bdi className="record-field">{value}</bdi>
+    </Fragment>
+  ));
 }

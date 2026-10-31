@@ -35,6 +35,7 @@ export const METRICS = [
   'focusLost',
   'wideUnnamed',
   'focusAfterDecision',
+  'clippedText',
 ];
 
 // The decision each workspace offers after its example, by the names the
@@ -297,6 +298,19 @@ export function censusInPage(selector) {
       /^(auto|scroll)$/u.test(getComputedStyle(el).overflowX) &&
       !(el.getAttribute('aria-label') || el.getAttribute('aria-labelledby')),
   ).length;
+  // A cell the reader sees cut off: its text runs past the cell and the cell
+  // hides the rest (the global table rule ends it with an ellipsis), so a
+  // reason, a source row or a label is read only in part (UX-3).
+  const clippedSamples = [];
+  const clippedText = [...root.querySelectorAll('td, th')].filter((cell) => {
+    if (!cell.checkVisibility() || cell.scrollWidth <= cell.clientWidth + 1)
+      return false;
+    if (!/^(hidden|clip)$/u.test(getComputedStyle(cell).overflowX))
+      return false;
+    if (clippedSamples.length < 5)
+      clippedSamples.push(cell.textContent.trim().slice(0, 60));
+    return true;
+  }).length;
   return {
     cells,
     controls: buttons.length,
@@ -315,6 +329,8 @@ export function censusInPage(selector) {
     overflowPx,
     disabledUnexplained,
     wideUnnamed,
+    clippedText,
+    clippedSamples,
   };
 }
 
@@ -371,9 +387,21 @@ export function plantInPage(selector) {
     block.style.cssText =
       'width:2ch;overflow-wrap:anywhere;word-break:break-all';
     narrow.append(block);
-    row.append(negative, amount, narrow);
+    // A long reason in a cell that hides what does not fit, as the global
+    // table rule does.
+    const clipped = document.createElement('td');
+    clipped.textContent =
+      'planted reason long enough to run past its cell and be cut off';
+    clipped.style.cssText =
+      'max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap';
+    row.append(negative, amount, narrow, clipped);
     table.tBodies[0].append(row);
-    planted.push('minusAfterDigits', 'unisolatedAmounts', 'brokenInsideWord');
+    planted.push(
+      'minusAfterDigits',
+      'unisolatedAmounts',
+      'brokenInsideWord',
+      'clippedText',
+    );
   }
   const wide = document.createElement('div');
   wide.style.cssText = 'width:6000px;height:1px';

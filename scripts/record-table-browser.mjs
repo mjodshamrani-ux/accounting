@@ -6,8 +6,12 @@
 // and the right at its end, the mirror in English. The shade is measured as
 // drawn: a picture of the frame with its mark is darker than one without it
 // along the marked side, and nowhere else beyond the anti-aliasing of text.
-// A frame that fits is none of these. Synthetic example only; no financial
-// truth is asserted.
+// A frame that fits is none of these. Then long text is read whole: in the
+// receivables and gateway examples, Arabic and English at 390 and 1440 px,
+// no cell of a record table is cut off, and the fields of a source row each
+// stay on one line, so a wrapped row breaks between fields, never inside a
+// date, an identity or a hyphenated word. Synthetic example only; no
+// financial truth is asserted.
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
@@ -142,7 +146,88 @@ const words = {
     wide: /wider than its frame/u,
   },
 };
-let checked = 0;
+let checked = 0,
+  whole = 0,
+  fields = 0;
+// Long text read whole (UX-3): no cell cut off, no field of a source row
+// broken across lines.
+async function readWhole(domain, language, width) {
+  const label = `${domain}/${language}/${width}`;
+  const context = await browser.newContext({
+    viewport: { width, height: width < 600 ? 844 : 900 },
+    reducedMotion: 'reduce',
+  });
+  await context.route('**/*', (route) => {
+    const url = route.request().url();
+    if (
+      url.startsWith(base + '/') ||
+      url.startsWith('blob:') ||
+      url.startsWith('data:')
+    )
+      return route.continue();
+    external.push(url);
+    return route.abort();
+  });
+  const page = await context.newPage();
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.goto(base + '/');
+  await page
+    .getByRole('button', { name: words[language].language, exact: true })
+    .click();
+  const panel = await openDomainWorkspace(page, domain, {
+    advanced: true,
+    requiredSources: false,
+  });
+  await panel
+    .getByRole('button', { name: words[language].example })
+    .first()
+    .click();
+  const selector = `[data-domain-panel="${domain}"]`;
+  await page.waitForFunction(
+    (s) => !!document.querySelector(`${s} .record-frame tbody td`),
+    selector,
+    { timeout: 60000 },
+  );
+  await page.waitForTimeout(400);
+  const seen = await page.evaluate((s) => {
+    const cut = [],
+      broken = [];
+    let cells = 0,
+      parts = 0;
+    for (const cell of document.querySelectorAll(
+      `${s} .record-frame :is(td, th)`,
+    )) {
+      if (!cell.checkVisibility()) continue;
+      cells++;
+      if (
+        cell.scrollWidth > cell.clientWidth + 1 &&
+        /^(hidden|clip)$/u.test(getComputedStyle(cell).overflowX)
+      )
+        cut.push(cell.textContent.trim().slice(0, 60));
+    }
+    for (const field of document.querySelectorAll(`${s} .record-field`)) {
+      if (!field.checkVisibility() || !field.textContent.trim()) continue;
+      parts++;
+      const lines = new Set(
+        [...field.getClientRects()].map((r) => Math.round(r.top)),
+      );
+      if (lines.size > 1) broken.push(field.textContent.trim().slice(0, 40));
+    }
+    return { cells, cut, parts, broken };
+  }, selector);
+  assert.ok(seen.cells > 0, `${label}: record cells shown`);
+  assert.deepEqual(seen.cut, [], `${label}: no cell is cut off`);
+  assert.deepEqual(
+    seen.broken,
+    [],
+    `${label}: every field of a source row stays on one line`,
+  );
+  if (domain === 'ar')
+    assert.ok(seen.parts > 0, `${label}: the source rows are shown by field`);
+  whole += seen.cells;
+  fields += seen.parts;
+  await context.close();
+}
 try {
   for (const language of ['ar', 'en']) {
     const context = await browser.newContext({
@@ -288,6 +373,9 @@ try {
     assert.ok(wide > 0, `${language}: wide frames found at 390 px`);
     await context.close();
   }
+  for (const domain of ['ar', 'gateway'])
+    for (const language of ['ar', 'en'])
+      for (const width of [390, 1440]) await readWhole(domain, language, width);
   assert.deepEqual(external, [], 'all requests remain local');
   assert.deepEqual(errors, [], 'no browser page errors');
 } finally {
@@ -296,5 +384,5 @@ try {
   await new Promise((resolve) => server.close(resolve));
 }
 console.log(
-  `Record table frames: PASS, ${checked} wide frames in Arabic and English at 390 px; the shade measured on both sides of ${drawn / 2} with rows, ${headersOnly / 2} of headers alone`,
+  `Record table frames: PASS, ${checked} wide frames in Arabic and English at 390 px; the shade measured on both sides of ${drawn / 2} with rows, ${headersOnly / 2} of headers alone; long text read whole in ${whole} cells and ${fields} source row fields of the receivables and gateway examples`,
 );

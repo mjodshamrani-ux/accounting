@@ -70,6 +70,20 @@
 :is(.gl-tb-table, .record-frame) td:last-child {
   max-width: 25rem;
 }
+/* Long text a record table marks (`wrap`, `wrapHeaders`) is read whole
+   (UX-3): the global table rule ends a cell wider than 300 px with an
+   ellipsis, so a source row or a long column name was read only in part.
+   Such a cell wraps between words instead, and a source row's fields
+   (RecordFields) stay whole, so a date, an identity or a hyphenated word
+   never breaks. */
+[data-record-wrap] {
+  white-space: normal;
+  max-width: none;
+  overflow: visible;
+}
+.record-field {
+  white-space: nowrap;
+}
 /* A table the kit does not draw keeps its own look inside the kit's frame
    (RecordFrame), as the supplier's case list does. */
 .results-frame {
