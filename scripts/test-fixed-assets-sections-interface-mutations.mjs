@@ -94,10 +94,11 @@ const mutations = [
     'const decimals = 2;',
   ],
   [
+    // The section's amounts take their sign from the shared formatter.
     'negative-sign-dropped',
-    PANEL,
-    '  return value < 0 ? `-${text}` : text;',
-    '  return text;',
+    'lib/reconciliation/core.ts',
+    "const sign = value < 0 ? '-' : '';",
+    "const sign = '';",
   ],
   [
     'gl-shown-as-register',

@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
@@ -24,14 +25,6 @@ type Picked = {
 };
 type ScopeKey = (typeof PG_BATCHES_SCOPE_FIELDS)[number];
 const PAGE = 50;
-// Integer minor units as the engine returns them, shown with the scope
-// currency's decimals; never a float.
-function minorText(value: number, decimals: number) {
-  const digits = String(value).padStart(decimals + 1, '0');
-  return decimals
-    ? `${digits.slice(0, -decimals)}.${digits.slice(-decimals)}`
-    : digits;
-}
 const blankScope = () =>
   Object.fromEntries(PG_BATCHES_SCOPE_FIELDS.map((k) => [k, ''])) as Record<
     ScopeKey,
@@ -46,7 +39,7 @@ function Paged({
   pager,
 }: {
   headers: string[];
-  rows: string[][];
+  rows: ReactNode[][];
   label: string;
   marks: Record<string, string>[];
   pager: string;
@@ -207,7 +200,17 @@ export function PaymentGatewayBatchesPanel() {
     );
   }
   const decimals = result?.decimals ?? 2;
-  const amount = (minor: number) => minorText(minor, decimals);
+  // Integer minor units as the engine returns them, read at the scope
+  // currency's decimals through the shared component; a pair is the batch's
+  // own figure beside the settlement's.
+  const amount = (minor: number) => (
+    <Amount minor={minor} decimals={decimals} />
+  );
+  const pair = (own: number, settled: number) => (
+    <>
+      {amount(own)} / {amount(settled)}
+    </>
+  );
   const rowList = (rows: number[]) =>
     rows.length ? rows.join(copy.list) : copy.none;
   const reasons = (codes: string[]) =>
@@ -443,9 +446,9 @@ export function PaymentGatewayBatchesPanel() {
               rows={result.batches.map((b) => [
                 b.batch,
                 String(b.row),
-                `${amount(b.components.sales)} / ${amount(b.settlement.gross)}`,
-                `${amount(b.components.refunds)} / ${amount(b.settlement.refunds)}`,
-                `${amount(b.components.fees)} / ${amount(b.settlement.fees)}`,
+                pair(b.components.sales, b.settlement.gross),
+                pair(b.components.refunds, b.settlement.refunds),
+                pair(b.components.fees, b.settlement.fees),
                 amount(b.settlement.net),
                 amount(b.paid),
                 b.payouts.length ? b.payouts.join(copy.list) : copy.none,

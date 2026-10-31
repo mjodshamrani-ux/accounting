@@ -90,14 +90,14 @@ const mutations = [
   [
     'sales-members-and-row-swapped',
     PANEL,
-    '`${amount(b.components.sales)} / ${amount(b.settlement.gross)}`',
-    '`${amount(b.settlement.gross)} / ${amount(b.components.sales)}`',
+    'pair(b.components.sales, b.settlement.gross),',
+    'pair(b.settlement.gross, b.components.sales),',
   ],
   [
     'refund-members-from-sales',
     PANEL,
-    '`${amount(b.components.refunds)} / ${amount(b.settlement.refunds)}`',
-    '`${amount(b.components.sales - b.components.sales)} / ${amount(b.settlement.refunds)}`',
+    'pair(b.components.refunds, b.settlement.refunds),',
+    'pair(b.components.sales - b.components.sales, b.settlement.refunds),',
   ],
   [
     'paid-shown-as-net',

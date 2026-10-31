@@ -78,8 +78,8 @@ const mutations = [
   [
     'tb-side-shows-gl',
     PANEL,
-    '${side(a.gl, i)} · ${side(a.tb, i)}',
-    '${side(a.gl, i)} · ${side(a.gl, i)}',
+    '{side(a.gl, i)} · {side(a.tb, i)}',
+    '{side(a.gl, i)} · {side(a.gl, i)}',
   ],
   [
     'two-decimals-everywhere',

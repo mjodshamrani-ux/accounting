@@ -190,7 +190,7 @@ const en = {
     IDENTITY: 'Literal identity/reference',
     NUMBER: 'Exact nonnegative number',
     PRECISION: 'Currency precision',
-    BOUND: 'Scaled amount bound',
+    BOUND: 'Amount bound',
     CARRYING_EQUATION:
       'Carrying amount must equal cost less accumulated depreciation and impairment',
     COMPONENT: 'Declared cost/depreciation/impairment component',
@@ -372,7 +372,7 @@ const ar: typeof en = {
     IDENTITY: 'الهوية أو المرجع الحرفي',
     NUMBER: 'عدد غير سالب دقيق',
     PRECISION: 'دقة العملة',
-    BOUND: 'حد القيمة بوحدة صغرى',
+    BOUND: 'حد المبلغ المسموح',
     CARRYING_EQUATION:
       'الصافي يجب أن يساوي الكلفة ناقص الاستهلاك المتراكم والانخفاض',
     COMPONENT: 'مكون الكلفة أو الاستهلاك أو الانخفاض المعلن',

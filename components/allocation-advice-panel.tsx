@@ -3,7 +3,7 @@ import { Button } from './ui/button';
 import { useI18n } from '@/lib/i18n/context';
 import { allocationAdviceCopy } from '@/lib/i18n/allocation-advice';
 import { workerTask } from '@/lib/reconciliation/client';
-import { money } from '@/lib/reconciliation/core';
+import { Amount } from '@/components/amount';
 import type {
   AllocationInput,
   AllocationResult,
@@ -93,7 +93,9 @@ export function AllocationAdvicePanel({
         setRefused(code);
       }
     });
-  const amount = (minor: number) => money(minor, review?.decimals ?? 2);
+  const amount = (minor: number) => (
+    <Amount minor={minor} decimals={review?.decimals ?? 2} />
+  );
   const counts = review
     ? {
         fits: review.lines.filter((l) => l.status === 'fits').length,
@@ -197,9 +199,7 @@ export function AllocationAdvicePanel({
                             {l.payment} → {l.invoice}
                           </bdi>
                         </td>
-                        <td>
-                          <bdi>{amount(l.amount)}</bdi>
-                        </td>
+                        <td>{amount(l.amount)}</td>
                         <td data-advice-status>{copy.status[l.status]}</td>
                         <td data-advice-reasons>
                           {l.reasons.map((code) => (
@@ -252,21 +252,11 @@ export function AllocationAdvicePanel({
                       <td>
                         <bdi>{i.reference}</bdi>
                       </td>
-                      <td>
-                        <bdi>{amount(i.available)}</bdi>
-                      </td>
-                      <td>
-                        <bdi>{amount(i.allocated)}</bdi>
-                      </td>
-                      <td>
-                        <bdi>{amount(i.remaining)}</bdi>
-                      </td>
-                      <td>
-                        <bdi>{amount(i.advised)}</bdi>
-                      </td>
-                      <td>
-                        <bdi>{amount(i.excess)}</bdi>
-                      </td>
+                      <td>{amount(i.available)}</td>
+                      <td>{amount(i.allocated)}</td>
+                      <td>{amount(i.remaining)}</td>
+                      <td>{amount(i.advised)}</td>
+                      <td>{amount(i.excess)}</td>
                     </tr>
                   ))}
               </tbody>

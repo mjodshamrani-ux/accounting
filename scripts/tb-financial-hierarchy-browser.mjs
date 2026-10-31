@@ -43,9 +43,12 @@ const CLASSES = [
 ];
 const json = async (p) => JSON.parse(await readFile(p, 'utf8'));
 const byText = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
+// The page writes an amount at two decimals with grouped thousands and the
+// minus first; written here on its own, not taken from the application.
 const minor = (v) => {
   const digits = String(Math.abs(v)).padStart(3, '0');
-  return `${v < 0 ? '-' : ''}${digits.slice(0, -2)}.${digits.slice(-2)}`;
+  const whole = digits.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/gu, ',');
+  return `${v < 0 ? '-' : ''}${whole}.${digits.slice(-2)}`;
 };
 
 async function suite() {

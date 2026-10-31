@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState, type ReactNode } from 'react';
+import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
@@ -18,13 +19,6 @@ import './intercompany-batch-panel.css';
 
 type Picked = { file: SourceFile; confirmed: boolean };
 type Field = (typeof GLS_SCOPE_FIELDS)[number];
-// Minor units shown with the run currency's decimals; never a float sum.
-function minorText(value: number, decimals: number) {
-  const digits = String(value).padStart(decimals + 1, '0');
-  return decimals
-    ? `${digits.slice(0, -decimals)}.${digits.slice(-decimals)}`
-    : digits;
-}
 const blankScope = () =>
   Object.fromEntries(GLS_SCOPE_FIELDS.map((k) => [k, ''])) as Record<
     Field,
@@ -39,7 +33,7 @@ function Paged({
   pager,
 }: {
   headers: string[];
-  rows: string[][];
+  rows: ReactNode[][];
   label: string;
   marks?: Record<string, string>[];
   pager?: string;
@@ -227,20 +221,25 @@ export function GlTbSectionsPanel() {
       </label>
     </fieldset>
   );
-  const show = (a: GlsAccount, decimals: number) => {
+  // Each component's GL and TB amounts at the run currency's decimals,
+  // through the shared component.
+  const show = (a: GlsAccount, decimals: number): ReactNode => {
     if (!a.gl && !a.tb) return '';
     const side = (v: number[] | null, i: number) =>
-      v ? minorText(v[i], decimals) : '—';
+      v ? <Amount minor={v[i]} decimals={decimals} /> : '—';
     const fields =
       a.status === 'difference'
         ? GLS_COMPONENTS.filter((c) => a.codes.includes(c))
         : GLS_COMPONENTS;
-    return fields
-      .map((c) => {
-        const i = GLS_COMPONENTS.indexOf(c);
-        return `${copy.components[c]}: ${side(a.gl, i)} · ${side(a.tb, i)}`;
-      })
-      .join('; ');
+    return fields.map((c, n) => {
+      const i = GLS_COMPONENTS.indexOf(c);
+      return (
+        <Fragment key={c}>
+          {n > 0 && '; '}
+          {copy.components[c]}: {side(a.gl, i)} · {side(a.tb, i)}
+        </Fragment>
+      );
+    });
   };
   const where = (a: GlsAccount) =>
     [

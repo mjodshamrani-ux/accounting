@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
@@ -14,14 +15,10 @@ import { intercompanyBatchCopy } from '@/lib/i18n/intercompany-batch';
 import './intercompany-batch-panel.css';
 
 type Picked = { file: SourceFile; confirmed: boolean };
-// Minor units shown with the batch currency's decimals; never a float sum.
-export function minorText(value: number | null, decimals: number | null) {
-  if (value === null || decimals === null) return '—';
-  const sign = value < 0 ? '-' : '',
-    digits = String(Math.abs(value)).padStart(decimals + 1, '0');
-  return decimals
-    ? `${sign}${digits.slice(0, -decimals)}.${digits.slice(-decimals)}`
-    : `${sign}${digits}`;
+// An amount at the batch currency's decimals through the shared component;
+// a batch without a known precision shows none.
+function amount(minor: number | null, decimals: number | null) {
+  return decimals === null ? '—' : <Amount minor={minor} decimals={decimals} />;
 }
 
 function Paged({
@@ -30,7 +27,7 @@ function Paged({
   label,
 }: {
   headers: string[];
-  rows: string[][];
+  rows: ReactNode[][];
   label: string;
 }) {
   const { lang } = useI18n();
@@ -129,9 +126,9 @@ function BatchView({
           copy.relationStatus[r.status],
           r.members.A.join(', '),
           r.members.B.join(', '),
-          minorText(r.net?.A ?? null, batch.decimals),
-          minorText(r.net?.B ?? null, batch.decimals),
-          minorText(r.residual, batch.decimals),
+          amount(r.net?.A ?? null, batch.decimals),
+          amount(r.net?.B ?? null, batch.decimals),
+          amount(r.residual, batch.decimals),
         ])}
       />
       {batch.findings.length > 0 && (

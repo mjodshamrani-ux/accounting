@@ -120,8 +120,8 @@ const mutations = [
   [
     'quantity-with-value-decimals',
     PANEL,
-    '`${fixed(p.quantity, 3)} · ${fixed(p.value, decimals)}`',
-    '`${fixed(p.quantity, decimals)} · ${fixed(p.value, decimals)}`',
+    '<Quantity scaled={scaled} precision={3} />',
+    '<Quantity scaled={scaled} precision={decimals} />',
   ],
   [
     'flows-not-shown',
@@ -188,8 +188,8 @@ const mutations = [
   [
     'transferred-shows-opening',
     PANEL,
-    'fixed(result.totals![k], decimals)',
-    "fixed(result.totals![k === 'transferred' ? 'opening' : k], decimals)",
+    'amount(result.totals![k])',
+    "amount(result.totals![k === 'transferred' ? 'opening' : k])",
   ],
   [
     'decimals-fixed-at-two',
@@ -198,8 +198,10 @@ const mutations = [
     'const decimals = 2;',
   ],
   [
+    // The bridge's amounts, kept as integer strings, take their sign from
+    // the shared formatter.
     'minus-sign-dropped',
-    PANEL,
+    'lib/amount-text.ts',
     "return `${negative ? '-' : ''}${whole}",
     'return `${whole}',
   ],

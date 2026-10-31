@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
@@ -24,12 +25,8 @@ type Picked = {
   sha256: string;
   confirmed: boolean;
 };
-// Minor units shown with two decimals, the contract's; never a float sum.
-function minorText(value: number | null) {
-  if (value === null) return '—';
-  const digits = String(Math.abs(value)).padStart(3, '0');
-  return `${value < 0 ? '-' : ''}${digits.slice(0, -2)}.${digits.slice(-2)}`;
-}
+// An amount at two decimals, the contract's, through the shared component.
+const amount = (minor: number | null) => <Amount minor={minor} decimals={2} />;
 const blankScope = () =>
   Object.fromEntries(FIN_HIERARCHY_SCOPE_HEADERS.map((k) => [k, ''])) as Record<
     (typeof FIN_HIERARCHY_SCOPE_HEADERS)[number],
@@ -44,7 +41,7 @@ function Paged({
   pager,
 }: {
   headers: string[];
-  rows: string[][];
+  rows: ReactNode[][];
   label: string;
   marks?: Record<string, string>[];
   pager?: string;
@@ -375,9 +372,9 @@ export function TbFinancialHierarchyPanel() {
                       n.label,
                       copy.classes[n.lineClass] ?? n.lineClass,
                       n.depth === null ? '—' : String(n.depth),
-                      n.kind === 'title' ? '' : minorText(n.amount),
-                      line ? minorText(line.calculated) : '',
-                      line ? minorText(line.difference) : '',
+                      n.kind === 'title' ? '' : amount(n.amount),
+                      line ? amount(line.calculated) : '',
+                      line ? amount(line.difference) : '',
                     ];
                   })}
                   marks={result.nodes.map((n) => ({
@@ -403,7 +400,7 @@ export function TbFinancialHierarchyPanel() {
                       String(m.mappingRow),
                       m.evidenceRow === null ? '—' : String(m.evidenceRow),
                       m.tbRow === null ? '—' : String(m.tbRow),
-                      minorText(m.contribution),
+                      amount(m.contribution),
                     ]),
                   )}
                   marks={result.lines.flatMap((l) =>
@@ -424,9 +421,9 @@ export function TbFinancialHierarchyPanel() {
                   rows={result.controls.map((c) => [
                     c.id,
                     String(c.row),
-                    minorText(c.supplied),
-                    minorText(c.childTotal),
-                    minorText(c.difference),
+                    amount(c.supplied),
+                    amount(c.childTotal),
+                    amount(c.difference),
                     c.children.join(', '),
                   ])}
                   marks={result.controls.map((c) => ({
@@ -440,8 +437,8 @@ export function TbFinancialHierarchyPanel() {
                 <h3>{copy.totals}</h3>
                 {result.tb && (
                   <p data-finh-tb>
-                    {copy.tbTotals}: <bdi>{minorText(result.tb.debit)}</bdi> ·{' '}
-                    <bdi>{minorText(result.tb.credit)}</bdi>
+                    {copy.tbTotals}: {amount(result.tb.debit)} ·{' '}
+                    {amount(result.tb.credit)}
                   </p>
                 )}
                 {result.categories && result.equation && (
@@ -451,14 +448,13 @@ export function TbFinancialHierarchyPanel() {
                       headers={copy.categoryHeaders}
                       rows={FIN_HIERARCHY_CATEGORIES.map((c) => [
                         copy.classes[c],
-                        minorText(result.categories!.reported[c]),
-                        minorText(result.categories!.calculated[c]),
+                        amount(result.categories!.reported[c]),
+                        amount(result.categories!.calculated[c]),
                       ])}
                     />
                     <p data-finh-equation>
-                      {copy.equation}:{' '}
-                      <bdi>{minorText(result.equation.reported)}</bdi> ·{' '}
-                      <bdi>{minorText(result.equation.calculated)}</bdi>
+                      {copy.equation}: {amount(result.equation.reported)} ·{' '}
+                      {amount(result.equation.calculated)}
                     </p>
                   </>
                 )}

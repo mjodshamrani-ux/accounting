@@ -3,7 +3,7 @@ import { Button } from './ui/button';
 import { useI18n } from '@/lib/i18n/context';
 import { clearingGroupsCopy } from '@/lib/i18n/clearing-groups';
 import { workerTask } from '@/lib/reconciliation/client';
-import { money } from '@/lib/reconciliation/core';
+import { Amount } from '@/components/amount';
 import type { SourceFile } from '@/lib/reconciliation/types';
 import type {
   ClearingReading,
@@ -94,7 +94,9 @@ export function ClearingGroupsPanel({
         setRefused(code);
       }
     });
-  const amount = (minor: number) => money(minor, result?.decimals ?? 2);
+  const amount = (minor: number) => (
+    <Amount minor={minor} decimals={result?.decimals ?? 2} />
+  );
   const reasonCounts = result
     ? Object.entries(copy.reasons)
         .map(
@@ -194,13 +196,9 @@ export function ClearingGroupsPanel({
                         <ul>
                           {g.members.map((m) => (
                             <li key={m.row}>
-                              <bdi>
-                                {copy.member(
-                                  m.row,
-                                  m.posting,
-                                  amount(m.amount),
-                                )}
-                              </bdi>
+                              <bdi>{copy.member(m.row, m.posting)}</bdi>
+                              {' · '}
+                              {amount(m.amount)}
                             </li>
                           ))}
                         </ul>
@@ -208,9 +206,7 @@ export function ClearingGroupsPanel({
                           <p key={rows.join(',')}>{copy.duplicates(rows)}</p>
                         ))}
                       </td>
-                      <td>
-                        <bdi>{amount(g.net)}</bdi>
-                      </td>
+                      <td>{amount(g.net)}</td>
                       <td>{copy.status[g.status]}</td>
                       <td data-group-reasons>
                         {g.reasons.map((code) => (

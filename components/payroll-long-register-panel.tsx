@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState, type ReactNode } from 'react';
+import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
@@ -22,15 +23,6 @@ type Picked = {
   sha256: string;
   confirmed: boolean;
 };
-// Integer minor units as the engine returns them, shown with the run
-// currency's decimals; never a float.
-function minorText(value: string | null, decimals: number) {
-  if (value === null) return '—';
-  const negative = value.startsWith('-'),
-    digits = (negative ? value.slice(1) : value).padStart(decimals + 1, '0');
-  const whole = decimals ? digits.slice(0, -decimals) : digits;
-  return `${negative ? '-' : ''}${whole}${decimals ? '.' + digits.slice(-decimals) : ''}`;
-}
 const difference = (a: string | null, b: string | null) =>
   a === null || b === null ? null : String(BigInt(a) - BigInt(b));
 const blankScope = () =>
@@ -48,7 +40,7 @@ function Paged({
   pager,
 }: {
   headers: string[];
-  rows: string[][];
+  rows: ReactNode[][];
   label: string;
   marks?: Record<string, string>[];
   pager?: string;
@@ -186,8 +178,20 @@ export function PayrollLongRegisterPanel() {
   const reason = (code: string) => `${copy.codes[code] ?? code} (${code})`;
   const { comma, semi } = copy;
   const decimals = result?.decimals ?? 2;
-  const sums = (s: PlrSums | null) =>
-    s ? SUMS.map((k) => minorText(s[k], decimals)).join(' · ') : '—';
+  // Integer minor units as the engine returns them, kept as strings, read at
+  // the run currency's decimals through the shared component.
+  const amount = (minor: string | null) => (
+    <Amount minor={minor} decimals={decimals} />
+  );
+  const sums = (s: PlrSums | null): ReactNode =>
+    s
+      ? SUMS.map((k, i) => (
+          <Fragment key={k}>
+            {i > 0 && ' · '}
+            {amount(s[k])}
+          </Fragment>
+        ))
+      : '—';
   const counts = result
     ? (['consistent', 'inconsistent', 'missing', 'held'] as const).map(
         (s) =>
@@ -372,14 +376,11 @@ export function PayrollLongRegisterPanel() {
                         e.dims,
                         copy.status[e.status],
                         e.codes.map(reason).join(semi) || '—',
-                        minorText(e.earnings, decimals),
-                        minorText(e.deductions, decimals),
-                        minorText(e.employer, decimals),
-                        minorText(e.net, decimals),
-                        minorText(
-                          difference(e.earnings, e.deductions),
-                          decimals,
-                        ),
+                        amount(e.earnings),
+                        amount(e.deductions),
+                        amount(e.employer),
+                        amount(e.net),
+                        amount(difference(e.earnings, e.deductions)),
                         e.payee ?? '—',
                         e.rows.join(', '),
                       ])}
@@ -404,7 +405,7 @@ export function PayrollLongRegisterPanel() {
                           l.id,
                           l.component,
                           copy.kinds[l.kind],
-                          minorText(l.amount, decimals),
+                          amount(l.amount),
                           String(l.row),
                         ]),
                       )}

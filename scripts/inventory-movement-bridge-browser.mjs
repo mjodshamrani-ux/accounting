@@ -83,15 +83,20 @@ const KIND = {
   'مردود إلى مورد': 'return-out',
 };
 // An integer of EXPECTED (a number, or text past the safe range) with its
-// decimals, as a reader writes it.
+// decimals, grouped thousands and the minus first, as the page writes it;
+// written here on its own, not taken from the application.
 const fixed = (v, decimals) => {
   if (v === null || v === undefined) return '—';
   const n = BigInt(String(v)),
     sign = n < 0n ? '-' : '',
     digits = String(n < 0n ? -n : n).padStart(decimals + 1, '0');
+  const whole = (decimals ? digits.slice(0, -decimals) : digits).replace(
+    /\B(?=(\d{3})+(?!\d))/gu,
+    ',',
+  );
   return decimals
-    ? `${sign}${digits.slice(0, -decimals)}.${digits.slice(-decimals)}`
-    : `${sign}${digits}`;
+    ? `${sign}${whole}.${digits.slice(-decimals)}`
+    : `${sign}${whole}`;
 };
 const pair = (p, d) =>
   p ? `${fixed(p.quantity, 3)} · ${fixed(p.value, d)}` : '—';

@@ -547,7 +547,9 @@ export function FinancialWorkspace({
         )}
         {result && (
           <section className="workspace-results">
-            <h2 data-financial-status>{status(result.status)}</h2>
+            <h2 data-financial-status={result.status}>
+              {status(result.status)}
+            </h2>
             <DomainEvidenceAssistant
               result={result}
               snapshot={() => ({ domain: 'financial', input: state(), result })}

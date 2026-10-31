@@ -75,9 +75,15 @@ const STATUS = {
   متسق: 'consistent',
 };
 const byText = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
+// The page writes an amount at the run's decimals with grouped thousands and
+// the minus first; written here on its own, not taken from the application.
 const minor = (v, d) => {
-  const digits = String(v).padStart(d + 1, '0');
-  return d ? `${digits.slice(0, -d)}.${digits.slice(-d)}` : digits;
+  const digits = String(Math.abs(v)).padStart(d + 1, '0');
+  const whole = (d ? digits.slice(0, -d) : digits).replace(
+    /\B(?=(\d{3})+(?!\d))/gu,
+    ',',
+  );
+  return `${v < 0 ? '-' : ''}${whole}${d ? `.${digits.slice(-d)}` : ''}`;
 };
 // What the English page should write for an account's components, from the
 // sealed expectation: every component, or only those that differ.

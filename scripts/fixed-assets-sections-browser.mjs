@@ -186,11 +186,16 @@ const WORDS = {
     },
   },
 };
+// The page writes an amount at the scope's decimals with grouped thousands
+// and the minus first; written here on its own, not taken from the
+// application.
 const minor = (v, decimals) => {
   const digits = String(Math.abs(v)).padStart(decimals + 1, '0');
-  const text = decimals
-    ? `${digits.slice(0, -decimals)}.${digits.slice(-decimals)}`
-    : digits;
+  const whole = (decimals ? digits.slice(0, -decimals) : digits).replace(
+    /\B(?=(\d{3})+(?!\d))/gu,
+    ',',
+  );
+  const text = decimals ? `${whole}.${digits.slice(-decimals)}` : whole;
   return v < 0 ? `-${text}` : text;
 };
 

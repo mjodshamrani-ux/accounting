@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState, type ReactNode } from 'react';
+import { Amount, Quantity } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
@@ -27,15 +28,6 @@ type Picked = {
   sha256: string;
   confirmed: boolean;
 };
-// Integers as the engine returns them, shown with their decimals: three for
-// a quantity, the period currency's for a value; never a float.
-function fixed(value: string | null, decimals: number) {
-  if (value === null) return '—';
-  const negative = value.startsWith('-'),
-    digits = (negative ? value.slice(1) : value).padStart(decimals + 1, '0');
-  const whole = decimals ? digits.slice(0, -decimals) : digits;
-  return `${negative ? '-' : ''}${whole}${decimals ? '.' + digits.slice(-decimals) : ''}`;
-}
 const blankScope = () =>
   Object.fromEntries(IMB_SCOPE_FIELDS.map((k) => [k, ''])) as Record<
     ImbScopeField,
@@ -51,7 +43,7 @@ function Paged({
   pager,
 }: {
   headers: string[];
-  rows: string[][];
+  rows: ReactNode[][];
   label: string;
   marks?: Record<string, string>[];
   pager?: string;
@@ -207,10 +199,32 @@ export function InventoryMovementBridgePanel() {
   const reason = (code: string) => `${copy.codes[code] ?? code} (${code})`;
   const { comma, semi } = copy;
   const decimals = result?.decimals ?? 2;
-  const pair = (p: ImbPair | null) =>
-    p ? `${fixed(p.quantity, 3)} · ${fixed(p.value, decimals)}` : '—';
-  const side = (s: ImbSide | null) =>
-    s ? SIDES.map((k) => fixed(s[k], decimals)).join(' · ') : '—';
+  // Integers as the engine returns them, kept as strings, read through the
+  // shared components: three decimals for a quantity, the period currency's
+  // for a value.
+  const quantity = (scaled: string | null) => (
+    <Quantity scaled={scaled} precision={3} />
+  );
+  const amount = (minor: string | null) => (
+    <Amount minor={minor} decimals={decimals} />
+  );
+  const pair = (p: ImbPair | null): ReactNode =>
+    p ? (
+      <>
+        {quantity(p.quantity)} · {amount(p.value)}
+      </>
+    ) : (
+      '—'
+    );
+  const side = (s: ImbSide | null): ReactNode =>
+    s
+      ? SIDES.map((k, i) => (
+          <Fragment key={k}>
+            {i > 0 && ' · '}
+            {amount(s[k])}
+          </Fragment>
+        ))
+      : '—';
   const flowSum = (
     flows: Record<string, ImbPair>,
     kinds: readonly string[],
@@ -476,8 +490,8 @@ export function InventoryMovementBridgePanel() {
                         ).map((k) => [
                           p.key,
                           copy.kinds[k],
-                          fixed(p.flows![k].quantity, 3),
-                          fixed(p.flows![k].value, decimals),
+                          quantity(p.flows![k].quantity),
+                          amount(p.flows![k].value),
                         ]),
                       )}
                       marks={result.positions.flatMap((p) =>
@@ -505,8 +519,8 @@ export function InventoryMovementBridgePanel() {
                           p.key,
                           l.id,
                           copy.kinds[l.kind],
-                          fixed(l.quantity, 3),
-                          fixed(l.value, decimals),
+                          quantity(l.quantity),
+                          amount(l.value),
                           String(l.row),
                         ]),
                       )}
@@ -611,8 +625,7 @@ export function InventoryMovementBridgePanel() {
                     <ul>
                       {IMB_TOTALS.map((k) => (
                         <li key={k} data-imb-total={k}>
-                          {copy.totalNames[k]}:{' '}
-                          <bdi>{fixed(result.totals![k], decimals)}</bdi>
+                          {copy.totalNames[k]}: {amount(result.totals![k])}
                         </li>
                       ))}
                     </ul>

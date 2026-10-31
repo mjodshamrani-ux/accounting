@@ -10,7 +10,7 @@ export function Amount({
   minor,
   decimals,
 }: {
-  minor: number | null | undefined;
+  minor: number | string | null | undefined;
   decimals: number;
 }) {
   if (minor === null || minor === undefined) return <>—</>;
@@ -56,7 +56,7 @@ export function Quantity({
   scaled,
   precision,
 }: {
-  scaled: number | null | undefined;
+  scaled: number | string | null | undefined;
   precision: number;
 }) {
   if (scaled === null || scaled === undefined) return <>—</>;

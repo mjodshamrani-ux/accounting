@@ -21,8 +21,8 @@ const en = {
     'Posting date',
     'Original signed amount',
     'Reference',
-    'Signed minor units',
-    'Canonical magnitude minor units',
+    'Signed amount',
+    'Magnitude',
   ],
   issueReasons: {
     SIGN_KIND: 'The amount sign conflicts with the explicit transaction type.',
@@ -171,8 +171,8 @@ const ar: typeof en = {
     'تاريخ التسجيل',
     'المبلغ الموقّع الأصلي',
     'المرجع',
-    'الوحدات الصغرى الموقّعة',
-    'مقدار الوحدات الصغرى للحساب',
+    'المبلغ الموقّع',
+    'المقدار',
   ],
   issueReasons: {
     SIGN_KIND: 'إشارة المبلغ لا توافق نوع المعاملة الصريح.',

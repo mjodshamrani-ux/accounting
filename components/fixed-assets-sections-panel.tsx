@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
@@ -25,15 +26,6 @@ type Picked = {
 };
 type ScopeKey = (typeof FA_SECTIONS_SCOPE_FIELDS)[number];
 const PAGE = 50;
-// Integer minor units as the engine returns them, with their sign, shown with
-// the scope currency's decimals; never a float.
-function minorText(value: number, decimals: number) {
-  const digits = String(Math.abs(value)).padStart(decimals + 1, '0');
-  const text = decimals
-    ? `${digits.slice(0, -decimals)}.${digits.slice(-decimals)}`
-    : digits;
-  return value < 0 ? `-${text}` : text;
-}
 const blankScope = () =>
   Object.fromEntries(FA_SECTIONS_SCOPE_FIELDS.map((k) => [k, ''])) as Record<
     ScopeKey,
@@ -48,7 +40,7 @@ function Paged({
   pager,
 }: {
   headers: string[];
-  rows: string[][];
+  rows: ReactNode[][];
   label: string;
   marks: Record<string, string>[];
   pager: string;
@@ -209,8 +201,10 @@ export function FixedAssetsSectionsPanel() {
     );
   }
   const decimals = result?.decimals ?? 2;
+  // Integer minor units as the engine returns them, with their sign, read at
+  // the scope currency's decimals through the shared component.
   const amount = (minor: number | null) =>
-    minor === null ? copy.none : minorText(minor, decimals);
+    minor === null ? copy.none : <Amount minor={minor} decimals={decimals} />;
   const rowList = (rows: number[]) =>
     rows.length ? rows.join(copy.list) : copy.none;
   const coded = (codes: string[]) =>
@@ -264,7 +258,10 @@ export function FixedAssetsSectionsPanel() {
                     if (f)
                       void perform(
                         async () => {
-                          if (f.size > MAX_FILE_BYTES || !/\.csv$/i.test(f.name))
+                          if (
+                            f.size > MAX_FILE_BYTES ||
+                            !/\.csv$/i.test(f.name)
+                          )
                             throw Error('FA_SECTIONS_SOURCE');
                           const original = await f.arrayBuffer();
                           const sha256 = Array.from(
@@ -391,9 +388,7 @@ export function FixedAssetsSectionsPanel() {
                 result.assets.length,
               )}
             </p>
-            <p
-              data-fas-inventory={JSON.stringify(result.inventory.register)}
-            >
+            <p data-fas-inventory={JSON.stringify(result.inventory.register)}>
               {copy.inventory(
                 Object.values(result.inventory.register).reduce(
                   (a, b) => a + b,

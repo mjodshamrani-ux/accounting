@@ -87,17 +87,12 @@ const mutations = [
     "'data-plr-employee-status': e.status,",
     "'data-plr-employee-status': result.employees[0].status,",
   ],
-  [
-    'net-column-shows-earnings',
-    PANEL,
-    'minorText(e.net, decimals),',
-    'minorText(e.earnings, decimals),',
-  ],
+  ['net-column-shows-earnings', PANEL, 'amount(e.net),', 'amount(e.earnings),'],
   [
     'equation-column-blank',
     PANEL,
-    'difference(e.earnings, e.deductions),',
-    'null,',
+    'amount(difference(e.earnings, e.deductions)),',
+    'amount(null),',
   ],
   ['payee-column-shows-the-employee', PANEL, "e.payee ?? '—',", 'e.employee,'],
   [
