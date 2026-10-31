@@ -183,15 +183,16 @@ const L = {
     partial: 'نتيجة جزئية — توجد ملاحظات تحتاج مراجعة',
     show: 'عرض جميع ملاحظات القراءة (13)',
     table: 'تفاصيل ملاحظات القراءة',
-    next: 'الملاحظات التالية',
-    previous: 'الملاحظات السابقة',
+    // The list pages with the record table's pager (UX-3).
+    next: 'الصفحة التالية',
+    previous: 'الصفحة السابقة',
   },
   en: {
     partial: 'Partial result — some issues need review',
     show: 'Show all reading issues (13)',
     table: 'Reading issue details',
-    next: 'Next issues',
-    previous: 'Previous issues',
+    next: 'Next page',
+    previous: 'Previous page',
   },
 };
 async function idle(page) {

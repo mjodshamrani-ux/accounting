@@ -331,6 +331,7 @@ function ReadingIssueList({
         headers={[r.source, r.location, r.reason, r.original]}
         rows={issues}
         size={10}
+        frame={{ 'data-reading-issues': '' }}
         page={page}
         onPage={setPage}
         cells={(issue) => [
