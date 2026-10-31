@@ -1,0 +1,397 @@
+{
+ "reader": "pdfminer.six, glyph by glyph, rows by baseline, Arabic descriptions in reading order",
+ "factsSha256": "ed053da45f633eb63ef30b26b83f65b707ae80b381c70749439b0962dcd4c008",
+ "statements": [
+  {
+   "id": "R01-APR",
+   "file": "R01-APR-statement.pdf",
+   "sha256": "2b82b446bfa221880c9fe6fb16a10b437004f81edb80c513fb5f008e98ffd925",
+   "pages": 1,
+   "valuesFound": 56,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement service (HexaPDF)",
+   "producer": "HexaPDF version 1.11.2",
+   "fonts": [
+    "GMVGHD+WorkSans-Bold",
+    "ZSOKKI+WorkSans-Regular"
+   ],
+   "fontDeclared": "Work Sans",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R02-APR",
+   "file": "R02-APR-statement.pdf",
+   "sha256": "58d6e885b9080da8c39350d8d78c039b86c9f8ae920eb479fda195e5cec5a27c",
+   "pages": 1,
+   "valuesFound": 46,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "Rubik-Bold-1930",
+    "Rubik-Regular-8222"
+   ],
+   "fontDeclared": "Rubik",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R03-MAY",
+   "file": "R03-MAY-statement.pdf",
+   "sha256": "8c42761ae0ee5377e0f7ecf0a57295b4f6ba4bdcde46f868237111875bc55ebf",
+   "pages": 1,
+   "valuesFound": 52,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement service (HexaPDF)",
+   "producer": "HexaPDF version 1.11.2",
+   "fonts": [
+    "TZIDHA+Merriweather-Bold",
+    "WQZYBP+Merriweather-Regular"
+   ],
+   "fontDeclared": "Merriweather",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R04-JUN",
+   "file": "R04-JUN-statement.pdf",
+   "sha256": "d9b41986c9f9b3d2d8b11547d845dfd08c393d54cf498df4f91707b924fea578",
+   "pages": 3,
+   "valuesFound": 213,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "Cairo-Bold-6547",
+    "Cairo-Regular-674"
+   ],
+   "fontDeclared": "Cairo",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R05-APR",
+   "file": "R05-APR-statement.pdf",
+   "sha256": "15b89275dc78ef2ab6aa218de915681936a693fdb1fe9a2a524d04553ac3368d",
+   "pages": 2,
+   "valuesFound": 65,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement service (HexaPDF)",
+   "producer": "HexaPDF version 1.11.2",
+   "fonts": [
+    "OIFRYS+FiraSans-Regular",
+    "TYJCXE+FiraSans-Bold"
+   ],
+   "fontDeclared": "Fira Sans",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R06-MAY",
+   "file": "R06-MAY-statement.pdf",
+   "sha256": "8ebbf4a92d55abdaca9677792471c7b99d8180fdb4057b7aef038c30817e4449",
+   "pages": 1,
+   "valuesFound": 58,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "ReadexPro-Bold-5373",
+    "ReadexPro-Regular-2804"
+   ],
+   "fontDeclared": "Readex Pro",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R07-JUN",
+   "file": "R07-JUN-statement.pdf",
+   "sha256": "e79d35699c598cb53aa2e86cc663b766d29a684ab22eb1b8abb9c8c90918a5fd",
+   "pages": 1,
+   "valuesFound": 54,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement service (HexaPDF)",
+   "producer": "HexaPDF version 1.11.2",
+   "fonts": [
+    "QCHPZF+SpaceMono-Bold",
+    "XTARXD+SpaceMono-Regular"
+   ],
+   "fontDeclared": "Space Mono",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R08-APR",
+   "file": "R08-APR-statement.pdf",
+   "sha256": "3b00467c42298dd3f7d75b273702797a904b5fea4f32f27ec0ca6399d123f124",
+   "pages": 1,
+   "valuesFound": 52,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "ReadexPro-Bold-7231",
+    "ReadexPro-Regular-8002"
+   ],
+   "fontDeclared": "Readex Pro",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R09-MAY",
+   "file": "R09-MAY-statement.pdf",
+   "sha256": "ddf685c8521f7e193512ab6fa93d820ddc07cd6812bfaa01d83c7aecd986f44a",
+   "pages": 2,
+   "valuesFound": 92,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement service (HexaPDF)",
+   "producer": "HexaPDF version 1.11.2",
+   "fonts": [
+    "QVTGXX+WorkSans-Bold",
+    "TUXTUS+WorkSans-Regular"
+   ],
+   "fontDeclared": "Work Sans",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R10-JUN",
+   "file": "R10-JUN-statement.pdf",
+   "sha256": "fc8261d676c080f9b3645912083db8f58f00403b7497d4516842a6bbb7727547",
+   "pages": 1,
+   "valuesFound": 46,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "Lemonada-Bold-1930",
+    "Lemonada-Regular-8222"
+   ],
+   "fontDeclared": "Lemonada",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R11-APR",
+   "file": "R11-APR-statement.pdf",
+   "sha256": "1f387c05cb347fef82a0e78faf98d687fb63e7495a5943742017d17408337ed4",
+   "pages": 1,
+   "valuesFound": 54,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement service (HexaPDF)",
+   "producer": "HexaPDF version 1.11.2",
+   "fonts": [
+    "RMUGLJ+Merriweather-Bold",
+    "UJUHLF+Merriweather-Regular"
+   ],
+   "fontDeclared": "Merriweather",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R12-MAY",
+   "file": "R12-MAY-statement.pdf",
+   "sha256": "d928357f3ff9a15055619f9c565bc1a3e121d2a568375246f3ac22039f3a69ea",
+   "pages": 1,
+   "valuesFound": 64,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "Rubik-Bold-1134",
+    "Rubik-Regular-8733"
+   ],
+   "fontDeclared": "Rubik",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R13-JUN",
+   "file": "R13-JUN-statement.pdf",
+   "sha256": "d4a80d844939d272000405aeaf899ba71b71d8c1cae6cc92554e8b69cb14326f",
+   "pages": 1,
+   "valuesFound": 52,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement service (HexaPDF)",
+   "producer": "HexaPDF version 1.11.2",
+   "fonts": [
+    "AVYIPA+WorkSans-Regular",
+    "DFGRDQ+WorkSans-Bold"
+   ],
+   "fontDeclared": "Work Sans",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R14-APR",
+   "file": "R14-APR-statement.pdf",
+   "sha256": "f8085dae2d379a05838ce930f9a794e845e15a690d638da899f1b702c2bb960e",
+   "pages": 1,
+   "valuesFound": 49,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement service (HexaPDF)",
+   "producer": "HexaPDF version 1.11.2",
+   "fonts": [
+    "ITHXQE+SpaceMono-Regular",
+    "YBKVWX+SpaceMono-Bold"
+   ],
+   "fontDeclared": "Space Mono",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R15-MAY",
+   "file": "R15-MAY-statement.pdf",
+   "sha256": "e8ae075830ae535a1fcd3e6333aaecd73a038064757ad7ac61ba0e9addd28e56",
+   "pages": 1,
+   "valuesFound": 51,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "Tajawal-Bold-6171",
+    "Tajawal-Regular-4801"
+   ],
+   "fontDeclared": "Tajawal",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R16-JUN",
+   "file": "R16-JUN-statement.pdf",
+   "sha256": "49ca1d606b602d924c04022f3ce590d7672470b5c313495211f3f239cdea753a",
+   "pages": 1,
+   "valuesFound": 54,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "Rubik-Bold-9068",
+    "Rubik-Regular-1518"
+   ],
+   "fontDeclared": "Rubik",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R17-APR",
+   "file": "R17-APR-statement.pdf",
+   "sha256": "0c7b2afbda50b3cbe9e357b36114d5389e9abb0cb8ade0aa6d6966b0834e38cb",
+   "pages": 1,
+   "valuesFound": 54,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "ReadexPro-Bold-9068",
+    "ReadexPro-Regular-1518"
+   ],
+   "fontDeclared": "Readex Pro",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R18-MAY",
+   "file": "R18-MAY-statement.pdf",
+   "sha256": "dda014d76ffc55a491837cfcd53f0e8e629435a012f4bdfedeb754683ed75dc2",
+   "pages": 1,
+   "valuesFound": 52,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement service (HexaPDF)",
+   "producer": "HexaPDF version 1.11.2",
+   "fonts": [
+    "KAZDNY+FiraSans-Bold",
+    "PAXIYT+FiraSans-Regular"
+   ],
+   "fontDeclared": "Fira Sans",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R19-JUN",
+   "file": "R19-JUN-statement.pdf",
+   "sha256": "c3beaf4ff044458b5d85b53084b620a32bc219cec382f53c0221e930af701458",
+   "pages": 1,
+   "valuesFound": 49,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement service (HexaPDF)",
+   "producer": "HexaPDF version 1.11.2",
+   "fonts": [
+    "BZXEUS+Merriweather-Regular",
+    "PKGJEN+Merriweather-Bold"
+   ],
+   "fontDeclared": "Merriweather",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R20-APR",
+   "file": "R20-APR-statement.pdf",
+   "sha256": "fa6b69ec5470d01c31a8b1587c3430696be71368d02db6b50566a723d7c99e14",
+   "pages": 1,
+   "valuesFound": 45,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "Lemonada-Bold-8222",
+    "Lemonada-Regular-8937"
+   ],
+   "fontDeclared": "Lemonada",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  }
+ ],
+ "ok": true,
+ "cashbookXlsx": [],
+ "selfTest": [
+  "R01-APR: HexaPDF Work Sans: a withdrawal one halala off",
+  "R03-MAY: HexaPDF Merriweather: a value date moved a day",
+  "R05-APR: HexaPDF Fira Sans, landscape, a page missing: page 3 read back as page 2",
+  "R07-JUN: HexaPDF Space Mono, Letter: an unreferenced deposit one halala off",
+  "R09-MAY: HexaPDF Work Sans: two balances swapped between rows",
+  "R11-APR: HexaPDF Merriweather: a date moved a day",
+  "R14-APR: HexaPDF Space Mono, dollars: the closing balance changed",
+  "R18-MAY: HexaPDF Fira Sans, landscape: a movement's reference changed",
+  "R19-JUN: HexaPDF Merriweather: the opening balance changed",
+  "R02-APR: pdf-lib Rubik: a withdrawal one halala off",
+  "R06-MAY: pdf-lib Readex Pro: a movement's reference changed",
+  "R08-APR: pdf-lib Readex Pro, landscape: a deposit one halala off",
+  "R10-JUN: pdf-lib Lemonada: a description word changed",
+  "R12-MAY: pdf-lib Rubik: the printed page count changed",
+  "R16-JUN: pdf-lib Rubik: two balances swapped between rows",
+  "R17-APR: pdf-lib Readex Pro: the unreferenced deposit one halala off",
+  "R20-APR: pdf-lib Lemonada: the million read as another amount",
+  "R04-JUN: pdf-lib Arabic, Cairo, Arabic-Indic digits: a date moved a day",
+  "R04-JUN: pdf-lib Arabic, Cairo, Arabic-Indic digits: an unreferenced withdrawal one halala off",
+  "R04-JUN: pdf-lib Arabic, Cairo, Arabic-Indic digits: page 3's balance brought forward changed",
+  "R15-MAY: pdf-lib Arabic, Tajawal, Latin digits: a description word changed",
+  "R15-MAY: pdf-lib Arabic, Tajawal, Latin digits: a movement's reference changed",
+  "R01-APR: the letter J drawn as .notdef",
+  "R07-JUN: the letter J drawn as .notdef",
+  "R02-APR: the letter H drawn as .notdef",
+  "R04-JUN: the letter ل drawn as .notdef",
+  "R15-MAY: the letter ي drawn as .notdef"
+ ]
+}

@@ -1,0 +1,7235 @@
+{
+ "stories": {
+  "M01": [
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "PV-17JUL01"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-17JUL02"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S2"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-17JUL04"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-17JUL03"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      }
+     ],
+     "held": false,
+     "outstanding": [
+      [
+       "C",
+       "PV-R17-95",
+       "unmatched"
+      ]
+     ]
+    },
+    "reading": {
+     "above": 3,
+     "entries": [
+      {
+       "amount": 5167108,
+       "date": "2026-07-02",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-17JUL01",
+       "row": 5,
+       "voucher": "PV-17JUL01"
+      },
+      {
+       "amount": 5092805,
+       "date": "2026-07-09",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-17JUL02",
+       "row": 6,
+       "voucher": "PV-17JUL02"
+      },
+      {
+       "amount": 4824289,
+       "date": "2026-07-16",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-17JUL03",
+       "row": 7,
+       "voucher": "RV-17JUL03"
+      },
+      {
+       "amount": 5332089,
+       "date": "2026-07-24",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-17JUL04",
+       "row": 8,
+       "voucher": "PV-17JUL04"
+      },
+      {
+       "amount": 52000,
+       "date": "2026-07-29",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-R17-905",
+       "row": 9,
+       "voucher": "PV-R17-95"
+      }
+     ],
+     "header": 4,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Document No"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "saved": "Main current account",
+    "store": [
+     "Main current account"
+    ]
+   },
+   {
+    "by": "map",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "PV-17AUG03"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-17AUG01"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-17AUG02"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-17AUG04"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S5"
+       ],
+       "status": "matched"
+      }
+     ],
+     "held": false,
+     "outstanding": [
+      [
+       "S",
+       "S2",
+       "unmatched"
+      ]
+     ]
+    },
+    "reading": {
+     "above": 3,
+     "entries": [
+      {
+       "amount": 2016757,
+       "date": "2026-08-02",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-17AUG01",
+       "row": 5,
+       "voucher": "RV-17AUG01"
+      },
+      {
+       "amount": 1380795,
+       "date": "2026-08-09",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-17AUG02",
+       "row": 6,
+       "voucher": "RV-17AUG02"
+      },
+      {
+       "amount": 2979242,
+       "date": "2026-08-17",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-17AUG03",
+       "row": 7,
+       "voucher": "PV-17AUG03"
+      },
+      {
+       "amount": 1161353,
+       "date": "2026-08-24",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-17AUG04",
+       "row": 8,
+       "voucher": "RV-17AUG04"
+      }
+     ],
+     "header": 4,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Document No"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "store": [
+     "Main current account"
+    ]
+   }
+  ],
+  "M02": [
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "PV-01JUL03"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-01JUL04"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-01JUL01"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-01JUL02"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S2"
+       ],
+       "status": "matched"
+      }
+     ],
+     "held": false,
+     "outstanding": [
+      [
+       "C",
+       "PV-R01-90",
+       "unmatched"
+      ]
+     ]
+    },
+    "reading": {
+     "above": 3,
+     "entries": [
+      {
+       "amount": 3136180,
+       "date": "2026-07-02",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-01JUL01",
+       "row": 5,
+       "voucher": "RV-01JUL01"
+      },
+      {
+       "amount": 2868022,
+       "date": "2026-07-09",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-01JUL02",
+       "row": 6,
+       "voucher": "RV-01JUL02"
+      },
+      {
+       "amount": 3633962,
+       "date": "2026-07-16",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-01JUL03",
+       "row": 7,
+       "voucher": "PV-01JUL03"
+      },
+      {
+       "amount": 2153241,
+       "date": "2026-07-24",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-01JUL04",
+       "row": 8,
+       "voucher": "PV-01JUL04"
+      },
+      {
+       "amount": 482500,
+       "date": "2026-07-29",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-R01-900",
+       "row": 9,
+       "voucher": "PV-R01-90"
+      }
+     ],
+     "header": 4,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Document No"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "saved": "Main current account",
+    "store": [
+     "Main current account"
+    ]
+   },
+   {
+    "by": "map",
+    "do": "read",
+    "fit": {
+     "fits": false,
+     "problems": [
+      {
+       "column": 4,
+       "elsewhere": [
+        "C4"
+       ],
+       "found": "Document No",
+       "kind": "column",
+       "label": "Reference",
+       "role": "reference"
+      }
+     ]
+    },
+    "store": [
+     "Main current account"
+    ]
+   },
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "PV-01AUG01"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-01AUG04"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S5"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-01AUG02"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-01AUG03"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      }
+     ],
+     "held": false,
+     "outstanding": [
+      [
+       "S",
+       "S2",
+       "unmatched"
+      ]
+     ]
+    },
+    "reading": {
+     "above": 3,
+     "entries": [
+      {
+       "amount": 435074,
+       "date": "2026-08-03",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-01AUG01",
+       "row": 5,
+       "voucher": "PV-01AUG01"
+      },
+      {
+       "amount": 5871036,
+       "date": "2026-08-10",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-01AUG02",
+       "row": 6,
+       "voucher": "RV-01AUG02"
+      },
+      {
+       "amount": 3303367,
+       "date": "2026-08-17",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-01AUG03",
+       "row": 7,
+       "voucher": "RV-01AUG03"
+      },
+      {
+       "amount": 3437412,
+       "date": "2026-08-24",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-01AUG04",
+       "row": 8,
+       "voucher": "PV-01AUG04"
+      }
+     ],
+     "header": 4,
+     "refused": null,
+     "unread": [
+      {
+       "column": 4,
+       "label": "Document No"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "saved": "Main current account",
+    "store": [
+     "Main current account"
+    ]
+   },
+   {
+    "by": "map",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "PV-01AUG01"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-01AUG04"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S5"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-01AUG02"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-01AUG03"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      }
+     ],
+     "held": false,
+     "outstanding": [
+      [
+       "S",
+       "S2",
+       "unmatched"
+      ]
+     ]
+    },
+    "reading": {
+     "above": 3,
+     "entries": [
+      {
+       "amount": 435074,
+       "date": "2026-08-03",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-01AUG01",
+       "row": 5,
+       "voucher": "PV-01AUG01"
+      },
+      {
+       "amount": 5871036,
+       "date": "2026-08-10",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-01AUG02",
+       "row": 6,
+       "voucher": "RV-01AUG02"
+      },
+      {
+       "amount": 3303367,
+       "date": "2026-08-17",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-01AUG03",
+       "row": 7,
+       "voucher": "RV-01AUG03"
+      },
+      {
+       "amount": 3437412,
+       "date": "2026-08-24",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-01AUG04",
+       "row": 8,
+       "voucher": "PV-01AUG04"
+      }
+     ],
+     "header": 4,
+     "refused": null,
+     "unread": [
+      {
+       "column": 4,
+       "label": "Document No"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "store": [
+     "Main current account"
+    ]
+   }
+  ],
+  "M03": [
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "PV-02JUL01"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-02JUL02"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S2"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-02JUL03"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-02JUL04"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      }
+     ],
+     "held": false,
+     "outstanding": [
+      [
+       "C",
+       "RV-R02-91",
+       "unmatched"
+      ]
+     ]
+    },
+    "reading": {
+     "above": 3,
+     "entries": [
+      {
+       "amount": 464291,
+       "date": "2026-07-03",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-02JUL01",
+       "row": 5,
+       "voucher": "PV-02JUL01"
+      },
+      {
+       "amount": 1474853,
+       "date": "2026-07-09",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-02JUL02",
+       "row": 6,
+       "voucher": "PV-02JUL02"
+      },
+      {
+       "amount": 4468971,
+       "date": "2026-07-16",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-02JUL03",
+       "row": 7,
+       "voucher": "RV-02JUL03"
+      },
+      {
+       "amount": 217862,
+       "date": "2026-07-25",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-02JUL04",
+       "row": 8,
+       "voucher": "RV-02JUL04"
+      },
+      {
+       "amount": 1290000,
+       "date": "2026-07-31",
+       "description": "Cash deposited after cut-off",
+       "direction": "in",
+       "reference": "DEP-R02-910",
+       "row": 9,
+       "voucher": "RV-R02-91"
+      }
+     ],
+     "header": 4,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Document No"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "saved": "Main current account",
+    "store": [
+     "Main current account"
+    ]
+   },
+   {
+    "by": "map",
+    "do": "read",
+    "fit": {
+     "fits": false,
+     "problems": [
+      {
+       "column": 5,
+       "elsewhere": [
+        "D4"
+       ],
+       "found": "Debit",
+       "kind": "column",
+       "label": "Narration",
+       "role": "description"
+      },
+      {
+       "column": 4,
+       "elsewhere": [],
+       "found": "Narration",
+       "kind": "column",
+       "label": "Reference",
+       "role": "reference"
+      },
+      {
+       "column": 6,
+       "elsewhere": [
+        "E4"
+       ],
+       "found": "Credit",
+       "kind": "column",
+       "label": "Debit",
+       "role": "receipts"
+      },
+      {
+       "column": 7,
+       "elsewhere": [
+        "F4"
+       ],
+       "found": "Balance",
+       "kind": "column",
+       "label": "Credit",
+       "role": "payments"
+      }
+     ]
+    },
+    "store": [
+     "Main current account"
+    ]
+   },
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "PV-02AUG02"
+       ],
+       "id": "C1",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S3"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-02AUG03"
+       ],
+       "id": "C2",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S4"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-02AUG01"
+       ],
+       "id": "C3",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S2"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-02AUG04"
+       ],
+       "id": "C4",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S5"
+       ],
+       "status": "needs-review"
+      }
+     ],
+     "held": false,
+     "outstanding": [
+      [
+       "S",
+       "S1",
+       "unmatched"
+      ]
+     ]
+    },
+    "reading": {
+     "above": 3,
+     "entries": [
+      {
+       "amount": 2191368,
+       "date": "2026-08-02",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 5,
+       "voucher": "RV-02AUG01"
+      },
+      {
+       "amount": 4214302,
+       "date": "2026-08-09",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "",
+       "row": 6,
+       "voucher": "PV-02AUG02"
+      },
+      {
+       "amount": 2205570,
+       "date": "2026-08-16",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "",
+       "row": 7,
+       "voucher": "PV-02AUG03"
+      },
+      {
+       "amount": 1652871,
+       "date": "2026-08-24",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 8,
+       "voucher": "RV-02AUG04"
+      }
+     ],
+     "header": 4,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Document No"
+      },
+      {
+       "column": 7,
+       "label": "Balance"
+      }
+     ]
+    },
+    "store": [
+     "Main current account"
+    ]
+   }
+  ],
+  "M04": [
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "PV-19JUL01"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-19JUL02"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S2"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-19JUL03"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-19JUL04"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      }
+     ],
+     "held": false,
+     "outstanding": [
+      [
+       "C",
+       "PV-R19-98",
+       "unmatched"
+      ]
+     ]
+    },
+    "reading": {
+     "above": 3,
+     "entries": [
+      {
+       "amount": 4594694,
+       "date": "2026-07-02",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-19JUL01",
+       "row": 5,
+       "voucher": "PV-19JUL01"
+      },
+      {
+       "amount": 4462592,
+       "date": "2026-07-09",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-19JUL02",
+       "row": 6,
+       "voucher": "PV-19JUL02"
+      },
+      {
+       "amount": 5495851,
+       "date": "2026-07-17",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-19JUL03",
+       "row": 7,
+       "voucher": "RV-19JUL03"
+      },
+      {
+       "amount": 5715883,
+       "date": "2026-07-24",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-19JUL04",
+       "row": 8,
+       "voucher": "RV-19JUL04"
+      },
+      {
+       "amount": 250000,
+       "date": "2026-07-29",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-R19-908",
+       "row": 9,
+       "voucher": "PV-R19-98"
+      }
+     ],
+     "header": 4,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Document No"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "saved": "Main current account",
+    "store": [
+     "Main current account"
+    ]
+   },
+   {
+    "by": "map",
+    "do": "read",
+    "fit": {
+     "fits": false,
+     "problems": [
+      {
+       "column": 2,
+       "elsewhere": [],
+       "found": "BR-13N03",
+       "kind": "column",
+       "label": "Date",
+       "role": "date"
+      },
+      {
+       "column": 1,
+       "elsewhere": [],
+       "found": "2026-11-12",
+       "kind": "column",
+       "label": "Voucher No",
+       "role": "voucher"
+      },
+      {
+       "column": 5,
+       "elsewhere": [],
+       "found": "30636.6",
+       "kind": "column",
+       "label": "Narration",
+       "role": "description"
+      },
+      {
+       "column": 4,
+       "elsewhere": [],
+       "found": "RCV-13N03",
+       "kind": "column",
+       "label": "Reference",
+       "role": "reference"
+      },
+      {
+       "column": 6,
+       "elsewhere": [],
+       "found": "",
+       "kind": "column",
+       "label": "Debit",
+       "role": "receipts"
+      },
+      {
+       "column": 7,
+       "elsewhere": [],
+       "found": "",
+       "kind": "column",
+       "label": "Credit",
+       "role": "payments"
+      }
+     ]
+    },
+    "store": [
+     "Main current account"
+    ]
+   },
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "BP-13N01"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BP-13N02"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S2"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BP-13N04"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BP-13N05"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S5"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BP-13N06"
+       ],
+       "id": "C5",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S6"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-13N03"
+       ],
+       "id": "C6",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      }
+     ],
+     "held": false,
+     "outstanding": []
+    },
+    "reading": {
+     "above": 0,
+     "entries": [
+      {
+       "amount": 607166,
+       "date": "2026-11-02",
+       "description": "Payment to supplier",
+       "direction": "out",
+       "reference": "PAY-13N01",
+       "row": 2,
+       "voucher": "BP-13N01"
+      },
+      {
+       "amount": 3629395,
+       "date": "2026-11-06",
+       "description": "Payment to supplier",
+       "direction": "out",
+       "reference": "PAY-13N02",
+       "row": 3,
+       "voucher": "BP-13N02"
+      },
+      {
+       "amount": 3063660,
+       "date": "2026-11-12",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-13N03",
+       "row": 4,
+       "voucher": "BR-13N03"
+      },
+      {
+       "amount": 4367217,
+       "date": "2026-11-16",
+       "description": "Payment to supplier",
+       "direction": "out",
+       "reference": "PAY-13N04",
+       "row": 5,
+       "voucher": "BP-13N04"
+      },
+      {
+       "amount": 4172369,
+       "date": "2026-11-21",
+       "description": "Payment to supplier",
+       "direction": "out",
+       "reference": "PAY-13N05",
+       "row": 6,
+       "voucher": "BP-13N05"
+      },
+      {
+       "amount": 538192,
+       "date": "2026-11-28",
+       "description": "Payment to supplier",
+       "direction": "out",
+       "reference": "PAY-13N06",
+       "row": 7,
+       "voucher": "BP-13N06"
+      }
+     ],
+     "header": 1,
+     "refused": null,
+     "unread": []
+    },
+    "store": [
+     "Main current account"
+    ]
+   }
+  ],
+  "M05": [
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "PV-19JUL01"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-19JUL02"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S2"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-19JUL03"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-19JUL04"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      }
+     ],
+     "held": false,
+     "outstanding": [
+      [
+       "C",
+       "PV-R19-98",
+       "unmatched"
+      ]
+     ]
+    },
+    "reading": {
+     "above": 3,
+     "entries": [
+      {
+       "amount": 4594694,
+       "date": "2026-07-02",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-19JUL01",
+       "row": 5,
+       "voucher": "PV-19JUL01"
+      },
+      {
+       "amount": 4462592,
+       "date": "2026-07-09",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-19JUL02",
+       "row": 6,
+       "voucher": "PV-19JUL02"
+      },
+      {
+       "amount": 5495851,
+       "date": "2026-07-17",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-19JUL03",
+       "row": 7,
+       "voucher": "RV-19JUL03"
+      },
+      {
+       "amount": 5715883,
+       "date": "2026-07-24",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-19JUL04",
+       "row": 8,
+       "voucher": "RV-19JUL04"
+      },
+      {
+       "amount": 250000,
+       "date": "2026-07-29",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-R19-908",
+       "row": 9,
+       "voucher": "PV-R19-98"
+      }
+     ],
+     "header": 4,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Document No"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "saved": "Main current account",
+    "store": [
+     "Main current account"
+    ]
+   },
+   {
+    "by": "map",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "BP-16N03"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S5"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-16N01"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-16N02"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-16N04"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S6"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-Q16-61"
+       ],
+       "id": "C5",
+       "kind": "review",
+       "reason": "amount-difference",
+       "statement": [
+        "S2"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q16-62"
+       ],
+       "id": "C6",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S4"
+       ],
+       "status": "needs-review"
+      }
+     ],
+     "held": false,
+     "outstanding": []
+    },
+    "reading": {
+     "above": 3,
+     "entries": [
+      {
+       "amount": 3557255,
+       "date": "2026-11-01",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-16N01",
+       "row": 5,
+       "voucher": "BR-16N01"
+      },
+      {
+       "amount": 1210,
+       "date": "2026-11-08",
+       "description": "Payment voucher",
+       "direction": "out",
+       "reference": "INV-Q16-161",
+       "row": 6,
+       "voucher": "PV-Q16-61"
+      },
+      {
+       "amount": 2319744,
+       "date": "2026-11-10",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-16N02",
+       "row": 7,
+       "voucher": "BR-16N02"
+      },
+      {
+       "amount": 9850000,
+       "date": "2026-11-17",
+       "description": "Payment voucher",
+       "direction": "out",
+       "reference": "",
+       "row": 8,
+       "voucher": "PV-Q16-62"
+      },
+      {
+       "amount": 778279,
+       "date": "2026-11-18",
+       "description": "Payment to supplier",
+       "direction": "out",
+       "reference": "PAY-16N03",
+       "row": 9,
+       "voucher": "BP-16N03"
+      },
+      {
+       "amount": 2820542,
+       "date": "2026-11-28",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-16N04",
+       "row": 10,
+       "voucher": "BR-16N04"
+      }
+     ],
+     "header": 4,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Document No"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "store": [
+     "Main current account"
+    ]
+   }
+  ],
+  "M06": [
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "PV-03JUL03"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-03JUL01"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-03JUL02"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S2"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-03JUL04"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      }
+     ],
+     "held": false,
+     "outstanding": [
+      [
+       "S",
+       "S5",
+       "unmatched"
+      ]
+     ]
+    },
+    "reading": {
+     "above": 3,
+     "entries": [
+      {
+       "amount": 3336962,
+       "date": "2026-07-02",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-03JUL01",
+       "row": 5,
+       "voucher": "RV-03JUL01"
+      },
+      {
+       "amount": 3918247,
+       "date": "2026-07-09",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-03JUL02",
+       "row": 6,
+       "voucher": "RV-03JUL02"
+      },
+      {
+       "amount": 4905420,
+       "date": "2026-07-17",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-03JUL03",
+       "row": 7,
+       "voucher": "PV-03JUL03"
+      },
+      {
+       "amount": 1668675,
+       "date": "2026-07-24",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-03JUL04",
+       "row": 8,
+       "voucher": "RV-03JUL04"
+      }
+     ],
+     "header": 4,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Document No"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "saved": "Main current account",
+    "store": [
+     "Main current account"
+    ]
+   },
+   {
+    "by": "map",
+    "do": "read",
+    "fit": {
+     "fits": false,
+     "problems": [
+      {
+       "column": 2,
+       "elsewhere": [
+        "B5"
+       ],
+       "found": "",
+       "kind": "column",
+       "label": "Date",
+       "role": "date"
+      },
+      {
+       "column": 1,
+       "elsewhere": [
+        "A5"
+       ],
+       "found": "Printed on 2026-09-01",
+       "kind": "column",
+       "label": "Voucher No",
+       "role": "voucher"
+      },
+      {
+       "column": 5,
+       "elsewhere": [
+        "E5"
+       ],
+       "found": "",
+       "kind": "column",
+       "label": "Narration",
+       "role": "description"
+      },
+      {
+       "column": 4,
+       "elsewhere": [
+        "D5"
+       ],
+       "found": "",
+       "kind": "column",
+       "label": "Reference",
+       "role": "reference"
+      },
+      {
+       "column": 6,
+       "elsewhere": [
+        "F5"
+       ],
+       "found": "",
+       "kind": "column",
+       "label": "Debit",
+       "role": "receipts"
+      },
+      {
+       "column": 7,
+       "elsewhere": [
+        "G5"
+       ],
+       "found": "",
+       "kind": "column",
+       "label": "Credit",
+       "role": "payments"
+      }
+     ]
+    },
+    "store": [
+     "Main current account"
+    ]
+   },
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "RV-03AUG01"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-03AUG02"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S2"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-03AUG03"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-03AUG04"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      }
+     ],
+     "held": false,
+     "outstanding": [
+      [
+       "C",
+       "PV-R03-95",
+       "unmatched"
+      ]
+     ]
+    },
+    "reading": {
+     "above": 4,
+     "entries": [
+      {
+       "amount": 4908965,
+       "date": "2026-08-03",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-03AUG01",
+       "row": 6,
+       "voucher": "RV-03AUG01"
+      },
+      {
+       "amount": 11500,
+       "date": "2026-08-04",
+       "description": "Bank charge July",
+       "direction": "out",
+       "reference": "FEE-R03-0731",
+       "row": 7,
+       "voucher": "PV-R03-95"
+      },
+      {
+       "amount": 5972433,
+       "date": "2026-08-09",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-03AUG02",
+       "row": 8,
+       "voucher": "RV-03AUG02"
+      },
+      {
+       "amount": 3621946,
+       "date": "2026-08-17",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-03AUG03",
+       "row": 9,
+       "voucher": "RV-03AUG03"
+      },
+      {
+       "amount": 4410727,
+       "date": "2026-08-25",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-03AUG04",
+       "row": 10,
+       "voucher": "RV-03AUG04"
+      }
+     ],
+     "header": 5,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Document No"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "saved": "Main current account",
+    "store": [
+     "Main current account"
+    ]
+   }
+  ],
+  "M07": [
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "PV-04JUL01"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-04JUL02"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S2"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-04JUL03"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-04JUL04"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      }
+     ],
+     "held": false,
+     "outstanding": [
+      [
+       "C",
+       "PV-R04-93",
+       "unmatched"
+      ]
+     ]
+    },
+    "reading": {
+     "above": 3,
+     "entries": [
+      {
+       "amount": 4897953,
+       "date": "2026-07-03",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-04JUL01",
+       "row": 5,
+       "voucher": "PV-04JUL01"
+      },
+      {
+       "amount": 2171693,
+       "date": "2026-07-10",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-04JUL02",
+       "row": 6,
+       "voucher": "PV-04JUL02"
+      },
+      {
+       "amount": 1390765,
+       "date": "2026-07-17",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-04JUL03",
+       "row": 7,
+       "voucher": "RV-04JUL03"
+      },
+      {
+       "amount": 3338542,
+       "date": "2026-07-25",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-04JUL04",
+       "row": 8,
+       "voucher": "RV-04JUL04"
+      },
+      {
+       "amount": 2150000,
+       "date": "2026-07-27",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-R04-930",
+       "row": 9,
+       "voucher": "PV-R04-93"
+      }
+     ],
+     "header": 4,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Document No"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "saved": "Main current account",
+    "store": [
+     "Main current account"
+    ]
+   },
+   {
+    "by": "map",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "PV-04AUG03"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-04AUG04"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-04AUG01"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-04AUG02"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S2"
+       ],
+       "status": "matched"
+      }
+     ],
+     "held": false,
+     "outstanding": []
+    },
+    "reading": {
+     "above": 3,
+     "entries": [
+      {
+       "amount": 1320478,
+       "date": "2026-08-03",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-04AUG01",
+       "row": 5,
+       "voucher": "RV-04AUG01"
+      },
+      {
+       "amount": 626317,
+       "date": "2026-08-09",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-04AUG02",
+       "row": 6,
+       "voucher": "RV-04AUG02"
+      },
+      {
+       "amount": 2797465,
+       "date": "2026-08-17",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-04AUG03",
+       "row": 7,
+       "voucher": "PV-04AUG03"
+      },
+      {
+       "amount": 4277724,
+       "date": "2026-08-25",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-04AUG04",
+       "row": 8,
+       "voucher": "PV-04AUG04"
+      }
+     ],
+     "header": 4,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Document No"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      },
+      {
+       "column": 9,
+       "label": "Cost centre"
+      }
+     ]
+    },
+    "store": [
+     "Main current account"
+    ]
+   }
+  ],
+  "M08": [
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "PV-05JUL03"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-05JUL01"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-05JUL02"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S2"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-05JUL04"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      }
+     ],
+     "held": false,
+     "outstanding": [
+      [
+       "C",
+       "PV-R05-93",
+       "unmatched"
+      ]
+     ]
+    },
+    "reading": {
+     "above": 3,
+     "entries": [
+      {
+       "amount": 1990392,
+       "date": "2026-07-02",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-05JUL01",
+       "row": 5,
+       "voucher": "RV-05JUL01"
+      },
+      {
+       "amount": 3360871,
+       "date": "2026-07-10",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-05JUL02",
+       "row": 6,
+       "voucher": "RV-05JUL02"
+      },
+      {
+       "amount": 3826414,
+       "date": "2026-07-16",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-05JUL03",
+       "row": 7,
+       "voucher": "PV-05JUL03"
+      },
+      {
+       "amount": 5507055,
+       "date": "2026-07-24",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-05JUL04",
+       "row": 8,
+       "voucher": "RV-05JUL04"
+      },
+      {
+       "amount": 2150000,
+       "date": "2026-07-27",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-R05-930",
+       "row": 9,
+       "voucher": "PV-R05-93"
+      }
+     ],
+     "header": 4,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Document No"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "saved": "Main current account",
+    "store": [
+     "Main current account"
+    ]
+   },
+   {
+    "by": "map",
+    "do": "read",
+    "fit": {
+     "fits": false,
+     "problems": [
+      {
+       "column": 5,
+       "elsewhere": [
+        "F4"
+       ],
+       "found": "Reference",
+       "kind": "column",
+       "label": "Narration",
+       "role": "description"
+      },
+      {
+       "column": 4,
+       "elsewhere": [
+        "E4"
+       ],
+       "found": "Document No",
+       "kind": "column",
+       "label": "Reference",
+       "role": "reference"
+      },
+      {
+       "column": 6,
+       "elsewhere": [
+        "G4"
+       ],
+       "found": "Narration",
+       "kind": "column",
+       "label": "Debit",
+       "role": "receipts"
+      },
+      {
+       "column": 7,
+       "elsewhere": [
+        "H4"
+       ],
+       "found": "Debit",
+       "kind": "column",
+       "label": "Credit",
+       "role": "payments"
+      }
+     ]
+    },
+    "store": [
+     "Main current account"
+    ]
+   },
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "PV-05AUG02"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S2"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-05AUG04"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-05AUG01"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-05AUG03"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      }
+     ],
+     "held": false,
+     "outstanding": []
+    },
+    "reading": {
+     "above": 3,
+     "entries": [
+      {
+       "amount": 304615,
+       "date": "2026-08-02",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-05AUG01",
+       "row": 5,
+       "voucher": "RV-05AUG01"
+      },
+      {
+       "amount": 4132782,
+       "date": "2026-08-09",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-05AUG02",
+       "row": 6,
+       "voucher": "PV-05AUG02"
+      },
+      {
+       "amount": 4998961,
+       "date": "2026-08-16",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-05AUG03",
+       "row": 7,
+       "voucher": "RV-05AUG03"
+      },
+      {
+       "amount": 2711172,
+       "date": "2026-08-24",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-05AUG04",
+       "row": 8,
+       "voucher": "PV-05AUG04"
+      }
+     ],
+     "header": 4,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Branch"
+      },
+      {
+       "column": 4,
+       "label": "Document No"
+      },
+      {
+       "column": 9,
+       "label": "Balance"
+      }
+     ]
+    },
+    "store": [
+     "Main current account"
+    ]
+   }
+  ],
+  "M09": [
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "PV-06JUL01"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-06JUL02"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S2"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-06JUL04"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-06JUL03"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      }
+     ],
+     "held": false,
+     "outstanding": [
+      [
+       "C",
+       "PV-R06-94",
+       "unmatched"
+      ]
+     ]
+    },
+    "reading": {
+     "above": 3,
+     "entries": [
+      {
+       "amount": 4893999,
+       "date": "2026-07-03",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-06JUL01",
+       "row": 5,
+       "voucher": "PV-06JUL01"
+      },
+      {
+       "amount": 1494776,
+       "date": "2026-07-10",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-06JUL02",
+       "row": 6,
+       "voucher": "PV-06JUL02"
+      },
+      {
+       "amount": 3133115,
+       "date": "2026-07-16",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-06JUL03",
+       "row": 7,
+       "voucher": "RV-06JUL03"
+      },
+      {
+       "amount": 1160300,
+       "date": "2026-07-25",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-06JUL04",
+       "row": 8,
+       "voucher": "PV-06JUL04"
+      },
+      {
+       "amount": 760000,
+       "date": "2026-07-30",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-R06-940",
+       "row": 9,
+       "voucher": "PV-R06-94"
+      }
+     ],
+     "header": 4,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Document No"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "saved": "Main current account",
+    "store": [
+     "Main current account"
+    ]
+   },
+   {
+    "by": "map",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "PV-06AUG01"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-06AUG03"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-06AUG02"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-06AUG04"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S6"
+       ],
+       "status": "matched"
+      }
+     ],
+     "held": false,
+     "outstanding": [
+      [
+       "S",
+       "S2",
+       "unmatched"
+      ],
+      [
+       "S",
+       "S5",
+       "unmatched"
+      ]
+     ]
+    },
+    "reading": {
+     "above": 3,
+     "entries": [
+      {
+       "amount": 2496425,
+       "date": "2026-08-03",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-06AUG01",
+       "row": 5,
+       "voucher": "PV-06AUG01"
+      },
+      {
+       "amount": 4379900,
+       "date": "2026-08-10",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-06AUG02",
+       "row": 6,
+       "voucher": "RV-06AUG02"
+      },
+      {
+       "amount": 2645892,
+       "date": "2026-08-17",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-06AUG03",
+       "row": 7,
+       "voucher": "PV-06AUG03"
+      },
+      {
+       "amount": 3241239,
+       "date": "2026-08-24",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-06AUG04",
+       "row": 8,
+       "voucher": "RV-06AUG04"
+      }
+     ],
+     "header": 4,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Document No"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "store": [
+     "Main current account"
+    ]
+   }
+  ],
+  "M10": [
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "PV-07JUL03"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-07JUL04"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-07JUL01"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-07JUL02"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S2"
+       ],
+       "status": "matched"
+      }
+     ],
+     "held": false,
+     "outstanding": [
+      [
+       "C",
+       "PV-R07-95",
+       "unmatched"
+      ]
+     ]
+    },
+    "reading": {
+     "above": 3,
+     "entries": [
+      {
+       "amount": 1781566,
+       "date": "2026-07-02",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-07JUL01",
+       "row": 5,
+       "voucher": "RV-07JUL01"
+      },
+      {
+       "amount": 3281246,
+       "date": "2026-07-10",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-07JUL02",
+       "row": 6,
+       "voucher": "RV-07JUL02"
+      },
+      {
+       "amount": 5987280,
+       "date": "2026-07-17",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-07JUL03",
+       "row": 7,
+       "voucher": "PV-07JUL03"
+      },
+      {
+       "amount": 4304441,
+       "date": "2026-07-24",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-07JUL04",
+       "row": 8,
+       "voucher": "PV-07JUL04"
+      },
+      {
+       "amount": 330000,
+       "date": "2026-07-28",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-R07-950",
+       "row": 9,
+       "voucher": "PV-R07-95"
+      }
+     ],
+     "header": 4,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Document No"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "saved": "Main current account",
+    "store": [
+     "Main current account"
+    ]
+   },
+   {
+    "by": "map",
+    "do": "read",
+    "fit": {
+     "fits": false,
+     "problems": [
+      {
+       "column": 7,
+       "elsewhere": [],
+       "found": "CREDIT",
+       "kind": "column",
+       "label": "Credit",
+       "role": "payments"
+      }
+     ]
+    },
+    "store": [
+     "Main current account"
+    ]
+   },
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "PV-07AUG01"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-07AUG02"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-07AUG03"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-07AUG04"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S5"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-R07-95"
+       ],
+       "id": "C5",
+       "kind": "review",
+       "reason": "date-gap",
+       "statement": [
+        "S2"
+       ],
+       "status": "needs-review"
+      }
+     ],
+     "held": false,
+     "outstanding": []
+    },
+    "reading": {
+     "above": 3,
+     "entries": [
+      {
+       "amount": 330000,
+       "date": "2026-07-28",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-R07-950",
+       "row": 5,
+       "voucher": "PV-R07-95"
+      },
+      {
+       "amount": 4916544,
+       "date": "2026-08-02",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-07AUG01",
+       "row": 6,
+       "voucher": "PV-07AUG01"
+      },
+      {
+       "amount": 4092779,
+       "date": "2026-08-10",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-07AUG02",
+       "row": 7,
+       "voucher": "PV-07AUG02"
+      },
+      {
+       "amount": 5316528,
+       "date": "2026-08-16",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-07AUG03",
+       "row": 8,
+       "voucher": "RV-07AUG03"
+      },
+      {
+       "amount": 3239463,
+       "date": "2026-08-25",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-07AUG04",
+       "row": 9,
+       "voucher": "RV-07AUG04"
+      }
+     ],
+     "header": 4,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Document No"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "store": [
+     "Main current account"
+    ]
+   }
+  ],
+  "M11": [
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "PV-20JUL03"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-20JUL01"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-20JUL02"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S2"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-20JUL04"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      }
+     ],
+     "held": false,
+     "outstanding": [
+      [
+       "C",
+       "PV-R20-99",
+       "unmatched"
+      ]
+     ]
+    },
+    "reading": {
+     "above": 2,
+     "entries": [
+      {
+       "amount": 3613869,
+       "date": "2026-07-03",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-20JUL01",
+       "row": 4,
+       "voucher": "RV-20JUL01"
+      },
+      {
+       "amount": 1266938,
+       "date": "2026-07-10",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-20JUL02",
+       "row": 5,
+       "voucher": "RV-20JUL02"
+      },
+      {
+       "amount": 5045846,
+       "date": "2026-07-17",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-20JUL03",
+       "row": 6,
+       "voucher": "PV-20JUL03"
+      },
+      {
+       "amount": 4132938,
+       "date": "2026-07-25",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-20JUL04",
+       "row": 7,
+       "voucher": "RV-20JUL04"
+      },
+      {
+       "amount": 365000,
+       "date": "2026-07-30",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-R20-909",
+       "row": 8,
+       "voucher": "PV-R20-99"
+      }
+     ],
+     "header": 3,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "رقم المستند"
+      },
+      {
+       "column": 8,
+       "label": "الرصيد"
+      }
+     ]
+    },
+    "saved": "الحساب الجاري الرئيسي",
+    "store": [
+     "الحساب الجاري الرئيسي"
+    ]
+   },
+   {
+    "by": "map",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "PV-20AUG01"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-20AUG02"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-20AUG03"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-20AUG04"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S5"
+       ],
+       "status": "matched"
+      }
+     ],
+     "held": false,
+     "outstanding": [
+      [
+       "S",
+       "S2",
+       "unmatched"
+      ]
+     ]
+    },
+    "reading": {
+     "above": 2,
+     "entries": [
+      {
+       "amount": 1048873,
+       "date": "2026-08-02",
+       "description": "Supplier payment by cheque",
+       "direction": "out",
+       "reference": "CHQ-20AUG01",
+       "row": 4,
+       "voucher": "PV-20AUG01"
+      },
+      {
+       "amount": 4810094,
+       "date": "2026-08-10",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-20AUG02",
+       "row": 5,
+       "voucher": "RV-20AUG02"
+      },
+      {
+       "amount": 2498964,
+       "date": "2026-08-17",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-20AUG03",
+       "row": 6,
+       "voucher": "RV-20AUG03"
+      },
+      {
+       "amount": 2987537,
+       "date": "2026-08-25",
+       "description": "Customer receipt",
+       "direction": "in",
+       "reference": "TRF-20AUG04",
+       "row": 7,
+       "voucher": "RV-20AUG04"
+      }
+     ],
+     "header": 3,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "رقم المستند"
+      },
+      {
+       "column": 8,
+       "label": "الرصيد"
+      }
+     ]
+    },
+    "store": [
+     "الحساب الجاري الرئيسي"
+    ]
+   }
+  ],
+  "M12": [
+   {
+    "accepted": true,
+    "do": "import",
+    "store": [
+     "حساب التحصيل"
+    ]
+   },
+   {
+    "by": "map",
+    "do": "read",
+    "fit": {
+     "fits": false,
+     "problems": [
+      {
+       "column": 4,
+       "elsewhere": [],
+       "found": "المرجـع",
+       "kind": "column",
+       "label": "المرجع",
+       "role": "reference"
+      }
+     ]
+    },
+    "store": [
+     "حساب التحصيل"
+    ]
+   },
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "BP-10N02"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S7"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-10N01"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-10N03"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S8"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-10N04"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S9"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-Q10-01"
+       ],
+       "id": "C5",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S2"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q10-02"
+       ],
+       "id": "C6",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S3"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q10-03"
+       ],
+       "id": "C7",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S4"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q10-04"
+       ],
+       "id": "C8",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S5"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q10-05"
+       ],
+       "id": "C9",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S6"
+       ],
+       "status": "needs-review"
+      }
+     ],
+     "held": false,
+     "outstanding": []
+    },
+    "reading": {
+     "above": 2,
+     "entries": [
+      {
+       "amount": 3904989,
+       "date": "2026-11-02",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-10N01",
+       "row": 4,
+       "voucher": "BR-10N01"
+      },
+      {
+       "amount": 770454,
+       "date": "2026-11-03",
+       "description": "سند صرف",
+       "direction": "out",
+       "reference": "",
+       "row": 5,
+       "voucher": "PV-Q10-01"
+      },
+      {
+       "amount": 595271,
+       "date": "2026-11-03",
+       "description": "سند صرف",
+       "direction": "out",
+       "reference": "",
+       "row": 6,
+       "voucher": "PV-Q10-02"
+      },
+      {
+       "amount": 119701,
+       "date": "2026-11-05",
+       "description": "سند صرف",
+       "direction": "out",
+       "reference": "",
+       "row": 7,
+       "voucher": "PV-Q10-03"
+      },
+      {
+       "amount": 91211,
+       "date": "2026-11-05",
+       "description": "سند صرف",
+       "direction": "out",
+       "reference": "",
+       "row": 8,
+       "voucher": "PV-Q10-04"
+      },
+      {
+       "amount": 772082,
+       "date": "2026-11-07",
+       "description": "سند صرف",
+       "direction": "out",
+       "reference": "",
+       "row": 9,
+       "voucher": "PV-Q10-05"
+      },
+      {
+       "amount": 3131271,
+       "date": "2026-11-10",
+       "description": "Payment to supplier",
+       "direction": "out",
+       "reference": "PAY-10N02",
+       "row": 10,
+       "voucher": "BP-10N02"
+      },
+      {
+       "amount": 2885129,
+       "date": "2026-11-19",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-10N03",
+       "row": 11,
+       "voucher": "BR-10N03"
+      },
+      {
+       "amount": 3828069,
+       "date": "2026-11-27",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-10N04",
+       "row": 12,
+       "voucher": "BR-10N04"
+      }
+     ],
+     "header": 3,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "رقم المستند"
+      },
+      {
+       "column": 8,
+       "label": "الرصيد"
+      }
+     ]
+    },
+    "store": [
+     "حساب التحصيل"
+    ]
+   }
+  ],
+  "M13": [
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "BP-11N01"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BP-11N04"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S64"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-11N02"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S24"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-11N03"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S52"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-01"
+       ],
+       "id": "C5",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S3"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-02"
+       ],
+       "id": "C6",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S6"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-03"
+       ],
+       "id": "C7",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S9"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-04"
+       ],
+       "id": "C8",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S12"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-05"
+       ],
+       "id": "C9",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S15"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-06"
+       ],
+       "id": "C10",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S18"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-07"
+       ],
+       "id": "C11",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S21"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-08"
+       ],
+       "id": "C12",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S25"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-09"
+       ],
+       "id": "C13",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S28"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-10"
+       ],
+       "id": "C14",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S31"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-11"
+       ],
+       "id": "C15",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S34"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-12"
+       ],
+       "id": "C16",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S37"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-13"
+       ],
+       "id": "C17",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S40"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-14"
+       ],
+       "id": "C18",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S43"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-15"
+       ],
+       "id": "C19",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S46"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-16"
+       ],
+       "id": "C20",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S49"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-17"
+       ],
+       "id": "C21",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S53"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-18"
+       ],
+       "id": "C22",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S55"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-19"
+       ],
+       "id": "C23",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S57"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-20"
+       ],
+       "id": "C24",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S59"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-21"
+       ],
+       "id": "C25",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S60"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-22"
+       ],
+       "id": "C26",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S61"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-23"
+       ],
+       "id": "C27",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S62"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-24"
+       ],
+       "id": "C28",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S63"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-25"
+       ],
+       "id": "C29",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S4"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-26"
+       ],
+       "id": "C30",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S7"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-27"
+       ],
+       "id": "C31",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S10"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-28"
+       ],
+       "id": "C32",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S13"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-29"
+       ],
+       "id": "C33",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S16"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-30"
+       ],
+       "id": "C34",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S19"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-31"
+       ],
+       "id": "C35",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S22"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-32"
+       ],
+       "id": "C36",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S26"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-33"
+       ],
+       "id": "C37",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S29"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-34"
+       ],
+       "id": "C38",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S32"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-35"
+       ],
+       "id": "C39",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S35"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-36"
+       ],
+       "id": "C40",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S38"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-37"
+       ],
+       "id": "C41",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S41"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-38"
+       ],
+       "id": "C42",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S44"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-39"
+       ],
+       "id": "C43",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S47"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q11O-40"
+       ],
+       "id": "C44",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S50"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q11I-01"
+       ],
+       "id": "C45",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S2"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q11I-02"
+       ],
+       "id": "C46",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S5"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q11I-03"
+       ],
+       "id": "C47",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S8"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q11I-04"
+       ],
+       "id": "C48",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S11"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q11I-05"
+       ],
+       "id": "C49",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S14"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q11I-06"
+       ],
+       "id": "C50",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S17"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q11I-07"
+       ],
+       "id": "C51",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S20"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q11I-08"
+       ],
+       "id": "C52",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S23"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q11I-09"
+       ],
+       "id": "C53",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S27"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q11I-10"
+       ],
+       "id": "C54",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S30"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q11I-11"
+       ],
+       "id": "C55",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S33"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q11I-12"
+       ],
+       "id": "C56",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S36"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q11I-13"
+       ],
+       "id": "C57",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S39"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q11I-14"
+       ],
+       "id": "C58",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S42"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q11I-15"
+       ],
+       "id": "C59",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S45"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q11I-16"
+       ],
+       "id": "C60",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S48"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q11I-17"
+       ],
+       "id": "C61",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S51"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q11I-18"
+       ],
+       "id": "C62",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S54"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q11I-19"
+       ],
+       "id": "C63",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S56"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q11I-20"
+       ],
+       "id": "C64",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S58"
+       ],
+       "status": "needs-review"
+      }
+     ],
+     "held": false,
+     "outstanding": []
+    },
+    "reading": {
+     "above": 1,
+     "entries": [
+      {
+       "amount": 797572,
+       "date": "2026-11-02",
+       "description": "Payment to supplier",
+       "direction": "out",
+       "reference": "PAY-11N01",
+       "row": 3,
+       "voucher": "BP-11N01"
+      },
+      {
+       "amount": 155149,
+       "date": "2026-11-02",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 4,
+       "voucher": "RV-Q11I-01"
+      },
+      {
+       "amount": 446486,
+       "date": "2026-11-02",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 5,
+       "voucher": "RV-Q11I-02"
+      },
+      {
+       "amount": 500871,
+       "date": "2026-11-03",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 6,
+       "voucher": "PV-Q11O-01"
+      },
+      {
+       "amount": 556500,
+       "date": "2026-11-03",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 7,
+       "voucher": "PV-Q11O-02"
+      },
+      {
+       "amount": 793468,
+       "date": "2026-11-03",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 8,
+       "voucher": "PV-Q11O-25"
+      },
+      {
+       "amount": 256721,
+       "date": "2026-11-03",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 9,
+       "voucher": "PV-Q11O-26"
+      },
+      {
+       "amount": 98480,
+       "date": "2026-11-04",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 10,
+       "voucher": "RV-Q11I-03"
+      },
+      {
+       "amount": 221142,
+       "date": "2026-11-04",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 11,
+       "voucher": "RV-Q11I-04"
+      },
+      {
+       "amount": 890229,
+       "date": "2026-11-05",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 12,
+       "voucher": "PV-Q11O-03"
+      },
+      {
+       "amount": 80493,
+       "date": "2026-11-05",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 13,
+       "voucher": "PV-Q11O-04"
+      },
+      {
+       "amount": 646136,
+       "date": "2026-11-05",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 14,
+       "voucher": "PV-Q11O-27"
+      },
+      {
+       "amount": 238558,
+       "date": "2026-11-05",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 15,
+       "voucher": "PV-Q11O-28"
+      },
+      {
+       "amount": 392647,
+       "date": "2026-11-06",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 16,
+       "voucher": "RV-Q11I-05"
+      },
+      {
+       "amount": 96075,
+       "date": "2026-11-06",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 17,
+       "voucher": "RV-Q11I-06"
+      },
+      {
+       "amount": 271874,
+       "date": "2026-11-07",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 18,
+       "voucher": "PV-Q11O-05"
+      },
+      {
+       "amount": 764602,
+       "date": "2026-11-07",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 19,
+       "voucher": "PV-Q11O-06"
+      },
+      {
+       "amount": 472714,
+       "date": "2026-11-07",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 20,
+       "voucher": "PV-Q11O-29"
+      },
+      {
+       "amount": 54215,
+       "date": "2026-11-07",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 21,
+       "voucher": "PV-Q11O-30"
+      },
+      {
+       "amount": 654736,
+       "date": "2026-11-08",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 22,
+       "voucher": "RV-Q11I-07"
+      },
+      {
+       "amount": 701965,
+       "date": "2026-11-08",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 23,
+       "voucher": "RV-Q11I-08"
+      },
+      {
+       "amount": 293772,
+       "date": "2026-11-09",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 24,
+       "voucher": "PV-Q11O-07"
+      },
+      {
+       "amount": 188328,
+       "date": "2026-11-09",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 25,
+       "voucher": "PV-Q11O-08"
+      },
+      {
+       "amount": 418446,
+       "date": "2026-11-09",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 26,
+       "voucher": "PV-Q11O-31"
+      },
+      {
+       "amount": 371363,
+       "date": "2026-11-09",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 27,
+       "voucher": "PV-Q11O-32"
+      },
+      {
+       "amount": 2507987,
+       "date": "2026-11-10",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-11N02",
+       "row": 28,
+       "voucher": "BR-11N02"
+      },
+      {
+       "amount": 250092,
+       "date": "2026-11-10",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 29,
+       "voucher": "RV-Q11I-09"
+      },
+      {
+       "amount": 19162,
+       "date": "2026-11-10",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 30,
+       "voucher": "RV-Q11I-10"
+      },
+      {
+       "amount": 486150,
+       "date": "2026-11-11",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 31,
+       "voucher": "PV-Q11O-09"
+      },
+      {
+       "amount": 742877,
+       "date": "2026-11-11",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 32,
+       "voucher": "PV-Q11O-10"
+      },
+      {
+       "amount": 26139,
+       "date": "2026-11-11",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 33,
+       "voucher": "PV-Q11O-33"
+      },
+      {
+       "amount": 85097,
+       "date": "2026-11-11",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 34,
+       "voucher": "PV-Q11O-34"
+      },
+      {
+       "amount": 674510,
+       "date": "2026-11-12",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 35,
+       "voucher": "RV-Q11I-11"
+      },
+      {
+       "amount": 410125,
+       "date": "2026-11-12",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 36,
+       "voucher": "RV-Q11I-12"
+      },
+      {
+       "amount": 754329,
+       "date": "2026-11-13",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 37,
+       "voucher": "PV-Q11O-11"
+      },
+      {
+       "amount": 517187,
+       "date": "2026-11-13",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 38,
+       "voucher": "PV-Q11O-12"
+      },
+      {
+       "amount": 265920,
+       "date": "2026-11-13",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 39,
+       "voucher": "PV-Q11O-35"
+      },
+      {
+       "amount": 203830,
+       "date": "2026-11-13",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 40,
+       "voucher": "PV-Q11O-36"
+      },
+      {
+       "amount": 235964,
+       "date": "2026-11-14",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 41,
+       "voucher": "RV-Q11I-13"
+      },
+      {
+       "amount": 889964,
+       "date": "2026-11-14",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 42,
+       "voucher": "RV-Q11I-14"
+      },
+      {
+       "amount": 67764,
+       "date": "2026-11-15",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 43,
+       "voucher": "PV-Q11O-13"
+      },
+      {
+       "amount": 603734,
+       "date": "2026-11-15",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 44,
+       "voucher": "PV-Q11O-14"
+      },
+      {
+       "amount": 875799,
+       "date": "2026-11-15",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 45,
+       "voucher": "PV-Q11O-37"
+      },
+      {
+       "amount": 701000,
+       "date": "2026-11-15",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 46,
+       "voucher": "PV-Q11O-38"
+      },
+      {
+       "amount": 824425,
+       "date": "2026-11-16",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 47,
+       "voucher": "RV-Q11I-15"
+      },
+      {
+       "amount": 551059,
+       "date": "2026-11-16",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 48,
+       "voucher": "RV-Q11I-16"
+      },
+      {
+       "amount": 410619,
+       "date": "2026-11-17",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 49,
+       "voucher": "PV-Q11O-15"
+      },
+      {
+       "amount": 50278,
+       "date": "2026-11-17",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 50,
+       "voucher": "PV-Q11O-16"
+      },
+      {
+       "amount": 523929,
+       "date": "2026-11-17",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 51,
+       "voucher": "PV-Q11O-39"
+      },
+      {
+       "amount": 767522,
+       "date": "2026-11-17",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 52,
+       "voucher": "PV-Q11O-40"
+      },
+      {
+       "amount": 770596,
+       "date": "2026-11-18",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 53,
+       "voucher": "RV-Q11I-17"
+      },
+      {
+       "amount": 744887,
+       "date": "2026-11-18",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 54,
+       "voucher": "RV-Q11I-18"
+      },
+      {
+       "amount": 2205855,
+       "date": "2026-11-19",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-11N03",
+       "row": 55,
+       "voucher": "BR-11N03"
+      },
+      {
+       "amount": 760884,
+       "date": "2026-11-19",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 56,
+       "voucher": "PV-Q11O-17"
+      },
+      {
+       "amount": 228810,
+       "date": "2026-11-19",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 57,
+       "voucher": "PV-Q11O-18"
+      },
+      {
+       "amount": 144441,
+       "date": "2026-11-20",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 58,
+       "voucher": "RV-Q11I-19"
+      },
+      {
+       "amount": 244759,
+       "date": "2026-11-20",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 59,
+       "voucher": "RV-Q11I-20"
+      },
+      {
+       "amount": 76208,
+       "date": "2026-11-21",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 60,
+       "voucher": "PV-Q11O-19"
+      },
+      {
+       "amount": 422634,
+       "date": "2026-11-21",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 61,
+       "voucher": "PV-Q11O-20"
+      },
+      {
+       "amount": 298765,
+       "date": "2026-11-23",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 62,
+       "voucher": "PV-Q11O-21"
+      },
+      {
+       "amount": 210849,
+       "date": "2026-11-23",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 63,
+       "voucher": "PV-Q11O-22"
+      },
+      {
+       "amount": 599972,
+       "date": "2026-11-25",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 64,
+       "voucher": "PV-Q11O-23"
+      },
+      {
+       "amount": 729084,
+       "date": "2026-11-25",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 65,
+       "voucher": "PV-Q11O-24"
+      },
+      {
+       "amount": 768933,
+       "date": "2026-11-27",
+       "description": "Payment to supplier",
+       "direction": "out",
+       "reference": "PAY-11N04",
+       "row": 66,
+       "voucher": "BP-11N04"
+      }
+     ],
+     "header": 2,
+     "refused": null,
+     "unread": [
+      {
+       "column": 1,
+       "label": "Batch"
+      },
+      {
+       "column": 4,
+       "label": "Document No"
+      },
+      {
+       "column": 9,
+       "label": "Balance"
+      }
+     ]
+    },
+    "saved": "Collections account",
+    "store": [
+     "Collections account"
+    ]
+   }
+  ],
+  "M14": [
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "BP-02N04"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S14"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-02N01"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-02N02"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-02N03"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S8"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-Q02-54"
+       ],
+       "id": "C5",
+       "kind": "review",
+       "reason": "duplicate-reference",
+       "statement": [
+        "S6",
+        "S7"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q02-51"
+       ],
+       "id": "C6",
+       "kind": "review",
+       "reason": "amount-difference",
+       "statement": [
+        "S2"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q02-52"
+       ],
+       "id": "C7",
+       "kind": "review",
+       "reason": "direction-conflict",
+       "statement": [
+        "S3"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q02-53"
+       ],
+       "id": "C8",
+       "kind": "review",
+       "reason": "amount-difference",
+       "statement": [
+        "S5"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q02-55"
+       ],
+       "id": "C9",
+       "kind": "review",
+       "reason": "ambiguous-amount-date",
+       "statement": [
+        "S10",
+        "S9"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q02-01"
+       ],
+       "id": "C10",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S11"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q02-02"
+       ],
+       "id": "C11",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S12"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q02-03"
+       ],
+       "id": "C12",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S13"
+       ],
+       "status": "needs-review"
+      }
+     ],
+     "held": false,
+     "outstanding": []
+    },
+    "reading": {
+     "above": 0,
+     "entries": [
+      {
+       "amount": 972722,
+       "date": "2026-11-01",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-02N01",
+       "row": 2,
+       "voucher": "BR-02N01"
+      },
+      {
+       "amount": 31000,
+       "date": "2026-11-05",
+       "description": "Payment voucher",
+       "direction": "out",
+       "reference": "INV-Q02-501",
+       "row": 3,
+       "voucher": "PV-Q02-51"
+      },
+      {
+       "amount": 45000,
+       "date": "2026-11-09",
+       "description": "Receipt voucher",
+       "direction": "in",
+       "reference": "INV-Q02-502",
+       "row": 4,
+       "voucher": "RV-Q02-52"
+      },
+      {
+       "amount": 2098873,
+       "date": "2026-11-10",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-02N02",
+       "row": 5,
+       "voucher": "BR-02N02"
+      },
+      {
+       "amount": 59950,
+       "date": "2026-11-11",
+       "description": "Receipt voucher",
+       "direction": "in",
+       "reference": "RCV-Q02-503",
+       "row": 6,
+       "voucher": "RV-Q02-53"
+      },
+      {
+       "amount": 20000,
+       "date": "2026-11-14",
+       "description": "Payment voucher",
+       "direction": "out",
+       "reference": "CHQ-Q02-504",
+       "row": 7,
+       "voucher": "PV-Q02-54"
+      },
+      {
+       "amount": 2616871,
+       "date": "2026-11-18",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-02N03",
+       "row": 8,
+       "voucher": "BR-02N03"
+      },
+      {
+       "amount": 15000,
+       "date": "2026-11-19",
+       "description": "Payment voucher",
+       "direction": "out",
+       "reference": "",
+       "row": 9,
+       "voucher": "PV-Q02-55"
+      },
+      {
+       "amount": 2937134,
+       "date": "2026-11-22",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 10,
+       "voucher": "RV-Q02-01"
+      },
+      {
+       "amount": 2633277,
+       "date": "2026-11-22",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 11,
+       "voucher": "RV-Q02-02"
+      },
+      {
+       "amount": 3744233,
+       "date": "2026-11-24",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 12,
+       "voucher": "RV-Q02-03"
+      },
+      {
+       "amount": 1299298,
+       "date": "2026-11-27",
+       "description": "Payment to supplier",
+       "direction": "out",
+       "reference": "PAY-02N04",
+       "row": 13,
+       "voucher": "BP-02N04"
+      }
+     ],
+     "header": 1,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Internal ID"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "saved": "Operations account",
+    "store": [
+     "Operations account"
+    ]
+   },
+   {
+    "by": "map",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "reading": {
+     "above": 0,
+     "entries": [],
+     "header": 1,
+     "refused": {
+      "code": "CELL",
+      "row": 3
+     },
+     "unread": [
+      {
+       "column": 3,
+       "label": "Internal ID"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "store": [
+     "Operations account"
+    ]
+   }
+  ],
+  "M15": [
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "BP-05N02"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S4"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-05N01"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-05N03"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S5"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-05N04"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S7"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BP-Q05F-01"
+       ],
+       "id": "C5",
+       "kind": "review",
+       "reason": "date-gap",
+       "statement": [
+        "S2"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "BP-Q05F-02"
+       ],
+       "id": "C6",
+       "kind": "review",
+       "reason": "date-gap",
+       "statement": [
+        "S3"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "BP-Q05N-01"
+       ],
+       "id": "C7",
+       "kind": "review",
+       "reason": "date-gap",
+       "statement": [
+        "S6"
+       ],
+       "status": "needs-review"
+      }
+     ],
+     "held": false,
+     "outstanding": []
+    },
+    "reading": {
+     "above": 2,
+     "entries": [
+      {
+       "amount": 65411,
+       "date": "2026-11-02",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-05N01",
+       "row": 4,
+       "voucher": "BR-05N01"
+      },
+      {
+       "amount": 385425,
+       "date": "2026-11-02",
+       "description": "Payment voucher",
+       "direction": "out",
+       "reference": "CHQ-Q05F-01",
+       "row": 5,
+       "voucher": "BP-Q05F-01"
+      },
+      {
+       "amount": 78694,
+       "date": "2026-11-03",
+       "description": "Payment voucher",
+       "direction": "out",
+       "reference": "CHQ-Q05F-02",
+       "row": 6,
+       "voucher": "BP-Q05F-02"
+      },
+      {
+       "amount": 943949,
+       "date": "2026-11-10",
+       "description": "Payment to supplier",
+       "direction": "out",
+       "reference": "PAY-05N02",
+       "row": 7,
+       "voucher": "BP-05N02"
+      },
+      {
+       "amount": 96877,
+       "date": "2026-11-10",
+       "description": "Payment voucher",
+       "direction": "out",
+       "reference": "CHQ-Q05N-01",
+       "row": 8,
+       "voucher": "BP-Q05N-01"
+      },
+      {
+       "amount": 2704870,
+       "date": "2026-11-19",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-05N03",
+       "row": 9,
+       "voucher": "BR-05N03"
+      },
+      {
+       "amount": 1396453,
+       "date": "2026-11-28",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-05N04",
+       "row": 10,
+       "voucher": "BR-05N04"
+      }
+     ],
+     "header": 3,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Document No"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "saved": "Settlement account",
+    "store": [
+     "Settlement account"
+    ]
+   },
+   {
+    "by": "map",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "reading": {
+     "above": 2,
+     "entries": [],
+     "header": 3,
+     "refused": {
+      "code": "AMOUNT",
+      "row": 11
+     },
+     "unread": [
+      {
+       "column": 3,
+       "label": "Document No"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "store": [
+     "Settlement account"
+    ]
+   }
+  ],
+  "M16": [
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "BP-03N03"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S6"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BP-03N04"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S8"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-03N01"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-03N02"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S3"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-Q03-31"
+       ],
+       "id": "C5",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S2"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q03-32"
+       ],
+       "id": "C6",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S4"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q03-33"
+       ],
+       "id": "C7",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S7"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q03-34"
+       ],
+       "id": "C8",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S5"
+       ],
+       "status": "needs-review"
+      }
+     ],
+     "held": false,
+     "outstanding": []
+    },
+    "reading": {
+     "above": 3,
+     "entries": [
+      {
+       "amount": 3213948,
+       "date": "2026-11-02",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-03N01",
+       "row": 5,
+       "voucher": "BR-03N01"
+      },
+      {
+       "amount": 250000,
+       "date": "2026-11-04",
+       "description": "Payment voucher",
+       "direction": "out",
+       "reference": "",
+       "row": 6,
+       "voucher": "PV-Q03-31"
+      },
+      {
+       "amount": 3095108,
+       "date": "2026-11-10",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-03N02",
+       "row": 7,
+       "voucher": "BR-03N02"
+      },
+      {
+       "amount": 100000,
+       "date": "2026-11-12",
+       "description": "Payment voucher",
+       "direction": "out",
+       "reference": "",
+       "row": 8,
+       "voucher": "PV-Q03-32"
+      },
+      {
+       "amount": 250000,
+       "date": "2026-11-15",
+       "description": "Receipt voucher",
+       "direction": "in",
+       "reference": "",
+       "row": 9,
+       "voucher": "RV-Q03-34"
+      },
+      {
+       "amount": 1075293,
+       "date": "2026-11-18",
+       "description": "Payment to supplier",
+       "direction": "out",
+       "reference": "PAY-03N03",
+       "row": 10,
+       "voucher": "BP-03N03"
+      },
+      {
+       "amount": 250000,
+       "date": "2026-11-20",
+       "description": "Payment voucher",
+       "direction": "out",
+       "reference": "",
+       "row": 11,
+       "voucher": "PV-Q03-33"
+      },
+      {
+       "amount": 2748357,
+       "date": "2026-11-27",
+       "description": "Payment to supplier",
+       "direction": "out",
+       "reference": "PAY-03N04",
+       "row": 12,
+       "voucher": "BP-03N04"
+      }
+     ],
+     "header": 4,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Document No"
+      },
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "saved": "Main current account",
+    "store": [
+     "Main current account"
+    ]
+   },
+   {
+    "by": "map",
+    "do": "read",
+    "fit": {
+     "fits": false,
+     "problems": [
+      {
+       "count": 2,
+       "kind": "sheets"
+      }
+     ]
+    },
+    "store": [
+     "Main current account"
+    ]
+   },
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": false,
+     "problems": [
+      {
+       "count": 2,
+       "kind": "sheets"
+      }
+     ]
+    },
+    "store": [
+     "Main current account"
+    ]
+   }
+  ],
+  "M17": [
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "BP-01N01"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BP-01N02"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S12"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BP-01N03"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S23"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-01N04"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S24"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-Q01-01"
+       ],
+       "id": "C5",
+       "kind": "review",
+       "reason": "date-gap",
+       "statement": [
+        "S7"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "BR-Q01-02"
+       ],
+       "id": "C6",
+       "kind": "review",
+       "reason": "date-gap",
+       "statement": [
+        "S9"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "BR-Q01-03"
+       ],
+       "id": "C7",
+       "kind": "review",
+       "reason": "date-gap",
+       "statement": [
+        "S11"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "BR-Q01-04"
+       ],
+       "id": "C8",
+       "kind": "review",
+       "reason": "date-gap",
+       "statement": [
+        "S14"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "BR-Q01-05"
+       ],
+       "id": "C9",
+       "kind": "review",
+       "reason": "date-gap",
+       "statement": [
+        "S16"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "BR-Q01-06"
+       ],
+       "id": "C10",
+       "kind": "review",
+       "reason": "date-gap",
+       "statement": [
+        "S18"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "BR-Q01-07"
+       ],
+       "id": "C11",
+       "kind": "review",
+       "reason": "date-gap",
+       "statement": [
+        "S19"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "BR-Q01-08"
+       ],
+       "id": "C12",
+       "kind": "review",
+       "reason": "date-gap",
+       "statement": [
+        "S20"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "BR-Q01-09"
+       ],
+       "id": "C13",
+       "kind": "review",
+       "reason": "date-gap",
+       "statement": [
+        "S21"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "BR-Q01-10"
+       ],
+       "id": "C14",
+       "kind": "review",
+       "reason": "date-gap",
+       "statement": [
+        "S22"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q01-01"
+       ],
+       "id": "C15",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S2"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q01-02"
+       ],
+       "id": "C16",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S3"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q01-03"
+       ],
+       "id": "C17",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S4"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q01-04"
+       ],
+       "id": "C18",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S5"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q01-05"
+       ],
+       "id": "C19",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S6"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q01-06"
+       ],
+       "id": "C20",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S8"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q01-07"
+       ],
+       "id": "C21",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S10"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q01-08"
+       ],
+       "id": "C22",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S13"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q01-09"
+       ],
+       "id": "C23",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S15"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q01-10"
+       ],
+       "id": "C24",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S17"
+       ],
+       "status": "needs-review"
+      }
+     ],
+     "held": false,
+     "outstanding": []
+    },
+    "reading": {
+     "above": 1,
+     "entries": [
+      {
+       "amount": 97441,
+       "date": "2026-11-01",
+       "description": "Payment to supplier",
+       "direction": "out",
+       "reference": "PAY-01N01",
+       "row": 3,
+       "voucher": "BP-01N01"
+      },
+      {
+       "amount": 513414,
+       "date": "2026-11-02",
+       "description": "Receipt voucher",
+       "direction": "in",
+       "reference": "DEP-Q01-01",
+       "row": 4,
+       "voucher": "BR-Q01-01"
+      },
+      {
+       "amount": 603561,
+       "date": "2026-11-03",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 5,
+       "voucher": "PV-Q01-01"
+      },
+      {
+       "amount": 614884,
+       "date": "2026-11-03",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 6,
+       "voucher": "PV-Q01-02"
+      },
+      {
+       "amount": 266949,
+       "date": "2026-11-03",
+       "description": "Receipt voucher",
+       "direction": "in",
+       "reference": "DEP-Q01-02",
+       "row": 7,
+       "voucher": "BR-Q01-02"
+      },
+      {
+       "amount": 327341,
+       "date": "2026-11-04",
+       "description": "Receipt voucher",
+       "direction": "in",
+       "reference": "DEP-Q01-03",
+       "row": 8,
+       "voucher": "BR-Q01-03"
+      },
+      {
+       "amount": 242622,
+       "date": "2026-11-05",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 9,
+       "voucher": "PV-Q01-03"
+      },
+      {
+       "amount": 326844,
+       "date": "2026-11-05",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 10,
+       "voucher": "PV-Q01-04"
+      },
+      {
+       "amount": 497226,
+       "date": "2026-11-05",
+       "description": "Receipt voucher",
+       "direction": "in",
+       "reference": "DEP-Q01-04",
+       "row": 11,
+       "voucher": "BR-Q01-04"
+      },
+      {
+       "amount": 336939,
+       "date": "2026-11-06",
+       "description": "Receipt voucher",
+       "direction": "in",
+       "reference": "DEP-Q01-05",
+       "row": 12,
+       "voucher": "BR-Q01-05"
+      },
+      {
+       "amount": 515272,
+       "date": "2026-11-07",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 13,
+       "voucher": "PV-Q01-05"
+      },
+      {
+       "amount": 876180,
+       "date": "2026-11-07",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 14,
+       "voucher": "PV-Q01-06"
+      },
+      {
+       "amount": 548144,
+       "date": "2026-11-07",
+       "description": "Receipt voucher",
+       "direction": "in",
+       "reference": "DEP-Q01-06",
+       "row": 15,
+       "voucher": "BR-Q01-06"
+      },
+      {
+       "amount": 71072,
+       "date": "2026-11-08",
+       "description": "Receipt voucher",
+       "direction": "in",
+       "reference": "DEP-Q01-07",
+       "row": 16,
+       "voucher": "BR-Q01-07"
+      },
+      {
+       "amount": 837094,
+       "date": "2026-11-09",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 17,
+       "voucher": "PV-Q01-07"
+      },
+      {
+       "amount": 605921,
+       "date": "2026-11-09",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 18,
+       "voucher": "PV-Q01-08"
+      },
+      {
+       "amount": 150583,
+       "date": "2026-11-09",
+       "description": "Receipt voucher",
+       "direction": "in",
+       "reference": "DEP-Q01-08",
+       "row": 19,
+       "voucher": "BR-Q01-08"
+      },
+      {
+       "amount": 865418,
+       "date": "2026-11-10",
+       "description": "Payment to supplier",
+       "direction": "out",
+       "reference": "PAY-01N02",
+       "row": 20,
+       "voucher": "BP-01N02"
+      },
+      {
+       "amount": 441226,
+       "date": "2026-11-10",
+       "description": "Receipt voucher",
+       "direction": "in",
+       "reference": "DEP-Q01-09",
+       "row": 21,
+       "voucher": "BR-Q01-09"
+      },
+      {
+       "amount": 485464,
+       "date": "2026-11-11",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 22,
+       "voucher": "PV-Q01-09"
+      },
+      {
+       "amount": 891573,
+       "date": "2026-11-11",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 23,
+       "voucher": "PV-Q01-10"
+      },
+      {
+       "amount": 297157,
+       "date": "2026-11-11",
+       "description": "Receipt voucher",
+       "direction": "in",
+       "reference": "DEP-Q01-10",
+       "row": 24,
+       "voucher": "BR-Q01-10"
+      },
+      {
+       "amount": 658604,
+       "date": "2026-11-19",
+       "description": "Payment to supplier",
+       "direction": "out",
+       "reference": "PAY-01N03",
+       "row": 25,
+       "voucher": "BP-01N03"
+      },
+      {
+       "amount": 25684,
+       "date": "2026-11-28",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-01N04",
+       "row": 26,
+       "voucher": "BR-01N04"
+      }
+     ],
+     "header": 2,
+     "refused": null,
+     "unread": [
+      {
+       "column": 3,
+       "label": "Batch"
+      }
+     ]
+    },
+    "store": []
+   }
+  ],
+  "M18": [
+   {
+    "accepted": false,
+    "code": "MAP_JSON",
+    "do": "import",
+    "store": []
+   },
+   {
+    "accepted": false,
+    "code": "MAP_JSON",
+    "do": "import",
+    "store": []
+   },
+   {
+    "accepted": false,
+    "code": "MAP_JSON",
+    "do": "import",
+    "store": []
+   },
+   {
+    "accepted": false,
+    "code": "MAP_JSON",
+    "do": "import",
+    "store": []
+   },
+   {
+    "accepted": false,
+    "code": "MAP_JSON",
+    "do": "import",
+    "store": []
+   },
+   {
+    "accepted": false,
+    "code": "MAP_FORMAT",
+    "do": "import",
+    "store": []
+   },
+   {
+    "accepted": false,
+    "code": "MAP_FORMAT",
+    "do": "import",
+    "store": []
+   },
+   {
+    "accepted": false,
+    "code": "MAP_FORMAT",
+    "do": "import",
+    "store": []
+   },
+   {
+    "accepted": false,
+    "code": "MAP_KEYS",
+    "do": "import",
+    "store": []
+   },
+   {
+    "accepted": false,
+    "code": "MAP_KEYS",
+    "do": "import",
+    "store": []
+   },
+   {
+    "accepted": false,
+    "code": "MAP_NAME",
+    "do": "import",
+    "store": []
+   },
+   {
+    "accepted": false,
+    "code": "MAP_HEADER",
+    "do": "import",
+    "store": []
+   },
+   {
+    "accepted": false,
+    "code": "MAP_HEADER",
+    "do": "import",
+    "store": []
+   },
+   {
+    "accepted": false,
+    "code": "MAP_HEADER",
+    "do": "import",
+    "store": []
+   },
+   {
+    "accepted": false,
+    "code": "MAP_COLUMN",
+    "do": "import",
+    "store": []
+   },
+   {
+    "accepted": false,
+    "code": "MAP_COLUMN",
+    "do": "import",
+    "store": []
+   },
+   {
+    "accepted": false,
+    "code": "MAP_COLUMN",
+    "do": "import",
+    "store": []
+   },
+   {
+    "accepted": false,
+    "code": "MAP_LABEL",
+    "do": "import",
+    "store": []
+   },
+   {
+    "accepted": false,
+    "code": "MAP_LABEL",
+    "do": "import",
+    "store": []
+   },
+   {
+    "accepted": true,
+    "do": "import",
+    "store": [
+     "Payroll account"
+    ]
+   },
+   {
+    "by": "map",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "BP-04N01"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BP-04N04"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S10"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-04N02"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S5"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-04N03"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S9"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "PV-Q04O-01"
+       ],
+       "id": "C5",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S6"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q04O-02"
+       ],
+       "id": "C6",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S7"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "PV-Q04O-03"
+       ],
+       "id": "C7",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S8"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q04I-01"
+       ],
+       "id": "C8",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S2"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q04I-02"
+       ],
+       "id": "C9",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S3"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q04I-03"
+       ],
+       "id": "C10",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S4"
+       ],
+       "status": "needs-review"
+      }
+     ],
+     "held": false,
+     "outstanding": []
+    },
+    "reading": {
+     "above": 0,
+     "entries": [
+      {
+       "amount": 1390613,
+       "date": "2026-11-01",
+       "description": "Payment to supplier",
+       "direction": "out",
+       "reference": "PAY-04N01",
+       "row": 2,
+       "voucher": "BP-04N01"
+      },
+      {
+       "amount": 655060,
+       "date": "2026-11-03",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 3,
+       "voucher": "RV-Q04I-01"
+      },
+      {
+       "amount": 878929,
+       "date": "2026-11-03",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 4,
+       "voucher": "RV-Q04I-02"
+      },
+      {
+       "amount": 778561,
+       "date": "2026-11-05",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 5,
+       "voucher": "RV-Q04I-03"
+      },
+      {
+       "amount": 944971,
+       "date": "2026-11-10",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-04N02",
+       "row": 6,
+       "voucher": "BR-04N02"
+      },
+      {
+       "amount": 618974,
+       "date": "2026-11-12",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 7,
+       "voucher": "PV-Q04O-01"
+      },
+      {
+       "amount": 445264,
+       "date": "2026-11-12",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 8,
+       "voucher": "PV-Q04O-02"
+      },
+      {
+       "amount": 412406,
+       "date": "2026-11-14",
+       "description": "Petty cash payment",
+       "direction": "out",
+       "reference": "",
+       "row": 9,
+       "voucher": "PV-Q04O-03"
+      },
+      {
+       "amount": 4298570,
+       "date": "2026-11-18",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-04N03",
+       "row": 10,
+       "voucher": "BR-04N03"
+      },
+      {
+       "amount": 1511441,
+       "date": "2026-11-27",
+       "description": "Payment to supplier",
+       "direction": "out",
+       "reference": "PAY-04N04",
+       "row": 11,
+       "voucher": "BP-04N04"
+      }
+     ],
+     "header": 1,
+     "refused": null,
+     "unread": []
+    },
+    "store": [
+     "Payroll account"
+    ]
+   },
+   {
+    "do": "export",
+    "map": {
+     "columns": {
+      "date": {
+       "column": 1,
+       "label": "Txn Date"
+      },
+      "description": {
+       "column": 3,
+       "label": "Particulars"
+      },
+      "payments": {
+       "column": 6,
+       "label": "Money Out"
+      },
+      "receipts": {
+       "column": 5,
+       "label": "Money In"
+      },
+      "reference": {
+       "column": 4,
+       "label": "Cheque/Ref"
+      },
+      "voucher": {
+       "column": 2,
+       "label": "Doc Ref"
+      }
+     },
+     "format": "tarasuf-column-map",
+     "header": 1,
+     "name": "Payroll account",
+     "role": "bank-cashbook",
+     "version": 1
+    },
+    "store": [
+     "Payroll account"
+    ]
+   },
+   {
+    "accepted": true,
+    "do": "import",
+    "store": [
+     "Payroll account"
+    ]
+   }
+  ],
+  "M19": [
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "reading": {
+     "above": 0,
+     "entries": [],
+     "header": 1,
+     "refused": {
+      "code": "COLUMN",
+      "row": 5
+     },
+     "unread": [
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "store": []
+   },
+   {
+    "by": "hand",
+    "do": "read",
+    "invalid": "MAP_LABEL",
+    "store": []
+   },
+   {
+    "by": "hand",
+    "do": "read",
+    "invalid": "MAP_COLUMN",
+    "store": []
+   },
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "reading": {
+     "above": 0,
+     "entries": [],
+     "header": 1,
+     "refused": {
+      "code": "ROW",
+      "row": 4
+     },
+     "unread": [
+      {
+       "column": 8,
+       "label": "Balance"
+      }
+     ]
+    },
+    "store": []
+   }
+  ],
+  "M20": [
+   {
+    "accepted": true,
+    "do": "import",
+    "store": [
+     "Spare account"
+    ]
+   },
+   {
+    "by": "declared",
+    "do": "read",
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "BP-15N02"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S7"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-15N01"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-15N03"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S8"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-15N04"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S9"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-Q15-01"
+       ],
+       "id": "C5",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S2"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q15-02"
+       ],
+       "id": "C6",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S3"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q15-03"
+       ],
+       "id": "C7",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S4"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q15-04"
+       ],
+       "id": "C8",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S5"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q15-05"
+       ],
+       "id": "C9",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S6"
+       ],
+       "status": "needs-review"
+      }
+     ],
+     "held": false,
+     "outstanding": []
+    },
+    "reading": {
+     "above": 0,
+     "entries": [
+      {
+       "amount": 2258744,
+       "date": "2026-11-01",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-15N01",
+       "row": 2,
+       "voucher": "BR-15N01"
+      },
+      {
+       "amount": 704658,
+       "date": "2026-11-03",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 3,
+       "voucher": "RV-Q15-01"
+      },
+      {
+       "amount": 94236,
+       "date": "2026-11-03",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 4,
+       "voucher": "RV-Q15-02"
+      },
+      {
+       "amount": 550483,
+       "date": "2026-11-05",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 5,
+       "voucher": "RV-Q15-03"
+      },
+      {
+       "amount": 633585,
+       "date": "2026-11-05",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 6,
+       "voucher": "RV-Q15-04"
+      },
+      {
+       "amount": 263371,
+       "date": "2026-11-07",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 7,
+       "voucher": "RV-Q15-05"
+      },
+      {
+       "amount": 307478,
+       "date": "2026-11-09",
+       "description": "Payment to supplier",
+       "direction": "out",
+       "reference": "PAY-15N02",
+       "row": 8,
+       "voucher": "BP-15N02"
+      },
+      {
+       "amount": 1628837,
+       "date": "2026-11-18",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-15N03",
+       "row": 9,
+       "voucher": "BR-15N03"
+      },
+      {
+       "amount": 3762555,
+       "date": "2026-11-28",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-15N04",
+       "row": 10,
+       "voucher": "BR-15N04"
+      }
+     ],
+     "header": 1,
+     "refused": null,
+     "unread": []
+    },
+    "store": [
+     "Spare account"
+    ]
+   },
+   {
+    "by": "declared",
+    "do": "read",
+    "reading": {
+     "above": 0,
+     "entries": [],
+     "header": 1,
+     "refused": {
+      "code": "HEADER",
+      "row": 1
+     },
+     "unread": []
+    },
+    "store": [
+     "Spare account"
+    ]
+   },
+   {
+    "by": "hand",
+    "do": "read",
+    "fit": {
+     "fits": true,
+     "problems": []
+    },
+    "period": {
+     "cases": [
+      {
+       "cashbook": [
+        "BP-15N02"
+       ],
+       "id": "C1",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S7"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-15N01"
+       ],
+       "id": "C2",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S1"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-15N03"
+       ],
+       "id": "C3",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S8"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "BR-15N04"
+       ],
+       "id": "C4",
+       "kind": "automatic",
+       "reason": "reference",
+       "statement": [
+        "S9"
+       ],
+       "status": "matched"
+      },
+      {
+       "cashbook": [
+        "RV-Q15-01"
+       ],
+       "id": "C5",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S2"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q15-02"
+       ],
+       "id": "C6",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S3"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q15-03"
+       ],
+       "id": "C7",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S4"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q15-04"
+       ],
+       "id": "C8",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S5"
+       ],
+       "status": "needs-review"
+      },
+      {
+       "cashbook": [
+        "RV-Q15-05"
+       ],
+       "id": "C9",
+       "kind": "review",
+       "reason": "amount-date-suggestion",
+       "statement": [
+        "S6"
+       ],
+       "status": "needs-review"
+      }
+     ],
+     "held": false,
+     "outstanding": []
+    },
+    "reading": {
+     "above": 0,
+     "entries": [
+      {
+       "amount": 2258744,
+       "date": "2026-11-01",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-15N01",
+       "row": 2,
+       "voucher": "BR-15N01"
+      },
+      {
+       "amount": 704658,
+       "date": "2026-11-03",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 3,
+       "voucher": "RV-Q15-01"
+      },
+      {
+       "amount": 94236,
+       "date": "2026-11-03",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 4,
+       "voucher": "RV-Q15-02"
+      },
+      {
+       "amount": 550483,
+       "date": "2026-11-05",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 5,
+       "voucher": "RV-Q15-03"
+      },
+      {
+       "amount": 633585,
+       "date": "2026-11-05",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 6,
+       "voucher": "RV-Q15-04"
+      },
+      {
+       "amount": 263371,
+       "date": "2026-11-07",
+       "description": "Counter receipt",
+       "direction": "in",
+       "reference": "",
+       "row": 7,
+       "voucher": "RV-Q15-05"
+      },
+      {
+       "amount": 307478,
+       "date": "2026-11-09",
+       "description": "Payment to supplier",
+       "direction": "out",
+       "reference": "PAY-15N02",
+       "row": 8,
+       "voucher": "BP-15N02"
+      },
+      {
+       "amount": 1628837,
+       "date": "2026-11-18",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-15N03",
+       "row": 9,
+       "voucher": "BR-15N03"
+      },
+      {
+       "amount": 3762555,
+       "date": "2026-11-28",
+       "description": "Receipt from customer",
+       "direction": "in",
+       "reference": "RCV-15N04",
+       "row": 10,
+       "voucher": "BR-15N04"
+      }
+     ],
+     "header": 1,
+     "refused": null,
+     "unread": [
+      {
+       "column": 7,
+       "label": "Balance"
+      }
+     ]
+    },
+    "store": [
+     "Spare account"
+    ]
+   }
+  ],
+  "M21": [
+   {
+    "accepted": true,
+    "do": "import",
+    "store": [
+     "Statement export account"
+    ]
+   },
+   {
+    "by": "map",
+    "do": "read",
+    "fit": {
+     "fits": false,
+     "problems": [
+      {
+       "kind": "header-row",
+       "row": 12
+      }
+     ]
+    },
+    "store": [
+     "Statement export account"
+    ]
+   }
+  ]
+ },
+ "version": "bank-map-foundation-oracle-1"
+}

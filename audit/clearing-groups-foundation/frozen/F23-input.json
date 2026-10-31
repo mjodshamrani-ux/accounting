@@ -1,0 +1,26 @@
+{
+ "name": "F23.csv",
+ "reading": {
+  "sheet": 0,
+  "header": 0,
+  "posting": 0,
+  "reference": 1,
+  "date": 2,
+  "amount": -1,
+  "debit": 3,
+  "credit": 4,
+  "account": 5,
+  "currency": 6,
+  "description": 7,
+  "mode": "split"
+ },
+ "scope": {
+  "entity": "Synthetic Clearing Trading Co",
+  "ledger": "GL-2026",
+  "account": "2150",
+  "currency": "SAR",
+  "start": "2026-09-01",
+  "end": "2026-09-30",
+  "confirmed": true
+ }
+}

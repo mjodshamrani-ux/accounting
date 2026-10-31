@@ -1,0 +1,16 @@
+{
+  "name": "tarasuf-bnk-pdf1-holdout-g15-fonts",
+  "private": true,
+  "description": "The G15 holdout's fonts from Fontsource (SIL Open Font License); fonts.py builds TrueType files from them.",
+  "dependencies": {
+    "@fontsource/barlow": "5.3.0",
+    "@fontsource/el-messiri": "5.3.0",
+    "@fontsource/ibm-plex-sans": "5.3.0",
+    "@fontsource/noto-sans-arabic": "5.3.0",
+    "@fontsource/pt-serif": "5.3.0",
+    "@fontsource/red-hat-mono": "5.3.0",
+    "@fontsource/source-sans-3": "5.3.1",
+    "@fontsource/space-mono": "5.3.0",
+    "@fontsource/vazirmatn": "5.3.0"
+  }
+}

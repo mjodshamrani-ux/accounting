@@ -1,0 +1,446 @@
+{
+ "ok": true,
+ "files": [
+  {
+   "name": "H01-gl.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 50,
+   "quoted": 0
+  },
+  {
+   "name": "H01-tb.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 0
+  },
+  {
+   "name": "H02-gl.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 51,
+   "quoted": 36
+  },
+  {
+   "name": "H02-tb.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 14,
+   "quoted": 17
+  },
+  {
+   "name": "H03-gl.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 34,
+   "quoted": 20
+  },
+  {
+   "name": "H03-tb.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 13,
+   "quoted": 9
+  },
+  {
+   "name": "H04-gl.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 33,
+   "quoted": 88
+  },
+  {
+   "name": "H04-tb.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 13,
+   "quoted": 48
+  },
+  {
+   "name": "H05-gl.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 67,
+   "quoted": 0
+  },
+  {
+   "name": "H05-tb.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 15,
+   "quoted": 0
+  },
+  {
+   "name": "H06-gl.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 34,
+   "quoted": 24
+  },
+  {
+   "name": "H06-tb.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 13,
+   "quoted": 17
+  },
+  {
+   "name": "H07-gl.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 67,
+   "quoted": 176
+  },
+  {
+   "name": "H07-tb.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 41,
+   "quoted": 148
+  },
+  {
+   "name": "H08-gl.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 33,
+   "quoted": 0
+  },
+  {
+   "name": "H08-tb.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 16,
+   "quoted": 0
+  },
+  {
+   "name": "H09-gl.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 33,
+   "quoted": 0
+  },
+  {
+   "name": "H09-tb.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 13,
+   "quoted": 0
+  },
+  {
+   "name": "H10-gl.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 31,
+   "quoted": 24
+  },
+  {
+   "name": "H10-tb.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 14,
+   "quoted": 17
+  },
+  {
+   "name": "H11-gl.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 33,
+   "quoted": 88
+  },
+  {
+   "name": "H11-tb.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 15,
+   "quoted": 49
+  },
+  {
+   "name": "H12-gl.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 33,
+   "quoted": 0
+  },
+  {
+   "name": "H12-tb.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 26,
+   "quoted": 0
+  },
+  {
+   "name": "H13-gl.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 34,
+   "quoted": 0
+  },
+  {
+   "name": "H13-tb.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 13,
+   "quoted": 0
+  },
+  {
+   "name": "H14-gl.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 33,
+   "quoted": 24
+  },
+  {
+   "name": "H14-tb.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 13,
+   "quoted": 17
+  },
+  {
+   "name": "H15-gl.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 2886,
+   "quoted": 0
+  },
+  {
+   "name": "H15-tb.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 222,
+   "quoted": 0
+  },
+  {
+   "name": "H16-gl.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 66,
+   "quoted": 0
+  },
+  {
+   "name": "H16-tb.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 15,
+   "quoted": 1
+  },
+  {
+   "name": "H17-gl.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 67,
+   "quoted": 47
+  },
+  {
+   "name": "H17-tb.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 15,
+   "quoted": 17
+  },
+  {
+   "name": "H18-gl.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 34,
+   "quoted": 90
+  },
+  {
+   "name": "H18-tb.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 13,
+   "quoted": 48
+  },
+  {
+   "name": "H01-scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H02-scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H03-scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H04-scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H05-scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H06-scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H07-scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H08-scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H09-scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H10-scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H11-scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H12-scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H13-scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H14-scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H15-scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H16-scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H17-scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  },
+  {
+   "name": "H18-scope.json",
+   "writer": "json",
+   "ok": true,
+   "problems": []
+  }
+ ],
+ "cells": 13046,
+ "factsSha256": "a4aeb81e56dbde4033e1a50763b5dbdeba80233afed2819b1a56abca82c940ab",
+ "selfTest": [
+  {
+   "file": "H06-gl.csv",
+   "plant": "a Persian digit made Latin",
+   "rejected": true
+  },
+  {
+   "file": "H04-gl.csv",
+   "plant": "the space after the comma in the dimensions dropped",
+   "rejected": true
+  },
+  {
+   "file": "H03-tb.csv",
+   "plant": "the spaces around a page label removed",
+   "rejected": true
+  },
+  {
+   "file": "H09-tb.csv",
+   "plant": "the case of the dimensions restored",
+   "rejected": true
+  },
+  {
+   "file": "H08-tb.csv",
+   "plant": "LF where Java writes CRLF",
+   "rejected": true
+  },
+  {
+   "file": "H07-tb.csv",
+   "plant": "the padding of LibreOffice removed from one row",
+   "rejected": true
+  },
+  {
+   "file": "H15-tb.csv",
+   "plant": "a TB row dropped",
+   "rejected": true
+  },
+  {
+   "file": "H13-scope.json",
+   "plant": "the scope period moved",
+   "rejected": true
+  }
+ ],
+ "passed": true
+}

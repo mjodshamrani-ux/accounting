@@ -1,0 +1,4 @@
+Transaction ID,Batch ID,Kind,Posting date,Amount,Reference,Merchant account,Currency
+T1,B1,sale,2026-09-10,250.00,Order T1,MA-7781,SAR
+T2,B1,sale,2026-09-10,400.00,Order T2,MA-7781,SAR
+T3,B1,refund,2026-09-12,250.00,Refund of order T0817 sold in August,MA-7781,SAR

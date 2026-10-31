@@ -1,0 +1,635 @@
+{
+ "schema": "tarasuf-fa1-sections-holdout-input-manifest/1",
+ "synthetic": true,
+ "producer": "stories.py facts; each register, category map or GL balances file written as CSV by PHP 8.3 fputcsv, a hand-written Java 21 writer with CRLF, Go 1.24 encoding/csv with UseCRLF, a hand-written Perl 5.38 writer with a byte-order mark and CR line ends, or LibreOffice Calc 24.2 CSV export from flat ODS, one byte patch where a story says so; each story's three file names, readings and scope in JSON",
+ "files": {
+  "H01-gl.csv": {
+   "sha256": "a0d6540751c98c7c2b577eea649fa19b24279ada3f5036b89d9a76553e3e6985",
+   "bytes": 1032
+  },
+  "H01-input.json": {
+   "sha256": "9050b90582812c576fb662ea9116c1a1e2ebc52cda3d71b69a15db33a757f89c",
+   "bytes": 611
+  },
+  "H01-map.csv": {
+   "sha256": "65fda0bbe38ee2be2bfe2997911e5c431c601273fdd789fca44d07e8c20d534c",
+   "bytes": 823
+  },
+  "H01-register.csv": {
+   "sha256": "fb1dcf567d5a4eeed308c54ab1390ac6a4195a94e6b45ad410781812c281eb7d",
+   "bytes": 1771
+  },
+  "H02-gl.csv": {
+   "sha256": "112dc5a2778d34cd8fb44a894682ae09c2ef6487caf1c0412bf3eed42e8605a4",
+   "bytes": 707
+  },
+  "H02-input.json": {
+   "sha256": "a6d67140070b671819064afe5025ca621c8b0d74b7b206b3693d971f1e15fe63",
+   "bytes": 611
+  },
+  "H02-map.csv": {
+   "sha256": "3c6f92bbe9a3715ee4738361ae3cf618156243f920c037c33c920047781e62af",
+   "bytes": 588
+  },
+  "H02-register.csv": {
+   "sha256": "15ff438eea3e304f23c046b616c53c0aeca5c76146c34fc9d77b1abdbde46a84",
+   "bytes": 1582
+  },
+  "H03-gl.csv": {
+   "sha256": "0d786e976f20ba7faaa81ff3ba9aaabe92b1e5db8f8df3b02210e5f227158ece",
+   "bytes": 827
+  },
+  "H03-input.json": {
+   "sha256": "cf85fd3a5351645397ae8fc446afca25f24745f8f1f0cdfb5d98f23b61a150d8",
+   "bytes": 611
+  },
+  "H03-map.csv": {
+   "sha256": "7f6d07473432f876534f8628a375abc6ecb4b13079fbccc5184e9994e957f67f",
+   "bytes": 605
+  },
+  "H03-register.csv": {
+   "sha256": "d21c0ea8d52423f0529d63d65c2e7abb0af175ffb0a1bd7fb40860fae5cd0c6e",
+   "bytes": 931
+  },
+  "H04-gl.csv": {
+   "sha256": "b518fd3bb59f8cedee8cbefa5c14f652a690993ff1891ac5bd3ccb3c768503d8",
+   "bytes": 412
+  },
+  "H04-input.json": {
+   "sha256": "0d60f56a5c0bdb5a6c6644c8175addb7eca74ecdd7abdc2690d4869ad467030f",
+   "bytes": 611
+  },
+  "H04-map.csv": {
+   "sha256": "79b114a4396cd93a97db35bdeccc911fca4558ef0c282f9e970a3867de1d0f90",
+   "bytes": 387
+  },
+  "H04-register.csv": {
+   "sha256": "ad2aceafd8c7e55ecdb62e4c273ad1b3a41d42c654b3a6cb9f1c6b0170aef70e",
+   "bytes": 1097
+  },
+  "H05-gl.csv": {
+   "sha256": "6696da6a3c1b4f86daff71203bf43a5bc81911c9d716dd9205d45d900fb4dda3",
+   "bytes": 399
+  },
+  "H05-input.json": {
+   "sha256": "27362c0dc52013cd70534974a955d360cf549d240ebf542be3896f6fc3b53f60",
+   "bytes": 611
+  },
+  "H05-map.csv": {
+   "sha256": "f65f8b8c0e894be5f0790913498cd03a4309f6a4c3e89e7513fcf6c19603ed24",
+   "bytes": 305
+  },
+  "H05-register.csv": {
+   "sha256": "d8bb10455be4852e5fa20d4b5c4960dac137cb63d32cfc199fe60f07021efefb",
+   "bytes": 534
+  },
+  "H06-gl.csv": {
+   "sha256": "3f93baef1db9698f4e3a47283b708fedc427c26e7585120c8ab4720254786f59",
+   "bytes": 1027
+  },
+  "H06-input.json": {
+   "sha256": "de938d2b477b5e8aef30e21cf1ac0173519cb103aeea424925a79122c4f24ab6",
+   "bytes": 611
+  },
+  "H06-map.csv": {
+   "sha256": "65fda0bbe38ee2be2bfe2997911e5c431c601273fdd789fca44d07e8c20d534c",
+   "bytes": 823
+  },
+  "H06-register.csv": {
+   "sha256": "6f795427739b2b7d5193da2c2eab2a8b530ff246b1b9b7685c46a20a9a84e01a",
+   "bytes": 1572
+  },
+  "H07-gl.csv": {
+   "sha256": "2ff9e756b85ccc982b2e7254db4af6713ceb9e62e20b43117dab86f9a1ce72e3",
+   "bytes": 706
+  },
+  "H07-input.json": {
+   "sha256": "48fea6934cb80d6a17a8b6021c21d07a7fa06373e1c3dc750a77892b09514365",
+   "bytes": 611
+  },
+  "H07-map.csv": {
+   "sha256": "490695c9de7acf57455ca74673c0c76670b0911a37e90a3928ebd471b858bfd4",
+   "bytes": 600
+  },
+  "H07-register.csv": {
+   "sha256": "3d9978d58719ff31d7c60ba3d73e9287e17cc5776180affc81d15a94cb5a8214",
+   "bytes": 1030
+  },
+  "H08-gl.csv": {
+   "sha256": "bf8b1035137e968eed4c0d5e5a5e17f48dbdbbe7bd6fdd048ca37e286cfc814f",
+   "bytes": 828
+  },
+  "H08-input.json": {
+   "sha256": "eee5443582b379517cf4feb82118df0c1c0d9fdfbb98f82dc30e43c6bd997607",
+   "bytes": 611
+  },
+  "H08-map.csv": {
+   "sha256": "80a92457ff449a494761c6ea38f2cad978d5a51266f43f44686a7997eb99ce0b",
+   "bytes": 584
+  },
+  "H08-register.csv": {
+   "sha256": "9e88ca7d2e4b585726b25ed679caad12e2ea77a2b88a372d4b17025a5d806d31",
+   "bytes": 1115
+  },
+  "H09-gl.csv": {
+   "sha256": "04c5be9ec96436ae75073d59345a3d0bec220136dd0fbf6ab2c2fafea70ec0df",
+   "bytes": 731
+  },
+  "H09-input.json": {
+   "sha256": "07a40f88490043e90caa4df7e08da8a1ebae233614da6257ac332deb52b2b137",
+   "bytes": 611
+  },
+  "H09-map.csv": {
+   "sha256": "c10c9e38f9ee51ff4ee6e05c5d8ebc11586018a93c8a3b650457671ace9f2fde",
+   "bytes": 646
+  },
+  "H09-register.csv": {
+   "sha256": "fa87c6a840f18f24c9a7f91123eacab4e55976b1f305d655473da91c297abdb0",
+   "bytes": 1084
+  },
+  "H10-gl.csv": {
+   "sha256": "d3bf71621cf59173420a2298354b88dc7883ba97ce89f52fb8c4563b4b93816e",
+   "bytes": 399
+  },
+  "H10-input.json": {
+   "sha256": "49c8dc44f76f2140cc0902e087d4a02649c54e5a2cb7ba025eabad5e5909363a",
+   "bytes": 611
+  },
+  "H10-map.csv": {
+   "sha256": "e79057e60afff4de057c93242fdc90ad6742ac562691c6c591bce4cc86694179",
+   "bytes": 359
+  },
+  "H10-register.csv": {
+   "sha256": "dc3854092be8fa7e5f4d749a8b70dc37e84a1c95362195f20bd6f74763ca6346",
+   "bytes": 756
+  },
+  "H11-gl.csv": {
+   "sha256": "e6cfcc5970fbfbb8112906465e848f40a7964d3a52f236104332215e54620296",
+   "bytes": 709
+  },
+  "H11-input.json": {
+   "sha256": "d4f8418d29ae5eae275970bcdf5c89a50df2419eee2be8e9bda1142978f49b07",
+   "bytes": 611
+  },
+  "H11-map.csv": {
+   "sha256": "6a42000c6e772f28a51c3af27827d01636ddccb390cac68397e1dae8415f920f",
+   "bytes": 555
+  },
+  "H11-register.csv": {
+   "sha256": "99f2d0b15d7986643a301719a021c629858250174062fb93104e961209a9098e",
+   "bytes": 895
+  },
+  "H12-gl.csv": {
+   "sha256": "49895e0ac4da6a8726266ec6f865b09ffeef2e4e9ab36d06c687bc9ef210ede3",
+   "bytes": 709
+  },
+  "H12-input.json": {
+   "sha256": "54b73af21137caf3762acb4d96efcfc3a3811304e82311d726de1ec2f03ac7e1",
+   "bytes": 611
+  },
+  "H12-map.csv": {
+   "sha256": "9ff69581eac5249e0ce50e0ebc32f75d09e0ce5d3188bced0b723a1722b983fa",
+   "bytes": 603
+  },
+  "H12-register.csv": {
+   "sha256": "65b08adf2ad3a9d3f88ac7b86e3b41f231b0cfa4af357bf94ea3e1faf12d5a2b",
+   "bytes": 1045
+  },
+  "H13-gl.csv": {
+   "sha256": "7e886274641d866ed9cff7332a4b4015b9d61c3e32d9849723ffb160c10e5ff6",
+   "bytes": 829
+  },
+  "H13-input.json": {
+   "sha256": "87ab5cddaec7fd2218a0f4c21b83bb9e20c4e4144c169c9bcde0b9c3f1f00f2a",
+   "bytes": 611
+  },
+  "H13-map.csv": {
+   "sha256": "dceed3ef86234ad4ecf8a20246089d2403cd2b7e208b6e9f2f802af4691993b7",
+   "bytes": 548
+  },
+  "H13-register.csv": {
+   "sha256": "c47187c67a9e02a97ec2738947e1ee72c09970f191b944755dbce6b0e50acc34",
+   "bytes": 880
+  },
+  "H14-gl.csv": {
+   "sha256": "7f94b9447a34a53baf6f430cbe32026df13dcb68a5a2e9f9b7be43a052648751",
+   "bytes": 411
+  },
+  "H14-input.json": {
+   "sha256": "b51b49d96202c8f21528903e35576b034b46c31d6ab12708999aff1b7f797f1d",
+   "bytes": 611
+  },
+  "H14-map.csv": {
+   "sha256": "2ac72c568e7071f8980a0c06db4adae7b648d7cb90530bb470b2872ac1be019e",
+   "bytes": 399
+  },
+  "H14-register.csv": {
+   "sha256": "b40144999c391c233f8513330a3bbb4c5e34271af34f86de362be1c358b8a31c",
+   "bytes": 600
+  },
+  "H15-gl.csv": {
+   "sha256": "79688ea9132066f40d08db9c409db8b2b10c32af9fcce547b14da278d792b865",
+   "bytes": 707
+  },
+  "H15-input.json": {
+   "sha256": "5b82e72677edb87512cb0f78b371c35e09194a3ec7ba58b2a6a5b40940e8792b",
+   "bytes": 611
+  },
+  "H15-map.csv": {
+   "sha256": "9e4b51f2ca3c56dde0922b13277187477c0d08e038fbf37902c88270245a86c1",
+   "bytes": 603
+  },
+  "H15-register.csv": {
+   "sha256": "0ccf662c1bfe8b619c9454e659c0da702b0d06f23eeef97d37877893f7705f9e",
+   "bytes": 1139
+  },
+  "H16-gl.csv": {
+   "sha256": "242e5b1cd8813c7f635df1460510570dcfdfe2f652660b247d2eef6dba740c1b",
+   "bytes": 1030
+  },
+  "H16-input.json": {
+   "sha256": "19f306a62763e57a4fb7a0aac7d6d5e740f9a04dc6417952235f323476ce0b09",
+   "bytes": 611
+  },
+  "H16-map.csv": {
+   "sha256": "65fda0bbe38ee2be2bfe2997911e5c431c601273fdd789fca44d07e8c20d534c",
+   "bytes": 823
+  },
+  "H16-register.csv": {
+   "sha256": "fa2390c405cbef597d1bf366a20e58ce588299b6c734fa1825f93bd7b59429ec",
+   "bytes": 1331
+  },
+  "H17-gl.csv": {
+   "sha256": "0357d3ad93a84578bed91aaafc376c21f339c542d653cda3633c27ee4ba47e5c",
+   "bytes": 1018
+  },
+  "H17-input.json": {
+   "sha256": "e7f5ed06df4e3021382d40062119a39ca1509c8226ad74363a503ec911f1168f",
+   "bytes": 611
+  },
+  "H17-map.csv": {
+   "sha256": "de3e645f0413490fb912e3940492687bb0f91fa4485156323a19e15f2633891b",
+   "bytes": 856
+  },
+  "H17-register.csv": {
+   "sha256": "51386cdeb8e621f8386c5b5038c810dbc87fda1cbbe18b5b49f80e42aab269db",
+   "bytes": 1705
+  },
+  "H18-gl.csv": {
+   "sha256": "bc0cc5684b8091a306808ac6d0079d28a46865863ba34310805f956f173dcebc",
+   "bytes": 823
+  },
+  "H18-input.json": {
+   "sha256": "2fae4807a6ac47da1feac921cc6d38a966025126fd50ef9a505b77dd12d585f8",
+   "bytes": 611
+  },
+  "H18-map.csv": {
+   "sha256": "050fca905f58fdba8a963ffd153dc102a3a133b9ae6442389f0ed517136edde5",
+   "bytes": 596
+  },
+  "H18-register.csv": {
+   "sha256": "1efa56ac54c502d149240ed90284ac633c3e172a156acc201d00fd5c318b42e3",
+   "bytes": 888
+  },
+  "H19-gl.csv": {
+   "sha256": "b08d95362a4505e25f0b7c63e30722f63869bd8e04c27257a0a9bfa8e5ac9932",
+   "bytes": 728
+  },
+  "H19-input.json": {
+   "sha256": "8b60bd616906354ab985442ccf10152c353c8e306d9b3f9c28e0afa1eb8c4e17",
+   "bytes": 611
+  },
+  "H19-map.csv": {
+   "sha256": "c10c9e38f9ee51ff4ee6e05c5d8ebc11586018a93c8a3b650457671ace9f2fde",
+   "bytes": 646
+  },
+  "H19-register.csv": {
+   "sha256": "b16972c3dbbd1e40525d89c32fac6b39e99a96e739dd3684d2eaff2d74065ac5",
+   "bytes": 1582
+  },
+  "H20-gl.csv": {
+   "sha256": "298016d29293af5c089937c2130cffcd5be98f095aff7d806f9684cdd12249d1",
+   "bytes": 706
+  },
+  "H20-input.json": {
+   "sha256": "a48174f20900d2df06a5f0339cefafcfe7436f6dbd34d32e212e9db542695566",
+   "bytes": 611
+  },
+  "H20-map.csv": {
+   "sha256": "fcc112bb490a88bec2189ce098cb17f86e9c7bfc3a94a4e823f843553549c745",
+   "bytes": 576
+  },
+  "H20-register.csv": {
+   "sha256": "8df46ce6a830cb7daf4ad15f12bd75f74c3f539da89ee941ba60a38fc6544a21",
+   "bytes": 1051
+  },
+  "H21-gl.csv": {
+   "sha256": "a2b5a7c9664eb20e2df5b6af0a08a5b3fa258ad9f9f74bca500a3d334a0c26b9",
+   "bytes": 700
+  },
+  "H21-input.json": {
+   "sha256": "e58707b96c612c4c34a0951d192df0f09cb493b7e0baf341a8a7861a0ee0e996",
+   "bytes": 611
+  },
+  "H21-map.csv": {
+   "sha256": "3c6f92bbe9a3715ee4738361ae3cf618156243f920c037c33c920047781e62af",
+   "bytes": 588
+  },
+  "H21-register.csv": {
+   "sha256": "e7aaaa27d4b27f37604f0c5be5e8d97c5f89f23b0c51e782c0cc6b45f7b9d0e8",
+   "bytes": 920
+  },
+  "H22-gl.csv": {
+   "sha256": "306f514835b063064715c26be6c827c9f7735496cb9578cc74033db2d9a2f8a5",
+   "bytes": 705
+  },
+  "H22-input.json": {
+   "sha256": "48688866b711c7a20cd3ce4483bb8233db979cca78c26286ae19ad92e7059158",
+   "bytes": 611
+  },
+  "H22-map.csv": {
+   "sha256": "f1671d8a2f4cbaf6d44dd3b2e2fdf37c856b63f80b68aa142a34078bd5680197",
+   "bytes": 567
+  },
+  "H22-register.csv": {
+   "sha256": "81a90fceb1e7ae6131fd4d6cb2f6e70db00f89ff3cce354f220ffe5deed427c2",
+   "bytes": 904
+  },
+  "H23-gl.csv": {
+   "sha256": "201f51076da171dbb264ea3c3c3e904f8116b47a053c12cfc0272e97ae335b6d",
+   "bytes": 832
+  },
+  "H23-input.json": {
+   "sha256": "a4027b01e8e84d84994430fbcbc86fb116460d8a4152b4ef041e1ddf36602b34",
+   "bytes": 611
+  },
+  "H23-map.csv": {
+   "sha256": "c5d86e7cdcbc53af362eceb1c755570eee9797eeecfe81559699657c7e5a544c",
+   "bytes": 551
+  },
+  "H23-register.csv": {
+   "sha256": "928ba87348b51ce5df4ebe3a9ecb286795af7095335ea1f611bee6592b7b8186",
+   "bytes": 953
+  },
+  "H24-gl.csv": {
+   "sha256": "d24dc97f419af614653f83acda028b28bceeb77790494eec925125997241f5d1",
+   "bytes": 724
+  },
+  "H24-input.json": {
+   "sha256": "59d6f8cc50750176f1a6c066c26f5230198a012fefd2dc1812b31e962778d9d2",
+   "bytes": 611
+  },
+  "H24-map.csv": {
+   "sha256": "b634be276f6f89c857538b62c908d679c4182eab071b1fcfc3abbc760ba79737",
+   "bytes": 679
+  },
+  "H24-register.csv": {
+   "sha256": "12c4e1133fff3db31f455c597ddca4ab24d5bf9fe7e2d6f45eba4558d0097ba2",
+   "bytes": 1081
+  },
+  "H25-gl.csv": {
+   "sha256": "0f8c05d1d0cd85cc45d6023e558019208fa5ca68a251e430ca03524761cf4f2b",
+   "bytes": 809
+  },
+  "H25-input.json": {
+   "sha256": "7c906f92d5dd3ea993eef99591270934f23e850b58f8c6cdbb634923f576d90f",
+   "bytes": 611
+  },
+  "H25-map.csv": {
+   "sha256": "279c9a0ff1502e8c62dc1c00deec0c8e04210321c161ec63da300b42361cc0cb",
+   "bytes": 792
+  },
+  "H25-register.csv": {
+   "sha256": "f12025b8454932b1a534a9fb6d358c55d6b52dec8a76729fabb09c1428badb62",
+   "bytes": 1105
+  },
+  "H26-gl.csv": {
+   "sha256": "07293e5c6fb1812cb3a492316799b28e998f33a6d8c36da169ecbb5416060e63",
+   "bytes": 723
+  },
+  "H26-input.json": {
+   "sha256": "acd883521158888f15380007b273f1c3a5d0f3d4a6c5f18ee669816e0a937c72",
+   "bytes": 611
+  },
+  "H26-map.csv": {
+   "sha256": "e313a38d493a8d0b383bb314b66dea4d2f121dbb925752c013af2e1dadf7def7",
+   "bytes": 561
+  },
+  "H26-register.csv": {
+   "sha256": "c42741e3bfa639ee5f287bc6319d4c70f07be15e038eeada270e33896ab79440",
+   "bytes": 911
+  },
+  "H27-gl.csv": {
+   "sha256": "13c307b843c816a440b3b33a5e7dcdf6e59ac948436f424d5798af47e74896cb",
+   "bytes": 808
+  },
+  "H27-input.json": {
+   "sha256": "37f462be463614e93bc4615d86cdc29cd31f2efba87fc190a6ba766082ea1c4f",
+   "bytes": 611
+  },
+  "H27-map.csv": {
+   "sha256": "b95d96b275cf553b546ad2bd27dff883534f473a2f21e53863674e23ec226f09",
+   "bytes": 832
+  },
+  "H27-register.csv": {
+   "sha256": "d94f53c5fd3454269a8a34d4572c9cdfb2c205619972f4a17b3267fbdde6c15c",
+   "bytes": 1116
+  },
+  "H28-gl.csv": {
+   "sha256": "da6c39a44ef0e49cd4f903da420fa2911180a2a34909e3435922c8b515202b2c",
+   "bytes": 574
+  },
+  "H28-input.json": {
+   "sha256": "4fbd302b23159c589879c9a8cefd3d1b5a9f95be8db356c6e05b335d6e4fa9bd",
+   "bytes": 611
+  },
+  "H28-map.csv": {
+   "sha256": "207febed8d3412acade5e90529286b209f6059494413dfaae6b4c23e56ee0e95",
+   "bytes": 334
+  },
+  "H28-register.csv": {
+   "sha256": "93c76810dde07a3fc66f618b67ae5602c7f4b3f9156cbcc2d79c4a6d21aea859",
+   "bytes": 461
+  },
+  "H29-gl.csv": {
+   "sha256": "29e2018f5f86686ecf4050c9813cde2a18f1493d390325ea3409539cf61b3369",
+   "bytes": 413
+  },
+  "H29-input.json": {
+   "sha256": "36ac2dfb34f4d78a167f0d150836604e86810f6935d6890661379e3827467bb1",
+   "bytes": 611
+  },
+  "H29-map.csv": {
+   "sha256": "6d3d0dac7c72dc7f32f6a05f5420d32184d1a8013c7e701c7eaace02394e58f7",
+   "bytes": 444
+  },
+  "H29-register.csv": {
+   "sha256": "00f3f3a862eea1b66e1c0d5cc20486ec8fc0ff76bc8db4cf033fa68f8762939c",
+   "bytes": 435
+  },
+  "H30-gl.csv": {
+   "sha256": "875c09476c0738e133a4e4dbd57524a8aad3aec5c1982234aa520209df603860",
+   "bytes": 605
+  },
+  "H30-input.json": {
+   "sha256": "b1369ee6b8f822b9762ab88cab39e88af69af609a364a2a635f56c8f26622131",
+   "bytes": 611
+  },
+  "H30-map.csv": {
+   "sha256": "fc4917b6587da7c2e02baacceb09364f2bb47f77231fe8bded9af0cbdd69f10e",
+   "bytes": 623
+  },
+  "H30-register.csv": {
+   "sha256": "f12025b8454932b1a534a9fb6d358c55d6b52dec8a76729fabb09c1428badb62",
+   "bytes": 1105
+  },
+  "H31-gl.csv": {
+   "sha256": "7cb0f906e97c61256ade153c6e00e28347a62f46afd6064726ed88541ce3de2c",
+   "bytes": 677
+  },
+  "H31-input.json": {
+   "sha256": "da58b8e6391526b826d5aab941f466939bc3f3d68a3c8cad23b08b3293edb96a",
+   "bytes": 611
+  },
+  "H31-map.csv": {
+   "sha256": "151ed0ecb230821f65ce900398bc25c280c09bc3b4483eccd2f4bcf8d74c876e",
+   "bytes": 552
+  },
+  "H31-register.csv": {
+   "sha256": "307e52d7f3d9321581b9d168ff86029187741decafcaf68cee95af7e821788a2",
+   "bytes": 890
+  },
+  "H32-gl.csv": {
+   "sha256": "26c56991a65a033f9d4397d257e1b3da866887f708d5705ebc092331c5bc14e0",
+   "bytes": 700
+  },
+  "H32-input.json": {
+   "sha256": "b9c960da429ea631b415a3080e1ebd43cd28d459a766d90ad56f5636545f65b5",
+   "bytes": 611
+  },
+  "H32-map.csv": {
+   "sha256": "857a0072e58c4838cf7b27ba97ab4a845deb23cff7c6cdeb52cac992cfe281a7",
+   "bytes": 603
+  },
+  "H32-register.csv": {
+   "sha256": "3b6f61c1e4ffcaaaa1f89e667e150dfc58a9b12d4533e3655b207439d983c1d7",
+   "bytes": 1108
+  },
+  "H33-gl.csv": {
+   "sha256": "a4bf8ba1b4d44bb13ce3a2141ddfcffd823603d4bd44d2d934bfac2f2b4a7ee1",
+   "bytes": 1202
+  },
+  "H33-input.json": {
+   "sha256": "9b3bbd25c9a7acd52e7ba38717153a50ac569c3824efc08f7820de6b5db0e3ea",
+   "bytes": 611
+  },
+  "H33-map.csv": {
+   "sha256": "dc07ecffd71e298fde59431085d1a7e566d6d48d08e69507bd1beea582639bbe",
+   "bytes": 816
+  },
+  "H33-register.csv": {
+   "sha256": "8de87bc47762eca903416a2a98c8429b8e57ab5b6608389a7faaf985d17865da",
+   "bytes": 1766
+  },
+  "H34-gl.csv": {
+   "sha256": "f9076bacea8980bd5cda18fe685de68500a1c934d76fb658d9c5b02570207ec3",
+   "bytes": 409
+  },
+  "H34-input.json": {
+   "sha256": "443a64f6ed7ce429baa33e987cd7375e435536b4b46c0e25137919fb34ac68a3",
+   "bytes": 611
+  },
+  "H34-map.csv": {
+   "sha256": "79b114a4396cd93a97db35bdeccc911fca4558ef0c282f9e970a3867de1d0f90",
+   "bytes": 387
+  },
+  "H34-register.csv": {
+   "sha256": "324ff3817f5a027ce4083cab19dbd2e749e5ddb28d210d2f21d946a79a54d09b",
+   "bytes": 451
+  },
+  "H35-gl.csv": {
+   "sha256": "d79c6ef29b2dd64b62bb7b826d197780a5da3a5249c0bbb622d00d8125aca1b7",
+   "bytes": 397
+  },
+  "H35-input.json": {
+   "sha256": "917a6ce452df47df9f4dee0b59951bfa693e183b1d815b73a0ce543567dcdedd",
+   "bytes": 611
+  },
+  "H35-map.csv": {
+   "sha256": "a123a3f4eb92a0eed3a604a3b1138fdd8d552d53f02acf8733a1b981dc0cd83d",
+   "bytes": 303
+  },
+  "H35-register.csv": {
+   "sha256": "22367e53f0d7769f32868b54415cacae567be6bc8bc19ed24eb49179b26e2508",
+   "bytes": 554
+  },
+  "H36-gl.csv": {
+   "sha256": "d79c6ef29b2dd64b62bb7b826d197780a5da3a5249c0bbb622d00d8125aca1b7",
+   "bytes": 397
+  },
+  "H36-input.json": {
+   "sha256": "234fe8b7b1571d9d07ce9d2d3b1c75c2105b23ab36981c5c7934f67c8cb4d72c",
+   "bytes": 611
+  },
+  "H36-map.csv": {
+   "sha256": "3e5b06575d137f622d82da8742ac5b71a9c6eb098cf9476e682b9276481fe76d",
+   "bytes": 335
+  },
+  "H36-register.csv": {
+   "sha256": "cfccbe9d59f0576f7ae0015304de314c2196af47226dca8a57d2a861d83c3ab3",
+   "bytes": 40472
+  },
+  "H37-gl.csv": {
+   "sha256": "2f8d689384a0445e4db6085bd91c9e4bee51bbf4baa90ebb9d215e906098b775",
+   "bytes": 389
+  },
+  "H37-input.json": {
+   "sha256": "a017925e3ce30cb186b7676f484ef8767994e28c2c10ab8e8b52f175f7cf29d0",
+   "bytes": 611
+  },
+  "H37-map.csv": {
+   "sha256": "17503bd872bba6260d67f8ab0714ce2a91f3da56837c383c6d5ac2401fc70f4b",
+   "bytes": 299
+  },
+  "H37-register.csv": {
+   "sha256": "51cd767a11f9940a42b924261873b55ec418f45d033342b369a1d2d22050e587",
+   "bytes": 19532
+  },
+  "H38-gl.csv": {
+   "sha256": "564dea3bdbbb441da77a0ca79e294d39cd36f1900f4d9d2980bc880527511298",
+   "bytes": 828
+  },
+  "H38-input.json": {
+   "sha256": "61aeade6cba09a8243fa07fb8ad56b06d19b4abf78f52fec1e6167310e8c421a",
+   "bytes": 611
+  },
+  "H38-map.csv": {
+   "sha256": "2d88e804df601fe9b7cdfccdf42644306e16ece123d6afe108ad2b17bad4165f",
+   "bytes": 498
+  },
+  "H38-register.csv": {
+   "sha256": "f7298a6ecbe414703fc3f00784106f55aae0b948f38ba2398d5162447985d8e6",
+   "bytes": 1108
+  },
+  "H39-gl.csv": {
+   "sha256": "a995938a06c8f7b406cd11de5804cff95bec69fcb7e6fc4c3afef45a16f47e1d",
+   "bytes": 732
+  },
+  "H39-input.json": {
+   "sha256": "7249f6afceb47671faf170676fc6f14f398fdf626445cc1da588bed32cec6c24",
+   "bytes": 611
+  },
+  "H39-map.csv": {
+   "sha256": "fa08ee26cb2e5e36086f69806dace1b3a678946828ca139c245b2dbe144024f3",
+   "bytes": 659
+  },
+  "H39-register.csv": {
+   "sha256": "c669ae544f005e241b142a68e40940574cedd2b90321f4ea4f32d2699fd696f0",
+   "bytes": 1073
+  },
+  "stories.json": {
+   "sha256": "9297aa6780731be073f9b13eee93209df7a032db09162427c484106d2641fa16",
+   "bytes": 357971
+  }
+ }
+}

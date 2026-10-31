@@ -1,0 +1,310 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-run/1",
+ "commit": "28ae06022519637294da444d99b5b816bba6fec9",
+ "productSourceChanged": false,
+ "summary": {
+  "positivesCompleted": [
+   "P04",
+   "P06",
+   "P07"
+  ],
+  "positivesFailed": [
+   "P01",
+   "P02",
+   "P03",
+   "P08",
+   "P09",
+   "P10"
+  ],
+  "eligiblePositives": 9,
+  "heldCorrectly": [
+   "P05",
+   "P11",
+   "P12"
+  ],
+  "readingOk": [
+   "P04",
+   "P05",
+   "P06",
+   "P07",
+   "P11",
+   "P12"
+  ],
+  "refused": [
+   "P01",
+   "P02",
+   "P03",
+   "P08",
+   "P09",
+   "P10"
+  ],
+  "falseAutomatic": 0
+ },
+ "statements": [
+  {
+   "id": "P01",
+   "producer": "fop",
+   "layout": "en",
+   "refused": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel."
+    ]
+   }
+  },
+  {
+   "id": "P02",
+   "producer": "fop",
+   "layout": "ar",
+   "refused": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة."
+    ]
+   }
+  },
+  {
+   "id": "P03",
+   "producer": "fop",
+   "layout": "ar",
+   "refused": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel."
+    ]
+   }
+  },
+  {
+   "id": "P04",
+   "producer": "fop",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 4,
+    "period": {
+     "start": "2026-07-01",
+     "end": "2026-07-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 30,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   },
+   "xlsx": {
+    "cashbookRows": 30,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "P05",
+   "producer": "fop",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "incomplete-pages",
+    "expected": "incomplete-pages",
+    "reason": "pages 1,2,2,3 of 3",
+    "pages": 4,
+    "period": {
+     "start": "2026-08-01",
+     "end": "2026-08-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 26,
+    "equal": true,
+    "held": "incomplete-pages: pages 1,2,2,3 of 3",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "P06",
+   "producer": "fop",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 8,
+    "period": {
+     "start": "2026-01-01",
+     "end": "2026-03-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 107,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "P07",
+   "producer": "openpdf",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 3,
+    "period": {
+     "start": "2026-09-01",
+     "end": "2026-09-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 32,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "P08",
+   "producer": "openpdf",
+   "layout": "en",
+   "refused": "تعذرت قراءة صفحة PDF 1: الصفحة 1 مدوّرة. اطلب PDF باتجاه صحيح أو Excel.",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: الصفحة 1 مدوّرة. اطلب PDF باتجاه صحيح أو Excel."
+    ]
+   }
+  },
+  {
+   "id": "P09",
+   "producer": "openpdf",
+   "layout": "ar",
+   "refused": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة."
+    ]
+   }
+  },
+  {
+   "id": "P10",
+   "producer": "openpdf",
+   "layout": "ar",
+   "refused": "BANK_STATEMENT_READING: page 1 line 10: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: BANK_STATEMENT_READING: page 1 line 10: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة."
+    ]
+   }
+  },
+  {
+   "id": "P11",
+   "producer": "openpdf",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "incomplete-pages",
+    "expected": "incomplete-pages",
+    "reason": "pages 2,3 of 3",
+    "pages": 2,
+    "period": {
+     "start": "2026-02-01",
+     "end": "2026-02-28"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 30,
+    "equal": true,
+    "held": "incomplete-pages: pages 2,3 of 3",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "P12",
+   "producer": "openpdf",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "balance-broken",
+    "expected": "balance-broken",
+    "reason": "page 2: closing -212821 != -202821",
+    "pages": 2,
+    "period": {
+     "start": "2026-03-01",
+     "end": "2026-03-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 29,
+    "equal": true,
+    "held": "balance-broken: page 2: closing -212821 != -202821",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  }
+ ]
+}

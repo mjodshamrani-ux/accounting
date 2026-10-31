@@ -1,0 +1,4 @@
+Batch ID,Entity A,Entity B,Ledger A,Ledger B,Account A,Account B,Dimensions A,Dimensions B,Currency,Currency basis,FX policy,Posting status,Posting layer,Period start,Period end,As of,Policy version
+B-OP,Orbit Logistics LLC,Pillar Retail Est.,ORBIT-LEDGER,PILLAR-LEDGER,1630,2630,branch=DMM,branch=RUH,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+B-OQ-JPY,Orbit Logistics LLC,Quartz Services WLL,ORBIT-LEDGER,QUARTZ-LEDGER,1640,2640,branch=DMM,branch=KWI,JPY,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+B-OR,Orbit Logistics LLC,شركة ريادة للتجارة,ORBIT-LEDGER,دفتر ريادة,1650,2650,branch=DMM,فرع=المدينة,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7

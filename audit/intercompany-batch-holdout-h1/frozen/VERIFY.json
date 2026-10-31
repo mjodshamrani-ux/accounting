@@ -1,0 +1,693 @@
+{
+ "ok": true,
+ "files": [
+  {
+   "name": "H01-batches.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 11,
+   "quoted": 0
+  },
+  {
+   "name": "H01-ledger-1.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 8,
+   "quoted": 0
+  },
+  {
+   "name": "H01-ledger-2.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 8,
+   "quoted": 0
+  },
+  {
+   "name": "H01-ledger-3.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 7,
+   "quoted": 0
+  },
+  {
+   "name": "H01-ledger-4.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 10,
+   "quoted": 0
+  },
+  {
+   "name": "H01-ledger-5.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 4,
+   "quoted": 0
+  },
+  {
+   "name": "H01-relations.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 33,
+   "quoted": 0
+  },
+  {
+   "name": "H02-batches.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 21
+  },
+  {
+   "name": "H02-ledger-1.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 17
+  },
+  {
+   "name": "H02-ledger-2.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 17
+  },
+  {
+   "name": "H02-ledger-3.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 17
+  },
+  {
+   "name": "H02-ledger-4.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 2,
+   "quoted": 15
+  },
+  {
+   "name": "H02-relations.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 7,
+   "quoted": 12
+  },
+  {
+   "name": "H03-batches.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 54
+  },
+  {
+   "name": "H03-ledger-1.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 2,
+   "quoted": 38
+  },
+  {
+   "name": "H03-ledger-2.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 57
+  },
+  {
+   "name": "H03-ledger-3.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 2,
+   "quoted": 38
+  },
+  {
+   "name": "H03-relations.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 5,
+   "quoted": 35
+  },
+  {
+   "name": "H04-batches.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 4,
+   "quoted": 0
+  },
+  {
+   "name": "H04-ledger-1.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 0
+  },
+  {
+   "name": "H04-ledger-2.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 2,
+   "quoted": 0
+  },
+  {
+   "name": "H04-ledger-3.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 2,
+   "quoted": 0
+  },
+  {
+   "name": "H04-relations.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 5,
+   "quoted": 0
+  },
+  {
+   "name": "H05-batches.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 21
+  },
+  {
+   "name": "H05-ledger-1.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 6,
+   "quoted": 23
+  },
+  {
+   "name": "H05-ledger-2.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 5,
+   "quoted": 21
+  },
+  {
+   "name": "H05-ledger-3.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 2,
+   "quoted": 15
+  },
+  {
+   "name": "H05-relations.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 11,
+   "quoted": 14
+  },
+  {
+   "name": "H06-batches.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 54
+  },
+  {
+   "name": "H06-ledger-1.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 57
+  },
+  {
+   "name": "H06-ledger-2.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 2,
+   "quoted": 38
+  },
+  {
+   "name": "H06-ledger-3.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 2,
+   "quoted": 38
+  },
+  {
+   "name": "H06-relations.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 5,
+   "quoted": 35
+  },
+  {
+   "name": "H07-batches.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 0
+  },
+  {
+   "name": "H07-ledger-1.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 0
+  },
+  {
+   "name": "H07-ledger-2.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 2,
+   "quoted": 0
+  },
+  {
+   "name": "H07-ledger-3.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 2,
+   "quoted": 0
+  },
+  {
+   "name": "H07-relations.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 5,
+   "quoted": 0
+  },
+  {
+   "name": "H08-batches.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 4,
+   "quoted": 0
+  },
+  {
+   "name": "H08-ledger-1.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 4,
+   "quoted": 0
+  },
+  {
+   "name": "H08-ledger-2.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 2,
+   "quoted": 0
+  },
+  {
+   "name": "H08-ledger-3.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 2,
+   "quoted": 0
+  },
+  {
+   "name": "H08-ledger-4.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 2,
+   "quoted": 0
+  },
+  {
+   "name": "H08-relations.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 7,
+   "quoted": 0
+  },
+  {
+   "name": "H09-batches.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 4,
+   "quoted": 23
+  },
+  {
+   "name": "H09-ledger-1.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 4,
+   "quoted": 19
+  },
+  {
+   "name": "H09-ledger-2.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 17
+  },
+  {
+   "name": "H09-ledger-3.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 17
+  },
+  {
+   "name": "H09-relations.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 7,
+   "quoted": 8
+  },
+  {
+   "name": "H10-batches.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 0
+  },
+  {
+   "name": "H10-ledger-1.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 4,
+   "quoted": 0
+  },
+  {
+   "name": "H10-ledger-2.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 2,
+   "quoted": 0
+  },
+  {
+   "name": "H10-ledger-3.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 0
+  },
+  {
+   "name": "H10-relations.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 9,
+   "quoted": 1
+  },
+  {
+   "name": "H11-batches.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 0
+  },
+  {
+   "name": "H11-ledger-1.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 2,
+   "quoted": 0
+  },
+  {
+   "name": "H11-ledger-2.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 0
+  },
+  {
+   "name": "H11-ledger-3.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 2,
+   "quoted": 0
+  },
+  {
+   "name": "H11-relations.csv",
+   "writer": "go",
+   "ok": true,
+   "problems": [],
+   "rows": 5,
+   "quoted": 0
+  },
+  {
+   "name": "H12-batches.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 6,
+   "quoted": 108
+  },
+  {
+   "name": "H12-ledger-1.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 57
+  },
+  {
+   "name": "H12-ledger-2.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 57
+  },
+  {
+   "name": "H12-ledger-3.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 57
+  },
+  {
+   "name": "H12-ledger-4.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 57
+  },
+  {
+   "name": "H12-ledger-5.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 57
+  },
+  {
+   "name": "H12-relations.csv",
+   "writer": "libreoffice",
+   "ok": true,
+   "problems": [],
+   "rows": 11,
+   "quoted": 77
+  },
+  {
+   "name": "H13-batches.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 0
+  },
+  {
+   "name": "H13-ledger-1.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 0
+  },
+  {
+   "name": "H13-ledger-2.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 0
+  },
+  {
+   "name": "H13-relations.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 5,
+   "quoted": 0
+  },
+  {
+   "name": "H14-batches.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 3,
+   "quoted": 22
+  },
+  {
+   "name": "H14-ledger-1.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 4,
+   "quoted": 19
+  },
+  {
+   "name": "H14-ledger-2.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 6,
+   "quoted": 28
+  },
+  {
+   "name": "H14-ledger-3.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 2,
+   "quoted": 15
+  },
+  {
+   "name": "H14-relations.csv",
+   "writer": "php",
+   "ok": true,
+   "problems": [],
+   "rows": 10,
+   "quoted": 13
+  },
+  {
+   "name": "H15-batches.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 7,
+   "quoted": 0
+  },
+  {
+   "name": "H15-ledger-1.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 194,
+   "quoted": 0
+  },
+  {
+   "name": "H15-ledger-2.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 174,
+   "quoted": 0
+  },
+  {
+   "name": "H15-ledger-3.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 174,
+   "quoted": 0
+  },
+  {
+   "name": "H15-ledger-4.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 178,
+   "quoted": 0
+  },
+  {
+   "name": "H15-relations.csv",
+   "writer": "java",
+   "ok": true,
+   "problems": [],
+   "rows": 716,
+   "quoted": 0
+  }
+ ],
+ "cells": 23705,
+ "factsSha256": "3ea85ebcb92eada1bb24ea59b3ed74de71e51226a0df686f207254c7fba05517",
+ "selfTest": [
+  {
+   "file": "H12-ledger-2.csv",
+   "plant": "one amount one halala off",
+   "rejected": true
+  },
+  {
+   "file": "H06-ledger-1.csv",
+   "plant": "a Persian digit made Latin",
+   "rejected": true
+  },
+  {
+   "file": "H03-relations.csv",
+   "plant": "the line break in a reference removed",
+   "rejected": true
+  },
+  {
+   "file": "H10-relations.csv",
+   "plant": "the leading space of a relation ID removed",
+   "rejected": true
+  },
+  {
+   "file": "H07-ledger-1.csv",
+   "plant": "LF where Java writes CRLF",
+   "rejected": true
+  },
+  {
+   "file": "H09-ledger-1.csv",
+   "plant": "the counterparty case restored",
+   "rejected": true
+  },
+  {
+   "file": "H15-relations.csv",
+   "plant": "a relation row dropped",
+   "rejected": true
+  }
+ ],
+ "passed": true
+}

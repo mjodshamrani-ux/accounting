@@ -1,0 +1,190 @@
+{
+ "schema": "tarasuf-all1-oracle-mutants/1",
+ "baselinePassed": true,
+ "killed": 26,
+ "of": 26,
+ "faults": [
+  {
+   "fault": "invoice-competition-ignored",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "payment-competition-ignored",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "an-over-line-also-competes",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "crowded-at-equality",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "over-at-equality",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "allocated-lines-still-advise",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "twins-ignore-the-amount",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "twins-among-open-lines-only",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "twin-reason-dropped",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "competitors-on-every-item",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "human-links-take-no-capacity",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "undo-ignored",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "replay-capacity-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "proof-reuse-allowed",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "row-scope-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "duplicate-references-kept",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "proof-members-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "hidden-rows-read",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "extra-decimals-accepted",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "ceiling-one-short",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "cut-off-excluded",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "available-above-original-accepted",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "zero-advice-accepted",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "arabic-indic-digits-unread",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "excess-may-be-negative",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "columns-in-fixed-order",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  }
+ ]
+}

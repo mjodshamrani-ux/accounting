@@ -1,0 +1,269 @@
+{
+ "reader": "pdfminer.six, glyph by glyph, rows by baseline, Arabic descriptions in reading order",
+ "factsSha256": "b5bff82895e0cb8bef7440916b955ac3c488ad07d53dd08747fad729dbf14b4e",
+ "statements": [
+  {
+   "id": "R01",
+   "file": "R01-statement.pdf",
+   "sha256": "ee2c72f0849922701897b719bcd675204a5a0ebb14e7005acb8af388e6ae32b5",
+   "pages": 2,
+   "valuesFound": 155,
+   "ok": true,
+   "problems": [],
+   "creator": "TCPDF",
+   "producer": "TCPDF 6.10.0 (http://www.tcpdf.org)",
+   "fonts": [
+    "Helvetica",
+    "Helvetica-Bold"
+   ],
+   "fontDeclared": "Helvetica",
+   "fontPresent": true
+  },
+  {
+   "id": "R02",
+   "file": "R02-statement.pdf",
+   "sha256": "02f5bc06736890d650ad23da54f48a136b2100de8b9e0aa5dc2ae573dfd2455c",
+   "pages": 2,
+   "valuesFound": 119,
+   "ok": true,
+   "problems": [],
+   "creator": "TCPDF",
+   "producer": "TCPDF 6.10.0 (http://www.tcpdf.org)",
+   "fonts": [
+    "AAAAAC+IBMPlexSansArabic-Regular",
+    "AAAAAD+IBMPlexSansArabic-Bold",
+    "Helvetica"
+   ],
+   "fontDeclared": "IBM Plex Sans Arabic",
+   "fontPresent": true
+  },
+  {
+   "id": "R03",
+   "file": "R03-statement.pdf",
+   "sha256": "ff9032ca527fddc87ce46b7b93c75b186c6799487d33f4d1c49af883e9b5ba4d",
+   "pages": 2,
+   "valuesFound": 143,
+   "ok": true,
+   "problems": [],
+   "creator": "TCPDF",
+   "producer": "TCPDF 6.10.0 (http://www.tcpdf.org)",
+   "fonts": [
+    "AAAAAC+DejaVuSansMono-Bold",
+    "AAAAAD+DejaVuSansMono",
+    "Helvetica"
+   ],
+   "fontDeclared": "DejaVu Sans Mono",
+   "fontPresent": true
+  },
+  {
+   "id": "R04",
+   "file": "R04-statement.pdf",
+   "sha256": "416c23f7a0265ada1f9350255f8767525a4eeccf33ac08b899176c8fc94ef9c2",
+   "pages": 3,
+   "valuesFound": 129,
+   "ok": true,
+   "problems": [],
+   "creator": "TCPDF",
+   "producer": "TCPDF 6.10.0 (http://www.tcpdf.org)",
+   "fonts": [
+    "AAAAAC+DejaVuSans-Bold",
+    "AAAAAD+DejaVuSans",
+    "Helvetica"
+   ],
+   "fontDeclared": "DejaVu Sans",
+   "fontPresent": true
+  },
+  {
+   "id": "R05",
+   "file": "R05-statement.pdf",
+   "sha256": "2f9f4548904282004f9da208e50aacdb2ab87d6f13a2e2ce06b4e9520f7615e2",
+   "pages": 2,
+   "valuesFound": 143,
+   "ok": true,
+   "problems": [],
+   "creator": "TCPDF",
+   "producer": "TCPDF 6.10.0 (http://www.tcpdf.org)",
+   "fonts": [
+    "AAAAAC+DejaVuSerif",
+    "AAAAAD+DejaVuSerif-Bold",
+    "Helvetica"
+   ],
+   "fontDeclared": "DejaVu Serif",
+   "fontPresent": true
+  },
+  {
+   "id": "R06",
+   "file": "R06-statement.pdf",
+   "sha256": "cb072596687ee1be17725cb1b08f90b3d08aa50c6bc70f0245ef4fa01606a878",
+   "pages": 2,
+   "valuesFound": 144,
+   "ok": true,
+   "problems": [],
+   "creator": "TCPDF",
+   "producer": "TCPDF 6.10.0 (http://www.tcpdf.org)",
+   "fonts": [
+    "Helvetica",
+    "Helvetica-Bold"
+   ],
+   "fontDeclared": "Helvetica",
+   "fontPresent": true
+  },
+  {
+   "id": "R07",
+   "file": "R07-statement.pdf",
+   "sha256": "178f37dbfd888c1e59233739c5e731b6da209ca4c7e6667edcaf86c8ced60e62",
+   "pages": 2,
+   "valuesFound": 149,
+   "ok": true,
+   "problems": [],
+   "creator": "mPDF",
+   "producer": "mPDF 8.3.1",
+   "fonts": [
+    "MPDFAA+DejaVuSansMono",
+    "MPDFAA+DejaVuSansMono-Bold"
+   ],
+   "fontDeclared": "DejaVu Sans Mono",
+   "fontPresent": true
+  },
+  {
+   "id": "R08",
+   "file": "R08-statement.pdf",
+   "sha256": "e8ff77fe0abea7b241d3a0d158c6b5882228ca4846470fcb69fb8d3ecd97ed24",
+   "pages": 2,
+   "valuesFound": 126,
+   "ok": true,
+   "problems": [],
+   "creator": "mPDF",
+   "producer": "mPDF 8.3.1",
+   "fonts": [
+    "MPDFAA+FreeSerif",
+    "MPDFAA+FreeSerifBold"
+   ],
+   "fontDeclared": "FreeSerif",
+   "fontPresent": true
+  },
+  {
+   "id": "R09",
+   "file": "R09-statement.pdf",
+   "sha256": "3d192177d877b83cafc7e3d62601b3ffb34213b904e85b8ac38ef008c0b87f7c",
+   "pages": 3,
+   "valuesFound": 137,
+   "ok": true,
+   "problems": [],
+   "creator": "mPDF",
+   "producer": "mPDF 8.3.1",
+   "fonts": [
+    "MPDFAA+DejaVuSans",
+    "MPDFAA+DejaVuSans-Bold"
+   ],
+   "fontDeclared": "DejaVu Sans",
+   "fontPresent": true
+  },
+  {
+   "id": "R10",
+   "file": "R10-statement.pdf",
+   "sha256": "e10faf406876a5eac74a90357e7bdd9bffef2c3ad03939fec21d59cbe57dc056",
+   "pages": 5,
+   "valuesFound": 490,
+   "ok": true,
+   "problems": [],
+   "creator": "mPDF",
+   "producer": "mPDF 8.3.1",
+   "fonts": [
+    "MPDFAA+FreeSans",
+    "MPDFAA+FreeSansBold"
+   ],
+   "fontDeclared": "FreeSans",
+   "fontPresent": true
+  },
+  {
+   "id": "R11",
+   "file": "R11-statement.pdf",
+   "sha256": "c478eb4084d4f23db5fc1bbf2c5929788695472cc8f7b9626346692c57b238df",
+   "pages": 3,
+   "valuesFound": 128,
+   "ok": true,
+   "problems": [],
+   "creator": "mPDF",
+   "producer": "mPDF 8.3.1",
+   "fonts": [
+    "MPDFAA+DejaVuSans",
+    "MPDFAA+DejaVuSans-Bold"
+   ],
+   "fontDeclared": "DejaVu Sans",
+   "fontPresent": true
+  },
+  {
+   "id": "R12",
+   "file": "R12-statement.pdf",
+   "sha256": "86a3f29afb8f4b1c9f8eff7abba2482a8b76f9c6e233546eaa2559417080eff3",
+   "pages": 3,
+   "valuesFound": 128,
+   "ok": true,
+   "problems": [],
+   "creator": "mPDF",
+   "producer": "mPDF 8.3.1",
+   "fonts": [
+    "MPDFAA+DejaVuSansMono",
+    "MPDFAA+DejaVuSansMono-Bold"
+   ],
+   "fontDeclared": "DejaVu Sans Mono",
+   "fontPresent": true
+  }
+ ],
+ "ok": true,
+ "cashbookXlsx": [
+  {
+   "file": "R03-cashbook.xlsx",
+   "kind": "typed",
+   "cellTypes": [
+    "n"
+   ],
+   "sameAsCsv": true,
+   "sha256": "b935224074789f0dd5ad2c66312bbc98a777cc0c9b65a23d1437356b57fe9811"
+  },
+  {
+   "file": "R07-cashbook.xlsx",
+   "kind": "text",
+   "sameAsCsv": true,
+   "sha256": "48a9b0feaadc16292596b96d7915a9b367da0febe4834a3dc52d42b0f26b4500"
+  }
+ ],
+ "selfTest": [
+  "R01: TCPDF Helvetica, grid: a withdrawal one halala off",
+  "R01: TCPDF Helvetica, grid: two balances swapped between rows",
+  "R01: TCPDF Helvetica, grid: the late cheque reference changed",
+  "R01: TCPDF Helvetica, grid: a description word changed",
+  "R02: TCPDF Arabic, IBM Plex: a date changed",
+  "R02: TCPDF Arabic, IBM Plex: a description word changed",
+  "R02: TCPDF Arabic, IBM Plex: the refund reference changed",
+  "R02: TCPDF Arabic, IBM Plex: one of two equal cash deposits one halala off",
+  "R03: TCPDF DejaVu Sans Mono, DR: an overdrawn balance without DR",
+  "R03: TCPDF DejaVu Sans Mono, DR: the unreferenced payment changed",
+  "R03: TCPDF DejaVu Sans Mono, DR: a deposit one halala off",
+  "R04: TCPDF Arabic, DejaVu Sans, Arabic-Indic: a page total changed",
+  "R04: TCPDF Arabic, DejaVu Sans, Arabic-Indic: the second SADAD reference changed",
+  "R04: TCPDF Arabic, DejaVu Sans, Arabic-Indic: a date changed",
+  "R05: TCPDF writeHTML, DejaVu Serif: a word inside a wrapped description",
+  "R05: TCPDF writeHTML, DejaVu Serif: the returned cheque fee changed",
+  "R05: TCPDF writeHTML, DejaVu Serif: the two-family transfer reference changed",
+  "R06: TCPDF Helvetica, transposed: a deposit one halala off",
+  "R07: mPDF DejaVu Sans Mono, DR: an overdrawn balance without DR",
+  "R07: mPDF DejaVu Sans Mono, DR: a balance in credit read as overdrawn",
+  "R07: mPDF DejaVu Sans Mono, DR: the second supplier payment reference changed",
+  "R08: mPDF Arabic, XB Riyaz: the continuation text changed",
+  "R08: mPDF Arabic, XB Riyaz: the value date after the period changed",
+  "R08: mPDF Arabic, XB Riyaz: a description word changed",
+  "R09: mPDF Arabic, Almarai, Arabic-Indic: the presented cheque's date changed",
+  "R09: mPDF Arabic, Almarai, Arabic-Indic: the returned cheque fee changed",
+  "R09: mPDF Arabic, Almarai, Arabic-Indic: a date changed",
+  "R10: mPDF FreeSans: a word inside a wrapped description",
+  "R10: mPDF FreeSans: the printed page numbers changed",
+  "R10: mPDF FreeSans: the value date after the period changed",
+  "R11: mPDF DejaVu Sans: the stale brought-forward balance read back as carried",
+  "R12: mPDF DejaVu Sans Mono: the last footer read back as of 3",
+  "R12: mPDF DejaVu Sans Mono: the closing balance changed",
+  "R03: XLSX cashbook one halala off its CSV",
+  "R07: XLSX cashbook one halala off its CSV"
+ ]
+}

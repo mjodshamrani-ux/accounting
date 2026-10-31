@@ -1,0 +1,62 @@
+{
+  "schema": "tarasuf-bnk-pdf1-holdout/1",
+  "status": "frozen synthetic holdout for BNK-PDF-1 G10; sealed and committed before the product was run on any of its files",
+  "synthetic": true,
+  "holdout": true,
+  "contract": "audit/bank-statement-foundation/contract.json",
+  "question": "G9 completed 8 of 9 positives from WeasyPrint and MuPDF, but none of its statements needed G8's reader fixes other than typed cashbook amounts. On statements from two writers of the kind banks use, Apache FOP and OpenPDF, which do show tight table rules, monospaced overdrawn balances and Arabic-Indic dates, does bank-statement-native-1 complete every eligible positive with no false automatic approval, and which of G8's rules does each statement need?",
+  "changed": {
+    "producers": [
+      "Apache FOP 2.10: an XSL-FO formatter with its own layout, shaping, bidirectional ordering and PDF writer, as statement systems built on XSL-FO use; each statement page a page sequence, the footer in the page's after region, a right-to-left statement laid out from the right by FOP",
+      "OpenPDF 2.0.3: the LGPL fork of iText 4, the lineage of many bank and ERP statements; each page a PdfPTable placed by OpenPDF and a footer placed by ColumnText; Arabic shaped by OpenPDF into presentation forms and ordered by its own bidirectional algorithm"
+    ],
+    "fonts": ["Open Sans", "Almarai (Arabic)", "Markazi Text (Arabic)", "Courier Prime (monospaced)", "Amiri (Arabic)", "DejaVu Sans (Arabic, system font)", "Helvetica and Courier, the PDF standard fonts, not embedded", "the Fontsource fonts without the standard ligature feature, which both writers otherwise write without its letters"],
+    "geometry": ["A4 portrait", "US Letter", "US Legal", "A4 landscape", "a full grid with tight cell padding, glyphs 1.5 points from the rules", "rules under every row", "no rules", "a filled heading row", "a heading rule", "monospaced type", "descriptions wrapping over two or three lines in English and Arabic", "the period's dates with their segments reversed in a right-to-left account line, as Chromium prints them in the foundation"],
+    "periods": ["2026-04-01..2026-04-30", "2026-05-01..2026-05-31", "2026-06-01..2026-06-30", "2026-07-01..2026-07-31", "2026-08-01..2026-08-31", "2026-01-01..2026-03-31", "2026-09-01..2026-09-30", "2026-10-01..2026-10-31", "2026-11-01..2026-11-30", "2026-12-01..2026-12-31", "2026-02-01..2026-02-28", "2026-03-01..2026-03-31"],
+    "furniture": "two banks in English and Arabic (Wadi Commercial Bank, Tihama Savings Bank), document titles and accounts other than the foundation's and earlier holdouts'",
+    "references": "invoice numbers with a two-digit year (INV-26-0004), payment-run references (PR0407-007), card batch numbers (MD26040205), SADAD bill numbers, WPS payroll and standing-order references, a remittance number, a cheque number, a reference in lower case on the statement only (inv-26-0517), a reference with its leading zeros dropped in the cashbook (PAY-0042 and PAY-42)",
+    "relationships": "an invoicing model rather than a daily draw: customers invoiced on 30 or 45 days' terms who pay around the due date and are booked from the remittance advice up to two days later, a weekly supplier payment run on Tuesday, card takings settled every calendar day including the weekend, rent, GOSI and payroll each month; one remittance against three receipts under its reference, a customer short-paying an invoice by a transfer charge, a refund paid out but booked as a receipt under its reference, a cheque presented five days after it was written, GOSI paid twice under one bill number, a maintenance fee and its VAT charged by the bank only, a cheque deposited but not yet credited, a cheque issued but not yet presented, two equal card settlements on consecutive days against one entry, references differing only in case or in leading zeros, value dates before and after the period, accounts falling overdrawn with DR printed in proportional, monospaced and Arabic-Indic type, amounts a typed cell stores as a whole riyal or with one decimal",
+    "text": "descriptions that wrap where the writer breaks them in both languages, a description continuing at the top of page 6 of 8",
+    "faults": "page 2 of 3 printed twice, the first page missing so that the file starts at page 2 of 3, the closing balance printed 100.00 below the running balance",
+    "cashbookXlsx": "P04 as a typed XLSX and P08 as a text XLSX, both from Apache POI 5.4.1; every cashbook also as CSV"
+  },
+  "heldConstant": [
+    "the contract's column headings, control-line labels and Page n of N footer, in English and Arabic",
+    "the account/currency/period line as one line",
+    "dates as yyyy-mm-dd, SAR with two decimals, thousands separators, the DR suffix for an overdrawn balance",
+    "a real text layer; no scanned page; no image"
+  ],
+  "independence": {
+    "author": "The same assistant wrote the product, the foundation, the oracle, the G6, G8 and G9 holdouts, the G6, G7 and G8 fixes and this holdout, and knew the reader's rules when designing the stories. The stories include tight rules, monospaced overdrawn balances and Arabic-Indic dates because G9's did not exercise the rules G8 added for them; they are features statements show, and how the product reads them is not known before the run. This is not a blind holdout: the stories and the writers are new to the product, the author is not.",
+    "oracle": "audit/bank-statement-foundation/oracle.py, unchanged: it reads the printed lines in the facts, the cashbook CSV and the contract, never recipe or intent, and imports nothing from the generator or the product. expected.py only runs it story by story with each story's own period.",
+    "verifier": "pdfminer.six, a PDF reader unrelated to the product's pdf.js, finds every printed line of the facts on its own row with all its values, and every description's words in order across the rows the writer wraps it over, Arabic in reading order glyph by glyph; MuPDF's exact glyph boxes show that no glyph meets a painted rule (verify.py, with its own self-test of 33 planted changes).",
+    "generator": "stories.py is a fifth lineage: an invoicing model driven by a PCG32 generator; nothing is imported from the foundation's stories.mjs or from the G6, G8 or G9 holdouts.",
+    "drafts": "While the stories and writers were drafted, their PDFs were read only with pdfminer.six, Poppler's pdftotext, pdfinfo and pdftoppm, and MuPDF, never with the product's reader.",
+    "notTuned": "The product was not run on these files, and no product code changed, between the start of G10 and the seal."
+  },
+  "eligibility": {
+    "decided": "before any product run",
+    "positives": ["P01", "P02", "P03", "P04", "P06", "P07", "P08", "P09", "P10"],
+    "held": {"P05": "incomplete-pages", "P11": "incomplete-pages", "P12": "balance-broken"},
+    "cashbookFormats": {"P04": "typed XLSX (Apache POI)", "P08": "text XLSX (Apache POI)"},
+    "why": "Every statement stays inside the contract: its headings, labels, footer, line kinds, number and date formats and matching policy. The writer, font, table style, geometry, period, furniture and story are what the contract leaves open. No glyph of any statement meets a painted rule (VERIFY.json, inkClearance), so a refusal for a drawing over text is not a correct one."
+  },
+  "browserDecision": {
+    "story": "P01",
+    "ifRefused": ["P02", "P09"],
+    "why": "The browser run accepts the first acceptable case of one story and the export checker's self-test alters that story's workbook. P01 has a review case to decide and items outstanding, so every alteration has a target (DEV-51). If the product refuses P01, the next of P02 and P09 it does not refuse is decided, each with a review case and an outstanding item."
+  },
+  "attribution": {
+    "commit": "a6ad5d9",
+    "what": "After the first run, the same package is run on the product before G8's fixes and recorded beside it, so that each completed positive says whether it needed G8's rules (DEV-52). It is a diagnostic, not a second result."
+  },
+  "measures": {
+    "reading": "Every printed line read from the PDF equals the facts: kind, page, dates, reference, amounts, balances; descriptions and continuation text after NFKC and whitespace normalisation.",
+    "result": "The matching result, in the facts' keys, equals EXPECTED.json: automatic pairs, review groups with their reasons, both outstanding sides, timing, and held statements with their counts.",
+    "capacity": "Eligible positives whose result equals EXPECTED.json from upload through matching, save, restore and Excel in the browser.",
+    "falseAutomatic": "Automatic pairs that EXPECTED.json does not hold, over all twelve statements. Must be zero.",
+    "held": "A held statement is held whole, with the oracle's status, and nothing in it approved, suggested or called outstanding.",
+    "refusal": "A positive the product refuses, or holds without the oracle holding it, is a failed positive, never a correct abstention."
+  },
+  "afterRun": "Results are recorded as they come, with the commit they ran on. A fix made after seeing them turns this set into regression for that fix; a new claim of generalisation needs a new holdout."
+}

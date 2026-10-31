@@ -1,0 +1,58 @@
+{
+ "schema": "tarasuf-clr1-groups-h1-verify/1",
+ "factsSha256": "0ea9f98b18b188d4d75ab8742d7c7016e1ab8ab9c37f8c264b4ac14c15469429",
+ "files": 27,
+ "cells": 2230,
+ "passed": true,
+ "problems": [],
+ "selfTest": [
+  {
+   "plant": "one amount changed",
+   "rejected": true
+  },
+  {
+   "plant": "one line dropped",
+   "rejected": true
+  },
+  {
+   "plant": "byte-order mark removed",
+   "rejected": true
+  },
+  {
+   "plant": "LF in a CR file",
+   "rejected": true
+  },
+  {
+   "plant": "a semicolon read as a comma",
+   "rejected": true
+  },
+  {
+   "plant": "a quoted cell unquoted by Calc",
+   "rejected": true
+  },
+  {
+   "plant": "a trailing space dropped",
+   "rejected": true
+  },
+  {
+   "plant": "an Arabic-Indic digit changed",
+   "rejected": true
+  },
+  {
+   "plant": "an XLSX row no longer hidden",
+   "rejected": true
+  },
+  {
+   "plant": "an XLSX formula removed",
+   "rejected": true
+  },
+  {
+   "plant": "an input period changed",
+   "rejected": true
+  },
+  {
+   "plant": "a file no story names",
+   "rejected": true
+  }
+ ]
+}

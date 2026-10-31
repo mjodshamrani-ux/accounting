@@ -1,0 +1,33 @@
+Section,G-9010
+Entity,Rawabi Contracting Co
+Ledger,Statutory GL
+Account,9010
+Complete dimensions,Dept=Sales
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2027-01-01
+Period end,2027-03-31
+Record ID,Record kind,Posting date,Debit,Credit
+G-9010/O,opening,2027-01-01,1.00,0.00
+J-91,movement,2027-01-09,0.50,0.00
+G-9010/C,closing,2027-03-31,1.50,0.00
+End section,G-9010
+
+Section,G-9020
+Entity,Rawabi Contracting Co
+Ledger,Statutory GL
+Account,9020
+Complete dimensions,dept=ops
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2027-01-01
+Period end,2027-03-31
+Record ID,Record kind,Posting date,Debit,Credit
+G-9020/O,opening,2027-01-01,0.00,0.00
+J-92,movement,2027-01-10,0.00,0.20
+G-9020/C,closing,2027-03-31,0.00,0.20
+End section,G-9020

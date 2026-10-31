@@ -1,0 +1,3132 @@
+{
+ "stories": {
+  "Q01": {
+   "actions": {
+    "grouped": 2,
+    "single": 20
+   },
+   "after": {
+    "accepted": 19,
+    "open": 1,
+    "rejected": 0
+   },
+   "decisions": [
+    [
+     "accept",
+     "C24"
+    ],
+    [
+     "accept",
+     "C20"
+    ],
+    [
+     "accept",
+     "C21"
+    ],
+    [
+     "accept",
+     "C16"
+    ],
+    [
+     "accept",
+     "C22"
+    ],
+    [
+     "accept",
+     "C15"
+    ],
+    [
+     "accept",
+     "C19"
+    ],
+    [
+     "accept",
+     "C23"
+    ],
+    [
+     "accept",
+     "C18"
+    ],
+    [
+     "accept",
+     "C17"
+    ],
+    [
+     "accept",
+     "C10"
+    ],
+    [
+     "accept",
+     "C5"
+    ],
+    [
+     "accept",
+     "C8"
+    ],
+    [
+     "accept",
+     "C13"
+    ],
+    [
+     "accept",
+     "C9"
+    ],
+    [
+     "accept",
+     "C7"
+    ],
+    [
+     "accept",
+     "C14"
+    ],
+    [
+     "accept",
+     "C6"
+    ],
+    [
+     "accept",
+     "C12"
+    ],
+    [
+     "accept",
+     "C11"
+    ],
+    [
+     "undo",
+     "C18"
+    ]
+   ],
+   "held": false,
+   "queue": [
+    {
+     "cases": [
+      {
+       "case": "C24",
+       "cashbook": [
+        "PV-Q01-10"
+       ],
+       "impact": 891573,
+       "statement": [
+        "S17"
+       ]
+      },
+      {
+       "case": "C20",
+       "cashbook": [
+        "PV-Q01-06"
+       ],
+       "impact": 876180,
+       "statement": [
+        "S8"
+       ]
+      },
+      {
+       "case": "C21",
+       "cashbook": [
+        "PV-Q01-07"
+       ],
+       "impact": 837094,
+       "statement": [
+        "S10"
+       ]
+      },
+      {
+       "case": "C16",
+       "cashbook": [
+        "PV-Q01-02"
+       ],
+       "impact": 614884,
+       "statement": [
+        "S3"
+       ]
+      },
+      {
+       "case": "C22",
+       "cashbook": [
+        "PV-Q01-08"
+       ],
+       "impact": 605921,
+       "statement": [
+        "S13"
+       ]
+      },
+      {
+       "case": "C15",
+       "cashbook": [
+        "PV-Q01-01"
+       ],
+       "impact": 603561,
+       "statement": [
+        "S2"
+       ]
+      },
+      {
+       "case": "C19",
+       "cashbook": [
+        "PV-Q01-05"
+       ],
+       "impact": 515272,
+       "statement": [
+        "S6"
+       ]
+      },
+      {
+       "case": "C23",
+       "cashbook": [
+        "PV-Q01-09"
+       ],
+       "impact": 485464,
+       "statement": [
+        "S15"
+       ]
+      },
+      {
+       "case": "C18",
+       "cashbook": [
+        "PV-Q01-04"
+       ],
+       "impact": 326844,
+       "statement": [
+        "S5"
+       ]
+      },
+      {
+       "case": "C17",
+       "cashbook": [
+        "PV-Q01-03"
+       ],
+       "impact": 242622,
+       "statement": [
+        "S4"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "out",
+     "impact": 891573,
+     "members": 20,
+     "offers": {
+      "accept": true,
+      "reject": true
+     },
+     "reason": "amount-date-suggestion",
+     "signature": "amount-date-suggestion|out|1:1|",
+     "statement": 1
+    },
+    {
+     "cases": [
+      {
+       "case": "C10",
+       "cashbook": [
+        "BR-Q01-06"
+       ],
+       "impact": 548144,
+       "statement": [
+        "S18"
+       ]
+      },
+      {
+       "case": "C5",
+       "cashbook": [
+        "BR-Q01-01"
+       ],
+       "impact": 513414,
+       "statement": [
+        "S7"
+       ]
+      },
+      {
+       "case": "C8",
+       "cashbook": [
+        "BR-Q01-04"
+       ],
+       "impact": 497226,
+       "statement": [
+        "S14"
+       ]
+      },
+      {
+       "case": "C13",
+       "cashbook": [
+        "BR-Q01-09"
+       ],
+       "impact": 441226,
+       "statement": [
+        "S21"
+       ]
+      },
+      {
+       "case": "C9",
+       "cashbook": [
+        "BR-Q01-05"
+       ],
+       "impact": 336939,
+       "statement": [
+        "S16"
+       ]
+      },
+      {
+       "case": "C7",
+       "cashbook": [
+        "BR-Q01-03"
+       ],
+       "impact": 327341,
+       "statement": [
+        "S11"
+       ]
+      },
+      {
+       "case": "C14",
+       "cashbook": [
+        "BR-Q01-10"
+       ],
+       "impact": 297157,
+       "statement": [
+        "S22"
+       ]
+      },
+      {
+       "case": "C6",
+       "cashbook": [
+        "BR-Q01-02"
+       ],
+       "impact": 266949,
+       "statement": [
+        "S9"
+       ]
+      },
+      {
+       "case": "C12",
+       "cashbook": [
+        "BR-Q01-08"
+       ],
+       "impact": 150583,
+       "statement": [
+        "S20"
+       ]
+      },
+      {
+       "case": "C11",
+       "cashbook": [
+        "BR-Q01-07"
+       ],
+       "impact": 71072,
+       "statement": [
+        "S19"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "in",
+     "gap": 5,
+     "impact": 548144,
+     "members": 20,
+     "offers": {
+      "accept": true,
+      "reject": true
+     },
+     "reason": "date-gap",
+     "signature": "date-gap|in|1:1|5",
+     "statement": 1
+    }
+   ],
+   "queueAfter": [
+    {
+     "cases": [
+      {
+       "case": "C18",
+       "cashbook": [
+        "PV-Q01-04"
+       ],
+       "impact": 326844,
+       "statement": [
+        "S5"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "out",
+     "impact": 326844,
+     "members": 2,
+     "offers": {
+      "accept": false,
+      "reject": false
+     },
+     "reason": "amount-date-suggestion",
+     "signature": "amount-date-suggestion|out|1:1|",
+     "statement": 1
+    }
+   ],
+   "refusal": null,
+   "statuses": {
+    "C10": "accepted",
+    "C11": "accepted",
+    "C12": "accepted",
+    "C13": "accepted",
+    "C14": "accepted",
+    "C15": "accepted",
+    "C16": "accepted",
+    "C17": "accepted",
+    "C18": "needs-review",
+    "C19": "accepted",
+    "C20": "accepted",
+    "C21": "accepted",
+    "C22": "accepted",
+    "C23": "accepted",
+    "C24": "accepted",
+    "C5": "accepted",
+    "C6": "accepted",
+    "C7": "accepted",
+    "C8": "accepted",
+    "C9": "accepted"
+   }
+  },
+  "Q02": {
+   "actions": {
+    "grouped": 6,
+    "single": 8
+   },
+   "after": {
+    "accepted": 0,
+    "open": 8,
+    "rejected": 0
+   },
+   "decisions": [],
+   "held": false,
+   "queue": [
+    {
+     "cases": [
+      {
+       "case": "C8",
+       "cashbook": [
+        "RV-Q02-53"
+       ],
+       "impact": 60000,
+       "statement": [
+        "S5"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "exception",
+     "direction": "in",
+     "impact": 60000,
+     "members": 2,
+     "offers": {
+      "accept": false,
+      "reject": false
+     },
+     "reason": "amount-difference",
+     "signature": "amount-difference|in|1:1|",
+     "statement": 1
+    },
+    {
+     "cases": [
+      {
+       "case": "C7",
+       "cashbook": [
+        "RV-Q02-52"
+       ],
+       "impact": 45000,
+       "statement": [
+        "S3"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "exception",
+     "direction": "in+out",
+     "impact": 45000,
+     "members": 2,
+     "offers": {
+      "accept": false,
+      "reject": false
+     },
+     "reason": "direction-conflict",
+     "signature": "direction-conflict|in+out|1:1|",
+     "statement": 1
+    },
+    {
+     "cases": [
+      {
+       "case": "C5",
+       "cashbook": [
+        "PV-Q02-54"
+       ],
+       "impact": 40000,
+       "statement": [
+        "S6",
+        "S7"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "exception",
+     "direction": "out",
+     "impact": 40000,
+     "members": 3,
+     "offers": {
+      "accept": false,
+      "reject": false
+     },
+     "reason": "duplicate-reference",
+     "signature": "duplicate-reference|out|2:1|",
+     "statement": 2
+    },
+    {
+     "cases": [
+      {
+       "case": "C6",
+       "cashbook": [
+        "PV-Q02-51"
+       ],
+       "impact": 31000,
+       "statement": [
+        "S2"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "exception",
+     "direction": "out",
+     "impact": 31000,
+     "members": 2,
+     "offers": {
+      "accept": false,
+      "reject": false
+     },
+     "reason": "amount-difference",
+     "signature": "amount-difference|out|1:1|",
+     "statement": 1
+    },
+    {
+     "cases": [
+      {
+       "case": "C9",
+       "cashbook": [
+        "PV-Q02-55"
+       ],
+       "impact": 30000,
+       "statement": [
+        "S10",
+        "S9"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "exception",
+     "direction": "out",
+     "impact": 30000,
+     "members": 3,
+     "offers": {
+      "accept": false,
+      "reject": false
+     },
+     "reason": "ambiguous-amount-date",
+     "signature": "ambiguous-amount-date|out|2:1|",
+     "statement": 2
+    },
+    {
+     "cases": [
+      {
+       "case": "C12",
+       "cashbook": [
+        "RV-Q02-03"
+       ],
+       "impact": 3744233,
+       "statement": [
+        "S13"
+       ]
+      },
+      {
+       "case": "C10",
+       "cashbook": [
+        "RV-Q02-01"
+       ],
+       "impact": 2937134,
+       "statement": [
+        "S11"
+       ]
+      },
+      {
+       "case": "C11",
+       "cashbook": [
+        "RV-Q02-02"
+       ],
+       "impact": 2633277,
+       "statement": [
+        "S12"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "in",
+     "impact": 3744233,
+     "members": 6,
+     "offers": {
+      "accept": true,
+      "reject": true
+     },
+     "reason": "amount-date-suggestion",
+     "signature": "amount-date-suggestion|in|1:1|",
+     "statement": 1
+    }
+   ],
+   "queueAfter": [
+    {
+     "cases": [
+      {
+       "case": "C8",
+       "cashbook": [
+        "RV-Q02-53"
+       ],
+       "impact": 60000,
+       "statement": [
+        "S5"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "exception",
+     "direction": "in",
+     "impact": 60000,
+     "members": 2,
+     "offers": {
+      "accept": false,
+      "reject": false
+     },
+     "reason": "amount-difference",
+     "signature": "amount-difference|in|1:1|",
+     "statement": 1
+    },
+    {
+     "cases": [
+      {
+       "case": "C7",
+       "cashbook": [
+        "RV-Q02-52"
+       ],
+       "impact": 45000,
+       "statement": [
+        "S3"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "exception",
+     "direction": "in+out",
+     "impact": 45000,
+     "members": 2,
+     "offers": {
+      "accept": false,
+      "reject": false
+     },
+     "reason": "direction-conflict",
+     "signature": "direction-conflict|in+out|1:1|",
+     "statement": 1
+    },
+    {
+     "cases": [
+      {
+       "case": "C5",
+       "cashbook": [
+        "PV-Q02-54"
+       ],
+       "impact": 40000,
+       "statement": [
+        "S6",
+        "S7"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "exception",
+     "direction": "out",
+     "impact": 40000,
+     "members": 3,
+     "offers": {
+      "accept": false,
+      "reject": false
+     },
+     "reason": "duplicate-reference",
+     "signature": "duplicate-reference|out|2:1|",
+     "statement": 2
+    },
+    {
+     "cases": [
+      {
+       "case": "C6",
+       "cashbook": [
+        "PV-Q02-51"
+       ],
+       "impact": 31000,
+       "statement": [
+        "S2"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "exception",
+     "direction": "out",
+     "impact": 31000,
+     "members": 2,
+     "offers": {
+      "accept": false,
+      "reject": false
+     },
+     "reason": "amount-difference",
+     "signature": "amount-difference|out|1:1|",
+     "statement": 1
+    },
+    {
+     "cases": [
+      {
+       "case": "C9",
+       "cashbook": [
+        "PV-Q02-55"
+       ],
+       "impact": 30000,
+       "statement": [
+        "S10",
+        "S9"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "exception",
+     "direction": "out",
+     "impact": 30000,
+     "members": 3,
+     "offers": {
+      "accept": false,
+      "reject": false
+     },
+     "reason": "ambiguous-amount-date",
+     "signature": "ambiguous-amount-date|out|2:1|",
+     "statement": 2
+    },
+    {
+     "cases": [
+      {
+       "case": "C12",
+       "cashbook": [
+        "RV-Q02-03"
+       ],
+       "impact": 3744233,
+       "statement": [
+        "S13"
+       ]
+      },
+      {
+       "case": "C10",
+       "cashbook": [
+        "RV-Q02-01"
+       ],
+       "impact": 2937134,
+       "statement": [
+        "S11"
+       ]
+      },
+      {
+       "case": "C11",
+       "cashbook": [
+        "RV-Q02-02"
+       ],
+       "impact": 2633277,
+       "statement": [
+        "S12"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "in",
+     "impact": 3744233,
+     "members": 6,
+     "offers": {
+      "accept": true,
+      "reject": true
+     },
+     "reason": "amount-date-suggestion",
+     "signature": "amount-date-suggestion|in|1:1|",
+     "statement": 1
+    }
+   ],
+   "refusal": null,
+   "statuses": {
+    "C10": "needs-review",
+    "C11": "needs-review",
+    "C12": "needs-review",
+    "C5": "needs-review",
+    "C6": "needs-review",
+    "C7": "needs-review",
+    "C8": "needs-review",
+    "C9": "needs-review"
+   }
+  },
+  "Q03": {
+   "actions": {
+    "grouped": 2,
+    "single": 4
+   },
+   "after": {
+    "accepted": 0,
+    "open": 4,
+    "rejected": 0
+   },
+   "decisions": [],
+   "held": false,
+   "queue": [
+    {
+     "cases": [
+      {
+       "case": "C5",
+       "cashbook": [
+        "PV-Q03-31"
+       ],
+       "impact": 250000,
+       "statement": [
+        "S2"
+       ]
+      },
+      {
+       "case": "C7",
+       "cashbook": [
+        "PV-Q03-33"
+       ],
+       "impact": 250000,
+       "statement": [
+        "S7"
+       ]
+      },
+      {
+       "case": "C6",
+       "cashbook": [
+        "PV-Q03-32"
+       ],
+       "impact": 100000,
+       "statement": [
+        "S4"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "out",
+     "impact": 250000,
+     "members": 6,
+     "offers": {
+      "accept": true,
+      "reject": true
+     },
+     "reason": "amount-date-suggestion",
+     "signature": "amount-date-suggestion|out|1:1|",
+     "statement": 1
+    },
+    {
+     "cases": [
+      {
+       "case": "C8",
+       "cashbook": [
+        "RV-Q03-34"
+       ],
+       "impact": 250000,
+       "statement": [
+        "S5"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "in",
+     "impact": 250000,
+     "members": 2,
+     "offers": {
+      "accept": false,
+      "reject": false
+     },
+     "reason": "amount-date-suggestion",
+     "signature": "amount-date-suggestion|in|1:1|",
+     "statement": 1
+    }
+   ],
+   "queueAfter": [
+    {
+     "cases": [
+      {
+       "case": "C5",
+       "cashbook": [
+        "PV-Q03-31"
+       ],
+       "impact": 250000,
+       "statement": [
+        "S2"
+       ]
+      },
+      {
+       "case": "C7",
+       "cashbook": [
+        "PV-Q03-33"
+       ],
+       "impact": 250000,
+       "statement": [
+        "S7"
+       ]
+      },
+      {
+       "case": "C6",
+       "cashbook": [
+        "PV-Q03-32"
+       ],
+       "impact": 100000,
+       "statement": [
+        "S4"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "out",
+     "impact": 250000,
+     "members": 6,
+     "offers": {
+      "accept": true,
+      "reject": true
+     },
+     "reason": "amount-date-suggestion",
+     "signature": "amount-date-suggestion|out|1:1|",
+     "statement": 1
+    },
+    {
+     "cases": [
+      {
+       "case": "C8",
+       "cashbook": [
+        "RV-Q03-34"
+       ],
+       "impact": 250000,
+       "statement": [
+        "S5"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "in",
+     "impact": 250000,
+     "members": 2,
+     "offers": {
+      "accept": false,
+      "reject": false
+     },
+     "reason": "amount-date-suggestion",
+     "signature": "amount-date-suggestion|in|1:1|",
+     "statement": 1
+    }
+   ],
+   "refusal": null,
+   "statuses": {
+    "C5": "needs-review",
+    "C6": "needs-review",
+    "C7": "needs-review",
+    "C8": "needs-review"
+   }
+  },
+  "Q04": {
+   "actions": {
+    "grouped": 2,
+    "single": 6
+   },
+   "after": {
+    "accepted": 3,
+    "open": 3,
+    "rejected": 0
+   },
+   "decisions": [
+    [
+     "accept",
+     "C9"
+    ],
+    [
+     "accept",
+     "C10"
+    ],
+    [
+     "accept",
+     "C8"
+    ]
+   ],
+   "held": false,
+   "queue": [
+    {
+     "cases": [
+      {
+       "case": "C9",
+       "cashbook": [
+        "RV-Q04I-02"
+       ],
+       "impact": 878929,
+       "statement": [
+        "S3"
+       ]
+      },
+      {
+       "case": "C10",
+       "cashbook": [
+        "RV-Q04I-03"
+       ],
+       "impact": 778561,
+       "statement": [
+        "S4"
+       ]
+      },
+      {
+       "case": "C8",
+       "cashbook": [
+        "RV-Q04I-01"
+       ],
+       "impact": 655060,
+       "statement": [
+        "S2"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "in",
+     "impact": 878929,
+     "members": 6,
+     "offers": {
+      "accept": true,
+      "reject": true
+     },
+     "reason": "amount-date-suggestion",
+     "signature": "amount-date-suggestion|in|1:1|",
+     "statement": 1
+    },
+    {
+     "cases": [
+      {
+       "case": "C5",
+       "cashbook": [
+        "PV-Q04O-01"
+       ],
+       "impact": 618974,
+       "statement": [
+        "S6"
+       ]
+      },
+      {
+       "case": "C6",
+       "cashbook": [
+        "PV-Q04O-02"
+       ],
+       "impact": 445264,
+       "statement": [
+        "S7"
+       ]
+      },
+      {
+       "case": "C7",
+       "cashbook": [
+        "PV-Q04O-03"
+       ],
+       "impact": 412406,
+       "statement": [
+        "S8"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "out",
+     "impact": 618974,
+     "members": 6,
+     "offers": {
+      "accept": true,
+      "reject": true
+     },
+     "reason": "amount-date-suggestion",
+     "signature": "amount-date-suggestion|out|1:1|",
+     "statement": 1
+    }
+   ],
+   "queueAfter": [
+    {
+     "cases": [
+      {
+       "case": "C5",
+       "cashbook": [
+        "PV-Q04O-01"
+       ],
+       "impact": 618974,
+       "statement": [
+        "S6"
+       ]
+      },
+      {
+       "case": "C6",
+       "cashbook": [
+        "PV-Q04O-02"
+       ],
+       "impact": 445264,
+       "statement": [
+        "S7"
+       ]
+      },
+      {
+       "case": "C7",
+       "cashbook": [
+        "PV-Q04O-03"
+       ],
+       "impact": 412406,
+       "statement": [
+        "S8"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "out",
+     "impact": 618974,
+     "members": 6,
+     "offers": {
+      "accept": true,
+      "reject": true
+     },
+     "reason": "amount-date-suggestion",
+     "signature": "amount-date-suggestion|out|1:1|",
+     "statement": 1
+    }
+   ],
+   "refusal": null,
+   "statuses": {
+    "C10": "accepted",
+    "C5": "needs-review",
+    "C6": "needs-review",
+    "C7": "needs-review",
+    "C8": "accepted",
+    "C9": "accepted"
+   }
+  },
+  "Q05": {
+   "actions": {
+    "grouped": 2,
+    "single": 3
+   },
+   "after": {
+    "accepted": 2,
+    "open": 1,
+    "rejected": 0
+   },
+   "decisions": [
+    [
+     "accept",
+     "C5"
+    ],
+    [
+     "accept",
+     "C6"
+    ]
+   ],
+   "held": false,
+   "queue": [
+    {
+     "cases": [
+      {
+       "case": "C5",
+       "cashbook": [
+        "BP-Q05F-01"
+       ],
+       "impact": 385425,
+       "statement": [
+        "S2"
+       ]
+      },
+      {
+       "case": "C6",
+       "cashbook": [
+        "BP-Q05F-02"
+       ],
+       "impact": 78694,
+       "statement": [
+        "S3"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "out",
+     "gap": 5,
+     "impact": 385425,
+     "members": 4,
+     "offers": {
+      "accept": true,
+      "reject": true
+     },
+     "reason": "date-gap",
+     "signature": "date-gap|out|1:1|5",
+     "statement": 1
+    },
+    {
+     "cases": [
+      {
+       "case": "C7",
+       "cashbook": [
+        "BP-Q05N-01"
+       ],
+       "impact": 96877,
+       "statement": [
+        "S6"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "out",
+     "gap": 9,
+     "impact": 96877,
+     "members": 2,
+     "offers": {
+      "accept": false,
+      "reject": false
+     },
+     "reason": "date-gap",
+     "signature": "date-gap|out|1:1|9",
+     "statement": 1
+    }
+   ],
+   "queueAfter": [
+    {
+     "cases": [
+      {
+       "case": "C7",
+       "cashbook": [
+        "BP-Q05N-01"
+       ],
+       "impact": 96877,
+       "statement": [
+        "S6"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "out",
+     "gap": 9,
+     "impact": 96877,
+     "members": 2,
+     "offers": {
+      "accept": false,
+      "reject": false
+     },
+     "reason": "date-gap",
+     "signature": "date-gap|out|1:1|9",
+     "statement": 1
+    }
+   ],
+   "refusal": null,
+   "statuses": {
+    "C5": "accepted",
+    "C6": "accepted",
+    "C7": "needs-review"
+   }
+  },
+  "Q06": {
+   "actions": {
+    "grouped": 1,
+    "single": 3
+   },
+   "after": {
+    "accepted": 0,
+    "open": 0,
+    "rejected": 3
+   },
+   "decisions": [
+    [
+     "reject",
+     "C7"
+    ],
+    [
+     "reject",
+     "C6"
+    ],
+    [
+     "reject",
+     "C5"
+    ]
+   ],
+   "held": false,
+   "queue": [
+    {
+     "cases": [
+      {
+       "case": "C7",
+       "cashbook": [
+        "PV-Q06-63"
+       ],
+       "impact": 428298,
+       "statement": [
+        "S5"
+       ]
+      },
+      {
+       "case": "C6",
+       "cashbook": [
+        "PV-Q06-62"
+       ],
+       "impact": 355611,
+       "statement": [
+        "S4"
+       ]
+      },
+      {
+       "case": "C5",
+       "cashbook": [
+        "PV-Q06-61"
+       ],
+       "impact": 320094,
+       "statement": [
+        "S2"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "exception",
+     "direction": "out",
+     "impact": 428298,
+     "members": 6,
+     "offers": {
+      "accept": false,
+      "reject": true
+     },
+     "reason": "amount-difference",
+     "signature": "amount-difference|out|1:1|",
+     "statement": 1
+    }
+   ],
+   "queueAfter": [],
+   "refusal": null,
+   "statuses": {
+    "C5": "rejected",
+    "C6": "rejected",
+    "C7": "rejected"
+   }
+  },
+  "Q07": {
+   "actions": {
+    "grouped": 1,
+    "single": 4
+   },
+   "after": {
+    "accepted": 3,
+    "open": 0,
+    "rejected": 1
+   },
+   "decisions": [
+    [
+     "reject",
+     "C6"
+    ],
+    [
+     "accept",
+     "C5"
+    ],
+    [
+     "accept",
+     "C8"
+    ],
+    [
+     "accept",
+     "C7"
+    ]
+   ],
+   "held": false,
+   "queue": [
+    {
+     "cases": [
+      {
+       "case": "C5",
+       "cashbook": [
+        "RV-Q07-01"
+       ],
+       "impact": 718911,
+       "statement": [
+        "S2"
+       ]
+      },
+      {
+       "case": "C8",
+       "cashbook": [
+        "RV-Q07-04"
+       ],
+       "impact": 585846,
+       "statement": [
+        "S5"
+       ]
+      },
+      {
+       "case": "C6",
+       "cashbook": [
+        "RV-Q07-02"
+       ],
+       "impact": 577628,
+       "statement": [
+        "S3"
+       ]
+      },
+      {
+       "case": "C7",
+       "cashbook": [
+        "RV-Q07-03"
+       ],
+       "impact": 123434,
+       "statement": [
+        "S4"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "in",
+     "impact": 718911,
+     "members": 8,
+     "offers": {
+      "accept": true,
+      "reject": true
+     },
+     "reason": "amount-date-suggestion",
+     "signature": "amount-date-suggestion|in|1:1|",
+     "statement": 1
+    }
+   ],
+   "queueAfter": [],
+   "refusal": null,
+   "statuses": {
+    "C5": "accepted",
+    "C6": "rejected",
+    "C7": "accepted",
+    "C8": "accepted"
+   }
+  },
+  "Q08": {
+   "actions": {
+    "grouped": 1,
+    "single": 3
+   },
+   "decisions": [
+    [
+     "accept",
+     "C7"
+    ],
+    [
+     "accept",
+     "C5"
+    ],
+    [
+     "accept",
+     "C6"
+    ]
+   ],
+   "held": false,
+   "queue": [
+    {
+     "cases": [
+      {
+       "case": "C7",
+       "cashbook": [
+        "PV-Q08-03"
+       ],
+       "impact": 618014,
+       "statement": [
+        "S4"
+       ]
+      },
+      {
+       "case": "C5",
+       "cashbook": [
+        "PV-Q08-01"
+       ],
+       "impact": 436916,
+       "statement": [
+        "S2"
+       ]
+      },
+      {
+       "case": "C6",
+       "cashbook": [
+        "PV-Q08-02"
+       ],
+       "impact": 379021,
+       "statement": [
+        "S3"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "out",
+     "impact": 618014,
+     "members": 6,
+     "offers": {
+      "accept": true,
+      "reject": true
+     },
+     "reason": "amount-date-suggestion",
+     "signature": "amount-date-suggestion|out|1:1|",
+     "statement": 1
+    }
+   ],
+   "refusal": "BANK_STATEMENT_DECISION"
+  },
+  "Q09": {
+   "actions": {
+    "grouped": 2,
+    "single": 4
+   },
+   "after": {
+    "accepted": 0,
+    "open": 2,
+    "rejected": 2
+   },
+   "decisions": [
+    [
+     "reject",
+     "C5"
+    ],
+    [
+     "reject",
+     "C6"
+    ]
+   ],
+   "held": false,
+   "queue": [
+    {
+     "cases": [
+      {
+       "case": "C5",
+       "cashbook": [
+        "PV-Q09-91"
+       ],
+       "impact": 483481,
+       "statement": [
+        "S2"
+       ]
+      },
+      {
+       "case": "C6",
+       "cashbook": [
+        "PV-Q09-92"
+       ],
+       "impact": 438698,
+       "statement": [
+        "S3"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "exception",
+     "direction": "out",
+     "impact": 483481,
+     "members": 4,
+     "offers": {
+      "accept": false,
+      "reject": true
+     },
+     "reason": "amount-difference",
+     "signature": "amount-difference|out|1:1|",
+     "statement": 1
+    },
+    {
+     "cases": [
+      {
+       "case": "C7",
+       "cashbook": [
+        "RV-Q09-93"
+       ],
+       "impact": 400086,
+       "statement": [
+        "S5"
+       ]
+      },
+      {
+       "case": "C8",
+       "cashbook": [
+        "RV-Q09-94"
+       ],
+       "impact": 308627,
+       "statement": [
+        "S6"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "exception",
+     "direction": "in",
+     "impact": 400086,
+     "members": 4,
+     "offers": {
+      "accept": false,
+      "reject": true
+     },
+     "reason": "amount-difference",
+     "signature": "amount-difference|in|1:1|",
+     "statement": 1
+    }
+   ],
+   "queueAfter": [
+    {
+     "cases": [
+      {
+       "case": "C7",
+       "cashbook": [
+        "RV-Q09-93"
+       ],
+       "impact": 400086,
+       "statement": [
+        "S5"
+       ]
+      },
+      {
+       "case": "C8",
+       "cashbook": [
+        "RV-Q09-94"
+       ],
+       "impact": 308627,
+       "statement": [
+        "S6"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "exception",
+     "direction": "in",
+     "impact": 400086,
+     "members": 4,
+     "offers": {
+      "accept": false,
+      "reject": true
+     },
+     "reason": "amount-difference",
+     "signature": "amount-difference|in|1:1|",
+     "statement": 1
+    }
+   ],
+   "refusal": null,
+   "statuses": {
+    "C5": "rejected",
+    "C6": "rejected",
+    "C7": "needs-review",
+    "C8": "needs-review"
+   }
+  },
+  "Q10": {
+   "actions": {
+    "grouped": 1,
+    "single": 5
+   },
+   "after": {
+    "accepted": 5,
+    "open": 0,
+    "rejected": 0
+   },
+   "decisions": [
+    [
+     "accept",
+     "C9"
+    ],
+    [
+     "accept",
+     "C5"
+    ],
+    [
+     "accept",
+     "C6"
+    ],
+    [
+     "accept",
+     "C7"
+    ],
+    [
+     "accept",
+     "C8"
+    ]
+   ],
+   "held": false,
+   "queue": [
+    {
+     "cases": [
+      {
+       "case": "C9",
+       "cashbook": [
+        "PV-Q10-05"
+       ],
+       "impact": 772082,
+       "statement": [
+        "S6"
+       ]
+      },
+      {
+       "case": "C5",
+       "cashbook": [
+        "PV-Q10-01"
+       ],
+       "impact": 770454,
+       "statement": [
+        "S2"
+       ]
+      },
+      {
+       "case": "C6",
+       "cashbook": [
+        "PV-Q10-02"
+       ],
+       "impact": 595271,
+       "statement": [
+        "S3"
+       ]
+      },
+      {
+       "case": "C7",
+       "cashbook": [
+        "PV-Q10-03"
+       ],
+       "impact": 119701,
+       "statement": [
+        "S4"
+       ]
+      },
+      {
+       "case": "C8",
+       "cashbook": [
+        "PV-Q10-04"
+       ],
+       "impact": 91211,
+       "statement": [
+        "S5"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "out",
+     "impact": 772082,
+     "members": 10,
+     "offers": {
+      "accept": true,
+      "reject": true
+     },
+     "reason": "amount-date-suggestion",
+     "signature": "amount-date-suggestion|out|1:1|",
+     "statement": 1
+    }
+   ],
+   "queueAfter": [],
+   "refusal": null,
+   "statuses": {
+    "C5": "accepted",
+    "C6": "accepted",
+    "C7": "accepted",
+    "C8": "accepted",
+    "C9": "accepted"
+   }
+  },
+  "Q11": {
+   "actions": {
+    "grouped": 2,
+    "single": 60
+   },
+   "after": {
+    "accepted": 60,
+    "open": 0,
+    "rejected": 0
+   },
+   "decisions": [
+    [
+     "accept",
+     "C7"
+    ],
+    [
+     "accept",
+     "C41"
+    ],
+    [
+     "accept",
+     "C29"
+    ],
+    [
+     "accept",
+     "C44"
+    ],
+    [
+     "accept",
+     "C10"
+    ],
+    [
+     "accept",
+     "C21"
+    ],
+    [
+     "accept",
+     "C15"
+    ],
+    [
+     "accept",
+     "C14"
+    ],
+    [
+     "accept",
+     "C28"
+    ],
+    [
+     "accept",
+     "C42"
+    ],
+    [
+     "accept",
+     "C31"
+    ],
+    [
+     "accept",
+     "C18"
+    ],
+    [
+     "accept",
+     "C27"
+    ],
+    [
+     "accept",
+     "C6"
+    ],
+    [
+     "accept",
+     "C43"
+    ],
+    [
+     "accept",
+     "C16"
+    ],
+    [
+     "accept",
+     "C5"
+    ],
+    [
+     "accept",
+     "C13"
+    ],
+    [
+     "accept",
+     "C33"
+    ],
+    [
+     "accept",
+     "C24"
+    ],
+    [
+     "accept",
+     "C35"
+    ],
+    [
+     "accept",
+     "C19"
+    ],
+    [
+     "accept",
+     "C36"
+    ],
+    [
+     "accept",
+     "C25"
+    ],
+    [
+     "accept",
+     "C11"
+    ],
+    [
+     "accept",
+     "C9"
+    ],
+    [
+     "accept",
+     "C39"
+    ],
+    [
+     "accept",
+     "C30"
+    ],
+    [
+     "accept",
+     "C32"
+    ],
+    [
+     "accept",
+     "C22"
+    ],
+    [
+     "accept",
+     "C26"
+    ],
+    [
+     "accept",
+     "C40"
+    ],
+    [
+     "accept",
+     "C12"
+    ],
+    [
+     "accept",
+     "C38"
+    ],
+    [
+     "accept",
+     "C8"
+    ],
+    [
+     "accept",
+     "C23"
+    ],
+    [
+     "accept",
+     "C17"
+    ],
+    [
+     "accept",
+     "C34"
+    ],
+    [
+     "accept",
+     "C20"
+    ],
+    [
+     "accept",
+     "C37"
+    ],
+    [
+     "accept",
+     "C58"
+    ],
+    [
+     "accept",
+     "C59"
+    ],
+    [
+     "accept",
+     "C61"
+    ],
+    [
+     "accept",
+     "C62"
+    ],
+    [
+     "accept",
+     "C52"
+    ],
+    [
+     "accept",
+     "C55"
+    ],
+    [
+     "accept",
+     "C51"
+    ],
+    [
+     "accept",
+     "C60"
+    ],
+    [
+     "accept",
+     "C46"
+    ],
+    [
+     "accept",
+     "C56"
+    ],
+    [
+     "accept",
+     "C49"
+    ],
+    [
+     "accept",
+     "C53"
+    ],
+    [
+     "accept",
+     "C64"
+    ],
+    [
+     "accept",
+     "C57"
+    ],
+    [
+     "accept",
+     "C48"
+    ],
+    [
+     "accept",
+     "C45"
+    ],
+    [
+     "accept",
+     "C63"
+    ],
+    [
+     "accept",
+     "C47"
+    ],
+    [
+     "accept",
+     "C50"
+    ],
+    [
+     "accept",
+     "C54"
+    ]
+   ],
+   "held": false,
+   "queue": [
+    {
+     "cases": [
+      {
+       "case": "C7",
+       "cashbook": [
+        "PV-Q11O-03"
+       ],
+       "impact": 890229,
+       "statement": [
+        "S9"
+       ]
+      },
+      {
+       "case": "C41",
+       "cashbook": [
+        "PV-Q11O-37"
+       ],
+       "impact": 875799,
+       "statement": [
+        "S41"
+       ]
+      },
+      {
+       "case": "C29",
+       "cashbook": [
+        "PV-Q11O-25"
+       ],
+       "impact": 793468,
+       "statement": [
+        "S4"
+       ]
+      },
+      {
+       "case": "C44",
+       "cashbook": [
+        "PV-Q11O-40"
+       ],
+       "impact": 767522,
+       "statement": [
+        "S50"
+       ]
+      },
+      {
+       "case": "C10",
+       "cashbook": [
+        "PV-Q11O-06"
+       ],
+       "impact": 764602,
+       "statement": [
+        "S18"
+       ]
+      },
+      {
+       "case": "C21",
+       "cashbook": [
+        "PV-Q11O-17"
+       ],
+       "impact": 760884,
+       "statement": [
+        "S53"
+       ]
+      },
+      {
+       "case": "C15",
+       "cashbook": [
+        "PV-Q11O-11"
+       ],
+       "impact": 754329,
+       "statement": [
+        "S34"
+       ]
+      },
+      {
+       "case": "C14",
+       "cashbook": [
+        "PV-Q11O-10"
+       ],
+       "impact": 742877,
+       "statement": [
+        "S31"
+       ]
+      },
+      {
+       "case": "C28",
+       "cashbook": [
+        "PV-Q11O-24"
+       ],
+       "impact": 729084,
+       "statement": [
+        "S63"
+       ]
+      },
+      {
+       "case": "C42",
+       "cashbook": [
+        "PV-Q11O-38"
+       ],
+       "impact": 701000,
+       "statement": [
+        "S44"
+       ]
+      },
+      {
+       "case": "C31",
+       "cashbook": [
+        "PV-Q11O-27"
+       ],
+       "impact": 646136,
+       "statement": [
+        "S10"
+       ]
+      },
+      {
+       "case": "C18",
+       "cashbook": [
+        "PV-Q11O-14"
+       ],
+       "impact": 603734,
+       "statement": [
+        "S43"
+       ]
+      },
+      {
+       "case": "C27",
+       "cashbook": [
+        "PV-Q11O-23"
+       ],
+       "impact": 599972,
+       "statement": [
+        "S62"
+       ]
+      },
+      {
+       "case": "C6",
+       "cashbook": [
+        "PV-Q11O-02"
+       ],
+       "impact": 556500,
+       "statement": [
+        "S6"
+       ]
+      },
+      {
+       "case": "C43",
+       "cashbook": [
+        "PV-Q11O-39"
+       ],
+       "impact": 523929,
+       "statement": [
+        "S47"
+       ]
+      },
+      {
+       "case": "C16",
+       "cashbook": [
+        "PV-Q11O-12"
+       ],
+       "impact": 517187,
+       "statement": [
+        "S37"
+       ]
+      },
+      {
+       "case": "C5",
+       "cashbook": [
+        "PV-Q11O-01"
+       ],
+       "impact": 500871,
+       "statement": [
+        "S3"
+       ]
+      },
+      {
+       "case": "C13",
+       "cashbook": [
+        "PV-Q11O-09"
+       ],
+       "impact": 486150,
+       "statement": [
+        "S28"
+       ]
+      },
+      {
+       "case": "C33",
+       "cashbook": [
+        "PV-Q11O-29"
+       ],
+       "impact": 472714,
+       "statement": [
+        "S16"
+       ]
+      },
+      {
+       "case": "C24",
+       "cashbook": [
+        "PV-Q11O-20"
+       ],
+       "impact": 422634,
+       "statement": [
+        "S59"
+       ]
+      },
+      {
+       "case": "C35",
+       "cashbook": [
+        "PV-Q11O-31"
+       ],
+       "impact": 418446,
+       "statement": [
+        "S22"
+       ]
+      },
+      {
+       "case": "C19",
+       "cashbook": [
+        "PV-Q11O-15"
+       ],
+       "impact": 410619,
+       "statement": [
+        "S46"
+       ]
+      },
+      {
+       "case": "C36",
+       "cashbook": [
+        "PV-Q11O-32"
+       ],
+       "impact": 371363,
+       "statement": [
+        "S26"
+       ]
+      },
+      {
+       "case": "C25",
+       "cashbook": [
+        "PV-Q11O-21"
+       ],
+       "impact": 298765,
+       "statement": [
+        "S60"
+       ]
+      },
+      {
+       "case": "C11",
+       "cashbook": [
+        "PV-Q11O-07"
+       ],
+       "impact": 293772,
+       "statement": [
+        "S21"
+       ]
+      },
+      {
+       "case": "C9",
+       "cashbook": [
+        "PV-Q11O-05"
+       ],
+       "impact": 271874,
+       "statement": [
+        "S15"
+       ]
+      },
+      {
+       "case": "C39",
+       "cashbook": [
+        "PV-Q11O-35"
+       ],
+       "impact": 265920,
+       "statement": [
+        "S35"
+       ]
+      },
+      {
+       "case": "C30",
+       "cashbook": [
+        "PV-Q11O-26"
+       ],
+       "impact": 256721,
+       "statement": [
+        "S7"
+       ]
+      },
+      {
+       "case": "C32",
+       "cashbook": [
+        "PV-Q11O-28"
+       ],
+       "impact": 238558,
+       "statement": [
+        "S13"
+       ]
+      },
+      {
+       "case": "C22",
+       "cashbook": [
+        "PV-Q11O-18"
+       ],
+       "impact": 228810,
+       "statement": [
+        "S55"
+       ]
+      },
+      {
+       "case": "C26",
+       "cashbook": [
+        "PV-Q11O-22"
+       ],
+       "impact": 210849,
+       "statement": [
+        "S61"
+       ]
+      },
+      {
+       "case": "C40",
+       "cashbook": [
+        "PV-Q11O-36"
+       ],
+       "impact": 203830,
+       "statement": [
+        "S38"
+       ]
+      },
+      {
+       "case": "C12",
+       "cashbook": [
+        "PV-Q11O-08"
+       ],
+       "impact": 188328,
+       "statement": [
+        "S25"
+       ]
+      },
+      {
+       "case": "C38",
+       "cashbook": [
+        "PV-Q11O-34"
+       ],
+       "impact": 85097,
+       "statement": [
+        "S32"
+       ]
+      },
+      {
+       "case": "C8",
+       "cashbook": [
+        "PV-Q11O-04"
+       ],
+       "impact": 80493,
+       "statement": [
+        "S12"
+       ]
+      },
+      {
+       "case": "C23",
+       "cashbook": [
+        "PV-Q11O-19"
+       ],
+       "impact": 76208,
+       "statement": [
+        "S57"
+       ]
+      },
+      {
+       "case": "C17",
+       "cashbook": [
+        "PV-Q11O-13"
+       ],
+       "impact": 67764,
+       "statement": [
+        "S40"
+       ]
+      },
+      {
+       "case": "C34",
+       "cashbook": [
+        "PV-Q11O-30"
+       ],
+       "impact": 54215,
+       "statement": [
+        "S19"
+       ]
+      },
+      {
+       "case": "C20",
+       "cashbook": [
+        "PV-Q11O-16"
+       ],
+       "impact": 50278,
+       "statement": [
+        "S49"
+       ]
+      },
+      {
+       "case": "C37",
+       "cashbook": [
+        "PV-Q11O-33"
+       ],
+       "impact": 26139,
+       "statement": [
+        "S29"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "out",
+     "impact": 890229,
+     "members": 80,
+     "offers": {
+      "accept": true,
+      "reject": true
+     },
+     "reason": "amount-date-suggestion",
+     "signature": "amount-date-suggestion|out|1:1|",
+     "statement": 1
+    },
+    {
+     "cases": [
+      {
+       "case": "C58",
+       "cashbook": [
+        "RV-Q11I-14"
+       ],
+       "impact": 889964,
+       "statement": [
+        "S42"
+       ]
+      },
+      {
+       "case": "C59",
+       "cashbook": [
+        "RV-Q11I-15"
+       ],
+       "impact": 824425,
+       "statement": [
+        "S45"
+       ]
+      },
+      {
+       "case": "C61",
+       "cashbook": [
+        "RV-Q11I-17"
+       ],
+       "impact": 770596,
+       "statement": [
+        "S51"
+       ]
+      },
+      {
+       "case": "C62",
+       "cashbook": [
+        "RV-Q11I-18"
+       ],
+       "impact": 744887,
+       "statement": [
+        "S54"
+       ]
+      },
+      {
+       "case": "C52",
+       "cashbook": [
+        "RV-Q11I-08"
+       ],
+       "impact": 701965,
+       "statement": [
+        "S23"
+       ]
+      },
+      {
+       "case": "C55",
+       "cashbook": [
+        "RV-Q11I-11"
+       ],
+       "impact": 674510,
+       "statement": [
+        "S33"
+       ]
+      },
+      {
+       "case": "C51",
+       "cashbook": [
+        "RV-Q11I-07"
+       ],
+       "impact": 654736,
+       "statement": [
+        "S20"
+       ]
+      },
+      {
+       "case": "C60",
+       "cashbook": [
+        "RV-Q11I-16"
+       ],
+       "impact": 551059,
+       "statement": [
+        "S48"
+       ]
+      },
+      {
+       "case": "C46",
+       "cashbook": [
+        "RV-Q11I-02"
+       ],
+       "impact": 446486,
+       "statement": [
+        "S5"
+       ]
+      },
+      {
+       "case": "C56",
+       "cashbook": [
+        "RV-Q11I-12"
+       ],
+       "impact": 410125,
+       "statement": [
+        "S36"
+       ]
+      },
+      {
+       "case": "C49",
+       "cashbook": [
+        "RV-Q11I-05"
+       ],
+       "impact": 392647,
+       "statement": [
+        "S14"
+       ]
+      },
+      {
+       "case": "C53",
+       "cashbook": [
+        "RV-Q11I-09"
+       ],
+       "impact": 250092,
+       "statement": [
+        "S27"
+       ]
+      },
+      {
+       "case": "C64",
+       "cashbook": [
+        "RV-Q11I-20"
+       ],
+       "impact": 244759,
+       "statement": [
+        "S58"
+       ]
+      },
+      {
+       "case": "C57",
+       "cashbook": [
+        "RV-Q11I-13"
+       ],
+       "impact": 235964,
+       "statement": [
+        "S39"
+       ]
+      },
+      {
+       "case": "C48",
+       "cashbook": [
+        "RV-Q11I-04"
+       ],
+       "impact": 221142,
+       "statement": [
+        "S11"
+       ]
+      },
+      {
+       "case": "C45",
+       "cashbook": [
+        "RV-Q11I-01"
+       ],
+       "impact": 155149,
+       "statement": [
+        "S2"
+       ]
+      },
+      {
+       "case": "C63",
+       "cashbook": [
+        "RV-Q11I-19"
+       ],
+       "impact": 144441,
+       "statement": [
+        "S56"
+       ]
+      },
+      {
+       "case": "C47",
+       "cashbook": [
+        "RV-Q11I-03"
+       ],
+       "impact": 98480,
+       "statement": [
+        "S8"
+       ]
+      },
+      {
+       "case": "C50",
+       "cashbook": [
+        "RV-Q11I-06"
+       ],
+       "impact": 96075,
+       "statement": [
+        "S17"
+       ]
+      },
+      {
+       "case": "C54",
+       "cashbook": [
+        "RV-Q11I-10"
+       ],
+       "impact": 19162,
+       "statement": [
+        "S30"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "in",
+     "impact": 889964,
+     "members": 40,
+     "offers": {
+      "accept": true,
+      "reject": true
+     },
+     "reason": "amount-date-suggestion",
+     "signature": "amount-date-suggestion|in|1:1|",
+     "statement": 1
+    }
+   ],
+   "queueAfter": [],
+   "refusal": null,
+   "statuses": {
+    "C10": "accepted",
+    "C11": "accepted",
+    "C12": "accepted",
+    "C13": "accepted",
+    "C14": "accepted",
+    "C15": "accepted",
+    "C16": "accepted",
+    "C17": "accepted",
+    "C18": "accepted",
+    "C19": "accepted",
+    "C20": "accepted",
+    "C21": "accepted",
+    "C22": "accepted",
+    "C23": "accepted",
+    "C24": "accepted",
+    "C25": "accepted",
+    "C26": "accepted",
+    "C27": "accepted",
+    "C28": "accepted",
+    "C29": "accepted",
+    "C30": "accepted",
+    "C31": "accepted",
+    "C32": "accepted",
+    "C33": "accepted",
+    "C34": "accepted",
+    "C35": "accepted",
+    "C36": "accepted",
+    "C37": "accepted",
+    "C38": "accepted",
+    "C39": "accepted",
+    "C40": "accepted",
+    "C41": "accepted",
+    "C42": "accepted",
+    "C43": "accepted",
+    "C44": "accepted",
+    "C45": "accepted",
+    "C46": "accepted",
+    "C47": "accepted",
+    "C48": "accepted",
+    "C49": "accepted",
+    "C5": "accepted",
+    "C50": "accepted",
+    "C51": "accepted",
+    "C52": "accepted",
+    "C53": "accepted",
+    "C54": "accepted",
+    "C55": "accepted",
+    "C56": "accepted",
+    "C57": "accepted",
+    "C58": "accepted",
+    "C59": "accepted",
+    "C6": "accepted",
+    "C60": "accepted",
+    "C61": "accepted",
+    "C62": "accepted",
+    "C63": "accepted",
+    "C64": "accepted",
+    "C7": "accepted",
+    "C8": "accepted",
+    "C9": "accepted"
+   }
+  },
+  "Q12": {
+   "actions": {
+    "grouped": 0,
+    "single": 0
+   },
+   "after": {
+    "accepted": 0,
+    "open": 0,
+    "rejected": 0
+   },
+   "decisions": [],
+   "held": true,
+   "queue": [],
+   "queueAfter": [],
+   "refusal": null,
+   "statuses": {}
+  },
+  "Q13": {
+   "actions": {
+    "grouped": 0,
+    "single": 0
+   },
+   "after": {
+    "accepted": 0,
+    "open": 0,
+    "rejected": 0
+   },
+   "decisions": [],
+   "held": false,
+   "queue": [],
+   "queueAfter": [],
+   "refusal": null,
+   "statuses": {}
+  },
+  "Q14": {
+   "actions": {
+    "grouped": 2,
+    "single": 3
+   },
+   "after": {
+    "accepted": 0,
+    "open": 3,
+    "rejected": 0
+   },
+   "decisions": [],
+   "held": false,
+   "queue": [
+    {
+     "cases": [
+      {
+       "case": "C7",
+       "cashbook": [
+        "PV-Q14-43",
+        "PV-Q14-44"
+       ],
+       "impact": 507598,
+       "statement": [
+        "S8"
+       ]
+      }
+     ],
+     "cashbook": 2,
+     "class": "exception",
+     "direction": "out",
+     "impact": 507598,
+     "members": 3,
+     "offers": {
+      "accept": false,
+      "reject": false
+     },
+     "reason": "duplicate-reference",
+     "signature": "duplicate-reference|out|1:2|",
+     "statement": 1
+    },
+    {
+     "cases": [
+      {
+       "case": "C6",
+       "cashbook": [
+        "PV-Q14-42"
+       ],
+       "impact": 465894,
+       "statement": [
+        "S5",
+        "S6"
+       ]
+      },
+      {
+       "case": "C5",
+       "cashbook": [
+        "PV-Q14-41"
+       ],
+       "impact": 232142,
+       "statement": [
+        "S2",
+        "S3"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "exception",
+     "direction": "out",
+     "impact": 465894,
+     "members": 6,
+     "offers": {
+      "accept": false,
+      "reject": true
+     },
+     "reason": "duplicate-reference",
+     "signature": "duplicate-reference|out|2:1|",
+     "statement": 2
+    }
+   ],
+   "queueAfter": [
+    {
+     "cases": [
+      {
+       "case": "C7",
+       "cashbook": [
+        "PV-Q14-43",
+        "PV-Q14-44"
+       ],
+       "impact": 507598,
+       "statement": [
+        "S8"
+       ]
+      }
+     ],
+     "cashbook": 2,
+     "class": "exception",
+     "direction": "out",
+     "impact": 507598,
+     "members": 3,
+     "offers": {
+      "accept": false,
+      "reject": false
+     },
+     "reason": "duplicate-reference",
+     "signature": "duplicate-reference|out|1:2|",
+     "statement": 1
+    },
+    {
+     "cases": [
+      {
+       "case": "C6",
+       "cashbook": [
+        "PV-Q14-42"
+       ],
+       "impact": 465894,
+       "statement": [
+        "S5",
+        "S6"
+       ]
+      },
+      {
+       "case": "C5",
+       "cashbook": [
+        "PV-Q14-41"
+       ],
+       "impact": 232142,
+       "statement": [
+        "S2",
+        "S3"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "exception",
+     "direction": "out",
+     "impact": 465894,
+     "members": 6,
+     "offers": {
+      "accept": false,
+      "reject": true
+     },
+     "reason": "duplicate-reference",
+     "signature": "duplicate-reference|out|2:1|",
+     "statement": 2
+    }
+   ],
+   "refusal": null,
+   "statuses": {
+    "C5": "needs-review",
+    "C6": "needs-review",
+    "C7": "needs-review"
+   }
+  },
+  "Q15": {
+   "actions": {
+    "grouped": 1,
+    "single": 5
+   },
+   "after": {
+    "accepted": 3,
+    "open": 0,
+    "rejected": 2
+   },
+   "decisions": [
+    [
+     "accept",
+     "C5"
+    ],
+    [
+     "accept",
+     "C8"
+    ],
+    [
+     "accept",
+     "C7"
+    ],
+    [
+     "accept",
+     "C9"
+    ],
+    [
+     "accept",
+     "C6"
+    ],
+    [
+     "undo",
+     "C6"
+    ],
+    [
+     "undo",
+     "C8"
+    ],
+    [
+     "reject",
+     "C8"
+    ],
+    [
+     "reject",
+     "C6"
+    ]
+   ],
+   "held": false,
+   "queue": [
+    {
+     "cases": [
+      {
+       "case": "C5",
+       "cashbook": [
+        "RV-Q15-01"
+       ],
+       "impact": 704658,
+       "statement": [
+        "S2"
+       ]
+      },
+      {
+       "case": "C8",
+       "cashbook": [
+        "RV-Q15-04"
+       ],
+       "impact": 633585,
+       "statement": [
+        "S5"
+       ]
+      },
+      {
+       "case": "C7",
+       "cashbook": [
+        "RV-Q15-03"
+       ],
+       "impact": 550483,
+       "statement": [
+        "S4"
+       ]
+      },
+      {
+       "case": "C9",
+       "cashbook": [
+        "RV-Q15-05"
+       ],
+       "impact": 263371,
+       "statement": [
+        "S6"
+       ]
+      },
+      {
+       "case": "C6",
+       "cashbook": [
+        "RV-Q15-02"
+       ],
+       "impact": 94236,
+       "statement": [
+        "S3"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "in",
+     "impact": 704658,
+     "members": 10,
+     "offers": {
+      "accept": true,
+      "reject": true
+     },
+     "reason": "amount-date-suggestion",
+     "signature": "amount-date-suggestion|in|1:1|",
+     "statement": 1
+    }
+   ],
+   "queueAfter": [],
+   "refusal": null,
+   "statuses": {
+    "C5": "accepted",
+    "C6": "rejected",
+    "C7": "accepted",
+    "C8": "rejected",
+    "C9": "accepted"
+   }
+  },
+  "Q16": {
+   "actions": {
+    "grouped": 2,
+    "single": 2
+   },
+   "after": {
+    "accepted": 0,
+    "open": 2,
+    "rejected": 0
+   },
+   "decisions": [],
+   "held": false,
+   "queue": [
+    {
+     "cases": [
+      {
+       "case": "C5",
+       "cashbook": [
+        "PV-Q16-61"
+       ],
+       "impact": 1210,
+       "statement": [
+        "S2"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "exception",
+     "direction": "out",
+     "impact": 1210,
+     "members": 2,
+     "offers": {
+      "accept": false,
+      "reject": false
+     },
+     "reason": "amount-difference",
+     "signature": "amount-difference|out|1:1|",
+     "statement": 1
+    },
+    {
+     "cases": [
+      {
+       "case": "C6",
+       "cashbook": [
+        "PV-Q16-62"
+       ],
+       "impact": 9850000,
+       "statement": [
+        "S4"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "out",
+     "impact": 9850000,
+     "members": 2,
+     "offers": {
+      "accept": false,
+      "reject": false
+     },
+     "reason": "amount-date-suggestion",
+     "signature": "amount-date-suggestion|out|1:1|",
+     "statement": 1
+    }
+   ],
+   "queueAfter": [
+    {
+     "cases": [
+      {
+       "case": "C5",
+       "cashbook": [
+        "PV-Q16-61"
+       ],
+       "impact": 1210,
+       "statement": [
+        "S2"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "exception",
+     "direction": "out",
+     "impact": 1210,
+     "members": 2,
+     "offers": {
+      "accept": false,
+      "reject": false
+     },
+     "reason": "amount-difference",
+     "signature": "amount-difference|out|1:1|",
+     "statement": 1
+    },
+    {
+     "cases": [
+      {
+       "case": "C6",
+       "cashbook": [
+        "PV-Q16-62"
+       ],
+       "impact": 9850000,
+       "statement": [
+        "S4"
+       ]
+      }
+     ],
+     "cashbook": 1,
+     "class": "suggestion",
+     "direction": "out",
+     "impact": 9850000,
+     "members": 2,
+     "offers": {
+      "accept": false,
+      "reject": false
+     },
+     "reason": "amount-date-suggestion",
+     "signature": "amount-date-suggestion|out|1:1|",
+     "statement": 1
+    }
+   ],
+   "refusal": null,
+   "statuses": {
+    "C5": "needs-review",
+    "C6": "needs-review"
+   }
+  }
+ },
+ "version": "bank-review-foundation-oracle-1"
+}

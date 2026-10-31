@@ -1,0 +1,175 @@
+{
+ "schema": "tarasuf-inv3-dense-manifest/1",
+ "synthetic": true,
+ "producer": "stories.py dense(), fixed rules and no randomness, written by render.py --dense with Python writers only; regenerated and checked by dense.py before any run",
+ "files": {
+  "D1-evidence.csv": {
+   "sha256": "aeec0caf7a594e963ad3c156df75b2590623826f7afbaac1edf869fc7947b2a5",
+   "bytes": 313619
+  },
+  "D1-gl.csv": {
+   "sha256": "179b86233f6082368316ec4269da0cd79932bec090063e8988b140fda67d5ba2",
+   "bytes": 6026
+  },
+  "D1-mapping.csv": {
+   "sha256": "7e62c788b81b393e764c5bca02f7b131d2fbf4a8cc4840120662230adaf0bf69",
+   "bytes": 217425
+  },
+  "D1-register.csv": {
+   "sha256": "d588d512811d0d33df2fae77c82a7670dab68b8e2c0d3164e4af85bdd0feba17",
+   "bytes": 203362
+  },
+  "D1-scope.json": {
+   "sha256": "04c9bda6478d6703233b9497c04efe1abea0a7125d147e2288a296df162a42bf",
+   "bytes": 356
+  },
+  "D2-evidence.csv": {
+   "sha256": "cf7db9e4b4a70ab9702a10958f47fbcb83f755079bfaa5628e67b2bb5a5c1c14",
+   "bytes": 1881581
+  },
+  "D2-gl.csv": {
+   "sha256": "4286a6cb5adc4502f68bd4daa4aa56a33a12c928eb24170985e71e007a210800",
+   "bytes": 7577
+  },
+  "D2-mapping.csv": {
+   "sha256": "6b82f48825789ef095a5c9b0e3ae6d441a54efcea3ae5a07d5f9722d93b52dcd",
+   "bytes": 1158850
+  },
+  "D2-register.csv": {
+   "sha256": "76efaafc78322fe5ebe34c6e13756f993880925efdc480d7308b1034486374aa",
+   "bytes": 1571929
+  },
+  "D2-scope.json": {
+   "sha256": "19e07479f630b0bc264462cd8b7e584ff68312d72cf98a2b13faac58001942fc",
+   "bytes": 356
+  },
+  "D3-evidence.csv": {
+   "sha256": "a4e3fc519ef0ff9c7ba0ee64a4b06d47afd5974a98b2bd41be8e5083a527d10a",
+   "bytes": 2432448
+  },
+  "D3-gl.csv": {
+   "sha256": "f5672ee45d29ef3a04a996c699a944f41c2d0b3b67a9af6dbcb913c624fec343",
+   "bytes": 4022
+  },
+  "D3-mapping.csv": {
+   "sha256": "eaeb068d0744f1531fea89966f0d0ba91c94a03fe880d0879d5d0da7451a5578",
+   "bytes": 1199627
+  },
+  "D3-register.csv": {
+   "sha256": "bf7dd0066ce71bbf7dc0d7f24d2a1a0b8b495bca54e4eb815b202fc31f6eba49",
+   "bytes": 1359174
+  },
+  "D3-scope.json": {
+   "sha256": "2ce1b8849f71e42ddaf05cc9f34e3cc7b6dab54c90dbd585bbd73d2bb71a4c3c",
+   "bytes": 356
+  },
+  "D4-evidence.csv": {
+   "sha256": "e90286fd68f685a32b4af99f3a4167a3d12e1b35b6700ba22793fe97d87b8fdf",
+   "bytes": 2086177
+  },
+  "D4-gl.csv": {
+   "sha256": "080c5b68e34eb36b9c9714dd709805acb377050074acdb8be7e3922bc7e37be9",
+   "bytes": 4165
+  },
+  "D4-mapping.csv": {
+   "sha256": "979ec0bc1fd2f3974458e863036f9fc24a32b034b3b158cc3f12d7362c4acd60",
+   "bytes": 1446013
+  },
+  "D4-register.csv": {
+   "sha256": "1f5bd95ef8ebef2b7278a7d444d1a7fd4f2d6861fd6d6cfab6b5a69dacfa2f99",
+   "bytes": 1352515
+  },
+  "D4-scope.json": {
+   "sha256": "820678dc3fc5f291cba186892a8d55471efe9933c676be96321e952b7dc9c2ac",
+   "bytes": 356
+  },
+  "D5-evidence.csv": {
+   "sha256": "a6fa31c66d0a7afb4a83d379d303a7e59cac46544ebb16a4d8358e3b1000f4cd",
+   "bytes": 1849522
+  },
+  "D5-gl.csv": {
+   "sha256": "8821882d5902457ea974bd45d6e5d135eeab7b98ff6ce87b6c32f2576493fc8d",
+   "bytes": 4603
+  },
+  "D5-mapping.csv": {
+   "sha256": "9d59761628da384c2ba90b9018a7358affbe6398170f087bdfee4a1eb826a4c8",
+   "bytes": 1296412
+  },
+  "D5-register.csv": {
+   "sha256": "f425e6c31a5eccbd1ee154311602df512c1d549f0ba487302fb67afe26c07074",
+   "bytes": 1216842
+  },
+  "D5-scope.json": {
+   "sha256": "3e8a89408a079c82c4d347febe532f4f0f291db1a2e7476950b8c6fc2f9be304",
+   "bytes": 356
+  }
+ },
+ "expectedSha256": {
+  "D1": "5d50e10ad7f7718a6a629a598c5b71bc44ea37b72ea3e8972148d5aa1028e6b0",
+  "D2": "9c86c0cf68c875f6cb7352e9b6330ff9f61bdf6dcdeef4f7ec11f35491bad0b9",
+  "D3": "64f65bfa952b42d56ac937686ec85ff890b746dc6e9364aa70029bda9f7064de",
+  "D4": "d31e8848bdf0ca02fd809a79f6d428ee0653eff062289a8fd5b959a8273fd12f",
+  "D5": "e2e9e9b9b4844a3b133bebb58b839a5a79785c1c1735ee2b3897139b1cc3029c"
+ },
+ "summary": {
+  "D1": {
+   "refused": null,
+   "financial": "ready",
+   "links": 1000,
+   "unlinked": 0,
+   "reasons": {},
+   "unlinkedRecords": 0,
+   "issues": 0
+  },
+  "D2": {
+   "refused": null,
+   "financial": "missing",
+   "links": 5000,
+   "unlinked": 298,
+   "reasons": {
+    "EVIDENCE_ACCOUNT": 68,
+    "EVIDENCE_VALUATION": 63,
+    "EVIDENCE_UNIT": 60,
+    "NO_EVIDENCE": 56,
+    "NO_MAPPING": 51
+   },
+   "unlinkedRecords": 0,
+   "issues": 0
+  },
+  "D3": {
+   "refused": null,
+   "financial": "ready",
+   "links": 6658,
+   "unlinked": 0,
+   "reasons": {},
+   "unlinkedRecords": 0,
+   "issues": 0
+  },
+  "D4": {
+   "refused": "ROWS"
+  },
+  "D5": {
+   "refused": null,
+   "financial": "source-error",
+   "links": 6000,
+   "unlinked": 392,
+   "reasons": {
+    "EVIDENCE_ACCOUNT": 75,
+    "EVIDENCE_VALUATION": 72,
+    "EVIDENCE_UNIT": 67,
+    "NO_EVIDENCE": 61,
+    "NO_MAPPING": 59,
+    "EVIDENCES": 30,
+    "MAPPINGS": 28
+   },
+   "unlinkedRecords": 2,
+   "issues": 116
+  }
+ },
+ "verify": {
+  "passed": true,
+  "problems": [],
+  "files": 20,
+  "cells": 1591651
+ }
+}

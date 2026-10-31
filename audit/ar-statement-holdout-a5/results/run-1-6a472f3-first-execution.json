@@ -1,0 +1,1358 @@
+{
+ "run": {
+  "name": "run-1, first execution of the run script",
+  "productCommit": "6a472f3",
+  "date": "2026-10-27",
+  "kept": "as history: the comparison compared serialised objects, so EXPECTED.json (written with sorted keys) and the product (keys in its own order) differed in every section for key order alone, and in the B11 review counts. Corrected and given a self-test (comparison) before the record run-1-6a472f3.json; not asserted."
+ },
+ "schema": "tarasuf-ar-pdf1-holdout-run/1",
+ "suite": "audit/ar-statement-holdout-a5",
+ "inputManifestSha256": "ce94cf249a9f1070da131e843d8b92d055496cf771022da9b997025ca237e116",
+ "summary": {
+  "statements": 18,
+  "positivesAsSealed": "0/9",
+  "heldAsSealed": "0/9",
+  "readingsEqual": 16,
+  "readingsRefused": 0,
+  "falseApprovals": [],
+  "missedApprovals": []
+ },
+ "stories": {
+  "B01": {
+   "positive": true,
+   "reading": {
+    "equal": true,
+    "lines": 37,
+    "details": 10,
+    "differences": []
+   },
+   "result": {
+    "equal": false,
+    "status": "matched",
+    "errorCodes": [],
+    "matched": 5,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": [
+     {
+      "name": "sections",
+      "at": 0,
+      "got": {
+       "compared": false,
+       "lines": 3,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "customer": "K-201",
+        "account": "1130",
+        "currency": "SAR",
+        "start": "2026-08-01",
+        "end": "2026-08-31"
+       }
+      },
+      "want": {
+       "compared": false,
+       "lines": 3,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "account": "1130",
+        "currency": "SAR",
+        "customer": "K-201",
+        "end": "2026-08-31",
+        "start": "2026-08-01"
+       }
+      },
+      "lengths": [
+       3,
+       3
+      ]
+     }
+    ]
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": false
+  },
+  "B02": {
+   "positive": true,
+   "reading": {
+    "equal": true,
+    "lines": 61,
+    "details": 46,
+    "differences": []
+   },
+   "result": {
+    "equal": false,
+    "status": "review",
+    "errorCodes": [],
+    "matched": 44,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": [
+     {
+      "name": "sections",
+      "at": 0,
+      "got": {
+       "compared": true,
+       "lines": 46,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "customer": "K-204",
+        "account": "1130",
+        "currency": "KWD",
+        "start": "2026-08-01",
+        "end": "2026-08-31"
+       }
+      },
+      "want": {
+       "compared": true,
+       "lines": 46,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "account": "1130",
+        "currency": "KWD",
+        "customer": "K-204",
+        "end": "2026-08-31",
+        "start": "2026-08-01"
+       }
+      },
+      "lengths": [
+       1,
+       1
+      ]
+     }
+    ]
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": false
+  },
+  "B03": {
+   "positive": true,
+   "reading": {
+    "equal": true,
+    "lines": 17,
+    "details": 6,
+    "differences": []
+   },
+   "result": {
+    "equal": false,
+    "status": "review",
+    "errorCodes": [],
+    "matched": 5,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": [
+     {
+      "name": "sections",
+      "at": 0,
+      "got": {
+       "compared": true,
+       "lines": 6,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "customer": "K-204",
+        "account": "1130",
+        "currency": "SAR",
+        "start": "2026-08-01",
+        "end": "2026-08-31"
+       }
+      },
+      "want": {
+       "compared": true,
+       "lines": 6,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "account": "1130",
+        "currency": "SAR",
+        "customer": "K-204",
+        "end": "2026-08-31",
+        "start": "2026-08-01"
+       }
+      },
+      "lengths": [
+       1,
+       1
+      ]
+     }
+    ]
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": false
+  },
+  "B04": {
+   "positive": true,
+   "reading": {
+    "equal": true,
+    "lines": 27,
+    "details": 9,
+    "differences": []
+   },
+   "result": {
+    "equal": false,
+    "status": "matched",
+    "errorCodes": [],
+    "matched": 6,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": [
+     {
+      "name": "sections",
+      "at": 0,
+      "got": {
+       "compared": false,
+       "lines": 3,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "customer": "K-204",
+        "account": "1135",
+        "currency": "SAR",
+        "start": "2026-08-01",
+        "end": "2026-08-31"
+       }
+      },
+      "want": {
+       "compared": false,
+       "lines": 3,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "account": "1135",
+        "currency": "SAR",
+        "customer": "K-204",
+        "end": "2026-08-31",
+        "start": "2026-08-01"
+       }
+      },
+      "lengths": [
+       2,
+       2
+      ]
+     }
+    ]
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": false
+  },
+  "B05": {
+   "positive": false,
+   "reading": {
+    "equal": true,
+    "lines": 46,
+    "details": 30,
+    "differences": []
+   },
+   "result": {
+    "equal": false,
+    "status": "source-error",
+    "errorCodes": [
+     "AR_PDF_DOCUMENT_HEADER"
+    ],
+    "matched": 0,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": [
+     {
+      "name": "sections",
+      "at": 0,
+      "got": {
+       "compared": true,
+       "lines": 30,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "customer": "K-204",
+        "account": "1130",
+        "currency": "SAR",
+        "start": "2026-08-01",
+        "end": "2026-08-31"
+       }
+      },
+      "want": {
+       "compared": true,
+       "lines": 30,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "account": "1130",
+        "currency": "SAR",
+        "customer": "K-204",
+        "end": "2026-08-31",
+        "start": "2026-08-01"
+       }
+      },
+      "lengths": [
+       1,
+       1
+      ]
+     }
+    ]
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": false
+  },
+  "B06": {
+   "positive": false,
+   "reading": {
+    "equal": true,
+    "lines": 15,
+    "details": 2,
+    "differences": []
+   },
+   "result": {
+    "equal": false,
+    "status": "source-error",
+    "errorCodes": [
+     "AR_ORIGINAL_MISSING",
+     "AR_PERIOD"
+    ],
+    "matched": 0,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": [
+     {
+      "name": "sections",
+      "at": 0,
+      "got": {
+       "compared": true,
+       "lines": 2,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "customer": "K-204",
+        "account": "1130",
+        "currency": "SAR",
+        "start": "2026-08-01",
+        "end": "2026-08-31"
+       }
+      },
+      "want": {
+       "compared": true,
+       "lines": 2,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "account": "1130",
+        "currency": "SAR",
+        "customer": "K-204",
+        "end": "2026-08-31",
+        "start": "2026-08-01"
+       }
+      },
+      "lengths": [
+       1,
+       1
+      ]
+     }
+    ]
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": false
+  },
+  "B07": {
+   "positive": false,
+   "reading": {
+    "equal": true,
+    "lines": 26,
+    "details": 7,
+    "differences": []
+   },
+   "result": {
+    "equal": false,
+    "status": "source-error",
+    "errorCodes": [
+     "AR_PDF_SCOPE_NOT_FOUND"
+    ],
+    "matched": 0,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": [
+     {
+      "name": "sections",
+      "at": 0,
+      "got": {
+       "compared": false,
+       "lines": 3,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "customer": "K-204",
+        "account": "1130",
+        "currency": "SAR",
+        "start": "2026-07-01",
+        "end": "2026-07-31"
+       }
+      },
+      "want": {
+       "compared": false,
+       "lines": 3,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "account": "1130",
+        "currency": "SAR",
+        "customer": "K-204",
+        "end": "2026-07-31",
+        "start": "2026-07-01"
+       }
+      },
+      "lengths": [
+       2,
+       2
+      ]
+     }
+    ]
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": false
+  },
+  "B08": {
+   "positive": false,
+   "reading": {
+    "equal": false,
+    "lines": 41,
+    "details": 7,
+    "differences": [
+     {
+      "name": "line kinds",
+      "at": 38,
+      "got": [
+       3,
+       12,
+       "error",
+       "AR_PDF_LINE"
+      ],
+      "want": [
+       3,
+       12,
+       "detail",
+       null
+      ],
+      "lengths": [
+       41,
+       41
+      ]
+     },
+     {
+      "name": "details",
+      "at": 2,
+      "got": [
+       {
+        "where": [
+         3,
+         10
+        ],
+        "kind": "invoice",
+        "document": "SI-26-0886",
+        "date": "2026-08-18",
+        "amount": 76000,
+        "related": ""
+       },
+       {
+        "where": [
+         3,
+         11
+        ],
+        "kind": "credit-note",
+        "document": "CN-26-0040",
+        "date": "2026-08-22",
+        "amount": -3450,
+        "related": ""
+       }
+      ],
+      "want": [
+       {
+        "where": [
+         3,
+         10
+        ],
+        "kind": "invoice",
+        "document": "SI-26-0886",
+        "date": "2026-08-18",
+        "amount": 76000,
+        "related": ""
+       },
+       {
+        "where": [
+         3,
+         11
+        ],
+        "kind": "credit-note",
+        "document": "CN-26-0040",
+        "date": "2026-08-22",
+        "amount": -3450,
+        "related": ""
+       },
+       {
+        "where": [
+         3,
+         12
+        ],
+        "kind": "receipt",
+        "document": "RV-26-0185",
+        "date": "2026-08-29",
+        "amount": -76000,
+        "related": ""
+       }
+      ],
+      "lengths": [
+       3,
+       3
+      ]
+     },
+     {
+      "name": "errors",
+      "at": 0,
+      "got": [
+       "AR_PDF_LINE",
+       3,
+       12
+      ],
+      "want": null,
+      "lengths": [
+       1,
+       0
+      ]
+     }
+    ]
+   },
+   "result": {
+    "equal": false,
+    "status": "source-error",
+    "errorCodes": [
+     "AR_PDF_LINE",
+     "AR_PDF_SCOPE_REPEATED"
+    ],
+    "matched": 0,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": [
+     {
+      "name": "error codes",
+      "at": 0,
+      "got": "AR_PDF_LINE",
+      "want": "AR_PDF_SCOPE_REPEATED",
+      "lengths": [
+       2,
+       1
+      ]
+     },
+     {
+      "name": "sections",
+      "at": 0,
+      "got": {
+       "compared": false,
+       "lines": 3,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "customer": "K-204",
+        "account": "1130",
+        "currency": "SAR",
+        "start": "2026-08-01",
+        "end": "2026-08-31"
+       }
+      },
+      "want": {
+       "compared": false,
+       "lines": 3,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "account": "1130",
+        "currency": "SAR",
+        "customer": "K-204",
+        "end": "2026-08-31",
+        "start": "2026-08-01"
+       }
+      },
+      "lengths": [
+       3,
+       3
+      ]
+     },
+     {
+      "name": "lines out of scope",
+      "got": 7,
+      "want": 8
+     }
+    ]
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "refused: lines out of scope: actual=7 expected=8"
+   },
+   "asSealed": false
+  },
+  "B09": {
+   "positive": true,
+   "reading": {
+    "equal": true,
+    "lines": 18,
+    "details": 7,
+    "differences": []
+   },
+   "result": {
+    "equal": false,
+    "status": "matched",
+    "errorCodes": [],
+    "matched": 7,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": [
+     {
+      "name": "sections",
+      "at": 0,
+      "got": {
+       "compared": true,
+       "lines": 7,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "customer": "K-204",
+        "account": "1130",
+        "currency": "JPY",
+        "start": "2026-08-01",
+        "end": "2026-08-31"
+       }
+      },
+      "want": {
+       "compared": true,
+       "lines": 7,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "account": "1130",
+        "currency": "JPY",
+        "customer": "K-204",
+        "end": "2026-08-31",
+        "start": "2026-08-01"
+       }
+      },
+      "lengths": [
+       1,
+       1
+      ]
+     }
+    ]
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": false
+  },
+  "B10": {
+   "positive": true,
+   "reading": {
+    "equal": true,
+    "lines": 46,
+    "details": 10,
+    "differences": []
+   },
+   "result": {
+    "equal": false,
+    "status": "review",
+    "errorCodes": [],
+    "matched": 3,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": [
+     {
+      "name": "sections",
+      "at": 0,
+      "got": {
+       "compared": false,
+       "lines": 3,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "customer": "K-204",
+        "account": "1130",
+        "currency": "SAR",
+        "start": "2026-08-01",
+        "end": "2026-08-31"
+       }
+      },
+      "want": {
+       "compared": false,
+       "lines": 3,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "account": "1130",
+        "currency": "SAR",
+        "customer": "K-204",
+        "end": "2026-08-31",
+        "start": "2026-08-01"
+       }
+      },
+      "lengths": [
+       4,
+       4
+      ]
+     }
+    ]
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": false
+  },
+  "B11": {
+   "positive": true,
+   "reading": {
+    "equal": true,
+    "lines": 92,
+    "details": 61,
+    "differences": []
+   },
+   "result": {
+    "equal": false,
+    "status": "review",
+    "errorCodes": [],
+    "matched": 58,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": [
+     {
+      "name": "sections",
+      "at": 0,
+      "got": {
+       "compared": true,
+       "lines": 61,
+       "pages": [
+        1,
+        2,
+        3
+       ],
+       "scope": {
+        "customer": "K-204",
+        "account": "1130",
+        "currency": "SAR",
+        "start": "2026-08-01",
+        "end": "2026-08-31"
+       }
+      },
+      "want": {
+       "compared": true,
+       "lines": 61,
+       "pages": [
+        1,
+        2,
+        3
+       ],
+       "scope": {
+        "account": "1130",
+        "currency": "SAR",
+        "customer": "K-204",
+        "end": "2026-08-31",
+        "start": "2026-08-01"
+       }
+      },
+      "lengths": [
+       1,
+       1
+      ]
+     },
+     {
+      "name": "review",
+      "got": {
+       "duplicate-document": 1,
+       "amount-difference": 1
+      },
+      "want": {
+       "amount-difference": 1,
+       "duplicate-document": 1
+      }
+     }
+    ]
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": false
+  },
+  "B12": {
+   "positive": false,
+   "reading": {
+    "equal": true,
+    "lines": 15,
+    "details": 2,
+    "differences": []
+   },
+   "result": {
+    "equal": false,
+    "status": "source-error",
+    "errorCodes": [
+     "AR_DIRECTION",
+     "AR_KIND"
+    ],
+    "matched": 0,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": [
+     {
+      "name": "sections",
+      "at": 0,
+      "got": {
+       "compared": true,
+       "lines": 2,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "customer": "K-204",
+        "account": "1130",
+        "currency": "SAR",
+        "start": "2026-08-01",
+        "end": "2026-08-31"
+       }
+      },
+      "want": {
+       "compared": true,
+       "lines": 2,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "account": "1130",
+        "currency": "SAR",
+        "customer": "K-204",
+        "end": "2026-08-31",
+        "start": "2026-08-01"
+       }
+      },
+      "lengths": [
+       1,
+       1
+      ]
+     }
+    ]
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": false
+  },
+  "B13": {
+   "positive": false,
+   "reading": {
+    "equal": true,
+    "lines": 24,
+    "details": 4,
+    "differences": []
+   },
+   "result": {
+    "equal": false,
+    "status": "source-error",
+    "errorCodes": [
+     "AR_PDF_COLUMNS"
+    ],
+    "matched": 0,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": [
+     {
+      "name": "sections",
+      "at": 0,
+      "got": {
+       "compared": true,
+       "lines": 4,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "customer": "K-204",
+        "account": "1130",
+        "currency": "SAR",
+        "start": "2026-08-01",
+        "end": "2026-08-31"
+       }
+      },
+      "want": {
+       "compared": true,
+       "lines": 4,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "account": "1130",
+        "currency": "SAR",
+        "customer": "K-204",
+        "end": "2026-08-31",
+        "start": "2026-08-01"
+       }
+      },
+      "lengths": [
+       2,
+       2
+      ]
+     }
+    ]
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": false
+  },
+  "B14": {
+   "positive": false,
+   "reading": {
+    "equal": false,
+    "lines": 23,
+    "details": 4,
+    "differences": [
+     {
+      "name": "line kinds",
+      "at": 20,
+      "got": [
+       1,
+       21,
+       "error",
+       "AR_PERIOD"
+      ],
+      "want": [
+       1,
+       21,
+       "error",
+       "AR_PDF_HEADER"
+      ],
+      "lengths": [
+       23,
+       23
+      ]
+     },
+     {
+      "name": "sections",
+      "at": 1,
+      "got": {
+       "scope": {
+        "customer": "K-215",
+        "account": "1130",
+        "currency": "SAR",
+        "start": "2026-07-31",
+        "end": "2026-08-01"
+       },
+       "pages": [
+        1
+       ]
+      },
+      "want": {
+       "scope": null,
+       "pages": [
+        1
+       ]
+      },
+      "lengths": [
+       2,
+       2
+      ]
+     },
+     {
+      "name": "errors",
+      "at": 0,
+      "got": [
+       "AR_PERIOD",
+       1,
+       21
+      ],
+      "want": [
+       "AR_PDF_HEADER",
+       1,
+       15
+      ],
+      "lengths": [
+       1,
+       1
+      ]
+     }
+    ]
+   },
+   "result": {
+    "equal": false,
+    "status": "source-error",
+    "errorCodes": [
+     "AR_PERIOD"
+    ],
+    "matched": 0,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": [
+     {
+      "name": "error codes",
+      "at": 0,
+      "got": "AR_PERIOD",
+      "want": "AR_PDF_HEADER",
+      "lengths": [
+       1,
+       1
+      ]
+     },
+     {
+      "name": "AR_PDF_HEADER place",
+      "got": [],
+      "want": [
+       1,
+       15
+      ]
+     },
+     {
+      "name": "sections",
+      "at": 0,
+      "got": {
+       "compared": true,
+       "lines": 4,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "customer": "K-204",
+        "account": "1130",
+        "currency": "SAR",
+        "start": "2026-08-01",
+        "end": "2026-08-31"
+       }
+      },
+      "want": {
+       "compared": true,
+       "lines": 4,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "account": "1130",
+        "currency": "SAR",
+        "customer": "K-204",
+        "end": "2026-08-31",
+        "start": "2026-08-01"
+       }
+      },
+      "lengths": [
+       2,
+       2
+      ]
+     }
+    ]
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "refused: line [1, 21] code AR_PDF_HEADER"
+   },
+   "asSealed": false
+  },
+  "B15": {
+   "positive": true,
+   "reading": {
+    "equal": true,
+    "lines": 626,
+    "details": 520,
+    "differences": []
+   },
+   "result": {
+    "equal": false,
+    "status": "matched",
+    "errorCodes": [],
+    "matched": 520,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": [
+     {
+      "name": "sections",
+      "at": 0,
+      "got": {
+       "compared": true,
+       "lines": 520,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "customer": "K-204",
+        "account": "1130",
+        "currency": "SAR",
+        "start": "2026-08-01",
+        "end": "2026-08-31"
+       }
+      },
+      "want": {
+       "compared": true,
+       "lines": 520,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "account": "1130",
+        "currency": "SAR",
+        "customer": "K-204",
+        "end": "2026-08-31",
+        "start": "2026-08-01"
+       }
+      },
+      "lengths": [
+       1,
+       1
+      ]
+     }
+    ]
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": false
+  },
+  "B16": {
+   "positive": true,
+   "reading": {
+    "equal": true,
+    "lines": 15,
+    "details": 7,
+    "differences": []
+   },
+   "result": {
+    "equal": false,
+    "status": "matched",
+    "errorCodes": [],
+    "matched": 7,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": [
+     {
+      "name": "sections",
+      "at": 0,
+      "got": {
+       "compared": true,
+       "lines": 7,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "customer": "K-204",
+        "account": "1130",
+        "currency": "SAR",
+        "start": "2026-08-01",
+        "end": "2026-08-31"
+       }
+      },
+      "want": {
+       "compared": true,
+       "lines": 7,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "account": "1130",
+        "currency": "SAR",
+        "customer": "K-204",
+        "end": "2026-08-31",
+        "start": "2026-08-01"
+       }
+      },
+      "lengths": [
+       1,
+       1
+      ]
+     }
+    ]
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": false
+  },
+  "B17": {
+   "positive": false,
+   "reading": {
+    "equal": true,
+    "lines": 14,
+    "details": 2,
+    "differences": []
+   },
+   "result": {
+    "equal": false,
+    "status": "source-error",
+    "errorCodes": [
+     "AR_DATE",
+     "AR_DOCUMENT"
+    ],
+    "matched": 0,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": [
+     {
+      "name": "sections",
+      "at": 0,
+      "got": {
+       "compared": true,
+       "lines": 2,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "customer": "K-204",
+        "account": "1130",
+        "currency": "SAR",
+        "start": "2026-08-01",
+        "end": "2026-08-31"
+       }
+      },
+      "want": {
+       "compared": true,
+       "lines": 2,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "account": "1130",
+        "currency": "SAR",
+        "customer": "K-204",
+        "end": "2026-08-31",
+        "start": "2026-08-01"
+       }
+      },
+      "lengths": [
+       1,
+       1
+      ]
+     }
+    ]
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": false
+  },
+  "B18": {
+   "positive": false,
+   "reading": {
+    "equal": true,
+    "lines": 16,
+    "details": 2,
+    "differences": []
+   },
+   "result": {
+    "equal": false,
+    "status": "source-error",
+    "errorCodes": [
+     "AR_AMOUNT",
+     "AR_PDF_ORPHAN_LINE"
+    ],
+    "matched": 0,
+    "falseApprovals": [],
+    "missedApprovals": [],
+    "differences": [
+     {
+      "name": "sections",
+      "at": 0,
+      "got": {
+       "compared": true,
+       "lines": 2,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "customer": "K-204",
+        "account": "1130",
+        "currency": "SAR",
+        "start": "2026-08-01",
+        "end": "2026-08-31"
+       }
+      },
+      "want": {
+       "compared": true,
+       "lines": 2,
+       "pages": [
+        1
+       ],
+       "scope": {
+        "account": "1130",
+        "currency": "SAR",
+        "customer": "K-204",
+        "end": "2026-08-31",
+        "start": "2026-08-01"
+       }
+      },
+      "lengths": [
+       1,
+       1
+      ]
+     }
+    ]
+   },
+   "workpaper": {
+    "replayEqualsEngine": true,
+    "restoreEqualsReplay": true,
+    "checker": "accepted"
+   },
+   "asSealed": false
+  }
+ }
+}

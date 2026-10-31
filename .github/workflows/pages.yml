@@ -14,7 +14,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
@@ -32,12 +32,16 @@ jobs:
       - run: pnpm audit --prod --audit-level=moderate
       - run: pnpm lint
       - run: pnpm typecheck
+      - name: Verify Claude Code skills, rules, hook settings and their references
+        run: pnpm test:claude-skills
       - name: Verify integrated family CI syntax and required gate wiring offline
         run: pnpm test:source-families:ci
       - run: pnpm test
         env:
           RUNNING_SESSION_REPORT_DIR: ${{ runner.temp }}/running-balance-session
       - run: pnpm test:mutation-runner
+      - name: Check every mutation and fault anchor once, after a planted self-test
+        run: pnpm test:mutation-anchors
       - name: Verify GL-TB request source and session binding with independent exports and guard faults
         env:
           GL_TB_BINDING_REPORT_DIR: ${{ runner.temp }}/gl-tb-binding-exports
@@ -119,6 +123,8 @@ jobs:
         run: pnpm test:reliability:partial
       - name: Verify independent end-to-end foundation cases
         run: pnpm test:reliability:quick
+      - name: Living hard-case measurement with versioned contracts and triage (EVAL-1)
+        run: pnpm test:hard-cases
       - name: Independently verify bilingual Excel outputs
         run: |
           node --experimental-strip-types audit/stress/export-corpus.mjs
@@ -140,130 +146,6 @@ jobs:
           pnpm test:gl-tb-vertical
           pnpm test:gl-tb-vertical:proof
           pnpm test:gl-tb-vertical:mutations
-      - name: Verify withdrawal-deposit original sources, six-source lifecycle and assertion mutations
-        env:
-          BANK_WD_PROOF_DIR: ${{ runner.temp }}/bank-wd-proof
-          BANK_WD_MUTATION_DIR: ${{ runner.temp }}/bank-wd-mutations
-        run: |
-          pnpm test:bank-wd:mutations
-          node --experimental-strip-types audit/bank-withdrawal-deposit/prove.mjs
-          node --experimental-strip-types audit/bank-withdrawal-deposit/lifecycle-proof.mjs "${{ runner.temp }}/bank-wd-lifecycle"
-          python3 -B audit/bank-withdrawal-deposit/check-evidence.py "$BANK_WD_PROOF_DIR"/attempt-* "${{ runner.temp }}/bank-wd-lifecycle" --output "${{ runner.temp }}/bank-wd-evidence-check.json"
-      - name: Verify supplied long asset components, original lifecycle, oracle and mutations
-        env:
-          ASSET_LONG_REPORT_DIR: ${{ runner.temp }}/fixed-assets-long-proof
-          ASSET_LONG_ORACLE_REPORT_DIR: ${{ runner.temp }}/fixed-assets-long-oracle
-          ASSET_LONG_MUTATION_DIR: ${{ runner.temp }}/fixed-assets-long-mutations
-        run: |
-          pnpm test:fixed-assets-long
-          pnpm test:fixed-assets-long:oracle
-          pnpm test:fixed-assets-long:proof
-          pnpm test:fixed-assets-long:mutations
-      - name: Verify explicit signed-kind gateway originals, lifecycle, independent exports and mutations
-        env:
-          PG_SIGNED_PROOF_DIR: ${{ runner.temp }}/payment-gateway-signed-proof
-          PG_SIGNED_EXPORT_CHECK_DIR: ${{ runner.temp }}/payment-gateway-signed-export-check
-          PG_SIGNED_ORACLE_DIR: ${{ runner.temp }}/payment-gateway-signed-oracle
-          PG_SIGNED_MUTATION_REPORT_DIR: ${{ runner.temp }}/payment-gateway-signed-mutations
-        run: |
-          pnpm test:payment-gateway-signed
-          pnpm test:payment-gateway-signed:oracle
-          pnpm test:payment-gateway-signed:proof
-          pnpm test:payment-gateway-signed:mutations
-      - name: Verify AR scope headers, original amounts, sessions, independent exports and semantic mutations
-        env:
-          AR_SCOPE_DETAILS_REPORT_DIR: ${{ runner.temp }}/ar-scope-details-proof
-          AR_SCOPE_CHECK_DIR: ${{ runner.temp }}/ar-scope-details-check
-          AR_SCOPE_MUTATION_DIR: ${{ runner.temp }}/ar-scope-details-mutations
-        run: |
-          pnpm test:ar-scope-details
-          pnpm test:ar-scope-details:oracle
-          pnpm test:ar-scope-details:proof
-          pnpm test:ar-scope-details:mutations
-      - name: Verify sectioned inventory originals, literal citations, financial links and worker binding
-        env:
-          INV_SECTION_PROOF_DIR: ${{ runner.temp }}/inventory-section-proof
-          INV_SECTION_MUTATION_DIR: ${{ runner.temp }}/inventory-section-mutations
-        run: |
-          pnpm test:inventory-sections
-          pnpm test:inventory-sections:oracle
-          pnpm test:inventory-sections:proof
-          pnpm test:inventory-sections:mutations
-      - name: Verify inventory matrix originals, quantities, dimensions, column ownership and worker binding
-        env:
-          INV_MATRIX_PROOF_DIR: ${{ runner.temp }}/inventory-matrix-proof
-          INV_MATRIX_MUTATION_DIR: ${{ runner.temp }}/inventory-matrix-mutations
-        run: |
-          pnpm test:inventory-matrix
-          pnpm test:inventory-matrix:oracle
-          pnpm test:inventory-matrix:proof
-          pnpm test:inventory-matrix:mutations
-      - name: Verify hierarchy inventory originals, parent ownership, merge payload and independent outputs
-        env:
-          INV_HIERARCHY_PROOF_DIR: ${{ runner.temp }}/inventory-hierarchy-proof
-          INV_HIERARCHY_MUTATION_DIR: ${{ runner.temp }}/inventory-hierarchy-mutations
-        run: |
-          pnpm test:inventory-hierarchy
-          pnpm test:inventory-hierarchy:oracle
-          pnpm test:inventory-hierarchy:proof
-          pnpm test:inventory-hierarchy:mutations
-      - name: Verify column-header source truth and preserve pre-implementation product refusals
-        env:
-          INV_COLUMN_BASELINE_DIR: ${{ runner.temp }}/inventory-column-baseline
-        run: |
-          pnpm test:inventory-column:oracle
-          pnpm test:inventory-column:baseline
-      - name: Verify inventory PDF source truth, page boundaries and preserved pre-activation capacity gap
-        env:
-          INV_PDF_ACCOUNTING_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-accounting
-          INV_PDF_ACCOUNTING_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-accounting-mutations
-          INV_PDF_FIELDS_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-fields
-          INV_PDF_FIELDS_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-fields-mutations
-          INV_PDF_NATIVE_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-native-source
-          PDF_NATIVE_SOURCE_MUTATION_DIR: ${{ runner.temp }}/pdf-native-source-mutations
-          INV_PDF_BASELINE_DIR: ${{ runner.temp }}/inventory-pdf-baseline
-        run: |
-          pnpm test:inventory-pdf:oracle
-          pnpm test:inventory-pdf:baseline
-          pnpm test:inventory-pdf:native-proof
-          pnpm test:inventory-pdf:native-mutations
-          pnpm test:inventory-pdf:fields-proof
-          pnpm test:inventory-pdf:fields-mutations
-          pnpm test:inventory-pdf:accounting
-          pnpm test:inventory-pdf:accounting-proof
-          pnpm test:inventory-pdf:accounting-mutations
-      - name: Verify inventory PDF original Worker, versioned sessions, decisions and stale evidence faults
-        env:
-          INV_PDF_LIFECYCLE_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-lifecycle
-          INV_PDF_LIFECYCLE_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-lifecycle-mutations
-        run: |
-          pnpm test:inventory-pdf:lifecycle
-          pnpm test:inventory-pdf:lifecycle-proof
-          pnpm test:inventory-pdf:lifecycle-mutations
-      - name: Verify inventory PDF original-bound Excel, native Worker, independent OpenXML and mutations
-        env:
-          INV_PDF_WORKBOOK_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-workbook
-          INV_PDF_WORKBOOK_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-workbook-mutations
-        run: |
-          pnpm test:inventory-pdf:workbook
-          pnpm test:inventory-pdf:workbook-proof
-          pnpm test:inventory-pdf:workbook-mutations
-      - name: Verify inventory PDF workspace original preview, read-only assistant and bilingual evidence contracts
-        env:
-          INV_PDF_WORKSPACE_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-workspace
-          INV_PDF_WORKSPACE_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-workspace-mutations
-        run: |
-          pnpm test:inventory-pdf:workspace
-          pnpm test:inventory-pdf:workspace-proof
-          pnpm test:inventory-pdf:workspace-mutations
-      - name: Verify column hierarchy financial membership, native intervals, replay, independent exports and guard faults
-        env:
-          INV_COLUMN_PROOF_DIR: ${{ runner.temp }}/inventory-column-proof
-          INV_COLUMN_MUTATION_DIR: ${{ runner.temp }}/inventory-column-mutations
-        run: |
-          pnpm test:inventory-column
-          pnpm test:inventory-column:proof
-          pnpm test:inventory-column:mutations
       - run: pnpm build
       - name: Verify reviewed distribution immediately after build
         run: node scripts/public-content-check.mjs --dist
@@ -280,6 +162,34 @@ jobs:
         env:
           INV_PDF_WORKSPACE_BROWSER_DIR: ${{ runner.temp }}/inventory-pdf-workspace-ui
         run: pnpm test:inventory-pdf:workspace-browser
+      - name: Verify bank statement uploads through the actual Worker, oracle-equal matches, decisions, sessions and independently checked Excel (BNK-PDF-1 G4)
+        env:
+          BNK_G4_BROWSER_DIR: ${{ runner.temp }}/bank-statement-workspace-browser
+        run: pnpm test:bank-statement:workspace-browser
+      - name: Verify customer statement PDFs in the AR workspace through the actual Worker, sealed outcomes on screen, keyboard, sessions and independently checked Excel (AR-1 PDF A4)
+        env:
+          AR_STATEMENT_BROWSER_DIR: ${{ runner.temp }}/ar-statement-browser
+        run: pnpm test:ar-statement:browser
+      - name: Verify a period that carries in the bank workspace through the actual Worker, sealed outcomes on screen, keyboard decision, sessions and independently checked Excel (WF-1 ROLL-1 W3)
+        env:
+          BANK_ROLL_BROWSER_DIR: ${{ runner.temp }}/bank-roll-browser
+        run: pnpm test:bank-roll:browser
+      - name: Verify the closing reconciliation sheet in the bank workspace through the actual Worker, all 24 sealed stories on screen, keyboard sign-off, sessions and independently checked Excel (WF-1 REPORT-1 R3)
+        env:
+          BANK_SHEET_BROWSER_DIR: ${{ runner.temp }}/bank-sheet-browser
+        run: pnpm test:bank-sheet:browser
+      - name: Verify the closing reconciliation sheet on the sealed R4 holdout in the bank workspace through the actual Worker, against its recorded first run (WF-1 REPORT-1 R4)
+        env:
+          BANK_SHEET_BROWSER_DIR: ${{ runner.temp }}/bank-sheet-r4-browser
+        run: pnpm test:bank-sheet:r4-browser
+      - name: Verify the review queue in the bank workspace through the actual Worker, all 16 sealed stories on screen, group decisions by button and keyboard, sessions, independently checked Excel, and decision actions measured against case by case (WF-1 REVIEW-1 R2)
+        env:
+          BANK_REVIEW_BROWSER_DIR: ${{ runner.temp }}/bank-review-browser
+        run: pnpm test:bank-review:browser
+      - name: Verify the review queue on the sealed R3 holdout in the bank workspace through the actual Worker, against its recorded first run (WF-1 REVIEW-1 R3)
+        env:
+          BANK_REVIEW_BROWSER_DIR: ${{ runner.temp }}/bank-review-r3-browser
+        run: pnpm test:bank-review:r3-browser
       - run: pnpm test:browser
       - name: Verify sectioned inventory CSV and Excel uploads, Arabic and English source-bound downloads
         env:
@@ -320,6 +230,13 @@ jobs:
           pnpm test:browser:main-integration
       - name: Verify official fonts and unified workspace sources with retained work
         run: pnpm test:browser:unified-workspace
+      - name: Count the interface defect classes of the October 2026 audit in every workspace against the recorded baseline, after the census proves it counts each planted fault
+        env:
+          UX_CENSUS_DIR: ${{ runner.temp }}/ux-census
+        run: |
+          pnpm test:ux-census:unit
+          pnpm test:browser:ux-census:self-test
+          pnpm test:browser:ux-census
       - name: Verify native Chrome section families and qualified currencies
         env:
           MIZAN_CHROMIUM: /usr/bin/google-chrome
@@ -452,7 +369,7 @@ jobs:
         with:
           path: dist
   mutations:
-    name: Accounting mutation gate (${{ matrix.shard }}/6)
+    name: Accounting mutation gate (${{ matrix.shard }}/12)
     runs-on: ubuntu-latest
     timeout-minutes: 45
     strategy:
@@ -465,6 +382,12 @@ jobs:
           - 4
           - 5
           - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
@@ -481,7 +404,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Verify regression tests detect deliberate accounting faults
         env:
-          MUTATION_SHARD: ${{ matrix.shard }}/6
+          MUTATION_SHARD: ${{ matrix.shard }}/12
           MUTATION_TEST_CONCURRENCY: '2'
         run: pnpm test:mutations
   specialized-faults:
@@ -507,12 +430,1311 @@ jobs:
         env:
           SPECIALIZED_FAULT_OUTPUT_DIR: ${{ runner.temp }}/specialized-fault-evidence
         run: pnpm test:specialized-faults
+  bank-statement-interface-mutations:
+    name: Bank statement interface mutations in built browser copies (BNK-PDF-1 G5)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the browser acceptance to catch it
+        env:
+          BNK_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/bank-statement-interface-mutations
+        run: pnpm test:bank-statement:interface-mutations
+  ar-statement-interface-mutations:
+    name: AR customer statement interface mutations in built browser copies (AR-1 PDF A4)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the browser acceptance to catch it
+        env:
+          AR_STATEMENT_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/ar-statement-interface-mutations
+        run: pnpm test:ar-statement:interface-mutations
+  bank-roll-interface-mutations:
+    name: Bank roll interface mutations in built browser copies (WF-1 ROLL-1 W3)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the roll browser acceptance to catch it
+        env:
+          BANK_ROLL_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/bank-roll-interface-mutations
+        run: pnpm test:bank-roll:interface-mutations
+  bank-sheet-interface-mutations:
+    name: Bank reconciliation sheet interface mutations in built browser copies (WF-1 REPORT-1 R3)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the sheet browser acceptance to catch it
+        env:
+          BANK_SHEET_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/bank-sheet-interface-mutations
+        run: pnpm test:bank-sheet:interface-mutations
+  bank-review-interface-mutations:
+    name: Bank review queue interface mutations in built browser copies (WF-1 REVIEW-1 R2)
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the review browser acceptance to catch it
+        env:
+          BANK_REVIEW_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/bank-review-interface-mutations
+        run: pnpm test:bank-review:interface-mutations
+  bank-map-interface-mutations:
+    name: Bank cashbook columns interface mutations in built browser copies (WF-1 MAP-1 M3)
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the cashbook columns browser acceptance to catch it
+        env:
+          BANK_MAP_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/bank-map-interface-mutations
+        run: pnpm test:bank-map:interface-mutations
+  bank-map-browser:
+    name: Bank cashbook columns in the built application, on the sealed foundation and on the M4 holdout against its recorded first run (WF-1 MAP-1 M3, M4)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm build
+      - name: Verify the cashbook columns in the bank workspace through the actual Worker, all 21 sealed map stories by hand and by saved map, imports and downloads, sessions, independently checked Excel, and the actions measured (WF-1 MAP-1 M3)
+        env:
+          BANK_MAP_BROWSER_DIR: ${{ runner.temp }}/bank-map-browser
+        run: pnpm test:bank-map:browser
+      - name: Verify the cashbook columns on the sealed M4 holdout in the bank workspace through the actual Worker, against its recorded first run (WF-1 MAP-1 M4)
+        env:
+          BANK_MAP_BROWSER_DIR: ${{ runner.temp }}/bank-map-m4-browser
+        run: pnpm test:bank-map:m4-browser
+  bank-tolerance-interface-mutations:
+    name: Bank declared tolerance interface mutations in built browser copies (WF-1 TOL-1 T3)
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the declared tolerance browser acceptance to catch it
+        env:
+          BANK_TOLERANCE_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/bank-tolerance-interface-mutations
+        run: pnpm test:bank-tolerance:interface-mutations
+  bank-tolerance-browser:
+    name: Bank declared tolerance in the built application, on the sealed foundation stories and the T4 holdout (WF-1 TOL-1 T3, T4)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm build
+      - name: Verify the declared tolerance in the bank workspace through the actual Worker, all 23 sealed tolerance stories with the policy typed, refused or fixed, sessions restored, and independently checked Excel (WF-1 TOL-1 T3)
+        env:
+          BANK_TOLERANCE_BROWSER_DIR: ${{ runner.temp }}/bank-tolerance-browser
+        run: pnpm test:bank-tolerance:browser
+      - name: Verify the declared tolerance on the sealed T4 holdout in the bank workspace through the actual Worker, against its recorded first run (WF-1 TOL-1 T4)
+        env:
+          BANK_TOLERANCE_BROWSER_DIR: ${{ runner.temp }}/bank-tolerance-t4-browser
+        run: pnpm test:bank-tolerance:t4-browser
+  bank-cycle-browser:
+    name: Bank two-month cycle in the built application, on the sealed cycle stories against the corrected reference and on the C4 holdout (WF-1 cycle)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm build
+      - name: Verify the two-month cycle in the bank workspace through the actual Worker, columns, tolerance, queue, decisions, sheet and sign-offs, the first month's downloaded session uploaded as the second's previous, against its recorded run (WF-1 cycle)
+        env:
+          BANK_CYCLE_BROWSER_DIR: ${{ runner.temp }}/bank-cycle-browser
+        run: pnpm test:bank-cycle:browser
+      - name: Verify the two-month cycle on the sealed C4 holdout in the bank workspace through the actual Worker, other statement and ledger writers, against its recorded run (WF-1 cycle C4)
+        env:
+          BANK_CYCLE_BROWSER_DIR: ${{ runner.temp }}/bank-cycle-c4-browser
+        run: pnpm test:bank-cycle:c4-browser
+  bank-statement-holdout:
+    name: Bank statement holdouts from eighteen other PDF producers against their recorded outcomes (BNK-PDF-1 G6, G8, G9, G10, G12, G14, G15, G17, G20)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Read and match the sealed holdout in Node against its recorded outcome
+        env:
+          BNK_HOLDOUT_DIR: ${{ runner.temp }}/bank-statement-holdout
+        run: pnpm test:bank-statement:g6-holdout
+      - name: Read and match the second sealed holdout in Node against its recorded outcome
+        env:
+          BNK_HOLDOUT_DIR: ${{ runner.temp }}/bank-statement-holdout
+        run: pnpm test:bank-statement:g8-holdout
+      - name: Read and match the third sealed holdout in Node against its recorded outcome
+        env:
+          BNK_HOLDOUT_DIR: ${{ runner.temp }}/bank-statement-holdout
+        run: pnpm test:bank-statement:g9-holdout
+      - name: Read and match the fourth sealed holdout in Node against its recorded outcome
+        env:
+          BNK_HOLDOUT_DIR: ${{ runner.temp }}/bank-statement-holdout
+        run: pnpm test:bank-statement:g10-holdout
+      - name: Read and match the fifth sealed holdout in Node against its recorded outcome
+        env:
+          BNK_HOLDOUT_DIR: ${{ runner.temp }}/bank-statement-holdout
+        run: pnpm test:bank-statement:g12-holdout
+      - name: Read and match the sixth sealed holdout in Node against its recorded outcome
+        env:
+          BNK_HOLDOUT_DIR: ${{ runner.temp }}/bank-statement-holdout
+        run: pnpm test:bank-statement:g14-holdout
+      - name: Read and match the seventh sealed holdout in Node against its recorded outcome
+        env:
+          BNK_HOLDOUT_DIR: ${{ runner.temp }}/bank-statement-holdout
+        run: pnpm test:bank-statement:g15-holdout
+      - name: Read and match the eighth sealed holdout in Node against its recorded outcome
+        env:
+          BNK_HOLDOUT_DIR: ${{ runner.temp }}/bank-statement-holdout
+        run: pnpm test:bank-statement:g17-holdout
+      - name: Read and match the ninth sealed holdout in Node against its recorded outcome
+        env:
+          BNK_HOLDOUT_DIR: ${{ runner.temp }}/bank-statement-holdout
+        run: pnpm test:bank-statement:g20-holdout
+      - name: Read and match the tenth sealed holdout in Node against its recorded outcome
+        env:
+          BNK_HOLDOUT_DIR: ${{ runner.temp }}/bank-statement-holdout
+        run: pnpm test:bank-statement:g23-holdout
+      - name: Read and match the sealed supplier statement holdout in Node against its recorded outcome (SUP-2 S3)
+        run: pnpm test:supplier-statement:s3-holdout
+      - run: pnpm build
+      - name: Run the sealed holdout through the built bank workspace against its recorded outcome
+        env:
+          BNK_HOLDOUT_BROWSER_DIR: ${{ runner.temp }}/bank-statement-holdout-browser
+        run: pnpm test:bank-statement:g6-browser
+      - name: Run the second sealed holdout through the built bank workspace against its recorded outcome
+        env:
+          BNK_HOLDOUT_BROWSER_DIR: ${{ runner.temp }}/bank-statement-holdout-browser
+        run: pnpm test:bank-statement:g8-browser
+      - name: Run the third sealed holdout through the built bank workspace against its recorded outcome
+        env:
+          BNK_HOLDOUT_BROWSER_DIR: ${{ runner.temp }}/bank-statement-holdout-browser
+        run: pnpm test:bank-statement:g9-browser
+      - name: Run the fourth sealed holdout through the built bank workspace against its recorded outcome
+        env:
+          BNK_HOLDOUT_BROWSER_DIR: ${{ runner.temp }}/bank-statement-holdout-browser
+        run: pnpm test:bank-statement:g10-browser
+      - name: Run the fifth sealed holdout through the built bank workspace against its recorded outcome
+        env:
+          BNK_HOLDOUT_BROWSER_DIR: ${{ runner.temp }}/bank-statement-holdout-browser
+        run: pnpm test:bank-statement:g12-browser
+      - name: Run the sixth sealed holdout through the built bank workspace against its recorded outcome
+        env:
+          BNK_HOLDOUT_BROWSER_DIR: ${{ runner.temp }}/bank-statement-holdout-browser
+        run: pnpm test:bank-statement:g14-browser
+      - name: Run the seventh sealed holdout through the built bank workspace against its recorded outcome
+        env:
+          BNK_HOLDOUT_BROWSER_DIR: ${{ runner.temp }}/bank-statement-holdout-browser
+        run: pnpm test:bank-statement:g15-browser
+      - name: Run the eighth sealed holdout through the built bank workspace against its recorded outcome
+        env:
+          BNK_HOLDOUT_BROWSER_DIR: ${{ runner.temp }}/bank-statement-holdout-browser
+        run: pnpm test:bank-statement:g17-browser
+      - name: Run the ninth sealed holdout through the built bank workspace against its recorded outcome
+        env:
+          BNK_HOLDOUT_BROWSER_DIR: ${{ runner.temp }}/bank-statement-holdout-browser
+        run: pnpm test:bank-statement:g20-browser
+      - name: Run the tenth sealed holdout through the built bank workspace against its recorded outcome
+        env:
+          BNK_HOLDOUT_BROWSER_DIR: ${{ runner.temp }}/bank-statement-holdout-browser
+        run: pnpm test:bank-statement:g23-browser
+  intercompany-batch-browser:
+    name: Intercompany batches in the built application, the 20 sealed IC-1 stories and the H1 holdout on screen against their recorded runs (IC-1c, IC-1d)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm build
+      - name: Verify every sealed IC-1 story in the intercompany workspace's batch section through the actual Worker, Arabic, a phone width, the keyboard and a stale result, against its recorded run (IC-1c)
+        env:
+          IC_BATCH_BROWSER_DIR: ${{ runner.temp }}/intercompany-batch-browser
+        run: pnpm test:ic-batch:browser
+      - name: Verify the sealed IC-1 holdout H1 in the intercompany workspace's batch section through the actual Worker, against its recorded first run (IC-1d)
+        env:
+          IC_BATCH_BROWSER_DIR: ${{ runner.temp }}/intercompany-batch-h1-browser
+        run: pnpm test:ic-batch:h1-browser
+  intercompany-batch-interface-mutations:
+    name: Intercompany batch interface mutations in built browser copies (IC-1c)
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the batch browser acceptance to catch it
+        env:
+          IC_BATCH_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/intercompany-batch-interface-mutations
+        run: pnpm test:ic-batch:interface-mutations
+  gl-tb-sections-browser:
+    name: GL sections and TB pages in the built application, the 29 sealed GLT-1 stories and the H1 holdout on screen against their recorded runs (GLT-1c, GLT-1d)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm build
+      - name: Verify every sealed GLT-1 story in the GL/TB workspace's sections section through the actual Worker, Arabic, a phone width, the keyboard and a stale result, against its recorded run (GLT-1c)
+        env:
+          GLS_BROWSER_DIR: ${{ runner.temp }}/gl-tb-sections-browser
+        run: pnpm test:glt-sections:browser
+      - name: Verify the sealed GLT-1 holdout H1 in the GL/TB workspace's sections section through the actual Worker, against its recorded first run (GLT-1d)
+        env:
+          GLS_BROWSER_DIR: ${{ runner.temp }}/gl-tb-sections-h1-browser
+        run: pnpm test:glt-sections:h1-browser
+  gl-tb-sections-interface-mutations:
+    name: GL sections and TB pages interface mutations in built browser copies (GLT-1c)
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the sections browser acceptance to catch it
+        env:
+          GLS_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/gl-tb-sections-interface-mutations
+        run: pnpm test:glt-sections:interface-mutations
+  tb-financial-hierarchy-browser:
+    name: The hierarchical statement section in the built application, the 18 FIN-1A cases and the H1 holdout on screen against their recorded runs (FIN-1c, FIN-1d)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm build
+      - name: Verify every FIN-1A case in the TB and financial position workspace's hierarchical statement section through the actual Worker, Arabic, a phone width, the keyboard and a stale result, against its recorded run (FIN-1c)
+        env:
+          FINH_BROWSER_DIR: ${{ runner.temp }}/tb-financial-hierarchy-browser
+        run: pnpm test:fin-hierarchy:browser
+      - name: Verify the sealed FIN-1 holdout H1 in the hierarchical statement section through the actual Worker, against its recorded first run (FIN-1d)
+        env:
+          FINH_BROWSER_DIR: ${{ runner.temp }}/tb-financial-hierarchy-h1-browser
+        run: pnpm test:fin-hierarchy:h1-browser
+  tb-financial-hierarchy-interface-mutations:
+    name: Hierarchical statement interface mutations in built browser copies (FIN-1c)
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the hierarchical statement browser acceptance to catch it
+        env:
+          FINH_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/tb-financial-hierarchy-interface-mutations
+        run: pnpm test:fin-hierarchy:interface-mutations
+  payroll-long-register-browser:
+    name: The long payroll register section in the built application, the 38 PAY-1 stories and the H1 holdout on screen against their recorded runs (PAY-1c, PAY-1d)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm build
+      - name: Verify every sealed PAY-1 story in the payroll workspace's long register section through the actual Worker, Arabic, a phone width, the keyboard and a stale result, against its recorded run (PAY-1c)
+        env:
+          PLR_BROWSER_DIR: ${{ runner.temp }}/payroll-long-register-browser
+        run: pnpm test:pay-long:browser
+      - name: Verify the sealed PAY-1 holdout H1 in the long register section through the actual Worker, against its recorded first run (PAY-1d)
+        env:
+          PLR_BROWSER_DIR: ${{ runner.temp }}/payroll-long-register-h1-browser
+        run: pnpm test:pay-long:h1-browser
+  payroll-long-register-interface-mutations:
+    name: Long payroll register interface mutations in built browser copies (PAY-1c)
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the long payroll register browser acceptance to catch it
+        env:
+          PLR_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/payroll-long-register-interface-mutations
+        run: pnpm test:pay-long:interface-mutations
+  inventory-movement-bridge-browser:
+    name: The inventory movement bridges section in the built application, the 47 INV-2 stories and the H1 holdout on screen against their recorded runs (INV-2c, INV-2d)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm build
+      - name: Verify every sealed INV-2 story in the inventory workspace's movement bridges section through the actual Worker, Arabic, a phone width, the keyboard and a stale result, against its recorded run (INV-2c)
+        env:
+          IMB_BROWSER_DIR: ${{ runner.temp }}/inventory-movement-bridge-browser
+        run: pnpm test:inv-move:browser
+      - name: Verify the sealed INV-2 holdout H1 in the movement bridges section through the actual Worker, against its recorded first run (INV-2d)
+        env:
+          IMB_BROWSER_DIR: ${{ runner.temp }}/inventory-movement-bridge-h1-browser
+        run: pnpm test:inv-move:h1-browser
+  inventory-movement-bridge-interface-mutations:
+    name: Inventory movement bridges interface mutations in built browser copies (INV-2c)
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the inventory movement bridges browser acceptance to catch it
+        env:
+          IMB_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/inventory-movement-bridge-interface-mutations
+        run: pnpm test:inv-move:interface-mutations
+  inventory-links-browser:
+    name: Inventory register links in the built application, the 31 sealed INV-3 stories and the 21 of holdout H1 on screen and in their links workbooks against the recorded runs (INV-3c and INV-3d)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm build
+      - name: Verify every sealed INV-3 story's links in the inventory workspace through the actual Worker, each downloaded links workbook by the independent reader, Arabic, a phone width, the keyboard and a stale result, against its recorded run (INV-3c)
+        env:
+          INV_LINKS_BROWSER_DIR: ${{ runner.temp }}/inventory-links-browser
+        run: pnpm test:inv-links:browser
+      - name: Verify the sealed INV-3 holdout H1 in the register links section and its links workbooks through the actual Worker, against its recorded first run (INV-3d)
+        env:
+          INV_LINKS_BROWSER_DIR: ${{ runner.temp }}/inventory-links-h1-browser
+        run: pnpm test:inv-links:h1-browser
+  inventory-links-interface-mutations:
+    name: Inventory register links interface mutations in built browser copies (INV-3c)
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the inventory links browser acceptance to catch it
+        env:
+          INV_LINKS_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/inventory-links-interface-mutations
+        run: pnpm test:inv-links:interface-mutations
+  clearing-groups-browser:
+    name: Clearing groups in the built application, the 37 sealed CLR-1 stories and the 27 of holdout H1 in the clearing workspace against the recorded runs (CLR-1c and CLR-1d)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm build
+      - name: Verify every sealed CLR-1 story's clearing groups in the clearing workspace through the actual Worker, the dense stories, Arabic, a phone width, a changed scope, the confirmation, the keyboard and a refusal, against its recorded run (CLR-1c)
+        env:
+          CLR_GROUPS_BROWSER_DIR: ${{ runner.temp }}/clearing-groups-browser
+        run: pnpm test:clr-groups:browser
+      - name: Verify the sealed CLR-1 holdout H1 in the clearing groups section through the actual Worker, against its recorded first run (CLR-1d)
+        env:
+          CLR_GROUPS_BROWSER_DIR: ${{ runner.temp }}/clearing-groups-h1-browser
+        run: pnpm test:clr-groups:h1-browser
+  clearing-groups-interface-mutations:
+    name: Clearing groups interface mutations in built browser copies (CLR-1c)
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the clearing groups browser acceptance to catch it
+        env:
+          CLR_GROUPS_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/clearing-groups-interface-mutations
+        run: pnpm test:clr-groups:interface-mutations
+  allocation-advice-browser:
+    name: Remittance advice review in the built application, the 36 sealed ALL-1 stories and the 28 of holdout H1 in the allocation workspace against the recorded runs (ALL-1c and ALL-1d)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm build
+      - name: Verify every sealed ALL-1 story's advice review in the allocation workspace through the actual Worker, restored from its sealed bytes, the dense stories, the native file inputs, Arabic, a phone width, the keyboard, a decision taken and a refusal, against its recorded run (ALL-1c)
+        env:
+          ALL_ADVICE_BROWSER_DIR: ${{ runner.temp }}/allocation-advice-browser
+        run: pnpm test:all-advice:browser
+      - name: Verify the sealed ALL-1 holdout H1 in the advice review section through the actual Worker, against its recorded first run (ALL-1d)
+        env:
+          ALL_ADVICE_BROWSER_DIR: ${{ runner.temp }}/allocation-advice-h1-browser
+        run: pnpm test:all-advice:h1-browser
+  allocation-advice-interface-mutations:
+    name: Remittance advice review interface mutations in built browser copies (ALL-1c)
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the advice review browser acceptance to catch it
+        env:
+          ALL_ADVICE_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/allocation-advice-interface-mutations
+        run: pnpm test:all-advice:interface-mutations
+  payment-gateway-batches-browser:
+    name: Gateway batches and deposits in the built application, the 38 sealed PG-1 stories and the 30 of holdout H1 in the payment gateway workspace against the recorded runs (PG-1c and PG-1d)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm build
+      - name: Verify every sealed PG-1 story's batches, payouts and unlinked credits in the payment gateway workspace through its five native file inputs and the actual Worker, the dense stories, the unconfirmed scope, Arabic, a phone width, the keyboard and a stale review cleared, against its recorded run (PG-1c)
+        env:
+          PG_BATCHES_BROWSER_DIR: ${{ runner.temp }}/payment-gateway-batches-browser
+        run: pnpm test:pg-batches:browser
+      - name: Verify the sealed PG-1 holdout H1 in the gateway batches section through its five native file inputs and the actual Worker, against its recorded first run (PG-1d)
+        env:
+          PG_BATCHES_BROWSER_DIR: ${{ runner.temp }}/payment-gateway-batches-h1-browser
+        run: pnpm test:pg-batches:h1-browser
+  payment-gateway-batches-interface-mutations:
+    name: Gateway batches and deposits interface mutations in built browser copies (PG-1c)
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the gateway batches browser acceptance to catch it
+        env:
+          PG_BATCHES_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/payment-gateway-batches-interface-mutations
+        run: pnpm test:pg-batches:interface-mutations
+  fixed-assets-sections-browser:
+    name: Asset register sections in the built application, the 50 sealed FA-1 stories in English and Arabic and the 39 of holdout H1 and 32 of holdout H2 in the fixed assets workspace against the recorded runs (FA-1c, FA-1d and H2)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm build
+      - name: Verify every sealed FA-1 story's accounts, sections, assets and unplaced rows in the fixed assets workspace through its three native file inputs and the actual Worker, the dense stories, the reading the page cannot give, Arabic, a phone width, the keyboard and a stale review cleared, against its recorded run (FA-1c)
+        env:
+          FA_SECTIONS_BROWSER_DIR: ${{ runner.temp }}/fixed-assets-sections-browser
+        run: pnpm test:fa-sections:browser
+      - name: Verify the sealed FA-1 holdout H1 in the asset register sections through its three native file inputs and the actual Worker, against its recorded first run (FA-1d)
+        env:
+          FA_SECTIONS_BROWSER_DIR: ${{ runner.temp }}/fixed-assets-sections-h1-browser
+        run: pnpm test:fa-sections:h1-browser
+      - name: Verify the sealed FA-1 holdout H2 from four new CSV producers in the asset register sections through its three native file inputs and the actual Worker, against its recorded first run
+        env:
+          FA_SECTIONS_BROWSER_DIR: ${{ runner.temp }}/fixed-assets-sections-h2-browser
+        run: pnpm test:fa-sections:h2-browser
+  fixed-assets-sections-interface-mutations:
+    name: Asset register sections interface mutations in built browser copies (FA-1c)
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the asset sections browser acceptance to catch it
+        env:
+          FA_SECTIONS_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/fixed-assets-sections-interface-mutations
+        run: pnpm test:fa-sections:interface-mutations
+  bank-statement-code-mutations:
+    name: Bank statement PDF code mutations G1 to G5 beside the build (BNK-PDF-1)
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - name: Plant each G1 reading defect and require its tests to fail by assertion
+        env:
+          BNK_G1_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g1-mutations
+        run: pnpm test:bank-statement:g1-mutations
+      - name: Plant each G2 matching defect and require its tests to fail by assertion
+        env:
+          BNK_G2_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g2-mutations
+        run: pnpm test:bank-statement:g2-mutations
+      - name: Plant each G3 session lifecycle defect and require its tests to fail by assertion
+        env:
+          BNK_G3_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g3-mutations
+        run: pnpm test:bank-statement:g3-mutations
+      - name: Plant each G4 workspace view defect and require its tests to fail by assertion
+        env:
+          BNK_G4_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g4-mutations
+        run: pnpm test:bank-statement:g4-mutations
+      - name: Plant each G5 long statements and verified view defect and require its tests to fail by assertion
+        env:
+          BNK_G5_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g5-mutations
+        run: pnpm test:bank-statement:g5-mutations
+  domain-code-mutations:
+    name: Domain code mutations IC-1 to FA-1 beside the build
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - name: Plant each IC-1 engine, replay, protocol or binding defect and require its tests to fail by assertion
+        run: pnpm test:ic-batch:mutations
+      - name: Plant each GLT-1 engine, replay, protocol or binding defect and require its tests to fail by assertion
+        run: pnpm test:glt-sections:mutations
+      - name: Plant each FIN-1 engine, replay, protocol or binding defect and require its tests to fail by assertion
+        run: pnpm test:fin-hierarchy:mutations
+      - name: Plant each PAY-1 engine, replay, protocol or binding defect and require its tests to fail by assertion
+        run: pnpm test:pay-long:mutations
+      - name: Plant each INV-2 engine, replay, protocol or binding defect and require its tests to fail by assertion
+        run: pnpm test:inv-move:mutations
+      - name: Plant each INV-3 engine, replay, protocol or binding defect and require its tests to fail by assertion
+        run: pnpm test:inv-links:mutations
+      - name: Plant each CLR-1 engine, replay, protocol or binding defect and require its tests to fail by assertion
+        run: pnpm test:clr-groups:mutations
+      - name: Plant each ALL-1 engine, replay, protocol or binding defect and require its tests to fail by assertion
+        run: pnpm test:all-advice:mutations
+      - name: Plant each PG-1 engine, replay, protocol or binding defect and require its tests to fail by assertion
+        run: pnpm test:pg-batches:mutations
+      - name: Plant each FA-1 engine, replay, protocol or binding defect and require its tests to fail by assertion
+        run: pnpm test:fa-sections:mutations
+  domain-oracle-mutants:
+    name: Domain oracle mutants AI-1 and IC-1 to FA-1 beside the build
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - name: Plant each AI-1 column-role adapter defect and require its tests to fail by assertion
+        run: pnpm test:column-role:mutations
+      - name: Plant each defect in the IC-1 independent oracle and require it to be caught
+        run: pnpm test:ic-batch:oracle-mutants
+      - name: Plant each defect in the GLT-1 independent oracle and require it to be caught
+        run: pnpm test:glt-sections:oracle-mutants
+      - name: Plant each defect in the FIN-1A independent oracle and require each to meet the fate in its record
+        run: pnpm test:fin-hierarchy:oracle-mutants
+      - name: Plant each defect in the PAY-1 independent oracle and require it to be caught
+        run: pnpm test:pay-long:oracle-mutants
+      - name: Plant each defect in the INV-2 independent oracle and require it to be caught
+        run: pnpm test:inv-move:oracle-mutants
+      - name: Plant each defect in the INV-3 independent oracle and require it to be caught
+        run: pnpm test:inv-links:oracle-mutants
+      - name: Plant each defect in the CLR-1 independent oracle and require it to be caught
+        run: pnpm test:clr-groups:oracle-mutants
+      - name: Plant each defect in the ALL-1 independent oracle and require it to be caught
+        run: pnpm test:all-advice:oracle-mutants
+      - name: Plant each defect in the PG-1 independent oracle and require it to be caught
+        run: pnpm test:pg-batches:oracle-mutants
+      - name: Plant each defect in the FA-1 independent oracle and require it to be caught
+        run: pnpm test:fa-sections:oracle-mutants
+  source-family-proofs:
+    name: Bank statement, WF-1, AI-1 and IC-1 to FA-1 source proofs beside the build, waited for by the deployment
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - name: Verify bank statement source truth, independent oracle, native reading, matching and session lifecycle proofs, oracle differential, independent workbook check, code and interface-rule mutations and preserved pre-activation refusals (BNK-PDF-1), carrying open items to the next period (WF-1 ROLL-1), and the closing reconciliation sheet foundation (WF-1 REPORT-1)
+        env:
+          BNK_PDF_BASELINE_DIR: ${{ runner.temp }}/bank-statement-baseline
+          BNK_G1_PROOF_DIR: ${{ runner.temp }}/bank-statement-g1
+          BNK_G2_PROOF_DIR: ${{ runner.temp }}/bank-statement-g2
+          BNK_G2_DIFFERENTIAL_DIR: ${{ runner.temp }}/bank-statement-g2-differential
+          BNK_G3_PROOF_DIR: ${{ runner.temp }}/bank-statement-g3
+          AR_STATEMENT_A3_DIR: ${{ runner.temp }}/ar-statement-a3
+          AR_HOLDOUT_DIR: ${{ runner.temp }}/ar-statement-holdout
+          BANK_ROLL_BASELINE_DIR: ${{ runner.temp }}/bank-roll-baseline
+          BANK_ROLL_PROOF_DIR: ${{ runner.temp }}/bank-roll-proof
+          BANK_ROLL_LIFECYCLE_DIR: ${{ runner.temp }}/bank-roll-lifecycle
+          BANK_ROLL_MUTATION_DIR: ${{ runner.temp }}/bank-roll-mutations
+          BANK_ROLL_HOLDOUT_DIR: ${{ runner.temp }}/bank-roll-holdout
+          BANK_SHEET_MUTATION_DIR: ${{ runner.temp }}/bank-sheet-mutations
+          BANK_SHEET_LIFECYCLE_DIR: ${{ runner.temp }}/bank-sheet-lifecycle
+          BANK_SHEET_HOLDOUT_DIR: ${{ runner.temp }}/bank-sheet-holdout
+          BANK_REVIEW_MUTATION_DIR: ${{ runner.temp }}/bank-review-mutations
+          BANK_REVIEW_HOLDOUT_DIR: ${{ runner.temp }}/bank-review-holdout
+          BANK_MAP_MUTATION_DIR: ${{ runner.temp }}/bank-map-mutations
+          BANK_MAP_LIFECYCLE_DIR: ${{ runner.temp }}/bank-map-lifecycle
+        run: |
+          pnpm test:bank-statement:oracle
+          pnpm test:bank-statement:oracle-mutants
+          pnpm test:bank-statement:holdout-seal
+          pnpm test:supplier-statement:s3-seal
+          pnpm test:ar-statement:oracle
+          pnpm test:ar-statement:oracle-mutants
+          pnpm test:ar-statement:seal
+          pnpm test:ar-statement:a5-seal
+          pnpm test:bank-roll:oracle
+          pnpm test:bank-roll:oracle-mutants
+          pnpm test:bank-roll:seal
+          pnpm test:bank-roll:w4-seal
+          pnpm test:bank-roll:w4-holdout
+          pnpm test:bank-sheet:oracle
+          pnpm test:bank-sheet:oracle-mutants
+          pnpm test:bank-sheet:seal
+          pnpm test:bank-sheet:r4-seal
+          pnpm test:bank-sheet:r4-holdout
+          pnpm test:bank-review:oracle
+          pnpm test:bank-review:oracle-mutants
+          pnpm test:bank-review:seal
+          pnpm test:bank-review:r3-seal
+          pnpm test:bank-review:r3-holdout
+          pnpm test:bank-map:oracle
+          pnpm test:bank-map:oracle-mutants
+          pnpm test:bank-map:seal
+          pnpm test:bank-map:baseline
+          pnpm test:bank-map:proof
+          pnpm test:bank-map:lifecycle
+          pnpm test:bank-map:mutations
+          pnpm test:bank-map:m4-seal
+          pnpm test:bank-map:m4-intent
+          pnpm test:bank-map:m4-holdout
+          pnpm test:bank-tolerance:oracle
+          pnpm test:bank-tolerance:oracle-mutants
+          pnpm test:bank-tolerance:seal
+          pnpm test:bank-tolerance:baseline
+          pnpm test:bank-tolerance:proof
+          pnpm test:bank-tolerance:lifecycle
+          pnpm test:bank-tolerance:mutations
+          pnpm test:bank-tolerance:t4-seal
+          pnpm test:bank-tolerance:t4-holdout
+          pnpm test:bank-cycle:oracle
+          pnpm test:bank-cycle:oracle-mutants
+          pnpm test:bank-cycle:seal
+          pnpm test:bank-cycle:correction
+          pnpm test:bank-cycle:run
+          pnpm test:bank-cycle:c4-seal
+          pnpm test:bank-cycle:c4-run
+          pnpm test:ai-columns:seal
+          pnpm test:ai-columns:baseline
+          pnpm test:ai-columns:providers
+          pnpm test:ic-batch:oracle
+          pnpm test:ic-batch:seal
+          pnpm test:ic-batch:baseline
+          pnpm test:ic-batch:run
+          pnpm test:ic-batch:h1-seal
+          pnpm test:ic-batch:h1-run
+          pnpm test:glt-sections:oracle
+          pnpm test:glt-sections:seal
+          pnpm test:glt-sections:baseline
+          pnpm test:glt-sections:run
+          pnpm test:glt-sections:h1-seal
+          pnpm test:glt-sections:h1-run
+          pnpm test:fin-hierarchy:review
+          pnpm test:fin-hierarchy:h1-seal
+          pnpm test:fin-hierarchy:baseline
+          pnpm test:fin-hierarchy:run
+          pnpm test:fin-hierarchy:h1-run
+          pnpm test:pay-long:oracle
+          pnpm test:pay-long:seal
+          pnpm test:pay-long:baseline
+          pnpm test:pay-long:run
+          pnpm test:pay-long:h1-seal
+          pnpm test:pay-long:h1-run
+          pnpm test:inv-move:oracle
+          pnpm test:inv-move:seal
+          pnpm test:inv-move:baseline
+          pnpm test:inv-move:run
+          pnpm test:inv-move:h1-seal
+          pnpm test:inv-move:h1-run
+          pnpm test:inv-links:oracle
+          pnpm test:inv-links:seal
+          pnpm test:inv-links:baseline
+          pnpm test:inv-links:run
+          pnpm test:inv-links:h1-seal
+          pnpm test:inv-links:h1-run
+          pnpm test:clr-groups:oracle
+          pnpm test:clr-groups:seal
+          pnpm test:clr-groups:baseline
+          pnpm test:clr-groups:run
+          pnpm test:clr-groups:h1-seal
+          pnpm test:clr-groups:h1-run
+          pnpm test:all-advice:oracle
+          pnpm test:all-advice:seal
+          pnpm test:all-advice:baseline
+          pnpm test:all-advice:run
+          pnpm test:all-advice:h1-seal
+          pnpm test:all-advice:h1-run
+          pnpm test:pg-batches:oracle
+          pnpm test:pg-batches:seal
+          pnpm test:pg-batches:baseline
+          pnpm test:pg-batches:run
+          pnpm test:pg-batches:h1-seal
+          pnpm test:pg-batches:h1-run
+          pnpm test:fa-sections:oracle
+          pnpm test:fa-sections:seal
+          pnpm test:fa-sections:baseline
+          pnpm test:fa-sections:run
+          pnpm test:fa-sections:h1-seal
+          pnpm test:fa-sections:h1-run
+          pnpm test:fa-sections:h2-seal
+          pnpm test:fa-sections:h2-run
+          pnpm test:fa-sections:reader-differential
+          pnpm test:bank-review:baseline
+          pnpm test:bank-review:proof
+          pnpm test:bank-review:mutations
+          pnpm test:bank-sheet:baseline
+          pnpm test:bank-sheet:proof
+          pnpm test:bank-sheet:lifecycle
+          pnpm test:bank-sheet:mutations
+          pnpm test:bank-roll:baseline
+          pnpm test:bank-roll:proof
+          pnpm test:bank-roll:lifecycle
+          pnpm test:bank-roll:mutations
+          pnpm test:ar-statement:baseline
+          pnpm test:ar-statement:a1-proof
+          pnpm test:ar-statement:a2-proof
+          pnpm test:ar-statement:a3-proof
+          pnpm test:ar-statement:a5-holdout
+          pnpm test:bank-statement:baseline
+          pnpm test:bank-statement:g1-proof
+          pnpm test:bank-statement:g2-proof
+          pnpm test:bank-statement:g2-differential
+          pnpm test:bank-statement:g3-proof
+      - name: Verify the pre-seal cashbook check, its mutants and its recorded agreement with the product's cashbook reading (BNK-PDF-1 G16)
+        run: pnpm test:bank-statement:cashbook-check
+  family-source-proofs:
+    name: Withdrawal-deposit, long asset, signed gateway, AR scope, inventory and inventory PDF source proofs beside the build, waited for by the deployment
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - name: Verify withdrawal-deposit original sources, six-source lifecycle and assertion mutations
+        env:
+          BANK_WD_PROOF_DIR: ${{ runner.temp }}/bank-wd-proof
+          BANK_WD_MUTATION_DIR: ${{ runner.temp }}/bank-wd-mutations
+        run: |
+          pnpm test:bank-wd:mutations
+          node --experimental-strip-types audit/bank-withdrawal-deposit/prove.mjs
+          node --experimental-strip-types audit/bank-withdrawal-deposit/lifecycle-proof.mjs "${{ runner.temp }}/bank-wd-lifecycle"
+          python3 -B audit/bank-withdrawal-deposit/check-evidence.py "$BANK_WD_PROOF_DIR"/attempt-* "${{ runner.temp }}/bank-wd-lifecycle" --output "${{ runner.temp }}/bank-wd-evidence-check.json"
+      - name: Verify supplied long asset components, original lifecycle, oracle and mutations
+        env:
+          ASSET_LONG_REPORT_DIR: ${{ runner.temp }}/fixed-assets-long-proof
+          ASSET_LONG_ORACLE_REPORT_DIR: ${{ runner.temp }}/fixed-assets-long-oracle
+          ASSET_LONG_MUTATION_DIR: ${{ runner.temp }}/fixed-assets-long-mutations
+        run: |
+          pnpm test:fixed-assets-long
+          pnpm test:fixed-assets-long:oracle
+          pnpm test:fixed-assets-long:proof
+          pnpm test:fixed-assets-long:mutations
+      - name: Verify explicit signed-kind gateway originals, lifecycle, independent exports and mutations
+        env:
+          PG_SIGNED_PROOF_DIR: ${{ runner.temp }}/payment-gateway-signed-proof
+          PG_SIGNED_EXPORT_CHECK_DIR: ${{ runner.temp }}/payment-gateway-signed-export-check
+          PG_SIGNED_ORACLE_DIR: ${{ runner.temp }}/payment-gateway-signed-oracle
+          PG_SIGNED_MUTATION_REPORT_DIR: ${{ runner.temp }}/payment-gateway-signed-mutations
+        run: |
+          pnpm test:payment-gateway-signed
+          pnpm test:payment-gateway-signed:oracle
+          pnpm test:payment-gateway-signed:proof
+          pnpm test:payment-gateway-signed:mutations
+      - name: Verify AR scope headers, original amounts, sessions, independent exports and semantic mutations
+        env:
+          AR_SCOPE_DETAILS_REPORT_DIR: ${{ runner.temp }}/ar-scope-details-proof
+          AR_SCOPE_CHECK_DIR: ${{ runner.temp }}/ar-scope-details-check
+          AR_SCOPE_MUTATION_DIR: ${{ runner.temp }}/ar-scope-details-mutations
+        run: |
+          pnpm test:ar-scope-details
+          pnpm test:ar-scope-details:oracle
+          pnpm test:ar-scope-details:proof
+          pnpm test:ar-scope-details:mutations
+      - name: Verify sectioned inventory originals, literal citations, financial links and worker binding
+        env:
+          INV_SECTION_PROOF_DIR: ${{ runner.temp }}/inventory-section-proof
+          INV_SECTION_MUTATION_DIR: ${{ runner.temp }}/inventory-section-mutations
+        run: |
+          pnpm test:inventory-sections
+          pnpm test:inventory-sections:oracle
+          pnpm test:inventory-sections:proof
+          pnpm test:inventory-sections:mutations
+      - name: Verify inventory matrix originals, quantities, dimensions, column ownership and worker binding
+        env:
+          INV_MATRIX_PROOF_DIR: ${{ runner.temp }}/inventory-matrix-proof
+          INV_MATRIX_MUTATION_DIR: ${{ runner.temp }}/inventory-matrix-mutations
+        run: |
+          pnpm test:inventory-matrix
+          pnpm test:inventory-matrix:oracle
+          pnpm test:inventory-matrix:proof
+          pnpm test:inventory-matrix:mutations
+      - name: Verify hierarchy inventory originals, parent ownership, merge payload and independent outputs
+        env:
+          INV_HIERARCHY_PROOF_DIR: ${{ runner.temp }}/inventory-hierarchy-proof
+          INV_HIERARCHY_MUTATION_DIR: ${{ runner.temp }}/inventory-hierarchy-mutations
+        run: |
+          pnpm test:inventory-hierarchy
+          pnpm test:inventory-hierarchy:oracle
+          pnpm test:inventory-hierarchy:proof
+          pnpm test:inventory-hierarchy:mutations
+      - name: Verify column-header source truth and preserve pre-implementation product refusals
+        env:
+          INV_COLUMN_BASELINE_DIR: ${{ runner.temp }}/inventory-column-baseline
+        run: |
+          pnpm test:inventory-column:oracle
+          pnpm test:inventory-column:baseline
+      - name: Verify inventory PDF source truth, page boundaries and preserved pre-activation capacity gap
+        env:
+          INV_PDF_ACCOUNTING_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-accounting
+          INV_PDF_ACCOUNTING_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-accounting-mutations
+          INV_PDF_FIELDS_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-fields
+          INV_PDF_FIELDS_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-fields-mutations
+          INV_PDF_NATIVE_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-native-source
+          PDF_NATIVE_SOURCE_MUTATION_DIR: ${{ runner.temp }}/pdf-native-source-mutations
+          INV_PDF_BASELINE_DIR: ${{ runner.temp }}/inventory-pdf-baseline
+        run: |
+          pnpm test:inventory-pdf:oracle
+          pnpm test:inventory-pdf:baseline
+          pnpm test:inventory-pdf:native-proof
+          pnpm test:inventory-pdf:native-mutations
+          pnpm test:inventory-pdf:fields-proof
+          pnpm test:inventory-pdf:fields-mutations
+          pnpm test:inventory-pdf:accounting
+          pnpm test:inventory-pdf:accounting-proof
+          pnpm test:inventory-pdf:accounting-mutations
+      - name: Verify inventory PDF original Worker, versioned sessions, decisions and stale evidence faults
+        env:
+          INV_PDF_LIFECYCLE_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-lifecycle
+          INV_PDF_LIFECYCLE_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-lifecycle-mutations
+        run: |
+          pnpm test:inventory-pdf:lifecycle
+          pnpm test:inventory-pdf:lifecycle-proof
+          pnpm test:inventory-pdf:lifecycle-mutations
+      - name: Verify inventory PDF original-bound Excel, native Worker, independent OpenXML and mutations
+        env:
+          INV_PDF_WORKBOOK_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-workbook
+          INV_PDF_WORKBOOK_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-workbook-mutations
+        run: |
+          pnpm test:inventory-pdf:workbook
+          pnpm test:inventory-pdf:workbook-proof
+          pnpm test:inventory-pdf:workbook-mutations
+      - name: Verify inventory PDF workspace original preview, read-only assistant and bilingual evidence contracts
+        env:
+          INV_PDF_WORKSPACE_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-workspace
+          INV_PDF_WORKSPACE_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-workspace-mutations
+        run: |
+          pnpm test:inventory-pdf:workspace
+          pnpm test:inventory-pdf:workspace-proof
+          pnpm test:inventory-pdf:workspace-mutations
+      - name: Verify column hierarchy financial membership, native intervals, replay, independent exports and guard faults
+        env:
+          INV_COLUMN_PROOF_DIR: ${{ runner.temp }}/inventory-column-proof
+          INV_COLUMN_MUTATION_DIR: ${{ runner.temp }}/inventory-column-mutations
+        run: |
+          pnpm test:inventory-column
+          pnpm test:inventory-column:proof
+          pnpm test:inventory-column:mutations
   deploy:
     if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
     needs:
       - build
       - mutations
       - specialized-faults
+      - domain-oracle-mutants
+      - source-family-proofs
+      - family-source-proofs
     permissions:
       pages: write
       id-token: write

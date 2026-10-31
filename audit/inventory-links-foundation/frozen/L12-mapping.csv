@@ -1,0 +1,4 @@
+Mapping ID,Item ID,Item dimensions,GL account,GL dimensions,Evidence ID,Entity,Inventory ledger,GL ledger,Currency,Currency basis,Posting status,Posting layer,As of,Chart version,Map version,Valuation policy version,Inventory account set version
+MP-00001,TILE-100,warehouse=JED,1310,branch=01,EV-00001,Synthetic Tile Wholesale Co,STK-12,GL-12,SAR,functional,posted,Close,2026-09-30,COA-12,MAP-12,VAL-12,SET-12
+MP-00002,TILE-120,warehouse=JED,1310,branch=01,EV-00002,Synthetic Tile Wholesale Co,STK-12,GL-12,SAR,functional,posted,Close,2026-09-30,COA-12,MAP-12,VAL-12,SET-12
+MP-ORPHAN,TILE-999,warehouse=JED,1310,branch=01,EV-00001,Synthetic Tile Wholesale Co,STK-12,GL-12,SAR,functional,posted,Close,2026-09-30,COA-12,MAP-12,VAL-12,SET-12

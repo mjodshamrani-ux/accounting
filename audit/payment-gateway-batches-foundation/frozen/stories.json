@@ -1,0 +1,6122 @@
+{
+ "schema": "tarasuf-pg1-batches-stories/1",
+ "synthetic": true,
+ "stories": [
+  {
+   "id": "F01",
+   "title": "one batch, one payout, one bank credit",
+   "writer": "py-min",
+   "names": [
+    "F01-transactions.csv",
+    "F01-fees.csv",
+    "F01-settlements.csv",
+    "F01-payout-lines.csv",
+    "F01-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "1000.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "T2",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "500.00",
+      "Order T2",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "T3",
+      "B1",
+      "refund",
+      "2026-09-12",
+      "100.00",
+      "Refund T3",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "FE1",
+      "B1",
+      "42.00",
+      "Fee invoice FE1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "1500.00",
+      "100.00",
+      "42.00",
+      "1358.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "1358.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "1358.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2,
+       3
+      ],
+      [
+       4
+      ],
+      [
+       2
+      ],
+      135800,
+      [
+       "P1"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F02",
+   "title": "one batch paid in two deposits, both received in the period",
+   "writer": "py-min-crlf",
+   "names": [
+    "F02-transactions.csv",
+    "F02-fees.csv",
+    "F02-settlements.csv",
+    "F02-payout-lines.csv",
+    "F02-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "3000.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "FE1",
+      "B1",
+      "60.00",
+      "Fee invoice FE1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "3000.00",
+      "0.00",
+      "60.00",
+      "2940.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "2000.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "P2",
+      "B1",
+      "940.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-18",
+      "2000.00",
+      "BANK-0042",
+      "SAR"
+     ],
+     [
+      "BR2",
+      "P2",
+      "2026-09-25",
+      "940.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2
+      ],
+      [],
+      [
+       2
+      ],
+      294000,
+      [
+       "P1",
+       "P2"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ],
+     [
+      "P2",
+      "consistent",
+      [],
+      [
+       3
+      ],
+      3
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F03",
+   "title": "one deposit pays three batches",
+   "writer": "py-min",
+   "names": [
+    "F03-transactions.csv",
+    "F03-fees.csv",
+    "F03-settlements.csv",
+    "F03-payout-lines.csv",
+    "F03-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "1000.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "T2",
+      "B2",
+      "sale",
+      "2026-09-10",
+      "800.00",
+      "Order T2",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "T3",
+      "B3",
+      "sale",
+      "2026-09-10",
+      "600.00",
+      "Order T3",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "FE1",
+      "B1",
+      "20.00",
+      "Fee invoice FE1",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "FE2",
+      "B2",
+      "16.00",
+      "Fee invoice FE2",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "FE3",
+      "B3",
+      "12.00",
+      "Fee invoice FE3",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "1000.00",
+      "0.00",
+      "20.00",
+      "980.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "B2",
+      "2026-09-15",
+      "800.00",
+      "0.00",
+      "16.00",
+      "784.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "B3",
+      "2026-09-15",
+      "600.00",
+      "0.00",
+      "12.00",
+      "588.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "980.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "P1",
+      "B2",
+      "784.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "P1",
+      "B3",
+      "588.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "2352.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2
+      ],
+      [],
+      [
+       2
+      ],
+      98000,
+      [
+       "P1"
+      ]
+     ],
+     [
+      3,
+      "consistent",
+      [],
+      [
+       3
+      ],
+      [],
+      [
+       3
+      ],
+      78400,
+      [
+       "P1"
+      ]
+     ],
+     [
+      4,
+      "consistent",
+      [],
+      [
+       4
+      ],
+      [],
+      [
+       4
+      ],
+      58800,
+      [
+       "P1"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "consistent",
+      [],
+      [
+       2,
+       3,
+       4
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F04",
+   "title": "two batches with the same net, each its own members",
+   "writer": "py-min",
+   "names": [
+    "F04-transactions.csv",
+    "F04-fees.csv",
+    "F04-settlements.csv",
+    "F04-payout-lines.csv",
+    "F04-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "700.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "T2",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "300.00",
+      "Order T2",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "T3",
+      "B2",
+      "sale",
+      "2026-09-10",
+      "990.00",
+      "Order T3",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "T4",
+      "B2",
+      "refund",
+      "2026-09-12",
+      "10.00",
+      "Refund T4",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "FE1",
+      "B1",
+      "20.00",
+      "Fee invoice FE1",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "FE2",
+      "B2",
+      "0.00",
+      "Fee invoice FE2",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "1000.00",
+      "0.00",
+      "20.00",
+      "980.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "B2",
+      "2026-09-15",
+      "990.00",
+      "10.00",
+      "0.00",
+      "980.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "980.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "P2",
+      "B2",
+      "980.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "980.00",
+      "BANK-0042",
+      "SAR"
+     ],
+     [
+      "BR2",
+      "P2",
+      "2026-09-21",
+      "980.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2,
+       3
+      ],
+      [],
+      [
+       2
+      ],
+      98000,
+      [
+       "P1"
+      ]
+     ],
+     [
+      3,
+      "consistent",
+      [],
+      [
+       4
+      ],
+      [
+       5
+      ],
+      [
+       3
+      ],
+      98000,
+      [
+       "P2"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ],
+     [
+      "P2",
+      "consistent",
+      [],
+      [
+       3
+      ],
+      3
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F05",
+   "title": "a sale of the second batch written under the first: totals equal, members wrong",
+   "writer": "py-min",
+   "names": [
+    "F05-transactions.csv",
+    "F05-fees.csv",
+    "F05-settlements.csv",
+    "F05-payout-lines.csv",
+    "F05-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "600.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "T2",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "400.00",
+      "Order T2",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "T3",
+      "B2",
+      "sale",
+      "2026-09-10",
+      "200.00",
+      "Order T3",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "600.00",
+      "0.00",
+      "0.00",
+      "600.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "B2",
+      "2026-09-15",
+      "600.00",
+      "0.00",
+      "0.00",
+      "600.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "600.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "P1",
+      "B2",
+      "600.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "1200.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "review",
+      [
+       "SALES"
+      ],
+      [
+       2,
+       3
+      ],
+      [],
+      [],
+      60000,
+      [
+       "P1"
+      ]
+     ],
+     [
+      3,
+      "review",
+      [
+       "SALES"
+      ],
+      [
+       4
+      ],
+      [],
+      [],
+      60000,
+      [
+       "P1"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "consistent",
+      [],
+      [
+       2,
+       3
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F06",
+   "title": "a fee that names the other batch",
+   "writer": "py-min",
+   "names": [
+    "F06-transactions.csv",
+    "F06-fees.csv",
+    "F06-settlements.csv",
+    "F06-payout-lines.csv",
+    "F06-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "1000.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "T2",
+      "B2",
+      "sale",
+      "2026-09-10",
+      "1000.00",
+      "Order T2",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "FE1",
+      "B1",
+      "15.00",
+      "Fee invoice FE1",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "FE2",
+      "B2",
+      "15.00",
+      "Fee invoice FE2",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "FE3",
+      "B2",
+      "5.00",
+      "Fee invoice FE3",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "1000.00",
+      "0.00",
+      "20.00",
+      "980.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "B2",
+      "2026-09-15",
+      "1000.00",
+      "0.00",
+      "15.00",
+      "985.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "980.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "P2",
+      "B2",
+      "985.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "980.00",
+      "BANK-0042",
+      "SAR"
+     ],
+     [
+      "BR2",
+      "P2",
+      "2026-09-20",
+      "985.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "review",
+      [
+       "FEES"
+      ],
+      [
+       2
+      ],
+      [],
+      [
+       2
+      ],
+      98000,
+      [
+       "P1"
+      ]
+     ],
+     [
+      3,
+      "review",
+      [
+       "FEES"
+      ],
+      [
+       3
+      ],
+      [],
+      [
+       3,
+       4
+      ],
+      98500,
+      [
+       "P2"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ],
+     [
+      "P2",
+      "consistent",
+      [],
+      [
+       3
+      ],
+      3
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F07",
+   "title": "two deposits whose total is right and whose amounts are swapped",
+   "writer": "py-min",
+   "names": [
+    "F07-transactions.csv",
+    "F07-fees.csv",
+    "F07-settlements.csv",
+    "F07-payout-lines.csv",
+    "F07-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "500.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "T2",
+      "B2",
+      "sale",
+      "2026-09-10",
+      "300.00",
+      "Order T2",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "500.00",
+      "0.00",
+      "0.00",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "B2",
+      "2026-09-15",
+      "300.00",
+      "0.00",
+      "0.00",
+      "300.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "P2",
+      "B2",
+      "300.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "300.00",
+      "BANK-0042",
+      "SAR"
+     ],
+     [
+      "BR2",
+      "P2",
+      "2026-09-20",
+      "500.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "review",
+      [
+       "PAYOUT"
+      ],
+      [
+       2
+      ],
+      [],
+      [],
+      50000,
+      [
+       "P1"
+      ]
+     ],
+     [
+      3,
+      "review",
+      [
+       "PAYOUT"
+      ],
+      [
+       3
+      ],
+      [],
+      [],
+      30000,
+      [
+       "P2"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "review",
+      [
+       "CREDIT"
+      ],
+      [
+       2
+      ],
+      2
+     ],
+     [
+      "P2",
+      "review",
+      [
+       "CREDIT"
+      ],
+      [
+       3
+      ],
+      3
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F08",
+   "title": "a batch paid in two deposits, the second never received",
+   "writer": "py-min",
+   "names": [
+    "F08-transactions.csv",
+    "F08-fees.csv",
+    "F08-settlements.csv",
+    "F08-payout-lines.csv",
+    "F08-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "1000.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "1000.00",
+      "0.00",
+      "0.00",
+      "1000.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "600.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "P2",
+      "B1",
+      "400.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "600.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "review",
+      [
+       "PAYOUT"
+      ],
+      [
+       2
+      ],
+      [],
+      [],
+      100000,
+      [
+       "P1",
+       "P2"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ],
+     [
+      "P2",
+      "review",
+      [
+       "NOT_DEPOSITED"
+      ],
+      [
+       3
+      ],
+      null
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F09",
+   "title": "the payout lines pay less than the batch's net",
+   "writer": "py-min",
+   "names": [
+    "F09-transactions.csv",
+    "F09-fees.csv",
+    "F09-settlements.csv",
+    "F09-payout-lines.csv",
+    "F09-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "1000.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "FE1",
+      "B1",
+      "10.00",
+      "Fee invoice FE1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "1000.00",
+      "0.00",
+      "10.00",
+      "990.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "900.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "900.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "review",
+      [
+       "PAID_SHORT"
+      ],
+      [
+       2
+      ],
+      [],
+      [
+       2
+      ],
+      90000,
+      [
+       "P1"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F10",
+   "title": "the payout lines pay more than the batch's net",
+   "writer": "py-min",
+   "names": [
+    "F10-transactions.csv",
+    "F10-fees.csv",
+    "F10-settlements.csv",
+    "F10-payout-lines.csv",
+    "F10-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "1000.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "FE1",
+      "B1",
+      "10.00",
+      "Fee invoice FE1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "1000.00",
+      "0.00",
+      "10.00",
+      "990.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "1000.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "1000.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "review",
+      [
+       "PAID_OVER"
+      ],
+      [
+       2
+      ],
+      [],
+      [
+       2
+      ],
+      100000,
+      [
+       "P1"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F11",
+   "title": "a settlement row whose own net does not add up",
+   "writer": "py-min",
+   "names": [
+    "F11-transactions.csv",
+    "F11-fees.csv",
+    "F11-settlements.csv",
+    "F11-payout-lines.csv",
+    "F11-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "1000.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "T2",
+      "B1",
+      "refund",
+      "2026-09-12",
+      "100.00",
+      "Refund T2",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "FE1",
+      "B1",
+      "20.00",
+      "Fee invoice FE1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "1000.00",
+      "100.00",
+      "20.00",
+      "890.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "890.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "890.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "review",
+      [
+       "NET"
+      ],
+      [
+       2
+      ],
+      [
+       3
+      ],
+      [
+       2
+      ],
+      89000,
+      [
+       "P1"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F12",
+   "title": "a refund of an August sale, the same amount as a September sale",
+   "writer": "py-min",
+   "names": [
+    "F12-transactions.csv",
+    "F12-fees.csv",
+    "F12-settlements.csv",
+    "F12-payout-lines.csv",
+    "F12-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "250.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "T2",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "400.00",
+      "Order T2",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "T3",
+      "B1",
+      "refund",
+      "2026-09-12",
+      "250.00",
+      "Refund of order T0817 sold in August",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "650.00",
+      "250.00",
+      "0.00",
+      "400.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "400.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "400.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2,
+       3
+      ],
+      [
+       4
+      ],
+      [],
+      40000,
+      [
+       "P1"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F13",
+   "title": "the second batch's deposit arrives in October, before the as-of date",
+   "writer": "py-min",
+   "names": [
+    "F13-transactions.csv",
+    "F13-fees.csv",
+    "F13-settlements.csv",
+    "F13-payout-lines.csv",
+    "F13-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "500.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "T2",
+      "B2",
+      "sale",
+      "2026-09-29",
+      "700.00",
+      "Order T2",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "500.00",
+      "0.00",
+      "0.00",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "B2",
+      "2026-09-30",
+      "700.00",
+      "0.00",
+      "0.00",
+      "700.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "P2",
+      "B2",
+      "700.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "500.00",
+      "BANK-0042",
+      "SAR"
+     ],
+     [
+      "BR2",
+      "P2",
+      "2026-10-02",
+      "700.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2
+      ],
+      [],
+      [],
+      50000,
+      [
+       "P1"
+      ]
+     ],
+     [
+      3,
+      "in-transit",
+      [],
+      [
+       3
+      ],
+      [],
+      [],
+      70000,
+      [
+       "P2"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ],
+     [
+      "P2",
+      "in-transit",
+      [],
+      [
+       3
+      ],
+      3
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F14",
+   "title": "a deposit after the period end for the wrong amount is not in transit",
+   "writer": "py-min",
+   "names": [
+    "F14-transactions.csv",
+    "F14-fees.csv",
+    "F14-settlements.csv",
+    "F14-payout-lines.csv",
+    "F14-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "700.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "700.00",
+      "0.00",
+      "0.00",
+      "700.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "700.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-10-05",
+      "690.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "review",
+      [
+       "PAYOUT"
+      ],
+      [
+       2
+      ],
+      [],
+      [],
+      70000,
+      [
+       "P1"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "review",
+      [
+       "CREDIT"
+      ],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F15",
+   "title": "a fee of zero written out, kept as a member",
+   "writer": "py-min",
+   "names": [
+    "F15-transactions.csv",
+    "F15-fees.csv",
+    "F15-settlements.csv",
+    "F15-payout-lines.csv",
+    "F15-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "400.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "FE1",
+      "B1",
+      "0.00",
+      "Fee invoice FE1",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "FE2",
+      "B1",
+      "8.00",
+      "Fee invoice FE2",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "400.00",
+      "0.00",
+      "8.00",
+      "392.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "392.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "392.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2
+      ],
+      [],
+      [
+       2,
+       3
+      ],
+      39200,
+      [
+       "P1"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F16",
+   "title": "a batch with no fees and no fee evidence",
+   "writer": "py-min",
+   "names": [
+    "F16-transactions.csv",
+    "F16-fees.csv",
+    "F16-settlements.csv",
+    "F16-payout-lines.csv",
+    "F16-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "400.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "400.00",
+      "0.00",
+      "0.00",
+      "400.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "400.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "400.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2
+      ],
+      [],
+      [],
+      40000,
+      [
+       "P1"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F17",
+   "title": "a bank credit that no payout line explains",
+   "writer": "py-min",
+   "names": [
+    "F17-transactions.csv",
+    "F17-fees.csv",
+    "F17-settlements.csv",
+    "F17-payout-lines.csv",
+    "F17-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "400.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "400.00",
+      "0.00",
+      "0.00",
+      "400.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "400.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "400.00",
+      "BANK-0042",
+      "SAR"
+     ],
+     [
+      "BR2",
+      "P9",
+      "2026-09-22",
+      "150.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2
+      ],
+      [],
+      [],
+      40000,
+      [
+       "P1"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": [
+     [
+      3,
+      "P9"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "F18",
+   "title": "a batch whose fees are evidenced but whose refunds are not",
+   "writer": "py-min",
+   "names": [
+    "F18-transactions.csv",
+    "F18-fees.csv",
+    "F18-settlements.csv",
+    "F18-payout-lines.csv",
+    "F18-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "900.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "FE1",
+      "B1",
+      "18.00",
+      "Fee invoice FE1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "900.00",
+      "50.00",
+      "18.00",
+      "832.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "832.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "832.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "review",
+      [
+       "REFUNDS"
+      ],
+      [
+       2
+      ],
+      [],
+      [
+       2
+      ],
+      83200,
+      [
+       "P1"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F19",
+   "title": "dinars to three places, a credit short by one fils",
+   "writer": "py-min",
+   "names": [
+    "F19-transactions.csv",
+    "F19-fees.csv",
+    "F19-settlements.csv",
+    "F19-payout-lines.csv",
+    "F19-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "KWD",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 3,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "125.500",
+      "Order T1",
+      "MA-7781",
+      "KWD"
+     ],
+     [
+      "T2",
+      "B2",
+      "sale",
+      "2026-09-10",
+      "74.250",
+      "Order T2",
+      "MA-7781",
+      "KWD"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "FE1",
+      "B1",
+      "1.255",
+      "Fee invoice FE1",
+      "MA-7781",
+      "KWD"
+     ],
+     [
+      "FE2",
+      "B2",
+      "0.743",
+      "Fee invoice FE2",
+      "MA-7781",
+      "KWD"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "125.500",
+      "0.000",
+      "1.255",
+      "124.245",
+      "MA-7781",
+      "KWD"
+     ],
+     [
+      "B2",
+      "2026-09-15",
+      "74.250",
+      "0.000",
+      "0.743",
+      "73.507",
+      "MA-7781",
+      "KWD"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "124.245",
+      "MA-7781",
+      "KWD"
+     ],
+     [
+      "P1",
+      "B2",
+      "73.507",
+      "MA-7781",
+      "KWD"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "197.751",
+      "BANK-0042",
+      "KWD"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "review",
+      [
+       "PAYOUT"
+      ],
+      [
+       2
+      ],
+      [],
+      [
+       2
+      ],
+      124245,
+      [
+       "P1"
+      ]
+     ],
+     [
+      3,
+      "review",
+      [
+       "PAYOUT"
+      ],
+      [
+       3
+      ],
+      [],
+      [
+       3
+      ],
+      73507,
+      [
+       "P1"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "review",
+      [
+       "CREDIT"
+      ],
+      [
+       2,
+       3
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F20",
+   "title": "yen without minor units",
+   "writer": "py-min",
+   "names": [
+    "F20-transactions.csv",
+    "F20-fees.csv",
+    "F20-settlements.csv",
+    "F20-payout-lines.csv",
+    "F20-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "JPY",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 0,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "120000",
+      "Order T1",
+      "MA-7781",
+      "JPY"
+     ],
+     [
+      "T2",
+      "B1",
+      "refund",
+      "2026-09-12",
+      "20000",
+      "Refund T2",
+      "MA-7781",
+      "JPY"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "FE1",
+      "B1",
+      "3000",
+      "Fee invoice FE1",
+      "MA-7781",
+      "JPY"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "120000",
+      "20000",
+      "3000",
+      "97000",
+      "MA-7781",
+      "JPY"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "97000",
+      "MA-7781",
+      "JPY"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "97000",
+      "BANK-0042",
+      "JPY"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2
+      ],
+      [
+       3
+      ],
+      [
+       2
+      ],
+      97000,
+      [
+       "P1"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F21",
+   "title": "every field quoted, a byte order mark, every file's columns in another order",
+   "writer": "py-all-bom",
+   "names": [
+    "F21-transactions.csv",
+    "F21-fees.csv",
+    "F21-settlements.csv",
+    "F21-payout-lines.csv",
+    "F21-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Amount",
+      "Kind",
+      "Batch ID",
+      "Transaction ID",
+      "Currency",
+      "Merchant account",
+      "Reference",
+      "Posting date"
+     ],
+     [
+      "600.00",
+      "sale",
+      "B1",
+      "T1",
+      "SAR",
+      "MA-7781",
+      "Order T1",
+      "2026-09-10"
+     ],
+     [
+      "300.00",
+      "sale",
+      "B2",
+      "T2",
+      "SAR",
+      "MA-7781",
+      "Order T2",
+      "2026-09-10"
+     ]
+    ],
+    [
+     [
+      "Currency",
+      "Amount",
+      "Fee ID",
+      "Merchant account",
+      "Batch ID",
+      "Reference"
+     ],
+     [
+      "SAR",
+      "12.00",
+      "FE1",
+      "MA-7781",
+      "B1",
+      "Fee invoice FE1"
+     ]
+    ],
+    [
+     [
+      "Net",
+      "Fees",
+      "Refunds",
+      "Gross sales",
+      "Batch ID",
+      "Currency",
+      "Merchant account",
+      "Settlement date"
+     ],
+     [
+      "588.00",
+      "12.00",
+      "0.00",
+      "600.00",
+      "B1",
+      "SAR",
+      "MA-7781",
+      "2026-09-15"
+     ],
+     [
+      "300.00",
+      "0.00",
+      "0.00",
+      "300.00",
+      "B2",
+      "SAR",
+      "MA-7781",
+      "2026-09-15"
+     ]
+    ],
+    [
+     [
+      "Amount",
+      "Currency",
+      "Batch ID",
+      "Merchant account",
+      "Payout ID"
+     ],
+     [
+      "588.00",
+      "SAR",
+      "B1",
+      "MA-7781",
+      "P1"
+     ],
+     [
+      "300.00",
+      "SAR",
+      "B2",
+      "MA-7781",
+      "P2"
+     ]
+    ],
+    [
+     [
+      "Credit",
+      "Value date",
+      "Payout ID",
+      "Currency",
+      "Bank account",
+      "Bank reference"
+     ],
+     [
+      "588.00",
+      "2026-09-20",
+      "P1",
+      "SAR",
+      "BANK-0042",
+      "BR1"
+     ],
+     [
+      "300.00",
+      "2026-09-20",
+      "P2",
+      "SAR",
+      "BANK-0042",
+      "BR2"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2
+      ],
+      [],
+      [
+       2
+      ],
+      58800,
+      [
+       "P1"
+      ]
+     ],
+     [
+      3,
+      "consistent",
+      [],
+      [
+       3
+      ],
+      [],
+      [],
+      30000,
+      [
+       "P2"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ],
+     [
+      "P2",
+      "consistent",
+      [],
+      [
+       3
+      ],
+      3
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F22",
+   "title": "XLSX files, two batches crossing two deposits",
+   "writer": "exceljs",
+   "names": [
+    "F22-transactions.xlsx",
+    "F22-fees.xlsx",
+    "F22-settlements.xlsx",
+    "F22-payout-lines.xlsx",
+    "F22-bank-credits.xlsx"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "1000.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "T2",
+      "B2",
+      "sale",
+      "2026-09-10",
+      "500.00",
+      "Order T2",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "1000.00",
+      "0.00",
+      "0.00",
+      "1000.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "B2",
+      "2026-09-15",
+      "500.00",
+      "0.00",
+      "0.00",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "700.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "P2",
+      "B1",
+      "300.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "P2",
+      "B2",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "700.00",
+      "BANK-0042",
+      "SAR"
+     ],
+     [
+      "BR2",
+      "P2",
+      "2026-09-20",
+      "800.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2
+      ],
+      [],
+      [],
+      100000,
+      [
+       "P1",
+       "P2"
+      ]
+     ],
+     [
+      3,
+      "consistent",
+      [],
+      [
+       3
+      ],
+      [],
+      [],
+      50000,
+      [
+       "P2"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ],
+     [
+      "P2",
+      "consistent",
+      [],
+      [
+       3,
+       4
+      ],
+      3
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F23",
+   "title": "XLSX transactions with a hidden sale",
+   "writer": "exceljs",
+   "names": [
+    "F23-transactions.xlsx",
+    "F23-fees.xlsx",
+    "F23-settlements.xlsx",
+    "F23-payout-lines.xlsx",
+    "F23-bank-credits.xlsx"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "500.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "T2",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "100.00",
+      "Order T2",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "600.00",
+      "0.00",
+      "0.00",
+      "600.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "600.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "600.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [
+     3
+    ],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "batches": [],
+    "payouts": [],
+    "credits": []
+   }
+  },
+  {
+   "id": "F24",
+   "title": "one transaction exported twice",
+   "writer": "py-min",
+   "names": [
+    "F24-transactions.csv",
+    "F24-fees.csv",
+    "F24-settlements.csv",
+    "F24-payout-lines.csv",
+    "F24-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "500.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "500.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "1000.00",
+      "0.00",
+      "0.00",
+      "1000.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "1000.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "1000.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "batches": [],
+    "payouts": [],
+    "credits": []
+   }
+  },
+  {
+   "id": "F25",
+   "title": "a refund written with a minus sign",
+   "writer": "py-min",
+   "names": [
+    "F25-transactions.csv",
+    "F25-fees.csv",
+    "F25-settlements.csv",
+    "F25-payout-lines.csv",
+    "F25-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "500.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "T2",
+      "B1",
+      "refund",
+      "2026-09-12",
+      "-50.00",
+      "Refund T2",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "500.00",
+      "50.00",
+      "0.00",
+      "450.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "450.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "450.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "batches": [],
+    "payouts": [],
+    "credits": []
+   }
+  },
+  {
+   "id": "F26",
+   "title": "a fee of negative zero",
+   "writer": "py-min",
+   "names": [
+    "F26-transactions.csv",
+    "F26-fees.csv",
+    "F26-settlements.csv",
+    "F26-payout-lines.csv",
+    "F26-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "500.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "FE1",
+      "B1",
+      "-0.00",
+      "Fee invoice FE1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "500.00",
+      "0.00",
+      "0.00",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "500.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "batches": [],
+    "payouts": [],
+    "credits": []
+   }
+  },
+  {
+   "id": "F27",
+   "title": "a sale naming a batch with no settlement row",
+   "writer": "py-min",
+   "names": [
+    "F27-transactions.csv",
+    "F27-fees.csv",
+    "F27-settlements.csv",
+    "F27-payout-lines.csv",
+    "F27-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "500.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "T2",
+      "B7",
+      "sale",
+      "2026-09-10",
+      "100.00",
+      "Order T2",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "500.00",
+      "0.00",
+      "0.00",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "500.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "batches": [],
+    "payouts": [],
+    "credits": []
+   }
+  },
+  {
+   "id": "F28",
+   "title": "one payout credited twice by the bank",
+   "writer": "py-min",
+   "names": [
+    "F28-transactions.csv",
+    "F28-fees.csv",
+    "F28-settlements.csv",
+    "F28-payout-lines.csv",
+    "F28-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "500.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "500.00",
+      "0.00",
+      "0.00",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "500.00",
+      "BANK-0042",
+      "SAR"
+     ],
+     [
+      "BR2",
+      "P1",
+      "2026-09-21",
+      "500.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "batches": [],
+    "payouts": [],
+    "credits": []
+   }
+  },
+  {
+   "id": "F29",
+   "title": "a sale posted in August",
+   "writer": "py-min",
+   "names": [
+    "F29-transactions.csv",
+    "F29-fees.csv",
+    "F29-settlements.csv",
+    "F29-payout-lines.csv",
+    "F29-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-08-31",
+      "500.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "500.00",
+      "0.00",
+      "0.00",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "500.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "batches": [],
+    "payouts": [],
+    "credits": []
+   }
+  },
+  {
+   "id": "F30",
+   "title": "a bank file without its payout column",
+   "writer": "py-min",
+   "names": [
+    "F30-transactions.csv",
+    "F30-fees.csv",
+    "F30-settlements.csv",
+    "F30-payout-lines.csv",
+    "F30-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "500.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "500.00",
+      "0.00",
+      "0.00",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "2026-09-20",
+      "500.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": "COLUMNS",
+    "batches": [],
+    "payouts": [],
+    "credits": []
+   }
+  },
+  {
+   "id": "F31",
+   "title": "a scope the accountant has not confirmed",
+   "writer": "py-min",
+   "names": [
+    "F31-transactions.csv",
+    "F31-fees.csv",
+    "F31-settlements.csv",
+    "F31-payout-lines.csv",
+    "F31-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": false
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "500.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "500.00",
+      "0.00",
+      "0.00",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "500.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": "SCOPE",
+    "batches": [],
+    "payouts": [],
+    "credits": []
+   }
+  },
+  {
+   "id": "F32",
+   "title": "an Arabic gateway name and Arabic-Indic digits in the fee evidence",
+   "writer": "py-min",
+   "names": [
+    "F32-transactions.csv",
+    "F32-fees.csv",
+    "F32-settlements.csv",
+    "F32-payout-lines.csv",
+    "F32-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "بوابة الدفع الاصطناعية",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "800.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "FE1",
+      "B1",
+      "١٦٫٠٠",
+      "Fee invoice FE1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "800.00",
+      "0.00",
+      "16.00",
+      "784.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "784.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "784.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2
+      ],
+      [],
+      [
+       2
+      ],
+      78400,
+      [
+       "P1"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "consistent",
+      [],
+      [
+       2
+      ],
+      2
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F33",
+   "title": "two batches and two deposits crossing both ways, one batch short of its lines",
+   "writer": "py-min",
+   "names": [
+    "F33-transactions.csv",
+    "F33-fees.csv",
+    "F33-settlements.csv",
+    "F33-payout-lines.csv",
+    "F33-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "1000.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "T2",
+      "B2",
+      "sale",
+      "2026-09-10",
+      "1000.00",
+      "Order T2",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "1000.00",
+      "0.00",
+      "0.00",
+      "1000.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "B2",
+      "2026-09-15",
+      "1000.00",
+      "0.00",
+      "0.00",
+      "1000.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "600.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "P1",
+      "B2",
+      "400.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "P2",
+      "B1",
+      "400.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "P2",
+      "B2",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "1000.00",
+      "BANK-0042",
+      "SAR"
+     ],
+     [
+      "BR2",
+      "P2",
+      "2026-09-20",
+      "900.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": null,
+    "batches": [
+     [
+      2,
+      "consistent",
+      [],
+      [
+       2
+      ],
+      [],
+      [],
+      100000,
+      [
+       "P1",
+       "P2"
+      ]
+     ],
+     [
+      3,
+      "review",
+      [
+       "PAID_SHORT"
+      ],
+      [
+       3
+      ],
+      [],
+      [],
+      90000,
+      [
+       "P1",
+       "P2"
+      ]
+     ]
+    ],
+    "payouts": [
+     [
+      "P1",
+      "consistent",
+      [],
+      [
+       2,
+       3
+      ],
+      2
+     ],
+     [
+      "P2",
+      "consistent",
+      [],
+      [
+       4,
+       5
+      ],
+      3
+     ]
+    ],
+    "credits": []
+   }
+  },
+  {
+   "id": "F34",
+   "title": "one batch twice in one payout's lines",
+   "writer": "py-min",
+   "names": [
+    "F34-transactions.csv",
+    "F34-fees.csv",
+    "F34-settlements.csv",
+    "F34-payout-lines.csv",
+    "F34-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "500.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "500.00",
+      "0.00",
+      "0.00",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "250.00",
+      "MA-7781",
+      "SAR"
+     ],
+     [
+      "P1",
+      "B1",
+      "250.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-09-20",
+      "500.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "batches": [],
+    "payouts": [],
+    "credits": []
+   }
+  },
+  {
+   "id": "F35",
+   "title": "a bank credit dated after the as-of date",
+   "writer": "py-min",
+   "names": [
+    "F35-transactions.csv",
+    "F35-fees.csv",
+    "F35-settlements.csv",
+    "F35-payout-lines.csv",
+    "F35-bank-credits.csv"
+   ],
+   "scope": {
+    "entity": "Synthetic Souq Online Co",
+    "gateway": "Synthetic Pay GW",
+    "merchantAccount": "MA-7781",
+    "bankAccount": "BANK-0042",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "asOf": "2026-10-10",
+    "confirmed": true
+   },
+   "decimals": 2,
+   "cells": [
+    [
+     [
+      "Transaction ID",
+      "Batch ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "T1",
+      "B1",
+      "sale",
+      "2026-09-10",
+      "500.00",
+      "Order T1",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Fee ID",
+      "Batch ID",
+      "Amount",
+      "Reference",
+      "Merchant account",
+      "Currency"
+     ]
+    ],
+    [
+     [
+      "Batch ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "B1",
+      "2026-09-15",
+      "500.00",
+      "0.00",
+      "0.00",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Payout ID",
+      "Batch ID",
+      "Amount",
+      "Merchant account",
+      "Currency"
+     ],
+     [
+      "P1",
+      "B1",
+      "500.00",
+      "MA-7781",
+      "SAR"
+     ]
+    ],
+    [
+     [
+      "Bank reference",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Bank account",
+      "Currency"
+     ],
+     [
+      "BR1",
+      "P1",
+      "2026-10-11",
+      "500.00",
+      "BANK-0042",
+      "SAR"
+     ]
+    ]
+   ],
+   "hidden": [
+    [],
+    [],
+    [],
+    [],
+    []
+   ],
+   "intent": {
+    "refused": "SOURCE_ERRORS",
+    "batches": [],
+    "payouts": [],
+    "credits": []
+   }
+  }
+ ]
+}

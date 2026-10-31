@@ -1,0 +1,50 @@
+{
+ "schema": "tarasuf-pay1-long-register-h1-verify/1",
+ "factsSha256": "2c02d4fb9890bfdfcd94b5142492fe85fc8654468616e2ff12d45e0b6c01e9eb",
+ "files": 64,
+ "cells": 11893,
+ "passed": true,
+ "problems": [],
+ "selfTest": [
+  {
+   "plant": "one amount changed",
+   "rejected": true
+  },
+  {
+   "plant": "one line dropped",
+   "rejected": true
+  },
+  {
+   "plant": "byte-order mark removed",
+   "rejected": true
+  },
+  {
+   "plant": "LF in a CR file",
+   "rejected": true
+  },
+  {
+   "plant": "a field quoted that needs none",
+   "rejected": true
+  },
+  {
+   "plant": "a field with spaces left unquoted by PHP",
+   "rejected": true
+  },
+  {
+   "plant": "padding removed",
+   "rejected": true
+  },
+  {
+   "plant": "LF in a CRLF file",
+   "rejected": true
+  },
+  {
+   "plant": "scope payment date moved",
+   "rejected": true
+  },
+  {
+   "plant": "a file no story names",
+   "rejected": true
+  }
+ ]
+}

@@ -1,0 +1,2538 @@
+{
+ "schema": "tarasuf-clr1-groups-h1-expected/1",
+ "oracle": "audit/clearing-groups-foundation/oracle.py",
+ "stories": {
+  "H01": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-101",
+     "members": [
+      [
+       2,
+       "V101",
+       150000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V102",
+       -90000,
+       "REFERENCE"
+      ],
+      [
+       4,
+       "V103",
+       -60000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "58d428995d1c7e672eb704ff2b5ac2fffe62bd1a319ee201ff986bff52b885ad"
+  },
+  "H02": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-201",
+     "members": [
+      [
+       2,
+       "V201",
+       80000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V202",
+       -80000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    },
+    {
+     "reference": "DEP-202",
+     "members": [
+      [
+       4,
+       "V203",
+       25000,
+       "REFERENCE"
+      ],
+      [
+       5,
+       "V204",
+       -20000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 5000,
+     "status": "review",
+     "reasons": [
+      "RESIDUAL"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 5000,
+   "sha256": "bb32babc1f15da698776c44636b67cb6abe60271e6b4e872fc1226062df2f6af"
+  },
+  "H03": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-301",
+     "members": [
+      [
+       2,
+       "V301",
+       30000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V302",
+       -30000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "AMOUNT_FORMAT",
+     true
+    ]
+   ],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "82334e05bd68885004d0c1a969bc9ca0263650ccd2b6f7e5b6585e1e6e261a82"
+  },
+  "H04": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-401",
+     "members": [
+      [
+       2,
+       "V401",
+       12000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V402",
+       -12000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "AMOUNT_FORMAT",
+     true
+    ]
+   ],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "787f4921674abb8210ffc8b9c4d75376aa0ead61a284a7051d22e9bee2f121da"
+  },
+  "H05": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-501",
+     "members": [
+      [
+       2,
+       "V501",
+       70000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V502",
+       -70000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "feb109f5c546cee0f0a9a91b9d42d3d467fe8de218b6b971109925cdc4812f6d"
+  },
+  "H06": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-601",
+     "members": [
+      [
+       2,
+       "V601",
+       45000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V602",
+       -45000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "c2e1811b2af932f07ae328c685145f27188b3e5871a690d6530146b04f6db3d9"
+  },
+  "H07": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-701",
+     "members": [
+      [
+       2,
+       "V701",
+       5000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V702",
+       -5000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "UNISOLATED_ERROR"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "POSTING",
+     false
+    ]
+   ],
+   "blank": [],
+   "unisolated": [
+    4
+   ],
+   "total": 0,
+   "sha256": "3ca750fdd289243ae5b692a4e813f0d6cef336eabdf7a9f4c8cf021b76c43a28"
+  },
+  "H08": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-801",
+     "members": [
+      [
+       3,
+       "V801",
+       5000,
+       "REFERENCE"
+      ],
+      [
+       4,
+       "V802",
+       -5000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "UNISOLATED_ERROR"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     2,
+     "POSTING",
+     false
+    ]
+   ],
+   "blank": [],
+   "unisolated": [
+    2
+   ],
+   "total": 0,
+   "sha256": "6e5931ad901c76e518d7bf7a35b9f8fdf524996631f6a05ea3735e1bbfc9e12a"
+  },
+  "H09": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-901",
+     "members": [
+      [
+       2,
+       "V901",
+       100000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V902",
+       -20000,
+       "REFERENCE"
+      ],
+      [
+       4,
+       "V903",
+       -80000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "29d46cec914f6ee2c0d574062834924f7a95d683b9e9fd537abf0f9abc19e0f9"
+  },
+  "H10": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-A",
+     "members": [
+      [
+       2,
+       "VA00",
+       9900,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "VA01",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       4,
+       "VA02",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       5,
+       "VA03",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       6,
+       "VA04",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       7,
+       "VA05",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       8,
+       "VA06",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       9,
+       "VA07",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       10,
+       "VA08",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       11,
+       "VA09",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       12,
+       "VA10",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       13,
+       "VA11",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       14,
+       "VA12",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       15,
+       "VA13",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       16,
+       "VA14",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       17,
+       "VA15",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       18,
+       "VA16",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       19,
+       "VA17",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       20,
+       "VA18",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       21,
+       "VA19",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       22,
+       "VA20",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       23,
+       "VA21",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       24,
+       "VA22",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       25,
+       "VA23",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       26,
+       "VA24",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       27,
+       "VA25",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       28,
+       "VA26",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       29,
+       "VA27",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       30,
+       "VA28",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       31,
+       "VA29",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       32,
+       "VA30",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       33,
+       "VA31",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       34,
+       "VA32",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       35,
+       "VA33",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       36,
+       "VA34",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       37,
+       "VA35",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       38,
+       "VA36",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       39,
+       "VA37",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       40,
+       "VA38",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       41,
+       "VA39",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       42,
+       "VA40",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       43,
+       "VA41",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       44,
+       "VA42",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       45,
+       "VA43",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       46,
+       "VA44",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       47,
+       "VA45",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       48,
+       "VA46",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       49,
+       "VA47",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       50,
+       "VA48",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       51,
+       "VA49",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       52,
+       "VA50",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       53,
+       "VA51",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       54,
+       "VA52",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       55,
+       "VA53",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       56,
+       "VA54",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       57,
+       "VA55",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       58,
+       "VA56",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       59,
+       "VA57",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       60,
+       "VA58",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       61,
+       "VA59",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       62,
+       "VA60",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       63,
+       "VA61",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       64,
+       "VA62",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       65,
+       "VA63",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       66,
+       "VA64",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       67,
+       "VA65",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       68,
+       "VA66",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       69,
+       "VA67",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       70,
+       "VA68",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       71,
+       "VA69",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       72,
+       "VA70",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       73,
+       "VA71",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       74,
+       "VA72",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       75,
+       "VA73",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       76,
+       "VA74",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       77,
+       "VA75",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       78,
+       "VA76",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       79,
+       "VA77",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       80,
+       "VA78",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       81,
+       "VA79",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       82,
+       "VA80",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       83,
+       "VA81",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       84,
+       "VA82",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       85,
+       "VA83",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       86,
+       "VA84",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       87,
+       "VA85",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       88,
+       "VA86",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       89,
+       "VA87",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       90,
+       "VA88",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       91,
+       "VA89",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       92,
+       "VA90",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       93,
+       "VA91",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       94,
+       "VA92",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       95,
+       "VA93",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       96,
+       "VA94",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       97,
+       "VA95",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       98,
+       "VA96",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       99,
+       "VA97",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       100,
+       "VA98",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       101,
+       "VA99",
+       -100,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    },
+    {
+     "reference": "DEP-B",
+     "members": [
+      [
+       102,
+       "VB00",
+       10000,
+       "REFERENCE"
+      ],
+      [
+       103,
+       "VB001",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       104,
+       "VB002",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       105,
+       "VB003",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       106,
+       "VB004",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       107,
+       "VB005",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       108,
+       "VB006",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       109,
+       "VB007",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       110,
+       "VB008",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       111,
+       "VB009",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       112,
+       "VB010",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       113,
+       "VB011",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       114,
+       "VB012",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       115,
+       "VB013",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       116,
+       "VB014",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       117,
+       "VB015",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       118,
+       "VB016",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       119,
+       "VB017",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       120,
+       "VB018",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       121,
+       "VB019",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       122,
+       "VB020",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       123,
+       "VB021",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       124,
+       "VB022",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       125,
+       "VB023",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       126,
+       "VB024",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       127,
+       "VB025",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       128,
+       "VB026",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       129,
+       "VB027",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       130,
+       "VB028",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       131,
+       "VB029",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       132,
+       "VB030",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       133,
+       "VB031",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       134,
+       "VB032",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       135,
+       "VB033",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       136,
+       "VB034",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       137,
+       "VB035",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       138,
+       "VB036",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       139,
+       "VB037",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       140,
+       "VB038",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       141,
+       "VB039",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       142,
+       "VB040",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       143,
+       "VB041",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       144,
+       "VB042",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       145,
+       "VB043",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       146,
+       "VB044",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       147,
+       "VB045",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       148,
+       "VB046",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       149,
+       "VB047",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       150,
+       "VB048",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       151,
+       "VB049",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       152,
+       "VB050",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       153,
+       "VB051",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       154,
+       "VB052",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       155,
+       "VB053",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       156,
+       "VB054",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       157,
+       "VB055",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       158,
+       "VB056",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       159,
+       "VB057",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       160,
+       "VB058",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       161,
+       "VB059",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       162,
+       "VB060",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       163,
+       "VB061",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       164,
+       "VB062",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       165,
+       "VB063",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       166,
+       "VB064",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       167,
+       "VB065",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       168,
+       "VB066",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       169,
+       "VB067",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       170,
+       "VB068",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       171,
+       "VB069",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       172,
+       "VB070",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       173,
+       "VB071",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       174,
+       "VB072",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       175,
+       "VB073",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       176,
+       "VB074",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       177,
+       "VB075",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       178,
+       "VB076",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       179,
+       "VB077",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       180,
+       "VB078",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       181,
+       "VB079",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       182,
+       "VB080",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       183,
+       "VB081",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       184,
+       "VB082",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       185,
+       "VB083",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       186,
+       "VB084",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       187,
+       "VB085",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       188,
+       "VB086",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       189,
+       "VB087",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       190,
+       "VB088",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       191,
+       "VB089",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       192,
+       "VB090",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       193,
+       "VB091",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       194,
+       "VB092",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       195,
+       "VB093",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       196,
+       "VB094",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       197,
+       "VB095",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       198,
+       "VB096",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       199,
+       "VB097",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       200,
+       "VB098",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       201,
+       "VB099",
+       -100,
+       "REFERENCE"
+      ],
+      [
+       202,
+       "VB100",
+       -100,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "GROUP_LIMIT"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "8272f5b826a514cb9004bb2af81aeb1e05fe564894cc76257d5df5ea8f6c6509"
+  },
+  "H11": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-11",
+     "members": [
+      [
+       2,
+       "V111",
+       500,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V112",
+       -500,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    },
+    {
+     "reference": "DEP-011",
+     "members": [
+      [
+       4,
+       "V113",
+       700,
+       "REFERENCE"
+      ]
+     ],
+     "net": 700,
+     "status": "review",
+     "reasons": [
+      "RESIDUAL"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 700,
+   "sha256": "f37bc18fe6435a93eccf2768524adf241aaa8a81f6290b2e3cec04da20c05ba3"
+  },
+  "H12": {
+   "refused": null,
+   "decimals": 3,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-121",
+     "members": [
+      [
+       2,
+       "V121",
+       12345,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V122",
+       -12345,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    },
+    {
+     "reference": "DEP-122",
+     "members": [
+      [
+       4,
+       "V123",
+       1000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 1000,
+     "status": "review",
+     "reasons": [
+      "CONNECTED_ERROR",
+      "RESIDUAL"
+     ],
+     "connected": [
+      [
+       5,
+       "AMOUNT_FORMAT"
+      ]
+     ],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     5,
+     "AMOUNT_FORMAT",
+     true
+    ]
+   ],
+   "blank": [],
+   "unisolated": [],
+   "total": 1000,
+   "sha256": "b8fd5affd27daef042bb7238a31c63f5e935e988fe357c47c1bd188fd53d2ab0"
+  },
+  "H13": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-131",
+     "members": [
+      [
+       2,
+       "V131",
+       30000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V132",
+       -30000,
+       "REFERENCE"
+      ],
+      [
+       4,
+       "V133",
+       0,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "70ccec13fb7b1ae3e551567c46902b7e4d85fddd2389ba36cfe79a66ae382a95"
+  },
+  "H14": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-141",
+     "members": [
+      [
+       2,
+       "V141",
+       6000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V142",
+       -6000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "UNISOLATED_ERROR"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "CELL",
+     false
+    ]
+   ],
+   "blank": [],
+   "unisolated": [
+    4
+   ],
+   "total": 0,
+   "sha256": "bb5d704ba94caa992ecb936776b98fb88b2bef49aac83a385a4cfa06ce063ec7"
+  },
+  "H15": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-151",
+     "members": [
+      [
+       2,
+       "V151",
+       8000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V152",
+       -8000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "UNISOLATED_ERROR"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "CELL",
+     false
+    ]
+   ],
+   "blank": [],
+   "unisolated": [
+    4
+   ],
+   "total": 0,
+   "sha256": "18beb145cd158ff0bbd9a8793f3b216ae4b1affb48b039c22a94bf4bd25cc736"
+  },
+  "H16": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-161",
+     "members": [
+      [
+       2,
+       "V161",
+       4000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V162",
+       -4000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "CONNECTED_ERROR"
+     ],
+     "connected": [
+      [
+       4,
+       "DATE"
+      ]
+     ],
+     "duplicates": []
+    },
+    {
+     "reference": "DEP-162",
+     "members": [
+      [
+       5,
+       "V164",
+       3000,
+       "REFERENCE"
+      ],
+      [
+       6,
+       "V165",
+       -3000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "DATE",
+     true
+    ]
+   ],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "4551d1aaf7c9380fcf06666a4a310163677d0fcb9595a8a1651c10c95e906af7"
+  },
+  "H17": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-171",
+     "members": [
+      [
+       2,
+       "V171",
+       30000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V171",
+       30000,
+       "REFERENCE"
+      ],
+      [
+       4,
+       "V172",
+       -60000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "65622428855162c6d9301eae5f84eeeff8ebf9535278d3a40e15da5c0aeb35ad"
+  },
+  "H18": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-181",
+     "members": [
+      [
+       2,
+       "V181",
+       10000,
+       "REFERENCE"
+      ],
+      [
+       5,
+       "V-SET",
+       -10000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    },
+    {
+     "reference": "DEP-182",
+     "members": [
+      [
+       3,
+       "V182",
+       20000,
+       "REFERENCE"
+      ],
+      [
+       6,
+       "V-SET",
+       -20000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    },
+    {
+     "reference": "DEP-183",
+     "members": [
+      [
+       4,
+       "V183",
+       30000,
+       "REFERENCE"
+      ],
+      [
+       7,
+       "V-SET",
+       -30000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "1c5c087dff971af09f460b9997a9c54d317f5cd957c337c6a8cc45be9a9520d1"
+  },
+  "H19": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-191",
+     "members": [
+      [
+       2,
+       "V191",
+       50000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V192",
+       -50000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "CONNECTED_ERROR"
+     ],
+     "connected": [
+      [
+       4,
+       "PERIOD"
+      ]
+     ],
+     "duplicates": []
+    },
+    {
+     "reference": "DEP-192",
+     "members": [
+      [
+       5,
+       "V194",
+       1000,
+       "REFERENCE"
+      ],
+      [
+       6,
+       "V195",
+       -1000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "PERIOD",
+     true
+    ]
+   ],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "b30cd0c70b91647278ffd08a1bebf9cafbfbd662ab5ccba6a18163d0b3469644"
+  },
+  "H20": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "MQ-201",
+     "members": [
+      [
+       2,
+       "V201",
+       9000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V202",
+       -9000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "CONNECTED_ERROR"
+     ],
+     "connected": [
+      [
+       4,
+       "ROW_SCOPE"
+      ]
+     ],
+     "duplicates": []
+    },
+    {
+     "reference": "MQ-202",
+     "members": [
+      [
+       5,
+       "V204",
+       1500,
+       "REFERENCE"
+      ],
+      [
+       6,
+       "V205",
+       -1500,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "ROW_SCOPE",
+     true
+    ]
+   ],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "66d744a59b4269e62d280ffb470a10d9760971e57675456e26eca8dece26578a"
+  },
+  "H21": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "b487d4b3dc1957fc6809ea7836d36ad98d3a098c00e2b28b076399621c30ae17"
+  },
+  "H22": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-221",
+     "members": [
+      [
+       2,
+       "V221",
+       500,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V222",
+       -500,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "UNISOLATED_ERROR"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     5,
+     "AMOUNT_FORMAT",
+     false
+    ]
+   ],
+   "blank": [
+    4
+   ],
+   "unisolated": [
+    5
+   ],
+   "total": 0,
+   "sha256": "d6bbcf0deba7cb9b50de4dba40228f9011456ad3fd9bd1fb8a3e21dc029e15c5"
+  },
+  "H23": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-231",
+     "members": [
+      [
+       2,
+       "V231",
+       2000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V232",
+       -2000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "CONNECTED_ERROR"
+     ],
+     "connected": [
+      [
+       4,
+       "IDENTITY"
+      ]
+     ],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "IDENTITY",
+     true
+    ]
+   ],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "bb1362293d97c0887a49396a41674314cf7a78f00bcedc214599ed3c154a0657"
+  },
+  "H24": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-241",
+     "members": [
+      [
+       2,
+       "V241",
+       60000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V242",
+       -30000,
+       "REFERENCE"
+      ],
+      [
+       4,
+       "V242",
+       -30000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "DUPLICATE_MEMBER"
+     ],
+     "connected": [],
+     "duplicates": [
+      [
+       3,
+       4
+      ]
+     ]
+    },
+    {
+     "reference": "DEP-242",
+     "members": [
+      [
+       5,
+       "V243",
+       2000,
+       "REFERENCE"
+      ],
+      [
+       6,
+       "V244",
+       -2000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "7974e78de5e3816f9ac72dfe395e260c4f56a313d24c72a6ebb1feb54c4f6d72"
+  },
+  "H25": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-251",
+     "members": [
+      [
+       2,
+       "V251",
+       7000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V252",
+       -7000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    },
+    {
+     "reference": "",
+     "members": [
+      [
+       4,
+       "V253",
+       -1500,
+       "ROW"
+      ]
+     ],
+     "net": -1500,
+     "status": "review",
+     "reasons": [
+      "MISSING_REFERENCE"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": -1500,
+   "sha256": "6fae4d1dc62becb7519b3a692989d9511d6a4bc225047d13d7fcded23c308a40"
+  },
+  "H26": {
+   "refused": null,
+   "decimals": 2,
+   "role": false,
+   "groups": [
+    {
+     "reference": "DEP-261",
+     "members": [
+      [
+       2,
+       "V261",
+       4000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V262",
+       -4000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "UNVERIFIED_REFERENCE_ROLE"
+     ],
+     "connected": [],
+     "duplicates": []
+    },
+    {
+     "reference": "DEP-262",
+     "members": [
+      [
+       4,
+       "V263",
+       900,
+       "REFERENCE"
+      ]
+     ],
+     "net": 900,
+     "status": "review",
+     "reasons": [
+      "UNVERIFIED_REFERENCE_ROLE",
+      "RESIDUAL"
+     ],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [],
+   "blank": [],
+   "unisolated": [],
+   "total": 900,
+   "sha256": "df434a878fb12742f156fdafbd21a6fefce409d64732e0af52c203d668d66c44"
+  },
+  "H27": {
+   "refused": null,
+   "decimals": 2,
+   "role": true,
+   "groups": [
+    {
+     "reference": "DEP-271",
+     "members": [
+      [
+       2,
+       "V271",
+       11000,
+       "REFERENCE"
+      ],
+      [
+       3,
+       "V272",
+       -11000,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "review",
+     "reasons": [
+      "CONNECTED_ERROR"
+     ],
+     "connected": [
+      [
+       4,
+       "SPLIT"
+      ]
+     ],
+     "duplicates": []
+    },
+    {
+     "reference": "DEP-272",
+     "members": [
+      [
+       5,
+       "V274",
+       2500,
+       "REFERENCE"
+      ],
+      [
+       6,
+       "V275",
+       -2500,
+       "REFERENCE"
+      ]
+     ],
+     "net": 0,
+     "status": "cleared",
+     "reasons": [],
+     "connected": [],
+     "duplicates": []
+    }
+   ],
+   "errors": [
+    [
+     4,
+     "SPLIT",
+     true
+    ]
+   ],
+   "blank": [],
+   "unisolated": [],
+   "total": 0,
+   "sha256": "45740468fa641e72dc791ea6392e6f68bee5a3046f12480ee634effe8575c52c"
+  }
+ }
+}

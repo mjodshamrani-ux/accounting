@@ -1,0 +1,26 @@
+Section,S-RUH-VEH
+Entity,Synthetic Dunes Logistics Co
+Asset ledger,FA-MAIN
+Currency,SAR
+As of,2027-12-31
+Location,Riyadh HQ
+Category,Vehicles
+Asset ID,Asset dimensions,Component,Amount,Valuation reference
+VEH-0101,CC-110,cost,180000.00,VAL-2027-VEH
+VEH-0101,CC-110,depreciation,72000.00,VAL-2027-VEH
+VEH-0101,CC-110,impairment,0.00,VAL-2027-VEH,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,x
+VEH-0101,CC-110,carrying,108000.00,VAL-2027-VEH
+End section,S-RUH-VEH
+Section,S-JED-FUR
+Entity,Synthetic Dunes Logistics Co
+Asset ledger,FA-MAIN
+Currency,SAR
+As of,2027-12-31
+Location,Jeddah depot
+Category,Furniture
+Asset ID,Asset dimensions,Component,Amount,Valuation reference
+FUR-0201,CC-120,cost,42000.00,VAL-2027-FUR
+FUR-0201,CC-120,depreciation,16800.00,VAL-2027-FUR
+FUR-0201,CC-120,impairment,0.00,VAL-2027-FUR
+FUR-0201,CC-120,carrying,25200.00,VAL-2027-FUR
+End section,S-JED-FUR

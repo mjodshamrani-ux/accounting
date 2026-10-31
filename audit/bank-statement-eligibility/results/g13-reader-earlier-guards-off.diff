@@ -1,0 +1,35 @@
+--- a/lib/reconciliation/bank-statement-native.ts
++++ b/lib/reconciliation/bank-statement-native.ts
+@@ -765,7 +765,7 @@
+ export function readBankStatementPdf(
+   source: NativePdfWordSource,
+ ): BankStatementReading {
+-  if (source.readingIssues.length)
++  if (false)
+     throw new BankStatementReadError(
+       'READING',
+       source.readingIssues[0].page,
+--- a/lib/reconciliation/pdf.ts
++++ b/lib/reconciliation/pdf.ts
+@@ -766,9 +766,7 @@
+         );
+         if (overlaps === false) continue;
+         if (overlaps === true)
+-          throw new Error(
+-            'يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.',
+-          );
++          void 0;
+       }
+       const box = [
+         Math.min(...corners.map((p) => p[0])) - pad,
+@@ -781,9 +779,7 @@
+         !textBoxes.length ||
+         inkTargets.some((t) => boxOverlaps(box, t))
+       )
+-        throw new Error(
+-          'يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.',
+-        );
++        void 0;
+     } else if (isImagePaint(ops, op))
+       throw new PdfImageContentError(
+         'يحتوي PDF صورة قد تضم بيانات لا تُقرأ نصيًا، حتى لو كانت صغيرة. أرقام القراءة البصرية (OCR) لا تدخل التسوية حاليًا. اطلب PDF نصيًا أو Excel.',

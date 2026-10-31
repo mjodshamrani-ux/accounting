@@ -198,3 +198,42 @@ void test('namespaced and canonical Excel reads are independent in either order 
   ]);
   assertEquivalentSheets(a, b);
 });
+
+// excelize writes docProps/core.xml in a default namespace once a Go
+// application sets its document properties (G15): the same core properties,
+// none under the prefix ExcelJS matches.
+const CORE = 'http://schemas.openxmlformats.org/package/2006/metadata/core-properties';
+async function withCore(original: ArrayBuffer, core: string) {
+  const zip = await JSZip.loadAsync(original);
+  zip.file('docProps/core.xml', core);
+  return zip.generateAsync({ type: 'arraybuffer', compression: 'DEFLATE' });
+}
+const defaultNamespaceCore = (extra = '') =>
+  `<?xml version="1.0" encoding="UTF-8"?><coreProperties xmlns="${CORE}" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><dc:creator>excelize</dc:creator><lastModifiedBy>excelize</lastModifiedBy>${extra}<dcterms:created xsi:type="dcterms:W3CDTF">2027-01-31T12:00:00Z</dcterms:created></coreProperties>`;
+
+void test('core properties under another prefix are left out of the copy ExcelJS reads, and the values read as before', async () => {
+  const original = await synthetic();
+  const excelize = await withCore(original, defaultNamespaceCore());
+  const prepared = await JSZip.loadAsync(await prepareXlsxForExcelJs(excelize));
+  assert.deepEqual(
+    Object.keys(prepared.files).filter((path) => /^docProps\/./.test(path)),
+    ['docProps/app.xml'],
+  );
+  assertEquivalentSheets(
+    await readFile('excelize.xlsx', excelize),
+    await readFile('synthetic.xlsx', original),
+  );
+});
+
+void test('core properties holding anything else, or not well formed, are left as written', async () => {
+  const original = await synthetic();
+  for (const core of [
+    defaultNamespaceCore(`<appVersion>1</appVersion>`),
+    defaultNamespaceCore('<lastModifiedBy>'),
+  ]) {
+    const input = await withCore(original, core);
+    const prepared = await JSZip.loadAsync(await prepareXlsxForExcelJs(input));
+    assert.equal(await prepared.file('docProps/core.xml')?.async('string'), core);
+    await assert.rejects(readFile('excelize.xlsx', input));
+  }
+});

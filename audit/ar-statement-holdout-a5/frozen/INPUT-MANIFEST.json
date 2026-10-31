@@ -1,0 +1,155 @@
+{
+ "schema": "tarasuf-ar-pdf1-holdout-input-manifest/1",
+ "synthetic": true,
+ "producers": "LibreOffice Writer 24.2.7.2; iText Core 9.8.0",
+ "files": {
+  "B01-ledger.csv": {
+   "sha256": "7f44c7d8592c76155650f7b1e792d7f238e99271c630244751117636952e61a0",
+   "bytes": 750
+  },
+  "B01-statement.pdf": {
+   "sha256": "c55424f7507322e6380be383478765b3292145c2caaa9ca43f8396085d40ce83",
+   "bytes": 56396
+  },
+  "B02-ledger.csv": {
+   "sha256": "12cc38cffc571bd29257da2de807f61186b22d5aabcff69500822021df8089ec",
+   "bytes": 5392
+  },
+  "B02-statement.pdf": {
+   "sha256": "bfa92e9c46fccc315c35cf58e498e72332436dfae372ce21afcc740b07d5d6ab",
+   "bytes": 120124
+  },
+  "B03-ledger.csv": {
+   "sha256": "e4e433124053269fc8f9a30cfd180f353f5d763a32f18f6248e36091471d7011",
+   "bytes": 914
+  },
+  "B03-statement.pdf": {
+   "sha256": "6161160d3407ce3c1a423f51fd7674ade63d07a65ba926e190002ea36ef2c78a",
+   "bytes": 52943
+  },
+  "B04-ledger.csv": {
+   "sha256": "bd38ef43a8170158fce8119496ec420f3ee0a80a75826117440f940e661c73d6",
+   "bytes": 896
+  },
+  "B04-statement.pdf": {
+   "sha256": "57b1abee5e2911f47e879df21e5e57bc212833fc78e545bac03cca1769b8cfbd",
+   "bytes": 69288
+  },
+  "B05-ledger.csv": {
+   "sha256": "3b6d84de535b8735676bbb1d731a248eb968d6f9b278d6cb36f94feb59932585",
+   "bytes": 3609
+  },
+  "B05-statement.pdf": {
+   "sha256": "8222e16abe1a450af891f8fbbcd1c68f314c891633cc15be09bbf743da97aaaa",
+   "bytes": 94715
+  },
+  "B06-ledger.csv": {
+   "sha256": "5a174330c508bdcdcfbc6226fd1d0ff3d7ac6aadba1889dd96953cf6af0a2690",
+   "bytes": 493
+  },
+  "B06-statement.pdf": {
+   "sha256": "985a6df6073c712bcaf8734ef1c0fa6e83c0d6d906f5bb6a9912e074e46ec7ee",
+   "bytes": 36008
+  },
+  "B07-ledger.csv": {
+   "sha256": "922dce2507f846c55858283edb64e3141e0efa571995f879e2c62e197e98c78f",
+   "bytes": 973
+  },
+  "B07-statement.pdf": {
+   "sha256": "a2e0c8466c7b1ae2d82a86e52970f53526300443dafd5ba2c9a401b35d1f286d",
+   "bytes": 45383
+  },
+  "B08-ledger.csv": {
+   "sha256": "c2149646d6f768d33782e4ff1f0abe5fb7a1a6b115e8fd67f887b41c3e6dc9c9",
+   "bytes": 867
+  },
+  "B08-statement.pdf": {
+   "sha256": "928a243cec5b6ff0a3c07727340ec3967661b883269278e23d69dba195100797",
+   "bytes": 73521
+  },
+  "B09-ledger.csv": {
+   "sha256": "4bebbae546f4c3f021f08f9fc974ba5589201809ac2d773dced1c8b002f97be4",
+   "bytes": 999
+  },
+  "B09-statement.pdf": {
+   "sha256": "427444fe32861f45915f49c48146dc19a0215640ec947841a11e4e3aa3016b02",
+   "bytes": 25002
+  },
+  "B10-ledger.csv": {
+   "sha256": "7717a660e064530e34ea7e056a6d221c71d121fc32e77ecc186d8bc3e6a99b26",
+   "bytes": 633
+  },
+  "B10-statement.pdf": {
+   "sha256": "e1fdc689abab84a3dc7e32f715f1567ffc6d2058e43b6ccab57e4ccc5d76c071",
+   "bytes": 82211
+  },
+  "B11-ledger.csv": {
+   "sha256": "702abbba8ee01869de0f35a5414228862d79381b5fb9f9860ec875db1fa4a29c",
+   "bytes": 7114
+  },
+  "B11-statement.pdf": {
+   "sha256": "c21e30eae62b471af22a8f135b404d45c3aca94ff52292e4fe984cc0f6ae59f0",
+   "bytes": 46207
+  },
+  "B12-ledger.csv": {
+   "sha256": "adcebbf6be60c287008fb98c9e02aa614a9534ce42d7975b596ef9e8cb752643",
+   "bytes": 503
+  },
+  "B12-statement.pdf": {
+   "sha256": "4ee45b7642b2d2066724093976422fdbb913c32d84aca5c5d8549c36797ea813",
+   "bytes": 23892
+  },
+  "B13-ledger.csv": {
+   "sha256": "f790424ed3b307a0acd1030f3ea99465623f285f40af8b2949c3ae5f43e06698",
+   "bytes": 622
+  },
+  "B13-statement.pdf": {
+   "sha256": "87108bbe428eb57df3ef34c121a3ec2aef9cd9ca51e3574fb31f0384b7d1357a",
+   "bytes": 81846
+  },
+  "B14-ledger.csv": {
+   "sha256": "f790424ed3b307a0acd1030f3ea99465623f285f40af8b2949c3ae5f43e06698",
+   "bytes": 622
+  },
+  "B14-statement.pdf": {
+   "sha256": "6c3e24ceeef471c9f5b09950683d03334aaf41567c3d9718f3d8f5f1c89239cd",
+   "bytes": 38492
+  },
+  "B15-ledger.csv": {
+   "sha256": "e6c514da7a3f34d18bf84d2e50e29d8e88f4a5b0aeb06f243ef4bd7d28c00165",
+   "bytes": 59292
+  },
+  "B15-statement.pdf": {
+   "sha256": "69dfa3fd316eadcec004b2cd7fe9404125996a97832fa7b314664598ffd92237",
+   "bytes": 54004
+  },
+  "B16-ledger.csv": {
+   "sha256": "3c10271fece1af48545c77c6955704abb0f55a6eb420fd0d463749479d203c21",
+   "bytes": 1027
+  },
+  "B16-statement.pdf": {
+   "sha256": "daa505a7662ed95b3eda698242e8896054fb1be21675a4109f5bda2f2b4bbd8b",
+   "bytes": 22599
+  },
+  "B17-ledger.csv": {
+   "sha256": "122a41713370301a2b9c8882240939745c2f9118c96c27ad5841327c451bfb9c",
+   "bytes": 610
+  },
+  "B17-statement.pdf": {
+   "sha256": "46825bfc477055e1db9e137bc925120eb872b3886baa7c30fa7529b377f7452e",
+   "bytes": 34258
+  },
+  "B18-ledger.csv": {
+   "sha256": "63a376d521c332644d9aea1746a4d3e2fdc78aa2b298e75eb8e225a4428f89b5",
+   "bytes": 501
+  },
+  "B18-statement.pdf": {
+   "sha256": "32a1d85f543ff94533595a608fce472c6fdd7f02a9ea41617bf1098e3f19ae89",
+   "bytes": 24230
+  },
+  "stories.json": {
+   "sha256": "85139a609c43465138ca72630171d7b0c8dbd72e4adddbb53b5634827f14f26f",
+   "bytes": 386681
+  }
+ }
+}

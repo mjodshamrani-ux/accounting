@@ -10,6 +10,37 @@ const PACKAGE_RELATIONSHIP =
   'http://schemas.openxmlformats.org/package/2006/relationships';
 const XML = 'http://www.w3.org/XML/1998/namespace';
 const XMLNS = 'http://www.w3.org/2000/xmlns/';
+const CORE_PROPERTIES =
+  'http://schemas.openxmlformats.org/package/2006/metadata/core-properties';
+const DUBLIN_CORE = 'http://purl.org/dc/elements/1.1/';
+const DUBLIN_TERMS = 'http://purl.org/dc/terms/';
+// The core properties ECMA-376 Part 2 defines, each by the literal name
+// ExcelJS matches when it reads docProps/core.xml.
+const coreProperties = new Map<string, string>([
+  [`${CORE_PROPERTIES} coreProperties`, 'cp:coreProperties'],
+  ...[
+    'creator',
+    'title',
+    'subject',
+    'description',
+    'identifier',
+    'language',
+  ].map((n): [string, string] => [`${DUBLIN_CORE} ${n}`, `dc:${n}`]),
+  ...[
+    'keywords',
+    'category',
+    'lastModifiedBy',
+    'lastPrinted',
+    'revision',
+    'version',
+    'contentStatus',
+    'contentType',
+  ].map((n): [string, string] => [`${CORE_PROPERTIES} ${n}`, `cp:${n}`]),
+  ...['created', 'modified'].map((n): [string, string] => [
+    `${DUBLIN_TERMS} ${n}`,
+    `dcterms:${n}`,
+  ]),
+]);
 const MAX_XML_CHARS = 32 * 1024 * 1024;
 const worksheetParents: Record<string, string> = {
   sheetData: 'worksheet',
@@ -547,12 +578,46 @@ function compatibleXml(
 }
 
 /** Call only after the original ZIP has passed size, path, CRC and content checks. */
+/** Whether docProps/core.xml holds only core properties, some of them under
+ * another prefix than the one ExcelJS matches (excelize writes the part in a
+ * default namespace once its properties are set). A part ExcelJS reads as
+ * written, or one that is not well formed or holds anything else, is not. */
+function renamedCoreProperties(xml: string): boolean {
+  if (xml.length > MAX_XML_CHARS) return false;
+  const parser = new SaxesParser({ xmlns: true });
+  let known = true,
+    renamed = false;
+  parser.on('error', () => {
+    throw new Error('core properties are not well formed');
+  });
+  parser.on('opentag', (node) => {
+    const tag = node as SaxesTagNS;
+    const literal = coreProperties.get(`${tag.uri} ${tag.local}`);
+    if (literal === undefined) known = false;
+    else if (literal !== tag.name) renamed = true;
+  });
+  try {
+    parser.write(xml).close();
+  } catch {
+    return false;
+  }
+  return known && renamed;
+}
+
 export async function prepareXlsxForExcelJs(
   original: ArrayBuffer,
   numericIssuesBySheet?: Map<string, NumericLexemeIssue[]>,
 ): Promise<ArrayBuffer> {
   const archive = await JSZip.loadAsync(original);
   let changed = false;
+  // Document properties are metadata no reader here uses. Core properties
+  // that ExcelJS would refuse only for their prefixes are left out of the
+  // copy it reads; the original stays the source (G15).
+  const core = archive.file('docProps/core.xml');
+  if (core && renamedCoreProperties(await core.async('string'))) {
+    archive.remove('docProps/core.xml');
+    changed = true;
+  }
   const inspections = new Map<string, PartInspection>();
   for (const [path, entry] of Object.entries(archive.files)) {
     const part = supportedPart(path);

@@ -1,0 +1,33 @@
+{
+ "format": "tarasuf-column-map",
+ "version": 1,
+ "role": "bank-cashbook",
+ "name": "Spare account",
+ "header": 4,
+ "columns": {
+  "date": {
+   "column": 2,
+   "label": "Date"
+  },
+  "voucher": {
+   "column": 1,
+   "label": "Voucher No"
+  },
+  "description": {
+   "column": 5,
+   "label": "Narration"
+  },
+  "reference": {
+   "column": 4,
+   "label": "Reference"
+  },
+  "receipts": {
+   "column": 6,
+   "label": "Debit"
+  },
+  "payments": {
+   "column": 7,
+   "label": "Credit"
+  }
+ }
+}

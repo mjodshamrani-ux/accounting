@@ -1,0 +1,59 @@
+{
+ "names": [
+  "H05-payments.csv",
+  "H05-invoices.csv",
+  "H05-advice.csv"
+ ],
+ "readings": [
+  {
+   "sheet": 0,
+   "role": "available-payments",
+   "family": "allocation-snapshot-1",
+   "confirmed": true
+  },
+  {
+   "sheet": 0,
+   "role": "open-invoices",
+   "family": "allocation-snapshot-1",
+   "confirmed": true
+  },
+  {
+   "sheet": 0,
+   "role": "proposed-remittance",
+   "family": "allocation-snapshot-1",
+   "confirmed": true
+  }
+ ],
+ "scope": {
+  "entity": "Synthetic Gulf Clinics WLL",
+  "ledger": "GC-AP-28",
+  "party": "Reagent House R4",
+  "account": "2150",
+  "currency": "OMR",
+  "cutoff": "2028-02-29",
+  "basis": "before-proposed-allocation",
+  "confirmed": true
+ },
+ "events": [
+  {
+   "id": "D1",
+   "context": "[\"allocation-snapshot-1\",[\"8c3eb073ce44b7cafe49add6b5163b73afba4dcd1a428a0305abfed17c877035\",\"fa84e6a80c404e5ca533c1c7a817914f031e7717c8da62923e4ed9900ae3dd29\",\"adc89a75afb2408d30976f72b9b4fd2534988c548bf451988e5f6b4369a39661\"],[[0,\"available-payments\",\"allocation-snapshot-1\",true],[0,\"open-invoices\",\"allocation-snapshot-1\",true],[0,\"proposed-remittance\",\"allocation-snapshot-1\",true]],[\"Synthetic Gulf Clinics WLL\",\"GC-AP-28\",\"Reagent House R4\",\"2150\",\"OMR\",\"2028-02-29\",\"before-proposed-allocation\"],true]",
+   "at": "2028-03-02T10:00:01.000Z",
+   "note": "Synthetic clinic decision D1",
+   "type": "allocate",
+   "links": [
+    {
+     "paymentId": "0:8c3eb073ce44b7cafe49add6b5163b73afba4dcd1a428a0305abfed17c877035:0:2",
+     "invoiceId": "1:fa84e6a80c404e5ca533c1c7a817914f031e7717c8da62923e4ed9900ae3dd29:0:2",
+     "amount": 300000,
+     "basis": {
+      "kind": "remittance",
+      "reference": "RA-01",
+      "reason": "Remittance advice checked",
+      "proofId": "2:adc89a75afb2408d30976f72b9b4fd2534988c548bf451988e5f6b4369a39661:0:2"
+     }
+    }
+   ]
+  }
+ ]
+}

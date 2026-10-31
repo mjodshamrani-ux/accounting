@@ -1,0 +1,160 @@
+{
+ "schema": "tarasuf-fa1-engine-run/1",
+ "family": "fixed-assets-sections-1",
+ "suite": "audit/fixed-assets-sections-foundation",
+ "rule": "replayAssetSections from the sealed bytes, compared with EXPECTED.json in full",
+ "equal": 50,
+ "of": 50,
+ "stories": {
+  "F01": {
+   "equal": true
+  },
+  "F02": {
+   "equal": true
+  },
+  "F03": {
+   "equal": true
+  },
+  "F04": {
+   "equal": true
+  },
+  "F05": {
+   "equal": true
+  },
+  "F06": {
+   "equal": true
+  },
+  "F07": {
+   "equal": true
+  },
+  "F08": {
+   "equal": true
+  },
+  "F09": {
+   "equal": true
+  },
+  "F10": {
+   "equal": true
+  },
+  "F11": {
+   "equal": true
+  },
+  "F12": {
+   "equal": true
+  },
+  "F13": {
+   "equal": true
+  },
+  "F14": {
+   "equal": true
+  },
+  "F15": {
+   "equal": true
+  },
+  "F16": {
+   "equal": true
+  },
+  "F17": {
+   "equal": true
+  },
+  "F18": {
+   "equal": true
+  },
+  "F19": {
+   "equal": true
+  },
+  "F20": {
+   "equal": true
+  },
+  "F21": {
+   "equal": true
+  },
+  "F22": {
+   "equal": true
+  },
+  "F23": {
+   "equal": true
+  },
+  "F24": {
+   "equal": true
+  },
+  "F25": {
+   "equal": true
+  },
+  "F26": {
+   "equal": true
+  },
+  "F27": {
+   "equal": true
+  },
+  "F28": {
+   "equal": true
+  },
+  "F29": {
+   "equal": true
+  },
+  "F30": {
+   "equal": true
+  },
+  "F31": {
+   "equal": true
+  },
+  "F32": {
+   "equal": true
+  },
+  "F33": {
+   "equal": true
+  },
+  "F34": {
+   "equal": true
+  },
+  "F35": {
+   "equal": true
+  },
+  "F36": {
+   "equal": true
+  },
+  "F37": {
+   "equal": true
+  },
+  "F38": {
+   "equal": true
+  },
+  "F39": {
+   "equal": true
+  },
+  "F40": {
+   "equal": true
+  },
+  "F41": {
+   "equal": true
+  },
+  "F42": {
+   "equal": true
+  },
+  "F43": {
+   "equal": true
+  },
+  "F44": {
+   "equal": true
+  },
+  "F45": {
+   "equal": true
+  },
+  "F46": {
+   "equal": true
+  },
+  "F47": {
+   "equal": true
+  },
+  "F48": {
+   "equal": true
+  },
+  "D1": {
+   "equal": true
+  },
+  "D2": {
+   "equal": true
+  }
+ }
+}

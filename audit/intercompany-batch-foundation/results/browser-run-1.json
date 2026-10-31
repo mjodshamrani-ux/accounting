@@ -1,0 +1,105 @@
+{
+ "stories": {
+  "I01": {
+   "equal": true,
+   "differ": []
+  },
+  "I02": {
+   "equal": true,
+   "differ": []
+  },
+  "I03": {
+   "equal": true,
+   "differ": []
+  },
+  "I04": {
+   "equal": true,
+   "differ": []
+  },
+  "I05": {
+   "equal": true,
+   "differ": []
+  },
+  "I06": {
+   "equal": true,
+   "differ": []
+  },
+  "I07": {
+   "equal": true,
+   "differ": []
+  },
+  "I08": {
+   "equal": true,
+   "differ": []
+  },
+  "I09": {
+   "equal": true,
+   "differ": []
+  },
+  "I10": {
+   "equal": true,
+   "differ": []
+  },
+  "I11": {
+   "equal": true,
+   "differ": []
+  },
+  "I12": {
+   "equal": true,
+   "differ": []
+  },
+  "I13": {
+   "equal": true,
+   "differ": []
+  },
+  "I14": {
+   "equal": true,
+   "differ": []
+  },
+  "I15": {
+   "equal": true,
+   "differ": []
+  },
+  "I16": {
+   "equal": true,
+   "differ": []
+  },
+  "I17": {
+   "equal": true,
+   "differ": []
+  },
+  "I18": {
+   "equal": true,
+   "differ": []
+  },
+  "I19": {
+   "equal": true,
+   "differ": []
+  },
+  "I20": {
+   "equal": true,
+   "differ": []
+  }
+ },
+ "checks": {
+  "arabic": {
+   "dir": "rtl",
+   "equal": true,
+   "heading": "AG · فيها فرق"
+  },
+  "phone": true,
+  "staleCleared": true,
+  "keyboard": true
+ },
+ "errors": [],
+ "external": [],
+ "summary": {
+  "stories": "20/20",
+  "checks": {
+   "arabic": true,
+   "phone": true,
+   "staleCleared": true,
+   "keyboard": true
+  }
+ }
+}

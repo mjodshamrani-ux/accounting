@@ -1,0 +1,235 @@
+{
+ "version": "bank-statement-holdout-g20-1",
+ "producers": {
+  "itext-kernel": "9.8.0",
+  "itext-layout": "9.8.0",
+  "itext-io": "9.8.0",
+  "jackson-databind": "2.22.3",
+  "java": "21.0.12.1+1-1-24.04.4-Ubuntu",
+  "pdfkit": "0.20.2",
+  "fontkit": "2.0.4",
+  "bidi-js": "1.0.3",
+  "write-excel-file": "4.1.1",
+  "node": "22.22.0",
+  "openspout": "4.32.0",
+  "php": "8.3.6",
+  "cashbookCsv": "Python csv, UTF-8, CRLF"
+ },
+ "fonts": {
+  "BalooBhaijaan2_400Regular.ttf": {
+   "source": "@expo-google-fonts/baloo-bhaijaan-2 0.4.2: 400Regular/BalooBhaijaan2_400Regular.ttf",
+   "sha256": "6650cc70dd3df00af50ca8841df51943006edd010bbd0e4e3114086a25483d39"
+  },
+  "BalooBhaijaan2_700Bold.ttf": {
+   "source": "@expo-google-fonts/baloo-bhaijaan-2 0.4.2: 700Bold/BalooBhaijaan2_700Bold.ttf",
+   "sha256": "1e953ffb78273b44d79575da2e13cf9f72d13e9a71b1183d6e49e62b02080619"
+  },
+  "Changa_400Regular.ttf": {
+   "source": "@expo-google-fonts/changa 0.4.2: 400Regular/Changa_400Regular.ttf",
+   "sha256": "3eaf8505951faa5ebcb4aaafec4df4c8a7a8e8c7aec9b3fda136da5ad0c5fc24"
+  },
+  "Changa_700Bold.ttf": {
+   "source": "@expo-google-fonts/changa 0.4.2: 700Bold/Changa_700Bold.ttf",
+   "sha256": "0964d016c426c5aa9790f91129e08748d0e7b605164f46d4a586f98e11e58d73"
+  },
+  "DMSans_400Regular.ttf": {
+   "source": "@expo-google-fonts/dm-sans 0.4.2: 400Regular/DMSans_400Regular.ttf",
+   "sha256": "20ccb90498d8ca511bb0be31a74eccd5f29fbe1161852ef72781b703929e98ec"
+  },
+  "DMSans_700Bold.ttf": {
+   "source": "@expo-google-fonts/dm-sans 0.4.2: 700Bold/DMSans_700Bold.ttf",
+   "sha256": "3764a2ce62fa95596c3315c1a0ca379e7cf827ed397c97fc036925b9b20b74dc"
+  },
+  "Inconsolata_400Regular.ttf": {
+   "source": "@expo-google-fonts/inconsolata 0.4.2: 400Regular/Inconsolata_400Regular.ttf",
+   "sha256": "e0267abf9d734e2b9f766f8cb7a496b552c57cdfeacfa0efdc5bfd21940ae145"
+  },
+  "Inconsolata_700Bold.ttf": {
+   "source": "@expo-google-fonts/inconsolata 0.4.2: 700Bold/Inconsolata_700Bold.ttf",
+   "sha256": "bc133a205c09ca6be9ad2b8d32a4d94bc08deb01a4da62ac27a31843e08daffd"
+  },
+  "Karla_400Regular.ttf": {
+   "source": "@expo-google-fonts/karla 0.4.2: 400Regular/Karla_400Regular.ttf",
+   "sha256": "ca81c0cee5a620bdbe56f15ccb849f69a464dd47ac0bf581157e2ce0fb602b59"
+  },
+  "Karla_700Bold.ttf": {
+   "source": "@expo-google-fonts/karla 0.4.2: 700Bold/Karla_700Bold.ttf",
+   "sha256": "8522b021086f1010c78b3d6bb6e9350004837e53b56748dbd40b0f7724330e07"
+  },
+  "Kufam_400Regular.ttf": {
+   "source": "@expo-google-fonts/kufam 0.4.1: 400Regular/Kufam_400Regular.ttf",
+   "sha256": "99ce19685fe87fcfe6995143b152fd9ec1bb9124d34344da3011e9013be4bfc7"
+  },
+  "Kufam_700Bold.ttf": {
+   "source": "@expo-google-fonts/kufam 0.4.1: 700Bold/Kufam_700Bold.ttf",
+   "sha256": "6ed017ac8ca984985fd1e67106cf4fd07bfa7185dd46b449d0e13a766bd48339"
+  },
+  "Lora_400Regular.ttf": {
+   "source": "@expo-google-fonts/lora 0.4.2: 400Regular/Lora_400Regular.ttf",
+   "sha256": "7ed00e7c9cdf16ab7e2fd2361fe45d4f0b61263cd60aae398b27b7ee08108827"
+  },
+  "Lora_700Bold.ttf": {
+   "source": "@expo-google-fonts/lora 0.4.2: 700Bold/Lora_700Bold.ttf",
+   "sha256": "7d74015e950c2fb66519c7295b8155621d22200ae2ca2a4c6b43ce3c490cac87"
+  },
+  "RobotoMono_400Regular.ttf": {
+   "source": "@expo-google-fonts/roboto-mono 0.4.2: 400Regular/RobotoMono_400Regular.ttf",
+   "sha256": "e4bf45837847d4abfa5a502b807a83393aa138727bdb9ea9c93fb17d53208d95"
+  },
+  "RobotoMono_700Bold.ttf": {
+   "source": "@expo-google-fonts/roboto-mono 0.4.2: 700Bold/RobotoMono_700Bold.ttf",
+   "sha256": "92649d819cc4c20480b23a47aaa111769924eb31c66b6ecdcf6f573662558c83"
+  },
+  "SourceSans3-Regular.otf": {
+   "source": "source-sans 3.52.0: OTF/SourceSans3-Regular.otf",
+   "sha256": "08df266400933d3178d081a45f94a08814c3e55b4b7dd2e0ff69cb1329f13ab6"
+  },
+  "SourceSans3-Bold.otf": {
+   "source": "source-sans 3.52.0: OTF/SourceSans3-Bold.otf",
+   "sha256": "7776ddb9f3eb58683e59f28d558d8896b768c2d0c80799fb3f1c56c54dfd98c9"
+  }
+ },
+ "holdout": {
+  "file": "holdout.json",
+  "sha256": "9bcca450535774de664091fc59cd3f42bbde60c6a4aa585f549bb9d44d3568e0"
+ },
+ "facts": {
+  "file": "stories.json",
+  "stored": false,
+  "recipe": "python3 -B audit/bank-statement-holdout-g20/stories.py",
+  "sha256": "ba6a0bd1c70bd8ef0e74b01efc2407c435c381c2e52698567aa9a0791f26dc6a",
+  "bytes": 331448
+ },
+ "files": [
+  {
+   "file": "W01-cashbook.csv",
+   "sha256": "a2eca10407a8771e9b8043b2e4a6127f59bcb5135519d5bf002463601bfd9867",
+   "bytes": 5069
+  },
+  {
+   "file": "W01-statement.pdf",
+   "sha256": "f0003d93b73439eb8f6096ddffd2fd04cf1ceccadb3ab4225d954cbfc0257eb9",
+   "bytes": 24622
+  },
+  {
+   "file": "W02-cashbook.csv",
+   "sha256": "b4aebeafeed65e0ba41fdc613f9f16c838b2fd5cbed9eb3317743ff9419d0dde",
+   "bytes": 4963
+  },
+  {
+   "file": "W02-statement.pdf",
+   "sha256": "e8c4a4215877b7f863f8863fd04e4d902079a063b4454f31f95ff3de8070bc7e",
+   "bytes": 261436
+  },
+  {
+   "file": "W03-cashbook.csv",
+   "sha256": "8074e35f266fc9a4ae4298af21d68722b5b68bc176d9f636cd7ab28fe22745c2",
+   "bytes": 4593
+  },
+  {
+   "file": "W03-cashbook.xlsx",
+   "sha256": "5be887cd875264fce188e4ea8cef9d8aff079632f67cc09da7372e4426beb360",
+   "bytes": 6838
+  },
+  {
+   "file": "W03-statement.pdf",
+   "sha256": "7d99095db4417d814c18f3792368c984091949d9e5ba4afdb2066675a3d16633",
+   "bytes": 24669
+  },
+  {
+   "file": "W04-cashbook.csv",
+   "sha256": "25db3beefd9937ef3c354e861c90d6e639cf88f219a74c6a30febc572a6817a3",
+   "bytes": 11436
+  },
+  {
+   "file": "W04-statement.pdf",
+   "sha256": "428644e8a0d1f8f93989cf9c3a5a08fe5b29292178d2be508a68433fdca709ae",
+   "bytes": 43686
+  },
+  {
+   "file": "W05-cashbook.csv",
+   "sha256": "5310047bc0b0da7f56e12f290eb87ff74ca1dc3da6d7e7537f9dfe240933a513",
+   "bytes": 4817
+  },
+  {
+   "file": "W05-statement.pdf",
+   "sha256": "11a3a1b66227718342280068c8fa5563ff9fc653a5aff42a872757c71c34fc34",
+   "bytes": 24590
+  },
+  {
+   "file": "W06-cashbook.csv",
+   "sha256": "67faff91b643eabd26189e912f2ccbb7ca3f630e4cecf76f81686e1949e11750",
+   "bytes": 4911
+  },
+  {
+   "file": "W06-statement.pdf",
+   "sha256": "4835c7b79bd4711f818c98f2c5c4328d195282b7c7fdf9f7e6b0744a0270bd45",
+   "bytes": 21835
+  },
+  {
+   "file": "W07-cashbook.csv",
+   "sha256": "7eeca794d20745297d85a6b9e39f939616019e23c2910ed67b2a15d62edfebc7",
+   "bytes": 6121
+  },
+  {
+   "file": "W07-statement.pdf",
+   "sha256": "d0b8e426a757084803b9ad3be8ee9662bdc81d7c21846d4bc7645c5a3af4744c",
+   "bytes": 29857
+  },
+  {
+   "file": "W08-cashbook.csv",
+   "sha256": "8f8eaab1ecdb796560becca062d0d064e0601515b4a42170aed88e140c4db088",
+   "bytes": 5636
+  },
+  {
+   "file": "W08-statement.pdf",
+   "sha256": "fe0a41bcff1c76099db4ac9405fa44d862d7c624ee813831e9adc4d2e4a24687",
+   "bytes": 40385
+  },
+  {
+   "file": "W09-cashbook.csv",
+   "sha256": "c7b0515143aaec823d85ce6971716e8de6b8fcfa93c8a8b8d4f53f3a288b1ba2",
+   "bytes": 6652
+  },
+  {
+   "file": "W09-statement.pdf",
+   "sha256": "71b2a3e938488f35a100a944ea5529b8035e7d4944a8ae2ff359fa42d0488e7d",
+   "bytes": 32947
+  },
+  {
+   "file": "W10-cashbook.csv",
+   "sha256": "3fa8ae840fbdc8d4a4c44708313e0c396f40cdb57ab3a648dcd7bff857a7120c",
+   "bytes": 5816
+  },
+  {
+   "file": "W10-cashbook.xlsx",
+   "sha256": "26b3e64eb42026e13b693b09063c99470911418cb7713ad1dbacdfde4990b2be",
+   "bytes": 5669
+  },
+  {
+   "file": "W10-statement.pdf",
+   "sha256": "a880d74ff0be8fdc4494a24f2a331a45785ff81364c8abb20123d3f97a92895b",
+   "bytes": 29959
+  },
+  {
+   "file": "W11-cashbook.csv",
+   "sha256": "e83d3d406f8fa5e71d7e023dd110aefb06ebbe6db3de61ee57ff9bff508ae363",
+   "bytes": 4842
+  },
+  {
+   "file": "W11-statement.pdf",
+   "sha256": "3d029d6bc57efe241e41a0d124382321e54ed573cff3a0d97ae41630da529f39",
+   "bytes": 28902
+  },
+  {
+   "file": "W12-cashbook.csv",
+   "sha256": "1476df2cb231c4fde0263f1d09882c00235bda12e988352247f54c39b8d88df1",
+   "bytes": 5546
+  },
+  {
+   "file": "W12-statement.pdf",
+   "sha256": "0c7f789f7232a8d92f852820af36472c71eb3bac997d8709e0df92934975439e",
+   "bytes": 28979
+  }
+ ]
+}

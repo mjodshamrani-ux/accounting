@@ -1,0 +1,33 @@
+{
+ "format": "tarasuf-column-map",
+ "version": 1,
+ "role": "bank-cashbook",
+ "name": "Northwind current",
+ "header": 5,
+ "columns": {
+  "date": {
+   "column": 1,
+   "label": "Posting Date"
+  },
+  "voucher": {
+   "column": 2,
+   "label": "Doc. No."
+  },
+  "description": {
+   "column": 3,
+   "label": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+  },
+  "reference": {
+   "column": 4,
+   "label": "Cheque / Ref."
+  },
+  "receipts": {
+   "column": 5,
+   "label": "Money In"
+  },
+  "payments": {
+   "column": 6,
+   "label": "Money Out"
+  }
+ }
+}

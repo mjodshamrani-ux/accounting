@@ -1,0 +1,20 @@
+{
+ "schema": "tarasuf-ic1-batch-holdout-seal/1",
+ "statement": "Sealed before any product run on these files. The first engine and browser runs are recorded as they come.",
+ "pins": {
+  "INPUT-MANIFEST.json": "f46ce0ae8432c8d96dc836e755db130e4bb8fdabfb70c1afd3e5c96982f33b24",
+  "EXPECTED.json": "5826df9e1cb0ef11c629c4c6eac12029d6f3004ad3638924c48ea50adef7616a",
+  "VERIFY.json": "a2b0e7073d6de0c94a072518428baace5233a2355e19144696f539a27ebd76a0",
+  "ELIGIBILITY.json": "28652f2080e218825ff725b3bac2937c10e547db91d50396495edf731d96186d",
+  "stories.py": "2cd7205eded8970640bc50702d9cd4571e0e7d6df70fd924b3c85d55bb103ec8",
+  "render.py": "206bab8b6b5af279661afccbf7a88e4659586a1bb2ec7f6410c76ed7d1c14c8a",
+  "render.go": "faf29c69edf246df087c531808e7eadd5cead363fe7b487a6d96288afad53fde",
+  "render.php": "770d1c0318bc9979bd15ac7be203a914d326af346fe2f31d1ed8aa2162fb2fc1",
+  "Render.java": "b9931e650f5561e0dd75a5fabbe2507ecbafe2c80cc8de0360703f2b0df5e634",
+  "verify.py": "649befa52291dc6412eb2bad6c32dafb186e1eea480eb0bb454698ce7b44c3ff",
+  "eligibility.py": "6cee0cddbccc85553ef7d486a70a0300e97ded46944367cc73abb6c7f078feae",
+  "test_intent.py": "8b58c268187da8b1d0bcf62170d6e080d9dd730514d8ba2c2f77985362a85229",
+  "../intercompany-batch-foundation/contract.json": "d8cf11147e4a0f35ac9a501ba1adaeb010b91610a20b8e777cc6046fb6d11351",
+  "../intercompany-batch-foundation/oracle.py": "79080ebbc3c303e6eb3d02466b77a7684b736851d1d3008b4a62f46d064cca1e"
+ }
+}

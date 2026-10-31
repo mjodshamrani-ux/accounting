@@ -1,0 +1,6 @@
+Relation ID,Batch ID,Side,Transaction ID,Relationship reference,Valid from,Valid to
+R-5001,AB,A,A-5001,Invoice A-5001,2026-01-01,2026-12-31
+R-5001,AB,B,B-5001,Invoice A-5001,2026-01-01,2026-12-31
+R-5002,AB,A,A-5002,"Credit note A-5002 against invoice A-5001, not yet booked by Beta",2026-01-01,2026-12-31
+R-5003,AG,A,A-5003,Invoice A-5003,2026-01-01,2026-12-31
+R-5003,AG,B,G-5003,Invoice A-5003,2026-01-01,2026-12-31

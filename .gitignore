@@ -72,3 +72,6 @@ audit/payroll/__pycache__/
 # Local Python execution caches
 __pycache__/
 *.pyc
+
+# Claude Code personal settings
+/.claude/settings.local.json

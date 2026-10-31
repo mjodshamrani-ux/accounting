@@ -1,0 +1,122 @@
+{
+ "holdout": "audit/bank-review-holdout-r3",
+ "summary": {
+  "stories": 20,
+  "equalToExpected": 20,
+  "heldAsExpected": 1,
+  "refusedAsExpected": 1,
+  "actionsRefused": 0,
+  "savedAndRestored": 19,
+  "failed": 0,
+  "workbooks": {
+   "exported": 18,
+   "accepted": 18,
+   "rejected": {}
+  },
+  "decisionActions": {
+   "caseByCase": 96,
+   "withQueue": 25
+  }
+ },
+ "stories": {
+  "R01": {
+   "equal": true,
+   "differences": [],
+   "savedAndRestored": true
+  },
+  "R02": {
+   "equal": true,
+   "differences": [],
+   "savedAndRestored": true
+  },
+  "R03": {
+   "equal": true,
+   "differences": [],
+   "savedAndRestored": true
+  },
+  "R04": {
+   "equal": true,
+   "differences": [],
+   "savedAndRestored": true
+  },
+  "R05": {
+   "equal": true,
+   "differences": [],
+   "savedAndRestored": true
+  },
+  "R06": {
+   "equal": true,
+   "differences": [],
+   "savedAndRestored": true
+  },
+  "R07": {
+   "equal": true,
+   "differences": [],
+   "savedAndRestored": true
+  },
+  "R08": {
+   "equal": true,
+   "differences": []
+  },
+  "R09": {
+   "equal": true,
+   "differences": [],
+   "savedAndRestored": true
+  },
+  "R10": {
+   "equal": true,
+   "differences": [],
+   "savedAndRestored": true
+  },
+  "R11": {
+   "equal": true,
+   "differences": [],
+   "savedAndRestored": true
+  },
+  "R12": {
+   "equal": true,
+   "differences": [],
+   "savedAndRestored": true
+  },
+  "R13": {
+   "equal": true,
+   "differences": [],
+   "savedAndRestored": true
+  },
+  "R14": {
+   "equal": true,
+   "differences": [],
+   "savedAndRestored": true
+  },
+  "R15": {
+   "equal": true,
+   "differences": [],
+   "savedAndRestored": true
+  },
+  "R16": {
+   "equal": true,
+   "differences": [],
+   "savedAndRestored": true
+  },
+  "R17": {
+   "equal": true,
+   "differences": [],
+   "savedAndRestored": true
+  },
+  "R18": {
+   "equal": true,
+   "differences": [],
+   "savedAndRestored": true
+  },
+  "R19": {
+   "equal": true,
+   "differences": [],
+   "savedAndRestored": true
+  },
+  "R20": {
+   "equal": true,
+   "differences": [],
+   "savedAndRestored": true
+  }
+ }
+}

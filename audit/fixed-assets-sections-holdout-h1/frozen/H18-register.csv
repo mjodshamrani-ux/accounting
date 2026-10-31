@@ -1,0 +1,25 @@
+Section,SEC-FIN-RM
+Entity,Synthetic Pearl Coast Hotels Co
+Asset ledger,FAR-HTL
+Currency,KWD
+As of,2028-03-31
+Location,Fintas beach resort
+Category,Guest room furniture
+Asset ID,Asset dimensions,Component,Amount,Valuation reference
+RM-1101,FIN-W2,cost,2750.000,VAL-SEC-FIN-RM
+RM-1101,FIN-W2,depreciation,1100.000,VAL-SEC-FIN-RM
+RM-1101,FIN-W2,impairment,0.000,VAL-SEC-FIN-RM
+RM-1101,FIN-W2,carrying,1650.000,VAL-SEC-FIN-RM
+End section,SEC-FIN-RM
+Section,SEC-FIN-LDY
+Entity,Synthetic Pearl Coast Hotels Co
+Asset ledger,FAR-HTL
+Currency,KWD
+As of,2028-03-31
+Category,Laundry machines
+Asset ID,Asset dimensions,Component,Amount,Valuation reference
+LDY-0901,JAH-B,cost,7300.375,VAL-SEC-FIN-LDY
+LDY-0901,JAH-B,depreciation,2920.150,VAL-SEC-FIN-LDY
+LDY-0901,JAH-B,impairment,0.000,VAL-SEC-FIN-LDY
+LDY-0901,JAH-B,carrying,4380.225,VAL-SEC-FIN-LDY
+End section,SEC-FIN-LDY

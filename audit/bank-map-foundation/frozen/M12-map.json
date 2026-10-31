@@ -1,0 +1,33 @@
+{
+ "format": "tarasuf-column-map",
+ "version": 1,
+ "role": "bank-cashbook",
+ "name": "حساب التحصيل",
+ "header": 3,
+ "columns": {
+  "date": {
+   "column": 2,
+   "label": "التاريخ"
+  },
+  "voucher": {
+   "column": 1,
+   "label": "رقم السند"
+  },
+  "description": {
+   "column": 5,
+   "label": "الإيضاح"
+  },
+  "reference": {
+   "column": 4,
+   "label": "المرجع"
+  },
+  "receipts": {
+   "column": 6,
+   "label": "مدين"
+  },
+  "payments": {
+   "column": 7,
+   "label": "دائن"
+  }
+ }
+}

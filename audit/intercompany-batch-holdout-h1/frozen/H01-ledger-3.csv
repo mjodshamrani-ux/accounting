@@ -1,0 +1,7 @@
+Entity,Counterparty,Ledger,Account ID,Complete dimensions,Transaction ID,Counterparty transaction ID,Posting date,Debit,Credit,Currency,Currency basis,FX policy,Posting status,Posting layer,Period start,Period end,As of,Policy version
+Pillar Retail Est.,Nadir Industrial Co,PILLAR-LEDGER,IC-PAY-01,branch=RUH,P-010,N-010,2027-03-04,0.00,2000.07,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+Pillar Retail Est.,Nadir Industrial Co,PILLAR-LEDGER,IC-PAY-01,branch=RUH,P-011,N-011,2027-03-05,0.00,2037.08,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+Pillar Retail Est.,Orbit Logistics LLC,PILLAR-LEDGER,IC-PAY-04,branch=RUH,P-040,O-040,2027-03-04,0.00,5000.28,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+Pillar Retail Est.,Orbit Logistics LLC,PILLAR-LEDGER,IC-PAY-04,branch=RUH,P-041,O-041,2027-03-05,0.00,5037.29,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+Pillar Retail Est.,Quartz Services WLL,PILLAR-LEDGER,IC-REC-07,branch=RUH,P-070,Q-070,2027-03-03,8000.49,0.00,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+Pillar Retail Est.,Quartz Services WLL,PILLAR-LEDGER,IC-REC-07,branch=RUH,P-071,Q-071,2027-03-04,8037.50,0.00,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7

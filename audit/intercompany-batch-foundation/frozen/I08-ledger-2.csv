@@ -1,0 +1,4 @@
+Entity,Counterparty,Ledger,Account ID,Complete dimensions,Transaction ID,Counterparty transaction ID,Posting date,Debit,Credit,Currency,Currency basis,FX policy,Posting status,Posting layer,Period start,Period end,As of,Policy version
+Synthetic Beta Trading,Synthetic Alpha Holding,Beta GL,2350,cc=200,B-8001,A-8000,2026-09-11,0.00,4000.00,SAR,functional,same-currency-no-conversion,posted,actual,2026-09-01,2026-09-30,2026-09-30,IC-1-2026
+Synthetic Beta Trading,Synthetic Alpha Holding,Beta GL,2350,cc=200,B-8002,A-8000,2026-09-11,0.00,3000.00,SAR,functional,same-currency-no-conversion,posted,actual,2026-09-01,2026-09-30,2026-09-30,IC-1-2026
+Synthetic Beta Trading,Synthetic Alpha Holding,Beta GL,2350,cc=200,B-8009,A-8090,2026-09-28,0.00,2000.00,SAR,functional,same-currency-no-conversion,posted,actual,2026-09-01,2026-09-30,2026-09-30,IC-1-2026

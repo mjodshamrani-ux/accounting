@@ -1,0 +1,89 @@
+{
+ "schema": "tarasuf-inv3-register-links-foundation/1",
+ "status": "proposed contract and frozen synthetic foundation before any product support for per-row inventory links",
+ "synthetic": true,
+ "holdout": false,
+ "productEnabled": false,
+ "proposedEvidence": "inventory-register-links-1",
+ "family": "inventory-posted-register-gl-1, its decisions unchanged: one posted value per item and dimensions at one date, compared with a map, policy evidence and GL balances",
+ "plan": "docs/roadmap/inventory.ar.md#inv-3-\u0643\u062b\u0627\u0641\u0629-\u0627\u0644\u0645\u0635\u062f\u0631-\u0648\u0627\u0644\u062a\u0635\u062f\u064a\u0631--\u0642\u0627\u0626\u0645\u0629-\u0627\u0644\u0627\u0646\u062a\u0638\u0627\u0631-\u0628\u0639\u062f-inv-2-\u0648c-3",
+ "challengeIds": [
+  "INV",
+  "CH-06",
+  "CH-09",
+  "CH-12",
+  "CH-13"
+ ],
+ "why": "An inventory of a few thousand items is checked against a map, policy evidence and GL balances. When some items do not link, the accountant has to find which register row failed and why. Today the family records a missing key per item and dimensions, 'mapping:' or 'evidence:', and the workbook writes it in one Missing column. A unit that differs, a quantity precision that differs, a valuation reference that differs, another GL account on the evidence, or evidence for another item all read the same 'evidence:' key; two mappings read the same as none; and no row says which mapping, evidence or GL rows were tried. Only the PDF reading records links per register row, and without reasons.",
+ "claim": "For every parsed register record: the mapping, evidence and GL records the family's own rule looked at, and either linked or unlinked with the reasons the rule failed; for every parsed mapping, evidence and GL record that no linked register record uses, why; on the screen and in the workbook, at every size the family admits. Not a new decision: the financial outcome, the missing keys, the comparisons, the totals, the issues and the review status stay exactly as the family decides them.",
+ "links": {
+  "register": "One link per parsed register record, in record order: the record ID and source row, Item ID and Item dimensions as read, the mapping records whose Item ID and Item dimensions equal the register record's (all of them, in record order), and, only when there is exactly one such mapping, the evidence records whose Evidence ID equals that mapping's Evidence ID (all of them, in record order), the GL account and GL dimensions that mapping names, and the GL records with that GL account and GL dimensions (all of them, in record order).",
+  "status": "linked when there is exactly one mapping, exactly one evidence record and the evidence equals the register record and the mapping on Item ID, Item dimensions, Unit, Quantity precision, Valuation reference, GL account and GL dimensions; otherwise unlinked. This is the family's own rule for contributing a posted value, unchanged.",
+  "glRows": "A linked register record whose account has no GL record is linked with no GL records; the account is listed as unlinked (NO_GL_RECORD).",
+  "order": "Links in the order of the register records; related records in their own record order."
+ },
+ "reasons": {
+  "NO_MAPPING": "No parsed mapping record names the register record's Item ID and Item dimensions.",
+  "MAPPINGS": "Two or more parsed mapping records name them. All are listed; none is chosen.",
+  "NO_EVIDENCE": "The single mapping names an Evidence ID that no parsed evidence record has.",
+  "EVIDENCES": "Two or more parsed evidence records have that Evidence ID. All are listed; none is chosen.",
+  "EVIDENCE_ITEM": "The single evidence record's Item ID differs from the register record's.",
+  "EVIDENCE_DIMENSIONS": "Its Item dimensions differ from the register record's.",
+  "EVIDENCE_UNIT": "Its Unit differs from the register record's.",
+  "EVIDENCE_PRECISION": "Its Quantity precision differs from the register record's.",
+  "EVIDENCE_VALUATION": "Its Valuation reference differs from the register record's.",
+  "EVIDENCE_ACCOUNT": "Its GL account differs from the mapping's.",
+  "EVIDENCE_ACCOUNT_DIMENSIONS": "Its GL dimensions differ from the mapping's.",
+  "rule": "An unlinked register record has exactly one of NO_MAPPING, MAPPINGS, NO_EVIDENCE or EVIDENCES, or one or more EVIDENCE_ codes, every field that differs, in the order above. Compared as read: no case change, no trimming beyond the family's reading, no leading zero added or removed."
+ },
+ "unlinked": {
+  "mapping": "A parsed mapping record whose Item ID and Item dimensions no parsed register record has: NO_REGISTER.",
+  "evidence": "A parsed evidence record whose Evidence ID no parsed mapping record names: NO_MAPPING.",
+  "gl": "A parsed GL record whose GL account and GL dimensions no linked register record's mapping names: NO_LINKED_REGISTER.",
+  "account": "A GL account and GL dimensions that a linked register record's mapping names and no parsed GL record has: NO_GL_RECORD.",
+  "order": "Mapping records, then evidence records, then GL records, each in record order; then accounts in the order of their first linked register record."
+ },
+ "consistency": "The family's missing keys are exactly what the links say: mapping:<key> for each Item ID and Item dimensions with an unlinked register record whose reason is NO_MAPPING or MAPPINGS; evidence:<key> for one with any other reason; orphan-mapping:<Mapping ID>, orphan-evidence:<Evidence ID>, account:<key> and gl:<key> for the unlinked records and accounts above; source:<n> for an empty role. A link that disagrees with the missing keys is a defect of the link, never a reason to change the decision.",
+ "screen": "The inventory workspace shows the unlinked register records with their row, Item ID, Item dimensions and reasons in words and codes, and the unlinked mapping, evidence and GL records and accounts, in Arabic and English, in pages, with the linked count.",
+ "workbook": {
+  "Links": "One row per register record, in order: Register record ID, Source row, Item ID, Item dimensions, Status, Reasons (codes separated by spaces, empty when linked), GL account, GL dimensions.",
+  "Link members": "One row per related record of each link: Register source row, Role (mapping, evidence or gl), Related source row, Related record ID, and the related key (Mapping ID, Evidence ID, or GL account and GL dimensions).",
+  "Unlinked records": "One row per unlinked mapping, evidence or GL record and per unlinked account: Role, Source row (empty for an account), Key, Reason.",
+  "text": "Every identity cell is written as text exactly as read: leading zeros, a code that looks like a number or a date, Arabic and spaces kept. Every register record has its row; nothing is truncated."
+ },
+ "density": {
+  "ceiling": "The family admits at most 20,000 data rows across its four files. A fully mapped inventory with one mapping and one evidence row per item uses three rows per item, so it reaches at most 6,658 items: 19,974 rows, and room for 26 GL rows. A foundation story sits exactly on 20,000 rows; another passes it by one row and must be refused as today.",
+  "measure": "At each dense story: read, check and export in the built application through the worker, with the time of each on this container recorded, and the workbook verified row by row by an independent reader. A time is a measurement, not a budget; a failure or a missing row is a defect."
+ },
+ "unchanged": [
+  "financial",
+  "status",
+  "review",
+  "missing",
+  "comparisons",
+  "totals",
+  "issues",
+  "records",
+  "cells",
+  "inventory",
+  "memberIds",
+  "context",
+  "events",
+  "the PDF reading's own links"
+ ],
+ "ownerDecisions": {
+  "K1": "Reasons are reported, never acted on: no unlinked record is linked by a reason, and no reason changes the financial outcome.",
+  "K2": "Every competing mapping or evidence record is listed and none is chosen, so two mappings are MAPPINGS, not the first.",
+  "K3": "Every differing evidence field is listed, not the first, so an accountant fixing the unit learns about the precision too.",
+  "K4": "Links are recorded for every reading of the family (CSV, XLSX, sections, matrix, hierarchy, column and PDF), from the parsed records; a row that does not parse stays an issue and has no link.",
+  "K5": "A malformed mapping or evidence row does not count as a mapping or evidence: the register record reads NO_MAPPING or NO_EVIDENCE beside the issue that names the malformed row.",
+  "K6": "Identity is compared as read, as the family compares it: 00420 and 420, or Warehouse and warehouse, are different."
+ },
+ "notInScope": [
+  "a change to any decision of the family",
+  "matching by similarity, case folding or trimming",
+  "XLSX and PDF stories in the foundation (they come with the holdout and the families' existing fixtures)",
+  "a streaming workbook writer or other memory work (C-3)",
+  "devices other than this container's Chromium"
+ ]
+}

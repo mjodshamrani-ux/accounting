@@ -1,0 +1,251 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-run/1",
+ "commit": "a6ad5d971f730714bbc4294149e11f0648b6762e",
+ "productSourceChanged": false,
+ "summary": {
+  "positivesCompleted": [
+   "Q09"
+  ],
+  "positivesFailed": [
+   "Q01",
+   "Q02",
+   "Q03",
+   "Q04",
+   "Q06",
+   "Q07",
+   "Q08",
+   "Q10"
+  ],
+  "eligiblePositives": 9,
+  "heldCorrectly": [
+   "Q05",
+   "Q12"
+  ],
+  "readingOk": [
+   "Q05",
+   "Q09",
+   "Q12"
+  ],
+  "refused": [
+   "Q01",
+   "Q02",
+   "Q03",
+   "Q04",
+   "Q06",
+   "Q07",
+   "Q08",
+   "Q10",
+   "Q11"
+  ],
+  "falseAutomatic": 0
+ },
+ "statements": [
+  {
+   "id": "Q01",
+   "producer": "pdfbox",
+   "layout": "en",
+   "refused": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا مقصوصًا أو طريقة قص غير مدعومة. اطلب نسخة نصية بسيطة أو Excel.",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا مقصوصًا أو طريقة قص غير مدعومة. اطلب نسخة نصية بسيطة أو Excel."
+    ]
+   }
+  },
+  {
+   "id": "Q02",
+   "producer": "pdfbox",
+   "layout": "ar",
+   "refused": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel."
+    ]
+   }
+  },
+  {
+   "id": "Q03",
+   "producer": "pdfbox",
+   "layout": "en",
+   "refused": "BANK_STATEMENT_READING: page 1 line 6: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: BANK_STATEMENT_READING: page 1 line 6: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة."
+    ]
+   }
+  },
+  {
+   "id": "Q04",
+   "producer": "pdfbox",
+   "layout": "ar",
+   "refused": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel."
+    ]
+   }
+  },
+  {
+   "id": "Q05",
+   "producer": "pdfbox",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "balance-broken",
+    "expected": "balance-broken",
+    "reason": "page 2: printed balance 9390360 != 10150908 (items 68,70,72,74,76,78)",
+    "pages": 3,
+    "period": {
+     "start": "2026-08-01",
+     "end": "2026-08-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 32,
+    "equal": true,
+    "held": "balance-broken: page 2: printed balance 9390360 != 10150908 (items 68,70,72,74,76,78)",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "Q06",
+   "producer": "pdfbox",
+   "layout": "en",
+   "refused": "BANK_STATEMENT_FIELD: page 6 line 6: date needs one value",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: BANK_STATEMENT_FIELD: page 6 line 6: date needs one value"
+    ]
+   }
+  },
+  {
+   "id": "Q07",
+   "producer": "jspdf",
+   "layout": "en",
+   "refused": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة."
+    ]
+   }
+  },
+  {
+   "id": "Q08",
+   "producer": "jspdf",
+   "layout": "ar",
+   "refused": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel.",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel."
+    ]
+   }
+  },
+  {
+   "id": "Q09",
+   "producer": "jspdf",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 2,
+    "period": {
+     "start": "2026-11-01",
+     "end": "2026-11-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 26,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   },
+   "xlsx": {
+    "cashbookRows": 26,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "Q10",
+   "producer": "jspdf",
+   "layout": "ar",
+   "refused": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel.",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel."
+    ]
+   }
+  },
+  {
+   "id": "Q11",
+   "producer": "jspdf",
+   "layout": "en",
+   "refused": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة."
+    ]
+   }
+  },
+  {
+   "id": "Q12",
+   "producer": "jspdf",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "incomplete-pages",
+    "expected": "incomplete-pages",
+    "reason": "pages 1,3 of 3",
+    "pages": 2,
+    "period": {
+     "start": "2026-03-01",
+     "end": "2026-03-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 28,
+    "equal": true,
+    "held": "incomplete-pages: pages 1,3 of 3",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  }
+ ]
+}

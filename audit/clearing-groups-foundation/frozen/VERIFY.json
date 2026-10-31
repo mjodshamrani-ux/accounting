@@ -1,0 +1,62 @@
+{
+ "schema": "tarasuf-clr1-verify/1",
+ "factsSha256": "604e6ad3d86f47d373ccfe8db3656adb53c56e930319035c70fca049d8fc2dd1",
+ "files": 32,
+ "cells": 1820,
+ "passed": true,
+ "problems": [],
+ "selfTest": [
+  {
+   "plant": "one amount changed",
+   "rejected": true
+  },
+  {
+   "plant": "one line dropped",
+   "rejected": true
+  },
+  {
+   "plant": "byte-order mark removed",
+   "rejected": true
+  },
+  {
+   "plant": "LF in a CRLF file",
+   "rejected": true
+  },
+  {
+   "plant": "a field left unquoted where every field is quoted",
+   "rejected": true
+  },
+  {
+   "plant": "a field quoted that needs none",
+   "rejected": true
+  },
+  {
+   "plant": "a quoted comma unquoted",
+   "rejected": true
+  },
+  {
+   "plant": "an Arabic-Indic digit changed",
+   "rejected": true
+  },
+  {
+   "plant": "an XLSX row no longer hidden",
+   "rejected": true
+  },
+  {
+   "plant": "an XLSX formula removed",
+   "rejected": true
+  },
+  {
+   "plant": "an XLSX date changed",
+   "rejected": true
+  },
+  {
+   "plant": "an input's period changed",
+   "rejected": true
+  },
+  {
+   "plant": "a file no story names",
+   "rejected": true
+  }
+ ]
+}

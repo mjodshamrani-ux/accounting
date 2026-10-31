@@ -504,7 +504,7 @@
 .reconciliation-workspace .workspace-scope,
 .reconciliation-workspace > fieldset:has(> legend):not(.language-switch),
 .reconciliation-workspace > section:not(.workspace-intro),
-.reconciliation-workspace .workspace-results {
+.reconciliation-workspace :is(.workspace-results, .workspace-review) {
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 28px;
@@ -529,7 +529,7 @@
   font-size: 18px;
   font-weight: 700;
 }
-.reconciliation-workspace .workspace-results > fieldset,
+.reconciliation-workspace :is(.workspace-results, .workspace-review) > fieldset,
 .reconciliation-workspace > section > fieldset:not(.language-switch) {
   margin: 0;
   border: 0;
@@ -538,13 +538,18 @@
   flex-direction: column;
   gap: 18px;
 }
-.reconciliation-workspace .workspace-results fieldset:has(> legend) {
+.reconciliation-workspace
+  :is(.workspace-results, .workspace-review)
+  fieldset:has(> legend) {
   padding: 18px;
   border: 1px solid var(--border);
   border-radius: 12px;
   background: #f8f9fc;
 }
-.reconciliation-workspace .workspace-results fieldset > legend {
+.reconciliation-workspace
+  :is(.workspace-results, .workspace-review)
+  fieldset
+  > legend {
   float: inline-start;
   width: 100%;
   padding: 0;
@@ -553,7 +558,7 @@
   font-weight: 650;
 }
 .reconciliation-workspace
-  .workspace-results
+  :is(.workspace-results, .workspace-review)
   > section:not([data-domain-evidence-assistant]) {
   display: flex;
   flex-direction: column;
@@ -606,11 +611,11 @@
   font-size: 16px;
   line-height: 1.8;
 }
-.reconciliation-workspace .workspace-results > p {
+.reconciliation-workspace :is(.workspace-results, .workspace-review) > p {
   color: #67758a;
   font-size: 13px;
 }
-.reconciliation-workspace .workspace-results > h2,
+.reconciliation-workspace :is(.workspace-results, .workspace-review) > h2,
 .reconciliation-workspace > section:not(.workspace-intro) > h2 {
   padding-bottom: 16px;
   border-bottom: 1px solid var(--border);
@@ -855,7 +860,12 @@
     font-size: 13px;
   }
   .reconciliation-workspace
-    :is(.workspace-source, .workspace-scope, .workspace-results),
+    :is(
+      .workspace-source,
+      .workspace-scope,
+      .workspace-results,
+      .workspace-review
+    ),
   .reconciliation-workspace > section:not(.workspace-intro),
   .reconciliation-workspace > fieldset:has(> legend):not(.language-switch) {
     padding: 20px 16px;
@@ -888,11 +898,13 @@
   .reconciliation-workspace table :is(th, td) {
     padding: 12px;
   }
-  .reconciliation-workspace .workspace-results fieldset:has(> legend) {
+  .reconciliation-workspace
+    :is(.workspace-results, .workspace-review)
+    fieldset:has(> legend) {
     padding: 14px;
   }
   .reconciliation-workspace
-    .workspace-results
+    :is(.workspace-results, .workspace-review)
     > section:not([data-domain-evidence-assistant]) {
     padding: 16px 0 0;
   }

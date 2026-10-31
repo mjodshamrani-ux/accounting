@@ -1,0 +1,64 @@
+{
+ "schema": "tarasuf-all1-advice-h1-verify/1",
+ "factsSha256": "c72c4068d7d43537e058792d4dd747f8045b23e971ff11afe8652137dd0999f4",
+ "stories": 28,
+ "files": 84,
+ "cells": 2539,
+ "decisions": 10,
+ "passed": true,
+ "problems": [],
+ "selfTest": [
+  {
+   "plant": "one amount changed",
+   "rejected": true
+  },
+  {
+   "plant": "one line dropped",
+   "rejected": true
+  },
+  {
+   "plant": "byte-order mark removed",
+   "rejected": true
+  },
+  {
+   "plant": "LF in a CR file",
+   "rejected": true
+  },
+  {
+   "plant": "LF in a CRLF file",
+   "rejected": true
+  },
+  {
+   "plant": "a quoted cell unquoted by Calc",
+   "rejected": true
+  },
+  {
+   "plant": "an extended Arabic-Indic digit changed",
+   "rejected": true
+  },
+  {
+   "plant": "an XLSX row no longer hidden",
+   "rejected": true
+  },
+  {
+   "plant": "an XLSX cell changed",
+   "rejected": true
+  },
+  {
+   "plant": "a decision naming another advice line",
+   "rejected": true
+  },
+  {
+   "plant": "a decision's amount changed",
+   "rejected": true
+  },
+  {
+   "plant": "an input cut-off changed",
+   "rejected": true
+  },
+  {
+   "plant": "a file no story names",
+   "rejected": true
+  }
+ ]
+}

@@ -1,0 +1,6 @@
+Posting ID,Document type,Own document number,Posting date,Original signed amount,Entity,Ledger,Customer,Account,Currency,Related invoice,Description
+P00001,invoice,SI-26-0801,2026-08-03,3960.00,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Display racks
+P00002,invoice,SI-26-0810,2026-08-11,12000.00,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Cold room panels
+P00003,credit-note,CN-26-0011,2026-08-14,-480.00,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,SI-26-0810,Damaged panel
+P00004,receipt,RV-26-0105,2026-08-18,-3960.00,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Bank transfer
+P00005,invoice,SI-26-0822,2026-08-27,715.25,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Door seals

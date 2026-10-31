@@ -1,0 +1,6 @@
+"Movement ID","Item ID","Item dimensions",Kind,Quantity,Unit,Value,"Movement date","Posting date","GL account","Transfer ID","Origin ID"
+PH00001,GLV-M,store=DXB-A,receipt,50,carton,5920.00,2027-04-28,2027-04-28,14100,,
+PH00002,GLV-M,store=DXB-A,opening,70,carton,8288.00,2027-05-01,2027-05-01,14100,,
+PH00003,GLV-M,store=DXB-A,return-out,6,carton,710.40,2027-05-02,2027-05-02,14100,,PH00001
+PH00004,GLV-M,store=DXB-A,issue,40,carton,4736.00,2027-05-04,2027-05-04,14100,,
+PH00005,GLV-M,store=DXB-A,closing,24,carton,2841.60,2027-05-31,2027-05-31,14100,,

@@ -1,0 +1,47 @@
+{
+ "schema": "tarasuf-wf1-review1-contract/1",
+ "family": "bank-review-queue-1",
+ "status": "proposed",
+ "scope": "The bank statement lifecycle (bank-statement-lifecycle-1): the review cases of one period, printed (PDF) statements in this foundation. Carried cases (bank-statement-roll-1) are out of this foundation's stories.",
+ "question": "Which cases need a decision first, and which of them may an accountant decide together without deciding cases that differ?",
+ "queue": {
+  "members": "Every review case of the period that needs a decision (status needs-review). Automatic matches and decided cases are not in the queue; they stay in the case tables as before.",
+  "classes": {
+   "exception": "a reason the accountant cannot accept as it stands: direction-conflict, amount-difference, duplicate-reference, ambiguous-amount-date",
+   "suggestion": "a reason the accountant may accept: amount-date-suggestion, date-gap"
+  },
+  "reasonOrder": [
+   "direction-conflict",
+   "amount-difference",
+   "duplicate-reference",
+   "ambiguous-amount-date",
+   "date-gap",
+   "amount-date-suggestion"
+  ],
+  "impact": "A case's impact is the larger of its statement members' total and its cashbook members' total, in minor units, without sign. A group's impact is the largest impact of its cases.",
+  "groupOrder": "Exceptions before suggestions (Q1); then by group impact, largest first; then by the number of members in the group, most first; then by reasonOrder; then by the group's signature as text.",
+  "caseOrder": "Within a group: by impact, largest first; then by case number, as the lifecycle numbers cases."
+ },
+ "groups": {
+  "signature": "Cases share a group only when they share all of: the reason; the directions of their members (in, out, or in+out); the number of statement members and the number of cashbook members; and, for date-gap, the number of days between the movement and the entry (Q2).",
+  "never": "Cases of different reasons, directions, shapes or date gaps are never in one group. A decided case is never in a group."
+ },
+ "bulk": {
+  "offered": "For a group of two or more cases. Accept only when the group's reason is a suggestion; reject for any group (Q4).",
+  "records": "One decision per case of the group, in the group's case order, each with its own case number, exact members and context, the same type, note and time. Nothing else is recorded: the session format and its version are unchanged (Q3).",
+  "note": "One note for the group, required as for a single decision.",
+  "undo": "Per case only: undoing one case of a group decision leaves the other cases decided.",
+  "again": "A later group decision covers only the cases of the group still needing a decision."
+ },
+ "invalidation": "Every decision is bound to the context of the files it was taken on (bank-statement-lifecycle-1). A session whose source changed after a group decision is refused with BANK_STATEMENT_DECISION, as it is after single decisions; nothing of the group survives silently.",
+ "measure": "On the same stories, the number of decision actions and the time to decide every case in the queue, one by one and by group. Reported, not a gate threshold (Q5).",
+ "ownerDecisions": {
+  "Q1": "Exceptions come before suggestions, whatever their amounts. Alternative: one order by impact for all cases.",
+  "Q2": "A group's evidence is its reason, member directions and shape, and for date-gap the exact gap in days. Alternatives: group date-gap cases by any gap beyond the window; or group by reason alone.",
+  "Q3": "A group decision is recorded as the single decisions it stands for, with no group identity in the session. Alternative: a group identifier on each decision, under a new session version, so that the workbook can show which decisions were taken together.",
+  "Q4": "A group decision is offered for two or more cases; accept only for suggestions. Alternative: no group reject for exceptions, so that each conflict is read on its own.",
+  "Q5": "The measure is reported, not required. Alternative: require a reduction in decision actions on the acceptance stories.",
+  "Q6": "No limit on a group's size. Alternative: a cap per group decision, so that the accountant confirms large groups in parts."
+ },
+ "limits": "One period, one account and one currency; PDF statements printed by the bank statement foundation's layout; carried cases and table statements are not in these stories; the queue never decides, never changes a reason, an amount or a member, and never hides a case."
+}

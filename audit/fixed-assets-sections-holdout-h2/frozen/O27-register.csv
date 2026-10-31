@@ -1,0 +1,26 @@
+﻿Section,SEC-NZW-TRK
+Entity,Synthetic Sohar Freight LLC
+Asset ledger,FAR-LOG
+Currency,EUR
+As of,2028-12-31
+Location,مستودع نزوى
+Category,شاحنات التوصيل
+Asset ID,Asset dimensions,Component,Amount,Valuation reference
+TRK#21,NZW-1,cost,61500.25,VAL-SEC-NZW-TRK
+TRK#21,NZW-1,depreciation,12300.05,VAL-SEC-NZW-TRK
+TRK#21,NZW-1,impairment,0.00,VAL-SEC-NZW-TRK
+TRK#21,NZW-1,carrying,49200.20,VAL-SEC-NZW-TRK
+End section,SEC-NZW-TRK
+Section,SEC-MCT-TRK
+Entity,Synthetic Sohar Freight LLC
+Asset ledger,FAR-LOG
+Currency,EUR
+As of,2028-12-31
+Location,Muscat depot
+Category,Delivery trucks
+Asset ID,Asset dimensions,Component,Amount,Valuation reference
+TRK#22,MCT-F,cost,61500.25,VAL-SEC-MCT-TRK
+TRK#22,MCT-F,depreciation,24600.10,VAL-SEC-MCT-TRK
+TRK#22,MCT-F,impairment,615.00,VAL-SEC-MCT-TRK
+TRK#22,MCT-F,carrying,36285.15,VAL-SEC-MCT-TRK
+End section,SEC-MCT-TRK

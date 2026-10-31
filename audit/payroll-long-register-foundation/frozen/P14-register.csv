@@ -1,0 +1,50 @@
+﻿Section,PG-1,,,,,
+Entity,Synthetic Clinics Co,,,,,
+Payroll run,PR-2026-09,,,,,
+Currency,SAR,,,,,
+Period start,2026-09-01,,,,,
+Period end,2026-09-30,,,,,
+Payroll posting date,2026-09-27,,,,,
+Payment date,2026-09-28,,,,,
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+L-0001,E-1401,cc=OPD,ACCT-70131,Basic salary,earning,5800.00
+L-0002,E-1401,cc=OPD,ACCT-70131,Housing allowance,earning,1450.00
+L-0003,E-1401,cc=OPD,ACCT-70131,Transport allowance,earning,500.00
+L-0004,E-1401,cc=OPD,ACCT-70131,Social insurance (employee),deduction,706.87
+L-0005,E-1401,cc=OPD,ACCT-70131,Social insurance (employer),employer,851.87
+L-0006,E-1401,cc=OPD,ACCT-70131,Net pay,net,7043.13
+L-0007,E-1402,cc=OPD,ACCT-70132,Basic salary,earning,5900.00
+L-0008,E-1402,cc=OPD,ACCT-70132,Housing allowance,earning,1475.00
+L-0009,E-1402,cc=OPD,ACCT-70132,Transport allowance,earning,500.00
+L-0010,E-1402,cc=OPD,ACCT-70132,Social insurance (employee),deduction,719.06
+L-0011,E-1402,cc=OPD,ACCT-70132,Social insurance (employer),employer,866.56
+L-0012,E-1402,cc=OPD,ACCT-70132,Net pay,net,7155.94
+Total earnings,15625.00,,,,,
+Total deductions,1425.93,,,,,
+Total employer,1718.43,,,,,
+Total net,14199.07,,,,,
+End section,PG-1,,,,,
+,,,,,,
+Section,PG-B1,,,,,
+Entity,Synthetic Clinics Co,,,,,
+Payroll run,PR-2026-09-SUP,,,,,
+Currency,SAR,,,,,
+Period start,2026-09-01,,,,,
+Period end,2026-09-30,,,,,
+Payroll posting date,2026-09-27,,,,,
+Payment date,2026-09-28,,,,,
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+L-0013,E-1401,cc=OPD,ACCT-70131,Bonus,earning,3000.00
+L-0014,E-1401,cc=OPD,ACCT-70131,Net pay,net,3000.00
+Total earnings,3000.00,,,,,
+Total deductions,0.00,,,,,
+Total employer,0.00,,,,,
+Total net,3000.00,,,,,
+End section,PG-B1,,,,,
+,,,,,,
+Run totals,PR-2026-09,,,,,
+Total earnings,15625.00,,,,,
+Total deductions,1425.93,,,,,
+Total employer,1718.43,,,,,
+Total net,14199.07,,,,,
+End run totals,PR-2026-09,,,,,

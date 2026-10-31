@@ -1,0 +1,885 @@
+{
+ "package": "pkg",
+ "tool": {
+  "eligibility.py": "f4cfd84770066871f01386b23f34c15d66abcc3a97f14ec0b65cec31887a4eb3",
+  "items.py": "6b9722fd314af6df178ce85444390e212962e03b3b9a58fcab95ded907dbf3bf",
+  "columns.py": "25a71c1a5c741185edf120adcb159728dc63488b0bf0fc34b3a2c60fd398deec",
+  "tounicode.py": "66c78bfb6231160d8b057b3b83696fbefa8d2d93514c39f7d43c9923919e6848",
+  "rows.py": "72bef92be3845bdd784829e6771114147ddadf7862fa3dff350b3cc56de50f76",
+  "drawings.py": "222b44ea845a53cc59372ee41daa3c0b61dd6d0e0dd5258ab8867e8e06f61c0a",
+  "cashbook.py": "f757c143b02b7d158da14b2e5aa82fa37989b464a9ada20acfaf31b8e8eaac2c"
+ },
+ "clearancePt": 0.05,
+ "statements": {
+  "H01DEC": {
+   "sha256": "fcb39e9a741ac8b83e5ca1e68246672155076d8084b8b8989a771d6f1b2a1b54",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 10,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H01JAN": {
+   "sha256": "0bb00e52e25bbeb9bfad8dd83b826920f0795d36edaf2e78fed2de17ff216486",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 9,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H02FEB": {
+   "sha256": "2debcdf869611529f5511714b0a5d3b8e7b2a4c420db2321ca0a0b8671897217",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.17,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 12,
+    "wordParts": 5
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H02JAN": {
+   "sha256": "d7b4c6412e0bb41d0f238c51cd1a97dbef6cf05dde72611e339694710205c6d2",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.17,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 11,
+    "wordParts": 5
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H03FEB": {
+   "sha256": "3e0d58aa8794cd476ab8dda9b860a4751f92cde1a41e592c6941f28feb91028e",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.4,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 11,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.72,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H03MAR": {
+   "sha256": "55172b8778422c1c53c00c7edc92e5077f1848fd29f73be7be4083ac8e098c14",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.4,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 10,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.72,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H04DEC": {
+   "sha256": "9312f599b11eae164400f76a6d72788433281a2d61d150bd1e5f9a9c27358200",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 7,
+    "wordParts": 1
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H04JAN": {
+   "sha256": "7babeecf7628158359e58e7dc507082af1814e96d41915fa90fc40f0627dfd41",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.62,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 13,
+    "wordParts": 1
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H04NOV": {
+   "sha256": "dc6bc4d7f84c336dfbae533818741cb6ef5cd781e690caff87fb620ebdbe5185",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 8,
+    "wordParts": 1
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H05DEC": {
+   "sha256": "fcb7276ce6fbe7f060498a95689468c6fd8415b0111ec03f338cf9de3fa03780",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.52,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 9,
+    "wordParts": 1
+   },
+   "leastRuleGapPt": 3.2,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H05JAN": {
+   "sha256": "da09378a25c81ae0523867fe9f57fe64dbcf44f33edf081170c56bd09c97a487",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.52,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 12,
+    "wordParts": 1
+   },
+   "leastRuleGapPt": 3.2,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H06DEC": {
+   "sha256": "3eaa0310606f043cecb233191ce90d3e70bab54dc0f3212045a8d2bbfb01a1a4",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.92,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "rowsByInk": 2
+   },
+   "leastRuleGapPt": 4.73,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H06JAN": {
+   "sha256": "c382403dcb7e0955a909df1204fd9da87044162d8f599e5491ff464827af8c23",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.92,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "rowsByInk": 2
+   },
+   "leastRuleGapPt": 4.73,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H07FEB": {
+   "sha256": "7b149785cf387e05a768bec0805720ec59248ff40b28a753c4f668ec49c15cce",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 15.45,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 10,
+    "rowsByInk": 3,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 5.99,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H07JAN": {
+   "sha256": "8c81c033f12cb64d5a1a1bd1b78d2621a6378b5197e3e3f0e6ce82388e7a508d",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 15.45,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 9,
+    "rowsByInk": 3,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 5.99,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H08DEC": {
+   "sha256": "8de4040b24bf3db963140f8148792003780ad73ad9d6786d910ccafa070e078c",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.17,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 8,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H08JAN": {
+   "sha256": "b5bc1565b6b2e7e6e2d1082e47e19d4d9d2ec723da67a2dae1b760a1a0c811d3",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.17,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 12,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H09DEC": {
+   "sha256": "92bb71e66a5677cd360c47c17238cb91d2c250075611aac3646d8d6910354f41",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 11,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H09JAN": {
+   "sha256": "005c8ec05a93b3a5f6a01e607dd82171c8389f95eeb0e45c343dca4996715a7d",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 12,
+    "wordParts": 5
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H10FEB": {
+   "sha256": "a9aa888fedfd0343cc00ecfdbbe1ca410b4d0dab0401c3148a904a1a875567c9",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.4,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 11,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.72,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H10MAR": {
+   "sha256": "7beadd6776576e6f25f3925e6eac9e234b97d1ff1ae12351d5da9d1e5a02dc6e",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.4,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 13,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.72,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H11JAN": {
+   "sha256": "47a1b93c8a199fb02278e3797ac44e0b162f8ca6a74784e1e7f029f9137f3abe",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.08,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 10,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 3.56,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H11MAR": {
+   "sha256": "757d1f5b07abf8704a28f282b0326be9a93bdf3a0c29eadb00ae40a7b2d9dac1",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.08,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 11,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 3.56,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H12DEC": {
+   "sha256": "70e0e1f0c26babdd5d25f8be3934e79ef6a225d144af578cef1ff39ce16df204",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.92,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "rowsByInk": 2
+   },
+   "leastRuleGapPt": 4.73,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H12JAN": {
+   "sha256": "127289d3e1860da200b2f9e14676fcbf800cf5f050cd52e67261af630b34a0c9",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.92,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "rowsByInk": 2
+   },
+   "leastRuleGapPt": 4.73,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H13DEC": {
+   "sha256": "abd4385d0776c89a2f0c119e9a31b3c1f085629cac443bf31d66e7cad2fa0343",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 15.45,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 9,
+    "rowsByInk": 3,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 5.99,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H13JAN": {
+   "sha256": "50475182b3d8e0fc928a24f2478ce1a8b2739e19f06173c577d57c603b184ba6",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 15.45,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 10,
+    "rowsByInk": 3,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 5.99,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H14DEC": {
+   "sha256": "0b95be87b4dbf1a0aeaf489af1d8e078f2b246d43115e5c9cd8783c9cb669ccd",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.62,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 10,
+    "wordParts": 1
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H14JAN": {
+   "sha256": "3dae08d1619e6470f3ae0a4fb4178ea0293c38d9aa10a30600a424ad8a2c56f2",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.62,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 11,
+    "wordParts": 1
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H15DEC": {
+   "sha256": "bfca7a96dca99d96c4502e2b7c7daac56d26599c8a6015f18336d8ca50a9fbf5",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 17,
+    "wordParts": 5
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H15JAN": {
+   "sha256": "e5b38fadca97341b6e376abf666d3d806fa08d9e7075d222b96c42d7f6af6caf",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 10,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H16DEC": {
+   "sha256": "cc120786633e32651339fb083080aecc11968dc251fb4dff3417230cfd55b965",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.17,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 9,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H16JAN": {
+   "sha256": "b73b58993a6c55729d5a432afd38a53de9f09aa3a59ab315f641298700bf87d6",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.17,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 10,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H17DEC": {
+   "sha256": "3bd361ce7ee885b69c43f6ea2b67bd3d6e3682895d84db8d195a2127c17ad3e3",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.08,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 10,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 3.56,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H17JAN": {
+   "sha256": "ae1b3a1ca3902d5e936b314a70ba19cb415bcd8e96fa648c69fa798cdda053af",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.08,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 8,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 3.56,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H18DEC": {
+   "sha256": "5238222d5fdb3183005bb74d07bebed79dc099d7e059de502de89c859ab988e7",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 15.75,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "reversedDate": 10,
+    "rowsByInk": 3
+   },
+   "leastRuleGapPt": 2.59,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H18JAN": {
+   "sha256": "af3ea17fa360a58c3a1506b70e8247f7aabf4013765756d40ab113439e47f7ec",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 15.75,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "reversedDate": 12,
+    "rowsByInk": 6
+   },
+   "leastRuleGapPt": 2.59,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H19DEC": {
+   "sha256": "ad32e06574cd5fa56c8f26e08d563283c85306648480226bf8542b0773eede48",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 10.65,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 2.46,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H19JAN": {
+   "sha256": "cea7288c5ab539361b085be96f626f7d586fedf0d5bab6932522ae6cb4066121",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 10.65,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 2.25,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H20DEC": {
+   "sha256": "51f4c36d3229dd0e6c69f08ceecae257dd3315beafe58919fe714f42436916a7",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.4,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 9,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.72,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H20JAN": {
+   "sha256": "95823ee856ad775404cf9509ece834fde5bd51bfc622fbd0fa92f5626c6b0992",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.4,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 11,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.72,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H21DEC": {
+   "sha256": "3c85b49a7551c8f6120a9894226d787887e8881d3877cacaa255be678430d964",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.92,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "rowsByInk": 2
+   },
+   "leastRuleGapPt": 4.73,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H21JAN": {
+   "sha256": "170de942e4bed6b2733a67af38a1a7e8be303f0d01793567327c7400e89a725e",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.92,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "rowsByInk": 2
+   },
+   "leastRuleGapPt": 4.73,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H22DEC": {
+   "sha256": "ddab61105ec9c2a392ca4fbde79ca2ba2ee583287fee89d5256af58f4c1f9a52",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 15.45,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 10,
+    "rowsByInk": 3,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 5.99,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H22JAN": {
+   "sha256": "12d96025b6bd5e119c442f0285e2510b3f72e98d3b418d30942c8bcdd3e64049",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 15.45,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 9,
+    "rowsByInk": 3,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 5.99,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "H22NOV": {
+   "sha256": "5be38a0af2c2cb15615ff3189cfc6790c8494b52eefe2d4620b21184ed6a1ced",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 15.45,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 10,
+    "rowsByInk": 3,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 5.99,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  }
+ },
+ "cashbooks": {}
+}

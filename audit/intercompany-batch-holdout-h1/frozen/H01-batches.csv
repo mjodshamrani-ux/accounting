@@ -1,0 +1,11 @@
+Batch ID,Entity A,Entity B,Ledger A,Ledger B,Account A,Account B,Dimensions A,Dimensions B,Currency,Currency basis,FX policy,Posting status,Posting layer,Period start,Period end,As of,Policy version
+B-NO,Nadir Industrial Co,Orbit Logistics LLC,NADIR-LEDGER,ORBIT-LEDGER,IC-REC-00,IC-PAY-00,branch=JED,branch=DMM,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+B-NP,Nadir Industrial Co,Pillar Retail Est.,NADIR-LEDGER,PILLAR-LEDGER,IC-REC-01,IC-PAY-01,branch=JED,branch=RUH,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+B-NQ,Nadir Industrial Co,Quartz Services WLL,NADIR-LEDGER,QUARTZ-LEDGER,IC-REC-02,IC-PAY-02,branch=JED,branch=KWI,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+B-NR,Nadir Industrial Co,شركة ريادة للتجارة,NADIR-LEDGER,دفتر ريادة,IC-REC-03,IC-PAY-03,branch=JED,فرع=المدينة,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+B-OP,Orbit Logistics LLC,Pillar Retail Est.,ORBIT-LEDGER,PILLAR-LEDGER,IC-REC-04,IC-PAY-04,branch=DMM,branch=RUH,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+B-OQ,Orbit Logistics LLC,Quartz Services WLL,ORBIT-LEDGER,QUARTZ-LEDGER,IC-REC-05,IC-PAY-05,branch=DMM,branch=KWI,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+B-OR,Orbit Logistics LLC,شركة ريادة للتجارة,ORBIT-LEDGER,دفتر ريادة,IC-REC-06,IC-PAY-06,branch=DMM,فرع=المدينة,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+B-PQ,Pillar Retail Est.,Quartz Services WLL,PILLAR-LEDGER,QUARTZ-LEDGER,IC-REC-07,IC-PAY-07,branch=RUH,branch=KWI,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+B-PR,Pillar Retail Est.,شركة ريادة للتجارة,PILLAR-LEDGER,دفتر ريادة,IC-REC-08,IC-PAY-08,branch=RUH,فرع=المدينة,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7
+B-QR,Quartz Services WLL,شركة ريادة للتجارة,QUARTZ-LEDGER,دفتر ريادة,IC-REC-09,IC-PAY-09,branch=KWI,فرع=المدينة,SAR,functional,same-currency-no-conversion,posted,actual,2027-03-01,2027-03-31,2027-03-31,GRP-IC-7

@@ -1,0 +1,59 @@
+{
+ "names": [
+  "F11-payments.csv",
+  "F11-invoices.csv",
+  "F11-advice.csv"
+ ],
+ "readings": [
+  {
+   "sheet": 0,
+   "role": "available-payments",
+   "family": "allocation-snapshot-1",
+   "confirmed": true
+  },
+  {
+   "sheet": 0,
+   "role": "open-invoices",
+   "family": "allocation-snapshot-1",
+   "confirmed": true
+  },
+  {
+   "sheet": 0,
+   "role": "proposed-remittance",
+   "family": "allocation-snapshot-1",
+   "confirmed": true
+  }
+ ],
+ "scope": {
+  "entity": "Synthetic Buyer Trading Co",
+  "ledger": "AP-2026",
+  "party": "Supplier S01",
+  "account": "2100",
+  "currency": "SAR",
+  "cutoff": "2026-09-30",
+  "basis": "before-proposed-allocation",
+  "confirmed": true
+ },
+ "events": [
+  {
+   "id": "D1",
+   "context": "[\"allocation-snapshot-1\",[\"489d5cf58eebcaefcbb817a3b6ec970f79827662104bdffbdbd0948753058b51\",\"450f5dcb3d752d6e8c894f4a7519f2f2fd9b4e2b5f9598f155f1f37c1355970a\",\"2aaf015988023aa4beabedb7ad06d03aea6484714128b3086a945af25a764dd9\"],[[0,\"available-payments\",\"allocation-snapshot-1\",true],[0,\"open-invoices\",\"allocation-snapshot-1\",true],[0,\"proposed-remittance\",\"allocation-snapshot-1\",true]],[\"Synthetic Buyer Trading Co\",\"AP-2026\",\"Supplier S01\",\"2100\",\"SAR\",\"2026-09-30\",\"before-proposed-allocation\"],true]",
+   "at": "2026-10-01T09:00:01.000Z",
+   "note": "Synthetic decision D1",
+   "type": "allocate",
+   "links": [
+    {
+     "paymentId": "0:489d5cf58eebcaefcbb817a3b6ec970f79827662104bdffbdbd0948753058b51:0:2",
+     "invoiceId": "1:450f5dcb3d752d6e8c894f4a7519f2f2fd9b4e2b5f9598f155f1f37c1355970a:0:2",
+     "amount": 40000,
+     "basis": {
+      "kind": "remittance",
+      "reference": "R1",
+      "reason": "Remittance advice reviewed",
+      "proofId": "2:2aaf015988023aa4beabedb7ad06d03aea6484714128b3086a945af25a764dd9:0:2"
+     }
+    }
+   ]
+  }
+ ]
+}

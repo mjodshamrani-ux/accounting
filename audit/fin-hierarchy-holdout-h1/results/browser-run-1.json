@@ -1,0 +1,267 @@
+{
+ "cases": {
+  "H01": {
+   "equal": true,
+   "status": "eligible",
+   "codes": [],
+   "differ": []
+  },
+  "H02": {
+   "equal": true,
+   "status": "eligible",
+   "codes": [],
+   "differ": []
+  },
+  "H03": {
+   "equal": true,
+   "status": "eligible",
+   "codes": [],
+   "differ": []
+  },
+  "H04": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "MAPPING_TARGET",
+    "PROOF_LINE",
+    "STATEMENT_EQUATION"
+   ],
+   "differ": []
+  },
+  "H05": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "UNMAPPED_ACCOUNT"
+   ],
+   "differ": []
+  },
+  "H06": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "DUPLICATE_NODE"
+   ],
+   "differ": []
+  },
+  "H07": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "CONTROL_TOTAL",
+    "CYCLE"
+   ],
+   "differ": []
+  },
+  "H08": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "LEAF_TOTAL",
+    "MAPPING_ACCOUNT",
+    "PROOF_ACCOUNT",
+    "UNMAPPED_ACCOUNT"
+   ],
+   "differ": []
+  },
+  "H09": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "SIGN_POLICY",
+    "STATEMENT_EQUATION"
+   ],
+   "differ": []
+  },
+  "H10": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "DUPLICATE_PROOF_ACCOUNT",
+    "UNUSED_PROOF",
+    "VALIDITY"
+   ],
+   "differ": []
+  },
+  "H11": {
+   "equal": true,
+   "status": "eligible",
+   "codes": [],
+   "differ": []
+  },
+  "H12": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "CLASSIFICATION",
+    "SIGN_POLICY"
+   ],
+   "differ": []
+  },
+  "H13": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "MISSING_PROOF",
+    "PROOF_REFERENCE"
+   ],
+   "differ": []
+  },
+  "H14": {
+   "equal": true,
+   "status": "eligible",
+   "codes": [],
+   "differ": []
+  },
+  "H15": {
+   "equal": true,
+   "status": "eligible",
+   "codes": [],
+   "differ": []
+  },
+  "H16": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "DEPTH"
+   ],
+   "differ": []
+  },
+  "H17": {
+   "equal": true,
+   "status": "eligible",
+   "codes": [],
+   "differ": []
+  },
+  "H18": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "LEAF_TOTAL"
+   ],
+   "differ": []
+  },
+  "H19": {
+   "equal": true,
+   "status": "eligible",
+   "codes": [],
+   "differ": []
+  },
+  "H20": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "SUM"
+   ],
+   "differ": []
+  },
+  "H21": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "HEADERS"
+   ],
+   "differ": []
+  },
+  "H22": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "WIDTH"
+   ],
+   "differ": []
+  },
+  "H23": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "MONEY"
+   ],
+   "differ": []
+  },
+  "H24": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "PARENT"
+   ],
+   "differ": []
+  },
+  "H25": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "EMPTY_PARENT"
+   ],
+   "differ": []
+  },
+  "H26": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "BOTH_SIDES"
+   ],
+   "differ": []
+  },
+  "H27": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "LEAF_TOTAL",
+    "TB_BALANCE"
+   ],
+   "differ": []
+  },
+  "H28": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "DUPLICATE_MAPPING_ID"
+   ],
+   "differ": []
+  },
+  "H29": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "SCOPE"
+   ],
+   "differ": []
+  },
+  "H30": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "CONTROL_TOTAL",
+    "KIND",
+    "MAPPING_TARGET",
+    "PROOF_LINE",
+    "STATEMENT_EQUATION"
+   ],
+   "differ": []
+  },
+  "H31": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "DUPLICATE_ACCOUNT"
+   ],
+   "differ": []
+  },
+  "H32": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "HEADERS"
+   ],
+   "differ": []
+  }
+ },
+ "checks": {},
+ "errors": [],
+ "external": [],
+ "summary": {
+  "cases": "32/32",
+  "checks": {}
+ }
+}

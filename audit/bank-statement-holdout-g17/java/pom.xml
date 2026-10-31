@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <!-- The G17 text XLSX cashbooks, written by fastexcel. Built outside the repository:
+       mvn -q -B -f java/pom.xml package dependency:copy-dependencies -DoutputDirectory=target/lib -->
+  <groupId>tarasuf.holdout</groupId>
+  <artifactId>bank-statement-holdout-g17-cashbooks</artifactId>
+  <version>1</version>
+  <properties>
+    <maven.compiler.release>17</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.build.outputTimestamp>2028-01-31T12:00:00Z</project.build.outputTimestamp>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.dhatim</groupId>
+      <artifactId>fastexcel</artifactId>
+      <version>0.19.0</version>
+    </dependency>
+  </dependencies>
+</project>

@@ -1,0 +1,4959 @@
+{
+ "stories": [
+  {
+   "id": "K01-JAN",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Work Sans",
+   "paper": "A4",
+   "bank": "Cedar Plains Bank",
+   "documentTitle": "Business Current Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA14 6000 0000 3381 2500 4001",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-01-01",
+     "end": "2028-01-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 31813100
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-01-04",
+        "valueDate": "2028-01-04",
+        "description": "Utility bill",
+        "reference": "CHK01JN001",
+        "withdrawal": 241526,
+        "deposit": 0,
+        "balance": 31571574
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-01-08",
+        "valueDate": "2028-01-08",
+        "description": "Customer remittance",
+        "reference": "FT01JN002",
+        "withdrawal": 0,
+        "deposit": 3645190,
+        "balance": 35216764
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-01-12",
+        "valueDate": "2028-01-12",
+        "description": "Customer remittance",
+        "reference": "FT01JN003",
+        "withdrawal": 0,
+        "deposit": 1522130,
+        "balance": 36738894
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-01-16",
+        "valueDate": "2028-01-16",
+        "description": "Distributor payment",
+        "reference": "FT01JN004",
+        "withdrawal": 0,
+        "deposit": 1477358,
+        "balance": 38216252
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-01-20",
+        "valueDate": "2028-01-20",
+        "description": "Utility bill",
+        "reference": "CHK01JN005",
+        "withdrawal": 3041879,
+        "deposit": 0,
+        "balance": 35174373
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-01-24",
+        "valueDate": "2028-01-24",
+        "description": "Courier services",
+        "reference": "CHK01JN006",
+        "withdrawal": 475763,
+        "deposit": 0,
+        "balance": 34698610
+       },
+       {
+        "kind": "closing",
+        "balance": 34698610
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 3759168,
+        "deposit": 6644678
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-01-02",
+     "voucher": "PV-01JN01",
+     "description": "Payment voucher",
+     "reference": "CHK01JN001",
+     "receipt": 0,
+     "payment": 241526
+    },
+    {
+     "date": "2028-01-06",
+     "voucher": "RV-01JN02",
+     "description": "Receipt voucher",
+     "reference": "FT01JN002",
+     "receipt": 3645190,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-11",
+     "voucher": "RV-01JN03",
+     "description": "Receipt voucher",
+     "reference": "FT01JN003",
+     "receipt": 1522130,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-14",
+     "voucher": "RV-01JN04",
+     "description": "Receipt voucher",
+     "reference": "FT01JN004",
+     "receipt": 1477358,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-19",
+     "voucher": "PV-01JN05",
+     "description": "Payment voucher",
+     "reference": "CHK01JN005",
+     "receipt": 0,
+     "payment": 3041879
+    },
+    {
+     "date": "2028-01-23",
+     "voucher": "PV-01JN06",
+     "description": "Payment voucher",
+     "reference": "CHK01JN006",
+     "receipt": 0,
+     "payment": 475763
+    }
+   ]
+  },
+  {
+   "id": "K02-FEB",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "pdflib",
+   "font": "Rubik",
+   "paper": "A4",
+   "bank": "Silverline Mercantile Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA39 1500 0000 7720 9100 5102",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-02-01",
+     "end": "2028-02-29"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 2,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 24499300
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-02-04",
+        "valueDate": "2028-02-04",
+        "description": "Marketplace payout",
+        "reference": "RCV/02FB/01",
+        "withdrawal": 0,
+        "deposit": 2878798,
+        "balance": 27378098
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-02-09",
+        "valueDate": "2028-02-09",
+        "description": "Customer remittance",
+        "reference": "RCV/02FB/02",
+        "withdrawal": 0,
+        "deposit": 40214,
+        "balance": 27418312
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-02-14",
+        "valueDate": "2028-02-14",
+        "description": "Customer remittance",
+        "reference": "RCV/02FB/03",
+        "withdrawal": 0,
+        "deposit": 4233066,
+        "balance": 31651378
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-02-19",
+        "valueDate": "2028-02-19",
+        "description": "Card scheme fees",
+        "reference": "PAY/02FB/04",
+        "withdrawal": 2029983,
+        "deposit": 0,
+        "balance": 29621395
+       },
+       {
+        "kind": "carried-forward",
+        "balance": 29621395
+       }
+      ]
+     },
+     {
+      "number": 2,
+      "of": 2,
+      "lines": [
+       {
+        "kind": "brought-forward",
+        "balance": 29621395
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-02-24",
+        "valueDate": "2028-02-24",
+        "description": "Courier services",
+        "reference": "PAY/02FB/05",
+        "withdrawal": 4791248,
+        "deposit": 0,
+        "balance": 24830147
+       },
+       {
+        "kind": "closing",
+        "balance": 24830147
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 6821231,
+        "deposit": 7152078
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-02-02",
+     "voucher": "RV-02FB01",
+     "description": "Receipt voucher",
+     "reference": "RCV/02FB/01",
+     "receipt": 2878798,
+     "payment": 0
+    },
+    {
+     "date": "2028-02-07",
+     "voucher": "RV-02FB02",
+     "description": "Receipt voucher",
+     "reference": "RCV/02FB/02",
+     "receipt": 40214,
+     "payment": 0
+    },
+    {
+     "date": "2028-02-12",
+     "voucher": "RV-02FB03",
+     "description": "Receipt voucher",
+     "reference": "RCV/02FB/03",
+     "receipt": 4233066,
+     "payment": 0
+    },
+    {
+     "date": "2028-02-17",
+     "voucher": "PV-02FB04",
+     "description": "Payment voucher",
+     "reference": "PAY/02FB/04",
+     "receipt": 0,
+     "payment": 2029983
+    },
+    {
+     "date": "2028-02-24",
+     "voucher": "PV-02FB05",
+     "description": "Payment voucher",
+     "reference": "PAY/02FB/05",
+     "receipt": 0,
+     "payment": 4791248
+    },
+    {
+     "date": "2028-02-27",
+     "voucher": "PV-K02-91",
+     "description": "Payment voucher",
+     "reference": "CHK-K02-2702",
+     "receipt": 0,
+     "payment": 184550
+    },
+    {
+     "date": "2028-02-29",
+     "voucher": "RV-K02-92",
+     "description": "Cash deposited after cut-off",
+     "reference": "DEP-K02-2902",
+     "receipt": 1230000,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "K03-MAR",
+   "layout": "ar",
+   "digits": "arabic",
+   "producer": "pdflib",
+   "font": "Cairo",
+   "paper": "A4",
+   "bank": "مصرف الواحة التجاري",
+   "documentTitle": "كشف حساب جاري",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA83 2800 0000 4413 6600 6203",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-03-01",
+     "end": "2028-03-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 69263500
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-03-04",
+        "valueDate": "2028-03-04",
+        "description": "تسوية بطاقات",
+        "reference": "FT03MR001",
+        "withdrawal": 0,
+        "deposit": 1574890,
+        "balance": 70838390
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-03-09",
+        "valueDate": "2028-03-09",
+        "description": "خدمات شحن",
+        "reference": "CHK03MR002",
+        "withdrawal": 2268892,
+        "deposit": 0,
+        "balance": 68569498
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-03-14",
+        "valueDate": "2028-03-14",
+        "description": "تسوية بطاقات",
+        "reference": "FT03MR003",
+        "withdrawal": 0,
+        "deposit": 2108530,
+        "balance": 70678028
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-03-19",
+        "valueDate": "2028-03-19",
+        "description": "رسوم بطاقات",
+        "reference": "CHK03MR004",
+        "withdrawal": 1783296,
+        "deposit": 0,
+        "balance": 68894732
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-03-24",
+        "valueDate": "2028-03-24",
+        "description": "دفعة موزع",
+        "reference": "FT03MR005",
+        "withdrawal": 0,
+        "deposit": 3701203,
+        "balance": 72595935
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-03-31",
+        "valueDate": "2028-03-31",
+        "description": "رسوم إدارة الحساب",
+        "reference": "FEE-K03-0331",
+        "withdrawal": 8625,
+        "deposit": 0,
+        "balance": 72587310
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2028-03-31",
+        "valueDate": "2028-03-31",
+        "description": "عائد الحساب",
+        "reference": "INT-K03-0331",
+        "withdrawal": 0,
+        "deposit": 41240,
+        "balance": 72628550
+       },
+       {
+        "kind": "closing",
+        "balance": 72628550
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 4060813,
+        "deposit": 7425863
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-03-04",
+     "voucher": "RV-03MR01",
+     "description": "سند قبض",
+     "reference": "FT03MR001",
+     "receipt": 1574890,
+     "payment": 0
+    },
+    {
+     "date": "2028-03-07",
+     "voucher": "PV-03MR02",
+     "description": "سند صرف",
+     "reference": "CHK03MR002",
+     "receipt": 0,
+     "payment": 2268892
+    },
+    {
+     "date": "2028-03-12",
+     "voucher": "RV-03MR03",
+     "description": "سند قبض",
+     "reference": "FT03MR003",
+     "receipt": 2108530,
+     "payment": 0
+    },
+    {
+     "date": "2028-03-19",
+     "voucher": "PV-03MR04",
+     "description": "سند صرف",
+     "reference": "CHK03MR004",
+     "receipt": 0,
+     "payment": 1783296
+    },
+    {
+     "date": "2028-03-24",
+     "voucher": "RV-03MR05",
+     "description": "سند قبض",
+     "reference": "FT03MR005",
+     "receipt": 3701203,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "K04-DEC",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Merriweather",
+   "paper": "A4",
+   "bank": "Cedar Plains Bank",
+   "documentTitle": "Business Current Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    }
+   },
+   "statement": {
+    "account": "SA14 6000 0000 3381 2500 4004",
+    "currency": "SAR",
+    "period": {
+     "start": "2027-12-01",
+     "end": "2027-12-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 16935900
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2027-12-04",
+        "valueDate": "2027-12-04",
+        "description": "Courier services",
+        "reference": "DD.04DC.01",
+        "withdrawal": 543118,
+        "deposit": 0,
+        "balance": 16392782
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2027-12-09",
+        "valueDate": "2027-12-09",
+        "description": "Utility bill",
+        "reference": "DD.04DC.02",
+        "withdrawal": 1735098,
+        "deposit": 0,
+        "balance": 14657684
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2027-12-14",
+        "valueDate": "2027-12-14",
+        "description": "Card scheme fees",
+        "reference": "DD.04DC.03",
+        "withdrawal": 4081253,
+        "deposit": 0,
+        "balance": 10576431
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2027-12-19",
+        "valueDate": "2027-12-19",
+        "description": "Distributor payment",
+        "reference": "CR.04DC.04",
+        "withdrawal": 0,
+        "deposit": 3752817,
+        "balance": 14329248
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2027-12-24",
+        "valueDate": "2027-12-24",
+        "description": "Card settlement",
+        "reference": "CR.04DC.05",
+        "withdrawal": 0,
+        "deposit": 1291328,
+        "balance": 15620576
+       },
+       {
+        "kind": "closing",
+        "balance": 15620576
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 6359469,
+        "deposit": 5044145
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2027-12-02",
+     "voucher": "PV-04DC01",
+     "description": "Payment voucher",
+     "reference": "DD.04DC.01",
+     "receipt": 0,
+     "payment": 543118
+    },
+    {
+     "date": "2027-12-09",
+     "voucher": "PV-04DC02",
+     "description": "Payment voucher",
+     "reference": "DD.04DC.02",
+     "receipt": 0,
+     "payment": 1735098
+    },
+    {
+     "date": "2027-12-14",
+     "voucher": "PV-04DC03",
+     "description": "Payment voucher",
+     "reference": "DD.04DC.03",
+     "receipt": 0,
+     "payment": 4081253
+    },
+    {
+     "date": "2027-12-18",
+     "voucher": "RV-04DC04",
+     "description": "Receipt voucher",
+     "reference": "CR.04DC.04",
+     "receipt": 3752817,
+     "payment": 0
+    },
+    {
+     "date": "2027-12-23",
+     "voucher": "RV-04DC05",
+     "description": "Receipt voucher",
+     "reference": "CR.04DC.05",
+     "receipt": 1291328,
+     "payment": 0
+    },
+    {
+     "date": "2027-12-28",
+     "voucher": "PV-K04-41",
+     "description": "Payment voucher",
+     "reference": "CHK-K04-1228",
+     "receipt": 0,
+     "payment": 40000
+    },
+    {
+     "date": "2027-12-30",
+     "voucher": "PV-K04-42",
+     "description": "Payment voucher",
+     "reference": "CHK-K04-1230",
+     "receipt": 0,
+     "payment": 50000
+    }
+   ]
+  },
+  {
+   "id": "K05-JAN",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "pdflib",
+   "font": "Readex Pro",
+   "paper": "A4-landscape",
+   "bank": "Silverline Mercantile Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "stripes",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA39 1500 0000 7720 9100 5105",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-01-01",
+     "end": "2028-01-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": -125000000
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-01-04",
+        "valueDate": "2028-01-04",
+        "description": "Utility bill",
+        "reference": "SUP05JN00001",
+        "withdrawal": 4478511,
+        "deposit": 0,
+        "balance": -129478511
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-01-09",
+        "valueDate": "2028-01-09",
+        "description": "Marketplace payout",
+        "reference": "CUS05JN00002",
+        "withdrawal": 0,
+        "deposit": 4664441,
+        "balance": -124814070
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-01-14",
+        "valueDate": "2028-01-14",
+        "description": "Marketplace payout",
+        "reference": "CUS05JN00003",
+        "withdrawal": 0,
+        "deposit": 932185,
+        "balance": -123881885
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-01-19",
+        "valueDate": "2028-01-19",
+        "description": "Card settlement",
+        "reference": "CUS05JN00004",
+        "withdrawal": 0,
+        "deposit": 2486732,
+        "balance": -121395153
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-01-24",
+        "valueDate": "2028-01-24",
+        "description": "Utility bill",
+        "reference": "SUP05JN00005",
+        "withdrawal": 2365207,
+        "deposit": 0,
+        "balance": -123760360
+       },
+       {
+        "kind": "closing",
+        "balance": -123760360
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 6843718,
+        "deposit": 8083358
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-01-04",
+     "voucher": "PV-05JN01",
+     "description": "Payment voucher",
+     "reference": "SUP05JN00001",
+     "receipt": 0,
+     "payment": 4478511
+    },
+    {
+     "date": "2028-01-07",
+     "voucher": "RV-05JN02",
+     "description": "Receipt voucher",
+     "reference": "CUS05JN00002",
+     "receipt": 4664441,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-14",
+     "voucher": "RV-05JN03",
+     "description": "Receipt voucher",
+     "reference": "CUS05JN00003",
+     "receipt": 932185,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-17",
+     "voucher": "RV-05JN04",
+     "description": "Receipt voucher",
+     "reference": "CUS05JN00004",
+     "receipt": 2486732,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-24",
+     "voucher": "PV-05JN05",
+     "description": "Payment voucher",
+     "reference": "SUP05JN00005",
+     "receipt": 0,
+     "payment": 2365207
+    },
+    {
+     "date": "2028-01-30",
+     "voucher": "PV-K05-51",
+     "description": "Payment voucher",
+     "reference": "CHK-K05-0130",
+     "receipt": 0,
+     "payment": 725000
+    }
+   ]
+  },
+  {
+   "id": "K06-FEB",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Fira Sans",
+   "paper": "A4-landscape",
+   "bank": "Cedar Plains Bank",
+   "documentTitle": "Business Current Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "stripes",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA14 6000 0000 3381 2500 4006",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-02-01",
+     "end": "2028-02-29"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 3,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 13582200
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-02-04",
+        "valueDate": "2028-02-04",
+        "description": "Card settlement",
+        "reference": "FT06FB001",
+        "withdrawal": 0,
+        "deposit": 3810691,
+        "balance": 17392891
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-02-05",
+        "valueDate": "2028-02-05",
+        "description": "Marketplace payout",
+        "reference": "FT06FB002",
+        "withdrawal": 0,
+        "deposit": 2344211,
+        "balance": 19737102
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-02-07",
+        "valueDate": "2028-02-07",
+        "description": "Customer remittance",
+        "reference": "FT06FB003",
+        "withdrawal": 0,
+        "deposit": 3930986,
+        "balance": 23668088
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-02-09",
+        "valueDate": "2028-02-09",
+        "description": "Card settlement",
+        "reference": "FT06FB004",
+        "withdrawal": 0,
+        "deposit": 938607,
+        "balance": 24606695
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-02-11",
+        "valueDate": "2028-02-11",
+        "description": "Customer remittance",
+        "reference": "FT06FB005",
+        "withdrawal": 0,
+        "deposit": 1909123,
+        "balance": 26515818
+       },
+       {
+        "kind": "carried-forward",
+        "balance": 26515818
+       }
+      ]
+     },
+     {
+      "number": 3,
+      "of": 3,
+      "lines": [
+       {
+        "kind": "brought-forward",
+        "balance": 32296061
+       },
+       {
+        "kind": "movement",
+        "key": "S11",
+        "date": "2028-02-22",
+        "valueDate": "2028-02-22",
+        "description": "Supplier settlement",
+        "reference": "CHK06FB011",
+        "withdrawal": 1671352,
+        "deposit": 0,
+        "balance": 30624709
+       },
+       {
+        "kind": "movement",
+        "key": "S12",
+        "date": "2028-02-24",
+        "valueDate": "2028-02-24",
+        "description": "Customer remittance",
+        "reference": "FT06FB012",
+        "withdrawal": 0,
+        "deposit": 2322088,
+        "balance": 32946797
+       },
+       {
+        "kind": "closing",
+        "balance": 32946797
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 3419405,
+        "deposit": 22784002
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-02-02",
+     "voucher": "RV-06FB01",
+     "description": "Receipt voucher",
+     "reference": "FT06FB001",
+     "receipt": 3810691,
+     "payment": 0
+    },
+    {
+     "date": "2028-02-04",
+     "voucher": "RV-06FB02",
+     "description": "Receipt voucher",
+     "reference": "FT06FB002",
+     "receipt": 2344211,
+     "payment": 0
+    },
+    {
+     "date": "2028-02-05",
+     "voucher": "RV-06FB03",
+     "description": "Receipt voucher",
+     "reference": "FT06FB003",
+     "receipt": 3930986,
+     "payment": 0
+    },
+    {
+     "date": "2028-02-09",
+     "voucher": "RV-06FB04",
+     "description": "Receipt voucher",
+     "reference": "FT06FB004",
+     "receipt": 938607,
+     "payment": 0
+    },
+    {
+     "date": "2028-02-11",
+     "voucher": "RV-06FB05",
+     "description": "Receipt voucher",
+     "reference": "FT06FB005",
+     "receipt": 1909123,
+     "payment": 0
+    },
+    {
+     "date": "2028-02-11",
+     "voucher": "RV-06FB06",
+     "description": "Receipt voucher",
+     "reference": "FT06FB006",
+     "receipt": 2725162,
+     "payment": 0
+    },
+    {
+     "date": "2028-02-13",
+     "voucher": "PV-06FB07",
+     "description": "Payment voucher",
+     "reference": "CHK06FB007",
+     "receipt": 0,
+     "payment": 972169
+    },
+    {
+     "date": "2028-02-16",
+     "voucher": "RV-06FB08",
+     "description": "Receipt voucher",
+     "reference": "FT06FB008",
+     "receipt": 3019185,
+     "payment": 0
+    },
+    {
+     "date": "2028-02-16",
+     "voucher": "PV-06FB09",
+     "description": "Payment voucher",
+     "reference": "CHK06FB009",
+     "receipt": 0,
+     "payment": 775884
+    },
+    {
+     "date": "2028-02-18",
+     "voucher": "RV-06FB10",
+     "description": "Receipt voucher",
+     "reference": "FT06FB010",
+     "receipt": 1783949,
+     "payment": 0
+    },
+    {
+     "date": "2028-02-20",
+     "voucher": "PV-06FB11",
+     "description": "Payment voucher",
+     "reference": "CHK06FB011",
+     "receipt": 0,
+     "payment": 1671352
+    },
+    {
+     "date": "2028-02-24",
+     "voucher": "RV-06FB12",
+     "description": "Receipt voucher",
+     "reference": "FT06FB012",
+     "receipt": 2322088,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "K07-MAR",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "pdflib",
+   "font": "Lemonada",
+   "paper": "A4",
+   "bank": "Silverline Mercantile Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    }
+   },
+   "statement": {
+    "account": "SA39 1500 0000 7720 9100 5107",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-03-01",
+     "end": "2028-03-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 3,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 20123500
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-03-04",
+        "valueDate": "2028-03-04",
+        "description": "Marketplace payout",
+        "reference": "CR.07MR.01",
+        "withdrawal": 0,
+        "deposit": 3885961,
+        "balance": 24009461
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-03-05",
+        "valueDate": "2028-03-05",
+        "description": "Supplier settlement",
+        "reference": "DD.07MR.02",
+        "withdrawal": 3238339,
+        "deposit": 0,
+        "balance": 20771122
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-03-07",
+        "valueDate": "2028-03-07",
+        "description": "Office lease",
+        "reference": "DD.07MR.03",
+        "withdrawal": 3864800,
+        "deposit": 0,
+        "balance": 16906322
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-03-09",
+        "valueDate": "2028-03-09",
+        "description": "Office lease",
+        "reference": "DD.07MR.04",
+        "withdrawal": 1148120,
+        "deposit": 0,
+        "balance": 15758202
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-03-11",
+        "valueDate": "2028-03-11",
+        "description": "Customer remittance",
+        "reference": "CR.07MR.05",
+        "withdrawal": 0,
+        "deposit": 1042057,
+        "balance": 16800259
+       },
+       {
+        "kind": "carried-forward",
+        "balance": 16800259
+       }
+      ]
+     },
+     {
+      "number": 3,
+      "of": 3,
+      "lines": [
+       {
+        "kind": "brought-forward",
+        "balance": 19541405
+       },
+       {
+        "kind": "movement",
+        "key": "S11",
+        "date": "2028-03-22",
+        "valueDate": "2028-03-22",
+        "description": "Supplier settlement",
+        "reference": "DD.07MR.11",
+        "withdrawal": 3962056,
+        "deposit": 0,
+        "balance": 15579349
+       },
+       {
+        "kind": "movement",
+        "key": "S12",
+        "date": "2028-03-24",
+        "valueDate": "2028-03-24",
+        "description": "Supplier settlement",
+        "reference": "DD.07MR.12",
+        "withdrawal": 2642187,
+        "deposit": 0,
+        "balance": 12937162
+       },
+       {
+        "kind": "closing",
+        "balance": 12937162
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 18001147,
+        "deposit": 10814809
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-03-02",
+     "voucher": "RV-07MR01",
+     "description": "Receipt voucher",
+     "reference": "CR.07MR.01",
+     "receipt": 3885961,
+     "payment": 0
+    },
+    {
+     "date": "2028-03-04",
+     "voucher": "PV-07MR02",
+     "description": "Payment voucher",
+     "reference": "DD.07MR.02",
+     "receipt": 0,
+     "payment": 3238339
+    },
+    {
+     "date": "2028-03-05",
+     "voucher": "PV-07MR03",
+     "description": "Payment voucher",
+     "reference": "DD.07MR.03",
+     "receipt": 0,
+     "payment": 3864800
+    },
+    {
+     "date": "2028-03-08",
+     "voucher": "PV-07MR04",
+     "description": "Payment voucher",
+     "reference": "DD.07MR.04",
+     "receipt": 0,
+     "payment": 1148120
+    },
+    {
+     "date": "2028-03-10",
+     "voucher": "RV-07MR05",
+     "description": "Receipt voucher",
+     "reference": "CR.07MR.05",
+     "receipt": 1042057,
+     "payment": 0
+    },
+    {
+     "date": "2028-03-13",
+     "voucher": "PV-07MR06",
+     "description": "Payment voucher",
+     "reference": "DD.07MR.06",
+     "receipt": 0,
+     "payment": 2505240
+    },
+    {
+     "date": "2028-03-14",
+     "voucher": "RV-07MR07",
+     "description": "Receipt voucher",
+     "reference": "CR.07MR.07",
+     "receipt": 1831164,
+     "payment": 0
+    },
+    {
+     "date": "2028-03-14",
+     "voucher": "PV-07MR08",
+     "description": "Payment voucher",
+     "reference": "DD.07MR.08",
+     "receipt": 0,
+     "payment": 640405
+    },
+    {
+     "date": "2028-03-16",
+     "voucher": "RV-07MR09",
+     "description": "Receipt voucher",
+     "reference": "CR.07MR.09",
+     "receipt": 2163648,
+     "payment": 0
+    },
+    {
+     "date": "2028-03-18",
+     "voucher": "RV-07MR10",
+     "description": "Receipt voucher",
+     "reference": "CR.07MR.10",
+     "receipt": 1891979,
+     "payment": 0
+    },
+    {
+     "date": "2028-03-20",
+     "voucher": "PV-07MR11",
+     "description": "Payment voucher",
+     "reference": "DD.07MR.11",
+     "receipt": 0,
+     "payment": 3962056
+    },
+    {
+     "date": "2028-03-22",
+     "voucher": "PV-07MR12",
+     "description": "Payment voucher",
+     "reference": "DD.07MR.12",
+     "receipt": 0,
+     "payment": 2642187
+    }
+   ]
+  },
+  {
+   "id": "K08-DEC",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Space Mono",
+   "paper": "Letter",
+   "bank": "Cedar Plains Bank",
+   "documentTitle": "Business Current Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "none",
+     "heading": "rule",
+     "headings": "left"
+    }
+   },
+   "statement": {
+    "account": "SA14 6000 0000 3381 2500 4008",
+    "currency": "SAR",
+    "period": {
+     "start": "2027-12-01",
+     "end": "2027-12-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 1747000
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2027-12-04",
+        "valueDate": "2027-12-04",
+        "description": "Distributor payment",
+        "reference": "CUS08DC00001",
+        "withdrawal": 0,
+        "deposit": 3152088,
+        "balance": 4899088
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2027-12-09",
+        "valueDate": "2027-12-09",
+        "description": "Customer remittance",
+        "reference": "CUS08DC00002",
+        "withdrawal": 0,
+        "deposit": 1890487,
+        "balance": 6789575
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2027-12-10",
+        "valueDate": "2027-12-10",
+        "description": "Cash deposit",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 214000,
+        "balance": 7003575
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2027-12-14",
+        "valueDate": "2027-12-14",
+        "description": "Card scheme fees",
+        "reference": "SUP08DC00003",
+        "withdrawal": 3177175,
+        "deposit": 0,
+        "balance": 3826400
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2027-12-18",
+        "valueDate": "2027-12-18",
+        "description": "Counter withdrawal",
+        "reference": "",
+        "withdrawal": 65500,
+        "deposit": 0,
+        "balance": 3760900
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2027-12-19",
+        "valueDate": "2027-12-19",
+        "description": "Card scheme fees",
+        "reference": "SUP08DC00004",
+        "withdrawal": 410081,
+        "deposit": 0,
+        "balance": 3350819
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2027-12-24",
+        "valueDate": "2027-12-24",
+        "description": "Office lease",
+        "reference": "SUP08DC00005",
+        "withdrawal": 176233,
+        "deposit": 0,
+        "balance": 3174586
+       },
+       {
+        "kind": "closing",
+        "balance": 3174586
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 3828989,
+        "deposit": 5256575
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2027-12-02",
+     "voucher": "RV-08DC01",
+     "description": "Receipt voucher",
+     "reference": "CUS08DC00001",
+     "receipt": 3152088,
+     "payment": 0
+    },
+    {
+     "date": "2027-12-09",
+     "voucher": "RV-08DC02",
+     "description": "Receipt voucher",
+     "reference": "CUS08DC00002",
+     "receipt": 1890487,
+     "payment": 0
+    },
+    {
+     "date": "2027-12-11",
+     "voucher": "RV-K08-81",
+     "description": "Counter receipt",
+     "reference": "",
+     "receipt": 214000,
+     "payment": 0
+    },
+    {
+     "date": "2027-12-14",
+     "voucher": "PV-08DC03",
+     "description": "Payment voucher",
+     "reference": "SUP08DC00003",
+     "receipt": 0,
+     "payment": 3177175
+    },
+    {
+     "date": "2027-12-17",
+     "voucher": "PV-08DC04",
+     "description": "Payment voucher",
+     "reference": "SUP08DC00004",
+     "receipt": 0,
+     "payment": 410081
+    },
+    {
+     "date": "2027-12-17",
+     "voucher": "PV-K08-82",
+     "description": "Petty cash top-up",
+     "reference": "",
+     "receipt": 0,
+     "payment": 65500
+    },
+    {
+     "date": "2027-12-22",
+     "voucher": "PV-08DC05",
+     "description": "Payment voucher",
+     "reference": "SUP08DC00005",
+     "receipt": 0,
+     "payment": 176233
+    }
+   ]
+  },
+  {
+   "id": "K09-JAN",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "pdflib",
+   "font": "Readex Pro",
+   "paper": "A4",
+   "bank": "Silverline Mercantile Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    }
+   },
+   "statement": {
+    "account": "SA39 1500 0000 7720 9100 5109",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-01-01",
+     "end": "2028-01-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 69938400
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-01-04",
+        "valueDate": "2028-01-04",
+        "description": "Card settlement",
+        "reference": "FT09JN001",
+        "withdrawal": 0,
+        "deposit": 750651,
+        "balance": 70689051
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-01-09",
+        "valueDate": "2028-01-09",
+        "description": "Customer remittance",
+        "reference": "FT09JN002",
+        "withdrawal": 0,
+        "deposit": 2118554,
+        "balance": 72807605
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-01-14",
+        "valueDate": "2028-01-14",
+        "description": "Card settlement",
+        "reference": "FT09JN003",
+        "withdrawal": 0,
+        "deposit": 1174430,
+        "balance": 73982035
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-01-19",
+        "valueDate": "2028-01-19",
+        "description": "Office lease",
+        "reference": "CHK09JN004",
+        "withdrawal": 901323,
+        "deposit": 0,
+        "balance": 73080712
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-01-24",
+        "valueDate": "2028-01-24",
+        "description": "Marketplace payout",
+        "reference": "FT09JN005",
+        "withdrawal": 0,
+        "deposit": 4018226,
+        "balance": 77098938
+       },
+       {
+        "kind": "closing",
+        "balance": 77098938
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 901323,
+        "deposit": 8061861
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-01-03",
+     "voucher": "RV-09JN01",
+     "description": "Receipt voucher",
+     "reference": "FT09JN001",
+     "receipt": 750651,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-09",
+     "voucher": "RV-09JN02",
+     "description": "Receipt voucher",
+     "reference": "FT09JN002",
+     "receipt": 2118554,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-14",
+     "voucher": "RV-09JN03",
+     "description": "Receipt voucher",
+     "reference": "FT09JN003",
+     "receipt": 1174430,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-19",
+     "voucher": "PV-09JN04",
+     "description": "Payment voucher",
+     "reference": "CHK09JN004",
+     "receipt": 0,
+     "payment": 901323
+    },
+    {
+     "date": "2028-01-22",
+     "voucher": "RV-09JN05",
+     "description": "Receipt voucher",
+     "reference": "FT09JN005",
+     "receipt": 4018226,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-09",
+     "voucher": "PV-K09-91",
+     "description": "Payment voucher",
+     "reference": "CHK-K09-0109",
+     "receipt": 0,
+     "payment": 150000
+    },
+    {
+     "date": "2028-01-05",
+     "voucher": "PV-K09-92",
+     "description": "Payment voucher",
+     "reference": "CHK-K09-0105",
+     "receipt": 0,
+     "payment": 275000
+    }
+   ]
+  },
+  {
+   "id": "K10-DEC",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Work Sans",
+   "paper": "A4",
+   "bank": "Cedar Plains Bank",
+   "documentTitle": "Business Current Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA14 6000 0000 3381 2500 4010",
+    "currency": "SAR",
+    "period": {
+     "start": "2027-12-01",
+     "end": "2027-12-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 6210300
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2027-12-04",
+        "valueDate": "2027-12-04",
+        "description": "Card settlement",
+        "reference": "RCV/10DC/01",
+        "withdrawal": 0,
+        "deposit": 3696755,
+        "balance": 9907055
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2027-12-09",
+        "valueDate": "2027-12-09",
+        "description": "Supplier settlement",
+        "reference": "PAY/10DC/02",
+        "withdrawal": 4316503,
+        "deposit": 0,
+        "balance": 5590552
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2027-12-14",
+        "valueDate": "2027-12-14",
+        "description": "Supplier settlement",
+        "reference": "PAY/10DC/03",
+        "withdrawal": 1572657,
+        "deposit": 0,
+        "balance": 4017895
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2027-12-19",
+        "valueDate": "2027-12-19",
+        "description": "Supplier settlement",
+        "reference": "PAY/10DC/04",
+        "withdrawal": 1165264,
+        "deposit": 0,
+        "balance": 2852631
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2027-12-24",
+        "valueDate": "2027-12-24",
+        "description": "Utility bill",
+        "reference": "PAY/10DC/05",
+        "withdrawal": 4767652,
+        "deposit": 0,
+        "balance": -1915021
+       },
+       {
+        "kind": "closing",
+        "balance": -1915021
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 11822076,
+        "deposit": 3696755
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2027-12-04",
+     "voucher": "RV-10DC01",
+     "description": "Receipt voucher",
+     "reference": "RCV/10DC/01",
+     "receipt": 3696755,
+     "payment": 0
+    },
+    {
+     "date": "2027-12-07",
+     "voucher": "PV-10DC02",
+     "description": "Payment voucher",
+     "reference": "PAY/10DC/02",
+     "receipt": 0,
+     "payment": 4316503
+    },
+    {
+     "date": "2027-12-14",
+     "voucher": "PV-10DC03",
+     "description": "Payment voucher",
+     "reference": "PAY/10DC/03",
+     "receipt": 0,
+     "payment": 1572657
+    },
+    {
+     "date": "2027-12-19",
+     "voucher": "PV-10DC04",
+     "description": "Payment voucher",
+     "reference": "PAY/10DC/04",
+     "receipt": 0,
+     "payment": 1165264
+    },
+    {
+     "date": "2027-12-24",
+     "voucher": "PV-10DC05",
+     "description": "Payment voucher",
+     "reference": "PAY/10DC/05",
+     "receipt": 0,
+     "payment": 4767652
+    },
+    {
+     "date": "2027-12-29",
+     "voucher": "PV-K10-31",
+     "description": "Payment voucher",
+     "reference": "CHK-K10-1229",
+     "receipt": 0,
+     "payment": 332000
+    }
+   ]
+  },
+  {
+   "id": "K10-JAN",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Work Sans",
+   "paper": "A4",
+   "bank": "Cedar Plains Bank",
+   "documentTitle": "Business Current Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA14 6000 0000 3381 2500 4010",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-01-01",
+     "end": "2028-01-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": -1915021
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-01-04",
+        "valueDate": "2028-01-04",
+        "description": "Utility bill",
+        "reference": "PAY/10JN/01",
+        "withdrawal": 4600357,
+        "deposit": 0,
+        "balance": -6515378
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-01-06",
+        "valueDate": "2028-01-06",
+        "description": "Cheque presented",
+        "reference": "CHK-K10-1229",
+        "withdrawal": 332000,
+        "deposit": 0,
+        "balance": -6847378
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-01-09",
+        "valueDate": "2028-01-09",
+        "description": "Card scheme fees",
+        "reference": "PAY/10JN/02",
+        "withdrawal": 765078,
+        "deposit": 0,
+        "balance": -7612456
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-01-14",
+        "valueDate": "2028-01-14",
+        "description": "Courier services",
+        "reference": "PAY/10JN/03",
+        "withdrawal": 3319789,
+        "deposit": 0,
+        "balance": -10932245
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-01-19",
+        "valueDate": "2028-01-19",
+        "description": "Supplier settlement",
+        "reference": "PAY/10JN/04",
+        "withdrawal": 106831,
+        "deposit": 0,
+        "balance": -11039076
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-01-24",
+        "valueDate": "2028-01-24",
+        "description": "Supplier settlement",
+        "reference": "PAY/10JN/05",
+        "withdrawal": 963133,
+        "deposit": 0,
+        "balance": -12002209
+       },
+       {
+        "kind": "closing",
+        "balance": -12002209
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 10087188,
+        "deposit": 0
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-01-04",
+     "voucher": "PV-10JN01",
+     "description": "Payment voucher",
+     "reference": "PAY/10JN/01",
+     "receipt": 0,
+     "payment": 4600357
+    },
+    {
+     "date": "2028-01-08",
+     "voucher": "PV-10JN02",
+     "description": "Payment voucher",
+     "reference": "PAY/10JN/02",
+     "receipt": 0,
+     "payment": 765078
+    },
+    {
+     "date": "2028-01-12",
+     "voucher": "PV-10JN03",
+     "description": "Payment voucher",
+     "reference": "PAY/10JN/03",
+     "receipt": 0,
+     "payment": 3319789
+    },
+    {
+     "date": "2028-01-19",
+     "voucher": "PV-10JN04",
+     "description": "Payment voucher",
+     "reference": "PAY/10JN/04",
+     "receipt": 0,
+     "payment": 106831
+    },
+    {
+     "date": "2028-01-24",
+     "voucher": "PV-10JN05",
+     "description": "Payment voucher",
+     "reference": "PAY/10JN/05",
+     "receipt": 0,
+     "payment": 963133
+    }
+   ]
+  },
+  {
+   "id": "K11-FEB",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "pdflib",
+   "font": "Rubik",
+   "paper": "A4",
+   "bank": "Silverline Mercantile Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA39 1500 0000 7720 9100 5111",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-02-01",
+     "end": "2028-02-29"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 22502600
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-02-04",
+        "valueDate": "2028-02-04",
+        "description": "Courier services",
+        "reference": "DD.11FB.01",
+        "withdrawal": 4755919,
+        "deposit": 0,
+        "balance": 17746681
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-02-09",
+        "valueDate": "2028-02-09",
+        "description": "Marketplace payout",
+        "reference": "CR.11FB.02",
+        "withdrawal": 0,
+        "deposit": 4134042,
+        "balance": 21880723
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-02-14",
+        "valueDate": "2028-02-14",
+        "description": "Marketplace payout",
+        "reference": "CR.11FB.03",
+        "withdrawal": 0,
+        "deposit": 1549526,
+        "balance": 23430249
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-02-19",
+        "valueDate": "2028-02-19",
+        "description": "Courier services",
+        "reference": "DD.11FB.04",
+        "withdrawal": 2759648,
+        "deposit": 0,
+        "balance": 20670601
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-02-24",
+        "valueDate": "2028-02-24",
+        "description": "Card settlement",
+        "reference": "CR.11FB.05",
+        "withdrawal": 0,
+        "deposit": 3014501,
+        "balance": 23685102
+       },
+       {
+        "kind": "closing",
+        "balance": 23685102
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 7515567,
+        "deposit": 8698069
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-02-04",
+     "voucher": "PV-11FB01",
+     "description": "Payment voucher",
+     "reference": "DD.11FB.01",
+     "receipt": 0,
+     "payment": 4755919
+    },
+    {
+     "date": "2028-02-08",
+     "voucher": "RV-11FB02",
+     "description": "Receipt voucher",
+     "reference": "CR.11FB.02",
+     "receipt": 4134042,
+     "payment": 0
+    },
+    {
+     "date": "2028-02-13",
+     "voucher": "RV-11FB03",
+     "description": "Receipt voucher",
+     "reference": "CR.11FB.03",
+     "receipt": 1549526,
+     "payment": 0
+    },
+    {
+     "date": "2028-02-18",
+     "voucher": "PV-11FB04",
+     "description": "Payment voucher",
+     "reference": "DD.11FB.04",
+     "receipt": 0,
+     "payment": 2759648
+    },
+    {
+     "date": "2028-02-22",
+     "voucher": "RV-11FB05",
+     "description": "Receipt voucher",
+     "reference": "CR.11FB.05",
+     "receipt": 3014501,
+     "payment": 0
+    },
+    {
+     "date": "2028-02-28",
+     "voucher": "PV-K11-28",
+     "description": "Payment voucher",
+     "reference": "CHK-K11-0228",
+     "receipt": 0,
+     "payment": 910000
+    }
+   ]
+  },
+  {
+   "id": "K11-MAR",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "pdflib",
+   "font": "Rubik",
+   "paper": "A4",
+   "bank": "Silverline Mercantile Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA39 1500 0000 7720 9100 5111",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-03-01",
+     "end": "2028-03-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 23685102
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-03-04",
+        "valueDate": "2028-03-04",
+        "description": "Card settlement",
+        "reference": "CR.11MR.01",
+        "withdrawal": 0,
+        "deposit": 308396,
+        "balance": 23993498
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-03-09",
+        "valueDate": "2028-03-09",
+        "description": "Customer remittance",
+        "reference": "CR.11MR.02",
+        "withdrawal": 0,
+        "deposit": 4520146,
+        "balance": 28513644
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-03-14",
+        "valueDate": "2028-03-14",
+        "description": "Office lease",
+        "reference": "DD.11MR.03",
+        "withdrawal": 2037332,
+        "deposit": 0,
+        "balance": 26476312
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-03-19",
+        "valueDate": "2028-03-19",
+        "description": "Customer remittance",
+        "reference": "CR.11MR.04",
+        "withdrawal": 0,
+        "deposit": 143477,
+        "balance": 26619789
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-03-24",
+        "valueDate": "2028-03-24",
+        "description": "Office lease",
+        "reference": "DD.11MR.05",
+        "withdrawal": 4467991,
+        "deposit": 0,
+        "balance": 22151798
+       },
+       {
+        "kind": "closing",
+        "balance": 22151798
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 6505323,
+        "deposit": 4972019
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-03-03",
+     "voucher": "RV-11MR01",
+     "description": "Receipt voucher",
+     "reference": "CR.11MR.01",
+     "receipt": 308396,
+     "payment": 0
+    },
+    {
+     "date": "2028-03-08",
+     "voucher": "RV-11MR02",
+     "description": "Receipt voucher",
+     "reference": "CR.11MR.02",
+     "receipt": 4520146,
+     "payment": 0
+    },
+    {
+     "date": "2028-03-14",
+     "voucher": "PV-11MR03",
+     "description": "Payment voucher",
+     "reference": "DD.11MR.03",
+     "receipt": 0,
+     "payment": 2037332
+    },
+    {
+     "date": "2028-03-19",
+     "voucher": "RV-11MR04",
+     "description": "Receipt voucher",
+     "reference": "CR.11MR.04",
+     "receipt": 143477,
+     "payment": 0
+    },
+    {
+     "date": "2028-03-24",
+     "voucher": "PV-11MR05",
+     "description": "Payment voucher",
+     "reference": "DD.11MR.05",
+     "receipt": 0,
+     "payment": 4467991
+    }
+   ]
+  },
+  {
+   "id": "K12-DEC",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Fira Sans",
+   "paper": "A4-landscape",
+   "bank": "Cedar Plains Bank",
+   "documentTitle": "Business Current Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "stripes",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA14 6000 0000 3381 2500 4012",
+    "currency": "SAR",
+    "period": {
+     "start": "2027-12-01",
+     "end": "2027-12-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 15992800
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2027-12-04",
+        "valueDate": "2027-12-04",
+        "description": "Marketplace payout",
+        "reference": "CUS12DC00001",
+        "withdrawal": 0,
+        "deposit": 810121,
+        "balance": 16802921
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2027-12-09",
+        "valueDate": "2027-12-09",
+        "description": "Utility bill",
+        "reference": "SUP12DC00002",
+        "withdrawal": 3102931,
+        "deposit": 0,
+        "balance": 13699990
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2027-12-14",
+        "valueDate": "2027-12-14",
+        "description": "Card settlement",
+        "reference": "CUS12DC00003",
+        "withdrawal": 0,
+        "deposit": 2910576,
+        "balance": 16610566
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2027-12-19",
+        "valueDate": "2027-12-19",
+        "description": "Card settlement",
+        "reference": "CUS12DC00004",
+        "withdrawal": 0,
+        "deposit": 1349376,
+        "balance": 17959942
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2027-12-24",
+        "valueDate": "2027-12-24",
+        "description": "Distributor payment",
+        "reference": "CUS12DC00005",
+        "withdrawal": 0,
+        "deposit": 1970872,
+        "balance": 19930814
+       },
+       {
+        "kind": "closing",
+        "balance": 19930814
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 3102931,
+        "deposit": 7040945
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2027-12-02",
+     "voucher": "RV-12DC01",
+     "description": "Receipt voucher",
+     "reference": "CUS12DC00001",
+     "receipt": 810121,
+     "payment": 0
+    },
+    {
+     "date": "2027-12-07",
+     "voucher": "PV-12DC02",
+     "description": "Payment voucher",
+     "reference": "SUP12DC00002",
+     "receipt": 0,
+     "payment": 3102931
+    },
+    {
+     "date": "2027-12-12",
+     "voucher": "RV-12DC03",
+     "description": "Receipt voucher",
+     "reference": "CUS12DC00003",
+     "receipt": 2910576,
+     "payment": 0
+    },
+    {
+     "date": "2027-12-17",
+     "voucher": "RV-12DC04",
+     "description": "Receipt voucher",
+     "reference": "CUS12DC00004",
+     "receipt": 1349376,
+     "payment": 0
+    },
+    {
+     "date": "2027-12-20",
+     "voucher": "PV-K12-20",
+     "description": "Payment voucher",
+     "reference": "CHK-K12-1220",
+     "receipt": 0,
+     "payment": 1288500
+    },
+    {
+     "date": "2027-12-22",
+     "voucher": "RV-12DC05",
+     "description": "Receipt voucher",
+     "reference": "CUS12DC00005",
+     "receipt": 1970872,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "K12-JAN",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Fira Sans",
+   "paper": "A4-landscape",
+   "bank": "Cedar Plains Bank",
+   "documentTitle": "Business Current Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "stripes",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA14 6000 0000 3381 2500 4012",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-01-01",
+     "end": "2028-01-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 19930814
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-01-04",
+        "valueDate": "2028-01-04",
+        "description": "Card settlement",
+        "reference": "CUS12JN00001",
+        "withdrawal": 0,
+        "deposit": 4006747,
+        "balance": 23937561
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-01-09",
+        "valueDate": "2028-01-09",
+        "description": "Distributor payment",
+        "reference": "CUS12JN00002",
+        "withdrawal": 0,
+        "deposit": 2423745,
+        "balance": 26361306
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-01-14",
+        "valueDate": "2028-01-14",
+        "description": "Customer remittance",
+        "reference": "CUS12JN00003",
+        "withdrawal": 0,
+        "deposit": 1530673,
+        "balance": 27891979
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-01-19",
+        "valueDate": "2028-01-19",
+        "description": "Office lease",
+        "reference": "SUP12JN00004",
+        "withdrawal": 4507451,
+        "deposit": 0,
+        "balance": 23384528
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-01-24",
+        "valueDate": "2028-01-24",
+        "description": "Card settlement",
+        "reference": "CUS12JN00005",
+        "withdrawal": 0,
+        "deposit": 518239,
+        "balance": 23902767
+       },
+       {
+        "kind": "closing",
+        "balance": 23902767
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 4507451,
+        "deposit": 8479404
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-01-04",
+     "voucher": "RV-12JN01",
+     "description": "Receipt voucher",
+     "reference": "CUS12JN00001",
+     "receipt": 4006747,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-07",
+     "voucher": "RV-12JN02",
+     "description": "Receipt voucher",
+     "reference": "CUS12JN00002",
+     "receipt": 2423745,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-12",
+     "voucher": "RV-12JN03",
+     "description": "Receipt voucher",
+     "reference": "CUS12JN00003",
+     "receipt": 1530673,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-18",
+     "voucher": "PV-12JN04",
+     "description": "Payment voucher",
+     "reference": "SUP12JN00004",
+     "receipt": 0,
+     "payment": 4507451
+    },
+    {
+     "date": "2028-01-22",
+     "voucher": "RV-12JN05",
+     "description": "Receipt voucher",
+     "reference": "CUS12JN00005",
+     "receipt": 518239,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "K12-FEB",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Fira Sans",
+   "paper": "A4-landscape",
+   "bank": "Cedar Plains Bank",
+   "documentTitle": "Business Current Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "stripes",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA14 6000 0000 3381 2500 4012",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-02-01",
+     "end": "2028-02-29"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 2,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 23902767
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-02-04",
+        "valueDate": "2028-02-04",
+        "description": "Utility bill",
+        "reference": "SUP12FB00001",
+        "withdrawal": 920250,
+        "deposit": 0,
+        "balance": 22982517
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-02-09",
+        "valueDate": "2028-02-09",
+        "description": "Courier services",
+        "reference": "SUP12FB00002",
+        "withdrawal": 1827027,
+        "deposit": 0,
+        "balance": 21155490
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-02-14",
+        "valueDate": "2028-02-14",
+        "description": "Card scheme fees",
+        "reference": "SUP12FB00003",
+        "withdrawal": 4279869,
+        "deposit": 0,
+        "balance": 16875621
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-02-19",
+        "valueDate": "2028-02-19",
+        "description": "Card settlement",
+        "reference": "CUS12FB00004",
+        "withdrawal": 0,
+        "deposit": 225696,
+        "balance": 17101317
+       },
+       {
+        "kind": "carried-forward",
+        "balance": 17101317
+       }
+      ]
+     },
+     {
+      "number": 2,
+      "of": 2,
+      "lines": [
+       {
+        "kind": "brought-forward",
+        "balance": 17101317
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-02-24",
+        "valueDate": "2028-02-24",
+        "description": "Card scheme fees",
+        "reference": "SUP12FB00005",
+        "withdrawal": 4273495,
+        "deposit": 0,
+        "balance": 12827822
+       },
+       {
+        "kind": "closing",
+        "balance": 12827822
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 11300641,
+        "deposit": 225696
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-02-03",
+     "voucher": "PV-12FB01",
+     "description": "Payment voucher",
+     "reference": "SUP12FB00001",
+     "receipt": 0,
+     "payment": 920250
+    },
+    {
+     "date": "2028-02-09",
+     "voucher": "PV-12FB02",
+     "description": "Payment voucher",
+     "reference": "SUP12FB00002",
+     "receipt": 0,
+     "payment": 1827027
+    },
+    {
+     "date": "2028-02-13",
+     "voucher": "PV-12FB03",
+     "description": "Payment voucher",
+     "reference": "SUP12FB00003",
+     "receipt": 0,
+     "payment": 4279869
+    },
+    {
+     "date": "2028-02-17",
+     "voucher": "RV-12FB04",
+     "description": "Receipt voucher",
+     "reference": "CUS12FB00004",
+     "receipt": 225696,
+     "payment": 0
+    },
+    {
+     "date": "2028-02-23",
+     "voucher": "PV-12FB05",
+     "description": "Payment voucher",
+     "reference": "SUP12FB00005",
+     "receipt": 0,
+     "payment": 4273495
+    }
+   ]
+  },
+  {
+   "id": "K13-JAN",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "pdflib",
+   "font": "Lemonada",
+   "paper": "A4",
+   "bank": "Silverline Mercantile Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    }
+   },
+   "statement": {
+    "account": "SA39 1500 0000 7720 9100 5113",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-01-01",
+     "end": "2028-01-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 25406100
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-01-04",
+        "valueDate": "2028-01-04",
+        "description": "Office lease",
+        "reference": "CHK13JN001",
+        "withdrawal": 2923894,
+        "deposit": 0,
+        "balance": 22482206
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-01-09",
+        "valueDate": "2028-01-09",
+        "description": "Courier services",
+        "reference": "CHK13JN002",
+        "withdrawal": 4395123,
+        "deposit": 0,
+        "balance": 18087083
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-01-14",
+        "valueDate": "2028-01-14",
+        "description": "Card settlement",
+        "reference": "FT13JN003",
+        "withdrawal": 0,
+        "deposit": 1457710,
+        "balance": 19544793
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-01-19",
+        "valueDate": "2028-01-19",
+        "description": "Card settlement",
+        "reference": "FT13JN004",
+        "withdrawal": 0,
+        "deposit": 397228,
+        "balance": 19942021
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-01-24",
+        "valueDate": "2028-01-24",
+        "description": "Card scheme fees",
+        "reference": "CHK13JN005",
+        "withdrawal": 1217008,
+        "deposit": 0,
+        "balance": 18725013
+       },
+       {
+        "kind": "closing",
+        "balance": 18725013
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 8536025,
+        "deposit": 1854938
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-01-03",
+     "voucher": "PV-13JN01",
+     "description": "Payment voucher",
+     "reference": "CHK13JN001",
+     "receipt": 0,
+     "payment": 2923894
+    },
+    {
+     "date": "2028-01-09",
+     "voucher": "PV-13JN02",
+     "description": "Payment voucher",
+     "reference": "CHK13JN002",
+     "receipt": 0,
+     "payment": 4395123
+    },
+    {
+     "date": "2028-01-14",
+     "voucher": "RV-13JN03",
+     "description": "Receipt voucher",
+     "reference": "FT13JN003",
+     "receipt": 1457710,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-18",
+     "voucher": "RV-13JN04",
+     "description": "Receipt voucher",
+     "reference": "FT13JN004",
+     "receipt": 397228,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-23",
+     "voucher": "PV-13JN05",
+     "description": "Payment voucher",
+     "reference": "CHK13JN005",
+     "receipt": 0,
+     "payment": 1217008
+    },
+    {
+     "date": "2028-01-29",
+     "voucher": "PV-K13-29",
+     "description": "Payment voucher",
+     "reference": "CHK-K13-0129",
+     "receipt": 0,
+     "payment": 205000
+    }
+   ]
+  },
+  {
+   "id": "K13-FEB",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "pdflib",
+   "font": "Lemonada",
+   "paper": "A4",
+   "bank": "Silverline Mercantile Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    }
+   },
+   "statement": {
+    "account": "SA39 1500 0000 7720 9100 5113",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-02-01",
+     "end": "2028-02-29"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 18724913
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-02-03",
+        "valueDate": "2028-02-03",
+        "description": "Cheque presented",
+        "reference": "CHK-K13-0129",
+        "withdrawal": 205000,
+        "deposit": 0,
+        "balance": 18519913
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-02-04",
+        "valueDate": "2028-02-04",
+        "description": "Supplier settlement",
+        "reference": "CHK13FB001",
+        "withdrawal": 4400652,
+        "deposit": 0,
+        "balance": 14119261
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-02-09",
+        "valueDate": "2028-02-09",
+        "description": "Supplier settlement",
+        "reference": "CHK13FB002",
+        "withdrawal": 3939339,
+        "deposit": 0,
+        "balance": 10179922
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-02-14",
+        "valueDate": "2028-02-14",
+        "description": "Card scheme fees",
+        "reference": "CHK13FB003",
+        "withdrawal": 616430,
+        "deposit": 0,
+        "balance": 9563492
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-02-19",
+        "valueDate": "2028-02-19",
+        "description": "Customer remittance",
+        "reference": "FT13FB004",
+        "withdrawal": 0,
+        "deposit": 1309555,
+        "balance": 10873047
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-02-24",
+        "valueDate": "2028-02-24",
+        "description": "Distributor payment",
+        "reference": "FT13FB005",
+        "withdrawal": 0,
+        "deposit": 1119698,
+        "balance": 11992745
+       },
+       {
+        "kind": "closing",
+        "balance": 11992745
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 9161421,
+        "deposit": 2429253
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-02-03",
+     "voucher": "PV-13FB01",
+     "description": "Payment voucher",
+     "reference": "CHK13FB001",
+     "receipt": 0,
+     "payment": 4400652
+    },
+    {
+     "date": "2028-02-08",
+     "voucher": "PV-13FB02",
+     "description": "Payment voucher",
+     "reference": "CHK13FB002",
+     "receipt": 0,
+     "payment": 3939339
+    },
+    {
+     "date": "2028-02-12",
+     "voucher": "PV-13FB03",
+     "description": "Payment voucher",
+     "reference": "CHK13FB003",
+     "receipt": 0,
+     "payment": 616430
+    },
+    {
+     "date": "2028-02-19",
+     "voucher": "RV-13FB04",
+     "description": "Receipt voucher",
+     "reference": "FT13FB004",
+     "receipt": 1309555,
+     "payment": 0
+    },
+    {
+     "date": "2028-02-24",
+     "voucher": "RV-13FB05",
+     "description": "Receipt voucher",
+     "reference": "FT13FB005",
+     "receipt": 1119698,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "K14-DEC",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Merriweather",
+   "paper": "A4",
+   "bank": "Cedar Plains Bank",
+   "documentTitle": "Business Current Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    }
+   },
+   "statement": {
+    "account": "SA14 6000 0000 3381 2500 4014",
+    "currency": "SAR",
+    "period": {
+     "start": "2027-12-01",
+     "end": "2027-12-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 41981700
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2027-12-04",
+        "valueDate": "2027-12-04",
+        "description": "Customer remittance",
+        "reference": "CR.14DC.01",
+        "withdrawal": 0,
+        "deposit": 4358902,
+        "balance": 46340602
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2027-12-09",
+        "valueDate": "2027-12-09",
+        "description": "Marketplace payout",
+        "reference": "CR.14DC.02",
+        "withdrawal": 0,
+        "deposit": 1494331,
+        "balance": 47834933
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2027-12-14",
+        "valueDate": "2027-12-14",
+        "description": "Customer remittance",
+        "reference": "CR.14DC.03",
+        "withdrawal": 0,
+        "deposit": 1202764,
+        "balance": 49037697
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2027-12-14",
+        "valueDate": "2027-12-14",
+        "description": "Cash deposit",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 62500,
+        "balance": 49100197
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2027-12-19",
+        "valueDate": "2027-12-19",
+        "description": "Marketplace payout",
+        "reference": "CR.14DC.04",
+        "withdrawal": 0,
+        "deposit": 1316763,
+        "balance": 50416960
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2027-12-24",
+        "valueDate": "2027-12-24",
+        "description": "Distributor payment",
+        "reference": "CR.14DC.05",
+        "withdrawal": 0,
+        "deposit": 566651,
+        "balance": 50983611
+       },
+       {
+        "kind": "closing",
+        "balance": 50983611
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 0,
+        "deposit": 9001911
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2027-12-02",
+     "voucher": "RV-14DC01",
+     "description": "Receipt voucher",
+     "reference": "CR.14DC.01",
+     "receipt": 4358902,
+     "payment": 0
+    },
+    {
+     "date": "2027-12-07",
+     "voucher": "RV-14DC02",
+     "description": "Receipt voucher",
+     "reference": "CR.14DC.02",
+     "receipt": 1494331,
+     "payment": 0
+    },
+    {
+     "date": "2027-12-12",
+     "voucher": "RV-14DC03",
+     "description": "Receipt voucher",
+     "reference": "CR.14DC.03",
+     "receipt": 1202764,
+     "payment": 0
+    },
+    {
+     "date": "2027-12-15",
+     "voucher": "RV-K14-15",
+     "description": "Counter receipt",
+     "reference": "",
+     "receipt": 62500,
+     "payment": 0
+    },
+    {
+     "date": "2027-12-19",
+     "voucher": "RV-14DC04",
+     "description": "Receipt voucher",
+     "reference": "CR.14DC.04",
+     "receipt": 1316763,
+     "payment": 0
+    },
+    {
+     "date": "2027-12-24",
+     "voucher": "RV-14DC05",
+     "description": "Receipt voucher",
+     "reference": "CR.14DC.05",
+     "receipt": 566651,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "K14-JAN",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Merriweather",
+   "paper": "A4",
+   "bank": "Cedar Plains Bank",
+   "documentTitle": "Business Current Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    }
+   },
+   "statement": {
+    "account": "SA14 6000 0000 3381 2500 4014",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-01-01",
+     "end": "2028-01-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 50983611
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-01-04",
+        "valueDate": "2028-01-04",
+        "description": "Card settlement",
+        "reference": "CR.14JN.01",
+        "withdrawal": 0,
+        "deposit": 1523559,
+        "balance": 52507170
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-01-09",
+        "valueDate": "2028-01-09",
+        "description": "Distributor payment",
+        "reference": "CR.14JN.02",
+        "withdrawal": 0,
+        "deposit": 3837117,
+        "balance": 56344287
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-01-14",
+        "valueDate": "2028-01-14",
+        "description": "Customer remittance",
+        "reference": "CR.14JN.03",
+        "withdrawal": 0,
+        "deposit": 336456,
+        "balance": 56680743
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-01-19",
+        "valueDate": "2028-01-19",
+        "description": "Marketplace payout",
+        "reference": "CR.14JN.04",
+        "withdrawal": 0,
+        "deposit": 1895858,
+        "balance": 58576601
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-01-24",
+        "valueDate": "2028-01-24",
+        "description": "Customer remittance",
+        "reference": "CR.14JN.05",
+        "withdrawal": 0,
+        "deposit": 3012400,
+        "balance": 61589001
+       },
+       {
+        "kind": "closing",
+        "balance": 61589001
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 0,
+        "deposit": 10605390
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-01-04",
+     "voucher": "RV-14JN01",
+     "description": "Receipt voucher",
+     "reference": "CR.14JN.01",
+     "receipt": 1523559,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-07",
+     "voucher": "RV-14JN02",
+     "description": "Receipt voucher",
+     "reference": "CR.14JN.02",
+     "receipt": 3837117,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-13",
+     "voucher": "RV-14JN03",
+     "description": "Receipt voucher",
+     "reference": "CR.14JN.03",
+     "receipt": 336456,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-17",
+     "voucher": "RV-14JN04",
+     "description": "Receipt voucher",
+     "reference": "CR.14JN.04",
+     "receipt": 1895858,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-23",
+     "voucher": "RV-14JN05",
+     "description": "Receipt voucher",
+     "reference": "CR.14JN.05",
+     "receipt": 3012400,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "K15-JAN",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "pdflib",
+   "font": "Readex Pro",
+   "paper": "A4-landscape",
+   "bank": "Silverline Mercantile Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "stripes",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA39 1500 0000 7720 9100 5115",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-01-01",
+     "end": "2028-01-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 48026900
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-01-04",
+        "valueDate": "2028-01-04",
+        "description": "Supplier settlement",
+        "reference": "PAY/15JN/01",
+        "withdrawal": 4312189,
+        "deposit": 0,
+        "balance": 43714711
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-01-09",
+        "valueDate": "2028-01-09",
+        "description": "Customer remittance",
+        "reference": "RCV/15JN/02",
+        "withdrawal": 0,
+        "deposit": 3015127,
+        "balance": 46729838
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-01-14",
+        "valueDate": "2028-01-14",
+        "description": "Utility bill",
+        "reference": "PAY/15JN/03",
+        "withdrawal": 2447780,
+        "deposit": 0,
+        "balance": 44282058
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-01-19",
+        "valueDate": "2028-01-19",
+        "description": "Customer remittance",
+        "reference": "RCV/15JN/04",
+        "withdrawal": 0,
+        "deposit": 187036,
+        "balance": 44469094
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-01-24",
+        "valueDate": "2028-01-24",
+        "description": "Card scheme fees",
+        "reference": "PAY/15JN/05",
+        "withdrawal": 4502091,
+        "deposit": 0,
+        "balance": 39967003
+       },
+       {
+        "kind": "closing",
+        "balance": 39967003
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 11262060,
+        "deposit": 3202163
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-01-02",
+     "voucher": "PV-15JN01",
+     "description": "Payment voucher",
+     "reference": "PAY/15JN/01",
+     "receipt": 0,
+     "payment": 4312189
+    },
+    {
+     "date": "2028-01-08",
+     "voucher": "RV-15JN02",
+     "description": "Receipt voucher",
+     "reference": "RCV/15JN/02",
+     "receipt": 3015127,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-14",
+     "voucher": "PV-15JN03",
+     "description": "Payment voucher",
+     "reference": "PAY/15JN/03",
+     "receipt": 0,
+     "payment": 2447780
+    },
+    {
+     "date": "2028-01-18",
+     "voucher": "RV-15JN04",
+     "description": "Receipt voucher",
+     "reference": "RCV/15JN/04",
+     "receipt": 187036,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-22",
+     "voucher": "PV-15JN05",
+     "description": "Payment voucher",
+     "reference": "PAY/15JN/05",
+     "receipt": 0,
+     "payment": 4502091
+    },
+    {
+     "date": "2028-01-31",
+     "voucher": "RV-K15-31",
+     "description": "Cash deposited after cut-off",
+     "reference": "DEP-K15-0131",
+     "receipt": 455000,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "K15-FEB",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "pdflib",
+   "font": "Readex Pro",
+   "paper": "A4-landscape",
+   "bank": "Silverline Mercantile Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "stripes",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA39 1500 0000 7720 9100 5115",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-02-01",
+     "end": "2028-02-29"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 39967003
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-02-01",
+        "valueDate": "2028-02-01",
+        "description": "Branch cash deposit",
+        "reference": "DEP-K15-0131",
+        "withdrawal": 0,
+        "deposit": 455000,
+        "balance": 40422003
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-02-04",
+        "valueDate": "2028-02-04",
+        "description": "Card settlement",
+        "reference": "RCV/15FB/01",
+        "withdrawal": 0,
+        "deposit": 2547537,
+        "balance": 42969540
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-02-09",
+        "valueDate": "2028-02-09",
+        "description": "Distributor payment",
+        "reference": "RCV/15FB/02",
+        "withdrawal": 0,
+        "deposit": 3750939,
+        "balance": 46720479
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-02-14",
+        "valueDate": "2028-02-14",
+        "description": "Office lease",
+        "reference": "PAY/15FB/03",
+        "withdrawal": 220743,
+        "deposit": 0,
+        "balance": 46499736
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-02-19",
+        "valueDate": "2028-02-19",
+        "description": "Card scheme fees",
+        "reference": "PAY/15FB/04",
+        "withdrawal": 4471183,
+        "deposit": 0,
+        "balance": 42028553
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-02-24",
+        "valueDate": "2028-02-24",
+        "description": "Card scheme fees",
+        "reference": "PAY/15FB/05",
+        "withdrawal": 957597,
+        "deposit": 0,
+        "balance": 41070956
+       },
+       {
+        "kind": "closing",
+        "balance": 41070956
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 5649523,
+        "deposit": 6753476
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-02-02",
+     "voucher": "RV-15FB01",
+     "description": "Receipt voucher",
+     "reference": "RCV/15FB/01",
+     "receipt": 2547537,
+     "payment": 0
+    },
+    {
+     "date": "2028-02-07",
+     "voucher": "RV-15FB02",
+     "description": "Receipt voucher",
+     "reference": "RCV/15FB/02",
+     "receipt": 3750939,
+     "payment": 0
+    },
+    {
+     "date": "2028-02-12",
+     "voucher": "PV-15FB03",
+     "description": "Payment voucher",
+     "reference": "PAY/15FB/03",
+     "receipt": 0,
+     "payment": 220743
+    },
+    {
+     "date": "2028-02-18",
+     "voucher": "PV-15FB04",
+     "description": "Payment voucher",
+     "reference": "PAY/15FB/04",
+     "receipt": 0,
+     "payment": 4471183
+    },
+    {
+     "date": "2028-02-22",
+     "voucher": "PV-15FB05",
+     "description": "Payment voucher",
+     "reference": "PAY/15FB/05",
+     "receipt": 0,
+     "payment": 957597
+    }
+   ]
+  },
+  {
+   "id": "K16-FEB",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Space Mono",
+   "paper": "Letter",
+   "bank": "Cedar Plains Bank",
+   "documentTitle": "Business Current Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "none",
+     "heading": "rule",
+     "headings": "left"
+    }
+   },
+   "statement": {
+    "account": "SA14 6000 0000 3381 2500 4016",
+    "currency": "USD",
+    "period": {
+     "start": "2028-02-01",
+     "end": "2028-02-29"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 22553300
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-02-04",
+        "valueDate": "2028-02-04",
+        "description": "Courier services",
+        "reference": "CHK16FB001",
+        "withdrawal": 3080698,
+        "deposit": 0,
+        "balance": 19472602
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-02-09",
+        "valueDate": "2028-02-09",
+        "description": "Marketplace payout",
+        "reference": "FT16FB002",
+        "withdrawal": 0,
+        "deposit": 1077143,
+        "balance": 20549745
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-02-14",
+        "valueDate": "2028-02-14",
+        "description": "Courier services",
+        "reference": "CHK16FB003",
+        "withdrawal": 1870666,
+        "deposit": 0,
+        "balance": 18679079
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-02-19",
+        "valueDate": "2028-02-19",
+        "description": "Marketplace payout",
+        "reference": "FT16FB004",
+        "withdrawal": 0,
+        "deposit": 671887,
+        "balance": 19350966
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-02-24",
+        "valueDate": "2028-02-24",
+        "description": "Supplier settlement",
+        "reference": "CHK16FB005",
+        "withdrawal": 3506395,
+        "deposit": 0,
+        "balance": 15844571
+       },
+       {
+        "kind": "closing",
+        "balance": 15844571
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 8457759,
+        "deposit": 1749030
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-02-03",
+     "voucher": "PV-16FB01",
+     "description": "Payment voucher",
+     "reference": "CHK16FB001",
+     "receipt": 0,
+     "payment": 3080698
+    },
+    {
+     "date": "2028-02-07",
+     "voucher": "RV-16FB02",
+     "description": "Receipt voucher",
+     "reference": "FT16FB002",
+     "receipt": 1077143,
+     "payment": 0
+    },
+    {
+     "date": "2028-02-13",
+     "voucher": "PV-16FB03",
+     "description": "Payment voucher",
+     "reference": "CHK16FB003",
+     "receipt": 0,
+     "payment": 1870666
+    },
+    {
+     "date": "2028-02-19",
+     "voucher": "RV-16FB04",
+     "description": "Receipt voucher",
+     "reference": "FT16FB004",
+     "receipt": 671887,
+     "payment": 0
+    },
+    {
+     "date": "2028-02-23",
+     "voucher": "PV-16FB05",
+     "description": "Payment voucher",
+     "reference": "CHK16FB005",
+     "receipt": 0,
+     "payment": 3506395
+    },
+    {
+     "date": "2028-02-28",
+     "voucher": "PV-K16-28",
+     "description": "Payment voucher",
+     "reference": "CHK-K16-0228",
+     "receipt": 0,
+     "payment": 61000
+    }
+   ]
+  },
+  {
+   "id": "K16-MAR",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Space Mono",
+   "paper": "Letter",
+   "bank": "Cedar Plains Bank",
+   "documentTitle": "Business Current Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "none",
+     "heading": "rule",
+     "headings": "left"
+    }
+   },
+   "statement": {
+    "account": "SA14 6000 0000 3381 2500 4016",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-03-01",
+     "end": "2028-03-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 15844571
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-03-04",
+        "valueDate": "2028-03-04",
+        "description": "Office lease",
+        "reference": "CHK16MR001",
+        "withdrawal": 3874840,
+        "deposit": 0,
+        "balance": 11969731
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-03-06",
+        "valueDate": "2028-03-06",
+        "description": "Cheque presented",
+        "reference": "CHK-K16-0228",
+        "withdrawal": 61000,
+        "deposit": 0,
+        "balance": 11908731
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-03-09",
+        "valueDate": "2028-03-09",
+        "description": "Office lease",
+        "reference": "CHK16MR002",
+        "withdrawal": 265223,
+        "deposit": 0,
+        "balance": 11643508
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-03-14",
+        "valueDate": "2028-03-14",
+        "description": "Distributor payment",
+        "reference": "FT16MR003",
+        "withdrawal": 0,
+        "deposit": 4579515,
+        "balance": 16223023
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-03-19",
+        "valueDate": "2028-03-19",
+        "description": "Customer remittance",
+        "reference": "FT16MR004",
+        "withdrawal": 0,
+        "deposit": 3693398,
+        "balance": 19916421
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-03-24",
+        "valueDate": "2028-03-24",
+        "description": "Utility bill",
+        "reference": "CHK16MR005",
+        "withdrawal": 2483579,
+        "deposit": 0,
+        "balance": 17432842
+       },
+       {
+        "kind": "closing",
+        "balance": 17432842
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 6684642,
+        "deposit": 8272913
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-03-04",
+     "voucher": "PV-16MR01",
+     "description": "Payment voucher",
+     "reference": "CHK16MR001",
+     "receipt": 0,
+     "payment": 3874840
+    },
+    {
+     "date": "2028-03-07",
+     "voucher": "PV-16MR02",
+     "description": "Payment voucher",
+     "reference": "CHK16MR002",
+     "receipt": 0,
+     "payment": 265223
+    },
+    {
+     "date": "2028-03-12",
+     "voucher": "RV-16MR03",
+     "description": "Receipt voucher",
+     "reference": "FT16MR003",
+     "receipt": 4579515,
+     "payment": 0
+    },
+    {
+     "date": "2028-03-19",
+     "voucher": "RV-16MR04",
+     "description": "Receipt voucher",
+     "reference": "FT16MR004",
+     "receipt": 3693398,
+     "payment": 0
+    },
+    {
+     "date": "2028-03-22",
+     "voucher": "PV-16MR05",
+     "description": "Payment voucher",
+     "reference": "CHK16MR005",
+     "receipt": 0,
+     "payment": 2483579
+    }
+   ]
+  },
+  {
+   "id": "K17-MAR",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Work Sans",
+   "paper": "A4",
+   "bank": "Silverline Mercantile Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA39 1500 0000 7720 9100 5117",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-03-01",
+     "end": "2028-03-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 12219000
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-03-04",
+        "valueDate": "2028-03-04",
+        "description": "Office lease",
+        "reference": "SUP17MR00001",
+        "withdrawal": 1875830,
+        "deposit": 0,
+        "balance": 10343170
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-03-09",
+        "valueDate": "2028-03-09",
+        "description": "Distributor payment",
+        "reference": "CUS17MR00002",
+        "withdrawal": 0,
+        "deposit": 1713796,
+        "balance": 12056966
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-03-14",
+        "valueDate": "2028-03-14",
+        "description": "Courier services",
+        "reference": "SUP17MR00003",
+        "withdrawal": 2715314,
+        "deposit": 0,
+        "balance": 9341652
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-03-19",
+        "valueDate": "2028-03-19",
+        "description": "Office lease",
+        "reference": "SUP17MR00004",
+        "withdrawal": 3701097,
+        "deposit": 0,
+        "balance": 5640555
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-03-24",
+        "valueDate": "2028-03-24",
+        "description": "Utility bill",
+        "reference": "SUP17MR00005",
+        "withdrawal": 79764,
+        "deposit": 0,
+        "balance": 5560791
+       },
+       {
+        "kind": "closing",
+        "balance": 5560791
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 8372005,
+        "deposit": 1713796
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-03-04",
+     "voucher": "PV-17MR01",
+     "description": "Payment voucher",
+     "reference": "SUP17MR00001",
+     "receipt": 0,
+     "payment": 1875830
+    },
+    {
+     "date": "2028-03-07",
+     "voucher": "RV-17MR02",
+     "description": "Receipt voucher",
+     "reference": "CUS17MR00002",
+     "receipt": 1713796,
+     "payment": 0
+    },
+    {
+     "date": "2028-03-13",
+     "voucher": "PV-17MR03",
+     "description": "Payment voucher",
+     "reference": "SUP17MR00003",
+     "receipt": 0,
+     "payment": 2715314
+    },
+    {
+     "date": "2028-03-18",
+     "voucher": "PV-17MR04",
+     "description": "Payment voucher",
+     "reference": "SUP17MR00004",
+     "receipt": 0,
+     "payment": 3701097
+    },
+    {
+     "date": "2028-03-22",
+     "voucher": "PV-17MR05",
+     "description": "Payment voucher",
+     "reference": "SUP17MR00005",
+     "receipt": 0,
+     "payment": 79764
+    },
+    {
+     "date": "2028-03-31",
+     "voucher": "RV-K17-31",
+     "description": "Cash deposited after cut-off",
+     "reference": "DEP-K17-0331",
+     "receipt": 640000,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "K18-JAN",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "pdflib",
+   "font": "Rubik",
+   "paper": "A4",
+   "bank": "Cedar Plains Bank",
+   "documentTitle": "Business Current Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA14 6000 0000 3381 2500 4018",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-01-01",
+     "end": "2028-01-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 17611500
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-01-04",
+        "valueDate": "2028-01-04",
+        "description": "Card settlement",
+        "reference": "FT18JN001",
+        "withdrawal": 0,
+        "deposit": 1294704,
+        "balance": 18906204
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-01-09",
+        "valueDate": "2028-01-09",
+        "description": "Office lease",
+        "reference": "CHK18JN002",
+        "withdrawal": 1674909,
+        "deposit": 0,
+        "balance": 17231295
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-01-12",
+        "valueDate": "2028-01-12",
+        "description": "Cash deposit",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 318000,
+        "balance": 17549295
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-01-14",
+        "valueDate": "2028-01-14",
+        "description": "Distributor payment",
+        "reference": "FT18JN003",
+        "withdrawal": 0,
+        "deposit": 34980,
+        "balance": 17584275
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-01-19",
+        "valueDate": "2028-01-19",
+        "description": "Card scheme fees",
+        "reference": "CHK18JN004",
+        "withdrawal": 362613,
+        "deposit": 0,
+        "balance": 17221662
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-01-24",
+        "valueDate": "2028-01-24",
+        "description": "Office lease",
+        "reference": "CHK18JN005",
+        "withdrawal": 4441084,
+        "deposit": 0,
+        "balance": 12780578
+       },
+       {
+        "kind": "closing",
+        "balance": 12780578
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 6478606,
+        "deposit": 1647684
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-01-03",
+     "voucher": "RV-18JN01",
+     "description": "Receipt voucher",
+     "reference": "FT18JN001",
+     "receipt": 1294704,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-09",
+     "voucher": "PV-18JN02",
+     "description": "Payment voucher",
+     "reference": "CHK18JN002",
+     "receipt": 0,
+     "payment": 1674909
+    },
+    {
+     "date": "2028-01-13",
+     "voucher": "RV-K18-13",
+     "description": "Counter receipt",
+     "reference": "",
+     "receipt": 318000,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-14",
+     "voucher": "RV-18JN03",
+     "description": "Receipt voucher",
+     "reference": "FT18JN003",
+     "receipt": 34980,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-18",
+     "voucher": "PV-18JN04",
+     "description": "Payment voucher",
+     "reference": "CHK18JN004",
+     "receipt": 0,
+     "payment": 362613
+    },
+    {
+     "date": "2028-01-22",
+     "voucher": "PV-18JN05",
+     "description": "Payment voucher",
+     "reference": "CHK18JN005",
+     "receipt": 0,
+     "payment": 4441084
+    }
+   ]
+  },
+  {
+   "id": "K19-DEC",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Merriweather",
+   "paper": "A4",
+   "bank": "Silverline Mercantile Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    }
+   },
+   "statement": {
+    "account": "SA39 1500 0000 7720 9100 5119",
+    "currency": "USD",
+    "period": {
+     "start": "2027-12-01",
+     "end": "2027-12-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 43050600
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2027-12-04",
+        "valueDate": "2027-12-04",
+        "description": "Customer remittance",
+        "reference": "CR.19DC.01",
+        "withdrawal": 0,
+        "deposit": 3311024,
+        "balance": 46361624
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2027-12-09",
+        "valueDate": "2027-12-09",
+        "description": "Utility bill",
+        "reference": "DD.19DC.02",
+        "withdrawal": 596418,
+        "deposit": 0,
+        "balance": 45765206
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2027-12-14",
+        "valueDate": "2027-12-14",
+        "description": "Card settlement",
+        "reference": "CR.19DC.03",
+        "withdrawal": 0,
+        "deposit": 4492157,
+        "balance": 50257363
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2027-12-19",
+        "valueDate": "2027-12-19",
+        "description": "Marketplace payout",
+        "reference": "CR.19DC.04",
+        "withdrawal": 0,
+        "deposit": 2544337,
+        "balance": 52801700
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2027-12-24",
+        "valueDate": "2027-12-24",
+        "description": "Marketplace payout",
+        "reference": "CR.19DC.05",
+        "withdrawal": 0,
+        "deposit": 1812777,
+        "balance": 54614477
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2027-12-31",
+        "valueDate": "2027-12-31",
+        "description": "Incoming wire fee",
+        "reference": "FEE-K19-1231",
+        "withdrawal": 3500,
+        "deposit": 0,
+        "balance": 54610977
+       },
+       {
+        "kind": "closing",
+        "balance": 54610977
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 599918,
+        "deposit": 12160295
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2027-12-03",
+     "voucher": "RV-19DC01",
+     "description": "Receipt voucher",
+     "reference": "CR.19DC.01",
+     "receipt": 3311024,
+     "payment": 0
+    },
+    {
+     "date": "2027-12-07",
+     "voucher": "PV-19DC02",
+     "description": "Payment voucher",
+     "reference": "DD.19DC.02",
+     "receipt": 0,
+     "payment": 596418
+    },
+    {
+     "date": "2027-12-12",
+     "voucher": "RV-19DC03",
+     "description": "Receipt voucher",
+     "reference": "CR.19DC.03",
+     "receipt": 4492157,
+     "payment": 0
+    },
+    {
+     "date": "2027-12-17",
+     "voucher": "RV-19DC04",
+     "description": "Receipt voucher",
+     "reference": "CR.19DC.04",
+     "receipt": 2544337,
+     "payment": 0
+    },
+    {
+     "date": "2027-12-24",
+     "voucher": "RV-19DC05",
+     "description": "Receipt voucher",
+     "reference": "CR.19DC.05",
+     "receipt": 1812777,
+     "payment": 0
+    },
+    {
+     "date": "2027-12-31",
+     "voucher": "RV-K19-31",
+     "description": "Cheques deposited after cut-off",
+     "reference": "DEP-K19-1231",
+     "receipt": 1250000,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "K20-JAN",
+   "layout": "ar",
+   "digits": "arabic",
+   "producer": "pdflib",
+   "font": "Cairo",
+   "paper": "A4",
+   "bank": "مصرف الواحة التجاري",
+   "documentTitle": "كشف حساب جاري",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA83 2800 0000 4413 6600 6220",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-01-01",
+     "end": "2028-01-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 10513400
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-01-04",
+        "valueDate": "2028-01-04",
+        "description": "فاتورة كهرباء",
+        "reference": "PAY/20JN/01",
+        "withdrawal": 1009055,
+        "deposit": 0,
+        "balance": 9504345
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-01-09",
+        "valueDate": "2028-01-09",
+        "description": "خدمات شحن",
+        "reference": "PAY/20JN/02",
+        "withdrawal": 2482842,
+        "deposit": 0,
+        "balance": 7021503
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-01-14",
+        "valueDate": "2028-01-14",
+        "description": "فاتورة كهرباء",
+        "reference": "PAY/20JN/03",
+        "withdrawal": 1184309,
+        "deposit": 0,
+        "balance": 5837194
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-01-14",
+        "valueDate": "2028-01-14",
+        "description": "سداد مورد",
+        "reference": "PAY/K20/77",
+        "withdrawal": 441000,
+        "deposit": 0,
+        "balance": 5396194
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-01-19",
+        "valueDate": "2028-01-19",
+        "description": "إيجار مكتب",
+        "reference": "PAY/20JN/04",
+        "withdrawal": 1853663,
+        "deposit": 0,
+        "balance": 3542531
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-01-24",
+        "valueDate": "2028-01-24",
+        "description": "خدمات شحن",
+        "reference": "PAY/20JN/05",
+        "withdrawal": 1695851,
+        "deposit": 0,
+        "balance": 1846680
+       },
+       {
+        "kind": "closing",
+        "balance": 1846680
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 8666720,
+        "deposit": 0
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-01-02",
+     "voucher": "PV-20JN01",
+     "description": "سند صرف",
+     "reference": "PAY/20JN/01",
+     "receipt": 0,
+     "payment": 1009055
+    },
+    {
+     "date": "2028-01-07",
+     "voucher": "PV-20JN02",
+     "description": "سند صرف",
+     "reference": "PAY/20JN/02",
+     "receipt": 0,
+     "payment": 2482842
+    },
+    {
+     "date": "2028-01-12",
+     "voucher": "PV-20JN03",
+     "description": "سند صرف",
+     "reference": "PAY/20JN/03",
+     "receipt": 0,
+     "payment": 1184309
+    },
+    {
+     "date": "2028-01-13",
+     "voucher": "PV-K20-77",
+     "description": "سند صرف",
+     "reference": "PAY/K20/77",
+     "receipt": 0,
+     "payment": 414000
+    },
+    {
+     "date": "2028-01-18",
+     "voucher": "PV-20JN04",
+     "description": "سند صرف",
+     "reference": "PAY/20JN/04",
+     "receipt": 0,
+     "payment": 1853663
+    },
+    {
+     "date": "2028-01-24",
+     "voucher": "PV-20JN05",
+     "description": "سند صرف",
+     "reference": "PAY/20JN/05",
+     "receipt": 0,
+     "payment": 1695851
+    }
+   ]
+  },
+  {
+   "id": "K21-DEC",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Fira Sans",
+   "paper": "A4-landscape",
+   "bank": "Cedar Plains Bank",
+   "documentTitle": "Business Current Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "stripes",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA14 6000 0000 3381 2500 4021",
+    "currency": "SAR",
+    "period": {
+     "start": "2027-12-01",
+     "end": "2027-12-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 41268700
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2027-12-04",
+        "valueDate": "2027-12-04",
+        "description": "Card scheme fees",
+        "reference": "CHK21DC001",
+        "withdrawal": 4416200,
+        "deposit": 0,
+        "balance": 36852500
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2027-12-09",
+        "valueDate": "2027-12-09",
+        "description": "Supplier settlement",
+        "reference": "CHK21DC002",
+        "withdrawal": 209380,
+        "deposit": 0,
+        "balance": 36643120
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2027-12-14",
+        "valueDate": "2027-12-14",
+        "description": "Office lease",
+        "reference": "CHK21DC003",
+        "withdrawal": 1412903,
+        "deposit": 0,
+        "balance": 35230217
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2027-12-19",
+        "valueDate": "2027-12-19",
+        "description": "Marketplace payout",
+        "reference": "FT21DC004",
+        "withdrawal": 0,
+        "deposit": 64664,
+        "balance": 35294881
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2027-12-24",
+        "valueDate": "2027-12-24",
+        "description": "Utility bill",
+        "reference": "CHK21DC005",
+        "withdrawal": 3957115,
+        "deposit": 0,
+        "balance": 31337766
+       },
+       {
+        "kind": "closing",
+        "balance": 31337766
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 9995598,
+        "deposit": 64664
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2027-12-02",
+     "voucher": "PV-21DC01",
+     "description": "Payment voucher",
+     "reference": "CHK21DC001",
+     "receipt": 0,
+     "payment": 4416200
+    },
+    {
+     "date": "2027-12-09",
+     "voucher": "PV-21DC02",
+     "description": "Payment voucher",
+     "reference": "CHK21DC002",
+     "receipt": 0,
+     "payment": 209380
+    },
+    {
+     "date": "2027-12-14",
+     "voucher": "PV-21DC03",
+     "description": "Payment voucher",
+     "reference": "CHK21DC003",
+     "receipt": 0,
+     "payment": 1412903
+    },
+    {
+     "date": "2027-12-17",
+     "voucher": "RV-21DC04",
+     "description": "Receipt voucher",
+     "reference": "FT21DC004",
+     "receipt": 64664,
+     "payment": 0
+    },
+    {
+     "date": "2027-12-24",
+     "voucher": "PV-21DC05",
+     "description": "Payment voucher",
+     "reference": "CHK21DC005",
+     "receipt": 0,
+     "payment": 3957115
+    },
+    {
+     "date": "2027-12-30",
+     "voucher": "PV-K21-30",
+     "description": "Courier advance",
+     "reference": "",
+     "receipt": 0,
+     "payment": 198000
+    }
+   ]
+  },
+  {
+   "id": "K21-JAN",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Fira Sans",
+   "paper": "A4-landscape",
+   "bank": "Cedar Plains Bank",
+   "documentTitle": "Business Current Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "stripes",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA14 6000 0000 3381 2500 4021",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-01-01",
+     "end": "2028-01-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 31337766
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-01-04",
+        "valueDate": "2028-01-04",
+        "description": "Marketplace payout",
+        "reference": "FT21JN001",
+        "withdrawal": 0,
+        "deposit": 4266558,
+        "balance": 35604324
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-01-04",
+        "valueDate": "2028-01-04",
+        "description": "Counter cheque paid",
+        "reference": "",
+        "withdrawal": 198000,
+        "deposit": 0,
+        "balance": 35406324
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-01-09",
+        "valueDate": "2028-01-09",
+        "description": "Marketplace payout",
+        "reference": "FT21JN002",
+        "withdrawal": 0,
+        "deposit": 3445940,
+        "balance": 38852264
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-01-14",
+        "valueDate": "2028-01-14",
+        "description": "Customer remittance",
+        "reference": "FT21JN003",
+        "withdrawal": 0,
+        "deposit": 540781,
+        "balance": 39393045
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-01-19",
+        "valueDate": "2028-01-19",
+        "description": "Supplier settlement",
+        "reference": "CHK21JN004",
+        "withdrawal": 965687,
+        "deposit": 0,
+        "balance": 38427358
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-01-24",
+        "valueDate": "2028-01-24",
+        "description": "Card settlement",
+        "reference": "FT21JN005",
+        "withdrawal": 0,
+        "deposit": 619998,
+        "balance": 39047356
+       },
+       {
+        "kind": "closing",
+        "balance": 39047356
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 1163687,
+        "deposit": 8873277
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-01-02",
+     "voucher": "RV-21JN01",
+     "description": "Receipt voucher",
+     "reference": "FT21JN001",
+     "receipt": 4266558,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-08",
+     "voucher": "RV-21JN02",
+     "description": "Receipt voucher",
+     "reference": "FT21JN002",
+     "receipt": 3445940,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-13",
+     "voucher": "RV-21JN03",
+     "description": "Receipt voucher",
+     "reference": "FT21JN003",
+     "receipt": 540781,
+     "payment": 0
+    },
+    {
+     "date": "2028-01-17",
+     "voucher": "PV-21JN04",
+     "description": "Payment voucher",
+     "reference": "CHK21JN004",
+     "receipt": 0,
+     "payment": 965687
+    },
+    {
+     "date": "2028-01-22",
+     "voucher": "RV-21JN05",
+     "description": "Receipt voucher",
+     "reference": "FT21JN005",
+     "receipt": 619998,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "K22-MAR",
+   "layout": "ar",
+   "digits": "latin",
+   "producer": "pdflib",
+   "font": "Tajawal",
+   "paper": "A4",
+   "bank": "مصرف الواحة التجاري",
+   "documentTitle": "كشف حساب جاري",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA83 2800 0000 4413 6600 6222",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-03-01",
+     "end": "2028-03-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 67663100
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-03-04",
+        "valueDate": "2028-03-04",
+        "description": "إيجار مكتب",
+        "reference": "SUP22MR00001",
+        "withdrawal": 2878757,
+        "deposit": 0,
+        "balance": 64784343
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-03-09",
+        "valueDate": "2028-03-09",
+        "description": "رسوم بطاقات",
+        "reference": "SUP22MR00002",
+        "withdrawal": 2740080,
+        "deposit": 0,
+        "balance": 62044263
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-03-14",
+        "valueDate": "2028-03-14",
+        "description": "مستحقات متجر إلكتروني",
+        "reference": "CUS22MR00003",
+        "withdrawal": 0,
+        "deposit": 3584608,
+        "balance": 65628871
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-03-19",
+        "valueDate": "2028-03-19",
+        "description": "خدمات شحن",
+        "reference": "SUP22MR00004",
+        "withdrawal": 740745,
+        "deposit": 0,
+        "balance": 64888126
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-03-24",
+        "valueDate": "2028-03-24",
+        "description": "دفعة موزع",
+        "reference": "CUS22MR00005",
+        "withdrawal": 0,
+        "deposit": 1699822,
+        "balance": 66587948
+       },
+       {
+        "kind": "closing",
+        "balance": 66587948
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 6359582,
+        "deposit": 5284430
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-03-03",
+     "voucher": "PV-22MR01",
+     "description": "سند صرف",
+     "reference": "SUP22MR00001",
+     "receipt": 0,
+     "payment": 2878757
+    },
+    {
+     "date": "2028-03-08",
+     "voucher": "PV-22MR02",
+     "description": "سند صرف",
+     "reference": "SUP22MR00002",
+     "receipt": 0,
+     "payment": 2740080
+    },
+    {
+     "date": "2028-03-12",
+     "voucher": "RV-22MR03",
+     "description": "سند قبض",
+     "reference": "CUS22MR00003",
+     "receipt": 3584608,
+     "payment": 0
+    },
+    {
+     "date": "2028-03-17",
+     "voucher": "PV-22MR04",
+     "description": "سند صرف",
+     "reference": "SUP22MR00004",
+     "receipt": 0,
+     "payment": 740745
+    },
+    {
+     "date": "2028-03-22",
+     "voucher": "RV-22MR05",
+     "description": "سند قبض",
+     "reference": "CUS22MR00005",
+     "receipt": 1699822,
+     "payment": 0
+    },
+    {
+     "date": "2028-03-29",
+     "voucher": "PV-K22-29",
+     "description": "سند صرف شيك",
+     "reference": "CHK-K22-0329",
+     "receipt": 0,
+     "payment": 275500
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,10822 @@
+{
+ "stories": {
+  "B01": {
+   "cases": [
+    {
+     "document": "CN-26-0011",
+     "kind": "credit-note",
+     "ledger": [
+      "P00003"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "SI-26-0801",
+     "kind": "invoice",
+     "ledger": [
+      "P00001"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "SI-26-0810",
+     "kind": "invoice",
+     "ledger": [
+      "P00002"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "SI-26-0822",
+     "kind": "invoice",
+     "ledger": [
+      "P00005"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "RV-26-0105",
+     "kind": "receipt",
+     "ledger": [
+      "P00004"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       10
+      ]
+     ]
+    }
+   ],
+   "errorCodes": [],
+   "errors": [],
+   "matched": 5,
+   "outOfScopeLines": 5,
+   "review": {},
+   "sections": [
+    {
+     "compared": false,
+     "lines": 3,
+     "pages": [
+      1
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-201",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    },
+    {
+     "compared": true,
+     "lines": 5,
+     "pages": [
+      2
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    },
+    {
+     "compared": false,
+     "lines": 2,
+     "pages": [
+      3
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-207",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    }
+   ],
+   "status": "matched"
+  },
+  "B02": {
+   "cases": [
+    {
+     "document": "KC-8003",
+     "kind": "credit-note",
+     "ledger": [
+      "P00004"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "KC-8010",
+     "kind": "credit-note",
+     "ledger": [
+      "P00011"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "KC-8017",
+     "kind": "credit-note",
+     "ledger": [
+      "P00018"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "KC-8031",
+     "kind": "credit-note",
+     "ledger": [
+      "P00032"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "KC-8038",
+     "kind": "credit-note",
+     "ledger": [
+      "P00038"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "KC-8045",
+     "kind": "credit-note",
+     "ledger": [
+      "P00045"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "KI-5000",
+     "kind": "invoice",
+     "ledger": [
+      "P00001"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "KI-5001",
+     "kind": "invoice",
+     "ledger": [
+      "P00002"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "KI-5002",
+     "kind": "invoice",
+     "ledger": [
+      "P00003"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "KI-5005",
+     "kind": "invoice",
+     "ledger": [
+      "P00006"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "KI-5006",
+     "kind": "invoice",
+     "ledger": [
+      "P00007"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "KI-5007",
+     "kind": "invoice",
+     "ledger": [
+      "P00008"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "KI-5008",
+     "kind": "invoice",
+     "ledger": [
+      "P00009"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "KI-5011",
+     "kind": "invoice",
+     "ledger": [
+      "P00012"
+     ],
+     "reason": "date-difference",
+     "statement": [
+      [
+       1,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "KI-5012",
+     "kind": "invoice",
+     "ledger": [
+      "P00013"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "KI-5013",
+     "kind": "invoice",
+     "ledger": [
+      "P00014"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "KI-5015",
+     "kind": "invoice",
+     "ledger": [
+      "P00016"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "KI-5016",
+     "kind": "invoice",
+     "ledger": [
+      "P00017"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "KI-5018",
+     "kind": "invoice",
+     "ledger": [
+      "P00019"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "KI-5020",
+     "kind": "invoice",
+     "ledger": [
+      "P00021"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       2
+      ]
+     ]
+    },
+    {
+     "document": "KI-5021",
+     "kind": "invoice",
+     "ledger": [
+      "P00022"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       3
+      ]
+     ]
+    },
+    {
+     "document": "KI-5022",
+     "kind": "invoice",
+     "ledger": [
+      "P00023"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       4
+      ]
+     ]
+    },
+    {
+     "document": "KI-5023",
+     "kind": "invoice",
+     "ledger": [
+      "P00024"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "KI-5025",
+     "kind": "invoice",
+     "ledger": [
+      "P00026"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "KI-5026",
+     "kind": "invoice",
+     "ledger": [
+      "P00027"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "KI-5027",
+     "kind": "invoice",
+     "ledger": [
+      "P00028"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "KI-5028",
+     "kind": "invoice",
+     "ledger": [
+      "P00029"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "KI-5030",
+     "kind": "invoice",
+     "ledger": [
+      "P00031"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "KI-5032",
+     "kind": "invoice",
+     "ledger": [
+      "P00033"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "KI-5033",
+     "kind": "invoice",
+     "ledger": [
+      "P00034"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "KI-5035",
+     "kind": "invoice",
+     "ledger": [
+      "P00035"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "KI-5036",
+     "kind": "invoice",
+     "ledger": [
+      "P00036"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "KI-5037",
+     "kind": "invoice",
+     "ledger": [
+      "P00037"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "KI-5040",
+     "kind": "invoice",
+     "ledger": [
+      "P00040"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       2
+      ]
+     ]
+    },
+    {
+     "document": "KI-5041",
+     "kind": "invoice",
+     "ledger": [
+      "P00041"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       3
+      ]
+     ]
+    },
+    {
+     "document": "KI-5042",
+     "kind": "invoice",
+     "ledger": [
+      "P00042"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       4
+      ]
+     ]
+    },
+    {
+     "document": "KI-5043",
+     "kind": "invoice",
+     "ledger": [
+      "P00043"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "KR-7004",
+     "kind": "receipt",
+     "ledger": [
+      "P00005"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "KR-7009",
+     "kind": "receipt",
+     "ledger": [
+      "P00010"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "KR-7014",
+     "kind": "receipt",
+     "ledger": [
+      "P00015"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "KR-7019",
+     "kind": "receipt",
+     "ledger": [
+      "P00020"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "KR-7024",
+     "kind": "receipt",
+     "ledger": [
+      "P00025"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       6
+      ]
+     ]
+    },
+    {
+     "document": "KR-7029",
+     "kind": "receipt",
+     "ledger": [
+      "P00030"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "KR-7034",
+     "kind": "receipt",
+     "ledger": [],
+     "reason": "missing-counterpart",
+     "statement": [
+      [
+       2,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "KR-7039",
+     "kind": "receipt",
+     "ledger": [
+      "P00039"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "KR-7044",
+     "kind": "receipt",
+     "ledger": [
+      "P00044"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       6
+      ]
+     ]
+    }
+   ],
+   "errorCodes": [],
+   "errors": [],
+   "matched": 44,
+   "outOfScopeLines": 0,
+   "review": {
+    "date-difference": 1,
+    "missing-counterpart": 1
+   },
+   "sections": [
+    {
+     "compared": true,
+     "lines": 46,
+     "pages": [
+      1
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "KWD",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    }
+   ],
+   "status": "review"
+  },
+  "B03": {
+   "cases": [
+    {
+     "document": "CN-26-0021",
+     "kind": "credit-note",
+     "ledger": [
+      "P00003"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "CN-26-0024",
+     "kind": "credit-note",
+     "ledger": [
+      "P00006"
+     ],
+     "reason": "related-conflict",
+     "statement": [
+      [
+       1,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "SI-26-0830",
+     "kind": "invoice",
+     "ledger": [
+      "P00001"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "SI-26-0831",
+     "kind": "invoice",
+     "ledger": [
+      "P00002"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "SI-26-0838",
+     "kind": "invoice",
+     "ledger": [
+      "P00005"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "RV-26-0140",
+     "kind": "receipt",
+     "ledger": [
+      "P00004"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       13
+      ]
+     ]
+    }
+   ],
+   "errorCodes": [],
+   "errors": [],
+   "matched": 5,
+   "outOfScopeLines": 0,
+   "review": {
+    "related-conflict": 1
+   },
+   "sections": [
+    {
+     "compared": true,
+     "lines": 6,
+     "pages": [
+      1
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    }
+   ],
+   "status": "review"
+  },
+  "B04": {
+   "cases": [
+    {
+     "document": "CN-26-0030",
+     "kind": "credit-note",
+     "ledger": [
+      "P00003"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "SI-26-0840",
+     "kind": "invoice",
+     "ledger": [
+      "P00001"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "SI-26-0844",
+     "kind": "invoice",
+     "ledger": [
+      "P00002"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "SI-26-0849",
+     "kind": "invoice",
+     "ledger": [
+      "P00005"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "RV-26-0152",
+     "kind": "receipt",
+     "ledger": [
+      "P00004"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "RV-26-0157",
+     "kind": "receipt",
+     "ledger": [
+      "P00006"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       25
+      ]
+     ]
+    }
+   ],
+   "errorCodes": [],
+   "errors": [],
+   "matched": 6,
+   "outOfScopeLines": 3,
+   "review": {},
+   "sections": [
+    {
+     "compared": false,
+     "lines": 3,
+     "pages": [
+      1
+     ],
+     "scope": {
+      "account": "1135",
+      "currency": "SAR",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    },
+    {
+     "compared": true,
+     "lines": 6,
+     "pages": [
+      1
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    }
+   ],
+   "status": "matched"
+  },
+  "B05": {
+   "cases": [
+    {
+     "document": "LC-8003",
+     "kind": "credit-note",
+     "ledger": [
+      "P00004"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "LC-8010",
+     "kind": "credit-note",
+     "ledger": [
+      "P00011"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "LC-8017",
+     "kind": "credit-note",
+     "ledger": [
+      "P00018"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "LI-5000",
+     "kind": "invoice",
+     "ledger": [
+      "P00001"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "LI-5001",
+     "kind": "invoice",
+     "ledger": [
+      "P00002"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "LI-5002",
+     "kind": "invoice",
+     "ledger": [
+      "P00003"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "LI-5005",
+     "kind": "invoice",
+     "ledger": [
+      "P00006"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "LI-5006",
+     "kind": "invoice",
+     "ledger": [
+      "P00007"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "LI-5007",
+     "kind": "invoice",
+     "ledger": [
+      "P00008"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "LI-5008",
+     "kind": "invoice",
+     "ledger": [
+      "P00009"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "LI-5011",
+     "kind": "invoice",
+     "ledger": [
+      "P00012"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "LI-5012",
+     "kind": "invoice",
+     "ledger": [
+      "P00013"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "LI-5013",
+     "kind": "invoice",
+     "ledger": [
+      "P00014"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "LI-5015",
+     "kind": "invoice",
+     "ledger": [
+      "P00016"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "LI-5016",
+     "kind": "invoice",
+     "ledger": [
+      "P00017"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "LI-5018",
+     "kind": "invoice",
+     "ledger": [
+      "P00019"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       2,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "LI-5020",
+     "kind": "invoice",
+     "ledger": [
+      "P00021"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       2,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "LI-5021",
+     "kind": "invoice",
+     "ledger": [
+      "P00022"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       2,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "LI-5022",
+     "kind": "invoice",
+     "ledger": [
+      "P00023"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       2,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "LI-5023",
+     "kind": "invoice",
+     "ledger": [
+      "P00024"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       2,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "LI-5025",
+     "kind": "invoice",
+     "ledger": [
+      "P00026"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       2,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "LI-5026",
+     "kind": "invoice",
+     "ledger": [
+      "P00027"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       2,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "LI-5027",
+     "kind": "invoice",
+     "ledger": [
+      "P00028"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       2,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "LI-5028",
+     "kind": "invoice",
+     "ledger": [
+      "P00029"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       2,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "LR-7004",
+     "kind": "receipt",
+     "ledger": [
+      "P00005"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "LR-7009",
+     "kind": "receipt",
+     "ledger": [
+      "P00010"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "LR-7014",
+     "kind": "receipt",
+     "ledger": [
+      "P00015"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "LR-7019",
+     "kind": "receipt",
+     "ledger": [
+      "P00020"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       2,
+       6
+      ]
+     ]
+    },
+    {
+     "document": "LR-7024",
+     "kind": "receipt",
+     "ledger": [
+      "P00025"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       2,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "LR-7029",
+     "kind": "receipt",
+     "ledger": [
+      "P00030"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       2,
+       16
+      ]
+     ]
+    }
+   ],
+   "errorCodes": [
+    "AR_PDF_DOCUMENT_HEADER"
+   ],
+   "errors": [
+    {
+     "code": "AR_PDF_DOCUMENT_HEADER",
+     "side": "statement",
+     "where": [
+      2,
+      3
+     ]
+    }
+   ],
+   "matched": 0,
+   "outOfScopeLines": 0,
+   "review": {},
+   "sections": [
+    {
+     "compared": true,
+     "lines": 30,
+     "pages": [
+      1
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    }
+   ],
+   "status": "source-error"
+  },
+  "B06": {
+   "cases": [
+    {
+     "document": "SI-26-0860",
+     "kind": "invoice",
+     "ledger": [
+      "P00001"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "SI-26-0861",
+     "kind": "invoice",
+     "ledger": [
+      "P00002"
+     ],
+     "reason": "source-errors",
+     "statement": []
+    },
+    {
+     "document": "SI-26-0866",
+     "kind": "invoice",
+     "ledger": [
+      "P00003"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       13
+      ]
+     ]
+    }
+   ],
+   "errorCodes": [
+    "AR_ORIGINAL_MISSING",
+    "AR_PERIOD"
+   ],
+   "errors": [
+    {
+     "code": "AR_ORIGINAL_MISSING",
+     "side": "statement",
+     "where": [
+      1,
+      11
+     ]
+    },
+    {
+     "code": "AR_PERIOD",
+     "side": "statement",
+     "where": [
+      1,
+      12
+     ]
+    }
+   ],
+   "matched": 0,
+   "outOfScopeLines": 0,
+   "review": {},
+   "sections": [
+    {
+     "compared": true,
+     "lines": 2,
+     "pages": [
+      1
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    }
+   ],
+   "status": "source-error"
+  },
+  "B07": {
+   "cases": [
+    {
+     "document": "CN-26-0015",
+     "kind": "credit-note",
+     "ledger": [
+      "P00007"
+     ],
+     "reason": "source-errors",
+     "statement": []
+    },
+    {
+     "document": "SI-26-0701",
+     "kind": "invoice",
+     "ledger": [
+      "P00001"
+     ],
+     "reason": "source-errors",
+     "statement": []
+    },
+    {
+     "document": "SI-26-0702",
+     "kind": "invoice",
+     "ledger": [
+      "P00002"
+     ],
+     "reason": "source-errors",
+     "statement": []
+    },
+    {
+     "document": "SI-26-0811",
+     "kind": "invoice",
+     "ledger": [
+      "P00004"
+     ],
+     "reason": "source-errors",
+     "statement": []
+    },
+    {
+     "document": "SI-26-0815",
+     "kind": "invoice",
+     "ledger": [
+      "P00006"
+     ],
+     "reason": "source-errors",
+     "statement": []
+    },
+    {
+     "document": "RV-26-0090",
+     "kind": "receipt",
+     "ledger": [
+      "P00003"
+     ],
+     "reason": "source-errors",
+     "statement": []
+    },
+    {
+     "document": "RV-26-0110",
+     "kind": "receipt",
+     "ledger": [
+      "P00005"
+     ],
+     "reason": "source-errors",
+     "statement": []
+    }
+   ],
+   "errorCodes": [
+    "AR_PDF_SCOPE_NOT_FOUND"
+   ],
+   "errors": [
+    {
+     "code": "AR_PDF_SCOPE_NOT_FOUND",
+     "side": "statement",
+     "where": null
+    }
+   ],
+   "matched": 0,
+   "outOfScopeLines": 7,
+   "review": {},
+   "sections": [
+    {
+     "compared": false,
+     "lines": 3,
+     "pages": [
+      1
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-204",
+      "end": "2026-07-31",
+      "start": "2026-07-01"
+     }
+    },
+    {
+     "compared": false,
+     "lines": 4,
+     "pages": [
+      2
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    }
+   ],
+   "status": "source-error"
+  },
+  "B08": {
+   "cases": [
+    {
+     "document": "CN-26-0040",
+     "kind": "credit-note",
+     "ledger": [
+      "P00005"
+     ],
+     "reason": "source-errors",
+     "statement": []
+    },
+    {
+     "document": "SI-26-0880",
+     "kind": "invoice",
+     "ledger": [
+      "P00001"
+     ],
+     "reason": "source-errors",
+     "statement": []
+    },
+    {
+     "document": "SI-26-0881",
+     "kind": "invoice",
+     "ledger": [
+      "P00002"
+     ],
+     "reason": "source-errors",
+     "statement": []
+    },
+    {
+     "document": "SI-26-0886",
+     "kind": "invoice",
+     "ledger": [
+      "P00004"
+     ],
+     "reason": "source-errors",
+     "statement": []
+    },
+    {
+     "document": "RV-26-0180",
+     "kind": "receipt",
+     "ledger": [
+      "P00003"
+     ],
+     "reason": "source-errors",
+     "statement": []
+    },
+    {
+     "document": "RV-26-0185",
+     "kind": "receipt",
+     "ledger": [
+      "P00006"
+     ],
+     "reason": "source-errors",
+     "statement": []
+    }
+   ],
+   "errorCodes": [
+    "AR_PDF_SCOPE_REPEATED"
+   ],
+   "errors": [
+    {
+     "code": "AR_PDF_SCOPE_REPEATED",
+     "side": "statement",
+     "where": [
+      1,
+      3
+     ]
+    }
+   ],
+   "matched": 0,
+   "outOfScopeLines": 8,
+   "review": {},
+   "sections": [
+    {
+     "compared": false,
+     "lines": 3,
+     "pages": [
+      1
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    },
+    {
+     "compared": false,
+     "lines": 2,
+     "pages": [
+      2
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-209",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    },
+    {
+     "compared": false,
+     "lines": 3,
+     "pages": [
+      3
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    }
+   ],
+   "status": "source-error"
+  },
+  "B09": {
+   "cases": [
+    {
+     "document": "CRN/2026/0033",
+     "kind": "credit-note",
+     "ledger": [
+      "P00004"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "INV/2026/0901",
+     "kind": "invoice",
+     "ledger": [
+      "P00001"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "INV/2026/0902",
+     "kind": "invoice",
+     "ledger": [
+      "P00002"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "INV/2026/0907",
+     "kind": "invoice",
+     "ledger": [
+      "P00005"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "INV/2026/0911",
+     "kind": "invoice",
+     "ledger": [
+      "P00007"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "RCT/2026/0410",
+     "kind": "receipt",
+     "ledger": [
+      "P00003"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "RCT/2026/0415",
+     "kind": "receipt",
+     "ledger": [
+      "P00006"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       15
+      ]
+     ]
+    }
+   ],
+   "errorCodes": [],
+   "errors": [],
+   "matched": 7,
+   "outOfScopeLines": 0,
+   "review": {},
+   "sections": [
+    {
+     "compared": true,
+     "lines": 7,
+     "pages": [
+      1
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "JPY",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    }
+   ],
+   "status": "matched"
+  },
+  "B10": {
+   "cases": [
+    {
+     "document": "INV/2026/0815",
+     "kind": "invoice",
+     "ledger": [
+      "P00001"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "INV/2026/0817",
+     "kind": "invoice",
+     "ledger": [
+      "P00004"
+     ],
+     "reason": "missing-counterpart",
+     "statement": []
+    },
+    {
+     "document": "INV/2026/0818",
+     "kind": "invoice",
+     "ledger": [
+      "P00002"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "RCT/2026/0502",
+     "kind": "receipt",
+     "ledger": [
+      "P00003"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       22
+      ]
+     ]
+    }
+   ],
+   "errorCodes": [],
+   "errors": [],
+   "matched": 3,
+   "outOfScopeLines": 7,
+   "review": {
+    "missing-counterpart": 1
+   },
+   "sections": [
+    {
+     "compared": false,
+     "lines": 3,
+     "pages": [
+      1
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    },
+    {
+     "compared": true,
+     "lines": 3,
+     "pages": [
+      1
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "USD",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    },
+    {
+     "compared": false,
+     "lines": 2,
+     "pages": [
+      1
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "EUR",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    },
+    {
+     "compared": false,
+     "lines": 2,
+     "pages": [
+      2
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "KWD",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    }
+   ],
+   "status": "review"
+  },
+  "B11": {
+   "cases": [
+    {
+     "document": "TC-8003",
+     "kind": "credit-note",
+     "ledger": [
+      "P00004"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "TC-8010",
+     "kind": "credit-note",
+     "ledger": [
+      "P00011"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "TC-8017",
+     "kind": "credit-note",
+     "ledger": [
+      "P00018"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "TC-8031",
+     "kind": "credit-note",
+     "ledger": [
+      "P00032"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "TC-8038",
+     "kind": "credit-note",
+     "ledger": [
+      "P00039"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "TC-8045",
+     "kind": "credit-note",
+     "ledger": [
+      "P00046"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       31
+      ]
+     ]
+    },
+    {
+     "document": "TC-8052",
+     "kind": "credit-note",
+     "ledger": [
+      "P00053"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "TI-5000",
+     "kind": "invoice",
+     "ledger": [
+      "P00001"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "TI-5001",
+     "kind": "invoice",
+     "ledger": [
+      "P00002"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "TI-5002",
+     "kind": "invoice",
+     "ledger": [
+      "P00003"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "TI-5005",
+     "kind": "invoice",
+     "ledger": [
+      "P00006"
+     ],
+     "reason": "duplicate-document",
+     "statement": [
+      [
+       1,
+       15
+      ],
+      [
+       3,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "TI-5006",
+     "kind": "invoice",
+     "ledger": [
+      "P00007"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "TI-5007",
+     "kind": "invoice",
+     "ledger": [
+      "P00008"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "TI-5008",
+     "kind": "invoice",
+     "ledger": [
+      "P00009"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "TI-5011",
+     "kind": "invoice",
+     "ledger": [
+      "P00012"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "TI-5012",
+     "kind": "invoice",
+     "ledger": [
+      "P00013"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "TI-5013",
+     "kind": "invoice",
+     "ledger": [
+      "P00014"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "TI-5015",
+     "kind": "invoice",
+     "ledger": [
+      "P00016"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "TI-5016",
+     "kind": "invoice",
+     "ledger": [
+      "P00017"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "TI-5018",
+     "kind": "invoice",
+     "ledger": [
+      "P00019"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "TI-5020",
+     "kind": "invoice",
+     "ledger": [
+      "P00021"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       30
+      ]
+     ]
+    },
+    {
+     "document": "TI-5021",
+     "kind": "invoice",
+     "ledger": [
+      "P00022"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       31
+      ]
+     ]
+    },
+    {
+     "document": "TI-5022",
+     "kind": "invoice",
+     "ledger": [
+      "P00023"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       32
+      ]
+     ]
+    },
+    {
+     "document": "TI-5023",
+     "kind": "invoice",
+     "ledger": [
+      "P00024"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       33
+      ]
+     ]
+    },
+    {
+     "document": "TI-5025",
+     "kind": "invoice",
+     "ledger": [
+      "P00026"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "TI-5026",
+     "kind": "invoice",
+     "ledger": [
+      "P00027"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "TI-5027",
+     "kind": "invoice",
+     "ledger": [
+      "P00028"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "TI-5028",
+     "kind": "invoice",
+     "ledger": [
+      "P00029"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "TI-5030",
+     "kind": "invoice",
+     "ledger": [
+      "P00031"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "TI-5032",
+     "kind": "invoice",
+     "ledger": [
+      "P00033"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "TI-5033",
+     "kind": "invoice",
+     "ledger": [
+      "P00034"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "TI-5035",
+     "kind": "invoice",
+     "ledger": [
+      "P00036"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "TI-5036",
+     "kind": "invoice",
+     "ledger": [
+      "P00037"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "TI-5037",
+     "kind": "invoice",
+     "ledger": [
+      "P00038"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "TI-5040",
+     "kind": "invoice",
+     "ledger": [
+      "P00041"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "TI-5041",
+     "kind": "invoice",
+     "ledger": [
+      "P00042"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "TI-5042",
+     "kind": "invoice",
+     "ledger": [
+      "P00043"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "TI-5043",
+     "kind": "invoice",
+     "ledger": [
+      "P00044"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "TI-5046",
+     "kind": "invoice",
+     "ledger": [
+      "P00047"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       32
+      ]
+     ]
+    },
+    {
+     "document": "TI-5047",
+     "kind": "invoice",
+     "ledger": [
+      "P00048"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       33
+      ]
+     ]
+    },
+    {
+     "document": "TI-5048",
+     "kind": "invoice",
+     "ledger": [
+      "P00049"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "TI-5050",
+     "kind": "invoice",
+     "ledger": [
+      "P00051"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "TI-5051",
+     "kind": "invoice",
+     "ledger": [
+      "P00052"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "TI-5053",
+     "kind": "invoice",
+     "ledger": [
+      "P00054"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "TI-5055",
+     "kind": "invoice",
+     "ledger": [
+      "P00056"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "TI-5056",
+     "kind": "invoice",
+     "ledger": [
+      "P00057"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "TI-5057",
+     "kind": "invoice",
+     "ledger": [
+      "P00058"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "TI-5058",
+     "kind": "invoice",
+     "ledger": [
+      "P00059"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "TR-7004",
+     "kind": "receipt",
+     "ledger": [
+      "P00005"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "TR-7009",
+     "kind": "receipt",
+     "ledger": [
+      "P00010"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "TR-7014",
+     "kind": "receipt",
+     "ledger": [
+      "P00015"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "TR-7019",
+     "kind": "receipt",
+     "ledger": [
+      "P00020"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "TR-7024",
+     "kind": "receipt",
+     "ledger": [
+      "P00025"
+     ],
+     "reason": "amount-difference",
+     "statement": [
+      [
+       2,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "TR-7029",
+     "kind": "receipt",
+     "ledger": [
+      "P00030"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "TR-7034",
+     "kind": "receipt",
+     "ledger": [
+      "P00035"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "TR-7039",
+     "kind": "receipt",
+     "ledger": [
+      "P00040"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "TR-7044",
+     "kind": "receipt",
+     "ledger": [
+      "P00045"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       30
+      ]
+     ]
+    },
+    {
+     "document": "TR-7049",
+     "kind": "receipt",
+     "ledger": [
+      "P00050"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "TR-7054",
+     "kind": "receipt",
+     "ledger": [
+      "P00055"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "TR-7059",
+     "kind": "receipt",
+     "ledger": [
+      "P00060"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       22
+      ]
+     ]
+    }
+   ],
+   "errorCodes": [],
+   "errors": [],
+   "matched": 58,
+   "outOfScopeLines": 0,
+   "review": {
+    "amount-difference": 1,
+    "duplicate-document": 1
+   },
+   "sections": [
+    {
+     "compared": true,
+     "lines": 61,
+     "pages": [
+      1,
+      2,
+      3
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    }
+   ],
+   "status": "review"
+  },
+  "B12": {
+   "cases": [
+    {
+     "document": "INV/2026/1301",
+     "kind": "invoice",
+     "ledger": [
+      "P00001"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "INV/2026/1305",
+     "kind": "invoice",
+     "ledger": [
+      "P00003"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "RCT/2026/0601",
+     "kind": "receipt",
+     "ledger": [
+      "P00002"
+     ],
+     "reason": "source-errors",
+     "statement": []
+    }
+   ],
+   "errorCodes": [
+    "AR_DIRECTION",
+    "AR_KIND"
+   ],
+   "errors": [
+    {
+     "code": "AR_DIRECTION",
+     "side": "statement",
+     "where": [
+      1,
+      11
+     ]
+    },
+    {
+     "code": "AR_KIND",
+     "side": "statement",
+     "where": [
+      1,
+      12
+     ]
+    }
+   ],
+   "matched": 0,
+   "outOfScopeLines": 0,
+   "review": {},
+   "sections": [
+    {
+     "compared": true,
+     "lines": 2,
+     "pages": [
+      1
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    }
+   ],
+   "status": "source-error"
+  },
+  "B13": {
+   "cases": [
+    {
+     "document": "INV/2026/1401",
+     "kind": "invoice",
+     "ledger": [
+      "P00001"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "INV/2026/1402",
+     "kind": "invoice",
+     "ledger": [
+      "P00002"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "INV/2026/1407",
+     "kind": "invoice",
+     "ledger": [
+      "P00004"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "RCT/2026/0650",
+     "kind": "receipt",
+     "ledger": [
+      "P00003"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       12
+      ]
+     ]
+    }
+   ],
+   "errorCodes": [
+    "AR_PDF_COLUMNS"
+   ],
+   "errors": [
+    {
+     "code": "AR_PDF_COLUMNS",
+     "side": "statement",
+     "where": [
+      1,
+      20
+     ]
+    }
+   ],
+   "matched": 0,
+   "outOfScopeLines": 0,
+   "review": {},
+   "sections": [
+    {
+     "compared": true,
+     "lines": 4,
+     "pages": [
+      1
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    },
+    {
+     "compared": false,
+     "lines": 0,
+     "pages": [
+      1
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-212",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    }
+   ],
+   "status": "source-error"
+  },
+  "B14": {
+   "cases": [
+    {
+     "document": "INV/2026/1401",
+     "kind": "invoice",
+     "ledger": [
+      "P00001"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "INV/2026/1402",
+     "kind": "invoice",
+     "ledger": [
+      "P00002"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "INV/2026/1407",
+     "kind": "invoice",
+     "ledger": [
+      "P00004"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "RCT/2026/0650",
+     "kind": "receipt",
+     "ledger": [
+      "P00003"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       12
+      ]
+     ]
+    }
+   ],
+   "errorCodes": [
+    "AR_PDF_HEADER"
+   ],
+   "errors": [
+    {
+     "code": "AR_PDF_HEADER",
+     "side": "statement",
+     "where": [
+      1,
+      15
+     ]
+    }
+   ],
+   "matched": 0,
+   "outOfScopeLines": 0,
+   "review": {},
+   "sections": [
+    {
+     "compared": true,
+     "lines": 4,
+     "pages": [
+      1
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    },
+    {
+     "compared": false,
+     "lines": 0,
+     "pages": [
+      1
+     ],
+     "scope": null
+    }
+   ],
+   "status": "source-error"
+  },
+  "B15": {
+   "cases": [
+    {
+     "document": "VC-8003",
+     "kind": "credit-note",
+     "ledger": [
+      "P00004"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "VC-8010",
+     "kind": "credit-note",
+     "ledger": [
+      "P00011"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "VC-8017",
+     "kind": "credit-note",
+     "ledger": [
+      "P00018"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "VC-8031",
+     "kind": "credit-note",
+     "ledger": [
+      "P00032"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "VC-8038",
+     "kind": "credit-note",
+     "ledger": [
+      "P00039"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "VC-8045",
+     "kind": "credit-note",
+     "ledger": [
+      "P00046"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "VC-8052",
+     "kind": "credit-note",
+     "ledger": [
+      "P00053"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "VC-8066",
+     "kind": "credit-note",
+     "ledger": [
+      "P00067"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "VC-8073",
+     "kind": "credit-note",
+     "ledger": [
+      "P00074"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "VC-8080",
+     "kind": "credit-note",
+     "ledger": [
+      "P00081"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "VC-8087",
+     "kind": "credit-note",
+     "ledger": [
+      "P00088"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "VC-8101",
+     "kind": "credit-note",
+     "ledger": [
+      "P00102"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "VC-8108",
+     "kind": "credit-note",
+     "ledger": [
+      "P00109"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "VC-8115",
+     "kind": "credit-note",
+     "ledger": [
+      "P00116"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "VC-8122",
+     "kind": "credit-note",
+     "ledger": [
+      "P00123"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "VC-8136",
+     "kind": "credit-note",
+     "ledger": [
+      "P00137"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "VC-8143",
+     "kind": "credit-note",
+     "ledger": [
+      "P00144"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "VC-8150",
+     "kind": "credit-note",
+     "ledger": [
+      "P00151"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "VC-8157",
+     "kind": "credit-note",
+     "ledger": [
+      "P00158"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       6
+      ]
+     ]
+    },
+    {
+     "document": "VC-8171",
+     "kind": "credit-note",
+     "ledger": [
+      "P00172"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "VC-8178",
+     "kind": "credit-note",
+     "ledger": [
+      "P00179"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "VC-8185",
+     "kind": "credit-note",
+     "ledger": [
+      "P00186"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "VC-8192",
+     "kind": "credit-note",
+     "ledger": [
+      "P00193"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "VC-8206",
+     "kind": "credit-note",
+     "ledger": [
+      "P00207"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "VC-8213",
+     "kind": "credit-note",
+     "ledger": [
+      "P00214"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "VC-8220",
+     "kind": "credit-note",
+     "ledger": [
+      "P00221"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "VC-8227",
+     "kind": "credit-note",
+     "ledger": [
+      "P00228"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "VC-8241",
+     "kind": "credit-note",
+     "ledger": [
+      "P00242"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "VC-8248",
+     "kind": "credit-note",
+     "ledger": [
+      "P00249"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "VC-8255",
+     "kind": "credit-note",
+     "ledger": [
+      "P00256"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "VC-8262",
+     "kind": "credit-note",
+     "ledger": [
+      "P00263"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "VC-8276",
+     "kind": "credit-note",
+     "ledger": [
+      "P00277"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "VC-8283",
+     "kind": "credit-note",
+     "ledger": [
+      "P00284"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "VC-8290",
+     "kind": "credit-note",
+     "ledger": [
+      "P00291"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "VC-8297",
+     "kind": "credit-note",
+     "ledger": [
+      "P00298"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "VC-8311",
+     "kind": "credit-note",
+     "ledger": [
+      "P00312"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       30
+      ]
+     ]
+    },
+    {
+     "document": "VC-8318",
+     "kind": "credit-note",
+     "ledger": [
+      "P00319"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "VC-8325",
+     "kind": "credit-note",
+     "ledger": [
+      "P00326"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "VC-8332",
+     "kind": "credit-note",
+     "ledger": [
+      "P00333"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "VC-8346",
+     "kind": "credit-note",
+     "ledger": [
+      "P00347"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "VC-8353",
+     "kind": "credit-note",
+     "ledger": [
+      "P00354"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "VC-8360",
+     "kind": "credit-note",
+     "ledger": [
+      "P00361"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "VC-8367",
+     "kind": "credit-note",
+     "ledger": [
+      "P00368"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "VC-8381",
+     "kind": "credit-note",
+     "ledger": [
+      "P00382"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "VC-8388",
+     "kind": "credit-note",
+     "ledger": [
+      "P00389"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "VC-8395",
+     "kind": "credit-note",
+     "ledger": [
+      "P00396"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "VC-8402",
+     "kind": "credit-note",
+     "ledger": [
+      "P00403"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "VC-8416",
+     "kind": "credit-note",
+     "ledger": [
+      "P00417"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "VC-8423",
+     "kind": "credit-note",
+     "ledger": [
+      "P00424"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "VC-8430",
+     "kind": "credit-note",
+     "ledger": [
+      "P00431"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "VC-8437",
+     "kind": "credit-note",
+     "ledger": [
+      "P00438"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "VC-8451",
+     "kind": "credit-note",
+     "ledger": [
+      "P00452"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "VC-8458",
+     "kind": "credit-note",
+     "ledger": [
+      "P00459"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "VC-8465",
+     "kind": "credit-note",
+     "ledger": [
+      "P00466"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "VC-8472",
+     "kind": "credit-note",
+     "ledger": [
+      "P00473"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "VC-8486",
+     "kind": "credit-note",
+     "ledger": [
+      "P00487"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "VC-8493",
+     "kind": "credit-note",
+     "ledger": [
+      "P00494"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       30
+      ]
+     ]
+    },
+    {
+     "document": "VC-8500",
+     "kind": "credit-note",
+     "ledger": [
+      "P00501"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "VC-8507",
+     "kind": "credit-note",
+     "ledger": [
+      "P00508"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "VI-5000",
+     "kind": "invoice",
+     "ledger": [
+      "P00001"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "VI-5001",
+     "kind": "invoice",
+     "ledger": [
+      "P00002"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "VI-5002",
+     "kind": "invoice",
+     "ledger": [
+      "P00003"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "VI-5005",
+     "kind": "invoice",
+     "ledger": [
+      "P00006"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "VI-5006",
+     "kind": "invoice",
+     "ledger": [
+      "P00007"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "VI-5007",
+     "kind": "invoice",
+     "ledger": [
+      "P00008"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "VI-5008",
+     "kind": "invoice",
+     "ledger": [
+      "P00009"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "VI-5011",
+     "kind": "invoice",
+     "ledger": [
+      "P00012"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "VI-5012",
+     "kind": "invoice",
+     "ledger": [
+      "P00013"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "VI-5013",
+     "kind": "invoice",
+     "ledger": [
+      "P00014"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "VI-5015",
+     "kind": "invoice",
+     "ledger": [
+      "P00016"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "VI-5016",
+     "kind": "invoice",
+     "ledger": [
+      "P00017"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "VI-5018",
+     "kind": "invoice",
+     "ledger": [
+      "P00019"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "VI-5020",
+     "kind": "invoice",
+     "ledger": [
+      "P00021"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       30
+      ]
+     ]
+    },
+    {
+     "document": "VI-5021",
+     "kind": "invoice",
+     "ledger": [
+      "P00022"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       31
+      ]
+     ]
+    },
+    {
+     "document": "VI-5022",
+     "kind": "invoice",
+     "ledger": [
+      "P00023"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       32
+      ]
+     ]
+    },
+    {
+     "document": "VI-5023",
+     "kind": "invoice",
+     "ledger": [
+      "P00024"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       33
+      ]
+     ]
+    },
+    {
+     "document": "VI-5025",
+     "kind": "invoice",
+     "ledger": [
+      "P00026"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       35
+      ]
+     ]
+    },
+    {
+     "document": "VI-5026",
+     "kind": "invoice",
+     "ledger": [
+      "P00027"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "VI-5027",
+     "kind": "invoice",
+     "ledger": [
+      "P00028"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       6
+      ]
+     ]
+    },
+    {
+     "document": "VI-5028",
+     "kind": "invoice",
+     "ledger": [
+      "P00029"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "VI-5030",
+     "kind": "invoice",
+     "ledger": [
+      "P00031"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "VI-5032",
+     "kind": "invoice",
+     "ledger": [
+      "P00033"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "VI-5033",
+     "kind": "invoice",
+     "ledger": [
+      "P00034"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "VI-5035",
+     "kind": "invoice",
+     "ledger": [
+      "P00036"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "VI-5036",
+     "kind": "invoice",
+     "ledger": [
+      "P00037"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "VI-5037",
+     "kind": "invoice",
+     "ledger": [
+      "P00038"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "VI-5040",
+     "kind": "invoice",
+     "ledger": [
+      "P00041"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "VI-5041",
+     "kind": "invoice",
+     "ledger": [
+      "P00042"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "VI-5042",
+     "kind": "invoice",
+     "ledger": [
+      "P00043"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "VI-5043",
+     "kind": "invoice",
+     "ledger": [
+      "P00044"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "VI-5046",
+     "kind": "invoice",
+     "ledger": [
+      "P00047"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "VI-5047",
+     "kind": "invoice",
+     "ledger": [
+      "P00048"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "VI-5048",
+     "kind": "invoice",
+     "ledger": [
+      "P00049"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "VI-5050",
+     "kind": "invoice",
+     "ledger": [
+      "P00051"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "VI-5051",
+     "kind": "invoice",
+     "ledger": [
+      "P00052"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       30
+      ]
+     ]
+    },
+    {
+     "document": "VI-5053",
+     "kind": "invoice",
+     "ledger": [
+      "P00054"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       6
+      ]
+     ]
+    },
+    {
+     "document": "VI-5055",
+     "kind": "invoice",
+     "ledger": [
+      "P00056"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "VI-5056",
+     "kind": "invoice",
+     "ledger": [
+      "P00057"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "VI-5057",
+     "kind": "invoice",
+     "ledger": [
+      "P00058"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "VI-5058",
+     "kind": "invoice",
+     "ledger": [
+      "P00059"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "VI-5060",
+     "kind": "invoice",
+     "ledger": [
+      "P00061"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "VI-5061",
+     "kind": "invoice",
+     "ledger": [
+      "P00062"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "VI-5062",
+     "kind": "invoice",
+     "ledger": [
+      "P00063"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "VI-5063",
+     "kind": "invoice",
+     "ledger": [
+      "P00064"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "VI-5065",
+     "kind": "invoice",
+     "ledger": [
+      "P00066"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "VI-5067",
+     "kind": "invoice",
+     "ledger": [
+      "P00068"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "VI-5068",
+     "kind": "invoice",
+     "ledger": [
+      "P00069"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "VI-5070",
+     "kind": "invoice",
+     "ledger": [
+      "P00071"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "VI-5071",
+     "kind": "invoice",
+     "ledger": [
+      "P00072"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "VI-5072",
+     "kind": "invoice",
+     "ledger": [
+      "P00073"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "VI-5075",
+     "kind": "invoice",
+     "ledger": [
+      "P00076"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "VI-5076",
+     "kind": "invoice",
+     "ledger": [
+      "P00077"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "VI-5077",
+     "kind": "invoice",
+     "ledger": [
+      "P00078"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       30
+      ]
+     ]
+    },
+    {
+     "document": "VI-5078",
+     "kind": "invoice",
+     "ledger": [
+      "P00079"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "VI-5081",
+     "kind": "invoice",
+     "ledger": [
+      "P00082"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "VI-5082",
+     "kind": "invoice",
+     "ledger": [
+      "P00083"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "VI-5083",
+     "kind": "invoice",
+     "ledger": [
+      "P00084"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "VI-5085",
+     "kind": "invoice",
+     "ledger": [
+      "P00086"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "VI-5086",
+     "kind": "invoice",
+     "ledger": [
+      "P00087"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "VI-5088",
+     "kind": "invoice",
+     "ledger": [
+      "P00089"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "VI-5090",
+     "kind": "invoice",
+     "ledger": [
+      "P00091"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "VI-5091",
+     "kind": "invoice",
+     "ledger": [
+      "P00092"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "VI-5092",
+     "kind": "invoice",
+     "ledger": [
+      "P00093"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "VI-5093",
+     "kind": "invoice",
+     "ledger": [
+      "P00094"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "VI-5095",
+     "kind": "invoice",
+     "ledger": [
+      "P00096"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "VI-5096",
+     "kind": "invoice",
+     "ledger": [
+      "P00097"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "VI-5097",
+     "kind": "invoice",
+     "ledger": [
+      "P00098"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "VI-5098",
+     "kind": "invoice",
+     "ledger": [
+      "P00099"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "VI-5100",
+     "kind": "invoice",
+     "ledger": [
+      "P00101"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "VI-5102",
+     "kind": "invoice",
+     "ledger": [
+      "P00103"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "VI-5103",
+     "kind": "invoice",
+     "ledger": [
+      "P00104"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       30
+      ]
+     ]
+    },
+    {
+     "document": "VI-5105",
+     "kind": "invoice",
+     "ledger": [
+      "P00106"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       6
+      ]
+     ]
+    },
+    {
+     "document": "VI-5106",
+     "kind": "invoice",
+     "ledger": [
+      "P00107"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "VI-5107",
+     "kind": "invoice",
+     "ledger": [
+      "P00108"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "VI-5110",
+     "kind": "invoice",
+     "ledger": [
+      "P00111"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "VI-5111",
+     "kind": "invoice",
+     "ledger": [
+      "P00112"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "VI-5112",
+     "kind": "invoice",
+     "ledger": [
+      "P00113"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "VI-5113",
+     "kind": "invoice",
+     "ledger": [
+      "P00114"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "VI-5116",
+     "kind": "invoice",
+     "ledger": [
+      "P00117"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "VI-5117",
+     "kind": "invoice",
+     "ledger": [
+      "P00118"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "VI-5118",
+     "kind": "invoice",
+     "ledger": [
+      "P00119"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "VI-5120",
+     "kind": "invoice",
+     "ledger": [
+      "P00121"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "VI-5121",
+     "kind": "invoice",
+     "ledger": [
+      "P00122"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "VI-5123",
+     "kind": "invoice",
+     "ledger": [
+      "P00124"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "VI-5125",
+     "kind": "invoice",
+     "ledger": [
+      "P00126"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "VI-5126",
+     "kind": "invoice",
+     "ledger": [
+      "P00127"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "VI-5127",
+     "kind": "invoice",
+     "ledger": [
+      "P00128"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "VI-5128",
+     "kind": "invoice",
+     "ledger": [
+      "P00129"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "VI-5130",
+     "kind": "invoice",
+     "ledger": [
+      "P00131"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "VI-5131",
+     "kind": "invoice",
+     "ledger": [
+      "P00132"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       6
+      ]
+     ]
+    },
+    {
+     "document": "VI-5132",
+     "kind": "invoice",
+     "ledger": [
+      "P00133"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "VI-5133",
+     "kind": "invoice",
+     "ledger": [
+      "P00134"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "VI-5135",
+     "kind": "invoice",
+     "ledger": [
+      "P00136"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "VI-5137",
+     "kind": "invoice",
+     "ledger": [
+      "P00138"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "VI-5138",
+     "kind": "invoice",
+     "ledger": [
+      "P00139"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "VI-5140",
+     "kind": "invoice",
+     "ledger": [
+      "P00141"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "VI-5141",
+     "kind": "invoice",
+     "ledger": [
+      "P00142"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "VI-5142",
+     "kind": "invoice",
+     "ledger": [
+      "P00143"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "VI-5145",
+     "kind": "invoice",
+     "ledger": [
+      "P00146"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "VI-5146",
+     "kind": "invoice",
+     "ledger": [
+      "P00147"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "VI-5147",
+     "kind": "invoice",
+     "ledger": [
+      "P00148"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "VI-5148",
+     "kind": "invoice",
+     "ledger": [
+      "P00149"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "VI-5151",
+     "kind": "invoice",
+     "ledger": [
+      "P00152"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "VI-5152",
+     "kind": "invoice",
+     "ledger": [
+      "P00153"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "VI-5153",
+     "kind": "invoice",
+     "ledger": [
+      "P00154"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "VI-5155",
+     "kind": "invoice",
+     "ledger": [
+      "P00156"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       30
+      ]
+     ]
+    },
+    {
+     "document": "VI-5156",
+     "kind": "invoice",
+     "ledger": [
+      "P00157"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "VI-5158",
+     "kind": "invoice",
+     "ledger": [
+      "P00159"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "VI-5160",
+     "kind": "invoice",
+     "ledger": [
+      "P00161"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "VI-5161",
+     "kind": "invoice",
+     "ledger": [
+      "P00162"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "VI-5162",
+     "kind": "invoice",
+     "ledger": [
+      "P00163"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "VI-5163",
+     "kind": "invoice",
+     "ledger": [
+      "P00164"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "VI-5165",
+     "kind": "invoice",
+     "ledger": [
+      "P00166"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "VI-5166",
+     "kind": "invoice",
+     "ledger": [
+      "P00167"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "VI-5167",
+     "kind": "invoice",
+     "ledger": [
+      "P00168"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "VI-5168",
+     "kind": "invoice",
+     "ledger": [
+      "P00169"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "VI-5170",
+     "kind": "invoice",
+     "ledger": [
+      "P00171"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "VI-5172",
+     "kind": "invoice",
+     "ledger": [
+      "P00173"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "VI-5173",
+     "kind": "invoice",
+     "ledger": [
+      "P00174"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "VI-5175",
+     "kind": "invoice",
+     "ledger": [
+      "P00176"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "VI-5176",
+     "kind": "invoice",
+     "ledger": [
+      "P00177"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "VI-5177",
+     "kind": "invoice",
+     "ledger": [
+      "P00178"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "VI-5180",
+     "kind": "invoice",
+     "ledger": [
+      "P00181"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "VI-5181",
+     "kind": "invoice",
+     "ledger": [
+      "P00182"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       30
+      ]
+     ]
+    },
+    {
+     "document": "VI-5182",
+     "kind": "invoice",
+     "ledger": [
+      "P00183"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "VI-5183",
+     "kind": "invoice",
+     "ledger": [
+      "P00184"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       6
+      ]
+     ]
+    },
+    {
+     "document": "VI-5186",
+     "kind": "invoice",
+     "ledger": [
+      "P00187"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "VI-5187",
+     "kind": "invoice",
+     "ledger": [
+      "P00188"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "VI-5188",
+     "kind": "invoice",
+     "ledger": [
+      "P00189"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "VI-5190",
+     "kind": "invoice",
+     "ledger": [
+      "P00191"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "VI-5191",
+     "kind": "invoice",
+     "ledger": [
+      "P00192"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "VI-5193",
+     "kind": "invoice",
+     "ledger": [
+      "P00194"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "VI-5195",
+     "kind": "invoice",
+     "ledger": [
+      "P00196"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "VI-5196",
+     "kind": "invoice",
+     "ledger": [
+      "P00197"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "VI-5197",
+     "kind": "invoice",
+     "ledger": [
+      "P00198"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "VI-5198",
+     "kind": "invoice",
+     "ledger": [
+      "P00199"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "VI-5200",
+     "kind": "invoice",
+     "ledger": [
+      "P00201"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "VI-5201",
+     "kind": "invoice",
+     "ledger": [
+      "P00202"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "VI-5202",
+     "kind": "invoice",
+     "ledger": [
+      "P00203"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "VI-5203",
+     "kind": "invoice",
+     "ledger": [
+      "P00204"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "VI-5205",
+     "kind": "invoice",
+     "ledger": [
+      "P00206"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "VI-5207",
+     "kind": "invoice",
+     "ledger": [
+      "P00208"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       30
+      ]
+     ]
+    },
+    {
+     "document": "VI-5208",
+     "kind": "invoice",
+     "ledger": [
+      "P00209"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "VI-5210",
+     "kind": "invoice",
+     "ledger": [
+      "P00211"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "VI-5211",
+     "kind": "invoice",
+     "ledger": [
+      "P00212"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "VI-5212",
+     "kind": "invoice",
+     "ledger": [
+      "P00213"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "VI-5215",
+     "kind": "invoice",
+     "ledger": [
+      "P00216"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "VI-5216",
+     "kind": "invoice",
+     "ledger": [
+      "P00217"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "VI-5217",
+     "kind": "invoice",
+     "ledger": [
+      "P00218"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "VI-5218",
+     "kind": "invoice",
+     "ledger": [
+      "P00219"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "VI-5221",
+     "kind": "invoice",
+     "ledger": [
+      "P00222"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "VI-5222",
+     "kind": "invoice",
+     "ledger": [
+      "P00223"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "VI-5223",
+     "kind": "invoice",
+     "ledger": [
+      "P00224"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "VI-5225",
+     "kind": "invoice",
+     "ledger": [
+      "P00226"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "VI-5226",
+     "kind": "invoice",
+     "ledger": [
+      "P00227"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "VI-5228",
+     "kind": "invoice",
+     "ledger": [
+      "P00229"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "VI-5230",
+     "kind": "invoice",
+     "ledger": [
+      "P00231"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "VI-5231",
+     "kind": "invoice",
+     "ledger": [
+      "P00232"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "VI-5232",
+     "kind": "invoice",
+     "ledger": [
+      "P00233"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "VI-5233",
+     "kind": "invoice",
+     "ledger": [
+      "P00234"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       30
+      ]
+     ]
+    },
+    {
+     "document": "VI-5235",
+     "kind": "invoice",
+     "ledger": [
+      "P00236"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       6
+      ]
+     ]
+    },
+    {
+     "document": "VI-5236",
+     "kind": "invoice",
+     "ledger": [
+      "P00237"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "VI-5237",
+     "kind": "invoice",
+     "ledger": [
+      "P00238"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "VI-5238",
+     "kind": "invoice",
+     "ledger": [
+      "P00239"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "VI-5240",
+     "kind": "invoice",
+     "ledger": [
+      "P00241"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "VI-5242",
+     "kind": "invoice",
+     "ledger": [
+      "P00243"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "VI-5243",
+     "kind": "invoice",
+     "ledger": [
+      "P00244"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "VI-5245",
+     "kind": "invoice",
+     "ledger": [
+      "P00246"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "VI-5246",
+     "kind": "invoice",
+     "ledger": [
+      "P00247"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "VI-5247",
+     "kind": "invoice",
+     "ledger": [
+      "P00248"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "VI-5250",
+     "kind": "invoice",
+     "ledger": [
+      "P00251"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "VI-5251",
+     "kind": "invoice",
+     "ledger": [
+      "P00252"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "VI-5252",
+     "kind": "invoice",
+     "ledger": [
+      "P00253"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "VI-5253",
+     "kind": "invoice",
+     "ledger": [
+      "P00254"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "VI-5256",
+     "kind": "invoice",
+     "ledger": [
+      "P00257"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "VI-5257",
+     "kind": "invoice",
+     "ledger": [
+      "P00258"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "VI-5258",
+     "kind": "invoice",
+     "ledger": [
+      "P00259"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "VI-5260",
+     "kind": "invoice",
+     "ledger": [
+      "P00261"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "VI-5261",
+     "kind": "invoice",
+     "ledger": [
+      "P00262"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       6
+      ]
+     ]
+    },
+    {
+     "document": "VI-5263",
+     "kind": "invoice",
+     "ledger": [
+      "P00264"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "VI-5265",
+     "kind": "invoice",
+     "ledger": [
+      "P00266"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "VI-5266",
+     "kind": "invoice",
+     "ledger": [
+      "P00267"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "VI-5267",
+     "kind": "invoice",
+     "ledger": [
+      "P00268"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "VI-5268",
+     "kind": "invoice",
+     "ledger": [
+      "P00269"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "VI-5270",
+     "kind": "invoice",
+     "ledger": [
+      "P00271"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "VI-5271",
+     "kind": "invoice",
+     "ledger": [
+      "P00272"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "VI-5272",
+     "kind": "invoice",
+     "ledger": [
+      "P00273"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "VI-5273",
+     "kind": "invoice",
+     "ledger": [
+      "P00274"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "VI-5275",
+     "kind": "invoice",
+     "ledger": [
+      "P00276"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "VI-5277",
+     "kind": "invoice",
+     "ledger": [
+      "P00278"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "VI-5278",
+     "kind": "invoice",
+     "ledger": [
+      "P00279"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "VI-5280",
+     "kind": "invoice",
+     "ledger": [
+      "P00281"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "VI-5281",
+     "kind": "invoice",
+     "ledger": [
+      "P00282"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "VI-5282",
+     "kind": "invoice",
+     "ledger": [
+      "P00283"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "VI-5285",
+     "kind": "invoice",
+     "ledger": [
+      "P00286"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       30
+      ]
+     ]
+    },
+    {
+     "document": "VI-5286",
+     "kind": "invoice",
+     "ledger": [
+      "P00287"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "VI-5287",
+     "kind": "invoice",
+     "ledger": [
+      "P00288"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       6
+      ]
+     ]
+    },
+    {
+     "document": "VI-5288",
+     "kind": "invoice",
+     "ledger": [
+      "P00289"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "VI-5291",
+     "kind": "invoice",
+     "ledger": [
+      "P00292"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "VI-5292",
+     "kind": "invoice",
+     "ledger": [
+      "P00293"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "VI-5293",
+     "kind": "invoice",
+     "ledger": [
+      "P00294"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "VI-5295",
+     "kind": "invoice",
+     "ledger": [
+      "P00296"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "VI-5296",
+     "kind": "invoice",
+     "ledger": [
+      "P00297"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "VI-5298",
+     "kind": "invoice",
+     "ledger": [
+      "P00299"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "VI-5300",
+     "kind": "invoice",
+     "ledger": [
+      "P00301"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "VI-5301",
+     "kind": "invoice",
+     "ledger": [
+      "P00302"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "VI-5302",
+     "kind": "invoice",
+     "ledger": [
+      "P00303"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "VI-5303",
+     "kind": "invoice",
+     "ledger": [
+      "P00304"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "VI-5305",
+     "kind": "invoice",
+     "ledger": [
+      "P00306"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "VI-5306",
+     "kind": "invoice",
+     "ledger": [
+      "P00307"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "VI-5307",
+     "kind": "invoice",
+     "ledger": [
+      "P00308"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "VI-5308",
+     "kind": "invoice",
+     "ledger": [
+      "P00309"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "VI-5310",
+     "kind": "invoice",
+     "ledger": [
+      "P00311"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "VI-5312",
+     "kind": "invoice",
+     "ledger": [
+      "P00313"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "VI-5313",
+     "kind": "invoice",
+     "ledger": [
+      "P00314"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       6
+      ]
+     ]
+    },
+    {
+     "document": "VI-5315",
+     "kind": "invoice",
+     "ledger": [
+      "P00316"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "VI-5316",
+     "kind": "invoice",
+     "ledger": [
+      "P00317"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "VI-5317",
+     "kind": "invoice",
+     "ledger": [
+      "P00318"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "VI-5320",
+     "kind": "invoice",
+     "ledger": [
+      "P00321"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "VI-5321",
+     "kind": "invoice",
+     "ledger": [
+      "P00322"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "VI-5322",
+     "kind": "invoice",
+     "ledger": [
+      "P00323"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "VI-5323",
+     "kind": "invoice",
+     "ledger": [
+      "P00324"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "VI-5326",
+     "kind": "invoice",
+     "ledger": [
+      "P00327"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "VI-5327",
+     "kind": "invoice",
+     "ledger": [
+      "P00328"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "VI-5328",
+     "kind": "invoice",
+     "ledger": [
+      "P00329"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "VI-5330",
+     "kind": "invoice",
+     "ledger": [
+      "P00331"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "VI-5331",
+     "kind": "invoice",
+     "ledger": [
+      "P00332"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "VI-5333",
+     "kind": "invoice",
+     "ledger": [
+      "P00334"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "VI-5335",
+     "kind": "invoice",
+     "ledger": [
+      "P00336"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "VI-5336",
+     "kind": "invoice",
+     "ledger": [
+      "P00337"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "VI-5337",
+     "kind": "invoice",
+     "ledger": [
+      "P00338"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       30
+      ]
+     ]
+    },
+    {
+     "document": "VI-5338",
+     "kind": "invoice",
+     "ledger": [
+      "P00339"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "VI-5340",
+     "kind": "invoice",
+     "ledger": [
+      "P00341"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "VI-5341",
+     "kind": "invoice",
+     "ledger": [
+      "P00342"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "VI-5342",
+     "kind": "invoice",
+     "ledger": [
+      "P00343"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "VI-5343",
+     "kind": "invoice",
+     "ledger": [
+      "P00344"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "VI-5345",
+     "kind": "invoice",
+     "ledger": [
+      "P00346"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "VI-5347",
+     "kind": "invoice",
+     "ledger": [
+      "P00348"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "VI-5348",
+     "kind": "invoice",
+     "ledger": [
+      "P00349"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "VI-5350",
+     "kind": "invoice",
+     "ledger": [
+      "P00351"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "VI-5351",
+     "kind": "invoice",
+     "ledger": [
+      "P00352"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "VI-5352",
+     "kind": "invoice",
+     "ledger": [
+      "P00353"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "VI-5355",
+     "kind": "invoice",
+     "ledger": [
+      "P00356"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "VI-5356",
+     "kind": "invoice",
+     "ledger": [
+      "P00357"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "VI-5357",
+     "kind": "invoice",
+     "ledger": [
+      "P00358"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "VI-5358",
+     "kind": "invoice",
+     "ledger": [
+      "P00359"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "VI-5361",
+     "kind": "invoice",
+     "ledger": [
+      "P00362"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "VI-5362",
+     "kind": "invoice",
+     "ledger": [
+      "P00363"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "VI-5363",
+     "kind": "invoice",
+     "ledger": [
+      "P00364"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       30
+      ]
+     ]
+    },
+    {
+     "document": "VI-5365",
+     "kind": "invoice",
+     "ledger": [
+      "P00366"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       6
+      ]
+     ]
+    },
+    {
+     "document": "VI-5366",
+     "kind": "invoice",
+     "ledger": [
+      "P00367"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "VI-5368",
+     "kind": "invoice",
+     "ledger": [
+      "P00369"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "VI-5370",
+     "kind": "invoice",
+     "ledger": [
+      "P00371"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "VI-5371",
+     "kind": "invoice",
+     "ledger": [
+      "P00372"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "VI-5372",
+     "kind": "invoice",
+     "ledger": [
+      "P00373"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "VI-5373",
+     "kind": "invoice",
+     "ledger": [
+      "P00374"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "VI-5375",
+     "kind": "invoice",
+     "ledger": [
+      "P00376"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "VI-5376",
+     "kind": "invoice",
+     "ledger": [
+      "P00377"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "VI-5377",
+     "kind": "invoice",
+     "ledger": [
+      "P00378"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "VI-5378",
+     "kind": "invoice",
+     "ledger": [
+      "P00379"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "VI-5380",
+     "kind": "invoice",
+     "ledger": [
+      "P00381"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "VI-5382",
+     "kind": "invoice",
+     "ledger": [
+      "P00383"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "VI-5383",
+     "kind": "invoice",
+     "ledger": [
+      "P00384"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "VI-5385",
+     "kind": "invoice",
+     "ledger": [
+      "P00386"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "VI-5386",
+     "kind": "invoice",
+     "ledger": [
+      "P00387"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "VI-5387",
+     "kind": "invoice",
+     "ledger": [
+      "P00388"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "VI-5390",
+     "kind": "invoice",
+     "ledger": [
+      "P00391"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "VI-5391",
+     "kind": "invoice",
+     "ledger": [
+      "P00392"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       6
+      ]
+     ]
+    },
+    {
+     "document": "VI-5392",
+     "kind": "invoice",
+     "ledger": [
+      "P00393"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "VI-5393",
+     "kind": "invoice",
+     "ledger": [
+      "P00394"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "VI-5396",
+     "kind": "invoice",
+     "ledger": [
+      "P00397"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "VI-5397",
+     "kind": "invoice",
+     "ledger": [
+      "P00398"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "VI-5398",
+     "kind": "invoice",
+     "ledger": [
+      "P00399"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "VI-5400",
+     "kind": "invoice",
+     "ledger": [
+      "P00401"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "VI-5401",
+     "kind": "invoice",
+     "ledger": [
+      "P00402"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "VI-5403",
+     "kind": "invoice",
+     "ledger": [
+      "P00404"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "VI-5405",
+     "kind": "invoice",
+     "ledger": [
+      "P00406"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "VI-5406",
+     "kind": "invoice",
+     "ledger": [
+      "P00407"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "VI-5407",
+     "kind": "invoice",
+     "ledger": [
+      "P00408"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "VI-5408",
+     "kind": "invoice",
+     "ledger": [
+      "P00409"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "VI-5410",
+     "kind": "invoice",
+     "ledger": [
+      "P00411"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "VI-5411",
+     "kind": "invoice",
+     "ledger": [
+      "P00412"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "VI-5412",
+     "kind": "invoice",
+     "ledger": [
+      "P00413"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "VI-5413",
+     "kind": "invoice",
+     "ledger": [
+      "P00414"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "VI-5415",
+     "kind": "invoice",
+     "ledger": [
+      "P00416"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       30
+      ]
+     ]
+    },
+    {
+     "document": "VI-5417",
+     "kind": "invoice",
+     "ledger": [
+      "P00418"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       6
+      ]
+     ]
+    },
+    {
+     "document": "VI-5418",
+     "kind": "invoice",
+     "ledger": [
+      "P00419"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "VI-5420",
+     "kind": "invoice",
+     "ledger": [
+      "P00421"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "VI-5421",
+     "kind": "invoice",
+     "ledger": [
+      "P00422"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "VI-5422",
+     "kind": "invoice",
+     "ledger": [
+      "P00423"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "VI-5425",
+     "kind": "invoice",
+     "ledger": [
+      "P00426"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "VI-5426",
+     "kind": "invoice",
+     "ledger": [
+      "P00427"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "VI-5427",
+     "kind": "invoice",
+     "ledger": [
+      "P00428"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "VI-5428",
+     "kind": "invoice",
+     "ledger": [
+      "P00429"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "VI-5431",
+     "kind": "invoice",
+     "ledger": [
+      "P00432"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "VI-5432",
+     "kind": "invoice",
+     "ledger": [
+      "P00433"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "VI-5433",
+     "kind": "invoice",
+     "ledger": [
+      "P00434"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "VI-5435",
+     "kind": "invoice",
+     "ledger": [
+      "P00436"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "VI-5436",
+     "kind": "invoice",
+     "ledger": [
+      "P00437"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "VI-5438",
+     "kind": "invoice",
+     "ledger": [
+      "P00439"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "VI-5440",
+     "kind": "invoice",
+     "ledger": [
+      "P00441"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "VI-5441",
+     "kind": "invoice",
+     "ledger": [
+      "P00442"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       30
+      ]
+     ]
+    },
+    {
+     "document": "VI-5442",
+     "kind": "invoice",
+     "ledger": [
+      "P00443"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "VI-5443",
+     "kind": "invoice",
+     "ledger": [
+      "P00444"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       6
+      ]
+     ]
+    },
+    {
+     "document": "VI-5445",
+     "kind": "invoice",
+     "ledger": [
+      "P00446"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "VI-5446",
+     "kind": "invoice",
+     "ledger": [
+      "P00447"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "VI-5447",
+     "kind": "invoice",
+     "ledger": [
+      "P00448"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "VI-5448",
+     "kind": "invoice",
+     "ledger": [
+      "P00449"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "VI-5450",
+     "kind": "invoice",
+     "ledger": [
+      "P00451"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "VI-5452",
+     "kind": "invoice",
+     "ledger": [
+      "P00453"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "VI-5453",
+     "kind": "invoice",
+     "ledger": [
+      "P00454"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "VI-5455",
+     "kind": "invoice",
+     "ledger": [
+      "P00456"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "VI-5456",
+     "kind": "invoice",
+     "ledger": [
+      "P00457"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "VI-5457",
+     "kind": "invoice",
+     "ledger": [
+      "P00458"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "VI-5460",
+     "kind": "invoice",
+     "ledger": [
+      "P00461"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "VI-5461",
+     "kind": "invoice",
+     "ledger": [
+      "P00462"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "VI-5462",
+     "kind": "invoice",
+     "ledger": [
+      "P00463"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "VI-5463",
+     "kind": "invoice",
+     "ledger": [
+      "P00464"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "VI-5466",
+     "kind": "invoice",
+     "ledger": [
+      "P00467"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "VI-5467",
+     "kind": "invoice",
+     "ledger": [
+      "P00468"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       30
+      ]
+     ]
+    },
+    {
+     "document": "VI-5468",
+     "kind": "invoice",
+     "ledger": [
+      "P00469"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "VI-5470",
+     "kind": "invoice",
+     "ledger": [
+      "P00471"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "VI-5471",
+     "kind": "invoice",
+     "ledger": [
+      "P00472"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "VI-5473",
+     "kind": "invoice",
+     "ledger": [
+      "P00474"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "VI-5475",
+     "kind": "invoice",
+     "ledger": [
+      "P00476"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "VI-5476",
+     "kind": "invoice",
+     "ledger": [
+      "P00477"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "VI-5477",
+     "kind": "invoice",
+     "ledger": [
+      "P00478"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "VI-5478",
+     "kind": "invoice",
+     "ledger": [
+      "P00479"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "VI-5480",
+     "kind": "invoice",
+     "ledger": [
+      "P00481"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "VI-5481",
+     "kind": "invoice",
+     "ledger": [
+      "P00482"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "VI-5482",
+     "kind": "invoice",
+     "ledger": [
+      "P00483"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "VI-5483",
+     "kind": "invoice",
+     "ledger": [
+      "P00484"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "VI-5485",
+     "kind": "invoice",
+     "ledger": [
+      "P00486"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "VI-5487",
+     "kind": "invoice",
+     "ledger": [
+      "P00488"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "VI-5488",
+     "kind": "invoice",
+     "ledger": [
+      "P00489"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "VI-5490",
+     "kind": "invoice",
+     "ledger": [
+      "P00491"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "VI-5491",
+     "kind": "invoice",
+     "ledger": [
+      "P00492"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "VI-5492",
+     "kind": "invoice",
+     "ledger": [
+      "P00493"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "VI-5495",
+     "kind": "invoice",
+     "ledger": [
+      "P00496"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       6
+      ]
+     ]
+    },
+    {
+     "document": "VI-5496",
+     "kind": "invoice",
+     "ledger": [
+      "P00497"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "VI-5497",
+     "kind": "invoice",
+     "ledger": [
+      "P00498"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "VI-5498",
+     "kind": "invoice",
+     "ledger": [
+      "P00499"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "VI-5501",
+     "kind": "invoice",
+     "ledger": [
+      "P00502"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "VI-5502",
+     "kind": "invoice",
+     "ledger": [
+      "P00503"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "VI-5503",
+     "kind": "invoice",
+     "ledger": [
+      "P00504"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "VI-5505",
+     "kind": "invoice",
+     "ledger": [
+      "P00506"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "VI-5506",
+     "kind": "invoice",
+     "ledger": [
+      "P00507"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "VI-5508",
+     "kind": "invoice",
+     "ledger": [
+      "P00509"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "VI-5510",
+     "kind": "invoice",
+     "ledger": [
+      "P00511"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "VI-5511",
+     "kind": "invoice",
+     "ledger": [
+      "P00512"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "VI-5512",
+     "kind": "invoice",
+     "ledger": [
+      "P00513"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "VI-5513",
+     "kind": "invoice",
+     "ledger": [
+      "P00514"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "VI-5515",
+     "kind": "invoice",
+     "ledger": [
+      "P00516"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "VI-5516",
+     "kind": "invoice",
+     "ledger": [
+      "P00517"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "VI-5517",
+     "kind": "invoice",
+     "ledger": [
+      "P00518"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "VI-5518",
+     "kind": "invoice",
+     "ledger": [
+      "P00519"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "VR-7004",
+     "kind": "receipt",
+     "ledger": [
+      "P00005"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "VR-7009",
+     "kind": "receipt",
+     "ledger": [
+      "P00010"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "VR-7014",
+     "kind": "receipt",
+     "ledger": [
+      "P00015"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "VR-7019",
+     "kind": "receipt",
+     "ledger": [
+      "P00020"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "VR-7024",
+     "kind": "receipt",
+     "ledger": [
+      "P00025"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       34
+      ]
+     ]
+    },
+    {
+     "document": "VR-7029",
+     "kind": "receipt",
+     "ledger": [
+      "P00030"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "VR-7034",
+     "kind": "receipt",
+     "ledger": [
+      "P00035"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "VR-7039",
+     "kind": "receipt",
+     "ledger": [
+      "P00040"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "VR-7044",
+     "kind": "receipt",
+     "ledger": [
+      "P00045"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "VR-7049",
+     "kind": "receipt",
+     "ledger": [
+      "P00050"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       2,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "VR-7054",
+     "kind": "receipt",
+     "ledger": [
+      "P00055"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "VR-7059",
+     "kind": "receipt",
+     "ledger": [
+      "P00060"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "VR-7064",
+     "kind": "receipt",
+     "ledger": [
+      "P00065"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "VR-7069",
+     "kind": "receipt",
+     "ledger": [
+      "P00070"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "VR-7074",
+     "kind": "receipt",
+     "ledger": [
+      "P00075"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       3,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "VR-7079",
+     "kind": "receipt",
+     "ledger": [
+      "P00080"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       6
+      ]
+     ]
+    },
+    {
+     "document": "VR-7084",
+     "kind": "receipt",
+     "ledger": [
+      "P00085"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "VR-7089",
+     "kind": "receipt",
+     "ledger": [
+      "P00090"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "VR-7094",
+     "kind": "receipt",
+     "ledger": [
+      "P00095"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "VR-7099",
+     "kind": "receipt",
+     "ledger": [
+      "P00100"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       4,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "VR-7104",
+     "kind": "receipt",
+     "ledger": [
+      "P00105"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "VR-7109",
+     "kind": "receipt",
+     "ledger": [
+      "P00110"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "VR-7114",
+     "kind": "receipt",
+     "ledger": [
+      "P00115"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "VR-7119",
+     "kind": "receipt",
+     "ledger": [
+      "P00120"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "VR-7124",
+     "kind": "receipt",
+     "ledger": [
+      "P00125"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "VR-7129",
+     "kind": "receipt",
+     "ledger": [
+      "P00130"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       5,
+       30
+      ]
+     ]
+    },
+    {
+     "document": "VR-7134",
+     "kind": "receipt",
+     "ledger": [
+      "P00135"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "VR-7139",
+     "kind": "receipt",
+     "ledger": [
+      "P00140"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "VR-7144",
+     "kind": "receipt",
+     "ledger": [
+      "P00145"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "VR-7149",
+     "kind": "receipt",
+     "ledger": [
+      "P00150"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "VR-7154",
+     "kind": "receipt",
+     "ledger": [
+      "P00155"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       6,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "VR-7159",
+     "kind": "receipt",
+     "ledger": [
+      "P00160"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "VR-7164",
+     "kind": "receipt",
+     "ledger": [
+      "P00165"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "VR-7169",
+     "kind": "receipt",
+     "ledger": [
+      "P00170"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "VR-7174",
+     "kind": "receipt",
+     "ledger": [
+      "P00175"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "VR-7179",
+     "kind": "receipt",
+     "ledger": [
+      "P00180"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       7,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "VR-7184",
+     "kind": "receipt",
+     "ledger": [
+      "P00185"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "VR-7189",
+     "kind": "receipt",
+     "ledger": [
+      "P00190"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "VR-7194",
+     "kind": "receipt",
+     "ledger": [
+      "P00195"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "VR-7199",
+     "kind": "receipt",
+     "ledger": [
+      "P00200"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "VR-7204",
+     "kind": "receipt",
+     "ledger": [
+      "P00205"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       8,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "VR-7209",
+     "kind": "receipt",
+     "ledger": [
+      "P00210"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       6
+      ]
+     ]
+    },
+    {
+     "document": "VR-7214",
+     "kind": "receipt",
+     "ledger": [
+      "P00215"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "VR-7219",
+     "kind": "receipt",
+     "ledger": [
+      "P00220"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "VR-7224",
+     "kind": "receipt",
+     "ledger": [
+      "P00225"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "VR-7229",
+     "kind": "receipt",
+     "ledger": [
+      "P00230"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       9,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "VR-7234",
+     "kind": "receipt",
+     "ledger": [
+      "P00235"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "VR-7239",
+     "kind": "receipt",
+     "ledger": [
+      "P00240"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "VR-7244",
+     "kind": "receipt",
+     "ledger": [
+      "P00245"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "VR-7249",
+     "kind": "receipt",
+     "ledger": [
+      "P00250"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "VR-7254",
+     "kind": "receipt",
+     "ledger": [
+      "P00255"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "VR-7259",
+     "kind": "receipt",
+     "ledger": [
+      "P00260"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       10,
+       30
+      ]
+     ]
+    },
+    {
+     "document": "VR-7264",
+     "kind": "receipt",
+     "ledger": [
+      "P00265"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "VR-7269",
+     "kind": "receipt",
+     "ledger": [
+      "P00270"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "VR-7274",
+     "kind": "receipt",
+     "ledger": [
+      "P00275"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "VR-7279",
+     "kind": "receipt",
+     "ledger": [
+      "P00280"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "VR-7284",
+     "kind": "receipt",
+     "ledger": [
+      "P00285"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       11,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "VR-7289",
+     "kind": "receipt",
+     "ledger": [
+      "P00290"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "VR-7294",
+     "kind": "receipt",
+     "ledger": [
+      "P00295"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "VR-7299",
+     "kind": "receipt",
+     "ledger": [
+      "P00300"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "VR-7304",
+     "kind": "receipt",
+     "ledger": [
+      "P00305"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "VR-7309",
+     "kind": "receipt",
+     "ledger": [
+      "P00310"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       12,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "VR-7314",
+     "kind": "receipt",
+     "ledger": [
+      "P00315"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "VR-7319",
+     "kind": "receipt",
+     "ledger": [
+      "P00320"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "VR-7324",
+     "kind": "receipt",
+     "ledger": [
+      "P00325"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "VR-7329",
+     "kind": "receipt",
+     "ledger": [
+      "P00330"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "VR-7334",
+     "kind": "receipt",
+     "ledger": [
+      "P00335"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       13,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "VR-7339",
+     "kind": "receipt",
+     "ledger": [
+      "P00340"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       6
+      ]
+     ]
+    },
+    {
+     "document": "VR-7344",
+     "kind": "receipt",
+     "ledger": [
+      "P00345"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "VR-7349",
+     "kind": "receipt",
+     "ledger": [
+      "P00350"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "VR-7354",
+     "kind": "receipt",
+     "ledger": [
+      "P00355"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "VR-7359",
+     "kind": "receipt",
+     "ledger": [
+      "P00360"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       14,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "VR-7364",
+     "kind": "receipt",
+     "ledger": [
+      "P00365"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "VR-7369",
+     "kind": "receipt",
+     "ledger": [
+      "P00370"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "VR-7374",
+     "kind": "receipt",
+     "ledger": [
+      "P00375"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "VR-7379",
+     "kind": "receipt",
+     "ledger": [
+      "P00380"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "VR-7384",
+     "kind": "receipt",
+     "ledger": [
+      "P00385"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "VR-7389",
+     "kind": "receipt",
+     "ledger": [
+      "P00390"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       15,
+       30
+      ]
+     ]
+    },
+    {
+     "document": "VR-7394",
+     "kind": "receipt",
+     "ledger": [
+      "P00395"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "VR-7399",
+     "kind": "receipt",
+     "ledger": [
+      "P00400"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "VR-7404",
+     "kind": "receipt",
+     "ledger": [
+      "P00405"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       19
+      ]
+     ]
+    },
+    {
+     "document": "VR-7409",
+     "kind": "receipt",
+     "ledger": [
+      "P00410"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       24
+      ]
+     ]
+    },
+    {
+     "document": "VR-7414",
+     "kind": "receipt",
+     "ledger": [
+      "P00415"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       16,
+       29
+      ]
+     ]
+    },
+    {
+     "document": "VR-7419",
+     "kind": "receipt",
+     "ledger": [
+      "P00420"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       8
+      ]
+     ]
+    },
+    {
+     "document": "VR-7424",
+     "kind": "receipt",
+     "ledger": [
+      "P00425"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "VR-7429",
+     "kind": "receipt",
+     "ledger": [
+      "P00430"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       18
+      ]
+     ]
+    },
+    {
+     "document": "VR-7434",
+     "kind": "receipt",
+     "ledger": [
+      "P00435"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       23
+      ]
+     ]
+    },
+    {
+     "document": "VR-7439",
+     "kind": "receipt",
+     "ledger": [
+      "P00440"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       17,
+       28
+      ]
+     ]
+    },
+    {
+     "document": "VR-7444",
+     "kind": "receipt",
+     "ledger": [
+      "P00445"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       7
+      ]
+     ]
+    },
+    {
+     "document": "VR-7449",
+     "kind": "receipt",
+     "ledger": [
+      "P00450"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "VR-7454",
+     "kind": "receipt",
+     "ledger": [
+      "P00455"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       17
+      ]
+     ]
+    },
+    {
+     "document": "VR-7459",
+     "kind": "receipt",
+     "ledger": [
+      "P00460"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       22
+      ]
+     ]
+    },
+    {
+     "document": "VR-7464",
+     "kind": "receipt",
+     "ledger": [
+      "P00465"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       18,
+       27
+      ]
+     ]
+    },
+    {
+     "document": "VR-7469",
+     "kind": "receipt",
+     "ledger": [
+      "P00470"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       6
+      ]
+     ]
+    },
+    {
+     "document": "VR-7474",
+     "kind": "receipt",
+     "ledger": [
+      "P00475"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "VR-7479",
+     "kind": "receipt",
+     "ledger": [
+      "P00480"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       16
+      ]
+     ]
+    },
+    {
+     "document": "VR-7484",
+     "kind": "receipt",
+     "ledger": [
+      "P00485"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       21
+      ]
+     ]
+    },
+    {
+     "document": "VR-7489",
+     "kind": "receipt",
+     "ledger": [
+      "P00490"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       19,
+       26
+      ]
+     ]
+    },
+    {
+     "document": "VR-7494",
+     "kind": "receipt",
+     "ledger": [
+      "P00495"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       5
+      ]
+     ]
+    },
+    {
+     "document": "VR-7499",
+     "kind": "receipt",
+     "ledger": [
+      "P00500"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "VR-7504",
+     "kind": "receipt",
+     "ledger": [
+      "P00505"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       15
+      ]
+     ]
+    },
+    {
+     "document": "VR-7509",
+     "kind": "receipt",
+     "ledger": [
+      "P00510"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       20
+      ]
+     ]
+    },
+    {
+     "document": "VR-7514",
+     "kind": "receipt",
+     "ledger": [
+      "P00515"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       25
+      ]
+     ]
+    },
+    {
+     "document": "VR-7519",
+     "kind": "receipt",
+     "ledger": [
+      "P00520"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       20,
+       30
+      ]
+     ]
+    }
+   ],
+   "errorCodes": [],
+   "errors": [],
+   "matched": 520,
+   "outOfScopeLines": 0,
+   "review": {},
+   "sections": [
+    {
+     "compared": true,
+     "lines": 520,
+     "pages": [
+      1
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    }
+   ],
+   "status": "matched"
+  },
+  "B16": {
+   "cases": [
+    {
+     "document": "CRN/2026/0051",
+     "kind": "credit-note",
+     "ledger": [
+      "P00003"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       11
+      ]
+     ]
+    },
+    {
+     "document": "CRN/2026/0054",
+     "kind": "credit-note",
+     "ledger": [
+      "P00006"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       14
+      ]
+     ]
+    },
+    {
+     "document": "INV/2026/1601",
+     "kind": "invoice",
+     "ledger": [
+      "P00001"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       9
+      ]
+     ]
+    },
+    {
+     "document": "INV/2026/1602",
+     "kind": "invoice",
+     "ledger": [
+      "P00002"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "INV/2026/1606",
+     "kind": "invoice",
+     "ledger": [
+      "P00005"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "RCT/2026/0701",
+     "kind": "receipt",
+     "ledger": [
+      "P00004"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       12
+      ]
+     ]
+    },
+    {
+     "document": "RCT/2026/0705",
+     "kind": "receipt",
+     "ledger": [
+      "P00007"
+     ],
+     "reason": "exact-own-document",
+     "statement": [
+      [
+       1,
+       15
+      ]
+     ]
+    }
+   ],
+   "errorCodes": [],
+   "errors": [],
+   "matched": 7,
+   "outOfScopeLines": 0,
+   "review": {},
+   "sections": [
+    {
+     "compared": true,
+     "lines": 7,
+     "pages": [
+      1
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    }
+   ],
+   "status": "matched"
+  },
+  "B17": {
+   "cases": [
+    {
+     "document": "SI-26-0870",
+     "kind": "invoice",
+     "ledger": [
+      "P00001"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       10
+      ]
+     ]
+    },
+    {
+     "document": "SI-26-0871",
+     "kind": "invoice",
+     "ledger": [
+      "P00002"
+     ],
+     "reason": "source-errors",
+     "statement": []
+    },
+    {
+     "document": "SI-26-0875",
+     "kind": "invoice",
+     "ledger": [
+      "P00004"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "RV-26-0190",
+     "kind": "receipt",
+     "ledger": [
+      "P00003"
+     ],
+     "reason": "source-errors",
+     "statement": []
+    }
+   ],
+   "errorCodes": [
+    "AR_DATE",
+    "AR_DOCUMENT"
+   ],
+   "errors": [
+    {
+     "code": "AR_DATE",
+     "side": "statement",
+     "where": [
+      1,
+      11
+     ]
+    },
+    {
+     "code": "AR_DOCUMENT",
+     "side": "statement",
+     "where": [
+      1,
+      12
+     ]
+    }
+   ],
+   "matched": 0,
+   "outOfScopeLines": 0,
+   "review": {},
+   "sections": [
+    {
+     "compared": true,
+     "lines": 2,
+     "pages": [
+      1
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    }
+   ],
+   "status": "source-error"
+  },
+  "B18": {
+   "cases": [
+    {
+     "document": "INV/2026/1801",
+     "kind": "invoice",
+     "ledger": [
+      "P00001"
+     ],
+     "reason": "source-errors",
+     "statement": []
+    },
+    {
+     "document": "INV/2026/1802",
+     "kind": "invoice",
+     "ledger": [
+      "P00002"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       13
+      ]
+     ]
+    },
+    {
+     "document": "RCT/2026/0801",
+     "kind": "receipt",
+     "ledger": [
+      "P00003"
+     ],
+     "reason": "source-errors",
+     "statement": [
+      [
+       1,
+       14
+      ]
+     ]
+    }
+   ],
+   "errorCodes": [
+    "AR_AMOUNT",
+    "AR_PDF_ORPHAN_LINE"
+   ],
+   "errors": [
+    {
+     "code": "AR_PDF_ORPHAN_LINE",
+     "side": "statement",
+     "where": [
+      1,
+      5
+     ]
+    },
+    {
+     "code": "AR_AMOUNT",
+     "side": "statement",
+     "where": [
+      1,
+      12
+     ]
+    }
+   ],
+   "matched": 0,
+   "outOfScopeLines": 0,
+   "review": {},
+   "sections": [
+    {
+     "compared": true,
+     "lines": 2,
+     "pages": [
+      1
+     ],
+     "scope": {
+      "account": "1130",
+      "currency": "SAR",
+      "customer": "K-204",
+      "end": "2026-08-31",
+      "start": "2026-08-01"
+     }
+    }
+   ],
+   "status": "source-error"
+  }
+ },
+ "version": "ar-statement-foundation-oracle-1"
+}

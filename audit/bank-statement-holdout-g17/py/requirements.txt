@@ -1,0 +1,4 @@
+# The cairo application's shaping and bidi libraries (render_cairo.py), installed outside the repository:
+#   python3 -m pip install --target <py dir> -r py/requirements.txt
+uharfbuzz==0.57.0
+python-bidi==0.6.12

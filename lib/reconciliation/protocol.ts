@@ -1,4 +1,11 @@
 import {
+  BANK_STATEMENT_EXPORT_LIMIT,
+  BANK_STATEMENT_LIFECYCLE_VERSION,
+  BANK_STATEMENT_ROLL_VERSION,
+  BANK_STATEMENT_SESSION_LIMIT,
+  BANK_STATEMENT_SHEET_VERSION,
+} from './bank-statement-request.ts';
+import {
   STOCK_PDF_LIFECYCLE_VERSION,
   STOCK_PDF_SESSION_LIMIT,
   STOCK_PDF_EXPORT_LIMIT,
@@ -13,15 +20,61 @@ import {
   type IntercompanyInput,
 } from './intercompany.ts';
 import {
+  IC_BATCH_VERSION,
+  reconcileIntercompanyBatches,
+  type IntercompanyBatchInput,
+} from './intercompany-batch.ts';
+import {
   reconcileFinancialPosition,
   type FinancialInput,
 } from './tb-financial.ts';
+import {
+  GLS_VERSION,
+  reconcileGlTbSections,
+  type GlsInput,
+} from './gl-tb-sections.ts';
+import {
+  FINH_VERSION,
+  reconcileFinancialHierarchy,
+  type FinHInput,
+} from './tb-financial-hierarchy.ts';
+import {
+  PLR_VERSION,
+  reconcileLongRegister,
+  type PlrInput,
+} from './payroll-long-register.ts';
+import {
+  IMB_VERSION,
+  reconcileMovementBridge,
+  type ImbInput,
+} from './inventory-movement-bridge.ts';
+import {
+  CLEARING_GROUPS_VERSION,
+  groupClearing,
+  type ClearingGroupsInput,
+} from './clearing-groups.ts';
 import {
   ENGINE_VERSION,
   MAX_ROWS,
   MAX_SHEETS,
   MAX_FILE_BYTES,
 } from './types.ts';
+import {
+  ALLOCATION_ADVICE_VERSION,
+  reviewAllocationAdvice,
+} from './allocation-advice.ts';
+import type { AllocationResult } from './allocation.ts';
+import {
+  PG_BATCHES_ROLES,
+  PG_BATCHES_VERSION,
+  reviewGatewayBatches,
+  type GatewayBatchesInput,
+} from './payment-gateway-batches.ts';
+import {
+  FA_SECTIONS_ROLES,
+  reviewAssetSections,
+  type AssetSectionsInput,
+} from './fixed-assets-sections.ts';
 import type { SourceFile } from './types.ts';
 import {
   registerNativeHeaderSource,
@@ -53,6 +106,10 @@ export const WORKER_ACTIONS = [
   'bank-save',
   'bank-restore',
   'bank-export',
+  'bank-statement-reconcile',
+  'bank-statement-save',
+  'bank-statement-restore',
+  'bank-statement-export',
   'allocation-reconcile',
   'allocation-save',
   'allocation-restore',
@@ -79,6 +136,7 @@ export const WORKER_ACTIONS = [
   'stock-save',
   'stock-restore',
   'stock-export',
+  'stock-links-export',
   'gateway-reconcile',
   'gateway-save',
   'gateway-restore',
@@ -88,6 +146,7 @@ export const WORKER_ACTIONS = [
   'intercompany-save',
   'intercompany-restore',
   'intercompany-export',
+  'intercompany-batch-reconcile',
   'tb-financial-reconcile',
   'tb-financial-save',
   'tb-financial-restore',
@@ -96,6 +155,14 @@ export const WORKER_ACTIONS = [
   'gl-tb-save',
   'gl-tb-restore',
   'gl-tb-export',
+  'gl-tb-sections-reconcile',
+  'tb-financial-hierarchy-reconcile',
+  'payroll-long-register-reconcile',
+  'inventory-movement-bridge-reconcile',
+  'clearing-groups-reconcile',
+  'allocation-advice-review',
+  'payment-gateway-batches-reconcile',
+  'fixed-assets-sections-review',
 ] as const;
 export type WorkerAction = (typeof WORKER_ACTIONS)[number];
 export const isRecord = (value: unknown): value is Record<string, unknown> =>
@@ -114,7 +181,9 @@ export function isRequest(value: unknown): value is {
     WORKER_ACTIONS.includes(value.action as WorkerAction) &&
     (!(
       typeof value.action === 'string' &&
-      (value.action.startsWith('ar-') || value.action.startsWith('stock-pdf-'))
+      (value.action.startsWith('ar-') ||
+        value.action.startsWith('stock-pdf-') ||
+        value.action.startsWith('bank-statement-'))
     ) ||
       Object.keys(value).sort().join('|') === 'action|channel|id|payload') &&
     Object.hasOwn(value, 'payload')
@@ -182,6 +251,49 @@ export function validateWorkerValue(
     )
       throw Error('STOCK_PDF_ENVELOPE');
   }
+  // The client binding replays the captured originals and installs only its
+  // own result; this checks the transport shape alone.
+  if (action === 'bank-statement-save' || action === 'bank-statement-export') {
+    if (
+      !(value instanceof ArrayBuffer) ||
+      !value.byteLength ||
+      value.byteLength >
+        (action === 'bank-statement-save'
+          ? BANK_STATEMENT_SESSION_LIMIT
+          : BANK_STATEMENT_EXPORT_LIMIT)
+    )
+      throw Error('BANK_STATEMENT_ENVELOPE');
+  }
+  if (
+    action === 'bank-statement-reconcile' ||
+    action === 'bank-statement-restore'
+  ) {
+    if (
+      !isRecord(value) ||
+      Object.keys(value).sort().join('|') !== 'result|state' ||
+      !isRecord(value.state) ||
+      !isRecord(value.result) ||
+      ![
+        BANK_STATEMENT_LIFECYCLE_VERSION,
+        BANK_STATEMENT_ROLL_VERSION,
+        BANK_STATEMENT_SHEET_VERSION,
+      ].includes(
+        value.state.version as string,
+      ) ||
+      value.result.version !== value.state.version ||
+      typeof value.result.context !== 'string' ||
+      !Array.isArray(value.state.files) ||
+      value.state.files.length !== 2 ||
+      value.state.files.some(
+        (file) =>
+          !isRecord(file) ||
+          !(file.original instanceof ArrayBuffer) ||
+          !file.original.byteLength ||
+          file.original.byteLength > MAX_FILE_BYTES,
+      )
+    )
+      throw Error('BANK_STATEMENT_ENVELOPE');
+  }
   if (action === 'ar-save' || action === 'ar-export') {
     if (
       !(value instanceof ArrayBuffer) ||
@@ -196,7 +308,7 @@ export function validateWorkerValue(
       Object.keys(value).sort().join('|') !== 'result|state' ||
       !isRecord(value.state) ||
       !isRecord(value.result) ||
-      !['ar-limited-1', 'ar-scope-details-1'].includes(
+      !['ar-limited-1', 'ar-scope-details-1', 'ar-statement-pdf-1'].includes(
         value.result.version as string,
       ) ||
       typeof value.result.context !== 'string' ||
@@ -215,13 +327,17 @@ export function validateWorkerValue(
       value.result.cases.length > 2 * MAX_ROWS
     )
       throw Error('AR_WORKER_ENVELOPE');
-    for (const file of value.state.files) {
-      assertSourceFile(file);
+    for (const file of value.state.files as unknown[]) {
+      // A printed statement carries its reading, not a table; the client
+      // binding replays both from the originals.
+      if (!isRecord(file)) throw Error('AR_WORKER_ENVELOPE');
+      if (file.kind !== 'ar-statement-pdf') assertSourceFile(file);
       if (
         !(file.original instanceof ArrayBuffer) ||
         !file.original.byteLength ||
         file.original.byteLength > MAX_FILE_BYTES ||
-        !/^[a-f0-9]{64}$/.test(file.sha256 ?? '')
+        typeof file.sha256 !== 'string' ||
+        !/^[a-f0-9]{64}$/.test(file.sha256)
       )
         throw Error('AR_WORKER_ENVELOPE');
     }
@@ -307,6 +423,7 @@ export function validateWorkerValue(
     action === 'asset-export' ||
     action === 'stock-save' ||
     action === 'stock-export' ||
+    action === 'stock-links-export' ||
     action === 'gateway-export' ||
     action === 'intercompany-save' ||
     action === 'intercompany-export' ||
@@ -470,6 +587,466 @@ export function validateWorkerValue(
         ) !== JSON.stringify(value.result)
       )
         throw Error('invalid');
+    } catch {
+      throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+    }
+  }
+  if (action === 'intercompany-batch-reconcile') {
+    if (
+      !isRecord(value) ||
+      Object.keys(value).sort().join('|') !== 'result|state' ||
+      !isRecord(value.state) ||
+      !isRecord(value.result) ||
+      value.result.version !== IC_BATCH_VERSION ||
+      typeof value.result.context !== 'string' ||
+      !Array.isArray(value.state.files) ||
+      !Array.isArray(value.result.batches)
+    )
+      throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+    for (const file of value.state.files) {
+      assertSourceFile(file);
+      if (
+        !(file.original instanceof ArrayBuffer) ||
+        !/^[a-f0-9]{64}$/.test(file.sha256 ?? '')
+      )
+        throw new Error(
+          'استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.',
+        );
+    }
+    // Recompute every batch from the returned sources before installation, as
+    // for the single pair. Not source authenticity or an accounting approval.
+    try {
+      if (
+        JSON.stringify(
+          reconcileIntercompanyBatches(
+            value.state as unknown as IntercompanyBatchInput,
+          ),
+        ) !== JSON.stringify(value.result)
+      )
+        throw Error('invalid');
+    } catch {
+      throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+    }
+  }
+  if (action === 'gl-tb-sections-reconcile') {
+    try {
+      if (
+        !isRecord(value) ||
+        Object.keys(value).sort().join('|') !== 'result|state' ||
+        !isRecord(value.state) ||
+        !isRecord(value.result) ||
+        value.result.version !== GLS_VERSION ||
+        !Array.isArray(value.state.files) ||
+        value.state.files.length !== 2 ||
+        !isRecord(payload) ||
+        !Array.isArray(payload.files) ||
+        payload.files.length !== 2 ||
+        JSON.stringify(value.state.readings) !==
+          JSON.stringify(payload.readings) ||
+        JSON.stringify(value.state.scope) !== JSON.stringify(payload.scope)
+      )
+        throw new Error('invalid');
+      // The result must belong to the sources this request sent, byte for byte.
+      for (const [side, source] of value.state.files.entries()) {
+        assertSourceFile(source);
+        const supplied = payload.files[side];
+        if (
+          !(source.original instanceof ArrayBuffer) ||
+          !/^[a-f0-9]{64}$/.test(source.sha256 ?? '') ||
+          !isRecord(supplied) ||
+          source.name !== supplied.name ||
+          source.sha256 !== supplied.sha256 ||
+          !(supplied.original instanceof ArrayBuffer) ||
+          supplied.original.byteLength !== source.original.byteLength
+        )
+          throw new Error('invalid');
+        const suppliedBytes = new Uint8Array(supplied.original);
+        if (
+          new Uint8Array(source.original).some(
+            (byte, index) => byte !== suppliedBytes[index],
+          )
+        )
+          throw new Error('invalid');
+      }
+      // Recompute every account from the returned sources before installation.
+      // Not source authenticity or an accounting approval.
+      if (
+        JSON.stringify(
+          reconcileGlTbSections(value.state as unknown as GlsInput),
+        ) !== JSON.stringify(value.result)
+      )
+        throw new Error('invalid');
+    } catch {
+      throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+    }
+  }
+  if (action === 'tb-financial-hierarchy-reconcile') {
+    try {
+      if (
+        !isRecord(value) ||
+        Object.keys(value).sort().join('|') !== 'result|state' ||
+        !isRecord(value.state) ||
+        !isRecord(value.result) ||
+        value.result.version !== FINH_VERSION ||
+        !Array.isArray(value.state.files) ||
+        value.state.files.length !== 4 ||
+        !isRecord(payload) ||
+        !Array.isArray(payload.files) ||
+        payload.files.length !== 4 ||
+        JSON.stringify(value.state.readings) !==
+          JSON.stringify(payload.readings) ||
+        JSON.stringify(value.state.scope) !== JSON.stringify(payload.scope)
+      )
+        throw new Error('invalid');
+      // The result must belong to the four files this request sent, byte for byte.
+      const sent = payload.files as unknown[];
+      const files = value.state.files.map((source: unknown, i: number) => {
+        const supplied = sent[i];
+        if (
+          !isRecord(source) ||
+          !isRecord(supplied) ||
+          typeof source.name !== 'string' ||
+          source.name !== supplied.name ||
+          typeof source.sha256 !== 'string' ||
+          source.sha256 !== supplied.sha256 ||
+          !(source.original instanceof ArrayBuffer) ||
+          !(supplied.original instanceof ArrayBuffer) ||
+          supplied.original.byteLength !== source.original.byteLength
+        )
+          throw new Error('invalid');
+        const original = new Uint8Array(supplied.original),
+          bytes = new Uint8Array(source.original);
+        if (bytes.some((byte, index) => byte !== original[index]))
+          throw new Error('invalid');
+        return { name: source.name, sha256: source.sha256, bytes };
+      });
+      // Compute the statement again from those bytes before installation.
+      // Not source authenticity or an accounting approval.
+      if (
+        JSON.stringify(
+          reconcileFinancialHierarchy({
+            files: files as FinHInput['files'],
+            readings: value.state.readings as FinHInput['readings'],
+            scope: value.state.scope as FinHInput['scope'],
+          }),
+        ) !== JSON.stringify(value.result)
+      )
+        throw new Error('invalid');
+    } catch {
+      throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+    }
+  }
+  if (action === 'payroll-long-register-reconcile') {
+    try {
+      if (
+        !isRecord(value) ||
+        Object.keys(value).sort().join('|') !== 'result|state' ||
+        !isRecord(value.state) ||
+        !isRecord(value.result) ||
+        value.result.version !== PLR_VERSION ||
+        !Array.isArray(value.state.files) ||
+        value.state.files.length !== 1 ||
+        !isRecord(payload) ||
+        !Array.isArray(payload.files) ||
+        payload.files.length !== 1 ||
+        JSON.stringify(value.state.readings) !==
+          JSON.stringify(payload.readings) ||
+        JSON.stringify(value.state.scope) !== JSON.stringify(payload.scope)
+      )
+        throw new Error('invalid');
+      // The result must belong to the register this request sent, byte for byte.
+      const source: unknown = value.state.files[0],
+        supplied: unknown = (payload.files as unknown[])[0];
+      if (
+        !isRecord(source) ||
+        !isRecord(supplied) ||
+        typeof source.name !== 'string' ||
+        source.name !== supplied.name ||
+        typeof source.sha256 !== 'string' ||
+        source.sha256 !== supplied.sha256 ||
+        !(source.original instanceof ArrayBuffer) ||
+        !(supplied.original instanceof ArrayBuffer) ||
+        supplied.original.byteLength !== source.original.byteLength
+      )
+        throw new Error('invalid');
+      const original = new Uint8Array(supplied.original),
+        bytes = new Uint8Array(source.original);
+      if (bytes.some((byte, index) => byte !== original[index]))
+        throw new Error('invalid');
+      // Compute every employee again from those bytes before installation.
+      // Not source authenticity, a payment proof or an accounting approval.
+      if (
+        JSON.stringify(
+          reconcileLongRegister({
+            files: [{ name: source.name, sha256: source.sha256, bytes }],
+            readings: value.state.readings as PlrInput['readings'],
+            scope: value.state.scope as PlrInput['scope'],
+          }),
+        ) !== JSON.stringify(value.result)
+      )
+        throw new Error('invalid');
+    } catch {
+      throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+    }
+  }
+  if (action === 'inventory-movement-bridge-reconcile') {
+    try {
+      if (
+        !isRecord(value) ||
+        Object.keys(value).sort().join('|') !== 'result|state' ||
+        !isRecord(value.state) ||
+        !isRecord(value.result) ||
+        value.result.version !== IMB_VERSION ||
+        !Array.isArray(value.state.files) ||
+        value.state.files.length !== 2 ||
+        !isRecord(payload) ||
+        !Array.isArray(payload.files) ||
+        payload.files.length !== 2 ||
+        JSON.stringify(value.state.readings) !==
+          JSON.stringify(payload.readings) ||
+        JSON.stringify(value.state.scope) !== JSON.stringify(payload.scope)
+      )
+        throw new Error('invalid');
+      // The result must belong to the register and GL summary this request
+      // sent, each byte for byte.
+      const files = (value.state.files as unknown[]).map((source, i) => {
+        const supplied: unknown = (payload.files as unknown[])[i];
+        if (
+          !isRecord(source) ||
+          !isRecord(supplied) ||
+          typeof source.name !== 'string' ||
+          source.name !== supplied.name ||
+          typeof source.sha256 !== 'string' ||
+          source.sha256 !== supplied.sha256 ||
+          !(source.original instanceof ArrayBuffer) ||
+          !(supplied.original instanceof ArrayBuffer) ||
+          supplied.original.byteLength !== source.original.byteLength
+        )
+          throw new Error('invalid');
+        const original = new Uint8Array(supplied.original),
+          bytes = new Uint8Array(source.original);
+        if (bytes.some((byte, index) => byte !== original[index]))
+          throw new Error('invalid');
+        return { name: source.name, sha256: source.sha256, bytes };
+      });
+      // Compute every position and account again from those bytes before
+      // installation. Not source authenticity, a count or an approval.
+      if (
+        JSON.stringify(
+          reconcileMovementBridge({
+            files: [files[0], files[1]],
+            readings: value.state.readings as ImbInput['readings'],
+            scope: value.state.scope as ImbInput['scope'],
+          }),
+        ) !== JSON.stringify(value.result)
+      )
+        throw new Error('invalid');
+    } catch {
+      throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+    }
+  }
+  if (action === 'clearing-groups-reconcile') {
+    try {
+      if (
+        !isRecord(value) ||
+        Object.keys(value).sort().join('|') !== 'result|state' ||
+        !isRecord(value.state) ||
+        !isRecord(value.result) ||
+        value.result.version !== CLEARING_GROUPS_VERSION ||
+        !isRecord(payload) ||
+        !isRecord(payload.file) ||
+        JSON.stringify(value.state.reading) !==
+          JSON.stringify(payload.reading) ||
+        JSON.stringify(value.state.scope) !== JSON.stringify(payload.scope)
+      )
+        throw new Error('invalid');
+      // The result must belong to the extract this request sent, byte for
+      // byte, under its name and hash.
+      const source = value.state.file,
+        supplied = payload.file;
+      assertSourceFile(source);
+      if (
+        source.name !== supplied.name ||
+        typeof source.sha256 !== 'string' ||
+        source.sha256 !== supplied.sha256 ||
+        !(source.original instanceof ArrayBuffer) ||
+        !(supplied.original instanceof ArrayBuffer) ||
+        !source.original.byteLength ||
+        source.original.byteLength > MAX_FILE_BYTES ||
+        supplied.original.byteLength !== source.original.byteLength
+      )
+        throw new Error('invalid');
+      const original = new Uint8Array(supplied.original),
+        bytes = new Uint8Array(source.original);
+      if (bytes.some((byte, index) => byte !== original[index]))
+        throw new Error('invalid');
+      // Compute every group again before installation; the client binding
+      // reads the bytes again for the sheet itself. Not an approval.
+      if (
+        JSON.stringify(
+          groupClearing(value.state as unknown as ClearingGroupsInput),
+        ) !== JSON.stringify(value.result)
+      )
+        throw new Error('invalid');
+    } catch {
+      throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+    }
+  }
+  if (action === 'allocation-advice-review') {
+    try {
+      if (
+        !isRecord(value) ||
+        Object.keys(value).sort().join('|') !== 'result|review|state' ||
+        !isRecord(value.state) ||
+        !isRecord(value.result) ||
+        !isRecord(value.review) ||
+        value.review.version !== ALLOCATION_ADVICE_VERSION ||
+        !isRecord(payload) ||
+        !Array.isArray(payload.files) ||
+        !Array.isArray(value.state.files) ||
+        payload.files.length !== 3 ||
+        value.state.files.length !== 3 ||
+        JSON.stringify(value.state.readings) !==
+          JSON.stringify(payload.readings) ||
+        JSON.stringify(value.state.scope) !== JSON.stringify(payload.scope) ||
+        JSON.stringify(value.state.events) !== JSON.stringify(payload.events)
+      )
+        throw new Error('invalid');
+      // Each of the three snapshots must be the one this request sent, byte
+      // for byte, under its name and hash.
+      for (const [side, snapshot] of value.state.files.entries()) {
+        const sent = payload.files[side] as Record<string, unknown>;
+        assertSourceFile(snapshot);
+        if (
+          !isRecord(sent) ||
+          snapshot.name !== sent.name ||
+          typeof snapshot.sha256 !== 'string' ||
+          snapshot.sha256 !== sent.sha256 ||
+          !(snapshot.original instanceof ArrayBuffer) ||
+          !(sent.original instanceof ArrayBuffer) ||
+          !snapshot.original.byteLength ||
+          snapshot.original.byteLength > MAX_FILE_BYTES ||
+          sent.original.byteLength !== snapshot.original.byteLength
+        )
+          throw new Error('invalid');
+        const mine = new Uint8Array(sent.original),
+          theirs = new Uint8Array(snapshot.original);
+        if (theirs.some((byte, at) => byte !== mine[at]))
+          throw new Error('invalid');
+      }
+      // The review must follow from the family result it carries; the client
+      // binding replays the family from the bytes. Not an approval.
+      if (
+        JSON.stringify(
+          reviewAllocationAdvice(value.result as unknown as AllocationResult),
+        ) !== JSON.stringify(value.review)
+      )
+        throw new Error('invalid');
+    } catch {
+      throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+    }
+  }
+  if (action === 'payment-gateway-batches-reconcile') {
+    try {
+      const roles = PG_BATCHES_ROLES.length;
+      if (
+        !isRecord(value) ||
+        Object.keys(value).sort().join('|') !== 'result|state' ||
+        !isRecord(value.state) ||
+        !isRecord(value.result) ||
+        value.result.version !== PG_BATCHES_VERSION ||
+        !isRecord(payload) ||
+        !Array.isArray(payload.files) ||
+        !Array.isArray(value.state.files) ||
+        payload.files.length !== roles ||
+        value.state.files.length !== roles ||
+        JSON.stringify(value.state.readings) !==
+          JSON.stringify(payload.readings) ||
+        JSON.stringify(value.state.scope) !== JSON.stringify(payload.scope)
+      )
+        throw new Error('invalid');
+      // The five gateway and bank files must be the ones this request sent,
+      // byte for byte, under their names and hashes.
+      const sentFiles: unknown[] = payload.files;
+      value.state.files.forEach((returned: unknown, side: number) => {
+        const requested = sentFiles[side];
+        assertSourceFile(returned);
+        if (
+          !isRecord(requested) ||
+          returned.name !== requested.name ||
+          typeof returned.sha256 !== 'string' ||
+          returned.sha256 !== requested.sha256 ||
+          !(returned.original instanceof ArrayBuffer) ||
+          !(requested.original instanceof ArrayBuffer) ||
+          returned.original.byteLength > MAX_FILE_BYTES ||
+          requested.original.byteLength !== returned.original.byteLength
+        )
+          throw new Error('invalid');
+        const asked = new Uint8Array(requested.original),
+          given = new Uint8Array(returned.original);
+        for (let at = 0; at < given.length; at++)
+          if (given[at] !== asked[at]) throw new Error('invalid');
+      });
+      // Review every batch, payout and credit again from the sheets carried;
+      // the client binding reads the bytes again. Not an approval.
+      if (
+        JSON.stringify(
+          reviewGatewayBatches(value.state as unknown as GatewayBatchesInput),
+        ) !== JSON.stringify(value.result)
+      )
+        throw new Error('invalid');
+    } catch {
+      throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+    }
+  }
+  if (action === 'fixed-assets-sections-review') {
+    try {
+      const roles = FA_SECTIONS_ROLES.length;
+      if (
+        !isRecord(value) ||
+        Object.keys(value).sort().join('|') !== 'result|state' ||
+        !isRecord(value.state) ||
+        !isRecord(value.result) ||
+        !isRecord(payload) ||
+        !Array.isArray(payload.files) ||
+        !Array.isArray(value.state.files) ||
+        payload.files.length !== roles ||
+        value.state.files.length !== roles ||
+        JSON.stringify(value.state.readings) !==
+          JSON.stringify(payload.readings) ||
+        JSON.stringify(value.state.scope) !== JSON.stringify(payload.scope)
+      )
+        throw new Error('invalid');
+      // The register, the category map and the GL balances must be the files
+      // this request sent, byte for byte, under their names and hashes.
+      const sentFiles: unknown[] = payload.files;
+      value.state.files.forEach((returned: unknown, side: number) => {
+        const requested = sentFiles[side];
+        assertSourceFile(returned);
+        if (
+          !isRecord(requested) ||
+          requested.name !== returned.name ||
+          typeof returned.sha256 !== 'string' ||
+          returned.sha256 !== requested.sha256 ||
+          !(returned.original instanceof ArrayBuffer) ||
+          !(requested.original instanceof ArrayBuffer) ||
+          returned.original.byteLength > MAX_FILE_BYTES ||
+          requested.original.byteLength !== returned.original.byteLength
+        )
+          throw new Error('invalid');
+        const sent = new Uint8Array(requested.original),
+          back = new Uint8Array(returned.original);
+        for (let at = 0; at < back.length; at++)
+          if (back[at] !== sent[at]) throw new Error('invalid');
+      });
+      // Review every section, asset and account again from the sheets
+      // carried; the client binding reads the bytes again. Not an approval.
+      if (
+        JSON.stringify(
+          reviewAssetSections(value.state as unknown as AssetSectionsInput),
+        ) !== JSON.stringify(value.result)
+      )
+        throw new Error('invalid');
     } catch {
       throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
     }

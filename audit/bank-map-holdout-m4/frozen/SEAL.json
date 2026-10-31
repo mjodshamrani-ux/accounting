@@ -1,0 +1,23 @@
+{
+ "schema": "tarasuf-wf1-map1-m4-seal/1",
+ "statement": "Sealed and pushed before any product run on these files. The first run is recorded as it comes.",
+ "pins": {
+  "INPUT-MANIFEST.json": "6521e3f9afc938637214743e6fb43a87001790a04b2c41cecbcc1eb5fa9696b5",
+  "EXPECTED.json": "c5804987c6b2f8315815d7b2838188846211fa3ef6508b8a5c52f1bd3232e3f2",
+  "VERIFY.json": "a5978b54aeeb45074dd6cc909f04a58c38d5e4af5df7e7df4e654e06af31c97e",
+  "stories.py": "943efbe4f1c15be7bffaa21f6da0a127e8abb8112f07ae136a49718de9feb18f",
+  "write_python.py": "6a222e17570e36d094003ce16269e3178ad0f1bc2b8ea69494eef18a474fd9e2",
+  "write_exceljs.mjs": "6ace1473e9a22e34e3bd4fa735a60eb002ba93542f8f1e4a53cea022cbb409ec",
+  "write_libreoffice.py": "b7a79522e9a6922d9afb2a46a9cc506dd469f76b331f5c54b51b3a1c544e91ce",
+  "verify.py": "fbd9e346f7ca49e9187d676916c9df86fbe7b4b11132c5844509c1dfad0a034d",
+  "test_intent.py": "8b263c93b0f55f995eb20e5886d455d6365d25ee2db091e883b383d0dd309cf6",
+  "../bank-map-foundation/contract.json": "c95ad3b6930f2752858a21fa0155d9f64b82f5c6229c9730463ea185cd5bd5c1",
+  "../bank-map-foundation/oracle.py": "34172475e7182da0ae31462b26ad18128769ec1733b448682af7cc27b69fe548",
+  "../bank-map-foundation/test_oracle.py": "a21f8a7eef53f0ec271c37a9b5a4554a53e4225267d87feec98b9556a947f3b0",
+  "../bank-statement-eligibility/cashbook.py": "f757c143b02b7d158da14b2e5aa82fa37989b464a9ada20acfaf31b8e8eaac2c",
+  "../bank-roll-foundation/contract.json": "7c19cfe6a79062bd804575078f0253413eb39d94d88288399076e759b9cc9a94",
+  "../bank-roll-foundation/oracle.py": "936980876594b7128754fcb7bc254167a87608a13d43f193b012d5f65265c537",
+  "../bank-statement-foundation/contract.json": "400b8cbcda2447bf36710d38a8f91786d1f07951fc20e8894f71a969c93f7e34",
+  "../bank-statement-foundation/oracle.py": "07033ecfcf3ce4bc5ae8617ee28d9cbb3f51623a41ccdb3c0cf3716ed8f543f2"
+ }
+}

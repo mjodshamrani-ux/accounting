@@ -1,0 +1,29 @@
+{
+ "version": "tarasuf-ai1-columns-1",
+ "pinned": {
+  "judge.mjs": "6fe5ba02030b1843a051515ec4edd6ed92683e84fe1a40e4db4774074ecea997",
+  "score.mjs": "edfcdd0e2c49f58fc22021c4972cced0faeebacf4824b27593a19f5e1b10e235",
+  "measure.mjs": "5128c359c34db013ef9bd7353a1bfdaa30d315519834798526630b78eeff6d49"
+ },
+ "tools": {
+  "stories.py": "16f78120f320e45c0980eeb17326bdd16a9edc19a4dec5e83c47a6f467dffddf",
+  "roles.py": "4a1fb238d34d6b7205c1ce60e582a45e5c1ddd650a69688c6c9b310544929339",
+  "common.py": "82ef674603c27e30dec49ad8dfb493e390f4669d2f204210214fb71c173b207a",
+  "fonts.py": "ed637f0679e0cf1edc5cf1905dfa318fb1ee6bdb470303a85fa82fbd3acad7b8",
+  "render.py": "7365763429e0436bb9a4acc5673245361bb5a9d5eaaa586a03cc7f70fbaec014",
+  "expected.py": "b284513e09c687e8a28dbf02d2d8d821abc1bc34e6e5416bdbca54e33f9c7ab5",
+  "verify.py": "420547c3b54e5452b0743651d50a4d2259b30a62144e4b8908b18e34ad2e8ae7",
+  "test_intent.py": "ea15d052992fc3572fdb30a5d88f48d6712788e333620f903d14b55f07b03779",
+  "check_seal.py": "60c6dc8dc97e8de9d3bbff8d18b40ba93573ac8dc8402bdf15c3bdf67f89729a",
+  "ruby/statements.rb": "effeeab62bf567ab5c893dac0f15e1ca9795cbc372bf40cf0506a39886d5d611",
+  "ruby/Gemfile": "5b90f2e7b29c3f4cf58003a697d44c95b7217249c643d13a723b8a39ed359abd",
+  "ruby/Gemfile.lock": "7bf40acd65d4688a6f771427ef97a17a16259401568f0fefaa2a8657e2a41666",
+  "js/render_pdflib.mjs": "017ec351d9c094ea720d927190aaecf78f7d42ddc007e7ac770339d9ed89e114",
+  "js/package.json": "a5bb40e62fb64a5d5ad84e4fb3ce2994cdabee977ba722010dae1a5f55930ef3",
+  "js/package-lock.json": "078872e9c078bbe08668ad7565db7df8ad805d01dc56d0bd056b0896346eeef8"
+ },
+ "manifestSha256": "de3be0343d931b9c3fa7feae84f8b091bbc8f37074d4d06bf90f62dbf29d9074",
+ "verifySha256": "3521b139423a82c68f3cb0ed45e6186c4f8fdf00e8e7e1abf25e126ac35d811c",
+ "eligibilitySha256": "909f57d1ea6f1f77553a4ceb087c9bef4d97558e630f67c26035e76cd0182126",
+ "note": "The judge, the measure and its runner as they stood before any product run on these files."
+}

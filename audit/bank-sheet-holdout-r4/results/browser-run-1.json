@@ -1,0 +1,151 @@
+{
+ "holdout": "audit/bank-sheet-holdout-r4",
+ "summary": {
+  "stories": 22,
+  "equalToExpected": 22,
+  "shownAsExpected": 22,
+  "savedAndRestored": 22,
+  "keptAfterRestore": 22,
+  "failed": 0,
+  "pageErrors": 0,
+  "workbooks": {
+   "exported": 22,
+   "accepted": 22,
+   "rejected": {}
+  }
+ },
+ "stories": {
+  "K01": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  },
+  "K02": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  },
+  "K03": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  },
+  "K04": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  },
+  "K05": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  },
+  "K06": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  },
+  "K07": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  },
+  "K08": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  },
+  "K09": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  },
+  "K10": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  },
+  "K11": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  },
+  "K12": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  },
+  "K13": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  },
+  "K14": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  },
+  "K15": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  },
+  "K16": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  },
+  "K17": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  },
+  "K18": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  },
+  "K19": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  },
+  "K20": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  },
+  "K21": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  },
+  "K22": {
+   "equal": true,
+   "shown": true,
+   "restored": true,
+   "keptAfterRestore": true
+  }
+ }
+}

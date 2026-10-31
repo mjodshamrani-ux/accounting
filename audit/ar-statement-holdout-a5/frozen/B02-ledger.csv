@@ -1,0 +1,46 @@
+Posting ID,Document type,Own document number,Posting date,Original signed amount,Entity,Ledger,Customer,Account,Currency,Related invoice,Description
+P00001,invoice,KI-5000,2026-08-01,2153.781,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00002,invoice,KI-5001,2026-08-01,1727.125,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00003,invoice,KI-5002,2026-08-02,1558.138,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00004,credit-note,KC-8003,2026-08-03,-155.813,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,KI-5002,Allowance
+P00005,receipt,KR-7004,2026-08-03,-1558.138,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Bank transfer
+P00006,invoice,KI-5005,2026-08-04,588.120,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00007,invoice,KI-5006,2026-08-05,168.721,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00008,invoice,KI-5007,2026-08-05,2373.155,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00009,invoice,KI-5008,2026-08-06,935.335,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00010,receipt,KR-7009,2026-08-07,-935.335,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Bank transfer
+P00011,credit-note,KC-8010,2026-08-07,-93.533,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,KI-5008,Allowance
+P00012,invoice,KI-5011,2026-08-09,1883.395,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00013,invoice,KI-5012,2026-08-09,474.696,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00014,invoice,KI-5013,2026-08-09,774.379,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00015,receipt,KR-7014,2026-08-10,-774.379,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Bank transfer
+P00016,invoice,KI-5015,2026-08-11,1179.425,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00017,invoice,KI-5016,2026-08-11,2300.724,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00018,credit-note,KC-8017,2026-08-12,-230.072,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,KI-5016,Allowance
+P00019,invoice,KI-5018,2026-08-13,2116.028,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00020,receipt,KR-7019,2026-08-13,-2116.028,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Bank transfer
+P00021,invoice,KI-5020,2026-08-14,737.972,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00022,invoice,KI-5021,2026-08-15,2173.256,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00023,invoice,KI-5022,2026-08-15,2236.058,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00024,invoice,KI-5023,2026-08-16,1676.433,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00025,receipt,KR-7024,2026-08-17,-1676.433,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Bank transfer
+P00026,invoice,KI-5025,2026-08-17,1963.593,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00027,invoice,KI-5026,2026-08-18,350.634,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00028,invoice,KI-5027,2026-08-19,1593.360,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00029,invoice,KI-5028,2026-08-19,1661.176,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00030,receipt,KR-7029,2026-08-20,-1661.176,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Bank transfer
+P00031,invoice,KI-5030,2026-08-21,127.806,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00032,credit-note,KC-8031,2026-08-21,-12.780,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,KI-5030,Allowance
+P00033,invoice,KI-5032,2026-08-22,1429.935,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00034,invoice,KI-5033,2026-08-23,200.943,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00035,invoice,KI-5035,2026-08-24,1732.730,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00036,invoice,KI-5036,2026-08-25,2146.438,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00037,invoice,KI-5037,2026-08-25,2254.646,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00038,credit-note,KC-8038,2026-08-26,-225.464,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,KI-5037,Allowance
+P00039,receipt,KR-7039,2026-08-27,-2254.646,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Bank transfer
+P00040,invoice,KI-5040,2026-08-27,476.262,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00041,invoice,KI-5041,2026-08-28,2031.954,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00042,invoice,KI-5042,2026-08-29,2465.990,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00043,invoice,KI-5043,2026-08-29,1967.244,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Monthly supply
+P00044,receipt,KR-7044,2026-08-30,-1967.244,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,,Bank transfer
+P00045,credit-note,KC-8045,2026-08-31,-196.724,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,KWD,KI-5043,Allowance

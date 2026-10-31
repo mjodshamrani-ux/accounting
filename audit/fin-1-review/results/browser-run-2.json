@@ -1,0 +1,172 @@
+{
+ "cases": {
+  "positive-nested": {
+   "equal": true,
+   "status": "eligible",
+   "codes": [],
+   "differ": []
+  },
+  "positive-reordered": {
+   "equal": true,
+   "status": "eligible",
+   "codes": [],
+   "differ": []
+  },
+  "equal-amount-wrong-owner": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "MAPPING_PROOF"
+   ],
+   "differ": []
+  },
+  "two-parents": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "DUPLICATE_NODE"
+   ],
+   "differ": []
+  },
+  "parent-cycle": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "CONTROL_TOTAL",
+    "CYCLE"
+   ],
+   "differ": []
+  },
+  "missing-zero-leaf": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "MAPPING_TARGET",
+    "PROOF_LINE"
+   ],
+   "differ": []
+  },
+  "blank-zero-amount": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "MONEY"
+   ],
+   "differ": []
+  },
+  "wrong-control-total": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "CONTROL_TOTAL"
+   ],
+   "differ": []
+  },
+  "wrong-classification-balanced": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "CLASSIFICATION"
+   ],
+   "differ": []
+  },
+  "expired-proof": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "VALIDITY"
+   ],
+   "differ": []
+  },
+  "duplicate-mapping": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "DUPLICATE_MAPPING_ACCOUNT"
+   ],
+   "differ": []
+  },
+  "unmapped-zero-account": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "UNMAPPED_ACCOUNT",
+    "UNMAPPED_LEAF",
+    "UNUSED_PROOF"
+   ],
+   "differ": []
+  },
+  "mapping-to-parent": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "CLASSIFICATION",
+    "MAPPING_TARGET",
+    "PROOF_LINE",
+    "UNMAPPED_LEAF"
+   ],
+   "differ": []
+  },
+  "wrong-contra-sign": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "LEAF_TOTAL",
+    "SIGN_POLICY"
+   ],
+   "differ": []
+  },
+  "late-unknown-row": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "KIND"
+   ],
+   "differ": []
+  },
+  "foreign-scope": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "SCOPE"
+   ],
+   "differ": []
+  },
+  "missing-parent": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "PARENT"
+   ],
+   "differ": []
+  },
+  "subminor-value": {
+   "equal": true,
+   "status": "blocked",
+   "codes": [
+    "MONEY"
+   ],
+   "differ": []
+  }
+ },
+ "checks": {
+  "arabic": {
+   "dir": "rtl",
+   "equal": true
+  },
+  "phone": true,
+  "staleCleared": true,
+  "keyboard": true
+ },
+ "errors": [],
+ "external": [],
+ "summary": {
+  "cases": "18/18",
+  "checks": {
+   "arabic": true,
+   "phone": true,
+   "staleCleared": true,
+   "keyboard": true
+  }
+ }
+}

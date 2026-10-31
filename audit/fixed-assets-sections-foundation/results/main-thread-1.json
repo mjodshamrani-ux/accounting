@@ -1,0 +1,79 @@
+{
+ "machine": {
+  "cpus": 4,
+  "model": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+  "chromium": "141.0.7390.37"
+ },
+ "runs": 3,
+ "stories": {
+  "F01": [
+   {
+    "shown": "shown",
+    "clickToResultMs": 115,
+    "longTasks": 0,
+    "longTaskMs": 0,
+    "longestTaskMs": 0
+   },
+   {
+    "shown": "shown",
+    "clickToResultMs": 110,
+    "longTasks": 0,
+    "longTaskMs": 0,
+    "longestTaskMs": 0
+   },
+   {
+    "shown": "shown",
+    "clickToResultMs": 126,
+    "longTasks": 0,
+    "longTaskMs": 0,
+    "longestTaskMs": 0
+   }
+  ],
+  "D1": [
+   {
+    "shown": "shown",
+    "clickToResultMs": 1217,
+    "longTasks": 1,
+    "longTaskMs": 345,
+    "longestTaskMs": 345
+   },
+   {
+    "shown": "shown",
+    "clickToResultMs": 1085,
+    "longTasks": 1,
+    "longTaskMs": 305,
+    "longestTaskMs": 305
+   },
+   {
+    "shown": "shown",
+    "clickToResultMs": 653,
+    "longTasks": 1,
+    "longTaskMs": 293,
+    "longestTaskMs": 293
+   }
+  ],
+  "D2": [
+   {
+    "shown": "refused",
+    "clickToResultMs": 149,
+    "longTasks": 0,
+    "longTaskMs": 0,
+    "longestTaskMs": 0
+   },
+   {
+    "shown": "refused",
+    "clickToResultMs": 156,
+    "longTasks": 0,
+    "longTaskMs": 0,
+    "longestTaskMs": 0
+   },
+   {
+    "shown": "refused",
+    "clickToResultMs": 148,
+    "longTasks": 0,
+    "longTaskMs": 0,
+    "longestTaskMs": 0
+   }
+  ]
+ }
+}

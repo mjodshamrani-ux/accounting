@@ -1,0 +1,23 @@
+{
+ "schema": "tarasuf-inv3-links-holdout-seal/1",
+ "statement": "Sealed before any product run on these files. The first engine and browser runs are recorded as they come.",
+ "pins": {
+  "INPUT-MANIFEST.json": "b606304550de3fc50d0f270dd706f908e9799133feba25a5e9b674c9c7bd1a55",
+  "EXPECTED.json": "018340acb7c511b354812b62635e9ed89a92ac5be6ef5f2d0bdda330755f8844",
+  "VERIFY.json": "456b31db443910118491dcd03dbeaa540a39823b675dd1c99b66035922e302b8",
+  "ELIGIBILITY.json": "2773c722cafc861c7634b3c665e5dab7a3971d5b93c9520c81f65a423b6cc19f",
+  "stories.py": "fc80fffe1a29562b944265287e4cda08fe7957812ca6db166bb65ee10953c54d",
+  "render.py": "d4779a9dc331d3ae3dcd23cb9c1a8b8328554a2d12b18187833a63eeadb7f261",
+  "render.php": "1d45e41f5424eb1f81d7e43628ee891e2a7f081796580a49ab73d52d2b2ca720",
+  "Render.java": "f4a88784c77aede58d89ca73578be3a5da4977e09ccb3c4562f3dd2288a0b72f",
+  "render.go": "2a7009e806c3ec1dab783426383f3d7e9452190367f639dd4911ad4c4ca95532",
+  "render.pl": "3e5a4204e31fc8f87ed6d77628d969caba95daa67c3e44a9cecace5630dcacde",
+  "verify.py": "a68bb4d376c42d5197e437ff08471fe453f6da880b8d6357936fcb7d60154e63",
+  "eligibility.py": "094e87dcb1b5514bc658a6a2e4182d6d0af22b734dd8b0f1d7742615a1a02b15",
+  "judge.py": "df7f4bff3c76591e37c7f8484c5895e5ca4e87b840a07b3fed74449448077e28",
+  "test_intent.py": "d0199d77d98a21eab11debffa0d649b4deeec40479576726ba87c0809a2bb45b",
+  "../inventory-links-foundation/contract.json": "271615cc832b766f7f5044566f5efdc23c11df683d15a9b992f7ee44c0d42486",
+  "../inventory-links-foundation/oracle.py": "4742a3f9d335466dd230925da9267d6f4c982cd143c4ae4258b8d701a6d13371",
+  "../inventory-register/reference.py": "bbf904f64796806bbf8d99d5e13a4b72285cb265d2c3a0f50ce6c179b33f8820"
+ }
+}

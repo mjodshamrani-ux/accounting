@@ -24,11 +24,14 @@ const changes = [
     'typeof c==`number`&&(c=String.fromCharCode(c))',
     'typeof c==`number`&&(c=String.fromCodePoint(c))',
   ],
-  // Reject malformed UTF-16BE instead of padding odd bytes, treating low
-  // surrogates as high ones, or manufacturing a scalar from an invalid pair.
+  // Read UTF-16BE exactly: an odd length is refused, never padded; a
+  // surrogate without its pair is U+FFFD, never read as another half or made
+  // into a scalar, and the reader refuses U+FFFD wherever a page shows it.
+  // An identity map over the whole plane, surrogates included, as TCPDF and
+  // mPDF write, is so read for the glyphs a page uses (G14).
   [
     't.length%2!=0&&(t=`\\0`+t);let r=[];for(let e=0;e<t.length;e+=2){let n=t.charCodeAt(e)<<8|t.charCodeAt(e+1);if((n&63488)!=55296){r.push(n);continue}e+=2;let i=t.charCodeAt(e)<<8|t.charCodeAt(e+1);r.push(((n&1023)<<10)+(i&1023)+65536)}',
-    'if(t.length%2!==0)throw new FormatError$1(`Invalid ToUnicode UTF-16BE length`);let r=[];for(let e=0;e<t.length;e+=2){let n=t.charCodeAt(e)<<8|t.charCodeAt(e+1);if(n<55296||n>57343){r.push(n);continue}if(n>56319||e+3>=t.length)throw new FormatError$1(`Invalid ToUnicode surrogate`);e+=2;let i=t.charCodeAt(e)<<8|t.charCodeAt(e+1);if(i<56320||i>57343)throw new FormatError$1(`Invalid ToUnicode pair`);r.push(((n&1023)<<10)+(i&1023)+65536)}',
+    'if(t.length%2!==0)throw new FormatError$1(`Invalid ToUnicode UTF-16BE length`);let r=[];for(let e=0;e<t.length;e+=2){let n=t.charCodeAt(e)<<8|t.charCodeAt(e+1);if(n<55296||n>57343){r.push(n);continue}let i=e+3<t.length?t.charCodeAt(e+2)<<8|t.charCodeAt(e+3):-1;if(n>56319||i<56320||i>57343){r.push(65533);continue}e+=2;r.push(((n&1023)<<10)+(i&1023)+65536)}',
   ],
 ];
 let bundle = source.toString('utf8');

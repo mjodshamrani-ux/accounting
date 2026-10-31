@@ -1,0 +1,33 @@
+{
+ "suite": "audit/bank-tolerance-holdout-t4",
+ "proof": {
+  "exit": 0,
+  "stories": 20,
+  "equal": 20,
+  "tolerated": 24,
+  "exceeded": 2,
+  "refused": 4,
+  "awaiting": {
+   "withPolicy": 10,
+   "without": 36
+  },
+  "failures": []
+ },
+ "lifecycle": {
+  "exit": 1,
+  "stories": 20,
+  "sessions": 32,
+  "restored": 32,
+  "workbooks": 32,
+  "refusedAsExpected": 4,
+  "tampered": 30,
+  "checked": 32,
+  "selfTest": 18,
+  "failures": [
+   [
+    "U05",
+    "perPeriod + 1: TOLERANCE:PER_PERIOD"
+   ]
+  ]
+ }
+}

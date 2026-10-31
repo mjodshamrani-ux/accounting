@@ -17,7 +17,7 @@ import {
   renderSource,
   sourceTable,
 } from '../reliability/renderers.mjs';
-export const HARD_EVALUATOR_VERSION = 'tarasuf-hard-evaluator-2.0.2';
+export const HARD_EVALUATOR_VERSION = 'tarasuf-hard-evaluator-2.1.0';
 
 /** Escape a catalogue key for a regular expression, with each `${…}`
  * placeholder standing for any text. */
@@ -235,6 +235,7 @@ export async function evaluateHardCase(
     mode,
     assist,
     contract: contract.kind,
+    contractVersion: contract.version ?? 1,
     formats: spec.sources.map((s) => s.format),
     expect: spec.oracle.expect,
     outcome: null,
@@ -548,10 +549,27 @@ export async function evaluateHardCase(
   const controlsMet = c.controlsAchieved === c.controlsExpected;
   const stoppedForHelp =
     record.stopped?.kind === 'refusal' && assist === 'none';
+  // 2.1.0: an isolated row error. The comparison must go on, the row must
+  // carry the declared reason, and the rest must still be compared.
+  const rowErrorMatches = (reason) =>
+    !!reason?.pattern &&
+    [...(result?.supplier.errors ?? []), ...(result?.ledger.errors ?? [])].some(
+      (e) => e.row > 0 && new RegExp(reason.pattern).test(e.message),
+    );
   let verdict;
   if (['crash', 'internal-error'].includes(record.stopped?.kind))
     verdict = 'fail-crash';
   else if (!safe) verdict = 'fail-unsafe';
+  else if (contract.kind === 'isolate')
+    verdict = record.stopped
+      ? 'fail-not-isolated'
+      : !rowErrorMatches(contract.rejection)
+        ? 'fail-wrong-reason'
+        : !controlsMet
+          ? 'fail-controls-missed'
+          : !contract.outcomes.includes(record.outcome)
+            ? 'fail-outcome'
+            : 'pass';
   else if (contract.kind === 'external' || contract.kind === 'invalid')
     verdict = rejectionMatches(contract.rejection)
       ? 'pass'

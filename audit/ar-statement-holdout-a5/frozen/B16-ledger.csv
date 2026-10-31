@@ -1,0 +1,8 @@
+Posting ID,Document type,Own document number,Posting date,Original signed amount,Entity,Ledger,Customer,Account,Currency,Related invoice,Description
+P00001,invoice,INV/2026/1601,2026-08-02,18750.00,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Mezzanine floor
+P00002,invoice,INV/2026/1602,2026-08-06,3200.00,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Handrails
+P00003,credit-note,CRN/2026/0051,2026-08-09,-320.00,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,INV/2026/1602,Missing bracket
+P00004,receipt,RCT/2026/0701,2026-08-14,-18750.00,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Wire transfer
+P00005,invoice,INV/2026/1606,2026-08-23,10500.00,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Stair tower
+P00006,credit-note,CRN/2026/0054,2026-08-26,-500.00,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,INV/2026/1606,Early payment
+P00007,receipt,RCT/2026/0705,2026-08-31,-2880.00,Synthetic Gulf Supplies,Receivables 2026,K-204,1130,SAR,,Wire transfer

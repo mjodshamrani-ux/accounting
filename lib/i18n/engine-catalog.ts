@@ -328,6 +328,8 @@ export const engineCatalog: Record<string, string> = {
     'The group’s transactions name different purchase orders; that does not show they are one document.',
   'المرجع والمبلغ والتاريخ متطابقة، لكن دليل المستند غير متحقق. لم تُعتمد المطابقة.':
     'The reference, amount and date agree, but the document evidence is not verified. The match was not approved.',
+  'مرشح دفعة مجزأة للمراجعة، لا مطابقة: المرجع العام ${…} يجمع ${…} حركة في الطرف الآخر بلا مرجع بنكي أو رقم إيصال صريح، وهوية ${…} ${…} واردة في عمود صريح للحركة المفردة ولا يحملها أي صف آخر. المجموعان متساويان ${…} ${…}، والإشارة والعملة متسقتان والتواريخ ضمن فرق الأيام المسموح، ولا توجد دفعة أخرى بالمبلغ كله.':
+    'A split payment for review, not a match: the general reference {0} groups {1} transactions on the other side with no explicit bank reference or receipt number, and the {e2} identity {3} appears in an explicit column for the single transaction and on no other row. The totals are equal at {4} {5}, the sign and currency are consistent, the dates are within the allowed date difference, and no other payment carries the whole amount.',
   'التحويل البنكي': 'bank transfer',
   الإيصال: 'receipt',
   'نوع المستند ${…} متسق، وجميع حركات المجموعة في تاريخ واحد ضمن فرق الأيام المسموح للمطابقة؛ ${…}${…}${…}. المجموعة كاملة وفريدة، ولم يُبحث عن مجموعات جزئية.':
@@ -794,6 +796,8 @@ export const engineCatalog: Record<string, string> = {
   'عنوان دليل مرجعي مكرر: ${…}': 'Duplicate reference-evidence heading: {0}',
   'دليل غير مقروء بثقة: ${…}، صف ${…}':
     'Evidence not read reliably: {0}, row {1}',
+  'قد يكون مرجع الصف ${…} ملتفًا: السطر ${…} من PDF يحمل «${…}» في عمود المرجع بلا تاريخ ولا مبلغ، وقد يكون بقية هذا المرجع أو مرجع الصف المجاور. لم يُضم النص، ولم يُعتمد المرجع دليلًا للمطابقة؛ راجعه في الملف الأصلي.':
+    'The reference in row {0} may be wrapped: PDF line {1} holds «{2}» in the reference column with no date or amount, and may be the rest of this reference or of the neighbouring row’s. The text was not joined, and the reference was not accepted as matching evidence; check it in the original file.',
   'نوع مستند غير متحقق: ${…}': 'Unverified document type: {0}',
   'يوجد رقم إشعار دائن «${…}» ولم يتضح نوع المستند. راجع دور الأرقام قبل المطابقة.':
     'Credit note number «{0}» is present, but the document type is unclear. Review the roles of the numbers before matching.',

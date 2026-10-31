@@ -1,0 +1,417 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-run/1",
+ "commit": "f1e2bc39aafa8729d8dedefbc5c54cbea36bc7f5",
+ "productSourceChanged": false,
+ "summary": {
+  "positivesCompleted": [
+   "V01",
+   "V02",
+   "V03",
+   "V04",
+   "V07",
+   "V08",
+   "V10",
+   "V11"
+  ],
+  "positivesFailed": [
+   "V09"
+  ],
+  "eligiblePositives": 9,
+  "heldCorrectly": [
+   "V05",
+   "V06",
+   "V12"
+  ],
+  "readingOk": [
+   "V01",
+   "V02",
+   "V03",
+   "V04",
+   "V05",
+   "V06",
+   "V07",
+   "V08",
+   "V10",
+   "V11",
+   "V12"
+  ],
+  "refused": [
+   "V09"
+  ],
+  "falseAutomatic": 0
+ },
+ "statements": [
+  {
+   "id": "V01",
+   "producer": "prawn",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 4,
+    "period": {
+     "start": "2028-01-01",
+     "end": "2028-01-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 56,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "V02",
+   "producer": "prawn",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 4,
+    "period": {
+     "start": "2028-02-01",
+     "end": "2028-02-29"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 53,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "V03",
+   "producer": "prawn",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 4,
+    "period": {
+     "start": "2028-03-01",
+     "end": "2028-03-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 50,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   },
+   "xlsx": {
+    "cashbookRows": 50,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "V04",
+   "producer": "prawn",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 9,
+    "period": {
+     "start": "2028-04-01",
+     "end": "2028-06-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 131,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "V05",
+   "producer": "prawn",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "balance-broken",
+    "expected": "balance-broken",
+    "reason": "page 2: printed balance 33459719 != 40103453 (items 90,92,94,96,98,100)",
+    "pages": 4,
+    "period": {
+     "start": "2028-05-01",
+     "end": "2028-05-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 49,
+    "equal": true,
+    "held": "balance-broken: page 2: printed balance 33459719 != 40103453 (items 90,92,94,96,98,100)",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "V06",
+   "producer": "cairo",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "incomplete-pages",
+    "expected": "incomplete-pages",
+    "reason": "pages 1,2,2,4 of 4",
+    "pages": 4,
+    "period": {
+     "start": "2028-07-01",
+     "end": "2028-07-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 44,
+    "equal": true,
+    "held": "incomplete-pages: pages 1,2,2,4 of 4",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "V07",
+   "producer": "cairo",
+   "layout": "ar",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 5,
+    "period": {
+     "start": "2028-08-01",
+     "end": "2028-08-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "ar",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 52,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "V08",
+   "producer": "cairo",
+   "layout": "ar",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 4,
+    "period": {
+     "start": "2028-09-01",
+     "end": "2028-09-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "ar",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 46,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "V09",
+   "producer": "cairo",
+   "layout": "ar",
+   "refused": "BANK_STATEMENT_READING: page 1 line 9: توجد نصوص متداخلة، لذلك لا يمكن التحقق من صحة القراءة.",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: BANK_STATEMENT_READING: page 1 line 9: توجد نصوص متداخلة، لذلك لا يمكن التحقق من صحة القراءة."
+    ]
+   }
+  },
+  {
+   "id": "V10",
+   "producer": "cairo",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 4,
+    "period": {
+     "start": "2028-11-01",
+     "end": "2028-11-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 43,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   },
+   "xlsx": {
+    "cashbookRows": 43,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "V11",
+   "producer": "cairo",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 3,
+    "period": {
+     "start": "2028-12-01",
+     "end": "2028-12-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 45,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "V12",
+   "producer": "cairo",
+   "layout": "ar",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "balance-broken",
+    "expected": "balance-broken",
+    "reason": "page 2: printed balance 52974711 != 51497463 (items 234,235,236,237,238,239,240,241,242,243,244,246,247,248,249,250,251,252,253,254,256,258,259,260,261,262,263,264,265,266,267,268,269)",
+    "pages": 4,
+    "period": {
+     "start": "2028-06-01",
+     "end": "2028-06-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "ar",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 48,
+    "equal": true,
+    "held": "balance-broken: page 2: printed balance 52974711 != 51497463 (items 234,235,236,237,238,239,240,241,242,243,244,246,247,248,249,250,251,252,253,254,256,258,259,260,261,262,263,264,265,266,267,268,269)",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  }
+ ]
+}

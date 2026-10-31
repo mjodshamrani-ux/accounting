@@ -1,0 +1,170 @@
+{
+ "package": "bank-statement-holdout-g6",
+ "clearancePt": 0.05,
+ "statements": {
+  "H01": {
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.0,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 1.79,
+   "leastLineGapPt": null
+  },
+  "H02": {
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.0,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 1.7,
+   "leastLineGapPt": null
+  },
+  "H03": {
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 8.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 0.95,
+   "leastLineGapPt": null
+  },
+  "H04": {
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.08,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 1.6,
+   "leastLineGapPt": null
+  },
+  "H05": {
+   "pages": 30,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.0,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 1.79,
+   "leastLineGapPt": null
+  },
+  "H06": {
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.0,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 1.79,
+   "leastLineGapPt": null
+  },
+  "H07": {
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 8.25,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 1.01,
+   "leastLineGapPt": null
+  },
+  "H08": {
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 8.25,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 1.01,
+   "leastLineGapPt": null
+  },
+  "H09": {
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 8.25,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 1.01,
+   "leastLineGapPt": null
+  },
+  "H10": {
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 8.25,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 0.82,
+   "leastLineGapPt": null
+  },
+  "H11": {
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 8.25,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 0.8,
+   "leastLineGapPt": null
+  },
+  "H12": {
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 8.25,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 1.01,
+   "leastLineGapPt": null
+  }
+ },
+ "decision": {
+  "story": "H02",
+  "reasons": [
+   "ambiguous-amount-date",
+   "amount-date-suggestion"
+  ],
+  "problems": []
+ }
+}

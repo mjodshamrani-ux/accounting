@@ -1,0 +1,56 @@
+{
+ "schema": "tarasuf-all1-advice-verify/1",
+ "dense": false,
+ "factsSha256": "42ccac73ad713f49a9dfa3a40ad6e03e62262ee070c8d90ff94a687c2ecf0380",
+ "stories": 33,
+ "files": 99,
+ "cells": 2968,
+ "passed": true,
+ "problems": [],
+ "selfTest": [
+  {
+   "plant": "an advice amount changed",
+   "rejected": true
+  },
+  {
+   "plant": "an invoice reference changed",
+   "rejected": true
+  },
+  {
+   "plant": "a byte-order mark removed",
+   "rejected": true
+  },
+  {
+   "plant": "an LF in a CRLF file",
+   "rejected": true
+  },
+  {
+   "plant": "a field quoted where the writer does not",
+   "rejected": true
+  },
+  {
+   "plant": "an XLSX line no longer hidden",
+   "rejected": true
+  },
+  {
+   "plant": "a decision naming another advice row",
+   "rejected": true
+  },
+  {
+   "plant": "a decision naming another file",
+   "rejected": true
+  },
+  {
+   "plant": "an undo of another decision",
+   "rejected": true
+  },
+  {
+   "plant": "a scope changed",
+   "rejected": true
+  },
+  {
+   "plant": "a file no story names",
+   "rejected": true
+  }
+ ]
+}

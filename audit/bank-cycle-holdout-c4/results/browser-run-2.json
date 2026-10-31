@@ -1,0 +1,131 @@
+{
+ "suite": "audit/bank-cycle-holdout-c4",
+ "summary": {
+  "stories": 6,
+  "saves": 15,
+  "equalToExpected": 15,
+  "pageAgrees": 15,
+  "sessionsRead": 15,
+  "errors": 0,
+  "stepsRefused": 0,
+  "pageErrors": 0,
+  "externalRequests": 0,
+  "nonGetRequests": 0
+ },
+ "stories": {
+  "Z01": {
+   "saves": {
+    "Z01-FEB": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    },
+    "Z01-MAR": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    }
+   }
+  },
+  "Z02": {
+   "saves": {
+    "Z02-MAR": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    },
+    "Z02-APR": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    }
+   }
+  },
+  "Z03": {
+   "saves": {
+    "Z03-APR": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    },
+    "Z03-MAY": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    }
+   }
+  },
+  "Z04": {
+   "saves": {
+    "Z04-MAY-open": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    },
+    "Z04-MAY": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    },
+    "Z04-JUN-refused": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    },
+    "Z04-JUN-draft": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    },
+    "Z04-JUN": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    }
+   }
+  },
+  "Z05": {
+   "saves": {
+    "Z05-JUN": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    },
+    "Z05-JUL": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    }
+   }
+  },
+  "Z06": {
+   "saves": {
+    "Z06-JAN": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    },
+    "Z06-FEB": {
+     "equal": true,
+     "differences": [],
+     "page": [],
+     "session": true
+    }
+   }
+  }
+ }
+}

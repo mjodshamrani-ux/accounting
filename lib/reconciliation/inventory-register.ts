@@ -158,6 +158,52 @@ type RecordRow = {
   page?: number;
   values: (string | number)[];
 };
+// INV-3: for every register record, what the family's own linking rule looked
+// at and why it did not link. Evidence beside the decision, never part of it.
+export const STOCK_LINKS_VERSION = 'inventory-register-links-1';
+export const STOCK_LINK_REASONS = [
+  'NO_MAPPING',
+  'MAPPINGS',
+  'NO_EVIDENCE',
+  'EVIDENCES',
+  'EVIDENCE_ITEM',
+  'EVIDENCE_DIMENSIONS',
+  'EVIDENCE_UNIT',
+  'EVIDENCE_PRECISION',
+  'EVIDENCE_VALUATION',
+  'EVIDENCE_ACCOUNT',
+  'EVIDENCE_ACCOUNT_DIMENSIONS',
+] as const;
+export const STOCK_UNLINKED_REASONS = [
+  'NO_REGISTER',
+  'NO_MAPPING',
+  'NO_LINKED_REGISTER',
+  'NO_GL_RECORD',
+] as const;
+// The evidence fields compared, in the order of the rule's expected values.
+const EVIDENCE_FIELDS = STOCK_LINK_REASONS.slice(4);
+export type StockRecordRef = {
+  id: string;
+  row: number;
+  column?: number;
+  page?: number;
+};
+export type StockLink = StockRecordRef & {
+  item: string;
+  dimensions: string;
+  status: 'linked' | 'unlinked';
+  reasons: (typeof STOCK_LINK_REASONS)[number][];
+  mappings: (StockRecordRef & { key: string })[];
+  evidence: (StockRecordRef & { key: string })[];
+  account: { account: string; dimensions: string } | null;
+  gl: StockRecordRef[];
+};
+export type StockUnlinked = {
+  role: 'mapping' | 'evidence' | 'gl' | 'account';
+  record: StockRecordRef | null;
+  key: string[];
+  reason: (typeof STOCK_UNLINKED_REASONS)[number];
+};
 type Comparison = {
   account: string;
   dimensions: string;
@@ -183,6 +229,8 @@ export type StockResult = {
     code: string;
   }[];
   missing: string[];
+  links: StockLink[];
+  unlinked: StockUnlinked[];
   comparisons: Comparison[];
   totals: { registerMinor: number; glMinor: number } | null;
   inventory: {
@@ -626,6 +674,8 @@ function reconcileStockInternal(
     records: [[], [], [], []],
     issues: [],
     missing: [],
+    links: [],
+    unlinked: [],
     comparisons: [],
     totals: null,
     inventory: [],
@@ -1114,13 +1164,22 @@ function reconcileStockInternal(
     evidenceIndex.set(key, group);
   }
   const glIndex = new Map<string, RecordRow[]>();
-  if (result.pdfEvidence)
-    for (const gl of result.records[3]) {
-      const key = itemKey(gl.values);
-      const group = glIndex.get(key) ?? [];
-      group.push(gl);
-      glIndex.set(key, group);
-    }
+  for (const gl of result.records[3]) {
+    const key = itemKey(gl.values);
+    const group = glIndex.get(key) ?? [];
+    group.push(gl);
+    glIndex.set(key, group);
+  }
+  const recordRef = (r: RecordRow): StockRecordRef => ({
+    id: r.id,
+    row: r.row,
+    ...(r.column === undefined ? {} : { column: r.column }),
+    ...(r.page === undefined ? {} : { page: r.page }),
+  });
+  const keyed = (r: RecordRow) => ({
+    ...recordRef(r),
+    key: r.values[0] as string,
+  });
   for (const item of result.records[0]) {
     const v = item.values,
       key = itemKey(v),
@@ -1136,12 +1195,29 @@ function reconcileStockInternal(
         }
       : undefined;
     if (link) result.pdfEvidence!.links.push(link);
+    const linked: StockLink = {
+      ...recordRef(item),
+      item: v[0] as string,
+      dimensions: v[1] as string,
+      status: 'linked',
+      reasons: [],
+      mappings: mapping.map(keyed),
+      evidence: [],
+      account: null,
+      gl: [],
+    };
+    result.links.push(linked);
     if (mapping.length !== 1) {
+      linked.status = 'unlinked';
+      linked.reasons = [mapping.length ? 'MAPPINGS' : 'NO_MAPPING'];
       absent('mapping:' + key);
       continue;
     }
     const m = mapping[0].values,
       evidence = evidenceIndex.get(m[5]) ?? [];
+    linked.evidence = evidence.map(keyed);
+    linked.account = { account: m[3] as string, dimensions: m[4] as string };
+    linked.gl = (glIndex.get(compound(m.slice(3, 5))) ?? []).map(recordRef);
     if (link) {
       link.policyIds = evidence.map((e) => e.id);
       link.account = m.slice(3, 5) as string[];
@@ -1154,6 +1230,13 @@ function reconcileStockInternal(
       evidence.length !== 1 ||
       compound(evidence[0].values.slice(1, 8)) !== compound(expected)
     ) {
+      linked.status = 'unlinked';
+      linked.reasons =
+        evidence.length !== 1
+          ? [evidence.length ? 'EVIDENCES' : 'NO_EVIDENCE']
+          : EVIDENCE_FIELDS.filter(
+              (_, i) => evidence[0].values[i + 1] !== expected[i],
+            );
       absent('evidence:' + key);
       continue;
     }
@@ -1163,21 +1246,54 @@ function reconcileStockInternal(
   }
   const itemKeys = new Set(result.records[0].map((r) => itemKey(r.values))),
     evidenceKeys = new Set(result.records[1].map((r) => r.values[5]));
+  const unlinkedGl: StockUnlinked[] = [],
+    unlinkedAccounts: StockUnlinked[] = [];
   for (const r of result.records[1])
-    if (!itemKeys.has(compound(r.values.slice(1, 3))))
+    if (!itemKeys.has(compound(r.values.slice(1, 3)))) {
       absent('orphan-mapping:' + r.values[0]);
+      result.unlinked.push({
+        role: 'mapping',
+        record: recordRef(r),
+        key: [r.values[0] as string],
+        reason: 'NO_REGISTER',
+      });
+    }
   for (const r of result.records[2])
-    if (!evidenceKeys.has(r.values[0]))
+    if (!evidenceKeys.has(r.values[0])) {
       absent('orphan-evidence:' + r.values[0]);
+      result.unlinked.push({
+        role: 'evidence',
+        record: recordRef(r),
+        key: [r.values[0] as string],
+        reason: 'NO_MAPPING',
+      });
+    }
   const glKeys = new Set(result.records[3].map((r) => itemKey(r.values)));
-  for (const k of supported.keys()) if (!glKeys.has(k)) absent('gl:' + k);
+  for (const k of supported.keys())
+    if (!glKeys.has(k)) {
+      absent('gl:' + k);
+      unlinkedAccounts.push({
+        role: 'account',
+        record: null,
+        key: JSON.parse(k) as string[],
+        reason: 'NO_GL_RECORD',
+      });
+    }
   let glTotal = 0n;
   for (const gl of result.records[3]) {
     const v = gl.values,
       key = itemKey(v),
       amount = supported.get(key) ?? 0n,
       net = BigInt(v[3]) - BigInt(v[4]);
-    if (!supported.has(key)) absent('account:' + key);
+    if (!supported.has(key)) {
+      absent('account:' + key);
+      unlinkedGl.push({
+        role: 'gl',
+        record: recordRef(gl),
+        key: [v[0] as string, v[1] as string],
+        reason: 'NO_LINKED_REGISTER',
+      });
+    }
     glTotal += net;
     try {
       bounded(glTotal);
@@ -1208,6 +1324,7 @@ function reconcileStockInternal(
     }
     result.comparisons.push(comparison);
   }
+  result.unlinked.push(...unlinkedGl, ...unlinkedAccounts);
   try {
     result.totals = {
       registerMinor: bounded(

@@ -1,0 +1,59 @@
+Node ID,Parent ID,Kind,Line label,Line class,Amount,Entity,Ledger,Currency,Currency basis,Posting status,Posting layer,Period start,Period end,As of,Chart version,Map version,Closing basis
+GRP,"",title,Consolidated position (synthetic),"","",SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C1,"",parent,current-asset total,current-asset,282135.10,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C1-G1,C1,parent,current-asset group 1,current-asset,100860.01,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C1-G1-S1,C1-G1,parent,current-asset group 1 part 1,current-asset,50985.21,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C1-G1-S1-L1,C1-G1-S1,leaf,current-asset line 1.1.1,current-asset,30121.90,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C1-G1-S1-L2,C1-G1-S1,leaf,current-asset line 1.1.2,current-asset,20863.31,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C1-G1-S2,C1-G1,parent,current-asset group 1 part 2,current-asset,49874.80,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C1-G1-S2-L1,C1-G1-S2,leaf,current-asset line 1.2.1,current-asset,23579.37,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C1-G1-S2-L2,C1-G1-S2,leaf,current-asset line 1.2.2,current-asset,26295.43,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C1-G2,C1,parent,current-asset group 2,current-asset,100656.40,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C1-G2-L1,C1-G2,leaf,current-asset line 2.1.1,current-asset,29011.49,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C1-G2-L2,C1-G2,leaf,current-asset line 2.1.2,current-asset,19752.90,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C1-G2-L3,C1-G2,leaf,current-asset line 2.1.3,current-asset,34443.62,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C1-G2-L4,C1-G2,leaf,current-asset line 2.1.4,current-asset,17448.39,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C1-G3,C1,parent,current-asset group 3,current-asset,80618.69,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C1-G3-L1,C1-G3,leaf,current-asset line 3.1.1,current-asset,15926.43,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C1-G3-L2,C1-G3,leaf,current-asset line 3.1.2,current-asset,30617.14,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C1-G3-L3,C1-G3,leaf,current-asset line 3.1.3,current-asset,21358.55,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C1-G3-L4,C1-G3,leaf,current-asset line 3.1.4,current-asset,12716.57,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C2,"",parent,noncurrent-asset total,noncurrent-asset,188938.36,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C2-G1,C2,parent,noncurrent-asset group 1,noncurrent-asset,96504.93,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C2-G1-L1,C2-G1,leaf,noncurrent-asset line 1.1.1,noncurrent-asset,26790.67,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C2-G1-L2,C2-G1,leaf,noncurrent-asset line 1.1.2,noncurrent-asset,29506.73,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C2-G1-L3,C2-G1,leaf,noncurrent-asset line 1.1.3,noncurrent-asset,20248.14,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C2-G1-L4,C2-G1,leaf,noncurrent-asset line 1.1.4,noncurrent-asset,19959.39,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C2-G2,C2,parent,noncurrent-asset group 2,noncurrent-asset,92433.43,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C2-G2-L1,C2-G2,leaf,noncurrent-asset line 2.1.1,noncurrent-asset,25680.26,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C2-G2-L2,C2-G2,leaf,noncurrent-asset line 2.1.2,noncurrent-asset,16421.67,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C2-G2-L3,C2-G2,leaf,noncurrent-asset line 2.1.3,noncurrent-asset,31112.38,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C2-G2-L4,C2-G2,leaf,noncurrent-asset line 2.1.4,noncurrent-asset,19219.12,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C3,"",parent,current-liability total,current-liability,200760.58,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C3-G1,C3,parent,current-liability group 1,current-liability,102601.11,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C3-G1-L1,C3-G1,leaf,current-liability line 1.1.1,current-liability,24569.85,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C3-G1-L2,C3-G1,leaf,current-liability line 1.1.2,current-liability,27285.91,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C3-G1-L3,C3-G1,leaf,current-liability line 1.1.3,current-liability,30001.97,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C3-G1-L4,C3-G1,leaf,current-liability line 1.1.4,current-liability,20743.38,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C3-G2,C3,parent,current-liability group 2,current-liability,98159.47,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C3-G2-L1,C3-G2,leaf,current-liability line 2.1.1,current-liability,23459.44,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C3-G2-L2,C3-G2,leaf,current-liability line 2.1.2,current-liability,26175.50,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C3-G2-L3,C3-G2,leaf,current-liability line 2.1.3,current-liability,16916.91,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C3-G2-L4,C3-G2,leaf,current-liability line 2.1.4,current-liability,31607.62,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C4,"",parent,noncurrent-liability total,noncurrent-liability,105692.48,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C4-G1,C4,parent,noncurrent-liability group 1,noncurrent-liability,105692.48,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C4-G1-L1,C4-G1,leaf,noncurrent-liability line 1.1.1,noncurrent-liability,22349.03,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C4-G1-L2,C4-G1,leaf,noncurrent-liability line 1.1.2,noncurrent-liability,25065.09,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C4-G1-L3,C4-G1,leaf,noncurrent-liability line 1.1.3,noncurrent-liability,27781.15,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C4-G1-L4,C4-G1,leaf,noncurrent-liability line 1.1.4,noncurrent-liability,30497.21,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C5,"",parent,equity total,equity,164620.40,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C5-G1,C5,parent,equity group 1,equity,89276.20,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C5-G1-L1,C5-G1,leaf,equity line 1.1.1,equity,21238.62,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C5-G1-L2,C5-G1,leaf,equity line 1.1.2,equity,23954.69,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C5-G1-L3,C5-G1,leaf,equity line 1.1.3,equity,26670.74,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C5-G1-L4,C5-G1,leaf,equity line 1.1.4,equity,17412.15,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C5-G2,C5,parent,equity group 2,equity,75344.20,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C5-G2-L1,C5-G2,leaf,equity line 2.1.1,equity,32102.86,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C5-G2-L2,C5-G2,leaf,equity line 2.1.2,equity,22844.27,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C5-G2-L3,C5-G2,leaf,equity line 2.1.3,equity,-12780.15,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing
+C5-G2-L4,C5-G2,leaf,equity line 2.1.4,equity,33177.22,SYN-SAHIL-GROUP,CONSOL-H1,EUR,functional,posted,actual,2026-07-01,2027-06-30,2027-06-30,GCOA-9,GMAP-14,post-closing

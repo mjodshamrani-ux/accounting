@@ -1,0 +1,315 @@
+{
+ "schema": "tarasuf-ar-pdf1-baseline/1",
+ "productEnabled": false,
+ "proposedFamily": "ar-statement-pdf-1",
+ "positiveCapacity": {
+  "eligible": 12,
+  "completed": 0
+ },
+ "stories": [
+  {
+   "id": "A01",
+   "sealedOutcome": "matched",
+   "arWorkspace": "csv-xlsx-only",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 19,
+    "proposedColumns": 6,
+    "linesWithIssues": 10
+   }
+  },
+  {
+   "id": "A02",
+   "sealedOutcome": "review",
+   "arWorkspace": "csv-xlsx-only",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 15,
+    "proposedColumns": 6,
+    "linesWithIssues": 10
+   }
+  },
+  {
+   "id": "A03",
+   "sealedOutcome": "matched",
+   "arWorkspace": "csv-xlsx-only",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 22,
+    "proposedColumns": 6,
+    "linesWithIssues": 17
+   }
+  },
+  {
+   "id": "A04",
+   "sealedOutcome": "matched",
+   "arWorkspace": "csv-xlsx-only",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 22,
+    "proposedColumns": 6,
+    "linesWithIssues": 17
+   }
+  },
+  {
+   "id": "A05",
+   "sealedOutcome": "matched",
+   "arWorkspace": "csv-xlsx-only",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 3,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 71,
+    "proposedColumns": 6,
+    "linesWithIssues": 28
+   }
+  },
+  {
+   "id": "A06",
+   "sealedOutcome": "review",
+   "arWorkspace": "csv-xlsx-only",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 2,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 26,
+    "proposedColumns": 6,
+    "linesWithIssues": 20
+   }
+  },
+  {
+   "id": "A07",
+   "sealedOutcome": "review",
+   "arWorkspace": "csv-xlsx-only",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 14,
+    "proposedColumns": 7,
+    "linesWithIssues": 11
+   }
+  },
+  {
+   "id": "A08",
+   "sealedOutcome": "review",
+   "arWorkspace": "csv-xlsx-only",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 15,
+    "proposedColumns": 7,
+    "linesWithIssues": 10
+   }
+  },
+  {
+   "id": "A09",
+   "sealedOutcome": "source-error",
+   "arWorkspace": "csv-xlsx-only",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 19,
+    "proposedColumns": 6,
+    "linesWithIssues": 10
+   }
+  },
+  {
+   "id": "A10",
+   "sealedOutcome": "source-error",
+   "arWorkspace": "csv-xlsx-only",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 21,
+    "proposedColumns": 6,
+    "linesWithIssues": 11
+   }
+  },
+  {
+   "id": "A11",
+   "sealedOutcome": "source-error",
+   "arWorkspace": "csv-xlsx-only",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 18,
+    "proposedColumns": 6,
+    "linesWithIssues": 9
+   }
+  },
+  {
+   "id": "A12",
+   "sealedOutcome": "matched",
+   "arWorkspace": "csv-xlsx-only",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 17,
+    "proposedColumns": 6,
+    "linesWithIssues": 8
+   }
+  },
+  {
+   "id": "A13",
+   "sealedOutcome": "review",
+   "arWorkspace": "csv-xlsx-only",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 19,
+    "proposedColumns": 6,
+    "linesWithIssues": 10
+   }
+  },
+  {
+   "id": "A14",
+   "sealedOutcome": "review",
+   "arWorkspace": "csv-xlsx-only",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 17,
+    "proposedColumns": 6,
+    "linesWithIssues": 10
+   }
+  },
+  {
+   "id": "A15",
+   "sealedOutcome": "source-error",
+   "arWorkspace": "csv-xlsx-only",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 33,
+    "proposedColumns": 6,
+    "linesWithIssues": 24
+   }
+  },
+  {
+   "id": "A16",
+   "sealedOutcome": "source-error",
+   "arWorkspace": "csv-xlsx-only",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 13,
+    "proposedColumns": 6,
+    "linesWithIssues": 10
+   }
+  },
+  {
+   "id": "A17",
+   "sealedOutcome": "matched",
+   "arWorkspace": "csv-xlsx-only",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 32,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 1071,
+    "proposedColumns": 6,
+    "linesWithIssues": 257
+   }
+  },
+  {
+   "id": "A18",
+   "sealedOutcome": "source-error",
+   "arWorkspace": "csv-xlsx-only",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 16,
+    "proposedColumns": 7,
+    "linesWithIssues": 10
+   }
+  },
+  {
+   "id": "A19",
+   "sealedOutcome": "source-error",
+   "arWorkspace": "csv-xlsx-only",
+   "arSource": "AR_SOURCE",
+   "sameBytesNamedCsv": "استخدم CSV بترميز UTF-8",
+   "nativeReader": {
+    "pages": 1,
+    "readingIssues": 0
+   },
+   "generalReading": {
+    "lines": 19,
+    "proposedColumns": 6,
+    "linesWithIssues": 10
+   }
+  }
+ ]
+}

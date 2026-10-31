@@ -1,0 +1,256 @@
+{
+ "reader": "pdfminer.six, glyph by glyph, rows by baseline, Arabic descriptions in reading order",
+ "factsSha256": "1f82a1f173b7dbc47c5d60a5817fd9d428d4a4ba37c4abe70e7e43bde4727fd6",
+ "statements": [
+  {
+   "id": "S01",
+   "file": "S01-statement.pdf",
+   "sha256": "68bd1b2898383a369283a35fb16a6644863def21d2e769ed9b220e21c7468a97",
+   "pages": 1,
+   "valuesFound": 44,
+   "ok": true,
+   "problems": [],
+   "creator": "S3 statement service (HexaPDF)",
+   "producer": "HexaPDF version 1.11.2",
+   "fonts": [
+    "JPXSIN+WorkSans-Bold",
+    "VDZWGI+WorkSans-Regular"
+   ],
+   "fontDeclared": "Work Sans",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "S02",
+   "file": "S02-statement.pdf",
+   "sha256": "5bb589cab18bd7602762b279adba6b8ce276cffe771860ea66bb4e3b0b7867f3",
+   "pages": 2,
+   "valuesFound": 113,
+   "ok": true,
+   "problems": [],
+   "creator": "S3 statement service (HexaPDF)",
+   "producer": "HexaPDF version 1.11.2",
+   "fonts": [
+    "ESJWAQ+FiraSans-Bold",
+    "WYMZYU+FiraSans-Regular"
+   ],
+   "fontDeclared": "Fira Sans",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "S03",
+   "file": "S03-statement.pdf",
+   "sha256": "6861685c8c1b09aaf9969549f01cf4e2a49538e23e74d559366fa3f47282d7cb",
+   "pages": 1,
+   "valuesFound": 59,
+   "ok": true,
+   "problems": [],
+   "creator": "S3 statement service (HexaPDF)",
+   "producer": "HexaPDF version 1.11.2",
+   "fonts": [
+    "IDFUNE+Merriweather-Regular",
+    "JGJFCQ+Merriweather-Bold"
+   ],
+   "fontDeclared": "Merriweather",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "S04",
+   "file": "S04-statement.pdf",
+   "sha256": "93bb18e9bf7d55a9e47aeaafb82abf82e279bb1c9f39bf0a8bf98f2f6a078959",
+   "pages": 2,
+   "valuesFound": 116,
+   "ok": true,
+   "problems": [],
+   "creator": "S3 statement service (HexaPDF)",
+   "producer": "HexaPDF version 1.11.2",
+   "fonts": [
+    "LWHWAR+SpaceMono-Bold",
+    "RCQIBH+SpaceMono-Regular"
+   ],
+   "fontDeclared": "Space Mono",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "S05",
+   "file": "S05-statement.pdf",
+   "sha256": "8ca42e46e79c91e8923c9e3618548707427e6918d21305ebcc98acc02c581380",
+   "pages": 1,
+   "valuesFound": 59,
+   "ok": true,
+   "problems": [],
+   "creator": "S3 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "Alexandria-Bold-9068",
+    "Alexandria-Regular-1518"
+   ],
+   "fontDeclared": "Alexandria",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "S06",
+   "file": "S06-statement.pdf",
+   "sha256": "47383a6c9e76bf61ab5cea5bca6218dc45a8071c5a69588a85ce58cb89fef0f0",
+   "pages": 3,
+   "valuesFound": 180,
+   "ok": true,
+   "problems": [],
+   "creator": "S3 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "ReadexPro-Bold-5290",
+    "ReadexPro-Regular-5214"
+   ],
+   "fontDeclared": "Readex Pro",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "S07",
+   "file": "S07-statement.pdf",
+   "sha256": "5551200506ca8c05510ceab2742d271d1c04137f83aa2b26386a9d2a2730d239",
+   "pages": 1,
+   "valuesFound": 38,
+   "ok": true,
+   "problems": [],
+   "creator": "S3 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "Tajawal-Bold-1134",
+    "Tajawal-Regular-8733"
+   ],
+   "fontDeclared": "Tajawal",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "S08",
+   "file": "S08-statement.pdf",
+   "sha256": "a39f1c3286e9bef2d0b87a7367f112ed4ea2586ad6cca19782fa1c7896f78bd6",
+   "pages": 2,
+   "valuesFound": 76,
+   "ok": true,
+   "problems": [],
+   "creator": "S3 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "Alexandria-Bold-8809",
+    "Alexandria-Regular-6171"
+   ],
+   "fontDeclared": "Alexandria",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "S09",
+   "file": "S09-statement.pdf",
+   "sha256": "a1b412fb459a986c9d3c7fd95e88f45b59ad78a864c7a55713e1b252c0de2845",
+   "pages": 3,
+   "valuesFound": 128,
+   "ok": true,
+   "problems": [],
+   "creator": "S3 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "Rubik-Bold-613",
+    "Rubik-Regular-7198"
+   ],
+   "fontDeclared": "Rubik",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R10",
+   "file": "R10-statement.pdf",
+   "sha256": "eed700c82957be38d68a9e1642c1ccb47996526ab83841fbd53206ec0e5c0cf9",
+   "pages": 1,
+   "valuesFound": 44,
+   "ok": true,
+   "problems": [],
+   "creator": "S3 statement service (HexaPDF)",
+   "producer": "HexaPDF version 1.11.2",
+   "fonts": [
+    "FSUYEY+WorkSans-Regular",
+    "GMLGOH+WorkSans-Bold"
+   ],
+   "fontDeclared": "Work Sans",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R11",
+   "file": "R11-statement.pdf",
+   "sha256": "fa1a0838e693d1ed1b1ac14f726801157d939bda1663be53cd41d1ca89cf427a",
+   "pages": 1,
+   "valuesFound": 40,
+   "ok": true,
+   "problems": [],
+   "creator": "S3 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "ReadexPro-Bold-2514",
+    "ReadexPro-Regular-4734"
+   ],
+   "fontDeclared": "Readex Pro",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "R12",
+   "file": "R12-statement.pdf",
+   "sha256": "995b65873cce51c14040daa37e51e9a3acfed0804df775eda2ef1a9d4f84052f",
+   "pages": 1,
+   "valuesFound": 54,
+   "ok": true,
+   "problems": [],
+   "creator": "S3 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "WorkSans-Bold-2867",
+    "WorkSans-Regular-2603"
+   ],
+   "fontDeclared": "Work Sans",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  }
+ ],
+ "ok": true,
+ "selfTest": [
+  "S01: HexaPDF Work Sans, debit and credit: an invoice one halala off",
+  "S01: HexaPDF Work Sans, debit and credit: two balances swapped between rows",
+  "S01: HexaPDF Work Sans, debit and credit: a payment number changed",
+  "S01: HexaPDF Work Sans, debit and credit: the closing balance changed",
+  "S01: HexaPDF Work Sans, debit and credit: a ledger posting one halala off",
+  "S02: HexaPDF Fira Sans, day first: a date changed",
+  "S02: HexaPDF Fira Sans, day first: a credit note one halala off",
+  "S02: HexaPDF Fira Sans, day first: a type changed",
+  "S03: HexaPDF Merriweather, decimal comma: a payment one halala off",
+  "S03: HexaPDF Merriweather, decimal comma: a description word changed",
+  "S04: HexaPDF Space Mono, due dates: a due date changed",
+  "S04: HexaPDF Space Mono, due dates: a payment in parentheses one halala off",
+  "S04: HexaPDF Space Mono, due dates: the second page forward balance changed",
+  "S05: pdf-lib Alexandria, types: a credit note number changed",
+  "S05: pdf-lib Alexandria, types: an invoice one halala off",
+  "S06: pdf-lib Readex Pro, total line: the opening balance changed",
+  "S06: pdf-lib Readex Pro, total line: a payment one halala off",
+  "S07: pdf-lib Arabic, Tajawal, Latin digits: a description word changed",
+  "S07: pdf-lib Arabic, Tajawal, Latin digits: an invoice number changed",
+  "S07: pdf-lib Arabic, Tajawal, Latin digits: a date changed",
+  "S08: pdf-lib Arabic, Alexandria, Arabic-Indic digits: a date changed",
+  "S08: pdf-lib Arabic, Alexandria, Arabic-Indic digits: a payment in parentheses one halala off",
+  "S08: pdf-lib Arabic, Alexandria, Arabic-Indic digits: a type changed",
+  "S09: pdf-lib Arabic, Rubik, forward balances: two balances swapped between rows",
+  "S09: pdf-lib Arabic, Rubik, forward balances: a credit note one halala off",
+  "R10: HexaPDF Work Sans, wrapped: a word inside a wrapped description",
+  "R11: pdf-lib Readex Pro, Net Value: an invoice one halala off",
+  "R12: pdf-lib Work Sans, currencies: a dollar invoice printed as riyal",
+  "S01: the letter N drawn as .notdef",
+  "S05: the letter B drawn as .notdef",
+  "S08: the letter ة drawn as .notdef"
+ ]
+}

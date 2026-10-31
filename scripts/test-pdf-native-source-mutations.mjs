@@ -61,8 +61,8 @@ const mutations = [
   ],
   [
     'paint-guard',
-    '          checkPdfOperators(\n            OPS,',
-    '          false && checkPdfOperators(\n            OPS,',
+    '          const inkBoxes = checkPdfOperators(\n            OPS,',
+    '          const inkBoxes = ((..._: unknown[]) => [] as (number[] | undefined)[])(\n            OPS,',
   ],
   ['font-guard', '        fontGuard.assertComplete();', ''],
   ['stream-guard', '        await streamGuard.assertComplete();', ''],

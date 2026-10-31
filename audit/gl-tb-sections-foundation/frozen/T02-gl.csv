@@ -1,0 +1,35 @@
+﻿Section,S-3000-11,,,
+Entity,Synthetic Holding Co,,,
+Ledger,Main GL,,,
+Account,3000,,,
+Complete dimensions,cc=11,,,
+Currency,SAR,,,
+Currency basis,functional,,,
+Posting status,posted,,,
+Posting layer,actual,,,
+Period start,2026-09-01,,,
+Period end,2026-09-30,,,
+Record ID,Record kind,Posting date,Debit,Credit
+S-3000-11-O,opening,2026-09-01,10000.00,0.00
+G-21,movement,2026-09-05,5000.00,0.00
+G-22,movement,2026-09-06,0.00,1000.00
+S-3000-11-C,closing,2026-09-30,14000.00,0.00
+End section,S-3000-11,,,
+,,,,
+Section,S-3000-12,,,
+Entity,Synthetic Holding Co,,,
+Ledger,Main GL,,,
+Account,3000,,,
+Complete dimensions,cc=12,,,
+Currency,SAR,,,
+Currency basis,functional,,,
+Posting status,posted,,,
+Posting layer,actual,,,
+Period start,2026-09-01,,,
+Period end,2026-09-30,,,
+Record ID,Record kind,Posting date,Debit,Credit
+S-3000-12-O,opening,2026-09-01,10000.00,0.00
+G-23,movement,2026-09-05,2000.00,0.00
+G-24,movement,2026-09-06,0.00,1000.00
+S-3000-12-C,closing,2026-09-30,11000.00,0.00
+End section,S-3000-12,,,

@@ -1,0 +1,255 @@
+{
+ "package": "",
+ "clearancePt": 0.05,
+ "statements": {
+  "W01": {
+   "sha256": "f0003d93b73439eb8f6096ddffd2fd04cf1ceccadb3ab4225d954cbfc0257eb9",
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.97,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 87,
+    "wordParts": 9
+   },
+   "leastRuleGapPt": 3.25,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "W02": {
+   "sha256": "e8c4a4215877b7f863f8863fd04e4d902079a063b4454f31f95ff3de8070bc7e",
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 14.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 95,
+    "wordParts": 12
+   },
+   "leastRuleGapPt": 4.76,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "W03": {
+   "sha256": "7d99095db4417d814c18f3792368c984091949d9e5ba4afdb2066675a3d16633",
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 13.2,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "drAfterAmount": 61
+   },
+   "leastRuleGapPt": 4.43,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "W04": {
+   "sha256": "428644e8a0d1f8f93989cf9c3a5a08fe5b29292178d2be508a68433fdca709ae",
+   "pages": 9,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 14.33,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 205,
+    "wordParts": 17
+   },
+   "leastRuleGapPt": 4.05,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "W05": {
+   "sha256": "11a3a1b66227718342280068c8fa5563ff9fc653a5aff42a872757c71c34fc34",
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.97,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 91,
+    "wordParts": 13
+   },
+   "leastRuleGapPt": 3.25,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "W06": {
+   "sha256": "4835c7b79bd4711f818c98f2c5c4328d195282b7c7fdf9f7e6b0744a0270bd45",
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.85,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 77,
+    "wordParts": 9
+   },
+   "leastRuleGapPt": 3.26,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "W07": {
+   "sha256": "d0b8e426a757084803b9ad3be8ee9662bdc81d7c21846d4bc7645c5a3af4744c",
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 14.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 114,
+    "reversedDate": 106
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "W08": {
+   "sha256": "fe0a41bcff1c76099db4ac9405fa44d862d7c624ee813831e9adc4d2e4a24687",
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.85,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "continuation": 1,
+    "reversedDate": 98
+   },
+   "leastRuleGapPt": 2.34,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "W09": {
+   "sha256": "71b2a3e938488f35a100a944ea5529b8035e7d4944a8ae2ff359fa42d0488e7d",
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 14.03,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 3.85,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "W10": {
+   "sha256": "a880d74ff0be8fdc4494a24f2a331a45785ff81364c8abb20123d3f97a92895b",
+   "pages": 5,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.38,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 125,
+    "wordParts": 9
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "W11": {
+   "sha256": "3d029d6bc57efe241e41a0d124382321e54ed573cff3a0d97ae41630da529f39",
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 10.42,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 94,
+    "wordParts": 9
+   },
+   "leastRuleGapPt": 3.87,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "W12": {
+   "sha256": "0c7f789f7232a8d92f852820af36472c71eb3bac997d8709e0df92934975439e",
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 14.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 103,
+    "reversedDate": 94
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  }
+ },
+ "cashbooks": {
+  "W03": {
+   "refused": null,
+   "entries": 52,
+   "exercised": {
+    "coreProperties": "literal",
+    "typedAmounts": 52,
+    "typedDates": 52
+   },
+   "notes": {}
+  },
+  "W10": {
+   "refused": null,
+   "entries": 65,
+   "exercised": {},
+   "notes": {}
+  }
+ },
+ "decision": {
+  "story": "W01",
+  "reasons": [
+   "date-gap"
+  ],
+  "problems": []
+ }
+}

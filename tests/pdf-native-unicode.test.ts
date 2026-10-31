@@ -51,6 +51,8 @@ for (const name of [
   'compressed',
   'ranged',
   'multi-map',
+  // An identity map over the surrogate block that no shown glyph uses (G14).
+  'surrogate-range',
 ]) {
   void test(`native Unicode source ${name}: independent facts through receipt/archive/restore/Excel`, async () => {
     const { expected, original, buffer } = await fixture(name);
@@ -153,6 +155,7 @@ for (const name of [
   'double-high',
   'odd-byte',
   'mixed-font',
+  'mixed-font-odd',
 ]) {
   void test(`malformed original ToUnicode ${name} rejects before any source authorization`, async () => {
     const { expected, buffer } = await fixture(`invalid-${name}`);

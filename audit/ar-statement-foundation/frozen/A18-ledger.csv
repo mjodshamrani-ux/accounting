@@ -1,0 +1,6 @@
+Posting ID,Document type,Own document number,Posting date,Original signed amount,Entity,Ledger,Customer,Account,Currency,Related invoice,Description
+L0001,invoice,INV-1001,2026-09-02,1250.00,Synthetic Seller Co,AR Book,C0001,1200,SAR,,Valve spares
+L0002,invoice,INV-1002,2026-09-04,480.10,Synthetic Seller Co,AR Book,C0001,1200,SAR,,Pallet wrap
+L0003,receipt,RC-501,2026-09-08,-1250.00,Synthetic Seller Co,AR Book,C0001,1200,SAR,,Transfer received
+L0004,invoice,INV-1003,2026-09-11,2300.00,Synthetic Seller Co,AR Book,C0001,1200,SAR,,Steel fittings
+L0005,credit-note,CN-71,2026-09-14,-120.00,Synthetic Seller Co,AR Book,C0001,1200,SAR,INV-1003,Price adjustment

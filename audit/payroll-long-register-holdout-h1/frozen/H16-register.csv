@@ -1,0 +1,28 @@
+Section,S1
+Entity,"Synthetic Marine Services LLC"
+"Payroll run",MS-2027-11
+Currency,OMR
+"Period start",2027-11-01
+"Period end",2027-11-30
+"Payroll posting date",2027-11-25
+"Payment date",2027-11-26
+"Line ID","Employee ID","Employee dimensions","Payee account",Component,Kind,Amount
+H16-001,MS-1601,depot=Sohar,BK-59601,"Base pay",earning,520.000
+H16-002,MS-1601,depot=Sohar,BK-59601,"Pension (employee)",deduction,36.400
+H16-003,MS-1601,depot=Sohar,BK-59601,"Pension (employer)",employer,54.600
+H16-004,MS-1601,depot=Sohar,BK-59601,"Net salary",net,483.600
+H16-005,MS-1602 ,depot=Sohar,BK-59602,"Base pay",earning,530.000
+H16-006,MS-1602,depot=Sohar,BK-59602,"Pension (employee)",deduction,37.100
+H16-007,MS-1602,depot=Sohar,BK-59602,"Pension (employer)",employer,55.650
+H16-008,MS-1602,depot=Sohar,BK-59602,"Net salary",net,492.900
+"Total earnings",1050.000
+"Total deductions",73.500
+"Total employer",110.250
+"Total net",976.500
+"End section",S1
+"Run totals",MS-2027-11
+"Total earnings",1050.000
+"Total deductions",73.500
+"Total employer",110.250
+"Total net",976.500
+"End run totals",MS-2027-11

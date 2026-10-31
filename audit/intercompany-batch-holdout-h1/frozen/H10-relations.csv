@@ -1,0 +1,9 @@
+Relation ID,Batch ID,Side,Transaction ID,Relationship reference,Valid from,Valid to
+L-1001,B-PR,A,P-1001,Rent,2027-01-01,2027-12-31
+,,,,,,
+L-1001,B-PR,B,ر-1001,Rent,2027-01-01,2027-12-31
+L-1002,B-PQ,A,P-1002,Insurance,2027-01-01,2027-12-31
+" L-1002",B-PQ,B,Q-1002,Insurance,2027-01-01,2027-12-31
+,,,,,,
+L-1003,B-PQ,A,P-1003,Water,2027-01-01,2027-12-31
+L-1003,B-PQ,B,Q-1003,Water,2027-01-01,2027-12-31

@@ -51,8 +51,56 @@ assert.deepEqual(workflow.permissions, baseline.permissions);
 assert.deepEqual(workflow.concurrency, baseline.concurrency);
 assert.deepEqual(workflow.jobs.build.if, baseline.jobs.build.if);
 assert.notEqual(workflow.jobs.build['continue-on-error'], true);
-for (const name of ['deploy', 'mutations', 'specialized-faults'])
-  assert.deepEqual(workflow.jobs[name], baseline.jobs[name]);
+assert.deepEqual(
+  workflow.jobs['specialized-faults'],
+  baseline.jobs['specialized-faults'],
+);
+// Jobs beside the build that hold required gates. The deployment waits for
+// each of them after the frozen 0.4.43 jobs, in this order; read back to the
+// frozen needs, nothing else in the deployment may differ.
+const deployGated = [
+  'domain-oracle-mutants',
+  'source-family-proofs',
+  'family-source-proofs',
+];
+{
+  const deploy = structuredClone(workflow.jobs.deploy);
+  assert.deepEqual(deploy.needs, [...baseline.jobs.deploy.needs, ...deployGated]);
+  for (const name of deployGated) {
+    const job = workflow.jobs[name];
+    assert(job, `Deployment-gated job missing: ${name}`);
+    assert.equal(job.if, undefined, `Deployment-gated job cannot be conditional: ${name}`);
+    assert.notEqual(job['continue-on-error'], true);
+  }
+  deploy.needs = baseline.jobs.deploy.needs;
+  assert.deepEqual(deploy, baseline.jobs.deploy);
+}
+// The mutation gate may be split into more shards than the frozen 0.4.43
+// job as its catalogue grows, never fewer: shards 1..N, each named and run
+// as i/N (the runner takes every Nth fault, so each still runs once).
+// Read back to the frozen shard count, nothing else in the job may differ.
+{
+  const job = structuredClone(workflow.jobs.mutations);
+  const frozen = baseline.jobs.mutations;
+  const shards = job.strategy.matrix.shard;
+  const count = shards.length;
+  assert.ok(
+    count >= frozen.strategy.matrix.shard.length,
+    'The mutation gate may only be split into more shards',
+  );
+  assert.deepEqual(
+    shards,
+    Array.from({ length: count }, (_, i) => i + 1),
+  );
+  const step = job.steps.find((s) => s.run === 'pnpm test:mutations');
+  const frozenStep = frozen.steps.find((s) => s.run === 'pnpm test:mutations');
+  assert.equal(job.name, `Accounting mutation gate (\${{ matrix.shard }}/${count})`);
+  assert.equal(step.env.MUTATION_SHARD, `\${{ matrix.shard }}/${count}`);
+  job.name = frozen.name;
+  job.strategy.matrix.shard = frozen.strategy.matrix.shard;
+  step.env.MUTATION_SHARD = frozenStep.env.MUTATION_SHARD;
+  assert.deepEqual(job, frozen);
+}
 let cursor = 0;
 for (const old of baseline.jobs.build.steps) {
   const i = workflow.jobs.build.steps.findIndex(
@@ -89,6 +137,7 @@ for (const job of Object.values(workflow.jobs))
       assert(existsSync(path.join(root, m[0])), m[0]);
   }
 const required = [
+  'test:mutation-anchors',
   'test:inventory-pdf:workspace',
   'test:inventory-pdf:workspace-proof',
   'test:inventory-pdf:workspace-mutations',
@@ -103,6 +152,148 @@ const required = [
   'test:inventory-pdf:lifecycle-mutations',
   'test:inventory-pdf:oracle',
   'test:inventory-pdf:baseline',
+  'test:bank-statement:oracle',
+  'test:bank-statement:oracle-mutants',
+  'test:bank-statement:holdout-seal',
+  'test:supplier-statement:s3-seal',
+  'test:ar-statement:oracle',
+  'test:ar-statement:oracle-mutants',
+  'test:ar-statement:seal',
+  'test:ar-statement:a5-seal',
+  'test:bank-roll:oracle',
+  'test:bank-roll:oracle-mutants',
+  'test:bank-roll:seal',
+  'test:bank-roll:w4-seal',
+  'test:bank-roll:w4-holdout',
+  'test:bank-sheet:oracle',
+  'test:bank-sheet:oracle-mutants',
+  'test:bank-sheet:seal',
+  'test:bank-sheet:r4-seal',
+  'test:bank-sheet:r4-holdout',
+  'test:bank-review:oracle',
+  'test:bank-review:oracle-mutants',
+  'test:bank-review:seal',
+  'test:bank-review:r3-seal',
+  'test:bank-review:r3-holdout',
+  'test:bank-map:oracle',
+  'test:bank-map:oracle-mutants',
+  'test:bank-map:seal',
+  'test:bank-map:baseline',
+  'test:bank-map:proof',
+  'test:bank-map:lifecycle',
+  'test:bank-map:mutations',
+  'test:bank-map:m4-seal',
+  'test:bank-map:m4-intent',
+  'test:bank-map:m4-holdout',
+  'test:bank-tolerance:oracle',
+  'test:bank-tolerance:oracle-mutants',
+  'test:bank-tolerance:seal',
+  'test:bank-tolerance:baseline',
+  'test:bank-tolerance:proof',
+  'test:bank-tolerance:lifecycle',
+  'test:bank-tolerance:mutations',
+  'test:bank-tolerance:t4-seal',
+  'test:bank-tolerance:t4-holdout',
+  'test:bank-cycle:oracle',
+  'test:bank-cycle:oracle-mutants',
+  'test:bank-cycle:seal',
+  'test:bank-cycle:correction',
+  'test:bank-cycle:run',
+  'test:bank-cycle:c4-seal',
+  'test:bank-cycle:c4-run',
+  'test:ai-columns:seal',
+  'test:ai-columns:baseline',
+  'test:ai-columns:providers',
+  'test:ic-batch:oracle',
+  'test:ic-batch:seal',
+  'test:ic-batch:baseline',
+  'test:ic-batch:run',
+  'test:ic-batch:h1-seal',
+  'test:ic-batch:h1-run',
+  'test:glt-sections:oracle',
+  'test:glt-sections:seal',
+  'test:glt-sections:baseline',
+  'test:glt-sections:run',
+  'test:glt-sections:h1-seal',
+  'test:glt-sections:h1-run',
+  'test:fin-hierarchy:review',
+  'test:fin-hierarchy:h1-seal',
+  'test:fin-hierarchy:baseline',
+  'test:fin-hierarchy:run',
+  'test:fin-hierarchy:h1-run',
+  'test:pay-long:oracle',
+  'test:pay-long:seal',
+  'test:pay-long:baseline',
+  'test:pay-long:run',
+  'test:pay-long:h1-seal',
+  'test:pay-long:h1-run',
+  'test:inv-move:oracle',
+  'test:inv-move:seal',
+  'test:inv-move:baseline',
+  'test:inv-move:run',
+  'test:inv-move:h1-seal',
+  'test:inv-move:h1-run',
+  'test:inv-links:oracle',
+  'test:inv-links:seal',
+  'test:inv-links:baseline',
+  'test:inv-links:run',
+  'test:inv-links:h1-seal',
+  'test:inv-links:h1-run',
+  'test:clr-groups:oracle',
+  'test:clr-groups:seal',
+  'test:clr-groups:baseline',
+  'test:clr-groups:run',
+  'test:clr-groups:h1-seal',
+  'test:clr-groups:h1-run',
+  'test:all-advice:oracle',
+  'test:all-advice:seal',
+  'test:all-advice:baseline',
+  'test:all-advice:run',
+  'test:all-advice:h1-seal',
+  'test:all-advice:h1-run',
+  'test:pg-batches:oracle',
+  'test:pg-batches:seal',
+  'test:pg-batches:baseline',
+  'test:pg-batches:run',
+  'test:pg-batches:h1-seal',
+  'test:pg-batches:h1-run',
+  'test:fa-sections:oracle',
+  'test:fa-sections:seal',
+  'test:fa-sections:baseline',
+  'test:fa-sections:run',
+  'test:fa-sections:h1-seal',
+  'test:fa-sections:h1-run',
+  'test:fa-sections:h2-seal',
+  'test:fa-sections:h2-run',
+  'test:fa-sections:reader-differential',
+  'test:bank-review:baseline',
+  'test:bank-review:proof',
+  'test:bank-review:mutations',
+  'test:bank-sheet:baseline',
+  'test:bank-sheet:proof',
+  'test:bank-sheet:lifecycle',
+  'test:bank-sheet:mutations',
+  'test:bank-roll:baseline',
+  'test:bank-roll:proof',
+  'test:bank-roll:lifecycle',
+  'test:bank-roll:mutations',
+  'test:ar-statement:baseline',
+  'test:ar-statement:a1-proof',
+  'test:ar-statement:a2-proof',
+  'test:ar-statement:a3-proof',
+  'test:ar-statement:a5-holdout',
+  'test:ar-statement:browser',
+  'test:bank-roll:browser',
+  'test:bank-sheet:browser',
+  'test:bank-sheet:r4-browser',
+  'test:bank-review:browser',
+  'test:bank-review:r3-browser',
+  'test:bank-statement:baseline',
+  'test:bank-statement:g1-proof',
+  'test:bank-statement:g2-proof',
+  'test:bank-statement:g2-differential',
+  'test:bank-statement:g3-proof',
+  'test:bank-statement:workspace-browser',
   'test:inventory-pdf:native-proof',
   'test:inventory-pdf:native-mutations',
   'test:inventory-pdf:fields-proof',
@@ -154,13 +345,31 @@ const required = [
   'test:fixed-assets-long:proof',
   'test:fixed-assets-long:mutations',
   'test:fixed-assets-long:browser',
+  'test:ux-census:unit',
+  'test:browser:ux-census:self-test',
+  'test:browser:ux-census',
 ];
+const deployed = ['build', ...deployGated].flatMap(
+  (name) => workflow.jobs[name].steps,
+);
 for (const name of required) {
   assert(refs.has(name), `Required gate not wired: ${name}`);
-  const owners = workflow.jobs.build.steps.filter((step) =>
-    (step.run ?? '').split('\n').some((line) => line.trim() === `pnpm ${name}`),
-  );
+  const owners = Object.values(workflow.jobs)
+    .flatMap((job) => job.steps ?? [])
+    .filter((step) =>
+      (step.run ?? '').split('\n').some((line) => line.trim() === `pnpm ${name}`),
+    );
   assert.equal(owners.length, 1, `Gate must execute exactly once: ${name}`);
+  assert.equal(
+    owners[0].run.split('\n').filter((line) => line.trim() === `pnpm ${name}`)
+      .length,
+    1,
+    `Gate must execute exactly once: ${name}`,
+  );
+  assert(
+    deployed.includes(owners[0]),
+    `Required gate outside the jobs the deployment waits for: ${name}`,
+  );
   const owner = owners[0];
   assert.equal(
     owner.if,
@@ -195,6 +404,185 @@ for (const name of required) {
     pkg.scripts.check.includes(`pnpm ${name}`),
     `Gate omitted from check: ${name}`,
   );
+}
+// Gates that build the application themselves, and the code and oracle
+// mutation gates that would hold the build past its limit, run as their own
+// jobs beside the build: each unconditional, failing, exactly once, and in
+// check. The required gates above stay in the build or in a job the
+// deployment waits for.
+const separate = {
+  'domain-oracle-mutants': [
+    'test:column-role:mutations',
+    'test:ic-batch:oracle-mutants',
+    'test:glt-sections:oracle-mutants',
+    'test:fin-hierarchy:oracle-mutants',
+    'test:pay-long:oracle-mutants',
+    'test:inv-move:oracle-mutants',
+    'test:inv-links:oracle-mutants',
+    'test:clr-groups:oracle-mutants',
+    'test:all-advice:oracle-mutants',
+    'test:pg-batches:oracle-mutants',
+    'test:fa-sections:oracle-mutants',
+  ],
+  'bank-statement-code-mutations': [
+    'test:bank-statement:g1-mutations',
+    'test:bank-statement:g2-mutations',
+    'test:bank-statement:g3-mutations',
+    'test:bank-statement:g4-mutations',
+    'test:bank-statement:g5-mutations',
+  ],
+  'domain-code-mutations': [
+    'test:ic-batch:mutations',
+    'test:glt-sections:mutations',
+    'test:fin-hierarchy:mutations',
+    'test:pay-long:mutations',
+    'test:inv-move:mutations',
+    'test:inv-links:mutations',
+    'test:clr-groups:mutations',
+    'test:all-advice:mutations',
+    'test:pg-batches:mutations',
+    'test:fa-sections:mutations',
+  ],
+  'bank-statement-interface-mutations': [
+    'test:bank-statement:interface-mutations',
+  ],
+  'ar-statement-interface-mutations': ['test:ar-statement:interface-mutations'],
+  'bank-roll-interface-mutations': ['test:bank-roll:interface-mutations'],
+  'bank-sheet-interface-mutations': ['test:bank-sheet:interface-mutations'],
+  'bank-review-interface-mutations': [
+    'test:bank-review:interface-mutations',
+  ],
+  'bank-map-interface-mutations': ['test:bank-map:interface-mutations'],
+  'bank-map-browser': ['test:bank-map:browser', 'test:bank-map:m4-browser'],
+  'bank-tolerance-interface-mutations': [
+    'test:bank-tolerance:interface-mutations',
+  ],
+  'bank-tolerance-browser': [
+    'test:bank-tolerance:browser',
+    'test:bank-tolerance:t4-browser',
+  ],
+  'bank-cycle-browser': [
+    'test:bank-cycle:browser',
+    'test:bank-cycle:c4-browser',
+  ],
+  'intercompany-batch-browser': [
+    'test:ic-batch:browser',
+    'test:ic-batch:h1-browser',
+  ],
+  'intercompany-batch-interface-mutations': [
+    'test:ic-batch:interface-mutations',
+  ],
+  'gl-tb-sections-browser': [
+    'test:glt-sections:browser',
+    'test:glt-sections:h1-browser',
+  ],
+  'gl-tb-sections-interface-mutations': [
+    'test:glt-sections:interface-mutations',
+  ],
+  'tb-financial-hierarchy-browser': [
+    'test:fin-hierarchy:browser',
+    'test:fin-hierarchy:h1-browser',
+  ],
+  'tb-financial-hierarchy-interface-mutations': [
+    'test:fin-hierarchy:interface-mutations',
+  ],
+  'payroll-long-register-browser': [
+    'test:pay-long:browser',
+    'test:pay-long:h1-browser',
+  ],
+  'payroll-long-register-interface-mutations': [
+    'test:pay-long:interface-mutations',
+  ],
+  'inventory-movement-bridge-browser': [
+    'test:inv-move:browser',
+    'test:inv-move:h1-browser',
+  ],
+  'inventory-movement-bridge-interface-mutations': [
+    'test:inv-move:interface-mutations',
+  ],
+  'inventory-links-browser': [
+    'test:inv-links:browser',
+    'test:inv-links:h1-browser',
+  ],
+  'inventory-links-interface-mutations': [
+    'test:inv-links:interface-mutations',
+  ],
+  'clearing-groups-browser': [
+    'test:clr-groups:browser',
+    'test:clr-groups:h1-browser',
+  ],
+  'clearing-groups-interface-mutations': [
+    'test:clr-groups:interface-mutations',
+  ],
+  'allocation-advice-browser': [
+    'test:all-advice:browser',
+    'test:all-advice:h1-browser',
+  ],
+  'allocation-advice-interface-mutations': [
+    'test:all-advice:interface-mutations',
+  ],
+  'payment-gateway-batches-browser': [
+    'test:pg-batches:browser',
+    'test:pg-batches:h1-browser',
+  ],
+  'payment-gateway-batches-interface-mutations': [
+    'test:pg-batches:interface-mutations',
+  ],
+  'fixed-assets-sections-browser': [
+    'test:fa-sections:browser',
+    'test:fa-sections:h1-browser',
+    'test:fa-sections:h2-browser',
+  ],
+  'fixed-assets-sections-interface-mutations': [
+    'test:fa-sections:interface-mutations',
+  ],
+  'bank-statement-holdout': [
+    'test:bank-statement:g6-holdout',
+    'test:bank-statement:g6-browser',
+    'test:bank-statement:g8-holdout',
+    'test:bank-statement:g8-browser',
+    'test:bank-statement:g9-holdout',
+    'test:bank-statement:g9-browser',
+    'test:bank-statement:g10-holdout',
+    'test:bank-statement:g10-browser',
+    'test:bank-statement:g12-holdout',
+    'test:bank-statement:g12-browser',
+    'test:bank-statement:g14-holdout',
+    'test:bank-statement:g14-browser',
+    'test:bank-statement:g15-holdout',
+    'test:bank-statement:g15-browser',
+    'test:bank-statement:g17-holdout',
+    'test:bank-statement:g17-browser',
+    'test:bank-statement:g20-holdout',
+    'test:bank-statement:g20-browser',
+    'test:bank-statement:g23-holdout',
+    'test:bank-statement:g23-browser',
+    'test:supplier-statement:s3-holdout',
+  ],
+};
+for (const [jobName, names] of Object.entries(separate)) {
+  const job = workflow.jobs[jobName];
+  assert(job, `Separate gate job missing: ${jobName}`);
+  assert.equal(job.if, undefined, `Separate gate job cannot be conditional`);
+  assert.notEqual(job['continue-on-error'], true);
+  for (const name of names) {
+    const owners = Object.values(workflow.jobs).flatMap((j) =>
+      (j.steps ?? []).filter((step) =>
+        (step.run ?? '')
+          .split('\n')
+          .some((line) => line.trim() === `pnpm ${name}`),
+      ),
+    );
+    assert.equal(owners.length, 1, `Gate must execute exactly once: ${name}`);
+    assert(job.steps.includes(owners[0]), `Gate outside its job: ${name}`);
+    assert.equal(owners[0].if, undefined);
+    assert.equal(owners[0].shell, undefined);
+    assert.equal(owners[0].run.trim(), `pnpm ${name}`);
+    assert(
+      pkg.scripts.check.includes(`pnpm ${name}`),
+      `Gate omitted from check: ${name}`,
+    );
+  }
 }
 for (const command of Object.values(pkg.scripts))
   for (const m of command.matchAll(

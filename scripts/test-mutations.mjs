@@ -79,6 +79,14 @@ const tests = [
   'tests/partial-result-lifecycle.test.ts',
   'tests/excluded-source-integrity.test.ts',
   'tests/layered-xlsx-headers.test.ts',
+  'tests/payment-missing-identity-review.test.ts',
+  'tests/pdf-wrapped-reference.test.ts',
+  'tests/pdf-header-separators.test.ts',
+  'tests/pdf-arabic-supplier-lines.test.ts',
+  'tests/pdf-column-proposals.test.ts',
+  'tests/ar-statement-pdf.test.ts',
+  'tests/ar-statement-match.test.ts',
+  'tests/ar-statement-lifecycle.test.ts',
 ];
 const mutations = [
 {"name": "bank-ignore-scope", "file": "lib/reconciliation/bank.ts", "changes": [["if (get(h) !== input.scope[BANK_SCOPE_FIELDS[i]]) fail('ROW_SCOPE');", "if (false) fail('ROW_SCOPE');"]]},
@@ -817,6 +825,26 @@ const mutations = [
     changes: [['!duplicatePosting &&', 'true &&']],
   },
   {
+    name: 'refuse-core-properties-under-another-prefix',
+    file: 'lib/reconciliation/xlsx-namespaces.ts',
+    changes: [
+      [
+        "if (core && renamedCoreProperties(await core.async('string')))",
+        'if (false)',
+      ],
+    ],
+  },
+  {
+    name: 'drop-core-properties-holding-anything-else',
+    file: 'lib/reconciliation/xlsx-namespaces.ts',
+    changes: [
+      [
+        'if (literal === undefined) known = false;',
+        'if (literal === undefined) known = true;',
+      ],
+    ],
+  },
+  {
     name: 'ignore-xlsx-overwritten-cell-addresses',
     file: 'lib/reconciliation/xlsx-namespaces.ts',
     changes: [['if (address && seenCells.has(address))', 'if (false)']],
@@ -1152,15 +1180,420 @@ const mutations = [
     file: 'lib/reconciliation/io.ts',
     changes: [['t.amount / 10 ** dp,', '(t.amount + 1) / 10 ** dp,']],
   },
+  // SUP-2: the parts of one payment without its identity are a review
+  // candidate, whole and unique, never a match.
+  {
+    name: 'sup2-approve-a-payment-without-its-identity',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      [
+        "'Needs Review',\n      a,\n      b,\n      'PAYMENT_GENERAL_REFERENCE_GROUP_REVIEW_V1',",
+        "'Matched',\n      a,\n      b,\n      'PAYMENT_GENERAL_REFERENCE_GROUP_REVIEW_V1',",
+      ],
+    ],
+  },
+  {
+    name: 'sup2-ignore-unequal-group-totals',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [['safeSum(group.map((t) => t.amount)) !== single.amount', 'false']],
+  },
+  {
+    name: 'sup2-ignore-a-competing-whole-payment',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [['!group.includes(t) &&', 'false &&']],
+  },
+  {
+    name: 'sup2-accept-a-single-counterpart',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [['group.length < 2 ||', 'group.length < 1 ||']],
+  },
+  {
+    name: 'sup2-ignore-another-holder-of-the-identity',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      [
+        /paymentIdentityIndex\.get\(`\$\{field\}\\u0000\$\{single\[field\]\}`\)\?\.length !==\s*1 \|\|/,
+        'false ||',
+      ],
+    ],
+  },
+  {
+    name: 'sup2-ignore-the-single-side-under-the-general-reference',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [[/\|\|\s*same\.has\(general\)/, '']],
+  },
+  {
+    name: 'sup2-ignore-the-group-date-span',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      [
+        /\(Math\.max\(\.\.\.dates\) - Math\.min\(\.\.\.dates\)\) \/ 86400000 >\s*scope\.dateWindow \|\|/,
+        '',
+      ],
+    ],
+  },
+  {
+    name: 'sup2-ignore-read-errors-in-the-group',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [['!readErrors.canMatch([single, ...group]) ||', '']],
+  },
+  {
+    name: 'sup2-accept-non-payment-parts',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      [
+        "t.documentType !== 'Payment' ||\n          t.referenceEvidenceIssues?.length ||\n          !compatible(single, t, scope),",
+        't.referenceEvidenceIssues?.length ||\n          !compatible(single, t, scope),',
+      ],
+    ],
+  },
+  {
+    name: 'sup2-ignore-part-compatibility',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [[/\|\|\s*!compatible\(single, t, scope\)/, '']],
+  },  // SUP-2 S2: a reference beside the rest of its wrapped PDF cell is flagged,
+  // never matching evidence.
+  {
+    name: 'sup2-wrap-not-flagged',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [[/referenceEvidenceIssues\.push\(\s*`قد يكون مرجع الصف/, '[].push(\n          `قد يكون مرجع الصف']],
+  },
+  {
+    name: 'sup2-wrap-flag-a-csv-row-too',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['sheet.rowPages?.[String(line)] &&', 'true &&']],
+  },
+  {
+    name: 'sup2-wrap-only-the-line-below',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['for (const line of [rn - 1, rn + 1]) {', 'for (const line of [rn + 1]) {']],
+  },
+  {
+    name: 'sup2-wrap-only-the-line-above',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['for (const line of [rn - 1, rn + 1]) {', 'for (const line of [rn - 1]) {']],
+  },
+  {
+    name: 'sup2-wrap-any-line-without-date-or-amount',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [[/rest &&\s*!summaryLabel/, '!summaryLabel']],
+  },
+  {
+    name: 'sup2-wrap-ignore-the-date',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['[mapping.date, ...money].every(', '[...money].every(']],
+  },
+  {
+    name: 'sup2-wrap-ignore-the-amount',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['[mapping.date, ...money].every(', '[mapping.date].every(']],
+  },
+  {
+    name: 'sup2-wrap-signed-amount-in-split-columns',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [["mapping.mode === 'split' ? [mapping.debit, mapping.credit] : [mapping.amount];", '[mapping.amount];']],
+  },
+  {
+    name: 'sup2-wrap-ignore-the-credit-column',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['[mapping.debit, mapping.credit]', '[mapping.debit]']],
+  },
+  {
+    name: 'sup2-wrap-ignore-the-debit-column',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['[mapping.debit, mapping.credit]', '[mapping.credit]']],
+  },
+  // SUP-2 S3: the mark between labelled header fields is not part of a value.
+  {
+    name: 'sup2-s3-keep-the-field-separator',
+    file: 'lib/reconciliation/statement-metadata.ts',
+    changes: [["    value = value.replace(/[\\s·•|;؛]+$/u, '');\n", '']],
+  },
+  // SUP-2 S3: right-to-left supplier statements read by glyph, and their
+  // balance lines found where the row leads.
+  {
+    name: 'sup2-s3-supplier-pdf-without-glyph-order',
+    file: 'lib/reconciliation/pdf.ts',
+    changes: [['  }, false, false, true);', '  }, false, false, false);']],
+  },
+  {
+    name: 'sup2-s3-glyph-order-recorded-as-numeric',
+    file: 'lib/reconciliation/pdf.ts',
+    changes: [["            token.extractionRule = 'verified-rtl-glyph-order';\n", '']],
+  },
+  {
+    name: 'sup2-s3-rtl-label-not-looked-for',
+    file: 'lib/reconciliation/core.ts',
+    changes: [['    : /\\p{Script=Arabic}/u.test(last.value) &&', '    : false &&']],
+  },
+  {
+    name: 'sup2-s3-last-cell-label-in-any-script',
+    file: 'lib/reconciliation/core.ts',
+    changes: [['    : /\\p{Script=Arabic}/u.test(last.value) &&', '    : true &&']],
+  },
+  {
+    name: 'sup2-wrap-flag-a-balance-line',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['      !summaryLabel.test(normalizeHeaderLabel(rest)) &&\n', '']],
+  },
+  {
+    name: 'sup2-s4-balance-heading-unknown',
+    file: 'lib/reconciliation/pdf-column-suggestions.ts',
+    changes: [['running ap balance|balance|due date|', 'running ap balance|due date|']],
+  },
+  {
+    name: 'sup2-s4-side-line-not-evidence',
+    file: 'lib/reconciliation/pdf-column-suggestions.ts',
+    changes: [['  if (row.length > header.length) return null;', '  if (row.length !== header.length) return null;']],
+  },
+  {
+    name: 'sup2-s4-side-line-read-by-order',
+    file: 'lib/reconciliation/pdf-column-suggestions.ts',
+    changes: [[
+      '    const column = header.findIndex(\n      (heading) =>\n        word.x < heading.x + heading.width && word.x + word.width > heading.x,\n    );',
+      '    const column = previous + 1;',
+    ]],
+  },
+  {
+    name: 'sup2-s4-any-heading-left-empty',
+    file: 'lib/reconciliation/pdf-column-suggestions.ts',
+    changes: [['  return cells.every((cell, i) => cell || sideHeader.test(header[i].text))', '  return cells.every(() => true)']],
+  },
+  {
+    name: 'sup2-s4-crossing-run-split',
+    file: 'lib/reconciliation/pdf.ts',
+    changes: [['      const column = crossingRuns.has(runs[i]) ? runColumn.get(runs[i])! : col;', '      const column = col;']],
+  },
+  {
+    name: 'sup2-s4-every-run-kept-whole',
+    file: 'lib/reconciliation/pdf.ts',
+    changes: [['      const column = crossingRuns.has(runs[i]) ? runColumn.get(runs[i])! : col;', '      const column = runColumn.get(runs[i])!;']],
+  },
+  {
+    name: 'sup2-s4-transform-names-its-own-column',
+    file: 'lib/reconciliation/pdf.ts',
+    changes: [['          column: placed.get(token)! + 1,', '          column: cuts.filter((c) => (token.x / width) * 100 >= c).length + 1,']],
+  },
+  {
+    name: 'ar-pdf-any-header-continues',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["          if (section !== undefined && next === key && scope) {", "          if (section !== undefined && scope) {"]],
+  },
+  {
+    name: 'ar-pdf-continuation-by-customer',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["            (['customer', 'name', 'account', 'currency', 'period'] as const).map(", "            (['customer'] as const).map("]],
+  },
+  {
+    name: 'ar-pdf-orphan-line-unreported',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["        error('AR_PDF_ORPHAN_LINE', at.page, at.line);\n", ""]],
+  },
+  {
+    name: 'ar-pdf-value-first-in-any-direction',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["    if (rtl && (text.endsWith(`:${label}`) || text.endsWith(`: ${label}`)))", "    if ((text.endsWith(`:${label}`) || text.endsWith(`: ${label}`)))"]],
+  },
+  {
+    name: 'ar-pdf-unknown-heading-accepted',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["          known.length !== roles.length ||\n", ""]],
+  },
+  {
+    name: 'ar-pdf-required-heading-optional',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["          REQUIRED.some((r) => !known.includes(r))", "          false"]],
+  },
+  {
+    name: 'ar-pdf-sign-not-checked',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["      if (kind === 'invoice' ? amount < 0 : amount > 0) {", "      if (false) {"]],
+  },
+  {
+    name: 'ar-pdf-zero-is-an-amount',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["  if (!Number.isSafeInteger(value) || value === 0) return undefined;", "  if (!Number.isSafeInteger(value)) return undefined;"]],
+  },
+  {
+    name: 'ar-pdf-period-unchecked',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["      if (date < s.scope.start || date > s.scope.end) {", "      if (false) {"]],
+  },
+  {
+    name: 'ar-pdf-repeated-header-field-accepted',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["        if (pending.fields[field] !== undefined) pending.bad = true;\n", ""]],
+  },
+  {
+    name: 'ar-pdf-document-header-change-ignored',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["          error('AR_PDF_DOCUMENT_HEADER', at.page, at.line);\n", ""]],
+  },
+  {
+    name: 'ar-pdf-value-outside-columns-dropped',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    // Re-anchored in A5: the placement loop moved one level out, the fault unchanged.
+    changes: [["        if (!role) outside = true;", "        if (!role) continue;"]],
+  },
+  {
+    name: 'ar-pdf-period-dates-sorted',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["  const [start, end] = dates as string[];", "  const [start, end] = (dates as string[]).sort();"]],
+  },
+  {
+    name: 'ar-pdf-period-backwards-accepted',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["  if (start > end) return null;\n", ""]],
+  },
+  {
+    name: 'ar-pdf-sign-never-joined',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["    if (mark.text !== '-') continue;", "    continue;"]],
+  },
+  {
+    name: 'ar-pdf-sign-either-side',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["        columns.direction === 'rtl' ? mark.x0 - q.x1 : q.x0 - mark.x1;", "        Math.max(mark.x0 - q.x1, q.x0 - mark.x1);"]],
+  },
+  {
+    name: 'ar-pdf-sign-at-any-distance',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["        gap >= -0.5 &&\n        gap <= 0.15 * Math.min(q.height, mark.height)", "        gap >= -0.5"]],
+  },
+  {
+    name: 'ar-pdf-reading-issues-ignored',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["  if (source.readingIssues.length)\n    throw new ArStatementReadError(", "  if (false)\n    throw new ArStatementReadError("]],
+  },
+  {
+    name: "ar-pdf-scope-any-document-header",
+    file: "lib/reconciliation/ar-statement-scope.ts",
+    changes: [["  const sameDocument =\n    reading.document.entity === scope.entity &&\n    reading.document.ledger === scope.ledger;", "  const sameDocument = true;"]],
+  },
+  {
+    name: "ar-pdf-scope-customer-only",
+    file: "lib/reconciliation/ar-statement-scope.ts",
+    changes: [["(Object.keys(wanted) as (keyof ArStatementScope)[]).every(\n      (k) => s.scope![k] === wanted[k],\n    )", "s.scope.customer === wanted.customer"]],
+  },
+  {
+    name: "ar-pdf-scope-first-of-repeated-compared",
+    file: "lib/reconciliation/ar-statement-scope.ts",
+    changes: [["  const compared = chosen.length === 1 ? chosen[0] : null;", "  const compared = chosen.length >= 1 ? chosen[0] : null;"]],
+  },
+  {
+    name: "ar-pdf-scope-repeat-unreported",
+    file: "lib/reconciliation/ar-statement-scope.ts",
+    changes: [["  if (chosen.length > 1)\n    issues.push({", "  if (false)\n    issues.push({"]],
+  },
+  {
+    name: "ar-pdf-scope-not-found-unreported",
+    file: "lib/reconciliation/ar-statement-scope.ts",
+    changes: [["    !chosen.length &&\n", "    false &&\n"]],
+  },
+  {
+    name: "ar-pdf-scope-not-found-despite-unreadable-header",
+    file: "lib/reconciliation/ar-statement-scope.ts",
+    changes: [["    reading.sections.every((s) => s.scope) &&\n", ""]],
+  },
+  {
+    name: "ar-pdf-scope-other-section-members",
+    file: "lib/reconciliation/ar-statement-scope.ts",
+    changes: [["    if (line.section !== compared) {", "    if (false) {"]],
+  },
+  {
+    name: "ar-pdf-scope-errors-isolated-to-compared-section",
+    file: "lib/reconciliation/ar-statement-scope.ts",
+    changes: [["  for (const e of reading.errors) {\n    const issue", "  for (const e of reading.errors.filter((x) => reading.lines.find((l) => l.page === x.page && l.line === x.line)?.section === compared)) {\n    const issue"], ["  for (const e of reading.errors)\n    codesAt.set(", "  for (const e of reading.errors.filter((x) => reading.lines.find((l) => l.page === x.page && l.line === x.line)?.section === compared))\n    codesAt.set("], ["    if (line.kind === 'error' && !codes.includes(line.code!)) {", "    if (line.kind === 'error' && line.section === compared && !codes.includes(line.code!)) {"]],
+  },
+  {
+    name: "ar-pdf-scope-header-lines-counted-apart",
+    file: "lib/reconciliation/ar-statement-scope.ts",
+    changes: [["      const owner =\n", "      const owner = false &&\n"]],
+  },
+  {
+    name: "ar-pdf-scope-structural-total-shown",
+    file: "lib/reconciliation/ar-statement-scope.ts",
+    changes: [["  const structural = issues.some((i) => i.code.startsWith('AR_PDF_'));", "  const structural = false;"]],
+  },
+  {
+    name: "ar-pdf-statement-reading-not-bound",
+    file: "lib/reconciliation/ar.ts",
+    changes: [["    file.reading.sha256 !== file.sha256 ||\n", ""]],
+  },
+  {
+    name: "ar-pdf-statement-reading-unconfirmed",
+    file: "lib/reconciliation/ar.ts",
+    changes: [["    r.confirmed !== true\n  )", "    false\n  )"]],
+  },
+  {
+    name: "ar-pdf-statement-beside-other-ledger-family",
+    file: "lib/reconciliation/ar.ts",
+    changes: [["  if (statement && (!plain(input.readings[0]) || 'family' in input.readings[0]))", "  if (false)"]],
+  },
+  {
+    name: 'ar-pdf-statement-perspective-ignored',
+    file: 'lib/reconciliation/ar.ts',
+    changes: [["    !(r.perspective === 'seller-receivable' && r.basis === 'original-movement') ||\n", ""]],
+  },
+  {
+    name: "ar-pdf-life-bytes-parsed-before-hash",
+    file: "lib/reconciliation/ar-io.ts",
+    changes: [["  if ((await hex(original)) !== sha256) throw new Error('AR_SOURCE_HASH');\n", ""]],
+  },
+  {
+    name: "ar-pdf-life-any-source-name",
+    file: "lib/reconciliation/ar-io.ts",
+    changes: [["  statement && side === 1 ? /\\.pdf$/i : /\\.(csv|xlsx)$/i;", "  /\\.(csv|xlsx|pdf)$/i;"]],
+  },
+  {
+    name: "ar-pdf-life-session-family-ignored",
+    file: "lib/reconciliation/ar-io.ts",
+    changes: [["  const familyVersion = statement\n", "  const familyVersion = false\n"]],
+  },
+  {
+    name: "ar-pdf-life-sections-not-exported",
+    file: "lib/reconciliation/ar-io.ts",
+    changes: [["  if (printed)\n    table(\n      'Statement sections',", "  if (false)\n    table(\n      'Statement sections',"]],
+  },
+  {
+    name: "ar-pdf-life-movement-place-not-exported",
+    file: "lib/reconciliation/ar-io.ts",
+    changes: [["      ...(printed ? [place(r.pdf)] : []),", "      ...(printed ? [''] : []),"]],
+  },
+  {
+    name: "ar-pdf-life-reply-statement-as-table",
+    file: "lib/reconciliation/ar-worker-binding.ts",
+    changes: [["      if (file.kind !== 'ar-statement-pdf') assertSourceFile(file);", "      assertSourceFile(file);"]],
+  },
+  {
+    name: "ar-pdf-life-statement-reading-on-ledger-side",
+    file: "lib/reconciliation/ar-worker-binding.ts",
+    changes: [["    side === 1 && isRecord(reading) && reading.family === 'ar-statement-pdf-1';", "    isRecord(reading) && reading.family === 'ar-statement-pdf-1';"]],
+  },
+  {
+    name: "ar-pdf-life-envelope-any-family",
+    file: "lib/reconciliation/protocol.ts",
+    changes: [["      !['ar-limited-1', 'ar-scope-details-1', 'ar-statement-pdf-1'].includes(", "      !['ar-limited-1', 'ar-scope-details-1', 'ar-statement-pdf-1', 'ar-statement-pdf-2'].includes("]],
+  },
+  {
+    name: 'sup2-s4-run-across-a-column-gap',
+    file: 'lib/reconciliation/pdf.ts',
+    changes: [['      runs.push(i > 0 && wordGap(ordered[i - 1], ordered[i]) ? runs[i - 1] : i);', '      runs.push(i > 0 ? runs[i - 1] : i);']],
+  },
 ];
 
 const args = process.argv.slice(2);
 let filter = '';
 let listOnly = false;
+let anchorsOnly = false;
 for (let i = 0; i < args.length; i++) {
   const arg = args[i];
   if (arg === '--list' && !listOnly) {
     listOnly = true;
+    continue;
+  }
+  if (arg === '--anchors' && !anchorsOnly) {
+    anchorsOnly = true;
     continue;
   }
   if (arg === '--filter' && !filter) filter = args[++i] ?? '';
@@ -1168,7 +1601,7 @@ for (let i = 0; i < args.length; i++) {
     filter = arg.slice('--filter='.length);
   else
     throw Error(
-      'Usage: node scripts/test-mutations.mjs [--filter name-substring] [--list]',
+      'Usage: node scripts/test-mutations.mjs [--filter name-substring] [--list] [--anchors]',
     );
   if (!filter || filter.startsWith('--'))
     throw Error('Mutation filter must not be empty or another option');
@@ -1209,6 +1642,31 @@ const selection = {
   ...(filter ? { filter } : {}),
   ...(shard ? { shard } : {}),
 };
+// Every anchor must match exactly once, in the order the runner applies the
+// changes. A stale anchor otherwise surfaces only when its shard reaches it.
+// This reads the sources in place and writes nothing.
+if (anchorsOnly) {
+  const stale = [];
+  for (const mutation of selectedMutations) {
+    let source = await readFile(join(root, mutation.file), 'utf8');
+    for (const [before, after] of mutation.changes) {
+      const count =
+        before instanceof RegExp
+          ? [...source.matchAll(new RegExp(before.source, 'g'))].length
+          : source.split(before).length - 1;
+      if (count !== 1) {
+        stale.push({ mutation: mutation.name, file: mutation.file, count });
+        break;
+      }
+      source = source.replace(
+        before,
+        typeof after === 'function' ? after : () => after,
+      );
+    }
+  }
+  console.log(JSON.stringify({ ...selection, checked: selectedMutations.length, stale }, null, 2));
+  process.exit(stale.length ? 1 : 0);
+}
 // Dry inspection does not run the baseline, copy files or modify a source.
 if (listOnly) {
   console.log(

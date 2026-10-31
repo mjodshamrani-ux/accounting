@@ -1,0 +1,1939 @@
+{
+ "schema": "tarasuf-inv2-movement-bridge-baseline/1",
+ "family": "inventory-posted-register-gl-1",
+ "counts": {
+  "agree": 94,
+  "agrees where the contract stops": 29,
+  "stops where the contract reads": 33,
+  "both stop": 9,
+  "not in the fold": 1
+ },
+ "stories": {
+  "M01": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "CEM-50|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "CEM-50|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "PNT-20|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "RB-12|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    }
+   }
+  },
+  "M02": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "CEM-50|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "CEM-50|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "GYP-12|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    }
+   }
+  },
+  "M03": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "CEM-50|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "CEM-50|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "GYP-12|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    }
+   }
+  },
+  "M04": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "CEM-50|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "CEM-50|wh=RIY-1": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    }
+   }
+  },
+  "M05": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "CEM-50|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "CEM-50|wh=RIY-1": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    }
+   }
+  },
+  "M06": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "TIL-60|wh=DMM-3": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    },
+    "TIL-60|wh=JED-2": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    },
+    "TIL-60|wh=RIY-1": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    }
+   }
+  },
+  "M07": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "TIL-60|wh=JED-2": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    },
+    "TIL-60|wh=RIY-1": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    }
+   }
+  },
+  "M08": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "PIP-110|wh=DMM-3": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    },
+    "PIP-110|wh=JED-2": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    },
+    "PIP-110|wh=RIY-1": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    },
+    "SND|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    }
+   }
+  },
+  "M09": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "NUMBER"
+    ]
+   },
+   "positions": {
+    "CEM-50|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "source-error",
+     "class": "stops where the contract reads"
+    },
+    "CEM-50|wh=RIY-1": {
+     "contract": "held",
+     "product": "row refused",
+     "codes": [
+      "NUMBER"
+     ],
+     "run": "source-error",
+     "class": "both stop"
+    }
+   }
+  },
+  "M10": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "NUMBER"
+    ]
+   },
+   "positions": {
+    "CEM-50|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "source-error",
+     "class": "stops where the contract reads"
+    },
+    "CEM-50|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "row refused",
+     "codes": [
+      "NUMBER"
+     ],
+     "run": "source-error",
+     "class": "stops where the contract reads"
+    }
+   }
+  },
+  "M11": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "PNT-20|wh=JED-2": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    },
+    "PNT-20|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    }
+   }
+  },
+  "M12": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "GYP-12|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "SND|wh=DMM-3": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    },
+    "TIL-60|wh=RIY-1": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    }
+   }
+  },
+  "M13": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "CEM-50|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "RB-12|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    }
+   }
+  },
+  "M14": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "CEM-50|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "PIP-110|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    }
+   }
+  },
+  "M15": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "difference",
+    "financial": "difference",
+    "issues": []
+   },
+   "positions": {
+    "CEM-50|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "CEM-50|wh=RIY-1": {
+     "contract": "inconsistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "both stop"
+    }
+   }
+  },
+  "M16": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "GYP-12|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "GYP-12|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    }
+   }
+  },
+  "M17": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "CEM-50|wh=RIY-1": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    },
+    "GYP-12|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    }
+   }
+  },
+  "M18": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "PNT-20|wh=JED-2": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    },
+    "PNT-20|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    }
+   }
+  },
+  "M19": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "PIP-110|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "PIP-110|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    }
+   }
+  },
+  "M20": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "CEM-50|wh=JED-2": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    },
+    "CEM-50|wh=RIY-1": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    },
+    "GYP-12|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    }
+   }
+  },
+  "M21": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "CEM-50|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    }
+   }
+  },
+  "M22": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "difference",
+    "financial": "difference",
+    "issues": []
+   },
+   "positions": {
+    "CEM-50|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "stops where the contract reads"
+    },
+    "RB-12|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "stops where the contract reads"
+    }
+   }
+  },
+  "M23": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "missing",
+    "financial": "missing",
+    "issues": []
+   },
+   "positions": {
+    "CEM-50|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account not compared",
+     "codes": [],
+     "run": "missing",
+     "class": "stops where the contract reads"
+    },
+    "CEM-50|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "missing",
+     "class": "agree"
+    }
+   }
+  },
+  "M24": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "difference",
+    "financial": "difference",
+    "issues": []
+   },
+   "positions": {
+    "PNT-20|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "PNT-20|wh=RIY-1": {
+     "contract": "inconsistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "both stop"
+    }
+   }
+  },
+  "M25": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "CEM-50|wh=DMM-3": {
+     "contract": "inconsistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    },
+    "CEM-50|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "GYP-12|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    }
+   }
+  },
+  "M26": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "difference",
+    "financial": "difference",
+    "issues": []
+   },
+   "positions": {
+    "CEM-50|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "CEM-50|wh=RIY-1": {
+     "contract": "missing",
+     "product": "not in the fold",
+     "codes": [],
+     "run": "difference",
+     "class": "not in the fold"
+    },
+    "SND|wh=RIY-1": {
+     "contract": "missing",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "both stop"
+    }
+   }
+  },
+  "M27": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "difference",
+    "financial": "difference",
+    "issues": []
+   },
+   "positions": {
+    "PIP-110|wh=JED-2": {
+     "contract": "held",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "both stop"
+    },
+    "PIP-110|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    }
+   }
+  },
+  "M28": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "GYP-12|wh=JED-2": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    },
+    "GYP-12|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    }
+   }
+  },
+  "M29": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "CEM-50|wh=JED-2": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    },
+    "CEM-50|wh=RIY-1": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    },
+    "GYP-12|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "RB-12|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    }
+   }
+  },
+  "M30": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "difference",
+    "financial": "difference",
+    "issues": []
+   },
+   "positions": {
+    "PNT-20|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "stops where the contract reads"
+    },
+    "PNT-20|wh=RIY-1": {
+     "contract": "held",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "both stop"
+    }
+   }
+  },
+  "M31": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "CEM-50|wh=JED-2": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    },
+    "CEM-50|wh=RIY-1": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    }
+   }
+  },
+  "M32": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "CEM-50|wh=AHM-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "CEM-50|wh=KWI-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    }
+   }
+  },
+  "M33": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "PNT-20|wh=KOB-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "PNT-20|wh=OSA-1": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    }
+   }
+  },
+  "M34": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "NUMBER"
+    ]
+   },
+   "positions": {
+    "CEM-50|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "source-error",
+     "class": "stops where the contract reads"
+    },
+    "CEM-50|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "source-error",
+     "class": "stops where the contract reads"
+    },
+    "GYP-12|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "source-error",
+     "class": "stops where the contract reads"
+    },
+    "PIP-110|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "source-error",
+     "class": "stops where the contract reads"
+    }
+   }
+  },
+  "M35": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "DUPLICATE"
+    ]
+   },
+   "positions": {
+    "CEM-50|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "source-error",
+     "class": "stops where the contract reads"
+    },
+    "CEM-50|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "source-error",
+     "class": "stops where the contract reads"
+    }
+   }
+  },
+  "M36": {
+   "asItArrives": {
+    "refused": "STOCK_CSV"
+   },
+   "folded": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "IDENTITY"
+    ]
+   },
+   "positions": {
+    "CEM-50|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "source-error",
+     "class": "stops where the contract reads"
+    },
+    "GYP-12|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account not compared",
+     "codes": [],
+     "run": "source-error",
+     "class": "stops where the contract reads"
+    }
+   }
+  },
+  "M37": {
+   "asItArrives": {
+    "refused": "The encoded data was not valid for encoding utf-8"
+   },
+   "folded": "not UTF-8: the fold reads nothing"
+  },
+  "M38": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "IDENTITY"
+    ]
+   },
+   "positions": {
+    "CEM-50|wh=RIY-1": {
+     "contract": "not a position",
+     "product": "row refused",
+     "codes": [
+      "IDENTITY"
+     ],
+     "run": "source-error",
+     "class": "both stop"
+    }
+   }
+  },
+  "M39": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "VALIDITY"
+    ]
+   },
+   "positions": {
+    "CEM-50|wh=RIY-1": {
+     "contract": "not a position",
+     "product": "account differs",
+     "codes": [],
+     "run": "source-error",
+     "class": "both stop"
+    }
+   }
+  },
+  "M40": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "NUMBER"
+    ]
+   },
+   "positions": {
+    "CEM-50|مستودع=الرياض": {
+     "contract": "consistent",
+     "product": "row refused",
+     "codes": [
+      "NUMBER"
+     ],
+     "run": "source-error",
+     "class": "stops where the contract reads"
+    },
+    "CEM-50|مستودع=جدة": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "source-error",
+     "class": "stops where the contract reads"
+    }
+   }
+  },
+  "M41": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "difference",
+    "financial": "difference",
+    "issues": []
+   },
+   "positions": {
+    "SKU-1001|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "stops where the contract reads"
+    },
+    "SKU-1001|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1001|wh=MED-4": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1001|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1002|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "stops where the contract reads"
+    },
+    "SKU-1002|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1002|wh=MED-4": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1002|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1003|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "stops where the contract reads"
+    },
+    "SKU-1003|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1003|wh=MED-4": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1003|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1004|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "stops where the contract reads"
+    },
+    "SKU-1004|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1004|wh=MED-4": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1004|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1005|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "stops where the contract reads"
+    },
+    "SKU-1005|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1005|wh=MED-4": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1005|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1006|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "stops where the contract reads"
+    },
+    "SKU-1006|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1006|wh=MED-4": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1006|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1007|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "stops where the contract reads"
+    },
+    "SKU-1007|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1007|wh=MED-4": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1007|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1008|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "stops where the contract reads"
+    },
+    "SKU-1008|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1008|wh=MED-4": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1008|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1009|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "stops where the contract reads"
+    },
+    "SKU-1009|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1009|wh=MED-4": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1009|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1010|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "stops where the contract reads"
+    },
+    "SKU-1010|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1010|wh=MED-4": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1010|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1011|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "stops where the contract reads"
+    },
+    "SKU-1011|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1011|wh=MED-4": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1011|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1012|wh=DMM-3": {
+     "contract": "inconsistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "both stop"
+    },
+    "SKU-1012|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1012|wh=MED-4": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1012|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1013|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "stops where the contract reads"
+    },
+    "SKU-1013|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1013|wh=MED-4": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1013|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1014|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "stops where the contract reads"
+    },
+    "SKU-1014|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1014|wh=MED-4": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1014|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1015|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "difference",
+     "class": "stops where the contract reads"
+    },
+    "SKU-1015|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1015|wh=MED-4": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    },
+    "SKU-1015|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "difference",
+     "class": "agree"
+    }
+   }
+  },
+  "M42": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "GYP-12|wh=JED-2": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    },
+    "GYP-12|wh=RIY-1": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    },
+    "PIP-110|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    }
+   }
+  },
+  "M43": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "CEM-50|wh=JED-2": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    },
+    "CEM-50|wh=RIY-1": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    },
+    "GYP-12|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    }
+   }
+  },
+  "M44": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "0420|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "420|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "PIP-110|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    }
+   }
+  },
+  "M45": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "PNT-20|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "PNT-20|wh=RIY-1": {
+     "contract": "held",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agrees where the contract stops"
+    }
+   }
+  },
+  "M46": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "IDENTITY"
+    ]
+   },
+   "positions": {
+    "CEM-50|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "source-error",
+     "class": "stops where the contract reads"
+    },
+    "CEM-50|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account differs",
+     "codes": [],
+     "run": "source-error",
+     "class": "stops where the contract reads"
+    }
+   }
+  },
+  "M47": {
+   "asItArrives": {
+    "status": "source-error",
+    "financial": "source-error",
+    "issues": [
+     "COLUMNS"
+    ]
+   },
+   "folded": {
+    "status": "needs-review",
+    "financial": "ready",
+    "issues": []
+   },
+   "positions": {
+    "CEM-50|wh=JED-2": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "CEM-50|wh=RIY-1": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    },
+    "GYP-12|wh=DMM-3": {
+     "contract": "consistent",
+     "product": "account agrees",
+     "codes": [],
+     "run": "needs-review",
+     "class": "agree"
+    }
+   }
+  }
+ }
+}

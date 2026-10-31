@@ -1,0 +1,804 @@
+"""Pre-seal eligibility of a BNK-PDF-1 holdout: does any statement fall into a
+refusal the guarded PDF reader declares, and can the declared decision story
+be decided in the page?
+
+A positive must stay inside the contract and outside every refusal the reader
+declares, or its refusal is correct and its eligibility was wrong (DEV-53).
+G10 declared P08 (a page turned by /Rotate 90) and P10 (two lines whose ink
+touches) positive, and P01 a decision story whose only case the page cannot
+accept (DEV-55). Each check here reads the PDF with MuPDF and the raw content
+stream, never with the product's reader, and each has a planted fault in
+test_eligibility.py that it must find. README.ar.md maps every refusal the
+reader declares to the check that covers it, or says why none does.
+
+Checks on every page of every statement:
+  rotation      a page with /Rotate
+  direction     a text item whose matrix (size and scale, text matrix, CTM)
+                is not upright: the reader refuses skewed or mirrored text
+  images        an image painted on the page, however small
+  widgets       an interactive form field
+  layers        optional content (the reader refuses PDF layers)
+  encryption    an encrypted file
+  size          a file over 8 MB or over 100 pages, the reader's limits
+  pageEdge      a glyph's box beyond the page by more than 0.2 points
+  hiddenText    text drawn invisible or with opacity below one
+  contrast      a run of text not wholly on one background it contrasts
+                with by 3, the reader's threshold: its box (the run's width,
+                its glyphs' ink height with the 0.01 em margin, as the
+                reader proves it since G12) must lie inside the latest
+                opaque filled rectangle under it, or on the white page
+  ruleClearance a glyph box within 0.01 em of a stroke, or of a fill that is
+                not only rectangles: the margin the reader keeps around glyph
+                ink (an opaque filled rectangle is a background, as there)
+  lineInk       ink of one line within --clearance points of the ink of the
+                line above or below it (rendered apart, dilated, intersected),
+                lines joined as the reader joins them
+  lineControl   on the first page, the odd lines moved three quarters of the
+                median line distance across their text, up and down, did not
+                meet the others: the line test measured nothing there
+  visibleInk    text ink that is not dark where the page is drawn: covered by
+                a later fill, or cut away by a clip
+  toUnicode     a font the page selects whose ToUnicode map PDF.js's
+                prepared decoder cannot read (an odd length), or a glyph
+                shown as U+FFFD: tounicode.py, since G15
+  overlap       a line whose PDF.js items, as the reader lays them out
+                without column cuts, start more than 0.2 points before the
+                end of the item before them: items.py, since G18, the items
+                built from the content stream as PDF.js builds them
+  items         a page items.py cannot reproduce (a Type3 or vertical font,
+                a form, an inline image): nothing was measured there, so no
+                eligibility until it is explained
+and on the statement: columns, the reader's reading of each line by its
+page's column headers (columns.py, on items.py's PDF.js items since G19),
+where it would stop; on a rotated page it is not read, as the reader refuses
+the page first;
+on each XLSX cashbook (cashbook.py, since G16): the product's reading of it,
+from the workbook's parts to the six declared columns, where it would stop,
+with the entries it would read and the rules it needs (typed amounts and
+dates, core properties left out, precision notes); a hidden row is noted, as
+its policy waits on a decision;
+and on the package: decision, the declared decision story must have a review
+case the page accepts and an outstanding item for the checker's self-test.
+
+Beside what it finds, each statement records what it exercises: how many
+times its lines need each rule the reader keeps for one writer's way of
+printing, up to where the reader would stop. drAfterAmount (a DR joined to
+the amount before it), dateRuns (touching runs joined into one date),
+reversedDate (a date read with its segments reversed), endAligned (a value
+placed by its header's end), wordParts (an item placed by its words) and
+continuation come from columns.py; visibleByInk is a run of text visible by
+its glyphs' ink (G12) and not by its font's declared box, the ascent and
+descent its descriptor gives PDF.js, by which the reader judged before;
+loneSurrogates is a font whose map carries a surrogate without its pair,
+read as U+FFFD and shown by no glyph (G14), that would not load otherwise
+(tounicode.py). A story written for a rule is thus seen to reach it before
+the seal (DEV-59).
+
+  PYTHONPATH=<pymupdf 2.0> python3 -B eligibility.py <package> [--decide STORY] [--out file]
+"""
+import argparse
+import hashlib
+from collections import Counter
+import json
+import math
+import re
+import sys
+from pathlib import Path
+
+import pymupdf
+
+import cashbook
+import columns
+import drawings
+import items
+import rows
+import tounicode
+
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parent.parent
+# What the page lets an accountant accept as it stands, as the bank workspace
+# declares it (lib/reconciliation/bank-statement-view.ts, ACCEPTABLE). Since
+# WF-1 ROLL-1 W3 it also names the two reasons of a carried case the roll
+# contract lets an accountant accept; no bank statement holdout has a carried
+# case, so the decision check below reads its stories as before.
+ACCEPTABLE = {'amount-date-suggestion', 'date-gap', 'carried-reference', 'carried-amount-suggestion'}
+VIEW = ROOT / 'lib' / 'reconciliation' / 'bank-statement-view.ts'
+MARGIN_EM = 0.01      # the reader's ink margin per glyph, in em
+EDGE = 0.2            # the reader's page-edge tolerance, in points
+CONTRAST = 3.0        # the reader's least contrast ratio
+ZOOM = 20             # pixels per point for the ink checks: 0.05 points
+DARK = bytes(1 if v < 128 else 0 for v in range(256))
+TOKEN = re.compile(rb'\((?:\\.|[^\\()]|\((?:\\.|[^\\()])*\))*\)|<<|>>|<[0-9A-Fa-f\s]*>|\[|\]'
+                   rb'|/[^\s()<>\[\]{}/%]*|%[^\n]*|[^\s()<>\[\]{}/%]+', re.S)
+NUM = re.compile(rb'[+-]?(\d+\.?\d*|\.\d+)')
+STRING = (b'(', b'<', b'[', b']')
+PAINT = {b'f', b'F', b'f*', b'S', b's', b'B', b'B*', b'b', b'b*', b'sh'}
+
+
+def acceptable_in_source():
+    """ACCEPTABLE as the view declares it, so that a change there fails here."""
+    text = VIEW.read_text(encoding='utf-8')
+    block = re.search(r'const ACCEPTABLE[^=]*=\s*new Set<[^>]*>\(\[([^\]]*)\]', text)
+    return set(re.findall(r"'([a-z-]+)'", block.group(1))) if block else None
+
+
+def mul(m, n):
+    a, b, c, d, e, f = m
+    A, B, C, D, E, F = n
+    return (a * A + b * C, a * B + b * D, c * A + d * C, c * B + d * D, e * A + f * C + E, e * B + f * D + F)
+
+
+def shows(content):
+    """[(operand start, operand end, matrix, operator)] for every Tj, TJ, '
+    and ", the matrix being size and horizontal scale times the text matrix
+    times the CTM, as PDF.js gives a text item's transform."""
+    ctm, stack = (1, 0, 0, 1, 0, 0), []
+    tm = tlm = (1, 0, 0, 1, 0, 0)
+    leading, size, scale, rise, operands, out = 0.0, 1.0, 1.0, 0.0, [], []
+
+    def td(tx, ty):
+        nonlocal tm, tlm
+        tlm = mul((1, 0, 0, 1, tx, ty), tlm)
+        tm = tlm
+
+    for m in TOKEN.finditer(content):
+        t = m.group()
+        if t.startswith(b'%'):
+            continue
+        if NUM.fullmatch(t) or (t.startswith(STRING + (b'/',)) and t not in (b'<<', b'>>')):
+            operands.append(m)
+            continue
+        nums = [float(o.group()) for o in operands if NUM.fullmatch(o.group())]
+        if t == b'q':
+            stack.append(ctm)
+        elif t == b'Q':
+            ctm = stack.pop() if stack else ctm
+        elif t == b'cm' and len(nums) >= 6:
+            ctm = mul(tuple(nums[-6:]), ctm)
+        elif t == b'BT':
+            tm = tlm = (1, 0, 0, 1, 0, 0)
+        elif t == b'Tm' and len(nums) >= 6:
+            tm = tlm = tuple(nums[-6:])
+        elif t == b'Td' and len(nums) >= 2:
+            td(nums[-2], nums[-1])
+        elif t == b'TD' and len(nums) >= 2:
+            leading = -nums[-1]
+            td(nums[-2], nums[-1])
+        elif t == b'TL' and nums:
+            leading = nums[-1]
+        elif t == b'Tf' and nums:
+            size = nums[-1]
+        elif t == b'Tz' and nums:
+            scale = nums[-1] / 100
+        elif t == b'Ts' and nums:
+            rise = nums[-1]
+        elif t in (b'T*', b"'", b'"'):
+            td(0, -leading)
+        if t in (b'Tj', b'TJ', b"'", b'"'):
+            strings = [o for o in operands if o.group().startswith(STRING)]
+            if strings:
+                start = next(o for o in operands if o.group() == b'[').start() if t == b'TJ' else strings[0].start()
+                matrix = mul(mul((size * scale, 0, 0, size, 0, rise), tm), ctm)
+                out.append((start, strings[-1].end(), matrix, t))
+        operands = []
+    return out
+
+
+def baseline(matrix):
+    """The distance of a text item's origin across the direction of its text."""
+    a, b, _, _, e, f = matrix
+    return round((a * f - b * e) / (math.hypot(a, b) or 1), 1)
+
+
+def line_numbers(items):
+    """Each baseline's line, numbered from the top, as the reader joins them:
+    a baseline within min(1, size / 8) points of the one above it is the same
+    line (a stacked Arabic letter a fraction of a point off, for one)."""
+    marks = sorted(((baseline(m), math.hypot(m[2], m[3])) for _, _, m, _ in items), reverse=True)
+    number, previous, out = -1, None, {}
+    for y, size in marks:
+        if previous is None or previous - y > min(1, size / 8):
+            number += 1
+        out.setdefault(y, number)
+        previous = y
+    return out
+
+
+def content(doc, pno):
+    """The page's content streams as one, as PDF joins them. Never MuPDF's
+    clean_contents: it rounds the matrices it merges, and a glyph's edge then
+    moves by a fraction of a pixel against the page as it is drawn."""
+    xrefs = doc[pno].get_contents()
+    return xrefs, b'\n'.join(doc.xref_stream(x) for x in xrefs)
+
+
+def edited(path, pno, edit):
+    """The page with its content changed by edit(content) -> bytes, written
+    to its first content stream and the others emptied."""
+    doc = pymupdf.open(path)
+    xrefs, c = content(doc, pno)
+    doc.update_stream(xrefs[0], edit(c))
+    for x in xrefs[1:]:
+        doc.update_stream(x, b'')
+    return doc, doc[pno]
+
+
+def without_strings(content, drop):
+    pieces, last = [], 0
+    for start, end, matrix, op in shows(content):
+        if drop(matrix):
+            pieces += [content[last:start], b'[]' if op == b'TJ' else b'()']
+            last = end
+    pieces.append(content[last:])
+    return b''.join(pieces)
+
+
+def text_alone(content):
+    """Only the text: every path painted and every clip, shading and XObject
+    dropped, so that the text is drawn whole and nothing over it."""
+    out, last, operands_start = [], 0, None
+    for m in TOKEN.finditer(content):
+        t = m.group()
+        if NUM.fullmatch(t) or t.startswith(STRING + (b'/',)) and t not in (b'<<', b'>>'):
+            operands_start = m.start() if operands_start is None else operands_start
+            continue
+        if t in PAINT or t in (b'W', b'W*', b'Do'):
+            start = operands_start if t in (b'Do', b'sh') and operands_start is not None else m.start()
+            out += [content[last:start], b'n' if t in PAINT and t != b'sh' else b'']
+            last = m.end()
+        operands_start = None
+    out.append(content[last:])
+    return b''.join(out)
+
+
+def masks(page, clip, zoom=ZOOM):
+    pix = page.get_pixmap(matrix=pymupdf.Matrix(zoom, zoom), clip=clip, colorspace=pymupdf.csGRAY, alpha=False)
+    return pix.width, pix.height, pix.samples
+
+
+def bits(width, samples, pad):
+    """A dark mask as one integer, a byte per pixel, rows padded with `pad`
+    empty pixels so that a shift across never wraps into the next row."""
+    rows = [samples[i:i + width].translate(DARK) + bytes(pad) for i in range(0, len(samples), width)]
+    return int.from_bytes(b''.join(rows), 'big')
+
+
+def dilate(mask, row_bytes, radius):
+    for _ in range(radius):
+        mask |= (mask << 8) | (mask >> 8)
+    for _ in range(radius):
+        mask |= (mask << (8 * row_bytes)) | (mask >> (8 * row_bytes))
+    return mask
+
+
+def tiles(rect, step=50, overlap=0.0, near=None):
+    """Tiles of the page, each grown by overlap so that ink on either side of
+    a tile's edge meets in one of them; with near, only tiles that meet one
+    of those boxes."""
+    for x in range(int(rect.x0), int(math.ceil(rect.x1)), step):
+        for y in range(int(rect.y0), int(math.ceil(rect.y1)), step):
+            tile = pymupdf.Rect(max(rect.x0, x - overlap), max(rect.y0, y - overlap),
+                                min(x + step + overlap, rect.x1), min(y + step + overlap, rect.y1))
+            if near is None or any(tile.intersects(b) for b in near):
+                yield tile
+
+
+def text_boxes(page, grow):
+    """Where the page's text is, every span's box grown by `grow` points."""
+    return [pymupdf.Rect(s['bbox']) + (-grow, -grow, grow, grow) for s in page.get_texttrace()]
+
+
+def line_ink(path, pno, reach, shift=0.0):
+    """The least gap, in points (to the pixel), between the ink of
+    neighbouring lines on a page when it is within `reach`, else None. With
+    shift, the odd lines are drawn that many points across the direction of
+    their text (up for positive): the planted control."""
+    doc = pymupdf.open(path)
+    page = doc[pno]
+    items = shows(content(doc, pno)[1])
+    parity = {y: n % 2 for y, n in line_numbers(items).items()}
+    a, b = (items[0][2][:2] if items else (1, 0))
+    norm = math.hypot(a, b) or 1
+    move = b'q 1 0 0 1 %.4f %.4f cm ' % (-b / norm * shift, a / norm * shift)
+
+    def variant(drop, moved=False):
+        return edited(path, pno, lambda c: (move + without_strings(c, drop) + b' Q') if moved
+                      else without_strings(c, drop))
+    even = variant(lambda m: parity[baseline(m)] == 1)
+    odd = variant(lambda m: parity[baseline(m)] == 0, bool(shift))
+    bare = variant(lambda m: True)
+    bare_moved = variant(lambda m: True, bool(shift)) if shift else bare
+    radius = int(math.ceil(reach * ZOOM))
+    least = None
+    near = text_boxes(page, reach + abs(shift) + 2)
+    for clip in tiles(page.rect, overlap=reach + 1, near=near):
+        w, _, ea = masks(even[1], clip)
+        _, _, eb = masks(odd[1], clip)
+        _, _, ga = masks(bare[1], clip)
+        _, _, gb = masks(bare_moved[1], clip)
+        a_ink = bits(w, ea, radius) & ~bits(w, ga, radius)
+        b_ink = bits(w, eb, radius) & ~bits(w, gb, radius)
+        if not a_ink or not b_ink:
+            continue
+        grown = a_ink
+        for r in range(0, radius + 1):
+            if r:
+                grown = dilate(grown, w + radius, 1)
+            if grown & b_ink:
+                gap = r / ZOOM
+                least = gap if least is None else min(least, gap)
+                break
+    return least
+
+
+def visible_ink(path, pno):
+    """Text ink, drawn alone and whole, that is not dark where the page is
+    drawn, in points squared."""
+    doc = pymupdf.open(path)
+    page = doc[pno]
+    alone_doc, alone = edited(path, pno, text_alone)
+    hidden = 0
+    for clip in tiles(page.rect, near=text_boxes(page, 2)):
+        w, _, full = masks(page, clip)
+        _, _, text = masks(alone, clip)
+        if len(full) != len(text):
+            continue
+        drawn = int.from_bytes(full.translate(DARK), 'big')
+        hidden += (int.from_bytes(text.translate(DARK), 'big') & ~drawn).bit_count()
+    return round(hidden / ZOOM ** 2, 4)
+
+
+def luminance(rgb):
+    def channel(c):
+        return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+    r, g, b = (channel(c) for c in rgb)
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b
+
+
+def ratio(a, b):
+    la, lb = luminance(a), luminance(b)
+    return (max(la, lb) + 0.05) / (min(la, lb) + 0.05)
+
+
+def rgb(color):
+    if color is None:
+        return None
+    if isinstance(color, int):
+        return ((color >> 16 & 255) / 255, (color >> 8 & 255) / 255, (color & 255) / 255)
+    color = tuple(color)
+    if len(color) == 1:
+        return color * 3
+    if len(color) == 4:
+        c, m, y, k = color
+        return tuple((1 - v) * (1 - k) for v in (c, m, y))
+    return color
+
+
+def origin_key(point):
+    return (round(point[0], 2), round(point[1], 2))
+
+
+def run_box(span, ink):
+    """A run's box as the reader judges its visibility: its width, and the
+    height of its glyphs' ink with the 0.01 em margin where every glyph's
+    ink is known, else the font's box."""
+    boxes = [pymupdf.Rect(c[3]) for c in span['chars'] if chr(c[0]).strip()]
+    x0, x1 = min(b.x0 for b in boxes), max(b.x1 for b in boxes)
+    glyphs = [ink.get(origin_key(c[2])) for c in span['chars'] if chr(c[0]).strip()]
+    if all(g is not None and not g.is_empty for g in glyphs):
+        margin = MARGIN_EM * span['size']
+        return pymupdf.Rect(x0, min(g.y0 for g in glyphs) - margin, x1, max(g.y1 for g in glyphs) + margin)
+    return pymupdf.Rect(x0, min(b.y0 for b in boxes), x1, max(b.y1 for b in boxes))
+
+
+def declared_metrics(doc):
+    """Each embedded font's Ascent and Descent from its descriptor, in em,
+    by its name without the subset tag: the metrics PDF.js gives the reader
+    for a run's box where no glyph's ink is proved."""
+    out = {}
+    for xref in range(1, doc.xref_length()):
+        try:
+            obj = doc.xref_object(xref)
+        except Exception:
+            continue
+        if not re.search(r'/Type\s*/FontDescriptor', obj):
+            continue
+        name = re.search(r'/FontName\s*/([^\s/<>\[\]()]+)', obj)
+        ascent = re.search(r'/Ascent\s+(-?[\d.]+)', obj)
+        descent = re.search(r'/Descent\s+(-?[\d.]+)', obj)
+        if name and ascent and descent and float(ascent.group(1)) > float(descent.group(1)):
+            out[name.group(1).split('+')[-1]] = (float(ascent.group(1)) / 1000, float(descent.group(1)) / 1000)
+    return out
+
+
+def declared_box(span, metrics):
+    """A run's box by its font's declared ascent and descent, or, for a font
+    without them, MuPDF's."""
+    found = next((m for name, m in metrics.items() if name.startswith(span['font'])), None)
+    if found is None:
+        return run_box(span, {})
+    boxes = [pymupdf.Rect(c[3]) for c in span['chars'] if chr(c[0]).strip()]
+    y = span['chars'][0][2][1]
+    return pymupdf.Rect(min(b.x0 for b in boxes), y - found[0] * span['size'], max(b.x1 for b in boxes),
+                        y - found[1] * span['size'])
+
+
+def visible(color, box, fills):
+    """The reader's test (visibleOnBackground): from the latest background
+    down, one it does not contrast with refuses the run unless it is a thin
+    sliver; one it contrasts with must hold the whole box; else the page."""
+    slivers = 0
+    for _, b, background in sorted(fills, key=lambda f: f[0], reverse=True):
+        if not (b.x0 < box.x1 and b.x1 > box.x0 and b.y0 < box.y1 and b.y1 > box.y0):
+            continue
+        if ratio(color, background) < CONTRAST:
+            share = (b & box).get_area() / box.get_area() if box.get_area() else 1
+            if min(b.width, b.height) <= 1 and share <= 0.1:
+                slivers += share
+                if slivers <= 0.2:
+                    continue
+            return False
+        if b.contains(box):
+            return True
+    return ratio(color, (1, 1, 1)) >= CONTRAST
+
+
+def contrast(page, fills, ink, metrics, add, used):
+    """The reader's contrast test on each run, by its glyphs' ink; a run
+    visible so and not by its font's declared box counts visibleByInk."""
+    for span in page.get_texttrace():
+        chars = [chr(c[0]) for c in span['chars'] if chr(c[0]).strip()]
+        if not chars:
+            continue
+        color = rgb(span.get('color')) or (0, 0, 0)
+        box = run_box(span, ink)
+        under = [f for f in fills if f[0] < span['seqno']]
+        if not visible(color, box, under):
+            add('contrast', [chars[0], [round(v, 2) for v in box]])
+        elif not visible(color, declared_box(span, metrics), under):
+            # Visible only as G12 judges it, by its glyphs' ink, and not by
+            # the font's declared box the reader judged by before.
+            used['visibleByInk'] += 1
+
+
+def filled_boxes(drawing):
+    """The reader's filledRectangles on MuPDF's items for one path: the box
+    of each subpath if every one is an axis-aligned rectangle apart from the
+    others, else None. MuPDF gives an `re` operator as one item, and a
+    rectangle traced by lines as one line item per edge, its close included:
+    pdf-lib draws its fills so (moveTo, three lineTo, closePath under a
+    translation), and the reader takes them for rectangles (since G23; the
+    check took `re` alone before, and judged white text on such a fill
+    against the white page). A path the reader does not take for a
+    rectangle though MuPDF does, such as `re h f`, is a drawing to the
+    reader, which drawings.py finds."""
+    boxes, edges = [], []
+    for item in drawing['items']:
+        if item[0] == 're' and not edges:
+            r = pymupdf.Rect(item[1])
+            boxes.append([r.x0, r.y0, r.x1, r.y1])
+        elif item[0] == 'l':
+            p, q = item[1], item[2]
+            if edges and edges[-1][1] != p:
+                return None
+            edges.append((p, q))
+            if len(edges) == 4:
+                if edges[-1][1] != edges[0][0] or any(a.x != b.x and a.y != b.y for a, b in edges):
+                    return None
+                xs, ys = [a.x for a, _ in edges], [a.y for a, _ in edges]
+                boxes.append([min(xs), min(ys), max(xs), max(ys)])
+                edges = []
+        else:
+            return None
+    if edges or not boxes:
+        return None
+    for k, b in enumerate(boxes):
+        if b[0] == b[2] or b[1] == b[3] or any(
+                a[0] < b[2] and a[2] > b[0] and a[1] < b[3] and a[3] > b[1] for a in boxes[:k]):
+            return None
+    return boxes
+
+
+def backgrounds(page):
+    """The reader's backgrounds: opaque rectangles filled and not stroked."""
+    return [(d['seqno'], pymupdf.Rect(box), rgb(d.get('fill'))) for d in page.get_drawings()
+            if d.get('fill') is not None and d.get('type') == 'f' and (d.get('fill_opacity') or 1) == 1
+            for box in (filled_boxes(d) or [])]
+
+
+def glyph_ink(page):
+    """MuPDF's glyph outline boxes by origin, as verify.py measures them
+    (check_page builds the same while it measures the rules)."""
+    ink = {}
+    for block in page.get_text('rawdict', flags=pymupdf.TEXT_ACCURATE_BBOXES)['blocks']:
+        for line in block.get('lines', []):
+            for span in line['spans']:
+                for c in span['chars']:
+                    ink[origin_key(c['origin'])] = pymupdf.Rect(c['bbox'])
+    return ink
+
+
+def adjacent_rows(doc, pno, used):
+    """The reader's test of adjacent rows in its three forms (rows.py, since
+    G21): what today's form refuses is a finding; what only an earlier form
+    refuses is a rule the statement needs, counted by its lines."""
+    forms = rows.check_page(doc, pno)
+    if 'unprovable' in forms.values():
+        return {'metrics': ['a font whose ascent and descent PDF.js cannot give']}
+    today = set(forms['glyph'])
+    used['rowsByInk'] += len(set(forms['metric']) - today)
+    used['rowsByGlyphs'] += len(set(forms['ink']) - today)
+    return {'rows': sorted(today)} if today else {}
+
+
+def drawing_tests(doc, pno, used):
+    """The reader's drawing, clip and background tests, as it is and with each
+    rule about them off (drawings.py, since G22): a refusal today is a
+    finding; a page refused only with a rule off counts the rule."""
+    forms = drawings.check_page(doc, pno)
+    if 'unprovable' in forms.values():
+        return {}      # the reader stops on the font first (metrics)
+    today = forms['today']
+    for config, rule in (('noInkDrawing', 'drawingByInk'), ('noGlyphDrawings', 'drawingsByGlyphs'),
+                         ('noRectangleReturn', 'rectangleTraced')):
+        if forms[config] and not today:
+            used[rule] += 1
+    return {'drawings': [today]} if today else {}
+
+
+def counts(path):
+    """The rules a statement exercises, without the checks that render the
+    page: the rows forms (rows.py), the drawing tests (drawings.py), the
+    contrast test by ink, and the reading by columns; for measure_rules.py."""
+    doc = pymupdf.open(str(path))
+    used, ignored = Counter(), {}
+    def add(check, what):
+        ignored.setdefault(check, []).append(what)
+    for pno in range(doc.page_count):
+        page = doc[pno]
+        contrast(page, backgrounds(page), glyph_ink(page), declared_metrics(doc), add, used)
+        if not page.rotation:
+            try:
+                adjacent_rows(doc, pno, used)
+                drawing_tests(doc, pno, used)
+            except items.Unmodelled:
+                continue
+    if not any(doc[p].rotation for p in range(doc.page_count)):
+        columns.check_statement(doc, used)
+    return dict(sorted((k, v) for k, v in used.items() if v))
+
+
+def check_page(path, doc, pno, clearance, reach, used=None):
+    page = doc[pno]
+    found = {}
+    used = Counter() if used is None else used
+
+    def add(check, what):
+        found.setdefault(check, []).append(what)
+    if page.rotation:
+        add('rotation', page.rotation)
+    if page.get_images(full=True) or page.get_image_info():
+        add('images', len(page.get_image_info()) or len(page.get_images(full=True)))
+    for widget in page.widgets() or []:
+        add('widgets', widget.field_name)
+    for _, _, m, _ in shows(content(doc, pno)[1]):
+        a, b, c, d = m[:4]
+        if abs(b) > 0.01 or abs(c) > 0.01 or a <= 0 or d <= 0:
+            add('direction', [round(v, 3) for v in m[:4]])
+            break
+    rect = page.rect
+    drawings = page.get_drawings()
+    fills = backgrounds(page)
+    # As the reader sorts them: an opaque filled rectangle is a background,
+    # judged by contrast (and, painted over text, by visibleInk); a stroke, or
+    # a fill that is not only rectangles, is tested against the glyphs.
+    rules = []
+    for d in drawings:
+        kind = d.get('type') or ''
+        stroked = 's' in kind
+        rectangles = all(item[0] == 're' for item in d['items'])
+        if not stroked and (rectangles and (d.get('fill_opacity') or 1) == 1):
+            continue
+        # The reader pads a stroke by half its width, and by half a point at
+        # least, before it meets the glyphs' ink (pdf.ts, pad).
+        half = max(0.5, (d.get('width') or 0) / 2) if stroked else 0
+        for item in d['items']:
+            if item[0] == 'l':
+                p, q = item[1], item[2]
+                r = pymupdf.Rect(min(p.x, q.x), min(p.y, q.y), max(p.x, q.x), max(p.y, q.y))
+            elif item[0] == 're' and stroked and 'f' not in kind:
+                # A stroked rectangle paints its four edges only.
+                r = pymupdf.Rect(item[1])
+                rules += [pymupdf.Rect(r.x0 - half, r.y0 - half, r.x1 + half, r.y0 + half),
+                          pymupdf.Rect(r.x0 - half, r.y1 - half, r.x1 + half, r.y1 + half),
+                          pymupdf.Rect(r.x0 - half, r.y0 - half, r.x0 + half, r.y1 + half),
+                          pymupdf.Rect(r.x1 - half, r.y0 - half, r.x1 + half, r.y1 + half)]
+                continue
+            elif item[0] in ('re', 'qu', 'c'):
+                r = pymupdf.Rect(item[1]) if item[0] == 're' else (
+                    item[1].rect if item[0] == 'qu' else pymupdf.Rect(item[1], item[1]) | item[2] | item[3] | item[4])
+            else:
+                continue
+            rules.append(pymupdf.Rect(r.x0 - half, r.y0 - half, r.x1 + half, r.y1 + half))
+    least_rule = None
+    metrics = declared_metrics(doc)
+    ink = {}
+    # Rules against MuPDF's glyph outline boxes, as verify.py measures them.
+    for block in page.get_text('rawdict', flags=pymupdf.TEXT_ACCURATE_BBOXES)['blocks']:
+        for line in block.get('lines', []):
+            for span in line['spans']:
+                margin = MARGIN_EM * span['size']
+                for c in span['chars']:
+                    g = pymupdf.Rect(c['bbox'])
+                    ink[origin_key(c['origin'])] = g
+                    if not c['c'].strip() or g.is_empty:
+                        continue
+                    for r in rules:
+                        if g.x1 > r.x0 and g.x0 < r.x1:
+                            gap = max(r.y0 - g.y1, g.y0 - r.y1)
+                        elif g.y1 > r.y0 and g.y0 < r.y1:
+                            gap = max(r.x0 - g.x1, g.x0 - r.x1)
+                        else:
+                            continue
+                        least_rule = gap if least_rule is None else min(least_rule, gap)
+                        if gap <= margin:
+                            add('ruleClearance', [c['c'], round(gap, 2)])
+    for span in page.get_texttrace():
+        chars = [(pymupdf.Rect(c[3]), chr(c[0])) for c in span['chars'] if chr(c[0]).strip()]
+        if not chars:
+            continue
+        if span.get('type') == 3 or span.get('opacity', 1) < 1:
+            add('hiddenText', chars[0][1])
+        for box, ch in chars:
+            if box.y0 < rect.y0 - EDGE or box.y1 > rect.y1 + EDGE or box.x0 < rect.x0 - EDGE or box.x1 > rect.x1 + EDGE:
+                add('pageEdge', ch)
+                break
+    contrast(page, fills, ink, metrics, add, used)
+    gap = line_ink(path, pno, reach)
+    if gap is not None and gap <= clearance:
+        add('lineInk', round(gap, 2))
+    hidden = visible_ink(path, pno)
+    if hidden > 0:
+        add('visibleInk', hidden)
+    return found, least_rule, gap
+
+
+def check_pdf(path, clearance=0.05, reach=0.5):
+    doc = pymupdf.open(str(path))
+    result = {'sha256': hashlib.sha256(Path(path).read_bytes()).hexdigest(), 'pages': doc.page_count, 'found': {}}
+    if Path(path).stat().st_size > 8 * 1024 * 1024 or doc.page_count > 100:
+        # The reader refuses the whole file; nothing else is read.
+        result['found']['size'] = [{'bytes': Path(path).stat().st_size, 'pages': doc.page_count}]
+        return result
+    if doc.is_encrypted or doc.needs_pass:
+        result['found']['encryption'] = [True]
+        return result
+    if doc.get_ocgs():
+        result['found']['layers'] = list(doc.get_ocgs())
+    least_rule, least_line, most_overlap = None, None, None
+    used, lone = Counter(), set()
+    for pno in range(doc.page_count):
+        found, rule, gap = check_page(str(path), doc, pno, clearance, reach, used)
+        maps = tounicode.check_page(doc, pno, lone)
+        if maps:
+            found['toUnicode'] = maps
+        # The reader refuses a turned page before it lays the page out.
+        if not doc[pno].rotation:
+            try:
+                lines, most = items.check_page(doc, pno)
+            except items.Unmodelled as reason:
+                found['items'] = [str(reason)]
+            else:
+                if lines:
+                    found['overlap'] = lines
+                if most is not None:
+                    most_overlap = most if most_overlap is None else max(most_overlap, most)
+                found.update(adjacent_rows(doc, pno, used))
+                found.update(drawing_tests(doc, pno, used))
+        for k, v in found.items():
+            result['found'].setdefault(k, []).extend([{'page': pno + 1, 'at': x} for x in v[:3]])
+        if rule is not None:
+            least_rule = rule if least_rule is None else min(least_rule, rule)
+        if gap is not None:
+            least_line = gap if least_line is None else min(least_line, gap)
+    # The planted control on the first page: three quarters of the median
+    # distance between its lines, up and down, must show shared ink, or
+    # nothing was measured. (How fine it sees is test_eligibility.py's.)
+    numbers = line_numbers(shows(content(doc, 0)[1]))
+    lines = [max(y for y, n in numbers.items() if n == k) for k in sorted(set(numbers.values()))]
+    if len(lines) >= 2:
+        gaps = sorted(a - b for a, b in zip(lines, lines[1:]))
+        half = round(gaps[len(gaps) // 2] * 0.75, 2)
+        control = [line_ink(str(path), 0, 0.0, shift=s) for s in (half, -half)]
+        seen = [c is not None for c in control]
+        result['lineControl'] = {'shiftPt': half, 'found': seen}
+        # Two lines meet one way only; more must meet both ways.
+        if not (all(seen) if len(lines) >= 3 else any(seen)):
+            result['found']['lineControl'] = [{'page': 1, 'at': half}]
+    if 'rotation' not in result['found']:
+        stop = columns.check_statement(doc, used)
+        if stop:
+            result['found']['columns'] = [stop]
+    # The rules the reader needs to read this statement (columns.py, the
+    # contrast test above and tounicode.py), so that a story written for a
+    # rule is seen to reach it before the seal (DEV-59).
+    used['loneSurrogates'] = len(lone)
+    result['exercised'] = dict(sorted((k, v) for k, v in used.items() if v))
+    result['leastRuleGapPt'] = None if least_rule is None else round(least_rule, 2)
+    result['leastLineGapPt'] = least_line   # None: no closer than reach
+    # The most one item starts under the end of the item before it in a
+    # line the reader lays out and keeps: the margin under its 0.2 points.
+    result['mostItemOverlapPt'] = None if most_overlap is None else round(most_overlap, 3)
+    return result
+
+
+def check_decision(package, story):
+    """The declared decision story's case and outstanding item."""
+    expected = json.loads((Path(package) / 'frozen' / 'EXPECTED.json').read_text(encoding='utf-8'))
+    want = next(s for s in expected['stories'] if s['id'] == story)
+    reasons = [g['reason'] for g in want.get('review', [])]
+    problems = []
+    if want.get('statement') != 'verified':
+        problems.append(f'{story} is not a verified statement')
+    if not any(r in ACCEPTABLE for r in reasons):
+        problems.append(f'no case the page accepts: {reasons}')
+    if not (want.get('bankOnly') or want.get('cashOnly')):
+        problems.append('no outstanding item for the checker self-test')
+    return {'story': story, 'reasons': reasons, 'problems': problems}
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('package')
+    ap.add_argument('--decide')
+    ap.add_argument('--clearance', type=float, default=0.05)
+    ap.add_argument('--out')
+    ap.add_argument('--counts', nargs='*', help='statements: print the rules each exercises, and stop')
+    a = ap.parse_args()
+    if a.counts is not None:
+        print(json.dumps({p: counts(p) for p in [a.package] + a.counts}))
+        return
+    if acceptable_in_source() != ACCEPTABLE:
+        raise SystemExit(f'ACCEPTABLE drifted from {VIEW}: {acceptable_in_source()}')
+    if columns.drift():
+        raise SystemExit(f'the reader no longer carries what columns.py copies: {columns.drift()}')
+    if tounicode.drift():
+        raise SystemExit(f'the reader no longer carries what tounicode.py copies: {tounicode.drift()}')
+    if items.drift():
+        raise SystemExit(f'the reader no longer carries what items.py copies: {items.drift()}')
+    if rows.drift():
+        raise SystemExit(f'the reader no longer carries what rows.py copies: {rows.drift()}')
+    if drawings.drift():
+        raise SystemExit(f'the reader no longer carries what drawings.py copies: {drawings.drift()}')
+    if cashbook.drift():
+        raise SystemExit(f'the product no longer carries what cashbook.py copies: {cashbook.drift()}')
+    package = Path(a.package)
+    # The modules the report was written with, by hash, so that a seal can
+    # say which checks ran (since G23).
+    tool = {m.__file__.rsplit('/', 1)[-1]: hashlib.sha256(Path(m.__file__).read_bytes()).hexdigest()
+            for m in (sys.modules[__name__], items, columns, tounicode, rows, drawings, cashbook)}
+    report = {'package': package.name, 'tool': tool, 'clearancePt': a.clearance, 'statements': {}}
+    for pdf in sorted((package / 'frozen').glob('*-statement.pdf')):
+        story = pdf.name.split('-')[0]
+        report['statements'][story] = check_pdf(pdf, a.clearance)
+        print(story, json.dumps(report['statements'][story]['found'], ensure_ascii=False)[:300],
+              'rule', report['statements'][story]['leastRuleGapPt'],
+              'line', report['statements'][story]['leastLineGapPt'],
+              'overlap', report['statements'][story]['mostItemOverlapPt'], flush=True)
+    report['cashbooks'] = {}
+    for book in sorted((package / 'frozen').glob('*-cashbook.xlsx')):
+        story = book.name.split('-')[0]
+        verdict = cashbook.check(book)
+        # The entries are the cashbook's own rows; the record keeps their count.
+        report['cashbooks'][story] = {**verdict, 'entries': len(verdict['entries'])}
+        print(story, 'cashbook', json.dumps(verdict['refused'] or 'read', ensure_ascii=False),
+              len(verdict['entries']), json.dumps(verdict['exercised']), json.dumps(verdict['notes']), flush=True)
+    if a.decide:
+        report['decision'] = check_decision(package, a.decide)
+        print('decision', report['decision'])
+    if a.out:
+        Path(a.out).write_text(json.dumps(report, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
+
+
+if __name__ == '__main__':
+    sys.exit(main())

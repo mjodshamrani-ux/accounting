@@ -1,0 +1,9 @@
+"Movement ID","Item ID","Item dimensions","Kind","Quantity","Unit","Value","Movement date","Posting date","GL account","Transfer ID","Origin ID"
+"PH00001","AMX-500","store=DXB-A","opening","50","box","2125.00","2027-05-01","2027-05-01","14100",,
+"PH00002","AMX-500","store=DXB-A","receipt","50","box","2125.00","2027-05-02","2027-05-02","14100",,
+"PH00003","AMX-500","store=DXB-A","issue","20","box","850.00","2027-05-04","2027-05-04","14100",,
+"PH00005","AMX-500","store=DXB-A","return-out","10","box","2200.00","2027-05-06","2027-05-06","14100",,"PH00002"
+"PH00006","AMX-500","store=DXB-A","closing","70","box","1200.00","2027-05-31","2027-05-31","14100",,
+"PH00007","SAL-500","store=SHJ-C","opening","300","bag","1860.00","2027-05-01","2027-05-01","14300",,
+"PH00008","SAL-500","store=SHJ-C","issue","120","bag","744.00","2027-05-08","2027-05-08","14300",,
+"PH00009","SAL-500","store=SHJ-C","closing","180","bag","1116.00","2027-05-31","2027-05-31","14300",,

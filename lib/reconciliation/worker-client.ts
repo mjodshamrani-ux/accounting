@@ -1,4 +1,5 @@
 import { snapshotStockPdfRequest } from './inventory-pdf-request.ts';
+import { snapshotBankStatementRequest } from './bank-statement-request.ts';
 import { validateStockPdfWorkerResponse } from './inventory-pdf-lifecycle.ts';
 import { snapshotStockRequest } from './inventory-register-request.ts';
 import {
@@ -40,6 +41,7 @@ export function workerRequestTimeout(action: string, payload: unknown) {
         /\.pdf$/i.test(file.name),
     );
   return action.startsWith('stock-pdf-') ||
+    action.startsWith('bank-statement-') ||
     isPdfRead(action, payload) ||
     action === 'restore-session' ||
     rereadsPdf
@@ -94,8 +96,48 @@ export function createWorkerClient(
           return reject(error);
         }
       }
+      // The clearing extract, its reading and scope, the same way.
+      if (action.startsWith('clearing-groups-')) {
+        try {
+          payload = structuredClone(payload);
+        } catch (error) {
+          return reject(error);
+        }
+      }
+      // The three allocation snapshots, their readings, scope and events.
+      if (action === 'allocation-advice-review') {
+        try {
+          payload = structuredClone(payload);
+        } catch (error) {
+          return reject(error);
+        }
+      }
+      // The five gateway batch snapshots, their readings and scope.
+      if (action === 'payment-gateway-batches-reconcile') {
+        try {
+          payload = structuredClone(payload);
+        } catch (error) {
+          return reject(error);
+        }
+      }
+      // The three asset section snapshots, their readings and scope.
+      if (action === 'fixed-assets-sections-review') {
+        try {
+          payload = structuredClone(payload);
+        } catch (error) {
+          return reject(error);
+        }
+      }
+      // Capture the statement originals, scope and decisions synchronously.
+      if (action.startsWith('bank-statement-')) {
+        try {
+          payload = snapshotBankStatementRequest(action, payload);
+        } catch (error) {
+          return reject(error);
+        }
+      }
       // Bind bank validation to the caller's sources and context at submission.
-      if (action.startsWith('bank-')) {
+      else if (action.startsWith('bank-')) {
         try {
           payload = structuredClone(payload);
         } catch (error) {
@@ -310,6 +352,193 @@ export function createWorkerClient(
             // Install only sheets re-read from this request's originals.
             response.value = requested;
           }
+          if (action === 'clearing-groups-reconcile') {
+            const value = response.value;
+            if (
+              !isRecord(value) ||
+              !isRecord(value.state) ||
+              !isRecord(value.result) ||
+              !isRecord(value.state.file) ||
+              !(value.state.file.original instanceof ArrayBuffer) ||
+              !value.state.file.original.byteLength ||
+              value.state.file.original.byteLength > MAX_FILE_BYTES
+            )
+              throw Error('CLEARING_GROUPS_WORKER_BINDING');
+            const { replayClearingGroups } = await import(
+              './clearing-groups-io.ts'
+            );
+            const recomputed = await replayClearingGroups(
+              payload as import('./clearing-groups.ts').ClearingGroupsInput,
+            );
+            const forwarded = value as unknown as typeof recomputed;
+            const fileOf = (state: typeof recomputed.state) =>
+              JSON.stringify({
+                reading: state.reading,
+                scope: state.scope,
+                name: state.file.name,
+                kind: state.file.kind,
+                sha256: state.file.sha256,
+                originalBytes: state.file.original!.byteLength,
+              });
+            if (
+              fileOf(forwarded.state) !== fileOf(recomputed.state) ||
+              JSON.stringify(forwarded.result) !==
+                JSON.stringify(recomputed.result)
+            )
+              throw Error('CLEARING_GROUPS_WORKER_BINDING');
+            const a = new Uint8Array(forwarded.state.file.original!),
+              b = new Uint8Array(recomputed.state.file.original!);
+            if (
+              a.length !== b.length ||
+              a.some((byte, offset) => byte !== b[offset])
+            )
+              throw Error('CLEARING_GROUPS_WORKER_BINDING');
+            // Install only the sheet re-read from this request's original.
+            response.value = recomputed;
+          }
+          if (action === 'allocation-advice-review') {
+            const reply = response.value;
+            if (
+              !isRecord(reply) ||
+              !isRecord(reply.state) ||
+              !isRecord(reply.result) ||
+              !isRecord(reply.review) ||
+              !Array.isArray(reply.state.files) ||
+              reply.state.files.length !== 3
+            )
+              throw Error('ALLOCATION_ADVICE_WORKER_BINDING');
+            const { replayAllocationAdvice } = await import(
+              './allocation-advice-io.ts'
+            );
+            const fresh = await replayAllocationAdvice(
+              payload as import('./allocation.ts').AllocationInput,
+            );
+            const sent = reply as unknown as typeof fresh;
+            const sources = (snapshot: typeof fresh.state) =>
+              JSON.stringify({
+                readings: snapshot.readings,
+                scope: snapshot.scope,
+                events: snapshot.events,
+                files: snapshot.files.map((f) => [
+                  f.name,
+                  f.kind,
+                  f.sha256,
+                  f.original?.byteLength,
+                ]),
+              });
+            if (
+              sources(sent.state) !== sources(fresh.state) ||
+              JSON.stringify(sent.result) !== JSON.stringify(fresh.result) ||
+              JSON.stringify(sent.review) !== JSON.stringify(fresh.review)
+            )
+              throw Error('ALLOCATION_ADVICE_WORKER_BINDING');
+            for (const [side, f] of sent.state.files.entries()) {
+              const x = new Uint8Array(f.original!),
+                y = new Uint8Array(fresh.state.files[side].original!);
+              if (x.length !== y.length || x.some((v, at) => v !== y[at]))
+                throw Error('ALLOCATION_ADVICE_WORKER_BINDING');
+            }
+            // Install only what this page replayed from its own request.
+            response.value = fresh;
+          }
+          if (action === 'payment-gateway-batches-reconcile') {
+            const answer = response.value;
+            if (
+              !isRecord(answer) ||
+              !isRecord(answer.state) ||
+              !isRecord(answer.result) ||
+              !Array.isArray(answer.state.files) ||
+              answer.state.files.length !== 5
+            )
+              throw Error('PG_BATCHES_WORKER_BINDING');
+            const { replayGatewayBatches } = await import(
+              './payment-gateway-batches-io.ts'
+            );
+            let own: Awaited<ReturnType<typeof replayGatewayBatches>>;
+            try {
+              own = await replayGatewayBatches(
+                payload as import('./payment-gateway-batches-io.ts').GatewayBatchesReplayInput,
+              );
+            } catch {
+              // The worker answered where this page refuses: not this request.
+              throw Error('PG_BATCHES_WORKER_BINDING');
+            }
+            const theirs = answer as unknown as typeof own;
+            const evidence = (state: typeof own.state) =>
+              JSON.stringify([
+                state.readings,
+                state.scope,
+                state.files.map((f) => [
+                  f.name,
+                  f.kind,
+                  f.sha256,
+                  f.original?.byteLength,
+                ]),
+              ]);
+            if (
+              evidence(theirs.state) !== evidence(own.state) ||
+              JSON.stringify(theirs.result) !== JSON.stringify(own.result)
+            )
+              throw Error('PG_BATCHES_WORKER_BINDING');
+            theirs.state.files.forEach((f, side) => {
+              const left = new Uint8Array(f.original!),
+                right = new Uint8Array(own.state.files[side].original!);
+              if (
+                left.length !== right.length ||
+                left.some((v, at) => v !== right[at])
+              )
+                throw Error('PG_BATCHES_WORKER_BINDING');
+            });
+            // Install only the review this page computed from its own bytes.
+            response.value = own;
+          }
+          if (action === 'fixed-assets-sections-review') {
+            const answer = response.value;
+            if (
+              !isRecord(answer) ||
+              !isRecord(answer.state) ||
+              !isRecord(answer.result) ||
+              !Array.isArray(answer.state.files) ||
+              answer.state.files.length !== 3
+            )
+              throw Error('FA_SECTIONS_WORKER_BINDING');
+            const { replayAssetSections } = await import(
+              './fixed-assets-sections-io.ts'
+            );
+            let mine: Awaited<ReturnType<typeof replayAssetSections>>;
+            try {
+              mine = await replayAssetSections(
+                payload as import('./fixed-assets-sections-io.ts').AssetSectionsReplayInput,
+              );
+            } catch {
+              // This page refuses what the worker reviewed: another request.
+              throw Error('FA_SECTIONS_WORKER_BINDING');
+            }
+            const given = answer as unknown as typeof mine;
+            const sources = (state: typeof mine.state) =>
+              JSON.stringify([
+                state.readings,
+                state.scope,
+                state.files.map((f) => [
+                  f.name,
+                  f.sha256,
+                  f.original?.byteLength,
+                ]),
+              ]);
+            if (
+              sources(given.state) !== sources(mine.state) ||
+              JSON.stringify(given.result) !== JSON.stringify(mine.result)
+            )
+              throw Error('FA_SECTIONS_WORKER_BINDING');
+            given.state.files.forEach((f, side) => {
+              const a = new Uint8Array(f.original!),
+                b = new Uint8Array(mine.state.files[side].original!);
+              if (a.length !== b.length || a.some((v, at) => v !== b[at]))
+                throw Error('FA_SECTIONS_WORKER_BINDING');
+            });
+            // The page keeps its own review of the bytes it sent.
+            response.value = mine;
+          }
           if (action.startsWith('stock-')) {
             response.value = await (
               action.startsWith('stock-pdf-')
@@ -318,6 +547,15 @@ export function createWorkerClient(
             )(action, response.value, payload);
           }
           validateWorkerValue(action, response.value, payload);
+          if (action.startsWith('bank-statement-')) {
+            const { validateBankStatementWorkerResponse } =
+              await import('./bank-statement-lifecycle.ts');
+            response.value = await validateBankStatementWorkerResponse(
+              action,
+              response.value,
+              payload,
+            );
+          }
           if (action.startsWith('ar-')) {
             const { validateArWorkerResponse } =
               await import('./ar-worker-binding.ts');

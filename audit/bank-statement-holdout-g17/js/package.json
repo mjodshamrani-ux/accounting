@@ -1,0 +1,17 @@
+{
+  "name": "bank-statement-holdout-g17-fonts",
+  "private": true,
+  "description": "Fontsource packages (SIL Open Font License) the G17 holdout fonts are built from; installed outside the repository.",
+  "dependencies": {
+    "@fontsource/alexandria": "5.3.0",
+    "@fontsource/libre-franklin": "5.3.0",
+    "@fontsource/merriweather": "5.3.0",
+    "@fontsource/nunito-sans": "5.3.0",
+    "@fontsource/public-sans": "5.3.0",
+    "@fontsource/readex-pro": "5.3.0",
+    "@fontsource/rubik": "5.3.0",
+    "@fontsource/source-code-pro": "5.3.1",
+    "@fontsource/ubuntu-mono": "5.3.0",
+    "@fontsource/work-sans": "5.3.0"
+  }
+}

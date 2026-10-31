@@ -1,0 +1,123 @@
+{
+ "schema": "tarasuf-pg1-engine-run/1",
+ "family": "payment-gateway-batches-1",
+ "rule": "equal to the sealed expectations in full",
+ "equal": 38,
+ "of": 38,
+ "stories": {
+  "F01": {
+   "equal": true
+  },
+  "F02": {
+   "equal": true
+  },
+  "F03": {
+   "equal": true
+  },
+  "F04": {
+   "equal": true
+  },
+  "F05": {
+   "equal": true
+  },
+  "F06": {
+   "equal": true
+  },
+  "F07": {
+   "equal": true
+  },
+  "F08": {
+   "equal": true
+  },
+  "F09": {
+   "equal": true
+  },
+  "F10": {
+   "equal": true
+  },
+  "F11": {
+   "equal": true
+  },
+  "F12": {
+   "equal": true
+  },
+  "F13": {
+   "equal": true
+  },
+  "F14": {
+   "equal": true
+  },
+  "F15": {
+   "equal": true
+  },
+  "F16": {
+   "equal": true
+  },
+  "F17": {
+   "equal": true
+  },
+  "F18": {
+   "equal": true
+  },
+  "F19": {
+   "equal": true
+  },
+  "F20": {
+   "equal": true
+  },
+  "F21": {
+   "equal": true
+  },
+  "F22": {
+   "equal": true
+  },
+  "F23": {
+   "equal": true
+  },
+  "F24": {
+   "equal": true
+  },
+  "F25": {
+   "equal": true
+  },
+  "F26": {
+   "equal": true
+  },
+  "F27": {
+   "equal": true
+  },
+  "F28": {
+   "equal": true
+  },
+  "F29": {
+   "equal": true
+  },
+  "F30": {
+   "equal": true
+  },
+  "F31": {
+   "equal": true
+  },
+  "F32": {
+   "equal": true
+  },
+  "F33": {
+   "equal": true
+  },
+  "F34": {
+   "equal": true
+  },
+  "F35": {
+   "equal": true
+  },
+  "D1": {
+   "equal": true
+  },
+  "D2": {
+   "equal": true
+  },
+  "D3": {
+   "equal": true
+  }
+ }
+}

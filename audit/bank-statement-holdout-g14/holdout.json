@@ -1,0 +1,81 @@
+{
+  "schema": "tarasuf-bnk-pdf1-holdout/1",
+  "status": "frozen synthetic holdout for BNK-PDF-1 G14; sealed and committed before the product was run on any of its files",
+  "synthetic": true,
+  "holdout": true,
+  "contract": "audit/bank-statement-foundation/contract.json",
+  "question": "G12's fix (white text judged visible by its glyphs' ink) has only the statements it was made on, and G8's rules for a DR written after its amount, a date written as touching runs and a typed cashbook have not been reached by a new writer since G8. On statements from TCPDF and mPDF, the PHP libraries many applications in the region use to write their own documents, sealed with the full eligibility check (G11, its columns from G13, and the rules each statement exercises), does bank-statement-native-1 complete every eligible positive with no false automatic approval, and which of the rules does each statement need?",
+  "changed": {
+    "producers": [
+      "TCPDF 6.10.0: a PHP application drawing its own table, a letterhead of Cell lines and each row's cells as MultiCells as tall as the row, the page number in TCPDF's Footer() with its own page aliases in English; one statement written instead as an HTML table through TCPDF's writeHTML; Arabic shaped into presentation forms and ordered by TCPDF itself in its right-to-left mode; the invisible 'Powered by TCPDF' line TCPDF adds to the last page turned off, as only a subclass can",
+      "mPDF 8.3.1: a PHP application's HTML statement, each page one table styled by CSS, the page number in an HTML footer, mPDF's own {PAGENO} and {nbpg} in one statement; Arabic shaped by mPDF's own OpenType layout and ordered by its bidi code, which writes a Latin date inside Arabic text with its segments reversed",
+      "PhpSpreadsheet 5.10.0 for the XLSX cashbooks"
+    ],
+    "fonts": ["Helvetica, the PDF standard font, not embedded", "DejaVu Sans, DejaVu Sans Mono and DejaVu Serif as TCPDF ships them", "IBM Plex Sans Arabic (Arabic), built from Fontsource and converted by TCPDF", "DejaVu Sans, DejaVu Sans Mono, FreeSans and FreeSerif as mPDF ships them, FreeSerif and DejaVu Sans for Arabic"],
+    "geometry": ["A4 portrait", "US Letter", "A4 landscape", "a full grid of cell borders under a heading filled without a border", "rules under every row", "no rules", "a heading rule", "striped rows", "a grey heading row", "headings filled in white in rows as tall as the type, so that the font's declared ascent and descent pass the fill while every letter lies on it", "headings left-aligned over right-aligned amounts", "monospaced type whose space is just over 0.6 em", "descriptions wrapping over two or more lines in their cells", "page totals"],
+    "periods": ["2027-01-01..2027-01-31", "2027-02-01..2027-02-28", "2027-03-01..2027-03-31", "2027-04-01..2027-04-30", "2027-05-01..2027-05-31", "2027-06-01..2027-06-30", "2027-09-01..2027-09-30", "2027-10-01..2027-10-31", "2027-11-01..2027-11-30", "2027-08-01..2027-10-31", "2027-12-01..2027-12-31", "2027-07-01..2027-07-31"],
+    "furniture": "two banks in English and Arabic (Riyadh Learning Bank, Hijaz Academic Bank), document titles and accounts other than the foundation's and earlier holdouts'",
+    "references": "SADAD bill numbers, student numbers by month (STU-A010-01), card terminal settlements by day (POS-4471-270105), supplier run references by date (PAY-270105-020), WPS batches by month (WPS-2701), cheque numbers and a returned cheque's (CHQ-552019-R), refund references, movements with no reference",
+    "relationships": "a private school's operating account: tuition by SADAD bill booked from the SADAD report that day or the next business day, by transfer under the student's number booked up to two days later, or by card at the school office, each day's cards settled by the bank the next business day; a WPS payroll batch by the 27th; GOSI by SADAD in mid-month; a supplier run each Tuesday; the bus contractor paid by cheque presented within days. A bus cheque presented six and five days after it was written; a day's card receipts booked gross against the bank's net settlement; the bank's monthly fee; two equal cash deposits on one day against two equal receipts; a refund to a withdrawing student booked as a receipt; GOSI valued before the period and transfers valued after it; a supplier payment and a transfer without their references on the statement; a supplier cheque not yet presented; a SADAD bill paid twice against one entry; a card day not yet settled; two families' fees in one transfer against two receipts; a parent's cheque returned with the bank's fee; a supplier paid twice under one reference against one entry; overdraft interest; a refund booked twice in the cashbook; accounts overdrawn the whole month or from mid-month, with DR after each amount",
+    "text": "descriptions that wrap where the writer breaks them in both languages, a description continuing at the top of page 2 in Arabic",
+    "faults": "a withdrawal printed with two digits transposed, the printed balances as the bank's ledger has them; page 3 bringing forward a balance that is not the one page 2 carried; the last page's footer counting one page more than the others'",
+    "cashbookXlsx": "R03 as a typed XLSX and R07 as a text XLSX, both from PhpSpreadsheet; every cashbook also as CSV"
+  },
+  "heldConstant": [
+    "the contract's column headings, control-line labels and Page n of N footer, in English and Arabic",
+    "the account/currency/period line as one line",
+    "dates as yyyy-mm-dd, SAR with two decimals, thousands separators, the DR suffix for an overdrawn balance",
+    "a real text layer; no scanned page; no image"
+  ],
+  "independence": {
+    "author": "The same assistant wrote the product, the foundation, the oracle, the G6, G8, G9, G10 and G12 holdouts, the fixes after them, the eligibility check and this holdout, and knew the reader's rules when designing the stories. Headings as tall as the type and monospaced amounts with DR after them are in the stories because G12's fix and G8's rule have not been reached by a new writer; they are what applications that write their own statements print. This is not a blind holdout: the stories and the writers are new to the product, the author is not.",
+    "oracle": "audit/bank-statement-foundation/oracle.py, unchanged: it reads the printed lines in the facts, the cashbook CSV and the contract, never recipe or intent, and imports nothing from the generator or the product. expected.py only runs it story by story with each story's own period.",
+    "verifier": "pdfminer.six, a PDF reader unrelated to the product's pdf.js, finds every printed line of the facts on its own row with all its values, and every description's words in order across the rows the writer wraps it over, Arabic in reading order glyph by glyph (verify.py, with its own self-test of planted changes and two changed XLSX cashbooks).",
+    "eligibility": "audit/bank-statement-eligibility/eligibility.py, run on the frozen PDFs before the seal with MuPDF and the raw content streams, never the product: every refusal the reader declares that it can check, the reading by columns (G13), the rules each statement exercises, and the decision story's case and outstanding item. Its report, ELIGIBILITY.json, is sealed and bound to the PDF hashes.",
+    "generator": "stories.py is a seventh lineage: a private school's operating account driven by a PCG32 generator; nothing is imported from the foundation's stories.mjs or from the G6, G8, G9, G10 or G12 holdouts.",
+    "drafts": "While the stories and writers were drafted, their PDFs were read with pdfminer.six, Poppler's pdftotext and pdftoppm, MuPDF and the eligibility check. Once, by mistake, the product's reader read two scratch variants as well: see productRunBeforeSeal.",
+    "productRunBeforeSeal": "While checking with the eligibility check whether an Arabic statement with DR balances from TCPDF or mPDF reads, the same command also ran the product's reader (readNativePdfWordSource and readBankStatementPdf, from a scratch script) on two scratch variants of R04 and R09 as then drafted, each with its opening overdrawn: DejaVu Sans with Arabic-Indic digits, from TCPDF and from mPDF. The product refused both, on page 1: «تعذر التحقق من نص أحد خطوط PDF». That refusal is one the eligibility check does not cover. Nothing was changed after it: R04 and R09, their writers, fonts and styles stay as designed, and no other story was changed. Their outcomes are therefore not independent evidence; the independent result is reported with and without them.",
+    "notTuned": "No product code changed between the start of G14 and the seal, and the product read none of these files."
+  },
+  "eligibility": {
+    "decided": "before any product run on these files",
+    "positives": ["R01", "R02", "R03", "R04", "R05", "R07", "R08", "R09", "R10"],
+    "held": {"R06": "balance-broken", "R11": "balance-broken", "R12": "incomplete-pages"},
+    "cashbookFormats": {"R03": "typed XLSX (PhpSpreadsheet)", "R07": "text XLSX (PhpSpreadsheet)"},
+    "writtenFor": {"visibleByInk": ["R02", "R08"], "drAfterAmount": ["R03", "R07"], "typedCashbook": ["R03"]},
+    "why": "Every statement stays inside the contract: its headings, labels, footer, line kinds, number and date formats and matching policy. The writer, font, table style, geometry, period, furniture and story are what the contract leaves open. The eligibility check found nothing in any of the twelve statements that the reader declares a reason to refuse, and read every one by its columns (ELIGIBILITY.json), so a refusal of a positive is not a correct one unless it is for a reason no check before the seal covers, which the report then names.",
+    "exercised": "As ELIGIBILITY.json counts them: visibility by ink in R02 and R08, the headings; DR after its amount in R03 and R07; a date read with its segments reversed in R09; a continuation in R08. No statement writes a date as touching runs: TCPDF and mPDF write each date as one run, in either direction. R03's cashbook is a typed XLSX.",
+    "draftFindings": [
+      "TCPDF writes an invisible line, 'Powered by TCPDF (www.tcpdf.org)' in Helvetica at 1 point with text render mode 3 and a link, at the foot of the last page of every file, unless a subclass sets its tcpdflink property false; there is no setting for it. The eligibility check found it as hidden text in every TCPDF draft, and on R03 the declared page footer was no longer the page's last line. The reader refuses hidden text, a refusal it declares, so a statement from TCPDF as it comes would be refused. The positives are written with it off; whether the reader should pass this line is a question for the product, reported with G14.",
+      "TCPDF fills and strokes a cell in one operation (re B) when it has a border and a fill, as in its own coloured-table example. The eligibility check found every heading glyph of R01, R02, R05 and R06 inside a drawing, and the white heading text on no background. It is the same form as autoTable's grid in G12. The headings are filled without a border here; the question stays with G12's.",
+      "mPDF writes private-use code points for glyphs it reaches by its OpenType substitutions in some fonts, so the text layer does not carry what the page shows: XB Riyaz, the Arabic font mPDF ships and picks by its script detection (three code points), Almarai in table cells (every space), IBM Plex Sans Arabic (spaces and digits in Arabic runs), Lateef (most letters) and Tajawal (spaces, in a probe); Cairo's Latin digits came out garbled. No statement is written in them. FreeSerif and DejaVu Sans, which mPDF also ships, come out clean.",
+      "mPDF orders a Latin number with hyphens inside Arabic text with its segments reversed, so «2027-11» in a description prints as «11-2027»: Arabic descriptions name the month instead. The period's dates in the Arabic account line print the same way, and the reader reads a date's segments in either order.",
+      "Brackets in an Arabic line are written in visual order with their mirrored glyphs, so «(تابع)» reads back «)تابع(»: the Arabic continuation is written «تابع:» and brackets in Arabic text are not measured here.",
+      "No Arabic statement here is overdrawn, and G14 does not measure one: in a first probe mPDF wrote «DR 78,720.47» in Latin digits in an Arabic table as one run, which the reader does not read as an amount; in the two variants the product also read by mistake (productRunBeforeSeal), the column check stopped TCPDF's at its opening line and read mPDF's.",
+      "TCPDF's writeHTML and mPDF break a reference inside the word when its column is narrow; the columns were widened and a word wider than its cell is an error in the TCPDF writer. TCPDF's Arabic overran its description column and its hamza touched the row rules in DejaVu Sans; the columns were widened and the rows made taller."
+    ]
+  },
+  "browserDecision": {
+    "story": "R01",
+    "ifRefused": ["R09", "R03"],
+    "why": "The browser run accepts the first acceptable case of one story and the export checker's self-test alters that story's workbook. R01 has a case the page accepts (date-gap) and an item outstanding, so every alteration has a target; ELIGIBILITY.json checks it. If the product refuses R01, the next of R09 (date-gap, items outstanding) and R03 (amount-date-suggestion, an item outstanding) it does not refuse is decided."
+  },
+  "attribution": {
+    "commit": "a6ad5d9",
+    "what": "After the first run, the same package is run on the product before G8's fixes and recorded beside it, so that each completed positive says whether it needed G8's rules. It is a diagnostic, not a second result."
+  },
+  "ablation": {
+    "script": "scripts/bank-statement-holdout-ablation.mjs",
+    "rules": ["drawing by ink", "rows by ink", "DR after its amount", "date runs joined", "typed cashbook amounts", "rectangle traced back to its start", "drawings by glyph boxes", "rows by glyph boxes", "visibility by ink"],
+    "what": "After the first run, on the commit it ran on, each rule is switched off in a private copy of the product, one at a time, and the package run again: a positive that completes with every rule and not with one off needed it. The statements written to need a rule are R02 and R08 (visibility by ink), R03 and R07 (DR after its amount) and R03 (typed cashbook amounts), as ELIGIBILITY.json counts before the seal; whether they need it is what the ablation measures. It is a diagnostic, not a second result."
+  },
+  "measures": {
+    "reading": "Every printed line read from the PDF equals the facts: kind, page, dates, reference, amounts, balances; descriptions and continuation text after NFKC and whitespace normalisation.",
+    "result": "The matching result, in the facts' keys, equals EXPECTED.json: automatic pairs, review groups with their reasons, both outstanding sides, timing, and held statements with their counts.",
+    "capacity": "Eligible positives whose result equals EXPECTED.json from upload through matching, save, restore and Excel in the browser.",
+    "falseAutomatic": "Automatic pairs that EXPECTED.json does not hold, over all twelve statements. Must be zero.",
+    "held": "A held statement is held whole, with the oracle's status, and nothing in it approved, suggested or called outstanding.",
+    "refusal": "A positive the product refuses, or holds without the oracle holding it, is a failed positive, never a correct abstention."
+  },
+  "afterRun": "Results are recorded as they come, with the commit they ran on. A fix made after seeing them turns this set into regression for that fix; a new claim of generalisation needs a new holdout."
+}

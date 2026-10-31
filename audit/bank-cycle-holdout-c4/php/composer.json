@@ -1,0 +1,14 @@
+{
+    "name": "tarasuf/bank-statement-holdout-g20",
+    "description": "The G20 typed XLSX cashbook, written by OpenSpout; installed outside the repository.",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.3",
+        "openspout/openspout": "4.32.0"
+    },
+    "config": {
+        "platform": {"php": "8.3.6"},
+        "allow-plugins": false
+    }
+}

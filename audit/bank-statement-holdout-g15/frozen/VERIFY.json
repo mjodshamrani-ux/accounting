@@ -1,0 +1,278 @@
+{
+ "reader": "pdfminer.six, glyph by glyph, rows by baseline, Arabic descriptions in reading order",
+ "factsSha256": "155171ec1d09a13c9e5171d372291d85f441b3aa32388b5f23c37ad16932e1c5",
+ "statements": [
+  {
+   "id": "T01",
+   "file": "T01-statement.pdf",
+   "sha256": "6a5c93552f4667bcfc15eb8ef3c71e0a78051ea0079802ff8a9f42c65b7d1de3",
+   "pages": 2,
+   "valuesFound": 162,
+   "ok": true,
+   "problems": [],
+   "creator": null,
+   "producer": "dompdf 3.1.6 + CPDF",
+   "fonts": [
+    "SUBAAB+SourceSans3-Bold",
+    "SUBAAC+SourceSans3-Regular"
+   ],
+   "fontDeclared": "Source Sans 3",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "T02",
+   "file": "T02-statement.pdf",
+   "sha256": "8a18fede6a6de3eb0416bcd5284b176e41fa21bf93e29fe199ebab32b001da54",
+   "pages": 3,
+   "valuesFound": 173,
+   "ok": true,
+   "problems": [],
+   "creator": null,
+   "producer": "dompdf 3.1.6 + CPDF",
+   "fonts": [
+    "SUBAAB+PTSerif-Bold",
+    "SUBAAC+PTSerif-Regular"
+   ],
+   "fontDeclared": "PT Serif",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "T03",
+   "file": "T03-statement.pdf",
+   "sha256": "19146be90e198601497624e29a666db914c2ecebd919ebf29be1c697a80f60f0",
+   "pages": 2,
+   "valuesFound": 174,
+   "ok": true,
+   "problems": [],
+   "creator": null,
+   "producer": "dompdf 3.1.6 + CPDF",
+   "fonts": [
+    "SUBAAB+SpaceMono-Bold",
+    "SUBAAC+SpaceMono-Regular"
+   ],
+   "fontDeclared": "Space Mono",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "T04",
+   "file": "T04-statement.pdf",
+   "sha256": "c95e06b1c4e10ba57e946ce6dde5071cc4dd2ea8d6a4f3a074aaa3ad0894776c",
+   "pages": 6,
+   "valuesFound": 451,
+   "ok": true,
+   "problems": [],
+   "creator": null,
+   "producer": "dompdf 3.1.6 + CPDF",
+   "fonts": [
+    "SUBAAB+IBMPlexSans-Bold",
+    "SUBAAC+IBMPlexSans-Regular"
+   ],
+   "fontDeclared": "IBM Plex Sans",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "T05",
+   "file": "T05-statement.pdf",
+   "sha256": "0e9dabfdffa7414622d44ef2312f356eda8e89d094ef16d8a98bc09b9cf77869",
+   "pages": 3,
+   "valuesFound": 164,
+   "ok": true,
+   "problems": [],
+   "creator": null,
+   "producer": "dompdf 3.1.6 + CPDF",
+   "fonts": [
+    "SUBAAB+SourceSans3-Bold",
+    "SUBAAC+SourceSans3-Regular"
+   ],
+   "fontDeclared": "Source Sans 3",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "T06",
+   "file": "T06-statement.pdf",
+   "sha256": "4a2213ce284d4100d5b3b637053645c126b5504685bc96abcc9fe7f1ca8c0daf",
+   "pages": 3,
+   "valuesFound": 164,
+   "ok": true,
+   "problems": [],
+   "creator": null,
+   "producer": "dompdf 3.1.6 + CPDF",
+   "fonts": [
+    "SUBAAB+PTSerif-Bold",
+    "SUBAAC+PTSerif-Regular"
+   ],
+   "fontDeclared": "PT Serif",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "T07",
+   "file": "T07-statement.pdf",
+   "sha256": "228ea37d8fa9c397d4bdf5ff5bfe1d31c32d4106e42562ee76cee40fc17336bd",
+   "pages": 3,
+   "valuesFound": 155,
+   "ok": true,
+   "problems": [],
+   "creator": null,
+   "producer": "FPDF 1.7",
+   "fonts": [
+    "utf8notosansarabic",
+    "utf8notosansarabicB"
+   ],
+   "fontDeclared": "Noto Sans Arabic",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "T08",
+   "file": "T08-statement.pdf",
+   "sha256": "3fb0a8be9ab66afbd05b1ac2fb4692ee80d22f4c18c35665426597e2dc14ceb4",
+   "pages": 3,
+   "valuesFound": 158,
+   "ok": true,
+   "problems": [],
+   "creator": null,
+   "producer": "FPDF 1.7",
+   "fonts": [
+    "utf8vazirmatn",
+    "utf8vazirmatnB"
+   ],
+   "fontDeclared": "Vazirmatn",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "T09",
+   "file": "T09-statement.pdf",
+   "sha256": "555502f8ae8d6ea19b8aa1ed218d7fb0440c149b66c6f697e4f24c69870e4693",
+   "pages": 2,
+   "valuesFound": 136,
+   "ok": true,
+   "problems": [],
+   "creator": null,
+   "producer": "FPDF 1.7",
+   "fonts": [
+    "utf8elmessiri",
+    "utf8elmessiriB"
+   ],
+   "fontDeclared": "El Messiri",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "T10",
+   "file": "T10-statement.pdf",
+   "sha256": "35c5da2f06f8c561606d4f818f57e7b0abd8bde31decb4d3f2792a0ce9d44ca3",
+   "pages": 3,
+   "valuesFound": 164,
+   "ok": true,
+   "problems": [],
+   "creator": null,
+   "producer": "FPDF 1.7",
+   "fonts": [
+    "utf8barlow",
+    "utf8barlowB"
+   ],
+   "fontDeclared": "Barlow",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "T11",
+   "file": "T11-statement.pdf",
+   "sha256": "adc13942203d88a7a8fe67aa38a7f47926739c4f870af0bf8417dc44f04a1b40",
+   "pages": 3,
+   "valuesFound": 181,
+   "ok": true,
+   "problems": [],
+   "creator": null,
+   "producer": "FPDF 1.7",
+   "fonts": [
+    "utf8redhatmono",
+    "utf8redhatmonoB"
+   ],
+   "fontDeclared": "Red Hat Mono",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "T12",
+   "file": "T12-statement.pdf",
+   "sha256": "d620ecba77c9985dafbb711d8842d16cb706153f1ee4fefe93a4c2f727c2c9cb",
+   "pages": 3,
+   "valuesFound": 133,
+   "ok": true,
+   "problems": [],
+   "creator": null,
+   "producer": "FPDF 1.7",
+   "fonts": [
+    "utf8notosansarabic",
+    "utf8notosansarabicB"
+   ],
+   "fontDeclared": "Noto Sans Arabic",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  }
+ ],
+ "ok": true,
+ "cashbookXlsx": [
+  {
+   "file": "T03-cashbook.xlsx",
+   "kind": "typed",
+   "cellTypes": [
+    "n"
+   ],
+   "sameAsCsv": true,
+   "sha256": "db0e0a9a873eb504d24f979e24dbc449732028364fd9b7b5af54f0ed9fac6444"
+  },
+  {
+   "file": "T10-cashbook.xlsx",
+   "kind": "text",
+   "sameAsCsv": true,
+   "sha256": "10984dc0c57d7f2f6ad8dd76e046d3da1f6aeb15acb6442bc4a90d9dabf47fc8"
+  }
+ ],
+ "selfTest": [
+  "T01: Dompdf Source Sans 3, grid: a withdrawal one halala off",
+  "T01: Dompdf Source Sans 3, grid: two balances swapped between rows",
+  "T01: Dompdf Source Sans 3, grid: the late remittance reference changed",
+  "T01: Dompdf Source Sans 3, grid: a description word changed",
+  "T02: Dompdf PT Serif, page totals: a page total changed",
+  "T02: Dompdf PT Serif, page totals: the short remittance changed",
+  "T02: Dompdf PT Serif, page totals: one of two equal cash deposits one halala off",
+  "T03: Dompdf Space Mono, DR: an overdrawn balance without DR",
+  "T03: Dompdf Space Mono, DR: the second laboratory payment reference changed",
+  "T03: Dompdf Space Mono, DR: a deposit one halala off",
+  "T04: Dompdf IBM Plex Sans, landscape: a word inside a wrapped description",
+  "T04: Dompdf IBM Plex Sans, landscape: the printed page numbers changed",
+  "T04: Dompdf IBM Plex Sans, landscape: the value date after the period changed",
+  "T05: Dompdf Source Sans 3, printed twice: a deposit one halala off",
+  "T06: Dompdf PT Serif, numbered as the page before: the third page read back as page 3",
+  "T07: go-pdf Arabic, Noto Sans Arabic, runs: a date changed",
+  "T07: go-pdf Arabic, Noto Sans Arabic, runs: the late batch reference changed",
+  "T07: go-pdf Arabic, Noto Sans Arabic, runs: a description word changed",
+  "T07: go-pdf Arabic, Noto Sans Arabic, runs: the terminal fee changed",
+  "T08: go-pdf Arabic, Vazirmatn, runs: the continuation text changed",
+  "T08: go-pdf Arabic, Vazirmatn, runs: the value date after the period changed",
+  "T08: go-pdf Arabic, Vazirmatn, runs: the returned cheque fee changed",
+  "T09: go-pdf Arabic, El Messiri, whole: a description word changed",
+  "T09: go-pdf Arabic, El Messiri, whole: the refund reference changed",
+  "T09: go-pdf Arabic, El Messiri, whole: a date changed",
+  "T10: go-pdf Barlow, stripes: the net card settlement changed",
+  "T10: go-pdf Barlow, stripes: the credit note reference changed",
+  "T10: go-pdf Barlow, stripes: a description word changed",
+  "T11: go-pdf Red Hat Mono: the unreferenced remittance changed",
+  "T11: go-pdf Red Hat Mono: the cash deposit reference changed",
+  "T11: go-pdf Red Hat Mono: a withdrawal one halala off",
+  "T12: go-pdf Arabic, Noto Sans Arabic, deposit as withdrawal: the closing balance changed",
+  "T03: XLSX cashbook one halala off its CSV",
+  "T10: XLSX cashbook one halala off its CSV",
+  "T01: the letter A drawn as .notdef",
+  "T09: the letter ﻲ drawn as .notdef"
+ ]
+}

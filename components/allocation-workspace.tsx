@@ -28,6 +28,7 @@ import {
   allocationDemoScope,
   allocationDemoReadings,
 } from '@/lib/reconciliation/allocation-demo';
+import { AllocationAdvicePanel } from './allocation-advice-panel';
 import './gl-tb-workspace.css';
 
 export function AllocationWorkspace({
@@ -839,6 +840,14 @@ export function AllocationWorkspace({
             </Button>
           </div>
         </section>
+      )}
+      {result && (
+        <AllocationAdvicePanel
+          key={JSON.stringify([result.context, events.map((e) => e.id)])}
+          input={input}
+          disabled={busy}
+          run={(work) => perform(work, () => {})}
+        />
       )}
     </main>
   );

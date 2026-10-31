@@ -1,0 +1,41 @@
+"Section","S1",,,,,
+"Entity","Synthetic Marine Services LLC",,,,,
+"Payroll run","MS-2027-11",,,,,
+"Currency","OMR",,,,,
+"Period start","2027-11-01",,,,,
+"Period end","2027-11-30",,,,,
+"Payroll posting date","2027-11-25",,,,,
+"Payment date","2027-11-26",,,,,
+"Line ID","Employee ID","Employee dimensions","Payee account","Component","Kind","Amount"
+"H10-001","MS-1001","depot=Sur","BK-53001","Base pay","earning","640.000"
+"H10-002","MS-1001","depot=Sur","BK-53001","Pension (employee)","deduction","44.800"
+"H10-003","MS-1001","depot=Sur","BK-53001","Pension (employer)","employer","67.200"
+"H10-004","MS-1001","depot=Sur","BK-53001","Net salary","net","595.200"
+"Total earnings","640.000",,,,,
+"Total deductions","44.800",,,,,
+"Total employer","67.200",,,,,
+"Total net","595.200",,,,,
+"Section","S2",,,,,
+"Entity","Synthetic Marine Services LLC",,,,,
+"Payroll run","MS-2027-11",,,,,
+"Currency","OMR",,,,,
+"Period start","2027-11-01",,,,,
+"Period end","2027-11-30",,,,,
+"Payroll posting date","2027-11-25",,,,,
+"Payment date","2027-11-26",,,,,
+"Line ID","Employee ID","Employee dimensions","Payee account","Component","Kind","Amount"
+"H10-005","MS-1002","depot=Sur","BK-53002","Base pay","earning","650.000"
+"H10-006","MS-1002","depot=Sur","BK-53002","Pension (employee)","deduction","45.500"
+"H10-007","MS-1002","depot=Sur","BK-53002","Pension (employer)","employer","68.250"
+"H10-008","MS-1002","depot=Sur","BK-53002","Net salary","net","604.500"
+"Total earnings","650.000",,,,,
+"Total deductions","45.500",,,,,
+"Total employer","68.250",,,,,
+"Total net","604.500",,,,,
+"End section","S2",,,,,
+"Run totals","MS-2027-11",,,,,
+"Total earnings","1290.000",,,,,
+"Total deductions","90.300",,,,,
+"Total employer","135.450",,,,,
+"Total net","1199.700",,,,,
+"End run totals","MS-2027-11",,,,,

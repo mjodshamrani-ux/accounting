@@ -1,0 +1,1200 @@
+Section,S-6000
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6000
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6000-O,opening,2026-09-01,0.00,52521.60
+G-000,movement,2026-09-23,0.00,31114.08
+G-001,movement,2026-09-09,0.00,29102.66
+G-002,movement,2026-09-29,23326.46,0.00
+G-003,movement,2026-09-06,7320.63,0.00
+G-004,movement,2026-09-06,0.00,610.26
+G-005,movement,2026-09-01,0.00,37874.68
+G-006,movement,2026-09-17,12654.28,0.00
+G-007,movement,2026-09-28,0.00,14910.24
+S-6000-C,closing,2026-09-30,0.00,122832.15
+End section,S-6000
+
+Section,S-6007
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6007
+Complete dimensions,cc=11
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6007-O,opening,2026-09-01,51664.54,0.00
+S-6007-C,closing,2026-09-30,51664.54,0.00
+End section,S-6007
+
+Section,S-6014
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6014
+Complete dimensions,cc=12
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6014-O,opening,2026-09-01,0.00,46430.85
+S-6014-C,closing,2026-09-30,0.00,46430.85
+End section,S-6014
+
+Section,S-6021
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6021
+Complete dimensions,cc=13
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6021-O,opening,2026-09-01,0.00,22328.43
+G-030,movement,2026-09-01,0.00,22499.57
+G-031,movement,2026-09-08,24881.10,24881.10
+G-032,movement,2026-09-06,0.00,0.00
+G-033,movement,2026-09-22,34919.94,34919.94
+G-034,movement,2026-09-20,15302.21,0.00
+S-6021-C,closing,2026-09-30,0.00,29525.79
+End section,S-6021
+
+Section,S-6028
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6028
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6028-O,opening,2026-09-01,68516.95,0.00
+G-040,movement,2026-09-01,37317.35,37317.35
+G-041,movement,2026-09-28,0.00,0.00
+G-042,movement,2026-09-05,0.00,22398.39
+G-043,movement,2026-09-21,43954.19,0.00
+G-044,movement,2026-09-14,44362.39,0.00
+G-045,movement,2026-09-02,5446.63,5446.63
+G-046,movement,2026-09-25,0.00,41925.69
+G-047,movement,2026-09-05,31991.89,31991.89
+S-6028-C,closing,2026-09-30,92509.45,0.00
+End section,S-6028
+
+Section,S-6035
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6035
+Complete dimensions,cc=11
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6035-O,opening,2026-09-01,0.00,23713.29
+G-050,movement,2026-09-22,28422.39,28422.39
+G-051,movement,2026-09-04,14841.74,0.00
+G-052,movement,2026-09-11,0.00,33668.00
+G-053,movement,2026-09-25,0.00,27704.92
+G-054,movement,2026-09-09,0.00,3410.92
+G-055,movement,2026-09-01,95.87,95.87
+G-056,movement,2026-09-05,13858.66,0.00
+G-057,movement,2026-09-27,39042.32,39042.32
+S-6035-C,closing,2026-09-30,0.00,59796.73
+End section,S-6035
+
+Section,S-6042
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6042
+Complete dimensions,cc=12
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6042-O,opening,2026-09-01,23454.76,0.00
+G-060,movement,2026-09-03,0.00,19539.46
+S-6042-C,closing,2026-09-30,3915.30,0.00
+End section,S-6042
+
+Section,S-6049
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6049
+Complete dimensions,cc=13
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6049-O,opening,2026-09-01,0.00,6504.57
+G-070,movement,2026-09-30,12055.57,12055.57
+G-071,movement,2026-09-18,17006.57,0.00
+S-6049-C,closing,2026-09-30,10502.00,0.00
+End section,S-6049
+
+Section,S-6056
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6056
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6056-O,opening,2026-09-01,28954.27,0.00
+G-080,movement,2026-09-08,0.00,897.92
+G-081,movement,2026-09-24,28602.22,0.00
+S-6056-C,closing,2026-09-30,56658.57,0.00
+End section,S-6056
+
+Section,S-6063
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6063
+Complete dimensions,cc=11
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6063-O,opening,2026-09-01,0.00,74602.99
+G-090,movement,2026-09-26,0.00,4007.50
+G-091,movement,2026-09-28,34589.04,34589.04
+G-092,movement,2026-09-04,48069.12,48069.12
+G-093,movement,2026-09-29,20133.53,20133.53
+G-094,movement,2026-09-06,4858.29,0.00
+G-095,movement,2026-09-13,13392.10,0.00
+G-096,movement,2026-09-25,35177.36,0.00
+S-6063-C,closing,2026-09-30,0.00,25182.74
+End section,S-6063
+
+Section,S-6070
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6070
+Complete dimensions,cc=12
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6070-O,opening,2026-09-01,0.00,36147.27
+G-100,movement,2026-09-17,0.00,8265.56
+G-101,movement,2026-09-29,4594.53,0.00
+G-102,movement,2026-09-12,860.18,860.18
+G-103,movement,2026-09-28,0.00,0.00
+S-6070-C,closing,2026-09-30,0.00,39818.30
+End section,S-6070
+
+Section,S-6077
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6077
+Complete dimensions,cc=13
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6077-O,opening,2026-09-01,23823.39,0.00
+G-110,movement,2026-09-20,1133.44,1133.44
+G-111,movement,2026-09-04,5484.23,5484.23
+G-112,movement,2026-09-17,27516.44,0.00
+G-113,movement,2026-09-23,1472.81,0.00
+G-114,movement,2026-09-23,14001.28,0.00
+G-115,movement,2026-09-04,14025.54,14025.54
+G-116,movement,2026-09-03,48814.39,0.00
+S-6077-C,closing,2026-09-30,115628.31,0.00
+End section,S-6077
+
+Section,S-6084
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6084
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6084-O,opening,2026-09-01,26239.88,0.00
+G-120,movement,2026-09-04,0.00,3090.37
+G-121,movement,2026-09-14,0.00,0.00
+G-122,movement,2026-09-12,0.00,15266.93
+G-123,movement,2026-09-25,0.00,0.00
+G-124,movement,2026-09-06,0.00,0.00
+G-125,movement,2026-09-02,8482.55,0.00
+G-126,movement,2026-09-17,36183.17,36183.17
+G-127,movement,2026-09-12,23469.71,23469.71
+S-6084-C,closing,2026-09-30,16365.13,0.00
+End section,S-6084
+
+Section,S-6091
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6091
+Complete dimensions,cc=11
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6091-O,opening,2026-09-01,0.00,55075.89
+G-130,movement,2026-09-11,0.00,23249.55
+G-131,movement,2026-09-22,39513.58,0.00
+G-132,movement,2026-09-09,0.00,41666.14
+G-133,movement,2026-09-12,28267.02,0.00
+G-134,movement,2026-09-19,35225.52,35225.52
+G-135,movement,2026-09-21,0.00,0.00
+S-6091-C,closing,2026-09-30,0.00,52210.98
+End section,S-6091
+
+Section,S-6098
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6098
+Complete dimensions,cc=12
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6098-O,opening,2026-09-01,20867.79,0.00
+G-140,movement,2026-09-05,30518.11,30518.11
+G-141,movement,2026-09-25,2670.37,0.00
+G-142,movement,2026-09-14,31493.22,31493.22
+G-143,movement,2026-09-29,0.00,19705.51
+G-144,movement,2026-09-23,24145.74,0.00
+G-145,movement,2026-09-03,47735.69,47735.69
+G-146,movement,2026-09-14,0.00,0.00
+S-6098-C,closing,2026-09-30,27978.39,0.00
+End section,S-6098
+
+Section,S-6105
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6105
+Complete dimensions,cc=13
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6105-O,opening,2026-09-01,0.00,47233.54
+G-150,movement,2026-09-24,37363.86,37363.86
+G-151,movement,2026-09-01,0.00,0.00
+G-152,movement,2026-09-15,0.00,0.00
+G-153,movement,2026-09-08,260.38,260.38
+S-6105-C,closing,2026-09-30,0.00,47233.54
+End section,S-6105
+
+Section,S-6112
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6112
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6112-O,opening,2026-09-01,7258.89,0.00
+G-160,movement,2026-09-06,39663.72,39663.72
+G-161,movement,2026-09-04,11942.68,0.00
+G-162,movement,2026-09-30,44298.55,0.00
+S-6112-C,closing,2026-09-30,63500.12,0.00
+End section,S-6112
+
+Section,S-6119
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6119
+Complete dimensions,cc=11
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6119-O,opening,2026-09-01,0.00,29417.18
+G-170,movement,2026-09-03,0.00,43970.28
+G-171,movement,2026-09-03,0.00,0.00
+G-172,movement,2026-09-27,17430.67,0.00
+G-173,movement,2026-09-03,0.00,0.00
+G-174,movement,2026-09-17,3599.38,0.00
+G-175,movement,2026-09-13,21843.87,0.00
+S-6119-C,closing,2026-09-30,0.00,30513.54
+End section,S-6119
+
+Section,S-6126
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6126
+Complete dimensions,cc=12
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6126-O,opening,2026-09-01,0.00,85041.10
+G-180,movement,2026-09-05,2290.28,2290.28
+G-181,movement,2026-09-21,0.00,0.00
+G-182,movement,2026-09-22,42665.78,0.00
+G-183,movement,2026-09-26,0.00,26294.67
+G-184,movement,2026-09-01,0.00,0.00
+G-185,movement,2026-09-13,32368.28,32368.28
+S-6126-C,closing,2026-09-30,0.00,68669.99
+End section,S-6126
+
+Section,S-6133
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6133
+Complete dimensions,cc=13
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6133-O,opening,2026-09-01,76585.34,0.00
+G-190,movement,2026-09-12,19756.28,19756.28
+G-191,movement,2026-09-06,36152.51,36152.51
+G-192,movement,2026-09-06,5334.41,0.00
+G-193,movement,2026-09-01,0.00,16279.47
+G-194,movement,2026-09-03,20905.60,0.00
+G-195,movement,2026-09-09,0.00,39013.19
+S-6133-C,closing,2026-09-30,47532.69,0.00
+End section,S-6133
+
+Section,S-6140
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6140
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6140-O,opening,2026-09-01,0.00,61718.90
+G-200,movement,2026-09-11,0.00,3981.05
+G-201,movement,2026-09-05,46995.64,46995.64
+G-202,movement,2026-09-23,19174.88,0.00
+G-203,movement,2026-09-09,17531.75,0.00
+G-204,movement,2026-09-11,28658.74,0.00
+S-6140-C,closing,2026-09-30,0.00,334.58
+End section,S-6140
+
+Section,S-6147
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6147
+Complete dimensions,cc=11
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6147-O,opening,2026-09-01,0.00,68345.49
+G-210,movement,2026-09-26,14762.26,14762.26
+G-211,movement,2026-09-03,26038.97,0.00
+G-212,movement,2026-09-17,0.00,0.00
+G-213,movement,2026-09-26,0.00,0.00
+S-6147-C,closing,2026-09-30,0.00,42306.52
+End section,S-6147
+
+Section,S-6154
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6154
+Complete dimensions,cc=12
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6154-O,opening,2026-09-01,0.00,30522.14
+G-220,movement,2026-09-05,49715.09,49715.09
+G-221,movement,2026-09-24,4534.91,0.00
+G-222,movement,2026-09-19,39800.98,0.00
+G-223,movement,2026-09-08,40036.95,0.00
+G-224,movement,2026-09-19,0.00,0.00
+S-6154-C,closing,2026-09-30,53850.70,0.00
+End section,S-6154
+
+Section,S-6161
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6161
+Complete dimensions,cc=13
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6161-O,opening,2026-09-01,62868.90,0.00
+G-230,movement,2026-09-20,0.00,36646.08
+G-231,movement,2026-09-27,11570.92,11570.92
+G-232,movement,2026-09-21,0.00,0.00
+S-6161-C,closing,2026-09-30,26222.82,0.00
+End section,S-6161
+
+Section,S-6168
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6168
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6168-O,opening,2026-09-01,0.00,12475.78
+G-240,movement,2026-09-27,0.00,34458.71
+G-241,movement,2026-09-07,0.00,0.00
+G-242,movement,2026-09-06,37599.13,0.00
+G-243,movement,2026-09-16,40587.62,0.00
+S-6168-C,closing,2026-09-30,31252.26,0.00
+End section,S-6168
+
+Section,S-6175
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6175
+Complete dimensions,cc=11
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6175-O,opening,2026-09-01,0.00,23005.46
+G-250,movement,2026-09-25,0.00,20336.47
+S-6175-C,closing,2026-09-30,0.00,43341.93
+End section,S-6175
+
+Section,S-6182
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6182
+Complete dimensions,cc=12
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6182-O,opening,2026-09-01,0.00,21625.91
+G-260,movement,2026-09-11,0.00,12386.86
+S-6182-C,closing,2026-09-30,0.00,34012.77
+End section,S-6182
+
+Section,S-6189
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6189
+Complete dimensions,cc=13
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6189-O,opening,2026-09-01,79097.82,0.00
+G-270,movement,2026-09-01,16820.52,16820.52
+G-271,movement,2026-09-28,10412.20,10412.20
+G-272,movement,2026-09-29,26807.57,26807.57
+G-273,movement,2026-09-16,41071.26,41071.26
+G-274,movement,2026-09-26,25863.60,0.00
+G-275,movement,2026-09-15,0.00,29691.46
+G-276,movement,2026-09-25,0.00,40649.71
+S-6189-C,closing,2026-09-30,34620.25,0.00
+End section,S-6189
+
+Section,S-6196
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6196
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6196-O,opening,2026-09-01,0.00,23840.68
+G-280,movement,2026-09-07,0.00,33110.01
+S-6196-C,closing,2026-09-30,0.00,56950.69
+End section,S-6196
+
+Section,S-6203
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6203
+Complete dimensions,cc=11
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6203-O,opening,2026-09-01,62099.77,0.00
+S-6203-C,closing,2026-09-30,62099.77,0.00
+End section,S-6203
+
+Section,S-6210
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6210
+Complete dimensions,cc=12
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6210-O,opening,2026-09-01,420.84,0.00
+G-300,movement,2026-09-29,31994.95,31994.95
+G-301,movement,2026-09-30,36575.53,36575.53
+G-302,movement,2026-09-19,281.32,0.00
+G-303,movement,2026-09-01,0.00,31667.18
+S-6210-C,closing,2026-09-30,0.00,30965.02
+End section,S-6210
+
+Section,S-6217
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6217
+Complete dimensions,cc=13
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6217-O,opening,2026-09-01,20303.74,0.00
+G-310,movement,2026-09-21,10636.71,10636.71
+G-311,movement,2026-09-23,0.00,35471.37
+S-6217-C,closing,2026-09-30,0.00,15167.63
+End section,S-6217
+
+Section,S-6224
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6224
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6224-O,opening,2026-09-01,0.00,80675.93
+G-320,movement,2026-09-03,28174.84,28174.84
+G-321,movement,2026-09-19,49672.70,49672.70
+G-322,movement,2026-09-24,48154.21,48154.21
+G-323,movement,2026-09-03,0.00,7917.68
+G-324,movement,2026-09-27,0.00,9337.13
+G-325,movement,2026-09-19,33168.24,33168.24
+G-326,movement,2026-09-26,0.00,42782.57
+G-327,movement,2026-09-14,0.00,6604.91
+S-6224-C,closing,2026-09-30,0.00,147318.22
+End section,S-6224
+
+Section,S-6231
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6231
+Complete dimensions,cc=11
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6231-O,opening,2026-09-01,0.00,60778.14
+G-330,movement,2026-09-06,10875.33,10875.33
+G-331,movement,2026-09-30,0.00,48719.78
+G-332,movement,2026-09-07,40328.02,40328.02
+G-333,movement,2026-09-03,0.00,6979.10
+G-334,movement,2026-09-21,38233.23,0.00
+S-6231-C,closing,2026-09-30,0.00,78243.80
+End section,S-6231
+
+Section,S-6238
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6238
+Complete dimensions,cc=12
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6238-O,opening,2026-09-01,1808.23,0.00
+S-6238-C,closing,2026-09-30,1808.23,0.00
+End section,S-6238
+
+Section,S-6245
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6245
+Complete dimensions,cc=13
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6245-O,opening,2026-09-01,31197.24,0.00
+G-350,movement,2026-09-26,0.00,47635.28
+G-351,movement,2026-09-27,0.00,0.00
+G-352,movement,2026-09-29,18041.98,0.00
+G-353,movement,2026-09-04,34567.94,0.00
+G-354,movement,2026-09-24,0.00,37789.27
+G-355,movement,2026-09-25,31520.76,31520.76
+G-356,movement,2026-09-19,49106.07,49106.07
+S-6245-C,closing,2026-09-30,0.00,1617.39
+End section,S-6245
+
+Section,S-6252
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6252
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6252-O,opening,2026-09-01,20947.45,0.00
+G-360,movement,2026-09-03,0.00,45229.04
+G-361,movement,2026-09-05,0.00,25552.50
+G-362,movement,2026-09-21,0.00,1485.39
+G-363,movement,2026-09-09,0.00,0.00
+G-364,movement,2026-09-05,0.00,16207.85
+G-365,movement,2026-09-19,13749.33,13749.33
+S-6252-C,closing,2026-09-30,0.00,67527.33
+End section,S-6252
+
+Section,S-6259
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6259
+Complete dimensions,cc=11
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6259-O,opening,2026-09-01,1216.55,0.00
+G-370,movement,2026-09-04,21943.40,21943.40
+G-371,movement,2026-09-18,41301.45,0.00
+G-372,movement,2026-09-26,2277.17,2277.17
+S-6259-C,closing,2026-09-30,42518.00,0.00
+End section,S-6259
+
+Section,S-6266
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6266
+Complete dimensions,cc=12
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6266-O,opening,2026-09-01,0.00,59656.70
+G-380,movement,2026-09-08,0.00,1709.70
+G-381,movement,2026-09-26,48673.36,0.00
+G-382,movement,2026-09-16,12385.81,12385.81
+G-383,movement,2026-09-28,46339.12,46339.12
+G-384,movement,2026-09-16,0.00,9146.13
+G-385,movement,2026-09-06,38761.90,38761.90
+S-6266-C,closing,2026-09-30,0.00,21839.17
+End section,S-6266
+
+Section,S-6273
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6273
+Complete dimensions,cc=13
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6273-O,opening,2026-09-01,3262.59,0.00
+S-6273-C,closing,2026-09-30,3262.59,0.00
+End section,S-6273
+
+Section,S-6280
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6280
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6280-O,opening,2026-09-01,4930.37,0.00
+S-6280-C,closing,2026-09-30,4930.37,0.00
+End section,S-6280
+
+Section,S-6287
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6287
+Complete dimensions,cc=11
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6287-O,opening,2026-09-01,0.00,18323.66
+G-410,movement,2026-09-04,0.00,17957.80
+S-6287-C,closing,2026-09-30,0.00,36281.46
+End section,S-6287
+
+Section,S-6294
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6294
+Complete dimensions,cc=12
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6294-O,opening,2026-09-01,0.00,77536.11
+G-420,movement,2026-09-13,11282.78,11282.78
+S-6294-C,closing,2026-09-30,0.00,77536.11
+End section,S-6294
+
+Section,S-6301
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6301
+Complete dimensions,cc=13
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6301-O,opening,2026-09-01,0.00,15059.41
+G-430,movement,2026-09-09,0.00,33954.55
+G-431,movement,2026-09-28,0.00,26694.72
+G-432,movement,2026-09-02,0.00,6899.07
+S-6301-C,closing,2026-09-30,0.00,82607.75
+End section,S-6301
+
+Section,S-6308
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6308
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6308-O,opening,2026-09-01,22609.86,0.00
+G-440,movement,2026-09-29,0.00,33495.62
+G-441,movement,2026-09-13,11916.49,11916.49
+G-442,movement,2026-09-04,2387.09,0.00
+G-443,movement,2026-09-21,40079.43,40079.43
+G-444,movement,2026-09-12,13372.73,0.00
+G-445,movement,2026-09-12,45443.40,45443.40
+S-6308-C,closing,2026-09-30,4874.06,0.00
+End section,S-6308
+
+Section,S-6315
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6315
+Complete dimensions,cc=11
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6315-O,opening,2026-09-01,58261.96,0.00
+G-450,movement,2026-09-18,5719.78,5719.78
+G-451,movement,2026-09-03,0.00,47108.32
+G-452,movement,2026-09-04,0.00,14428.29
+G-453,movement,2026-09-13,0.00,0.00
+G-454,movement,2026-09-11,46165.84,46165.84
+S-6315-C,closing,2026-09-30,0.00,3274.65
+End section,S-6315
+
+Section,S-6322
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6322
+Complete dimensions,cc=12
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6322-O,opening,2026-09-01,0.00,43707.47
+G-460,movement,2026-09-20,0.00,36643.81
+G-461,movement,2026-09-09,0.00,39910.09
+G-462,movement,2026-09-09,0.00,38344.48
+G-463,movement,2026-09-03,0.00,46431.92
+S-6322-C,closing,2026-09-30,0.00,205037.77
+End section,S-6322
+
+Section,S-6329
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6329
+Complete dimensions,cc=13
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6329-O,opening,2026-09-01,48163.43,0.00
+G-470,movement,2026-09-07,0.00,49613.34
+G-471,movement,2026-09-10,0.00,0.00
+G-472,movement,2026-09-29,41383.02,41383.02
+G-473,movement,2026-09-22,0.00,0.00
+G-474,movement,2026-09-07,0.00,0.00
+G-475,movement,2026-09-24,0.00,0.00
+S-6329-C,closing,2026-09-30,0.00,1449.91
+End section,S-6329
+
+Section,S-6336
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6336
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6336-O,opening,2026-09-01,32716.86,0.00
+G-480,movement,2026-09-06,23702.26,23702.26
+G-481,movement,2026-09-01,16420.08,16420.08
+G-482,movement,2026-09-27,0.00,0.00
+S-6336-C,closing,2026-09-30,32716.86,0.00
+End section,S-6336
+
+Section,S-6343
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6343
+Complete dimensions,cc=11
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6343-O,opening,2026-09-01,69190.41,0.00
+G-490,movement,2026-09-29,40283.24,40283.24
+G-491,movement,2026-09-09,0.00,0.00
+G-492,movement,2026-09-27,0.00,0.00
+G-493,movement,2026-09-29,0.00,34003.62
+S-6343-C,closing,2026-09-30,35186.79,0.00
+End section,S-6343
+
+Section,S-6350
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6350
+Complete dimensions,cc=12
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6350-O,opening,2026-09-01,29745.26,0.00
+G-500,movement,2026-09-29,40026.69,40026.69
+S-6350-C,closing,2026-09-30,29745.26,0.00
+End section,S-6350
+
+Section,S-6357
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6357
+Complete dimensions,cc=13
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6357-O,opening,2026-09-01,27552.47,0.00
+G-510,movement,2026-09-26,31464.05,31464.05
+G-511,movement,2026-09-08,23533.01,0.00
+G-512,movement,2026-09-29,0.00,0.00
+G-513,movement,2026-09-25,0.00,33005.02
+G-514,movement,2026-09-28,30441.08,0.00
+G-515,movement,2026-09-27,0.00,0.00
+G-516,movement,2026-09-16,24780.97,0.00
+G-517,movement,2026-09-19,0.00,48348.93
+S-6357-C,closing,2026-09-30,24953.58,0.00
+End section,S-6357
+
+Section,S-6364
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6364
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6364-O,opening,2026-09-01,0.00,29501.43
+G-520,movement,2026-09-17,40338.31,40338.31
+G-521,movement,2026-09-09,6034.46,0.00
+G-522,movement,2026-09-10,0.00,37336.34
+G-523,movement,2026-09-24,35274.54,35274.54
+G-524,movement,2026-09-16,16920.99,0.00
+G-525,movement,2026-09-18,0.00,0.00
+G-526,movement,2026-09-16,0.00,0.00
+G-527,movement,2026-09-29,0.00,0.00
+S-6364-C,closing,2026-09-30,0.00,43882.32
+End section,S-6364
+
+Section,S-6371
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6371
+Complete dimensions,cc=11
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6371-O,opening,2026-09-01,32803.42,0.00
+G-530,movement,2026-09-05,38125.79,38125.79
+S-6371-C,closing,2026-09-30,32803.42,0.00
+End section,S-6371
+
+Section,S-6378
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6378
+Complete dimensions,cc=12
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6378-O,opening,2026-09-01,0.00,40631.98
+G-540,movement,2026-09-19,5315.16,5315.16
+S-6378-C,closing,2026-09-30,0.00,40631.98
+End section,S-6378
+
+Section,S-6385
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6385
+Complete dimensions,cc=13
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6385-O,opening,2026-09-01,68534.31,0.00
+G-550,movement,2026-09-03,0.00,26475.87
+G-551,movement,2026-09-22,0.00,26180.87
+G-552,movement,2026-09-17,40391.12,0.00
+S-6385-C,closing,2026-09-30,56268.69,0.00
+End section,S-6385
+
+Section,S-6392
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6392
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6392-O,opening,2026-09-01,0.00,8618.38
+G-560,movement,2026-09-12,16023.98,16023.98
+G-561,movement,2026-09-27,14847.49,14847.49
+S-6392-C,closing,2026-09-30,0.00,8618.38
+End section,S-6392
+
+Section,S-6399
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6399
+Complete dimensions,cc=11
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6399-O,opening,2026-09-01,7850.53,0.00
+G-570,movement,2026-09-30,23710.22,23710.22
+G-571,movement,2026-09-24,0.00,0.00
+G-572,movement,2026-09-20,0.00,9002.22
+G-573,movement,2026-09-19,0.00,0.00
+G-574,movement,2026-09-13,0.00,33400.95
+G-575,movement,2026-09-07,1694.49,0.00
+G-576,movement,2026-09-13,0.00,6469.84
+G-577,movement,2026-09-27,0.00,0.00
+S-6399-C,closing,2026-09-30,0.00,39327.99
+End section,S-6399
+
+Section,S-6406
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6406
+Complete dimensions,cc=12
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6406-O,opening,2026-09-01,0.00,61374.91
+G-580,movement,2026-09-17,43193.60,43193.60
+G-581,movement,2026-09-24,44333.66,0.00
+G-582,movement,2026-09-18,0.00,6839.94
+G-583,movement,2026-09-27,0.00,0.00
+G-584,movement,2026-09-12,42381.39,42381.39
+G-585,movement,2026-09-20,26553.84,26553.84
+S-6406-C,closing,2026-09-30,0.00,23881.19
+End section,S-6406
+
+Section,S-6413
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,6413
+Complete dimensions,cc=13
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-6413-O,opening,2026-09-01,0.00,64690.41
+S-6413-C,closing,2026-09-30,0.00,64690.41
+End section,S-6413

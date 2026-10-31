@@ -1,0 +1,28 @@
+"Section","S1",,,,,
+"Entity","Synthetic Marine Services LLC",,,,,
+"Payroll run","MS-2027-11",,,,,
+"Currency","OMR",,,,,
+"Period start","2027-11-01",,,,,
+"Period end","2027-11-30",,,,,
+"Payroll posting date","2027-11-25",,,,,
+"Payment date","2027-11-26",,,,,
+"Line ID","Employee ID","Employee dimensions","Payee account","Component","Kind","Amount"
+"H20-001","MS-2001","depot=Duqm","BK-53201","Base pay","earning","700.000"
+"H20-002","MS-2001","depot=Duqm","BK-53201","Pension (employee)","deduction","49.000"
+"H20-003","MS-2001","depot=Duqm","BK-53201","Pension (employer)","employer","73.500"
+"H20-004","MS-2001","depot=Duqm","BK-99999","Net salary","net","651.000"
+"H20-005","MS-2002","depot=Duqm","BK-53202","Base pay","earning","705.000"
+"H20-006","MS-2002","depot=Duqm","BK-53202","Pension (employee)","deduction","49.350"
+"H20-007","MS-2002","depot=Duqm","BK-53202","Pension (employer)","employer","74.025"
+"H20-008","MS-2002","depot=Duqm","BK-53202","Net salary","net","655.650"
+"Total earnings","1405.000",,,,,
+"Total deductions","98.350",,,,,
+"Total employer","147.525",,,,,
+"Total net","1306.650",,,,,
+"End section","S1",,,,,
+"Run totals","MS-2027-11",,,,,
+"Total earnings","1405.000",,,,,
+"Total deductions","98.350",,,,,
+"Total employer","147.525",,,,,
+"Total net","1306.650",,,,,
+"End run totals","MS-2027-11",,,,,

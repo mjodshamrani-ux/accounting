@@ -1,0 +1,54 @@
+Section,PG-1
+Entity,Synthetic Clinics Co
+Payroll run,PR-2026-09
+Currency,SAR
+Period start,2026-09-01
+Period end,2026-09-30
+Payroll posting date,2026-09-27
+Payment date,2026-09-28
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+L-0001,E-1301,cc=ICU,ACCT-70121,Basic salary,earning,9900.00
+L-0002,E-1301,cc=ICU,ACCT-70121,Housing allowance,earning,2475.00
+L-0003,E-1301,cc=ICU,ACCT-70121,Transport allowance,earning,500.00
+L-0004,E-1301,cc=ICU,ACCT-70121,Social insurance (employee),deduction,1206.56
+L-0005,E-1301,cc=ICU,ACCT-70121,Social insurance (employer),employer,1454.06
+L-0006,E-1301,cc=ICU,ACCT-70121,Net pay,net,11668.44
+L-0007,E-1302,cc=ICU,ACCT-70122,Basic salary,earning,8700.00
+L-0008,E-1302,cc=ICU,ACCT-70122,Housing allowance,earning,2175.00
+Total earnings,23750.00
+Total deductions,1206.56
+Total employer,1454.06
+Total net,11668.44
+End section,PG-1
+
+Section,PG-2
+Entity,Synthetic Clinics Co
+Payroll run,PR-2026-09
+Currency,SAR
+Period start,2026-09-01
+Period end,2026-09-30
+Payroll posting date,2026-09-27
+Payment date,2026-09-28
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+L-0009,E-1302,cc=ICU,ACCT-70122,Transport allowance,earning,500.00
+L-0010,E-1302,cc=ICU,ACCT-70122,Social insurance (employee),deduction,1060.31
+L-0011,E-1302,cc=ICU,ACCT-70122,Social insurance (employer),employer,1277.81
+L-0012,E-1302,cc=ICU,ACCT-70122,Net pay,net,10314.69
+L-0013,E-1303,cc=LAB,ACCT-70123,Basic salary,earning,6100.00
+L-0014,E-1303,cc=LAB,ACCT-70123,Housing allowance,earning,1525.00
+L-0015,E-1303,cc=LAB,ACCT-70123,Transport allowance,earning,500.00
+L-0016,E-1303,cc=LAB,ACCT-70123,Social insurance (employee),deduction,743.43
+L-0017,E-1303,cc=LAB,ACCT-70123,Social insurance (employer),employer,895.93
+L-0018,E-1303,cc=LAB,ACCT-70123,Net pay,net,7381.57
+Total earnings,8625.00
+Total deductions,1803.74
+Total employer,2173.74
+Total net,17696.26
+End section,PG-2
+
+Run totals,PR-2026-09
+Total earnings,32375.00
+Total deductions,3010.30
+Total employer,3627.80
+Total net,29364.70
+End run totals,PR-2026-09

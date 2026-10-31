@@ -29,6 +29,7 @@ import {
   payrollDemoScope,
 } from '@/lib/reconciliation/payroll-demo';
 import { payrollCopy } from '@/lib/i18n/payroll';
+import { PayrollLongRegisterPanel } from '@/components/payroll-long-register-panel';
 import './gl-tb-workspace.css';
 const emptyScope = (): PayrollScope =>
   ({
@@ -797,6 +798,7 @@ export function PayrollWorkspace({
             )}
           </section>
         )}
+        <PayrollLongRegisterPanel />
       </section>
     </div>
   );

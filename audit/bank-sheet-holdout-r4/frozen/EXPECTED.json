@@ -1,0 +1,1186 @@
+{
+ "stories": {
+  "K01": {
+   "adjustedBank": 34698610,
+   "adjustedBook": 34698610,
+   "bank": {
+    "balance": 34698610,
+    "page": 1
+   },
+   "book": {
+    "balance": 34698610,
+    "note": "Cash at bank ledger, January close"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2028-01-31",
+    "start": "2028-01-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": {
+     "date": "2028-02-03",
+     "name": "Preparer K. Accountant",
+     "valid": true
+    },
+    "reviewed": {
+     "date": "2028-02-04",
+     "name": "Reviewer L. Senior",
+     "valid": true
+    }
+   },
+   "status": "reconciled"
+  },
+  "K02": {
+   "adjustedBank": 25875597,
+   "adjustedBook": 25875597,
+   "bank": {
+    "balance": 24830147,
+    "page": 2
+   },
+   "book": {
+    "balance": 25875597,
+    "note": "Cash at bank ledger, February close"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2028-02-29",
+    "start": "2028-02-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 184550,
+       "date": "2028-02-27",
+       "direction": "out",
+       "id": "PV-K02-91",
+       "item": "FEB:PV-K02-91",
+       "origin": "unmatched",
+       "page": null,
+       "period": "FEB",
+       "reason": null,
+       "reference": "CHK-K02-2702",
+       "row": 7,
+       "side": "cashbook",
+       "source": "16c4173dd881236dfca7a8153aa119371e26595d746e696f4dfc168be14d12cb"
+      }
+     ],
+     "total": 184550
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 1230000,
+       "date": "2028-02-29",
+       "direction": "in",
+       "id": "RV-K02-92",
+       "item": "FEB:RV-K02-92",
+       "origin": "unmatched",
+       "page": null,
+       "period": "FEB",
+       "reason": null,
+       "reference": "DEP-K02-2902",
+       "row": 8,
+       "side": "cashbook",
+       "source": "16c4173dd881236dfca7a8153aa119371e26595d746e696f4dfc168be14d12cb"
+      }
+     ],
+     "total": 1230000
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": {
+     "date": "2028-02-29",
+     "name": "Preparer K. Accountant",
+     "valid": true
+    },
+    "reviewed": {
+     "date": "2028-03-01",
+     "name": "Reviewer L. Senior",
+     "valid": true
+    }
+   },
+   "status": "reconciled"
+  },
+  "K03": {
+   "adjustedBank": 72628550,
+   "adjustedBook": 72628550,
+   "bank": {
+    "balance": 72628550,
+    "page": 1
+   },
+   "book": {
+    "balance": 72595935,
+    "note": "دفتر الأستاذ، النقد لدى البنك، إقفال مارس"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "ar",
+   "period": {
+    "end": "2028-03-31",
+    "start": "2028-03-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [
+      {
+       "age": null,
+       "amount": 41240,
+       "date": "2028-03-31",
+       "direction": "in",
+       "id": "S7",
+       "item": "MAR:S7",
+       "origin": "unmatched",
+       "page": 1,
+       "period": "MAR",
+       "reason": null,
+       "reference": "INT-K03-0331",
+       "row": null,
+       "side": "statement",
+       "source": "4e5f0eac98fd4283bc908317a3972336827413a7ae7300e69f9bfa703d30faa0"
+      }
+     ],
+     "total": 41240
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [
+      {
+       "age": null,
+       "amount": 8625,
+       "date": "2028-03-31",
+       "direction": "out",
+       "id": "S6",
+       "item": "MAR:S6",
+       "origin": "unmatched",
+       "page": 1,
+       "period": "MAR",
+       "reason": null,
+       "reference": "FEE-K03-0331",
+       "row": null,
+       "side": "statement",
+       "source": "4e5f0eac98fd4283bc908317a3972336827413a7ae7300e69f9bfa703d30faa0"
+      }
+     ],
+     "total": 8625
+    }
+   },
+   "signoffs": {
+    "prepared": {
+     "date": "2028-04-02",
+     "name": "المحاسب ع. الزهراني",
+     "valid": true
+    },
+    "reviewed": {
+     "date": "2028-04-03",
+     "name": "المراجع ف. القرني",
+     "valid": true
+    }
+   },
+   "status": "reconciled"
+  },
+  "K04": {
+   "adjustedBank": 15530576,
+   "adjustedBook": 15620576,
+   "bank": {
+    "balance": 15620576,
+    "page": 1
+   },
+   "book": {
+    "balance": 15620576,
+    "note": "Ledger before the two year-end cheques were posted"
+   },
+   "currency": "SAR",
+   "difference": -90000,
+   "language": "en",
+   "period": {
+    "end": "2027-12-31",
+    "start": "2027-12-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 40000,
+       "date": "2027-12-28",
+       "direction": "out",
+       "id": "PV-K04-41",
+       "item": "DEC:PV-K04-41",
+       "origin": "unmatched",
+       "page": null,
+       "period": "DEC",
+       "reason": null,
+       "reference": "CHK-K04-1228",
+       "row": 7,
+       "side": "cashbook",
+       "source": "a5dcd4299c78f5bcb4b618a67abac059caf0141341d52f11b1eee459828f9141"
+      },
+      {
+       "age": null,
+       "amount": 50000,
+       "date": "2027-12-30",
+       "direction": "out",
+       "id": "PV-K04-42",
+       "item": "DEC:PV-K04-42",
+       "origin": "unmatched",
+       "page": null,
+       "period": "DEC",
+       "reason": null,
+       "reference": "CHK-K04-1230",
+       "row": 8,
+       "side": "cashbook",
+       "source": "a5dcd4299c78f5bcb4b618a67abac059caf0141341d52f11b1eee459828f9141"
+      }
+     ],
+     "total": 90000
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "difference"
+  },
+  "K05": {
+   "adjustedBank": -124485360,
+   "adjustedBook": -124485360,
+   "bank": {
+    "balance": -123760360,
+    "page": 1
+   },
+   "book": {
+    "balance": -124485360,
+    "note": "Overdraft facility ledger, credit balance"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2028-01-31",
+    "start": "2028-01-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 725000,
+       "date": "2028-01-30",
+       "direction": "out",
+       "id": "PV-K05-51",
+       "item": "JAN:PV-K05-51",
+       "origin": "unmatched",
+       "page": null,
+       "period": "JAN",
+       "reason": null,
+       "reference": "CHK-K05-0130",
+       "row": 7,
+       "side": "cashbook",
+       "source": "19755f6c59ddb87472290d549171ce08db73eea011066e05a9d1d86d1db63dd2"
+      }
+     ],
+     "total": 725000
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "reconciled"
+  },
+  "K06": {
+   "previous": "none",
+   "refusal": "SHEET_STATEMENT_HELD"
+  },
+  "K07": {
+   "previous": "none",
+   "refusal": "SHEET_STATEMENT_HELD"
+  },
+  "K08": {
+   "adjustedBank": 3323086,
+   "adjustedBook": 3323086,
+   "bank": {
+    "balance": 3174586,
+    "page": 1
+   },
+   "book": {
+    "balance": 3174586,
+    "note": "Cash at bank ledger, December close"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2027-12-31",
+    "start": "2027-12-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 65500,
+       "date": "2027-12-17",
+       "direction": "out",
+       "id": "PV-K08-82",
+       "item": "DEC:PV-K08-82",
+       "origin": "rejected",
+       "page": null,
+       "period": "DEC",
+       "reason": "amount-date-suggestion",
+       "reference": "",
+       "row": 7,
+       "side": "cashbook",
+       "source": "56a158753e583d4b4a36428180cee34592805b54098da2403eb9bfdb2b4b4bcc"
+      }
+     ],
+     "total": 65500
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 214000,
+       "date": "2027-12-11",
+       "direction": "in",
+       "id": "RV-K08-81",
+       "item": "DEC:RV-K08-81",
+       "origin": "pending",
+       "page": null,
+       "period": "DEC",
+       "reason": "amount-date-suggestion",
+       "reference": "",
+       "row": 4,
+       "side": "cashbook",
+       "source": "56a158753e583d4b4a36428180cee34592805b54098da2403eb9bfdb2b4b4bcc"
+      }
+     ],
+     "total": 214000
+    },
+    "statementDepositsNotInBook": {
+     "items": [
+      {
+       "age": null,
+       "amount": 214000,
+       "date": "2027-12-10",
+       "direction": "in",
+       "id": "S3",
+       "item": "DEC:S3",
+       "origin": "pending",
+       "page": 1,
+       "period": "DEC",
+       "reason": "amount-date-suggestion",
+       "reference": "",
+       "row": null,
+       "side": "statement",
+       "source": "5103dfc5cbc979fcbc6c1779b3fe5c93355503a596d13b0dbd873d2539d18f6c"
+      }
+     ],
+     "total": 214000
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [
+      {
+       "age": null,
+       "amount": 65500,
+       "date": "2027-12-18",
+       "direction": "out",
+       "id": "S5",
+       "item": "DEC:S5",
+       "origin": "rejected",
+       "page": 1,
+       "period": "DEC",
+       "reason": "amount-date-suggestion",
+       "reference": "",
+       "row": null,
+       "side": "statement",
+       "source": "5103dfc5cbc979fcbc6c1779b3fe5c93355503a596d13b0dbd873d2539d18f6c"
+      }
+     ],
+     "total": 65500
+    }
+   },
+   "signoffs": {
+    "prepared": {
+     "date": "2028-01-04",
+     "name": "Preparer K. Accountant",
+     "valid": false
+    },
+    "reviewed": null
+   },
+   "status": "draft"
+  },
+  "K09": {
+   "adjustedBank": 76673938,
+   "adjustedBook": 76673938,
+   "bank": {
+    "balance": 77098938,
+    "page": 1
+   },
+   "book": {
+    "balance": 76673938,
+    "note": "Cash at bank ledger, January close"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2028-01-31",
+    "start": "2028-01-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 150000,
+       "date": "2028-01-09",
+       "direction": "out",
+       "id": "PV-K09-91",
+       "item": "JAN:PV-K09-91",
+       "origin": "unmatched",
+       "page": null,
+       "period": "JAN",
+       "reason": null,
+       "reference": "CHK-K09-0109",
+       "row": 7,
+       "side": "cashbook",
+       "source": "eead50c3653ba39d4d2a522dbf7bec316663d8362d2c4175fbd1c72ab9bbd23c"
+      },
+      {
+       "age": null,
+       "amount": 275000,
+       "date": "2028-01-05",
+       "direction": "out",
+       "id": "PV-K09-92",
+       "item": "JAN:PV-K09-92",
+       "origin": "unmatched",
+       "page": null,
+       "period": "JAN",
+       "reason": null,
+       "reference": "CHK-K09-0105",
+       "row": 8,
+       "side": "cashbook",
+       "source": "eead50c3653ba39d4d2a522dbf7bec316663d8362d2c4175fbd1c72ab9bbd23c"
+      }
+     ],
+     "total": 425000
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "reconciled"
+  },
+  "K10": {
+   "adjustedBank": -12002209,
+   "adjustedBook": -12002209,
+   "bank": {
+    "balance": -12002209,
+    "page": 1
+   },
+   "book": {
+    "balance": -12002209,
+    "note": "Cash at bank ledger, January close"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2028-01-31",
+    "start": "2028-01-01"
+   },
+   "previous": "accepted",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": {
+     "date": "2028-02-05",
+     "name": "Preparer K. Accountant",
+     "valid": true
+    },
+    "reviewed": {
+     "date": "2028-02-06",
+     "name": "Reviewer L. Senior",
+     "valid": true
+    }
+   },
+   "status": "reconciled"
+  },
+  "K11": {
+   "adjustedBank": 21241798,
+   "adjustedBook": 21241798,
+   "bank": {
+    "balance": 22151798,
+    "page": 1
+   },
+   "book": {
+    "balance": 21241798,
+    "note": "Cash at bank ledger, March close"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "ar",
+   "period": {
+    "end": "2028-03-31",
+    "start": "2028-03-01"
+   },
+   "previous": "accepted",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": 2,
+       "amount": 910000,
+       "date": "2028-02-28",
+       "direction": "out",
+       "id": "PV-K11-28",
+       "item": "FEB:PV-K11-28",
+       "origin": "carried",
+       "page": null,
+       "period": "FEB",
+       "reason": null,
+       "reference": "CHK-K11-0228",
+       "row": 7,
+       "side": "cashbook",
+       "source": "0dfd149fb61beb9550d0c29612301a8b793e6445697065ed3dda318ecde9f9f0"
+      }
+     ],
+     "total": 910000
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "reconciled"
+  },
+  "K12": {
+   "adjustedBank": 11539322,
+   "adjustedBook": 11539322,
+   "bank": {
+    "balance": 12827822,
+    "page": 2
+   },
+   "book": {
+    "balance": 11539322,
+    "note": "Cash at bank ledger, February close"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2028-02-29",
+    "start": "2028-02-01"
+   },
+   "previous": "accepted",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": 3,
+       "amount": 1288500,
+       "date": "2027-12-20",
+       "direction": "out",
+       "id": "PV-K12-20",
+       "item": "DEC:PV-K12-20",
+       "origin": "carried",
+       "page": null,
+       "period": "DEC",
+       "reason": null,
+       "reference": "CHK-K12-1220",
+       "row": 6,
+       "side": "cashbook",
+       "source": "9922725350894e694aafa76d29182b2e62146c17281b6d4a066f018a6cfe2b65"
+      }
+     ],
+     "total": 1288500
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": {
+     "date": "2028-03-02",
+     "name": "Preparer K. Accountant",
+     "valid": true
+    },
+    "reviewed": {
+     "date": "2028-03-03",
+     "name": "Reviewer L. Senior",
+     "valid": true
+    }
+   },
+   "status": "reconciled"
+  },
+  "K13": {
+   "previous": "ROLL_OPENING",
+   "refusal": "SHEET_PREVIOUS_REFUSED"
+  },
+  "K14": {
+   "previous": "ROLL_PREVIOUS_UNDECIDED",
+   "refusal": "SHEET_PREVIOUS_REFUSED"
+  },
+  "K15": {
+   "previous": "accepted",
+   "refusal": "SHEET_NO_BOOK_BALANCE"
+  },
+  "K16": {
+   "previous": "ROLL_CURRENCY",
+   "refusal": "SHEET_PREVIOUS_REFUSED"
+  },
+  "K17": {
+   "adjustedBank": 6200791,
+   "adjustedBook": 6200791,
+   "bank": {
+    "balance": 5560791,
+    "page": 1
+   },
+   "book": {
+    "balance": 6200791,
+    "note": "Cash at bank ledger, March close, after the audit query"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2028-03-31",
+    "start": "2028-03-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 640000,
+       "date": "2028-03-31",
+       "direction": "in",
+       "id": "RV-K17-31",
+       "item": "MAR:RV-K17-31",
+       "origin": "unmatched",
+       "page": null,
+       "period": "MAR",
+       "reason": null,
+       "reference": "DEP-K17-0331",
+       "row": 7,
+       "side": "cashbook",
+       "source": "6eeb7d862cc3d5aabe8d9121cc0627d3fda224d1b510550227dbd0e1e0575d71"
+      }
+     ],
+     "total": 640000
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": {
+     "date": "2028-04-04",
+     "name": "Preparer K. Accountant",
+     "valid": false
+    },
+    "reviewed": {
+     "date": "2028-04-05",
+     "name": "Reviewer L. Senior",
+     "valid": false
+    }
+   },
+   "status": "reconciled"
+  },
+  "K18": {
+   "adjustedBank": 12780578,
+   "adjustedBook": 12780578,
+   "bank": {
+    "balance": 12780578,
+    "page": 1
+   },
+   "book": {
+    "balance": 12780578,
+    "note": "Cash at bank ledger, January close"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2028-01-31",
+    "start": "2028-01-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": {
+     "date": "2028-02-03",
+     "name": "Preparer K. Accountant",
+     "valid": true
+    },
+    "reviewed": {
+     "date": "2028-02-02",
+     "name": "Reviewer L. Senior",
+     "valid": false
+    }
+   },
+   "status": "reconciled"
+  },
+  "K19": {
+   "adjustedBank": 55860977,
+   "adjustedBook": 55860977,
+   "bank": {
+    "balance": 54610977,
+    "page": 1
+   },
+   "book": {
+    "balance": 55864477,
+    "note": "Dollar account ledger, December close"
+   },
+   "currency": "USD",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2027-12-31",
+    "start": "2027-12-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 1250000,
+       "date": "2027-12-31",
+       "direction": "in",
+       "id": "RV-K19-31",
+       "item": "DEC:RV-K19-31",
+       "origin": "unmatched",
+       "page": null,
+       "period": "DEC",
+       "reason": null,
+       "reference": "DEP-K19-1231",
+       "row": 7,
+       "side": "cashbook",
+       "source": "35f141563b7dbbd47e80253385c2f49c1fe278005364accfec3fc80253e43e00"
+      }
+     ],
+     "total": 1250000
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [
+      {
+       "age": null,
+       "amount": 3500,
+       "date": "2027-12-31",
+       "direction": "out",
+       "id": "S6",
+       "item": "DEC:S6",
+       "origin": "unmatched",
+       "page": 1,
+       "period": "DEC",
+       "reason": null,
+       "reference": "FEE-K19-1231",
+       "row": null,
+       "side": "statement",
+       "source": "9f29e09eec29e32f2a3f3a0c1082adab9ba6bd2c098a585a48eb2190ccf1e36a"
+      }
+     ],
+     "total": 3500
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "reconciled"
+  },
+  "K20": {
+   "adjustedBank": 1432680,
+   "adjustedBook": 1432680,
+   "bank": {
+    "balance": 1846680,
+    "page": 1
+   },
+   "book": {
+    "balance": 1873680,
+    "note": "دفتر الأستاذ، النقد لدى البنك"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "ar",
+   "period": {
+    "end": "2028-01-31",
+    "start": "2028-01-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 414000,
+       "date": "2028-01-13",
+       "direction": "out",
+       "id": "PV-K20-77",
+       "item": "JAN:PV-K20-77",
+       "origin": "rejected",
+       "page": null,
+       "period": "JAN",
+       "reason": "amount-difference",
+       "reference": "PAY/K20/77",
+       "row": 5,
+       "side": "cashbook",
+       "source": "54c809093e2dcfa8d60b57050f87c608bafea72cfa5dcaff3742306d4f4b63ee"
+      }
+     ],
+     "total": 414000
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [
+      {
+       "age": null,
+       "amount": 441000,
+       "date": "2028-01-14",
+       "direction": "out",
+       "id": "S4",
+       "item": "JAN:S4",
+       "origin": "rejected",
+       "page": 1,
+       "period": "JAN",
+       "reason": "amount-difference",
+       "reference": "PAY/K20/77",
+       "row": null,
+       "side": "statement",
+       "source": "cc4da135cda31e9d71c0c30aa609d0c3002b7828b7c1cbf33c987684ea7bcffb"
+      }
+     ],
+     "total": 441000
+    }
+   },
+   "signoffs": {
+    "prepared": {
+     "date": "2028-02-07",
+     "name": "المحاسب ع. الزهراني",
+     "valid": true
+    },
+    "reviewed": null
+   },
+   "status": "reconciled"
+  },
+  "K21": {
+   "adjustedBank": 38849356,
+   "adjustedBook": 38849356,
+   "bank": {
+    "balance": 39047356,
+    "page": 1
+   },
+   "book": {
+    "balance": 39047356,
+    "note": "Cash at bank ledger, January close"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2028-01-31",
+    "start": "2028-01-01"
+   },
+   "previous": "accepted",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": 2,
+       "amount": 198000,
+       "date": "2027-12-30",
+       "direction": "out",
+       "id": "PV-K21-30",
+       "item": "DEC:PV-K21-30",
+       "origin": "pending",
+       "page": null,
+       "period": "DEC",
+       "reason": "carried-amount-suggestion",
+       "reference": "",
+       "row": 7,
+       "side": "cashbook",
+       "source": "6311c73af9c1fed682af29493e457fd2ed817e6ccd58f7a5f87fc3f9619944f2"
+      }
+     ],
+     "total": 198000
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [
+      {
+       "age": null,
+       "amount": 198000,
+       "date": "2028-01-04",
+       "direction": "out",
+       "id": "S2",
+       "item": "JAN:S2",
+       "origin": "pending",
+       "page": 1,
+       "period": "JAN",
+       "reason": "carried-amount-suggestion",
+       "reference": "",
+       "row": null,
+       "side": "statement",
+       "source": "40a9d641eb97656a761cfb202ac28898ba092b886550a44fa203bff749f70923"
+      }
+     ],
+     "total": 198000
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "draft"
+  },
+  "K22": {
+   "adjustedBank": 66312448,
+   "adjustedBook": 66312448,
+   "bank": {
+    "balance": 66587948,
+    "page": 1
+   },
+   "book": {
+    "balance": 66312448,
+    "note": "دفتر الأستاذ، النقد لدى البنك، إقفال مارس"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2028-03-31",
+    "start": "2028-03-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 275500,
+       "date": "2028-03-29",
+       "direction": "out",
+       "id": "PV-K22-29",
+       "item": "MAR:PV-K22-29",
+       "origin": "unmatched",
+       "page": null,
+       "period": "MAR",
+       "reason": null,
+       "reference": "CHK-K22-0329",
+       "row": 7,
+       "side": "cashbook",
+       "source": "99f24aa562f7cf9ec0b42bc3d170885d7a3381008e94a7f409357c8edda5ed60"
+      }
+     ],
+     "total": 275500
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "reconciled"
+  }
+ },
+ "version": "bank-sheet-foundation-oracle-1"
+}

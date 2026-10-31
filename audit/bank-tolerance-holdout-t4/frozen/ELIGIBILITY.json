@@ -1,0 +1,392 @@
+{
+ "package": "bank-tolerance-holdout-t4",
+ "tool": {
+  "eligibility.py": "f4cfd84770066871f01386b23f34c15d66abcc3a97f14ec0b65cec31887a4eb3",
+  "items.py": "6b9722fd314af6df178ce85444390e212962e03b3b9a58fcab95ded907dbf3bf",
+  "columns.py": "fa5309e91c8c0af7a794dd549a5a5e9c15931ed12dcfca36462dc06858c6c05b",
+  "tounicode.py": "66c78bfb6231160d8b057b3b83696fbefa8d2d93514c39f7d43c9923919e6848",
+  "rows.py": "72bef92be3845bdd784829e6771114147ddadf7862fa3dff350b3cc56de50f76",
+  "drawings.py": "222b44ea845a53cc59372ee41daa3c0b61dd6d0e0dd5258ab8867e8e06f61c0a",
+  "cashbook.py": "f757c143b02b7d158da14b2e5aa82fa37989b464a9ada20acfaf31b8e8eaac2c"
+ },
+ "clearancePt": 0.05,
+ "statements": {
+  "U01": {
+   "sha256": "2f3d4423008de39376320b1f6efbceb26ed7692427e7794a6302b9c3853476de",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.17,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 10,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U02": {
+   "sha256": "85d6fc30992d328f57f54fbc81c247dd94ef3c3e7e2302896eac09d986aaf07a",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 11,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U03": {
+   "sha256": "133a9f5def3d34934ad47e96117f9416a20c1e9fa56fcc2ad61ce82b37b96234",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.4,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 11,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.72,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U04": {
+   "sha256": "707373aedeb862bf552cbb7e747c16c3117b7ce57888089b349f1cd680f9a009",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.08,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 13,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 3.56,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U05": {
+   "sha256": "a429e6d2bd75a7152a89580e047950d8c633ac2f84ee3136b944d701e9982b2d",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.62,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 13,
+    "wordParts": 1
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U06": {
+   "sha256": "2adfa6b94110c0fb7198a6dd683cad940cf2c2c74fdee311e24304f3a1f4c259",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 12,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U07": {
+   "sha256": "070d240f0a45f20fb615c8a0e0fdad6f81f3a7370de0cbef7dc448e04ac03be4",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.92,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "rowsByInk": 2
+   },
+   "leastRuleGapPt": 4.73,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U08": {
+   "sha256": "8a9d9bb76496710992813ad8b93a4a84037eb3ed977b0a9bc8dcb3ae155288aa",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.08,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 9,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 3.56,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U09": {
+   "sha256": "ba9f325bac434b89776fe393afb6ce75614745816414a83782b929050c4ff39b",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 8,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U10": {
+   "sha256": "749efc527d7e49362a1aadf172d9ba59120f25f06aadf86defc3bdc51afec9d1",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.17,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 10,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U11": {
+   "sha256": "04766f9c5e699402eb6a71959ab94561174d97d0cfcebf08fc4b369720b31bb2",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 15.75,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "reversedDate": 34,
+    "rowsByInk": 6
+   },
+   "leastRuleGapPt": 2.59,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U12": {
+   "sha256": "2fbd32cb52200951d3c3553a9573495fd68f59579bbc48358708353409c1bb71",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.4,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 10,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.72,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U13": {
+   "sha256": "78c28dea1867ba47c5f24a027d6b3d00905a4b9bb9a039626f633e9210cf3921",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 15.45,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 10,
+    "rowsByInk": 3,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 5.99,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U14": {
+   "sha256": "a5d5ce83987e1f652a846e09a490bed715fa4c7c45958b1f3e0e2bbd2406fa66",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.62,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 8,
+    "wordParts": 1
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U15": {
+   "sha256": "b650c68a1c3c9cc92eb04b4378eea6cf93c4049914d9dc5e4e8a4b5c7e7bd974",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 10.65,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 2.25,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U16": {
+   "sha256": "455d0e537a491bb44ea359b11276c3b63ae8c5980ab2318823d464c4e22ece8f",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 10,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U17": {
+   "sha256": "0c8847820546039f4b6b6554c9fa1ecd7edf9fbe13f22cc7a114fa63539a748e",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.17,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 10,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U18": {
+   "sha256": "7b0a0cdb4b5384d098a88e273637e01a2ca4b331bc22801c988d423a24b00927",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.08,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 11,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 3.56,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U19": {
+   "sha256": "62a403051ac1f363a2d91fa2375f70964b90ee26f0c53b3387ca5bf34a6ec38b",
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.92,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "rowsByInk": 6
+   },
+   "leastRuleGapPt": 4.73,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "U20": {
+   "sha256": "96001d7a7ade3f9e249c2a55dac9ad53204d6774e834b710064ac506185c67f6",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 15.75,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "reversedDate": 14,
+    "rowsByInk": 3
+   },
+   "leastRuleGapPt": 2.59,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  }
+ },
+ "cashbooks": {}
+}

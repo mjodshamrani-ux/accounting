@@ -1,0 +1,151 @@
+{
+ "reader": "pdfminer.six (encryption support stubbed: these PDFs are unencrypted)",
+ "factsSha256": "d971991f60c9f6e93a27cbaa2653f81ba568f7f0dd001c2be52600e7d5990320",
+ "statements": [
+  {
+   "id": "BS01",
+   "file": "BS01-statement.pdf",
+   "sha256": "9af781800ca59c5e3cdc4795d1483384610bf7b387f631b7d733cd1ff06bb296",
+   "pages": 2,
+   "valuesFound": 56,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "BS02",
+   "file": "BS02-statement.pdf",
+   "sha256": "0e64d9006b103e7bad689830e4994467ea0b4f64ae2b898a4a790041ff8b94a5",
+   "pages": 2,
+   "valuesFound": 66,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "BS03",
+   "file": "BS03-statement.pdf",
+   "sha256": "84f866393f84fff57ae417330dca7c6861c4121943f21165929fa25816af2b7c",
+   "pages": 2,
+   "valuesFound": 60,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "BS04",
+   "file": "BS04-statement.pdf",
+   "sha256": "cbcb61a894e279aaca5bdbf499d72d0d49f37b6fa42c84b2ca89396d7ba7904b",
+   "pages": 2,
+   "valuesFound": 60,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "BS05",
+   "file": "BS05-statement.pdf",
+   "sha256": "b88c24f3a1f7b5395130b2149726e839cd547403832166c5bf11e062225abf8f",
+   "pages": 2,
+   "valuesFound": 61,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "BS06",
+   "file": "BS06-statement.pdf",
+   "sha256": "1daa2d7b37468626f5546317db469e7b8e5ac5d7afad68cbcba11cd0dbc5f96b",
+   "pages": 2,
+   "valuesFound": 61,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "BS07",
+   "file": "BS07-statement.pdf",
+   "sha256": "4c9b3384d57ec902649c2dc53f5f3bd1162b61a195447c169f6f961314b075a8",
+   "pages": 2,
+   "valuesFound": 66,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "BS08",
+   "file": "BS08-statement.pdf",
+   "sha256": "9d027e3e56b47e926b87fde3ce9627b25357c720c8e87e6493e8cfff8e79e842",
+   "pages": 2,
+   "valuesFound": 77,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "BS09",
+   "file": "BS09-statement.pdf",
+   "sha256": "229ced30b7ff1ed46eeb2587a3fe14a5de789b9f0893de23452f1d7ac14206e6",
+   "pages": 2,
+   "valuesFound": 76,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "BS10",
+   "file": "BS10-statement.pdf",
+   "sha256": "07fc998682c79803f00f20e1469ecfaa9927bbdb4f554d424ffed8a922140ab4",
+   "pages": 2,
+   "valuesFound": 61,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "BS11",
+   "file": "BS11-statement.pdf",
+   "sha256": "058b0dae80bf2bfc0c0cbf17ec79aa04e4ed91c71aa65fedc83948b49313e689",
+   "pages": 2,
+   "valuesFound": 56,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "BS12",
+   "file": "BS12-statement.pdf",
+   "sha256": "00e4e442149ae1e03c37bfb862b432020b4962bdf2245023d336dd677f45b328",
+   "pages": 2,
+   "valuesFound": 61,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "BS13",
+   "file": "BS13-statement.pdf",
+   "sha256": "2b91157a10c8f1835318b3988d82f5f852c0eacec5027014604b2cfdde33d817",
+   "pages": 2,
+   "valuesFound": 61,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "BS14",
+   "file": "BS14-statement.pdf",
+   "sha256": "8e58fd93e46cd29ebc80e8b23e1c9f0d743827d763a21692ccae6970df3e3246",
+   "pages": 70,
+   "valuesFound": 8682,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "BS15",
+   "file": "BS15-statement.pdf",
+   "sha256": "a8993327fdd95521ca1bca3c9706cbc8e5672b567a4ec7c5569d0c293dbc9e2c",
+   "pages": 100,
+   "valuesFound": 12402,
+   "ok": true,
+   "problems": []
+  },
+  {
+   "id": "BS16",
+   "file": "BS16-statement.pdf",
+   "sha256": "e2ea6865de828ad9de6b361a0c5c9ec9c6e6e3559c87d6e6322e42b6e6ca624e",
+   "pages": 2,
+   "valuesFound": 56,
+   "ok": true,
+   "problems": []
+  }
+ ],
+ "ok": true
+}

@@ -1,0 +1,49 @@
+Section,S-5100
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,5100
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-5100-O,opening,2026-09-01,0.00,0.00
+S-5100-C,closing,2026-09-30,0.00,0.00
+End section,S-5100
+
+Section,S-5200
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,5200
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-5200-O,opening,2026-09-01,100.00,0.00
+G-41,movement,2026-09-09,25.00,0.00
+S-5200-C,closing,2026-09-30,125.00,0.00
+End section,S-5200
+
+Section,S-5300
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,5300
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-5300-O,opening,2026-09-01,0.00,50.00
+G-42,movement,2026-09-10,0.00,10.00
+S-5300-C,closing,2026-09-30,0.00,60.00
+End section,S-5300

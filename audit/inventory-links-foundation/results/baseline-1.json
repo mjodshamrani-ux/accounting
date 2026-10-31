@@ -1,0 +1,1160 @@
+{
+ "schema": "tarasuf-inv3-baseline/1",
+ "family": "inventory-posted-register-gl-1",
+ "rule": "the product as it is, through its replay from bytes, against the sealed expectations",
+ "summary": {
+  "stories": 31,
+  "refusalsEqual": true,
+  "decisionsEqual": "30/30",
+  "unlinkedRows": 712,
+  "namedWithReasons": 0,
+  "keyNamed": 712,
+  "storiesWithIndistinctReasons": 3,
+  "workbookRowsNamedWithReasons": 0
+ },
+ "stories": {
+  "L01": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 4,
+   "unlinkedRows": 0,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 0,
+    "kindOnly": 0
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L02": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 2,
+   "unlinkedRows": 1,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 1,
+    "kindOnly": 1
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L03": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 2,
+   "unlinkedRows": 1,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 1,
+    "kindOnly": 1
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L04": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 2,
+   "unlinkedRows": 1,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 1,
+    "kindOnly": 1
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L05": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 2,
+   "unlinkedRows": 1,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 1,
+    "kindOnly": 1
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L06": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 2,
+   "unlinkedRows": 1,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 1,
+    "kindOnly": 1
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L07": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 2,
+   "unlinkedRows": 1,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 1,
+    "kindOnly": 1
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L08": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 2,
+   "unlinkedRows": 1,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 1,
+    "kindOnly": 1
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L09": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 2,
+   "unlinkedRows": 1,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 1,
+    "kindOnly": 1
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L10": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 2,
+   "unlinkedRows": 1,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 1,
+    "kindOnly": 1
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L11": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 2,
+   "unlinkedRows": 1,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 1,
+    "kindOnly": 1
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L12": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 2,
+   "unlinkedRows": 0,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 0,
+    "kindOnly": 0
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L13": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 2,
+   "unlinkedRows": 0,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 0,
+    "kindOnly": 0
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L14": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 2,
+   "unlinkedRows": 1,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 1,
+    "kindOnly": 1
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L15": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 2,
+   "unlinkedRows": 0,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 0,
+    "kindOnly": 0
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L16": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 2,
+   "unlinkedRows": 1,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 1,
+    "kindOnly": 1
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L17": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 4,
+   "unlinkedRows": 0,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 0,
+    "kindOnly": 0
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L18": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 2,
+   "unlinkedRows": 0,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 0,
+    "kindOnly": 0
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L19": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 2,
+   "unlinkedRows": 1,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 1,
+    "kindOnly": 1
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L20": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 2,
+   "unlinkedRows": 1,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 1,
+    "kindOnly": 1
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L21": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 2,
+   "unlinkedRows": 0,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 0,
+    "kindOnly": 0
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L22": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 3,
+   "unlinkedRows": 1,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 1,
+    "kindOnly": 1
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L23": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 3,
+   "unlinkedRows": 0,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 0,
+    "kindOnly": 0
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L24": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 2,
+   "unlinkedRows": 0,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 0,
+    "kindOnly": 0
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L25": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 300,
+   "unlinkedRows": 1,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 1,
+    "kindOnly": 1
+   },
+   "indistinct": [],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "L26": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 7,
+   "unlinkedRows": 6,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 6,
+    "kindOnly": 6
+   },
+   "indistinct": [
+    [
+     "mapping",
+     [
+      "MAPPINGS",
+      "NO_MAPPING"
+     ]
+    ],
+    [
+     "evidence",
+     [
+      "EVIDENCES",
+      "EVIDENCE_ACCOUNT",
+      "EVIDENCE_UNIT",
+      "NO_EVIDENCE"
+     ]
+    ]
+   ],
+   "linksInResult": false,
+   "workbook": {
+    "sheets": [
+     "Summary",
+     "Register",
+     "Mapping",
+     "Policy evidence",
+     "GL balances",
+     "Account comparisons",
+     "Missing",
+     "Issues",
+     "Cell evidence",
+     "Inventory",
+     "Reading",
+     "Events",
+     "Event members",
+     "Sources"
+    ],
+    "unlinkedRowsNamedWithReasons": 0
+   }
+  },
+  "D1": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 1000,
+   "unlinkedRows": 0,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 0,
+    "kindOnly": 0
+   },
+   "indistinct": [],
+   "linksInResult": false
+  },
+  "D2": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 5000,
+   "unlinkedRows": 298,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 298,
+    "kindOnly": 298
+   },
+   "indistinct": [
+    [
+     "evidence",
+     [
+      "EVIDENCE_ACCOUNT",
+      "EVIDENCE_UNIT",
+      "EVIDENCE_VALUATION",
+      "NO_EVIDENCE"
+     ]
+    ]
+   ],
+   "linksInResult": false
+  },
+  "D3": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 6658,
+   "unlinkedRows": 0,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 0,
+    "kindOnly": 0
+   },
+   "indistinct": [],
+   "linksInResult": false
+  },
+  "D4": {
+   "refused": "ROWS",
+   "refusalEqual": true
+  },
+  "D5": {
+   "refused": null,
+   "decisionEqual": true,
+   "decision": {
+    "financial": true,
+    "issues": true,
+    "missing": true,
+    "comparisons": true,
+    "totals": true
+   },
+   "registerRows": 6000,
+   "unlinkedRows": 392,
+   "stated": {
+    "rowAndReasons": 0,
+    "itemKey": 392,
+    "kindOnly": 392
+   },
+   "indistinct": [
+    [
+     "evidence",
+     [
+      "EVIDENCES",
+      "EVIDENCE_ACCOUNT",
+      "EVIDENCE_UNIT",
+      "EVIDENCE_VALUATION",
+      "NO_EVIDENCE"
+     ]
+    ],
+    [
+     "mapping",
+     [
+      "MAPPINGS",
+      "NO_MAPPING"
+     ]
+    ]
+   ],
+   "linksInResult": false
+  }
+ }
+}

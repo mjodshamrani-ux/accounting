@@ -1,0 +1,181 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-ablation/1",
+ "suite": "audit/bank-statement-holdout-g14",
+ "commit": "24e758466f522c87c417785836a63fbd8cbc9cd9",
+ "productSourceChanged": false,
+ "plain": {
+  "positivesCompleted": [
+   "R01",
+   "R02",
+   "R03",
+   "R05",
+   "R07",
+   "R08",
+   "R09",
+   "R10"
+  ],
+  "positivesFailed": [
+   "R04"
+  ],
+  "eligiblePositives": 9,
+  "heldCorrectly": [
+   "R06",
+   "R11",
+   "R12"
+  ],
+  "readingOk": [
+   "R01",
+   "R02",
+   "R03",
+   "R05",
+   "R06",
+   "R07",
+   "R08",
+   "R09",
+   "R10",
+   "R11",
+   "R12"
+  ],
+  "refused": [
+   "R04"
+  ],
+  "falseAutomatic": 0
+ },
+ "ablations": [
+  {
+   "rule": "drawing by ink",
+   "unit": "G8",
+   "mutant": "g1:drawing-by-metrics",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "R04": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel."
+   }
+  },
+  {
+   "rule": "rows by ink",
+   "unit": "G8",
+   "mutant": "g1:rows-by-metrics",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [
+    "R02"
+   ],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "R02": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "R04": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel."
+   }
+  },
+  {
+   "rule": "DR after its amount",
+   "unit": "G8",
+   "mutant": "g1:debit-mark-ignored",
+   "file": "lib/reconciliation/bank-statement-native.ts",
+   "lostPositives": [
+    "R03",
+    "R07"
+   ],
+   "lostHeld": [
+    "R12"
+   ],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "R03": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+    "R04": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+    "R07": "BANK_STATEMENT_FIELD: page 2 line 11: amount needs one value",
+    "R12": "BANK_STATEMENT_FIELD: page 3 line 10: amount needs one value"
+   }
+  },
+  {
+   "rule": "date runs joined",
+   "unit": "G8",
+   "mutant": "g1:date-runs-not-joined",
+   "file": "lib/reconciliation/bank-statement-native.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "R04": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel."
+   }
+  },
+  {
+   "rule": "typed cashbook amounts",
+   "unit": "G8",
+   "mutant": "g2:typed-amount-as-text",
+   "file": "lib/reconciliation/bank-statement-match.ts",
+   "lostPositives": [
+    "R03"
+   ],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "R04": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel."
+   }
+  },
+  {
+   "rule": "rectangle traced back to its start",
+   "unit": "G10",
+   "mutant": "g1:rectangle-return-unclosed",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "R04": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel."
+   }
+  },
+  {
+   "rule": "drawings by glyph boxes",
+   "unit": "G10",
+   "mutant": "g1:glyph-boxes-ignored",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "R04": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel."
+   }
+  },
+  {
+   "rule": "rows by glyph boxes",
+   "unit": "G10",
+   "mutant": "g1:rows-glyphs-ignored",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "R04": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel."
+   }
+  },
+  {
+   "rule": "visibility by ink",
+   "unit": "G12",
+   "mutant": "g1:visibility-by-metrics",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [
+    "R02",
+    "R08"
+   ],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "R02": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel.",
+    "R04": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+    "R08": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel."
+   }
+  }
+ ]
+}

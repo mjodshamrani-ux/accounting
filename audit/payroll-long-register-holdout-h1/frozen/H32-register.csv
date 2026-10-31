@@ -1,0 +1,1266 @@
+Section,S01
+Entity,Synthetic Marine Services LLC
+Payroll run,MS-2027-11
+Currency,OMR
+Period start,2027-11-01
+Period end,2027-11-30
+Payroll posting date,2027-11-25
+Payment date,2027-11-26
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+H32-001,MS-9000,vessel=Al Noor,BK-70000,Base pay,earning,1797.808
+H32-002,MS-9000,vessel=Al Noor,BK-70000,Pension (employee),deduction,125.846
+H32-003,MS-9000,vessel=Al Noor,BK-70000,Pension (employer),employer,188.769
+H32-004,MS-9000,vessel=Al Noor,BK-70000,Net salary,net,1671.962
+H32-005,MS-9007,vessel=Bahar 2,BK-70001,Base pay,earning,718.653
+H32-006,MS-9007,vessel=Bahar 2,BK-70001,Pension (employee),deduction,50.305
+H32-007,MS-9007,vessel=Bahar 2,BK-70001,Pension (employer),employer,75.458
+H32-008,MS-9007,vessel=Bahar 2,BK-70001,Net salary,net,668.348
+H32-009,MS-9014,depot=Sohar,BK-70002,Base pay,earning,1383.943
+H32-010,MS-9014,depot=Sohar,BK-70002,Sea allowance,earning,191.351
+H32-011,MS-9014,depot=Sohar,BK-70002,Pension (employee),deduction,96.876
+H32-012,MS-9014,depot=Sohar,BK-70002,Pension (employer),employer,145.314
+H32-013,MS-9014,depot=Sohar,BK-70002,Net salary,net,1478.418
+H32-014,MS-9021,depot=Sur,BK-70003,Base pay,earning,274.334
+H32-015,MS-9021,depot=Sur,BK-70003,Pension (employee),deduction,19.203
+H32-016,MS-9021,depot=Sur,BK-70003,Pension (employer),employer,28.805
+H32-017,MS-9021,depot=Sur,BK-70003,Net salary,net,255.131
+H32-018,MS-9028,depot=Duqm,BK-70004,Base pay,earning,263.815
+H32-019,MS-9028,depot=Duqm,BK-70004,Sea allowance,earning,195.936
+H32-020,MS-9028,depot=Duqm,BK-70004,Pension (employee),deduction,18.467
+H32-021,MS-9028,depot=Duqm,BK-70004,Advance recovery,deduction,38.192
+H32-022,MS-9028,depot=Duqm,BK-70004,Pension (employer),employer,27.700
+H32-023,MS-9028,depot=Duqm,BK-70004,Net salary,net,403.092
+H32-024,MS-9035,vessel=Al Noor,BK-70005,Base pay,earning,1112.597
+H32-025,MS-9035,vessel=Al Noor,BK-70005,Pension (employee),deduction,77.881
+H32-026,MS-9035,vessel=Al Noor,BK-70005,Pension (employer),employer,116.822
+H32-027,MS-9035,vessel=Al Noor,BK-70005,Net salary,net,1034.716
+H32-028,MS-9042,vessel=Bahar 2,BK-70006,Base pay,earning,1021.104
+H32-029,MS-9042,vessel=Bahar 2,BK-70006,Pension (employee),deduction,71.477
+H32-030,MS-9042,vessel=Bahar 2,BK-70006,Pension (employer),employer,107.215
+H32-031,MS-9042,vessel=Bahar 2,BK-70006,Net salary,net,949.627
+H32-032,MS-9049,depot=Sohar,BK-70007,Base pay,earning,782.568
+H32-033,MS-9049,depot=Sohar,BK-70007,Sea allowance,earning,157.866
+H32-034,MS-9049,depot=Sohar,BK-70007,Pension (employee),deduction,54.779
+H32-035,MS-9049,depot=Sohar,BK-70007,Pension (employer),employer,82.169
+H32-036,MS-9049,depot=Sohar,BK-70007,Net salary,net,885.655
+H32-037,MS-9056,depot=Sur,BK-70008,Base pay,earning,1043.189
+H32-038,MS-9056,depot=Sur,BK-70008,Pension (employee),deduction,73.023
+H32-039,MS-9056,depot=Sur,BK-70008,Pension (employer),employer,109.534
+H32-040,MS-9056,depot=Sur,BK-70008,Net salary,net,970.166
+H32-041,MS-9063,depot=Duqm,BK-70009,Base pay,earning,618.432
+H32-042,MS-9063,depot=Duqm,BK-70009,Pension (employee),deduction,43.290
+H32-043,MS-9063,depot=Duqm,BK-70009,Pension (employer),employer,64.935
+H32-044,MS-9063,depot=Duqm,BK-70009,Net salary,net,575.142
+H32-045,MS-9070,vessel=Al Noor,BK-70010,Base pay,earning,722.638
+H32-046,MS-9070,vessel=Al Noor,BK-70010,Pension (employee),deduction,50.584
+H32-047,MS-9070,vessel=Al Noor,BK-70010,Pension (employer),employer,75.876
+H32-048,MS-9070,vessel=Al Noor,BK-70010,Net salary,net,672.054
+H32-049,MS-9077,vessel=Bahar 2,BK-70011,Base pay,earning,1258.463
+H32-050,MS-9077,vessel=Bahar 2,BK-70011,Pension (employee),deduction,88.092
+H32-051,MS-9077,vessel=Bahar 2,BK-70011,Advance recovery,deduction,64.873
+H32-052,MS-9077,vessel=Bahar 2,BK-70011,Pension (employer),employer,132.138
+H32-053,MS-9077,vessel=Bahar 2,BK-70011,Net salary,net,1105.498
+H32-054,MS-9084,depot=Sohar,BK-70012,Base pay,earning,1692.484
+H32-055,MS-9084,depot=Sohar,BK-70012,Pension (employee),deduction,118.473
+H32-056,MS-9084,depot=Sohar,BK-70012,Advance recovery,deduction,59.369
+H32-057,MS-9084,depot=Sohar,BK-70012,Pension (employer),employer,177.710
+H32-058,MS-9084,depot=Sohar,BK-70012,Net salary,net,1514.642
+H32-059,MS-9091,depot=Sur,BK-70013,Base pay,earning,1271.993
+H32-060,MS-9091,depot=Sur,BK-70013,Pension (employee),deduction,89.039
+H32-061,MS-9091,depot=Sur,BK-70013,Pension (employer),employer,133.559
+H32-062,MS-9091,depot=Sur,BK-70013,Net salary,net,1182.954
+H32-063,MS-9098,depot=Duqm,BK-70014,Base pay,earning,1242.406
+H32-064,MS-9098,depot=Duqm,BK-70014,Pension (employee),deduction,86.968
+H32-065,MS-9098,depot=Duqm,BK-70014,Advance recovery,deduction,8.990
+H32-066,MS-9098,depot=Duqm,BK-70014,Pension (employer),employer,130.452
+H32-067,MS-9098,depot=Duqm,BK-70014,Net salary,net,1146.448
+H32-068,MS-9105,vessel=Al Noor,BK-70015,Base pay,earning,860.900
+H32-069,MS-9105,vessel=Al Noor,BK-70015,Pension (employee),deduction,60.263
+H32-070,MS-9105,vessel=Al Noor,BK-70015,Pension (employer),employer,90.394
+H32-071,MS-9105,vessel=Al Noor,BK-70015,Net salary,net,800.637
+H32-072,MS-9112,vessel=Bahar 2,BK-70016,Base pay,earning,994.218
+H32-073,MS-9112,vessel=Bahar 2,BK-70016,Pension (employee),deduction,69.595
+H32-074,MS-9112,vessel=Bahar 2,BK-70016,Pension (employer),employer,104.392
+H32-075,MS-9112,vessel=Bahar 2,BK-70016,Net salary,net,924.623
+H32-076,MS-9119,depot=Sohar,BK-70017,Base pay,earning,1651.620
+H32-077,MS-9119,depot=Sohar,BK-70017,Sea allowance,earning,191.406
+H32-078,MS-9119,depot=Sohar,BK-70017,Pension (employee),deduction,115.613
+H32-079,MS-9119,depot=Sohar,BK-70017,Pension (employer),employer,173.420
+H32-080,MS-9119,depot=Sohar,BK-70017,Net salary,net,1727.413
+H32-081,MS-9126,depot=Sur,BK-70018,Base pay,earning,1305.911
+H32-082,MS-9126,depot=Sur,BK-70018,Pension (employee),deduction,91.413
+H32-083,MS-9126,depot=Sur,BK-70018,Pension (employer),employer,137.120
+H32-084,MS-9126,depot=Sur,BK-70018,Net salary,net,1214.498
+H32-085,MS-9133,depot=Duqm,BK-70019,Base pay,earning,1765.037
+H32-086,MS-9133,depot=Duqm,BK-70019,Sea allowance,earning,130.376
+H32-087,MS-9133,depot=Duqm,BK-70019,Pension (employee),deduction,123.552
+H32-088,MS-9133,depot=Duqm,BK-70019,Pension (employer),employer,185.328
+H32-089,MS-9133,depot=Duqm,BK-70019,Net salary,net,1771.861
+H32-090,MS-9140,vessel=Al Noor,BK-70020,Base pay,earning,1277.344
+H32-091,MS-9140,vessel=Al Noor,BK-70020,Pension (employee),deduction,89.414
+H32-092,MS-9140,vessel=Al Noor,BK-70020,Advance recovery,deduction,68.638
+H32-093,MS-9140,vessel=Al Noor,BK-70020,Pension (employer),employer,134.121
+H32-094,MS-9140,vessel=Al Noor,BK-70020,Net salary,net,1119.292
+H32-095,MS-9147,vessel=Bahar 2,BK-70021,Base pay,earning,1653.806
+H32-096,MS-9147,vessel=Bahar 2,BK-70021,Sea allowance,earning,157.553
+H32-097,MS-9147,vessel=Bahar 2,BK-70021,Pension (employee),deduction,115.766
+H32-098,MS-9147,vessel=Bahar 2,BK-70021,Pension (employer),employer,173.649
+H32-099,MS-9147,vessel=Bahar 2,BK-70021,Net salary,net,1695.593
+H32-100,MS-9154,depot=Sohar,BK-70022,Base pay,earning,1448.806
+H32-101,MS-9154,depot=Sohar,BK-70022,Sea allowance,earning,87.278
+H32-102,MS-9154,depot=Sohar,BK-70022,Pension (employee),deduction,101.416
+H32-103,MS-9154,depot=Sohar,BK-70022,Pension (employer),employer,152.124
+H32-104,MS-9154,depot=Sohar,BK-70022,Net salary,net,1434.668
+H32-105,MS-9161,depot=Sur,BK-70023,Base pay,earning,775.199
+H32-106,MS-9161,depot=Sur,BK-70023,Sea allowance,earning,59.670
+H32-107,MS-9161,depot=Sur,BK-70023,Pension (employee),deduction,54.263
+H32-108,MS-9161,depot=Sur,BK-70023,Pension (employer),employer,81.395
+H32-109,MS-9161,depot=Sur,BK-70023,Net salary,net,780.606
+H32-110,MS-9168,depot=Duqm,BK-70024,Base pay,earning,1712.098
+H32-111,MS-9168,depot=Duqm,BK-70024,Pension (employee),deduction,119.846
+H32-112,MS-9168,depot=Duqm,BK-70024,Pension (employer),employer,179.770
+H32-113,MS-9168,depot=Duqm,BK-70024,Net salary,net,1592.252
+H32-114,MS-9175,vessel=Al Noor,BK-70025,Base pay,earning,776.987
+H32-115,MS-9175,vessel=Al Noor,BK-70025,Sea allowance,earning,34.629
+H32-116,MS-9175,vessel=Al Noor,BK-70025,Pension (employee),deduction,54.389
+H32-117,MS-9175,vessel=Al Noor,BK-70025,Pension (employer),employer,81.583
+H32-118,MS-9175,vessel=Al Noor,BK-70025,Net salary,net,757.227
+H32-119,MS-9182,vessel=Bahar 2,BK-70026,Base pay,earning,1546.831
+H32-120,MS-9182,vessel=Bahar 2,BK-70026,Pension (employee),deduction,108.278
+H32-121,MS-9182,vessel=Bahar 2,BK-70026,Pension (employer),employer,162.417
+H32-122,MS-9182,vessel=Bahar 2,BK-70026,Net salary,net,1438.553
+H32-123,MS-9189,depot=Sohar,BK-70027,Base pay,earning,1214.650
+H32-124,MS-9189,depot=Sohar,BK-70027,Pension (employee),deduction,85.025
+H32-125,MS-9189,depot=Sohar,BK-70027,Advance recovery,deduction,18.199
+H32-126,MS-9189,depot=Sohar,BK-70027,Pension (employer),employer,127.538
+H32-127,MS-9189,depot=Sohar,BK-70027,Net salary,net,1111.426
+H32-128,MS-9196,depot=Sur,BK-70028,Base pay,earning,976.351
+H32-129,MS-9196,depot=Sur,BK-70028,Pension (employee),deduction,68.344
+H32-130,MS-9196,depot=Sur,BK-70028,Pension (employer),employer,102.516
+H32-131,MS-9196,depot=Sur,BK-70028,Net salary,net,908.007
+H32-132,MS-9203,depot=Duqm,BK-70029,Base pay,earning,670.443
+H32-133,MS-9203,depot=Duqm,BK-70029,Pension (employee),deduction,46.931
+H32-134,MS-9203,depot=Duqm,BK-70029,Pension (employer),employer,70.396
+H32-135,MS-9203,depot=Duqm,BK-70029,Net salary,net,623.512
+H32-136,MS-9210,vessel=Al Noor,BK-70030,Base pay,earning,1379.037
+H32-137,MS-9210,vessel=Al Noor,BK-70030,Pension (employee),deduction,96.532
+H32-138,MS-9210,vessel=Al Noor,BK-70030,Pension (employer),employer,144.798
+H32-139,MS-9210,vessel=Al Noor,BK-70030,Net salary,net,1282.505
+H32-140,MS-9217,vessel=Bahar 2,BK-70031,Base pay,earning,765.145
+H32-141,MS-9217,vessel=Bahar 2,BK-70031,Pension (employee),deduction,53.560
+H32-142,MS-9217,vessel=Bahar 2,BK-70031,Pension (employer),employer,80.340
+H32-143,MS-9217,vessel=Bahar 2,BK-70031,Net salary,net,711.585
+H32-144,MS-9224,depot=Sohar,BK-70032,Base pay,earning,1462.212
+H32-145,MS-9224,depot=Sohar,BK-70032,Pension (employee),deduction,102.354
+H32-146,MS-9224,depot=Sohar,BK-70032,Pension (employer),employer,153.532
+H32-147,MS-9224,depot=Sohar,BK-70032,Net salary,net,1359.858
+H32-148,MS-9231,depot=Sur,BK-70033,Base pay,earning,471.191
+H32-149,MS-9231,depot=Sur,BK-70033,Sea allowance,earning,191.536
+H32-150,MS-9231,depot=Sur,BK-70033,Pension (employee),deduction,32.983
+H32-151,MS-9231,depot=Sur,BK-70033,Pension (employer),employer,49.475
+H32-152,MS-9231,depot=Sur,BK-70033,Net salary,net,629.744
+H32-153,MS-9238,depot=Duqm,BK-70034,Base pay,earning,1577.042
+H32-154,MS-9238,depot=Duqm,BK-70034,Sea allowance,earning,162.986
+H32-155,MS-9238,depot=Duqm,BK-70034,Pension (employee),deduction,110.392
+H32-156,MS-9238,depot=Duqm,BK-70034,Pension (employer),employer,165.589
+H32-157,MS-9238,depot=Duqm,BK-70034,Net salary,net,1629.636
+H32-158,MS-9245,vessel=Al Noor,BK-70035,Base pay,earning,791.774
+H32-159,MS-9245,vessel=Al Noor,BK-70035,Sea allowance,earning,26.050
+H32-160,MS-9245,vessel=Al Noor,BK-70035,Pension (employee),deduction,55.424
+H32-161,MS-9245,vessel=Al Noor,BK-70035,Pension (employer),employer,83.136
+H32-162,MS-9245,vessel=Al Noor,BK-70035,Net salary,net,762.400
+H32-163,MS-9252,vessel=Bahar 2,BK-70036,Base pay,earning,385.459
+H32-164,MS-9252,vessel=Bahar 2,BK-70036,Pension (employee),deduction,26.982
+H32-165,MS-9252,vessel=Bahar 2,BK-70036,Pension (employer),employer,40.473
+H32-166,MS-9252,vessel=Bahar 2,BK-70036,Net salary,net,358.477
+H32-167,MS-9259,depot=Sohar,BK-70037,Base pay,earning,728.112
+H32-168,MS-9259,depot=Sohar,BK-70037,Pension (employee),deduction,50.967
+H32-169,MS-9259,depot=Sohar,BK-70037,Advance recovery,deduction,45.211
+H32-170,MS-9259,depot=Sohar,BK-70037,Pension (employer),employer,76.451
+H32-171,MS-9259,depot=Sohar,BK-70037,Net salary,net,631.934
+H32-172,MS-9266,depot=Sur,BK-70038,Base pay,earning,1126.567
+H32-173,MS-9266,depot=Sur,BK-70038,Pension (employee),deduction,78.859
+H32-174,MS-9266,depot=Sur,BK-70038,Pension (employer),employer,118.289
+H32-175,MS-9266,depot=Sur,BK-70038,Net salary,net,1047.708
+H32-176,MS-9273,depot=Duqm,BK-70039,Base pay,earning,1562.255
+H32-177,MS-9273,depot=Duqm,BK-70039,Sea allowance,earning,189.350
+H32-178,MS-9273,depot=Duqm,BK-70039,Pension (employee),deduction,109.357
+H32-179,MS-9273,depot=Duqm,BK-70039,Pension (employer),employer,164.036
+H32-180,MS-9273,depot=Duqm,BK-70039,Net salary,net,1642.248
+H32-181,MS-9280,vessel=Al Noor,BK-70040,Base pay,earning,1395.204
+H32-182,MS-9280,vessel=Al Noor,BK-70040,Sea allowance,earning,76.531
+H32-183,MS-9280,vessel=Al Noor,BK-70040,Pension (employee),deduction,97.664
+H32-184,MS-9280,vessel=Al Noor,BK-70040,Pension (employer),employer,146.496
+H32-185,MS-9280,vessel=Al Noor,BK-70040,Net salary,net,1374.071
+H32-186,MS-9287,vessel=Bahar 2,BK-70041,Base pay,earning,474.301
+H32-187,MS-9287,vessel=Bahar 2,BK-70041,Sea allowance,earning,130.988
+H32-188,MS-9287,vessel=Bahar 2,BK-70041,Pension (employee),deduction,33.201
+H32-189,MS-9287,vessel=Bahar 2,BK-70041,Pension (employer),employer,49.801
+H32-190,MS-9287,vessel=Bahar 2,BK-70041,Net salary,net,572.088
+H32-191,MS-9294,depot=Sohar,BK-70042,Base pay,earning,1158.876
+H32-192,MS-9294,depot=Sohar,BK-70042,Sea allowance,earning,81.296
+H32-193,MS-9294,depot=Sohar,BK-70042,Pension (employee),deduction,81.121
+H32-194,MS-9294,depot=Sohar,BK-70042,Pension (employer),employer,121.681
+H32-195,MS-9294,depot=Sohar,BK-70042,Net salary,net,1159.051
+H32-196,MS-9301,depot=Sur,BK-70043,Base pay,earning,1204.346
+H32-197,MS-9301,depot=Sur,BK-70043,Pension (employee),deduction,84.304
+H32-198,MS-9301,depot=Sur,BK-70043,Pension (employer),employer,126.456
+H32-199,MS-9301,depot=Sur,BK-70043,Net salary,net,1120.042
+H32-200,MS-9308,depot=Duqm,BK-70044,Base pay,earning,1467.666
+H32-201,MS-9308,depot=Duqm,BK-70044,Pension (employee),deduction,102.736
+H32-202,MS-9308,depot=Duqm,BK-70044,Pension (employer),employer,154.104
+H32-203,MS-9308,depot=Duqm,BK-70044,Net salary,net,1364.930
+H32-204,MS-9315,vessel=Al Noor,BK-70045,Base pay,earning,288.306
+H32-205,MS-9315,vessel=Al Noor,BK-70045,Pension (employee),deduction,20.181
+H32-206,MS-9315,vessel=Al Noor,BK-70045,Pension (employer),employer,30.272
+H32-207,MS-9315,vessel=Al Noor,BK-70045,Net salary,net,268.125
+H32-208,MS-9322,vessel=Bahar 2,BK-70046,Base pay,earning,601.296
+H32-209,MS-9322,vessel=Bahar 2,BK-70046,Pension (employee),deduction,42.090
+H32-210,MS-9322,vessel=Bahar 2,BK-70046,Pension (employer),employer,63.136
+H32-211,MS-9322,vessel=Bahar 2,BK-70046,Net salary,net,559.206
+H32-212,MS-9329,depot=Sohar,BK-70047,Base pay,earning,559.960
+H32-213,MS-9329,depot=Sohar,BK-70047,Pension (employee),deduction,39.197
+H32-214,MS-9329,depot=Sohar,BK-70047,Pension (employer),employer,58.795
+H32-215,MS-9329,depot=Sohar,BK-70047,Net salary,net,520.763
+H32-216,MS-9336,depot=Sur,BK-70048,Base pay,earning,981.951
+H32-217,MS-9336,depot=Sur,BK-70048,Pension (employee),deduction,68.736
+H32-218,MS-9336,depot=Sur,BK-70048,Advance recovery,deduction,55.410
+H32-219,MS-9336,depot=Sur,BK-70048,Pension (employer),employer,103.104
+H32-220,MS-9336,depot=Sur,BK-70048,Net salary,net,857.805
+H32-221,MS-9343,depot=Duqm,BK-70049,Base pay,earning,885.802
+H32-222,MS-9343,depot=Duqm,BK-70049,Pension (employee),deduction,62.006
+H32-223,MS-9343,depot=Duqm,BK-70049,Advance recovery,deduction,74.172
+H32-224,MS-9343,depot=Duqm,BK-70049,Pension (employer),employer,93.009
+H32-225,MS-9343,depot=Duqm,BK-70049,Net salary,net,749.624
+H32-226,MS-9350,vessel=Al Noor,BK-70050,Base pay,earning,1280.562
+H32-227,MS-9350,vessel=Al Noor,BK-70050,Pension (employee),deduction,89.639
+H32-228,MS-9350,vessel=Al Noor,BK-70050,Pension (employer),employer,134.459
+H32-229,MS-9350,vessel=Al Noor,BK-70050,Net salary,net,1190.923
+H32-230,MS-9357,vessel=Bahar 2,BK-70051,Base pay,earning,1496.267
+H32-231,MS-9357,vessel=Bahar 2,BK-70051,Pension (employee),deduction,104.738
+H32-232,MS-9357,vessel=Bahar 2,BK-70051,Pension (employer),employer,157.108
+H32-233,MS-9357,vessel=Bahar 2,BK-70051,Net salary,net,1391.529
+H32-234,MS-9364,depot=Sohar,BK-70052,Base pay,earning,1041.607
+H32-235,MS-9364,depot=Sohar,BK-70052,Pension (employee),deduction,72.912
+H32-236,MS-9364,depot=Sohar,BK-70052,Pension (employer),employer,109.368
+H32-237,MS-9364,depot=Sohar,BK-70052,Net salary,net,968.695
+H32-238,MS-9371,depot=Sur,BK-70053,Base pay,earning,373.449
+H32-239,MS-9371,depot=Sur,BK-70053,Pension (employee),deduction,26.141
+H32-240,MS-9371,depot=Sur,BK-70053,Advance recovery,deduction,5.189
+H32-241,MS-9371,depot=Sur,BK-70053,Pension (employer),employer,39.212
+H32-242,MS-9371,depot=Sur,BK-70053,Net salary,net,342.119
+H32-243,MS-9378,depot=Duqm,BK-70054,Base pay,earning,963.745
+H32-244,MS-9378,depot=Duqm,BK-70054,Pension (employee),deduction,67.462
+H32-245,MS-9378,depot=Duqm,BK-70054,Pension (employer),employer,101.193
+H32-246,MS-9378,depot=Duqm,BK-70054,Net salary,net,896.283
+H32-247,MS-9385,vessel=Al Noor,BK-70055,Base pay,earning,1342.990
+H32-248,MS-9385,vessel=Al Noor,BK-70055,Pension (employee),deduction,94.009
+H32-249,MS-9385,vessel=Al Noor,BK-70055,Advance recovery,deduction,75.148
+H32-250,MS-9385,vessel=Al Noor,BK-70055,Pension (employer),employer,141.013
+H32-251,MS-9385,vessel=Al Noor,BK-70055,Net salary,net,1173.833
+H32-252,MS-9392,vessel=Bahar 2,BK-70056,Base pay,earning,454.565
+H32-253,MS-9392,vessel=Bahar 2,BK-70056,Sea allowance,earning,112.149
+H32-254,MS-9392,vessel=Bahar 2,BK-70056,Pension (employee),deduction,31.819
+H32-255,MS-9392,vessel=Bahar 2,BK-70056,Pension (employer),employer,47.729
+H32-256,MS-9392,vessel=Bahar 2,BK-70056,Net salary,net,534.895
+H32-257,MS-9399,depot=Sohar,BK-70057,Base pay,earning,1679.375
+H32-258,MS-9399,depot=Sohar,BK-70057,Sea allowance,earning,90.788
+Total earnings,64001.429
+Total deductions,4717.168
+Total employer,6305.674
+Total net,57514.098
+End section,S01
+Section,S02
+Entity,Synthetic Marine Services LLC
+Payroll run,MS-2027-11
+Currency,OMR
+Period start,2027-11-01
+Period end,2027-11-30
+Payroll posting date,2027-11-25
+Payment date,2027-11-26
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+H32-259,MS-9399,depot=Sohar,BK-70057,Pension (employee),deduction,117.556
+H32-260,MS-9399,depot=Sohar,BK-70057,Pension (employer),employer,176.334
+H32-261,MS-9399,depot=Sohar,BK-70057,Net salary,net,1652.607
+H32-262,MS-9406,depot=Sur,BK-70058,Base pay,earning,513.217
+H32-263,MS-9406,depot=Sur,BK-70058,Pension (employee),deduction,35.925
+H32-264,MS-9406,depot=Sur,BK-70058,Pension (employer),employer,53.887
+H32-265,MS-9406,depot=Sur,BK-70058,Net salary,net,477.292
+H32-266,MS-9413,depot=Duqm,BK-70059,Base pay,earning,528.952
+H32-267,MS-9413,depot=Duqm,BK-70059,Pension (employee),deduction,37.026
+H32-268,MS-9413,depot=Duqm,BK-70059,Pension (employer),employer,55.539
+H32-269,MS-9413,depot=Duqm,BK-70059,Net salary,net,491.926
+H32-270,MS-9420,vessel=Al Noor,BK-70060,Base pay,earning,276.644
+H32-271,MS-9420,vessel=Al Noor,BK-70060,Pension (employee),deduction,19.365
+H32-272,MS-9420,vessel=Al Noor,BK-70060,Advance recovery,deduction,34.844
+H32-273,MS-9420,vessel=Al Noor,BK-70060,Pension (employer),employer,29.047
+H32-274,MS-9420,vessel=Al Noor,BK-70060,Net salary,net,222.435
+H32-275,MS-9427,vessel=Bahar 2,BK-70061,Base pay,earning,734.146
+H32-276,MS-9427,vessel=Bahar 2,BK-70061,Pension (employee),deduction,51.390
+H32-277,MS-9427,vessel=Bahar 2,BK-70061,Pension (employer),employer,77.085
+H32-278,MS-9427,vessel=Bahar 2,BK-70061,Net salary,net,682.756
+Total earnings,2052.959
+Total deductions,296.106
+Total employer,391.892
+Total net,3527.016
+End section,S02
+Section,S03
+Entity,Synthetic Marine Services LLC
+Payroll run,MS-2027-11
+Currency,OMR
+Period start,2027-11-01
+Period end,2027-11-30
+Payroll posting date,2027-11-25
+Payment date,2027-11-26
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+H32-279,MS-9434,depot=Sohar,BK-70062,Base pay,earning,1428.777
+H32-280,MS-9434,depot=Sohar,BK-70062,Sea allowance,earning,110.522
+H32-281,MS-9434,depot=Sohar,BK-70062,Pension (employee),deduction,100.014
+H32-282,MS-9434,depot=Sohar,BK-70062,Pension (employer),employer,150.021
+H32-283,MS-9434,depot=Sohar,BK-70062,Net salary,net,1439.285
+H32-284,MS-9441,depot=Sur,BK-70063,Base pay,earning,1662.706
+H32-285,MS-9441,depot=Sur,BK-70063,Pension (employee),deduction,116.389
+H32-286,MS-9441,depot=Sur,BK-70063,Pension (employer),employer,174.584
+H32-287,MS-9441,depot=Sur,BK-70063,Net salary,net,1546.317
+H32-288,MS-9448,depot=Duqm,BK-70064,Base pay,earning,893.208
+H32-289,MS-9448,depot=Duqm,BK-70064,Pension (employee),deduction,62.524
+H32-290,MS-9448,depot=Duqm,BK-70064,Pension (employer),employer,93.786
+H32-291,MS-9448,depot=Duqm,BK-70064,Net salary,net,830.684
+H32-292,MS-9455,vessel=Al Noor,BK-70065,Base pay,earning,755.050
+H32-293,MS-9455,vessel=Al Noor,BK-70065,Pension (employee),deduction,52.853
+H32-294,MS-9455,vessel=Al Noor,BK-70065,Pension (employer),employer,79.280
+H32-295,MS-9455,vessel=Al Noor,BK-70065,Net salary,net,702.197
+H32-296,MS-9462,vessel=Bahar 2,BK-70066,Base pay,earning,609.159
+H32-297,MS-9462,vessel=Bahar 2,BK-70066,Pension (employee),deduction,42.641
+H32-298,MS-9462,vessel=Bahar 2,BK-70066,Pension (employer),employer,63.961
+H32-299,MS-9462,vessel=Bahar 2,BK-70066,Net salary,net,566.518
+H32-300,MS-9469,depot=Sohar,BK-70067,Base pay,earning,1700.231
+H32-301,MS-9469,depot=Sohar,BK-70067,Pension (employee),deduction,119.016
+H32-302,MS-9469,depot=Sohar,BK-70067,Advance recovery,deduction,62.848
+H32-303,MS-9469,depot=Sohar,BK-70067,Pension (employer),employer,178.524
+H32-304,MS-9469,depot=Sohar,BK-70067,Net salary,net,1518.367
+H32-305,MS-9476,depot=Sur,BK-70068,Base pay,earning,944.456
+H32-306,MS-9476,depot=Sur,BK-70068,Pension (employee),deduction,66.111
+H32-307,MS-9476,depot=Sur,BK-70068,Advance recovery,deduction,31.849
+H32-308,MS-9476,depot=Sur,BK-70068,Pension (employer),employer,99.167
+H32-309,MS-9476,depot=Sur,BK-70068,Net salary,net,846.496
+H32-310,MS-9483,depot=Duqm,BK-70069,Base pay,earning,1766.832
+H32-311,MS-9483,depot=Duqm,BK-70069,Pension (employee),deduction,123.678
+H32-312,MS-9483,depot=Duqm,BK-70069,Advance recovery,deduction,68.198
+H32-313,MS-9483,depot=Duqm,BK-70069,Pension (employer),employer,185.517
+H32-314,MS-9483,depot=Duqm,BK-70069,Net salary,net,1574.956
+H32-315,MS-9490,vessel=Al Noor,BK-70070,Base pay,earning,1692.938
+H32-316,MS-9490,vessel=Al Noor,BK-70070,Pension (employee),deduction,118.505
+H32-317,MS-9490,vessel=Al Noor,BK-70070,Pension (employer),employer,177.758
+Total earnings,11563.879
+Total deductions,964.626
+Total employer,1202.598
+Total net,9024.820
+End section,S03
+Section,S04
+Entity,Synthetic Marine Services LLC
+Payroll run,MS-2027-11
+Currency,OMR
+Period start,2027-11-01
+Period end,2027-11-30
+Payroll posting date,2027-11-25
+Payment date,2027-11-26
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+H32-318,MS-9490,vessel=Al Noor,BK-70070,Net salary,net,1574.433
+H32-319,MS-9497,vessel=Bahar 2,BK-70071,Base pay,earning,1390.057
+H32-320,MS-9497,vessel=Bahar 2,BK-70071,Pension (employee),deduction,97.303
+H32-321,MS-9497,vessel=Bahar 2,BK-70071,Advance recovery,deduction,17.505
+H32-322,MS-9497,vessel=Bahar 2,BK-70071,Pension (employer),employer,145.955
+H32-323,MS-9497,vessel=Bahar 2,BK-70071,Net salary,net,1275.249
+H32-324,MS-9504,depot=Sohar,BK-70072,Base pay,earning,724.551
+H32-325,MS-9504,depot=Sohar,BK-70072,Pension (employee),deduction,50.718
+H32-326,MS-9504,depot=Sohar,BK-70072,Pension (employer),employer,76.077
+H32-327,MS-9504,depot=Sohar,BK-70072,Net salary,net,673.833
+H32-328,MS-9511,depot=Sur,BK-70073,Base pay,earning,1595.700
+H32-329,MS-9511,depot=Sur,BK-70073,Pension (employee),deduction,111.699
+H32-330,MS-9511,depot=Sur,BK-70073,Pension (employer),employer,167.548
+H32-331,MS-9511,depot=Sur,BK-70073,Net salary,net,1484.001
+H32-332,MS-9518,depot=Duqm,BK-70074,Base pay,earning,1592.319
+H32-333,MS-9518,depot=Duqm,BK-70074,Pension (employee),deduction,111.462
+H32-334,MS-9518,depot=Duqm,BK-70074,Pension (employer),employer,167.193
+H32-335,MS-9518,depot=Duqm,BK-70074,Net salary,net,1480.857
+H32-336,MS-9525,vessel=Al Noor,BK-70075,Base pay,earning,666.099
+H32-337,MS-9525,vessel=Al Noor,BK-70075,Pension (employee),deduction,46.626
+H32-338,MS-9525,vessel=Al Noor,BK-70075,Pension (employer),employer,69.940
+H32-339,MS-9525,vessel=Al Noor,BK-70075,Net salary,net,619.473
+H32-340,MS-9532,vessel=Bahar 2,BK-70076,Base pay,earning,1010.276
+H32-341,MS-9532,vessel=Bahar 2,BK-70076,Pension (employee),deduction,70.719
+H32-342,MS-9532,vessel=Bahar 2,BK-70076,Pension (employer),employer,106.078
+H32-343,MS-9532,vessel=Bahar 2,BK-70076,Net salary,net,939.557
+H32-344,MS-9539,depot=Sohar,BK-70077,Base pay,earning,622.158
+H32-345,MS-9539,depot=Sohar,BK-70077,Sea allowance,earning,116.579
+H32-346,MS-9539,depot=Sohar,BK-70077,Pension (employee),deduction,43.551
+H32-347,MS-9539,depot=Sohar,BK-70077,Pension (employer),employer,65.326
+H32-348,MS-9539,depot=Sohar,BK-70077,Net salary,net,695.186
+H32-349,MS-9539,depot=Sohar,BK-70077,Net salary,net,0.000
+H32-350,MS-9546,depot=Sur,BK-70078,Base pay,earning,507.328
+H32-351,MS-9546,depot=Sur,BK-70078,Pension (employee),deduction,35.512
+H32-352,MS-9546,depot=Sur,BK-70078,Advance recovery,deduction,70.985
+H32-353,MS-9546,depot=Sur,BK-70078,Pension (employer),employer,53.269
+H32-354,MS-9546,depot=Sur,BK-70078,Net salary,net,400.831
+H32-355,MS-9553,depot=Duqm,BK-70079,Base pay,earning,906.271
+H32-356,MS-9553,depot=Duqm,BK-70079,Pension (employee),deduction,63.438
+H32-357,MS-9553,depot=Duqm,BK-70079,Pension (employer),employer,95.158
+H32-358,MS-9553,depot=Duqm,BK-70079,Net salary,net,842.833
+H32-359,MS-9560,vessel=Al Noor,BK-70080,Base pay,earning,650.302
+H32-360,MS-9560,vessel=Al Noor,BK-70080,Pension (employee),deduction,45.521
+H32-361,MS-9560,vessel=Al Noor,BK-70080,Pension (employer),employer,68.281
+H32-362,MS-9560,vessel=Al Noor,BK-70080,Net salary,net,604.781
+H32-363,MS-9567,vessel=Bahar 2,BK-70081,Base pay,earning,1582.048
+H32-364,MS-9567,vessel=Bahar 2,BK-70081,Pension (employee),deduction,110.743
+H32-365,MS-9567,vessel=Bahar 2,BK-70081,Pension (employer),employer,166.115
+H32-366,MS-9567,vessel=Bahar 2,BK-70081,Net salary,net,1471.305
+H32-367,MS-9574,depot=Sohar,BK-70082,Base pay,earning,763.527
+H32-368,MS-9574,depot=Sohar,BK-70082,Pension (employee),deduction,53.446
+H32-369,MS-9574,depot=Sohar,BK-70082,Pension (employer),employer,80.170
+H32-370,MS-9574,depot=Sohar,BK-70082,Net salary,net,710.081
+H32-371,MS-9581,depot=Sur,BK-70083,Base pay,earning,1654.337
+H32-372,MS-9581,depot=Sur,BK-70083,Sea allowance,earning,27.763
+H32-373,MS-9581,depot=Sur,BK-70083,Pension (employee),deduction,115.803
+H32-374,MS-9581,depot=Sur,BK-70083,Pension (employer),employer,173.705
+H32-375,MS-9581,depot=Sur,BK-70083,Net salary,net,1566.297
+H32-376,MS-9588,depot=Duqm,BK-70084,Base pay,earning,608.074
+H32-377,MS-9588,depot=Duqm,BK-70084,Pension (employee),deduction,42.565
+H32-378,MS-9588,depot=Duqm,BK-70084,Pension (employer),employer,63.847
+H32-379,MS-9588,depot=Duqm,BK-70084,Net salary,net,565.509
+H32-380,MS-9595,vessel=Al Noor,BK-70085,Base pay,earning,1621.460
+H32-381,MS-9595,vessel=Al Noor,BK-70085,Pension (employee),deduction,113.502
+H32-382,MS-9595,vessel=Al Noor,BK-70085,Advance recovery,deduction,74.557
+H32-383,MS-9595,vessel=Al Noor,BK-70085,Pension (employer),employer,170.253
+H32-384,MS-9595,vessel=Al Noor,BK-70085,Net salary,net,1433.401
+H32-385,MS-9602,vessel=Bahar 2,BK-70086,Base pay,earning,1081.597
+H32-386,MS-9602,vessel=Bahar 2,BK-70086,Pension (employee),deduction,75.711
+H32-387,MS-9602,vessel=Bahar 2,BK-70086,Pension (employer),employer,113.567
+H32-388,MS-9602,vessel=Bahar 2,BK-70086,Net salary,net,1005.886
+H32-389,MS-9609,depot=Sohar,BK-70087,Base pay,earning,590.910
+H32-390,MS-9609,depot=Sohar,BK-70087,Pension (employee),deduction,41.363
+H32-391,MS-9609,depot=Sohar,BK-70087,Pension (employer),employer,62.045
+H32-392,MS-9609,depot=Sohar,BK-70087,Net salary,net,549.547
+H32-393,MS-9616,depot=Sur,BK-70088,Base pay,earning,1324.846
+H32-394,MS-9616,depot=Sur,BK-70088,Pension (employee),deduction,92.739
+H32-395,MS-9616,depot=Sur,BK-70088,Pension (employer),employer,139.108
+H32-396,MS-9616,depot=Sur,BK-70088,Net salary,net,1232.107
+H32-397,MS-9623,depot=Duqm,BK-70089,Base pay,earning,501.725
+H32-398,MS-9623,depot=Duqm,BK-70089,Pension (employee),deduction,35.120
+H32-399,MS-9623,depot=Duqm,BK-70089,Pension (employer),employer,52.681
+H32-400,MS-9623,depot=Duqm,BK-70089,Net salary,net,466.605
+H32-401,MS-9630,vessel=Al Noor,BK-70090,Base pay,earning,1297.316
+H32-402,MS-9630,vessel=Al Noor,BK-70090,Pension (employee),deduction,90.812
+H32-403,MS-9630,vessel=Al Noor,BK-70090,Pension (employer),employer,136.218
+H32-404,MS-9630,vessel=Al Noor,BK-70090,Net salary,net,1206.504
+H32-405,MS-9637,vessel=Bahar 2,BK-70091,Base pay,earning,555.535
+H32-406,MS-9637,vessel=Bahar 2,BK-70091,Sea allowance,earning,45.958
+H32-407,MS-9637,vessel=Bahar 2,BK-70091,Pension (employee),deduction,38.887
+H32-408,MS-9637,vessel=Bahar 2,BK-70091,Advance recovery,deduction,5.571
+H32-409,MS-9637,vessel=Bahar 2,BK-70091,Pension (employer),employer,58.331
+H32-410,MS-9637,vessel=Bahar 2,BK-70091,Net salary,net,557.035
+H32-411,MS-9644,depot=Sohar,BK-70092,Base pay,earning,1337.473
+H32-412,MS-9644,depot=Sohar,BK-70092,Sea allowance,earning,158.883
+H32-413,MS-9644,depot=Sohar,BK-70092,Pension (employee),deduction,93.623
+H32-414,MS-9644,depot=Sohar,BK-70092,Pension (employer),employer,140.434
+H32-415,MS-9644,depot=Sohar,BK-70092,Net salary,net,1402.733
+H32-416,MS-9651,depot=Sur,BK-70093,Base pay,earning,429.757
+H32-417,MS-9651,depot=Sur,BK-70093,Pension (employee),deduction,30.082
+H32-418,MS-9651,depot=Sur,BK-70093,Advance recovery,deduction,62.827
+H32-419,MS-9651,depot=Sur,BK-70093,Pension (employer),employer,45.124
+H32-420,MS-9651,depot=Sur,BK-70093,Net salary,net,336.848
+Total earnings,23362.849
+Total deductions,1842.390
+Total employer,2416.423
+Total net,23094.892
+End section,S04
+Section,S05
+Entity,Synthetic Marine Services LLC
+Payroll run,MS-2027-11
+Currency,OMR
+Period start,2027-11-01
+Period end,2027-11-30
+Payroll posting date,2027-11-25
+Payment date,2027-11-26
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+H32-421,MS-9658,depot=Duqm,BK-70094,Base pay,earning,1390.551
+H32-422,MS-9658,depot=Duqm,BK-70094,Pension (employee),deduction,97.338
+H32-423,MS-9658,depot=Duqm,BK-70094,Pension (employer),employer,146.007
+H32-424,MS-9658,depot=Duqm,BK-70094,Net salary,net,1293.213
+H32-425,MS-9665,vessel=Al Noor,BK-70095,Base pay,earning,1076.281
+H32-426,MS-9665,vessel=Al Noor,BK-70095,Pension (employee),deduction,75.339
+H32-427,MS-9665,vessel=Al Noor,BK-70095,Advance recovery,deduction,25.287
+H32-428,MS-9665,vessel=Al Noor,BK-70095,Pension (employer),employer,113.009
+H32-429,MS-9665,vessel=Al Noor,BK-70095,Net salary,net,975.655
+H32-430,MS-9672,vessel=Bahar 2,BK-70096,Base pay,earning,599.247
+H32-431,MS-9672,vessel=Bahar 2,BK-70096,Sea allowance,earning,72.757
+H32-432,MS-9672,vessel=Bahar 2,BK-70096,Pension (employee),deduction,41.947
+H32-433,MS-9672,vessel=Bahar 2,BK-70096,Pension (employer),employer,62.920
+H32-434,MS-9672,vessel=Bahar 2,BK-70096,Net salary,net,630.057
+H32-435,MS-9679,depot=Sohar,BK-70097,Base pay,earning,284.449
+H32-436,MS-9679,depot=Sohar,BK-70097,Pension (employee),deduction,19.911
+H32-437,MS-9679,depot=Sohar,BK-70097,Advance recovery,deduction,69.586
+H32-438,MS-9679,depot=Sohar,BK-70097,Pension (employer),employer,29.867
+H32-439,MS-9679,depot=Sohar,BK-70097,Net salary,net,194.952
+H32-440,MS-9686,depot=Sur,BK-70098,Base pay,earning,1449.311
+H32-441,MS-9686,depot=Sur,BK-70098,Sea allowance,earning,17.050
+H32-442,MS-9686,depot=Sur,BK-70098,Pension (employee),deduction,101.451
+H32-443,MS-9686,depot=Sur,BK-70098,Pension (employer),employer,152.177
+H32-444,MS-9686,depot=Sur,BK-70098,Net salary,net,1364.910
+H32-445,MS-9693,depot=Duqm,BK-70099,Base pay,earning,1027.999
+H32-446,MS-9693,depot=Duqm,BK-70099,Pension (employee),deduction,71.959
+H32-447,MS-9693,depot=Duqm,BK-70099,Pension (employer),employer,107.939
+H32-448,MS-9693,depot=Duqm,BK-70099,Net salary,net,956.040
+H32-449,MS-9700,vessel=Al Noor,BK-70100,Base pay,earning,373.662
+H32-450,MS-9700,vessel=Al Noor,BK-70100,Pension (employee),deduction,26.156
+H32-451,MS-9700,vessel=Al Noor,BK-70100,Advance recovery,deduction,72.640
+H32-452,MS-9700,vessel=Al Noor,BK-70100,Pension (employer),employer,39.234
+H32-453,MS-9700,vessel=Al Noor,BK-70100,Net salary,net,274.866
+H32-454,MS-9707,vessel=Bahar 2,BK-70101,Base pay,earning,386.522
+H32-455,MS-9707,vessel=Bahar 2,BK-70101,Pension (employee),deduction,27.056
+H32-456,MS-9707,vessel=Bahar 2,BK-70101,Pension (employer),employer,40.584
+H32-457,MS-9707,vessel=Bahar 2,BK-70101,Net salary,net,359.466
+H32-458,MS-9714,depot=Sohar,BK-70102,Base pay,earning,934.769
+H32-459,MS-9714,depot=Sohar,BK-70102,Sea allowance,earning,36.876
+H32-460,MS-9714,depot=Sohar,BK-70102,Pension (employee),deduction,65.433
+H32-461,MS-9714,depot=Sohar,BK-70102,Pension (employer),employer,98.150
+H32-462,MS-9714,depot=Sohar,BK-70102,Net salary,net,906.212
+H32-463,MS-9721,depot=Sur,BK-70103,Base pay,earning,862.186
+H32-464,MS-9721,depot=Sur,BK-70103,Sea allowance,earning,170.937
+H32-465,MS-9721,depot=Sur,BK-70103,Pension (employee),deduction,60.353
+H32-466,MS-9721,depot=Sur,BK-70103,Pension (employer),employer,90.529
+H32-467,MS-9721,depot=Sur,BK-70103,Net salary,net,972.770
+H32-468,MS-9728,depot=Duqm,BK-70104,Base pay,earning,1674.402
+H32-469,MS-9728,depot=Duqm,BK-70104,Pension (employee),deduction,117.208
+H32-470,MS-9728,depot=Duqm,BK-70104,Pension (employer),employer,175.812
+H32-471,MS-9728,depot=Duqm,BK-70104,Net salary,net,1557.194
+H32-472,MS-9735,vessel=Al Noor,BK-70105,Base pay,earning,1360.025
+H32-473,MS-9735,vessel=Al Noor,BK-70105,Pension (employee),deduction,95.201
+H32-474,MS-9735,vessel=Al Noor,BK-70105,Advance recovery,deduction,9.683
+H32-475,MS-9735,vessel=Al Noor,BK-70105,Pension (employer),employer,142.802
+H32-476,MS-9735,vessel=Al Noor,BK-70105,Net salary,net,1255.141
+H32-477,MS-9742,vessel=Bahar 2,BK-70106,Base pay,earning,1511.745
+H32-478,MS-9742,vessel=Bahar 2,BK-70106,Pension (employee),deduction,105.822
+H32-479,MS-9742,vessel=Bahar 2,BK-70106,Pension (employer),employer,158.733
+H32-480,MS-9742,vessel=Bahar 2,BK-70106,Net salary,net,1405.923
+H32-481,MS-9749,depot=Sohar,BK-70107,Base pay,earning,645.689
+H32-482,MS-9749,depot=Sohar,BK-70107,Pension (employee),deduction,45.198
+H32-483,MS-9749,depot=Sohar,BK-70107,Advance recovery,deduction,41.800
+H32-484,MS-9749,depot=Sohar,BK-70107,Pension (employer),employer,67.797
+H32-485,MS-9749,depot=Sohar,BK-70107,Net salary,net,558.691
+H32-486,MS-9756,depot=Sur,BK-70108,Base pay,earning,698.003
+H32-487,MS-9756,depot=Sur,BK-70108,Pension (employee),deduction,48.860
+H32-488,MS-9756,depot=Sur,BK-70108,Pension (employer),employer,73.290
+H32-489,MS-9756,depot=Sur,BK-70108,Net salary,net,649.143
+H32-490,MS-9763,depot=Duqm,BK-70109,Base pay,earning,1085.329
+H32-491,MS-9763,depot=Duqm,BK-70109,Pension (employee),deduction,75.973
+H32-492,MS-9763,depot=Duqm,BK-70109,Pension (employer),employer,113.959
+H32-493,MS-9763,depot=Duqm,BK-70109,Net salary,net,1009.356
+H32-494,MS-9770,vessel=Al Noor,BK-70110,Base pay,earning,1545.847
+H32-495,MS-9770,vessel=Al Noor,BK-70110,Sea allowance,earning,56.969
+H32-496,MS-9770,vessel=Al Noor,BK-70110,Pension (employee),deduction,108.209
+H32-497,MS-9770,vessel=Al Noor,BK-70110,Pension (employer),employer,162.313
+H32-498,MS-9770,vessel=Al Noor,BK-70110,Net salary,net,1494.607
+H32-499,MS-9777,vessel=Bahar 2,BK-70111,Base pay,earning,956.227
+H32-500,MS-9777,vessel=Bahar 2,BK-70111,Sea allowance,earning,57.211
+H32-501,MS-9777,vessel=Bahar 2,BK-70111,Pension (employee),deduction,66.935
+H32-502,MS-9777,vessel=Bahar 2,BK-70111,Advance recovery,deduction,66.832
+H32-503,MS-9777,vessel=Bahar 2,BK-70111,Pension (employer),employer,100.403
+H32-504,MS-9777,vessel=Bahar 2,BK-70111,Net salary,net,879.671
+H32-505,MS-9784,depot=Sohar,BK-70112,Base pay,earning,1190.851
+H32-506,MS-9784,depot=Sohar,BK-70112,Pension (employee),deduction,83.359
+H32-507,MS-9784,depot=Sohar,BK-70112,Pension (employer),employer,125.039
+H32-508,MS-9784,depot=Sohar,BK-70112,Net salary,net,1107.492
+H32-509,MS-9791,depot=Sur,BK-70113,Base pay,earning,579.990
+H32-510,MS-9791,depot=Sur,BK-70113,Pension (employee),deduction,40.599
+H32-511,MS-9791,depot=Sur,BK-70113,Pension (employer),employer,60.898
+H32-512,MS-9791,depot=Sur,BK-70113,Net salary,net,539.391
+H32-513,MS-9798,depot=Duqm,BK-70114,Base pay,earning,1182.977
+H32-514,MS-9798,depot=Duqm,BK-70114,Pension (employee),deduction,82.808
+H32-515,MS-9798,depot=Duqm,BK-70114,Pension (employer),employer,124.212
+H32-516,MS-9798,depot=Duqm,BK-70114,Net salary,net,1100.169
+H32-517,MS-9805,vessel=Al Noor,BK-70115,Base pay,earning,1763.542
+H32-518,MS-9805,vessel=Al Noor,BK-70115,Sea allowance,earning,35.825
+H32-519,MS-9805,vessel=Al Noor,BK-70115,Pension (employee),deduction,123.447
+H32-520,MS-9805,vessel=Al Noor,BK-70115,Pension (employer),employer,185.171
+H32-521,MS-9805,vessel=Al Noor,BK-70115,Net salary,net,1675.920
+H32-522,MS-9812,vessel=Bahar 2,BK-70116,Base pay,earning,401.178
+H32-523,MS-9812,vessel=Bahar 2,BK-70116,Pension (employee),deduction,28.082
+H32-524,MS-9812,vessel=Bahar 2,BK-70116,Pension (employer),employer,42.123
+H32-525,MS-9812,vessel=Bahar 2,BK-70116,Net salary,net,373.096
+H32-526,MS-9819,depot=Sohar,BK-70117,Base pay,earning,885.610
+H32-527,MS-9819,depot=Sohar,BK-70117,Pension (employee),deduction,61.992
+H32-528,MS-9819,depot=Sohar,BK-70117,Pension (employer),employer,92.989
+H32-529,MS-9819,depot=Sohar,BK-70117,Net salary,net,823.618
+H32-530,MS-9826,depot=Sur,BK-70118,Base pay,earning,888.925
+H32-531,MS-9826,depot=Sur,BK-70118,Pension (employee),deduction,62.224
+H32-532,MS-9826,depot=Sur,BK-70118,Pension (employer),employer,93.337
+H32-533,MS-9826,depot=Sur,BK-70118,Net salary,net,826.701
+H32-534,MS-9833,depot=Duqm,BK-70119,Base pay,earning,458.973
+H32-535,MS-9833,depot=Duqm,BK-70119,Sea allowance,earning,43.242
+H32-536,MS-9833,depot=Duqm,BK-70119,Pension (employee),deduction,32.128
+H32-537,MS-9833,depot=Duqm,BK-70119,Pension (employer),employer,48.192
+H32-538,MS-9833,depot=Duqm,BK-70119,Net salary,net,470.087
+H32-539,MS-9840,vessel=Al Noor,BK-70120,Base pay,earning,1531.654
+H32-540,MS-9840,vessel=Al Noor,BK-70120,Pension (employee),deduction,107.215
+H32-541,MS-9840,vessel=Al Noor,BK-70120,Advance recovery,deduction,45.242
+H32-542,MS-9840,vessel=Al Noor,BK-70120,Pension (employer),employer,160.823
+H32-543,MS-9840,vessel=Al Noor,BK-70120,Net salary,net,1379.197
+H32-544,MS-9847,vessel=Bahar 2,BK-70121,Base pay,earning,541.521
+H32-545,MS-9847,vessel=Bahar 2,BK-70121,Pension (employee),deduction,37.906
+H32-546,MS-9847,vessel=Bahar 2,BK-70121,Pension (employer),employer,56.859
+H32-547,MS-9847,vessel=Bahar 2,BK-70121,Net salary,net,503.615
+H32-548,MS-9854,depot=Sohar,BK-70122,Base pay,earning,1360.424
+H32-549,MS-9854,depot=Sohar,BK-70122,Sea allowance,earning,92.602
+H32-550,MS-9854,depot=Sohar,BK-70122,Pension (employee),deduction,95.229
+H32-551,MS-9854,depot=Sohar,BK-70122,Pension (employer),employer,142.844
+H32-552,MS-9854,depot=Sohar,BK-70122,Net salary,net,1357.797
+H32-553,MS-9861,depot=Sur,BK-70123,Base pay,earning,854.745
+H32-554,MS-9861,depot=Sur,BK-70123,Sea allowance,earning,177.227
+H32-555,MS-9861,depot=Sur,BK-70123,Pension (employee),deduction,59.832
+H32-556,MS-9861,depot=Sur,BK-70123,Pension (employer),employer,89.748
+H32-557,MS-9861,depot=Sur,BK-70123,Net salary,net,972.140
+H32-558,MS-9868,depot=Duqm,BK-70124,Base pay,earning,439.669
+H32-559,MS-9868,depot=Duqm,BK-70124,Pension (employee),deduction,30.776
+H32-560,MS-9868,depot=Duqm,BK-70124,Advance recovery,deduction,73.209
+H32-561,MS-9868,depot=Duqm,BK-70124,Pension (employer),employer,46.165
+H32-562,MS-9868,depot=Duqm,BK-70124,Net salary,net,335.684
+H32-563,MS-9875,vessel=Al Noor,BK-70125,Base pay,earning,1558.966
+H32-564,MS-9875,vessel=Al Noor,BK-70125,Sea allowance,earning,60.993
+H32-565,MS-9875,vessel=Al Noor,BK-70125,Pension (employee),deduction,109.127
+H32-566,MS-9875,vessel=Al Noor,BK-70125,Pension (employer),employer,163.691
+H32-567,MS-9875,vessel=Al Noor,BK-70125,Net salary,net,1510.832
+H32-568,MS-9882,vessel=Bahar 2,BK-70126,Base pay,earning,1237.485
+H32-569,MS-9882,vessel=Bahar 2,BK-70126,Sea allowance,earning,172.347
+H32-570,MS-9882,vessel=Bahar 2,BK-70126,Pension (employee),deduction,86.623
+H32-571,MS-9882,vessel=Bahar 2,BK-70126,Advance recovery,deduction,60.017
+H32-572,MS-9882,vessel=Bahar 2,BK-70126,Pension (employer),employer,129.935
+H32-573,MS-9882,vessel=Bahar 2,BK-70126,Net salary,net,1263.192
+H32-574,MS-9889,depot=Sohar,BK-70127,Base pay,earning,1179.514
+H32-575,MS-9889,depot=Sohar,BK-70127,Sea allowance,earning,140.836
+H32-576,MS-9889,depot=Sohar,BK-70127,Pension (employee),deduction,82.565
+H32-577,MS-9889,depot=Sohar,BK-70127,Pension (employer),employer,123.848
+H32-578,MS-9889,depot=Sohar,BK-70127,Net salary,net,1237.785
+H32-579,MS-9896,depot=Sur,BK-70128,Base pay,earning,1266.568
+H32-580,MS-9896,depot=Sur,BK-70128,Sea allowance,earning,83.016
+H32-581,MS-9896,depot=Sur,BK-70128,Pension (employee),deduction,88.659
+H32-582,MS-9896,depot=Sur,BK-70128,Pension (employer),employer,132.989
+H32-583,MS-9896,depot=Sur,BK-70128,Net salary,net,1260.925
+H32-584,MS-9903,depot=Duqm,BK-70129,Base pay,earning,1327.647
+H32-585,MS-9903,depot=Duqm,BK-70129,Sea allowance,earning,117.117
+H32-586,MS-9903,depot=Duqm,BK-70129,Pension (employee),deduction,92.935
+H32-587,MS-9903,depot=Duqm,BK-70129,Pension (employer),employer,139.402
+H32-588,MS-9903,depot=Duqm,BK-70129,Net salary,net,1351.829
+H32-589,MS-9910,vessel=Al Noor,BK-70130,Base pay,earning,1226.403
+H32-590,MS-9910,vessel=Al Noor,BK-70130,Sea allowance,earning,75.985
+H32-591,MS-9910,vessel=Al Noor,BK-70130,Pension (employee),deduction,85.848
+H32-592,MS-9910,vessel=Al Noor,BK-70130,Advance recovery,deduction,37.522
+H32-593,MS-9910,vessel=Al Noor,BK-70130,Pension (employer),employer,128.772
+H32-594,MS-9910,vessel=Al Noor,BK-70130,Net salary,net,1179.018
+H32-595,MS-9917,vessel=Bahar 2,BK-70131,Base pay,earning,297.554
+H32-596,MS-9917,vessel=Bahar 2,BK-70131,Pension (employee),deduction,20.828
+H32-597,MS-9917,vessel=Bahar 2,BK-70131,Pension (employer),employer,31.243
+H32-598,MS-9917,vessel=Bahar 2,BK-70131,Net salary,net,276.726
+H32-599,MS-9924,depot=Sohar,BK-70132,Base pay,earning,796.696
+H32-600,MS-9924,depot=Sohar,BK-70132,Pension (employee),deduction,55.768
+H32-601,MS-9924,depot=Sohar,BK-70132,Advance recovery,deduction,55.772
+H32-602,MS-9924,depot=Sohar,BK-70132,Pension (employer),employer,83.653
+H32-603,MS-9924,depot=Sohar,BK-70132,Net salary,net,685.156
+H32-604,MS-9931,depot=Sur,BK-70133,Base pay,earning,1662.404
+H32-605,MS-9931,depot=Sur,BK-70133,Pension (employee),deduction,116.368
+H32-606,MS-9931,depot=Sur,BK-70133,Pension (employer),employer,174.552
+H32-607,MS-9931,depot=Sur,BK-70133,Net salary,net,1546.036
+H32-608,MS-9938,depot=Duqm,BK-70134,Base pay,earning,794.269
+H32-609,MS-9938,depot=Duqm,BK-70134,Sea allowance,earning,33.151
+H32-610,MS-9938,depot=Duqm,BK-70134,Pension (employee),deduction,55.598
+H32-611,MS-9938,depot=Duqm,BK-70134,Pension (employer),employer,83.398
+H32-612,MS-9938,depot=Duqm,BK-70134,Net salary,net,771.822
+H32-613,MS-9945,vessel=Al Noor,BK-70135,Base pay,earning,996.504
+H32-614,MS-9945,vessel=Al Noor,BK-70135,Sea allowance,earning,25.755
+H32-615,MS-9945,vessel=Al Noor,BK-70135,Pension (employee),deduction,69.755
+H32-616,MS-9945,vessel=Al Noor,BK-70135,Pension (employer),employer,104.632
+H32-617,MS-9945,vessel=Al Noor,BK-70135,Net salary,net,952.504
+H32-618,MS-9952,vessel=Bahar 2,BK-70136,Base pay,earning,1576.724
+H32-619,MS-9952,vessel=Bahar 2,BK-70136,Pension (employee),deduction,110.370
+H32-620,MS-9952,vessel=Bahar 2,BK-70136,Pension (employer),employer,165.556
+H32-621,MS-9952,vessel=Bahar 2,BK-70136,Net salary,net,1466.354
+H32-622,MS-9959,depot=Sohar,BK-70137,Base pay,earning,1082.524
+H32-623,MS-9959,depot=Sohar,BK-70137,Pension (employee),deduction,75.776
+H32-624,MS-9959,depot=Sohar,BK-70137,Pension (employer),employer,113.665
+H32-625,MS-9959,depot=Sohar,BK-70137,Net salary,net,1006.748
+H32-626,MS-9966,depot=Sur,BK-70138,Base pay,earning,902.436
+H32-627,MS-9966,depot=Sur,BK-70138,Pension (employee),deduction,63.170
+H32-628,MS-9966,depot=Sur,BK-70138,Pension (employer),employer,94.755
+H32-629,MS-9966,depot=Sur,BK-70138,Net salary,net,839.266
+H32-630,MS-9973,depot=Duqm,BK-70139,Base pay,earning,1589.964
+H32-631,MS-9973,depot=Duqm,BK-70139,Pension (employee),deduction,111.297
+H32-632,MS-9973,depot=Duqm,BK-70139,Pension (employer),employer,166.946
+H32-633,MS-9973,depot=Duqm,BK-70139,Net salary,net,1478.667
+H32-634,MS-9980,vessel=Al Noor,BK-70140,Base pay,earning,1598.882
+H32-635,MS-9980,vessel=Al Noor,BK-70140,Sea allowance,earning,12.991
+H32-636,MS-9980,vessel=Al Noor,BK-70140,Pension (employee),deduction,111.921
+H32-637,MS-9980,vessel=Al Noor,BK-70140,Pension (employer),employer,167.882
+H32-638,MS-9980,vessel=Al Noor,BK-70140,Net salary,net,1499.952
+H32-639,MS-9987,vessel=Bahar 2,BK-70141,Base pay,earning,484.803
+H32-640,MS-9987,vessel=Bahar 2,BK-70141,Pension (employee),deduction,33.936
+H32-641,MS-9987,vessel=Bahar 2,BK-70141,Pension (employer),employer,50.904
+H32-642,MS-9987,vessel=Bahar 2,BK-70141,Net salary,net,450.867
+H32-643,MS-9994,depot=Sohar,BK-70142,Base pay,earning,489.980
+H32-644,MS-9994,depot=Sohar,BK-70142,Pension (employee),deduction,34.298
+H32-645,MS-9994,depot=Sohar,BK-70142,Advance recovery,deduction,9.834
+H32-646,MS-9994,depot=Sohar,BK-70142,Pension (employer),employer,51.447
+H32-647,MS-9994,depot=Sohar,BK-70142,Net salary,net,445.848
+H32-648,MS-10001,depot=Sur,BK-70143,Base pay,earning,1604.673
+H32-649,MS-10001,depot=Sur,BK-70143,Pension (employee),deduction,112.327
+H32-650,MS-10001,depot=Sur,BK-70143,Pension (employer),employer,168.490
+H32-651,MS-10001,depot=Sur,BK-70143,Net salary,net,1492.346
+H32-652,MS-10008,depot=Duqm,BK-70144,Base pay,earning,1287.728
+H32-653,MS-10008,depot=Duqm,BK-70144,Pension (employee),deduction,90.140
+H32-654,MS-10008,depot=Duqm,BK-70144,Advance recovery,deduction,77.931
+H32-655,MS-10008,depot=Duqm,BK-70144,Pension (employer),employer,135.211
+H32-656,MS-10008,depot=Duqm,BK-70144,Net salary,net,1119.657
+H32-657,MS-10015,vessel=Al Noor,BK-70145,Base pay,earning,389.790
+H32-658,MS-10015,vessel=Al Noor,BK-70145,Pension (employee),deduction,27.285
+H32-659,MS-10015,vessel=Al Noor,BK-70145,Advance recovery,deduction,60.685
+H32-660,MS-10015,vessel=Al Noor,BK-70145,Pension (employer),employer,40.927
+H32-661,MS-10015,vessel=Al Noor,BK-70145,Net salary,net,301.820
+Total earnings,54776.704
+Total deductions,4436.580
+Total employer,5595.823
+Total net,50340.124
+End section,S05
+Section,S06
+Entity,Synthetic Marine Services LLC
+Payroll run,MS-2027-11
+Currency,OMR
+Period start,2027-11-01
+Period end,2027-11-30
+Payroll posting date,2027-11-25
+Payment date,2027-11-26
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+H32-662,MS-10022,vessel=Bahar 2,BK-70146,Base pay,earning,1629.104
+H32-663,MS-10022,vessel=Bahar 2,BK-70146,Pension (employee),deduction,114.037
+H32-664,MS-10022,vessel=Bahar 2,BK-70146,Pension (employer),employer,171.055
+H32-665,MS-10022,vessel=Bahar 2,BK-70146,Net salary,net,1515.067
+H32-666,MS-10029,depot=Sohar,BK-70147,Base pay,earning,986.445
+H32-667,MS-10029,depot=Sohar,BK-70147,Pension (employee),deduction,69.051
+H32-668,MS-10029,depot=Sohar,BK-70147,Pension (employer),employer,103.576
+H32-669,MS-10029,depot=Sohar,BK-70147,Net salary,net,917.394
+H32-670,MS-10036,depot=Sur,BK-70148,Base pay,earning,1675.964
+H32-671,MS-10036,depot=Sur,BK-70148,Pension (employee),deduction,117.317
+H32-672,MS-10036,depot=Sur,BK-70148,Pension (employer),employer,175.976
+H32-673,MS-10036,depot=Sur,BK-70148,Net salary,net,1558.647
+H32-674,MS-10043,depot=Duqm,BK-70149,Base pay,earning,499.314
+H32-675,MS-10043,depot=Duqm,BK-70149,Pension (employee),deduction,34.951
+H32-676,MS-10043,depot=Duqm,BK-70149,Pension (employer),employer,52.427
+H32-677,MS-10043,depot=Duqm,BK-70149,Net salary,net,464.363
+H32-678,MS-10050,vessel=Al Noor,BK-70150,Base pay,earning,797.383
+H32-679,MS-10050,vessel=Al Noor,BK-70150,Sea allowance,earning,154.393
+H32-680,MS-10050,vessel=Al Noor,BK-70150,Pension (employee),deduction,55.816
+H32-681,MS-10050,vessel=Al Noor,BK-70150,Pension (employer),employer,83.725
+H32-682,MS-10057,vessel=Bahar 2,BK-70151,Base pay,earning,1660.312
+H32-683,MS-10057,vessel=Bahar 2,BK-70151,Pension (employee),deduction,116.221
+H32-684,MS-10057,vessel=Bahar 2,BK-70151,Advance recovery,deduction,11.031
+H32-685,MS-10057,vessel=Bahar 2,BK-70151,Pension (employer),employer,174.332
+H32-686,MS-10057,vessel=Bahar 2,BK-70151,Net salary,net,1533.060
+H32-687,MS-10064,depot=Sohar,BK-70152,Base pay,earning,302.600
+H32-688,MS-10064,depot=Sohar,BK-70152,Pension (employee),deduction,21.182
+H32-689,MS-10064,depot=Sohar,BK-70152,Advance recovery,deduction,14.766
+H32-690,MS-10064,depot=Sohar,BK-70152,Pension (employer),employer,31.773
+H32-691,MS-10064,depot=Sohar,BK-70152,Net salary,net,266.652
+H32-692,MS-10071,depot=Sur,BK-70153,Base pay,earning,322.185
+H32-693,MS-10071,depot=Sur,BK-70153,Pension (employee),deduction,22.552
+H32-694,MS-10071,depot=Sur,BK-70153,Pension (employer),employer,33.829
+H32-695,MS-10071,depot=Sur,BK-70153,Net salary,net,299.633
+H32-696,MS-10078,depot=Duqm,BK-70154,Base pay,earning,436.017
+H32-697,MS-10078,depot=Duqm,BK-70154,Pension (employee),deduction,30.521
+H32-698,MS-10078,depot=Duqm,BK-70154,Pension (employer),employer,45.781
+H32-699,MS-10078,depot=Duqm,BK-70154,Net salary,net,405.496
+H32-700,MS-10085,vessel=Al Noor,BK-70155,Base pay,earning,383.614
+H32-701,MS-10085,vessel=Al Noor,BK-70155,Pension (employee),deduction,26.852
+H32-702,MS-10085,vessel=Al Noor,BK-70155,Pension (employer),employer,40.279
+H32-703,MS-10085,vessel=Al Noor,BK-70155,Net salary,net,356.762
+H32-704,MS-10092,vessel=Bahar 2,BK-70156,Base pay,earning,856.436
+H32-705,MS-10092,vessel=Bahar 2,BK-70156,Sea allowance,earning,78.028
+H32-706,MS-10092,vessel=Bahar 2,BK-70156,Pension (employee),deduction,59.950
+H32-707,MS-10092,vessel=Bahar 2,BK-70156,Advance recovery,deduction,58.911
+H32-708,MS-10092,vessel=Bahar 2,BK-70156,Pension (employer),employer,89.925
+H32-709,MS-10092,vessel=Bahar 2,BK-70156,Net salary,net,815.603
+H32-710,MS-10099,depot=Sohar,BK-70157,Base pay,earning,1252.058
+H32-711,MS-10099,depot=Sohar,BK-70157,Pension (employee),deduction,87.644
+H32-712,MS-10099,depot=Sohar,BK-70157,Pension (employer),employer,131.466
+H32-713,MS-10099,depot=Sohar,BK-70157,Net salary,net,1164.414
+H32-714,MS-10106,depot=Sur,BK-70158,Base pay,earning,443.045
+H32-715,MS-10106,depot=Sur,BK-70158,Pension (employee),deduction,31.013
+H32-716,MS-10106,depot=Sur,BK-70158,Advance recovery,deduction,21.042
+H32-717,MS-10106,depot=Sur,BK-70158,Pension (employer),employer,46.519
+H32-718,MS-10106,depot=Sur,BK-70158,Net salary,net,390.990
+H32-719,MS-10113,depot=Duqm,BK-70159,Base pay,earning,605.460
+H32-720,MS-10113,depot=Duqm,BK-70159,Sea allowance,earning,27.902
+H32-721,MS-10113,depot=Duqm,BK-70159,Pension (employee),deduction,42.382
+H32-722,MS-10113,depot=Duqm,BK-70159,Pension (employer),employer,63.573
+H32-723,MS-10113,depot=Duqm,BK-70159,Net salary,net,590.980
+H32-724,MS-10120,vessel=Al Noor,BK-70160,Base pay,earning,1028.560
+H32-725,MS-10120,vessel=Al Noor,BK-70160,Sea allowance,earning,130.953
+H32-726,MS-10120,vessel=Al Noor,BK-70160,Pension (employee),deduction,71.999
+H32-727,MS-10120,vessel=Al Noor,BK-70160,Pension (employer),employer,107.998
+H32-728,MS-10120,vessel=Al Noor,BK-70160,Net salary,net,1087.514
+H32-729,MS-10127,vessel=Bahar 2,BK-70161,Base pay,earning,1392.793
+H32-730,MS-10127,vessel=Bahar 2,BK-70161,Pension (employee),deduction,97.495
+H32-731,MS-10127,vessel=Bahar 2,BK-70161,Pension (employer),employer,146.243
+H32-732,MS-10127,vessel=Bahar 2,BK-70161,Net salary,net,1295.298
+H32-733,MS-10134,depot=Sohar,BK-70162,Base pay,earning,585.572
+H32-734,MS-10134,depot=Sohar,BK-70162,Pension (employee),deduction,40.990
+H32-735,MS-10134,depot=Sohar,BK-70162,Pension (employer),employer,61.485
+H32-736,MS-10134,depot=Sohar,BK-70162,Net salary,net,544.582
+H32-737,MS-10141,depot=Sur,BK-70163,Base pay,earning,676.539
+H32-738,MS-10141,depot=Sur,BK-70163,Sea allowance,earning,136.715
+H32-739,MS-10141,depot=Sur,BK-70163,Pension (employee),deduction,47.357
+H32-740,MS-10141,depot=Sur,BK-70163,Pension (employer),employer,71.036
+H32-741,MS-10141,depot=Sur,BK-70163,Net salary,net,765.897
+H32-742,MS-10148,depot=Duqm,BK-70164,Base pay,earning,1196.821
+H32-743,MS-10148,depot=Duqm,BK-70164,Pension (employee),deduction,83.777
+H32-744,MS-10148,depot=Duqm,BK-70164,Pension (employer),employer,125.666
+H32-745,MS-10148,depot=Duqm,BK-70164,Net salary,net,1113.044
+H32-746,MS-10155,vessel=Al Noor,BK-70165,Base pay,earning,411.293
+H32-747,MS-10155,vessel=Al Noor,BK-70165,Pension (employee),deduction,28.790
+H32-748,MS-10155,vessel=Al Noor,BK-70165,Pension (employer),employer,43.185
+H32-749,MS-10155,vessel=Al Noor,BK-70165,Net salary,net,382.503
+Total earnings,17669.506
+Total deductions,1305.647
+Total employer,1799.849
+Total net,15467.899
+End section,S06
+Section,S07
+Entity,Synthetic Marine Services LLC
+Payroll run,MS-2027-11
+Currency,OMR
+Period start,2027-11-01
+Period end,2027-11-30
+Payroll posting date,2027-11-25
+Payment date,2027-11-26
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+H32-750,MS-10162,vessel=Bahar 2,BK-70166,Base pay,earning,1532.232
+H32-751,MS-10162,vessel=Bahar 2,BK-70166,Pension (employee),deduction,107.256
+H32-752,MS-10162,vessel=Bahar 2,BK-70166,Pension (employer),employer,160.884
+H32-753,MS-10162,vessel=Bahar 2,BK-70166,Net salary,net,1424.976
+H32-754,MS-10169,depot=Sohar,BK-70167,Base pay,earning,1077.166
+H32-755,MS-10169,depot=Sohar,BK-70167,Sea allowance,earning,64.944
+H32-756,MS-10169,depot=Sohar,BK-70167,Pension (employee),deduction,75.401
+H32-757,MS-10169,depot=Sohar,BK-70167,Advance recovery,deduction,57.945
+H32-758,MS-10169,depot=Sohar,BK-70167,Pension (employer),employer,113.102
+H32-759,MS-10169,depot=Sohar,BK-70167,Net salary,net,1008.764
+H32-760,MS-10176,depot=Sur,BK-70168,Base pay,earning,1280.038
+H32-761,MS-10176,depot=Sur,BK-70168,Pension (employee),deduction,89.602
+H32-762,MS-10176,depot=Sur,BK-70168,Pension (employer),employer,134.403
+H32-763,MS-10176,depot=Sur,BK-70168,Net salary,net,1190.436
+H32-764,MS-10183,depot=Duqm,BK-70169,Base pay,earning,1270.770
+H32-765,MS-10183,depot=Duqm,BK-70169,Sea allowance,earning,76.419
+H32-766,MS-10183,depot=Duqm,BK-70169,Pension (employee),deduction,88.953
+H32-767,MS-10183,depot=Duqm,BK-70169,Pension (employer),employer,133.430
+H32-768,MS-10183,depot=Duqm,BK-70169,Net salary,net,1258.236
+H32-769,MS-10190,vessel=Al Noor,BK-70170,Base pay,earning,1038.843
+H32-770,MS-10190,vessel=Al Noor,BK-70170,Pension (employee),deduction,72.719
+H32-771,MS-10190,vessel=Al Noor,BK-70170,Pension (employer),employer,109.078
+H32-772,MS-10190,vessel=Al Noor,BK-70170,Net salary,net,966.124
+H32-773,MS-10197,vessel=Bahar 2,BK-70171,Base pay,earning,679.621
+H32-774,MS-10197,vessel=Bahar 2,BK-70171,Pension (employee),deduction,47.573
+H32-775,MS-10197,vessel=Bahar 2,BK-70171,Advance recovery,deduction,59.069
+H32-776,MS-10197,vessel=Bahar 2,BK-70171,Pension (employer),employer,71.360
+H32-777,MS-10197,vessel=Bahar 2,BK-70171,Net salary,net,572.979
+H32-778,MS-10204,depot=Sohar,BK-70172,Base pay,earning,1381.925
+H32-779,MS-10204,depot=Sohar,BK-70172,Pension (employee),deduction,96.734
+Total earnings,8401.958
+Total deductions,695.252
+Total employer,722.257
+Total net,6421.515
+End section,S07
+Section,S08
+Entity,Synthetic Marine Services LLC
+Payroll run,MS-2027-11
+Currency,OMR
+Period start,2027-11-01
+Period end,2027-11-30
+Payroll posting date,2027-11-25
+Payment date,2027-11-26
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+H32-780,MS-10204,depot=Sohar,BK-70172,Pension (employer),employer,145.102
+H32-781,MS-10204,depot=Sohar,BK-70172,Net salary,net,1285.191
+H32-782,MS-10211,depot=Sur,BK-70173,Base pay,earning,1070.929
+H32-783,MS-10211,depot=Sur,BK-70173,Sea allowance,earning,194.361
+H32-784,MS-10211,depot=Sur,BK-70173,Pension (employee),deduction,74.965
+H32-785,MS-10211,depot=Sur,BK-70173,Advance recovery,deduction,75.159
+H32-786,MS-10211,depot=Sur,BK-70173,Pension (employer),employer,112.447
+H32-787,MS-10211,depot=Sur,BK-70173,Net salary,net,1115.166
+H32-788,MS-10218,depot=Duqm,BK-70174,Base pay,earning,1499.187
+H32-789,MS-10218,depot=Duqm,BK-70174,Pension (employee),deduction,104.943
+H32-790,MS-10218,depot=Duqm,BK-70174,Pension (employer),employer,157.414
+H32-791,MS-10218,depot=Duqm,BK-70174,Net salary,net,1394.244
+H32-792,MS-10225,vessel=Al Noor,BK-70175,Base pay,earning,1496.882
+H32-793,MS-10225,vessel=Al Noor,BK-70175,Pension (employee),deduction,104.781
+H32-794,MS-10225,vessel=Al Noor,BK-70175,Advance recovery,deduction,27.956
+H32-795,MS-10225,vessel=Al Noor,BK-70175,Pension (employer),employer,157.172
+H32-796,MS-10225,vessel=Al Noor,BK-70175,Net salary,net,1364.145
+H32-797,MS-10232,vessel=Bahar 2,BK-70176,Base pay,earning,763.317
+H32-798,MS-10232,vessel=Bahar 2,BK-70176,Pension (employee),deduction,53.432
+H32-799,MS-10232,vessel=Bahar 2,BK-70176,Pension (employer),employer,80.148
+H32-800,MS-10232,vessel=Bahar 2,BK-70176,Net salary,net,709.885
+H32-801,MS-10239,depot=Sohar,BK-70177,Base pay,earning,805.066
+H32-802,MS-10239,depot=Sohar,BK-70177,Pension (employee),deduction,56.354
+H32-803,MS-10239,depot=Sohar,BK-70177,Advance recovery,deduction,56.936
+H32-804,MS-10239,depot=Sohar,BK-70177,Pension (employer),employer,84.531
+H32-805,MS-10239,depot=Sohar,BK-70177,Net salary,net,691.776
+H32-806,MS-10246,depot=Sur,BK-70178,Base pay,earning,1070.568
+H32-807,MS-10246,depot=Sur,BK-70178,Pension (employee),deduction,74.939
+H32-808,MS-10246,depot=Sur,BK-70178,Advance recovery,deduction,59.257
+H32-809,MS-10246,depot=Sur,BK-70178,Pension (employer),employer,112.409
+H32-810,MS-10246,depot=Sur,BK-70178,Net salary,net,936.372
+H32-811,MS-10253,depot=Duqm,BK-70179,Base pay,earning,323.878
+H32-812,MS-10253,depot=Duqm,BK-70179,Pension (employee),deduction,22.671
+H32-813,MS-10253,depot=Duqm,BK-70179,Pension (employer),employer,34.007
+H32-814,MS-10253,depot=Duqm,BK-70179,Net salary,net,301.207
+H32-815,MS-10260,vessel=Al Noor,BK-70180,Base pay,earning,400.767
+H32-816,MS-10260,vessel=Al Noor,BK-70180,Pension (employee),deduction,28.053
+H32-817,MS-10260,vessel=Al Noor,BK-70180,Advance recovery,deduction,14.648
+H32-818,MS-10260,vessel=Al Noor,BK-70180,Pension (employer),employer,42.080
+H32-819,MS-10260,vessel=Al Noor,BK-70180,Net salary,net,358.066
+H32-820,MS-10267,vessel=Bahar 2,BK-70181,Base pay,earning,1373.160
+H32-821,MS-10267,vessel=Bahar 2,BK-70181,Sea allowance,earning,195.120
+H32-822,MS-10267,vessel=Bahar 2,BK-70181,Pension (employee),deduction,96.121
+H32-823,MS-10267,vessel=Bahar 2,BK-70181,Advance recovery,deduction,24.241
+H32-824,MS-10267,vessel=Bahar 2,BK-70181,Pension (employer),employer,144.181
+H32-825,MS-10267,vessel=Bahar 2,BK-70181,Net salary,net,1447.918
+H32-826,MS-10274,depot=Sohar,BK-70182,Base pay,earning,360.943
+H32-827,MS-10274,depot=Sohar,BK-70182,Pension (employee),deduction,25.266
+H32-828,MS-10274,depot=Sohar,BK-70182,Advance recovery,deduction,64.617
+H32-829,MS-10274,depot=Sohar,BK-70182,Pension (employer),employer,37.899
+H32-830,MS-10274,depot=Sohar,BK-70182,Net salary,net,271.060
+H32-831,MS-10281,depot=Sur,BK-70183,Base pay,earning,1359.456
+H32-832,MS-10281,depot=Sur,BK-70183,Pension (employee),deduction,95.161
+H32-833,MS-10281,depot=Sur,BK-70183,Pension (employer),employer,142.742
+H32-834,MS-10281,depot=Sur,BK-70183,Net salary,net,1264.295
+H32-835,MS-10288,depot=Duqm,BK-70184,Base pay,earning,1536.922
+H32-836,MS-10288,depot=Duqm,BK-70184,Pension (employee),deduction,107.584
+H32-837,MS-10288,depot=Duqm,BK-70184,Pension (employer),employer,161.376
+H32-838,MS-10288,depot=Duqm,BK-70184,Net salary,net,1429.338
+H32-839,MS-10295,vessel=Al Noor,BK-70185,Base pay,earning,1505.429
+H32-840,MS-10295,vessel=Al Noor,BK-70185,Pension (employee),deduction,105.380
+H32-841,MS-10295,vessel=Al Noor,BK-70185,Advance recovery,deduction,69.618
+H32-842,MS-10295,vessel=Al Noor,BK-70185,Pension (employer),employer,158.070
+H32-843,MS-10295,vessel=Al Noor,BK-70185,Net salary,net,1330.431
+H32-844,MS-10302,vessel=Bahar 2,BK-70186,Base pay,earning,472.925
+H32-845,MS-10302,vessel=Bahar 2,BK-70186,Sea allowance,earning,88.673
+H32-846,MS-10302,vessel=Bahar 2,BK-70186,Pension (employee),deduction,33.104
+H32-847,MS-10302,vessel=Bahar 2,BK-70186,Pension (employer),employer,49.657
+H32-848,MS-10302,vessel=Bahar 2,BK-70186,Net salary,net,528.494
+H32-849,MS-10309,depot=Sohar,BK-70187,Base pay,earning,1291.409
+H32-850,MS-10309,depot=Sohar,BK-70187,Sea allowance,earning,148.344
+H32-851,MS-10309,depot=Sohar,BK-70187,Pension (employee),deduction,90.398
+H32-852,MS-10309,depot=Sohar,BK-70187,Advance recovery,deduction,61.328
+H32-853,MS-10309,depot=Sohar,BK-70187,Pension (employer),employer,135.597
+H32-854,MS-10309,depot=Sohar,BK-70187,Net salary,net,1288.027
+H32-855,MS-10316,depot=Sur,BK-70188,Base pay,earning,1668.791
+H32-856,MS-10316,depot=Sur,BK-70188,Sea allowance,earning,143.665
+H32-857,MS-10316,depot=Sur,BK-70188,Pension (employee),deduction,116.815
+H32-858,MS-10316,depot=Sur,BK-70188,Advance recovery,deduction,43.916
+H32-859,MS-10316,depot=Sur,BK-70188,Pension (employer),employer,175.223
+H32-860,MS-10316,depot=Sur,BK-70188,Net salary,net,1651.725
+H32-861,MS-10323,depot=Duqm,BK-70189,Base pay,earning,304.992
+H32-862,MS-10323,depot=Duqm,BK-70189,Sea allowance,earning,61.417
+H32-863,MS-10323,depot=Duqm,BK-70189,Pension (employee),deduction,21.349
+H32-864,MS-10323,depot=Duqm,BK-70189,Pension (employer),employer,32.024
+H32-865,MS-10323,depot=Duqm,BK-70189,Net salary,net,345.060
+H32-866,MS-10330,vessel=Al Noor,BK-70190,Base pay,earning,295.523
+H32-867,MS-10330,vessel=Al Noor,BK-70190,Pension (employee),deduction,20.686
+H32-868,MS-10330,vessel=Al Noor,BK-70190,Pension (employer),employer,31.029
+H32-869,MS-10330,vessel=Al Noor,BK-70190,Net salary,net,274.837
+H32-870,MS-10337,vessel=Bahar 2,BK-70191,Base pay,earning,1162.619
+Total earnings,19594.343
+Total deductions,1729.678
+Total employer,1993.108
+Total net,17987.237
+End section,S08
+Section,S09
+Entity,Synthetic Marine Services LLC
+Payroll run,MS-2027-11
+Currency,OMR
+Period start,2027-11-01
+Period end,2027-11-30
+Payroll posting date,2027-11-25
+Payment date,2027-11-26
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+H32-871,MS-10337,vessel=Bahar 2,BK-70191,Pension (employee),deduction,81.383
+H32-872,MS-10337,vessel=Bahar 2,BK-70191,Advance recovery,deduction,32.830
+H32-873,MS-10337,vessel=Bahar 2,BK-70191,Pension (employer),employer,122.074
+H32-874,MS-10337,vessel=Bahar 2,BK-70191,Net salary,net,1048.406
+H32-875,MS-10344,depot=Sohar,BK-70192,Base pay,earning,526.617
+H32-876,MS-10344,depot=Sohar,BK-70192,Sea allowance,earning,180.057
+H32-877,MS-10344,depot=Sohar,BK-70192,Pension (employee),deduction,36.863
+H32-878,MS-10344,depot=Sohar,BK-70192,Pension (employer),employer,55.294
+H32-879,MS-10344,depot=Sohar,BK-70192,Net salary,net,669.811
+H32-880,MS-10351,depot=Sur,BK-70193,Base pay,earning,1748.688
+H32-881,MS-10351,depot=Sur,BK-70193,Sea allowance,earning,52.868
+H32-882,MS-10351,depot=Sur,BK-70193,Pension (employee),deduction,122.408
+H32-883,MS-10351,depot=Sur,BK-70193,Pension (employer),employer,183.612
+H32-884,MS-10351,depot=Sur,BK-70193,Net salary,net,1679.148
+H32-885,MS-10358,depot=Duqm,BK-70194,Base pay,earning,1799.196
+H32-886,MS-10358,depot=Duqm,BK-70194,Pension (employee),deduction,125.943
+H32-887,MS-10358,depot=Duqm,BK-70194,Pension (employer),employer,188.915
+H32-888,MS-10358,depot=Duqm,BK-70194,Net salary,net,1673.253
+H32-889,MS-10365,vessel=Al Noor,BK-70195,Base pay,earning,1079.346
+H32-890,MS-10365,vessel=Al Noor,BK-70195,Sea allowance,earning,52.862
+H32-891,MS-10365,vessel=Al Noor,BK-70195,Pension (employee),deduction,75.554
+H32-892,MS-10365,vessel=Al Noor,BK-70195,Pension (employer),employer,113.331
+H32-893,MS-10365,vessel=Al Noor,BK-70195,Net salary,net,1056.654
+H32-894,MS-10372,vessel=Bahar 2,BK-70196,Base pay,earning,1700.218
+H32-895,MS-10372,vessel=Bahar 2,BK-70196,Sea allowance,earning,27.738
+H32-896,MS-10372,vessel=Bahar 2,BK-70196,Pension (employee),deduction,119.015
+H32-897,MS-10372,vessel=Bahar 2,BK-70196,Pension (employer),employer,178.522
+H32-898,MS-10372,vessel=Bahar 2,BK-70196,Net salary,net,1608.941
+H32-899,MS-10379,depot=Sohar,BK-70197,Base pay,earning,1480.710
+H32-900,MS-10379,depot=Sohar,BK-70197,Pension (employee),deduction,103.649
+H32-901,MS-10379,depot=Sohar,BK-70197,Advance recovery,deduction,29.968
+H32-902,MS-10379,depot=Sohar,BK-70197,Pension (employer),employer,155.474
+H32-903,MS-10379,depot=Sohar,BK-70197,Net salary,net,1347.093
+H32-904,MS-10386,depot=Sur,BK-70198,Base pay,earning,305.087
+H32-905,MS-10386,depot=Sur,BK-70198,Pension (employee),deduction,21.356
+H32-906,MS-10386,depot=Sur,BK-70198,Pension (employer),employer,32.034
+H32-907,MS-10386,depot=Sur,BK-70198,Net salary,net,283.731
+H32-908,MS-10393,depot=Duqm,BK-70199,Base pay,earning,1536.886
+H32-909,MS-10393,depot=Duqm,BK-70199,Pension (employee),deduction,107.582
+H32-910,MS-10393,depot=Duqm,BK-70199,Pension (employer),employer,161.373
+H32-911,MS-10393,depot=Duqm,BK-70199,Net salary,net,1321.722
+H32-912,MS-10400,vessel=Al Noor,BK-70200,Base pay,earning,860.844
+H32-913,MS-10400,vessel=Al Noor,BK-70200,Pension (employee),deduction,60.259
+H32-914,MS-10400,vessel=Al Noor,BK-70200,Pension (employer),employer,90.388
+H32-915,MS-10400,vessel=Al Noor,BK-70200,Net salary,net,800.585
+H32-916,MS-10407,vessel=Bahar 2,BK-70201,Base pay,earning,1736.327
+H32-917,MS-10407,vessel=Bahar 2,BK-70201,Pension (employee),deduction,121.542
+H32-918,MS-10407,vessel=Bahar 2,BK-70201,Pension (employer),employer,182.314
+H32-919,MS-10407,vessel=Bahar 2,BK-70201,Net salary,net,1614.785
+H32-920,MS-10414,depot=Sohar,BK-70202,Base pay,earning,917.778
+H32-921,MS-10414,depot=Sohar,BK-70202,Pension (employee),deduction,64.244
+H32-922,MS-10414,depot=Sohar,BK-70202,Advance recovery,deduction,65.360
+H32-923,MS-10414,depot=Sohar,BK-70202,Pension (employer),employer,96.366
+H32-924,MS-10414,depot=Sohar,BK-70202,Net salary,net,788.174
+H32-925,MS-10421,depot=Sur,BK-70203,Base pay,earning,583.418
+H32-926,MS-10421,depot=Sur,BK-70203,Sea allowance,earning,149.198
+H32-927,MS-10421,depot=Sur,BK-70203,Pension (employee),deduction,40.839
+H32-928,MS-10421,depot=Sur,BK-70203,Pension (employer),employer,61.258
+H32-929,MS-10421,depot=Sur,BK-70203,Net salary,net,691.777
+H32-930,MS-10428,depot=Duqm,BK-70204,Base pay,earning,1096.093
+H32-931,MS-10428,depot=Duqm,BK-70204,Pension (employee),deduction,76.726
+H32-932,MS-10428,depot=Duqm,BK-70204,Pension (employer),employer,115.089
+H32-933,MS-10428,depot=Duqm,BK-70204,Net salary,net,1019.367
+H32-934,MS-10435,vessel=Al Noor,BK-70205,Base pay,earning,1309.830
+H32-935,MS-10435,vessel=Al Noor,BK-70205,Pension (employee),deduction,91.688
+H32-936,MS-10435,vessel=Al Noor,BK-70205,Advance recovery,deduction,65.199
+H32-937,MS-10435,vessel=Al Noor,BK-70205,Pension (employer),employer,137.532
+H32-938,MS-10435,vessel=Al Noor,BK-70205,Net salary,net,1152.943
+H32-939,MS-10442,vessel=Bahar 2,BK-70206,Base pay,earning,1364.808
+H32-940,MS-10442,vessel=Bahar 2,BK-70206,Pension (employee),deduction,95.536
+H32-941,MS-10442,vessel=Bahar 2,BK-70206,Pension (employer),employer,143.304
+H32-942,MS-10442,vessel=Bahar 2,BK-70206,Net salary,net,1269.272
+H32-943,MS-10449,depot=Sohar,BK-70207,Base pay,earning,1249.379
+H32-944,MS-10449,depot=Sohar,BK-70207,Pension (employee),deduction,87.456
+H32-945,MS-10449,depot=Sohar,BK-70207,Pension (employer),employer,131.184
+H32-946,MS-10449,depot=Sohar,BK-70207,Net salary,net,1161.923
+H32-947,MS-10456,depot=Sur,BK-70208,Base pay,earning,705.912
+H32-948,MS-10456,depot=Sur,BK-70208,Pension (employee),deduction,49.413
+H32-949,MS-10456,depot=Sur,BK-70208,Pension (employer),employer,74.120
+H32-950,MS-10456,depot=Sur,BK-70208,Net salary,net,656.499
+H32-951,MS-10463,depot=Duqm,BK-70209,Base pay,earning,351.294
+H32-952,MS-10463,depot=Duqm,BK-70209,Sea allowance,earning,91.879
+H32-953,MS-10463,depot=Duqm,BK-70209,Pension (employee),deduction,24.590
+H32-954,MS-10463,depot=Duqm,BK-70209,Advance recovery,deduction,65.745
+H32-955,MS-10463,depot=Duqm,BK-70209,Pension (employer),employer,36.885
+H32-956,MS-10463,depot=Duqm,BK-70209,Net salary,net,352.838
+H32-957,MS-10470,vessel=Al Noor,BK-70210,Base pay,earning,588.342
+H32-958,MS-10470,vessel=Al Noor,BK-70210,Sea allowance,earning,31.583
+H32-959,MS-10470,vessel=Al Noor,BK-70210,Pension (employee),deduction,41.183
+H32-960,MS-10470,vessel=Al Noor,BK-70210,Pension (employer),employer,61.775
+H32-961,MS-10470,vessel=Al Noor,BK-70210,Net salary,net,578.742
+H32-962,MS-10477,vessel=Bahar 2,BK-70211,Base pay,earning,1204.479
+H32-963,MS-10477,vessel=Bahar 2,BK-70211,Pension (employee),deduction,84.313
+H32-964,MS-10477,vessel=Bahar 2,BK-70211,Pension (employer),employer,126.470
+H32-965,MS-10477,vessel=Bahar 2,BK-70211,Net salary,net,1120.166
+H32-966,MS-10484,depot=Sohar,BK-70212,Base pay,earning,524.706
+H32-967,MS-10484,depot=Sohar,BK-70212,Sea allowance,earning,51.919
+H32-968,MS-10484,depot=Sohar,BK-70212,Pension (employee),deduction,36.729
+H32-969,MS-10484,depot=Sohar,BK-70212,Pension (employer),employer,55.094
+H32-970,MS-10484,depot=Sohar,BK-70212,Net salary,net,539.896
+H32-971,MS-10491,depot=Sur,BK-70213,Base pay,earning,1195.517
+H32-972,MS-10491,depot=Sur,BK-70213,Pension (employee),deduction,83.686
+H32-973,MS-10491,depot=Sur,BK-70213,Pension (employer),employer,125.529
+H32-974,MS-10491,depot=Sur,BK-70213,Net salary,net,1111.831
+H32-975,MS-10498,depot=Duqm,BK-70214,Base pay,earning,1483.508
+H32-976,MS-10498,depot=Duqm,BK-70214,Pension (employee),deduction,103.845
+H32-977,MS-10498,depot=Duqm,BK-70214,Pension (employer),employer,155.768
+H32-978,MS-10498,depot=Duqm,BK-70214,Net salary,net,1379.663
+H32-979,MS-10505,vessel=Al Noor,BK-70215,Base pay,earning,503.474
+H32-980,MS-10505,vessel=Al Noor,BK-70215,Pension (employee),deduction,35.243
+H32-981,MS-10505,vessel=Al Noor,BK-70215,Pension (employer),employer,52.864
+H32-982,MS-10505,vessel=Al Noor,BK-70215,Net salary,net,468.231
+H32-983,MS-10512,vessel=Bahar 2,BK-70216,Base pay,earning,547.813
+H32-984,MS-10512,vessel=Bahar 2,BK-70216,Pension (employee),deduction,38.346
+H32-985,MS-10512,vessel=Bahar 2,BK-70216,Pension (employer),employer,57.520
+H32-986,MS-10512,vessel=Bahar 2,BK-70216,Net salary,net,509.467
+H32-987,MS-10519,depot=Sohar,BK-70217,Base pay,earning,1731.730
+H32-988,MS-10519,depot=Sohar,BK-70217,Sea allowance,earning,115.361
+H32-989,MS-10519,depot=Sohar,BK-70217,Pension (employee),deduction,121.221
+H32-990,MS-10519,depot=Sohar,BK-70217,Pension (employer),employer,181.831
+H32-991,MS-10519,depot=Sohar,BK-70217,Net salary,net,1725.870
+H32-992,MS-10526,depot=Sur,BK-70218,Base pay,earning,623.904
+H32-993,MS-10526,depot=Sur,BK-70218,Pension (employee),deduction,43.673
+H32-994,MS-10526,depot=Sur,BK-70218,Advance recovery,deduction,14.482
+H32-995,MS-10526,depot=Sur,BK-70218,Pension (employer),employer,65.509
+H32-996,MS-10526,depot=Sur,BK-70218,Net salary,net,565.749
+H32-997,MS-10533,depot=Duqm,BK-70219,Base pay,earning,1681.330
+H32-998,MS-10533,depot=Duqm,BK-70219,Pension (employee),deduction,117.693
+H32-999,MS-10533,depot=Duqm,BK-70219,Advance recovery,deduction,35.063
+H32-1000,MS-10533,depot=Duqm,BK-70219,Pension (employer),employer,176.539
+H32-1001,MS-10533,depot=Duqm,BK-70219,Net salary,net,1528.574
+H32-1002,MS-10540,vessel=Al Noor,BK-70220,Base pay,earning,792.336
+H32-1003,MS-10540,vessel=Al Noor,BK-70220,Pension (employee),deduction,55.463
+H32-1004,MS-10540,vessel=Al Noor,BK-70220,Pension (employer),employer,83.195
+H32-1005,MS-10540,vessel=Al Noor,BK-70220,Net salary,net,736.873
+H32-1006,MS-10547,vessel=Bahar 2,BK-70221,Base pay,earning,1688.194
+H32-1007,MS-10547,vessel=Bahar 2,BK-70221,Sea allowance,earning,44.382
+Total earnings,33715.611
+Total deductions,2576.088
+Total employer,3401.163
+Total net,30461.984
+End section,S09
+Section,S10
+Entity,Synthetic Marine Services LLC
+Payroll run,MS-2027-11
+Currency,OMR
+Period start,2027-11-01
+Period end,2027-11-30
+Payroll posting date,2027-11-25
+Payment date,2027-11-26
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+H32-1008,MS-10547,vessel=Bahar 2,BK-70221,Pension (employee),deduction,118.173
+H32-1009,MS-10547,vessel=Bahar 2,BK-70221,Pension (employer),employer,177.260
+H32-1010,MS-10547,vessel=Bahar 2,BK-70221,Net salary,net,1614.403
+H32-1011,MS-10554,depot=Sohar,BK-70222,Base pay,earning,1674.378
+H32-1012,MS-10554,depot=Sohar,BK-70222,Pension (employee),deduction,117.206
+H32-1013,MS-10554,depot=Sohar,BK-70222,Pension (employer),employer,175.809
+H32-1014,MS-10554,depot=Sohar,BK-70222,Net salary,net,1557.172
+H32-1015,MS-10561,depot=Sur,BK-70223,Base pay,earning,591.819
+H32-1016,MS-10561,depot=Sur,BK-70223,Pension (employee),deduction,41.427
+H32-1017,MS-10561,depot=Sur,BK-70223,Pension (employer),employer,62.140
+H32-1018,MS-10561,depot=Sur,BK-70223,Net salary,net,550.392
+H32-1019,MS-10568,depot=Duqm,BK-70224,Base pay,earning,516.692
+H32-1020,MS-10568,depot=Duqm,BK-70224,Pension (employee),deduction,36.168
+H32-1021,MS-10568,depot=Duqm,BK-70224,Advance recovery,deduction,39.823
+H32-1022,MS-10568,depot=Duqm,BK-70224,Pension (employer),employer,54.252
+H32-1023,MS-10568,depot=Duqm,BK-70224,Net salary,net,440.701
+H32-1024,MS-10575,vessel=Al Noor,BK-70225,Base pay,earning,503.747
+H32-1025,MS-10575,vessel=Al Noor,BK-70225,Pension (employee),deduction,35.262
+H32-1026,MS-10575,vessel=Al Noor,BK-70225,Pension (employer),employer,52.893
+H32-1027,MS-10575,vessel=Al Noor,BK-70225,Net salary,net,468.485
+H32-1028,MS-10582,vessel=Bahar 2,BK-70226,Base pay,earning,847.394
+H32-1029,MS-10582,vessel=Bahar 2,BK-70226,Sea allowance,earning,113.365
+H32-1030,MS-10582,vessel=Bahar 2,BK-70226,Pension (employee),deduction,59.317
+H32-1031,MS-10582,vessel=Bahar 2,BK-70226,Pension (employer),employer,88.976
+H32-1032,MS-10582,vessel=Bahar 2,BK-70226,Net salary,net,901.442
+H32-1033,MS-10589,depot=Sohar,BK-70227,Base pay,earning,574.827
+H32-1034,MS-10589,depot=Sohar,BK-70227,Pension (employee),deduction,40.237
+H32-1035,MS-10589,depot=Sohar,BK-70227,Advance recovery,deduction,11.256
+H32-1036,MS-10589,depot=Sohar,BK-70227,Pension (employer),employer,60.356
+H32-1037,MS-10589,depot=Sohar,BK-70227,Net salary,net,523.334
+H32-1038,MS-10596,depot=Sur,BK-70228,Base pay,earning,1598.429
+H32-1039,MS-10596,depot=Sur,BK-70228,Pension (employee),deduction,111.890
+H32-1040,MS-10596,depot=Sur,BK-70228,Advance recovery,deduction,18.970
+H32-1041,MS-10596,depot=Sur,BK-70228,Pension (employer),employer,167.835
+H32-1042,MS-10596,depot=Sur,BK-70228,Net salary,net,1467.569
+H32-1043,MS-10603,depot=Duqm,BK-70229,Base pay,earning,966.231
+H32-1044,MS-10603,depot=Duqm,BK-70229,Pension (employee),deduction,67.636
+H32-1045,MS-10603,depot=Duqm,BK-70229,Pension (employer),employer,101.454
+H32-1046,MS-10603,depot=Duqm,BK-70229,Net salary,net,898.595
+H32-1047,MS-10610,vessel=Al Noor,BK-70230,Base pay,earning,928.462
+H32-1048,MS-10610,vessel=Al Noor,BK-70230,Pension (employee),deduction,64.992
+H32-1049,MS-10610,vessel=Al Noor,BK-70230,Pension (employer),employer,97.488
+H32-1050,MS-10610,vessel=Al Noor,BK-70230,Net salary,net,863.470
+H32-1051,MS-10617,vessel=Bahar 2,BK-70231,Base pay,earning,891.193
+H32-1052,MS-10617,vessel=Bahar 2,BK-70231,Pension (employee),deduction,62.383
+Total earnings,9206.537
+Total deductions,824.740
+Total employer,1038.463
+Total net,9285.563
+End section,S10
+Section,S11
+Entity,Synthetic Marine Services LLC
+Payroll run,MS-2027-11
+Currency,OMR
+Period start,2027-11-01
+Period end,2027-11-30
+Payroll posting date,2027-11-25
+Payment date,2027-11-26
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+H32-1053,MS-10617,vessel=Bahar 2,BK-70231,Pension (employer),employer,93.575
+H32-1054,MS-10617,vessel=Bahar 2,BK-70231,Net salary,net,828.810
+H32-1055,MS-10624,depot=Sohar,BK-70232,Base pay,earning,1415.181
+H32-1056,MS-10624,depot=Sohar,BK-70232,Pension (employee),deduction,99.062
+H32-1057,MS-10624,depot=Sohar,BK-70232,Advance recovery,deduction,51.733
+H32-1058,MS-10624,depot=Sohar,BK-70232,Pension (employer),employer,148.594
+H32-1059,MS-10624,depot=Sohar,BK-70232,Net salary,net,1264.386
+H32-1060,MS-10631,depot=Sur,BK-70233,Base pay,earning,1772.146
+H32-1061,MS-10631,depot=Sur,BK-70233,Sea allowance,earning,122.706
+H32-1062,MS-10631,depot=Sur,BK-70233,Pension (employee),deduction,124.050
+H32-1063,MS-10631,depot=Sur,BK-70233,Pension (employer),employer,186.075
+H32-1064,MS-10631,depot=Sur,BK-70233,Net salary,net,1770.802
+H32-1065,MS-10638,depot=Duqm,BK-70234,Base pay,earning,747.583
+H32-1066,MS-10638,depot=Duqm,BK-70234,Pension (employee),deduction,52.330
+H32-1067,MS-10638,depot=Duqm,BK-70234,Pension (employer),employer,78.496
+H32-1068,MS-10638,depot=Duqm,BK-70234,Net salary,net,695.253
+H32-1069,MS-10645,vessel=Al Noor,BK-70235,Base pay,earning,627.557
+H32-1070,MS-10645,vessel=Al Noor,BK-70235,Sea allowance,earning,22.889
+H32-1071,MS-10645,vessel=Al Noor,BK-70235,Pension (employee),deduction,43.928
+H32-1072,MS-10645,vessel=Al Noor,BK-70235,Advance recovery,deduction,64.919
+H32-1073,MS-10645,vessel=Al Noor,BK-70235,Pension (employer),employer,65.893
+H32-1074,MS-10645,vessel=Al Noor,BK-70235,Net salary,net,541.599
+H32-1075,MS-10652,vessel=Bahar 2,BK-70236,Base pay,earning,1758.190
+H32-1076,MS-10652,vessel=Bahar 2,BK-70236,Pension (employee),deduction,123.073
+Total earnings,6466.252
+Total deductions,559.095
+Total employer,572.633
+Total net,5100.850
+End section,S11
+Section,S12
+Entity,Synthetic Marine Services LLC
+Payroll run,MS-2027-11
+Currency,OMR
+Period start,2027-11-01
+Period end,2027-11-30
+Payroll posting date,2027-11-25
+Payment date,2027-11-26
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+H32-1077,MS-10652,vessel=Bahar 2,BK-70236,Pension (employer),employer,184.609
+H32-1078,MS-10652,vessel=Bahar 2,BK-70236,Net salary,net,1635.117
+H32-1079,MS-10659,depot=Sohar,BK-70237,Base pay,earning,1019.668
+H32-1080,MS-10659,depot=Sohar,BK-70237,Sea allowance,earning,149.953
+H32-1081,MS-10659,depot=Sohar,BK-70237,Pension (employee),deduction,71.376
+H32-1082,MS-10659,depot=Sohar,BK-70237,Pension (employer),employer,107.065
+H32-1083,MS-10659,depot=Sohar,BK-70237,Net salary,net,1098.245
+H32-1084,MS-10666,depot=Sur,BK-70238,Base pay,earning,1760.633
+H32-1085,MS-10666,depot=Sur,BK-70238,Pension (employee),deduction,123.244
+H32-1086,MS-10666,depot=Sur,BK-70238,Advance recovery,deduction,49.994
+H32-1087,MS-10666,depot=Sur,BK-70238,Pension (employer),employer,184.866
+H32-1088,MS-10666,depot=Sur,BK-70238,Net salary,net,1587.395
+H32-1089,MS-10673,depot=Duqm,BK-70239,Base pay,earning,863.925
+H32-1090,MS-10673,depot=Duqm,BK-70239,Pension (employee),deduction,60.474
+H32-1091,MS-10673,depot=Duqm,BK-70239,Pension (employer),employer,90.712
+H32-1092,MS-10673,depot=Duqm,BK-70239,Net salary,net,803.451
+Total earnings,3794.179
+Total deductions,305.088
+Total employer,567.252
+Total net,5124.208
+End section,S12
+Run totals,MS-2027-11
+Total earnings,254606.206
+Total deductions,20252.458
+Total employer,26007.135
+Total net,233350.206
+End run totals,MS-2027-11

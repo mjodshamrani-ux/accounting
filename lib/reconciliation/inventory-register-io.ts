@@ -28,6 +28,7 @@ import {
   STOCK_FIELDS,
   STOCK_VALUES,
   STOCK_ROLES,
+  STOCK_LINKS_VERSION,
   reconcileStock,
   assertStockEventBudget,
   type StockInput,
@@ -205,6 +206,155 @@ export async function exportStock(input: StockInput, expected: StockResult) {
     })),
     stockSourceObservations(state.files),
   );
+}
+/** INV-3: the register links as their own workbook, from a replayed result. */
+export async function exportStockLinks(
+  input: StockInput,
+  expected: StockResult,
+) {
+  const expectedSnapshot = JSON.stringify(expected);
+  const { state, result: r } = await replayStock(input);
+  if (JSON.stringify(r) !== expectedSnapshot) throw Error('STOCK_STALE_EXPORT');
+  return writeStockLinksWorkbook(
+    r,
+    state.files.map((f) => ({ name: f.name, sha256: f.sha256! })),
+  );
+}
+/** Formatting only. Every identity cell is text as read; nothing is truncated. */
+export async function writeStockLinksWorkbook(
+  r: StockResult,
+  sources: { name: string; sha256: string }[],
+) {
+  const located = !!(r.matrixEvidence || r.columnEvidence);
+  const linked = r.links.filter((v) => v.status === 'linked').length;
+  const tables: { name: string; headers: string[]; rows: Value[][] }[] = [
+    {
+      name: 'Summary',
+      headers: ['Field', 'Value'],
+      rows: [
+        ['Links version', STOCK_LINKS_VERSION],
+        ['Family', r.version],
+        [
+          'Claim',
+          "For every register record, what the family linking rule looked at and why it did not link; the decision is the family's and is not changed by these links",
+        ],
+        ['Context', r.context],
+        ['Status', r.status],
+        ['Financial', r.financial],
+        ['Register records', r.links.length],
+        ['Linked', linked],
+        ['Unlinked', r.links.length - linked],
+        ['Unlinked records', r.unlinked.length],
+        ...sources.flatMap((f, i) => [
+          [`Source ${i} role`, STOCK_ROLES[i]] as Value[],
+          [`Source ${i} name`, f.name] as Value[],
+          [`Source ${i} SHA256`, f.sha256] as Value[],
+        ]),
+      ],
+    },
+    {
+      name: 'Links',
+      headers: [
+        'Register record ID',
+        'Source row',
+        ...(located ? ['Source column'] : []),
+        ...(r.pdfEvidence ? ['Source page'] : []),
+        'Item ID',
+        'Item dimensions',
+        'Status',
+        'Reasons',
+        'GL account',
+        'GL dimensions',
+      ],
+      rows: r.links.map((v) => [
+        v.id,
+        v.row,
+        ...(located ? [v.column ?? null] : []),
+        ...(r.pdfEvidence ? [v.page === undefined ? null : v.page] : []),
+        v.item,
+        v.dimensions,
+        v.status,
+        v.reasons.join(' '),
+        v.account?.account ?? null,
+        v.account?.dimensions ?? null,
+      ]),
+    },
+    {
+      name: 'Link members',
+      headers: [
+        'Register record ID',
+        'Register source row',
+        'Role',
+        'Related record ID',
+        'Related source row',
+        'Related key',
+        'Related dimensions',
+      ],
+      rows: r.links.flatMap((v) => [
+        ...v.mappings.map((m) => [
+          v.id,
+          v.row,
+          'mapping',
+          m.id,
+          m.row,
+          m.key,
+          null,
+        ]),
+        ...v.evidence.map((e) => [
+          v.id,
+          v.row,
+          'evidence',
+          e.id,
+          e.row,
+          e.key,
+          null,
+        ]),
+        ...v.gl.map((g) => [
+          v.id,
+          v.row,
+          'gl',
+          g.id,
+          g.row,
+          v.account!.account,
+          v.account!.dimensions,
+        ]),
+      ]),
+    },
+    {
+      name: 'Unlinked records',
+      headers: [
+        'Role',
+        'Record ID',
+        'Source row',
+        'Key',
+        'Key dimensions',
+        'Reason',
+      ],
+      rows: r.unlinked.map((v) => [
+        v.role,
+        v.record?.id ?? null,
+        v.record?.row ?? null,
+        v.key[0],
+        v.key[1] ?? null,
+        v.reason,
+      ]),
+    },
+  ];
+  for (const t of tables) {
+    if (t.rows.length + 1 > 1048576) throw Error('STOCK_EXPORT_CAPACITY');
+    for (const row of t.rows)
+      for (const v of row)
+        if (typeof v === 'string' && v.length > 32767)
+          throw Error('STOCK_EXPORT_CAPACITY');
+  }
+  const book = new ExcelJS.Workbook();
+  for (const t of tables) {
+    const sheet = book.addWorksheet(t.name);
+    sheet.addRow(t.headers);
+    for (const row of t.rows) sheet.addRow(row);
+  }
+  const data = await book.xlsx.writeBuffer();
+  return new Uint8Array(data).buffer;
 }
 /** Formatting only. Financial entry points must replay originals before calling. */
 export async function writeStockEvidenceWorkbook(

@@ -1,0 +1,18 @@
+Closing basis,Map version,Chart version,As of,Period end,Period start,Posting layer,Posting status,Currency basis,Currency,Ledger,Entity,Credit,Debit,Account class,Account label,Complete dimensions,Account ID
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,0.00,850000.00,noncurrent-asset,Machinery at cost,cc=HQ,1210
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,210500.00,0.00,noncurrent-asset,Accumulated depreciation,cc=HQ,1219
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,0.00,45000.00,noncurrent-asset,Software licences,cc=HQ,1300
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,0.00,120350.75,current-asset,Bank current account,cc=HQ,1101
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,0.00,30000.25,current-asset,Bank current account,cc=BR,1101
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,0.00,1500.00,current-asset,Petty cash,cc=BR,1105
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,0.00,98765.43,current-asset,Trade receivables,cc=HQ,1120
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,4938.27,0.00,current-asset,Loss allowance,cc=HQ,1129
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,0.00,210000.00,current-asset,Raw materials,cc=HQ,1140
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,0.00,0.00,current-asset,Prepaid insurance,cc=HQ,1150
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,400000.00,0.00,noncurrent-liability,Term loan,cc=HQ,2500
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,0.00,12000.00,noncurrent-liability,Unamortised issue discount,cc=HQ,2509
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,145321.09,0.00,current-liability,Trade payables,cc=HQ,2100
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,23456.78,0.00,current-liability,Accrued expenses,cc=HQ,2110
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,17400.29,0.00,current-liability,VAT payable,cc=HQ,2120
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,500000.00,0.00,equity,Share capital,cc=HQ,3100
+post-closing,BSMAP-7,COA-2027,2027-06-30,2027-06-30,2027-01-01,actual,posted,functional,USD,STAT-H1,SYN-WADI-MFG,66000.00,0.00,equity,Retained earnings,cc=HQ,3200

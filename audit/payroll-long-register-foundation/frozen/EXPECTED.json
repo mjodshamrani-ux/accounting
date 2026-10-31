@@ -1,0 +1,8631 @@
+{
+ "schema": "tarasuf-pay1-long-register-expected/1",
+ "stories": {
+  "P01": {
+   "employees": {
+    "E-1001|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1550000,
+     "deductions": 146250,
+     "employer": 176250,
+     "net": 1403750,
+     "payee": "ACCT-70001",
+     "lines": [
+      [
+       "L-0001",
+       "Basic salary",
+       "earning",
+       1200000
+      ],
+      [
+       "L-0002",
+       "Housing allowance",
+       "earning",
+       300000
+      ],
+      [
+       "L-0003",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0004",
+       "Social insurance (employee)",
+       "deduction",
+       146250
+      ],
+      [
+       "L-0005",
+       "Social insurance (employer)",
+       "employer",
+       176250
+      ],
+      [
+       "L-0006",
+       "Net pay",
+       "net",
+       1403750
+      ]
+     ]
+    },
+    "E-1002|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1237500,
+     "deductions": 115781,
+     "employer": 139531,
+     "net": 1121719,
+     "payee": "ACCT-70002",
+     "lines": [
+      [
+       "L-0007",
+       "Basic salary",
+       "earning",
+       950000
+      ],
+      [
+       "L-0008",
+       "Housing allowance",
+       "earning",
+       237500
+      ],
+      [
+       "L-0009",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0010",
+       "Social insurance (employee)",
+       "deduction",
+       115781
+      ],
+      [
+       "L-0011",
+       "Social insurance (employer)",
+       "employer",
+       139531
+      ],
+      [
+       "L-0012",
+       "Net pay",
+       "net",
+       1121719
+      ]
+     ]
+    },
+    "E-1003|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1025000,
+     "deductions": 95062,
+     "employer": 114562,
+     "net": 929938,
+     "payee": "ACCT-70003",
+     "lines": [
+      [
+       "L-0013",
+       "Basic salary",
+       "earning",
+       780000
+      ],
+      [
+       "L-0014",
+       "Housing allowance",
+       "earning",
+       195000
+      ],
+      [
+       "L-0015",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0016",
+       "Social insurance (employee)",
+       "deduction",
+       95062
+      ],
+      [
+       "L-0017",
+       "Social insurance (employer)",
+       "employer",
+       114562
+      ],
+      [
+       "L-0018",
+       "Net pay",
+       "net",
+       929938
+      ]
+     ]
+    },
+    "E-1004|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 850000,
+     "deductions": 78000,
+     "employer": 94000,
+     "net": 772000,
+     "payee": "ACCT-70004",
+     "lines": [
+      [
+       "L-0019",
+       "Basic salary",
+       "earning",
+       640000
+      ],
+      [
+       "L-0020",
+       "Housing allowance",
+       "earning",
+       160000
+      ],
+      [
+       "L-0021",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0022",
+       "Social insurance (employee)",
+       "deduction",
+       78000
+      ],
+      [
+       "L-0023",
+       "Social insurance (employer)",
+       "employer",
+       94000
+      ],
+      [
+       "L-0024",
+       "Net pay",
+       "net",
+       772000
+      ]
+     ]
+    },
+    "E-1005|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1925000,
+     "deductions": 182812,
+     "employer": 220312,
+     "net": 1742188,
+     "payee": "ACCT-70005",
+     "lines": [
+      [
+       "L-0025",
+       "Basic salary",
+       "earning",
+       1500000
+      ],
+      [
+       "L-0026",
+       "Housing allowance",
+       "earning",
+       375000
+      ],
+      [
+       "L-0027",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0028",
+       "Social insurance (employee)",
+       "deduction",
+       182812
+      ],
+      [
+       "L-0029",
+       "Social insurance (employer)",
+       "employer",
+       220312
+      ],
+      [
+       "L-0030",
+       "Net pay",
+       "net",
+       1742188
+      ]
+     ]
+    },
+    "E-1006|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 700000,
+     "deductions": 63375,
+     "employer": 76375,
+     "net": 636625,
+     "payee": "ACCT-70006",
+     "lines": [
+      [
+       "L-0031",
+       "Basic salary",
+       "earning",
+       520000
+      ],
+      [
+       "L-0032",
+       "Housing allowance",
+       "earning",
+       130000
+      ],
+      [
+       "L-0033",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0034",
+       "Social insurance (employee)",
+       "deduction",
+       63375
+      ],
+      [
+       "L-0035",
+       "Social insurance (employer)",
+       "employer",
+       76375
+      ],
+      [
+       "L-0036",
+       "Net pay",
+       "net",
+       636625
+      ]
+     ]
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 7287500,
+    "deductions": 681280,
+    "employer": 821030,
+    "net": 6606220
+   },
+   "run": []
+  },
+  "P02": {
+   "employees": {
+    "E-2001|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1532550,
+     "deductions": 134062,
+     "employer": 161562,
+     "net": 1398488,
+     "payee": "ACCT-70011",
+     "lines": [
+      [
+       "L-0001",
+       "Basic salary",
+       "earning",
+       1100000
+      ],
+      [
+       "L-0002",
+       "Housing allowance",
+       "earning",
+       275000
+      ],
+      [
+       "L-0003",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0004",
+       "Phone allowance",
+       "earning",
+       20000
+      ],
+      [
+       "L-0005",
+       "Night shift allowance",
+       "earning",
+       87550
+      ],
+      [
+       "L-0006",
+       "Social insurance (employee)",
+       "deduction",
+       134062
+      ],
+      [
+       "L-0007",
+       "Social insurance (employer)",
+       "employer",
+       161562
+      ],
+      [
+       "L-0008",
+       "Net pay",
+       "net",
+       1398488
+      ]
+     ]
+    },
+    "E-2002|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 925000,
+     "deductions": 85312,
+     "employer": 102812,
+     "net": 839688,
+     "payee": "ACCT-70012",
+     "lines": [
+      [
+       "L-0009",
+       "Basic salary",
+       "earning",
+       700000
+      ],
+      [
+       "L-0010",
+       "Housing allowance",
+       "earning",
+       175000
+      ],
+      [
+       "L-0011",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0012",
+       "Social insurance (employee)",
+       "deduction",
+       85312
+      ],
+      [
+       "L-0013",
+       "Social insurance (employer)",
+       "employer",
+       102812
+      ],
+      [
+       "L-0014",
+       "Net pay",
+       "net",
+       839688
+      ]
+     ]
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 2457550,
+    "deductions": 219374,
+    "employer": 264374,
+    "net": 2238176
+   },
+   "run": []
+  },
+  "P03": {
+   "employees": {
+    "E-3001|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1175000,
+     "deductions": 209687,
+     "employer": 132187,
+     "net": 965313,
+     "payee": "ACCT-70021",
+     "lines": [
+      [
+       "L-0001",
+       "Basic salary",
+       "earning",
+       900000
+      ],
+      [
+       "L-0002",
+       "Housing allowance",
+       "earning",
+       225000
+      ],
+      [
+       "L-0003",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0004",
+       "Social insurance (employee)",
+       "deduction",
+       109687
+      ],
+      [
+       "L-0005",
+       "Loan installment",
+       "deduction",
+       50000
+      ],
+      [
+       "L-0006",
+       "Loan installment",
+       "deduction",
+       50000
+      ],
+      [
+       "L-0007",
+       "Social insurance (employer)",
+       "employer",
+       132187
+      ],
+      [
+       "L-0008",
+       "Net pay",
+       "net",
+       965313
+      ]
+     ]
+    },
+    "E-3002|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1175000,
+     "deductions": 109687,
+     "employer": 132187,
+     "net": 1065313,
+     "payee": "ACCT-70022",
+     "lines": [
+      [
+       "L-0009",
+       "Basic salary",
+       "earning",
+       900000
+      ],
+      [
+       "L-0010",
+       "Housing allowance",
+       "earning",
+       225000
+      ],
+      [
+       "L-0011",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0012",
+       "Social insurance (employee)",
+       "deduction",
+       109687
+      ],
+      [
+       "L-0013",
+       "Social insurance (employer)",
+       "employer",
+       132187
+      ],
+      [
+       "L-0014",
+       "Net pay",
+       "net",
+       1065313
+      ]
+     ]
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 2350000,
+    "deductions": 319374,
+    "employer": 264374,
+    "net": 2030626
+   },
+   "run": []
+  },
+  "P04": {
+   "employees": {
+    "E-4001|cc=OPD": {
+     "status": "held",
+     "codes": [
+      "DUPLICATE_LINE"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "E-4002|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 812500,
+     "deductions": 74343,
+     "employer": 89593,
+     "net": 738157,
+     "payee": "ACCT-70032",
+     "lines": [
+      [
+       "L-0007",
+       "Basic salary",
+       "earning",
+       610000
+      ],
+      [
+       "L-0008",
+       "Housing allowance",
+       "earning",
+       152500
+      ],
+      [
+       "L-0009",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0010",
+       "Social insurance (employee)",
+       "deduction",
+       74343
+      ],
+      [
+       "L-0011",
+       "Social insurance (employer)",
+       "employer",
+       89593
+      ],
+      [
+       "L-0012",
+       "Net pay",
+       "net",
+       738157
+      ]
+     ]
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 1762500,
+    "deductions": 147468,
+    "employer": 177718,
+    "net": 1465032
+   },
+   "run": []
+  },
+  "P05": {
+   "employees": {
+    "E-5001|cc=LAB": {
+     "status": "held",
+     "codes": [
+      "RUN_TOTAL_MISMATCH"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "E-5002|cc=LAB": {
+     "status": "held",
+     "codes": [
+      "DUPLICATE_LINE",
+      "NET_REPEATED",
+      "RUN_TOTAL_MISMATCH"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "E-5003|cc=LAB": {
+     "status": "held",
+     "codes": [
+      "RUN_TOTAL_MISMATCH"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 3887500,
+    "deductions": 359529,
+    "employer": 433279,
+    "net": 3527971
+   },
+   "run": [
+    "RUN_TOTAL_MISMATCH"
+   ]
+  },
+  "P06": {
+   "employees": {
+    "E-6001|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 950000,
+     "deductions": 87750,
+     "employer": 105750,
+     "net": 862250,
+     "payee": "ACCT-70051",
+     "lines": [
+      [
+       "L-0001",
+       "Basic salary",
+       "earning",
+       720000
+      ],
+      [
+       "L-0002",
+       "Housing allowance",
+       "earning",
+       180000
+      ],
+      [
+       "L-0003",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0004",
+       "Social insurance (employee)",
+       "deduction",
+       87750
+      ],
+      [
+       "L-0005",
+       "Social insurance (employer)",
+       "employer",
+       105750
+      ],
+      [
+       "L-0006",
+       "Net pay",
+       "net",
+       862250
+      ]
+     ]
+    },
+    "E-6001|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 600000,
+     "deductions": 58500,
+     "employer": 70500,
+     "net": 541500,
+     "payee": "ACCT-70051",
+     "lines": [
+      [
+       "L-0007",
+       "Basic salary",
+       "earning",
+       480000
+      ],
+      [
+       "L-0008",
+       "Housing allowance",
+       "earning",
+       120000
+      ],
+      [
+       "L-0009",
+       "Social insurance (employee)",
+       "deduction",
+       58500
+      ],
+      [
+       "L-0010",
+       "Social insurance (employer)",
+       "employer",
+       70500
+      ],
+      [
+       "L-0011",
+       "Net pay",
+       "net",
+       541500
+      ]
+     ]
+    },
+    "E-6002|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 950000,
+     "deductions": 87750,
+     "employer": 105750,
+     "net": 862250,
+     "payee": "ACCT-70052",
+     "lines": [
+      [
+       "L-0012",
+       "Basic salary",
+       "earning",
+       720000
+      ],
+      [
+       "L-0013",
+       "Housing allowance",
+       "earning",
+       180000
+      ],
+      [
+       "L-0014",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0015",
+       "Social insurance (employee)",
+       "deduction",
+       87750
+      ],
+      [
+       "L-0016",
+       "Social insurance (employer)",
+       "employer",
+       105750
+      ],
+      [
+       "L-0017",
+       "Net pay",
+       "net",
+       862250
+      ]
+     ]
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 2500000,
+    "deductions": 234000,
+    "employer": 282000,
+    "net": 2266000
+   },
+   "run": []
+  },
+  "P07": {
+   "employees": {
+    "E-7001|cc=ICU": {
+     "status": "inconsistent",
+     "codes": [
+      "NET_EQUATION"
+     ],
+     "earnings": 750000,
+     "deductions": 73125,
+     "employer": 88125,
+     "net": 1128125,
+     "payee": "ACCT-70061",
+     "lines": [
+      [
+       "L-0001",
+       "Basic salary",
+       "earning",
+       600000
+      ],
+      [
+       "L-0002",
+       "Housing allowance",
+       "earning",
+       150000
+      ],
+      [
+       "L-0003",
+       "Social insurance (employee)",
+       "deduction",
+       73125
+      ],
+      [
+       "L-0004",
+       "Social insurance (employer)",
+       "employer",
+       88125
+      ],
+      [
+       "L-0005",
+       "Net pay",
+       "net",
+       1128125
+      ]
+     ]
+    },
+    "E-7001|cc=OPD": {
+     "status": "missing",
+     "codes": [
+      "NET_ABSENT"
+     ],
+     "earnings": 500000,
+     "deductions": 48750,
+     "employer": 58750,
+     "net": null,
+     "payee": "ACCT-70061",
+     "lines": [
+      [
+       "L-0006",
+       "Basic salary",
+       "earning",
+       400000
+      ],
+      [
+       "L-0007",
+       "Housing allowance",
+       "earning",
+       100000
+      ],
+      [
+       "L-0008",
+       "Social insurance (employee)",
+       "deduction",
+       48750
+      ],
+      [
+       "L-0009",
+       "Social insurance (employer)",
+       "employer",
+       58750
+      ]
+     ]
+    },
+    "E-7002|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 675000,
+     "deductions": 60937,
+     "employer": 73437,
+     "net": 614063,
+     "payee": "ACCT-70062",
+     "lines": [
+      [
+       "L-0010",
+       "Basic salary",
+       "earning",
+       500000
+      ],
+      [
+       "L-0011",
+       "Housing allowance",
+       "earning",
+       125000
+      ],
+      [
+       "L-0012",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0013",
+       "Social insurance (employee)",
+       "deduction",
+       60937
+      ],
+      [
+       "L-0014",
+       "Social insurance (employer)",
+       "employer",
+       73437
+      ],
+      [
+       "L-0015",
+       "Net pay",
+       "net",
+       614063
+      ]
+     ]
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 1925000,
+    "deductions": 182812,
+    "employer": 220312,
+    "net": 1742188
+   },
+   "run": []
+  },
+  "P08": {
+   "employees": {
+    "E-8001|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1300000,
+     "deductions": 121875,
+     "employer": 146875,
+     "net": 1178125,
+     "payee": "ACCT-70071",
+     "lines": [
+      [
+       "L-0001",
+       "Basic salary",
+       "earning",
+       1000000
+      ],
+      [
+       "L-0002",
+       "Housing allowance",
+       "earning",
+       250000
+      ],
+      [
+       "L-0003",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0004",
+       "Social insurance (employee)",
+       "deduction",
+       121875
+      ],
+      [
+       "L-0005",
+       "Social insurance (employer)",
+       "employer",
+       146875
+      ],
+      [
+       "L-0006",
+       "Net pay",
+       "net",
+       1178125
+      ]
+     ]
+    },
+    "E-8002|cc=ICU": {
+     "status": "inconsistent",
+     "codes": [
+      "NET_EQUATION"
+     ],
+     "earnings": 1250000,
+     "deductions": 121875,
+     "employer": 146875,
+     "net": 981250,
+     "payee": "ACCT-70072",
+     "lines": [
+      [
+       "L-0007",
+       "Basic salary",
+       "earning",
+       1000000
+      ],
+      [
+       "L-0008",
+       "Housing allowance",
+       "earning",
+       250000
+      ],
+      [
+       "L-0009",
+       "Social insurance (employee)",
+       "deduction",
+       121875
+      ],
+      [
+       "L-0010",
+       "Social insurance (employer)",
+       "employer",
+       146875
+      ],
+      [
+       "L-0011",
+       "Net pay",
+       "net",
+       981250
+      ]
+     ]
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 2550000,
+    "deductions": 243750,
+    "employer": 293750,
+    "net": 2159375
+   },
+   "run": []
+  },
+  "P09": {
+   "employees": {
+    "E-9001|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 700000,
+     "deductions": 68250,
+     "employer": 82250,
+     "net": 631750,
+     "payee": "ACCT-70081",
+     "lines": [
+      [
+       "L-0001",
+       "Basic salary",
+       "earning",
+       560000
+      ],
+      [
+       "L-0002",
+       "Housing allowance",
+       "earning",
+       140000
+      ],
+      [
+       "L-0003",
+       "Overtime",
+       "earning",
+       0
+      ],
+      [
+       "L-0004",
+       "Social insurance (employee)",
+       "deduction",
+       68250
+      ],
+      [
+       "L-0005",
+       "Social insurance (employer)",
+       "employer",
+       82250
+      ],
+      [
+       "L-0006",
+       "Net pay",
+       "net",
+       631750
+      ]
+     ]
+    },
+    "E-9002|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 750000,
+     "deductions": 68250,
+     "employer": 82250,
+     "net": 681750,
+     "payee": "ACCT-70082",
+     "lines": [
+      [
+       "L-0007",
+       "Basic salary",
+       "earning",
+       560000
+      ],
+      [
+       "L-0008",
+       "Housing allowance",
+       "earning",
+       140000
+      ],
+      [
+       "L-0009",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0010",
+       "Social insurance (employee)",
+       "deduction",
+       68250
+      ],
+      [
+       "L-0011",
+       "Social insurance (employer)",
+       "employer",
+       82250
+      ],
+      [
+       "L-0012",
+       "Net pay",
+       "net",
+       681750
+      ]
+     ]
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 1450000,
+    "deductions": 136500,
+    "employer": 164500,
+    "net": 1313500
+   },
+   "run": []
+  },
+  "P10": {
+   "employees": {
+    "E-1011|cc=ICU": {
+     "status": "held",
+     "codes": [
+      "RUN_TOTALS"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "E-1012|cc=OPD": {
+     "status": "held",
+     "codes": [
+      "RUN_TOTALS",
+      "TOTAL_FIELD"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "E-1013|cc=OPD": {
+     "status": "held",
+     "codes": [
+      "AMOUNT",
+      "RUN_TOTALS",
+      "TOTAL_FIELD"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": null,
+   "run": [
+    "RUN_TOTALS"
+   ]
+  },
+  "P11": {
+   "employees": {
+    "E-1101|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 862500,
+     "deductions": 79218,
+     "employer": 95468,
+     "net": 783282,
+     "payee": "ACCT-70101",
+     "lines": [
+      [
+       "L-0001",
+       "Basic salary",
+       "earning",
+       650000
+      ],
+      [
+       "L-0002",
+       "Housing allowance",
+       "earning",
+       162500
+      ],
+      [
+       "L-0003",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0004",
+       "Social insurance (employee)",
+       "deduction",
+       79218
+      ],
+      [
+       "L-0005",
+       "Social insurance (employer)",
+       "employer",
+       95468
+      ],
+      [
+       "L-0006",
+       "Net pay",
+       "net",
+       783282
+      ]
+     ]
+    },
+    "E-1102|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 862500,
+     "deductions": 79218,
+     "employer": 95468,
+     "net": 783282,
+     "payee": "ACCT-70102",
+     "lines": [
+      [
+       "L-0007",
+       "Basic salary",
+       "earning",
+       650000
+      ],
+      [
+       "L-0008",
+       "Housing allowance",
+       "earning",
+       162500
+      ],
+      [
+       "L-0009",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0010",
+       "Social insurance (employee)",
+       "deduction",
+       79218
+      ],
+      [
+       "L-0011",
+       "Social insurance (employer)",
+       "employer",
+       95468
+      ],
+      [
+       "L-0012",
+       "Net pay",
+       "net",
+       783282
+      ]
+     ]
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 1725000,
+    "deductions": 158436,
+    "employer": 190936,
+    "net": 1566564
+   },
+   "run": []
+  },
+  "P12": {
+   "employees": {
+    "E-1201|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 612500,
+     "deductions": 54843,
+     "employer": 66093,
+     "net": 557657,
+     "payee": "ACCT-90001",
+     "lines": [
+      [
+       "L-0001",
+       "Basic salary",
+       "earning",
+       450000
+      ],
+      [
+       "L-0002",
+       "Housing allowance",
+       "earning",
+       112500
+      ],
+      [
+       "L-0003",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0004",
+       "Social insurance (employee)",
+       "deduction",
+       54843
+      ],
+      [
+       "L-0005",
+       "Social insurance (employer)",
+       "employer",
+       66093
+      ],
+      [
+       "L-0006",
+       "Net pay",
+       "net",
+       557657
+      ]
+     ]
+    },
+    "E-1202|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 637500,
+     "deductions": 57281,
+     "employer": 69031,
+     "net": 580219,
+     "payee": "ACCT-90001",
+     "lines": [
+      [
+       "L-0007",
+       "Basic salary",
+       "earning",
+       470000
+      ],
+      [
+       "L-0008",
+       "Housing allowance",
+       "earning",
+       117500
+      ],
+      [
+       "L-0009",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0010",
+       "Social insurance (employee)",
+       "deduction",
+       57281
+      ],
+      [
+       "L-0011",
+       "Social insurance (employer)",
+       "employer",
+       69031
+      ],
+      [
+       "L-0012",
+       "Net pay",
+       "net",
+       580219
+      ]
+     ]
+    },
+    "E-1203|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 650000,
+     "deductions": 58500,
+     "employer": 70500,
+     "net": 591500,
+     "payee": "ACCT-70113",
+     "lines": [
+      [
+       "L-0013",
+       "Basic salary",
+       "earning",
+       480000
+      ],
+      [
+       "L-0014",
+       "Housing allowance",
+       "earning",
+       120000
+      ],
+      [
+       "L-0015",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0016",
+       "Social insurance (employee)",
+       "deduction",
+       58500
+      ],
+      [
+       "L-0017",
+       "Social insurance (employer)",
+       "employer",
+       70500
+      ],
+      [
+       "L-0018",
+       "Net pay",
+       "net",
+       591500
+      ]
+     ]
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [
+    [
+     "ACCT-90001",
+     [
+      "E-1201",
+      "E-1202"
+     ]
+    ]
+   ],
+   "unplaced": [],
+   "totals": {
+    "earnings": 1900000,
+    "deductions": 170624,
+    "employer": 205624,
+    "net": 1729376
+   },
+   "run": []
+  },
+  "P13": {
+   "employees": {
+    "E-1301|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1287500,
+     "deductions": 120656,
+     "employer": 145406,
+     "net": 1166844,
+     "payee": "ACCT-70121",
+     "lines": [
+      [
+       "L-0001",
+       "Basic salary",
+       "earning",
+       990000
+      ],
+      [
+       "L-0002",
+       "Housing allowance",
+       "earning",
+       247500
+      ],
+      [
+       "L-0003",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0004",
+       "Social insurance (employee)",
+       "deduction",
+       120656
+      ],
+      [
+       "L-0005",
+       "Social insurance (employer)",
+       "employer",
+       145406
+      ],
+      [
+       "L-0006",
+       "Net pay",
+       "net",
+       1166844
+      ]
+     ]
+    },
+    "E-1302|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1137500,
+     "deductions": 106031,
+     "employer": 127781,
+     "net": 1031469,
+     "payee": "ACCT-70122",
+     "lines": [
+      [
+       "L-0007",
+       "Basic salary",
+       "earning",
+       870000
+      ],
+      [
+       "L-0008",
+       "Housing allowance",
+       "earning",
+       217500
+      ],
+      [
+       "L-0009",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0010",
+       "Social insurance (employee)",
+       "deduction",
+       106031
+      ],
+      [
+       "L-0011",
+       "Social insurance (employer)",
+       "employer",
+       127781
+      ],
+      [
+       "L-0012",
+       "Net pay",
+       "net",
+       1031469
+      ]
+     ]
+    },
+    "E-1303|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 812500,
+     "deductions": 74343,
+     "employer": 89593,
+     "net": 738157,
+     "payee": "ACCT-70123",
+     "lines": [
+      [
+       "L-0013",
+       "Basic salary",
+       "earning",
+       610000
+      ],
+      [
+       "L-0014",
+       "Housing allowance",
+       "earning",
+       152500
+      ],
+      [
+       "L-0015",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0016",
+       "Social insurance (employee)",
+       "deduction",
+       74343
+      ],
+      [
+       "L-0017",
+       "Social insurance (employer)",
+       "employer",
+       89593
+      ],
+      [
+       "L-0018",
+       "Net pay",
+       "net",
+       738157
+      ]
+     ]
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 3237500,
+    "deductions": 301030,
+    "employer": 362780,
+    "net": 2936470
+   },
+   "run": []
+  },
+  "P14": {
+   "employees": {
+    "E-1401|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 775000,
+     "deductions": 70687,
+     "employer": 85187,
+     "net": 704313,
+     "payee": "ACCT-70131",
+     "lines": [
+      [
+       "L-0001",
+       "Basic salary",
+       "earning",
+       580000
+      ],
+      [
+       "L-0002",
+       "Housing allowance",
+       "earning",
+       145000
+      ],
+      [
+       "L-0003",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0004",
+       "Social insurance (employee)",
+       "deduction",
+       70687
+      ],
+      [
+       "L-0005",
+       "Social insurance (employer)",
+       "employer",
+       85187
+      ],
+      [
+       "L-0006",
+       "Net pay",
+       "net",
+       704313
+      ]
+     ]
+    },
+    "E-1402|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 787500,
+     "deductions": 71906,
+     "employer": 86656,
+     "net": 715594,
+     "payee": "ACCT-70132",
+     "lines": [
+      [
+       "L-0007",
+       "Basic salary",
+       "earning",
+       590000
+      ],
+      [
+       "L-0008",
+       "Housing allowance",
+       "earning",
+       147500
+      ],
+      [
+       "L-0009",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0010",
+       "Social insurance (employee)",
+       "deduction",
+       71906
+      ],
+      [
+       "L-0011",
+       "Social insurance (employer)",
+       "employer",
+       86656
+      ],
+      [
+       "L-0012",
+       "Net pay",
+       "net",
+       715594
+      ]
+     ]
+    }
+   },
+   "excludedSections": [
+    "PG-B1"
+   ],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 1562500,
+    "deductions": 142593,
+    "employer": 171843,
+    "net": 1419907
+   },
+   "run": []
+  },
+  "P15": {
+   "employees": {
+    "E-1501|cc=ICU": {
+     "status": "held",
+     "codes": [
+      "RUN_TOTAL_MISMATCH"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "E-1502|cc=OPD": {
+     "status": "held",
+     "codes": [
+      "RUN_TOTAL_MISMATCH"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 1862500,
+    "deductions": 171843,
+    "employer": 207093,
+    "net": 1690657
+   },
+   "run": [
+    "RUN_TOTAL_MISMATCH"
+   ]
+  },
+  "P16": {
+   "employees": {
+    "E-1601|cc=ICU": {
+     "status": "held",
+     "codes": [
+      "PAYEE_CONFLICT"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "E-1602|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1150000,
+     "deductions": 107250,
+     "employer": 129250,
+     "net": 1042750,
+     "payee": "ACCT-70152",
+     "lines": [
+      [
+       "L-0007",
+       "Basic salary",
+       "earning",
+       880000
+      ],
+      [
+       "L-0008",
+       "Housing allowance",
+       "earning",
+       220000
+      ],
+      [
+       "L-0009",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0010",
+       "Social insurance (employee)",
+       "deduction",
+       107250
+      ],
+      [
+       "L-0011",
+       "Social insurance (employer)",
+       "employer",
+       129250
+      ],
+      [
+       "L-0012",
+       "Net pay",
+       "net",
+       1042750
+      ]
+     ]
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 2300000,
+    "deductions": 214500,
+    "employer": 258500,
+    "net": 2085500
+   },
+   "run": []
+  },
+  "P17": {
+   "employees": {
+    "E-1701|cc=LAB": {
+     "status": "held",
+     "codes": [
+      "NET_REPEATED"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "E-1702|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 800000,
+     "deductions": 73125,
+     "employer": 88125,
+     "net": 726875,
+     "payee": "ACCT-70162",
+     "lines": [
+      [
+       "L-0007",
+       "Basic salary",
+       "earning",
+       600000
+      ],
+      [
+       "L-0008",
+       "Housing allowance",
+       "earning",
+       150000
+      ],
+      [
+       "L-0009",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0010",
+       "Social insurance (employee)",
+       "deduction",
+       73125
+      ],
+      [
+       "L-0011",
+       "Social insurance (employer)",
+       "employer",
+       88125
+      ],
+      [
+       "L-0012",
+       "Net pay",
+       "net",
+       726875
+      ]
+     ]
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 1550000,
+    "deductions": 146250,
+    "employer": 176250,
+    "net": 1403750
+   },
+   "run": []
+  },
+  "P18": {
+   "employees": {
+    "E-1801|cc=OPD": {
+     "status": "missing",
+     "codes": [
+      "NET_ABSENT"
+     ],
+     "earnings": 375000,
+     "deductions": 36562,
+     "employer": 44062,
+     "net": null,
+     "payee": "ACCT-70171",
+     "lines": [
+      [
+       "L-0001",
+       "Basic salary",
+       "earning",
+       300000
+      ],
+      [
+       "L-0002",
+       "Housing allowance",
+       "earning",
+       75000
+      ],
+      [
+       "L-0003",
+       "Social insurance (employee)",
+       "deduction",
+       36562
+      ],
+      [
+       "L-0004",
+       "Social insurance (employer)",
+       "employer",
+       44062
+      ]
+     ]
+    },
+    "E-1802|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 425000,
+     "deductions": 36562,
+     "employer": 44062,
+     "net": 388438,
+     "payee": "ACCT-70172",
+     "lines": [
+      [
+       "L-0005",
+       "Basic salary",
+       "earning",
+       300000
+      ],
+      [
+       "L-0006",
+       "Housing allowance",
+       "earning",
+       75000
+      ],
+      [
+       "L-0007",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0008",
+       "Social insurance (employee)",
+       "deduction",
+       36562
+      ],
+      [
+       "L-0009",
+       "Social insurance (employer)",
+       "employer",
+       44062
+      ],
+      [
+       "L-0010",
+       "Net pay",
+       "net",
+       388438
+      ]
+     ]
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 800000,
+    "deductions": 73124,
+    "employer": 88124,
+    "net": 388438
+   },
+   "run": []
+  },
+  "P19": {
+   "employees": {
+    "E-1901|cc=ICU": {
+     "status": "held",
+     "codes": [
+      "KIND",
+      "RUN_TOTALS",
+      "TOTAL_FIELD"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "E-1902|cc=ICU": {
+     "status": "held",
+     "codes": [
+      "RUN_TOTALS",
+      "TOTAL_FIELD"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "E-1903|cc=OPD": {
+     "status": "held",
+     "codes": [
+      "RUN_TOTALS"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": null,
+   "run": [
+    "RUN_TOTALS"
+   ]
+  },
+  "P20": {
+   "employees": {
+    "E-2001|cc=ICU": {
+     "status": "held",
+     "codes": [
+      "LINE_UNREADABLE"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "E-2002|cc=ICU": {
+     "status": "held",
+     "codes": [
+      "LINE_UNREADABLE"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [
+    [
+     17,
+     "LINE_UNREADABLE"
+    ]
+   ],
+   "totals": {
+    "earnings": 1637500,
+    "deductions": 149905,
+    "employer": 180655,
+    "net": 1487595
+   },
+   "run": [
+    "LINE_UNREADABLE"
+   ]
+  },
+  "P21": {
+   "employees": {
+    "E-2101|cc=LAB": {
+     "status": "held",
+     "codes": [
+      "STRAY_ROW"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "E-2102|cc=LAB": {
+     "status": "held",
+     "codes": [
+      "STRAY_ROW"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [
+    [
+     22,
+     "STRAY_ROW"
+    ]
+   ],
+   "totals": {
+    "earnings": 1237500,
+    "deductions": 110905,
+    "employer": 133655,
+    "net": 1126595
+   },
+   "run": [
+    "STRAY_ROW"
+   ]
+  },
+  "P22": {
+   "employees": {
+    "E-2201|cc=ICU": {
+     "status": "held",
+     "codes": [
+      "RUN_TOTALS",
+      "SECTION_UNCLOSED"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "E-2202|cc=OPD": {
+     "status": "held",
+     "codes": [
+      "RUN_TOTALS",
+      "SECTION_UNCLOSED",
+      "TOTAL_FIELD"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 2037500,
+    "deductions": 188905,
+    "employer": 113093,
+    "net": 918657
+   },
+   "run": [
+    "RUN_TOTALS",
+    "SECTION_UNCLOSED"
+   ]
+  },
+  "P23": {
+   "employees": {
+    "E-2301|cc=OPD": {
+     "status": "held",
+     "codes": [
+      "RUN_TOTAL_MISMATCH",
+      "SECTION_HEADER"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [
+    [
+     22,
+     "SECTION_HEADER"
+    ]
+   ],
+   "totals": {
+    "earnings": 762500,
+    "deductions": 69468,
+    "employer": 83718,
+    "net": 693032
+   },
+   "run": [
+    "RUN_TOTAL_MISMATCH",
+    "SECTION_HEADER"
+   ]
+  },
+  "P24": {
+   "employees": {
+    "E-2401|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 850000,
+     "deductions": 78000,
+     "employer": 94000,
+     "net": 772000,
+     "payee": "ACCT-70231",
+     "lines": [
+      [
+       "L-0001",
+       "Basic salary",
+       "earning",
+       640000
+      ],
+      [
+       "L-0002",
+       "Housing allowance",
+       "earning",
+       160000
+      ],
+      [
+       "L-0003",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0004",
+       "Social insurance (employee)",
+       "deduction",
+       78000
+      ],
+      [
+       "L-0005",
+       "Social insurance (employer)",
+       "employer",
+       94000
+      ],
+      [
+       "L-0006",
+       "Net pay",
+       "net",
+       772000
+      ]
+     ]
+    },
+    "E-2402|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 862500,
+     "deductions": 79218,
+     "employer": 95468,
+     "net": 783282,
+     "payee": "ACCT-70232",
+     "lines": [
+      [
+       "L-0007",
+       "Basic salary",
+       "earning",
+       650000
+      ],
+      [
+       "L-0008",
+       "Housing allowance",
+       "earning",
+       162500
+      ],
+      [
+       "L-0009",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0010",
+       "Social insurance (employee)",
+       "deduction",
+       79218
+      ],
+      [
+       "L-0011",
+       "Social insurance (employer)",
+       "employer",
+       95468
+      ],
+      [
+       "L-0012",
+       "Net pay",
+       "net",
+       783282
+      ]
+     ]
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 1712500,
+    "deductions": 157218,
+    "employer": 189468,
+    "net": 1555282
+   },
+   "run": []
+  },
+  "P25": {
+   "employees": {
+    "E-2501|cc=OPD": {
+     "status": "held",
+     "codes": [
+      "RUN_TOTAL_MISMATCH",
+      "SECTION_COLUMNS"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [
+    [
+     22,
+     "SECTION_COLUMNS"
+    ]
+   ],
+   "totals": {
+    "earnings": 712500,
+    "deductions": 64593,
+    "employer": 77843,
+    "net": 647907
+   },
+   "run": [
+    "RUN_TOTAL_MISMATCH",
+    "SECTION_COLUMNS"
+   ]
+  },
+  "P26": {
+   "employees": {
+    "E-2601|cc=ICU": {
+     "status": "held",
+     "codes": [
+      "SECTION_DUPLICATE"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "E-2602|cc=ICU": {
+     "status": "held",
+     "codes": [
+      "SECTION_DUPLICATE"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 2162500,
+    "deductions": 201093,
+    "employer": 242343,
+    "net": 1961407
+   },
+   "run": [
+    "SECTION_DUPLICATE"
+   ]
+  },
+  "P27": {
+   "employees": {
+    "E-2701|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1187500,
+     "deductions": 110906,
+     "employer": 133656,
+     "net": 1076594,
+     "payee": "ACCT-70261",
+     "lines": [
+      [
+       "L-0001",
+       "Basic salary",
+       "earning",
+       910000
+      ],
+      [
+       "L-0002",
+       "Housing allowance",
+       "earning",
+       227500
+      ],
+      [
+       "L-0003",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0004",
+       "Social insurance (employee)",
+       "deduction",
+       110906
+      ],
+      [
+       "L-0005",
+       "Social insurance (employer)",
+       "employer",
+       133656
+      ],
+      [
+       "L-0006",
+       "Net pay",
+       "net",
+       1076594
+      ]
+     ]
+    },
+    "E-2702|cc=OPD": {
+     "status": "held",
+     "codes": [
+      "TOTAL_MISMATCH"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "E-2703|cc=OPD": {
+     "status": "held",
+     "codes": [
+      "TOTAL_MISMATCH"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 3600000,
+    "deductions": 336374,
+    "employer": 405374,
+    "net": 3263626
+   },
+   "run": []
+  },
+  "P28": {
+   "employees": {
+    "E-2801|cc=ICU": {
+     "status": "held",
+     "codes": [
+      "RUN_TOTAL_MISMATCH",
+      "TOTAL_MISMATCH"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "E-2802|cc=ICU": {
+     "status": "held",
+     "codes": [
+      "RUN_TOTAL_MISMATCH",
+      "TOTAL_MISMATCH"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "E-2803|cc=LAB": {
+     "status": "held",
+     "codes": [
+      "RUN_TOTAL_MISMATCH"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 3087500,
+    "deductions": 331530,
+    "employer": 339280,
+    "net": 2755970
+   },
+   "run": [
+    "RUN_TOTAL_MISMATCH"
+   ]
+  },
+  "P29": {
+   "employees": {
+    "E-2901|مركز=١": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1563125,
+     "deductions": 125050,
+     "employer": 140612,
+     "net": 1438075,
+     "payee": "ACCT-70281",
+     "lines": [
+      [
+       "L-0001",
+       "Basic salary",
+       "earning",
+       1250500
+      ],
+      [
+       "L-0002",
+       "Housing allowance",
+       "earning",
+       312625
+      ],
+      [
+       "L-0003",
+       "Social insurance (employee)",
+       "deduction",
+       125050
+      ],
+      [
+       "L-0004",
+       "Social insurance (employer)",
+       "employer",
+       140612
+      ],
+      [
+       "L-0005",
+       "Net pay",
+       "net",
+       1438075
+      ]
+     ]
+    },
+    "E-2902|مركز=٢": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1225000,
+     "deductions": 98000,
+     "employer": 110250,
+     "net": 1127000,
+     "payee": "ACCT-70282",
+     "lines": [
+      [
+       "L-0006",
+       "Basic salary",
+       "earning",
+       980000
+      ],
+      [
+       "L-0007",
+       "Housing allowance",
+       "earning",
+       245000
+      ],
+      [
+       "L-0008",
+       "Social insurance (employee)",
+       "deduction",
+       98000
+      ],
+      [
+       "L-0009",
+       "Social insurance (employer)",
+       "employer",
+       110250
+      ],
+      [
+       "L-0010",
+       "Net pay",
+       "net",
+       1127000
+      ]
+     ]
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 2788125,
+    "deductions": 223050,
+    "employer": 250862,
+    "net": 2565075
+   },
+   "run": []
+  },
+  "P30": {
+   "employees": {
+    "E-3001|cc=OPD": {
+     "status": "held",
+     "codes": [
+      "IDENTITY"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "E-3002|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 737500,
+     "deductions": 67031,
+     "employer": 80781,
+     "net": 670469,
+     "payee": "ACCT-70292",
+     "lines": [
+      [
+       "L-0007",
+       "Basic salary",
+       "earning",
+       550000
+      ],
+      [
+       "L-0008",
+       "Housing allowance",
+       "earning",
+       137500
+      ],
+      [
+       "L-0009",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0010",
+       "Social insurance (employee)",
+       "deduction",
+       67031
+      ],
+      [
+       "L-0011",
+       "Social insurance (employer)",
+       "employer",
+       80781
+      ],
+      [
+       "L-0012",
+       "Net pay",
+       "net",
+       670469
+      ]
+     ]
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 1462500,
+    "deductions": 132843,
+    "employer": 160093,
+    "net": 1329657
+   },
+   "run": []
+  },
+  "P31": {
+   "employees": {
+    "E-3101|cc=ICU": {
+     "status": "held",
+     "codes": [
+      "AMOUNT",
+      "RUN_TOTALS",
+      "TOTAL_FIELD"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "E-3102|cc=ICU": {
+     "status": "held",
+     "codes": [
+      "RUN_TOTALS",
+      "TOTAL_FIELD"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": null,
+   "run": [
+    "RUN_TOTALS"
+   ]
+  },
+  "P32": {
+   "employees": {
+    "0410|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 675000,
+     "deductions": 60937,
+     "employer": 73437,
+     "net": 614063,
+     "payee": "ACCT-70311",
+     "lines": [
+      [
+       "L-0001",
+       "Basic salary",
+       "earning",
+       500000
+      ],
+      [
+       "L-0002",
+       "Housing allowance",
+       "earning",
+       125000
+      ],
+      [
+       "L-0003",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0004",
+       "Social insurance (employee)",
+       "deduction",
+       60937
+      ],
+      [
+       "L-0005",
+       "Social insurance (employer)",
+       "employer",
+       73437
+      ],
+      [
+       "L-0006",
+       "Net pay",
+       "net",
+       614063
+      ]
+     ]
+    },
+    "0420|cc=LAB": {
+     "status": "missing",
+     "codes": [
+      "NET_ABSENT"
+     ],
+     "earnings": 687500,
+     "deductions": 62156,
+     "employer": 74906,
+     "net": null,
+     "payee": "ACCT-70313",
+     "lines": [
+      [
+       "L-0013",
+       "Basic salary",
+       "earning",
+       510000
+      ],
+      [
+       "L-0014",
+       "Housing allowance",
+       "earning",
+       127500
+      ],
+      [
+       "L-0015",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0016",
+       "Social insurance (employee)",
+       "deduction",
+       62156
+      ],
+      [
+       "L-0017",
+       "Social insurance (employer)",
+       "employer",
+       74906
+      ]
+     ]
+    },
+    "410|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 675000,
+     "deductions": 60937,
+     "employer": 73437,
+     "net": 614063,
+     "payee": "ACCT-70312",
+     "lines": [
+      [
+       "L-0007",
+       "Basic salary",
+       "earning",
+       500000
+      ],
+      [
+       "L-0008",
+       "Housing allowance",
+       "earning",
+       125000
+      ],
+      [
+       "L-0009",
+       "Transport allowance",
+       "earning",
+       50000
+      ],
+      [
+       "L-0010",
+       "Social insurance (employee)",
+       "deduction",
+       60937
+      ],
+      [
+       "L-0011",
+       "Social insurance (employer)",
+       "employer",
+       73437
+      ],
+      [
+       "L-0012",
+       "Net pay",
+       "net",
+       614063
+      ]
+     ]
+    },
+    "420|cc=LAB": {
+     "status": "inconsistent",
+     "codes": [
+      "NET_EQUATION"
+     ],
+     "earnings": 0,
+     "deductions": 0,
+     "employer": 0,
+     "net": 625344,
+     "payee": "ACCT-70313",
+     "lines": [
+      [
+       "L-0018",
+       "Net pay",
+       "net",
+       625344
+      ]
+     ]
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [
+    [
+     "ACCT-70313",
+     [
+      "0420",
+      "420"
+     ]
+    ]
+   ],
+   "unplaced": [],
+   "totals": {
+    "earnings": 2037500,
+    "deductions": 184030,
+    "employer": 221780,
+    "net": 1853470
+   },
+   "run": []
+  },
+  "P33": {
+   "refused": "SCOPE"
+  },
+  "P34": {
+   "refused": "ENCODING"
+  },
+  "P35": {
+   "refused": "CSV"
+  },
+  "P36": {
+   "employees": {
+    "E-3601|cc=ICU": {
+     "status": "held",
+     "codes": [
+      "RUN_TOTALS"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "E-3602|cc=OPD": {
+     "status": "held",
+     "codes": [
+      "RUN_TOTALS"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": {
+    "earnings": 1512500,
+    "deductions": 137718,
+    "employer": 165968,
+    "net": 1374782
+   },
+   "run": [
+    "RUN_TOTALS"
+   ]
+  },
+  "P37": {
+   "employees": {
+    "E-3701|cc=LAB": {
+     "status": "held",
+     "codes": [
+      "RUN_TOTALS",
+      "TOTAL_FIELD"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "E-3702|cc=LAB": {
+     "status": "held",
+     "codes": [
+      "RUN_TOTALS",
+      "TOTAL_FIELD"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    },
+    "Employee ID|Employee dimensions": {
+     "status": "held",
+     "codes": [
+      "AMOUNT",
+      "KIND",
+      "RUN_TOTALS",
+      "TOTAL_FIELD"
+     ],
+     "earnings": null,
+     "deductions": null,
+     "employer": null,
+     "net": null,
+     "payee": null,
+     "lines": null
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [],
+   "unplaced": [],
+   "totals": null,
+   "run": [
+    "RUN_TOTALS"
+   ]
+  },
+  "P38": {
+   "employees": {
+    "E-5000|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1943764,
+     "deductions": 165294,
+     "employer": 199201,
+     "net": 1778470,
+     "payee": "ACCT-80000",
+     "lines": [
+      [
+       "L-0001",
+       "Basic salary",
+       "earning",
+       1695333
+      ],
+      [
+       "L-0002",
+       "Overtime",
+       "earning",
+       47155
+      ],
+      [
+       "L-0003",
+       "Phone allowance",
+       "earning",
+       172440
+      ],
+      [
+       "L-0004",
+       "Transport allowance",
+       "earning",
+       28836
+      ],
+      [
+       "L-0005",
+       "Social insurance (employee)",
+       "deduction",
+       165294
+      ],
+      [
+       "L-0006",
+       "Social insurance (employer)",
+       "employer",
+       199201
+      ],
+      [
+       "L-0007",
+       "Net pay",
+       "net",
+       1778470
+      ]
+     ]
+    },
+    "E-5003|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 960929,
+     "deductions": 142278,
+     "employer": 112909,
+     "net": 818651,
+     "payee": "ACCT-80001",
+     "lines": [
+      [
+       "L-0008",
+       "Basic salary",
+       "earning",
+       960929
+      ],
+      [
+       "L-0009",
+       "Social insurance (employee)",
+       "deduction",
+       93690
+      ],
+      [
+       "L-0010",
+       "Loan installment",
+       "deduction",
+       48588
+      ],
+      [
+       "L-0011",
+       "Social insurance (employer)",
+       "employer",
+       112909
+      ],
+      [
+       "L-0012",
+       "Net pay",
+       "net",
+       818651
+      ]
+     ]
+    },
+    "E-5006|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1943538,
+     "deductions": 176909,
+     "employer": 213199,
+     "net": 1766629,
+     "payee": "ACCT-80002",
+     "lines": [
+      [
+       "L-0013",
+       "Basic salary",
+       "earning",
+       1814461
+      ],
+      [
+       "L-0014",
+       "Transport allowance",
+       "earning",
+       129077
+      ],
+      [
+       "L-0015",
+       "Social insurance (employee)",
+       "deduction",
+       176909
+      ],
+      [
+       "L-0016",
+       "Social insurance (employer)",
+       "employer",
+       213199
+      ],
+      [
+       "L-0017",
+       "Net pay",
+       "net",
+       1766629
+      ]
+     ]
+    },
+    "E-5009|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1985765,
+     "deductions": 173183,
+     "employer": 208708,
+     "net": 1812582,
+     "payee": "ACCT-80003",
+     "lines": [
+      [
+       "L-0018",
+       "Basic salary",
+       "earning",
+       1776245
+      ],
+      [
+       "L-0019",
+       "Overtime",
+       "earning",
+       148299
+      ],
+      [
+       "L-0020",
+       "Housing allowance",
+       "earning",
+       61221
+      ],
+      [
+       "L-0021",
+       "Social insurance (employee)",
+       "deduction",
+       173183
+      ],
+      [
+       "L-0022",
+       "Social insurance (employer)",
+       "employer",
+       208708
+      ],
+      [
+       "L-0023",
+       "Net pay",
+       "net",
+       1812582
+      ]
+     ]
+    },
+    "E-5012|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2847922,
+     "deductions": 235082,
+     "employer": 283304,
+     "net": 2612840,
+     "payee": "ACCT-80004",
+     "lines": [
+      [
+       "L-0024",
+       "Basic salary",
+       "earning",
+       2411099
+      ],
+      [
+       "L-0025",
+       "Overtime",
+       "earning",
+       197626
+      ],
+      [
+       "L-0026",
+       "Transport allowance",
+       "earning",
+       155952
+      ],
+      [
+       "L-0027",
+       "Housing allowance",
+       "earning",
+       83245
+      ],
+      [
+       "L-0028",
+       "Social insurance (employee)",
+       "deduction",
+       235082
+      ],
+      [
+       "L-0029",
+       "Social insurance (employer)",
+       "employer",
+       283304
+      ],
+      [
+       "L-0030",
+       "Net pay",
+       "net",
+       2612840
+      ]
+     ]
+    },
+    "E-5015|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2365315,
+     "deductions": 264463,
+     "employer": 226485,
+     "net": 2100852,
+     "payee": "ACCT-80005",
+     "lines": [
+      [
+       "L-0031",
+       "Basic salary",
+       "earning",
+       1927532
+      ],
+      [
+       "L-0032",
+       "Overtime",
+       "earning",
+       142454
+      ],
+      [
+       "L-0033",
+       "Phone allowance",
+       "earning",
+       195353
+      ],
+      [
+       "L-0034",
+       "Transport allowance",
+       "earning",
+       99976
+      ],
+      [
+       "L-0035",
+       "Social insurance (employee)",
+       "deduction",
+       187934
+      ],
+      [
+       "L-0036",
+       "Loan installment",
+       "deduction",
+       76529
+      ],
+      [
+       "L-0037",
+       "Social insurance (employer)",
+       "employer",
+       226485
+      ],
+      [
+       "L-0038",
+       "Net pay",
+       "net",
+       2100852
+      ]
+     ]
+    },
+    "E-5018|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 562333,
+     "deductions": 92681,
+     "employer": 66074,
+     "net": 469652,
+     "payee": "ACCT-80005",
+     "lines": [
+      [
+       "L-0039",
+       "Basic salary",
+       "earning",
+       562333
+      ],
+      [
+       "L-0040",
+       "Social insurance (employee)",
+       "deduction",
+       54827
+      ],
+      [
+       "L-0041",
+       "Loan installment",
+       "deduction",
+       37854
+      ],
+      [
+       "L-0042",
+       "Social insurance (employer)",
+       "employer",
+       66074
+      ],
+      [
+       "L-0043",
+       "Net pay",
+       "net",
+       469652
+      ]
+     ]
+    },
+    "E-5021|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1067972,
+     "deductions": 132041,
+     "employer": 125486,
+     "net": 935931,
+     "payee": "ACCT-80007",
+     "lines": [
+      [
+       "L-0044",
+       "Basic salary",
+       "earning",
+       1067972
+      ],
+      [
+       "L-0045",
+       "Social insurance (employee)",
+       "deduction",
+       104127
+      ],
+      [
+       "L-0046",
+       "Loan installment",
+       "deduction",
+       27914
+      ],
+      [
+       "L-0047",
+       "Social insurance (employer)",
+       "employer",
+       125486
+      ],
+      [
+       "L-0048",
+       "Net pay",
+       "net",
+       935931
+      ]
+     ]
+    },
+    "E-5024|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 784640,
+     "deductions": 107952,
+     "employer": 54579,
+     "net": 676688,
+     "payee": "ACCT-80008",
+     "lines": [
+      [
+       "L-0049",
+       "Basic salary",
+       "earning",
+       464504
+      ],
+      [
+       "L-0050",
+       "Transport allowance",
+       "earning",
+       194952
+      ],
+      [
+       "L-0051",
+       "Overtime",
+       "earning",
+       87503
+      ],
+      [
+       "L-0052",
+       "Housing allowance",
+       "earning",
+       37681
+      ],
+      [
+       "L-0053",
+       "Social insurance (employee)",
+       "deduction",
+       45289
+      ],
+      [
+       "L-0054",
+       "Loan installment",
+       "deduction",
+       62663
+      ],
+      [
+       "L-0055",
+       "Social insurance (employer)",
+       "employer",
+       54579
+      ],
+      [
+       "L-0056",
+       "Net pay",
+       "net",
+       676688
+      ]
+     ]
+    },
+    "E-5027|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 618789,
+     "deductions": 47589,
+     "employer": 57350,
+     "net": 571200,
+     "payee": "ACCT-80009",
+     "lines": [
+      [
+       "L-0057",
+       "Basic salary",
+       "earning",
+       488093
+      ],
+      [
+       "L-0058",
+       "Phone allowance",
+       "earning",
+       60717
+      ],
+      [
+       "L-0059",
+       "Housing allowance",
+       "earning",
+       30363
+      ],
+      [
+       "L-0060",
+       "Overtime",
+       "earning",
+       39616
+      ],
+      [
+       "L-0061",
+       "Social insurance (employee)",
+       "deduction",
+       47589
+      ],
+      [
+       "L-0062",
+       "Social insurance (employer)",
+       "employer",
+       57350
+      ],
+      [
+       "L-0063",
+       "Net pay",
+       "net",
+       571200
+      ]
+     ]
+    },
+    "E-5030|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2392672,
+     "deductions": 203454,
+     "employer": 245189,
+     "net": 2189218,
+     "payee": "ACCT-80010",
+     "lines": [
+      [
+       "L-0064",
+       "Basic salary",
+       "earning",
+       2086715
+      ],
+      [
+       "L-0065",
+       "Overtime",
+       "earning",
+       96544
+      ],
+      [
+       "L-0066",
+       "Housing allowance",
+       "earning",
+       93230
+      ],
+      [
+       "L-0067",
+       "Phone allowance",
+       "earning",
+       116183
+      ],
+      [
+       "L-0068",
+       "Social insurance (employee)",
+       "deduction",
+       203454
+      ],
+      [
+       "L-0069",
+       "Social insurance (employer)",
+       "employer",
+       245189
+      ],
+      [
+       "L-0070",
+       "Net pay",
+       "net",
+       2189218
+      ]
+     ]
+    },
+    "E-5033|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1184984,
+     "deductions": 205127,
+     "employer": 139235,
+     "net": 979857,
+     "payee": "ACCT-80011",
+     "lines": [
+      [
+       "L-0071",
+       "Basic salary",
+       "earning",
+       1184984
+      ],
+      [
+       "L-0072",
+       "Social insurance (employee)",
+       "deduction",
+       115535
+      ],
+      [
+       "L-0073",
+       "Loan installment",
+       "deduction",
+       89592
+      ],
+      [
+       "L-0074",
+       "Social insurance (employer)",
+       "employer",
+       139235
+      ],
+      [
+       "L-0075",
+       "Net pay",
+       "net",
+       979857
+      ]
+     ]
+    },
+    "E-5036|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1116706,
+     "deductions": 108878,
+     "employer": 131212,
+     "net": 1007828,
+     "payee": "ACCT-80012",
+     "lines": [
+      [
+       "L-0076",
+       "Basic salary",
+       "earning",
+       1116706
+      ],
+      [
+       "L-0077",
+       "Social insurance (employee)",
+       "deduction",
+       108878
+      ],
+      [
+       "L-0078",
+       "Social insurance (employer)",
+       "employer",
+       131212
+      ],
+      [
+       "L-0079",
+       "Net pay",
+       "net",
+       1007828
+      ]
+     ]
+    },
+    "E-5039|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2506304,
+     "deductions": 253746,
+     "employer": 280953,
+     "net": 2252558,
+     "payee": "ACCT-80013",
+     "lines": [
+      [
+       "L-0080",
+       "Basic salary",
+       "earning",
+       2391092
+      ],
+      [
+       "L-0081",
+       "Phone allowance",
+       "earning",
+       84658
+      ],
+      [
+       "L-0082",
+       "Transport allowance",
+       "earning",
+       30554
+      ],
+      [
+       "L-0083",
+       "Social insurance (employee)",
+       "deduction",
+       233131
+      ],
+      [
+       "L-0084",
+       "Loan installment",
+       "deduction",
+       20615
+      ],
+      [
+       "L-0085",
+       "Social insurance (employer)",
+       "employer",
+       280953
+      ],
+      [
+       "L-0086",
+       "Net pay",
+       "net",
+       2252558
+      ]
+     ]
+    },
+    "E-5042|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1792518,
+     "deductions": 161992,
+     "employer": 195221,
+     "net": 1630526,
+     "payee": "ACCT-80014",
+     "lines": [
+      [
+       "L-0087",
+       "Basic salary",
+       "earning",
+       1661458
+      ],
+      [
+       "L-0088",
+       "Overtime",
+       "earning",
+       131060
+      ],
+      [
+       "L-0089",
+       "Social insurance (employee)",
+       "deduction",
+       161992
+      ],
+      [
+       "L-0090",
+       "Social insurance (employer)",
+       "employer",
+       195221
+      ],
+      [
+       "L-0091",
+       "Net pay",
+       "net",
+       1630526
+      ]
+     ]
+    },
+    "E-5045|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1999438,
+     "deductions": 145753,
+     "employer": 175651,
+     "net": 1853685,
+     "payee": "ACCT-80015",
+     "lines": [
+      [
+       "L-0092",
+       "Basic salary",
+       "earning",
+       1494910
+      ],
+      [
+       "L-0093",
+       "Housing allowance",
+       "earning",
+       177592
+      ],
+      [
+       "L-0094",
+       "Transport allowance",
+       "earning",
+       135313
+      ],
+      [
+       "L-0095",
+       "Overtime",
+       "earning",
+       191623
+      ],
+      [
+       "L-0096",
+       "Social insurance (employee)",
+       "deduction",
+       145753
+      ],
+      [
+       "L-0097",
+       "Social insurance (employer)",
+       "employer",
+       175651
+      ],
+      [
+       "L-0098",
+       "Net pay",
+       "net",
+       1853685
+      ]
+     ]
+    },
+    "E-5048|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1900051,
+     "deductions": 195423,
+     "employer": 223255,
+     "net": 1704628,
+     "payee": "ACCT-80016",
+     "lines": [
+      [
+       "L-0099",
+       "Basic salary",
+       "earning",
+       1900051
+      ],
+      [
+       "L-0100",
+       "Social insurance (employee)",
+       "deduction",
+       185254
+      ],
+      [
+       "L-0101",
+       "Loan installment",
+       "deduction",
+       10169
+      ],
+      [
+       "L-0102",
+       "Social insurance (employer)",
+       "employer",
+       223255
+      ],
+      [
+       "L-0103",
+       "Net pay",
+       "net",
+       1704628
+      ]
+     ]
+    },
+    "E-5051|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1187387,
+     "deductions": 165481,
+     "employer": 102311,
+     "net": 1021906,
+     "payee": "ACCT-80017",
+     "lines": [
+      [
+       "L-0104",
+       "Basic salary",
+       "earning",
+       870732
+      ],
+      [
+       "L-0105",
+       "Phone allowance",
+       "earning",
+       30111
+      ],
+      [
+       "L-0106",
+       "Overtime",
+       "earning",
+       94693
+      ],
+      [
+       "L-0107",
+       "Housing allowance",
+       "earning",
+       191851
+      ],
+      [
+       "L-0108",
+       "Social insurance (employee)",
+       "deduction",
+       84896
+      ],
+      [
+       "L-0109",
+       "Loan installment",
+       "deduction",
+       80585
+      ],
+      [
+       "L-0110",
+       "Social insurance (employer)",
+       "employer",
+       102311
+      ],
+      [
+       "L-0111",
+       "Net pay",
+       "net",
+       1021906
+      ]
+     ]
+    },
+    "E-5054|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1680762,
+     "deductions": 150014,
+     "employer": 180786,
+     "net": 1530748,
+     "payee": "ACCT-80018",
+     "lines": [
+      [
+       "L-0112",
+       "Basic salary",
+       "earning",
+       1538608
+      ],
+      [
+       "L-0113",
+       "Housing allowance",
+       "earning",
+       142154
+      ],
+      [
+       "L-0114",
+       "Social insurance (employee)",
+       "deduction",
+       150014
+      ],
+      [
+       "L-0115",
+       "Social insurance (employer)",
+       "employer",
+       180786
+      ],
+      [
+       "L-0116",
+       "Net pay",
+       "net",
+       1530748
+      ]
+     ]
+    },
+    "E-5057|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1489197,
+     "deductions": 193173,
+     "employer": 149443,
+     "net": 1296024,
+     "payee": "ACCT-80019",
+     "lines": [
+      [
+       "L-0117",
+       "Basic salary",
+       "earning",
+       1271861
+      ],
+      [
+       "L-0118",
+       "Overtime",
+       "earning",
+       183818
+      ],
+      [
+       "L-0119",
+       "Transport allowance",
+       "earning",
+       33518
+      ],
+      [
+       "L-0120",
+       "Social insurance (employee)",
+       "deduction",
+       124006
+      ],
+      [
+       "L-0121",
+       "Loan installment",
+       "deduction",
+       69167
+      ],
+      [
+       "L-0122",
+       "Social insurance (employer)",
+       "employer",
+       149443
+      ],
+      [
+       "L-0123",
+       "Net pay",
+       "net",
+       1296024
+      ]
+     ]
+    },
+    "E-5060|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1136898,
+     "deductions": 110847,
+     "employer": 133585,
+     "net": 1026051,
+     "payee": "ACCT-80020",
+     "lines": [
+      [
+       "L-0124",
+       "Basic salary",
+       "earning",
+       1136898
+      ],
+      [
+       "L-0125",
+       "Social insurance (employee)",
+       "deduction",
+       110847
+      ],
+      [
+       "L-0126",
+       "Social insurance (employer)",
+       "employer",
+       133585
+      ],
+      [
+       "L-0127",
+       "Net pay",
+       "net",
+       1026051
+      ]
+     ]
+    },
+    "E-5063|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 598288,
+     "deductions": 58333,
+     "employer": 70298,
+     "net": 539955,
+     "payee": "ACCT-80021",
+     "lines": [
+      [
+       "L-0128",
+       "Basic salary",
+       "earning",
+       598288
+      ],
+      [
+       "L-0129",
+       "Social insurance (employee)",
+       "deduction",
+       58333
+      ],
+      [
+       "L-0130",
+       "Social insurance (employer)",
+       "employer",
+       70298
+      ],
+      [
+       "L-0131",
+       "Net pay",
+       "net",
+       539955
+      ]
+     ]
+    },
+    "E-5066|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1298712,
+     "deductions": 111636,
+     "employer": 134535,
+     "net": 1187076,
+     "payee": "ACCT-80022",
+     "lines": [
+      [
+       "L-0132",
+       "Basic salary",
+       "earning",
+       1144987
+      ],
+      [
+       "L-0133",
+       "Phone allowance",
+       "earning",
+       153725
+      ],
+      [
+       "L-0134",
+       "Social insurance (employee)",
+       "deduction",
+       111636
+      ],
+      [
+       "L-0135",
+       "Social insurance (employer)",
+       "employer",
+       134535
+      ],
+      [
+       "L-0136",
+       "Net pay",
+       "net",
+       1187076
+      ]
+     ]
+    },
+    "E-5069|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2186340,
+     "deductions": 191003,
+     "employer": 230184,
+     "net": 1995337,
+     "payee": "ACCT-80023",
+     "lines": [
+      [
+       "L-0137",
+       "Basic salary",
+       "earning",
+       1959015
+      ],
+      [
+       "L-0138",
+       "Overtime",
+       "earning",
+       176667
+      ],
+      [
+       "L-0139",
+       "Transport allowance",
+       "earning",
+       50658
+      ],
+      [
+       "L-0140",
+       "Social insurance (employee)",
+       "deduction",
+       191003
+      ],
+      [
+       "L-0141",
+       "Social insurance (employer)",
+       "employer",
+       230184
+      ],
+      [
+       "L-0142",
+       "Net pay",
+       "net",
+       1995337
+      ]
+     ]
+    },
+    "E-5072|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1013467,
+     "deductions": 97228,
+     "employer": 117172,
+     "net": 916239,
+     "payee": "ACCT-80024",
+     "lines": [
+      [
+       "L-0143",
+       "Basic salary",
+       "earning",
+       997211
+      ],
+      [
+       "L-0144",
+       "Overtime",
+       "earning",
+       16256
+      ],
+      [
+       "L-0145",
+       "Social insurance (employee)",
+       "deduction",
+       97228
+      ],
+      [
+       "L-0146",
+       "Social insurance (employer)",
+       "employer",
+       117172
+      ],
+      [
+       "L-0147",
+       "Net pay",
+       "net",
+       916239
+      ]
+     ]
+    },
+    "E-5075|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1244000,
+     "deductions": 116623,
+     "employer": 140546,
+     "net": 1127377,
+     "payee": "ACCT-80025",
+     "lines": [
+      [
+       "L-0148",
+       "Basic salary",
+       "earning",
+       1196143
+      ],
+      [
+       "L-0149",
+       "Housing allowance",
+       "earning",
+       6557
+      ],
+      [
+       "L-0150",
+       "Transport allowance",
+       "earning",
+       41300
+      ],
+      [
+       "L-0151",
+       "Social insurance (employee)",
+       "deduction",
+       116623
+      ],
+      [
+       "L-0152",
+       "Social insurance (employer)",
+       "employer",
+       140546
+      ],
+      [
+       "L-0153",
+       "Net pay",
+       "net",
+       1127377
+      ]
+     ]
+    },
+    "E-5078|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1379994,
+     "deductions": 188323,
+     "employer": 149657,
+     "net": 1191671,
+     "payee": "ACCT-80026",
+     "lines": [
+      [
+       "L-0154",
+       "Basic salary",
+       "earning",
+       1273682
+      ],
+      [
+       "L-0155",
+       "Overtime",
+       "earning",
+       87994
+      ],
+      [
+       "L-0156",
+       "Housing allowance",
+       "earning",
+       18318
+      ],
+      [
+       "L-0157",
+       "Social insurance (employee)",
+       "deduction",
+       124183
+      ],
+      [
+       "L-0158",
+       "Loan installment",
+       "deduction",
+       64140
+      ],
+      [
+       "L-0159",
+       "Social insurance (employer)",
+       "employer",
+       149657
+      ],
+      [
+       "L-0160",
+       "Net pay",
+       "net",
+       1191671
+      ]
+     ]
+    },
+    "E-5081|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2505110,
+     "deductions": 237434,
+     "employer": 245365,
+     "net": 2267676,
+     "payee": "ACCT-80027",
+     "lines": [
+      [
+       "L-0161",
+       "Basic salary",
+       "earning",
+       2088220
+      ],
+      [
+       "L-0162",
+       "Phone allowance",
+       "earning",
+       104901
+      ],
+      [
+       "L-0163",
+       "Housing allowance",
+       "earning",
+       185932
+      ],
+      [
+       "L-0164",
+       "Transport allowance",
+       "earning",
+       126057
+      ],
+      [
+       "L-0165",
+       "Social insurance (employee)",
+       "deduction",
+       203601
+      ],
+      [
+       "L-0166",
+       "Loan installment",
+       "deduction",
+       33833
+      ],
+      [
+       "L-0167",
+       "Social insurance (employer)",
+       "employer",
+       245365
+      ],
+      [
+       "L-0168",
+       "Net pay",
+       "net",
+       2267676
+      ]
+     ]
+    },
+    "E-5084|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1347643,
+     "deductions": 121616,
+     "employer": 146563,
+     "net": 1226027,
+     "payee": "ACCT-80028",
+     "lines": [
+      [
+       "L-0169",
+       "Basic salary",
+       "earning",
+       1247351
+      ],
+      [
+       "L-0170",
+       "Housing allowance",
+       "earning",
+       100292
+      ],
+      [
+       "L-0171",
+       "Social insurance (employee)",
+       "deduction",
+       121616
+      ],
+      [
+       "L-0172",
+       "Social insurance (employer)",
+       "employer",
+       146563
+      ],
+      [
+       "L-0173",
+       "Net pay",
+       "net",
+       1226027
+      ]
+     ]
+    },
+    "E-5087|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1352808,
+     "deductions": 168146,
+     "employer": 131257,
+     "net": 1184662,
+     "payee": "ACCT-80029",
+     "lines": [
+      [
+       "L-0174",
+       "Basic salary",
+       "earning",
+       1117081
+      ],
+      [
+       "L-0175",
+       "Transport allowance",
+       "earning",
+       114871
+      ],
+      [
+       "L-0176",
+       "Housing allowance",
+       "earning",
+       19015
+      ],
+      [
+       "L-0177",
+       "Phone allowance",
+       "earning",
+       101841
+      ],
+      [
+       "L-0178",
+       "Social insurance (employee)",
+       "deduction",
+       108915
+      ],
+      [
+       "L-0179",
+       "Loan installment",
+       "deduction",
+       59231
+      ],
+      [
+       "L-0180",
+       "Social insurance (employer)",
+       "employer",
+       131257
+      ],
+      [
+       "L-0181",
+       "Net pay",
+       "net",
+       1184662
+      ]
+     ]
+    },
+    "E-5090|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1822804,
+     "deductions": 177723,
+     "employer": 214179,
+     "net": 1645081,
+     "payee": "ACCT-80030",
+     "lines": [
+      [
+       "L-0182",
+       "Basic salary",
+       "earning",
+       1822804
+      ],
+      [
+       "L-0183",
+       "Social insurance (employee)",
+       "deduction",
+       177723
+      ],
+      [
+       "L-0184",
+       "Social insurance (employer)",
+       "employer",
+       214179
+      ],
+      [
+       "L-0185",
+       "Net pay",
+       "net",
+       1645081
+      ]
+     ]
+    },
+    "E-5093|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1566830,
+     "deductions": 153863,
+     "employer": 147650,
+     "net": 1412967,
+     "payee": "ACCT-80031",
+     "lines": [
+      [
+       "L-0186",
+       "Basic salary",
+       "earning",
+       1256604
+      ],
+      [
+       "L-0187",
+       "Phone allowance",
+       "earning",
+       75062
+      ],
+      [
+       "L-0188",
+       "Housing allowance",
+       "earning",
+       173253
+      ],
+      [
+       "L-0189",
+       "Transport allowance",
+       "earning",
+       61911
+      ],
+      [
+       "L-0190",
+       "Social insurance (employee)",
+       "deduction",
+       122518
+      ],
+      [
+       "L-0191",
+       "Loan installment",
+       "deduction",
+       31345
+      ],
+      [
+       "L-0192",
+       "Social insurance (employer)",
+       "employer",
+       147650
+      ],
+      [
+       "L-0193",
+       "Net pay",
+       "net",
+       1412967
+      ]
+     ]
+    },
+    "E-5096|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1012633,
+     "deductions": 87953,
+     "employer": 105995,
+     "net": 924680,
+     "payee": "ACCT-80032",
+     "lines": [
+      [
+       "L-0194",
+       "Basic salary",
+       "earning",
+       902090
+      ],
+      [
+       "L-0195",
+       "Transport allowance",
+       "earning",
+       110543
+      ],
+      [
+       "L-0196",
+       "Social insurance (employee)",
+       "deduction",
+       87953
+      ],
+      [
+       "L-0197",
+       "Social insurance (employer)",
+       "employer",
+       105995
+      ],
+      [
+       "L-0198",
+       "Net pay",
+       "net",
+       924680
+      ]
+     ]
+    },
+    "E-5099|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1334433,
+     "deductions": 111736,
+     "employer": 134656,
+     "net": 1222697,
+     "payee": "ACCT-80033",
+     "lines": [
+      [
+       "L-0199",
+       "Basic salary",
+       "earning",
+       1146014
+      ],
+      [
+       "L-0200",
+       "Housing allowance",
+       "earning",
+       188419
+      ],
+      [
+       "L-0201",
+       "Social insurance (employee)",
+       "deduction",
+       111736
+      ],
+      [
+       "L-0202",
+       "Social insurance (employer)",
+       "employer",
+       134656
+      ],
+      [
+       "L-0203",
+       "Net pay",
+       "net",
+       1222697
+      ]
+     ]
+    },
+    "E-5102|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1650455,
+     "deductions": 146263,
+     "employer": 176265,
+     "net": 1504192,
+     "payee": "ACCT-80034",
+     "lines": [
+      [
+       "L-0204",
+       "Basic salary",
+       "earning",
+       1500134
+      ],
+      [
+       "L-0205",
+       "Transport allowance",
+       "earning",
+       150321
+      ],
+      [
+       "L-0206",
+       "Social insurance (employee)",
+       "deduction",
+       146263
+      ],
+      [
+       "L-0207",
+       "Social insurance (employer)",
+       "employer",
+       176265
+      ],
+      [
+       "L-0208",
+       "Net pay",
+       "net",
+       1504192
+      ]
+     ]
+    },
+    "E-5105|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2022322,
+     "deductions": 166112,
+     "employer": 200186,
+     "net": 1856210,
+     "payee": "ACCT-80035",
+     "lines": [
+      [
+       "L-0209",
+       "Basic salary",
+       "earning",
+       1703719
+      ],
+      [
+       "L-0210",
+       "Phone allowance",
+       "earning",
+       183115
+      ],
+      [
+       "L-0211",
+       "Overtime",
+       "earning",
+       85623
+      ],
+      [
+       "L-0212",
+       "Housing allowance",
+       "earning",
+       49865
+      ],
+      [
+       "L-0213",
+       "Social insurance (employee)",
+       "deduction",
+       166112
+      ],
+      [
+       "L-0214",
+       "Social insurance (employer)",
+       "employer",
+       200186
+      ],
+      [
+       "L-0215",
+       "Net pay",
+       "net",
+       1856210
+      ]
+     ]
+    },
+    "E-5108|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 641416,
+     "deductions": 73521,
+     "employer": 51196,
+     "net": 567895,
+     "payee": "ACCT-80036",
+     "lines": [
+      [
+       "L-0216",
+       "Basic salary",
+       "earning",
+       435717
+      ],
+      [
+       "L-0217",
+       "Transport allowance",
+       "earning",
+       98009
+      ],
+      [
+       "L-0218",
+       "Overtime",
+       "earning",
+       107690
+      ],
+      [
+       "L-0219",
+       "Social insurance (employee)",
+       "deduction",
+       42482
+      ],
+      [
+       "L-0220",
+       "Loan installment",
+       "deduction",
+       31039
+      ],
+      [
+       "L-0221",
+       "Social insurance (employer)",
+       "employer",
+       51196
+      ],
+      [
+       "L-0222",
+       "Net pay",
+       "net",
+       567895
+      ]
+     ]
+    },
+    "E-5111|cc=OPD": {
+     "status": "inconsistent",
+     "codes": [
+      "NET_EQUATION"
+     ],
+     "earnings": 2492052,
+     "deductions": 240122,
+     "employer": 289378,
+     "net": 2251929,
+     "payee": "ACCT-80037",
+     "lines": [
+      [
+       "L-0223",
+       "Basic salary",
+       "earning",
+       2462799
+      ],
+      [
+       "L-0224",
+       "Transport allowance",
+       "earning",
+       29253
+      ],
+      [
+       "L-0225",
+       "Social insurance (employee)",
+       "deduction",
+       240122
+      ],
+      [
+       "L-0226",
+       "Social insurance (employer)",
+       "employer",
+       289378
+      ],
+      [
+       "L-0227",
+       "Net pay",
+       "net",
+       2251929
+      ]
+     ]
+    },
+    "E-5114|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 981023,
+     "deductions": 84705,
+     "employer": 102081,
+     "net": 896318,
+     "payee": "ACCT-80038",
+     "lines": [
+      [
+       "L-0228",
+       "Basic salary",
+       "earning",
+       868775
+      ],
+      [
+       "L-0229",
+       "Housing allowance",
+       "earning",
+       71492
+      ],
+      [
+       "L-0230",
+       "Phone allowance",
+       "earning",
+       40756
+      ],
+      [
+       "L-0231",
+       "Social insurance (employee)",
+       "deduction",
+       84705
+      ],
+      [
+       "L-0232",
+       "Social insurance (employer)",
+       "employer",
+       102081
+      ],
+      [
+       "L-0233",
+       "Net pay",
+       "net",
+       896318
+      ]
+     ]
+    },
+    "E-5117|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 678009,
+     "deductions": 66105,
+     "employer": 79666,
+     "net": 611904,
+     "payee": "ACCT-80039",
+     "lines": [
+      [
+       "L-0234",
+       "Basic salary",
+       "earning",
+       678009
+      ],
+      [
+       "L-0235",
+       "Social insurance (employee)",
+       "deduction",
+       66105
+      ],
+      [
+       "L-0236",
+       "Social insurance (employer)",
+       "employer",
+       79666
+      ],
+      [
+       "L-0237",
+       "Net pay",
+       "net",
+       611904
+      ]
+     ]
+    },
+    "E-5120|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 979234,
+     "deductions": 124906,
+     "employer": 85916,
+     "net": 854328,
+     "payee": "ACCT-80040",
+     "lines": [
+      [
+       "L-0238",
+       "Basic salary",
+       "earning",
+       731206
+      ],
+      [
+       "L-0239",
+       "Transport allowance",
+       "earning",
+       126377
+      ],
+      [
+       "L-0240",
+       "Overtime",
+       "earning",
+       121651
+      ],
+      [
+       "L-0241",
+       "Social insurance (employee)",
+       "deduction",
+       71292
+      ],
+      [
+       "L-0242",
+       "Loan installment",
+       "deduction",
+       53614
+      ],
+      [
+       "L-0243",
+       "Social insurance (employer)",
+       "employer",
+       85916
+      ],
+      [
+       "L-0244",
+       "Net pay",
+       "net",
+       854328
+      ]
+     ]
+    },
+    "E-5123|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1611692,
+     "deductions": 217032,
+     "employer": 163981,
+     "net": 1394660,
+     "payee": "ACCT-80041",
+     "lines": [
+      [
+       "L-0245",
+       "Basic salary",
+       "earning",
+       1395590
+      ],
+      [
+       "L-0246",
+       "Phone allowance",
+       "earning",
+       100694
+      ],
+      [
+       "L-0247",
+       "Transport allowance",
+       "earning",
+       115408
+      ],
+      [
+       "L-0248",
+       "Social insurance (employee)",
+       "deduction",
+       136070
+      ],
+      [
+       "L-0249",
+       "Loan installment",
+       "deduction",
+       80962
+      ],
+      [
+       "L-0250",
+       "Social insurance (employer)",
+       "employer",
+       163981
+      ],
+      [
+       "L-0251",
+       "Net pay",
+       "net",
+       1394660
+      ]
+     ]
+    },
+    "E-5126|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2501116,
+     "deductions": 230217,
+     "employer": 277441,
+     "net": 2270899,
+     "payee": "ACCT-80042",
+     "lines": [
+      [
+       "L-0252",
+       "Basic salary",
+       "earning",
+       2361207
+      ],
+      [
+       "L-0253",
+       "Transport allowance",
+       "earning",
+       93166
+      ],
+      [
+       "L-0254",
+       "Housing allowance",
+       "earning",
+       9740
+      ],
+      [
+       "L-0255",
+       "Overtime",
+       "earning",
+       37003
+      ],
+      [
+       "L-0256",
+       "Social insurance (employee)",
+       "deduction",
+       230217
+      ],
+      [
+       "L-0257",
+       "Social insurance (employer)",
+       "employer",
+       277441
+      ],
+      [
+       "L-0258",
+       "Net pay",
+       "net",
+       2270899
+      ]
+     ]
+    },
+    "E-5129|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 452984,
+     "deductions": 32521,
+     "employer": 39192,
+     "net": 420463,
+     "payee": "ACCT-80043",
+     "lines": [
+      [
+       "L-0259",
+       "Basic salary",
+       "earning",
+       333556
+      ],
+      [
+       "L-0260",
+       "Housing allowance",
+       "earning",
+       39481
+      ],
+      [
+       "L-0261",
+       "Phone allowance",
+       "earning",
+       79947
+      ],
+      [
+       "L-0262",
+       "Social insurance (employee)",
+       "deduction",
+       32521
+      ],
+      [
+       "L-0263",
+       "Social insurance (employer)",
+       "employer",
+       39192
+      ],
+      [
+       "L-0264",
+       "Net pay",
+       "net",
+       420463
+      ]
+     ]
+    },
+    "E-5132|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1796173,
+     "deductions": 144269,
+     "employer": 173863,
+     "net": 1651904,
+     "payee": "ACCT-80044",
+     "lines": [
+      [
+       "L-0265",
+       "Basic salary",
+       "earning",
+       1479691
+      ],
+      [
+       "L-0266",
+       "Overtime",
+       "earning",
+       56761
+      ],
+      [
+       "L-0267",
+       "Transport allowance",
+       "earning",
+       147294
+      ],
+      [
+       "L-0268",
+       "Phone allowance",
+       "earning",
+       112427
+      ],
+      [
+       "L-0269",
+       "Social insurance (employee)",
+       "deduction",
+       144269
+      ],
+      [
+       "L-0270",
+       "Social insurance (employer)",
+       "employer",
+       173863
+      ],
+      [
+       "L-0271",
+       "Net pay",
+       "net",
+       1651904
+      ]
+     ]
+    },
+    "E-5135|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 721354,
+     "deductions": 94525,
+     "employer": 78560,
+     "net": 626829,
+     "payee": "ACCT-80045",
+     "lines": [
+      [
+       "L-0272",
+       "Basic salary",
+       "earning",
+       668600
+      ],
+      [
+       "L-0273",
+       "Housing allowance",
+       "earning",
+       52754
+      ],
+      [
+       "L-0274",
+       "Social insurance (employee)",
+       "deduction",
+       65188
+      ],
+      [
+       "L-0275",
+       "Loan installment",
+       "deduction",
+       29337
+      ],
+      [
+       "L-0276",
+       "Social insurance (employer)",
+       "employer",
+       78560
+      ],
+      [
+       "L-0277",
+       "Net pay",
+       "net",
+       626829
+      ]
+     ]
+    },
+    "E-5138|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1705815,
+     "deductions": 200865,
+     "employer": 170210,
+     "net": 1504950,
+     "payee": "ACCT-80046",
+     "lines": [
+      [
+       "L-0278",
+       "Basic salary",
+       "earning",
+       1448600
+      ],
+      [
+       "L-0279",
+       "Transport allowance",
+       "earning",
+       134323
+      ],
+      [
+       "L-0280",
+       "Housing allowance",
+       "earning",
+       122892
+      ],
+      [
+       "L-0281",
+       "Social insurance (employee)",
+       "deduction",
+       141238
+      ],
+      [
+       "L-0282",
+       "Loan installment",
+       "deduction",
+       59627
+      ],
+      [
+       "L-0283",
+       "Social insurance (employer)",
+       "employer",
+       170210
+      ],
+      [
+       "L-0284",
+       "Net pay",
+       "net",
+       1504950
+      ]
+     ]
+    },
+    "E-5141|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2284301,
+     "deductions": 275694,
+     "employer": 229881,
+     "net": 2008607,
+     "payee": "ACCT-80047",
+     "lines": [
+      [
+       "L-0285",
+       "Basic salary",
+       "earning",
+       1956436
+      ],
+      [
+       "L-0286",
+       "Overtime",
+       "earning",
+       127903
+      ],
+      [
+       "L-0287",
+       "Transport allowance",
+       "earning",
+       199962
+      ],
+      [
+       "L-0288",
+       "Social insurance (employee)",
+       "deduction",
+       190752
+      ],
+      [
+       "L-0289",
+       "Loan installment",
+       "deduction",
+       84942
+      ],
+      [
+       "L-0290",
+       "Social insurance (employer)",
+       "employer",
+       229881
+      ],
+      [
+       "L-0291",
+       "Net pay",
+       "net",
+       2008607
+      ]
+     ]
+    },
+    "E-5144|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1586057,
+     "deductions": 151790,
+     "employer": 182926,
+     "net": 1434267,
+     "payee": "ACCT-80048",
+     "lines": [
+      [
+       "L-0292",
+       "Basic salary",
+       "earning",
+       1556823
+      ],
+      [
+       "L-0293",
+       "Housing allowance",
+       "earning",
+       25973
+      ],
+      [
+       "L-0294",
+       "Transport allowance",
+       "earning",
+       3261
+      ],
+      [
+       "L-0295",
+       "Social insurance (employee)",
+       "deduction",
+       151790
+      ],
+      [
+       "L-0296",
+       "Social insurance (employer)",
+       "employer",
+       182926
+      ],
+      [
+       "L-0297",
+       "Net pay",
+       "net",
+       1434267
+      ]
+     ]
+    },
+    "E-5147|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1436756,
+     "deductions": 107975,
+     "employer": 130124,
+     "net": 1328781,
+     "payee": "ACCT-80049",
+     "lines": [
+      [
+       "L-0298",
+       "Basic salary",
+       "earning",
+       1107440
+      ],
+      [
+       "L-0299",
+       "Transport allowance",
+       "earning",
+       120921
+      ],
+      [
+       "L-0300",
+       "Phone allowance",
+       "earning",
+       130782
+      ],
+      [
+       "L-0301",
+       "Overtime",
+       "earning",
+       77613
+      ],
+      [
+       "L-0302",
+       "Social insurance (employee)",
+       "deduction",
+       107975
+      ],
+      [
+       "L-0303",
+       "Social insurance (employer)",
+       "employer",
+       130124
+      ],
+      [
+       "L-0304",
+       "Net pay",
+       "net",
+       1328781
+      ]
+     ]
+    },
+    "E-5150|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1921519,
+     "deductions": 187348,
+     "employer": 225778,
+     "net": 1734171,
+     "payee": "ACCT-80050",
+     "lines": [
+      [
+       "L-0305",
+       "Basic salary",
+       "earning",
+       1921519
+      ],
+      [
+       "L-0306",
+       "Social insurance (employee)",
+       "deduction",
+       187348
+      ],
+      [
+       "L-0307",
+       "Social insurance (employer)",
+       "employer",
+       225778
+      ],
+      [
+       "L-0308",
+       "Net pay",
+       "net",
+       1734171
+      ]
+     ]
+    },
+    "E-5153|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2826947,
+     "deductions": 295342,
+     "employer": 286427,
+     "net": 2531605,
+     "payee": "ACCT-80051",
+     "lines": [
+      [
+       "L-0309",
+       "Basic salary",
+       "earning",
+       2437678
+      ],
+      [
+       "L-0310",
+       "Housing allowance",
+       "earning",
+       170133
+      ],
+      [
+       "L-0311",
+       "Phone allowance",
+       "earning",
+       158470
+      ],
+      [
+       "L-0312",
+       "Transport allowance",
+       "earning",
+       60666
+      ],
+      [
+       "L-0313",
+       "Social insurance (employee)",
+       "deduction",
+       237673
+      ],
+      [
+       "L-0314",
+       "Loan installment",
+       "deduction",
+       57669
+      ],
+      [
+       "L-0315",
+       "Social insurance (employer)",
+       "employer",
+       286427
+      ],
+      [
+       "L-0316",
+       "Net pay",
+       "net",
+       2531605
+      ]
+     ]
+    },
+    "E-5156|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1778673,
+     "deductions": 173420,
+     "employer": 208994,
+     "net": 1605253,
+     "payee": "ACCT-80052",
+     "lines": [
+      [
+       "L-0317",
+       "Basic salary",
+       "earning",
+       1778673
+      ],
+      [
+       "L-0318",
+       "Social insurance (employee)",
+       "deduction",
+       173420
+      ],
+      [
+       "L-0319",
+       "Social insurance (employer)",
+       "employer",
+       208994
+      ],
+      [
+       "L-0320",
+       "Net pay",
+       "net",
+       1605253
+      ]
+     ]
+    },
+    "E-5159|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1759836,
+     "deductions": 171584,
+     "employer": 206780,
+     "net": 1588252,
+     "payee": "ACCT-80053",
+     "lines": [
+      [
+       "L-0321",
+       "Basic salary",
+       "earning",
+       1759836
+      ],
+      [
+       "L-0322",
+       "Social insurance (employee)",
+       "deduction",
+       171584
+      ],
+      [
+       "L-0323",
+       "Social insurance (employer)",
+       "employer",
+       206780
+      ],
+      [
+       "L-0324",
+       "Net pay",
+       "net",
+       1588252
+      ]
+     ]
+    },
+    "E-5162|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2165341,
+     "deductions": 205085,
+     "employer": 217871,
+     "net": 1960256,
+     "payee": "ACCT-80054",
+     "lines": [
+      [
+       "L-0325",
+       "Basic salary",
+       "earning",
+       1854224
+      ],
+      [
+       "L-0326",
+       "Housing allowance",
+       "earning",
+       197657
+      ],
+      [
+       "L-0327",
+       "Overtime",
+       "earning",
+       30885
+      ],
+      [
+       "L-0328",
+       "Phone allowance",
+       "earning",
+       82575
+      ],
+      [
+       "L-0329",
+       "Social insurance (employee)",
+       "deduction",
+       180786
+      ],
+      [
+       "L-0330",
+       "Loan installment",
+       "deduction",
+       24299
+      ],
+      [
+       "L-0331",
+       "Social insurance (employer)",
+       "employer",
+       217871
+      ],
+      [
+       "L-0332",
+       "Net pay",
+       "net",
+       1960256
+      ]
+     ]
+    },
+    "E-5165|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1483517,
+     "deductions": 197953,
+     "employer": 146340,
+     "net": 1285564,
+     "payee": "ACCT-80055",
+     "lines": [
+      [
+       "L-0333",
+       "Basic salary",
+       "earning",
+       1245453
+      ],
+      [
+       "L-0334",
+       "Phone allowance",
+       "earning",
+       81704
+      ],
+      [
+       "L-0335",
+       "Housing allowance",
+       "earning",
+       156360
+      ],
+      [
+       "L-0336",
+       "Social insurance (employee)",
+       "deduction",
+       121431
+      ],
+      [
+       "L-0337",
+       "Loan installment",
+       "deduction",
+       76522
+      ],
+      [
+       "L-0338",
+       "Social insurance (employer)",
+       "employer",
+       146340
+      ],
+      [
+       "L-0339",
+       "Net pay",
+       "net",
+       1285564
+      ]
+     ]
+    },
+    "E-5168|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1859831,
+     "deductions": 148612,
+     "employer": 179096,
+     "net": 1711219,
+     "payee": "ACCT-80056",
+     "lines": [
+      [
+       "L-0340",
+       "Basic salary",
+       "earning",
+       1524229
+      ],
+      [
+       "L-0341",
+       "Transport allowance",
+       "earning",
+       144726
+      ],
+      [
+       "L-0342",
+       "Phone allowance",
+       "earning",
+       176027
+      ],
+      [
+       "L-0343",
+       "Housing allowance",
+       "earning",
+       14849
+      ],
+      [
+       "L-0344",
+       "Social insurance (employee)",
+       "deduction",
+       148612
+      ],
+      [
+       "L-0345",
+       "Social insurance (employer)",
+       "employer",
+       179096
+      ],
+      [
+       "L-0346",
+       "Net pay",
+       "net",
+       1711219
+      ]
+     ]
+    },
+    "E-5171|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1706865,
+     "deductions": 166419,
+     "employer": 200556,
+     "net": 1540446,
+     "payee": "ACCT-80057",
+     "lines": [
+      [
+       "L-0347",
+       "Basic salary",
+       "earning",
+       1706865
+      ],
+      [
+       "L-0348",
+       "Social insurance (employee)",
+       "deduction",
+       166419
+      ],
+      [
+       "L-0349",
+       "Social insurance (employer)",
+       "employer",
+       200556
+      ],
+      [
+       "L-0350",
+       "Net pay",
+       "net",
+       1540446
+      ]
+     ]
+    },
+    "E-5174|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 578169,
+     "deductions": 35215,
+     "employer": 42439,
+     "net": 542954,
+     "payee": "ACCT-80058",
+     "lines": [
+      [
+       "L-0351",
+       "Basic salary",
+       "earning",
+       361184
+      ],
+      [
+       "L-0352",
+       "Overtime",
+       "earning",
+       70887
+      ],
+      [
+       "L-0353",
+       "Transport allowance",
+       "earning",
+       146098
+      ],
+      [
+       "L-0354",
+       "Social insurance (employee)",
+       "deduction",
+       35215
+      ],
+      [
+       "L-0355",
+       "Social insurance (employer)",
+       "employer",
+       42439
+      ],
+      [
+       "L-0356",
+       "Net pay",
+       "net",
+       542954
+      ]
+     ]
+    },
+    "E-5177|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1636092,
+     "deductions": 193431,
+     "employer": 192240,
+     "net": 1442661,
+     "payee": "ACCT-80059",
+     "lines": [
+      [
+       "L-0357",
+       "Basic salary",
+       "earning",
+       1636092
+      ],
+      [
+       "L-0358",
+       "Social insurance (employee)",
+       "deduction",
+       159518
+      ],
+      [
+       "L-0359",
+       "Loan installment",
+       "deduction",
+       33913
+      ],
+      [
+       "L-0360",
+       "Social insurance (employer)",
+       "employer",
+       192240
+      ],
+      [
+       "L-0361",
+       "Net pay",
+       "net",
+       1442661
+      ]
+     ]
+    },
+    "E-5180|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1514840,
+     "deductions": 217300,
+     "employer": 177993,
+     "net": 1297540,
+     "payee": "ACCT-80060",
+     "lines": [
+      [
+       "L-0362",
+       "Basic salary",
+       "earning",
+       1514840
+      ],
+      [
+       "L-0363",
+       "Social insurance (employee)",
+       "deduction",
+       147696
+      ],
+      [
+       "L-0364",
+       "Loan installment",
+       "deduction",
+       69604
+      ],
+      [
+       "L-0365",
+       "Social insurance (employer)",
+       "employer",
+       177993
+      ],
+      [
+       "L-0366",
+       "Net pay",
+       "net",
+       1297540
+      ]
+     ]
+    },
+    "E-5183|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2301976,
+     "deductions": 207037,
+     "employer": 249506,
+     "net": 2094939,
+     "payee": "ACCT-80061",
+     "lines": [
+      [
+       "L-0367",
+       "Basic salary",
+       "earning",
+       2123463
+      ],
+      [
+       "L-0368",
+       "Phone allowance",
+       "earning",
+       178045
+      ],
+      [
+       "L-0369",
+       "Housing allowance",
+       "earning",
+       468
+      ],
+      [
+       "L-0370",
+       "Social insurance (employee)",
+       "deduction",
+       207037
+      ],
+      [
+       "L-0371",
+       "Social insurance (employer)",
+       "employer",
+       249506
+      ],
+      [
+       "L-0372",
+       "Net pay",
+       "net",
+       2094939
+      ]
+     ]
+    },
+    "E-5186|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1018861,
+     "deductions": 92786,
+     "employer": 111819,
+     "net": 926075,
+     "payee": "ACCT-80062",
+     "lines": [
+      [
+       "L-0373",
+       "Basic salary",
+       "earning",
+       951658
+      ],
+      [
+       "L-0374",
+       "Phone allowance",
+       "earning",
+       67203
+      ],
+      [
+       "L-0375",
+       "Social insurance (employee)",
+       "deduction",
+       92786
+      ],
+      [
+       "L-0376",
+       "Social insurance (employer)",
+       "employer",
+       111819
+      ],
+      [
+       "L-0377",
+       "Net pay",
+       "net",
+       926075
+      ]
+     ]
+    },
+    "E-5189|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 322896,
+     "deductions": 84844,
+     "employer": 37940,
+     "net": 238052,
+     "payee": "ACCT-80063",
+     "lines": [
+      [
+       "L-0378",
+       "Basic salary",
+       "earning",
+       322896
+      ],
+      [
+       "L-0379",
+       "Social insurance (employee)",
+       "deduction",
+       31482
+      ],
+      [
+       "L-0380",
+       "Loan installment",
+       "deduction",
+       53362
+      ],
+      [
+       "L-0381",
+       "Social insurance (employer)",
+       "employer",
+       37940
+      ],
+      [
+       "L-0382",
+       "Net pay",
+       "net",
+       238052
+      ]
+     ]
+    },
+    "E-5192|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 566726,
+     "deductions": 71284,
+     "employer": 38260,
+     "net": 495442,
+     "payee": "ACCT-80064",
+     "lines": [
+      [
+       "L-0383",
+       "Basic salary",
+       "earning",
+       325622
+      ],
+      [
+       "L-0384",
+       "Phone allowance",
+       "earning",
+       123037
+      ],
+      [
+       "L-0385",
+       "Housing allowance",
+       "earning",
+       118067
+      ],
+      [
+       "L-0386",
+       "Social insurance (employee)",
+       "deduction",
+       31748
+      ],
+      [
+       "L-0387",
+       "Loan installment",
+       "deduction",
+       39536
+      ],
+      [
+       "L-0388",
+       "Social insurance (employer)",
+       "employer",
+       38260
+      ],
+      [
+       "L-0389",
+       "Net pay",
+       "net",
+       495442
+      ]
+     ]
+    },
+    "E-5195|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1293089,
+     "deductions": 112282,
+     "employer": 135314,
+     "net": 1180807,
+     "payee": "ACCT-80065",
+     "lines": [
+      [
+       "L-0390",
+       "Basic salary",
+       "earning",
+       1151617
+      ],
+      [
+       "L-0391",
+       "Overtime",
+       "earning",
+       141472
+      ],
+      [
+       "L-0392",
+       "Social insurance (employee)",
+       "deduction",
+       112282
+      ],
+      [
+       "L-0393",
+       "Social insurance (employer)",
+       "employer",
+       135314
+      ],
+      [
+       "L-0394",
+       "Net pay",
+       "net",
+       1180807
+      ]
+     ]
+    },
+    "E-5198|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1910732,
+     "deductions": 236212,
+     "employer": 218638,
+     "net": 1674520,
+     "payee": "ACCT-80066",
+     "lines": [
+      [
+       "L-0395",
+       "Basic salary",
+       "earning",
+       1860750
+      ],
+      [
+       "L-0396",
+       "Overtime",
+       "earning",
+       49982
+      ],
+      [
+       "L-0397",
+       "Social insurance (employee)",
+       "deduction",
+       181423
+      ],
+      [
+       "L-0398",
+       "Loan installment",
+       "deduction",
+       54789
+      ],
+      [
+       "L-0399",
+       "Social insurance (employer)",
+       "employer",
+       218638
+      ],
+      [
+       "L-0400",
+       "Net pay",
+       "net",
+       1674520
+      ]
+     ]
+    },
+    "E-5201|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 870864,
+     "deductions": 80323,
+     "employer": 96800,
+     "net": 790541,
+     "payee": "ACCT-80067",
+     "lines": [
+      [
+       "L-0401",
+       "Basic salary",
+       "earning",
+       823833
+      ],
+      [
+       "L-0402",
+       "Transport allowance",
+       "earning",
+       47031
+      ],
+      [
+       "L-0403",
+       "Social insurance (employee)",
+       "deduction",
+       80323
+      ],
+      [
+       "L-0404",
+       "Social insurance (employer)",
+       "employer",
+       96800
+      ],
+      [
+       "L-0405",
+       "Net pay",
+       "net",
+       790541
+      ]
+     ]
+    },
+    "E-5204|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2418488,
+     "deductions": 191504,
+     "employer": 230787,
+     "net": 2226984,
+     "payee": "ACCT-80068",
+     "lines": [
+      [
+       "L-0406",
+       "Basic salary",
+       "earning",
+       1964151
+      ],
+      [
+       "L-0407",
+       "Phone allowance",
+       "earning",
+       135073
+      ],
+      [
+       "L-0408",
+       "Housing allowance",
+       "earning",
+       179562
+      ],
+      [
+       "L-0409",
+       "Transport allowance",
+       "earning",
+       139702
+      ],
+      [
+       "L-0410",
+       "Social insurance (employee)",
+       "deduction",
+       191504
+      ],
+      [
+       "L-0411",
+       "Social insurance (employer)",
+       "employer",
+       230787
+      ],
+      [
+       "L-0412",
+       "Net pay",
+       "net",
+       2226984
+      ]
+     ]
+    },
+    "E-5207|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2027045,
+     "deductions": 197636,
+     "employer": 238177,
+     "net": 1829409,
+     "payee": "ACCT-80069",
+     "lines": [
+      [
+       "L-0413",
+       "Basic salary",
+       "earning",
+       2027045
+      ],
+      [
+       "L-0414",
+       "Social insurance (employee)",
+       "deduction",
+       197636
+      ],
+      [
+       "L-0415",
+       "Social insurance (employer)",
+       "employer",
+       238177
+      ],
+      [
+       "L-0416",
+       "Net pay",
+       "net",
+       1829409
+      ]
+     ]
+    },
+    "E-5210|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1385281,
+     "deductions": 118473,
+     "employer": 142776,
+     "net": 1266808,
+     "payee": "ACCT-80070",
+     "lines": [
+      [
+       "L-0417",
+       "Basic salary",
+       "earning",
+       1215117
+      ],
+      [
+       "L-0418",
+       "Overtime",
+       "earning",
+       89955
+      ],
+      [
+       "L-0419",
+       "Housing allowance",
+       "earning",
+       17113
+      ],
+      [
+       "L-0420",
+       "Transport allowance",
+       "earning",
+       63096
+      ],
+      [
+       "L-0421",
+       "Social insurance (employee)",
+       "deduction",
+       118473
+      ],
+      [
+       "L-0422",
+       "Social insurance (employer)",
+       "employer",
+       142776
+      ],
+      [
+       "L-0423",
+       "Net pay",
+       "net",
+       1266808
+      ]
+     ]
+    },
+    "E-5213|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1100236,
+     "deductions": 99006,
+     "employer": 119315,
+     "net": 1001230,
+     "payee": "ACCT-80071",
+     "lines": [
+      [
+       "L-0424",
+       "Basic salary",
+       "earning",
+       1015450
+      ],
+      [
+       "L-0425",
+       "Overtime",
+       "earning",
+       30475
+      ],
+      [
+       "L-0426",
+       "Housing allowance",
+       "earning",
+       54311
+      ],
+      [
+       "L-0427",
+       "Social insurance (employee)",
+       "deduction",
+       99006
+      ],
+      [
+       "L-0428",
+       "Social insurance (employer)",
+       "employer",
+       119315
+      ],
+      [
+       "L-0429",
+       "Net pay",
+       "net",
+       1001230
+      ]
+     ]
+    },
+    "E-5216|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1094932,
+     "deductions": 108488,
+     "employer": 108989,
+     "net": 986444,
+     "payee": "ACCT-80072",
+     "lines": [
+      [
+       "L-0430",
+       "Basic salary",
+       "earning",
+       927573
+      ],
+      [
+       "L-0431",
+       "Overtime",
+       "earning",
+       9027
+      ],
+      [
+       "L-0432",
+       "Housing allowance",
+       "earning",
+       158332
+      ],
+      [
+       "L-0433",
+       "Social insurance (employee)",
+       "deduction",
+       90438
+      ],
+      [
+       "L-0434",
+       "Loan installment",
+       "deduction",
+       18050
+      ],
+      [
+       "L-0435",
+       "Social insurance (employer)",
+       "employer",
+       108989
+      ],
+      [
+       "L-0436",
+       "Net pay",
+       "net",
+       986444
+      ]
+     ]
+    },
+    "E-5219|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2605684,
+     "deductions": 234354,
+     "employer": 282427,
+     "net": 2371330,
+     "payee": "ACCT-80073",
+     "lines": [
+      [
+       "L-0437",
+       "Basic salary",
+       "earning",
+       2403641
+      ],
+      [
+       "L-0438",
+       "Housing allowance",
+       "earning",
+       109006
+      ],
+      [
+       "L-0439",
+       "Transport allowance",
+       "earning",
+       93037
+      ],
+      [
+       "L-0440",
+       "Social insurance (employee)",
+       "deduction",
+       234354
+      ],
+      [
+       "L-0441",
+       "Social insurance (employer)",
+       "employer",
+       282427
+      ],
+      [
+       "L-0442",
+       "Net pay",
+       "net",
+       2371330
+      ]
+     ]
+    },
+    "E-5222|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2004558,
+     "deductions": 164085,
+     "employer": 197744,
+     "net": 1840473,
+     "payee": "ACCT-80074",
+     "lines": [
+      [
+       "L-0443",
+       "Basic salary",
+       "earning",
+       1682931
+      ],
+      [
+       "L-0444",
+       "Overtime",
+       "earning",
+       136718
+      ],
+      [
+       "L-0445",
+       "Phone allowance",
+       "earning",
+       100971
+      ],
+      [
+       "L-0446",
+       "Transport allowance",
+       "earning",
+       83938
+      ],
+      [
+       "L-0447",
+       "Social insurance (employee)",
+       "deduction",
+       164085
+      ],
+      [
+       "L-0448",
+       "Social insurance (employer)",
+       "employer",
+       197744
+      ],
+      [
+       "L-0449",
+       "Net pay",
+       "net",
+       1840473
+      ]
+     ]
+    },
+    "E-5225|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1386857,
+     "deductions": 192873,
+     "employer": 151702,
+     "net": 1193984,
+     "payee": "ACCT-80075",
+     "lines": [
+      [
+       "L-0450",
+       "Basic salary",
+       "earning",
+       1291089
+      ],
+      [
+       "L-0451",
+       "Overtime",
+       "earning",
+       95768
+      ],
+      [
+       "L-0452",
+       "Social insurance (employee)",
+       "deduction",
+       125881
+      ],
+      [
+       "L-0453",
+       "Loan installment",
+       "deduction",
+       66992
+      ],
+      [
+       "L-0454",
+       "Social insurance (employer)",
+       "employer",
+       151702
+      ],
+      [
+       "L-0455",
+       "Net pay",
+       "net",
+       1193984
+      ]
+     ]
+    },
+    "E-5228|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 481379,
+     "deductions": 40279,
+     "employer": 48542,
+     "net": 441100,
+     "payee": "ACCT-80076",
+     "lines": [
+      [
+       "L-0456",
+       "Basic salary",
+       "earning",
+       413124
+      ],
+      [
+       "L-0457",
+       "Transport allowance",
+       "earning",
+       68255
+      ],
+      [
+       "L-0458",
+       "Social insurance (employee)",
+       "deduction",
+       40279
+      ],
+      [
+       "L-0459",
+       "Social insurance (employer)",
+       "employer",
+       48542
+      ],
+      [
+       "L-0460",
+       "Net pay",
+       "net",
+       441100
+      ]
+     ]
+    },
+    "E-5231|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2417886,
+     "deductions": 201878,
+     "employer": 243288,
+     "net": 2216008,
+     "payee": "ACCT-80077",
+     "lines": [
+      [
+       "L-0461",
+       "Basic salary",
+       "earning",
+       2070544
+      ],
+      [
+       "L-0462",
+       "Transport allowance",
+       "earning",
+       164800
+      ],
+      [
+       "L-0463",
+       "Housing allowance",
+       "earning",
+       113815
+      ],
+      [
+       "L-0464",
+       "Overtime",
+       "earning",
+       68727
+      ],
+      [
+       "L-0465",
+       "Social insurance (employee)",
+       "deduction",
+       201878
+      ],
+      [
+       "L-0466",
+       "Social insurance (employer)",
+       "employer",
+       243288
+      ],
+      [
+       "L-0467",
+       "Net pay",
+       "net",
+       2216008
+      ]
+     ]
+    },
+    "E-5234|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 646875,
+     "deductions": 96791,
+     "employer": 76007,
+     "net": 550084,
+     "payee": "ACCT-80078",
+     "lines": [
+      [
+       "L-0468",
+       "Basic salary",
+       "earning",
+       646875
+      ],
+      [
+       "L-0469",
+       "Social insurance (employee)",
+       "deduction",
+       63070
+      ],
+      [
+       "L-0470",
+       "Loan installment",
+       "deduction",
+       33721
+      ],
+      [
+       "L-0471",
+       "Social insurance (employer)",
+       "employer",
+       76007
+      ],
+      [
+       "L-0472",
+       "Net pay",
+       "net",
+       550084
+      ]
+     ]
+    },
+    "E-5237|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 896759,
+     "deductions": 57673,
+     "employer": 69503,
+     "net": 839086,
+     "payee": "ACCT-80079",
+     "lines": [
+      [
+       "L-0473",
+       "Basic salary",
+       "earning",
+       591519
+      ],
+      [
+       "L-0474",
+       "Overtime",
+       "earning",
+       110936
+      ],
+      [
+       "L-0475",
+       "Phone allowance",
+       "earning",
+       194304
+      ],
+      [
+       "L-0476",
+       "Social insurance (employee)",
+       "deduction",
+       57673
+      ],
+      [
+       "L-0477",
+       "Social insurance (employer)",
+       "employer",
+       69503
+      ],
+      [
+       "L-0478",
+       "Net pay",
+       "net",
+       839086
+      ]
+     ]
+    },
+    "E-5240|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1354916,
+     "deductions": 116054,
+     "employer": 139860,
+     "net": 1238862,
+     "payee": "ACCT-80080",
+     "lines": [
+      [
+       "L-0479",
+       "Basic salary",
+       "earning",
+       1190298
+      ],
+      [
+       "L-0480",
+       "Housing allowance",
+       "earning",
+       164618
+      ],
+      [
+       "L-0481",
+       "Social insurance (employee)",
+       "deduction",
+       116054
+      ],
+      [
+       "L-0482",
+       "Social insurance (employer)",
+       "employer",
+       139860
+      ],
+      [
+       "L-0483",
+       "Net pay",
+       "net",
+       1238862
+      ]
+     ]
+    },
+    "E-5243|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1972614,
+     "deductions": 243671,
+     "employer": 230657,
+     "net": 1728943,
+     "payee": "ACCT-80081",
+     "lines": [
+      [
+       "L-0484",
+       "Basic salary",
+       "earning",
+       1963045
+      ],
+      [
+       "L-0485",
+       "Phone allowance",
+       "earning",
+       9569
+      ],
+      [
+       "L-0486",
+       "Social insurance (employee)",
+       "deduction",
+       191396
+      ],
+      [
+       "L-0487",
+       "Loan installment",
+       "deduction",
+       52275
+      ],
+      [
+       "L-0488",
+       "Social insurance (employer)",
+       "employer",
+       230657
+      ],
+      [
+       "L-0489",
+       "Net pay",
+       "net",
+       1728943
+      ]
+     ]
+    },
+    "E-5246|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 576207,
+     "deductions": 89460,
+     "employer": 59755,
+     "net": 486747,
+     "payee": "ACCT-80082",
+     "lines": [
+      [
+       "L-0490",
+       "Basic salary",
+       "earning",
+       508560
+      ],
+      [
+       "L-0491",
+       "Transport allowance",
+       "earning",
+       67647
+      ],
+      [
+       "L-0492",
+       "Social insurance (employee)",
+       "deduction",
+       49584
+      ],
+      [
+       "L-0493",
+       "Loan installment",
+       "deduction",
+       39876
+      ],
+      [
+       "L-0494",
+       "Social insurance (employer)",
+       "employer",
+       59755
+      ],
+      [
+       "L-0495",
+       "Net pay",
+       "net",
+       486747
+      ]
+     ]
+    },
+    "E-5249|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1362729,
+     "deductions": 121581,
+     "employer": 146521,
+     "net": 1241148,
+     "payee": "ACCT-80083",
+     "lines": [
+      [
+       "L-0496",
+       "Basic salary",
+       "earning",
+       1246993
+      ],
+      [
+       "L-0497",
+       "Transport allowance",
+       "earning",
+       115736
+      ],
+      [
+       "L-0498",
+       "Social insurance (employee)",
+       "deduction",
+       121581
+      ],
+      [
+       "L-0499",
+       "Social insurance (employer)",
+       "employer",
+       146521
+      ],
+      [
+       "L-0500",
+       "Net pay",
+       "net",
+       1241148
+      ]
+     ]
+    },
+    "E-5252|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2609295,
+     "deductions": 237554,
+     "employer": 286283,
+     "net": 2371741,
+     "payee": "ACCT-80084",
+     "lines": [
+      [
+       "L-0501",
+       "Basic salary",
+       "earning",
+       2436453
+      ],
+      [
+       "L-0502",
+       "Overtime",
+       "earning",
+       19144
+      ],
+      [
+       "L-0503",
+       "Housing allowance",
+       "earning",
+       153698
+      ],
+      [
+       "L-0504",
+       "Social insurance (employee)",
+       "deduction",
+       237554
+      ],
+      [
+       "L-0505",
+       "Social insurance (employer)",
+       "employer",
+       286283
+      ],
+      [
+       "L-0506",
+       "Net pay",
+       "net",
+       2371741
+      ]
+     ]
+    },
+    "E-5255|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2633487,
+     "deductions": 287732,
+     "employer": 268093,
+     "net": 2345755,
+     "payee": "ACCT-80085",
+     "lines": [
+      [
+       "L-0507",
+       "Basic salary",
+       "earning",
+       2281649
+      ],
+      [
+       "L-0508",
+       "Housing allowance",
+       "earning",
+       195380
+      ],
+      [
+       "L-0509",
+       "Transport allowance",
+       "earning",
+       156458
+      ],
+      [
+       "L-0510",
+       "Social insurance (employee)",
+       "deduction",
+       222460
+      ],
+      [
+       "L-0511",
+       "Loan installment",
+       "deduction",
+       65272
+      ],
+      [
+       "L-0512",
+       "Social insurance (employer)",
+       "employer",
+       268093
+      ],
+      [
+       "L-0513",
+       "Net pay",
+       "net",
+       2345755
+      ]
+     ]
+    },
+    "E-5258|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 768420,
+     "deductions": 33025,
+     "employer": 39799,
+     "net": 735395,
+     "payee": "ACCT-80086",
+     "lines": [
+      [
+       "L-0514",
+       "Basic salary",
+       "earning",
+       338722
+      ],
+      [
+       "L-0515",
+       "Housing allowance",
+       "earning",
+       132801
+      ],
+      [
+       "L-0516",
+       "Phone allowance",
+       "earning",
+       147127
+      ],
+      [
+       "L-0517",
+       "Transport allowance",
+       "earning",
+       149770
+      ],
+      [
+       "L-0518",
+       "Social insurance (employee)",
+       "deduction",
+       33025
+      ],
+      [
+       "L-0519",
+       "Social insurance (employer)",
+       "employer",
+       39799
+      ],
+      [
+       "L-0520",
+       "Net pay",
+       "net",
+       735395
+      ]
+     ]
+    },
+    "E-5261|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 679633,
+     "deductions": 47156,
+     "employer": 56830,
+     "net": 632477,
+     "payee": "ACCT-80087",
+     "lines": [
+      [
+       "L-0521",
+       "Basic salary",
+       "earning",
+       483661
+      ],
+      [
+       "L-0522",
+       "Phone allowance",
+       "earning",
+       195972
+      ],
+      [
+       "L-0523",
+       "Social insurance (employee)",
+       "deduction",
+       47156
+      ],
+      [
+       "L-0524",
+       "Social insurance (employer)",
+       "employer",
+       56830
+      ],
+      [
+       "L-0525",
+       "Net pay",
+       "net",
+       632477
+      ]
+     ]
+    },
+    "E-5264|cc=ICU": {
+     "status": "missing",
+     "codes": [
+      "NET_ABSENT"
+     ],
+     "earnings": 744346,
+     "deductions": 63797,
+     "employer": 76884,
+     "net": null,
+     "payee": "ACCT-80088",
+     "lines": [
+      [
+       "L-0526",
+       "Basic salary",
+       "earning",
+       654336
+      ],
+      [
+       "L-0527",
+       "Overtime",
+       "earning",
+       90010
+      ],
+      [
+       "L-0528",
+       "Social insurance (employee)",
+       "deduction",
+       63797
+      ],
+      [
+       "L-0529",
+       "Social insurance (employer)",
+       "employer",
+       76884
+      ]
+     ]
+    },
+    "E-5267|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 753867,
+     "deductions": 66168,
+     "employer": 79741,
+     "net": 687699,
+     "payee": "ACCT-80089",
+     "lines": [
+      [
+       "L-0530",
+       "Basic salary",
+       "earning",
+       678648
+      ],
+      [
+       "L-0531",
+       "Phone allowance",
+       "earning",
+       20361
+      ],
+      [
+       "L-0532",
+       "Transport allowance",
+       "earning",
+       54858
+      ],
+      [
+       "L-0533",
+       "Social insurance (employee)",
+       "deduction",
+       66168
+      ],
+      [
+       "L-0534",
+       "Social insurance (employer)",
+       "employer",
+       79741
+      ],
+      [
+       "L-0535",
+       "Net pay",
+       "net",
+       687699
+      ]
+     ]
+    },
+    "E-5270|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1935682,
+     "deductions": 183870,
+     "employer": 221588,
+     "net": 1751812,
+     "payee": "ACCT-80090",
+     "lines": [
+      [
+       "L-0536",
+       "Basic salary",
+       "earning",
+       1885856
+      ],
+      [
+       "L-0537",
+       "Overtime",
+       "earning",
+       11059
+      ],
+      [
+       "L-0538",
+       "Housing allowance",
+       "earning",
+       38767
+      ],
+      [
+       "L-0539",
+       "Social insurance (employee)",
+       "deduction",
+       183870
+      ],
+      [
+       "L-0540",
+       "Social insurance (employer)",
+       "employer",
+       221588
+      ],
+      [
+       "L-0541",
+       "Net pay",
+       "net",
+       1751812
+      ]
+     ]
+    },
+    "E-5273|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1970278,
+     "deductions": 192102,
+     "employer": 231507,
+     "net": 1778176,
+     "payee": "ACCT-80091",
+     "lines": [
+      [
+       "L-0542",
+       "Basic salary",
+       "earning",
+       1970278
+      ],
+      [
+       "L-0543",
+       "Social insurance (employee)",
+       "deduction",
+       192102
+      ],
+      [
+       "L-0544",
+       "Social insurance (employer)",
+       "employer",
+       231507
+      ],
+      [
+       "L-0545",
+       "Net pay",
+       "net",
+       1778176
+      ]
+     ]
+    },
+    "E-5276|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2544772,
+     "deductions": 239316,
+     "employer": 288406,
+     "net": 2305456,
+     "payee": "ACCT-80092",
+     "lines": [
+      [
+       "L-0546",
+       "Basic salary",
+       "earning",
+       2454526
+      ],
+      [
+       "L-0547",
+       "Overtime",
+       "earning",
+       17233
+      ],
+      [
+       "L-0548",
+       "Housing allowance",
+       "earning",
+       73013
+      ],
+      [
+       "L-0549",
+       "Social insurance (employee)",
+       "deduction",
+       239316
+      ],
+      [
+       "L-0550",
+       "Social insurance (employer)",
+       "employer",
+       288406
+      ],
+      [
+       "L-0551",
+       "Net pay",
+       "net",
+       2305456
+      ]
+     ]
+    },
+    "E-5279|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 796747,
+     "deductions": 69365,
+     "employer": 83594,
+     "net": 727382,
+     "payee": "ACCT-80093",
+     "lines": [
+      [
+       "L-0552",
+       "Basic salary",
+       "earning",
+       711444
+      ],
+      [
+       "L-0553",
+       "Overtime",
+       "earning",
+       85303
+      ],
+      [
+       "L-0554",
+       "Social insurance (employee)",
+       "deduction",
+       69365
+      ],
+      [
+       "L-0555",
+       "Social insurance (employer)",
+       "employer",
+       83594
+      ],
+      [
+       "L-0556",
+       "Net pay",
+       "net",
+       727382
+      ]
+     ]
+    },
+    "E-5282|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 610769,
+     "deductions": 59549,
+     "employer": 71765,
+     "net": 551220,
+     "payee": "ACCT-80094",
+     "lines": [
+      [
+       "L-0557",
+       "Basic salary",
+       "earning",
+       610769
+      ],
+      [
+       "L-0558",
+       "Social insurance (employee)",
+       "deduction",
+       59549
+      ],
+      [
+       "L-0559",
+       "Social insurance (employer)",
+       "employer",
+       71765
+      ],
+      [
+       "L-0560",
+       "Net pay",
+       "net",
+       551220
+      ]
+     ]
+    },
+    "E-5285|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 711191,
+     "deductions": 50995,
+     "employer": 61455,
+     "net": 660196,
+     "payee": "ACCT-80095",
+     "lines": [
+      [
+       "L-0561",
+       "Basic salary",
+       "earning",
+       523027
+      ],
+      [
+       "L-0562",
+       "Housing allowance",
+       "earning",
+       46788
+      ],
+      [
+       "L-0563",
+       "Overtime",
+       "earning",
+       19749
+      ],
+      [
+       "L-0564",
+       "Transport allowance",
+       "earning",
+       121627
+      ],
+      [
+       "L-0565",
+       "Social insurance (employee)",
+       "deduction",
+       50995
+      ],
+      [
+       "L-0566",
+       "Social insurance (employer)",
+       "employer",
+       61455
+      ],
+      [
+       "L-0567",
+       "Net pay",
+       "net",
+       660196
+      ]
+     ]
+    },
+    "E-5288|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1881204,
+     "deductions": 240022,
+     "employer": 221041,
+     "net": 1641182,
+     "payee": "ACCT-80096",
+     "lines": [
+      [
+       "L-0568",
+       "Basic salary",
+       "earning",
+       1881204
+      ],
+      [
+       "L-0569",
+       "Social insurance (employee)",
+       "deduction",
+       183417
+      ],
+      [
+       "L-0570",
+       "Loan installment",
+       "deduction",
+       56605
+      ],
+      [
+       "L-0571",
+       "Social insurance (employer)",
+       "employer",
+       221041
+      ],
+      [
+       "L-0572",
+       "Net pay",
+       "net",
+       1641182
+      ]
+     ]
+    },
+    "E-5291|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2024193,
+     "deductions": 194030,
+     "employer": 233831,
+     "net": 1830163,
+     "payee": "ACCT-80097",
+     "lines": [
+      [
+       "L-0573",
+       "Basic salary",
+       "earning",
+       1990052
+      ],
+      [
+       "L-0574",
+       "Housing allowance",
+       "earning",
+       34141
+      ],
+      [
+       "L-0575",
+       "Social insurance (employee)",
+       "deduction",
+       194030
+      ],
+      [
+       "L-0576",
+       "Social insurance (employer)",
+       "employer",
+       233831
+      ],
+      [
+       "L-0577",
+       "Net pay",
+       "net",
+       1830163
+      ]
+     ]
+    },
+    "E-5294|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 650841,
+     "deductions": 50110,
+     "employer": 60389,
+     "net": 600731,
+     "payee": "ACCT-80098",
+     "lines": [
+      [
+       "L-0578",
+       "Basic salary",
+       "earning",
+       513952
+      ],
+      [
+       "L-0579",
+       "Housing allowance",
+       "earning",
+       28561
+      ],
+      [
+       "L-0580",
+       "Overtime",
+       "earning",
+       59920
+      ],
+      [
+       "L-0581",
+       "Transport allowance",
+       "earning",
+       48408
+      ],
+      [
+       "L-0582",
+       "Social insurance (employee)",
+       "deduction",
+       50110
+      ],
+      [
+       "L-0583",
+       "Social insurance (employer)",
+       "employer",
+       60389
+      ],
+      [
+       "L-0584",
+       "Net pay",
+       "net",
+       600731
+      ]
+     ]
+    },
+    "E-5297|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1931299,
+     "deductions": 218400,
+     "employer": 198061,
+     "net": 1712899,
+     "payee": "ACCT-80099",
+     "lines": [
+      [
+       "L-0585",
+       "Basic salary",
+       "earning",
+       1685630
+      ],
+      [
+       "L-0586",
+       "Transport allowance",
+       "earning",
+       184552
+      ],
+      [
+       "L-0587",
+       "Housing allowance",
+       "earning",
+       61117
+      ],
+      [
+       "L-0588",
+       "Social insurance (employee)",
+       "deduction",
+       164348
+      ],
+      [
+       "L-0589",
+       "Loan installment",
+       "deduction",
+       54052
+      ],
+      [
+       "L-0590",
+       "Social insurance (employer)",
+       "employer",
+       198061
+      ],
+      [
+       "L-0591",
+       "Net pay",
+       "net",
+       1712899
+      ]
+     ]
+    },
+    "E-5300|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2370485,
+     "deductions": 227819,
+     "employer": 258976,
+     "net": 2142666,
+     "payee": "ACCT-80100",
+     "lines": [
+      [
+       "L-0592",
+       "Basic salary",
+       "earning",
+       2204057
+      ],
+      [
+       "L-0593",
+       "Phone allowance",
+       "earning",
+       166428
+      ],
+      [
+       "L-0594",
+       "Social insurance (employee)",
+       "deduction",
+       214895
+      ],
+      [
+       "L-0595",
+       "Loan installment",
+       "deduction",
+       12924
+      ],
+      [
+       "L-0596",
+       "Social insurance (employer)",
+       "employer",
+       258976
+      ],
+      [
+       "L-0597",
+       "Net pay",
+       "net",
+       2142666
+      ]
+     ]
+    },
+    "E-5303|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 966383,
+     "deductions": 93766,
+     "employer": 113000,
+     "net": 872617,
+     "payee": "ACCT-80101",
+     "lines": [
+      [
+       "L-0598",
+       "Basic salary",
+       "earning",
+       961703
+      ],
+      [
+       "L-0599",
+       "Transport allowance",
+       "earning",
+       4680
+      ],
+      [
+       "L-0600",
+       "Social insurance (employee)",
+       "deduction",
+       93766
+      ],
+      [
+       "L-0601",
+       "Social insurance (employer)",
+       "employer",
+       113000
+      ],
+      [
+       "L-0602",
+       "Net pay",
+       "net",
+       872617
+      ]
+     ]
+    },
+    "E-5306|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 902542,
+     "deductions": 87997,
+     "employer": 106048,
+     "net": 814545,
+     "payee": "ACCT-80102",
+     "lines": [
+      [
+       "L-0603",
+       "Basic salary",
+       "earning",
+       902542
+      ],
+      [
+       "L-0604",
+       "Social insurance (employee)",
+       "deduction",
+       87997
+      ],
+      [
+       "L-0605",
+       "Social insurance (employer)",
+       "employer",
+       106048
+      ],
+      [
+       "L-0606",
+       "Net pay",
+       "net",
+       814545
+      ]
+     ]
+    },
+    "E-5309|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1850441,
+     "deductions": 251468,
+     "employer": 205429,
+     "net": 1598973,
+     "payee": "ACCT-80103",
+     "lines": [
+      [
+       "L-0607",
+       "Basic salary",
+       "earning",
+       1748339
+      ],
+      [
+       "L-0608",
+       "Phone allowance",
+       "earning",
+       36248
+      ],
+      [
+       "L-0609",
+       "Housing allowance",
+       "earning",
+       65854
+      ],
+      [
+       "L-0610",
+       "Social insurance (employee)",
+       "deduction",
+       170463
+      ],
+      [
+       "L-0611",
+       "Loan installment",
+       "deduction",
+       81005
+      ],
+      [
+       "L-0612",
+       "Social insurance (employer)",
+       "employer",
+       205429
+      ],
+      [
+       "L-0613",
+       "Net pay",
+       "net",
+       1598973
+      ]
+     ]
+    },
+    "E-5312|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1971486,
+     "deductions": 224719,
+     "employer": 231649,
+     "net": 1746767,
+     "payee": "ACCT-80104",
+     "lines": [
+      [
+       "L-0614",
+       "Basic salary",
+       "earning",
+       1971486
+      ],
+      [
+       "L-0615",
+       "Social insurance (employee)",
+       "deduction",
+       192219
+      ],
+      [
+       "L-0616",
+       "Loan installment",
+       "deduction",
+       32500
+      ],
+      [
+       "L-0617",
+       "Social insurance (employer)",
+       "employer",
+       231649
+      ],
+      [
+       "L-0618",
+       "Net pay",
+       "net",
+       1746767
+      ]
+     ]
+    },
+    "E-5315|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1752520,
+     "deductions": 143413,
+     "employer": 172831,
+     "net": 1609107,
+     "payee": "ACCT-80105",
+     "lines": [
+      [
+       "L-0619",
+       "Basic salary",
+       "earning",
+       1470906
+      ],
+      [
+       "L-0620",
+       "Phone allowance",
+       "earning",
+       84142
+      ],
+      [
+       "L-0621",
+       "Transport allowance",
+       "earning",
+       78275
+      ],
+      [
+       "L-0622",
+       "Overtime",
+       "earning",
+       119197
+      ],
+      [
+       "L-0623",
+       "Social insurance (employee)",
+       "deduction",
+       143413
+      ],
+      [
+       "L-0624",
+       "Social insurance (employer)",
+       "employer",
+       172831
+      ],
+      [
+       "L-0625",
+       "Net pay",
+       "net",
+       1609107
+      ]
+     ]
+    },
+    "E-5318|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1801574,
+     "deductions": 149997,
+     "employer": 180766,
+     "net": 1651577,
+     "payee": "ACCT-80106",
+     "lines": [
+      [
+       "L-0626",
+       "Basic salary",
+       "earning",
+       1538435
+      ],
+      [
+       "L-0627",
+       "Housing allowance",
+       "earning",
+       86143
+      ],
+      [
+       "L-0628",
+       "Overtime",
+       "earning",
+       24583
+      ],
+      [
+       "L-0629",
+       "Phone allowance",
+       "earning",
+       152413
+      ],
+      [
+       "L-0630",
+       "Social insurance (employee)",
+       "deduction",
+       149997
+      ],
+      [
+       "L-0631",
+       "Social insurance (employer)",
+       "employer",
+       180766
+      ],
+      [
+       "L-0632",
+       "Net pay",
+       "net",
+       1651577
+      ]
+     ]
+    },
+    "E-5321|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 973530,
+     "deductions": 145934,
+     "employer": 105905,
+     "net": 827596,
+     "payee": "ACCT-80107",
+     "lines": [
+      [
+       "L-0633",
+       "Basic salary",
+       "earning",
+       901322
+      ],
+      [
+       "L-0634",
+       "Overtime",
+       "earning",
+       72208
+      ],
+      [
+       "L-0635",
+       "Social insurance (employee)",
+       "deduction",
+       87878
+      ],
+      [
+       "L-0636",
+       "Loan installment",
+       "deduction",
+       58056
+      ],
+      [
+       "L-0637",
+       "Social insurance (employer)",
+       "employer",
+       105905
+      ],
+      [
+       "L-0638",
+       "Net pay",
+       "net",
+       827596
+      ]
+     ]
+    },
+    "E-5324|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2034445,
+     "deductions": 174756,
+     "employer": 210604,
+     "net": 1859689,
+     "payee": "ACCT-80108",
+     "lines": [
+      [
+       "L-0639",
+       "Basic salary",
+       "earning",
+       1792379
+      ],
+      [
+       "L-0640",
+       "Phone allowance",
+       "earning",
+       124737
+      ],
+      [
+       "L-0641",
+       "Overtime",
+       "earning",
+       117329
+      ],
+      [
+       "L-0642",
+       "Social insurance (employee)",
+       "deduction",
+       174756
+      ],
+      [
+       "L-0643",
+       "Social insurance (employer)",
+       "employer",
+       210604
+      ],
+      [
+       "L-0644",
+       "Net pay",
+       "net",
+       1859689
+      ]
+     ]
+    },
+    "E-5327|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2485321,
+     "deductions": 312003,
+     "employer": 277022,
+     "net": 2173318,
+     "payee": "ACCT-80109",
+     "lines": [
+      [
+       "L-0645",
+       "Basic salary",
+       "earning",
+       2357641
+      ],
+      [
+       "L-0646",
+       "Overtime",
+       "earning",
+       127680
+      ],
+      [
+       "L-0647",
+       "Social insurance (employee)",
+       "deduction",
+       229869
+      ],
+      [
+       "L-0648",
+       "Loan installment",
+       "deduction",
+       82134
+      ],
+      [
+       "L-0649",
+       "Social insurance (employer)",
+       "employer",
+       277022
+      ],
+      [
+       "L-0650",
+       "Net pay",
+       "net",
+       2173318
+      ]
+     ]
+    },
+    "E-5330|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2250500,
+     "deductions": 217149,
+     "employer": 261693,
+     "net": 2033351,
+     "payee": "ACCT-80110",
+     "lines": [
+      [
+       "L-0651",
+       "Basic salary",
+       "earning",
+       2227177
+      ],
+      [
+       "L-0652",
+       "Overtime",
+       "earning",
+       23323
+      ],
+      [
+       "L-0653",
+       "Social insurance (employee)",
+       "deduction",
+       217149
+      ],
+      [
+       "L-0654",
+       "Social insurance (employer)",
+       "employer",
+       261693
+      ],
+      [
+       "L-0655",
+       "Net pay",
+       "net",
+       2033351
+      ]
+     ]
+    },
+    "E-5333|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1105788,
+     "deductions": 104292,
+     "employer": 125685,
+     "net": 1001496,
+     "payee": "ACCT-80111",
+     "lines": [
+      [
+       "L-0656",
+       "Basic salary",
+       "earning",
+       1069665
+      ],
+      [
+       "L-0657",
+       "Overtime",
+       "earning",
+       36123
+      ],
+      [
+       "L-0658",
+       "Social insurance (employee)",
+       "deduction",
+       104292
+      ],
+      [
+       "L-0659",
+       "Social insurance (employer)",
+       "employer",
+       125685
+      ],
+      [
+       "L-0660",
+       "Net pay",
+       "net",
+       1001496
+      ]
+     ]
+    },
+    "E-5336|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 405715,
+     "deductions": 39557,
+     "employer": 47671,
+     "net": 366158,
+     "payee": "ACCT-80112",
+     "lines": [
+      [
+       "L-0661",
+       "Basic salary",
+       "earning",
+       405715
+      ],
+      [
+       "L-0662",
+       "Social insurance (employee)",
+       "deduction",
+       39557
+      ],
+      [
+       "L-0663",
+       "Social insurance (employer)",
+       "employer",
+       47671
+      ],
+      [
+       "L-0664",
+       "Net pay",
+       "net",
+       366158
+      ]
+     ]
+    },
+    "E-5339|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1063600,
+     "deductions": 103701,
+     "employer": 124973,
+     "net": 959899,
+     "payee": "ACCT-80113",
+     "lines": [
+      [
+       "L-0665",
+       "Basic salary",
+       "earning",
+       1063600
+      ],
+      [
+       "L-0666",
+       "Social insurance (employee)",
+       "deduction",
+       103701
+      ],
+      [
+       "L-0667",
+       "Social insurance (employer)",
+       "employer",
+       124973
+      ],
+      [
+       "L-0668",
+       "Net pay",
+       "net",
+       959899
+      ]
+     ]
+    },
+    "E-5342|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 2611638,
+     "deductions": 237424,
+     "employer": 286127,
+     "net": 2374214,
+     "payee": "ACCT-80114",
+     "lines": [
+      [
+       "L-0669",
+       "Basic salary",
+       "earning",
+       2435126
+      ],
+      [
+       "L-0670",
+       "Transport allowance",
+       "earning",
+       176512
+      ],
+      [
+       "L-0671",
+       "Social insurance (employee)",
+       "deduction",
+       237424
+      ],
+      [
+       "L-0672",
+       "Social insurance (employer)",
+       "employer",
+       286127
+      ],
+      [
+       "L-0673",
+       "Net pay",
+       "net",
+       2374214
+      ]
+     ]
+    },
+    "E-5345|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1315013,
+     "deductions": 103675,
+     "employer": 124941,
+     "net": 1211338,
+     "payee": "ACCT-80115",
+     "lines": [
+      [
+       "L-0674",
+       "Basic salary",
+       "earning",
+       1063336
+      ],
+      [
+       "L-0675",
+       "Housing allowance",
+       "earning",
+       48467
+      ],
+      [
+       "L-0676",
+       "Transport allowance",
+       "earning",
+       178964
+      ],
+      [
+       "L-0677",
+       "Phone allowance",
+       "earning",
+       24246
+      ],
+      [
+       "L-0678",
+       "Social insurance (employee)",
+       "deduction",
+       103675
+      ],
+      [
+       "L-0679",
+       "Social insurance (employer)",
+       "employer",
+       124941
+      ],
+      [
+       "L-0680",
+       "Net pay",
+       "net",
+       1211338
+      ]
+     ]
+    },
+    "E-5348|cc=ICU": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1198867,
+     "deductions": 169975,
+     "employer": 119866,
+     "net": 1028892,
+     "payee": "ACCT-80116",
+     "lines": [
+      [
+       "L-0681",
+       "Basic salary",
+       "earning",
+       1020142
+      ],
+      [
+       "L-0682",
+       "Overtime",
+       "earning",
+       178725
+      ],
+      [
+       "L-0683",
+       "Social insurance (employee)",
+       "deduction",
+       99463
+      ],
+      [
+       "L-0684",
+       "Loan installment",
+       "deduction",
+       70512
+      ],
+      [
+       "L-0685",
+       "Social insurance (employer)",
+       "employer",
+       119866
+      ],
+      [
+       "L-0686",
+       "Net pay",
+       "net",
+       1028892
+      ]
+     ]
+    },
+    "E-5351|cc=OPD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1885224,
+     "deductions": 164743,
+     "employer": 183552,
+     "net": 1720481,
+     "payee": "ACCT-80117",
+     "lines": [
+      [
+       "L-0687",
+       "Basic salary",
+       "earning",
+       1562150
+      ],
+      [
+       "L-0688",
+       "Housing allowance",
+       "earning",
+       84910
+      ],
+      [
+       "L-0689",
+       "Phone allowance",
+       "earning",
+       102460
+      ],
+      [
+       "L-0690",
+       "Overtime",
+       "earning",
+       135704
+      ],
+      [
+       "L-0691",
+       "Social insurance (employee)",
+       "deduction",
+       152309
+      ],
+      [
+       "L-0692",
+       "Loan installment",
+       "deduction",
+       12434
+      ],
+      [
+       "L-0693",
+       "Social insurance (employer)",
+       "employer",
+       183552
+      ],
+      [
+       "L-0694",
+       "Net pay",
+       "net",
+       1720481
+      ]
+     ]
+    },
+    "E-5354|cc=LAB": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 1323863,
+     "deductions": 118690,
+     "employer": 143037,
+     "net": 1205173,
+     "payee": "ACCT-80118",
+     "lines": [
+      [
+       "L-0695",
+       "Basic salary",
+       "earning",
+       1217338
+      ],
+      [
+       "L-0696",
+       "Housing allowance",
+       "earning",
+       106525
+      ],
+      [
+       "L-0697",
+       "Social insurance (employee)",
+       "deduction",
+       118690
+      ],
+      [
+       "L-0698",
+       "Social insurance (employer)",
+       "employer",
+       143037
+      ],
+      [
+       "L-0699",
+       "Net pay",
+       "net",
+       1205173
+      ]
+     ]
+    },
+    "E-5357|cc=RAD": {
+     "status": "consistent",
+     "codes": [],
+     "earnings": 549746,
+     "deductions": 53600,
+     "employer": 64595,
+     "net": 496146,
+     "payee": "ACCT-80119",
+     "lines": [
+      [
+       "L-0700",
+       "Basic salary",
+       "earning",
+       549746
+      ],
+      [
+       "L-0701",
+       "Social insurance (employee)",
+       "deduction",
+       53600
+      ],
+      [
+       "L-0702",
+       "Social insurance (employer)",
+       "employer",
+       64595
+      ],
+      [
+       "L-0703",
+       "Net pay",
+       "net",
+       496146
+      ]
+     ]
+    }
+   },
+   "excludedSections": [],
+   "sharedPayees": [
+    [
+     "ACCT-80005",
+     [
+      "E-5015",
+      "E-5018"
+     ]
+    ]
+   ],
+   "unplaced": [],
+   "totals": {
+    "earnings": 180985630,
+    "deductions": 18117751,
+    "employer": 19185537,
+    "net": 162187329
+   },
+   "run": []
+  }
+ }
+}

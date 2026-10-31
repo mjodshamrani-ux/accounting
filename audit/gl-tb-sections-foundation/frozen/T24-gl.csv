@@ -1,0 +1,50 @@
+﻿Section,S-5410,,,
+Entity,Synthetic Holding Co,,,
+Ledger,Main GL,,,
+Account,5410,,,
+Complete dimensions,cc=10,,,
+Currency,SAR,,,
+Currency basis,functional,,,
+Posting status,posted,,,
+Posting layer,actual,,,
+Period start,2026-09-01,,,
+Period end,2026-09-30,,,
+Record ID,Record kind,Posting date,Debit,Credit
+S-5410-O,opening,2026-09-01,4.00,0.00
+G-241,movement,2026-09-18,1.00,0.00
+End section,S-5410,,,
+,,,,
+Section,S-5420,,,
+Entity,Synthetic Holding Co,,,
+Ledger,Main GL,,,
+Account,5420,,,
+Complete dimensions,cc=10,,,
+Currency,SAR,,,
+Currency basis,functional,,,
+Posting status,posted,,,
+Posting layer,actual,,,
+Period start,2026-09-01,,,
+Period end,2026-09-30,,,
+Record ID,Record kind,Posting date,Debit,Credit
+S-5420-O,opening,2026-09-01,8.00,0.00
+G-242,movement,2026-09-19,0.00,2.00
+S-5420-O2,opening,2026-09-01,8.00,0.00
+S-5420-C,closing,2026-09-30,6.00,0.00
+End section,S-5420,,,
+,,,,
+Section,S-5430,,,
+Entity,Synthetic Holding Co,,,
+Ledger,Main GL,,,
+Account,5430,,,
+Complete dimensions,cc=10,,,
+Currency,SAR,,,
+Currency basis,functional,,,
+Posting status,posted,,,
+Posting layer,actual,,,
+Period start,2026-09-01,,,
+Period end,2026-09-30,,,
+Record ID,Record kind,Posting date,Debit,Credit
+S-5430-O,opening,2026-09-01,0.00,0.00
+G-243,movement,2026-09-20,0.50,0.00
+S-5430-C,closing,2026-09-30,0.50,0.00
+End section,S-5430,,,

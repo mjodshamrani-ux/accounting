@@ -1,0 +1,324 @@
+{
+ "version": "tarasuf-ai1-columns-1",
+ "producers": {
+  "hexapdf": "1.11.2",
+  "ruby": "3.3.6",
+  "pdf-lib": "1.17.1",
+  "@pdf-lib/fontkit": "1.1.1",
+  "bidi-js": "1.0.3",
+  "node": "22.22.0",
+  "ledgerCsv": "Python csv, UTF-8, CRLF"
+ },
+ "fonts": {
+  "Alexandria_400Regular.ttf": {
+   "source": "@expo-google-fonts/alexandria 0.4.2: 400Regular/Alexandria_400Regular.ttf",
+   "sha256": "1c66b216566da52817abd1ff7500c2817486645d089a54c0389751cd4d0c6b17"
+  },
+  "Alexandria_700Bold.ttf": {
+   "source": "@expo-google-fonts/alexandria 0.4.2: 700Bold/Alexandria_700Bold.ttf",
+   "sha256": "7c79ced75e6c6bc95a3bda85f867813d122f39afb61c6566c3c6a18c1e68b7c3"
+  },
+  "FiraSans_400Regular.ttf": {
+   "source": "@expo-google-fonts/fira-sans 0.4.1: 400Regular/FiraSans_400Regular.ttf",
+   "sha256": "3dabf3d48bf4599f95cffd92f99ea426a014d5311f52a5eb5ec3af265e97cd97"
+  },
+  "FiraSans_700Bold.ttf": {
+   "source": "@expo-google-fonts/fira-sans 0.4.1: 700Bold/FiraSans_700Bold.ttf",
+   "sha256": "74b477a3e2b7c745e6dac8c01764c8fd82e53763b47ef1eccd24dce36d2ff71f"
+  },
+  "Merriweather_400Regular.ttf": {
+   "source": "@expo-google-fonts/merriweather 0.4.2: 400Regular/Merriweather_400Regular.ttf",
+   "sha256": "f1541057f1765ffa5ee7eb873f01bec1dd2238c85a8b1602c462fd8eda92b6df"
+  },
+  "Merriweather_700Bold.ttf": {
+   "source": "@expo-google-fonts/merriweather 0.4.2: 700Bold/Merriweather_700Bold.ttf",
+   "sha256": "d9587d1266fb18da859f44a0ada7bdc5e7cb68af29ea87aa7caab2607cd74579"
+  },
+  "ReadexPro_400Regular.ttf": {
+   "source": "@expo-google-fonts/readex-pro 0.4.1: 400Regular/ReadexPro_400Regular.ttf",
+   "sha256": "cf8d20680d810289ebbd85f219ecaf77d79a5a78094a1806ca1a42fcaf6fa81f"
+  },
+  "ReadexPro_700Bold.ttf": {
+   "source": "@expo-google-fonts/readex-pro 0.4.1: 700Bold/ReadexPro_700Bold.ttf",
+   "sha256": "49876d8f5acf89135beabfe25216a4f29771d5e1ac45c382fa0e197d65da9273"
+  },
+  "Rubik_400Regular.ttf": {
+   "source": "@expo-google-fonts/rubik 0.4.2: 400Regular/Rubik_400Regular.ttf",
+   "sha256": "6b94e23adedab4522e1b65d21158e83c75f377fc99f916c58f8ec40ecc7dd035"
+  },
+  "Rubik_700Bold.ttf": {
+   "source": "@expo-google-fonts/rubik 0.4.2: 700Bold/Rubik_700Bold.ttf",
+   "sha256": "2fb105e3a66c3540e2308321e7c5bd786ce98a232930cd31c62e20d47747ad20"
+  },
+  "Tajawal_400Regular.ttf": {
+   "source": "@expo-google-fonts/tajawal 0.4.1: 400Regular/Tajawal_400Regular.ttf",
+   "sha256": "386997fcfcd22020b47265f9c02587791867e4df5f74a36be36ad6264a50d321"
+  },
+  "Tajawal_700Bold.ttf": {
+   "source": "@expo-google-fonts/tajawal 0.4.1: 700Bold/Tajawal_700Bold.ttf",
+   "sha256": "ca2c8ca040b6725b6b058c8470fe5bbf5c4c2b77356fe8c38c41716decb206bd"
+  },
+  "WorkSans_400Regular.ttf": {
+   "source": "@expo-google-fonts/work-sans 0.4.2: 400Regular/WorkSans_400Regular.ttf",
+   "sha256": "e67985a843df0d3cdee51a3d0f329eb1774a344ad9ff0c9ab923751f1577e2a4"
+  },
+  "WorkSans_700Bold.ttf": {
+   "source": "@expo-google-fonts/work-sans 0.4.2: 700Bold/WorkSans_700Bold.ttf",
+   "sha256": "240d125fc9f8561363dc1ea3f513501253bd70942f41468f48f0b0cafb0c82e2"
+  }
+ },
+ "facts": {
+  "file": "stories.json",
+  "stored": false,
+  "recipe": "python3 -B audit/ai-column-roles-foundation/stories.py",
+  "sha256": "4bcfa93ffa91b48550a02868a3a5075591f936c075f250ad388d931ff144275b",
+  "bytes": 110870
+ },
+ "files": [
+  {
+   "file": "A01-ledger.csv",
+   "sha256": "ee1dcd5ac46380c7e379f2b06594fd93526bbaa3aedf9876bdaccf6a00c235e9",
+   "bytes": 488
+  },
+  {
+   "file": "A01-statement.pdf",
+   "sha256": "9e242848f365ecfa5ac57b2d43e567cabc8ae578366d9dd337dfa8b7fbe5cbb2",
+   "bytes": 15477
+  },
+  {
+   "file": "A02-ledger.csv",
+   "sha256": "3cb62763fcf6c8977bfa7a787735e1d2ae9dbbe85886cf9866ee0970e8d9658e",
+   "bytes": 579
+  },
+  {
+   "file": "A02-statement.pdf",
+   "sha256": "78a1d7333d76eef462f67d6b2dea5dea63e083d096ffb56c6199a595aabd8367",
+   "bytes": 19187
+  },
+  {
+   "file": "A03-ledger.csv",
+   "sha256": "ae6fcbff42769af67e648d490965394609d5ce0a86e0507a1cd889e6c516528c",
+   "bytes": 982
+  },
+  {
+   "file": "A03-statement.pdf",
+   "sha256": "5577fe7c2396135f93dac8650a83937c0ea702063a5fa9090c720c6baf80480f",
+   "bytes": 22334
+  },
+  {
+   "file": "A04-ledger.csv",
+   "sha256": "65f0a3b5d01d80dd5265a131dc4d1eed2fcfb10af05186d0756d3edd23f9ec7b",
+   "bytes": 580
+  },
+  {
+   "file": "A04-statement.pdf",
+   "sha256": "023decdb89cbf0204bcff68537bb6aef9c9c27e1a14d88bcb38f8da5b56b60e1",
+   "bytes": 16605
+  },
+  {
+   "file": "C01-ledger.csv",
+   "sha256": "1c24a5247ec047a61941f263f15538fafedc240720511e3f46fba0ff9931fea1",
+   "bytes": 443
+  },
+  {
+   "file": "C01-statement.pdf",
+   "sha256": "85b594df710229b752f32cc99012198c7c706533ab30ef0e7ba077f32e0b8f9c",
+   "bytes": 11687
+  },
+  {
+   "file": "C02-ledger.csv",
+   "sha256": "67b44b9523698785d1b0b54f776b587164f9a16bc546f8b8dbbdf7b4a802e26e",
+   "bytes": 444
+  },
+  {
+   "file": "C02-statement.pdf",
+   "sha256": "989d1a21cca2d645dcb77412f9b4e8e6b53f5866f7d194b3650029ffe38281ab",
+   "bytes": 14207
+  },
+  {
+   "file": "D01-ledger.csv",
+   "sha256": "8133b83b1291fb63d42c0cc1f59d5b89c4ef8622dbc23f28177c6e192ae8bda2",
+   "bytes": 445
+  },
+  {
+   "file": "D01-statement.pdf",
+   "sha256": "ca7f476bd97487717be9227f2bad376ff821222df0dc3129a5e66e85ce4d68c3",
+   "bytes": 19019
+  },
+  {
+   "file": "D02-ledger.csv",
+   "sha256": "998977fa3f3c8169d0faacbdccbd1337be29b3bee604c490346d1dcaff3e6a77",
+   "bytes": 534
+  },
+  {
+   "file": "D02-statement.pdf",
+   "sha256": "37a47ca2f9ef43fb40c6c660798b78554b0e47194117f1df4ac41093d19193de",
+   "bytes": 13006
+  },
+  {
+   "file": "D03-ledger.csv",
+   "sha256": "a34b18c4743b0a5b089809f981b1c3647098da4dfc705458a5e01161a0669a16",
+   "bytes": 490
+  },
+  {
+   "file": "D03-statement.pdf",
+   "sha256": "9c4cae10cf57181b7e39b3d4f0399ae325a4b045853b91a80b2ff835ad5d0ea6",
+   "bytes": 18662
+  },
+  {
+   "file": "D04-ledger.csv",
+   "sha256": "c42d35bc5d0f1afbe3804f8c8391f678edc2c7c1d4ee1d83c8e84855f3927ad5",
+   "bytes": 1024
+  },
+  {
+   "file": "D04-statement.pdf",
+   "sha256": "2882afa4eab04cdc1f095b958109fe9ff559f0e2c19679efcc220b7675825970",
+   "bytes": 17940
+  },
+  {
+   "file": "D05-ledger.csv",
+   "sha256": "e36428cb640dd922d185f2cbafc047d2fbe66ef24ffe5004165c91981e742752",
+   "bytes": 489
+  },
+  {
+   "file": "D05-statement.pdf",
+   "sha256": "ce30fc3bfc776417805ac005387f69dc97b23fdee3eb43227a26391fbf1d190c",
+   "bytes": 14331
+  },
+  {
+   "file": "N01-ledger.csv",
+   "sha256": "b0116e059668162444e4c30d6001148b8a47e851aaca18bc13df6b07cd57d3b4",
+   "bytes": 533
+  },
+  {
+   "file": "N01-statement.pdf",
+   "sha256": "512e60aacadab7b0203049daa363a4e20b39198d954b41ae519dd1b8798afb00",
+   "bytes": 18831
+  },
+  {
+   "file": "N02-ledger.csv",
+   "sha256": "accc3fd1121e11f487fc3be5aeb6b485af125fb13ccbb314fc514e220e6d0028",
+   "bytes": 624
+  },
+  {
+   "file": "N02-statement.pdf",
+   "sha256": "ef695e658c0b083baca83d08049a5265cbabfc66dc0fbdf8aa5d48f9adf107df",
+   "bytes": 12176
+  },
+  {
+   "file": "N03-ledger.csv",
+   "sha256": "a515cfb0eb8164f18ff44b02755240b23b0f410a98a438ab2d6f21c551092d8f",
+   "bytes": 530
+  },
+  {
+   "file": "N03-statement.pdf",
+   "sha256": "60398134c444494d60613e4b61c9fe6df1d9863d1df1ed3e48e8cf11f350bc8c",
+   "bytes": 14855
+  },
+  {
+   "file": "N04-ledger.csv",
+   "sha256": "4e9f66be314137827b5d112d534debe56587b48ed571bb896e184d3ccb75faaa",
+   "bytes": 1116
+  },
+  {
+   "file": "N04-statement.pdf",
+   "sha256": "ea170c8c6633eb0e49bcc19dd43f34cd4aa20e84d06cca9fb9d140bb3ea33994",
+   "bytes": 15811
+  },
+  {
+   "file": "N05-ledger.csv",
+   "sha256": "baa7215d456094fc5985f610793c3f9b7f073302f5a239dd8dc67e4d855c9f1d",
+   "bytes": 446
+  },
+  {
+   "file": "N05-statement.pdf",
+   "sha256": "74eab6375611b2bc59437bb07954590072b25be0ec45403604de5b6e9aab390a",
+   "bytes": 12080
+  },
+  {
+   "file": "U01-ledger.csv",
+   "sha256": "2a68b3e83e1194358d1318fade692cde8caebcc11ff704c337d922c8c6a7d1ca",
+   "bytes": 445
+  },
+  {
+   "file": "U01-statement.pdf",
+   "sha256": "0638e8458c3895f9ea8a09cec7bc0f4ae1eeff01d9609c54340cb8844ae89636",
+   "bytes": 14225
+  },
+  {
+   "file": "U02-ledger.csv",
+   "sha256": "16899e6dc3f3b65934b0d9903578c9adc798833f705ccbd49828cac5a1d1883e",
+   "bytes": 488
+  },
+  {
+   "file": "U02-statement.pdf",
+   "sha256": "c60e422e8c4d007fc55d61fe6078fffa23ea83d8f1102749adee3db8482084ba",
+   "bytes": 11441
+  },
+  {
+   "file": "U03-ledger.csv",
+   "sha256": "5d29a2dcfc4e4da3608ae635d0294ae76dc794f1b71f2ab6e1faf7a719774a4b",
+   "bytes": 444
+  },
+  {
+   "file": "U03-statement.pdf",
+   "sha256": "5e2a923b10b0a224aa3d8de9d87bf0d21c834cd647274aad32a9551a2bf3c592",
+   "bytes": 14906
+  },
+  {
+   "file": "X01-ledger.csv",
+   "sha256": "584e406f5a2e2c4f6b7faba0379d12afe621ba180be297904415cccd953abd9d",
+   "bytes": 490
+  },
+  {
+   "file": "X01-statement.pdf",
+   "sha256": "8ac998ac1f58c6bfdccbe7078571653dfcee723cad1dca4aabaf3f814e78a188",
+   "bytes": 11917
+  },
+  {
+   "file": "X02-ledger.csv",
+   "sha256": "68e2aa088353b5cb1bf086c4dcf869e08bbab506e5b0a516ebed5117328e812f",
+   "bytes": 579
+  },
+  {
+   "file": "X02-statement.pdf",
+   "sha256": "76d7d10a83e29ae6fcf50e5b67664427f72f891cd87726762d48fc0a76d80abf",
+   "bytes": 11402
+  },
+  {
+   "file": "X03-ledger.csv",
+   "sha256": "9f2c965c1db2fdc3817cc43ff4ac0229c0ac4822c94fd31a198a20b2d4c4e309",
+   "bytes": 488
+  },
+  {
+   "file": "X03-statement.pdf",
+   "sha256": "07f35c6d4e83c4e2ce9f6419b23a7c5afa9792b6581470d9dff3ece596429990",
+   "bytes": 19486
+  },
+  {
+   "file": "X04-ledger.csv",
+   "sha256": "091e211b41ec73b3a32b75d7605d89b1026b8ba41e18eceb6af691be28850fe5",
+   "bytes": 578
+  },
+  {
+   "file": "X04-statement.pdf",
+   "sha256": "66cfaf55be0b501fcacf79f981c7603c3a9a39161d2bca04d1db9ebde3329493",
+   "bytes": 19066
+  },
+  {
+   "file": "X05-ledger.csv",
+   "sha256": "d49cf5202f686703dc10a9204e7662571fe4be01d2a49c9d76970fab17431e17",
+   "bytes": 535
+  },
+  {
+   "file": "X05-statement.pdf",
+   "sha256": "10dcfbf0b034e0ae3869eeca5c1dd5dce3588998139c888000db9c1c3912f4b9",
+   "bytes": 13324
+  },
+  {
+   "file": "expected.json",
+   "sha256": "b03dd035227c1c4d23dc2b24762e5197b706c0c12237d953caa436b094e4855f",
+   "bytes": 72525
+  }
+ ]
+}

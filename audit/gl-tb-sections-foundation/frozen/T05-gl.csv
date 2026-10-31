@@ -1,0 +1,32 @@
+﻿Section,S-6100,,,
+Entity,Synthetic Holding Co,,,
+Ledger,Main GL,,,
+Account,6100,,,
+Complete dimensions,cc=10,,,
+Currency,SAR,,,
+Currency basis,functional,,,
+Posting status,posted,,,
+Posting layer,actual,,,
+Period start,2026-09-01,,,
+Period end,2026-09-30,,,
+Record ID,Record kind,Posting date,Debit,Credit
+S-6100-O,opening,2026-09-01,10000.00,0.00
+S-6100-C,closing,2026-09-30,15000.00,0.00
+End section,S-6100,,,
+,,,,
+Section,S-6200,,,
+Entity,Synthetic Holding Co,,,
+Ledger,Main GL,,,
+Account,6200,,,
+Complete dimensions,cc=10,,,
+Currency,SAR,,,
+Currency basis,functional,,,
+Posting status,posted,,,
+Posting layer,actual,,,
+Period start,2026-09-01,,,
+Period end,2026-09-30,,,
+Record ID,Record kind,Posting date,Debit,Credit
+S-6200-O,opening,2026-09-01,0.00,0.00
+G-51,movement,2026-09-15,40.00,0.00
+S-6200-C,closing,2026-09-30,40.00,0.00
+End section,S-6200,,,

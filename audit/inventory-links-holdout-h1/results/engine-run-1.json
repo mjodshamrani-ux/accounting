@@ -1,0 +1,73 @@
+{
+ "schema": "tarasuf-inv3-engine-run/1",
+ "family": "inventory-posted-register-gl-1",
+ "suite": "audit/inventory-links-holdout-h1",
+ "rule": "equal to the sealed expectations in full",
+ "equal": 21,
+ "of": 21,
+ "stories": {
+  "K01": {
+   "equal": true
+  },
+  "K02": {
+   "equal": true
+  },
+  "K03": {
+   "equal": true
+  },
+  "K04": {
+   "equal": true
+  },
+  "K05": {
+   "equal": true
+  },
+  "K06": {
+   "equal": true
+  },
+  "K07": {
+   "equal": true
+  },
+  "K08": {
+   "equal": true
+  },
+  "K09": {
+   "equal": true
+  },
+  "K10": {
+   "equal": true
+  },
+  "K11": {
+   "equal": true
+  },
+  "K12": {
+   "equal": true
+  },
+  "K13": {
+   "equal": true
+  },
+  "K14": {
+   "equal": true
+  },
+  "K15": {
+   "equal": true
+  },
+  "K16": {
+   "equal": true
+  },
+  "K17": {
+   "equal": true
+  },
+  "K18": {
+   "equal": true
+  },
+  "K19": {
+   "equal": true
+  },
+  "K20": {
+   "equal": true
+  },
+  "K21": {
+   "equal": true
+  }
+ }
+}

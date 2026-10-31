@@ -1,0 +1,441 @@
+{
+ "run": {
+  "name": "baseline",
+  "productCommit": "760b804",
+  "date": "2026-10-27",
+  "asItCame": true,
+  "command": "node --experimental-strip-types scripts/bank-roll-baseline.mjs",
+  "note": "First product run on the ROLL-1 foundation, after the seal in 760b804. The product has no input for a previous-period session on the bank statement path; it restores such a session on its own."
+ },
+ "schema": "tarasuf-wf1-roll1-baseline/1",
+ "inputManifestSha256": "b3b279cf89ed21a9e5f31b73e0500e8a373d6d62786ccad506e026d074da4846",
+ "summary": {
+  "stories": 20,
+  "previousSessionsRestored": "17/19",
+  "outstandingEqualsOracle": "12/12",
+  "carriedCasesMade": "0/11"
+ },
+ "stories": {
+  "R01": {
+   "previous": {
+    "restored": true,
+    "status": "reviewed",
+    "outstanding": [
+     "JUL:PV-R01-90"
+    ],
+    "equalsOracleCarried": true
+   },
+   "current": {
+    "status": "reviewed",
+    "automatic": 4,
+    "review": [],
+    "statementOnly": 1,
+    "cashbookOnly": 0
+   },
+   "carry": {
+    "supported": false,
+    "expectedCases": 1,
+    "made": 0
+   }
+  },
+  "R02": {
+   "previous": {
+    "restored": true,
+    "status": "reviewed",
+    "outstanding": [
+     "JUL:RV-R02-91"
+    ],
+    "equalsOracleCarried": true
+   },
+   "current": {
+    "status": "reviewed",
+    "automatic": 4,
+    "review": [],
+    "statementOnly": 1,
+    "cashbookOnly": 0
+   },
+   "carry": {
+    "supported": false,
+    "expectedCases": 1,
+    "made": 0
+   }
+  },
+  "R03": {
+   "previous": {
+    "restored": true,
+    "status": "reviewed",
+    "outstanding": [
+     "JUL:S5"
+    ],
+    "equalsOracleCarried": true
+   },
+   "current": {
+    "status": "reviewed",
+    "automatic": 4,
+    "review": [],
+    "statementOnly": 0,
+    "cashbookOnly": 1
+   },
+   "carry": {
+    "supported": false,
+    "expectedCases": 1,
+    "made": 0
+   }
+  },
+  "R04": {
+   "previous": {
+    "restored": true,
+    "status": "reviewed",
+    "outstanding": [
+     "JUL:PV-R04-93"
+    ],
+    "equalsOracleCarried": true
+   },
+   "current": {
+    "status": "reviewed",
+    "automatic": 4,
+    "review": [],
+    "statementOnly": 0,
+    "cashbookOnly": 0
+   },
+   "carry": {
+    "supported": false,
+    "expectedCases": 0,
+    "made": 0
+   }
+  },
+  "R05": {
+   "previous": {
+    "restored": false,
+    "refused": "BANK_STATEMENT_SESSION"
+   },
+   "current": {
+    "status": "reviewed",
+    "automatic": 4,
+    "review": [],
+    "statementOnly": 1,
+    "cashbookOnly": 0
+   },
+   "carry": {
+    "supported": false,
+    "expectedCases": 1,
+    "made": 0
+   }
+  },
+  "R06": {
+   "previous": {
+    "restored": true,
+    "status": "reviewed",
+    "outstanding": [
+     "JUL:PV-R06-94"
+    ],
+    "equalsOracleCarried": true
+   },
+   "current": {
+    "status": "reviewed",
+    "automatic": 4,
+    "review": [],
+    "statementOnly": 2,
+    "cashbookOnly": 0
+   },
+   "carry": {
+    "supported": false,
+    "expectedCases": 1,
+    "made": 0
+   }
+  },
+  "R07": {
+   "previous": {
+    "restored": true,
+    "status": "reviewed",
+    "outstanding": [
+     "JUL:PV-R07-95"
+    ],
+    "equalsOracleCarried": true
+   },
+   "current": {
+    "status": "needs-review",
+    "automatic": 4,
+    "review": [
+     "date-gap"
+    ],
+    "statementOnly": 0,
+    "cashbookOnly": 0
+   },
+   "carry": {
+    "supported": false,
+    "expectedCases": 1,
+    "made": 0
+   }
+  },
+  "R08": {
+   "previous": {
+    "restored": true,
+    "status": "reviewed",
+    "outstanding": [
+     "JUL:PV-R08-96"
+    ],
+    "equalsOracleCarried": true
+   },
+   "current": {
+    "status": "reviewed",
+    "automatic": 4,
+    "review": [],
+    "statementOnly": 0,
+    "cashbookOnly": 1
+   },
+   "carry": {
+    "supported": false,
+    "expectedCases": 1,
+    "made": 0
+   }
+  },
+  "R09": {
+   "previous": {
+    "restored": true,
+    "status": "reviewed",
+    "outstanding": [
+     "JUL:S5",
+     "JUL:RV-R09-97"
+    ],
+    "equalsOracleCarried": true
+   },
+   "current": {
+    "status": "reviewed",
+    "automatic": 4,
+    "review": [],
+    "statementOnly": 1,
+    "cashbookOnly": 0
+   },
+   "carry": {
+    "supported": false,
+    "expectedCases": 1,
+    "made": 0
+   }
+  },
+  "R10": {
+   "previous": {
+    "restored": true,
+    "status": "reviewed",
+    "outstanding": [
+     "JUL:PV-R10-97"
+    ],
+    "equalsOracleCarried": true
+   },
+   "current": {
+    "status": "reviewed",
+    "automatic": 4,
+    "review": [],
+    "statementOnly": 1,
+    "cashbookOnly": 0
+   },
+   "carry": {
+    "supported": false,
+    "expectedCases": 1,
+    "made": 0
+   }
+  },
+  "R11": {
+   "previous": {
+    "restored": true,
+    "status": "reviewed",
+    "outstanding": [
+     "JUL:PV-R11-98"
+    ]
+   },
+   "current": {
+    "status": "reviewed",
+    "automatic": 4,
+    "review": [],
+    "statementOnly": 1,
+    "cashbookOnly": 0
+   },
+   "carry": {
+    "supported": false,
+    "expectedCases": 0,
+    "made": 0
+   }
+  },
+  "R12": {
+   "previous": {
+    "restored": true,
+    "status": "reviewed",
+    "outstanding": [
+     "JUN:PV-R12-99"
+    ]
+   },
+   "current": {
+    "status": "reviewed",
+    "automatic": 4,
+    "review": [],
+    "statementOnly": 1,
+    "cashbookOnly": 0
+   },
+   "carry": {
+    "supported": false,
+    "expectedCases": 0,
+    "made": 0
+   }
+  },
+  "R13": {
+   "previous": {
+    "restored": true,
+    "status": "reviewed",
+    "outstanding": [
+     "JUL:PV-R13-91"
+    ]
+   },
+   "current": {
+    "status": "reviewed",
+    "automatic": 4,
+    "review": [],
+    "statementOnly": 1,
+    "cashbookOnly": 0
+   },
+   "carry": {
+    "supported": false,
+    "expectedCases": 0,
+    "made": 0
+   }
+  },
+  "R14": {
+   "previous": {
+    "restored": true,
+    "status": "needs-review",
+    "outstanding": [
+     "JUL:PV-R14-92"
+    ]
+   },
+   "current": {
+    "status": "reviewed",
+    "automatic": 4,
+    "review": [],
+    "statementOnly": 1,
+    "cashbookOnly": 0
+   },
+   "carry": {
+    "supported": false,
+    "expectedCases": 0,
+    "made": 0
+   }
+  },
+  "R15": {
+   "previous": {
+    "restored": true,
+    "status": "held",
+    "outstanding": []
+   },
+   "current": {
+    "status": "reviewed",
+    "automatic": 4,
+    "review": [],
+    "statementOnly": 1,
+    "cashbookOnly": 0
+   },
+   "carry": {
+    "supported": false,
+    "expectedCases": 0,
+    "made": 0
+   }
+  },
+  "R16": {
+   "previous": {
+    "restored": false,
+    "refused": "BANK_STATEMENT_SOURCE_HASH"
+   },
+   "current": {
+    "status": "reviewed",
+    "automatic": 4,
+    "review": [],
+    "statementOnly": 1,
+    "cashbookOnly": 0
+   },
+   "carry": {
+    "supported": false,
+    "expectedCases": 0,
+    "made": 0
+   }
+  },
+  "R17": {
+   "previous": null,
+   "current": {
+    "status": "reviewed",
+    "automatic": 4,
+    "review": [],
+    "statementOnly": 1,
+    "cashbookOnly": 0
+   },
+   "carry": {
+    "supported": false,
+    "expectedCases": 0,
+    "made": 0
+   }
+  },
+  "R18": {
+   "previous": {
+    "restored": true,
+    "status": "reviewed",
+    "outstanding": [
+     "JUL:PV-R18-97"
+    ],
+    "equalsOracleCarried": true
+   },
+   "current": {
+    "status": "reviewed",
+    "automatic": 4,
+    "review": [],
+    "statementOnly": 1,
+    "cashbookOnly": 0
+   },
+   "carry": {
+    "supported": false,
+    "expectedCases": 1,
+    "made": 0
+   }
+  },
+  "R19": {
+   "previous": {
+    "restored": true,
+    "status": "reviewed",
+    "outstanding": [
+     "JUL:PV-R19-98"
+    ],
+    "equalsOracleCarried": true
+   },
+   "current": {
+    "status": "reviewed",
+    "automatic": 4,
+    "review": [],
+    "statementOnly": 1,
+    "cashbookOnly": 0
+   },
+   "carry": {
+    "supported": false,
+    "expectedCases": 0,
+    "made": 0
+   }
+  },
+  "R20": {
+   "previous": {
+    "restored": true,
+    "status": "reviewed",
+    "outstanding": [
+     "JUL:PV-R20-99"
+    ],
+    "equalsOracleCarried": true
+   },
+   "current": {
+    "status": "reviewed",
+    "automatic": 4,
+    "review": [],
+    "statementOnly": 1,
+    "cashbookOnly": 0
+   },
+   "carry": {
+    "supported": false,
+    "expectedCases": 1,
+    "made": 0
+   }
+  }
+ }
+}

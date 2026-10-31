@@ -1,0 +1,46 @@
+Section,S1
+Entity,Synthetic Marine Services LLC
+Payroll run,MS-2027-11
+Currency,OMR
+Period start,2027-11-01
+Period end,2027-11-30
+Payroll posting date,2027-11-25
+Payment date,2027-11-26
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+H22-001,MS-2201,depot=Sohar,BK-55301,Base pay,earning,690.000
+H22-002,MS-2201,depot=Sohar,BK-55301,Pension (employee),deduction,48.300
+H22-003,MS-2201,depot=Sohar,BK-55301,Pension (employer),employer,72.450
+H22-004,MS-2201,depot=Sohar,BK-55301,Net salary,net,641.700
+Total earnings,690.000
+Total deductions,48.300
+Total employer,72.450
+Total net,641.700
+End section,S1
+Section,S2
+Entity,Synthetic Marine Services LLC
+Payroll run,MS-2027-11
+Currency,OMR
+Period start,2027-11-01
+Period end,2027-11-30
+Payroll posting date,2027-11-25
+Payment date,2027-11-26
+Line ID,Employee ID,Employee dimensions,Payee account,Component,Kind,Amount
+H22-005,MS-2202,depot=Sohar,BK-55302,Base pay,earning,695.000
+H22-006,MS-2202,depot=Sohar,BK-55302,Pension (employee),deduction,48.650
+H22-007,MS-2202,depot=Sohar,BK-55302,Pension (employer),employer,72.975
+H22-008,MS-2202,depot=Sohar,BK-55302,Net salary,net,646.350
+H22-009,MS-2203,depot=Sohar,BK-55303,Base pay,earning,700.000
+H22-010,MS-2203,depot=Sohar,BK-55303,Pension (employee),deduction,49.000
+H22-011,MS-2203,depot=Sohar,BK-55303,Pension (employer),employer,73.500
+H22-012,MS-2203,depot=Sohar,BK-55303,Net salary,net,651.000
+Total earnings,1395.000
+Total deductions,97.650
+Total employer,146.476
+Total net,1297.350
+End section,S2
+Run totals,MS-2027-11
+Total earnings,2085.000
+Total deductions,145.950
+Total employer,218.925
+Total net,1939.050
+End run totals,MS-2027-11

@@ -1,0 +1,245 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-run/1",
+ "commit": "15ea8a1079a3c0cc1139561ad95b2c2a653c3c21",
+ "productSourceChanged": false,
+ "summary": {
+  "positivesCompleted": [
+   "R01",
+   "R08"
+  ],
+  "positivesFailed": [
+   "R02",
+   "R03",
+   "R04",
+   "R05",
+   "R07",
+   "R09",
+   "R10"
+  ],
+  "eligiblePositives": 9,
+  "heldCorrectly": [
+   "R06"
+  ],
+  "readingOk": [
+   "R01",
+   "R06",
+   "R08"
+  ],
+  "refused": [
+   "R02",
+   "R03",
+   "R04",
+   "R05",
+   "R07",
+   "R09",
+   "R10",
+   "R11",
+   "R12"
+  ],
+  "falseAutomatic": 0
+ },
+ "statements": [
+  {
+   "id": "R01",
+   "producer": "tcpdf",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 2,
+    "period": {
+     "start": "2027-01-01",
+     "end": "2027-01-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 24,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "R02",
+   "producer": "tcpdf",
+   "layout": "ar",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel"
+    ]
+   }
+  },
+  {
+   "id": "R03",
+   "producer": "tcpdf",
+   "layout": "en",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel"
+    ]
+   }
+  },
+  {
+   "id": "R04",
+   "producer": "tcpdf",
+   "layout": "ar",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel"
+    ]
+   }
+  },
+  {
+   "id": "R05",
+   "producer": "tcpdf",
+   "layout": "en",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel"
+    ]
+   }
+  },
+  {
+   "id": "R06",
+   "producer": "tcpdf",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "balance-broken",
+    "expected": "balance-broken",
+    "reason": "page 2: printed balance 27137573 != 27138473 (items 57,59,61,63,65,67)",
+    "pages": 2,
+    "period": {
+     "start": "2027-06-01",
+     "end": "2027-06-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 23,
+    "equal": true,
+    "held": "balance-broken: page 2: printed balance 27137573 != 27138473 (items 57,59,61,63,65,67)",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "R07",
+   "producer": "mpdf",
+   "layout": "en",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel"
+    ]
+   }
+  },
+  {
+   "id": "R08",
+   "producer": "mpdf",
+   "layout": "ar",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 2,
+    "period": {
+     "start": "2027-10-01",
+     "end": "2027-10-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "ar",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 24,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "R09",
+   "producer": "mpdf",
+   "layout": "ar",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel"
+    ]
+   }
+  },
+  {
+   "id": "R10",
+   "producer": "mpdf",
+   "layout": "en",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel"
+    ]
+   }
+  },
+  {
+   "id": "R11",
+   "producer": "mpdf",
+   "layout": "en",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel"
+    ]
+   }
+  },
+  {
+   "id": "R12",
+   "producer": "mpdf",
+   "layout": "en",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel"
+    ]
+   }
+  }
+ ]
+}

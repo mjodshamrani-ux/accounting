@@ -1,0 +1,68 @@
+{
+ "schema": "tarasuf-fa1-sections-h2-verify/1",
+ "factsSha256": "c00accc053b5a5df541e5f5f4b506ebf3aadb48b99f8a08d377629e9a6e57688",
+ "stories": 32,
+ "files": 96,
+ "cells": 9221,
+ "passed": true,
+ "problems": [],
+ "copyWithoutPlantPasses": true,
+ "selfTest": [
+  {
+   "plant": "one amount changed",
+   "rejected": true
+  },
+  {
+   "plant": "a record dropped",
+   "rejected": true
+  },
+  {
+   "plant": "the awk byte-order mark removed",
+   "rejected": true
+  },
+  {
+   "plant": "a byte-order mark before a Ruby file",
+   "rejected": true
+  },
+  {
+   "plant": "LF in a Ruby CRLF file",
+   "rejected": true
+  },
+  {
+   "plant": "a line end after the last Rust record",
+   "rejected": true
+  },
+  {
+   "plant": "a jq field left unquoted",
+   "rejected": true
+  },
+  {
+   "plant": "an awk field quoted",
+   "rejected": true
+  },
+  {
+   "plant": "an Arabic letter changed",
+   "rejected": true
+  },
+  {
+   "plant": "a blank record removed",
+   "rejected": true
+  },
+  {
+   "plant": "the byte patch undone",
+   "rejected": true
+  },
+  {
+   "plant": "an input as-of date changed",
+   "rejected": true
+  },
+  {
+   "plant": "an input naming another file",
+   "rejected": true
+  },
+  {
+   "plant": "a file no story names",
+   "rejected": true
+  }
+ ]
+}

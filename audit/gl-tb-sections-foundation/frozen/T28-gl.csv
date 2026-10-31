@@ -1,0 +1,33 @@
+﻿Section,S-5810,,,
+Entity,Synthetic Holding Co,,,
+Ledger,Main GL,,,
+Account,5810,,,
+Complete dimensions,cc=10,,,
+Currency,SAR,,,
+Currency basis,functional,,,
+Posting status,posted,,,
+Posting layer,actual,,,
+Period start,2026-09-01,,,
+Period end,2026-09-30,,,
+Record ID,Record kind,Posting date,Debit,Amount
+S-5810-O,opening,2026-09-01,20.00,0.00
+G-281,movement,2026-09-13,0.00,5.00
+S-5810-C,closing,2026-09-30,15.00,0.00
+End section,S-5810,,,
+,,,,
+Section,S-5820,,,
+Entity,Synthetic Holding Co,,,
+Ledger,Main GL,,,
+Account,5820,,,
+Complete dimensions,cc=10,,,
+Currency,SAR,,,
+Currency basis,functional,,,
+Posting status,posted,,,
+Posting layer,actual,,,
+Period start,2026-09-01,,,
+Period end,2026-09-30,,,
+Record ID,Record kind,Posting date,Debit,Credit
+S-5820-O,opening,2026-09-01,0.00,0.00
+G-282,movement,2026-09-14,0.30,0.00
+S-5820-C,closing,2026-09-30,0.30,0.00
+End section,S-5820,,,

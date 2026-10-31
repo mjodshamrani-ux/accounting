@@ -1,0 +1,16 @@
+"Posting date","Movement date","Kind","Item ID","Item dimensions","Quantity","Unit","Value","GL account","Movement ID","Origin ID","Transfer ID"
+"2027-05-01","2027-05-01","opening","PCM-1G","store=DXB-A","1500","strip","5625.00","14100","PH00001",,
+"2027-05-02","2027-05-02","receipt","PCM-1G","store=DXB-A","500","strip","1875.00","14100","PH00002",,
+"2027-05-04","2027-05-04","issue","PCM-1G","store=DXB-A","700","strip","2625.00","14100","PH00003",,
+"2027-05-06","2027-05-06","issue","PCM-1G","store=DXB-A","300","strip","1125.00","14100","PH00004",,
+"2027-05-31","2027-05-31","closing","PCM-1G","store=DXB-A","1000","strip","3750.00","14100","PH00005",,
+"2027-05-01","2027-05-01","opening","SAL-500","store=DXB-A","400","bag","2480.00","14100","PH00006",,
+"Posting date","Movement date","Kind","Item ID","Item dimensions","Quantity","Unit","Value","GL account","Movement ID","Origin ID","Transfer ID"
+"2027-05-08","2027-05-08","receipt","SAL-500","store=DXB-A","200","bag","1240.00","14100","PH00007",,
+"2027-05-11","2027-05-11","issue","SAL-500","store=DXB-A","260","bag","1612.00","14100","PH00008",,
+"2027-05-31","2027-05-31","closing","SAL-500","store=DXB-A","340","bag","2108.00","14100","PH00009",,
+"2027-05-01","2027-05-01","opening","GLV-M","store=AUH-B","30","carton","3552.00","14200","PH00010",,
+"2027-05-13","2027-05-13","receipt","GLV-M","store=AUH-B","10","carton","1184.00","14200","PH00011",,
+"2027-05-15","2027-05-15","issue","GLV-M","store=AUH-B","22","carton","2604.80","14200","PH00012",,
+"Posting date","Movement date","Kind","Item ID","Item dimensions","Quantity","Unit","Value","GL account","Movement ID","Origin ID","Transfer ID"
+"2027-05-31","2027-05-31","closing","GLV-M","store=AUH-B","18","carton","2131.20","14200","PH00013",,

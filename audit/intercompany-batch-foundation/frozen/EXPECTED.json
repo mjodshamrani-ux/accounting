@@ -1,0 +1,4893 @@
+{
+ "schema": "tarasuf-ic1-batch-expected/1",
+ "contract": "intercompany-batch-1",
+ "stories": {
+  "I01": {
+   "batches": {
+    "AB": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I01-ledger-1.csv",
+        2
+       ]
+      ],
+      "B": [
+       [
+        "I01-ledger-2.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "AB/R-AB-01": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 1500000,
+        "B": -1500000
+       },
+       "members": {
+        "A": [
+         "A-0901"
+        ],
+        "B": [
+         "B-0901"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I01-ledger-1.csv",
+          2
+         ]
+        ],
+        "B": [
+         [
+          "I01-ledger-2.csv",
+          2
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    },
+    "AG": {
+     "status": "missing",
+     "codes": [
+      "RELATION_MEMBER_MISSING",
+      "SIDE_EMPTY"
+     ],
+     "sides": {
+      "A": [
+       [
+        "I01-ledger-1.csv",
+        3
+       ]
+      ],
+      "B": []
+     },
+     "relations": {
+      "AG/R-AG-01": {
+       "status": "missing",
+       "residual": null,
+       "members": null,
+       "rows": null
+      }
+     },
+     "findings": []
+    },
+    "BG": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I01-ledger-2.csv",
+        3
+       ]
+      ],
+      "B": [
+       [
+        "I01-ledger-3.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "BG/R-BG-01": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 1500000,
+        "B": -1500000
+       },
+       "members": {
+        "A": [
+         "B-0903"
+        ],
+        "B": [
+         "G-0903"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I01-ledger-2.csv",
+          3
+         ]
+        ],
+        "B": [
+         [
+          "I01-ledger-3.csv",
+          2
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    }
+   },
+   "unassigned": [],
+   "run": []
+  },
+  "I02": {
+   "batches": {
+    "AB": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I02-ledger-1.csv",
+        2
+       ],
+       [
+        "I02-ledger-1.csv",
+        3
+       ]
+      ],
+      "B": [
+       [
+        "I02-ledger-2.csv",
+        2
+       ],
+       [
+        "I02-ledger-2.csv",
+        3
+       ],
+       [
+        "I02-ledger-2.csv",
+        4
+       ]
+      ]
+     },
+     "relations": {
+      "AB/R-1001": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 1000000,
+        "B": -1000000
+       },
+       "members": {
+        "A": [
+         "A-1001"
+        ],
+        "B": [
+         "B-2001",
+         "B-2002"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I02-ledger-1.csv",
+          2
+         ]
+        ],
+        "B": [
+         [
+          "I02-ledger-2.csv",
+          2
+         ],
+         [
+          "I02-ledger-2.csv",
+          3
+         ]
+        ]
+       }
+      },
+      "AB/R-1002": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 400000,
+        "B": -400000
+       },
+       "members": {
+        "A": [
+         "A-1002"
+        ],
+        "B": [
+         "B-2003"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I02-ledger-1.csv",
+          3
+         ]
+        ],
+        "B": [
+         [
+          "I02-ledger-2.csv",
+          4
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    }
+   },
+   "unassigned": [],
+   "run": []
+  },
+  "I03": {
+   "batches": {
+    "AB": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I03-ledger-1.csv",
+        2
+       ],
+       [
+        "I03-ledger-1.csv",
+        3
+       ]
+      ],
+      "B": [
+       [
+        "I03-ledger-2.csv",
+        2
+       ],
+       [
+        "I03-ledger-2.csv",
+        3
+       ]
+      ]
+     },
+     "relations": {
+      "AB/R-3101": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 825050,
+        "B": -825050
+       },
+       "members": {
+        "A": [
+         "A-3101"
+        ],
+        "B": [
+         "JV-2026-0912"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I03-ledger-1.csv",
+          2
+         ]
+        ],
+        "B": [
+         [
+          "I03-ledger-2.csv",
+          2
+         ]
+        ]
+       }
+      },
+      "AB/R-3102": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 120000,
+        "B": -120000
+       },
+       "members": {
+        "A": [
+         "A-3102"
+        ],
+        "B": [
+         "JV-2026-0915"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I03-ledger-1.csv",
+          3
+         ]
+        ],
+        "B": [
+         [
+          "I03-ledger-2.csv",
+          3
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    }
+   },
+   "unassigned": [],
+   "run": []
+  },
+  "I04": {
+   "batches": {
+    "AB": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I04-ledger-1.csv",
+        2
+       ]
+      ],
+      "B": [
+       [
+        "I04-ledger-2.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "AB/R-AB-RC77": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 250000,
+        "B": -250000
+       },
+       "members": {
+        "A": [
+         "RC-77"
+        ],
+        "B": [
+         "B-RC-77"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I04-ledger-1.csv",
+          2
+         ]
+        ],
+        "B": [
+         [
+          "I04-ledger-2.csv",
+          2
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    },
+    "AG": {
+     "status": "difference",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I04-ledger-1.csv",
+        3
+       ]
+      ],
+      "B": [
+       [
+        "I04-ledger-3.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "AG/R-AG-RC77": {
+       "status": "difference",
+       "residual": 10000,
+       "net": {
+        "A": 250000,
+        "B": -240000
+       },
+       "members": {
+        "A": [
+         "RC-77"
+        ],
+        "B": [
+         "G-RC-77"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I04-ledger-1.csv",
+          3
+         ]
+        ],
+        "B": [
+         [
+          "I04-ledger-3.csv",
+          2
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    }
+   },
+   "unassigned": [],
+   "run": []
+  },
+  "I05": {
+   "batches": {
+    "AB": {
+     "status": "missing",
+     "codes": [
+      "RELATION_ONE_SIDED"
+     ],
+     "sides": {
+      "A": [
+       [
+        "I05-ledger-1.csv",
+        2
+       ],
+       [
+        "I05-ledger-1.csv",
+        3
+       ]
+      ],
+      "B": [
+       [
+        "I05-ledger-2.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "AB/R-5001": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 700000,
+        "B": -700000
+       },
+       "members": {
+        "A": [
+         "A-5001"
+        ],
+        "B": [
+         "B-5001"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I05-ledger-1.csv",
+          2
+         ]
+        ],
+        "B": [
+         [
+          "I05-ledger-2.csv",
+          2
+         ]
+        ]
+       }
+      },
+      "AB/R-5002": {
+       "status": "missing",
+       "residual": null,
+       "members": null,
+       "rows": null
+      }
+     },
+     "findings": []
+    },
+    "AG": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I05-ledger-1.csv",
+        4
+       ]
+      ],
+      "B": [
+       [
+        "I05-ledger-3.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "AG/R-5003": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 64000,
+        "B": -64000
+       },
+       "members": {
+        "A": [
+         "A-5003"
+        ],
+        "B": [
+         "G-5003"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I05-ledger-1.csv",
+          4
+         ]
+        ],
+        "B": [
+         [
+          "I05-ledger-3.csv",
+          2
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    }
+   },
+   "unassigned": [],
+   "run": []
+  },
+  "I06": {
+   "batches": {
+    "AB": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I06-ledger-1.csv",
+        2
+       ],
+       [
+        "I06-ledger-1.csv",
+        3
+       ],
+       [
+        "I06-ledger-1.csv",
+        4
+       ]
+      ],
+      "B": [
+       [
+        "I06-ledger-2.csv",
+        2
+       ],
+       [
+        "I06-ledger-2.csv",
+        3
+       ],
+       [
+        "I06-ledger-2.csv",
+        4
+       ]
+      ]
+     },
+     "relations": {
+      "AB/R-7": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 0,
+        "B": 0
+       },
+       "members": {
+        "A": [
+         "INV-7",
+         "REV-7"
+        ],
+        "B": [
+         "B-7",
+         "B-REV-7"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I06-ledger-1.csv",
+          2
+         ],
+         [
+          "I06-ledger-1.csv",
+          4
+         ]
+        ],
+        "B": [
+         [
+          "I06-ledger-2.csv",
+          2
+         ],
+         [
+          "I06-ledger-2.csv",
+          4
+         ]
+        ]
+       }
+      },
+      "AB/R-8": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 300000,
+        "B": -300000
+       },
+       "members": {
+        "A": [
+         "INV-8"
+        ],
+        "B": [
+         "B-8"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I06-ledger-1.csv",
+          3
+         ]
+        ],
+        "B": [
+         [
+          "I06-ledger-2.csv",
+          3
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    }
+   },
+   "unassigned": [],
+   "run": []
+  },
+  "I07": {
+   "batches": {
+    "AB": {
+     "status": "blocked",
+     "codes": [
+      "UNASSIGNED"
+     ],
+     "sides": {
+      "A": [
+       [
+        "I07-ledger-1.csv",
+        2
+       ]
+      ],
+      "B": [
+       [
+        "I07-ledger-2.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "AB/R-7001": {
+       "status": "blocked",
+       "residual": null,
+       "members": null,
+       "rows": null
+      }
+     },
+     "findings": [
+      [
+       "UNASSIGNED",
+       "I07-ledger-1.csv",
+       4
+      ]
+     ]
+    },
+    "AG": {
+     "status": "blocked",
+     "codes": [
+      "UNASSIGNED"
+     ],
+     "sides": {
+      "A": [
+       [
+        "I07-ledger-1.csv",
+        3
+       ]
+      ],
+      "B": [
+       [
+        "I07-ledger-3.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "AG/R-7002": {
+       "status": "blocked",
+       "residual": null,
+       "members": null,
+       "rows": null
+      }
+     },
+     "findings": [
+      [
+       "UNASSIGNED",
+       "I07-ledger-1.csv",
+       4
+      ]
+     ]
+    },
+    "BG": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I07-ledger-2.csv",
+        3
+       ]
+      ],
+      "B": [
+       [
+        "I07-ledger-3.csv",
+        3
+       ]
+      ]
+     },
+     "relations": {
+      "BG/R-7004": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 90000,
+        "B": -90000
+       },
+       "members": {
+        "A": [
+         "B-7004"
+        ],
+        "B": [
+         "G-7004"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I07-ledger-2.csv",
+          3
+         ]
+        ],
+        "B": [
+         [
+          "I07-ledger-3.csv",
+          3
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    }
+   },
+   "unassigned": [
+    [
+     "I07-ledger-1.csv",
+     4,
+     "UNASSIGNED"
+    ]
+   ],
+   "run": []
+  },
+  "I08": {
+   "batches": {
+    "AB": {
+     "status": "missing",
+     "codes": [
+      "RELATION_MEMBER_MISSING",
+      "UNRELATED"
+     ],
+     "sides": {
+      "A": [
+       [
+        "I08-ledger-1.csv",
+        2
+       ]
+      ],
+      "B": [
+       [
+        "I08-ledger-2.csv",
+        2
+       ],
+       [
+        "I08-ledger-2.csv",
+        3
+       ],
+       [
+        "I08-ledger-2.csv",
+        4
+       ]
+      ]
+     },
+     "relations": {
+      "AB/R-8000": {
+       "status": "missing",
+       "residual": null,
+       "members": null,
+       "rows": null
+      }
+     },
+     "findings": []
+    }
+   },
+   "unassigned": [],
+   "run": []
+  },
+  "I09": {
+   "batches": {
+    "AB": {
+     "status": "blocked",
+     "codes": [
+      "RELATION_BATCHES"
+     ],
+     "sides": {
+      "A": [
+       [
+        "I09-ledger-1.csv",
+        2
+       ]
+      ],
+      "B": [
+       [
+        "I09-ledger-2.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "AB/R-9001": {
+       "status": "blocked",
+       "residual": null,
+       "members": null,
+       "rows": null
+      },
+      "AB/R-9002": {
+       "status": "blocked",
+       "residual": null,
+       "members": null,
+       "rows": null
+      }
+     },
+     "findings": [
+      [
+       "RELATION_BATCHES",
+       "I09-relations.csv",
+       2
+      ],
+      [
+       "RELATION_BATCHES",
+       "I09-relations.csv",
+       5
+      ]
+     ]
+    },
+    "AG": {
+     "status": "blocked",
+     "codes": [
+      "RELATION_BATCHES"
+     ],
+     "sides": {
+      "A": [
+       [
+        "I09-ledger-1.csv",
+        3
+       ]
+      ],
+      "B": [
+       [
+        "I09-ledger-3.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "AG/R-9001": {
+       "status": "blocked",
+       "residual": null,
+       "members": null,
+       "rows": null
+      },
+      "AG/R-9002": {
+       "status": "blocked",
+       "residual": null,
+       "members": null,
+       "rows": null
+      }
+     },
+     "findings": [
+      [
+       "RELATION_BATCHES",
+       "I09-relations.csv",
+       3
+      ],
+      [
+       "RELATION_BATCHES",
+       "I09-relations.csv",
+       4
+      ]
+     ]
+    },
+    "BG": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I09-ledger-2.csv",
+        3
+       ]
+      ],
+      "B": [
+       [
+        "I09-ledger-3.csv",
+        3
+       ]
+      ]
+     },
+     "relations": {
+      "BG/R-9003": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 110000,
+        "B": -110000
+       },
+       "members": {
+        "A": [
+         "B-9003"
+        ],
+        "B": [
+         "G-9003"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I09-ledger-2.csv",
+          3
+         ]
+        ],
+        "B": [
+         [
+          "I09-ledger-3.csv",
+          3
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    }
+   },
+   "unassigned": [],
+   "run": []
+  },
+  "I10": {
+   "batches": {
+    "AB": {
+     "status": "difference",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I10-ledger-1.csv",
+        2
+       ]
+      ],
+      "B": [
+       [
+        "I10-ledger-2.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "AB/R-1010": {
+       "status": "difference",
+       "residual": 50000,
+       "net": {
+        "A": 1200000,
+        "B": -1150000
+       },
+       "members": {
+        "A": [
+         "A-1010"
+        ],
+        "B": [
+         "B-1010"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I10-ledger-1.csv",
+          2
+         ]
+        ],
+        "B": [
+         [
+          "I10-ledger-2.csv",
+          2
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    },
+    "AG": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I10-ledger-1.csv",
+        3
+       ]
+      ],
+      "B": [
+       [
+        "I10-ledger-3.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "AG/R-1030": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 250000,
+        "B": -250000
+       },
+       "members": {
+        "A": [
+         "A-1030"
+        ],
+        "B": [
+         "G-1030"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I10-ledger-1.csv",
+          3
+         ]
+        ],
+        "B": [
+         [
+          "I10-ledger-3.csv",
+          2
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    },
+    "BG": {
+     "status": "difference",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I10-ledger-2.csv",
+        3
+       ]
+      ],
+      "B": [
+       [
+        "I10-ledger-3.csv",
+        3
+       ]
+      ]
+     },
+     "relations": {
+      "BG/R-1020": {
+       "status": "difference",
+       "residual": -50000,
+       "net": {
+        "A": 600000,
+        "B": -650000
+       },
+       "members": {
+        "A": [
+         "B-1020"
+        ],
+        "B": [
+         "G-1020"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I10-ledger-2.csv",
+          3
+         ]
+        ],
+        "B": [
+         [
+          "I10-ledger-3.csv",
+          3
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    }
+   },
+   "unassigned": [],
+   "run": []
+  },
+  "I11": {
+   "batches": {
+    "AB": {
+     "status": "blocked",
+     "codes": [
+      "RELATION_DUPLICATE_MEMBER"
+     ],
+     "sides": {
+      "A": [
+       [
+        "I11-ledger-1.csv",
+        2
+       ]
+      ],
+      "B": [
+       [
+        "I11-ledger-2.csv",
+        2
+       ],
+       [
+        "I11-ledger-2.csv",
+        3
+       ]
+      ]
+     },
+     "relations": {
+      "AB/R-1101": {
+       "status": "blocked",
+       "residual": null,
+       "members": null,
+       "rows": null
+      },
+      "AB/R-1102": {
+       "status": "blocked",
+       "residual": null,
+       "members": null,
+       "rows": null
+      }
+     },
+     "findings": [
+      [
+       "RELATION_DUPLICATE_MEMBER",
+       "I11-relations.csv",
+       2
+      ],
+      [
+       "RELATION_DUPLICATE_MEMBER",
+       "I11-relations.csv",
+       4
+      ]
+     ]
+    },
+    "AG": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I11-ledger-1.csv",
+        3
+       ]
+      ],
+      "B": [
+       [
+        "I11-ledger-3.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "AG/R-1103": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 80000,
+        "B": -80000
+       },
+       "members": {
+        "A": [
+         "A-1103"
+        ],
+        "B": [
+         "G-1103"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I11-ledger-1.csv",
+          3
+         ]
+        ],
+        "B": [
+         [
+          "I11-ledger-3.csv",
+          2
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    }
+   },
+   "unassigned": [],
+   "run": []
+  },
+  "I12": {
+   "batches": {
+    "AB-1": {
+     "status": "blocked",
+     "codes": [
+      "BATCH_OVERLAP",
+      "UNASSIGNED_AMBIGUOUS"
+     ],
+     "sides": {
+      "A": [],
+      "B": []
+     },
+     "relations": {
+      "AB-1/R-1201": {
+       "status": "blocked",
+       "residual": null,
+       "members": null,
+       "rows": null
+      }
+     },
+     "findings": [
+      [
+       "BATCH_OVERLAP",
+       "I12-batches.csv",
+       2
+      ],
+      [
+       "UNASSIGNED_AMBIGUOUS",
+       "I12-ledger-1.csv",
+       2
+      ],
+      [
+       "UNASSIGNED_AMBIGUOUS",
+       "I12-ledger-2.csv",
+       2
+      ]
+     ]
+    },
+    "AB-2": {
+     "status": "blocked",
+     "codes": [
+      "BATCH_OVERLAP",
+      "UNASSIGNED_AMBIGUOUS"
+     ],
+     "sides": {
+      "A": [],
+      "B": []
+     },
+     "relations": {},
+     "findings": [
+      [
+       "BATCH_OVERLAP",
+       "I12-batches.csv",
+       3
+      ],
+      [
+       "UNASSIGNED_AMBIGUOUS",
+       "I12-ledger-1.csv",
+       2
+      ],
+      [
+       "UNASSIGNED_AMBIGUOUS",
+       "I12-ledger-2.csv",
+       2
+      ]
+     ]
+    },
+    "AG": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I12-ledger-1.csv",
+        3
+       ]
+      ],
+      "B": [
+       [
+        "I12-ledger-3.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "AG/R-1202": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 70000,
+        "B": -70000
+       },
+       "members": {
+        "A": [
+         "A-1202"
+        ],
+        "B": [
+         "G-1202"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I12-ledger-1.csv",
+          3
+         ]
+        ],
+        "B": [
+         [
+          "I12-ledger-3.csv",
+          2
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    }
+   },
+   "unassigned": [
+    [
+     "I12-ledger-1.csv",
+     2,
+     "UNASSIGNED_AMBIGUOUS"
+    ],
+    [
+     "I12-ledger-2.csv",
+     2,
+     "UNASSIGNED_AMBIGUOUS"
+    ]
+   ],
+   "run": []
+  },
+  "I13": {
+   "batches": {
+    "AB": {
+     "status": "blocked",
+     "codes": [
+      "COUNTERPARTY_CONFLICT"
+     ],
+     "sides": {
+      "A": [
+       [
+        "I13-ledger-1.csv",
+        2
+       ],
+       [
+        "I13-ledger-1.csv",
+        3
+       ]
+      ],
+      "B": [
+       [
+        "I13-ledger-2.csv",
+        2
+       ],
+       [
+        "I13-ledger-2.csv",
+        3
+       ]
+      ]
+     },
+     "relations": {
+      "AB/R-1301": {
+       "status": "blocked",
+       "residual": null,
+       "members": null,
+       "rows": null
+      },
+      "AB/R-1302": {
+       "status": "blocked",
+       "residual": null,
+       "members": null,
+       "rows": null
+      }
+     },
+     "findings": [
+      [
+       "COUNTERPARTY_CONFLICT",
+       "I13-ledger-1.csv",
+       2
+      ],
+      [
+       "COUNTERPARTY_CONFLICT",
+       "I13-ledger-1.csv",
+       3
+      ]
+     ]
+    },
+    "AG": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I13-ledger-1.csv",
+        4
+       ]
+      ],
+      "B": [
+       [
+        "I13-ledger-3.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "AG/R-1303": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 60000,
+        "B": -60000
+       },
+       "members": {
+        "A": [
+         "A-1303"
+        ],
+        "B": [
+         "G-1303"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I13-ledger-1.csv",
+          4
+         ]
+        ],
+        "B": [
+         [
+          "I13-ledger-3.csv",
+          2
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    }
+   },
+   "unassigned": [],
+   "run": []
+  },
+  "I14": {
+   "batches": {
+    "AB": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I14-ledger-1.csv",
+        2
+       ]
+      ],
+      "B": [
+       [
+        "I14-ledger-2.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "AB/R-1401": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 1875025,
+        "B": -1875025
+       },
+       "members": {
+        "A": [
+         "A-1401"
+        ],
+        "B": [
+         "B-1401"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I14-ledger-1.csv",
+          2
+         ]
+        ],
+        "B": [
+         [
+          "I14-ledger-2.csv",
+          2
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    },
+    "AG-KWD": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I14-ledger-1.csv",
+        3
+       ],
+       [
+        "I14-ledger-1.csv",
+        4
+       ]
+      ],
+      "B": [
+       [
+        "I14-ledger-3.csv",
+        2
+       ],
+       [
+        "I14-ledger-3.csv",
+        3
+       ]
+      ]
+     },
+     "relations": {
+      "AG-KWD/R-1402": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 1250125,
+        "B": -1250125
+       },
+       "members": {
+        "A": [
+         "A-1402"
+        ],
+        "B": [
+         "G-1402"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I14-ledger-1.csv",
+          3
+         ]
+        ],
+        "B": [
+         [
+          "I14-ledger-3.csv",
+          2
+         ]
+        ]
+       }
+      },
+      "AG-KWD/R-1404": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 310500,
+        "B": -310500
+       },
+       "members": {
+        "A": [
+         "A-1404"
+        ],
+        "B": [
+         "G-1404"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I14-ledger-1.csv",
+          4
+         ]
+        ],
+        "B": [
+         [
+          "I14-ledger-3.csv",
+          3
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    },
+    "BG-JPY": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I14-ledger-2.csv",
+        3
+       ]
+      ],
+      "B": [
+       [
+        "I14-ledger-3.csv",
+        4
+       ]
+      ]
+     },
+     "relations": {
+      "BG-JPY/R-1403": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 480000,
+        "B": -480000
+       },
+       "members": {
+        "A": [
+         "B-1403"
+        ],
+        "B": [
+         "G-1403"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I14-ledger-2.csv",
+          3
+         ]
+        ],
+        "B": [
+         [
+          "I14-ledger-3.csv",
+          4
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    }
+   },
+   "unassigned": [],
+   "run": []
+  },
+  "I15": {
+   "batches": {
+    "AB": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I15-ledger-1.csv",
+        2
+       ]
+      ],
+      "B": [
+       [
+        "I15-ledger-2.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "AB/R-1501": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 220000,
+        "B": -220000
+       },
+       "members": {
+        "A": [
+         "A-1501"
+        ],
+        "B": [
+         "B-1501"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I15-ledger-1.csv",
+          2
+         ]
+        ],
+        "B": [
+         [
+          "I15-ledger-2.csv",
+          2
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    },
+    "AG": {
+     "status": "missing",
+     "codes": [
+      "RELATION_MEMBER_MISSING",
+      "SIDE_EMPTY"
+     ],
+     "sides": {
+      "A": [
+       [
+        "I15-ledger-1.csv",
+        3
+       ]
+      ],
+      "B": []
+     },
+     "relations": {
+      "AG/R-1502": {
+       "status": "missing",
+       "residual": null,
+       "members": null,
+       "rows": null
+      }
+     },
+     "findings": []
+    },
+    "BG": {
+     "status": "missing",
+     "codes": [
+      "SIDE_EMPTY"
+     ],
+     "sides": {
+      "A": [],
+      "B": []
+     },
+     "relations": {},
+     "findings": []
+    }
+   },
+   "unassigned": [],
+   "run": []
+  },
+  "I16": {
+   "batches": {
+    "AB": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I16-ledger-1.csv",
+        2
+       ]
+      ],
+      "B": [
+       [
+        "I16-ledger-2.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "AB/ع-1": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 2450075,
+        "B": -2450075
+       },
+       "members": {
+        "A": [
+         "ق-2001"
+        ],
+        "B": [
+         "ب-3001"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I16-ledger-1.csv",
+          2
+         ]
+        ],
+        "B": [
+         [
+          "I16-ledger-2.csv",
+          2
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    },
+    "AG": {
+     "status": "difference",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I16-ledger-1.csv",
+        3
+       ]
+      ],
+      "B": [
+       [
+        "I16-ledger-3.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "AG/ع-2": {
+       "status": "difference",
+       "residual": 5000,
+       "net": {
+        "A": 880000,
+        "B": -875000
+       },
+       "members": {
+        "A": [
+         "ق-2002"
+        ],
+        "B": [
+         "ج-4001"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I16-ledger-1.csv",
+          3
+         ]
+        ],
+        "B": [
+         [
+          "I16-ledger-3.csv",
+          2
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    }
+   },
+   "unassigned": [],
+   "run": []
+  },
+  "I17": {
+   "batches": {
+    "AB": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I17-ledger-1.csv",
+        2
+       ],
+       [
+        "I17-ledger-1.csv",
+        6
+       ],
+       [
+        "I17-ledger-1.csv",
+        9
+       ],
+       [
+        "I17-ledger-1.csv",
+        11
+       ],
+       [
+        "I17-ledger-1.csv",
+        15
+       ],
+       [
+        "I17-ledger-1.csv",
+        16
+       ],
+       [
+        "I17-ledger-1.csv",
+        19
+       ],
+       [
+        "I17-ledger-1.csv",
+        21
+       ],
+       [
+        "I17-ledger-1.csv",
+        28
+       ],
+       [
+        "I17-ledger-1.csv",
+        29
+       ],
+       [
+        "I17-ledger-1.csv",
+        31
+       ],
+       [
+        "I17-ledger-1.csv",
+        32
+       ],
+       [
+        "I17-ledger-1.csv",
+        33
+       ],
+       [
+        "I17-ledger-1.csv",
+        40
+       ]
+      ],
+      "B": [
+       [
+        "I17-ledger-2.csv",
+        4
+       ],
+       [
+        "I17-ledger-2.csv",
+        5
+       ],
+       [
+        "I17-ledger-2.csv",
+        6
+       ],
+       [
+        "I17-ledger-2.csv",
+        7
+       ],
+       [
+        "I17-ledger-2.csv",
+        8
+       ],
+       [
+        "I17-ledger-2.csv",
+        9
+       ],
+       [
+        "I17-ledger-2.csv",
+        10
+       ],
+       [
+        "I17-ledger-2.csv",
+        11
+       ],
+       [
+        "I17-ledger-2.csv",
+        16
+       ],
+       [
+        "I17-ledger-2.csv",
+        21
+       ],
+       [
+        "I17-ledger-2.csv",
+        22
+       ],
+       [
+        "I17-ledger-2.csv",
+        26
+       ],
+       [
+        "I17-ledger-2.csv",
+        29
+       ],
+       [
+        "I17-ledger-2.csv",
+        34
+       ],
+       [
+        "I17-ledger-2.csv",
+        37
+       ],
+       [
+        "I17-ledger-2.csv",
+        41
+       ]
+      ]
+     },
+     "relations": {
+      "AB/R-AB-01": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 733084,
+        "B": -733084
+       },
+       "members": {
+        "A": [
+         "A-AB-01-1"
+        ],
+        "B": [
+         "B-AB-01-1",
+         "B-AB-01-2",
+         "B-AB-01-3"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          11
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-2.csv",
+          22
+         ],
+         [
+          "I17-ledger-2.csv",
+          7
+         ],
+         [
+          "I17-ledger-2.csv",
+          4
+         ]
+        ]
+       }
+      },
+      "AB/R-AB-02": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 620564,
+        "B": -620564
+       },
+       "members": {
+        "A": [
+         "A-AB-02-1",
+         "A-AB-02-2",
+         "A-AB-02-3"
+        ],
+        "B": [
+         "B-AB-02-1",
+         "B-AB-02-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          15
+         ],
+         [
+          "I17-ledger-1.csv",
+          21
+         ],
+         [
+          "I17-ledger-1.csv",
+          28
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-2.csv",
+          10
+         ],
+         [
+          "I17-ledger-2.csv",
+          11
+         ]
+        ]
+       }
+      },
+      "AB/R-AB-03": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 1524550,
+        "B": -1524550
+       },
+       "members": {
+        "A": [
+         "A-AB-03-1"
+        ],
+        "B": [
+         "B-AB-03-1"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          33
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-2.csv",
+          41
+         ]
+        ]
+       }
+      },
+      "AB/R-AB-04": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 1985281,
+        "B": -1985281
+       },
+       "members": {
+        "A": [
+         "A-AB-04-1"
+        ],
+        "B": [
+         "B-AB-04-1",
+         "B-AB-04-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          16
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-2.csv",
+          6
+         ],
+         [
+          "I17-ledger-2.csv",
+          8
+         ]
+        ]
+       }
+      },
+      "AB/R-AB-05": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 2057995,
+        "B": -2057995
+       },
+       "members": {
+        "A": [
+         "A-AB-05-1",
+         "A-AB-05-2"
+        ],
+        "B": [
+         "B-AB-05-1"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          32
+         ],
+         [
+          "I17-ledger-1.csv",
+          31
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-2.csv",
+          21
+         ]
+        ]
+       }
+      },
+      "AB/R-AB-06": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 16359,
+        "B": -16359
+       },
+       "members": {
+        "A": [
+         "A-AB-06-1",
+         "A-AB-06-2"
+        ],
+        "B": [
+         "B-AB-06-1",
+         "B-AB-06-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          2
+         ],
+         [
+          "I17-ledger-1.csv",
+          19
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-2.csv",
+          26
+         ],
+         [
+          "I17-ledger-2.csv",
+          34
+         ]
+        ]
+       }
+      },
+      "AB/R-AB-07": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 1042965,
+        "B": -1042965
+       },
+       "members": {
+        "A": [
+         "A-AB-07-1"
+        ],
+        "B": [
+         "B-AB-07-1",
+         "B-AB-07-2",
+         "B-AB-07-3"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          6
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-2.csv",
+          29
+         ],
+         [
+          "I17-ledger-2.csv",
+          9
+         ],
+         [
+          "I17-ledger-2.csv",
+          16
+         ]
+        ]
+       }
+      },
+      "AB/R-AB-08": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 308568,
+        "B": -308568
+       },
+       "members": {
+        "A": [
+         "A-AB-08-1",
+         "A-AB-08-2",
+         "A-AB-08-3"
+        ],
+        "B": [
+         "B-AB-08-1",
+         "B-AB-08-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          29
+         ],
+         [
+          "I17-ledger-1.csv",
+          40
+         ],
+         [
+          "I17-ledger-1.csv",
+          9
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-2.csv",
+          37
+         ],
+         [
+          "I17-ledger-2.csv",
+          5
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    },
+    "AG": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I17-ledger-1.csv",
+        4
+       ],
+       [
+        "I17-ledger-1.csv",
+        7
+       ],
+       [
+        "I17-ledger-1.csv",
+        8
+       ],
+       [
+        "I17-ledger-1.csv",
+        10
+       ],
+       [
+        "I17-ledger-1.csv",
+        12
+       ],
+       [
+        "I17-ledger-1.csv",
+        13
+       ],
+       [
+        "I17-ledger-1.csv",
+        14
+       ],
+       [
+        "I17-ledger-1.csv",
+        22
+       ],
+       [
+        "I17-ledger-1.csv",
+        23
+       ],
+       [
+        "I17-ledger-1.csv",
+        25
+       ],
+       [
+        "I17-ledger-1.csv",
+        34
+       ],
+       [
+        "I17-ledger-1.csv",
+        37
+       ],
+       [
+        "I17-ledger-1.csv",
+        41
+       ],
+       [
+        "I17-ledger-1.csv",
+        42
+       ]
+      ],
+      "B": [
+       [
+        "I17-ledger-3.csv",
+        2
+       ],
+       [
+        "I17-ledger-3.csv",
+        6
+       ],
+       [
+        "I17-ledger-3.csv",
+        7
+       ],
+       [
+        "I17-ledger-3.csv",
+        10
+       ],
+       [
+        "I17-ledger-3.csv",
+        14
+       ],
+       [
+        "I17-ledger-3.csv",
+        16
+       ],
+       [
+        "I17-ledger-3.csv",
+        17
+       ],
+       [
+        "I17-ledger-3.csv",
+        19
+       ],
+       [
+        "I17-ledger-3.csv",
+        21
+       ],
+       [
+        "I17-ledger-3.csv",
+        22
+       ],
+       [
+        "I17-ledger-3.csv",
+        23
+       ],
+       [
+        "I17-ledger-3.csv",
+        27
+       ],
+       [
+        "I17-ledger-3.csv",
+        31
+       ],
+       [
+        "I17-ledger-3.csv",
+        36
+       ],
+       [
+        "I17-ledger-3.csv",
+        41
+       ],
+       [
+        "I17-ledger-3.csv",
+        45
+       ]
+      ]
+     },
+     "relations": {
+      "AG/R-AG-01": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 1694762,
+        "B": -1694762
+       },
+       "members": {
+        "A": [
+         "A-AG-01-1"
+        ],
+        "B": [
+         "G-AG-01-1",
+         "G-AG-01-2",
+         "G-AG-01-3"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          34
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-3.csv",
+          21
+         ],
+         [
+          "I17-ledger-3.csv",
+          31
+         ],
+         [
+          "I17-ledger-3.csv",
+          10
+         ]
+        ]
+       }
+      },
+      "AG/R-AG-02": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 1940943,
+        "B": -1940943
+       },
+       "members": {
+        "A": [
+         "A-AG-02-1",
+         "A-AG-02-2",
+         "A-AG-02-3"
+        ],
+        "B": [
+         "G-AG-02-1",
+         "G-AG-02-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          41
+         ],
+         [
+          "I17-ledger-1.csv",
+          13
+         ],
+         [
+          "I17-ledger-1.csv",
+          23
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-3.csv",
+          17
+         ],
+         [
+          "I17-ledger-3.csv",
+          36
+         ]
+        ]
+       }
+      },
+      "AG/R-AG-03": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 215766,
+        "B": -215766
+       },
+       "members": {
+        "A": [
+         "A-AG-03-1"
+        ],
+        "B": [
+         "G-AG-03-1"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          7
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-3.csv",
+          27
+         ]
+        ]
+       }
+      },
+      "AG/R-AG-04": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 132184,
+        "B": -132184
+       },
+       "members": {
+        "A": [
+         "A-AG-04-1"
+        ],
+        "B": [
+         "G-AG-04-1",
+         "G-AG-04-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          14
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-3.csv",
+          41
+         ],
+         [
+          "I17-ledger-3.csv",
+          45
+         ]
+        ]
+       }
+      },
+      "AG/R-AG-05": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 2109813,
+        "B": -2109813
+       },
+       "members": {
+        "A": [
+         "A-AG-05-1",
+         "A-AG-05-2"
+        ],
+        "B": [
+         "G-AG-05-1"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          37
+         ],
+         [
+          "I17-ledger-1.csv",
+          10
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-3.csv",
+          14
+         ]
+        ]
+       }
+      },
+      "AG/R-AG-06": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 1994490,
+        "B": -1994490
+       },
+       "members": {
+        "A": [
+         "A-AG-06-1",
+         "A-AG-06-2"
+        ],
+        "B": [
+         "G-AG-06-1",
+         "G-AG-06-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          25
+         ],
+         [
+          "I17-ledger-1.csv",
+          12
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-3.csv",
+          7
+         ],
+         [
+          "I17-ledger-3.csv",
+          22
+         ]
+        ]
+       }
+      },
+      "AG/R-AG-07": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 2080412,
+        "B": -2080412
+       },
+       "members": {
+        "A": [
+         "A-AG-07-1"
+        ],
+        "B": [
+         "G-AG-07-1",
+         "G-AG-07-2",
+         "G-AG-07-3"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          42
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-3.csv",
+          19
+         ],
+         [
+          "I17-ledger-3.csv",
+          23
+         ],
+         [
+          "I17-ledger-3.csv",
+          6
+         ]
+        ]
+       }
+      },
+      "AG/R-AG-08": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 2205829,
+        "B": -2205829
+       },
+       "members": {
+        "A": [
+         "A-AG-08-1",
+         "A-AG-08-2",
+         "A-AG-08-3"
+        ],
+        "B": [
+         "G-AG-08-1",
+         "G-AG-08-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          22
+         ],
+         [
+          "I17-ledger-1.csv",
+          8
+         ],
+         [
+          "I17-ledger-1.csv",
+          4
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-3.csv",
+          16
+         ],
+         [
+          "I17-ledger-3.csv",
+          2
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    },
+    "AD": {
+     "status": "difference",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I17-ledger-1.csv",
+        3
+       ],
+       [
+        "I17-ledger-1.csv",
+        5
+       ],
+       [
+        "I17-ledger-1.csv",
+        17
+       ],
+       [
+        "I17-ledger-1.csv",
+        18
+       ],
+       [
+        "I17-ledger-1.csv",
+        20
+       ],
+       [
+        "I17-ledger-1.csv",
+        24
+       ],
+       [
+        "I17-ledger-1.csv",
+        26
+       ],
+       [
+        "I17-ledger-1.csv",
+        27
+       ],
+       [
+        "I17-ledger-1.csv",
+        30
+       ],
+       [
+        "I17-ledger-1.csv",
+        35
+       ],
+       [
+        "I17-ledger-1.csv",
+        36
+       ],
+       [
+        "I17-ledger-1.csv",
+        38
+       ],
+       [
+        "I17-ledger-1.csv",
+        39
+       ],
+       [
+        "I17-ledger-1.csv",
+        43
+       ]
+      ],
+      "B": [
+       [
+        "I17-ledger-4.csv",
+        2
+       ],
+       [
+        "I17-ledger-4.csv",
+        4
+       ],
+       [
+        "I17-ledger-4.csv",
+        6
+       ],
+       [
+        "I17-ledger-4.csv",
+        9
+       ],
+       [
+        "I17-ledger-4.csv",
+        10
+       ],
+       [
+        "I17-ledger-4.csv",
+        13
+       ],
+       [
+        "I17-ledger-4.csv",
+        14
+       ],
+       [
+        "I17-ledger-4.csv",
+        17
+       ],
+       [
+        "I17-ledger-4.csv",
+        19
+       ],
+       [
+        "I17-ledger-4.csv",
+        24
+       ],
+       [
+        "I17-ledger-4.csv",
+        25
+       ],
+       [
+        "I17-ledger-4.csv",
+        36
+       ],
+       [
+        "I17-ledger-4.csv",
+        37
+       ],
+       [
+        "I17-ledger-4.csv",
+        39
+       ],
+       [
+        "I17-ledger-4.csv",
+        47
+       ],
+       [
+        "I17-ledger-4.csv",
+        48
+       ]
+      ]
+     },
+     "relations": {
+      "AD/R-AD-01": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 1804749,
+        "B": -1804749
+       },
+       "members": {
+        "A": [
+         "A-AD-01-1"
+        ],
+        "B": [
+         "D-AD-01-1",
+         "D-AD-01-2",
+         "D-AD-01-3"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          35
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          36
+         ],
+         [
+          "I17-ledger-4.csv",
+          13
+         ],
+         [
+          "I17-ledger-4.csv",
+          39
+         ]
+        ]
+       }
+      },
+      "AD/R-AD-02": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 1475173,
+        "B": -1475173
+       },
+       "members": {
+        "A": [
+         "A-AD-02-1",
+         "A-AD-02-2",
+         "A-AD-02-3"
+        ],
+        "B": [
+         "D-AD-02-1",
+         "D-AD-02-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          39
+         ],
+         [
+          "I17-ledger-1.csv",
+          20
+         ],
+         [
+          "I17-ledger-1.csv",
+          5
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          14
+         ],
+         [
+          "I17-ledger-4.csv",
+          17
+         ]
+        ]
+       }
+      },
+      "AD/R-AD-03": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 2341597,
+        "B": -2341597
+       },
+       "members": {
+        "A": [
+         "A-AD-03-1"
+        ],
+        "B": [
+         "D-AD-03-1"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          38
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          37
+         ]
+        ]
+       }
+      },
+      "AD/R-AD-04": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 935139,
+        "B": -935139
+       },
+       "members": {
+        "A": [
+         "A-AD-04-1"
+        ],
+        "B": [
+         "D-AD-04-1",
+         "D-AD-04-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          43
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          2
+         ],
+         [
+          "I17-ledger-4.csv",
+          19
+         ]
+        ]
+       }
+      },
+      "AD/R-AD-05": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 2022097,
+        "B": -2022097
+       },
+       "members": {
+        "A": [
+         "A-AD-05-1",
+         "A-AD-05-2"
+        ],
+        "B": [
+         "D-AD-05-1"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          30
+         ],
+         [
+          "I17-ledger-1.csv",
+          36
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          9
+         ]
+        ]
+       }
+      },
+      "AD/R-AD-06": {
+       "status": "difference",
+       "residual": 1250,
+       "net": {
+        "A": 1134038,
+        "B": -1132788
+       },
+       "members": {
+        "A": [
+         "A-AD-06-1",
+         "A-AD-06-2"
+        ],
+        "B": [
+         "D-AD-06-1",
+         "D-AD-06-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          18
+         ],
+         [
+          "I17-ledger-1.csv",
+          27
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          6
+         ],
+         [
+          "I17-ledger-4.csv",
+          47
+         ]
+        ]
+       }
+      },
+      "AD/R-AD-07": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 655443,
+        "B": -655443
+       },
+       "members": {
+        "A": [
+         "A-AD-07-1"
+        ],
+        "B": [
+         "D-AD-07-1",
+         "D-AD-07-2",
+         "D-AD-07-3"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          24
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          10
+         ],
+         [
+          "I17-ledger-4.csv",
+          24
+         ],
+         [
+          "I17-ledger-4.csv",
+          25
+         ]
+        ]
+       }
+      },
+      "AD/R-AD-08": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 23523,
+        "B": -23523
+       },
+       "members": {
+        "A": [
+         "A-AD-08-1",
+         "A-AD-08-2",
+         "A-AD-08-3"
+        ],
+        "B": [
+         "D-AD-08-1",
+         "D-AD-08-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-1.csv",
+          17
+         ],
+         [
+          "I17-ledger-1.csv",
+          26
+         ],
+         [
+          "I17-ledger-1.csv",
+          3
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          4
+         ],
+         [
+          "I17-ledger-4.csv",
+          48
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    },
+    "BG": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I17-ledger-2.csv",
+        13
+       ],
+       [
+        "I17-ledger-2.csv",
+        14
+       ],
+       [
+        "I17-ledger-2.csv",
+        15
+       ],
+       [
+        "I17-ledger-2.csv",
+        17
+       ],
+       [
+        "I17-ledger-2.csv",
+        19
+       ],
+       [
+        "I17-ledger-2.csv",
+        20
+       ],
+       [
+        "I17-ledger-2.csv",
+        24
+       ],
+       [
+        "I17-ledger-2.csv",
+        31
+       ],
+       [
+        "I17-ledger-2.csv",
+        33
+       ],
+       [
+        "I17-ledger-2.csv",
+        35
+       ],
+       [
+        "I17-ledger-2.csv",
+        38
+       ],
+       [
+        "I17-ledger-2.csv",
+        39
+       ]
+      ],
+      "B": [
+       [
+        "I17-ledger-3.csv",
+        8
+       ],
+       [
+        "I17-ledger-3.csv",
+        9
+       ],
+       [
+        "I17-ledger-3.csv",
+        11
+       ],
+       [
+        "I17-ledger-3.csv",
+        13
+       ],
+       [
+        "I17-ledger-3.csv",
+        20
+       ],
+       [
+        "I17-ledger-3.csv",
+        26
+       ],
+       [
+        "I17-ledger-3.csv",
+        28
+       ],
+       [
+        "I17-ledger-3.csv",
+        29
+       ],
+       [
+        "I17-ledger-3.csv",
+        30
+       ],
+       [
+        "I17-ledger-3.csv",
+        34
+       ],
+       [
+        "I17-ledger-3.csv",
+        37
+       ],
+       [
+        "I17-ledger-3.csv",
+        38
+       ],
+       [
+        "I17-ledger-3.csv",
+        43
+       ],
+       [
+        "I17-ledger-3.csv",
+        44
+       ]
+      ]
+     },
+     "relations": {
+      "BG/R-BG-01": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 1169443,
+        "B": -1169443
+       },
+       "members": {
+        "A": [
+         "B-BG-01-1"
+        ],
+        "B": [
+         "G-BG-01-1"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-2.csv",
+          38
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-3.csv",
+          29
+         ]
+        ]
+       }
+      },
+      "BG/R-BG-02": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 260877,
+        "B": -260877
+       },
+       "members": {
+        "A": [
+         "B-BG-02-1"
+        ],
+        "B": [
+         "G-BG-02-1",
+         "G-BG-02-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-2.csv",
+          20
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-3.csv",
+          37
+         ],
+         [
+          "I17-ledger-3.csv",
+          13
+         ]
+        ]
+       }
+      },
+      "BG/R-BG-03": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 2149802,
+        "B": -2149802
+       },
+       "members": {
+        "A": [
+         "B-BG-03-1",
+         "B-BG-03-2"
+        ],
+        "B": [
+         "G-BG-03-1"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-2.csv",
+          24
+         ],
+         [
+          "I17-ledger-2.csv",
+          17
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-3.csv",
+          44
+         ]
+        ]
+       }
+      },
+      "BG/R-BG-04": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 1962928,
+        "B": -1962928
+       },
+       "members": {
+        "A": [
+         "B-BG-04-1",
+         "B-BG-04-2"
+        ],
+        "B": [
+         "G-BG-04-1",
+         "G-BG-04-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-2.csv",
+          31
+         ],
+         [
+          "I17-ledger-2.csv",
+          15
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-3.csv",
+          43
+         ],
+         [
+          "I17-ledger-3.csv",
+          11
+         ]
+        ]
+       }
+      },
+      "BG/R-BG-05": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 2362803,
+        "B": -2362803
+       },
+       "members": {
+        "A": [
+         "B-BG-05-1"
+        ],
+        "B": [
+         "G-BG-05-1",
+         "G-BG-05-2",
+         "G-BG-05-3"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-2.csv",
+          39
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-3.csv",
+          34
+         ],
+         [
+          "I17-ledger-3.csv",
+          30
+         ],
+         [
+          "I17-ledger-3.csv",
+          38
+         ]
+        ]
+       }
+      },
+      "BG/R-BG-06": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 798170,
+        "B": -798170
+       },
+       "members": {
+        "A": [
+         "B-BG-06-1",
+         "B-BG-06-2",
+         "B-BG-06-3"
+        ],
+        "B": [
+         "G-BG-06-1",
+         "G-BG-06-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-2.csv",
+          33
+         ],
+         [
+          "I17-ledger-2.csv",
+          14
+         ],
+         [
+          "I17-ledger-2.csv",
+          35
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-3.csv",
+          28
+         ],
+         [
+          "I17-ledger-3.csv",
+          26
+         ]
+        ]
+       }
+      },
+      "BG/R-BG-07": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 1902804,
+        "B": -1902804
+       },
+       "members": {
+        "A": [
+         "B-BG-07-1"
+        ],
+        "B": [
+         "G-BG-07-1"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-2.csv",
+          19
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-3.csv",
+          8
+         ]
+        ]
+       }
+      },
+      "BG/R-BG-08": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 89351,
+        "B": -89351
+       },
+       "members": {
+        "A": [
+         "B-BG-08-1"
+        ],
+        "B": [
+         "G-BG-08-1",
+         "G-BG-08-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-2.csv",
+          13
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-3.csv",
+          20
+         ],
+         [
+          "I17-ledger-3.csv",
+          9
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    },
+    "BD": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I17-ledger-2.csv",
+        2
+       ],
+       [
+        "I17-ledger-2.csv",
+        3
+       ],
+       [
+        "I17-ledger-2.csv",
+        12
+       ],
+       [
+        "I17-ledger-2.csv",
+        18
+       ],
+       [
+        "I17-ledger-2.csv",
+        23
+       ],
+       [
+        "I17-ledger-2.csv",
+        25
+       ],
+       [
+        "I17-ledger-2.csv",
+        27
+       ],
+       [
+        "I17-ledger-2.csv",
+        28
+       ],
+       [
+        "I17-ledger-2.csv",
+        30
+       ],
+       [
+        "I17-ledger-2.csv",
+        32
+       ],
+       [
+        "I17-ledger-2.csv",
+        36
+       ],
+       [
+        "I17-ledger-2.csv",
+        40
+       ]
+      ],
+      "B": [
+       [
+        "I17-ledger-4.csv",
+        5
+       ],
+       [
+        "I17-ledger-4.csv",
+        7
+       ],
+       [
+        "I17-ledger-4.csv",
+        11
+       ],
+       [
+        "I17-ledger-4.csv",
+        20
+       ],
+       [
+        "I17-ledger-4.csv",
+        22
+       ],
+       [
+        "I17-ledger-4.csv",
+        23
+       ],
+       [
+        "I17-ledger-4.csv",
+        27
+       ],
+       [
+        "I17-ledger-4.csv",
+        30
+       ],
+       [
+        "I17-ledger-4.csv",
+        31
+       ],
+       [
+        "I17-ledger-4.csv",
+        32
+       ],
+       [
+        "I17-ledger-4.csv",
+        33
+       ],
+       [
+        "I17-ledger-4.csv",
+        42
+       ],
+       [
+        "I17-ledger-4.csv",
+        44
+       ],
+       [
+        "I17-ledger-4.csv",
+        46
+       ]
+      ]
+     },
+     "relations": {
+      "BD/R-BD-01": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 1147585,
+        "B": -1147585
+       },
+       "members": {
+        "A": [
+         "B-BD-01-1"
+        ],
+        "B": [
+         "D-BD-01-1"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-2.csv",
+          18
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          30
+         ]
+        ]
+       }
+      },
+      "BD/R-BD-02": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 176123,
+        "B": -176123
+       },
+       "members": {
+        "A": [
+         "B-BD-02-1"
+        ],
+        "B": [
+         "D-BD-02-1",
+         "D-BD-02-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-2.csv",
+          27
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          22
+         ],
+         [
+          "I17-ledger-4.csv",
+          32
+         ]
+        ]
+       }
+      },
+      "BD/R-BD-03": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 738503,
+        "B": -738503
+       },
+       "members": {
+        "A": [
+         "B-BD-03-1",
+         "B-BD-03-2"
+        ],
+        "B": [
+         "D-BD-03-1"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-2.csv",
+          3
+         ],
+         [
+          "I17-ledger-2.csv",
+          30
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          20
+         ]
+        ]
+       }
+      },
+      "BD/R-BD-04": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 938729,
+        "B": -938729
+       },
+       "members": {
+        "A": [
+         "B-BD-04-1",
+         "B-BD-04-2"
+        ],
+        "B": [
+         "D-BD-04-1",
+         "D-BD-04-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-2.csv",
+          23
+         ],
+         [
+          "I17-ledger-2.csv",
+          12
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          27
+         ],
+         [
+          "I17-ledger-4.csv",
+          11
+         ]
+        ]
+       }
+      },
+      "BD/R-BD-05": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 688970,
+        "B": -688970
+       },
+       "members": {
+        "A": [
+         "B-BD-05-1"
+        ],
+        "B": [
+         "D-BD-05-1",
+         "D-BD-05-2",
+         "D-BD-05-3"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-2.csv",
+          40
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          46
+         ],
+         [
+          "I17-ledger-4.csv",
+          31
+         ],
+         [
+          "I17-ledger-4.csv",
+          7
+         ]
+        ]
+       }
+      },
+      "BD/R-BD-06": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 2499588,
+        "B": -2499588
+       },
+       "members": {
+        "A": [
+         "B-BD-06-1",
+         "B-BD-06-2",
+         "B-BD-06-3"
+        ],
+        "B": [
+         "D-BD-06-1",
+         "D-BD-06-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-2.csv",
+          28
+         ],
+         [
+          "I17-ledger-2.csv",
+          25
+         ],
+         [
+          "I17-ledger-2.csv",
+          32
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          44
+         ],
+         [
+          "I17-ledger-4.csv",
+          42
+         ]
+        ]
+       }
+      },
+      "BD/R-BD-07": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 687979,
+        "B": -687979
+       },
+       "members": {
+        "A": [
+         "B-BD-07-1"
+        ],
+        "B": [
+         "D-BD-07-1"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-2.csv",
+          36
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          23
+         ]
+        ]
+       }
+      },
+      "BD/R-BD-08": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 993648,
+        "B": -993648
+       },
+       "members": {
+        "A": [
+         "B-BD-08-1"
+        ],
+        "B": [
+         "D-BD-08-1",
+         "D-BD-08-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-2.csv",
+          2
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          5
+         ],
+         [
+          "I17-ledger-4.csv",
+          33
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    },
+    "GD": {
+     "status": "missing",
+     "codes": [
+      "UNRELATED"
+     ],
+     "sides": {
+      "A": [
+       [
+        "I17-ledger-3.csv",
+        3
+       ],
+       [
+        "I17-ledger-3.csv",
+        4
+       ],
+       [
+        "I17-ledger-3.csv",
+        5
+       ],
+       [
+        "I17-ledger-3.csv",
+        12
+       ],
+       [
+        "I17-ledger-3.csv",
+        15
+       ],
+       [
+        "I17-ledger-3.csv",
+        18
+       ],
+       [
+        "I17-ledger-3.csv",
+        24
+       ],
+       [
+        "I17-ledger-3.csv",
+        25
+       ],
+       [
+        "I17-ledger-3.csv",
+        32
+       ],
+       [
+        "I17-ledger-3.csv",
+        33
+       ],
+       [
+        "I17-ledger-3.csv",
+        35
+       ],
+       [
+        "I17-ledger-3.csv",
+        39
+       ],
+       [
+        "I17-ledger-3.csv",
+        40
+       ],
+       [
+        "I17-ledger-3.csv",
+        42
+       ]
+      ],
+      "B": [
+       [
+        "I17-ledger-4.csv",
+        3
+       ],
+       [
+        "I17-ledger-4.csv",
+        8
+       ],
+       [
+        "I17-ledger-4.csv",
+        12
+       ],
+       [
+        "I17-ledger-4.csv",
+        15
+       ],
+       [
+        "I17-ledger-4.csv",
+        16
+       ],
+       [
+        "I17-ledger-4.csv",
+        18
+       ],
+       [
+        "I17-ledger-4.csv",
+        21
+       ],
+       [
+        "I17-ledger-4.csv",
+        26
+       ],
+       [
+        "I17-ledger-4.csv",
+        28
+       ],
+       [
+        "I17-ledger-4.csv",
+        29
+       ],
+       [
+        "I17-ledger-4.csv",
+        34
+       ],
+       [
+        "I17-ledger-4.csv",
+        35
+       ],
+       [
+        "I17-ledger-4.csv",
+        38
+       ],
+       [
+        "I17-ledger-4.csv",
+        40
+       ],
+       [
+        "I17-ledger-4.csv",
+        41
+       ],
+       [
+        "I17-ledger-4.csv",
+        43
+       ],
+       [
+        "I17-ledger-4.csv",
+        45
+       ]
+      ]
+     },
+     "relations": {
+      "GD/R-GD-01": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 2144836,
+        "B": -2144836
+       },
+       "members": {
+        "A": [
+         "G-GD-01-1"
+        ],
+        "B": [
+         "D-GD-01-1",
+         "D-GD-01-2",
+         "D-GD-01-3"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-3.csv",
+          35
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          18
+         ],
+         [
+          "I17-ledger-4.csv",
+          34
+         ],
+         [
+          "I17-ledger-4.csv",
+          40
+         ]
+        ]
+       }
+      },
+      "GD/R-GD-02": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 1354935,
+        "B": -1354935
+       },
+       "members": {
+        "A": [
+         "G-GD-02-1",
+         "G-GD-02-2",
+         "G-GD-02-3"
+        ],
+        "B": [
+         "D-GD-02-1",
+         "D-GD-02-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-3.csv",
+          24
+         ],
+         [
+          "I17-ledger-3.csv",
+          32
+         ],
+         [
+          "I17-ledger-3.csv",
+          42
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          28
+         ],
+         [
+          "I17-ledger-4.csv",
+          41
+         ]
+        ]
+       }
+      },
+      "GD/R-GD-03": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 129267,
+        "B": -129267
+       },
+       "members": {
+        "A": [
+         "G-GD-03-1"
+        ],
+        "B": [
+         "D-GD-03-1"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-3.csv",
+          4
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          45
+         ]
+        ]
+       }
+      },
+      "GD/R-GD-04": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 663877,
+        "B": -663877
+       },
+       "members": {
+        "A": [
+         "G-GD-04-1"
+        ],
+        "B": [
+         "D-GD-04-1",
+         "D-GD-04-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-3.csv",
+          12
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          38
+         ],
+         [
+          "I17-ledger-4.csv",
+          8
+         ]
+        ]
+       }
+      },
+      "GD/R-GD-05": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 2136535,
+        "B": -2136535
+       },
+       "members": {
+        "A": [
+         "G-GD-05-1",
+         "G-GD-05-2"
+        ],
+        "B": [
+         "D-GD-05-1"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-3.csv",
+          15
+         ],
+         [
+          "I17-ledger-3.csv",
+          40
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          29
+         ]
+        ]
+       }
+      },
+      "GD/R-GD-06": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 2063205,
+        "B": -2063205
+       },
+       "members": {
+        "A": [
+         "G-GD-06-1",
+         "G-GD-06-2"
+        ],
+        "B": [
+         "D-GD-06-1",
+         "D-GD-06-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-3.csv",
+          33
+         ],
+         [
+          "I17-ledger-3.csv",
+          25
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          16
+         ],
+         [
+          "I17-ledger-4.csv",
+          35
+         ]
+        ]
+       }
+      },
+      "GD/R-GD-07": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 1534318,
+        "B": -1534318
+       },
+       "members": {
+        "A": [
+         "G-GD-07-1"
+        ],
+        "B": [
+         "D-GD-07-1",
+         "D-GD-07-2",
+         "D-GD-07-3"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-3.csv",
+          39
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          15
+         ],
+         [
+          "I17-ledger-4.csv",
+          3
+         ],
+         [
+          "I17-ledger-4.csv",
+          26
+         ]
+        ]
+       }
+      },
+      "GD/R-GD-08": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 1051900,
+        "B": -1051900
+       },
+       "members": {
+        "A": [
+         "G-GD-08-1",
+         "G-GD-08-2",
+         "G-GD-08-3"
+        ],
+        "B": [
+         "D-GD-08-1",
+         "D-GD-08-2"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I17-ledger-3.csv",
+          5
+         ],
+         [
+          "I17-ledger-3.csv",
+          3
+         ],
+         [
+          "I17-ledger-3.csv",
+          18
+         ]
+        ],
+        "B": [
+         [
+          "I17-ledger-4.csv",
+          12
+         ],
+         [
+          "I17-ledger-4.csv",
+          21
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    }
+   },
+   "unassigned": [],
+   "run": []
+  },
+  "I18": {
+   "batches": {
+    "BG": {
+     "status": "difference",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I18-ledger-2.csv",
+        2
+       ]
+      ],
+      "B": [
+       [
+        "I18-ledger-1.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "BG/R-1020": {
+       "status": "difference",
+       "residual": -50000,
+       "net": {
+        "A": 600000,
+        "B": -650000
+       },
+       "members": {
+        "A": [
+         "B-1020"
+        ],
+        "B": [
+         "G-1020"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I18-ledger-2.csv",
+          2
+         ]
+        ],
+        "B": [
+         [
+          "I18-ledger-1.csv",
+          2
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    },
+    "AG": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I18-ledger-3.csv",
+        2
+       ]
+      ],
+      "B": [
+       [
+        "I18-ledger-1.csv",
+        3
+       ]
+      ]
+     },
+     "relations": {
+      "AG/R-1030": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 250000,
+        "B": -250000
+       },
+       "members": {
+        "A": [
+         "A-1030"
+        ],
+        "B": [
+         "G-1030"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I18-ledger-3.csv",
+          2
+         ]
+        ],
+        "B": [
+         [
+          "I18-ledger-1.csv",
+          3
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    },
+    "AB": {
+     "status": "difference",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I18-ledger-3.csv",
+        3
+       ]
+      ],
+      "B": [
+       [
+        "I18-ledger-2.csv",
+        3
+       ]
+      ]
+     },
+     "relations": {
+      "AB/R-1010": {
+       "status": "difference",
+       "residual": 50000,
+       "net": {
+        "A": 1200000,
+        "B": -1150000
+       },
+       "members": {
+        "A": [
+         "A-1010"
+        ],
+        "B": [
+         "B-1010"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I18-ledger-3.csv",
+          3
+         ]
+        ],
+        "B": [
+         [
+          "I18-ledger-2.csv",
+          3
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    }
+   },
+   "unassigned": [],
+   "run": []
+  },
+  "I19": {
+   "batches": {
+    "AB": {
+     "status": "blocked",
+     "codes": [
+      "POSTING_PERIOD"
+     ],
+     "sides": {
+      "A": [
+       [
+        "I19-ledger-1.csv",
+        2
+       ]
+      ],
+      "B": [
+       [
+        "I19-ledger-2.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "AB/R-1901": {
+       "status": "blocked",
+       "residual": null,
+       "members": null,
+       "rows": null
+      }
+     },
+     "findings": [
+      [
+       "POSTING_PERIOD",
+       "I19-ledger-1.csv",
+       2
+      ]
+     ]
+    },
+    "AG": {
+     "status": "ready",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I19-ledger-1.csv",
+        3
+       ]
+      ],
+      "B": [
+       [
+        "I19-ledger-3.csv",
+        2
+       ]
+      ]
+     },
+     "relations": {
+      "AG/R-1902": {
+       "status": "ready",
+       "residual": 0,
+       "net": {
+        "A": 45000,
+        "B": -45000
+       },
+       "members": {
+        "A": [
+         "A-1902"
+        ],
+        "B": [
+         "G-1902"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I19-ledger-1.csv",
+          3
+         ]
+        ],
+        "B": [
+         [
+          "I19-ledger-3.csv",
+          2
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    },
+    "BG": {
+     "status": "blocked",
+     "codes": [
+      "BATCH_FIELD"
+     ],
+     "sides": {
+      "A": [
+       [
+        "I19-ledger-2.csv",
+        3
+       ]
+      ],
+      "B": [
+       [
+        "I19-ledger-3.csv",
+        3
+       ]
+      ]
+     },
+     "relations": {
+      "BG/R-1903": {
+       "status": "blocked",
+       "residual": null,
+       "members": null,
+       "rows": null
+      }
+     },
+     "findings": [
+      [
+       "BATCH_FIELD",
+       "I19-batches.csv",
+       4
+      ]
+     ]
+    }
+   },
+   "unassigned": [],
+   "run": []
+  },
+  "I20": {
+   "batches": {
+    "AB": {
+     "status": "difference",
+     "codes": [],
+     "sides": {
+      "A": [
+       [
+        "I20-ledger-1.csv",
+        2
+       ],
+       [
+        "I20-ledger-1.csv",
+        3
+       ]
+      ],
+      "B": [
+       [
+        "I20-ledger-2.csv",
+        2
+       ],
+       [
+        "I20-ledger-2.csv",
+        3
+       ]
+      ]
+     },
+     "relations": {
+      "AB/R-2001": {
+       "status": "difference",
+       "residual": 30000,
+       "net": {
+        "A": 530000,
+        "B": -500000
+       },
+       "members": {
+        "A": [
+         "A-2001"
+        ],
+        "B": [
+         "B-2001"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I20-ledger-1.csv",
+          2
+         ]
+        ],
+        "B": [
+         [
+          "I20-ledger-2.csv",
+          2
+         ]
+        ]
+       }
+      },
+      "AB/R-2002": {
+       "status": "difference",
+       "residual": -30000,
+       "net": {
+        "A": 170000,
+        "B": -200000
+       },
+       "members": {
+        "A": [
+         "A-2002"
+        ],
+        "B": [
+         "B-2002"
+        ]
+       },
+       "rows": {
+        "A": [
+         [
+          "I20-ledger-1.csv",
+          3
+         ]
+        ],
+        "B": [
+         [
+          "I20-ledger-2.csv",
+          3
+         ]
+        ]
+       }
+      }
+     },
+     "findings": []
+    }
+   },
+   "unassigned": [],
+   "run": []
+  }
+ }
+}

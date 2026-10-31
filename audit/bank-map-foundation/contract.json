@@ -1,0 +1,77 @@
+{
+ "schema": "tarasuf-wf1-map1-contract/1",
+ "family": "bank-cashbook-map-1",
+ "status": "proposed",
+ "scope": "The cashbook of the bank statement lifecycle (bank-statement-lifecycle-1), CSV or XLSX, one sheet. The statement side, its reading and the matching are unchanged. The supplier positions template (lib/reconciliation/mapping-template.ts) is unchanged and out of this foundation (M1).",
+ "question": "Can an accountant read a cashbook whose columns are not the declared ones, choose its columns once, and reuse that choice for the next month's file, without the choice ever being applied to a file it does not fit?",
+ "declared": {
+  "headers": ["Date", "Voucher", "Description", "Reference", "Receipts", "Payments"],
+  "rule": "A cashbook whose first row is the declared headers in order, in one sheet, is read as today, with no map. A map is offered only when that reading refuses the header (BANK_CASHBOOK_HEADER) (M3)."
+ },
+ "roles": {
+  "order": ["date", "voucher", "description", "reference", "receipts", "payments"],
+  "required": ["date", "voucher", "receipts", "payments"],
+  "optional": ["description", "reference"],
+  "meaning": "Each role reads what the declared column of the same name reads: an ISO date, a voucher unique in the cashbook, free text, a reference, and one positive amount in receipts (money into the account) or payments (money out of it). The map names which column holds each role; it carries no sign convention, and each amount column holds positive amounts as in the declared reading (M5). An optional role without a column reads as empty text."
+ },
+ "map": {
+  "form": {
+   "format": "tarasuf-column-map",
+   "version": 1,
+   "role": "bank-cashbook",
+   "name": "the accountant's name for the counterparty, for example the bank account",
+   "header": "the header row, 1-based, 1 to 30",
+   "columns": "for each role in roles.order: {\"column\": 1-based column, 1 to 100, \"label\": the header text at that column} or null for an optional role without a column"
+  },
+  "carries": "Positions and the header labels that prove them, nothing else: no currency, sign, date format, amounts, balances, period, file name, fingerprint or decision. Every value is read again from the new document.",
+  "normalize": "A label or a name is compared in its normal form: Unicode NFC, then every run of white space (the JavaScript \\s set: U+0009-U+000D, U+0020, U+00A0, U+1680, U+2000-U+200A, U+2028, U+2029, U+202F, U+205F, U+3000, U+FEFF) replaced by one space, then trimmed. Nothing else is folded: letter case, digits, diacritics and the Arabic tatweel are compared as written.",
+  "valid": [
+   "MAP_JSON: the file is larger than 16384 bytes, is not UTF-8, is not JSON, or is not a JSON object.",
+   "MAP_FORMAT: format, version or role is not the one above.",
+   "MAP_KEYS: the object, columns, or a role's entry has a key missing or a key not named above; columns is not an object; a role's entry is neither null nor an object.",
+   "MAP_NAME: the name is not text, is not in its normal form, is empty, is longer than 80 UTF-16 code units, or holds a control character (U+0000-U+0008, U+000E-U+001F, U+007F).",
+   "MAP_HEADER: the header is not an integer from 1 to 30.",
+   "MAP_COLUMN: a required role has no column; a column is not an integer from 1 to 100; two roles name the same column.",
+   "MAP_LABEL: a label is not text, is not in its normal form, is empty, is longer than 120 UTF-16 code units, or holds a control character."
+  ],
+  "validOrder": "The first failing rule in the order above is the code. An integer is a JSON number with no fraction, as JavaScript reads it.",
+  "byHand": "The accountant chooses the header row and a column for each role. The choice is checked in this order: MAP_HEADER and MAP_COLUMN as for a map; then the file must have one sheet and the header row (the fit problems sheets and header-row); then the labels are the normal form of the header cells at the chosen columns, and MAP_LABEL is the code when one is empty or not valid as a label. The product proposes no role from a label (M3)."
+ },
+ "fit": {
+  "rule": "A map fits a file when the file has exactly one sheet, the header row exists, and for every role with a column the normal form of the cell at the header row and that column equals the label (M2).",
+  "problems": [
+   "sheets: the file has another number of sheets than one; nothing else is reported.",
+   "header-row: the file has fewer rows than the header row; nothing else is reported.",
+   "column: one per role whose cell differs, in roles.order, with the column, the saved label, the normal form of what the file holds there (empty if nothing), and every cell of the first 30 rows whose normal form equals the label, as A1 references in row order."
+  ],
+  "mismatch": "A map that does not fit is shown with its problems and is not applied: nothing is read with it, no position is moved to where a label is found, and no other header row is searched (M2). The accountant may choose the columns by hand.",
+  "byHand": "A choice by hand that passes its checks fits by construction: its labels are read from the file it is made on."
+ },
+ "reading": {
+  "rows": "Rows above the header row are not read and are not entries; their number is reported. Columns with a header label that no role names are not read; they are reported by column and label (M4).",
+  "rules": "In the declared reading's order, on the mapped columns: SCOPE (unknown currency); then for the header row and every following row, SHEET (a hidden sheet) and CELL (an issue the reader records on a mapped cell: hidden column, merged, formula, number or text format, unreadable font, and the reference issue on the voucher and reference columns; the precision note on an amount column is not an issue, as declared); then for each row after the header: COLUMN (a value in a column whose header cell is empty), ROW (no value in any mapped column), AMOUNT (receipts and payments, a typed number read as the declared reading reads a typed number in its own column), AMOUNT (one positive amount), VOUCHER (missing or repeated), DATE (ISO).",
+  "codes": "BANK_CASHBOOK_<code> with the row, as declared. A refusal holds the whole cashbook, as declared.",
+  "entries": "Each entry as declared: the voucher as its identifier, its 1-based row in the file, date, description, reference, direction and amount in minor units. The matching then runs as it runs on the declared cashbook."
+ },
+ "session": {
+  "rule": "The columns used are a reading choice of one document. They are recorded with the cashbook file of the session (header and columns as in the map, without format, role or name), and absent for the declared reading. Replay re-proves them from the file's bytes. A session without columns keeps its exact bytes and version; an application that does not know the field refuses a session that has it (M6).",
+  "context": "The result context includes the columns, so a decision taken under other columns, or under the declared reading, is refused on replay with BANK_STATEMENT_DECISION, as after a changed file.",
+  "replace": "Replacing the cashbook file drops its columns; the map must be applied to the new file and fit it."
+ },
+ "storage": {
+  "rule": "Maps are kept in the browser's local storage on this device, under one key, at most 50; one map per role and name; saving under a name that exists replaces that map. A map is saved only when it is valid and fits the file it was chosen on (M7).",
+  "transfer": "A map can be downloaded as a JSON file and imported from one. An import is checked as above; a refused import names its code and changes nothing stored. Nothing about maps leaves the device otherwise.",
+  "corrupt": "A stored map that is not valid is not offered; the accountant can clear the saved maps."
+ },
+ "measure": "On the same stories, the accountant's actions to read the next month's cashbook by hand and by a saved map. Reported, not a gate threshold.",
+ "ownerDecisions": {
+  "M1": "The first map is the bank cashbook's, on the bank path where WF-1 runs. The supplier positions template stays as it is; the EVAL-1 supplier reference-column gap stays with AI-1 or a later extension of this contract. Alternative: generalize the supplier template first.",
+  "M2": "A map fits by position and by the normal form of its labels. A reordered, renamed, removed or inserted column, or a moved header row, is a mismatch shown to the accountant; the product never relocates a column by its label. Alternative: offer to fill the choice from the labels' new positions, for the accountant to confirm.",
+  "M3": "No role is proposed from a label; the accountant chooses each column, once, or a saved map by its name. The declared reading comes first and is unchanged. Alternative: preselect a column whose label is a declared header.",
+  "M4": "One sheet; the header row within the first 30; rows above it reported and not read; labelled columns no role names reported and not read; a value under an empty header cell, or a row with nothing in the mapped columns, refuses the cashbook. Alternative: read a chosen sheet of several, or skip rows with no mapped value.",
+  "M5": "Date, voucher, receipts and payments are required; description and reference optional. No signed single amount column, no date format other than ISO, and no total or opening-balance row: these stay refused with their row. Alternative: a signed amount column with a declared sign, which is a sign decision outside a map.",
+  "M6": "The columns used are recorded with the session's cashbook file, as an optional field, without a new session version. Alternative: a new session version for a mapped cashbook.",
+  "M7": "Maps are stored locally, at most 50, one per name; a name saved again replaces its map; import and export by JSON file. Alternative: keep every version of a map, or no transfer."
+ },
+ "limits": "One period per reading, one sheet, ISO dates, split receipt and payment columns, positive amounts. A map never decides a match, never approves anything, and never proves that a cashbook belongs to the statement's account: the matching shows whether it does."
+}

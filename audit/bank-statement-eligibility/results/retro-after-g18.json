@@ -1,0 +1,2530 @@
+{
+ "schema": "tarasuf-bnk-pdf1-eligibility-retro/1",
+ "what": "eligibility.py after G18 (overlap: a line whose PDF.js items, rebuilt by items.py as PDF.js builds them, start more than 0.2 points before the end of the item before them, as layoutPdfPage refuses; items: a page items.py cannot rebuild; mostItemOverlapPt: the most an item starts under the end of the one before it in a line the reader keeps), run on each sealed package with the decision story its runs used. overlap finds H03 of G6 and V09 of G17, the two statements the reader refused for overlapping text, and nothing else; items finds nothing. Every other finding and count is as in retro-after-g15.json and in the sealed ELIGIBILITY.json of G15 and G17; the packages sealed before G16 now carry cashbooks.",
+ "mostItemOverlapPt": {
+  "none": 89,
+  "under 0.05": 3,
+  "0.05 to 0.1": 0,
+  "0.1 to 0.2": 4
+ },
+ "packages": {
+  "g6": {
+   "package": "bank-statement-holdout-g6",
+   "clearancePt": 0.05,
+   "statements": {
+    "H01": {
+     "sha256": "14453b792d5382530b7847b8a1d8b9d6f5b08ab41402c83967389a1da72efc7c",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.0,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "wordParts": 5
+     },
+     "leastRuleGapPt": 1.54,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "H02": {
+     "sha256": "e9b409c5eddb9d4c188ff7e6f6a6b2bc7919e636c570426fbbb74fc3cdc2b4b1",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.0,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "wordParts": 7
+     },
+     "leastRuleGapPt": 1.45,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "H03": {
+     "sha256": "c68baef0ed8653025135a753a4adbb58dce9723d63b8abe2151adfc68c2729cc",
+     "pages": 2,
+     "found": {
+      "overlap": [
+       {
+        "page": 1,
+        "at": {
+         "line": 1,
+         "items": [
+          "\u0001ي",
+          "راجتلا لامشلا فرصم"
+         ],
+         "overlapPt": 3.964
+        }
+       },
+       {
+        "page": 1,
+        "at": {
+         "line": 4,
+         "items": [
+          "د",
+          "\u0001"
+         ],
+         "overlapPt": 0.626
+        }
+       },
+       {
+        "page": 1,
+        "at": {
+         "line": 5,
+         "items": [
+          "ي",
+          "\u0001"
+         ],
+         "overlapPt": 3.1
+        }
+       },
+       {
+        "page": 2,
+        "at": {
+         "line": 1,
+         "items": [
+          "\u0001ي",
+          "راجتلا لامشلا فرصم"
+         ],
+         "overlapPt": 3.964
+        }
+       },
+       {
+        "page": 2,
+        "at": {
+         "line": 4,
+         "items": [
+          "د",
+          "\u0001"
+         ],
+         "overlapPt": 0.626
+        }
+       },
+       {
+        "page": 2,
+        "at": {
+         "line": 5,
+         "items": [
+          "ةقباسلا ةحفصلا نم لوقنم د",
+          "\u0001"
+         ],
+         "overlapPt": 0.62
+        }
+       }
+      ],
+      "columns": [
+       {
+        "layout": "en",
+        "code": "HEADER",
+        "page": 1,
+        "line": 0,
+        "detail": "no line carries the declared column headers in order"
+       }
+      ]
+     },
+     "lineControl": {
+      "shiftPt": 8.7,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {},
+     "leastRuleGapPt": 0.7,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": 0.164
+    },
+    "H04": {
+     "sha256": "f7f2b684ede70cf395f5cc89e061e3f098340f0bf11ff94e5e118f134279305d",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.08,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "drAfterAmount": 16
+     },
+     "leastRuleGapPt": 1.35,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": 0.18
+    },
+    "H05": {
+     "sha256": "60eaff6cd62a5c74cc37b2a5bf7b1b8b95c76cf615432e32f61f6253056a5680",
+     "pages": 30,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.0,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "continuation": 1,
+      "wordParts": 90
+     },
+     "leastRuleGapPt": 1.54,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "H06": {
+     "sha256": "f82adf389d44fd3360ac9e96a311b3ee1780522f61faf741389b45302e459f84",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.0,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "wordParts": 5
+     },
+     "leastRuleGapPt": 1.54,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "H07": {
+     "sha256": "465cb4ed44780cffa8ae9bbf92a5064556f1504ae6616856cd2f8adf13df7210",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 8.25,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 30,
+      "wordParts": 7
+     },
+     "leastRuleGapPt": 0.76,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "H08": {
+     "sha256": "559b34551c342d583cf99bb02fcf3b35c4daa5c0606f9b035bcafdf5e20c9004",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 8.25,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 31,
+      "wordParts": 7
+     },
+     "leastRuleGapPt": 0.76,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "H09": {
+     "sha256": "b31b9ae7c5a291ba178afeaa98baa69cdb87d2e7c91ac2cc4a98e099264e2310",
+     "pages": 4,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 8.25,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 44,
+      "wordParts": 9
+     },
+     "leastRuleGapPt": 0.76,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "H10": {
+     "sha256": "271e24a85cd5f5948a59245f1d71a511fa84ab8a33fbf86b00fbc7e8d047591e",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 8.25,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 23,
+      "wordParts": 4
+     },
+     "leastRuleGapPt": 0.57,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "H11": {
+     "sha256": "b073a88dea68cbfa534bd7cab418be993f5bf39d615eb443ae8f659e0cb52605",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 8.25,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 27
+     },
+     "leastRuleGapPt": 0.55,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "H12": {
+     "sha256": "f1ecf1a83fadfce1d910cac40db100174c3e51dbdba59cb06771c246f64b8deb",
+     "pages": 1,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 8.25,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 14,
+      "wordParts": 3
+     },
+     "leastRuleGapPt": 0.76,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    }
+   },
+   "cashbooks": {
+    "H01": {
+     "refused": null,
+     "entries": 14,
+     "exercised": {
+      "coreProperties": "literal",
+      "typedAmounts": 14,
+      "typedDates": 14
+     },
+     "notes": {}
+    },
+    "H07": {
+     "refused": null,
+     "entries": 16,
+     "exercised": {
+      "coreProperties": "literal"
+     },
+     "notes": {}
+    }
+   },
+   "decision": {
+    "story": "H02",
+    "reasons": [
+     "ambiguous-amount-date",
+     "amount-date-suggestion"
+    ],
+    "problems": []
+   }
+  },
+  "g8": {
+   "package": "bank-statement-holdout-g8",
+   "clearancePt": 0.05,
+   "statements": {
+    "K01": {
+     "sha256": "824545bf78473a0a64d90513429e02e72c91a3c4954e26daa86e5be1f3578677",
+     "pages": 3,
+     "found": {
+      "columns": [
+       {
+        "layout": "en",
+        "code": "COLUMN",
+        "page": 1,
+        "line": 5,
+        "detail": "\"balance\" is not inside one column"
+       }
+      ]
+     },
+     "lineControl": {
+      "shiftPt": 9.38,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 1,
+      "wordParts": 1
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "K02": {
+     "sha256": "e4b3f8d7f53e14f6f90ba2a5a8e76ecf15aafa71c498d57dd340e3802226ef18",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.15,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "wordParts": 5
+     },
+     "leastRuleGapPt": 0.47,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "K03": {
+     "sha256": "6751ef4579f032979420471ca9914ad254e8549ee479fe315c78b52fcdf83df4",
+     "pages": 42,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 8.77,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "continuation": 1,
+      "drAfterAmount": 480,
+      "endAligned": 42
+     },
+     "leastRuleGapPt": 0.94,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "K04": {
+     "sha256": "170bf65dd4c680a2b4e6d342b1bf2b5d3f3a839171024d5385b1ffe7293df805",
+     "pages": 2,
+     "found": {
+      "ruleClearance": [
+       {
+        "page": 1,
+        "at": [
+         "خ",
+         -2.33
+        ]
+       },
+       {
+        "page": 1,
+        "at": [
+         "خ",
+         -2.33
+        ]
+       },
+       {
+        "page": 1,
+        "at": [
+         "ر",
+         -0.2
+        ]
+       },
+       {
+        "page": 2,
+        "at": [
+         "خ",
+         -2.33
+        ]
+       },
+       {
+        "page": 2,
+        "at": [
+         "خ",
+         -2.33
+        ]
+       },
+       {
+        "page": 2,
+        "at": [
+         "ر",
+         -0.2
+        ]
+       }
+      ],
+      "lineInk": [
+       {
+        "page": 1,
+        "at": 0.0
+       },
+       {
+        "page": 2,
+        "at": 0.0
+       }
+      ],
+      "columns": [
+       {
+        "layout": "ar",
+        "code": "COLUMN",
+        "page": 1,
+        "line": 6,
+        "detail": "\"20,000.00\" is not inside one column"
+       }
+      ]
+     },
+     "lineControl": {
+      "shiftPt": 9.08,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {},
+     "leastRuleGapPt": -2.77,
+     "leastLineGapPt": 0.0,
+     "mostItemOverlapPt": null
+    },
+    "K05": {
+     "sha256": "912adfea6217db9578752d20897fdf25023d4e8672b46d28e22c14540e859030",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.38,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "dateRuns": 26
+     },
+     "leastRuleGapPt": 0.42,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "K06": {
+     "sha256": "5af16df5bb542ec5b8cc2f01aadb68ec5163a664a6a5848a8775c09a60632d63",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.15,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "wordParts": 6
+     },
+     "leastRuleGapPt": 0.65,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "K07": {
+     "sha256": "5358cc717e831c4f41fc0cb86a337148104a24e7604822bc117fdf7b2745dcea",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "wordParts": 6
+     },
+     "leastRuleGapPt": 2.35,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "K08": {
+     "sha256": "5163caf157ae9f68af19a4e7e7ff4d9c1edeb4af926cb9196b402e7218d7f410",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 32,
+      "wordParts": 3
+     },
+     "leastRuleGapPt": 2.92,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "K09": {
+     "sha256": "69e42aaf20f1636f64854ff499588be3eb17ea610c75a45cbe134d68649baba1",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "drAfterAmount": 12,
+      "wordParts": 5
+     },
+     "leastRuleGapPt": 3.78,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "K10": {
+     "sha256": "7146b973373ee563d06cfb0d8e43779547f657e68d8778ed843ab0fdebaabc1b",
+     "pages": 2,
+     "found": {
+      "ruleClearance": [
+       {
+        "page": 1,
+        "at": [
+         "خ",
+         -0.43
+        ]
+       },
+       {
+        "page": 1,
+        "at": [
+         "خ",
+         -0.43
+        ]
+       },
+       {
+        "page": 1,
+        "at": [
+         "خ",
+         -0.43
+        ]
+       },
+       {
+        "page": 2,
+        "at": [
+         "خ",
+         -0.43
+        ]
+       },
+       {
+        "page": 2,
+        "at": [
+         "خ",
+         -0.43
+        ]
+       },
+       {
+        "page": 2,
+        "at": [
+         "خ",
+         -0.43
+        ]
+       }
+      ]
+     },
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "reversedDate": 28
+     },
+     "leastRuleGapPt": -1.37,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "K11": {
+     "sha256": "e1e16bf5867ae9209043a857aec377844de6d3b8b598fa4c1116fc6cbbef7b42",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "continuation": 1
+     },
+     "leastRuleGapPt": 2.62,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "K12": {
+     "sha256": "9754e461acc672c9ba88e6746cbfc350a7b47d445f5c903f6d16da72cb4c5dc0",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "wordParts": 6
+     },
+     "leastRuleGapPt": 3.33,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    }
+   },
+   "cashbooks": {
+    "K02": {
+     "refused": null,
+     "entries": 17,
+     "exercised": {
+      "coreProperties": "literal",
+      "typedAmounts": 17,
+      "typedDates": 17
+     },
+     "notes": {}
+    },
+    "K08": {
+     "refused": null,
+     "entries": 15,
+     "exercised": {
+      "coreProperties": "literal"
+     },
+     "notes": {}
+    }
+   },
+   "decision": {
+    "story": "K02",
+    "reasons": [
+     "amount-date-suggestion",
+     "amount-date-suggestion"
+    ],
+    "problems": []
+   }
+  },
+  "g9": {
+   "package": "bank-statement-holdout-g9",
+   "clearancePt": 0.05,
+   "statements": {
+    "N01": {
+     "sha256": "d758c20bdf2369d557c79bfe1731780d14a770bd8d1b1776229515163e299f0a",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.72,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 43,
+      "wordParts": 7
+     },
+     "leastRuleGapPt": 1.91,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "N02": {
+     "sha256": "8ad9849414654b0b9486282bb2d8a7efa575b5141235980a84b9c2bbbbe21468",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 12.07,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 35,
+      "wordParts": 5
+     },
+     "leastRuleGapPt": 2.48,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "N03": {
+     "sha256": "d08659730c197676d808f166dadb1c186e9bb5b869cdb12fc45a72c946b30b67",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 12.6,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 48
+     },
+     "leastRuleGapPt": 2.82,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "N04": {
+     "sha256": "38f71ff99f82ab5ee72226cb56f8afea34d25220fa7e1c6f7ec1bffcb8b7e429",
+     "pages": 4,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 15.15,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 54,
+      "reversedDate": 44
+     },
+     "leastRuleGapPt": 2.85,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "N05": {
+     "sha256": "c812090bbcae6f363f7b32d435b0a2a4a8656fb25ef037dd830e9ba450dfb8d4",
+     "pages": 29,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.07,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "continuation": 1,
+      "endAligned": 466,
+      "wordParts": 88
+     },
+     "leastRuleGapPt": 2.34,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "N06": {
+     "sha256": "a383cebb327711413600273c85fbac62e2b5afc13eba8364ea0f122f23a7d7ff",
+     "pages": 1,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 14,
+      "wordParts": 2
+     },
+     "leastRuleGapPt": 1.91,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "N07": {
+     "sha256": "23ce923af6ea78eaee90d3673da9252208d59b08e7679d291b6f318c67495bf7",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.95,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 31,
+      "wordParts": 5
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "N08": {
+     "sha256": "874cd5988cd2c318400c753437eec13a356aed1d9c86f8948d140b30b2282feb",
+     "pages": 2,
+     "found": {
+      "images": [
+       {
+        "page": 1,
+        "at": 1
+       },
+       {
+        "page": 2,
+        "at": 1
+       }
+      ]
+     },
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 26,
+      "wordParts": 5
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "N09": {
+     "sha256": "0102792ccce51926c40736ef5961ba777668a7c2e84c02816eb0463df9d1ae18",
+     "pages": 4,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 75
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "N10": {
+     "sha256": "a032fb9679649ee8eae17c006cf6a25cb679f748ff54ad050af7efa211b50014",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.75,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 57,
+      "wordParts": 7
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "N11": {
+     "sha256": "ce50e05ed8c1256e0b38cc32244930d3f277dfc0dc9bbe3df3acf944eca675a0",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 41,
+      "wordParts": 7
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "N12": {
+     "sha256": "fab10305d0a9eac2f248dc777ce06911dd3541b6ee0d38221e38c5895200e7ec",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 39,
+      "wordParts": 7
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    }
+   },
+   "cashbooks": {
+    "N02": {
+     "refused": null,
+     "entries": 25,
+     "exercised": {
+      "coreProperties": "literal",
+      "typedAmounts": 25,
+      "typedDates": 25
+     },
+     "notes": {}
+    },
+    "N10": {
+     "refused": null,
+     "entries": 33,
+     "exercised": {
+      "coreProperties": "literal",
+      "typedAmounts": 33,
+      "typedDates": 33
+     },
+     "notes": {}
+    }
+   },
+   "decision": {
+    "story": "N01",
+    "reasons": [
+     "date-gap"
+    ],
+    "problems": []
+   }
+  },
+  "g10": {
+   "package": "bank-statement-holdout-g10",
+   "clearancePt": 0.05,
+   "statements": {
+    "P01": {
+     "sha256": "b63d374d176fce5fb8370942df8c098b13483011d8b6ae23afb158b57f4611ef",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.15,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 46,
+      "wordParts": 34
+     },
+     "leastRuleGapPt": 1.2,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "P02": {
+     "sha256": "da8ca32f09469aa6f1127ee4d030a4abdc571b80906c7d27fad7e430dd9e2676",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.57,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 74
+     },
+     "leastRuleGapPt": 0.33,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "P03": {
+     "sha256": "8e8d13e6825f3fef70363b0ea7120d5e9651a49f1197dca3d4d403b9322306f8",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.65,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 70,
+      "reversedDate": 62
+     },
+     "leastRuleGapPt": 1.62,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "P04": {
+     "sha256": "f59c2011e119fc9a6bc4746158e5c4e55545dd9d6f0311ecb0c26f24f97e16fb",
+     "pages": 4,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 7.5,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 60,
+      "wordParts": 13
+     },
+     "leastRuleGapPt": 2.98,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "P05": {
+     "sha256": "8ee42cd8434bfb102cdf1c68c4a9a207799038754f4b082d4f801d2f6f576269",
+     "pages": 4,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.58,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 67,
+      "wordParts": 47
+     },
+     "leastRuleGapPt": 2.44,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "P06": {
+     "sha256": "d02b1331119ed32189c88be8ec4a72b15891711c2c6e134ba58a06afd2388336",
+     "pages": 8,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.58,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "continuation": 1,
+      "endAligned": 189,
+      "wordParts": 124
+     },
+     "leastRuleGapPt": 2.44,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "P07": {
+     "sha256": "52bb6ff43dbce7e475013ce7c1d85f98c5ae1578f9122cd38fa0812421742f4f",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.28,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 57,
+      "wordParts": 7
+     },
+     "leastRuleGapPt": 1.4,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "P08": {
+     "sha256": "c7d2953126a1f14beb24f25dd52f0b2c3820fa243303f5634a09a1b0c55f33bc",
+     "pages": 2,
+     "found": {
+      "rotation": [
+       {
+        "page": 1,
+        "at": 90
+       },
+       {
+        "page": 2,
+        "at": 90
+       }
+      ],
+      "direction": [
+       {
+        "page": 1,
+        "at": [
+         0.0,
+         13.0,
+         -13.0,
+         0.0
+        ]
+       },
+       {
+        "page": 2,
+        "at": [
+         0.0,
+         13.0,
+         -13.0,
+         0.0
+        ]
+       }
+      ],
+      "pageEdge": [
+       {
+        "page": 1,
+        "at": "T"
+       },
+       {
+        "page": 1,
+        "at": "A"
+       },
+       {
+        "page": 1,
+        "at": "A"
+       },
+       {
+        "page": 2,
+        "at": "T"
+       },
+       {
+        "page": 2,
+        "at": "A"
+       },
+       {
+        "page": 2,
+        "at": "A"
+       }
+      ]
+     },
+     "lineControl": {
+      "shiftPt": 9.53,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {},
+     "leastRuleGapPt": 0.9,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "P09": {
+     "sha256": "ed910d355e3c9e209bef24cad4025a305b87aba1f2c7f8fb5ca79f2a0f8ec957",
+     "pages": 3,
+     "found": {
+      "columns": [
+       {
+        "layout": "ar",
+        "code": "COLUMN",
+        "page": 1,
+        "line": 7,
+        "detail": "\"أمر دائم - إيجار\" is not inside one column"
+       }
+      ]
+     },
+     "lineControl": {
+      "shiftPt": 12.38,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 5
+     },
+     "leastRuleGapPt": 0.91,
+     "leastLineGapPt": 0.1,
+     "mostItemOverlapPt": null
+    },
+    "P10": {
+     "sha256": "eb55f40bd73ec2654c1fb29990d0f1e401351a49f8339eb06e7d2d42dff7d96a",
+     "pages": 3,
+     "found": {
+      "lineInk": [
+       {
+        "page": 1,
+        "at": 0.0
+       },
+       {
+        "page": 2,
+        "at": 0.0
+       },
+       {
+        "page": 3,
+        "at": 0.0
+       }
+      ]
+     },
+     "lineControl": {
+      "shiftPt": 10.05,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 60,
+      "reversedDate": 46
+     },
+     "leastRuleGapPt": 1.1,
+     "leastLineGapPt": 0.0,
+     "mostItemOverlapPt": null
+    },
+    "P11": {
+     "sha256": "5f17f4648f3e340d12d66539fe02d922f6c0cb401227121ff1d96f24d978bc0b",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 35,
+      "wordParts": 5
+     },
+     "leastRuleGapPt": 1.56,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "P12": {
+     "sha256": "90e5e84b8b7976d0f673f643713499feb51383f803ce20408fd9859e1a7c2640",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.0,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 45,
+      "wordParts": 5
+     },
+     "leastRuleGapPt": 2.31,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    }
+   },
+   "cashbooks": {
+    "P04": {
+     "refused": null,
+     "entries": 30,
+     "exercised": {
+      "coreProperties": "literal",
+      "typedAmounts": 30,
+      "typedDates": 30
+     },
+     "notes": {}
+    },
+    "P08": {
+     "refused": null,
+     "entries": 26,
+     "exercised": {
+      "coreProperties": "literal"
+     },
+     "notes": {}
+    }
+   },
+   "decision": {
+    "story": "P01",
+    "reasons": [
+     "duplicate-reference"
+    ],
+    "problems": [
+     "no case the page accepts: ['duplicate-reference']"
+    ]
+   }
+  },
+  "g12": {
+   "package": "bank-statement-holdout-g12",
+   "clearancePt": 0.05,
+   "statements": {
+    "Q01": {
+     "sha256": "8ff17cd903484caa139fb2e671fd2a7abb7e187fe9d692fb50e45e315de2f18b",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 11.7,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 45,
+      "wordParts": 7
+     },
+     "leastRuleGapPt": 2.0,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "Q02": {
+     "sha256": "a6e2367565bd9809d88f70821ebb06374f889fa765e4b2d5411620efa1f45475",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 11.25,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 65,
+      "reversedDate": 58
+     },
+     "leastRuleGapPt": 1.29,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "Q03": {
+     "sha256": "165e41cd55f1962382f18b2736f74e2c73beb4d7a610f7c9636c2b34d9116628",
+     "pages": 4,
+     "found": {
+      "columns": [
+       {
+        "layout": "en",
+        "code": "COLUMN",
+        "page": 1,
+        "line": 5,
+        "detail": "\"balance\" is not inside one column"
+       }
+      ]
+     },
+     "lineControl": {
+      "shiftPt": 10.5,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {},
+     "leastRuleGapPt": 2.52,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "Q04": {
+     "sha256": "60de0f8154fb22e32402bab7944b10e9b343b496ccd820a7f5f30ed22df97739",
+     "pages": 4,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 11.25,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 82
+     },
+     "leastRuleGapPt": 1.18,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "Q05": {
+     "sha256": "4ae84d3adb62d1d363382e4ea564511ad3e164581093ee4b2e1b17ae570e05f1",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 11.7,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 39,
+      "wordParts": 7
+     },
+     "leastRuleGapPt": 3.08,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "Q06": {
+     "sha256": "b138ac70632a025a2dfa8bd8e99d70d2d6c642730d548acb5fed18b74cd03ce8",
+     "pages": 8,
+     "found": {
+      "columns": [
+       {
+        "layout": "en",
+        "code": "FIELD",
+        "page": 6,
+        "line": 6,
+        "detail": "date needs one value"
+       }
+      ]
+     },
+     "lineControl": {
+      "shiftPt": 11.7,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 101,
+      "wordParts": 12
+     },
+     "leastRuleGapPt": 3.08,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "Q07": {
+     "sha256": "acd65dfcfa026ee01a4f51713cf9257a9a8f297119c933f18e43502022cf7f36",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 11.85,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 45,
+      "wordParts": 5
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "Q08": {
+     "sha256": "7351b48274541ca1fabbb987d5e46b2e6d74b14a1564e3e9f66f6d692aea4d72",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.65,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 73,
+      "visibleByInk": 21
+     },
+     "leastRuleGapPt": 0.93,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "Q09": {
+     "sha256": "87ffa06cc1060c3d1c01f27b868aef4a5a6150baaa3c079c38531e6078eafe95",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.9,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 39,
+      "wordParts": 1
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "Q10": {
+     "sha256": "119497362a33bcaceba968ebbaeaedd31a797cd17f325aaf7a77bd6c3f51aeeb",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.65,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 70,
+      "reversedDate": 58,
+      "visibleByInk": 31
+     },
+     "leastRuleGapPt": 0.82,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "Q11": {
+     "sha256": "fe539a525aa4bb688bb59753d9a1008647443e6a0f418adae76a67b8dc75995f",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 11.78,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 34,
+      "wordParts": 6
+     },
+     "leastRuleGapPt": 2.5,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "Q12": {
+     "sha256": "c7ed0049ecab3f8c5e63c2f58d62200ba186020182f611869bec9994d1dba0a0",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.9,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 28,
+      "wordParts": 1
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    }
+   },
+   "cashbooks": {
+    "Q03": {
+     "refused": null,
+     "entries": 34,
+     "exercised": {
+      "coreProperties": "literal",
+      "typedAmounts": 34,
+      "typedDates": 34
+     },
+     "notes": {}
+    },
+    "Q09": {
+     "refused": null,
+     "entries": 26,
+     "exercised": {
+      "coreProperties": "literal"
+     },
+     "notes": {}
+    }
+   },
+   "decision": {
+    "story": "Q01",
+    "reasons": [
+     "date-gap"
+    ],
+    "problems": []
+   }
+  },
+  "g14": {
+   "package": "bank-statement-holdout-g14",
+   "clearancePt": 0.05,
+   "statements": {
+    "R01": {
+     "sha256": "ee2c72f0849922701897b719bcd675204a5a0ebb14e7005acb8af388e6ae32b5",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.0,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "wordParts": 5
+     },
+     "leastRuleGapPt": 0.93,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "R02": {
+     "sha256": "02f5bc06736890d650ad23da54f48a136b2100de8b9e0aa5dc2ae573dfd2455c",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.6,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "loneSurrogates": 2,
+      "visibleByInk": 14
+     },
+     "leastRuleGapPt": 0.1,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "R03": {
+     "sha256": "ff9032ca527fddc87ce46b7b93c75b186c6799487d33f4d1c49af883e9b5ba4d",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.22,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "drAfterAmount": 27,
+      "loneSurrogates": 2
+     },
+     "leastRuleGapPt": 2.62,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "R04": {
+     "sha256": "416c23f7a0265ada1f9350255f8767525a4eeccf33ac08b899176c8fc94ef9c2",
+     "pages": 3,
+     "found": {
+      "ruleClearance": [
+       {
+        "page": 1,
+        "at": [
+         "أ",
+         0.05
+        ]
+       },
+       {
+        "page": 1,
+        "at": [
+         "أ",
+         0.05
+        ]
+       },
+       {
+        "page": 2,
+        "at": [
+         "أ",
+         0.05
+        ]
+       }
+      ]
+     },
+     "lineControl": {
+      "shiftPt": 9.6,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "loneSurrogates": 2
+     },
+     "leastRuleGapPt": 0.05,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "R05": {
+     "sha256": "2f9f4548904282004f9da208e50aacdb2ab87d6f13a2e2ce06b4e9520f7615e2",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 12.0,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 1,
+      "loneSurrogates": 2,
+      "wordParts": 5
+     },
+     "leastRuleGapPt": 2.91,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "R06": {
+     "sha256": "cb072596687ee1be17725cb1b08f90b3d08aa50c6bc70f0245ef4fa01606a878",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.0,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "wordParts": 5
+     },
+     "leastRuleGapPt": 0.93,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "R07": {
+     "sha256": "178f37dbfd888c1e59233739c5e731b6da209ca4c7e6667edcaf86c8ced60e62",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.0,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "drAfterAmount": 7,
+      "loneSurrogates": 2
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "R08": {
+     "sha256": "e8ff77fe0abea7b241d3a0d158c6b5882228ca4846470fcb69fb8d3ecd97ed24",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.83,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "continuation": 1,
+      "visibleByInk": 14
+     },
+     "leastRuleGapPt": 1.25,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "R09": {
+     "sha256": "3d192177d877b83cafc7e3d62601b3ffb34213b904e85b8ac38ef008c0b87f7c",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.83,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "loneSurrogates": 2,
+      "reversedDate": 52
+     },
+     "leastRuleGapPt": 0.6,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "R10": {
+     "sha256": "e10faf406876a5eac74a90357e7bdd9bffef2c3ad03939fec21d59cbe57dc056",
+     "pages": 5,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.83,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "loneSurrogates": 1,
+      "wordParts": 16
+     },
+     "leastRuleGapPt": 1.9,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "R11": {
+     "sha256": "c478eb4084d4f23db5fc1bbf2c5929788695472cc8f7b9626346692c57b238df",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.75,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 1,
+      "loneSurrogates": 2,
+      "wordParts": 7
+     },
+     "leastRuleGapPt": 1.54,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "R12": {
+     "sha256": "86a3f29afb8f4b1c9f8eff7abba2482a8b76f9c6e233546eaa2559417080eff3",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.0,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "drAfterAmount": 2,
+      "loneSurrogates": 2
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    }
+   },
+   "cashbooks": {
+    "R03": {
+     "refused": null,
+     "entries": 24,
+     "exercised": {
+      "coreProperties": "literal",
+      "typedAmounts": 24,
+      "typedDates": 24,
+      "precisionNotes": 8
+     },
+     "notes": {}
+    },
+    "R07": {
+     "refused": null,
+     "entries": 22,
+     "exercised": {
+      "coreProperties": "literal"
+     },
+     "notes": {}
+    }
+   },
+   "decision": {
+    "story": "R01",
+    "reasons": [
+     "date-gap",
+     "amount-difference"
+    ],
+    "problems": []
+   }
+  },
+  "g15": {
+   "package": "bank-statement-holdout-g15",
+   "clearancePt": 0.05,
+   "statements": {
+    "T01": {
+     "sha256": "6a5c93552f4667bcfc15eb8ef3c71e0a78051ea0079802ff8a9f42c65b7d1de3",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 18.52,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 45,
+      "loneSurrogates": 2,
+      "wordParts": 5
+     },
+     "leastRuleGapPt": 2.75,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "T02": {
+     "sha256": "8a18fede6a6de3eb0416bcd5284b176e41fa21bf93e29fe199ebab32b001da54",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 17.55,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 47,
+      "loneSurrogates": 2,
+      "wordParts": 10
+     },
+     "leastRuleGapPt": 4.41,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "T03": {
+     "sha256": "19146be90e198601497624e29a666db914c2ecebd919ebf29be1c697a80f60f0",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 16.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "drAfterAmount": 32,
+      "loneSurrogates": 2
+     },
+     "leastRuleGapPt": 4.66,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "T04": {
+     "sha256": "c95e06b1c4e10ba57e946ce6dde5071cc4dd2ea8d6a4f3a074aaa3ad0894776c",
+     "pages": 6,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 16.95,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 132,
+      "loneSurrogates": 2,
+      "wordParts": 12
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "T05": {
+     "sha256": "0e9dabfdffa7414622d44ef2312f356eda8e89d094ef16d8a98bc09b9cf77869",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 18.52,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 45,
+      "loneSurrogates": 2,
+      "wordParts": 7
+     },
+     "leastRuleGapPt": 2.75,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "T06": {
+     "sha256": "4a2213ce284d4100d5b3b637053645c126b5504685bc96abcc9fe7f1ca8c0daf",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 17.55,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 44,
+      "loneSurrogates": 2,
+      "wordParts": 7
+     },
+     "leastRuleGapPt": 4.41,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "T07": {
+     "sha256": "228ea37d8fa9c397d4bdf5ff5bfe1d31c32d4106e42562ee76cee40fc17336bd",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 12.0,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "dateRuns": 60,
+      "loneSurrogates": 2
+     },
+     "leastRuleGapPt": 1.56,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": 0.006
+    },
+    "T08": {
+     "sha256": "3fb0a8be9ab66afbd05b1ac2fb4692ee80d22f4c18c35665426597e2dc14ceb4",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 12.0,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "continuation": 1,
+      "dateRuns": 60,
+      "loneSurrogates": 2
+     },
+     "leastRuleGapPt": 1.5,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": 0.008
+    },
+    "T09": {
+     "sha256": "555502f8ae8d6ea19b8aa1ed218d7fb0440c149b66c6f697e4f24c69870e4693",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 12.0,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "loneSurrogates": 2
+     },
+     "leastRuleGapPt": 1.81,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "T10": {
+     "sha256": "35c5da2f06f8c561606d4f818f57e7b0abd8bde31decb4d3f2792a0ce9d44ca3",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.5,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 47,
+      "loneSurrogates": 2,
+      "wordParts": 5
+     },
+     "leastRuleGapPt": 2.77,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "T11": {
+     "sha256": "adc13942203d88a7a8fe67aa38a7f47926739c4f870af0bf8417dc44f04a1b40",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.83,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 55,
+      "loneSurrogates": 2,
+      "wordParts": 7
+     },
+     "leastRuleGapPt": 2.18,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "T12": {
+     "sha256": "d620ecba77c9985dafbb711d8842d16cb706153f1ee4fefe93a4c2f727c2c9cb",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 12.0,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "dateRuns": 50,
+      "loneSurrogates": 2
+     },
+     "leastRuleGapPt": 1.56,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": 0.006
+    }
+   },
+   "cashbooks": {
+    "T03": {
+     "refused": null,
+     "entries": 27,
+     "exercised": {
+      "coreProperties": "left out",
+      "typedAmounts": 27,
+      "typedDates": 27
+     },
+     "notes": {}
+    },
+    "T10": {
+     "refused": null,
+     "entries": 25,
+     "exercised": {
+      "coreProperties": "left out"
+     },
+     "notes": {}
+    }
+   },
+   "decision": {
+    "story": "T01",
+    "reasons": [
+     "date-gap"
+    ],
+    "problems": []
+   }
+  },
+  "g17": {
+   "package": "bank-statement-holdout-g17",
+   "clearancePt": 0.05,
+   "statements": {
+    "V01": {
+     "sha256": "efd7a45d096d73b85e0fc5760757530069cdae2487d06a2f6d4d5323be68260b",
+     "pages": 4,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 11.03,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 101,
+      "wordParts": 9
+     },
+     "leastRuleGapPt": 1.29,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "V02": {
+     "sha256": "046fcfb12cbfcafc804e0c335ef44cc343ce8939079fcb0ef0af63416ab5cb94",
+     "pages": 4,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 11.25,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 78,
+      "wordParts": 13
+     },
+     "leastRuleGapPt": 0.88,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "V03": {
+     "sha256": "dec8bd291d22a17bbb3287fb2b568c955c33ce9b61dbd3e4480849cd2703e07e",
+     "pages": 4,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.53,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "wordParts": 9
+     },
+     "leastRuleGapPt": 1.38,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "V04": {
+     "sha256": "81a50797d16b46cb3099801f9f9083203f0f9d68424b45f30db0a9d728ea72ad",
+     "pages": 9,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 12.3,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 248,
+      "wordParts": 17
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "V05": {
+     "sha256": "632e0fc3612621c27af7bc23acb963b0c52227d2df39889401fa6c091345371a",
+     "pages": 4,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 11.03,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 90,
+      "wordParts": 9
+     },
+     "leastRuleGapPt": 1.29,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "V06": {
+     "sha256": "3c62c8a53bcae1423bb7f9dbaccb47813724db9947f6c5ef00da385bf3e80398",
+     "pages": 4,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 11.55,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 66,
+      "wordParts": 9
+     },
+     "leastRuleGapPt": 2.95,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "V07": {
+     "sha256": "e4fe256e3dacb0133d3ee995517d7d87e075279acfaeeb64c38ef62fcf59ce73",
+     "pages": 5,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 11.55,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "reversedDate": 106
+     },
+     "leastRuleGapPt": 0.91,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "V08": {
+     "sha256": "e879edff4aed02138b4edb68d06d289874e35d7a45058237d552dfed838849d4",
+     "pages": 4,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 11.55,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "continuation": 1,
+      "reversedDate": 96
+     },
+     "leastRuleGapPt": 1.39,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "V09": {
+     "sha256": "372843cf443869acb238350c336c9c92c9598d13736be8f61458542ad9f4986b",
+     "pages": 4,
+     "found": {
+      "overlap": [
+       {
+        "page": 1,
+        "at": {
+         "line": 9,
+         "items": [
+          "س",
+          "ر"
+         ],
+         "overlapPt": 0.288
+        }
+       },
+       {
+        "page": 1,
+        "at": {
+         "line": 14,
+         "items": [
+          "د",
+          "ر"
+         ],
+         "overlapPt": 0.216
+        }
+       },
+       {
+        "page": 2,
+        "at": {
+         "line": 7,
+         "items": [
+          "س",
+          "ر"
+         ],
+         "overlapPt": 0.288
+        }
+       },
+       {
+        "page": 2,
+        "at": {
+         "line": 10,
+         "items": [
+          "د",
+          "ر"
+         ],
+         "overlapPt": 0.216
+        }
+       },
+       {
+        "page": 2,
+        "at": {
+         "line": 12,
+         "items": [
+          "د",
+          "ر"
+         ],
+         "overlapPt": 0.216
+        }
+       },
+       {
+        "page": 3,
+        "at": {
+         "line": 6,
+         "items": [
+          "د",
+          "ر"
+         ],
+         "overlapPt": 0.216
+        }
+       },
+       {
+        "page": 3,
+        "at": {
+         "line": 8,
+         "items": [
+          "د",
+          "ر"
+         ],
+         "overlapPt": 0.216
+        }
+       },
+       {
+        "page": 3,
+        "at": {
+         "line": 11,
+         "items": [
+          "د",
+          "ر"
+         ],
+         "overlapPt": 0.216
+        }
+       },
+       {
+        "page": 4,
+        "at": {
+         "line": 8,
+         "items": [
+          "د",
+          "ر"
+         ],
+         "overlapPt": 0.216
+        }
+       },
+       {
+        "page": 4,
+        "at": {
+         "line": 11,
+         "items": [
+          "د",
+          "ر"
+         ],
+         "overlapPt": 0.216
+        }
+       }
+      ]
+     },
+     "lineControl": {
+      "shiftPt": 11.55,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {},
+     "leastRuleGapPt": 0.29,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": 0.18
+    },
+    "V10": {
+     "sha256": "2a9f526c656db7f4fc83b76197511cde5b5fec2530ead0615d4158397cd04451",
+     "pages": 4,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 11.93,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 79,
+      "wordParts": 7
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": 0.19
+    },
+    "V11": {
+     "sha256": "2937e8172f6c77f98734fdac680db6eba22cc7cb30329d744122b465cb61f8d5",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.95,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "endAligned": 82,
+      "wordParts": 7
+     },
+     "leastRuleGapPt": 4.32,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    },
+    "V12": {
+     "sha256": "aaf65d8ee7c50284536efefc913a5bfe58b6c56ebc44d820a0091b9fb19d23ef",
+     "pages": 4,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 11.55,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "exercised": {
+      "reversedDate": 96
+     },
+     "leastRuleGapPt": 0.91,
+     "leastLineGapPt": null,
+     "mostItemOverlapPt": null
+    }
+   },
+   "cashbooks": {
+    "V03": {
+     "refused": null,
+     "entries": 50,
+     "exercised": {
+      "coreProperties": "literal",
+      "typedAmounts": 50,
+      "typedDates": 50
+     },
+     "notes": {}
+    },
+    "V10": {
+     "refused": null,
+     "entries": 43,
+     "exercised": {
+      "coreProperties": "literal"
+     },
+     "notes": {}
+    }
+   },
+   "decision": {
+    "story": "V01",
+    "reasons": [
+     "date-gap"
+    ],
+    "problems": []
+   }
+  }
+ }
+}

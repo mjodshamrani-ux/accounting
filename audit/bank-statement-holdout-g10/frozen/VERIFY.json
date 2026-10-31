@@ -1,0 +1,299 @@
+{
+ "reader": "pdfminer.six, glyph by glyph, rows by baseline, Arabic descriptions in reading order",
+ "factsSha256": "18d70f035f64c73a13455b152a380fbead4fffe8ddfda3afe7d653b0758e2f7a",
+ "statements": [
+  {
+   "id": "P01",
+   "file": "P01-statement.pdf",
+   "sha256": "b63d374d176fce5fb8370942df8c098b13483011d8b6ae23afb158b57f4611ef",
+   "pages": 3,
+   "valuesFound": 168,
+   "ok": true,
+   "problems": [],
+   "creator": "Apache FOP 2.10",
+   "producer": "Apache FOP Version 2.10",
+   "fonts": [
+    "EAAAAA+OpenSans-Regular"
+   ],
+   "fontDeclared": "Open Sans",
+   "fontPresent": true,
+   "inkClearance": {
+    "least": 1.5,
+    "at": "page 1: '1' at (78.5, 106.0, 83.3, 112.1)"
+   }
+  },
+  {
+   "id": "P02",
+   "file": "P02-statement.pdf",
+   "sha256": "da8ca32f09469aa6f1127ee4d030a4abdc571b80906c7d27fad7e430dd9e2676",
+   "pages": 3,
+   "valuesFound": 173,
+   "ok": true,
+   "problems": [],
+   "creator": "Apache FOP 2.10",
+   "producer": "Apache FOP Version 2.10",
+   "fonts": [
+    "EAAAAA+Almarai-Regular"
+   ],
+   "fontDeclared": "Almarai",
+   "fontPresent": true,
+   "inkClearance": {
+    "least": 0.68,
+    "at": "page 1: 'أ' at (457.2, 122.9, 459.1, 131.4)"
+   }
+  },
+  {
+   "id": "P03",
+   "file": "P03-statement.pdf",
+   "sha256": "8e8d13e6825f3fef70363b0ea7120d5e9651a49f1197dca3d4d403b9322306f8",
+   "pages": 3,
+   "valuesFound": 163,
+   "ok": true,
+   "problems": [],
+   "creator": "Apache FOP 2.10",
+   "producer": "Apache FOP Version 2.10",
+   "fonts": [
+    "EAAAAA+MarkaziText-Regular"
+   ],
+   "fontDeclared": "Markazi Text",
+   "fontPresent": true,
+   "inkClearance": {
+    "least": 1.92,
+    "at": "page 3: 'ي' at (514.3, 254.0, 519.4, 258.5)"
+   }
+  },
+  {
+   "id": "P04",
+   "file": "P04-statement.pdf",
+   "sha256": "f59c2011e119fc9a6bc4746158e5c4e55545dd9d6f0311ecb0c26f24f97e16fb",
+   "pages": 4,
+   "valuesFound": 198,
+   "ok": true,
+   "problems": [],
+   "creator": "Apache FOP 2.10",
+   "producer": "Apache FOP Version 2.10",
+   "fonts": [
+    "EAAAAA+CourierPrime-Regular"
+   ],
+   "fontDeclared": "Courier Prime",
+   "fontPresent": true,
+   "inkClearance": {
+    "least": 3.08,
+    "at": "page 1: 'i' at (59.0, 95.8, 63.8, 101.1)"
+   }
+  },
+  {
+   "id": "P05",
+   "file": "P05-statement.pdf",
+   "sha256": "8ee42cd8434bfb102cdf1c68c4a9a207799038754f4b082d4f801d2f6f576269",
+   "pages": 4,
+   "valuesFound": 238,
+   "ok": true,
+   "problems": [],
+   "creator": "Apache FOP 2.10",
+   "producer": "Apache FOP Version 2.10",
+   "fonts": [
+    "Helvetica"
+   ],
+   "fontDeclared": "Helvetica",
+   "fontPresent": true,
+   "inkClearance": {
+    "least": 2.79,
+    "at": "page 1: 'O' at (136.2, 255.7, 142.8, 262.2)"
+   }
+  },
+  {
+   "id": "P06",
+   "file": "P06-statement.pdf",
+   "sha256": "d02b1331119ed32189c88be8ec4a72b15891711c2c6e134ba58a06afd2388336",
+   "pages": 8,
+   "valuesFound": 661,
+   "ok": true,
+   "problems": [],
+   "creator": "Apache FOP 2.10",
+   "producer": "Apache FOP Version 2.10",
+   "fonts": [
+    "Helvetica"
+   ],
+   "fontDeclared": "Helvetica",
+   "fontPresent": true,
+   "inkClearance": {
+    "least": 2.79,
+    "at": "page 1: 'C' at (136.2, 255.7, 142.4, 262.2)"
+   }
+  },
+  {
+   "id": "P07",
+   "file": "P07-statement.pdf",
+   "sha256": "52bb6ff43dbce7e475013ce7c1d85f98c5ae1578f9122cd38fa0812421742f4f",
+   "pages": 3,
+   "valuesFound": 204,
+   "ok": true,
+   "problems": [],
+   "creator": "OpenPDF 2.0.3",
+   "producer": "OpenPDF 2.0.3",
+   "fonts": [
+    "Helvetica"
+   ],
+   "fontDeclared": "Helvetica",
+   "fontPresent": true,
+   "inkClearance": {
+    "least": 1.7,
+    "at": "page 3: 'g' at (62.6, 231.8, 67.3, 238.2)"
+   }
+  },
+  {
+   "id": "P08",
+   "file": "P08-statement.pdf",
+   "sha256": "c7d2953126a1f14beb24f25dd52f0b2c3820fa243303f5634a09a1b0c55f33bc",
+   "pages": 2,
+   "valuesFound": 162,
+   "ok": true,
+   "problems": [],
+   "creator": "OpenPDF 2.0.3",
+   "producer": "OpenPDF 2.0.3",
+   "fonts": [
+    "Courier"
+   ],
+   "fontDeclared": "Courier",
+   "fontPresent": true,
+   "inkClearance": {
+    "least": 1.0,
+    "at": "page 1: 'p' at (82.5, 607.3, 87.5, 612.1)"
+   }
+  },
+  {
+   "id": "P09",
+   "file": "P09-statement.pdf",
+   "sha256": "ed910d355e3c9e209bef24cad4025a305b87aba1f2c7f8fb5ca79f2a0f8ec957",
+   "pages": 3,
+   "valuesFound": 186,
+   "ok": true,
+   "problems": [],
+   "creator": "OpenPDF 2.0.3",
+   "producer": "OpenPDF 2.0.3",
+   "fonts": [
+    "KCFBHA+Amiri-Regular"
+   ],
+   "fontDeclared": "Amiri",
+   "fontPresent": true,
+   "inkClearance": {
+    "least": 1.26,
+    "at": "page 2: 'أ' at (405.3, 275.6, 407.6, 283.7)"
+   }
+  },
+  {
+   "id": "P10",
+   "file": "P10-statement.pdf",
+   "sha256": "eb55f40bd73ec2654c1fb29990d0f1e401351a49f8339eb06e7d2d42dff7d96a",
+   "pages": 3,
+   "valuesFound": 129,
+   "ok": true,
+   "problems": [],
+   "creator": "OpenPDF 2.0.3",
+   "producer": "OpenPDF 2.0.3",
+   "fonts": [
+    "MIFEDB+DejaVuSans"
+   ],
+   "fontDeclared": "DejaVu Sans",
+   "fontPresent": true,
+   "inkClearance": {
+    "least": 1.2,
+    "at": "page 1: 'ا' at (59.2, 79.9, 61.4, 87.9)"
+   }
+  },
+  {
+   "id": "P11",
+   "file": "P11-statement.pdf",
+   "sha256": "5f17f4648f3e340d12d66539fe02d922f6c0cb401227121ff1d96f24d978bc0b",
+   "pages": 2,
+   "valuesFound": 114,
+   "ok": true,
+   "problems": [],
+   "creator": "OpenPDF 2.0.3",
+   "producer": "OpenPDF 2.0.3",
+   "fonts": [
+    "BLKBHF+OpenSans-Regular"
+   ],
+   "fontDeclared": "Open Sans",
+   "fontPresent": true,
+   "inkClearance": {
+    "least": 1.66,
+    "at": "page 1: 'p' at (170.9, 82.4, 176.1, 89.0)"
+   }
+  },
+  {
+   "id": "P12",
+   "file": "P12-statement.pdf",
+   "sha256": "90e5e84b8b7976d0f673f643713499feb51383f803ce20408fd9859e1a7c2640",
+   "pages": 2,
+   "valuesFound": 180,
+   "ok": true,
+   "problems": [],
+   "creator": "OpenPDF 2.0.3",
+   "producer": "OpenPDF 2.0.3",
+   "fonts": [
+    "ABAADK+CourierPrime-Regular"
+   ],
+   "fontDeclared": "Courier Prime",
+   "fontPresent": true,
+   "inkClearance": {
+    "least": 2.41,
+    "at": "page 1: 'p' at (181.4, 82.3, 186.2, 87.5)"
+   }
+  }
+ ],
+ "ok": true,
+ "cashbookXlsx": [
+  {
+   "file": "P04-cashbook.xlsx",
+   "kind": "typed",
+   "cellTypes": [
+    "n"
+   ],
+   "sameAsCsv": true,
+   "sha256": "1613fe26ef5bb0ecae41f03cd9033bf29cc468a25b7010008fcd3d45bfe66723"
+  },
+  {
+   "file": "P08-cashbook.xlsx",
+   "kind": "text",
+   "sameAsCsv": true,
+   "sha256": "ac694d39cbcd8784d12937cf58017bbb4dcde7b4d8794d07e3a816414893a651"
+  }
+ ],
+ "selfTest": [
+  "P01: FOP Open Sans, tight grid: a withdrawal one halala off",
+  "P01: FOP Open Sans, tight grid: two balances swapped between rows",
+  "P01: FOP Open Sans, tight grid: the remittance reference changed",
+  "P02: FOP Arabic, Almarai: a description word changed",
+  "P02: FOP Arabic, Almarai: the short payment one riyal off",
+  "P02: FOP Arabic, Almarai: a value date changed",
+  "P03: FOP Arabic, Markazi, Arabic-Indic: an overdrawn balance without DR",
+  "P03: FOP Arabic, Markazi, Arabic-Indic: a description word changed",
+  "P03: FOP Arabic, Markazi, Arabic-Indic: the refund reference changed",
+  "P04: FOP Courier Prime: a page total changed",
+  "P04: FOP Courier Prime: a word inside a wrapped description",
+  "P04: FOP Courier Prime: the lower-case reference read in upper case",
+  "P04: FOP Courier Prime: an overdrawn balance without DR",
+  "P05: FOP Helvetica: the repeated page read back as page 3",
+  "P06: FOP Helvetica: the continuation text changed",
+  "P06: FOP Helvetica: the value date after the period changed",
+  "P06: FOP Helvetica: the printed page numbers changed",
+  "P07: OpenPDF Helvetica, grid: the reference read without its leading zeros",
+  "P07: OpenPDF Helvetica, grid: two balances swapped between rows",
+  "P07: OpenPDF Helvetica, grid: a card settlement one halala off",
+  "P08: OpenPDF Courier: an overdrawn balance without DR",
+  "P08: OpenPDF Courier: the value date before the period changed",
+  "P08: OpenPDF Courier: a description word changed",
+  "P09: OpenPDF Arabic, Amiri: a description word changed",
+  "P09: OpenPDF Arabic, Amiri: the second GOSI reference changed",
+  "P09: OpenPDF Arabic, Amiri: the fee changed",
+  "P10: OpenPDF Arabic, DejaVu, Arabic-Indic: a page total changed",
+  "P10: OpenPDF Arabic, DejaVu, Arabic-Indic: an overdrawn balance without DR",
+  "P10: OpenPDF Arabic, DejaVu, Arabic-Indic: a date changed",
+  "P11: OpenPDF Open Sans: the first printed page read back as page 1",
+  "P12: OpenPDF Courier Prime: the closing balance read back as the running balance",
+  "P04: XLSX cashbook one halala off its CSV",
+  "P08: XLSX cashbook one halala off its CSV"
+ ]
+}

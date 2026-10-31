@@ -1,0 +1,177 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-browser/1",
+ "commit": "a9f3230178452723fcb9c7b1dd62f82916f55c73",
+ "summary": {
+  "capacity": [
+   "V01",
+   "V02",
+   "V03",
+   "V04",
+   "V07",
+   "V08",
+   "V10",
+   "V11"
+  ],
+  "eligiblePositives": 9,
+  "heldWhole": [
+   "V05",
+   "V06",
+   "V12"
+  ],
+  "refused": [
+   "V09"
+  ],
+  "refusedWithResultShown": [],
+  "falseAutomatic": 0,
+  "workbooksChecked": 0,
+  "exportCheck": "CHECK FAILED: V10-csv: line 2 (movement) description",
+  "checkerSelfTest": null,
+  "pageErrors": 0,
+  "externalRequests": 0
+ },
+ "runs": [
+  {
+   "id": "V01",
+   "cashbook": "V01-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "decision": [
+    [
+     "accept",
+     "Bank slip seen for the cash deposit"
+    ]
+   ],
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "V02",
+   "cashbook": "V02-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "V03",
+   "cashbook": "V03-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "V03",
+   "cashbook": "V03-cashbook.xlsx",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "V04",
+   "cashbook": "V04-cashbook.csv",
+   "status": "reviewed",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "V05",
+   "cashbook": "V05-cashbook.csv",
+   "status": "held",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "V06",
+   "cashbook": "V06-cashbook.csv",
+   "status": "held",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "V07",
+   "cashbook": "V07-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "V08",
+   "cashbook": "V08-cashbook.csv",
+   "status": "reviewed",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "V09",
+   "cashbook": "V09-cashbook.csv",
+   "refused": "BANK_STATEMENT_READING: page 1 line 9: توجد نصوص متداخلة، لذلك لا يمكن التحقق من صحة القراءة.",
+   "failureShown": "statement-reading",
+   "resultShown": 0
+  },
+  {
+   "id": "V10",
+   "cashbook": "V10-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "V10",
+   "cashbook": "V10-cashbook.xlsx",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "V11",
+   "cashbook": "V11-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "V12",
+   "cashbook": "V12-cashbook.csv",
+   "status": "held",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  }
+ ]
+}

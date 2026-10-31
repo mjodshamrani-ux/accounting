@@ -1,0 +1,26 @@
+Section,SEC-JAH-LFT
+Entity,"Synthetic Pearl Coast Hotels Co"
+"Asset ledger",FAR-HTL
+Currency,KWD
+"As of",2028-03-31
+Location,"Jahra inn"
+Category,Lifts
+"Asset ID","Asset dimensions",Component,Amount,"Valuation reference"
+LFT-0303,JAH-D,cost,12000.000,VAL-LF,"replaced cabin 2027"
+LFT-0303,JAH-D,depreciation,4800.000,VAL-LF
+LFT-0303,JAH-D,impairment,0.000,VAL-LF
+LFT-0303,JAH-D,carrying,7200.000,VAL-LF
+"End section",SEC-JAH-LFT
+Section,SEC-SAL-KIT
+Entity,"Synthetic Pearl Coast Hotels Co"
+"Asset ledger",FAR-HTL
+Currency,KWD
+"As of",2028-03-31
+Location,"Salmiya tower"
+Category,"Kitchen equipment"
+"Asset ID","Asset dimensions",Component,Amount,"Valuation reference"
+KIT/0001,SAL-F1,cost,18500.000,VAL-SEC-SAL-KIT
+KIT/0001,SAL-F1,depreciation,7400.000,VAL-SEC-SAL-KIT
+KIT/0001,SAL-F1,impairment,0.000,VAL-SEC-SAL-KIT
+KIT/0001,SAL-F1,carrying,11100.000,VAL-SEC-SAL-KIT
+"End section",SEC-SAL-KIT

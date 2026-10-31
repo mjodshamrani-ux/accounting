@@ -1,0 +1,1054 @@
+{
+ "suite": "bank-map-foundation",
+ "stories": {
+  "M01": [
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M01-JUL-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 5
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   },
+   {
+    "do": "read",
+    "by": "map",
+    "file": "M01-AUG-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 4
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   }
+  ],
+  "M02": [
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M02-JUL-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 5
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   },
+   {
+    "do": "read",
+    "by": "map",
+    "file": "M02-AUG-cashbook.xlsx",
+    "contract": {
+     "outcome": "misfit",
+     "problems": [
+      "reference"
+     ]
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    }
+   },
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M02-AUG-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 4
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   },
+   {
+    "do": "read",
+    "by": "map",
+    "file": "M02-AUG-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 4
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   }
+  ],
+  "M03": [
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M03-JUL-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 5
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   },
+   {
+    "do": "read",
+    "by": "map",
+    "file": "M03-AUG-cashbook.xlsx",
+    "contract": {
+     "outcome": "misfit",
+     "problems": [
+      "description",
+      "reference",
+      "receipts",
+      "payments"
+     ]
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    }
+   },
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M03-AUG-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 4
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": false
+    }
+   }
+  ],
+  "M04": [
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M04-A-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 5
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   },
+   {
+    "do": "read",
+    "by": "map",
+    "file": "M04-B-cashbook.xlsx",
+    "contract": {
+     "outcome": "misfit",
+     "problems": [
+      "date",
+      "voucher",
+      "description",
+      "reference",
+      "receipts",
+      "payments"
+     ]
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    }
+   },
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M04-B-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 6
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   }
+  ],
+  "M05": [
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M05-A-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 5
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   },
+   {
+    "do": "read",
+    "by": "map",
+    "file": "M05-C-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 6
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   }
+  ],
+  "M06": [
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M06-JUL-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 4
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   },
+   {
+    "do": "read",
+    "by": "map",
+    "file": "M06-AUG-cashbook.xlsx",
+    "contract": {
+     "outcome": "misfit",
+     "problems": [
+      "date",
+      "voucher",
+      "description",
+      "reference",
+      "receipts",
+      "payments"
+     ]
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    }
+   },
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M06-AUG-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 5
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   }
+  ],
+  "M07": [
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M07-JUL-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 5
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   },
+   {
+    "do": "read",
+    "by": "map",
+    "file": "M07-AUG-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 4
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   }
+  ],
+  "M08": [
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M08-JUL-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 5
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   },
+   {
+    "do": "read",
+    "by": "map",
+    "file": "M08-AUG-cashbook.xlsx",
+    "contract": {
+     "outcome": "misfit",
+     "problems": [
+      "description",
+      "reference",
+      "receipts",
+      "payments"
+     ]
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    }
+   },
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M08-AUG-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 4
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   }
+  ],
+  "M09": [
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M09-JUL-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 5
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   },
+   {
+    "do": "read",
+    "by": "map",
+    "file": "M09-AUG-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 4
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   }
+  ],
+  "M10": [
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M10-JUL-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 5
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   },
+   {
+    "do": "read",
+    "by": "map",
+    "file": "M10-AUG-cashbook.xlsx",
+    "contract": {
+     "outcome": "misfit",
+     "problems": [
+      "payments"
+     ]
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    }
+   },
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M10-AUG-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 5
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   }
+  ],
+  "M11": [
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M11-JUL-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 5
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   },
+   {
+    "do": "read",
+    "by": "map",
+    "file": "M11-AUG-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 4
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   }
+  ],
+  "M12": [
+   {
+    "do": "import",
+    "file": "M12-map.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "read",
+    "by": "map",
+    "file": "M12-cashbook.xlsx",
+    "contract": {
+     "outcome": "misfit",
+     "problems": [
+      "reference"
+     ]
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    }
+   },
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M12-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 9
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   }
+  ],
+  "M13": [
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M13-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 64
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   }
+  ],
+  "M14": [
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M14-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 12
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   },
+   {
+    "do": "read",
+    "by": "map",
+    "file": "M14-formula-cashbook.xlsx",
+    "contract": {
+     "outcome": "refused",
+     "code": "BANK_CASHBOOK_CELL",
+     "row": 3
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    }
+   }
+  ],
+  "M15": [
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M15-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 7
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   },
+   {
+    "do": "read",
+    "by": "map",
+    "file": "M15-totals-cashbook.xlsx",
+    "contract": {
+     "outcome": "refused",
+     "code": "BANK_CASHBOOK_AMOUNT",
+     "row": 11
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    }
+   }
+  ],
+  "M16": [
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M16-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 8
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   },
+   {
+    "do": "read",
+    "by": "map",
+    "file": "M16-two-sheets-cashbook.xlsx",
+    "contract": {
+     "outcome": "misfit",
+     "problems": [
+      "sheets"
+     ]
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    }
+   },
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M16-two-sheets-cashbook.xlsx",
+    "contract": {
+     "outcome": "misfit",
+     "problems": [
+      "sheets"
+     ]
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    }
+   }
+  ],
+  "M17": [
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M17-cashbook.csv",
+    "contract": {
+     "outcome": "read",
+     "entries": 24
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   }
+  ],
+  "M18": [
+   {
+    "do": "import",
+    "file": "M18-map-truncated.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "import",
+    "file": "M18-map-array.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "import",
+    "file": "M18-map-latin1.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "import",
+    "file": "M18-map-nan.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "import",
+    "file": "M18-map-oversize.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "import",
+    "file": "M18-map-template.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "import",
+    "file": "M18-map-version2.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "import",
+    "file": "M18-map-supplier.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "import",
+    "file": "M18-map-currency.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "import",
+    "file": "M18-map-sign.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "import",
+    "file": "M18-map-name-space.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "import",
+    "file": "M18-map-header0.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "import",
+    "file": "M18-map-header31.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "import",
+    "file": "M18-map-header-fraction.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "import",
+    "file": "M18-map-no-date.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "import",
+    "file": "M18-map-same-column.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "import",
+    "file": "M18-map-column101.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "import",
+    "file": "M18-map-empty-label.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "import",
+    "file": "M18-map-control-label.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "import",
+    "file": "M18-map.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "read",
+    "by": "map",
+    "file": "M18-cashbook.xlsx",
+    "contract": {
+     "outcome": "read",
+     "entries": 10
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   },
+   {
+    "do": "export",
+    "file": "Payroll account",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "import",
+    "file": "M18-map.json",
+    "product": "no map format in the product"
+   }
+  ],
+  "M19": [
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M19-note-cashbook.xlsx",
+    "contract": {
+     "outcome": "refused",
+     "code": "BANK_CASHBOOK_COLUMN",
+     "row": 5
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    }
+   },
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M19-note-cashbook.xlsx",
+    "contract": {
+     "outcome": "invalid",
+     "code": "MAP_LABEL"
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    }
+   },
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M19-note-cashbook.xlsx",
+    "contract": {
+     "outcome": "invalid",
+     "code": "MAP_COLUMN"
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    }
+   },
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M19-carried-cashbook.xlsx",
+    "contract": {
+     "outcome": "refused",
+     "code": "BANK_CASHBOOK_ROW",
+     "row": 4
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    }
+   }
+  ],
+  "M20": [
+   {
+    "do": "import",
+    "file": "M20-map.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "read",
+    "by": "declared",
+    "file": "Q15-NOV-cashbook.csv",
+    "contract": {
+     "outcome": "read",
+     "entries": 9
+    },
+    "product": {
+     "held": false,
+     "casesEqualExpected": true
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   },
+   {
+    "do": "read",
+    "by": "declared",
+    "file": "M20-balance-cashbook.csv",
+    "contract": {
+     "outcome": "refused",
+     "code": "BANK_CASHBOOK_HEADER",
+     "row": 1
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    }
+   },
+   {
+    "do": "read",
+    "by": "hand",
+    "file": "M20-balance-cashbook.csv",
+    "contract": {
+     "outcome": "read",
+     "entries": 9
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    },
+    "twin": {
+     "casesEqualExpected": true
+    }
+   }
+  ],
+  "M21": [
+   {
+    "do": "import",
+    "file": "M21-map.json",
+    "product": "no map format in the product"
+   },
+   {
+    "do": "read",
+    "by": "map",
+    "file": "M21-cashbook.xlsx",
+    "contract": {
+     "outcome": "misfit",
+     "problems": [
+      "header-row"
+     ]
+    },
+    "product": {
+     "refused": {
+      "code": "BANK_CASHBOOK_HEADER",
+      "row": 1
+     }
+    }
+   }
+  ]
+ },
+ "summary": {
+  "reads": 49,
+  "productRead": 1,
+  "productRefusals": {
+   "BANK_CASHBOOK_HEADER": 48
+  },
+  "contractRead": 32,
+  "twinEqual": 31,
+  "twinSettled": 32,
+  "imports": 24,
+  "exports": 1
+ }
+}

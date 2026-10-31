@@ -49,6 +49,7 @@ export type SheetData = {
       usedText: string;
       rule:
         | 'verified-numeric-glyph-order'
+        | 'verified-rtl-glyph-order'
         | 'verified-adjacent-numeric-fragments'
         | 'verified-rtl-word-order';
     }[]

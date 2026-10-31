@@ -1,0 +1,79 @@
+{
+  "schema": "tarasuf-bnk-pdf1-holdout/1",
+  "status": "frozen synthetic holdout for BNK-PDF-1 G15; sealed and committed before the product was run on any of its files",
+  "synthetic": true,
+  "holdout": true,
+  "contract": "audit/bank-statement-foundation/contract.json",
+  "question": "G14's fix (a surrogate without its pair in a ToUnicode map read as U+FFFD, and U+FFFD refused where a page shows it) has only TCPDF and mPDF, the statements it was made on, and G8's rule for a date written as touching runs has not been reached by a new writer since G8. On statements from Dompdf and go-pdf/fpdf, two more writers that embed every font with an identity ToUnicode map over the whole plane, sealed with the full eligibility check, which now reads each font's map as the prepared PDF.js reads it, does bank-statement-native-1 complete every eligible positive with no false automatic approval, and which of the rules does each statement need?",
+  "changed": {
+    "producers": [
+      "Dompdf 3.1.6: a PHP application's HTML statement, each page one table styled by CSS and broken after it, the fonts given by @font-face from local files and embedded subset by Dompdf's own Cpdf class with an identity ToUnicode map; the page number printed as the facts give it; English only, as Dompdf does not lay out right-to-left text",
+      "go-pdf/fpdf 0.9.0: a Go application drawing its own statement, the cells placed by Text and CellFormat, each font embedded by AddUTF8FontFromBytes with an identity ToUnicode map; Arabic shaped by the application into the presentation forms the font maps (a form the font lacks drawn as its base letter) and ordered by golang.org/x/text/unicode/bidi 0.29.0, whose runs come in logical order: in a 'runs' statement each run of one direction is drawn on its own from the right edge of its cell leftwards, so that a date in Arabic-Indic digits prints as five touching runs; in a 'whole' statement each line is drawn once, right-aligned; the empty embedded-files name tree go-pdf/fpdf writes into every catalog blanked by the application to as many spaces after Output",
+      "excelize 2.9.1 (Go) for the XLSX cashbooks"
+    ],
+    "fonts": ["Source Sans 3, PT Serif, Space Mono and IBM Plex Sans for Dompdf", "Noto Sans Arabic, Vazirmatn and El Messiri (Arabic), Barlow and Red Hat Mono for go-pdf/fpdf", "all built from Fontsource and embedded subset by the writer"],
+    "geometry": ["A4 portrait", "US Letter", "A4 landscape", "a full grid", "rules under every row", "no rules but a heading rule", "striped rows", "a heading filled blue, green, navy, teal or maroon in white", "a grey heading row", "headings right-aligned over amounts, and left-aligned in T03", "monospaced type whose space is just over 0.6 em", "descriptions wrapping over two or more lines in their cells", "page totals", "Arabic tables whose first column stands on the right"],
+    "periods": ["2027-01-01..2027-01-31", "2027-02-01..2027-02-28", "2027-03-01..2027-03-31", "2027-04-01..2027-06-30", "2027-05-01..2027-05-31", "2027-07-01..2027-07-31", "2027-08-01..2027-08-31", "2027-09-01..2027-09-30", "2027-10-01..2027-10-31", "2027-11-01..2027-11-30", "2027-12-01..2027-12-31", "2027-06-01..2027-06-30"],
+    "furniture": "two banks in English and one in Arabic (Arabian Care Bank, Najd Commercial Bank, مصرف الرعاية العربي), document titles and accounts other than the foundation's and earlier holdouts'",
+    "references": "mada batch references by terminal and batch date (MADA-2207-270103), insurer claim remittances by insurer and month (CLM-NHT-2708B), deposit slips by date (DS-270107-28), purchase orders by date (PO-270106-003), standing orders (SO-RENT-2701), WPS batches by month, laboratory invoices by month (LAB-2701), SADAD bill numbers, credit notes and patient refund files, movements with no reference",
+    "relationships": "a polyclinic's operating account: the reception's mada batch closed on Sunday and Wednesday evenings and settled by the bank the next business day; each insurer's monthly remittance booked from its advice one to three days later; the week's cash takings deposited on Thursday; rent by standing order on the first business day; a WPS payroll batch by the 25th; electricity by SADAD in mid-month; the outsourced laboratory paid on the 10th; medical suppliers paid each Wednesday. An insurer's remittance booked five days after it arrived; a pharmacy terminal's batch settled four days after it closed; a remittance short of its advice by a bank charge; a card batch credited net of a chargeback; two equal cash deposits on one day against two equal entries, and a supplier paid twice on one day against two entries, without references; a supplier payment and an insurer's remittance without their references on the statement; a patient refund and a cash deposit booked in the wrong direction; the laboratory paid twice under one reference against one entry; a patient refund booked twice in the cashbook; remittances valued after the period and electricity before it; supplier credit-note refunds, a returned cheque with its fee, a terminal fee and a quarterly account fee not yet booked; supplier cheques not yet presented; an account overdrawn the whole month, with DR after each amount",
+    "text": "descriptions that wrap where the writer breaks them, in English and in Arabic; a description continuing at the top of page 2 in Arabic; Arabic descriptions holding Latin references, terminal numbers and file numbers as runs of their own",
+    "faults": "a card settlement printed twice, one row under the other, the balances counting it once; page 3 printed under the number of page 2; an insurer's remittance printed in the withdrawal column, the balances as the bank's ledger credited it",
+    "cashbookXlsx": "T03 as a typed XLSX and T10 as a text XLSX, both from excelize; every cashbook also as CSV"
+  },
+  "heldConstant": [
+    "the contract's column headings, control-line labels and Page n of N footer, in English and Arabic",
+    "the account/currency/period line as one line",
+    "dates as yyyy-mm-dd, SAR with two decimals, thousands separators, the DR suffix for an overdrawn balance",
+    "a real text layer; no scanned page; no image"
+  ],
+  "independence": {
+    "author": "The same assistant wrote the product, the foundation, the oracle, the G6, G8, G9, G10, G12 and G14 holdouts, the fixes after them, the eligibility check and this holdout, and knew the reader's rules when designing the stories. Writers that embed identity ToUnicode maps and an application that draws each bidirectional run on its own are in the stories because G14's fix and G8's rule for touching date runs have not been reached by a new writer; they are how Dompdf and go-pdf/fpdf embed fonts and how a Go application drawing Arabic with golang.org/x/text orders it. This is not a blind holdout: the stories and the writers are new to the product, the author is not.",
+    "oracle": "audit/bank-statement-foundation/oracle.py, unchanged: it reads the printed lines in the facts, the cashbook CSV and the contract, never recipe or intent, and imports nothing from the generator or the product. expected.py only runs it story by story with each story's own period.",
+    "verifier": "pdfminer.six, a PDF reader unrelated to the product's pdf.js, finds every printed line of the facts on its own row with all its values, and every description's words in order across the rows the writer wraps it over, Arabic in reading order glyph by glyph; and MuPDF finds no glyph drawn as .notdef (verify.py, with its own self-test of planted changes, two changed XLSX cashbooks and two letters drawn as .notdef).",
+    "eligibility": "audit/bank-statement-eligibility/eligibility.py, run on the frozen PDFs before the seal with MuPDF and the raw content streams, never the product: every refusal the reader declares that it can check, the reading by columns (G13), each font's ToUnicode map as the prepared PDF.js reads it (G15), the rules each statement exercises, and the decision story's case and outstanding item. Its report, ELIGIBILITY.json, is sealed and bound to the PDF hashes.",
+    "generator": "stories.py is an eighth lineage: a polyclinic's operating account driven by a JSF32 generator; nothing is imported from the foundation's stories.mjs or from the G6, G8, G9, G10, G12 or G14 holdouts.",
+    "drafts": "While the stories and writers were drafted, their PDFs were read with pdfminer.six, MuPDF (text, glyph ids and page images) and the eligibility check only. No script that reads a file with the product's reader was run on any draft (DEV-61).",
+    "notTuned": "No product code changed between the start of G15 and the seal, and the product read none of these files."
+  },
+  "eligibility": {
+    "decided": "before any product run on these files",
+    "positives": ["T01", "T02", "T03", "T04", "T07", "T08", "T09", "T10", "T11"],
+    "held": {"T05": "balance-broken", "T06": "incomplete-pages", "T12": "balance-broken"},
+    "cashbookFormats": {"T03": "typed XLSX (excelize)", "T10": "text XLSX (excelize)"},
+    "writtenFor": {"loneSurrogates": ["T01", "T02", "T03", "T04", "T07", "T08", "T09", "T10", "T11"], "dateRuns": ["T07", "T08"], "drAfterAmount": ["T03"], "typedCashbook": ["T03"]},
+    "why": "Every statement stays inside the contract: its headings, labels, footer, line kinds, number and date formats and matching policy. The writer, font, table style, geometry, period, furniture and story are what the contract leaves open. The eligibility check found nothing in any of the twelve statements that the reader declares a reason to refuse, read every one by its columns and every font's ToUnicode map as the prepared PDF.js reads it (ELIGIBILITY.json), so a refusal of a positive is not a correct one unless it is for a reason no check before the seal covers, which the report then names.",
+    "exercised": "As ELIGIBILITY.json counts them: every font of every statement loads only because a surrogate without its pair in its identity map is read as U+FFFD (loneSurrogates, two fonts each); dates as touching runs in T07, T08 and T12; DR after its amount in T03. T03's cashbook is a typed XLSX.",
+    "draftFindings": [
+      "Arabic fonts that map no presentation forms, or not all of them: of the Fontsource Arabic families tried, only Noto Sans Arabic, Noto Naskh Arabic and Vazirmatn map every form the Go application draws; El Messiri, Changa, Alexandria, Lalezar, Mirza and Zain lack the isolated forms, and Readex Pro, Rubik, Harmattan, Scheherazade New, Lateef, Mada, Reem Kufi and others map none. A writer that draws presentation forms, as a go-pdf/fpdf application must, then draws .notdef boxes while its identity ToUnicode map still gives the letter in the text layer: the first El Messiri draft passed the text checks with boxes on the page. verify.py now finds a glyph drawn as .notdef (MuPDF's glyph id 0); El Messiri's missing isolated forms are drawn as their base letters, whose glyphs it maps, and Readex Pro was replaced by Vazirmatn.",
+      "Dompdf keeps a font family registered by name for the whole process: the first draft wrote every Dompdf statement in the first one's font. Each statement now names its family after its font. Column widths given by a <colgroup> were not applied to the fixed table; they are set on the heading cells.",
+      "With Space Mono, whose space is 0.612 em, PDF.js makes each word an item of its own. Under a right-aligned Balance heading, an overdrawn balance written «440,515.76 DR» right-aligned ends 12.9 points before the heading's end, so the amount alone lies in no column by the reader's rule and its DR cannot be joined to it: the eligibility check stopped T03 at its first movement. T03's headings are left-aligned over its amounts, as R01 of G14; whether the reader should read a DR balance under a right-aligned heading is a question for the product, reported with G15.",
+      "golang.org/x/text/unicode/bidi returns a paragraph's runs in logical order, not reordered, and resolves the hyphens of a Latin date inside Arabic text as right-to-left, so that the date splits into runs: in the Arabic account line the period's dates print with their segments reversed, which the reader reads in either order. A date cell alone prints in order.",
+      "go-pdf/fpdf writes its Producer as «FPDF 1.7» and names an embedded font «utf8» and its family, without a subset tag.",
+      "go-pdf/fpdf writes into every catalog a name dictionary holding an embedded-files tree with no file in it, and has no setting to leave it out. The repository's public-content guard refuses any public PDF that names embedded files, and the first frozen render was refused by it. The guard is not changed: the Go application blanks that dictionary to as many spaces after Output, so every byte offset and the cross-reference table stand and MuPDF opens the file without repair. The product's reader does not read the catalog's names."
+    ]
+  },
+  "browserDecision": {
+    "story": "T01",
+    "ifRefused": ["T07", "T02"],
+    "why": "The browser run accepts the first acceptable case of one story and the export checker's self-test alters that story's workbook. T01 has a case the page accepts (date-gap) and items outstanding on both sides, so every alteration has a target; ELIGIBILITY.json checks it. If the product refuses T01, the next of T07 (date-gap, an item outstanding) and T02 (amount-date-suggestion, an item outstanding) it does not refuse is decided."
+  },
+  "attribution": {
+    "commit": "15ea8a1",
+    "what": "After the first run, the same package is run on the product as it was before G14's fix (15ea8a1, the G14 seal: 24e7584 changed only the ToUnicode decoder) and recorded beside it, so that each completed statement says whether it needed G14's fix. ELIGIBILITY.json says every font of every statement loads only by it. It is a diagnostic, not a second result."
+  },
+  "ablation": {
+    "script": "scripts/bank-statement-holdout-ablation.mjs",
+    "rules": ["drawing by ink", "rows by ink", "DR after its amount", "date runs joined", "typed cashbook amounts", "rectangle traced back to its start", "drawings by glyph boxes", "rows by glyph boxes", "visibility by ink"],
+    "what": "After the first run, on the commit it ran on, each rule is switched off in a private copy of the product, one at a time, and the package run again: a positive that completes with every rule and not with one off needed it. The statements written to need a rule are T07 and T08 (date runs joined), T03 (DR after its amount) and T03 (typed cashbook amounts), as ELIGIBILITY.json counts before the seal; whether they need it is what the ablation measures. It is a diagnostic, not a second result."
+  },
+  "measures": {
+    "reading": "Every printed line read from the PDF equals the facts: kind, page, dates, reference, amounts, balances; descriptions and continuation text after NFKC and whitespace normalisation.",
+    "result": "The matching result, in the facts' keys, equals EXPECTED.json: automatic pairs, review groups with their reasons, both outstanding sides, timing, and held statements with their counts.",
+    "capacity": "Eligible positives whose result equals EXPECTED.json from upload through matching, save, restore and Excel in the browser.",
+    "falseAutomatic": "Automatic pairs that EXPECTED.json does not hold, over all twelve statements. Must be zero.",
+    "held": "A held statement is held whole, with the oracle's status, and nothing in it approved, suggested or called outstanding.",
+    "refusal": "A positive the product refuses, or holds without the oracle holding it, is a failed positive, never a correct abstention."
+  },
+  "afterRun": "Results are recorded as they come, with the commit they ran on. A fix made after seeing them turns this set into regression for that fix; a new claim of generalisation needs a new holdout."
+}

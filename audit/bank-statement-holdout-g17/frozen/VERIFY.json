@@ -1,0 +1,301 @@
+{
+ "reader": "pdfminer.six, glyph by glyph, rows by baseline, Arabic descriptions in reading order",
+ "factsSha256": "1f5e952a04e862b688bd1633f77b8776d098d8b2d9c7a702864d6bd0aa502d59",
+ "statements": [
+  {
+   "id": "V01",
+   "file": "V01-statement.pdf",
+   "sha256": "efd7a45d096d73b85e0fc5760757530069cdae2487d06a2f6d4d5323be68260b",
+   "pages": 4,
+   "valuesFound": 346,
+   "ok": true,
+   "problems": [],
+   "creator": "G17 statement job (Prawn)",
+   "producer": "Prawn 2.5.0",
+   "fonts": [
+    "26656d+LibreFranklin-Regular",
+    "c2020c+LibreFranklin-Bold"
+   ],
+   "fontDeclared": "Libre Franklin",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "V02",
+   "file": "V02-statement.pdf",
+   "sha256": "046fcfb12cbfcafc804e0c335ef44cc343ce8939079fcb0ef0af63416ab5cb94",
+   "pages": 4,
+   "valuesFound": 327,
+   "ok": true,
+   "problems": [],
+   "creator": "G17 statement job (Prawn)",
+   "producer": "Prawn 2.5.0",
+   "fonts": [
+    "4636af+Merriweather-Regular",
+    "b66fbf+Merriweather-Bold"
+   ],
+   "fontDeclared": "Merriweather",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "V03",
+   "file": "V03-statement.pdf",
+   "sha256": "dec8bd291d22a17bbb3287fb2b568c955c33ce9b61dbd3e4480849cd2703e07e",
+   "pages": 4,
+   "valuesFound": 316,
+   "ok": true,
+   "problems": [],
+   "creator": "G17 statement job (Prawn)",
+   "producer": "Prawn 2.5.0",
+   "fonts": [
+    "a4b3a5+UbuntuMono-Regular",
+    "f65a46+UbuntuMono-Bold"
+   ],
+   "fontDeclared": "Ubuntu Mono",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "V04",
+   "file": "V04-statement.pdf",
+   "sha256": "81a50797d16b46cb3099801f9f9083203f0f9d68424b45f30db0a9d728ea72ad",
+   "pages": 9,
+   "valuesFound": 811,
+   "ok": true,
+   "problems": [],
+   "creator": "G17 statement job (Prawn)",
+   "producer": "Prawn 2.5.0",
+   "fonts": [
+    "464909+NunitoSans-Regular",
+    "8ee199+NunitoSans-Bold"
+   ],
+   "fontDeclared": "Nunito Sans",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "V05",
+   "file": "V05-statement.pdf",
+   "sha256": "632e0fc3612621c27af7bc23acb963b0c52227d2df39889401fa6c091345371a",
+   "pages": 4,
+   "valuesFound": 310,
+   "ok": true,
+   "problems": [],
+   "creator": "G17 statement job (Prawn)",
+   "producer": "Prawn 2.5.0",
+   "fonts": [
+    "26656d+LibreFranklin-Regular",
+    "c2020c+LibreFranklin-Bold"
+   ],
+   "fontDeclared": "Libre Franklin",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "V06",
+   "file": "V06-statement.pdf",
+   "sha256": "3c62c8a53bcae1423bb7f9dbaccb47813724db9947f6c5ef00da385bf3e80398",
+   "pages": 4,
+   "valuesFound": 274,
+   "ok": true,
+   "problems": [],
+   "creator": "G17 statement application (cairo)",
+   "producer": "cairo 1.18.0 (https://cairographics.org)",
+   "fonts": [
+    "OJDVAV+WorkSans-Bold",
+    "QIBDMO+WorkSans-Regular",
+    "WHTMSC+WorkSans-Regular"
+   ],
+   "fontDeclared": "Work Sans",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "V07",
+   "file": "V07-statement.pdf",
+   "sha256": "e4fe256e3dacb0133d3ee995517d7d87e075279acfaeeb64c38ef62fcf59ce73",
+   "pages": 5,
+   "valuesFound": 274,
+   "ok": true,
+   "problems": [],
+   "creator": "G17 statement application (cairo)",
+   "producer": "cairo 1.18.0 (https://cairographics.org)",
+   "fonts": [
+    "ALXZMF+ReadexPro-Bold",
+    "BNKBGY+ReadexPro-Regular",
+    "JRWSLS+ReadexPro-Regular",
+    "NABHYF+ReadexPro-Regular",
+    "QISLMN+ReadexPro-Bold",
+    "XHCQOO+ReadexPro-Bold"
+   ],
+   "fontDeclared": "Readex Pro",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "V08",
+   "file": "V08-statement.pdf",
+   "sha256": "e879edff4aed02138b4edb68d06d289874e35d7a45058237d552dfed838849d4",
+   "pages": 4,
+   "valuesFound": 250,
+   "ok": true,
+   "problems": [],
+   "creator": "G17 statement application (cairo)",
+   "producer": "cairo 1.18.0 (https://cairographics.org)",
+   "fonts": [
+    "AVZRRF+Rubik-Bold",
+    "MGEXWW+Rubik-Bold",
+    "NEOUUA+Rubik-Regular",
+    "RCCEWN+Rubik-Regular",
+    "WDACNI+Rubik-Bold",
+    "WXAFOS+Rubik-Regular"
+   ],
+   "fontDeclared": "Rubik",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "V09",
+   "file": "V09-statement.pdf",
+   "sha256": "372843cf443869acb238350c336c9c92c9598d13736be8f61458542ad9f4986b",
+   "pages": 4,
+   "valuesFound": 260,
+   "ok": true,
+   "problems": [],
+   "creator": "G17 statement application (cairo)",
+   "producer": "cairo 1.18.0 (https://cairographics.org)",
+   "fonts": [
+    "KDKBGN+Alexandria-Bold",
+    "KIVEQD+Alexandria-Bold",
+    "KNURAZ+Alexandria-Regular",
+    "OGNFLB+Alexandria-Regular",
+    "RNRVEU+Alexandria-Regular",
+    "ROHPRD+Alexandria-Bold"
+   ],
+   "fontDeclared": "Alexandria",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "V10",
+   "file": "V10-statement.pdf",
+   "sha256": "2a9f526c656db7f4fc83b76197511cde5b5fec2530ead0615d4158397cd04451",
+   "pages": 4,
+   "valuesFound": 274,
+   "ok": true,
+   "problems": [],
+   "creator": "G17 statement application (cairo)",
+   "producer": "cairo 1.18.0 (https://cairographics.org)",
+   "fonts": [
+    "CTLSPA+PublicSans-Regular",
+    "NXJHRL+PublicSans-Bold",
+    "UZERZC+PublicSans-Regular"
+   ],
+   "fontDeclared": "Public Sans",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "V11",
+   "file": "V11-statement.pdf",
+   "sha256": "2937e8172f6c77f98734fdac680db6eba22cc7cb30329d744122b465cb61f8d5",
+   "pages": 3,
+   "valuesFound": 277,
+   "ok": true,
+   "problems": [],
+   "creator": "G17 statement application (cairo)",
+   "producer": "cairo 1.18.0 (https://cairographics.org)",
+   "fonts": [
+    "CKCYFC+SourceCodePro-Regular",
+    "DLWRCF+SourceCodePro-Bold"
+   ],
+   "fontDeclared": "Source Code Pro",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "V12",
+   "file": "V12-statement.pdf",
+   "sha256": "aaf65d8ee7c50284536efefc913a5bfe58b6c56ebc44d820a0091b9fb19d23ef",
+   "pages": 4,
+   "valuesFound": 250,
+   "ok": true,
+   "problems": [],
+   "creator": "G17 statement application (cairo)",
+   "producer": "cairo 1.18.0 (https://cairographics.org)",
+   "fonts": [
+    "BNKBGY+ReadexPro-Regular",
+    "NKKTHW+ReadexPro-Bold",
+    "OEBWMG+ReadexPro-Regular",
+    "QISLMN+ReadexPro-Bold",
+    "RRRNVD+ReadexPro-Regular",
+    "XHCQOO+ReadexPro-Bold"
+   ],
+   "fontDeclared": "Readex Pro",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  }
+ ],
+ "ok": true,
+ "cashbookXlsx": [
+  {
+   "file": "V03-cashbook.xlsx",
+   "kind": "typed",
+   "cellTypes": [
+    "n"
+   ],
+   "sameAsCsv": true,
+   "sha256": "1b708008de4d508a2ebfb8eda95905e8e5b095ec30389d3bece1c5cdc56487af"
+  },
+  {
+   "file": "V10-cashbook.xlsx",
+   "kind": "text",
+   "sameAsCsv": true,
+   "sha256": "ecc3f869175849a7d3cc2dade0d969477f3f26c8e9fe8677c6d723b22bcdd847"
+  }
+ ],
+ "selfTest": [
+  "V01: Prawn Libre Franklin, grid: a withdrawal one halala off",
+  "V01: Prawn Libre Franklin, grid: two balances swapped between rows",
+  "V01: Prawn Libre Franklin, grid: the late remittance reference changed",
+  "V01: Prawn Libre Franklin, grid: a description word changed",
+  "V02: Prawn Merriweather, page totals: a page total changed",
+  "V02: Prawn Merriweather, page totals: the rebated remittance changed",
+  "V02: Prawn Merriweather, page totals: one of two equal cash deposits one halala off",
+  "V03: Prawn Ubuntu Mono, DR: an overdrawn balance without DR",
+  "V03: Prawn Ubuntu Mono, DR: the second customs debit reference changed",
+  "V03: Prawn Ubuntu Mono, DR: a deposit one halala off",
+  "V04: Prawn Nunito Sans, landscape: a word inside a wrapped description",
+  "V04: Prawn Nunito Sans, landscape: the printed page numbers changed",
+  "V04: Prawn Nunito Sans, landscape: the value date after the period changed",
+  "V05: Prawn Libre Franklin, printed twice: a deposit one halala off",
+  "V06: cairo Work Sans, numbered as the page before: the third page read back as page 3",
+  "V07: cairo Arabic, Readex Pro, Arabic-Indic digits: a date changed",
+  "V07: cairo Arabic, Readex Pro, Arabic-Indic digits: the late remittance reference changed",
+  "V07: cairo Arabic, Readex Pro, Arabic-Indic digits: a description word changed",
+  "V07: cairo Arabic, Readex Pro, Arabic-Indic digits: the cash-handling fee changed",
+  "V08: cairo Arabic, Rubik: the continuation text changed",
+  "V08: cairo Arabic, Rubik: the value date after the period changed",
+  "V08: cairo Arabic, Rubik: the dishonoured cheque fee changed",
+  "V09: cairo Arabic, Alexandria, Latin digits: a description word changed",
+  "V09: cairo Arabic, Alexandria, Latin digits: the refund reference changed",
+  "V09: cairo Arabic, Alexandria, Latin digits: a date changed",
+  "V10: cairo Public Sans, stripes: the remittance less its listing fee changed",
+  "V10: cairo Public Sans, stripes: the credit note reference changed",
+  "V10: cairo Public Sans, stripes: a description word changed",
+  "V11: cairo Source Code Pro: the unreferenced remittance changed",
+  "V11: cairo Source Code Pro: the van-route deposit reference changed",
+  "V11: cairo Source Code Pro: a withdrawal one halala off",
+  "V12: cairo Arabic, Readex Pro, deposit as withdrawal: the closing balance changed",
+  "V12: cairo Arabic, Readex Pro, deposit as withdrawal: a withdrawal one halala off",
+  "V02: Prawn Merriweather, page totals: the unreferenced importer payment one halala off",
+  "V08: cairo Arabic, Rubik: a description word changed",
+  "V10: cairo Public Sans, stripes: two balances swapped between rows",
+  "V03: XLSX cashbook one halala off its CSV",
+  "V10: XLSX cashbook one halala off its CSV",
+  "V01: the letter P drawn as .notdef",
+  "V07: the letter ب drawn as .notdef",
+  "V10: the letter H drawn as .notdef"
+ ]
+}

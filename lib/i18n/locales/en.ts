@@ -201,6 +201,17 @@ export const en: Messages = {
     next: 'Next',
     retainedTiming:
       'Value dates outside the period stay visible after approval and undo; they are inputs to a later balance reconciliation.',
+    caseState: 'Status',
+    decisionHint: {
+      sourceError:
+        'Source errors block every decision; correct the source in its original file, then compare again.',
+      both: 'Write the “Evidence reference” and the “Decision or undo reason” to enable approval, undo and the human pairing.',
+      reference: 'Write the “Evidence reference” to enable a decision.',
+      reason: 'Write the “Decision or undo reason” to enable a decision.',
+      ready:
+        'Approval is offered only for an eligible case that needs review, undo only for a matched case, and the human pairing once a movement is chosen on each side.',
+    },
+    backToMovement: 'Back to the movement in its table',
   },
   allocation: {
     entry: 'Payment allocation',
@@ -473,6 +484,7 @@ export const en: Messages = {
       blank: 'Blank row',
       movement: 'Movement',
       error: 'Reading error',
+      'out-of-scope': 'Another scope, not compared',
     },
     reason: {
       'exact-own-document':
@@ -494,6 +506,48 @@ export const en: Messages = {
     },
     readingIssue:
       'This original row does not satisfy the source reading contract.',
+    pdfLimits:
+      'The customer statement may instead be the PDF the company prints: a text PDF read section by section. Only the section whose header equals the confirmed scope is compared; sections of other customers stay in the inventory. Any error anywhere in the statement holds every automatic match.',
+    pdfStatement: 'Printed customer statement (PDF)',
+    pdfReading:
+      'Read from the PDF itself: the document header, each section header and its column headings. Nothing is inferred from amounts or positions outside the declared headings.',
+    pdfReadingConfirm:
+      'I confirm this PDF is the customer statement the company issued, in the seller receivable perspective, with original movement amounts.',
+    sections: 'Statement sections',
+    section: 'Section',
+    customerName: 'Customer name',
+    period: 'Period',
+    pages: 'Pages',
+    detailLines: 'Detail lines',
+    sectionStatus: 'In this comparison',
+    sectionCompared: 'Compared',
+    sectionOther: 'Another scope, not compared',
+    sectionUnreadable: 'Header could not be read',
+    holds: 'Why matching is held',
+    page: 'Page',
+    line: 'line',
+    issue: {
+      AR_PDF_SCOPE_NOT_FOUND:
+        'No section has the confirmed customer, account, currency and period under the confirmed entity and ledger. Nothing of the statement is compared.',
+      AR_PDF_SCOPE_REPEATED:
+        'The confirmed scope heads two separate sections; neither is compared.',
+      AR_PDF_DOCUMENT_HEADER:
+        'A later page names another entity or ledger than the first.',
+      AR_PDF_HEADER:
+        'A section header lacks a field, prints one twice or names an unknown currency; its lines are not read.',
+      AR_PDF_COLUMNS:
+        'A column heading is outside the declared wording, or a required heading is missing; the section’s lines are not read.',
+      AR_PDF_ORPHAN_LINE: 'A detail line appears before any section header.',
+      AR_PDF_LINE: 'A printed value lies outside every column.',
+      AR_AMOUNT: 'An original amount cannot be read in the currency’s decimals.',
+      AR_ORIGINAL_MISSING: 'A line has an open amount but no original amount.',
+      AR_DIRECTION: 'The amount’s sign does not suit the document type.',
+      AR_PERIOD: 'A date is outside the section’s period.',
+      AR_DATE: 'A date cannot be read.',
+      AR_KIND: 'A document type is not invoice, credit note or receipt.',
+      AR_DOCUMENT: 'A line has no document number.',
+      other: 'A source line does not satisfy the reading contract.',
+    },
   },
   clearing: {
     title: 'Single-account clearing',

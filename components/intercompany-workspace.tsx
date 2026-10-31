@@ -1,4 +1,5 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
+import { IntercompanyBatchPanel } from '@/components/intercompany-batch-panel';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -744,6 +745,7 @@ export function IntercompanyWorkspace({
             </details>
           </section>
         )}
+        <IntercompanyBatchPanel />
       </section>
     </div>
   );

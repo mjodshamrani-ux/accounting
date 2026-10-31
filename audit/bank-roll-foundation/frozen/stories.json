@@ -1,0 +1,5524 @@
+{
+ "version": "bank-roll-foundation-1",
+ "stories": [
+  {
+   "id": "R01",
+   "title": "An outstanding cheque clears in the next period",
+   "layout": "en",
+   "periods": [
+    {
+     "id": "R01-JUL",
+     "statement": {
+      "account": "SA00 0000 0000 77014417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-07-01",
+       "end": "2026-07-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 50637500
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-07-03",
+          "valueDate": "2026-07-03",
+          "description": "Incoming transfer 01JUL01",
+          "reference": "TRF-01JUL01",
+          "withdrawal": 0,
+          "deposit": 3136180,
+          "balance": 53773680
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-07-10",
+          "valueDate": "2026-07-10",
+          "description": "Incoming transfer 01JUL02",
+          "reference": "TRF-01JUL02",
+          "withdrawal": 0,
+          "deposit": 2868022,
+          "balance": 56641702
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-07-17",
+          "valueDate": "2026-07-17",
+          "description": "Cheque paid 01JUL03",
+          "reference": "CHQ-01JUL03",
+          "withdrawal": 3633962,
+          "deposit": 0,
+          "balance": 53007740
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-07-25",
+          "valueDate": "2026-07-25",
+          "description": "Cheque paid 01JUL04",
+          "reference": "CHQ-01JUL04",
+          "withdrawal": 2153241,
+          "deposit": 0,
+          "balance": 50854499
+         },
+         {
+          "kind": "closing",
+          "balance": 50854499
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 5787203,
+          "deposit": 6004202
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-07-02",
+       "voucher": "RV-01JUL01",
+       "description": "Customer receipt",
+       "reference": "TRF-01JUL01",
+       "receipt": 3136180,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-09",
+       "voucher": "RV-01JUL02",
+       "description": "Customer receipt",
+       "reference": "TRF-01JUL02",
+       "receipt": 2868022,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-16",
+       "voucher": "PV-01JUL03",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-01JUL03",
+       "receipt": 0,
+       "payment": 3633962
+      },
+      {
+       "date": "2026-07-24",
+       "voucher": "PV-01JUL04",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-01JUL04",
+       "receipt": 0,
+       "payment": 2153241
+      },
+      {
+       "date": "2026-07-29",
+       "voucher": "PV-R01-90",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-R01-900",
+       "receipt": 0,
+       "payment": 482500
+      }
+     ]
+    },
+    {
+     "id": "R01-AUG",
+     "statement": {
+      "account": "SA00 0000 0000 77014417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-08-01",
+       "end": "2026-08-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 50854499
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Cheque paid 01AUG01",
+          "reference": "CHQ-01AUG01",
+          "withdrawal": 435074,
+          "deposit": 0,
+          "balance": 50419425
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-08-06",
+          "valueDate": "2026-08-06",
+          "description": "Cheque paid R01-900",
+          "reference": "CHQ-R01-900",
+          "withdrawal": 482500,
+          "deposit": 0,
+          "balance": 49936925
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-08-10",
+          "valueDate": "2026-08-10",
+          "description": "Incoming transfer 01AUG02",
+          "reference": "TRF-01AUG02",
+          "withdrawal": 0,
+          "deposit": 5871036,
+          "balance": 55807961
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-08-17",
+          "valueDate": "2026-08-17",
+          "description": "Incoming transfer 01AUG03",
+          "reference": "TRF-01AUG03",
+          "withdrawal": 0,
+          "deposit": 3303367,
+          "balance": 59111328
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-08-25",
+          "valueDate": "2026-08-25",
+          "description": "Cheque paid 01AUG04",
+          "reference": "CHQ-01AUG04",
+          "withdrawal": 3437412,
+          "deposit": 0,
+          "balance": 55673916
+         },
+         {
+          "kind": "closing",
+          "balance": 55673916
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 4354986,
+          "deposit": 9174403
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-08-03",
+       "voucher": "PV-01AUG01",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-01AUG01",
+       "receipt": 0,
+       "payment": 435074
+      },
+      {
+       "date": "2026-08-10",
+       "voucher": "RV-01AUG02",
+       "description": "Customer receipt",
+       "reference": "TRF-01AUG02",
+       "receipt": 5871036,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-17",
+       "voucher": "RV-01AUG03",
+       "description": "Customer receipt",
+       "reference": "TRF-01AUG03",
+       "receipt": 3303367,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-24",
+       "voucher": "PV-01AUG04",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-01AUG04",
+       "receipt": 0,
+       "payment": 3437412
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "JUL"
+    ],
+    "decisions": []
+   },
+   "recipe": "July cashbook pays CHQ-R01-900; the July statement does not show it; the August statement does",
+   "intent": {
+    "previous": "accepted",
+    "carried": [
+     "JUL:PV-R01-90"
+    ],
+    "cases": [
+     {
+      "reason": "carried-reference",
+      "carried": [
+       "JUL:PV-R01-90"
+      ],
+      "current": [
+       "AUG:S2"
+      ]
+     }
+    ],
+    "stillCarried": []
+   }
+  },
+  {
+   "id": "R02",
+   "title": "A deposit in transit",
+   "layout": "en",
+   "periods": [
+    {
+     "id": "R02-JUL",
+     "statement": {
+      "account": "SA00 0000 0000 77024417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-07-01",
+       "end": "2026-07-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 39415900
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-07-03",
+          "valueDate": "2026-07-03",
+          "description": "Cheque paid 02JUL01",
+          "reference": "CHQ-02JUL01",
+          "withdrawal": 464291,
+          "deposit": 0,
+          "balance": 38951609
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-07-10",
+          "valueDate": "2026-07-10",
+          "description": "Cheque paid 02JUL02",
+          "reference": "CHQ-02JUL02",
+          "withdrawal": 1474853,
+          "deposit": 0,
+          "balance": 37476756
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-07-17",
+          "valueDate": "2026-07-17",
+          "description": "Incoming transfer 02JUL03",
+          "reference": "TRF-02JUL03",
+          "withdrawal": 0,
+          "deposit": 4468971,
+          "balance": 41945727
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-07-25",
+          "valueDate": "2026-07-25",
+          "description": "Incoming transfer 02JUL04",
+          "reference": "TRF-02JUL04",
+          "withdrawal": 0,
+          "deposit": 217862,
+          "balance": 42163589
+         },
+         {
+          "kind": "closing",
+          "balance": 42163589
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 1939144,
+          "deposit": 4686833
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-07-03",
+       "voucher": "PV-02JUL01",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-02JUL01",
+       "receipt": 0,
+       "payment": 464291
+      },
+      {
+       "date": "2026-07-09",
+       "voucher": "PV-02JUL02",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-02JUL02",
+       "receipt": 0,
+       "payment": 1474853
+      },
+      {
+       "date": "2026-07-16",
+       "voucher": "RV-02JUL03",
+       "description": "Customer receipt",
+       "reference": "TRF-02JUL03",
+       "receipt": 4468971,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-25",
+       "voucher": "RV-02JUL04",
+       "description": "Customer receipt",
+       "reference": "TRF-02JUL04",
+       "receipt": 217862,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-31",
+       "voucher": "RV-R02-91",
+       "description": "Cash deposited after cut-off",
+       "reference": "DEP-R02-910",
+       "receipt": 1290000,
+       "payment": 0
+      }
+     ]
+    },
+    {
+     "id": "R02-AUG",
+     "statement": {
+      "account": "SA00 0000 0000 77024417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-08-01",
+       "end": "2026-08-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 42163589
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-08-02",
+          "valueDate": "2026-08-02",
+          "description": "Cash deposit",
+          "reference": "DEP-R02-910",
+          "withdrawal": 0,
+          "deposit": 1290000,
+          "balance": 43453589
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Incoming transfer 02AUG01",
+          "reference": "TRF-02AUG01",
+          "withdrawal": 0,
+          "deposit": 2191368,
+          "balance": 45644957
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-08-10",
+          "valueDate": "2026-08-10",
+          "description": "Cheque paid 02AUG02",
+          "reference": "CHQ-02AUG02",
+          "withdrawal": 4214302,
+          "deposit": 0,
+          "balance": 41430655
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-08-17",
+          "valueDate": "2026-08-17",
+          "description": "Cheque paid 02AUG03",
+          "reference": "CHQ-02AUG03",
+          "withdrawal": 2205570,
+          "deposit": 0,
+          "balance": 39225085
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-08-25",
+          "valueDate": "2026-08-25",
+          "description": "Incoming transfer 02AUG04",
+          "reference": "TRF-02AUG04",
+          "withdrawal": 0,
+          "deposit": 1652871,
+          "balance": 40877956
+         },
+         {
+          "kind": "closing",
+          "balance": 40877956
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 6419872,
+          "deposit": 5134239
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-08-02",
+       "voucher": "RV-02AUG01",
+       "description": "Customer receipt",
+       "reference": "TRF-02AUG01",
+       "receipt": 2191368,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-09",
+       "voucher": "PV-02AUG02",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-02AUG02",
+       "receipt": 0,
+       "payment": 4214302
+      },
+      {
+       "date": "2026-08-16",
+       "voucher": "PV-02AUG03",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-02AUG03",
+       "receipt": 0,
+       "payment": 2205570
+      },
+      {
+       "date": "2026-08-24",
+       "voucher": "RV-02AUG04",
+       "description": "Customer receipt",
+       "reference": "TRF-02AUG04",
+       "receipt": 1652871,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "JUL"
+    ],
+    "decisions": []
+   },
+   "recipe": "a receipt recorded on 31 July reaches the bank on 2 August",
+   "intent": {
+    "previous": "accepted",
+    "carried": [
+     "JUL:RV-R02-91"
+    ],
+    "cases": [
+     {
+      "reason": "carried-reference",
+      "carried": [
+       "JUL:RV-R02-91"
+      ],
+      "current": [
+       "AUG:S1"
+      ]
+     }
+    ],
+    "stillCarried": []
+   }
+  },
+  {
+   "id": "R03",
+   "title": "A bank charge booked in the next period",
+   "layout": "en",
+   "periods": [
+    {
+     "id": "R03-JUL",
+     "statement": {
+      "account": "SA00 0000 0000 77034417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-07-01",
+       "end": "2026-07-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 37034300
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-07-03",
+          "valueDate": "2026-07-03",
+          "description": "Incoming transfer 03JUL01",
+          "reference": "TRF-03JUL01",
+          "withdrawal": 0,
+          "deposit": 3336962,
+          "balance": 40371262
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-07-10",
+          "valueDate": "2026-07-10",
+          "description": "Incoming transfer 03JUL02",
+          "reference": "TRF-03JUL02",
+          "withdrawal": 0,
+          "deposit": 3918247,
+          "balance": 44289509
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-07-17",
+          "valueDate": "2026-07-17",
+          "description": "Cheque paid 03JUL03",
+          "reference": "CHQ-03JUL03",
+          "withdrawal": 4905420,
+          "deposit": 0,
+          "balance": 39384089
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-07-25",
+          "valueDate": "2026-07-25",
+          "description": "Incoming transfer 03JUL04",
+          "reference": "TRF-03JUL04",
+          "withdrawal": 0,
+          "deposit": 1668675,
+          "balance": 41052764
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-07-31",
+          "valueDate": "2026-07-31",
+          "description": "Account maintenance charge",
+          "reference": "FEE-R03-0731",
+          "withdrawal": 11500,
+          "deposit": 0,
+          "balance": 41041264
+         },
+         {
+          "kind": "closing",
+          "balance": 41041264
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 4916920,
+          "deposit": 8923884
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-07-02",
+       "voucher": "RV-03JUL01",
+       "description": "Customer receipt",
+       "reference": "TRF-03JUL01",
+       "receipt": 3336962,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-09",
+       "voucher": "RV-03JUL02",
+       "description": "Customer receipt",
+       "reference": "TRF-03JUL02",
+       "receipt": 3918247,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-17",
+       "voucher": "PV-03JUL03",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-03JUL03",
+       "receipt": 0,
+       "payment": 4905420
+      },
+      {
+       "date": "2026-07-24",
+       "voucher": "RV-03JUL04",
+       "description": "Customer receipt",
+       "reference": "TRF-03JUL04",
+       "receipt": 1668675,
+       "payment": 0
+      }
+     ]
+    },
+    {
+     "id": "R03-AUG",
+     "statement": {
+      "account": "SA00 0000 0000 77034417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-08-01",
+       "end": "2026-08-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 41041264
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Incoming transfer 03AUG01",
+          "reference": "TRF-03AUG01",
+          "withdrawal": 0,
+          "deposit": 4908965,
+          "balance": 45950229
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-08-10",
+          "valueDate": "2026-08-10",
+          "description": "Incoming transfer 03AUG02",
+          "reference": "TRF-03AUG02",
+          "withdrawal": 0,
+          "deposit": 5972433,
+          "balance": 51922662
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-08-17",
+          "valueDate": "2026-08-17",
+          "description": "Incoming transfer 03AUG03",
+          "reference": "TRF-03AUG03",
+          "withdrawal": 0,
+          "deposit": 3621946,
+          "balance": 55544608
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-08-25",
+          "valueDate": "2026-08-25",
+          "description": "Incoming transfer 03AUG04",
+          "reference": "TRF-03AUG04",
+          "withdrawal": 0,
+          "deposit": 4410727,
+          "balance": 59955335
+         },
+         {
+          "kind": "closing",
+          "balance": 59955335
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 0,
+          "deposit": 18914071
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-08-03",
+       "voucher": "RV-03AUG01",
+       "description": "Customer receipt",
+       "reference": "TRF-03AUG01",
+       "receipt": 4908965,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-04",
+       "voucher": "PV-R03-95",
+       "description": "Bank charge July",
+       "reference": "FEE-R03-0731",
+       "receipt": 0,
+       "payment": 11500
+      },
+      {
+       "date": "2026-08-09",
+       "voucher": "RV-03AUG02",
+       "description": "Customer receipt",
+       "reference": "TRF-03AUG02",
+       "receipt": 5972433,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-17",
+       "voucher": "RV-03AUG03",
+       "description": "Customer receipt",
+       "reference": "TRF-03AUG03",
+       "receipt": 3621946,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-25",
+       "voucher": "RV-03AUG04",
+       "description": "Customer receipt",
+       "reference": "TRF-03AUG04",
+       "receipt": 4410727,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "JUL"
+    ],
+    "decisions": []
+   },
+   "recipe": "the July statement charges FEE-R03-0731; the company books it in August",
+   "intent": {
+    "previous": "accepted",
+    "carried": [
+     "JUL:S5"
+    ],
+    "cases": [
+     {
+      "reason": "carried-reference",
+      "carried": [
+       "JUL:S5"
+      ],
+      "current": [
+       "AUG:PV-R03-95"
+      ]
+     }
+    ],
+    "stillCarried": []
+   }
+  },
+  {
+   "id": "R04",
+   "title": "A cheque still outstanding at the end of the next period",
+   "layout": "en",
+   "periods": [
+    {
+     "id": "R04-JUL",
+     "statement": {
+      "account": "SA00 0000 0000 77044417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-07-01",
+       "end": "2026-07-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 41653900
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-07-03",
+          "valueDate": "2026-07-03",
+          "description": "Cheque paid 04JUL01",
+          "reference": "CHQ-04JUL01",
+          "withdrawal": 4897953,
+          "deposit": 0,
+          "balance": 36755947
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-07-10",
+          "valueDate": "2026-07-10",
+          "description": "Cheque paid 04JUL02",
+          "reference": "CHQ-04JUL02",
+          "withdrawal": 2171693,
+          "deposit": 0,
+          "balance": 34584254
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-07-17",
+          "valueDate": "2026-07-17",
+          "description": "Incoming transfer 04JUL03",
+          "reference": "TRF-04JUL03",
+          "withdrawal": 0,
+          "deposit": 1390765,
+          "balance": 35975019
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-07-25",
+          "valueDate": "2026-07-25",
+          "description": "Incoming transfer 04JUL04",
+          "reference": "TRF-04JUL04",
+          "withdrawal": 0,
+          "deposit": 3338542,
+          "balance": 39313561
+         },
+         {
+          "kind": "closing",
+          "balance": 39313561
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 7069646,
+          "deposit": 4729307
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-07-03",
+       "voucher": "PV-04JUL01",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-04JUL01",
+       "receipt": 0,
+       "payment": 4897953
+      },
+      {
+       "date": "2026-07-10",
+       "voucher": "PV-04JUL02",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-04JUL02",
+       "receipt": 0,
+       "payment": 2171693
+      },
+      {
+       "date": "2026-07-17",
+       "voucher": "RV-04JUL03",
+       "description": "Customer receipt",
+       "reference": "TRF-04JUL03",
+       "receipt": 1390765,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-25",
+       "voucher": "RV-04JUL04",
+       "description": "Customer receipt",
+       "reference": "TRF-04JUL04",
+       "receipt": 3338542,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-27",
+       "voucher": "PV-R04-93",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-R04-930",
+       "receipt": 0,
+       "payment": 2150000
+      }
+     ]
+    },
+    {
+     "id": "R04-AUG",
+     "statement": {
+      "account": "SA00 0000 0000 77044417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-08-01",
+       "end": "2026-08-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 39313561
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Incoming transfer 04AUG01",
+          "reference": "TRF-04AUG01",
+          "withdrawal": 0,
+          "deposit": 1320478,
+          "balance": 40634039
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-08-10",
+          "valueDate": "2026-08-10",
+          "description": "Incoming transfer 04AUG02",
+          "reference": "TRF-04AUG02",
+          "withdrawal": 0,
+          "deposit": 626317,
+          "balance": 41260356
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-08-17",
+          "valueDate": "2026-08-17",
+          "description": "Cheque paid 04AUG03",
+          "reference": "CHQ-04AUG03",
+          "withdrawal": 2797465,
+          "deposit": 0,
+          "balance": 38462891
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-08-25",
+          "valueDate": "2026-08-25",
+          "description": "Cheque paid 04AUG04",
+          "reference": "CHQ-04AUG04",
+          "withdrawal": 4277724,
+          "deposit": 0,
+          "balance": 34185167
+         },
+         {
+          "kind": "closing",
+          "balance": 34185167
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 7075189,
+          "deposit": 1946795
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-08-03",
+       "voucher": "RV-04AUG01",
+       "description": "Customer receipt",
+       "reference": "TRF-04AUG01",
+       "receipt": 1320478,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-09",
+       "voucher": "RV-04AUG02",
+       "description": "Customer receipt",
+       "reference": "TRF-04AUG02",
+       "receipt": 626317,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-17",
+       "voucher": "PV-04AUG03",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-04AUG03",
+       "receipt": 0,
+       "payment": 2797465
+      },
+      {
+       "date": "2026-08-25",
+       "voucher": "PV-04AUG04",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-04AUG04",
+       "receipt": 0,
+       "payment": 4277724
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "JUL"
+    ],
+    "decisions": []
+   },
+   "recipe": "CHQ-R04-930 written in July is not presented in August",
+   "intent": {
+    "previous": "accepted",
+    "carried": [
+     "JUL:PV-R04-93"
+    ],
+    "cases": [],
+    "stillCarried": [
+     {
+      "item": "JUL:PV-R04-93",
+      "age": 2
+     }
+    ]
+   }
+  },
+  {
+   "id": "R05",
+   "title": "A cheque clears two periods later, through the chain",
+   "layout": "en",
+   "periods": [
+    {
+     "id": "R05-JUL",
+     "statement": {
+      "account": "SA00 0000 0000 77054417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-07-01",
+       "end": "2026-07-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 22076100
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-07-03",
+          "valueDate": "2026-07-03",
+          "description": "Incoming transfer 05JUL01",
+          "reference": "TRF-05JUL01",
+          "withdrawal": 0,
+          "deposit": 1990392,
+          "balance": 24066492
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-07-10",
+          "valueDate": "2026-07-10",
+          "description": "Incoming transfer 05JUL02",
+          "reference": "TRF-05JUL02",
+          "withdrawal": 0,
+          "deposit": 3360871,
+          "balance": 27427363
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-07-17",
+          "valueDate": "2026-07-17",
+          "description": "Cheque paid 05JUL03",
+          "reference": "CHQ-05JUL03",
+          "withdrawal": 3826414,
+          "deposit": 0,
+          "balance": 23600949
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-07-25",
+          "valueDate": "2026-07-25",
+          "description": "Incoming transfer 05JUL04",
+          "reference": "TRF-05JUL04",
+          "withdrawal": 0,
+          "deposit": 5507055,
+          "balance": 29108004
+         },
+         {
+          "kind": "closing",
+          "balance": 29108004
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 3826414,
+          "deposit": 10858318
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-07-02",
+       "voucher": "RV-05JUL01",
+       "description": "Customer receipt",
+       "reference": "TRF-05JUL01",
+       "receipt": 1990392,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-10",
+       "voucher": "RV-05JUL02",
+       "description": "Customer receipt",
+       "reference": "TRF-05JUL02",
+       "receipt": 3360871,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-16",
+       "voucher": "PV-05JUL03",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-05JUL03",
+       "receipt": 0,
+       "payment": 3826414
+      },
+      {
+       "date": "2026-07-24",
+       "voucher": "RV-05JUL04",
+       "description": "Customer receipt",
+       "reference": "TRF-05JUL04",
+       "receipt": 5507055,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-27",
+       "voucher": "PV-R05-93",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-R05-930",
+       "receipt": 0,
+       "payment": 2150000
+      }
+     ]
+    },
+    {
+     "id": "R05-AUG",
+     "statement": {
+      "account": "SA00 0000 0000 77054417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-08-01",
+       "end": "2026-08-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 29108004
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Incoming transfer 05AUG01",
+          "reference": "TRF-05AUG01",
+          "withdrawal": 0,
+          "deposit": 304615,
+          "balance": 29412619
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-08-10",
+          "valueDate": "2026-08-10",
+          "description": "Cheque paid 05AUG02",
+          "reference": "CHQ-05AUG02",
+          "withdrawal": 4132782,
+          "deposit": 0,
+          "balance": 25279837
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-08-17",
+          "valueDate": "2026-08-17",
+          "description": "Incoming transfer 05AUG03",
+          "reference": "TRF-05AUG03",
+          "withdrawal": 0,
+          "deposit": 4998961,
+          "balance": 30278798
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-08-25",
+          "valueDate": "2026-08-25",
+          "description": "Cheque paid 05AUG04",
+          "reference": "CHQ-05AUG04",
+          "withdrawal": 2711172,
+          "deposit": 0,
+          "balance": 27567626
+         },
+         {
+          "kind": "closing",
+          "balance": 27567626
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 6843954,
+          "deposit": 5303576
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-08-02",
+       "voucher": "RV-05AUG01",
+       "description": "Customer receipt",
+       "reference": "TRF-05AUG01",
+       "receipt": 304615,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-09",
+       "voucher": "PV-05AUG02",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-05AUG02",
+       "receipt": 0,
+       "payment": 4132782
+      },
+      {
+       "date": "2026-08-16",
+       "voucher": "RV-05AUG03",
+       "description": "Customer receipt",
+       "reference": "TRF-05AUG03",
+       "receipt": 4998961,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-24",
+       "voucher": "PV-05AUG04",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-05AUG04",
+       "receipt": 0,
+       "payment": 2711172
+      }
+     ]
+    },
+    {
+     "id": "R05-SEP",
+     "statement": {
+      "account": "SA00 0000 0000 77054417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-09-01",
+       "end": "2026-09-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 27567626
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-09-03",
+          "valueDate": "2026-09-03",
+          "description": "Incoming transfer 05SEP01",
+          "reference": "TRF-05SEP01",
+          "withdrawal": 0,
+          "deposit": 22957,
+          "balance": 27590583
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-09-09",
+          "valueDate": "2026-09-09",
+          "description": "Cheque paid R05-930",
+          "reference": "CHQ-R05-930",
+          "withdrawal": 2150000,
+          "deposit": 0,
+          "balance": 25440583
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-09-10",
+          "valueDate": "2026-09-10",
+          "description": "Incoming transfer 05SEP02",
+          "reference": "TRF-05SEP02",
+          "withdrawal": 0,
+          "deposit": 325296,
+          "balance": 25765879
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-09-17",
+          "valueDate": "2026-09-17",
+          "description": "Cheque paid 05SEP03",
+          "reference": "CHQ-05SEP03",
+          "withdrawal": 4845982,
+          "deposit": 0,
+          "balance": 20919897
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-09-25",
+          "valueDate": "2026-09-25",
+          "description": "Incoming transfer 05SEP04",
+          "reference": "TRF-05SEP04",
+          "withdrawal": 0,
+          "deposit": 5252111,
+          "balance": 26172008
+         },
+         {
+          "kind": "closing",
+          "balance": 26172008
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 6995982,
+          "deposit": 5600364
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-09-03",
+       "voucher": "RV-05SEP01",
+       "description": "Customer receipt",
+       "reference": "TRF-05SEP01",
+       "receipt": 22957,
+       "payment": 0
+      },
+      {
+       "date": "2026-09-10",
+       "voucher": "RV-05SEP02",
+       "description": "Customer receipt",
+       "reference": "TRF-05SEP02",
+       "receipt": 325296,
+       "payment": 0
+      },
+      {
+       "date": "2026-09-16",
+       "voucher": "PV-05SEP03",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-05SEP03",
+       "receipt": 0,
+       "payment": 4845982
+      },
+      {
+       "date": "2026-09-25",
+       "voucher": "RV-05SEP04",
+       "description": "Customer receipt",
+       "reference": "TRF-05SEP04",
+       "receipt": 5252111,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "JUL",
+     "AUG"
+    ],
+    "decisions": []
+   },
+   "recipe": "the August session carries the July session; CHQ-R05-930, written in July, is presented in September",
+   "intent": {
+    "previous": "accepted",
+    "carried": [
+     "JUL:PV-R05-93"
+    ],
+    "cases": [
+     {
+      "reason": "carried-reference",
+      "carried": [
+       "JUL:PV-R05-93"
+      ],
+      "current": [
+       "SEP:S2"
+      ]
+     }
+    ],
+    "stillCarried": []
+   }
+  },
+  {
+   "id": "R06",
+   "title": "The carried cheque is presented twice",
+   "layout": "en",
+   "periods": [
+    {
+     "id": "R06-JUL",
+     "statement": {
+      "account": "SA00 0000 0000 77064417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-07-01",
+       "end": "2026-07-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 18459600
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-07-03",
+          "valueDate": "2026-07-03",
+          "description": "Cheque paid 06JUL01",
+          "reference": "CHQ-06JUL01",
+          "withdrawal": 4893999,
+          "deposit": 0,
+          "balance": 13565601
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-07-10",
+          "valueDate": "2026-07-10",
+          "description": "Cheque paid 06JUL02",
+          "reference": "CHQ-06JUL02",
+          "withdrawal": 1494776,
+          "deposit": 0,
+          "balance": 12070825
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-07-17",
+          "valueDate": "2026-07-17",
+          "description": "Incoming transfer 06JUL03",
+          "reference": "TRF-06JUL03",
+          "withdrawal": 0,
+          "deposit": 3133115,
+          "balance": 15203940
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-07-25",
+          "valueDate": "2026-07-25",
+          "description": "Cheque paid 06JUL04",
+          "reference": "CHQ-06JUL04",
+          "withdrawal": 1160300,
+          "deposit": 0,
+          "balance": 14043640
+         },
+         {
+          "kind": "closing",
+          "balance": 14043640
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 7549075,
+          "deposit": 3133115
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-07-03",
+       "voucher": "PV-06JUL01",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-06JUL01",
+       "receipt": 0,
+       "payment": 4893999
+      },
+      {
+       "date": "2026-07-10",
+       "voucher": "PV-06JUL02",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-06JUL02",
+       "receipt": 0,
+       "payment": 1494776
+      },
+      {
+       "date": "2026-07-16",
+       "voucher": "RV-06JUL03",
+       "description": "Customer receipt",
+       "reference": "TRF-06JUL03",
+       "receipt": 3133115,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-25",
+       "voucher": "PV-06JUL04",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-06JUL04",
+       "receipt": 0,
+       "payment": 1160300
+      },
+      {
+       "date": "2026-07-30",
+       "voucher": "PV-R06-94",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-R06-940",
+       "receipt": 0,
+       "payment": 760000
+      }
+     ]
+    },
+    {
+     "id": "R06-AUG",
+     "statement": {
+      "account": "SA00 0000 0000 77064417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-08-01",
+       "end": "2026-08-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 14043640
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Cheque paid 06AUG01",
+          "reference": "CHQ-06AUG01",
+          "withdrawal": 2496425,
+          "deposit": 0,
+          "balance": 11547215
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-08-05",
+          "valueDate": "2026-08-05",
+          "description": "Cheque paid R06-940",
+          "reference": "CHQ-R06-940",
+          "withdrawal": 760000,
+          "deposit": 0,
+          "balance": 10787215
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-08-10",
+          "valueDate": "2026-08-10",
+          "description": "Incoming transfer 06AUG02",
+          "reference": "TRF-06AUG02",
+          "withdrawal": 0,
+          "deposit": 4379900,
+          "balance": 15167115
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-08-17",
+          "valueDate": "2026-08-17",
+          "description": "Cheque paid 06AUG03",
+          "reference": "CHQ-06AUG03",
+          "withdrawal": 2645892,
+          "deposit": 0,
+          "balance": 12521223
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-08-19",
+          "valueDate": "2026-08-19",
+          "description": "Cheque paid R06-940",
+          "reference": "CHQ-R06-940",
+          "withdrawal": 760000,
+          "deposit": 0,
+          "balance": 11761223
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2026-08-25",
+          "valueDate": "2026-08-25",
+          "description": "Incoming transfer 06AUG04",
+          "reference": "TRF-06AUG04",
+          "withdrawal": 0,
+          "deposit": 3241239,
+          "balance": 15002462
+         },
+         {
+          "kind": "closing",
+          "balance": 15002462
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 6662317,
+          "deposit": 7621139
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-08-03",
+       "voucher": "PV-06AUG01",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-06AUG01",
+       "receipt": 0,
+       "payment": 2496425
+      },
+      {
+       "date": "2026-08-10",
+       "voucher": "RV-06AUG02",
+       "description": "Customer receipt",
+       "reference": "TRF-06AUG02",
+       "receipt": 4379900,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-17",
+       "voucher": "PV-06AUG03",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-06AUG03",
+       "receipt": 0,
+       "payment": 2645892
+      },
+      {
+       "date": "2026-08-24",
+       "voucher": "RV-06AUG04",
+       "description": "Customer receipt",
+       "reference": "TRF-06AUG04",
+       "receipt": 3241239,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "JUL"
+    ],
+    "decisions": []
+   },
+   "recipe": "two August withdrawals print CHQ-R06-940 for the carried amount",
+   "intent": {
+    "previous": "accepted",
+    "carried": [
+     "JUL:PV-R06-94"
+    ],
+    "cases": [
+     {
+      "reason": "carried-ambiguous",
+      "carried": [
+       "JUL:PV-R06-94"
+      ],
+      "current": [
+       "AUG:S2",
+       "AUG:S5"
+      ]
+     }
+    ],
+    "stillCarried": []
+   }
+  },
+  {
+   "id": "R07",
+   "title": "The carried cheque is recorded again in the next cashbook",
+   "layout": "en",
+   "periods": [
+    {
+     "id": "R07-JUL",
+     "statement": {
+      "account": "SA00 0000 0000 77074417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-07-01",
+       "end": "2026-07-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 16671200
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-07-03",
+          "valueDate": "2026-07-03",
+          "description": "Incoming transfer 07JUL01",
+          "reference": "TRF-07JUL01",
+          "withdrawal": 0,
+          "deposit": 1781566,
+          "balance": 18452766
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-07-10",
+          "valueDate": "2026-07-10",
+          "description": "Incoming transfer 07JUL02",
+          "reference": "TRF-07JUL02",
+          "withdrawal": 0,
+          "deposit": 3281246,
+          "balance": 21734012
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-07-17",
+          "valueDate": "2026-07-17",
+          "description": "Cheque paid 07JUL03",
+          "reference": "CHQ-07JUL03",
+          "withdrawal": 5987280,
+          "deposit": 0,
+          "balance": 15746732
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-07-25",
+          "valueDate": "2026-07-25",
+          "description": "Cheque paid 07JUL04",
+          "reference": "CHQ-07JUL04",
+          "withdrawal": 4304441,
+          "deposit": 0,
+          "balance": 11442291
+         },
+         {
+          "kind": "closing",
+          "balance": 11442291
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 10291721,
+          "deposit": 5062812
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-07-02",
+       "voucher": "RV-07JUL01",
+       "description": "Customer receipt",
+       "reference": "TRF-07JUL01",
+       "receipt": 1781566,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-10",
+       "voucher": "RV-07JUL02",
+       "description": "Customer receipt",
+       "reference": "TRF-07JUL02",
+       "receipt": 3281246,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-17",
+       "voucher": "PV-07JUL03",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-07JUL03",
+       "receipt": 0,
+       "payment": 5987280
+      },
+      {
+       "date": "2026-07-24",
+       "voucher": "PV-07JUL04",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-07JUL04",
+       "receipt": 0,
+       "payment": 4304441
+      },
+      {
+       "date": "2026-07-28",
+       "voucher": "PV-R07-95",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-R07-950",
+       "receipt": 0,
+       "payment": 330000
+      }
+     ]
+    },
+    {
+     "id": "R07-AUG",
+     "statement": {
+      "account": "SA00 0000 0000 77074417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-08-01",
+       "end": "2026-08-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 11442291
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Cheque paid 07AUG01",
+          "reference": "CHQ-07AUG01",
+          "withdrawal": 4916544,
+          "deposit": 0,
+          "balance": 6525747
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-08-08",
+          "valueDate": "2026-08-08",
+          "description": "Cheque paid R07-950",
+          "reference": "CHQ-R07-950",
+          "withdrawal": 330000,
+          "deposit": 0,
+          "balance": 6195747
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-08-10",
+          "valueDate": "2026-08-10",
+          "description": "Cheque paid 07AUG02",
+          "reference": "CHQ-07AUG02",
+          "withdrawal": 4092779,
+          "deposit": 0,
+          "balance": 2102968
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-08-17",
+          "valueDate": "2026-08-17",
+          "description": "Incoming transfer 07AUG03",
+          "reference": "TRF-07AUG03",
+          "withdrawal": 0,
+          "deposit": 5316528,
+          "balance": 7419496
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-08-25",
+          "valueDate": "2026-08-25",
+          "description": "Incoming transfer 07AUG04",
+          "reference": "TRF-07AUG04",
+          "withdrawal": 0,
+          "deposit": 3239463,
+          "balance": 10658959
+         },
+         {
+          "kind": "closing",
+          "balance": 10658959
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 9339323,
+          "deposit": 8555991
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-07-28",
+       "voucher": "PV-R07-95",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-R07-950",
+       "receipt": 0,
+       "payment": 330000
+      },
+      {
+       "date": "2026-08-02",
+       "voucher": "PV-07AUG01",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-07AUG01",
+       "receipt": 0,
+       "payment": 4916544
+      },
+      {
+       "date": "2026-08-10",
+       "voucher": "PV-07AUG02",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-07AUG02",
+       "receipt": 0,
+       "payment": 4092779
+      },
+      {
+       "date": "2026-08-16",
+       "voucher": "RV-07AUG03",
+       "description": "Customer receipt",
+       "reference": "TRF-07AUG03",
+       "receipt": 5316528,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-25",
+       "voucher": "RV-07AUG04",
+       "description": "Customer receipt",
+       "reference": "TRF-07AUG04",
+       "receipt": 3239463,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "JUL"
+    ],
+    "decisions": []
+   },
+   "recipe": "the August cashbook export starts with the July cheque again, voucher and values unchanged; the August statement presents it",
+   "intent": {
+    "previous": "accepted",
+    "carried": [
+     "JUL:PV-R07-95"
+    ],
+    "cases": [
+     {
+      "reason": "carried-repeated",
+      "carried": [
+       "JUL:PV-R07-95"
+      ],
+      "current": [
+       "AUG:S2",
+       "AUG:PV-R07-95"
+      ]
+     }
+    ],
+    "stillCarried": []
+   }
+  },
+  {
+   "id": "R08",
+   "title": "The carried cheque is restated with another amount",
+   "layout": "en",
+   "periods": [
+    {
+     "id": "R08-JUL",
+     "statement": {
+      "account": "SA00 0000 0000 77084417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-07-01",
+       "end": "2026-07-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 32456200
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-07-03",
+          "valueDate": "2026-07-03",
+          "description": "Incoming transfer 08JUL01",
+          "reference": "TRF-08JUL01",
+          "withdrawal": 0,
+          "deposit": 3696068,
+          "balance": 36152268
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-07-10",
+          "valueDate": "2026-07-10",
+          "description": "Incoming transfer 08JUL02",
+          "reference": "TRF-08JUL02",
+          "withdrawal": 0,
+          "deposit": 3325783,
+          "balance": 39478051
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-07-17",
+          "valueDate": "2026-07-17",
+          "description": "Cheque paid 08JUL03",
+          "reference": "CHQ-08JUL03",
+          "withdrawal": 4495446,
+          "deposit": 0,
+          "balance": 34982605
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-07-25",
+          "valueDate": "2026-07-25",
+          "description": "Cheque paid 08JUL04",
+          "reference": "CHQ-08JUL04",
+          "withdrawal": 2579049,
+          "deposit": 0,
+          "balance": 32403556
+         },
+         {
+          "kind": "closing",
+          "balance": 32403556
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 7074495,
+          "deposit": 7021851
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-07-03",
+       "voucher": "RV-08JUL01",
+       "description": "Customer receipt",
+       "reference": "TRF-08JUL01",
+       "receipt": 3696068,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-10",
+       "voucher": "RV-08JUL02",
+       "description": "Customer receipt",
+       "reference": "TRF-08JUL02",
+       "receipt": 3325783,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-16",
+       "voucher": "PV-08JUL03",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-08JUL03",
+       "receipt": 0,
+       "payment": 4495446
+      },
+      {
+       "date": "2026-07-24",
+       "voucher": "PV-08JUL04",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-08JUL04",
+       "receipt": 0,
+       "payment": 2579049
+      },
+      {
+       "date": "2026-07-28",
+       "voucher": "PV-R08-96",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-R08-960",
+       "receipt": 0,
+       "payment": 415000
+      }
+     ]
+    },
+    {
+     "id": "R08-AUG",
+     "statement": {
+      "account": "SA00 0000 0000 77084417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-08-01",
+       "end": "2026-08-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 32403556
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Cheque paid 08AUG01",
+          "reference": "CHQ-08AUG01",
+          "withdrawal": 5389271,
+          "deposit": 0,
+          "balance": 27014285
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-08-10",
+          "valueDate": "2026-08-10",
+          "description": "Incoming transfer 08AUG02",
+          "reference": "TRF-08AUG02",
+          "withdrawal": 0,
+          "deposit": 3606071,
+          "balance": 30620356
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-08-17",
+          "valueDate": "2026-08-17",
+          "description": "Cheque paid 08AUG03",
+          "reference": "CHQ-08AUG03",
+          "withdrawal": 674827,
+          "deposit": 0,
+          "balance": 29945529
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-08-25",
+          "valueDate": "2026-08-25",
+          "description": "Cheque paid 08AUG04",
+          "reference": "CHQ-08AUG04",
+          "withdrawal": 5982172,
+          "deposit": 0,
+          "balance": 23963357
+         },
+         {
+          "kind": "closing",
+          "balance": 23963357
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 12046270,
+          "deposit": 3606071
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-08-02",
+       "voucher": "PV-08AUG01",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-08AUG01",
+       "receipt": 0,
+       "payment": 5389271
+      },
+      {
+       "date": "2026-08-02",
+       "voucher": "PV-R08-96",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-R08-960",
+       "receipt": 0,
+       "payment": 451000
+      },
+      {
+       "date": "2026-08-09",
+       "voucher": "RV-08AUG02",
+       "description": "Customer receipt",
+       "reference": "TRF-08AUG02",
+       "receipt": 3606071,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-17",
+       "voucher": "PV-08AUG03",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-08AUG03",
+       "receipt": 0,
+       "payment": 674827
+      },
+      {
+       "date": "2026-08-25",
+       "voucher": "PV-08AUG04",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-08AUG04",
+       "receipt": 0,
+       "payment": 5982172
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "JUL"
+    ],
+    "decisions": []
+   },
+   "recipe": "the August cashbook carries voucher PV-R08-96 again, dated 2 August, for 4,510.00 instead of 4,150.00",
+   "intent": {
+    "previous": "accepted",
+    "carried": [
+     "JUL:PV-R08-96"
+    ],
+    "cases": [
+     {
+      "reason": "carried-restated",
+      "carried": [
+       "JUL:PV-R08-96"
+      ],
+      "current": [
+       "AUG:PV-R08-96"
+      ]
+     }
+    ],
+    "stillCarried": []
+   }
+  },
+  {
+   "id": "R09",
+   "title": "A rejected suggestion leaves two items; one clears by amount",
+   "layout": "en",
+   "periods": [
+    {
+     "id": "R09-JUL",
+     "statement": {
+      "account": "SA00 0000 0000 77094417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-07-01",
+       "end": "2026-07-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 35077000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-07-03",
+          "valueDate": "2026-07-03",
+          "description": "Cheque paid 09JUL01",
+          "reference": "CHQ-09JUL01",
+          "withdrawal": 3694717,
+          "deposit": 0,
+          "balance": 31382283
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-07-10",
+          "valueDate": "2026-07-10",
+          "description": "Cheque paid 09JUL02",
+          "reference": "CHQ-09JUL02",
+          "withdrawal": 2249013,
+          "deposit": 0,
+          "balance": 29133270
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-07-17",
+          "valueDate": "2026-07-17",
+          "description": "Incoming transfer 09JUL03",
+          "reference": "TRF-09JUL03",
+          "withdrawal": 0,
+          "deposit": 2244809,
+          "balance": 31378079
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-07-25",
+          "valueDate": "2026-07-25",
+          "description": "Cheque paid 09JUL04",
+          "reference": "CHQ-09JUL04",
+          "withdrawal": 1383808,
+          "deposit": 0,
+          "balance": 29994271
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-07-28",
+          "valueDate": "2026-07-28",
+          "description": "Cash deposit",
+          "reference": "",
+          "withdrawal": 0,
+          "deposit": 123400,
+          "balance": 30117671
+         },
+         {
+          "kind": "closing",
+          "balance": 30117671
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 7327538,
+          "deposit": 2368209
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-07-02",
+       "voucher": "PV-09JUL01",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-09JUL01",
+       "receipt": 0,
+       "payment": 3694717
+      },
+      {
+       "date": "2026-07-10",
+       "voucher": "PV-09JUL02",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-09JUL02",
+       "receipt": 0,
+       "payment": 2249013
+      },
+      {
+       "date": "2026-07-17",
+       "voucher": "RV-09JUL03",
+       "description": "Customer receipt",
+       "reference": "TRF-09JUL03",
+       "receipt": 2244809,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-25",
+       "voucher": "PV-09JUL04",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-09JUL04",
+       "receipt": 0,
+       "payment": 1383808
+      },
+      {
+       "date": "2026-07-29",
+       "voucher": "RV-R09-97",
+       "description": "Counter receipt",
+       "reference": "",
+       "receipt": 123400,
+       "payment": 0
+      }
+     ]
+    },
+    {
+     "id": "R09-AUG",
+     "statement": {
+      "account": "SA00 0000 0000 77094417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-08-01",
+       "end": "2026-08-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 30117671
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Cheque paid 09AUG01",
+          "reference": "CHQ-09AUG01",
+          "withdrawal": 4744966,
+          "deposit": 0,
+          "balance": 25372705
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Cash deposit",
+          "reference": "",
+          "withdrawal": 0,
+          "deposit": 123400,
+          "balance": 25496105
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-08-10",
+          "valueDate": "2026-08-10",
+          "description": "Cheque paid 09AUG02",
+          "reference": "CHQ-09AUG02",
+          "withdrawal": 383436,
+          "deposit": 0,
+          "balance": 25112669
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-08-17",
+          "valueDate": "2026-08-17",
+          "description": "Incoming transfer 09AUG03",
+          "reference": "TRF-09AUG03",
+          "withdrawal": 0,
+          "deposit": 3332787,
+          "balance": 28445456
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-08-25",
+          "valueDate": "2026-08-25",
+          "description": "Cheque paid 09AUG04",
+          "reference": "CHQ-09AUG04",
+          "withdrawal": 5557752,
+          "deposit": 0,
+          "balance": 22887704
+         },
+         {
+          "kind": "closing",
+          "balance": 22887704
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 10686154,
+          "deposit": 3456187
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-08-03",
+       "voucher": "PV-09AUG01",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-09AUG01",
+       "receipt": 0,
+       "payment": 4744966
+      },
+      {
+       "date": "2026-08-09",
+       "voucher": "PV-09AUG02",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-09AUG02",
+       "receipt": 0,
+       "payment": 383436
+      },
+      {
+       "date": "2026-08-16",
+       "voucher": "RV-09AUG03",
+       "description": "Customer receipt",
+       "reference": "TRF-09AUG03",
+       "receipt": 3332787,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-24",
+       "voucher": "PV-09AUG04",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-09AUG04",
+       "receipt": 0,
+       "payment": 5557752
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "JUL"
+    ],
+    "decisions": [
+     {
+      "type": "reject",
+      "case": "C5",
+      "statement": [
+       "S5"
+      ],
+      "cashbook": [
+       "RV-R09-97"
+      ],
+      "note": "Different deposits: teller slips differ"
+     }
+    ]
+   },
+   "recipe": "July: a deposit and a receipt of 1,234.00 without references, suggested by amount and date, rejected by the accountant; August: one more such deposit",
+   "intent": {
+    "previous": "accepted",
+    "carried": [
+     "JUL:S5",
+     "JUL:RV-R09-97"
+    ],
+    "cases": [
+     {
+      "reason": "carried-amount-suggestion",
+      "carried": [
+       "JUL:RV-R09-97"
+      ],
+      "current": [
+       "AUG:S2"
+      ]
+     }
+    ],
+    "stillCarried": [
+     {
+      "item": "JUL:S5",
+      "age": 2
+     }
+    ]
+   }
+  },
+  {
+   "id": "R10",
+   "title": "The carried cheque is presented for another amount",
+   "layout": "en",
+   "periods": [
+    {
+     "id": "R10-JUL",
+     "statement": {
+      "account": "SA00 0000 0000 77104417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-07-01",
+       "end": "2026-07-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 56047600
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-07-03",
+          "valueDate": "2026-07-03",
+          "description": "Incoming transfer 10JUL01",
+          "reference": "TRF-10JUL01",
+          "withdrawal": 0,
+          "deposit": 2918746,
+          "balance": 58966346
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-07-10",
+          "valueDate": "2026-07-10",
+          "description": "Incoming transfer 10JUL02",
+          "reference": "TRF-10JUL02",
+          "withdrawal": 0,
+          "deposit": 4080010,
+          "balance": 63046356
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-07-17",
+          "valueDate": "2026-07-17",
+          "description": "Cheque paid 10JUL03",
+          "reference": "CHQ-10JUL03",
+          "withdrawal": 5007964,
+          "deposit": 0,
+          "balance": 58038392
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-07-25",
+          "valueDate": "2026-07-25",
+          "description": "Incoming transfer 10JUL04",
+          "reference": "TRF-10JUL04",
+          "withdrawal": 0,
+          "deposit": 438775,
+          "balance": 58477167
+         },
+         {
+          "kind": "closing",
+          "balance": 58477167
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 5007964,
+          "deposit": 7437531
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-07-03",
+       "voucher": "RV-10JUL01",
+       "description": "Customer receipt",
+       "reference": "TRF-10JUL01",
+       "receipt": 2918746,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-10",
+       "voucher": "RV-10JUL02",
+       "description": "Customer receipt",
+       "reference": "TRF-10JUL02",
+       "receipt": 4080010,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-17",
+       "voucher": "PV-10JUL03",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-10JUL03",
+       "receipt": 0,
+       "payment": 5007964
+      },
+      {
+       "date": "2026-07-24",
+       "voucher": "RV-10JUL04",
+       "description": "Customer receipt",
+       "reference": "TRF-10JUL04",
+       "receipt": 438775,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-29",
+       "voucher": "PV-R10-97",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-R10-970",
+       "receipt": 0,
+       "payment": 150000
+      }
+     ]
+    },
+    {
+     "id": "R10-AUG",
+     "statement": {
+      "account": "SA00 0000 0000 77104417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-08-01",
+       "end": "2026-08-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 58477167
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Incoming transfer 10AUG01",
+          "reference": "TRF-10AUG01",
+          "withdrawal": 0,
+          "deposit": 2767596,
+          "balance": 61244763
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-08-07",
+          "valueDate": "2026-08-07",
+          "description": "Cheque paid R10-970",
+          "reference": "CHQ-R10-970",
+          "withdrawal": 155000,
+          "deposit": 0,
+          "balance": 61089763
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-08-10",
+          "valueDate": "2026-08-10",
+          "description": "Incoming transfer 10AUG02",
+          "reference": "TRF-10AUG02",
+          "withdrawal": 0,
+          "deposit": 2055406,
+          "balance": 63145169
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-08-17",
+          "valueDate": "2026-08-17",
+          "description": "Cheque paid 10AUG03",
+          "reference": "CHQ-10AUG03",
+          "withdrawal": 1092542,
+          "deposit": 0,
+          "balance": 62052627
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-08-25",
+          "valueDate": "2026-08-25",
+          "description": "Incoming transfer 10AUG04",
+          "reference": "TRF-10AUG04",
+          "withdrawal": 0,
+          "deposit": 1704883,
+          "balance": 63757510
+         },
+         {
+          "kind": "closing",
+          "balance": 63757510
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 1247542,
+          "deposit": 6527885
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-08-02",
+       "voucher": "RV-10AUG01",
+       "description": "Customer receipt",
+       "reference": "TRF-10AUG01",
+       "receipt": 2767596,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-10",
+       "voucher": "RV-10AUG02",
+       "description": "Customer receipt",
+       "reference": "TRF-10AUG02",
+       "receipt": 2055406,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-17",
+       "voucher": "PV-10AUG03",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-10AUG03",
+       "receipt": 0,
+       "payment": 1092542
+      },
+      {
+       "date": "2026-08-24",
+       "voucher": "RV-10AUG04",
+       "description": "Customer receipt",
+       "reference": "TRF-10AUG04",
+       "receipt": 1704883,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "JUL"
+    ],
+    "decisions": []
+   },
+   "recipe": "CHQ-R10-970 written for 1,500.00 is presented for 1,550.00",
+   "intent": {
+    "previous": "accepted",
+    "carried": [
+     "JUL:PV-R10-97"
+    ],
+    "cases": [
+     {
+      "reason": "carried-amount-difference",
+      "carried": [
+       "JUL:PV-R10-97"
+      ],
+      "current": [
+       "AUG:S2"
+      ]
+     }
+    ],
+    "stillCarried": []
+   }
+  },
+  {
+   "id": "R11",
+   "title": "The previous session is in another currency",
+   "layout": "en",
+   "periods": [
+    {
+     "id": "R11-JUL",
+     "statement": {
+      "account": "SA00 0000 0000 77114417",
+      "currency": "USD",
+      "period": {
+       "start": "2026-07-01",
+       "end": "2026-07-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 46121000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-07-03",
+          "valueDate": "2026-07-03",
+          "description": "Cheque paid 11JUL01",
+          "reference": "CHQ-11JUL01",
+          "withdrawal": 3122211,
+          "deposit": 0,
+          "balance": 42998789
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-07-10",
+          "valueDate": "2026-07-10",
+          "description": "Cheque paid 11JUL02",
+          "reference": "CHQ-11JUL02",
+          "withdrawal": 726232,
+          "deposit": 0,
+          "balance": 42272557
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-07-17",
+          "valueDate": "2026-07-17",
+          "description": "Incoming transfer 11JUL03",
+          "reference": "TRF-11JUL03",
+          "withdrawal": 0,
+          "deposit": 2447759,
+          "balance": 44720316
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-07-25",
+          "valueDate": "2026-07-25",
+          "description": "Incoming transfer 11JUL04",
+          "reference": "TRF-11JUL04",
+          "withdrawal": 0,
+          "deposit": 5385066,
+          "balance": 50105382
+         },
+         {
+          "kind": "closing",
+          "balance": 50105382
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 3848443,
+          "deposit": 7832825
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-07-02",
+       "voucher": "PV-11JUL01",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-11JUL01",
+       "receipt": 0,
+       "payment": 3122211
+      },
+      {
+       "date": "2026-07-10",
+       "voucher": "PV-11JUL02",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-11JUL02",
+       "receipt": 0,
+       "payment": 726232
+      },
+      {
+       "date": "2026-07-16",
+       "voucher": "RV-11JUL03",
+       "description": "Customer receipt",
+       "reference": "TRF-11JUL03",
+       "receipt": 2447759,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-25",
+       "voucher": "RV-11JUL04",
+       "description": "Customer receipt",
+       "reference": "TRF-11JUL04",
+       "receipt": 5385066,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-29",
+       "voucher": "PV-R11-98",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-R11-980",
+       "receipt": 0,
+       "payment": 99000
+      }
+     ]
+    },
+    {
+     "id": "R11-AUG",
+     "statement": {
+      "account": "SA00 0000 0000 77114417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-08-01",
+       "end": "2026-08-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 45759200
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Incoming transfer 11AUG01",
+          "reference": "TRF-11AUG01",
+          "withdrawal": 0,
+          "deposit": 3126541,
+          "balance": 48885741
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-08-06",
+          "valueDate": "2026-08-06",
+          "description": "Cheque paid R11-980",
+          "reference": "CHQ-R11-980",
+          "withdrawal": 99000,
+          "deposit": 0,
+          "balance": 48786741
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-08-10",
+          "valueDate": "2026-08-10",
+          "description": "Cheque paid 11AUG02",
+          "reference": "CHQ-11AUG02",
+          "withdrawal": 753041,
+          "deposit": 0,
+          "balance": 48033700
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-08-17",
+          "valueDate": "2026-08-17",
+          "description": "Incoming transfer 11AUG03",
+          "reference": "TRF-11AUG03",
+          "withdrawal": 0,
+          "deposit": 3081026,
+          "balance": 51114726
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-08-25",
+          "valueDate": "2026-08-25",
+          "description": "Incoming transfer 11AUG04",
+          "reference": "TRF-11AUG04",
+          "withdrawal": 0,
+          "deposit": 3935939,
+          "balance": 55050665
+         },
+         {
+          "kind": "closing",
+          "balance": 55050665
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 852041,
+          "deposit": 10143506
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-08-03",
+       "voucher": "RV-11AUG01",
+       "description": "Customer receipt",
+       "reference": "TRF-11AUG01",
+       "receipt": 3126541,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-10",
+       "voucher": "PV-11AUG02",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-11AUG02",
+       "receipt": 0,
+       "payment": 753041
+      },
+      {
+       "date": "2026-08-16",
+       "voucher": "RV-11AUG03",
+       "description": "Customer receipt",
+       "reference": "TRF-11AUG03",
+       "receipt": 3081026,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-25",
+       "voucher": "RV-11AUG04",
+       "description": "Customer receipt",
+       "reference": "TRF-11AUG04",
+       "receipt": 3935939,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "JUL"
+    ],
+    "decisions": []
+   },
+   "recipe": "the July statement is printed in USD; the August one in SAR",
+   "intent": {
+    "previous": "ROLL_CURRENCY",
+    "carried": [],
+    "cases": [],
+    "stillCarried": []
+   }
+  },
+  {
+   "id": "R12",
+   "title": "The previous session is not the previous period",
+   "layout": "en",
+   "periods": [
+    {
+     "id": "R12-JUN",
+     "statement": {
+      "account": "SA00 0000 0000 77124417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-06-01",
+       "end": "2026-06-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 57899200
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-06-03",
+          "valueDate": "2026-06-03",
+          "description": "Incoming transfer 12JUN01",
+          "reference": "TRF-12JUN01",
+          "withdrawal": 0,
+          "deposit": 2960684,
+          "balance": 60859884
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-06-10",
+          "valueDate": "2026-06-10",
+          "description": "Incoming transfer 12JUN02",
+          "reference": "TRF-12JUN02",
+          "withdrawal": 0,
+          "deposit": 4828098,
+          "balance": 65687982
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-06-17",
+          "valueDate": "2026-06-17",
+          "description": "Cheque paid 12JUN03",
+          "reference": "CHQ-12JUN03",
+          "withdrawal": 2594578,
+          "deposit": 0,
+          "balance": 63093404
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-06-25",
+          "valueDate": "2026-06-25",
+          "description": "Incoming transfer 12JUN04",
+          "reference": "TRF-12JUN04",
+          "withdrawal": 0,
+          "deposit": 3739187,
+          "balance": 66832591
+         },
+         {
+          "kind": "closing",
+          "balance": 66832591
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 2594578,
+          "deposit": 11527969
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-06-03",
+       "voucher": "RV-12JUN01",
+       "description": "Customer receipt",
+       "reference": "TRF-12JUN01",
+       "receipt": 2960684,
+       "payment": 0
+      },
+      {
+       "date": "2026-06-09",
+       "voucher": "RV-12JUN02",
+       "description": "Customer receipt",
+       "reference": "TRF-12JUN02",
+       "receipt": 4828098,
+       "payment": 0
+      },
+      {
+       "date": "2026-06-16",
+       "voucher": "PV-12JUN03",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-12JUN03",
+       "receipt": 0,
+       "payment": 2594578
+      },
+      {
+       "date": "2026-06-24",
+       "voucher": "RV-12JUN04",
+       "description": "Customer receipt",
+       "reference": "TRF-12JUN04",
+       "receipt": 3739187,
+       "payment": 0
+      },
+      {
+       "date": "2026-06-29",
+       "voucher": "PV-R12-99",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-R12-990",
+       "receipt": 0,
+       "payment": 210000
+      }
+     ]
+    },
+    {
+     "id": "R12-AUG",
+     "statement": {
+      "account": "SA00 0000 0000 77124417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-08-01",
+       "end": "2026-08-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 66832591
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Incoming transfer 12AUG01",
+          "reference": "TRF-12AUG01",
+          "withdrawal": 0,
+          "deposit": 1682986,
+          "balance": 68515577
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-08-06",
+          "valueDate": "2026-08-06",
+          "description": "Cheque paid R12-990",
+          "reference": "CHQ-R12-990",
+          "withdrawal": 210000,
+          "deposit": 0,
+          "balance": 68305577
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-08-10",
+          "valueDate": "2026-08-10",
+          "description": "Cheque paid 12AUG02",
+          "reference": "CHQ-12AUG02",
+          "withdrawal": 3606961,
+          "deposit": 0,
+          "balance": 64698616
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-08-17",
+          "valueDate": "2026-08-17",
+          "description": "Cheque paid 12AUG03",
+          "reference": "CHQ-12AUG03",
+          "withdrawal": 1112929,
+          "deposit": 0,
+          "balance": 63585687
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-08-25",
+          "valueDate": "2026-08-25",
+          "description": "Cheque paid 12AUG04",
+          "reference": "CHQ-12AUG04",
+          "withdrawal": 4473752,
+          "deposit": 0,
+          "balance": 59111935
+         },
+         {
+          "kind": "closing",
+          "balance": 59111935
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 9403642,
+          "deposit": 1682986
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-08-03",
+       "voucher": "RV-12AUG01",
+       "description": "Customer receipt",
+       "reference": "TRF-12AUG01",
+       "receipt": 1682986,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-10",
+       "voucher": "PV-12AUG02",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-12AUG02",
+       "receipt": 0,
+       "payment": 3606961
+      },
+      {
+       "date": "2026-08-16",
+       "voucher": "PV-12AUG03",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-12AUG03",
+       "receipt": 0,
+       "payment": 1112929
+      },
+      {
+       "date": "2026-08-25",
+       "voucher": "PV-12AUG04",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-12AUG04",
+       "receipt": 0,
+       "payment": 4473752
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "JUN"
+    ],
+    "decisions": []
+   },
+   "recipe": "a June session brought to August; June closing equals August opening",
+   "intent": {
+    "previous": "ROLL_NOT_CONSECUTIVE",
+    "carried": [],
+    "cases": [],
+    "stillCarried": []
+   }
+  },
+  {
+   "id": "R13",
+   "title": "The current opening differs from the previous closing",
+   "layout": "en",
+   "periods": [
+    {
+     "id": "R13-JUL",
+     "statement": {
+      "account": "SA00 0000 0000 77134417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-07-01",
+       "end": "2026-07-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 88047600
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-07-03",
+          "valueDate": "2026-07-03",
+          "description": "Cheque paid 13JUL01",
+          "reference": "CHQ-13JUL01",
+          "withdrawal": 2959337,
+          "deposit": 0,
+          "balance": 85088263
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-07-10",
+          "valueDate": "2026-07-10",
+          "description": "Cheque paid 13JUL02",
+          "reference": "CHQ-13JUL02",
+          "withdrawal": 117608,
+          "deposit": 0,
+          "balance": 84970655
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-07-17",
+          "valueDate": "2026-07-17",
+          "description": "Incoming transfer 13JUL03",
+          "reference": "TRF-13JUL03",
+          "withdrawal": 0,
+          "deposit": 2144277,
+          "balance": 87114932
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-07-25",
+          "valueDate": "2026-07-25",
+          "description": "Incoming transfer 13JUL04",
+          "reference": "TRF-13JUL04",
+          "withdrawal": 0,
+          "deposit": 1206646,
+          "balance": 88321578
+         },
+         {
+          "kind": "closing",
+          "balance": 88321578
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 3076945,
+          "deposit": 3350923
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-07-02",
+       "voucher": "PV-13JUL01",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-13JUL01",
+       "receipt": 0,
+       "payment": 2959337
+      },
+      {
+       "date": "2026-07-09",
+       "voucher": "PV-13JUL02",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-13JUL02",
+       "receipt": 0,
+       "payment": 117608
+      },
+      {
+       "date": "2026-07-17",
+       "voucher": "RV-13JUL03",
+       "description": "Customer receipt",
+       "reference": "TRF-13JUL03",
+       "receipt": 2144277,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-25",
+       "voucher": "RV-13JUL04",
+       "description": "Customer receipt",
+       "reference": "TRF-13JUL04",
+       "receipt": 1206646,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-29",
+       "voucher": "PV-R13-91",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-R13-901",
+       "receipt": 0,
+       "payment": 310000
+      }
+     ]
+    },
+    {
+     "id": "R13-AUG",
+     "statement": {
+      "account": "SA00 0000 0000 77134417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-08-01",
+       "end": "2026-08-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 88331578
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Incoming transfer 13AUG01",
+          "reference": "TRF-13AUG01",
+          "withdrawal": 0,
+          "deposit": 1380991,
+          "balance": 89712569
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-08-06",
+          "valueDate": "2026-08-06",
+          "description": "Cheque paid R13-901",
+          "reference": "CHQ-R13-901",
+          "withdrawal": 310000,
+          "deposit": 0,
+          "balance": 89402569
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-08-10",
+          "valueDate": "2026-08-10",
+          "description": "Incoming transfer 13AUG02",
+          "reference": "TRF-13AUG02",
+          "withdrawal": 0,
+          "deposit": 2915846,
+          "balance": 92318415
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-08-17",
+          "valueDate": "2026-08-17",
+          "description": "Incoming transfer 13AUG03",
+          "reference": "TRF-13AUG03",
+          "withdrawal": 0,
+          "deposit": 5023165,
+          "balance": 97341580
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-08-25",
+          "valueDate": "2026-08-25",
+          "description": "Cheque paid 13AUG04",
+          "reference": "CHQ-13AUG04",
+          "withdrawal": 2143684,
+          "deposit": 0,
+          "balance": 95197896
+         },
+         {
+          "kind": "closing",
+          "balance": 95197896
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 2453684,
+          "deposit": 9320002
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-08-02",
+       "voucher": "RV-13AUG01",
+       "description": "Customer receipt",
+       "reference": "TRF-13AUG01",
+       "receipt": 1380991,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-10",
+       "voucher": "RV-13AUG02",
+       "description": "Customer receipt",
+       "reference": "TRF-13AUG02",
+       "receipt": 2915846,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-17",
+       "voucher": "RV-13AUG03",
+       "description": "Customer receipt",
+       "reference": "TRF-13AUG03",
+       "receipt": 5023165,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-24",
+       "voucher": "PV-13AUG04",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-13AUG04",
+       "receipt": 0,
+       "payment": 2143684
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "JUL"
+    ],
+    "decisions": []
+   },
+   "recipe": "the August statement opens 100.00 above the July closing",
+   "intent": {
+    "previous": "ROLL_OPENING",
+    "carried": [],
+    "cases": [],
+    "stillCarried": []
+   }
+  },
+  {
+   "id": "R14",
+   "title": "The previous period still has an undecided case",
+   "layout": "en",
+   "periods": [
+    {
+     "id": "R14-JUL",
+     "statement": {
+      "account": "SA00 0000 0000 77144417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-07-01",
+       "end": "2026-07-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 69654600
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-07-03",
+          "valueDate": "2026-07-03",
+          "description": "Incoming transfer 14JUL01",
+          "reference": "TRF-14JUL01",
+          "withdrawal": 0,
+          "deposit": 2592970,
+          "balance": 72247570
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-07-10",
+          "valueDate": "2026-07-10",
+          "description": "Incoming transfer 14JUL02",
+          "reference": "TRF-14JUL02",
+          "withdrawal": 0,
+          "deposit": 1512351,
+          "balance": 73759921
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-07-17",
+          "valueDate": "2026-07-17",
+          "description": "Cheque paid 14JUL03",
+          "reference": "CHQ-14JUL03",
+          "withdrawal": 5504720,
+          "deposit": 0,
+          "balance": 68255201
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-07-20",
+          "valueDate": "2026-07-20",
+          "description": "Cash deposit",
+          "reference": "",
+          "withdrawal": 0,
+          "deposit": 88000,
+          "balance": 68343201
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-07-25",
+          "valueDate": "2026-07-25",
+          "description": "Cheque paid 14JUL04",
+          "reference": "CHQ-14JUL04",
+          "withdrawal": 2400745,
+          "deposit": 0,
+          "balance": 65942456
+         },
+         {
+          "kind": "closing",
+          "balance": 65942456
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 7905465,
+          "deposit": 4193321
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-07-03",
+       "voucher": "RV-14JUL01",
+       "description": "Customer receipt",
+       "reference": "TRF-14JUL01",
+       "receipt": 2592970,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-09",
+       "voucher": "RV-14JUL02",
+       "description": "Customer receipt",
+       "reference": "TRF-14JUL02",
+       "receipt": 1512351,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-17",
+       "voucher": "PV-14JUL03",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-14JUL03",
+       "receipt": 0,
+       "payment": 5504720
+      },
+      {
+       "date": "2026-07-21",
+       "voucher": "RV-R14-92",
+       "description": "Counter receipt",
+       "reference": "",
+       "receipt": 88000,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-24",
+       "voucher": "PV-14JUL04",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-14JUL04",
+       "receipt": 0,
+       "payment": 2400745
+      },
+      {
+       "date": "2026-07-29",
+       "voucher": "PV-R14-92",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-R14-902",
+       "receipt": 0,
+       "payment": 270000
+      }
+     ]
+    },
+    {
+     "id": "R14-AUG",
+     "statement": {
+      "account": "SA00 0000 0000 77144417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-08-01",
+       "end": "2026-08-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 65942456
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Cheque paid 14AUG01",
+          "reference": "CHQ-14AUG01",
+          "withdrawal": 3291521,
+          "deposit": 0,
+          "balance": 62650935
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-08-06",
+          "valueDate": "2026-08-06",
+          "description": "Cheque paid R14-902",
+          "reference": "CHQ-R14-902",
+          "withdrawal": 270000,
+          "deposit": 0,
+          "balance": 62380935
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-08-10",
+          "valueDate": "2026-08-10",
+          "description": "Cheque paid 14AUG02",
+          "reference": "CHQ-14AUG02",
+          "withdrawal": 1643604,
+          "deposit": 0,
+          "balance": 60737331
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-08-17",
+          "valueDate": "2026-08-17",
+          "description": "Cheque paid 14AUG03",
+          "reference": "CHQ-14AUG03",
+          "withdrawal": 3962400,
+          "deposit": 0,
+          "balance": 56774931
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-08-25",
+          "valueDate": "2026-08-25",
+          "description": "Incoming transfer 14AUG04",
+          "reference": "TRF-14AUG04",
+          "withdrawal": 0,
+          "deposit": 1264371,
+          "balance": 58039302
+         },
+         {
+          "kind": "closing",
+          "balance": 58039302
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 9167525,
+          "deposit": 1264371
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-08-03",
+       "voucher": "PV-14AUG01",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-14AUG01",
+       "receipt": 0,
+       "payment": 3291521
+      },
+      {
+       "date": "2026-08-09",
+       "voucher": "PV-14AUG02",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-14AUG02",
+       "receipt": 0,
+       "payment": 1643604
+      },
+      {
+       "date": "2026-08-16",
+       "voucher": "PV-14AUG03",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-14AUG03",
+       "receipt": 0,
+       "payment": 3962400
+      },
+      {
+       "date": "2026-08-24",
+       "voucher": "RV-14AUG04",
+       "description": "Customer receipt",
+       "reference": "TRF-14AUG04",
+       "receipt": 1264371,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "JUL"
+    ],
+    "decisions": []
+   },
+   "recipe": "July leaves an amount and date suggestion undecided",
+   "intent": {
+    "previous": "ROLL_PREVIOUS_UNDECIDED",
+    "carried": [],
+    "cases": [],
+    "stillCarried": []
+   }
+  },
+  {
+   "id": "R15",
+   "title": "The previous statement has a broken balance chain",
+   "layout": "en",
+   "periods": [
+    {
+     "id": "R15-JUL",
+     "statement": {
+      "account": "SA00 0000 0000 77154417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-07-01",
+       "end": "2026-07-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 59234000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-07-03",
+          "valueDate": "2026-07-03",
+          "description": "Cheque paid 15JUL01",
+          "reference": "CHQ-15JUL01",
+          "withdrawal": 2796403,
+          "deposit": 0,
+          "balance": 56437597
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-07-10",
+          "valueDate": "2026-07-10",
+          "description": "Cheque paid 15JUL02",
+          "reference": "CHQ-15JUL02",
+          "withdrawal": 2713417,
+          "deposit": 0,
+          "balance": 53724180
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-07-17",
+          "valueDate": "2026-07-17",
+          "description": "Incoming transfer 15JUL03",
+          "reference": "TRF-15JUL03",
+          "withdrawal": 0,
+          "deposit": 5152883,
+          "balance": 58878063
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-07-25",
+          "valueDate": "2026-07-25",
+          "description": "Cheque paid 15JUL04",
+          "reference": "CHQ-15JUL04",
+          "withdrawal": 5452404,
+          "deposit": 0,
+          "balance": 53424659
+         },
+         {
+          "kind": "closing",
+          "balance": 53424659
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 10962224,
+          "deposit": 5152883
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-07-02",
+       "voucher": "PV-15JUL01",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-15JUL01",
+       "receipt": 0,
+       "payment": 2796403
+      },
+      {
+       "date": "2026-07-09",
+       "voucher": "PV-15JUL02",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-15JUL02",
+       "receipt": 0,
+       "payment": 2713417
+      },
+      {
+       "date": "2026-07-16",
+       "voucher": "RV-15JUL03",
+       "description": "Customer receipt",
+       "reference": "TRF-15JUL03",
+       "receipt": 5152883,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-25",
+       "voucher": "PV-15JUL04",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-15JUL04",
+       "receipt": 0,
+       "payment": 5452404
+      },
+      {
+       "date": "2026-07-29",
+       "voucher": "PV-R15-93",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-R15-903",
+       "receipt": 0,
+       "payment": 120000
+      }
+     ]
+    },
+    {
+     "id": "R15-AUG",
+     "statement": {
+      "account": "SA00 0000 0000 77154417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-08-01",
+       "end": "2026-08-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 53424659
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Cheque paid 15AUG01",
+          "reference": "CHQ-15AUG01",
+          "withdrawal": 651144,
+          "deposit": 0,
+          "balance": 52773515
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-08-06",
+          "valueDate": "2026-08-06",
+          "description": "Cheque paid R15-903",
+          "reference": "CHQ-R15-903",
+          "withdrawal": 120000,
+          "deposit": 0,
+          "balance": 52653515
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-08-10",
+          "valueDate": "2026-08-10",
+          "description": "Incoming transfer 15AUG02",
+          "reference": "TRF-15AUG02",
+          "withdrawal": 0,
+          "deposit": 2670699,
+          "balance": 55324214
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-08-17",
+          "valueDate": "2026-08-17",
+          "description": "Incoming transfer 15AUG03",
+          "reference": "TRF-15AUG03",
+          "withdrawal": 0,
+          "deposit": 4774052,
+          "balance": 60098266
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-08-25",
+          "valueDate": "2026-08-25",
+          "description": "Incoming transfer 15AUG04",
+          "reference": "TRF-15AUG04",
+          "withdrawal": 0,
+          "deposit": 2290263,
+          "balance": 62388529
+         },
+         {
+          "kind": "closing",
+          "balance": 62388529
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 771144,
+          "deposit": 9735014
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-08-02",
+       "voucher": "PV-15AUG01",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-15AUG01",
+       "receipt": 0,
+       "payment": 651144
+      },
+      {
+       "date": "2026-08-09",
+       "voucher": "RV-15AUG02",
+       "description": "Customer receipt",
+       "reference": "TRF-15AUG02",
+       "receipt": 2670699,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-17",
+       "voucher": "RV-15AUG03",
+       "description": "Customer receipt",
+       "reference": "TRF-15AUG03",
+       "receipt": 4774052,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-25",
+       "voucher": "RV-15AUG04",
+       "description": "Customer receipt",
+       "reference": "TRF-15AUG04",
+       "receipt": 2290263,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "JUL"
+    ],
+    "decisions": []
+   },
+   "recipe": "one July running balance is printed 10.00 off",
+   "intent": {
+    "previous": "ROLL_PREVIOUS_HELD",
+    "carried": [],
+    "cases": [],
+    "stillCarried": []
+   }
+  },
+  {
+   "id": "R16",
+   "title": "The previous session file was altered",
+   "layout": "en",
+   "periods": [
+    {
+     "id": "R16-JUL",
+     "statement": {
+      "account": "SA00 0000 0000 77164417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-07-01",
+       "end": "2026-07-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 65559900
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-07-03",
+          "valueDate": "2026-07-03",
+          "description": "Incoming transfer 16JUL01",
+          "reference": "TRF-16JUL01",
+          "withdrawal": 0,
+          "deposit": 5168477,
+          "balance": 70728377
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-07-10",
+          "valueDate": "2026-07-10",
+          "description": "Incoming transfer 16JUL02",
+          "reference": "TRF-16JUL02",
+          "withdrawal": 0,
+          "deposit": 732847,
+          "balance": 71461224
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-07-17",
+          "valueDate": "2026-07-17",
+          "description": "Cheque paid 16JUL03",
+          "reference": "CHQ-16JUL03",
+          "withdrawal": 2539866,
+          "deposit": 0,
+          "balance": 68921358
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-07-25",
+          "valueDate": "2026-07-25",
+          "description": "Cheque paid 16JUL04",
+          "reference": "CHQ-16JUL04",
+          "withdrawal": 475480,
+          "deposit": 0,
+          "balance": 68445878
+         },
+         {
+          "kind": "closing",
+          "balance": 68445878
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 3015346,
+          "deposit": 5901324
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-07-03",
+       "voucher": "RV-16JUL01",
+       "description": "Customer receipt",
+       "reference": "TRF-16JUL01",
+       "receipt": 5168477,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-09",
+       "voucher": "RV-16JUL02",
+       "description": "Customer receipt",
+       "reference": "TRF-16JUL02",
+       "receipt": 732847,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-17",
+       "voucher": "PV-16JUL03",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-16JUL03",
+       "receipt": 0,
+       "payment": 2539866
+      },
+      {
+       "date": "2026-07-25",
+       "voucher": "PV-16JUL04",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-16JUL04",
+       "receipt": 0,
+       "payment": 475480
+      },
+      {
+       "date": "2026-07-29",
+       "voucher": "PV-R16-94",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-R16-904",
+       "receipt": 0,
+       "payment": 640000
+      }
+     ]
+    },
+    {
+     "id": "R16-AUG",
+     "statement": {
+      "account": "SA00 0000 0000 77164417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-08-01",
+       "end": "2026-08-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 68445878
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Incoming transfer 16AUG01",
+          "reference": "TRF-16AUG01",
+          "withdrawal": 0,
+          "deposit": 360980,
+          "balance": 68806858
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-08-06",
+          "valueDate": "2026-08-06",
+          "description": "Cheque paid R16-904",
+          "reference": "CHQ-R16-904",
+          "withdrawal": 640000,
+          "deposit": 0,
+          "balance": 68166858
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-08-10",
+          "valueDate": "2026-08-10",
+          "description": "Cheque paid 16AUG02",
+          "reference": "CHQ-16AUG02",
+          "withdrawal": 4753780,
+          "deposit": 0,
+          "balance": 63413078
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-08-17",
+          "valueDate": "2026-08-17",
+          "description": "Incoming transfer 16AUG03",
+          "reference": "TRF-16AUG03",
+          "withdrawal": 0,
+          "deposit": 5372678,
+          "balance": 68785756
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-08-25",
+          "valueDate": "2026-08-25",
+          "description": "Incoming transfer 16AUG04",
+          "reference": "TRF-16AUG04",
+          "withdrawal": 0,
+          "deposit": 5701701,
+          "balance": 74487457
+         },
+         {
+          "kind": "closing",
+          "balance": 74487457
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 5393780,
+          "deposit": 11435359
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-08-03",
+       "voucher": "RV-16AUG01",
+       "description": "Customer receipt",
+       "reference": "TRF-16AUG01",
+       "receipt": 360980,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-09",
+       "voucher": "PV-16AUG02",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-16AUG02",
+       "receipt": 0,
+       "payment": 4753780
+      },
+      {
+       "date": "2026-08-16",
+       "voucher": "RV-16AUG03",
+       "description": "Customer receipt",
+       "reference": "TRF-16AUG03",
+       "receipt": 5372678,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-25",
+       "voucher": "RV-16AUG04",
+       "description": "Customer receipt",
+       "reference": "TRF-16AUG04",
+       "receipt": 5701701,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "JUL"
+    ],
+    "decisions": [],
+    "tamper": "cashbook amount 6400.00 changed to 6400.01 inside the session, its recorded fingerprint kept"
+   },
+   "recipe": "the July cashbook inside the session was edited after saving",
+   "intent": {
+    "previous": "ROLL_PREVIOUS_UNREADABLE",
+    "carried": [],
+    "cases": [],
+    "stillCarried": []
+   }
+  },
+  {
+   "id": "R17",
+   "title": "No previous session: the period as today",
+   "layout": "en",
+   "periods": [
+    {
+     "id": "R17-JUL",
+     "statement": {
+      "account": "SA00 0000 0000 77174417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-07-01",
+       "end": "2026-07-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 8646200
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-07-03",
+          "valueDate": "2026-07-03",
+          "description": "Cheque paid 17JUL01",
+          "reference": "CHQ-17JUL01",
+          "withdrawal": 5167108,
+          "deposit": 0,
+          "balance": 3479092
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-07-10",
+          "valueDate": "2026-07-10",
+          "description": "Cheque paid 17JUL02",
+          "reference": "CHQ-17JUL02",
+          "withdrawal": 5092805,
+          "deposit": 0,
+          "balance": -1613713
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-07-17",
+          "valueDate": "2026-07-17",
+          "description": "Incoming transfer 17JUL03",
+          "reference": "TRF-17JUL03",
+          "withdrawal": 0,
+          "deposit": 4824289,
+          "balance": 3210576
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-07-25",
+          "valueDate": "2026-07-25",
+          "description": "Cheque paid 17JUL04",
+          "reference": "CHQ-17JUL04",
+          "withdrawal": 5332089,
+          "deposit": 0,
+          "balance": -2121513
+         },
+         {
+          "kind": "closing",
+          "balance": -2121513
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 15592002,
+          "deposit": 4824289
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-07-02",
+       "voucher": "PV-17JUL01",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-17JUL01",
+       "receipt": 0,
+       "payment": 5167108
+      },
+      {
+       "date": "2026-07-09",
+       "voucher": "PV-17JUL02",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-17JUL02",
+       "receipt": 0,
+       "payment": 5092805
+      },
+      {
+       "date": "2026-07-16",
+       "voucher": "RV-17JUL03",
+       "description": "Customer receipt",
+       "reference": "TRF-17JUL03",
+       "receipt": 4824289,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-24",
+       "voucher": "PV-17JUL04",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-17JUL04",
+       "receipt": 0,
+       "payment": 5332089
+      },
+      {
+       "date": "2026-07-29",
+       "voucher": "PV-R17-95",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-R17-905",
+       "receipt": 0,
+       "payment": 52000
+      }
+     ]
+    },
+    {
+     "id": "R17-AUG",
+     "statement": {
+      "account": "SA00 0000 0000 77174417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-08-01",
+       "end": "2026-08-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": -2121513
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Incoming transfer 17AUG01",
+          "reference": "TRF-17AUG01",
+          "withdrawal": 0,
+          "deposit": 2016757,
+          "balance": -104756
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-08-06",
+          "valueDate": "2026-08-06",
+          "description": "Cheque paid R17-905",
+          "reference": "CHQ-R17-905",
+          "withdrawal": 52000,
+          "deposit": 0,
+          "balance": -156756
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-08-10",
+          "valueDate": "2026-08-10",
+          "description": "Incoming transfer 17AUG02",
+          "reference": "TRF-17AUG02",
+          "withdrawal": 0,
+          "deposit": 1380795,
+          "balance": 1224039
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-08-17",
+          "valueDate": "2026-08-17",
+          "description": "Cheque paid 17AUG03",
+          "reference": "CHQ-17AUG03",
+          "withdrawal": 2979242,
+          "deposit": 0,
+          "balance": -1755203
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-08-25",
+          "valueDate": "2026-08-25",
+          "description": "Incoming transfer 17AUG04",
+          "reference": "TRF-17AUG04",
+          "withdrawal": 0,
+          "deposit": 1161353,
+          "balance": -593850
+         },
+         {
+          "kind": "closing",
+          "balance": -593850
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 3031242,
+          "deposit": 4558905
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-08-02",
+       "voucher": "RV-17AUG01",
+       "description": "Customer receipt",
+       "reference": "TRF-17AUG01",
+       "receipt": 2016757,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-09",
+       "voucher": "RV-17AUG02",
+       "description": "Customer receipt",
+       "reference": "TRF-17AUG02",
+       "receipt": 1380795,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-17",
+       "voucher": "PV-17AUG03",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-17AUG03",
+       "receipt": 0,
+       "payment": 2979242
+      },
+      {
+       "date": "2026-08-24",
+       "voucher": "RV-17AUG04",
+       "description": "Customer receipt",
+       "reference": "TRF-17AUG04",
+       "receipt": 1161353,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": null,
+   "recipe": "August alone; the cheque written in July has no counterpart there",
+   "intent": {
+    "previous": "none",
+    "carried": [],
+    "cases": [],
+    "stillCarried": []
+   }
+  },
+  {
+   "id": "R18",
+   "title": "An accepted case is not carried; an outstanding cheque is",
+   "layout": "en",
+   "periods": [
+    {
+     "id": "R18-JUL",
+     "statement": {
+      "account": "SA00 0000 0000 77184417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-07-01",
+       "end": "2026-07-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 58530100
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-07-03",
+          "valueDate": "2026-07-03",
+          "description": "Incoming transfer 18JUL01",
+          "reference": "TRF-18JUL01",
+          "withdrawal": 0,
+          "deposit": 4391147,
+          "balance": 62921247
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-07-10",
+          "valueDate": "2026-07-10",
+          "description": "Incoming transfer 18JUL02",
+          "reference": "TRF-18JUL02",
+          "withdrawal": 0,
+          "deposit": 4791330,
+          "balance": 67712577
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-07-17",
+          "valueDate": "2026-07-17",
+          "description": "Cheque paid 18JUL03",
+          "reference": "CHQ-18JUL03",
+          "withdrawal": 3100264,
+          "deposit": 0,
+          "balance": 64612313
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-07-22",
+          "valueDate": "2026-07-22",
+          "description": "Incoming transfer",
+          "reference": "TRF-R18-906",
+          "withdrawal": 0,
+          "deposit": 405000,
+          "balance": 65017313
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-07-25",
+          "valueDate": "2026-07-25",
+          "description": "Incoming transfer 18JUL04",
+          "reference": "TRF-18JUL04",
+          "withdrawal": 0,
+          "deposit": 1271370,
+          "balance": 66288683
+         },
+         {
+          "kind": "closing",
+          "balance": 66288683
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 3100264,
+          "deposit": 10858847
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-07-03",
+       "voucher": "RV-18JUL01",
+       "description": "Customer receipt",
+       "reference": "TRF-18JUL01",
+       "receipt": 4391147,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-09",
+       "voucher": "RV-18JUL02",
+       "description": "Customer receipt",
+       "reference": "TRF-18JUL02",
+       "receipt": 4791330,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-15",
+       "voucher": "RV-R18-96",
+       "description": "Customer receipt",
+       "reference": "TRF-R18-906",
+       "receipt": 405000,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-16",
+       "voucher": "PV-18JUL03",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-18JUL03",
+       "receipt": 0,
+       "payment": 3100264
+      },
+      {
+       "date": "2026-07-25",
+       "voucher": "RV-18JUL04",
+       "description": "Customer receipt",
+       "reference": "TRF-18JUL04",
+       "receipt": 1271370,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-30",
+       "voucher": "PV-R18-97",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-R18-907",
+       "receipt": 0,
+       "payment": 98000
+      }
+     ]
+    },
+    {
+     "id": "R18-AUG",
+     "statement": {
+      "account": "SA00 0000 0000 77184417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-08-01",
+       "end": "2026-08-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 66288683
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Cheque paid 18AUG01",
+          "reference": "CHQ-18AUG01",
+          "withdrawal": 2237259,
+          "deposit": 0,
+          "balance": 64051424
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-08-04",
+          "valueDate": "2026-08-04",
+          "description": "Cheque paid R18-907",
+          "reference": "CHQ-R18-907",
+          "withdrawal": 98000,
+          "deposit": 0,
+          "balance": 63953424
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-08-10",
+          "valueDate": "2026-08-10",
+          "description": "Cheque paid 18AUG02",
+          "reference": "CHQ-18AUG02",
+          "withdrawal": 298953,
+          "deposit": 0,
+          "balance": 63654471
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-08-17",
+          "valueDate": "2026-08-17",
+          "description": "Incoming transfer 18AUG03",
+          "reference": "TRF-18AUG03",
+          "withdrawal": 0,
+          "deposit": 3601215,
+          "balance": 67255686
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-08-25",
+          "valueDate": "2026-08-25",
+          "description": "Cheque paid 18AUG04",
+          "reference": "CHQ-18AUG04",
+          "withdrawal": 1697978,
+          "deposit": 0,
+          "balance": 65557708
+         },
+         {
+          "kind": "closing",
+          "balance": 65557708
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 4332190,
+          "deposit": 3601215
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-08-03",
+       "voucher": "PV-18AUG01",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-18AUG01",
+       "receipt": 0,
+       "payment": 2237259
+      },
+      {
+       "date": "2026-08-10",
+       "voucher": "PV-18AUG02",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-18AUG02",
+       "receipt": 0,
+       "payment": 298953
+      },
+      {
+       "date": "2026-08-16",
+       "voucher": "RV-18AUG03",
+       "description": "Customer receipt",
+       "reference": "TRF-18AUG03",
+       "receipt": 3601215,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-24",
+       "voucher": "PV-18AUG04",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-18AUG04",
+       "receipt": 0,
+       "payment": 1697978
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "JUL"
+    ],
+    "decisions": [
+     {
+      "type": "accept",
+      "case": "C5",
+      "statement": [
+       "S4"
+      ],
+      "cashbook": [
+       "RV-R18-96"
+      ],
+      "note": "Receipt booked a week before the bank credit"
+     }
+    ]
+   },
+   "recipe": "July: TRF-R18-906 seven days apart, a date gap the accountant accepts; CHQ-R18-907 outstanding",
+   "intent": {
+    "previous": "accepted",
+    "carried": [
+     "JUL:PV-R18-97"
+    ],
+    "cases": [
+     {
+      "reason": "carried-reference",
+      "carried": [
+       "JUL:PV-R18-97"
+      ],
+      "current": [
+       "AUG:S2"
+      ]
+     }
+    ],
+    "stillCarried": []
+   }
+  },
+  {
+   "id": "R19",
+   "title": "Equal amounts with different references do not pair",
+   "layout": "en",
+   "periods": [
+    {
+     "id": "R19-JUL",
+     "statement": {
+      "account": "SA00 0000 0000 77194417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-07-01",
+       "end": "2026-07-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 8535100
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-07-03",
+          "valueDate": "2026-07-03",
+          "description": "Cheque paid 19JUL01",
+          "reference": "CHQ-19JUL01",
+          "withdrawal": 4594694,
+          "deposit": 0,
+          "balance": 3940406
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-07-10",
+          "valueDate": "2026-07-10",
+          "description": "Cheque paid 19JUL02",
+          "reference": "CHQ-19JUL02",
+          "withdrawal": 4462592,
+          "deposit": 0,
+          "balance": -522186
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-07-17",
+          "valueDate": "2026-07-17",
+          "description": "Incoming transfer 19JUL03",
+          "reference": "TRF-19JUL03",
+          "withdrawal": 0,
+          "deposit": 5495851,
+          "balance": 4973665
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-07-25",
+          "valueDate": "2026-07-25",
+          "description": "Incoming transfer 19JUL04",
+          "reference": "TRF-19JUL04",
+          "withdrawal": 0,
+          "deposit": 5715883,
+          "balance": 10689548
+         },
+         {
+          "kind": "closing",
+          "balance": 10689548
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 9057286,
+          "deposit": 11211734
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-07-02",
+       "voucher": "PV-19JUL01",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-19JUL01",
+       "receipt": 0,
+       "payment": 4594694
+      },
+      {
+       "date": "2026-07-09",
+       "voucher": "PV-19JUL02",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-19JUL02",
+       "receipt": 0,
+       "payment": 4462592
+      },
+      {
+       "date": "2026-07-17",
+       "voucher": "RV-19JUL03",
+       "description": "Customer receipt",
+       "reference": "TRF-19JUL03",
+       "receipt": 5495851,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-24",
+       "voucher": "RV-19JUL04",
+       "description": "Customer receipt",
+       "reference": "TRF-19JUL04",
+       "receipt": 5715883,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-29",
+       "voucher": "PV-R19-98",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-R19-908",
+       "receipt": 0,
+       "payment": 250000
+      }
+     ]
+    },
+    {
+     "id": "R19-AUG",
+     "statement": {
+      "account": "SA00 0000 0000 77194417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-08-01",
+       "end": "2026-08-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 10689548
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Cheque paid 19AUG01",
+          "reference": "CHQ-19AUG01",
+          "withdrawal": 1885474,
+          "deposit": 0,
+          "balance": 8804074
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-08-05",
+          "valueDate": "2026-08-05",
+          "description": "Cheque paid R19-918",
+          "reference": "CHQ-R19-918",
+          "withdrawal": 250000,
+          "deposit": 0,
+          "balance": 8554074
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-08-10",
+          "valueDate": "2026-08-10",
+          "description": "Incoming transfer 19AUG02",
+          "reference": "TRF-19AUG02",
+          "withdrawal": 0,
+          "deposit": 3898634,
+          "balance": 12452708
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-08-17",
+          "valueDate": "2026-08-17",
+          "description": "Cheque paid 19AUG03",
+          "reference": "CHQ-19AUG03",
+          "withdrawal": 2718723,
+          "deposit": 0,
+          "balance": 9733985
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-08-25",
+          "valueDate": "2026-08-25",
+          "description": "Cheque paid 19AUG04",
+          "reference": "CHQ-19AUG04",
+          "withdrawal": 5724526,
+          "deposit": 0,
+          "balance": 4009459
+         },
+         {
+          "kind": "closing",
+          "balance": 4009459
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 10578723,
+          "deposit": 3898634
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-08-02",
+       "voucher": "PV-19AUG01",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-19AUG01",
+       "receipt": 0,
+       "payment": 1885474
+      },
+      {
+       "date": "2026-08-10",
+       "voucher": "RV-19AUG02",
+       "description": "Customer receipt",
+       "reference": "TRF-19AUG02",
+       "receipt": 3898634,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-17",
+       "voucher": "PV-19AUG03",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-19AUG03",
+       "receipt": 0,
+       "payment": 2718723
+      },
+      {
+       "date": "2026-08-25",
+       "voucher": "PV-19AUG04",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-19AUG04",
+       "receipt": 0,
+       "payment": 5724526
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "JUL"
+    ],
+    "decisions": []
+   },
+   "recipe": "CHQ-R19-908 is carried; August presents CHQ-R19-918 for the same amount",
+   "intent": {
+    "previous": "accepted",
+    "carried": [
+     "JUL:PV-R19-98"
+    ],
+    "cases": [],
+    "stillCarried": [
+     {
+      "item": "JUL:PV-R19-98",
+      "age": 2
+     }
+    ]
+   }
+  },
+  {
+   "id": "R20",
+   "title": "An Arabic statement: an outstanding cheque clears",
+   "layout": "ar",
+   "periods": [
+    {
+     "id": "R20-JUL",
+     "statement": {
+      "account": "SA00 0000 0000 77204417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-07-01",
+       "end": "2026-07-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 78443900
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-07-03",
+          "valueDate": "2026-07-03",
+          "description": "Incoming transfer 20JUL01",
+          "reference": "TRF-20JUL01",
+          "withdrawal": 0,
+          "deposit": 3613869,
+          "balance": 82057769
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-07-10",
+          "valueDate": "2026-07-10",
+          "description": "Incoming transfer 20JUL02",
+          "reference": "TRF-20JUL02",
+          "withdrawal": 0,
+          "deposit": 1266938,
+          "balance": 83324707
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-07-17",
+          "valueDate": "2026-07-17",
+          "description": "Cheque paid 20JUL03",
+          "reference": "CHQ-20JUL03",
+          "withdrawal": 5045846,
+          "deposit": 0,
+          "balance": 78278861
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-07-25",
+          "valueDate": "2026-07-25",
+          "description": "Incoming transfer 20JUL04",
+          "reference": "TRF-20JUL04",
+          "withdrawal": 0,
+          "deposit": 4132938,
+          "balance": 82411799
+         },
+         {
+          "kind": "closing",
+          "balance": 82411799
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 5045846,
+          "deposit": 9013745
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-07-03",
+       "voucher": "RV-20JUL01",
+       "description": "Customer receipt",
+       "reference": "TRF-20JUL01",
+       "receipt": 3613869,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-10",
+       "voucher": "RV-20JUL02",
+       "description": "Customer receipt",
+       "reference": "TRF-20JUL02",
+       "receipt": 1266938,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-17",
+       "voucher": "PV-20JUL03",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-20JUL03",
+       "receipt": 0,
+       "payment": 5045846
+      },
+      {
+       "date": "2026-07-25",
+       "voucher": "RV-20JUL04",
+       "description": "Customer receipt",
+       "reference": "TRF-20JUL04",
+       "receipt": 4132938,
+       "payment": 0
+      },
+      {
+       "date": "2026-07-30",
+       "voucher": "PV-R20-99",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-R20-909",
+       "receipt": 0,
+       "payment": 365000
+      }
+     ]
+    },
+    {
+     "id": "R20-AUG",
+     "statement": {
+      "account": "SA00 0000 0000 77204417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-08-01",
+       "end": "2026-08-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 82411799
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Cheque paid 20AUG01",
+          "reference": "CHQ-20AUG01",
+          "withdrawal": 1048873,
+          "deposit": 0,
+          "balance": 81362926
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-08-03",
+          "valueDate": "2026-08-03",
+          "description": "Cheque paid R20-909",
+          "reference": "CHQ-R20-909",
+          "withdrawal": 365000,
+          "deposit": 0,
+          "balance": 80997926
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-08-10",
+          "valueDate": "2026-08-10",
+          "description": "Incoming transfer 20AUG02",
+          "reference": "TRF-20AUG02",
+          "withdrawal": 0,
+          "deposit": 4810094,
+          "balance": 85808020
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-08-17",
+          "valueDate": "2026-08-17",
+          "description": "Incoming transfer 20AUG03",
+          "reference": "TRF-20AUG03",
+          "withdrawal": 0,
+          "deposit": 2498964,
+          "balance": 88306984
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-08-25",
+          "valueDate": "2026-08-25",
+          "description": "Incoming transfer 20AUG04",
+          "reference": "TRF-20AUG04",
+          "withdrawal": 0,
+          "deposit": 2987537,
+          "balance": 91294521
+         },
+         {
+          "kind": "closing",
+          "balance": 91294521
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 1413873,
+          "deposit": 10296595
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-08-02",
+       "voucher": "PV-20AUG01",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-20AUG01",
+       "receipt": 0,
+       "payment": 1048873
+      },
+      {
+       "date": "2026-08-10",
+       "voucher": "RV-20AUG02",
+       "description": "Customer receipt",
+       "reference": "TRF-20AUG02",
+       "receipt": 4810094,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-17",
+       "voucher": "RV-20AUG03",
+       "description": "Customer receipt",
+       "reference": "TRF-20AUG03",
+       "receipt": 2498964,
+       "payment": 0
+      },
+      {
+       "date": "2026-08-25",
+       "voucher": "RV-20AUG04",
+       "description": "Customer receipt",
+       "reference": "TRF-20AUG04",
+       "receipt": 2987537,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "JUL"
+    ],
+    "decisions": []
+   },
+   "recipe": "as R01, both statements printed in Arabic with Arabic-Indic digits",
+   "intent": {
+    "previous": "accepted",
+    "carried": [
+     "JUL:PV-R20-99"
+    ],
+    "cases": [
+     {
+      "reason": "carried-reference",
+      "carried": [
+       "JUL:PV-R20-99"
+      ],
+      "current": [
+       "AUG:S2"
+      ]
+     }
+    ],
+    "stillCarried": []
+   }
+  }
+ ]
+}

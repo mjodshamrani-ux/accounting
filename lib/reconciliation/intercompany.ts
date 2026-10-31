@@ -996,3 +996,5 @@ export function reconcileIntercompany(
     status,
   };
 }
+// The proposed intercompany-batch-1 family reads cells by these same rules.
+export { text as icText, date as icDate, amount as icAmount, sum as icSum };

@@ -1,0 +1,1465 @@
+{
+ "stories": {
+  "T01": {
+   "adjustedBank": 36699405,
+   "adjustedBook": 36699405,
+   "bank": {
+    "balance": 36699405,
+    "page": 1
+   },
+   "book": {
+    "balance": 36699405,
+    "note": "General ledger, cash at bank, period end"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2026-11-30",
+    "start": "2026-11-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "reconciled"
+  },
+  "T02": {
+   "adjustedBank": 65754546,
+   "adjustedBook": 65754546,
+   "bank": {
+    "balance": 64997586,
+    "page": 1
+   },
+   "book": {
+    "balance": 65754546,
+    "note": "General ledger, cash at bank, period end"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2026-11-30",
+    "start": "2026-11-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 518040,
+       "date": "2026-11-27",
+       "direction": "out",
+       "id": "BP-T02-91",
+       "item": "NOV:BP-T02-91",
+       "origin": "unmatched",
+       "page": null,
+       "period": "NOV",
+       "reason": null,
+       "reference": "CHQ-T02-301",
+       "row": 6,
+       "side": "cashbook",
+       "source": "9f751492e1ba6beb88eed292f09d8ce2dc442e0a086114b686194312e4066b0c"
+      }
+     ],
+     "total": 518040
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 1275000,
+       "date": "2026-11-30",
+       "direction": "in",
+       "id": "BR-T02-92",
+       "item": "NOV:BR-T02-92",
+       "origin": "unmatched",
+       "page": null,
+       "period": "NOV",
+       "reason": null,
+       "reference": "DEP-T02-302",
+       "row": 7,
+       "side": "cashbook",
+       "source": "9f751492e1ba6beb88eed292f09d8ce2dc442e0a086114b686194312e4066b0c"
+      }
+     ],
+     "total": 1275000
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": {
+     "date": "2026-12-02",
+     "name": "Prepared by A. Accountant",
+     "valid": true
+    },
+    "reviewed": {
+     "date": "2026-12-03",
+     "name": "Reviewed by R. Reviewer",
+     "valid": true
+    }
+   },
+   "status": "reconciled"
+  },
+  "T03": {
+   "adjustedBank": 7189594,
+   "adjustedBook": 7189594,
+   "bank": {
+    "balance": 7189594,
+    "page": 1
+   },
+   "book": {
+    "balance": 7158159,
+    "note": "General ledger, cash at bank, period end"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2026-11-30",
+    "start": "2026-11-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [
+      {
+       "age": null,
+       "amount": 41210,
+       "date": "2026-11-30",
+       "direction": "in",
+       "id": "S6",
+       "item": "NOV:S6",
+       "origin": "unmatched",
+       "page": 1,
+       "period": "NOV",
+       "reason": null,
+       "reference": "INT-T03-1130",
+       "row": null,
+       "side": "statement",
+       "source": "59263011b80ecb568927b1feec337226a1cf7e8dd933a05d33764f6421b64559"
+      }
+     ],
+     "total": 41210
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [
+      {
+       "age": null,
+       "amount": 9775,
+       "date": "2026-11-29",
+       "direction": "out",
+       "id": "S5",
+       "item": "NOV:S5",
+       "origin": "unmatched",
+       "page": 1,
+       "period": "NOV",
+       "reason": null,
+       "reference": "FEE-T03-1129",
+       "row": null,
+       "side": "statement",
+       "source": "59263011b80ecb568927b1feec337226a1cf7e8dd933a05d33764f6421b64559"
+      }
+     ],
+     "total": 9775
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "reconciled"
+  },
+  "T04": {
+   "adjustedBank": 42949297,
+   "adjustedBook": 42949297,
+   "bank": {
+    "balance": 42381797,
+    "page": 1
+   },
+   "book": {
+    "balance": 42942247,
+    "note": "دفتر الأستاذ، النقد لدى البنك"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "ar",
+   "period": {
+    "end": "2026-11-30",
+    "start": "2026-11-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 312500,
+       "date": "2026-11-29",
+       "direction": "out",
+       "id": "BP-T04-91",
+       "item": "NOV:BP-T04-91",
+       "origin": "unmatched",
+       "page": null,
+       "period": "NOV",
+       "reason": null,
+       "reference": "CHQ-T04-401",
+       "row": 6,
+       "side": "cashbook",
+       "source": "48a20bc92470cf2b96e3af335c6d519234953890b5142d80200b582a745d56aa"
+      }
+     ],
+     "total": 312500
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 880000,
+       "date": "2026-11-30",
+       "direction": "in",
+       "id": "BR-T04-92",
+       "item": "NOV:BR-T04-92",
+       "origin": "unmatched",
+       "page": null,
+       "period": "NOV",
+       "reason": null,
+       "reference": "DEP-T04-402",
+       "row": 7,
+       "side": "cashbook",
+       "source": "48a20bc92470cf2b96e3af335c6d519234953890b5142d80200b582a745d56aa"
+      }
+     ],
+     "total": 880000
+    },
+    "statementDepositsNotInBook": {
+     "items": [
+      {
+       "age": null,
+       "amount": 22050,
+       "date": "2026-11-30",
+       "direction": "in",
+       "id": "S6",
+       "item": "NOV:S6",
+       "origin": "unmatched",
+       "page": 1,
+       "period": "NOV",
+       "reason": null,
+       "reference": "INT-T04-1130",
+       "row": null,
+       "side": "statement",
+       "source": "1c04f987292ceb0a7e979819cc36fb45e505f57712e69bb4147bc2ffda14a192"
+      }
+     ],
+     "total": 22050
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [
+      {
+       "age": null,
+       "amount": 15000,
+       "date": "2026-11-28",
+       "direction": "out",
+       "id": "S5",
+       "item": "NOV:S5",
+       "origin": "unmatched",
+       "page": 1,
+       "period": "NOV",
+       "reason": null,
+       "reference": "FEE-T04-1128",
+       "row": null,
+       "side": "statement",
+       "source": "1c04f987292ceb0a7e979819cc36fb45e505f57712e69bb4147bc2ffda14a192"
+      }
+     ],
+     "total": 15000
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "reconciled"
+  },
+  "T05": {
+   "adjustedBank": 4572994,
+   "adjustedBook": 4662994,
+   "bank": {
+    "balance": 4777494,
+    "page": 1
+   },
+   "book": {
+    "balance": 4662994,
+    "note": "General ledger, cash at bank, period end"
+   },
+   "currency": "SAR",
+   "difference": -90000,
+   "language": "en",
+   "period": {
+    "end": "2026-11-30",
+    "start": "2026-11-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 204500,
+       "date": "2026-11-26",
+       "direction": "out",
+       "id": "BP-T05-91",
+       "item": "NOV:BP-T05-91",
+       "origin": "unmatched",
+       "page": null,
+       "period": "NOV",
+       "reason": null,
+       "reference": "CHQ-T05-501",
+       "row": 6,
+       "side": "cashbook",
+       "source": "2e8b1f67424cdb516d3c15c4a5db0319c0414a75a995796a027172fa8cf12aae"
+      }
+     ],
+     "total": 204500
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "difference"
+  },
+  "T06": {
+   "adjustedBank": 33263095,
+   "adjustedBook": 33188095,
+   "bank": {
+    "balance": 33263095,
+    "page": 1
+   },
+   "book": {
+    "balance": 33188095,
+    "note": "General ledger after a 750.00 accrual paid by cheque"
+   },
+   "currency": "SAR",
+   "difference": 75000,
+   "language": "en",
+   "period": {
+    "end": "2026-11-30",
+    "start": "2026-11-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "difference"
+  },
+  "T07": {
+   "adjustedBank": 30526153,
+   "adjustedBook": 30526153,
+   "bank": {
+    "balance": 30526153,
+    "page": 1
+   },
+   "book": {
+    "balance": 30526153,
+    "note": "General ledger, cash at bank, period end"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2026-11-30",
+    "start": "2026-11-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 50000,
+       "date": "2026-11-30",
+       "direction": "out",
+       "id": "BP-T07-92",
+       "item": "NOV:BP-T07-92",
+       "origin": "unmatched",
+       "page": null,
+       "period": "NOV",
+       "reason": null,
+       "reference": "CHQ-T07-702",
+       "row": 7,
+       "side": "cashbook",
+       "source": "bccd46d42a677253b8ba471576c0d421ec675f086f97ac69440e224c81b6fe63"
+      }
+     ],
+     "total": 50000
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 50000,
+       "date": "2026-11-30",
+       "direction": "in",
+       "id": "BR-T07-91",
+       "item": "NOV:BR-T07-91",
+       "origin": "unmatched",
+       "page": null,
+       "period": "NOV",
+       "reason": null,
+       "reference": "DEP-T07-701",
+       "row": 6,
+       "side": "cashbook",
+       "source": "bccd46d42a677253b8ba471576c0d421ec675f086f97ac69440e224c81b6fe63"
+      }
+     ],
+     "total": 50000
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "reconciled"
+  },
+  "T08": {
+   "adjustedBank": 15084454,
+   "adjustedBook": 15314454,
+   "bank": {
+    "balance": 15314454,
+    "page": 1
+   },
+   "book": {
+    "balance": 15314454,
+    "note": "General ledger before the cheque was posted"
+   },
+   "currency": "SAR",
+   "difference": -230000,
+   "language": "en",
+   "period": {
+    "end": "2026-11-30",
+    "start": "2026-11-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 230000,
+       "date": "2026-11-27",
+       "direction": "out",
+       "id": "BP-T08-91",
+       "item": "NOV:BP-T08-91",
+       "origin": "unmatched",
+       "page": null,
+       "period": "NOV",
+       "reason": null,
+       "reference": "CHQ-T08-801",
+       "row": 6,
+       "side": "cashbook",
+       "source": "05027d8bd5cf417472aa111d9ec6ee3ff2d094e86eb7d40ea1d884f73aba4e4c"
+      }
+     ],
+     "total": 230000
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "difference"
+  },
+  "T09": {
+   "adjustedBank": 17626053,
+   "adjustedBook": 17626052,
+   "bank": {
+    "balance": 17626053,
+    "page": 1
+   },
+   "book": {
+    "balance": 17626052,
+    "note": "General ledger, cash at bank, period end"
+   },
+   "currency": "SAR",
+   "difference": 1,
+   "language": "en",
+   "period": {
+    "end": "2026-11-30",
+    "start": "2026-11-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "difference"
+  },
+  "T10": {
+   "adjustedBank": -4958250,
+   "adjustedBook": -4958250,
+   "bank": {
+    "balance": -4824950,
+    "page": 1
+   },
+   "book": {
+    "balance": -4958250,
+    "note": "General ledger, credit balance"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2026-11-30",
+    "start": "2026-11-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 133300,
+       "date": "2026-11-28",
+       "direction": "out",
+       "id": "BP-T10-91",
+       "item": "NOV:BP-T10-91",
+       "origin": "unmatched",
+       "page": null,
+       "period": "NOV",
+       "reason": null,
+       "reference": "CHQ-T10-901",
+       "row": 4,
+       "side": "cashbook",
+       "source": "94139a31f88ffe7f573f69d9ea210c9c5005bc25a7785f4f58cf788ee9afd23d"
+      }
+     ],
+     "total": 133300
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "reconciled"
+  },
+  "T11": {
+   "adjustedBank": 8938802,
+   "adjustedBook": 8938802,
+   "bank": {
+    "balance": 8293802,
+    "page": 1
+   },
+   "book": {
+    "balance": 8293802,
+    "note": "General ledger, cash at bank, period end"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2026-11-30",
+    "start": "2026-11-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 645000,
+       "date": "2026-11-20",
+       "direction": "in",
+       "id": "BR-T11-91",
+       "item": "NOV:BR-T11-91",
+       "origin": "pending",
+       "page": null,
+       "period": "NOV",
+       "reason": "amount-date-suggestion",
+       "reference": "",
+       "row": 5,
+       "side": "cashbook",
+       "source": "6c44e5ebe2cfada144efef5652021730e12e5fadba4e03b092087fd5724965ee"
+      }
+     ],
+     "total": 645000
+    },
+    "statementDepositsNotInBook": {
+     "items": [
+      {
+       "age": null,
+       "amount": 645000,
+       "date": "2026-11-21",
+       "direction": "in",
+       "id": "S4",
+       "item": "NOV:S4",
+       "origin": "pending",
+       "page": 1,
+       "period": "NOV",
+       "reason": "amount-date-suggestion",
+       "reference": "",
+       "row": null,
+       "side": "statement",
+       "source": "d067fecb2cb61f227d2be84d04756fd6e25128ab07951c29b376fdf48227ba42"
+      }
+     ],
+     "total": 645000
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "draft"
+  },
+  "T12": {
+   "adjustedBank": 69495821,
+   "adjustedBook": 69495821,
+   "bank": {
+    "balance": 69177021,
+    "page": 1
+   },
+   "book": {
+    "balance": 69177021,
+    "note": "General ledger, cash at bank, period end"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2026-11-30",
+    "start": "2026-11-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 318800,
+       "date": "2026-11-20",
+       "direction": "in",
+       "id": "BR-T12-91",
+       "item": "NOV:BR-T12-91",
+       "origin": "rejected",
+       "page": null,
+       "period": "NOV",
+       "reason": "amount-date-suggestion",
+       "reference": "",
+       "row": 5,
+       "side": "cashbook",
+       "source": "62758b54361428ca24afa72d9405d651ef28862e7346ff327af074726962290f"
+      }
+     ],
+     "total": 318800
+    },
+    "statementDepositsNotInBook": {
+     "items": [
+      {
+       "age": null,
+       "amount": 318800,
+       "date": "2026-11-21",
+       "direction": "in",
+       "id": "S4",
+       "item": "NOV:S4",
+       "origin": "rejected",
+       "page": 1,
+       "period": "NOV",
+       "reason": "amount-date-suggestion",
+       "reference": "",
+       "row": null,
+       "side": "statement",
+       "source": "37a89733cd6473b9ebb10f606c1e15c6368845a68254c27251b5533d2fc0f586"
+      }
+     ],
+     "total": 318800
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": {
+     "date": "2026-12-02",
+     "name": "Prepared by A. Accountant",
+     "valid": false
+    },
+    "reviewed": {
+     "date": "2026-12-03",
+     "name": "Reviewed by R. Reviewer",
+     "valid": true
+    }
+   },
+   "status": "reconciled"
+  },
+  "T13": {
+   "adjustedBank": 24776990,
+   "adjustedBook": 24776990,
+   "bank": {
+    "balance": 24776990,
+    "page": 1
+   },
+   "book": {
+    "balance": 24776990,
+    "note": "General ledger, cash at bank, period end"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2026-11-30",
+    "start": "2026-11-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "reconciled"
+  },
+  "T14": {
+   "adjustedBank": 65796994,
+   "adjustedBook": 65796994,
+   "bank": {
+    "balance": 65917494,
+    "page": 1
+   },
+   "book": {
+    "balance": 65921994,
+    "note": "General ledger, cash at bank, period end"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2026-11-30",
+    "start": "2026-11-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": null,
+       "amount": 120500,
+       "date": "2026-11-14",
+       "direction": "out",
+       "id": "BP-T14-91",
+       "item": "NOV:BP-T14-91",
+       "origin": "rejected",
+       "page": null,
+       "period": "NOV",
+       "reason": "amount-difference",
+       "reference": "CHQ-T14-140",
+       "row": 4,
+       "side": "cashbook",
+       "source": "5f37f161c616cdaed7613a420a11ea79200cb756ee34e39bef2ee352f8cac5f6"
+      }
+     ],
+     "total": 120500
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [
+      {
+       "age": null,
+       "amount": 125000,
+       "date": "2026-11-15",
+       "direction": "out",
+       "id": "S3",
+       "item": "NOV:S3",
+       "origin": "rejected",
+       "page": 1,
+       "period": "NOV",
+       "reason": "amount-difference",
+       "reference": "CHQ-T14-140",
+       "row": null,
+       "side": "statement",
+       "source": "0ff5c997e10c3d59e1ec90cf067b382e65355d0678b0edd74e6428fe6a873bf7"
+      }
+     ],
+     "total": 125000
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "reconciled"
+  },
+  "T15": {
+   "adjustedBank": 41682373,
+   "adjustedBook": 41682373,
+   "bank": {
+    "balance": 41682373,
+    "page": 1
+   },
+   "book": {
+    "balance": 41682373,
+    "note": "General ledger, cash at bank, period end"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2026-11-30",
+    "start": "2026-11-01"
+   },
+   "previous": "accepted",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "reconciled"
+  },
+  "T16": {
+   "adjustedBank": 53960187,
+   "adjustedBook": 53960187,
+   "bank": {
+    "balance": 54231187,
+    "page": 1
+   },
+   "book": {
+    "balance": 53960187,
+    "note": "General ledger, cash at bank, period end"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "ar",
+   "period": {
+    "end": "2026-11-30",
+    "start": "2026-11-01"
+   },
+   "previous": "accepted",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": 2,
+       "amount": 271000,
+       "date": "2026-10-30",
+       "direction": "out",
+       "id": "BP-T16-91",
+       "item": "OCT:BP-T16-91",
+       "origin": "carried",
+       "page": null,
+       "period": "OCT",
+       "reason": null,
+       "reference": "CHQ-T16-160",
+       "row": 6,
+       "side": "cashbook",
+       "source": "3fcf02e2d034865906378fe1b53d32441428aaa6b37f1efc6ad197badcb27b28"
+      }
+     ],
+     "total": 271000
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "reconciled"
+  },
+  "T17": {
+   "adjustedBank": 50942810,
+   "adjustedBook": 50942810,
+   "bank": {
+    "balance": 51038810,
+    "page": 1
+   },
+   "book": {
+    "balance": 51038810,
+    "note": "General ledger, cash at bank, period end"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2026-11-30",
+    "start": "2026-11-01"
+   },
+   "previous": "accepted",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": 2,
+       "amount": 96000,
+       "date": "2026-10-28",
+       "direction": "out",
+       "id": "BP-T17-91",
+       "item": "OCT:BP-T17-91",
+       "origin": "pending",
+       "page": null,
+       "period": "OCT",
+       "reason": "carried-reference",
+       "reference": "CHQ-T17-170",
+       "row": 6,
+       "side": "cashbook",
+       "source": "62939e7da4afe692e65b4b222bb8dd890e7dfa27eca3344266ee0c8d33a3517d"
+      }
+     ],
+     "total": 96000
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [
+      {
+       "age": null,
+       "amount": 96000,
+       "date": "2026-11-03",
+       "direction": "out",
+       "id": "S1",
+       "item": "NOV:S1",
+       "origin": "pending",
+       "page": 1,
+       "period": "NOV",
+       "reason": "carried-reference",
+       "reference": "CHQ-T17-170",
+       "row": null,
+       "side": "statement",
+       "source": "0a7c28ca4f2fd94d3faadfabab3321f1596b840bb6e19496d21da30c4aa34b27"
+      }
+     ],
+     "total": 96000
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "draft"
+  },
+  "T18": {
+   "adjustedBank": 33773084,
+   "adjustedBook": 33773084,
+   "bank": {
+    "balance": 34121184,
+    "page": 1
+   },
+   "book": {
+    "balance": 34114884,
+    "note": "General ledger, cash at bank, period end"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2026-11-30",
+    "start": "2026-11-01"
+   },
+   "previous": "accepted",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": 2,
+       "amount": 348100,
+       "date": "2026-10-29",
+       "direction": "out",
+       "id": "BP-T18-91",
+       "item": "OCT:BP-T18-91",
+       "origin": "rejected",
+       "page": null,
+       "period": "OCT",
+       "reason": "carried-amount-difference",
+       "reference": "CHQ-T18-180",
+       "row": 6,
+       "side": "cashbook",
+       "source": "87965e720ce4ceab9267e581eca0ee23ac5a05fb6f17b6e00536d371ba7ff58b"
+      }
+     ],
+     "total": 348100
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [
+      {
+       "age": null,
+       "amount": 341800,
+       "date": "2026-11-05",
+       "direction": "out",
+       "id": "S2",
+       "item": "NOV:S2",
+       "origin": "rejected",
+       "page": 1,
+       "period": "NOV",
+       "reason": "carried-amount-difference",
+       "reference": "CHQ-T18-180",
+       "row": null,
+       "side": "statement",
+       "source": "3faacd87143bb83b33c45a0c0f593812e6b4d2582037f05a89738c596a3b6464"
+      }
+     ],
+     "total": 341800
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "reconciled"
+  },
+  "T19": {
+   "adjustedBank": 54582301,
+   "adjustedBook": 54582301,
+   "bank": {
+    "balance": 54897301,
+    "page": 1
+   },
+   "book": {
+    "balance": 54739801,
+    "note": "General ledger, cash at bank, period end"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2026-11-30",
+    "start": "2026-11-01"
+   },
+   "previous": "accepted",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": 2,
+       "amount": 157500,
+       "date": "2026-10-30",
+       "direction": "out",
+       "id": "BP-T19-91",
+       "item": "OCT:BP-T19-91",
+       "origin": "rejected",
+       "page": null,
+       "period": "OCT",
+       "reason": "carried-restated",
+       "reference": "CHQ-T19-190",
+       "row": 6,
+       "side": "cashbook",
+       "source": "7449158a972b900334ffebe693f7d9ec5f697c03b84cf3ba2b1e191539dd1a71"
+      },
+      {
+       "age": null,
+       "amount": 157500,
+       "date": "2026-11-02",
+       "direction": "out",
+       "id": "BP-T19-92",
+       "item": "NOV:BP-T19-92",
+       "origin": "rejected",
+       "page": null,
+       "period": "NOV",
+       "reason": "carried-restated",
+       "reference": "CHQ-T19-190",
+       "row": 2,
+       "side": "cashbook",
+       "source": "9c4fee8c73c18f80b2b40e41a60d91f80bc5852d9815b2d274144eb49c042085"
+      }
+     ],
+     "total": 315000
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [
+      {
+       "age": null,
+       "amount": 157500,
+       "date": "2026-11-06",
+       "direction": "out",
+       "id": "S2",
+       "item": "NOV:S2",
+       "origin": "rejected",
+       "page": 1,
+       "period": "NOV",
+       "reason": "carried-restated",
+       "reference": "CHQ-T19-190",
+       "row": null,
+       "side": "statement",
+       "source": "4265c58288d1c5a26f4cb218cef8e45fd12a58a2bae5031fa4f3dd4667fa9632"
+      }
+     ],
+     "total": 157500
+    }
+   },
+   "signoffs": {
+    "prepared": null,
+    "reviewed": null
+   },
+   "status": "reconciled"
+  },
+  "T20": {
+   "previous": "ROLL_CURRENCY",
+   "refusal": "SHEET_PREVIOUS_REFUSED"
+  },
+  "T21": {
+   "previous": "none",
+   "refusal": "SHEET_STATEMENT_HELD"
+  },
+  "T22": {
+   "previous": "none",
+   "refusal": "SHEET_NO_BOOK_BALANCE"
+  },
+  "T23": {
+   "adjustedBank": 47405247,
+   "adjustedBook": 47405247,
+   "bank": {
+    "balance": 48515247,
+    "page": 1
+   },
+   "book": {
+    "balance": 47405247,
+    "note": "General ledger, cash at bank, period end"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2026-12-31",
+    "start": "2026-12-01"
+   },
+   "previous": "accepted",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [
+      {
+       "age": 3,
+       "amount": 1110000,
+       "date": "2026-10-30",
+       "direction": "out",
+       "id": "BP-T23-91",
+       "item": "OCT:BP-T23-91",
+       "origin": "carried",
+       "page": null,
+       "period": "OCT",
+       "reason": null,
+       "reference": "CHQ-T23-230",
+       "row": 6,
+       "side": "cashbook",
+       "source": "87604d7fd5649ab213fcd3fbf8a9e235957bd039f6d64305f8551909a36c68b1"
+      }
+     ],
+     "total": 1110000
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [],
+     "total": 0
+    }
+   },
+   "signoffs": {
+    "prepared": {
+     "date": "2026-12-02",
+     "name": "Prepared by A. Accountant",
+     "valid": true
+    },
+    "reviewed": {
+     "date": "2026-12-03",
+     "name": "Reviewed by R. Reviewer",
+     "valid": true
+    }
+   },
+   "status": "reconciled"
+  },
+  "T24": {
+   "adjustedBank": 39846872,
+   "adjustedBook": 39846872,
+   "bank": {
+    "balance": 39846872,
+    "page": 1
+   },
+   "book": {
+    "balance": 39852622,
+    "note": "General ledger after correcting a posting"
+   },
+   "currency": "SAR",
+   "difference": 0,
+   "language": "en",
+   "period": {
+    "end": "2026-11-30",
+    "start": "2026-11-01"
+   },
+   "previous": "none",
+   "refusal": null,
+   "sections": {
+    "bookPaymentsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "bookReceiptsNotOnStatement": {
+     "items": [],
+     "total": 0
+    },
+    "statementDepositsNotInBook": {
+     "items": [],
+     "total": 0
+    },
+    "statementWithdrawalsNotInBook": {
+     "items": [
+      {
+       "age": null,
+       "amount": 5750,
+       "date": "2026-11-30",
+       "direction": "out",
+       "id": "S5",
+       "item": "NOV:S5",
+       "origin": "unmatched",
+       "page": 1,
+       "period": "NOV",
+       "reason": null,
+       "reference": "FEE-T24-1130",
+       "row": null,
+       "side": "statement",
+       "source": "bf75d83cbba199b1536d24d5e7b83d50f6fe7d3ac5173957eb78340ab31dcb95"
+      }
+     ],
+     "total": 5750
+    }
+   },
+   "signoffs": {
+    "prepared": {
+     "date": "2026-12-02",
+     "name": "Prepared by A. Accountant",
+     "valid": false
+    },
+    "reviewed": {
+     "date": "2026-12-03",
+     "name": "Reviewed by R. Reviewer",
+     "valid": false
+    }
+   },
+   "status": "reconciled"
+  }
+ },
+ "version": "bank-sheet-foundation-oracle-1"
+}

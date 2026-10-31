@@ -31,6 +31,7 @@ import {
   glVerticalDemoReadings,
   glTbDemo,
 } from '@/lib/reconciliation/gl-tb-demo';
+import { GlTbSectionsPanel } from '@/components/gl-tb-sections-panel';
 import './gl-tb-workspace.css';
 const freshScope = (): GlTbScope => ({
   ...glDemoScope,
@@ -624,6 +625,7 @@ export function GlTbWorkspace({
           </div>
         </section>
       )}
+      <GlTbSectionsPanel />
     </main>
   );
 }

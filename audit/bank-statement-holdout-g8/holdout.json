@@ -1,0 +1,53 @@
+{
+  "schema": "tarasuf-bnk-pdf1-holdout/1",
+  "status": "frozen synthetic holdout for BNK-PDF-1 G8; sealed and committed before the product was run on any of its files",
+  "synthetic": true,
+  "holdout": true,
+  "contract": "audit/bank-statement-foundation/contract.json",
+  "question": "After the G6 and G7 reader fixes, which were made after seeing the G6 holdout, does bank-statement-native-1 read and reconcile statements from two further PDF writers it has never read, telling new stories within the same contract, with every eligible positive completed and no false automatic approval?",
+  "changed": {
+    "producers": [
+      "Typst 0.15.0: a typesetting system with its own layout engine, shaping and PDF writer; the table's column widths are decided page by page, long descriptions wrap where Typst breaks them, and a right-to-left table is laid out from the right by Typst itself",
+      "fpdf2 2.8.9: a Python library in the FPDF lineage that places each cell itself; the standard Times and Courier fonts not embedded (Latin-1 only), or an embedded TrueType subset; Arabic shaped by HarfBuzz (uharfbuzz 0.56.4) and ordered by fpdf2's own bidirectional algorithm"
+    ],
+    "fonts": ["DejaVu Serif", "Inter (OpenType CFF)", "DejaVu Sans Mono", "Amiri (Arabic, from @fontsource/amiri 5.3.0)", "DejaVu Sans (Arabic)", "FreeSans", "Times (standard, not embedded)", "Caladea (embedded TrueType)", "Courier (standard, not embedded)", "Carlito (embedded TrueType)"],
+    "geometry": ["US Letter portrait", "A4 portrait", "A4 landscape", "a heading band in white on dark blue", "centred headings", "headings over the amounts aligned to their end", "the Value Date heading on two lines", "a full grid", "a grey heading row", "striped rows", "monospaced type", "amounts aligned to either edge of a right-to-left table"],
+    "periods": ["2026-12-15..2027-01-14", "2026-06-01..2026-06-30", "2026-01-01..2026-03-31", "2026-11-16..2026-12-15", "2026-05-01..2026-05-31", "2026-10-16..2026-10-31", "2026-04-01..2026-04-30", "2026-02-01..2026-02-28", "2026-03-01..2026-03-15", "2026-06-15..2026-07-14", "2027-01-01..2027-01-31", "2026-09-16..2026-10-15"],
+    "furniture": "bank names, document titles and accounts other than the foundation's and G6's; in the two statements printed with a standard Latin-1 font the period range reads `to` instead of a dash the font cannot encode",
+    "references": "references with slashes (TRF/26/040100, PAY/0414/A), with two inner spaces (POS 4532 0918), SADAD references with an inner space, MT103 and MT910 styles, a cashbook reference with surrounding spaces",
+    "relationships": "references three days apart (matched) and four days apart (date gap), two transfers whose sum is one cashbook payment, equal amounts three days apart without references (suggestion) and four days apart (both outstanding), a reference printed on the statement only, one transfer booked as two payments under its reference, four equal settlements chained by dates into one group, references crossed between two transfers of one day, a deposit and a payment of the same amount and day, a payment booked with two digits transposed, a transfer returned by the bank under its reference, a service fee, an unpresented cheque, a deposit in transit, value dates before and after the period, a balance that falls to exactly 0.00, overdrafts that recover, deposits above one billion riyals and a zero total of withdrawals",
+    "text": "descriptions that wrap over two or three lines with dates and amounts inside them, a description continuing at the top of page 13 of 42, an Arabic description continuing at the top of page 3, Arabic descriptions on two lines",
+    "faults": "the last page (4 of 4) missing, pages printed in the order 1, 3, 2, an overdrawn balance printed without its DR suffix",
+    "cashbookXlsx": "K02 as a typed XLSX from XlsxWriter (dates and amounts as numbers) and K08 as a text XLSX from openpyxl; every cashbook also as CSV"
+  },
+  "heldConstant": [
+    "the contract's column headings, control-line labels and Page n of N footer, in English and Arabic",
+    "the account/currency/period line as one line",
+    "dates as yyyy-mm-dd, SAR with two decimals, thousands separators, the DR suffix for an overdrawn balance",
+    "a real text layer; no scanned page"
+  ],
+  "independence": {
+    "author": "The same assistant wrote the product, the foundation, the oracle, the G6 holdout, the G6 and G7 fixes and this holdout, and knew the reader's rules when designing the stories. The variations are geometry, text and relationships the contract leaves open, chosen as what statements show; none was chosen to pass or to fail a rule. This is not a blind holdout: the stories and the writers are new to the product, the author is not.",
+    "oracle": "audit/bank-statement-foundation/oracle.py, unchanged: it reads the printed lines in the facts, the cashbook CSV and the contract, never recipe or intent, and imports nothing from the generator or the product. expected.py only runs it story by story with each story's own period.",
+    "verifier": "pdfminer.six, a PDF reader unrelated to the product's pdf.js, finds every printed line of the facts on its own row with all its values, and every English description's words in order across the rows it wraps over (verify.py, with its own self-test of 22 planted changes).",
+    "generator": "stories.py is a third lineage: a ledger of economic events with a Lehmer generator; nothing is imported from the foundation's stories.mjs or from the G6 holdout.",
+    "drafts": "While the stories and writers were drafted, their PDFs were read only with pdfminer.six, Poppler's pdftotext and MuPDF, never with the product's reader.",
+    "notTuned": "The product was not run on these files, and no product code changed, between the start of G8 and the seal."
+  },
+  "eligibility": {
+    "decided": "before any product run",
+    "positives": ["K01", "K02", "K03", "K04", "K05", "K07", "K08", "K10", "K11"],
+    "held": {"K06": "incomplete-pages", "K09": "balance-broken", "K12": "incomplete-pages"},
+    "cashbookFormats": {"K02": "typed XLSX (XlsxWriter)", "K08": "text XLSX (openpyxl)"},
+    "why": "Every statement stays inside the contract: its headings, labels, footer, line kinds, number and date formats and matching policy. The writer, font, table style, geometry, period, furniture and story are what the contract leaves open."
+  },
+  "measures": {
+    "reading": "Every printed line read from the PDF equals the facts: kind, page, dates, reference, amounts, balances; descriptions and continuation text after NFKC and whitespace normalisation.",
+    "result": "The matching result, in the facts' keys, equals EXPECTED.json: automatic pairs, review groups with their reasons, both outstanding sides, timing, and held statements with their counts.",
+    "capacity": "Eligible positives whose result equals EXPECTED.json from upload through matching, save, restore and Excel in the browser.",
+    "falseAutomatic": "Automatic pairs that EXPECTED.json does not hold, over all twelve statements. Must be zero.",
+    "held": "A held statement is held whole, with the oracle's status, and nothing in it approved, suggested or called outstanding.",
+    "refusal": "A positive the product refuses, or holds without the oracle holding it, is a failed positive, never a correct abstention."
+  },
+  "afterRun": "Results are recorded as they come, with the commit they ran on. A fix made after seeing them turns this set into regression for that fix; a new claim of generalisation needs a new holdout."
+}

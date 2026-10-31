@@ -1,0 +1,705 @@
+{
+ "schema": "tarasuf-bnk-pdf1-cashbook-check/1",
+ "question": "Does the pre-seal check read each cashbook as the product reads it?",
+ "sealed": [
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS01-cashbook.xlsx",
+   "product": "read",
+   "check": "read",
+   "entries": 10,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P04-cashbook.xlsx",
+   "product": "read",
+   "check": "read",
+   "entries": 30,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal",
+    "typedAmounts": 30,
+    "typedDates": 30
+   },
+   "notes": {}
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P08-cashbook.xlsx",
+   "product": "read",
+   "check": "read",
+   "entries": 26,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q03-cashbook.xlsx",
+   "product": "read",
+   "check": "read",
+   "entries": 34,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal",
+    "typedAmounts": 34,
+    "typedDates": 34
+   },
+   "notes": {}
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q09-cashbook.xlsx",
+   "product": "read",
+   "check": "read",
+   "entries": 26,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R03-cashbook.xlsx",
+   "product": "read",
+   "check": "read",
+   "entries": 24,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal",
+    "typedAmounts": 24,
+    "typedDates": 24,
+    "precisionNotes": 8
+   },
+   "notes": {}
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R07-cashbook.xlsx",
+   "product": "read",
+   "check": "read",
+   "entries": 22,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T03-cashbook.xlsx",
+   "product": "read",
+   "check": "read",
+   "entries": 27,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "left out",
+    "typedAmounts": 27,
+    "typedDates": 27
+   },
+   "notes": {}
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T10-cashbook.xlsx",
+   "product": "read",
+   "check": "read",
+   "entries": 25,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "left out"
+   },
+   "notes": {}
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H01-cashbook.xlsx",
+   "product": "read",
+   "check": "read",
+   "entries": 14,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal",
+    "typedAmounts": 14,
+    "typedDates": 14
+   },
+   "notes": {}
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H07-cashbook.xlsx",
+   "product": "read",
+   "check": "read",
+   "entries": 16,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K02-cashbook.xlsx",
+   "product": "read",
+   "check": "read",
+   "entries": 17,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal",
+    "typedAmounts": 17,
+    "typedDates": 17
+   },
+   "notes": {}
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K08-cashbook.xlsx",
+   "product": "read",
+   "check": "read",
+   "entries": 15,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N02-cashbook.xlsx",
+   "product": "read",
+   "check": "read",
+   "entries": 25,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal",
+    "typedAmounts": 25,
+    "typedDates": 25
+   },
+   "notes": {}
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N10-cashbook.xlsx",
+   "product": "read",
+   "check": "read",
+   "entries": 33,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal",
+    "typedAmounts": 33,
+    "typedDates": 33
+   },
+   "notes": {}
+  }
+ ],
+ "planted": [
+  {
+   "case": "ok-plain",
+   "product": "read",
+   "check": "read",
+   "entries": 3,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "ok-typed-0.00",
+   "product": "read",
+   "check": "read",
+   "entries": 3,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal",
+    "typedAmounts": 3
+   },
+   "notes": {}
+  },
+  {
+   "case": "ok-typed-thousands",
+   "product": "read",
+   "check": "read",
+   "entries": 3,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal",
+    "typedAmounts": 3
+   },
+   "notes": {}
+  },
+  {
+   "case": "ok-typed-dates",
+   "product": "read",
+   "check": "read",
+   "entries": 3,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal",
+    "typedDates": 3
+   },
+   "notes": {}
+  },
+  {
+   "case": "ok-builtin-date-14",
+   "product": "read",
+   "check": "read",
+   "entries": 3,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal",
+    "typedDates": 1
+   },
+   "notes": {}
+  },
+  {
+   "case": "ok-amount-lexeme",
+   "product": "read",
+   "check": "read",
+   "entries": 3,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal",
+    "typedAmounts": 1,
+    "precisionNotes": 1
+   },
+   "notes": {}
+  },
+  {
+   "case": "ok-core-default-namespace",
+   "product": "read",
+   "check": "read",
+   "entries": 3,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "left out"
+   },
+   "notes": {}
+  },
+  {
+   "case": "ok-hidden-row",
+   "product": "read",
+   "check": "read",
+   "entries": 3,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {
+    "hiddenRows": [
+     3
+    ]
+   }
+  },
+  {
+   "case": "ok-padded-reference",
+   "product": "read",
+   "check": "read",
+   "entries": 3,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "ok-theme-dark-font",
+   "product": "read",
+   "check": "read",
+   "entries": 3,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "ok-light-fill",
+   "product": "read",
+   "check": "read",
+   "entries": 3,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "ok-date-with-time",
+   "product": "read",
+   "check": "read",
+   "entries": 3,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal",
+    "typedDates": 1
+   },
+   "notes": {}
+  },
+  {
+   "case": "ok-boolean-description",
+   "product": "read",
+   "check": "read",
+   "entries": 3,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "cell-white-font",
+   "product": "CELL row 3",
+   "check": "CELL row 3",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "cell-gray-on-gray",
+   "product": "CELL row 2",
+   "check": "CELL row 2",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "cell-hidden-column",
+   "product": "CELL row 1",
+   "check": "CELL row 1",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "cell-zero-width",
+   "product": "CELL row 1",
+   "check": "CELL row 1",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "cell-formula",
+   "product": "CELL row 2",
+   "check": "CELL row 2",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "cell-error",
+   "product": "CELL row 3",
+   "check": "CELL row 3",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "cell-merge",
+   "product": "CELL row 2",
+   "check": "CELL row 2",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "cell-voucher-1e19",
+   "product": "CELL row 3",
+   "check": "CELL row 3",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "cell-reference-format",
+   "product": "CELL row 3",
+   "check": "CELL row 3",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "cell-reference-lexeme",
+   "product": "CELL row 2",
+   "check": "CELL row 2",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "cell-sign-hidden",
+   "product": "CELL row 3",
+   "check": "CELL row 3",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "cell-text-format",
+   "product": "CELL row 2",
+   "check": "CELL row 2",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "cell-rich-white-run",
+   "product": "CELL row 2",
+   "check": "CELL row 2",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "cell-zero-hidden",
+   "product": "CELL row 2",
+   "check": "CELL row 2",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "ok-zero-dash",
+   "product": "read",
+   "check": "read",
+   "entries": 3,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal",
+    "typedAmounts": 6
+   },
+   "notes": {}
+  },
+  {
+   "case": "cell-zero-empty-section",
+   "product": "CELL row 2",
+   "check": "CELL row 2",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "sheet-hidden",
+   "product": "SHEET row 1",
+   "check": "SHEET row 1",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "header-two-sheets",
+   "product": "HEADER row 1",
+   "check": "HEADER row 1",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "header-extra-column",
+   "product": "HEADER row 1",
+   "check": "HEADER row 1",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "header-typo",
+   "product": "HEADER row 1",
+   "check": "HEADER row 1",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "header-styled-empty-g",
+   "product": "HEADER row 1",
+   "check": "HEADER row 1",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "row-empty",
+   "product": "ROW row 3",
+   "check": "ROW row 3",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "voucher-repeated",
+   "product": "VOUCHER row 4",
+   "check": "VOUCHER row 4",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "date-invalid",
+   "product": "DATE row 3",
+   "check": "DATE row 3",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "amount-both",
+   "product": "AMOUNT row 2",
+   "check": "AMOUNT row 2",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "amount-three-decimals",
+   "product": "AMOUNT row 2",
+   "check": "AMOUNT row 2",
+   "entries": 0,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "xlsx-core-unknown-default",
+   "product": "XLSX row 0",
+   "check": "XLSX row 0",
+   "entries": 0,
+   "agree": true,
+   "exercised": {},
+   "notes": {}
+  },
+  {
+   "case": "xlsx-core-unknown-literal",
+   "product": "XLSX row 0",
+   "check": "XLSX row 0",
+   "entries": 0,
+   "agree": true,
+   "exercised": {},
+   "notes": {}
+  },
+  {
+   "case": "ok-core-unclosed",
+   "product": "read",
+   "check": "read",
+   "entries": 3,
+   "agree": true,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  },
+  {
+   "case": "xlsx-doctype",
+   "product": "XLSX row 0",
+   "check": "XLSX row 0",
+   "entries": 0,
+   "agree": true,
+   "exercised": {},
+   "notes": {}
+  },
+  {
+   "case": "limit-conditional-format",
+   "product": "read",
+   "check": "CELL row 1",
+   "entries": 3,
+   "agree": false,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  }
+ ],
+ "retro": {
+  "beforeG8": [
+   "P04 AMOUNT row 2: payments '9000'",
+   "Q03 AMOUNT row 2: receipts '11600'",
+   "R03 AMOUNT row 2: receipts '5200'",
+   "T03 AMOUNT row 9: payments '33667.2'",
+   "K02 AMOUNT row 6: payments '366445'",
+   "N02 AMOUNT row 2: payments '12732'",
+   "N10 AMOUNT row 2: payments '14267'"
+  ],
+  "beforeG15": [
+   "T03 XLSX row 0: core properties ExcelJS does not read: coreProperties, lastModifiedBy",
+   "T10 XLSX row 0: core properties ExcelJS does not read: coreProperties, lastModifiedBy"
+  ]
+ },
+ "declaredDifferences": [
+  "limit-conditional-format: the check refuses any conditional format; the product reads one that keeps the cell readable"
+ ],
+ "summary": {
+  "sealed": "15/15",
+  "planted": "43/44",
+  "disagreements": [
+   "limit-conditional-format"
+  ]
+ }
+}

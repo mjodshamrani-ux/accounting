@@ -1,0 +1,2135 @@
+{
+ "schema": "tarasuf-pg1-batches-expected/1",
+ "review": "payment-gateway-batches-1",
+ "stories": {
+  "F01": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2,
+      3
+     ],
+     "refunds": [
+      4
+     ],
+     "fees": [
+      2
+     ],
+     "components": {
+      "sales": 150000,
+      "refunds": 10000,
+      "fees": 4200
+     },
+     "settlement": {
+      "gross": 150000,
+      "refunds": 10000,
+      "fees": 4200,
+      "net": 135800
+     },
+     "paid": 135800,
+     "payouts": [
+      "P1"
+     ],
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 135800,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 135800
+     },
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "35795f169bb8ed942ca6714b634575c1730e99d3541eb02a7cdbed6f263a03c0",
+    "3715574fc78023a4312f99fb8beba97378f30de3c0416b0b3dcc94c1e580ce61",
+    "c0b149411fabdbef3a07c3424f33cf8b3f620baf5926977a12f0f18bc013197d",
+    "650e5232ca0335d21adf2140cbcef4ea0084f87477fd5425419b140d330b7fb0",
+    "c2bcfcb2cb01dfc7f62c147f70838e9627b8ec44f26b7253b271b0bf5940e1c0"
+   ]
+  },
+  "F02": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2
+     ],
+     "refunds": [],
+     "fees": [
+      2
+     ],
+     "components": {
+      "sales": 300000,
+      "refunds": 0,
+      "fees": 6000
+     },
+     "settlement": {
+      "gross": 300000,
+      "refunds": 0,
+      "fees": 6000,
+      "net": 294000
+     },
+     "paid": 294000,
+     "payouts": [
+      "P1",
+      "P2"
+     ],
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 200000,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-18",
+      "amount": 200000
+     },
+     "status": "consistent",
+     "reasons": []
+    },
+    {
+     "payout": "P2",
+     "lines": [
+      3
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 94000,
+     "credit": {
+      "row": 3,
+      "valueDate": "2026-09-25",
+      "amount": 94000
+     },
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "870aac1522f35a1d5b5066dcedeb309b82540fcebfdade7fad956c51b8dfedea",
+    "058c0c3dac0b8236dee7d518b3e3ebacf7da889fc98e60ac4a379a140a3e97cb",
+    "de34f19d25aaff9bdfd74d029e97e071b96766d3fbd5ccb61a5f0d9f7d354482",
+    "f1e72c353661f3df11989274729b0ba476d7f9648d49d4677c3bfcf5ed5a29d6",
+    "4e9713dde83ff01799f71ba576571db9e06c4beb0452e5632d103ebea7cc82fb"
+   ]
+  },
+  "F03": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2
+     ],
+     "refunds": [],
+     "fees": [
+      2
+     ],
+     "components": {
+      "sales": 100000,
+      "refunds": 0,
+      "fees": 2000
+     },
+     "settlement": {
+      "gross": 100000,
+      "refunds": 0,
+      "fees": 2000,
+      "net": 98000
+     },
+     "paid": 98000,
+     "payouts": [
+      "P1"
+     ],
+     "status": "consistent",
+     "reasons": []
+    },
+    {
+     "row": 3,
+     "batch": "B2",
+     "sales": [
+      3
+     ],
+     "refunds": [],
+     "fees": [
+      3
+     ],
+     "components": {
+      "sales": 80000,
+      "refunds": 0,
+      "fees": 1600
+     },
+     "settlement": {
+      "gross": 80000,
+      "refunds": 0,
+      "fees": 1600,
+      "net": 78400
+     },
+     "paid": 78400,
+     "payouts": [
+      "P1"
+     ],
+     "status": "consistent",
+     "reasons": []
+    },
+    {
+     "row": 4,
+     "batch": "B3",
+     "sales": [
+      4
+     ],
+     "refunds": [],
+     "fees": [
+      4
+     ],
+     "components": {
+      "sales": 60000,
+      "refunds": 0,
+      "fees": 1200
+     },
+     "settlement": {
+      "gross": 60000,
+      "refunds": 0,
+      "fees": 1200,
+      "net": 58800
+     },
+     "paid": 58800,
+     "payouts": [
+      "P1"
+     ],
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2,
+      3,
+      4
+     ],
+     "batches": [
+      "B1",
+      "B2",
+      "B3"
+     ],
+     "amount": 235200,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 235200
+     },
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "99f8475fdc843bb35014a41288590a918decb12ec3fc7ce42d93fec277a33237",
+    "4ed7743d7aadb9b0518efff800ae089dba4f0c9bb2ce475951f3b2357fc5822f",
+    "8bc4d5478be88a63584a15e578f90080d682ef9a489e078d870432eb9d43e583",
+    "c8b77b7057935125265c8e3a1f85a7b016990cc9acea7084429122c39be047e4",
+    "c77c1789bc0194be26fdac2581cca2e33aefa649df9d2f10bac9d2d4c2557a2d"
+   ]
+  },
+  "F04": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2,
+      3
+     ],
+     "refunds": [],
+     "fees": [
+      2
+     ],
+     "components": {
+      "sales": 100000,
+      "refunds": 0,
+      "fees": 2000
+     },
+     "settlement": {
+      "gross": 100000,
+      "refunds": 0,
+      "fees": 2000,
+      "net": 98000
+     },
+     "paid": 98000,
+     "payouts": [
+      "P1"
+     ],
+     "status": "consistent",
+     "reasons": []
+    },
+    {
+     "row": 3,
+     "batch": "B2",
+     "sales": [
+      4
+     ],
+     "refunds": [
+      5
+     ],
+     "fees": [
+      3
+     ],
+     "components": {
+      "sales": 99000,
+      "refunds": 1000,
+      "fees": 0
+     },
+     "settlement": {
+      "gross": 99000,
+      "refunds": 1000,
+      "fees": 0,
+      "net": 98000
+     },
+     "paid": 98000,
+     "payouts": [
+      "P2"
+     ],
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 98000,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 98000
+     },
+     "status": "consistent",
+     "reasons": []
+    },
+    {
+     "payout": "P2",
+     "lines": [
+      3
+     ],
+     "batches": [
+      "B2"
+     ],
+     "amount": 98000,
+     "credit": {
+      "row": 3,
+      "valueDate": "2026-09-21",
+      "amount": 98000
+     },
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "bd56a7a4454de19627ce918c8598420ad674dc71557e5dfbae552a96dc838b5d",
+    "6c627be2b705fb53b56c2ccd43766f59b5e13ee45413955e7f7e1531db64db20",
+    "8a6df4bdc7a0afb162ac7f31d7f0e44160e450e825835d32cbb4c1c03b2408c9",
+    "c4b566e43b7dcb71b33031777791c2d746d3ade31842fba928b1f53d46e86b17",
+    "7e2f0cfa46d5b5280e0618eb22f34752420b436b99e5c32173a6a5c06f4b2448"
+   ]
+  },
+  "F05": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2,
+      3
+     ],
+     "refunds": [],
+     "fees": [],
+     "components": {
+      "sales": 100000,
+      "refunds": 0,
+      "fees": 0
+     },
+     "settlement": {
+      "gross": 60000,
+      "refunds": 0,
+      "fees": 0,
+      "net": 60000
+     },
+     "paid": 60000,
+     "payouts": [
+      "P1"
+     ],
+     "status": "review",
+     "reasons": [
+      "SALES"
+     ]
+    },
+    {
+     "row": 3,
+     "batch": "B2",
+     "sales": [
+      4
+     ],
+     "refunds": [],
+     "fees": [],
+     "components": {
+      "sales": 20000,
+      "refunds": 0,
+      "fees": 0
+     },
+     "settlement": {
+      "gross": 60000,
+      "refunds": 0,
+      "fees": 0,
+      "net": 60000
+     },
+     "paid": 60000,
+     "payouts": [
+      "P1"
+     ],
+     "status": "review",
+     "reasons": [
+      "SALES"
+     ]
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2,
+      3
+     ],
+     "batches": [
+      "B1",
+      "B2"
+     ],
+     "amount": 120000,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 120000
+     },
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "ab11041db13f584d9dfb880a58cdbf9a4880428dd7713b33c41f635ce0b27ec0",
+    "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+    "151ec8cf8c6a907bf71fb9785afd21c6b216ab37c7a75752107669fb1e949420",
+    "fb03410c390049fde7923ad2056b29db853070a9e53ae11d48a1013f02b3acf0",
+    "80ced6f34a85524d40a431df06d1ec592b1046fd558089431235ac9e01aab42f"
+   ]
+  },
+  "F06": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2
+     ],
+     "refunds": [],
+     "fees": [
+      2
+     ],
+     "components": {
+      "sales": 100000,
+      "refunds": 0,
+      "fees": 1500
+     },
+     "settlement": {
+      "gross": 100000,
+      "refunds": 0,
+      "fees": 2000,
+      "net": 98000
+     },
+     "paid": 98000,
+     "payouts": [
+      "P1"
+     ],
+     "status": "review",
+     "reasons": [
+      "FEES"
+     ]
+    },
+    {
+     "row": 3,
+     "batch": "B2",
+     "sales": [
+      3
+     ],
+     "refunds": [],
+     "fees": [
+      3,
+      4
+     ],
+     "components": {
+      "sales": 100000,
+      "refunds": 0,
+      "fees": 2000
+     },
+     "settlement": {
+      "gross": 100000,
+      "refunds": 0,
+      "fees": 1500,
+      "net": 98500
+     },
+     "paid": 98500,
+     "payouts": [
+      "P2"
+     ],
+     "status": "review",
+     "reasons": [
+      "FEES"
+     ]
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 98000,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 98000
+     },
+     "status": "consistent",
+     "reasons": []
+    },
+    {
+     "payout": "P2",
+     "lines": [
+      3
+     ],
+     "batches": [
+      "B2"
+     ],
+     "amount": 98500,
+     "credit": {
+      "row": 3,
+      "valueDate": "2026-09-20",
+      "amount": 98500
+     },
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "6a79fea38689cddb5fb716c537c23667fe9184e79514a8e41843be3f5f90e346",
+    "4a354433de2c2d827c2f66bf6729e397c1fbb288049cc81d67b06b7226ba6af8",
+    "56a60362b0eb5db434b6b038bfb9b5b232fbf65cf2f0e19b4e415413248a8fb7",
+    "dfdd34e5e2fb5a09a46d040a060f36ddf3dfb3fe7fccd21da7a28bb084f717f9",
+    "5bbb72770230ff1e624f65b4d8fcfabde6dbac70c4157f77115fff55b639a172"
+   ]
+  },
+  "F07": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2
+     ],
+     "refunds": [],
+     "fees": [],
+     "components": {
+      "sales": 50000,
+      "refunds": 0,
+      "fees": 0
+     },
+     "settlement": {
+      "gross": 50000,
+      "refunds": 0,
+      "fees": 0,
+      "net": 50000
+     },
+     "paid": 50000,
+     "payouts": [
+      "P1"
+     ],
+     "status": "review",
+     "reasons": [
+      "PAYOUT"
+     ]
+    },
+    {
+     "row": 3,
+     "batch": "B2",
+     "sales": [
+      3
+     ],
+     "refunds": [],
+     "fees": [],
+     "components": {
+      "sales": 30000,
+      "refunds": 0,
+      "fees": 0
+     },
+     "settlement": {
+      "gross": 30000,
+      "refunds": 0,
+      "fees": 0,
+      "net": 30000
+     },
+     "paid": 30000,
+     "payouts": [
+      "P2"
+     ],
+     "status": "review",
+     "reasons": [
+      "PAYOUT"
+     ]
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 50000,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 30000
+     },
+     "status": "review",
+     "reasons": [
+      "CREDIT"
+     ]
+    },
+    {
+     "payout": "P2",
+     "lines": [
+      3
+     ],
+     "batches": [
+      "B2"
+     ],
+     "amount": 30000,
+     "credit": {
+      "row": 3,
+      "valueDate": "2026-09-20",
+      "amount": 50000
+     },
+     "status": "review",
+     "reasons": [
+      "CREDIT"
+     ]
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "581ddb6c3578096ef8f3552e8edcb4d322224be698ed8c4bc6654bee69f335d1",
+    "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+    "9197ca40e5f9588543aff2c947080a23f0c174f3b391bca83bba33f6e7115f70",
+    "fc9279fd325094145b108a60852755862f642ab8a6def44536df35f13e81b006",
+    "6dcc58f86268f8cefa3cb64b0049e38ae0ebcb07ce6d9332a4499fc18b593b22"
+   ]
+  },
+  "F08": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2
+     ],
+     "refunds": [],
+     "fees": [],
+     "components": {
+      "sales": 100000,
+      "refunds": 0,
+      "fees": 0
+     },
+     "settlement": {
+      "gross": 100000,
+      "refunds": 0,
+      "fees": 0,
+      "net": 100000
+     },
+     "paid": 100000,
+     "payouts": [
+      "P1",
+      "P2"
+     ],
+     "status": "review",
+     "reasons": [
+      "PAYOUT"
+     ]
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 60000,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 60000
+     },
+     "status": "consistent",
+     "reasons": []
+    },
+    {
+     "payout": "P2",
+     "lines": [
+      3
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 40000,
+     "credit": null,
+     "status": "review",
+     "reasons": [
+      "NOT_DEPOSITED"
+     ]
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "2c851faa966c584ca2727972d34e7594ac95d60b45c18301b7e16e840b2f54ec",
+    "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+    "054419f446396358895e5a1e53c0fd09a1719cc4942793afa57ee9acf7a8e114",
+    "30fda74d442855b6bc427c2e5e6511382596100ddfeefbf9a41fd4818ad08e31",
+    "0ad2bc8e749f7c05d0337fbae6c3cd7e1c39df00a1166e712b653a32236e535a"
+   ]
+  },
+  "F09": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2
+     ],
+     "refunds": [],
+     "fees": [
+      2
+     ],
+     "components": {
+      "sales": 100000,
+      "refunds": 0,
+      "fees": 1000
+     },
+     "settlement": {
+      "gross": 100000,
+      "refunds": 0,
+      "fees": 1000,
+      "net": 99000
+     },
+     "paid": 90000,
+     "payouts": [
+      "P1"
+     ],
+     "status": "review",
+     "reasons": [
+      "PAID_SHORT"
+     ]
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 90000,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 90000
+     },
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "2c851faa966c584ca2727972d34e7594ac95d60b45c18301b7e16e840b2f54ec",
+    "371ef6b285bd0c2929c26d41c2336dde1bb16150115e8cab71a60ec007c06e29",
+    "ab44c8d3c5b0f96e7b2b8c9611d3f85931bc475e28b6cb1ea58698435eb895f5",
+    "595c1a12edf2ff19c85279da454219f75959457f5a0fd2714a9f77f7bd71bc08",
+    "7d49387aaa2a74b88a282a75fcd70d28f9e593365dfe68b0dd770957a651c868"
+   ]
+  },
+  "F10": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2
+     ],
+     "refunds": [],
+     "fees": [
+      2
+     ],
+     "components": {
+      "sales": 100000,
+      "refunds": 0,
+      "fees": 1000
+     },
+     "settlement": {
+      "gross": 100000,
+      "refunds": 0,
+      "fees": 1000,
+      "net": 99000
+     },
+     "paid": 100000,
+     "payouts": [
+      "P1"
+     ],
+     "status": "review",
+     "reasons": [
+      "PAID_OVER"
+     ]
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 100000,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 100000
+     },
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "2c851faa966c584ca2727972d34e7594ac95d60b45c18301b7e16e840b2f54ec",
+    "371ef6b285bd0c2929c26d41c2336dde1bb16150115e8cab71a60ec007c06e29",
+    "ab44c8d3c5b0f96e7b2b8c9611d3f85931bc475e28b6cb1ea58698435eb895f5",
+    "58a464cd27b1a5564b00107d98dc593124054b80e9f4a126ff7d5ed8f577f61b",
+    "05308b344b7143caae0097d821a855a54e284800db741021941ae6e10f20f52e"
+   ]
+  },
+  "F11": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2
+     ],
+     "refunds": [
+      3
+     ],
+     "fees": [
+      2
+     ],
+     "components": {
+      "sales": 100000,
+      "refunds": 10000,
+      "fees": 2000
+     },
+     "settlement": {
+      "gross": 100000,
+      "refunds": 10000,
+      "fees": 2000,
+      "net": 89000
+     },
+     "paid": 89000,
+     "payouts": [
+      "P1"
+     ],
+     "status": "review",
+     "reasons": [
+      "NET"
+     ]
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 89000,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 89000
+     },
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "7538856593eec352c323cc0493c451145c10f9af5ff13e9de0d40051379804af",
+    "522ad6412f8374fb33d14b1394e3808b62ab1e7d7db6c086b6c2bfc75f2aa337",
+    "c2aa803eab620f77343427800227b8b4aaa8e904ef6eb932711e09dbb28d1071",
+    "650a085ece34e4b2acaa1a74c398705987bd989fd18ed0849ab9a1e2ae41f32a",
+    "9efd1d6fbb6ec9f6fd42dd061f121f8678f9d013b9e2721eb6a434a612ff63b9"
+   ]
+  },
+  "F12": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2,
+      3
+     ],
+     "refunds": [
+      4
+     ],
+     "fees": [],
+     "components": {
+      "sales": 65000,
+      "refunds": 25000,
+      "fees": 0
+     },
+     "settlement": {
+      "gross": 65000,
+      "refunds": 25000,
+      "fees": 0,
+      "net": 40000
+     },
+     "paid": 40000,
+     "payouts": [
+      "P1"
+     ],
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 40000,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 40000
+     },
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "c90ae45dd1c8848e94d4b12d9c9ac9cddd7139fa2f63afb3ff28bf17f36837bf",
+    "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+    "958acb40ef474c8eb50085d84bc8898e7fe0a6b1c8d75ff088d94cbe996e5cf5",
+    "ae951f0d1e7d21744971c5cf3c529dec4276f34367b275961aecc7fb9a28c1da",
+    "b762ce9527951e22d85a66d4038537e60b0f70e46a4ab7d8ccb79dc1d634ecb3"
+   ]
+  },
+  "F13": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2
+     ],
+     "refunds": [],
+     "fees": [],
+     "components": {
+      "sales": 50000,
+      "refunds": 0,
+      "fees": 0
+     },
+     "settlement": {
+      "gross": 50000,
+      "refunds": 0,
+      "fees": 0,
+      "net": 50000
+     },
+     "paid": 50000,
+     "payouts": [
+      "P1"
+     ],
+     "status": "consistent",
+     "reasons": []
+    },
+    {
+     "row": 3,
+     "batch": "B2",
+     "sales": [
+      3
+     ],
+     "refunds": [],
+     "fees": [],
+     "components": {
+      "sales": 70000,
+      "refunds": 0,
+      "fees": 0
+     },
+     "settlement": {
+      "gross": 70000,
+      "refunds": 0,
+      "fees": 0,
+      "net": 70000
+     },
+     "paid": 70000,
+     "payouts": [
+      "P2"
+     ],
+     "status": "in-transit",
+     "reasons": []
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 50000,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 50000
+     },
+     "status": "consistent",
+     "reasons": []
+    },
+    {
+     "payout": "P2",
+     "lines": [
+      3
+     ],
+     "batches": [
+      "B2"
+     ],
+     "amount": 70000,
+     "credit": {
+      "row": 3,
+      "valueDate": "2026-10-02",
+      "amount": 70000
+     },
+     "status": "in-transit",
+     "reasons": []
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "4b2fe7f5c0bc303184e925a7362b6ae44fc474ebaab018ad5027c894b7e44f97",
+    "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+    "04e3927e467a693cb3995b8cae43e30c05fe29ecd35b4a406bda2b70b2f30dd7",
+    "86fbc649bddb206041381549426db9ac967306a67eb5525af5245a511896ab35",
+    "7afe95058235d2b136780f72e913a2039bd087d5d1053355d7568b0d48c769e6"
+   ]
+  },
+  "F14": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2
+     ],
+     "refunds": [],
+     "fees": [],
+     "components": {
+      "sales": 70000,
+      "refunds": 0,
+      "fees": 0
+     },
+     "settlement": {
+      "gross": 70000,
+      "refunds": 0,
+      "fees": 0,
+      "net": 70000
+     },
+     "paid": 70000,
+     "payouts": [
+      "P1"
+     ],
+     "status": "review",
+     "reasons": [
+      "PAYOUT"
+     ]
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 70000,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-10-05",
+      "amount": 69000
+     },
+     "status": "review",
+     "reasons": [
+      "CREDIT"
+     ]
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "df300df752cacea5470efaf30d48812d6b4a5f91e7825abe0354bd83329e1784",
+    "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+    "99e8ca08f7e448af1c80282cac033e5f97f20f32fd4a69af145dc23b7f7fcab5",
+    "51abda72a64d6286ad9f7f99a556a0764d049026b149c36c05b5f138b1c78637",
+    "802e36314a5cebd85fe3e78afda6bfa0518f1b3fab5977230895654860c2d520"
+   ]
+  },
+  "F15": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2
+     ],
+     "refunds": [],
+     "fees": [
+      2,
+      3
+     ],
+     "components": {
+      "sales": 40000,
+      "refunds": 0,
+      "fees": 800
+     },
+     "settlement": {
+      "gross": 40000,
+      "refunds": 0,
+      "fees": 800,
+      "net": 39200
+     },
+     "paid": 39200,
+     "payouts": [
+      "P1"
+     ],
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 39200,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 39200
+     },
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "b36090422bf9162938b65ba15c94e656a98353bb187da308c59d38673f1b3cb7",
+    "e9218db08cd66927ba25d1ca5e61b8bde22e905f6bd7153aafc67e2179d70343",
+    "970e2feea1c390991688ac1f9d8b7486471c131370405551f276faccf152dd36",
+    "671de4e31132b0eaf1d67e3e248ced94499a162df5d2e923aae292516fe42f3b",
+    "d0326439e241d2209b16e5c103507a170373ca2a615a630914470c6f0ec333d5"
+   ]
+  },
+  "F16": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2
+     ],
+     "refunds": [],
+     "fees": [],
+     "components": {
+      "sales": 40000,
+      "refunds": 0,
+      "fees": 0
+     },
+     "settlement": {
+      "gross": 40000,
+      "refunds": 0,
+      "fees": 0,
+      "net": 40000
+     },
+     "paid": 40000,
+     "payouts": [
+      "P1"
+     ],
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 40000,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 40000
+     },
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "b36090422bf9162938b65ba15c94e656a98353bb187da308c59d38673f1b3cb7",
+    "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+    "d19f4f370297b91b581b44c1032c6b9f18d2823afdf184121d1e6648ea99a81a",
+    "ae951f0d1e7d21744971c5cf3c529dec4276f34367b275961aecc7fb9a28c1da",
+    "b762ce9527951e22d85a66d4038537e60b0f70e46a4ab7d8ccb79dc1d634ecb3"
+   ]
+  },
+  "F17": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2
+     ],
+     "refunds": [],
+     "fees": [],
+     "components": {
+      "sales": 40000,
+      "refunds": 0,
+      "fees": 0
+     },
+     "settlement": {
+      "gross": 40000,
+      "refunds": 0,
+      "fees": 0,
+      "net": 40000
+     },
+     "paid": 40000,
+     "payouts": [
+      "P1"
+     ],
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 40000,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 40000
+     },
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "credits": [
+    {
+     "row": 3,
+     "reference": "BR2",
+     "payout": "P9",
+     "valueDate": "2026-09-22",
+     "amount": 15000,
+     "reasons": [
+      "UNLINKED_CREDIT"
+     ]
+    }
+   ],
+   "sha256": [
+    "b36090422bf9162938b65ba15c94e656a98353bb187da308c59d38673f1b3cb7",
+    "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+    "d19f4f370297b91b581b44c1032c6b9f18d2823afdf184121d1e6648ea99a81a",
+    "ae951f0d1e7d21744971c5cf3c529dec4276f34367b275961aecc7fb9a28c1da",
+    "c4a4f93499689aef46353b6569c5e11d4fef142f33e2dd427df9b8c672c8b701"
+   ]
+  },
+  "F18": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2
+     ],
+     "refunds": [],
+     "fees": [
+      2
+     ],
+     "components": {
+      "sales": 90000,
+      "refunds": 0,
+      "fees": 1800
+     },
+     "settlement": {
+      "gross": 90000,
+      "refunds": 5000,
+      "fees": 1800,
+      "net": 83200
+     },
+     "paid": 83200,
+     "payouts": [
+      "P1"
+     ],
+     "status": "review",
+     "reasons": [
+      "REFUNDS"
+     ]
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 83200,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 83200
+     },
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "31a03955f0164cbd87779098d8ebb23901976ecd735ae1ffca90df64b76a9ffe",
+    "0175fb2acd24bfde958d81b1e7d3469e15d3d2f4a84166b7925d434d9030c972",
+    "237c48ce8a7ec7797a5577d45dd11b55423d13752360100fd9caafcf2b97a857",
+    "c385dd0ff7e2c292ac15c3c51143a194480c2b9c63a44fdbab55bb4b9f7e8186",
+    "5e64479bd10d561b8faf55a8d17adef1a1397432246ec40db614b0b4b24a1be1"
+   ]
+  },
+  "F19": {
+   "refused": null,
+   "decimals": 3,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2
+     ],
+     "refunds": [],
+     "fees": [
+      2
+     ],
+     "components": {
+      "sales": 125500,
+      "refunds": 0,
+      "fees": 1255
+     },
+     "settlement": {
+      "gross": 125500,
+      "refunds": 0,
+      "fees": 1255,
+      "net": 124245
+     },
+     "paid": 124245,
+     "payouts": [
+      "P1"
+     ],
+     "status": "review",
+     "reasons": [
+      "PAYOUT"
+     ]
+    },
+    {
+     "row": 3,
+     "batch": "B2",
+     "sales": [
+      3
+     ],
+     "refunds": [],
+     "fees": [
+      3
+     ],
+     "components": {
+      "sales": 74250,
+      "refunds": 0,
+      "fees": 743
+     },
+     "settlement": {
+      "gross": 74250,
+      "refunds": 0,
+      "fees": 743,
+      "net": 73507
+     },
+     "paid": 73507,
+     "payouts": [
+      "P1"
+     ],
+     "status": "review",
+     "reasons": [
+      "PAYOUT"
+     ]
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2,
+      3
+     ],
+     "batches": [
+      "B1",
+      "B2"
+     ],
+     "amount": 197752,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 197751
+     },
+     "status": "review",
+     "reasons": [
+      "CREDIT"
+     ]
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "ba33e1e0274072ff023f51804b91ca477edbb6ae4352c03aede6e9bf16b9ca31",
+    "e3b25f71a29ece82f8892518fe1b0afb0a298affe58520b69e424dce875b0a90",
+    "46ad6ffe7e91d0bd5ded08a706096df6d0f3d06be6af84432179a5eee9f097fd",
+    "ed35e23fff45d486c9ed90531acb71e08d5b832f1439ca38e6a11cf03c03d6c4",
+    "3945393d1051e420d3b3f9683d97ce46654194fa24f79af4b4d24fbf7267fe18"
+   ]
+  },
+  "F20": {
+   "refused": null,
+   "decimals": 0,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2
+     ],
+     "refunds": [
+      3
+     ],
+     "fees": [
+      2
+     ],
+     "components": {
+      "sales": 120000,
+      "refunds": 20000,
+      "fees": 3000
+     },
+     "settlement": {
+      "gross": 120000,
+      "refunds": 20000,
+      "fees": 3000,
+      "net": 97000
+     },
+     "paid": 97000,
+     "payouts": [
+      "P1"
+     ],
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 97000,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 97000
+     },
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "c4d898762ac9e5fe4c76d5e1b2c34d133b2c66d4478afd73fd5194477ab26f88",
+    "7c6f9da4501b3aa5f06188d95974c395b0c143b0566601cb70de42df00b37700",
+    "2b4217bad46a8b5d57e487239cd0010b03f40b92b8ab735429ae3cbd3e9997bb",
+    "76b9f8e21c67b5c76114240cf1c0316f363e8fe45e3bc1edb90fc9decbb51716",
+    "f7ba3910f6a644d0e4b1cf52d7ba4d34ddfefb71e370df6483b0ae2927407d1b"
+   ]
+  },
+  "F21": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2
+     ],
+     "refunds": [],
+     "fees": [
+      2
+     ],
+     "components": {
+      "sales": 60000,
+      "refunds": 0,
+      "fees": 1200
+     },
+     "settlement": {
+      "gross": 60000,
+      "refunds": 0,
+      "fees": 1200,
+      "net": 58800
+     },
+     "paid": 58800,
+     "payouts": [
+      "P1"
+     ],
+     "status": "consistent",
+     "reasons": []
+    },
+    {
+     "row": 3,
+     "batch": "B2",
+     "sales": [
+      3
+     ],
+     "refunds": [],
+     "fees": [],
+     "components": {
+      "sales": 30000,
+      "refunds": 0,
+      "fees": 0
+     },
+     "settlement": {
+      "gross": 30000,
+      "refunds": 0,
+      "fees": 0,
+      "net": 30000
+     },
+     "paid": 30000,
+     "payouts": [
+      "P2"
+     ],
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 58800,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 58800
+     },
+     "status": "consistent",
+     "reasons": []
+    },
+    {
+     "payout": "P2",
+     "lines": [
+      3
+     ],
+     "batches": [
+      "B2"
+     ],
+     "amount": 30000,
+     "credit": {
+      "row": 3,
+      "valueDate": "2026-09-20",
+      "amount": 30000
+     },
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "97101296f7fbeaf30bbf86864da8c7ff85608cc14594573d6742824c1d028260",
+    "da57f02e683ca7f6ea3fa68e9375926409a7efe3d3ce860ed47cf7d1d1a6b529",
+    "41d0b6e9e6f41875285594291ecbd939ed5fecec3834f2c3e6bc35002da6239c",
+    "55c94abc842f196a5fc6b5b1354a91679a66546af6fd9e1093e583755f7138d3",
+    "5dae75e0d70a24330294ab3d50e63facaed10ab89c98e3a43338931a58ea1205"
+   ]
+  },
+  "F22": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2
+     ],
+     "refunds": [],
+     "fees": [],
+     "components": {
+      "sales": 100000,
+      "refunds": 0,
+      "fees": 0
+     },
+     "settlement": {
+      "gross": 100000,
+      "refunds": 0,
+      "fees": 0,
+      "net": 100000
+     },
+     "paid": 100000,
+     "payouts": [
+      "P1",
+      "P2"
+     ],
+     "status": "consistent",
+     "reasons": []
+    },
+    {
+     "row": 3,
+     "batch": "B2",
+     "sales": [
+      3
+     ],
+     "refunds": [],
+     "fees": [],
+     "components": {
+      "sales": 50000,
+      "refunds": 0,
+      "fees": 0
+     },
+     "settlement": {
+      "gross": 50000,
+      "refunds": 0,
+      "fees": 0,
+      "net": 50000
+     },
+     "paid": 50000,
+     "payouts": [
+      "P2"
+     ],
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 70000,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 70000
+     },
+     "status": "consistent",
+     "reasons": []
+    },
+    {
+     "payout": "P2",
+     "lines": [
+      3,
+      4
+     ],
+     "batches": [
+      "B1",
+      "B2"
+     ],
+     "amount": 80000,
+     "credit": {
+      "row": 3,
+      "valueDate": "2026-09-20",
+      "amount": 80000
+     },
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "d395fa0b8e9e2a6759c061d6c46c7e2657837ae3b4bf198d981742d3807fae07",
+    "1413630aae39c15c48f0735d6f7502d95e47d86c8218c65336fa9757d9e1ccdd",
+    "1cdbcba78b5bb843377c7fbc33270bcd0cf0a5273543aede946dd1529fded5db",
+    "5d0c72667c3a8cb5c90e050e7cfcb0f842f53f9706f6a40506a910a4b21caa78",
+    "3815d1f9689c5f0129150e623dc27c4e95fb464c1d76b316dab0c1d6d08133cb"
+   ]
+  },
+  "F23": {
+   "refused": "SOURCE_ERRORS",
+   "decimals": 2,
+   "batches": [],
+   "payouts": [],
+   "credits": [],
+   "sha256": [
+    "7a0dd74a8070c80e94abc6f6e2ada2a6169ae0bcde69edccf44f61449ddfc6b3",
+    "1413630aae39c15c48f0735d6f7502d95e47d86c8218c65336fa9757d9e1ccdd",
+    "23ed04c7e191c68edbc82acaf9da779bea14b0504aa763e437b884a27e360ab9",
+    "70648b18ca5aa4e4adae5c57a10ef2d548d823409d1c17bbfe602c3892ff7ec1",
+    "8e0ec30a62b093cd543ffee695c9098bf197429894434e7cf88fb70408dfabc8"
+   ]
+  },
+  "F24": {
+   "refused": "SOURCE_ERRORS",
+   "decimals": 2,
+   "batches": [],
+   "payouts": [],
+   "credits": [],
+   "sha256": [
+    "c65fab4bbe57c46f8290955ae7e4f76df8b4cc6cca045baff67840597744e6f0",
+    "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+    "054419f446396358895e5a1e53c0fd09a1719cc4942793afa57ee9acf7a8e114",
+    "58a464cd27b1a5564b00107d98dc593124054b80e9f4a126ff7d5ed8f577f61b",
+    "05308b344b7143caae0097d821a855a54e284800db741021941ae6e10f20f52e"
+   ]
+  },
+  "F25": {
+   "refused": "SOURCE_ERRORS",
+   "decimals": 2,
+   "batches": [],
+   "payouts": [],
+   "credits": [],
+   "sha256": [
+    "c62c85099b4e03bba29c4d6e5c80a7f9176fadf845dc0db8e69ef561a026e41e",
+    "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+    "91b61339d3804a6db02735fa8f20a500e65d270ad7723ae4ee662205aee1b665",
+    "ba73e62ba496528f1774d05d9f0abdda2d1d5674240d63d3b4515fe892eb9466",
+    "d9fb6ed9b20a7182ac864807895f84f6345137493b2a880219f8e6241dcda1db"
+   ]
+  },
+  "F26": {
+   "refused": "SOURCE_ERRORS",
+   "decimals": 2,
+   "batches": [],
+   "payouts": [],
+   "credits": [],
+   "sha256": [
+    "d17145afb3d4a475e1d895029dd71fada803218cd2611e20b02db68341a5ffa5",
+    "35f8ec8dd587224f3de9902c2959050fca0125b98a09d11a3776232770e9d41d",
+    "c615bb538f9580c7f70dd0bfe7efad38070b93adf6301a2f4f1517620aeb68d8",
+    "7717271f1e21a902b4408813c303261c4db8c7e2d345c192e1d57c6491889ec2",
+    "d1d47655cd0785127cdee4a5286585a44502f8153f1e4ec2773640434072eacd"
+   ]
+  },
+  "F27": {
+   "refused": "SOURCE_ERRORS",
+   "decimals": 2,
+   "batches": [],
+   "payouts": [],
+   "credits": [],
+   "sha256": [
+    "3cd26c161b82370e09b5df08dc549568e1cf19962c0d135ef14377f0af75f17a",
+    "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+    "c615bb538f9580c7f70dd0bfe7efad38070b93adf6301a2f4f1517620aeb68d8",
+    "7717271f1e21a902b4408813c303261c4db8c7e2d345c192e1d57c6491889ec2",
+    "d1d47655cd0785127cdee4a5286585a44502f8153f1e4ec2773640434072eacd"
+   ]
+  },
+  "F28": {
+   "refused": "SOURCE_ERRORS",
+   "decimals": 2,
+   "batches": [],
+   "payouts": [],
+   "credits": [],
+   "sha256": [
+    "d17145afb3d4a475e1d895029dd71fada803218cd2611e20b02db68341a5ffa5",
+    "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+    "c615bb538f9580c7f70dd0bfe7efad38070b93adf6301a2f4f1517620aeb68d8",
+    "7717271f1e21a902b4408813c303261c4db8c7e2d345c192e1d57c6491889ec2",
+    "dd2d5c258701902e83e5879eca322df9cc5d18ea5099dc4047981ea060503cb7"
+   ]
+  },
+  "F29": {
+   "refused": "SOURCE_ERRORS",
+   "decimals": 2,
+   "batches": [],
+   "payouts": [],
+   "credits": [],
+   "sha256": [
+    "846a503d311fa8f7ab4a1070b408828e25626def62e2e97e0af3c1e0979655d9",
+    "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+    "c615bb538f9580c7f70dd0bfe7efad38070b93adf6301a2f4f1517620aeb68d8",
+    "7717271f1e21a902b4408813c303261c4db8c7e2d345c192e1d57c6491889ec2",
+    "d1d47655cd0785127cdee4a5286585a44502f8153f1e4ec2773640434072eacd"
+   ]
+  },
+  "F30": {
+   "refused": "COLUMNS",
+   "decimals": 2,
+   "batches": [],
+   "payouts": [],
+   "credits": [],
+   "sha256": [
+    "d17145afb3d4a475e1d895029dd71fada803218cd2611e20b02db68341a5ffa5",
+    "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+    "c615bb538f9580c7f70dd0bfe7efad38070b93adf6301a2f4f1517620aeb68d8",
+    "7717271f1e21a902b4408813c303261c4db8c7e2d345c192e1d57c6491889ec2",
+    "82a439312c76fe23bdad7ca88fca4ae7704ba682843346006f28889dbce803fa"
+   ]
+  },
+  "F31": {
+   "refused": "SCOPE",
+   "decimals": null,
+   "batches": [],
+   "payouts": [],
+   "credits": [],
+   "sha256": [
+    "d17145afb3d4a475e1d895029dd71fada803218cd2611e20b02db68341a5ffa5",
+    "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+    "c615bb538f9580c7f70dd0bfe7efad38070b93adf6301a2f4f1517620aeb68d8",
+    "7717271f1e21a902b4408813c303261c4db8c7e2d345c192e1d57c6491889ec2",
+    "d1d47655cd0785127cdee4a5286585a44502f8153f1e4ec2773640434072eacd"
+   ]
+  },
+  "F32": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2
+     ],
+     "refunds": [],
+     "fees": [
+      2
+     ],
+     "components": {
+      "sales": 80000,
+      "refunds": 0,
+      "fees": 1600
+     },
+     "settlement": {
+      "gross": 80000,
+      "refunds": 0,
+      "fees": 1600,
+      "net": 78400
+     },
+     "paid": 78400,
+     "payouts": [
+      "P1"
+     ],
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2
+     ],
+     "batches": [
+      "B1"
+     ],
+     "amount": 78400,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 78400
+     },
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "7a94e618dabd99e591b76e580e13548a5e1b5ed3dcedf7b1fb6aa05c20602873",
+    "f2ed3a8e3f5550d22b4918f3fc46b97bf309ed77513c3feaf78ade87db05236c",
+    "5587e1847be351d2bba16afe1a165c536dabc294a0e2215c6a8c2fd3f9bd5a48",
+    "5d20166c5beabcd58f9a994ec34c3d3548190258afdb8c0e0f8f4dccc21e48ad",
+    "2c0ec7f7e1a1a9630ec3088ba02ad4085862959492639b3ac09c7c780ebed437"
+   ]
+  },
+  "F33": {
+   "refused": null,
+   "decimals": 2,
+   "batches": [
+    {
+     "row": 2,
+     "batch": "B1",
+     "sales": [
+      2
+     ],
+     "refunds": [],
+     "fees": [],
+     "components": {
+      "sales": 100000,
+      "refunds": 0,
+      "fees": 0
+     },
+     "settlement": {
+      "gross": 100000,
+      "refunds": 0,
+      "fees": 0,
+      "net": 100000
+     },
+     "paid": 100000,
+     "payouts": [
+      "P1",
+      "P2"
+     ],
+     "status": "consistent",
+     "reasons": []
+    },
+    {
+     "row": 3,
+     "batch": "B2",
+     "sales": [
+      3
+     ],
+     "refunds": [],
+     "fees": [],
+     "components": {
+      "sales": 100000,
+      "refunds": 0,
+      "fees": 0
+     },
+     "settlement": {
+      "gross": 100000,
+      "refunds": 0,
+      "fees": 0,
+      "net": 100000
+     },
+     "paid": 90000,
+     "payouts": [
+      "P1",
+      "P2"
+     ],
+     "status": "review",
+     "reasons": [
+      "PAID_SHORT"
+     ]
+    }
+   ],
+   "payouts": [
+    {
+     "payout": "P1",
+     "lines": [
+      2,
+      3
+     ],
+     "batches": [
+      "B1",
+      "B2"
+     ],
+     "amount": 100000,
+     "credit": {
+      "row": 2,
+      "valueDate": "2026-09-20",
+      "amount": 100000
+     },
+     "status": "consistent",
+     "reasons": []
+    },
+    {
+     "payout": "P2",
+     "lines": [
+      4,
+      5
+     ],
+     "batches": [
+      "B1",
+      "B2"
+     ],
+     "amount": 90000,
+     "credit": {
+      "row": 3,
+      "valueDate": "2026-09-20",
+      "amount": 90000
+     },
+     "status": "consistent",
+     "reasons": []
+    }
+   ],
+   "credits": [],
+   "sha256": [
+    "6a79fea38689cddb5fb716c537c23667fe9184e79514a8e41843be3f5f90e346",
+    "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+    "fc0eb4f853244d45b7c9e5ffcae29011eccd6c264346457ac4b60023eb255a2b",
+    "e0be9f51ef6654d29dcc197fe25a252676fad52996542130b63833aafd2848e2",
+    "bd813eb5893d654314ba91b0a956e279877b5fb4e028e02a6675579d1eaa9be4"
+   ]
+  },
+  "F34": {
+   "refused": "SOURCE_ERRORS",
+   "decimals": 2,
+   "batches": [],
+   "payouts": [],
+   "credits": [],
+   "sha256": [
+    "d17145afb3d4a475e1d895029dd71fada803218cd2611e20b02db68341a5ffa5",
+    "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+    "c615bb538f9580c7f70dd0bfe7efad38070b93adf6301a2f4f1517620aeb68d8",
+    "087b8961f1988374bb935a86cc4837df64ce40668e178f5fc8a9fe53fc482ad7",
+    "d1d47655cd0785127cdee4a5286585a44502f8153f1e4ec2773640434072eacd"
+   ]
+  },
+  "F35": {
+   "refused": "SOURCE_ERRORS",
+   "decimals": 2,
+   "batches": [],
+   "payouts": [],
+   "credits": [],
+   "sha256": [
+    "d17145afb3d4a475e1d895029dd71fada803218cd2611e20b02db68341a5ffa5",
+    "1a419e5b0849a4b661912edc5e7f35007928db218b30119dee0016817ec13649",
+    "c615bb538f9580c7f70dd0bfe7efad38070b93adf6301a2f4f1517620aeb68d8",
+    "7717271f1e21a902b4408813c303261c4db8c7e2d345c192e1d57c6491889ec2",
+    "a5364cabca35ff44bd338c1be3e3ea6afff66da71c8a22fa9286faec09ceecc9"
+   ]
+  }
+ }
+}

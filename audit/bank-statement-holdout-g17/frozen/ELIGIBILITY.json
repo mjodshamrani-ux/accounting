@@ -1,0 +1,243 @@
+{
+ "package": "",
+ "clearancePt": 0.05,
+ "statements": {
+  "V01": {
+   "sha256": "efd7a45d096d73b85e0fc5760757530069cdae2487d06a2f6d4d5323be68260b",
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.03,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 101,
+    "wordParts": 9
+   },
+   "leastRuleGapPt": 1.29,
+   "leastLineGapPt": null
+  },
+  "V02": {
+   "sha256": "046fcfb12cbfcafc804e0c335ef44cc343ce8939079fcb0ef0af63416ab5cb94",
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.25,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 78,
+    "wordParts": 13
+   },
+   "leastRuleGapPt": 0.88,
+   "leastLineGapPt": null
+  },
+  "V03": {
+   "sha256": "dec8bd291d22a17bbb3287fb2b568c955c33ce9b61dbd3e4480849cd2703e07e",
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.53,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "wordParts": 9
+   },
+   "leastRuleGapPt": 1.38,
+   "leastLineGapPt": null
+  },
+  "V04": {
+   "sha256": "81a50797d16b46cb3099801f9f9083203f0f9d68424b45f30db0a9d728ea72ad",
+   "pages": 9,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.3,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 248,
+    "wordParts": 17
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null
+  },
+  "V05": {
+   "sha256": "632e0fc3612621c27af7bc23acb963b0c52227d2df39889401fa6c091345371a",
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.03,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 90,
+    "wordParts": 9
+   },
+   "leastRuleGapPt": 1.29,
+   "leastLineGapPt": null
+  },
+  "V06": {
+   "sha256": "3c62c8a53bcae1423bb7f9dbaccb47813724db9947f6c5ef00da385bf3e80398",
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.55,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 66,
+    "wordParts": 9
+   },
+   "leastRuleGapPt": 2.95,
+   "leastLineGapPt": null
+  },
+  "V07": {
+   "sha256": "e4fe256e3dacb0133d3ee995517d7d87e075279acfaeeb64c38ef62fcf59ce73",
+   "pages": 5,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.55,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "reversedDate": 106
+   },
+   "leastRuleGapPt": 0.91,
+   "leastLineGapPt": null
+  },
+  "V08": {
+   "sha256": "e879edff4aed02138b4edb68d06d289874e35d7a45058237d552dfed838849d4",
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.55,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "continuation": 1,
+    "reversedDate": 96
+   },
+   "leastRuleGapPt": 1.39,
+   "leastLineGapPt": null
+  },
+  "V09": {
+   "sha256": "372843cf443869acb238350c336c9c92c9598d13736be8f61458542ad9f4986b",
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.55,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 0.29,
+   "leastLineGapPt": null
+  },
+  "V10": {
+   "sha256": "2a9f526c656db7f4fc83b76197511cde5b5fec2530ead0615d4158397cd04451",
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.93,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 79,
+    "wordParts": 7
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null
+  },
+  "V11": {
+   "sha256": "2937e8172f6c77f98734fdac680db6eba22cc7cb30329d744122b465cb61f8d5",
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 10.95,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 82,
+    "wordParts": 7
+   },
+   "leastRuleGapPt": 4.32,
+   "leastLineGapPt": null
+  },
+  "V12": {
+   "sha256": "aaf65d8ee7c50284536efefc913a5bfe58b6c56ebc44d820a0091b9fb19d23ef",
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.55,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "reversedDate": 96
+   },
+   "leastRuleGapPt": 0.91,
+   "leastLineGapPt": null
+  }
+ },
+ "cashbooks": {
+  "V03": {
+   "refused": null,
+   "entries": 50,
+   "exercised": {
+    "coreProperties": "literal",
+    "typedAmounts": 50,
+    "typedDates": 50
+   },
+   "notes": {}
+  },
+  "V10": {
+   "refused": null,
+   "entries": 43,
+   "exercised": {
+    "coreProperties": "literal"
+   },
+   "notes": {}
+  }
+ },
+ "decision": {
+  "story": "V01",
+  "reasons": [
+   "date-gap"
+  ],
+  "problems": []
+ }
+}

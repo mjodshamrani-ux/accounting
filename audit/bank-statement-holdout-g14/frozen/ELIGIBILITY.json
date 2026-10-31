@@ -1,0 +1,219 @@
+{
+ "package": "bank-statement-holdout-g14",
+ "clearancePt": 0.05,
+ "statements": {
+  "R01": {
+   "sha256": "ee2c72f0849922701897b719bcd675204a5a0ebb14e7005acb8af388e6ae32b5",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.0,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "wordParts": 5
+   },
+   "leastRuleGapPt": 1.15,
+   "leastLineGapPt": null
+  },
+  "R02": {
+   "sha256": "02f5bc06736890d650ad23da54f48a136b2100de8b9e0aa5dc2ae573dfd2455c",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.6,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "visibleByInk": 14
+   },
+   "leastRuleGapPt": 0.31,
+   "leastLineGapPt": null
+  },
+  "R03": {
+   "sha256": "ff9032ca527fddc87ce46b7b93c75b186c6799487d33f4d1c49af883e9b5ba4d",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.22,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "drAfterAmount": 27
+   },
+   "leastRuleGapPt": 2.84,
+   "leastLineGapPt": null
+  },
+  "R04": {
+   "sha256": "416c23f7a0265ada1f9350255f8767525a4eeccf33ac08b899176c8fc94ef9c2",
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.6,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 0.26,
+   "leastLineGapPt": null
+  },
+  "R05": {
+   "sha256": "2f9f4548904282004f9da208e50aacdb2ab87d6f13a2e2ce06b4e9520f7615e2",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.0,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 1,
+    "wordParts": 5
+   },
+   "leastRuleGapPt": 3.16,
+   "leastLineGapPt": null
+  },
+  "R06": {
+   "sha256": "cb072596687ee1be17725cb1b08f90b3d08aa50c6bc70f0245ef4fa01606a878",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.0,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "wordParts": 5
+   },
+   "leastRuleGapPt": 1.15,
+   "leastLineGapPt": null
+  },
+  "R07": {
+   "sha256": "178f37dbfd888c1e59233739c5e731b6da209ca4c7e6667edcaf86c8ced60e62",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.0,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "drAfterAmount": 7
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null
+  },
+  "R08": {
+   "sha256": "e8ff77fe0abea7b241d3a0d158c6b5882228ca4846470fcb69fb8d3ecd97ed24",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.83,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "continuation": 1,
+    "visibleByInk": 14
+   },
+   "leastRuleGapPt": 1.5,
+   "leastLineGapPt": null
+  },
+  "R09": {
+   "sha256": "3d192177d877b83cafc7e3d62601b3ffb34213b904e85b8ac38ef008c0b87f7c",
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.83,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "reversedDate": 52
+   },
+   "leastRuleGapPt": 0.85,
+   "leastLineGapPt": null
+  },
+  "R10": {
+   "sha256": "e10faf406876a5eac74a90357e7bdd9bffef2c3ad03939fec21d59cbe57dc056",
+   "pages": 5,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.83,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "wordParts": 16
+   },
+   "leastRuleGapPt": 2.15,
+   "leastLineGapPt": null
+  },
+  "R11": {
+   "sha256": "c478eb4084d4f23db5fc1bbf2c5929788695472cc8f7b9626346692c57b238df",
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.75,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 1,
+    "wordParts": 7
+   },
+   "leastRuleGapPt": 1.79,
+   "leastLineGapPt": null
+  },
+  "R12": {
+   "sha256": "86a3f29afb8f4b1c9f8eff7abba2482a8b76f9c6e233546eaa2559417080eff3",
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.0,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "drAfterAmount": 2
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null
+  }
+ },
+ "decision": {
+  "story": "R01",
+  "reasons": [
+   "date-gap",
+   "amount-difference"
+  ],
+  "problems": []
+ }
+}

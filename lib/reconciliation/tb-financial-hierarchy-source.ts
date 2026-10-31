@@ -21,7 +21,7 @@ const abs = (v: bigint) => (v < 0n ? -v : v);
 const category = (v: string): v is (typeof CATEGORIES)[number] =>
   (CATEGORIES as readonly string[]).includes(v);
 
-function validDate(value: string): boolean {
+export function validDate(value: string): boolean {
   if (!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(value)) return false;
   const [year, month, day] = value.split('-').map(Number);
   if (!year || month < 1 || month > 12 || day < 1) return false;
@@ -32,13 +32,13 @@ function validDate(value: string): boolean {
   );
 }
 
-interface CSVRecord {
+export interface CSVRecord {
   raw: string[];
   lexemes: string[];
   serialized: string;
 }
 /** Strict comma CSV with LF/CRLF/bare CR record endings; quoted newlines stay literal. */
-function readCSV(text: string): {
+export function readCSV(text: string): {
   records: CSVRecord[];
   reason: FinancialHierarchyIssueCode | null;
 } {

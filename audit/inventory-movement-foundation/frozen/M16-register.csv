@@ -1,0 +1,10 @@
+Movement ID,Item ID,Item dimensions,Kind,Quantity,Unit,Value,Movement date,Posting date,GL account,Transfer ID,Origin ID
+MV-0001,GYP-12,wh=RIY-1,opening,400,sheet,10920.00,2026-10-01,2026-10-01,1310,,
+MV-0002,GYP-12,wh=RIY-1,receipt,300,sheet,8190.00,2026-10-03,2026-10-03,1310,,
+MV-0004,GYP-12,wh=RIY-1,return-out,25,sheet,682.50,2026-10-05,2026-10-05,1310,,MV-0002
+MV-0005,GYP-12,wh=RIY-1,issue,210,sheet,5733.00,2026-10-07,2026-10-07,1310,,
+MV-0006,GYP-12,wh=RIY-1,closing,465,sheet,12694.50,2026-10-31,2026-10-31,1310,,
+MV-0007,GYP-12,wh=JED-2,opening,180,sheet,4914.00,2026-10-01,2026-10-01,1320,,
+MV-0008,GYP-12,wh=JED-2,receipt,60,sheet,1638.00,2026-10-09,2026-10-09,1320,,
+MV-0009,GYP-12,wh=JED-2,issue,90,sheet,2457.00,2026-10-12,2026-10-12,1320,,
+MV-0010,GYP-12,wh=JED-2,closing,150,sheet,4095.00,2026-10-31,2026-10-31,1320,,

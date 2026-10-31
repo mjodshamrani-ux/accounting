@@ -1,0 +1,127 @@
+{
+ "schema": "tarasuf-fa1-engine-run/1",
+ "family": "fixed-assets-sections-1",
+ "suite": "audit/fixed-assets-sections-holdout-h1",
+ "rule": "replayAssetSections from the sealed bytes, compared with EXPECTED.json in full",
+ "equal": 39,
+ "of": 39,
+ "stories": {
+  "H01": {
+   "equal": true
+  },
+  "H02": {
+   "equal": true
+  },
+  "H03": {
+   "equal": true
+  },
+  "H04": {
+   "equal": true
+  },
+  "H05": {
+   "equal": true
+  },
+  "H06": {
+   "equal": true
+  },
+  "H07": {
+   "equal": true
+  },
+  "H08": {
+   "equal": true
+  },
+  "H09": {
+   "equal": true
+  },
+  "H10": {
+   "equal": true
+  },
+  "H11": {
+   "equal": true
+  },
+  "H12": {
+   "equal": true
+  },
+  "H13": {
+   "equal": true
+  },
+  "H14": {
+   "equal": true
+  },
+  "H15": {
+   "equal": true
+  },
+  "H16": {
+   "equal": true
+  },
+  "H17": {
+   "equal": true
+  },
+  "H18": {
+   "equal": true
+  },
+  "H19": {
+   "equal": true
+  },
+  "H20": {
+   "equal": true
+  },
+  "H21": {
+   "equal": true
+  },
+  "H22": {
+   "equal": true
+  },
+  "H23": {
+   "equal": true
+  },
+  "H24": {
+   "equal": true
+  },
+  "H25": {
+   "equal": true
+  },
+  "H26": {
+   "equal": true
+  },
+  "H27": {
+   "equal": true
+  },
+  "H28": {
+   "equal": true
+  },
+  "H29": {
+   "equal": true
+  },
+  "H30": {
+   "equal": true
+  },
+  "H31": {
+   "equal": true
+  },
+  "H32": {
+   "equal": true
+  },
+  "H33": {
+   "equal": true
+  },
+  "H34": {
+   "equal": true
+  },
+  "H35": {
+   "equal": true
+  },
+  "H36": {
+   "equal": true
+  },
+  "H37": {
+   "equal": true
+  },
+  "H38": {
+   "equal": true
+  },
+  "H39": {
+   "equal": true
+  }
+ }
+}

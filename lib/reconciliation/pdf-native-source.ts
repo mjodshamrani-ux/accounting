@@ -1,4 +1,5 @@
 import type { PdfToken } from './pdf.ts';
+import type { PdfTokenPart } from './pdf-glyph-geometry.ts';
 
 /** Opt-in glyph evidence. Offsets are UTF-16 offsets into the original paint text. */
 export type PdfLiteralTrace = {
@@ -40,4 +41,26 @@ export type NativePdfSource = {
     height: number;
     tokens: (PdfToken & { item: number })[];
   }[];
+};
+
+/**
+ * The native source with word geometry: an extracted left-to-right item that
+ * PDF.js combined across a gap carries `parts`, its words with the span of
+ * their own glyphs, where the replayed placement reproduced the item. Items
+ * without parts are whole words or could not be split; a reader must not
+ * divide them by any other means. Version 2: a right-to-left item drawn with
+ * a glyph of several letters reads by glyph (pdf-glyph-order.ts), with
+ * PDF.js's own reading kept in `extractionText`. Version 3 (G17): where the
+ * writer drew a space glyph, a part says so (`drawnSpace`), and an item drawn
+ * right after a space glyph names the item drawn before it
+ * (`drawnSpaceAfter`); a space PDF.js reads from a gap is neither.
+ */
+export type NativePdfWordSource = Omit<NativePdfSource, 'pages'> & {
+  wordVersion: 'native-pdf-words-3';
+  pages: (Omit<NativePdfSource['pages'][number], 'tokens'> & {
+    tokens: (NativePdfSource['pages'][number]['tokens'][number] & {
+      parts?: PdfTokenPart[];
+      drawnSpaceAfter?: number;
+    })[];
+  })[];
 };

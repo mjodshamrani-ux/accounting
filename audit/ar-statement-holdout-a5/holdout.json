@@ -1,0 +1,32 @@
+{
+ "schema": "tarasuf-ar-pdf1-holdout/1",
+ "id": "ar-statement-holdout-a5",
+ "family": "ar-statement-pdf-1",
+ "synthetic": true,
+ "holdout": true,
+ "contract": "audit/ar-statement-foundation/contract.json, unchanged",
+ "oracle": "audit/ar-statement-foundation/oracle.py, unchanged, sealed in 5f32c8c before the product read any customer statement PDF",
+ "productAtSeal": "6f8a12f: AR-1 PDF A1 to A4, the reader, engine, lifecycle and workspace; never run on these files before the seal",
+ "lineage": "B01 to B18, new: written after A4, not derived from the foundation's A01 to A19",
+ "writers": {
+  "libreoffice": {
+   "name": "LibreOffice Writer 24.2.7.2, from flat OpenDocument text (render_libreoffice.py)",
+   "stories": ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B17"],
+   "fonts": {"Liberation Sans": ["B01", "B05", "B06", "B07", "B17"], "Carlito": ["B02"], "FreeSerif": ["B03", "B08"], "DejaVu Sans": ["B04"]}
+  },
+  "itext": {
+   "name": "iText Core 9.8.0 layout (java/, AGPL, outside the repository and the product)",
+   "stories": ["B09", "B10", "B11", "B12", "B13", "B14", "B15", "B16", "B18"],
+   "fonts": {"Liberation Serif, WinAnsi": ["B09", "B12", "B18"], "Inter (CFF), Identity-H": ["B10", "B13"], "Carlito, Identity-H": ["B11", "B14"], "Liberation Mono, WinAnsi": ["B15"], "Caladea, Identity-H": ["B16"]}
+  }
+ },
+ "positives": ["B01", "B02", "B03", "B04", "B09", "B10", "B11", "B15", "B16"],
+ "held": ["B05", "B06", "B07", "B08", "B12", "B13", "B14", "B17", "B18"],
+ "arabic": ["B03", "B04", "B08"],
+ "notTested": [
+  "a value printed outside its heading's horizontal extent (the contract does not say what under means geometrically; verify.py requires each value to overlap its own heading and no other)",
+  "a description wrapped onto a second line (the contract has no continuation line)",
+  "a scanned or image statement, OCR",
+  "an Arabic statement from iText (no right-to-left layout without its commercial add-on)"
+ ]
+}

@@ -1,0 +1,67 @@
+Section,G-5010
+Entity,Rawabi Contracting Co
+Ledger,Statutory GL
+Account,5010
+Complete dimensions,proj=E
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2027-01-01
+Period end,2027-03-31
+Record ID,Record kind,Posting date,Debit,Credit
+G-5010/O,opening,2027-01-01,10.00,0.00
+J-51,movement,2027-01-20,5.00,0.00
+G-5010/C,closing,2027-03-31,15.00,0.00
+End section,G-5010
+
+Section,G-5020
+Entity,Rawabi Contracting Co
+Ledger,Statutory GL
+Account,5020
+Complete dimensions,proj=E
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2027-01-01
+Period end,2027-03-31
+Record ID,Record kind,Posting date,Debit,Credit
+G-5020/O,opening,2027-01-01,20.00,0.00
+J-51,movement,2027-01-21,0.00,5.00
+G-5020/C,closing,2027-03-31,15.00,0.00
+End section,G-5020
+
+Section,G-5030
+Entity,Rawabi Contracting Co
+Ledger,Statutory GL
+Account,5030
+Complete dimensions,proj=E
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2027-01-01
+Period end,2027-03-31
+Record ID,Record kind,Posting date,Debit,Credit
+G-5030/O,opening,2027-01-01,3.00,0.00
+J-53,movement,2027-01-22,0.00,1.00
+G-5030/C,closing,2027-03-31,2.00,0.00
+End section,G-5030
+
+Section,G-5030
+Entity,Rawabi Contracting Co
+Ledger,Statutory GL
+Account,5040
+Complete dimensions,proj=E
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2027-01-01
+Period end,2027-03-31
+Record ID,Record kind,Posting date,Debit,Credit
+G-5030/O,opening,2027-01-01,4.00,0.00
+J-54,movement,2027-01-23,0.00,1.00
+G-5030/C,closing,2027-03-31,3.00,0.00
+End section,G-5030

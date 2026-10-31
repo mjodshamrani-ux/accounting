@@ -1,0 +1,7 @@
+"Relation ID","Batch ID","Side","Transaction ID","Relationship reference","Valid from","Valid to"
+"R-7","AB","A","INV-7","Invoice INV-7 and its reversal REV-7","2026-01-01","2026-12-31"
+"R-7","AB","A","REV-7","Invoice INV-7 and its reversal REV-7","2026-01-01","2026-12-31"
+"R-7","AB","B","B-7","Invoice INV-7 and its reversal REV-7","2026-01-01","2026-12-31"
+"R-7","AB","B","B-REV-7","Invoice INV-7 and its reversal REV-7","2026-01-01","2026-12-31"
+"R-8","AB","A","INV-8","Invoice INV-8","2026-01-01","2026-12-31"
+"R-8","AB","B","B-8","Invoice INV-8","2026-01-01","2026-12-31"

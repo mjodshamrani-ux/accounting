@@ -1,0 +1,7 @@
+Relation ID,Batch ID,Side,Transaction ID,Relationship reference,Valid from,Valid to
+R-1101,AB,A,A-1101,Invoice A-1101,2026-01-01,2026-12-31
+R-1101,AB,B,B-1101,Invoice A-1101,2026-01-01,2026-12-31
+R-1102,AB,A,A-1101,Invoice A-1101 again,2026-01-01,2026-12-31
+R-1102,AB,B,B-1102,Invoice A-1101 again,2026-01-01,2026-12-31
+R-1103,AG,A,A-1103,Invoice A-1103,2026-01-01,2026-12-31
+R-1103,AG,B,G-1103,Invoice A-1103,2026-01-01,2026-12-31

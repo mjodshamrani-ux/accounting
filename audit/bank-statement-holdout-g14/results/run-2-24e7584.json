@@ -1,0 +1,417 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-run/1",
+ "commit": "24e758466f522c87c417785836a63fbd8cbc9cd9",
+ "productSourceChanged": false,
+ "summary": {
+  "positivesCompleted": [
+   "R01",
+   "R02",
+   "R03",
+   "R05",
+   "R07",
+   "R08",
+   "R09",
+   "R10"
+  ],
+  "positivesFailed": [
+   "R04"
+  ],
+  "eligiblePositives": 9,
+  "heldCorrectly": [
+   "R06",
+   "R11",
+   "R12"
+  ],
+  "readingOk": [
+   "R01",
+   "R02",
+   "R03",
+   "R05",
+   "R06",
+   "R07",
+   "R08",
+   "R09",
+   "R10",
+   "R11",
+   "R12"
+  ],
+  "refused": [
+   "R04"
+  ],
+  "falseAutomatic": 0
+ },
+ "statements": [
+  {
+   "id": "R01",
+   "producer": "tcpdf",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 2,
+    "period": {
+     "start": "2027-01-01",
+     "end": "2027-01-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 24,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "R02",
+   "producer": "tcpdf",
+   "layout": "ar",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 2,
+    "period": {
+     "start": "2027-02-01",
+     "end": "2027-02-28"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "ar",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 23,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "R03",
+   "producer": "tcpdf",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 2,
+    "period": {
+     "start": "2027-03-01",
+     "end": "2027-03-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 24,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   },
+   "xlsx": {
+    "cashbookRows": 24,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "R04",
+   "producer": "tcpdf",
+   "layout": "ar",
+   "refused": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel."
+    ]
+   }
+  },
+  {
+   "id": "R05",
+   "producer": "tcpdf",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 2,
+    "period": {
+     "start": "2027-05-01",
+     "end": "2027-05-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 22,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "R06",
+   "producer": "tcpdf",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "balance-broken",
+    "expected": "balance-broken",
+    "reason": "page 2: printed balance 27137573 != 27138473 (items 57,59,61,63,65,67)",
+    "pages": 2,
+    "period": {
+     "start": "2027-06-01",
+     "end": "2027-06-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 23,
+    "equal": true,
+    "held": "balance-broken: page 2: printed balance 27137573 != 27138473 (items 57,59,61,63,65,67)",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "R07",
+   "producer": "mpdf",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 2,
+    "period": {
+     "start": "2027-09-01",
+     "end": "2027-09-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 22,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   },
+   "xlsx": {
+    "cashbookRows": 22,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "R08",
+   "producer": "mpdf",
+   "layout": "ar",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 2,
+    "period": {
+     "start": "2027-10-01",
+     "end": "2027-10-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "ar",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 24,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "R09",
+   "producer": "mpdf",
+   "layout": "ar",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 3,
+    "period": {
+     "start": "2027-11-01",
+     "end": "2027-11-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "ar",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 24,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "R10",
+   "producer": "mpdf",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 5,
+    "period": {
+     "start": "2027-08-01",
+     "end": "2027-10-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 79,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "R11",
+   "producer": "mpdf",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "balance-broken",
+    "expected": "balance-broken",
+    "reason": "page 3: brought-forward 23315167 != 22065167",
+    "pages": 3,
+    "period": {
+     "start": "2027-12-01",
+     "end": "2027-12-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 20,
+    "equal": true,
+    "held": "balance-broken: page 3: brought-forward 23315167 != 22065167",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "R12",
+   "producer": "mpdf",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "incomplete-pages",
+    "expected": "incomplete-pages",
+    "reason": "pages 1,2,3 of 3,4",
+    "pages": 3,
+    "period": {
+     "start": "2027-07-01",
+     "end": "2027-07-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 20,
+    "equal": true,
+    "held": "incomplete-pages: pages 1,2,3 of 3,4",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  }
+ ]
+}

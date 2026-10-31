@@ -1,0 +1,57 @@
+{
+ "schema": "tarasuf-all1-advice-foundation/1",
+ "status": "proposed: review only, not enabled in the product, awaiting the owner's decisions A1 to A6",
+ "synthetic": true,
+ "holdout": false,
+ "productEnabled": false,
+ "proposedEvidence": "allocation-advice-review-1",
+ "family": "allocation-snapshot-1, unchanged: available payments, open invoices and a proposed remittance advice in one party, account, currency and cut-off; human decisions that consume capacity once, with undo",
+ "plan": "docs/roadmap/allocation.ar.md#all-1-السعة-والتنافس--مخطط-بعد-c-0-وc-1",
+ "challengeIds": ["ALL", "CH-02", "CH-03", "CH-04", "CH-13"],
+ "why": "The family keeps capacity: a decision that would take more than a payment or an invoice holds is refused whole, and an advice line is used once. But the advice list itself says nothing. Three lines that ask for the same 400 are all offered for approval, each as if it fitted; the first one approved wins by the accountant's order, and the next is refused only when it is tried. Two identical lines under two line IDs are both offered, and both are allocated when the capacity allows, from one remittance exported twice as easily as from two instalments. Nothing names which lines compete, for what, or by how much.",
+ "claim": "For every advice line of a ready snapshot: whether it is already allocated, whether approving it alone would exceed its payment's or its invoice's remaining capacity, whether the open advice on its payment or invoice together exceeds that remaining capacity and which other open lines it competes with there, and which other lines are its twins. For every payment and invoice: available, allocated, remaining, the open advice on it and the excess. No line is preferred, chosen, dropped or merged, and nothing is decided.",
+ "reading": {
+  "sources": "Exactly as allocation-snapshot-1 reads them: three CSV or XLSX files with the family's headers in any column order, one confirmed reading each, and the confirmed scope (entity, ledger, party, account, currency, cut-off, basis before-proposed-allocation). Every row rule of the family applies unchanged: scope cells on each row, dates on or before the cut-off, exact amounts in the currency's minor units, positive original and advice amounts, available not above original, no hidden row, formula or cell issue, references without control characters, a leading = + @ or -, or an Excel error.",
+  "decisions": "The accountant's decisions are the family's events, replayed by the family's rules: allocation links that name a payment and an invoice by file hash and row, remittance links tied to one advice line used once, human links with their basis, undo of a whole decision.",
+  "refusals": "A file the reader refuses: ROWS for the reader's ceiling of 20,030 rows in a sheet with the header, SOURCE otherwise. A refusal by the family: its own code (SCOPE, READING, COLUMNS, EVENT, OVER_AVAILABLE, PROOF and the others). Any row error in any file, including a duplicate reference and an advice line whose payment or invoice is not among the readable items: SOURCE_ERRORS, as the family refuses every decision then."
+ },
+ "review": {
+  "remaining": "Per payment and per invoice: available in the snapshot minus every active allocation on it, of every basis.",
+  "open": "An advice line is open when no active remittance link uses it. A line an active link uses is allocated, and does not compete.",
+  "advised": "Per payment and per invoice: the sum of the open advice lines naming it. Its excess is advised minus remaining when positive.",
+  "reasons": {
+   "OVER_PAYMENT": "The line alone exceeds its payment's remaining capacity.",
+   "OVER_INVOICE": "The line alone exceeds its invoice's remaining capacity.",
+   "COMPETES_PAYMENT": "The line fits its payment alone, but the open advice on the payment exceeds its remaining capacity.",
+   "COMPETES_INVOICE": "The line fits its invoice alone, but the open advice on the invoice exceeds its remaining capacity.",
+   "TWIN": "Another advice line, open or allocated, names the same payment, the same invoice and the same amount under another line ID."
+  },
+  "order": "Reasons in the order above. Competitors: the other open lines naming a payment or an invoice of the line whose open advice exceeds its remaining capacity, by row. Twins: the other lines with the same payment, invoice and amount, by row.",
+  "status": "allocated for a line an active link uses; review when any reason applies; fits otherwise. A line that fits can be approved without taking capacity any other open line was advised to take: its payment's and its invoice's open advice together fit."
+ },
+ "consistency": [
+  "Every readable advice line appears once, in row order, with exactly one status.",
+  "Per item, allocated plus remaining equals available, and remaining is never negative.",
+  "A line competes only on an item whose open advice exceeds its remaining capacity, and every open line on such an item is listed as a competitor of the others.",
+  "Twins are symmetric. Allocating, undoing or reordering lines never changes which lines are twins.",
+  "Reordering the rows of a file changes row numbers only: the same statuses, reasons, competitors by line ID and twins by line ID."
+ ],
+ "screen": "A review-only section of the allocation workspace, beside the advice list and not instead of it: every advice line with its status, reasons, competitors and twins, every payment and invoice with its remaining capacity and the open advice on it, in Arabic and English. No decision is taken here.",
+ "workbook": "Not in this foundation. The section's export is decided with the screen.",
+ "unchanged": "allocation-snapshot-1: its reading, its cases, its refusals, its decisions, its session and its workbook. The allocation workspace keeps its decisions; a decision is never taken from allocation-advice-review-1.",
+ "density": "The reader admits at most 20,030 rows in a sheet, the header included: 20,029 advice lines. One line more is refused before any review (ROWS).",
+ "ownerDecisions": {
+  "A1": "Competition is per payment and per invoice: when the open advice on an item exceeds its remaining capacity, every open line on it needs review, including lines that would fit alone. No line is preferred by row order, date, amount or by closing a balance exactly.",
+  "A2": "Lines with the same payment, invoice and amount under different line IDs are twins, and each open twin needs review; none is dropped or merged. Proposed: a remittance exported twice and two genuine instalments of the same amount cannot be told apart from the file. Two lines with the same line ID stay a source error of the family (DUPLICATE).",
+  "A3": "A line used by an active decision is allocated and does not compete; undoing the decision makes it open again.",
+  "A4": "Remaining capacity is the snapshot's available amount minus every active allocation, remittance or human. Advice never changes capacity.",
+  "A5": "Review only, beside allocation-snapshot-1: allocation-advice-review-1 takes no decision and changes no session. The family's own refusals (OVER_AVAILABLE, a proof used twice) stay as they are.",
+  "A6": "A source error anywhere refuses the review, as the family refuses every decision then (SOURCE_ERRORS). Isolating a faulty row is AR-2 and later ALL work, not this contract."
+ },
+ "notInScope": [
+  "Choosing among competing lines, or proposing an allocation that closes the balances.",
+  "Allocation across parties, accounts, currencies or cut-offs.",
+  "Remittance families with sections or pages (ALL-2), and search at the scale of ALL-3.",
+  "Decisions, sessions and workbooks for allocation-advice-review-1."
+ ]
+}

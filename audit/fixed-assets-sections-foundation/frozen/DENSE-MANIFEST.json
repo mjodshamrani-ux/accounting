@@ -1,0 +1,62 @@
+{
+ "schema": "tarasuf-fa1-dense-manifest/1",
+ "synthetic": true,
+ "producer": "stories.py dense(), fixed rules and no randomness, written by render.py --dense with Python csv only; regenerated and checked by dense.py before any run",
+ "files": {
+  "D1-gl.csv": {
+   "sha256": "3faf7bf8bcc7930bc3108811a33946332324ae86511b377c443f787af8aa02af",
+   "bytes": 1292
+  },
+  "D1-input.json": {
+   "sha256": "cebff4f651b918b45abb6fc82af8e0985423a4e5f85f5031f143967a40f20706",
+   "bytes": 606
+  },
+  "D1-map.csv": {
+   "sha256": "888bcb8ef29c0d843804ee81666d965121f252465ce5f27bc45a31b6918c8f94",
+   "bytes": 976
+  },
+  "D1-register.csv": {
+   "sha256": "dc5c28a19d3c19ea8d8759cade0e47705aaf33d930cfa5a059a42d9b4f734606",
+   "bytes": 917374
+  },
+  "D2-gl.csv": {
+   "sha256": "3faf7bf8bcc7930bc3108811a33946332324ae86511b377c443f787af8aa02af",
+   "bytes": 1292
+  },
+  "D2-input.json": {
+   "sha256": "5a21096b0e54f667abc131bcccec0b05eadc6be052cc7179b2a0a7424a2405b4",
+   "bytes": 606
+  },
+  "D2-map.csv": {
+   "sha256": "888bcb8ef29c0d843804ee81666d965121f252465ce5f27bc45a31b6918c8f94",
+   "bytes": 976
+  },
+  "D2-register.csv": {
+   "sha256": "51e1daa849caa07fa98f28861a786dcd70f3ec9c2990e95abb3848a55322e895",
+   "bytes": 917375
+  }
+ },
+ "expectedSha256": "6fee6e03a604239c272ee9c025a1a224d4018b66ef912c672027a83867fa2220",
+ "summary": {
+  "D1": {
+   "refused": null,
+   "accounts": {
+    "consistent": 9,
+    "held": 3
+   },
+   "assets": 4890,
+   "sections": 49
+  },
+  "D2": {
+   "refused": "CAPACITY",
+   "accounts": {},
+   "assets": 0,
+   "sections": 0
+  }
+ },
+ "verify": {
+  "passed": true,
+  "files": 6,
+  "problems": []
+ }
+}

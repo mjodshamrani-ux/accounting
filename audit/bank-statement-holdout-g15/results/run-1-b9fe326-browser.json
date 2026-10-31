@@ -1,0 +1,174 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-browser/1",
+ "commit": "b9fe3262ac1ce34abc6843d9e5b4e20c295acc10",
+ "summary": {
+  "capacity": [
+   "T01",
+   "T02",
+   "T04",
+   "T07",
+   "T08",
+   "T09",
+   "T11"
+  ],
+  "eligiblePositives": 9,
+  "heldWhole": [
+   "T05",
+   "T06",
+   "T12"
+  ],
+  "refused": [
+   "T03",
+   "T10"
+  ],
+  "refusedWithResultShown": [],
+  "falseAutomatic": 0,
+  "workbooksChecked": 12,
+  "exportCheck": "passed",
+  "checkerSelfTest": 13,
+  "pageErrors": 0,
+  "externalRequests": 0
+ },
+ "runs": [
+  {
+   "id": "T01",
+   "cashbook": "T01-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "decision": [
+    [
+     "accept",
+     "Bank slip seen for the cash deposit"
+    ]
+   ],
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "T02",
+   "cashbook": "T02-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "T03",
+   "cashbook": "T03-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "T03",
+   "cashbook": "T03-cashbook.xlsx",
+   "refused": "Unexpected xml node in parseOpen: {\"name\":\"lastModifiedBy\",\"attributes\":{},\"isSelfClosing\":false}",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "T04",
+   "cashbook": "T04-cashbook.csv",
+   "status": "reviewed",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "T05",
+   "cashbook": "T05-cashbook.csv",
+   "status": "held",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "T06",
+   "cashbook": "T06-cashbook.csv",
+   "status": "held",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "T07",
+   "cashbook": "T07-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "T08",
+   "cashbook": "T08-cashbook.csv",
+   "status": "reviewed",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "T09",
+   "cashbook": "T09-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "T10",
+   "cashbook": "T10-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "T10",
+   "cashbook": "T10-cashbook.xlsx",
+   "refused": "Unexpected xml node in parseOpen: {\"name\":\"lastModifiedBy\",\"attributes\":{},\"isSelfClosing\":false}",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "T11",
+   "cashbook": "T11-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "T12",
+   "cashbook": "T12-cashbook.csv",
+   "status": "held",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  }
+ ]
+}

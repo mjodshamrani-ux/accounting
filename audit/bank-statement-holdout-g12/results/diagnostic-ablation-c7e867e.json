@@ -1,0 +1,199 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-ablation/1",
+ "suite": "audit/bank-statement-holdout-g12",
+ "commit": "c7e867e6ba1e2e1df9c04cca69acf78e2cbf296d",
+ "productSourceChanged": false,
+ "plain": {
+  "positivesCompleted": [
+   "Q01",
+   "Q02",
+   "Q04",
+   "Q07",
+   "Q08",
+   "Q09",
+   "Q10"
+  ],
+  "positivesFailed": [
+   "Q03",
+   "Q06"
+  ],
+  "eligiblePositives": 9,
+  "heldCorrectly": [
+   "Q05",
+   "Q11",
+   "Q12"
+  ],
+  "readingOk": [
+   "Q01",
+   "Q02",
+   "Q04",
+   "Q05",
+   "Q07",
+   "Q08",
+   "Q09",
+   "Q10",
+   "Q11",
+   "Q12"
+  ],
+  "refused": [
+   "Q03",
+   "Q06"
+  ],
+  "falseAutomatic": 0
+ },
+ "ablations": [
+  {
+   "rule": "drawing by ink",
+   "unit": "G8",
+   "mutant": "g1:drawing-by-metrics",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "Q03": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+    "Q06": "BANK_STATEMENT_FIELD: page 6 line 6: date needs one value"
+   }
+  },
+  {
+   "rule": "rows by ink",
+   "unit": "G8",
+   "mutant": "g1:rows-by-metrics",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [
+    "Q02",
+    "Q04",
+    "Q07",
+    "Q08",
+    "Q10"
+   ],
+   "lostHeld": [
+    "Q11"
+   ],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "Q02": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "Q03": "BANK_STATEMENT_READING: page 1 line 6: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "Q04": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "Q06": "BANK_STATEMENT_FIELD: page 6 line 6: date needs one value",
+    "Q07": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "Q08": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "Q10": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "Q11": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة."
+   }
+  },
+  {
+   "rule": "DR after its amount",
+   "unit": "G8",
+   "mutant": "g1:debit-mark-ignored",
+   "file": "lib/reconciliation/bank-statement-native.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "Q03": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+    "Q06": "BANK_STATEMENT_FIELD: page 6 line 6: date needs one value"
+   }
+  },
+  {
+   "rule": "date runs joined",
+   "unit": "G8",
+   "mutant": "g1:date-runs-not-joined",
+   "file": "lib/reconciliation/bank-statement-native.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "Q03": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+    "Q06": "BANK_STATEMENT_FIELD: page 6 line 6: date needs one value"
+   }
+  },
+  {
+   "rule": "typed cashbook amounts",
+   "unit": "G8",
+   "mutant": "g2:typed-amount-as-text",
+   "file": "lib/reconciliation/bank-statement-match.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "Q03": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+    "Q06": "BANK_STATEMENT_FIELD: page 6 line 6: date needs one value"
+   }
+  },
+  {
+   "rule": "rectangle traced back to its start",
+   "unit": "G10",
+   "mutant": "g1:rectangle-return-unclosed",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [
+    "Q01"
+   ],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "Q01": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا مقصوصًا أو طريقة قص غير مدعومة. اطلب نسخة نصية بسيطة أو Excel.",
+    "Q03": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+    "Q06": "BANK_STATEMENT_FIELD: page 6 line 6: date needs one value"
+   }
+  },
+  {
+   "rule": "drawings by glyph boxes",
+   "unit": "G10",
+   "mutant": "g1:glyph-boxes-ignored",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "Q03": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+    "Q06": "BANK_STATEMENT_FIELD: page 6 line 6: date needs one value"
+   }
+  },
+  {
+   "rule": "rows by glyph boxes",
+   "unit": "G10",
+   "mutant": "g1:rows-glyphs-ignored",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [
+    "Q04",
+    "Q10"
+   ],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "Q03": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+    "Q04": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "Q06": "BANK_STATEMENT_FIELD: page 6 line 6: date needs one value",
+    "Q10": "BANK_STATEMENT_READING: page 1 line 12: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة."
+   }
+  },
+  {
+   "rule": "visibility by ink",
+   "unit": "G12",
+   "mutant": "g1:visibility-by-metrics",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [
+    "Q08",
+    "Q10"
+   ],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "Q03": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+    "Q06": "BANK_STATEMENT_FIELD: page 6 line 6: date needs one value",
+    "Q08": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel.",
+    "Q10": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel."
+   }
+  }
+ ]
+}

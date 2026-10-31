@@ -1,0 +1,5 @@
+Posting ID,Document type,Own document number,Posting date,Original signed amount,Entity,Ledger,Customer,Account,Currency,Related invoice,Description
+L0001,invoice,INV-1005,2026-09-03,600.00,Synthetic Seller Co,AR Book,C0001,1200,SAR,,Valves
+L0002,credit-note,CN-77,2026-09-08,-60.00,Synthetic Seller Co,AR Book,C0001,1200,SAR,INV-1005,Return
+L0003,invoice,INV-1006,2026-09-10,300.00,Synthetic Seller Co,AR Book,C0001,1200,SAR,,Seals
+L0004,credit-note,CN-78,2026-09-14,-30.00,Synthetic Seller Co,AR Book,C0001,1200,SAR,INV-1007,Return

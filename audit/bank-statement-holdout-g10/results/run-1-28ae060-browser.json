@@ -1,0 +1,153 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-browser/1",
+ "commit": "28ae06022519637294da444d99b5b816bba6fec9",
+ "summary": {
+  "capacity": [
+   "P04",
+   "P06",
+   "P07"
+  ],
+  "eligiblePositives": 9,
+  "heldWhole": [
+   "P05",
+   "P11",
+   "P12"
+  ],
+  "refused": [
+   "P01",
+   "P02",
+   "P03",
+   "P08",
+   "P09",
+   "P10"
+  ],
+  "refusedWithResultShown": [],
+  "falseAutomatic": 0,
+  "workbooksChecked": 6,
+  "exportCheck": "passed",
+  "checkerSelfTest": null,
+  "pageErrors": 0,
+  "externalRequests": 0
+ },
+ "runs": [
+  {
+   "id": "P01",
+   "cashbook": "P01-cashbook.csv",
+   "refused": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "P02",
+   "cashbook": "P02-cashbook.csv",
+   "refused": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+   "failureShown": "statement-reading",
+   "resultShown": 0
+  },
+  {
+   "id": "P03",
+   "cashbook": "P03-cashbook.csv",
+   "refused": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "P04",
+   "cashbook": "P04-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "P04",
+   "cashbook": "P04-cashbook.xlsx",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "P05",
+   "cashbook": "P05-cashbook.csv",
+   "status": "held",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "P06",
+   "cashbook": "P06-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "P07",
+   "cashbook": "P07-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "P08",
+   "cashbook": "P08-cashbook.csv",
+   "refused": "تعذرت قراءة صفحة PDF 1: الصفحة 1 مدوّرة. اطلب PDF باتجاه صحيح أو Excel.",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "P08",
+   "cashbook": "P08-cashbook.xlsx",
+   "refused": "تعذرت قراءة صفحة PDF 1: الصفحة 1 مدوّرة. اطلب PDF باتجاه صحيح أو Excel.",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "P09",
+   "cashbook": "P09-cashbook.csv",
+   "refused": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+   "failureShown": "statement-reading",
+   "resultShown": 0
+  },
+  {
+   "id": "P10",
+   "cashbook": "P10-cashbook.csv",
+   "refused": "BANK_STATEMENT_READING: page 1 line 10: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+   "failureShown": "statement-reading",
+   "resultShown": 0
+  },
+  {
+   "id": "P11",
+   "cashbook": "P11-cashbook.csv",
+   "status": "held",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "P12",
+   "cashbook": "P12-cashbook.csv",
+   "status": "held",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  }
+ ]
+}

@@ -27,6 +27,7 @@ import {
 } from '../lib/reconciliation/inventory-hierarchy-sections.ts';
 import { stockHierarchyCitationRows } from '../lib/reconciliation/inventory-hierarchy-evidence.ts';
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
+import { InventoryMovementBridgePanel } from '@/components/inventory-movement-bridge-panel';
 import { useEffect, useRef, useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -130,9 +131,13 @@ function download(buffer: ArrayBuffer, name: string, type: string) {
 function Table({
   headers,
   rows,
+  marks,
+  pager,
 }: {
   headers: string[];
   rows: (string | number | null)[][];
+  marks?: Record<string, string>[];
+  pager?: string;
 }) {
   const { lang } = useI18n();
   const copy = stockCopy[lang];
@@ -151,7 +156,7 @@ function Table({
           </thead>
           <tbody>
             {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i}>
+              <tr key={i} {...marks?.[safe * 50 + i]}>
                 {row.map((v, j) => (
                   <td key={j}>{v ?? '—'}</td>
                 ))}
@@ -160,7 +165,7 @@ function Table({
           </tbody>
         </table>
       </div>
-      <div className="gl-tb-actions">
+      <div className="gl-tb-actions" data-stock-pager={pager}>
         <Button
           variant="outline"
           disabled={!safe}
@@ -985,6 +990,109 @@ export function StockWorkspace({
                 v.differenceMinor,
               ])}
             />
+            <section
+              data-stock-links
+              data-stock-linked={
+                result.links.filter((l) => l.status === 'linked').length
+              }
+              aria-label={copy.links}
+            >
+              <h3>{copy.links}</h3>
+              <p>
+                {copy.linksSummary}:{' '}
+                {result.links.filter((l) => l.status === 'linked').length} /{' '}
+                {result.links.length}
+              </p>
+              {result.links.some((l) => l.status === 'unlinked') ? (
+                <>
+                  <h4>{copy.unlinkedTitle}</h4>
+                  <Table
+                    headers={copy.unlinkedHeaders}
+                    pager="unlinked"
+                    rows={result.links
+                      .filter((l) => l.status === 'unlinked')
+                      .map((l) => [
+                        l.column === undefined ? l.row : `${l.row} · ${l.column}`,
+                        l.item,
+                        l.dimensions,
+                        l.reasons
+                          .map((c) => `${copy.linkReasons[c]} (${c})`)
+                          .join(copy.linkSemi),
+                        l.mappings.map((m) => m.row).join(copy.linkComma) ||
+                          null,
+                        l.evidence.map((e) => e.row).join(copy.linkComma) ||
+                          null,
+                        l.account &&
+                          `${l.account.account} · ${l.account.dimensions}`,
+                      ])}
+                    marks={result.links
+                      .filter((l) => l.status === 'unlinked')
+                      .map((l) => ({
+                        'data-stock-unlinked-row': String(l.row),
+                        'data-stock-unlinked-reasons': l.reasons.join(' '),
+                        'data-stock-unlinked-related': JSON.stringify([
+                          l.mappings.map((m) => m.row),
+                          l.evidence.map((e) => e.row),
+                          l.account &&
+                            `${l.account.account}|${l.account.dimensions}`,
+                          l.gl.map((g) => g.row),
+                        ]),
+                      }))}
+                  />
+                </>
+              ) : (
+                <p data-stock-all-linked>{copy.allLinked}</p>
+              )}
+              {result.unlinked.length > 0 && (
+                <>
+                  <h4>{copy.othersTitle}</h4>
+                  <Table
+                    headers={copy.othersHeaders}
+                    pager="others"
+                    rows={result.unlinked.map((u) => [
+                      copy.linkRoles[u.role],
+                      u.record?.row ?? null,
+                      u.key.join(' · '),
+                      `${copy.unlinkedReasons[u.reason]} (${u.reason})`,
+                    ])}
+                    marks={result.unlinked.map((u) => ({
+                      'data-stock-unlinked-record': JSON.stringify([
+                        u.role,
+                        u.record?.row ?? null,
+                        u.key.join('|'),
+                        u.reason,
+                      ]),
+                    }))}
+                  />
+                </>
+              )}
+              {!pdf && (
+                <div className="gl-tb-actions">
+                  <Button
+                    variant="outline"
+                    disabled={busy}
+                    onClick={() =>
+                      void perform(
+                        (signal) =>
+                          workerTask<ArrayBuffer>(
+                            'stock-links-export',
+                            { state: state(), result },
+                            signal,
+                          ),
+                        (b) =>
+                          download(
+                            b,
+                            'tarasuf-inventory-links.xlsx',
+                            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                          ),
+                      )
+                    }
+                  >
+                    {copy.exportLinks}
+                  </Button>
+                </div>
+              )}
+            </section>
             <fieldset disabled={busy}>
               <legend>{copy.decision}</legend>
               <label>
@@ -1132,6 +1240,7 @@ export function StockWorkspace({
             )}
           </section>
         )}
+        <InventoryMovementBridgePanel />
       </section>
     </div>
   );

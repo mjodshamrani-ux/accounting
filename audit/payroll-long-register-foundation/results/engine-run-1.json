@@ -1,0 +1,124 @@
+{
+ "schema": "tarasuf-pay1-long-register-engine-run/1",
+ "family": "payroll-long-register-1",
+ "suite": "audit/payroll-long-register-foundation",
+ "rule": "equal to EXPECTED.json in full",
+ "equal": 38,
+ "of": 38,
+ "stories": {
+  "P01": {
+   "equal": true
+  },
+  "P02": {
+   "equal": true
+  },
+  "P03": {
+   "equal": true
+  },
+  "P04": {
+   "equal": true
+  },
+  "P05": {
+   "equal": true
+  },
+  "P06": {
+   "equal": true
+  },
+  "P07": {
+   "equal": true
+  },
+  "P08": {
+   "equal": true
+  },
+  "P09": {
+   "equal": true
+  },
+  "P10": {
+   "equal": true
+  },
+  "P11": {
+   "equal": true
+  },
+  "P12": {
+   "equal": true
+  },
+  "P13": {
+   "equal": true
+  },
+  "P14": {
+   "equal": true
+  },
+  "P15": {
+   "equal": true
+  },
+  "P16": {
+   "equal": true
+  },
+  "P17": {
+   "equal": true
+  },
+  "P18": {
+   "equal": true
+  },
+  "P19": {
+   "equal": true
+  },
+  "P20": {
+   "equal": true
+  },
+  "P21": {
+   "equal": true
+  },
+  "P22": {
+   "equal": true
+  },
+  "P23": {
+   "equal": true
+  },
+  "P24": {
+   "equal": true
+  },
+  "P25": {
+   "equal": true
+  },
+  "P26": {
+   "equal": true
+  },
+  "P27": {
+   "equal": true
+  },
+  "P28": {
+   "equal": true
+  },
+  "P29": {
+   "equal": true
+  },
+  "P30": {
+   "equal": true
+  },
+  "P31": {
+   "equal": true
+  },
+  "P32": {
+   "equal": true
+  },
+  "P33": {
+   "equal": true
+  },
+  "P34": {
+   "equal": true
+  },
+  "P35": {
+   "equal": true
+  },
+  "P36": {
+   "equal": true
+  },
+  "P37": {
+   "equal": true
+  },
+  "P38": {
+   "equal": true
+  }
+ }
+}

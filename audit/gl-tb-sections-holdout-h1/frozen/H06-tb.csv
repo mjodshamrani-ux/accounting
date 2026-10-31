@@ -1,0 +1,13 @@
+Page,TB-1
+Entity,"Rawabi Contracting Co"
+Ledger,"Statutory GL"
+Currency,BHD
+"Currency basis",functional
+"Posting status",posted
+"Posting layer",actual
+"Period start",2027-01-01
+"Period end",2027-03-31
+Account,"Complete dimensions","Row type","Parent account","Opening debit","Opening credit","Period debit","Period credit","Closing debit","Closing credit"
+6010,proj=F,account,,1234.567,0.000,2.500,1.005,1236.062,0.000
+6020,proj=F,account,,0.000,50.000,0.000,0.002,0.000,50.002
+"End page",TB-1

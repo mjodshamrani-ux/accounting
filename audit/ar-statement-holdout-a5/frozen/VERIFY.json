@@ -1,0 +1,118 @@
+{
+ "version": "ar-statement-holdout-a5-verify-1",
+ "passed": true,
+ "values": 5998,
+ "stories": {
+  "B01": {
+   "values": 158
+  },
+  "B02": {
+   "values": 281
+  },
+  "B03": {
+   "values": 79
+  },
+  "B04": {
+   "values": 120
+  },
+  "B05": {
+   "values": 241
+  },
+  "B06": {
+   "values": 67
+  },
+  "B07": {
+   "values": 111
+  },
+  "B08": {
+   "values": 168
+  },
+  "B09": {
+   "values": 89
+  },
+  "B10": {
+   "values": 190
+  },
+  "B11": {
+   "values": 480
+  },
+  "B12": {
+   "values": 64
+  },
+  "B13": {
+   "values": 101
+  },
+  "B14": {
+   "values": 95
+  },
+  "B15": {
+   "values": 3559
+  },
+  "B16": {
+   "values": 65
+  },
+  "B17": {
+   "values": 60
+  },
+  "B18": {
+   "values": 70
+  }
+ },
+ "selfTest": [
+  {
+   "story": "B01",
+   "plant": "an amount one halala off",
+   "rejected": true
+  },
+  {
+   "story": "B02",
+   "plant": "the original and open amounts under each other's heading",
+   "rejected": true
+  },
+  {
+   "story": "B11",
+   "plant": "a printed line dropped",
+   "rejected": true
+  },
+  {
+   "story": "B02",
+   "plant": "a page break moved",
+   "rejected": true
+  },
+  {
+   "story": "B04",
+   "plant": "an Arabic-Indic digit in an amount",
+   "rejected": true
+  },
+  {
+   "story": "B03",
+   "plant": "an Arabic word in a description",
+   "rejected": true
+  },
+  {
+   "story": "B10",
+   "plant": "the currency of the compared section",
+   "rejected": true
+  },
+  {
+   "story": "B15",
+   "plant": "the page count in a footer",
+   "rejected": true
+  },
+  {
+   "story": "B05",
+   "plant": "the ledger printed on page 2",
+   "rejected": true
+  },
+  {
+   "story": "B17",
+   "plant": "a document number where none is printed",
+   "rejected": true
+  },
+  {
+   "story": "B09",
+   "plant": "a type and a description under each other's heading",
+   "rejected": true
+  }
+ ]
+}

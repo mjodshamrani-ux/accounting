@@ -1,0 +1,68 @@
+{
+ "schema": "tarasuf-glt1-sections-engine-run/1",
+ "engine": "gl-tb-sections-1",
+ "suite": "audit/gl-tb-sections-holdout-h1",
+ "commit": "e4abd0315aaf4ff805d50f47cf7c878c37a71295",
+ "summary": {
+  "stories": 18,
+  "equal": 18,
+  "accounts": 197,
+  "differing": []
+ },
+ "stories": {
+  "H01": {
+   "equal": true
+  },
+  "H02": {
+   "equal": true
+  },
+  "H03": {
+   "equal": true
+  },
+  "H04": {
+   "equal": true
+  },
+  "H05": {
+   "equal": true
+  },
+  "H06": {
+   "equal": true
+  },
+  "H07": {
+   "equal": true
+  },
+  "H08": {
+   "equal": true
+  },
+  "H09": {
+   "equal": true
+  },
+  "H10": {
+   "equal": true
+  },
+  "H11": {
+   "equal": true
+  },
+  "H12": {
+   "equal": true
+  },
+  "H13": {
+   "equal": true
+  },
+  "H14": {
+   "equal": true
+  },
+  "H15": {
+   "equal": true
+  },
+  "H16": {
+   "equal": true
+  },
+  "H17": {
+   "equal": true
+  },
+  "H18": {
+   "equal": true
+  }
+ }
+}

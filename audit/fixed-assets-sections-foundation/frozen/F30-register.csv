@@ -1,0 +1,26 @@
+Section,S-TYO-VEH
+Entity,Synthetic Dunes Logistics Co
+Asset ledger,FA-MAIN
+Currency,JPY
+As of,2027-12-31
+Location,Tokyo office
+Category,Vehicles
+Asset ID,Asset dimensions,Component,Amount,Valuation reference
+VEH-9001,CC-110,cost,4800000,VAL-2027-VEH
+VEH-9001,CC-110,depreciation,1920000,VAL-2027-VEH
+VEH-9001,CC-110,impairment,0,VAL-2027-VEH
+VEH-9001,CC-110,carrying,2880000,VAL-2027-VEH
+End section,S-TYO-VEH
+Section,S-TYO-FUR
+Entity,Synthetic Dunes Logistics Co
+Asset ledger,FA-MAIN
+Currency,JPY
+As of,2027-12-31
+Location,Tokyo office
+Category,Furniture
+Asset ID,Asset dimensions,Component,Amount,Valuation reference
+FUR-9002,CC-120,cost,1500.0,VAL-2027-FUR
+FUR-9002,CC-120,depreciation,300,VAL-2027-FUR
+FUR-9002,CC-120,impairment,0,VAL-2027-FUR
+FUR-9002,CC-120,carrying,1200,VAL-2027-FUR
+End section,S-TYO-FUR

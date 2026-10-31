@@ -1,0 +1,5 @@
+Relation ID,Batch ID,Side,Transaction ID,Relationship reference,Valid from,Valid to
+R-8000,AB,A,A-8000,Settlement of order A-8000 in three parts,2026-01-01,2026-12-31
+R-8000,AB,B,B-8001,Settlement of order A-8000 in three parts,2026-01-01,2026-12-31
+R-8000,AB,B,B-8002,Settlement of order A-8000 in three parts,2026-01-01,2026-12-31
+R-8000,AB,B,B-8003,Settlement of order A-8000 in three parts,2026-01-01,2026-12-31

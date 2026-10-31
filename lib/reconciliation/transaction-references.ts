@@ -1,6 +1,7 @@
 import { headerLabels, headerCellIssues } from './header-view.ts';
 import type { Mapping, SheetData, Transaction } from './types.ts';
-import { headerMatches } from './header-labels.ts';
+import { headerMatches, normalizeHeaderLabel } from './header-labels.ts';
+import { summaryLabel } from './row-labels.ts';
 
 // Text that resembles executable spreadsheet syntax or a whole-cell error is
 // untrusted identity evidence, even in CSV. Keep the literal value for review;
@@ -126,6 +127,29 @@ export function transactionReferences(
     h.trim().toLowerCase().replace(/[._]/g, '').replace(/\s+/g, ' '),
   );
   const referenceEvidenceIssues: string[] = [];
+  // A PDF is read as lines, not rows. A wrapped cell leaves the rest of its
+  // text on a line of its own, with nothing in the date or amount cells. That
+  // text may finish this row's reference or begin a neighbour's; geometry
+  // cannot say which. Nothing is joined, and the reference read is not
+  // matching evidence for either row. Only a line the PDF reader placed on a
+  // page qualifies: a reviewed image table is rows, not lines. A whole-cell
+  // total or balance label is the statement's own line, never the rest of a
+  // document number (an Arabic opening balance can stand in that column).
+  const money =
+    mapping.mode === 'split' ? [mapping.debit, mapping.credit] : [mapping.amount];
+  for (const line of [rn - 1, rn + 1]) {
+    const cells = sheet.rows[line - 1] ?? [];
+    const rest = (cells[mapping.reference] ?? '').trim();
+    if (
+      sheet.rowPages?.[String(line)] &&
+      rest &&
+      !summaryLabel.test(normalizeHeaderLabel(rest)) &&
+      [mapping.date, ...money].every((column) => !(cells[column] ?? '').trim())
+    )
+      referenceEvidenceIssues.push(
+        `قد يكون مرجع الصف ${rn} ملتفًا: السطر ${line} من PDF يحمل «${rest}» في عمود المرجع بلا تاريخ ولا مبلغ، وقد يكون بقية هذا المرجع أو مرجع الصف المجاور. لم يُضم النص، ولم يُعتمد المرجع دليلًا للمطابقة؛ راجعه في الملف الأصلي.`,
+      );
+  }
   const field = (pattern: RegExp) => {
     const columns = headers.flatMap((h, i) =>
       headerMatches(pattern, h) ? [i] : [],

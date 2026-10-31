@@ -1,0 +1,294 @@
+{
+ "reader": "pdfminer.six, glyph by glyph, rows by baseline, Arabic descriptions in reading order",
+ "factsSha256": "7d1d91997d3cbdaf7f1765fb42bfe75e550875a58c5adfb79eeaea7da5960751",
+ "statements": [
+  {
+   "id": "X01",
+   "file": "X01-statement.pdf",
+   "sha256": "2780538b17e66a688f24dc0144723e4d96118179147eb3409116565fa966cbe6",
+   "pages": 4,
+   "valuesFound": 322,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement service (HexaPDF)",
+   "producer": "HexaPDF version 1.11.2",
+   "fonts": [
+    "IACTLP+WorkSans-Regular",
+    "RJHBCH+WorkSans-Bold"
+   ],
+   "fontDeclared": "Work Sans",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "X02",
+   "file": "X02-statement.pdf",
+   "sha256": "7a2a0559a484cfee9a914a22d884ef4b8237a7a1457e5d57e747626ae53f795e",
+   "pages": 4,
+   "valuesFound": 327,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement service (HexaPDF)",
+   "producer": "HexaPDF version 1.11.2",
+   "fonts": [
+    "BAERTD+Merriweather-Regular",
+    "ZIZACH+Merriweather-Bold"
+   ],
+   "fontDeclared": "Merriweather",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "X03",
+   "file": "X03-statement.pdf",
+   "sha256": "7a3f5aeb101d926301054f16e736a697d74239e3f4cb3f4cabc2cb074f85a97d",
+   "pages": 4,
+   "valuesFound": 340,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement service (HexaPDF)",
+   "producer": "HexaPDF version 1.11.2",
+   "fonts": [
+    "CHKZLW+SpaceMono-Regular",
+    "IIGQYT+SpaceMono-Bold"
+   ],
+   "fontDeclared": "Space Mono",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "X04",
+   "file": "X04-statement.pdf",
+   "sha256": "674b78060ecff2a70af40372fcf048987b991e579a54f5b91bf519a38b636e32",
+   "pages": 9,
+   "valuesFound": 871,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement service (HexaPDF)",
+   "producer": "HexaPDF version 1.11.2",
+   "fonts": [
+    "HEFWPV+FiraSans-Regular",
+    "XVJZKL+FiraSans-Bold"
+   ],
+   "fontDeclared": "Fira Sans",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "X05",
+   "file": "X05-statement.pdf",
+   "sha256": "dde281752d1ed791ef35bb888b342d2443b37008222ecb771955942c99ee847c",
+   "pages": 4,
+   "valuesFound": 342,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement service (HexaPDF)",
+   "producer": "HexaPDF version 1.11.2",
+   "fonts": [
+    "FCKOXI+WorkSans-Bold",
+    "YFXXUA+WorkSans-Regular"
+   ],
+   "fontDeclared": "Work Sans",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "X06",
+   "file": "X06-statement.pdf",
+   "sha256": "5527a024b25b13e11ef4c3b62fc25e756bea5e52476c48624463e9f1773e6266",
+   "pages": 4,
+   "valuesFound": 364,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "Lemonada-Bold-8827",
+    "Lemonada-Regular-6214"
+   ],
+   "fontDeclared": "Lemonada",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "X07",
+   "file": "X07-statement.pdf",
+   "sha256": "9ddbf7c87470908df01c7ff836d2786225d83fd698a187831f80cdbdc126420a",
+   "pages": 4,
+   "valuesFound": 287,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "Alexandria-Bold-545",
+    "Alexandria-Regular-905"
+   ],
+   "fontDeclared": "Alexandria",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "X08",
+   "file": "X08-statement.pdf",
+   "sha256": "e0981280c5b33c26ffbb6348a744886b41476045ade36b5e7276333a8fb1a53b",
+   "pages": 5,
+   "valuesFound": 317,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "Cairo-Bold-8779",
+    "Cairo-Regular-834"
+   ],
+   "fontDeclared": "Cairo",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "X09",
+   "file": "X09-statement.pdf",
+   "sha256": "09b937512633bf5c51a9070b6e441e69af3f34ead6c978ddafe88729e2ca5cd5",
+   "pages": 5,
+   "valuesFound": 307,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "Tajawal-Bold-6279",
+    "Tajawal-Regular-6653"
+   ],
+   "fontDeclared": "Tajawal",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "X10",
+   "file": "X10-statement.pdf",
+   "sha256": "b9fd2f12e58f60f163830de5ce1a0387eb3dd6ff63ddef8dc79c5b6efbe5fdff",
+   "pages": 4,
+   "valuesFound": 328,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "ReadexPro-Bold-2322",
+    "ReadexPro-Regular-3287"
+   ],
+   "fontDeclared": "Readex Pro",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "X11",
+   "file": "X11-statement.pdf",
+   "sha256": "aa4294f6092506faeeb1976f937e2d6c3b5e5d0bc3dc78e93413ebf887a6c4ac",
+   "pages": 4,
+   "valuesFound": 375,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "Rubik-Bold-5384",
+    "Rubik-Regular-4108"
+   ],
+   "fontDeclared": "Rubik",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "X12",
+   "file": "X12-statement.pdf",
+   "sha256": "4fdd4a9124cc2a182120c234ff3d357826bca9e0d437838fc7e6dcc9dbbd85be",
+   "pages": 4,
+   "valuesFound": 250,
+   "ok": true,
+   "problems": [],
+   "creator": "G23 statement application (pdf-lib)",
+   "producer": "pdf-lib (https://github.com/Hopding/pdf-lib)",
+   "fonts": [
+    "Rubik-Bold-6026",
+    "Rubik-Regular-5187"
+   ],
+   "fontDeclared": "Rubik",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  }
+ ],
+ "ok": true,
+ "cashbookXlsx": [
+  {
+   "file": "X03-cashbook.xlsx",
+   "kind": "typed",
+   "cellTypes": [
+    "n"
+   ],
+   "sameAsCsv": true,
+   "sha256": "b9c61d890436b1965ae083b2164a9e84ae863c179d5809b76ca09463f3cad286"
+  },
+  {
+   "file": "X10-cashbook.xlsx",
+   "kind": "text",
+   "sameAsCsv": true,
+   "sha256": "076a3081c204849a0da2030439177164c82d3509e52fa6e0d50198ae9ad95d30"
+  }
+ ],
+ "selfTest": [
+  "X01: HexaPDF Work Sans, grid: a withdrawal one halala off",
+  "X01: HexaPDF Work Sans, grid: two balances swapped between rows",
+  "X01: HexaPDF Work Sans, grid: the late transfer's invoice reference changed",
+  "X01: HexaPDF Work Sans, grid: the chargeback changed",
+  "X01: HexaPDF Work Sans, grid: a description word changed",
+  "X02: HexaPDF Merriweather, page totals: a page total changed",
+  "X02: HexaPDF Merriweather, page totals: the payout net of commission changed",
+  "X02: HexaPDF Merriweather, page totals: one of two equal fuel top-ups one halala off",
+  "X02: HexaPDF Merriweather, page totals: the unreferenced importer payment one halala off",
+  "X03: HexaPDF Space Mono, DR: an overdrawn balance without DR",
+  "X03: HexaPDF Space Mono, DR: the second importer debit reference changed",
+  "X03: HexaPDF Space Mono, DR: a deposit one halala off",
+  "X03: HexaPDF Space Mono, DR: the refund's date changed",
+  "X04: HexaPDF Fira Sans, landscape: a word inside a wrapped description",
+  "X04: HexaPDF Fira Sans, landscape: the printed page numbers changed",
+  "X04: HexaPDF Fira Sans, landscape: the value date after the period changed",
+  "X04: HexaPDF Fira Sans, landscape: the terminal fee changed",
+  "X05: HexaPDF Work Sans, page total short: a deposit one halala off",
+  "X05: HexaPDF Work Sans, page total short: page 2's deposit total read back whole",
+  "X06: pdf-lib Lemonada, page of five: the third page read back as of 4",
+  "X06: pdf-lib Lemonada, page of five: a withdrawal one halala off",
+  "X07: pdf-lib Arabic, Alexandria, Arabic-Indic digits: a date changed",
+  "X07: pdf-lib Arabic, Alexandria, Arabic-Indic digits: the late transfer's invoice reference changed",
+  "X07: pdf-lib Arabic, Alexandria, Arabic-Indic digits: a description word changed",
+  "X07: pdf-lib Arabic, Alexandria, Arabic-Indic digits: the gateway fee changed",
+  "X07: pdf-lib Arabic, Alexandria, Arabic-Indic digits: one of two equal packaging payments one halala off",
+  "X08: pdf-lib Arabic, Cairo: the continuation text changed",
+  "X08: pdf-lib Arabic, Cairo: the value date after the period changed",
+  "X08: pdf-lib Arabic, Cairo: the returned transfer fee changed",
+  "X08: pdf-lib Arabic, Cairo: a description word changed",
+  "X09: pdf-lib Arabic, Tajawal, Latin digits: a description word changed",
+  "X09: pdf-lib Arabic, Tajawal, Latin digits: the packaging payment reference changed",
+  "X09: pdf-lib Arabic, Tajawal, Latin digits: a date changed",
+  "X09: pdf-lib Arabic, Tajawal, Latin digits: the value date before the period changed",
+  "X10: pdf-lib Readex Pro, stripes: the settlement net of MDR changed",
+  "X10: pdf-lib Readex Pro, stripes: the credit note reference changed",
+  "X10: pdf-lib Readex Pro, stripes: a description word changed",
+  "X10: pdf-lib Readex Pro, stripes: two balances swapped between rows",
+  "X11: pdf-lib Rubik: the unreferenced transfer changed",
+  "X11: pdf-lib Rubik: the delivery app payout reference changed",
+  "X11: pdf-lib Rubik: a withdrawal one halala off",
+  "X12: pdf-lib Arabic, Rubik, brought forward swapped: the closing balance changed",
+  "X12: pdf-lib Arabic, Rubik, brought forward swapped: a withdrawal one halala off",
+  "X12: pdf-lib Arabic, Rubik, brought forward swapped: page 3's balance brought forward read back as the ledger's",
+  "X03: XLSX cashbook one halala off its CSV",
+  "X10: XLSX cashbook one halala off its CSV",
+  "X01: the letter S drawn as .notdef",
+  "X03: the letter S drawn as .notdef",
+  "X06: the letter H drawn as .notdef",
+  "X07: the letter ي drawn as .notdef",
+  "X09: the letter ي drawn as .notdef",
+  "X12: the letter ي drawn as .notdef"
+ ]
+}

@@ -1,0 +1,26 @@
+"Section","SEC-JAH-LFT",,,
+"Entity","Synthetic Pearl Coast Hotels Co",,,
+"Asset ledger","FAR-HTL",,,
+"Currency","KWD",,,
+"As of","2028-03-31",,,
+"Location","Jahra inn",,,
+"Category","Lifts",,,
+"Asset Id","Asset dimensions","Component","Amount","Valuation reference"
+,"JAH-C","cost","64000.000","VAL-SEC-JAH-LFT"
+,"JAH-C","depreciation","25600.000","VAL-SEC-JAH-LFT"
+,"JAH-C","impairment","3200.000","VAL-SEC-JAH-LFT"
+,"JAH-C","carrying","35200.000","VAL-SEC-JAH-LFT"
+"End section","SEC-JAH-LFT",,,
+"Section","SEC-FIN-RM",,,
+"Entity","Synthetic Pearl Coast Hotels Co",,,
+"Asset ledger","FAR-HTL",,,
+"Currency","KWD",,,
+"As of","2028-03-31",,,
+"Location","Fintas beach resort",,,
+"Category","Guest room furniture",,,
+"Asset ID","Asset dimensions","Component","Amount","Valuation reference"
+"RM-1102","FIN-W2","cost","2750.000","VAL-SEC-FIN-RM"
+"RM-1102","FIN-W2","depreciation","1375.000","VAL-SEC-FIN-RM"
+"RM-1102","FIN-W2","impairment","137.500","VAL-SEC-FIN-RM"
+"RM-1102","FIN-W2","carrying","1237.500","VAL-SEC-FIN-RM"
+"End section","SEC-FIN-RM",,,

@@ -1,0 +1,844 @@
+"""The eligibility checker against planted faults: a clean page passes every
+check, and each page built with one refusal the reader declares is found by
+the check for it.
+
+  PYTHONPATH=<pymupdf 2.0> python3 -B -m unittest discover -s audit/bank-statement-eligibility -p test_eligibility.py -v
+"""
+import json
+import sys
+import tempfile
+import unittest
+from collections import Counter
+from pathlib import Path
+
+import pymupdf
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import columns  # noqa: E402
+import drawings  # noqa: E402
+import eligibility as el  # noqa: E402
+import items  # noqa: E402
+import plant_drawings  # noqa: E402
+import plant_items  # noqa: E402
+import plant_rows  # noqa: E402
+import rows  # noqa: E402
+import tounicode  # noqa: E402
+
+TMP = Path(tempfile.mkdtemp(prefix='eligibility-'))
+
+
+def statement(name, build=None, **text):
+    """A page of two statement lines 16 points apart under a rule."""
+    doc = pymupdf.open()
+    page = doc.new_page(width=420, height=300)
+    page.insert_text((40, 80), '2026-04-01 Transfer INV-26-0004 1,250.00', fontsize=10, **text)
+    page.insert_text((40, 96), '2026-04-02 Card settlement 980.15', fontsize=10)
+    page.draw_line((36, 104), (384, 104), color=(0.6, 0.6, 0.6), width=0.5)
+    if build:
+        build(doc, page)
+    path = TMP / f'{name}.pdf'
+    doc.save(path)
+    return path
+
+
+def found(path):
+    """The page checks' findings. These pages are fragments of a statement,
+    without its header, so the reading by columns is tested on whole
+    statements in Columns below."""
+    return {k: v for k, v in el.check_pdf(path)['found'].items() if k != 'columns'}
+
+
+class Planted(unittest.TestCase):
+    def test_clean_page_passes_every_check(self):
+        result = el.check_pdf(statement('clean'))
+        self.assertEqual({k: v for k, v in result['found'].items() if k != 'columns'}, {})
+        self.assertEqual(result['found']['columns'][0]['code'], 'HEADER')
+        self.assertIsNotNone(result['leastRuleGapPt'])
+
+    def test_rotation(self):
+        self.assertIn('rotation', found(statement('rotation', lambda d, p: p.set_rotation(90))))
+
+    def test_direction(self):
+        def turned(doc, page):
+            page.insert_text((200, 200), 'Closing balance 12,000.00', fontsize=10, rotate=90)
+        self.assertIn('direction', found(statement('direction', turned)))
+
+    def test_images(self):
+        def logo(doc, page):
+            pix = pymupdf.Pixmap(pymupdf.csRGB, pymupdf.IRect(0, 0, 4, 4), False)
+            pix.clear_with(120)
+            page.insert_image(pymupdf.Rect(300, 20, 320, 30), pixmap=pix)
+        self.assertIn('images', found(statement('images', logo)))
+
+    def test_widgets(self):
+        def field(doc, page):
+            w = pymupdf.Widget()
+            w.field_name, w.field_type = 'amount', pymupdf.PDF_WIDGET_TYPE_TEXT
+            w.rect = pymupdf.Rect(300, 150, 380, 165)
+            page.add_widget(w)
+        self.assertIn('widgets', found(statement('widgets', field)))
+
+    def test_layers(self):
+        def layer(doc, page):
+            oc = doc.add_ocg('hidden', on=False)
+            page.insert_text((40, 140), 'Adjustment 500.00', fontsize=10, oc=oc)
+        self.assertIn('layers', found(statement('layers', layer)))
+
+    def test_encryption(self):
+        doc = pymupdf.open(statement('plain'))
+        path = TMP / 'encryption.pdf'
+        doc.save(path, encryption=pymupdf.PDF_ENCRYPT_AES_256, owner_pw='owner', user_pw='user')
+        self.assertIn('encryption', found(path))
+
+    def test_size(self):
+        doc = pymupdf.open()
+        for _ in range(101):
+            doc.new_page().insert_text((40, 80), 'Page', fontsize=10)
+        path = TMP / 'long.pdf'
+        doc.save(path)
+        self.assertIn('size', el.check_pdf(path)['found'])
+
+    def test_page_edge(self):
+        def edge(doc, page):
+            page.insert_text((40, 4), 'Statement of account', fontsize=10)
+        self.assertIn('pageEdge', found(statement('edge', edge)))
+
+    def test_hidden_text(self):
+        def hidden(doc, page):
+            page.insert_text((40, 140), '9,999.00', fontsize=10, render_mode=3)
+        self.assertIn('hiddenText', found(statement('hidden', hidden)))
+
+    def test_contrast(self):
+        def pale(doc, page):
+            page.insert_text((40, 140), 'Fee 15.00', fontsize=10, color=(0.85, 0.85, 0.85))
+        self.assertIn('contrast', found(statement('contrast', pale)))
+
+    def test_contrast_on_a_dark_fill_is_kept_and_white_on_it_passes(self):
+        def heading(doc, page):
+            page.draw_rect(pymupdf.Rect(36, 120, 384, 140), color=None, fill=(0.1, 0.1, 0.3))
+            page.insert_text((40, 134), 'Date  Description  Balance', fontsize=10, color=(1, 1, 1))
+        self.assertNotIn('contrast', found(statement('white-on-dark', heading)))
+
+    def test_white_letters_on_a_fill_their_font_box_passes(self):
+        # G12: the reader judges a run's visibility by its glyphs' ink, so a
+        # fill that holds the letters (126.6 to 136.3 with the margin) is
+        # enough though the font's box rises to 126.2, as in jsPDF's Arabic
+        # heads.
+        def heading(doc, page):
+            page.draw_rect(pymupdf.Rect(36, 126.4, 384, 136.5), color=None, fill=(0.07, 0.43, 0.38))
+            page.insert_text((40, 134), 'Date  Description  Balance', fontsize=10, color=(1, 1, 1))
+        self.assertNotIn('contrast', found(statement('white-ink-on-fill', heading)))
+
+    def test_visibility_by_ink_is_recorded_as_exercised(self):
+        def tight(doc, page):
+            page.draw_rect(pymupdf.Rect(36, 126.4, 384, 136.5), color=None, fill=(0.07, 0.43, 0.38))
+            page.insert_text((40, 134), 'Date  Description  Balance', fontsize=10, color=(1, 1, 1))
+
+        def roomy(doc, page):
+            page.draw_rect(pymupdf.Rect(36, 120, 384, 140), color=None, fill=(0.1, 0.1, 0.3))
+            page.insert_text((40, 134), 'Date  Description  Balance', fontsize=10, color=(1, 1, 1))
+        self.assertEqual(el.check_pdf(statement('ink-tight', tight))['exercised'].get('visibleByInk'), 1)
+        self.assertNotIn('visibleByInk', el.check_pdf(statement('ink-roomy', roomy))['exercised'])
+
+    def test_visibility_by_ink_is_counted_by_the_declared_font_box(self):
+        # G14's R08: FreeSerif from mPDF, its heading fill holding every
+        # letter's ink but not the ascent and descent its descriptor declares,
+        # by which the reader judged before G12; MuPDF's own glyph box is the
+        # font size and would count nothing. R07's monospaced heading passes
+        # by either box.
+        root = Path(__file__).resolve().parent.parent / 'bank-statement-holdout-g14' / 'frozen'
+        self.assertEqual(el.check_pdf(root / 'R08-statement.pdf')['exercised'].get('visibleByInk'), 14)
+        self.assertNotIn('visibleByInk', el.check_pdf(root / 'R07-statement.pdf')['exercised'])
+
+    def test_white_letters_whose_ink_leaves_the_fill(self):
+        # The capitals rise to 126.7: a fill from 128 leaves their tops white
+        # on the white page.
+        def heading(doc, page):
+            page.draw_rect(pymupdf.Rect(36, 128, 384, 136.5), color=None, fill=(0.07, 0.43, 0.38))
+            page.insert_text((40, 134), 'Date  Description  Balance', fontsize=10, color=(1, 1, 1))
+        self.assertIn('contrast', found(statement('white-ink-off-fill', heading)))
+
+    def test_rule_through_a_glyph(self):
+        def struck(doc, page):
+            page.draw_line((36, 77), (384, 77), color=(0.6, 0.6, 0.6), width=0.5)
+        self.assertIn('ruleClearance', found(statement('rule', struck)))
+
+    def test_a_thin_rule_is_padded_by_half_a_point_as_the_reader_pads_it(self):
+        # The ink of 'Fee 15.00' ends at 180.23. A rule 0.3 wide at 180.68 is
+        # 0.30 from it by half its width, clear of the 0.1 margin; the reader
+        # pads every stroke by half a point at least, and so meets the ink
+        # (G14: R04, TCPDF's 0.57-point rules).
+        def thin(doc, page):
+            page.insert_text((40, 180), 'Fee 15.00', fontsize=10)
+            page.draw_line((36, 180.68), (384, 180.68), color=(0.6, 0.6, 0.6), width=0.3)
+        self.assertIn('ruleClearance', found(statement('thin-rule', thin)))
+
+    def test_a_filled_sliver_under_text_closed_twice_is_a_drawing_to_the_reader(self):
+        # MuPDF draws a heading's background in pieces; a pale one 2 points
+        # wide under a letter meets no glyph's ink as a rule would
+        # (ruleClearance). G11 wrote that the reader takes it for a
+        # background, unmeasured. MuPDF writes it `re h f`, PDF.js packs the
+        # rectangle's close and h's, and the reader reads no rectangle in a
+        # path closed twice: a drawing over text, and the page is refused.
+        # Measured on the reader in G22 (plant_drawings.py, closed-twice).
+        def sliver(doc, page):
+            page.draw_rect(pymupdf.Rect(60, 70, 62, 82), color=None, fill=(0.9, 0.92, 0.91), overlay=False)
+        self.assertEqual(found(statement('sliver', sliver)),
+                         {'drawings': [{'page': 1, 'at': {'kind': 'drawing', 'op': 0}}]})
+
+    def test_lines_whose_ink_meets(self):
+        def crowded(doc, page):
+            page.insert_text((40, 186), 'Opening balance 4,000.00', fontsize=12)
+            page.insert_text((40, 193), 'Closing balance 9,000.00', fontsize=12)
+        self.assertIn('lineInk', found(statement('lines', crowded)))
+
+    def test_lines_apart_by_little_still_pass(self):
+        # 10-point lines 12 points apart: no ink meets.
+        def tight(doc, page):
+            page.insert_text((40, 186), 'Opening balance 4,000.00', fontsize=10)
+            page.insert_text((40, 198), 'Closing balance 9,000.00', fontsize=10)
+        self.assertNotIn('lineInk', found(statement('tight', tight)))
+
+    def test_a_letter_a_little_off_its_baseline_is_on_its_line(self):
+        # Amiri stacks some letters, and a writer sets them a fraction of a
+        # point off the baseline: the reader keeps them on the line.
+        def stacked(doc, page):
+            page.insert_text((40, 186), 'Withdrawal', fontsize=12)
+            page.insert_text((88, 186.6), 'al', fontsize=12)
+        self.assertNotIn('lineInk', found(statement('stacked', stacked)))
+
+    def test_line_control_finds_a_planted_shift(self):
+        path = statement('control')
+        self.assertIsNone(el.line_ink(str(path), 0, 0.05))
+        # The second line moved 12 of its 16 points up, onto the first; down,
+        # it meets nothing.
+        self.assertIsNotNone(el.line_ink(str(path), 0, 0.05, shift=12))
+        self.assertIsNone(el.line_ink(str(path), 0, 0.05, shift=-12))
+
+    def test_a_turned_page_is_measured_across_its_lines(self):
+        result = el.check_pdf(statement('turned-control', lambda d, p: p.set_rotation(90)))
+        self.assertTrue(any(result['lineControl']['found']))
+        self.assertNotIn('lineControl', result['found'])
+
+    def test_a_page_whose_lines_cannot_be_seen_is_not_measured(self):
+        def gone(doc, page):
+            page.clean_contents()
+            xref = page.get_contents()[0]
+            doc.update_stream(xref, b'q 0 0 1 1 re W n ' + doc.xref_stream(xref) + b' Q')
+        self.assertIn('lineControl', found(statement('gone', gone)))
+
+    def test_text_covered_by_a_later_fill(self):
+        def covered(doc, page):
+            page.draw_rect(pymupdf.Rect(150, 70, 230, 84), color=None, fill=(1, 1, 1))
+        self.assertIn('visibleInk', found(statement('covered', covered)))
+
+    def test_text_cut_by_a_clip(self):
+        def clipped(doc, page):
+            # A clip from y 222 up: the first line's baseline is at 220.
+            page.clean_contents()
+            xref = page.get_contents()[0]
+            doc.update_stream(xref, b'q 36 222 348 20 re W n ' + doc.xref_stream(xref) + b' Q')
+        self.assertIn('visibleInk', found(statement('clipped', clipped)))
+
+
+class AsDrawn(unittest.TestCase):
+    def test_a_statement_drawn_as_it_is_hides_no_ink(self):
+        # FOP nests its matrices; merged and rounded (MuPDF's clean_contents),
+        # every glyph edge moved a fraction of a pixel and read as hidden ink.
+        root = Path(__file__).resolve().parent.parent
+        path = root / 'bank-statement-holdout-g10' / 'frozen' / 'P02-statement.pdf'
+        self.assertEqual(el.visible_ink(str(path), 0), 0)
+
+
+class Decision(unittest.TestCase):
+    def package(self, story):
+        root = Path(tempfile.mkdtemp(prefix='package-', dir=TMP))
+        (root / 'frozen').mkdir()
+        (root / 'frozen' / 'EXPECTED.json').write_text(json.dumps({'stories': [story]}))
+        return root
+
+    def test_a_case_the_page_cannot_accept(self):
+        p = self.package({'id': 'S1', 'statement': 'verified', 'bankOnly': ['b:fee'], 'cashOnly': [],
+                          'review': [{'reason': 'duplicate-reference'}]})
+        self.assertTrue(el.check_decision(p, 'S1')['problems'])
+
+    def test_no_outstanding_item(self):
+        p = self.package({'id': 'S1', 'statement': 'verified', 'bankOnly': [], 'cashOnly': [],
+                          'review': [{'reason': 'date-gap'}]})
+        self.assertTrue(el.check_decision(p, 'S1')['problems'])
+
+    def test_a_story_that_can_be_decided(self):
+        p = self.package({'id': 'S1', 'statement': 'verified', 'bankOnly': [], 'cashOnly': ['c:dit'],
+                          'review': [{'reason': 'amount-date-suggestion'}]})
+        self.assertEqual(el.check_decision(p, 'S1')['problems'], [])
+
+    def test_the_page_rule_is_read_from_the_product(self):
+        self.assertEqual(el.acceptable_in_source(), el.ACCEPTABLE)
+
+
+HEADERS = ['Date', 'Value Date', 'Description', 'Reference', 'Withdrawal', 'Deposit', 'Balance']
+STARTS = [40, 100, 160, 290]    # columns read from their left edge
+ENDS = [430, 500, 570]          # amount columns, right-aligned
+
+
+def put(page, y, cells, end_shift=0, start_shift=0):
+    for k, text in enumerate(cells):
+        if not text:
+            continue
+        if k < 4:
+            x = STARTS[k] + (start_shift if k == 0 and y > 80 else 0)
+        else:
+            x = ENDS[k - 4] - pymupdf.get_text_length(text, fontname='helv', fontsize=8) - (end_shift if y > 80 else 0)
+        page.insert_text((x, y), text, fontsize=8, fontname='helv')
+
+
+def whole(name, pages, headers=HEADERS, currency='SAR', **shift):
+    """A statement whose pages are lists of table rows, each seven cells;
+    its heading names `currency`."""
+    doc = pymupdf.open()
+    for n, rows in enumerate(pages, 1):
+        page = doc.new_page(width=600, height=400)
+        page.insert_text((40, 40), 'Harbor Line Bank', fontsize=12)
+        page.insert_text((40, 58), f'Account: SA00 1000 · Currency: {currency} · Period: 2026-04-01 — 2026-04-30',
+                         fontsize=8)
+        put(page, 80, headers)
+        for i, row in enumerate(rows):
+            put(page, 96 + 14 * i, row, **shift)
+        page.insert_text((270, 370), f'Page {n} of {len(pages)}', fontsize=8)
+    path = TMP / f'{name}.pdf'
+    doc.save(path)
+    return pymupdf.open(path)
+
+
+ONE = [['Opening balance', '', '', '', '', '', '1,000.00'],
+       ['2026-04-02', '2026-04-02', 'Card settlement', 'CS-01', '', '250.00', '1,250.00'],
+       ['2026-04-03', '2026-04-03', 'Rent', 'RT-02', '400.00', '', '850.00'],
+       ['Closing balance', '', '', '', '', '', '850.00'],
+       ['Total withdrawals / deposits', '', '', '', '400.00', '250.00', '']]
+
+
+def two(continuation):
+    return [[['Opening balance', '', '', '', '', '', '1,000.00'],
+             ['2026-04-02', '2026-04-02', 'Card settlement for', 'CS-01', '', '250.00', '1,250.00'],
+             ['Balance carried forward', '', '', '', '', '', '1,250.00']],
+            [['Balance brought forward', '', '', '', '', '', '1,250.00'],
+             ['', '', continuation, '', '', '', ''],
+             ['Closing balance', '', '', '', '', '', '1,250.00'],
+             ['Total withdrawals / deposits', '', '', '', '0.00', '250.00', '']]]
+
+
+def stop(doc):
+    r = columns.check_statement(doc)
+    return r and (r['code'], r['page'], r['line'])
+
+
+def exercised(doc):
+    used = Counter()
+    return columns.check_statement(doc, used), {k: v for k, v in used.items() if v}
+
+
+def runs(name):
+    """A statement whose Balance heading starts its column, an overdrawn
+    balance printed with its DR 0.75 em after the amount, and a date printed
+    as touching runs in two fonts, as a writer that changes font for the
+    separators does."""
+    doc = pymupdf.open()
+    page = doc.new_page(width=600, height=400)
+    page.insert_text((40, 40), 'Harbor Line Bank', fontsize=12)
+    page.insert_text((40, 58), 'Account: SA00 1000 · Currency: SAR · Period: 2026-04-01 — 2026-04-30', fontsize=8)
+    put(page, 80, HEADERS[:6] + [''])
+    page.insert_text((520, 80), 'Balance', fontsize=8, fontname='helv')
+
+    def balance(y, text, debit=False):
+        page.insert_text((560 - pymupdf.get_text_length(text, fontname='helv', fontsize=8), y), text, fontsize=8,
+                         fontname='helv')
+        if debit:
+            page.insert_text((566, y), 'DR', fontsize=8, fontname='helv')
+    put(page, 96, ['Opening balance'])
+    balance(96, '100.00')
+    x = 40
+    for text, font in (('2026', 'helv'), ('-', 'cour'), ('04', 'helv'), ('-', 'cour'), ('03', 'helv')):
+        page.insert_text((x, 110), text, fontsize=8, fontname=font)
+        x += pymupdf.get_text_length(text, fontname=font, fontsize=8)
+    put(page, 110, ['', '2026-04-03', 'Rent', 'RT-02', '400.00', ''])
+    balance(110, '300.00', debit=True)
+    put(page, 124, ['Closing balance'])
+    balance(124, '300.00', debit=True)
+    put(page, 138, ['Total withdrawals / deposits', '', '', '', '400.00', '0.00'])
+    page.insert_text((270, 370), 'Page 1 of 1', fontsize=8)
+    path = TMP / f'{name}.pdf'
+    doc.save(path)
+    return pymupdf.open(path)
+
+
+def code(doc):
+    return (stop(doc) or (None,))[0]
+
+
+def ligature(name):
+    """The statement of ONE whose first movement prints its date and value
+    date as one item, 2026-04-~ and 2026-04-02 0.56 em apart (one item to
+    PDF.js, under 0.6 em): the first word ends inside the Date column, the
+    second starts inside Value Date and ends 4.6 points past its header, so
+    the item lies in no column and its words each in one. Its font's
+    ToUnicode map reads the ~ as the two digits 0 and 2. The reader splits
+    the item into its two words all the same, and reads the statement: first
+    expected otherwise here, and measured with the reader (G19)."""
+    doc = whole(name, [[ONE[0], ['', '', *ONE[1][2:]], *ONE[2:]]])
+    page = doc[0]
+    font = page.get_fonts(full=True)[0]
+    first = 98.8 - pymupdf.get_text_length('2026-04-~', fontname='helv', fontsize=8)
+    stream = doc.get_new_xref()
+    doc.update_object(stream, '<< >>')
+    doc.update_stream(stream, b'BT /%s 8 Tf 1 0 0 1 %.3f 290 Tm [(2026-04-~) -560 (2026-04-02)] TJ ET'
+                      % (font[4].encode(), first))
+    doc.xref_set_key(page.xref, 'Contents', '[' + ' '.join(f'{x} 0 R' for x in page.get_contents() + [stream]) + ']')
+    xref = doc.get_new_xref()
+    doc.update_object(xref, '<<>>')
+    doc.update_stream(xref, cmap('beginbfrange <20> <7D> <0020> endbfrange',
+                                 'beginbfchar <7E> <00300032> endbfchar').encode('latin-1'))
+    doc.xref_set_key(font[0], 'ToUnicode', f'{xref} 0 R')
+    path = TMP / f'{name}-mapped.pdf'
+    doc.save(path)
+    return pymupdf.open(path)
+
+
+def subsets(name):
+    """The statement of ONE whose first movement's date is drawn as runs in
+    two subsets of one embedded font, its digits in one and its hyphens in
+    the other, as G17's cairo application draws its dates: one name to MuPDF,
+    two fonts to PDF.js, so the reader joins the runs."""
+    doc = pymupdf.open(whole(name, [[ONE[0], ['', *ONE[1][1:]], *ONE[2:]]]).name)
+    page = doc[0]
+    first = page.insert_font(fontname='S1', fontbuffer=pymupdf.Font('helv').buffer, set_simple=True)
+    desc = int(doc.xref_get_key(first, 'FontDescriptor')[1].split()[0])
+    second, second_desc = doc.get_new_xref(), doc.get_new_xref()
+    doc.update_object(second_desc, doc.xref_object(desc))
+    doc.update_object(second, doc.xref_object(first))
+    doc.xref_set_key(second, 'FontDescriptor', f'{second_desc} 0 R')
+    for xref, d, tag in ((first, desc, 'AAAAAA'), (second, second_desc, 'BBBBBB')):
+        doc.xref_set_key(xref, 'BaseFont', f'/{tag}+NimbusSans-Regular')
+        doc.xref_set_key(d, 'FontName', f'/{tag}+NimbusSans-Regular')
+    names = {f[4]: f[0] for f in page.get_fonts(full=True)} | {'S2': second}
+    kind, value = doc.xref_get_key(page.xref, 'Resources')
+    owner = int(value.split()[0]) if kind == 'xref' else page.xref
+    key = 'Font' if kind == 'xref' else 'Resources/Font'
+    doc.xref_set_key(owner, key, '<<' + ''.join(f' /{n} {x} 0 R' for n, x in names.items()) + ' >>')
+    runs = b' '.join(b'/%s 8 Tf (%s) Tj' % (f, s) for s, f in
+                     ((b'2026', b'S1'), (b'-', b'S2'), (b'04', b'S1'), (b'-', b'S2'), (b'02', b'S1')))
+    stream = doc.get_new_xref()
+    doc.update_object(stream, '<< >>')
+    doc.update_stream(stream, b'BT 1 0 0 1 40 %.2f Tm ' % (400 - 110) + runs + b' ET')
+    contents = page.get_contents()
+    doc.xref_set_key(page.xref, 'Contents', '[' + ' '.join(f'{x} 0 R' for x in contents + [stream]) + ']')
+    path = TMP / f'{name}-runs.pdf'
+    doc.save(path)
+    return pymupdf.open(path)
+
+
+class Columns(unittest.TestCase):
+    """The reader's reading by columns (columns.py), on planted statements
+    and on sealed ones whose reading the reader has recorded."""
+
+    def test_a_whole_statement_reads(self):
+        self.assertIsNone(stop(whole('columns-clean', [ONE])))
+
+    def test_a_value_starts_within_the_cell_padding_of_its_column(self):
+        # 2.5 points before the header's left edge is inside; 2.6 is not.
+        self.assertIsNone(stop(whole('columns-pad-in', [ONE], start_shift=-2.4)))
+        self.assertEqual(code(whole('columns-pad-out', [ONE], start_shift=-2.6)), 'COLUMN')
+
+    def test_amounts_ending_a_slot_before_their_header(self):
+        # As Q03 of G12: a DR slot of 14.4 points after every amount.
+        self.assertEqual(code(whole('columns-slot', [ONE], end_shift=14.4)), 'COLUMN')
+        self.assertIsNone(stop(whole('columns-slot-small', [ONE], end_shift=2.4)))
+
+    def test_a_continuation_in_its_column_and_across_columns(self):
+        self.assertIsNone(stop(whole('columns-continued', two('(continued) at the till'))))
+        # Run on across the reference column, a word lies across its edge: the
+        # reader stops there, at "for" (checked with the reader). Q06, whose
+        # words fall wholly inside the reference column, is read as a
+        # movement without its date instead (below).
+        self.assertEqual(stop(whole('columns-across', two('(continued) at the till of the branch for the whole of April'))),
+                         ('COLUMN', 2, 5))
+
+    def test_a_header_not_declared(self):
+        self.assertEqual(code(whole('columns-header', [ONE], headers=HEADERS[:3] + ['Ref.'] + HEADERS[4:])), 'HEADER')
+
+    def test_a_description_line_without_its_movement(self):
+        stray = [ONE[0], ['', '', 'Card settlement', '', '', '', '']] + ONE[1:]
+        self.assertEqual(stop(whole('columns-stray', [stray])), ('LINE', 1, 5))
+
+    def test_sealed_statements_read_as_the_reader_read_them(self):
+        # Completed by the reader: right-to-left DR balances as one item (Q10)
+        # and as two the reader joins (H04), dates in touching runs (Q02),
+        # lam-alef ligatures (K05, N04).
+        # Refused by it, with its page and line (run records; K04 and P09 with
+        # the earlier guards off, G13).
+        root = Path(__file__).resolve().parent.parent
+        cases = {('g12', 'Q10'): None, ('g6', 'H04'): None, ('g12', 'Q02'): None, ('g8', 'K05'): None,
+                 ('g9', 'N04'): None,
+                 ('g12', 'Q03'): ('COLUMN', 1, 5), ('g12', 'Q06'): ('FIELD', 6, 6),
+                 ('g8', 'K01'): ('COLUMN', 1, 5), ('g8', 'K04'): ('COLUMN', 1, 6), ('g10', 'P09'): ('COLUMN', 1, 7)}
+        for (package, sid), want in cases.items():
+            doc = pymupdf.open(root / f'bank-statement-holdout-{package}' / 'frozen' / f'{sid}-statement.pdf')
+            self.assertEqual(stop(doc), want, sid)
+
+    def test_the_rules_a_statement_needs_are_counted(self):
+        # The labels Opening balance and Closing balance cross the Date
+        # column's edge and are placed by their words.
+        self.assertEqual(exercised(whole('columns-counted', [ONE])), (None, {'wordParts': 2}))
+        # Ending 2.4 points before their header, the two balances of the
+        # movements no longer start inside it and are placed by its end.
+        self.assertEqual(exercised(whole('columns-end', [ONE], end_shift=2.4)),
+                         (None, {'wordParts': 2, 'endAligned': 2}))
+        self.assertEqual(exercised(runs('columns-runs')),
+                         (None, {'wordParts': 2, 'drAfterAmount': 2, 'dateRuns': 1}))
+        self.assertEqual(exercised(whole('columns-continued-counted', two('(continued) at the till'))),
+                         (None, {'wordParts': 4, 'continuation': 1}))
+
+    def test_an_item_with_a_glyph_of_two_letters_is_split_as_the_reader_splits_it(self):
+        self.assertEqual(exercised(ligature('columns-ligature')), (None, {'wordParts': 3}))
+
+    def test_dates_drawn_in_two_subsets_of_one_font_are_runs(self):
+        # PDF.js ends an item where the page changes subset; MuPDF names both
+        # subsets alike, so the model of G13 to G18 read one piece (DEV-67).
+        doc = subsets('columns-subsets')
+        self.assertEqual(exercised(doc), (None, {'wordParts': 2, 'dateRuns': 1}))
+        old = [p.text for line in columns.mupdf_items(doc[0]) for p in line if p.text.startswith('2026')]
+        self.assertEqual(old[0], '2026-04-02')
+
+    def test_amounts_are_read_at_the_decimals_of_the_heading_currency(self):
+        # As the reader reads them (TOL-1 T4). Read at two decimals, a dinar
+        # or yen amount is no amount, and the first one stops the reading.
+        dinar = [[cell.replace('.00', '.000') for cell in row] for row in ONE]
+        yen = [[cell.replace('.00', '') for cell in row] for row in ONE]
+        self.assertIsNone(stop(whole('columns-dinar', [dinar], currency='KWD')))
+        self.assertIsNone(stop(whole('columns-yen', [yen], currency='JPY')))
+        self.assertEqual(code(whole('columns-dinar-as-riyal', [dinar])), 'COLUMN')
+        self.assertEqual(code(whole('columns-riyal-as-dinar', [ONE], currency='KWD')), 'COLUMN')
+        self.assertEqual(code(whole('columns-yen-as-riyal', [yen])), 'COLUMN')
+        # A heading naming no currency the reader knows, or two, stops it.
+        self.assertEqual(stop(whole('columns-unknown-currency', [ONE], currency='XAU')), ('SCOPE', 1, 1))
+        self.assertEqual(stop(whole('columns-two-currencies', [ONE], currency='SAR / USD')), ('SCOPE', 1, 1))
+        # Sealed: the dinar statement of the tolerance foundation, which the
+        # reader read (its baseline record), was refused here before T4.
+        root = Path(__file__).resolve().parent.parent
+        doc = pymupdf.open(root / 'bank-tolerance-foundation' / 'frozen' / 'T07-DEC-statement.pdf')
+        self.assertIsNone(stop(doc))
+        self.assertEqual(columns.heading_decimals(columns.items(doc[0]), 'en'), 3)
+        with self.assertRaises(columns.Refused) as refused:
+            columns.read_page(1, columns.items(doc[0]), 'en', decimals=2)
+        self.assertEqual((refused.exception.code, refused.exception.line), ('COLUMN', 5))
+
+    def test_what_it_copies_is_still_the_readers(self):
+        self.assertEqual(columns.drift(), [])
+
+
+HERE = Path(__file__).resolve().parent
+NATIVE = HERE.parent / 'native-unicode' / 'frozen'
+G14 = HERE.parent / 'bank-statement-holdout-g14'
+
+
+def mapped(name, cmap, inside_form=False):
+    """The two-line statement page with a ToUnicode map given to its font;
+    with inside_form, the page drawn again as a form on a new page."""
+    doc = pymupdf.open(statement(name))
+    font = doc[0].get_fonts(full=True)[0][0]
+    xref = doc.get_new_xref()
+    doc.update_object(xref, '<<>>')
+    doc.update_stream(xref, cmap.encode('latin-1'))
+    doc.xref_set_key(font, 'ToUnicode', f'{xref} 0 R')
+    if inside_form:
+        outer = pymupdf.open()
+        outer.new_page(width=420, height=300).show_pdf_page(pymupdf.Rect(0, 0, 420, 300), doc, 0)
+        doc = outer
+    path = TMP / f'{name}-mapped.pdf'
+    doc.save(path)
+    return path
+
+
+def cmap(*sections):
+    return ('/CIDInit /ProcSet findresource begin 12 dict begin begincmap /CMapName /T def /CMapType 2 def '
+            '1 begincodespacerange <00> <FF> endcodespacerange ' + ' '.join(sections) +
+            ' endcmap CMapName currentdict /CMap defineresource pop end end')
+
+
+IDENTITY = 'beginbfrange <20> <7E> <0020> endbfrange'
+
+
+def refused(path):
+    doc = pymupdf.open(path)
+    lone = set()
+    return [f for p in range(doc.page_count) for f in tounicode.check_page(doc, p, lone)], lone
+
+
+class ToUnicode(unittest.TestCase):
+    def tearDown(self):
+        tounicode.STRICT = False
+
+    def test_the_products_own_fixtures_are_read_as_it_reads_them(self):
+        # tests/pdf-native-unicode.test.ts reads every accepted fixture and
+        # refuses every invalid one: a drawn glyph whose pair is broken, and
+        # an odd length, alone or beside a font that is sound.
+        for pdf in sorted(NATIVE.glob('*.pdf')):
+            accepted = json.loads(pdf.with_suffix('.json').read_text(encoding='utf-8'))['accepted']
+            self.assertEqual(not refused(pdf)[0], accepted, pdf.name)
+        self.assertEqual(refused(NATIVE / 'surrogate-range.pdf')[1], {'Helvetica'})
+
+    def test_before_g14_it_finds_what_the_first_g14_run_refused(self):
+        # With the decoder as G1 to G13 prepared it, every statement the
+        # first G14 run refused for a font, and no other.
+        tounicode.STRICT = True
+        run = json.loads((G14 / 'results' / 'run-1-15ea8a1.json').read_text(encoding='utf-8'))
+        flagged = sorted(p.name.split('-')[0] for p in (G14 / 'frozen').glob('*-statement.pdf') if refused(p)[0])
+        self.assertEqual(flagged, run['summary']['refused'])
+        self.assertTrue(refused(NATIVE / 'surrogate-range.pdf')[0])
+
+    def test_a_font_that_loads_only_by_lone_surrogates_is_counted(self):
+        self.assertEqual(refused(G14 / 'frozen' / 'R10-statement.pdf'), ([], {'FreeSansBold'}))
+        self.assertEqual(refused(G14 / 'frozen' / 'R08-statement.pdf'), ([], set()))
+        self.assertEqual(refused(NATIVE / 'letters.pdf'), ([], set()))
+        lone = mapped('lone', cmap(IDENTITY, 'beginbfrange <80> <FF> <D800> endbfrange'))
+        self.assertEqual(el.check_pdf(lone)['exercised'].get('loneSurrogates'), 1)
+
+    def test_a_shown_glyph_mapped_to_a_broken_surrogate(self):
+        # 'T' of Transfer to a high surrogate alone, then to an odd length.
+        high = mapped('high', cmap(IDENTITY, 'beginbfchar <54> <D801> endbfchar'))
+        self.assertEqual(el.check_pdf(high)['found']['toUnicode'][0]['at'],
+                         {'font': 'Helvetica', 'shows': '0054', 'as': 'U+FFFD'})
+        odd = mapped('odd', cmap(IDENTITY, 'beginbfchar <FE> <D801DC> endbfchar'))
+        self.assertEqual(refused(odd)[0], [{'font': 'Helvetica', 'unreadable': 'odd length'}])
+
+    def test_a_glyph_shown_inside_a_form_is_read(self):
+        form = mapped('form', cmap(IDENTITY, 'beginbfchar <54> <DC00> endbfchar'), inside_form=True)
+        self.assertEqual(refused(form)[0], [{'font': 'Helvetica', 'shows': '0054', 'as': 'U+FFFD'}])
+
+    def test_the_map_is_parsed_as_pdfjs_parses_it(self):
+        parsed = tounicode.parse(cmap(
+            'beginbfrange <00FE> <0101> <00FE> endbfrange',         # the carry past 255
+            'beginbfrange <10> <12> [<0041> <0042>] endbfrange',      # an array shorter than its range
+            'beginbfchar <20> <00 4> endbfchar',                      # a lone last digit dropped
+            'beginbfchar <21> /space endbfchar',                      # malformed: the section is skipped
+            'beginbfchar <22> <0043> endbfchar').encode('latin-1'))
+        self.assertEqual([parsed[c] for c in (0xFE, 0xFF, 0x100, 0x101)],
+                         [(0, 0xFE), (0, 0xFF), (1, 0), (1, 1)])
+        self.assertEqual((parsed[0x10], parsed[0x11], 0x12 in parsed), ((0, 0x41), (0, 0x42), False))
+        self.assertEqual(parsed[0x20], (0,))
+        self.assertEqual((0x21 in parsed, parsed[0x22]), (False, (0, 0x43)))
+        with self.assertRaises(tounicode.Unreadable):
+            tounicode.decode(parsed[0x20])
+        self.assertEqual(tounicode.decode((0xD8, 0x01, 0xDC, 0x37)), [0x10437])
+        self.assertEqual(tounicode.decode((0xDC, 0x00, 0xD8, 0x01)), [0xFFFD, 0xFFFD])
+        self.assertEqual(tounicode.decode((0xD8, 0x01, 0x00, 0x41)), [0xFFFD, 0x41])
+
+    def test_what_it_copies_is_still_the_products(self):
+        self.assertEqual(tounicode.drift(), [])
+
+
+def planted(name):
+    """A page of plant_items.py, built once."""
+    path = TMP / f'items-{name}.pdf'
+    if not path.exists():
+        plant_items.build(path, next(c for n, c, _, _ in plant_items.PAGES if n == name))
+    return path
+
+
+class Items(unittest.TestCase):
+    """PDF.js's text items as items.py builds them, and the reader's refusal
+    of overlapping text in a line. Each planted page's verdict is the
+    reader's own (measure_items.mjs reads them with the product)."""
+
+    def page(self, name):
+        return [i for i in items.page_items(pymupdf.open(str(planted(name))), 0) if i.text.strip()]
+
+    def test_each_planted_page_is_judged_as_the_reader_judges_it(self):
+        for name, _, refused, why in plant_items.PAGES:
+            with self.subTest(name, why=why):
+                lines, _ = items.check_page(pymupdf.open(str(planted(name))), 0)
+                self.assertEqual(bool(lines), refused)
+
+    def test_an_item_ends_where_pdfjs_ends_it(self):
+        ends = {name: [i.text for i in self.page(name)] for name, *_ in plant_items.PAGES}
+        two, one = ['Transfer', '1,250.00'], ['Transfer1,250.00']
+        self.assertEqual(ends['subsets-0.3'], two)           # two subsets of one font
+        self.assertEqual(ends['two-names-0.3'], one)         # one font under two names
+        self.assertEqual(ends['one-font-0.3'], one)
+        self.assertEqual(ends['marked-content-0.3'], two)    # marked content
+        self.assertEqual(ends['back-0.25em'], two)           # back past 0.2 em
+        self.assertEqual(ends['back-0.15em'], one)
+        self.assertEqual(ends['two-text-objects'], one)      # across BT
+        self.assertEqual(ends['space-then-tight'], two)      # a drawn space, then under 0.102 em
+        self.assertEqual(ends['gap-0.8em'], two)             # past 0.6 em
+
+    def test_the_overlap_is_measured_from_the_items_advances(self):
+        first, second = self.page('subsets-0.3')
+        self.assertAlmostEqual(first.width, 37.23, places=6)
+        self.assertAlmostEqual(first.x + first.width - second.x, 0.3, places=6)
+        lines, _ = items.check_page(pymupdf.open(str(planted('back-0.25em'))), 0)
+        self.assertEqual(lines, [{'line': 1, 'items': ['Transfer', '1,250.00'], 'overlapPt': 2.5}])
+
+    def test_eligibility_reports_the_line_and_the_margin_kept(self):
+        self.assertEqual(found(planted('subsets-0.3'))['overlap'],
+                         [{'page': 1, 'at': {'line': 1, 'items': ['Transfer', '1,250.00'], 'overlapPt': 0.3}}])
+        kept = el.check_pdf(planted('subsets-0.1'))
+        self.assertNotIn('overlap', kept['found'])
+        self.assertEqual(kept['mostItemOverlapPt'], 0.1)
+        # Glyphs overlapping inside one item are not the reader's concern.
+        self.assertIsNone(el.check_pdf(planted('one-font-0.3'))['mostItemOverlapPt'])
+
+    def test_a_glyph_keeps_the_letters_its_map_gives_it(self):
+        dates = [i for i in items.page_items(ligature('items-ligature'), 0) if i.text.startswith('2026-04-0') and ' ' in i.text]
+        self.assertEqual([d.text for d in dates], ['2026-04-02 2026-04-02'])
+        dates = dates[0]
+        self.assertEqual([g[0] for g in dates.words[0]], ['2', '0', '2', '6', '-', '0', '4', '-', '02'])
+
+    def test_lines_are_joined_as_the_reader_joins_them(self):
+        def item(x, y, h=10):
+            return items.Item('x', x, y, 5, h, 'F1')
+        # Within min(1, height / 8) of the line's first item: 1 point at 10,
+        # 0.75 at 6.
+        self.assertEqual(len(items.lines([item(0, 100), item(10, 99.0)])), 1)
+        self.assertEqual(len(items.lines([item(0, 100), item(10, 98.9)])), 2)
+        self.assertEqual(len(items.lines([item(0, 100, 6), item(10, 99.2, 6)])), 2)
+
+    def test_pdfjs_categories_of_a_glyphs_text(self):
+        self.assertEqual([items.category(s) for s in (' ', '\u00a0', 'a', 'a ', 'a\u064b', '\u200f', 'a\u200f', '\u200fa')],
+                         ['white', 'white', None, None, 'diacritic', 'format', 'format', None])
+
+    def test_a_page_it_cannot_reproduce_is_named(self):
+        def form(doc, page):
+            src = pymupdf.open()
+            src.new_page(width=100, height=40).insert_text((10, 20), 'Fee 15.00', fontsize=10)
+            page.show_pdf_page(pymupdf.Rect(200, 150, 300, 190), src, 0)
+        self.assertEqual(found(statement('items-form', form))['items'], [{'page': 1, 'at': 'form XObject'}])
+
+    def test_what_it_copies_is_still_the_products(self):
+        self.assertEqual(items.drift(), [])
+
+
+class Rows(unittest.TestCase):
+    """The reader's test of adjacent rows in its three forms, as rows.py
+    judges it: by glyph boxes, by ink, by the fonts' ascent and descent. Each
+    verdict here is the reader's, plain and with each rule off
+    (measure_rows.mjs, results/rows-vs-reader-g21.json)."""
+
+    @classmethod
+    def setUpClass(cls):
+        plant_rows.main(TMP / 'rows')
+
+    @staticmethod
+    def path(name):
+        return TMP / 'rows' / f'{name}.pdf'
+
+    def test_each_planted_page_is_judged_in_each_form_as_the_reader_judges_it(self):
+        for name, _, want, why in plant_rows.PAGES:
+            with self.subTest(name, why=why):
+                try:
+                    forms = rows.check_page(pymupdf.open(str(self.path(name))), 0)
+                except Exception as e:  # a crash is a wrong verdict too
+                    self.fail(f'{name}: {e!r}')
+                self.assertEqual(forms, want)
+
+    def test_sealed_statements_in_each_form(self):
+        # Lines refused (metric, ink, glyph), each as the reader refused it:
+        # composite TrueType of PDFKit (W07), FOP (P01), OpenPDF (P09) and
+        # jsPDF (Q10); simple TrueType of Prawn (V03); a cmap that does not
+        # parse, of mPDF (R10); CID-keyed CFF of PDFKit (W10) and simple
+        # Type1C of iText (W02).
+        root = Path(__file__).resolve().parent.parent
+        cases = {('g20', 'W07'): (12, 8, 0), ('g10', 'P01'): (32, 0, 0), ('g10', 'P09'): (47, 44, 12),
+                 ('g12', 'Q10'): (80, 4, 0), ('g17', 'V03'): (8, 0, 0), ('g14', 'R10'): (0, 0, 0),
+                 ('g20', 'W10'): (0, 0, 0), ('g20', 'W02'): (0, 0, 0)}
+        for (package, sid), want in cases.items():
+            pages = rows.check_pdf(root / f'bank-statement-holdout-{package}' / 'frozen' / f'{sid}-statement.pdf')
+            self.assertEqual(tuple(sum(len(p[f]) for p in pages) for f in rows.FORMS), want, sid)
+
+    def test_eligibility_finds_what_the_reader_refuses_today_and_counts_the_rest(self):
+        def rules(name):
+            result = el.check_pdf(self.path(name))
+            return result['found'].get('rows'), {k: v for k, v in result['exercised'].items() if k.startswith('rows')}
+        self.assertEqual(rules('glyphs-overlap'), ([{'page': 1, 'at': 1}, {'page': 1, 'at': 2}], {}))
+        self.assertEqual(rules('metric-only'), (None, {'rowsByInk': 2}))
+        self.assertEqual(rules('ink-not-glyph'), (None, {'rowsByInk': 2, 'rowsByGlyphs': 2}))
+        self.assertEqual(rules('apart'), (None, {}))
+        # The same counts without the checks that render the page.
+        self.assertEqual({k: v for k, v in el.counts(self.path('ink-not-glyph')).items() if k.startswith('rows')},
+                         {'rowsByInk': 2, 'rowsByGlyphs': 2})
+        self.assertEqual(found(self.path('no-metrics'))['metrics'],
+                         [{'page': 1, 'at': 'a font whose ascent and descent PDF.js cannot give'}])
+
+    def test_what_it_copies_is_still_the_readers(self):
+        self.assertEqual(rows.drift(), [])
+
+
+class Drawings(unittest.TestCase):
+    """The reader's drawing, clip and background tests as drawings.py
+    replays them, as the reader is and with each rule about them off. Each
+    verdict here is the reader's, plain and with each rule off
+    (measure_drawings.mjs, results/drawings-vs-reader-g22.json)."""
+
+    @classmethod
+    def setUpClass(cls):
+        plant_drawings.main(TMP / 'drawings')
+
+    @staticmethod
+    def path(name):
+        return TMP / 'drawings' / f'{name}.pdf'
+
+    def test_each_planted_page_is_judged_in_each_configuration_as_the_reader_judges_it(self):
+        for name, _, want, why in plant_drawings.PAGES:
+            with self.subTest(name, why=why):
+                try:
+                    got = drawings.check_page(pymupdf.open(str(self.path(name))), 0)
+                except Exception as e:  # a crash is a wrong verdict too
+                    self.fail(f'{name}: {e!r}')
+                self.assertEqual({c: v and v['kind'] for c, v in got.items()}, want)
+
+    def test_sealed_statements_in_each_configuration(self):
+        # The first page each configuration refuses, and how, as the reader
+        # refused it: FOP's grid and cells (P01 needs glyph boxes and the
+        # rectangle traced back; P03 the rectangle), PDFBox's clip (Q01),
+        # Typst's Inter, whose glyphs the reader places too far and so judges
+        # by their ink (K02), a rule meeting a hamza (R04), and none (W01).
+        root = Path(__file__).resolve().parent.parent
+        none = dict.fromkeys(drawings.CONFIGS)
+        cases = {('g10', 'P01'): dict(none, noGlyphDrawings=(1, 'drawing'), noRectangleReturn=(1, 'drawing')),
+                 ('g10', 'P03'): dict(none, noRectangleReturn=(1, 'drawing')),
+                 ('g12', 'Q01'): dict(none, noRectangleReturn=(1, 'clip')),
+                 ('g8', 'K02'): dict(none, noInkDrawing=(1, 'drawing')),
+                 ('g14', 'R04'): {c: (1, 'drawing') for c in drawings.CONFIGS},
+                 ('g20', 'W01'): none}
+        for (package, sid), want in cases.items():
+            pages = drawings.check_pdf(root / f'bank-statement-holdout-{package}' / 'frozen' / f'{sid}-statement.pdf')
+            got = {c: next(((k + 1, p[c]['kind']) for k, p in enumerate(pages) if p[c]), None) for c in drawings.CONFIGS}
+            self.assertEqual(got, want, sid)
+
+    def test_eligibility_finds_what_the_reader_refuses_today_and_counts_the_rest(self):
+        def rules(name):
+            result = el.check_pdf(self.path(name))
+            counted = ('drawingByInk', 'drawingsByGlyphs', 'rectangleTraced')
+            return result['found'].get('drawings'), {k: v for k, v in result['exercised'].items() if k in counted}
+        self.assertEqual(rules('rule-through'), ([{'page': 1, 'at': {'kind': 'drawing', 'op': 1}}], {}))
+        self.assertEqual(rules('rule-in-the-padding'), (None, {'drawingByInk': 1}))
+        self.assertEqual(rules('rule-beside-the-glyphs'), (None, {'drawingsByGlyphs': 1}))
+        self.assertEqual(rules('rectangle-traced-back'), (None, {'rectangleTraced': 1}))
+        self.assertEqual(rules('rule-apart'), (None, {}))
+
+    def test_white_text_on_a_fill_traced_by_lines_is_judged_on_the_fill(self):
+        # G23: pdf-lib traces a rectangle by lines and closes it; the reader
+        # takes it for a background (filledRectangles), MuPDF gives four line
+        # items, and the check took `re` items alone for backgrounds, so it
+        # judged the white text against the white page. One corner off and it
+        # is no rectangle: a drawing under the text, on the white page.
+        self.assertEqual(found(self.path('white-on-traced-fill')), {})
+        skewed = found(self.path('white-on-skewed-fill'))
+        self.assertIn('contrast', skewed)
+        self.assertEqual(skewed['drawings'], [{'page': 1, 'at': {'kind': 'drawing', 'op': 0}}])
+
+    def test_what_it_copies_is_still_the_readers(self):
+        self.assertEqual(drawings.drift(), [])
+
+
+if __name__ == '__main__':
+    unittest.main()

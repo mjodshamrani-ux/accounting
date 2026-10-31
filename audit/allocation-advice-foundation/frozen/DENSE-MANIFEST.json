@@ -1,0 +1,94 @@
+{
+ "schema": "tarasuf-all1-dense-manifest/1",
+ "synthetic": true,
+ "producer": "stories.py dense(), fixed rules and no randomness, written by render.py --dense with Python csv only; regenerated and checked by dense.py before any run",
+ "files": {
+  "D1-advice.csv": {
+   "sha256": "5017b17a5a329125b1b31dabd3f417a28a96ae9bb4514e1fe35aa307bc9911fb",
+   "bytes": 2443603
+  },
+  "D1-input.json": {
+   "sha256": "7681bebca16eece6b68cc624a0ab0eb88338ddc3fae063201a61d49486f6656f",
+   "bytes": 693
+  },
+  "D1-invoices.csv": {
+   "sha256": "5d23d98718220a1e6f33ba690705dad1a4ba24fde1be3d99517bae3ca3d8fe3a",
+   "bytes": 1270125
+  },
+  "D1-payments.csv": {
+   "sha256": "00ec581f922eec57d12bac7934272641300adb3f34f6d56aa3594e916f2fcbb5",
+   "bytes": 640125
+  },
+  "D2-advice.csv": {
+   "sha256": "b7b9c9bb765d769a6469c1ca4280771255698310a7550106d2813ed3ba681548",
+   "bytes": 2403723
+  },
+  "D2-input.json": {
+   "sha256": "d9bba79e27c6b9b9d5a7de7fb9972cc94ae61e21a68f6b66be1dbeeccfd38c26",
+   "bytes": 693
+  },
+  "D2-invoices.csv": {
+   "sha256": "f8064932253aead5f0431dc029fa5391b69715cf1d11a51247ef110db6085736",
+   "bytes": 13425
+  },
+  "D2-payments.csv": {
+   "sha256": "67ffca2772d9cbcbf352fe24e945f0cc300379beed80fbaa8af1ee6bce394103",
+   "bytes": 13325
+  },
+  "D3-advice.csv": {
+   "sha256": "2d4d9439829d22ffd2a4185770c91960ca4b2b6e467276f09718b4b1cd18e292",
+   "bytes": 726123
+  },
+  "D3-input.json": {
+   "sha256": "5e53d21b1093b3664387d95dc6933a2f4b1d35fba9a11d553e5d407ca53dabd2",
+   "bytes": 448894
+  },
+  "D3-invoices.csv": {
+   "sha256": "e6a24b9044511c8e496734b5ff083368c69d3307eec9b82365caa80c7cde00a4",
+   "bytes": 378125
+  },
+  "D3-payments.csv": {
+   "sha256": "94401634b166e76ef3ac49bcb9dfd5f7d5ff148c0b51cd472b0b829398f6de85",
+   "bytes": 378125
+  }
+ },
+ "expectedSha256": "b3199b8dffe8ec4c0982fb97fcca17d653db1b3739f1a926c6286d6a7bde8b88",
+ "summary": {
+  "D1": {
+   "refused": null,
+   "lines": 20029,
+   "statuses": {
+    "review": 87,
+    "fits": 19942
+   },
+   "items": 15000
+  },
+  "D2": {
+   "refused": "ROWS",
+   "lines": 0,
+   "statuses": {},
+   "items": 0
+  },
+  "D3": {
+   "refused": null,
+   "lines": 6000,
+   "statuses": {
+    "allocated": 1000,
+    "fits": 4950,
+    "review": 50
+   },
+   "items": 6000
+  }
+ },
+ "verify": {
+  "schema": "tarasuf-all1-advice-verify/1",
+  "dense": true,
+  "factsSha256": "b78eeeb393a90d678e579a4a6553d76142426038411850e2ed7175e82aee823b",
+  "stories": 3,
+  "files": 9,
+  "cells": 739948,
+  "passed": true,
+  "problems": [],
+  "selfTest": []
+ }
+}

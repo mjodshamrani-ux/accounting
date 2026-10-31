@@ -1,0 +1,17 @@
+{
+ "schema": "tarasuf-wf1-cycle-correction/1",
+ "synthetic": true,
+ "statement": "Made after the first product run, from independent evidence; not blind. The sealed EXPECTED.json, SEAL.json and run-1.json are kept unchanged.",
+ "corrects": "78423fab8c65bbe5f178be7c62848b741765af1a8c6358e41b99df8b3bc32a0c",
+ "what": "Cashbook rows: the sealed oracle cited each ledger entry at its row in the declared CSV (k + 2) with the ledger fingerprint; corrected to the row of the ledger itself.",
+ "foundBy": {
+  "run": "results/run-1.json",
+  "commit": "561ee06"
+ },
+ "rows": 26,
+ "cited": 29,
+ "pins": {
+  "oracle.py": "18c52bd4726a969ada25d48342bff5ea6bb7473f5ff72d501b6592b500ff57a9",
+  "EXPECTED.json": "9986bf1d295c83b881055bab08aec42b130b535b312f48779906b89357e7565b"
+ }
+}

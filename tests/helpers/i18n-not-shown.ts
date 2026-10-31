@@ -63,6 +63,26 @@ export const NOT_SHOWN: Record<string, string[]> = {
     'الفترة',
     'فترة الكشف',
     'فترة التقرير',
+    // A bank statement as printed (bank-statement-native-1): its column
+    // headings and its non-movement line labels.
+    'تاريخ القيمة',
+    'البيان',
+    'سحب',
+    'إيداع',
+    'الرصيد',
+    'الرصيد الافتتاحي',
+    'رصيد منقول من الصفحة السابقة',
+    'رصيد منقول إلى الصفحة التالية',
+    'الرصيد الختامي',
+    'إجمالي السحب / الإيداع',
+    'إجمالي الصفحة سحب / إيداع',
+    // A customer statement as printed (ar-statement-pdf-1): its title, header
+    // labels, section total and column headings.
+    'كشف حساب',
+    'صادر عن',
+    'رقم العميل',
+    'إجمالي القسم',
+    'المبلغ المفتوح',
     // Sheets and headings of an exported Tarasuf workpaper, recognised when a
     // workpaper is uploaded again.
     'صف المصدر',

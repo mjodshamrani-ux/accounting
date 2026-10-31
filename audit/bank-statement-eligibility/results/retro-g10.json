@@ -1,0 +1,243 @@
+{
+ "package": "bank-statement-holdout-g10",
+ "clearancePt": 0.05,
+ "statements": {
+  "P01": {
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.15,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 1.5,
+   "leastLineGapPt": null
+  },
+  "P02": {
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 10.57,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 0.68,
+   "leastLineGapPt": null
+  },
+  "P03": {
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 10.65,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 1.92,
+   "leastLineGapPt": null
+  },
+  "P04": {
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 7.5,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 3.08,
+   "leastLineGapPt": null
+  },
+  "P05": {
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 10.58,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 2.79,
+   "leastLineGapPt": null
+  },
+  "P06": {
+   "pages": 8,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 10.58,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 2.79,
+   "leastLineGapPt": null
+  },
+  "P07": {
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 10.28,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 1.7,
+   "leastLineGapPt": null
+  },
+  "P08": {
+   "pages": 2,
+   "found": {
+    "rotation": [
+     {
+      "page": 1,
+      "at": 90
+     },
+     {
+      "page": 2,
+      "at": 90
+     }
+    ],
+    "direction": [
+     {
+      "page": 1,
+      "at": [
+       0.0,
+       13.0,
+       -13.0,
+       0.0
+      ]
+     },
+     {
+      "page": 2,
+      "at": [
+       0.0,
+       13.0,
+       -13.0,
+       0.0
+      ]
+     }
+    ],
+    "pageEdge": [
+     {
+      "page": 1,
+      "at": "T"
+     },
+     {
+      "page": 1,
+      "at": "A"
+     },
+     {
+      "page": 1,
+      "at": "A"
+     },
+     {
+      "page": 2,
+      "at": "T"
+     },
+     {
+      "page": 2,
+      "at": "A"
+     },
+     {
+      "page": 2,
+      "at": "A"
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 9.53,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 1.0,
+   "leastLineGapPt": null
+  },
+  "P09": {
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.38,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 1.26,
+   "leastLineGapPt": 0.1
+  },
+  "P10": {
+   "pages": 3,
+   "found": {
+    "lineInk": [
+     {
+      "page": 1,
+      "at": 0.0
+     },
+     {
+      "page": 2,
+      "at": 0.0
+     },
+     {
+      "page": 3,
+      "at": 0.0
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 10.05,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 1.2,
+   "leastLineGapPt": 0.0
+  },
+  "P11": {
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 10.88,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 1.66,
+   "leastLineGapPt": null
+  },
+  "P12": {
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.0,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 2.41,
+   "leastLineGapPt": null
+  }
+ },
+ "decision": {
+  "story": "P01",
+  "reasons": [
+   "duplicate-reference"
+  ],
+  "problems": [
+   "no case the page accepts: ['duplicate-reference']"
+  ]
+ }
+}

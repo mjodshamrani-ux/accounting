@@ -1,0 +1,5730 @@
+{
+ "oracle": "audit/tb-financial-hierarchy/oracle.py, unchanged",
+ "contract": "audit/tb-financial-hierarchy/contract.json with the scope of each story",
+ "stories": {
+  "H01": {
+   "status": "eligible",
+   "codes": [],
+   "issues": [],
+   "facts": {
+    "debitMinor": 136761643,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": 4500000,
+     "BANK": 15035100,
+     "PETTY": 150000,
+     "AR": 9876543,
+     "ALLOW": -493827,
+     "INVENT": 21000000,
+     "PREPAID": 0,
+     "LOAN": 40000000,
+     "LOANDISC": -1200000,
+     "AP": 14532109,
+     "ACCR": 2345678,
+     "VAT": 1740029,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": 68450000,
+     "PPE": 63950000,
+     "CA": 45567816,
+     "CASH": 15185100,
+     "REC": 9382716,
+     "NCL": 38800000,
+     "CL": 18617816,
+     "EQ": 56600000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 45567816,
+     "noncurrent-asset": 68450000,
+     "current-liability": 18617816,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "PETTY": "CASH",
+    "REC": "CA",
+    "AR": "REC",
+    "ALLOW": "REC",
+    "INVENT": "CA",
+    "PREPAID": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "EQ"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "331e8cedbac6160d6d627fb82061ecc2886d9d4fe0d5c9c61734f5879d2a972b",
+     "bytes": 3107
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "6369023326fc069c8b225e62952c53d3758d848caad6ba254c2b6388d9e8f175",
+     "bytes": 3011
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "e9f7181cbf6a819cf240f624d104efd701464d402c9703b83cb10a43fbb3f495",
+     "bytes": 4636
+    },
+    {
+     "role": "financial-position",
+     "sha256": "50a71e6657004e319f2a1a8925910ffb6c2c9b295e9c5a79cec560e385766c02",
+     "bytes": 5724
+    }
+   ],
+   "inventoryRows": 76,
+   "citations": 1453,
+   "resultSha256": "e9684790a62ebdeaa49e5e6ce857e312b922b040d026436d7c9886ac1fd8d94f"
+  },
+  "H02": {
+   "status": "eligible",
+   "codes": [],
+   "issues": [],
+   "facts": {
+    "debitMinor": 136761643,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "RE": 6600000,
+     "CAP": 50000000,
+     "VAT": 1740029,
+     "ACCR": 2345678,
+     "AP": 14532109,
+     "LOANDISC": -1200000,
+     "LOAN": 40000000,
+     "PREPAID": 0,
+     "INVENT": 21000000,
+     "ALLOW": -493827,
+     "AR": 9876543,
+     "PETTY": 150000,
+     "BANK": 15035100,
+     "INTANG": 4500000,
+     "PPE-DEP": -21050000,
+     "PPE-COST": 85000000
+    },
+    "parentMinor": {
+     "EQ": 56600000,
+     "CL": 18617816,
+     "NCL": 38800000,
+     "REC": 9382716,
+     "CASH": 15185100,
+     "CA": 45567816,
+     "PPE": 63950000,
+     "NCA": 68450000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 45567816,
+     "noncurrent-asset": 68450000,
+     "current-liability": 18617816,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "RE": "EQ",
+    "CAP": "EQ",
+    "EQ": "",
+    "VAT": "CL",
+    "ACCR": "CL",
+    "AP": "CL",
+    "CL": "",
+    "LOANDISC": "NCL",
+    "LOAN": "NCL",
+    "NCL": "",
+    "PREPAID": "CA",
+    "INVENT": "CA",
+    "ALLOW": "REC",
+    "AR": "REC",
+    "REC": "CA",
+    "PETTY": "CASH",
+    "BANK": "CASH",
+    "CASH": "CA",
+    "CA": "",
+    "INTANG": "NCA",
+    "PPE-DEP": "PPE",
+    "PPE-COST": "PPE",
+    "PPE": "NCA",
+    "NCA": ""
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "7e5544c0045d5d463c9738e0ec0b5091182793ce14487d38983d6c99f6465311",
+     "bytes": 3773
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "b225732ffa1400194b7c914c581a8aa8af31c8242c15059b779144ca4496fe48",
+     "bytes": 3677
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "0b7dd3978b000de508c7b004d4f2dc3126b41d4cf1c90614f02c6c4450e38dd2",
+     "bytes": 5508
+    },
+    {
+     "role": "financial-position",
+     "sha256": "5b4f74cc17a08df9aed8a1e165a1625b275e53efc0947eaa6ad705889cc0e347",
+     "bytes": 5792
+    }
+   ],
+   "inventoryRows": 76,
+   "citations": 1453,
+   "resultSha256": "594372fe99817d40d9dbe5ea0aa2f7ad583ac6d61b9ebd56b204767a48986b19"
+  },
+  "H03": {
+   "status": "eligible",
+   "codes": [],
+   "issues": [],
+   "facts": {
+    "debitMinor": 17750050,
+    "creditMinor": 17750050,
+    "leafMinor": {
+     "CASH-AED": 6350050,
+     "STOCK": 7700000,
+     "FIT-OUT": 2500000,
+     "SUPPLIERS": 3999950,
+     "EOSB": 880000,
+     "OWNER": 10000000,
+     "DRAWINGS": -1200000,
+     "RESULT": 2870100
+    },
+    "parentMinor": {},
+    "members": {
+     "CASH-AED": [
+      "ن-١٠١|فرع=الشارقة",
+      "ن-١٠١|فرع=دبي"
+     ],
+     "STOCK": [
+      "م-٢٠٠|فرع=دبي"
+     ],
+     "FIT-OUT": [
+      "ث-٣٠٠|فرع=دبي"
+     ],
+     "SUPPLIERS": [
+      "د-٤٠٠|فرع=دبي"
+     ],
+     "EOSB": [
+      "د-٤١٠|فرع=دبي"
+     ],
+     "OWNER": [
+      "ح-٥٠٠|فرع=دبي"
+     ],
+     "DRAWINGS": [
+      "ح-٥١٠|فرع=دبي"
+     ],
+     "RESULT": [
+      "ح-٥٢٠|فرع=دبي"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 14050050,
+     "noncurrent-asset": 2500000,
+     "current-liability": 3999950,
+     "noncurrent-liability": 880000,
+     "equity": 11670100
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "CASH-AED": "",
+    "STOCK": "",
+    "FIT-OUT": "",
+    "SUPPLIERS": "",
+    "EOSB": "",
+    "OWNER": "",
+    "DRAWINGS": "",
+    "RESULT": ""
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "61b1ceb21dbff468139816d57383bda00f10385f9367ad04f62b605d68ea3a35",
+     "bytes": 2066
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "090b0536a5d583f3a9744d4d0af76eb1dba19b069e16bb264443a2d8d94d1b2b",
+     "bytes": 2005
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "b7cfedf48b38fca7027089e2f41cbff7a3031347761b5f358859be2279580920",
+     "bytes": 2730
+    },
+    {
+     "role": "financial-position",
+     "sha256": "df10259be8e697aaebd4554cbbf29f8a18bb5d5d2d7639fa700b635339cb755a",
+     "bytes": 1900
+    }
+   ],
+   "inventoryRows": 36,
+   "citations": 693,
+   "resultSha256": "01d34ab83eba720797244ded24be48ca595197f0f5ed0f753402702bafe680d8"
+  },
+  "H04": {
+   "status": "blocked",
+   "codes": [
+    "MAPPING_TARGET",
+    "PROOF_LINE",
+    "STATEMENT_EQUATION"
+   ],
+   "issues": [
+    {
+     "code": "PROOF_LINE",
+     "source": 2,
+     "row": 8,
+     "field": "Line ID"
+    },
+    {
+     "code": "PROOF_LINE",
+     "source": 2,
+     "row": 9,
+     "field": "Line ID"
+    },
+    {
+     "code": "MAPPING_TARGET",
+     "source": 1,
+     "row": 8,
+     "field": "Line ID"
+    },
+    {
+     "code": "MAPPING_TARGET",
+     "source": 1,
+     "row": 9,
+     "field": "Line ID"
+    },
+    {
+     "code": "STATEMENT_EQUATION"
+    }
+   ],
+   "facts": {
+    "debitMinor": 136761643,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": 4500000,
+     "BANK": 15035100,
+     "PETTY": 150000,
+     "INVENT": 21000000,
+     "PREPAID": 0,
+     "LOAN": 40000000,
+     "LOANDISC": -1200000,
+     "AP": 14532109,
+     "ACCR": 2345678,
+     "VAT": 1740029,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": 68450000,
+     "PPE": 63950000,
+     "CA": 36185100,
+     "CASH": 15185100,
+     "NCL": 38800000,
+     "CL": 18617816,
+     "EQ": 56600000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 36185100,
+     "noncurrent-asset": 68450000,
+     "current-liability": 18617816,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": -9382716
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "PETTY": "CASH",
+    "INVENT": "CA",
+    "PREPAID": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "EQ"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "638c83329f603d2ae90c20dddda9c92398b1393c06e514465e5cc5eb68f8ff76",
+     "bytes": 3107
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "b1705167eba29406480bc9107a9b82b50eeecae2d74d0d9b935cfbbb2a7f9d7f",
+     "bytes": 3011
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "0eb5286dfbd00df35b975226e5679062249170f47d0928ff8547cce9d75abffa",
+     "bytes": 4636
+    },
+    {
+     "role": "financial-position",
+     "sha256": "baeb829b6b14f7cd91466372eeac55ba8ca3504fde1054c93e8cb58725197564",
+     "bytes": 4245
+    }
+   ],
+   "inventoryRows": 73,
+   "citations": 1399,
+   "resultSha256": "a7d9f5cc5f3e13e25b2e0dfd2b86be1df44b9694382520dca601b03758375afc"
+  },
+  "H05": {
+   "status": "blocked",
+   "codes": [
+    "UNMAPPED_ACCOUNT"
+   ],
+   "issues": [
+    {
+     "code": "UNMAPPED_ACCOUNT",
+     "source": 0,
+     "row": 11,
+     "field": ""
+    }
+   ],
+   "facts": {
+    "debitMinor": 136761643,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": 4500000,
+     "BANK": 15035100,
+     "PETTY": 150000,
+     "AR": 9876543,
+     "ALLOW": -493827,
+     "INVENT": 21000000,
+     "LOAN": 40000000,
+     "LOANDISC": -1200000,
+     "AP": 14532109,
+     "ACCR": 2345678,
+     "VAT": 1740029,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": 68450000,
+     "PPE": 63950000,
+     "CA": 45567816,
+     "CASH": 15185100,
+     "REC": 9382716,
+     "NCL": 38800000,
+     "CL": 18617816,
+     "EQ": 56600000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 45567816,
+     "noncurrent-asset": 68450000,
+     "current-liability": 18617816,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "PETTY": "CASH",
+    "REC": "CA",
+    "AR": "REC",
+    "ALLOW": "REC",
+    "INVENT": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "EQ"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "a51956216a608748c03343dba0ce05bab78128b911e2bf30b3d10ee93dbbabeb",
+     "bytes": 3107
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "b07dc3351ab3849c088f4f60fe35507cdb646337f8d20d9a28eca397ef66097e",
+     "bytes": 2844
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "991343f31a7418c4e044b6b1ea5c7a622fc59c6363a36e673de4b62599948337",
+     "bytes": 4370
+    },
+    {
+     "role": "financial-position",
+     "sha256": "c1fcdf233f6c44782f6996b5e579a88a1688cbbeaf5dca33539cdda5b2879954",
+     "bytes": 4615
+    }
+   ],
+   "inventoryRows": 73,
+   "citations": 1394,
+   "resultSha256": "720cb8387ada37eac3212d8924b58ae32f6972398573e71e7d105f9f05a500b7"
+  },
+  "H06": {
+   "status": "blocked",
+   "codes": [
+    "CONTROL_TOTAL",
+    "DUPLICATE_NODE"
+   ],
+   "issues": [
+    {
+     "code": "DUPLICATE_NODE",
+     "source": 3,
+     "row": 15,
+     "field": ""
+    },
+    {
+     "code": "CONTROL_TOTAL",
+     "source": 3,
+     "row": 12,
+     "field": "Amount"
+    }
+   ],
+   "facts": {
+    "debitMinor": 136761643,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": 4500000,
+     "BANK": 15035100,
+     "PETTY": 150000,
+     "AR": 9876543,
+     "ALLOW": -493827,
+     "INVENT": 21000000,
+     "PREPAID": 0,
+     "LOAN": 40000000,
+     "LOANDISC": -1200000,
+     "AP": 14532109,
+     "ACCR": 2345678,
+     "VAT": 1740029,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": 68450000,
+     "PPE": 63950000,
+     "CA": 60602916,
+     "CASH": 15185100,
+     "REC": 24417816,
+     "NCL": 38800000,
+     "CL": 18617816,
+     "EQ": 56600000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 45567816,
+     "noncurrent-asset": 68450000,
+     "current-liability": 18617816,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "PETTY": "CASH",
+    "REC": "CA",
+    "AR": "REC",
+    "ALLOW": "REC",
+    "INVENT": "CA",
+    "PREPAID": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "EQ"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "79e2c0df61e4624542afd3c82f07dd8fcc76086e056dd0322da1e94aec41fc2a",
+     "bytes": 3773
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "1b62937e8136ff83d0c765691ee6a12b77902212a8bce1233d9443f4762a54ad",
+     "bytes": 3677
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "6955ce334d39626229bd0ea655a3594d25e6d1ada6860b952ab0ea40873a3285",
+     "bytes": 5482
+    },
+    {
+     "role": "financial-position",
+     "sha256": "e18ddc8c05e465df298d509b38eda2b9890608f4a174af538b6404bf4475c3a0",
+     "bytes": 5979
+    }
+   ],
+   "inventoryRows": 77,
+   "citations": 1471,
+   "resultSha256": "dd7e9f608760b0a4242e3a7295d176041986a3f2f950bfb216be01b6484e0164"
+  },
+  "H07": {
+   "status": "blocked",
+   "codes": [
+    "CONTROL_TOTAL",
+    "CYCLE"
+   ],
+   "issues": [
+    {
+     "code": "CYCLE",
+     "source": 3,
+     "row": 8,
+     "field": "Parent ID"
+    },
+    {
+     "code": "CYCLE",
+     "source": 3,
+     "row": 9,
+     "field": "Parent ID"
+    },
+    {
+     "code": "CYCLE",
+     "source": 3,
+     "row": 10,
+     "field": "Parent ID"
+    },
+    {
+     "code": "CYCLE",
+     "source": 3,
+     "row": 11,
+     "field": "Parent ID"
+    },
+    {
+     "code": "CYCLE",
+     "source": 3,
+     "row": 12,
+     "field": "Parent ID"
+    },
+    {
+     "code": "CYCLE",
+     "source": 3,
+     "row": 13,
+     "field": "Parent ID"
+    },
+    {
+     "code": "CYCLE",
+     "source": 3,
+     "row": 14,
+     "field": "Parent ID"
+    },
+    {
+     "code": "CYCLE",
+     "source": 3,
+     "row": 15,
+     "field": "Parent ID"
+    },
+    {
+     "code": "CYCLE",
+     "source": 3,
+     "row": 16,
+     "field": "Parent ID"
+    },
+    {
+     "code": "CONTROL_TOTAL",
+     "source": 3,
+     "row": 8,
+     "field": "Amount"
+    },
+    {
+     "code": "CONTROL_TOTAL",
+     "source": 3,
+     "row": 9,
+     "field": "Amount"
+    },
+    {
+     "code": "CONTROL_TOTAL",
+     "source": 3,
+     "row": 12,
+     "field": "Amount"
+    }
+   ],
+   "facts": {
+    "debitMinor": 136761643,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": 4500000,
+     "BANK": 15035100,
+     "PETTY": 150000,
+     "AR": 9876543,
+     "ALLOW": -493827,
+     "INVENT": 21000000,
+     "PREPAID": 0,
+     "LOAN": 40000000,
+     "LOANDISC": -1200000,
+     "AP": 14532109,
+     "ACCR": 2345678,
+     "VAT": 1740029,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": 68450000,
+     "PPE": 63950000,
+     "CA": 45567816,
+     "CASH": 15185100,
+     "REC": 9382716,
+     "NCL": 38800000,
+     "CL": 18617816,
+     "EQ": 56600000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 45567816,
+     "noncurrent-asset": 68450000,
+     "current-liability": 18617816,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "REC",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "PETTY": "CASH",
+    "REC": "CASH",
+    "AR": "REC",
+    "ALLOW": "REC",
+    "INVENT": "CA",
+    "PREPAID": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "EQ"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "fd96cd899c25bf50f8b70017bf461e0ee5626189e2cae6b7c82c8da480cb51d6",
+     "bytes": 3755
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "500bb949cb47205f55ffe040adabeca206470d7d72fd73c5c69efe64b054a3e4",
+     "bytes": 3659
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "dae3741e8b2b618b193a16af78215bfc286350ca9511884086a84afd3d3f1275",
+     "bytes": 5464
+    },
+    {
+     "role": "financial-position",
+     "sha256": "cf72775602b8f6088bc62ac0ee7f98ff7077ea9b60c035cd3e991c79334cd2e3",
+     "bytes": 5731
+    }
+   ],
+   "inventoryRows": 76,
+   "citations": 1453,
+   "resultSha256": "f167acc6acaf0b67695eaf5e9b358cff0f228660ba91bfd261c40e863475eb0a"
+  },
+  "H08": {
+   "status": "blocked",
+   "codes": [
+    "LEAF_TOTAL",
+    "MAPPING_ACCOUNT",
+    "PROOF_ACCOUNT",
+    "UNMAPPED_ACCOUNT"
+   ],
+   "issues": [
+    {
+     "code": "UNMAPPED_ACCOUNT",
+     "source": 0,
+     "row": 6,
+     "field": ""
+    },
+    {
+     "code": "PROOF_ACCOUNT",
+     "source": 2,
+     "row": 6,
+     "field": ""
+    },
+    {
+     "code": "MAPPING_ACCOUNT",
+     "source": 1,
+     "row": 6,
+     "field": ""
+    },
+    {
+     "code": "LEAF_TOTAL",
+     "source": 3,
+     "row": 10,
+     "field": "Amount"
+    }
+   ],
+   "facts": {
+    "debitMinor": 136761643,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": 4500000,
+     "BANK": 15035100,
+     "PETTY": 150000,
+     "AR": 9876543,
+     "ALLOW": -493827,
+     "INVENT": 21000000,
+     "PREPAID": 0,
+     "LOAN": 40000000,
+     "LOANDISC": -1200000,
+     "AP": 14532109,
+     "ACCR": 2345678,
+     "VAT": 1740029,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": 68450000,
+     "PPE": 63950000,
+     "CA": 45567816,
+     "CASH": 15185100,
+     "REC": 9382716,
+     "NCL": 38800000,
+     "CL": 18617816,
+     "EQ": 56600000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|CC=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 45567816,
+     "noncurrent-asset": 68450000,
+     "current-liability": 18617816,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "PETTY": "CASH",
+    "REC": "CA",
+    "AR": "REC",
+    "ALLOW": "REC",
+    "INVENT": "CA",
+    "PREPAID": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "EQ"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "638c83329f603d2ae90c20dddda9c92398b1393c06e514465e5cc5eb68f8ff76",
+     "bytes": 3107
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "a1f0ac9bcd8c126765c666dadfe454cf7e5916012cf6da0b022b66d4462ec296",
+     "bytes": 3011
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "8ff012327abb1139e92ab1720e937f8998cdb6a18c354852a66f64b9d3d8165c",
+     "bytes": 4636
+    },
+    {
+     "role": "financial-position",
+     "sha256": "a4c17cdc8ac0ad151fc228acfd1f15ad4f4ef5bc143cdf2527cd5f027f38b2bd",
+     "bytes": 4820
+    }
+   ],
+   "inventoryRows": 76,
+   "citations": 1453,
+   "resultSha256": "b7463255c2f2863c680ca2967b6ff1f1f51d50f87565a8a0cd35cf83e7a4beb6"
+  },
+  "H09": {
+   "status": "blocked",
+   "codes": [
+    "SIGN_POLICY",
+    "STATEMENT_EQUATION"
+   ],
+   "issues": [
+    {
+     "code": "SIGN_POLICY",
+     "source": 2,
+     "row": 13,
+     "field": "Sign"
+    },
+    {
+     "code": "SIGN_POLICY",
+     "source": 1,
+     "row": 13,
+     "field": "Sign"
+    },
+    {
+     "code": "STATEMENT_EQUATION"
+    }
+   ],
+   "facts": {
+    "debitMinor": 136761643,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": 4500000,
+     "BANK": 15035100,
+     "PETTY": 150000,
+     "AR": 9876543,
+     "ALLOW": -493827,
+     "INVENT": 21000000,
+     "PREPAID": 0,
+     "LOAN": 40000000,
+     "LOANDISC": 1200000,
+     "AP": 14532109,
+     "ACCR": 2345678,
+     "VAT": 1740029,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": 68450000,
+     "PPE": 63950000,
+     "CA": 45567816,
+     "CASH": 15185100,
+     "REC": 9382716,
+     "NCL": 41200000,
+     "CL": 18617816,
+     "EQ": 56600000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 45567816,
+     "noncurrent-asset": 68450000,
+     "current-liability": 18617816,
+     "noncurrent-liability": 41200000,
+     "equity": 56600000
+    },
+    "equationMinor": -2400000
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "PETTY": "CASH",
+    "REC": "CA",
+    "AR": "REC",
+    "ALLOW": "REC",
+    "INVENT": "CA",
+    "PREPAID": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "EQ"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "a5babecdfbc21752cd6dc76bf92f4bfa31e0d44fcfb9a2162cfae3eb1437e154",
+     "bytes": 3107
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "490ef9f6d5e16b32493c8eb2b6d1b88d0c6efe54be3b2bfdd87bb5a5f06bbcdc",
+     "bytes": 3010
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "4aad560e92d2eaed52f55635e699dad40f3f978fd19abef1b9b390608f524ae4",
+     "bytes": 4635
+    },
+    {
+     "role": "financial-position",
+     "sha256": "7d2769426a6d7626d2d09c8bfcc16d05b5b728849ac65727f33f19abfef8f118",
+     "bytes": 4803
+    }
+   ],
+   "inventoryRows": 76,
+   "citations": 1453,
+   "resultSha256": "75156c2c4dda51a695a9479a193809ef62ab0f5a6c5d5943e78c8d6b16775a70"
+  },
+  "H10": {
+   "status": "blocked",
+   "codes": [
+    "DUPLICATE_PROOF_ACCOUNT",
+    "UNUSED_PROOF",
+    "VALIDITY"
+   ],
+   "issues": [
+    {
+     "code": "DUPLICATE_PROOF_ACCOUNT",
+     "source": 2,
+     "row": 4,
+     "field": ""
+    },
+    {
+     "code": "VALIDITY",
+     "source": 2,
+     "row": 3,
+     "field": ""
+    },
+    {
+     "code": "VALIDITY",
+     "source": 2,
+     "row": 4,
+     "field": ""
+    },
+    {
+     "code": "UNUSED_PROOF",
+     "source": 2,
+     "row": 3,
+     "field": ""
+    }
+   ],
+   "facts": {
+    "debitMinor": 136761643,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": 4500000,
+     "BANK": 15035100,
+     "PETTY": 150000,
+     "AR": 9876543,
+     "ALLOW": -493827,
+     "INVENT": 21000000,
+     "PREPAID": 0,
+     "LOAN": 40000000,
+     "LOANDISC": -1200000,
+     "AP": 14532109,
+     "ACCR": 2345678,
+     "VAT": 1740029,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": 68450000,
+     "PPE": 63950000,
+     "CA": 45567816,
+     "CASH": 15185100,
+     "REC": 9382716,
+     "NCL": 38800000,
+     "CL": 18617816,
+     "EQ": 56600000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 45567816,
+     "noncurrent-asset": 68450000,
+     "current-liability": 18617816,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "PETTY": "CASH",
+    "REC": "CA",
+    "AR": "REC",
+    "ALLOW": "REC",
+    "INVENT": "CA",
+    "PREPAID": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "EQ"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "a51956216a608748c03343dba0ce05bab78128b911e2bf30b3d10ee93dbbabeb",
+     "bytes": 3107
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "5713d8384a7daf4ac42eb29cae6531e273702239817ade1d6a50c2e79416f4d8",
+     "bytes": 3011
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "9953270f0087b16625bee0fc50dfc9966fb9d1602fabe5fba93eb4b4ecbc6a49",
+     "bytes": 4906
+    },
+    {
+     "role": "financial-position",
+     "sha256": "9386c5d443a6eb438636a194f2e7839c17ec4e56309c59f15d1aade24c345cc4",
+     "bytes": 4804
+    }
+   ],
+   "inventoryRows": 77,
+   "citations": 1476,
+   "resultSha256": "e76babe02cc6394238af73277e5d32217b97368ed1bdcbbb5fde9bd68bae3395"
+  },
+  "H11": {
+   "status": "eligible",
+   "codes": [],
+   "issues": [],
+   "facts": {
+    "debitMinor": 136761643,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": 4500000,
+     "BANK": 15035100,
+     "PETTY": 150000,
+     "AR": 9876543,
+     "ALLOW": -493827,
+     "INVENT": 21000000,
+     "PREPAID": 0,
+     "LOAN": 40000000,
+     "LOANDISC": -1200000,
+     "AP": 14532109,
+     "ACCR": 2345678,
+     "VAT": 1740029,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": 68450000,
+     "PPE": 63950000,
+     "CA": 45567816,
+     "CASH": 15185100,
+     "REC": 9382716,
+     "NCL": 38800000,
+     "CL": 18617816,
+     "EQ": 56600000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 45567816,
+     "noncurrent-asset": 68450000,
+     "current-liability": 18617816,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "PETTY": "CASH",
+    "REC": "CA",
+    "AR": "REC",
+    "ALLOW": "REC",
+    "INVENT": "CA",
+    "PREPAID": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "EQ"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "f7d22d787b0df7888a0cf83c3ed1e2b0e5485f92a4c54fa8401884556831735c",
+     "bytes": 3674
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "b1705167eba29406480bc9107a9b82b50eeecae2d74d0d9b935cfbbb2a7f9d7f",
+     "bytes": 3011
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "dc403fd06047d23511460f654468a5b17bda0101498f106f1f1f8e59227c4a29",
+     "bytes": 4636
+    },
+    {
+     "role": "financial-position",
+     "sha256": "332d8d3cf65c08d305cd928f26e9163e23451c233cd98eebfa8c7ab196a7b67e",
+     "bytes": 4756
+    }
+   ],
+   "inventoryRows": 76,
+   "citations": 1453,
+   "resultSha256": "230b4a11a4f6d7f1edac6c5e7ae2fd8c1ef5930a64949f5ad980681038d92ae8"
+  },
+  "H12": {
+   "status": "blocked",
+   "codes": [
+    "CLASSIFICATION",
+    "SIGN_POLICY"
+   ],
+   "issues": [
+    {
+     "code": "CLASSIFICATION",
+     "source": 2,
+     "row": 7,
+     "field": "Line class"
+    },
+    {
+     "code": "SIGN_POLICY",
+     "source": 2,
+     "row": 7,
+     "field": "Sign"
+    },
+    {
+     "code": "SIGN_POLICY",
+     "source": 1,
+     "row": 7,
+     "field": "Sign"
+    }
+   ],
+   "facts": {
+    "debitMinor": 136761643,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": 4500000,
+     "BANK": 15035100,
+     "AR": 9876543,
+     "ALLOW": -493827,
+     "INVENT": 21000000,
+     "PREPAID": 0,
+     "LOAN": 40000000,
+     "LOANDISC": -1200000,
+     "AP": 14532109,
+     "ACCR": 2345678,
+     "VAT": 1740029,
+     "PETTY": -150000,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": 68450000,
+     "PPE": 63950000,
+     "CA": 45417816,
+     "CASH": 15035100,
+     "REC": 9382716,
+     "NCL": 38800000,
+     "CL": 18467816,
+     "EQ": 56600000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 45417816,
+     "noncurrent-asset": 68450000,
+     "current-liability": 18467816,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "REC": "CA",
+    "AR": "REC",
+    "ALLOW": "REC",
+    "INVENT": "CA",
+    "PREPAID": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "PETTY": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "EQ"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "79e2c0df61e4624542afd3c82f07dd8fcc76086e056dd0322da1e94aec41fc2a",
+     "bytes": 3773
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "f6792ed5132eafd13fa6969ee3109e2d5de98c885bebc4413bc8d0293c73e6c6",
+     "bytes": 3678
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "15617d0db1a82e66a8285d4bd20cda9eeb0fe9b3d2a6d0e0e546a47fe52bac68",
+     "bytes": 5487
+    },
+    {
+     "role": "financial-position",
+     "sha256": "003bcf4e394b5d02f05f0c376f132147700dda718a9fd0a25f1a25b3817efa11",
+     "bytes": 5769
+    }
+   ],
+   "inventoryRows": 76,
+   "citations": 1453,
+   "resultSha256": "86e5d683c2d1d7e2c14d930d9303d28fa6499c5f0938513ba600f97dbd98b8d9"
+  },
+  "H13": {
+   "status": "blocked",
+   "codes": [
+    "MISSING_PROOF",
+    "PROOF_REFERENCE"
+   ],
+   "issues": [
+    {
+     "code": "PROOF_REFERENCE",
+     "source": 2,
+     "row": 14,
+     "field": ""
+    },
+    {
+     "code": "MISSING_PROOF",
+     "source": 1,
+     "row": 4,
+     "field": ""
+    }
+   ],
+   "facts": {
+    "debitMinor": 136761643,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": 4500000,
+     "BANK": 15035100,
+     "PETTY": 150000,
+     "AR": 9876543,
+     "ALLOW": -493827,
+     "INVENT": 21000000,
+     "PREPAID": 0,
+     "LOAN": 40000000,
+     "LOANDISC": -1200000,
+     "AP": 14532109,
+     "ACCR": 2345678,
+     "VAT": 1740029,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": 68450000,
+     "PPE": 63950000,
+     "CA": 45567816,
+     "CASH": 15185100,
+     "REC": 9382716,
+     "NCL": 38800000,
+     "CL": 18617816,
+     "EQ": 56600000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 45567816,
+     "noncurrent-asset": 68450000,
+     "current-liability": 18617816,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "PETTY": "CASH",
+    "REC": "CA",
+    "AR": "REC",
+    "ALLOW": "REC",
+    "INVENT": "CA",
+    "PREPAID": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "EQ"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "638c83329f603d2ae90c20dddda9c92398b1393c06e514465e5cc5eb68f8ff76",
+     "bytes": 3107
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "c53f473836641ba49db4574b9bb36d01095857b09464f6f64a2d1dad76b9a2c4",
+     "bytes": 3019
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "6b565fac425f0151f148f02cfc385310211d8b534459ce3f462f3d960e9561ac",
+     "bytes": 4362
+    },
+    {
+     "role": "financial-position",
+     "sha256": "a4c17cdc8ac0ad151fc228acfd1f15ad4f4ef5bc143cdf2527cd5f027f38b2bd",
+     "bytes": 4820
+    }
+   ],
+   "inventoryRows": 75,
+   "citations": 1430,
+   "resultSha256": "aee07a68d6c78581ccd84d313997057009164dd3395cf6dc133ae58a2f344e45"
+  },
+  "H14": {
+   "status": "eligible",
+   "codes": [],
+   "issues": [],
+   "facts": {
+    "debitMinor": 17750050,
+    "creditMinor": 17750050,
+    "leafMinor": {
+     "CASH-AED": 6350050,
+     "STOCK": 7700000,
+     "FIT-OUT": 2500000,
+     "SUPPLIERS": 3999950,
+     "EOSB": 880000,
+     "RESERVE": 0,
+     "OWNER": 10000000,
+     "DRAWINGS": -1200000,
+     "RESULT": 2870100
+    },
+    "parentMinor": {
+     "LIQ": 6350050,
+     "LIQ-CASH": 6350050,
+     "RESERVES": 0
+    },
+    "members": {
+     "CASH-AED": [
+      "ن-١٠١|فرع=الشارقة",
+      "ن-١٠١|فرع=دبي"
+     ],
+     "STOCK": [
+      "م-٢٠٠|فرع=دبي"
+     ],
+     "FIT-OUT": [
+      "ث-٣٠٠|فرع=دبي"
+     ],
+     "SUPPLIERS": [
+      "د-٤٠٠|فرع=دبي"
+     ],
+     "EOSB": [
+      "د-٤١٠|فرع=دبي"
+     ],
+     "OWNER": [
+      "ح-٥٠٠|فرع=دبي"
+     ],
+     "DRAWINGS": [
+      "ح-٥١٠|فرع=دبي"
+     ],
+     "RESULT": [
+      "ح-٥٢٠|فرع=دبي"
+     ],
+     "RESERVE": [
+      "ح-٥٣٠|فرع=دبي"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 14050050,
+     "noncurrent-asset": 2500000,
+     "current-liability": 3999950,
+     "noncurrent-liability": 880000,
+     "equity": 11670100
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "CASH-AED": "LIQ-CASH",
+    "STOCK": "",
+    "FIT-OUT": "",
+    "SUPPLIERS": "",
+    "EOSB": "",
+    "RESERVE": "RESERVES",
+    "OWNER": "",
+    "DRAWINGS": "",
+    "RESULT": "",
+    "LIQ": "",
+    "LIQ-CASH": "LIQ",
+    "RESERVES": ""
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "3c11513e2c457c6246e19b6283f616be2f899bdd763dac61dc037af7b2e595e7",
+     "bytes": 2267
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "74f46cd626f968acc72eeec746430a7c8a2b253209f1f0f38f669f668e949bdc",
+     "bytes": 2205
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "6fbc3599820caec66c5b5a7e34793725e91f4f93261f190871fcc035263f2f36",
+     "bytes": 2992
+    },
+    {
+     "role": "financial-position",
+     "sha256": "888b2db77db0c8649bda00b5635ecedd4ba39af1a3801da61d3a17c91887b903",
+     "bytes": 2614
+    }
+   ],
+   "inventoryRows": 43,
+   "citations": 824,
+   "resultSha256": "3f92f80d47c8b7ddd756be018527257c5c6f193a01e7a37092e83d493c5df4d1"
+  },
+  "H15": {
+   "status": "eligible",
+   "codes": [],
+   "issues": [],
+   "facts": {
+    "debitMinor": 7500000000,
+    "creditMinor": 7500000000,
+    "leafMinor": {
+     "DEEP-CASH": 7500000000,
+     "LOAN-HOLD": 2500000000,
+     "CAP-HOLD": 5000000000
+    },
+    "parentMinor": {
+     "LV01": 7500000000,
+     "LV02": 7500000000,
+     "LV03": 7500000000,
+     "LV04": 7500000000,
+     "LV05": 7500000000,
+     "LV06": 7500000000,
+     "LV07": 7500000000,
+     "LV08": 7500000000,
+     "LV09": 7500000000,
+     "LV10": 7500000000,
+     "LV11": 7500000000,
+     "LV12": 7500000000,
+     "LV13": 7500000000,
+     "LV14": 7500000000,
+     "LV15": 7500000000,
+     "LV16": 7500000000,
+     "LV17": 7500000000,
+     "LV18": 7500000000,
+     "LV19": 7500000000
+    },
+    "members": {
+     "DEEP-CASH": [
+      "10-01|unit=HOLD"
+     ],
+     "LOAN-HOLD": [
+      "40-01|unit=HOLD"
+     ],
+     "CAP-HOLD": [
+      "50-01|unit=HOLD"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 7500000000,
+     "noncurrent-asset": 0,
+     "current-liability": 0,
+     "noncurrent-liability": 2500000000,
+     "equity": 5000000000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "LV01": "",
+    "LV02": "LV01",
+    "LV03": "LV02",
+    "LV04": "LV03",
+    "LV05": "LV04",
+    "LV06": "LV05",
+    "LV07": "LV06",
+    "LV08": "LV07",
+    "LV09": "LV08",
+    "LV10": "LV09",
+    "LV11": "LV10",
+    "LV12": "LV11",
+    "LV13": "LV12",
+    "LV14": "LV13",
+    "LV15": "LV14",
+    "LV16": "LV15",
+    "LV17": "LV16",
+    "LV18": "LV17",
+    "LV19": "LV18",
+    "DEEP-CASH": "LV19",
+    "LOAN-HOLD": "",
+    "CAP-HOLD": ""
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "d95bfb71f38e57ec86b5e2ae340400d6d1344958d572593acf67741595220248",
+     "bytes": 722
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "1683dec1fea9657318d6b509dc2585f365f6b6166bd220b9ea5d27d2871a2a6f",
+     "bytes": 724
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "4a4bcf9718ce18814a7f3e798613f92a1da07678cfb34c5fafccf6ef1ca774a4",
+     "bytes": 1021
+    },
+    {
+     "role": "financial-position",
+     "sha256": "7ab86d12bb25e1c24e9908ee2443aafd704486653d0ef5e0807f589b19583896",
+     "bytes": 4023
+    }
+   ],
+   "inventoryRows": 32,
+   "citations": 591,
+   "resultSha256": "fbb89f1175d2a4d4fcc56bdf1cec52fca987d7d4debf2e211a838f95df7d3588"
+  },
+  "H16": {
+   "status": "blocked",
+   "codes": [
+    "DEPTH"
+   ],
+   "issues": [
+    {
+     "code": "DEPTH",
+     "source": 3,
+     "row": 23,
+     "field": ""
+    }
+   ],
+   "facts": {
+    "debitMinor": 7500000000,
+    "creditMinor": 7500000000,
+    "leafMinor": {
+     "DEEP-CASH": 7500000000,
+     "LOAN-HOLD": 2500000000,
+     "CAP-HOLD": 5000000000
+    },
+    "parentMinor": {
+     "LV01": 7500000000,
+     "LV02": 7500000000,
+     "LV03": 7500000000,
+     "LV04": 7500000000,
+     "LV05": 7500000000,
+     "LV06": 7500000000,
+     "LV07": 7500000000,
+     "LV08": 7500000000,
+     "LV09": 7500000000,
+     "LV10": 7500000000,
+     "LV11": 7500000000,
+     "LV12": 7500000000,
+     "LV13": 7500000000,
+     "LV14": 7500000000,
+     "LV15": 7500000000,
+     "LV16": 7500000000,
+     "LV17": 7500000000,
+     "LV18": 7500000000,
+     "LV19": 7500000000,
+     "LV20": 7500000000
+    },
+    "members": {
+     "DEEP-CASH": [
+      "10-01|unit=HOLD"
+     ],
+     "LOAN-HOLD": [
+      "40-01|unit=HOLD"
+     ],
+     "CAP-HOLD": [
+      "50-01|unit=HOLD"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 7500000000,
+     "noncurrent-asset": 0,
+     "current-liability": 0,
+     "noncurrent-liability": 2500000000,
+     "equity": 5000000000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "LV01": "",
+    "LV02": "LV01",
+    "LV03": "LV02",
+    "LV04": "LV03",
+    "LV05": "LV04",
+    "LV06": "LV05",
+    "LV07": "LV06",
+    "LV08": "LV07",
+    "LV09": "LV08",
+    "LV10": "LV09",
+    "LV11": "LV10",
+    "LV12": "LV11",
+    "LV13": "LV12",
+    "LV14": "LV13",
+    "LV15": "LV14",
+    "LV16": "LV15",
+    "LV17": "LV16",
+    "LV18": "LV17",
+    "LV19": "LV18",
+    "LV20": "LV19",
+    "DEEP-CASH": "LV20",
+    "LOAN-HOLD": "",
+    "CAP-HOLD": ""
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "df9a094cf2e7ece6b32c74516fad52100b2379e55f1be020c8de2eaea7770b2a",
+     "bytes": 870
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "5f1bda0c06e4431f16b9ed2e20c8a9c8af496da5ade63ab0675cddfa5c9028c6",
+     "bytes": 872
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "ccc9a3d21b8e848d6cbc9becae15879dde9e186fa6a143400f0f4653a485705e",
+     "bytes": 1209
+    },
+    {
+     "role": "financial-position",
+     "sha256": "c5ef729e6517c7d5eaecf07beb17bb19807b60584a717b5610a852794a2098f2",
+     "bytes": 5114
+    }
+   ],
+   "inventoryRows": 33,
+   "citations": 609,
+   "resultSha256": "35e963807a9bbb7d9eee335d3d46b819a45efe8c311b973a7bb2023d30fb0d57"
+  },
+  "H17": {
+   "status": "eligible",
+   "codes": [],
+   "issues": [],
+   "facts": {
+    "debitMinor": 49303081,
+    "creditMinor": 49303081,
+    "leafMinor": {
+     "C1-G1-S1-L1": 3012190,
+     "C1-G1-S1-L2": 2086331,
+     "C1-G1-S2-L1": 2357937,
+     "C1-G1-S2-L2": 2629543,
+     "C1-G2-L1": 2901149,
+     "C1-G2-L2": 1975290,
+     "C1-G2-L3": 3444361,
+     "C1-G2-L4": 1744839,
+     "C1-G3-L1": 1592643,
+     "C1-G3-L2": 3061714,
+     "C1-G3-L3": 2135855,
+     "C1-G3-L4": 1271657,
+     "C2-G1-L1": 2679067,
+     "C2-G1-L2": 2950673,
+     "C2-G1-L3": 2024814,
+     "C2-G1-L4": 1995939,
+     "C2-G2-L1": 2568026,
+     "C2-G2-L2": 1642167,
+     "C2-G2-L3": 3111238,
+     "C2-G2-L4": 1921912,
+     "C3-G1-L1": 2456985,
+     "C3-G1-L2": 2728591,
+     "C3-G1-L3": 3000197,
+     "C3-G1-L4": 2074338,
+     "C3-G2-L1": 2345944,
+     "C3-G2-L2": 2617550,
+     "C3-G2-L3": 1691691,
+     "C3-G2-L4": 3160762,
+     "C4-G1-L1": 2234903,
+     "C4-G1-L2": 2506509,
+     "C4-G1-L3": 2778115,
+     "C4-G1-L4": 3049721,
+     "C5-G1-L1": 2123862,
+     "C5-G1-L2": 2395468,
+     "C5-G1-L3": 2667074,
+     "C5-G1-L4": 1741215,
+     "C5-G2-L1": 3210286,
+     "C5-G2-L2": 2284427,
+     "C5-G2-L3": -1278015,
+     "C5-G2-L4": 3317722
+    },
+    "parentMinor": {
+     "C1": 28213509,
+     "C1-G1": 10086001,
+     "C1-G1-S1": 5098521,
+     "C1-G1-S2": 4987480,
+     "C1-G2": 10065639,
+     "C1-G3": 8061869,
+     "C2": 18893836,
+     "C2-G1": 9650493,
+     "C2-G2": 9243343,
+     "C3": 20076058,
+     "C3-G1": 10260111,
+     "C3-G2": 9815947,
+     "C4": 10569248,
+     "C4-G1": 10569248,
+     "C5": 16462039,
+     "C5-G1": 8927619,
+     "C5-G2": 7534420
+    },
+    "members": {
+     "C1-G1-S1-L1": [
+      "11101.1|region=R1;cc=C1",
+      "11101.2|region=R2;cc=C1",
+      "11101.3|region=R3;cc=C1",
+      "11101.4|region=R4;cc=C1"
+     ],
+     "C1-G1-S1-L2": [
+      "11102.1|region=R1;cc=C2",
+      "11102.2|region=R2;cc=C2",
+      "11102.3|region=R3;cc=C2",
+      "11102.4|region=R4;cc=C2"
+     ],
+     "C1-G1-S2-L1": [
+      "11201.1|region=R1;cc=C1",
+      "11201.2|region=R2;cc=C1",
+      "11201.3|region=R3;cc=C1",
+      "11201.4|region=R4;cc=C1"
+     ],
+     "C1-G1-S2-L2": [
+      "11202.1|region=R1;cc=C2",
+      "11202.2|region=R2;cc=C2",
+      "11202.3|region=R3;cc=C2",
+      "11202.4|region=R4;cc=C2"
+     ],
+     "C1-G2-L1": [
+      "12101.1|region=R1;cc=C1",
+      "12101.2|region=R2;cc=C1",
+      "12101.3|region=R3;cc=C1",
+      "12101.4|region=R4;cc=C1"
+     ],
+     "C1-G2-L2": [
+      "12102.1|region=R1;cc=C2",
+      "12102.2|region=R2;cc=C2",
+      "12102.3|region=R3;cc=C2",
+      "12102.4|region=R4;cc=C2"
+     ],
+     "C1-G2-L3": [
+      "12103.1|region=R1;cc=C0",
+      "12103.2|region=R2;cc=C0",
+      "12103.3|region=R3;cc=C0",
+      "12103.4|region=R4;cc=C0"
+     ],
+     "C1-G2-L4": [
+      "12104.1|region=R1;cc=C1",
+      "12104.2|region=R2;cc=C1",
+      "12104.3|region=R3;cc=C1",
+      "12104.4|region=R4;cc=C1"
+     ],
+     "C1-G3-L1": [
+      "13101.1|region=R1;cc=C1",
+      "13101.2|region=R2;cc=C1",
+      "13101.3|region=R3;cc=C1",
+      "13101.4|region=R4;cc=C1"
+     ],
+     "C1-G3-L2": [
+      "13102.1|region=R1;cc=C2",
+      "13102.2|region=R2;cc=C2",
+      "13102.3|region=R3;cc=C2",
+      "13102.4|region=R4;cc=C2"
+     ],
+     "C1-G3-L3": [
+      "13103.1|region=R1;cc=C0",
+      "13103.2|region=R2;cc=C0",
+      "13103.3|region=R3;cc=C0",
+      "13103.4|region=R4;cc=C0"
+     ],
+     "C1-G3-L4": [
+      "13104.1|region=R1;cc=C1",
+      "13104.2|region=R2;cc=C1",
+      "13104.3|region=R3;cc=C1",
+      "13104.4|region=R4;cc=C1"
+     ],
+     "C2-G1-L1": [
+      "21101.1|region=R1;cc=C1",
+      "21101.2|region=R2;cc=C1",
+      "21101.3|region=R3;cc=C1",
+      "21101.4|region=R4;cc=C1"
+     ],
+     "C2-G1-L2": [
+      "21102.1|region=R1;cc=C2",
+      "21102.2|region=R2;cc=C2",
+      "21102.3|region=R3;cc=C2",
+      "21102.4|region=R4;cc=C2"
+     ],
+     "C2-G1-L3": [
+      "21103.1|region=R1;cc=C0",
+      "21103.2|region=R2;cc=C0",
+      "21103.3|region=R3;cc=C0",
+      "21103.4|region=R4;cc=C0"
+     ],
+     "C2-G1-L4": [
+      "21104.1|region=R1;cc=C1",
+      "21104.2|region=R2;cc=C1",
+      "21104.3|region=R3;cc=C1",
+      "21104.4|region=R4;cc=C1"
+     ],
+     "C2-G2-L1": [
+      "22101.1|region=R1;cc=C1",
+      "22101.2|region=R2;cc=C1",
+      "22101.3|region=R3;cc=C1",
+      "22101.4|region=R4;cc=C1"
+     ],
+     "C2-G2-L2": [
+      "22102.1|region=R1;cc=C2",
+      "22102.2|region=R2;cc=C2",
+      "22102.3|region=R3;cc=C2",
+      "22102.4|region=R4;cc=C2"
+     ],
+     "C2-G2-L3": [
+      "22103.1|region=R1;cc=C0",
+      "22103.2|region=R2;cc=C0",
+      "22103.3|region=R3;cc=C0",
+      "22103.4|region=R4;cc=C0"
+     ],
+     "C2-G2-L4": [
+      "22104.1|region=R1;cc=C1",
+      "22104.2|region=R2;cc=C1",
+      "22104.3|region=R3;cc=C1",
+      "22104.4|region=R4;cc=C1"
+     ],
+     "C3-G1-L1": [
+      "31101.1|region=R1;cc=C1",
+      "31101.2|region=R2;cc=C1",
+      "31101.3|region=R3;cc=C1",
+      "31101.4|region=R4;cc=C1"
+     ],
+     "C3-G1-L2": [
+      "31102.1|region=R1;cc=C2",
+      "31102.2|region=R2;cc=C2",
+      "31102.3|region=R3;cc=C2",
+      "31102.4|region=R4;cc=C2"
+     ],
+     "C3-G1-L3": [
+      "31103.1|region=R1;cc=C0",
+      "31103.2|region=R2;cc=C0",
+      "31103.3|region=R3;cc=C0",
+      "31103.4|region=R4;cc=C0"
+     ],
+     "C3-G1-L4": [
+      "31104.1|region=R1;cc=C1",
+      "31104.2|region=R2;cc=C1",
+      "31104.3|region=R3;cc=C1",
+      "31104.4|region=R4;cc=C1"
+     ],
+     "C3-G2-L1": [
+      "32101.1|region=R1;cc=C1",
+      "32101.2|region=R2;cc=C1",
+      "32101.3|region=R3;cc=C1",
+      "32101.4|region=R4;cc=C1"
+     ],
+     "C3-G2-L2": [
+      "32102.1|region=R1;cc=C2",
+      "32102.2|region=R2;cc=C2",
+      "32102.3|region=R3;cc=C2",
+      "32102.4|region=R4;cc=C2"
+     ],
+     "C3-G2-L3": [
+      "32103.1|region=R1;cc=C0",
+      "32103.2|region=R2;cc=C0",
+      "32103.3|region=R3;cc=C0",
+      "32103.4|region=R4;cc=C0"
+     ],
+     "C3-G2-L4": [
+      "32104.1|region=R1;cc=C1",
+      "32104.2|region=R2;cc=C1",
+      "32104.3|region=R3;cc=C1",
+      "32104.4|region=R4;cc=C1"
+     ],
+     "C4-G1-L1": [
+      "41101.1|region=R1;cc=C1",
+      "41101.2|region=R2;cc=C1",
+      "41101.3|region=R3;cc=C1",
+      "41101.4|region=R4;cc=C1"
+     ],
+     "C4-G1-L2": [
+      "41102.1|region=R1;cc=C2",
+      "41102.2|region=R2;cc=C2",
+      "41102.3|region=R3;cc=C2",
+      "41102.4|region=R4;cc=C2"
+     ],
+     "C4-G1-L3": [
+      "41103.1|region=R1;cc=C0",
+      "41103.2|region=R2;cc=C0",
+      "41103.3|region=R3;cc=C0",
+      "41103.4|region=R4;cc=C0"
+     ],
+     "C4-G1-L4": [
+      "41104.1|region=R1;cc=C1",
+      "41104.2|region=R2;cc=C1",
+      "41104.3|region=R3;cc=C1",
+      "41104.4|region=R4;cc=C1"
+     ],
+     "C5-G1-L1": [
+      "51101.1|region=R1;cc=C1",
+      "51101.2|region=R2;cc=C1",
+      "51101.3|region=R3;cc=C1",
+      "51101.4|region=R4;cc=C1"
+     ],
+     "C5-G1-L2": [
+      "51102.1|region=R1;cc=C2",
+      "51102.2|region=R2;cc=C2",
+      "51102.3|region=R3;cc=C2",
+      "51102.4|region=R4;cc=C2"
+     ],
+     "C5-G1-L3": [
+      "51103.1|region=R1;cc=C0",
+      "51103.2|region=R2;cc=C0",
+      "51103.3|region=R3;cc=C0",
+      "51103.4|region=R4;cc=C0"
+     ],
+     "C5-G1-L4": [
+      "51104.1|region=R1;cc=C1",
+      "51104.2|region=R2;cc=C1",
+      "51104.3|region=R3;cc=C1",
+      "51104.4|region=R4;cc=C1"
+     ],
+     "C5-G2-L1": [
+      "52101.1|region=R1;cc=C1",
+      "52101.2|region=R2;cc=C1",
+      "52101.3|region=R3;cc=C1",
+      "52101.4|region=R4;cc=C1"
+     ],
+     "C5-G2-L2": [
+      "52102.1|region=R1;cc=C2",
+      "52102.2|region=R2;cc=C2",
+      "52102.3|region=R3;cc=C2",
+      "52102.4|region=R4;cc=C2"
+     ],
+     "C5-G2-L3": [
+      "52103.1|region=R1;cc=C0",
+      "52103.2|region=R2;cc=C0",
+      "52103.3|region=R3;cc=C0",
+      "52103.4|region=R4;cc=C0"
+     ],
+     "C5-G2-L4": [
+      "52104.1|region=R1;cc=C1",
+      "52104.2|region=R2;cc=C1",
+      "52104.3|region=R3;cc=C1",
+      "52104.4|region=R4;cc=C1"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 28213509,
+     "noncurrent-asset": 18893836,
+     "current-liability": 20076058,
+     "noncurrent-liability": 10569248,
+     "equity": 16462039
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "C1": "",
+    "C1-G1": "C1",
+    "C1-G1-S1": "C1-G1",
+    "C1-G1-S1-L1": "C1-G1-S1",
+    "C1-G1-S1-L2": "C1-G1-S1",
+    "C1-G1-S2": "C1-G1",
+    "C1-G1-S2-L1": "C1-G1-S2",
+    "C1-G1-S2-L2": "C1-G1-S2",
+    "C1-G2": "C1",
+    "C1-G2-L1": "C1-G2",
+    "C1-G2-L2": "C1-G2",
+    "C1-G2-L3": "C1-G2",
+    "C1-G2-L4": "C1-G2",
+    "C1-G3": "C1",
+    "C1-G3-L1": "C1-G3",
+    "C1-G3-L2": "C1-G3",
+    "C1-G3-L3": "C1-G3",
+    "C1-G3-L4": "C1-G3",
+    "C2": "",
+    "C2-G1": "C2",
+    "C2-G1-L1": "C2-G1",
+    "C2-G1-L2": "C2-G1",
+    "C2-G1-L3": "C2-G1",
+    "C2-G1-L4": "C2-G1",
+    "C2-G2": "C2",
+    "C2-G2-L1": "C2-G2",
+    "C2-G2-L2": "C2-G2",
+    "C2-G2-L3": "C2-G2",
+    "C2-G2-L4": "C2-G2",
+    "C3": "",
+    "C3-G1": "C3",
+    "C3-G1-L1": "C3-G1",
+    "C3-G1-L2": "C3-G1",
+    "C3-G1-L3": "C3-G1",
+    "C3-G1-L4": "C3-G1",
+    "C3-G2": "C3",
+    "C3-G2-L1": "C3-G2",
+    "C3-G2-L2": "C3-G2",
+    "C3-G2-L3": "C3-G2",
+    "C3-G2-L4": "C3-G2",
+    "C4": "",
+    "C4-G1": "C4",
+    "C4-G1-L1": "C4-G1",
+    "C4-G1-L2": "C4-G1",
+    "C4-G1-L3": "C4-G1",
+    "C4-G1-L4": "C4-G1",
+    "C5": "",
+    "C5-G1": "C5",
+    "C5-G1-L1": "C5-G1",
+    "C5-G1-L2": "C5-G1",
+    "C5-G1-L3": "C5-G1",
+    "C5-G1-L4": "C5-G1",
+    "C5-G2": "C5",
+    "C5-G2-L1": "C5-G2",
+    "C5-G2-L2": "C5-G2",
+    "C5-G2-L3": "C5-G2",
+    "C5-G2-L4": "C5-G2"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "4f1274a637d73a42aa093d6fdc6866b8bda068f1ad53a7af26e373c5b6815984",
+     "bytes": 28872
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "4d8e51359149e9c055d68e070f54332d62c8a9344d0fd7e28ee3541a58bd2b29",
+     "bytes": 29452
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "e68046d797220da144f703641e0700538ac4df59bb789e784f9176f0a805ae22",
+     "bytes": 43132
+    },
+    {
+     "role": "financial-position",
+     "sha256": "db381aeacad5e2b71db86532874b97332e0e5ab389450f99a04cc9852bb58159",
+     "bytes": 12938
+    }
+   ],
+   "inventoryRows": 538,
+   "citations": 10484,
+   "resultSha256": "87424dc949f5f5e5f92b8081e2b40454e2741be671abd8211e5df8bd766e6a7d"
+  },
+  "H18": {
+   "status": "blocked",
+   "codes": [
+    "LEAF_TOTAL"
+   ],
+   "issues": [
+    {
+     "code": "LEAF_TOTAL",
+     "source": 3,
+     "row": 14,
+     "field": "Amount"
+    },
+    {
+     "code": "LEAF_TOTAL",
+     "source": 3,
+     "row": 52,
+     "field": "Amount"
+    }
+   ],
+   "facts": {
+    "debitMinor": 49303081,
+    "creditMinor": 49303081,
+    "leafMinor": {
+     "C1-G1-S1-L1": 3012190,
+     "C1-G1-S1-L2": 2086331,
+     "C1-G1-S2-L1": 2357937,
+     "C1-G1-S2-L2": 2629543,
+     "C1-G2-L1": 2901149,
+     "C1-G2-L2": 1975290,
+     "C1-G2-L3": 3444362,
+     "C1-G2-L4": 1744839,
+     "C1-G3-L1": 1592643,
+     "C1-G3-L2": 3061714,
+     "C1-G3-L3": 2135855,
+     "C1-G3-L4": 1271657,
+     "C2-G1-L1": 2679067,
+     "C2-G1-L2": 2950673,
+     "C2-G1-L3": 2024814,
+     "C2-G1-L4": 1995939,
+     "C2-G2-L1": 2568026,
+     "C2-G2-L2": 1642167,
+     "C2-G2-L3": 3111238,
+     "C2-G2-L4": 1921912,
+     "C3-G1-L1": 2456985,
+     "C3-G1-L2": 2728591,
+     "C3-G1-L3": 3000197,
+     "C3-G1-L4": 2074338,
+     "C3-G2-L1": 2345944,
+     "C3-G2-L2": 2617550,
+     "C3-G2-L3": 1691691,
+     "C3-G2-L4": 3160762,
+     "C4-G1-L1": 2234903,
+     "C4-G1-L2": 2506509,
+     "C4-G1-L3": 2778115,
+     "C4-G1-L4": 3049721,
+     "C5-G1-L1": 2123862,
+     "C5-G1-L2": 2395469,
+     "C5-G1-L3": 2667074,
+     "C5-G1-L4": 1741215,
+     "C5-G2-L1": 3210286,
+     "C5-G2-L2": 2284427,
+     "C5-G2-L3": -1278015,
+     "C5-G2-L4": 3317722
+    },
+    "parentMinor": {
+     "C1": 28213510,
+     "C1-G1": 10086001,
+     "C1-G1-S1": 5098521,
+     "C1-G1-S2": 4987480,
+     "C1-G2": 10065640,
+     "C1-G3": 8061869,
+     "C2": 18893836,
+     "C2-G1": 9650493,
+     "C2-G2": 9243343,
+     "C3": 20076058,
+     "C3-G1": 10260111,
+     "C3-G2": 9815947,
+     "C4": 10569248,
+     "C4-G1": 10569248,
+     "C5": 16462040,
+     "C5-G1": 8927620,
+     "C5-G2": 7534420
+    },
+    "members": {
+     "C1-G1-S1-L1": [
+      "11101.1|region=R1;cc=C1",
+      "11101.2|region=R2;cc=C1",
+      "11101.3|region=R3;cc=C1",
+      "11101.4|region=R4;cc=C1"
+     ],
+     "C1-G1-S1-L2": [
+      "11102.1|region=R1;cc=C2",
+      "11102.2|region=R2;cc=C2",
+      "11102.3|region=R3;cc=C2",
+      "11102.4|region=R4;cc=C2"
+     ],
+     "C1-G1-S2-L1": [
+      "11201.1|region=R1;cc=C1",
+      "11201.2|region=R2;cc=C1",
+      "11201.3|region=R3;cc=C1",
+      "11201.4|region=R4;cc=C1"
+     ],
+     "C1-G1-S2-L2": [
+      "11202.1|region=R1;cc=C2",
+      "11202.2|region=R2;cc=C2",
+      "11202.3|region=R3;cc=C2",
+      "11202.4|region=R4;cc=C2"
+     ],
+     "C1-G2-L1": [
+      "12101.1|region=R1;cc=C1",
+      "12101.2|region=R2;cc=C1",
+      "12101.3|region=R3;cc=C1",
+      "12101.4|region=R4;cc=C1"
+     ],
+     "C1-G2-L2": [
+      "12102.1|region=R1;cc=C2",
+      "12102.2|region=R2;cc=C2",
+      "12102.3|region=R3;cc=C2",
+      "12102.4|region=R4;cc=C2"
+     ],
+     "C1-G2-L3": [
+      "12103.1|region=R1;cc=C0",
+      "12103.2|region=R2;cc=C0",
+      "12103.3|region=R3;cc=C0",
+      "12103.4|region=R4;cc=C0"
+     ],
+     "C1-G2-L4": [
+      "12104.1|region=R1;cc=C1",
+      "12104.2|region=R2;cc=C1",
+      "12104.3|region=R3;cc=C1",
+      "12104.4|region=R4;cc=C1"
+     ],
+     "C1-G3-L1": [
+      "13101.1|region=R1;cc=C1",
+      "13101.2|region=R2;cc=C1",
+      "13101.3|region=R3;cc=C1",
+      "13101.4|region=R4;cc=C1"
+     ],
+     "C1-G3-L2": [
+      "13102.1|region=R1;cc=C2",
+      "13102.2|region=R2;cc=C2",
+      "13102.3|region=R3;cc=C2",
+      "13102.4|region=R4;cc=C2"
+     ],
+     "C1-G3-L3": [
+      "13103.1|region=R1;cc=C0",
+      "13103.2|region=R2;cc=C0",
+      "13103.3|region=R3;cc=C0",
+      "13103.4|region=R4;cc=C0"
+     ],
+     "C1-G3-L4": [
+      "13104.1|region=R1;cc=C1",
+      "13104.2|region=R2;cc=C1",
+      "13104.3|region=R3;cc=C1",
+      "13104.4|region=R4;cc=C1"
+     ],
+     "C2-G1-L1": [
+      "21101.1|region=R1;cc=C1",
+      "21101.2|region=R2;cc=C1",
+      "21101.3|region=R3;cc=C1",
+      "21101.4|region=R4;cc=C1"
+     ],
+     "C2-G1-L2": [
+      "21102.1|region=R1;cc=C2",
+      "21102.2|region=R2;cc=C2",
+      "21102.3|region=R3;cc=C2",
+      "21102.4|region=R4;cc=C2"
+     ],
+     "C2-G1-L3": [
+      "21103.1|region=R1;cc=C0",
+      "21103.2|region=R2;cc=C0",
+      "21103.3|region=R3;cc=C0",
+      "21103.4|region=R4;cc=C0"
+     ],
+     "C2-G1-L4": [
+      "21104.1|region=R1;cc=C1",
+      "21104.2|region=R2;cc=C1",
+      "21104.3|region=R3;cc=C1",
+      "21104.4|region=R4;cc=C1"
+     ],
+     "C2-G2-L1": [
+      "22101.1|region=R1;cc=C1",
+      "22101.2|region=R2;cc=C1",
+      "22101.3|region=R3;cc=C1",
+      "22101.4|region=R4;cc=C1"
+     ],
+     "C2-G2-L2": [
+      "22102.1|region=R1;cc=C2",
+      "22102.2|region=R2;cc=C2",
+      "22102.3|region=R3;cc=C2",
+      "22102.4|region=R4;cc=C2"
+     ],
+     "C2-G2-L3": [
+      "22103.1|region=R1;cc=C0",
+      "22103.2|region=R2;cc=C0",
+      "22103.3|region=R3;cc=C0",
+      "22103.4|region=R4;cc=C0"
+     ],
+     "C2-G2-L4": [
+      "22104.1|region=R1;cc=C1",
+      "22104.2|region=R2;cc=C1",
+      "22104.3|region=R3;cc=C1",
+      "22104.4|region=R4;cc=C1"
+     ],
+     "C3-G1-L1": [
+      "31101.1|region=R1;cc=C1",
+      "31101.2|region=R2;cc=C1",
+      "31101.3|region=R3;cc=C1",
+      "31101.4|region=R4;cc=C1"
+     ],
+     "C3-G1-L2": [
+      "31102.1|region=R1;cc=C2",
+      "31102.2|region=R2;cc=C2",
+      "31102.3|region=R3;cc=C2",
+      "31102.4|region=R4;cc=C2"
+     ],
+     "C3-G1-L3": [
+      "31103.1|region=R1;cc=C0",
+      "31103.2|region=R2;cc=C0",
+      "31103.3|region=R3;cc=C0",
+      "31103.4|region=R4;cc=C0"
+     ],
+     "C3-G1-L4": [
+      "31104.1|region=R1;cc=C1",
+      "31104.2|region=R2;cc=C1",
+      "31104.3|region=R3;cc=C1",
+      "31104.4|region=R4;cc=C1"
+     ],
+     "C3-G2-L1": [
+      "32101.1|region=R1;cc=C1",
+      "32101.2|region=R2;cc=C1",
+      "32101.3|region=R3;cc=C1",
+      "32101.4|region=R4;cc=C1"
+     ],
+     "C3-G2-L2": [
+      "32102.1|region=R1;cc=C2",
+      "32102.2|region=R2;cc=C2",
+      "32102.3|region=R3;cc=C2",
+      "32102.4|region=R4;cc=C2"
+     ],
+     "C3-G2-L3": [
+      "32103.1|region=R1;cc=C0",
+      "32103.2|region=R2;cc=C0",
+      "32103.3|region=R3;cc=C0",
+      "32103.4|region=R4;cc=C0"
+     ],
+     "C3-G2-L4": [
+      "32104.1|region=R1;cc=C1",
+      "32104.2|region=R2;cc=C1",
+      "32104.3|region=R3;cc=C1",
+      "32104.4|region=R4;cc=C1"
+     ],
+     "C4-G1-L1": [
+      "41101.1|region=R1;cc=C1",
+      "41101.2|region=R2;cc=C1",
+      "41101.3|region=R3;cc=C1",
+      "41101.4|region=R4;cc=C1"
+     ],
+     "C4-G1-L2": [
+      "41102.1|region=R1;cc=C2",
+      "41102.2|region=R2;cc=C2",
+      "41102.3|region=R3;cc=C2",
+      "41102.4|region=R4;cc=C2"
+     ],
+     "C4-G1-L3": [
+      "41103.1|region=R1;cc=C0",
+      "41103.2|region=R2;cc=C0",
+      "41103.3|region=R3;cc=C0",
+      "41103.4|region=R4;cc=C0"
+     ],
+     "C4-G1-L4": [
+      "41104.1|region=R1;cc=C1",
+      "41104.2|region=R2;cc=C1",
+      "41104.3|region=R3;cc=C1",
+      "41104.4|region=R4;cc=C1"
+     ],
+     "C5-G1-L1": [
+      "51101.1|region=R1;cc=C1",
+      "51101.2|region=R2;cc=C1",
+      "51101.3|region=R3;cc=C1",
+      "51101.4|region=R4;cc=C1"
+     ],
+     "C5-G1-L2": [
+      "51102.1|region=R1;cc=C2",
+      "51102.2|region=R2;cc=C2",
+      "51102.3|region=R3;cc=C2",
+      "51102.4|region=R4;cc=C2"
+     ],
+     "C5-G1-L3": [
+      "51103.1|region=R1;cc=C0",
+      "51103.2|region=R2;cc=C0",
+      "51103.3|region=R3;cc=C0",
+      "51103.4|region=R4;cc=C0"
+     ],
+     "C5-G1-L4": [
+      "51104.1|region=R1;cc=C1",
+      "51104.2|region=R2;cc=C1",
+      "51104.3|region=R3;cc=C1",
+      "51104.4|region=R4;cc=C1"
+     ],
+     "C5-G2-L1": [
+      "52101.1|region=R1;cc=C1",
+      "52101.2|region=R2;cc=C1",
+      "52101.3|region=R3;cc=C1",
+      "52101.4|region=R4;cc=C1"
+     ],
+     "C5-G2-L2": [
+      "52102.1|region=R1;cc=C2",
+      "52102.2|region=R2;cc=C2",
+      "52102.3|region=R3;cc=C2",
+      "52102.4|region=R4;cc=C2"
+     ],
+     "C5-G2-L3": [
+      "52103.1|region=R1;cc=C0",
+      "52103.2|region=R2;cc=C0",
+      "52103.3|region=R3;cc=C0",
+      "52103.4|region=R4;cc=C0"
+     ],
+     "C5-G2-L4": [
+      "52104.1|region=R1;cc=C1",
+      "52104.2|region=R2;cc=C1",
+      "52104.3|region=R3;cc=C1",
+      "52104.4|region=R4;cc=C1"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 28213510,
+     "noncurrent-asset": 18893836,
+     "current-liability": 20076058,
+     "noncurrent-liability": 10569248,
+     "equity": 16462040
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "C1": "",
+    "C1-G1": "C1",
+    "C1-G1-S1": "C1-G1",
+    "C1-G1-S1-L1": "C1-G1-S1",
+    "C1-G1-S1-L2": "C1-G1-S1",
+    "C1-G1-S2": "C1-G1",
+    "C1-G1-S2-L1": "C1-G1-S2",
+    "C1-G1-S2-L2": "C1-G1-S2",
+    "C1-G2": "C1",
+    "C1-G2-L1": "C1-G2",
+    "C1-G2-L2": "C1-G2",
+    "C1-G2-L3": "C1-G2",
+    "C1-G2-L4": "C1-G2",
+    "C1-G3": "C1",
+    "C1-G3-L1": "C1-G3",
+    "C1-G3-L2": "C1-G3",
+    "C1-G3-L3": "C1-G3",
+    "C1-G3-L4": "C1-G3",
+    "C2": "",
+    "C2-G1": "C2",
+    "C2-G1-L1": "C2-G1",
+    "C2-G1-L2": "C2-G1",
+    "C2-G1-L3": "C2-G1",
+    "C2-G1-L4": "C2-G1",
+    "C2-G2": "C2",
+    "C2-G2-L1": "C2-G2",
+    "C2-G2-L2": "C2-G2",
+    "C2-G2-L3": "C2-G2",
+    "C2-G2-L4": "C2-G2",
+    "C3": "",
+    "C3-G1": "C3",
+    "C3-G1-L1": "C3-G1",
+    "C3-G1-L2": "C3-G1",
+    "C3-G1-L3": "C3-G1",
+    "C3-G1-L4": "C3-G1",
+    "C3-G2": "C3",
+    "C3-G2-L1": "C3-G2",
+    "C3-G2-L2": "C3-G2",
+    "C3-G2-L3": "C3-G2",
+    "C3-G2-L4": "C3-G2",
+    "C4": "",
+    "C4-G1": "C4",
+    "C4-G1-L1": "C4-G1",
+    "C4-G1-L2": "C4-G1",
+    "C4-G1-L3": "C4-G1",
+    "C4-G1-L4": "C4-G1",
+    "C5": "",
+    "C5-G1": "C5",
+    "C5-G1-L1": "C5-G1",
+    "C5-G1-L2": "C5-G1",
+    "C5-G1-L3": "C5-G1",
+    "C5-G1-L4": "C5-G1",
+    "C5-G2": "C5",
+    "C5-G2-L1": "C5-G2",
+    "C5-G2-L2": "C5-G2",
+    "C5-G2-L3": "C5-G2",
+    "C5-G2-L4": "C5-G2"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "c545e2d1241d0830f7f4f50a20cc3193ec508cde6c656803f76cf681cb9792a5",
+     "bytes": 28872
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "95d5f3f112513645e8339642a1c92a464c6052cb9cec4546d7c778eb2c59b61f",
+     "bytes": 29452
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "e00aabac8f474e2640b31fd235085b0baaf0531fceb5effa247b00fdb4ea5133",
+     "bytes": 43132
+    },
+    {
+     "role": "financial-position",
+     "sha256": "66a27f635e849a6793d636e8e3ddddeec6b349eea3ae6829944d88a399ba2aeb",
+     "bytes": 10846
+    }
+   ],
+   "inventoryRows": 538,
+   "citations": 10484,
+   "resultSha256": "e184ab84faf62533ef4c9b0acd7a345ec834958673bb18644314b6ee8409a6cf"
+  },
+  "H19": {
+   "status": "eligible",
+   "codes": [],
+   "issues": [],
+   "facts": {
+    "debitMinor": 100000000000000,
+    "creditMinor": 100000000000000,
+    "leafMinor": {
+     "E-INV-1": 60000000000000,
+     "E-INV-2": 40000000000000,
+     "E-BONDS": 30000000000000,
+     "E-EQUITY": 70000000000000
+    },
+    "parentMinor": {
+     "E-ASSETS": 100000000000000
+    },
+    "members": {
+     "E-INV-1": [
+      "9001|fund=ONE"
+     ],
+     "E-INV-2": [
+      "9002|fund=TWO"
+     ],
+     "E-BONDS": [
+      "9501|fund=ONE"
+     ],
+     "E-EQUITY": [
+      "9901|fund=ONE"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 0,
+     "noncurrent-asset": 100000000000000,
+     "current-liability": 0,
+     "noncurrent-liability": 30000000000000,
+     "equity": 70000000000000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "E-ASSETS": "",
+    "E-INV-1": "E-ASSETS",
+    "E-INV-2": "E-ASSETS",
+    "E-BONDS": "",
+    "E-EQUITY": ""
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "ad6d3f9ae8f818c47830c1cb237ca8f93fe3dfe35b5e9e8e8ae03ad1c8605dac",
+     "bytes": 922
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "b711aa3120b2ff956ac5cd9a95b52034be004d05244d28c0ea21c6a2fa73749b",
+     "bytes": 887
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "6c6b35638a8246eecbe11a6a01197a30c8d42db277185b5c134970a8ddfcfd98",
+     "bytes": 1268
+    },
+    {
+     "role": "financial-position",
+     "sha256": "5738c5ee76e1e9fc82e1e98a7f92d672210cb804cb02009379258da4fc150d05",
+     "bytes": 1277
+    }
+   ],
+   "inventoryRows": 18,
+   "citations": 344,
+   "resultSha256": "66885b2fba68f6b90c5c234efdd5b4c033bac20b84c87527c8ebf06dad97f71e"
+  },
+  "H20": {
+   "status": "blocked",
+   "codes": [
+    "SUM"
+   ],
+   "issues": [
+    {
+     "code": "SUM"
+    }
+   ],
+   "facts": {
+    "debitMinor": 100000000000001,
+    "creditMinor": 100000000000001,
+    "leafMinor": {
+     "E-INV-1": 60000000000001,
+     "E-INV-2": 40000000000000,
+     "E-BONDS": 30000000000000,
+     "E-EQUITY": 70000000000001
+    },
+    "parentMinor": {},
+    "members": {
+     "E-INV-1": [
+      "9001|fund=ONE"
+     ],
+     "E-INV-2": [
+      "9002|fund=TWO"
+     ],
+     "E-BONDS": [
+      "9501|fund=ONE"
+     ],
+     "E-EQUITY": [
+      "9901|fund=ONE"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 0,
+     "noncurrent-asset": 100000000000001,
+     "current-liability": 0,
+     "noncurrent-liability": 30000000000000,
+     "equity": 70000000000001
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "E-INV-1": "",
+    "E-INV-2": "",
+    "E-BONDS": "",
+    "E-EQUITY": ""
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "b3db4e2fc9b1e030001b5b25c9c127bbf945e12da444a85f6661a536ad546141",
+     "bytes": 922
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "fb80d16a78c2012dfb619b8081f0b989775bae3aff993d6254b8925174023f64",
+     "bytes": 887
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "25c1a91c8b8fd32041c9fd411c1d0f93ee2de1dcc6b27758dc4e10fadd07daf0",
+     "bytes": 1268
+    },
+    {
+     "role": "financial-position",
+     "sha256": "648129bc9b44d645c2c4c3a64e484e86892d103c926bd724eb6126199890b1d5",
+     "bytes": 1071
+    }
+   ],
+   "inventoryRows": 17,
+   "citations": 326,
+   "resultSha256": "7350a4bc66df1858fbd8f333267891f36e5a47ad1004f405e60b1bc15aed0c34"
+  },
+  "H21": {
+   "status": "blocked",
+   "codes": [
+    "EMPTY_SOURCE",
+    "HEADERS",
+    "MAPPING_TARGET",
+    "NO_FINANCIAL_LEAF",
+    "PROOF_LINE"
+   ],
+   "issues": [
+    {
+     "code": "HEADERS"
+    },
+    {
+     "code": "EMPTY_SOURCE",
+     "source": 3,
+     "row": 1,
+     "field": ""
+    },
+    {
+     "code": "NO_FINANCIAL_LEAF"
+    },
+    {
+     "code": "PROOF_LINE",
+     "source": 2,
+     "row": 2,
+     "field": "Line ID"
+    },
+    {
+     "code": "PROOF_LINE",
+     "source": 2,
+     "row": 3,
+     "field": "Line ID"
+    },
+    {
+     "code": "PROOF_LINE",
+     "source": 2,
+     "row": 4,
+     "field": "Line ID"
+    },
+    {
+     "code": "PROOF_LINE",
+     "source": 2,
+     "row": 5,
+     "field": "Line ID"
+    },
+    {
+     "code": "PROOF_LINE",
+     "source": 2,
+     "row": 6,
+     "field": "Line ID"
+    },
+    {
+     "code": "PROOF_LINE",
+     "source": 2,
+     "row": 7,
+     "field": "Line ID"
+    },
+    {
+     "code": "PROOF_LINE",
+     "source": 2,
+     "row": 8,
+     "field": "Line ID"
+    },
+    {
+     "code": "PROOF_LINE",
+     "source": 2,
+     "row": 9,
+     "field": "Line ID"
+    },
+    {
+     "code": "PROOF_LINE",
+     "source": 2,
+     "row": 10,
+     "field": "Line ID"
+    },
+    {
+     "code": "PROOF_LINE",
+     "source": 2,
+     "row": 11,
+     "field": "Line ID"
+    },
+    {
+     "code": "PROOF_LINE",
+     "source": 2,
+     "row": 12,
+     "field": "Line ID"
+    },
+    {
+     "code": "PROOF_LINE",
+     "source": 2,
+     "row": 13,
+     "field": "Line ID"
+    },
+    {
+     "code": "PROOF_LINE",
+     "source": 2,
+     "row": 14,
+     "field": "Line ID"
+    },
+    {
+     "code": "PROOF_LINE",
+     "source": 2,
+     "row": 15,
+     "field": "Line ID"
+    },
+    {
+     "code": "PROOF_LINE",
+     "source": 2,
+     "row": 16,
+     "field": "Line ID"
+    },
+    {
+     "code": "PROOF_LINE",
+     "source": 2,
+     "row": 17,
+     "field": "Line ID"
+    },
+    {
+     "code": "PROOF_LINE",
+     "source": 2,
+     "row": 18,
+     "field": "Line ID"
+    },
+    {
+     "code": "MAPPING_TARGET",
+     "source": 1,
+     "row": 2,
+     "field": "Line ID"
+    },
+    {
+     "code": "MAPPING_TARGET",
+     "source": 1,
+     "row": 3,
+     "field": "Line ID"
+    },
+    {
+     "code": "MAPPING_TARGET",
+     "source": 1,
+     "row": 4,
+     "field": "Line ID"
+    },
+    {
+     "code": "MAPPING_TARGET",
+     "source": 1,
+     "row": 5,
+     "field": "Line ID"
+    },
+    {
+     "code": "MAPPING_TARGET",
+     "source": 1,
+     "row": 6,
+     "field": "Line ID"
+    },
+    {
+     "code": "MAPPING_TARGET",
+     "source": 1,
+     "row": 7,
+     "field": "Line ID"
+    },
+    {
+     "code": "MAPPING_TARGET",
+     "source": 1,
+     "row": 8,
+     "field": "Line ID"
+    },
+    {
+     "code": "MAPPING_TARGET",
+     "source": 1,
+     "row": 9,
+     "field": "Line ID"
+    },
+    {
+     "code": "MAPPING_TARGET",
+     "source": 1,
+     "row": 10,
+     "field": "Line ID"
+    },
+    {
+     "code": "MAPPING_TARGET",
+     "source": 1,
+     "row": 11,
+     "field": "Line ID"
+    },
+    {
+     "code": "MAPPING_TARGET",
+     "source": 1,
+     "row": 12,
+     "field": "Line ID"
+    },
+    {
+     "code": "MAPPING_TARGET",
+     "source": 1,
+     "row": 13,
+     "field": "Line ID"
+    },
+    {
+     "code": "MAPPING_TARGET",
+     "source": 1,
+     "row": 14,
+     "field": "Line ID"
+    },
+    {
+     "code": "MAPPING_TARGET",
+     "source": 1,
+     "row": 15,
+     "field": "Line ID"
+    },
+    {
+     "code": "MAPPING_TARGET",
+     "source": 1,
+     "row": 16,
+     "field": "Line ID"
+    },
+    {
+     "code": "MAPPING_TARGET",
+     "source": 1,
+     "row": 17,
+     "field": "Line ID"
+    },
+    {
+     "code": "MAPPING_TARGET",
+     "source": 1,
+     "row": 18,
+     "field": "Line ID"
+    }
+   ],
+   "facts": {
+    "debitMinor": 136761643,
+    "creditMinor": 136761643,
+    "leafMinor": {},
+    "parentMinor": {},
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 0,
+     "noncurrent-asset": 0,
+     "current-liability": 0,
+     "noncurrent-liability": 0,
+     "equity": 0
+    },
+    "equationMinor": 0
+   },
+   "ownership": {},
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "638c83329f603d2ae90c20dddda9c92398b1393c06e514465e5cc5eb68f8ff76",
+     "bytes": 3107
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "b1705167eba29406480bc9107a9b82b50eeecae2d74d0d9b935cfbbb2a7f9d7f",
+     "bytes": 3011
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "0eb5286dfbd00df35b975226e5679062249170f47d0928ff8547cce9d75abffa",
+     "bytes": 4636
+    },
+    {
+     "role": "financial-position",
+     "sha256": "7e1d37a334a12160bb2a26865849b77a3b3a21f533abe8e9777bd27f203bd2a4",
+     "bytes": 5769
+    }
+   ],
+   "inventoryRows": 51,
+   "citations": 1003,
+   "resultSha256": "a6e88bde87f373ea57e579e4304eea4a7f2efcf3c23235b421624b40ab9e2e0c"
+  },
+  "H22": {
+   "status": "blocked",
+   "codes": [
+    "WIDTH"
+   ],
+   "issues": [
+    {
+     "code": "WIDTH",
+     "source": 0,
+     "row": 19,
+     "field": ""
+    }
+   ],
+   "facts": {
+    "debitMinor": 136761643,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": 4500000,
+     "BANK": 15035100,
+     "PETTY": 150000,
+     "AR": 9876543,
+     "ALLOW": -493827,
+     "INVENT": 21000000,
+     "PREPAID": 0,
+     "LOAN": 40000000,
+     "LOANDISC": -1200000,
+     "AP": 14532109,
+     "ACCR": 2345678,
+     "VAT": 1740029,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": 68450000,
+     "PPE": 63950000,
+     "CA": 45567816,
+     "CASH": 15185100,
+     "REC": 9382716,
+     "NCL": 38800000,
+     "CL": 18617816,
+     "EQ": 56600000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 45567816,
+     "noncurrent-asset": 68450000,
+     "current-liability": 18617816,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "PETTY": "CASH",
+    "REC": "CA",
+    "AR": "REC",
+    "ALLOW": "REC",
+    "INVENT": "CA",
+    "PREPAID": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "EQ"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "1c808ef28d59ebb06eeee4a97448faaf90a56dcb0b02d2062f20c5f085c03ec8",
+     "bytes": 3108
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "5713d8384a7daf4ac42eb29cae6531e273702239817ade1d6a50c2e79416f4d8",
+     "bytes": 3011
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "66d8d6dcbc683db0cf772abf236ec839b4580ab34b0b4d0ce105bf304bc47393",
+     "bytes": 4636
+    },
+    {
+     "role": "financial-position",
+     "sha256": "9386c5d443a6eb438636a194f2e7839c17ec4e56309c59f15d1aade24c345cc4",
+     "bytes": 4804
+    }
+   ],
+   "inventoryRows": 77,
+   "citations": 1453,
+   "resultSha256": "98a6fff3e404612b7c987681d0f907dd12f8c8636b0f2f520a55ac51d49d46b9"
+  },
+  "H23": {
+   "status": "blocked",
+   "codes": [
+    "MONEY",
+    "STATEMENT_EQUATION"
+   ],
+   "issues": [
+    {
+     "code": "MONEY",
+     "source": 3,
+     "row": 3,
+     "field": "Amount"
+    },
+    {
+     "code": "MONEY",
+     "source": 3,
+     "row": 7,
+     "field": "Amount"
+    },
+    {
+     "code": "STATEMENT_EQUATION"
+    }
+   ],
+   "facts": {
+    "debitMinor": 136761643,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": null,
+     "BANK": 15035100,
+     "PETTY": 150000,
+     "AR": 9876543,
+     "ALLOW": -493827,
+     "INVENT": 21000000,
+     "PREPAID": 0,
+     "LOAN": 40000000,
+     "LOANDISC": -1200000,
+     "AP": 14532109,
+     "ACCR": 2345678,
+     "VAT": 1740029,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": null,
+     "PPE": 63950000,
+     "CA": 45567816,
+     "CASH": 15185100,
+     "REC": 9382716,
+     "NCL": 38800000,
+     "CL": 18617816,
+     "EQ": 56600000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 45567816,
+     "noncurrent-asset": 63950000,
+     "current-liability": 18617816,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": -4500000
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "PETTY": "CASH",
+    "REC": "CA",
+    "AR": "REC",
+    "ALLOW": "REC",
+    "INVENT": "CA",
+    "PREPAID": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "EQ"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "acd43c6aa67f09643de1936c0a039aae4e19269885222019e5de9760e252f2c8",
+     "bytes": 3755
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "c967617c66ee1b9559883918535a37f94088d1225b3ae0f541cf8e56ef82d3c4",
+     "bytes": 3659
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "f4e12487c50b1b18f11c558d663ba432afdfd26b6fd3a44a23aaa182d1364c4a",
+     "bytes": 5464
+    },
+    {
+     "role": "financial-position",
+     "sha256": "acee414a222438364d25a914eb04b293c8c33580e57147f6eb0d550f62787999",
+     "bytes": 5733
+    }
+   ],
+   "inventoryRows": 76,
+   "citations": 1453,
+   "resultSha256": "c71ba4d23a9b0ce1d10f15170620ae247faa4bf589c46a0ad2ff09694fee0728"
+  },
+  "H24": {
+   "status": "blocked",
+   "codes": [
+    "PARENT"
+   ],
+   "issues": [
+    {
+     "code": "PARENT",
+     "source": 3,
+     "row": 26,
+     "field": "Parent ID"
+    }
+   ],
+   "facts": {
+    "debitMinor": 136761643,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": 4500000,
+     "BANK": 15035100,
+     "PETTY": 150000,
+     "AR": 9876543,
+     "ALLOW": -493827,
+     "INVENT": 21000000,
+     "PREPAID": 0,
+     "LOAN": 40000000,
+     "LOANDISC": -1200000,
+     "AP": 14532109,
+     "ACCR": 2345678,
+     "VAT": 1740029,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": 68450000,
+     "PPE": 63950000,
+     "CA": 45567816,
+     "CASH": 15185100,
+     "REC": 9382716,
+     "NCL": 38800000,
+     "CL": 18617816,
+     "EQ": 50000000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 45567816,
+     "noncurrent-asset": 68450000,
+     "current-liability": 18617816,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "PETTY": "CASH",
+    "REC": "CA",
+    "AR": "REC",
+    "ALLOW": "REC",
+    "INVENT": "CA",
+    "PREPAID": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "BS"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "638c83329f603d2ae90c20dddda9c92398b1393c06e514465e5cc5eb68f8ff76",
+     "bytes": 3107
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "b1705167eba29406480bc9107a9b82b50eeecae2d74d0d9b935cfbbb2a7f9d7f",
+     "bytes": 3011
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "0eb5286dfbd00df35b975226e5679062249170f47d0928ff8547cce9d75abffa",
+     "bytes": 4636
+    },
+    {
+     "role": "financial-position",
+     "sha256": "f34ea0006615bf85631d0a43dd86017b403c1d090aec625af483b164bdd893a0",
+     "bytes": 4820
+    }
+   ],
+   "inventoryRows": 76,
+   "citations": 1453,
+   "resultSha256": "38dcfc788cc0ac99a2ce249b54c8ef0508715467d0e6a992473dd94e771d598c"
+  },
+  "H25": {
+   "status": "blocked",
+   "codes": [
+    "EMPTY_PARENT"
+   ],
+   "issues": [
+    {
+     "code": "EMPTY_PARENT",
+     "source": 3,
+     "row": 20,
+     "field": ""
+    }
+   ],
+   "facts": {
+    "debitMinor": 136761643,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": 4500000,
+     "BANK": 15035100,
+     "PETTY": 150000,
+     "AR": 9876543,
+     "ALLOW": -493827,
+     "INVENT": 21000000,
+     "PREPAID": 0,
+     "LOAN": 40000000,
+     "LOANDISC": -1200000,
+     "AP": 14532109,
+     "ACCR": 2345678,
+     "VAT": 1740029,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": 68450000,
+     "PPE": 63950000,
+     "CA": 45567816,
+     "CASH": 15185100,
+     "REC": 9382716,
+     "NCL": 38800000,
+     "DEFTAX": 0,
+     "CL": 18617816,
+     "EQ": 56600000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 45567816,
+     "noncurrent-asset": 68450000,
+     "current-liability": 18617816,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "PETTY": "CASH",
+    "REC": "CA",
+    "AR": "REC",
+    "ALLOW": "REC",
+    "INVENT": "CA",
+    "PREPAID": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "DEFTAX": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "EQ"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "638c83329f603d2ae90c20dddda9c92398b1393c06e514465e5cc5eb68f8ff76",
+     "bytes": 3107
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "b1705167eba29406480bc9107a9b82b50eeecae2d74d0d9b935cfbbb2a7f9d7f",
+     "bytes": 3011
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "0eb5286dfbd00df35b975226e5679062249170f47d0928ff8547cce9d75abffa",
+     "bytes": 4636
+    },
+    {
+     "role": "financial-position",
+     "sha256": "fe740761cf7fa46ac3961aeca609b93ff29c6823d3439cebef04c12f5511742b",
+     "bytes": 4983
+    }
+   ],
+   "inventoryRows": 77,
+   "citations": 1471,
+   "resultSha256": "e1d5f17940d276d9859c5c659f45518aeced35bb01f485c339db45a3245aa2da"
+  },
+  "H26": {
+   "status": "blocked",
+   "codes": [
+    "BOTH_SIDES"
+   ],
+   "issues": [
+    {
+     "code": "BOTH_SIDES",
+     "source": 0,
+     "row": 14,
+     "field": ""
+    }
+   ],
+   "facts": {
+    "debitMinor": 136961643,
+    "creditMinor": 136961643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": 4500000,
+     "BANK": 15035100,
+     "PETTY": 150000,
+     "AR": 9876543,
+     "ALLOW": -493827,
+     "INVENT": 21000000,
+     "PREPAID": 0,
+     "LOAN": 40000000,
+     "LOANDISC": -1200000,
+     "AP": 14532109,
+     "ACCR": 2345678,
+     "VAT": 1740029,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": 68450000,
+     "PPE": 63950000,
+     "CA": 45567816,
+     "CASH": 15185100,
+     "REC": 9382716,
+     "NCL": 38800000,
+     "CL": 18617816,
+     "EQ": 56600000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 45567816,
+     "noncurrent-asset": 68450000,
+     "current-liability": 18617816,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "PETTY": "CASH",
+    "REC": "CA",
+    "AR": "REC",
+    "ALLOW": "REC",
+    "INVENT": "CA",
+    "PREPAID": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "EQ"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "203242ded5747cd933202d9b117edf40bd5df6b76ade0b2493ef4fd09cd559c7",
+     "bytes": 3776
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "1b62937e8136ff83d0c765691ee6a12b77902212a8bce1233d9443f4762a54ad",
+     "bytes": 3677
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "6955ce334d39626229bd0ea655a3594d25e6d1ada6860b952ab0ea40873a3285",
+     "bytes": 5482
+    },
+    {
+     "role": "financial-position",
+     "sha256": "08ed2fde038273bc0094ec2d5487095a2540276402cc4a6f22c86d51d41f753d",
+     "bytes": 5766
+    }
+   ],
+   "inventoryRows": 76,
+   "citations": 1453,
+   "resultSha256": "baeb27dae271a49c7aa6a0968160667cdc4fa241b23f90982efe3f093fec5232"
+  },
+  "H27": {
+   "status": "blocked",
+   "codes": [
+    "LEAF_TOTAL",
+    "TB_BALANCE"
+   ],
+   "issues": [
+    {
+     "code": "TB_BALANCE"
+    },
+    {
+     "code": "LEAF_TOTAL",
+     "source": 3,
+     "row": 15,
+     "field": "Amount"
+    }
+   ],
+   "facts": {
+    "debitMinor": 136761644,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": 4500000,
+     "BANK": 15035100,
+     "PETTY": 150000,
+     "AR": 9876543,
+     "ALLOW": -493827,
+     "INVENT": 21000000,
+     "PREPAID": 0,
+     "LOAN": 40000000,
+     "LOANDISC": -1200000,
+     "AP": 14532109,
+     "ACCR": 2345678,
+     "VAT": 1740029,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": 68450000,
+     "PPE": 63950000,
+     "CA": 45567816,
+     "CASH": 15185100,
+     "REC": 9382716,
+     "NCL": 38800000,
+     "CL": 18617816,
+     "EQ": 56600000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 45567816,
+     "noncurrent-asset": 68450000,
+     "current-liability": 18617816,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "PETTY": "CASH",
+    "REC": "CA",
+    "AR": "REC",
+    "ALLOW": "REC",
+    "INVENT": "CA",
+    "PREPAID": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "EQ"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "e242676a736c03f1659507989fcaac040c3ce4d6b53a467a33b6c6593c3f4f54",
+     "bytes": 3755
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "c967617c66ee1b9559883918535a37f94088d1225b3ae0f541cf8e56ef82d3c4",
+     "bytes": 3659
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "f4e12487c50b1b18f11c558d663ba432afdfd26b6fd3a44a23aaa182d1364c4a",
+     "bytes": 5464
+    },
+    {
+     "role": "financial-position",
+     "sha256": "50a71e6657004e319f2a1a8925910ffb6c2c9b295e9c5a79cec560e385766c02",
+     "bytes": 5724
+    }
+   ],
+   "inventoryRows": 76,
+   "citations": 1453,
+   "resultSha256": "cf35ab2a731791b038c26509559688b11a1697eb09aba0791b7d405721d67e6c"
+  },
+  "H28": {
+   "status": "blocked",
+   "codes": [
+    "DUPLICATE_MAPPING_ID"
+   ],
+   "issues": [
+    {
+     "code": "DUPLICATE_MAPPING_ID",
+     "source": 1,
+     "row": 4,
+     "field": ""
+    }
+   ],
+   "facts": {
+    "debitMinor": 136761643,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": 4500000,
+     "BANK": 15035100,
+     "PETTY": 150000,
+     "AR": 9876543,
+     "ALLOW": -493827,
+     "INVENT": 21000000,
+     "PREPAID": 0,
+     "LOAN": 40000000,
+     "LOANDISC": -1200000,
+     "AP": 14532109,
+     "ACCR": 2345678,
+     "VAT": 1740029,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": 68450000,
+     "PPE": 63950000,
+     "CA": 45567816,
+     "CASH": 15185100,
+     "REC": 9382716,
+     "NCL": 38800000,
+     "CL": 18617816,
+     "EQ": 56600000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 45567816,
+     "noncurrent-asset": 68450000,
+     "current-liability": 18617816,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "PETTY": "CASH",
+    "REC": "CA",
+    "AR": "REC",
+    "ALLOW": "REC",
+    "INVENT": "CA",
+    "PREPAID": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "EQ"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "a51956216a608748c03343dba0ce05bab78128b911e2bf30b3d10ee93dbbabeb",
+     "bytes": 3107
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "9ccbc9a3f1bf70dcd758a95df7eece0753acc10e9bd71bfe9e6a91522a9025b8",
+     "bytes": 3011
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "66d8d6dcbc683db0cf772abf236ec839b4580ab34b0b4d0ce105bf304bc47393",
+     "bytes": 4636
+    },
+    {
+     "role": "financial-position",
+     "sha256": "9386c5d443a6eb438636a194f2e7839c17ec4e56309c59f15d1aade24c345cc4",
+     "bytes": 4804
+    }
+   ],
+   "inventoryRows": 76,
+   "citations": 1453,
+   "resultSha256": "c015d6d88584a795fc4589e418b29253d58fb922c59c54b07551fd2da6ffde7a"
+  },
+  "H29": {
+   "status": "blocked",
+   "codes": [
+    "SCOPE"
+   ],
+   "issues": [
+    {
+     "code": "SCOPE",
+     "source": 3,
+     "row": 23,
+     "field": ""
+    }
+   ],
+   "facts": {
+    "debitMinor": 136761643,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": 4500000,
+     "BANK": 15035100,
+     "PETTY": 150000,
+     "AR": 9876543,
+     "ALLOW": -493827,
+     "INVENT": 21000000,
+     "PREPAID": 0,
+     "LOAN": 40000000,
+     "LOANDISC": -1200000,
+     "AP": 14532109,
+     "ACCR": 2345678,
+     "VAT": 1740029,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": 68450000,
+     "PPE": 63950000,
+     "CA": 45567816,
+     "CASH": 15185100,
+     "REC": 9382716,
+     "NCL": 38800000,
+     "CL": 18617816,
+     "EQ": 56600000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 45567816,
+     "noncurrent-asset": 68450000,
+     "current-liability": 18617816,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "PETTY": "CASH",
+    "REC": "CA",
+    "AR": "REC",
+    "ALLOW": "REC",
+    "INVENT": "CA",
+    "PREPAID": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "EQ"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "638c83329f603d2ae90c20dddda9c92398b1393c06e514465e5cc5eb68f8ff76",
+     "bytes": 3107
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "b1705167eba29406480bc9107a9b82b50eeecae2d74d0d9b935cfbbb2a7f9d7f",
+     "bytes": 3011
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "0eb5286dfbd00df35b975226e5679062249170f47d0928ff8547cce9d75abffa",
+     "bytes": 4636
+    },
+    {
+     "role": "financial-position",
+     "sha256": "191305c91b1d63b929b2b0b36965ea2da7ee014bb522eaa8b4ba84301c20efb5",
+     "bytes": 4820
+    }
+   ],
+   "inventoryRows": 76,
+   "citations": 1453,
+   "resultSha256": "2d3ba771b618544e471a62843ea5b63e706e5b9dd19d4d1931a8c6ffbc84fa9d"
+  },
+  "H30": {
+   "status": "blocked",
+   "codes": [
+    "CONTROL_TOTAL",
+    "KIND",
+    "MAPPING_TARGET",
+    "PROOF_LINE",
+    "STATEMENT_EQUATION"
+   ],
+   "issues": [
+    {
+     "code": "KIND",
+     "source": 3,
+     "row": 22,
+     "field": "Kind"
+    },
+    {
+     "code": "CONTROL_TOTAL",
+     "source": 3,
+     "row": 20,
+     "field": "Amount"
+    },
+    {
+     "code": "PROOF_LINE",
+     "source": 2,
+     "row": 15,
+     "field": "Line ID"
+    },
+    {
+     "code": "MAPPING_TARGET",
+     "source": 1,
+     "row": 15,
+     "field": "Line ID"
+    },
+    {
+     "code": "STATEMENT_EQUATION"
+    }
+   ],
+   "facts": {
+    "debitMinor": 136761643,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": 4500000,
+     "BANK": 15035100,
+     "PETTY": 150000,
+     "AR": 9876543,
+     "ALLOW": -493827,
+     "INVENT": 21000000,
+     "PREPAID": 0,
+     "LOAN": 40000000,
+     "LOANDISC": -1200000,
+     "AP": 14532109,
+     "VAT": 1740029,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": 68450000,
+     "PPE": 63950000,
+     "CA": 45567816,
+     "CASH": 15185100,
+     "REC": 9382716,
+     "NCL": 38800000,
+     "CL": 18617816,
+     "EQ": 56600000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 45567816,
+     "noncurrent-asset": 68450000,
+     "current-liability": 16272138,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": 2345678
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "PETTY": "CASH",
+    "REC": "CA",
+    "AR": "REC",
+    "ALLOW": "REC",
+    "INVENT": "CA",
+    "PREPAID": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "EQ"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "638c83329f603d2ae90c20dddda9c92398b1393c06e514465e5cc5eb68f8ff76",
+     "bytes": 3107
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "b1705167eba29406480bc9107a9b82b50eeecae2d74d0d9b935cfbbb2a7f9d7f",
+     "bytes": 3011
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "0eb5286dfbd00df35b975226e5679062249170f47d0928ff8547cce9d75abffa",
+     "bytes": 4636
+    },
+    {
+     "role": "financial-position",
+     "sha256": "371c173d4e49ccaa9e3520991a536ea9319b987dbedbdd198991410b7f10c4c1",
+     "bytes": 4804
+    }
+   ],
+   "inventoryRows": 76,
+   "citations": 1453,
+   "resultSha256": "7feed7bf87b55a815ece2103f96ba37fbcba4ff8c295eb6c6ba6210eb4ab3ccb"
+  },
+  "H31": {
+   "status": "blocked",
+   "codes": [
+    "DUPLICATE_ACCOUNT",
+    "LEAF_TOTAL",
+    "TB_BALANCE"
+   ],
+   "issues": [
+    {
+     "code": "DUPLICATE_ACCOUNT",
+     "source": 0,
+     "row": 6,
+     "field": ""
+    },
+    {
+     "code": "TB_BALANCE"
+    },
+    {
+     "code": "LEAF_TOTAL",
+     "source": 3,
+     "row": 10,
+     "field": "Amount"
+    }
+   ],
+   "facts": {
+    "debitMinor": 134726568,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": 4500000,
+     "BANK": 15035100,
+     "PETTY": 150000,
+     "AR": 9876543,
+     "ALLOW": -493827,
+     "INVENT": 21000000,
+     "PREPAID": 0,
+     "LOAN": 40000000,
+     "LOANDISC": -1200000,
+     "AP": 14532109,
+     "ACCR": 2345678,
+     "VAT": 1740029,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": 68450000,
+     "PPE": 63950000,
+     "CA": 45567816,
+     "CASH": 15185100,
+     "REC": 9382716,
+     "NCL": 38800000,
+     "CL": 18617816,
+     "EQ": 56600000
+    },
+    "members": {
+     "PPE-COST": [
+      "1210|cc=HQ"
+     ],
+     "PPE-DEP": [
+      "1219|cc=HQ"
+     ],
+     "INTANG": [
+      "1300|cc=HQ"
+     ],
+     "BANK": [
+      "1101|cc=BR",
+      "1101|cc=HQ"
+     ],
+     "PETTY": [
+      "1105|cc=BR"
+     ],
+     "AR": [
+      "1120|cc=HQ"
+     ],
+     "ALLOW": [
+      "1129|cc=HQ"
+     ],
+     "INVENT": [
+      "1140|cc=HQ"
+     ],
+     "PREPAID": [
+      "1150|cc=HQ"
+     ],
+     "LOAN": [
+      "2500|cc=HQ"
+     ],
+     "LOANDISC": [
+      "2509|cc=HQ"
+     ],
+     "AP": [
+      "2100|cc=HQ"
+     ],
+     "ACCR": [
+      "2110|cc=HQ"
+     ],
+     "VAT": [
+      "2120|cc=HQ"
+     ],
+     "CAP": [
+      "3100|cc=HQ"
+     ],
+     "RE": [
+      "3200|cc=HQ"
+     ]
+    },
+    "categoryMinor": {
+     "current-asset": 45567816,
+     "noncurrent-asset": 68450000,
+     "current-liability": 18617816,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "PETTY": "CASH",
+    "REC": "CA",
+    "AR": "REC",
+    "ALLOW": "REC",
+    "INVENT": "CA",
+    "PREPAID": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "EQ"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "c9a405b7b7fc040d92cabd569a789601ebaffe147bbe48183a6aa9e9b9638e2c",
+     "bytes": 3991
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "1b62937e8136ff83d0c765691ee6a12b77902212a8bce1233d9443f4762a54ad",
+     "bytes": 3677
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "6955ce334d39626229bd0ea655a3594d25e6d1ada6860b952ab0ea40873a3285",
+     "bytes": 5482
+    },
+    {
+     "role": "financial-position",
+     "sha256": "08ed2fde038273bc0094ec2d5487095a2540276402cc4a6f22c86d51d41f753d",
+     "bytes": 5766
+    }
+   ],
+   "inventoryRows": 77,
+   "citations": 1471,
+   "resultSha256": "9b5be9cb6788ee86bc04f5fb3f136f71fbfe07daa534dc4b397887e22d4f7b0e"
+  },
+  "H32": {
+   "status": "blocked",
+   "codes": [
+    "EMPTY_SOURCE",
+    "HEADERS",
+    "UNMAPPED_ACCOUNT",
+    "UNMAPPED_LEAF",
+    "UNUSED_PROOF"
+   ],
+   "issues": [
+    {
+     "code": "HEADERS"
+    },
+    {
+     "code": "EMPTY_SOURCE",
+     "source": 1,
+     "row": 1,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_ACCOUNT",
+     "source": 0,
+     "row": 2,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_ACCOUNT",
+     "source": 0,
+     "row": 3,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_ACCOUNT",
+     "source": 0,
+     "row": 4,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_ACCOUNT",
+     "source": 0,
+     "row": 5,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_ACCOUNT",
+     "source": 0,
+     "row": 6,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_ACCOUNT",
+     "source": 0,
+     "row": 7,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_ACCOUNT",
+     "source": 0,
+     "row": 8,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_ACCOUNT",
+     "source": 0,
+     "row": 9,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_ACCOUNT",
+     "source": 0,
+     "row": 10,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_ACCOUNT",
+     "source": 0,
+     "row": 11,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_ACCOUNT",
+     "source": 0,
+     "row": 12,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_ACCOUNT",
+     "source": 0,
+     "row": 13,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_ACCOUNT",
+     "source": 0,
+     "row": 14,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_ACCOUNT",
+     "source": 0,
+     "row": 15,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_ACCOUNT",
+     "source": 0,
+     "row": 16,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_ACCOUNT",
+     "source": 0,
+     "row": 17,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_ACCOUNT",
+     "source": 0,
+     "row": 18,
+     "field": ""
+    },
+    {
+     "code": "UNUSED_PROOF",
+     "source": 2,
+     "row": 2,
+     "field": ""
+    },
+    {
+     "code": "UNUSED_PROOF",
+     "source": 2,
+     "row": 3,
+     "field": ""
+    },
+    {
+     "code": "UNUSED_PROOF",
+     "source": 2,
+     "row": 4,
+     "field": ""
+    },
+    {
+     "code": "UNUSED_PROOF",
+     "source": 2,
+     "row": 5,
+     "field": ""
+    },
+    {
+     "code": "UNUSED_PROOF",
+     "source": 2,
+     "row": 6,
+     "field": ""
+    },
+    {
+     "code": "UNUSED_PROOF",
+     "source": 2,
+     "row": 7,
+     "field": ""
+    },
+    {
+     "code": "UNUSED_PROOF",
+     "source": 2,
+     "row": 8,
+     "field": ""
+    },
+    {
+     "code": "UNUSED_PROOF",
+     "source": 2,
+     "row": 9,
+     "field": ""
+    },
+    {
+     "code": "UNUSED_PROOF",
+     "source": 2,
+     "row": 10,
+     "field": ""
+    },
+    {
+     "code": "UNUSED_PROOF",
+     "source": 2,
+     "row": 11,
+     "field": ""
+    },
+    {
+     "code": "UNUSED_PROOF",
+     "source": 2,
+     "row": 12,
+     "field": ""
+    },
+    {
+     "code": "UNUSED_PROOF",
+     "source": 2,
+     "row": 13,
+     "field": ""
+    },
+    {
+     "code": "UNUSED_PROOF",
+     "source": 2,
+     "row": 14,
+     "field": ""
+    },
+    {
+     "code": "UNUSED_PROOF",
+     "source": 2,
+     "row": 15,
+     "field": ""
+    },
+    {
+     "code": "UNUSED_PROOF",
+     "source": 2,
+     "row": 16,
+     "field": ""
+    },
+    {
+     "code": "UNUSED_PROOF",
+     "source": 2,
+     "row": 17,
+     "field": ""
+    },
+    {
+     "code": "UNUSED_PROOF",
+     "source": 2,
+     "row": 18,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_LEAF",
+     "source": 3,
+     "row": 5,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_LEAF",
+     "source": 3,
+     "row": 6,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_LEAF",
+     "source": 3,
+     "row": 7,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_LEAF",
+     "source": 3,
+     "row": 10,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_LEAF",
+     "source": 3,
+     "row": 11,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_LEAF",
+     "source": 3,
+     "row": 13,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_LEAF",
+     "source": 3,
+     "row": 14,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_LEAF",
+     "source": 3,
+     "row": 15,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_LEAF",
+     "source": 3,
+     "row": 16,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_LEAF",
+     "source": 3,
+     "row": 18,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_LEAF",
+     "source": 3,
+     "row": 19,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_LEAF",
+     "source": 3,
+     "row": 21,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_LEAF",
+     "source": 3,
+     "row": 22,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_LEAF",
+     "source": 3,
+     "row": 23,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_LEAF",
+     "source": 3,
+     "row": 25,
+     "field": ""
+    },
+    {
+     "code": "UNMAPPED_LEAF",
+     "source": 3,
+     "row": 26,
+     "field": ""
+    }
+   ],
+   "facts": {
+    "debitMinor": 136761643,
+    "creditMinor": 136761643,
+    "leafMinor": {
+     "PPE-COST": 85000000,
+     "PPE-DEP": -21050000,
+     "INTANG": 4500000,
+     "BANK": 15035100,
+     "PETTY": 150000,
+     "AR": 9876543,
+     "ALLOW": -493827,
+     "INVENT": 21000000,
+     "PREPAID": 0,
+     "LOAN": 40000000,
+     "LOANDISC": -1200000,
+     "AP": 14532109,
+     "ACCR": 2345678,
+     "VAT": 1740029,
+     "CAP": 50000000,
+     "RE": 6600000
+    },
+    "parentMinor": {
+     "NCA": 68450000,
+     "PPE": 63950000,
+     "CA": 45567816,
+     "CASH": 15185100,
+     "REC": 9382716,
+     "NCL": 38800000,
+     "CL": 18617816,
+     "EQ": 56600000
+    },
+    "members": {},
+    "categoryMinor": {
+     "current-asset": 45567816,
+     "noncurrent-asset": 68450000,
+     "current-liability": 18617816,
+     "noncurrent-liability": 38800000,
+     "equity": 56600000
+    },
+    "equationMinor": 0
+   },
+   "ownership": {
+    "NCA": "",
+    "PPE": "NCA",
+    "PPE-COST": "PPE",
+    "PPE-DEP": "PPE",
+    "INTANG": "NCA",
+    "CA": "",
+    "CASH": "CA",
+    "BANK": "CASH",
+    "PETTY": "CASH",
+    "REC": "CA",
+    "AR": "REC",
+    "ALLOW": "REC",
+    "INVENT": "CA",
+    "PREPAID": "CA",
+    "NCL": "",
+    "LOAN": "NCL",
+    "LOANDISC": "NCL",
+    "CL": "",
+    "AP": "CL",
+    "ACCR": "CL",
+    "VAT": "CL",
+    "EQ": "",
+    "CAP": "EQ",
+    "RE": "EQ"
+   },
+   "sources": [
+    {
+     "role": "trial-balance",
+     "sha256": "acd43c6aa67f09643de1936c0a039aae4e19269885222019e5de9760e252f2c8",
+     "bytes": 3755
+    },
+    {
+     "role": "proposed-mapping",
+     "sha256": "e62f35f0e9b6a3a32951fd44c2d775dde823c73cc25041b7c49b3f3adef530f3",
+     "bytes": 3856
+    },
+    {
+     "role": "presentation-evidence",
+     "sha256": "f4e12487c50b1b18f11c558d663ba432afdfd26b6fd3a44a23aaa182d1364c4a",
+     "bytes": 5464
+    },
+    {
+     "role": "financial-position",
+     "sha256": "50a71e6657004e319f2a1a8925910ffb6c2c9b295e9c5a79cec560e385766c02",
+     "bytes": 5724
+    }
+   ],
+   "inventoryRows": 59,
+   "citations": 1147,
+   "resultSha256": "afdbe495cc740430ea4cb419e55b5267a0eae62be7ac3b541b4b96225d32611a"
+  }
+ }
+}

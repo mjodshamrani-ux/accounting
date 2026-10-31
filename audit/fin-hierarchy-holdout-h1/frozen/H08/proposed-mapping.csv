@@ -1,0 +1,18 @@
+Mapping ID,Account ID,Complete dimensions,Line ID,Sign,Evidence ID,Entity,Ledger,Currency,Currency basis,Posting status,Posting layer,Period start,Period end,As of,Chart version,Map version,Closing basis
+WADI-M001,1210,cc=HQ,PPE-COST,debit-positive,WADI-E001,SYN-WADI-MFG,STAT-H1,USD,functional,posted,actual,2027-01-01,2027-06-30,2027-06-30,COA-2027,BSMAP-7,post-closing
+WADI-M002,1219,cc=HQ,PPE-DEP,debit-positive,WADI-E002,SYN-WADI-MFG,STAT-H1,USD,functional,posted,actual,2027-01-01,2027-06-30,2027-06-30,COA-2027,BSMAP-7,post-closing
+WADI-M003,1300,cc=HQ,INTANG,debit-positive,WADI-E003,SYN-WADI-MFG,STAT-H1,USD,functional,posted,actual,2027-01-01,2027-06-30,2027-06-30,COA-2027,BSMAP-7,post-closing
+WADI-M004,1101,cc=HQ,BANK,debit-positive,WADI-E004,SYN-WADI-MFG,STAT-H1,USD,functional,posted,actual,2027-01-01,2027-06-30,2027-06-30,COA-2027,BSMAP-7,post-closing
+WADI-M005,1101,CC=BR,BANK,debit-positive,WADI-E005,SYN-WADI-MFG,STAT-H1,USD,functional,posted,actual,2027-01-01,2027-06-30,2027-06-30,COA-2027,BSMAP-7,post-closing
+WADI-M006,1105,cc=BR,PETTY,debit-positive,WADI-E006,SYN-WADI-MFG,STAT-H1,USD,functional,posted,actual,2027-01-01,2027-06-30,2027-06-30,COA-2027,BSMAP-7,post-closing
+WADI-M007,1120,cc=HQ,AR,debit-positive,WADI-E007,SYN-WADI-MFG,STAT-H1,USD,functional,posted,actual,2027-01-01,2027-06-30,2027-06-30,COA-2027,BSMAP-7,post-closing
+WADI-M008,1129,cc=HQ,ALLOW,debit-positive,WADI-E008,SYN-WADI-MFG,STAT-H1,USD,functional,posted,actual,2027-01-01,2027-06-30,2027-06-30,COA-2027,BSMAP-7,post-closing
+WADI-M009,1140,cc=HQ,INVENT,debit-positive,WADI-E009,SYN-WADI-MFG,STAT-H1,USD,functional,posted,actual,2027-01-01,2027-06-30,2027-06-30,COA-2027,BSMAP-7,post-closing
+WADI-M010,1150,cc=HQ,PREPAID,debit-positive,WADI-E010,SYN-WADI-MFG,STAT-H1,USD,functional,posted,actual,2027-01-01,2027-06-30,2027-06-30,COA-2027,BSMAP-7,post-closing
+WADI-M011,2500,cc=HQ,LOAN,credit-positive,WADI-E011,SYN-WADI-MFG,STAT-H1,USD,functional,posted,actual,2027-01-01,2027-06-30,2027-06-30,COA-2027,BSMAP-7,post-closing
+WADI-M012,2509,cc=HQ,LOANDISC,credit-positive,WADI-E012,SYN-WADI-MFG,STAT-H1,USD,functional,posted,actual,2027-01-01,2027-06-30,2027-06-30,COA-2027,BSMAP-7,post-closing
+WADI-M013,2100,cc=HQ,AP,credit-positive,WADI-E013,SYN-WADI-MFG,STAT-H1,USD,functional,posted,actual,2027-01-01,2027-06-30,2027-06-30,COA-2027,BSMAP-7,post-closing
+WADI-M014,2110,cc=HQ,ACCR,credit-positive,WADI-E014,SYN-WADI-MFG,STAT-H1,USD,functional,posted,actual,2027-01-01,2027-06-30,2027-06-30,COA-2027,BSMAP-7,post-closing
+WADI-M015,2120,cc=HQ,VAT,credit-positive,WADI-E015,SYN-WADI-MFG,STAT-H1,USD,functional,posted,actual,2027-01-01,2027-06-30,2027-06-30,COA-2027,BSMAP-7,post-closing
+WADI-M016,3100,cc=HQ,CAP,credit-positive,WADI-E016,SYN-WADI-MFG,STAT-H1,USD,functional,posted,actual,2027-01-01,2027-06-30,2027-06-30,COA-2027,BSMAP-7,post-closing
+WADI-M017,3200,cc=HQ,RE,credit-positive,WADI-E017,SYN-WADI-MFG,STAT-H1,USD,functional,posted,actual,2027-01-01,2027-06-30,2027-06-30,COA-2027,BSMAP-7,post-closing

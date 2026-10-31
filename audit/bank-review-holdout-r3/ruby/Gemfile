@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+
+# The G23 statement writer (HexaPDF) and the typed XLSX cashbook writer
+# (write_xlsx), installed outside the repository.
+gem 'hexapdf', '1.11.2'
+gem 'write_xlsx', '1.15.1'

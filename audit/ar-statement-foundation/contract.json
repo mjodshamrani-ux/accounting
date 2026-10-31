@@ -1,0 +1,87 @@
+{
+  "schema": "tarasuf-ar-pdf1-foundation/1",
+  "status": "proposed contract and frozen synthetic foundation before any product support for a customer statement PDF",
+  "synthetic": true,
+  "holdout": false,
+  "productEnabled": false,
+  "proposedFamily": "ar-statement-pdf-1",
+  "plan": "docs/roadmap/ar.ar.md#ar-1-مستندات-موزعة-ورؤوس-أقسام--مخطط-بعد-c-0-وc-1",
+  "challengeIds": [
+    "CH-01",
+    "CH-05",
+    "CH-06",
+    "CH-07",
+    "CH-10"
+  ],
+  "why": "Both AR families read CSV or XLSX only. ar-limited-1 wants scope columns on every row and errors a row of another customer; ar-scope-details-1 wants one AR_SCOPE block with explicit markers. A customer statement the company prints carries its customer, account and currency once per section, not per row, and a batch print holds several customers. The AR reader refuses any name not ending in csv or xlsx, and the AR workspace accepts only .csv and .xlsx.",
+  "roles": {
+    "statement": "company-issued-customer-statement: the customer statement the company prints, as a text PDF. Perspective seller-receivable, basis original-movement.",
+    "ledger": "company-ar-ledger in the existing ar-limited-1 CSV family, for the one confirmed scope."
+  },
+  "document": {
+    "header": "Before the first section, once on page 1 and optionally repeated identically on later pages: the title `Statement of account`, `Issued by: <entity>` and `Ledger: <ledger>`. Arabic: `كشف حساب`، `صادر عن: <entity>`، `الدفتر: <ledger>`.",
+    "rule": "Entity and ledger hold for every section. A later page that prints a different entity or ledger is a structure error."
+  },
+  "sections": {
+    "header": "Four labelled lines, in this order: `Customer ID: <id>`, `Account: <account>`, `Currency: <code>`, `Period: <yyyy-mm-dd> to <yyyy-mm-dd>`. An optional `Customer name: <text>` line may follow `Customer ID`; it is description, never identity. Arabic: `رقم العميل:`، `اسم العميل:`، `الحساب:`، `العملة:`، `الفترة: <start> إلى <end>`.",
+    "table": "A column heading line follows the header. Required: Date, Type, Document No, Original amount. Optional: Related invoice, Description, Open amount, Balance. Arabic: التاريخ، النوع، رقم المستند، المبلغ الأصلي؛ الفاتورة المرتبطة، البيان، المبلغ المفتوح، الرصيد. Any other heading, or a required heading missing, is a structure error AR_PDF_COLUMNS.",
+    "start": "A section starts at a complete header. A header missing any of the four fields, or with a field that cannot be read, is a header error.",
+    "continuation": "A page may repeat the header of the section in progress, identical in every field, followed by the column headings. The section continues; nothing restarts.",
+    "end": "A section ends at the next header that differs in any field, or at the end of the document. Its `Section total` line closes its body but does not start anything.",
+    "inheritance": "A detail line takes customer, account, currency and period only from the header of its own section, and entity and ledger from the document header. Nothing passes from one section to the next. A detail line before any section header has no scope and is an error.",
+    "nonMovement": {
+      "document-header": "title, Issued by, Ledger",
+      "section-header": "Customer ID, Customer name, Account, Currency, Period",
+      "column-headings": "the heading line, on every page it appears",
+      "section-total": "`Section total: <amount>` / `إجمالي القسم: <amount>`",
+      "page-footer": "`Page n of N` / `صفحة n من N`"
+    }
+  },
+  "details": {
+    "Date": "yyyy-mm-dd, within its section's period",
+    "Type": "invoice, credit-note or receipt; Arabic فاتورة، إشعار دائن، قبض. Never inferred from the sign.",
+    "Document No": "the document's own number; with Type it is the document identity",
+    "Original amount": "the signed original movement, in the section currency's precision: invoice positive, credit note and receipt negative, a leading minus sign. Thousands separators `,` or `٬` and the decimal point `.` or `٫` are allowed; Arabic-Indic digits are read as digits. Zero is an error.",
+    "Related invoice": "evidence only; never identity, never an allocation",
+    "Open amount": "descriptive and unverified. Never an amount, never a match condition. A line with an open amount and no original amount is an error.",
+    "Balance": "descriptive running balance; not a proof of completeness in this family",
+    "Description": "never used for matching"
+  },
+  "scope": {
+    "selection": "The accountant confirms one scope: entity, ledger, customer, account, currency and period. The compared statement lines are those of the one section whose header equals the confirmed customer, account and currency, and whose period equals the confirmed period, under a document header equal to the confirmed entity and ledger.",
+    "notFound": "No section with the confirmed scope: source error AR_PDF_SCOPE_NOT_FOUND; nothing is compared.",
+    "repeated": "The confirmed scope heads two sections separated by another section: structure error AR_PDF_SCOPE_REPEATED; nothing is compared. Continuation pages of one section are not a repeat.",
+    "outOfScope": "Lines of a section with a complete, readable header for another scope are inventoried as out-of-scope with that header. They are never members and never errors (owner decision D1)."
+  },
+  "errors": {
+    "policy": "As in the existing AR families: any error anywhere in the statement, including a section of another scope, a header error or a detail line before any header, keeps every line in the inventory and blocks every automatic match of the pair (status source-error). Isolating an error to its section is AR-2, not this family.",
+    "codes": [
+      "AR_PDF_DOCUMENT_HEADER",
+      "AR_PDF_HEADER",
+      "AR_PDF_COLUMNS",
+      "AR_PDF_ORPHAN_LINE",
+      "AR_PDF_SCOPE_NOT_FOUND",
+      "AR_PDF_SCOPE_REPEATED",
+      "AR_KIND",
+      "AR_DATE",
+      "AR_PERIOD",
+      "AR_AMOUNT",
+      "AR_DIRECTION",
+      "AR_DOCUMENT",
+      "AR_ORIGINAL_MISSING"
+    ]
+  },
+  "matching": {
+    "identity": "Document type and own document number, compared exactly after trimming surrounding spaces.",
+    "case": "One case per identity across both sides, in the existing AR order of reasons: source-errors, duplicate-document (two lines of one identity on one side), missing-counterpart, amount-difference, date-difference, related-conflict (two different related invoices), exact-own-document.",
+    "matched": "Only exact-own-document is matched automatically: one line each side, same original amount to the minor unit, same date, no related conflict, no error in the pair.",
+    "never": "No grouping, no receipt allocation, no tolerance, no open amount, no balance, no description, no fuzzy document number."
+  },
+  "ownerDecisions": {
+    "D1": "A section of another customer, account or currency with a readable header is out of scope, not an error. ar-limited-1 errors a row of another scope; a batch print of several customers would otherwise always block.",
+    "D2": "The confirmed scope heading two separate sections is a structure error. The alternative is to compare both as one.",
+    "D3": "Entity and ledger are printed once per document, not per section."
+  },
+  "limits": "Inherited: 8 MiB per source, 100 PDF pages, 20,000 extracted lines, guarded PDF reading as it is. No OCR, no image PDF, no inferred headings.",
+  "outOfContract": "OCR and scanned statements; allocation of receipts; open-balance arithmetic; error isolation (AR-2); a statement in the buyer's perspective; more than one confirmed scope per comparison."
+}

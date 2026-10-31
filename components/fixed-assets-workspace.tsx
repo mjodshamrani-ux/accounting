@@ -1,4 +1,5 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
+import { FixedAssetsSectionsPanel } from '@/components/fixed-assets-sections-panel';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -577,7 +578,7 @@ export function AssetWorkspace({
         </div>
         {error && <p role="alert">{copy.failed}</p>}
         {result && (
-          <section className="workspace-results">
+          <section className="workspace-results" data-asset-result>
             <DomainEvidenceAssistant
               result={result}
               snapshot={() => ({
@@ -826,6 +827,7 @@ export function AssetWorkspace({
             )}
           </section>
         )}
+        <FixedAssetsSectionsPanel />
       </section>
     </div>
   );

@@ -223,6 +223,10 @@ export function extractStatementMetadata(
     source: BalanceRowReference,
   ) => {
     const field = labels[normalizeLabel(label)];
+    // A line of labelled fields separates them with a mark before the next
+    // label ("Currency: SAR · Period: …"): the mark ends the value, it is not
+    // part of it.
+    value = value.replace(/[\s·•|;؛]+$/u, '');
     if (!field || !value.trim()) return;
     value = value.trim();
     if (field === 'period') {

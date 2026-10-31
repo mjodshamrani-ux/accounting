@@ -1,0 +1,569 @@
+{
+  "harness": "audit/claude-skills/run.mjs",
+  "cases": "audit/claude-skills/cases-trigger-holdout.json",
+  "votes": 3,
+  "arms": {
+    "with": true
+  },
+  "totalCostUsd": 2.1547,
+  "records": [
+    {
+      "id": "h-engine-ar",
+      "skill": "tarasuf-engine-development",
+      "kind": "trigger",
+      "arm": "with",
+      "seconds": 32,
+      "exit": 0,
+      "projectSkillsLoaded": 8,
+      "invoked": [
+        "tarasuf-engine-development"
+      ],
+      "readSkillFiles": [],
+      "toolCalls": 7,
+      "denials": [],
+      "final": "**ابدأ بإثبات العيب بمثال صغير مستقل، ولا تعدّل الشفرة قبل ذلك.** لم أغيّر أي ملف. ما يلي مبني على قراءة `CHALLENGES.ar.md` ومهارة تطوير المحرك وبحث في الشفرة، ولم أشغّل أي اختبار.\n\n## 1. صنّف المهمة\nالمشروع يفرّق بين عيب مثبت وفجوة دليل وتوسعة نطاق. وصف المشكلة لا يعني أنها عيب مثبت قبل أن تُستنسخ. لذلك املأ بطاقة العمل في `docs/reference/DELIVERY.ar.md#بطاقة-العمل` وسجّل أنها حتى الآن \"عيب مُبلَّغ عنه غير مستنسخ\".\n\n## 2. اقرأ العقد والمراجع\n- **العقد:** `docs/reference/ACCOUNTING-CONTRACT.ar.md` سطر 33 يقول: \"لكل صف استخدام مالي محفوظ؛ لا استهلاك مرتين ولا تجاوز سعة التخصيص\". هذا هو النص الذي يحكم الحالة.\n- **سجل التحديات:** المسارات المحتملة هي `CH-02` (استهلاك العضو الخطأ في مجموعات متنافسة) و`CH-03` (الدفعات الجزئية والسعة المتاحة). وصف المحرك الصحيح هناك: فحص التعارض قبل استهلاك أي عضو، واعتماد مجموعة القرار كلها أو لا شيء.\n- **الدروس:** راجع `DEVELOPMENT-LESSONS.ar.md` و`LESSONS-INDEX.ar.md` حتى لا تكرر إصلاحًا سابقًا. السطر 65 من الفهرس يوصي بفحص التعارض قبل استهلاك الصف.\n\n## 3. حدّد أي طبقة تخص المشكلة\nأنت لم تذكر أين ظهر العيب، وهذا يحدد أي ملف تفتح:\n- **مجموعات الفواتير المتنافسة:** `invoice-group-search.ts` و`invoice-overlap-search.ts`، واختباراتهما `tests/invoice-group-search.test.ts` و`tests/invoice-overlap-search.test.ts`.\n- **مكونات الدفع:** `payment-components.ts` و`tests/payment-components.test.ts`.\n- **سعة التخصيص بعد الاعتماد أو إعادة تحميل الجلسة:** `allocation.ts` و`tests/allocation.test.ts`.\n- **مسارات أخرى:** `core.ts` يحتوي أيضًا على إشارات إلى هذه المفاهيم وقد يكون مصدر المشكلة.\n\n## 4. استنسخ العيب بحالة اصطناعية صغيرة\n- ابنِ حالة اصطناعية فقط، ولا تستخدم بيانات حقيقية. مثال: دفعة 600 تصلح لمجموعتين متنافستين، وفاتورتان تطلبان منها 400 و300.\n- اكتب النتيجة المنتظرة من المصدر لا من المحرك. تحقق من الأعضاء والمبالغ والحالات، لا من المجاميع فقط، لأن توازن المجاميع قد يخفي عضوية خاطئة.\n- اختبر نسختين: واحدة فيها دليل يحدد العضوية، وأخرى بلا دليل. الثانية يجب أن تبقى \"مراجعة\" ولا يُختار فيها أول حل.\n- اختبر أيضًا حالة قريبة يجب أن تنجح، حتى لا يتحول الإصلاح إلى رفض شامل.\n\n## 5. شغّل الاختبار على الحالة الحالية أولًا\nشغّل مثلًا `node --experimental-strip-types --test tests/invoice-group-search.test.ts` وتأكد أن الاختبار يفشل بسبب assertion، لا بسبب خطأ في البيئة. إن نجح الاختبار فلم تستنسخ العيب، وتبقى المشكلة \"غير مثبتة\" في التقرير.\n\n## 6. بعد الاستنساخ\n- اجعل التعديل أصغر ما يمكن، وافحص التعارض قبل الاستهلاك.\n- أضف mutant لأي حماية جديدة في سكربت الطفرات الخاص بالمجال.\n- تتبّع الأثر في الجلسة والاستعادة وExcel والمساعد، لأن إعادة تحميل الجلسة يجب ألا تعيد إتاحة المبلغ المستهلك (ACCEPT-06).\n- لا تغيّر أي oracle أو قيمة متوقعة أو سماحية لتمرير الاختبار.\n- اختيار الفحوصات الأوسع وتسجيلها من عمل `tarasuf-regression-release`.\n\nأحتاج منك ثلاثة أمور لأدخل في الشفرة: أين شوهد العيب (مورد، بنك، تخصيص)، ومثال الدخل إن وُجد، وهل تريد أن أبدأ باستنساخه بحالة اصطناعية.",
+      "costUsd": 0.2144934,
+      "turns": 9,
+      "resultSubtype": "success",
+      "checks": {
+        "trigger": {
+          "pass": true,
+          "expected": [
+            "tarasuf-engine-development"
+          ]
+        }
+      }
+    },
+    {
+      "id": "h-engine-en",
+      "skill": "tarasuf-engine-development",
+      "kind": "trigger",
+      "arm": "with",
+      "seconds": 44,
+      "exit": 0,
+      "projectSkillsLoaded": 8,
+      "invoked": [
+        "tarasuf-engine-development"
+      ],
+      "readSkillFiles": [],
+      "toolCalls": 9,
+      "denials": [],
+      "final": "I've read the carried-row code and its test and mutant coverage. I haven't yet read the accounting contract or the lessons docs, so the contract step below is still open. You haven't said what the change should be, so this is a plan, not a diff.\n\n## What the code does today\n\nEverything is in `lib/reconciliation/running-balance.ts`.\n\n- **Carried row (`:997-1013`):**\n  - A row labelled `Carried balance` is classified as `carried`.\n  - It must be on a non-last page, after Page total and Page count (`phase === 2`), and be the page's last row. Otherwise it raises a `FOOTER` diagnostic.\n  - Its amount is read from column 6.\n  - `balanceControl(..., 'carried', carried, last, ...)` checks it against `last`, the running balance after the page's final movement.\n- **Brought row (`:906-924`):** On each page after the first, `Brought balance` is checked against the previous page's `carried` and `carriedProof`. A mismatch raises `CARRY`.\n- **Closing check (`:1031-1032`):** The global check is `opening + grossDebit − grossCredit`. The carried row is deliberately kept out of `grossDebit` and `grossCredit`.\n\nSo the carried row is a control row, not a movement. Its proof also feeds the next page's brought-row check.\n\n## Safe sequence\n\n1. **Classify the task.** Is this a proven defect, an evidence gap or a scope extension? Write that on the work card in `docs/reference/DELIVERY.ar.md`. If the problem is only a documented risk, reproduce it before changing code.\n2. **Name the contract.**\n   - Read `ACCOUNTING-CONTRACT.ar.md` and challenge entry CH-02 in `CHALLENGES.ar.md`. The entry at line 135 covers a balance carried between pages being counted twice.\n   - Also read the relevant entries in `DEVELOPMENT-LESSONS.ar.md`.\n   - Write down what the carried row should mean for your change. If the contract doesn't decide it, stop and ask rather than deciding in code.\n3. **Write the expected result first.** Derive it from the source layout, independently of the engine. Use a synthetic multi-page statement only, never real data.\n4. **Write the failing test before the change.**\n   - Candidate files:\n     - `tests/running-balance-classifier.test.ts`, which already builds `Brought balance` and `Carried balance` rows near line 443.\n     - `tests/running-balance-native-regression.test.ts`.\n     - `tests/running-balance-session.test.ts`, whose role list at `:607` includes `carried`.\n   - Run it on the base commit. It must fail on an assertion, not on an environment error.\n5. **Make the smallest change.** Keep these three things intact:\n   - The row keeps its place and reason when refused.\n   - Money stays in integer minor units, with no float handling.\n   - The carried amount never enters gross turnover.\n6. **Add a mutant for any new guard.**\n   - `scripts/test-running-balance-mutations.mjs` already has `count-carried-balance-again-as-turnover` (`:75`).\n   - Add one for each new guard. A mutant counts as killed only when an assertion fails.\n7. **Trace downstream effects.**\n   - Worker protocol: `protocol.ts` and `worker.ts`.\n   - Session save and restore: `running-balance-session.ts`. Check whether the stored carried and brought role evidence changes shape and whether old sessions still restore.\n   - Excel export: `scripts/check-running-balance-exports.py`.\n   - Review copy: `lib/i18n/running-balance-review.ts`.\n   - Decisions: if reading or scope changes, decisions that depended on it become invalid.\n8. **Run the checks, focused first.**\n   - Run the touched tests, then `pnpm typecheck` and `pnpm lint`.\n   - Then run `scripts/running-balance-proof.mjs` and the mutation script.\n   - Widen the gates through `tarasuf-regression-release`.\n   - Record each command, result and commit. Anything you can't run is \"not run\", not \"passed\".\n\n## Things you must not do\n\n- Don't edit frozen oracles, expected values or tolerances to get a green run. If a fixture has to change, create a new record and keep the old failure as history.\n- Don't loosen the `FOOTER` or `CARRY` diagnostics to accept more layouts. That would be a stricter gate relaxed without a separately tested contract.\n- Don't rename protocol identifiers, and don't change the session version without a deliberate migration.\n- Don't call a passing result field accuracy. It only shows behaviour on the cases you tested.\n\n## What I need from you\n\nWhat should change about the carried row? For example:\n\n- Accept a different label.\n- Allow it to appear in a different position.\n- Change how a mismatch with the brought row is handled.\n- Treat a missing carried row differently.\n\nI can then draft the failing test and the minimal diff, and use `tarasuf-accounting-review` if the change affects what counts as accepted.",
+      "costUsd": 0.1421273,
+      "turns": 11,
+      "resultSubtype": "success",
+      "checks": {
+        "trigger": {
+          "pass": true,
+          "expected": [
+            "tarasuf-engine-development"
+          ]
+        }
+      }
+    },
+    {
+      "id": "h-accounting-ar",
+      "skill": "tarasuf-accounting-review",
+      "kind": "trigger",
+      "arm": "with",
+      "seconds": 23,
+      "exit": 0,
+      "projectSkillsLoaded": 8,
+      "invoked": [
+        "tarasuf-accounting-review"
+      ],
+      "readSkillFiles": [],
+      "toolCalls": 3,
+      "denials": [],
+      "final": "**الحكم: غير صحيحة محاسبيًا كنتيجة \"معتمدة\". هذا نتيجة حاجبة من نوع \"مطابقة مؤكدة خاطئة\" (wrong confirmation).** هذه مراجعة هندسية مقابل عقد المشروع، وليست رأيًا محاسبيًا مهنيًا. لم أرَ الصفوف الفعلية، فالحكم مبني على وصفك فقط.\n\n**السبب**\n- تساوي المبلغ (300 = 300) لا يثبت أن العلاقة صحيحة. العقد يحدد الطرف والحساب والأبعاد كجزء من النطاق قبل المقارنة (`ACCOUNTING-CONTRACT.ar.md`، قسم «النطاق والإشارة والفترة»، سطر 25، وCH-06). الإشعار الدائن يخفض رصيد مورد معيّن، وفاتورة مورد آخر لا تُسدَّد به.\n- إذا اختلف المورد على الجانبين، فالأعضاء خاطئون حتى لو تطابق المجموع وغُطّيت كل الصفوف. هذا هو الخطر الذي ينبّه إليه CLAUDE.md: تساوي المجاميع لا يثبت صحة عضوية المجموعة.\n- يحتمل أيضًا أن يكون المحرك قرأ كود المورد في جهة على أنه كود المورد في الجهة الأخرى. العقد ينص على أن «كود العميل لدى المورد ليس بالضرورة كود المورد لدى الشركة».\n- الإشارة تحتاج فحصًا كذلك (CH-16). الإشعار الدائن والفاتورة يُفترض أن يكونا بدورين متعاكسين، وتحديد الإشارة يجب أن يكون بالدور أو دليل المصدر، لا بما يقلّص الفرق.\n\n**الحالة المتوقعة**\n- إذا ثبت اختلاف المورد: يجب ألا تُعتمد المطابقة، ويكون الوضع **needs-review**، أو عدم مطابقة.\n- أقصى ما يمكن قبوله هو **اقتراح (suggestion)** بسبب مذكور، بشرط ألا يُعامل كمطابقة مؤكدة.\n- إذا كان المورد نفسه تحت اسمين أو كودين، فلا يجوز الدمج تلقائيًا. المطلوب دليل صريح مثل جدول ربط معتمد أو مرجع يذكر الاثنين.\n\n**ما أحتاجه لحسم الأمر**\n1. صفّا الإشعار والفاتورة: المورد/الكود والحساب والعملة والتاريخ والمرجع.\n2. القاعدة التي أوصلت المحرك للاعتماد، وهل استخدم المرجع أم المبلغ فقط.\n3. هل هناك مرشحون آخرون بالمبلغ نفسه (CH-02)؟\n\n**الخطوة التالية المقترحة**\nإذا تأكد أن الطرفين مختلفان، تُسجَّل الحالة كحالة فاشلة في تقرير المحرك. لا تُعدَّل القيم المتوقعة لتوافق المحرك. بعد ذلك تُحوَّل إلى حالة اختبار عدائية، ثم تُجرى مراجعة المحرك عبر `tarasuf-engine-development`. أستطيع البحث في الشيفرة عن شرط الطرف في قاعدة المطابقة إن أردت.",
+      "costUsd": 0.09370819999999999,
+      "turns": 5,
+      "resultSubtype": "success",
+      "checks": {
+        "trigger": {
+          "pass": true,
+          "expected": [
+            "tarasuf-accounting-review"
+          ]
+        }
+      }
+    },
+    {
+      "id": "h-accounting-en",
+      "skill": "tarasuf-accounting-review",
+      "kind": "trigger",
+      "arm": "with",
+      "seconds": 19,
+      "exit": 0,
+      "projectSkillsLoaded": 8,
+      "invoked": [
+        "tarasuf-accounting-review"
+      ],
+      "readSkillFiles": [],
+      "toolCalls": 3,
+      "denials": [],
+      "final": "**Not as you've described it.** A tolerance can't close a 0.40 SAR difference and mark the group confirmed on its own. The sections below are from the accounting contract (`docs/reference/ACCOUNTING-CONTRACT.ar.md`, \"قراءة ومعنى المال\") and the review checklist. I didn't read the engine code or run anything.\n\n**What the contract says.** A tolerance, if one exists, is a declared policy with a stated reason and effect. It is not a correction to the amount. So the engine can't treat a tolerance as proof that the group is right.\n\n**What a tolerance-based close skips.**\n- **Membership.** A 0.40 total gap says nothing about whether these are the right members. Equal or near-equal totals can sit on the wrong group, and if another member set fits the same evidence, the result is needs-review.\n- **The difference itself.** The 0.40 must stay visible as a remaining difference. It can't be hidden, absorbed, or turned into a balancing entry.\n- **Verifiable reason.** A confirmed result needs a reason another reviewer can check from the sources. \"Within tolerance\" is not that reason.\n\n**When it would be acceptable.** All of these have to hold:\n1. The tolerance has a declared value, reason, scope (domain, currency and its minor units) and effect. SAR has 2 decimals, so 0.40 is 40 minor units. Compare in integer minor units, not floats.\n2. The members are proven by independent evidence such as reference, party, sign and date. Tolerance only affects the amount-closure step.\n3. No row or amount is reused, and the group has no competing member set.\n4. The 0.40 is recorded and shown as a residual explained by the declared policy. The amount is never rewritten.\n5. The status says why: for example \"confirmed within declared tolerance of X\", not a bare success badge.\n\n**If any of that is missing**, the correct status is a suggestion or needs-review, with the 0.40 shown.\n\n**What I couldn't decide.** I haven't checked whether a tolerance policy is declared for this domain, or how the engine currently sets status. If you point me to the code path or the case, I can check it against the existing tests and the challenge register (CH-16 covers tolerance and sign). A change to the matching rule would go through `tarasuf-engine-development`.\n\nThis is an engineering check against the project contract. It is not a professional accounting opinion.",
+      "costUsd": 0.0921192,
+      "turns": 5,
+      "resultSubtype": "success",
+      "checks": {
+        "trigger": {
+          "pass": true,
+          "expected": [
+            "tarasuf-accounting-review"
+          ]
+        }
+      }
+    },
+    {
+      "id": "h-adversarial-ar",
+      "skill": "tarasuf-adversarial-testing",
+      "kind": "trigger",
+      "arm": "with",
+      "seconds": 19,
+      "exit": 1,
+      "projectSkillsLoaded": 8,
+      "invoked": [
+        "tarasuf-adversarial-testing"
+      ],
+      "readSkillFiles": [],
+      "toolCalls": 12,
+      "denials": [],
+      "final": "",
+      "costUsd": 0.1543203,
+      "turns": 5,
+      "resultSubtype": "error_max_turns",
+      "checks": {
+        "trigger": {
+          "pass": true,
+          "expected": [
+            "tarasuf-adversarial-testing"
+          ]
+        }
+      }
+    },
+    {
+      "id": "h-adversarial-en",
+      "skill": "tarasuf-adversarial-testing",
+      "kind": "trigger",
+      "arm": "with",
+      "seconds": 38,
+      "exit": 0,
+      "projectSkillsLoaded": 8,
+      "invoked": [
+        "tarasuf-adversarial-testing"
+      ],
+      "readSkillFiles": [],
+      "toolCalls": 7,
+      "denials": [],
+      "final": "I haven't written any files. This is a design, based on the repo's skill, the case catalog, CH-01/02/03/07/09/10 in the challenge register, and the existing `audit/related-invoice/` fixtures. I haven't read `audit/related-invoice/contract.json` or the engine code. So the expected outcomes below are the ones the evidence supports. Before sealing anything, check them against the contract and `tarasuf-accounting-review`.\n\n## 1. Fixture shape: story first, files second\n\nEach case has three layers. The engine sees only the third.\n\n1. **Story (`story.json`).** The facts are written by hand in integer minor units and contain no engine output. The fields are:\n   - parties, currency (with its exponent), and documents (invoice, credit note, payment);\n   - dates and period;\n   - **allocation edges**: which payment or credit note settles which invoice, and for how much;\n   - an `evidence` field per edge, one of `cited_ref`, `shared_ref`, `amount_only` or `none`.\n2. **Expected (`expected.json`).** It is derived from the story by a separate oracle, using a different language or library from the engine (Python, as in `audit/*/oracle.py`). It lists:\n   - confirmed groups with exact member row IDs;\n   - remainder per invoice;\n   - needs-review items with a reason code;\n   - rows that must remain unmatched.\n3. **Serialized inputs.** A separate writer turns the story into ledger and supplier CSV/XLSX/PDF. The oracle reads the serialized files with its own parser, not the story, so a serialization bug is also caught (DEV-17, \"verify the oracle and serialized input as well as the engine\").\n\nRule for the oracle: a relation counts as confirmed only if the files let a reader prove it. An edge with `amount_only` evidence must come out as needs-review, even though the generator knows the truth.\n\n## 2. Case families (each has a correct case, a near case, and a competitor)\n\n**A. Split payments**\n- A1: one payment of 1000.00 cites INV-1 and INV-2 (600.00 and 400.00). Expected: exact two members.\n- A2: the same payment with no citation, but a third invoice of the same party and amount 1000.00 exists. Expected: needs-review with both competitors kept, and no first-wins.\n- A3: one invoice paid by three payments (N:1) with a shared bank reference. Expected: exact members.\n- A4: partial payment of 700.00 on a 1000.00 invoice. Expected: remainder 300.00 shown.\n- A5: overpaying split, where the allocations sum to more than the payment. Expected: refused or needs-review, never confirmed.\n- A6: the same payment row offered to two invoices. Expected: consumed once.\n\n**B. Credit notes**\n- B1: a credit note cites its invoice (-20.00 and -30.00 lines against a 500.00 invoice; the existing `whole-credit-note-group` fixture has this shape). Expected: the group is paired by citation, and the remainder reflects both lines.\n- B2: a credit note cites INV-401 but an equal-amount invoice INV-402 exists. Expected: pairs with INV-401 only.\n- B3: a credit note with no citation and one equal-amount invoice. Expected: needs-review, because amount alone is not evidence.\n- B4: a credit note dated in a later period. Expected: the period is kept and the credit note is not netted into the earlier period.\n- B5: a partial credit note followed by a split payment for the rest. Expected: the remainder is 0 only if the credit note and payments sum exactly to the invoice, and every member is listed.\n- B6: an untyped negative or credit amount. Expected: sign from the source role, otherwise refused. The existing `unknown-role` fixtures cover this.\n\n**C. Combined (the dangerous ones)**\n- C1: **equal totals, wrong membership.** Invoice 1000.00 is settled by payment 800.00 plus credit note 200.00. A decoy set of payment 900.00 and credit note 100.00 from another party also sums to 1000.00. Expected: only the cited set is confirmed.\n- C2: the credit note and payment cancel in net (+200 and -200) but belong to different invoices. Expected: no netting across invoices.\n- C3: a credit note and a payment of the same amount with opposite signs, which a naive \"reversal pair\" rule would cancel. Expected: not paired without evidence.\n- C4: currency or party differs on one member while the net stays equal. Expected: confirmation is withdrawn.\n\n## 3. Metamorphic pairs\n\n**Must keep the same members and facts:**\n- shuffled row order;\n- shuffled column order;\n- a renamed file;\n- a repeated header or page break;\n- zero-padded or re-spaced references, only where the contract says they are identical.\n\n**Must block the confirmation, even with the net unchanged:**\n- one member's currency changed;\n- one member's party or account changed;\n- the sign of one member flipped;\n- one member swapped for a same-amount row from another party;\n- a member moved past the cut-off date;\n- the citation removed or pointed at another invoice;\n- the source file swapped.\n\nEach pair stores a `base_case_id` and a transform ID. The oracle recomputes the expectation for the transformed story rather than assuming it.\n\n## 4. Verifier self-test\n\nBefore trusting the oracle or checker:\n- one correct export passes;\n- each planted fault fails: one member changed, a sign flipped, a row dropped, a remainder altered, a competitor hidden, a row consumed twice;\n- the check includes a negative control, so a checker that only accepts fails the test (DEV-20, DEV-21).\n\n## 5. Layout and process\n\n- **Source diversity before volume.** Vary the layout, the producer and the semantics: CSV, XLSX and PDF; citations in a reference column versus in the description; debit/credit columns versus a signed column; multi-line credit notes. Ten seeds of one layout count as one case. Record the seed, generator version, verifier version and contract.\n- **Splits.** Keep a development split apart from a holdout. Seal the holdout (input manifest, expected, verification) before any product run, and never run the product on a draft. Once I've seen the holdout while fixing something, it becomes regression, and a new independent claim needs new cases. Cases I wrote and have seen are not a blind evaluation.\n- **Failures.** Save each failing case, minimized (see `audit/hard-cases/minimize.mjs`). Name known failures in the triage register. False approvals, wrong members and lost rows are never excused.\n- **Mutants.** Add one mutant per guard: drop the reference check, allow reuse of a row, ignore the party, or net by amount only. Each kill must be an assertion failure, not an environment error. Every survivor gets a note saying whether it is equivalent or a missing test.\n- **Frozen files.** New files go under a new directory. Existing `frozen/` and `results/` files are never edited, and the public-safe manifest is updated entry by entry.\n\n## Open questions\n\n- Does the contract allow an uncited split payment to be confirmed when the amounts add up uniquely? I assumed not (needs-review). If it does, A2 and B3 change.\n- Is a credit note in a later period netted, or kept separate? B4 assumes kept separate.\n- What tolerance, if any, applies to the remainder? I assumed none.\n\nIf you want, I can write the story schema, the Python oracle with its self-test, and the first development-split cases under a new `audit/` directory. I'd keep the holdout empty until the development cases are stable.",
+      "costUsd": 0.1424076,
+      "turns": 9,
+      "resultSubtype": "success",
+      "checks": {
+        "trigger": {
+          "pass": true,
+          "expected": [
+            "tarasuf-adversarial-testing"
+          ]
+        }
+      }
+    },
+    {
+      "id": "h-privacy-ar",
+      "skill": "tarasuf-privacy-security",
+      "kind": "trigger",
+      "arm": "with",
+      "seconds": 32,
+      "exit": 0,
+      "projectSkillsLoaded": 8,
+      "invoked": [
+        "tarasuf-privacy-security"
+      ],
+      "readSkillFiles": [],
+      "toolCalls": 3,
+      "denials": [],
+      "final": "**الخلاصة:** لا نستطيع اليوم أن نقول «ملفاتكم لا تغادر جهازكم أبدًا». الدليل الحالي لا يغطي «أبدًا». الصياغة التي يسندها الدليل أضيق من ذلك، وهي في آخر الرد.\n\nلم أشغّل أي فحص في هذه الجلسة. ما يلي مبني على قراءة `data-flow.md`، وعلى `docs/reference/SKILLS.ar.md:59` الذي يذكر أن فحص المتصفح «لم يُشغَّل في هذه المهمة»، وعلى نتائج تدقيق قديمة محفوظة في `audit/`.\n\n## ما هو مثبت وما هو مقروء فقط\n\n| الجانب | الحالة | الدليل |\n|---|---|---|\n| لا طلبات خارجية من الصفحة | **مرصود** في CI، وليس في هذه الجلسة | `scripts/browser-test.mjs` يسجّل الطلبات الخارجية ويتأكد من غيابها ومن وجود CSP. نتائج `externalRequests: 0` في `audit/bank-statement-holdout-*/results/` تخص كل منها commit قديمًا. |\n| CSP `connect-src 'none'` | **مقروء في الكود** ومفحوص في المتصفح | `scripts/harden-build.mjs` |\n| لا تتبّع ولا حسابات | **مقروء**، ولا رصد له | الخريطة تقول: غير موجود، والحسابات في خارطة الطريق فقط. |\n| مكتبة OCR وبياناتها | **مقروء** | محلية من حزم مقفلة (`scripts/prepare-ocr-assets.mjs`). |\n| الذكاء المحلي | **مقروء** | يستخدم واجهة النموذج في المتصفح فقط، ولا تنزيل ولا مزوّد. لم يُرصد أن هذه الواجهة لا ترسل خارج الجهاز، فهي تتبع المتصفح. |\n\n## لماذا لا يكفي هذا لكلمة «أبدًا»\n\n1. **الرصد قديم.** كل نتيجة ملتصقة بالـ commit الذي شُغّلت عليه. يلزم تشغيل على الـ commit المنشور فعلًا.\n2. **المنشور قد يختلف عن المختبَر.** يلزم تحقق من النسخة الموجودة على GitHub Pages نفسها، لا من بناء محلي فقط. فحص `--dist` في CI يغطي المحتوى، لا الرؤوس الفعلية التي يخدمها الموقع.\n3. **ملفات الجلسة وExcel تحمل المحتوى كاملًا** وغير مشفّرة. الملفات لا تغادر الجهاز بذاتها، لكن المستخدم قد ينقلها أو يرسلها، ويجب أن تقول الواجهة هذا بوضوح.\n4. **الرصد في متصفح واحد وجهاز واحد.** لا يغطي الإضافات ولا إعدادات المتصفح ولا الأجهزة الأخرى.\n5. **المتصفح والمنصة خارج السيطرة.** واجهة الذكاء المحلي تتبع المتصفح، وخادم الاستضافة قد يسجّل طلبات تحميل الصفحة نفسها (عنوان IP مثلًا).\n6. **الخصوصية في بيئة التطوير مسألة منفصلة.** جلسات Claude Code ترسل ما يقرؤه الوكيل إلى مزوّد النموذج، وهذا لا ينطبق على المنتج. ويجب ألا توجد ملفات مالية حقيقية في المستودع أو الجلسة.\n7. **الأمر قد يتغير.** أي ميزة مستقبلية (حسابات، تحليلات، تنزيل نموذج) تنقض الادعاء، وخارطة الطريق تشترط ألا تُفعَّل بلا تفويض.\n\n## الدليل المطلوب قبل أي صيغة قوية\n\n1. تشغيل `pnpm build` ثم `pnpm test:browser` على الـ commit المنشور، مع تسجيل الأمر والنتيجة ورقم الـ commit، ومنها `externalRequests = 0` وفحص CSP.\n2. تشغيل `node scripts/public-content-check.mjs --dist` على البناء نفسه.\n3. التحقق من رؤوس الاستجابة وCSP الفعليين على الموقع المنشور، وأن الصفحة لا تحمّل نصوصًا أو خطوطًا أو صورًا خارجية.\n4. مراجعة التبعيات والقفل (`pnpm-lock.yaml`) بحثًا عن أي شيفرة تتصل بالشبكة، وتأكيد غياب SDK للتحليلات.\n5. اختبار يرفع ملفًا مع رصد الشبكة كاملًا (لا الطلبات الخارجية فقط)، يشمل مساري OCR والذكاء المحلي، ومعه تحقق من الـ Worker.\n6. ملاحظة ظاهرة للمستخدم عن ملفات الجلسة وExcel وأنها غير مشفّرة.\n7. تحقق دوري عند كل إصدار، لأن الدليل يخص الـ commit الذي رُصد عليه فقط.\n\nحتى مع كل ذلك يبقى الحد قائمًا: هذه مراجعة هندسية، لا تثبت امتثالًا قانونيًا، ولا تغطي كل جهاز أو إضافة.\n\n## صياغة يمكن قولها الآن\n\n> «معالجة ملفاتك المالية تتم داخل متصفحك. الصفحة لا تتضمن طلبات اتصال خارجية ولا تتبعًا ولا تحليلات، وسياسة أمان المحتوى تمنع الاتصال الصادر. ملفات الجلسة وExcel التي تنزّلها تحوي بياناتك كاملة وغير مشفّرة.»\n\nأضف «تحقّقنا من ذلك في الإصدار X بتاريخ Y» فقط بعد تشغيل الفحوص أعلاه وتسجيل نتيجتها. وتجنّب «أبدًا» و«مضمون» و«آمن بالكامل».\n\nهل تريد أن أشغّل `pnpm build` و`pnpm test:browser` الآن وأسجّل النتيجة مع رقم الـ commit؟",
+      "costUsd": 0.1097549,
+      "turns": 5,
+      "resultSubtype": "success",
+      "checks": {
+        "trigger": {
+          "pass": true,
+          "expected": [
+            "tarasuf-privacy-security"
+          ]
+        }
+      }
+    },
+    {
+      "id": "h-privacy-en",
+      "skill": "tarasuf-privacy-security",
+      "kind": "trigger",
+      "arm": "with",
+      "seconds": 15,
+      "exit": 0,
+      "projectSkillsLoaded": 8,
+      "invoked": [
+        "tarasuf-privacy-security"
+      ],
+      "readSkillFiles": [],
+      "toolCalls": 1,
+      "denials": [],
+      "final": "**Short answer: as written, this PR should be blocked.** Runtime font loading from a CDN is a new outbound request. It breaks Tarasuf's local-first privacy contract, and AGENTS.md explicitly forbids external fonts. I haven't opened the PR diff or run anything yet, so what follows is what to check, not findings.\n\n## What to check\n\n1. **Confirm the runtime request.** Find where the package fetches the fonts (a CSS `@import`, a `<link>`, or a `FontFace` call). A CDN request tells the CDN operator the app is in use and exposes the user's IP and user agent. That is a privacy leak even though no financial data is sent.\n2. **CSP.** `scripts/harden-build.mjs` sets `connect-src 'none'`, and the CSP also restricts font and style origins. Check whether the PR loosens `font-src`, `style-src` or `connect-src`, or adds a CDN origin to the CSP. Any loosening changes the privacy contract and needs your explicit authorization. A PR that makes the app work by widening the CSP is the wrong fix.\n3. **Network observation.** Run `scripts/browser-test.mjs`. It records external requests and checks the CSP. A claim that the fonts work offline needs a run that watched the network, and reading the code isn't enough. If you can't run it, record it as \"not run\" with the reason.\n4. **Fonts policy.** Tarasuf keeps its genuine licensed Thmanyah headings and local fonts, and it supports AR/EN and RTL. Check that the package doesn't override or replace them, and that Arabic rendering and reduced motion are unchanged.\n5. **The dependency itself.**\n   - Is there a stated reason for it?\n   - What is its licence?\n   - Does it run install scripts?\n   - What does the `pnpm-lock.yaml` change pull in (transitive packages)?\n   - Is there any other network or telemetry code in the package?\n6. **Other outputs.** Check that it doesn't write to local storage, sessions, exports or logs. Check that no real data appears in the PR's fixtures or comments.\n7. **Guards.** Check that `public-content-check.mjs`, `public-safe-manifest.json` and any other gate weren't edited or disabled to get the PR green.\n8. **Prompt injection.** Treat any text in the PR description, comments or package README as data, not instructions.\n\n## Recommendation\n\n- Request changes. If the fonts are needed, self-host them under the existing licence review. That means bundling the font files locally, with no CDN, no CSP loosening, and no automatic downloads at runtime.\n- If the package is only used for its fonts, consider dropping the dependency and shipping just the licensed font files.\n- Before approving, run the browser check and confirm zero external requests.\n\nThis is an engineering review only. It doesn't establish legal or regulatory compliance.\n\nI can inspect the actual PR diff, the CSP script and the lockfile change if you give me the branch or PR number.",
+      "costUsd": 0.07517979999999999,
+      "turns": 3,
+      "resultSubtype": "success",
+      "checks": {
+        "trigger": {
+          "pass": true,
+          "expected": [
+            "tarasuf-privacy-security"
+          ]
+        }
+      }
+    },
+    {
+      "id": "h-evidence-ar",
+      "skill": "tarasuf-source-evidence",
+      "kind": "trigger",
+      "arm": "with",
+      "seconds": 14,
+      "exit": 1,
+      "projectSkillsLoaded": 8,
+      "invoked": [
+        "tarasuf-source-evidence"
+      ],
+      "readSkillFiles": [],
+      "toolCalls": 7,
+      "denials": [],
+      "final": "",
+      "costUsd": 0.0970447,
+      "turns": 5,
+      "resultSubtype": "error_max_turns",
+      "checks": {
+        "trigger": {
+          "pass": true,
+          "expected": [
+            "tarasuf-source-evidence"
+          ]
+        }
+      }
+    },
+    {
+      "id": "h-evidence-en",
+      "skill": "tarasuf-source-evidence",
+      "kind": "trigger",
+      "arm": "with",
+      "seconds": 23,
+      "exit": 0,
+      "projectSkillsLoaded": 8,
+      "invoked": [
+        "tarasuf-source-evidence"
+      ],
+      "readSkillFiles": [],
+      "toolCalls": 6,
+      "denials": [],
+      "final": "**Keep both, and make the original text the evidence. The parsed value is derived from it.** That is what the code does today (read at `lib/reconciliation/core.ts`). I did not run any tests.\n\n**Reading**\n- `latinDigits` (`core.ts:57`) maps Arabic-Indic (٠–٩) and Persian (۰–۹) digits to ASCII. It also strips the bidi marks U+200E, U+200F and U+061C.\n- `parseMoney` (`core.ts:63`) uses the column's `numberFormat`. For a comma decimal that is `'comma'`: `,` is the decimal separator and `.` is the thousands separator.\n- It also maps the Arabic separators: `٫` becomes the decimal separator and `٬` becomes the grouping separator.\n- It returns integer minor units, for example `١٢٣٤٫٥٠` or `1234,50` gives `123450`. Floats are never used.\n- The signed-mode `original` (`core.ts:1141`) is the raw cell string, `get(row, mapping.amount)`. In debit/credit mode it is `\"debit | credit\"`.\n- The conversion only changes the copy used for parsing. The raw cell is not overwritten.\n\n**What each amount should carry**\n- File name and SHA-256, taken from the bytes before any await.\n- Physical row and column.\n- The original text, exactly as read, with the original digits and separators.\n- The parsed minor units.\n- The transform record: digit set converted, the decimal separator used, and the `numberFormat` that was applied.\n\n**Rules**\n1. **Separator ambiguity.** `1,234` could be 1234 or 1.234. The reader should accept it only when the column format makes it unambiguous. `parseMoney` already refuses misplaced groupings and more fractional digits than the currency allows. A near case such as `1.234,5.6` should stay refused with a reason the user can see.\n2. **Digit set and decimal separator.** Changing either changes meaning, so the choice must be proven from the source or visible to the user. A column that mixes `1,5` and `1.5` is a review case, not something to guess.\n3. **Excel numeric cells are a different path.** They are parsed as `'dot'` from the native value (`core.ts:1154`). The `numberFormat` setting must not be applied to them. Only text cells, as in a CSV, go through it.\n4. **Leading zeros.** References stay text. Never run them through the number path.\n5. **Export.** Write the original text as text, never as a formula or a reinterpreted number. Show the parsed amount in a separate column. Hold the original through session save and restore as well.\n6. **After restore.** Re-parse from the original and compare it with the saved minor units. If they differ, the saved decision does not keep its authority.\n\n**Tests to add or confirm**\n- Normal case: `١٬٢٣٤٫٥٠` and `1.234,50` with `numberFormat: 'comma'`. The parsed value is correct and the original text is unchanged.\n- Near cases that must be refused or sent to review: a mixed digit set in one cell, a doubled separator, a three-digit fraction when the currency has two decimals, and an unclear `1,234`.\n- A round trip through session and Excel, checked with an independent reader.\n\n`tests/core.test.ts` and `tests/format-inference.test.ts` cover the digit conversion. I haven't checked whether they include a comma-decimal case with Arabic digits, or whether the transform record is stored in the session. I can check both if you want.",
+      "costUsd": 0.1159579,
+      "turns": 8,
+      "resultSubtype": "success",
+      "checks": {
+        "trigger": {
+          "pass": true,
+          "expected": [
+            "tarasuf-source-evidence"
+          ]
+        }
+      }
+    },
+    {
+      "id": "h-regression-ar",
+      "skill": "tarasuf-regression-release",
+      "kind": "trigger",
+      "arm": "with",
+      "seconds": 16,
+      "exit": 0,
+      "projectSkillsLoaded": 8,
+      "invoked": [
+        "tarasuf-regression-release"
+      ],
+      "readSkillFiles": [],
+      "toolCalls": 1,
+      "denials": [],
+      "final": "الطريقة المعتمدة في المشروع: شغّل الأمر الفاشل نفسه على الـ commit الأساسي، ثم قارن النتيجتين.\n\n**1. سجّل الـ commits**\n```bash\ngit status --short          # هل الشجرة نظيفة؟\ngit rev-parse HEAD          # رأسك، أي الـ commit الذي فشل عليه CI\ngit merge-base origin/main HEAD   # الأساس (غيّر main إن لزم)\n```\nاقرأ في سجل CI اسم الخطوة الفاشلة وأول assertion فشل، وعلى أي commit جرى التشغيل. أي تشغيل قديم يخص commit قديمًا.\n\n**2. أعد الفشل محليًا على رأسك**\nشغّل الأمر نفسه الذي فشل في CI. الأوامر الموجودة في `.github/workflows/pages.yml`، وجدول الفحوص في `.claude/skills/tarasuf-regression-release/selection.md`. مثال:\n```bash\nnode --experimental-strip-types --test tests/<الاختبار>.test.ts\n```\n- إن لم يفشل محليًا، فالأرجح أن الفرق في البيئة (متصفح أو أداة أو شبكة غير متاحة). صنّفه \"لم يُشغَّل\" مع السبب، وقارن CI بمحلي قبل الاستنتاج.\n- إن فشل محليًا، انتقل للخطوة 3.\n\n**3. شغّله على الأساس في worktree منفصل**\n```bash\ngit worktree add ../base-check <base-sha>\ncd ../base-check && pnpm install --frozen-lockfile\n# الأمر الفاشل نفسه هنا\n```\n| على الأساس | على رأسك | الخلاصة |\n|---|---|---|\n| ينجح | يفشل | **سببه تغييرك**، وهو فشل جديد يمنع الدمج |\n| يفشل بنفس الـ assertion | يفشل | **قديم**، يُسجَّل بدليله ويُترك لمهمته |\n| يفشل بـ assertion مختلف | يفشل | غالبًا فشلان منفصلان، افحص كلًا منهما |\n\n**4. تحقّق إضافي إن بقي الشك**\n- اقرأ ما تغيّر في ملفاتك (`git diff --name-only <base>...HEAD`) وهل يمس العقد الذي يختبره الاختبار الفاشل. لا يكفي الملف المعدَّل وحده، ففحص عقود الجلسة والتصدير والـ worker مطلوب أيضًا.\n- إن بدا الفشل متقطعًا، شغّله مرة أو مرتين فقط للتشخيص. لا تكرره في حلقة.\n- افحص سجل CI لآخر تشغيل ناجح على الفرع الأساسي، لكن اعتبره دليلًا على commit قديم فقط.\n\n**قواعد المشروع عند الفشل**\n- لا تعدّل القيم المتوقعة أو الـ oracle أو الـ snapshot أو السماحيات أو سجلات النتائج لتحويل الفحص للأخضر. الفشل القديم يبقى تاريخًا. إن كان المتوقع نفسه خاطئًا فتوقف وارفع الأمر بدليل مستقل.\n- لا تقل إن CI \"نجح\" إلا بعد قراءته على الـ head الدقيق الذي دفعته.\n\nإن أردت، ألصق لي اسم الخطوة الفاشلة وأول سطر خطأ من سجل CI، أو أخبرني أن أنفّذ الخطوات 1 إلى 3 هنا وأعطيك جدول النتائج.",
+      "costUsd": 0.0777178,
+      "turns": 3,
+      "resultSubtype": "success",
+      "checks": {
+        "trigger": {
+          "pass": true,
+          "expected": [
+            "tarasuf-regression-release"
+          ]
+        }
+      }
+    },
+    {
+      "id": "h-regression-en",
+      "skill": "tarasuf-regression-release",
+      "kind": "trigger",
+      "arm": "with",
+      "seconds": 23,
+      "exit": 0,
+      "projectSkillsLoaded": 8,
+      "invoked": [
+        "tarasuf-regression-release"
+      ],
+      "readSkillFiles": [],
+      "toolCalls": 7,
+      "denials": [],
+      "final": "`session.ts` is the shared main session module. 27 test and audit files import it, so the focused set is wide. I haven't run anything yet. Everything below comes from the project's selection table (`.claude/skills/tarasuf-regression-release/selection.md`) and a grep of what imports `session.ts`.\n\n## What to run, in order\n\nStop widening if a step fails.\n\n1. **Record the state first.** Note the base commit, the head commit, and `git status --short`. Don't report results against any other commit.\n2. **Focused tests.** These are the session and lifecycle tests that import `session.ts`:\n   ```\n   node --experimental-strip-types --test \\\n     tests/template-session-046.test.ts tests/p2-group-lifecycle.test.ts \\\n     tests/partial-result-lifecycle.test.ts tests/audit-regressions.test.ts \\\n     tests/explanation-evidence.test.ts tests/same-source.test.ts \\\n     tests/reference-resolution.test.ts tests/hard-cases.test.ts\n   ```\n   Add the other importers if your edit touches that area. They are the PDF and Excel statement integration tests, the visual-source tests, the layered-xlsx test and the 047 tests.\n   - If any of them read PDFs, run `node scripts/prepare-native-pdf.mjs` once first.\n   - Check your diff for which session contract you touched: save/restore, decisions, or export.\n3. **Wider checks.**\n   - `pnpm typecheck` and `pnpm lint`.\n   - The domain's `pnpm test:<domain>` and `pnpm test:<domain>:mutations` scripts.\n   - The domain proof script and its independent export check.\n   - `pnpm test:hard-cases`.\n4. **Release-level checks.**\n   - `pnpm test`.\n   - The domain browser script.\n   - `pnpm test:browser`, which is the full browser suite.\n   - `pnpm build` plus `node scripts/public-content-check.mjs --dist`, only if app code or `lib/` changed.\n\nDon't run every gate after every edit, and don't re-run a failing check in a loop.\n\n## How to report\n\nGive a table with one row per command:\n\n| Command | Commit | Result | Notes |\n| --- | --- | --- | --- |\n| *(exact command)* | *(head SHA)* | passed / failed / not run | first failing assertion, or the reason it didn't run |\n\n- **A failure.** Re-run the same command on the base commit in a separate worktree. Label the failure \"new\" or \"preexisting\". A new failure blocks. A preexisting one gets reported with its evidence and left for its own task.\n- **A check that couldn't run.** If there's no Chromium or the network is unavailable, mark it \"not run\" and give the reason. Never mark it passed. For browsers, don't install a second one. Point `MIZAN_CHROMIUM` at the installed one if the script reads it.\n- **Never change expected values, oracles, mutation gates, recorded results or tolerances to make a check pass.** If one looks wrong, stop and escalate with independent evidence.\n- **Pushing.** None of this authorizes a push, merge or release. After a push you were authorized to make, read CI on that exact head before saying it passed. A local pass isn't the CI result.\n- **Docs.** If your change alters behavior, update the docs in the same change. Update the `public-safe-manifest.json` entries one by one. Don't bulk-regenerate distribution hashes for a docs-only change.",
+      "costUsd": 0.1108407,
+      "turns": 9,
+      "resultSubtype": "success",
+      "checks": {
+        "trigger": {
+          "pass": true,
+          "expected": [
+            "tarasuf-regression-release"
+          ]
+        }
+      }
+    },
+    {
+      "id": "h-workflow-ar",
+      "skill": "tarasuf-product-workflow",
+      "kind": "trigger",
+      "arm": "with",
+      "seconds": 13,
+      "exit": 1,
+      "projectSkillsLoaded": 8,
+      "invoked": [
+        "tarasuf-product-workflow"
+      ],
+      "readSkillFiles": [],
+      "toolCalls": 8,
+      "denials": [],
+      "final": "",
+      "costUsd": 0.1110286,
+      "turns": 5,
+      "resultSubtype": "error_max_turns",
+      "checks": {
+        "trigger": {
+          "pass": true,
+          "expected": [
+            "tarasuf-product-workflow"
+          ]
+        }
+      }
+    },
+    {
+      "id": "h-workflow-en",
+      "skill": "tarasuf-product-workflow",
+      "kind": "trigger",
+      "arm": "with",
+      "seconds": 15,
+      "exit": 1,
+      "projectSkillsLoaded": 8,
+      "invoked": [
+        "tarasuf-product-workflow"
+      ],
+      "readSkillFiles": [],
+      "toolCalls": 11,
+      "denials": [],
+      "final": "",
+      "costUsd": 0.1427218,
+      "turns": 5,
+      "resultSubtype": "error_max_turns",
+      "checks": {
+        "trigger": {
+          "pass": true,
+          "expected": [
+            "tarasuf-product-workflow"
+          ]
+        }
+      }
+    },
+    {
+      "id": "h-ai-ar",
+      "skill": "tarasuf-ai-integration",
+      "kind": "trigger",
+      "arm": "with",
+      "seconds": 24,
+      "exit": 0,
+      "projectSkillsLoaded": 8,
+      "invoked": [
+        "tarasuf-ai-integration"
+      ],
+      "readSkillFiles": [],
+      "toolCalls": 3,
+      "denials": [],
+      "final": "# تقييم فكرة OCR محلي قبل التنفيذ\n\n## 1. التصنيف\nالفكرة **بند مخطط وليست قدرة قائمة**. هي OCR-1 في [AI-AND-OCR.ar.md](docs/reference/AI-AND-OCR.ar.md) وفي القسم 11 من [ai-local-assistant.ar.md](docs/roadmap/ai-local-assistant.ar.md). وجودها في الخطة لا يخوّل تنفيذها. الحالة الحالية:\n- مراجعة مرئية يدوية محدودة: PNG واحدة وجدول واحد، 2 MiB و200 صف.\n- إخفاقات OCR العربي العددي مسجلة ولا تُعاد تسميتها نجاحًا.\n\nأي نموذج أو runtime أو تنزيل أصول جديد يحتاج **قرارك الصريح** قبل أي كود. هذا الرد تقييم فقط، ولم أشغّل أي اختبار.\n\n## 2. أسئلة الحسم (الجواب مكتوب ومثبت قبل التجربة)\n| المحور | ما نثبته |\n|---|---|\n| **الخصوصية** | لا شبكة ولا CDN ولا تنزيل تلقائي ولا fallback سحابي. نفحص اتصالات الصفحة والـWorker والـruntime. الـWorker لا يمنع الشبكة وحده. |\n| **المصدر والترخيص** | ترخيص النموذج والـruntime وبصماتهما وحجم الأصول وكلفة أول تشغيل. اسم «local» أو `available` لا يكفي. |\n| **الموارد** | الميزانية المقترحة: جهاز Windows بذاكرة 8 GiB دون GPU، وجهاز ضغط بذاكرة 4 GiB. الإضافة ≤ 64 MiB، وزيادة الذاكرة ≤ 512 MiB، والاقتراح p95 ≤ 5 s. تُثبَّت قبل التشغيل ولا تُعدَّل بعد رؤية النتائج. |\n| **اللغة** | العربية وحدها، والأرقام العربية/الفارسية/اللاتينية، والفواصل والأقواس والناقص، والمحتوى المختلط. |\n| **فشل آمن** | المسار الحتمي يعمل دون OCR. المهلة والإلغاء ونفاد الذاكرة لا تغيّر أي نتيجة. |\n\n## 3. حدود الصلاحية (لا تتغير بأي نموذج)\n- ناتج OCR **قراءة مرشحة** موسومة، وليست `amount` معتمدًا. لا يُملأ رقم تحت ختم ولا تُولَّد فاصلة أو ناقص.\n- تساوي مجموعين أو ثقة النموذج لا يعوّضان خطأ خلية.\n- الأصل والقصاصة والإحداثيات والنص الخام تُحفظ، وتبقى صلة القيمة المعتمدة بالصورة بعد الحفظ والاستعادة والتصدير.\n- جرد الصفحات والمناطق والخلايا يسبق المطابقة. إن كان الجرد ناقصًا أو مجهولًا فلا نزعم أن مراجعة الخلايا المختلف عليها تكفي.\n\n## 4. التجربة المقترحة\n1. **حقيقة مستقلة من البكسلات.** نبنيها بصريًا لا من مخرجات النموذج. تُقاس الحقول الستة منفصلة: مبلغ، علامة، عملة، مرجع، تاريخ، دور العمود.\n2. **تنوع المصادر** حسب [source-diversity](docs/roadmap/source-diversity.ar.md): مسح مختلف، منتج مختلف، تخطيط مختلف. كثرة العينات من تخطيط واحد لا تثبت التعميم.\n3. **حالات الضغط:** صورة مائلة، تباين ضعيف، ختم فوق رقم، فاصلة ضائعة، ناقص دقيق، جدول على صفحتين، رأس مكرر، أعمدة معكوسة، وتعليمات مزروعة داخل الصورة. هذه الأخيرة نص غير موثوق ولا تغيّر أي صلاحية.\n4. **المقارنة.** المسار اليدوي الحالي مقابل المسار مع OCR على الحالات نفسها: الحقول الصحيحة، الامتناع الصحيح والخاطئ، التصحيحات البشرية، الاقتراحات المضللة. حد الفائدة الأدنى يُحدَّد قبل التشغيل. يُحفظ الفشل كما حدث، وتُبنى holdout جديدة بعد كل تعلّم.\n5. **بوابة القبول:** صفر تغيير مالي غير مصرح، وصفر اعتماد خاطئ، وتحسن محدد مسبقًا. وإلا يبقى المزود مغلقًا.\n\n## 5. بطاقة التجربة\nتُقترح مهمة واحدة ومزود واحد وثلاثة أيام هندسية كحد أقصى. ثم قرار **استمرار / تغيير نطاق / إيقاف**. تحدد البطاقة الأجهزة والمتصفحات وعدد التكرارات الباردة والدافئة قبل البدء.\n\n## 6. ما أحتاجه منك للتقدم\n1. هل تأذن بتجربة مزود واحد (مع الترخيص والحجم) أم نبدأ بالتقييم الورقي فقط؟\n2. أي جهاز ومتصفح يمثلان العميل الفعلي؟\n3. ما أول حقل أو مستند يستحق التجربة؟ أقترح الأرقام العربية في كشف حساب بصفحة واحدة، لأنه موضع الإخفاق المسجل.\n\nإن وافقت على البند 1 أجهّز بطاقة التجربة في ملف داخل المستودع (ميزانية، حقيقة مستقلة، مقاييس، بوابات) دون إضافة أي اعتماد أو تنزيل.",
+      "costUsd": 0.1774704,
+      "turns": 5,
+      "resultSubtype": "success",
+      "checks": {
+        "trigger": {
+          "pass": true,
+          "expected": [
+            "tarasuf-ai-integration"
+          ]
+        }
+      }
+    },
+    {
+      "id": "h-ai-en",
+      "skill": "tarasuf-ai-integration",
+      "kind": "trigger",
+      "arm": "with",
+      "seconds": 13,
+      "exit": 0,
+      "projectSkillsLoaded": 8,
+      "invoked": [],
+      "readSkillFiles": [],
+      "toolCalls": 0,
+      "denials": [],
+      "final": "**No, not with numbers it generates itself.** Under the project's own rules, the assistant may only explain numbers the deterministic engine has already produced.\n\n**Why the rules rule it out**\n- AGENTS.md says AI \"cannot invent money, rewrite evidence, approve a match, hide a difference or certify completeness.\" A figure the model computes or estimates is invented money, even when it's labeled as an aside.\n- Deterministic, source-bound accounting is authoritative. A model-generated total isn't tied to a file, sheet, row or hash, so no one can trace it.\n- Language models do arithmetic unreliably, and a sum that looks right can hide a wrong group membership. The project already warns that equal totals alone don't prove correct membership.\n- A number that appears in the assistant's answer can look like it was reconciled. It would blur the line between confirmed, suggested and needs-review.\n\n**What it can do**\n- It can read and restate engine values: matched amounts, remaining differences, rejected rows and the reasons given. Each one should cite its source (file, row, decision).\n- It can explain why the engine grouped or rejected something, using only the evidence on record.\n- It can propose an interpretation, such as a column role or a likely relationship. These must be marked as suggestions, and the user or the engine confirms them.\n- If a user asks for a figure the engine hasn't computed, such as a hypothetical total, the assistant should say so. It can point to a deterministic calculation path, not produce its own figure.\n\n**Gates before any such feature ships**\n- Every number in an answer is traceable to an engine output, and the UI shows it as read-only.\n- The answer flow has a test that fails if the assistant emits a figure not found in the engine result.\n- It runs locally, with no cloud fallback and no automatic model download, per the privacy boundaries.\n\nI answered from AGENTS.md and the standing rules only. I haven't read `docs/reference/AI-AND-OCR.ar.md` or the local-assistant roadmap, and I haven't checked whether an assistant exists in the code today. If you want, I can check those and tell you where the current plan draws this line.",
+      "costUsd": 0.0629025,
+      "turns": 1,
+      "resultSubtype": "success",
+      "checks": {
+        "trigger": {
+          "pass": false,
+          "expected": [
+            "tarasuf-ai-integration"
+          ]
+        }
+      }
+    },
+    {
+      "id": "h-none-1",
+      "skill": null,
+      "kind": "trigger-negative",
+      "arm": "with",
+      "seconds": 8,
+      "exit": 0,
+      "projectSkillsLoaded": 8,
+      "invoked": [],
+      "readSkillFiles": [],
+      "toolCalls": 2,
+      "denials": [],
+      "final": "There's no license file in this repository, and `package.json` doesn't declare one, so I can't identify a license. I found no `LICENSE`, `LICENCE` or `COPYING` file and no license mention in the README, `package.json` or the Arabic portal.",
+      "costUsd": 0.0625782,
+      "turns": 3,
+      "resultSubtype": "success",
+      "checks": {
+        "noTrigger": {
+          "pass": true,
+          "forbidden": [
+            "tarasuf-engine-development",
+            "tarasuf-accounting-review",
+            "tarasuf-adversarial-testing",
+            "tarasuf-privacy-security",
+            "tarasuf-source-evidence",
+            "tarasuf-regression-release",
+            "tarasuf-product-workflow",
+            "tarasuf-ai-integration"
+          ]
+        }
+      }
+    },
+    {
+      "id": "h-none-2",
+      "skill": null,
+      "kind": "trigger-negative",
+      "arm": "with",
+      "seconds": 6,
+      "exit": 0,
+      "projectSkillsLoaded": 8,
+      "invoked": [],
+      "readSkillFiles": [],
+      "toolCalls": 0,
+      "denials": [],
+      "final": "فريقنا الكريم،\n\nبكل امتنان نشكركم على جهودكم الاستثنائية التي أثمرت إطلاق الإصدار الجديد. لقد جمعتم بين الدقة والالتزام والتعاون، وكان لكل واحد منكم أثر واضح في هذا الإنجاز.\n\nنقدّر الوقت والجهد الذي بذلتموه، ونفخر بالعمل معكم، ونتطلع إلى خطوات أخرى ناجحة معًا.\n\nشكرًا لكم من القلب.",
+      "costUsd": 0.0561425,
+      "turns": 1,
+      "resultSubtype": "success",
+      "checks": {
+        "noTrigger": {
+          "pass": true,
+          "forbidden": [
+            "tarasuf-engine-development",
+            "tarasuf-accounting-review",
+            "tarasuf-adversarial-testing",
+            "tarasuf-privacy-security",
+            "tarasuf-source-evidence",
+            "tarasuf-regression-release",
+            "tarasuf-product-workflow",
+            "tarasuf-ai-integration"
+          ]
+        }
+      }
+    },
+    {
+      "id": "h-none-3",
+      "skill": null,
+      "kind": "trigger-negative",
+      "arm": "with",
+      "seconds": 6,
+      "exit": 0,
+      "projectSkillsLoaded": 8,
+      "invoked": [],
+      "readSkillFiles": [],
+      "toolCalls": 0,
+      "denials": [],
+      "final": "A Git worktree is an additional working directory linked to the same repository, so you can have multiple branches checked out at once in separate folders without cloning the repo again. All worktrees share one `.git` object database and history, which lets you switch between tasks (like a hotfix and a feature) without stashing or losing your in-progress changes.",
+      "costUsd": 0.0551945,
+      "turns": 1,
+      "resultSubtype": "success",
+      "checks": {
+        "noTrigger": {
+          "pass": true,
+          "forbidden": [
+            "tarasuf-engine-development",
+            "tarasuf-accounting-review",
+            "tarasuf-adversarial-testing",
+            "tarasuf-privacy-security",
+            "tarasuf-source-evidence",
+            "tarasuf-regression-release",
+            "tarasuf-product-workflow",
+            "tarasuf-ai-integration"
+          ]
+        }
+      }
+    },
+    {
+      "id": "h-none-4",
+      "skill": null,
+      "kind": "trigger-negative",
+      "arm": "with",
+      "seconds": 8,
+      "exit": 0,
+      "projectSkillsLoaded": 8,
+      "invoked": [],
+      "readSkillFiles": [],
+      "toolCalls": 1,
+      "denials": [],
+      "final": "يحتوي مجلد `docs/roadmap` على **18 ملف Markdown**، وكلها في المستوى الأول من المجلد، ولا توجد مجلدات فرعية تحتوي على ملفات `.md`.",
+      "costUsd": 0.060959099999999995,
+      "turns": 2,
+      "resultSubtype": "success",
+      "checks": {
+        "noTrigger": {
+          "pass": true,
+          "forbidden": [
+            "tarasuf-engine-development",
+            "tarasuf-accounting-review",
+            "tarasuf-adversarial-testing",
+            "tarasuf-privacy-security",
+            "tarasuf-source-evidence",
+            "tarasuf-regression-release",
+            "tarasuf-product-workflow",
+            "tarasuf-ai-integration"
+          ]
+        }
+      }
+    }
+  ]
+}

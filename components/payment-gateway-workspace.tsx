@@ -1,4 +1,5 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
+import { PaymentGatewayBatchesPanel } from '@/components/payment-gateway-batches-panel';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -730,6 +731,7 @@ export function GatewayWorkspace({
             </details>
           </section>
         )}
+        <PaymentGatewayBatchesPanel />
       </section>
     </div>
   );

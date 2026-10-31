@@ -56,8 +56,14 @@ const mutations = [
   {
     name: 'accept-invalid-surrogate-pair',
     file: generated,
-    from: 'if(i<56320||i>57343)throw new FormatError$1(`Invalid ToUnicode pair`);',
-    to: '',
+    from: 'if(n>56319||i<56320||i>57343){r.push(65533);continue}',
+    to: 'if(n>56319||i<0){r.push(65533);continue}',
+  },
+  {
+    name: 'drop-unpaired-surrogate',
+    file: generated,
+    from: '{r.push(65533);continue}',
+    to: '{continue}',
   },
   {
     name: 'pad-odd-utf16-source-bytes',

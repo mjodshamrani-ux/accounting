@@ -1,0 +1,35 @@
+{
+ "names": [
+  "O02-register.csv",
+  "O02-map.csv",
+  "O02-gl.csv"
+ ],
+ "readings": [
+  {
+   "sheet": 0,
+   "role": "register-sections",
+   "family": "fixed-assets-sections-1",
+   "confirmed": true
+  },
+  {
+   "sheet": 0,
+   "role": "category-map",
+   "family": "fixed-assets-sections-1",
+   "confirmed": true
+  },
+  {
+   "sheet": 0,
+   "role": "gl-balances",
+   "family": "fixed-assets-sections-1",
+   "confirmed": true
+  }
+ ],
+ "scope": {
+  "entity": "Synthetic Sohar Freight LLC",
+  "assetLedger": "FAR-LOG",
+  "glLedger": "GL-LOG",
+  "currency": "OMR",
+  "asOf": "2028-09-30",
+  "confirmed": true
+ }
+}

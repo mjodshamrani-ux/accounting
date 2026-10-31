@@ -24,6 +24,7 @@ import {
   type FinancialEvent,
 } from '@/lib/reconciliation/tb-financial';
 import { financialDemo } from '@/lib/reconciliation/tb-financial-demo';
+import { TbFinancialHierarchyPanel } from '@/components/tb-financial-hierarchy-panel';
 import './gl-tb-workspace.css';
 const emptyScope = (): FinancialScope => ({
   entity: '',
@@ -785,6 +786,7 @@ export function FinancialWorkspace({
             </details>
           </section>
         )}
+        <TbFinancialHierarchyPanel />
       </section>
     </div>
   );

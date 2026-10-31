@@ -1,0 +1,506 @@
+{
+ "holdout": "audit/bank-tolerance-foundation",
+ "summary": {
+  "stories": 23,
+  "equal": 9,
+  "policyTaken": 0,
+  "policyRefused": 22,
+  "refusalsExpected": 4,
+  "toleratedExpected": 16,
+  "toleratedByProduct": 0,
+  "sameMembers": 19,
+  "errors": 0
+ },
+ "stories": {
+  "T01": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "refused": null,
+   "casesSameMembers": true,
+   "casesAsExpected": 4,
+   "cases": 5,
+   "toleratedExpected": [
+    [
+     "C5",
+     "amount-difference",
+     "needs-review"
+    ]
+   ],
+   "sheet": {
+    "status": "draft",
+    "difference": 0
+   },
+   "expectedSheet": {
+    "status": "reconciled-within-tolerance",
+    "difference": 1,
+    "tolerated": 1,
+    "unexplained": 0
+   },
+   "equal": false
+  },
+  "T02": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "refused": null,
+   "casesSameMembers": true,
+   "casesAsExpected": 5,
+   "cases": 5,
+   "toleratedExpected": [],
+   "sheet": {
+    "status": "draft",
+    "difference": 0
+   },
+   "expectedSheet": {
+    "status": "draft",
+    "difference": 0,
+    "tolerated": 0,
+    "unexplained": 0
+   },
+   "equal": true
+  },
+  "T03": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "refused": null,
+   "casesSameMembers": true,
+   "casesAsExpected": 4,
+   "cases": 5,
+   "toleratedExpected": [
+    [
+     "C5",
+     "amount-difference",
+     "needs-review"
+    ]
+   ],
+   "sheet": {
+    "status": "draft",
+    "difference": 0
+   },
+   "expectedSheet": {
+    "status": "reconciled-within-tolerance",
+    "difference": 5,
+    "tolerated": 5,
+    "unexplained": 0
+   },
+   "equal": false
+  },
+  "T04": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "refused": null,
+   "casesSameMembers": true,
+   "casesAsExpected": 6,
+   "cases": 6,
+   "toleratedExpected": [],
+   "sheet": {
+    "status": "draft",
+    "difference": 0
+   },
+   "expectedSheet": {
+    "status": "draft",
+    "difference": 0,
+    "tolerated": 0,
+    "unexplained": 0
+   },
+   "equal": true
+  },
+  "T05": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "refused": null,
+   "casesSameMembers": true,
+   "casesAsExpected": 6,
+   "cases": 6,
+   "toleratedExpected": [],
+   "sheet": {
+    "status": "draft",
+    "difference": 0
+   },
+   "expectedSheet": {
+    "status": "draft",
+    "difference": 0,
+    "tolerated": 0,
+    "unexplained": 0
+   },
+   "equal": true
+  },
+  "T06": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "refused": null,
+   "casesSameMembers": true,
+   "casesAsExpected": 4,
+   "cases": 6,
+   "toleratedExpected": [
+    [
+     "C5",
+     "amount-difference",
+     "needs-review"
+    ],
+    [
+     "C6",
+     "amount-difference",
+     "needs-review"
+    ]
+   ],
+   "sheet": {
+    "status": "draft",
+    "difference": 0
+   },
+   "expectedSheet": {
+    "status": "reconciled-within-tolerance",
+    "difference": 2,
+    "tolerated": 2,
+    "unexplained": 0
+   },
+   "equal": false
+  },
+  "T07": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "decisions": 1,
+   "refused": null,
+   "casesSameMembers": true,
+   "casesAsExpected": 5,
+   "cases": 6,
+   "toleratedExpected": [
+    [
+     "C5",
+     "amount-difference",
+     "needs-review"
+    ]
+   ],
+   "sheet": {
+    "status": "draft",
+    "difference": 0
+   },
+   "expectedSheet": {
+    "status": "reconciled-within-tolerance",
+    "difference": 1,
+    "tolerated": 1,
+    "unexplained": 0
+   },
+   "equal": false
+  },
+  "T08": {
+   "policy": "none",
+   "refused": null,
+   "casesSameMembers": true,
+   "casesAsExpected": 5,
+   "cases": 5,
+   "toleratedExpected": [],
+   "sheet": {
+    "status": "draft",
+    "difference": 0
+   },
+   "expectedSheet": {
+    "status": "draft",
+    "difference": 0,
+    "tolerated": 0,
+    "unexplained": 0
+   },
+   "equal": true
+  },
+  "T09": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "refused": null,
+   "casesSameMembers": true,
+   "casesAsExpected": 4,
+   "cases": 4,
+   "toleratedExpected": [],
+   "sheet": {
+    "status": "reconciled",
+    "difference": 0
+   },
+   "expectedSheet": {
+    "status": "reconciled",
+    "difference": 0,
+    "tolerated": 0,
+    "unexplained": 0
+   },
+   "equal": true
+  },
+  "T10": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "refused": null,
+   "casesSameMembers": true,
+   "casesAsExpected": 5,
+   "cases": 5,
+   "toleratedExpected": [],
+   "sheet": {
+    "status": "draft",
+    "difference": 0
+   },
+   "expectedSheet": {
+    "status": "draft",
+    "difference": 0,
+    "tolerated": 0,
+    "unexplained": 0
+   },
+   "equal": true
+  },
+  "T11": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "refused": null,
+   "casesSameMembers": true,
+   "casesAsExpected": 5,
+   "cases": 5,
+   "toleratedExpected": [],
+   "sheet": {
+    "status": "draft",
+    "difference": 0
+   },
+   "expectedSheet": {
+    "status": "draft",
+    "difference": 0,
+    "tolerated": 0,
+    "unexplained": 0
+   },
+   "equal": true
+  },
+  "T12": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "refused": null,
+   "casesSameMembers": true,
+   "casesAsExpected": 5,
+   "cases": 5,
+   "toleratedExpected": [],
+   "sheet": {
+    "status": "draft",
+    "difference": 0
+   },
+   "expectedSheet": {
+    "status": "draft",
+    "difference": 0,
+    "tolerated": 0,
+    "unexplained": 0
+   },
+   "equal": true
+  },
+  "T13": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "decisions": 1,
+   "refused": null,
+   "casesSameMembers": true,
+   "casesAsExpected": 4,
+   "cases": 5,
+   "toleratedExpected": [],
+   "sheet": {
+    "status": "reconciled",
+    "difference": 0
+   },
+   "expectedSheet": {
+    "status": "reconciled",
+    "difference": 0,
+    "tolerated": 0,
+    "unexplained": 0
+   },
+   "equal": false
+  },
+  "T14": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "decisions": 2,
+   "refused": null,
+   "casesSameMembers": true,
+   "casesAsExpected": 4,
+   "cases": 5,
+   "toleratedExpected": [
+    [
+     "C5",
+     "amount-difference",
+     "needs-review"
+    ]
+   ],
+   "sheet": {
+    "status": "draft",
+    "difference": 0
+   },
+   "expectedSheet": {
+    "status": "reconciled-within-tolerance",
+    "difference": 1,
+    "tolerated": 1,
+    "unexplained": 0
+   },
+   "equal": false
+  },
+  "T15": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "decisions": 1,
+   "refused": "DECISION",
+   "sheet": {
+    "status": "reconciled",
+    "difference": 0
+   },
+   "equal": false
+  },
+  "T16": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "refused": "TOLERANCE:PER_ITEM",
+   "sheet": {
+    "status": "draft",
+    "difference": 0
+   },
+   "equal": false
+  },
+  "T17": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "refused": "TOLERANCE:PER_PERIOD",
+   "sheet": {
+    "status": "draft",
+    "difference": 0
+   },
+   "equal": false
+  },
+  "T18": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "refused": "TOLERANCE:NOTE",
+   "sheet": {
+    "status": "draft",
+    "difference": 0
+   },
+   "equal": false
+  },
+  "T19": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "refused": null,
+   "casesSameMembers": true,
+   "casesAsExpected": 14,
+   "cases": 17,
+   "toleratedExpected": [
+    [
+     "C15",
+     "amount-difference",
+     "needs-review"
+    ],
+    [
+     "C16",
+     "amount-difference",
+     "needs-review"
+    ],
+    [
+     "C17",
+     "amount-difference",
+     "needs-review"
+    ]
+   ],
+   "sheet": {
+    "status": "draft",
+    "difference": 0
+   },
+   "expectedSheet": {
+    "status": "reconciled-within-tolerance",
+    "difference": 0,
+    "tolerated": 0,
+    "unexplained": 0
+   },
+   "equal": false
+  },
+  "T20": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "refused": null,
+   "casesSameMembers": true,
+   "casesAsExpected": 4,
+   "cases": 5,
+   "toleratedExpected": [
+    [
+     "C5",
+     "amount-difference",
+     "needs-review"
+    ]
+   ],
+   "sheet": {
+    "status": "draft",
+    "difference": 0
+   },
+   "expectedSheet": {
+    "status": "reconciled-within-tolerance",
+    "difference": -1,
+    "tolerated": -1,
+    "unexplained": 0
+   },
+   "equal": false
+  },
+  "T21": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "refused": null,
+   "casesSameMembers": true,
+   "casesAsExpected": 40,
+   "cases": 45,
+   "toleratedExpected": [
+    [
+     "C41",
+     "amount-difference",
+     "needs-review"
+    ],
+    [
+     "C42",
+     "amount-difference",
+     "needs-review"
+    ],
+    [
+     "C43",
+     "amount-difference",
+     "needs-review"
+    ],
+    [
+     "C44",
+     "amount-difference",
+     "needs-review"
+    ],
+    [
+     "C45",
+     "amount-difference",
+     "needs-review"
+    ]
+   ],
+   "sheet": {
+    "status": "draft",
+    "difference": 0
+   },
+   "expectedSheet": {
+    "status": "reconciled-within-tolerance",
+    "difference": 0,
+    "tolerated": 0,
+    "unexplained": 0
+   },
+   "equal": false
+  },
+  "T22": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "refused": null,
+   "casesSameMembers": true,
+   "casesAsExpected": 6,
+   "cases": 6,
+   "toleratedExpected": [],
+   "sheet": {
+    "status": "reconciled",
+    "difference": 0
+   },
+   "expectedSheet": {
+    "status": "reconciled",
+    "difference": 0,
+    "tolerated": 0,
+    "unexplained": 0
+   },
+   "equal": true
+  },
+  "T23": {
+   "policy": "refused: BANK_STATEMENT_INPUT",
+   "refused": null,
+   "casesSameMembers": true,
+   "casesAsExpected": 4,
+   "cases": 5,
+   "toleratedExpected": [
+    [
+     "C5",
+     "amount-difference",
+     "needs-review"
+    ]
+   ],
+   "sheet": {
+    "status": "draft",
+    "difference": 5000
+   },
+   "expectedSheet": {
+    "status": "difference",
+    "difference": 5001,
+    "tolerated": 1,
+    "unexplained": 5000
+   },
+   "equal": false
+  }
+ }
+}

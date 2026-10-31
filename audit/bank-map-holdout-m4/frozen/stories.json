@@ -1,0 +1,1542 @@
+{
+ "version": "bank-map-holdout-m4-1",
+ "sources": {
+  "H": "bank-roll-holdout-w4",
+  "K": "bank-sheet-holdout-r4",
+  "R": "bank-review-holdout-r3"
+ },
+ "stories": [
+  {
+   "id": "P01",
+   "title": "openpyxl: the map saved in December reads January",
+   "actions": [
+    {
+     "do": "read",
+     "period": "H01-DEC",
+     "source": "bank-roll-holdout-w4",
+     "file": "P01-DEC-cashbook.xlsx",
+     "by": "hand",
+     "header": 5,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 3,
+      "reference": 4,
+      "receipts": 5,
+      "payments": 6
+     },
+     "save": "Northwind current"
+    },
+    {
+     "do": "read",
+     "period": "H01-JAN",
+     "source": "bank-roll-holdout-w4",
+     "file": "P01-JAN-cashbook.xlsx",
+     "by": "map",
+     "map": "Northwind current"
+    }
+   ],
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Northwind current"
+     ],
+     "above": 4,
+     "unread": [
+      "Running Balance"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Northwind current"
+     ]
+    }
+   ],
+   "recipe": {
+    "P01-DEC-cashbook.xlsx": {
+     "writer": "openpyxl",
+     "layout": "ERP1",
+     "header": 5
+    },
+    "P01-JAN-cashbook.xlsx": {
+     "writer": "openpyxl",
+     "layout": "ERP1",
+     "header": 5
+    }
+   }
+  },
+  {
+   "id": "P02",
+   "title": "A map saved on an XlsxWriter file reads a LibreOffice file of the same layout",
+   "actions": [
+    {
+     "do": "read",
+     "period": "H02-JAN",
+     "source": "bank-roll-holdout-w4",
+     "file": "P02-JAN-cashbook.xlsx",
+     "by": "hand",
+     "header": 2,
+     "columns": {
+      "date": 2,
+      "voucher": 4,
+      "description": 5,
+      "reference": 6,
+      "receipts": 7,
+      "payments": 8
+     },
+     "save": "GL 1020"
+    },
+    {
+     "do": "read",
+     "period": "H02-FEB",
+     "source": "bank-roll-holdout-w4",
+     "file": "P02-FEB-cashbook.xlsx",
+     "by": "map",
+     "map": "GL 1020"
+    }
+   ],
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "GL 1020"
+     ],
+     "above": 1,
+     "unread": [
+      "Line",
+      "Journal",
+      "Cost Centre"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "GL 1020"
+     ]
+    }
+   ],
+   "recipe": {
+    "P02-JAN-cashbook.xlsx": {
+     "writer": "xlsxwriter",
+     "layout": "ERP2",
+     "header": 2
+    },
+    "P02-FEB-cashbook.xlsx": {
+     "writer": "libreoffice",
+     "layout": "ERP2",
+     "header": 2
+    }
+   }
+  },
+  {
+   "id": "P03",
+   "title": "exceljs: Arabic labels and an Arabic map name",
+   "actions": [
+    {
+     "do": "read",
+     "period": "H03-FEB",
+     "source": "bank-roll-holdout-w4",
+     "file": "P03-FEB-cashbook.xlsx",
+     "by": "hand",
+     "header": 4,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 3,
+      "reference": 4,
+      "receipts": 5,
+      "payments": 6
+     },
+     "save": "الحساب الجاري ٢"
+    },
+    {
+     "do": "read",
+     "period": "H03-MAR",
+     "source": "bank-roll-holdout-w4",
+     "file": "P03-MAR-cashbook.xlsx",
+     "by": "map",
+     "map": "الحساب الجاري ٢"
+    }
+   ],
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "الحساب الجاري ٢"
+     ],
+     "above": 3,
+     "unread": [
+      "الرصيد"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "الحساب الجاري ٢"
+     ]
+    }
+   ],
+   "recipe": {
+    "P03-FEB-cashbook.xlsx": {
+     "writer": "exceljs",
+     "layout": "AR2",
+     "header": 4
+    },
+    "P03-MAR-cashbook.xlsx": {
+     "writer": "exceljs",
+     "layout": "AR2",
+     "header": 4
+    }
+   }
+  },
+  {
+   "id": "P04",
+   "title": "A value-date column inserted in the third month: the map no longer fits",
+   "actions": [
+    {
+     "do": "read",
+     "period": "H04-NOV",
+     "source": "bank-roll-holdout-w4",
+     "file": "P04-NOV-cashbook.xlsx",
+     "by": "hand",
+     "header": 5,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 3,
+      "reference": 4,
+      "receipts": 5,
+      "payments": 6
+     },
+     "save": "Northwind current"
+    },
+    {
+     "do": "read",
+     "period": "H04-DEC",
+     "source": "bank-roll-holdout-w4",
+     "file": "P04-DEC-cashbook.xlsx",
+     "by": "map",
+     "map": "Northwind current"
+    },
+    {
+     "do": "read",
+     "period": "H04-JAN",
+     "source": "bank-roll-holdout-w4",
+     "file": "P04-JAN-cashbook.xlsx",
+     "by": "map",
+     "map": "Northwind current"
+    },
+    {
+     "do": "read",
+     "period": "H04-JAN",
+     "source": "bank-roll-holdout-w4",
+     "file": "P04-JAN-cashbook.xlsx",
+     "by": "hand",
+     "header": 5,
+     "columns": {
+      "date": 1,
+      "voucher": 3,
+      "description": 4,
+      "reference": 5,
+      "receipts": 6,
+      "payments": 7
+     }
+    }
+   ],
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Northwind current"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Northwind current"
+     ]
+    },
+    {
+     "fits": false,
+     "problems": [
+      [
+       "voucher",
+       "Value Date",
+       [
+        "C5"
+       ]
+      ],
+      [
+       "description",
+       "Doc. No.",
+       [
+        "D5"
+       ]
+      ],
+      [
+       "reference",
+       "Narrative",
+       [
+        "E5"
+       ]
+      ],
+      [
+       "receipts",
+       "Cheque / Ref.",
+       [
+        "F5"
+       ]
+      ],
+      [
+       "payments",
+       "Money In",
+       [
+        "G5"
+       ]
+      ]
+     ],
+     "store": [
+      "Northwind current"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Northwind current"
+     ],
+     "unread": [
+      "Value Date",
+      "Running Balance"
+     ]
+    }
+   ],
+   "recipe": {
+    "P04-NOV-cashbook.xlsx": {
+     "writer": "libreoffice",
+     "layout": "ERP1",
+     "header": 5
+    },
+    "P04-DEC-cashbook.xlsx": {
+     "writer": "libreoffice",
+     "layout": "ERP1",
+     "header": 5
+    },
+    "P04-JAN-cashbook.xlsx": {
+     "writer": "libreoffice",
+     "layout": "ERP1_INSERTED",
+     "header": 5
+    }
+   }
+  },
+  {
+   "id": "P05",
+   "title": "A second title line moves the header row down a row",
+   "actions": [
+    {
+     "do": "read",
+     "period": "H05-DEC",
+     "source": "bank-roll-holdout-w4",
+     "file": "P05-DEC-cashbook.xlsx",
+     "by": "hand",
+     "header": 2,
+     "columns": {
+      "date": 2,
+      "voucher": 4,
+      "description": 5,
+      "reference": 6,
+      "receipts": 7,
+      "payments": 8
+     },
+     "save": "GL 1020"
+    },
+    {
+     "do": "read",
+     "period": "H05-JAN",
+     "source": "bank-roll-holdout-w4",
+     "file": "P05-JAN-cashbook.xlsx",
+     "by": "map",
+     "map": "GL 1020"
+    },
+    {
+     "do": "read",
+     "period": "H05-JAN",
+     "source": "bank-roll-holdout-w4",
+     "file": "P05-JAN-cashbook.xlsx",
+     "by": "hand",
+     "header": 3,
+     "columns": {
+      "date": 2,
+      "voucher": 4,
+      "description": 5,
+      "reference": 6,
+      "receipts": 7,
+      "payments": 8
+     }
+    }
+   ],
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "GL 1020"
+     ]
+    },
+    {
+     "fits": false,
+     "problems": [
+      [
+       "date",
+       "",
+       [
+        "B3"
+       ]
+      ],
+      [
+       "voucher",
+       "",
+       [
+        "D3"
+       ]
+      ],
+      [
+       "description",
+       "",
+       [
+        "E3"
+       ]
+      ],
+      [
+       "reference",
+       "",
+       [
+        "F3"
+       ]
+      ],
+      [
+       "receipts",
+       "",
+       [
+        "G3"
+       ]
+      ],
+      [
+       "payments",
+       "",
+       [
+        "H3"
+       ]
+      ]
+     ],
+     "store": [
+      "GL 1020"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "GL 1020"
+     ],
+     "above": 2
+    }
+   ],
+   "recipe": {
+    "P05-DEC-cashbook.xlsx": {
+     "writer": "xlsxwriter",
+     "layout": "ERP2",
+     "header": 2
+    },
+    "P05-JAN-cashbook.xlsx": {
+     "writer": "xlsxwriter",
+     "layout": "ERP2",
+     "header": 3
+    }
+   }
+  },
+  {
+   "id": "P06",
+   "title": "Labels with no-break and doubled spaces fit the same labels written plainly",
+   "actions": [
+    {
+     "do": "read",
+     "period": "H06-DEC",
+     "source": "bank-roll-holdout-w4",
+     "file": "P06-DEC-cashbook.xlsx",
+     "by": "hand",
+     "header": 1,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 3,
+      "reference": 4,
+      "receipts": 5,
+      "payments": 6
+     },
+     "save": "Northwind NB"
+    },
+    {
+     "do": "read",
+     "period": "H06-JAN",
+     "source": "bank-roll-holdout-w4",
+     "file": "P06-JAN-cashbook.xlsx",
+     "by": "map",
+     "map": "Northwind NB"
+    }
+   ],
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Northwind NB"
+     ],
+     "above": 0,
+     "unread": []
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Northwind NB"
+     ]
+    }
+   ],
+   "recipe": {
+    "P06-DEC-cashbook.xlsx": {
+     "writer": "openpyxl",
+     "layout": "NB",
+     "header": 1
+    },
+    "P06-JAN-cashbook.xlsx": {
+     "writer": "exceljs",
+     "layout": "NB_PLAIN",
+     "header": 1
+    }
+   }
+  },
+  {
+   "id": "P07",
+   "title": "CSV with a byte order mark before the header",
+   "actions": [
+    {
+     "do": "read",
+     "period": "H07-JAN",
+     "source": "bank-roll-holdout-w4",
+     "file": "P07-JAN-cashbook.csv",
+     "by": "hand",
+     "header": 1,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 3,
+      "reference": 4,
+      "receipts": 5,
+      "payments": 6
+     },
+     "save": "Bank CSV"
+    },
+    {
+     "do": "read",
+     "period": "H07-FEB",
+     "source": "bank-roll-holdout-w4",
+     "file": "P07-FEB-cashbook.csv",
+     "by": "map",
+     "map": "Bank CSV"
+    }
+   ],
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Bank CSV"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Bank CSV"
+     ]
+    }
+   ],
+   "recipe": {
+    "P07-JAN-cashbook.csv": {
+     "writer": "csv",
+     "bom": true,
+     "layout": "CSV2",
+     "header": 1
+    },
+    "P07-FEB-cashbook.csv": {
+     "writer": "csv",
+     "bom": true,
+     "layout": "CSV2",
+     "header": 1
+    }
+   }
+  },
+  {
+   "id": "P08",
+   "title": "Amount labels in capitals are other labels",
+   "actions": [
+    {
+     "do": "read",
+     "period": "H08-DEC",
+     "source": "bank-roll-holdout-w4",
+     "file": "P08-DEC-cashbook.xlsx",
+     "by": "hand",
+     "header": 5,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 3,
+      "reference": 4,
+      "receipts": 5,
+      "payments": 6
+     },
+     "save": "Northwind current"
+    },
+    {
+     "do": "read",
+     "period": "H08-JAN",
+     "source": "bank-roll-holdout-w4",
+     "file": "P08-JAN-cashbook.xlsx",
+     "by": "map",
+     "map": "Northwind current"
+    },
+    {
+     "do": "read",
+     "period": "H08-JAN",
+     "source": "bank-roll-holdout-w4",
+     "file": "P08-JAN-cashbook.xlsx",
+     "by": "hand",
+     "header": 5,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 3,
+      "reference": 4,
+      "receipts": 5,
+      "payments": 6
+     },
+     "save": "Northwind current"
+    }
+   ],
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Northwind current"
+     ]
+    },
+    {
+     "fits": false,
+     "problems": [
+      [
+       "receipts",
+       "MONEY IN",
+       []
+      ],
+      [
+       "payments",
+       "MONEY OUT",
+       []
+      ]
+     ],
+     "store": [
+      "Northwind current"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Northwind current"
+     ]
+    }
+   ],
+   "recipe": {
+    "P08-DEC-cashbook.xlsx": {
+     "writer": "exceljs",
+     "layout": "ERP1",
+     "header": 5
+    },
+    "P08-JAN-cashbook.xlsx": {
+     "writer": "exceljs",
+     "layout": "ERP1_UPPER",
+     "header": 5
+    }
+   }
+  },
+  {
+   "id": "P09",
+   "title": "A second sheet: neither the map nor a choice by hand reads the file",
+   "actions": [
+    {
+     "do": "read",
+     "period": "H09-DEC",
+     "source": "bank-roll-holdout-w4",
+     "file": "P09-DEC-cashbook.xlsx",
+     "by": "hand",
+     "header": 2,
+     "columns": {
+      "date": 2,
+      "voucher": 4,
+      "description": 5,
+      "reference": 6,
+      "receipts": 7,
+      "payments": 8
+     },
+     "save": "GL 1020"
+    },
+    {
+     "do": "read",
+     "period": "H09-JAN",
+     "source": "bank-roll-holdout-w4",
+     "file": "P09-JAN-cashbook.xlsx",
+     "by": "map",
+     "map": "GL 1020"
+    },
+    {
+     "do": "read",
+     "period": "H09-JAN",
+     "source": "bank-roll-holdout-w4",
+     "file": "P09-JAN-cashbook.xlsx",
+     "by": "hand",
+     "header": 2,
+     "columns": {
+      "date": 2,
+      "voucher": 4,
+      "description": 5,
+      "reference": 6,
+      "receipts": 7,
+      "payments": 8
+     }
+    }
+   ],
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "GL 1020"
+     ]
+    },
+    {
+     "fits": false,
+     "problems": [
+      "sheets"
+     ],
+     "store": [
+      "GL 1020"
+     ]
+    },
+    {
+     "fits": false,
+     "problems": [
+      "sheets"
+     ],
+     "store": [
+      "GL 1020"
+     ]
+    }
+   ],
+   "recipe": {
+    "P09-DEC-cashbook.xlsx": {
+     "writer": "libreoffice",
+     "layout": "ERP2",
+     "header": 2
+    },
+    "P09-JAN-cashbook.xlsx": {
+     "writer": "libreoffice",
+     "layout": "ERP2",
+     "header": 2,
+     "sheets": 2
+    }
+   }
+  },
+  {
+   "id": "P10",
+   "title": "Only the required roles have columns",
+   "actions": [
+    {
+     "do": "read",
+     "period": "H10-FEB",
+     "source": "bank-roll-holdout-w4",
+     "file": "P10-FEB-cashbook.xlsx",
+     "by": "hand",
+     "header": 1,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": null,
+      "reference": null,
+      "receipts": 4,
+      "payments": 5
+     },
+     "save": "Deposits ledger"
+    },
+    {
+     "do": "read",
+     "period": "H10-MAR",
+     "source": "bank-roll-holdout-w4",
+     "file": "P10-MAR-cashbook.xlsx",
+     "by": "map",
+     "map": "Deposits ledger"
+    }
+   ],
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": null,
+     "store": [
+      "Deposits ledger"
+     ],
+     "unread": [
+      "Closing"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": null,
+     "store": [
+      "Deposits ledger"
+     ]
+    }
+   ],
+   "recipe": {
+    "P10-FEB-cashbook.xlsx": {
+     "writer": "xlsxwriter",
+     "layout": "MIN",
+     "header": 1
+    },
+    "P10-MAR-cashbook.xlsx": {
+     "writer": "xlsxwriter",
+     "layout": "MIN",
+     "header": 1
+    }
+   }
+  },
+  {
+   "id": "P11",
+   "title": "A hidden column that no role reads",
+   "actions": [
+    {
+     "do": "read",
+     "period": "K10-DEC",
+     "source": "bank-sheet-holdout-r4",
+     "file": "P11-DEC-cashbook.xlsx",
+     "by": "hand",
+     "header": 4,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 3,
+      "reference": 4,
+      "receipts": 5,
+      "payments": 6
+     },
+     "save": "حساب التحصيل ٣"
+    },
+    {
+     "do": "read",
+     "period": "K10-JAN",
+     "source": "bank-sheet-holdout-r4",
+     "file": "P11-JAN-cashbook.xlsx",
+     "by": "map",
+     "map": "حساب التحصيل ٣"
+    }
+   ],
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "حساب التحصيل ٣"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "حساب التحصيل ٣"
+     ]
+    }
+   ],
+   "recipe": {
+    "P11-DEC-cashbook.xlsx": {
+     "writer": "libreoffice",
+     "layout": "AR2",
+     "header": 4,
+     "hidden": [
+      7
+     ]
+    },
+    "P11-JAN-cashbook.xlsx": {
+     "writer": "libreoffice",
+     "layout": "AR2",
+     "header": 4,
+     "hidden": [
+      7
+     ]
+    }
+   }
+  },
+  {
+   "id": "P12",
+   "title": "A hidden column that a role reads refuses the cashbook at its header row",
+   "actions": [
+    {
+     "do": "read",
+     "period": "K11-FEB",
+     "source": "bank-sheet-holdout-r4",
+     "file": "P12-FEB-cashbook.xlsx",
+     "by": "hand",
+     "header": 5,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 3,
+      "reference": 4,
+      "receipts": 5,
+      "payments": 6
+     }
+    }
+   ],
+   "intent": [
+    {
+     "fits": true,
+     "refused": [
+      "CELL",
+      5
+     ],
+     "store": []
+    }
+   ],
+   "recipe": {
+    "P12-FEB-cashbook.xlsx": {
+     "writer": "openpyxl",
+     "layout": "ERP1",
+     "header": 5,
+     "hidden": [
+      4
+     ]
+    }
+   }
+  },
+  {
+   "id": "P13",
+   "title": "Amounts typed with a thousands format are read as typed",
+   "actions": [
+    {
+     "do": "read",
+     "period": "K12-DEC",
+     "source": "bank-sheet-holdout-r4",
+     "file": "P13-DEC-cashbook.xlsx",
+     "by": "hand",
+     "header": 2,
+     "columns": {
+      "date": 2,
+      "voucher": 4,
+      "description": 5,
+      "reference": 6,
+      "receipts": 7,
+      "payments": 8
+     }
+    }
+   ],
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": []
+    }
+   ],
+   "recipe": {
+    "P13-DEC-cashbook.xlsx": {
+     "writer": "exceljs",
+     "layout": "ERP2",
+     "header": 2,
+     "amounts": "#,##0.00"
+    }
+   }
+  },
+  {
+   "id": "P14",
+   "title": "A totals row under the entries refuses the cashbook at that row",
+   "actions": [
+    {
+     "do": "read",
+     "period": "K13-JAN",
+     "source": "bank-sheet-holdout-r4",
+     "file": "P14-JAN-cashbook.xlsx",
+     "by": "hand",
+     "header": 5,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 3,
+      "reference": 4,
+      "receipts": 5,
+      "payments": 6
+     }
+    }
+   ],
+   "intent": [
+    {
+     "fits": true,
+     "refused": [
+      "AMOUNT",
+      12
+     ],
+     "store": []
+    }
+   ],
+   "recipe": {
+    "P14-JAN-cashbook.xlsx": {
+     "writer": "xlsxwriter",
+     "layout": "ERP1",
+     "header": 5,
+     "totals": true
+    }
+   }
+  },
+  {
+   "id": "P15",
+   "title": "An opening balance line refuses the cashbook at that line",
+   "actions": [
+    {
+     "do": "read",
+     "period": "K14-DEC",
+     "source": "bank-sheet-holdout-r4",
+     "file": "P15-DEC-cashbook.xlsx",
+     "by": "hand",
+     "header": 5,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 3,
+      "reference": 4,
+      "receipts": 5,
+      "payments": 6
+     }
+    }
+   ],
+   "intent": [
+    {
+     "fits": true,
+     "refused": [
+      "AMOUNT",
+      6
+     ],
+     "store": []
+    }
+   ],
+   "recipe": {
+    "P15-DEC-cashbook.xlsx": {
+     "writer": "openpyxl",
+     "layout": "ERP1",
+     "header": 5,
+     "opening": true
+    }
+   }
+  },
+  {
+   "id": "P16",
+   "title": "Another program's file of the same map is the same map",
+   "actions": [
+    {
+     "do": "import",
+     "file": "P16-map.json"
+    },
+    {
+     "do": "read",
+     "period": "K15-JAN",
+     "source": "bank-sheet-holdout-r4",
+     "file": "P16-JAN-cashbook.xlsx",
+     "by": "map",
+     "map": "GL 1020"
+    }
+   ],
+   "intent": [
+    {
+     "accepted": true,
+     "store": [
+      "GL 1020"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "GL 1020"
+     ]
+    }
+   ],
+   "recipe": {
+    "P16-map.json": {
+     "map": "another program: key order, indent, CRLF, no final newline"
+    },
+    "P16-JAN-cashbook.xlsx": {
+     "writer": "libreoffice",
+     "layout": "ERP2",
+     "header": 2
+    }
+   }
+  },
+  {
+   "id": "P17",
+   "title": "Corrupt and odd maps; the valid one replaces the odd one of the same name",
+   "actions": [
+    {
+     "do": "import",
+     "file": "P17-map-bom-name81.json"
+    },
+    {
+     "do": "import",
+     "file": "P17-map-header-string.json"
+    },
+    {
+     "do": "import",
+     "file": "P17-map-column0.json"
+    },
+    {
+     "do": "import",
+     "file": "P17-map-extra-note.json"
+    },
+    {
+     "do": "import",
+     "file": "P17-map-no-format.json"
+    },
+    {
+     "do": "import",
+     "file": "P17-map-tab-label.json"
+    },
+    {
+     "do": "import",
+     "file": "P17-map-payments-null.json"
+    },
+    {
+     "do": "import",
+     "file": "P17-map-name-nfd.json"
+    },
+    {
+     "do": "import",
+     "file": "P17-map-label121.json"
+    },
+    {
+     "do": "import",
+     "file": "P17-map-number-name.json"
+    },
+    {
+     "do": "import",
+     "file": "P17-map-dup-header.json"
+    },
+    {
+     "do": "import",
+     "file": "P17-map-header-float.json"
+    },
+    {
+     "do": "import",
+     "file": "P17-map-description-null.json"
+    },
+    {
+     "do": "import",
+     "file": "P17-map.json"
+    },
+    {
+     "do": "read",
+     "period": "R08-APR",
+     "source": "bank-review-holdout-r3",
+     "file": "P17-APR-cashbook.xlsx",
+     "by": "map",
+     "map": "Northwind current"
+    },
+    {
+     "do": "export",
+     "map": "Northwind current"
+    }
+   ],
+   "intent": [
+    {
+     "accepted": false,
+     "code": "MAP_NAME",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_HEADER",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_COLUMN",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_KEYS",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_FORMAT",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_LABEL",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_COLUMN",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_NAME",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_LABEL",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_NAME",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_HEADER",
+     "store": []
+    },
+    {
+     "accepted": true,
+     "store": [
+      "Northwind current"
+     ]
+    },
+    {
+     "accepted": true,
+     "store": [
+      "Northwind current"
+     ]
+    },
+    {
+     "accepted": true,
+     "store": [
+      "Northwind current"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Northwind current"
+     ]
+    },
+    {
+     "equals": "P17-map.json",
+     "store": [
+      "Northwind current"
+     ]
+    }
+   ],
+   "recipe": {
+    "P17-map-bom-name81.json": {
+     "map": "a BOM is dropped; the name is too long"
+    },
+    "P17-map-header-string.json": {
+     "map": "a header row written as text"
+    },
+    "P17-map-column0.json": {
+     "map": "column 0"
+    },
+    "P17-map-extra-note.json": {
+     "map": "a key a map does not have"
+    },
+    "P17-map-no-format.json": {
+     "map": "the format key missing"
+    },
+    "P17-map-tab-label.json": {
+     "map": "a tab inside a label"
+    },
+    "P17-map-payments-null.json": {
+     "map": "a required role without a column"
+    },
+    "P17-map-name-nfd.json": {
+     "map": "a name not in NFC"
+    },
+    "P17-map-label121.json": {
+     "map": "a label too long"
+    },
+    "P17-map-number-name.json": {
+     "map": "a name that is a number"
+    },
+    "P17-map-dup-header.json": {
+     "map": "the last of two header keys is beyond 30"
+    },
+    "P17-map-header-float.json": {
+     "map": "5.0 is the integer 5 to JSON.parse"
+    },
+    "P17-map-description-null.json": {
+     "map": "an optional role left unread"
+    },
+    "P17-map.json": {
+     "map": "the valid map"
+    },
+    "P17-APR-cashbook.xlsx": {
+     "writer": "xlsxwriter",
+     "layout": "ERP1",
+     "header": 5
+    }
+   }
+  },
+  {
+   "id": "P18",
+   "title": "Declared headers are read as declared, in CSV and in XLSX",
+   "actions": [
+    {
+     "do": "read",
+     "period": "R02-APR",
+     "source": "bank-review-holdout-r3",
+     "file": "R02-APR-cashbook.csv",
+     "by": "declared",
+     "twin": true
+    },
+    {
+     "do": "read",
+     "period": "R03-MAY",
+     "source": "bank-review-holdout-r3",
+     "file": "P18-MAY-cashbook.xlsx",
+     "by": "declared"
+    }
+   ],
+   "intent": [
+    {
+     "refused": null,
+     "cases": "twin",
+     "store": []
+    },
+    {
+     "refused": null,
+     "cases": "twin",
+     "store": []
+    }
+   ],
+   "recipe": {
+    "P18-MAY-cashbook.xlsx": {
+     "writer": "openpyxl",
+     "layout": "DECLARED",
+     "header": 1
+    }
+   }
+  },
+  {
+   "id": "P19",
+   "title": "A reference column dropped: the map does not fit; by hand the reference is left unread",
+   "actions": [
+    {
+     "do": "read",
+     "period": "R05-APR",
+     "source": "bank-review-holdout-r3",
+     "file": "P19-APR-cashbook.xlsx",
+     "by": "hand",
+     "header": 5,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 3,
+      "reference": 4,
+      "receipts": 5,
+      "payments": 6
+     },
+     "save": "Northwind current"
+    },
+    {
+     "do": "read",
+     "period": "R06-MAY",
+     "source": "bank-review-holdout-r3",
+     "file": "P19-MAY-cashbook.xlsx",
+     "by": "map",
+     "map": "Northwind current"
+    },
+    {
+     "do": "read",
+     "period": "R06-MAY",
+     "source": "bank-review-holdout-r3",
+     "file": "P19-MAY-cashbook.xlsx",
+     "by": "hand",
+     "header": 5,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 3,
+      "reference": null,
+      "receipts": 4,
+      "payments": 5
+     }
+    }
+   ],
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Northwind current"
+     ]
+    },
+    {
+     "fits": false,
+     "problems": [
+      [
+       "reference",
+       "Money In",
+       []
+      ],
+      [
+       "receipts",
+       "Money Out",
+       [
+        "D5"
+       ]
+      ],
+      [
+       "payments",
+       "Running Balance",
+       [
+        "E5"
+       ]
+      ]
+     ],
+     "store": [
+      "Northwind current"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": null,
+     "store": [
+      "Northwind current"
+     ]
+    }
+   ],
+   "recipe": {
+    "P19-APR-cashbook.xlsx": {
+     "writer": "libreoffice",
+     "layout": "ERP1",
+     "header": 5
+    },
+    "P19-MAY-cashbook.xlsx": {
+     "writer": "libreoffice",
+     "layout": "ERP1_NOREF",
+     "header": 5
+    }
+   }
+  },
+  {
+   "id": "P20",
+   "title": "Arabic, a long month by hand, then another statement by the same map",
+   "actions": [
+    {
+     "do": "read",
+     "period": "R04-JUN",
+     "source": "bank-review-holdout-r3",
+     "file": "P20-JUN-cashbook.xlsx",
+     "by": "hand",
+     "header": 4,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 3,
+      "reference": 4,
+      "receipts": 5,
+      "payments": 6
+     },
+     "save": "الحساب الجاري ٢"
+    },
+    {
+     "do": "read",
+     "period": "R07-JUN",
+     "source": "bank-review-holdout-r3",
+     "file": "P20-JUN2-cashbook.xlsx",
+     "by": "map",
+     "map": "الحساب الجاري ٢"
+    }
+   ],
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "الحساب الجاري ٢"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "الحساب الجاري ٢"
+     ]
+    }
+   ],
+   "recipe": {
+    "P20-JUN-cashbook.xlsx": {
+     "writer": "xlsxwriter",
+     "layout": "AR2",
+     "header": 4
+    },
+    "P20-JUN2-cashbook.xlsx": {
+     "writer": "exceljs",
+     "layout": "AR2",
+     "header": 4
+    }
+   }
+  }
+ ]
+}

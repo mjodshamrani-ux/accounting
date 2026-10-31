@@ -1,0 +1,229 @@
+{
+ "schema": "tarasuf-wf1-cycle-input-manifest/1",
+ "synthetic": true,
+ "version": "bank-cycle-holdout-c4-1",
+ "producers": {
+  "prawn": "2.5.0",
+  "prawn-table": "0.2.2",
+  "caxlsx": "4.2.0",
+  "ruby": "3.3.6",
+  "pdfkit": "0.20.2",
+  "fontkit": "2.0.4",
+  "bidi-js": "1.0.3",
+  "node": "22.22.0",
+  "openspout": "4.32.0",
+  "php": "8.3.6",
+  "cashbookCsv": "Python csv, UTF-8, CRLF"
+ },
+ "fonts": {
+  "BalooBhaijaan2_400Regular.ttf": {
+   "source": "@expo-google-fonts/baloo-bhaijaan-2 0.4.2: 400Regular/BalooBhaijaan2_400Regular.ttf",
+   "sha256": "6650cc70dd3df00af50ca8841df51943006edd010bbd0e4e3114086a25483d39"
+  },
+  "BalooBhaijaan2_700Bold.ttf": {
+   "source": "@expo-google-fonts/baloo-bhaijaan-2 0.4.2: 700Bold/BalooBhaijaan2_700Bold.ttf",
+   "sha256": "1e953ffb78273b44d79575da2e13cf9f72d13e9a71b1183d6e49e62b02080619"
+  },
+  "DMSans_400Regular.ttf": {
+   "source": "@expo-google-fonts/dm-sans 0.4.2: 400Regular/DMSans_400Regular.ttf",
+   "sha256": "20ccb90498d8ca511bb0be31a74eccd5f29fbe1161852ef72781b703929e98ec"
+  },
+  "DMSans_700Bold.ttf": {
+   "source": "@expo-google-fonts/dm-sans 0.4.2: 700Bold/DMSans_700Bold.ttf",
+   "sha256": "3764a2ce62fa95596c3315c1a0ca379e7cf827ed397c97fc036925b9b20b74dc"
+  },
+  "Inconsolata_400Regular.ttf": {
+   "source": "@expo-google-fonts/inconsolata 0.4.2: 400Regular/Inconsolata_400Regular.ttf",
+   "sha256": "e0267abf9d734e2b9f766f8cb7a496b552c57cdfeacfa0efdc5bfd21940ae145"
+  },
+  "Inconsolata_700Bold.ttf": {
+   "source": "@expo-google-fonts/inconsolata 0.4.2: 700Bold/Inconsolata_700Bold.ttf",
+   "sha256": "bc133a205c09ca6be9ad2b8d32a4d94bc08deb01a4da62ac27a31843e08daffd"
+  },
+  "Karla_400Regular.ttf": {
+   "source": "@expo-google-fonts/karla 0.4.2: 400Regular/Karla_400Regular.ttf",
+   "sha256": "ca81c0cee5a620bdbe56f15ccb849f69a464dd47ac0bf581157e2ce0fb602b59"
+  },
+  "Karla_700Bold.ttf": {
+   "source": "@expo-google-fonts/karla 0.4.2: 700Bold/Karla_700Bold.ttf",
+   "sha256": "8522b021086f1010c78b3d6bb6e9350004837e53b56748dbd40b0f7724330e07"
+  },
+  "Kufam_400Regular.ttf": {
+   "source": "@expo-google-fonts/kufam 0.4.1: 400Regular/Kufam_400Regular.ttf",
+   "sha256": "99ce19685fe87fcfe6995143b152fd9ec1bb9124d34344da3011e9013be4bfc7"
+  },
+  "Kufam_700Bold.ttf": {
+   "source": "@expo-google-fonts/kufam 0.4.1: 700Bold/Kufam_700Bold.ttf",
+   "sha256": "6ed017ac8ca984985fd1e67106cf4fd07bfa7185dd46b449d0e13a766bd48339"
+  },
+  "Lora_400Regular.ttf": {
+   "source": "@expo-google-fonts/lora 0.4.2: 400Regular/Lora_400Regular.ttf",
+   "sha256": "7ed00e7c9cdf16ab7e2fd2361fe45d4f0b61263cd60aae398b27b7ee08108827"
+  },
+  "Lora_700Bold.ttf": {
+   "source": "@expo-google-fonts/lora 0.4.2: 700Bold/Lora_700Bold.ttf",
+   "sha256": "7d74015e950c2fb66519c7295b8155621d22200ae2ca2a4c6b43ce3c490cac87"
+  }
+ },
+ "facts": {
+  "file": "stories.json",
+  "stored": true,
+  "recipe": "python3 -B audit/bank-cycle-holdout-c4/stories.py",
+  "sha256": "0d53d394973165c7018fdcc3321a6cddef4e490d248f6763e3f23123d3bda348",
+  "bytes": 191587
+ },
+ "files": {
+  "Z01-FEB-cashbook.csv": {
+   "sha256": "2ab3cb0a1a62b66dd7218e5d79bb52c62aa748277f8147045f6a14366d67d3dd",
+   "bytes": 641
+  },
+  "Z01-FEB-ledger.xlsx": {
+   "sha256": "de5648ba0a6b13522155715dfb00ff6fcbac788b2b576979b9f931ce53f17619",
+   "bytes": 4440
+  },
+  "Z01-FEB-statement.pdf": {
+   "sha256": "0676d507630ef6f5d3a0e7563f5ee497b54a7192a816593de7ad19795b6af8b7",
+   "bytes": 60967
+  },
+  "Z01-MAR-cashbook.csv": {
+   "sha256": "345d0ba96df77fc31534f25d1f272b365e8e25fa2eb17bb25b1e6fed505766eb",
+   "bytes": 651
+  },
+  "Z01-MAR-ledger.xlsx": {
+   "sha256": "a64dfd271bdc23aadb2cc4b85ce5711ed267a5dd06e5e6f5306ec1623fbe4bb6",
+   "bytes": 4503
+  },
+  "Z01-MAR-statement.pdf": {
+   "sha256": "c79aa61c4e27dd83e192720ce851c0633bee57e42a139f2930ac923fa60a8f67",
+   "bytes": 60774
+  },
+  "Z02-APR-cashbook.csv": {
+   "sha256": "f3b199586f93e2de5cebf59569ec3d728a6acf534754493309ba89a9f1afd1a4",
+   "bytes": 630
+  },
+  "Z02-APR-ledger.xlsx": {
+   "sha256": "845783dfec34aaa14ebf3c402d79d9429ec568e3859831e59b6b5dabef72a1fd",
+   "bytes": 5230
+  },
+  "Z02-APR-statement.pdf": {
+   "sha256": "aa8a9b2e31a880547bcd49246030cdbcc2948ab8693295acff7976e4834e688d",
+   "bytes": 18535
+  },
+  "Z02-MAR-cashbook.csv": {
+   "sha256": "2751f41e07b622ce2835463e7ac9cbd50df850983c57603c91ae38e7ca7a80fc",
+   "bytes": 682
+  },
+  "Z02-MAR-ledger.xlsx": {
+   "sha256": "f732fc5975fd06041e54087beeb29475ecc7c5a34787ed010dc08d7ae859f4b5",
+   "bytes": 5271
+  },
+  "Z02-MAR-statement.pdf": {
+   "sha256": "5ba56aa8fe82808ea96da10005031fcfc3c3ce0140a71b00557b593f9ee77d4c",
+   "bytes": 17678
+  },
+  "Z03-APR-cashbook.csv": {
+   "sha256": "2cf7632172e08444eedac33d7df6c15b53e6814cd111d5a8a9c5251b2a697f17",
+   "bytes": 846
+  },
+  "Z03-APR-ledger.xlsx": {
+   "sha256": "1240c0d7914ffd71bc086b1ae92e06fa87159e26323e6fa8e6cbd169a8226737",
+   "bytes": 4645
+  },
+  "Z03-APR-statement.pdf": {
+   "sha256": "a01fdfeda29fe579a9df8b9edb22b31c8144f548fa3ea8bc0ee1619ba3a74d73",
+   "bytes": 25174
+  },
+  "Z03-MAY-cashbook.csv": {
+   "sha256": "fb986cc84ae5ee74bfa78367690a34bc942eaa75253d98f02bf9c2df759b7b0e",
+   "bytes": 663
+  },
+  "Z03-MAY-ledger.xlsx": {
+   "sha256": "5abe3e919220eea3b1ac6be231b5567fbee97dd3262155d8db2039fd395faee9",
+   "bytes": 4501
+  },
+  "Z03-MAY-statement.pdf": {
+   "sha256": "66bf4e8d552a58a32498da757789fe7e05b24d7f6c2cbb09eed02f352587bf73",
+   "bytes": 25732
+  },
+  "Z04-JUN-cashbook.csv": {
+   "sha256": "8e64a326969d6bf135362faa4f883f99f24803ccd8750c72cfd65306b302bb9f",
+   "bytes": 659
+  },
+  "Z04-JUN-ledger.xlsx": {
+   "sha256": "58c16b793d1a37b4b947abf22a3e80861d2f17cf5704490d17d186885af0869d",
+   "bytes": 5280
+  },
+  "Z04-JUN-statement.pdf": {
+   "sha256": "ab4b94ddbb00a3eb1dfadbd119231a95aec7d1b2cefc7730885d8aaca7bc94b4",
+   "bytes": 12022
+  },
+  "Z04-MAY-cashbook.csv": {
+   "sha256": "ed24c3781aad8ce2ae4e9f6eeecb757962a5c8e21d7278e7fe73cd885543e8bd",
+   "bytes": 610
+  },
+  "Z04-MAY-ledger.xlsx": {
+   "sha256": "f8bc4a8e8645858ae48c32df850a35e58c185158c6d006e6b03b62a523c83676",
+   "bytes": 5221
+  },
+  "Z04-MAY-statement.pdf": {
+   "sha256": "4e5b7e19bbd30760e71d7632c8200bf73bd0d9794742f5d95923eb19b7770f38",
+   "bytes": 11892
+  },
+  "Z05-JUL-cashbook.csv": {
+   "sha256": "76359e1ee9812ea4b5aec2178d47672ee8263de5c8de4cfe75e09cd96b6efff3",
+   "bytes": 1430
+  },
+  "Z05-JUL-ledger.xlsx": {
+   "sha256": "597924b645e2dd48293ca091f6ed83444f45f6147ebc2131b6c87420c8cc5ac6",
+   "bytes": 5364
+  },
+  "Z05-JUL-statement.pdf": {
+   "sha256": "57485f51de6064144a617a12e80d1438555f4f3e5f8ae191a485f85bedf1a7c6",
+   "bytes": 33612
+  },
+  "Z05-JUN-cashbook.csv": {
+   "sha256": "468b3f1d35fd7e3263dd85471d2c7ee7d26bc2ea0cfb2e846d2e1ed899b124c1",
+   "bytes": 1641
+  },
+  "Z05-JUN-ledger.xlsx": {
+   "sha256": "3cc1c6a869ab7ffd5693fe9d0004c733a2cf16a3e8d29e20aef9ebe3e4afb5e5",
+   "bytes": 5550
+  },
+  "Z05-JUN-statement.pdf": {
+   "sha256": "d2f6e81c7ffd746716e1d43540b7023efdbdcb0d6240a32a462222b3081981e5",
+   "bytes": 33540
+  },
+  "Z06-FEB-cashbook.csv": {
+   "sha256": "d0d9f3de1c488b3d8b370c1c0ed5e4e1b09e547851d6b2529f8746a8a096aace",
+   "bytes": 1308
+  },
+  "Z06-FEB-ledger.xlsx": {
+   "sha256": "8021c364187685b7ec9dd11837274277b9e27eb41962d276bcfed346b0f4aa75",
+   "bytes": 5845
+  },
+  "Z06-FEB-statement.pdf": {
+   "sha256": "537dc9ee933106d666a18acf6313077d18490541ab02c0f52381b37d6e9fbfb0",
+   "bytes": 70105
+  },
+  "Z06-JAN-cashbook.csv": {
+   "sha256": "cb3ba43d50c2385fcf47ea46d6d82036fb1b55493979bbca96dfe38621e3aa56",
+   "bytes": 1364
+  },
+  "Z06-JAN-ledger.xlsx": {
+   "sha256": "7238627cd1d43e4bbfa8fdbe6bdcd99773edbebe41113c99999043da346af917",
+   "bytes": 5898
+  },
+  "Z06-JAN-statement.pdf": {
+   "sha256": "ce3e42529801476aab367f99ae885a85c7637f41ec9bb4762931c5d9568b1d41",
+   "bytes": 72407
+  },
+  "records.json": {
+   "sha256": "c305f6dac7d929bb9916eefb7608f9fc75873acf1ed406e70b240b56a5ef690a",
+   "bytes": 100514
+  },
+  "stories.json": {
+   "sha256": "0d53d394973165c7018fdcc3321a6cddef4e490d248f6763e3f23123d3bda348",
+   "bytes": 191587
+  }
+ }
+}

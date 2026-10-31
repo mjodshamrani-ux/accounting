@@ -1,0 +1,67 @@
+{
+ "schema": "tarasuf-wf1-roll1-foundation/1",
+ "status": "proposed contract and frozen synthetic foundation before any product support for carrying open items between periods",
+ "synthetic": true,
+ "holdout": false,
+ "productEnabled": false,
+ "proposedFamily": "bank-statement-roll-1",
+ "plan": "docs/roadmap/workflow.ar.md#roll-1-ترحيل-البنود-المفتوحة-إلى-الفترة-التالية",
+ "challengeIds": ["CH-15", "CH-05", "CH-06", "CH-12"],
+ "domain": "The bank statement path (bank-statement-native-1 statements, bank-statement-lifecycle-1 sessions): the plan's candidate for WF-1. VAL-1, which was to choose the first domain, has not run.",
+ "why": "A bank statement session today stands alone. Its outstanding items (statement-only, cashbook-only, or left by a rejected case) are listed and exported, but the next period cannot take them: an outstanding cheque that clears next month shows as an unexplained statement movement there, and the accountant tracks it by hand. Carrying must not turn an old session into new approval.",
+ "inputs": {
+  "current": "The current period's statement and cashbook, as bank-statement-lifecycle-1 reads them today.",
+  "previous": "At most one previous-period session file, saved by the product, and the accountant's confirmation that it is the previous period of the same account. Optional: without it the current period is reconciled exactly as today."
+ },
+ "previousSession": {
+  "replay": "The previous session is replayed from its own embedded originals with the current engine, as a restore is: every fingerprint checked, every reading and match recomputed, every decision bound to its context. Its saved result is never read.",
+  "accepted": "Only when all of these hold; otherwise nothing is carried and the refusal is shown with its code (R1, R2).",
+  "refusals": {
+   "ROLL_PREVIOUS_UNREADABLE": "not a session the product reads: wrong format or version, a file whose bytes do not give its fingerprint, a decision refused on replay",
+   "ROLL_PREVIOUS_HELD": "its statement is held (incomplete pages, broken balance chain, unproven completeness): a held statement has no outstanding items",
+   "ROLL_PREVIOUS_UNDECIDED": "a case still needs review: the previous period is not closed (R1)",
+   "ROLL_CURRENCY": "its statement currency differs from the current one",
+   "ROLL_NOT_CONSECUTIVE": "its period does not end the day before the current period starts",
+   "ROLL_OPENING": "the current statement's printed opening balance differs from the previous statement's printed closing balance"
+  }
+ },
+ "carried": {
+  "items": "The previous session's outstanding items: statement movements and cashbook entries left unmatched, or left by a rejected case; and, when the previous session itself carried items, those of its carried items still outstanding at its end (R3).",
+  "provenance": "Each carried item names the previous session file by hash, the period it comes from, its source file by hash and its place there (statement movement id with page, or cashbook voucher with row), its date, direction, amount, reference, how it was left outstanding (unmatched, or the rejected case), and its age: the number of period ends it has been outstanding.",
+  "evidence": "A carried item is candidate evidence, never an approved fact. It is re-derived from its originals on every replay."
+ },
+ "clearing": {
+  "order": "1) repetition (R5); 2) the current period's own matching, unchanged, on the current items that repetition did not withhold; 3) carried items against the current items that the own matching left unmatched, on the opposite side.",
+  "repetition": {
+   "rule": "A current item on the same side as a carried item, with the same non-empty reference, or (cashbook) the same voucher, repeats it (R5). The carried item, those current items, and every current item of either side carrying that reference form one review case; none of them takes part in the current period's own matching.",
+   "carried-repeated": "every repeating current item has the carried item's date, direction and amount",
+   "carried-restated": "a repeating current item differs in date, direction or amount"
+  },
+  "byReference": {
+   "carried-reference": "exactly one unmatched current item on the opposite side has the carried item's non-empty reference, the same direction and the same amount, and no other carried item claims it. Review; the accountant may accept it.",
+   "carried-amount-difference": "one unmatched current item has the reference and direction but another amount. Review; cannot be accepted.",
+   "carried-ambiguous": "several unmatched current items, or several carried items, meet one rule together. Review; cannot be accepted; the engine picks none."
+  },
+  "byAmount": {
+   "carried-amount-suggestion": "No reference pairs the carried item, at least one of the two references is empty, and exactly one unmatched current item on the opposite side has the same direction and amount, claimed by no other carried item. Review; the accountant may accept it.",
+   "never": "Equal amounts never pair two items with different non-empty references."
+  },
+  "automatic": "None. Every pairing with a carried item is a review case (R4)."
+ },
+ "afterwards": {
+  "outstanding": "The current session lists its own outstanding items and the carried items not cleared, each with its age; an accepted carried case clears both its members; a rejected one leaves both outstanding.",
+  "decisions": "Accept, reject and undo as in bank-statement-lifecycle-1, bound to a context that also names the previous session file by hash (R6).",
+  "session": "A session that carries keeps the previous session file byte for byte, and so on down the chain, within the session size limit; each replay re-verifies the chain from its originals."
+ },
+ "caseNumbering": "As the product numbers cases today (bank-statement-lifecycle-1): automatic pairs in ascending reference order, then review groups in the engine's order (reference groups in ascending reference order, then amount components in ascending order of their first member key, cashbook keys `C:<voucher>` before statement keys `S:<id>`). Carried cases follow, in ascending order of their carried items' provenance.",
+ "ownerDecisions": {
+  "R1": "Only a closed previous period carries: every previous case automatic or decided. The alternative is to carry undecided review cases as their members.",
+  "R2": "Account identity is confirmed by the accountant; the files prove currency, consecutive periods and opening equal to previous closing. The reader does not read the account number as a field.",
+  "R3": "Items stay carried until cleared, with their age; there is no write-off in this family.",
+  "R4": "No automatic clearing of a carried item, even with a unique identical reference and amount: the dates of two periods are not a match window.",
+  "R5": "A carried item repeated on its own side (a cheque recorded again, an entry restated) withholds every current item of its reference from automatic matching.",
+  "R6": "A decision on a carried case is bound to the previous session file too; replacing it refuses the decision."
+ },
+ "limits": "One previous session per period; the bank statement path only; sessions within the existing 32 MiB limit, chain included.",
+ "outOfContract": "The balance bridge and timing classification (BNK-2); write-offs and adjustments; carrying decisions themselves; several accounts or currencies; other domains until their own contract."
+}

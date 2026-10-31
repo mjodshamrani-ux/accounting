@@ -1,0 +1,33 @@
+{
+ "format": "tarasuf-column-map",
+ "version": 1,
+ "role": "bank-cashbook",
+ "name": "Payroll account",
+ "header": NaN,
+ "columns": {
+  "date": {
+   "column": 1,
+   "label": "Txn Date"
+  },
+  "voucher": {
+   "column": 2,
+   "label": "Doc Ref"
+  },
+  "description": {
+   "column": 3,
+   "label": "Particulars"
+  },
+  "reference": {
+   "column": 4,
+   "label": "Cheque/Ref"
+  },
+  "receipts": {
+   "column": 5,
+   "label": "Money In"
+  },
+  "payments": {
+   "column": 6,
+   "label": "Money Out"
+  }
+ }
+}

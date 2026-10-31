@@ -1,0 +1,52 @@
+{
+ "names": [
+  "F05-transactions.csv",
+  "F05-fees.csv",
+  "F05-settlements.csv",
+  "F05-payout-lines.csv",
+  "F05-bank-credits.csv"
+ ],
+ "readings": [
+  {
+   "sheet": 0,
+   "role": "transactions",
+   "family": "payment-gateway-batches-1",
+   "confirmed": true
+  },
+  {
+   "sheet": 0,
+   "role": "fee-evidence",
+   "family": "payment-gateway-batches-1",
+   "confirmed": true
+  },
+  {
+   "sheet": 0,
+   "role": "settlements",
+   "family": "payment-gateway-batches-1",
+   "confirmed": true
+  },
+  {
+   "sheet": 0,
+   "role": "payout-lines",
+   "family": "payment-gateway-batches-1",
+   "confirmed": true
+  },
+  {
+   "sheet": 0,
+   "role": "bank-credits",
+   "family": "payment-gateway-batches-1",
+   "confirmed": true
+  }
+ ],
+ "scope": {
+  "entity": "Synthetic Souq Online Co",
+  "gateway": "Synthetic Pay GW",
+  "merchantAccount": "MA-7781",
+  "bankAccount": "BANK-0042",
+  "currency": "SAR",
+  "start": "2026-09-01",
+  "end": "2026-09-30",
+  "asOf": "2026-10-10",
+  "confirmed": true
+ }
+}

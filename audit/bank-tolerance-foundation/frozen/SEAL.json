@@ -1,0 +1,24 @@
+{
+ "schema": "tarasuf-wf1-tol1-seal/1",
+ "statement": "Sealed before any product run on these files. The baseline that follows records the product as it is.",
+ "pins": {
+  "INPUT-MANIFEST.json": "7d6122b6d967b6cb756f9f067d10094ec4986fdb256b9daaae078ef218280624",
+  "EXPECTED.json": "444561a6f6804df10e15a3ce9133f6edc215e43832e08f0e4e0beda1982c815c",
+  "VERIFY.json": "185b1850a9db5a10f45470e288f4952b5efbc6b0f94c7e238d926eea3e0c936d",
+  "contract.json": "4594cb352cf36ff0f5f4cf1f71a344ad24d3278d8c9424770560805461c7cfc5",
+  "stories.mjs": "5d55122a04ccf5b451da725326ac170080160394b468a598215d4965ab7c55bb",
+  "render.mjs": "ac15501c77a39c10318db4ab28e64d0051cf3fa8608b1ca7711a5b86477d2960",
+  "oracle.py": "0e713875c7d0765edce6d004e0db3ed219339ea3785706e449abe6246720748c",
+  "verify.py": "3515c149ef92baad6ed09e07887e23be96c501544d2654d7456143b6fc43bfcf",
+  "test_oracle.py": "856887ced24c65ee635c15a60a4b9c0564a32bf95a8a8705fe8e05d8f9f0feed",
+  "mutate_oracle.py": "a0ded7ea0c3ddb6aa7b8e784274a76e72da5fd29a4121a396b419f8cca373c8a",
+  "../bank-roll-foundation/contract.json": "7c19cfe6a79062bd804575078f0253413eb39d94d88288399076e759b9cc9a94",
+  "../bank-roll-foundation/stories.mjs": "dcf36d9705d86f87955ce4c485da154c8e190207c10b0dc305a1dc1f3c5fa416",
+  "../bank-roll-foundation/oracle.py": "936980876594b7128754fcb7bc254167a87608a13d43f193b012d5f65265c537",
+  "../bank-roll-foundation/verify.py": "c97b09415fb2085e042f3c2caa9c72b0e33ea925a6d13e8ba219a2063935b6c9",
+  "../bank-review-foundation/render.mjs": "0969de30c8186376b780f349a0dd2bf885ce0b62b711302b0810e451984df925",
+  "../bank-statement-foundation/contract.json": "400b8cbcda2447bf36710d38a8f91786d1f07951fc20e8894f71a969c93f7e34",
+  "../bank-statement-foundation/oracle.py": "07033ecfcf3ce4bc5ae8617ee28d9cbb3f51623a41ccdb3c0cf3716ed8f543f2",
+  "../bank-statement-foundation/verify_assets.py": "eb79b4f4a331ec516f616f50b104a75c1b66baa98a205221f8a277c71a6d3b63"
+ }
+}

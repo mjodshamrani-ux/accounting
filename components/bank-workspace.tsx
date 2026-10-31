@@ -1,6 +1,6 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { BankAdjustmentWorkspace } from './bank-adjustment-workspace';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -12,6 +12,13 @@ import {
   WorkspaceAdvanced,
 } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
+import { bankStatementCopy } from '@/lib/i18n/bank-statement';
+import { bankSessionFormat } from '@/lib/reconciliation/bank-statement-view';
+import {
+  BankStatementResults,
+  BankStatementSources,
+  useBankStatement,
+} from './bank-statement-workspace';
 import { workspaceCopy } from '@/lib/i18n/workspace';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
@@ -78,12 +85,19 @@ export function BankWorkspace({
     [balanceBusy, setBalanceBusy] = useState(false),
     [balanceHasWork, setBalanceHasWork] = useState(false),
     [failed, setFailed] = useState<'general' | 'native-display' | null>(null),
-    [page, setPage] = useState(0),
+    [pages, setPages] = useState<Record<string, number>>({}),
     [reference, setReference] = useState(''),
     [note, setNote] = useState(''),
     [bankId, setBankId] = useState(''),
     [cashId, setCashId] = useState(''),
     [evidenceId, setEvidenceId] = useState('');
+  // The bank source type: movement files in the settlement template, or a
+  // statement as the bank issues it. Each keeps its own work while the other
+  // is shown.
+  const [mode, setMode] = useState<'movements' | 'statement'>('movements'),
+    statement = useBankStatement(),
+    sourceMode = useId(),
+    s = bankStatementCopy[lang];
   const serial = useRef(0),
     controller = useRef<AbortController | null>(null);
   useEffect(
@@ -93,11 +107,32 @@ export function BankWorkspace({
     },
     [],
   );
+  const decisionHint = useId();
+  // Opening a movement's evidence takes the reader to it, and returning takes
+  // them back to that movement's row, after the render that shows either.
+  const evidenceHeading = useRef<HTMLHeadingElement>(null),
+    [focusRequest, setFocusRequest] = useState<{
+      to: 'evidence' | 'row';
+      id: string;
+    } | null>(null);
+  useEffect(() => {
+    if (!focusRequest) return;
+    const element =
+      focusRequest.to === 'evidence'
+        ? evidenceHeading.current
+        : document.querySelector<HTMLElement>(
+            `[data-bank-evidence-for="${CSS.escape(focusRequest.id)}"]`,
+          );
+    element?.scrollIntoView({
+      block: focusRequest.to === 'evidence' ? 'start' : 'center',
+    });
+    element?.focus({ preventScroll: true });
+  }, [focusRequest]);
   function invalidate() {
     setResult(null);
     setEvents([]);
     setFailed(null);
-    setPage(0);
+    setPages({});
     setBankId('');
     setCashId('');
     setEvidenceId('');
@@ -116,7 +151,7 @@ export function BankWorkspace({
     setScope(v.state.scope);
     setEvents(v.state.events);
     setResult(v.result);
-    setPage(0);
+    setPages({});
     setBankId('');
     setCashId('');
     setEvidenceId('');
@@ -198,14 +233,20 @@ export function BankWorkspace({
       setCashId('');
     });
   }
+  // Each table pages on its own, as the printed statement tables do, so
+  // turning one table's page leaves the others where they are.
   function table<T>(
+    name: string,
     title: string,
     headers: string[],
     data: T[],
     cells: (r: T) => ReactNode[],
   ) {
+    const count = Math.max(1, Math.ceil(data.length / 50)),
+      at = Math.min(pages[name] ?? 0, count - 1),
+      turn = (to: number) => setPages((p) => ({ ...p, [name]: to }));
     return (
-      <section>
+      <section className="bank-movement-table" data-bank-movement-table={name}>
         <h2>{title}</h2>
         <div className="gl-tb-table">
           <table>
@@ -217,8 +258,8 @@ export function BankWorkspace({
               </tr>
             </thead>
             <tbody>
-              {data.slice(page * 50, (page + 1) * 50).map((r, i) => (
-                <tr key={page * 50 + i}>
+              {data.slice(at * 50, (at + 1) * 50).map((r, i) => (
+                <tr key={at * 50 + i}>
                   {cells(r).map((cell, c) => (
                     <td key={c}>{cell}</td>
                   ))}
@@ -227,6 +268,27 @@ export function BankWorkspace({
             </tbody>
           </table>
         </div>
+        {count > 1 && (
+          <div className="gl-tb-actions">
+            <Button
+              variant="outline"
+              disabled={!at}
+              onClick={() => turn(at - 1)}
+            >
+              {t.previous}
+            </Button>
+            <span>
+              {at + 1} / {count}
+            </span>
+            <Button
+              variant="outline"
+              disabled={at + 1 >= count}
+              onClick={() => turn(at + 1)}
+            >
+              {t.next}
+            </Button>
+          </div>
+        )}
       </section>
     );
   }
@@ -236,23 +298,58 @@ export function BankWorkspace({
       .flatMap((g) => [...g.bankIds, ...g.cashIds]),
   );
   const format = (n: number) => money(n, result?.decimals ?? 2),
+    // Amounts and identities keep their own direction and never wrap: the
+    // tables scroll inside their frame instead (bank-workspace.css).
+    amount = (n: number) => (
+      <bdi dir="ltr" className="bank-movement-amount">
+        {format(n)}
+      </bdi>
+    ),
+    id = (text: string) => <bdi className="bank-movement-id">{text}</bdi>,
+    date = (text: string) => (
+      <bdi dir="ltr" className="bank-movement-date">
+        {text}
+      </bdi>
+    ),
     byId = new Map(result?.records.map((r) => [r.id, r])),
     memberNames = (ids: string[]) =>
       ids.map((id) => byId.get(id)?.reference ?? id).join(' · '),
+    members = (ids: string[]) =>
+      ids.flatMap((member, i) => [
+        i ? ' · ' : '',
+        <bdi key={member} className="bank-movement-id">
+          {byId.get(member)?.reference ?? member}
+        </bdi>,
+      ]),
     evidence = byId.get(evidenceId),
     canDecide =
       !!result &&
       result.status !== 'source-error' &&
       !!reference.trim() &&
       !!note.trim(),
-    maxRows = Math.max(
-      result?.cases.length ?? 0,
-      result?.records.length ?? 0,
-      result?.inventory.length ?? 0,
-      result?.events.length ?? 0,
-      result?.timingItems.length ?? 0,
-    );
-  const locked = busy || balanceBusy;
+    // Why the decisions are closed, or when each one opens: the same
+    // conditions as canDecide and each button, in the reader's words.
+    hint: keyof typeof t.decisionHint =
+      result?.status === 'source-error'
+        ? 'sourceError'
+        : !reference.trim() && !note.trim()
+          ? 'both'
+          : !reference.trim()
+            ? 'reference'
+            : !note.trim()
+              ? 'reason'
+              : 'ready';
+  function openEvidence(record: string) {
+    setEvidenceId(record);
+    setFocusRequest({ to: 'evidence', id: record });
+  }
+  function backToMovement() {
+    const index = result?.records.findIndex((r) => r.id === evidenceId) ?? -1;
+    if (index < 0) return;
+    setPages((p) => ({ ...p, movements: Math.floor(index / 50) }));
+    setFocusRequest({ to: 'row', id: evidenceId });
+  }
+  const locked = busy || balanceBusy || statement.busy;
   return (
     <>
       {active && (
@@ -264,7 +361,7 @@ export function BankWorkspace({
             onBack={onBack}
             backLabel={t.back}
             disabled={locked}
-            hasWork={files.some(Boolean) || balanceHasWork}
+            hasWork={files.some(Boolean) || balanceHasWork || statement.hasWork}
           />
           <WorkspaceIntro title={t.title} intro={t.intro}>
             <p>{t.limits}</p>
@@ -274,6 +371,7 @@ export function BankWorkspace({
             <WorkspaceAdvanced>
               <div className="gl-tb-actions workspace-toolbar">
                 <Button
+                  hidden={mode !== 'movements'}
                   onClick={() =>
                     perform(async (signal) => {
                       const sources: SourceFile[] = [];
@@ -310,185 +408,224 @@ export function BankWorkspace({
                         setFailed('general');
                         return;
                       }
-                      void perform(async (signal) =>
-                        install(
-                          await workerTask(
-                            'bank-restore',
-                            { buffer: await blob.arrayBuffer() },
-                            signal,
+                      // The declared format alone routes a session; each
+                      // path then checks every byte it restores.
+                      void blob.arrayBuffer().then((buffer) => {
+                        if (bankSessionFormat(buffer) === 'statement') {
+                          setMode('statement');
+                          return statement.restore(buffer);
+                        }
+                        setMode('movements');
+                        return perform(async (signal) =>
+                          install(
+                            await workerTask(
+                              'bank-restore',
+                              { buffer },
+                              signal,
+                            ),
                           ),
-                        ),
-                      );
+                        );
+                      });
                     }}
                   />
                 </label>
               </div>
             </WorkspaceAdvanced>
-            <WorkspaceGroupTitle kind="sources" />
-            <WorkspaceSources
-              primaryIndices={[0, 1]}
-              primaryReady={!!(files[0] && files[1])}
-            >
-              {([0, 1] as const).map((side) => (
-                <section
-                  className="workspace-source"
-                  key={side}
-                  data-testid={`bank-source-${side}`}
-                >
-                  <h2>
-                    <WorkspaceSourceHeading>
-                      {t.sides[side]}
-                    </WorkspaceSourceHeading>
-                  </h2>
-                  <WorkspaceFileInput
-                    type="file"
-                    accept=".csv,.xlsx"
-                    aria-label={t.sides[side]}
-                    onChange={(e) => {
-                      const blob = e.target.files?.[0];
-                      e.target.value = '';
-                      if (blob) void upload(side, blob);
-                    }}
+            <fieldset className="bank-source-mode" data-bank-source-mode>
+              <legend>{s.modeTitle}</legend>
+              {(['movements', 'statement'] as const).map((value) => (
+                <label key={value}>
+                  <input
+                    type="radio"
+                    name={sourceMode}
+                    value={value}
+                    checked={mode === value}
+                    onChange={() => setMode(value)}
                   />
-                  {files[side] && (
-                    <>
-                      <p>{files[side]!.name}</p>
-                      <label>
-                        {t.sheet}
-                        <select
-                          aria-label={`${t.sides[side]} ${t.sheet}`}
-                          value={readings[side].sheet}
-                          onChange={(e) => {
-                            setReadings((previous) => {
-                              const next = [...previous] as typeof readings;
-                              next[side] = {
-                                ...next[side],
-                                sheet: Number(e.target.value),
-                                confirmed: false,
-                              };
-                              return next;
-                            });
-                            invalidate();
-                          }}
-                        >
-                          {files[side]!.sheets.map((sheet, index) => (
-                            <option key={index} value={index}>
-                              {sheet.name}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                      <label>
-                        {t.sourceFamily}
-                        <select
-                          aria-label={`${t.sides[side]} ${t.sourceFamily}`}
-                          value={readings[side].family}
-                          onChange={(e) => {
-                            setReadings((previous) => {
-                              const next = [...previous] as typeof readings;
-                              next[side] = {
-                                ...next[side],
-                                family: e.target.value as BankReading['family'],
-                                confirmed: false,
-                              };
-                              return next;
-                            });
-                            invalidate();
-                          }}
-                        >
-                          <option value={BANK_VERSION}>
-                            {t.amountDirection}
-                          </option>
-                          <option value={BANK_WD_FAMILY}>
-                            {t.withdrawalDeposit}
-                          </option>
-                        </select>
-                      </label>
-                      {readings[side].family === BANK_WD_FAMILY && (
-                        <p className="bank-source-basis">
-                          {t.withdrawalDepositHint}
-                        </p>
+                  <strong>{s.modes[value]}</strong>
+                  <small>{s.modeHints[value]}</small>
+                </label>
+              ))}
+            </fieldset>
+            {mode === 'statement' ? (
+              <BankStatementSources s={statement} />
+            ) : (
+              <>
+                <WorkspaceGroupTitle kind="sources" />
+                <WorkspaceSources
+                  primaryIndices={[0, 1]}
+                  primaryReady={!!(files[0] && files[1])}
+                >
+                  {([0, 1] as const).map((side) => (
+                    <section
+                      className="workspace-source"
+                      key={side}
+                      data-testid={`bank-source-${side}`}
+                    >
+                      <h2>
+                        <WorkspaceSourceHeading>
+                          {t.sides[side]}
+                        </WorkspaceSourceHeading>
+                      </h2>
+                      <WorkspaceFileInput
+                        type="file"
+                        accept=".csv,.xlsx"
+                        aria-label={t.sides[side]}
+                        onChange={(e) => {
+                          const blob = e.target.files?.[0];
+                          e.target.value = '';
+                          if (blob) void upload(side, blob);
+                        }}
+                      />
+                      {files[side] && (
+                        <>
+                          <p>{files[side]!.name}</p>
+                          <label>
+                            {t.sheet}
+                            <select
+                              aria-label={`${t.sides[side]} ${t.sheet}`}
+                              value={readings[side].sheet}
+                              onChange={(e) => {
+                                setReadings((previous) => {
+                                  const next = [...previous] as typeof readings;
+                                  next[side] = {
+                                    ...next[side],
+                                    sheet: Number(e.target.value),
+                                    confirmed: false,
+                                  };
+                                  return next;
+                                });
+                                invalidate();
+                              }}
+                            >
+                              {files[side]!.sheets.map((sheet, index) => (
+                                <option key={index} value={index}>
+                                  {sheet.name}
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                          <label>
+                            {t.sourceFamily}
+                            <select
+                              aria-label={`${t.sides[side]} ${t.sourceFamily}`}
+                              value={readings[side].family}
+                              onChange={(e) => {
+                                setReadings((previous) => {
+                                  const next = [...previous] as typeof readings;
+                                  next[side] = {
+                                    ...next[side],
+                                    family: e.target
+                                      .value as BankReading['family'],
+                                    confirmed: false,
+                                  };
+                                  return next;
+                                });
+                                invalidate();
+                              }}
+                            >
+                              <option value={BANK_VERSION}>
+                                {t.amountDirection}
+                              </option>
+                              <option value={BANK_WD_FAMILY}>
+                                {t.withdrawalDeposit}
+                              </option>
+                            </select>
+                          </label>
+                          {readings[side].family === BANK_WD_FAMILY && (
+                            <p className="bank-source-basis">
+                              {t.withdrawalDepositHint}
+                            </p>
+                          )}
+                          <label>
+                            <input
+                              type="checkbox"
+                              aria-label={`${t.sides[side]} ${t.sourceConfirm}`}
+                              checked={readings[side].confirmed}
+                              onChange={(e) => {
+                                setReadings((previous) => {
+                                  const next = [...previous] as typeof readings;
+                                  next[side] = {
+                                    ...next[side],
+                                    confirmed: e.target.checked,
+                                  };
+                                  return next;
+                                });
+                                invalidate();
+                              }}
+                            />
+                            {t.sourceConfirm}
+                          </label>
+                        </>
                       )}
-                      <label>
+                    </section>
+                  ))}
+                </WorkspaceSources>
+                <section
+                  className="workspace-scope"
+                  hidden={!(files[0] && files[1])}
+                >
+                  <WorkspaceGroupTitle kind="scope" />
+                  <div className="gl-tb-grid">
+                    {BANK_SCOPE_FIELDS.map((key) => (
+                      <label key={key}>
+                        {t.fields[key]}
                         <input
-                          type="checkbox"
-                          aria-label={`${t.sides[side]} ${t.sourceConfirm}`}
-                          checked={readings[side].confirmed}
+                          aria-label={t.fields[key]}
+                          type={
+                            key === 'start' || key === 'end' ? 'date' : 'text'
+                          }
+                          value={scope[key]}
                           onChange={(e) => {
-                            setReadings((previous) => {
-                              const next = [...previous] as typeof readings;
-                              next[side] = {
-                                ...next[side],
-                                confirmed: e.target.checked,
-                              };
-                              return next;
-                            });
+                            setScope((previous) => ({
+                              ...previous,
+                              [key]: e.target.value,
+                              confirmed: false,
+                            }));
                             invalidate();
                           }}
                         />
-                        {t.sourceConfirm}
                       </label>
-                    </>
-                  )}
-                </section>
-              ))}
-            </WorkspaceSources>
-            <section
-              className="workspace-scope"
-              hidden={!(files[0] && files[1])}
-            >
-              <WorkspaceGroupTitle kind="scope" />
-              <div className="gl-tb-grid">
-                {BANK_SCOPE_FIELDS.map((key) => (
-                  <label key={key}>
-                    {t.fields[key]}
+                    ))}
+                  </div>
+                  <label>
                     <input
-                      aria-label={t.fields[key]}
-                      type={key === 'start' || key === 'end' ? 'date' : 'text'}
-                      value={scope[key]}
+                      type="checkbox"
+                      checked={scope.confirmed}
                       onChange={(e) => {
                         setScope((previous) => ({
                           ...previous,
-                          [key]: e.target.value,
-                          confirmed: false,
+                          confirmed: e.target.checked,
                         }));
                         invalidate();
                       }}
                     />
+                    {t.scopeConfirm}
                   </label>
-                ))}
-              </div>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={scope.confirmed}
-                  onChange={(e) => {
-                    setScope((previous) => ({
-                      ...previous,
-                      confirmed: e.target.checked,
-                    }));
-                    invalidate();
-                  }}
-                />
-                {t.scopeConfirm}
-              </label>
-            </section>
-            <Button
-              disabled={
-                !files.every(Boolean) ||
-                !readings.every((r) => r.confirmed) ||
-                !scope.confirmed
-              }
-              onClick={() =>
-                perform(async (signal) =>
-                  install(await workerTask('bank-reconcile', input(), signal)),
-                )
-              }
-            >
-              {t.compare}
-            </Button>
+                </section>
+                <Button
+                  disabled={
+                    !files.every(Boolean) ||
+                    !readings.every((r) => r.confirmed) ||
+                    !scope.confirmed
+                  }
+                  onClick={() =>
+                    perform(async (signal) =>
+                      install(
+                        await workerTask('bank-reconcile', input(), signal),
+                      ),
+                    )
+                  }
+                >
+                  {t.compare}
+                </Button>
+              </>
+            )}
           </fieldset>
-          {busy && (
+          {mode === 'statement' && (
+            <BankStatementResults s={statement} locked={locked} />
+          )}
+          {mode === 'movements' && busy && (
             <Button
               variant="outline"
               onClick={() => {
@@ -501,12 +638,12 @@ export function BankWorkspace({
               {t.cancel}
             </Button>
           )}
-          {failed && (
+          {mode === 'movements' && failed && (
             <p role="alert">
               {failed === 'native-display' ? t.displayFailed : t.failed}
             </p>
           )}
-          {result && (
+          {mode === 'movements' && result && (
             <>
               <h2 data-testid="bank-result">{t.status[result.status]}</h2>
               <DomainEvidenceAssistant
@@ -551,6 +688,7 @@ export function BankWorkspace({
                   {t.reference}
                   <input
                     aria-label={t.reference}
+                    aria-describedby={decisionHint}
                     value={reference}
                     onChange={(e) => setReference(e.target.value)}
                   />
@@ -559,11 +697,20 @@ export function BankWorkspace({
                   {t.reason}
                   <textarea
                     aria-label={t.reason}
+                    aria-describedby={decisionHint}
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
                   />
                 </label>
+                <p
+                  id={decisionHint}
+                  className="bank-source-basis"
+                  data-bank-decision-hint={hint}
+                >
+                  {t.decisionHint[hint]}
+                </p>
                 {table(
+                  'cases',
                   t.groups,
                   [
                     t.settlement,
@@ -575,36 +722,39 @@ export function BankWorkspace({
                     t.members,
                     t.eligible,
                     t.reason,
+                    t.caseState,
                     t.approve,
                     t.undo,
                   ],
                   result.cases,
                   (g) => [
-                    g.kind === 'reference' ? g.key : t.caseKinds[g.kind],
+                    g.kind === 'reference' ? id(g.key) : t.caseKinds[g.kind],
                     t.caseKinds[g.kind],
                     g.policy ? t.policies[g.policy] : '',
-                    format(g.bankMinor),
-                    format(g.cashMinor),
-                    format(g.deltaMinor),
-                    `${t.sides[0]}: ${memberNames(g.bankIds)}; ${t.sides[1]}: ${memberNames(g.cashIds)}`,
+                    amount(g.bankMinor),
+                    amount(g.cashMinor),
+                    amount(g.deltaMinor),
+                    <span key="members">
+                      {t.sides[0]}: {members(g.bankIds)}; {t.sides[1]}:{' '}
+                      {members(g.cashIds)}
+                    </span>,
                     g.eligible ? t.yes : t.no,
                     t.reasons[g.reason],
-                    <div key="status-approve">
-                      <p>{t.caseStatus[g.status]}</p>
-                      <Button
-                        disabled={
-                          !canDecide ||
-                          !g.eligible ||
-                          g.status !== 'needs-review'
-                        }
-                        onClick={() => decide('accept', g.bankIds, g.cashIds)}
-                      >
-                        {t.approve}
-                      </Button>
-                    </div>,
+                    t.caseStatus[g.status],
+                    <Button
+                      key="approve"
+                      aria-describedby={decisionHint}
+                      disabled={
+                        !canDecide || !g.eligible || g.status !== 'needs-review'
+                      }
+                      onClick={() => decide('accept', g.bankIds, g.cashIds)}
+                    >
+                      {t.approve}
+                    </Button>,
                     <Button
                       key="undo"
                       variant="outline"
+                      aria-describedby={decisionHint}
                       disabled={!canDecide || !g.status.startsWith('matched')}
                       onClick={() => decide('undo', g.bankIds, g.cashIds)}
                     >
@@ -646,6 +796,7 @@ export function BankWorkspace({
                     ))}
                   </div>
                   <Button
+                    aria-describedby={decisionHint}
                     disabled={!canDecide || !bankId || !cashId}
                     onClick={() => decide('accept', [bankId], [cashId])}
                   >
@@ -653,6 +804,7 @@ export function BankWorkspace({
                   </Button>
                 </section>
                 {table(
+                  'movements',
                   t.movements,
                   [
                     t.side,
@@ -672,30 +824,34 @@ export function BankWorkspace({
                   (r) => [
                     t.sides[r.side],
                     r.row,
-                    r.reference,
-                    r.settlement,
-                    r.movementDate,
-                    r.valueDate,
+                    id(r.reference),
+                    r.settlement && id(r.settlement),
+                    date(r.movementDate),
+                    date(r.valueDate),
                     t.directions[r.direction],
                     t.roles[r.role],
-                    r.parent,
-                    r.reverses,
-                    format(r.signed),
+                    r.parent && id(r.parent),
+                    r.reverses && id(r.reverses),
+                    amount(r.signed),
                     <Button
                       key="evidence"
                       variant="outline"
-                      onClick={() => setEvidenceId(r.id)}
+                      data-bank-evidence-for={r.id}
+                      onClick={() => openEvidence(r.id)}
                     >
                       {t.reviewCells}
                     </Button>,
                   ],
                 )}
                 {evidence && (
-                  <section>
-                    <h2>
+                  <section className="bank-movement-evidence">
+                    <h2 ref={evidenceHeading} tabIndex={-1}>
                       {t.evidence} · {t.sides[evidence.side]} ·{' '}
                       {evidence.reference} · {t.row} {evidence.row}
                     </h2>
+                    <Button variant="outline" onClick={backToMovement}>
+                      {t.backToMovement}
+                    </Button>
                     <div className="gl-tb-table">
                       <table>
                         <thead>
@@ -743,19 +899,21 @@ export function BankWorkspace({
                 )}
                 <p>{t.retainedTiming}</p>
                 {table(
+                  'timing',
                   t.timing,
                   [t.side, t.row, t.own, t.date, t.valueDate, t.validMovement],
                   result.timingItems,
                   (r) => [
                     t.sides[r.side],
                     r.row,
-                    r.reference,
-                    r.movementDate,
-                    r.valueDate,
+                    id(r.reference),
+                    date(r.movementDate),
+                    date(r.valueDate),
                     r.validMovement ? t.yes : t.no,
                   ],
                 )}
                 {table(
+                  'events',
                   t.events,
                   [
                     t.own,
@@ -769,13 +927,14 @@ export function BankWorkspace({
                   (e) => [
                     e.id,
                     t.eventType[e.type],
-                    e.at,
+                    date(e.at),
                     e.reference,
                     e.note,
                     `${memberNames(e.bankIds)} · ${memberNames(e.cashIds)}`,
                   ],
                 )}
                 {table(
+                  'inventory',
                   t.inventory,
                   [t.side, t.row, t.kind, t.reason, t.original],
                   result.inventory,
@@ -790,25 +949,6 @@ export function BankWorkspace({
                     <pre key="original">{i.values.join(' · ')}</pre>,
                   ],
                 )}
-                <div className="gl-tb-actions">
-                  <Button
-                    variant="outline"
-                    disabled={!page}
-                    onClick={() => setPage((p) => p - 1)}
-                  >
-                    {t.previous}
-                  </Button>
-                  <span>
-                    {page + 1} / {Math.max(1, Math.ceil(maxRows / 50))}
-                  </span>
-                  <Button
-                    variant="outline"
-                    disabled={(page + 1) * 50 >= maxRows}
-                    onClick={() => setPage((p) => p + 1)}
-                  >
-                    {t.next}
-                  </Button>
-                </div>
               </fieldset>
             </>
           )}
@@ -816,8 +956,10 @@ export function BankWorkspace({
       )}
       <div
         className="app-shell gl-tb-workspace bank-workspace reconciliation-workspace workspace-bank-continuation"
-        hidden={!active}
-        style={{ display: active ? undefined : 'none' }}
+        hidden={!active || mode !== 'movements'}
+        style={{
+          display: active && mode === 'movements' ? undefined : 'none',
+        }}
       >
         <details className="workspace-bank-balance-flow" data-bank-balance-flow>
           <summary>{workspaceCopy[lang].bankBalanceFlow}</summary>

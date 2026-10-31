@@ -25,6 +25,55 @@ for (const file of manifest.files) {
     throw Error(`Frozen lint original changed: ${file.path}`);
 }
 console.error(`Verified ${manifest.files.length} byte-exact frozen lint originals.`);
+// Literal bidirectional controls in code reorder what a reviewer reads, and
+// the implicit marks (LRM, RLM, ALM) are as invisible; a test or rule that
+// needs one writes it as an escape. Frozen evidence keeps its own bytes.
+// Untracked files that are not ignored too: a new file is checked before it
+// is added, not first in CI.
+const listed = spawnSync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard', '--', '*.ts', '*.tsx', '*.mjs', '*.js', '*.py'], {
+  cwd: root,
+  encoding: 'utf8',
+  maxBuffer: 64 * 1024 * 1024,
+});
+if (listed.status !== 0) throw Error('Cannot list the tracked code files.');
+const bidi = /[\u061C\u200E\u200F\u202A-\u202E\u2066-\u2069]/u;
+// Pinned by the W4 and G23 holdout seals: its bytes are evidence too, and it
+// writes the marks it strips as literals. Nothing else is exempt.
+const sealedTools = new Set(['audit/bank-statement-eligibility/cashbook.py']);
+const literal = [];
+for (const path of listed.stdout.split('\0').filter(Boolean)) {
+  if (/^audit\/.*\/frozen\//u.test(path) || sealedTools.has(path)) continue;
+  if (bidi.test(await readFile(resolve(root, path), 'utf8'))) literal.push(path);
+}
+if (literal.length)
+  throw Error(`Literal bidirectional control characters in code: ${literal.join(', ')}. Write them as escapes.`);
+// Every other invisible character too (DEV-79): format characters such as the
+// byte order mark, line and paragraph separators, spaces other than U+0020,
+// control characters other than tab and line ends, private use and
+// noncharacters. The files that held one when this rule came are pinned by
+// their bytes, sealed evidence among them; touching one means escaping its
+// characters and taking it off the list. Every other file is clean.
+const invisible =
+  /[\p{Cf}\p{Zl}\p{Zp}\p{Co}\uFDD0-\uFDEF\uFFFE\uFFFF]|(?! )\p{Zs}|(?![\t\n\r])\p{Cc}/u;
+const pinned = JSON.parse(
+  await readFile(resolve(root, 'scripts/lint-invisible-originals.json'), 'utf8'),
+);
+const pins = new Map(pinned.files.map((file) => [file.path, file]));
+const unescaped = [];
+for (const path of listed.stdout.split('\0').filter(Boolean)) {
+  if (/^audit\/.*\/frozen\//u.test(path)) continue;
+  const bytes = await readFile(resolve(root, path));
+  if (!invisible.test(bytes.toString('utf8'))) continue;
+  const pin = pins.get(path);
+  if (
+    !pin ||
+    pin.bytes !== bytes.length ||
+    pin.sha256 !== createHash('sha256').update(bytes).digest('hex')
+  )
+    unescaped.push(path);
+}
+if (unescaped.length)
+  throw Error(`Literal invisible characters in code: ${unescaped.join(', ')}. Write them as escapes; a pinned file that changes leaves the list in the same change.`);
 const args = process.argv.slice(2);
 if (args.length === 1 && args[0] === '--verify-only') process.exit(0);
 // Accept presentation options only; short flags must not bypass scope checks.

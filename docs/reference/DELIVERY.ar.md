@@ -41,6 +41,8 @@ pnpm lint
 pnpm typecheck
 pnpm test
 pnpm test:mutation-runner
+pnpm test:mutation-anchors
+pnpm test:hard-cases
 pnpm test:source-families:ci
 pnpm build
 pnpm exec playwright install chromium
@@ -49,6 +51,9 @@ pnpm test:browser:main-integration
 pnpm test:browser:domain-navigation
 pnpm test:browser:reconciliation-entry
 pnpm test:browser:unified-workspace
+pnpm test:ux-census:unit
+pnpm test:browser:ux-census:self-test
+pnpm test:browser:ux-census
 ```
 
 هذه نقطة دخول وليست بديلًا عن جميع أوامر [CI](../../.github/workflows/pages.yml)، الذي يشغل أيضًا الطفرات المجزأة والأوراكل وPDF الطويل والصادرات المستقلة والبوابات المتخصصة. لا يعاد اختبار مالي شامل محليًا بلا داع لكل تعديل لغوي، لكن لا تحذف بوابة بعيدة أو تستخدم skip لتزعم نجاح إصدار.
@@ -74,4 +79,4 @@ node scripts/public-content-check.mjs --dist
 
 في مهمة توثيق فقط فرّق بين رفع المراجع إلى GitHub وبين إصدار تطبيق جديد؛ اعرض حالة CI الفعلية دون استعارة نتيجة الأساس القديم. تبقى أوامر النشر والفحوص الحالية كما هي.
 
-تحدث [الحالة](STATE.ar.md) فقط عندما يتغير الدليل، و[الخطة الحالية](../CURRENT-PLAN.ar.md) عندما يتغير العمل التالي، وخطة المجال عند إنجاز دفعة أو اكتشاف فجوة. اذكر ما لم يمكن اختباره بدل ملء الفراغ بتخمين.
+رقم الإصدار المنشور وحالته يُكتبان في [جدول الحالة](STATE.ar.md#الحالة-الحالية) وحده؛ تحيل إليه بقية الوثائق ولا تكرره، ويفحص ذلك `tests/docs-status.test.ts`. تحدث [الحالة](STATE.ar.md) فقط عندما يتغير الدليل، و[الخطة الحالية](../CURRENT-PLAN.ar.md) عندما يتغير العمل التالي، وخطة المجال عند إنجاز دفعة أو اكتشاف فجوة. اذكر ما لم يمكن اختباره بدل ملء الفراغ بتخمين.

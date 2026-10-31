@@ -1,0 +1,50 @@
+{
+ "schema": "tarasuf-inv3-verify/1",
+ "passed": true,
+ "problems": [],
+ "files": 104,
+ "cells": 25161,
+ "selfTest": [
+  {
+   "plant": "one cell changed",
+   "story": "L01",
+   "rejected": true
+  },
+  {
+   "plant": "leading zero dropped",
+   "story": "L14",
+   "rejected": true
+  },
+  {
+   "plant": "one row dropped",
+   "story": "L01",
+   "rejected": true
+  },
+  {
+   "plant": "two columns swapped",
+   "story": "L01",
+   "rejected": true
+  },
+  {
+   "plant": "byte order mark removed",
+   "story": "L02",
+   "rejected": true
+  },
+  {
+   "plant": "line ends changed",
+   "story": "L01",
+   "rejected": true
+  },
+  {
+   "plant": "a quote removed",
+   "story": "L02",
+   "rejected": true
+  },
+  {
+   "plant": "scope changed",
+   "story": "L01",
+   "rejected": true
+  }
+ ],
+ "factsSha256": "28f15363cf2c43b1be8c187967811e78233ca4c8a533d5fc2d16d1b6e7194166"
+}

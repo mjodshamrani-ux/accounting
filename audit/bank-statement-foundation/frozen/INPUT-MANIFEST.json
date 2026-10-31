@@ -1,0 +1,188 @@
+{
+ "version": "bank-statement-foundation-1",
+ "producer": "Chromium 141.0.7390.37 page.pdf, DejaVu Sans; exceljs; CSV UTF-8 CRLF",
+ "facts": {
+  "file": "stories.json",
+  "stored": false,
+  "recipe": "node audit/bank-statement-foundation/stories.mjs",
+  "sha256": "d971991f60c9f6e93a27cbaa2653f81ba568f7f0dd001c2be52600e7d5990320",
+  "bytes": 1718818
+ },
+ "files": [
+  {
+   "file": "BS01-statement.pdf",
+   "sha256": "9af781800ca59c5e3cdc4795d1483384610bf7b387f631b7d733cd1ff06bb296",
+   "bytes": 24791
+  },
+  {
+   "file": "BS01-cashbook.csv",
+   "sha256": "ab810620875bbd51f050d873a3789b798244ad66e9e4bf84f23226f3932a483f",
+   "bytes": 725
+  },
+  {
+   "file": "BS01-statement.csv",
+   "sha256": "201100a3d44448291dd0b8b9eb305a05fd69d6bfcd02e809c876a3ed5d435a70",
+   "bytes": 881
+  },
+  {
+   "file": "BS01-statement.xlsx",
+   "sha256": "0ef7b840c987f0e43972b5f04949d926b8a0da0965ff824f5773c6b82156a6d0",
+   "bytes": 7130
+  },
+  {
+   "file": "BS01-cashbook.xlsx",
+   "sha256": "6bd408c85e97a04883bb5a53cdd59e7d6f88e3580fbad3f88a4ca25cfce3ca53",
+   "bytes": 7008
+  },
+  {
+   "file": "BS02-statement.pdf",
+   "sha256": "0e64d9006b103e7bad689830e4994467ea0b4f64ae2b898a4a790041ff8b94a5",
+   "bytes": 25017
+  },
+  {
+   "file": "BS02-cashbook.csv",
+   "sha256": "5cb021bea7da1ed464b7331d8295e32bb540fb68d9164d7a01576dd5a762b0ff",
+   "bytes": 795
+  },
+  {
+   "file": "BS03-statement.pdf",
+   "sha256": "84f866393f84fff57ae417330dca7c6861c4121943f21165929fa25816af2b7c",
+   "bytes": 24734
+  },
+  {
+   "file": "BS03-cashbook.csv",
+   "sha256": "f4ff32e784b9e44350ca9190e497e2c7d9ab1a53d27ea067ae7d5990fa2943f8",
+   "bytes": 856
+  },
+  {
+   "file": "BS04-statement.pdf",
+   "sha256": "cbcb61a894e279aaca5bdbf499d72d0d49f37b6fa42c84b2ca89396d7ba7904b",
+   "bytes": 24971
+  },
+  {
+   "file": "BS04-cashbook.csv",
+   "sha256": "45a7e2d390ea0457bd894fed01b939d441d93ab5811df2526437d23f8ffdc338",
+   "bytes": 721
+  },
+  {
+   "file": "BS05-statement.pdf",
+   "sha256": "b88c24f3a1f7b5395130b2149726e839cd547403832166c5bf11e062225abf8f",
+   "bytes": 24883
+  },
+  {
+   "file": "BS05-cashbook.csv",
+   "sha256": "341a75178d95adf6d687e159f76a12245dcb835d10ed7cbf1d7fce646f7ee3e5",
+   "bytes": 758
+  },
+  {
+   "file": "BS06-statement.pdf",
+   "sha256": "1daa2d7b37468626f5546317db469e7b8e5ac5d7afad68cbcba11cd0dbc5f96b",
+   "bytes": 24850
+  },
+  {
+   "file": "BS06-cashbook.csv",
+   "sha256": "94c30a09bb4c9a27de431af5bf405406a0616b56c30434e6d9af60a9b659e42d",
+   "bytes": 749
+  },
+  {
+   "file": "BS07-statement.pdf",
+   "sha256": "4c9b3384d57ec902649c2dc53f5f3bd1162b61a195447c169f6f961314b075a8",
+   "bytes": 25104
+  },
+  {
+   "file": "BS07-cashbook.csv",
+   "sha256": "89254211461894202910f1e33ad174d5920bd635e81eb9f2501d1eb31ba35f82",
+   "bytes": 802
+  },
+  {
+   "file": "BS08-statement.pdf",
+   "sha256": "9d027e3e56b47e926b87fde3ce9627b25357c720c8e87e6493e8cfff8e79e842",
+   "bytes": 26163
+  },
+  {
+   "file": "BS08-cashbook.csv",
+   "sha256": "60de3fcdcfe7f73bfaffb0e8aacb7e4c230b7857a06c535a28904c49bb93a92b",
+   "bytes": 977
+  },
+  {
+   "file": "BS09-statement.pdf",
+   "sha256": "229ced30b7ff1ed46eeb2587a3fe14a5de789b9f0893de23452f1d7ac14206e6",
+   "bytes": 25213
+  },
+  {
+   "file": "BS09-cashbook.csv",
+   "sha256": "d49f5868b31a67e860ae9131348ec7eaa5307f5c2ff45535751b04dcbaf87e7e",
+   "bytes": 987
+  },
+  {
+   "file": "BS10-statement.pdf",
+   "sha256": "07fc998682c79803f00f20e1469ecfaa9927bbdb4f554d424ffed8a922140ab4",
+   "bytes": 24752
+  },
+  {
+   "file": "BS10-cashbook.csv",
+   "sha256": "d22b3668ba8a83f1e6e3fd0d5b2b656a7f6c3d2c8f582681329f70650bb0abda",
+   "bytes": 1373
+  },
+  {
+   "file": "BS11-statement.pdf",
+   "sha256": "058b0dae80bf2bfc0c0cbf17ec79aa04e4ed91c71aa65fedc83948b49313e689",
+   "bytes": 29151
+  },
+  {
+   "file": "BS11-cashbook.csv",
+   "sha256": "4c6da3128bade4126d2fecb64842df519aa129fa79412ffd892de1989659e6d6",
+   "bytes": 721
+  },
+  {
+   "file": "BS12-statement.pdf",
+   "sha256": "00e4e442149ae1e03c37bfb862b432020b4962bdf2245023d336dd677f45b328",
+   "bytes": 24646
+  },
+  {
+   "file": "BS12-cashbook.csv",
+   "sha256": "8a75f9aa0b1b44e1962dbf219f2fa9b927ee87cae203d3a9c8cca97a1dfd8fd9",
+   "bytes": 770
+  },
+  {
+   "file": "BS13-statement.pdf",
+   "sha256": "2b91157a10c8f1835318b3988d82f5f852c0eacec5027014604b2cfdde33d817",
+   "bytes": 25063
+  },
+  {
+   "file": "BS13-cashbook.csv",
+   "sha256": "fe9678f2a48a496359d0ba8e67a8027bac794387c87b4aef21c784ac107cbe20",
+   "bytes": 740
+  },
+  {
+   "file": "BS14-statement.pdf",
+   "sha256": "8e58fd93e46cd29ebc80e8b23e1c9f0d743827d763a21692ccae6970df3e3246",
+   "bytes": 281981
+  },
+  {
+   "file": "BS14-cashbook.csv",
+   "sha256": "7a00a8af82952c3a7097a3167adceca2925d2af37647633117ac2ca26e129520",
+   "bytes": 113159
+  },
+  {
+   "file": "BS15-statement.pdf",
+   "sha256": "a8993327fdd95521ca1bca3c9706cbc8e5672b567a4ec7c5569d0c293dbc9e2c",
+   "bytes": 396748
+  },
+  {
+   "file": "BS15-cashbook.csv",
+   "sha256": "eaae990538e5bb73b128f3b0164b56846b542f565cd1e7e13c3f9daeac1aff3e",
+   "bytes": 161961
+  },
+  {
+   "file": "BS16-statement.pdf",
+   "sha256": "e2ea6865de828ad9de6b361a0c5c9ec9c6e6e3559c87d6e6322e42b6e6ca624e",
+   "bytes": 27867
+  },
+  {
+   "file": "BS16-cashbook.csv",
+   "sha256": "dbe620ef96f54f4f7a8f36916bed0ee5d4dbe7515f38a526b5ac1866d5f48bd6",
+   "bytes": 695
+  }
+ ]
+}

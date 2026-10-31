@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The Java writer of the G12 holdout, resolved from Maven Central:
+     mvn -q dependency:build-classpath -Dmdep.outputFile=<file> -->
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>tarasuf.audit</groupId>
+  <artifactId>bank-statement-holdout-g12</artifactId>
+  <version>1</version>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.pdfbox</groupId>
+      <artifactId>pdfbox</artifactId>
+      <version>3.0.5</version>
+    </dependency>
+    <dependency>
+      <groupId>com.ibm.icu</groupId>
+      <artifactId>icu4j</artifactId>
+      <version>76.1</version>
+    </dependency>
+  </dependencies>
+</project>

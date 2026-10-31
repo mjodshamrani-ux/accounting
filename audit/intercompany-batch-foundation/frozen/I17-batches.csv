@@ -1,0 +1,7 @@
+Batch ID,Entity A,Entity B,Ledger A,Ledger B,Account A,Account B,Dimensions A,Dimensions B,Currency,Currency basis,FX policy,Posting status,Posting layer,Period start,Period end,As of,Policy version
+AB,Synthetic Alpha Holding,Synthetic Beta Trading,Alpha GL,Beta GL,1300,2300,cc=100,cc=200,SAR,functional,same-currency-no-conversion,posted,actual,2026-09-01,2026-09-30,2026-09-30,IC-1-2026
+AG,Synthetic Alpha Holding,Synthetic Gamma Services,Alpha GL,Gamma GL,1300,2300,cc=100,cc=300,SAR,functional,same-currency-no-conversion,posted,actual,2026-09-01,2026-09-30,2026-09-30,IC-1-2026
+AD,Synthetic Alpha Holding,Synthetic Delta Logistics,Alpha GL,Delta GL,1300,2300,cc=100,cc=400,SAR,functional,same-currency-no-conversion,posted,actual,2026-09-01,2026-09-30,2026-09-30,IC-1-2026
+BG,Synthetic Beta Trading,Synthetic Gamma Services,Beta GL,Gamma GL,1300,2300,cc=200,cc=300,SAR,functional,same-currency-no-conversion,posted,actual,2026-09-01,2026-09-30,2026-09-30,IC-1-2026
+BD,Synthetic Beta Trading,Synthetic Delta Logistics,Beta GL,Delta GL,1300,2300,cc=200,cc=400,SAR,functional,same-currency-no-conversion,posted,actual,2026-09-01,2026-09-30,2026-09-30,IC-1-2026
+GD,Synthetic Gamma Services,Synthetic Delta Logistics,Gamma GL,Delta GL,1300,2300,cc=300,cc=400,SAR,functional,same-currency-no-conversion,posted,actual,2026-09-01,2026-09-30,2026-09-30,IC-1-2026

@@ -1,0 +1,4660 @@
+{
+ "schema": "tarasuf-bnk-pdf1-drawings-check/1",
+ "question": "Does drawings.py find where the reader's drawing, clip and background tests stop a statement, as the reader is and with each rule about them off?",
+ "sealed": [
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS01-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS02-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS03-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS04-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS05-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS06-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS07-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS08-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS09-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS10-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS11-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS12-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS13-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS14-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS15-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS16-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P01-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P02-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P03-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P04-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P05-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P06-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P07-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P08-statement.pdf",
+   "today": {
+    "tool": null,
+    "toolBlind": 1,
+    "reader": {
+     "page": 1,
+     "kind": "other",
+     "message": "تعذرت قراءة صفحة PDF 1: الصفحة 1 مدوّرة. اطلب PDF باتجاه صحيح أو Excel."
+    },
+    "same": null
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "toolBlind": 1,
+    "reader": {
+     "page": 1,
+     "kind": "other",
+     "message": "تعذرت قراءة صفحة PDF 1: الصفحة 1 مدوّرة. اطلب PDF باتجاه صحيح أو Excel."
+    },
+    "same": null
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "toolBlind": 1,
+    "reader": {
+     "page": 1,
+     "kind": "other",
+     "message": "تعذرت قراءة صفحة PDF 1: الصفحة 1 مدوّرة. اطلب PDF باتجاه صحيح أو Excel."
+    },
+    "same": null
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "toolBlind": 1,
+    "reader": {
+     "page": 1,
+     "kind": "other",
+     "message": "تعذرت قراءة صفحة PDF 1: الصفحة 1 مدوّرة. اطلب PDF باتجاه صحيح أو Excel."
+    },
+    "same": null
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P09-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P10-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P11-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P12-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q01-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": {
+     "page": 1,
+     "kind": "clip"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "clip"
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q02-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q03-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q04-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q05-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q06-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q07-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q08-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q09-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q10-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q11-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q12-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R01-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R02-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R03-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R04-statement.pdf",
+   "today": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R05-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R06-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R07-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R08-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R09-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R10-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R11-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R12-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T01-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T02-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T03-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T04-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T05-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T06-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T07-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T08-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T09-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T10-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T11-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T12-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V01-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V02-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V03-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V04-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V05-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V06-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V07-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V08-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V09-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V10-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V11-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V12-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W01-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W02-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W03-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W04-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W05-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W06-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W07-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W08-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W09-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W10-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W11-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W12-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H01-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H02-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H03-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H04-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H05-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H06-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H07-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H08-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H09-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H10-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H11-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H12-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K01-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K02-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K03-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K04-statement.pdf",
+   "today": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K05-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K06-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K07-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K08-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K09-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K10-statement.pdf",
+   "today": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K11-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K12-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N01-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N02-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N03-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N04-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N05-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N06-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N07-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N08-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "page": null,
+     "kind": "other",
+     "message": "يحتوي PDF صورة قد تضم بيانات لا تُقرأ نصيًا، حتى لو كانت صغيرة. أرقام القراءة البصرية (OCR) لا تدخل "
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "page": null,
+     "kind": "other",
+     "message": "يحتوي PDF صورة قد تضم بيانات لا تُقرأ نصيًا، حتى لو كانت صغيرة. أرقام القراءة البصرية (OCR) لا تدخل "
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "page": null,
+     "kind": "other",
+     "message": "يحتوي PDF صورة قد تضم بيانات لا تُقرأ نصيًا، حتى لو كانت صغيرة. أرقام القراءة البصرية (OCR) لا تدخل "
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "page": null,
+     "kind": "other",
+     "message": "يحتوي PDF صورة قد تضم بيانات لا تُقرأ نصيًا، حتى لو كانت صغيرة. أرقام القراءة البصرية (OCR) لا تدخل "
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N09-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N10-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N11-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N12-statement.pdf",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  }
+ ],
+ "planted": [
+  {
+   "case": "background-over-text",
+   "today": {
+    "tool": {
+     "page": 1,
+     "kind": "covers"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "covers"
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": {
+     "page": 1,
+     "kind": "covers"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "covers"
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": {
+     "page": 1,
+     "kind": "covers"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "covers"
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": {
+     "page": 1,
+     "kind": "covers"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "covers"
+    },
+    "same": true
+   }
+  },
+  {
+   "case": "clip-cuts",
+   "today": {
+    "tool": {
+     "page": 1,
+     "kind": "clip"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "clip"
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": {
+     "page": 1,
+     "kind": "clip"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "clip"
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": {
+     "page": 1,
+     "kind": "clip"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "clip"
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": {
+     "page": 1,
+     "kind": "clip"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "clip"
+    },
+    "same": true
+   }
+  },
+  {
+   "case": "clip-traced-back",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": {
+     "page": 1,
+     "kind": "clip"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "clip"
+    },
+    "same": true
+   }
+  },
+  {
+   "case": "closed-twice",
+   "today": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   }
+  },
+  {
+   "case": "curve-near",
+   "today": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   }
+  },
+  {
+   "case": "hairline-near",
+   "today": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   }
+  },
+  {
+   "case": "miter-tip",
+   "today": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   }
+  },
+  {
+   "case": "rectangle-closed",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "case": "rectangle-traced-back",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   }
+  },
+  {
+   "case": "rule-apart",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "case": "rule-beside-the-glyphs",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "case": "rule-ends-short",
+   "today": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   }
+  },
+  {
+   "case": "rule-in-the-padding",
+   "today": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": null,
+    "reader": {
+     "read": true
+    },
+    "same": true
+   }
+  },
+  {
+   "case": "rule-through",
+   "today": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   }
+  },
+  {
+   "case": "scaled-rule",
+   "today": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noInkDrawing": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noGlyphDrawings": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   },
+   "noRectangleReturn": {
+    "tool": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "reader": {
+     "page": 1,
+     "kind": "drawing"
+    },
+    "same": true
+   }
+  }
+ ],
+ "summary": {
+  "today": {
+   "same": "138/138",
+   "differ": [],
+   "notComparable": [
+    "audit/bank-statement-holdout-g10/frozen/P08-statement.pdf"
+   ],
+   "stoppedByTheseTests": [
+    "audit/bank-statement-holdout-g14/frozen/R04-statement.pdf drawing",
+    "audit/bank-statement-holdout-g8/frozen/K04-statement.pdf drawing",
+    "audit/bank-statement-holdout-g8/frozen/K10-statement.pdf drawing",
+    "background-over-text covers",
+    "clip-cuts clip",
+    "closed-twice drawing",
+    "curve-near drawing",
+    "hairline-near drawing",
+    "miter-tip drawing",
+    "rule-ends-short drawing",
+    "rule-through drawing",
+    "scaled-rule drawing"
+   ]
+  },
+  "noInkDrawing": {
+   "same": "138/138",
+   "differ": [],
+   "notComparable": [
+    "audit/bank-statement-holdout-g10/frozen/P08-statement.pdf"
+   ],
+   "stoppedByTheseTests": [
+    "audit/bank-statement-holdout-g14/frozen/R04-statement.pdf drawing",
+    "audit/bank-statement-holdout-g8/frozen/K02-statement.pdf drawing",
+    "audit/bank-statement-holdout-g8/frozen/K04-statement.pdf drawing",
+    "audit/bank-statement-holdout-g8/frozen/K10-statement.pdf drawing",
+    "background-over-text covers",
+    "clip-cuts clip",
+    "closed-twice drawing",
+    "curve-near drawing",
+    "hairline-near drawing",
+    "miter-tip drawing",
+    "rule-ends-short drawing",
+    "rule-in-the-padding drawing",
+    "rule-through drawing",
+    "scaled-rule drawing"
+   ]
+  },
+  "noGlyphDrawings": {
+   "same": "138/138",
+   "differ": [],
+   "notComparable": [
+    "audit/bank-statement-holdout-g10/frozen/P08-statement.pdf"
+   ],
+   "stoppedByTheseTests": [
+    "audit/bank-statement-holdout-g10/frozen/P01-statement.pdf drawing",
+    "audit/bank-statement-holdout-g14/frozen/R04-statement.pdf drawing",
+    "audit/bank-statement-holdout-g8/frozen/K04-statement.pdf drawing",
+    "audit/bank-statement-holdout-g8/frozen/K10-statement.pdf drawing",
+    "background-over-text covers",
+    "clip-cuts clip",
+    "closed-twice drawing",
+    "curve-near drawing",
+    "hairline-near drawing",
+    "miter-tip drawing",
+    "rule-beside-the-glyphs drawing",
+    "rule-ends-short drawing",
+    "rule-through drawing",
+    "scaled-rule drawing"
+   ]
+  },
+  "noRectangleReturn": {
+   "same": "138/138",
+   "differ": [],
+   "notComparable": [
+    "audit/bank-statement-holdout-g10/frozen/P08-statement.pdf"
+   ],
+   "stoppedByTheseTests": [
+    "audit/bank-statement-holdout-g10/frozen/P01-statement.pdf drawing",
+    "audit/bank-statement-holdout-g10/frozen/P03-statement.pdf drawing",
+    "audit/bank-statement-holdout-g12/frozen/Q01-statement.pdf clip",
+    "audit/bank-statement-holdout-g14/frozen/R04-statement.pdf drawing",
+    "audit/bank-statement-holdout-g8/frozen/K04-statement.pdf drawing",
+    "audit/bank-statement-holdout-g8/frozen/K10-statement.pdf drawing",
+    "background-over-text covers",
+    "clip-cuts clip",
+    "clip-traced-back clip",
+    "closed-twice drawing",
+    "curve-near drawing",
+    "hairline-near drawing",
+    "miter-tip drawing",
+    "rectangle-traced-back drawing",
+    "rule-ends-short drawing",
+    "rule-through drawing",
+    "scaled-rule drawing"
+   ]
+  }
+ }
+}

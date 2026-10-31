@@ -6,11 +6,17 @@ import { askStockPdf } from './inventory-pdf-assistant.ts';
 import { snapshotStockPdfRequest } from './inventory-pdf-request.ts';
 import {readPayrollFile,replayPayroll,savePayroll,restorePayroll,exportPayroll} from './payroll-io.ts';
 import {readAssetFile,replayAsset,saveAsset,restoreAsset,exportAsset} from './fixed-assets-io.ts';
-import { readStockFile, replayStock, saveStock, restoreStock, exportStock } from './inventory-register-io.ts';
+import { readStockFile, replayStock, saveStock, restoreStock, exportStock, exportStockLinks } from './inventory-register-io.ts';
 import { replayGateway, saveGateway, restoreGateway, exportGateway } from './payment-gateway-io.ts';
 import { readGatewayFile } from './payment-gateway-source.ts';
 import { replayIntercompany, saveIntercompany, restoreIntercompany, exportIntercompany } from './intercompany-io.ts';
 import { readIntercompanyFile } from './intercompany-source.ts';
+import { replayIntercompanyBatches } from './intercompany-batch-io.ts';
+import { replayGlTbSections } from './gl-tb-sections-io.ts';
+import { replayFinancialHierarchy } from './tb-financial-hierarchy-io.ts';
+import { replayLongRegister } from './payroll-long-register-io.ts';
+import { replayMovementBridge } from './inventory-movement-bridge-io.ts';
+import { replayClearingGroups } from './clearing-groups-io.ts';
 import { replayFinancialPosition, saveFinancialPosition, restoreFinancialPosition, exportFinancialPosition } from './tb-financial-io.ts';
 import {
   replayBankAdjustments,
@@ -20,11 +26,21 @@ import {
 } from './bank-adjustment-io.ts';
 import { replayBank, saveBank, restoreBank, exportBank } from './bank-io.ts';
 import {
+  replayAnyStatement,
+  saveAnyStatement,
+  restoreAnyStatement,
+  exportAnyStatement,
+} from './bank-statement-lifecycle.ts';
+import { snapshotBankStatementRequest } from './bank-statement-request.ts';
+import {
   replayAllocation,
   saveAllocation,
   restoreAllocation,
   exportAllocation,
 } from './allocation-io.ts';
+import { replayAllocationAdvice } from './allocation-advice-io.ts';
+import { replayGatewayBatches } from './payment-gateway-batches-io.ts';
+import { replayAssetSections } from './fixed-assets-sections-io.ts';
 import { replayGlTb, saveGlTb, restoreGlTb, exportGlTb } from './gl-tb-io.ts';
 import { replayAr, saveAr, restoreAr, exportAr } from './ar-io.ts';
 import { snapshotArRequest } from './ar-worker-binding.ts';
@@ -61,6 +77,8 @@ self.onmessage = async (event: MessageEvent) => {
   try {
     if (action.startsWith('ar-')) payload = snapshotArRequest(action, payload);
     if (action.startsWith('stock-pdf-')) payload = snapshotStockPdfRequest(action, payload);
+    if (action.startsWith('bank-statement-'))
+      payload = snapshotBankStatementRequest(action, payload);
     let value: unknown;
     if (action === 'ready') value = { ready: true, engine: ENGINE_VERSION };
     else if (action === 'bank-adjustment-reconcile')
@@ -77,6 +95,14 @@ self.onmessage = async (event: MessageEvent) => {
       value = await restoreBank(payload.buffer);
     else if (action === 'bank-export')
       value = await exportBank(payload.state, payload.result);
+    else if (action === 'bank-statement-reconcile')
+      value = await replayAnyStatement(payload);
+    else if (action === 'bank-statement-save')
+      value = await saveAnyStatement(payload);
+    else if (action === 'bank-statement-restore')
+      value = await restoreAnyStatement(payload.buffer);
+    else if (action === 'bank-statement-export')
+      value = await exportAnyStatement(payload.state, payload.result);
     else if (action === 'allocation-reconcile')
       value = await replayAllocation(payload);
     else if (action === 'allocation-save')
@@ -85,6 +111,12 @@ self.onmessage = async (event: MessageEvent) => {
       value = await restoreAllocation(payload.buffer);
     else if (action === 'allocation-export')
       value = await exportAllocation(payload.state, payload.result);
+    else if (action === 'allocation-advice-review')
+      value = await replayAllocationAdvice(payload);
+    else if (action === 'payment-gateway-batches-reconcile')
+      value = await replayGatewayBatches(payload);
+    else if (action === 'fixed-assets-sections-review')
+      value = await replayAssetSections(payload);
     else if (action === 'gateway-read') value = await readGatewayFile(payload.name,payload.buffer);
     else if (action === 'payroll-read') value = await readPayrollFile(payload.name,payload.buffer);
     else if (action === 'payroll-reconcile') value = await replayPayroll(payload);
@@ -107,6 +139,7 @@ self.onmessage = async (event: MessageEvent) => {
     else if (action === 'stock-save') value = await saveStock(payload);
     else if (action === 'stock-restore') value = await restoreStock(payload.buffer);
     else if (action === 'stock-export') value = await exportStock(payload.state,payload.result);
+    else if (action === 'stock-links-export') value = await exportStockLinks(payload.state,payload.result);
     else if (action === 'gateway-reconcile') value = await replayGateway(payload);
     else if (action === 'gateway-save') value = await saveGateway(payload);
     else if (action === 'gateway-restore') value = await restoreGateway(payload.buffer);
@@ -116,6 +149,12 @@ self.onmessage = async (event: MessageEvent) => {
     else if (action === 'intercompany-save') value = await saveIntercompany(payload);
     else if (action === 'intercompany-restore') value = await restoreIntercompany(payload.buffer);
     else if (action === 'intercompany-export') value = await exportIntercompany(payload.state, payload.result);
+    else if (action === 'intercompany-batch-reconcile') value = await replayIntercompanyBatches(payload);
+    else if (action === 'gl-tb-sections-reconcile') value = await replayGlTbSections(payload);
+    else if (action === 'tb-financial-hierarchy-reconcile') value = await replayFinancialHierarchy(payload);
+    else if (action === 'payroll-long-register-reconcile') value = await replayLongRegister(payload);
+    else if (action === 'inventory-movement-bridge-reconcile') value = await replayMovementBridge(payload);
+    else if (action === 'clearing-groups-reconcile') value = await replayClearingGroups(payload);
     else if (action === 'tb-financial-reconcile') value = await replayFinancialPosition(payload);
     else if (action === 'tb-financial-save') value = await saveFinancialPosition(payload);
     else if (action === 'tb-financial-restore') value = await restoreFinancialPosition(payload.buffer);

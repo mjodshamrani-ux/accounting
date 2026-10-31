@@ -1,0 +1,22 @@
+{
+ "schema": "tarasuf-inv2-movement-bridge-holdout-seal/1",
+ "statement": "Sealed before any product run on these files. The first engine and browser runs are recorded as they come.",
+ "pins": {
+  "INPUT-MANIFEST.json": "2dda1a9f63b9b3a2e6d975d7ac677a73af6218cf4253948528fc69c630ab1c25",
+  "EXPECTED.json": "2de989bcfd25b3cbcc03233fcaf5e9f82941166182bf03084aa3e4fce96ef0c9",
+  "VERIFY.json": "75ee4a60d784f7f53134ec0eefb8968498e6563afbef0a6ea4ea6c160e44e147",
+  "ELIGIBILITY.json": "a45a1f9f53cf7a9801c20dc3a293aa51e6e114eeaaaa6874689641746d3409d6",
+  "stories.py": "5cf774eedf7ae64ed4c956bbeecf5c7f7c582cd1c884f1dd54565eb99d7e9f1a",
+  "render.py": "9661203c226fab4b56c19b7630624803af31cb96f96aedd7886bbe7066257864",
+  "render.php": "902920ceb0cb229d68c5caaa0fb6ff39e4e41fce7b83fbe25d938fac5f3a782c",
+  "Render.java": "f17174cc3637ba8b27e0893ed4f9cbf1d7e34cc119118b678de4ca519bff3e58",
+  "render.go": "d44db84dfd544015aac6a3797c9af3ab7c5a4e0a65762b6b01ee573e54e99d98",
+  "render.pl": "b4cfc4e18beddd47e837b3005b48af98919167652177301b6dad0fa0dd4cef62",
+  "verify.py": "f0a8a47a1cf24e54b441f4303706c29deb6898eaabcfd79ff7424bf8d14dff97",
+  "eligibility.py": "5afd94f6d664d5a35bdafb5e45e42fd34fd5181a4b0064b1441cf4213ee55c17",
+  "judge.py": "14ec75b9d74c17589eed0ab1222bef2bf8fad3b55235eacea5642e7a841d8dee",
+  "test_intent.py": "75bac835f91b6703845211608ef0f4988cace094f6130e0a9f23a9225b8c0d9b",
+  "../inventory-movement-foundation/contract.json": "d91d1323eca6b3650c9b6cdd1a5d8340a0a62cc373798e7fd1c3f7e41bba4ef6",
+  "../inventory-movement-foundation/oracle.py": "7845c6b14eb4ebc9aa1e21dcfce241423a420b99b1829ceac45d946a5f13f654"
+ }
+}

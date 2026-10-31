@@ -1,0 +1,732 @@
+{
+ "schema": "tarasuf-bnk-pdf1-columns-vs-reader/1",
+ "what": "columns.py (G13) against the guarded reader on every sealed holdout statement. The reader ran from a private copy with its earlier guards (drawings over text, overlapping rows) switched off by g13-reader-earlier-guards-off.diff, so that its reading by columns is reached; its image and rotation guards stayed on. same: both stop at the same code, page and line, or both read the statement.",
+ "statements": 60,
+ "same": 58,
+ "rows": [
+  {
+   "package": "g6",
+   "statement": "H01",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g6",
+   "statement": "H02",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g6",
+   "statement": "H03",
+   "tool": {
+    "layout": "en",
+    "code": "HEADER",
+    "page": 1,
+    "line": 0,
+    "detail": "no line carries the declared column headers in order"
+   },
+   "reader": {
+    "code": "HEADER",
+    "page": 1,
+    "line": 0,
+    "detail": "no declared header layout on the first page"
+   },
+   "same": true
+  },
+  {
+   "package": "g6",
+   "statement": "H04",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g6",
+   "statement": "H05",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g6",
+   "statement": "H06",
+   "tool": null,
+   "reader": {
+    "read": "balance-broken"
+   },
+   "same": true
+  },
+  {
+   "package": "g6",
+   "statement": "H07",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g6",
+   "statement": "H08",
+   "tool": null,
+   "reader": {
+    "read": "incomplete-pages"
+   },
+   "same": true
+  },
+  {
+   "package": "g6",
+   "statement": "H09",
+   "tool": null,
+   "reader": {
+    "read": "incomplete-pages"
+   },
+   "same": true
+  },
+  {
+   "package": "g6",
+   "statement": "H10",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g6",
+   "statement": "H11",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g6",
+   "statement": "H12",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g8",
+   "statement": "K01",
+   "tool": {
+    "layout": "en",
+    "code": "COLUMN",
+    "page": 1,
+    "line": 5,
+    "detail": "\"balance\" is not inside one column"
+   },
+   "reader": {
+    "code": "COLUMN",
+    "page": 1,
+    "line": 5,
+    "detail": "\"balance\" is not inside one column"
+   },
+   "same": true
+  },
+  {
+   "package": "g8",
+   "statement": "K02",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g8",
+   "statement": "K03",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g8",
+   "statement": "K04",
+   "tool": {
+    "layout": "ar",
+    "code": "COLUMN",
+    "page": 1,
+    "line": 6,
+    "detail": "\"20,000.00\" is not inside one column"
+   },
+   "reader": {
+    "code": "COLUMN",
+    "page": 1,
+    "line": 6,
+    "detail": "\"20,000.00\" is not inside one column"
+   },
+   "same": true
+  },
+  {
+   "package": "g8",
+   "statement": "K05",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g8",
+   "statement": "K06",
+   "tool": null,
+   "reader": {
+    "read": "incomplete-pages"
+   },
+   "same": true
+  },
+  {
+   "package": "g8",
+   "statement": "K07",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g8",
+   "statement": "K08",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g8",
+   "statement": "K09",
+   "tool": null,
+   "reader": {
+    "read": "balance-broken"
+   },
+   "same": true
+  },
+  {
+   "package": "g8",
+   "statement": "K10",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g8",
+   "statement": "K11",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g8",
+   "statement": "K12",
+   "tool": null,
+   "reader": {
+    "read": "incomplete-pages"
+   },
+   "same": true
+  },
+  {
+   "package": "g9",
+   "statement": "N01",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g9",
+   "statement": "N02",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g9",
+   "statement": "N03",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g9",
+   "statement": "N04",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g9",
+   "statement": "N05",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g9",
+   "statement": "N06",
+   "tool": null,
+   "reader": {
+    "read": "balance-broken"
+   },
+   "same": true
+  },
+  {
+   "package": "g9",
+   "statement": "N07",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g9",
+   "statement": "N08",
+   "tool": null,
+   "reader": {
+    "refusedBefore": "يحتوي PDF صورة قد تضم بيانات لا تُقرأ نصيًا، حتى لو كانت صغيرة. أرقام القراءة البصرية (OCR) لا تدخل التسوية حا"
+   },
+   "same": false
+  },
+  {
+   "package": "g9",
+   "statement": "N09",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g9",
+   "statement": "N10",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g9",
+   "statement": "N11",
+   "tool": null,
+   "reader": {
+    "read": "incomplete-pages"
+   },
+   "same": true
+  },
+  {
+   "package": "g9",
+   "statement": "N12",
+   "tool": null,
+   "reader": {
+    "read": "balance-broken"
+   },
+   "same": true
+  },
+  {
+   "package": "g10",
+   "statement": "P01",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g10",
+   "statement": "P02",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g10",
+   "statement": "P03",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g10",
+   "statement": "P04",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g10",
+   "statement": "P05",
+   "tool": null,
+   "reader": {
+    "read": "incomplete-pages"
+   },
+   "same": true
+  },
+  {
+   "package": "g10",
+   "statement": "P06",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g10",
+   "statement": "P07",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g10",
+   "statement": "P08",
+   "tool": {
+    "layout": "en",
+    "code": "HEADER",
+    "page": 1,
+    "line": 0,
+    "detail": "no line carries the declared column headers in order"
+   },
+   "reader": {
+    "refusedBefore": "تعذرت قراءة صفحة PDF 1: الصفحة 1 مدوّرة. اطلب PDF باتجاه صحيح أو Excel."
+   },
+   "same": false
+  },
+  {
+   "package": "g10",
+   "statement": "P09",
+   "tool": {
+    "layout": "ar",
+    "code": "COLUMN",
+    "page": 1,
+    "line": 7,
+    "detail": "\"أمر دائم - إيجار\" is not inside one column"
+   },
+   "reader": {
+    "code": "COLUMN",
+    "page": 1,
+    "line": 7,
+    "detail": "\"ﺃﻣﺮ ﺩﺍﺋﻢ - ﺇﻳﺠﺎﺭ\" is not inside one column"
+   },
+   "same": true
+  },
+  {
+   "package": "g10",
+   "statement": "P10",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g10",
+   "statement": "P11",
+   "tool": null,
+   "reader": {
+    "read": "incomplete-pages"
+   },
+   "same": true
+  },
+  {
+   "package": "g10",
+   "statement": "P12",
+   "tool": null,
+   "reader": {
+    "read": "balance-broken"
+   },
+   "same": true
+  },
+  {
+   "package": "g12",
+   "statement": "Q01",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g12",
+   "statement": "Q02",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g12",
+   "statement": "Q03",
+   "tool": {
+    "layout": "en",
+    "code": "COLUMN",
+    "page": 1,
+    "line": 5,
+    "detail": "\"balance\" is not inside one column"
+   },
+   "reader": {
+    "code": "COLUMN",
+    "page": 1,
+    "line": 5,
+    "detail": "\"balance\" is not inside one column"
+   },
+   "same": true
+  },
+  {
+   "package": "g12",
+   "statement": "Q04",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g12",
+   "statement": "Q05",
+   "tool": null,
+   "reader": {
+    "read": "balance-broken"
+   },
+   "same": true
+  },
+  {
+   "package": "g12",
+   "statement": "Q06",
+   "tool": {
+    "layout": "en",
+    "code": "FIELD",
+    "page": 6,
+    "line": 6,
+    "detail": "date needs one value"
+   },
+   "reader": {
+    "code": "FIELD",
+    "page": 6,
+    "line": 6,
+    "detail": "date needs one value"
+   },
+   "same": true
+  },
+  {
+   "package": "g12",
+   "statement": "Q07",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g12",
+   "statement": "Q08",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g12",
+   "statement": "Q09",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g12",
+   "statement": "Q10",
+   "tool": null,
+   "reader": {
+    "read": "verified"
+   },
+   "same": true
+  },
+  {
+   "package": "g12",
+   "statement": "Q11",
+   "tool": null,
+   "reader": {
+    "read": "balance-broken"
+   },
+   "same": true
+  },
+  {
+   "package": "g12",
+   "statement": "Q12",
+   "tool": null,
+   "reader": {
+    "read": "incomplete-pages"
+   },
+   "same": true
+  }
+ ],
+ "planted": {
+  "what": "The planted statements of test_eligibility.py (class Columns), saved and read by the reader, both the product as it is and the private copy: both gave the reader rows here.",
+  "statements": 9,
+  "same": 9,
+  "rows": [
+   {
+    "statement": "columns-clean",
+    "tool": null,
+    "reader": {
+     "read": "verified"
+    },
+    "same": true
+   },
+   {
+    "statement": "columns-pad-in",
+    "tool": null,
+    "reader": {
+     "read": "verified"
+    },
+    "same": true
+   },
+   {
+    "statement": "columns-pad-out",
+    "tool": {
+     "layout": "en",
+     "code": "COLUMN",
+     "page": 1,
+     "line": 5,
+     "detail": "\"2026-04-02\" is not inside one column"
+    },
+    "reader": {
+     "code": "COLUMN",
+     "page": 1,
+     "line": 5,
+     "detail": "\"2026-04-02\" is not inside one column"
+    },
+    "same": true
+   },
+   {
+    "statement": "columns-slot",
+    "tool": {
+     "layout": "en",
+     "code": "COLUMN",
+     "page": 1,
+     "line": 4,
+     "detail": "\"balance\" is not inside one column"
+    },
+    "reader": {
+     "code": "COLUMN",
+     "page": 1,
+     "line": 4,
+     "detail": "\"balance\" is not inside one column"
+    },
+    "same": true
+   },
+   {
+    "statement": "columns-slot-small",
+    "tool": null,
+    "reader": {
+     "read": "verified"
+    },
+    "same": true
+   },
+   {
+    "statement": "columns-continued",
+    "tool": null,
+    "reader": {
+     "read": "verified"
+    },
+    "same": true
+   },
+   {
+    "statement": "columns-across",
+    "tool": {
+     "layout": "en",
+     "code": "COLUMN",
+     "page": 2,
+     "line": 5,
+     "detail": "\"for\" is not inside one column"
+    },
+    "reader": {
+     "code": "COLUMN",
+     "page": 2,
+     "line": 5,
+     "detail": "\"for\" is not inside one column"
+    },
+    "same": true
+   },
+   {
+    "statement": "columns-header",
+    "tool": {
+     "layout": "en",
+     "code": "HEADER",
+     "page": 1,
+     "line": 0,
+     "detail": "no line carries the declared column headers in order"
+    },
+    "reader": {
+     "code": "HEADER",
+     "page": 1,
+     "line": 0,
+     "detail": "no declared header layout on the first page"
+    },
+    "same": true
+   },
+   {
+    "statement": "columns-stray",
+    "tool": {
+     "layout": "en",
+     "code": "LINE",
+     "page": 1,
+     "line": 5,
+     "detail": "description text without its movement"
+    },
+    "reader": {
+     "code": "LINE",
+     "page": 1,
+     "line": 5,
+     "detail": "description text without its movement"
+    },
+    "same": true
+   }
+  ]
+ }
+}

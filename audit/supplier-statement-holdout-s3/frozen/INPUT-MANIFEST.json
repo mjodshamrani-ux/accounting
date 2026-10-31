@@ -1,0 +1,212 @@
+{
+ "version": "tarasuf-supplier-s3-1",
+ "producers": {
+  "hexapdf": "1.11.2",
+  "ruby": "3.3.6",
+  "pdf-lib": "1.17.1",
+  "@pdf-lib/fontkit": "1.1.1",
+  "bidi-js": "1.0.3",
+  "node": "22.22.0",
+  "ledgerCsv": "Python csv, UTF-8, CRLF"
+ },
+ "fonts": {
+  "Alexandria_400Regular.ttf": {
+   "source": "@expo-google-fonts/alexandria 0.4.2: 400Regular/Alexandria_400Regular.ttf",
+   "sha256": "1c66b216566da52817abd1ff7500c2817486645d089a54c0389751cd4d0c6b17"
+  },
+  "Alexandria_700Bold.ttf": {
+   "source": "@expo-google-fonts/alexandria 0.4.2: 700Bold/Alexandria_700Bold.ttf",
+   "sha256": "7c79ced75e6c6bc95a3bda85f867813d122f39afb61c6566c3c6a18c1e68b7c3"
+  },
+  "FiraSans_400Regular.ttf": {
+   "source": "@expo-google-fonts/fira-sans 0.4.1: 400Regular/FiraSans_400Regular.ttf",
+   "sha256": "3dabf3d48bf4599f95cffd92f99ea426a014d5311f52a5eb5ec3af265e97cd97"
+  },
+  "FiraSans_700Bold.ttf": {
+   "source": "@expo-google-fonts/fira-sans 0.4.1: 700Bold/FiraSans_700Bold.ttf",
+   "sha256": "74b477a3e2b7c745e6dac8c01764c8fd82e53763b47ef1eccd24dce36d2ff71f"
+  },
+  "Merriweather_400Regular.ttf": {
+   "source": "@expo-google-fonts/merriweather 0.4.2: 400Regular/Merriweather_400Regular.ttf",
+   "sha256": "f1541057f1765ffa5ee7eb873f01bec1dd2238c85a8b1602c462fd8eda92b6df"
+  },
+  "Merriweather_700Bold.ttf": {
+   "source": "@expo-google-fonts/merriweather 0.4.2: 700Bold/Merriweather_700Bold.ttf",
+   "sha256": "d9587d1266fb18da859f44a0ada7bdc5e7cb68af29ea87aa7caab2607cd74579"
+  },
+  "ReadexPro_400Regular.ttf": {
+   "source": "@expo-google-fonts/readex-pro 0.4.1: 400Regular/ReadexPro_400Regular.ttf",
+   "sha256": "cf8d20680d810289ebbd85f219ecaf77d79a5a78094a1806ca1a42fcaf6fa81f"
+  },
+  "ReadexPro_700Bold.ttf": {
+   "source": "@expo-google-fonts/readex-pro 0.4.1: 700Bold/ReadexPro_700Bold.ttf",
+   "sha256": "49876d8f5acf89135beabfe25216a4f29771d5e1ac45c382fa0e197d65da9273"
+  },
+  "Rubik_400Regular.ttf": {
+   "source": "@expo-google-fonts/rubik 0.4.2: 400Regular/Rubik_400Regular.ttf",
+   "sha256": "6b94e23adedab4522e1b65d21158e83c75f377fc99f916c58f8ec40ecc7dd035"
+  },
+  "Rubik_700Bold.ttf": {
+   "source": "@expo-google-fonts/rubik 0.4.2: 700Bold/Rubik_700Bold.ttf",
+   "sha256": "2fb105e3a66c3540e2308321e7c5bd786ce98a232930cd31c62e20d47747ad20"
+  },
+  "SpaceMono_400Regular.ttf": {
+   "source": "@expo-google-fonts/space-mono 0.4.2: 400Regular/SpaceMono_400Regular.ttf",
+   "sha256": "508a2a382b46a55be24d9edb70ce7d59be695cd5808e641fda24c40864b0d5d2"
+  },
+  "SpaceMono_700Bold.ttf": {
+   "source": "@expo-google-fonts/space-mono 0.4.2: 700Bold/SpaceMono_700Bold.ttf",
+   "sha256": "35da133403a96d2972f91744f4e8dd3f3d0155e6b9aedbaf14266efa58c12d2d"
+  },
+  "Tajawal_400Regular.ttf": {
+   "source": "@expo-google-fonts/tajawal 0.4.1: 400Regular/Tajawal_400Regular.ttf",
+   "sha256": "386997fcfcd22020b47265f9c02587791867e4df5f74a36be36ad6264a50d321"
+  },
+  "Tajawal_700Bold.ttf": {
+   "source": "@expo-google-fonts/tajawal 0.4.1: 700Bold/Tajawal_700Bold.ttf",
+   "sha256": "ca2c8ca040b6725b6b058c8470fe5bbf5c4c2b77356fe8c38c41716decb206bd"
+  },
+  "WorkSans_400Regular.ttf": {
+   "source": "@expo-google-fonts/work-sans 0.4.2: 400Regular/WorkSans_400Regular.ttf",
+   "sha256": "e67985a843df0d3cdee51a3d0f329eb1774a344ad9ff0c9ab923751f1577e2a4"
+  },
+  "WorkSans_700Bold.ttf": {
+   "source": "@expo-google-fonts/work-sans 0.4.2: 700Bold/WorkSans_700Bold.ttf",
+   "sha256": "240d125fc9f8561363dc1ea3f513501253bd70942f41468f48f0b0cafb0c82e2"
+  }
+ },
+ "facts": {
+  "file": "stories.json",
+  "stored": false,
+  "recipe": "python3 -B audit/supplier-statement-holdout-s3/stories.py",
+  "sha256": "1f82a1f173b7dbc47c5d60a5817fd9d428d4a4ba37c4abe70e7e43bde4727fd6",
+  "bytes": 65035
+ },
+ "files": [
+  {
+   "file": "R10-ledger.csv",
+   "sha256": "d13034a65c78a0be6c93a70f710261214c38bd21a748e5c273f2e01c20ffa36b",
+   "bytes": 400
+  },
+  {
+   "file": "R10-statement.pdf",
+   "sha256": "eed700c82957be38d68a9e1642c1ccb47996526ab83841fbd53206ec0e5c0cf9",
+   "bytes": 11819
+  },
+  {
+   "file": "R11-ledger.csv",
+   "sha256": "8e6a737c1d0a96f323e857354863b89fea43219f6f153a0524b22a63bf20d0ea",
+   "bytes": 439
+  },
+  {
+   "file": "R11-statement.pdf",
+   "sha256": "fa1a0838e693d1ed1b1ac14f726801157d939bda1663be53cd41d1ca89cf427a",
+   "bytes": 11354
+  },
+  {
+   "file": "R12-ledger.csv",
+   "sha256": "0469027972b18d4deafbac0ccd87c7655a7dd98ce3d5ba6ff86fdb8f1da00ca0",
+   "bytes": 489
+  },
+  {
+   "file": "R12-statement.pdf",
+   "sha256": "995b65873cce51c14040daa37e51e9a3acfed0804df775eda2ef1a9d4f84052f",
+   "bytes": 11658
+  },
+  {
+   "file": "S01-ledger.csv",
+   "sha256": "36cde6c4ca7a7ac2397c90a768e8e6e74af8d7d33b91020fc516b03755a0cbb5",
+   "bytes": 399
+  },
+  {
+   "file": "S01-statement.pdf",
+   "sha256": "68bd1b2898383a369283a35fb16a6644863def21d2e769ed9b220e21c7468a97",
+   "bytes": 11848
+  },
+  {
+   "file": "S02-ledger.csv",
+   "sha256": "4a270c885da01c767bd8f7b43cf439dcee590458654c5beac9c3efc2616cb793",
+   "bytes": 987
+  },
+  {
+   "file": "S02-statement.pdf",
+   "sha256": "5bb589cab18bd7602762b279adba6b8ce276cffe771860ea66bb4e3b0b7867f3",
+   "bytes": 20914
+  },
+  {
+   "file": "S03-ledger.csv",
+   "sha256": "122219590b3528e1e48e4c61d68fe7723a681782c4c8c46e4fe084d48d35be8e",
+   "bytes": 536
+  },
+  {
+   "file": "S03-statement.pdf",
+   "sha256": "6861685c8c1b09aaf9969549f01cf4e2a49538e23e74d559366fa3f47282d7cb",
+   "bytes": 14662
+  },
+  {
+   "file": "S04-ledger.csv",
+   "sha256": "0c5cd64c2aefc2d6a3531f440e8a47411ba57581481970c4177bb469d5c34b5a",
+   "bytes": 892
+  },
+  {
+   "file": "S04-statement.pdf",
+   "sha256": "93bb18e9bf7d55a9e47aeaafb82abf82e279bb1c9f39bf0a8bf98f2f6a078959",
+   "bytes": 20916
+  },
+  {
+   "file": "S05-ledger.csv",
+   "sha256": "3185ed342dc237cdf0127cc4a05d27d586e410321d8ba7d2f77d9fe2a0422596",
+   "bytes": 534
+  },
+  {
+   "file": "S05-statement.pdf",
+   "sha256": "8ca42e46e79c91e8923c9e3618548707427e6918d21305ebcc98acc02c581380",
+   "bytes": 11876
+  },
+  {
+   "file": "S06-ledger.csv",
+   "sha256": "95e09fa3c9f8474eb6b444feecef77048066b003205667d730d675d189db3ca5",
+   "bytes": 1521
+  },
+  {
+   "file": "S06-statement.pdf",
+   "sha256": "47383a6c9e76bf61ab5cea5bca6218dc45a8071c5a69588a85ce58cb89fef0f0",
+   "bytes": 18526
+  },
+  {
+   "file": "S07-ledger.csv",
+   "sha256": "efe1df9298921f7b5c39b83e7eb126a632bdf300afa715ec630e4bcff80ab481",
+   "bytes": 441
+  },
+  {
+   "file": "S07-statement.pdf",
+   "sha256": "5551200506ca8c05510ceab2742d271d1c04137f83aa2b26386a9d2a2730d239",
+   "bytes": 14087
+  },
+  {
+   "file": "S08-ledger.csv",
+   "sha256": "db8094f27aa4d8f06476a54c393e5d56ed56319f96320835ae6580c74025049c",
+   "bytes": 851
+  },
+  {
+   "file": "S08-statement.pdf",
+   "sha256": "a39f1c3286e9bef2d0b87a7367f112ed4ea2586ad6cca19782fa1c7896f78bd6",
+   "bytes": 21214
+  },
+  {
+   "file": "S09-ledger.csv",
+   "sha256": "56bb16ccb114004b123ecf6a8a742c76a86fb9e8424e56d1210f8d5933930c0c",
+   "bytes": 1385
+  },
+  {
+   "file": "S09-statement.pdf",
+   "sha256": "a1b412fb459a986c9d3c7fd95e88f45b59ad78a864c7a55713e1b252c0de2845",
+   "bytes": 25274
+  },
+  {
+   "file": "expected.json",
+   "sha256": "58c08ff630dd86835b9b6ce488e96e42b23bb1efae6671a3c8145b55ef1de63f",
+   "bytes": 38400
+  }
+ ]
+}

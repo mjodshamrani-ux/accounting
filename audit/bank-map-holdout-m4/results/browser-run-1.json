@@ -1,0 +1,183 @@
+{
+ "holdout": "audit/bank-map-holdout-m4",
+ "summary": {
+  "stories": 20,
+  "storiesEqual": 20,
+  "reads": 32,
+  "declared": 2,
+  "settled": 31,
+  "refused": 3,
+  "misfits": 6,
+  "invalid": 0,
+  "imports": 15,
+  "exports": 1,
+  "saves": 14,
+  "sessions": 31,
+  "workbooks": 31,
+  "workbooksAccepted": 31,
+  "checkerSelfTest": true,
+  "pageErrors": [],
+  "measure": {
+   "hand": [
+    11,
+    11,
+    11,
+    11,
+    11,
+    10,
+    10,
+    11,
+    11,
+    8,
+    11,
+    11,
+    11,
+    11,
+    11,
+    11,
+    11
+   ],
+   "map": [
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5
+   ]
+  }
+ },
+ "stories": {
+  "P01": {
+   "equal": true,
+   "workbooks": [
+    "P01#1",
+    "P01#2"
+   ]
+  },
+  "P02": {
+   "equal": true,
+   "workbooks": [
+    "P02#1",
+    "P02#2"
+   ]
+  },
+  "P03": {
+   "equal": true,
+   "workbooks": [
+    "P03#1",
+    "P03#2"
+   ]
+  },
+  "P04": {
+   "equal": true,
+   "workbooks": [
+    "P04#1",
+    "P04#2",
+    "P04#4"
+   ]
+  },
+  "P05": {
+   "equal": true,
+   "workbooks": [
+    "P05#1",
+    "P05#3"
+   ]
+  },
+  "P06": {
+   "equal": true,
+   "workbooks": [
+    "P06#1",
+    "P06#2"
+   ]
+  },
+  "P07": {
+   "equal": true,
+   "workbooks": [
+    "P07#1",
+    "P07#2"
+   ]
+  },
+  "P08": {
+   "equal": true,
+   "workbooks": [
+    "P08#1",
+    "P08#3"
+   ]
+  },
+  "P09": {
+   "equal": true,
+   "workbooks": [
+    "P09#1"
+   ]
+  },
+  "P10": {
+   "equal": true,
+   "workbooks": [
+    "P10#1",
+    "P10#2"
+   ]
+  },
+  "P11": {
+   "equal": true,
+   "workbooks": [
+    "P11#1",
+    "P11#2"
+   ]
+  },
+  "P12": {
+   "equal": true,
+   "workbooks": []
+  },
+  "P13": {
+   "equal": true,
+   "workbooks": [
+    "P13#1"
+   ]
+  },
+  "P14": {
+   "equal": true,
+   "workbooks": []
+  },
+  "P15": {
+   "equal": true,
+   "workbooks": []
+  },
+  "P16": {
+   "equal": true,
+   "workbooks": [
+    "P16#2"
+   ]
+  },
+  "P17": {
+   "equal": true,
+   "workbooks": [
+    "P17#15"
+   ]
+  },
+  "P18": {
+   "equal": true,
+   "workbooks": [
+    "P18#1",
+    "P18#2"
+   ]
+  },
+  "P19": {
+   "equal": true,
+   "workbooks": [
+    "P19#1",
+    "P19#3"
+   ]
+  },
+  "P20": {
+   "equal": true,
+   "workbooks": [
+    "P20#1",
+    "P20#2"
+   ]
+  }
+ }
+}

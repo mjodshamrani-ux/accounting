@@ -1,0 +1,1891 @@
+{
+ "version": "bank-map-foundation-1",
+ "stories": [
+  {
+   "id": "M01",
+   "title": "The map saved on this month's cashbook reads next month's",
+   "actions": [
+    {
+     "do": "read",
+     "period": "R17-JUL",
+     "source": "bank-roll-foundation",
+     "file": "M01-JUL-cashbook.xlsx",
+     "by": "hand",
+     "header": 4,
+     "columns": {
+      "date": 2,
+      "voucher": 1,
+      "description": 5,
+      "reference": 4,
+      "receipts": 6,
+      "payments": 7
+     },
+     "save": "Main current account"
+    },
+    {
+     "do": "read",
+     "period": "R17-AUG",
+     "source": "bank-roll-foundation",
+     "file": "M01-AUG-cashbook.xlsx",
+     "by": "map",
+     "map": "Main current account"
+    }
+   ],
+   "recipe": {
+    "M01-JUL-cashbook.xlsx": {
+     "twin": "R17-JUL",
+     "layout": "EN_A",
+     "header": 4,
+     "titles": 3,
+     "merged": "A1:H1"
+    },
+    "M01-AUG-cashbook.xlsx": {
+     "twin": "R17-AUG",
+     "layout": "EN_A",
+     "header": 4,
+     "titles": 3,
+     "merged": "A1:H1"
+    }
+   },
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Main current account"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Main current account"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M02",
+   "title": "Next month's Reference and Document No columns change places",
+   "actions": [
+    {
+     "do": "read",
+     "period": "R01-JUL",
+     "source": "bank-roll-foundation",
+     "file": "M02-JUL-cashbook.xlsx",
+     "by": "hand",
+     "header": 4,
+     "columns": {
+      "date": 2,
+      "voucher": 1,
+      "description": 5,
+      "reference": 4,
+      "receipts": 6,
+      "payments": 7
+     },
+     "save": "Main current account"
+    },
+    {
+     "do": "read",
+     "period": "R01-AUG",
+     "source": "bank-roll-foundation",
+     "file": "M02-AUG-cashbook.xlsx",
+     "by": "map",
+     "map": "Main current account"
+    },
+    {
+     "do": "read",
+     "period": "R01-AUG",
+     "source": "bank-roll-foundation",
+     "file": "M02-AUG-cashbook.xlsx",
+     "by": "hand",
+     "header": 4,
+     "columns": {
+      "date": 2,
+      "voucher": 1,
+      "description": 5,
+      "reference": 3,
+      "receipts": 6,
+      "payments": 7
+     },
+     "save": "Main current account"
+    },
+    {
+     "do": "read",
+     "period": "R01-AUG",
+     "source": "bank-roll-foundation",
+     "file": "M02-AUG-cashbook.xlsx",
+     "by": "map",
+     "map": "Main current account"
+    }
+   ],
+   "recipe": {
+    "M02-JUL-cashbook.xlsx": {
+     "twin": "R01-JUL",
+     "layout": "EN_A",
+     "header": 4
+    },
+    "M02-AUG-cashbook.xlsx": {
+     "twin": "R01-AUG",
+     "layout": "EN_A with Reference and Document No swapped",
+     "header": 4
+    }
+   },
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Main current account"
+     ]
+    },
+    {
+     "fits": false,
+     "problems": [
+      [
+       "reference",
+       "Document No",
+       [
+        "C4"
+       ]
+      ]
+     ],
+     "store": [
+      "Main current account"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Main current account"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Main current account"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M03",
+   "title": "Next month's file has lost its Reference column",
+   "actions": [
+    {
+     "do": "read",
+     "period": "R02-JUL",
+     "source": "bank-roll-foundation",
+     "file": "M03-JUL-cashbook.xlsx",
+     "by": "hand",
+     "header": 4,
+     "columns": {
+      "date": 2,
+      "voucher": 1,
+      "description": 5,
+      "reference": 4,
+      "receipts": 6,
+      "payments": 7
+     },
+     "save": "Main current account"
+    },
+    {
+     "do": "read",
+     "period": "R02-AUG",
+     "source": "bank-roll-foundation",
+     "file": "M03-AUG-cashbook.xlsx",
+     "by": "map",
+     "map": "Main current account"
+    },
+    {
+     "do": "read",
+     "period": "R02-AUG",
+     "source": "bank-roll-foundation",
+     "file": "M03-AUG-cashbook.xlsx",
+     "by": "hand",
+     "header": 4,
+     "columns": {
+      "date": 2,
+      "voucher": 1,
+      "description": 4,
+      "reference": null,
+      "receipts": 5,
+      "payments": 6
+     }
+    }
+   ],
+   "recipe": {
+    "M03-JUL-cashbook.xlsx": {
+     "twin": "R02-JUL",
+     "layout": "EN_A",
+     "header": 4
+    },
+    "M03-AUG-cashbook.xlsx": {
+     "twin": "R02-AUG",
+     "layout": "EN_A without Reference",
+     "header": 4,
+     "blankReferences": true
+    }
+   },
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Main current account"
+     ]
+    },
+    {
+     "fits": false,
+     "problems": [
+      [
+       "description",
+       "Debit",
+       [
+        "D4"
+       ]
+      ],
+      [
+       "reference",
+       "Narration",
+       []
+      ],
+      [
+       "receipts",
+       "Credit",
+       [
+        "E4"
+       ]
+      ],
+      [
+       "payments",
+       "Balance",
+       [
+        "F4"
+       ]
+      ]
+     ],
+     "store": [
+      "Main current account"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": {
+      "automatic": 0,
+      "review": {
+       "amount-date-suggestion": 4
+      }
+     },
+     "store": [
+      "Main current account"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M04",
+   "title": "Another party's cashbook under the same file name does not fit the map",
+   "actions": [
+    {
+     "do": "read",
+     "period": "R19-JUL",
+     "source": "bank-roll-foundation",
+     "file": "M04-A-cashbook.xlsx",
+     "by": "hand",
+     "header": 4,
+     "columns": {
+      "date": 2,
+      "voucher": 1,
+      "description": 5,
+      "reference": 4,
+      "receipts": 6,
+      "payments": 7
+     },
+     "save": "Main current account",
+     "as": "cashbook.xlsx"
+    },
+    {
+     "do": "read",
+     "period": "Q13-NOV",
+     "source": "bank-review-foundation",
+     "file": "M04-B-cashbook.xlsx",
+     "by": "map",
+     "map": "Main current account",
+     "as": "cashbook.xlsx"
+    },
+    {
+     "do": "read",
+     "period": "Q13-NOV",
+     "source": "bank-review-foundation",
+     "file": "M04-B-cashbook.xlsx",
+     "by": "hand",
+     "header": 1,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 3,
+      "reference": 4,
+      "receipts": 5,
+      "payments": 6
+     },
+     "as": "cashbook.xlsx"
+    }
+   ],
+   "recipe": {
+    "M04-A-cashbook.xlsx": {
+     "twin": "R19-JUL",
+     "layout": "EN_A",
+     "header": 4
+    },
+    "M04-B-cashbook.xlsx": {
+     "twin": "Q13-NOV",
+     "layout": "EN_B",
+     "header": 1
+    }
+   },
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Main current account"
+     ]
+    },
+    {
+     "fits": false,
+     "problems": [
+      "date",
+      "voucher",
+      "description",
+      "reference",
+      "receipts",
+      "payments"
+     ],
+     "store": [
+      "Main current account"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Main current account"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M05",
+   "title": "Another party's cashbook in the same layout fits: a map proves columns, not the party",
+   "actions": [
+    {
+     "do": "read",
+     "period": "R19-JUL",
+     "source": "bank-roll-foundation",
+     "file": "M05-A-cashbook.xlsx",
+     "by": "hand",
+     "header": 4,
+     "columns": {
+      "date": 2,
+      "voucher": 1,
+      "description": 5,
+      "reference": 4,
+      "receipts": 6,
+      "payments": 7
+     },
+     "save": "Main current account",
+     "as": "cashbook.xlsx"
+    },
+    {
+     "do": "read",
+     "period": "Q16-NOV",
+     "source": "bank-review-foundation",
+     "file": "M05-C-cashbook.xlsx",
+     "by": "map",
+     "map": "Main current account",
+     "as": "cashbook.xlsx"
+    }
+   ],
+   "recipe": {
+    "M05-A-cashbook.xlsx": {
+     "twin": "R19-JUL",
+     "layout": "EN_A",
+     "header": 4
+    },
+    "M05-C-cashbook.xlsx": {
+     "twin": "Q16-NOV",
+     "layout": "EN_A",
+     "header": 4
+    }
+   },
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Main current account"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Main current account"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M06",
+   "title": "A fourth title row moves next month's header to row 5",
+   "actions": [
+    {
+     "do": "read",
+     "period": "R03-JUL",
+     "source": "bank-roll-foundation",
+     "file": "M06-JUL-cashbook.xlsx",
+     "by": "hand",
+     "header": 4,
+     "columns": {
+      "date": 2,
+      "voucher": 1,
+      "description": 5,
+      "reference": 4,
+      "receipts": 6,
+      "payments": 7
+     },
+     "save": "Main current account"
+    },
+    {
+     "do": "read",
+     "period": "R03-AUG",
+     "source": "bank-roll-foundation",
+     "file": "M06-AUG-cashbook.xlsx",
+     "by": "map",
+     "map": "Main current account"
+    },
+    {
+     "do": "read",
+     "period": "R03-AUG",
+     "source": "bank-roll-foundation",
+     "file": "M06-AUG-cashbook.xlsx",
+     "by": "hand",
+     "header": 5,
+     "columns": {
+      "date": 2,
+      "voucher": 1,
+      "description": 5,
+      "reference": 4,
+      "receipts": 6,
+      "payments": 7
+     },
+     "save": "Main current account"
+    }
+   ],
+   "recipe": {
+    "M06-JUL-cashbook.xlsx": {
+     "twin": "R03-JUL",
+     "layout": "EN_A",
+     "header": 4
+    },
+    "M06-AUG-cashbook.xlsx": {
+     "twin": "R03-AUG",
+     "layout": "EN_A",
+     "header": 5,
+     "titles": 4
+    }
+   },
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Main current account"
+     ]
+    },
+    {
+     "fits": false,
+     "problems": [
+      [
+       "date",
+       "",
+       [
+        "B5"
+       ]
+      ],
+      [
+       "voucher",
+       "Printed on 2026-09-01",
+       [
+        "A5"
+       ]
+      ],
+      [
+       "description",
+       "",
+       [
+        "E5"
+       ]
+      ],
+      [
+       "reference",
+       "",
+       [
+        "D5"
+       ]
+      ],
+      [
+       "receipts",
+       "",
+       [
+        "F5"
+       ]
+      ],
+      [
+       "payments",
+       "",
+       [
+        "G5"
+       ]
+      ]
+     ],
+     "store": [
+      "Main current account"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Main current account"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M07",
+   "title": "A column appended after the mapped ones keeps the map fitting",
+   "actions": [
+    {
+     "do": "read",
+     "period": "R04-JUL",
+     "source": "bank-roll-foundation",
+     "file": "M07-JUL-cashbook.xlsx",
+     "by": "hand",
+     "header": 4,
+     "columns": {
+      "date": 2,
+      "voucher": 1,
+      "description": 5,
+      "reference": 4,
+      "receipts": 6,
+      "payments": 7
+     },
+     "save": "Main current account"
+    },
+    {
+     "do": "read",
+     "period": "R04-AUG",
+     "source": "bank-roll-foundation",
+     "file": "M07-AUG-cashbook.xlsx",
+     "by": "map",
+     "map": "Main current account"
+    }
+   ],
+   "recipe": {
+    "M07-JUL-cashbook.xlsx": {
+     "twin": "R04-JUL",
+     "layout": "EN_A",
+     "header": 4
+    },
+    "M07-AUG-cashbook.xlsx": {
+     "twin": "R04-AUG",
+     "layout": "EN_A with Cost centre appended",
+     "header": 4
+    }
+   },
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Main current account"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Main current account"
+     ],
+     "unread": [
+      "Document No",
+      "Balance",
+      "Cost centre"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M08",
+   "title": "A column inserted among the mapped ones shifts four of them",
+   "actions": [
+    {
+     "do": "read",
+     "period": "R05-JUL",
+     "source": "bank-roll-foundation",
+     "file": "M08-JUL-cashbook.xlsx",
+     "by": "hand",
+     "header": 4,
+     "columns": {
+      "date": 2,
+      "voucher": 1,
+      "description": 5,
+      "reference": 4,
+      "receipts": 6,
+      "payments": 7
+     },
+     "save": "Main current account"
+    },
+    {
+     "do": "read",
+     "period": "R05-AUG",
+     "source": "bank-roll-foundation",
+     "file": "M08-AUG-cashbook.xlsx",
+     "by": "map",
+     "map": "Main current account"
+    },
+    {
+     "do": "read",
+     "period": "R05-AUG",
+     "source": "bank-roll-foundation",
+     "file": "M08-AUG-cashbook.xlsx",
+     "by": "hand",
+     "header": 4,
+     "columns": {
+      "date": 2,
+      "voucher": 1,
+      "description": 6,
+      "reference": 5,
+      "receipts": 7,
+      "payments": 8
+     }
+    }
+   ],
+   "recipe": {
+    "M08-JUL-cashbook.xlsx": {
+     "twin": "R05-JUL",
+     "layout": "EN_A",
+     "header": 4
+    },
+    "M08-AUG-cashbook.xlsx": {
+     "twin": "R05-AUG",
+     "layout": "EN_A with Branch inserted third",
+     "header": 4
+    }
+   },
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Main current account"
+     ]
+    },
+    {
+     "fits": false,
+     "problems": [
+      [
+       "description",
+       "Reference",
+       [
+        "F4"
+       ]
+      ],
+      [
+       "reference",
+       "Document No",
+       [
+        "E4"
+       ]
+      ],
+      [
+       "receipts",
+       "Narration",
+       [
+        "G4"
+       ]
+      ],
+      [
+       "payments",
+       "Debit",
+       [
+        "H4"
+       ]
+      ]
+     ],
+     "store": [
+      "Main current account"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Main current account"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M09",
+   "title": "Labels written with other white space still fit",
+   "actions": [
+    {
+     "do": "read",
+     "period": "R06-JUL",
+     "source": "bank-roll-foundation",
+     "file": "M09-JUL-cashbook.xlsx",
+     "by": "hand",
+     "header": 4,
+     "columns": {
+      "date": 2,
+      "voucher": 1,
+      "description": 5,
+      "reference": 4,
+      "receipts": 6,
+      "payments": 7
+     },
+     "save": "Main current account"
+    },
+    {
+     "do": "read",
+     "period": "R06-AUG",
+     "source": "bank-roll-foundation",
+     "file": "M09-AUG-cashbook.xlsx",
+     "by": "map",
+     "map": "Main current account"
+    }
+   ],
+   "recipe": {
+    "M09-JUL-cashbook.xlsx": {
+     "twin": "R06-JUL",
+     "layout": "EN_A",
+     "header": 4
+    },
+    "M09-AUG-cashbook.xlsx": {
+     "twin": "R06-AUG",
+     "layout": "EN_A with extra white space in four labels",
+     "header": 4
+    }
+   },
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Main current account"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Main current account"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M10",
+   "title": "A label in capitals does not fit",
+   "actions": [
+    {
+     "do": "read",
+     "period": "R07-JUL",
+     "source": "bank-roll-foundation",
+     "file": "M10-JUL-cashbook.xlsx",
+     "by": "hand",
+     "header": 4,
+     "columns": {
+      "date": 2,
+      "voucher": 1,
+      "description": 5,
+      "reference": 4,
+      "receipts": 6,
+      "payments": 7
+     },
+     "save": "Main current account"
+    },
+    {
+     "do": "read",
+     "period": "R07-AUG",
+     "source": "bank-roll-foundation",
+     "file": "M10-AUG-cashbook.xlsx",
+     "by": "map",
+     "map": "Main current account"
+    },
+    {
+     "do": "read",
+     "period": "R07-AUG",
+     "source": "bank-roll-foundation",
+     "file": "M10-AUG-cashbook.xlsx",
+     "by": "hand",
+     "header": 4,
+     "columns": {
+      "date": 2,
+      "voucher": 1,
+      "description": 5,
+      "reference": 4,
+      "receipts": 6,
+      "payments": 7
+     }
+    }
+   ],
+   "recipe": {
+    "M10-JUL-cashbook.xlsx": {
+     "twin": "R07-JUL",
+     "layout": "EN_A",
+     "header": 4
+    },
+    "M10-AUG-cashbook.xlsx": {
+     "twin": "R07-AUG",
+     "layout": "EN_A with CREDIT in capitals",
+     "header": 4
+    }
+   },
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Main current account"
+     ]
+    },
+    {
+     "fits": false,
+     "problems": [
+      [
+       "payments",
+       "CREDIT",
+       []
+      ]
+     ],
+     "store": [
+      "Main current account"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Main current account"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M11",
+   "title": "Arabic labels: a decomposed hamza below still fits",
+   "actions": [
+    {
+     "do": "read",
+     "period": "R20-JUL",
+     "source": "bank-roll-foundation",
+     "file": "M11-JUL-cashbook.xlsx",
+     "by": "hand",
+     "header": 3,
+     "columns": {
+      "date": 2,
+      "voucher": 1,
+      "description": 5,
+      "reference": 4,
+      "receipts": 6,
+      "payments": 7
+     },
+     "save": "الحساب الجاري الرئيسي"
+    },
+    {
+     "do": "read",
+     "period": "R20-AUG",
+     "source": "bank-roll-foundation",
+     "file": "M11-AUG-cashbook.xlsx",
+     "by": "map",
+     "map": "الحساب الجاري الرئيسي"
+    }
+   ],
+   "recipe": {
+    "M11-JUL-cashbook.xlsx": {
+     "twin": "R20-JUL",
+     "layout": "AR",
+     "header": 3
+    },
+    "M11-AUG-cashbook.xlsx": {
+     "twin": "R20-AUG",
+     "layout": "AR with the description label in NFD",
+     "header": 3
+    }
+   },
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "الحساب الجاري الرئيسي"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "الحساب الجاري الرئيسي"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M12",
+   "title": "An imported Arabic map does not fit a label drawn with a tatweel",
+   "actions": [
+    {
+     "do": "import",
+     "file": "M12-map.json"
+    },
+    {
+     "do": "read",
+     "period": "Q10-NOV",
+     "source": "bank-review-foundation",
+     "file": "M12-cashbook.xlsx",
+     "by": "map",
+     "map": "حساب التحصيل"
+    },
+    {
+     "do": "read",
+     "period": "Q10-NOV",
+     "source": "bank-review-foundation",
+     "file": "M12-cashbook.xlsx",
+     "by": "hand",
+     "header": 3,
+     "columns": {
+      "date": 2,
+      "voucher": 1,
+      "description": 5,
+      "reference": 4,
+      "receipts": 6,
+      "payments": 7
+     }
+    }
+   ],
+   "recipe": {
+    "M12-map.json": {
+     "map": "حساب التحصيل",
+     "layout": "AR",
+     "header": 3
+    },
+    "M12-cashbook.xlsx": {
+     "twin": "Q10-NOV",
+     "layout": "AR with a tatweel in the reference label",
+     "header": 3
+    }
+   },
+   "intent": [
+    {
+     "accepted": true,
+     "store": [
+      "حساب التحصيل"
+     ]
+    },
+    {
+     "fits": false,
+     "problems": [
+      [
+       "reference",
+       "المرجـع",
+       []
+      ]
+     ],
+     "store": [
+      "حساب التحصيل"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "حساب التحصيل"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M13",
+   "title": "Sixty-four entries with typed amounts in the seventh and eighth columns",
+   "actions": [
+    {
+     "do": "read",
+     "period": "Q11-NOV",
+     "source": "bank-review-foundation",
+     "file": "M13-cashbook.xlsx",
+     "by": "hand",
+     "header": 2,
+     "columns": {
+      "date": 2,
+      "voucher": 3,
+      "description": 6,
+      "reference": 5,
+      "receipts": 7,
+      "payments": 8
+     },
+     "save": "Collections account"
+    }
+   ],
+   "recipe": {
+    "M13-cashbook.xlsx": {
+     "twin": "Q11-NOV",
+     "layout": "EN_C",
+     "header": 2,
+     "typed": "amounts shortest, 8 with one decimal"
+    }
+   },
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Collections account"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M14",
+   "title": "Formulas and a hidden column outside the map are not read; a formula inside it refuses",
+   "actions": [
+    {
+     "do": "read",
+     "period": "Q02-NOV",
+     "source": "bank-review-foundation",
+     "file": "M14-cashbook.xlsx",
+     "by": "hand",
+     "header": 1,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 4,
+      "reference": 5,
+      "receipts": 6,
+      "payments": 7
+     },
+     "save": "Operations account"
+    },
+    {
+     "do": "read",
+     "period": "Q02-NOV",
+     "source": "bank-review-foundation",
+     "file": "M14-formula-cashbook.xlsx",
+     "by": "map",
+     "map": "Operations account"
+    }
+   ],
+   "recipe": {
+    "M14-cashbook.xlsx": {
+     "twin": "Q02-NOV",
+     "layout": "EN_D",
+     "header": 1,
+     "hidden": "C",
+     "formulas": "Balance"
+    },
+    "M14-formula-cashbook.xlsx": {
+     "twin": "Q02-NOV",
+     "layout": "EN_D",
+     "header": 1,
+     "hidden": "C",
+     "formulas": "Balance and G3"
+    }
+   },
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Operations account"
+     ],
+     "unread": [
+      "Internal ID",
+      "Balance"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": [
+      "CELL",
+      3
+     ],
+     "store": [
+      "Operations account"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M15",
+   "title": "An opening balance above the header is not read; a totals row below refuses",
+   "actions": [
+    {
+     "do": "read",
+     "period": "Q05-NOV",
+     "source": "bank-review-foundation",
+     "file": "M15-cashbook.xlsx",
+     "by": "hand",
+     "header": 3,
+     "columns": {
+      "date": 2,
+      "voucher": 1,
+      "description": 5,
+      "reference": 4,
+      "receipts": 6,
+      "payments": 7
+     },
+     "save": "Settlement account"
+    },
+    {
+     "do": "read",
+     "period": "Q05-NOV",
+     "source": "bank-review-foundation",
+     "file": "M15-totals-cashbook.xlsx",
+     "by": "map",
+     "map": "Settlement account"
+    }
+   ],
+   "recipe": {
+    "M15-cashbook.xlsx": {
+     "twin": "Q05-NOV",
+     "layout": "EN_A",
+     "header": 3,
+     "above": "a title and an opening balance row"
+    },
+    "M15-totals-cashbook.xlsx": {
+     "twin": "Q05-NOV",
+     "layout": "EN_A",
+     "header": 3,
+     "below": "a totals row at row 11"
+    }
+   },
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Settlement account"
+     ],
+     "above": 2
+    },
+    {
+     "fits": true,
+     "refused": [
+      "AMOUNT",
+      11
+     ],
+     "store": [
+      "Settlement account"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M16",
+   "title": "A workbook with a second sheet does not fit, by map or by hand",
+   "actions": [
+    {
+     "do": "read",
+     "period": "Q03-NOV",
+     "source": "bank-review-foundation",
+     "file": "M16-cashbook.xlsx",
+     "by": "hand",
+     "header": 4,
+     "columns": {
+      "date": 2,
+      "voucher": 1,
+      "description": 5,
+      "reference": 4,
+      "receipts": 6,
+      "payments": 7
+     },
+     "save": "Main current account"
+    },
+    {
+     "do": "read",
+     "period": "Q03-NOV",
+     "source": "bank-review-foundation",
+     "file": "M16-two-sheets-cashbook.xlsx",
+     "by": "map",
+     "map": "Main current account"
+    },
+    {
+     "do": "read",
+     "period": "Q03-NOV",
+     "source": "bank-review-foundation",
+     "file": "M16-two-sheets-cashbook.xlsx",
+     "by": "hand",
+     "header": 4,
+     "columns": {
+      "date": 2,
+      "voucher": 1,
+      "description": 5,
+      "reference": 4,
+      "receipts": 6,
+      "payments": 7
+     }
+    }
+   ],
+   "recipe": {
+    "M16-cashbook.xlsx": {
+     "twin": "Q03-NOV",
+     "layout": "EN_A",
+     "header": 4
+    },
+    "M16-two-sheets-cashbook.xlsx": {
+     "twin": "Q03-NOV",
+     "layout": "EN_A",
+     "header": 4,
+     "sheets": [
+      "Cashbook",
+      "Notes"
+     ]
+    }
+   },
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Main current account"
+     ]
+    },
+    {
+     "fits": false,
+     "problems": [
+      "sheets"
+     ],
+     "store": [
+      "Main current account"
+     ]
+    },
+    {
+     "fits": false,
+     "problems": [
+      "sheets"
+     ],
+     "store": [
+      "Main current account"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M17",
+   "title": "A CSV export with a title row, read by hand without saving",
+   "actions": [
+    {
+     "do": "read",
+     "period": "Q01-NOV",
+     "source": "bank-review-foundation",
+     "file": "M17-cashbook.csv",
+     "by": "hand",
+     "header": 2,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 5,
+      "reference": 4,
+      "receipts": 6,
+      "payments": 7
+     }
+    }
+   ],
+   "recipe": {
+    "M17-cashbook.csv": {
+     "twin": "Q01-NOV",
+     "layout": "CSV_G",
+     "header": 2
+    }
+   },
+   "intent": [
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": []
+    }
+   ]
+  },
+  {
+   "id": "M18",
+   "title": "A map file is imported and exported; nineteen corrupt ones are refused",
+   "actions": [
+    {
+     "do": "import",
+     "file": "M18-map-truncated.json"
+    },
+    {
+     "do": "import",
+     "file": "M18-map-array.json"
+    },
+    {
+     "do": "import",
+     "file": "M18-map-latin1.json"
+    },
+    {
+     "do": "import",
+     "file": "M18-map-nan.json"
+    },
+    {
+     "do": "import",
+     "file": "M18-map-oversize.json"
+    },
+    {
+     "do": "import",
+     "file": "M18-map-template.json"
+    },
+    {
+     "do": "import",
+     "file": "M18-map-version2.json"
+    },
+    {
+     "do": "import",
+     "file": "M18-map-supplier.json"
+    },
+    {
+     "do": "import",
+     "file": "M18-map-currency.json"
+    },
+    {
+     "do": "import",
+     "file": "M18-map-sign.json"
+    },
+    {
+     "do": "import",
+     "file": "M18-map-name-space.json"
+    },
+    {
+     "do": "import",
+     "file": "M18-map-header0.json"
+    },
+    {
+     "do": "import",
+     "file": "M18-map-header31.json"
+    },
+    {
+     "do": "import",
+     "file": "M18-map-header-fraction.json"
+    },
+    {
+     "do": "import",
+     "file": "M18-map-no-date.json"
+    },
+    {
+     "do": "import",
+     "file": "M18-map-same-column.json"
+    },
+    {
+     "do": "import",
+     "file": "M18-map-column101.json"
+    },
+    {
+     "do": "import",
+     "file": "M18-map-empty-label.json"
+    },
+    {
+     "do": "import",
+     "file": "M18-map-control-label.json"
+    },
+    {
+     "do": "import",
+     "file": "M18-map.json"
+    },
+    {
+     "do": "read",
+     "period": "Q04-NOV",
+     "source": "bank-review-foundation",
+     "file": "M18-cashbook.xlsx",
+     "by": "map",
+     "map": "Payroll account"
+    },
+    {
+     "do": "export",
+     "map": "Payroll account"
+    },
+    {
+     "do": "import",
+     "file": "M18-map.json"
+    }
+   ],
+   "recipe": {
+    "M18-map.json": {
+     "map": "Payroll account",
+     "layout": "EN_B",
+     "header": 1
+    },
+    "M18-map-truncated.json": {
+     "corrupt": "not JSON"
+    },
+    "M18-map-array.json": {
+     "corrupt": "JSON, not an object"
+    },
+    "M18-map-latin1.json": {
+     "corrupt": "not UTF-8"
+    },
+    "M18-map-nan.json": {
+     "corrupt": "NaN is not JSON"
+    },
+    "M18-map-oversize.json": {
+     "corrupt": "over 16384 bytes"
+    },
+    "M18-map-template.json": {
+     "corrupt": "another format"
+    },
+    "M18-map-version2.json": {
+     "corrupt": "another version"
+    },
+    "M18-map-supplier.json": {
+     "corrupt": "another role"
+    },
+    "M18-map-currency.json": {
+     "corrupt": "a map never carries a currency"
+    },
+    "M18-map-sign.json": {
+     "corrupt": "a map never carries a sign"
+    },
+    "M18-map-name-space.json": {
+     "corrupt": "a name not in its normal form"
+    },
+    "M18-map-header0.json": {
+     "corrupt": "header row 0"
+    },
+    "M18-map-header31.json": {
+     "corrupt": "header row beyond 30"
+    },
+    "M18-map-header-fraction.json": {
+     "corrupt": "header row not an integer"
+    },
+    "M18-map-no-date.json": {
+     "corrupt": "a required role without a column"
+    },
+    "M18-map-same-column.json": {
+     "corrupt": "receipts and payments in one column"
+    },
+    "M18-map-column101.json": {
+     "corrupt": "column beyond 100"
+    },
+    "M18-map-empty-label.json": {
+     "corrupt": "an empty label"
+    },
+    "M18-map-control-label.json": {
+     "corrupt": "a control character in a label"
+    },
+    "M18-cashbook.xlsx": {
+     "twin": "Q04-NOV",
+     "layout": "EN_B",
+     "header": 1
+    }
+   },
+   "intent": [
+    {
+     "accepted": false,
+     "code": "MAP_JSON",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_JSON",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_JSON",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_JSON",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_JSON",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_FORMAT",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_FORMAT",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_FORMAT",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_KEYS",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_KEYS",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_NAME",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_HEADER",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_HEADER",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_HEADER",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_COLUMN",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_COLUMN",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_COLUMN",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_LABEL",
+     "store": []
+    },
+    {
+     "accepted": false,
+     "code": "MAP_LABEL",
+     "store": []
+    },
+    {
+     "accepted": true,
+     "store": [
+      "Payroll account"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Payroll account"
+     ]
+    },
+    {
+     "equals": "M18-map.json"
+    },
+    {
+     "accepted": true,
+     "store": [
+      "Payroll account"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M19",
+   "title": "A value under an empty header, a column chosen without a label, and a row the map cannot read",
+   "actions": [
+    {
+     "do": "read",
+     "period": "Q14-NOV",
+     "source": "bank-review-foundation",
+     "file": "M19-note-cashbook.xlsx",
+     "by": "hand",
+     "header": 1,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 3,
+      "reference": 5,
+      "receipts": 6,
+      "payments": 7
+     }
+    },
+    {
+     "do": "read",
+     "period": "Q14-NOV",
+     "source": "bank-review-foundation",
+     "file": "M19-note-cashbook.xlsx",
+     "by": "hand",
+     "header": 1,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 4,
+      "reference": 5,
+      "receipts": 6,
+      "payments": 7
+     }
+    },
+    {
+     "do": "read",
+     "period": "Q14-NOV",
+     "source": "bank-review-foundation",
+     "file": "M19-note-cashbook.xlsx",
+     "by": "hand",
+     "header": 1,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 3,
+      "reference": 5,
+      "receipts": 6,
+      "payments": 6
+     }
+    },
+    {
+     "do": "read",
+     "period": "Q14-NOV",
+     "source": "bank-review-foundation",
+     "file": "M19-carried-cashbook.xlsx",
+     "by": "hand",
+     "header": 1,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 3,
+      "reference": 5,
+      "receipts": 6,
+      "payments": 7
+     }
+    }
+   ],
+   "recipe": {
+    "M19-note-cashbook.xlsx": {
+     "twin": "Q14-NOV",
+     "layout": "EN_F",
+     "header": 1,
+     "value": "D5 under an empty header"
+    },
+    "M19-carried-cashbook.xlsx": {
+     "twin": "Q14-NOV",
+     "layout": "EN_F",
+     "header": 1,
+     "row": "row 4 holds only a balance"
+    }
+   },
+   "intent": [
+    {
+     "fits": true,
+     "refused": [
+      "COLUMN",
+      5
+     ],
+     "store": []
+    },
+    {
+     "invalid": "MAP_LABEL",
+     "store": []
+    },
+    {
+     "invalid": "MAP_COLUMN",
+     "store": []
+    },
+    {
+     "fits": true,
+     "refused": [
+      "ROW",
+      4
+     ],
+     "store": []
+    }
+   ]
+  },
+  {
+   "id": "M20",
+   "title": "The declared cashbook reads as today; one more column needs columns by hand",
+   "actions": [
+    {
+     "do": "import",
+     "file": "M20-map.json"
+    },
+    {
+     "do": "read",
+     "period": "Q15-NOV",
+     "source": "bank-review-foundation",
+     "file": "Q15-NOV-cashbook.csv",
+     "by": "declared",
+     "twin": true
+    },
+    {
+     "do": "read",
+     "period": "Q15-NOV",
+     "source": "bank-review-foundation",
+     "file": "M20-balance-cashbook.csv",
+     "by": "declared"
+    },
+    {
+     "do": "read",
+     "period": "Q15-NOV",
+     "source": "bank-review-foundation",
+     "file": "M20-balance-cashbook.csv",
+     "by": "hand",
+     "header": 1,
+     "columns": {
+      "date": 1,
+      "voucher": 2,
+      "description": 3,
+      "reference": 4,
+      "receipts": 5,
+      "payments": 6
+     }
+    }
+   ],
+   "recipe": {
+    "M20-map.json": {
+     "map": "Spare account",
+     "layout": "EN_A",
+     "header": 4
+    },
+    "M20-balance-cashbook.csv": {
+     "twin": "Q15-NOV",
+     "layout": "declared with Balance appended",
+     "header": 1
+    }
+   },
+   "intent": [
+    {
+     "accepted": true,
+     "store": [
+      "Spare account"
+     ]
+    },
+    {
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Spare account"
+     ]
+    },
+    {
+     "refused": [
+      "HEADER",
+      1
+     ],
+     "store": [
+      "Spare account"
+     ]
+    },
+    {
+     "fits": true,
+     "refused": null,
+     "cases": "twin",
+     "store": [
+      "Spare account"
+     ],
+     "unread": [
+      "Balance"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "M21",
+   "title": "A map whose header row is below the end of a short file",
+   "actions": [
+    {
+     "do": "import",
+     "file": "M21-map.json"
+    },
+    {
+     "do": "read",
+     "period": "Q13-NOV",
+     "source": "bank-review-foundation",
+     "file": "M21-cashbook.xlsx",
+     "by": "map",
+     "map": "Statement export account"
+    }
+   ],
+   "recipe": {
+    "M21-map.json": {
+     "map": "Statement export account",
+     "layout": "EN_B",
+     "header": 12
+    },
+    "M21-cashbook.xlsx": {
+     "twin": "Q13-NOV",
+     "layout": "EN_B",
+     "header": 1,
+     "rows": 7
+    }
+   },
+   "intent": [
+    {
+     "accepted": true,
+     "store": [
+      "Statement export account"
+     ]
+    },
+    {
+     "fits": false,
+     "problems": [
+      "header-row"
+     ],
+     "store": [
+      "Statement export account"
+     ]
+    }
+   ]
+  }
+ ]
+}

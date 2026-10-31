@@ -1,0 +1,50 @@
+Section,S-8100
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,8100
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-8100-O,opening,2026-09-01,10.00,0.00
+G-71,movement,2026-09-02,5.00,0.00
+S-8100-C,closing,2026-09-30,15.00,0.00
+End section,S-8100
+
+Section,S-8200
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,8200
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-8200-O,opening,2026-09-01,20.00,0.00
+G-72,movement,2026-09-03,0.00,5.00
+S-8200-C,closing,2026-09-30,15.00,0.00
+End section,S-8200
+
+Section,S-8300
+Entity,Synthetic Holding Co
+Ledger,Main GL
+Account,8300
+Complete dimensions,cc=10
+Currency,SAR
+Currency basis,functional
+Posting status,posted
+Posting layer,actual
+Period start,2026-09-01
+Period end,2026-09-30
+Record ID,Record kind,Posting date,Debit,Credit
+S-8300-O,opening,2026-09-01,30.00,0.00
+G-73,movement,2026-09-04,7.00,0.00
+S-8300-C,closing,2026-09-30,37.00,0.00
+End section,S-8300

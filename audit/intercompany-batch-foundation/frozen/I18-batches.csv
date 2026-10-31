@@ -1,0 +1,4 @@
+Batch ID,Policy version,As of,Period end,Period start,Posting layer,Posting status,FX policy,Currency basis,Currency,Dimensions B,Dimensions A,Account B,Account A,Ledger B,Ledger A,Entity B,Entity A
+BG,IC-1-2026,2026-09-30,2026-09-30,2026-09-01,actual,posted,same-currency-no-conversion,functional,SAR,cc=300,cc=200,2360,1355,Gamma GL,Beta GL,Synthetic Gamma Services,Synthetic Beta Trading
+AG,IC-1-2026,2026-09-30,2026-09-30,2026-09-01,actual,posted,same-currency-no-conversion,functional,SAR,cc=300,cc=100,2360,1350,Gamma GL,Alpha GL,Synthetic Gamma Services,Synthetic Alpha Holding
+AB,IC-1-2026,2026-09-30,2026-09-30,2026-09-01,actual,posted,same-currency-no-conversion,functional,SAR,cc=200,cc=100,2350,1350,Beta GL,Alpha GL,Synthetic Beta Trading,Synthetic Alpha Holding

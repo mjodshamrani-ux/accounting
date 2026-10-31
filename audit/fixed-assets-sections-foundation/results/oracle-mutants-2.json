@@ -1,0 +1,463 @@
+{
+ "schema": "tarasuf-fa1-oracle-mutants/1",
+ "baselinePassed": true,
+ "killed": 65,
+ "of": 65,
+ "faults": [
+  {
+   "fault": "bom-kept",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "every-bom-dropped",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "control-characters-read",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "quote-inside-a-cell-read",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "text-after-a-closing-quote-read",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "record-ceiling-one-short",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "cell-ceiling-one-over",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "astral-characters-one-unit",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "size-checked-after-decoding",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "trailing-empty-cells-meaningful",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "spaces-only-row-blank",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "edge-spaces-read",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "formula-signs-read",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "format-characters-read",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "excel-errors-read",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "extra-decimals-read",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "bound-off",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "arabic-indic-digits-read",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "family-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "file-type-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "headers-in-fixed-order",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "unclosed-read",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "any-end-closes",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "header-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "unknown-labels-read",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "as-of-label-not-a-date",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "section-scope-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "columns-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "duplicate-sections-read",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "unplaced-row-dropped",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "cells-past-the-columns-read",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "unknown-component-ignored",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "blank-amount-zero",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "missing-carrying-derived",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "repeated-component-read",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "valuation-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "carrying-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "asset-id-in-two-sections-read",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "totals-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "total-fields-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "totals-checked-past-unknown-components",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "map-class-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "map-validity-ignored",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "map-validity-exclusive",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "first-valid-map-row-taken",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "map-absent-ignored",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "excluded-category-needs-a-map",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "unplaced-pair-holds-nothing",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "held-asset-holds-nothing",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "held-section-holds-nothing",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "gl-scope-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "gl-row-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "repeated-gl-read",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "class-conflict-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "account-components-unchecked",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "gl-sign-of-cost-everywhere",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "negative-gl-flipped",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "register-absent-on-unmapped",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "empty-account-consistent",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "stray-rows-ignored",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "unreadable-section-holds-itself",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "unreadable-map-row-ignored",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "unreadable-gl-row-ignored",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "excluded-section-holds",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  },
+  {
+   "fault": "total-limit-off",
+   "killed": true,
+   "returncode": 1,
+   "assertion": true,
+   "error": false
+  }
+ ]
+}

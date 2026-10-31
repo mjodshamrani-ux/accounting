@@ -1,0 +1,33 @@
+"Section","G-1210",,,
+"Entity","Rawabi Contracting Co",,,
+"Ledger","Statutory GL",,,
+"Account","1210",,,
+"Complete dimensions","proj=K",,,
+"Currency","SAR",,,
+"Currency basis","functional",,,
+"Posting status","posted",,,
+"Posting layer","actual",,,
+"Period start","2027-01-01",,,
+"Period end","2027-03-31",,,
+"Record ID","Record kind","Posting date","Debit","Credit"
+"G-1210/O","opening","2027-01-01","8.00","0.00"
+"J-121","movement","2027-01-12","0.80","0.00"
+"G-1210/C","closing","2027-03-31","8.80","0.00"
+"End section","G-1210",,,
+,,,,
+"Section","G-1220",,,
+"Entity","Rawabi Contracting Co",,,
+"Ledger","Statutory GL",,,
+"Account","1220",,,
+"Complete dimensions","proj=K",,,
+"Currency","SAR",,,
+"Currency basis","functional",,,
+"Posting status","posted",,,
+"Posting layer","actual",,,
+"Period start","2027-01-01",,,
+"Period end","2027-03-31",,,
+"Record ID","Record kind","Posting date","Debit","Credit"
+"G-1220/O","opening","2027-01-01","9.00","0.00"
+"J-122","movement","2027-01-13","0.00","0.90"
+"G-1220/C","closing","2027-03-31","8.10","0.00"
+"End section","G-1220",,,

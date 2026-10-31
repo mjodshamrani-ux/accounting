@@ -1,0 +1,41 @@
+{
+ "schema": "tarasuf-glt1-sections-verify/1",
+ "factsSha256": "0656d63aa5bd50d5e86a7900b59b65ae8171a191022d99e9cbf9b261c2fffd75",
+ "files": 87,
+ "passed": true,
+ "problems": [],
+ "selfTest": [
+  {
+   "plant": "one amount changed",
+   "rejected": true
+  },
+  {
+   "plant": "one TB row dropped",
+   "rejected": true
+  },
+  {
+   "plant": "byte-order mark removed",
+   "rejected": true
+  },
+  {
+   "plant": "LF in a CRLF file",
+   "rejected": true
+  },
+  {
+   "plant": "a field quoted that needs none",
+   "rejected": true
+  },
+  {
+   "plant": "padding removed",
+   "rejected": true
+  },
+  {
+   "plant": "scope period moved",
+   "rejected": true
+  },
+  {
+   "plant": "a file no story names",
+   "rejected": true
+  }
+ ]
+}

@@ -1,0 +1,122 @@
+{
+ "suite": "audit/bank-cycle-holdout-c4",
+ "summary": {
+  "stories": 6,
+  "savesExpected": 15,
+  "saves": 15,
+  "equalToExpected": 15,
+  "savedAndRestored": 15,
+  "errors": 0,
+  "actionsRefused": 0,
+  "sessionHashes": {
+   "carried": 25,
+   "equal": 25
+  },
+  "toleranceSections": {
+   "sheets": 14,
+   "presentExactlyWithPolicy": 14
+  },
+  "workbooksWritten": 15
+ },
+ "stories": {
+  "Z01": {
+   "saves": {
+    "Z01-FEB": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    },
+    "Z01-MAR": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    }
+   }
+  },
+  "Z02": {
+   "saves": {
+    "Z02-MAR": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    },
+    "Z02-APR": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    }
+   }
+  },
+  "Z03": {
+   "saves": {
+    "Z03-APR": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    },
+    "Z03-MAY": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    }
+   }
+  },
+  "Z04": {
+   "saves": {
+    "Z04-MAY-open": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    },
+    "Z04-MAY": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    },
+    "Z04-JUN-refused": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    },
+    "Z04-JUN-draft": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    },
+    "Z04-JUN": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    }
+   }
+  },
+  "Z05": {
+   "saves": {
+    "Z05-JUN": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    },
+    "Z05-JUL": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    }
+   }
+  },
+  "Z06": {
+   "saves": {
+    "Z06-JAN": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    },
+    "Z06-FEB": {
+     "equal": true,
+     "differences": [],
+     "savedAndRestored": true
+    }
+   }
+  }
+ }
+}

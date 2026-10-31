@@ -1,0 +1,92 @@
+{
+ "schema": "tarasuf-wf1-report1-foundation/1",
+ "status": "proposed contract and frozen synthetic foundation before any product support for a closing reconciliation sheet",
+ "synthetic": true,
+ "holdout": false,
+ "productEnabled": false,
+ "proposedFamily": "bank-reconciliation-sheet-1",
+ "plan": "docs/roadmap/workflow.ar.md#report-1-ورقة-التسوية-الختامية",
+ "challengeIds": [
+  "CH-16",
+  "CH-15",
+  "CH-06",
+  "CH-12"
+ ],
+ "domain": "The bank statement path: bank-statement-native-1 PDF statements, settled as bank-statement-lifecycle-1 settles a period, or as the proposed bank-statement-roll-1 settles a period that carries. The plan's candidate for WF-1; VAL-1 has not run.",
+ "why": "A bank statement session lists its matches, cases and outstanding items, and its workbook says it makes no balance bridge. The accountant still writes the sheet a reviewer signs by hand: the statement balance, the book balance, every item that is not cleared, and the difference that remains. A sheet must not suggest a reconciliation that was not proved: equal totals, a zero difference reached by netting, or an undecided case counted as cleared.",
+ "relation": "This is the balance bridge of the bank statement path at the period end only, built on its proved statement and its settled period. BNK-2 (opening plus movements equals closing on each side, timing items with cut-off evidence) stays planned: the statement side is proved by its printed balance chain; the book side is a declared closing balance, not proved from a ledger.",
+ "inputs": {
+  "period": "The current period as bank-statement-lifecycle-1 settles it (statement, cashbook, decisions), or as bank-statement-roll-1 settles it with the previous session file.",
+  "bookBalance": "Declared by the accountant (P1): the cash account's balance in the books at the statement period end, in the statement currency, as a signed integer in that currency's minor units (positive: a debit balance, funds held; negative: a credit balance, an overdraft), with an optional plain-text note of at most 200 characters naming where it was read. Never read from the cashbook, never derived from the statement or the items.",
+  "signoffs": "Optional: prepared and reviewed, each a plain-text name of 1 to 120 characters and a date the user types (YYYY-MM-DD). Text fields only: not a digital signature and not an identity check (P5).",
+  "language": "ar or en: the language of the sheet's labels. Values do not change with it."
+ },
+ "refusals": {
+  "order": [
+   "SHEET_STATEMENT_HELD",
+   "SHEET_PREVIOUS_REFUSED",
+   "SHEET_NO_BOOK_BALANCE"
+  ],
+  "SHEET_STATEMENT_HELD": "the statement is held: its closing balance is not proved, so there is no bank side",
+  "SHEET_PREVIOUS_REFUSED": "a previous session is attached and refused with a ROLL_ code: the sheet would omit items the accountant meant to carry (P3)",
+  "SHEET_NO_BOOK_BALANCE": "no book balance is declared",
+  "effect": "No sheet is produced; the refusal is shown with its code. The period itself is unchanged."
+ },
+ "sheet": {
+  "bank": "The statement's printed closing balance, as the lifecycle proves it, with the page of its closing line.",
+  "book": "The declared book balance and its note, labelled as declared by the accountant.",
+  "cleared": "An item is cleared by an automatic pair or an accepted case of the period, its own or carried. Nothing else clears an item.",
+  "items": "Every item of the period that is not cleared at the period end, each listed alone, never netted with another: an own statement movement or cashbook entry left unmatched; a member of a rejected case; a member of a case awaiting a decision; a carried item not cleared (still carried, or a member of a rejected or undecided carried case). Each item gives its side, its id, the period it comes from, its page or row, its date, direction, amount and reference, its origin, the reason of the case it belongs to when it belongs to one, its source file's hash, and for a carried item its age at this period end. In each section, items of earlier periods come first, then statement items in printed order and cashbook items in row order.",
+  "origins": {
+   "unmatched": "an own item no pair or case holds",
+   "rejected": "a member of a rejected case, own or carried",
+   "pending": "a member of a case awaiting the accountant's decision (P2)",
+   "carried": "a carried item no case of this period holds"
+  },
+  "sections": {
+   "bookReceiptsNotOnStatement": "cashbook items, direction in: added to the bank balance",
+   "bookPaymentsNotOnStatement": "cashbook items, direction out: deducted from the bank balance",
+   "statementDepositsNotInBook": "statement items, direction in: added to the book balance",
+   "statementWithdrawalsNotInBook": "statement items, direction out: deducted from the book balance",
+   "classification": "By side and direction only, with the origin and reason. No cause (timing, deposit in transit, outstanding cheque, fee, bank error, book error) is inferred or claimed (P4)."
+  },
+  "arithmetic": {
+   "adjustedBank": "bank + sum(bookReceiptsNotOnStatement) - sum(bookPaymentsNotOnStatement)",
+   "adjustedBook": "book + sum(statementDepositsNotInBook) - sum(statementWithdrawalsNotInBook)",
+   "difference": "adjustedBank - adjustedBook; positive when the adjusted bank balance exceeds the adjusted book balance",
+   "money": "Integers in the statement currency's minor units throughout; each section total is the sum of its listed items",
+   "never": "No balancing entry, no tolerance, no inferred item and no netting closes or hides a difference. A difference equal to the amount of some listed item is still a difference."
+  },
+  "status": {
+   "draft": "at least one case awaits a decision (its members are listed as pending and counted as not cleared)",
+   "reconciled": "no case awaits a decision and the difference is zero",
+   "difference": "no case awaits a decision and the difference is not zero"
+  },
+  "claim": "Bank closing balance proved from the printed statement; book balance declared by the accountant; items from the engine's result and the recorded decisions only. Not proof that the cashbook or the books are complete, not an audit opinion, not an approval of the items."
+ },
+ "signoffs": {
+  "content": "A sign-off is bound to the sheet's content: status, currency, period, bank balance, book balance and note, every item with every field, the section totals, the adjusted balances and the difference. Labels and language are not content.",
+  "void": "A sign-off given on other content (a later decision, a changed book balance, a changed previous session) is void: shown as given on an earlier sheet, never as current (P5).",
+  "order": "Prepared and reviewed are independent fields; each is valid only for the content it was given on."
+ },
+ "export": {
+  "sheet": "The lifecycle workbook gains one sheet, first, holding the reconciliation in the chosen language (right to left for Arabic); every other sheet stays as it is.",
+  "values": "Amounts as integers in minor units and as text in major units at the currency's precision; dates as YYYY-MM-DD; ids, references and notes as text through the existing export text guard; no formulas.",
+  "rereading": "Read back from the workbook, every text, sign and amount equals the sheet; the independent checker reads it from the OOXML parts and holds it against the sealed package, never against the product."
+ },
+ "session": {
+  "inputs": "The book balance, its note, the language and the sign-offs with the content each was given on are saved in the session and restored with it (P6).",
+  "versions": "Sessions of bank-statement-lifecycle-1 and bank-statement-roll-1 restore unchanged, with no sheet inputs. A session with sheet inputs carries a new version identifier; a bank-statement-roll-1 period may take it as its previous session, which is read as today (P7)."
+ },
+ "ownerDecisions": {
+  "P1": "The book balance is declared by the accountant, with a note, and labelled as declared. Alternatives: read it from a balance file as bank-balance-evidence-1 reads cashbook balances, or derive it from a declared opening plus the cashbook's movements.",
+  "P2": "Undecided cases give a draft sheet, their members listed as pending and counted as not cleared. Alternative: no sheet until every case is decided.",
+  "P3": "A refused previous session gives no sheet. Alternative: a sheet without carried items, its difference showing what is missing.",
+  "P4": "Items are classified by side and direction, with origin and reason; no cause is inferred. Alternative: the accountant, or a rule, classifies causes (in transit, outstanding cheque, fee, bank error, book error).",
+  "P5": "Sign-offs are typed names and typed dates bound to the sheet's content, void on any change. Alternatives: keep them through changes, or stamp the device date.",
+  "P6": "Sheet inputs are saved under a new session version; existing versions are unchanged. Alternative: an optional member in the existing versions.",
+  "P7": "Book continuity across periods is not checked: the previous session holds no book balance. Alternative: when it does, require the previous book balance plus this period's cashbook movements to equal the declared book balance, or show the gap."
+ },
+ "limits": "One account and one currency per sheet; PDF statements in this foundation; the cashbook is CSV here; no tolerance (TOL-1).",
+ "outOfContract": "Opening-balance bridges and timing classification (BNK-2); tolerance (TOL-1); write-offs, adjustments and journal entries; several accounts or currencies; table statements with a confirmed closing; other domains until their own contract."
+}

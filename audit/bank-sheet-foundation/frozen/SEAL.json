@@ -1,0 +1,23 @@
+{
+ "schema": "tarasuf-wf1-report1-seal/1",
+ "statement": "Sealed before any product run on these files. The baseline that follows records the product as it is.",
+ "pins": {
+  "INPUT-MANIFEST.json": "a975e39b7d267359ca0bae1e57c457dd686e9d909770ecdbbfd49c2f3ea28633",
+  "EXPECTED.json": "46ab7aaae23cc366cdb760caed1b52afbe1eafac2675155250bb54712185b935",
+  "VERIFY.json": "1d90996d12ffdab47033d0dec96c306b12318391fd09595d6be3f3ff777fef20",
+  "contract.json": "88b7ba47beb10e790440104385a00ed9b79c7006da15ff941545be2fec1b1562",
+  "stories.mjs": "4a6c8943e1244484a0f9ab01f25f568187a5869ed360354911f5ed28a5421614",
+  "render.mjs": "f27d5d9e9bae4a52b137b953edbd2427aaf3778aeb9ac1bec0725cab80770225",
+  "oracle.py": "9b10989f78e49ec7949e77239fb4a841c9c56e789ed0a726119ab69128f65b9d",
+  "verify.py": "8821bd8b19776065a563cd2413e25a5ad4ee15d08d1678ab333a23328e7780e0",
+  "test_oracle.py": "766567070d78f2405d03b6268cadedf37cd787ce712548360bd6a9244e7d6c48",
+  "mutate_oracle.py": "4710d5154518bd5c50c7bc1ea1f44ba0138508af06d08fddc2193c6819622c63",
+  "../bank-roll-foundation/contract.json": "7c19cfe6a79062bd804575078f0253413eb39d94d88288399076e759b9cc9a94",
+  "../bank-roll-foundation/stories.mjs": "dcf36d9705d86f87955ce4c485da154c8e190207c10b0dc305a1dc1f3c5fa416",
+  "../bank-roll-foundation/oracle.py": "936980876594b7128754fcb7bc254167a87608a13d43f193b012d5f65265c537",
+  "../bank-roll-foundation/verify.py": "c97b09415fb2085e042f3c2caa9c72b0e33ea925a6d13e8ba219a2063935b6c9",
+  "../bank-statement-foundation/contract.json": "400b8cbcda2447bf36710d38a8f91786d1f07951fc20e8894f71a969c93f7e34",
+  "../bank-statement-foundation/oracle.py": "07033ecfcf3ce4bc5ae8617ee28d9cbb3f51623a41ccdb3c0cf3716ed8f543f2",
+  "../bank-statement-foundation/verify_assets.py": "eb79b4f4a331ec516f616f50b104a75c1b66baa98a205221f8a277c71a6d3b63"
+ }
+}

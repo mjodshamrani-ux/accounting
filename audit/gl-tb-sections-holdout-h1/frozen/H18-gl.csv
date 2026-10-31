@@ -1,0 +1,34 @@
+"Section","G-1910",,,
+"Entity","Rawabi Contracting Co",,,
+"Ledger","Statutory GL",,,
+"Account","1910",,,
+"Complete dimensions","proj=R",,,
+"Currency","SAR",,,
+"Currency basis","functional",,,
+"Posting status","posted",,,
+"Posting layer","actual",,,
+"Period start","2027-01-01",,,
+"Period end","2027-03-31",,,
+"Account","1910",,,
+"Record ID","Record kind","Posting date","Debit","Credit"
+"G-1910/O","opening","2027-01-01","1.00","0.00"
+"J-191","movement","2027-01-21","0.10","0.00"
+"G-1910/C","closing","2027-03-31","1.10","0.00"
+"End section","G-1910",,,
+,,,,
+"Section","G-1920",,,
+"Entity","Rawabi Contracting Co",,,
+"Ledger","Statutory GL",,,
+"Account","1920",,,
+"Complete dimensions","proj=R",,,
+"Currency","SAR",,,
+"Currency basis","functional",,,
+"Posting status","posted",,,
+"Posting layer","actual",,,
+"Period start","2027-01-01",,,
+"Period end","2027-03-31",,,
+"Record ID","Record kind","Posting date","Debit","Credit"
+"G-1920/O","opening","2027-01-01","3.00","0.00"
+"J-192","movement","2027-01-22","0.00","0.30"
+"G-1920/C","closing","2027-03-31","2.70","0.00"
+"End section","G-1920",,,

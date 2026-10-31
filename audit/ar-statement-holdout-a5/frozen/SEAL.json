@@ -1,0 +1,20 @@
+{
+ "schema": "tarasuf-ar-pdf1-holdout-seal/1",
+ "statement": "Sealed before any product run on these files. The first run is recorded as it comes.",
+ "pins": {
+  "INPUT-MANIFEST.json": "ce94cf249a9f1070da131e843d8b92d055496cf771022da9b997025ca237e116",
+  "EXPECTED.json": "df5602eb0cacc73d8d3b5edc29342eaa0fe2eb94cf96da0115d30618901ff041",
+  "VERIFY.json": "1a20d8ee04f7d4ef76b54654282546e1740613abaaba4d913ae8dadf13393072",
+  "ELIGIBILITY.json": "415adb1ee9839df945cccdee90602f3dc2ccfaeb5b4f8b6039656e3cf4a43f3f",
+  "holdout.json": "a851db87645015c9613c9c4f9315afb0f8673581bd7fec859593a175ea053026",
+  "stories.py": "9526c2714975a4768b12267ff0e6cb6f0bffc3f93ed578c9819e42520bd9fb6a",
+  "render.py": "d300c5d1166838cb94dc4a005c3dac7ef23572393ff5d52fd42233b7ead837e4",
+  "render_libreoffice.py": "5f3bfa7abecf7fd191c955174477094ff550e1cab5e375f61b17a7ddffc455ad",
+  "render_itext.py": "e54125ac92f49c72ae7a71b1247cf7ac314653aabbb5a6b2bdfa4ce8b5e0c91f",
+  "java/pom.xml": "79118123af822035ab0efc23f530881359f3e698d51fb181c28ee0d9bd378c83",
+  "java/src/main/java/tarasuf/holdout/ArStatements.java": "b4e9e09ab1d5110401aec00cf9a7be7fcdadf851b9feafe83dc67d666aadda38",
+  "verify.py": "e79f6ff61ccded19c2b0912c9f91c243af32641b31ea6be8b9b5d52f6c80c7b0",
+  "../ar-statement-foundation/contract.json": "4dca81e30490acfd348357ad3104e324d85a5f4555daf8f79ab25d494fac234b",
+  "../ar-statement-foundation/oracle.py": "f892ad02befcd58a2bd4cd1d65fe65ef504e3ccb3233262ed4c7d9080aa42cb9"
+ }
+}
