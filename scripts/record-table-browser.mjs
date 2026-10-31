@@ -16,8 +16,10 @@
 // balance reconciliation example, and the gateway and intercompany
 // decision histories after a decision, every disclosure of the result is
 // opened as a reader would, and no source row, member identity or list of
-// members is shown as the JSON the program wrote. Synthetic example only;
-// no financial truth is asserted.
+// members is shown as the JSON the program wrote. And statuses are read as
+// badges: in the receivables, clearing, bank and supplier results every
+// case shows one, and only a status this check lists as agreed takes the
+// agreed tone. Synthetic example only; no financial truth is asserted.
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
@@ -413,6 +415,290 @@ async function readByField(domain, language) {
   shownFields += seen.fields;
   await context.close();
 }
+// The status badge (UX-3): every case of the receivables, clearing, bank
+// and supplier results shows its status as one badge, with the word, an
+// icon hidden from assistive technology and a tone at a contrast of at
+// least 4.5:1. The agreed tone is held to this check's own list of the
+// statuses, and of the words, that mean agreed, written out here rather
+// than taken from the product: a status that waits for a person, or one
+// suggested, never reads as agreed.
+const TONES = [
+  'agreed',
+  'suggestion',
+  'review',
+  'difference',
+  'held',
+  'neutral',
+];
+const agreed = {
+  ar: {
+    statuses: ['matched'],
+    ar: ['هوية المستند الأصلي الدقيقة', 'تأكيد بشري'],
+    en: ['Exact own document', 'Human confirmation'],
+  },
+  clearing: {
+    statuses: ['cleared'],
+    ar: ['حركات مسوّاة'],
+    en: ['Cleared movements'],
+  },
+  bank: {
+    statuses: ['matched-evidence', 'matched-manual'],
+    ar: ['مطابقة بهوية مصدر صريحة', 'مطابقة بمراجعة بشرية موثقة'],
+    en: [
+      'Matched by explicit source identity',
+      'Matched by documented human review',
+    ],
+  },
+  supplier: {
+    statuses: ['auto', 'manual'],
+    ar: ['مطابقة آلية', 'تأكيد يدوي'],
+    en: ['Automatic match', 'Manual confirmation'],
+  },
+};
+const caseRows = {
+  ar: '[data-testid="ar-case"]',
+  clearing: '[data-testid="clearing-case"]',
+  bank: '[data-bank-movement-table="cases"] tbody tr',
+  supplier: '.results-frame tbody tr',
+};
+// A person reopens one agreed case in the receivables and bank examples,
+// whose first cases all read agreed: its badge must leave the agreed tone.
+const reopen = {
+  ar: {
+    fields: { ar: ['سبب مراجعة المستند'], en: ['Document review reason'] },
+    press: { ar: 'إعادة فتح زوج المستندات', en: 'Reopen document pair' },
+  },
+  bank: {
+    fields: {
+      ar: ['مرجع الدليل', 'سبب القرار أو الإلغاء'],
+      en: ['Evidence reference', 'Decision or undo reason'],
+    },
+    press: { ar: 'ألغ حالة الحركات كاملة', en: 'Undo complete movement case' },
+  },
+};
+const runAfterExample = {
+  clearing: { ar: 'فحص المقاصة', en: 'Check clearing' },
+  supplier: { ar: 'تحقق وقارن', en: 'Check and compare' },
+};
+const badgesShown = ({ s, rows }) => {
+  const rgb = (colour) => colour.match(/[\d.]+/gu).map(Number);
+  const light = (colour) => {
+    const [r, g, b] = rgb(colour)
+      .slice(0, 3)
+      .map((v) => v / 255)
+      .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  };
+  const read = [];
+  for (const row of document.querySelectorAll(`${s} ${rows}`)) {
+    if (!row.checkVisibility()) continue;
+    const found = row.querySelectorAll('.status-badge');
+    const badge = found[0];
+    if (!badge) {
+      read.push({ missing: row.textContent.trim().slice(0, 50) });
+      continue;
+    }
+    const style = getComputedStyle(badge),
+      icon = badge.querySelector(':scope > svg'),
+      back =
+        rgb(style.backgroundColor)[3] === 0 ? 1 : light(style.backgroundColor),
+      fore = light(style.color);
+    read.push({
+      count: found.length,
+      tone: badge.dataset.tone ?? '',
+      status: badge.dataset.status ?? '',
+      // The word as drawn: a word hidden inside a shown badge reads empty.
+      word: badge.innerText.trim(),
+      shown: badge.checkVisibility(),
+      icon: icon?.getAttribute('aria-hidden') === 'true' && !icon.textContent,
+      contrast: (Math.max(back, fore) + 0.05) / (Math.min(back, fore) + 0.05),
+    });
+  }
+  // In a receivables case the status stands apart from its member cards;
+  // a case with no badge is counted above as missing one.
+  const touching = [...document.querySelectorAll(`${s} .ar-case-heading`)]
+    .filter(
+      (heading) =>
+        heading.checkVisibility() && heading.querySelector('.status-badge'),
+    )
+    .filter(
+      (heading) =>
+        heading.nextElementSibling.getBoundingClientRect().top -
+          heading.querySelector('.status-badge').getBoundingClientRect()
+            .bottom <
+        8,
+    ).length;
+  return {
+    read,
+    old: document.querySelectorAll(`${s} .status`).length,
+    touching,
+  };
+};
+const toneSeen = {};
+let badgesRead = 0;
+async function readBadges(domain, language) {
+  const label = `${domain}/${language}/390`;
+  const context = await browser.newContext({
+    viewport: { width: 390, height: 844 },
+    reducedMotion: 'reduce',
+  });
+  await context.route('**/*', (route) => {
+    const url = route.request().url();
+    if (
+      url.startsWith(base + '/') ||
+      url.startsWith('blob:') ||
+      url.startsWith('data:')
+    )
+      return route.continue();
+    external.push(url);
+    return route.abort();
+  });
+  const page = await context.newPage();
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.goto(base + '/');
+  await page
+    .getByRole('button', { name: words[language].language, exact: true })
+    .click();
+  const panel = await openDomainWorkspace(page, domain, {
+    advanced: true,
+    requiredSources: false,
+  });
+  const selector = `[data-domain-panel="${domain}"]`;
+  await panel
+    .getByRole('button', { name: words[language].example })
+    .first()
+    .click();
+  if (runAfterExample[domain]) {
+    const run = panel.getByRole('button', {
+      name: runAfterExample[domain][language],
+      exact: true,
+    });
+    await run.waitFor({ timeout: 60000 });
+    await run.click();
+  }
+  await page.waitForFunction(
+    (s) => !!document.querySelector(s),
+    `${selector} ${caseRows[domain]}`,
+    { timeout: 60000 },
+  );
+  const idle = () =>
+    page.waitForFunction(
+      (s) => !document.querySelector(`${s} [aria-busy="true"]`),
+      selector,
+      { timeout: 60000 },
+    );
+  await idle();
+  // The supplier list shows one tab of cases at a time: each is read.
+  const tabs = domain === 'supplier' ? await panel.getByRole('tab').count() : 1;
+  let read = 0;
+  const readAll = async (label) => {
+    const tones = [];
+    for (let tab = 0; tab < tabs; tab++) {
+      if (domain === 'supplier') {
+        await panel.getByRole('tab').nth(tab).click();
+        await page.waitForTimeout(200);
+      }
+      const seen = await page.evaluate(badgesShown, {
+        s: selector,
+        rows: caseRows[domain],
+      });
+      for (const badge of seen.read) {
+        assert.ok(
+          !badge.missing,
+          `${label}: every case shows a status badge (${badge.missing})`,
+        );
+        const at = `${label}: ${badge.word}`;
+        assert.equal(badge.count, 1, `${at}: one status badge per case`);
+        assert.ok(
+          TONES.includes(badge.tone),
+          `${at}: a badge tone (${badge.tone})`,
+        );
+        assert.ok(badge.shown && badge.word, `${at}: the word is shown`);
+        assert.ok(
+          badge.icon,
+          `${at}: the icon is hidden from assistive technology`,
+        );
+        assert.ok(
+          badge.contrast >= 4.5,
+          `${at}: contrast ${badge.contrast.toFixed(2)} of at least 4.5:1`,
+        );
+        const settled = agreed[domain].statuses.includes(badge.status);
+        assert.equal(
+          agreed[domain][language].includes(badge.word.split(' · ')[0]),
+          settled,
+          `${at}: the word and the status (${badge.status}) agree`,
+        );
+        assert.equal(
+          badge.tone === 'agreed',
+          settled,
+          `${at}: only an agreed status (not ${badge.status}) takes the agreed tone`,
+        );
+        (toneSeen[domain] ??= new Set()).add(badge.tone);
+        tones.push(badge.tone);
+        read++;
+      }
+      assert.equal(seen.old, 0, `${label}: no status is left in the old pill`);
+      assert.equal(
+        seen.touching,
+        0,
+        `${label}: a status stands at least 8 px from the member cards`,
+      );
+    }
+    return tones;
+  };
+  const before = await readAll(label);
+  assert.ok(before.length > 0, `${label}: status badges read`);
+  if (reopen[domain]) {
+    const fields = reopen[domain].fields[language];
+    for (const [i, field] of fields.entries())
+      await panel
+        .getByLabel(field, { exact: true })
+        .fill(
+          i === fields.length - 1
+            ? 'UX-3 status badge, one agreed case reopened for review'
+            : 'UX-3 status badge reference',
+        );
+    const buttons = panel.getByRole('button', {
+      name: reopen[domain].press[language],
+      exact: true,
+    });
+    let button = null;
+    for (let i = 0; i < (await buttons.count()) && !button; i++)
+      if (await buttons.nth(i).isEnabled()) button = buttons.nth(i);
+    assert.ok(button, `${label}: an agreed case to reopen`);
+    const target = await button.getAttribute('data-decision-target');
+    const badgeAt = (id) => {
+      const badge = document.getElementById(id)?.querySelector('.status-badge');
+      return (
+        badge && { tone: badge.dataset.tone, status: badge.dataset.status }
+      );
+    };
+    assert.equal(
+      (await page.evaluate(badgeAt, target))?.tone,
+      'agreed',
+      `${label}: the case to reopen reads as agreed`,
+    );
+    await button.click();
+    await page.waitForTimeout(300);
+    await idle();
+    const after = await readAll(`${label} after reopening one case`);
+    const reopened = await page.evaluate(badgeAt, target);
+    assert.ok(
+      reopened &&
+        reopened.tone === 'review' &&
+        !agreed[domain].statuses.includes(reopened.status),
+      `${label}: the reopened case reads as review (${JSON.stringify(reopened)})`,
+    );
+    const agreedCount = (tones) => tones.filter((t) => t === 'agreed').length;
+    assert.equal(
+      agreedCount(after),
+      agreedCount(before) - 1,
+      `${label}: one agreed case fewer after reopening one`,
+    );
+  }
+  badgesRead += read;
+  await context.close();
+}
 try {
   for (const language of ['ar', 'en']) {
     const context = await browser.newContext({
@@ -572,6 +858,15 @@ try {
     'bank',
   ])
     for (const language of ['ar', 'en']) await readByField(domain, language);
+  for (const domain of Object.keys(caseRows))
+    for (const language of ['ar', 'en']) await readBadges(domain, language);
+  // Each workspace showed both an agreed status and one that is not.
+  for (const domain of Object.keys(caseRows))
+    assert.ok(
+      toneSeen[domain]?.has('agreed') &&
+        [...toneSeen[domain]].some((tone) => tone !== 'agreed'),
+      `${domain}: agreed and other tones read (${[...(toneSeen[domain] ?? [])].join(', ')})`,
+    );
   assert.deepEqual(external, [], 'all requests remain local');
   assert.deepEqual(errors, [], 'no browser page errors');
 } finally {
@@ -580,5 +875,5 @@ try {
   await new Promise((resolve) => server.close(resolve));
 }
 console.log(
-  `Record table frames: PASS, ${checked} wide frames in Arabic and English at 390 px; the shade measured on both sides of ${drawn / 2} with rows, ${headersOnly / 2} of headers alone; long text read whole in ${whole} cells and ${fields} source row fields of the receivables and gateway examples; source text read by field, not JSON, in ${jsonFree} results (${shownFields} fields shown)`,
+  `Record table frames: PASS, ${checked} wide frames in Arabic and English at 390 px; the shade measured on both sides of ${drawn / 2} with rows, ${headersOnly / 2} of headers alone; long text read whole in ${whole} cells and ${fields} source row fields of the receivables and gateway examples; source text read by field, not JSON, in ${jsonFree} results (${shownFields} fields shown); ${badgesRead} statuses read as badges in the receivables, clearing, bank and supplier results`,
 );

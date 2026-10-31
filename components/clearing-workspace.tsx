@@ -37,6 +37,8 @@ import {
   clearingDemoScope,
 } from '@/lib/reconciliation/clearing-demo';
 import { RecordRows } from '@/components/record-table';
+import { StatusBadge } from '@/components/status-badge';
+import { clearingGroupTone } from '@/lib/status-tone';
 import './clearing-workspace.css';
 
 const freshReading = (): ClearingReading => ({
@@ -600,7 +602,13 @@ export function ClearingWorkspace({
                 </label>,
                 c.reference || t.missing,
                 money(c.net, result.decimals),
-                c.status === 'cleared' ? t.cleared : t.review,
+                <StatusBadge
+                  key="status"
+                  tone={clearingGroupTone(c.status)}
+                  status={c.status}
+                >
+                  {c.status === 'cleared' ? t.cleared : t.review}
+                </StatusBadge>,
                 <div key="basis">
                   {c.basis === 'explicit-reference'
                     ? t.automatic

@@ -45,6 +45,8 @@ import {
   RecordRows,
 } from '@/components/record-table';
 import { pageOfRow, recordPage } from '@/lib/record-page';
+import { StatusBadge } from '@/components/status-badge';
+import { arCaseTone } from '@/lib/status-tone';
 import './clearing-workspace.css';
 import './ar-workspace.css';
 const columns = [
@@ -847,16 +849,14 @@ export function ArWorkspace({
                   <h3>
                     {t.kind[c.kind]}: {c.document}
                   </h3>
-                  <span
-                    className={`status ${c.status === 'matched' ? 'good' : 'warn'}`}
-                  >
+                  <StatusBadge tone={arCaseTone(c.status)} status={c.status}>
                     {c.status === 'matched'
                       ? c.basis === 'human-confirmation'
                         ? t.human
                         : t.automatic
                       : t.review}{' '}
                     · {t.reason[c.reason]}
-                  </span>
+                  </StatusBadge>
                 </div>
                 <ul className="ar-case-members">
                   {c.ids

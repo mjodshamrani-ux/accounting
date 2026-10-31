@@ -132,6 +132,8 @@ import {
   RecordPager,
   RecordRows,
 } from '@/components/record-table';
+import { StatusBadge } from '@/components/status-badge';
+import { supplierCaseTone } from '@/lib/status-tone';
 import { recordPage } from '@/lib/record-page';
 import { workerTask, prepareWorker } from '@/lib/reconciliation/client';
 import type { ProcessingProgress } from '@/lib/reconciliation/processing-progress';
@@ -2848,6 +2850,21 @@ export default function App() {
                                     tx.side === 'supplier'
                                       ? matchedBySupplier.get(tx.id)
                                       : undefined;
+                                  const status = match
+                                    ? match.kind === 'auto'
+                                      ? 'auto'
+                                      : 'manual'
+                                    : activeCase.classification ===
+                                        'AMOUNT_VARIANCE'
+                                      ? 'amountVariance'
+                                      : activeCase.classification ===
+                                          'PAYMENT_CANDIDATE'
+                                        ? 'paymentCandidate'
+                                        : activeCase.status === 'Rejected'
+                                          ? 'rejected'
+                                          : activeCase.status === 'Needs Review'
+                                            ? 'needsReview'
+                                            : 'unmatched';
                                   return (
                                     <TableRow key={tx.id}>
                                       <TableCell>
@@ -2879,31 +2896,12 @@ export default function App() {
                                         </div>
                                       </TableCell>
                                       <TableCell>
-                                        <span
-                                          className={`status ${match ? 'good' : 'warn'}`}
+                                        <StatusBadge
+                                          tone={supplierCaseTone[status]}
+                                          status={status}
                                         >
-                                          {
-                                            t.app.results.status[
-                                              match
-                                                ? match.kind === 'auto'
-                                                  ? 'auto'
-                                                  : 'manual'
-                                                : activeCase.classification ===
-                                                    'AMOUNT_VARIANCE'
-                                                  ? 'amountVariance'
-                                                  : activeCase.classification ===
-                                                      'PAYMENT_CANDIDATE'
-                                                    ? 'paymentCandidate'
-                                                    : activeCase.status ===
-                                                        'Rejected'
-                                                      ? 'rejected'
-                                                      : activeCase.status ===
-                                                          'Needs Review'
-                                                        ? 'needsReview'
-                                                        : 'unmatched'
-                                            ]
-                                          }
-                                        </span>
+                                          {t.app.results.status[status]}
+                                        </StatusBadge>
                                       </TableCell>
                                       <TableCell>
                                         <Button

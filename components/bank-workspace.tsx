@@ -42,6 +42,8 @@ import {
   bankDemoReadings,
   bankDemoScope,
 } from '@/lib/reconciliation/bank-demo';
+import { StatusBadge } from '@/components/status-badge';
+import { bankCaseTone } from '@/lib/status-tone';
 import './workspace-record.css';
 import './bank-workspace.css';
 const freshScope = (): BankScope => ({
@@ -739,7 +741,13 @@ export function BankWorkspace({
                     </span>,
                     g.eligible ? t.yes : t.no,
                     t.reasons[g.reason],
-                    t.caseStatus[g.status],
+                    <StatusBadge
+                      key="status"
+                      tone={bankCaseTone[g.status]}
+                      status={g.status}
+                    >
+                      {t.caseStatus[g.status]}
+                    </StatusBadge>,
                     <Button
                       key="approve"
                       data-decision-action="accept"
