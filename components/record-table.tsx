@@ -117,7 +117,8 @@ type RecordPaging = {
  * shows that columns continue. A workspace that must return the reader to a
  * row holds the page with `page` and `onPage`. A table of the rows read
  * from a source is named after the source with `source`, apart from the
- * source's own file input. */
+ * source's own file input; `rowHeader` names the column whose cell heads
+ * its row. */
 export function RecordRows<T>({
   label,
   source,
@@ -125,6 +126,7 @@ export function RecordRows<T>({
   rows,
   cells,
   mark,
+  rowHeader,
   page,
   onPage,
   pager,
@@ -135,6 +137,7 @@ export function RecordRows<T>({
     rows: readonly T[];
     cells: (row: T, index: number) => ReactNode[];
     mark?: (row: T, index: number) => RecordHook | undefined;
+    rowHeader?: number;
   }) {
   const { lang } = useI18n();
   const copy = recordTableCopy[lang];
@@ -174,7 +177,13 @@ export function RecordRows<T>({
                     ) : (
                       (cell ?? '—')
                     );
-                  return <td key={j}>{shown}</td>;
+                  return j === rowHeader ? (
+                    <th key={j} scope="row">
+                      {shown}
+                    </th>
+                  ) : (
+                    <td key={j}>{shown}</td>
+                  );
                 })}
               </tr>
             ))}

@@ -197,8 +197,6 @@ export const en: Messages = {
       movement: 'Movement',
       error: 'Error',
     },
-    previous: 'Previous',
-    next: 'Next',
     retainedTiming:
       'Value dates outside the period stay visible after approval and undo; they are inputs to a later balance reconciliation.',
     caseState: 'Status',
@@ -280,8 +278,6 @@ export const en: Messages = {
     undoDecision: 'Undo decision',
     activeAllocations: 'Active allocations',
     inventoryOfEverySourceRow: 'Inventory of every source row',
-    previous: 'Previous',
-    next: 'Next',
   },
   glTb: {
     functionalLabel: 'Functional',
@@ -347,6 +343,7 @@ export const en: Messages = {
     gl: 'GL',
     tb: 'Trial balance',
     difference: 'GL minus TB',
+    balances: 'GL and trial balance by component',
     glBridge: 'GL closing minus opening and period net',
     tbBridge: 'TB closing minus opening and period net',
     missing: 'Missing',
@@ -390,8 +387,6 @@ export const en: Messages = {
     failure:
       'Cannot complete this operation under the GL/TB source policy. Check native source roles, readable headers, explicit amounts and the confirmed scope. The previous source remains available if upload fails.',
     error: 'Reason',
-    previous: 'Previous rows',
-    next: 'Next rows',
   },
   arDocuments: {
     title: 'Customer AR documents',
@@ -461,8 +456,6 @@ export const en: Messages = {
     accept: 'Record human confirmation',
     save: 'Save AR session',
     export: 'Download AR workpaper',
-    prev: 'Previous',
-    next: 'Next',
     row: 'Row',
     inventory: 'Original source inventory',
     review: 'Needs review',
@@ -602,8 +595,6 @@ export const en: Messages = {
     automatic: 'Whole explicit reference',
     human: 'Human decision',
     none: 'No approval evidence',
-    prev: 'Previous',
-    next: 'Next',
     source: 'Original source',
     missing: 'No clearing reference',
     error:

@@ -28,6 +28,7 @@ import {
   clearingDemoReading,
   clearingDemoScope,
 } from '@/lib/reconciliation/clearing-demo';
+import { RecordRows } from '@/components/record-table';
 import './clearing-workspace.css';
 
 const freshReading = (): ClearingReading => ({
@@ -522,100 +523,68 @@ export function ClearingWorkspace({
               ))}
             </div>
             <p className="muted">{t.coverage}</p>
-            <div className="clearing-scroll">
-              <table>
-                <thead>
-                  <tr>
-                    <th>{t.members}</th>
-                    <th>{t.reference}</th>
-                    <th>{t.net}</th>
-                    <th>{t.status}</th>
-                    <th>{t.basis}</th>
-                    <th>{t.note}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {result.cases.slice(page * 50, (page + 1) * 50).map((c) => (
-                    <tr key={c.id} data-testid="clearing-case">
-                      <td>
-                        <label>
-                          <input
-                            type="checkbox"
-                            aria-label={`${t.members}: ${c.ids.map((id) => owners.get(id)?.posting).join(', ')}`}
-                            disabled={
-                              busy ||
-                              c.status === 'cleared' ||
-                              result.inventory.some((r) => r.kind === 'error')
-                            }
-                            checked={c.ids.every((id) => selected.includes(id))}
-                            onChange={(e) =>
-                              setSelected(
-                                e.target.checked
-                                  ? [...new Set([...selected, ...c.ids])]
-                                  : selected.filter(
-                                      (id) => !c.ids.includes(id),
-                                    ),
-                              )
-                            }
-                          />
-                          <bdi>
-                            {c.ids
-                              .map((id) => owners.get(id)?.posting)
-                              .join(', ')}
-                          </bdi>
-                        </label>
-                      </td>
-                      <td>
-                        <bdi>{c.reference || t.missing}</bdi>
-                      </td>
-                      <td>
-                        <bdi>{money(c.net, result.decimals)}</bdi>
-                      </td>
-                      <td>{c.status === 'cleared' ? t.cleared : t.review}</td>
-                      <td>
-                        {c.basis === 'explicit-reference'
-                          ? t.automatic
-                          : c.basis === 'human-decision'
-                            ? t.human
-                            : t.none}
-                        <p className="muted">{t.reason[c.reason]}</p>
-                      </td>
-                      <td>
-                        {c.note}
-                        {c.status === 'cleared' && (
-                          <Button
-                            variant="outline"
-                            disabled={busy || note.trim().length < 8}
-                            onClick={() => void decide('reopen', c.ids)}
-                          >
-                            {t.reopen}
-                          </Button>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="clearing-actions">
-              <Button
-                variant="outline"
-                disabled={page === 0}
-                onClick={() => setPage(page - 1)}
-              >
-                {t.prev}
-              </Button>
-              <span>
-                {page + 1}/{Math.max(1, Math.ceil(result.cases.length / 50))}
-              </span>
-              <Button
-                variant="outline"
-                disabled={(page + 1) * 50 >= result.cases.length}
-                onClick={() => setPage(page + 1)}
-              >
-                {t.next}
-              </Button>
-            </div>
+            <RecordRows
+              label={t.results}
+              headers={[
+                t.members,
+                t.reference,
+                t.net,
+                t.status,
+                t.basis,
+                t.note,
+              ]}
+              page={page}
+              onPage={setPage}
+              rows={result.cases}
+              mark={() => ({ 'data-testid': 'clearing-case' })}
+              cells={(c) => [
+                <label key="members">
+                  <input
+                    type="checkbox"
+                    aria-label={`${t.members}: ${c.ids.map((id) => owners.get(id)?.posting).join(', ')}`}
+                    disabled={
+                      busy ||
+                      c.status === 'cleared' ||
+                      result.inventory.some((r) => r.kind === 'error')
+                    }
+                    checked={c.ids.every((id) => selected.includes(id))}
+                    onChange={(e) =>
+                      setSelected(
+                        e.target.checked
+                          ? [...new Set([...selected, ...c.ids])]
+                          : selected.filter((id) => !c.ids.includes(id)),
+                      )
+                    }
+                  />
+                  <bdi>
+                    {c.ids.map((id) => owners.get(id)?.posting).join(', ')}
+                  </bdi>
+                </label>,
+                c.reference || t.missing,
+                money(c.net, result.decimals),
+                c.status === 'cleared' ? t.cleared : t.review,
+                <div key="basis">
+                  {c.basis === 'explicit-reference'
+                    ? t.automatic
+                    : c.basis === 'human-decision'
+                      ? t.human
+                      : t.none}
+                  <p className="muted">{t.reason[c.reason]}</p>
+                </div>,
+                <div key="note">
+                  {c.note}
+                  {c.status === 'cleared' && (
+                    <Button
+                      variant="outline"
+                      disabled={busy || note.trim().length < 8}
+                      onClick={() => void decide('reopen', c.ids)}
+                    >
+                      {t.reopen}
+                    </Button>
+                  )}
+                </div>,
+              ]}
+            />
             <label>
               {t.note}
               <textarea
@@ -640,54 +609,19 @@ export function ClearingWorkspace({
               <summary>
                 {t.source} · {t.errors}
               </summary>
-              <div className="clearing-scroll">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>{t.row}</th>
-                      <th>{t.status}</th>
-                      <th>{t.source}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {result.inventory
-                      .slice(inventoryPage * 50, (inventoryPage + 1) * 50)
-                      .map((row) => (
-                        <tr key={row.row}>
-                          <th>{row.row}</th>
-                          <td>
-                            {row.kind === 'error'
-                              ? t.readingIssue
-                              : t.inventory[row.kind]}
-                          </td>
-                          <td>
-                            <bdi>{row.values.join(' | ')}</bdi>
-                          </td>
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="clearing-actions">
-                <Button
-                  variant="outline"
-                  disabled={!inventoryPage}
-                  onClick={() => setInventoryPage(inventoryPage - 1)}
-                >
-                  {t.prev}
-                </Button>
-                <span>
-                  {inventoryPage + 1}/
-                  {Math.max(1, Math.ceil(result.inventory.length / 50))}
-                </span>
-                <Button
-                  variant="outline"
-                  disabled={(inventoryPage + 1) * 50 >= result.inventory.length}
-                  onClick={() => setInventoryPage(inventoryPage + 1)}
-                >
-                  {t.next}
-                </Button>
-              </div>
+              <RecordRows
+                label={`${t.source} · ${t.errors}`}
+                headers={[t.row, t.status, t.source]}
+                rowHeader={0}
+                page={inventoryPage}
+                onPage={setInventoryPage}
+                rows={result.inventory}
+                cells={(row) => [
+                  row.row,
+                  row.kind === 'error' ? t.readingIssue : t.inventory[row.kind],
+                  row.values.join(' | '),
+                ]}
+              />
             </details>
             <div className="clearing-actions">
               <Button

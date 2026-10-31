@@ -6,6 +6,7 @@ import {
   type ReactNode,
 } from 'react';
 import { usePendingResultFocus } from '@/components/result-focus';
+import { RecordRows } from '@/components/record-table';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceFileInput,
@@ -526,7 +527,8 @@ export function useBankStatement() {
 }
 export type BankStatementSession = ReturnType<typeof useBankStatement>;
 
-/** A paged table that builds only the rows it shows. */
+/** A table of the record kit (UX-3), named by its heading; it pages on its
+ * own and builds only the rows it shows. */
 function Table<T>({
   title,
   headers,
@@ -540,55 +542,10 @@ function Table<T>({
   row: (item: T, index: number) => ReactNode[];
   testId: string;
 }) {
-  const { lang } = useI18n(),
-    c = bankStatementCopy[lang];
-  const [page, setPage] = useState(0);
-  const pages = Math.max(1, Math.ceil(items.length / 50));
-  const at = Math.min(page, pages - 1);
   return (
     <section data-bank-statement-table={testId}>
       <h2>{title}</h2>
-      <div className="gl-tb-table">
-        <table>
-          <thead>
-            <tr>
-              {headers.map((h) => (
-                <th key={h}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {items.slice(at * 50, (at + 1) * 50).map((item, i) => (
-              <tr key={at * 50 + i}>
-                {row(item, at * 50 + i).map((cell, k) => (
-                  <td key={k}>{cell}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {pages > 1 && (
-        <div className="gl-tb-actions">
-          <Button
-            variant="outline"
-            disabled={!at}
-            onClick={() => setPage(at - 1)}
-          >
-            {c.previous}
-          </Button>
-          <span>
-            {at + 1} / {pages}
-          </span>
-          <Button
-            variant="outline"
-            disabled={at + 1 >= pages}
-            onClick={() => setPage(at + 1)}
-          >
-            {c.next}
-          </Button>
-        </div>
-      )}
+      <RecordRows label={title} headers={headers} rows={items} cells={row} />
     </section>
   );
 }

@@ -2,6 +2,7 @@ import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant'
 import { BankAdjustmentWorkspace } from './bank-adjustment-workspace';
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { useResultFocus } from '@/components/result-focus';
+import { RecordRows } from '@/components/record-table';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -21,6 +22,7 @@ import {
   useBankStatement,
 } from './bank-statement-workspace';
 import { workspaceCopy } from '@/lib/i18n/workspace';
+import { pageOfRow } from '@/lib/record-page';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
 import { money } from '@/lib/reconciliation/core';
@@ -241,8 +243,10 @@ export function BankWorkspace({
       setCashId('');
     });
   }
-  // Each table pages on its own, as the printed statement tables do, so
-  // turning one table's page leaves the others where they are.
+  // Each table pages on its own through the record kit (UX-3), as the
+  // printed statement tables do, so turning one table's page leaves the
+  // others where they are. The pages are held here, so that the evidence can
+  // return the reader to its movement's page.
   function table<T>(
     name: string,
     title: string,
@@ -250,53 +254,17 @@ export function BankWorkspace({
     data: T[],
     cells: (r: T) => ReactNode[],
   ) {
-    const count = Math.max(1, Math.ceil(data.length / 50)),
-      at = Math.min(pages[name] ?? 0, count - 1),
-      turn = (to: number) => setPages((p) => ({ ...p, [name]: to }));
     return (
       <section className="bank-movement-table" data-bank-movement-table={name}>
         <h2>{title}</h2>
-        <div className="gl-tb-table">
-          <table>
-            <thead>
-              <tr>
-                {headers.map((h, i) => (
-                  <th key={i}>{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {data.slice(at * 50, (at + 1) * 50).map((r, i) => (
-                <tr key={at * 50 + i}>
-                  {cells(r).map((cell, c) => (
-                    <td key={c}>{cell}</td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        {count > 1 && (
-          <div className="gl-tb-actions">
-            <Button
-              variant="outline"
-              disabled={!at}
-              onClick={() => turn(at - 1)}
-            >
-              {t.previous}
-            </Button>
-            <span>
-              {at + 1} / {count}
-            </span>
-            <Button
-              variant="outline"
-              disabled={at + 1 >= count}
-              onClick={() => turn(at + 1)}
-            >
-              {t.next}
-            </Button>
-          </div>
-        )}
+        <RecordRows
+          label={title}
+          headers={headers}
+          rows={data}
+          cells={cells}
+          page={pages[name] ?? 0}
+          onPage={(to) => setPages((p) => ({ ...p, [name]: to }))}
+        />
       </section>
     );
   }
@@ -354,7 +322,7 @@ export function BankWorkspace({
   function backToMovement() {
     const index = result?.records.findIndex((r) => r.id === evidenceId) ?? -1;
     if (index < 0) return;
-    setPages((p) => ({ ...p, movements: Math.floor(index / 50) }));
+    setPages((p) => ({ ...p, movements: pageOfRow(index) }));
     setFocusRequest({ to: 'row', id: evidenceId });
   }
   const locked = busy || balanceBusy || statement.busy;
@@ -867,49 +835,36 @@ export function BankWorkspace({
                     <Button variant="outline" onClick={backToMovement}>
                       {t.backToMovement}
                     </Button>
-                    <div className="gl-tb-table">
-                      <table>
-                        <thead>
-                          <tr>
-                            <th>{t.field}</th>
-                            <th>{t.column}</th>
-                            <th>{t.original}</th>
-                            {evidence.withdrawalDeposit && (
-                              <th>{t.cashCellState}</th>
-                            )}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {evidence.traces.map((c) => (
-                            <tr key={c.field}>
-                              <td>
-                                {
-                                  t.sourceFields[
-                                    c.field as keyof typeof t.sourceFields
+                    <RecordRows
+                      label={`${t.evidence} · ${evidence.reference}`}
+                      headers={[
+                        t.field,
+                        t.column,
+                        t.original,
+                        ...(evidence.withdrawalDeposit
+                          ? [t.cashCellState]
+                          : []),
+                      ]}
+                      rows={evidence.traces}
+                      cells={(c) => [
+                        t.sourceFields[c.field as keyof typeof t.sourceFields],
+                        c.column,
+                        c.text,
+                        ...(evidence.withdrawalDeposit
+                          ? [
+                              c.field === 'Withdrawal' || c.field === 'Deposit'
+                                ? t.cashCellStates[
+                                    evidence.withdrawalDeposit[
+                                      c.field === 'Withdrawal'
+                                        ? 'withdrawal'
+                                        : 'deposit'
+                                    ].state
                                   ]
-                                }
-                              </td>
-                              <td>{c.column}</td>
-                              <td>{c.text}</td>
-                              {evidence.withdrawalDeposit && (
-                                <td>
-                                  {c.field === 'Withdrawal' ||
-                                  c.field === 'Deposit'
-                                    ? t.cashCellStates[
-                                        evidence.withdrawalDeposit[
-                                          c.field === 'Withdrawal'
-                                            ? 'withdrawal'
-                                            : 'deposit'
-                                        ].state
-                                      ]
-                                    : ''}
-                                </td>
-                              )}
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
+                                : '',
+                            ]
+                          : []),
+                      ]}
+                    />
                   </section>
                 )}
                 <p>{t.retainedTiming}</p>

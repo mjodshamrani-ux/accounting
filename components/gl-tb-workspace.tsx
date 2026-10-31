@@ -33,6 +33,7 @@ import {
   glTbDemo,
 } from '@/lib/reconciliation/gl-tb-demo';
 import { GlTbSectionsPanel } from '@/components/gl-tb-sections-panel';
+import { RecordRows } from '@/components/record-table';
 import './workspace-record.css';
 const freshScope = (): GlTbScope => ({
   ...glDemoScope,
@@ -511,27 +512,19 @@ export function GlTbWorkspace({
               </div>
             </section>
           )}
-          <div className="gl-tb-table">
-            <table data-testid="gl-tb-balances">
-              <thead>
-                <tr>
-                  {[t.component, t.gl, t.tb, t.difference].map((label) => (
-                    <th key={label}>{label}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {BALANCE_FIELDS.map((field) => (
-                  <tr key={field}>
-                    <th>{t.components[field]}</th>
-                    <td>{formatted(result.gl?.[field])}</td>
-                    <td>{formatted(result.tb?.[field])}</td>
-                    <td>{formatted(result.differences?.[field])}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <RecordRows
+            label={t.balances}
+            headers={[t.component, t.gl, t.tb, t.difference]}
+            rows={BALANCE_FIELDS}
+            rowHeader={0}
+            frame={{ 'data-testid': 'gl-tb-balances' }}
+            cells={(field) => [
+              t.components[field],
+              formatted(result.gl?.[field]),
+              formatted(result.tb?.[field]),
+              formatted(result.differences?.[field]),
+            ]}
+          />
           <div className="gl-tb-actions">
             <Button
               disabled={busy}
@@ -567,84 +560,46 @@ export function GlTbWorkspace({
             </Button>
           </div>
           <h3>{t.inventory}</h3>
-          <div className="gl-tb-table">
-            <table data-testid="gl-tb-inventory">
-              <thead>
-                <tr>
-                  {[
-                    t.sides.join(' / '),
-                    t.row,
-                    t.kind,
-                    t.error,
-                    t.original,
-                  ].map((label) => (
-                    <th key={label}>{label}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {result.inventory.slice(page * 50, (page + 1) * 50).map((i) => {
-                  const row = rowById.get(`${i.side}:${i.row}`);
-                  return (
-                    <tr key={`${i.side}:${i.row}`}>
-                      <td>{t.sides[i.side]}</td>
-                      <td>{i.row}</td>
-                      <td>{t.kinds[i.kind]}</td>
-                      <td>
-                        {i.error
-                          ? (t.rowErrors[i.error as keyof typeof t.rowErrors] ??
-                            t.failure)
-                          : ''}
-                      </td>
-                      <td>
-                        <details>
-                          <summary>{t.original}</summary>
-                          <pre dir="auto">{JSON.stringify(i.values)}</pre>
-                          {row && (
-                            <>
-                              <p>
-                                {t.record}: {row.record}
-                              </p>
-                              <p>{t.cellEvidence}</p>
-                              <ul>
-                                {row.trace.map((cell) => (
-                                  <li key={cell.column}>
-                                    {t.column} {cell.column}:{' '}
-                                    <bdi>{cell.text}</bdi> → {cell.amount} (
-                                    {t.minor})
-                                  </li>
-                                ))}
-                              </ul>
-                            </>
-                          )}
-                        </details>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-          <div className="gl-tb-actions">
-            <Button
-              variant="outline"
-              disabled={page === 0}
-              onClick={() => setPage(page - 1)}
-            >
-              {t.previous}
-            </Button>
-            <span>
-              {page + 1} /{' '}
-              {Math.max(1, Math.ceil(result.inventory.length / 50))}
-            </span>
-            <Button
-              variant="outline"
-              disabled={(page + 1) * 50 >= result.inventory.length}
-              onClick={() => setPage(page + 1)}
-            >
-              {t.next}
-            </Button>
-          </div>
+          <RecordRows
+            label={t.inventory}
+            headers={[t.sides.join(' / '), t.row, t.kind, t.error, t.original]}
+            frame={{ 'data-testid': 'gl-tb-inventory' }}
+            page={page}
+            onPage={setPage}
+            rows={result.inventory}
+            cells={(i) => {
+              const row = rowById.get(`${i.side}:${i.row}`);
+              return [
+                t.sides[i.side],
+                i.row,
+                t.kinds[i.kind],
+                i.error
+                  ? (t.rowErrors[i.error as keyof typeof t.rowErrors] ??
+                    t.failure)
+                  : '',
+                <details key="original">
+                  <summary>{t.original}</summary>
+                  <pre dir="auto">{JSON.stringify(i.values)}</pre>
+                  {row && (
+                    <>
+                      <p>
+                        {t.record}: {row.record}
+                      </p>
+                      <p>{t.cellEvidence}</p>
+                      <ul>
+                        {row.trace.map((cell) => (
+                          <li key={cell.column}>
+                            {t.column} {cell.column}: <bdi>{cell.text}</bdi> →{' '}
+                            {cell.amount} ({t.minor})
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
+                </details>,
+              ];
+            }}
+          />
         </section>
       )}
       <GlTbSectionsPanel />

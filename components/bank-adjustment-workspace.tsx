@@ -8,6 +8,7 @@ import {
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useResultFocus } from '@/components/result-focus';
+import { RecordRows } from '@/components/record-table';
 import './bank-adjustment-workspace.css';
 import { Button } from '@/components/ui/button';
 import { useI18n } from '@/lib/i18n/context';
@@ -101,7 +102,6 @@ export function BankAdjustmentWorkspace({
     [failed, setFailed] = useState(false),
     [reference, setReference] = useState(''),
     [note, setNote] = useState(''),
-    [page, setPage] = useState(0),
     [selected, setSelected] = useState<
       { field: string; column: number; text: string }[] | null
     >(null);
@@ -118,7 +118,6 @@ export function BankAdjustmentWorkspace({
     setResult(null);
     setEvents([]);
     setSelected(null);
-    setPage(0);
     setFailed(false);
   }
   useEffect(() => {
@@ -129,7 +128,6 @@ export function BankAdjustmentWorkspace({
       setComplete(false);
       setCoverage(false);
       setSelected(null);
-      setPage(0);
     }
   }, [key]);
   useEffect(
@@ -179,7 +177,6 @@ export function BankAdjustmentWorkspace({
     setEvents(v.state.events);
     setResult(v.result);
     setSelected(null);
-    setPage(0);
     onRestoreBank({
       state: v.state.balance.bank,
       result: v.result.balance.bank,
@@ -260,39 +257,25 @@ export function BankAdjustmentWorkspace({
       if (!signal.aborted) install(v);
     });
   }
+  // Each evidence table pages on its own through the record kit (UX-3), so
+  // turning one table's pages leaves the others where the reader left them.
   function table<T>(
     title: string,
     headers: readonly string[],
-    rows: T[],
+    rows: readonly T[],
     cells: (r: T) => ReactNode[],
     testid?: string,
-    paged = true,
   ) {
     return (
       <section>
         <h3>{title}</h3>
-        <div className="gl-tb-table">
-          <table data-testid={testid}>
-            <thead>
-              <tr>
-                {headers.map((h, i) => (
-                  <th key={i}>{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {(paged ? rows.slice(page * 50, (page + 1) * 50) : rows).map(
-                (r, i) => (
-                  <tr key={page * 50 + i}>
-                    {cells(r).map((cell, j) => (
-                      <td key={j}>{cell}</td>
-                    ))}
-                  </tr>
-                ),
-              )}
-            </tbody>
-          </table>
-        </div>
+        <RecordRows
+          label={title}
+          headers={headers}
+          rows={rows}
+          cells={cells}
+          frame={{ 'data-testid': testid }}
+        />
       </section>
     );
   }
@@ -304,16 +287,7 @@ export function BankAdjustmentWorkspace({
       !!result &&
       !['source-error', 'missing'].includes(result.status) &&
       !!reference.trim() &&
-      !!note.trim(),
-    maxRows = Math.max(
-      result?.items.length ?? 0,
-      result?.proofs.length ?? 0,
-      result?.inventory.length ?? 0,
-      result?.lifecycles.length ?? 0,
-      result?.events.length ?? 0,
-      result?.balance.records.length ?? 0,
-      result?.balance.inventory.length ?? 0,
-    );
+      !!note.trim();
   return (
     <section
       className="gl-tb-workspace bank-balance-section"
@@ -674,7 +648,6 @@ export function BankAdjustmentWorkspace({
                 ].map(fmt),
               ],
               'bank-balance-endpoints',
-              false,
             )}
             {table(
               t.raw,
@@ -688,7 +661,6 @@ export function BankAdjustmentWorkspace({
                 fmt(c.residual),
               ],
               'bank-balance-raw',
-              false,
             )}
             {table(t.balances, t.balanceHead, result.balance.records, (r) => [
               t.sides[r.side],
@@ -696,13 +668,7 @@ export function BankAdjustmentWorkspace({
               t.point[r.kind],
               r.asOf,
               fmt(r.amount),
-              <Button
-                key="cells"
-                onClick={() => {
-                  setPage(0);
-                  setSelected(r.cells);
-                }}
-              >
+              <Button key="cells" onClick={() => setSelected(r.cells)}>
                 {t.evidence}
               </Button>,
             ])}
@@ -712,7 +678,6 @@ export function BankAdjustmentWorkspace({
               result.balance.missing,
               (m) => [t.sides[m.side], t.point[m.kind]],
               'bank-balance-missing',
-              false,
             )}
             {table(
               t.balanceInventory,
@@ -800,13 +765,7 @@ export function BankAdjustmentWorkspace({
                 i.proofReference,
                 fmt(i.amount),
                 i.explanation,
-                <Button
-                  key="cells"
-                  onClick={() => {
-                    setPage(0);
-                    setSelected(i.cells);
-                  }}
-                >
+                <Button key="cells" onClick={() => setSelected(i.cells)}>
                   {t.evidence}
                 </Button>,
               ],
@@ -826,13 +785,7 @@ export function BankAdjustmentWorkspace({
                 p.valueDate,
                 p.document,
                 fmt(p.amount),
-                <Button
-                  key="cells"
-                  onClick={() => {
-                    setPage(0);
-                    setSelected(p.cells);
-                  }}
-                >
+                <Button key="cells" onClick={() => setSelected(p.cells)}>
                   {t.evidence}
                 </Button>,
               ],
@@ -883,18 +836,6 @@ export function BankAdjustmentWorkspace({
                 (c) => [c.field, c.column, c.text],
                 'bank-balance-cells',
               )}
-            <div className="gl-tb-actions">
-              <Button disabled={!page} onClick={() => setPage((p) => p - 1)}>
-                {t.previous}
-              </Button>
-              <span>{page + 1}</span>
-              <Button
-                disabled={(page + 1) * 50 >= maxRows}
-                onClick={() => setPage((p) => p + 1)}
-              >
-                {t.next}
-              </Button>
-            </div>
           </fieldset>
         </>
       )}

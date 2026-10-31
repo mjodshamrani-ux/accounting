@@ -133,8 +133,6 @@ export const bankAdjustmentCopy = {
     opening: 'Opening',
     closing: 'Closing',
     sides: ['Bank', 'Cashbook'],
-    previous: 'Previous evidence page',
-    next: 'Next evidence page',
     cycleStatus: {
       blocked: 'Blocked by source',
       'needs-review': 'Needs review',
@@ -290,8 +288,6 @@ export const bankAdjustmentCopy = {
     opening: 'افتتاح',
     closing: 'ختام',
     sides: ['البنك', 'دفتر النقدية'],
-    previous: 'صفحة الأدلة السابقة',
-    next: 'صفحة الأدلة التالية',
     cycleStatus: {
       blocked: 'محجوب بخطأ مصدر',
       'needs-review': 'يحتاج مراجعة',

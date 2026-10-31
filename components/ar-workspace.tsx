@@ -36,6 +36,8 @@ import {
   arDemoReadings,
   arDemoScope,
 } from '@/lib/reconciliation/ar-demo';
+import { RecordPager, RecordRows } from '@/components/record-table';
+import { recordPage } from '@/lib/record-page';
 import './clearing-workspace.css';
 import './ar-workspace.css';
 const columns = [
@@ -280,6 +282,7 @@ export function ArWorkspace({
     );
   const rowById = new Map(result?.rows.map((r) => [r.id, r]));
   if (!active) return null;
+  const casesShown = recordPage(result?.cases.length ?? 0, page);
   return (
     <main
       className="app-shell clearing-workspace ar-workspace reconciliation-workspace"
@@ -809,7 +812,7 @@ export function ArWorkspace({
                 {t.export}
               </Button>
             </div>
-            {result.cases.slice(page * 50, (page + 1) * 50).map((c) => (
+            {result.cases.slice(casesShown.from, casesShown.to).map((c) => (
               <article key={c.id} data-testid="ar-case" className="ar-case">
                 <div className="ar-case-heading">
                   <h3>
@@ -829,8 +832,8 @@ export function ArWorkspace({
                 <ul className="ar-case-members">
                   {c.ids
                     .slice(
-                      (memberPages[c.id] ?? 0) * 50,
-                      ((memberPages[c.id] ?? 0) + 1) * 50,
+                      recordPage(c.ids.length, memberPages[c.id] ?? 0).from,
+                      recordPage(c.ids.length, memberPages[c.id] ?? 0).to,
                     )
                     .map((id) => {
                       const r = rowById.get(id)!;
@@ -930,40 +933,14 @@ export function ArWorkspace({
                       );
                     })}
                 </ul>
-                {c.ids.length > 50 && (
-                  <div className="clearing-actions">
-                    <Button
-                      variant="outline"
-                      disabled={(memberPages[c.id] ?? 0) === 0}
-                      onClick={() =>
-                        setMemberPages({
-                          ...memberPages,
-                          [c.id]: (memberPages[c.id] ?? 0) - 1,
-                        })
-                      }
-                    >
-                      {t.prev}
-                    </Button>
-                    <span>
-                      {(memberPages[c.id] ?? 0) + 1}/
-                      {Math.ceil(c.ids.length / 50)}
-                    </span>
-                    <Button
-                      variant="outline"
-                      disabled={
-                        ((memberPages[c.id] ?? 0) + 1) * 50 >= c.ids.length
-                      }
-                      onClick={() =>
-                        setMemberPages({
-                          ...memberPages,
-                          [c.id]: (memberPages[c.id] ?? 0) + 1,
-                        })
-                      }
-                    >
-                      {t.next}
-                    </Button>
-                  </div>
-                )}
+                <RecordPager
+                  label={`${t.kind[c.kind]}: ${c.document}`}
+                  length={c.ids.length}
+                  page={memberPages[c.id] ?? 0}
+                  onPage={(to) =>
+                    setMemberPages({ ...memberPages, [c.id]: to })
+                  }
+                />
                 {c.note && <p>{c.note}</p>}
                 {c.status === 'matched' ? (
                   <Button
@@ -987,79 +964,29 @@ export function ArWorkspace({
                 )}
               </article>
             ))}
-            <div className="clearing-actions">
-              <Button
-                variant="outline"
-                disabled={page === 0}
-                onClick={() => setPage(page - 1)}
-              >
-                {t.prev}
-              </Button>
-              <span>
-                {page + 1}/{Math.max(1, Math.ceil(result.cases.length / 50))}
-              </span>
-              <Button
-                variant="outline"
-                disabled={(page + 1) * 50 >= result.cases.length}
-                onClick={() => setPage(page + 1)}
-              >
-                {t.next}
-              </Button>
-            </div>
+            <RecordPager
+              label={t.results}
+              length={result.cases.length}
+              page={page}
+              onPage={setPage}
+            />
           </fieldset>
           <h2>{t.inventory}</h2>
-          <div className="clearing-scroll">
-            <table>
-              <thead>
-                <tr>
-                  <th>{t.inventory}</th>
-                  <th>{t.row}</th>
-                  <th>{t.valid}</th>
-                  <th>{t.errors}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {result.inventory
-                  .slice(inventoryPage * 50, (inventoryPage + 1) * 50)
-                  .map((i) => (
-                    <tr key={`${i.side}:${i.row}`}>
-                      <td>
-                        {t.sides[i.side]} · {t.inventoryKind[i.kind]}
-                      </td>
-                      <td>
-                        {i.pdf
-                          ? `${t.page} ${i.pdf.page} · ${t.line} ${i.pdf.line}`
-                          : i.row}
-                      </td>
-                      <td>{i.values.join(' | ')}</td>
-                      <td>{i.error ? t.readingIssue : ''}</td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="clearing-actions">
-            <Button
-              variant="outline"
-              disabled={busy || inventoryPage === 0}
-              onClick={() => setInventoryPage(inventoryPage - 1)}
-            >
-              {t.prev}
-            </Button>
-            <span>
-              {inventoryPage + 1}/
-              {Math.max(1, Math.ceil(result.inventory.length / 50))}
-            </span>
-            <Button
-              variant="outline"
-              disabled={
-                busy || (inventoryPage + 1) * 50 >= result.inventory.length
-              }
-              onClick={() => setInventoryPage(inventoryPage + 1)}
-            >
-              {t.next}
-            </Button>
-          </div>
+          <RecordRows
+            label={t.inventory}
+            headers={[t.inventory, t.row, t.valid, t.errors]}
+            page={inventoryPage}
+            onPage={setInventoryPage}
+            rows={result.inventory}
+            cells={(i) => [
+              `${t.sides[i.side]} · ${t.inventoryKind[i.kind]}`,
+              i.pdf
+                ? `${t.page} ${i.pdf.page} · ${t.line} ${i.pdf.line}`
+                : i.row,
+              i.values.join(' | '),
+              i.error ? t.readingIssue : '',
+            ]}
+          />
         </section>
       )}
     </main>

@@ -164,8 +164,6 @@ export function domainEvidenceCopy(lang: 'ar' | 'en') {
             'Record ID',
             'Source hash',
           ],
-    previous: ['السابق', 'Previous'][i],
-    nextPage: ['التالي', 'Next'][i],
     title: ['شرح أدلة النتيجة', 'Explain result evidence'][i],
     intro: [
       'شرح حتمي من الحساب الحالي. لا يفترض سببًا للفرق ولا يكتب قيدًا أو يمنح اعتمادًا.',

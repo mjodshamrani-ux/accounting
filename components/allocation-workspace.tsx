@@ -31,6 +31,8 @@ import {
   allocationDemoReadings,
 } from '@/lib/reconciliation/allocation-demo';
 import { AllocationAdvicePanel } from './allocation-advice-panel';
+import { RecordPager, RecordRows } from './record-table';
+import { recordPage } from '@/lib/record-page';
 import './workspace-record.css';
 
 export function AllocationWorkspace({
@@ -71,7 +73,7 @@ export function AllocationWorkspace({
     [result, setResult] = useState<AllocationResult | null>(null),
     [busy, setBusy] = useState(false),
     [failed, setFailed] = useState(false),
-    [page, setPage] = useState(0),
+    [pages, setPages] = useState<Record<string, number>>({}),
     [selected, setSelected] = useState<string[]>([]),
     [reason, setReason] = useState(''),
     [reference, setReference] = useState(''),
@@ -111,7 +113,7 @@ export function AllocationWorkspace({
       setReference('');
       setBasis('accountant-review');
       setDrafts([{ paymentId: '', invoiceId: '', amount: '' }]);
-      setPage(0);
+      setPages({});
     }
   }
   useLayoutEffect(() => {
@@ -148,7 +150,7 @@ export function AllocationWorkspace({
     setReference('');
     setBasis('accountant-review');
     setFailed(false);
-    setPage(0);
+    setPages({});
   }
   function editReview(edit: () => void) {
     cancelPending();
@@ -162,7 +164,7 @@ export function AllocationWorkspace({
     setEvents(v.state.events);
     setResult(v.result);
     setSelected([]);
-    setPage(0);
+    setPages({});
   }
   // A run, an example or a restored session takes the reader to the result;
   // a decision inside the result does not (UX-2).
@@ -340,7 +342,22 @@ export function AllocationWorkspace({
         .filter((l) => l.basis.kind === 'remittance')
         .map((l) => l.basis.proofId),
     ),
-    slice = <T,>(v: T[]) => v.slice(page * 50, page * 50 + 50);
+    // The ledger, the advice lines, the allocations and the source rows each
+    // page on their own through the record kit (UX-3).
+    turn = (name: string) => (to: number) =>
+      setPages((p) => ({ ...p, [name]: to })),
+    paged = <T,>(name: string, v: T[]) => {
+      const { from, to } = recordPage(v.length, pages[name] ?? 0);
+      return v.slice(from, to);
+    },
+    pager = (name: string, label: string, length: number) => (
+      <RecordPager
+        label={label}
+        length={length}
+        page={pages[name] ?? 0}
+        onPage={turn(name)}
+      />
+    );
   return (
     <main
       className="app-shell gl-tb-workspace reconciliation-workspace"
@@ -553,53 +570,41 @@ export function AllocationWorkspace({
               {t.downloadAllocationWorkpaper}
             </Button>
           </div>
-          <div className="gl-tb-table">
-            <table data-testid="allocation-ledger">
-              <thead>
-                <tr>
-                  {[
-                    t.side,
-                    t.ownReference,
-                    t.original,
-                    t.available,
-                    t.allocated,
-                    t.remaining,
-                    t.cellEvidence,
-                  ].map((x) => (
-                    <th key={x}>{x}</th>
+          <RecordRows
+            label={t.valueLedger}
+            headers={[
+              t.side,
+              t.ownReference,
+              t.original,
+              t.available,
+              t.allocated,
+              t.remaining,
+              t.cellEvidence,
+            ]}
+            rows={result.items}
+            rowHeader={1}
+            page={pages.items ?? 0}
+            onPage={turn('items')}
+            frame={{ 'data-testid': 'allocation-ledger' }}
+            cells={(i) => {
+              const b = balances.get(i.id)!;
+              return [
+                sides[i.side],
+                i.reference,
+                ...[b.original, b.available, b.allocated, b.remaining].map(fmt),
+                <details key="cells">
+                  <summary>
+                    {result.sources[i.side].name} · {i.row}
+                  </summary>
+                  {i.traces.map((x) => (
+                    <p key={x.field}>
+                      {x.field}: {x.text} · {x.column}
+                    </p>
                   ))}
-                </tr>
-              </thead>
-              <tbody>
-                {slice(result.items).map((i) => {
-                  const b = balances.get(i.id)!;
-                  return (
-                    <tr key={i.id}>
-                      <td>{sides[i.side]}</td>
-                      <th>{i.reference}</th>
-                      {[b.original, b.available, b.allocated, b.remaining].map(
-                        (n, k) => (
-                          <td key={k}>{fmt(n)}</td>
-                        ),
-                      )}
-                      <td>
-                        <details>
-                          <summary>
-                            {result.sources[i.side].name} · {i.row}
-                          </summary>
-                          {i.traces.map((x) => (
-                            <p key={x.field}>
-                              {x.field}: {x.text} · {x.column}
-                            </p>
-                          ))}
-                        </details>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                </details>,
+              ];
+            }}
+          />
           <fieldset disabled={busy || result.status !== 'ready'}>
             <label>
               {t.decisionOrUndoReason}
@@ -609,7 +614,7 @@ export function AllocationWorkspace({
               />
             </label>
             <h3>{t.adviceLinesForReview}</h3>
-            {slice(result.proofs).map((p) => (
+            {paged('proofs', result.proofs).map((p) => (
               <label key={p.id} data-testid="allocation-proof">
                 <input
                   type="checkbox"
@@ -632,6 +637,7 @@ export function AllocationWorkspace({
                 {usedProofs.has(p.id) ? t.used : ''}
               </label>
             ))}
+            {pager('proofs', t.adviceLinesForReview, result.proofs.length)}
             <Button
               disabled={!selected.length || !reason.trim()}
               onClick={() =>
@@ -818,7 +824,7 @@ export function AllocationWorkspace({
             ))}
           </fieldset>
           <h3>{t.activeAllocations}</h3>
-          {slice(result.links).map((l) => (
+          {paged('links', result.links).map((l) => (
             <p key={l.id}>
               {result.items.find((i) => i.id === l.paymentId)!.reference} →{' '}
               {result.items.find((i) => i.id === l.invoiceId)!.reference}:{' '}
@@ -826,36 +832,21 @@ export function AllocationWorkspace({
               {l.basis.reference} · {l.basis.reason}
             </p>
           ))}
+          {pager('links', t.activeAllocations, result.links.length)}
           <details>
             <summary>{t.inventoryOfEverySourceRow}</summary>
-            {slice(result.inventory).map((i) => (
+            {paged('inventory', result.inventory).map((i) => (
               <p key={`${i.side}:${i.row}`}>
                 {sides[i.side]} · {i.row} · {i.kind} · {i.error ?? ''} ·{' '}
                 {i.values.join(' | ')}
               </p>
             ))}
+            {pager(
+              'inventory',
+              t.inventoryOfEverySourceRow,
+              result.inventory.length,
+            )}
           </details>
-          <div className="gl-tb-actions">
-            <Button disabled={busy || !page} onClick={() => setPage(page - 1)}>
-              {t.previous}
-            </Button>
-            <span>{page + 1}</span>
-            <Button
-              disabled={
-                busy ||
-                (page + 1) * 50 >=
-                  Math.max(
-                    result.items.length,
-                    result.proofs.length,
-                    result.inventory.length,
-                    result.links.length,
-                  )
-              }
-              onClick={() => setPage(page + 1)}
-            >
-              {t.next}
-            </Button>
-          </div>
         </section>
       )}
       {result && (
