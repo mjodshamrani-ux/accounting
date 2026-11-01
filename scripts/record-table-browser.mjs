@@ -7,10 +7,13 @@
 // drawn: a picture of the frame with its mark is darker than one without it
 // along the marked side, and nowhere else beyond the anti-aliasing of text.
 // A frame that fits is none of these. Then long text is read whole: in the
-// receivables and gateway examples, Arabic and English at 390 and 1440 px,
-// no cell of a record table is cut off, and the fields of a source row each
+// receivables, gateway, payroll, inventory and assets examples, Arabic and
+// English at 390 and 1440 px, with every disclosure open, no cell of a
+// record table is cut off, and the fields of a source row each
 // stay on one line, so a wrapped row breaks between fields, never inside a
-// date, an identity or a hyphenated word. Last, source text is read by
+// date, an identity or a hyphenated word; and with text longer than the
+// example's in every cell not marked as long text, each cell still holds
+// its whole text and the table scrolls inside its frame, not the page. Last, source text is read by
 // field (audit B6): in the trial balance, financial position,
 // intercompany, gateway, inventory, assets and payroll examples, the bank
 // balance reconciliation example, and the gateway and intercompany
@@ -159,7 +162,8 @@ let checked = 0,
   fields = 0,
   jsonFree = 0,
   shownFields = 0,
-  quietTables = 0;
+  quietTables = 0,
+  lengthened = 0;
 // Long text read whole (UX-3): no cell cut off, no field of a source row
 // broken across lines.
 async function readWhole(domain, language, width) {
@@ -199,6 +203,14 @@ async function readWhole(domain, language, width) {
     selector,
     { timeout: 60000 },
   );
+  // Every disclosure of the result opened, as a reader would.
+  await page.evaluate((s) => {
+    for (let pass = 0; pass < 6; pass++) {
+      const closed = [...document.querySelectorAll(`${s} details:not([open])`)];
+      if (!closed.length) break;
+      for (const d of closed) d.open = true;
+    }
+  }, selector);
   await page.waitForTimeout(400);
   const seen = await page.evaluate((s) => {
     const cut = [],
@@ -235,8 +247,75 @@ async function readWhole(domain, language, width) {
   );
   if (domain === 'ar')
     assert.ok(seen.parts > 0, `${label}: the source rows are shown by field`);
+  // Data longer than the example's: every cell the table does not mark as
+  // long text is given a long reference after its own text, as a source
+  // can bring, in the page. Each cell then still holds its whole text, a
+  // frame that grows wider scrolls, and the page itself does not.
+  const grown = await page.evaluate((s) => {
+    let count = 0;
+    for (const cell of document.querySelectorAll(
+      `${s} .record-frame :is(td, th):not([data-record-wrap])`,
+    )) {
+      if (!cell.checkVisibility()) continue;
+      const walker = document.createTreeWalker(cell, NodeFilter.SHOW_TEXT);
+      let last = null;
+      for (let node = walker.nextNode(); node; node = walker.nextNode())
+        if (node.textContent.trim()) last = node;
+      if (!last) continue;
+      last.textContent +=
+        ' REF-2026-000000000-LONGER-THAN-ANY-EXAMPLE-AND-WIDER-THAN-A-WIDE-COLUMN';
+      count++;
+    }
+    return count;
+  }, selector);
+  await page.evaluate(
+    () =>
+      new Promise((resolve) =>
+        requestAnimationFrame(() => requestAnimationFrame(resolve)),
+      ),
+  );
+  const longer = await page.evaluate((s) => {
+    const spilled = [],
+      fixed = [];
+    for (const cell of document.querySelectorAll(
+      `${s} .record-frame :is(td, th)`,
+    )) {
+      if (!cell.checkVisibility()) continue;
+      if (cell.scrollWidth > cell.clientWidth + 1)
+        spilled.push(cell.textContent.trim().slice(0, 60));
+    }
+    for (const frame of document.querySelectorAll(`${s} .record-frame`)) {
+      if (!frame.checkVisibility()) continue;
+      if (
+        frame.scrollWidth > frame.clientWidth + 1 &&
+        !/^(auto|scroll)$/u.test(getComputedStyle(frame).overflowX)
+      )
+        fixed.push(frame.getAttribute('aria-label') ?? '');
+    }
+    return {
+      spilled,
+      fixed,
+      page: document.documentElement.scrollWidth - innerWidth,
+    };
+  }, selector);
+  assert.ok(grown > 0, `${label}: unmarked cells given longer text`);
+  assert.deepEqual(
+    longer.spilled,
+    [],
+    `${label}: with longer text, each cell still holds its whole text`,
+  );
+  assert.deepEqual(
+    longer.fixed,
+    [],
+    `${label}: with longer text, a frame that grows wider scrolls`,
+  );
+  assert.ok(
+    longer.page <= 1,
+    `${label}: with longer text, the page does not scroll sideways (${longer.page} px)`,
+  );
   whole += seen.cells;
   fields += seen.parts;
+  lengthened += grown;
   await context.close();
 }
 // Source text by field (UX-3, audit B6). Opens every disclosure of the
@@ -882,7 +961,7 @@ try {
     assert.ok(wide > 0, `${language}: wide frames found at 390 px`);
     await context.close();
   }
-  for (const domain of ['ar', 'gateway'])
+  for (const domain of ['ar', 'gateway', 'payroll', 'stock', 'assets'])
     for (const language of ['ar', 'en'])
       for (const width of [390, 1440]) await readWhole(domain, language, width);
   for (const domain of [
@@ -914,5 +993,5 @@ try {
   await new Promise((resolve) => server.close(resolve));
 }
 console.log(
-  `Record table frames: PASS, ${checked} wide frames in Arabic and English at 390 px; the shade measured on both sides of ${drawn / 2}; long text read whole in ${whole} cells and ${fields} source row fields of the receivables and gateway examples; source text read by field, not JSON, in ${jsonFree} results (${shownFields} fields shown), ${quietTables} tables with no row as one quiet line; ${badgesRead} statuses read as badges in the receivables, clearing, bank and supplier results`,
+  `Record table frames: PASS, ${checked} wide frames in Arabic and English at 390 px; the shade measured on both sides of ${drawn / 2}; long text read whole in ${whole} cells and ${fields} source row fields of the receivables, gateway, payroll, inventory and assets examples, and in ${lengthened} cells given longer text; source text read by field, not JSON, in ${jsonFree} results (${shownFields} fields shown), ${quietTables} tables with no row as one quiet line; ${badgesRead} statuses read as badges in the receivables, clearing, bank and supplier results`,
 );

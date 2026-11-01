@@ -84,6 +84,18 @@
 .record-field {
   white-space: nowrap;
 }
+/* Every other cell of a record table is never cut off either (UX-3): the
+   global rule ends a cell at 300 px (the last column at 25rem) with an
+   ellipsis, which cut the identities of source rows in the payroll, stock
+   and assets examples at 1440 px and would cut any reference or name longer
+   than the examples. Without that limit a cell keeps its whole line and the
+   table grows, scrolling inside its frame, which marks the side where it
+   continues; long prose is marked (`wrap`) and wraps. The bank workspace
+   keeps its own rule, where every cell wraps and none is cut
+   (bank-workspace.css), and with it the share of each column. */
+.record-frame :is(td, th):not([data-record-wrap], .bank-workspace *) {
+  max-width: none;
+}
 /* A disclosure in such a column keeps its title on one line, so the column
    is never narrower than the title it shows while closed: a workspace that
    lets its text break anywhere (overflow-wrap: anywhere) would otherwise
