@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount } from '@/components/amount';
 import { AlignmentStrip } from '@/components/alignment-strip';
+import { ResultIndex, useResultParts } from '@/components/result-index';
 import {
   EvidenceSections,
   type EvidenceSection,
@@ -143,6 +144,13 @@ export function AssetWorkspace({
   // A run, an example or a restored session takes the reader to the result;
   // a decision inside the result does not (UX-2).
   const { heading: resultHeading, reveal } = useResultFocus();
+  const resultParts = useResultParts([
+    'summary',
+    'explain',
+    'figures',
+    'decision',
+    'evidence',
+  ]);
   const shown: typeof install = (v) => {
     install(v);
     reveal();
@@ -595,7 +603,27 @@ export function AssetWorkspace({
         {error && <p role="alert">{copy.failed}</p>}
         {result && (
           <section className="workspace-results" data-asset-result>
+            <h2
+              {...resultParts.anchor('summary')}
+              data-asset-status
+              ref={resultHeading}
+              tabIndex={-1}
+              data-result-heading="result"
+            >
+              {status(result.status)}
+            </h2>
+            <AlignmentStrip
+              strip={assetStrip(result)}
+              sides={[copy.roles[0], copy.roles[3]]}
+              decimals={result.decimals}
+              name={(key) =>
+                copy.components[key as keyof typeof copy.components] ?? key
+              }
+              state={status(result.status)}
+            />
+            <ResultIndex map={resultParts} />
             <DomainEvidenceAssistant
+              anchor={resultParts.anchor('explain')}
               result={result}
               snapshot={() => ({
                 domain: 'fixed-assets',
@@ -622,28 +650,12 @@ export function AssetWorkspace({
                 };
               }}
             />
-            <h2
-              data-asset-status
-              ref={resultHeading}
-              tabIndex={-1}
-              data-result-heading="result"
-            >
-              {status(result.status)}
-            </h2>
-            <AlignmentStrip
-              strip={assetStrip(result)}
-              sides={[copy.roles[0], copy.roles[3]]}
-              decimals={result.decimals}
-              name={(key) =>
-                copy.components[key as keyof typeof copy.components] ?? key
-              }
-              state={status(result.status)}
-            />
             <p>
               {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>.{' '}
               {copy.componentsNote}
             </p>
             <RecordTable
+              anchor={resultParts.anchor('figures')}
               label={copy.tableNames.totals}
               headers={copy.totals}
               rows={[...ASSET_COMPONENTS, 'carrying' as const].map((k) => [
@@ -664,7 +676,11 @@ export function AssetWorkspace({
                 amount(v.difference),
               ])}
             />
-            <fieldset disabled={busy} data-decision-platform>
+            <fieldset
+              {...resultParts.anchor('decision')}
+              disabled={busy}
+              data-decision-platform
+            >
               <legend>{copy.decision}</legend>
               <label>
                 {copy.reference}
@@ -706,6 +722,7 @@ export function AssetWorkspace({
               )}
             </fieldset>
             <EvidenceSections
+              anchor={resultParts.anchor('evidence')}
               sections={[
                 section(
                   'records.0',

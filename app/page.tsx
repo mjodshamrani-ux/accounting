@@ -180,6 +180,7 @@ import {
 } from '@/lib/reconciliation/import-selection';
 import { demoFiles, demoMappings, demoScope } from '@/lib/reconciliation/demo';
 import { AlignmentStrip } from '@/components/alignment-strip';
+import { ResultIndex, useResultParts } from '@/components/result-index';
 import { supplierStrip } from '@/lib/alignment-strip';
 // These existing workspaces supply their own native main landmark. Keep the
 // shared content element stable; changing its tag on navigation would remount
@@ -810,6 +811,13 @@ export default function App() {
   const settleCase = useDecisionFocus();
   const caseRow = useId(),
     caseList = useId();
+  // The supplier result has no heading of its own above the strip: the
+  // index takes the reader back to the strip itself (UX-4).
+  // The case list is drawn in the review step alone.
+  const resultParts = useResultParts(
+    step === 2 ? ['summary', 'figures', 'cases'] : ['summary', 'figures'],
+    { cases: caseList },
+  );
   const decidedCase = useRef('');
   const [privacy, setPrivacy] = useState(false);
   const [resetOpen, setResetOpen] = useState(false);
@@ -2618,11 +2626,16 @@ export default function App() {
                     </span>
                   </div>
                   <AlignmentStrip
+                    anchor={resultParts.anchor('summary')}
                     strip={supplierStrip(result)}
                     sides={[t.app.sides[0], t.app.sides[1]]}
                     decimals={scope.decimals}
                   />
-                  <div className="metric-grid">
+                  <ResultIndex map={resultParts} />
+                  <div
+                    {...resultParts.anchor('figures')}
+                    className="metric-grid"
+                  >
                     <Metric
                       label={t.app.results.autoMatches}
                       value={String(
@@ -2796,7 +2809,11 @@ export default function App() {
                       <section className="surface">
                         <div className="section-heading">
                           <div>
-                            <h2 id={caseList} tabIndex={-1}>
+                            <h2
+                              {...resultParts.anchor('cases')}
+                              id={caseList}
+                              tabIndex={-1}
+                            >
                               {t.app.results.workspace}
                             </h2>
                             <p>{t.app.results.workspaceIntro}</p>

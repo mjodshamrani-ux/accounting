@@ -3,6 +3,7 @@ import type { AlignmentStrip as Strip } from '@/lib/alignment-strip';
 import { scaledText } from '@/lib/amount-text';
 import { alignmentStripCopy } from '@/lib/i18n/alignment-strip';
 import { useI18n } from '@/lib/i18n/context';
+import type { ResultAnchor } from '@/components/result-index';
 import './alignment-strip.css';
 
 /**
@@ -34,7 +35,11 @@ export function AlignmentStrip({
   reason = (code) => code,
   name = (key) => key,
   state,
+  anchor,
 }: {
+  /** Where the result index takes the reader, where the result has no
+   * heading of its own above the strip (UX-4). */
+  anchor?: ResultAnchor;
   strip: Strip;
   /** The records the engine compares, as the workspace names them. */
   sides: readonly [string] | readonly [string, string];
@@ -138,6 +143,7 @@ export function AlignmentStrip({
       aria-label={c.name}
       data-alignment-strip
       data-sides={sides.length}
+      {...anchor}
     >
       <p className="alignment-strip__sentence" data-strip-sentence>
         {isolated(sentence)}

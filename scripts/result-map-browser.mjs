@@ -1,4 +1,17 @@
-// The result map (UX-4): the evidence at the foot of a result draws the
+// The result map (UX-4), in two parts.
+//
+// First, the index: in the twelve workspaces, Arabic and English, at 1440,
+// 390 and 320 px, under the alignment strip one index lists the parts of the
+// result, by a list of parts and words written here for each workspace and
+// not read from the page, each link reaching the part it names, in the
+// order the page draws them. From the keyboard a link takes the reader to
+// its part and gives it the focus: the part begins below the index, the
+// index holds under the top bar, and the part is marked as the one being
+// read. On a phone the list folds behind one button, which opens it, and
+// Escape closes it again. Nothing scrolls sideways. With motion allowed, a
+// link still arrives at its part once the page has stopped moving.
+//
+// Then the empty sections: the evidence at the foot of a result draws the
 // sections that hold something, each with the count the engine gave, and
 // names the ones that hold nothing together, once, in words, with no count.
 //
@@ -336,6 +349,372 @@ async function decide(panel, recipe, language) {
   await button.click();
 }
 
+// The parts of each result and the words of the index, written here.
+const PARTS = {
+  supplier: ['summary', 'figures', 'cases'],
+  ar: ['summary', 'explain', 'figures', 'cases', 'evidence'],
+  bank: ['summary', 'explain', 'decision', 'cases', 'movements', 'evidence'],
+  clearing: ['summary', 'explain', 'figures', 'groups', 'evidence'],
+  allocation: [
+    'summary',
+    'explain',
+    'figures',
+    'decision',
+    'allocations',
+    'evidence',
+  ],
+  'gl-tb': ['summary', 'explain', 'figures', 'evidence'],
+  intercompany: [
+    'summary',
+    'explain',
+    'figures',
+    'decision',
+    'pairs',
+    'evidence',
+  ],
+  stock: ['summary', 'explain', 'figures', 'links', 'decision', 'evidence'],
+  gateway: ['summary', 'explain', 'figures', 'decision', 'evidence'],
+  payroll: ['summary', 'explain', 'figures', 'decision', 'evidence'],
+  assets: ['summary', 'explain', 'figures', 'decision', 'evidence'],
+  'tb-financial': [
+    'summary',
+    'explain',
+    'figures',
+    'decision',
+    'lines',
+    'evidence',
+  ],
+};
+const INDEX_WORDS = {
+  ar: {
+    name: 'أقسام النتيجة',
+    summary: 'الخلاصة',
+    explain: 'شرح الأدلة',
+    figures: 'الأرقام',
+    cases: 'الحالات',
+    pairs: 'الأزواج',
+    lines: 'البنود',
+    links: 'الروابط',
+    groups: 'المجموعات',
+    movements: 'الحركات',
+    allocations: 'التخصيصات',
+    decision: 'القرار',
+    evidence: 'الأدلة',
+  },
+  en: {
+    name: 'Sections of the result',
+    summary: 'Summary',
+    explain: 'Explain',
+    figures: 'Figures',
+    cases: 'Cases',
+    pairs: 'Pairs',
+    lines: 'Lines',
+    links: 'Links',
+    groups: 'Groups',
+    movements: 'Movements',
+    allocations: 'Allocations',
+    decision: 'Decision',
+    evidence: 'Evidence',
+  },
+};
+// What a workspace runs after its example, where the example alone does not
+// run it.
+const RUN = {
+  supplier: async (panel, language) => {
+    const run = panel.getByRole('button', {
+      name: language === 'ar' ? /تحقق وقارن/u : /Check and compare/u,
+    });
+    await run.waitFor({ timeout: 60000 });
+    await run.click();
+  },
+  clearing: async (panel) => {
+    await panel
+      .getByLabel(/راجعت معنى الأعمدة|I reviewed the column meanings/u)
+      .check({ timeout: 30000 });
+    await panel
+      .getByRole('button', { name: /فحص المقاصة|Check clearing/u })
+      .click();
+  },
+};
+
+// The index as the page draws it, and where the focus and the parts are.
+const readIndex = (panel) =>
+  panel.evaluate((root) => {
+    const text = (node) => node.textContent.replace(/\s+/gu, ' ').trim();
+    const navs = [...root.querySelectorAll('[data-result-index]')];
+    const nav = navs[0];
+    if (!nav) return { navs: 0 };
+    const box = nav.getBoundingClientRect();
+    const bar = document.querySelector('.topbar')?.getBoundingClientRect();
+    const toggle = nav.querySelector('button[aria-controls]');
+    const list =
+      toggle && document.getElementById(toggle.getAttribute('aria-controls'));
+    const links = [...nav.querySelectorAll('a[data-result-link]')].map((a) => {
+      const id = decodeURIComponent(a.getAttribute('href').replace(/^#/u, ''));
+      const target = document.getElementById(id);
+      return {
+        part: a.dataset.resultLink,
+        word: text(a),
+        current: a.getAttribute('aria-current'),
+        seen: a.checkVisibility(),
+        top: Math.round(a.getBoundingClientRect().top),
+        target: target
+          ? {
+              part: target.dataset.resultPart,
+              inside: root.contains(target),
+            }
+          : null,
+      };
+    });
+    const parts = [...root.querySelectorAll('[data-result-part]')].map(
+      (el) => el.dataset.resultPart,
+    );
+    const active = document.activeElement;
+    return {
+      navs: navs.length,
+      name: nav.getAttribute('aria-label'),
+      top: box.top,
+      bottom: box.bottom,
+      height: box.height,
+      wider: nav.scrollWidth - nav.clientWidth,
+      bar: bar ? bar.bottom : 0,
+      toggle: toggle && {
+        seen: toggle.checkVisibility(),
+        expanded: toggle.getAttribute('aria-expanded'),
+        listOk: list === nav.querySelector('ol'),
+        height: toggle.getBoundingClientRect().height,
+        focused: active === toggle,
+      },
+      links,
+      parts,
+      focus: active?.dataset?.resultPart ?? null,
+      focusTop: active?.getBoundingClientRect().top ?? null,
+      viewport: innerHeight,
+      overflow:
+        document.documentElement.scrollWidth -
+        document.documentElement.clientWidth,
+    };
+  });
+
+// The keyboard opens a part: the link is reached and pressed with Enter.
+async function open(page, panel, part, narrow) {
+  const nav = panel.locator('[data-result-index]');
+  if (narrow) {
+    const toggle = nav.locator('button[aria-controls]');
+    await toggle.focus();
+    await page.keyboard.press('Enter');
+  }
+  await nav.locator(`a[data-result-link="${part}"]`).focus();
+  await page.keyboard.press('Enter');
+}
+
+// The page holds still: two readings of the scroll a few frames apart.
+async function still(page) {
+  let last = -1;
+  for (let i = 0; i < 60; i++) {
+    const y = await page.evaluate(
+      () => new Promise((r) => requestAnimationFrame(() => r(scrollY))),
+    );
+    if (y === last) return;
+    last = y;
+    await page.waitForTimeout(50);
+  }
+}
+
+function verifyIndex(at, seen, expected, language, width) {
+  const w = INDEX_WORDS[language];
+  assert.equal(seen.navs, 1, `${at}: one index`);
+  assert.equal(seen.name, w.name, `${at}: the index is named`);
+  assert.deepEqual(
+    seen.links.map((l) => l.part),
+    expected,
+    `${at}: the index lists the parts of the result, in order`,
+  );
+  assert.deepEqual(
+    seen.parts,
+    expected,
+    `${at}: each part the page draws is listed, in the order drawn`,
+  );
+  for (const l of seen.links) {
+    assert.equal(l.word, w[l.part], `${at}: ${l.part} is named "${w[l.part]}"`);
+    assert.ok(
+      l.target && l.target.inside && l.target.part === l.part,
+      `${at}: the ${l.part} link reaches its part`,
+    );
+  }
+  assert.ok(seen.overflow <= 0, `${at}: no sideways scroll`);
+  assert.ok(seen.wider <= 1, `${at}: the index fits its width`);
+  if (width < 640) {
+    assert.ok(seen.toggle?.seen, `${at}: on a phone one button opens the list`);
+    assert.ok(seen.toggle.listOk, `${at}: the button controls the list`);
+    assert.ok(seen.toggle.height <= 48, `${at}: the folded index is one line`);
+  } else {
+    assert.ok(!seen.toggle?.seen, `${at}: the list shows without a button`);
+    assert.equal(
+      new Set(seen.links.map((l) => l.top)).size,
+      1,
+      `${at}: the list is one line`,
+    );
+  }
+}
+
+// After a link: the part has the focus, begins below the index and in the
+// upper half of the screen, the index holds under the top bar, and the link
+// is marked as the part being read.
+function verifyArrival(at, seen, part, width) {
+  assert.equal(seen.focus, part, `${at}: the focus is on the ${part} part`);
+  if (part !== 'summary') {
+    assert.ok(
+      Math.abs(seen.top - seen.bar) <= 1,
+      `${at}: the index holds under the top bar (${seen.top} / ${seen.bar})`,
+    );
+    assert.ok(
+      seen.focusTop >= seen.bottom - 1,
+      `${at}: the ${part} part begins below the index (${seen.focusTop} / ${seen.bottom})`,
+    );
+  }
+  assert.ok(
+    seen.focusTop >= 0 && seen.focusTop <= seen.viewport / 2,
+    `${at}: the ${part} part is in view (${seen.focusTop})`,
+  );
+  const current = seen.links.filter((l) => l.current === 'location');
+  assert.deepEqual(
+    current.map((l) => l.part),
+    [part],
+    `${at}: the ${part} part is marked as the one being read`,
+  );
+  if (width < 640)
+    assert.equal(seen.toggle.expanded, 'false', `${at}: the list folds again`);
+}
+
+let indexStates = 0,
+  jumps = 0;
+const indexed = new Set();
+for (const domain of Object.keys(PARTS)) {
+  if (only && !only.includes(domain)) continue;
+  const expected = PARTS[domain];
+  for (const language of ['ar', 'en']) {
+    for (const motion of language === 'ar'
+      ? ['reduce', 'no-preference']
+      : ['reduce']) {
+      const stage = `index/${domain}/${language}/${motion}`;
+      watch.at(stage);
+      const context = await browser.newContext({
+        viewport: { width: 1440, height: 900 },
+        reducedMotion: motion,
+      });
+      await context.route('**/*', (route) => {
+        const url = route.request().url();
+        return url.startsWith(base + '/') ||
+          url.startsWith('blob:') ||
+          url.startsWith('data:')
+          ? route.continue()
+          : route.abort();
+      });
+      const page = await context.newPage();
+      activePage = page;
+      page.on('pageerror', (e) => errors.push(`${stage}: ${e.message}`));
+      try {
+        await page.goto(base + '/');
+        await page
+          .getByRole('button', { name: words[language].language, exact: true })
+          .click();
+        const panel = await openDomainWorkspace(page, domain, {
+          advanced: true,
+          requiredSources: false,
+        });
+        await panel
+          .getByRole('button', { name: words[language].example })
+          .first()
+          .click();
+        if (RUN[domain]) await RUN[domain](panel, language);
+        // The strip heads every result; a result without its index then
+        // fails by assertion, not by a wait.
+        await panel
+          .locator('[data-alignment-strip]')
+          .waitFor({ timeout: 60000 });
+        const until = Date.now() + 5000;
+        while (
+          !(await panel.locator('[data-result-index]').count()) &&
+          Date.now() < until
+        )
+          await page.waitForTimeout(100);
+        await page.waitForTimeout(300);
+        const widths = motion === 'reduce' ? [1440, 390, 320] : [1440];
+        for (const width of widths) {
+          await page.setViewportSize({
+            width,
+            height: width < 640 ? 844 : 900,
+          });
+          await page.evaluate(() => scrollTo(0, 0));
+          await still(page);
+          const at = `${stage}/${width}`;
+          verifyIndex(at, await readIndex(panel), expected, language, width);
+          indexStates++;
+          indexed.add(domain);
+          // The last part, then the first: down the result and back.
+          for (const part of [
+            expected.at(-1),
+            expected[0],
+            expected[2] ?? expected[1],
+          ]) {
+            await open(page, panel, part, width < 640);
+            // With reduced motion the move is done within two frames; with
+            // motion allowed it may glide, and is read once it rests.
+            const early = await page.evaluate(
+              () =>
+                new Promise((r) =>
+                  requestAnimationFrame(() =>
+                    requestAnimationFrame(() => r(scrollY)),
+                  ),
+                ),
+            );
+            await still(page);
+            if (motion === 'reduce')
+              assert.ok(
+                Math.abs(early - (await page.evaluate(() => scrollY))) <= 1,
+                `${at}/${part}: with reduced motion the page moves at once`,
+              );
+            await page.waitForTimeout(100);
+            verifyArrival(`${at}/${part}`, await readIndex(panel), part, width);
+            jumps++;
+          }
+          if (width < 640) {
+            const toggle = panel.locator(
+              '[data-result-index] button[aria-controls]',
+            );
+            await toggle.focus();
+            await page.keyboard.press('Enter');
+            assert.equal(
+              await toggle.getAttribute('aria-expanded'),
+              'true',
+              `${at}: the button opens the list`,
+            );
+            await panel.locator('[data-result-index] a').first().focus();
+            await page.keyboard.press('Escape');
+            const after = await readIndex(panel);
+            assert.equal(
+              after.toggle.expanded,
+              'false',
+              `${at}: Escape folds the list`,
+            );
+            assert.ok(
+              after.toggle.focused,
+              `${at}: the focus returns to the button`,
+            );
+            assert.ok(
+              after.links.every((l) => !l.seen),
+              `${at}: the folded list is not shown`,
+            );
+          }
+        }
+      } finally {
+        await context.close();
+      }
+    }
+  }
+}
+
 let states = 0,
   drawn = 0,
   named = 0;
@@ -443,6 +822,9 @@ await browser.close();
 server.close();
 assert.deepEqual(errors, [], 'no page error');
 assert.ok(states > 0, 'states were read');
+console.log(
+  `Result index: ${indexStates} states in ${indexed.size} workspaces, ${jumps} parts opened from the keyboard.`,
+);
 console.log(
   `Result map: ${states} states; ${drawn} sections drawn with the engine's count and ${named} named on the line of empty sections, then after a decision.`,
 );

@@ -1,5 +1,10 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { AlignmentStrip } from '@/components/alignment-strip';
+import {
+  ResultIndex,
+  useResultParts,
+  type ResultAnchor,
+} from '@/components/result-index';
 import { EvidenceSections } from '@/components/evidence-sections';
 import { bankStrip } from '@/lib/alignment-strip';
 import { BankAdjustmentWorkspace } from './bank-adjustment-workspace';
@@ -170,6 +175,14 @@ export function BankWorkspace({
   // A run, an example or a restored session takes the reader to the result;
   // a decision inside the result does not (UX-2).
   const { heading: resultHeading, reveal } = useResultFocus();
+  const resultParts = useResultParts([
+    'summary',
+    'explain',
+    'decision',
+    'cases',
+    'movements',
+    'evidence',
+  ]);
   const shown: typeof install = (v) => {
     install(v);
     reveal();
@@ -273,12 +286,14 @@ export function BankWorkspace({
     cells: (r: T, at: number) => ReactNode[],
     target?: (r: T, at: number) => string,
     hook?: Record<`data-${string}`, string>,
+    anchor?: ResultAnchor,
   ) {
     return (
       <section
         className="bank-movement-table"
         data-bank-movement-table={name}
         {...hook}
+        {...anchor}
       >
         <h2>{title}</h2>
         <RecordRows
@@ -647,6 +662,7 @@ export function BankWorkspace({
           {mode === 'movements' && result && (
             <>
               <h2
+                {...resultParts.anchor('summary')}
                 data-testid="bank-result"
                 ref={resultHeading}
                 tabIndex={-1}
@@ -662,12 +678,14 @@ export function BankWorkspace({
                   (t.reasons as Record<string, string>)[code] ?? code
                 }
               />
+              <ResultIndex map={resultParts} />
               <DomainEvidenceAssistant
+                anchor={resultParts.anchor('explain')}
                 result={result}
                 snapshot={() => ({ domain: 'bank', input: input(), result })}
                 busy={locked}
               />
-              <fieldset disabled={locked}>
+              <fieldset {...resultParts.anchor('decision')} disabled={locked}>
                 <div className="gl-tb-actions">
                   <Button
                     onClick={() =>
@@ -789,6 +807,8 @@ export function BankWorkspace({
                     </Button>,
                   ],
                   (_, at) => caseAt(at),
+                  undefined,
+                  resultParts.anchor('cases'),
                 )}
                 <section>
                   <h2>{t.manual}</h2>
@@ -871,6 +891,9 @@ export function BankWorkspace({
                       {t.reviewCells}
                     </Button>,
                   ],
+                  undefined,
+                  undefined,
+                  resultParts.anchor('movements'),
                 )}
                 {evidence && (
                   <section className="bank-movement-evidence">
@@ -914,6 +937,8 @@ export function BankWorkspace({
                   </section>
                 )}
                 <EvidenceSections
+                  anchor={resultParts.anchor('evidence')}
+                  level={2}
                   sections={[
                     {
                       key: 'timingItems',

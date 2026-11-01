@@ -32,6 +32,7 @@ import { useEffect, useId, useRef, useState, useMemo, type ReactNode } from 'rea
 import { useResultFocus } from '@/components/result-focus';
 import { Amount, Quantity } from '@/components/amount';
 import { AlignmentStrip } from '@/components/alignment-strip';
+import { ResultIndex, useResultParts } from '@/components/result-index';
 import {
   EvidenceSections,
   type EvidenceSection,
@@ -306,6 +307,14 @@ export function StockWorkspace({
   // A run, an example or a restored session takes the reader to the result;
   // a decision inside the result does not (UX-2).
   const { heading: resultHeading, reveal } = useResultFocus();
+  const resultParts = useResultParts([
+    'summary',
+    'explain',
+    'figures',
+    'links',
+    'decision',
+    'evidence',
+  ]);
   const shown: typeof install = (v) => {
     install(v);
     reveal();
@@ -881,8 +890,25 @@ export function StockWorkspace({
         )}
         {result && (
           <section className="workspace-results">
+            <h2
+              {...resultParts.anchor('summary')}
+              data-stock-status
+              ref={resultHeading}
+              tabIndex={-1}
+              data-result-heading="result"
+            >
+              {status(result.status)}
+            </h2>
+            <AlignmentStrip
+              strip={stockStrip(result)}
+              sides={[copy.roles[0], copy.roles[3]]}
+              decimals={result.decimals}
+              state={status(result.status)}
+            />
+            <ResultIndex map={resultParts} />
             {pdf ? (
               <DomainEvidenceAssistant
+                anchor={resultParts.anchor('explain')}
                 result={result}
                 busy={busy}
                 verifiedAnswer={async (question) => {
@@ -901,6 +927,7 @@ export function StockWorkspace({
               />
             ) : (
               <DomainEvidenceAssistant
+                anchor={resultParts.anchor('explain')}
                 result={result}
                 snapshot={() => ({
                   domain: 'inventory-register',
@@ -994,18 +1021,12 @@ export function StockWorkspace({
                 copy.observationHeaders,
                 stockSourceObservations(files),
               )}
-            <h2 data-stock-status ref={resultHeading} tabIndex={-1} data-result-heading="result">{status(result.status)}</h2>
-            <AlignmentStrip
-              strip={stockStrip(result)}
-              sides={[copy.roles[0], copy.roles[3]]}
-              decimals={result.decimals}
-              state={status(result.status)}
-            />
             <p>
               {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>.{' '}
               {copy.quantityNote}
             </p>
             <RecordTable
+              anchor={resultParts.anchor('figures')}
               label={copy.tableNames.totals}
               headers={copy.totals}
               rows={
@@ -1033,6 +1054,7 @@ export function StockWorkspace({
               ])}
             />
             <section
+              {...resultParts.anchor('links')}
               data-stock-links
               data-stock-linked={
                 result.links.filter((l) => l.status === 'linked').length
@@ -1137,7 +1159,7 @@ export function StockWorkspace({
                 </div>
               )}
             </section>
-            <fieldset disabled={busy} data-decision-platform>
+            <fieldset {...resultParts.anchor('decision')} disabled={busy} data-decision-platform>
               <legend>{copy.decision}</legend>
               <label>
                 {copy.reference}
@@ -1179,6 +1201,7 @@ export function StockWorkspace({
               )}
             </fieldset>
             <EvidenceSections
+              anchor={resultParts.anchor('evidence')}
               sections={[
                 ...result.records.map((rows, i) => ({
                   key: `records.${i}`,

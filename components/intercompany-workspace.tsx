@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount, Figures } from '@/components/amount';
 import { AlignmentStrip } from '@/components/alignment-strip';
+import { ResultIndex, useResultParts } from '@/components/result-index';
 import { EvidenceSections } from '@/components/evidence-sections';
 import { intercompanyStrip } from '@/lib/alignment-strip';
 import {
@@ -159,6 +160,14 @@ export function IntercompanyWorkspace({
   // A run, an example or a restored session takes the reader to the result;
   // a decision inside the result does not (UX-2).
   const { heading: resultHeading, reveal } = useResultFocus();
+  const resultParts = useResultParts([
+    'summary',
+    'explain',
+    'figures',
+    'decision',
+    'pairs',
+    'evidence',
+  ]);
   const shown: typeof install = (v) => {
     install(v);
     reveal();
@@ -529,6 +538,7 @@ export function IntercompanyWorkspace({
         {result && (
           <section className="workspace-results">
             <h2
+              {...resultParts.anchor('summary')}
               data-intercompany-status
               ref={resultHeading}
               tabIndex={-1}
@@ -543,7 +553,9 @@ export function IntercompanyWorkspace({
               reason={status}
               state={status(result.status)}
             />
+            <ResultIndex map={resultParts} />
             <DomainEvidenceAssistant
+              anchor={resultParts.anchor('explain')}
               result={result}
               snapshot={() => ({
                 domain: 'intercompany',
@@ -556,6 +568,7 @@ export function IntercompanyWorkspace({
               {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>
             </p>
             <RecordTable
+              anchor={resultParts.anchor('figures')}
               label={copy.tableNames.totals}
               headers={copy.totals}
               rows={
@@ -573,7 +586,11 @@ export function IntercompanyWorkspace({
                   : []
               }
             />
-            <fieldset disabled={busy} data-decision-platform>
+            <fieldset
+              {...resultParts.anchor('decision')}
+              disabled={busy}
+              data-decision-platform
+            >
               <legend>{copy.decisionTitle}</legend>
               <label>
                 {copy.reference}
@@ -597,7 +614,7 @@ export function IntercompanyWorkspace({
                 labels={{ reference: copy.reference, reason: copy.note }}
               />
             </fieldset>
-            <h3>
+            <h3 {...resultParts.anchor('pairs')}>
               {copy.pairs} ({result.pairs.length})
             </h3>
             {result.pairs.slice(pairsShown.from, pairsShown.to).map((p, i) => (
@@ -670,6 +687,7 @@ export function IntercompanyWorkspace({
               onPage={setPairPage}
             />
             <EvidenceSections
+              anchor={resultParts.anchor('evidence')}
               sections={[
                 {
                   key: 'relations',

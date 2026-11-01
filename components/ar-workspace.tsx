@@ -1,5 +1,6 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { AlignmentStrip } from '@/components/alignment-strip';
+import { ResultIndex, useResultParts } from '@/components/result-index';
 import { arStrip } from '@/lib/alignment-strip';
 import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
@@ -193,6 +194,7 @@ export function ArWorkspace({
   // A run, an example or a restored session takes the reader to the result;
   // a decision inside the result does not (UX-2).
   const { heading: resultHeading, reveal } = useResultFocus();
+  const resultParts = useResultParts(['summary', 'explain', 'figures', 'cases', 'evidence']);
   const shown: typeof install = (v) => {
     install(v);
     reveal();
@@ -680,14 +682,16 @@ export function ArWorkspace({
       {error && <p role="alert">{t.error}</p>}
       {result && (
         <section>
-          <h2 ref={resultHeading} tabIndex={-1} data-result-heading="result">{t.results}</h2>
+          <h2 {...resultParts.anchor('summary')} ref={resultHeading} tabIndex={-1} data-result-heading="result">{t.results}</h2>
           <AlignmentStrip
             strip={arStrip(result)}
             sides={[t.sides[0], t.sides[1]]}
             decimals={result.decimals}
             reason={(code) => t.reason[code as keyof typeof t.reason] ?? code}
           />
+          <ResultIndex map={resultParts} />
           <DomainEvidenceAssistant
+            anchor={resultParts.anchor('explain')}
             result={result}
             snapshot={() => ({ domain: 'ar', input: input(), result })}
             busy={busy}
@@ -770,7 +774,7 @@ export function ArWorkspace({
               ) : null}
             </section>
           )}
-          <div className="clearing-grid" data-testid="ar-metrics">
+          <div {...resultParts.anchor('figures')} className="clearing-grid" data-testid="ar-metrics">
             {[
               [t.valid, result.rows.length],
               [
@@ -800,7 +804,7 @@ export function ArWorkspace({
               </div>
             ))}
           </div>
-          <fieldset disabled={busy}>
+          <fieldset {...resultParts.anchor('cases')} disabled={busy}>
             <label>
               {t.note}
               <textarea
@@ -1014,7 +1018,7 @@ export function ArWorkspace({
               onPage={setPage}
             />
           </fieldset>
-          <h2>{t.inventory}</h2>
+          <h2 {...resultParts.anchor('evidence')}>{t.inventory}</h2>
           <RecordRows
             label={t.inventory}
             headers={[t.inventory, t.row, t.valid, t.errors]}

@@ -1,5 +1,6 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { AlignmentStrip } from '@/components/alignment-strip';
+import { ResultIndex, useResultParts } from '@/components/result-index';
 import { clearingStrip } from '@/lib/alignment-strip';
 import { ClearingGroupsPanel } from './clearing-groups-panel';
 import { useEffect, useId, useRef, useState } from 'react';
@@ -131,6 +132,10 @@ export function ClearingWorkspace({
   // A run, an example or a restored session takes the reader to the result;
   // a decision inside the result does not (UX-2).
   const { heading: resultHeading, reveal } = useResultFocus();
+  const resultParts = useResultParts(
+    ['summary', 'explain', 'figures', 'groups', 'evidence'],
+    { summary: 'clearing-result-title' },
+  );
   const shown: typeof install = (v) => {
     install(v);
     reveal();
@@ -530,6 +535,7 @@ export function ClearingWorkspace({
             aria-labelledby="clearing-result-title"
           >
             <h2
+              {...resultParts.anchor('summary')}
               id="clearing-result-title"
               ref={resultHeading}
               tabIndex={-1}
@@ -543,12 +549,18 @@ export function ClearingWorkspace({
               decimals={result.decimals}
               reason={(code) => t.reason[code as keyof typeof t.reason] ?? code}
             />
+            <ResultIndex map={resultParts} />
             <DomainEvidenceAssistant
+              anchor={resultParts.anchor('explain')}
               result={result}
               snapshot={() => ({ domain: 'clearing', input: input(), result })}
               busy={busy}
             />
-            <div className="clearing-grid" data-testid="clearing-metrics">
+            <div
+              {...resultParts.anchor('figures')}
+              className="clearing-grid"
+              data-testid="clearing-metrics"
+            >
               {[
                 [t.valid, result.rows.length],
                 [
@@ -571,6 +583,7 @@ export function ClearingWorkspace({
             </div>
             <p className="muted">{t.coverage}</p>
             <RecordRows
+              anchor={resultParts.anchor('groups')}
               label={t.results}
               headers={[
                 t.members,
@@ -664,7 +677,7 @@ export function ClearingWorkspace({
             >
               {t.manual}
             </Button>
-            <details>
+            <details {...resultParts.anchor('evidence')}>
               <summary>
                 {t.source} · {t.errors}
               </summary>

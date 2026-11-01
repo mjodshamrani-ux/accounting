@@ -21,6 +21,7 @@ import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
 import { parseMoney } from '@/lib/reconciliation/core';
 import { Amount } from '@/components/amount';
 import { AlignmentStrip } from '@/components/alignment-strip';
+import { ResultIndex, useResultParts } from '@/components/result-index';
 import { allocationStrip } from '@/lib/alignment-strip';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
 import {
@@ -174,6 +175,14 @@ export function AllocationWorkspace({
   // A run, an example or a restored session takes the reader to the result;
   // a decision inside the result does not (UX-2).
   const { heading: resultHeading, reveal } = useResultFocus();
+  const resultParts = useResultParts([
+    'summary',
+    'explain',
+    'figures',
+    'decision',
+    'allocations',
+    'evidence',
+  ]);
   const shown: typeof install = (v) => {
     install(v);
     reveal();
@@ -574,6 +583,7 @@ export function AllocationWorkspace({
       {result && (
         <section data-testid="allocation-result">
           <h2
+            {...resultParts.anchor('summary')}
             ref={resultHeading}
             tabIndex={-1}
             data-result-heading="result"
@@ -587,7 +597,9 @@ export function AllocationWorkspace({
             decimals={result.decimals}
             state={result.status === 'ready' ? t.ready : t.sourceError}
           />
+          <ResultIndex map={resultParts} />
           <DomainEvidenceAssistant
+            anchor={resultParts.anchor('explain')}
             result={result}
             snapshot={() => ({ domain: 'allocation', input: input(), result })}
             busy={busy}
@@ -618,6 +630,7 @@ export function AllocationWorkspace({
             rowHeader={1}
             page={pages.items ?? 0}
             onPage={turn('items')}
+            anchor={resultParts.anchor('figures')}
             frame={{ 'data-testid': 'allocation-ledger' }}
             cells={(i) => {
               const b = balances.get(i.id)!;
@@ -638,7 +651,10 @@ export function AllocationWorkspace({
               ];
             }}
           />
-          <fieldset disabled={busy || result.status !== 'ready'}>
+          <fieldset
+            {...resultParts.anchor('decision')}
+            disabled={busy || result.status !== 'ready'}
+          >
             <label>
               {t.decisionOrUndoReason}
               <input
@@ -902,7 +918,7 @@ export function AllocationWorkspace({
               </div>
             ))}
           </fieldset>
-          <h3>{t.activeAllocations}</h3>
+          <h3 {...resultParts.anchor('allocations')}>{t.activeAllocations}</h3>
           {paged('links', result.links).map((l) => (
             <p key={l.id}>
               {result.items.find((i) => i.id === l.paymentId)!.reference} →{' '}
@@ -912,7 +928,7 @@ export function AllocationWorkspace({
             </p>
           ))}
           {pager('links', t.activeAllocations, result.links.length)}
-          <details>
+          <details {...resultParts.anchor('evidence')}>
             <summary>{t.inventoryOfEverySourceRow}</summary>
             {paged('inventory', result.inventory).map((i) => (
               <p key={`${i.side}:${i.row}`}>

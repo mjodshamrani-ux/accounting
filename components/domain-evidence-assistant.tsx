@@ -1,3 +1,4 @@
+import type { ResultAnchor } from '@/components/result-index';
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -24,7 +25,10 @@ export function DomainEvidenceAssistant({
   busy,
   replay,
   verifiedAnswer,
+  anchor,
 }: {
+  /** Where the result index takes the reader (UX-4). */
+  anchor?: ResultAnchor;
   result: DomainEvidenceSnapshot['result'];
   snapshot?: () => DomainEvidenceSnapshot;
   verifiedAnswer?: (question: string) => Promise<DomainEvidenceAnswer>;
@@ -102,6 +106,7 @@ export function DomainEvidenceAssistant({
     <section
       className="surface pad stack"
       data-domain-evidence-assistant
+      {...anchor}
       aria-busy={checking}
     >
       <h3>{t.title}</h3>

@@ -249,7 +249,7 @@ jobs:
         run: pnpm test:browser:record-table
       - name: In the twelve workspaces, Arabic and English at 1440, 390 and 320 px, the alignment strip says what the engine reply wrote, what aligned, what awaits a decision and each difference with its sign, reads as one sentence, and carries no success mark (UX-4)
         run: pnpm test:browser:alignment-strip
-      - name: In the seven workspaces whose results end in evidence sections, Arabic and English, the sections that hold something are drawn with the engine's count and the empty ones are named once on one line with no count, before and after a decision (UX-4)
+      - name: In the twelve workspaces, Arabic and English at 1440, 390 and 320 px, the result index lists the parts of the result and opens each from the keyboard with the focus on it under the sticky index, at once with reduced motion; and in the seven with evidence sections, the empty ones are named once on one line with no count, before and after a decision (UX-4)
         run: pnpm test:browser:result-map
       - name: In the ten workspaces with decisions, Arabic and English at 390 px, no closed button goes without a shown sentence that says why, approval stays closed while that sentence says it waits, and after a decision the focus is on what it changed, on the page that shows it (UX-3)
         run: pnpm test:browser:decision-platform

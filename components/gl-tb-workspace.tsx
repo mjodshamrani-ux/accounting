@@ -16,6 +16,7 @@ import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
 import { Amount } from '@/components/amount';
 import { AlignmentStrip } from '@/components/alignment-strip';
+import { ResultIndex, useResultParts } from '@/components/result-index';
 import { glTbStrip } from '@/lib/alignment-strip';
 import {
   BALANCE_FIELDS,
@@ -111,6 +112,12 @@ export function GlTbWorkspace({
   // A run, an example or a restored session takes the reader to the result;
   // a decision inside the result does not (UX-2).
   const { heading: resultHeading, reveal } = useResultFocus();
+  const resultParts = useResultParts([
+    'summary',
+    'explain',
+    'figures',
+    'evidence',
+  ]);
   const shown: typeof install = (v) => {
     install(v);
     reveal();
@@ -442,6 +449,7 @@ export function GlTbWorkspace({
       {result && (
         <section data-testid="gl-tb-result">
           <h2
+            {...resultParts.anchor('summary')}
             ref={resultHeading}
             tabIndex={-1}
             data-result-heading="result"
@@ -458,7 +466,9 @@ export function GlTbWorkspace({
             }
             state={t.status[result.status]}
           />
+          <ResultIndex map={resultParts} />
           <DomainEvidenceAssistant
+            anchor={resultParts.anchor('explain')}
             result={result}
             snapshot={() => ({ domain: 'gl-tb', input: input(), result })}
             busy={busy}
@@ -466,7 +476,7 @@ export function GlTbWorkspace({
           <p id={statusId} data-testid="gl-tb-status">
             {t.status[result.status]}
           </p>
-          <p>
+          <p {...resultParts.anchor('figures')}>
             {t.glBridge}: <strong>{formatted(result.glBridge)}</strong>
           </p>
           <p>
@@ -570,7 +580,7 @@ export function GlTbWorkspace({
               {t.export}
             </Button>
           </div>
-          <h3>{t.inventory}</h3>
+          <h3 {...resultParts.anchor('evidence')}>{t.inventory}</h3>
           <RecordRows
             label={t.inventory}
             headers={[t.sides.join(' / '), t.row, t.kind, t.error, t.original]}

@@ -3,6 +3,7 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount, Figures } from '@/components/amount';
 import { AlignmentStrip } from '@/components/alignment-strip';
+import { ResultIndex, useResultParts } from '@/components/result-index';
 import { EvidenceSections } from '@/components/evidence-sections';
 import { financialStrip } from '@/lib/alignment-strip';
 import {
@@ -146,6 +147,14 @@ export function FinancialWorkspace({
   // A run, an example or a restored session takes the reader to the result;
   // a decision inside the result does not (UX-2).
   const { heading: resultHeading, reveal } = useResultFocus();
+  const resultParts = useResultParts([
+    'summary',
+    'explain',
+    'figures',
+    'decision',
+    'lines',
+    'evidence',
+  ]);
   const shown: typeof install = (v) => {
     install(v);
     reveal();
@@ -541,6 +550,7 @@ export function FinancialWorkspace({
         {result && (
           <section className="workspace-results">
             <h2
+              {...resultParts.anchor('summary')}
               data-financial-status={result.status}
               ref={resultHeading}
               tabIndex={-1}
@@ -554,7 +564,9 @@ export function FinancialWorkspace({
               decimals={result.decimals}
               state={status(result.status)}
             />
+            <ResultIndex map={resultParts} />
             <DomainEvidenceAssistant
+              anchor={resultParts.anchor('explain')}
               result={result}
               snapshot={() => ({ domain: 'financial', input: state(), result })}
               busy={busy}
@@ -579,6 +591,7 @@ export function FinancialWorkspace({
               />
             </p>
             <RecordTable
+              anchor={resultParts.anchor('figures')}
               label={t.financial.tableNames.byClass}
               headers={[
                 t.financial.basis,
@@ -627,7 +640,11 @@ export function FinancialWorkspace({
                   : []
               }
             />
-            <fieldset disabled={busy} data-decision-platform>
+            <fieldset
+              {...resultParts.anchor('decision')}
+              disabled={busy}
+              data-decision-platform
+            >
               <legend>{t.financial.reviewDecisionEvidence}</legend>
               <label>
                 {t.financial.decisionReference}
@@ -659,6 +676,9 @@ export function FinancialWorkspace({
                 }}
               />
             </fieldset>
+            <h3 {...resultParts.anchor('lines')}>
+              {t.financial.statementLines}
+            </h3>
             {result.lines.slice(linesShown.from, linesShown.to).map((l, i) => (
               <section key={l.id}>
                 <h3
@@ -728,6 +748,7 @@ export function FinancialWorkspace({
               onPage={setLinePage}
             />
             <EvidenceSections
+              anchor={resultParts.anchor('evidence')}
               sections={[
                 {
                   key: 'inventory',

@@ -1,5 +1,7 @@
 import { Fragment, type ReactNode } from 'react';
 import { recordTableCopy } from '@/lib/i18n/record-table';
+import { resultIndexCopy } from '@/lib/i18n/result-index';
+import type { ResultAnchor } from '@/components/result-index';
 import { useI18n } from '@/lib/i18n/context';
 
 /**
@@ -25,8 +27,15 @@ export type EvidenceSection = {
  */
 export function EvidenceSections({
   sections,
+  anchor,
+  level = 3,
 }: {
   sections: readonly EvidenceSection[];
+  /** The level of that heading, under the sections around it. */
+  level?: 2 | 3;
+  /** With the result index (UX-4): the part begins with its own heading,
+   * where the index takes the reader. */
+  anchor?: ResultAnchor;
 }) {
   const { lang } = useI18n();
   const copy = recordTableCopy[lang];
@@ -41,6 +50,16 @@ export function EvidenceSections({
   ));
   return (
     <>
+      {anchor &&
+        (level === 2 ? (
+          <h2 className="evidence-sections__title" {...anchor}>
+            {resultIndexCopy[lang].parts.evidence}
+          </h2>
+        ) : (
+          <h3 className="evidence-sections__title" {...anchor}>
+            {resultIndexCopy[lang].parts.evidence}
+          </h3>
+        ))}
       {sections
         .filter((s) => s.count > 0)
         .map((s) => (

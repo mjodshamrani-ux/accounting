@@ -3,6 +3,7 @@ import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount } from '@/components/amount';
 import { AlignmentStrip } from '@/components/alignment-strip';
+import { ResultIndex, useResultParts } from '@/components/result-index';
 import {
   EvidenceSections,
   type EvidenceSection,
@@ -144,6 +145,13 @@ export function PayrollWorkspace({
   // A run, an example or a restored session takes the reader to the result;
   // a decision inside the result does not (UX-2).
   const { heading: resultHeading, reveal } = useResultFocus();
+  const resultParts = useResultParts([
+    'summary',
+    'explain',
+    'figures',
+    'decision',
+    'evidence',
+  ]);
   const shown: typeof install = (v) => {
     install(v);
     reveal();
@@ -569,6 +577,7 @@ export function PayrollWorkspace({
         {result && (
           <section className="workspace-results">
             <h2
+              {...resultParts.anchor('summary')}
               data-payroll-status
               ref={resultHeading}
               tabIndex={-1}
@@ -585,11 +594,13 @@ export function PayrollWorkspace({
               }
               state={status(result.status)}
             />
+            <ResultIndex map={resultParts} />
             <p>
               {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>.{' '}
               {copy.componentsNote}
             </p>
             <DomainEvidenceAssistant
+              anchor={resultParts.anchor('explain')}
               result={result}
               snapshot={() => ({ domain: 'payroll', input: state(), result })}
               busy={busy}
@@ -613,6 +624,7 @@ export function PayrollWorkspace({
               }}
             />
             <RecordTable
+              anchor={resultParts.anchor('figures')}
               label={copy.tableNames.totals}
               headers={copy.totals}
               rows={PAYROLL_COMPONENTS.map((c, i) => [
@@ -644,7 +656,11 @@ export function PayrollWorkspace({
                 amount(v.difference),
               ])}
             />
-            <fieldset disabled={busy} data-decision-platform>
+            <fieldset
+              {...resultParts.anchor('decision')}
+              disabled={busy}
+              data-decision-platform
+            >
               <legend>{copy.decision}</legend>
               <label>
                 {copy.reference}
@@ -686,6 +702,7 @@ export function PayrollWorkspace({
               )}
             </fieldset>
             <EvidenceSections
+              anchor={resultParts.anchor('evidence')}
               sections={[
                 section(
                   'records.0',

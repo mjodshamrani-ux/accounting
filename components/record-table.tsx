@@ -13,6 +13,7 @@ import { recordTableCopy } from '@/lib/i18n/record-table';
 import { recordPage } from '@/lib/record-page';
 import type { StatusTone } from '@/lib/status-tone';
 import { StatusBadge } from './status-badge';
+import type { ResultAnchor } from './result-index';
 
 /** Data attributes a check reads on a pager, a frame or a row. */
 export type RecordHook = Record<`data-${string}`, string | undefined>;
@@ -128,12 +129,16 @@ export function RecordFrame({
   className = 'record-frame',
   style,
   hook,
+  anchor,
   children,
 }: {
   name: string;
   className?: string;
   style?: CSSProperties;
   hook?: RecordHook;
+  /** Where the result index takes the reader, when the table begins a
+   * part of the result (UX-4). */
+  anchor?: ResultAnchor;
   children: ReactNode;
 }) {
   const { lang } = useI18n();
@@ -146,6 +151,7 @@ export function RecordFrame({
       className={className}
       style={style}
       {...hook}
+      {...anchor}
       {...(wider
         ? { role: 'region', tabIndex: 0, 'aria-label': copy.wide(name) }
         : {})}
@@ -167,6 +173,7 @@ type RecordPaging = {
   size?: number;
   pager?: RecordHook;
   frame?: RecordHook;
+  anchor?: ResultAnchor;
 };
 
 /** One evidence table of the record kit (UX-3): named, framed and paged.
@@ -209,6 +216,7 @@ export function RecordRows<T>({
   size,
   pager,
   frame,
+  anchor,
 }: RecordName &
   RecordPaging & {
     headers: readonly ReactNode[];
@@ -229,13 +237,13 @@ export function RecordRows<T>({
   const { from, to } = recordPage(rows.length, at, size);
   if (!rows.length)
     return (
-      <p className="record-empty" data-record-empty="" {...frame}>
+      <p className="record-empty" data-record-empty="" {...frame} {...anchor}>
         {copy.none(name)}
       </p>
     );
   return (
     <>
-      <RecordFrame name={name} hook={frame}>
+      <RecordFrame name={name} hook={frame} anchor={anchor}>
         <table aria-label={name}>
           <thead>
             <tr>
