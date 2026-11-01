@@ -1,4 +1,9 @@
 // Native Chrome proof using actual local CSV/PDF uploads and download readers.
+// Two reviews on the supplier page, in Arabic and English: the invoice
+// overlap review as it sits in the main review, opened on the confirm step
+// (its currency comes from the main scope; a commit or an undo changes the
+// main comparison and must not leave the page held), and the derived
+// sections review of a cross-page PDF.
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { readFile, mkdir } from 'node:fs/promises';
@@ -6,7 +11,9 @@ import { createHash } from 'node:crypto';
 import path from 'node:path';
 import ExcelJS from 'exceljs';
 import { chromium } from 'playwright';
-import { invoiceOverlapReviewCopy } from '../lib/i18n/invoice-overlap-review.ts';
+import { invoiceOverlapIntegratedCopy } from '../lib/i18n/invoice-overlap-review.ts';
+import { en } from '../lib/i18n/locales/en.ts';
+import { ar } from '../lib/i18n/locales/ar.ts';
 import { sectionDerivedReviewCopy } from '../lib/i18n/section-derived-review.ts';
 const proofRoot = process.env.MIZAN_PROOF_DIR ?? '/tmp/overlap-derived-ui';
 await mkdir(proofRoot, { recursive: true });
@@ -123,16 +130,59 @@ async function download(page, button, name) {
   await result.saveAs(file);
   return { file, bytes: await readFile(file) };
 }
+// The overlap review now sits in the main review: its currency and precision
+// come from the main scope and its currency field is read only, so the main
+// scope is set first and the review's own fields are filled after it.
+async function mainScope(page, lang) {
+  const s = (lang === 'en' ? en : ar).app.scope;
+  if (!(await page.getByLabel(s.cutoffLabel, { exact: true }).isVisible()))
+    await page.getByRole('button', { name: s.edit, exact: true }).click();
+  await page.getByLabel(s.cutoffLabel, { exact: true }).fill('2026-09-30');
+  await page.getByLabel(s.currencyLabel, { exact: true }).fill('SAR');
+}
 async function fillOverlapScope(panel) {
   for (const [field, value] of Object.entries({
     supplier: 'SUPPLIER',
     entity: 'ENTITY',
     account: 'AP',
-    currency: 'SAR',
     cutoff: '2026-09-30',
   }))
     await panel.locator(`[data-overlap-scope="${field}"]`).fill(value);
+  const currency = panel.locator('[data-overlap-scope="currency"]');
+  assert.equal(await currency.evaluate((el) => el.readOnly), true);
+  assert.equal(await currency.inputValue(), 'SAR');
   await panel.locator('[data-overlap-scope-ack]').check();
+}
+// What the main comparison shows: each count by its own label.
+async function mainCounts(page, lang, expected) {
+  const r = (lang === 'en' ? en : ar).app.results;
+  for (const [label, value] of [
+    [r.autoMatches, expected.auto],
+    [r.manualMatches, expected.manual],
+    [r.unmatchedCases, expected.unmatched],
+  ]) {
+    if (value === undefined) continue;
+    await page
+      .locator('.metric')
+      .filter({ has: page.locator('span').getByText(label, { exact: true }) })
+      .locator('strong')
+      .getByText(String(value), { exact: true })
+      .waitFor();
+  }
+}
+// After the main comparison takes the review's result, the review must not
+// stay held as if the reading were still being prepared. Waits a bounded
+// time, then fails by assertion with what the review says.
+async function notHeld(page, panel, lang, when) {
+  const preparing = (lang === 'en' ? en : ar).app.blocked.preparing;
+  const held = () =>
+    panel.locator('.hint.warn').getByText(preparing, { exact: true }).count();
+  for (let i = 0; i < 30 && (await held()); i++) await page.waitForTimeout(100);
+  assert.equal(
+    await held(),
+    0,
+    `${lang}: the overlap review is still held ${when}: "${preparing}"`,
+  );
 }
 async function inspectOverlap(panel, t) {
   await panel.getByRole('button', { name: t.inspect, exact: true }).click();
@@ -221,7 +271,7 @@ async function captureFailure(page) {
 try {
   for (const lang of ['ar', 'en']) {
     const { context, page, errors } = await start(lang);
-    const t = invoiceOverlapReviewCopy(lang);
+    const t = invoiceOverlapIntegratedCopy(lang);
     const header = 'Invoice No,Reference,Amount,Date,Document Type\n';
     const csvs = [
       header + 'INV-X,,100.00,2026-09-01,Invoice\n',
@@ -237,6 +287,7 @@ try {
         buffer: Buffer.from(csv),
       })),
     );
+    await mainScope(page, lang);
     const disclosure = page.getByTestId('invoice-overlap-disclosure');
     assert.equal(await disclosure.locator('input').count(), 0);
     assert.equal(await page.getByTestId('invoice-overlap-review').count(), 0);
@@ -307,12 +358,18 @@ try {
     await component
       .getByRole('button', { name: t.commit, exact: true })
       .click();
+    // The accepted group joins the main comparison (the review sits in the
+    // main review now): one manual match of the invoice and its two ledger
+    // lines, the third ledger line unmatched, nothing matched automatically.
+    await mainCounts(page, lang, { auto: 0, manual: 1, unmatched: 1 });
+    await notHeld(page, panel, lang, 'after the commit');
+    await panel.locator('[data-overlap-scope-ack]').check();
+    await inspectOverlap(panel, t);
     await panel.locator('[data-overlap-active-receipt]').waitFor();
     assert.match(
       await panel.locator('[data-overlap-accepted-groups]').innerText(),
       /1$/,
     );
-    assert.equal(await page.locator('.metric').count(), 0);
     await responsive(page, lang, 'overlap', 'ready');
     const workbook = await download(
       page,
@@ -352,6 +409,11 @@ try {
     );
     const session = JSON.parse(saved.bytes);
     assert.equal(session.state.activeReceiptIds.length, 1);
+    // The review read its sources again after the commit, so its reviewer
+    // field starts empty; the undo asks for a reviewer as the commit did.
+    await panel
+      .locator('[data-overlap-reviewer]')
+      .fill('Synthetic Accountant A');
     await component
       .locator('[data-overlap-undo-rationale]')
       .fill(
@@ -359,9 +421,20 @@ try {
       );
     await component.locator('[data-overlap-undo-ack]').check();
     await component.getByRole('button', { name: t.undo, exact: true }).click();
+    // The undo takes the group out of the main comparison again.
+    await mainCounts(page, lang, { manual: 0 });
+    await notHeld(page, panel, lang, 'after the undo');
     await panel
       .locator('[data-overlap-active-receipt]')
       .waitFor({ state: 'detached' });
+    // As after the commit, the review reads its sources again: the scope is
+    // confirmed once more and the fresh reading shows no accepted group.
+    await panel.locator('[data-overlap-scope-ack]').check();
+    await inspectOverlap(panel, t);
+    assert.equal(
+      await panel.locator('[data-overlap-active-receipt]').count(),
+      0,
+    );
     assert.match(
       await panel.locator('[data-overlap-accepted-groups]').innerText(),
       /0$/,
@@ -410,23 +483,46 @@ try {
       await panel.locator('[data-overlap-active-receipt]').count(),
       0,
     );
+    // The amount direction is set on the confirm step, which the page left
+    // when the main comparison took the review's result. Going back there
+    // drops the comparison and closes the review with a fresh journal; it is
+    // opened and read once more so the mapping edit has a reading to hide.
+    await page
+      .getByRole('button', {
+        name: (lang === 'en' ? en : ar).app.results.editSettings,
+        exact: true,
+      })
+      .click();
+    assert.equal(await disclosure.locator('input').count(), 0);
+    await disclosure.getByRole('button', { name: t.open, exact: true }).click();
+    await fillOverlapScope(panel);
+    await inspectOverlap(panel, t);
     const reverse = page
       .getByRole('button', {
-        name: lang === 'en' ? 'Reverse amount direction' : 'عكس اتجاه المبالغ',
+        name: (lang === 'en' ? en : ar).app.source.flipDirection,
         exact: true,
       })
       .first();
     await reverse.click();
+    // A mapping edit drops the whole review in the main review: the panel
+    // closes with its reading, its fields and its acknowledgement.
+    assert.equal(
+      await panel.count(),
+      0,
+      'mapping edit closes the current source-bound review',
+    );
+    assert.equal(await disclosure.locator('input').count(), 0);
+    await reverse.click();
+    await disclosure.getByRole('button', { name: t.open, exact: true }).click();
     assert.equal(
       await panel.locator('[data-overlap-component]').count(),
       0,
-      'mapping edit hides the current source-bound review',
+      'the reopened review starts without the old reading',
     );
     assert.equal(
       await panel.locator('[data-overlap-scope-ack]').isChecked(),
       false,
     );
-    await reverse.click();
     await fillOverlapScope(panel);
     await inspectOverlap(panel, t);
     await panel.locator('[data-overlap-scope="account"]').fill('CHANGED');
@@ -448,7 +544,11 @@ try {
       archiveOnly: true,
       sourceScopeInvalidation: true,
       readingInvalidation: true,
-      financialAppUnchanged: true,
+      mainComparison: {
+        afterCommit: { auto: 0, manual: 1, unmatched: 1 },
+        afterUndo: { manual: 0 },
+        heldAfterCommit: false,
+      },
       workbookSha256: sha(workbook.bytes),
     });
     console.log(JSON.stringify({ completed: cases.at(-1) }));

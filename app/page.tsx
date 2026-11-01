@@ -915,6 +915,19 @@ export default function App() {
     job.current = null;
     setBusy(null);
     setProcessingProgress(null);
+    // The overlap review's own scope fields, acknowledged by the reviewer,
+    // become the main scope here; each one it changed is the user's choice,
+    // as if typed in the scope form, so the autofill does not wait forever
+    // to put back a value nobody asked for.
+    const changed = scopeFields.filter(
+      (field) => next.scope[field] !== scope[field],
+    );
+    if (changed.length)
+      setScopeEdited((previous) => {
+        const edited = { ...previous };
+        for (const field of changed) edited[field] = true;
+        return edited;
+      });
     setScope(next.scope);
     setValidated([next.supplier, next.ledger]);
     setResult(next);

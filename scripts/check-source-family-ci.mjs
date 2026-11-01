@@ -350,6 +350,7 @@ const required = [
   'test:browser:ux-census',
   'test:multiline-review:browser',
   'test:source-structure:browser',
+  'test:overlap-derived:browser',
   'test:browser:result-focus',
   'test:browser:visual-identity:self-test',
   'test:browser:record-table',

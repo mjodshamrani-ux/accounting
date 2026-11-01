@@ -284,6 +284,11 @@ jobs:
         env:
           MIZAN_CHROMIUM: /usr/bin/google-chrome
         run: pnpm test:source-structure:browser
+      - name: Verify the invoice overlap review inside the main review and the derived sections review with real uploads in Arabic and English, without a held page after a commit or an undo, and without overflow at 320 and 390 px
+        env:
+          MIZAN_CHROMIUM: /usr/bin/google-chrome
+          MIZAN_PROOF_DIR: ${{ runner.temp }}/overlap-derived-browser
+        run: pnpm test:overlap-derived:browser
       - name: Verify running-balance review UI and independently check Arabic and English downloads
         env:
           MIZAN_CHROMIUM: /usr/bin/google-chrome
