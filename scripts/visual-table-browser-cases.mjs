@@ -5,6 +5,10 @@ import {
   settledOn,
   shownReason,
 } from './decision-platform-support.mjs';
+import {
+  assertSectionFocus,
+  sectionFocusRead,
+} from './section-focus-support.mjs';
 
 export async function verifyVisualTable(page, baseUrl) {
   const original = await readFile('audit/visual-table/fixtures/statement.png');
@@ -131,6 +135,29 @@ export async function verifyVisualTable(page, baseUrl) {
     await table
       .getByRole('button', { name: 'إنشاء سجل الصفوف', exact: true })
       .click();
+    // The result present (UX-3): creating the rows record takes the focus to
+    // its result heading, which names the table review.
+    await assertSectionFocus(page, table, 'image reader table');
+    // And the counts under it stand on their own lines: as inline outputs
+    // they sat beside the create button and laid their padding over the
+    // heading above them.
+    const lines = await table.evaluate((el) =>
+      [
+        el.querySelector('[data-result-heading="section"]'),
+        ...el.querySelectorAll(':scope > output.notice'),
+      ]
+        .filter(Boolean)
+        .map((e) => {
+          const r = e.getBoundingClientRect();
+          return [Math.round(r.top), Math.round(r.bottom)];
+        }),
+    );
+    assert.ok(lines.length >= 2, 'image reader table: the counts are shown');
+    for (let i = 1; i < lines.length; i++)
+      assert.ok(
+        lines[i][0] >= lines[i - 1][1],
+        `image reader table: each count stands below the heading and the line before it (${JSON.stringify(lines)})`,
+      );
     const coverage = table.getByRole('button', {
       name: 'راجعت كامل الصفحة وحددت كامل الجدول وكل صف فيه',
       exact: true,
@@ -293,6 +320,7 @@ export async function verifyVisualTable(page, baseUrl) {
     );
     assert.deepEqual(violations, []);
     assert.deepEqual(errors, []);
+    console.log('section focus read:', sectionFocusRead('image reader table'));
     const report = {
       passed: true,
       sourceSha256: contract.source.sha256,

@@ -3,6 +3,8 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { useI18n } from '@/lib/i18n/context';
 import { Button } from './ui/button';
 import { ClosedReason, useDecisionFocus } from './decision-platform';
+import { useResultFocus } from './result-focus';
+import { SectionResultHeading } from './section-result';
 import { VisualCropPicker } from './visual-crop-picker';
 import {
   VisualAccountingReview,
@@ -239,6 +241,9 @@ export function VisualTableReview({
     coverageState = useId(),
     coverageWhy = useId();
   const settle = useDecisionFocus();
+  // The result present (UX-3): creating the rows record takes the focus to
+  // its result heading; checking a row or the range does not.
+  const { heading: resultHeading, reveal } = useResultFocus();
   useEffect(() => {
     onBusy?.(busy);
     return () => onBusy?.(false);
@@ -311,6 +316,7 @@ export function VisualTableReview({
       }
       if (next && operation.current === token && current.current === snapshot) {
         update(next);
+        if (action === 'create') reveal();
         if (action === 'exclusion') settle(`${rowState}-${row}`);
         if (action === 'coverage') settle(coverageState);
       }
@@ -433,6 +439,7 @@ export function VisualTableReview({
       {busy && <output>{v.saving}</output>}
       {table && counts && (
         <>
+          <SectionResultHeading title={v.title} heading={resultHeading} />
           <output className="notice">
             {v.counts(
               counts.movements,

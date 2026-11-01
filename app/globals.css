@@ -772,6 +772,12 @@ th {
   border-top: 1px solid var(--border);
   padding-top: 16px;
 }
+/* The counts of a rows record are notices of their own lines: as inline
+   outputs they sat beside the create button, ran past the frame and laid
+   their padding over what stood above and below. */
+.visual-table-review > output.notice {
+  display: block;
+}
 .visual-table-row {
   padding: 16px;
   border: 1px solid var(--border);
