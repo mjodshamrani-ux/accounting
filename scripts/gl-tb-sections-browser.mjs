@@ -15,6 +15,23 @@ import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import {
+  assertStatusBadges,
+  statusBadgesRead,
+} from './status-badge-support.mjs';
+
+// The status badge in this section (UX-3): a status on this list, and no
+// other, takes the agreed tone.
+const BADGE_LABEL = 'GL and TB sections';
+const BADGES = [
+  {
+    name: 'accounts',
+    column: 2,
+    rows: 'tr[data-gls-account]',
+    attr: 'data-gls-status',
+    agreed: ['consistent'],
+  },
+];
 
 const root = path.resolve(process.env.GLS_DIST ?? 'dist');
 // GLS_SUITE names another sealed suite with the same layout; the language,
@@ -177,6 +194,7 @@ async function load(page, gls, sid) {
   );
 }
 async function shown(gls) {
+  await assertStatusBadges(gls, BADGES, BADGE_LABEL);
   const accounts = {};
   for (;;) {
     for (const row of await gls.locator('tr[data-gls-account]').all()) {
@@ -389,6 +407,10 @@ try {
   for (const [k, v] of Object.entries(report.summary.checks)) assert.ok(v, k);
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
+  console.log(
+    'status badges read:',
+    statusBadgesRead(BADGE_LABEL, ['accounts']),
+  );
 } finally {
   await browser?.close();
   await new Promise((resolve) => server.close(resolve));

@@ -13,6 +13,23 @@ import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import {
+  assertStatusBadges,
+  statusBadgesRead,
+} from './status-badge-support.mjs';
+
+// The status badge in this section (UX-3): a status on this list, and no
+// other, takes the agreed tone.
+const BADGE_LABEL = 'intercompany batches';
+const BADGES = [
+  {
+    name: 'relations',
+    column: 1,
+    rows: 'tr[data-ic-relation]',
+    attr: 'data-ic-relation-status',
+    agreed: [],
+  },
+];
 
 const root = path.resolve(process.env.IC_BATCH_DIST ?? 'dist');
 // IC_BATCH_SUITE names another sealed suite with the same layout (H1); the
@@ -143,6 +160,7 @@ async function load(page, batch, files) {
   );
 }
 async function shown(batch) {
+  await assertStatusBadges(batch, BADGES, BADGE_LABEL);
   return batch.evaluate((root) => {
     const batches = {};
     for (const b of root.querySelectorAll('[data-ic-batch]')) {
@@ -367,6 +385,10 @@ try {
   for (const [k, v] of Object.entries(report.summary.checks)) assert.ok(v, k);
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
+  console.log(
+    'status badges read:',
+    statusBadgesRead(BADGE_LABEL, ['relations']),
+  );
 } finally {
   await browser?.close();
   await new Promise((resolve) => server.close(resolve));

@@ -14,6 +14,7 @@ import type {
   ClearingGroupsInput,
   ClearingGroupsResult,
 } from '@/lib/reconciliation/clearing-groups';
+import { clearingGroupTone } from '@/lib/status-tone';
 
 /** clearing-groups-1 beside clearing-1: review only. The parent remounts this
  * panel whenever the file, its reading or its scope changes, so a shown
@@ -122,6 +123,13 @@ export function ClearingGroupsPanel({
           )}
           <h3>{copy.groupsTitle}</h3>
           <RecordRows
+            status={{
+              column: 3,
+              of: (g) => ({
+                tone: clearingGroupTone(g.status),
+                status: g.status,
+              }),
+            }}
             label={copy.groupsTitle}
             headers={copy.groupHeaders}
             page={groupPage}

@@ -29,6 +29,24 @@ import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import {
+  assertStatusBadges,
+  statusBadgesRead,
+} from './status-badge-support.mjs';
+
+// The status badge in this section (UX-3): a status on this list, and no
+// other, takes the agreed tone.
+const BADGE_LABEL = 'allocation advice';
+const BADGES = [
+  {
+    name: 'lines',
+    column: 4,
+    rows: 'tr[data-advice-line]',
+    attr: 'data-advice-line',
+    at: 1,
+    agreed: [],
+  },
+];
 
 const root = path.resolve(process.env.ALL_ADVICE_DIST ?? 'dist');
 const SUITE = process.env.ALL_ADVICE_SUITE;
@@ -251,6 +269,7 @@ const endsOf = (list) => {
 async function shown(w, c) {
   const section = w.locator('[data-allocation-advice]');
   if (!(await section.count())) return { state: 'absent' };
+  await assertStatusBadges(section, BADGES, BADGE_LABEL);
   const state = await section.getAttribute('data-advice-state');
   if (state === 'refused') {
     // A refusal the page does not show is a difference, not a wait.
@@ -607,6 +626,7 @@ try {
   for (const [k, v] of Object.entries(report.summary.checks)) assert.ok(v, k);
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
+  console.log('status badges read:', statusBadgesRead(BADGE_LABEL, ['lines']));
 } finally {
   await browser?.close();
   server.close();

@@ -18,6 +18,7 @@ import { paymentGatewayBatchesCopy } from '@/lib/i18n/payment-gateway-batches';
 import { RecordTable } from '@/components/record-table';
 import './review-section.css';
 import { ClosedReason } from './decision-platform';
+import { gatewayBatchTone, toned } from '@/lib/status-tone';
 
 type Picked = {
   name: string;
@@ -385,6 +386,10 @@ export function PaymentGatewayBatchesPanel() {
               {copy.batchesTitle} ({result.batches.length})
             </h3>
             <RecordTable
+              status={{
+                column: 11,
+                of: (i) => toned(gatewayBatchTone, result.batches[i].status),
+              }}
               label={copy.batchesTitle}
               pager={{ 'data-pgb-pager': 'batches' }}
               headers={copy.batchHeaders}
@@ -413,6 +418,10 @@ export function PaymentGatewayBatchesPanel() {
               {copy.payoutsTitle} ({result.payouts.length})
             </h3>
             <RecordTable
+              status={{
+                column: 7,
+                of: (i) => toned(gatewayBatchTone, result.payouts[i].status),
+              }}
               label={copy.payoutsTitle}
               pager={{ 'data-pgb-pager': 'payouts' }}
               headers={copy.payoutHeaders}

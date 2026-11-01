@@ -25,6 +25,7 @@ import { payrollLongRegisterCopy } from '@/lib/i18n/payroll-long-register';
 import { RecordTable } from '@/components/record-table';
 import './review-section.css';
 import { ClosedReason } from './decision-platform';
+import { payrollEmployeeTone, toned } from '@/lib/status-tone';
 
 type Picked = {
   name: string;
@@ -321,6 +322,14 @@ export function PayrollLongRegisterPanel() {
                       {copy.employees} ({result.employees.length})
                     </h3>
                     <RecordTable
+                      status={{
+                        column: 2,
+                        of: (i) =>
+                          toned(
+                            payrollEmployeeTone,
+                            result.employees[i].status,
+                          ),
+                      }}
                       label={copy.employees}
                       pager={{ 'data-plr-pager': 'employees' }}
                       headers={copy.employeeHeaders}

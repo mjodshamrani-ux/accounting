@@ -25,6 +25,7 @@ import { glTbSectionsCopy } from '@/lib/i18n/gl-tb-sections';
 import { RecordTable } from '@/components/record-table';
 import './review-section.css';
 import { ClosedReason } from './decision-platform';
+import { glSectionTone, toned } from '@/lib/status-tone';
 
 type Picked = { file: SourceFile; confirmed: boolean };
 type Field = (typeof GLS_SCOPE_FIELDS)[number];
@@ -292,6 +293,10 @@ export function GlTbSectionsPanel() {
               {counts.map(([k, n]) => `${copy.status[k]}: ${n}`).join(' · ')}
             </p>
             <RecordTable
+              status={{
+                column: 2,
+                of: (i) => toned(glSectionTone, result.accounts[i].status),
+              }}
               label={copy.accounts}
               pager={{ 'data-gls-pager': 'accounts' }}
               headers={copy.headers}

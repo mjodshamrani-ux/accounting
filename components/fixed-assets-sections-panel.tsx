@@ -19,6 +19,7 @@ import { fixedAssetsSectionsCopy } from '@/lib/i18n/fixed-assets-sections';
 import { RecordTable } from '@/components/record-table';
 import './review-section.css';
 import { ClosedReason } from './decision-platform';
+import { assetSectionTone, toned } from '@/lib/status-tone';
 
 type Picked = {
   name: string;
@@ -360,6 +361,10 @@ export function FixedAssetsSectionsPanel() {
               {copy.accountsTitle} ({result.accounts.length})
             </h3>
             <RecordTable
+              status={{
+                column: 8,
+                of: (i) => toned(assetSectionTone, result.accounts[i].status),
+              }}
               label={copy.accountsTitle}
               pager={{ 'data-fas-pager': 'accounts' }}
               headers={copy.accountHeaders}
@@ -429,6 +434,10 @@ export function FixedAssetsSectionsPanel() {
               {copy.sectionsTitle} ({result.sections.length})
             </h3>
             <RecordTable
+              status={{
+                column: 5,
+                of: (i) => toned(assetSectionTone, result.sections[i][5]),
+              }}
               label={copy.sectionsTitle}
               pager={{ 'data-fas-pager': 'sections' }}
               headers={copy.sectionHeadersTable}
@@ -451,6 +460,10 @@ export function FixedAssetsSectionsPanel() {
               {copy.assetsTitle} ({result.assets.length})
             </h3>
             <RecordTable
+              status={{
+                column: 9,
+                of: (i) => toned(assetSectionTone, result.assets[i].status),
+              }}
               label={copy.assetsTitle}
               pager={{ 'data-fas-pager': 'assets' }}
               headers={copy.assetHeaders}

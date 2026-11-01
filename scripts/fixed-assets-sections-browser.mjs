@@ -29,6 +29,37 @@ import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import {
+  assertStatusBadges,
+  statusBadgesRead,
+} from './status-badge-support.mjs';
+
+// The status badge in this section (UX-3): a status on this list, and no
+// other, takes the agreed tone.
+const BADGE_LABEL = 'asset sections';
+const BADGES = [
+  {
+    name: 'accounts',
+    column: 8,
+    rows: 'tr[data-fas-account]',
+    attr: 'data-fas-account-status',
+    agreed: ['consistent'],
+  },
+  {
+    name: 'sections',
+    column: 5,
+    rows: 'tr[data-fas-section]',
+    attr: 'data-fas-section-status',
+    agreed: ['consistent'],
+  },
+  {
+    name: 'assets',
+    column: 9,
+    rows: 'tr[data-fas-asset]',
+    attr: 'data-fas-asset-status',
+    agreed: ['consistent'],
+  },
+];
 
 const root = path.resolve(process.env.FA_SECTIONS_DIST ?? 'dist');
 const SUITE = process.env.FA_SECTIONS_SUITE;
@@ -338,6 +369,7 @@ async function rows(fas, pager, selector, dense) {
   return { found, pages };
 }
 async function shown(fas, dense) {
+  await assertStatusBadges(fas, BADGES, BADGE_LABEL);
   const state = await fas.getAttribute('data-fas-state');
   const refusal = fas.locator('[data-fas-refused]');
   if (await refusal.count())
@@ -700,6 +732,10 @@ try {
   for (const [k, v] of Object.entries(report.summary.checks)) assert.ok(v, k);
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
+  console.log(
+    'status badges read:',
+    statusBadgesRead(BADGE_LABEL, ['accounts', 'sections', 'assets']),
+  );
 } finally {
   await browser?.close();
   await new Promise((resolve) => server.close(resolve));

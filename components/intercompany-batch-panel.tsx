@@ -15,6 +15,7 @@ import { intercompanyBatchCopy } from '@/lib/i18n/intercompany-batch';
 import { RecordTable } from '@/components/record-table';
 import './review-section.css';
 import { ClosedReason } from './decision-platform';
+import { intercompanyRelationTone, toned } from '@/lib/status-tone';
 
 type Picked = { file: SourceFile; confirmed: boolean };
 // An amount at the batch currency's decimals through the shared component;
@@ -58,6 +59,10 @@ function BatchView({
         </ul>
       )}
       <RecordTable
+        status={{
+          column: 1,
+          of: (i) => toned(intercompanyRelationTone, batch.relations[i].status),
+        }}
         label={`${batch.id} ${copy.relationsTitle}`}
         headers={copy.relationHeaders}
         rows={batch.relations.map((r) => [
@@ -69,6 +74,10 @@ function BatchView({
           amount(r.net?.B ?? null, batch.decimals),
           amount(r.residual, batch.decimals),
         ])}
+        marks={batch.relations.map((r) => ({
+          'data-ic-relation': r.relationId,
+          'data-ic-relation-status': r.status,
+        }))}
       />
       {batch.findings.length > 0 && (
         <details>

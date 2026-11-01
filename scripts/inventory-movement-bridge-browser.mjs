@@ -19,6 +19,30 @@ import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import {
+  assertStatusBadges,
+  statusBadgesRead,
+} from './status-badge-support.mjs';
+
+// The status badge in this section (UX-3): a status on this list, and no
+// other, takes the agreed tone.
+const BADGE_LABEL = 'inventory bridge';
+const BADGES = [
+  {
+    name: 'positions',
+    column: 2,
+    rows: 'tr[data-imb-position]',
+    attr: 'data-imb-position-status',
+    agreed: ['consistent'],
+  },
+  {
+    name: 'accounts',
+    column: 1,
+    rows: 'tr[data-imb-account]',
+    attr: 'data-imb-account-status',
+    agreed: ['consistent'],
+  },
+];
 
 const root = path.resolve(process.env.IMB_DIST ?? 'dist');
 const SUITE = process.env.IMB_SUITE;
@@ -222,6 +246,7 @@ const attr = async (imb, selector, name) =>
     ? await imb.locator(selector).first().getAttribute(name)
     : null;
 async function shown(imb) {
+  await assertStatusBadges(imb, BADGES, BADGE_LABEL);
   const result = imb.locator('[data-imb-result]');
   const status = await result.getAttribute('data-imb-status');
   const verdict = await imb.locator('[data-imb-verdict]').textContent();
@@ -565,6 +590,10 @@ try {
   for (const [k, v] of Object.entries(report.summary.checks)) assert.ok(v, k);
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
+  console.log(
+    'status badges read:',
+    statusBadgesRead(BADGE_LABEL, ['positions', 'accounts']),
+  );
 } finally {
   await browser?.close();
   await new Promise((resolve) => server.close(resolve));

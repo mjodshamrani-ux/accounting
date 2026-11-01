@@ -17,6 +17,23 @@ import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import {
+  assertStatusBadges,
+  statusBadgesRead,
+} from './status-badge-support.mjs';
+
+// The status badge in this section (UX-3): a status on this list, and no
+// other, takes the agreed tone.
+const BADGE_LABEL = 'long payroll register';
+const BADGES = [
+  {
+    name: 'employees',
+    column: 2,
+    rows: 'tr[data-plr-employee]',
+    attr: 'data-plr-employee-status',
+    agreed: ['consistent'],
+  },
+];
 
 const root = path.resolve(process.env.PLR_DIST ?? 'dist');
 const SUITE = process.env.PLR_SUITE;
@@ -159,6 +176,7 @@ const attr = async (plr, selector, name) =>
     ? await plr.locator(selector).first().getAttribute(name)
     : null;
 async function shown(plr) {
+  await assertStatusBadges(plr, BADGES, BADGE_LABEL);
   const result = plr.locator('[data-plr-result]');
   const status = await result.getAttribute('data-plr-status');
   const verdict = await plr.locator('[data-plr-verdict]').textContent();
@@ -407,6 +425,10 @@ try {
   for (const [k, v] of Object.entries(report.summary.checks)) assert.ok(v, k);
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
+  console.log(
+    'status badges read:',
+    statusBadgesRead(BADGE_LABEL, ['employees']),
+  );
 } finally {
   await browser?.close();
   await new Promise((resolve) => server.close(resolve));

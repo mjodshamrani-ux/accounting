@@ -11,9 +11,20 @@ import { Button } from './ui/button';
 import { useI18n } from '@/lib/i18n/context';
 import { recordTableCopy } from '@/lib/i18n/record-table';
 import { recordPage } from '@/lib/record-page';
+import type { StatusTone } from '@/lib/status-tone';
+import { StatusBadge } from './status-badge';
 
 /** Data attributes a check reads on a pager, a frame or a row. */
 export type RecordHook = Record<`data-${string}`, string | undefined>;
+
+/** The status of one row, drawn as a status badge (UX-3). */
+export type RowStatus = { tone: StatusTone; status: string };
+
+/** The column of a record table that holds each row's status. */
+export type RecordStatus<T> = {
+  column: number;
+  of: (row: T, index: number) => RowStatus | undefined;
+};
 
 /** Turns the pages of one evidence table, and is absent when its rows fit
  * one page. Both buttons are described by the line that names the page and
@@ -175,7 +186,10 @@ type RecordPaging = {
  * (UX-3): it then holds that id and takes the focus from script, not from
  * the keyboard. A column of long text, such as a whole source row, is
  * named in `wrap`, and long column names are wrapped with `wrapHeaders`:
- * those cells wrap between words instead of being cut off. */
+ * those cells wrap between words instead of being cut off. The column that
+ * holds a row's status is named in `status`, with the tone and the engine
+ * status of each row: its cell, as the workspace writes it, is drawn as a
+ * status badge. */
 export function RecordRows<T>({
   label,
   source,
@@ -187,6 +201,7 @@ export function RecordRows<T>({
   target,
   wrap,
   wrapHeaders,
+  status,
   page,
   onPage,
   size,
@@ -202,6 +217,7 @@ export function RecordRows<T>({
     target?: (row: T, index: number) => string | undefined;
     wrap?: readonly number[];
     wrapHeaders?: boolean;
+    status?: RecordStatus<T>;
   }) {
   const { lang } = useI18n();
   const copy = recordTableCopy[lang];
@@ -234,12 +250,21 @@ export function RecordRows<T>({
                 {...focusTarget(target?.(row, from + i))}
               >
                 {cells(row, from + i).map((cell, j) => {
-                  const shown =
+                  const text =
                     typeof cell === 'string' || typeof cell === 'number' ? (
                       <bdi>{cell}</bdi>
                     ) : (
                       (cell ?? '—')
                     );
+                  const badge =
+                    j === status?.column ? status.of(row, from + i) : undefined;
+                  const shown = badge ? (
+                    <StatusBadge tone={badge.tone} status={badge.status}>
+                      {text}
+                    </StatusBadge>
+                  ) : (
+                    text
+                  );
                   const long = wrap?.includes(j)
                     ? { 'data-record-wrap': '' }
                     : {};
@@ -273,9 +298,11 @@ export function RecordRows<T>({
 const asCells = (row: ReactNode[]) => row;
 
 /** A record table whose rows are already written as cells, with the data
- * attributes of each row, by its index in the table, in `marks`. */
+ * attributes of each row, by its index in the table, in `marks`, and the
+ * status of each row, by the same index, in `status`. */
 export function RecordTable({
   marks,
+  status,
   ...table
 }: RecordName &
   RecordPaging & {
@@ -284,12 +311,22 @@ export function RecordTable({
     marks?: (RecordHook | undefined)[];
     wrap?: readonly number[];
     wrapHeaders?: boolean;
+    status?: {
+      column: number;
+      of: (index: number) => RowStatus | undefined;
+    };
   }) {
   return (
     <RecordRows<ReactNode[]>
       {...table}
       cells={asCells}
       mark={marks && ((_, index) => marks[index])}
+      status={
+        status && {
+          column: status.column,
+          of: (_, index) => status.of(index),
+        }
+      }
     />
   );
 }

@@ -30,6 +30,7 @@ import { inventoryMovementBridgeCopy } from '@/lib/i18n/inventory-movement-bridg
 import { RecordTable } from '@/components/record-table';
 import './review-section.css';
 import { ClosedReason } from './decision-platform';
+import { inventoryBridgeTone, toned } from '@/lib/status-tone';
 
 type Picked = {
   name: string;
@@ -402,6 +403,14 @@ export function InventoryMovementBridgePanel() {
                       {copy.positions} ({result.positions.length}) · {copy.pair}
                     </h3>
                     <RecordTable
+                      status={{
+                        column: 2,
+                        of: (i) =>
+                          toned(
+                            inventoryBridgeTone,
+                            result.positions[i].status,
+                          ),
+                      }}
                       label={copy.positions}
                       pager={{ 'data-imb-pager': 'positions' }}
                       headers={copy.positionHeaders}
@@ -491,6 +500,11 @@ export function InventoryMovementBridgePanel() {
                       {copy.accounts} ({result.accounts.length}) · {copy.sides}
                     </h3>
                     <RecordTable
+                      status={{
+                        column: 1,
+                        of: (i) =>
+                          toned(inventoryBridgeTone, result.accounts[i].status),
+                      }}
                       label={copy.accounts}
                       pager={{ 'data-imb-pager': 'accounts' }}
                       headers={copy.accountHeaders}

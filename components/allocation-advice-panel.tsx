@@ -14,6 +14,7 @@ import {
   twinsOf,
   type AllocationAdviceReview,
 } from '@/lib/reconciliation/allocation-advice';
+import { allocationAdviceTone, toned } from '@/lib/status-tone';
 
 /** allocation-advice-review-1 beside allocation-snapshot-1: review only. The
  * parent remounts this panel whenever its files, readings, scope or
@@ -127,6 +128,10 @@ export function AllocationAdvicePanel({
           )}
           <h3>{copy.linesTitle}</h3>
           <RecordRows
+            status={{
+              column: 4,
+              of: ({ line: l }) => toned(allocationAdviceTone, l.status),
+            }}
             label={copy.linesTitle}
             headers={copy.lineHeaders}
             page={linePage}
