@@ -6,6 +6,7 @@
 // section whose runs never show the heading fails at the end instead of
 // passing unread.
 import assert from 'node:assert/strict';
+import { scrollRest } from './decision-platform-support.mjs';
 
 const seen = new Map();
 
@@ -31,19 +32,7 @@ export async function assertSectionFocus(page, root, label) {
   );
   // Outside a session the page scrolls smoothly for over a second: the
   // heading is measured where it comes to rest, not where it passes.
-  await page.evaluate(async () => {
-    if (getComputedStyle(document.documentElement).scrollBehavior !== 'smooth')
-      return;
-    let last = scrollY;
-    for (
-      let still = 0, end = Date.now() + 5000;
-      still < 3 && Date.now() < end;
-    ) {
-      await new Promise((resolve) => setTimeout(resolve, 100));
-      still = scrollY === last ? still + 1 : 0;
-      last = scrollY;
-    }
-  });
+  await scrollRest(page);
   const where = await section.evaluate((el) => {
     const heading = el.querySelector('[data-result-heading="section"]');
     const active = document.activeElement;

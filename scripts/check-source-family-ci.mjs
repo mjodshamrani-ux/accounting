@@ -355,6 +355,7 @@ const required = [
   'test:browser:visual-identity:self-test',
   'test:browser:record-table',
   'test:browser:decision-platform',
+  'test:browser:decision-platform:self-test',
   'test:browser:review-platform',
 ];
 const deployed = ['build', ...deployGated].flatMap(

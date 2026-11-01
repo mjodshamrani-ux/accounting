@@ -14,6 +14,25 @@ export const pause = (page) =>
       ),
   );
 
+// Under smooth scrolling (outside a session) the page moves for over a
+// second after a focus: wait until it has been still for three tenths of a
+// second, at most five seconds, so a position is read where the page comes
+// to rest, not where it passes (DEV-93). Instant scrolling returns at once.
+export const scrollRest = (page) =>
+  page.evaluate(async () => {
+    if (getComputedStyle(document.documentElement).scrollBehavior !== 'smooth')
+      return;
+    let last = scrollY;
+    for (
+      let still = 0, end = Date.now() + 5000;
+      still < 3 && Date.now() < end;
+    ) {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      still = scrollY === last ? still + 1 : 0;
+      last = scrollY;
+    }
+  });
+
 // Every closed button the reader sees in the region says what opens it: a
 // sentence it is described by, shown and not empty. Returns how many closed
 // buttons were seen.
@@ -57,7 +76,8 @@ export const focused = (page) =>
 
 // After a decision, the focus settles on the element the test names, which
 // states what changed, and that element comes into view: without reduced
-// motion the page scrolls to it smoothly, so it is awaited a while.
+// motion the page scrolls to it smoothly, so it is awaited a while, and it
+// is in view where the page comes to rest, not only on its way.
 export async function settledOn(page, element, at) {
   await pause(page);
   // Awaited a little, then asserted, so a build without it fails by
@@ -80,6 +100,8 @@ export async function settledOn(page, element, at) {
     now = await focused(page)
   )
     await new Promise((resolve) => setTimeout(resolve, 100));
+  await scrollRest(page);
+  now = await focused(page);
   assert.equal(now.id, want, `${at}: the focus is on what changed`);
   assert.ok(now.item, `${at}: and it states the change`);
   assert.ok(now.inView, `${at}: and it is in view`);

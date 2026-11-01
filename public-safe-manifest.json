@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 101147,
-      "sha256": "555ba6e03aab0f24746c5037bc9992e2b0e28f5f232bc8376730e7f08c74df6f",
+      "bytes": 101422,
+      "sha256": "adc5e80dde4265eac45ab105f96a880693889ae0f604e758767ca228c3a2f2e7",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 62719,
-      "sha256": "11918a07dd2e80eb2b59cb63a61078b5cb1c30144e6390dfdac05d84af779522",
+      "bytes": 62831,
+      "sha256": "82bb78d6f2e81273ecf8c542036ffdc106254ca7dcb4763efe39a144869f6ed7",
       "kind": "text"
     },
     {
@@ -36151,14 +36151,14 @@
     },
     {
       "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
-      "bytes": 169028,
-      "sha256": "e2a86184cd45d122fc9053854589b2694780186d23eee0473d9babf5b436591b",
+      "bytes": 170813,
+      "sha256": "11824b789cd6213663d2923dbe1093a2402ce3299334fdfd903a5ac8b391d08b",
       "kind": "text"
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 294658,
-      "sha256": "5879ed4deecd895911c697c447bc7cc66fe29a67633161afa56b26b997e1e1d5",
+      "bytes": 298425,
+      "sha256": "82db580f0779d0c1388dfce6bc4922cf61025ec871292dea8a02984a70da0f34",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 61325,
-      "sha256": "192380eebc12889d08cf7aa1fd74ecb0f69044506c774f621764ca6f14e60010",
+      "bytes": 61478,
+      "sha256": "d6a109941cf931a25e38343b85984eb055ce28c9b1c9c420b02be71c134f2fda",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 21007,
-      "sha256": "012face1ec99fae0f2732262069b2bfb250e35c35b1b030c007057796e44281f",
+      "bytes": 21053,
+      "sha256": "5aa4d0da252fe45fb9362c6509d684fbcd5b71357c650f22932777914dc5c261",
       "kind": "text"
     },
     {
@@ -44469,8 +44469,8 @@
     },
     {
       "path": "docs/reference/LESSONS-INDEX.ar.md",
-      "bytes": 54067,
-      "sha256": "2ac1ca5e12106b2efb88d5152cc272620754667cd5489f84997b8a044c4735e2",
+      "bytes": 54157,
+      "sha256": "b237c06ec81e20059e1195391d97eded003339081cae7ebc1b761eb2ef2ac295",
       "kind": "text"
     },
     {
@@ -73481,8 +73481,8 @@
     },
     {
       "path": "docs/roadmap/ux.ar.md",
-      "bytes": 30480,
-      "sha256": "b2b6e34ff394a8979223c68355b3b4724c33c3dfb90f404dca13d2fc868302da",
+      "bytes": 30658,
+      "sha256": "462f7bb5ccb5632b65997bf4f8d8f136b3cf0decd7394118994ecedc13e340a9",
       "kind": "text"
     },
     {
@@ -73583,8 +73583,8 @@
     },
     {
       "path": "scripts/decision-platform-support.mjs",
-      "bytes": 3551,
-      "sha256": "5f0b867b50694f0ae2f68b204a4fea487b0cfb603b91bb8dc8f505d5f62d5907",
+      "bytes": 4411,
+      "sha256": "ac3f73d29e7b3e4dc38e979adfc6f4df4948142c157c1b1e82ec3c6822b78d39",
       "kind": "text"
     },
     {
@@ -73637,8 +73637,14 @@
     },
     {
       "path": "scripts/section-focus-support.mjs",
-      "bytes": 3802,
-      "sha256": "78fca6511cba01011ed4a1a4026612a8aa07923d11a6e32d2cf6d96a72cc844b",
+      "bytes": 3489,
+      "sha256": "4dbb238a8269d8ec30f003b4824425624640066aafd8d01b56a38af3b7342d6c",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/decision-platform-support-self-test.mjs",
+      "bytes": 2245,
+      "sha256": "8c3b4307aaa319147e3b66dfc1e472bd5f85e42dbc7a4d7de5b79ce3f9d0fd6c",
       "kind": "text"
     }
   ],

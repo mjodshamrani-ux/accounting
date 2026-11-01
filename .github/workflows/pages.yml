@@ -249,6 +249,8 @@ jobs:
         run: pnpm test:browser:record-table
       - name: In the ten workspaces with decisions, Arabic and English at 390 px, no closed button goes without a shown sentence that says why, approval stays closed while that sentence says it waits, and after a decision the focus is on what it changed, on the page that shows it (UX-3)
         run: pnpm test:browser:decision-platform
+      - name: The helper that asks where the focus rests after a decision sees a page that passes the decided item on its way and rests with it out of view, and passes the same page without that late scroll (DEV-93)
+        run: pnpm test:browser:decision-platform:self-test
       - name: In a transaction's review, the PDF review and the image reader, every closed button says what opens it, and after a decision the focus is on what it changed, in view; closing a transaction's review returns to its opener (UX-3)
         run: pnpm test:browser:review-platform
       - name: Verify native Chrome section families and qualified currencies
