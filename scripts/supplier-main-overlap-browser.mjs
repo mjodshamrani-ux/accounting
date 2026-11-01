@@ -133,6 +133,52 @@ const browser = await chromium.launch({
   executablePath: process.env.MIZAN_CHROMIUM,
 });
 let active;
+// Where the check is, so a stall says where it stopped: the review platform
+// gate gives each check fifteen minutes and keeps only the end of its
+// output, and a page that stops drawing frames leaves an evaluate waiting
+// with no timeout. After four minutes on one stage the check prints the
+// stage, whether the page still answers and draws a frame, and what it
+// shows, then exits.
+let stage = 'start';
+let since = Date.now();
+const at = (name) => {
+  stage = name;
+  since = Date.now();
+  console.log('stage: ' + name);
+};
+const watchdog = setInterval(async () => {
+  if (Date.now() - since < 240000) return;
+  clearInterval(watchdog);
+  const seconds = Math.round((Date.now() - since) / 1000);
+  console.error(`stalled for ${seconds} s at: ${stage}`);
+  if (active && !active.isClosed()) {
+    const state = await Promise.race([
+      active.evaluate(async () => ({
+        url: location.href,
+        visibility: document.visibilityState,
+        frame: await new Promise((resolve) => {
+          requestAnimationFrame(() => resolve('drawn'));
+          setTimeout(() => resolve('no frame within 1 s'), 1000);
+        }),
+        active: `${document.activeElement?.tagName} ${(document.activeElement?.textContent ?? '').trim().slice(0, 80)}`,
+        shown: [
+          ...document.querySelectorAll(
+            '.notice, [role=alert], .hint.warn, output',
+          ),
+        ]
+          .map((el) => el.textContent.trim().slice(0, 160))
+          .filter(Boolean)
+          .slice(0, 12),
+      })),
+      new Promise((resolve) =>
+        setTimeout(() => resolve('the page did not answer within 5 s'), 5000),
+      ),
+    ]).catch((e) => String(e));
+    console.error(JSON.stringify(state));
+  }
+  process.exit(1);
+}, 15000);
+watchdog.unref();
 const report = {
   servedIndexSha256,
   truthSha256: manifest.truthSha256,
@@ -593,6 +639,7 @@ try {
       await context.addInitScript(holdOriginalWorkerReplies);
       const page = await context.newPage();
       active = page;
+      at(`${c.id}-${lang}: sources`);
       const errors = [];
       page.on('pageerror', (e) => errors.push(e.message));
       const t = lang === 'en' ? en : ar,
@@ -617,6 +664,7 @@ try {
         await idle(page);
       }
       await button(page, t.app.upload.next).click();
+      at(`${c.id}-${lang}: scope and comparison`);
       await freshScope(page, t);
       const baselineSnapshot = await mainSnapshot(page, t);
       await responsive(page, `${c.id}-${lang}-baseline`);
@@ -625,6 +673,7 @@ try {
         value: 'SAR',
         probeRequested: c.id === 'A' && lang === 'en',
       };
+      at(`${c.id}-${lang}: overlap reading`);
       const panel = await openInspect(
         page,
         ot,
@@ -640,6 +689,7 @@ try {
               )
           : undefined,
       );
+      at(`${c.id}-${lang}: decisions and commit`);
       const choices = await decisions(
         panel,
         ot,
@@ -659,6 +709,7 @@ try {
       }
       await metrics(page, t, c.afterCommit);
       await responsive(page, `${c.id}-${lang}-accepted`);
+      at(`${c.id}-${lang}: workbook`);
       const exportProof = await workbook(
         page,
         panel,
@@ -666,6 +717,7 @@ try {
         c,
         `${c.id}-${lang}-accepted`,
       );
+      at(`${c.id}-${lang}: session`);
       const session = await download(
         page,
         button(page, t.app.results.saveSession),
@@ -689,6 +741,7 @@ try {
       ).click();
       await page.locator('[data-overlap-active-receipt]').waitFor();
       await metrics(page, t, c.afterCommit);
+      at(`${c.id}-${lang}: handoff`);
       await handoff(page, t, `${c.id}-${lang}-handoff`);
       await metrics(page, t, c.afterCommit);
       await page
@@ -697,6 +750,7 @@ try {
       await button(page, t.app.results.caseDetails).first().click();
       await button(page, ot.wholeComponentUndo).click();
       await metrics(page, t, c.afterCommit);
+      at(`${c.id}-${lang}: undo`);
       const live = page.getByTestId('invoice-overlap-review');
       if (!(await live.locator('[data-overlap-active-receipt]').count())) {
         await live.locator('[data-overlap-scope-ack]').check();
@@ -731,6 +785,7 @@ try {
         c,
         `${c.id}-${lang}`,
       );
+      at(`${c.id}-${lang}: restore`);
       await page.goto(url);
       await idle(page);
       await page
@@ -780,6 +835,7 @@ try {
       viewport: { width: 1440, height: 1000 },
     });
     active = legacy;
+    at('existing allocation');
     await verifyAllocation(legacy, url, path.join(out, 'existing-allocation'));
     report.allocationLegacy = true;
   }
@@ -787,6 +843,7 @@ try {
     'section focus read:',
     sectionFocusRead('invoice overlap review'),
   );
+  if (options.pending) at('pending allocation');
   if (options.pending)
     report.actualAllocationPending = await verifyActualAllocationPending(
       browser,
@@ -814,6 +871,7 @@ try {
   }
   throw error;
 } finally {
+  clearInterval(watchdog);
   await browser.close();
   await new Promise((resolve) => server.close(resolve));
 }
