@@ -20,11 +20,18 @@ function major(minor) {
   const whole = digits.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/gu, ',');
   return `${value < 0n ? '-' : ''}${whole}.${digits.slice(-2)}`;
 }
-export async function verifyMultilineSourceReview(page, url, out) {
+// `at` names each language and width as it starts (scripts/stage-watchdog.mjs).
+export async function verifyMultilineSourceReview(
+  page,
+  url,
+  out,
+  at = () => {},
+) {
   await mkdir(out, { recursive: true });
   const records = [];
   for (const lang of ['ar', 'en'])
     for (const width of [320, 390]) {
+      at(`${lang}-${width}`);
       await page.setViewportSize({ width, height: 900 });
       await page.goto(url);
       await page

@@ -251,6 +251,8 @@ jobs:
         run: pnpm test:browser:decision-platform
       - name: The helper that asks where the focus rests after a decision sees a page that passes the decided item on its way and rests with it out of view, and passes the same page without that late scroll (DEV-93)
         run: pnpm test:browser:decision-platform:self-test
+      - name: The watchdog of the browser checks stops a check that stalls on a page, with its stage and the page's state, also when the page stops answering, and leaves a check that moves on in time or stops it alone
+        run: pnpm test:browser:stage-watchdog:self-test
       - name: In a transaction's review, the PDF review and the image reader, every closed button says what opens it, and after a decision the focus is on what it changed, in view; closing a transaction's review returns to its opener (UX-3)
         run: pnpm test:browser:review-platform
       - name: Verify native Chrome section families and qualified currencies

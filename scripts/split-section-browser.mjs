@@ -14,6 +14,7 @@ import {
   assertSectionFocus,
   sectionFocusRead,
 } from './section-focus-support.mjs';
+import { stageWatchdog } from './stage-watchdog.mjs';
 const root = path.resolve(
   process.env.P4_BROWSER_REPORT_DIR ||
     process.env.P4_REPORT_DIR ||
@@ -122,6 +123,8 @@ const save = () =>
   );
 const dist = path.resolve(process.env.MIZAN_DIST_DIR ?? 'dist');
 let browser, server, activePage;
+// A stall says which case it stopped in (scripts/stage-watchdog.mjs).
+const watch = stageWatchdog({ page: () => activePage });
 async function choose(page, control, value, label) {
   if ((await control.evaluate((el) => el.tagName)) === 'SELECT')
     await control.selectOption(value);
@@ -309,6 +312,7 @@ try {
       const locale = lang === 'ar' ? ar : en;
       const t = splitSectionReviewCopy(lang);
       const key = `${lang}-${id}`;
+      watch.at(key);
       const context = await browser.newContext({
         acceptDownloads: true,
         viewport: { width: 1440, height: 1000 },
@@ -625,6 +629,7 @@ try {
   await save();
   throw e;
 } finally {
+  watch.stop();
   await browser?.close();
   if (server)
     await new Promise((resolve) => {

@@ -8,6 +8,7 @@ import {
   assertSectionFocus,
   sectionFocusRead,
 } from './section-focus-support.mjs';
+import { stageWatchdog } from './stage-watchdog.mjs';
 import { createServer } from 'node:http';
 import { readFile, mkdir, mkdtemp, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
@@ -133,52 +134,11 @@ const browser = await chromium.launch({
   executablePath: process.env.MIZAN_CHROMIUM,
 });
 let active;
-// Where the check is, so a stall says where it stopped: the review platform
-// gate gives each check fifteen minutes and keeps only the end of its
-// output, and a page that stops drawing frames leaves an evaluate waiting
-// with no timeout. After four minutes on one stage the check prints the
-// stage, whether the page still answers and draws a frame, and what it
-// shows, then exits.
-let stage = 'start';
-let since = Date.now();
-const at = (name) => {
-  stage = name;
-  since = Date.now();
-  console.log('stage: ' + name);
-};
-const watchdog = setInterval(async () => {
-  if (Date.now() - since < 240000) return;
-  clearInterval(watchdog);
-  const seconds = Math.round((Date.now() - since) / 1000);
-  console.error(`stalled for ${seconds} s at: ${stage}`);
-  if (active && !active.isClosed()) {
-    const state = await Promise.race([
-      active.evaluate(async () => ({
-        url: location.href,
-        visibility: document.visibilityState,
-        frame: await new Promise((resolve) => {
-          requestAnimationFrame(() => resolve('drawn'));
-          setTimeout(() => resolve('no frame within 1 s'), 1000);
-        }),
-        active: `${document.activeElement?.tagName} ${(document.activeElement?.textContent ?? '').trim().slice(0, 80)}`,
-        shown: [
-          ...document.querySelectorAll(
-            '.notice, [role=alert], .hint.warn, output',
-          ),
-        ]
-          .map((el) => el.textContent.trim().slice(0, 160))
-          .filter(Boolean)
-          .slice(0, 12),
-      })),
-      new Promise((resolve) =>
-        setTimeout(() => resolve('the page did not answer within 5 s'), 5000),
-      ),
-    ]).catch((e) => String(e));
-    console.error(JSON.stringify(state));
-  }
-  process.exit(1);
-}, 15000);
-watchdog.unref();
+// Where the check is, so a stall says where it stopped: after four minutes
+// on one stage it prints the stage and the page's state and exits
+// (scripts/stage-watchdog.mjs).
+const watchdog = stageWatchdog({ page: () => active });
+const at = watchdog.at;
 const report = {
   servedIndexSha256,
   truthSha256: manifest.truthSha256,
@@ -871,7 +831,7 @@ try {
   }
   throw error;
 } finally {
-  clearInterval(watchdog);
+  watchdog.stop();
   await browser.close();
   await new Promise((resolve) => server.close(resolve));
 }

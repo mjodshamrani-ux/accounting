@@ -11,6 +11,7 @@ import { sectionDerivedReviewCopy } from '../lib/i18n/section-derived-review.ts'
 import { sourceStructureReviewCopy } from '../lib/i18n/source-structure-review.ts';
 import { closedSay, settledOn } from './decision-platform-support.mjs';
 import { assertSectionFocus, sectionFocusRead } from './section-focus-support.mjs';
+import { stageWatchdog } from './stage-watchdog.mjs';
 import { en } from '../lib/i18n/locales/en.ts';
 import { ar } from '../lib/i18n/locales/ar.ts';
 import { readFile as readNativeFile } from '../lib/reconciliation/io.ts';
@@ -94,6 +95,8 @@ const report = { version: contract.version, synthetic: true, fieldAcceptance: fa
   processPid: process.pid, browser: null, cases: [], requests: [], errors: [], passed: false };
 const save = () => writeFile(path.join(proofRoot, 'observations.json'), JSON.stringify(report, null, 2) + '\n');
 let activePage;
+// A stall says which case it stopped in (scripts/stage-watchdog.mjs).
+const watch = stageWatchdog({ page: () => activePage });
 let browser;
 let server;
 const noFinancialResult = async (page) => assert.equal(await page.locator('.metric').count(), 0,
@@ -283,6 +286,7 @@ try {
     const t = sectionDerivedReviewCopy(lang);
     const st = sourceStructureReviewCopy(lang);
     const key = `${lang}-${spec.id}`;
+    watch.at(key);
     const context = await browser.newContext({ viewport: { width: 1440, height: 1000 }, acceptDownloads: true, serviceWorkers: 'block' });
     await context.route('**/*', async (route) => {
       const request = route.request();
@@ -473,6 +477,7 @@ try {
   }
   for (const [file, originalHash] of Object.entries(frozenFiles)) assert.equal(sha(await readFile(file)), originalHash, `read-only source/frozen truth ${file}`);
   console.log('section focus read:', sectionFocusRead('source structure review'), sectionFocusRead('derived sections review'));
+  watch.at('independent check');
   report.completedAt = new Date().toISOString();
   report.passed = true;
   await save();
@@ -490,6 +495,7 @@ try {
   await save();
   throw error;
 } finally {
+  watch.stop();
   if (browser) await browser.close();
   if (server) await new Promise((resolve) => { server.close(resolve); server.closeAllConnections(); });
 }

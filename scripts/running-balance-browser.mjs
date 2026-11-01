@@ -16,6 +16,7 @@ import {
   assertSectionFocus,
   sectionFocusRead,
 } from './section-focus-support.mjs';
+import { stageWatchdog } from './stage-watchdog.mjs';
 
 const root = path.resolve(
   process.env.RUNNING_BROWSER_REPORT_DIR || '../evidence/running-browser',
@@ -69,6 +70,8 @@ const save = () =>
     JSON.stringify(report, null, 2) + '\n',
   );
 let server, browser, activePage;
+// A stall says which case it stopped in (scripts/stage-watchdog.mjs).
+const watch = stageWatchdog({ page: () => activePage });
 async function choose(page, control, value, label) {
   if ((await control.evaluate((el) => el.tagName)) === 'SELECT')
     await control.selectOption(value);
@@ -164,6 +167,7 @@ try {
       const fixture = fixtures.get(id);
       const locale = lang === 'ar' ? ar : en;
       const t = runningBalanceCopy[lang];
+      watch.at(`${lang}-${id}`);
       const directory = path.join(root, lang, id);
       await mkdir(directory, { recursive: true });
       const context = await browser.newContext({
@@ -516,6 +520,7 @@ try {
   }
   throw error;
 } finally {
+  watch.stop();
   await browser?.close();
   if (server)
     await new Promise((resolve) => {

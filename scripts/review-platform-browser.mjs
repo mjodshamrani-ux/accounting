@@ -20,6 +20,7 @@ import { verifyVisualRegions } from './visual-region-browser-cases.mjs';
 import { verifyVisualTable } from './visual-table-browser-cases.mjs';
 import { verifyVisualAccounting } from './visual-accounting-browser-cases.mjs';
 import { verifyReviewEffort } from './review-effort-browser-cases.mjs';
+import { stageWatchdog } from './stage-watchdog.mjs';
 
 const root = path.resolve(process.env.MIZAN_DIST_DIR ?? 'dist');
 const server = createServer(async (req, res) => {
@@ -57,6 +58,9 @@ const browser = await chromium.launch({
 const errors = [],
   external = [];
 const steps = [];
+// A stall says which review it stopped in (scripts/stage-watchdog.mjs).
+let current;
+const watch = stageWatchdog({ page: () => current });
 const only = process.env.REVIEW_PLATFORM_ONLY?.split(',');
 const want = (name) => !only || only.includes(name);
 async function scenario(label) {
@@ -72,6 +76,8 @@ async function scenario(label) {
       external.push(r.url());
   });
   const page = await context.newPage();
+  current = page;
+  watch.at(label);
   steps.push(label);
   return { context, page };
 }
@@ -252,6 +258,7 @@ try {
   assert.deepEqual(external, [], 'all requests remain local');
   assert.deepEqual(errors, [], 'no browser page errors');
 } finally {
+  watch.stop();
   await browser.close();
   await new Promise((resolve) => server.close(resolve));
 }

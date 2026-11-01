@@ -356,6 +356,7 @@ const required = [
   'test:browser:record-table',
   'test:browser:decision-platform',
   'test:browser:decision-platform:self-test',
+  'test:browser:stage-watchdog:self-test',
   'test:browser:review-platform',
 ];
 const deployed = ['build', ...deployGated].flatMap(
