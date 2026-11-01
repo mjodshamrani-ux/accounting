@@ -20,6 +20,8 @@ import { tbFinancialHierarchyCopy } from '@/lib/i18n/tb-financial-hierarchy';
 import { RecordTable } from '@/components/record-table';
 import './review-section.css';
 import { ClosedReason } from './decision-platform';
+import { useResultFocus } from '@/components/result-focus';
+import { SectionResultHeading } from '@/components/section-result';
 
 type Picked = {
   name: string;
@@ -49,6 +51,7 @@ export function TbFinancialHierarchyPanel() {
   const [result, setResult] = useState<FinHResult | null>(null),
     [busy, setBusy] = useState(false),
     [error, setError] = useState('');
+  const { heading: resultHeading, reveal } = useResultFocus();
   const runtime = useRef({
     serial: 0,
     controller: null as AbortController | null,
@@ -125,7 +128,10 @@ export function TbFinancialHierarchyPanel() {
           input,
           signal,
         ),
-      (v) => setResult(v.result),
+      (v) => {
+        setResult(v.result);
+        reveal();
+      },
     );
   }
   const pick = (i: number) => {
@@ -272,6 +278,7 @@ export function TbFinancialHierarchyPanel() {
         )}
         {result && (
           <div data-finh-result data-finh-status={result.status}>
+            <SectionResultHeading title={copy.title} heading={resultHeading} />
             <h3 data-finh-verdict>{copy.status[result.status]}</h3>
             {result.issues.length > 0 && (
               <section

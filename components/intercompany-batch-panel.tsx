@@ -16,6 +16,8 @@ import { RecordTable } from '@/components/record-table';
 import './review-section.css';
 import { ClosedReason } from './decision-platform';
 import { intercompanyRelationTone, toned } from '@/lib/status-tone';
+import { useResultFocus } from '@/components/result-focus';
+import { SectionResultHeading } from '@/components/section-result';
 
 type Picked = { file: SourceFile; confirmed: boolean };
 // An amount at the batch currency's decimals through the shared component;
@@ -110,6 +112,7 @@ export function IntercompanyBatchPanel() {
     [sources, setSources] = useState<string[]>([]),
     [busy, setBusy] = useState(false),
     [error, setError] = useState('');
+  const { heading: resultHeading, reveal } = useResultFocus();
   const runtime = useRef({
     serial: 0,
     controller: null as AbortController | null,
@@ -204,6 +207,7 @@ export function IntercompanyBatchPanel() {
       (v) => {
         setSources(v.state.files.map((f) => f.name));
         setResult(v.result);
+        reveal();
       },
     );
   }
@@ -347,6 +351,7 @@ export function IntercompanyBatchPanel() {
         )}
         {result && (
           <div data-ic-batch-result>
+            <SectionResultHeading title={copy.title} heading={resultHeading} />
             {result.run.length > 0 && (
               <div role="alert" data-ic-batch-run={result.run.join(' ')}>
                 <h3>{copy.run}</h3>

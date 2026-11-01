@@ -19,6 +19,10 @@ import {
   assertStatusBadges,
   statusBadgesRead,
 } from './status-badge-support.mjs';
+import {
+  assertSectionFocus,
+  sectionFocusRead,
+} from './section-focus-support.mjs';
 
 // The status badge in this section (UX-3): a status on this list, and no
 // other, takes the agreed tone.
@@ -182,6 +186,7 @@ async function load(page, gls, sid) {
     .click();
   await gls.locator('[data-gls-result], [data-gls-error]').first().waitFor();
   await idle(page);
+  await assertSectionFocus(page, gls, BADGE_LABEL);
   assert.equal(
     await gls.locator('[data-gls-error]').count(),
     0,
@@ -411,6 +416,7 @@ try {
     'status badges read:',
     statusBadgesRead(BADGE_LABEL, ['accounts']),
   );
+  console.log('section focus read:', sectionFocusRead(BADGE_LABEL));
 } finally {
   await browser?.close();
   await new Promise((resolve) => server.close(resolve));

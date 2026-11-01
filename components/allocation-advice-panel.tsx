@@ -15,6 +15,8 @@ import {
   type AllocationAdviceReview,
 } from '@/lib/reconciliation/allocation-advice';
 import { allocationAdviceTone, toned } from '@/lib/status-tone';
+import { useResultFocus } from '@/components/result-focus';
+import { SectionResultHeading } from '@/components/section-result';
 
 /** allocation-advice-review-1 beside allocation-snapshot-1: review only. The
  * parent remounts this panel whenever its files, readings, scope or
@@ -35,6 +37,7 @@ export function AllocationAdvicePanel({
     [refused, setRefused] = useState(''),
     [linePage, setLinePage] = useState(0),
     [itemPage, setItemPage] = useState(0);
+  const { heading: resultHeading, reveal } = useResultFocus();
   const show = () =>
     run(async (signal) => {
       setReview(null);
@@ -50,12 +53,14 @@ export function AllocationAdvicePanel({
         setLinePage(0);
         setItemPage(0);
         setReview(reply.review);
+        reveal();
       } catch (error) {
         const code = /^ALLOCATION_ADVICE_([A-Z_]+)$/.exec(
           String((error as Error).message),
         )?.[1];
         if (!code || code === 'WORKER_BINDING') throw error;
         setRefused(code);
+        reveal();
       }
     });
   const amount = (minor: number) => (
@@ -92,6 +97,9 @@ export function AllocationAdvicePanel({
       <Button disabled={disabled} onClick={() => void show()}>
         {copy.check}
       </Button>
+      {(review || refused) && (
+        <SectionResultHeading title={copy.title} heading={resultHeading} />
+      )}
       {refused && (
         <p role="alert" data-advice-refused={refused}>
           {copy.refused}: {copy.refusals[refused] ?? refused} ({refused})

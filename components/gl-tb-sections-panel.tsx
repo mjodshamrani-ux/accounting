@@ -26,6 +26,8 @@ import { RecordTable } from '@/components/record-table';
 import './review-section.css';
 import { ClosedReason } from './decision-platform';
 import { glSectionTone, toned } from '@/lib/status-tone';
+import { useResultFocus } from '@/components/result-focus';
+import { SectionResultHeading } from '@/components/section-result';
 
 type Picked = { file: SourceFile; confirmed: boolean };
 type Field = (typeof GLS_SCOPE_FIELDS)[number];
@@ -45,6 +47,7 @@ export function GlTbSectionsPanel() {
   const [result, setResult] = useState<GlsResult | null>(null),
     [busy, setBusy] = useState(false),
     [error, setError] = useState('');
+  const { heading: resultHeading, reveal } = useResultFocus();
   const runtime = useRef({
     serial: 0,
     controller: null as AbortController | null,
@@ -111,7 +114,10 @@ export function GlTbSectionsPanel() {
           input,
           signal,
         ),
-      (v) => setResult(v.result),
+      (v) => {
+        setResult(v.result);
+        reveal();
+      },
     );
   }
   const pick = (
@@ -274,6 +280,7 @@ export function GlTbSectionsPanel() {
         )}
         {result && (
           <div data-gls-result>
+            <SectionResultHeading title={copy.title} heading={resultHeading} />
             {result.run.length > 0 && (
               <div role="alert" data-gls-run={result.run.join(' ')}>
                 <h3>{copy.run}</h3>

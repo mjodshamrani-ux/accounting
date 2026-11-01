@@ -33,6 +33,10 @@ import {
   assertStatusBadges,
   statusBadgesRead,
 } from './status-badge-support.mjs';
+import {
+  assertSectionFocus,
+  sectionFocusRead,
+} from './section-focus-support.mjs';
 
 // The status badge in this section (UX-3): a status on this list, and no
 // other, takes the agreed tone.
@@ -245,6 +249,11 @@ async function review(page, w, times = {}) {
     .click();
   await settled(page, 'shown');
   times.review = Date.now() - t;
+  await assertSectionFocus(
+    page,
+    w.locator('[data-allocation-advice]'),
+    BADGE_LABEL,
+  );
 }
 async function pages(w, pager, selector, read, only) {
   const found = [];
@@ -627,6 +636,7 @@ try {
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
   console.log('status badges read:', statusBadgesRead(BADGE_LABEL, ['lines']));
+  console.log('section focus read:', sectionFocusRead(BADGE_LABEL));
 } finally {
   await browser?.close();
   server.close();

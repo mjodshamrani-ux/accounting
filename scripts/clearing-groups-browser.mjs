@@ -26,6 +26,10 @@ import {
   assertStatusBadges,
   statusBadgesRead,
 } from './status-badge-support.mjs';
+import {
+  assertSectionFocus,
+  sectionFocusRead,
+} from './section-focus-support.mjs';
 
 // The status badge in this section (UX-3): a status on this list, and no
 // other, takes the agreed tone.
@@ -194,6 +198,11 @@ async function load(page, w, c, times) {
     '[data-clearing-groups][data-groups-state="shown"], [data-clearing-groups][data-groups-state="refused"]',
   );
   times.check = Date.now() - t;
+  await assertSectionFocus(
+    page,
+    w.locator('[data-clearing-groups]'),
+    BADGE_LABEL,
+  );
   return { loaded: true };
 }
 async function pages(w, pager, selector, read, only) {
@@ -462,6 +471,11 @@ try {
       .getByRole('button', { name: 'Show the clearing groups', exact: true })
       .click();
     await settled(page, '[data-clearing-groups][data-groups-state="refused"]');
+    await assertSectionFocus(
+      page,
+      w.locator('[data-clearing-groups]'),
+      BADGE_LABEL,
+    );
     const alert = w.locator('[data-groups-refused]');
     report.checks.refusal =
       (await alert.getAttribute('data-groups-refused')) === 'COLUMNS' &&
@@ -509,6 +523,7 @@ try {
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
   console.log('status badges read:', statusBadgesRead(BADGE_LABEL, ['groups']));
+  console.log('section focus read:', sectionFocusRead(BADGE_LABEL));
 } finally {
   await browser?.close();
   server.close();

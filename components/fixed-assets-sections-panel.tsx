@@ -20,6 +20,8 @@ import { RecordTable } from '@/components/record-table';
 import './review-section.css';
 import { ClosedReason } from './decision-platform';
 import { assetSectionTone, toned } from '@/lib/status-tone';
+import { useResultFocus } from '@/components/result-focus';
+import { SectionResultHeading } from '@/components/section-result';
 
 type Picked = {
   name: string;
@@ -46,6 +48,7 @@ export function FixedAssetsSectionsPanel() {
     [refused, setRefused] = useState(''),
     [busy, setBusy] = useState(false),
     [error, setError] = useState('');
+  const { heading: resultHeading, reveal } = useResultFocus();
   const runtime = useRef({
     serial: 0,
     controller: null as AbortController | null,
@@ -133,6 +136,7 @@ export function FixedAssetsSectionsPanel() {
       (v) => {
         setResult(v.result);
         setRefused(v.refused);
+        reveal();
       },
     );
   }
@@ -306,6 +310,9 @@ export function FixedAssetsSectionsPanel() {
           <p role="alert" data-fas-error>
             {error}
           </p>
+        )}
+        {(result || refused) && (
+          <SectionResultHeading title={copy.title} heading={resultHeading} />
         )}
         {refused && (
           <div role="alert" data-fas-refused={refused}>

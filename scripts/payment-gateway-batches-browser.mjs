@@ -30,6 +30,10 @@ import {
   assertStatusBadges,
   statusBadgesRead,
 } from './status-badge-support.mjs';
+import {
+  assertSectionFocus,
+  sectionFocusRead,
+} from './section-focus-support.mjs';
 
 // The status badge in this section (UX-3): a status on this list, and no
 // other, takes the agreed tone.
@@ -239,6 +243,7 @@ async function load(page, pgb, c, lang = 'en') {
     .first()
     .waitFor({ timeout: 600000 });
   await idle(page);
+  await assertSectionFocus(page, pgb, BADGE_LABEL);
 }
 // Every row of one paged table, page after page; a dense story only on its
 // first and last pages.
@@ -589,6 +594,7 @@ try {
     'status badges read:',
     statusBadgesRead(BADGE_LABEL, ['batches', 'payouts']),
   );
+  console.log('section focus read:', sectionFocusRead(BADGE_LABEL));
 } finally {
   await browser?.close();
   await new Promise((resolve) => server.close(resolve));

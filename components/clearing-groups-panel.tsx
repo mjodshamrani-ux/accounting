@@ -15,6 +15,8 @@ import type {
   ClearingGroupsResult,
 } from '@/lib/reconciliation/clearing-groups';
 import { clearingGroupTone } from '@/lib/status-tone';
+import { useResultFocus } from '@/components/result-focus';
+import { SectionResultHeading } from '@/components/section-result';
 
 /** clearing-groups-1 beside clearing-1: review only. The parent remounts this
  * panel whenever the file, its reading or its scope changes, so a shown
@@ -38,6 +40,7 @@ export function ClearingGroupsPanel({
     [refused, setRefused] = useState(''),
     [groupPage, setGroupPage] = useState(0),
     [faultyPage, setFaultyPage] = useState(0);
+  const { heading: resultHeading, reveal } = useResultFocus();
   const show = () =>
     run(async (signal) => {
       setResult(null);
@@ -51,12 +54,14 @@ export function ClearingGroupsPanel({
         setGroupPage(0);
         setFaultyPage(0);
         setResult(reply.result);
+        reveal();
       } catch (error) {
         const code = /^CLEARING_GROUPS_([A-Z_]+)$/.exec(
           String((error as Error).message),
         )?.[1];
         if (!code) throw error;
         setRefused(code);
+        reveal();
       }
     });
   const amount = (minor: number) => (
@@ -87,6 +92,9 @@ export function ClearingGroupsPanel({
       <Button disabled={disabled} onClick={() => void show()}>
         {copy.check}
       </Button>
+      {(result || refused) && (
+        <SectionResultHeading title={copy.title} heading={resultHeading} />
+      )}
       {refused && (
         <p role="alert" data-groups-refused={refused}>
           {copy.refused}: {copy.refusals[refused] ?? refused} ({refused})
