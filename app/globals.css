@@ -1377,6 +1377,19 @@ body {
   color: #5f4392;
   border-color: #e0d7f2;
 }
+/* The startup readiness line is announced, not drawn: each source card shows
+   readiness on its own state line, which keeps its place (UX-3). */
+.notice.loading.startup-readiness {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 .notice.success {
   background: #eef5ff;
   color: #275486;

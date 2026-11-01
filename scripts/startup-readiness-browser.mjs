@@ -7,6 +7,7 @@ import { createHash } from 'node:crypto';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import { gatewayCopy } from '../lib/i18n/payment-gateway.ts';
+import { reconciliationDirectoryCopy } from '../lib/i18n/reconciliation-directory.ts';
 import { holdOriginalWorkerReplies } from './supplier-main-pending-browser.mjs';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
 const repo = path.resolve(import.meta.dirname, '..');
@@ -75,7 +76,45 @@ const browser = await chromium.launch({
   executablePath: process.env.MIZAN_CHROMIUM,
 });
 const cases = [];
+const layouts = [];
 let active;
+// Where the upload surface starts and how tall the type selector's card is,
+// whether the startup line is drawn, what the closed example button points
+// to, and whether the selector shows its reason in place of its description.
+const startupLayout = (page) =>
+  page.evaluate(() => {
+    const shown = (el) => {
+      const box = el?.getBoundingClientRect();
+      return !!box && box.width > 1 && box.height > 1;
+    };
+    const upload = document.querySelector('section.upload-surface');
+    const directory = document.querySelector('.reconciliation-directory');
+    const line = document.querySelector('.notice.loading');
+    const example = document.querySelector('.demo-strip button');
+    const reason = (example?.getAttribute('aria-describedby') ?? '')
+      .split(/\s+/u)
+      .map((id) => id && document.getElementById(id))
+      .find((el) => el && shown(el) && el.textContent.trim());
+    return {
+      uploadTop: Math.round(upload.getBoundingClientRect().top + scrollY),
+      directoryHeight: Math.round(directory.getBoundingClientRect().height),
+      announced: !!line && !shown(line) && !!line.textContent.trim(),
+      exampleReason: example?.disabled
+        ? (reason?.textContent.trim() ?? '')
+        : null,
+      // The sentence the type selector is described by, if it is shown.
+      directoryReason: (() => {
+        const select = document.querySelector(
+          'select[data-reconciliation-type-select]',
+        );
+        const said = (select?.getAttribute('aria-describedby') ?? '')
+          .split(/\s+/u)
+          .map((id) => id && document.getElementById(id))
+          .find((el) => el && shown(el));
+        return said?.textContent.trim() ?? '';
+      })(),
+    };
+  });
 try {
   for (const lang of contract.languages) {
     const context = await browser.newContext({
@@ -147,6 +186,30 @@ try {
       path: path.join(out, lang + '-ready-held.png'),
       fullPage: true,
     });
+    // UX-3: nothing moves when the tool becomes ready. While the reply is
+    // held, readiness is shown on each source card's own state line and in
+    // place of the selector's description; the startup line is announced,
+    // not drawn; and the closed example button points to a shown sentence.
+    const held = {};
+    for (const width of [1440, 390]) {
+      await page.setViewportSize({ width, height: 1000 });
+      held[width] = await startupLayout(page);
+      assert.equal(
+        held[width].announced,
+        true,
+        `${lang}/${width}: the startup line is announced, not drawn`,
+      );
+      assert.ok(
+        held[width].exampleReason,
+        `${lang}/${width}: the closed example button points to a shown sentence`,
+      );
+      assert.equal(
+        held[width].directoryReason,
+        reconciliationDirectoryCopy[lang].waiting,
+        `${lang}/${width}: the closed selector is described by its shown reason`,
+      );
+    }
+    await page.setViewportSize({ width: 1440, height: 1000 });
     await page.evaluate(() =>
       globalThis.heldOriginalWorkerReplies
         .splice(0)
@@ -164,6 +227,18 @@ try {
       12,
       'all twelve choices remain available after the real ready reply',
     );
+    for (const width of [1440, 390]) {
+      await page.setViewportSize({ width, height: 1000 });
+      const ready = await startupLayout(page);
+      for (const key of ['uploadTop', 'directoryHeight'])
+        assert.equal(
+          ready[key],
+          held[width][key],
+          `${lang}/${width}: ${key} stays when the tool is ready (held ${held[width][key]}, ready ${ready[key]})`,
+        );
+      layouts.push({ lang, width, held: held[width], ready });
+    }
+    await page.setViewportSize({ width: 1440, height: 1000 });
     const copy = gatewayCopy[lang];
     await openDomainWorkspace(page, 'gateway');
     const workspace = page.locator('[data-gateway-workspace]');
@@ -222,6 +297,7 @@ try {
     path.join(out, 'report.json'),
     JSON.stringify({ binding, cases }, null, 2),
   );
+  console.log('startup layout:', JSON.stringify(layouts));
   console.log(JSON.stringify({ binding, cases }));
 } catch (error) {
   await writeFile(path.join(out, 'failure.txt'), String(error.stack));

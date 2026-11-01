@@ -2028,12 +2028,16 @@ export default function App() {
                   {t.app.shell.restartEngine}
                 </Button>
               )}
-              {!engineReady && !error && (
-                <output style={{ display: 'block' }} className="notice loading">
-                  <LoaderCircle className="spin" size={17} />
-                  {t.app.shell.engineLoading}
-                </output>
-              )}
+              {!engineReady &&
+                !error && (
+                  // Readiness is shown on each source card's own state line,
+                  // which keeps its place; this line is announced, not drawn,
+                  // so nothing below moves when the tool is ready (UX-3).
+                  <output className="notice loading startup-readiness">
+                    <LoaderCircle className="spin" size={17} />
+                    {t.app.shell.engineLoading}
+                  </output>
+                )}
               {error && (
                 <div className="notice error" role="alert">
                   <div>
@@ -2165,6 +2169,9 @@ export default function App() {
                       variant="outline"
                       onClick={loadDemo}
                       disabled={!!busy || !engineReady}
+                      aria-describedby={
+                        busy || !engineReady ? 'source-state-0' : undefined
+                      }
                     >
                       {t.app.upload.demoButton}
                     </Button>

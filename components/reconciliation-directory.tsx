@@ -152,6 +152,7 @@ export function ReconciliationDirectory({
               id={`${uid}-select`}
               data-reconciliation-type-select
               aria-label={copy.title}
+              aria-describedby={`${uid}-description`}
               value={activeDomain}
               disabled={disabled}
               onChange={(event) => {
@@ -190,7 +191,12 @@ export function ReconciliationDirectory({
         </span>
       </div>
       <div className="directory-selected-info">
-        <p id={`${uid}-description`}>{copy[activeDomain][0]}</p>
+        {/* While the selector is closed its reason takes the description's
+            place, so the card keeps its height when it closes and opens
+            (UX-3). */}
+        <p id={`${uid}-description`}>
+          {disabled ? copy.waiting : copy[activeDomain][0]}
+        </p>
         <details className="directory-selected-scope" key={activeDomain}>
           <summary>
             {copy.limits}
