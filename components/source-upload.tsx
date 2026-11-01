@@ -263,10 +263,16 @@ export function SourceUpload({
       <p className="source-card__description">
         {filename ? <bdi>{filename}</bdi> : t.upload.description[side]}
       </p>
+      {/* While the reader is prepared, the line keeps the room of the
+          sentence that takes its place (data-reserve, drawn hidden), so the
+          card does not grow when the reader is ready (UX-3). */}
       <span
         className="source-card__state"
         id={stateId}
         role={blocked ? 'alert' : undefined}
+        data-reserve={
+          !blocked && !busy && !ready ? t.upload.dragOrChoose : undefined
+        }
       >
         {blocked ? (
           blocked === 'busy' ? (
@@ -277,7 +283,7 @@ export function SourceUpload({
         ) : busy ? (
           t.upload.processing
         ) : !ready ? (
-          t.upload.preparing
+          <span className="reserve-now">{t.upload.preparing}</span>
         ) : filename ? (
           <>
             <Check size={15} aria-hidden="true" /> {t.upload.readDone}

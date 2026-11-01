@@ -1725,6 +1725,9 @@ export default function App() {
             disabled={
               !!busy || !!workspaceActivity[domain]?.busy || !engineReady
             }
+            waitingFor={
+              busy || workspaceActivity[domain]?.busy ? 'work' : 'tools'
+            }
             entries={[
               {
                 id: 'supplier',

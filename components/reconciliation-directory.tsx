@@ -116,17 +116,21 @@ const icons = {
 export function ReconciliationDirectory({
   entries,
   disabled,
+  waitingFor = 'tools',
   onSelect,
   activeDomain = 'supplier',
 }: {
   entries: { id: ReconciliationDomain; title: string }[];
   disabled: boolean;
+  /** Why it is closed: the tools are being prepared, or work is running. */
+  waitingFor?: 'tools' | 'work';
   onSelect: (domain: ReconciliationDomain) => void;
   activeDomain?: ReconciliationDomain;
   compact?: boolean;
 }) {
   const { lang, dir } = useI18n();
   const copy = reconciliationDirectoryCopy[lang];
+  const waiting = waitingFor === 'work' ? copy.waitingWork : copy.waitingTools;
   const uid = useId();
   const current = entries.find((entry) => entry.id === activeDomain);
   const Icon = icons[activeDomain];
@@ -192,10 +196,15 @@ export function ReconciliationDirectory({
       </div>
       <div className="directory-selected-info">
         {/* While the selector is closed its reason takes the description's
-            place, so the card keeps its height when it closes and opens
-            (UX-3). */}
-        <p id={`${uid}-description`}>
-          {disabled ? copy.waiting : copy[activeDomain][0]}
+            place, and each keeps the room of the other (data-reserve), so
+            the card keeps its height when the tools are ready (UX-3). */}
+        <p
+          id={`${uid}-description`}
+          data-reserve={disabled ? copy[activeDomain][0] : copy.waitingTools}
+        >
+          <span className="reserve-now">
+            {disabled ? waiting : copy[activeDomain][0]}
+          </span>
         </p>
         <details className="directory-selected-scope" key={activeDomain}>
           <summary>
@@ -209,9 +218,7 @@ export function ReconciliationDirectory({
           </div>
         </details>
       </div>
-      {disabled && (
-        <output className="directory-waiting">{copy.waiting}</output>
-      )}
+      {disabled && <output className="directory-waiting">{waiting}</output>}
     </section>
   );
 }

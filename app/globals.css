@@ -2143,6 +2143,26 @@ td {
 .source-card__state svg {
   flex-shrink: 0;
 }
+/* A line whose sentence changes keeps the room of the longer one (UX-3):
+   the other sentence (data-reserve) shares its one cell, laid out but not
+   drawn, read or selected, so nothing below moves when the sentence does.
+   The line is as wide and as tall as the longer of the two. */
+[data-reserve] {
+  display: grid;
+  align-items: center;
+}
+[data-reserve] > .reserve-now,
+[data-reserve]::after {
+  grid-area: 1 / 1;
+}
+[data-reserve]::after {
+  content: attr(data-reserve);
+  visibility: hidden;
+}
+.source-card__state[data-reserve] {
+  justify-items: center;
+  text-align: center;
+}
 .source-card .source-card__choose {
   min-height: 46px;
   font-size: 13px;

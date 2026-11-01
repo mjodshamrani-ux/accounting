@@ -35,7 +35,10 @@ export const reconciliationDirectoryCopy = {
     },
     boundary:
       'المسارات متاحة ضمن عقود مصادر محددة. النتيجة لا تثبت أصالة المصدر أو اكتمال السجلات، والمساعد لا يمنح اعتمادًا ماليًا.',
-    waiting: 'انتظر جاهزية أدوات العمل أو انتهاء العملية الحالية قبل فتح مسار.',
+    // Why the selector is closed, by its cause (UX-3): each fits the line
+    // of a path's description, so the card keeps its height when it opens.
+    waitingTools: 'نجهّز أدوات العمل قبل فتح المسار.',
+    waitingWork: 'انتظر انتهاء العملية الحالية قبل فتح مسار.',
     supplier: [
       'حركات المورد ومجموعات مثبتة مع أصل كل نتيجة.',
       'تساوي المبلغ وحده لا يثبت هوية المستند؛ التخصيص الجزئي مسار مستقل.',
@@ -113,8 +116,9 @@ export const reconciliationDirectoryCopy = {
     },
     boundary:
       'Workflows support specific source contracts. Results do not prove source authenticity or record completeness, and the assistant grants no financial approval.',
-    waiting:
-      'Wait for the tools to be ready or the current operation to finish before opening a workflow.',
+    waitingTools: 'Preparing the work tools before a workflow opens.',
+    waitingWork:
+      'Wait for the current operation to finish before opening a workflow.',
     supplier: [
       'Supplier movements and proven groups with original source evidence.',
       'Equal amounts alone do not prove document identity; partial allocation is separate.',

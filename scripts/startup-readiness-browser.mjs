@@ -8,6 +8,9 @@ import { createRequire } from 'node:module';
 import path from 'node:path';
 import { gatewayCopy } from '../lib/i18n/payment-gateway.ts';
 import { reconciliationDirectoryCopy } from '../lib/i18n/reconciliation-directory.ts';
+import { ar } from '../lib/i18n/locales/ar.ts';
+import { en } from '../lib/i18n/locales/en.ts';
+import { expect } from 'playwright/test';
 import { holdOriginalWorkerReplies } from './supplier-main-pending-browser.mjs';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
 const repo = path.resolve(import.meta.dirname, '..');
@@ -97,6 +100,8 @@ const startupLayout = (page) =>
       .find((el) => el && shown(el) && el.textContent.trim());
     return {
       uploadTop: Math.round(upload.getBoundingClientRect().top + scrollY),
+      // The upload surface grows if a card's state line takes more lines.
+      uploadHeight: Math.round(upload.getBoundingClientRect().height),
       directoryHeight: Math.round(directory.getBoundingClientRect().height),
       announced: !!line && !shown(line) && !!line.textContent.trim(),
       exampleReason: example?.disabled
@@ -186,12 +191,13 @@ try {
       path: path.join(out, lang + '-ready-held.png'),
       fullPage: true,
     });
-    // UX-3: nothing moves when the tool becomes ready. While the reply is
+    // UX-3: nothing moves when the tool becomes ready, at 1440, 390, 360
+    // and 320 px. While the reply is
     // held, readiness is shown on each source card's own state line and in
     // place of the selector's description; the startup line is announced,
     // not drawn; and the closed example button points to a shown sentence.
     const held = {};
-    for (const width of [1440, 390]) {
+    for (const width of [1440, 390, 360, 320]) {
       await page.setViewportSize({ width, height: 1000 });
       held[width] = await startupLayout(page);
       assert.equal(
@@ -205,9 +211,17 @@ try {
       );
       assert.equal(
         held[width].directoryReason,
-        reconciliationDirectoryCopy[lang].waiting,
+        reconciliationDirectoryCopy[lang].waitingTools,
         `${lang}/${width}: the closed selector is described by its shown reason`,
       );
+      // As a screen reader reads them: each line keeps the room of the
+      // sentence that takes its place, which is laid out but never read.
+      await expect(selector).toHaveAccessibleDescription(
+        reconciliationDirectoryCopy[lang].waitingTools,
+      );
+      await expect(
+        page.locator('.demo-strip button').first(),
+      ).toHaveAccessibleDescription((lang === 'ar' ? ar : en).upload.preparing);
     }
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.evaluate(() =>
@@ -227,10 +241,13 @@ try {
       12,
       'all twelve choices remain available after the real ready reply',
     );
-    for (const width of [1440, 390]) {
+    for (const width of [1440, 390, 360, 320]) {
       await page.setViewportSize({ width, height: 1000 });
       const ready = await startupLayout(page);
-      for (const key of ['uploadTop', 'directoryHeight'])
+      await expect(selector).toHaveAccessibleDescription(
+        reconciliationDirectoryCopy[lang].supplier[0],
+      );
+      for (const key of ['uploadTop', 'uploadHeight', 'directoryHeight'])
         assert.equal(
           ready[key],
           held[width][key],
@@ -242,9 +259,26 @@ try {
     const copy = gatewayCopy[lang];
     await openDomainWorkspace(page, 'gateway');
     const workspace = page.locator('[data-gateway-workspace]');
+    // UX-3: while work runs, the closed selector names that cause. The
+    // example's reconcile reply is held, then delivered untouched.
+    await page.evaluate(() => {
+      globalThis.holdOriginalWorkerAction = 'gateway-reconcile';
+    });
     await workspace
       .getByRole('button', { name: copy.demo, exact: true })
       .click();
+    await page.waitForFunction(
+      () => globalThis.heldOriginalWorkerReplies.length === 1,
+    );
+    await expect(selector).toBeDisabled();
+    await expect(selector).toHaveAccessibleDescription(
+      reconciliationDirectoryCopy[lang].waitingWork,
+    );
+    await page.evaluate(() =>
+      globalThis.heldOriginalWorkerReplies
+        .splice(0)
+        .forEach((release) => release()),
+    );
     await workspace.locator('[data-gateway-status]').waitFor();
     assert.equal(
       await workspace.locator('[data-gateway-status]').innerText(),
