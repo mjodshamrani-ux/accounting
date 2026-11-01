@@ -1625,10 +1625,14 @@ try {
     // evaluator accepts cell references joined by +/- only, so neither this
     // cached opening nor its dependent closing proves a balance bridge. Both
     // phases still have an explicit period and two readable transactions.
-    const directionMetric = directionPage.locator('.metric').nth(3);
-    assert.match(
-      await directionMetric.innerText(),
-      formulas ? /صفوف لم تُقرأ/ : /فرق الأرصدة/,
+    // The bridge is the alignment strip's gap (UX-4), no longer repeated in
+    // the figure grid: a verified bridge with no difference is compared and
+    // zero there; an unverified one is not computed, and the grid then says
+    // how many rows were not read.
+    const directionGap = directionPage.locator('[data-strip-cell="gap"]');
+    assert.equal(
+      await directionGap.getAttribute('data-kind'),
+      formulas ? 'not-computed' : 'figures',
       formulas
         ? 'unsupported balance formulas must not turn cached values into a verified bridge'
         : 'fixed source balances support the arithmetic bridge',
@@ -1641,10 +1645,21 @@ try {
         .innerText(),
       '2',
     );
-    assert.equal(
-      await directionMetric.locator('strong').innerText(),
-      formulas ? '0' : '0.00',
-    );
+    if (formulas) {
+      const directionMetric = directionPage.locator('.metric').nth(3);
+      assert.match(await directionMetric.innerText(), /صفوف لم تُقرأ/);
+      assert.equal(await directionMetric.locator('strong').innerText(), '0');
+    } else {
+      assert.deepEqual(
+        [
+          await directionGap.getAttribute('data-compared'),
+          await directionGap.getAttribute('data-differences'),
+        ],
+        ['1', '0'],
+        'the bridge is compared and its difference is zero',
+      );
+      assert.equal(await directionPage.locator('.metric').count(), 3);
+    }
     await directionPage
       .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
       .click();

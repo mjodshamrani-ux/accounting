@@ -2,6 +2,24 @@ import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import { stripCount, stripTotals } from './alignment-strip-read.mjs';
+
+// The AR result's figures, read where each is said: the rows read and the
+// reading errors in the figure grid; the matched documents and each record's
+// total in the alignment strip, which the grid no longer repeats (UX-4).
+async function arFigures(page) {
+  const w = page.locator('[data-ar-workspace]');
+  const [valid, errors] = await w
+    .getByTestId('ar-metrics')
+    .locator('strong')
+    .allTextContents();
+  return [
+    valid,
+    await stripCount(w, 'agreed'),
+    errors,
+    ...(await stripTotals(w)),
+  ];
+}
 export async function verifyAr(page, url, out = 'work/qa') {
   await mkdir(out, { recursive: true });
   await page.goto(url);
@@ -15,10 +33,7 @@ export async function verifyAr(page, url, out = 'work/qa') {
     .getByRole('button', { name: 'Open synthetic AR example', exact: true })
     .click();
   await page.getByTestId('ar-metrics').waitFor();
-  assert.deepEqual(
-    await page.getByTestId('ar-metrics').locator('strong').allTextContents(),
-    ['6', '3', '0', '35.00', '35.00'],
-  );
+  assert.deepEqual(await arFigures(page), ['6', '3', '0', '35.00', '35.00']);
   const sides = ['Company AR ledger', 'Company-issued customer statement'];
   const columns = {
     'Unique posting ID': '0',
@@ -79,14 +94,8 @@ export async function verifyAr(page, url, out = 'work/qa') {
       exact: true,
     })
     .waitFor();
-  const metrics = () => page.getByTestId('ar-metrics').locator('strong');
-  assert.deepEqual(await metrics().allTextContents(), [
-    '6',
-    '3',
-    '0',
-    '35.00',
-    '35.00',
-  ]);
+  const metrics = () => arFigures(page);
+  assert.deepEqual(await metrics(), ['6', '3', '0', '35.00', '35.00']);
   async function exportBook(name) {
     const request = page.waitForEvent('download');
     await page
@@ -116,13 +125,7 @@ export async function verifyAr(page, url, out = 'work/qa') {
       exact: false,
     })
     .waitFor();
-  assert.deepEqual(await metrics().allTextContents(), [
-    '6',
-    '2',
-    '0',
-    '35.00',
-    '35.00',
-  ]);
+  assert.deepEqual(await metrics(), ['6', '2', '0', '35.00', '35.00']);
   await exportBook('ar-reopened.xlsx');
   const sessionRequest = page.waitForEvent('download');
   await page
@@ -147,13 +150,7 @@ export async function verifyAr(page, url, out = 'work/qa') {
     .locator('select[data-reconciliation-type-select]')
     .selectOption('supplier');
   await openDomainWorkspace(page, 'ar');
-  assert.deepEqual(await metrics().allTextContents(), [
-    '6',
-    '2',
-    '0',
-    '35.00',
-    '35.00',
-  ]);
+  assert.deepEqual(await metrics(), ['6', '2', '0', '35.00', '35.00']);
   await page.getByRole('button', { name: 'AR العربية', exact: true }).click();
   await page
     .getByRole('heading', {
@@ -187,13 +184,7 @@ export async function verifyAr(page, url, out = 'work/qa') {
       exact: true,
     })
     .waitFor();
-  assert.deepEqual(await metrics().allTextContents(), [
-    '6',
-    '2',
-    '0',
-    '35.00',
-    '35.00',
-  ]);
+  assert.deepEqual(await metrics(), ['6', '2', '0', '35.00', '35.00']);
   await exportBook('ar-restored.xlsx');
   await page
     .getByLabel('Document review reason', { exact: true })
@@ -204,13 +195,7 @@ export async function verifyAr(page, url, out = 'work/qa') {
   await page
     .getByText('Human confirmation · Exact correspondence', { exact: false })
     .waitFor();
-  assert.deepEqual(await metrics().allTextContents(), [
-    '6',
-    '3',
-    '0',
-    '35.00',
-    '35.00',
-  ]);
+  assert.deepEqual(await metrics(), ['6', '3', '0', '35.00', '35.00']);
   await exportBook('ar-reconfirmed.xlsx');
   await page.getByLabel('Customer ID', { exact: true }).fill('OTHER');
   assert.equal(await page.getByTestId('ar-metrics').count(), 0);
@@ -234,13 +219,7 @@ export async function verifyAr(page, url, out = 'work/qa') {
     .getByRole('button', { name: 'Compare AR documents', exact: true })
     .click();
   await page.getByTestId('ar-metrics').waitFor();
-  assert.deepEqual(await metrics().allTextContents(), [
-    '6',
-    '3',
-    '0',
-    '35.00',
-    '35.00',
-  ]);
+  assert.deepEqual(await metrics(), ['6', '3', '0', '35.00', '35.00']);
   // Native file replacement invalidates results and the corresponding reading approval.
   await page.getByLabel(sides[0], { exact: true }).setInputFiles({
     name: 'replacement.csv',
@@ -282,13 +261,7 @@ export async function verifyAr(page, url, out = 'work/qa') {
     .getByRole('button', { name: 'Compare AR documents', exact: true })
     .click();
   await page.getByTestId('ar-metrics').waitFor();
-  assert.deepEqual(await metrics().allTextContents(), [
-    '2',
-    '0',
-    '0',
-    '90.00',
-    '91.00',
-  ]);
+  assert.deepEqual(await metrics(), ['2', '0', '0', '90.00', '91.00']);
   assert.equal(
     await page
       .getByRole('button', { name: 'Record human confirmation', exact: true })

@@ -1,4 +1,4 @@
-// The result map (UX-4), in two parts.
+// The result map (UX-4), in three parts.
 //
 // First, the index: in the twelve workspaces, Arabic and English, at 1440,
 // 390 and 320 px, under the alignment strip one index lists the parts of the
@@ -27,6 +27,15 @@
 // is seen, at 1440 and 390 px, and the page does not scroll sideways. Then it
 // takes one decision as a reader would, and the decision log leaves the line
 // for a section of its own, by the reply to that decision.
+//
+// Last, the figure grids: in the supplier, receivables and clearing
+// results, in Arabic and English at 1440, 800 and 390 px, the older grid under
+// the strip says only what the strip does not. Its tiles, in order, by words
+// written here, each value by the engine reply and rules written here; no
+// tile for a figure the strip says (the balance difference, the matched
+// documents, each record's total, the account's net), and the strip still
+// says each of those as the engine wrote it. Each row of tiles fills the
+// grid from edge to edge, so no column stands empty where a tile was.
 //
 // Synthetic examples only; this checks the screen against the engine, not
 // the engine against the books.
@@ -817,13 +826,300 @@ for (const [domain, spec] of Object.entries(SECTIONS)) {
     }
   }
 }
+
+// The figure grids of the supplier, receivables and clearing results, which
+// the alignment strip now heads (UX-4): each grid says only what the strip
+// does not, so a figure the strip says is not repeated under it, and the
+// strip still says it. The tiles, in order, by words written here; each
+// value by the engine reply and rules written here, not by the page.
+const count = (items, test) => items.filter(test).length;
+const GRIDS = {
+  supplier: {
+    action: 'reconcile',
+    grid: (panel) => panel.locator('.metric-grid > .metric'),
+    folded: { ar: ['فرق الأرصدة'], en: ['Balance difference'] },
+    tiles: (r, language) => {
+      const name = {
+        ar: [
+          'مطابقات آلية',
+          'تأكيدات يدوية',
+          'حالات غير مطابقة',
+          'صفوف لم تُقرأ',
+        ],
+        en: [
+          'Automatic matches',
+          'Manual confirmations',
+          'Unmatched cases',
+          'Rows not read',
+        ],
+      }[language];
+      const tiles = [
+        [name[0], String(count(r.matches, (m) => m.kind === 'auto'))],
+        [name[1], String(count(r.matches, (m) => m.kind === 'manual'))],
+        [name[2], String(r.caseCounts.unmatchedCases)],
+      ];
+      // Where balances were neither asked for nor compared, the grid says
+      // how many rows were not read; its number is the reading's, not the
+      // comparison's, so only the word is required here.
+      if (!(r.scope.coverageConfirmed || r.bridge)) tiles.push([name[3], null]);
+      return tiles;
+    },
+    // The unmatched cases carry the rows the engine left unmatched.
+    hint: (r) => [2, String(r.caseCounts.unmatchedSourceRows)],
+    strip: (r) =>
+      r.bridge ? { gap: r.bridge.delta } : { gap: 'not-computed' },
+  },
+  ar: {
+    action: 'ar-reconcile',
+    grid: (panel) => panel.getByTestId('ar-metrics').locator('> div'),
+    folded: {
+      ar: [
+        'أزواج المستندات المتطابقة',
+        'إجمالي السجل المقروء',
+        'إجمالي الكشف المقروء',
+      ],
+      en: [
+        'Matched document pairs',
+        'Ledger readable total',
+        'Statement readable total',
+      ],
+    },
+    tiles: (r, language) => {
+      const name = {
+        ar: ['الحركات الصالحة', 'أخطاء القراءة'],
+        en: ['Valid movements', 'Reading errors'],
+      }[language];
+      return [
+        [name[0], String(r.rows.length)],
+        [name[1], String(count(r.inventory, (i) => i.kind === 'error'))],
+      ];
+    },
+    strip: (r) => ({
+      agreed: count(r.cases, (c) => c.status === 'matched'),
+      totals: r.totals,
+    }),
+  },
+  clearing: {
+    action: 'clearing-reconcile',
+    grid: (panel) => panel.getByTestId('clearing-metrics').locator('> div'),
+    folded: {
+      ar: ['صافي الحركات المقروءة'],
+      en: ['Net of readable movements'],
+    },
+    tiles: (r, language) => {
+      const name = {
+        ar: ['حركات صالحة', 'حركات مسوّاة', 'أخطاء قراءة'],
+        en: ['Valid movements', 'Cleared movements', 'Reading errors'],
+      }[language];
+      return [
+        [name[0], String(r.rows.length)],
+        [
+          name[1],
+          String(
+            r.cases
+              .filter((c) => c.status === 'cleared')
+              .reduce((n, c) => n + c.ids.length, 0),
+          ),
+        ],
+        [name[2], String(count(r.inventory, (i) => i.kind === 'error'))],
+      ];
+    },
+    strip: (r) => ({ gap: r.total }),
+  },
+};
+const readGrid = (grid) =>
+  grid.evaluateAll((tiles) =>
+    tiles.map((tile) => {
+      const box = tile.getBoundingClientRect();
+      return {
+        label: tile.querySelector('span')?.textContent.trim() ?? '',
+        value: tile.querySelector('strong')?.textContent.trim() ?? '',
+        hint: tile.querySelector('small')?.textContent.trim() ?? '',
+        top: Math.round(box.top),
+        left: box.left,
+        right: box.right,
+      };
+    }),
+  );
+// The grid's content box, inside its padding.
+const gridBox = (grid) =>
+  grid.first().evaluate((tile) => {
+    const box = tile.parentElement.getBoundingClientRect();
+    const style = getComputedStyle(tile.parentElement);
+    return {
+      left: box.left + parseFloat(style.paddingLeft),
+      right: box.right - parseFloat(style.paddingRight),
+    };
+  });
+const readStripSays = (panel) =>
+  panel.locator('[data-alignment-strip]').evaluate((strip) => {
+    const gap = strip.querySelector('[data-strip-cell="gap"]');
+    return {
+      agreed: Number(
+        strip.querySelector('[data-strip-cell="agreed"]').dataset.count,
+      ),
+      gapKind: gap.dataset.kind,
+      gapDifferences: gap.dataset.differences ?? null,
+      gapMinor:
+        gap
+          .querySelector('[data-amount-minor]')
+          ?.getAttribute('data-amount-minor') ?? null,
+      totals: [...strip.querySelectorAll('[data-strip-total]')].map((end) =>
+        end.hasAttribute('data-missing')
+          ? null
+          : end
+              .querySelector('[data-amount-minor]')
+              ?.getAttribute('data-amount-minor'),
+      ),
+      overflow: document.documentElement.scrollWidth - innerWidth,
+    };
+  });
+let gridStates = 0,
+  gridTiles = 0;
+for (const [domain, spec] of Object.entries(GRIDS)) {
+  if (only && !only.includes(domain)) continue;
+  for (const language of ['ar', 'en']) {
+    const stage = `grid/${domain}/${language}`;
+    watch.at(stage);
+    const context = await browser.newContext({
+      viewport: { width: 1440, height: 900 },
+      reducedMotion: 'reduce',
+    });
+    await context.addInitScript(keepReplies);
+    await context.route('**/*', (route) => {
+      const url = route.request().url();
+      return url.startsWith(base + '/') ||
+        url.startsWith('blob:') ||
+        url.startsWith('data:')
+        ? route.continue()
+        : route.abort();
+    });
+    const page = await context.newPage();
+    activePage = page;
+    page.on('pageerror', (e) => errors.push(`${stage}: ${e.message}`));
+    try {
+      await page.goto(base + '/');
+      await page
+        .getByRole('button', { name: words[language].language, exact: true })
+        .click();
+      const panel = await openDomainWorkspace(page, domain, {
+        advanced: true,
+        requiredSources: false,
+      });
+      await panel
+        .getByRole('button', { name: words[language].example })
+        .first()
+        .click();
+      if (RUN[domain]) await RUN[domain](panel, language);
+      await page.waitForFunction(
+        (action) =>
+          globalThis.alignmentReplies.some((r) => r.action === action),
+        spec.action,
+        { timeout: 60000 },
+      );
+      await panel.locator('[data-alignment-strip]').waitFor();
+      const reply = await page.evaluate(
+        (action) =>
+          globalThis.alignmentReplies.filter((r) => r.action === action).at(-1)
+            .value,
+        spec.action,
+      );
+      const { result } = split(reply);
+      assert.ok(result, `${stage}: the engine reply holds a result`);
+      for (const width of [1440, 800, 390]) {
+        await page.setViewportSize({ width, height: 900 });
+        const at = `${stage}/${width}`;
+        const grid = spec.grid(panel);
+        // The grid is drawn from the same reply as the strip, a frame or
+        // two after it; then it is read once and required.
+        const want = spec.tiles(result, language);
+        const until = Date.now() + 10000;
+        while ((await grid.count()) !== want.length && Date.now() < until)
+          await page.waitForTimeout(100);
+        const seen = await readGrid(grid);
+        for (const word of spec.folded[language])
+          assert.ok(
+            !seen.some((tile) => tile.label === word),
+            `${at}: the grid does not repeat "${word}", which the strip says`,
+          );
+        assert.deepEqual(
+          seen.map((tile) => tile.label),
+          want.map(([label]) => label),
+          `${at}: the grid's tiles, in order`,
+        );
+        for (const [i, [label, value]] of want.entries())
+          if (value !== null)
+            assert.equal(
+              seen[i].value,
+              value,
+              `${at}: ${label} is the engine's`,
+            );
+          else
+            assert.match(seen[i].value, /^\d+$/u, `${at}: ${label} is a count`);
+        if (spec.hint) {
+          const [i, rows] = spec.hint(result);
+          assert.equal(
+            seen[i].hint.match(/(\d+)$/u)?.[1],
+            rows,
+            `${at}: ${want[i][0]} carries the engine's rows`,
+          );
+        }
+        // What left the grid is still said, by the strip, as the engine
+        // wrote it.
+        const says = await readStripSays(panel);
+        const strip = spec.strip(result);
+        if ('agreed' in strip)
+          assert.equal(says.agreed, strip.agreed, `${at}: the strip's matched`);
+        if ('totals' in strip)
+          assert.deepEqual(
+            says.totals,
+            strip.totals.map((v) => (v === null ? null : String(v))),
+            `${at}: the strip's totals`,
+          );
+        if (strip.gap === 'not-computed')
+          assert.equal(says.gapKind, 'not-computed', `${at}: the strip's gap`);
+        else if ('gap' in strip) {
+          assert.equal(says.gapKind, 'figures', `${at}: the strip's gap`);
+          if (strip.gap === 0)
+            assert.equal(says.gapDifferences, '0', `${at}: no difference`);
+          else assert.equal(says.gapMinor, String(strip.gap), `${at}: the gap`);
+        }
+        // Each row of tiles fills the grid from edge to edge: no column is
+        // left empty where a folded tile stood, and an odd last tile takes
+        // its row.
+        const edge = await gridBox(grid);
+        for (const top of new Set(seen.map((tile) => tile.top))) {
+          const row = seen.filter((tile) => tile.top === top);
+          const from = Math.min(...row.map((tile) => tile.left));
+          const to = Math.max(...row.map((tile) => tile.right));
+          assert.ok(
+            Math.abs(from - edge.left) <= 2 && Math.abs(to - edge.right) <= 2,
+            `${at}: the row of ${row.map((tile) => tile.label).join(', ')} fills the grid`,
+          );
+        }
+        assert.ok(says.overflow <= 0, `${at}: no sideways scroll`);
+        gridStates++;
+        gridTiles += seen.length;
+      }
+    } finally {
+      await context.close();
+    }
+  }
+}
 watch.stop();
 await browser.close();
 server.close();
 assert.deepEqual(errors, [], 'no page error');
-assert.ok(states > 0, 'states were read');
+// Each part that ran read something; a filtered run asks only of its parts.
+const ran = (table) =>
+  Object.keys(table).some((d) => !only || only.includes(d));
+if (ran(SECTIONS)) assert.ok(states > 0, 'states were read');
+if (ran(GRIDS)) assert.ok(gridStates > 0, 'grid states were read');
 console.log(
   `Result index: ${indexStates} states in ${indexed.size} workspaces, ${jumps} parts opened from the keyboard.`,
+);
+console.log(
+  `Figure grids: ${gridStates} states, ${gridTiles} tiles, none repeating what the strip says.`,
 );
 console.log(
   `Result map: ${states} states; ${drawn} sections drawn with the engine's count and ${named} named on the line of empty sections, then after a decision.`,

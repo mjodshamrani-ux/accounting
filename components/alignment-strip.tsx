@@ -35,6 +35,7 @@ export function AlignmentStrip({
   reason = (code) => code,
   name = (key) => key,
   state,
+  missing,
   anchor,
 }: {
   /** Where the result index takes the reader, where the result has no
@@ -50,6 +51,10 @@ export function AlignmentStrip({
   name?: (key: string) => string;
   /** The workspace's words for the result's status, where the strip says it. */
   state?: string;
+  /** Where the engine gives each record's total but has none for one of
+   * them, the workspace's words for why (receivables: a source defect),
+   * said at that end instead of a dash. */
+  missing?: string;
 }) {
   const { lang } = useI18n();
   const c = alignmentStripCopy[lang];
@@ -129,7 +134,7 @@ export function AlignmentStrip({
         const minor = total(i);
         return minor === undefined
           ? side
-          : `${side}: ${minor === null ? '—' : money(minor)}`;
+          : `${side}: ${minor === null ? (missing ?? '—') : money(minor)}`;
       })
       .join(' · '),
     agreed: `${agreedValue} (${agreedNote})`,
@@ -149,7 +154,13 @@ export function AlignmentStrip({
         {isolated(sentence)}
       </p>
       <div className="alignment-strip__drawn" aria-hidden="true">
-        <Paper side={0} name={sides[0]} minor={total(0)} decimals={decimals} />
+        <Paper
+          side={0}
+          name={sides[0]}
+          minor={total(0)}
+          decimals={decimals}
+          missing={missing}
+        />
         <div className="alignment-strip__cells">
           <div
             className="alignment-strip__cell"
@@ -216,6 +227,7 @@ export function AlignmentStrip({
             name={sides[1]}
             minor={total(1)}
             decimals={decimals}
+            missing={missing}
           />
         )}
       </div>
@@ -225,24 +237,31 @@ export function AlignmentStrip({
 
 /** One end of the strip: a record as the workspace names it, drawn as the
  * corner of a sheet from the upload cards, with its own total under its name
- * where the engine gives one. */
+ * where the engine gives one, or why it has none where the workspace says. */
 function Paper({
   side,
   name,
   minor,
   decimals,
+  missing,
 }: {
   side: 0 | 1;
   name: string;
   minor: number | null | undefined;
   decimals: number;
+  missing?: string;
 }) {
+  const why = minor === null ? missing : undefined;
   return (
     <div className="alignment-strip__paper" data-strip-side={side}>
       <span className="alignment-strip__role">{name}</span>
       {minor !== undefined && (
-        <span className="alignment-strip__total" data-strip-total>
-          <Amount minor={minor} decimals={decimals} />
+        <span
+          className="alignment-strip__total"
+          data-strip-total
+          data-missing={why === undefined ? undefined : ''}
+        >
+          {why ?? <Amount minor={minor} decimals={decimals} />}
         </span>
       )}
     </div>

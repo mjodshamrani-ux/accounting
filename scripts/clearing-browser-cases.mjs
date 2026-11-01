@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import { stripGap } from './alignment-strip-read.mjs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
@@ -57,8 +58,16 @@ export async function verifyClearing(page, url, out = 'work/qa') {
   await page
     .getByRole('heading', { name: 'Clearing result', exact: true })
     .waitFor();
-  const metric = () => page.getByTestId('clearing-metrics').locator('strong');
-  assert.deepEqual(await metric().allTextContents(), ['9', '5', '0', '10.00']);
+  // The grid's figures, then the account's net, which the alignment strip
+  // says as its gap and the grid no longer repeats (UX-4).
+  const metric = async () => [
+    ...(await page
+      .getByTestId('clearing-metrics')
+      .locator('strong')
+      .allTextContents()),
+    await stripGap(page.locator('[aria-labelledby="clearing-result-title"]')),
+  ];
+  assert.deepEqual(await metric(), ['9', '5', '0', '10.00']);
   assert.equal(await page.getByTestId('clearing-case').count(), 5);
   await page.getByLabel('Members: P006', { exact: true }).check();
   await page.getByLabel('Members: P007', { exact: true }).check();
@@ -101,12 +110,12 @@ export async function verifyClearing(page, url, out = 'work/qa') {
     .locator('select[data-reconciliation-type-select]')
     .selectOption('supplier');
   await openDomainWorkspace(page, 'clearing');
-  assert.deepEqual(await metric().allTextContents(), ['9', '4', '0', '10.00']);
+  assert.deepEqual(await metric(), ['9', '4', '0', '10.00']);
   await page.getByRole('button', { name: 'AR العربية', exact: true }).click();
   await page
     .getByRole('heading', { name: 'نتيجة المقاصة', exact: true })
     .waitFor();
-  assert.deepEqual(await metric().allTextContents(), ['9', '4', '0', '10.00']);
+  assert.deepEqual(await metric(), ['9', '4', '0', '10.00']);
   await page.screenshot({ path: `${out}/clearing-ar.png`, fullPage: true });
   await page.setViewportSize({ width: 390, height: 844 });
   assert.ok(
@@ -129,7 +138,7 @@ export async function verifyClearing(page, url, out = 'work/qa') {
   await page
     .getByRole('heading', { name: 'Clearing result', exact: true })
     .waitFor();
-  assert.deepEqual(await metric().allTextContents(), ['9', '4', '0', '10.00']);
+  assert.deepEqual(await metric(), ['9', '4', '0', '10.00']);
   await save('Download clearing workpaper', `${out}/clearing-restored.xlsx`);
   await page.getByLabel('Ledger', { exact: true }).fill('Changed ledger');
   assert.equal(
@@ -148,7 +157,7 @@ export async function verifyClearing(page, url, out = 'work/qa') {
   await page
     .getByRole('heading', { name: 'Clearing result', exact: true })
     .waitFor();
-  assert.deepEqual(await metric().allTextContents(), ['9', '5', '0', '10.00']);
+  assert.deepEqual(await metric(), ['9', '5', '0', '10.00']);
   const bad =
     (await readFile('audit/clearing/frozen/source.csv', 'utf8')) +
     'P010,C001,2026-09-08,unread,2150,SAR,Unread competitor\n';

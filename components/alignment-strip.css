@@ -156,3 +156,7 @@
     font-size: 0.78rem;
   }
 }
+/* Why a record has no total, in words, where its total would stand. */
+.alignment-strip__total[data-missing] {
+  overflow-wrap: break-word;
+}

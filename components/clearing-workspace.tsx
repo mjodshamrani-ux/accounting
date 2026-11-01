@@ -561,6 +561,8 @@ export function ClearingWorkspace({
               className="clearing-grid"
               data-testid="clearing-metrics"
             >
+              {/* The account's net is the strip's gap, not repeated here
+                  (UX-4); cleared movements count postings, the strip groups. */}
               {[
                 [t.valid, result.rows.length],
                 [
@@ -573,7 +575,6 @@ export function ClearingWorkspace({
                   t.errors,
                   result.inventory.filter((r) => r.kind === 'error').length,
                 ],
-                [t.total, money(result.total, result.decimals)],
               ].map(([label, value]) => (
                 <div key={label}>
                   <span>{label}</span>

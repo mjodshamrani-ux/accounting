@@ -2658,21 +2658,10 @@ export default function App() {
                         result.caseCounts.unmatchedSourceRows,
                       )}
                     />
-                    {result.scope.coverageConfirmed || result.bridge ? (
-                      <Metric
-                        label={t.app.results.balanceDifference}
-                        value={
-                          result.bridge
-                            ? money(result.bridge.delta, scope.decimals)
-                            : '—'
-                        }
-                        hint={
-                          result.bridge
-                            ? scope.currency
-                            : t.app.results.balancesUnverified
-                        }
-                      />
-                    ) : (
+                    {/* The balance difference is the strip's gap, and where
+                        the engine compared no balances the strip says so
+                        (UX-4); it is not repeated here. */}
+                    {!(result.scope.coverageConfirmed || result.bridge) && (
                       // With balances not requested, the number that matters is how
                       // much of the source never made it into the comparison.
                       <Metric

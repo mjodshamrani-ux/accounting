@@ -747,14 +747,12 @@
 }
 .reconciliation-workspace [data-testid$='-metrics'] {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  /* One equal column per tile: the grid holds only what the alignment strip
+     does not say (UX-4), two tiles in receivables and three in clearing. */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
   align-items: stretch;
   gap: 14px;
   margin-block: 20px;
-}
-.reconciliation-workspace
-  [data-testid$='-metrics']:has(> div:nth-child(5):last-child) {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 .reconciliation-workspace [data-testid$='-metrics'] > div {
   position: relative;
@@ -797,14 +795,13 @@
   box-shadow: 0 3px 12px #0a1b2e02;
 }
 @media (max-width: 1000px) {
-  .reconciliation-workspace [data-testid$='-metrics'],
-  .reconciliation-workspace
-    [data-testid$='-metrics']:has(> div:nth-child(5):last-child) {
+  .reconciliation-workspace [data-testid$='-metrics'] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  /* An odd last tile takes the row, so no half row is left empty. */
   .reconciliation-workspace
-    [data-testid$='-metrics']:has(> div:nth-child(5):last-child)
-    > div:last-child {
+    [data-testid$='-metrics']
+    > div:last-child:nth-child(odd) {
     grid-column: 1 / -1;
   }
 }
@@ -917,9 +914,7 @@
   }
 }
 @media (max-width: 420px) {
-  .reconciliation-workspace [data-testid$='-metrics'],
-  .reconciliation-workspace
-    [data-testid$='-metrics']:has(> div:nth-child(5):last-child) {
+  .reconciliation-workspace [data-testid$='-metrics'] {
     grid-template-columns: 1fr;
   }
   .reconciliation-workspace [data-testid$='-metrics'] > div {

@@ -688,6 +688,7 @@ export function ArWorkspace({
             sides={[t.sides[0], t.sides[1]]}
             decimals={result.decimals}
             reason={(code) => t.reason[code as keyof typeof t.reason] ?? code}
+            missing={t.unavailableTotal}
           />
           <ResultIndex map={resultParts} />
           <DomainEvidenceAssistant
@@ -775,27 +776,13 @@ export function ArWorkspace({
             </section>
           )}
           <div {...resultParts.anchor('figures')} className="clearing-grid" data-testid="ar-metrics">
+            {/* What the strip says (matched documents, each record's total)
+                is not repeated here (UX-4). */}
             {[
               [t.valid, result.rows.length],
               [
-                t.matched,
-                result.cases.filter((c) => c.status === 'matched').length,
-              ],
-              [
                 t.errors,
                 result.inventory.filter((i) => i.kind === 'error').length,
-              ],
-              [
-                t.ledgerTotal,
-                result.totals[0] === null
-                  ? t.unavailableTotal
-                  : money(result.totals[0], result.decimals),
-              ],
-              [
-                t.statementTotal,
-                result.totals[1] === null
-                  ? t.unavailableTotal
-                  : money(result.totals[1], result.decimals),
               ],
             ].map(([label, value]) => (
               <div key={String(label)}>
