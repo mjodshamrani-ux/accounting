@@ -105,7 +105,13 @@ export async function verifyAr(page, url, out = 'work/qa') {
     })
     .getByRole('button', { name: 'Reopen document pair', exact: true })
     .click();
+  // The reopened pair says so in its own case; the alignment strip above the
+  // cases (UX-4) names the same reason as the main one of what waits.
   await page
+    .getByTestId('ar-case')
+    .filter({
+      has: page.getByRole('heading', { name: 'Invoice: I001', exact: true }),
+    })
     .getByText('Approval cancelled; document pair remains for review', {
       exact: false,
     })

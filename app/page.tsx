@@ -179,6 +179,8 @@ import {
   selectImportMapping,
 } from '@/lib/reconciliation/import-selection';
 import { demoFiles, demoMappings, demoScope } from '@/lib/reconciliation/demo';
+import { AlignmentStrip } from '@/components/alignment-strip';
+import { supplierStrip } from '@/lib/alignment-strip';
 // These existing workspaces supply their own native main landmark. Keep the
 // shared content element stable; changing its tag on navigation would remount
 // the accounting work stored beneath it.
@@ -2615,6 +2617,11 @@ export default function App() {
                       {t.app.results.sessionWarning}
                     </span>
                   </div>
+                  <AlignmentStrip
+                    strip={supplierStrip(result)}
+                    sides={[t.app.sides[0], t.app.sides[1]]}
+                    decimals={scope.decimals}
+                  />
                   <div className="metric-grid">
                     <Metric
                       label={t.app.results.autoMatches}

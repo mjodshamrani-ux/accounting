@@ -31,6 +31,8 @@ import { InventoryMovementBridgePanel } from '@/components/inventory-movement-br
 import { useEffect, useId, useRef, useState, useMemo, type ReactNode } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount, Quantity } from '@/components/amount';
+import { AlignmentStrip } from '@/components/alignment-strip';
+import { stockStrip } from '@/lib/alignment-strip';
 import {
   RecordFields,
   RecordTable,
@@ -970,6 +972,12 @@ export function StockWorkspace({
                 stockSourceObservations(files),
               )}
             <h2 data-stock-status ref={resultHeading} tabIndex={-1} data-result-heading="result">{status(result.status)}</h2>
+            <AlignmentStrip
+              strip={stockStrip(result)}
+              sides={[copy.roles[0], copy.roles[3]]}
+              decimals={result.decimals}
+              state={status(result.status)}
+            />
             <p>
               {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>.{' '}
               {copy.quantityNote}

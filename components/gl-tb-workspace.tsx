@@ -15,6 +15,8 @@ import { useI18n } from '@/lib/i18n/context';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
 import { Amount } from '@/components/amount';
+import { AlignmentStrip } from '@/components/alignment-strip';
+import { glTbStrip } from '@/lib/alignment-strip';
 import {
   BALANCE_FIELDS,
   GL_TB_VERSION,
@@ -447,6 +449,15 @@ export function GlTbWorkspace({
           >
             {t.result}
           </h2>
+          <AlignmentStrip
+            strip={glTbStrip(result)}
+            sides={[t.sides[0], t.sides[1]]}
+            decimals={result.decimals}
+            name={(key) =>
+              t.components[key as keyof typeof t.components] ?? key
+            }
+            state={t.status[result.status]}
+          />
           <DomainEvidenceAssistant
             result={result}
             snapshot={() => ({ domain: 'gl-tb', input: input(), result })}

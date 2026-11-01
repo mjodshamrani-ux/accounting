@@ -3,6 +3,8 @@ import { FixedAssetsSectionsPanel } from '@/components/fixed-assets-sections-pan
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount } from '@/components/amount';
+import { AlignmentStrip } from '@/components/alignment-strip';
+import { assetStrip } from '@/lib/alignment-strip';
 import {
   RecordFields,
   RecordTable,
@@ -605,6 +607,15 @@ export function AssetWorkspace({
             >
               {status(result.status)}
             </h2>
+            <AlignmentStrip
+              strip={assetStrip(result)}
+              sides={[copy.roles[0], copy.roles[3]]}
+              decimals={result.decimals}
+              name={(key) =>
+                copy.components[key as keyof typeof copy.components] ?? key
+              }
+              state={status(result.status)}
+            />
             <p>
               {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>.{' '}
               {copy.componentsNote}

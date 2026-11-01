@@ -2,6 +2,8 @@ import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant'
 import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount, Figures } from '@/components/amount';
+import { AlignmentStrip } from '@/components/alignment-strip';
+import { financialStrip } from '@/lib/alignment-strip';
 import {
   RecordFields,
   RecordPager,
@@ -545,6 +547,12 @@ export function FinancialWorkspace({
             >
               {status(result.status)}
             </h2>
+            <AlignmentStrip
+              strip={financialStrip(result)}
+              sides={[t.financial.roles[0], t.financial.roles[3]]}
+              decimals={result.decimals}
+              state={status(result.status)}
+            />
             <DomainEvidenceAssistant
               result={result}
               snapshot={() => ({ domain: 'financial', input: state(), result })}

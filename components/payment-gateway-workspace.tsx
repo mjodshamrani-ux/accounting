@@ -3,6 +3,8 @@ import { PaymentGatewayBatchesPanel } from '@/components/payment-gateway-batches
 import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount } from '@/components/amount';
+import { AlignmentStrip } from '@/components/alignment-strip';
+import { gatewayStrip } from '@/lib/alignment-strip';
 import {
   RecordFields,
   RecordTable,
@@ -573,6 +575,12 @@ export function GatewayWorkspace({
             >
               {status(result.status)}
             </h2>
+            <AlignmentStrip
+              strip={gatewayStrip(result)}
+              sides={[copy.roles[0], copy.roles[3]]}
+              decimals={result.decimals}
+              state={status(result.status)}
+            />
             <DomainEvidenceAssistant
               result={result}
               snapshot={() => ({ domain: 'gateway', input: state(), result })}

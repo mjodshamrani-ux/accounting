@@ -354,6 +354,7 @@ const required = [
   'test:browser:result-focus',
   'test:browser:visual-identity:self-test',
   'test:browser:record-table',
+  'test:browser:alignment-strip',
   'test:browser:decision-platform',
   'test:browser:decision-platform:self-test',
   'test:browser:stage-watchdog:self-test',

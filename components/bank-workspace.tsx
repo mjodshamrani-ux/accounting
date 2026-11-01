@@ -1,4 +1,6 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
+import { AlignmentStrip } from '@/components/alignment-strip';
+import { bankStrip } from '@/lib/alignment-strip';
 import { BankAdjustmentWorkspace } from './bank-adjustment-workspace';
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { useResultFocus } from '@/components/result-focus';
@@ -646,6 +648,14 @@ export function BankWorkspace({
               >
                 {t.status[result.status]}
               </h2>
+              <AlignmentStrip
+                strip={bankStrip(result)}
+                sides={[t.sides[0], t.sides[1]]}
+                decimals={result.decimals}
+                reason={(code) =>
+                  (t.reasons as Record<string, string>)[code] ?? code
+                }
+              />
               <DomainEvidenceAssistant
                 result={result}
                 snapshot={() => ({ domain: 'bank', input: input(), result })}

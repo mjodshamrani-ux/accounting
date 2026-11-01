@@ -1,4 +1,6 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
+import { AlignmentStrip } from '@/components/alignment-strip';
+import { clearingStrip } from '@/lib/alignment-strip';
 import { ClearingGroupsPanel } from './clearing-groups-panel';
 import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
@@ -535,6 +537,12 @@ export function ClearingWorkspace({
             >
               {t.results}
             </h2>
+            <AlignmentStrip
+              strip={clearingStrip(result)}
+              sides={[t.upload]}
+              decimals={result.decimals}
+              reason={(code) => t.reason[code as keyof typeof t.reason] ?? code}
+            />
             <DomainEvidenceAssistant
               result={result}
               snapshot={() => ({ domain: 'clearing', input: input(), result })}

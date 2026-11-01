@@ -20,6 +20,8 @@ import { useI18n } from '@/lib/i18n/context';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
 import { parseMoney } from '@/lib/reconciliation/core';
 import { Amount } from '@/components/amount';
+import { AlignmentStrip } from '@/components/alignment-strip';
+import { allocationStrip } from '@/lib/alignment-strip';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
 import {
   ALLOCATION_SCOPE_FIELDS,
@@ -579,6 +581,12 @@ export function AllocationWorkspace({
           >
             {t.valueLedger}
           </h2>
+          <AlignmentStrip
+            strip={allocationStrip(result)}
+            sides={[t.sides[0], t.sides[1]]}
+            decimals={result.decimals}
+            state={result.status === 'ready' ? t.ready : t.sourceError}
+          />
           <DomainEvidenceAssistant
             result={result}
             snapshot={() => ({ domain: 'allocation', input: input(), result })}

@@ -3,6 +3,8 @@ import { IntercompanyBatchPanel } from '@/components/intercompany-batch-panel';
 import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount, Figures } from '@/components/amount';
+import { AlignmentStrip } from '@/components/alignment-strip';
+import { intercompanyStrip } from '@/lib/alignment-strip';
 import {
   RecordFields,
   RecordPager,
@@ -533,6 +535,13 @@ export function IntercompanyWorkspace({
             >
               {status(result.status)}
             </h2>
+            <AlignmentStrip
+              strip={intercompanyStrip(result)}
+              sides={[copy.roles[0], copy.roles[1]]}
+              decimals={result.decimals}
+              reason={status}
+              state={status(result.status)}
+            />
             <DomainEvidenceAssistant
               result={result}
               snapshot={() => ({

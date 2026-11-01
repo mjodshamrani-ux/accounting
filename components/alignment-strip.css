@@ -1,0 +1,158 @@
+/* The alignment strip (UX-4): one band, the records the engine compared at
+   its ends and three cells between them. At phone widths the two records
+   stay side by side and the cells stand under them as rows, so the records
+   still face each other. Colours from the identity: the first record's edge
+   blue, the second's purple; the review and difference tones only on a cell
+   that is not zero, with the contrast of the status badge. */
+.alignment-strip {
+  margin-block: 0.75rem 1.25rem;
+}
+.alignment-strip__sentence {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.alignment-strip__drawn {
+  display: grid;
+  grid-template-columns: fit-content(12rem) minmax(0, 1fr) fit-content(12rem);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #f6f8fc;
+  overflow: hidden;
+}
+.alignment-strip[data-sides='1'] .alignment-strip__drawn {
+  grid-template-columns: fit-content(12rem) minmax(0, 1fr);
+}
+.alignment-strip__paper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.2rem;
+  min-width: 0;
+  padding: 0.75rem 0.9rem;
+  background: var(--background);
+}
+/* The folded corner of a sheet, as on the upload cards. */
+.alignment-strip__paper::after {
+  content: '';
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(225deg, #f6f8fc 50%, var(--border) 50%);
+}
+:root[dir='rtl'] .alignment-strip__paper::after {
+  background: linear-gradient(135deg, #f6f8fc 50%, var(--border) 50%);
+}
+.alignment-strip__paper[data-strip-side='0'] {
+  border-inline-end: 3px solid #2c5be8;
+}
+.alignment-strip__paper[data-strip-side='1'] {
+  border-inline-start: 3px solid var(--primary);
+}
+.alignment-strip__role {
+  font-weight: 700;
+  font-size: 0.9rem;
+  overflow-wrap: break-word;
+}
+.alignment-strip__total {
+  font-size: 0.8rem;
+  color: #475569;
+  font-variant-numeric: tabular-nums;
+}
+.alignment-strip__cells {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.alignment-strip__cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+  padding: 0.65rem 0.9rem;
+  border-inline-start: 1px solid var(--border);
+}
+.alignment-strip__cell:first-child {
+  border-inline-start: 0;
+}
+.alignment-strip__label,
+.alignment-strip__note {
+  font-size: 0.78rem;
+  color: #475569;
+  overflow-wrap: break-word;
+}
+.alignment-strip__value {
+  font-size: 1.1rem;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: break-word;
+}
+/* A value in words (a state, "no difference", "not computed") is set
+   smaller than a number, so it does not read as a figure. */
+.alignment-strip__value[data-text] {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.alignment-strip__value[data-quiet] {
+  color: #475569;
+}
+.alignment-strip__cell[data-tone='review'] .alignment-strip__value {
+  color: #8e641e;
+}
+.alignment-strip__cell[data-tone='difference'] .alignment-strip__value {
+  color: #8a4b0f;
+}
+@media (max-width: 640px) {
+  .alignment-strip__drawn,
+  .alignment-strip[data-sides='1'] .alignment-strip__drawn {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .alignment-strip__paper[data-strip-side='0'] {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .alignment-strip__paper[data-strip-side='1'] {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .alignment-strip[data-sides='1'] .alignment-strip__paper {
+    grid-column: 1 / -1;
+  }
+  .alignment-strip__cells {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    grid-template-columns: minmax(0, 1fr);
+    border-block-start: 1px solid var(--border);
+  }
+  .alignment-strip__cell {
+    flex-flow: row wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    column-gap: 0.75rem;
+    border-inline-start: 0;
+    border-block-start: 1px solid var(--border);
+  }
+  .alignment-strip__cell:first-child {
+    border-block-start: 0;
+  }
+  .alignment-strip__note {
+    flex-basis: 100%;
+  }
+}
+/* At the narrowest widths a long source name keeps its words whole: the
+   end of the strip gives it more of its half and a smaller size. */
+@media (max-width: 360px) {
+  .alignment-strip__paper {
+    padding-inline: 0.55rem;
+  }
+  .alignment-strip__role {
+    font-size: 0.78rem;
+  }
+}

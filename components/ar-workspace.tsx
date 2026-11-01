@@ -1,4 +1,6 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
+import { AlignmentStrip } from '@/components/alignment-strip';
+import { arStrip } from '@/lib/alignment-strip';
 import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { NoteHint, useDecisionFocus } from '@/components/decision-platform';
@@ -679,6 +681,12 @@ export function ArWorkspace({
       {result && (
         <section>
           <h2 ref={resultHeading} tabIndex={-1} data-result-heading="result">{t.results}</h2>
+          <AlignmentStrip
+            strip={arStrip(result)}
+            sides={[t.sides[0], t.sides[1]]}
+            decimals={result.decimals}
+            reason={(code) => t.reason[code as keyof typeof t.reason] ?? code}
+          />
           <DomainEvidenceAssistant
             result={result}
             snapshot={() => ({ domain: 'ar', input: input(), result })}
