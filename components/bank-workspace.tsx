@@ -1,5 +1,6 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { AlignmentStrip } from '@/components/alignment-strip';
+import { EvidenceSections } from '@/components/evidence-sections';
 import { bankStrip } from '@/lib/alignment-strip';
 import { BankAdjustmentWorkspace } from './bank-adjustment-workspace';
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
@@ -271,9 +272,14 @@ export function BankWorkspace({
     data: T[],
     cells: (r: T, at: number) => ReactNode[],
     target?: (r: T, at: number) => string,
+    hook?: Record<`data-${string}`, string>,
   ) {
     return (
-      <section className="bank-movement-table" data-bank-movement-table={name}>
+      <section
+        className="bank-movement-table"
+        data-bank-movement-table={name}
+        {...hook}
+      >
         <h2>{title}</h2>
         <RecordRows
           label={title}
@@ -907,58 +913,95 @@ export function BankWorkspace({
                     />
                   </section>
                 )}
-                <p>{t.retainedTiming}</p>
-                {table(
-                  'timing',
-                  t.timing,
-                  [t.side, t.row, t.own, t.date, t.valueDate, t.validMovement],
-                  result.timingItems,
-                  (r) => [
-                    t.sides[r.side],
-                    r.row,
-                    id(r.reference),
-                    date(r.movementDate),
-                    date(r.valueDate),
-                    r.validMovement ? t.yes : t.no,
-                  ],
-                )}
-                {table(
-                  'events',
-                  t.events,
-                  [
-                    t.own,
-                    t.kind,
-                    t.deviceTime,
-                    t.reference,
-                    t.reason,
-                    t.members,
-                  ],
-                  result.events,
-                  (e) => [
-                    e.id,
-                    t.eventType[e.type],
-                    date(e.at),
-                    e.reference,
-                    e.note,
-                    `${memberNames(e.bankIds)} · ${memberNames(e.cashIds)}`,
-                  ],
-                )}
-                {table(
-                  'inventory',
-                  t.inventory,
-                  [t.side, t.row, t.kind, t.reason, t.original],
-                  result.inventory,
-                  (i) => [
-                    t.sides[i.side],
-                    i.row,
-                    t.inventoryKinds[i.kind],
-                    i.error
-                      ? (t.rowErrors[i.error as keyof typeof t.rowErrors] ??
-                        t.rowErrors.BANK_ROW)
-                      : '',
-                    <pre key="original">{i.values.join(' · ')}</pre>,
-                  ],
-                )}
+                <EvidenceSections
+                  sections={[
+                    {
+                      key: 'timingItems',
+                      name: t.timing,
+                      count: result.timingItems.length,
+                      node: (
+                        <>
+                          <p>{t.retainedTiming}</p>
+                          {table(
+                            'timing',
+                            t.timing,
+                            [
+                              t.side,
+                              t.row,
+                              t.own,
+                              t.date,
+                              t.valueDate,
+                              t.validMovement,
+                            ],
+                            result.timingItems,
+                            (r) => [
+                              t.sides[r.side],
+                              r.row,
+                              id(r.reference),
+                              date(r.movementDate),
+                              date(r.valueDate),
+                              r.validMovement ? t.yes : t.no,
+                            ],
+                            undefined,
+                            { 'data-evidence-section': 'timingItems' },
+                          )}
+                        </>
+                      ),
+                    },
+                    {
+                      key: 'events',
+                      name: t.events,
+                      count: result.events.length,
+                      node: table(
+                        'events',
+                        t.events,
+                        [
+                          t.own,
+                          t.kind,
+                          t.deviceTime,
+                          t.reference,
+                          t.reason,
+                          t.members,
+                        ],
+                        result.events,
+                        (e) => [
+                          e.id,
+                          t.eventType[e.type],
+                          date(e.at),
+                          e.reference,
+                          e.note,
+                          `${memberNames(e.bankIds)} · ${memberNames(e.cashIds)}`,
+                        ],
+                        undefined,
+                        { 'data-evidence-section': 'events' },
+                      ),
+                    },
+                    {
+                      key: 'inventory',
+                      name: t.inventory,
+                      count: result.inventory.length,
+                      node: table(
+                        'inventory',
+                        t.inventory,
+                        [t.side, t.row, t.kind, t.reason, t.original],
+                        result.inventory,
+                        (i) => [
+                          t.sides[i.side],
+                          i.row,
+                          t.inventoryKinds[i.kind],
+                          i.error
+                            ? (t.rowErrors[
+                                i.error as keyof typeof t.rowErrors
+                              ] ?? t.rowErrors.BANK_ROW)
+                            : '',
+                          <pre key="original">{i.values.join(' · ')}</pre>,
+                        ],
+                        undefined,
+                        { 'data-evidence-section': 'inventory' },
+                      ),
+                    },
+                  ]}
+                />
               </fieldset>
             </>
           )}

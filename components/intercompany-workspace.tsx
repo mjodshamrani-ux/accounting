@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount, Figures } from '@/components/amount';
 import { AlignmentStrip } from '@/components/alignment-strip';
+import { EvidenceSections } from '@/components/evidence-sections';
 import { intercompanyStrip } from '@/lib/alignment-strip';
 import {
   RecordFields,
@@ -668,107 +669,153 @@ export function IntercompanyWorkspace({
               page={pairPage}
               onPage={setPairPage}
             />
-            <details>
-              <summary>
-                {copy.relations} ({result.relations.length})
-              </summary>
-              <RecordTable
-                label={copy.relations}
-                headers={copy.relationHeaders}
-                rows={result.relations.map((r) => [
-                  r.relationId,
-                  r.leftId,
-                  r.rightId,
-                  r.validFrom,
-                  r.validTo,
-                  r.reference,
-                ])}
-              />
-            </details>
-            <details>
-              <summary>
-                {copy.timing} ({result.timing.length})
-              </summary>
-              <RecordTable
-                label={copy.timing}
-                headers={copy.timingHeaders}
-                rows={result.timing.map((r) => [
-                  r.evidenceId,
-                  r.side,
-                  r.transactionId,
-                  r.counterpartyTransactionId,
-                  r.date,
-                  r.amount,
-                  r.reference,
-                ])}
-              />
-            </details>
-            <details>
-              <summary>
-                {copy.missing} ({result.missing.length})
-              </summary>
-              <RecordTable
-                label={copy.missing}
-                headers={copy.missingHeaders}
-                rows={result.missing.map((r) => [r.kind, r.key])}
-              />
-            </details>
-            <details>
-              <summary>
-                {copy.issues} ({result.issues.length})
-              </summary>
-              <RecordTable
-                label={copy.issues}
-                headers={copy.issueHeaders}
-                rows={result.issues.map((r) => [
-                  r.code,
-                  copy.roles[r.source],
-                  r.row || copy.aggregate,
-                  r.key,
-                  r.related,
-                ])}
-              />
-            </details>
-            <details>
-              <summary>
-                {copy.inventory} ({result.inventory.length})
-              </summary>
-              <RecordTable
-                label={copy.inventory}
-                headers={copy.inventoryHeaders}
-                rows={result.inventory.map((r) => [
-                  copy.roles[r.source],
-                  r.row,
-                  r.kind,
-                  r.errors.join(', '),
-                  <RecordFields key="values" values={r.values} />,
-                ])}
-                wrap={[4]}
-              />
-            </details>
-            <details>
-              <summary>
-                {copy.history} ({events.length})
-              </summary>
-              <RecordTable
-                label={copy.history}
-                headers={copy.eventHeaders}
-                rows={events.map((e) => [
-                  copy[e.type],
-                  e.relationId,
-                  e.at,
-                  e.reference,
-                  e.note,
-                  <RecordFields
-                    key="members"
-                    values={e.memberIds.map((id) =>
-                      memberPlace(id, copy.roles),
-                    )}
-                  />,
-                ])}
-                wrap={[5]}
-              />
-            </details>
+            <EvidenceSections
+              sections={[
+                {
+                  key: 'relations',
+                  name: copy.relations,
+                  count: result.relations.length,
+                  node: (
+                    <details data-evidence-section="relations">
+                      <summary>
+                        {copy.relations} ({result.relations.length})
+                      </summary>
+                      <RecordTable
+                        label={copy.relations}
+                        headers={copy.relationHeaders}
+                        rows={result.relations.map((r) => [
+                          r.relationId,
+                          r.leftId,
+                          r.rightId,
+                          r.validFrom,
+                          r.validTo,
+                          r.reference,
+                        ])}
+                      />
+                    </details>
+                  ),
+                },
+                {
+                  key: 'timing',
+                  name: copy.timing,
+                  count: result.timing.length,
+                  node: (
+                    <details data-evidence-section="timing">
+                      <summary>
+                        {copy.timing} ({result.timing.length})
+                      </summary>
+                      <RecordTable
+                        label={copy.timing}
+                        headers={copy.timingHeaders}
+                        rows={result.timing.map((r) => [
+                          r.evidenceId,
+                          r.side,
+                          r.transactionId,
+                          r.counterpartyTransactionId,
+                          r.date,
+                          r.amount,
+                          r.reference,
+                        ])}
+                      />
+                    </details>
+                  ),
+                },
+                {
+                  key: 'missing',
+                  name: copy.missing,
+                  count: result.missing.length,
+                  node: (
+                    <details data-evidence-section="missing">
+                      <summary>
+                        {copy.missing} ({result.missing.length})
+                      </summary>
+                      <RecordTable
+                        label={copy.missing}
+                        headers={copy.missingHeaders}
+                        rows={result.missing.map((r) => [r.kind, r.key])}
+                      />
+                    </details>
+                  ),
+                },
+                {
+                  key: 'issues',
+                  name: copy.issues,
+                  count: result.issues.length,
+                  node: (
+                    <details data-evidence-section="issues">
+                      <summary>
+                        {copy.issues} ({result.issues.length})
+                      </summary>
+                      <RecordTable
+                        label={copy.issues}
+                        headers={copy.issueHeaders}
+                        rows={result.issues.map((r) => [
+                          r.code,
+                          copy.roles[r.source],
+                          r.row || copy.aggregate,
+                          r.key,
+                          r.related,
+                        ])}
+                      />
+                    </details>
+                  ),
+                },
+                {
+                  key: 'inventory',
+                  name: copy.inventory,
+                  count: result.inventory.length,
+                  node: (
+                    <details data-evidence-section="inventory">
+                      <summary>
+                        {copy.inventory} ({result.inventory.length})
+                      </summary>
+                      <RecordTable
+                        label={copy.inventory}
+                        headers={copy.inventoryHeaders}
+                        rows={result.inventory.map((r) => [
+                          copy.roles[r.source],
+                          r.row,
+                          r.kind,
+                          r.errors.join(', '),
+                          <RecordFields key="values" values={r.values} />,
+                        ])}
+                        wrap={[4]}
+                      />
+                    </details>
+                  ),
+                },
+                {
+                  key: 'events',
+                  name: copy.history,
+                  count: events.length,
+                  node: (
+                    <details data-evidence-section="events">
+                      <summary>
+                        {copy.history} ({events.length})
+                      </summary>
+                      <RecordTable
+                        label={copy.history}
+                        headers={copy.eventHeaders}
+                        rows={events.map((e) => [
+                          copy[e.type],
+                          e.relationId,
+                          e.at,
+                          e.reference,
+                          e.note,
+                          <RecordFields
+                            key="members"
+                            values={e.memberIds.map((id) =>
+                              memberPlace(id, copy.roles),
+                            )}
+                          />,
+                        ])}
+                        wrap={[5]}
+                      />
+                    </details>
+                  ),
+                },
+              ]}
+            />
           </section>
         )}
         <IntercompanyBatchPanel />

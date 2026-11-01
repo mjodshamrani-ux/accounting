@@ -3,6 +3,7 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount, Figures } from '@/components/amount';
 import { AlignmentStrip } from '@/components/alignment-strip';
+import { EvidenceSections } from '@/components/evidence-sections';
 import { financialStrip } from '@/lib/alignment-strip';
 import {
   RecordFields,
@@ -726,95 +727,127 @@ export function FinancialWorkspace({
               page={linePage}
               onPage={setLinePage}
             />
-            <details>
-              <summary>
-                {t.financial.sourceInventoryAndErrors} (
-                {result.inventory.length})
-              </summary>
-              <RecordTable
-                label={t.financial.sourceInventoryAndErrors}
-                headers={[
-                  t.financial.source,
-                  t.financial.row,
-                  t.financial.state,
-                  t.financial.errors,
-                  t.financial.originalCells,
-                ]}
-                rows={result.inventory.map((i) => [
-                  t.financial.roles[i.source],
-                  i.row,
-                  i.kind,
-                  i.errors.join(', '),
-                  <RecordFields key="values" values={i.values} />,
-                ])}
-                wrap={[4]}
-              />
-            </details>
-            <details>
-              <summary>
-                {t.financial.missingEvidence} ({result.missing.length})
-              </summary>
-              <RecordTable
-                label={t.financial.missingEvidence}
-                headers={[t.financial.kind, t.financial.key]}
-                rows={result.missing.map((m) => [m.kind, m.key])}
-              />
-            </details>
-            <details>
-              <summary>
-                {t.financial.presentationAndPeriodEvidence} (
-                {result.evidence.length})
-              </summary>
-              <RecordTable
-                label={t.financial.presentationAndPeriodEvidence}
-                headers={[
-                  t.financial.evidence,
-                  t.financial.account,
-                  t.financial.dimensions,
-                  t.financial.line,
-                  t.financial.class,
-                  t.financial.sign,
-                  t.financial.from,
-                  t.financial.to,
-                  t.financial.reference,
-                ]}
-                rows={result.evidence.map((e) => [
-                  e.evidenceId,
-                  e.account,
-                  e.dimensions,
-                  e.lineId,
-                  e.category,
-                  e.sign,
-                  e.validFrom,
-                  e.validTo,
-                  e.reference,
-                ])}
-              />
-            </details>
-            <details>
-              <summary>
-                {t.financial.decisionHistory} ({events.length})
-              </summary>
-              <RecordTable
-                label={t.financial.decisionHistory}
-                headers={[
-                  t.financial.decision,
-                  t.financial.line,
-                  t.financial.members,
-                  t.financial.time,
-                  t.financial.reference,
-                  t.financial.reason,
-                ]}
-                rows={events.map((e) => [
-                  e.type,
-                  e.lineId,
-                  e.mappingIds.join(', '),
-                  e.at,
-                  e.reference,
-                  e.note,
-                ])}
-              />
-            </details>
+            <EvidenceSections
+              sections={[
+                {
+                  key: 'inventory',
+                  name: t.financial.sourceInventoryAndErrors,
+                  count: result.inventory.length,
+                  node: (
+                    <details data-evidence-section="inventory">
+                      <summary>
+                        {t.financial.sourceInventoryAndErrors} (
+                        {result.inventory.length})
+                      </summary>
+                      <RecordTable
+                        label={t.financial.sourceInventoryAndErrors}
+                        headers={[
+                          t.financial.source,
+                          t.financial.row,
+                          t.financial.state,
+                          t.financial.errors,
+                          t.financial.originalCells,
+                        ]}
+                        rows={result.inventory.map((i) => [
+                          t.financial.roles[i.source],
+                          i.row,
+                          i.kind,
+                          i.errors.join(', '),
+                          <RecordFields key="values" values={i.values} />,
+                        ])}
+                        wrap={[4]}
+                      />
+                    </details>
+                  ),
+                },
+                {
+                  key: 'missing',
+                  name: t.financial.missingEvidence,
+                  count: result.missing.length,
+                  node: (
+                    <details data-evidence-section="missing">
+                      <summary>
+                        {t.financial.missingEvidence} ({result.missing.length})
+                      </summary>
+                      <RecordTable
+                        label={t.financial.missingEvidence}
+                        headers={[t.financial.kind, t.financial.key]}
+                        rows={result.missing.map((m) => [m.kind, m.key])}
+                      />
+                    </details>
+                  ),
+                },
+                {
+                  key: 'evidence',
+                  name: t.financial.presentationAndPeriodEvidence,
+                  count: result.evidence.length,
+                  node: (
+                    <details data-evidence-section="evidence">
+                      <summary>
+                        {t.financial.presentationAndPeriodEvidence} (
+                        {result.evidence.length})
+                      </summary>
+                      <RecordTable
+                        label={t.financial.presentationAndPeriodEvidence}
+                        headers={[
+                          t.financial.evidence,
+                          t.financial.account,
+                          t.financial.dimensions,
+                          t.financial.line,
+                          t.financial.class,
+                          t.financial.sign,
+                          t.financial.from,
+                          t.financial.to,
+                          t.financial.reference,
+                        ]}
+                        rows={result.evidence.map((e) => [
+                          e.evidenceId,
+                          e.account,
+                          e.dimensions,
+                          e.lineId,
+                          e.category,
+                          e.sign,
+                          e.validFrom,
+                          e.validTo,
+                          e.reference,
+                        ])}
+                      />
+                    </details>
+                  ),
+                },
+                {
+                  key: 'events',
+                  name: t.financial.decisionHistory,
+                  count: events.length,
+                  node: (
+                    <details data-evidence-section="events">
+                      <summary>
+                        {t.financial.decisionHistory} ({events.length})
+                      </summary>
+                      <RecordTable
+                        label={t.financial.decisionHistory}
+                        headers={[
+                          t.financial.decision,
+                          t.financial.line,
+                          t.financial.members,
+                          t.financial.time,
+                          t.financial.reference,
+                          t.financial.reason,
+                        ]}
+                        rows={events.map((e) => [
+                          e.type,
+                          e.lineId,
+                          e.mappingIds.join(', '),
+                          e.at,
+                          e.reference,
+                          e.note,
+                        ])}
+                      />
+                    </details>
+                  ),
+                },
+              ]}
+            />
           </section>
         )}
         <TbFinancialHierarchyPanel />

@@ -128,13 +128,16 @@ export function WorkspaceSources({
 export function WorkspaceAdvanced({
   children,
   summary,
+  hook,
 }: {
   children: ReactNode;
   summary?: ReactNode;
+  /** Data hooks a check reads, on the disclosure itself. */
+  hook?: Record<`data-${string}`, string>;
 }) {
   const { lang } = useI18n();
   return (
-    <details className="workspace-advanced" data-workspace-advanced>
+    <details className="workspace-advanced" data-workspace-advanced {...hook}>
       <summary>{summary ?? workspaceCopy[lang].advanced}</summary>
       <div className="workspace-advanced__content">{children}</div>
     </details>

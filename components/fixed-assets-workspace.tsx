@@ -4,6 +4,10 @@ import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount } from '@/components/amount';
 import { AlignmentStrip } from '@/components/alignment-strip';
+import {
+  EvidenceSections,
+  type EvidenceSection,
+} from '@/components/evidence-sections';
 import { assetStrip } from '@/lib/alignment-strip';
 import {
   RecordFields,
@@ -292,8 +296,10 @@ export function AssetWorkspace({
     rows: (ReactNode | null)[][],
     fingerprint?: string,
     wrap?: readonly number[],
+    hook?: Record<`data-${string}`, string>,
   ) => (
     <WorkspaceAdvanced
+      hook={hook}
       summary={
         <>
           {title} ({rows.length})
@@ -308,6 +314,23 @@ export function AssetWorkspace({
       <RecordTable source={title} headers={headers} rows={rows} wrap={wrap} />
     </WorkspaceAdvanced>
   );
+  // An evidence section of the result: drawn as above when it holds
+  // something, named on the line of empty sections when it does not (UX-4).
+  const section = (
+    key: string,
+    title: string,
+    headers: string[],
+    rows: (ReactNode | null)[][],
+    fingerprint?: string,
+    wrap?: readonly number[],
+  ): EvidenceSection => ({
+    key,
+    name: title,
+    count: rows.length,
+    node: detail(title, headers, rows, fingerprint, wrap, {
+      'data-evidence-section': key,
+    }),
+  });
   return (
     <div hidden={!active}>
       <section
@@ -682,164 +705,184 @@ export function AssetWorkspace({
                 </>
               )}
             </fieldset>
-            {detail(
-              copy.roles[0],
-              result.readings[0].family === ASSET_LONG_FAMILY
-                ? [copy.physicalRows, ...copy.records[0].slice(1)]
-                : copy.records[0],
-              result.records[0].map((v) => [
-                v.representation === 'long-components'
-                  ? v.componentEvidence!.map((e) => e.row).join(', ')
-                  : v.row,
-                v.asset,
-                v.dimensions,
-                amount(v.cost),
-                amount(v.depreciation),
-                amount(v.impairment),
-                amount(v.carrying),
-                v.valuation,
-              ]),
-            )}
-            {result.componentEvidence &&
-              detail(
-                copy.componentEvidence,
-                copy.componentEvidenceHeaders,
-                result.componentEvidence.map((v) => [
-                  v.row,
-                  v.column,
-                  v.asset,
-                  v.dimensions,
-                  copy.components[
-                    v.component as keyof typeof copy.components
-                  ] ?? v.component,
-                  v.present ? copy.presentCell : copy.absentCell,
-                  v.present && v.text === '' ? copy.emptyCell : v.text,
-                  amount(v.minor),
-                  v.valuation,
-                  v.memberId,
-                  v.sourceHash,
-                  v.context,
-                ]),
-              )}
-            {detail(
-              copy.roles[1],
-              copy.records[1],
-              result.records[1].map((v) => [
-                v.row,
-                v.id,
-                v.asset,
-                v.dimensions,
-                copy.components[v.component],
-                v.account,
-                v.glDimensions,
-                v.evidence,
-              ]),
-            )}
-            {detail(
-              copy.roles[2],
-              copy.records[2],
-              result.records[2].map((v) => [
-                v.row,
-                v.id,
-                v.asset,
-                v.dimensions,
-                copy.components[v.component],
-                v.valuation,
-                v.account,
-                v.glDimensions,
-                v.accountClass,
-                v.sign,
-                v.basis,
-                v.validFrom,
-                v.validTo,
-                v.reference,
-              ]),
-            )}
-            {detail(
-              copy.roles[3],
-              copy.records[3],
-              result.records[3].map((v) => [
-                v.row,
-                v.account,
-                v.glDimensions,
-                v.accountClass,
-                amount(v.debit),
-                amount(v.credit),
-                copy.components[v.component],
-                amount(v.normal),
-              ]),
-            )}
-            {detail(
-              copy.members,
-              copy.memberHeaders,
-              result.memberIds.map((id) => {
-                const v = JSON.parse(id);
-                return [
-                  copy.roles[v[1]],
-                  v[4],
-                  <RecordFields key="id" values={identityFields(id)} />,
-                ];
-              }),
-              undefined,
-              [2],
-            )}
-            {detail(
-              copy.missing,
-              copy.missingHeaders,
-              result.missing.map((v) => [
-                (copy.missingKinds as Record<string, string>)[v.reason] ??
-                  v.reason,
-                copy.roles[v.source],
-                v.row,
-                v.component ? copy.components[v.component] : '',
-              ]),
-            )}
-            {detail(
-              copy.issues,
-              copy.issueHeaders,
-              result.issues.map((v) => [
-                copy.roles[v.source] ?? copy.title,
-                v.row,
-                (copy.codes as Record<string, string>)[v.code] ?? copy.failed,
-              ]),
-            )}
-            {detail(
-              copy.cells,
-              copy.cellHeaders,
-              result.cells.map((v) => [
-                copy.roles[v.source],
-                v.row,
-                v.column,
-                v.field,
-                v.text,
-              ]),
-            )}
-            {detail(
-              copy.inventory,
-              copy.inventoryHeaders,
-              result.inventory.map((v) => [
-                copy.roles[v.source],
-                v.row,
-                copy.kinds[v.kind],
-              ]),
-            )}
-            {detail(
-              copy.events,
-              copy.eventHeaders,
-              result.events.map((v) => [
-                v.id,
-                copy.actions[v.type],
-                v.at,
-                v.reference,
-                v.note,
-                v.memberIds.length,
-              ]),
-            )}
-            {detail(
-              copy.sources,
-              copy.sourceHeaders,
-              files.map((f, i) => [copy.roles[i], f!.name, f!.sha256!]),
-            )}
+            <EvidenceSections
+              sections={[
+                section(
+                  'records.0',
+                  copy.roles[0],
+                  result.readings[0].family === ASSET_LONG_FAMILY
+                    ? [copy.physicalRows, ...copy.records[0].slice(1)]
+                    : copy.records[0],
+                  result.records[0].map((v) => [
+                    v.representation === 'long-components'
+                      ? v.componentEvidence!.map((e) => e.row).join(', ')
+                      : v.row,
+                    v.asset,
+                    v.dimensions,
+                    amount(v.cost),
+                    amount(v.depreciation),
+                    amount(v.impairment),
+                    amount(v.carrying),
+                    v.valuation,
+                  ]),
+                ),
+                ...(result.componentEvidence
+                  ? [
+                      section(
+                        'componentEvidence',
+                        copy.componentEvidence,
+                        copy.componentEvidenceHeaders,
+                        result.componentEvidence.map((v) => [
+                          v.row,
+                          v.column,
+                          v.asset,
+                          v.dimensions,
+                          copy.components[
+                            v.component as keyof typeof copy.components
+                          ] ?? v.component,
+                          v.present ? copy.presentCell : copy.absentCell,
+                          v.present && v.text === '' ? copy.emptyCell : v.text,
+                          amount(v.minor),
+                          v.valuation,
+                          v.memberId,
+                          v.sourceHash,
+                          v.context,
+                        ]),
+                      ),
+                    ]
+                  : []),
+                section(
+                  'records.1',
+                  copy.roles[1],
+                  copy.records[1],
+                  result.records[1].map((v) => [
+                    v.row,
+                    v.id,
+                    v.asset,
+                    v.dimensions,
+                    copy.components[v.component],
+                    v.account,
+                    v.glDimensions,
+                    v.evidence,
+                  ]),
+                ),
+                section(
+                  'records.2',
+                  copy.roles[2],
+                  copy.records[2],
+                  result.records[2].map((v) => [
+                    v.row,
+                    v.id,
+                    v.asset,
+                    v.dimensions,
+                    copy.components[v.component],
+                    v.valuation,
+                    v.account,
+                    v.glDimensions,
+                    v.accountClass,
+                    v.sign,
+                    v.basis,
+                    v.validFrom,
+                    v.validTo,
+                    v.reference,
+                  ]),
+                ),
+                section(
+                  'records.3',
+                  copy.roles[3],
+                  copy.records[3],
+                  result.records[3].map((v) => [
+                    v.row,
+                    v.account,
+                    v.glDimensions,
+                    v.accountClass,
+                    amount(v.debit),
+                    amount(v.credit),
+                    copy.components[v.component],
+                    amount(v.normal),
+                  ]),
+                ),
+                section(
+                  'memberIds',
+                  copy.members,
+                  copy.memberHeaders,
+                  result.memberIds.map((id) => {
+                    const v = JSON.parse(id);
+                    return [
+                      copy.roles[v[1]],
+                      v[4],
+                      <RecordFields key="id" values={identityFields(id)} />,
+                    ];
+                  }),
+                  undefined,
+                  [2],
+                ),
+                section(
+                  'missing',
+                  copy.missing,
+                  copy.missingHeaders,
+                  result.missing.map((v) => [
+                    (copy.missingKinds as Record<string, string>)[v.reason] ??
+                      v.reason,
+                    copy.roles[v.source],
+                    v.row,
+                    v.component ? copy.components[v.component] : '',
+                  ]),
+                ),
+                section(
+                  'issues',
+                  copy.issues,
+                  copy.issueHeaders,
+                  result.issues.map((v) => [
+                    copy.roles[v.source] ?? copy.title,
+                    v.row,
+                    (copy.codes as Record<string, string>)[v.code] ??
+                      copy.failed,
+                  ]),
+                ),
+                section(
+                  'cells',
+                  copy.cells,
+                  copy.cellHeaders,
+                  result.cells.map((v) => [
+                    copy.roles[v.source],
+                    v.row,
+                    v.column,
+                    v.field,
+                    v.text,
+                  ]),
+                ),
+                section(
+                  'inventory',
+                  copy.inventory,
+                  copy.inventoryHeaders,
+                  result.inventory.map((v) => [
+                    copy.roles[v.source],
+                    v.row,
+                    copy.kinds[v.kind],
+                  ]),
+                ),
+                section(
+                  'events',
+                  copy.events,
+                  copy.eventHeaders,
+                  result.events.map((v) => [
+                    v.id,
+                    copy.actions[v.type],
+                    v.at,
+                    v.reference,
+                    v.note,
+                    v.memberIds.length,
+                  ]),
+                ),
+                section(
+                  'sources',
+                  copy.sources,
+                  copy.sourceHeaders,
+                  files.map((f, i) => [copy.roles[i], f!.name, f!.sha256!]),
+                ),
+              ]}
+            />
           </section>
         )}
         <FixedAssetsSectionsPanel />

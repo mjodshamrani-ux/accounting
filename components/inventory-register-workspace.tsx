@@ -32,6 +32,10 @@ import { useEffect, useId, useRef, useState, useMemo, type ReactNode } from 'rea
 import { useResultFocus } from '@/components/result-focus';
 import { Amount, Quantity } from '@/components/amount';
 import { AlignmentStrip } from '@/components/alignment-strip';
+import {
+  EvidenceSections,
+  type EvidenceSection,
+} from '@/components/evidence-sections';
 import { stockStrip } from '@/lib/alignment-strip';
 import {
   RecordFields,
@@ -530,8 +534,10 @@ export function StockWorkspace({
     rows: (ReactNode | null)[][],
     fingerprint?: string,
     wrap?: readonly number[],
+    hook?: Record<`data-${string}`, string>,
   ) => (
     <WorkspaceAdvanced
+      hook={hook}
       summary={
         <>
           {title} ({rows.length})
@@ -546,6 +552,23 @@ export function StockWorkspace({
       <RecordTable source={title} headers={headers} rows={rows} wrap={wrap} />
     </WorkspaceAdvanced>
   );
+  // An evidence section of the result: drawn as above when it holds
+  // something, named on the line of empty sections when it does not (UX-4).
+  const section = (
+    key: string,
+    title: string,
+    headers: string[],
+    rows: (ReactNode | null)[][],
+    fingerprint?: string,
+    wrap?: readonly number[],
+  ): EvidenceSection => ({
+    key,
+    name: title,
+    count: rows.length,
+    node: detail(title, headers, rows, fingerprint, wrap, {
+      'data-evidence-section': key,
+    }),
+  });
   return (
     <div hidden={!active}>
       <section
@@ -1155,113 +1178,133 @@ export function StockWorkspace({
                 </>
               )}
             </fieldset>
-            {result.records.map((rows, i) => (
-              <div key={i}>
-                {detail(
-                  copy.roles[i],
-                  i === 0 && (result.matrixEvidence || result.columnEvidence)
+            <EvidenceSections
+              sections={[
+                ...result.records.map((rows, i) => ({
+                  key: `records.${i}`,
+                  name: copy.roles[i],
+                  count: rows.length,
+                  node: (
+                    <div>
+                      {detail(
+                        copy.roles[i],
+                        i === 0 &&
+                          (result.matrixEvidence || result.columnEvidence)
+                          ? [
+                              copy.records[i][0],
+                              copy.matrixSourceColumn,
+                              ...copy.records[i].slice(1),
+                            ]
+                          : copy.records[i],
+                        rows.map((v) => [
+                          v.row,
+                          ...(i === 0 &&
+                          (result.matrixEvidence || result.columnEvidence)
+                            ? [v.column ?? null]
+                            : []),
+                          ...recordCells(i, v.values),
+                        ]),
+                        undefined,
+                        undefined,
+                        { 'data-evidence-section': `records.${i}` },
+                      )}
+                    </div>
+                  ),
+                })),
+                section(
+                  'memberIds',
+                  copy.members,
+                  copy.memberHeaders,
+                  result.memberIds.map((id) => {
+                    const v = JSON.parse(id);
+                    return [
+                      copy.roles[v[1]],
+                      v[4],
+                      <RecordFields key="id" values={identityFields(id)} />,
+                    ];
+                  }),
+                  undefined,
+                  [2],
+                ),
+                section(
+                  'missing',
+                  copy.missing,
+                  [copy.missing],
+                  result.missing.map((v) => {
+                    const at = v.indexOf(':'),
+                      kind = v.slice(0, at),
+                      key = v.slice(at + 1);
+                    return [
+                      (copy.missingKinds as Record<string, string>)[kind] +
+                        ' · ' +
+                        (kind === 'source' ? copy.roles[Number(key)] : key),
+                    ];
+                  }),
+                ),
+                section(
+                  'issues',
+                  copy.issues,
+                  result.matrixEvidence || result.columnEvidence
                     ? [
-                        copy.records[i][0],
+                        copy.issueHeaders[0],
+                        copy.issueHeaders[1],
                         copy.matrixSourceColumn,
-                        ...copy.records[i].slice(1),
+                        ...copy.issueHeaders.slice(2),
                       ]
-                    : copy.records[i],
-                  rows.map((v) => [
+                    : copy.issueHeaders,
+                  result.issues.map((v) => [
+                    copy.roles[v.source] ?? copy.title,
                     v.row,
-                    ...(i === 0 &&
-                    (result.matrixEvidence || result.columnEvidence)
+                    ...(result.matrixEvidence || result.columnEvidence
                       ? [v.column ?? null]
                       : []),
-                    ...recordCells(i, v.values),
+                    (copy.codes as Record<string, string>)[v.code] ??
+                      (pdf ? inventoryPdfIssue(lang, v.code) : copy.failed),
                   ]),
-                )}
-              </div>
-            ))}
-            {detail(
-              copy.members,
-              copy.memberHeaders,
-              result.memberIds.map((id) => {
-                const v = JSON.parse(id);
-                return [
-                  copy.roles[v[1]],
-                  v[4],
-                  <RecordFields key="id" values={identityFields(id)} />,
-                ];
-              }),
-              undefined,
-              [2],
-            )}
-            {detail(
-              copy.missing,
-              [copy.missing],
-              result.missing.map((v) => {
-                const at = v.indexOf(':'),
-                  kind = v.slice(0, at),
-                  key = v.slice(at + 1);
-                return [
-                  (copy.missingKinds as Record<string, string>)[kind] +
-                    ' · ' +
-                    (kind === 'source' ? copy.roles[Number(key)] : key),
-                ];
-              }),
-            )}
-            {detail(
-              copy.issues,
-              result.matrixEvidence || result.columnEvidence
-                ? [
-                    copy.issueHeaders[0],
-                    copy.issueHeaders[1],
-                    copy.matrixSourceColumn,
-                    ...copy.issueHeaders.slice(2),
-                  ]
-                : copy.issueHeaders,
-              result.issues.map((v) => [
-                copy.roles[v.source] ?? copy.title,
-                v.row,
-                ...(result.matrixEvidence || result.columnEvidence
-                  ? [v.column ?? null]
-                  : []),
-                (copy.codes as Record<string, string>)[v.code] ??
-                  (pdf ? inventoryPdfIssue(lang, v.code) : copy.failed),
-              ]),
-            )}
-            {detail(
-              copy.cells,
-              copy.cellHeaders,
-              result.cells.map((v) => [
-                copy.roles[v.source],
-                v.row,
-                v.column,
-                v.field,
-                v.text,
-              ]),
-            )}
-            {detail(
-              copy.inventory,
-              copy.inventoryHeaders,
-              result.inventory.map((v) => [
-                copy.roles[v.source],
-                v.row,
-                copy.kinds[v.kind],
-              ]),
-            )}
-            {detail(
-              copy.events,
-              copy.eventHeaders,
-              result.events.map((v) => [
-                v.id,
-                copy.actions[v.type],
-                v.at,
-                v.reference,
-                v.note,
-                v.memberIds.length,
-              ]),
-            )}
-            {detail(
-              copy.sources,
-              copy.sourceHeaders,
-              sources.map((f, i) => [copy.roles[i], f!.name, f!.sha256!]),
-            )}
+                ),
+                section(
+                  'cells',
+                  copy.cells,
+                  copy.cellHeaders,
+                  result.cells.map((v) => [
+                    copy.roles[v.source],
+                    v.row,
+                    v.column,
+                    v.field,
+                    v.text,
+                  ]),
+                ),
+                section(
+                  'inventory',
+                  copy.inventory,
+                  copy.inventoryHeaders,
+                  result.inventory.map((v) => [
+                    copy.roles[v.source],
+                    v.row,
+                    copy.kinds[v.kind],
+                  ]),
+                ),
+                section(
+                  'events',
+                  copy.events,
+                  copy.eventHeaders,
+                  result.events.map((v) => [
+                    v.id,
+                    copy.actions[v.type],
+                    v.at,
+                    v.reference,
+                    v.note,
+                    v.memberIds.length,
+                  ]),
+                ),
+                section(
+                  'sources',
+                  copy.sources,
+                  copy.sourceHeaders,
+                  sources.map((f, i) => [copy.roles[i], f!.name, f!.sha256!]),
+                ),
+              ]}
+            />
           </section>
         )}
         <InventoryMovementBridgePanel />

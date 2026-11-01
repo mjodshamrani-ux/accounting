@@ -22,6 +22,7 @@ import path from 'node:path';
 import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
 import { stageWatchdog } from './stage-watchdog.mjs';
+import { keepReplies } from './worker-replies.mjs';
 
 const root = path.resolve(import.meta.dirname, '..');
 const dist = process.env.ALIGNMENT_STRIP_DIST ?? path.join(root, 'dist');
@@ -291,39 +292,6 @@ const browser = await chromium.launch({
 let activePage;
 const watch = stageWatchdog({ page: () => activePage });
 const errors = [];
-
-// Keeps every worker reply the page receives, as the page receives it.
-function keepReplies() {
-  const descriptor = Object.getOwnPropertyDescriptor(
-    Worker.prototype,
-    'onmessage',
-  );
-  const handlers = new WeakMap();
-  globalThis.alignmentReplies = [];
-  Object.defineProperty(Worker.prototype, 'onmessage', {
-    configurable: descriptor.configurable,
-    enumerable: descriptor.enumerable,
-    get() {
-      return handlers.get(this) ?? null;
-    },
-    set(handler) {
-      handlers.set(this, handler);
-      descriptor.set.call(
-        this,
-        typeof handler === 'function'
-          ? function (event) {
-              if (event.data && Object.hasOwn(event.data, 'value'))
-                globalThis.alignmentReplies.push({
-                  action: event.data.action,
-                  value: structuredClone(event.data.value),
-                });
-              return handler.call(this, event);
-            }
-          : handler,
-      );
-    },
-  });
-}
 
 // What the strip shows and what a screen reader reads, at the current width.
 const readStrip = (strip) =>

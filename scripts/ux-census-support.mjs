@@ -38,6 +38,7 @@ export const METRICS = [
   'clippedText',
   'jsonText',
   'emptyTable',
+  'zeroCounter',
 ];
 
 // The decision each workspace offers after its example, by the names the
@@ -348,6 +349,20 @@ export function censusInPage(selector) {
       emptySamples.push((table.getAttribute('aria-label') ?? '').slice(0, 60));
     return true;
   }).length;
+  // A section titled with a count of none: a disclosure, heading or legend
+  // the reader sees whose title ends in "(0)", so the reader opens it, or
+  // reads past its title, to find nothing (audit B3). An absence is news,
+  // said once in words; a title with a zero is not how to say it (UX-4).
+  const zeroSamples = [];
+  const zeroCounter = [
+    ...root.querySelectorAll('summary, h2, h3, h4, h5, h6, legend'),
+  ].filter((el) => {
+    if (el.closest('[hidden]') || !el.checkVisibility()) return false;
+    if (!/\(\s*0\s*\)$/u.test(el.textContent.trim())) return false;
+    if (zeroSamples.length < 5)
+      zeroSamples.push(el.textContent.trim().slice(0, 60));
+    return true;
+  }).length;
   return {
     cells,
     controls: buttons.length,
@@ -372,6 +387,8 @@ export function censusInPage(selector) {
     jsonSamples,
     emptyTable,
     emptySamples,
+    zeroCounter,
+    zeroSamples,
   };
 }
 
@@ -488,6 +505,14 @@ export function plantInPage(selector) {
   blank.innerHTML = '<thead><tr><th>planted</th></tr></thead><tbody></tbody>';
   root.append(blank);
   planted.push('emptyTable');
+  // A closed section titled with a zero count, as the evidence of a result
+  // listed its empty sections (audit B3).
+  const zero = document.createElement('details');
+  const zeroTitle = document.createElement('summary');
+  zeroTitle.textContent = 'planted evidence (0)';
+  zero.append(zeroTitle);
+  root.append(zero);
+  planted.push('zeroCounter');
   return planted;
 }
 

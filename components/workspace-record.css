@@ -109,6 +109,11 @@
   color: #64748b;
   font-size: 13px;
 }
+/* A name on the line of empty sections (UX-4) stays whole where it fits,
+   and wraps between its own words only when it is longer than the line. */
+.record-empty__name {
+  display: inline-block;
+}
 /* A table the kit does not draw keeps its own look inside the kit's frame
    (RecordFrame), as the supplier's case list does. */
 .results-frame {

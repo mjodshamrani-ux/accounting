@@ -252,11 +252,20 @@ try {
               ),
             })),
           );
-        // A table with no row is one quiet line that names it (UX-3).
+        // A table with no row is one quiet line that names it (UX-3); an
+        // evidence section with no row is named, under its key, on the one
+        // line of empty sections instead (UX-4).
         const quiet = await w
           .locator('.workspace-results [data-record-empty]')
           .evaluateAll((nodes) => nodes.map((n) => n.textContent.trim()));
-        const rendered = (label, headers, rows) => {
+        const emptySections = await w
+          .locator(
+            '.workspace-results [data-empty-sections] [data-empty-section]',
+          )
+          .evaluateAll((nodes) =>
+            nodes.map((n) => [n.dataset.emptySection, n.textContent.trim()]),
+          );
+        const rendered = (label, headers, rows, section) => {
           const found = tables.filter(
             (table) =>
               JSON.stringify(table.headers) === JSON.stringify(headers),
@@ -267,6 +276,14 @@ try {
               0,
               name + ': no table of headers over no row ' + label,
             );
+            if (section) {
+              assert.deepEqual(
+                emptySections.filter(([key]) => key === section.key),
+                [[section.key, section.name]],
+                name + ': the line of empty sections names ' + section.name,
+              );
+              return;
+            }
             assert.equal(
               quiet.filter((line) => line === recordTableCopy[lang].none(label))
                 .length,
@@ -325,6 +342,7 @@ try {
             recordTableCopy[lang].rowsOf(t().roles[i]),
             t().records[i],
             records.map((v) => [v.row, ...recordCell(i, v.values)]),
+            { key: `records.${i}`, name: t().roles[i] },
           );
         await download(
           'export',

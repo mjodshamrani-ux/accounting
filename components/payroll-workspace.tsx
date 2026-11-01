@@ -3,6 +3,10 @@ import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount } from '@/components/amount';
 import { AlignmentStrip } from '@/components/alignment-strip';
+import {
+  EvidenceSections,
+  type EvidenceSection,
+} from '@/components/evidence-sections';
 import { payrollStrip } from '@/lib/alignment-strip';
 import {
   RecordFields,
@@ -293,8 +297,10 @@ export function PayrollWorkspace({
     rows: (ReactNode | null)[][],
     fingerprint?: string,
     wrap?: readonly number[],
+    hook?: Record<`data-${string}`, string>,
   ) => (
     <WorkspaceAdvanced
+      hook={hook}
       summary={
         <>
           {title} ({rows.length})
@@ -309,6 +315,23 @@ export function PayrollWorkspace({
       <RecordTable source={title} headers={headers} rows={rows} wrap={wrap} />
     </WorkspaceAdvanced>
   );
+  // An evidence section of the result: drawn as above when it holds
+  // something, named on the line of empty sections when it does not (UX-4).
+  const section = (
+    key: string,
+    title: string,
+    headers: string[],
+    rows: (ReactNode | null)[][],
+    fingerprint?: string,
+    wrap?: readonly number[],
+  ): EvidenceSection => ({
+    key,
+    name: title,
+    count: rows.length,
+    node: detail(title, headers, rows, fingerprint, wrap, {
+      'data-evidence-section': key,
+    }),
+  });
   return (
     <div hidden={!active}>
       <section
@@ -662,156 +685,173 @@ export function PayrollWorkspace({
                 </>
               )}
             </fieldset>
-            {detail(
-              copy.roles[0],
-              copy.records[0],
-              result.records[0].map((v) => [
-                v.row,
-                v.employee,
-                v.dimensions,
-                amount(v.gross),
-                amount(v.deductions),
-                amount(v.employer),
-                amount(v.net),
-                v.payrollReference,
-              ]),
-            )}
-            {detail(
-              copy.roles[1],
-              copy.records[1],
-              result.records[1].map((v) => [
-                v.row,
-                v.id,
-                v.employee,
-                v.dimensions,
-                copy.components[v.component],
-                v.account,
-                v.glDimensions,
-                v.evidence,
-              ]),
-            )}
-            {detail(
-              copy.roles[2],
-              copy.records[2],
-              result.records[2].map((v) => [
-                v.row,
-                v.id,
-                v.employee,
-                v.dimensions,
-                copy.components[v.component],
-                v.payrollReference,
-                v.account,
-                v.glDimensions,
-                v.accountClass,
-                v.sign,
-                v.basis,
-                v.validFrom,
-                v.validTo,
-                v.reference,
-              ]),
-            )}
-            {detail(
-              copy.roles[3],
-              copy.records[3],
-              result.records[3].map((v) => [
-                v.row,
-                v.id,
-                v.phase,
-                copy.components[v.component],
-                v.account,
-                v.glDimensions,
-                v.accountClass,
-                amount(v.debit),
-                amount(v.credit),
-                v.entryDate,
-                v.postingReference,
-                amount(v.normal),
-              ]),
-            )}
-            {detail(
-              copy.roles[4],
-              copy.records[4],
-              result.records[4].map((v) => [
-                v.row,
-                v.id,
-                v.bankAccount,
-                v.direction,
-                amount(v.amount),
-                v.valueDate,
-                v.payoutReference,
-              ]),
-            )}
-            {detail(
-              copy.members,
-              copy.memberHeaders,
-              result.memberIds.map((id) => {
-                const v = JSON.parse(id);
-                return [
-                  copy.roles[v[1]],
-                  v[4],
-                  <RecordFields key="id" values={identityFields(id)} />,
-                ];
-              }),
-              undefined,
-              [2],
-            )}
-            {detail(
-              copy.missing,
-              copy.missingHeaders,
-              result.missing.map((v) => [
-                (copy.missingKinds as Record<string, string>)[v.reason] ??
-                  v.reason,
-                copy.roles[v.source],
-                v.row,
-                v.component ? copy.components[v.component] : '',
-              ]),
-            )}
-            {detail(
-              copy.issues,
-              copy.issueHeaders,
-              result.issues.map((v) => [
-                copy.roles[v.source] ?? copy.title,
-                v.row,
-                (copy.codes as Record<string, string>)[v.code] ?? copy.failed,
-              ]),
-            )}
-            {detail(
-              copy.cells,
-              copy.cellHeaders,
-              result.cells.map((v) => [
-                copy.roles[v.source],
-                v.row,
-                v.column,
-                v.field,
-                v.text,
-              ]),
-            )}
-            {detail(
-              copy.inventory,
-              copy.inventoryHeaders,
-              result.inventory.map((v) => [
-                copy.roles[v.source],
-                v.row,
-                copy.kinds[v.kind],
-              ]),
-            )}
-            {detail(
-              copy.events,
-              copy.eventHeaders,
-              result.events.map((v) => [
-                v.id,
-                copy.actions[v.type],
-                v.at,
-                v.reference,
-                v.note,
-                v.memberIds.length,
-              ]),
-            )}
-            {detail(
-              copy.sources,
-              copy.sourceHeaders,
-              files.map((f, i) => [copy.roles[i], f!.name, f!.sha256!]),
-            )}
+            <EvidenceSections
+              sections={[
+                section(
+                  'records.0',
+                  copy.roles[0],
+                  copy.records[0],
+                  result.records[0].map((v) => [
+                    v.row,
+                    v.employee,
+                    v.dimensions,
+                    amount(v.gross),
+                    amount(v.deductions),
+                    amount(v.employer),
+                    amount(v.net),
+                    v.payrollReference,
+                  ]),
+                ),
+                section(
+                  'records.1',
+                  copy.roles[1],
+                  copy.records[1],
+                  result.records[1].map((v) => [
+                    v.row,
+                    v.id,
+                    v.employee,
+                    v.dimensions,
+                    copy.components[v.component],
+                    v.account,
+                    v.glDimensions,
+                    v.evidence,
+                  ]),
+                ),
+                section(
+                  'records.2',
+                  copy.roles[2],
+                  copy.records[2],
+                  result.records[2].map((v) => [
+                    v.row,
+                    v.id,
+                    v.employee,
+                    v.dimensions,
+                    copy.components[v.component],
+                    v.payrollReference,
+                    v.account,
+                    v.glDimensions,
+                    v.accountClass,
+                    v.sign,
+                    v.basis,
+                    v.validFrom,
+                    v.validTo,
+                    v.reference,
+                  ]),
+                ),
+                section(
+                  'records.3',
+                  copy.roles[3],
+                  copy.records[3],
+                  result.records[3].map((v) => [
+                    v.row,
+                    v.id,
+                    v.phase,
+                    copy.components[v.component],
+                    v.account,
+                    v.glDimensions,
+                    v.accountClass,
+                    amount(v.debit),
+                    amount(v.credit),
+                    v.entryDate,
+                    v.postingReference,
+                    amount(v.normal),
+                  ]),
+                ),
+                section(
+                  'records.4',
+                  copy.roles[4],
+                  copy.records[4],
+                  result.records[4].map((v) => [
+                    v.row,
+                    v.id,
+                    v.bankAccount,
+                    v.direction,
+                    amount(v.amount),
+                    v.valueDate,
+                    v.payoutReference,
+                  ]),
+                ),
+                section(
+                  'memberIds',
+                  copy.members,
+                  copy.memberHeaders,
+                  result.memberIds.map((id) => {
+                    const v = JSON.parse(id);
+                    return [
+                      copy.roles[v[1]],
+                      v[4],
+                      <RecordFields key="id" values={identityFields(id)} />,
+                    ];
+                  }),
+                  undefined,
+                  [2],
+                ),
+                section(
+                  'missing',
+                  copy.missing,
+                  copy.missingHeaders,
+                  result.missing.map((v) => [
+                    (copy.missingKinds as Record<string, string>)[v.reason] ??
+                      v.reason,
+                    copy.roles[v.source],
+                    v.row,
+                    v.component ? copy.components[v.component] : '',
+                  ]),
+                ),
+                section(
+                  'issues',
+                  copy.issues,
+                  copy.issueHeaders,
+                  result.issues.map((v) => [
+                    copy.roles[v.source] ?? copy.title,
+                    v.row,
+                    (copy.codes as Record<string, string>)[v.code] ??
+                      copy.failed,
+                  ]),
+                ),
+                section(
+                  'cells',
+                  copy.cells,
+                  copy.cellHeaders,
+                  result.cells.map((v) => [
+                    copy.roles[v.source],
+                    v.row,
+                    v.column,
+                    v.field,
+                    v.text,
+                  ]),
+                ),
+                section(
+                  'inventory',
+                  copy.inventory,
+                  copy.inventoryHeaders,
+                  result.inventory.map((v) => [
+                    copy.roles[v.source],
+                    v.row,
+                    copy.kinds[v.kind],
+                  ]),
+                ),
+                section(
+                  'events',
+                  copy.events,
+                  copy.eventHeaders,
+                  result.events.map((v) => [
+                    v.id,
+                    copy.actions[v.type],
+                    v.at,
+                    v.reference,
+                    v.note,
+                    v.memberIds.length,
+                  ]),
+                ),
+                section(
+                  'sources',
+                  copy.sources,
+                  copy.sourceHeaders,
+                  files.map((f, i) => [copy.roles[i], f!.name, f!.sha256!]),
+                ),
+              ]}
+            />
           </section>
         )}
         <PayrollLongRegisterPanel />

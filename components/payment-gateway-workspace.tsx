@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount } from '@/components/amount';
 import { AlignmentStrip } from '@/components/alignment-strip';
+import { EvidenceSections } from '@/components/evidence-sections';
 import { gatewayStrip } from '@/lib/alignment-strip';
 import {
   RecordFields,
@@ -639,141 +640,196 @@ export function GatewayWorkspace({
                 </>
               )}
             </fieldset>
-            {result.records.map((records, i) => (
-              <details key={i}>
-                <summary>
-                  {copy.roles[i]} ({records.length})
-                </summary>
-                <RecordTable
-                  source={copy.roles[i]}
-                  headers={
-                    i === 0 && result.readings[0].family === PG_SIGNED_VERSION
-                      ? copy.signedRecords
-                      : copy.records[i]
-                  }
-                  rows={records.map((e) => [
-                    e.row,
-                    ...e.values.map((v, j) =>
-                      i === 0 && j === 1 ? (
-                        v === 'sale' ? (
-                          copy.sale
-                        ) : (
-                          copy.refund
-                        )
-                      ) : i === 0 && j === 3 && e.signedAmount ? (
-                        e.signedAmount.raw
-                      ) : AMOUNT_VALUES[i].includes(j) &&
-                        typeof v === 'number' ? (
-                        <Amount key={j} minor={v} decimals={result.decimals} />
-                      ) : (
-                        v
-                      ),
-                    ),
-                    ...(e.signedAmount
-                      ? amounts([
-                          e.signedAmount.signedMinor,
-                          e.signedAmount.magnitude,
-                        ])
-                      : []),
-                  ])}
-                />
-              </details>
-            ))}
-            <details>
-              <summary>
-                {copy.members} ({result.memberIds.length})
-              </summary>
-              <RecordTable
-                label={copy.members}
-                headers={copy.memberHeaders}
-                rows={result.memberIds.map((id) => {
-                  const original = JSON.parse(id) as [
-                    string,
-                    number,
-                    string,
-                    number,
-                    number,
-                  ];
-                  return [
-                    copy.roles[original[1]],
-                    original[4],
-                    <RecordFields key="id" values={identityFields(id)} />,
-                  ];
-                })}
-                wrap={[2]}
-              />
-            </details>
-            <details>
-              <summary>
-                {copy.missing} ({result.missing.length})
-              </summary>
-              <RecordTable
-                label={copy.missing}
-                headers={[copy.missing]}
-                rows={result.missing.map((k) => [
-                  copy.roles[PG_ROLES.indexOf(k as (typeof PG_ROLES)[number])],
-                ])}
-              />
-            </details>
-            <details>
-              <summary>
-                {copy.issues} ({result.issues.length})
-              </summary>
-              <RecordTable
-                label={copy.issues}
-                headers={copy.issueHeaders}
-                rows={result.issues.map((e) => [
-                  (copy.issueReasons as Record<string, string>)[e.code] ??
-                    e.code,
-                  copy.roles[e.source],
-                  e.row || copy.aggregate,
-                  e.key,
-                ])}
-              />
-            </details>
-            <details>
-              <summary>
-                {copy.inventory} ({result.inventory.length})
-              </summary>
-              <RecordTable
-                label={copy.inventory}
-                headers={copy.inventoryHeaders}
-                rows={result.inventory.map((e) => [
-                  copy.roles[e.source],
-                  e.row,
-                  e.kind,
-                  e.errors.join(' | '),
-                  <RecordFields
-                    key="values"
-                    values={files[e.source]!.sheets[0].rows[e.row - 1]}
-                  />,
-                ])}
-                wrap={[4]}
-              />
-            </details>
-            <details>
-              <summary>
-                {copy.history} ({result.events.length})
-              </summary>
-              <RecordTable
-                label={copy.history}
-                headers={copy.eventHeaders}
-                rows={result.events.map((e) => [
-                  copy[e.type],
-                  e.batchId,
-                  e.at,
-                  e.reference,
-                  e.note,
-                  <RecordFields
-                    key="members"
-                    values={e.memberIds.map((id) =>
-                      memberPlace(id, copy.roles),
-                    )}
-                  />,
-                ])}
-                wrap={[5]}
-              />
-            </details>
+            <EvidenceSections
+              sections={[
+                ...result.records.map((records, i) => ({
+                  key: `records.${i}`,
+                  name: copy.roles[i],
+                  count: records.length,
+                  node: (
+                    <details data-evidence-section={`records.${i}`}>
+                      <summary>
+                        {copy.roles[i]} ({records.length})
+                      </summary>
+                      <RecordTable
+                        source={copy.roles[i]}
+                        headers={
+                          i === 0 &&
+                          result.readings[0].family === PG_SIGNED_VERSION
+                            ? copy.signedRecords
+                            : copy.records[i]
+                        }
+                        rows={records.map((e) => [
+                          e.row,
+                          ...e.values.map((v, j) =>
+                            i === 0 && j === 1 ? (
+                              v === 'sale' ? (
+                                copy.sale
+                              ) : (
+                                copy.refund
+                              )
+                            ) : i === 0 && j === 3 && e.signedAmount ? (
+                              e.signedAmount.raw
+                            ) : AMOUNT_VALUES[i].includes(j) &&
+                              typeof v === 'number' ? (
+                              <Amount
+                                key={j}
+                                minor={v}
+                                decimals={result.decimals}
+                              />
+                            ) : (
+                              v
+                            ),
+                          ),
+                          ...(e.signedAmount
+                            ? amounts([
+                                e.signedAmount.signedMinor,
+                                e.signedAmount.magnitude,
+                              ])
+                            : []),
+                        ])}
+                      />
+                    </details>
+                  ),
+                })),
+                {
+                  key: 'memberIds',
+                  name: copy.members,
+                  count: result.memberIds.length,
+                  node: (
+                    <details data-evidence-section="memberIds">
+                      <summary>
+                        {copy.members} ({result.memberIds.length})
+                      </summary>
+                      <RecordTable
+                        label={copy.members}
+                        headers={copy.memberHeaders}
+                        rows={result.memberIds.map((id) => {
+                          const original = JSON.parse(id) as [
+                            string,
+                            number,
+                            string,
+                            number,
+                            number,
+                          ];
+                          return [
+                            copy.roles[original[1]],
+                            original[4],
+                            <RecordFields
+                              key="id"
+                              values={identityFields(id)}
+                            />,
+                          ];
+                        })}
+                        wrap={[2]}
+                      />
+                    </details>
+                  ),
+                },
+                {
+                  key: 'missing',
+                  name: copy.missing,
+                  count: result.missing.length,
+                  node: (
+                    <details data-evidence-section="missing">
+                      <summary>
+                        {copy.missing} ({result.missing.length})
+                      </summary>
+                      <RecordTable
+                        label={copy.missing}
+                        headers={[copy.missing]}
+                        rows={result.missing.map((k) => [
+                          copy.roles[
+                            PG_ROLES.indexOf(k as (typeof PG_ROLES)[number])
+                          ],
+                        ])}
+                      />
+                    </details>
+                  ),
+                },
+                {
+                  key: 'issues',
+                  name: copy.issues,
+                  count: result.issues.length,
+                  node: (
+                    <details data-evidence-section="issues">
+                      <summary>
+                        {copy.issues} ({result.issues.length})
+                      </summary>
+                      <RecordTable
+                        label={copy.issues}
+                        headers={copy.issueHeaders}
+                        rows={result.issues.map((e) => [
+                          (copy.issueReasons as Record<string, string>)[
+                            e.code
+                          ] ?? e.code,
+                          copy.roles[e.source],
+                          e.row || copy.aggregate,
+                          e.key,
+                        ])}
+                      />
+                    </details>
+                  ),
+                },
+                {
+                  key: 'inventory',
+                  name: copy.inventory,
+                  count: result.inventory.length,
+                  node: (
+                    <details data-evidence-section="inventory">
+                      <summary>
+                        {copy.inventory} ({result.inventory.length})
+                      </summary>
+                      <RecordTable
+                        label={copy.inventory}
+                        headers={copy.inventoryHeaders}
+                        rows={result.inventory.map((e) => [
+                          copy.roles[e.source],
+                          e.row,
+                          e.kind,
+                          e.errors.join(' | '),
+                          <RecordFields
+                            key="values"
+                            values={files[e.source]!.sheets[0].rows[e.row - 1]}
+                          />,
+                        ])}
+                        wrap={[4]}
+                      />
+                    </details>
+                  ),
+                },
+                {
+                  key: 'events',
+                  name: copy.history,
+                  count: result.events.length,
+                  node: (
+                    <details data-evidence-section="events">
+                      <summary>
+                        {copy.history} ({result.events.length})
+                      </summary>
+                      <RecordTable
+                        label={copy.history}
+                        headers={copy.eventHeaders}
+                        rows={result.events.map((e) => [
+                          copy[e.type],
+                          e.batchId,
+                          e.at,
+                          e.reference,
+                          e.note,
+                          <RecordFields
+                            key="members"
+                            values={e.memberIds.map((id) =>
+                              memberPlace(id, copy.roles),
+                            )}
+                          />,
+                        ])}
+                        wrap={[5]}
+                      />
+                    </details>
+                  ),
+                },
+              ]}
+            />
           </section>
         )}
         <PaymentGatewayBatchesPanel />
