@@ -14,6 +14,8 @@ import {
 } from '@/components/decision-platform';
 import { Input } from '@/components/ui/input';
 import { RecordPager, RecordRows } from '@/components/record-table';
+import { useResultFocus } from '@/components/result-focus';
+import { SectionResultHeading } from '@/components/section-result';
 import { recordPage } from '@/lib/record-page';
 import { useI18n } from '@/lib/i18n/context';
 import {
@@ -136,6 +138,9 @@ function RunningSourcePanel({
 }: Props & { side: string; onSideChange: (value: string) => void }) {
   const { lang } = useI18n();
   const t = runningBalanceCopy[lang];
+  // The result present (UX-3): after this review's own reading, its result
+  // heading takes the focus; a decision inside the result does not move it.
+  const { heading: resultHeading, reveal } = useResultFocus();
   const [cutsReviewed, setCutsReviewed] = useState(false);
   const [selection, setSelection] = useState<RunningSelection | null>(null);
   const [receipt, setReceipt] = useState<RunningReceipt | null>(null);
@@ -436,7 +441,10 @@ function RunningSourcePanel({
                   session.current = live;
                   ownedSource.current = source;
                   return live.inspect(options);
-                }, setSelection);
+                }, (next) => {
+                  setSelection(next);
+                  reveal();
+                });
               }}
             >
               {t.inspect}
@@ -480,6 +488,7 @@ function RunningSourcePanel({
       )}
       {review && (
         <>
+          <SectionResultHeading title={t.title} heading={resultHeading} />
           <div
             className={`running-review__status${review.state === 'blocked' ? ' is-blocked' : ''}`}
             data-testid="running-balance-status"

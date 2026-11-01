@@ -8,6 +8,8 @@ import {
   type ReactNode,
 } from 'react';
 import { Amount } from '@/components/amount';
+import { useResultFocus } from '@/components/result-focus';
+import { SectionResultHeading } from '@/components/section-result';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -103,6 +105,10 @@ export function MultilineSourceReview() {
   // A decision closes both its buttons; the focus goes to the line that
   // states the review (UX-3).
   const settle = useDecisionFocus();
+  // The result present (UX-3): after the example or a rereading, the
+  // reading's result heading takes the focus; choosing a file and a decision
+  // do not move it.
+  const { heading: resultHeading, reveal } = useResultFocus();
   const mounted = useRef(true);
   const fileInput = useRef<HTMLInputElement>(null);
   useEffect(() => {
@@ -247,7 +253,7 @@ export function MultilineSourceReview() {
                     ticket,
                     new TextEncoder().encode(multilineSourceReviewDemo(lang)),
                   ),
-                );
+                ).then(reveal);
               }}
             >
               {t.demo}
@@ -268,7 +274,7 @@ export function MultilineSourceReview() {
               disabled={!view.originalSha256}
               onClick={() => {
                 resetReviewer();
-                void run(controller.reread());
+                void run(controller.reread()).then(reveal);
               }}
             >
               {t.reread}
@@ -298,6 +304,7 @@ export function MultilineSourceReview() {
           )}
           {!!view.originalText && (
             <div className="stack">
+              <SectionResultHeading title={t.toggle} heading={resultHeading} />
               <h4>{t.original}</h4>
               <p className="muted">
                 <mark style={{ background: '#fff0b3', color: '#172033' }}>

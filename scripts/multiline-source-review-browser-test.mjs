@@ -4,6 +4,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { verifyMultilineSourceReview } from './multiline-source-review-browser-cases.mjs';
+import { sectionFocusRead } from './section-focus-support.mjs';
 const root = path.resolve(process.env.MIZAN_DIST_DIR ?? 'dist');
 const server = createServer(async (request, response) => {
   try {
@@ -86,6 +87,10 @@ try {
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
   assert.deepEqual(posts, []);
+  console.log(
+    'section focus read:',
+    sectionFocusRead('multiline source review'),
+  );
   await mkdir(out, { recursive: true });
   await writeFile(
     `${out}/result.json`,

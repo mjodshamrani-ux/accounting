@@ -10,6 +10,10 @@ import { ar } from '../lib/i18n/locales/ar.ts';
 import { en } from '../lib/i18n/locales/en.ts';
 import { splitSectionReviewCopy } from '../lib/i18n/split-section-review.ts';
 import { closedSay, settledOn } from './decision-platform-support.mjs';
+import {
+  assertSectionFocus,
+  sectionFocusRead,
+} from './section-focus-support.mjs';
 const root = path.resolve(
   process.env.P4_BROWSER_REPORT_DIR ||
     process.env.P4_REPORT_DIR ||
@@ -356,6 +360,13 @@ try {
       }
       await panel.getByTestId('split-section-inspect').click();
       await idle(panel);
+      // The result present (UX-3): the reading's result heading takes the
+      // focus and names the review.
+      await assertSectionFocus(
+        page,
+        page.getByTestId('split-section-picker'),
+        'split section review',
+      );
       const actualRows = await panel
         .getByTestId('split-section-inventory')
         .locator('tbody tr')
@@ -591,6 +602,7 @@ try {
       await save();
       await context.close();
     }
+  console.log('section focus read:', sectionFocusRead('split section review'));
   report.passed = true;
   await save();
   console.log(

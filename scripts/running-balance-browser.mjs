@@ -12,6 +12,10 @@ import {
   runningDiagnostic,
 } from '../lib/i18n/running-balance-review.ts';
 import { closedSay, settledOn } from './decision-platform-support.mjs';
+import {
+  assertSectionFocus,
+  sectionFocusRead,
+} from './section-focus-support.mjs';
 
 const root = path.resolve(
   process.env.RUNNING_BROWSER_REPORT_DIR || '../evidence/running-browser',
@@ -273,6 +277,13 @@ try {
       }
       await panel.getByTestId('running-balance-inspect').click();
       await idle(panel);
+      // The result present (UX-3): the reading's result heading takes the
+      // focus and names the review.
+      await assertSectionFocus(
+        page,
+        page.getByTestId('running-balance-disclosure'),
+        'running balance review',
+      );
       const actualRows = await panel
         .getByTestId('running-balance-inventory')
         .locator('tbody tr')
@@ -481,6 +492,10 @@ try {
   assert.deepEqual(report.nonGetRequests, []);
   assert.deepEqual(report.failedRequests, []);
   assert.equal(report.cases.length, 22);
+  console.log(
+    'section focus read:',
+    sectionFocusRead('running balance review'),
+  );
   report.passed = true;
   await save();
   console.log(JSON.stringify({ passed: true, cases: 22, workbooks: 36 }));

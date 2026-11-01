@@ -7,6 +7,8 @@ import {
 } from '@/components/decision-platform';
 import { Input } from '@/components/ui/input';
 import { RecordFrame, RecordPager } from '@/components/record-table';
+import { useResultFocus } from '@/components/result-focus';
+import { SectionResultHeading } from '@/components/section-result';
 import { recordPage } from '@/lib/record-page';
 import { useI18n } from '@/lib/i18n/context';
 import {
@@ -147,6 +149,9 @@ function SectionDerivedPanel({
 }) {
   const { lang } = useI18n();
   const t = sectionDerivedReviewCopy(lang);
+  // The result present (UX-3): after this review's own reading, its result
+  // heading takes the focus; a decision inside the result does not move it.
+  const { heading: resultHeading, reveal } = useResultFocus();
   const binding = useMemo(
     () => ({ file, mapping, decimals, revision }),
     [file, mapping, decimals, revision],
@@ -349,11 +354,14 @@ function SectionDerivedPanel({
           disabled={active}
           onClick={() => {
             setForm(null);
-            void run(async () => ({
-              selection: await session.inspect(),
-              receipt: null,
-              artifact: null,
-            }));
+            void run(
+              async () => ({
+                selection: await session.inspect(),
+                receipt: null,
+                artifact: null,
+              }),
+              reveal,
+            );
           }}
         >
           {t.inspect}
@@ -388,6 +396,7 @@ function SectionDerivedPanel({
       )}
       {current && (
         <>
+          <SectionResultHeading title={t.title} heading={resultHeading} />
           <p className="break-all">
             {t.hash}: <bdi>{current.selection.review.sourceHash}</bdi>
           </p>

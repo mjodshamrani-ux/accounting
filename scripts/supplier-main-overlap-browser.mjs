@@ -4,6 +4,10 @@ import {
 } from './supplier-main-pending-browser.mjs';
 import assert from 'node:assert/strict';
 import { closedSay, settledOn } from './decision-platform-support.mjs';
+import {
+  assertSectionFocus,
+  sectionFocusRead,
+} from './section-focus-support.mjs';
 import { createServer } from 'node:http';
 import { readFile, mkdir, mkdtemp, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
@@ -195,6 +199,9 @@ async function openInspect(page, t, beforeInspect) {
   await panel.locator('[data-overlap-scope-ack]').check();
   await button(panel, t.inspect).click();
   await panel.locator('[data-overlap-component]').waitFor();
+  // The result present (UX-3): the reading's result heading takes the focus
+  // and names the review.
+  await assertSectionFocus(page, panel, 'invoice overlap review');
   return panel;
 }
 async function currencyDriftProbe(
@@ -776,6 +783,10 @@ try {
     await verifyAllocation(legacy, url, path.join(out, 'existing-allocation'));
     report.allocationLegacy = true;
   }
+  console.log(
+    'section focus read:',
+    sectionFocusRead('invoice overlap review'),
+  );
   if (options.pending)
     report.actualAllocationPending = await verifyActualAllocationPending(
       browser,

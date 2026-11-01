@@ -8,6 +8,8 @@ import {
 } from '@/components/decision-platform';
 import { Input } from '@/components/ui/input';
 import { RecordRows } from '@/components/record-table';
+import { useResultFocus } from '@/components/result-focus';
+import { SectionResultHeading } from '@/components/section-result';
 import { useI18n } from '@/lib/i18n/context';
 import {
   invoiceOverlapReviewCopy,
@@ -94,6 +96,9 @@ function InvoiceOverlapPanel({
 }: InvoiceOverlapReviewProps) {
   const { lang } = useI18n();
   const t = mainReview ? invoiceOverlapIntegratedCopy(lang) : invoiceOverlapReviewCopy(lang);
+  // The result present (UX-3): after this review's own reading, its result
+  // heading takes the focus; a decision inside the result does not move it.
+  const { heading: resultHeading, reveal } = useResultFocus();
   const sourceBinding = useMemo(
     () => ({ files, mappings, scope, extractionRevision }),
     [files, mappings, scope, extractionRevision],
@@ -384,7 +389,7 @@ function InvoiceOverlapPanel({
           className={buttonClass}
           aria-describedby={`${missingWhy} ${blockedWhy}`}
           disabled={!files.every(Boolean) || active || !!mainReview?.blockedReason}
-          onClick={() => void run((live) => ledger.inspect(live))}
+          onClick={() => void run((live) => ledger.inspect(live), reveal)}
         >
           {t.inspect}
         </Button>
@@ -419,6 +424,7 @@ function InvoiceOverlapPanel({
       )}
       {current && (
         <>
+          <SectionResultHeading title={t.title} heading={resultHeading} />
           <p className="break-all">
             {t.hash}: <bdi>{current.snapshot.snapshotKey}</bdi>
           </p>

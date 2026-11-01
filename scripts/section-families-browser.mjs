@@ -10,6 +10,7 @@ import { chromium } from 'playwright';
 import { sectionDerivedReviewCopy } from '../lib/i18n/section-derived-review.ts';
 import { sourceStructureReviewCopy } from '../lib/i18n/source-structure-review.ts';
 import { closedSay, settledOn } from './decision-platform-support.mjs';
+import { assertSectionFocus, sectionFocusRead } from './section-focus-support.mjs';
 import { en } from '../lib/i18n/locales/en.ts';
 import { ar } from '../lib/i18n/locales/ar.ts';
 import { readFile as readNativeFile } from '../lib/reconciliation/io.ts';
@@ -309,6 +310,9 @@ try {
     await structure.locator('[data-review-scope-attestation]').check();
     await structure.getByRole('button', { name: st.run, exact: true }).click();
     await structure.locator('[data-section-side="supplier"]').waitFor();
+    // The result present (UX-3): each review's result heading takes the focus
+    // after its own run and names the review.
+    await assertSectionFocus(page, structure, 'source structure review');
     for (const side of ['supplier', 'ledger']) {
       const sourceSection = structure.locator(`[data-section-side="${side}"]`);
       if (diagnosticOnly(spec)) diagnostics[side] = await diagnosticCitations(sourceSection, fixture);
@@ -340,6 +344,7 @@ try {
     await panel.getByText(t.busy, { exact: true }).waitFor({ state: 'detached' });
     if (diagnosticOnly(spec)) await panel.getByRole('alert').waitFor();
     else await panel.locator('[data-derived-reviewer]').waitFor();
+    await assertSectionFocus(page, disclosure, 'derived sections review');
     assert.equal(await panel.locator('[data-derived-proposal]').count(), fixture.expected.proposals.length);
     for (const [index, proposal] of fixture.expected.proposals.entries())
       await assertCitations(panel.locator('[data-derived-proposal]').nth(index), 'data-derived-cell', proposalCells(proposal, fixture.expected, fixture.mapping));
@@ -467,6 +472,7 @@ try {
     await context.close();
   }
   for (const [file, originalHash] of Object.entries(frozenFiles)) assert.equal(sha(await readFile(file)), originalHash, `read-only source/frozen truth ${file}`);
+  console.log('section focus read:', sectionFocusRead('source structure review'), sectionFocusRead('derived sections review'));
   report.completedAt = new Date().toISOString();
   report.passed = true;
   await save();

@@ -2,6 +2,8 @@ import { useEffect, useId, useMemo, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { RecordFrame, RecordPager } from '@/components/record-table';
+import { useResultFocus } from '@/components/result-focus';
+import { SectionResultHeading } from '@/components/section-result';
 import { recordPage } from '@/lib/record-page';
 import { useI18n } from '@/lib/i18n/context';
 import {
@@ -62,6 +64,9 @@ function SourceStructureReviewPanel({
 }: SourceStructureReviewProps) {
   const { lang, engineText } = useI18n();
   const t = sourceStructureReviewCopy(lang);
+  // The result present (UX-3): after this review's own reading, its result
+  // heading takes the focus; a decision inside the result does not move it.
+  const { heading: resultHeading, reveal } = useResultFocus();
   const controller = useMemo(() => new SourceStructureReviewController(), []);
   // The inspection is described by the line that says a file is missing
   // (UX-3).
@@ -129,8 +134,10 @@ function SourceStructureReviewPanel({
   );
   async function run() {
     setView({ input, busy: true, result: null });
-    if (await controller.run(input))
+    if (await controller.run(input)) {
       setView({ input, busy: false, result: controller.result });
+      reveal();
+    }
   }
   return (
     <section
@@ -212,6 +219,7 @@ function SourceStructureReviewPanel({
       {current?.busy && <output>{t.busy}</output>}
       {result && (
         <>
+          <SectionResultHeading title={t.title} heading={resultHeading} />
           <h3 className="font-semibold">{t.groups}</h3>
           {result.groupError && (
             <p role="alert">

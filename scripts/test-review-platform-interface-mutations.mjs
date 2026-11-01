@@ -359,6 +359,17 @@ const report = {
         const r = check(tree, name, join(out, 'baseline'));
         await log('baseline-' + name, r);
         report.baseline[name] = completedSuccessfully(r);
+        // The run's records stay on the runner; a failing baseline check
+        // prints the end of its log, so the job log says why.
+        if (!report.baseline[name])
+          process.stderr.write(
+            `baseline ${name} failed (exit ${r.status}, signal ${r.signal}); its log ends:\n` +
+              ((r.stdout ?? '') + (r.stderr ?? ''))
+                .split('\n')
+                .slice(-60)
+                .join('\n') +
+              '\n',
+          );
       }
     report.baselinePassed =
       !failed &&

@@ -1,9 +1,10 @@
-// The result is present in a review section (UX-3, as UX-2 for a workspace):
-// after the section's own run, the focus is on the heading of its result, a
-// result or a refusal, in view below the top bar, and the heading names the
-// section. A run that ends in a failure shows no result and is not read. Each
-// check is counted, so a section whose runs never show the heading fails at
-// the end instead of passing unread.
+// The result is present in a review section and in a source review of the
+// supplier page (UX-3, as UX-2 for a workspace): after the section's own run,
+// the focus is on the heading of its result, a result or a refusal, in view
+// below the top bar, and the heading names the section. A run that ends in a
+// failure shows no result and is not read. Each check is counted, so a
+// section whose runs never show the heading fails at the end instead of
+// passing unread.
 import assert from 'node:assert/strict';
 
 const seen = new Map();
@@ -28,6 +29,21 @@ export async function assertSectionFocus(page, root, label) {
         requestAnimationFrame(() => requestAnimationFrame(resolve)),
       ),
   );
+  // Outside a session the page scrolls smoothly for over a second: the
+  // heading is measured where it comes to rest, not where it passes.
+  await page.evaluate(async () => {
+    if (getComputedStyle(document.documentElement).scrollBehavior !== 'smooth')
+      return;
+    let last = scrollY;
+    for (
+      let still = 0, end = Date.now() + 5000;
+      still < 3 && Date.now() < end;
+    ) {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      still = scrollY === last ? still + 1 : 0;
+      last = scrollY;
+    }
+  });
   const where = await section.evaluate((el) => {
     const heading = el.querySelector('[data-result-heading="section"]');
     const active = document.activeElement;
@@ -47,7 +63,8 @@ export async function assertSectionFocus(page, root, label) {
       text: (heading?.textContent ?? '').trim(),
       // The section's own title, not one of a disclosure inside it: the
       // summary of its own disclosure, the name of its region, its own
-      // heading, or the summary of the disclosure that holds it.
+      // heading, the summary of the disclosure that holds it, or, for a
+      // source review whose title sits in its header, its first heading.
       title: (
         (el.matches('details')
           ? el.querySelector(':scope > summary')?.textContent
@@ -55,6 +72,7 @@ export async function assertSectionFocus(page, root, label) {
         el.getAttribute('aria-label') ??
         el.querySelector(':scope > h2')?.textContent ??
         el.closest('details')?.querySelector(':scope > summary')?.textContent ??
+        el.querySelector('h2, h3')?.textContent ??
         ''
       ).trim(),
     };

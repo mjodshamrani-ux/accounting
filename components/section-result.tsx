@@ -2,7 +2,8 @@ import type { Ref } from 'react';
 import { useI18n } from '@/lib/i18n/context';
 import { sectionResultCopy } from '@/lib/i18n/section-result';
 
-/** The heading of a review section's result (UX-3). It names the section,
+/** The heading of a review section's result (UX-3), in the nine review
+ * sections and in the supplier page's source reviews. It names the section,
  * stands over a result or a refusal, and takes the focus after the section's
  * own run, as a workspace's result heading does (UX-2); a decision inside the
  * result does not move it. */

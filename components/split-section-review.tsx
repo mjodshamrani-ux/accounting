@@ -7,6 +7,8 @@ import {
   type ReviewNeed,
 } from '@/components/decision-platform';
 import { RecordRows } from '@/components/record-table';
+import { useResultFocus } from '@/components/result-focus';
+import { SectionResultHeading } from '@/components/section-result';
 import { Input } from '@/components/ui/input';
 import { useI18n } from '@/lib/i18n/context';
 import {
@@ -189,6 +191,9 @@ function SplitPanel({
 }) {
   const { lang } = useI18n();
   const t = splitSectionReviewCopy(lang);
+  // The result present (UX-3): after this review's own reading, its result
+  // heading takes the focus; a decision inside the result does not move it.
+  const { heading: resultHeading, reveal } = useResultFocus();
   const context = useMemo(
     () => ({
       mapping,
@@ -374,7 +379,10 @@ function SplitPanel({
             setPage(0);
             void run(async (options) => {
               const next = await session.inspect(options);
-              if (!options.signal.aborted) setSelection(next);
+              if (!options.signal.aborted) {
+                setSelection(next);
+                reveal();
+              }
             });
           }}
         >
@@ -436,6 +444,7 @@ function SplitPanel({
       )}
       {selection && (
         <>
+          <SectionResultHeading title={t.title} heading={resultHeading} />
           <p className="break-all">
             {t.hash}: <bdi>{selection.review.sourceHash}</bdi>
           </p>

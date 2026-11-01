@@ -6,6 +6,7 @@ import {
   settledOn,
   shownReason,
 } from './decision-platform-support.mjs';
+import { assertSectionFocus } from './section-focus-support.mjs';
 const fixtureRoot = new URL(
   '../audit/local-provider/multiline-source-v1/frozen/',
   import.meta.url,
@@ -230,6 +231,9 @@ export async function verifyMultilineSourceReview(page, url, out) {
         .textContent();
       await ui.locator('[data-source-review-reread]').click();
       await state('candidate');
+      // The result present (UX-3): after a rereading and after the example,
+      // the reading's result heading takes the focus and names the review.
+      await assertSectionFocus(page, ui, 'multiline source review');
       assert.notEqual(
         await ui.locator('[data-source-review-revision]').textContent(),
         previousRevision,
@@ -393,6 +397,7 @@ export async function verifyMultilineSourceReview(page, url, out) {
       );
       await ui.locator('[data-source-review-demo]').click();
       await state('candidate');
+      await assertSectionFocus(page, ui, 'multiline source review');
       assert.equal(
         await ui.locator('[data-source-review-synthetic]').count(),
         1,
