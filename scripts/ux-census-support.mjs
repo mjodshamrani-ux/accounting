@@ -37,6 +37,7 @@ export const METRICS = [
   'focusAfterDecision',
   'clippedText',
   'jsonText',
+  'emptyTable',
 ];
 
 // The decision each workspace offers after its example, by the names the
@@ -333,6 +334,20 @@ export function censusInPage(selector) {
     jsonText++;
     if (jsonSamples.length < 5) jsonSamples.push(text.slice(0, 60));
   }
+  // A table of column headers over no row says nothing of what is absent
+  // (UX-3). Counted shown, or one closed disclosure away.
+  const emptySamples = [];
+  const emptyTable = [...root.querySelectorAll('table')].filter((table) => {
+    if (table.closest('[hidden]')) return false;
+    const shut = table.closest('details:not([open])');
+    if (!(table.checkVisibility() || (shut && shut.checkVisibility())))
+      return false;
+    if (!table.querySelector('th') || table.querySelector('tbody tr'))
+      return false;
+    if (emptySamples.length < 5)
+      emptySamples.push((table.getAttribute('aria-label') ?? '').slice(0, 60));
+    return true;
+  }).length;
   return {
     cells,
     controls: buttons.length,
@@ -355,6 +370,8 @@ export function censusInPage(selector) {
     clippedSamples,
     jsonText,
     jsonSamples,
+    emptyTable,
+    emptySamples,
   };
 }
 
@@ -466,6 +483,11 @@ export function plantInPage(selector) {
   disclosure.append(summary, json);
   root.append(disclosure);
   planted.push('jsonText');
+  // A table of headers over no row, as an empty evidence table showed.
+  const blank = document.createElement('table');
+  blank.innerHTML = '<thead><tr><th>planted</th></tr></thead><tbody></tbody>';
+  root.append(blank);
+  planted.push('emptyTable');
   return planted;
 }
 

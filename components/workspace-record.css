@@ -91,6 +91,12 @@
 [data-record-wrap] summary {
   white-space: nowrap;
 }
+/* A record table with no row is one quiet line that names it (UX-3). */
+.record-empty {
+  margin: 6px 0 14px;
+  color: #64748b;
+  font-size: 13px;
+}
 /* A table the kit does not draw keeps its own look inside the kit's frame
    (RecordFrame), as the supplier's case list does. */
 .results-frame {

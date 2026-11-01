@@ -1,4 +1,5 @@
-// The words of the shared evidence table (UX-3): its pages and its frame.
+// The words of the shared evidence table (UX-3): its pages, its frame and
+// the line that stands for it when it has no row.
 const en = {
   previous: 'Previous page',
   next: 'Next page',
@@ -7,6 +8,7 @@ const en = {
     `Page ${page} of ${pages} · rows ${from}–${to} of ${of}`,
   wide: (label: string) => `${label}, wider than its frame: scroll inside it`,
   rowsOf: (source: string) => `Rows of ${source}`,
+  none: (label: string) => `${label}: none`,
 };
 
 const ar: typeof en = {
@@ -17,6 +19,7 @@ const ar: typeof en = {
     `الصفحة ${page} من ${pages} · الصفوف ${from}–${to} من ${of}`,
   wide: (label) => `${label}، أعرض من إطاره: مرّر داخله`,
   rowsOf: (source) => `صفوف ${source}`,
+  none: (label) => `${label}: لا شيء`,
 };
 
 export const recordTableCopy = { en, ar };

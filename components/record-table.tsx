@@ -189,7 +189,9 @@ type RecordPaging = {
  * those cells wrap between words instead of being cut off. The column that
  * holds a row's status is named in `status`, with the tone and the engine
  * status of each row: its cell, as the workspace writes it, is drawn as a
- * status badge. */
+ * status badge. A table with no row is one quiet line that names it and says
+ * it has none, carrying the frame's data attributes, instead of headers over
+ * nothing (UX-3). */
 export function RecordRows<T>({
   label,
   source,
@@ -225,6 +227,12 @@ export function RecordRows<T>({
   const [own, setOwn] = useState(0);
   const at = page ?? own;
   const { from, to } = recordPage(rows.length, at, size);
+  if (!rows.length)
+    return (
+      <p className="record-empty" data-record-empty="" {...frame}>
+        {copy.none(name)}
+      </p>
+    );
   return (
     <>
       <RecordFrame name={name} hook={frame}>

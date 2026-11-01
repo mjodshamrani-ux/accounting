@@ -164,14 +164,15 @@ async function shown(batch) {
   return batch.evaluate((root) => {
     const batches = {};
     for (const b of root.querySelectorAll('[data-ic-batch]')) {
-      const table = b.querySelector('table');
+      // The rows of the relations table by their own hook: a batch with no
+      // relation shows one quiet line in its place, not a table (UX-3).
       batches[b.getAttribute('data-ic-batch')] = {
         status: b.getAttribute('data-ic-batch-status'),
         codes: (b.getAttribute('data-ic-batch-codes') || '')
           .split(' ')
           .filter(Boolean),
-        relations: [...(table?.querySelectorAll('tbody tr') ?? [])].map((tr) =>
-          [...tr.querySelectorAll('td')].map((td) => td.textContent),
+        relations: [...b.querySelectorAll('tbody tr[data-ic-relation]')].map(
+          (tr) => [...tr.querySelectorAll('td')].map((td) => td.textContent),
         ),
       };
     }

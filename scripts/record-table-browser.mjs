@@ -16,7 +16,9 @@
 // balance reconciliation example, and the gateway and intercompany
 // decision histories after a decision, every disclosure of the result is
 // opened as a reader would, and no source row, member identity or list of
-// members is shown as the JSON the program wrote. And statuses are read as
+// members is shown as the JSON the program wrote, and no table shows its
+// headers over no row: it is one quiet line that names it and says it has
+// none. And statuses are read as
 // badges: in the receivables, clearing, bank and supplier results every
 // case shows one, and only a status this check lists as agreed takes the
 // agreed tone. Synthetic example only; no financial truth is asserted.
@@ -117,16 +119,14 @@ async function shade(page, frame, side) {
 // The shade of the marked side is drawn along it, past the frame's border,
 // and the rest of the frame keeps its colours: what changes there is the
 // anti-aliasing of text, under one level in any column. The shade lies
-// under the cells, so the header row's own background covers it: it is
-// measured on frames whose table has rows, and a table of headers alone
-// says that it scrolls by its name and its marks.
-let drawn = 0,
-  headersOnly = 0;
+// under the cells, so it is measured on rows: every frame holds some, since
+// a table with no row is one quiet line, not a frame of headers alone.
+let drawn = 0;
 async function assertShade(page, frame, side, label) {
-  if (!(await frame.evaluate((f) => f.querySelector('tbody td') !== null))) {
-    headersOnly++;
-    return;
-  }
+  assert.ok(
+    await frame.evaluate((f) => f.querySelector('tbody td') !== null),
+    `${label}: a frame holds rows; a table with no row is a quiet line`,
+  );
   drawn++;
   const dark = await shade(page, frame, side),
     left = side === 'data-more-left',
@@ -158,7 +158,8 @@ let checked = 0,
   whole = 0,
   fields = 0,
   jsonFree = 0,
-  shownFields = 0;
+  shownFields = 0,
+  quietTables = 0;
 // Long text read whole (UX-3): no cell cut off, no field of a source row
 // broken across lines.
 async function readWhole(domain, language, width) {
@@ -285,6 +286,22 @@ const wrappedTitles = (s) =>
       );
     })
     .map((t) => t.textContent.trim().slice(0, 40));
+// A table with no row (UX-3): no table shows its headers over nothing; it is
+// one quiet line that names it and says it has none, in the reader's words.
+const none = { ar: ': لا شيء', en: ': none' };
+const emptyShown = (s) => ({
+  headersOnly: [...document.querySelectorAll(`${s} table`)]
+    .filter(
+      (t) =>
+        t.checkVisibility() &&
+        t.querySelector('th') &&
+        !t.querySelector('tbody tr'),
+    )
+    .map((t) => t.getAttribute('aria-label') ?? ''),
+  quiet: [...document.querySelectorAll(`${s} [data-record-empty]`)]
+    .filter((p) => p.checkVisibility())
+    .map((p) => p.textContent.trim()),
+});
 const reject = {
   gateway: {
     ar: ['مرجع قرار بوابة الدفع', 'شرح قرار بوابة الدفع', 'رفض الدفعة كاملة'],
@@ -376,6 +393,27 @@ async function readByField(domain, language) {
   await page.waitForTimeout(300);
   let seen = await page.evaluate(shownJson, selector);
   assert.deepEqual(seen.found, [], `${label}: no source text is shown as JSON`);
+  const empty = await page.evaluate(emptyShown, selector);
+  assert.deepEqual(
+    empty.headersOnly,
+    [],
+    `${label}: no table shows its headers over no row`,
+  );
+  for (const line of empty.quiet)
+    assert.ok(
+      line.endsWith(none[language]) && line.length > none[language].length,
+      `${label}: a table with no row names itself and says it has none (${line})`,
+    );
+  quietTables += empty.quiet.length;
+  // The balance example has no missing balance: its line keeps the data hook
+  // its table's frame carried.
+  if (domain === 'bank')
+    assert.ok(
+      await panel
+        .locator('[data-testid="bank-balance-missing"][data-record-empty]')
+        .isVisible(),
+      `${label}: the quiet line keeps its table's data hook`,
+    );
   assert.ok(
     seen.fields > 0,
     `${label}: source rows and identities are shown by field`,
@@ -858,6 +896,7 @@ try {
     'bank',
   ])
     for (const language of ['ar', 'en']) await readByField(domain, language);
+  assert.ok(quietTables > 0, 'tables with no row read as quiet lines');
   for (const domain of Object.keys(caseRows))
     for (const language of ['ar', 'en']) await readBadges(domain, language);
   // Each workspace showed both an agreed status and one that is not.
@@ -875,5 +914,5 @@ try {
   await new Promise((resolve) => server.close(resolve));
 }
 console.log(
-  `Record table frames: PASS, ${checked} wide frames in Arabic and English at 390 px; the shade measured on both sides of ${drawn / 2} with rows, ${headersOnly / 2} of headers alone; long text read whole in ${whole} cells and ${fields} source row fields of the receivables and gateway examples; source text read by field, not JSON, in ${jsonFree} results (${shownFields} fields shown); ${badgesRead} statuses read as badges in the receivables, clearing, bank and supplier results`,
+  `Record table frames: PASS, ${checked} wide frames in Arabic and English at 390 px; the shade measured on both sides of ${drawn / 2}; long text read whole in ${whole} cells and ${fields} source row fields of the receivables and gateway examples; source text read by field, not JSON, in ${jsonFree} results (${shownFields} fields shown), ${quietTables} tables with no row as one quiet line; ${badgesRead} statuses read as badges in the receivables, clearing, bank and supplier results`,
 );

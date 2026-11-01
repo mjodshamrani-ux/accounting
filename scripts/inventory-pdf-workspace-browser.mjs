@@ -12,6 +12,7 @@ import {
 } from '../tests/helpers/inventory-pdf-lifecycle-fixture.ts';
 import { stockCopy } from '../lib/i18n/inventory-register.ts';
 import { inventoryPdfCopy } from '../lib/i18n/inventory-pdf.ts';
+import { recordTableCopy } from '../lib/i18n/record-table.ts';
 import { domainEvidenceCopy } from '../lib/i18n/domain-evidence.ts';
 import { STOCK_FIELDS } from '../lib/reconciliation/inventory-register.ts';
 import { money } from '../lib/reconciliation/core.ts';
@@ -251,11 +252,29 @@ try {
               ),
             })),
           );
-        const rendered = (headers, rows) => {
+        // A table with no row is one quiet line that names it (UX-3).
+        const quiet = await w
+          .locator('.workspace-results [data-record-empty]')
+          .evaluateAll((nodes) => nodes.map((n) => n.textContent.trim()));
+        const rendered = (label, headers, rows) => {
           const found = tables.filter(
             (table) =>
               JSON.stringify(table.headers) === JSON.stringify(headers),
           );
+          if (!rows.length) {
+            assert.equal(
+              found.length,
+              0,
+              name + ': no table of headers over no row ' + label,
+            );
+            assert.equal(
+              quiet.filter((line) => line === recordTableCopy[lang].none(label))
+                .length,
+              1,
+              name + ': one quiet line says ' + label + ' has none',
+            );
+            return;
+          }
           assert.equal(
             found.length,
             1,
@@ -272,12 +291,14 @@ try {
         const amount = (v) =>
           v === null || v === undefined ? v : money(v, r.decimals);
         rendered(
+          t().tableNames.totals,
           t().totals,
           r.totals
             ? [[amount(r.totals.registerMinor), amount(r.totals.glMinor)]]
             : [],
         );
         rendered(
+          t().tableNames.comparisons,
           t().comparisons,
           r.comparisons.map((c) => [
             c.account,
@@ -301,6 +322,7 @@ try {
           );
         for (const [i, records] of r.records.entries())
           rendered(
+            recordTableCopy[lang].rowsOf(t().roles[i]),
             t().records[i],
             records.map((v) => [v.row, ...recordCell(i, v.values)]),
           );
