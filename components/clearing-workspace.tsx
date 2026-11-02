@@ -18,6 +18,7 @@ import {
   WorkspaceFileInput,
   WorkspaceSources,
   WorkspaceAdvanced,
+  WorkspaceStart,
 } from './workspace-chrome';
 import { Button } from './ui/button';
 import { useI18n } from '@/lib/i18n/context';
@@ -284,7 +285,7 @@ export function ClearingWorkspace({
           <p>{t.limits}</p>
         </WorkspaceIntro>
         <section className="surface pad stack workspace-preparation">
-          <WorkspaceAdvanced>
+          <WorkspaceStart>
             <div className="clearing-actions workspace-toolbar">
               <Button
                 variant="outline"
@@ -346,7 +347,7 @@ export function ClearingWorkspace({
               waits="example"
               label={t.sample}
             />
-          </WorkspaceAdvanced>
+          </WorkspaceStart>
           <WorkspaceSources primaryIndices={[0]} primaryReady={!!file}>
             <section className="workspace-source">
               <h2>

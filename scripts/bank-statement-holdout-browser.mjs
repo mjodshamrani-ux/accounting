@@ -209,8 +209,7 @@ try {
       run.saved = !!saved.target;
       if (saved.target) {
         const cold = await open(browser);
-        const advanced = cold.w.locator('details[data-workspace-advanced]').first();
-        if ((await advanced.getAttribute('open')) === null) await advanced.locator(':scope > summary').click();
+        // The restore is in the start row, shown without opening anything (UX-5).
         const back = await cold.act(() =>
           cold.w.getByLabel(enCatalogue.bank.restore, { exact: true }).setInputFiles(saved.target),
         );

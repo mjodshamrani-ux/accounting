@@ -23,6 +23,7 @@ import {
   WorkspaceFileInput,
   WorkspaceSources,
   WorkspaceAdvanced,
+  WorkspaceStart,
 } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { workerTask } from '@/lib/reconciliation/client';
@@ -357,9 +358,13 @@ export function PayrollWorkspace({
           <p>{copy.claim}</p>
           <p>{copy.family}</p>
         </WorkspaceIntro>
-        <WorkspaceAdvanced>
+        <WorkspaceStart>
           <div className="gl-tb-actions workspace-toolbar">
-            <Button disabled={busy} onClick={() => void demo()}>
+            <Button
+              variant="outline"
+              disabled={busy}
+              onClick={() => void demo()}
+            >
               {copy.demo}
             </Button>
             <label>
@@ -393,7 +398,7 @@ export function PayrollWorkspace({
               </Button>
             )}
           </div>
-        </WorkspaceAdvanced>
+        </WorkspaceStart>
         <WorkspaceGroupTitle kind="sources" />
         <WorkspaceSources
           primaryIndices={[0, 3]}

@@ -861,9 +861,7 @@ async function foundationRun() {
   {
     const u = await open('ar', 1280);
     const before = await replies(u);
-    const advanced = u.w.locator('details[data-workspace-advanced]').first();
-    if ((await advanced.getAttribute('open')) === null)
-      await advanced.locator(':scope > summary').click();
+    // The restore is in the start row, shown without opening anything (UX-5).
     await u.w
       .getByLabel(u.bank.restore, { exact: true })
       .setInputFiles(path.join(out, 'M01-2.json'));

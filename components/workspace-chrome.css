@@ -109,6 +109,14 @@
 .reconciliation-workspace .workspace-advanced__content > .workspace-toolbar {
   margin: 0;
 }
+/* The start row (UX-5) is a fieldset for its legend, read by screen readers
+   only; it is not one of the titled cards drawn for fieldsets with a legend. */
+.workspace-start {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
 .workspace-source .workspace-advanced {
   width: 100%;
 }
@@ -503,7 +511,8 @@
   background: linear-gradient(90deg, #dce1ed, #dce1ed30);
 }
 .reconciliation-workspace .workspace-scope,
-.reconciliation-workspace > fieldset:has(> legend):not(.language-switch),
+.reconciliation-workspace
+  > fieldset:has(> legend):not(.language-switch, .workspace-start),
 .reconciliation-workspace > section:not(.workspace-intro),
 .reconciliation-workspace :is(.workspace-results, .workspace-review) {
   border: 1px solid var(--border);
@@ -521,7 +530,7 @@
   gap: 18px;
 }
 .reconciliation-workspace
-  > fieldset:has(> legend):not(.language-switch)
+  > fieldset:has(> legend):not(.language-switch, .workspace-start)
   > legend {
   float: inline-start;
   width: 100%;
@@ -865,7 +874,8 @@
       .workspace-review
     ),
   .reconciliation-workspace > section:not(.workspace-intro),
-  .reconciliation-workspace > fieldset:has(> legend):not(.language-switch) {
+  .reconciliation-workspace
+    > fieldset:has(> legend):not(.language-switch, .workspace-start) {
     padding: 20px 16px;
   }
   .reconciliation-workspace .workspace-toolbar {

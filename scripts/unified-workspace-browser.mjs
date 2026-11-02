@@ -713,6 +713,63 @@ try {
           true,
           `${domain}: advanced details start collapsed`,
         );
+        // UX-5: the workspace's example and a session saved on this device
+        // are ways to start, shown under the intro before the sources, not
+        // advanced options: one named row, nothing to open first, the
+        // example as a button and the session as the native file input,
+        // each reached from the keyboard in that order.
+        const start = workspace.locator('[data-workspace-start]');
+        assert.equal(await start.count(), 1, `${domain}: one start row`);
+        assert.equal(
+          await start.evaluate(
+            (row) =>
+              row.checkVisibility() &&
+              !row.closest('details') &&
+              row.tagName === 'FIELDSET' &&
+              !!row.querySelector(':scope > legend')?.textContent.trim() &&
+              !!(
+                row.compareDocumentPosition(
+                  row
+                    .closest('.reconciliation-workspace')
+                    .querySelector('[data-workspace-sources]'),
+                ) & Node.DOCUMENT_POSITION_FOLLOWING
+              ),
+          ),
+          true,
+          `${domain}: the start row is shown, named and before the sources, inside no disclosure`,
+        );
+        const examples = start.locator('button:visible');
+        assert.ok(
+          (await examples.count()) >= 1,
+          `${domain}: the example is in the start row`,
+        );
+        const session = start.locator('input[type="file"]');
+        assert.equal(
+          await session.count(),
+          1,
+          `${domain}: one saved-session input in the start row`,
+        );
+        assert.equal(
+          await session.evaluate(
+            (input) =>
+              !input.disabled &&
+              input.accept === '.json' &&
+              !!input.closest('label')?.checkVisibility() &&
+              !!(
+                input.getAttribute('aria-label') || input.labels?.[0]?.innerText
+              )?.trim(),
+          ),
+          true,
+          `${domain}: the saved-session input is named, open and shown by its label`,
+        );
+        await examples.last().focus();
+        await page.keyboard.press('Tab');
+        assert.equal(
+          await session.evaluate((input) => document.activeElement === input),
+          true,
+          `${domain}: Tab goes from the example to the saved session`,
+        );
+        await page.evaluate(() => document.activeElement?.blur());
         if (sourceCounts[domain] > 2) {
           assert.equal(
             await supporting.count(),

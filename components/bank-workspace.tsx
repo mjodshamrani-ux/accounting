@@ -20,7 +20,7 @@ import {
   WorkspaceGroupTitle,
   WorkspaceFileInput,
   WorkspaceSources,
-  WorkspaceAdvanced,
+  WorkspaceStart,
 } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { bankStatementCopy } from '@/lib/i18n/bank-statement';
@@ -384,9 +384,10 @@ export function BankWorkspace({
             <p>{t.claim}</p>
           </WorkspaceIntro>
           <fieldset disabled={locked}>
-            <WorkspaceAdvanced>
+            <WorkspaceStart>
               <div className="gl-tb-actions workspace-toolbar">
                 <Button
+                  variant="outline"
                   hidden={mode !== 'movements'}
                   onClick={() =>
                     perform(async (signal) => {
@@ -446,7 +447,7 @@ export function BankWorkspace({
                   />
                 </label>
               </div>
-            </WorkspaceAdvanced>
+            </WorkspaceStart>
             <fieldset className="bank-source-mode" data-bank-source-mode>
               <legend>{s.modeTitle}</legend>
               {(['movements', 'statement'] as const).map((value) => (

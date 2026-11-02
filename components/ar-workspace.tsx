@@ -13,6 +13,7 @@ import {
   WorkspaceFileInput,
   WorkspaceSources,
   WorkspaceAdvanced,
+  WorkspaceStart,
 } from './workspace-chrome';
 import { Button } from './ui/button';
 import { useI18n } from '@/lib/i18n/context';
@@ -324,9 +325,9 @@ export function ArWorkspace({
         <p>{t.pdfLimits}</p>
       </WorkspaceIntro>
       <fieldset disabled={busy}>
-        <WorkspaceAdvanced>
+        <WorkspaceStart>
           <div className="clearing-actions workspace-toolbar">
-            <Button
+            <Button variant="outline"
               onClick={() =>
                 perform(async (signal) => {
                   const source: SourceFile[] = [];
@@ -396,7 +397,7 @@ export function ArWorkspace({
               />
             </label>
           </div>
-        </WorkspaceAdvanced>
+        </WorkspaceStart>
         <WorkspaceGroupTitle kind="sources" />
         <WorkspaceSources
           primaryIndices={[0, 1]}

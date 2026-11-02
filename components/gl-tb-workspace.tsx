@@ -10,6 +10,7 @@ import {
   WorkspaceFileInput,
   WorkspaceSources,
   WorkspaceAdvanced,
+  WorkspaceStart,
 } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
@@ -194,9 +195,10 @@ export function GlTbWorkspace({
         <p>{t.claim}</p>
       </WorkspaceIntro>
       <fieldset disabled={busy}>
-        <WorkspaceAdvanced>
+        <WorkspaceStart>
           <div className="gl-tb-actions workspace-toolbar">
             <Button
+              variant="outline"
               onClick={() =>
                 perform(async (signal) => {
                   const source: SourceFile[] = [];
@@ -265,7 +267,7 @@ export function GlTbWorkspace({
               />
             </label>
           </div>
-        </WorkspaceAdvanced>
+        </WorkspaceStart>
         <WorkspaceGroupTitle kind="sources" />
         <WorkspaceSources
           primaryIndices={[0, 1]}

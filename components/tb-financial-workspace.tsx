@@ -21,6 +21,7 @@ import {
   WorkspaceFileInput,
   WorkspaceSources,
   WorkspaceAdvanced,
+  WorkspaceStart,
 } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { workerTask } from '@/lib/reconciliation/client';
@@ -334,9 +335,13 @@ export function FinancialWorkspace({
           </p>
           <p>{t.financial.currentFamilyWholePostClosingTrialBalanceOne}</p>
         </WorkspaceIntro>
-        <WorkspaceAdvanced>
+        <WorkspaceStart>
           <div className="gl-tb-actions workspace-toolbar">
-            <Button disabled={busy} onClick={() => void demo()}>
+            <Button
+              variant="outline"
+              disabled={busy}
+              onClick={() => void demo()}
+            >
               {t.financial.syntheticExample}
             </Button>
             <label>
@@ -370,7 +375,7 @@ export function FinancialWorkspace({
               </Button>
             )}
           </div>
-        </WorkspaceAdvanced>
+        </WorkspaceStart>
         <WorkspaceGroupTitle kind="sources" />
         <WorkspaceSources
           primaryIndices={[0, 3]}

@@ -15,6 +15,7 @@ import {
   WorkspaceFileInput,
   WorkspaceSources,
   WorkspaceAdvanced,
+  WorkspaceStart,
 } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
@@ -438,9 +439,9 @@ export function AllocationWorkspace({
         </section>
       )}
       <fieldset disabled={busy}>
-        <WorkspaceAdvanced>
+        <WorkspaceStart>
           <div className="gl-tb-actions workspace-toolbar">
-            <Button onClick={() => void openDemo()}>
+            <Button variant="outline" onClick={() => void openDemo()}>
               {t.openSyntheticAllocationExample}
             </Button>
             <label>
@@ -456,7 +457,7 @@ export function AllocationWorkspace({
               />
             </label>
           </div>
-        </WorkspaceAdvanced>
+        </WorkspaceStart>
         <WorkspaceGroupTitle kind="sources" />
         <WorkspaceSources
           primaryIndices={[0, 1]}

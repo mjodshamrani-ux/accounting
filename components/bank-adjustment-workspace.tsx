@@ -3,7 +3,7 @@ import {
   WorkspaceGroupTitle,
   WorkspaceFileInput,
   WorkspaceSources,
-  WorkspaceAdvanced,
+  WorkspaceStart,
 } from './workspace-chrome';
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
@@ -356,9 +356,10 @@ export function BankAdjustmentWorkspace({
       <p>{t.intro}</p>
       <p>{t.claim}</p>
       <fieldset disabled={locked}>
-        <WorkspaceAdvanced>
+        <WorkspaceStart>
           <div className="gl-tb-actions workspace-toolbar">
             <Button
+              variant="outline"
               onClick={() =>
                 perform(async (signal) => {
                   const f: SourceFile[] = [];
@@ -451,7 +452,7 @@ export function BankAdjustmentWorkspace({
               />
             </label>
           </div>
-        </WorkspaceAdvanced>
+        </WorkspaceStart>
         <WorkspaceGroupTitle kind="sources" />
         <WorkspaceSources
           primaryIndices={[0, 1]}

@@ -144,6 +144,23 @@ export function WorkspaceAdvanced({
   );
 }
 
+/**
+ * The ways to start that need none of the reader's own files: the
+ * workspace's synthetic example and a session saved on this device (UX-5).
+ * Shown under the intro, not folded into advanced options: returning to
+ * saved work is not an advanced option. The controls inside are the
+ * workspace's own, the native file input among them.
+ */
+export function WorkspaceStart({ children }: { children: ReactNode }) {
+  const { lang } = useI18n();
+  return (
+    <fieldset className="workspace-start" data-workspace-start>
+      <legend className="sr-only">{workspaceCopy[lang].start}</legend>
+      {children}
+    </fieldset>
+  );
+}
+
 export function WorkspaceIntro({
   title,
   intro,

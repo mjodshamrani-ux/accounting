@@ -7,6 +7,7 @@ export const workspaceCopy = {
     required: 'مطلوبة',
     supportingHint: 'يلزم رفع هذه المستندات وتأكيد قراءتها لإتمام المقارنة.',
     advanced: 'خيارات متقدمة',
+    start: 'ابدأ بمثال أو بجلسة محفوظة',
     sourceDetails: 'تفاصيل المصدر وبصمته',
     scopeDetails: 'تفاصيل النطاق',
     bankBalanceFlow: 'تسوية الأرصدة وبنود البنك',
@@ -20,6 +21,7 @@ export const workspaceCopy = {
     supportingHint:
       'Upload these documents and confirm their reading to complete the comparison.',
     advanced: 'Advanced options',
+    start: 'Start with an example or a saved session',
     sourceDetails: 'Source details and fingerprint',
     scopeDetails: 'Scope details',
     bankBalanceFlow: 'Bank balances and reconciliation items',
