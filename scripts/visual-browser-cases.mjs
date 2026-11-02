@@ -71,7 +71,7 @@ export async function verifyVisualReader(page, baseUrl) {
     exact: true,
   });
   const confirm = page.getByRole('button', {
-    name: 'تأكيد البيانات',
+    name: 'أكّد البيانات',
     exact: true,
   });
   assert.equal(await confirm.isDisabled(), true);
@@ -231,7 +231,7 @@ export async function verifyVisualReader(page, baseUrl) {
   };
   const clear = async () => {
     await panel
-      .getByRole('button', { name: 'مسح مسودة الصور', exact: true })
+      .getByRole('button', { name: 'امسح مسودة الصور', exact: true })
       .click();
     await draftStatus.waitFor({ state: 'hidden' });
     assert.equal(await panel.locator('.visual-word').count(), 0);
@@ -359,7 +359,7 @@ export async function verifyVisualReader(page, baseUrl) {
       .getByRole('button', { name: 'تسوية جديدة', exact: true })
       .click();
     await page
-      .getByRole('button', { name: 'مسح الجلسة والبدء من جديد', exact: true })
+      .getByRole('button', { name: 'امسح الجلسة وابدأ من جديد', exact: true })
       .click();
     await page.getByRole('alertdialog').waitFor({ state: 'hidden' });
     await draftStatus.waitFor({ state: 'hidden' });
@@ -388,7 +388,7 @@ export async function verifyVisualReader(page, baseUrl) {
       buffer: png,
     });
     const cancelButton = panel.getByRole('button', {
-      name: 'إلغاء قراءة الصور',
+      name: 'ألغ قراءة الصور',
       exact: true,
     });
     await cancelButton.click({ timeout: 10_000 });

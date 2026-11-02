@@ -68,7 +68,7 @@ async function waitForScopeInputs(page) {
     .waitFor({ state: 'visible' });
   assert.equal(
     await page
-      .getByRole('button', { name: 'تعديل نطاق المقارنة', exact: true })
+      .getByRole('button', { name: 'عدّل نطاق المقارنة', exact: true })
       .getAttribute('aria-expanded'),
     'true',
     'missing essentials must reveal the scope inputs without a toggle race',
@@ -227,7 +227,7 @@ try {
   // Balance reconciliation is opt-in and lives behind the scope card's edit
   // action, so nothing about it is on the default path.
   await page
-    .getByRole('button', { name: 'تعديل نطاق المقارنة', exact: true })
+    .getByRole('button', { name: 'عدّل نطاق المقارنة', exact: true })
     .click();
   await page.getByRole('checkbox', { name: /أريد تسوية الأرصدة/ }).check();
   await page.getByRole('checkbox', { name: /راجعت تغطية التقريرين/ }).check();
@@ -271,7 +271,7 @@ try {
   await page
     .getByRole('textbox', { name: 'سبب القرار', exact: true })
     .fill('إعادة مراجعة المصدر — اختبار اصطناعي');
-  await page.getByRole('button', { name: 'فك الربط وإعادته للمراجعة' }).click();
+  await page.getByRole('button', { name: 'فك الربط وأعده للمراجعة' }).click();
   await page.waitForFunction(
     () => document.querySelector('.metric strong')?.textContent === '1',
   );
@@ -280,7 +280,7 @@ try {
   await page
     .getByRole('textbox', { name: 'ملاحظات المراجعة', exact: true })
     .fill('bad\u0008text');
-  await page.getByRole('button', { name: 'تنزيل مسودة Excel' }).click();
+  await page.getByRole('button', { name: 'نزّل مسودة Excel' }).click();
   await page.getByRole('alert').filter({ hasText: 'محارف تحكم' }).waitFor();
   assert.equal(
     await page.locator('.metric').nth(0).locator('strong').innerText(),
@@ -290,7 +290,7 @@ try {
     .getByRole('textbox', { name: 'ملاحظات المراجعة', exact: true })
     .fill('اختبار اصطناعي — Arabic / English');
   const downloadEvent = page.waitForEvent('download');
-  await page.getByRole('button', { name: 'تنزيل مسودة Excel' }).click();
+  await page.getByRole('button', { name: 'نزّل مسودة Excel' }).click();
   const download = await downloadEvent;
   const downloaded = await download.path();
   assert.ok(downloaded);
@@ -318,8 +318,8 @@ try {
   await page.screenshot({ path: 'work/qa/export.png', fullPage: true });
   // A settings edit discards the previous result: pressing compare is the
   // confirmation, so a stale comparison can never survive an input change.
-  await page.getByRole('button', { name: 'العودة للمراجعة' }).click();
-  await page.getByRole('button', { name: 'تعديل الإعدادات' }).click();
+  await page.getByRole('button', { name: 'عُد إلى المراجعة' }).click();
+  await page.getByRole('button', { name: 'عدّل الإعدادات' }).click();
   assert.equal(
     await page.getByRole('heading', { name: 'مساحة المراجعة' }).count(),
     0,
@@ -364,7 +364,7 @@ try {
     );
   }
   await uploadPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   await waitForScopeInputs(uploadPage);
   await uploadPage.getByLabel('العملة', { exact: true }).fill('SAR');
@@ -389,14 +389,14 @@ try {
     .click();
   await uploadPage.getByRole('alertdialog').waitFor();
   await uploadPage
-    .getByRole('button', { name: 'متابعة الجلسة', exact: true })
+    .getByRole('button', { name: 'تابع الجلسة', exact: true })
     .click();
   await uploadPage.getByRole('heading', { name: 'مساحة المراجعة' }).waitFor();
   await uploadPage
     .getByRole('button', { name: 'تسوية جديدة', exact: true })
     .click();
   await uploadPage
-    .getByRole('button', { name: 'مسح الجلسة والبدء من جديد', exact: true })
+    .getByRole('button', { name: 'امسح الجلسة وابدأ من جديد', exact: true })
     .click();
   assert.equal(
     await uploadPage.getByRole('heading', { name: 'مساحة المراجعة' }).count(),
@@ -455,7 +455,7 @@ try {
     );
   }
   await uploadPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   await waitForScopeInputs(uploadPage);
   await uploadPage.getByLabel('العملة', { exact: true }).fill('SAR');
@@ -501,7 +501,7 @@ try {
       .waitFor();
   }
   await workpaperPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   assert.match(
     await workpaperPage.locator('.summary-line').nth(1).innerText(),
@@ -514,8 +514,8 @@ try {
   // The per-source details live behind one edit action instead of a stack of
   // disclosures, so open each card to read the header row it picked.
   for (const [index, label] of [
-    'تعديل كشف المورد',
-    'تعديل تقرير الحسابات الدائنة',
+    'عدّل كشف المورد',
+    'عدّل تقرير الحسابات الدائنة',
   ].entries()) {
     await workpaperPage
       .getByRole('button', { name: label, exact: true })
@@ -531,7 +531,7 @@ try {
   // prove SAR and provide dates. This complete scope stays collapsed until an
   // explicit edit; it must not use the missing-input auto-opening path.
   const workpaperScope = workpaperPage.getByRole('button', {
-    name: 'تعديل نطاق المقارنة',
+    name: 'عدّل نطاق المقارنة',
     exact: true,
   });
   assert.equal(await workpaperScope.getAttribute('aria-expanded'), 'false');
@@ -594,14 +594,14 @@ try {
     () => !document.querySelector('.notice.loading'),
   );
   await pdfPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   await pdfPage
-    .getByRole('button', { name: 'تعديل حدود الأعمدة', exact: true })
+    .getByRole('button', { name: 'عدّل حدود الأعمدة', exact: true })
     .click();
   await pdfPage.getByLabel('حدود أعمدة PDF', { exact: true }).fill('25,45,65');
   await pdfPage
-    .getByRole('button', { name: 'تطبيق الحدود وإعادة القراءة', exact: true })
+    .getByRole('button', { name: 'طبّق الحدود وأعد القراءة', exact: true })
     .click();
   await pdfPage.waitForFunction(
     () => !document.querySelector('.notice.loading'),
@@ -629,7 +629,7 @@ try {
     .click();
   const pdfExport = pdfPage.waitForEvent('download');
   await pdfPage
-    .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
+    .getByRole('button', { name: 'نزّل مسودة Excel', exact: true })
     .click();
   const pdfBook = new ExcelJS.Workbook();
   await pdfBook.xlsx.readFile(await (await pdfExport).path());
@@ -744,16 +744,16 @@ try {
       ),
     });
   await recoveryPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   await recoveryPage
-    .getByRole('button', { name: 'تعديل حدود الأعمدة', exact: true })
+    .getByRole('button', { name: 'عدّل حدود الأعمدة', exact: true })
     .click();
   await recoveryPage
     .getByLabel('حدود أعمدة PDF', { exact: true })
     .fill('25,45');
   await recoveryPage
-    .getByRole('button', { name: 'تطبيق الحدود وإعادة القراءة', exact: true })
+    .getByRole('button', { name: 'طبّق الحدود وأعد القراءة', exact: true })
     .click();
   await recoveryPage.waitForFunction(
     () => !document.querySelector('.notice.loading'),
@@ -781,7 +781,7 @@ try {
     .click();
   const recoveredExport = recoveryPage.waitForEvent('download');
   await recoveryPage
-    .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
+    .getByRole('button', { name: 'نزّل مسودة Excel', exact: true })
     .click();
   const recoveredBook = new ExcelJS.Workbook();
   await recoveredBook.xlsx.readFile(await (await recoveredExport).path());
@@ -904,7 +904,7 @@ try {
       );
     }
     await importAiPage
-      .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+      .getByRole('button', { name: 'أكّد البيانات', exact: true })
       .click();
     const aiSupplier = importAiPage.locator('section').filter({
       has: importAiPage.getByRole('heading', {
@@ -991,7 +991,7 @@ try {
       assert.deepEqual(modelState.proposedFields, ['amount']);
       await pendingProposal
         .getByRole('button', {
-          name: 'تطبيق الأعمدة بعد مراجعتها',
+          name: 'طبّق الأعمدة بعد مراجعتها',
           exact: true,
         })
         .click();
@@ -1074,7 +1074,7 @@ try {
     );
   }
   await quickPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   // Everything needed was read from the files, so the confirmation step asks for
   // nothing: no entry field and no attestation box stand between the accountant
@@ -1106,7 +1106,7 @@ try {
   assert.match(quickSummary, /SAR/);
   // The values are inferred, not invented: open the panel and read them back.
   await quickPage
-    .getByRole('button', { name: 'تعديل نطاق المقارنة', exact: true })
+    .getByRole('button', { name: 'عدّل نطاق المقارنة', exact: true })
     .click();
   assert.equal(
     await quickPage.getByLabel('تاريخ المقارنة', { exact: true }).inputValue(),
@@ -1133,7 +1133,7 @@ try {
     false,
   );
   await quickPage
-    .getByRole('button', { name: 'تعديل نطاق المقارنة', exact: true })
+    .getByRole('button', { name: 'عدّل نطاق المقارنة', exact: true })
     .click();
   assert.match(
     await quickPage.locator('.summary-line').nth(1).innerText(),
@@ -1159,7 +1159,7 @@ try {
     .click();
   const quickDownload = quickPage.waitForEvent('download');
   await quickPage
-    .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
+    .getByRole('button', { name: 'نزّل مسودة Excel', exact: true })
     .click();
   const quickExport = new ExcelJS.Workbook();
   await quickExport.xlsx.readFile(await (await quickDownload).path());
@@ -1203,7 +1203,7 @@ try {
     );
   }
   await ambiguityPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   await waitForScopeInputs(ambiguityPage);
   await ambiguityPage
@@ -1291,7 +1291,7 @@ try {
     );
   }
   await precisionPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   await waitForScopeInputs(precisionPage);
   await precisionPage
@@ -1352,7 +1352,7 @@ try {
     () => !document.querySelector('.notice.loading'),
   );
   await autoPdfPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   // The review box must be reachable without applying a boundary by hand: this
   // is the dead end that used to block the whole flow.
@@ -1368,7 +1368,7 @@ try {
   assert.equal(await autoReview.isChecked(), true);
   // Typing a boundary and abandoning it must not latch the box off.
   await autoPdfPage
-    .getByRole('button', { name: 'تعديل حدود الأعمدة', exact: true })
+    .getByRole('button', { name: 'عدّل حدود الأعمدة', exact: true })
     .click();
   const autoCuts = autoPdfPage.getByLabel('حدود أعمدة PDF', { exact: true });
   const appliedCuts = await autoCuts.inputValue();
@@ -1376,7 +1376,7 @@ try {
   await autoCuts.fill('oops');
   assert.equal(
     await autoPdfPage
-      .getByRole('button', { name: 'تطبيق الحدود وإعادة القراءة', exact: true })
+      .getByRole('button', { name: 'طبّق الحدود وأعد القراءة', exact: true })
       .isDisabled(),
     true,
   );
@@ -1388,7 +1388,7 @@ try {
     'unapplied PDF edits must block comparison',
   );
   await autoPdfPage
-    .getByRole('button', { name: 'التراجع عن التعديل', exact: true })
+    .getByRole('button', { name: 'تراجع عن التعديل', exact: true })
     .click();
   assert.equal(await autoCuts.inputValue(), appliedCuts);
   await autoCuts.fill(appliedCuts);
@@ -1469,7 +1469,7 @@ try {
       );
     }
     await directionPage
-      .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+      .getByRole('button', { name: 'أكّد البيانات', exact: true })
       .click();
     const directionCompare = directionPage.getByRole('button', {
       name: 'تحقق وقارن',
@@ -1553,7 +1553,7 @@ try {
       // A full mapping returned by header selection contains multiplier=+1.
       // That default is not a manual sign decision: the AP proof must win again.
       const editAp = directionPage.getByRole('button', {
-        name: 'تعديل تقرير الحسابات الدائنة',
+        name: 'عدّل تقرير الحسابات الدائنة',
         exact: true,
       });
       await editAp.click();
@@ -1581,7 +1581,7 @@ try {
     } else {
       // Failed replacement cannot reset an answer attached to the retained file.
       await directionPage
-        .getByRole('button', { name: 'العودة للملفات', exact: true })
+        .getByRole('button', { name: 'عُد إلى الملفات', exact: true })
         .click();
       await directionPage
         .getByLabel('تقرير الحسابات الدائنة', { exact: true })
@@ -1598,7 +1598,7 @@ try {
         .getByText('synthetic-namespaced-1-formula.xlsx', { exact: true })
         .waitFor();
       await directionPage
-        .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+        .getByRole('button', { name: 'أكّد البيانات', exact: true })
         .click();
       assert.match(
         await apCard
@@ -1665,7 +1665,7 @@ try {
       .click();
     const directionDownload = directionPage.waitForEvent('download');
     await directionPage
-      .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
+      .getByRole('button', { name: 'نزّل مسودة Excel', exact: true })
       .click();
     const directionExport = new ExcelJS.Workbook();
     await directionExport.xlsx.readFile(await (await directionDownload).path());
@@ -1729,7 +1729,7 @@ try {
     );
   }
   await bothPdfPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   const supplierPdfCard = bothPdfPage.locator('section').filter({
     has: bothPdfPage.getByRole('heading', {
@@ -1782,7 +1782,7 @@ try {
     .getByText('PAIR-PAY-100', { exact: true })
     .waitFor();
   await bothPdfPage
-    .getByRole('button', { name: 'العودة للملفات', exact: true })
+    .getByRole('button', { name: 'عُد إلى الملفات', exact: true })
     .click();
   await bothPdfPage.getByLabel('كشف المورد', { exact: true }).setInputFiles({
     name: 'synthetic-replacement-one-page.pdf',
@@ -1797,7 +1797,7 @@ try {
     .getByText('synthetic-replacement-one-page.pdf', { exact: true })
     .waitFor();
   await bothPdfPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   assert.equal(
     await supplierPdfCard

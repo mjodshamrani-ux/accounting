@@ -1,8 +1,8 @@
 {
   "note": "Interface census baseline: each metric summed over the four states of a domain (Arabic and English at 390 and 1440 px) after its synthetic example ran. Recorded by scripts/ux-census-browser.mjs --record; the gate fails on any change.",
   "recorded": {
-    "commit": "af6d806da377f66814f646fb879cc3cd258450eb",
-    "date": "2026-11-01",
+    "commit": "a6a27895c657b4cdcf593bbff2b812ca58b6337f",
+    "date": "2026-11-02",
     "chromium": "141.0.7390.37"
   },
   "metrics": [
@@ -19,7 +19,8 @@
     "clippedText",
     "jsonText",
     "emptyTable",
-    "zeroCounter"
+    "zeroCounter",
+    "commandAsNoun"
   ],
   "domains": {
     "supplier": {
@@ -36,7 +37,8 @@
       "clippedText": 0,
       "jsonText": 0,
       "emptyTable": 0,
-      "zeroCounter": 0
+      "zeroCounter": 0,
+      "commandAsNoun": 0
     },
     "clearing": {
       "minorUnits": 0,
@@ -52,7 +54,8 @@
       "clippedText": 0,
       "jsonText": 0,
       "emptyTable": 0,
-      "zeroCounter": 0
+      "zeroCounter": 0,
+      "commandAsNoun": 0
     },
     "ar": {
       "minorUnits": 0,
@@ -68,7 +71,8 @@
       "clippedText": 0,
       "jsonText": 0,
       "emptyTable": 0,
-      "zeroCounter": 0
+      "zeroCounter": 0,
+      "commandAsNoun": 0
     },
     "gl-tb": {
       "minorUnits": 0,
@@ -84,7 +88,8 @@
       "clippedText": 0,
       "jsonText": 0,
       "emptyTable": 0,
-      "zeroCounter": 0
+      "zeroCounter": 0,
+      "commandAsNoun": 0
     },
     "allocation": {
       "minorUnits": 0,
@@ -100,7 +105,8 @@
       "clippedText": 0,
       "jsonText": 0,
       "emptyTable": 0,
-      "zeroCounter": 0
+      "zeroCounter": 0,
+      "commandAsNoun": 0
     },
     "bank": {
       "minorUnits": 0,
@@ -116,7 +122,8 @@
       "clippedText": 0,
       "jsonText": 0,
       "emptyTable": 0,
-      "zeroCounter": 0
+      "zeroCounter": 0,
+      "commandAsNoun": 0
     },
     "tb-financial": {
       "minorUnits": 0,
@@ -132,7 +139,8 @@
       "clippedText": 0,
       "jsonText": 0,
       "emptyTable": 0,
-      "zeroCounter": 0
+      "zeroCounter": 0,
+      "commandAsNoun": 0
     },
     "intercompany": {
       "minorUnits": 0,
@@ -148,7 +156,8 @@
       "clippedText": 0,
       "jsonText": 0,
       "emptyTable": 0,
-      "zeroCounter": 0
+      "zeroCounter": 0,
+      "commandAsNoun": 0
     },
     "gateway": {
       "minorUnits": 0,
@@ -164,7 +173,8 @@
       "clippedText": 0,
       "jsonText": 0,
       "emptyTable": 0,
-      "zeroCounter": 0
+      "zeroCounter": 0,
+      "commandAsNoun": 0
     },
     "stock": {
       "minorUnits": 0,
@@ -180,7 +190,8 @@
       "clippedText": 0,
       "jsonText": 0,
       "emptyTable": 0,
-      "zeroCounter": 0
+      "zeroCounter": 0,
+      "commandAsNoun": 0
     },
     "assets": {
       "minorUnits": 0,
@@ -196,7 +207,8 @@
       "clippedText": 0,
       "jsonText": 0,
       "emptyTable": 0,
-      "zeroCounter": 0
+      "zeroCounter": 0,
+      "commandAsNoun": 0
     },
     "payroll": {
       "minorUnits": 0,
@@ -212,7 +224,8 @@
       "clippedText": 0,
       "jsonText": 0,
       "emptyTable": 0,
-      "zeroCounter": 0
+      "zeroCounter": 0,
+      "commandAsNoun": 0
     }
   }
 }

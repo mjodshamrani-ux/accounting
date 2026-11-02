@@ -37,7 +37,7 @@ export async function verifyFinancial(
     await (await p).saveAs(`${out}/${file}`);
     await wait();
   };
-  await button('Synthetic example').click();
+  await button('Open a synthetic example').click();
   await status.waitFor();
   await wait();
   await shows('needs-review');

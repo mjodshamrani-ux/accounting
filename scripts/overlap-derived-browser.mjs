@@ -89,7 +89,7 @@ async function upload(page, lang, files) {
   }
   await page
     .getByRole('button', {
-      name: lang === 'en' ? 'Confirm data' : 'تأكيد البيانات',
+      name: lang === 'en' ? 'Confirm data' : 'أكّد البيانات',
       exact: true,
     })
     .click();
@@ -578,7 +578,7 @@ try {
     for (let i = 0; i < 2; i++) {
       await page
         .getByRole('button', {
-          name: lang === 'en' ? 'Edit column boundaries' : 'تعديل حدود الأعمدة',
+          name: lang === 'en' ? 'Edit column boundaries' : 'عدّل حدود الأعمدة',
           exact: true,
         })
         .nth(i)
@@ -595,7 +595,7 @@ try {
           name:
             lang === 'en'
               ? 'Apply boundaries and re-read'
-              : 'تطبيق الحدود وإعادة القراءة',
+              : 'طبّق الحدود وأعد القراءة',
           exact: true,
         })
         .last();
@@ -603,8 +603,7 @@ try {
       else
         await page
           .getByRole('button', {
-            name:
-              lang === 'en' ? 'Hide column boundaries' : 'إخفاء حدود الأعمدة',
+            name: lang === 'en' ? 'Hide column boundaries' : 'أخفِ حدود الأعمدة',
             exact: true,
           })
           .click();
@@ -707,7 +706,7 @@ try {
     assert.deepEqual(original.bytes, pdf);
     await page
       .getByRole('button', {
-        name: lang === 'en' ? 'Edit column boundaries' : 'تعديل حدود الأعمدة',
+        name: lang === 'en' ? 'Edit column boundaries' : 'عدّل حدود الأعمدة',
         exact: true,
       })
       .first()
@@ -723,7 +722,7 @@ try {
         name:
           lang === 'en'
             ? 'Apply boundaries and re-read'
-            : 'تطبيق الحدود وإعادة القراءة',
+            : 'طبّق الحدود وأعد القراءة',
         exact: true,
       })
       .last()

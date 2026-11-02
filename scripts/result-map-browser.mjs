@@ -441,7 +441,7 @@ const RUN = {
       .getByLabel(/راجعت معنى الأعمدة|I reviewed the column meanings/u)
       .check({ timeout: 30000 });
     await panel
-      .getByRole('button', { name: /فحص المقاصة|Check clearing/u })
+      .getByRole('button', { name: /افحص المقاصة|Check clearing/u })
       .click();
   },
 };

@@ -32,7 +32,7 @@ export async function verifyDomainAssistant(
     [
       'financial',
       'Trial balance and financial position',
-      'Synthetic example',
+      'Open a synthetic example',
       4,
     ],
     [

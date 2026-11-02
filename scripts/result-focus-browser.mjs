@@ -310,7 +310,7 @@ try {
           name:
             language === 'en'
               ? 'Open scope header and details example'
-              : 'فتح مثال رأس نطاق وتفاصيل',
+              : 'افتح مثال رأس نطاق وتفاصيل',
           exact: true,
         }),
       );

@@ -68,6 +68,95 @@ void test('English has exactly the Arabic keys, lists and message parameters', (
   );
 });
 
+// Every command reads as an imperative in Arabic, «افتح» and «استعد», as the
+// English already does (UX-5): a string whose English begins with the verb of
+// a command must not begin, in Arabic, with the noun of that action («فتح»،
+// «استعادة»). Every catalogue is read, the shared one and each workspace's.
+// A sentence, which ends with a full stop, and a text of more than fourteen
+// words are not commands. «تحقق» and «فك» read as either form and are not
+// counted. Names that are not commands are listed with why, and each must
+// still name something.
+const COMMAND =
+  /^(?:Open|Restore|Save|Export|Check|Compare|Verify|Read|Approve|Reject|Cancel|Undo|Download|Add|Reopen|Run|Try|Resume|Show|Hide|Clear|Remove|Use|Confirm|Apply|Load|Create|Start|Reset|Choose|Select|Accept|Decline|Mark|Record|Copy|Print|Ask|Review|Continue|Go|Edit|Set|Insert|Fix|Expand|Collapse|Switch|Return|Back|Delete|Discard|Keep|Include|Exclude|Enable|Disable|Upload|Attach|Replace|Retry|Close|Measure|Calculate|Match|Link|Unlink|Split|Merge|Assign|Allocate|Reconcile|Find|Search|Filter|Sort|Move|Next|Previous|Done|Finish|Submit|Send|Share|Generate|Build|Request|Inspect|Explain)\b/u;
+const VERBAL_NOUN =
+  /^(?:فتح|استعادة|حفظ|فحص|تصدير|تنزيل|إعادة|اعتماد|رفض|إلغاء|التراجع|مقارنة|قراءة|إضافة|عرض|إخفاء|إظهار|مسح|إزالة|حذف|استخدام|تأكيد|تطبيق|تحميل|إنشاء|بدء|اختيار|تحديد|قبول|تسجيل|نسخ|طباعة|تشغيل|تجربة|استئناف|متابعة|مراجعة|تعديل|إغلاق|العودة|عودة|الرجوع|انتقال|الانتقال|استبدال|إنهاء|إتمام|تفعيل|تعطيل|توسيع|طي|تحرير|ضبط|تعيين|إدراج|تصحيح|إرفاق|حساب|قياس|مطابقة|ربط|تقسيم|دمج|إسناد|تخصيص|تسوية|بحث|البحث|تصفية|ترتيب|مشاركة|توليد|طلب|شرح|تفسير)(?:\s|$)/u;
+const NOT_COMMANDS: [RegExp, string][] = [
+  [/\.(?:actions|eventTypes?|decisionTypes)\./u, 'a decision as the history records it'],
+  [/\.codes\./u, 'a reader message'],
+  [/^resultIndexCopy\.parts\./u, 'the name of a part of the result'],
+  [/^runningBalanceCopy\.selection$/u, 'a heading'],
+  [/^locales\.transactionReview\.heading$/u, 'a heading'],
+  [/^locales\.transactionReview\.searchLabel$/u, 'the name of a search field'],
+  [/^locales\.app\.results\.(?:filter|search)$/u, 'the names of a tab list and a search field'],
+  [/^locales\.visualAccounting\.title$/u, 'the title of a section'],
+  [/^locales\.visualReview\.(?:cellLabel|regionLabel)$/u, 'the name of a region'],
+  [/^locales\.reviewEffort\.title$/u, 'the title of a section'],
+  [/^locales\.landing\.privacy\.steps$/u, 'the steps of the work, named'],
+  [/^locales\.app\.shell\.(?:resetTitle|steps\[\d\])$/u, 'a dialog title and the steps of the work'],
+];
+function sample(value: (...args: unknown[]) => unknown) {
+  for (const args of [Array(Math.max(3, value.length)).fill(1), [['#1', '#2']], ['#1']])
+    try {
+      return value(...args);
+    } catch {
+      // Try the next kind of argument.
+    }
+  return undefined;
+}
+function paired(english: unknown, arabic: unknown, at: string, out: [string, string, string][]) {
+  if (typeof english === 'function' && typeof arabic === 'function') {
+    const [e, a] = [sample(english as never), sample(arabic as never)];
+    if (typeof e === 'string' && typeof a === 'string') out.push([`${at}()`, e, a]);
+  } else if (typeof english === 'string' && typeof arabic === 'string') out.push([at, english, arabic]);
+  else if (Array.isArray(english) && Array.isArray(arabic))
+    english.forEach((item, i) => paired(item, arabic[i], `${at}[${i}]`, out));
+  else if (english && arabic && typeof english === 'object' && typeof arabic === 'object')
+    for (const key of Object.keys(english))
+      paired((english as Tree)[key], (arabic as Tree)[key], at ? `${at}.${key}` : key, out);
+}
+function catalogues(value: unknown, at: string, out: [string, string, string][], seen: Set<unknown>) {
+  if (!value || typeof value !== 'object' || seen.has(value)) return;
+  seen.add(value);
+  const tree = value as Tree;
+  if (tree.ar && tree.en && typeof tree.ar === 'object') paired(tree.en, tree.ar, at, out);
+  else for (const key of Object.keys(tree)) catalogues(tree[key], `${at}.${key}`, out, seen);
+}
+
+void test('every command reads as an imperative in Arabic', async () => {
+  const pairs: [string, string, string][] = [];
+  paired(en, ar, 'locales', pairs);
+  const seen = new Set<unknown>();
+  for (const file of fs.readdirSync('lib/i18n').filter((f) => f.endsWith('.ts')).sort()) {
+    // text.ts holds a class, not copy, and is not loadable without a build.
+    if (file === 'text.ts') continue;
+    for (const [name, value] of Object.entries(
+      (await import(`../lib/i18n/${file}`)) as Tree,
+    ))
+      catalogues(value, name, pairs, seen);
+  }
+  assert.ok(pairs.length > 3000, `${pairs.length} pairs read`);
+  const used = new Set<string>();
+  const nouns = pairs.filter(([at, english, arabic]) => {
+    const text = english.trim();
+    if (!COMMAND.test(text) || text.endsWith('.') || text.split(/\s+/u).length > 14) return false;
+    if (!VERBAL_NOUN.test(arabic.trim())) return false;
+    const reason = NOT_COMMANDS.find(([pattern]) => pattern.test(at));
+    if (reason) used.add(reason[1] + reason[0].source);
+    return !reason;
+  });
+  assert.deepEqual(
+    nouns.map(([at, english, arabic]) => `${at}: ${english} → ${arabic}`),
+    [],
+  );
+  assert.deepEqual(
+    NOT_COMMANDS.filter(([pattern, why]) => !used.has(why + pattern.source)).map(
+      ([pattern]) => pattern.source,
+    ),
+    [],
+    'every listed name still names something',
+  );
+});
+
 void test('English interface copy contains no Arabic', () => {
   const allowed = [
     'العربية', // the Arabic option, named in Arabic in both languages

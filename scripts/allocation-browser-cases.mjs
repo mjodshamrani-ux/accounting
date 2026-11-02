@@ -11,7 +11,7 @@ export async function verifyAllocation(page, url, out = 'work/qa') {
     .getByRole('heading', { name: 'تخصيص الدفعات', exact: true })
     .waitFor();
   await page
-    .getByRole('button', { name: 'فتح مثال تخصيص اصطناعي', exact: true })
+    .getByRole('button', { name: 'افتح مثال تخصيص اصطناعيًا', exact: true })
     .click();
   await page.getByTestId('allocation-result').waitFor();
   await page.getByRole('button', { name: 'EN English', exact: true }).click();

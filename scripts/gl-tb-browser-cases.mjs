@@ -13,7 +13,7 @@ export async function verifyGlTb(page, url, out = 'work/qa') {
     .waitFor();
   await page
     .getByRole('button', {
-      name: 'فتح مثال اصطناعي للأستاذ والميزان',
+      name: 'افتح مثالًا اصطناعيًا للأستاذ والميزان',
       exact: true,
     })
     .click();

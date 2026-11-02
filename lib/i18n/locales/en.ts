@@ -1658,7 +1658,7 @@ export const en: Messages = {
       'The result is consistency with supplied presentation evidence only; it does not establish source authenticity, ledger completeness, fair presentation or accounting standards compliance.',
     currentFamilyWholePostClosingTrialBalanceOne:
       'Current family: whole post-closing trial balance, one functional currency, one sheet per original, with no reclassification. Up to 8 MB per original and 20,000 rows total. Native Excel monetary cells require the two-decimal format.',
-    syntheticExample: 'Synthetic example',
+    syntheticExample: 'Open a synthetic example',
     restoreSession: 'Restore session',
     cancelOperation: 'Cancel operation',
     noOriginalUploaded: 'No original uploaded',

@@ -683,7 +683,7 @@ const ar: typeof en = {
   othersTitle: 'صفوف خريطة ودليل وأستاذ لا يربطها شيء، وحسابات بلا صف أستاذ',
   othersHeaders: ['الدور', 'الصف', 'المفتاح', 'السبب'],
   allLinked: 'كل صفوف السجل مربوطة.',
-  exportLinks: 'تصدير روابط السجل',
+  exportLinks: 'صدّر روابط السجل',
   linkRoles: {
     mapping: 'خريطة',
     evidence: 'دليل سياسة',

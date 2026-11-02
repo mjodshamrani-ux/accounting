@@ -365,7 +365,7 @@ async function verifyPrivacyNavigation(page) {
       document.getElementById('privacy-detail-title'),
   );
   await page
-    .getByRole('button', { name: 'إغلاق الخصوصية', exact: true })
+    .getByRole('button', { name: 'أغلق حدود الخصوصية', exact: true })
     .click();
   await page.waitForFunction(
     () =>
@@ -723,7 +723,7 @@ async function verifyUploadInteractions(page) {
     );
     assert.equal(
       await uploadPage
-        .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+        .getByRole('button', { name: 'أكّد البيانات', exact: true })
         .isDisabled(),
       true,
     );

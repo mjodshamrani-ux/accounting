@@ -383,7 +383,7 @@ const emptyShown = (s) => ({
 });
 const reject = {
   gateway: {
-    ar: ['مرجع قرار بوابة الدفع', 'شرح قرار بوابة الدفع', 'رفض الدفعة كاملة'],
+    ar: ['مرجع قرار بوابة الدفع', 'شرح قرار بوابة الدفع', 'ارفض الدفعة كاملة'],
     en: [
       'Gateway decision reference',
       'Gateway decision explanation',
@@ -394,7 +394,7 @@ const reject = {
     ar: [
       'مرجع قرار معاملات المنشآت',
       'تفسير قرار معاملات المنشآت',
-      'رفض الزوج كاملًا',
+      'ارفض الزوج كاملًا',
     ],
     en: [
       'Intercompany decision reference',
@@ -583,7 +583,7 @@ const caseRows = {
 const reopen = {
   ar: {
     fields: { ar: ['سبب مراجعة المستند'], en: ['Document review reason'] },
-    press: { ar: 'إعادة فتح زوج المستندات', en: 'Reopen document pair' },
+    press: { ar: 'أعد فتح زوج المستندات', en: 'Reopen document pair' },
   },
   bank: {
     fields: {
@@ -594,7 +594,7 @@ const reopen = {
   },
 };
 const runAfterExample = {
-  clearing: { ar: 'فحص المقاصة', en: 'Check clearing' },
+  clearing: { ar: 'افحص المقاصة', en: 'Check clearing' },
   supplier: { ar: 'تحقق وقارن', en: 'Check and compare' },
 };
 const badgesShown = ({ s, rows }) => {

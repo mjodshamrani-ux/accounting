@@ -21,11 +21,11 @@ export async function verifyVisualReview(
   const value = panel.getByLabel('القيمة كما تظهر في الأصل', { exact: true });
   const role = panel.getByLabel('نوع القيمة', { exact: true });
   const confirm = panel.getByRole('button', {
-    name: 'تأكيد مراجعة هذه القيمة',
+    name: 'أكّد مراجعة هذه القيمة',
     exact: true,
   });
   const save = panel.getByRole('button', {
-    name: 'حفظ سجل المراجعة',
+    name: 'احفظ سجل المراجعة',
     exact: true,
   });
   async function saveBytes(button = save) {
@@ -182,7 +182,7 @@ export async function verifyVisualReview(
     .click();
   await assertIsolated('reviewed cells and language switch');
   await panel
-    .getByRole('button', { name: 'مسح مسودة الصور', exact: true })
+    .getByRole('button', { name: 'امسح مسودة الصور', exact: true })
     .click();
   await record.waitFor({ state: 'hidden' });
   const restore = panel.getByLabel('ملف سجل مراجعة الصور', {

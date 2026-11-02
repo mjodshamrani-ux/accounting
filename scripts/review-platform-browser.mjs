@@ -116,7 +116,7 @@ try {
     );
     assert.equal(await hint.getAttribute('data-decision-hint'), 'reason');
     // Closing the review returns the focus to the button that opened it.
-    await review.getByRole('button', { name: 'إغلاق المراجعة' }).click();
+    await review.getByRole('button', { name: 'أغلق المراجعة' }).click();
     await pause(page);
     let focus = await focused(page);
     assert.ok(opener, 'the opener has an id');
@@ -127,9 +127,7 @@ try {
       .getByRole('textbox', { name: 'سبب القرار', exact: true })
       .fill('إعادة مراجعة المصدر — اختبار اصطناعي');
     assert.equal(await hint.getAttribute('data-decision-hint'), 'unlink');
-    await page
-      .getByRole('button', { name: 'فك الربط وإعادته للمراجعة' })
-      .click();
+    await page.getByRole('button', { name: 'فك الربط وأعده للمراجعة' }).click();
     await page.waitForFunction(
       () => document.querySelector('.metric strong')?.textContent === '1',
     );
@@ -151,9 +149,7 @@ try {
       await closedSay(review, 'transaction review, no counterpart'),
       'the manual link waits for a counterpart',
     );
-    await review
-      .getByRole('button', { name: 'تسجيل مراجعة دون مطابقة' })
-      .click();
+    await review.getByRole('button', { name: 'سجّل مراجعة دون مطابقة' }).click();
     await pause(page);
     focus = await focused(page);
     assert.ok(focus.item, 'the review line states the review');
@@ -194,7 +190,7 @@ try {
       );
     }
     await page
-      .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+      .getByRole('button', { name: 'أكّد البيانات', exact: true })
       .click();
     const card = page
       .locator('section')
@@ -221,10 +217,10 @@ try {
       assert.match(text, pattern, `${name} says why (${text})`);
     };
     await said('صفحة PDF السابقة', /صفحة PDF 1 من 2/u);
-    await said('انتقال إلى الصفحة', /كتابة صفحة غير المعروضة/u);
+    await said('انتقل إلى الصفحة', /كتابة صفحة غير المعروضة/u);
     await closedSay(card, 'PDF review, first page');
     await card.getByLabel('رقم الصفحة', { exact: true }).fill('9');
-    await said('انتقال إلى الصفحة', /كتابة رقم صفحة من 1 إلى 2/u);
+    await said('انتقل إلى الصفحة', /كتابة رقم صفحة من 1 إلى 2/u);
     await card.getByLabel('رقم الصفحة', { exact: true }).fill('1');
     await next.click();
     await card
@@ -234,11 +230,11 @@ try {
     await said('صفحة PDF التالية', /صفحة PDF 2 من 2/u);
     await closedSay(card, 'PDF review, last page');
     await card
-      .getByRole('button', { name: 'تعديل حدود الأعمدة', exact: true })
+      .getByRole('button', { name: 'عدّل حدود الأعمدة', exact: true })
       .click();
-    await said('تطبيق الحدود وإعادة القراءة', /تغيير الحدود عن المستعملة/u);
+    await said('طبّق الحدود وأعد القراءة', /تغيير الحدود عن المستعملة/u);
     await card.getByLabel('حدود أعمدة PDF', { exact: true }).fill('25, x');
-    await said('تطبيق الحدود وإعادة القراءة', /اكتب أرقامًا/u);
+    await said('طبّق الحدود وأعد القراءة', /اكتب أرقامًا/u);
     await closedSay(card, 'PDF review, boundaries');
     await context.close();
   }

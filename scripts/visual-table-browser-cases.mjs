@@ -76,7 +76,7 @@ export async function verifyVisualTable(page, baseUrl) {
         .click();
       await draw(
         panel.getByRole('button', {
-          name: 'تحديد قصاصة من الصورة الأصلية',
+          name: 'حدّد قصاصة من الصورة الأصلية',
           exact: true,
         }),
         cell.region,
@@ -91,7 +91,7 @@ export async function verifyVisualTable(page, baseUrl) {
         .getByLabel('القيمة كما تظهر في الأصل', { exact: true })
         .fill(contract.rows[0].expected[i]);
       await reviewed
-        .getByRole('button', { name: 'تأكيد مراجعة هذه القيمة', exact: true })
+        .getByRole('button', { name: 'أكّد مراجعة هذه القيمة', exact: true })
         .click();
       await reviewed
         .getByText('راجعت هذه القيمة مع القصاصة', { exact: true })
@@ -104,7 +104,7 @@ export async function verifyVisualTable(page, baseUrl) {
       .click();
     await draw(
       table.getByRole('button', {
-        name: 'تحديد قصاصة من الصورة الأصلية',
+        name: 'حدّد قصاصة من الصورة الأصلية',
         exact: true,
       }),
       contract.grid.region,
@@ -133,7 +133,7 @@ export async function verifyVisualTable(page, baseUrl) {
         })
         .selectOption(role);
     await table
-      .getByRole('button', { name: 'إنشاء سجل الصفوف', exact: true })
+      .getByRole('button', { name: 'أنشئ سجل الصفوف', exact: true })
       .click();
     // The result present (UX-3): creating the rows record takes the focus to
     // its result heading, which names the table review.
@@ -222,7 +222,7 @@ export async function verifyVisualTable(page, baseUrl) {
       'table review: range recorded',
     );
     await closedSay(table, 'table review: range recorded');
-    async function save(label = 'حفظ سجل الجدول') {
+    async function save(label = 'احفظ سجل الجدول') {
       const waiting = page.waitForEvent('download');
       await table.getByRole('button', { name: label, exact: true }).click();
       return readFile(await (await waiting).path());
@@ -315,7 +315,7 @@ export async function verifyVisualTable(page, baseUrl) {
     assert.deepEqual(await page.locator('.dropzone').allTextContents(), native);
     assert.ok(
       await page
-        .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+        .getByRole('button', { name: 'أكّد البيانات', exact: true })
         .isDisabled(),
     );
     assert.deepEqual(violations, []);

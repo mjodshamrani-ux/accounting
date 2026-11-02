@@ -48,7 +48,7 @@ export async function verifyVisualRegions(page, baseUrl) {
       .getByRole('button', { name: 'حدد قيمة من الصورة', exact: true })
       .waitFor({ timeout: 120000 });
     const save = panel.getByRole('button', {
-      name: 'حفظ سجل المراجعة',
+      name: 'احفظ سجل المراجعة',
       exact: true,
     });
     const regionEditor = panel.getByRole('region', {
@@ -60,7 +60,7 @@ export async function verifyVisualRegions(page, baseUrl) {
       exact: true,
     });
     const confirm = regionEditor.getByRole('button', {
-      name: 'تأكيد مراجعة هذه القيمة',
+      name: 'أكّد مراجعة هذه القيمة',
       exact: true,
     });
     async function bytes(button = save) {
@@ -74,7 +74,7 @@ export async function verifyVisualRegions(page, baseUrl) {
     }
     async function draw() {
       const surface = panel.getByRole('button', {
-        name: 'تحديد قصاصة من الصورة الأصلية',
+        name: 'حدّد قصاصة من الصورة الأصلية',
         exact: true,
       });
       await surface.scrollIntoViewIfNeeded();
@@ -102,7 +102,7 @@ export async function verifyVisualRegions(page, baseUrl) {
     // (before, it left one pixel and opened the crop).
     {
       const surface = panel.getByRole('button', {
-        name: 'تحديد قصاصة من الصورة الأصلية',
+        name: 'حدّد قصاصة من الصورة الأصلية',
         exact: true,
       });
       const useCrop = panel.getByRole('button', {
@@ -200,7 +200,7 @@ export async function verifyVisualRegions(page, baseUrl) {
       .getByRole('button', { name: 'غيّر القصاصة المحددة', exact: true })
       .click();
     const surface = panel.getByRole('button', {
-      name: 'تحديد قصاصة من الصورة الأصلية',
+      name: 'حدّد قصاصة من الصورة الأصلية',
       exact: true,
     });
     await surface.focus();
@@ -245,7 +245,7 @@ export async function verifyVisualRegions(page, baseUrl) {
     );
     await regionEditor.screenshot({ path: 'work/qa/p6-region-ar-mobile.png' });
     await panel
-      .getByRole('button', { name: 'مسح مسودة الصور', exact: true })
+      .getByRole('button', { name: 'امسح مسودة الصور', exact: true })
       .click();
     await panel
       .getByLabel('ملف سجل مراجعة الصور', { exact: true })
@@ -314,7 +314,7 @@ export async function verifyVisualRegions(page, baseUrl) {
     );
     assert.ok(
       await page
-        .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+        .getByRole('button', { name: 'أكّد البيانات', exact: true })
         .isDisabled(),
     );
     assert.deepEqual(violations, []);

@@ -381,7 +381,7 @@ try {
       }
       await page
         .getByRole('button', {
-          name: language === 'ar' ? 'تأكيد البيانات' : 'Confirm data',
+          name: language === 'ar' ? 'أكّد البيانات' : 'Confirm data',
           exact: true,
         })
         .click();

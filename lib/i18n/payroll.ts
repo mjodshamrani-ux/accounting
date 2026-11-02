@@ -1,4 +1,4 @@
-import { stockCopy } from './inventory-register';
+import { stockCopy } from './inventory-register.ts';
 // Only generic table/review controls are shared; payroll component facts and claims are independent.
 const controls = (c: typeof stockCopy.en) => ({
   back: c.back,

@@ -181,7 +181,7 @@ report.displacedFixtures = await fingerprint(displacedFixtures);
 const L = {
   ar: {
     partial: 'نتيجة جزئية — توجد ملاحظات تحتاج مراجعة',
-    show: 'عرض جميع ملاحظات القراءة (13)',
+    show: 'اعرض جميع ملاحظات القراءة (13)',
     table: 'تفاصيل ملاحظات القراءة',
     // The list pages with the record table's pager (UX-3).
     next: 'الصفحة التالية',

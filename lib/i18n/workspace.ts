@@ -2,7 +2,7 @@ export const workspaceCopy = {
   ar: {
     sources: 'مصادر المقارنة',
     scope: 'نطاق المقارنة',
-    chooseFile: 'اختيار ملف',
+    chooseFile: 'اختر ملفًا',
     supporting: 'مستندات الإثبات الداعمة',
     required: 'مطلوبة',
     supportingHint: 'يلزم رفع هذه المستندات وتأكيد قراءتها لإتمام المقارنة.',

@@ -1,7 +1,7 @@
 export const inventoryPdfCopy = {
   ar: {
     detected: 'سجل PDF نصي مع مصادر الصفحات والحقول',
-    original: 'تنزيل PDF الأصلي',
+    original: 'نزّل PDF الأصلي',
     exportNote: 'ملف Excel يتضمن الأصول وأدلة المراجعة كاملة',
     preview: 'النص ومواقع المصدر',
     previewHeaders: ['الصفحة', 'السطر', 'الدور', 'النص الأصلي'],

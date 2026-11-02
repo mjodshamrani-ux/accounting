@@ -23,7 +23,7 @@ export const reconciliationDirectoryCopy = {
     limits: 'نطاق هذا المسار',
     current: 'تعمل الآن على',
     switch: 'تغيير المسار',
-    close: 'إغلاق المسارات',
+    close: 'أغلق المسارات',
     groups: {
       relationships: [
         'الأطراف والأرصدة',

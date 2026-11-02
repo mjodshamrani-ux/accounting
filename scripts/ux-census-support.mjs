@@ -39,6 +39,7 @@ export const METRICS = [
   'jsonText',
   'emptyTable',
   'zeroCounter',
+  'commandAsNoun',
 ];
 
 // The decision each workspace offers after its example, by the names the
@@ -53,7 +54,7 @@ export const DECISIONS = {
       ar: ['مرجع القرار', 'سبب القرار'],
       en: ['Decision reference', 'Decision reason'],
     },
-    press: { ar: ['رفض البند كاملًا'], en: ['Reject whole line'] },
+    press: { ar: ['ارفض البند كاملًا'], en: ['Reject whole line'] },
   },
   intercompany: {
     fields: {
@@ -63,14 +64,14 @@ export const DECISIONS = {
         'Intercompany decision explanation',
       ],
     },
-    press: { ar: ['رفض الزوج كاملًا'], en: ['Reject whole pair'] },
+    press: { ar: ['ارفض الزوج كاملًا'], en: ['Reject whole pair'] },
   },
   gateway: {
     fields: {
       ar: ['مرجع قرار بوابة الدفع', 'شرح قرار بوابة الدفع'],
       en: ['Gateway decision reference', 'Gateway decision explanation'],
     },
-    press: { ar: ['رفض الدفعة كاملة'], en: ['Reject whole batch'] },
+    press: { ar: ['ارفض الدفعة كاملة'], en: ['Reject whole batch'] },
   },
   stock: {
     fields: {
@@ -101,18 +102,18 @@ export const DECISIONS = {
   },
   ar: {
     fields: { ar: ['سبب مراجعة المستند'], en: ['Document review reason'] },
-    press: { ar: ['إعادة فتح زوج المستندات'], en: ['Reopen document pair'] },
+    press: { ar: ['أعد فتح زوج المستندات'], en: ['Reopen document pair'] },
   },
   clearing: {
-    run: { ar: 'فحص المقاصة', en: 'Check clearing' },
+    run: { ar: 'افحص المقاصة', en: 'Check clearing' },
     fields: { ar: ['سبب قرار المراجعة'], en: ['Review decision reason'] },
-    press: { ar: ['إلغاء مقاصة المجموعة'], en: ['Reopen cleared group'] },
+    press: { ar: ['ألغ مقاصة المجموعة'], en: ['Reopen cleared group'] },
   },
   allocation: {
     fields: { ar: ['سبب القرار أو الإلغاء'], en: ['Decision or undo reason'] },
     select: '[data-testid="allocation-proof"] input:not(:disabled)',
     press: {
-      ar: ['اعتماد الخطوط المحددة كاملة'],
+      ar: ['اعتمد الخطوط المحددة كاملة'],
       en: ['Approve selected advice atomically'],
     },
   },
@@ -363,6 +364,27 @@ export function censusInPage(selector) {
       zeroSamples.push(el.textContent.trim().slice(0, 60));
     return true;
   }).length;
+  // A command written as a verbal noun, «فتح» or «استعادة», where other
+  // buttons say what to do, «افتح» or «استعد»: one imperative form for
+  // every command, as the English already reads (UX-5). A button, or the
+  // label of a file input drawn as one, the reader sees or sees once a
+  // closed disclosure is opened, whose words begin with the noun of an
+  // action. «تحقق» and «فك» read as either and are not counted.
+  const verbalNoun =
+    /^(?:فتح|استعادة|حفظ|فحص|تصدير|تنزيل|إعادة|اعتماد|رفض|إلغاء|التراجع|مقارنة|قراءة|إضافة|عرض|إخفاء|مسح|إزالة|استخدام|تأكيد|تطبيق|تحميل|إنشاء|بدء|اختيار|قبول|تسجيل|نسخ|طباعة|تشغيل|تجربة|استئناف|مراجعة|حذف|تعديل|إغلاق|العودة|متابعة|انتقال|استبدال|إنهاء|إظهار|تحديد)(?:\s|$)/u;
+  const nounSamples = [];
+  const commandAsNoun = [
+    ...root.querySelectorAll('button, label:has(input[type="file"])'),
+  ].filter((el) => {
+    if (el.closest('[hidden]')) return false;
+    const shut = el.closest('details:not([open])');
+    if (!(el.checkVisibility() || (shut && shut.checkVisibility())))
+      return false;
+    const words = el.textContent.trim().replace(/\s+/gu, ' ');
+    if (!verbalNoun.test(words)) return false;
+    if (nounSamples.length < 5) nounSamples.push(words.slice(0, 60));
+    return true;
+  }).length;
   return {
     cells,
     controls: buttons.length,
@@ -389,6 +411,8 @@ export function censusInPage(selector) {
     emptySamples,
     zeroCounter,
     zeroSamples,
+    commandAsNoun,
+    nounSamples,
   };
 }
 
@@ -513,6 +537,13 @@ export function plantInPage(selector) {
   zero.append(zeroTitle);
   root.append(zero);
   planted.push('zeroCounter');
+  // A command named by the noun of its action, as seven workspaces named
+  // their example, restore, run, save and decision buttons.
+  const noun = document.createElement('button');
+  noun.type = 'button';
+  noun.textContent = 'فتح المثال المزروع';
+  root.append(noun);
+  planted.push('commandAsNoun');
   return planted;
 }
 
