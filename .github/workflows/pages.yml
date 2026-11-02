@@ -1812,6 +1812,32 @@ jobs:
           pnpm test:inventory-column
           pnpm test:inventory-column:proof
           pnpm test:inventory-column:mutations
+  ux-census-start:
+    name: Inputs a reader sets before the first run in every workspace, each step shown to be needed, against the recorded census class (UX-5)
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm build
+      - name: Load committed synthetic sources in every workspace, set what each asks before its first run, leave out each step in turn to show it is needed, repeat in Arabic, and compare the count with the record, after the check proves it catches a step not needed, one the result ignores, one missing and a control of another kind (UX-5)
+        env:
+          UX_CENSUS_DIR: ${{ runner.temp }}/ux-census-start
+        run: |
+          pnpm test:browser:ux-census:start:self-test
+          pnpm test:browser:ux-census:start
   deploy:
     if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
     needs:
@@ -1821,6 +1847,7 @@ jobs:
       - domain-oracle-mutants
       - source-family-proofs
       - family-source-proofs
+      - ux-census-start
     permissions:
       pages: write
       id-token: write

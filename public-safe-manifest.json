@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 102551,
-      "sha256": "0fef954d02d3e23c50f2845d8355652b548b71fdce8b3077d3b5b2d9f56268f9",
+      "bytes": 103979,
+      "sha256": "b1daaafe7ed2e816385b2edb258514790f5206f42f9210ed67f8696175517a4b",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 63882,
-      "sha256": "7b91f2a5e76b6080837a3ef7a4d13419987d4acc2aa70038756e2ab0d03fb6ca",
+      "bytes": 64123,
+      "sha256": "19ef069fd7577a40690ec2f9115b76211e319f08abcd946dfa853a2d730457f5",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 25625,
-      "sha256": "86388cd0ac57858568bb81308687d0a9e68ac238949ed01da2b2465864473aaa",
+      "bytes": 25808,
+      "sha256": "170e8367f2c257597caffbb65cfdd9e9e8e2390895fe98daf54c63dfe74f32d7",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 354150,
-      "sha256": "9bc668085075d0a526a4b32a1ab401227e7a34de368871a1bf0f440762b2c817",
+      "bytes": 358186,
+      "sha256": "ab520db557644a8587e03c1f8c1365568e67f24617714c61a7b047e2189c448f",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 61833,
-      "sha256": "899ddfd098c333a5e2ed79a982d23f73ec86fdf380d6d24374338ce1f7bded35",
+      "bytes": 62132,
+      "sha256": "b9a22f77938b3c6ae3ed4a65d0abd1263f71b7819ecf2443e3eee677b603635b",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 21159,
-      "sha256": "89ab342dacc942a1f1f2bb7a579669322b58fa3332b015c22a6fed24bb5b4c82",
+      "bytes": 21258,
+      "sha256": "3f9188f20b3d50d321dfdb0dcfd6509f1928df4bf97458169bcb2c0647064e94",
       "kind": "text"
     },
     {
@@ -73343,8 +73343,8 @@
     },
     {
       "path": "audit/ux-census/README.ar.md",
-      "bytes": 26140,
-      "sha256": "16ee5880b695e1448fa79f587034bbdc6d94ce23030f3b1084c435724bf04f16",
+      "bytes": 30223,
+      "sha256": "bf97306caa4b9a39c7af660af529efa7e0c9703a589fef3806fe4a2c1d45584a",
       "kind": "text"
     },
     {
@@ -73481,8 +73481,8 @@
     },
     {
       "path": "docs/roadmap/ux.ar.md",
-      "bytes": 35469,
-      "sha256": "b9fff19f41e165e9773762f696200967ee4961476ee484b1da994b69cf898ba8",
+      "bytes": 36654,
+      "sha256": "c2037ece2606771e31d7d477f798672946b1eab4f7215248fa462c5e58e6a0ad",
       "kind": "text"
     },
     {
@@ -73741,6 +73741,36 @@
       "path": "scripts/alignment-strip-read.mjs",
       "bytes": 1241,
       "sha256": "5d8f4440c21f00e309f60b7b9fef098bc56f62eaa7d439941880c6cabc3ea6a3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ux-census/start.json",
+      "bytes": 804,
+      "sha256": "8060451c5b949c6110e81d02e4b1cc31e35b206d08755e6a38b0a9b67a4c7f10",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/UX-5-START.ar.md",
+      "bytes": 28442,
+      "sha256": "4e0bd9aaa6ae20ff814e6855b0c0675c994c7e2948ab4da9838fa084743e814c",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/ux-census-start-browser.mjs",
+      "bytes": 10329,
+      "sha256": "1805e4f8318876c3045997da85798ea6e4781065d6aa8c09a73259b9adb3cce8",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/ux-census-start.mjs",
+      "bytes": 26538,
+      "sha256": "3af68bbf04d13b154f7f9120420dfdd8ce9f0bdf9fe266b830da5b3df2b37a43",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/ux-census-start.test.mjs",
+      "bytes": 3779,
+      "sha256": "18d49d5e0622bd8a25e94bd8f110ba5b24d1e48bb7c4b8d4942a2349981d368b",
       "kind": "text"
     }
   ],

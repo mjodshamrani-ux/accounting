@@ -62,6 +62,7 @@ const deployGated = [
   'domain-oracle-mutants',
   'source-family-proofs',
   'family-source-proofs',
+  'ux-census-start',
 ];
 {
   const deploy = structuredClone(workflow.jobs.deploy);
@@ -348,6 +349,8 @@ const required = [
   'test:ux-census:unit',
   'test:browser:ux-census:self-test',
   'test:browser:ux-census',
+  'test:browser:ux-census:start:self-test',
+  'test:browser:ux-census:start',
   'test:multiline-review:browser',
   'test:source-structure:browser',
   'test:overlap-derived:browser',
