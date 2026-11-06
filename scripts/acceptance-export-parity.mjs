@@ -22,7 +22,7 @@ async function run(dir, lang) {
   if (lang === 'en') await page.locator('.language-switch button[lang="en"]').click();
   const L = lang === 'en'
     ? { demo: 'Try the sample', run: 'Check and compare', ws: 'Review workspace', matched: 'Matched', details: 'Case details', note: 'Reason for the decision', unlink: 'Unlink and return to review', prep: 'Prepare the workpaper', reviewer: 'Reviewer name', notes: 'Review notes', draft: 'Download Excel draft', save: 'Save session to continue later' }
-    : { demo: 'جرّب المثال', run: 'تحقق وقارن', ws: 'مساحة المراجعة', matched: 'المطابقات', details: 'تفاصيل الحالة', note: 'سبب القرار', unlink: 'فك الربط وأعده للمراجعة', prep: 'إعداد ورقة العمل', reviewer: 'اسم المراجع', notes: 'ملاحظات المراجعة', draft: 'نزّل مسودة Excel', save: 'احفظ الجلسة للمتابعة لاحقًا' };
+    : { demo: 'جرّب المثال', run: 'تحقق وقارن', ws: 'مساحة المراجعة', matched: 'المطابقات', details: 'تفاصيل الحالة', note: 'سبب القرار', unlink: 'فك الربط وأعده للمراجعة', prep: 'أعدّ ورقة العمل', reviewer: 'اسم المراجع', notes: 'ملاحظات المراجعة', draft: 'نزّل مسودة Excel', save: 'احفظ الجلسة للمتابعة لاحقًا' };
   await page.getByRole('button', { name: L.demo, exact: true }).click();
   await page.getByRole('button', { name: L.run, exact: true }).click();
   await page.getByRole('heading', { name: L.ws }).waitFor();

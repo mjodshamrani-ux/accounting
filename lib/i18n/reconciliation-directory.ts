@@ -22,7 +22,7 @@ export const reconciliationDirectoryCopy = {
     localNote: 'مصادرك ونتائجك تبقى على جهازك',
     limits: 'نطاق هذا المسار',
     current: 'تعمل الآن على',
-    switch: 'تغيير المسار',
+    switch: 'غيّر المسار',
     close: 'أغلق المسارات',
     groups: {
       relationships: [

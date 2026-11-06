@@ -550,7 +550,7 @@ try {
       const prepareStart = performance.now();
       measuredPhase = 'prepare-export';
       await page
-        .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
+        .getByRole('button', { name: 'أعدّ ورقة العمل', exact: true })
         .click();
       await page
         .getByRole('button', { name: 'نزّل مسودة Excel', exact: true })

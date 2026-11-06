@@ -1303,7 +1303,6 @@ export const en: Messages = {
     },
     notices: {
       cancelled: 'The operation was cancelled.',
-      demo: 'This is a sample for trying Tarasuf. Review the amount direction and comparison settings before you start.',
       sessionSaved:
         'The session file contains the sources and notes without encryption. Save it in a private location on your device.',
       sessionRestored:
@@ -1354,6 +1353,8 @@ export const en: Messages = {
       stepLater: ' — upcoming',
       demoBanner:
         'You are using a sample for trying Tarasuf, not company data or real transactions.',
+      demoAdvice:
+        'Review the amount direction and comparison settings before you compare.',
       restartEngine: 'Restart the engine',
       engineLoading: 'Preparing the comparison tool…',
       footnote:
@@ -1403,8 +1404,8 @@ export const en: Messages = {
       dateWindow: (days: number) =>
         `· Allowed date difference: ${plural(days, 'day', 'days')}`,
       edit: 'Edit reconciliation scope',
-      close: 'Close',
-      advanced: 'Advanced options',
+      // The visible word on the pencil, inside its name "Edit reconciliation scope".
+      editShort: 'Edit',
       needBoth:
         'We could not determine the cut-off date or the currency. Add them under “Advanced options”.',
       needCutoff:
@@ -1454,6 +1455,9 @@ export const en: Messages = {
         'I have checked that both reports cover the same period and verified the balances I entered. This confirmation is required only when reconciling balances.',
       run: 'Check and compare',
       backToFiles: 'Back to files',
+      moreReviews: 'More reviews of the two sources',
+      moreReviewsIntro:
+        'Optional; none is needed to compare. Each review checks one aspect of the two sources, and allocation opens a separate payment allocation workflow.',
       attestation:
         'By starting the comparison, you confirm that both files relate to the same supplier, entity, account, and currency, and that the amount direction shown is correct.',
     },

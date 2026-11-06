@@ -1157,7 +1157,9 @@ export default function App() {
     setMappings(structuredClone(demoMappings));
     setScope({ ...demoScope });
     setStep(1);
-    setNotice(uiText((m) => m.app.notices.demo));
+    // The example says it is a sample once, in the banner above the steps,
+    // with what to check before comparing (UX-5); no second notice.
+    setNotice(null);
   }
   async function loadFile(file: File | undefined, i: number) {
     if (!file || busy || !engineReady) return;
@@ -2024,6 +2026,7 @@ export default function App() {
                     style={{ display: 'inline', marginInlineEnd: 8 }}
                   />
                   {t.app.shell.demoBanner}
+                  {step === 1 && <> {t.app.shell.demoAdvice}</>}
                 </div>
               )}
               {!engineReady && !!error && (
@@ -2230,7 +2233,7 @@ export default function App() {
                         aria-label={t.app.scope.edit}
                       >
                         <Pencil size={14} />
-                        {scopeOpen ? t.app.scope.close : t.app.scope.advanced}
+                        {t.app.scope.editShort}
                       </Button>
                     </div>
                     {scopeNeedsInput && !scopeOpen && (
@@ -2494,69 +2497,88 @@ export default function App() {
                         />
                       ),
                   )}
-                  <SourceStructureReview
-                    files={files}
-                    mappings={mappings}
-                    scope={scope}
-                  />
-                  <InvoiceOverlapReview
-                    files={files}
-                    mappings={mappings}
-                    scope={scope}
-                    extractionRevision={mainExtractionRevision}
-                    open={mainOverlapOpen}
-                    onOpenChange={setMainOverlapOpen}
-                    mainReview={{
-                      coordinator: mainOverlapReview,
-                      context: mainReviewContext,
-                      onResult: applyMainOverlapResult,
-                      blockedReason:
-                        blocked || (busy ? t.app.blocked.preparing : ''),
-                    }}
-                  />
-                  <Button
-                    type="button"
-                    variant="outline"
-                    data-testid="allocation-workflow-handoff"
-                    className="h-auto whitespace-normal text-start"
-                    disabled={!!busy || !allocationHandoffReady}
-                    aria-describedby={
-                      !allocationHandoffReady && files.every(Boolean)
-                        ? 'allocation-handoff-source-required'
-                        : undefined
-                    }
-                    onClick={openFreshAllocation}
+                  {/* UX-5 (audit B5): the optional reviews of the two sources,
+                      and the separate allocation path, under one heading that
+                      says none is needed to compare. */}
+                  <section
+                    className="stack supplier-more-reviews"
+                    aria-labelledby="supplier-more-reviews-title"
+                    data-supplier-more-reviews
                   >
-                    {
-                      allocationWorkflowHandoffCopy(dir === 'rtl' ? 'ar' : 'en')
-                        .open
-                    }
-                  </Button>
-                  {!allocationHandoffReady && files.every(Boolean) && (
-                    <p id="allocation-handoff-source-required" className="hint">
+                    <div>
+                      <h2 id="supplier-more-reviews-title">
+                        {t.app.compare.moreReviews}
+                      </h2>
+                      <p className="hint">{t.app.compare.moreReviewsIntro}</p>
+                    </div>
+                    <SourceStructureReview
+                      files={files}
+                      mappings={mappings}
+                      scope={scope}
+                    />
+                    <InvoiceOverlapReview
+                      files={files}
+                      mappings={mappings}
+                      scope={scope}
+                      extractionRevision={mainExtractionRevision}
+                      open={mainOverlapOpen}
+                      onOpenChange={setMainOverlapOpen}
+                      mainReview={{
+                        coordinator: mainOverlapReview,
+                        context: mainReviewContext,
+                        onResult: applyMainOverlapResult,
+                        blockedReason:
+                          blocked || (busy ? t.app.blocked.preparing : ''),
+                      }}
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      data-testid="allocation-workflow-handoff"
+                      className="h-auto whitespace-normal text-start"
+                      disabled={!!busy || !allocationHandoffReady}
+                      aria-describedby={
+                        !allocationHandoffReady && files.every(Boolean)
+                          ? 'allocation-handoff-source-required'
+                          : undefined
+                      }
+                      onClick={openFreshAllocation}
+                    >
                       {
                         allocationWorkflowHandoffCopy(
                           dir === 'rtl' ? 'ar' : 'en',
-                        ).requiresSources
+                        ).open
                       }
-                    </p>
-                  )}
-                  <SectionDerivedReview
-                    files={files}
-                    mappings={mappings}
-                    scope={scope}
-                  />
-                  <SplitSectionReview
-                    files={files}
-                    mappings={mappings}
-                    scope={scope}
-                    extractionRevision={mainExtractionRevision}
-                  />
-                  <RunningBalanceReview
-                    files={files}
-                    scope={scope}
-                    extractionRevision={mainExtractionRevision}
-                  />
+                    </Button>
+                    {!allocationHandoffReady && files.every(Boolean) && (
+                      <p
+                        id="allocation-handoff-source-required"
+                        className="hint"
+                      >
+                        {
+                          allocationWorkflowHandoffCopy(
+                            dir === 'rtl' ? 'ar' : 'en',
+                          ).requiresSources
+                        }
+                      </p>
+                    )}
+                    <SectionDerivedReview
+                      files={files}
+                      mappings={mappings}
+                      scope={scope}
+                    />
+                    <SplitSectionReview
+                      files={files}
+                      mappings={mappings}
+                      scope={scope}
+                      extractionRevision={mainExtractionRevision}
+                    />
+                    <RunningBalanceReview
+                      files={files}
+                      scope={scope}
+                      extractionRevision={mainExtractionRevision}
+                    />
+                  </section>
                   <section className="surface pad stack">
                     {pdfReviewPending && (
                       <p className="hint warn">{t.app.compare.pdfPending}</p>
@@ -3520,7 +3542,7 @@ function SourceConfiguration({
           aria-label={c.edit(side)}
         >
           <Pencil size={14} />
-          {open ? t.app.scope.close : t.app.scope.advanced}
+          {t.app.scope.editShort}
         </Button>
       </div>
       {mapping.mode === 'split' && !mapping.directionEvidence && (

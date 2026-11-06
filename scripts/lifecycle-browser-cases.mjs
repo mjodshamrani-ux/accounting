@@ -114,7 +114,7 @@ export async function verifyTemplateLifecycle(context, url) {
       '2',
     );
     await page
-      .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
+      .getByRole('button', { name: 'أعدّ ورقة العمل', exact: true })
       .click();
     const pending = page.waitForEvent('download');
     await page

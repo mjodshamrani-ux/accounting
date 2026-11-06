@@ -31,7 +31,7 @@ async function shot(server, width, screen) {
     await page.getByRole('heading', { name: 'مساحة المراجعة' }).waitFor();
   }
   if (screen === 'export') {
-    await page.getByRole('button', { name: 'إعداد ورقة العمل' }).click();
+    await page.getByRole('button', { name: 'أعدّ ورقة العمل' }).click();
     await page.getByRole('heading', { name: 'ملاحظات المراجعة وتنزيل الملف' }).waitFor();
   }
   const idle = () => page.waitForFunction(() => !document.querySelector('.notice.loading'));

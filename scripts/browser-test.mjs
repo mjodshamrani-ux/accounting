@@ -1,5 +1,5 @@
-import {verifyPayroll} from './payroll-browser-cases.mjs';
-import {verifyAsset} from './fixed-assets-browser-cases.mjs';
+import { verifyPayroll } from './payroll-browser-cases.mjs';
+import { verifyAsset } from './fixed-assets-browser-cases.mjs';
 import { verifyStock } from './inventory-register-browser-cases.mjs';
 import { verifyGateway } from './payment-gateway-browser-cases.mjs';
 import { verifyDomainAssistant } from './domain-assistant-browser-cases.mjs';
@@ -224,6 +224,99 @@ try {
   await context.setOffline(true);
   await page.getByRole('button', { name: 'جرّب المثال', exact: true }).click();
   await verifyWorkflowBrand(page, 'confirm');
+  // UX-5: the example says once, in one notice, that it is a sample, and at
+  // the confirm step what to check before comparing; no second notice in
+  // another colour repeats it, and the advice goes once the result is there.
+  const sampleNotices = (any = false) =>
+    page
+      .locator('.notice')
+      .evaluateAll(
+        (notices, any) =>
+          notices
+            .filter(
+              (n) =>
+                n.checkVisibility() && (any || /مثال/u.test(n.textContent)),
+            )
+            .map((n) => n.textContent.trim()),
+        any,
+      );
+  const atConfirm = await sampleNotices(true);
+  assert.equal(atConfirm.length, 1, `one notice: ${atConfirm}`);
+  assert.match(atConfirm[0], /مثالًا للتجربة/u);
+  assert.match(atConfirm[0], /راجع اتجاه المبالغ وإعدادات المقارنة/u);
+  // UX-5: the three edit buttons of the confirm step show «عدّل», a word of
+  // their names, closed and open. «خيارات متقدمة» said nothing of what they
+  // open, and was not in the name a screen reader or voice control uses.
+  for (const name of [
+    'عدّل نطاق المقارنة',
+    'عدّل كشف المورد',
+    'عدّل تقرير الحسابات الدائنة',
+  ]) {
+    const edit = page.getByRole('button', { name, exact: true });
+    const seen = [];
+    for (let i = 0; i < 2; i += 1) {
+      seen.push([
+        await edit.getAttribute('aria-expanded'),
+        (await edit.innerText()).trim(),
+      ]);
+      await edit.click();
+    }
+    assert.deepEqual(
+      seen.map(([expanded]) => expanded).sort((a, b) => a.localeCompare(b)),
+      ['false', 'true'],
+      `${name}: opens and closes`,
+    );
+    for (const [expanded, words] of seen)
+      assert.ok(
+        words && name.includes(words),
+        `${name} (${expanded}) shows «${words}», not a word of its name`,
+      );
+  }
+  // UX-5 (audit B5): the optional reviews of the two sources and the
+  // separate allocation path sit under one named heading that says none is
+  // needed to compare, not as a run of buttons with nothing over them.
+  const reviewIds = [
+    'source-structure-review-disclosure',
+    'invoice-overlap-disclosure',
+    'section-derived-disclosure',
+    'split-section-disclosure',
+    'running-balance-disclosure',
+  ];
+  const moreReviews = await page
+    .locator('[data-supplier-more-reviews]')
+    .evaluateAll((sections, ids) => {
+      const [section] = sections;
+      const heading = section?.querySelector(':scope > div > h2');
+      return {
+        groups: sections.length,
+        heading: heading?.textContent.trim(),
+        named:
+          !!heading && section.getAttribute('aria-labelledby') === heading.id,
+        intro: section?.querySelector(':scope > div > p')?.textContent.trim(),
+        inside: ids.filter((id) =>
+          section?.querySelector(`[data-testid="${id}"]`),
+        ),
+        allocation: !!section?.querySelector(
+          '[data-testid="allocation-workflow-handoff"]',
+        ),
+      };
+    }, reviewIds);
+  assert.deepEqual(
+    {
+      ...moreReviews,
+      intro: (moreReviews.intro ?? '').startsWith(
+        'اختيارية، ولا يلزم شيء منها لتقارن.',
+      ),
+    },
+    {
+      groups: 1,
+      heading: 'مراجعات إضافية للمصدرين',
+      named: true,
+      intro: true,
+      inside: reviewIds,
+      allocation: true,
+    },
+  );
   // Balance reconciliation is opt-in and lives behind the scope card's edit
   // action, so nothing about it is on the default path.
   await page
@@ -236,6 +329,9 @@ try {
     .getByRole('heading', { name: 'مساحة المراجعة' })
     .waitFor({ timeout: 20000 });
   await verifyWorkflowBrand(page, 'review');
+  const atReview = await sampleNotices();
+  assert.equal(atReview.length, 1, `one example notice: ${atReview}`);
+  assert.doesNotMatch(atReview[0], /راجع اتجاه المبالغ/u);
   assert.equal(
     await page.locator('.metric').nth(0).locator('strong').innerText(),
     '2',
@@ -275,7 +371,7 @@ try {
   await page.waitForFunction(
     () => document.querySelector('.metric strong')?.textContent === '1',
   );
-  await page.getByRole('button', { name: 'إعداد ورقة العمل' }).click();
+  await page.getByRole('button', { name: 'أعدّ ورقة العمل' }).click();
   await verifyWorkflowBrand(page, 'export');
   await page
     .getByRole('textbox', { name: 'ملاحظات المراجعة', exact: true })
@@ -625,7 +721,7 @@ try {
     '2',
   );
   await pdfPage
-    .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
+    .getByRole('button', { name: 'أعدّ ورقة العمل', exact: true })
     .click();
   const pdfExport = pdfPage.waitForEvent('download');
   await pdfPage
@@ -777,7 +873,7 @@ try {
     '2',
   );
   await recoveryPage
-    .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
+    .getByRole('button', { name: 'أعدّ ورقة العمل', exact: true })
     .click();
   const recoveredExport = recoveryPage.waitForEvent('download');
   await recoveryPage
@@ -929,7 +1025,7 @@ try {
     });
     assert.equal(await importAiCompare.isDisabled(), true);
     const helperButton = importAiPage.getByRole('button', {
-      name: 'اقتراح الأعمدة',
+      name: 'اقترح الأعمدة',
       exact: true,
     });
     if (providerState !== 'absent')
@@ -1155,7 +1251,7 @@ try {
     '2',
   );
   await quickPage
-    .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
+    .getByRole('button', { name: 'أعدّ ورقة العمل', exact: true })
     .click();
   const quickDownload = quickPage.waitForEvent('download');
   await quickPage
@@ -1661,7 +1757,7 @@ try {
       assert.equal(await directionPage.locator('.metric').count(), 3);
     }
     await directionPage
-      .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
+      .getByRole('button', { name: 'أعدّ ورقة العمل', exact: true })
       .click();
     const directionDownload = directionPage.waitForEvent('download');
     await directionPage
@@ -1896,19 +1992,68 @@ try {
     await activeScenarioPage(context, 'local review effort'),
     `${origin}/mizan-test/`,
   );
-  await verifyClearing(await activeScenarioPage(context, 'single-account clearing'), `${origin}/mizan-test/`);
-  await verifyAr(await activeScenarioPage(context, 'customer AR documents'), `${origin}/mizan-test/`);
-  await verifyAllocation(await activeScenarioPage(context, 'Payment allocation'), `${origin}/mizan-test/`);
-  await verifyBank(await activeScenarioPage(context, 'Bank movements'), `${origin}/mizan-test/`);
-  await verifyBankAdjustments(await activeScenarioPage(context, 'Bank balances and adjustment evidence'), `${origin}/mizan-test/`);
-  await verifyGlTb(await activeScenarioPage(context, 'GL/TB consistency'), `${origin}/mizan-test/`);
-  await verifyFinancial(await activeScenarioPage(context, 'Trial balance financial position'), `${origin}/mizan-test/`);
-  await verifyIntercompany(await activeScenarioPage(context, 'Intercompany transaction evidence'), `${origin}/mizan-test/`);
-  await verifyGateway(await activeScenarioPage(context, 'Payment gateway batch evidence'), `${origin}/mizan-test/`);
-  await verifyStock(await activeScenarioPage(context, 'Posted inventory register / GL evidence'), `${origin}/mizan-test/`);
-  await verifyAsset(await activeScenarioPage(context, 'Posted fixed assets / GL component evidence'), `${origin}/mizan-test/`);
-  await verifyPayroll(await activeScenarioPage(context, 'Posted payroll / GL and bank payout evidence'), `${origin}/mizan-test/`, 'work/payroll/full-app-browser-payroll');
-  await verifyDomainAssistant(await activeScenarioPage(context, 'Domain evidence explanations'), `${origin}/mizan-test/`);
+  await verifyClearing(
+    await activeScenarioPage(context, 'single-account clearing'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyAr(
+    await activeScenarioPage(context, 'customer AR documents'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyAllocation(
+    await activeScenarioPage(context, 'Payment allocation'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyBank(
+    await activeScenarioPage(context, 'Bank movements'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyBankAdjustments(
+    await activeScenarioPage(context, 'Bank balances and adjustment evidence'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyGlTb(
+    await activeScenarioPage(context, 'GL/TB consistency'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyFinancial(
+    await activeScenarioPage(context, 'Trial balance financial position'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyIntercompany(
+    await activeScenarioPage(context, 'Intercompany transaction evidence'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyGateway(
+    await activeScenarioPage(context, 'Payment gateway batch evidence'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyStock(
+    await activeScenarioPage(
+      context,
+      'Posted inventory register / GL evidence',
+    ),
+    `${origin}/mizan-test/`,
+  );
+  await verifyAsset(
+    await activeScenarioPage(
+      context,
+      'Posted fixed assets / GL component evidence',
+    ),
+    `${origin}/mizan-test/`,
+  );
+  await verifyPayroll(
+    await activeScenarioPage(
+      context,
+      'Posted payroll / GL and bank payout evidence',
+    ),
+    `${origin}/mizan-test/`,
+    'work/payroll/full-app-browser-payroll',
+  );
+  await verifyDomainAssistant(
+    await activeScenarioPage(context, 'Domain evidence explanations'),
+    `${origin}/mizan-test/`,
+  );
 
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);

@@ -166,7 +166,7 @@ export async function verifyVisualAccounting(page, baseUrl) {
       await writeFile(path, bytes);
       return bytes;
     }
-    await page.getByRole('button', {name:'إعداد ورقة العمل',exact:true}).click();
+    await page.getByRole('button', {name:'أعدّ ورقة العمل',exact:true}).click();
     await download('نزّل ورقة عمل جزئية', 'work/qa/p6-accounting-ar.xlsx');
     const session = await download(
       'احفظ الجلسة للمتابعة لاحقًا',
@@ -214,7 +214,7 @@ export async function verifyVisualAccounting(page, baseUrl) {
       await page.locator('.metric').first().locator('strong').innerText(),
       '1',
     );
-    await page.getByRole('button', {name:'إعداد ورقة العمل',exact:true}).click();
+    await page.getByRole('button', {name:'أعدّ ورقة العمل',exact:true}).click();
     await download('نزّل ورقة عمل جزئية', 'work/qa/p6-accounting-restored.xlsx');
     assert.deepEqual(violations, []);
     assert.deepEqual(errors, []);

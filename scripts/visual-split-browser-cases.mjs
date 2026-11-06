@@ -156,7 +156,7 @@ async function verifySplitCase(page, baseUrl, lang) {
       return bytes;
     }
     await page
-      .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
+      .getByRole('button', { name: 'أعدّ ورقة العمل', exact: true })
       .click();
     await download('نزّل ورقة عمل جزئية', `work/qa/p6-split-${lang}-ar.xlsx`);
     const session = await download(
@@ -207,7 +207,7 @@ async function verifySplitCase(page, baseUrl, lang) {
       '3',
     );
     await page
-      .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
+      .getByRole('button', { name: 'أعدّ ورقة العمل', exact: true })
       .click();
     await download(
       'نزّل ورقة عمل جزئية',

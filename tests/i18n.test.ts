@@ -77,9 +77,9 @@ void test('English has exactly the Arabic keys, lists and message parameters', (
 // counted. Names that are not commands are listed with why, and each must
 // still name something.
 const COMMAND =
-  /^(?:Open|Restore|Save|Export|Check|Compare|Verify|Read|Approve|Reject|Cancel|Undo|Download|Add|Reopen|Run|Try|Resume|Show|Hide|Clear|Remove|Use|Confirm|Apply|Load|Create|Start|Reset|Choose|Select|Accept|Decline|Mark|Record|Copy|Print|Ask|Review|Continue|Go|Edit|Set|Insert|Fix|Expand|Collapse|Switch|Return|Back|Delete|Discard|Keep|Include|Exclude|Enable|Disable|Upload|Attach|Replace|Retry|Close|Measure|Calculate|Match|Link|Unlink|Split|Merge|Assign|Allocate|Reconcile|Find|Search|Filter|Sort|Move|Next|Previous|Done|Finish|Submit|Send|Share|Generate|Build|Request|Inspect|Explain)\b/u;
+  /^(?:Open|Restore|Save|Export|Check|Compare|Verify|Read|Approve|Reject|Cancel|Undo|Download|Add|Reopen|Run|Try|Resume|Show|Hide|Clear|Remove|Use|Confirm|Apply|Load|Create|Start|Reset|Choose|Select|Accept|Decline|Mark|Record|Copy|Print|Ask|Review|Continue|Go|Edit|Set|Insert|Fix|Expand|Collapse|Switch|Return|Back|Delete|Discard|Keep|Include|Exclude|Enable|Disable|Upload|Attach|Replace|Retry|Close|Measure|Calculate|Match|Link|Unlink|Split|Merge|Assign|Allocate|Reconcile|Find|Search|Filter|Sort|Move|Next|Previous|Done|Finish|Submit|Send|Share|Generate|Build|Request|Inspect|Explain|Play|Pause|Skip|Restart|Suggest|Prepare|Change|Reverse)\b/u;
 const VERBAL_NOUN =
-  /^(?:فتح|استعادة|حفظ|فحص|تصدير|تنزيل|إعادة|اعتماد|رفض|إلغاء|التراجع|مقارنة|قراءة|إضافة|عرض|إخفاء|إظهار|مسح|إزالة|حذف|استخدام|تأكيد|تطبيق|تحميل|إنشاء|بدء|اختيار|تحديد|قبول|تسجيل|نسخ|طباعة|تشغيل|تجربة|استئناف|متابعة|مراجعة|تعديل|إغلاق|العودة|عودة|الرجوع|انتقال|الانتقال|استبدال|إنهاء|إتمام|تفعيل|تعطيل|توسيع|طي|تحرير|ضبط|تعيين|إدراج|تصحيح|إرفاق|حساب|قياس|مطابقة|ربط|تقسيم|دمج|إسناد|تخصيص|تسوية|بحث|البحث|تصفية|ترتيب|مشاركة|توليد|طلب|شرح|تفسير)(?:\s|$)/u;
+  /^(?:فتح|استعادة|حفظ|فحص|تصدير|تنزيل|إعادة|اعتماد|رفض|إلغاء|التراجع|مقارنة|قراءة|إضافة|عرض|إخفاء|إظهار|مسح|إزالة|حذف|استخدام|تأكيد|تطبيق|تحميل|إنشاء|بدء|اختيار|تحديد|قبول|تسجيل|نسخ|طباعة|تشغيل|تجربة|استئناف|متابعة|مراجعة|تعديل|إغلاق|العودة|عودة|الرجوع|انتقال|الانتقال|استبدال|إنهاء|إتمام|تفعيل|تعطيل|توسيع|طي|تحرير|ضبط|تعيين|إدراج|تصحيح|إرفاق|حساب|قياس|مطابقة|ربط|تقسيم|دمج|إسناد|تخصيص|تسوية|بحث|البحث|تصفية|ترتيب|مشاركة|توليد|طلب|شرح|تفسير|إيقاف|اقتراح|إعداد|استبعاد|تغيير|عكس)(?:\s|$)/u;
 const NOT_COMMANDS: [RegExp, string][] = [
   [/\.(?:actions|eventTypes?|decisionTypes)\./u, 'a decision as the history records it'],
   [/\.codes\./u, 'a reader message'],
@@ -93,6 +93,7 @@ const NOT_COMMANDS: [RegExp, string][] = [
   [/^locales\.reviewEffort\.title$/u, 'the title of a section'],
   [/^locales\.landing\.privacy\.steps$/u, 'the steps of the work, named'],
   [/^locales\.app\.shell\.(?:resetTitle|steps\[\d\])$/u, 'a dialog title and the steps of the work'],
+  [/^locales\.app\.source\.exclude$/u, 'the name of a disclosure holding the exclusion form'],
 ];
 function sample(value: (...args: unknown[]) => unknown) {
   for (const args of [Array(Math.max(3, value.length)).fill(1), [['#1', '#2']], ['#1']])
