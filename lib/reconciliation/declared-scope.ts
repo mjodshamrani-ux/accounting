@@ -51,8 +51,8 @@ function columnOf(header: string[], name: string) {
 }
 
 export function suggestDeclaredScope(
-  sources: DeclaredScopeSource[],
-  fields: { field: string; header: string }[],
+  sources: readonly DeclaredScopeSource[],
+  fields: readonly { field: string; header: string }[],
 ): Record<string, DeclaredScopeField> {
   const out: Record<string, DeclaredScopeField> = {};
   for (const { field, header } of fields) {
@@ -102,8 +102,10 @@ export function suggestDeclaredScope(
   return out;
 }
 
-/** Where a field's value came from, as the card says it. */
-export type ScopeOrigin = 'file' | 'default' | 'user' | 'question';
+/** Where a field's value came from, as the card says it: `handoff` is a
+ *  value carried from the comparison the accountant came from, context that
+ *  no one confirmed here. */
+export type ScopeOrigin = 'file' | 'default' | 'user' | 'question' | 'handoff';
 
 export type DeclaredScopeRule<K extends string> = {
   field: K;
@@ -132,7 +134,10 @@ export function applyDeclaredScope<K extends string>(
   const next = { ...values },
     from = { ...origins };
   for (const { field, fallback, accepts, fixed } of rules) {
-    if (origins[field] === 'user') continue;
+    // The accountant's entry and a value carried from another comparison
+    // are never written over; the card compares the carried value with what
+    // the files hold.
+    if (origins[field] === 'user' || origins[field] === 'handoff') continue;
     const s = suggested[field];
     if (
       s?.status === 'agreed' &&

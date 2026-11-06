@@ -16,6 +16,10 @@ export type ScopeCardRow = {
   key: string;
   label: string;
   origin: ScopeOrigin;
+  /** The field's value now, to compare a carried value with the files. */
+  value: string;
+  /** The field takes one value only, so a question cannot be typed away. */
+  fixed?: boolean;
   suggestion?: DeclaredScopeField;
   /** The field's own editable control, described by its origin line. */
   control: (describedBy: string) => ReactNode;
@@ -47,9 +51,16 @@ export function ScopeCard({
   const { lang } = useI18n();
   const t = scopeCardCopy[lang];
   const id = useId();
-  // Before both files are loaded every field is unknown; that is not a
+  // A field asks the accountant when the files leave it open, or when any
+  // row holds something other than the value carried from the comparison
+  // the accountant came from; the files' values are then listed under it.
+  const differs = (row: ScopeCardRow) =>
+    !!row.suggestion?.values.some((v) => v.value !== row.value);
+  const asks = (row: ScopeCardRow) =>
+    row.origin === 'question' || (row.origin === 'handoff' && differs(row));
+  // Before the files are loaded every field is unknown; that is not a
   // question yet, and the card is hidden.
-  const questions = !hidden && rows.some((row) => row.origin === 'question');
+  const questions = !hidden && rows.some(asks);
   // The fields open when a question appears and stay open until the
   // accountant folds them: answering the last one must not fold the field
   // being typed in.
@@ -64,6 +75,13 @@ export function ScopeCard({
     if (row.origin === 'file' && s) return t.fromFile(s.header, s.read);
     if (row.origin === 'default') return t.byDefault;
     if (row.origin === 'user') return t.fromYou;
+    if (row.origin === 'handoff')
+      return differs(row)
+        ? t.fromHandoffOther
+        : s?.status === 'agreed'
+          ? t.fromHandoffSame(s.header, s.read)
+          : t.fromHandoff;
+    if (row.fixed) return t.onlyShown;
     if (s?.status === 'agreed') return t.unusable(s.value ?? '');
     if (s?.status === 'differs') return t.differs;
     if (s?.status === 'blank') return t.blank;
@@ -106,11 +124,11 @@ export function ScopeCard({
               </label>
               <p
                 id={`${id}-${row.key}-origin`}
-                className={row.origin === 'question' ? 'hint warn' : 'hint'}
+                className={asks(row) ? 'hint warn' : 'hint'}
               >
                 {origin(row)}
               </p>
-              {row.origin === 'question' &&
+              {asks(row) &&
                 row.suggestion &&
                 row.suggestion.values.length > 0 && (
                   <ul className="scope-card__values">

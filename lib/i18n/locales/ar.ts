@@ -235,9 +235,35 @@ export const ar = {
     openSyntheticAllocationExample: 'افتح مثال تخصيص اصطناعيًا',
     restoreAllocationSession: 'استعد جلسة تخصيص',
     sheet: 'الورقة',
-    sourceConfirm: 'راجعت أدوار الجدول ومعنى المتاح وتوقيت الإشعار',
-    scopeConfirm:
-      'راجعت الكيان والدفتر والمورد والحساب والعملة واللقطة قبل هذه التخصيصات.',
+    // Sentences in parts, so the screen can isolate each value (UX-5(d)).
+    cardSummary: <T>(
+      entity: T,
+      supplier: T,
+      account: T,
+      cutoff: T,
+      currency: T,
+      rows: number,
+    ) => [
+      entity,
+      '، المورد ',
+      supplier,
+      '، الحساب ',
+      account,
+      '، لقطة في ',
+      cutoff,
+      '، بعملة ',
+      currency,
+      `؛ الصفوف المقروءة من الملفات: ${rows}.`,
+    ],
+    cardConfirm: <T>(entity: T, supplier: T, cutoff: T) => [
+      'راجعت الدفعات المتاحة والفواتير المفتوحة وإشعار التخصيص المقترح (أدوار الجداول ومعنى المتاح وتوقيت الإشعار) ونطاقها المشترك بكل حقوله أعلاه: ',
+      entity,
+      '، المورد ',
+      supplier,
+      '، لقطة في ',
+      cutoff,
+      '، قبل هذه التخصيصات.',
+    ],
     readValueLedger: 'اقرأ سجل القيمة',
     failure:
       'لم تنفذ العملية. راجع المصدر والدليل والمبلغ والمتاح؛ احتفظنا بالحالة السابقة.',

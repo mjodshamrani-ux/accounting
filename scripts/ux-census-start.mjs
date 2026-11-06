@@ -125,16 +125,12 @@ export const START = {
       [0, 1, 2].map((i) => `audit/allocation/frozen/one-to-many-${i}.csv`),
       ['Available payments', 'Open invoices', 'Proposed remittance'],
     ),
+    // UX-5(d): the files' scope columns fill the card; one confirmation.
     steps: [
-      ['check', 'Available payments: I reviewed'],
-      ['check', 'Open invoices: I reviewed'],
-      ['check', 'Proposed remittance: I reviewed'],
-      ['fill', 'Entity', 'Synthetic Buyer'],
-      ['fill', 'Ledger', 'Primary Book'],
-      ['fill', 'Supplier', 'Supplier S01'],
-      ['fill', 'Payable account', '2100'],
-      ['fill', 'Snapshot date', '2026-09-30'],
-      ['check', 'I reviewed the entity, ledger, supplier'],
+      [
+        'check',
+        'I reviewed the available payments, the open invoices and the proposed remittance',
+      ],
     ],
     run: 'Read value ledger',
   },

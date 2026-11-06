@@ -32,6 +32,7 @@
   overflow-wrap: anywhere;
 }
 .reconciliation-workspace .scope-card__field[data-origin='question'] input,
+.reconciliation-workspace .scope-card__field:has(> .hint.warn) input,
 .reconciliation-workspace .scope-card__field[data-origin='question'] select {
   border-color: #d4ab62;
 }

@@ -158,8 +158,13 @@ export async function verifyActualAllocationPending(
           .getByRole('heading', { name: 'partial-' + i + '.csv', exact: true })
           .waitFor();
         await idle();
-        await source.getByRole('checkbox').check();
       }
+      // The scope is typed by hand in the card's fields, opened as an
+      // accountant would; its one box confirms the three tables and the
+      // scope (UX-5(d)).
+      const fields = workspace().locator('[data-scope-card] details');
+      if ((await fields.getAttribute('open')) === null)
+        await fields.locator('summary').click();
       for (const [i, value] of [
         'Synthetic Buyer',
         'Primary Book',
@@ -169,7 +174,11 @@ export async function verifyActualAllocationPending(
         '2026-09-30',
       ].entries())
         await workspace().getByLabel(t.fields[i], { exact: true }).fill(value);
-      await workspace().getByLabel(t.scopeConfirm, { exact: true }).check();
+      await workspace()
+        .getByLabel(t.cardConfirm('', '', '')[0].split(' (')[0], {
+          exact: false,
+        })
+        .check();
       await button(workspace(), t.readValueLedger).click();
       await page.getByTestId('allocation-result').waitFor();
       await idle();

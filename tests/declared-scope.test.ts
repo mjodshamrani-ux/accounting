@@ -335,3 +335,21 @@ void test('an example or a restored scope says which values the files hold', () 
     },
   );
 });
+
+void test('a value carried from another comparison is never written over', () => {
+  const handoff = { ...asked, entity: 'handoff' as const };
+  for (const entity of ['Carried', 'E1']) {
+    const next = applyDeclaredScope(
+      { ...blank, entity },
+      handoff,
+      suggest([
+        ['entity', 'currency', 'start', 'basis'],
+        ['E1', 'SAR', '2026-09-01', 'functional'],
+      ]),
+      rules,
+    );
+    assert.equal(next.values.entity, entity, 'the files never write over it');
+    assert.equal(next.origins.entity, 'handoff', 'it stays carried');
+    assert.equal(next.values.currency, 'SAR', 'the other fields still fill');
+  }
+});

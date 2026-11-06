@@ -243,10 +243,35 @@ export const en: Messages = {
     openSyntheticAllocationExample: 'Open synthetic allocation example',
     restoreAllocationSession: 'Restore allocation session',
     sheet: 'Sheet',
-    sourceConfirm:
-      'I reviewed the table roles, available capacity and advice timing',
-    scopeConfirm:
-      'I reviewed the entity, ledger, supplier, account, currency and snapshot before these allocations.',
+    // Sentences in parts, so the screen can isolate each value (UX-5(d)).
+    cardSummary: <T>(
+      entity: T,
+      supplier: T,
+      account: T,
+      cutoff: T,
+      currency: T,
+      rows: number,
+    ) => [
+      entity,
+      ', supplier ',
+      supplier,
+      ', account ',
+      account,
+      ', snapshot on ',
+      cutoff,
+      ', in ',
+      currency,
+      `; ${rows} rows read from the files.`,
+    ],
+    cardConfirm: <T>(entity: T, supplier: T, cutoff: T) => [
+      'I reviewed the available payments, the open invoices and the proposed remittance (table roles, available capacity and advice timing) and their common scope in every field above: ',
+      entity,
+      ', supplier ',
+      supplier,
+      ', snapshot on ',
+      cutoff,
+      ', before these allocations.',
+    ],
     readValueLedger: 'Read value ledger',
     failure:
       'Operation rejected. Review source, evidence, amount and capacity; the previous state was retained.',

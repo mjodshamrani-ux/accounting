@@ -38,6 +38,10 @@ const metadata = [
   'Snapshot date',
   'Allocation basis',
 ];
+/** The column each declared scope field is read from, in
+ * ALLOCATION_SCOPE_FIELDS order; every row of the three tables carries them
+ * (the UX-5(d) card reads them to suggest). */
+export const ALLOCATION_SCOPE_HEADERS: readonly string[] = metadata;
 export const ALLOCATION_HEADERS = [
   [
     'Payment ID',

@@ -469,16 +469,19 @@ try {
         await source
           .getByRole('heading', { name: given.names[side], exact: true })
           .waitFor();
-        await source
-          .getByLabel(`${SIDES[side]}: I reviewed`, { exact: false })
-          .check();
       }
+      // The scope is typed by hand, so the manual path stays checked: the
+      // card's fields are opened as an accountant would, and its one box
+      // confirms the three tables and the scope (UX-5(d)).
+      const fields = w.locator('[data-scope-card] details');
+      if ((await fields.getAttribute('open')) === null)
+        await fields.locator('summary').click();
       for (const [key, label] of Object.entries(SCOPE))
         await w.getByLabel(label, { exact: true }).fill(given.scope[key]);
       await w
         .getByLabel(
-          'I reviewed the entity, ledger, supplier, account, currency and snapshot before these allocations.',
-          { exact: true },
+          'I reviewed the available payments, the open invoices and the proposed remittance',
+          { exact: false },
         )
         .check();
       await w

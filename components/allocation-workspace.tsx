@@ -27,6 +27,7 @@ import { allocationStrip } from '@/lib/alignment-strip';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
 import {
   ALLOCATION_SCOPE_FIELDS,
+  ALLOCATION_SCOPE_HEADERS,
   type AllocationInput,
   type AllocationResult,
   type AllocationEvent,
@@ -40,7 +41,48 @@ import {
 import { AllocationAdvicePanel } from './allocation-advice-panel';
 import { RecordPager, RecordRows } from './record-table';
 import { recordPage } from '@/lib/record-page';
+import { ScopeCard, Sentence } from '@/components/scope-card';
+import { scopeCardCopy } from '@/lib/i18n/scope-card';
+import { useDeclaredScope } from '@/hooks/use-declared-scope';
+import type {
+  DeclaredScopeRule,
+  ScopeOrigin,
+} from '@/lib/reconciliation/declared-scope';
 import './workspace-record.css';
+
+type AllocationScopeField = (typeof ALLOCATION_SCOPE_FIELDS)[number];
+// What the card may put in each field (UX-5(d)): the snapshot date takes
+// only a date the engine reads, and the basis only the one it accepts;
+// currency and basis start from their defaults while no file has the column.
+const isoDate = (v: string) => /^\d{4}-\d{2}-\d{2}$/.test(v);
+const scopeRules: DeclaredScopeRule<AllocationScopeField>[] =
+  ALLOCATION_SCOPE_FIELDS.map((field) =>
+    field === 'currency'
+      ? { field, fallback: allocationDemoScope.currency }
+      : field === 'basis'
+        ? {
+            field,
+            fallback: allocationDemoScope.basis,
+            accepts: (v) => v === allocationDemoScope.basis,
+            fixed: true,
+          }
+        : field === 'cutoff'
+          ? { field, accepts: isoDate }
+          : { field },
+  );
+const scopeColumns = ALLOCATION_SCOPE_FIELDS.map((field, i) => ({
+  field,
+  header: ALLOCATION_SCOPE_HEADERS[i],
+}));
+type HintField = keyof AllocationWorkflowHandoff['scopeHints'];
+const hinted = (
+  field: AllocationScopeField,
+): field is HintField & AllocationScopeField =>
+  field === 'entity' ||
+  field === 'party' ||
+  field === 'account' ||
+  field === 'currency' ||
+  field === 'cutoff';
 
 export function AllocationWorkspace({
   active,
@@ -54,16 +96,25 @@ export function AllocationWorkspace({
   const { t: catalogue, lang } = useI18n(),
     t = catalogue.allocation;
   const h = allocationWorkflowHandoffCopy(lang);
-  const freshScope = (): AllocationInput['scope'] => ({
-    ...allocationDemoScope,
-    entity: handoff?.scopeHints.entity ?? '',
-    ledger: '',
-    party: handoff?.scopeHints.party ?? '',
-    account: handoff?.scopeHints.account ?? '',
-    currency: handoff?.scopeHints.currency ?? allocationDemoScope.currency,
-    cutoff: handoff?.scopeHints.cutoff ?? '',
-    confirmed: false,
-  });
+  // A fresh scope: a value carried from the supplier comparison the
+  // accountant came from is context that no one confirmed here, so it is
+  // marked as such and the files never write over it; any other field
+  // starts from its default or as a question.
+  const fresh = () => {
+    const scope = { ...allocationDemoScope, confirmed: false };
+    const origins = {} as Record<AllocationScopeField, ScopeOrigin>;
+    for (const { field, fallback } of scopeRules) {
+      const hint = hinted(field) ? handoff?.scopeHints[field] : undefined;
+      if (hint) {
+        scope[field] = hint;
+        origins[field] = 'handoff';
+      } else {
+        scope[field] = fallback ?? '';
+        origins[field] = fallback === undefined ? 'question' : 'default';
+      }
+    }
+    return { scope, origins };
+  };
   const sides = t.sides,
     labels = t.fields;
   const [files, setFiles] = useState<
@@ -75,7 +126,6 @@ export function AllocationWorkspace({
         confirmed: false,
       })) as AllocationInput['readings'],
     ),
-    [scope, setScope] = useState<AllocationInput['scope']>(freshScope),
     [events, setEvents] = useState<AllocationEvent[]>([]),
     [result, setResult] = useState<AllocationResult | null>(null),
     [busy, setBusy] = useState(false),
@@ -90,6 +140,16 @@ export function AllocationWorkspace({
     [drafts, setDrafts] = useState([
       { paymentId: '', invoiceId: '', amount: '' },
     ]);
+  // The card's scope and where each value came from (UX-5(d)).
+  const card = useDeclaredScope({
+    initial: fresh,
+    rules: scopeRules,
+    columns: scopeColumns,
+    files,
+    sheets: readings.map((r) => r.sheet),
+    labels: sides,
+  });
+  const { scope, origins, suggestions } = card;
   const runtime = useRef({
     active,
     mounted: false,
@@ -112,7 +172,7 @@ export function AllocationWorkspace({
           confirmed: false,
         })) as AllocationInput['readings'],
       );
-      setScope(freshScope());
+      card.reset();
       setEvents([]);
       setResult(null);
       setSelected([]);
@@ -167,7 +227,11 @@ export function AllocationWorkspace({
   function install(v: { state: AllocationInput; result: AllocationResult }) {
     setFiles(v.state.files);
     setReadings(v.state.readings);
-    setScope(v.state.scope);
+    card.install(
+      v.state.scope,
+      v.state.files,
+      v.state.readings.map((r) => r.sheet),
+    );
     setEvents(v.state.events);
     setResult(v.result);
     setSelected([]);
@@ -189,6 +253,20 @@ export function AllocationWorkspace({
     reveal();
   };
   const statusId = useId();
+  const unknown = scopeCardCopy[lang].unknown;
+  // A value inside a sentence, isolated so mixed scripts keep their order;
+  // a date, an account or a currency code is never split across lines.
+  const scopeValue = (v: string, whole = false) => (
+    <bdi className={whole ? 'scope-card__whole' : undefined}>
+      {v || unknown}
+    </bdi>
+  );
+  const rowsRead = Math.max(
+    0,
+    ...ALLOCATION_SCOPE_FIELDS.map((k) =>
+      suggestions[k].read.reduce((n, r) => n + r.rows, 0),
+    ),
+  );
   async function perform<T>(
     work: (signal: AbortSignal) => Promise<T>,
     publish: (value: T) => void,
@@ -521,58 +599,76 @@ export function AllocationWorkspace({
                       )}
                     </pre>
                   </WorkspaceAdvanced>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={readings[side].confirmed}
-                      onChange={(e) => {
-                        const rs = [...readings] as typeof readings;
-                        rs[side] = { ...rs[side], confirmed: e.target.checked };
-                        setReadings(rs);
-                        invalidate();
-                      }}
-                    />
-                    {sides[side]}: {t.sourceConfirm}
-                  </label>
                 </>
               )}
             </section>
           ))}
         </WorkspaceSources>
-        <section className="workspace-scope" hidden={!(files[0] && files[1])}>
-          <WorkspaceGroupTitle kind="scope" />
-          <div className="gl-tb-grid">
-            {ALLOCATION_SCOPE_FIELDS.map((key, i) => (
-              <label key={key}>
-                {labels[i]}
-                <input
-                  type={key === 'cutoff' ? 'date' : 'text'}
-                  readOnly={key === 'basis'}
-                  value={scope[key]}
-                  onChange={(e) => {
-                    setScope({
-                      ...scope,
-                      [key]: e.target.value,
-                      confirmed: false,
-                    });
-                    invalidate();
-                  }}
-                />
-              </label>
-            ))}
-          </div>
-          <label>
-            <input
-              type="checkbox"
-              checked={scope.confirmed}
-              onChange={(e) => {
-                setScope({ ...scope, confirmed: e.target.checked });
-                invalidate();
-              }}
+        <ScopeCard
+          hidden={!(files[0] && files[1])}
+          summary={
+            <Sentence
+              parts={t.cardSummary(
+                scopeValue(scope.entity),
+                scopeValue(scope.party),
+                scopeValue(scope.account, true),
+                scopeValue(scope.cutoff, true),
+                scopeValue(scope.currency, true),
+                rowsRead,
+              )}
             />
-            {t.scopeConfirm}
-          </label>
-        </section>
+          }
+          rows={ALLOCATION_SCOPE_FIELDS.map((key, i) => ({
+            key,
+            label: labels[i],
+            origin: origins[key],
+            value: scope[key],
+            fixed: key === 'basis',
+            suggestion: suggestions[key],
+            control: (describedBy) => (
+              <input
+                aria-label={labels[i]}
+                aria-describedby={describedBy}
+                type={key === 'cutoff' ? 'date' : 'text'}
+                readOnly={key === 'basis'}
+                value={scope[key]}
+                onChange={(e) => {
+                  card.edit(key, e.target.value);
+                  invalidate();
+                }}
+              />
+            ),
+          }))}
+          confirm={
+            <label className="scope-card__confirm">
+              <input
+                type="checkbox"
+                checked={readings.every((r) => r.confirmed) && scope.confirmed}
+                onChange={(e) => {
+                  const confirmed = e.target.checked;
+                  setReadings(
+                    (previous) =>
+                      previous.map((r) => ({
+                        ...r,
+                        confirmed,
+                      })) as typeof readings,
+                  );
+                  card.confirm(confirmed);
+                  invalidate();
+                }}
+              />
+              <span>
+                <Sentence
+                  parts={t.cardConfirm(
+                    scopeValue(scope.entity),
+                    scopeValue(scope.party),
+                    scopeValue(scope.cutoff, true),
+                  )}
+                />
+              </span>
+            </label>
+          }
+        />
         <Button
           disabled={
             !files.every(Boolean) ||
