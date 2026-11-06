@@ -184,8 +184,10 @@ try {
       } finally {
         await english.context.close();
       }
+      // The recipe's one step since UX-5(d) is the card's checkbox; the plan
+      // says it is a text field.
       const wrong = plan.map((p, i) =>
-        i === plan.length - 2 ? { ...p, kind: 'INPUT:text' } : p,
+        i === plan.length - 1 ? { ...p, kind: 'INPUT:text' } : p,
       );
       await assert.rejects(
         measureStart(swapped.page, 'gl-tb', { plan: wrong }),

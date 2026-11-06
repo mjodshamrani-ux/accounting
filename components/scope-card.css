@@ -1,0 +1,51 @@
+/* «ما فهمناه من ملفاتك» (UX-5(d)): a sentence, the fields folded under it,
+   and one confirmation. A field awaiting the accountant is the only warm one. */
+.reconciliation-workspace .scope-card__summary {
+  margin: 0;
+  color: var(--foreground);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.9;
+}
+.reconciliation-workspace .scope-card__grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+}
+.reconciliation-workspace .scope-card__field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.reconciliation-workspace .scope-card__field > label {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  color: #49566b;
+  font-size: 12px;
+  font-weight: 550;
+}
+.reconciliation-workspace .scope-card__field > .hint {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.reconciliation-workspace .scope-card__field[data-origin='question'] input,
+.reconciliation-workspace .scope-card__field[data-origin='question'] select {
+  border-color: #d4ab62;
+}
+.reconciliation-workspace .scope-card__values {
+  margin: 0;
+  padding-inline-start: 18px;
+  color: #546077;
+  font-size: 12px;
+  line-height: 1.9;
+}
+/* The one confirmation keeps its box beside its sentence at every width. */
+.reconciliation-workspace .scope-card__confirm {
+  flex-wrap: nowrap;
+}
+.reconciliation-workspace .scope-card__whole {
+  white-space: nowrap;
+}

@@ -123,6 +123,9 @@ const scopeHeaders = [
   'Period start',
   'Period end',
 ];
+/** The column each declared scope field is read from, in GL_SCOPE_FIELDS
+ * order; every row carries them (the UX-5(d) card reads them to suggest). */
+export const GL_SCOPE_HEADERS: readonly string[] = scopeHeaders;
 export const GL_HEADERS = [
   'Record ID',
   'Record kind',

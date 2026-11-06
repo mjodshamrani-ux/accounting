@@ -907,6 +907,13 @@ try {
             '',
             `${domain}: completing the primary pair reveals required evidence naturally`,
           );
+        // A workspace whose files fill the card «ما فهمناه من ملفاتك» (UX-5(d))
+        // folds the fields under its sentence when nothing is asked; an
+        // accountant opens them to edit one.
+        const folded = panel.locator(
+          '[data-scope-card]:visible > details:not([open]) > summary',
+        );
+        if (await folded.count()) await folded.click();
         const draft = panel
           .locator(
             'input[type="text"]:visible:not([disabled]):not([readonly]), input:not([type]):visible:not([disabled]):not([readonly])',

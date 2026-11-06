@@ -306,8 +306,6 @@ export const en: Messages = {
     cancel: 'Cancel processing',
     sides: ['GL detail and balances', 'Trial balance source'],
     sheet: 'Sheet',
-    sourceConfirm:
-      'I reviewed this table: all balance roles and complete financial dimensions, posted scope, posting layer and functional currency are explicit.',
     fields: {
       entity: 'Entity',
       ledger: 'Ledger',
@@ -320,8 +318,37 @@ export const en: Messages = {
       start: 'Period start',
       end: 'Period end',
     },
-    scopeConfirm:
-      'I reviewed the common entity, ledger, account, complete dimensions, functional currency, posted scope, layer and period. Blank amounts are not zeros.',
+    // The UX-5(d) card: what the files say, and the one confirmation that
+    // carries the two source attestations and the scope attestation. In
+    // parts, so the screen can isolate each value.
+    cardSummary: <T>(
+      entity: T,
+      account: T,
+      start: T,
+      end: T,
+      currency: T,
+      rows: number,
+    ) => [
+      entity,
+      ', account ',
+      account,
+      ', ',
+      start,
+      ' to ',
+      end,
+      ', in ',
+      currency,
+      `; ${rows} rows read from the two files.`,
+    ],
+    cardConfirm: <T>(entity: T, start: T, end: T) => [
+      'I reviewed the GL detail and balances and the trial balance source, and their common scope in every field above: ',
+      entity,
+      ', ',
+      start,
+      ' to ',
+      end,
+      '. Balance roles, complete dimensions, posted scope, posting layer and functional currency are explicit, and blank amounts are not zeros.',
+    ],
     compare: 'Verify GL/TB consistency',
     result: 'GL/TB result',
     save: 'Save GL/TB session',

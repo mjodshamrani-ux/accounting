@@ -35,32 +35,57 @@ export async function verifyGlTb(page, url, out = 'work/qa') {
     start: 'Period start',
     end: 'Period end',
   };
-  async function uploadContract(name) {
-    for (const [side, label] of [
-      'GL detail and balances',
-      'Trial balance source',
-    ].entries()) {
+  // The card's one confirmation (UX-5(d)) carries both source attestations
+  // and the scope attestation; its label names the scope it confirms.
+  const confirmLabel =
+    'I reviewed the GL detail and balances and the trial balance source';
+  const sideNames = ['GL detail and balances', 'Trial balance source'];
+  async function uploadPair(name) {
+    for (const [side, label] of sideNames.entries()) {
       const file = `${name}-${side ? 'tb' : 'gl'}.csv`;
       await page
         .getByLabel(label, { exact: true })
         .setInputFiles('audit/gl-tb/frozen/' + file);
       await page.getByRole('heading', { name: file, exact: true }).waitFor();
-      await page
-        .getByLabel(label + ': I reviewed this table:', { exact: false })
-        .check();
     }
-    for (const [key, label] of Object.entries(labels))
-      await page.getByLabel(label, { exact: true }).fill(truth.scope[key]);
-    await page
-      .getByLabel(
-        'I reviewed the common entity, ledger, account, complete dimensions, functional currency, posted scope, layer and period.',
-        { exact: false },
-      )
-      .check();
+    // The card fills after the file is shown; wait for that paint to pass.
+    await page.evaluate(
+      () =>
+        new Promise((done) => requestAnimationFrame(() => setTimeout(done, 0))),
+    );
+  }
+  // The fields fold under the card's sentence when nothing is asked; an
+  // accountant opens them to change one.
+  async function openFields() {
+    const fields = page.locator('[data-scope-card] details');
+    if ((await fields.getAttribute('open')) === null)
+      await fields.locator('summary').click();
+  }
+  async function uploadContract(name, fill = true) {
+    await uploadPair(name);
+    if (fill) await openFields();
+    if (fill)
+      for (const [key, label] of Object.entries(labels)) {
+        assert.equal(
+          await page.locator('[data-scope-card] details').getAttribute('open'),
+          '',
+          `${key}: the fields stay open while the scope is typed`,
+        );
+        await page.getByLabel(label, { exact: true }).fill(truth.scope[key]);
+      }
+    await page.getByLabel(confirmLabel, { exact: false }).check();
     await page
       .getByRole('button', { name: 'Verify GL/TB consistency', exact: true })
       .click();
     await page.getByTestId('gl-tb-result').waitFor();
+    // The run puts the files back on the screen; what was typed stays.
+    if (fill)
+      for (const [key, label] of Object.entries(labels))
+        assert.equal(
+          await page.getByLabel(label, { exact: true }).inputValue(),
+          truth.scope[key],
+          `${key}: the typed scope is kept after the run`,
+        );
   }
   async function exportBook(name) {
     const request = page.waitForEvent('download');
@@ -69,7 +94,116 @@ export async function verifyGlTb(page, url, out = 'work/qa') {
       .click();
     await (await request).saveAs(out + '/' + name);
   }
-  await uploadContract('positive');
+  // What the card says each field holds, read here from the CSV bytes with
+  // this check's own split, not the app's reader: every non-blank data row of
+  // both files, the ten scope columns by header.
+  const scopeHeaders = {
+    entity: 'Entity',
+    ledger: 'Ledger',
+    account: 'Account',
+    dimensions: 'Complete dimensions',
+    currency: 'Currency',
+    currencyBasis: 'Currency basis',
+    postingStatus: 'Posting status',
+    postingLayer: 'Posting layer',
+    start: 'Period start',
+    end: 'Period end',
+  };
+  async function filesSay(name) {
+    const tables = [];
+    for (const [side, label] of sideNames.entries()) {
+      const text = await readFile(
+        `audit/gl-tb/frozen/${name}-${side ? 'tb' : 'gl'}.csv`,
+        'utf8',
+      );
+      assert.ok(!text.includes('"'), 'the frozen GL/TB sources are unquoted');
+      const [head, ...rows] = text
+        .split(/\r?\n/u)
+        .filter((line) => line.trim())
+        .map((line) => line.split(','));
+      tables.push({ label, head, rows });
+    }
+    return Object.fromEntries(
+      Object.entries(scopeHeaders).map(([key, header]) => {
+        const counts = new Map(),
+          read = [];
+        let rows = 0;
+        for (const { label, head, rows: body } of tables) {
+          const at = head.indexOf(header);
+          assert.ok(at >= 0, `${header} is a column of ${label}`);
+          read.push(`${label}: rows ${body.length}`);
+          for (const row of body) {
+            rows += 1;
+            const value = (row[at] ?? '').trim(),
+              bySide = counts.get(value) ?? new Map();
+            bySide.set(label, (bySide.get(label) ?? 0) + 1);
+            counts.set(value, bySide);
+          }
+        }
+        return [key, { header, rows, read, counts }];
+      }),
+    );
+  }
+  async function cardField(key) {
+    const field = page.locator(`[data-scope-field="${key}"]`);
+    return {
+      origin: await field.getAttribute('data-origin'),
+      value: await field.locator('input, select').inputValue(),
+      // textContent: the fields are folded when nothing is asked.
+      hint: (await field.locator('.hint').textContent()).trim(),
+      values: (await field.locator('li').allTextContents()).map((t) =>
+        t.trim(),
+      ),
+    };
+  }
+  // After the example, the two files alone fill the card; nothing is
+  // confirmed until the accountant confirms, and the run stays closed.
+  await uploadPair('positive');
+  assert.equal(
+    await page.locator('[data-scope-card]').count(),
+    1,
+    'the two files show the card «ما فهمناه من ملفاتك»',
+  );
+  const positive = await filesSay('positive');
+  for (const [key, said] of Object.entries(positive)) {
+    assert.equal(said.counts.size, 1, `${key}: one value in the positive pair`);
+    const [value] = said.counts.keys(),
+      shown = await cardField(key);
+    assert.equal(shown.value, value, `${key}: the card holds the files' value`);
+    assert.equal(shown.origin, 'file', `${key}: shown as from the file`);
+    assert.equal(
+      shown.hint,
+      `From the file: column ${said.header} · ${said.read.join(' · ')}`,
+      `${key}: the card names the column and, for each file, the rows it read`,
+    );
+  }
+  const card = page.locator('[data-scope-card]');
+  assert.equal(
+    await card.locator('[data-scope-summary]').innerText(),
+    `${positive.entity.counts.keys().next().value}, account ${positive.account.counts.keys().next().value}, ${positive.start.counts.keys().next().value} to ${positive.end.counts.keys().next().value}, in ${positive.currency.counts.keys().next().value}; ${positive.entity.rows} rows read from the two files.`,
+  );
+  assert.equal(
+    await card.locator('[data-scope-summary] bdi').count(),
+    5,
+    'each value in the sentence is isolated from the words around it',
+  );
+  assert.equal(
+    await card.locator('details').getAttribute('open'),
+    null,
+    'with nothing to ask, the fields stay folded',
+  );
+  assert.equal(
+    await page.getByLabel(confirmLabel, { exact: false }).isChecked(),
+    false,
+    'a suggestion never confirms',
+  );
+  assert.equal(
+    await page
+      .getByRole('button', { name: 'Verify GL/TB consistency', exact: true })
+      .isDisabled(),
+    true,
+  );
+  await uploadContract('positive', false);
   assert.equal(
     await page.getByTestId('gl-tb-status').innerText(),
     'Consistent in the declared scope',
@@ -124,10 +258,8 @@ export async function verifyGlTb(page, url, out = 'work/qa') {
         exact: true,
       })
       .waitFor();
-    await page
-      .getByLabel(label + ': I reviewed this table:', { exact: false })
-      .check();
   }
+  await page.getByLabel(confirmLabel, { exact: false }).check();
   await page
     .getByRole('button', { name: 'Verify GL/TB consistency', exact: true })
     .click();
@@ -189,6 +321,7 @@ export async function verifyGlTb(page, url, out = 'work/qa') {
     'Consistent in the declared scope',
   );
   await exportBook('gl-tb-native-restored.xlsx');
+  await openFields();
   await page
     .getByLabel('Complete dimensions', { exact: true })
     .fill('CostCentre=OTHER');
@@ -249,6 +382,75 @@ export async function verifyGlTb(page, url, out = 'work/qa') {
   assert.equal(
     await page.getByTestId('gl-tb-status').innerText(),
     'Source errors block approval',
+  );
+  // Rows that disagree leave the field a question: emptied, its fields open,
+  // each value shown with its source and count, and no majority wins. A file
+  // replaced after the confirmation drops it, and keeps what was typed.
+  await page.goto(url);
+  await page.getByRole('button', { name: 'EN English', exact: true }).click();
+  await openDomainWorkspace(page, 'gl-tb');
+  await uploadPair('dimensions-mismatch');
+  const mismatch = await filesSay('dimensions-mismatch');
+  for (const [key, said] of Object.entries(mismatch)) {
+    const shown = await cardField(key);
+    if (said.counts.size === 1) {
+      assert.equal(shown.origin, 'file', `${key}: agreed, so from the file`);
+      continue;
+    }
+    assert.equal(key, 'dimensions', 'only the dimensions disagree');
+    assert.equal(shown.origin, 'question');
+    assert.equal(shown.value, '', 'a disagreement is never filled');
+    assert.equal(shown.hint, 'The rows disagree, so enter the value');
+    assert.deepEqual(
+      shown.values,
+      [...said.counts].flatMap(([value, bySide]) =>
+        [...bySide].map(([side, n]) => `“${value}” in ${side}: ${n}`),
+      ),
+    );
+  }
+  assert.equal(await card.locator('details').getAttribute('open'), '');
+  assert.equal(
+    await page.getByLabel(confirmLabel, { exact: false }).isChecked(),
+    false,
+    'a suggestion never confirms',
+  );
+  // A value neither file holds, so writing over it would show.
+  const typed = 'CostCentre=CC03|Department=D01';
+  await page.getByLabel('Complete dimensions', { exact: true }).fill(typed);
+  assert.equal((await cardField('dimensions')).origin, 'user');
+  assert.equal(
+    await card.locator('details').getAttribute('open'),
+    '',
+    'answering the last question does not fold the field being typed in',
+  );
+  await page.getByLabel(confirmLabel, { exact: false }).check();
+  assert.equal(
+    await page
+      .getByRole('button', { name: 'Verify GL/TB consistency', exact: true })
+      .isEnabled(),
+    true,
+  );
+  await page
+    .getByLabel('Trial balance source', { exact: true })
+    .setInputFiles('audit/gl-tb/frozen/positive-tb.csv');
+  await page
+    .getByRole('heading', { name: 'positive-tb.csv', exact: true })
+    .waitFor();
+  assert.equal(
+    await page.getByLabel(confirmLabel, { exact: false }).isChecked(),
+    false,
+    'a replaced file drops the confirmation',
+  );
+  assert.equal(
+    await page
+      .getByRole('button', { name: 'Verify GL/TB consistency', exact: true })
+      .isDisabled(),
+    true,
+  );
+  assert.equal(
+    await page.getByLabel('Complete dimensions', { exact: true }).inputValue(),
+    typed,
+    'what the accountant typed is kept',
   );
   await writeFile(
     out + '/gl-tb-browser.json',

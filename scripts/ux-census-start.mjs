@@ -111,17 +111,12 @@ export const START = {
       ],
       ['GL detail and balances', 'Trial balance source'],
     ),
+    // UX-5(d): the files' scope columns fill the card; one confirmation.
     steps: [
-      ['check', 'GL detail and balances: I reviewed this table'],
-      ['check', 'Trial balance source: I reviewed this table'],
-      ['fill', 'Entity', 'Synthetic Entity'],
-      ['fill', 'Ledger', 'Primary Book'],
-      ['fill', 'Account', '1100'],
-      ['fill', 'Complete dimensions', 'CostCentre=CC01|Department=D01'],
-      ['fill', 'Posting layer', 'Current'],
-      ['fill', 'Period start', '2026-09-01'],
-      ['fill', 'Period end', '2026-09-30'],
-      ['check', 'I reviewed the common entity, ledger, account'],
+      [
+        'check',
+        'I reviewed the GL detail and balances and the trial balance source',
+      ],
     ],
     run: 'Verify GL/TB consistency',
   },

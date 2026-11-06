@@ -1,5 +1,5 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Button } from '@/components/ui/button';
 import {
@@ -24,6 +24,7 @@ import {
   GL_TB_VERSION,
   GL_TB_VERTICAL_FAMILY,
   GL_SCOPE_FIELDS,
+  GL_SCOPE_HEADERS,
   type GlTbInput,
   type GlTbReading,
   type GlTbResult,
@@ -37,6 +38,15 @@ import {
   glTbDemo,
 } from '@/lib/reconciliation/gl-tb-demo';
 import { GlTbSectionsPanel } from '@/components/gl-tb-sections-panel';
+import { ScopeCard, Sentence } from '@/components/scope-card';
+import { scopeCardCopy } from '@/lib/i18n/scope-card';
+import {
+  applyDeclaredScope,
+  originsOf,
+  suggestDeclaredScope,
+  type DeclaredScopeRule,
+  type ScopeOrigin,
+} from '@/lib/reconciliation/declared-scope';
 import { RecordFields, RecordRows } from '@/components/record-table';
 import './workspace-record.css';
 const freshScope = (): GlTbScope => ({
@@ -50,6 +60,50 @@ const freshScope = (): GlTbScope => ({
   end: '',
   confirmed: false,
 });
+// What the card may put in each field (UX-5(d)): the date fields and the
+// two one-option selects take only what the engine accepts; currency and
+// the two selects start from their defaults while no file has the column.
+const isoDate = (v: string) => /^\d{4}-\d{2}-\d{2}$/.test(v);
+const scopeRules: DeclaredScopeRule<GlScopeField>[] = GL_SCOPE_FIELDS.map(
+  (field) =>
+    field === 'currency'
+      ? { field, fallback: glDemoScope.currency }
+      : field === 'currencyBasis' || field === 'postingStatus'
+        ? {
+            field,
+            fallback: glDemoScope[field],
+            accepts: (v) => v === glDemoScope[field],
+            fixed: true,
+          }
+        : field === 'start' || field === 'end'
+          ? { field, accepts: isoDate }
+          : { field },
+);
+const scopeColumns = GL_SCOPE_FIELDS.map((field, i) => ({
+  field,
+  header: GL_SCOPE_HEADERS[i],
+}));
+const freshOrigins = () =>
+  Object.fromEntries(
+    scopeRules.map((r) => [
+      r.field,
+      r.fallback === undefined ? 'question' : 'default',
+    ]),
+  ) as Record<GlScopeField, ScopeOrigin>;
+// What the files say about the scope, each source named by its role.
+function suggestFrom(
+  sources: readonly (SourceFile | null)[],
+  sheets: readonly [number, number],
+  labels: readonly string[],
+) {
+  return suggestDeclaredScope(
+    ([0, 1] as const).flatMap((side) => {
+      const file = sources[side];
+      return file ? [{ label: labels[side], file, sheet: sheets[side] }] : [];
+    }),
+    scopeColumns,
+  );
+}
 const freshReading = (side: number): GlTbReading => ({
   ...glDemoReadings[side],
   confirmed: false,
@@ -69,7 +123,7 @@ export function GlTbWorkspace({
   active: boolean;
   onBack: () => void;
 }) {
-  const { t: catalogue } = useI18n(),
+  const { t: catalogue, lang } = useI18n(),
     t = catalogue.glTb;
   const [files, setFiles] = useState<[SourceFile | null, SourceFile | null]>([
       null,
@@ -79,11 +133,17 @@ export function GlTbWorkspace({
       freshReading(0),
       freshReading(1),
     ]),
-    [scope, setScope] = useState(freshScope),
+    // The scope and where each value came from change together, so a
+    // suggestion always reads the latest of both.
+    [draft, setDraft] = useState(() => ({
+      scope: freshScope(),
+      origins: freshOrigins(),
+    })),
     [result, setResult] = useState<GlTbResult | null>(null),
     [busy, setBusy] = useState(false),
     [failed, setFailed] = useState(false),
     [page, setPage] = useState(0);
+  const { scope, origins } = draft;
   const serial = useRef(0),
     controller = useRef<AbortController | null>(null);
   useEffect(
@@ -98,6 +158,39 @@ export function GlTbWorkspace({
     setFailed(false);
     setPage(0);
   }
+  // What the files say about the scope, from the sheet each source reads;
+  // the sources are named in the screen's language.
+  const sheet0 = readings[0].sheet,
+    sheet1 = readings[1].sheet;
+  const suggestions = useMemo(
+    () => suggestFrom(files, [sheet0, sheet1], t.sides),
+    [files, sheet0, sheet1, t.sides],
+  );
+  // A new file or sheet puts what the files agree on into the fields the
+  // accountant has not entered; any value it changes drops the confirmation.
+  // It is applied while rendering, as soon as what the files say changes,
+  // and on the latest state, so an entry typed before it is the
+  // accountant's and stays. A value changes here only after a file or sheet
+  // changed, which has already cleared the result.
+  const [applied, setApplied] = useState(suggestions);
+  if (applied !== suggestions) {
+    setApplied(suggestions);
+    setDraft((previous) => {
+      const next = applyDeclaredScope(
+        previous.scope,
+        previous.origins,
+        suggestions,
+        scopeRules,
+      );
+      if (!next.valuesChanged && !next.originsChanged) return previous;
+      return {
+        scope: next.valuesChanged
+          ? { ...previous.scope, ...next.values, confirmed: false }
+          : previous.scope,
+        origins: next.origins,
+      };
+    });
+  }
   const input = (): GlTbInput => ({
     files: files as GlTbInput['files'],
     readings,
@@ -106,7 +199,18 @@ export function GlTbWorkspace({
   function install(value: { state: GlTbInput; result: GlTbResult }) {
     setFiles(value.state.files);
     setReadings(value.state.readings);
-    setScope(value.state.scope);
+    setDraft({
+      scope: value.state.scope,
+      origins: originsOf(
+        value.state.scope,
+        suggestFrom(
+          value.state.files,
+          [value.state.readings[0].sheet, value.state.readings[1].sheet],
+          t.sides,
+        ),
+        GL_SCOPE_FIELDS,
+      ),
+    });
     setResult(value.result);
     setPage(0);
   }
@@ -167,7 +271,10 @@ export function GlTbWorkspace({
     });
   }
   function updateScope(key: GlScopeField, value: string) {
-    setScope((previous) => ({ ...previous, [key]: value, confirmed: false }));
+    setDraft((previous) => ({
+      scope: { ...previous.scope, [key]: value, confirmed: false },
+      origins: { ...previous.origins, [key]: 'user' },
+    }));
     invalidate();
   }
   const formatted = (n: number | null | undefined) =>
@@ -176,6 +283,20 @@ export function GlTbWorkspace({
     ) : (
       <Amount minor={n} decimals={result!.decimals} />
     );
+  const unknown = scopeCardCopy[lang].unknown;
+  // A value inside a sentence, isolated so mixed scripts keep their order;
+  // a date, an account or a currency code is never split across lines.
+  const scopeValue = (v: string, whole = false) => (
+    <bdi className={whole ? 'scope-card__whole' : undefined}>
+      {v || unknown}
+    </bdi>
+  );
+  const rowsRead = Math.max(
+    0,
+    ...GL_SCOPE_FIELDS.map((k) =>
+      suggestions[k].read.reduce((n, r) => n + r.rows, 0),
+    ),
+  );
   const rowById = new Map(result?.rows.map((r) => [`${r.side}:${r.row}`, r]));
   const tbRoles = ['opening', 'period', 'closing'] as const;
   if (!active) return null;
@@ -354,70 +475,89 @@ export function GlTbWorkspace({
                       )}
                     </pre>
                   </WorkspaceAdvanced>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={readings[side].confirmed}
-                      onChange={(event) => {
-                        const next = [...readings] as typeof readings;
-                        next[side] = {
-                          ...readings[side],
-                          confirmed: event.target.checked,
-                        };
-                        setReadings(next);
-                        invalidate();
-                      }}
-                    />
-                    {t.sides[side]}: {t.sourceConfirm}
-                  </label>
                 </>
               )}
             </section>
           ))}
         </WorkspaceSources>
-        <section className="workspace-scope" hidden={!(files[0] && files[1])}>
-          <WorkspaceGroupTitle kind="scope" />
-          <div className="gl-tb-grid">
-            {GL_SCOPE_FIELDS.map((key) => (
-              <label key={key}>
-                {t.fields[key]}
-                {key === 'currencyBasis' || key === 'postingStatus' ? (
-                  <select
-                    aria-label={t.fields[key]}
-                    value={scope[key]}
-                    onChange={(event) => updateScope(key, event.target.value)}
-                  >
-                    <option
-                      value={key === 'currencyBasis' ? 'functional' : 'posted'}
-                    >
-                      {key === 'currencyBasis'
-                        ? t.functionalLabel
-                        : t.postedLabel}
-                    </option>
-                  </select>
-                ) : (
-                  <input
-                    aria-label={t.fields[key]}
-                    type={key === 'start' || key === 'end' ? 'date' : 'text'}
-                    value={scope[key]}
-                    onChange={(event) => updateScope(key, event.target.value)}
-                  />
-                )}
-              </label>
-            ))}
-          </div>
-          <label>
-            <input
-              type="checkbox"
-              checked={scope.confirmed}
-              onChange={(event) => {
-                setScope({ ...scope, confirmed: event.target.checked });
-                invalidate();
-              }}
+        <ScopeCard
+          hidden={!(files[0] && files[1])}
+          summary={
+            <Sentence
+              parts={t.cardSummary(
+                scopeValue(scope.entity),
+                scopeValue(scope.account, true),
+                scopeValue(scope.start, true),
+                scopeValue(scope.end, true),
+                scopeValue(scope.currency, true),
+                rowsRead,
+              )}
             />
-            {t.scopeConfirm}
-          </label>
-        </section>
+          }
+          rows={GL_SCOPE_FIELDS.map((key) => ({
+            key,
+            label: t.fields[key],
+            origin: origins[key],
+            suggestion: suggestions[key],
+            control: (describedBy) =>
+              key === 'currencyBasis' || key === 'postingStatus' ? (
+                <select
+                  aria-label={t.fields[key]}
+                  aria-describedby={describedBy}
+                  value={scope[key]}
+                  onChange={(event) => updateScope(key, event.target.value)}
+                >
+                  <option
+                    value={key === 'currencyBasis' ? 'functional' : 'posted'}
+                  >
+                    {key === 'currencyBasis'
+                      ? t.functionalLabel
+                      : t.postedLabel}
+                  </option>
+                </select>
+              ) : (
+                <input
+                  aria-label={t.fields[key]}
+                  aria-describedby={describedBy}
+                  type={key === 'start' || key === 'end' ? 'date' : 'text'}
+                  value={scope[key]}
+                  onChange={(event) => updateScope(key, event.target.value)}
+                />
+              ),
+          }))}
+          confirm={
+            <label className="scope-card__confirm">
+              <input
+                type="checkbox"
+                checked={readings.every((r) => r.confirmed) && scope.confirmed}
+                onChange={(event) => {
+                  const confirmed = event.target.checked;
+                  setReadings(
+                    (previous) =>
+                      previous.map((r) => ({
+                        ...r,
+                        confirmed,
+                      })) as typeof readings,
+                  );
+                  setDraft((previous) => ({
+                    ...previous,
+                    scope: { ...previous.scope, confirmed },
+                  }));
+                  invalidate();
+                }}
+              />
+              <span>
+                <Sentence
+                  parts={t.cardConfirm(
+                    scopeValue(scope.entity),
+                    scopeValue(scope.start, true),
+                    scopeValue(scope.end, true),
+                  )}
+                />
+              </span>
+            </label>
+          }
+        />
         <Button
           disabled={
             !files.every(Boolean) ||
