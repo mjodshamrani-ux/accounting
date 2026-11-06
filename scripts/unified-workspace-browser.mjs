@@ -676,6 +676,26 @@ try {
           1,
           `${domain}: shared workflow intro`,
         );
+        // UX-5: the intro reads in two lines at a phone's width; what it said
+        // beyond that opens first in its scope details, which start closed.
+        assert.equal(
+          await panel.locator('.workspace-intro:visible').evaluate((intro) => {
+            const details = intro.querySelector(
+              ':scope > details.workspace-intro__context',
+            );
+            const first = details?.querySelector(
+              '.workspace-intro__context-content > :first-child',
+            );
+            return (
+              !!details &&
+              !details.open &&
+              !!first?.matches('p.workspace-intro__detail') &&
+              !!first.textContent.trim()
+            );
+          }),
+          true,
+          `${domain}: the intro's detail opens first in its scope details`,
+        );
         const workspace = panel.locator('.reconciliation-workspace').first();
         if (domain === 'bank') {
           const minimums = await panel.evaluate((element) => ({

@@ -161,13 +161,20 @@ export function WorkspaceStart({ children }: { children: ReactNode }) {
   );
 }
 
+/**
+ * A workspace's title and its intro of two lines at a phone's width (UX-5);
+ * what else the reader may want first, `detail`, opens the scope details
+ * with the workspace's own limits.
+ */
 export function WorkspaceIntro({
   title,
   intro,
+  detail,
   children,
 }: {
   title: string;
   intro: string;
+  detail?: string;
   children?: ReactNode;
 }) {
   const { lang, dir } = useI18n();
@@ -182,10 +189,13 @@ export function WorkspaceIntro({
         </h1>
         <p>{intro}</p>
       </div>
-      {children && (
+      {(detail || children) && (
         <details className="workspace-intro__context">
           <summary>{workspaceCopy[lang].scopeDetails}</summary>
-          <div className="workspace-intro__context-content">{children}</div>
+          <div className="workspace-intro__context-content">
+            {detail && <p className="workspace-intro__detail">{detail}</p>}
+            {children}
+          </div>
         </details>
       )}
     </section>

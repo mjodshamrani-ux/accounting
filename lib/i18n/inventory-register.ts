@@ -4,7 +4,8 @@ const en = {
   scopePrefix: 'Inventory scope ',
   title: 'Posted inventory register / GL evidence',
   intro:
-    'Compare supplied posted carrying values by evidenced account and complete dimensions. Quantities stay separate by item, unit and precision.',
+    'Compare supplied posted carrying values by evidenced account and complete dimensions.',
+  introDetail: 'Quantities stay separate by item, unit and precision.',
   claim:
     'This does not calculate inventory cost, aggregate quantities, post entries or establish existence, ownership, source authenticity or ERP completeness.',
   family:
@@ -356,7 +357,8 @@ const ar: typeof en = {
   scopePrefix: 'نطاق المخزون: ',
   title: 'سجل المخزون المرحل وأدلة الأستاذ',
   intro:
-    'قارن القيم المرحلة المقدمة لكل حساب وأبعاده الكاملة بربط مثبت. تبقى الكميات منفصلة بحسب الصنف والوحدة والدقة.',
+    'قارن القيم المرحلة المقدمة لكل حساب وأبعاده الكاملة بربط مثبت.',
+  introDetail: 'تبقى الكميات منفصلة بحسب الصنف والوحدة والدقة.',
   claim:
     'لا يحسب هذا المسار تكلفة المخزون أو يجمع الكميات أو ينشئ قيودًا، ولا يثبت الوجود أو الملكية أو أصالة الأصل أو اكتمال نظام المنشأة.',
   family:

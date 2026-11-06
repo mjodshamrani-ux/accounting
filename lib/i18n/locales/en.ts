@@ -36,7 +36,8 @@ export const en: Messages = {
     title: 'Bank and cashbook movements',
     back: 'Supplier reconciliation',
     intro:
-      'Compare one bank account in one currency and period with the owner’s cashbook. Local source identities and explicit financial roles are required.',
+      'Compare one bank account in one currency and period with the owner’s cashbook.',
+    introDetail: 'Local source identities and explicit financial roles are required.',
     claim:
       'This compares movements only. Opening and closing balances, a balance bridge, source authenticity and period completeness remain separate. Matching a movement keeps its outside-period value-date item.',
     limits:
@@ -235,7 +236,8 @@ export const en: Messages = {
     backToSuppliers: 'Back to suppliers',
     paymentAllocation: 'Payment allocation',
     intro:
-      'Allocate available value to invoices with explicit evidence or human review. Allocated + remaining = available for each side.',
+      'Allocate available value to invoices with explicit evidence or human review.',
+    introDetail: 'Allocated + remaining = available for each side.',
     limits:
       'Use a snapshot before the proposed allocations; exclude advice already applied to these capacities. No accounting-system posting. Changing a source or scope clears this session’s decisions.',
     openSyntheticAllocationExample: 'Open synthetic allocation example',
@@ -286,7 +288,8 @@ export const en: Messages = {
     title: 'GL and trial balance consistency',
     back: 'Supplier reconciliation',
     intro:
-      'Verify one account in a declared scope. Opening balances, period debit and credit, and closing balances remain separate in each source. Files stay local.',
+      'Verify one account in a declared scope.',
+    introDetail: 'Opening balances, period debit and credit, and closing balances remain separate in each source. Files stay local.',
     limits:
       'CSV/XLSX with exact English role headers. GL has opening, movement and closing records. Choose the TB layout: six balance columns, or three opening, period and closing rows with one snapshot ID and explicit debit and credit in each row. First row is the header. ISO dates, explicit nonnegative decimals, written zeros, functional currency and posted records only. No unknown columns, net-only amounts or balances borrowed from the other source.',
     claim:
@@ -393,7 +396,8 @@ export const en: Messages = {
     entry: 'Customer AR reconciliation',
     back: 'Supplier reconciliation',
     intro:
-      'Compare a company AR ledger with its company-issued customer statement in the seller receivable perspective. Files stay local; no postings or payment allocations are created.',
+      'Compare a company AR ledger with its company-issued customer statement.',
+    introDetail: 'The comparison takes the seller receivable perspective. Files stay local; no postings or payment allocations are created.',
     limits:
       'Two CSV/XLSX tables with a header in the first row. Compare original signed movements, not open balances. Invoice is positive; receipt and credit note are negative. ISO dates and plain decimals without thousands separators. One entity, ledger, customer, account, currency and period. Buyer-side AP statements are outside this policy. This first source family requires one matching role header for each field shown below; a related invoice or generic reference is not an own document number.',
     family: 'Source structure',
@@ -543,7 +547,8 @@ export const en: Messages = {
     title: 'Single-account clearing',
     back: 'Supplier reconciliation',
     intro:
-      'Clear offsetting movements using an explicit clearing reference or a recorded review decision. Files stay local; no postings are created.',
+      'Clear offsetting movements by an explicit clearing reference or a review decision.',
+    introDetail: 'Files stay local; no postings are created.',
     limits:
       'One CSV or XLSX movement table. ISO dates and plain decimal amounts without thousands separators. Unique posting IDs and an account and currency on every row. This checks movements; it does not prove period completeness.',
     upload: 'Clearing movements file',
@@ -1653,7 +1658,8 @@ export const en: Messages = {
     back: 'Back',
     trialBalanceAndFinancialPosition: 'Trial balance and financial position',
     reviewAccountsDimensionsMappingSignsPeriodAndCurrency:
-      'Review accounts, dimensions, mapping, signs, period and currency against four separate originals. Equal totals alone do not prove classification.',
+      'Review accounts, dimensions, mapping, signs, period and currency in four separate originals.',
+    introDetail: 'Equal totals alone do not prove classification.',
     theResultIsConsistencyWithSuppliedPresentationEvidence:
       'The result is consistency with supplied presentation evidence only; it does not establish source authenticity, ledger completeness, fair presentation or accounting standards compliance.',
     currentFamilyWholePostClosingTrialBalanceOne:

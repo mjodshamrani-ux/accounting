@@ -416,7 +416,11 @@ export function AllocationWorkspace({
           </Button>
         )}
       </WorkspaceHeader>
-      <WorkspaceIntro title={t.paymentAllocation} intro={t.intro}>
+      <WorkspaceIntro
+        title={t.paymentAllocation}
+        intro={t.intro}
+        detail={t.introDetail}
+      >
         <p>{t.limits}</p>
       </WorkspaceIntro>
       {handoff && (

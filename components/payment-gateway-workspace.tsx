@@ -323,7 +323,11 @@ export function GatewayWorkspace({
           disabled={busy}
           hasWork={files.some(Boolean)}
         />
-        <WorkspaceIntro title={copy.title} intro={copy.intro}>
+        <WorkspaceIntro
+          title={copy.title}
+          intro={copy.intro}
+          detail={copy.introDetail}
+        >
           <p>{copy.claim}</p>
           <p>{copy.family}</p>
         </WorkspaceIntro>

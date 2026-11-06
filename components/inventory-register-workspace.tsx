@@ -592,7 +592,7 @@ export function StockWorkspace({
           disabled={busy}
           hasWork={sources.some(Boolean)}
         />
-        <WorkspaceIntro title={copy.title} intro={copy.intro}>
+        <WorkspaceIntro title={copy.title} intro={copy.intro} detail={copy.introDetail}>
           <p>{copy.claim}</p>
           <p>{copy.family}</p>
         </WorkspaceIntro>

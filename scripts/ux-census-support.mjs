@@ -40,6 +40,7 @@ export const METRICS = [
   'emptyTable',
   'zeroCounter',
   'commandAsNoun',
+  'longIntro',
 ];
 
 // The decision each workspace offers after its example, by the names the
@@ -385,6 +386,26 @@ export function censusInPage(selector) {
     if (nounSamples.length < 5) nounSamples.push(words.slice(0, 60));
     return true;
   }).length;
+  // A workspace intro the reader sees running past two lines: at a phone's
+  // width it pushed the start row and the sources down a third of a screen
+  // (UX-5). Lines are counted from where its words are drawn.
+  const introSamples = [];
+  const longIntro = [
+    ...root.querySelectorAll('.workspace-intro__heading > p'),
+  ].filter((p) => {
+    if (!p.checkVisibility()) return false;
+    const range = document.createRange();
+    range.selectNodeContents(p);
+    const lines = new Set(
+      [...range.getClientRects()]
+        .filter((r) => r.width > 0)
+        .map((r) => Math.round(r.top)),
+    ).size;
+    if (lines <= 2) return false;
+    if (introSamples.length < 5)
+      introSamples.push(`${lines}: ${p.textContent.trim().slice(0, 40)}`);
+    return true;
+  }).length;
   return {
     cells,
     controls: buttons.length,
@@ -413,6 +434,8 @@ export function censusInPage(selector) {
     zeroSamples,
     commandAsNoun,
     nounSamples,
+    longIntro,
+    introSamples,
   };
 }
 
@@ -544,6 +567,17 @@ export function plantInPage(selector) {
   noun.textContent = 'فتح المثال المزروع';
   root.append(noun);
   planted.push('commandAsNoun');
+  // An intro that runs to four lines, as eleven workspaces' did at a phone's
+  // width.
+  const heading = document.createElement('div');
+  heading.className = 'workspace-intro__heading';
+  heading.style.cssText = 'width:160px';
+  const intro = document.createElement('p');
+  intro.textContent =
+    'planted intro long enough to run past two lines in a narrow column';
+  heading.append(intro);
+  root.append(heading);
+  planted.push('longIntro');
   return planted;
 }
 

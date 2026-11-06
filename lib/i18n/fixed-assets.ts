@@ -25,7 +25,8 @@ const en = {
   scopePrefix: 'Asset scope ',
   title: 'Posted fixed assets / GL component evidence',
   intro:
-    'Compare supplied posted cost, accumulated depreciation, impairment and carrying amount. Each evidenced component/account is checked independently; matching net values cannot hide component differences.',
+    'Compare supplied cost, accumulated depreciation, impairment and net.',
+  introDetail: 'Each evidenced component/account is checked independently; matching net values cannot hide component differences.',
   claim:
     'This checks supplied component consistency. It does not calculate depreciation, useful life or valuation, create postings, establish existence or ownership, authenticate sources or certify ERP completeness.',
   family:
@@ -213,7 +214,8 @@ const ar: typeof en = {
   scopePrefix: 'نطاق الأصول: ',
   title: 'الأصول الثابتة المرحلة وأدلة مكونات الأستاذ',
   intro:
-    'قارن الكلفة والاستهلاك المتراكم والانخفاض والصافي المقدمة. يفحص كل مكون وحساب ودليله مستقلًا؛ لا يخفي تطابق الصافي فرق المكونات.',
+    'قارن الكلفة والاستهلاك المتراكم والانخفاض والصافي المقدمة.',
+  introDetail: 'يفحص كل مكون وحساب ودليله مستقلًا؛ لا يخفي تطابق الصافي فرق المكونات.',
   claim:
     'هذا فحص اتساق المكونات المقدمة. لا يحتسب استهلاكًا أو عمرًا أو تقييمًا، ولا ينشئ قيودًا أو يثبت الوجود أو الملكية أو أصالة المصادر أو اكتمال نظام المنشأة.',
   family:

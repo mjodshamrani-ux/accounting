@@ -25,7 +25,8 @@ const en = {
   scopePrefix: 'Payroll scope ',
   title: 'Posted payroll / GL and bank payout evidence',
   intro:
-    'Check supplied gross, deductions, employer contributions and net. Seven expense, liability and disbursement components are compared separately; clearing a liability to zero cannot hide two wrong phases.',
+    'Check supplied gross, deductions, employer contributions and net.',
+  introDetail: 'Seven expense, liability and disbursement components are compared separately; clearing a liability to zero cannot hide two wrong phases.',
   claim:
     'This checks supplied payroll evidence. It does not calculate tax or contributions, create postings or payments, authenticate beneficiaries, prove each employee was paid or certify payroll completeness.',
   family:
@@ -224,7 +225,8 @@ const ar: typeof en = {
   scopePrefix: 'نطاق الرواتب: ',
   title: 'الرواتب المرحلة وأدلة الأستاذ والصرف البنكي',
   intro:
-    'افحص الإجمالي والخصومات ومساهمة صاحب العمل والصافي المقدمة. تقارن سبعة مكونات للمصروف والالتزامات والصرف مستقلة؛ لا يخفي تصفير الالتزام خطأ مرحلتي الإثبات والصرف.',
+    'افحص الإجمالي والخصومات ومساهمة صاحب العمل والصافي المقدمة.',
+  introDetail: 'تقارن سبعة مكونات للمصروف والالتزامات والصرف مستقلة؛ لا يخفي تصفير الالتزام خطأ مرحلتي الإثبات والصرف.',
   claim:
     'هذا فحص أدلة الرواتب المقدمة. لا يحتسب ضريبة أو اشتراكًا ولا ينشئ قيدًا أو تحويلًا ولا يوثق المستفيدين أو يثبت قبض كل موظف أو يشهد باكتمال الرواتب.',
   family:

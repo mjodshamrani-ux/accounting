@@ -190,7 +190,7 @@ export function GlTbWorkspace({
         disabled={busy}
         hasWork={files.some(Boolean)}
       />
-      <WorkspaceIntro title={t.title} intro={t.intro}>
+      <WorkspaceIntro title={t.title} intro={t.intro} detail={t.introDetail}>
         <p>{t.limits}</p>
         <p>{t.claim}</p>
       </WorkspaceIntro>

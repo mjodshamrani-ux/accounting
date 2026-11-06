@@ -329,6 +329,7 @@ export function FinancialWorkspace({
           intro={
             t.financial.reviewAccountsDimensionsMappingSignsPeriodAndCurrency
           }
+          detail={t.financial.introDetail}
         >
           <p>
             {t.financial.theResultIsConsistencyWithSuppliedPresentationEvidence}

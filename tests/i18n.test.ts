@@ -157,6 +157,42 @@ void test('every command reads as an imperative in Arabic', async () => {
   );
 });
 
+// Each workspace's intro reads in two lines at a phone's width (UX-5): the
+// browser census counts any that runs longer (`longIntro`); this bounds its
+// length, from the longest that measured two lines at 390 px in each
+// language, and requires what was moved out of it to be in the scope details
+// in both languages.
+void test('each workspace intro is short, and its detail is kept', async () => {
+  const catalogues = {
+    ar: [ar.bank, ar.allocation, ar.glTb, ar.arDocuments, ar.clearing],
+    en: [en.bank, en.allocation, en.glTb, en.arDocuments, en.clearing],
+  };
+  const domain = (await Promise.all(
+    ['intercompany', 'payment-gateway', 'inventory-register', 'fixed-assets', 'payroll'].map(
+      (file) => import(`../lib/i18n/${file}.ts`),
+    ),
+  )) as Tree[];
+  const intros: [string, string, string][] = [];
+  for (const language of ['ar', 'en'] as const) {
+    for (const copy of catalogues[language]) intros.push([language, copy.intro, copy.introDetail]);
+    const financial = language === 'ar' ? ar.financial : en.financial;
+    intros.push([
+      language,
+      financial.reviewAccountsDimensionsMappingSignsPeriodAndCurrency,
+      financial.introDetail,
+    ]);
+    for (const exported of domain) {
+      const copy = (Object.values(exported)[0] as Tree)[language] as Tree;
+      intros.push([language, copy.intro as string, copy.introDetail as string]);
+    }
+  }
+  assert.equal(intros.length, 22);
+  for (const [language, intro, detail] of intros) {
+    assert.ok(intro.length <= (language === 'ar' ? 80 : 92), `${language} intro: ${intro}`);
+    assert.ok(detail && detail.trim().length > 0, `${language} detail for: ${intro}`);
+  }
+});
+
 void test('English interface copy contains no Arabic', () => {
   const allowed = [
     'العربية', // the Arabic option, named in Arabic in both languages

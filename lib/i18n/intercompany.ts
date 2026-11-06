@@ -1,7 +1,8 @@
 const en = {
   title: 'Intercompany transaction evidence',
   intro:
-    'Compare two separate entities using reciprocal transaction IDs and independent relationship evidence. Review every supplied transaction, including zero amounts.',
+    'Compare two separate entities by reciprocal IDs and independent relationship evidence.',
+  introDetail: 'Review every supplied transaction, including zero amounts.',
   claim:
     'Consistency within supplied confirmed evidence only. No posting, elimination, consolidation, source authenticity or ERP completeness opinion.',
   family:
@@ -131,7 +132,8 @@ const en = {
 const ar: typeof en = {
   title: 'أدلة معاملات المنشآت المنفصلة',
   intro:
-    'قارن دفترَي منشأتين منفصلتين بمعرفات معاملات متبادلة وأدلة علاقة مستقلة. راجع كل معاملة مورّدة، بما فيها المبالغ الصفرية.',
+    'قارن دفترَي منشأتين منفصلتين بمعرفات معاملات متبادلة وأدلة علاقة مستقلة.',
+  introDetail: 'راجع كل معاملة مورّدة، بما فيها المبالغ الصفرية.',
   claim:
     'النتيجة اتساق ضمن الأدلة المورّدة والمؤكدة فقط؛ لا ترحيل قيود ولا حذف ولا توحيد ولا رأي في أصالة المصدر أو اكتمال ERP.',
   family:

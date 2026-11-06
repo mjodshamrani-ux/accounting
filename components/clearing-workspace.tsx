@@ -281,7 +281,7 @@ export function ClearingWorkspace({
           disabled={busy}
           hasWork={!!file}
         />
-        <WorkspaceIntro title={t.title} intro={t.intro}>
+        <WorkspaceIntro title={t.title} intro={t.intro} detail={t.introDetail}>
           <p>{t.limits}</p>
         </WorkspaceIntro>
         <section className="surface pad stack workspace-preparation">

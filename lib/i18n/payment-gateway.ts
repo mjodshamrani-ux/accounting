@@ -1,7 +1,8 @@
 const en = {
   title: 'Payment gateway batch evidence',
   intro:
-    'Review one settlement batch from sales and refunds, independent fee detail, the gateway summary and its bank credit. Every original record stays visible.',
+    'Review one settlement batch from sales and refunds to its bank credit.',
+  introDetail: 'Independent fee detail and the gateway summary are read with it; every original record stays visible.',
   claim:
     'Consistency within supplied confirmed evidence only. No posting, revenue recognition, fee legitimacy, source authenticity or completeness opinion.',
   family:
@@ -153,7 +154,8 @@ const en = {
 const ar: typeof en = {
   title: 'أدلة دفعة بوابة الدفع',
   intro:
-    'راجع دفعة تسوية واحدة من المبيعات والمرتجعات وتفاصيل رسوم مستقلة وملخص البوابة وحركة الإيداع البنكي. تبقى جميع السجلات الأصلية ظاهرة.',
+    'راجع دفعة تسوية واحدة من المبيعات والمرتجعات إلى الإيداع في البنك.',
+  introDetail: 'تُقرأ معها تفاصيل رسوم مستقلة وملخص البوابة، وتبقى جميع السجلات الأصلية ظاهرة.',
   claim:
     'اتساق ضمن الأدلة المورّدة والمؤكدة فقط؛ لا قيد أو اعتراف بالإيراد أو إثبات مشروعية الرسم أو أصالة المصدر أو اكتماله.',
   family:

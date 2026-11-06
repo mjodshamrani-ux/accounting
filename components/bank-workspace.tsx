@@ -379,7 +379,7 @@ export function BankWorkspace({
             disabled={locked}
             hasWork={files.some(Boolean) || balanceHasWork || statement.hasWork}
           />
-          <WorkspaceIntro title={t.title} intro={t.intro}>
+          <WorkspaceIntro title={t.title} intro={t.intro} detail={t.introDetail}>
             <p>{t.limits}</p>
             <p>{t.claim}</p>
           </WorkspaceIntro>
