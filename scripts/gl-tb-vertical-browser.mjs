@@ -154,9 +154,11 @@ function confirmBox(page, t) {
     exact: false,
   });
 }
-// The fields fold under the card's sentence when nothing is asked.
+// The fields fold under the card's sentence when nothing is asked. The
+// GL/TB workspace's own card: workspaces kept for retention stay mounted,
+// hidden, with theirs.
 async function openScopeFields(page) {
-  const fields = page.locator('[data-scope-card] details');
+  const fields = page.locator('main.gl-tb-workspace [data-scope-card] details');
   if ((await fields.getAttribute('open')) === null)
     await fields.locator('summary').click();
 }

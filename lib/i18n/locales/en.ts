@@ -1749,11 +1749,43 @@ export const en: Messages = {
     restoreSession: 'Restore session',
     cancelOperation: 'Cancel operation',
     noOriginalUploaded: 'No original uploaded',
-    iReviewedThisOriginalAndConfirmItsRole:
-      'I reviewed this original and confirm its role, family and sole sheet',
-    confirmedComparisonScope: 'Confirmed comparison scope',
-    iConfirmTheScopeAgreesAcrossAllFour:
-      'I confirm the scope agrees across all four originals',
+    // The UX-5(d) card: what the four files say, and the one confirmation
+    // that carries the four source attestations and the scope attestation.
+    // In parts, so the screen can isolate each value.
+    cardSummary: <T>(
+      entity: T,
+      ledger: T,
+      start: T,
+      end: T,
+      currency: T,
+      rows: number,
+    ) => [
+      entity,
+      ', ledger ',
+      ledger,
+      ', ',
+      start,
+      ' to ',
+      end,
+      ', in ',
+      currency,
+      `; ${rows} rows read from the four files.`,
+    ],
+    cardConfirm: <T>(entity: T, start: T, end: T) => [
+      'I reviewed the trial balance, the proposed mapping, the independent presentation evidence and the financial position (each one\'s role, family and sole sheet) and their common scope in every field above: ',
+      entity,
+      ', ',
+      start,
+      ' to ',
+      end,
+      '. This confirms the reading and the scope; it accepts no statement line.',
+    ],
+    // The one value each of these fields takes in this family.
+    only: {
+      currencyBasis: 'Functional',
+      postingStatus: 'Posted',
+      closingBasis: 'Post-closing',
+    },
     suppliedInventoryAttestation: 'Supplied inventory attestation',
     iReviewedCompletenessOfSuppliedAccountsDimensionsMappings:
       'I reviewed completeness of supplied accounts, dimensions, mappings, evidence and statement lines',

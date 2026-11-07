@@ -1672,10 +1672,42 @@ export const ar = {
     restoreSession: 'استعد الجلسة',
     cancelOperation: 'ألغ العملية',
     noOriginalUploaded: 'لم يُرفع أصل',
-    iReviewedThisOriginalAndConfirmItsRole:
-      'راجعت الأصل وأؤكد دوره وعائلته وورقته الوحيدة',
-    confirmedComparisonScope: 'نطاق المقارنة المؤكد',
-    iConfirmTheScopeAgreesAcrossAllFour: 'أؤكد تطابق النطاق في الأصول الأربعة',
+    // بطاقة UX-5(د): ما تقوله الملفات الأربعة، والمربع الواحد الذي يحمل
+    // تأكيد قراءة الأصول الأربعة وتأكيد النطاق. أجزاءً لتُعزل كل قيمة.
+    cardSummary: <T>(
+      entity: T,
+      ledger: T,
+      start: T,
+      end: T,
+      currency: T,
+      rows: number,
+    ) => [
+      entity,
+      '، الدفتر ',
+      ledger,
+      '، من ',
+      start,
+      ' إلى ',
+      end,
+      '، بعملة ',
+      currency,
+      `؛ الصفوف المقروءة من الملفات الأربعة: ${rows}.`,
+    ],
+    cardConfirm: <T>(entity: T, start: T, end: T) => [
+      'راجعت ميزان المراجعة والربط المقترح ودليل العرض المستقل وقائمة المركز المالي (دور كل منها وعائلته وورقته الوحيدة) ونطاقها المشترك بكل حقوله أعلاه: ',
+      entity,
+      '، من ',
+      start,
+      ' إلى ',
+      end,
+      '؛ وهذا تأكيد للقراءة والنطاق، لا قبول لبند من بنود القائمة.',
+    ],
+    // القيمة الوحيدة التي يقبلها كل من هذه الحقول في هذه العائلة.
+    only: {
+      currencyBasis: 'وظيفية',
+      postingStatus: 'مرحّلة',
+      closingBasis: 'بعد الإقفال',
+    },
     suppliedInventoryAttestation: 'إقرار اكتمال الجرد المقدم',
     iReviewedCompletenessOfSuppliedAccountsDimensionsMappings:
       'راجعت اكتمال الحسابات والأبعاد والربط والأدلة وجميع بنود القائمة المقدمة',

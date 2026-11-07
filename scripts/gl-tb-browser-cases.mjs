@@ -35,6 +35,10 @@ export async function verifyGlTb(page, url, out = 'work/qa') {
     start: 'Period start',
     end: 'Period end',
   };
+  // The GL/TB workspace's own card: workspaces kept for retention stay
+  // mounted, hidden, with theirs.
+  const ownCard = (inner = '') =>
+    page.locator(`main.gl-tb-workspace [data-scope-card]${inner}`);
   // The card's one confirmation (UX-5(d)) carries both source attestations
   // and the scope attestation; its label names the scope it confirms.
   const confirmLabel =
@@ -57,7 +61,7 @@ export async function verifyGlTb(page, url, out = 'work/qa') {
   // The fields fold under the card's sentence when nothing is asked; an
   // accountant opens them to change one.
   async function openFields() {
-    const fields = page.locator('[data-scope-card] details');
+    const fields = ownCard(' details');
     if ((await fields.getAttribute('open')) === null)
       await fields.locator('summary').click();
   }
@@ -67,7 +71,7 @@ export async function verifyGlTb(page, url, out = 'work/qa') {
     if (fill)
       for (const [key, label] of Object.entries(labels)) {
         assert.equal(
-          await page.locator('[data-scope-card] details').getAttribute('open'),
+          await ownCard(' details').getAttribute('open'),
           '',
           `${key}: the fields stay open while the scope is typed`,
         );
@@ -145,7 +149,7 @@ export async function verifyGlTb(page, url, out = 'work/qa') {
     );
   }
   async function cardField(key) {
-    const field = page.locator(`[data-scope-field="${key}"]`);
+    const field = ownCard(` [data-scope-field="${key}"]`);
     return {
       origin: await field.getAttribute('data-origin'),
       value: await field.locator('input, select').inputValue(),
@@ -160,7 +164,7 @@ export async function verifyGlTb(page, url, out = 'work/qa') {
   // confirmed until the accountant confirms, and the run stays closed.
   await uploadPair('positive');
   assert.equal(
-    await page.locator('[data-scope-card]').count(),
+    await ownCard().count(),
     1,
     'the two files show the card «ما فهمناه من ملفاتك»',
   );
@@ -177,7 +181,7 @@ export async function verifyGlTb(page, url, out = 'work/qa') {
       `${key}: the card names the column and, for each file, the rows it read`,
     );
   }
-  const card = page.locator('[data-scope-card]');
+  const card = ownCard();
   assert.equal(
     await card.locator('[data-scope-summary]').innerText(),
     `${positive.entity.counts.keys().next().value}, account ${positive.account.counts.keys().next().value}, ${positive.start.counts.keys().next().value} to ${positive.end.counts.keys().next().value}, in ${positive.currency.counts.keys().next().value}; ${positive.entity.rows} rows read from the two files.`,

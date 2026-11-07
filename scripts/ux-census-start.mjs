@@ -150,25 +150,12 @@ export const START = {
       'Independent presentation evidence',
       'Financial position',
     ]),
+    // UX-5(d): the files' scope columns fill the card; one confirmation.
     steps: [
-      ...[0, 1, 2, 3].map((i) => [
+      [
         'check',
-        'I reviewed this original and confirm its role',
-        undefined,
-        i,
-      ]),
-      ...[
-        ['Entity', 'Synthetic Financial Owner'],
-        ['Ledger', 'Primary Book'],
-        ['Currency', 'SAR'],
-        ['Posting layer', 'actual'],
-        ['Period start', '2026-09-01'],
-        ['Period end', '2026-09-30'],
-        ['As of', '2026-09-30'],
-        ['Chart version', 'CHART-1'],
-        ['Map version', 'MAP-1'],
-      ].map(([field, value]) => ['fill', `Financial scope: ${field}`, value]),
-      ['check', 'I confirm the scope agrees across all four originals'],
+        'I reviewed the trial balance, the proposed mapping, the independent presentation evidence and the financial position',
+      ],
     ],
     run: 'Check mapping and amounts',
   },
