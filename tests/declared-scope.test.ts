@@ -353,3 +353,59 @@ void test('a value carried from another comparison is never written over', () =>
     assert.equal(next.values.currency, 'SAR', 'the other fields still fill');
   }
 });
+
+void test('a source reads a field from the column its role names for it', () => {
+  const ledger = (entity: string, counterparty: string) =>
+    file([
+      ['Entity', 'Counterparty', 'Entity A'],
+      [entity, counterparty, 'Not this role'],
+    ]);
+  const fields = [
+    { field: 'entityA', header: 'Entity A' },
+    { field: 'entityB', header: 'Entity B' },
+  ];
+  const sources = (right: [string, string]) => [
+    {
+      label: 'Left',
+      file: ledger('A', 'B'),
+      sheet: 0,
+      headers: { entityA: 'Entity', entityB: 'Counterparty' },
+    },
+    {
+      label: 'Right',
+      file: ledger(...right),
+      sheet: 0,
+      headers: { entityB: 'Entity', entityA: 'Counterparty' },
+    },
+    {
+      label: 'Evidence',
+      file: file([
+        ['Entity A', 'Entity B'],
+        ['A', 'B'],
+      ]),
+      sheet: 0,
+    },
+  ];
+  const agreed = suggestDeclaredScope(sources(['B', 'A']), fields);
+  assert.equal(agreed.entityA.status, 'agreed');
+  assert.equal(agreed.entityA.value, 'A');
+  assert.deepEqual(agreed.entityA.read, [
+    { label: 'Left', rows: 1, header: 'Entity' },
+    { label: 'Right', rows: 1, header: 'Counterparty' },
+    { label: 'Evidence', rows: 1 },
+  ]);
+  assert.equal(agreed.entityB.value, 'B');
+  // The right ledger names another counterparty: entity A is a question.
+  const mixed = suggestDeclaredScope(sources(['B', 'C']), fields);
+  assert.equal(mixed.entityA.status, 'differs');
+  assert.deepEqual(mixed.entityA.values, [
+    {
+      value: 'A',
+      sources: [
+        { label: 'Left', rows: 1 },
+        { label: 'Evidence', rows: 1 },
+      ],
+    },
+    { value: 'C', sources: [{ label: 'Right', rows: 1 }] },
+  ]);
+});

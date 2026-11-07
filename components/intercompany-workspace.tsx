@@ -32,6 +32,8 @@ import {
   IC_VERSION,
   IC_ROLES,
   IC_SCOPE_FIELDS,
+  IC_SCOPE_HEADERS,
+  IC_LEDGER_SCOPE_COLUMNS,
   type IntercompanyInput,
   type IntercompanyScope,
   type IntercompanyResult,
@@ -42,6 +44,13 @@ import {
   intercompanyDemoScope,
 } from '@/lib/reconciliation/intercompany-demo';
 import { intercompanyCopy } from '@/lib/i18n/intercompany';
+import { ScopeCard, Sentence } from '@/components/scope-card';
+import { scopeCardCopy } from '@/lib/i18n/scope-card';
+import { useDeclaredScope } from '@/hooks/use-declared-scope';
+import type {
+  DeclaredScopeRule,
+  ScopeOrigin,
+} from '@/lib/reconciliation/declared-scope';
 import './workspace-record.css';
 import {
   DecisionButtons,
@@ -69,6 +78,46 @@ const emptyScope = (): IntercompanyScope => ({
   policyVersion: '',
   confirmed: false,
 });
+type IcScopeField = (typeof IC_SCOPE_FIELDS)[number];
+// What the card may put in each field (UX-5(d)): the three one-option
+// selects take only the value the engine accepts, and start from it while no
+// file has the column; the three dates take only YYYY-MM-DD.
+const ONLY = {
+  currencyBasis: 'functional',
+  fxPolicy: 'same-currency-no-conversion',
+  postingStatus: 'posted',
+} as const;
+const oneOption = (k: IcScopeField): k is keyof typeof ONLY => k in ONLY;
+const isDate = (k: IcScopeField) =>
+  k === 'start' || k === 'end' || k === 'asOf';
+const isoDate = (v: string) => /^\d{4}-\d{2}-\d{2}$/.test(v);
+const scopeRules: DeclaredScopeRule<IcScopeField>[] = IC_SCOPE_FIELDS.map(
+  (field) =>
+    oneOption(field)
+      ? {
+          field,
+          fallback: ONLY[field],
+          accepts: (v) => v === ONLY[field],
+          fixed: true,
+        }
+      : isDate(field)
+        ? { field, accepts: isoDate }
+        : { field },
+);
+const scopeColumns = IC_SCOPE_FIELDS.map((field, i) => ({
+  field,
+  header: IC_SCOPE_HEADERS[i],
+}));
+// The two ledgers write their own side's entity, ledger, account and
+// dimensions under their own columns; the evidence files under the scope's.
+const sourceColumns = [...IC_LEDGER_SCOPE_COLUMNS, undefined, undefined];
+const freshOrigins = () =>
+  Object.fromEntries(
+    scopeRules.map((r) => [
+      r.field,
+      r.fallback === undefined ? 'question' : 'default',
+    ]),
+  ) as Record<IcScopeField, ScopeOrigin>;
 const readings = () =>
   IC_ROLES.map((role) => ({
     sheet: 0,
@@ -99,8 +148,20 @@ export function IntercompanyWorkspace({
     null,
     null,
   ]);
-  const [reading, setReading] = useState(readings),
-    [scope, setScope] = useState(emptyScope);
+  const [reading, setReading] = useState(readings);
+  // The card's scope and where each value came from (UX-5(d)): a new file
+  // fills what the four files agree on into the fields the accountant has
+  // not entered, and a value it changes drops the confirmation.
+  const card = useDeclaredScope({
+    initial: () => ({ scope: emptyScope(), origins: freshOrigins() }),
+    rules: scopeRules,
+    columns: scopeColumns,
+    files,
+    sheets: reading.map((r) => r.sheet),
+    labels: copy.roles,
+    headers: sourceColumns,
+  });
+  const { scope, origins, suggestions } = card;
   const [complete, setComplete] = useState<IntercompanyInput['completeness']>({
     confirmed: false,
     reference: '',
@@ -152,7 +213,11 @@ export function IntercompanyWorkspace({
   }) {
     setFiles(v.state.files);
     setReading(v.state.readings);
-    setScope(v.state.scope);
+    card.install(
+      v.state.scope,
+      v.state.files,
+      v.state.readings.map((r) => r.sheet),
+    );
     setComplete(v.state.completeness);
     setEvents(v.state.events);
     setPairPage(0);
@@ -198,6 +263,24 @@ export function IntercompanyWorkspace({
       }
     }
   }
+  function updateScope(key: IcScopeField, value: string) {
+    card.edit(key, value);
+    invalidate();
+  }
+  const unknown = scopeCardCopy[lang].unknown;
+  // A value inside a sentence, isolated so mixed scripts keep their order;
+  // a date or a currency code is never split across lines.
+  const scopeValue = (v: string, whole = false) => (
+    <bdi className={whole ? 'scope-card__whole' : undefined}>
+      {v || unknown}
+    </bdi>
+  );
+  const rowsRead = Math.max(
+    0,
+    ...IC_SCOPE_FIELDS.map((k) =>
+      suggestions[k].read.reduce((n, r) => n + r.rows, 0),
+    ),
+  );
   const ready =
     files.every(Boolean) &&
     reading.every((r) => r.confirmed) &&
@@ -394,55 +477,85 @@ export function IntercompanyWorkspace({
                 }}
               />
               <p>{files[i]?.name ?? copy.empty}</p>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={reading[i].confirmed}
-                  disabled={!files[i]}
-                  onChange={(e) => {
-                    const r = [...reading] as IntercompanyInput['readings'];
-                    r[i] = { ...r[i], confirmed: e.target.checked };
-                    setReading(r);
-                    invalidate();
-                  }}
-                />
-                {copy.readingConfirm}
-              </label>
             </fieldset>
           ))}
         </WorkspaceSources>
         <fieldset disabled={busy} hidden={!(files[0] && files[1])}>
-          <legend>{copy.scopeTitle}</legend>
-          <div className="gl-tb-grid">
-            {IC_SCOPE_FIELDS.map((k, i) => (
-              <label key={k}>
-                {copy.scope[i]}
+          <ScopeCard
+            hidden={!(files[0] && files[1])}
+            summary={
+              <Sentence
+                parts={copy.cardSummary(
+                  scopeValue(scope.entityA),
+                  scopeValue(scope.entityB),
+                  scopeValue(scope.start, true),
+                  scopeValue(scope.end, true),
+                  scopeValue(scope.currency, true),
+                  rowsRead,
+                )}
+              />
+            }
+            rows={IC_SCOPE_FIELDS.map((k, i) => {
+              const name = `${copy.scopePrefix} ${copy.scope[i]}`;
+              return {
+                key: k,
+                label: copy.scope[i],
+                origin: origins[k],
+                value: scope[k],
+                fixed: oneOption(k),
+                suggestion: suggestions[k],
+                control: (describedBy: string) =>
+                  oneOption(k) ? (
+                    <select
+                      aria-label={name}
+                      aria-describedby={describedBy}
+                      value={scope[k]}
+                      onChange={(e) => updateScope(k, e.target.value)}
+                    >
+                      <option value={ONLY[k]}>{copy.only[k]}</option>
+                    </select>
+                  ) : (
+                    <input
+                      aria-label={name}
+                      aria-describedby={describedBy}
+                      type={isDate(k) ? 'date' : 'text'}
+                      value={scope[k]}
+                      onChange={(e) => updateScope(k, e.target.value)}
+                    />
+                  ),
+              };
+            })}
+            confirm={
+              <label className="scope-card__confirm">
                 <input
-                  aria-label={`${copy.scopePrefix} ${copy.scope[i]}`}
-                  value={scope[k]}
+                  type="checkbox"
+                  checked={reading.every((r) => r.confirmed) && scope.confirmed}
                   onChange={(e) => {
-                    setScope({
-                      ...scope,
-                      [k]: e.target.value,
-                      confirmed: false,
-                    });
+                    const confirmed = e.target.checked;
+                    setReading(
+                      (previous) =>
+                        previous.map((r) => ({
+                          ...r,
+                          confirmed,
+                        })) as IntercompanyInput['readings'],
+                    );
+                    card.confirm(confirmed);
                     invalidate();
                   }}
                 />
+                <span>
+                  <Sentence
+                    parts={copy.cardConfirm(
+                      scopeValue(scope.entityA),
+                      scopeValue(scope.entityB),
+                      scopeValue(scope.start, true),
+                      scopeValue(scope.end, true),
+                    )}
+                  />
+                </span>
               </label>
-            ))}
-          </div>
-          <label>
-            <input
-              type="checkbox"
-              checked={scope.confirmed}
-              onChange={(e) => {
-                setScope({ ...scope, confirmed: e.target.checked });
-                invalidate();
-              }}
-            />
-            {copy.scopeConfirm}
-          </label>
+            }
+          />
         </fieldset>
         <WorkspaceAdvanced summary={copy.completenessTitle}>
           <fieldset disabled={busy}>

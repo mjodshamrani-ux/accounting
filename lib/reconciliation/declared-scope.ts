@@ -10,7 +10,9 @@ import type { SourceFile } from './types.ts';
  * The rules, from the accounting review in docs/audits/UX-5-START.ar.md:
  * - a value comes only from the column the family names for the field, read
  *   from the header row its reader uses; never from file or sheet names,
- *   dates of movements, or the engine's result;
+ *   dates of movements, or the engine's result. A family may name another
+ *   column for the field in one role (an intercompany ledger writes its own
+ *   side's entity as "Entity"), and the source then says which;
  * - it is suggested only when every non-blank row of every source that has
  *   the column holds the same text, trimmed as the reader trims it; a blank
  *   cell is a value of its own, so it is never outvoted or skipped;
@@ -23,6 +25,9 @@ export type DeclaredScopeSource = {
   label: string;
   file: SourceFile;
   sheet: number;
+  /** The column this source's family names for a field, where it is not
+   *  the field's own header. */
+  headers?: Readonly<Partial<Record<string, string>>>;
 };
 
 export type DeclaredScopeValue = {
@@ -38,8 +43,9 @@ export type DeclaredScopeField = {
   status: 'agreed' | 'differs' | 'blank' | 'absent';
   value?: string;
   values: DeclaredScopeValue[];
-  /** Rows read, per source that has the column. */
-  read: { label: string; rows: number }[];
+  /** Rows read, per source that has the column; `header` is there only
+   *  when that source names another column for the field. */
+  read: { label: string; rows: number; header?: string }[];
 };
 
 function columnOf(header: string[], name: string) {
@@ -57,11 +63,12 @@ export function suggestDeclaredScope(
   const out: Record<string, DeclaredScopeField> = {};
   for (const { field, header } of fields) {
     const tally = new Map<string, Map<string, number>>();
-    const read: { label: string; rows: number }[] = [];
+    const read: DeclaredScopeField['read'] = [];
     for (const source of sources) {
       const sheet = source.file.sheets[source.sheet];
       if (!sheet?.rows.length) continue;
-      const column = columnOf(sheet.rows[0], header);
+      const own = source.headers?.[field];
+      const column = columnOf(sheet.rows[0], own ?? header);
       if (column < 0) continue;
       let rows = 0;
       for (const row of sheet.rows.slice(1)) {
@@ -72,7 +79,11 @@ export function suggestDeclaredScope(
         bySource.set(source.label, (bySource.get(source.label) ?? 0) + 1);
         tally.set(value, bySource);
       }
-      read.push({ label: source.label, rows });
+      read.push(
+        own && own !== header
+          ? { label: source.label, rows, header: own }
+          : { label: source.label, rows },
+      );
     }
     const values = [...tally.entries()].map(([value, bySource]) => ({
       value,

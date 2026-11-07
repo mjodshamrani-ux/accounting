@@ -4,17 +4,21 @@ export const scopeCardCopy = {
   ar: {
     title: 'ما فهمناه من ملفاتك',
     fields: 'الحقول ومن أين جاءت',
-    // Each source that has the column, with the rows read in it.
-    fromFile: (header: string, read: { label: string; rows: number }[]) =>
-      `من الملف: العمود ${header} · ${read.map((r) => `${r.label}: الصفوف ${r.rows}`).join(' · ')}`,
+    // Each source that has the column, with the rows read in it, and the
+    // column it names for the field where its role names another.
+    fromFile: (
+      header: string,
+      read: { label: string; rows: number; header?: string }[],
+    ) =>
+      `من الملف: العمود ${header} · ${read.map((r) => `${r.label}${r.header ? ` (العمود ${r.header})` : ''}: الصفوف ${r.rows}`).join(' · ')}`,
     byDefault: 'افتراضي، ليس في الملفات',
     fromYou: 'من إدخالك',
     fromHandoff: 'من المقارنة التي جئت منها',
     fromHandoffSame: (
       header: string,
-      read: { label: string; rows: number }[],
+      read: { label: string; rows: number; header?: string }[],
     ) =>
-      `من المقارنة التي جئت منها، ومثلها في الملف: العمود ${header} · ${read.map((r) => `${r.label}: الصفوف ${r.rows}`).join(' · ')}`,
+      `من المقارنة التي جئت منها، ومثلها في الملف: العمود ${header} · ${read.map((r) => `${r.label}${r.header ? ` (العمود ${r.header})` : ''}: الصفوف ${r.rows}`).join(' · ')}`,
     fromHandoffOther: 'من المقارنة التي جئت منها، وفي الملفات غيرها',
     differs: 'لم تتفق الصفوف، فاكتب القيمة',
     blank: 'العمود فارغ في الملفات، فاكتب القيمة',
@@ -30,16 +34,19 @@ export const scopeCardCopy = {
   en: {
     title: 'What we understood from your files',
     fields: 'Fields and where they come from',
-    fromFile: (header: string, read: { label: string; rows: number }[]) =>
-      `From the file: column ${header} · ${read.map((r) => `${r.label}: rows ${r.rows}`).join(' · ')}`,
+    fromFile: (
+      header: string,
+      read: { label: string; rows: number; header?: string }[],
+    ) =>
+      `From the file: column ${header} · ${read.map((r) => `${r.label}${r.header ? ` (column ${r.header})` : ''}: rows ${r.rows}`).join(' · ')}`,
     byDefault: 'Default, not in the files',
     fromYou: 'Your entry',
     fromHandoff: 'From the comparison you came from',
     fromHandoffSame: (
       header: string,
-      read: { label: string; rows: number }[],
+      read: { label: string; rows: number; header?: string }[],
     ) =>
-      `From the comparison you came from, and the same in the file: column ${header} · ${read.map((r) => `${r.label}: rows ${r.rows}`).join(' · ')}`,
+      `From the comparison you came from, and the same in the file: column ${header} · ${read.map((r) => `${r.label}${r.header ? ` (column ${r.header})` : ''}: rows ${r.rows}`).join(' · ')}`,
     fromHandoffOther:
       'From the comparison you came from; the files hold something else',
     differs: 'The rows disagree, so enter the value',

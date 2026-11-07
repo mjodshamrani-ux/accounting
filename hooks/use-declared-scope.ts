@@ -11,6 +11,12 @@ import {
 import type { SourceFile } from '@/lib/reconciliation/types';
 
 type Columns<K extends string> = readonly { field: K; header: string }[];
+/** Per source, the columns its family names for fields whose values it
+ *  writes under another header (an intercompany ledger's "Entity"). */
+type SourceHeaders<K extends string> = readonly (
+  | Readonly<Partial<Record<K, string>>>
+  | undefined
+)[];
 type Scope<K extends string> = Record<K, string> & { confirmed: boolean };
 
 /** What the files say about the scope, from the sheet each source reads,
@@ -20,10 +26,20 @@ export function suggestFrom<K extends string>(
   sheets: readonly number[],
   labels: readonly string[],
   columns: Columns<K>,
+  headers?: SourceHeaders<K>,
 ) {
   return suggestDeclaredScope(
     sources.flatMap((file, side) =>
-      file ? [{ label: labels[side], file, sheet: sheets[side] }] : [],
+      file
+        ? [
+            {
+              label: labels[side],
+              file,
+              sheet: sheets[side],
+              headers: headers?.[side],
+            },
+          ]
+        : [],
     ),
     columns,
   );
@@ -46,6 +62,7 @@ export function useDeclaredScope<K extends string, S extends Scope<K>>({
   files,
   sheets,
   labels,
+  headers,
 }: {
   initial: () => { scope: S; origins: Record<K, ScopeOrigin> };
   rules: readonly DeclaredScopeRule<K>[];
@@ -53,12 +70,21 @@ export function useDeclaredScope<K extends string, S extends Scope<K>>({
   files: readonly (SourceFile | null)[];
   sheets: readonly number[];
   labels: readonly string[];
+  /** Per source, the columns its family names for some fields. */
+  headers?: SourceHeaders<K>;
 }) {
   const [draft, setDraft] = useState(initial);
   const sheetKey = sheets.join(',');
   const suggestions = useMemo(
-    () => suggestFrom(files, sheetKey.split(',').map(Number), labels, columns),
-    [files, sheetKey, labels, columns],
+    () =>
+      suggestFrom(
+        files,
+        sheetKey.split(',').map(Number),
+        labels,
+        columns,
+        headers,
+      ),
+    [files, sheetKey, labels, columns, headers],
   );
   const [applied, setApplied] = useState(suggestions);
   if (applied !== suggestions) {
@@ -107,7 +133,7 @@ export function useDeclaredScope<K extends string, S extends Scope<K>>({
         scope,
         origins: originsOf(
           scope,
-          suggestFrom(sources, sourceSheets, labels, columns),
+          suggestFrom(sources, sourceSheets, labels, columns, headers),
           rules.map((r) => r.field),
         ),
       });
