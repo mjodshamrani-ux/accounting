@@ -9,7 +9,6 @@ import { chromium } from 'playwright';
 import {
   openDomainWorkspace,
   openWorkspaceDisclosures,
-  workspaceSource,
 } from './domain-navigation-support.mjs';
 import { stockCopy } from '../lib/i18n/inventory-register.ts';
 import {
@@ -167,7 +166,6 @@ try {
       await input.setInputFiles(path.join(sources, entry.files[i]));
       await wait();
       assert.equal(await w.getByRole('alert').count(), 0);
-      await workspaceSource(w, t.roles[i]).getByRole('checkbox').check();
     }
     await openWorkspaceDisclosures(w);
     const expectedScope = truth.sources[0].records[0].scope;
@@ -179,7 +177,30 @@ try {
         expectedScope[STOCK_SCOPE_HEADERS[i]],
         id + ': source-prefilled scope',
       );
-    await w.getByLabel(t.scopeConfirm, { exact: true }).check();
+    // UX-5(d): the register states its scope once, in its scope block, and
+    // the three other originals on every row; the card says so for each,
+    // and its one confirmation carries the four sources and the scope.
+    const block = lang === 'ar' ? 'كتلة النطاق' : 'scope block';
+    for (const key of STOCK_FIELDS) {
+      const field = w.locator(`[data-scope-field="${key}"]`);
+      assert.equal(
+        await field.getAttribute('data-origin'),
+        'file',
+        id + ': ' + key + ' from the files',
+      );
+      const hint = (await field.locator('.hint').textContent()).trim();
+      assert.ok(
+        hint.includes(`${t.roles[0]}: ${block}`),
+        id + ': ' + key + " read from the register's scope block: " + hint,
+      );
+    }
+    const confirmBox = w.getByLabel(t.cardConfirm('', '')[0], { exact: false });
+    assert.equal(
+      await confirmBox.isChecked(),
+      false,
+      id + ': a suggestion never confirms',
+    );
+    await confirmBox.check();
     let fresh = await compare();
     assert.equal(fresh.result.financial, truth.financial);
     assert.equal(fresh.result.review, 'needs-review');
@@ -357,6 +378,49 @@ try {
         '--session',
         path.join(dir, 'accepted.json'),
       ]);
+      // UX-5(d): restored on a fresh page, the card reads the session's own
+      // register, whose scope block says the scope, and keeps the
+      // confirmation the session ran with.
+      await page.goto(origin);
+      if (lang === 'en')
+        await page
+          .getByRole('button', { name: 'EN English', exact: true })
+          .click();
+      await openDomainWorkspace(page, 'stock');
+      await openWorkspaceDisclosures(w);
+      await w
+        .getByLabel(t.restore, { exact: true })
+        .setInputFiles(path.join(dir, 'accepted.json'));
+      await wait();
+      assert.equal(
+        await w.locator('[data-stock-status]').innerText(),
+        t.status['consistent-with-evidence'],
+        id + ': restored cold',
+      );
+      for (const key of STOCK_FIELDS) {
+        const field = w.locator(`[data-scope-field="${key}"]`);
+        assert.equal(
+          await field.getAttribute('data-origin'),
+          'file',
+          id + ' restored cold: ' + key + ' from the files',
+        );
+        const hint = (await field.locator('.hint').textContent()).trim();
+        assert.ok(
+          hint.includes(`${t.roles[0]}: ${block}`),
+          id +
+            ' restored cold: ' +
+            key +
+            " read from the session's register: " +
+            hint,
+        );
+      }
+      assert.equal(
+        await w
+          .getByLabel(t.cardConfirm('', '')[0], { exact: false })
+          .isChecked(),
+        true,
+        id + ' restored cold: the confirmation the session ran with',
+      );
     }
     // Return to the normal collapsed evidence view using real summary controls.
     for (const disclosure of (

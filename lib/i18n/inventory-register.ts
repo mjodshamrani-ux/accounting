@@ -78,9 +78,48 @@ const en = {
     'Selected inventory GL balances',
   ],
   roleConfirm: 'I confirmed this original and its role.',
-  scopeTitle: 'Confirmed inventory snapshot scope',
-  scopeConfirm:
-    'I confirmed the complete snapshot scope and the selected inventory GL account set.',
+  // The UX-5(d) card: what the four files say, and the one confirmation that
+  // carries the four source attestations and the scope attestation. In
+  // parts, so the screen can isolate each value. A structured or printed
+  // register states its scope once, in its scope block.
+  cardSummary: <T>(
+    entity: T,
+    inventoryLedger: T,
+    glLedger: T,
+    asOf: T,
+    currency: T,
+    rows: number,
+    // What was read: all four files row by row; the files and the
+    // register's scope block; or only the files that could be read.
+    read: 'four' | 'block' | 'files',
+  ) => [
+    entity,
+    ', ',
+    inventoryLedger,
+    ' against ',
+    glLedger,
+    ', as of ',
+    asOf,
+    ', in ',
+    currency,
+    read === 'block'
+      ? `; ${rows} rows read from the files, and the register's scope block.`
+      : read === 'four'
+        ? `; ${rows} rows read from the four files.`
+        : `; ${rows} rows read from the files.`,
+  ],
+  cardConfirm: <T>(entity: T, asOf: T) => [
+    "I reviewed the posted inventory register, the proposed item / GL mapping, the independent supplied policy evidence and the selected inventory GL balances (each one's role and family) and their common scope in every field above, with the selected inventory GL account set: ",
+    entity,
+    ', as of ',
+    asOf,
+    '. This confirms the reading and the scope; it accepts no line.',
+  ],
+  // The one value each of these fields takes in this family.
+  only: {
+    currencyBasis: 'Functional',
+    postingStatus: 'Posted',
+  },
   scope: {
     entity: 'Entity',
     inventoryLedger: 'Inventory ledger',
@@ -455,8 +494,41 @@ const ar: typeof en = {
     'أرصدة مخزون الأستاذ المحددة',
   ],
   roleConfirm: 'أكدت هذا الأصل ودوره.',
-  scopeTitle: 'نطاق رصيد المخزون المؤكد',
-  scopeConfirm: 'أكدت النطاق الكامل ومجموعة حسابات المخزون المحددة من الأستاذ.',
+  cardSummary: <T>(
+    entity: T,
+    inventoryLedger: T,
+    glLedger: T,
+    asOf: T,
+    currency: T,
+    rows: number,
+    read: 'four' | 'block' | 'files',
+  ) => [
+    entity,
+    '، ',
+    inventoryLedger,
+    ' مقابل ',
+    glLedger,
+    '، كما في ',
+    asOf,
+    '، بعملة ',
+    currency,
+    read === 'block'
+      ? `؛ الصفوف المقروءة من الملفات: ${rows}، ومعها كتلة نطاق السجل.`
+      : read === 'four'
+        ? `؛ الصفوف المقروءة من الملفات الأربعة: ${rows}.`
+        : `؛ الصفوف المقروءة من الملفات: ${rows}.`,
+  ],
+  cardConfirm: <T>(entity: T, asOf: T) => [
+    'راجعت سجل المخزون المرحل وخريطة الصنف والأستاذ المقترحة ودليل السياسة المستقل المقدم وأرصدة مخزون الأستاذ المحددة (دور كل منها وعائلته) ونطاقها المشترك بكل حقوله أعلاه، ومعه مجموعة حسابات المخزون المحددة: ',
+    entity,
+    '، كما في ',
+    asOf,
+    '؛ وهذا تأكيد للقراءة والنطاق، لا قبول لبند.',
+  ],
+  only: {
+    currencyBasis: 'وظيفية',
+    postingStatus: 'مرحّلة',
+  },
   scope: {
     entity: 'الكيان',
     inventoryLedger: 'دفتر المخزون',

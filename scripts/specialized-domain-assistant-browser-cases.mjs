@@ -293,6 +293,11 @@ export async function verifySpecializedDomainAssistant(page, url, out) {
       globalThis.specializedForgeReply = false;
     });
     await ask('sources');
+    // Where the scope sits under the card (UX-5(d)), its fields are folded
+    // once read; the accountant opens them to edit one.
+    const fields = w.locator('[data-scope-card] details');
+    if ((await fields.count()) && (await fields.getAttribute('open')) === null)
+      await fields.locator('summary').click();
     await w.getByLabel(c.scope, { exact: true }).fill('CHANGED-MAP');
     assert.equal(
       await a.count(),

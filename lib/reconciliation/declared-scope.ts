@@ -12,7 +12,11 @@ import type { SourceFile } from './types.ts';
  *   from the header row its reader uses; never from file or sheet names,
  *   dates of movements, or the engine's result. A family may name another
  *   column for the field in one role (an intercompany ledger writes its own
- *   side's entity as "Entity"), and the source then says which;
+ *   side's entity as "Entity"), and the source then says which. A family
+ *   that writes its scope once, in a block of its own (a structured
+ *   inventory register's Scope rows, the scope lines of a printed one),
+ *   gives the values its reader takes from that block, and the source then
+ *   says it is a block, not rows;
  * - it is suggested only when every non-blank row of every source that has
  *   the column holds the same text, trimmed as the reader trims it; a blank
  *   cell is a value of its own, so it is never outvoted or skipped;
@@ -23,16 +27,21 @@ import type { SourceFile } from './types.ts';
 export type DeclaredScopeSource = {
   /** How the screen names the source, by its role. */
   label: string;
-  file: SourceFile;
+  /** The rows the scope columns are read from; absent for a block. */
+  file?: SourceFile;
   sheet: number;
   /** The column this source's family names for a field, where it is not
    *  the field's own header. */
   headers?: Readonly<Partial<Record<string, string>>>;
+  /** The scope this source's family writes once, in its own block, as its
+   *  reader takes it; the source's rows are then not read for scope. */
+  block?: Readonly<Partial<Record<string, string>>>;
 };
 
 export type DeclaredScopeValue = {
   value: string;
-  sources: { label: string; rows: number }[];
+  /** `block` when the source states the value once, in its scope block. */
+  sources: { label: string; rows: number; block?: true }[];
 };
 
 export type DeclaredScopeField = {
@@ -44,8 +53,9 @@ export type DeclaredScopeField = {
   value?: string;
   values: DeclaredScopeValue[];
   /** Rows read, per source that has the column; `header` is there only
-   *  when that source names another column for the field. */
-  read: { label: string; rows: number; header?: string }[];
+   *  when that source names another column for the field, and `block` when
+   *  the source states the field once, in its scope block. */
+  read: { label: string; rows: number; header?: string; block?: true }[];
 };
 
 function columnOf(header: string[], name: string) {
@@ -64,8 +74,21 @@ export function suggestDeclaredScope(
   for (const { field, header } of fields) {
     const tally = new Map<string, Map<string, number>>();
     const read: DeclaredScopeField['read'] = [];
+    const blocks = new Set<string>();
     for (const source of sources) {
-      const sheet = source.file.sheets[source.sheet];
+      if (source.block) {
+        // One statement for the whole file: counted once, said as a block.
+        const stated = source.block[field];
+        if (typeof stated !== 'string') continue;
+        const value = stated.trim();
+        const bySource = tally.get(value) ?? new Map<string, number>();
+        bySource.set(source.label, (bySource.get(source.label) ?? 0) + 1);
+        tally.set(value, bySource);
+        read.push({ label: source.label, rows: 1, block: true });
+        blocks.add(source.label);
+        continue;
+      }
+      const sheet = source.file?.sheets[source.sheet];
       if (!sheet?.rows.length) continue;
       const own = source.headers?.[field];
       const column = columnOf(sheet.rows[0], own ?? header);
@@ -87,10 +110,11 @@ export function suggestDeclaredScope(
     }
     const values = [...tally.entries()].map(([value, bySource]) => ({
       value,
-      sources: [...bySource.entries()].map(([label, rows]) => ({
-        label,
-        rows,
-      })),
+      sources: [...bySource.entries()].map(([label, rows]) =>
+        blocks.has(label)
+          ? { label, rows, block: true as const }
+          : { label, rows },
+      ),
     }));
     const status: DeclaredScopeField['status'] = !read.length
       ? 'absent'

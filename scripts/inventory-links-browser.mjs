@@ -21,10 +21,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 import { chromium } from 'playwright';
-import {
-  openDomainWorkspace,
-  workspaceSource,
-} from './domain-navigation-support.mjs';
+import { openDomainWorkspace } from './domain-navigation-support.mjs';
 
 const root = path.resolve(process.env.INV_LINKS_DIST ?? 'dist');
 const SUITE = process.env.INV_LINKS_SUITE;
@@ -153,20 +150,25 @@ async function load(page, w, c, times) {
       .getByLabel(role, { exact: true })
       .setInputFiles(path.join(c.folder, `${c.id}-${FILES[i]}.csv`));
     await idle(page);
-    await workspaceSource(w, role).getByRole('checkbox').check();
   }
   times.read = Date.now() - t;
+  // UX-5(d): the card reads the scope from the four files; each field must
+  // equal the case's declared scope, and the one confirmation, unticked
+  // until the accountant ticks it, carries the four sources and the scope.
   const scope = await json(path.join(c.folder, `${c.id}-scope.json`));
   for (const [k, label] of Object.entries(SCOPE))
-    await w
-      .getByLabel('Inventory scope ' + label, { exact: true })
-      .fill(scope[k]);
-  await w
-    .getByLabel(
-      'I confirmed the complete snapshot scope and the selected inventory GL account set.',
-      { exact: true },
-    )
-    .check();
+    assert.equal(
+      await w
+        .getByLabel('Inventory scope ' + label, { exact: true })
+        .inputValue(),
+      scope[k],
+      `${c.id}: ${label} read from the files`,
+    );
+  const confirm = w.getByLabel(
+    "I reviewed the posted inventory register, the proposed item / GL mapping, the independent supplied policy evidence and the selected inventory GL balances (each one's role and family) and their common scope",
+  );
+  assert.equal(await confirm.isChecked(), false, `${c.id}: not confirmed`);
+  await confirm.check();
   t = Date.now();
   await w
     .getByRole('button', { name: 'Check inventory / GL', exact: true })
@@ -391,6 +393,10 @@ try {
       const w = await open(page, 'en');
       await load(page, w, byId.L02, {});
       const before = await w.locator('[data-stock-links]').count();
+      // The fields are folded once read; the accountant opens them to type.
+      const fields = w.locator('[data-scope-card] details');
+      assert.equal(await fields.evaluate((d) => d.open), false, 'folded');
+      await fields.locator(':scope > summary').click();
       await w
         .getByLabel('Inventory scope Map version', { exact: true })
         .fill('MAP-CHANGED');

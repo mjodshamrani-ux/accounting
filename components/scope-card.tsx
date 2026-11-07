@@ -136,7 +136,7 @@ export function ScopeCard({
                       v.sources.map((s) => (
                         <li key={`${v.value}|${s.label}`}>
                           <bdi>{t.quote(v.value)}</bdi>{' '}
-                          {t.valueIn(s.label, s.rows)}
+                          {t.valueIn(s.label, s.rows, s.block)}
                         </li>
                       )),
                     )}

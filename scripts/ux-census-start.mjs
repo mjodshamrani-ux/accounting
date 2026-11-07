@@ -201,26 +201,12 @@ export const START = {
         'Selected inventory GL balances',
       ],
     ),
+    // UX-5(d): the files' scope columns fill the card; one confirmation.
     steps: [
-      ...[0, 1, 2, 3].map((i) => [
+      [
         'check',
-        'I confirmed this original and its role',
-        undefined,
-        i,
-      ]),
-      ...[
-        ['Entity', 'Synthetic Stock Owner'],
-        ['Inventory ledger', 'STOCK-BOOK'],
-        ['GL ledger', 'GL-BOOK'],
-        ['Currency', 'SAR'],
-        ['Posting layer', 'Current'],
-        ['As of', '2026-09-30'],
-        ['Chart version', 'CHART-1'],
-        ['Map version', 'MAP-1'],
-        ['Valuation policy version', 'provided-posted-values-1'],
-        ['Inventory account set version', 'INV-SET-1'],
-      ].map(([field, value]) => ['fill', `Inventory scope ${field}`, value]),
-      ['check', 'I confirmed the complete snapshot scope'],
+        'I reviewed the posted inventory register, the proposed item / GL mapping, the independent supplied policy evidence and the selected inventory GL balances',
+      ],
     ],
     run: 'Check inventory / GL',
   },

@@ -4,10 +4,7 @@ import {
   STOCK_PDF_SESSION_FORMAT,
   type StockPdfState,
 } from '../lib/reconciliation/inventory-pdf-request.ts';
-import {
-  inventoryCompanionScope,
-  type StockPdfPreview,
-} from '../lib/reconciliation/inventory-pdf-preview.ts';
+import type { StockPdfPreview } from '../lib/reconciliation/inventory-pdf-preview.ts';
 import type { StockPdfReplay } from '../lib/reconciliation/inventory-register.ts';
 import type { DomainEvidenceAnswer } from '../lib/reconciliation/domain-assistant.ts';
 import { stockPdfWorkbookTables } from '../lib/reconciliation/inventory-pdf-workbook-evidence.ts';
@@ -79,6 +76,13 @@ import {
 } from '@/lib/reconciliation/inventory-section-evidence';
 import { stockMatrixCitationRows } from '@/lib/reconciliation/inventory-matrix-evidence';
 import { stockCopy } from '@/lib/i18n/inventory-register';
+import { ScopeCard, Sentence } from '@/components/scope-card';
+import { scopeCardCopy } from '@/lib/i18n/scope-card';
+import { useDeclaredScope } from '@/hooks/use-declared-scope';
+import type {
+  DeclaredScopeRule,
+  ScopeOrigin,
+} from '@/lib/reconciliation/declared-scope';
 import './workspace-record.css';
 import {
   DecisionButtons,
@@ -93,6 +97,44 @@ const emptyScope = (): StockScope =>
     postingStatus: 'posted',
     confirmed: false,
   }) as StockScope;
+type StockField = (typeof STOCK_FIELDS)[number];
+// What the card may put in each field (UX-5(d)): the two one-option selects
+// take only the value the engine accepts, and start from it while no file
+// has the column; the date takes only YYYY-MM-DD.
+const ONLY = {
+  currencyBasis: 'functional',
+  postingStatus: 'posted',
+} as const;
+const oneOption = (k: StockField): k is keyof typeof ONLY => k in ONLY;
+const isDate = (k: StockField) => k === 'asOf';
+const isoDate = (v: string) => /^\d{4}-\d{2}-\d{2}$/.test(v);
+const scopeRules: DeclaredScopeRule<StockField>[] = STOCK_FIELDS.map(
+  (field) =>
+    oneOption(field)
+      ? {
+          field,
+          fallback: ONLY[field],
+          accepts: (v) => v === ONLY[field],
+          fixed: true,
+        }
+      : isDate(field)
+        ? { field, accepts: isoDate }
+        : { field },
+);
+// The flat originals write the scope columns on every row, as the engine's
+// row check reads them; a structured or printed register writes its scope
+// once, in its scope block, which its own engine compares with the scope.
+const scopeColumns = STOCK_FIELDS.map((field, i) => ({
+  field,
+  header: STOCK_SCOPE_HEADERS[i],
+}));
+const freshOrigins = () =>
+  Object.fromEntries(
+    scopeRules.map((r) => [
+      r.field,
+      r.fallback === undefined ? 'question' : 'default',
+    ]),
+  ) as Record<StockField, ScopeOrigin>;
 const readings = () =>
   STOCK_ROLES.map((role) => ({
     sheet: 0,
@@ -141,6 +183,17 @@ function sourceScope(file: SourceFile): Partial<StockScope> | null {
     ? scope
     : null;
 }
+/** The register's scope block, where its family writes one: the printed
+ *  register's scope lines, or a structured register's Scope rows. */
+function registerBlock(
+  register: SourceFile | null,
+  preview: StockPdfPreview | null,
+): Partial<StockScope> | undefined {
+  if (preview) return preview.scope;
+  if (register && structured(register))
+    return sourceScope(register) ?? undefined;
+  return undefined;
+}
 function download(buffer: ArrayBuffer, name: string, type: string) {
   const url = URL.createObjectURL(new Blob([buffer], { type })),
     a = document.createElement('a');
@@ -180,8 +233,24 @@ export function StockWorkspace({
       l.items.map((i) => maps[l.page - 1]?.get(i) ?? '').join(' '),
     ]);
   }, [pdf]);
-  const [reading, setReading] = useState(readings),
-    [scope, setScope] = useState(emptyScope);
+  const [reading, setReading] = useState(readings);
+  // The card's scope and where each value came from (UX-5(d)): a new file
+  // fills what the four files agree on into the fields the accountant has
+  // not entered, and a value it changes drops the confirmation.
+  const blocks = useMemo(
+    () => [registerBlock(files[0], pdf), undefined, undefined, undefined],
+    [files, pdf],
+  );
+  const card = useDeclaredScope({
+    initial: () => ({ scope: emptyScope(), origins: freshOrigins() }),
+    rules: scopeRules,
+    columns: scopeColumns,
+    files,
+    sheets: reading.map((r) => r.sheet),
+    labels: copy.roles,
+    blocks,
+  });
+  const { scope, origins, suggestions } = card;
   const [complete, setComplete] = useState<StockInput['completeness']>({
     confirmed: false,
     reference: '',
@@ -246,13 +315,28 @@ export function StockWorkspace({
     };
   }
   type Replay = { state: StockInput; result: StockResult } | StockPdfReplay;
-  function install(v: Replay) {
-    if (!('version' in v)) {
+  // A printed register restored from a session comes with its preview and
+  // its companions, which are not on screen yet when the session installs.
+  function install(
+    v: Replay,
+    printed?: { preview: StockPdfPreview; companion: SourceFile[] },
+  ) {
+    const fromPdf = 'version' in v;
+    if (!fromPdf) {
       setPdf(null);
       setFiles(v.state.files);
     }
     setReading(v.result.readings);
-    setScope(v.state.scope);
+    card.install(
+      v.state.scope,
+      fromPdf ? [null, ...(printed?.companion ?? files.slice(1))] : v.state.files,
+      v.result.readings.map((r) => r.sheet),
+      [
+        fromPdf
+          ? registerBlock(null, printed?.preview ?? pdf)
+          : registerBlock(v.state.files[0], null),
+      ],
+    );
     setComplete(v.state.completeness);
     setEvents(v.state.events);
     setResult(v.result);
@@ -316,8 +400,8 @@ export function StockWorkspace({
     'decision',
     'evidence',
   ]);
-  const shown: typeof install = (v) => {
-    install(v);
+  const shown: typeof install = (v, printed) => {
+    install(v, printed);
     reveal();
   };
   async function perform<T>(
@@ -347,6 +431,43 @@ export function StockWorkspace({
       }
     }
   }
+  function updateScope(key: StockField, value: string) {
+    card.edit(key, value);
+    invalidate();
+  }
+  const unknown = scopeCardCopy[lang].unknown;
+  // A value inside a sentence, isolated so mixed scripts keep their order;
+  // a date, a code or a ledger is never split across lines.
+  const scopeValue = (v: string, whole = false) => (
+    <bdi className={whole ? 'scope-card__whole' : undefined}>
+      {v || unknown}
+    </bdi>
+  );
+  // Rows read from the files that write the scope on every row; a register
+  // that states it once, in its scope block, is said apart.
+  const rowsRead = Math.max(
+    0,
+    ...STOCK_FIELDS.map((k) =>
+      suggestions[k].read
+        .filter((r) => !r.block)
+        .reduce((n, r) => n + r.rows, 0),
+    ),
+  );
+  const blockRead = STOCK_FIELDS.some((k) =>
+    suggestions[k].read.some((r) => r.block),
+  );
+  // "The four files" only when each of the four was read row by row; a
+  // printed register refused before its scope lines is not one of them.
+  const rowSources = new Set(
+    STOCK_FIELDS.flatMap((k) =>
+      suggestions[k].read.filter((r) => !r.block).map((r) => r.label),
+    ),
+  );
+  const said = blockRead
+    ? 'block'
+    : rowSources.size === copy.roles.length
+      ? 'four'
+      : 'files';
   const ready =
     hasRegister &&
     files.slice(1).every(Boolean) &&
@@ -372,7 +493,6 @@ export function StockWorkspace({
           const next = [...reading] as StockInput['readings'];
           next[0] = { ...next[0], family: STOCK_PDF_FAMILY, confirmed: false };
           setReading(next);
-          setScope({ ...emptyScope(), ...value.scope, confirmed: false });
           setComplete({ ...complete, confirmed: false });
         },
       );
@@ -389,18 +509,6 @@ export function StockWorkspace({
       },
       (value) => {
         if (source === 0) setPdf(null);
-        if (pdf && source !== 0) {
-          const explicit = inventoryCompanionScope(value);
-          setScope((previous) => ({
-            ...previous,
-            ...Object.fromEntries(
-              Object.entries(explicit).filter(
-                ([key]) => !previous[key as keyof StockScope],
-              ),
-            ),
-            confirmed: false,
-          }));
-        }
         const next = [...files];
         next[source] = value;
         setFiles(next);
@@ -420,21 +528,6 @@ export function StockWorkspace({
                     : STOCK_VERSION,
           confirmed: false,
         };
-        if (source === 0 && structured(value)) {
-          const suggested = sourceScope(value);
-          if (suggested)
-            setScope({ ...emptyScope(), ...suggested, confirmed: false });
-          else setScope({ ...scope, confirmed: false });
-        } else if (
-          source === 0 &&
-          [
-            STOCK_SECTION_FAMILY,
-            STOCK_MATRIX_FAMILY,
-            STOCK_HIERARCHY_FAMILY,
-            STOCK_COLUMN_FAMILY,
-          ].includes(reading[0].family)
-        )
-          setScope({ ...scope, confirmed: false });
         setReading(r);
         setComplete({ ...complete, confirmed: false });
         invalidate();
@@ -617,7 +710,7 @@ export function StockWorkspace({
                         if ('replay' in value) {
                           setPdf(value.preview);
                           setFiles([null, ...value.companion]);
-                          shown(value.replay);
+                          shown(value.replay, value);
                         } else shown(value);
                       },
                     );
@@ -652,19 +745,6 @@ export function StockWorkspace({
                     <bdi>{pdf.name}</bdi>
                   </p>
                   <p>{pdfCopy.detected}</p>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={reading[0].confirmed}
-                      onChange={(e) => {
-                        const next = [...reading] as StockInput['readings'];
-                        next[0] = { ...next[0], confirmed: e.target.checked };
-                        setReading(next);
-                        invalidate();
-                      }}
-                    />
-                    {copy.roleConfirm}
-                  </label>
                   <Button
                     variant="outline"
                     onClick={() =>
@@ -692,19 +772,6 @@ export function StockWorkspace({
                   <p>
                     <bdi>{files[i]!.name}</bdi>
                   </p>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={reading[i].confirmed}
-                      onChange={(e) => {
-                        const next = [...reading] as StockInput['readings'];
-                        next[i] = { ...next[i], confirmed: e.target.checked };
-                        setReading(next);
-                        invalidate();
-                      }}
-                    />
-                    {copy.roleConfirm}
-                  </label>
                   {i === 0 && structured(files[i]!) && (
                     <p>
                       {reading[i].family === STOCK_COLUMN_FAMILY
@@ -751,38 +818,81 @@ export function StockWorkspace({
           ))}
         </WorkspaceSources>
         <fieldset disabled={busy} hidden={!(hasRegister && files[3])}>
-          <legend>{copy.scopeTitle}</legend>
-          <div className="gl-tb-grid">
-            {STOCK_FIELDS.map((k) => (
-              <label key={k}>
-                {copy.scope[k]}
+          <ScopeCard
+            hidden={!(hasRegister && files[3])}
+            summary={
+              <Sentence
+                parts={copy.cardSummary(
+                  scopeValue(scope.entity),
+                  scopeValue(scope.inventoryLedger, true),
+                  scopeValue(scope.glLedger, true),
+                  scopeValue(scope.asOf, true),
+                  scopeValue(scope.currency, true),
+                  rowsRead,
+                  said,
+                )}
+              />
+            }
+            rows={STOCK_FIELDS.map((k) => {
+              const name = copy.scopePrefix + copy.scope[k];
+              return {
+                key: k,
+                label: copy.scope[k],
+                origin: origins[k],
+                value: scope[k],
+                fixed: oneOption(k),
+                suggestion: suggestions[k],
+                control: (describedBy: string) =>
+                  oneOption(k) ? (
+                    <select
+                      aria-label={name}
+                      aria-describedby={describedBy}
+                      value={scope[k]}
+                      onChange={(e) => updateScope(k, e.target.value)}
+                    >
+                      <option value={ONLY[k]}>{copy.only[k]}</option>
+                    </select>
+                  ) : (
+                    <input
+                      aria-label={name}
+                      aria-describedby={describedBy}
+                      type={isDate(k) ? 'date' : 'text'}
+                      maxLength={500}
+                      value={scope[k]}
+                      onChange={(e) => updateScope(k, e.target.value)}
+                    />
+                  ),
+              };
+            })}
+            confirm={
+              <label className="scope-card__confirm">
                 <input
-                  aria-label={copy.scopePrefix + copy.scope[k]}
-                  maxLength={500}
-                  value={scope[k]}
+                  type="checkbox"
+                  checked={reading.every((r) => r.confirmed) && scope.confirmed}
                   onChange={(e) => {
-                    setScope({
-                      ...scope,
-                      [k]: e.target.value,
-                      confirmed: false,
-                    });
+                    const confirmed = e.target.checked;
+                    setReading(
+                      (previous) =>
+                        previous.map((r) => ({
+                          ...r,
+                          confirmed,
+                        })) as StockInput['readings'],
+                    );
+                    card.confirm(confirmed);
                     invalidate();
                   }}
                 />
+                <span>
+                  <Sentence
+                    parts={copy.cardConfirm(
+                      scopeValue(scope.entity),
+                      scopeValue(scope.asOf, true),
+                    )}
+                  />
+                </span>
               </label>
-            ))}
-          </div>
-          <label>
-            <input
-              type="checkbox"
-              checked={scope.confirmed}
-              onChange={(e) => {
-                setScope({ ...scope, confirmed: e.target.checked });
-                invalidate();
-              }}
-            />
-            {copy.scopeConfirm}
-          </label>
+            }
+          />
         </fieldset>
         <WorkspaceAdvanced summary={copy.completeTitle}>
           <fieldset disabled={busy}>

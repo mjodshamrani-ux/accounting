@@ -409,3 +409,127 @@ void test('a source reads a field from the column its role names for it', () => 
     { value: 'C', sources: [{ label: 'Right', rows: 1 }] },
   ]);
 });
+
+void test('a source that writes its scope once gives it as a block, counted once', () => {
+  // The register's rows carry no scope columns, and one row even writes an
+  // "Entity" column the block does not use: a block source is read from its
+  // block alone.
+  const out = suggestDeclaredScope(
+    [
+      {
+        label: 'Register',
+        file: file([
+          ['Format', 'Sections'],
+          ['Entity', 'E9'],
+        ]),
+        sheet: 0,
+        block: { entity: ' E1 ', currency: 'SAR' },
+      },
+      {
+        label: 'Mapping',
+        file: file([
+          ['ID', 'Entity', 'Currency'],
+          ['1', 'E1', 'SAR'],
+          ['2', 'E1', 'SAR'],
+        ]),
+        sheet: 0,
+      },
+    ],
+    fields,
+  );
+  assert.equal(out.entity.status, 'agreed');
+  assert.equal(out.entity.value, 'E1');
+  assert.deepEqual(out.entity.read, [
+    { label: 'Register', rows: 1, block: true },
+    { label: 'Mapping', rows: 2 },
+  ]);
+  assert.deepEqual(out.entity.values, [
+    {
+      value: 'E1',
+      sources: [
+        { label: 'Register', rows: 1, block: true },
+        { label: 'Mapping', rows: 2 },
+      ],
+    },
+  ]);
+});
+
+void test('a block that disagrees with the rows leaves the field a question', () => {
+  const out = suggestDeclaredScope(
+    [
+      {
+        label: 'Register',
+        file: file([['Format', 'Sections']]),
+        sheet: 0,
+        block: { entity: 'E2', currency: 'SAR' },
+      },
+      {
+        label: 'Mapping',
+        file: file([
+          ['Entity', 'Currency'],
+          ['E1', 'SAR'],
+        ]),
+        sheet: 0,
+      },
+    ],
+    fields,
+  );
+  assert.equal(out.entity.status, 'differs');
+  assert.equal(out.entity.value, undefined);
+  assert.deepEqual(out.entity.values, [
+    // The block's value is said as its block, not as one row.
+    { value: 'E2', sources: [{ label: 'Register', rows: 1, block: true }] },
+    { value: 'E1', sources: [{ label: 'Mapping', rows: 1 }] },
+  ]);
+  assert.equal(out.currency.status, 'agreed');
+});
+
+void test('a field the block does not state is read from the other sources only', () => {
+  const out = suggestDeclaredScope(
+    [
+      {
+        label: 'Register',
+        file: file([['Format', 'Matrix']]),
+        sheet: 0,
+        block: { entity: 'E1' },
+      },
+      {
+        label: 'Mapping',
+        file: file([
+          ['Entity', 'Currency'],
+          ['E1', 'KWD'],
+        ]),
+        sheet: 0,
+      },
+    ],
+    fields,
+  );
+  assert.deepEqual(out.currency.read, [{ label: 'Mapping', rows: 1 }]);
+  assert.equal(out.currency.value, 'KWD');
+  assert.deepEqual(out.entity.read, [
+    { label: 'Register', rows: 1, block: true },
+    { label: 'Mapping', rows: 1 },
+  ]);
+});
+
+void test('a block needs no rows: a printed register gives its scope lines only', () => {
+  const out = suggestDeclaredScope(
+    [
+      { label: 'Printed register', sheet: 0, block: { entity: 'E1' } },
+      {
+        label: 'Mapping',
+        file: file([
+          ['Entity', 'Currency'],
+          ['E1', 'SAR'],
+        ]),
+        sheet: 0,
+      },
+    ],
+    fields,
+  );
+  assert.equal(out.entity.value, 'E1');
+  assert.deepEqual(out.entity.read, [
+    { label: 'Printed register', rows: 1, block: true },
+    { label: 'Mapping', rows: 1 },
+  ]);
+});

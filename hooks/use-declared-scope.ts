@@ -6,6 +6,7 @@ import {
   originsOf,
   suggestDeclaredScope,
   type DeclaredScopeRule,
+  type DeclaredScopeSource,
   type ScopeOrigin,
 } from '@/lib/reconciliation/declared-scope';
 import type { SourceFile } from '@/lib/reconciliation/types';
@@ -15,6 +16,13 @@ type Columns<K extends string> = readonly { field: K; header: string }[];
  *  writes under another header (an intercompany ledger's "Entity"). */
 type SourceHeaders<K extends string> = readonly (
   | Readonly<Partial<Record<K, string>>>
+  | undefined
+)[];
+/** Per source, the scope its family writes once, in a block of its own, as
+ *  its reader takes it (a structured or printed inventory register). */
+type SourceBlocks<K extends string> = readonly (
+  | Readonly<Partial<Record<K, string>>>
+  | null
   | undefined
 )[];
 type Scope<K extends string> = Record<K, string> & { confirmed: boolean };
@@ -27,10 +35,13 @@ export function suggestFrom<K extends string>(
   labels: readonly string[],
   columns: Columns<K>,
   headers?: SourceHeaders<K>,
+  blocks?: SourceBlocks<K>,
 ) {
   return suggestDeclaredScope(
-    sources.flatMap((file, side) =>
-      file
+    sources.flatMap((file, side): DeclaredScopeSource[] => {
+      const block = blocks?.[side];
+      if (block) return [{ label: labels[side], sheet: sheets[side], block }];
+      return file
         ? [
             {
               label: labels[side],
@@ -39,8 +50,8 @@ export function suggestFrom<K extends string>(
               headers: headers?.[side],
             },
           ]
-        : [],
-    ),
+        : [];
+    }),
     columns,
   );
 }
@@ -63,6 +74,7 @@ export function useDeclaredScope<K extends string, S extends Scope<K>>({
   sheets,
   labels,
   headers,
+  blocks,
 }: {
   initial: () => { scope: S; origins: Record<K, ScopeOrigin> };
   rules: readonly DeclaredScopeRule<K>[];
@@ -72,6 +84,8 @@ export function useDeclaredScope<K extends string, S extends Scope<K>>({
   labels: readonly string[];
   /** Per source, the columns its family names for some fields. */
   headers?: SourceHeaders<K>;
+  /** Per source, the scope block its family writes once, if any. */
+  blocks?: SourceBlocks<K>;
 }) {
   const [draft, setDraft] = useState(initial);
   const sheetKey = sheets.join(',');
@@ -83,8 +97,9 @@ export function useDeclaredScope<K extends string, S extends Scope<K>>({
         labels,
         columns,
         headers,
+        blocks,
       ),
-    [files, sheetKey, labels, columns, headers],
+    [files, sheetKey, labels, columns, headers, blocks],
   );
   const [applied, setApplied] = useState(suggestions);
   if (applied !== suggestions) {
@@ -128,12 +143,22 @@ export function useDeclaredScope<K extends string, S extends Scope<K>>({
       scope: S,
       sources: readonly (SourceFile | null)[],
       sourceSheets: readonly number[],
+      /** The installed sources' own scope blocks, where they have them;
+       *  those of the sources on screen until now do not apply. */
+      sourceBlocks?: SourceBlocks<K>,
     ) {
       setDraft({
         scope,
         origins: originsOf(
           scope,
-          suggestFrom(sources, sourceSheets, labels, columns, headers),
+          suggestFrom(
+            sources,
+            sourceSheets,
+            labels,
+            columns,
+            headers,
+            sourceBlocks,
+          ),
           rules.map((r) => r.field),
         ),
       });
