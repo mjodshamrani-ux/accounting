@@ -49,6 +49,132 @@ export async function verifyAr(page, url, out = 'work/qa') {
     'Related invoice': '10',
     Description: '11',
   };
+  const w = page.locator('[data-ar-workspace]'),
+    card = w.locator('[data-scope-card]');
+  // The card's one confirmation (UX-5(d)) carries the two reading
+  // attestations, the printed statement's and the scope attestation.
+  const confirmBox = () =>
+    w.getByLabel(
+      'I reviewed the company AR ledger and the company-issued customer statement',
+      { exact: false },
+    );
+  const runButton = () =>
+    page.getByRole('button', { name: 'Compare AR documents', exact: true });
+  async function openFields() {
+    const fields = card.locator('details');
+    if ((await fields.getAttribute('open')) === null)
+      await fields.locator('summary').click();
+  }
+  // What the card says each field holds, read here from the CSV bytes with
+  // this check's own split, at the columns this check maps: the card reads
+  // a field from the column mapped to it, and the base header is the scope
+  // key the family names it by.
+  const mappedAs = {
+    entity: 'Entity',
+    ledger: 'Ledger',
+    customer: 'Customer ID',
+    account: 'Account',
+    currency: 'Currency',
+  };
+  const baseHeader = {
+    entity: 'Entity',
+    ledger: 'Ledger',
+    customer: 'Customer',
+    account: 'Account',
+    currency: 'Currency',
+  };
+  const frozen = (name) => [
+    `audit/ar-limited/frozen/${name}-ledger.csv`,
+    `audit/ar-limited/frozen/${name}-statement.csv`,
+  ];
+  // mapped[side] false: that side's columns are not mapped, so not read.
+  async function filesSay(paths, mapped = [true, true]) {
+    const said = {};
+    for (const [key, select] of Object.entries(mappedAs)) {
+      const counts = new Map(),
+        read = [];
+      let rows = 0;
+      for (const [side, label] of sides.entries()) {
+        if (!mapped[side]) continue;
+        const text = await readFile(paths[side], 'utf8');
+        assert.ok(!text.includes('"'), 'the AR sources here are unquoted');
+        const [head, ...body] = text
+          .split(/\r?\n/u)
+          .map((line) => line.split(','))
+          .filter((cells) => cells.some((cell) => cell.trim()));
+        const at = Number(columns[select]),
+          own = head[at].trim();
+        read.push(
+          own === baseHeader[key]
+            ? `${label}: rows ${body.length}`
+            : `${label} (column ${own}): rows ${body.length}`,
+        );
+        for (const row of body) {
+          rows += 1;
+          const value = (row[at] ?? '').trim(),
+            bySource = counts.get(value) ?? new Map();
+          bySource.set(label, (bySource.get(label) ?? 0) + 1);
+          counts.set(value, bySource);
+        }
+      }
+      said[key] = { rows, read, counts };
+    }
+    return said;
+  }
+  async function cardField(key) {
+    const field = card.locator(`[data-scope-field="${key}"]`);
+    return {
+      origin: await field.getAttribute('data-origin'),
+      value: await field.locator('input, select').inputValue(),
+      // textContent: the fields are folded when nothing is asked.
+      hint: (await field.locator('.hint').textContent()).trim(),
+    };
+  }
+  async function cardSaysFiles(paths, when, mapped = [true, true]) {
+    assert.equal(
+      await card.count(),
+      1,
+      `${when}: the files show the card «ما فهمناه من ملفاتك»`,
+    );
+    const said = await filesSay(paths, mapped);
+    for (const [key, { read, counts }] of Object.entries(said)) {
+      assert.equal(counts.size, 1, `${when}: one ${key} in the mapped columns`);
+      const [value] = counts.keys(),
+        shown = await cardField(key);
+      assert.equal(shown.value, value, `${when}: ${key} from the files`);
+      assert.equal(shown.origin, 'file', `${when}: ${key} as theirs`);
+      assert.equal(
+        shown.hint,
+        `From the file: column ${baseHeader[key]} · ${read.join(' · ')}`,
+        `${when}: ${key} names its column and each mapped file's rows`,
+      );
+    }
+    const one = (key) => said[key].counts.keys().next().value,
+      period = async (key) => (await cardField(key)).value || '?';
+    const rowsOn = (side) => {
+      if (!mapped[side]) return 0;
+      const entry = said.entity.read.find((r) => r.startsWith(sides[side]));
+      return Number(/rows (\d+)$/u.exec(entry)[1]);
+    };
+    assert.equal(
+      await card.locator('[data-scope-summary]').innerText(),
+      `${one('entity')}, ${one('ledger')}, customer ${one('customer')}, account ${one('account')}, ${await period('start')} to ${await period('end')}, in ${one('currency')}; read from ${sides[0]}: rows ${rowsOn(0)} and ${sides[1]}: rows ${rowsOn(1)}.`,
+      `${when}: the sentence says the files' scope and each side's rows`,
+    );
+    assert.equal(
+      await card.locator('[data-scope-summary] bdi').count(),
+      7,
+      'each value in the sentence is isolated from the words around it',
+    );
+    return said;
+  }
+  // The example's two files are the frozen positive pair, so the card shows
+  // every mapped value as theirs, and the period the example states; the
+  // example confirmed.
+  await cardSaysFiles(frozen('positive'), 'after the example');
+  assert.equal((await cardField('start')).value, '2026-09-01');
+  assert.equal((await cardField('end')).value, '2026-09-30');
+  assert.equal(await confirmBox().isChecked(), true);
   for (const [side, label] of sides.entries()) {
     await page
       .getByLabel(label, { exact: true })
@@ -61,33 +187,92 @@ export async function verifyAr(page, url, out = 'work/qa') {
         exact: true,
       })
       .waitFor();
+    // Before its columns are mapped, a side writes nothing to the card.
+    if (side === 0) {
+      const unmapped = await cardField('entity');
+      const [statementOnly] = (
+        await filesSay(frozen('positive'), [false, true])
+      ).entity.read;
+      assert.equal(
+        unmapped.hint,
+        `From the file: column Entity · ${statementOnly}`,
+        'an unmapped side is not read, even where its header names the field',
+      );
+      // The sentence counts each side's own rows: none from the side not
+      // mapped yet, while the other side's rows stay its own.
+      await cardSaysFiles(frozen('positive'), 'one side not mapped yet', [
+        false,
+        true,
+      ]);
+    }
     for (const [field, index] of Object.entries(columns))
       await page
         .getByLabel(`${label}: ${field}`, { exact: true })
         .selectOption(index);
-    await page
-      .getByLabel(`${label}: I reviewed this source:`, { exact: false })
-      .check();
   }
+  // UX-5(d): the mapped columns fill the card; the period the accountant
+  // kept from the example stays theirs, nothing is confirmed, and the check
+  // stays closed until the accountant confirms with the one box.
+  await cardSaysFiles(frozen('positive'), 'two new files, mapped');
+  assert.equal((await cardField('start')).origin, 'user');
+  assert.equal(
+    await confirmBox().isChecked(),
+    false,
+    'a suggestion never confirms',
+  );
+  assert.equal(
+    await runButton().isDisabled(),
+    true,
+    "the check waits for the accountant's confirmation",
+  );
+  // A field no mapped column writes takes its default, marked as one: the
+  // currency, when neither side maps it.
+  for (const label of sides)
+    await page
+      .getByLabel(`${label}: Currency`, { exact: true })
+      .selectOption('-1');
+  const currency = await cardField('currency');
+  assert.deepEqual(
+    [currency.value, currency.origin, currency.hint],
+    ['SAR', 'default', 'Default, not in the files'],
+    'no file writes the currency: SAR, marked as the default',
+  );
+  for (const label of sides)
+    await page
+      .getByLabel(`${label}: Currency`, { exact: true })
+      .selectOption(columns.Currency);
+  // A column mapped to another field's column makes that field a question
+  // with both values, before any run.
+  await page
+    .getByLabel(`${sides[1]}: Customer ID`, { exact: true })
+    .selectOption(columns.Account);
+  const customer = await cardField('customer');
+  assert.equal(customer.origin, 'question');
+  assert.equal(customer.value, '', 'a disagreement is never filled');
+  assert.equal(customer.hint, 'The rows disagree, so enter the value');
+  await page
+    .getByLabel(`${sides[1]}: Customer ID`, { exact: true })
+    .selectOption(columns['Customer ID']);
+  await cardSaysFiles(frozen('positive'), 'the mapping put back');
   for (const [key, value] of Object.entries({
-    Entity: 'Synthetic Seller',
-    Ledger: 'AR Book',
-    'Customer ID': 'C0001',
-    Account: '1200',
-    Currency: 'SAR',
     'Period start': '2026-09-01',
     'Period end': '2026-09-30',
-  }))
+  })) {
+    await openFields();
     await page.getByLabel(key, { exact: true }).fill(value);
-  await page
-    .getByLabel(
-      'I reviewed the common entity, ledger, customer, account, currency and period.',
-      { exact: false },
-    )
-    .check();
-  await page
-    .getByRole('button', { name: 'Compare AR documents', exact: true })
-    .click();
+  }
+  await confirmBox().click();
+  assert.equal(
+    await confirmBox().isChecked(),
+    true,
+    'the one box takes the click',
+  );
+  assert.equal(
+    await runButton().isEnabled(),
+    true,
+    'the one box opens the check',
+  );
+  await runButton().click();
   await page
     .getByRole('heading', {
       name: 'AR document comparison result',
@@ -197,24 +382,14 @@ export async function verifyAr(page, url, out = 'work/qa') {
     .waitFor();
   assert.deepEqual(await metrics(), ['6', '3', '0', '35.00', '35.00']);
   await exportBook('ar-reconfirmed.xlsx');
+  await openFields();
   await page.getByLabel('Customer ID', { exact: true }).fill('OTHER');
   assert.equal(await page.getByTestId('ar-metrics').count(), 0);
-  assert.equal(
-    await page
-      .getByLabel(
-        'I reviewed the common entity, ledger, customer, account, currency and period.',
-        { exact: false },
-      )
-      .isChecked(),
-    false,
-  );
+  assert.equal(await confirmBox().isChecked(), false);
+  assert.equal((await cardField('customer')).origin, 'user');
   await page.getByLabel('Customer ID', { exact: true }).fill('C0001');
-  await page
-    .getByLabel(
-      'I reviewed the common entity, ledger, customer, account, currency and period.',
-      { exact: false },
-    )
-    .check();
+  await confirmBox().click();
+  assert.equal(await confirmBox().isChecked(), true, 'confirmed again');
   await page
     .getByRole('button', { name: 'Compare AR documents', exact: true })
     .click();
@@ -231,10 +406,9 @@ export async function verifyAr(page, url, out = 'work/qa') {
     .waitFor();
   assert.equal(await page.getByTestId('ar-metrics').count(), 0);
   assert.equal(
-    await page
-      .getByLabel(`${sides[0]}: I reviewed this source:`, { exact: false })
-      .isChecked(),
+    await confirmBox().isChecked(),
     false,
+    'a new original drops the one confirmation',
   );
   // An original amount difference remains review-only through the visible workflow.
   for (const [side, label] of sides.entries()) {
@@ -247,16 +421,14 @@ export async function verifyAr(page, url, out = 'work/qa') {
       await page
         .getByLabel(`${label}: ${field}`, { exact: true })
         .selectOption(index);
-    await page
-      .getByLabel(`${label}: I reviewed this source:`, { exact: false })
-      .check();
   }
-  await page
-    .getByLabel(
-      'I reviewed the common entity, ledger, customer, account, currency and period.',
-      { exact: false },
-    )
-    .check();
+  assert.equal(await confirmBox().isChecked(), false);
+  await confirmBox().click();
+  assert.equal(
+    await confirmBox().isChecked(),
+    true,
+    'the difference pair confirmed',
+  );
   await page
     .getByRole('button', { name: 'Compare AR documents', exact: true })
     .click();
@@ -269,6 +441,55 @@ export async function verifyAr(page, url, out = 'work/qa') {
     0,
   );
   await exportBook('ar-negative.xlsx');
+  // A period in another layout never fills a date field: on a fresh page, a
+  // scope-details pair whose blocks write the period as DD/MM/YYYY, rewritten
+  // here by key row from a frozen pair.
+  const pairDir = 'audit/ar-scope-details/fixtures/three-document-kinds';
+  const layout = [];
+  for (const [side, name] of ['ledger.csv', 'statement.csv'].entries()) {
+    const text = await readFile(`${pairDir}/${name}`, 'utf8');
+    layout.push(`${out}/ddmm-${name}`);
+    await writeFile(
+      layout[side],
+      text
+        .split(/\r?\n/u)
+        .map((line) =>
+          /^Period (start|end),/u.test(line)
+            ? line.replace(/,(\d{4})-(\d{2})-(\d{2})$/u, ',$3/$2/$1')
+            : line,
+        )
+        .join('\n'),
+    );
+  }
+  await page.reload();
+  await page.getByRole('button', { name: 'EN English', exact: true }).click();
+  await openDomainWorkspace(page, 'ar');
+  for (const [side, label] of sides.entries()) {
+    await page.getByLabel(label, { exact: true }).setInputFiles(layout[side]);
+    await page
+      .getByRole('heading', {
+        name: layout[side].split('/').at(-1),
+        exact: true,
+      })
+      .waitFor();
+    await page
+      .getByLabel(`${label}: Source structure`, { exact: true })
+      .selectOption('ar-scope-details-1');
+  }
+  const start = await cardField('start');
+  assert.equal(start.origin, 'question');
+  assert.equal(start.value, '', 'another layout is never put in a date field');
+  assert.equal(
+    start.hint,
+    'The files hold “01/10/2026”, which this field does not take, so enter the value',
+  );
+  // The block's other keys are read as written, and said as its block.
+  const entity = await cardField('entity');
+  assert.equal(entity.origin, 'file');
+  assert.equal(
+    entity.hint,
+    `From the file: column Entity · ${sides[0]}: scope block · ${sides[1]}: scope block`,
+  );
   await writeFile(
     `${out}/ar-browser.json`,
     JSON.stringify(
@@ -283,6 +504,8 @@ export async function verifyAr(page, url, out = 'work/qa') {
           'Arabic/English/mobile',
           'session original byte replay',
           'scope and replacement invalidation',
+          'the card reads the mapped columns, not unmapped ones',
+          'a scope block is read once; a period in another layout is asked',
           'native amount difference stays review-only',
         ],
         files: [

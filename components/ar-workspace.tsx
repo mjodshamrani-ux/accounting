@@ -2,7 +2,7 @@ import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant'
 import { AlignmentStrip } from '@/components/alignment-strip';
 import { ResultIndex, useResultParts } from '@/components/result-index';
 import { arStrip } from '@/lib/alignment-strip';
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { NoteHint, useDecisionFocus } from '@/components/decision-platform';
 import {
@@ -51,6 +51,21 @@ import {
 import { pageOfRow, recordPage } from '@/lib/record-page';
 import { StatusBadge } from '@/components/status-badge';
 import { arCaseTone } from '@/lib/status-tone';
+import { ScopeCard, Sentence } from '@/components/scope-card';
+import { scopeCardCopy } from '@/lib/i18n/scope-card';
+import { useDeclaredScope } from '@/hooks/use-declared-scope';
+import type {
+  DeclaredScopeRule,
+  ScopeOrigin,
+} from '@/lib/reconciliation/declared-scope';
+import {
+  AR_CARD_FIELDS,
+  AR_CARD_HEADERS,
+  arCardBlock,
+  arCardHeaders,
+  arCardKind,
+  type ArCardField,
+} from '@/lib/ar-scope-card';
 import './clearing-workspace.css';
 import './ar-workspace.css';
 const columns = [
@@ -82,15 +97,46 @@ const readingColumn = (reading: ArReading, key: string) => {
   const value: unknown = Reflect.get(reading, key);
   return typeof value === 'number' ? value : -1;
 };
-const scopeFields = [
-  'entity',
-  'ledger',
-  'customer',
-  'account',
-  'currency',
-  'start',
-  'end',
-] as const;
+// The card «ما فهمناه من ملفاتك» (UX-5(d)): the currency starts from SAR,
+// marked as the default, while no file writes it; the period takes only
+// YYYY-MM-DD; the other fields are asked until the files agree on them.
+const isoDate = (v: string) => /^\d{4}-\d{2}-\d{2}$/.test(v);
+const cardRules: DeclaredScopeRule<ArCardField>[] = AR_CARD_FIELDS.map(
+  (field) =>
+    field === 'currency'
+      ? { field, fallback: 'SAR' }
+      : field === 'start' || field === 'end'
+        ? { field, accepts: isoDate }
+        : { field },
+);
+const cardColumns = AR_CARD_FIELDS.map((field) => ({
+  field,
+  header: AR_CARD_HEADERS[field],
+}));
+const freshOrigins = () =>
+  Object.fromEntries(
+    cardRules.map((r) => [
+      r.field,
+      r.fallback === undefined ? 'question' : 'default',
+    ]),
+  ) as Record<ArCardField, ScopeOrigin>;
+// What each side gives the card, as its reader reads it. A printed
+// statement is read by the worker at the run, not before: before the run
+// it has no sheets to read and its headers name no column (arCardHeaders),
+// and after a run it is held without sheets at all, so the card is given
+// only files that hold sheets.
+const cardFilesOf = (files: readonly (SourceFile | null)[]) =>
+  files.map((file) => (file && Array.isArray(file.sheets) ? file : null));
+const cardSheets = (readings: readonly ArReading[]) =>
+  readings.map((r) => (r as { sheet?: number }).sheet ?? 0);
+const cardHeadersOf = (
+  files: readonly (SourceFile | null)[],
+  readings: readonly ArReading[],
+) => readings.map((r, side) => arCardHeaders(files[side], r));
+const cardBlocksOf = (
+  files: readonly (SourceFile | null)[],
+  readings: readonly ArReading[],
+) => readings.map((r, side) => arCardBlock(files[side], r));
 const freshReading = (side: number): ArReading => ({
   ...arDemoReadings[side],
   ...Object.fromEntries(columns.map((k) => [k, -1])),
@@ -155,8 +201,28 @@ export function ArWorkspace({
     freshReading(0),
     freshReading(1),
   ]);
-  const [scope, setScope] = useState(freshScope),
-    [events, setEvents] = useState<ArEvent[]>([]),
+  // The card's scope and where each value came from (UX-5(d)): a new file,
+  // sheet, family or column mapping changes what the sides say; what they
+  // agree on fills the fields the accountant has not entered, and a value
+  // it changes drops the confirmation.
+  const cardFiles = useMemo(() => cardFilesOf(files), [files]),
+    cardHeaders = useMemo(
+      () => cardHeadersOf(files, readings),
+      [files, readings],
+    ),
+    cardBlocks = useMemo(() => cardBlocksOf(files, readings), [files, readings]);
+  const card = useDeclaredScope({
+    initial: () => ({ scope: freshScope(), origins: freshOrigins() }),
+    rules: cardRules,
+    columns: cardColumns,
+    files: cardFiles,
+    sheets: cardSheets(readings),
+    labels: t.sides,
+    headers: cardHeaders,
+    blocks: cardBlocks,
+  });
+  const { scope, origins, suggestions } = card;
+  const [events, setEvents] = useState<ArEvent[]>([]),
     [result, setResult] = useState<ArResult | null>(null);
   const [busy, setBusy] = useState(false),
     [error, setError] = useState(false),
@@ -185,7 +251,13 @@ export function ArWorkspace({
   function install(value: { state: ArInput; result: ArResult }) {
     setFiles(value.state.files);
     setReadings(value.state.readings);
-    setScope(value.state.scope);
+    card.install(
+      value.state.scope,
+      cardFilesOf(value.state.files),
+      cardSheets(value.state.readings),
+      cardBlocksOf(value.state.files, value.state.readings),
+      cardHeadersOf(value.state.files, value.state.readings),
+    );
     setEvents(value.state.events);
     setResult(value.result);
     setPage(0);
@@ -233,6 +305,22 @@ export function ArWorkspace({
     controller.current = null;
     setBusy(false);
   }
+  const unknown = scopeCardCopy[lang].unknown;
+  // A value inside a sentence, isolated so mixed scripts keep their order;
+  // a date, a code or a ledger is never split across lines.
+  const scopeValue = (v: string, whole = false) => (
+    <bdi className={whole ? 'scope-card__whole' : undefined}>
+      {v || unknown}
+    </bdi>
+  );
+  // The rows the card read on one side: as many as any scope field read.
+  const rowsReadOn = (label: string) =>
+    Math.max(
+      0,
+      ...AR_CARD_FIELDS.flatMap((k) =>
+        suggestions[k].read.filter((r) => r.label === label).map((r) => r.rows),
+      ),
+    );
   async function upload(side: 0 | 1, file: File) {
     // Only the customer statement may be a PDF; the ledger stays a table.
     const pdf = side === 1 && /\.pdf$/i.test(file.name);
@@ -255,6 +343,10 @@ export function ArWorkspace({
       const next = [...files] as typeof files;
       next[side] = source;
       setFiles(next);
+      // A new file's reading starts unconfirmed, as do a new family, sheet
+      // or column below: that alone leaves the one box unticked until the
+      // accountant confirms again (the card's own scope confirmation drops
+      // only when a value changes).
       setReadings((previous) => {
         const next = [...previous] as typeof readings;
         next[side] = pdf
@@ -264,7 +356,6 @@ export function ArWorkspace({
             : freshReading(side);
         return next;
       });
-      setScope((previous) => ({ ...previous, confirmed: false }));
       invalidate();
     });
   }
@@ -357,12 +448,19 @@ export function ArWorkspace({
                   const sources: SourceFile[] = [];
                   for (const demo of arScopeDemo())
                     sources.push(await workerTask('read', demo, signal));
-                  setFiles(sources as ArInput['files']);
-                  setReadings([
+                  const loaded: [ArReading, ArReading] = [
                     suggestArScopeReading(sources[0], 0),
                     suggestArScopeReading(sources[1], 1),
-                  ]);
-                  setScope({ ...arScopeDemoScope });
+                  ];
+                  setFiles(sources as ArInput['files']);
+                  setReadings(loaded);
+                  card.install(
+                    { ...arScopeDemoScope },
+                    sources,
+                    cardSheets(loaded),
+                    cardBlocksOf(sources, loaded),
+                    cardHeadersOf(sources, loaded),
+                  );
                   invalidate();
                   revealLoaded();
                 })
@@ -440,22 +538,6 @@ export function ArWorkspace({
                     <h3>{source.name}</h3>
                     <p data-ar-statement-pdf>{t.pdfStatement}</p>
                     <p>{t.pdfReading}</p>
-                    <label className="clearing-confirm">
-                      <input
-                        type="checkbox"
-                        checked={r.confirmed}
-                        onChange={(event) => {
-                          const next = [...readings] as typeof readings;
-                          next[side] = {
-                            ...r,
-                            confirmed: event.target.checked,
-                          };
-                          setReadings(next);
-                          invalidate();
-                        }}
-                      />
-                      {t.sides[side]}: {t.pdfReadingConfirm}
-                    </label>
                   </>
                 )}
                 {source && !isStatementReading(r) && (
@@ -477,7 +559,6 @@ export function ArWorkspace({
                               ? suggestArScopeReading(source, side, r.sheet)
                               : { ...freshReading(side), sheet: r.sheet };
                           setReadings(next);
-                          setScope({ ...scope, confirmed: false });
                           invalidate();
                         }}
                       >
@@ -505,7 +586,6 @@ export function ArWorkspace({
                                 sheet: Number(event.target.value),
                               };
                           setReadings(next);
-                          setScope({ ...scope, confirmed: false });
                           invalidate();
                         }}
                       >
@@ -581,7 +661,6 @@ export function ArWorkspace({
                                   confirmed: false,
                                 } as ArReading;
                                 setReadings(next);
-                                setScope({ ...scope, confirmed: false });
                                 invalidate();
                               }}
                             >
@@ -605,61 +684,87 @@ export function ArWorkspace({
                       )}
                     </div>
                     {isArScopeReading(r) && <p>{t.openLimit}</p>}
-                    <label className="clearing-confirm">
-                      <input
-                        type="checkbox"
-                        checked={r.confirmed}
-                        onChange={(event) => {
-                          const next = [...readings] as typeof readings;
-                          next[side] = {
-                            ...r,
-                            confirmed: event.target.checked,
-                          };
-                          setReadings(next);
-                          invalidate();
-                        }}
-                      />
-                      {t.sides[side]}: {t.readingConfirm}
-                    </label>
                   </>
                 )}
               </section>
             );
           })}
         </WorkspaceSources>
-        <section className="workspace-scope" hidden={!(files[0] && files[1])}>
-          <WorkspaceGroupTitle kind="scope" />
-          <div className="clearing-grid">
-            {scopeFields.map((key) => (
-              <label key={key}>
-                {key === 'start' || key === 'end' ? t[key] : t.fields[key]}
-                <input
-                  type={key === 'start' || key === 'end' ? 'date' : 'text'}
-                  value={scope[key]}
-                  onChange={(event) => {
-                    setScope({
-                      ...scope,
-                      [key]: event.target.value,
-                      confirmed: false,
-                    });
-                    invalidate();
-                  }}
-                />
-              </label>
-            ))}
-          </div>
-          <label className="clearing-confirm">
-            <input
-              type="checkbox"
-              checked={scope.confirmed}
-              onChange={(event) => {
-                setScope({ ...scope, confirmed: event.target.checked });
-                invalidate();
-              }}
+        <ScopeCard
+          hidden={!(files[0] && files[1])}
+          summary={
+            <Sentence
+              parts={t.cardSummary(
+                scopeValue(scope.entity),
+                scopeValue(scope.ledger, true),
+                scopeValue(scope.customer, true),
+                scopeValue(scope.account, true),
+                scopeValue(scope.start, true),
+                scopeValue(scope.end, true),
+                scopeValue(scope.currency, true),
+                ([0, 1] as const)
+                  .map((side) =>
+                    t.cardRead(
+                      t.sides[side],
+                      arCardKind(files[side], readings[side]),
+                      rowsReadOn(t.sides[side]),
+                    ),
+                  )
+                  .join(t.cardReadJoin),
+              )}
             />
-            {t.scopeConfirm}
-          </label>
-        </section>
+          }
+          rows={AR_CARD_FIELDS.map((k) => ({
+            key: k,
+            label: k === 'start' || k === 'end' ? t[k] : t.fields[k],
+            origin: origins[k],
+            value: scope[k],
+            fixed: false,
+            suggestion: suggestions[k],
+            control: (describedBy: string) => (
+              <input
+                aria-label={k === 'start' || k === 'end' ? t[k] : t.fields[k]}
+                aria-describedby={describedBy}
+                type={k === 'start' || k === 'end' ? 'date' : 'text'}
+                value={scope[k]}
+                onChange={(event) => {
+                  card.edit(k, event.target.value);
+                  invalidate();
+                }}
+              />
+            ),
+          }))}
+          confirm={
+            <label className="scope-card__confirm">
+              <input
+                type="checkbox"
+                checked={readings.every((r) => r.confirmed) && scope.confirmed}
+                onChange={(event) => {
+                  const confirmed = event.target.checked;
+                  setReadings(
+                    (previous) =>
+                      previous.map((r) => ({
+                        ...r,
+                        confirmed,
+                      })) as typeof readings,
+                  );
+                  card.confirm(confirmed);
+                  invalidate();
+                }}
+              />
+              <span>
+                <Sentence
+                  parts={t.cardConfirm(
+                    scopeValue(scope.entity),
+                    scopeValue(scope.customer, true),
+                    scopeValue(scope.start, true),
+                    scopeValue(scope.end, true),
+                  )}
+                />
+              </span>
+            </label>
+          }
+        />
         <Button
           disabled={
             !files[0] ||

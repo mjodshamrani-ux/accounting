@@ -141,13 +141,24 @@ try {
     await openDomainWorkspace(page, 'ar');
     const w = page.locator('[data-ar-workspace]');
     const button = (name) => w.getByRole('button', { name, exact: true });
-    const wait = () =>
-      page.waitForFunction(
-        () =>
-          document
-            .querySelector('[data-ar-workspace]')
-            ?.getAttribute('aria-busy') === 'false',
-      );
+    // Idle again, or a page error said at once as a failed assertion: a
+    // workspace that throws while rendering is gone, never idle.
+    const wait = async () => {
+      for (const deadline = Date.now() + 60000; Date.now() < deadline; ) {
+        assert.deepEqual(errors, [], 'no page error while the workspace works');
+        if (
+          await page.evaluate(
+            () =>
+              document
+                .querySelector('[data-ar-workspace]')
+                ?.getAttribute('aria-busy') === 'false',
+          )
+        )
+          return;
+        await page.waitForTimeout(100);
+      }
+      throw Error('the receivables workspace stayed busy for a minute');
+    };
     // Matched document pairs, as the alignment strip counts them; the
     // figure grid no longer repeats the count (UX-4).
     const matched = () => stripCount(w, 'agreed');
@@ -202,18 +213,41 @@ try {
         await ledger
           .getByLabel(`${copy.sides[0]}: ${copy.fields[field]}`, { exact: true })
           .selectOption(String(position));
-      await ledger.getByRole('checkbox').check();
       await openStatement(id, keyboard);
       const statement = w.getByTestId('ar-source-1');
       assert.ok(await statement.locator('[data-ar-statement-pdf]').isVisible());
-      // A printed statement has no columns or family to choose.
+      // A printed statement has no columns or family to choose, and no box
+      // of its own: the card's one confirmation carries its role (UX-5(d)).
       assert.equal(await statement.locator('select').count(), 0, `${id} selects`);
-      const confirm = statement.getByRole('checkbox');
-      assert.equal(await confirm.isChecked(), false, `${id} role unconfirmed`);
-      if (keyboard) {
-        await confirm.focus();
-        await page.keyboard.press('Space');
-      } else await confirm.check();
+      assert.equal(
+        await statement.getByRole('checkbox').count(),
+        0,
+        `${id} no box of its own`,
+      );
+      // The worker reads a printed statement at the run, not before: the
+      // card reads the ledger alone, and says so.
+      const card = w.locator('[data-scope-card]');
+      const summary = await card.locator('[data-scope-summary]').innerText();
+      assert.ok(
+        summary.endsWith(
+          `${copy.cardReadJoin}${copy.cardRead(copy.sides[1], 'printed', 0)}.`,
+        ),
+        `${lang}/${id} the sentence says the statement is read at the run: ${summary}`,
+      );
+      const entityHint = (
+        await card.locator('[data-scope-field="entity"] .hint').textContent()
+      ).trim();
+      assert.ok(
+        !entityHint.includes(copy.sides[1]),
+        `${lang}/${id} no value is read from the printed statement: ${entityHint}`,
+      );
+      const one = w.getByLabel(copy.cardConfirm('', '', '', '')[0], {
+        exact: false,
+      });
+      assert.equal(await one.isChecked(), false, `${id} role unconfirmed`);
+      const fields = card.locator('details');
+      if ((await fields.getAttribute('open')) === null)
+        await fields.locator('summary').click();
       for (const field of [
         'entity',
         'ledger',
@@ -231,7 +265,11 @@ try {
             { exact: true },
           )
           .fill(s.scope[field]);
-      await w.getByLabel(copy.scopeConfirm, { exact: true }).check();
+      if (keyboard) {
+        await one.focus();
+        await page.keyboard.press('Space');
+      } else await one.click();
+      assert.equal(await one.isChecked(), true, `${id} confirmed`);
       if (keyboard) {
         await button(copy.run).focus();
         await page.keyboard.press('Enter');
@@ -351,6 +389,15 @@ try {
     // Replacing the statement drops the result made from the old one.
     await openStatement('A04');
     assert.equal(await w.locator('[data-ar-statement-sections]').count(), 0, 'stale result');
+    // The new statement arrives unconfirmed, though the ledger and the scope
+    // were confirmed: its own reading keeps the one box unticked and the
+    // check closed until the accountant confirms again.
+    assert.equal(
+      await w.getByLabel(copy.cardConfirm('', '', '', '')[0], { exact: false }).isChecked(),
+      false,
+      'a new statement drops the one confirmation',
+    );
+    assert.equal(await button(copy.run).isDisabled(), true, 'the check waits for it');
     await context.close();
   }
 } finally {

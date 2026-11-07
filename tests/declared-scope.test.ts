@@ -410,6 +410,61 @@ void test('a source reads a field from the column its role names for it', () => 
   ]);
 });
 
+void test('a field a source does not write is not read from it, even under its own header', () => {
+  // An accounts receivable file whose columns the accountant maps: its
+  // "Entity" column is mapped, its "Ledger" column is not, so its reader
+  // never reads that column and neither does the card.
+  const mapped = file([
+    ['Entity', 'Ledger'],
+    ['E1', 'L-OTHER'],
+  ]);
+  const fields = [
+    { field: 'entity', header: 'Entity' },
+    { field: 'ledger', header: 'Ledger' },
+  ];
+  const out = suggestDeclaredScope(
+    [
+      {
+        label: 'Mapped',
+        file: mapped,
+        sheet: 0,
+        headers: { entity: 'Entity', ledger: null },
+      },
+      {
+        label: 'Other',
+        file: file([
+          ['Entity', 'Ledger'],
+          ['E1', 'L1'],
+        ]),
+        sheet: 0,
+      },
+    ],
+    fields,
+  );
+  assert.equal(out.entity.status, 'agreed');
+  assert.deepEqual(out.entity.read, [
+    { label: 'Mapped', rows: 1 },
+    { label: 'Other', rows: 1 },
+  ]);
+  assert.equal(out.ledger.status, 'agreed', 'the unmapped column is not read');
+  assert.equal(out.ledger.value, 'L1');
+  assert.deepEqual(out.ledger.read, [{ label: 'Other', rows: 1 }]);
+  // With no source writing it, the field is absent: a question.
+  const alone = suggestDeclaredScope(
+    [
+      {
+        label: 'Mapped',
+        file: mapped,
+        sheet: 0,
+        headers: { entity: 'Entity', ledger: null },
+      },
+    ],
+    fields,
+  );
+  assert.equal(alone.ledger.status, 'absent');
+  assert.deepEqual(alone.ledger.read, []);
+});
+
 void test('a source that writes its scope once gives it as a block, counted once', () => {
   // The register's rows carry no scope columns, and one row even writes an
   // "Entity" column the block does not use: a block source is read from its

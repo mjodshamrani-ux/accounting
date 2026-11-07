@@ -16,7 +16,10 @@ import type { SourceFile } from './types.ts';
  *   that writes its scope once, in a block of its own (a structured
  *   inventory register's Scope rows, the scope lines of a printed one),
  *   gives the values its reader takes from that block, and the source then
- *   says it is a block, not rows;
+ *   says it is a block, not rows. A source whose reader is told which
+ *   column holds a field (an accounts receivable file whose columns the
+ *   accountant maps) names that column, and names none when the field is
+ *   left unmapped: the source then does not write that field;
  * - it is suggested only when every non-blank row of every source that has
  *   the column holds the same text, trimmed as the reader trims it; a blank
  *   cell is a value of its own, so it is never outvoted or skipped;
@@ -31,8 +34,9 @@ export type DeclaredScopeSource = {
   file?: SourceFile;
   sheet: number;
   /** The column this source's family names for a field, where it is not
-   *  the field's own header. */
-  headers?: Readonly<Partial<Record<string, string>>>;
+   *  the field's own header; `null` when the source does not write the
+   *  field (a column its reader was not told to read). */
+  headers?: Readonly<Partial<Record<string, string | null>>>;
   /** The scope this source's family writes once, in its own block, as its
    *  reader takes it; the source's rows are then not read for scope. */
   block?: Readonly<Partial<Record<string, string>>>;
@@ -91,6 +95,7 @@ export function suggestDeclaredScope(
       const sheet = source.file?.sheets[source.sheet];
       if (!sheet?.rows.length) continue;
       const own = source.headers?.[field];
+      if (own === null) continue;
       const column = columnOf(sheet.rows[0], own ?? header);
       if (column < 0) continue;
       let rows = 0;

@@ -77,8 +77,8 @@ export const START = {
     ),
     steps: [
       ...['Company AR ledger', 'Company-issued customer statement'].flatMap(
-        (side) => [
-          ...[
+        (side) =>
+          [
             ['Unique posting ID', 'Posting ID'],
             ['Document type', 'Document type'],
             ['Own document number', 'Own document number'],
@@ -90,16 +90,15 @@ export const START = {
             ['Account', 'Account'],
             ['Currency', 'Currency'],
           ].map(([field, column]) => ['select', `${side}: ${field}`, column]),
-          ['check', `${side}: I reviewed this source`],
-        ],
       ),
-      ['fill', 'Entity', 'Synthetic Seller'],
-      ['fill', 'Ledger', 'AR Book'],
-      ['fill', 'Customer ID', 'C0001'],
-      ['fill', 'Account', '1200'],
+      // UX-5(d): the mapped columns fill the card's entity, ledger, customer,
+      // account and currency; no file of this family writes the period.
       ['fill', 'Period start', '2026-09-01'],
       ['fill', 'Period end', '2026-09-30'],
-      ['check', 'I reviewed the common entity, ledger, customer'],
+      [
+        'check',
+        'I reviewed the company AR ledger and the company-issued customer statement',
+      ],
     ],
     run: 'Compare AR documents',
   },

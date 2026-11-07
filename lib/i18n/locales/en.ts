@@ -517,10 +517,59 @@ export const en: Messages = {
       parent: 'Parent scope ID',
       open: 'Descriptive open balance',
     },
-    readingConfirm:
-      'I reviewed this source: seller receivable perspective, original movements, and the selected column meanings. Related invoice is not the own document number.',
-    scopeConfirm:
-      'I reviewed the common entity, ledger, customer, account, currency and period. The source rows must agree with this scope.',
+    // «ما فهمناه من ملفاتك» (UX-5(d)): the scope the two sources write,
+    // each side read as its reader reads it, and the one confirmation that
+    // carries what the two reading boxes, the printed statement box and the
+    // scope box each said. In parts, so the screen can isolate each value.
+    cardSummary: <T>(
+      entity: T,
+      ledger: T,
+      customer: T,
+      account: T,
+      start: T,
+      end: T,
+      currency: T,
+      read: string,
+    ) => [
+      entity,
+      ', ',
+      ledger,
+      ', customer ',
+      customer,
+      ', account ',
+      account,
+      ', ',
+      start,
+      ' to ',
+      end,
+      ', in ',
+      currency,
+      `; read from ${read}.`,
+    ],
+    cardRead: (
+      side: string,
+      kind: 'rows' | 'block' | 'printed' | 'none',
+      rows: number,
+    ) =>
+      kind === 'rows'
+        ? `${side}: rows ${rows}`
+        : kind === 'block'
+          ? `${side}: its scope block`
+          : kind === 'printed'
+            ? `${side}: read at the run`
+            : `${side}: no file yet`,
+    cardReadJoin: ' and ',
+    cardConfirm: <T>(entity: T, customer: T, start: T, end: T) => [
+      'I reviewed the company AR ledger and the company-issued customer statement, each in the seller receivable perspective with original movements, the column meanings chosen for each (a related invoice is not the own document number), a printed statement being the one the company issued, and their common scope in every field above: ',
+      entity,
+      ', customer ',
+      customer,
+      ', ',
+      start,
+      ' to ',
+      end,
+      '. The source rows must agree with this scope. This confirms the reading and the scope; it accepts no document.',
+    ],
     start: 'Period start',
     end: 'Period end',
     run: 'Compare AR documents',
@@ -582,8 +631,6 @@ export const en: Messages = {
     pdfStatement: 'Printed customer statement (PDF)',
     pdfReading:
       'Read from the PDF itself: the document header, each section header and its column headings. Nothing is inferred from amounts or positions outside the declared headings.',
-    pdfReadingConfirm:
-      'I confirm this PDF is the customer statement the company issued, in the seller receivable perspective, with original movement amounts.',
     sections: 'Statement sections',
     section: 'Section',
     customerName: 'Customer name',

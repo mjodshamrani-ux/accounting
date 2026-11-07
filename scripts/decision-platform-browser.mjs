@@ -575,23 +575,21 @@ try {
       await panel
         .getByLabel(`${label}: ${field}`, { exact: true })
         .selectOption(String(index));
-    await panel
-      .getByLabel(`${label}: I reviewed this source:`, { exact: false })
-      .check();
   }
+  // UX-5(d): the mapped columns fill the card «ما فهمناه من ملفاتك»; no file
+  // of this family writes the period, and one box confirms the readings and
+  // the scope together.
+  const fields = panel.locator('[data-scope-card] details');
+  if ((await fields.getAttribute('open')) === null)
+    await fields.locator('summary').click();
   for (const [key, value] of Object.entries({
-    Entity: 'Synthetic Seller',
-    Ledger: 'AR Book',
-    'Customer ID': 'C0001',
-    Account: '1200',
-    Currency: 'SAR',
     'Period start': '2026-09-01',
     'Period end': '2026-09-30',
   }))
     await panel.getByLabel(key, { exact: true }).fill(value);
   await panel
     .getByLabel(
-      'I reviewed the common entity, ledger, customer, account, currency and period.',
+      'I reviewed the company AR ledger and the company-issued customer statement',
       { exact: false },
     )
     .check();

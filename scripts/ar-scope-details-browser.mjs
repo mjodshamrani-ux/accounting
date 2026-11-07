@@ -87,6 +87,8 @@ const cases = [],
   lifecycle = [];
 let activePage;
 let passed = false;
+// Cases where the card was required to read a side's scope block.
+let blockReadings = 0;
 const index = () => ({
   schema: 'ar-scope-details-browser-evidence-1',
   quick,
@@ -213,6 +215,22 @@ try {
         });
         return session;
       };
+      // Whether a CSV scope-details file states Period start once in its
+      // AR_SCOPE block, by this check's own split of its bytes.
+      const blockStatesStart = async (file) => {
+        if (!/\.csv$/iu.test(file)) return false;
+        const text = await readFile(file, 'utf8');
+        if (text.includes('"')) return false;
+        const rows = text.split(/\r?\n/u).map((line) => line.split(','));
+        if (rows[0][0] !== 'AR_SCOPE') return false;
+        const keys = [];
+        for (const row of rows.slice(1)) {
+          if (!row.some((cell) => cell.trim())) continue;
+          if (row[0] === 'DETAILS') break;
+          keys.push(row[0]);
+        }
+        return keys.filter((key) => key === 'Period start').length === 1;
+      };
       const load = async (name) => {
         const folder = path.join(fixtures, name),
           bundleFile = path.join(folder, 'bundle.json');
@@ -254,8 +272,36 @@ try {
                 exact: true,
               })
               .selectOption('7');
-          await source.getByRole('checkbox').check();
         }
+        // UX-5(d): the card reads a scope-details file's block, the period
+        // included, and nothing of the period from a table read row by row.
+        // Where this check's own split finds the block stating Period start
+        // once, the card must name that side's block for it.
+        const card = w.locator('[data-scope-card]'),
+          blockWord = lang === 'ar' ? 'كتلة النطاق' : 'scope block';
+        const startText = await card
+          .locator('[data-scope-field="start"]')
+          .textContent();
+        for (const side of [0, 1]) {
+          const said = `${copy.sides[side]}: ${blockWord}`;
+          if (bundle.families[side] === 'ar-limited-1')
+            assert.ok(
+              !startText.includes(`${copy.sides[side]}:`),
+              `${lang}/${name}: no period is read from a table read row by row`,
+            );
+          else if (
+            await blockStatesStart(path.join(folder, bundle.files[side]))
+          ) {
+            assert.ok(
+              startText.includes(said),
+              `${lang}/${name}: the period read from side ${side}'s scope block: ${startText}`,
+            );
+            blockReadings += 1;
+          }
+        }
+        const fields = card.locator('details');
+        if ((await fields.getAttribute('open')) === null)
+          await fields.locator('summary').click();
         for (const field of [
           'entity',
           'ledger',
@@ -273,7 +319,16 @@ try {
               { exact: true },
             )
             .fill(bundle.scope[field]);
-        await w.getByLabel(copy.scopeConfirm, { exact: true }).check();
+        const one = w.getByLabel(copy.cardConfirm('', '', '', '')[0], {
+          exact: false,
+        });
+        assert.equal(
+          await one.isChecked(),
+          false,
+          `${lang}/${name} unconfirmed`,
+        );
+        await one.click();
+        assert.equal(await one.isChecked(), true, `${lang}/${name} confirmed`);
         await button(copy.run).click();
         await wait();
         assert.equal(
@@ -424,6 +479,8 @@ try {
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
   assert.deepEqual(nonGet, []);
+  assert.ok(blockReadings > 0, 'the card read at least one scope block');
+  console.log(`the card read a side's scope block in ${blockReadings} loads`);
   passed = true;
 } catch (error) {
   if (activePage) {

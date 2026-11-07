@@ -52,8 +52,8 @@ const mutations = [
   [
     'replaced-statement-keeps-result',
     AR,
-    '      setScope((previous) => ({ ...previous, confirmed: false }));\n      invalidate();\n',
-    '      setScope((previous) => ({ ...previous, confirmed: false }));\n',
+    '        return next;\n      });\n      invalidate();\n',
+    '        return next;\n      });\n',
   ],
   [
     'every-section-compared',

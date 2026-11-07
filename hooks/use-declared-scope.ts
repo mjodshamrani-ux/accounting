@@ -13,9 +13,11 @@ import type { SourceFile } from '@/lib/reconciliation/types';
 
 type Columns<K extends string> = readonly { field: K; header: string }[];
 /** Per source, the columns its family names for fields whose values it
- *  writes under another header (an intercompany ledger's "Entity"). */
+ *  writes under another header (an intercompany ledger's "Entity"), and
+ *  `null` for a field the source does not write (a receivables column the
+ *  accountant left unmapped). */
 type SourceHeaders<K extends string> = readonly (
-  | Readonly<Partial<Record<K, string>>>
+  | Readonly<Partial<Record<K, string | null>>>
   | undefined
 )[];
 /** Per source, the scope its family writes once, in a block of its own, as
@@ -146,6 +148,9 @@ export function useDeclaredScope<K extends string, S extends Scope<K>>({
       /** The installed sources' own scope blocks, where they have them;
        *  those of the sources on screen until now do not apply. */
       sourceBlocks?: SourceBlocks<K>,
+      /** The installed sources' own columns, where the workspace names
+       *  them per reading (a receivables mapping); otherwise those above. */
+      sourceHeaders?: SourceHeaders<K>,
     ) {
       setDraft({
         scope,
@@ -156,7 +161,7 @@ export function useDeclaredScope<K extends string, S extends Scope<K>>({
             sourceSheets,
             labels,
             columns,
-            headers,
+            sourceHeaders ?? headers,
             sourceBlocks,
           ),
           rules.map((r) => r.field),
