@@ -32,6 +32,7 @@ import {
   PAYROLL_VERSION,
   PAYROLL_ROLES,
   PAYROLL_FIELDS,
+  PAYROLL_SCOPE_HEADERS,
   PAYROLL_COMPONENTS,
   PAYROLL_AMOUNT_KEYS,
   type PayrollInput,
@@ -45,6 +46,13 @@ import {
 } from '@/lib/reconciliation/payroll-demo';
 import { payrollCopy } from '@/lib/i18n/payroll';
 import { PayrollLongRegisterPanel } from '@/components/payroll-long-register-panel';
+import { ScopeCard, Sentence } from '@/components/scope-card';
+import { scopeCardCopy } from '@/lib/i18n/scope-card';
+import { useDeclaredScope } from '@/hooks/use-declared-scope';
+import type {
+  DeclaredScopeRule,
+  ScopeOrigin,
+} from '@/lib/reconciliation/declared-scope';
 import './workspace-record.css';
 import {
   DecisionButtons,
@@ -59,6 +67,49 @@ const emptyScope = (): PayrollScope =>
     postingStatus: 'posted',
     confirmed: false,
   }) as PayrollScope;
+type PayrollField = (typeof PAYROLL_FIELDS)[number];
+// What the card may put in each field (UX-5(d)): the two one-option selects
+// take only the value the engine accepts, and start from it while no file
+// has the column; the four dates take only YYYY-MM-DD.
+const ONLY = {
+  currencyBasis: 'functional',
+  postingStatus: 'posted',
+} as const;
+const oneOption = (k: PayrollField): k is keyof typeof ONLY => k in ONLY;
+const DATES: readonly PayrollField[] = [
+  'periodStart',
+  'periodEnd',
+  'payrollPostingDate',
+  'paymentDate',
+];
+const isDate = (k: PayrollField) => DATES.includes(k);
+const isoDate = (v: string) => /^\d{4}-\d{2}-\d{2}$/.test(v);
+const scopeRules: DeclaredScopeRule<PayrollField>[] = PAYROLL_FIELDS.map(
+  (field) =>
+    oneOption(field)
+      ? {
+          field,
+          fallback: ONLY[field],
+          accepts: (v) => v === ONLY[field],
+          fixed: true,
+        }
+      : isDate(field)
+        ? { field, accepts: isoDate }
+        : { field },
+);
+// The five originals write the nineteen scope columns on every row, as the
+// engine's row check reads them.
+const scopeColumns = PAYROLL_FIELDS.map((field, i) => ({
+  field,
+  header: PAYROLL_SCOPE_HEADERS[i],
+}));
+const freshOrigins = () =>
+  Object.fromEntries(
+    scopeRules.map((r) => [
+      r.field,
+      r.fallback === undefined ? 'question' : 'default',
+    ]),
+  ) as Record<PayrollField, ScopeOrigin>;
 const readings = () =>
   PAYROLL_ROLES.map((role) => ({
     sheet: 0,
@@ -90,8 +141,19 @@ export function PayrollWorkspace({
     null,
     null,
   ]);
-  const [reading, setReading] = useState(readings),
-    [scope, setScope] = useState(emptyScope);
+  const [reading, setReading] = useState(readings);
+  // The card's scope and where each value came from (UX-5(d)): a new file
+  // fills what the five files agree on into the fields the accountant has
+  // not entered, and a value it changes drops the confirmation.
+  const card = useDeclaredScope({
+    initial: () => ({ scope: emptyScope(), origins: freshOrigins() }),
+    rules: scopeRules,
+    columns: scopeColumns,
+    files,
+    sheets: reading.map((r) => r.sheet),
+    labels: copy.roles,
+  });
+  const { scope, origins, suggestions } = card;
   const [complete, setComplete] = useState<PayrollInput['completeness']>({
     confirmed: false,
     reference: '',
@@ -138,7 +200,11 @@ export function PayrollWorkspace({
   function install(v: { state: PayrollInput; result: PayrollResult }) {
     setFiles(v.state.files);
     setReading(v.state.readings);
-    setScope(v.state.scope);
+    card.install(
+      v.state.scope,
+      v.state.files,
+      v.state.readings.map((r) => r.sheet),
+    );
     setComplete(v.state.completeness);
     setEvents(v.state.events);
     setResult(v.result);
@@ -189,6 +255,24 @@ export function PayrollWorkspace({
     reading.every((r) => r.confirmed) &&
     scope.confirmed &&
     PAYROLL_FIELDS.every((k) => scope[k]);
+  function updateScope(key: PayrollField, value: string) {
+    card.edit(key, value);
+    invalidate();
+  }
+  const unknown = scopeCardCopy[lang].unknown;
+  // A value inside a sentence, isolated so mixed scripts keep their order;
+  // a date, a code or a ledger is never split across lines.
+  const scopeValue = (v: string, whole = false) => (
+    <bdi className={whole ? 'scope-card__whole' : undefined}>
+      {v || unknown}
+    </bdi>
+  );
+  const rowsRead = Math.max(
+    0,
+    ...PAYROLL_FIELDS.map((k) =>
+      suggestions[k].read.reduce((n, r) => n + r.rows, 0),
+    ),
+  );
   async function upload(file: File, source: number) {
     await perform(
       async (signal) => {
@@ -428,19 +512,6 @@ export function PayrollWorkspace({
                   <p>
                     <bdi>{files[i]!.name}</bdi>
                   </p>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={reading[i].confirmed}
-                      onChange={(e) => {
-                        const next = [...reading] as PayrollInput['readings'];
-                        next[i] = { ...next[i], confirmed: e.target.checked };
-                        setReading(next);
-                        invalidate();
-                      }}
-                    />
-                    {copy.roleConfirm}
-                  </label>
                   {detail(
                     copy.roles[i],
                     files[i]!.sheets[0].rows[0] ?? [],
@@ -453,38 +524,84 @@ export function PayrollWorkspace({
           ))}
         </WorkspaceSources>
         <fieldset disabled={busy} hidden={!(files[0] && files[3])}>
-          <legend>{copy.scopeTitle}</legend>
-          <div className="gl-tb-grid">
-            {PAYROLL_FIELDS.map((k) => (
-              <label key={k}>
-                {copy.scope[k]}
+          <ScopeCard
+            hidden={!(files[0] && files[3])}
+            summary={
+              <Sentence
+                parts={copy.cardSummary(
+                  scopeValue(scope.payrollRun, true),
+                  scopeValue(scope.entity),
+                  scopeValue(scope.payrollLedger, true),
+                  scopeValue(scope.glLedger, true),
+                  scopeValue(scope.periodStart, true),
+                  scopeValue(scope.periodEnd, true),
+                  scopeValue(scope.paymentDate, true),
+                  scopeValue(scope.currency, true),
+                  rowsRead,
+                )}
+              />
+            }
+            rows={PAYROLL_FIELDS.map((k) => {
+              const name = copy.scopePrefix + copy.scope[k];
+              return {
+                key: k,
+                label: copy.scope[k],
+                origin: origins[k],
+                value: scope[k],
+                fixed: oneOption(k),
+                suggestion: suggestions[k],
+                control: (describedBy: string) =>
+                  oneOption(k) ? (
+                    <select
+                      aria-label={name}
+                      aria-describedby={describedBy}
+                      value={scope[k]}
+                      onChange={(e) => updateScope(k, e.target.value)}
+                    >
+                      <option value={ONLY[k]}>{copy.only[k]}</option>
+                    </select>
+                  ) : (
+                    <input
+                      aria-label={name}
+                      aria-describedby={describedBy}
+                      type={isDate(k) ? 'date' : 'text'}
+                      maxLength={500}
+                      value={scope[k]}
+                      onChange={(e) => updateScope(k, e.target.value)}
+                    />
+                  ),
+              };
+            })}
+            confirm={
+              <label className="scope-card__confirm">
                 <input
-                  aria-label={copy.scopePrefix + copy.scope[k]}
-                  maxLength={500}
-                  value={scope[k]}
+                  type="checkbox"
+                  checked={reading.every((r) => r.confirmed) && scope.confirmed}
                   onChange={(e) => {
-                    setScope({
-                      ...scope,
-                      [k]: e.target.value,
-                      confirmed: false,
-                    });
+                    const confirmed = e.target.checked;
+                    setReading(
+                      (previous) =>
+                        previous.map((r) => ({
+                          ...r,
+                          confirmed,
+                        })) as PayrollInput['readings'],
+                    );
+                    card.confirm(confirmed);
                     invalidate();
                   }}
                 />
+                <span>
+                  <Sentence
+                    parts={copy.cardConfirm(
+                      scopeValue(scope.payrollRun, true),
+                      scopeValue(scope.entity),
+                      scopeValue(scope.paymentDate, true),
+                    )}
+                  />
+                </span>
               </label>
-            ))}
-          </div>
-          <label>
-            <input
-              type="checkbox"
-              checked={scope.confirmed}
-              onChange={(e) => {
-                setScope({ ...scope, confirmed: e.target.checked });
-                invalidate();
-              }}
-            />
-            {copy.scopeConfirm}
-          </label>
+            }
+          />
         </fieldset>
         <WorkspaceAdvanced summary={copy.completeTitle}>
           <fieldset disabled={busy}>

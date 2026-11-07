@@ -2,7 +2,6 @@ import { stockCopy } from './inventory-register.ts';
 // Only generic table/review controls are shared; asset component facts and claims are independent.
 const controls = (c: typeof stockCopy.en) => ({
   back: c.back,
-  roleConfirm: c.roleConfirm,
   members: c.members,
   missing: c.missing,
   issues: c.issues,

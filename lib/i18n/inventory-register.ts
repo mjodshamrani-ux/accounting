@@ -77,7 +77,6 @@ const en = {
     'Independent supplied policy evidence',
     'Selected inventory GL balances',
   ],
-  roleConfirm: 'I confirmed this original and its role.',
   // The UX-5(d) card: what the four files say, and the one confirmation that
   // carries the four source attestations and the scope attestation. In
   // parts, so the screen can isolate each value. A structured or printed
@@ -493,7 +492,6 @@ const ar: typeof en = {
     'دليل السياسة المستقل المقدم',
     'أرصدة مخزون الأستاذ المحددة',
   ],
-  roleConfirm: 'أكدت هذا الأصل ودوره.',
   cardSummary: <T>(
     entity: T,
     inventoryLedger: T,
