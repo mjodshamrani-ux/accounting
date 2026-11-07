@@ -23,7 +23,7 @@ const cases = [
     demo: 'Open a synthetic asset example',
     cancel: 'Cancel asset processing',
     scope: 'Asset scope Map version',
-    source: 'Posted fixed asset register',
+    source: 'Posted asset component register',
     fixture: 'three-components-positive',
     malformed: 'malformed-register-competitor-full-member',
     count: 4,

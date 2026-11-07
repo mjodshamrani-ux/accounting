@@ -69,9 +69,40 @@ const en = {
     'Independent supplied asset policy evidence',
     'Selected asset GL balances',
   ],
-  scopeTitle: 'Confirmed asset snapshot scope',
-  scopeConfirm:
-    'I confirmed the complete asset snapshot scope and selected component GL account set.',
+  // «ما فهمناه من ملفاتك» (UX-5(d)): what the four originals say on every
+  // row, and the one confirmation that carries the four source attestations
+  // and the scope attestation.
+  cardSummary: <T>(
+    entity: T,
+    assetLedger: T,
+    glLedger: T,
+    asOf: T,
+    currency: T,
+    rows: number,
+  ) => [
+    entity,
+    ', ',
+    assetLedger,
+    ' against ',
+    glLedger,
+    ', as of ',
+    asOf,
+    ', in ',
+    currency,
+    `; ${rows} rows read from the four files.`,
+  ],
+  cardConfirm: <T>(entity: T, asOf: T) => [
+    "I reviewed the posted asset component register, the proposed asset component / GL mapping, the independent supplied asset policy evidence and the selected asset GL balances (each one's role and family) and their common scope in every field above, with the selected component GL account set: ",
+    entity,
+    ', as of ',
+    asOf,
+    '. This confirms the reading and the scope; it accepts no asset.',
+  ],
+  // The one value each of these fields takes in this family.
+  only: {
+    currencyBasis: 'Functional',
+    postingStatus: 'Posted',
+  },
   scope: {
     entity: 'Entity',
     assetLedger: 'Asset ledger',
@@ -258,8 +289,36 @@ const ar: typeof en = {
     'دليل سياسة الأصول المستقل المقدم',
     'أرصدة مكونات الأصول في الأستاذ المحددة',
   ],
-  scopeTitle: 'نطاق رصيد الأصول المؤكد',
-  scopeConfirm: 'أكدت نطاق الأصول الكامل ومجموعة حسابات مكوناتها في الأستاذ.',
+  cardSummary: <T>(
+    entity: T,
+    assetLedger: T,
+    glLedger: T,
+    asOf: T,
+    currency: T,
+    rows: number,
+  ) => [
+    entity,
+    '، ',
+    assetLedger,
+    ' مقابل ',
+    glLedger,
+    '، كما في ',
+    asOf,
+    '، بعملة ',
+    currency,
+    `؛ الصفوف المقروءة من الملفات الأربعة: ${rows}.`,
+  ],
+  cardConfirm: <T>(entity: T, asOf: T) => [
+    'راجعت سجل مكونات الأصول المرحل وخريطة مكونات الأصول والأستاذ المقترحة ودليل سياسة الأصول المستقل المقدم وأرصدة مكونات الأصول في الأستاذ المحددة (دور كل منها وعائلته) ونطاقها المشترك بكل حقوله أعلاه، ومعه مجموعة حسابات المكونات المحددة في الأستاذ: ',
+    entity,
+    '، كما في ',
+    asOf,
+    '؛ وهذا تأكيد للقراءة والنطاق، لا قبول لأصل.',
+  ],
+  only: {
+    currencyBasis: 'وظيفية',
+    postingStatus: 'مرحّلة',
+  },
   scope: {
     entity: 'الكيان',
     assetLedger: 'دفتر الأصول',

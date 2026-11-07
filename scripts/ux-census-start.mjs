@@ -217,26 +217,12 @@ export const START = {
       'Independent supplied asset policy evidence',
       'Selected asset GL balances',
     ]),
+    // UX-5(d): the files' scope columns fill the card; one confirmation.
     steps: [
-      ...[0, 1, 2, 3].map((i) => [
+      [
         'check',
-        'I confirmed this original and its role',
-        undefined,
-        i,
-      ]),
-      ...[
-        ['Entity', 'Synthetic Asset Owner'],
-        ['Asset ledger', 'ASSET-BOOK'],
-        ['GL ledger', 'GL-BOOK'],
-        ['Currency', 'JPY'],
-        ['Posting layer', 'Current'],
-        ['As of', '2026-09-30'],
-        ['Chart version', 'CHART-1'],
-        ['Map version', 'MAP-1'],
-        ['Component policy version', 'provided-components-1'],
-        ['Asset account set version', 'ASSET-SET-1'],
-      ].map(([field, value]) => ['fill', `Asset scope ${field}`, value]),
-      ['check', 'I confirmed the complete'],
+        'I reviewed the posted asset component register, the proposed asset component / GL mapping, the independent supplied asset policy evidence and the selected asset GL balances',
+      ],
     ],
     run: 'Check asset components / GL',
   },
