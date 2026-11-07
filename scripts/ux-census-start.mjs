@@ -182,27 +182,12 @@ export const START = {
       'Gateway settlement summary',
       'Bank credit evidence',
     ]),
+    // UX-5(d): the files' scope columns fill the card; one confirmation.
     steps: [
-      ...[0, 1, 2, 3].map((i) => [
+      [
         'check',
-        'I reviewed this original and confirm its role',
-        undefined,
-        i,
-      ]),
-      ...[
-        ['Entity', 'Synthetic Merchant'],
-        ['Gateway', 'Gateway example'],
-        ['Merchant account', '001'],
-        ['Bank account', 'BANK-01'],
-        ['Complete dimensions', 'department=01'],
-        ['Currency', 'SAR'],
-        ['Period start', '2026-09-01'],
-        ['Period end', '2026-09-30'],
-        ['As of', '2026-09-30'],
-        ['Policy version', 'PG-1'],
-        ['Batch ID', 'BATCH-001'],
-      ].map(([field, value]) => ['fill', `Gateway scope ${field}`, value]),
-      ['check', 'I confirm that the scope agrees across all four originals'],
+        'I reviewed the gateway sales and refunds, the independent fee evidence, the gateway settlement summary and the bank credit evidence',
+      ],
     ],
     run: 'Check gateway batch',
   },

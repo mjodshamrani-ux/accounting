@@ -113,6 +113,12 @@ try {
   );
   checks.resultReplacementClearsSynchronously = true;
   await a.locator('[data-evidence-question="sources"]').click();
+  // The scope's fields are folded under the card (UX-5(d)).
+  const gatewayFields = page.locator(
+    '[data-gateway-workspace] [data-scope-card] details',
+  );
+  if ((await gatewayFields.getAttribute('open')) === null)
+    await gatewayFields.locator('summary').click();
   await page
     .getByLabel('Gateway scope Policy version', { exact: true })
     .fill('Changed scope');

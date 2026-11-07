@@ -4,10 +4,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { gatewayCopy } from '../lib/i18n/payment-gateway.ts';
-import {
-  openDomainWorkspace,
-  workspaceSource,
-} from './domain-navigation-support.mjs';
+import { openDomainWorkspace } from './domain-navigation-support.mjs';
 
 const root = path.resolve('dist');
 const expectedAppVersion = JSON.parse(
@@ -154,10 +151,21 @@ try {
         });
         return session;
       };
-      const attestSource = async (source) => {
-        await workspaceSource(w, copy.roles[source])
-          .getByRole('checkbox')
-          .check();
+      // The card's one confirmation (UX-5(d)) carries the four source
+      // attestations; a new original or another amount format drops it, and
+      // the accountant gives it again.
+      const confirmBox = w.getByLabel(
+        copy.cardConfirm('', '', '', '')[0],
+        { exact: false },
+      );
+      const attest = async () => {
+        assert.equal(
+          await confirmBox.isChecked(),
+          false,
+          'another original or amount format drops the confirmation',
+        );
+        assert.equal(await button(copy.compare).isEnabled(), false);
+        await confirmBox.check();
         await w.getByLabel(copy.complete, { exact: true }).check();
       };
       await button(copy.signedDemo).click();
@@ -215,13 +223,13 @@ try {
       // A family change invalidates review and cannot reinterpret the original header.
       await family.selectOption('payment-gateway-batch-1');
       assert.equal(await status.count(), 0);
-      await attestSource(0);
+      await attest();
       await button(copy.compare).click();
       await wait();
       assert.equal(await status.innerText(), copy.status['source-error']);
       assert.equal(await button(copy.accept).isEnabled(), false);
       await family.selectOption('payment-gateway-signed-kind-1');
-      await attestSource(0);
+      await attest();
       await button(copy.compare).click();
       await wait();
       assert.equal(await status.innerText(), copy.status['needs-review']);
@@ -232,7 +240,7 @@ try {
           'audit/payment-gateway-signed/fixtures/negative-sale-negative/0.csv',
         );
       await wait();
-      await attestSource(0);
+      await attest();
       await button(copy.compare).click();
       await wait();
       assert.equal(await status.innerText(), copy.status['source-error']);
@@ -252,11 +260,8 @@ try {
             `audit/payment-gateway-signed/fixtures/sar-zero-kinds/${source}.csv`,
           );
         await wait();
-        await workspaceSource(w, copy.roles[source])
-          .getByRole('checkbox')
-          .check();
       }
-      await w.getByLabel(copy.complete, { exact: true }).check();
+      await attest();
       await button(copy.compare).click();
       await wait();
       assert.equal(await status.innerText(), copy.status['needs-review']);
