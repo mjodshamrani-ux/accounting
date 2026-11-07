@@ -697,8 +697,45 @@ export const en: Messages = {
     ledger: 'Ledger',
     start: 'Period start',
     end: 'Period end',
-    confirm:
-      'I reviewed the column meanings and scope: movements belong to one entity, ledger and account; debit is positive and credit is negative.',
+    // «ما فهمناه من ملفاتك» (UX-5(d)): the account and currency the mapped
+    // columns write on every row, the entity, ledger and period the
+    // accountant gives, and one confirmation. In parts, so the screen can
+    // isolate each value.
+    cardSummary: <T>(
+      entity: T,
+      ledger: T,
+      account: T,
+      start: T,
+      end: T,
+      currency: T,
+      rows: number,
+    ) => [
+      entity,
+      ', ',
+      ledger,
+      ', account ',
+      account,
+      ', ',
+      start,
+      ' to ',
+      end,
+      ', in ',
+      currency,
+      `; ${rows} rows read from the movements file.`,
+    ],
+    cardConfirm: <T>(entity: T, ledger: T, account: T, start: T, end: T) => [
+      'I reviewed the column meanings and scope: movements belong to one entity, ledger and account; debit is positive and credit is negative; and their scope in every field above: ',
+      entity,
+      ', ',
+      ledger,
+      ', account ',
+      account,
+      ', ',
+      start,
+      ' to ',
+      end,
+      '. This confirms the reading and the scope; it clears no movement.',
+    ],
     run: 'Check clearing',
     cancel: 'Cancel processing',
     working: 'Verifying locally',

@@ -1,14 +1,14 @@
 {
   "note": "Interface census class inputsBeforeRun (UX-5): in each workspace, the inputs a reader sets after loading committed synthetic sources and before the first run, by the recipes in scripts/ux-census-start.mjs, each step shown to be needed in English and repeated in Arabic. Recorded by scripts/ux-census-start-browser.mjs --record; the gate fails on any change.",
   "recorded": {
-    "commit": "1f29f5e42072fb8086a9975701bb3290e377b706",
+    "commit": "e66ae52bb40240fef0820936c07ef72a230e6762",
     "date": "2026-11-07",
     "chromium": "141.0.7390.37"
   },
   "metric": "inputsBeforeRun",
   "domains": {
     "supplier": 2,
-    "clearing": 12,
+    "clearing": 11,
     "ar": 23,
     "gl-tb": 1,
     "allocation": 1,
@@ -20,5 +20,5 @@
     "assets": 1,
     "payroll": 1
   },
-  "total": 46
+  "total": 45
 }

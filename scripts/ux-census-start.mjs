@@ -58,9 +58,10 @@ export const START = {
       ['select', 'Signed amount', 'Amount'],
       ['select', 'Account', 'Account'],
       ['select', 'Currency', 'Currency'],
+      // UX-5(d): the mapped account and currency columns fill the card; no
+      // column of this family writes the entity, the ledger or the period.
       ['fill', 'Entity', 'Synthetic Entity'],
       ['fill', 'Ledger', 'Synthetic Ledger'],
-      ['fill', 'Account', '2150'],
       ['fill', 'Period start', '2026-09-01'],
       ['fill', 'Period end', '2026-09-30'],
       ['check', 'I reviewed the column meanings and scope'],

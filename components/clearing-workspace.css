@@ -31,10 +31,6 @@
   min-width: 0;
   padding: 0;
 }
-.clearing-workspace .clearing-confirm {
-  flex-direction: row;
-  align-items: flex-start;
-}
 .clearing-workspace input[type='checkbox'] {
   width: 20px;
   height: 20px;

@@ -3,7 +3,7 @@ import { AlignmentStrip } from '@/components/alignment-strip';
 import { ResultIndex, useResultParts } from '@/components/result-index';
 import { clearingStrip } from '@/lib/alignment-strip';
 import { ClearingGroupsPanel } from './clearing-groups-panel';
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import {
   ClosedReason,
@@ -14,7 +14,6 @@ import {
   WorkspaceHeader,
   WorkspaceIntro,
   WorkspaceSourceHeading,
-  WorkspaceGroupTitle,
   WorkspaceFileInput,
   WorkspaceSources,
   WorkspaceAdvanced,
@@ -43,6 +42,13 @@ import {
 import { RecordRows } from '@/components/record-table';
 import { StatusBadge } from '@/components/status-badge';
 import { clearingGroupTone } from '@/lib/status-tone';
+import { ScopeCard, Sentence } from '@/components/scope-card';
+import { scopeCardCopy } from '@/lib/i18n/scope-card';
+import { useDeclaredScope } from '@/hooks/use-declared-scope';
+import type {
+  DeclaredScopeRule,
+  ScopeOrigin,
+} from '@/lib/reconciliation/declared-scope';
 import './clearing-workspace.css';
 
 const freshReading = (): ClearingReading => ({
@@ -68,6 +74,67 @@ const freshScope = (): ClearingScope => ({
   end: '',
   confirmed: false,
 });
+// The card «ما فهمناه من ملفاتك» (UX-5(d)). The engine compares the account
+// and the currency with every row, in the columns the accountant maps
+// (ROW_SCOPE): the card reads those two from the mapped columns, and from no
+// column while one is unmapped. No column of this family writes the entity
+// or the ledger, and the period is never taken from movement dates: those
+// are asked. The currency starts from SAR, marked as the default, while no
+// file writes it; the period takes only YYYY-MM-DD.
+const CARD_FIELDS = [
+  'entity',
+  'ledger',
+  'account',
+  'currency',
+  'start',
+  'end',
+] as const;
+type CardField = (typeof CARD_FIELDS)[number];
+const isoDate = (v: string) => /^\d{4}-\d{2}-\d{2}$/.test(v);
+const cardRules: DeclaredScopeRule<CardField>[] = CARD_FIELDS.map((field) =>
+  field === 'currency'
+    ? { field, fallback: 'SAR' }
+    : field === 'start' || field === 'end'
+      ? { field, accepts: isoDate }
+      : { field },
+);
+// Every field has a suggestion; the headers below say which are read.
+const CARD_HEADERS: Record<CardField, string> = {
+  entity: 'Entity',
+  ledger: 'Ledger',
+  account: 'Account',
+  currency: 'Currency',
+  start: 'Period start',
+  end: 'Period end',
+};
+const cardColumns = CARD_FIELDS.map((field) => ({
+  field,
+  header: CARD_HEADERS[field],
+}));
+const freshOrigins = () =>
+  Object.fromEntries(
+    cardRules.map((r) => [
+      r.field,
+      r.fallback === undefined ? 'question' : 'default',
+    ]),
+  ) as Record<CardField, ScopeOrigin>;
+// The column mapped to the account and to the currency, as the reader names
+// it; no column for a field left unmapped or one this family never writes.
+function cardHeadersOf(file: SourceFile | null, reading: ClearingReading) {
+  const header = file?.sheets[reading.sheet]?.rows[reading.header] ?? [];
+  const named = (at: number) =>
+    at >= 0 && header[at]?.trim() ? header[at].trim() : null;
+  return [
+    {
+      entity: null,
+      ledger: null,
+      account: named(reading.account),
+      currency: named(reading.currency),
+      start: null,
+      end: null,
+    },
+  ];
+}
 function download(bytes: ArrayBuffer, name: string, type: string) {
   const url = URL.createObjectURL(new Blob([bytes], { type }));
   const a = document.createElement('a');
@@ -88,7 +155,6 @@ export function ClearingWorkspace({
   const t = catalogue.clearing;
   const [file, setFile] = useState<SourceFile | null>(null),
     [reading, setReading] = useState(freshReading),
-    [scope, setScope] = useState(freshScope),
     [events, setEvents] = useState<ClearingEvent[]>([]),
     [result, setResult] = useState<ClearingResult | null>(null);
   const [busy, setBusy] = useState(false),
@@ -97,6 +163,25 @@ export function ClearingWorkspace({
     [selected, setSelected] = useState<string[]>([]),
     [page, setPage] = useState(0),
     [inventoryPage, setInventoryPage] = useState(0);
+  // The card's scope and where each value came from (UX-5(d)): a new file
+  // starts it afresh; a sheet, layout or column change drops the
+  // confirmation; what the mapped columns agree on fills the fields the
+  // accountant has not entered.
+  const cardFiles = useMemo(() => [file], [file]),
+    cardHeaders = useMemo(() => cardHeadersOf(file, reading), [file, reading]);
+  // The hook re-reads when its inputs change identity: each is kept until
+  // what it holds changes.
+  const cardLabels = useMemo(() => [t.upload], [t.upload]);
+  const card = useDeclaredScope({
+    initial: () => ({ scope: freshScope(), origins: freshOrigins() }),
+    rules: cardRules,
+    columns: cardColumns,
+    files: cardFiles,
+    sheets: [reading.sheet],
+    labels: cardLabels,
+    headers: cardHeaders,
+  });
+  const { scope, origins, suggestions } = card;
   const operation = useRef<AbortController | null>(null),
     serial = useRef(0);
   useEffect(
@@ -124,7 +209,13 @@ export function ClearingWorkspace({
   }) => {
     setFile(state.file);
     setReading(state.reading);
-    setScope(state.scope);
+    card.install(
+      state.scope,
+      [state.file],
+      [state.reading.sheet],
+      undefined,
+      cardHeadersOf(state.file, state.reading),
+    );
     setEvents(state.events);
     setResult(result);
     setSelected([]);
@@ -214,25 +305,22 @@ export function ClearingWorkspace({
       invalidate();
       setFile(value);
       setReading(freshReading());
-      setScope(freshScope());
+      card.reset();
     });
   }
   const sheet = file?.sheets[reading.sheet],
     header = sheet?.rows[reading.header] ?? [];
-  const field = (key: keyof ClearingScope) => (
-    <label>
-      {t[key as 'entity']}
-      <input
-        aria-label={t[key as 'entity']}
-        value={String(scope[key])}
-        disabled={busy}
-        type={key === 'start' || key === 'end' ? 'date' : 'text'}
-        onChange={(e) => {
-          invalidate();
-          setScope({ ...scope, [key]: e.target.value, confirmed: false });
-        }}
-      />
-    </label>
+  const unknown = scopeCardCopy[lang].unknown;
+  // A value inside a sentence, isolated so mixed scripts keep their order;
+  // a date, a code or a ledger is never split across lines.
+  const scopeValue = (v: string, whole = false) => (
+    <bdi className={whole ? 'scope-card__whole' : undefined}>
+      {v || unknown}
+    </bdi>
+  );
+  const rowsRead = Math.max(
+    0,
+    ...CARD_FIELDS.flatMap((k) => suggestions[k].read.map((r) => r.rows)),
   );
   const col = (key: keyof ClearingReading) => (
     <label key={key}>
@@ -244,7 +332,7 @@ export function ClearingWorkspace({
         onChange={(e) => {
           invalidate();
           setReading({ ...reading, [key]: Number(e.target.value) });
-          setScope({ ...scope, confirmed: false });
+          card.confirm(false);
         }}
       >
         <option value={-1}>{t.column}</option>
@@ -305,7 +393,13 @@ export function ClearingWorkspace({
                     invalidate();
                     setFile(f);
                     setReading({ ...clearingDemoReading });
-                    setScope({ ...clearingDemoScope });
+                    card.install(
+                      { ...clearingDemoScope },
+                      [f],
+                      [clearingDemoReading.sheet],
+                      undefined,
+                      cardHeadersOf(f, clearingDemoReading),
+                    );
                     revealLoaded();
                   })
                 }
@@ -403,7 +497,7 @@ export function ClearingWorkspace({
                         ...freshReading(),
                         sheet: Number(e.target.value),
                       });
-                      setScope({ ...scope, confirmed: false });
+                      card.confirm(false);
                     }}
                   >
                     {file.sheets.map((s, i) => (
@@ -427,7 +521,7 @@ export function ClearingWorkspace({
                         sheet: reading.sheet,
                         header: Number(e.target.value) - 1,
                       });
-                      setScope({ ...scope, confirmed: false });
+                      card.confirm(false);
                     }}
                   />
                 </label>
@@ -444,7 +538,7 @@ export function ClearingWorkspace({
                         debit: -1,
                         credit: -1,
                       });
-                      setScope({ ...scope, confirmed: false });
+                      card.confirm(false);
                     }}
                   >
                     <option value="signed">{t.signed}</option>
@@ -465,34 +559,64 @@ export function ClearingWorkspace({
                   ] as (keyof ClearingReading)[]
                 ).map(col)}
               </div>
-              <section className="workspace-scope">
-                <WorkspaceGroupTitle kind="scope" />
-                <div className="clearing-grid">
-                  {(
-                    [
-                      'entity',
-                      'ledger',
-                      'account',
-                      'currency',
-                      'start',
-                      'end',
-                    ] as (keyof ClearingScope)[]
-                  ).map((key) => (
-                    <div key={key}>{field(key)}</div>
-                  ))}
-                </div>
-                <label className="clearing-confirm">
-                  <input
-                    type="checkbox"
-                    checked={scope.confirmed}
-                    onChange={(e) => {
-                      invalidate();
-                      setScope({ ...scope, confirmed: e.target.checked });
-                    }}
+              <ScopeCard
+                summary={
+                  <Sentence
+                    parts={t.cardSummary(
+                      scopeValue(scope.entity),
+                      scopeValue(scope.ledger, true),
+                      scopeValue(scope.account, true),
+                      scopeValue(scope.start, true),
+                      scopeValue(scope.end, true),
+                      scopeValue(scope.currency, true),
+                      rowsRead,
+                    )}
                   />
-                  {t.confirm}
-                </label>
-              </section>
+                }
+                rows={CARD_FIELDS.map((k) => ({
+                  key: k,
+                  label: t[k],
+                  origin: origins[k],
+                  value: scope[k],
+                  fixed: false,
+                  suggestion: suggestions[k],
+                  control: (describedBy: string) => (
+                    <input
+                      aria-label={t[k]}
+                      aria-describedby={describedBy}
+                      type={k === 'start' || k === 'end' ? 'date' : 'text'}
+                      value={scope[k]}
+                      onChange={(event) => {
+                        invalidate();
+                        card.edit(k, event.target.value);
+                      }}
+                    />
+                  ),
+                }))}
+                confirm={
+                  <label className="scope-card__confirm">
+                    <input
+                      type="checkbox"
+                      checked={scope.confirmed}
+                      onChange={(event) => {
+                        invalidate();
+                        card.confirm(event.target.checked);
+                      }}
+                    />
+                    <span>
+                      <Sentence
+                        parts={t.cardConfirm(
+                          scopeValue(scope.entity),
+                          scopeValue(scope.ledger, true),
+                          scopeValue(scope.account, true),
+                          scopeValue(scope.start, true),
+                          scopeValue(scope.end, true),
+                        )}
+                      />
+                    </span>
+                  </label>
+                }
+              />
             </fieldset>
             <Button
               disabled={busy || !scope.confirmed}
