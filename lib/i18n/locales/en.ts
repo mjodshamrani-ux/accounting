@@ -59,10 +59,35 @@ export const en: Messages = {
       'blank-inactive': 'Inactive side blank in the original',
       'explicit-zero-inactive': 'Written zero on the inactive side',
     },
-    sourceConfirm:
-      'I reviewed this table’s source roles, company cash directions, booked or posted status, settlement identities and fee or reversal evidence.',
-    scopeConfirm:
-      'I reviewed the common entity, ledger, bank account, currency and period. This is a movement comparison; it does not close balances.',
+    // Sentences in parts, so the screen can isolate each value (UX-5(d)).
+    cardSummary: <T>(
+      entity: T,
+      account: T,
+      start: T,
+      end: T,
+      currency: T,
+      rows: number,
+    ) => [
+      entity,
+      ', bank account ',
+      account,
+      ', ',
+      start,
+      ' to ',
+      end,
+      ', in ',
+      currency,
+      `; ${rows} rows read from the two files.`,
+    ],
+    cardConfirm: <T>(entity: T, start: T, end: T) => [
+      'I reviewed the bank statement and the cashbook (source roles, company cash directions, booked or posted status, settlement identities and fee or reversal evidence) and their common scope in every field above: ',
+      entity,
+      ', ',
+      start,
+      ' to ',
+      end,
+      '. This is a movement comparison; it does not close balances.',
+    ],
     compare: 'Compare bank movements',
     cancel: 'Cancel operation',
     failed:

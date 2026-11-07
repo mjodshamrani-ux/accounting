@@ -139,16 +139,8 @@ export const START = {
       [0, 1].map((i) => `audit/bank/frozen/individual-${i}.csv`),
       ['Bank statement', 'Cashbook'],
     ),
-    steps: [
-      ['check', 'Bank statement I reviewed this table'],
-      ['check', 'Cashbook I reviewed this table'],
-      ['fill', 'Entity', 'Synthetic Cash Owner'],
-      ['fill', 'Ledger', 'Primary Book'],
-      ['fill', 'Bank account', 'BANK-001'],
-      ['fill', 'Period start', '2026-09-01'],
-      ['fill', 'Period end', '2026-09-30'],
-      ['check', 'I reviewed the common entity, ledger, bank account'],
-    ],
+    // UX-5(d): the files' scope columns fill the card; one confirmation.
+    steps: [['check', 'I reviewed the bank statement and the cashbook']],
     run: 'Compare bank movements',
   },
   'tb-financial': {

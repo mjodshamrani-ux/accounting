@@ -37,6 +37,7 @@ import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
 import { money } from '@/lib/reconciliation/core';
 import {
   BANK_SCOPE_FIELDS,
+  BANK_SCOPE_HEADERS,
   BANK_VERSION,
   BANK_WD_FAMILY,
   type BankInput,
@@ -52,6 +53,13 @@ import {
 } from '@/lib/reconciliation/bank-demo';
 import { StatusBadge } from '@/components/status-badge';
 import { bankCaseTone } from '@/lib/status-tone';
+import { ScopeCard, Sentence } from '@/components/scope-card';
+import { scopeCardCopy } from '@/lib/i18n/scope-card';
+import { useDeclaredScope } from '@/hooks/use-declared-scope';
+import type {
+  DeclaredScopeRule,
+  ScopeOrigin,
+} from '@/lib/reconciliation/declared-scope';
 import './workspace-record.css';
 import './bank-workspace.css';
 const freshScope = (): BankScope => ({
@@ -63,6 +71,30 @@ const freshScope = (): BankScope => ({
   end: '',
   confirmed: false,
 });
+type BankScopeField = (typeof BANK_SCOPE_FIELDS)[number];
+// What the card may put in each field (UX-5(d)): the period dates take only
+// a date the engine reads; currency starts from its default while no file
+// has the column.
+const isoDate = (v: string) => /^\d{4}-\d{2}-\d{2}$/.test(v);
+const scopeRules: DeclaredScopeRule<BankScopeField>[] = BANK_SCOPE_FIELDS.map(
+  (field) =>
+    field === 'currency'
+      ? { field, fallback: bankDemoScope.currency }
+      : field === 'start' || field === 'end'
+        ? { field, accepts: isoDate }
+        : { field },
+);
+const scopeColumns = BANK_SCOPE_FIELDS.map((field, i) => ({
+  field,
+  header: BANK_SCOPE_HEADERS[i],
+}));
+const freshOrigins = () =>
+  Object.fromEntries(
+    scopeRules.map((r) => [
+      r.field,
+      r.fallback === undefined ? 'question' : 'default',
+    ]),
+  ) as Record<BankScopeField, ScopeOrigin>;
 const freshReading = (side: number): BankReading => ({
   ...bankDemoReadings[side],
   confirmed: false,
@@ -92,7 +124,6 @@ export function BankWorkspace({
       freshReading(0),
       freshReading(1),
     ]),
-    [scope, setScope] = useState(freshScope),
     [events, setEvents] = useState<BankEvent[]>([]),
     [result, setResult] = useState<BankResult | null>(null),
     [busy, setBusy] = useState(false),
@@ -105,6 +136,30 @@ export function BankWorkspace({
     [bankId, setBankId] = useState(''),
     [cashId, setCashId] = useState(''),
     [evidenceId, setEvidenceId] = useState('');
+  // The card's scope and where each value came from (UX-5(d)).
+  const card = useDeclaredScope({
+    initial: () => ({ scope: freshScope(), origins: freshOrigins() }),
+    rules: scopeRules,
+    columns: scopeColumns,
+    files,
+    sheets: [readings[0].sheet, readings[1].sheet],
+    labels: t.sides,
+  });
+  const { scope, origins, suggestions } = card;
+  const unknown = scopeCardCopy[lang].unknown;
+  // A value inside a sentence, isolated so mixed scripts keep their order;
+  // a date, an account or a currency code is never split across lines.
+  const scopeValue = (v: string, whole = false) => (
+    <bdi className={whole ? 'scope-card__whole' : undefined}>
+      {v || unknown}
+    </bdi>
+  );
+  const rowsRead = Math.max(
+    0,
+    ...BANK_SCOPE_FIELDS.map((k) =>
+      suggestions[k].read.reduce((n, r) => n + r.rows, 0),
+    ),
+  );
   // The bank source type: movement files in the settlement template, or a
   // statement as the bank issues it. Each keeps its own work while the other
   // is shown.
@@ -162,7 +217,10 @@ export function BankWorkspace({
   function install(v: { state: BankInput; result: BankResult }) {
     setFiles(v.state.files);
     setReadings(v.state.readings);
-    setScope(v.state.scope);
+    card.install(v.state.scope, v.state.files, [
+      v.state.readings[0].sheet,
+      v.state.readings[1].sheet,
+    ]);
     setEvents(v.state.events);
     setResult(v.result);
     setPages({});
@@ -554,72 +612,78 @@ export function BankWorkspace({
                               {t.withdrawalDepositHint}
                             </p>
                           )}
-                          <label>
-                            <input
-                              type="checkbox"
-                              aria-label={`${t.sides[side]} ${t.sourceConfirm}`}
-                              checked={readings[side].confirmed}
-                              onChange={(e) => {
-                                setReadings((previous) => {
-                                  const next = [...previous] as typeof readings;
-                                  next[side] = {
-                                    ...next[side],
-                                    confirmed: e.target.checked,
-                                  };
-                                  return next;
-                                });
-                                invalidate();
-                              }}
-                            />
-                            {t.sourceConfirm}
-                          </label>
                         </>
                       )}
                     </section>
                   ))}
                 </WorkspaceSources>
-                <section
-                  className="workspace-scope"
+                <ScopeCard
                   hidden={!(files[0] && files[1])}
-                >
-                  <WorkspaceGroupTitle kind="scope" />
-                  <div className="gl-tb-grid">
-                    {BANK_SCOPE_FIELDS.map((key) => (
-                      <label key={key}>
-                        {t.fields[key]}
-                        <input
-                          aria-label={t.fields[key]}
-                          type={
-                            key === 'start' || key === 'end' ? 'date' : 'text'
-                          }
-                          value={scope[key]}
-                          onChange={(e) => {
-                            setScope((previous) => ({
-                              ...previous,
-                              [key]: e.target.value,
-                              confirmed: false,
-                            }));
-                            invalidate();
-                          }}
-                        />
-                      </label>
-                    ))}
-                  </div>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={scope.confirmed}
-                      onChange={(e) => {
-                        setScope((previous) => ({
-                          ...previous,
-                          confirmed: e.target.checked,
-                        }));
-                        invalidate();
-                      }}
+                  summary={
+                    <Sentence
+                      parts={t.cardSummary(
+                        scopeValue(scope.entity),
+                        scopeValue(scope.account, true),
+                        scopeValue(scope.start, true),
+                        scopeValue(scope.end, true),
+                        scopeValue(scope.currency, true),
+                        rowsRead,
+                      )}
                     />
-                    {t.scopeConfirm}
-                  </label>
-                </section>
+                  }
+                  rows={BANK_SCOPE_FIELDS.map((key) => ({
+                    key,
+                    label: t.fields[key],
+                    origin: origins[key],
+                    value: scope[key],
+                    suggestion: suggestions[key],
+                    control: (describedBy) => (
+                      <input
+                        aria-label={t.fields[key]}
+                        aria-describedby={describedBy}
+                        type={
+                          key === 'start' || key === 'end' ? 'date' : 'text'
+                        }
+                        value={scope[key]}
+                        onChange={(e) => {
+                          card.edit(key, e.target.value);
+                          invalidate();
+                        }}
+                      />
+                    ),
+                  }))}
+                  confirm={
+                    <label className="scope-card__confirm">
+                      <input
+                        type="checkbox"
+                        checked={
+                          readings.every((r) => r.confirmed) && scope.confirmed
+                        }
+                        onChange={(e) => {
+                          const confirmed = e.target.checked;
+                          setReadings(
+                            (previous) =>
+                              previous.map((r) => ({
+                                ...r,
+                                confirmed,
+                              })) as typeof readings,
+                          );
+                          card.confirm(confirmed);
+                          invalidate();
+                        }}
+                      />
+                      <span>
+                        <Sentence
+                          parts={t.cardConfirm(
+                            scopeValue(scope.entity),
+                            scopeValue(scope.start, true),
+                            scopeValue(scope.end, true),
+                          )}
+                        />
+                      </span>
+                    </label>
+                  }
+                />
                 <Button
                   disabled={
                     !files.every(Boolean) ||
