@@ -19,6 +19,8 @@ import { chromium } from 'playwright';
 import { ar } from '../lib/i18n/locales/ar.ts';
 import { en } from '../lib/i18n/locales/en.ts';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import { stripCount } from './alignment-strip-read.mjs';
+import { keepReplies } from './worker-replies.mjs';
 
 const root = path.resolve(import.meta.dirname, '..');
 const suite = path.join(root, 'audit/ar-statement-foundation');
@@ -98,6 +100,9 @@ const contexts = quick
 const runs = [];
 const errors = [];
 const external = [];
+// Ends of the strip judged with no total, so the check cannot pass without
+// ever meeting one.
+let missingTotals = 0;
 try {
   for (const [lang, width] of contexts) {
     const copy = (lang === 'ar' ? ar : en).arDocuments;
@@ -118,6 +123,9 @@ try {
       external.push(url);
       return route.abort();
     });
+    // The worker replies, so the strip's ends can be judged by the engine's
+    // own totals (UX-4).
+    await context.addInitScript(keepReplies);
     const page = await context.newPage();
     // One chooser listener for the page: a listener per chooser races the key.
     const choosers = [];
@@ -140,13 +148,9 @@ try {
             .querySelector('[data-ar-workspace]')
             ?.getAttribute('aria-busy') === 'false',
       );
-    const metric = async (label) =>
-      w
-        .getByTestId('ar-metrics')
-        .locator('div')
-        .filter({ has: page.locator('span', { hasText: label }) })
-        .locator('strong')
-        .innerText();
+    // Matched document pairs, as the alignment strip counts them; the
+    // figure grid no longer repeats the count (UX-4).
+    const matched = () => stripCount(w, 'agreed');
     const download = async (name, file) => {
       const pending = page.waitForEvent('download');
       await button(name).click();
@@ -237,12 +241,44 @@ try {
     };
     const judge = async (id) => {
       const want = expected[id];
-      assert.equal(Number(await metric(copy.matched)), want.matched, `${id} matched`);
+      assert.equal(Number(await matched()), want.matched, `${id} matched`);
       assert.equal(
         await w.locator('[data-ar-status]').count(),
         want.status === 'source-error' ? 1 : 0,
         `${id} status`,
       );
+      // Each record's total is said at its end of the strip: the engine's
+      // amount, or, where the engine gives none, why (UX-4); judged by the
+      // reply the page drew its result from, not by the page.
+      const totals = await page.evaluate(
+        () =>
+          globalThis.alignmentReplies
+            .map((r) => r.value?.result ?? r.value)
+            .findLast((v) => Array.isArray(v?.totals) && Array.isArray(v?.cases))
+            ?.totals,
+      );
+      assert.ok(totals, `${id} reply`);
+      const ends = w.locator('[data-alignment-strip] [data-strip-total]');
+      assert.deepEqual(
+        await ends.evaluateAll((items) =>
+          items.map((e) =>
+            e.hasAttribute('data-missing')
+              ? null
+              : e.querySelector('[data-amount-minor]')?.getAttribute('data-amount-minor'),
+          ),
+        ),
+        totals.map((total) => (total === null ? null : String(total))),
+        `${id} totals at the strip's ends`,
+      );
+      for (const [i, total] of totals.entries())
+        if (total === null) {
+          missingTotals++;
+          assert.equal(
+            (await ends.nth(i).innerText()).trim(),
+            copy.unavailableTotal,
+            `${lang}/${id}: why total ${i + 1} is missing`,
+          );
+        }
       const sections = w.locator('[data-ar-statement-sections] tbody tr');
       assert.equal(await sections.count(), want.sections.length, `${id} sections`);
       for (const [i, s] of want.sections.entries())
@@ -295,10 +331,10 @@ try {
       await download(copy.save, session);
       const checked = check(id, workbook);
       // Restoring the session gives the same result on screen.
-      const before = await metric(copy.matched);
+      const before = await matched();
       await w.getByLabel(copy.restore, { exact: true }).setInputFiles(session);
       await wait();
-      assert.equal(await metric(copy.matched), before, `${id} restored`);
+      assert.equal(await matched(), before, `${id} restored`);
       await judge(id);
       runs.push({ lang, width, id, keyboard, checked });
     }
@@ -308,7 +344,7 @@ try {
     const first = w.getByTestId('ar-case').filter({ hasText: 'INV-1001' });
     await first.getByRole('button', { name: copy.reopen, exact: true }).click();
     await wait();
-    assert.equal(Number(await metric(copy.matched)), expected.A01.matched - 1);
+    assert.equal(Number(await matched()), expected.A01.matched - 1);
     const decided = path.join(out, `${lang}-${width}-A01-reopened.xlsx`);
     await download(copy.export, decided);
     runs.push({ lang, width, id: 'A01-reopened', checked: check('A01', decided, ['INV-1001']) });
@@ -323,8 +359,10 @@ try {
 }
 assert.deepEqual(errors, []);
 assert.deepEqual(external, []);
+assert.ok(missingTotals > 0, 'a story with no total for a record was judged');
 const summary = {
   runs: runs.length,
+  missingTotals,
   stories: ids,
   contexts: contexts.map(([lang, width]) => `${lang}-${width}`),
   checked: runs.every((r) => r.checked.story),

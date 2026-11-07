@@ -308,9 +308,7 @@ async function open(lang, width) {
     return { name: d.suggestedFilename(), target };
   };
   const restore = async (file) => {
-    const advanced = w.locator('details[data-workspace-advanced]').first();
-    if ((await advanced.getAttribute('open')) === null)
-      await advanced.locator(':scope > summary').click();
+    // The restore is in the start row, shown without opening anything (UX-5).
     const input = w.getByLabel(bank.restore, { exact: true });
     const reply = await act(() => input.setInputFiles(file));
     assert.equal(reply.ok, true, `restore: ${reply.error ?? ''}`);

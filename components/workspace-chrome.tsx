@@ -128,26 +128,53 @@ export function WorkspaceSources({
 export function WorkspaceAdvanced({
   children,
   summary,
+  hook,
 }: {
   children: ReactNode;
   summary?: ReactNode;
+  /** Data hooks a check reads, on the disclosure itself. */
+  hook?: Record<`data-${string}`, string>;
 }) {
   const { lang } = useI18n();
   return (
-    <details className="workspace-advanced" data-workspace-advanced>
+    <details className="workspace-advanced" data-workspace-advanced {...hook}>
       <summary>{summary ?? workspaceCopy[lang].advanced}</summary>
       <div className="workspace-advanced__content">{children}</div>
     </details>
   );
 }
 
+/**
+ * The ways to start that need none of the reader's own files: the
+ * workspace's synthetic example and a session saved on this device (UX-5).
+ * Shown under the intro, not folded into advanced options: returning to
+ * saved work is not an advanced option. The controls inside are the
+ * workspace's own, the native file input among them.
+ */
+export function WorkspaceStart({ children }: { children: ReactNode }) {
+  const { lang } = useI18n();
+  return (
+    <fieldset className="workspace-start" data-workspace-start>
+      <legend className="sr-only">{workspaceCopy[lang].start}</legend>
+      {children}
+    </fieldset>
+  );
+}
+
+/**
+ * A workspace's title and its intro of two lines at a phone's width (UX-5);
+ * what else the reader may want first, `detail`, opens the scope details
+ * with the workspace's own limits.
+ */
 export function WorkspaceIntro({
   title,
   intro,
+  detail,
   children,
 }: {
   title: string;
   intro: string;
+  detail?: string;
   children?: ReactNode;
 }) {
   const { lang, dir } = useI18n();
@@ -162,10 +189,13 @@ export function WorkspaceIntro({
         </h1>
         <p>{intro}</p>
       </div>
-      {children && (
+      {(detail || children) && (
         <details className="workspace-intro__context">
           <summary>{workspaceCopy[lang].scopeDetails}</summary>
-          <div className="workspace-intro__context-content">{children}</div>
+          <div className="workspace-intro__context-content">
+            {detail && <p className="workspace-intro__detail">{detail}</p>}
+            {children}
+          </div>
         </details>
       )}
     </section>

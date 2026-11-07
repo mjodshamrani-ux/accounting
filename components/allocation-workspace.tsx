@@ -1,5 +1,9 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useId, useLayoutEffect, useRef, useState } from 'react';
+import { useResultFocus } from '@/components/result-focus';
+import { useDecisionFocus } from '@/components/decision-platform';
+import { allocationNeed } from '@/lib/decision-platform';
+import { decisionPlatformCopy } from '@/lib/i18n/decision-platform';
 import type { AllocationWorkflowHandoff } from '@/lib/reconciliation/allocation-workflow-handoff';
 import { allocationWorkflowHandoffCopy } from '@/lib/i18n/allocation-workflow-handoff';
 import { Button } from '@/components/ui/button';
@@ -11,13 +15,19 @@ import {
   WorkspaceFileInput,
   WorkspaceSources,
   WorkspaceAdvanced,
+  WorkspaceStart,
 } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
-import { money, parseMoney } from '@/lib/reconciliation/core';
+import { parseMoney } from '@/lib/reconciliation/core';
+import { Amount } from '@/components/amount';
+import { AlignmentStrip } from '@/components/alignment-strip';
+import { ResultIndex, useResultParts } from '@/components/result-index';
+import { allocationStrip } from '@/lib/alignment-strip';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
 import {
   ALLOCATION_SCOPE_FIELDS,
+  ALLOCATION_SCOPE_HEADERS,
   type AllocationInput,
   type AllocationResult,
   type AllocationEvent,
@@ -29,7 +39,50 @@ import {
   allocationDemoReadings,
 } from '@/lib/reconciliation/allocation-demo';
 import { AllocationAdvicePanel } from './allocation-advice-panel';
-import './gl-tb-workspace.css';
+import { RecordPager, RecordRows } from './record-table';
+import { recordPage } from '@/lib/record-page';
+import { ScopeCard, Sentence } from '@/components/scope-card';
+import { scopeCardCopy } from '@/lib/i18n/scope-card';
+import { useDeclaredScope } from '@/hooks/use-declared-scope';
+import type {
+  DeclaredScopeRule,
+  ScopeOrigin,
+} from '@/lib/reconciliation/declared-scope';
+import './workspace-record.css';
+
+type AllocationScopeField = (typeof ALLOCATION_SCOPE_FIELDS)[number];
+// What the card may put in each field (UX-5(d)): the snapshot date takes
+// only a date the engine reads, and the basis only the one it accepts;
+// currency and basis start from their defaults while no file has the column.
+const isoDate = (v: string) => /^\d{4}-\d{2}-\d{2}$/.test(v);
+const scopeRules: DeclaredScopeRule<AllocationScopeField>[] =
+  ALLOCATION_SCOPE_FIELDS.map((field) =>
+    field === 'currency'
+      ? { field, fallback: allocationDemoScope.currency }
+      : field === 'basis'
+        ? {
+            field,
+            fallback: allocationDemoScope.basis,
+            accepts: (v) => v === allocationDemoScope.basis,
+            fixed: true,
+          }
+        : field === 'cutoff'
+          ? { field, accepts: isoDate }
+          : { field },
+  );
+const scopeColumns = ALLOCATION_SCOPE_FIELDS.map((field, i) => ({
+  field,
+  header: ALLOCATION_SCOPE_HEADERS[i],
+}));
+type HintField = keyof AllocationWorkflowHandoff['scopeHints'];
+const hinted = (
+  field: AllocationScopeField,
+): field is HintField & AllocationScopeField =>
+  field === 'entity' ||
+  field === 'party' ||
+  field === 'account' ||
+  field === 'currency' ||
+  field === 'cutoff';
 
 export function AllocationWorkspace({
   active,
@@ -43,16 +96,25 @@ export function AllocationWorkspace({
   const { t: catalogue, lang } = useI18n(),
     t = catalogue.allocation;
   const h = allocationWorkflowHandoffCopy(lang);
-  const freshScope = (): AllocationInput['scope'] => ({
-    ...allocationDemoScope,
-    entity: handoff?.scopeHints.entity ?? '',
-    ledger: '',
-    party: handoff?.scopeHints.party ?? '',
-    account: handoff?.scopeHints.account ?? '',
-    currency: handoff?.scopeHints.currency ?? allocationDemoScope.currency,
-    cutoff: handoff?.scopeHints.cutoff ?? '',
-    confirmed: false,
-  });
+  // A fresh scope: a value carried from the supplier comparison the
+  // accountant came from is context that no one confirmed here, so it is
+  // marked as such and the files never write over it; any other field
+  // starts from its default or as a question.
+  const fresh = () => {
+    const scope = { ...allocationDemoScope, confirmed: false };
+    const origins = {} as Record<AllocationScopeField, ScopeOrigin>;
+    for (const { field, fallback } of scopeRules) {
+      const hint = hinted(field) ? handoff?.scopeHints[field] : undefined;
+      if (hint) {
+        scope[field] = hint;
+        origins[field] = 'handoff';
+      } else {
+        scope[field] = fallback ?? '';
+        origins[field] = fallback === undefined ? 'question' : 'default';
+      }
+    }
+    return { scope, origins };
+  };
   const sides = t.sides,
     labels = t.fields;
   const [files, setFiles] = useState<
@@ -64,12 +126,11 @@ export function AllocationWorkspace({
         confirmed: false,
       })) as AllocationInput['readings'],
     ),
-    [scope, setScope] = useState<AllocationInput['scope']>(freshScope),
     [events, setEvents] = useState<AllocationEvent[]>([]),
     [result, setResult] = useState<AllocationResult | null>(null),
     [busy, setBusy] = useState(false),
     [failed, setFailed] = useState(false),
-    [page, setPage] = useState(0),
+    [pages, setPages] = useState<Record<string, number>>({}),
     [selected, setSelected] = useState<string[]>([]),
     [reason, setReason] = useState(''),
     [reference, setReference] = useState(''),
@@ -79,6 +140,16 @@ export function AllocationWorkspace({
     [drafts, setDrafts] = useState([
       { paymentId: '', invoiceId: '', amount: '' },
     ]);
+  // The card's scope and where each value came from (UX-5(d)).
+  const card = useDeclaredScope({
+    initial: fresh,
+    rules: scopeRules,
+    columns: scopeColumns,
+    files,
+    sheets: readings.map((r) => r.sheet),
+    labels: sides,
+  });
+  const { scope, origins, suggestions } = card;
   const runtime = useRef({
     active,
     mounted: false,
@@ -101,7 +172,7 @@ export function AllocationWorkspace({
           confirmed: false,
         })) as AllocationInput['readings'],
       );
-      setScope(freshScope());
+      card.reset();
       setEvents([]);
       setResult(null);
       setSelected([]);
@@ -109,7 +180,7 @@ export function AllocationWorkspace({
       setReference('');
       setBasis('accountant-review');
       setDrafts([{ paymentId: '', invoiceId: '', amount: '' }]);
-      setPage(0);
+      setPages({});
     }
   }
   useLayoutEffect(() => {
@@ -146,7 +217,7 @@ export function AllocationWorkspace({
     setReference('');
     setBasis('accountant-review');
     setFailed(false);
-    setPage(0);
+    setPages({});
   }
   function editReview(edit: () => void) {
     cancelPending();
@@ -156,12 +227,46 @@ export function AllocationWorkspace({
   function install(v: { state: AllocationInput; result: AllocationResult }) {
     setFiles(v.state.files);
     setReadings(v.state.readings);
-    setScope(v.state.scope);
+    card.install(
+      v.state.scope,
+      v.state.files,
+      v.state.readings.map((r) => r.sheet),
+    );
     setEvents(v.state.events);
     setResult(v.result);
     setSelected([]);
-    setPage(0);
+    setPages({});
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const resultParts = useResultParts([
+    'summary',
+    'explain',
+    'figures',
+    'decision',
+    'allocations',
+    'evidence',
+  ]);
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
+  const statusId = useId();
+  const unknown = scopeCardCopy[lang].unknown;
+  // A value inside a sentence, isolated so mixed scripts keep their order;
+  // a date, an account or a currency code is never split across lines.
+  const scopeValue = (v: string, whole = false) => (
+    <bdi className={whole ? 'scope-card__whole' : undefined}>
+      {v || unknown}
+    </bdi>
+  );
+  const rowsRead = Math.max(
+    0,
+    ...ALLOCATION_SCOPE_FIELDS.map((k) =>
+      suggestions[k].read.reduce((n, r) => n + r.rows, 0),
+    ),
+  );
   async function perform<T>(
     work: (signal: AbortSignal) => Promise<T>,
     publish: (value: T) => void,
@@ -217,6 +322,13 @@ export function AllocationWorkspace({
       },
     );
   }
+  // The decision platform (UX-3): the sentence under the reason says what
+  // each decision still waits for; after a decision the focus goes to the
+  // dated decision it recorded, not to the page.
+  const hint = useId(),
+    linksWhy = useId(),
+    eventEntry = useId(),
+    settle = useDecisionFocus();
   async function decide(links: AllocationLink[], target?: string) {
     if (!result) return;
     const owned = structuredClone(input());
@@ -245,7 +357,10 @@ export function AllocationWorkspace({
           owned,
           signal,
         ),
-      install,
+      (v) => {
+        install(v);
+        settle(`${eventEntry}-${e.id}`);
+      },
     );
   }
   function readLedger() {
@@ -257,7 +372,7 @@ export function AllocationWorkspace({
           owned,
           signal,
         ),
-      install,
+      shown,
     );
   }
   function openDemo() {
@@ -279,7 +394,7 @@ export function AllocationWorkspace({
         },
         signal,
       );
-    }, install);
+    }, shown);
   }
   function restoreSession(f: File) {
     invalidate();
@@ -291,7 +406,7 @@ export function AllocationWorkspace({
         { buffer },
         signal,
       );
-    }, install);
+    }, shown);
   }
   function saveSession() {
     const owned = structuredClone(input());
@@ -323,14 +438,41 @@ export function AllocationWorkspace({
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
   if (!active) return null;
-  const fmt = (v: number) => money(v, result!.decimals),
+  const fmt = (v: number) => <Amount minor={v} decimals={result!.decimals} />,
     balances = new Map(result?.balances.map((b) => [b.id, b])),
     usedProofs = new Set(
       result?.links
         .filter((l) => l.basis.kind === 'remittance')
         .map((l) => l.basis.proofId),
     ),
-    slice = <T,>(v: T[]) => v.slice(page * 50, page * 50 + 50);
+    // What each decision waits for, as its button: the sentence under the
+    // reason names it.
+    need = allocationNeed({
+      ready: result?.status === 'ready',
+      reason,
+      selected: selected.length,
+      reference,
+      linksComplete: drafts.every(
+        (d) => d.paymentId && d.invoiceId && d.amount.trim(),
+      ),
+    }),
+    words = decisionPlatformCopy[lang],
+    // The ledger, the advice lines, the allocations and the source rows each
+    // page on their own through the record kit (UX-3).
+    turn = (name: string) => (to: number) =>
+      setPages((p) => ({ ...p, [name]: to })),
+    paged = <T,>(name: string, v: T[]) => {
+      const { from, to } = recordPage(v.length, pages[name] ?? 0);
+      return v.slice(from, to);
+    },
+    pager = (name: string, label: string, length: number) => (
+      <RecordPager
+        label={label}
+        length={length}
+        page={pages[name] ?? 0}
+        onPage={turn(name)}
+      />
+    );
   return (
     <main
       className="app-shell gl-tb-workspace reconciliation-workspace"
@@ -352,7 +494,11 @@ export function AllocationWorkspace({
           </Button>
         )}
       </WorkspaceHeader>
-      <WorkspaceIntro title={t.paymentAllocation} intro={t.intro}>
+      <WorkspaceIntro
+        title={t.paymentAllocation}
+        intro={t.intro}
+        detail={t.introDetail}
+      >
         <p>{t.limits}</p>
       </WorkspaceIntro>
       {handoff && (
@@ -375,9 +521,9 @@ export function AllocationWorkspace({
         </section>
       )}
       <fieldset disabled={busy}>
-        <WorkspaceAdvanced>
+        <WorkspaceStart>
           <div className="gl-tb-actions workspace-toolbar">
-            <Button onClick={() => void openDemo()}>
+            <Button variant="outline" onClick={() => void openDemo()}>
               {t.openSyntheticAllocationExample}
             </Button>
             <label>
@@ -393,7 +539,7 @@ export function AllocationWorkspace({
               />
             </label>
           </div>
-        </WorkspaceAdvanced>
+        </WorkspaceStart>
         <WorkspaceGroupTitle kind="sources" />
         <WorkspaceSources
           primaryIndices={[0, 1]}
@@ -453,58 +599,76 @@ export function AllocationWorkspace({
                       )}
                     </pre>
                   </WorkspaceAdvanced>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={readings[side].confirmed}
-                      onChange={(e) => {
-                        const rs = [...readings] as typeof readings;
-                        rs[side] = { ...rs[side], confirmed: e.target.checked };
-                        setReadings(rs);
-                        invalidate();
-                      }}
-                    />
-                    {sides[side]}: {t.sourceConfirm}
-                  </label>
                 </>
               )}
             </section>
           ))}
         </WorkspaceSources>
-        <section className="workspace-scope" hidden={!(files[0] && files[1])}>
-          <WorkspaceGroupTitle kind="scope" />
-          <div className="gl-tb-grid">
-            {ALLOCATION_SCOPE_FIELDS.map((key, i) => (
-              <label key={key}>
-                {labels[i]}
-                <input
-                  type={key === 'cutoff' ? 'date' : 'text'}
-                  readOnly={key === 'basis'}
-                  value={scope[key]}
-                  onChange={(e) => {
-                    setScope({
-                      ...scope,
-                      [key]: e.target.value,
-                      confirmed: false,
-                    });
-                    invalidate();
-                  }}
-                />
-              </label>
-            ))}
-          </div>
-          <label>
-            <input
-              type="checkbox"
-              checked={scope.confirmed}
-              onChange={(e) => {
-                setScope({ ...scope, confirmed: e.target.checked });
-                invalidate();
-              }}
+        <ScopeCard
+          hidden={!(files[0] && files[1])}
+          summary={
+            <Sentence
+              parts={t.cardSummary(
+                scopeValue(scope.entity),
+                scopeValue(scope.party),
+                scopeValue(scope.account, true),
+                scopeValue(scope.cutoff, true),
+                scopeValue(scope.currency, true),
+                rowsRead,
+              )}
             />
-            {t.scopeConfirm}
-          </label>
-        </section>
+          }
+          rows={ALLOCATION_SCOPE_FIELDS.map((key, i) => ({
+            key,
+            label: labels[i],
+            origin: origins[key],
+            value: scope[key],
+            fixed: key === 'basis',
+            suggestion: suggestions[key],
+            control: (describedBy) => (
+              <input
+                aria-label={labels[i]}
+                aria-describedby={describedBy}
+                type={key === 'cutoff' ? 'date' : 'text'}
+                readOnly={key === 'basis'}
+                value={scope[key]}
+                onChange={(e) => {
+                  card.edit(key, e.target.value);
+                  invalidate();
+                }}
+              />
+            ),
+          }))}
+          confirm={
+            <label className="scope-card__confirm">
+              <input
+                type="checkbox"
+                checked={readings.every((r) => r.confirmed) && scope.confirmed}
+                onChange={(e) => {
+                  const confirmed = e.target.checked;
+                  setReadings(
+                    (previous) =>
+                      previous.map((r) => ({
+                        ...r,
+                        confirmed,
+                      })) as typeof readings,
+                  );
+                  card.confirm(confirmed);
+                  invalidate();
+                }}
+              />
+              <span>
+                <Sentence
+                  parts={t.cardConfirm(
+                    scopeValue(scope.entity),
+                    scopeValue(scope.party),
+                    scopeValue(scope.cutoff, true),
+                  )}
+                />
+              </span>
+            </label>
+          }
+        />
         <Button
           disabled={
             !files.every(Boolean) ||
@@ -519,13 +683,29 @@ export function AllocationWorkspace({
       {failed && <p role="alert">{t.failure}</p>}
       {result && (
         <section data-testid="allocation-result">
-          <h2>{t.valueLedger}</h2>
+          <h2
+            {...resultParts.anchor('summary')}
+            ref={resultHeading}
+            tabIndex={-1}
+            data-result-heading="result"
+            aria-describedby={statusId}
+          >
+            {t.valueLedger}
+          </h2>
+          <AlignmentStrip
+            strip={allocationStrip(result)}
+            sides={[t.sides[0], t.sides[1]]}
+            decimals={result.decimals}
+            state={result.status === 'ready' ? t.ready : t.sourceError}
+          />
+          <ResultIndex map={resultParts} />
           <DomainEvidenceAssistant
+            anchor={resultParts.anchor('explain')}
             result={result}
             snapshot={() => ({ domain: 'allocation', input: input(), result })}
             busy={busy}
           />
-          <p data-testid="allocation-status">
+          <p id={statusId} data-testid="allocation-status">
             {result.status === 'ready' ? t.ready : t.sourceError}
           </p>
           <div className="gl-tb-actions">
@@ -536,63 +716,80 @@ export function AllocationWorkspace({
               {t.downloadAllocationWorkpaper}
             </Button>
           </div>
-          <div className="gl-tb-table">
-            <table data-testid="allocation-ledger">
-              <thead>
-                <tr>
-                  {[
-                    t.side,
-                    t.ownReference,
-                    t.original,
-                    t.available,
-                    t.allocated,
-                    t.remaining,
-                    t.cellEvidence,
-                  ].map((x) => (
-                    <th key={x}>{x}</th>
+          <RecordRows
+            label={t.valueLedger}
+            headers={[
+              t.side,
+              t.ownReference,
+              t.original,
+              t.available,
+              t.allocated,
+              t.remaining,
+              t.cellEvidence,
+            ]}
+            rows={result.items}
+            rowHeader={1}
+            page={pages.items ?? 0}
+            onPage={turn('items')}
+            anchor={resultParts.anchor('figures')}
+            frame={{ 'data-testid': 'allocation-ledger' }}
+            cells={(i) => {
+              const b = balances.get(i.id)!;
+              return [
+                sides[i.side],
+                i.reference,
+                ...[b.original, b.available, b.allocated, b.remaining].map(fmt),
+                <details key="cells">
+                  <summary>
+                    {result.sources[i.side].name} · {i.row}
+                  </summary>
+                  {i.traces.map((x) => (
+                    <p key={x.field}>
+                      {x.field}: {x.text} · {x.column}
+                    </p>
                   ))}
-                </tr>
-              </thead>
-              <tbody>
-                {slice(result.items).map((i) => {
-                  const b = balances.get(i.id)!;
-                  return (
-                    <tr key={i.id}>
-                      <td>{sides[i.side]}</td>
-                      <th>{i.reference}</th>
-                      {[b.original, b.available, b.allocated, b.remaining].map(
-                        (n, k) => (
-                          <td key={k}>{fmt(n)}</td>
-                        ),
-                      )}
-                      <td>
-                        <details>
-                          <summary>
-                            {result.sources[i.side].name} · {i.row}
-                          </summary>
-                          {i.traces.map((x) => (
-                            <p key={x.field}>
-                              {x.field}: {x.text} · {x.column}
-                            </p>
-                          ))}
-                        </details>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-          <fieldset disabled={busy || result.status !== 'ready'}>
+                </details>,
+              ];
+            }}
+          />
+          <fieldset
+            {...resultParts.anchor('decision')}
+            disabled={busy || result.status !== 'ready'}
+          >
             <label>
               {t.decisionOrUndoReason}
               <input
                 value={reason}
+                aria-describedby={hint}
                 onChange={(e) => editReview(() => setReason(e.target.value))}
               />
             </label>
+            <p
+              id={hint}
+              className="decision-hint"
+              data-decision-hint={need.key}
+              data-decision-wait={
+                [need.advice && 'advice', need.human && 'human']
+                  .filter(Boolean)
+                  .join(' ') || undefined
+              }
+            >
+              {need.key === 'blocked'
+                ? words.allocation.blocked
+                : need.key === 'reason'
+                  ? words.reason(t.decisionOrUndoReason)
+                  : need.key === 'ready'
+                    ? words.allocation.ready
+                    : [
+                        need.advice && words.allocation.advice,
+                        need.human &&
+                          words.allocation.human(t.humanEvidenceReference),
+                      ]
+                        .filter(Boolean)
+                        .join(' ')}
+            </p>
             <h3>{t.adviceLinesForReview}</h3>
-            {slice(result.proofs).map((p) => (
+            {paged('proofs', result.proofs).map((p) => (
               <label key={p.id} data-testid="allocation-proof">
                 <input
                   type="checkbox"
@@ -615,7 +812,10 @@ export function AllocationWorkspace({
                 {usedProofs.has(p.id) ? t.used : ''}
               </label>
             ))}
+            {pager('proofs', t.adviceLinesForReview, result.proofs.length)}
             <Button
+              data-decision-action="accept"
+              aria-describedby={hint}
               disabled={!selected.length || !reason.trim()}
               onClick={() =>
                 decide(
@@ -716,6 +916,7 @@ export function AllocationWorkspace({
                 {drafts.length > 1 && (
                   <Button
                     variant="outline"
+                    aria-describedby={hint}
                     onClick={() =>
                       editReview(() =>
                         setDrafts(drafts.filter((_, j) => j !== index)),
@@ -729,6 +930,7 @@ export function AllocationWorkspace({
             ))}
             <Button
               variant="outline"
+              aria-describedby={`${hint} ${linksWhy}`}
               disabled={drafts.length >= 100}
               onClick={() =>
                 editReview(() =>
@@ -741,7 +943,16 @@ export function AllocationWorkspace({
             >
               {t.addAllocationLink}
             </Button>
+            <p
+              id={linksWhy}
+              className="decision-hint"
+              hidden={drafts.length < 100}
+            >
+              {words.allocation.links}
+            </p>
             <Button
+              data-decision-action="accept"
+              aria-describedby={hint}
               disabled={
                 !reason.trim() ||
                 !reference.trim() ||
@@ -782,7 +993,13 @@ export function AllocationWorkspace({
             </Button>
             <h3>{t.datedDecisions}</h3>
             {result.events.map((e) => (
-              <div key={e.id} data-testid="allocation-event">
+              <div
+                key={e.id}
+                data-testid="allocation-event"
+                id={`${eventEntry}-${e.id}`}
+                tabIndex={-1}
+                data-decision-item
+              >
                 <p>
                   {e.id} · {t.eventTypes[e.type]} · {e.at} · {e.note}
                   {e.type === 'undo' ? ` → ${e.target}` : ''}
@@ -791,6 +1008,8 @@ export function AllocationWorkspace({
                   result.activeDecisions.includes(e.id) && (
                     <Button
                       variant="outline"
+                      data-decision-action="undo"
+                      aria-describedby={hint}
                       disabled={!reason.trim()}
                       onClick={() => decide([], e.id)}
                     >
@@ -800,8 +1019,8 @@ export function AllocationWorkspace({
               </div>
             ))}
           </fieldset>
-          <h3>{t.activeAllocations}</h3>
-          {slice(result.links).map((l) => (
+          <h3 {...resultParts.anchor('allocations')}>{t.activeAllocations}</h3>
+          {paged('links', result.links).map((l) => (
             <p key={l.id}>
               {result.items.find((i) => i.id === l.paymentId)!.reference} →{' '}
               {result.items.find((i) => i.id === l.invoiceId)!.reference}:{' '}
@@ -809,36 +1028,21 @@ export function AllocationWorkspace({
               {l.basis.reference} · {l.basis.reason}
             </p>
           ))}
-          <details>
+          {pager('links', t.activeAllocations, result.links.length)}
+          <details {...resultParts.anchor('evidence')}>
             <summary>{t.inventoryOfEverySourceRow}</summary>
-            {slice(result.inventory).map((i) => (
+            {paged('inventory', result.inventory).map((i) => (
               <p key={`${i.side}:${i.row}`}>
                 {sides[i.side]} · {i.row} · {i.kind} · {i.error ?? ''} ·{' '}
                 {i.values.join(' | ')}
               </p>
             ))}
+            {pager(
+              'inventory',
+              t.inventoryOfEverySourceRow,
+              result.inventory.length,
+            )}
           </details>
-          <div className="gl-tb-actions">
-            <Button disabled={busy || !page} onClick={() => setPage(page - 1)}>
-              {t.previous}
-            </Button>
-            <span>{page + 1}</span>
-            <Button
-              disabled={
-                busy ||
-                (page + 1) * 50 >=
-                  Math.max(
-                    result.items.length,
-                    result.proofs.length,
-                    result.inventory.length,
-                    result.links.length,
-                  )
-              }
-              onClick={() => setPage(page + 1)}
-            >
-              {t.next}
-            </Button>
-          </div>
         </section>
       )}
       {result && (

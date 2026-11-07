@@ -133,11 +133,11 @@
 }
 /* Movement tables scroll inside their frame rather than breaking words or
    amounts mid-token, as the statement tables below do. */
-.bank-movement-table .gl-tb-table table {
+.bank-movement-table .record-frame table {
   min-width: 60rem;
 }
 .bank-movement-table :is(th, td),
-.bank-workspace .bank-movement-table .gl-tb-table td button {
+.bank-workspace .bank-movement-table .record-frame td button {
   overflow-wrap: normal;
   word-break: normal;
 }
@@ -147,12 +147,12 @@
   white-space: nowrap;
 }
 /* Statement tables scroll inside their frame rather than breaking words. */
-.bank-statement-result .gl-tb-table table {
+.bank-statement-result .record-frame table {
   min-width: 52rem;
 }
 .bank-statement-result
   [data-bank-statement-table='summary']
-  .gl-tb-table
+  .record-frame
   table {
   min-width: 0;
 }
@@ -177,7 +177,7 @@
   padding-block-start: 0.75rem;
   border-block-start: 1px solid var(--border);
 }
-.bank-statement-result [data-bank-statement-table='sheet'] .gl-tb-table table {
+.bank-statement-result [data-bank-statement-table='sheet'] .record-frame table {
   min-width: 0;
 }
 .bank-statement-result [data-bank-statement-table='sheet'] td:first-child {

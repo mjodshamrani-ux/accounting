@@ -62,6 +62,7 @@ const deployGated = [
   'domain-oracle-mutants',
   'source-family-proofs',
   'family-source-proofs',
+  'ux-census-start',
 ];
 {
   const deploy = structuredClone(workflow.jobs.deploy);
@@ -348,6 +349,20 @@ const required = [
   'test:ux-census:unit',
   'test:browser:ux-census:self-test',
   'test:browser:ux-census',
+  'test:browser:ux-census:start:self-test',
+  'test:browser:ux-census:start',
+  'test:multiline-review:browser',
+  'test:source-structure:browser',
+  'test:overlap-derived:browser',
+  'test:browser:result-focus',
+  'test:browser:visual-identity:self-test',
+  'test:browser:record-table',
+  'test:browser:alignment-strip',
+  'test:browser:result-map',
+  'test:browser:decision-platform',
+  'test:browser:decision-platform:self-test',
+  'test:browser:stage-watchdog:self-test',
+  'test:browser:review-platform',
 ];
 const deployed = ['build', ...deployGated].flatMap(
   (name) => workflow.jobs[name].steps,
@@ -506,6 +521,12 @@ const separate = {
   ],
   'inventory-links-interface-mutations': [
     'test:inv-links:interface-mutations',
+  ],
+  'decision-platform-interface-mutations': [
+    'test:decision-platform:interface-mutations',
+  ],
+  'review-platform-interface-mutations': [
+    'test:review-platform:interface-mutations',
   ],
   'clearing-groups-browser': [
     'test:clr-groups:browser',

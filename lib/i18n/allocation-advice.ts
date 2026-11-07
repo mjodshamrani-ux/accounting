@@ -64,9 +64,6 @@ const en = {
       'Fits its invoice alone, but the open lines on the invoice exceed what is left',
     TWIN: 'Another line has the same payment, invoice and amount',
   } as Record<string, string>,
-  previous: 'Previous',
-  next: 'Next',
-  page: (page: number, pages: number) => `Page ${page} of ${pages}`,
 };
 
 const ar: typeof en = {
@@ -130,9 +127,6 @@ const ar: typeof en = {
       'يسع فاتورته وحده، لكن الأسطر المفتوحة على الفاتورة تتجاوز ما بقي فيها',
     TWIN: 'سطر آخر بالدفعة والفاتورة والمبلغ أنفسها',
   },
-  previous: 'السابق',
-  next: 'التالي',
-  page: (page, pages) => `الصفحة ${page} من ${pages}`,
 };
 
 export const allocationAdviceCopy = { en, ar };

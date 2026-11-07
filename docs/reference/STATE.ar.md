@@ -8,6 +8,7 @@
 | --- | --- |
 | إصدار الحزمة في `package.json` | 0.4.58 |
 | آخر إصدار منشور متحقق منه | 0.4.57 |
+| نُشر ولم يُتحقق منه حيًا | 0.4.58 من main على `681beb8` (دمج [PR #37](https://github.com/mjodshamrani-ux/accounting/pull/37) ثم [PR #38](https://github.com/mjodshamrani-ux/accounting/pull/38))، [41167552162](https://github.com/mjodshamrani-ux/accounting/actions/runs/41167552162): نجحت مهامه الإحدى والخمسون ومنها النشر في 05:14 UTC يوم 2026-10-31. **لم يجر الفحص الحي:** شبكة الجلسة السحابية لا تصل `mjodshamrani-ux.github.io`. يصير «منشورًا متحققًا منه» بعد فتح الموقع ومطابقة إصداره |
 | commit التسليم | `013b464f8152abe5f26082ccb4f82f3b630e6f57` (PR35) |
 | تشغيل main والنشر | [38914019684](https://github.com/mjodshamrani-ux/accounting/actions/runs/38914019684) |
 | دليل التسليم والفحص الحي | [سجل 0.4.56 و0.4.57](../audits/INV1-PDF-DELIVERY.ar.md) |

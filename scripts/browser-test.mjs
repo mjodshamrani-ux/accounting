@@ -1,5 +1,5 @@
-import {verifyPayroll} from './payroll-browser-cases.mjs';
-import {verifyAsset} from './fixed-assets-browser-cases.mjs';
+import { verifyPayroll } from './payroll-browser-cases.mjs';
+import { verifyAsset } from './fixed-assets-browser-cases.mjs';
 import { verifyStock } from './inventory-register-browser-cases.mjs';
 import { verifyGateway } from './payment-gateway-browser-cases.mjs';
 import { verifyDomainAssistant } from './domain-assistant-browser-cases.mjs';
@@ -68,7 +68,7 @@ async function waitForScopeInputs(page) {
     .waitFor({ state: 'visible' });
   assert.equal(
     await page
-      .getByRole('button', { name: 'تعديل نطاق المقارنة', exact: true })
+      .getByRole('button', { name: 'عدّل نطاق المقارنة', exact: true })
       .getAttribute('aria-expanded'),
     'true',
     'missing essentials must reveal the scope inputs without a toggle race',
@@ -224,10 +224,103 @@ try {
   await context.setOffline(true);
   await page.getByRole('button', { name: 'جرّب المثال', exact: true }).click();
   await verifyWorkflowBrand(page, 'confirm');
+  // UX-5: the example says once, in one notice, that it is a sample, and at
+  // the confirm step what to check before comparing; no second notice in
+  // another colour repeats it, and the advice goes once the result is there.
+  const sampleNotices = (any = false) =>
+    page
+      .locator('.notice')
+      .evaluateAll(
+        (notices, any) =>
+          notices
+            .filter(
+              (n) =>
+                n.checkVisibility() && (any || /مثال/u.test(n.textContent)),
+            )
+            .map((n) => n.textContent.trim()),
+        any,
+      );
+  const atConfirm = await sampleNotices(true);
+  assert.equal(atConfirm.length, 1, `one notice: ${atConfirm}`);
+  assert.match(atConfirm[0], /مثالًا للتجربة/u);
+  assert.match(atConfirm[0], /راجع اتجاه المبالغ وإعدادات المقارنة/u);
+  // UX-5: the three edit buttons of the confirm step show «عدّل», a word of
+  // their names, closed and open. «خيارات متقدمة» said nothing of what they
+  // open, and was not in the name a screen reader or voice control uses.
+  for (const name of [
+    'عدّل نطاق المقارنة',
+    'عدّل كشف المورد',
+    'عدّل تقرير الحسابات الدائنة',
+  ]) {
+    const edit = page.getByRole('button', { name, exact: true });
+    const seen = [];
+    for (let i = 0; i < 2; i += 1) {
+      seen.push([
+        await edit.getAttribute('aria-expanded'),
+        (await edit.innerText()).trim(),
+      ]);
+      await edit.click();
+    }
+    assert.deepEqual(
+      seen.map(([expanded]) => expanded).sort((a, b) => a.localeCompare(b)),
+      ['false', 'true'],
+      `${name}: opens and closes`,
+    );
+    for (const [expanded, words] of seen)
+      assert.ok(
+        words && name.includes(words),
+        `${name} (${expanded}) shows «${words}», not a word of its name`,
+      );
+  }
+  // UX-5 (audit B5): the optional reviews of the two sources and the
+  // separate allocation path sit under one named heading that says none is
+  // needed to compare, not as a run of buttons with nothing over them.
+  const reviewIds = [
+    'source-structure-review-disclosure',
+    'invoice-overlap-disclosure',
+    'section-derived-disclosure',
+    'split-section-disclosure',
+    'running-balance-disclosure',
+  ];
+  const moreReviews = await page
+    .locator('[data-supplier-more-reviews]')
+    .evaluateAll((sections, ids) => {
+      const [section] = sections;
+      const heading = section?.querySelector(':scope > div > h2');
+      return {
+        groups: sections.length,
+        heading: heading?.textContent.trim(),
+        named:
+          !!heading && section.getAttribute('aria-labelledby') === heading.id,
+        intro: section?.querySelector(':scope > div > p')?.textContent.trim(),
+        inside: ids.filter((id) =>
+          section?.querySelector(`[data-testid="${id}"]`),
+        ),
+        allocation: !!section?.querySelector(
+          '[data-testid="allocation-workflow-handoff"]',
+        ),
+      };
+    }, reviewIds);
+  assert.deepEqual(
+    {
+      ...moreReviews,
+      intro: (moreReviews.intro ?? '').startsWith(
+        'اختيارية، ولا يلزم شيء منها لتقارن.',
+      ),
+    },
+    {
+      groups: 1,
+      heading: 'مراجعات إضافية للمصدرين',
+      named: true,
+      intro: true,
+      inside: reviewIds,
+      allocation: true,
+    },
+  );
   // Balance reconciliation is opt-in and lives behind the scope card's edit
   // action, so nothing about it is on the default path.
   await page
-    .getByRole('button', { name: 'تعديل نطاق المقارنة', exact: true })
+    .getByRole('button', { name: 'عدّل نطاق المقارنة', exact: true })
     .click();
   await page.getByRole('checkbox', { name: /أريد تسوية الأرصدة/ }).check();
   await page.getByRole('checkbox', { name: /راجعت تغطية التقريرين/ }).check();
@@ -236,6 +329,9 @@ try {
     .getByRole('heading', { name: 'مساحة المراجعة' })
     .waitFor({ timeout: 20000 });
   await verifyWorkflowBrand(page, 'review');
+  const atReview = await sampleNotices();
+  assert.equal(atReview.length, 1, `one example notice: ${atReview}`);
+  assert.doesNotMatch(atReview[0], /راجع اتجاه المبالغ/u);
   assert.equal(
     await page.locator('.metric').nth(0).locator('strong').innerText(),
     '2',
@@ -271,16 +367,16 @@ try {
   await page
     .getByRole('textbox', { name: 'سبب القرار', exact: true })
     .fill('إعادة مراجعة المصدر — اختبار اصطناعي');
-  await page.getByRole('button', { name: 'فك الربط وإعادته للمراجعة' }).click();
+  await page.getByRole('button', { name: 'فك الربط وأعده للمراجعة' }).click();
   await page.waitForFunction(
     () => document.querySelector('.metric strong')?.textContent === '1',
   );
-  await page.getByRole('button', { name: 'إعداد ورقة العمل' }).click();
+  await page.getByRole('button', { name: 'أعدّ ورقة العمل' }).click();
   await verifyWorkflowBrand(page, 'export');
   await page
     .getByRole('textbox', { name: 'ملاحظات المراجعة', exact: true })
     .fill('bad\u0008text');
-  await page.getByRole('button', { name: 'تنزيل مسودة Excel' }).click();
+  await page.getByRole('button', { name: 'نزّل مسودة Excel' }).click();
   await page.getByRole('alert').filter({ hasText: 'محارف تحكم' }).waitFor();
   assert.equal(
     await page.locator('.metric').nth(0).locator('strong').innerText(),
@@ -290,7 +386,7 @@ try {
     .getByRole('textbox', { name: 'ملاحظات المراجعة', exact: true })
     .fill('اختبار اصطناعي — Arabic / English');
   const downloadEvent = page.waitForEvent('download');
-  await page.getByRole('button', { name: 'تنزيل مسودة Excel' }).click();
+  await page.getByRole('button', { name: 'نزّل مسودة Excel' }).click();
   const download = await downloadEvent;
   const downloaded = await download.path();
   assert.ok(downloaded);
@@ -318,8 +414,8 @@ try {
   await page.screenshot({ path: 'work/qa/export.png', fullPage: true });
   // A settings edit discards the previous result: pressing compare is the
   // confirmation, so a stale comparison can never survive an input change.
-  await page.getByRole('button', { name: 'العودة للمراجعة' }).click();
-  await page.getByRole('button', { name: 'تعديل الإعدادات' }).click();
+  await page.getByRole('button', { name: 'عُد إلى المراجعة' }).click();
+  await page.getByRole('button', { name: 'عدّل الإعدادات' }).click();
   assert.equal(
     await page.getByRole('heading', { name: 'مساحة المراجعة' }).count(),
     0,
@@ -364,7 +460,7 @@ try {
     );
   }
   await uploadPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   await waitForScopeInputs(uploadPage);
   await uploadPage.getByLabel('العملة', { exact: true }).fill('SAR');
@@ -389,14 +485,14 @@ try {
     .click();
   await uploadPage.getByRole('alertdialog').waitFor();
   await uploadPage
-    .getByRole('button', { name: 'متابعة الجلسة', exact: true })
+    .getByRole('button', { name: 'تابع الجلسة', exact: true })
     .click();
   await uploadPage.getByRole('heading', { name: 'مساحة المراجعة' }).waitFor();
   await uploadPage
     .getByRole('button', { name: 'تسوية جديدة', exact: true })
     .click();
   await uploadPage
-    .getByRole('button', { name: 'مسح الجلسة والبدء من جديد', exact: true })
+    .getByRole('button', { name: 'امسح الجلسة وابدأ من جديد', exact: true })
     .click();
   assert.equal(
     await uploadPage.getByRole('heading', { name: 'مساحة المراجعة' }).count(),
@@ -455,7 +551,7 @@ try {
     );
   }
   await uploadPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   await waitForScopeInputs(uploadPage);
   await uploadPage.getByLabel('العملة', { exact: true }).fill('SAR');
@@ -501,7 +597,7 @@ try {
       .waitFor();
   }
   await workpaperPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   assert.match(
     await workpaperPage.locator('.summary-line').nth(1).innerText(),
@@ -514,8 +610,8 @@ try {
   // The per-source details live behind one edit action instead of a stack of
   // disclosures, so open each card to read the header row it picked.
   for (const [index, label] of [
-    'تعديل كشف المورد',
-    'تعديل تقرير الحسابات الدائنة',
+    'عدّل كشف المورد',
+    'عدّل تقرير الحسابات الدائنة',
   ].entries()) {
     await workpaperPage
       .getByRole('button', { name: label, exact: true })
@@ -531,7 +627,7 @@ try {
   // prove SAR and provide dates. This complete scope stays collapsed until an
   // explicit edit; it must not use the missing-input auto-opening path.
   const workpaperScope = workpaperPage.getByRole('button', {
-    name: 'تعديل نطاق المقارنة',
+    name: 'عدّل نطاق المقارنة',
     exact: true,
   });
   assert.equal(await workpaperScope.getAttribute('aria-expanded'), 'false');
@@ -594,14 +690,14 @@ try {
     () => !document.querySelector('.notice.loading'),
   );
   await pdfPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   await pdfPage
-    .getByRole('button', { name: 'تعديل حدود الأعمدة', exact: true })
+    .getByRole('button', { name: 'عدّل حدود الأعمدة', exact: true })
     .click();
   await pdfPage.getByLabel('حدود أعمدة PDF', { exact: true }).fill('25,45,65');
   await pdfPage
-    .getByRole('button', { name: 'تطبيق الحدود وإعادة القراءة', exact: true })
+    .getByRole('button', { name: 'طبّق الحدود وأعد القراءة', exact: true })
     .click();
   await pdfPage.waitForFunction(
     () => !document.querySelector('.notice.loading'),
@@ -625,11 +721,11 @@ try {
     '2',
   );
   await pdfPage
-    .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
+    .getByRole('button', { name: 'أعدّ ورقة العمل', exact: true })
     .click();
   const pdfExport = pdfPage.waitForEvent('download');
   await pdfPage
-    .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
+    .getByRole('button', { name: 'نزّل مسودة Excel', exact: true })
     .click();
   const pdfBook = new ExcelJS.Workbook();
   await pdfBook.xlsx.readFile(await (await pdfExport).path());
@@ -744,16 +840,16 @@ try {
       ),
     });
   await recoveryPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   await recoveryPage
-    .getByRole('button', { name: 'تعديل حدود الأعمدة', exact: true })
+    .getByRole('button', { name: 'عدّل حدود الأعمدة', exact: true })
     .click();
   await recoveryPage
     .getByLabel('حدود أعمدة PDF', { exact: true })
     .fill('25,45');
   await recoveryPage
-    .getByRole('button', { name: 'تطبيق الحدود وإعادة القراءة', exact: true })
+    .getByRole('button', { name: 'طبّق الحدود وأعد القراءة', exact: true })
     .click();
   await recoveryPage.waitForFunction(
     () => !document.querySelector('.notice.loading'),
@@ -777,11 +873,11 @@ try {
     '2',
   );
   await recoveryPage
-    .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
+    .getByRole('button', { name: 'أعدّ ورقة العمل', exact: true })
     .click();
   const recoveredExport = recoveryPage.waitForEvent('download');
   await recoveryPage
-    .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
+    .getByRole('button', { name: 'نزّل مسودة Excel', exact: true })
     .click();
   const recoveredBook = new ExcelJS.Workbook();
   await recoveredBook.xlsx.readFile(await (await recoveredExport).path());
@@ -904,7 +1000,7 @@ try {
       );
     }
     await importAiPage
-      .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+      .getByRole('button', { name: 'أكّد البيانات', exact: true })
       .click();
     const aiSupplier = importAiPage.locator('section').filter({
       has: importAiPage.getByRole('heading', {
@@ -929,7 +1025,7 @@ try {
     });
     assert.equal(await importAiCompare.isDisabled(), true);
     const helperButton = importAiPage.getByRole('button', {
-      name: 'اقتراح الأعمدة',
+      name: 'اقترح الأعمدة',
       exact: true,
     });
     if (providerState !== 'absent')
@@ -991,7 +1087,7 @@ try {
       assert.deepEqual(modelState.proposedFields, ['amount']);
       await pendingProposal
         .getByRole('button', {
-          name: 'تطبيق الأعمدة بعد مراجعتها',
+          name: 'طبّق الأعمدة بعد مراجعتها',
           exact: true,
         })
         .click();
@@ -1074,7 +1170,7 @@ try {
     );
   }
   await quickPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   // Everything needed was read from the files, so the confirmation step asks for
   // nothing: no entry field and no attestation box stand between the accountant
@@ -1106,7 +1202,7 @@ try {
   assert.match(quickSummary, /SAR/);
   // The values are inferred, not invented: open the panel and read them back.
   await quickPage
-    .getByRole('button', { name: 'تعديل نطاق المقارنة', exact: true })
+    .getByRole('button', { name: 'عدّل نطاق المقارنة', exact: true })
     .click();
   assert.equal(
     await quickPage.getByLabel('تاريخ المقارنة', { exact: true }).inputValue(),
@@ -1133,7 +1229,7 @@ try {
     false,
   );
   await quickPage
-    .getByRole('button', { name: 'تعديل نطاق المقارنة', exact: true })
+    .getByRole('button', { name: 'عدّل نطاق المقارنة', exact: true })
     .click();
   assert.match(
     await quickPage.locator('.summary-line').nth(1).innerText(),
@@ -1155,11 +1251,11 @@ try {
     '2',
   );
   await quickPage
-    .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
+    .getByRole('button', { name: 'أعدّ ورقة العمل', exact: true })
     .click();
   const quickDownload = quickPage.waitForEvent('download');
   await quickPage
-    .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
+    .getByRole('button', { name: 'نزّل مسودة Excel', exact: true })
     .click();
   const quickExport = new ExcelJS.Workbook();
   await quickExport.xlsx.readFile(await (await quickDownload).path());
@@ -1203,7 +1299,7 @@ try {
     );
   }
   await ambiguityPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   await waitForScopeInputs(ambiguityPage);
   await ambiguityPage
@@ -1291,7 +1387,7 @@ try {
     );
   }
   await precisionPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   await waitForScopeInputs(precisionPage);
   await precisionPage
@@ -1352,7 +1448,7 @@ try {
     () => !document.querySelector('.notice.loading'),
   );
   await autoPdfPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   // The review box must be reachable without applying a boundary by hand: this
   // is the dead end that used to block the whole flow.
@@ -1368,7 +1464,7 @@ try {
   assert.equal(await autoReview.isChecked(), true);
   // Typing a boundary and abandoning it must not latch the box off.
   await autoPdfPage
-    .getByRole('button', { name: 'تعديل حدود الأعمدة', exact: true })
+    .getByRole('button', { name: 'عدّل حدود الأعمدة', exact: true })
     .click();
   const autoCuts = autoPdfPage.getByLabel('حدود أعمدة PDF', { exact: true });
   const appliedCuts = await autoCuts.inputValue();
@@ -1376,7 +1472,7 @@ try {
   await autoCuts.fill('oops');
   assert.equal(
     await autoPdfPage
-      .getByRole('button', { name: 'تطبيق الحدود وإعادة القراءة', exact: true })
+      .getByRole('button', { name: 'طبّق الحدود وأعد القراءة', exact: true })
       .isDisabled(),
     true,
   );
@@ -1388,7 +1484,7 @@ try {
     'unapplied PDF edits must block comparison',
   );
   await autoPdfPage
-    .getByRole('button', { name: 'التراجع عن التعديل', exact: true })
+    .getByRole('button', { name: 'تراجع عن التعديل', exact: true })
     .click();
   assert.equal(await autoCuts.inputValue(), appliedCuts);
   await autoCuts.fill(appliedCuts);
@@ -1469,7 +1565,7 @@ try {
       );
     }
     await directionPage
-      .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+      .getByRole('button', { name: 'أكّد البيانات', exact: true })
       .click();
     const directionCompare = directionPage.getByRole('button', {
       name: 'تحقق وقارن',
@@ -1553,7 +1649,7 @@ try {
       // A full mapping returned by header selection contains multiplier=+1.
       // That default is not a manual sign decision: the AP proof must win again.
       const editAp = directionPage.getByRole('button', {
-        name: 'تعديل تقرير الحسابات الدائنة',
+        name: 'عدّل تقرير الحسابات الدائنة',
         exact: true,
       });
       await editAp.click();
@@ -1581,7 +1677,7 @@ try {
     } else {
       // Failed replacement cannot reset an answer attached to the retained file.
       await directionPage
-        .getByRole('button', { name: 'العودة للملفات', exact: true })
+        .getByRole('button', { name: 'عُد إلى الملفات', exact: true })
         .click();
       await directionPage
         .getByLabel('تقرير الحسابات الدائنة', { exact: true })
@@ -1598,7 +1694,7 @@ try {
         .getByText('synthetic-namespaced-1-formula.xlsx', { exact: true })
         .waitFor();
       await directionPage
-        .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+        .getByRole('button', { name: 'أكّد البيانات', exact: true })
         .click();
       assert.match(
         await apCard
@@ -1625,10 +1721,14 @@ try {
     // evaluator accepts cell references joined by +/- only, so neither this
     // cached opening nor its dependent closing proves a balance bridge. Both
     // phases still have an explicit period and two readable transactions.
-    const directionMetric = directionPage.locator('.metric').nth(3);
-    assert.match(
-      await directionMetric.innerText(),
-      formulas ? /صفوف لم تُقرأ/ : /فرق الأرصدة/,
+    // The bridge is the alignment strip's gap (UX-4), no longer repeated in
+    // the figure grid: a verified bridge with no difference is compared and
+    // zero there; an unverified one is not computed, and the grid then says
+    // how many rows were not read.
+    const directionGap = directionPage.locator('[data-strip-cell="gap"]');
+    assert.equal(
+      await directionGap.getAttribute('data-kind'),
+      formulas ? 'not-computed' : 'figures',
       formulas
         ? 'unsupported balance formulas must not turn cached values into a verified bridge'
         : 'fixed source balances support the arithmetic bridge',
@@ -1641,16 +1741,27 @@ try {
         .innerText(),
       '2',
     );
-    assert.equal(
-      await directionMetric.locator('strong').innerText(),
-      formulas ? '0' : '0.00',
-    );
+    if (formulas) {
+      const directionMetric = directionPage.locator('.metric').nth(3);
+      assert.match(await directionMetric.innerText(), /صفوف لم تُقرأ/);
+      assert.equal(await directionMetric.locator('strong').innerText(), '0');
+    } else {
+      assert.deepEqual(
+        [
+          await directionGap.getAttribute('data-compared'),
+          await directionGap.getAttribute('data-differences'),
+        ],
+        ['1', '0'],
+        'the bridge is compared and its difference is zero',
+      );
+      assert.equal(await directionPage.locator('.metric').count(), 3);
+    }
     await directionPage
-      .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
+      .getByRole('button', { name: 'أعدّ ورقة العمل', exact: true })
       .click();
     const directionDownload = directionPage.waitForEvent('download');
     await directionPage
-      .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
+      .getByRole('button', { name: 'نزّل مسودة Excel', exact: true })
       .click();
     const directionExport = new ExcelJS.Workbook();
     await directionExport.xlsx.readFile(await (await directionDownload).path());
@@ -1714,7 +1825,7 @@ try {
     );
   }
   await bothPdfPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   const supplierPdfCard = bothPdfPage.locator('section').filter({
     has: bothPdfPage.getByRole('heading', {
@@ -1760,14 +1871,14 @@ try {
   assert.equal(await bothCompare.isDisabled(), true);
   await supplierReview.check();
   await supplierPdfCard
-    .getByRole('button', { name: 'الصفحة التالية', exact: true })
+    .getByRole('button', { name: 'صفحة PDF التالية', exact: true })
     .click();
   await supplierPdfCard
     .locator('.preview tbody')
     .getByText('PAIR-PAY-100', { exact: true })
     .waitFor();
   await bothPdfPage
-    .getByRole('button', { name: 'العودة للملفات', exact: true })
+    .getByRole('button', { name: 'عُد إلى الملفات', exact: true })
     .click();
   await bothPdfPage.getByLabel('كشف المورد', { exact: true }).setInputFiles({
     name: 'synthetic-replacement-one-page.pdf',
@@ -1782,11 +1893,11 @@ try {
     .getByText('synthetic-replacement-one-page.pdf', { exact: true })
     .waitFor();
   await bothPdfPage
-    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .getByRole('button', { name: 'أكّد البيانات', exact: true })
     .click();
   assert.equal(
     await supplierPdfCard
-      .getByRole('button', { name: 'الصفحة التالية', exact: true })
+      .getByRole('button', { name: 'صفحة PDF التالية', exact: true })
       .count(),
     0,
   );
@@ -1881,19 +1992,68 @@ try {
     await activeScenarioPage(context, 'local review effort'),
     `${origin}/mizan-test/`,
   );
-  await verifyClearing(await activeScenarioPage(context, 'single-account clearing'), `${origin}/mizan-test/`);
-  await verifyAr(await activeScenarioPage(context, 'customer AR documents'), `${origin}/mizan-test/`);
-  await verifyAllocation(await activeScenarioPage(context, 'Payment allocation'), `${origin}/mizan-test/`);
-  await verifyBank(await activeScenarioPage(context, 'Bank movements'), `${origin}/mizan-test/`);
-  await verifyBankAdjustments(await activeScenarioPage(context, 'Bank balances and adjustment evidence'), `${origin}/mizan-test/`);
-  await verifyGlTb(await activeScenarioPage(context, 'GL/TB consistency'), `${origin}/mizan-test/`);
-  await verifyFinancial(await activeScenarioPage(context, 'Trial balance financial position'), `${origin}/mizan-test/`);
-  await verifyIntercompany(await activeScenarioPage(context, 'Intercompany transaction evidence'), `${origin}/mizan-test/`);
-  await verifyGateway(await activeScenarioPage(context, 'Payment gateway batch evidence'), `${origin}/mizan-test/`);
-  await verifyStock(await activeScenarioPage(context, 'Posted inventory register / GL evidence'), `${origin}/mizan-test/`);
-  await verifyAsset(await activeScenarioPage(context, 'Posted fixed assets / GL component evidence'), `${origin}/mizan-test/`);
-  await verifyPayroll(await activeScenarioPage(context, 'Posted payroll / GL and bank payout evidence'), `${origin}/mizan-test/`, 'work/payroll/full-app-browser-payroll');
-  await verifyDomainAssistant(await activeScenarioPage(context, 'Domain evidence explanations'), `${origin}/mizan-test/`);
+  await verifyClearing(
+    await activeScenarioPage(context, 'single-account clearing'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyAr(
+    await activeScenarioPage(context, 'customer AR documents'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyAllocation(
+    await activeScenarioPage(context, 'Payment allocation'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyBank(
+    await activeScenarioPage(context, 'Bank movements'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyBankAdjustments(
+    await activeScenarioPage(context, 'Bank balances and adjustment evidence'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyGlTb(
+    await activeScenarioPage(context, 'GL/TB consistency'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyFinancial(
+    await activeScenarioPage(context, 'Trial balance financial position'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyIntercompany(
+    await activeScenarioPage(context, 'Intercompany transaction evidence'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyGateway(
+    await activeScenarioPage(context, 'Payment gateway batch evidence'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyStock(
+    await activeScenarioPage(
+      context,
+      'Posted inventory register / GL evidence',
+    ),
+    `${origin}/mizan-test/`,
+  );
+  await verifyAsset(
+    await activeScenarioPage(
+      context,
+      'Posted fixed assets / GL component evidence',
+    ),
+    `${origin}/mizan-test/`,
+  );
+  await verifyPayroll(
+    await activeScenarioPage(
+      context,
+      'Posted payroll / GL and bank payout evidence',
+    ),
+    `${origin}/mizan-test/`,
+    'work/payroll/full-app-browser-payroll',
+  );
+  await verifyDomainAssistant(
+    await activeScenarioPage(context, 'Domain evidence explanations'),
+    `${origin}/mizan-test/`,
+  );
 
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);

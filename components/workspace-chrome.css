@@ -109,6 +109,14 @@
 .reconciliation-workspace .workspace-advanced__content > .workspace-toolbar {
   margin: 0;
 }
+/* The start row (UX-5) is a fieldset for its legend, read by screen readers
+   only; it is not one of the titled cards drawn for fieldsets with a legend. */
+.workspace-start {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
 .workspace-source .workspace-advanced {
   width: 100%;
 }
@@ -217,7 +225,8 @@
   flex-direction: column;
   gap: 24px;
 }
-.reconciliation-workspace :is(.gl-tb-actions, .clearing-actions) {
+.reconciliation-workspace
+  :is(.gl-tb-actions, .clearing-actions, .record-pager) {
   gap: 10px;
   align-items: center;
 }
@@ -502,7 +511,8 @@
   background: linear-gradient(90deg, #dce1ed, #dce1ed30);
 }
 .reconciliation-workspace .workspace-scope,
-.reconciliation-workspace > fieldset:has(> legend):not(.language-switch),
+.reconciliation-workspace
+  > fieldset:has(> legend):not(.language-switch, .workspace-start),
 .reconciliation-workspace > section:not(.workspace-intro),
 .reconciliation-workspace :is(.workspace-results, .workspace-review) {
   border: 1px solid var(--border);
@@ -520,7 +530,7 @@
   gap: 18px;
 }
 .reconciliation-workspace
-  > fieldset:has(> legend):not(.language-switch)
+  > fieldset:has(> legend):not(.language-switch, .workspace-start)
   > legend {
   float: inline-start;
   width: 100%;
@@ -684,7 +694,7 @@
   background: #f2eefb;
   color: #573790;
 }
-.reconciliation-workspace :is(.gl-tb-table, .clearing-scroll) {
+.reconciliation-workspace :is(.gl-tb-table, .clearing-scroll, .record-frame) {
   overflow-x: auto;
   max-width: 100%;
   border: 1px solid #e1e6ef;
@@ -746,14 +756,12 @@
 }
 .reconciliation-workspace [data-testid$='-metrics'] {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  /* One equal column per tile: the grid holds only what the alignment strip
+     does not say (UX-4), two tiles in receivables and three in clearing. */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
   align-items: stretch;
   gap: 14px;
   margin-block: 20px;
-}
-.reconciliation-workspace
-  [data-testid$='-metrics']:has(> div:nth-child(5):last-child) {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 .reconciliation-workspace [data-testid$='-metrics'] > div {
   position: relative;
@@ -796,14 +804,13 @@
   box-shadow: 0 3px 12px #0a1b2e02;
 }
 @media (max-width: 1000px) {
-  .reconciliation-workspace [data-testid$='-metrics'],
-  .reconciliation-workspace
-    [data-testid$='-metrics']:has(> div:nth-child(5):last-child) {
+  .reconciliation-workspace [data-testid$='-metrics'] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  /* An odd last tile takes the row, so no half row is left empty. */
   .reconciliation-workspace
-    [data-testid$='-metrics']:has(> div:nth-child(5):last-child)
-    > div:last-child {
+    [data-testid$='-metrics']
+    > div:last-child:nth-child(odd) {
     grid-column: 1 / -1;
   }
 }
@@ -867,7 +874,8 @@
       .workspace-review
     ),
   .reconciliation-workspace > section:not(.workspace-intro),
-  .reconciliation-workspace > fieldset:has(> legend):not(.language-switch) {
+  .reconciliation-workspace
+    > fieldset:has(> legend):not(.language-switch, .workspace-start) {
     padding: 20px 16px;
   }
   .reconciliation-workspace .workspace-toolbar {
@@ -916,9 +924,7 @@
   }
 }
 @media (max-width: 420px) {
-  .reconciliation-workspace [data-testid$='-metrics'],
-  .reconciliation-workspace
-    [data-testid$='-metrics']:has(> div:nth-child(5):last-child) {
+  .reconciliation-workspace [data-testid$='-metrics'] {
     grid-template-columns: 1fr;
   }
   .reconciliation-workspace [data-testid$='-metrics'] > div {

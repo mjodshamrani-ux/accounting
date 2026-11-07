@@ -3,6 +3,7 @@ import { readFile, mkdir } from 'node:fs/promises';
 import { ar } from '../lib/i18n/locales/ar.ts';
 import { en } from '../lib/i18n/locales/en.ts';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import { closedSay, shownReason } from './decision-platform-support.mjs';
 import {
   restoreReviewEffort,
   summarizeReviewEffort,
@@ -60,6 +61,13 @@ export async function verifyReviewEffort(page, baseUrl) {
           .isDisabled(),
         true,
       );
+      // UX-3: starting waits, named, for a case type.
+      await shownReason(
+        meter,
+        new RegExp(v.startWaits, 'u'),
+        `effort ${lang}: before the case type`,
+      );
+      await closedSay(meter, `effort ${lang}: before the case type`);
       await meter
         .getByLabel(v.sample, { exact: true })
         .selectOption('development');
@@ -69,6 +77,13 @@ export async function verifyReviewEffort(page, baseUrl) {
         await meter.getByRole('button', { name: v.start, exact: true }).count(),
         0,
       );
+      // While it runs, exporting waits for the end, and says so.
+      await shownReason(
+        meter,
+        new RegExp(v.exportWaits, 'u'),
+        `effort ${lang}: running`,
+      );
+      await closedSay(meter, `effort ${lang}: running`);
       assert.equal(
         await meter
           .getByRole('button', { name: v.export, exact: true })
@@ -124,6 +139,7 @@ export async function verifyReviewEffort(page, baseUrl) {
           .isDisabled(),
         true,
       );
+      await closedSay(meter, `effort ${lang}: finished`);
       const downloading = page.waitForEvent('download');
       await meter.getByRole('button', { name: v.export, exact: true }).click();
       const download = await downloading;

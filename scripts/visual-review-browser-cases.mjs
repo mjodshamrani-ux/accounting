@@ -1,5 +1,10 @@
 import assert from 'node:assert/strict';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import {
+  closedSay,
+  settledOn,
+  shownReason,
+} from './decision-platform-support.mjs';
 
 export async function verifyVisualReview(
   page,
@@ -16,11 +21,11 @@ export async function verifyVisualReview(
   const value = panel.getByLabel('القيمة كما تظهر في الأصل', { exact: true });
   const role = panel.getByLabel('نوع القيمة', { exact: true });
   const confirm = panel.getByRole('button', {
-    name: 'تأكيد مراجعة هذه القيمة',
+    name: 'أكّد مراجعة هذه القيمة',
     exact: true,
   });
   const save = panel.getByRole('button', {
-    name: 'حفظ سجل المراجعة',
+    name: 'احفظ سجل المراجعة',
     exact: true,
   });
   async function saveBytes(button = save) {
@@ -41,6 +46,14 @@ export async function verifyVisualReview(
   await cell
     .getByText('راجعت هذه القيمة مع القصاصة', { exact: true })
     .waitFor();
+  // UX-3: confirming takes the focus to the line that states the review,
+  // and the confirmation, now closed, is described by it.
+  await settledOn(
+    page,
+    cell.locator('output[data-decision-state]'),
+    'value review: confirmed',
+  );
+  assert.ok(await closedSay(cell, 'value review: confirmed'));
   assert.equal(
     await cell
       .getByRole('img', { name: 'قصاصة القيمة من الصورة الأصلية', exact: true })
@@ -92,6 +105,9 @@ export async function verifyVisualReview(
   // Clearing the input cannot leave the old reviewed value in a saved record.
   await value.fill('');
   assert.equal(await confirm.isDisabled(), true);
+  // With no value, confirming says what opens it.
+  await shownReason(cell, /اختيار نوعها وكتابة القيمة/u, 'value review');
+  assert.ok(await closedSay(cell, 'value review: cleared'));
   const cleared = JSON.parse((await saveBytes()).toString('utf8'));
   assert.equal(
     cleared.cells.some((c) => c.observed === '-250.00'),
@@ -166,7 +182,7 @@ export async function verifyVisualReview(
     .click();
   await assertIsolated('reviewed cells and language switch');
   await panel
-    .getByRole('button', { name: 'مسح مسودة الصور', exact: true })
+    .getByRole('button', { name: 'امسح مسودة الصور', exact: true })
     .click();
   await record.waitFor({ state: 'hidden' });
   const restore = panel.getByLabel('ملف سجل مراجعة الصور', {

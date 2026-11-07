@@ -17,6 +17,27 @@ import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import {
+  assertStatusBadges,
+  statusBadgesRead,
+} from './status-badge-support.mjs';
+import {
+  assertSectionFocus,
+  sectionFocusRead,
+} from './section-focus-support.mjs';
+
+// The status badge in this section (UX-3): a status on this list, and no
+// other, takes the agreed tone.
+const BADGE_LABEL = 'long payroll register';
+const BADGES = [
+  {
+    name: 'employees',
+    column: 2,
+    rows: 'tr[data-plr-employee]',
+    attr: 'data-plr-employee-status',
+    agreed: ['consistent'],
+  },
+];
 
 const root = path.resolve(process.env.PLR_DIST ?? 'dist');
 const SUITE = process.env.PLR_SUITE;
@@ -43,13 +64,19 @@ const KINDS = {
   Net: 'net',
 };
 const SUMS = ['earnings', 'deductions', 'employer', 'net'];
+// The page writes an amount at the run's decimals with grouped thousands and
+// the minus first; written here on its own, not taken from the application.
 const minor = (v, decimals) => {
   if (v === null || v === undefined) return '—';
   const sign = v < 0 ? '-' : '',
     digits = String(Math.abs(v)).padStart(decimals + 1, '0');
+  const whole = (decimals ? digits.slice(0, -decimals) : digits).replace(
+    /\B(?=(\d{3})+(?!\d))/gu,
+    ',',
+  );
   return decimals
-    ? `${sign}${digits.slice(0, -decimals)}.${digits.slice(-decimals)}`
-    : `${sign}${digits}`;
+    ? `${sign}${whole}.${digits.slice(-decimals)}`
+    : `${sign}${whole}`;
 };
 
 const frozen = path.join(suiteDir, 'frozen');
@@ -125,6 +152,7 @@ async function load(page, plr, c) {
     .click();
   await plr.locator('[data-plr-result], [data-plr-error]').first().waitFor();
   await idle(page);
+  await assertSectionFocus(page, plr, BADGE_LABEL);
   assert.equal(
     await plr.locator('[data-plr-error]').count(),
     0,
@@ -153,6 +181,7 @@ const attr = async (plr, selector, name) =>
     ? await plr.locator(selector).first().getAttribute(name)
     : null;
 async function shown(plr) {
+  await assertStatusBadges(plr, BADGES, BADGE_LABEL);
   const result = plr.locator('[data-plr-result]');
   const status = await result.getAttribute('data-plr-status');
   const verdict = await plr.locator('[data-plr-verdict]').textContent();
@@ -401,6 +430,11 @@ try {
   for (const [k, v] of Object.entries(report.summary.checks)) assert.ok(v, k);
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
+  console.log(
+    'status badges read:',
+    statusBadgesRead(BADGE_LABEL, ['employees']),
+  );
+  console.log('section focus read:', sectionFocusRead(BADGE_LABEL));
 } finally {
   await browser?.close();
   await new Promise((resolve) => server.close(resolve));

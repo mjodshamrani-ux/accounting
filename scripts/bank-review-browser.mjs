@@ -31,6 +31,7 @@ import path from 'node:path';
 import { chromium } from 'playwright';
 import { bankStatementCopy } from '../lib/i18n/bank-statement.ts';
 import { bankReviewCopy } from '../lib/i18n/bank-review.ts';
+import { recordTableCopy } from '../lib/i18n/record-table.ts';
 import { ar as arCatalogue } from '../lib/i18n/locales/ar.ts';
 import { en as enCatalogue } from '../lib/i18n/locales/en.ts';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
@@ -232,9 +233,7 @@ async function open(lang, width) {
     return { name: d.suggestedFilename(), target };
   };
   const restore = async (file) => {
-    const advanced = w.locator('details[data-workspace-advanced]').first();
-    if ((await advanced.getAttribute('open')) === null)
-      await advanced.locator(':scope > summary').click();
+    // The restore is in the start row, shown without opening anything (UX-5).
     return act(() =>
       w.getByLabel(bank.restore, { exact: true }).setInputFiles(file),
     );
@@ -255,6 +254,7 @@ async function open(lang, width) {
     w,
     c,
     q,
+    pages: recordTableCopy[lang],
     ctx,
     act,
     settle,
@@ -346,11 +346,12 @@ async function queueAgrees(u, want, what) {
 }
 
 /** The review table row of a case, by its id, on whichever page of the
- * table holds it: from the first page, then with the table's own Next. */
+ * table holds it: from the first page, then with the table's own Next
+ * page (the shared pager of the record kit). */
 async function caseRow(u, id) {
   const table = u.w.locator('[data-bank-statement-table="review"]');
-  const previous = u.button(u.c.previous, table),
-    next = u.button(u.c.next, table);
+  const previous = u.button(u.pages.previous, table),
+    next = u.button(u.pages.next, table);
   while ((await previous.count()) && (await previous.isEnabled()))
     await previous.click();
   for (;;) {

@@ -415,6 +415,13 @@ td {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+/* Reading issues are long text: their cells wrap, as the list did before it
+   took the record table (UX-3), instead of the rule above cutting them off. */
+.record-frame[data-reading-issues] table {
+  white-space: normal;
+  table-layout: fixed;
+  overflow-wrap: anywhere;
+}
 th {
   font-weight: 500;
   background: #f6f8fa;
@@ -422,7 +429,10 @@ th {
 }
 .metric-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* As many equal columns as the grid has tiles: three where the strip says
+     the balance difference, four where the grid says the rows not read
+     (UX-4). */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr));
   gap: 14px;
   margin: 20px 0;
 }
@@ -455,22 +465,6 @@ th {
 .metric small {
   font-size: 12px;
   color: #687489;
-}
-.status {
-  display: inline-flex;
-  padding: 4px 9px;
-  border-radius: 5px;
-  background: #edf2f7;
-  color: #576e80;
-  font-size: 12px;
-}
-.status.good {
-  background: #e7f4ec;
-  color: #206543;
-}
-.status.warn {
-  background: #fff3dc;
-  color: #8e641e;
 }
 .mono {
   font-family: Arial, sans-serif;
@@ -585,6 +579,9 @@ th {
   }
   .metric-grid {
     grid-template-columns: 1fr 1fr;
+  }
+  .metric-grid > .metric:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -780,6 +777,12 @@ th {
 .visual-table-review {
   border-top: 1px solid var(--border);
   padding-top: 16px;
+}
+/* The counts of a rows record are notices of their own lines: as inline
+   outputs they sat beside the create button, ran past the frame and laid
+   their padding over what stood above and below. */
+.visual-table-review > output.notice {
+  display: block;
 }
 .visual-table-row {
   padding: 16px;
@@ -1371,10 +1374,6 @@ body {
 .metric small {
   font-size: 11px;
 }
-.status {
-  border-radius: 6px;
-  font-size: 11px;
-}
 .notice {
   border-radius: 11px;
   font-size: 13px;
@@ -1384,14 +1383,62 @@ body {
   color: #5f4392;
   border-color: #e0d7f2;
 }
+/* The startup readiness line is announced, not drawn: each source card shows
+   readiness on its own state line, which keeps its place (UX-3). */
+.notice.loading.startup-readiness {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 .notice.success {
   background: #eef5ff;
   color: #275486;
   border-color: #d0e1f6;
 }
-.status.good {
+/* Status badge (UX-3): the word as the workspace writes it, an icon hidden
+   from assistive technology, and a tone from lib/status-tone.ts. Each tone
+   keeps a contrast of at least 4.5:1; the outline shows in forced colours. */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  outline: 1px solid transparent;
+  background: #edf2f7;
+  color: #576e80;
+  font-size: 12px;
+}
+.status-badge__icon {
+  flex: none;
+  width: 14px;
+  height: 14px;
+}
+.status-badge[data-tone='agreed'] {
   background: #eaf3ff;
   color: #225993;
+}
+.status-badge[data-tone='suggestion'] {
+  background: #eef0fb;
+  color: #3d4fa3;
+}
+.status-badge[data-tone='review'] {
+  background: #fff3dc;
+  color: #8e641e;
+}
+.status-badge[data-tone='difference'] {
+  background: #fdf0e6;
+  color: #8a4b0f;
+}
+.status-badge[data-tone='held'] {
+  background: #fdecec;
+  color: #a12a2a;
 }
 #privacy-detail-title {
   scroll-margin-top: 112px;
@@ -2102,6 +2149,26 @@ td {
 .source-card__state svg {
   flex-shrink: 0;
 }
+/* A line whose sentence changes keeps the room of the longer one (UX-3):
+   the other sentence (data-reserve) shares its one cell, laid out but not
+   drawn, read or selected, so nothing below moves when the sentence does.
+   The line is as wide and as tall as the longer of the two. */
+[data-reserve] {
+  display: grid;
+  align-items: center;
+}
+[data-reserve] > .reserve-now,
+[data-reserve]::after {
+  grid-area: 1 / 1;
+}
+[data-reserve]::after {
+  content: attr(data-reserve);
+  visibility: hidden;
+}
+.source-card__state[data-reserve] {
+  justify-items: center;
+  text-align: center;
+}
 .source-card .source-card__choose {
   min-height: 46px;
   font-size: 13px;
@@ -2358,4 +2425,16 @@ td {
     gap: 6px;
     padding-inline: 6px;
   }
+}
+/* A money amount (components/amount.tsx): its own left-to-right run, never
+   wrapped, digits of one width. Labelled amounts sit on one line and wrap
+   between figures, never inside one. */
+.tarasuf-amount {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.tarasuf-figures {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
 }

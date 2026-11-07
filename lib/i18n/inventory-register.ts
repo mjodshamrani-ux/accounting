@@ -4,7 +4,8 @@ const en = {
   scopePrefix: 'Inventory scope ',
   title: 'Posted inventory register / GL evidence',
   intro:
-    'Compare supplied posted carrying values by evidenced account and complete dimensions. Quantities stay separate by item, unit and precision.',
+    'Compare supplied posted carrying values by evidenced account and complete dimensions.',
+  introDetail: 'Quantities stay separate by item, unit and precision.',
   claim:
     'This does not calculate inventory cost, aggregate quantities, post entries or establish existence, ownership, source authenticity or ERP completeness.',
   family:
@@ -76,10 +77,48 @@ const en = {
     'Independent supplied policy evidence',
     'Selected inventory GL balances',
   ],
-  roleConfirm: 'I confirmed this original and its role.',
-  scopeTitle: 'Confirmed inventory snapshot scope',
-  scopeConfirm:
-    'I confirmed the complete snapshot scope and the selected inventory GL account set.',
+  // The UX-5(d) card: what the four files say, and the one confirmation that
+  // carries the four source attestations and the scope attestation. In
+  // parts, so the screen can isolate each value. A structured or printed
+  // register states its scope once, in its scope block.
+  cardSummary: <T>(
+    entity: T,
+    inventoryLedger: T,
+    glLedger: T,
+    asOf: T,
+    currency: T,
+    rows: number,
+    // What was read: all four files row by row; the files and the
+    // register's scope block; or only the files that could be read.
+    read: 'four' | 'block' | 'files',
+  ) => [
+    entity,
+    ', ',
+    inventoryLedger,
+    ' against ',
+    glLedger,
+    ', as of ',
+    asOf,
+    ', in ',
+    currency,
+    read === 'block'
+      ? `; ${rows} rows read from the files, and the register's scope block.`
+      : read === 'four'
+        ? `; ${rows} rows read from the four files.`
+        : `; ${rows} rows read from the files.`,
+  ],
+  cardConfirm: <T>(entity: T, asOf: T) => [
+    "I reviewed the posted inventory register, the proposed item / GL mapping, the independent supplied policy evidence and the selected inventory GL balances (each one's role and family) and their common scope in every field above, with the selected inventory GL account set: ",
+    entity,
+    ', as of ',
+    asOf,
+    '. This confirms the reading and the scope; it accepts no line.',
+  ],
+  // The one value each of these fields takes in this family.
+  only: {
+    currencyBasis: 'Functional',
+    postingStatus: 'Posted',
+  },
   scope: {
     entity: 'Entity',
     inventoryLedger: 'Inventory ledger',
@@ -112,8 +151,9 @@ const en = {
   inventory: 'Physical inventory',
   events: 'Decision history',
   sources: 'Original source hashes',
-  units:
-    'Monetary minor units; quantity scaled integers have their own per-item precision and unit. No combined quantity total.',
+  amountsIn: 'Amounts in',
+  quantityNote:
+    "Each quantity is in its item's unit; there is no combined quantity total.",
   status: {
     'source-error': 'Source blocked; financial totals withheld',
     missing: 'Evidence or account coverage missing',
@@ -123,28 +163,29 @@ const en = {
     accepted: 'Accepted',
     rejected: 'Rejected',
   },
-  totals: [
-    'Register value supported by GL mapping, minor units',
-    'GL monetary minor units',
-  ],
+  tableNames: {
+    totals: 'Register value against the GL',
+    comparisons: 'Comparison by account',
+  },
+  totals: ['Register value supported by GL mapping', 'GL net'],
   comparisons: [
     'GL account',
     'Complete GL dimensions',
-    'Register minor',
-    'Debit minor',
-    'Credit minor',
-    'GL net minor',
-    'Difference minor',
+    'Register value',
+    'Debit',
+    'Credit',
+    'GL net',
+    'Difference, register minus GL',
   ],
   records: [
     [
       'Source row',
       'Item ID',
       'Complete item dimensions',
-      'Quantity scaled integer',
+      'Quantity',
       'Unit',
       'Quantity precision',
-      'Posted value minor',
+      'Posted value',
       'Valuation reference',
     ],
     [
@@ -178,8 +219,8 @@ const en = {
       'GL account',
       'Complete GL dimensions',
       'Account class',
-      'Debit minor',
-      'Credit minor',
+      'Debit',
+      'Credit',
     ],
   ],
   memberHeaders: ['Source', 'Source row', 'Member identity'],
@@ -349,14 +390,13 @@ const en = {
   } as Record<string, string>,
   linkComma: ', ',
   linkSemi: '; ',
-  previous: 'Previous',
-  next: 'Next',
 };
 const ar: typeof en = {
   scopePrefix: 'نطاق المخزون: ',
   title: 'سجل المخزون المرحل وأدلة الأستاذ',
   intro:
-    'قارن القيم المرحلة المقدمة لكل حساب وأبعاده الكاملة بربط مثبت. تبقى الكميات منفصلة بحسب الصنف والوحدة والدقة.',
+    'قارن القيم المرحلة المقدمة لكل حساب وأبعاده الكاملة بربط مثبت.',
+  introDetail: 'تبقى الكميات منفصلة بحسب الصنف والوحدة والدقة.',
   claim:
     'لا يحسب هذا المسار تكلفة المخزون أو يجمع الكميات أو ينشئ قيودًا، ولا يثبت الوجود أو الملكية أو أصالة الأصل أو اكتمال نظام المنشأة.',
   family:
@@ -452,9 +492,41 @@ const ar: typeof en = {
     'دليل السياسة المستقل المقدم',
     'أرصدة مخزون الأستاذ المحددة',
   ],
-  roleConfirm: 'أكدت هذا الأصل ودوره.',
-  scopeTitle: 'نطاق رصيد المخزون المؤكد',
-  scopeConfirm: 'أكدت النطاق الكامل ومجموعة حسابات المخزون المحددة من الأستاذ.',
+  cardSummary: <T>(
+    entity: T,
+    inventoryLedger: T,
+    glLedger: T,
+    asOf: T,
+    currency: T,
+    rows: number,
+    read: 'four' | 'block' | 'files',
+  ) => [
+    entity,
+    '، ',
+    inventoryLedger,
+    ' مقابل ',
+    glLedger,
+    '، كما في ',
+    asOf,
+    '، بعملة ',
+    currency,
+    read === 'block'
+      ? `؛ الصفوف المقروءة من الملفات: ${rows}، ومعها كتلة نطاق السجل.`
+      : read === 'four'
+        ? `؛ الصفوف المقروءة من الملفات الأربعة: ${rows}.`
+        : `؛ الصفوف المقروءة من الملفات: ${rows}.`,
+  ],
+  cardConfirm: <T>(entity: T, asOf: T) => [
+    'راجعت سجل المخزون المرحل وخريطة الصنف والأستاذ المقترحة ودليل السياسة المستقل المقدم وأرصدة مخزون الأستاذ المحددة (دور كل منها وعائلته) ونطاقها المشترك بكل حقوله أعلاه، ومعه مجموعة حسابات المخزون المحددة: ',
+    entity,
+    '، كما في ',
+    asOf,
+    '؛ وهذا تأكيد للقراءة والنطاق، لا قبول لبند.',
+  ],
+  only: {
+    currencyBasis: 'وظيفية',
+    postingStatus: 'مرحّلة',
+  },
   scope: {
     entity: 'الكيان',
     inventoryLedger: 'دفتر المخزون',
@@ -487,8 +559,8 @@ const ar: typeof en = {
   inventory: 'الجرد الفيزيائي',
   events: 'سجل القرارات',
   sources: 'بصمات الأصول الأصلية',
-  units:
-    'الأموال بوحدات العملة المصغرة؛ لكل كمية صحيحة مصغرة دقة ووحدة منفصلتان. لا يوجد إجمالي يجمع الكميات.',
+  amountsIn: 'المبالغ بعملة',
+  quantityNote: 'كل كمية بوحدة صنفها، ولا مجموع يجمع الكميات.',
   status: {
     'source-error': 'المصدر محجوب؛ المجاميع المالية غير متاحة',
     missing: 'دليل أو تغطية حساب مفقودان',
@@ -498,28 +570,29 @@ const ar: typeof en = {
     accepted: 'معتمد',
     rejected: 'مرفوض',
   },
-  totals: [
-    'قيمة السجل المرتبطة بأدلة الأستاذ بوحدات العملة المصغرة',
-    'صافي الأستاذ بوحدات العملة المصغرة',
-  ],
+  tableNames: {
+    totals: 'قيمة السجل مقابل الأستاذ',
+    comparisons: 'المقارنة حسب الحساب',
+  },
+  totals: ['قيمة السجل المرتبطة بأدلة الأستاذ', 'صافي الأستاذ'],
   comparisons: [
     'حساب الأستاذ',
     'أبعاد الأستاذ الكاملة',
-    'قيمة السجل المصغرة',
-    'المدين المصغر',
-    'الدائن المصغر',
-    'صافي الأستاذ المصغر',
-    'الفرق المصغر',
+    'قيمة السجل',
+    'المدين',
+    'الدائن',
+    'صافي الأستاذ',
+    'الفرق، السجل ناقص الأستاذ',
   ],
   records: [
     [
       'صف الأصل',
       'الصنف',
       'أبعاد الصنف الكاملة',
-      'الكمية الصحيحة المصغرة',
+      'الكمية',
       'الوحدة',
       'دقة الكمية',
-      'القيمة المرحلة المصغرة',
+      'القيمة المرحلة',
       'مرجع التقييم',
     ],
     [
@@ -553,8 +626,8 @@ const ar: typeof en = {
       'حساب الأستاذ',
       'أبعاد الأستاذ الكاملة',
       'صنف الحساب',
-      'المدين المصغر',
-      'الدائن المصغر',
+      'المدين',
+      'الدائن',
     ],
   ],
   memberHeaders: ['الأصل', 'صف الأصل', 'هوية العضو'],
@@ -682,7 +755,7 @@ const ar: typeof en = {
   othersTitle: 'صفوف خريطة ودليل وأستاذ لا يربطها شيء، وحسابات بلا صف أستاذ',
   othersHeaders: ['الدور', 'الصف', 'المفتاح', 'السبب'],
   allLinked: 'كل صفوف السجل مربوطة.',
-  exportLinks: 'تصدير روابط السجل',
+  exportLinks: 'صدّر روابط السجل',
   linkRoles: {
     mapping: 'خريطة',
     evidence: 'دليل سياسة',
@@ -710,7 +783,5 @@ const ar: typeof en = {
   },
   linkComma: '، ',
   linkSemi: '؛ ',
-  previous: 'السابق',
-  next: 'التالي',
 };
 export const stockCopy = { en, ar };

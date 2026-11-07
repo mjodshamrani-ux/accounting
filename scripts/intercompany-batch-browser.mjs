@@ -13,6 +13,27 @@ import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import {
+  assertStatusBadges,
+  statusBadgesRead,
+} from './status-badge-support.mjs';
+import {
+  assertSectionFocus,
+  sectionFocusRead,
+} from './section-focus-support.mjs';
+
+// The status badge in this section (UX-3): a status on this list, and no
+// other, takes the agreed tone.
+const BADGE_LABEL = 'intercompany batches';
+const BADGES = [
+  {
+    name: 'relations',
+    column: 1,
+    rows: 'tr[data-ic-relation]',
+    attr: 'data-ic-relation-status',
+    agreed: [],
+  },
+];
 
 const root = path.resolve(process.env.IC_BATCH_DIST ?? 'dist');
 // IC_BATCH_SUITE names another sealed suite with the same layout (H1); the
@@ -50,13 +71,20 @@ const filesOf = (sid) => {
     relations: p(own.find((n) => n.endsWith('-relations.csv'))),
   };
 };
+// The page writes an amount at the currency's decimals with grouped
+// thousands and the minus first; written here on its own, not taken from the
+// application.
 const minor = (value, decimals) => {
   if (value === null) return '—';
   const sign = value < 0 ? '-' : '',
     digits = String(Math.abs(value)).padStart(decimals + 1, '0');
+  const whole = (decimals ? digits.slice(0, -decimals) : digits).replace(
+    /\B(?=(\d{3})+(?!\d))/gu,
+    ',',
+  );
   return decimals
-    ? `${sign}${digits.slice(0, -decimals)}.${digits.slice(-decimals)}`
-    : `${sign}${digits}`;
+    ? `${sign}${whole}.${digits.slice(-decimals)}`
+    : `${sign}${whole}`;
 };
 const DECIMALS = { SAR: 2, KWD: 3, JPY: 0 };
 
@@ -124,6 +152,7 @@ async function load(page, batch, files) {
     .first()
     .waitFor();
   await idle(page);
+  await assertSectionFocus(page, batch, BADGE_LABEL);
   assert.equal(
     await batch.locator('[data-ic-batch-error]').count(),
     0,
@@ -136,17 +165,19 @@ async function load(page, batch, files) {
   );
 }
 async function shown(batch) {
+  await assertStatusBadges(batch, BADGES, BADGE_LABEL);
   return batch.evaluate((root) => {
     const batches = {};
     for (const b of root.querySelectorAll('[data-ic-batch]')) {
-      const table = b.querySelector('table');
+      // The rows of the relations table by their own hook: a batch with no
+      // relation shows one quiet line in its place, not a table (UX-3).
       batches[b.getAttribute('data-ic-batch')] = {
         status: b.getAttribute('data-ic-batch-status'),
         codes: (b.getAttribute('data-ic-batch-codes') || '')
           .split(' ')
           .filter(Boolean),
-        relations: [...(table?.querySelectorAll('tbody tr') ?? [])].map((tr) =>
-          [...tr.querySelectorAll('td')].map((td) => td.textContent),
+        relations: [...b.querySelectorAll('tbody tr[data-ic-relation]')].map(
+          (tr) => [...tr.querySelectorAll('td')].map((td) => td.textContent),
         ),
       };
     }
@@ -360,6 +391,11 @@ try {
   for (const [k, v] of Object.entries(report.summary.checks)) assert.ok(v, k);
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
+  console.log(
+    'status badges read:',
+    statusBadgesRead(BADGE_LABEL, ['relations']),
+  );
+  console.log('section focus read:', sectionFocusRead(BADGE_LABEL));
 } finally {
   await browser?.close();
   await new Promise((resolve) => server.close(resolve));

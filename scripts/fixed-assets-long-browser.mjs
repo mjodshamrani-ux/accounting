@@ -36,6 +36,19 @@ const ids = [
   '39-net-equal-component-differences',
   '42-malformed-last-row-width',
 ];
+// The scope columns as the family's independent oracle names them
+// (audit/fixed-assets-long/oracle.py, SCOPE), not as the app does.
+const oracleScope = Object.fromEntries(
+  [
+    ...(
+      /^SCOPE = \{([^}]*)\}/mu.exec(
+        await readFile(path.join(repo, 'audit/fixed-assets-long/oracle.py'), 'utf8'),
+      )?.[1] ?? ''
+    ).matchAll(/'(\w+)': '([^']+)'/gu),
+  ].map((m) => [m[1], m[2]]),
+);
+if (Object.keys(oracleScope).length !== 12)
+  throw Error('the oracle names twelve scope columns');
 const facts = new Map();
 const freeze = {
   syntheticOnly: true,
@@ -279,14 +292,50 @@ try {
               });
             await idle(panel);
           }
-          for (const [key, label] of Object.entries(copy.scope))
-            await panel
-              .getByLabel(copy.scopePrefix + label, { exact: true })
-              .fill(meta.scope[key]);
-          const confirms = panel.getByLabel(copy.roleConfirm, { exact: true });
-          assert.equal(await confirms.count(), 4);
-          for (let i = 0; i < 4; i++) await confirms.nth(i).check();
-          await panel.getByLabel(copy.scopeConfirm, { exact: true }).check();
+          // UX-5(d): the card reads the scope from the four originals. A
+          // field every row writes alike comes from the file with the case's
+          // declared value; a field some row leaves out (the malformed short
+          // row of case 42) is a question, typed here as an accountant would,
+          // except the two fields that take one value, which keep it. Which
+          // is which is worked out from the bytes with this check's own split.
+          const tables = originals.map((b) => {
+            const [head, ...body] = b
+              .toString('utf8')
+              .split(/\r?\n/u)
+              .map((line) => line.split(','))
+              .filter((cells) => cells.some((cell) => cell.trim()));
+            return { head, body };
+          });
+          const fixedFields = ['currencyBasis', 'postingStatus'];
+          for (const [key, label] of Object.entries(copy.scope)) {
+            const header = oracleScope[key],
+              said = new Set(
+                tables.flatMap(({ head, body }) =>
+                  head.includes(header)
+                    ? body.map((row) => (row[head.indexOf(header)] ?? '').trim())
+                    : [],
+                ),
+              );
+            const field = panel.locator(`[data-scope-field="${key}"]`),
+              control = panel.getByLabel(copy.scopePrefix + label, {
+                exact: true,
+              });
+            if (said.size === 1) {
+              assert.equal([...said][0], meta.scope[key], `${id}: ${key} declared as written`);
+              assert.equal(await field.getAttribute('data-origin'), 'file', `${id}: ${key} from the files`);
+              assert.equal(await control.inputValue(), meta.scope[key], `${id}: ${key} read`);
+            } else {
+              assert.equal(await field.getAttribute('data-origin'), 'question', `${id}: ${key} asked`);
+              if (fixedFields.includes(key))
+                assert.equal(await control.inputValue(), meta.scope[key], `${id}: ${key} keeps its one value`);
+              else await control.fill(meta.scope[key]);
+            }
+          }
+          const confirmBox = panel.getByLabel(copy.cardConfirm('', '')[0], {
+            exact: false,
+          });
+          assert.equal(await confirmBox.isChecked(), false, `${id}: a suggestion never confirms`);
+          await confirmBox.check();
           await panel
             .getByRole('button', { name: copy.compare, exact: true })
             .focus();
@@ -407,10 +456,10 @@ try {
                 1,
               );
               await panel
-                .getByLabel(copy.scopeConfirm, { exact: true })
+                .getByLabel(copy.cardConfirm('', '')[0], { exact: false })
                 .uncheck();
               await panel
-                .getByLabel(copy.scopeConfirm, { exact: true })
+                .getByLabel(copy.cardConfirm('', '')[0], { exact: false })
                 .check();
               assert.equal(
                 await panel.locator('[data-asset-result]').count(),
@@ -629,7 +678,8 @@ try {
             .getByLabel(copy.registerFormat, { exact: true })
             .selectOption('fixed-assets-posted-components-gl-1');
           assert.equal(await panel.locator('[data-asset-status]').count(), 0);
-          assert.equal(await confirms.nth(0).isChecked(), false);
+          // Another register format drops the one confirmation (UX-5(d)).
+          assert.equal(await confirmBox.isChecked(), false);
           assert(
             await panel
               .getByRole('button', { name: copy.export, exact: true })

@@ -123,8 +123,6 @@ const en = {
   } as Record<string, string>,
   none: '—',
   list: ', ',
-  previous: 'Previous page',
-  next: 'Next page',
 };
 
 const ar: typeof en = {
@@ -156,7 +154,7 @@ const ar: typeof en = {
   },
   confirmScope: 'النطاق مؤكد',
   check: 'راجع الدفعات',
-  cancel: 'إلغاء',
+  cancel: 'ألغِ',
   empty: 'لا ملف',
   failed: 'تعذرت مراجعة الدفعات. راجع الملفات والنطاق؛ لم يُعرض شيء.',
   refused: 'مرفوض: لم يُراجع شيء',
@@ -244,8 +242,6 @@ const ar: typeof en = {
   },
   none: '—',
   list: '، ',
-  previous: 'الصفحة السابقة',
-  next: 'الصفحة التالية',
 };
 
 export const paymentGatewayBatchesCopy = { en, ar };

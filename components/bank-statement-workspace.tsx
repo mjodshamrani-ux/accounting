@@ -5,6 +5,8 @@ import {
   type ChangeEvent,
   type ReactNode,
 } from 'react';
+import { usePendingResultFocus } from '@/components/result-focus';
+import { RecordRows } from '@/components/record-table';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceFileInput,
@@ -151,6 +153,9 @@ export function useBankStatement() {
     [failure, setFailure] = useState<Failure | null>(null),
     // The cashbook as read, for choosing its columns by hand or by a map.
     [layout, setLayout] = useState<SourceFile | null>(null);
+  // A comparison, a reading with chosen columns or a restored session takes
+  // the reader to the result; a decision, sheet or tolerance does not (UX-2).
+  const [revealPending, setRevealPending] = useState(false);
   const serial = useRef(0),
     controller = useRef<AbortController | null>(null);
   useEffect(
@@ -288,6 +293,8 @@ export function useBankStatement() {
     closing,
     closingInvalid,
     result,
+    revealPending,
+    revealed: () => setRevealPending(false),
     sheet,
     sheetForm,
     tolerance,
@@ -364,6 +371,7 @@ export function useBankStatement() {
               signal,
             ),
           );
+          setRevealPending(true);
         } catch (error) {
           // The declared reading comes first; once it refuses the header
           // row, the cashbook is read for its columns, for the accountant
@@ -393,6 +401,7 @@ export function useBankStatement() {
             signal,
           ),
         );
+        setRevealPending(true);
       }),
     loadLayout: () => perform(readLayout),
     decide: (c: StatementCase, type: StatementDecision['type']) =>
@@ -497,7 +506,7 @@ export function useBankStatement() {
         );
       }),
     restore: (buffer: ArrayBuffer) =>
-      perform(async (signal) =>
+      perform(async (signal) => {
         install(
           await workerTask<Replay>(
             'bank-statement-restore',
@@ -505,8 +514,9 @@ export function useBankStatement() {
             signal,
           ),
           true,
-        ),
-      ),
+        );
+        setRevealPending(true);
+      }),
     cancel() {
       serial.current++;
       controller.current?.abort();
@@ -517,7 +527,8 @@ export function useBankStatement() {
 }
 export type BankStatementSession = ReturnType<typeof useBankStatement>;
 
-/** A paged table that builds only the rows it shows. */
+/** A table of the record kit (UX-3), named by its heading; it pages on its
+ * own and builds only the rows it shows. */
 function Table<T>({
   title,
   headers,
@@ -531,55 +542,10 @@ function Table<T>({
   row: (item: T, index: number) => ReactNode[];
   testId: string;
 }) {
-  const { lang } = useI18n(),
-    c = bankStatementCopy[lang];
-  const [page, setPage] = useState(0);
-  const pages = Math.max(1, Math.ceil(items.length / 50));
-  const at = Math.min(page, pages - 1);
   return (
     <section data-bank-statement-table={testId}>
       <h2>{title}</h2>
-      <div className="gl-tb-table">
-        <table>
-          <thead>
-            <tr>
-              {headers.map((h) => (
-                <th key={h}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {items.slice(at * 50, (at + 1) * 50).map((item, i) => (
-              <tr key={at * 50 + i}>
-                {row(item, at * 50 + i).map((cell, k) => (
-                  <td key={k}>{cell}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {pages > 1 && (
-        <div className="gl-tb-actions">
-          <Button
-            variant="outline"
-            disabled={!at}
-            onClick={() => setPage(at - 1)}
-          >
-            {c.previous}
-          </Button>
-          <span>
-            {at + 1} / {pages}
-          </span>
-          <Button
-            variant="outline"
-            disabled={at + 1 >= pages}
-            onClick={() => setPage(at + 1)}
-          >
-            {c.next}
-          </Button>
-        </div>
-      )}
+      <RecordRows label={title} headers={headers} rows={items} cells={row} />
     </section>
   );
 }
@@ -765,6 +731,7 @@ function Result({
 }) {
   const { lang } = useI18n(),
     c = bankStatementCopy[lang];
+  const heading = usePendingResultFocus(s.revealPending, s.revealed);
   const format = (n: number | null | undefined) =>
     n === null || n === undefined ? '' : money(n, r.reading.decimals);
   const held = r.match.held ? heldReason(r.match.held.reason) : null;
@@ -942,7 +909,14 @@ function Result({
   const period = r.match.statement.period;
   return (
     <section className="bank-statement-result" data-bank-statement-result>
-      <h2 data-bank-statement-status={r.status}>{c.status[r.status]}</h2>
+      <h2
+        data-bank-statement-status={r.status}
+        ref={heading}
+        tabIndex={-1}
+        data-result-heading="result"
+      >
+        {c.status[r.status]}
+      </h2>
       {!r.match.held && (
         <p className="bank-source-basis" data-bank-statement-counts>
           {c.counts(

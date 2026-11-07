@@ -33,6 +33,17 @@ export const BANK_HEADERS = [
   'Period end',
   'Amount',
 ];
+/** The column each declared scope field is read from, in BANK_SCOPE_FIELDS
+ * order; every row of both families carries them (the UX-5(d) card reads
+ * them to suggest). */
+export const BANK_SCOPE_HEADERS: readonly string[] = [
+  'Entity',
+  'Ledger',
+  'Bank account',
+  'Currency',
+  'Period start',
+  'Period end',
+];
 export const BANK_WD_HEADERS = [
   ...BANK_HEADERS.filter((h) => h !== 'Amount' && h !== 'Cash direction'),
   'Withdrawal',

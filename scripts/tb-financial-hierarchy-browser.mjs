@@ -19,6 +19,12 @@ import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import {
+  assertSectionFocus,
+  sectionFocusRead,
+} from './section-focus-support.mjs';
+
+const FOCUS_LABEL = 'financial hierarchy';
 
 const root = path.resolve(process.env.FINH_DIST ?? 'dist');
 const H1 = process.env.FINH_SUITE;
@@ -43,9 +49,12 @@ const CLASSES = [
 ];
 const json = async (p) => JSON.parse(await readFile(p, 'utf8'));
 const byText = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
+// The page writes an amount at two decimals with grouped thousands and the
+// minus first; written here on its own, not taken from the application.
 const minor = (v) => {
   const digits = String(Math.abs(v)).padStart(3, '0');
-  return `${v < 0 ? '-' : ''}${digits.slice(0, -2)}.${digits.slice(-2)}`;
+  const whole = digits.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/gu, ',');
+  return `${v < 0 ? '-' : ''}${whole}.${digits.slice(-2)}`;
 };
 
 async function suite() {
@@ -147,6 +156,7 @@ async function load(page, finh, c) {
     .click();
   await finh.locator('[data-finh-result], [data-finh-error]').first().waitFor();
   await idle(page);
+  await assertSectionFocus(page, finh, FOCUS_LABEL);
   assert.equal(
     await finh.locator('[data-finh-error]').count(),
     0,
@@ -413,6 +423,7 @@ try {
   for (const [k, v] of Object.entries(report.summary.checks)) assert.ok(v, k);
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
+  console.log('section focus read:', sectionFocusRead(FOCUS_LABEL));
 } finally {
   await browser?.close();
   await new Promise((resolve) => server.close(resolve));

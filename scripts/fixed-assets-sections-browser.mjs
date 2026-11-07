@@ -29,6 +29,41 @@ import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import {
+  assertStatusBadges,
+  statusBadgesRead,
+} from './status-badge-support.mjs';
+import {
+  assertSectionFocus,
+  sectionFocusRead,
+} from './section-focus-support.mjs';
+
+// The status badge in this section (UX-3): a status on this list, and no
+// other, takes the agreed tone.
+const BADGE_LABEL = 'asset sections';
+const BADGES = [
+  {
+    name: 'accounts',
+    column: 8,
+    rows: 'tr[data-fas-account]',
+    attr: 'data-fas-account-status',
+    agreed: ['consistent'],
+  },
+  {
+    name: 'sections',
+    column: 5,
+    rows: 'tr[data-fas-section]',
+    attr: 'data-fas-section-status',
+    agreed: ['consistent'],
+  },
+  {
+    name: 'assets',
+    column: 9,
+    rows: 'tr[data-fas-asset]',
+    attr: 'data-fas-asset-status',
+    agreed: ['consistent'],
+  },
+];
 
 const root = path.resolve(process.env.FA_SECTIONS_DIST ?? 'dist');
 const SUITE = process.env.FA_SECTIONS_SUITE;
@@ -186,11 +221,16 @@ const WORDS = {
     },
   },
 };
+// The page writes an amount at the scope's decimals with grouped thousands
+// and the minus first; written here on its own, not taken from the
+// application.
 const minor = (v, decimals) => {
   const digits = String(Math.abs(v)).padStart(decimals + 1, '0');
-  const text = decimals
-    ? `${digits.slice(0, -decimals)}.${digits.slice(-decimals)}`
-    : digits;
+  const whole = (decimals ? digits.slice(0, -decimals) : digits).replace(
+    /\B(?=(\d{3})+(?!\d))/gu,
+    ',',
+  );
+  const text = decimals ? `${whole}.${digits.slice(-decimals)}` : whole;
   return v < 0 ? `-${text}` : text;
 };
 
@@ -312,14 +352,18 @@ async function load(page, fas, c, lang = 'en') {
     .first()
     .waitFor({ timeout: 600000 });
   await idle(page);
+  await assertSectionFocus(page, fas, BADGE_LABEL);
 }
 // Every row of one paged table, page after page; a dense story only on its
 // first and last pages.
 async function rows(fas, pager, selector, dense) {
   const found = [];
   const bar = fas.locator(`[data-fas-pager="${pager}"]`);
+  // The shared pager names the page, then the number of pages (UX-3).
   const pages = (await bar.count())
-    ? Number(/\/\s*(\d+)/.exec(await bar.locator('span').textContent())[1])
+    ? Number(
+        /(\d+)\D+(\d+)/u.exec(await bar.locator('output').textContent())[2],
+      )
     : 1;
   for (let page = 0; page < pages; page++) {
     if (!dense || page === 0 || page === pages - 1)
@@ -330,6 +374,7 @@ async function rows(fas, pager, selector, dense) {
   return { found, pages };
 }
 async function shown(fas, dense) {
+  await assertStatusBadges(fas, BADGES, BADGE_LABEL);
   const state = await fas.getAttribute('data-fas-state');
   const refusal = fas.locator('[data-fas-refused]');
   if (await refusal.count())
@@ -692,6 +737,11 @@ try {
   for (const [k, v] of Object.entries(report.summary.checks)) assert.ok(v, k);
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
+  console.log(
+    'status badges read:',
+    statusBadgesRead(BADGE_LABEL, ['accounts', 'sections', 'assets']),
+  );
+  console.log('section focus read:', sectionFocusRead(BADGE_LABEL));
 } finally {
   await browser?.close();
   await new Promise((resolve) => server.close(resolve));

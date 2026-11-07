@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { closedSay } from './decision-platform-support.mjs';
 import { knownVisualSource } from '../audit/visual-accounting/make_record.mjs';
 
 export async function verifyVisualAccounting(page, baseUrl) {
@@ -53,7 +54,7 @@ export async function verifyVisualAccounting(page, baseUrl) {
     await form.locator('summary').click();
     assert.ok(
       await page
-        .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+        .getByRole('button', { name: 'أكّد البيانات', exact: true })
         .isDisabled(),
       'restoring evidence alone must not import accounting data',
     );
@@ -84,7 +85,19 @@ export async function verifyVisualAccounting(page, baseUrl) {
         name: 'استخدم القيم المراجعة في المقارنة',
         exact: true,
       });
+    // UX-3: until the confirmation is ticked, using the table is closed and
+    // the sentence under it names that confirmation as what it waits for.
+    const hint = form.locator('[data-decision-hint]');
+    assert.equal(
+      await hint.count(),
+      1,
+      'image table: a sentence under using the table says what it waits for',
+    );
+    assert.equal(await hint.getAttribute('data-decision-hint'), 'before');
+    assert.match(await hint.innerText(), /راجعت معاني الأعمدة/u);
+    await closedSay(form, 'image table: before the confirmation');
     await acknowledgement.check();
+    assert.equal(await hint.getAttribute('data-decision-hint'), 'open');
     await form.getByLabel('عملة الصورة', { exact: true }).fill('USD');
     assert.ok(
       !(await acknowledgement.isChecked()),
@@ -95,7 +108,7 @@ export async function verifyVisualAccounting(page, baseUrl) {
     await form.getByRole('alert').waitFor();
     assert.ok(
       await page
-        .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+        .getByRole('button', { name: 'أكّد البيانات', exact: true })
         .isDisabled(),
       'currency contradiction cannot silently import',
     );
@@ -124,7 +137,7 @@ export async function verifyVisualAccounting(page, baseUrl) {
       () => !document.querySelector('.notice.loading'),
     );
     await page
-      .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+      .getByRole('button', { name: 'أكّد البيانات', exact: true })
       .click();
     await page.locator('.visual-accounting-bound').waitFor();
     assert.equal(
@@ -153,10 +166,10 @@ export async function verifyVisualAccounting(page, baseUrl) {
       await writeFile(path, bytes);
       return bytes;
     }
-    await page.getByRole('button', {name:'إعداد ورقة العمل',exact:true}).click();
-    await download('تنزيل ورقة عمل جزئية', 'work/qa/p6-accounting-ar.xlsx');
+    await page.getByRole('button', {name:'أعدّ ورقة العمل',exact:true}).click();
+    await download('نزّل ورقة عمل جزئية', 'work/qa/p6-accounting-ar.xlsx');
     const session = await download(
-      'حفظ الجلسة للمتابعة لاحقًا',
+      'احفظ الجلسة للمتابعة لاحقًا',
       'work/qa/p6-accounting-session.json',
     );
     const wire = JSON.parse(session.toString('utf8'));
@@ -185,10 +198,10 @@ export async function verifyVisualAccounting(page, baseUrl) {
       .getByRole('button', { name: 'تسوية جديدة', exact: true })
       .click();
     await page
-      .getByRole('button', { name: 'مسح الجلسة والبدء من جديد', exact: true })
+      .getByRole('button', { name: 'امسح الجلسة وابدأ من جديد', exact: true })
       .click();
     await page
-      .getByLabel('استئناف جلسة محلية', { exact: true })
+      .getByLabel('استأنف جلسة محلية', { exact: true })
       .setInputFiles({
         name: 'reviewed-session.json',
         mimeType: 'application/json',
@@ -201,8 +214,8 @@ export async function verifyVisualAccounting(page, baseUrl) {
       await page.locator('.metric').first().locator('strong').innerText(),
       '1',
     );
-    await page.getByRole('button', {name:'إعداد ورقة العمل',exact:true}).click();
-    await download('تنزيل ورقة عمل جزئية', 'work/qa/p6-accounting-restored.xlsx');
+    await page.getByRole('button', {name:'أعدّ ورقة العمل',exact:true}).click();
+    await download('نزّل ورقة عمل جزئية', 'work/qa/p6-accounting-restored.xlsx');
     assert.deepEqual(violations, []);
     assert.deepEqual(errors, []);
     const report = {

@@ -146,6 +146,22 @@ async function compare(page, t) {
   await idle(page);
   await page.getByTestId('gl-tb-result').waitFor();
 }
+// UX-5(d): the card «ما فهمناه من ملفاتك» has one confirmation, carrying
+// both source attestations and the scope attestation; its sentence starts
+// with the same words whatever the scope it names.
+function confirmBox(page, t) {
+  return page.getByLabel(t.cardConfirm('', '', '')[0].trim(), {
+    exact: false,
+  });
+}
+// The fields fold under the card's sentence when nothing is asked. The
+// GL/TB workspace's own card: workspaces kept for retention stay mounted,
+// hidden, with theirs.
+async function openScopeFields(page) {
+  const fields = page.locator('main.gl-tb-workspace [data-scope-card] details');
+  if ((await fields.getAttribute('open')) === null)
+    await fields.locator('summary').click();
+}
 async function upload(page, t, id, format, facts) {
   for (const side of [0, 1]) {
     const filename = side ? 'tb-vertical' : 'gl';
@@ -167,10 +183,7 @@ async function upload(page, t, id, format, facts) {
     true,
   );
   await family.selectOption('GL_TB_VERTICAL_BALANCES_V1');
-  for (const side of [0, 1])
-    await page
-      .getByLabel(`${t.sides[side]}: ${t.sourceConfirm}`, { exact: true })
-      .check();
+  await openScopeFields(page);
   for (const [key, value] of Object.entries(facts.scope)) {
     if (key === 'confirmed') continue;
     const control = page.getByLabel(t.fields[key], { exact: true });
@@ -178,7 +191,7 @@ async function upload(page, t, id, format, facts) {
       await control.selectOption(value);
     else await control.fill(value);
   }
-  await page.getByLabel(t.scopeConfirm, { exact: true }).check();
+  await confirmBox(page, t).check();
   await compare(page, t);
 }
 function assertGeometry(width, dimensions) {
@@ -237,7 +250,11 @@ async function evidence(page, t, facts) {
       rows.map((row) => ({
         side: row.querySelector('td').textContent,
         row: row.querySelectorAll('td')[1].textContent,
-        values: JSON.parse(row.querySelector('pre').textContent),
+        // The source row is shown by its fields (UX-3), each the value as
+        // read; the record line and the cell evidence follow it.
+        values: [
+          ...row.querySelectorAll('details > p:first-of-type .record-field'),
+        ].map((field) => field.textContent),
       })),
     );
   assert.deepEqual(
@@ -570,25 +587,19 @@ try {
           await page
             .getByTestId('gl-tb-family')
             .selectOption('GL_TB_VERTICAL_BALANCES_V1');
-          await page
-            .getByLabel(`${t.sides[1]}: ${t.sourceConfirm}`, { exact: true })
-            .check();
+          await confirmBox(page, t).check();
           await compare(page, t);
           await sheetSelector.selectOption('1');
           await page.waitForFunction(
             (input) => !input.checked,
-            await page.getByLabel(`${t.sides[1]}: ${t.sourceConfirm}`, { exact: true }).elementHandle(),
+            await confirmBox(page, t).elementHandle(),
           );
           await noOutput(page, t);
           assert.equal(
-            await page
-              .getByLabel(`${t.sides[1]}: ${t.sourceConfirm}`, { exact: true })
-              .isChecked(),
+            await confirmBox(page, t).isChecked(),
             false,
           );
-          await page
-            .getByLabel(`${t.sides[1]}: ${t.sourceConfirm}`, { exact: true })
-            .check();
+          await confirmBox(page, t).check();
           await compare(page, t);
           await evidence(page, t, facts);
           report.lifecycle.push({
@@ -613,9 +624,7 @@ try {
           const family = page.getByTestId('gl-tb-family');
           await family.selectOption('gl-tb-canonical-1');
           await noOutput(page, t);
-          await page
-            .getByLabel(`${t.sides[1]}: ${t.sourceConfirm}`, { exact: true })
-            .check();
+          await confirmBox(page, t).check();
           const wrongFamilyStart = await page.evaluate(() => ({
             requests: window.__verticalWorkerRequests.length,
             replies: window.__verticalWorkerReplies.length,
@@ -650,13 +659,11 @@ try {
             'wrong family must cause native structural refusal for this request',
           );
           await family.selectOption('GL_TB_VERTICAL_BALANCES_V1');
-          await page
-            .getByLabel(`${t.sides[1]}: ${t.sourceConfirm}`, { exact: true })
-            .check();
+          await confirmBox(page, t).check();
           await compare(page, t);
-          await page.getByLabel(t.scopeConfirm, { exact: true }).uncheck();
+          await confirmBox(page, t).uncheck();
           await noOutput(page, t);
-          await page.getByLabel(t.scopeConfirm, { exact: true }).check();
+          await confirmBox(page, t).check();
           await compare(page, t);
           await page
             .getByLabel(t.fields.account, { exact: true })
@@ -665,15 +672,11 @@ try {
           await page
             .getByLabel(t.fields.account, { exact: true })
             .fill(facts.scope.account);
-          await page.getByLabel(t.scopeConfirm, { exact: true }).check();
+          await confirmBox(page, t).check();
           await compare(page, t);
-          await page
-            .getByLabel(`${t.sides[1]}: ${t.sourceConfirm}`, { exact: true })
-            .uncheck();
+          await confirmBox(page, t).uncheck();
           await noOutput(page, t);
-          await page
-            .getByLabel(`${t.sides[1]}: ${t.sourceConfirm}`, { exact: true })
-            .check();
+          await confirmBox(page, t).check();
           await compare(page, t);
           const cancelled = await page.evaluate(
             async (label) => {
@@ -726,9 +729,7 @@ try {
           await idle(page);
           await noOutput(page, t);
           await family.selectOption('GL_TB_VERTICAL_BALANCES_V1');
-          await page
-            .getByLabel(`${t.sides[1]}: ${t.sourceConfirm}`, { exact: true })
-            .check();
+          await confirmBox(page, t).check();
           await compare(page, t);
           await evidence(page, t, facts);
           await button(page, t.sample).click();

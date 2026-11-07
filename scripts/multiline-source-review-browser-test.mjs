@@ -4,7 +4,9 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { verifyMultilineSourceReview } from './multiline-source-review-browser-cases.mjs';
-const root = path.resolve('dist');
+import { sectionFocusRead } from './section-focus-support.mjs';
+import { stageWatchdog } from './stage-watchdog.mjs';
+const root = path.resolve(process.env.MIZAN_DIST_DIR ?? 'dist');
 const server = createServer(async (request, response) => {
   try {
     const relative = new URL(request.url, 'http://localhost').pathname;
@@ -34,7 +36,10 @@ const url = `http://127.0.0.1:${server.address().port}`;
 const out =
   process.argv.find((arg) => arg.startsWith('--out='))?.slice(6) ??
   'work/multiline-source-review/browser';
-let browser;
+let browser, current;
+// A stall says which language and width it stopped in
+// (scripts/stage-watchdog.mjs).
+const watch = stageWatchdog({ page: () => current });
 const errors = [],
   external = [],
   posts = [];
@@ -76,8 +81,9 @@ try {
     };
   });
   const page = await context.newPage();
+  current = page;
   page.on('pageerror', (error) => errors.push(error.message));
-  const report = await verifyMultilineSourceReview(page, url, out);
+  const report = await verifyMultilineSourceReview(page, url, out, watch.at);
   const workerActions = await page.evaluate(
     () => globalThis.multilineReviewWorkerActions,
   );
@@ -86,6 +92,10 @@ try {
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
   assert.deepEqual(posts, []);
+  console.log(
+    'section focus read:',
+    sectionFocusRead('multiline source review'),
+  );
   await mkdir(out, { recursive: true });
   await writeFile(
     `${out}/result.json`,
@@ -106,6 +116,7 @@ try {
     }),
   );
 } finally {
+  watch.stop();
   await browser?.close();
   await new Promise((resolve) => server.close(resolve));
 }

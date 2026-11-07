@@ -158,11 +158,6 @@
       "sha256": "6cee0cddbccc85553ef7d486a70a0300e97ded46944367cc73abb6c7f078feae"
     },
     {
-      "path": "audit/partial-input/browser/run.mjs",
-      "bytes": 18618,
-      "sha256": "421fbadaeb4e4ed713c2d700c3111f658c6df6aebac3dfc124f9a6f94bd6e5c0"
-    },
-    {
       "path": "audit/supplier-statement-holdout-s3/js/render_pdflib.mjs",
       "bytes": 10592,
       "sha256": "017ec351d9c094ea720d927190aaecf78f7d42ddc007e7ac770339d9ed89e114"
@@ -176,11 +171,6 @@
       "path": "scripts/browser-acceptance-bilingual.mjs",
       "bytes": 23762,
       "sha256": "7021f5d721a39d18b56d7061beb11cdcd1500981777145b5d6cfaf27cd49f5b7"
-    },
-    {
-      "path": "scripts/language-browser-cases.mjs",
-      "bytes": 13133,
-      "sha256": "eeea3058010f2b4c43346c1bd495c631f387f59a6bcc8704727bb0ee5cf88c42"
     },
     {
       "path": "tests/helpers/i18n-source-scan.ts",

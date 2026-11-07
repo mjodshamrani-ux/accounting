@@ -1,6 +1,7 @@
 import { useRef, useState, type ChangeEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput } from './workspace-chrome';
+import { RecordRows } from './record-table';
 import { useI18n } from '@/lib/i18n/context';
 import { bankMapCopy } from '@/lib/i18n/bank-map';
 import {
@@ -521,30 +522,18 @@ export function CashbookColumnsUsed({ r }: { r: BankStatementResult }) {
   return (
     <section data-bank-statement-table="cashbook-columns">
       <h2>{c.used}</h2>
-      <div className="gl-tb-table">
-        <table>
-          <thead>
-            <tr>
-              {c.usedHeaders.map((h) => (
-                <th key={h}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map(([item, column, label], i) => (
-              <tr key={i}>
-                <td>{item}</td>
-                <td>
-                  <bdi dir="ltr">{column}</bdi>
-                </td>
-                <td>
-                  <bdi>{label}</bdi>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <RecordRows
+        label={c.used}
+        headers={c.usedHeaders}
+        rows={rows}
+        cells={([item, column, label]) => [
+          item,
+          <bdi key="column" dir="ltr">
+            {column}
+          </bdi>,
+          label,
+        ]}
+      />
     </section>
   );
 }

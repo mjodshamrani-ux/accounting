@@ -48,6 +48,29 @@ export const IC_SCOPE_HEADERS = [
   'As of',
   'Policy version',
 ] as const;
+/**
+ * The columns each ledger writes its own side's scope under, as the row
+ * check below reads them: the left ledger is side A and names the right
+ * entity its counterparty; the right ledger is side B. The screen reads the
+ * card «ما فهمناه من ملفاتك» from them (UX-5(d)); the row check names them
+ * inline and does not read this list.
+ */
+export const IC_LEDGER_SCOPE_COLUMNS = [
+  {
+    entityA: 'Entity',
+    entityB: 'Counterparty',
+    ledgerA: 'Ledger',
+    accountA: 'Account ID',
+    dimensionsA: 'Complete dimensions',
+  },
+  {
+    entityB: 'Entity',
+    entityA: 'Counterparty',
+    ledgerB: 'Ledger',
+    accountB: 'Account ID',
+    dimensionsB: 'Complete dimensions',
+  },
+] as const;
 export const IC_HEADERS = [
   [
     'Entity',

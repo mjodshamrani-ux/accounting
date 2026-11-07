@@ -7,6 +7,7 @@ import { chromium } from 'playwright';
 import { ar } from '../lib/i18n/locales/ar.ts';
 import { en } from '../lib/i18n/locales/en.ts';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import { stripCount } from './alignment-strip-read.mjs';
 
 const root = path.resolve(import.meta.dirname, '..');
 assert(process.argv.slice(2).every((x) => x === '--quick'));
@@ -282,7 +283,7 @@ try {
         );
         const truth = truths[name].expected;
         assert.equal(
-          Number(await metric(copy.matched)),
+          Number(await stripCount(w, 'agreed')),
           truth.matchedPairCount,
           name,
         );
@@ -328,13 +329,13 @@ try {
             .getByRole('button', { name: copy.reopen, exact: true })
             .click();
           await wait();
-          assert.equal(Number(await metric(copy.matched)), 2);
+          assert.equal(Number(await stripCount(w, 'agreed')), 2);
           const reopened = await pair(name, 'reopened', bundle, 2);
           await w
             .locator('input[type="file"][accept=".json"]')
             .setInputFiles(reopened);
           await wait();
-          assert.equal(Number(await metric(copy.matched)), 2);
+          assert.equal(Number(await stripCount(w, 'agreed')), 2);
           await w
             .getByLabel(copy.note, { exact: true })
             .fill('Synthetic explicit document confirmation');
@@ -344,15 +345,23 @@ try {
             .getByRole('button', { name: copy.accept, exact: true })
             .click();
           await wait();
-          assert.equal(Number(await metric(copy.matched)), 3);
+          assert.equal(Number(await stripCount(w, 'agreed')), 3);
           const accepted = await pair(name, 'accepted', bundle, 3);
           await w
             .locator('input[type="file"][accept=".json"]')
             .setInputFiles(accepted);
           await wait();
-          assert.equal(Number(await metric(copy.matched)), 3);
+          assert.equal(Number(await stripCount(w, 'agreed')), 3);
           await pair(name, 'restored', bundle, 3);
-          const before = await w.getByTestId('ar-metrics').innerText();
+          // What the result says, in the figure grid and in the alignment
+          // strip's sentence, which says the matched documents and totals
+          // the grid no longer repeats (UX-4).
+          const shown = async () =>
+            [
+              await w.getByTestId('ar-metrics').innerText(),
+              await w.locator('[data-strip-sentence]').innerText(),
+            ].join('\n');
+          const before = await shown();
           const workers = await page.evaluate(() => window.__arWorkerCount);
           await page.evaluate(() => {
             window.__arDelay = true;
@@ -363,10 +372,10 @@ try {
           await button(copy.cancel).click();
           await wait();
           await page.waitForTimeout(1700);
-          assert.equal(await w.getByTestId('ar-metrics').innerText(), before);
+          assert.equal(await shown(), before);
           await button(copy.run).click();
           await wait();
-          assert.equal(await w.getByTestId('ar-metrics').innerText(), before);
+          assert.equal(await shown(), before);
           assert((await page.evaluate(() => window.__arWorkerCount)) > workers);
           lifecycle.push({
             lang,
@@ -395,7 +404,7 @@ try {
       );
       await button(copy.sample).click();
       await wait();
-      assert.equal(Number(await metric(copy.matched)), 3);
+      assert.equal(Number(await stripCount(w, 'agreed')), 3);
       assert.equal(
         await w
           .getByTestId('ar-source-0')

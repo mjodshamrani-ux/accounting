@@ -2,8 +2,9 @@ import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
 import { demoFiles, demoScope } from '../lib/reconciliation/demo.ts';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import { stripGap } from './alignment-strip-read.mjs';
 
-const ARABIC = /[؀-ۿ]/;
+const ARABIC = /[\u0600-\u06FF]/;
 // Arabic that stays Arabic in English mode: the sample documents' own text
 // (user data), the brand wordmark, the Arabic language option and one digit
 // example.
@@ -205,7 +206,12 @@ async function documentLanguage(page) {
 }
 
 async function metrics(page) {
-  return page.locator('.metric strong').allInnerTexts();
+  return [
+    ...(await page.locator('.metric strong').allInnerTexts()),
+    // The balance difference, which the alignment strip says as its gap and
+    // the figure grid no longer repeats (UX-4).
+    await stripGap(page.locator(':has(> .metric-grid)')),
+  ];
 }
 
 async function switchTo(page, code) {

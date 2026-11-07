@@ -52,8 +52,6 @@ const en = {
   files: { gl: 'GL', tb: 'TB' },
   glRow: 'GL section row',
   tbRow: 'TB row',
-  previous: 'Previous',
-  next: 'Next',
   components: {
     openingDebit: 'Opening debit',
     openingCredit: 'Opening credit',
@@ -144,8 +142,6 @@ const ar: typeof en = {
   files: { gl: 'GL', tb: 'الميزان' },
   glRow: 'صف قسم GL',
   tbRow: 'صف الميزان',
-  previous: 'السابق',
-  next: 'التالي',
   components: {
     openingDebit: 'افتتاح مدين',
     openingCredit: 'افتتاح دائن',

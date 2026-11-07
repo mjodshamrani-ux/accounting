@@ -57,11 +57,12 @@ import { SplitSectionReview } from '@/components/split-section-review';
 import { RunningBalanceReview } from '@/components/running-balance-review';
 import { APP_VERSION } from '@/lib/brand';
 import { TransactionReview } from '@/components/transaction-review';
+import { useDecisionFocus } from '@/components/decision-platform';
 import { PdfReview } from '@/components/pdf-review';
 import type { AuditEvent } from '@/lib/reconciliation/types';
 import { AccountingAssistant } from '@/components/accounting-assistant';
 import { LanguageSwitcher } from '@/components/language-switcher';
-import { BackArrow, ForwardArrow } from '@/components/direction';
+import { ForwardArrow } from '@/components/direction';
 import { useI18n } from '@/lib/i18n/context';
 import type { Messages } from '@/lib/i18n/messages';
 import {
@@ -75,6 +76,7 @@ import {
   useCallback,
   useEffect,
   useEffectEvent,
+  useId,
   useMemo,
   useRef,
   useState,
@@ -125,10 +127,14 @@ import {
   TableCell,
 } from '@/components/ui/table';
 import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-} from '@/components/ui/pagination';
+  RecordFields,
+  RecordFrame,
+  RecordPager,
+  RecordRows,
+} from '@/components/record-table';
+import { StatusBadge } from '@/components/status-badge';
+import { supplierCaseTone } from '@/lib/status-tone';
+import { recordPage } from '@/lib/record-page';
 import { workerTask, prepareWorker } from '@/lib/reconciliation/client';
 import type { ProcessingProgress } from '@/lib/reconciliation/processing-progress';
 import {
@@ -173,6 +179,9 @@ import {
   selectImportMapping,
 } from '@/lib/reconciliation/import-selection';
 import { demoFiles, demoMappings, demoScope } from '@/lib/reconciliation/demo';
+import { AlignmentStrip } from '@/components/alignment-strip';
+import { ResultIndex, useResultParts } from '@/components/result-index';
+import { supplierStrip } from '@/lib/alignment-strip';
 // These existing workspaces supply their own native main landmark. Keep the
 // shared content element stable; changing its tag on navigation would remount
 // the accounting work stored beneath it.
@@ -319,97 +328,90 @@ function ReadingIssueList({
     setPageBinding(issueBinding);
     setPage(0);
   }
-  const current = Math.min(
-    page,
-    Math.max(0, Math.ceil(issues.length / 10) - 1),
-  );
-  const offset = current * 10;
   if (!issues.length) return null;
+  // Ten issues a page, as this list has always shown: each one is several
+  // lines tall (UX-3).
   return (
     <details className="panel stack">
       <summary>{r.show(issues.length)}</summary>
-      <div className="preview" style={{ maxHeight: 440 }}>
-        <table
-          aria-label={r.table}
-          style={{
-            whiteSpace: 'normal',
-            tableLayout: 'fixed',
-            overflowWrap: 'anywhere',
-          }}
-        >
-          <thead>
-            <tr>
-              <th>{r.source}</th>
-              <th>{r.location}</th>
-              <th>{r.reason}</th>
-              <th>{r.original}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {issues.slice(offset, offset + 10).map((issue, index) => (
-              <tr key={`${issue.side}:${issue.row}:${offset + index}`}>
-                <td>
-                  {t.app.sides[issue.side === 'supplier' ? 0 : 1]}
-                  <br />
-                  <bdi>{issue.file}</bdi>
-                  <br />
-                  <bdi>{issue.sheet}</bdi>
-                </td>
-                <td>
-                  {issue.kind === 'source'
-                    ? r.sourceWide
-                    : issue.kind === 'balance'
-                      ? r.balance
-                      : r.row(issue.row!)}
-                  {issue.page !== null && (
-                    <>
-                      <br />
-                      {r.page(issue.page)}
-                    </>
-                  )}
-                </td>
-                <td>{engineText(issue.reason)}</td>
-                <td>
-                  <bdi
-                    style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}
-                  >
-                    {issue.values.length
-                      ? JSON.stringify(issue.values)
-                      : r.noOriginal}
-                  </bdi>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="actions">
-        <Button
-          variant="outline"
-          size="sm"
-          disabled={current === 0}
-          onClick={() => setPage(current - 1)}
-        >
-          {r.previous}
-        </Button>
-        <span>
-          {r.range(
-            offset + 1,
-            Math.min(offset + 10, issues.length),
-            issues.length,
-          )}
-        </span>
-        <Button
-          variant="outline"
-          size="sm"
-          disabled={offset + 10 >= issues.length}
-          onClick={() => setPage(current + 1)}
-        >
-          {r.next}
-        </Button>
-      </div>
+      <RecordRows
+        label={r.table}
+        headers={[r.source, r.location, r.reason, r.original]}
+        rows={issues}
+        size={10}
+        frame={{ 'data-reading-issues': '' }}
+        page={page}
+        onPage={setPage}
+        cells={(issue) => [
+          <>
+            {t.app.sides[issue.side === 'supplier' ? 0 : 1]}
+            <br />
+            <bdi>{issue.file}</bdi>
+            <br />
+            <bdi>{issue.sheet}</bdi>
+          </>,
+          <>
+            {issue.kind === 'source'
+              ? r.sourceWide
+              : issue.kind === 'balance'
+                ? r.balance
+                : r.row(issue.row!)}
+            {issue.page !== null && (
+              <>
+                <br />
+                {r.page(issue.page)}
+              </>
+            )}
+          </>,
+          engineText(issue.reason),
+          issue.values.length ? (
+            <RecordFields key="original" values={issue.values} />
+          ) : (
+            r.noOriginal
+          ),
+        ]}
+      />
     </details>
   );
+}
+
+// The cases a results tab lists, each by its first member, as the search
+// narrows them: the list itself, and where a transaction stands in it after a
+// decision taken in its review.
+function caseRows(result: Comparison | null, tab: string, query: string) {
+  if (!result) return [];
+  const visibleCases = result.cases.filter((c) =>
+    tab === 'matches'
+      ? c.status === 'Matched'
+      : tab === 'ambiguities'
+        ? c.status === 'Needs Review' || c.status === 'Rejected'
+        : c.status === 'Unmatched',
+  );
+  const q = query.trim().toLowerCase();
+  return visibleCases
+    .filter(
+      (c) =>
+        !q ||
+        [
+          c.caseId,
+          ...c.supplierMembers.flatMap((t) => [
+            t.reference,
+            t.documentReference,
+            t.description,
+            String(t.row),
+          ]),
+          ...c.ledgerMembers.flatMap((t) => [
+            t.reference,
+            t.documentReference,
+            t.description,
+            String(t.row),
+          ]),
+        ]
+          .join(' ')
+          .toLowerCase()
+          .includes(q),
+    )
+    .map((c) => c.supplierMembers[0] ?? c.ledgerMembers[0]);
 }
 
 export default function App() {
@@ -803,6 +805,20 @@ export default function App() {
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(0);
   const [selected, setSelected] = useState('');
+  // A decision taken in a transaction's review, or closing the review,
+  // returns the focus to that transaction in the list, on its page, or to
+  // the list when the decision moved it out of the tab shown (UX-3).
+  const settleCase = useDecisionFocus();
+  const caseRow = useId(),
+    caseList = useId();
+  // The supplier result has no heading of its own above the strip: the
+  // index takes the reader back to the strip itself (UX-4).
+  // The case list is drawn in the review step alone.
+  const resultParts = useResultParts(
+    step === 2 ? ['summary', 'figures', 'cases'] : ['summary', 'figures'],
+    { cases: caseList },
+  );
+  const decidedCase = useRef('');
   const [privacy, setPrivacy] = useState(false);
   const [resetOpen, setResetOpen] = useState(false);
   const job = useRef<{ id: number; controller: AbortController } | null>(null);
@@ -909,6 +925,19 @@ export default function App() {
     job.current = null;
     setBusy(null);
     setProcessingProgress(null);
+    // The overlap review's own scope fields, acknowledged by the reviewer,
+    // become the main scope here; each one it changed is the user's choice,
+    // as if typed in the scope form, so the autofill does not wait forever
+    // to put back a value nobody asked for.
+    const changed = scopeFields.filter(
+      (field) => next.scope[field] !== scope[field],
+    );
+    if (changed.length)
+      setScopeEdited((previous) => {
+        const edited = { ...previous };
+        for (const field of changed) edited[field] = true;
+        return edited;
+      });
     setScope(next.scope);
     setValidated([next.supplier, next.ledger]);
     setResult(next);
@@ -1128,7 +1157,9 @@ export default function App() {
     setMappings(structuredClone(demoMappings));
     setScope({ ...demoScope });
     setStep(1);
-    setNotice(uiText((m) => m.app.notices.demo));
+    // The example says it is a sample once, in the banner above the steps,
+    // with what to check before comparing (UX-5); no second notice.
+    setNotice(null);
   }
   async function loadFile(file: File | undefined, i: number) {
     if (!file || busy || !engineReady) return;
@@ -1293,11 +1324,18 @@ export default function App() {
       },
     );
   }
+  function returnToCase(id: string, list: ReturnType<typeof caseRows>) {
+    const at = list.findIndex((tx) => tx.id === id);
+    setPage(at < 0 ? 0 : Math.floor(at / 30));
+    settleCase(at < 0 ? caseList : `${caseRow}-${at}`);
+  }
   async function reconcile(
     nextDecisions = decisions,
     nextRejected = rejected,
     event?: Omit<AuditEvent, 'time'>,
   ) {
+    const decided = decidedCase.current;
+    decidedCase.current = '';
     await task(
       uiText((m) => m.app.tasks.reconcile),
       async (signal, alive) => {
@@ -1376,7 +1414,8 @@ export default function App() {
         setReview((v) => ({ ...v, checked: false }));
         setStep(2);
         setSelected('');
-        setPage(0);
+        if (decided) returnToCase(decided, caseRows(r, tab, query));
+        else setPage(0);
       },
     );
   }
@@ -1543,42 +1582,20 @@ export default function App() {
     () => new Map(result?.matches.map((m) => [m.supplierId, m]) ?? []),
     [result],
   );
-  const rows = useMemo(() => {
-    if (!result) return [];
-    const visibleCases = result.cases.filter((c) =>
+  const rows = useMemo(
+    () => caseRows(result, tab, query),
+    [result, tab, query],
+  );
+  // The case list is named after the tab it shows, and pages through the
+  // record kit thirty cases at a time, as it always has (UX-3).
+  const listName = `${t.app.results.workspace} · ${
       tab === 'matches'
-        ? c.status === 'Matched'
+        ? t.app.results.tabMatched
         : tab === 'ambiguities'
-          ? c.status === 'Needs Review' || c.status === 'Rejected'
-          : c.status === 'Unmatched',
-    );
-    const q = query.trim().toLowerCase();
-    const tx = visibleCases
-      .filter(
-        (c) =>
-          !q ||
-          [
-            c.caseId,
-            ...c.supplierMembers.flatMap((t) => [
-              t.reference,
-              t.documentReference,
-              t.description,
-              String(t.row),
-            ]),
-            ...c.ledgerMembers.flatMap((t) => [
-              t.reference,
-              t.documentReference,
-              t.description,
-              String(t.row),
-            ]),
-          ]
-            .join(' ')
-            .toLowerCase()
-            .includes(q),
-      )
-      .map((c) => c.supplierMembers[0] ?? c.ledgerMembers[0]);
-    return tx;
-  }, [result, tab, query]);
+          ? t.app.results.tabReview(result?.caseCounts.needsReviewCases ?? 0)
+          : t.app.results.tabUnmatched
+    }`,
+    listShown = recordPage(rows.length, page, 30);
   const startSyntheticDemo = useEffectEvent(() => {
     if (files.some(Boolean) || busy)
       throw new Error('Cannot replace an active session');
@@ -1719,6 +1736,9 @@ export default function App() {
             activeDomain={domain}
             disabled={
               !!busy || !!workspaceActivity[domain]?.busy || !engineReady
+            }
+            waitingFor={
+              busy || workspaceActivity[domain]?.busy ? 'work' : 'tools'
             }
             entries={[
               {
@@ -2006,6 +2026,7 @@ export default function App() {
                     style={{ display: 'inline', marginInlineEnd: 8 }}
                   />
                   {t.app.shell.demoBanner}
+                  {step === 1 && <> {t.app.shell.demoAdvice}</>}
                 </div>
               )}
               {!engineReady && !!error && (
@@ -2023,12 +2044,16 @@ export default function App() {
                   {t.app.shell.restartEngine}
                 </Button>
               )}
-              {!engineReady && !error && (
-                <output style={{ display: 'block' }} className="notice loading">
-                  <LoaderCircle className="spin" size={17} />
-                  {t.app.shell.engineLoading}
-                </output>
-              )}
+              {!engineReady &&
+                !error && (
+                  // Readiness is shown on each source card's own state line,
+                  // which keeps its place; this line is announced, not drawn,
+                  // so nothing below moves when the tool is ready (UX-3).
+                  <output className="notice loading startup-readiness">
+                    <LoaderCircle className="spin" size={17} />
+                    {t.app.shell.engineLoading}
+                  </output>
+                )}
               {error && (
                 <div className="notice error" role="alert">
                   <div>
@@ -2160,6 +2185,9 @@ export default function App() {
                       variant="outline"
                       onClick={loadDemo}
                       disabled={!!busy || !engineReady}
+                      aria-describedby={
+                        busy || !engineReady ? 'source-state-0' : undefined
+                      }
                     >
                       {t.app.upload.demoButton}
                     </Button>
@@ -2205,7 +2233,7 @@ export default function App() {
                         aria-label={t.app.scope.edit}
                       >
                         <Pencil size={14} />
-                        {scopeOpen ? t.app.scope.close : t.app.scope.advanced}
+                        {t.app.scope.editShort}
                       </Button>
                     </div>
                     {scopeNeedsInput && !scopeOpen && (
@@ -2469,69 +2497,88 @@ export default function App() {
                         />
                       ),
                   )}
-                  <SourceStructureReview
-                    files={files}
-                    mappings={mappings}
-                    scope={scope}
-                  />
-                  <InvoiceOverlapReview
-                    files={files}
-                    mappings={mappings}
-                    scope={scope}
-                    extractionRevision={mainExtractionRevision}
-                    open={mainOverlapOpen}
-                    onOpenChange={setMainOverlapOpen}
-                    mainReview={{
-                      coordinator: mainOverlapReview,
-                      context: mainReviewContext,
-                      onResult: applyMainOverlapResult,
-                      blockedReason:
-                        blocked || (busy ? t.app.blocked.preparing : ''),
-                    }}
-                  />
-                  <Button
-                    type="button"
-                    variant="outline"
-                    data-testid="allocation-workflow-handoff"
-                    className="h-auto whitespace-normal text-start"
-                    disabled={!!busy || !allocationHandoffReady}
-                    aria-describedby={
-                      !allocationHandoffReady && files.every(Boolean)
-                        ? 'allocation-handoff-source-required'
-                        : undefined
-                    }
-                    onClick={openFreshAllocation}
+                  {/* UX-5 (audit B5): the optional reviews of the two sources,
+                      and the separate allocation path, under one heading that
+                      says none is needed to compare. */}
+                  <section
+                    className="stack supplier-more-reviews"
+                    aria-labelledby="supplier-more-reviews-title"
+                    data-supplier-more-reviews
                   >
-                    {
-                      allocationWorkflowHandoffCopy(dir === 'rtl' ? 'ar' : 'en')
-                        .open
-                    }
-                  </Button>
-                  {!allocationHandoffReady && files.every(Boolean) && (
-                    <p id="allocation-handoff-source-required" className="hint">
+                    <div>
+                      <h2 id="supplier-more-reviews-title">
+                        {t.app.compare.moreReviews}
+                      </h2>
+                      <p className="hint">{t.app.compare.moreReviewsIntro}</p>
+                    </div>
+                    <SourceStructureReview
+                      files={files}
+                      mappings={mappings}
+                      scope={scope}
+                    />
+                    <InvoiceOverlapReview
+                      files={files}
+                      mappings={mappings}
+                      scope={scope}
+                      extractionRevision={mainExtractionRevision}
+                      open={mainOverlapOpen}
+                      onOpenChange={setMainOverlapOpen}
+                      mainReview={{
+                        coordinator: mainOverlapReview,
+                        context: mainReviewContext,
+                        onResult: applyMainOverlapResult,
+                        blockedReason:
+                          blocked || (busy ? t.app.blocked.preparing : ''),
+                      }}
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      data-testid="allocation-workflow-handoff"
+                      className="h-auto whitespace-normal text-start"
+                      disabled={!!busy || !allocationHandoffReady}
+                      aria-describedby={
+                        !allocationHandoffReady && files.every(Boolean)
+                          ? 'allocation-handoff-source-required'
+                          : undefined
+                      }
+                      onClick={openFreshAllocation}
+                    >
                       {
                         allocationWorkflowHandoffCopy(
                           dir === 'rtl' ? 'ar' : 'en',
-                        ).requiresSources
+                        ).open
                       }
-                    </p>
-                  )}
-                  <SectionDerivedReview
-                    files={files}
-                    mappings={mappings}
-                    scope={scope}
-                  />
-                  <SplitSectionReview
-                    files={files}
-                    mappings={mappings}
-                    scope={scope}
-                    extractionRevision={mainExtractionRevision}
-                  />
-                  <RunningBalanceReview
-                    files={files}
-                    scope={scope}
-                    extractionRevision={mainExtractionRevision}
-                  />
+                    </Button>
+                    {!allocationHandoffReady && files.every(Boolean) && (
+                      <p
+                        id="allocation-handoff-source-required"
+                        className="hint"
+                      >
+                        {
+                          allocationWorkflowHandoffCopy(
+                            dir === 'rtl' ? 'ar' : 'en',
+                          ).requiresSources
+                        }
+                      </p>
+                    )}
+                    <SectionDerivedReview
+                      files={files}
+                      mappings={mappings}
+                      scope={scope}
+                    />
+                    <SplitSectionReview
+                      files={files}
+                      mappings={mappings}
+                      scope={scope}
+                      extractionRevision={mainExtractionRevision}
+                    />
+                    <RunningBalanceReview
+                      files={files}
+                      scope={scope}
+                      extractionRevision={mainExtractionRevision}
+                    />
+                  </section>
                   <section className="surface pad stack">
                     {pdfReviewPending && (
                       <p className="hint warn">{t.app.compare.pdfPending}</p>
@@ -2600,7 +2647,17 @@ export default function App() {
                       {t.app.results.sessionWarning}
                     </span>
                   </div>
-                  <div className="metric-grid">
+                  <AlignmentStrip
+                    anchor={resultParts.anchor('summary')}
+                    strip={supplierStrip(result)}
+                    sides={[t.app.sides[0], t.app.sides[1]]}
+                    decimals={scope.decimals}
+                  />
+                  <ResultIndex map={resultParts} />
+                  <div
+                    {...resultParts.anchor('figures')}
+                    className="metric-grid"
+                  >
                     <Metric
                       label={t.app.results.autoMatches}
                       value={String(
@@ -2623,21 +2680,10 @@ export default function App() {
                         result.caseCounts.unmatchedSourceRows,
                       )}
                     />
-                    {result.scope.coverageConfirmed || result.bridge ? (
-                      <Metric
-                        label={t.app.results.balanceDifference}
-                        value={
-                          result.bridge
-                            ? money(result.bridge.delta, scope.decimals)
-                            : '—'
-                        }
-                        hint={
-                          result.bridge
-                            ? scope.currency
-                            : t.app.results.balancesUnverified
-                        }
-                      />
-                    ) : (
+                    {/* The balance difference is the strip's gap, and where
+                        the engine compared no balances the strip says so
+                        (UX-4); it is not repeated here. */}
+                    {!(result.scope.coverageConfirmed || result.bridge) && (
                       // With balances not requested, the number that matters is how
                       // much of the source never made it into the comparison.
                       <Metric
@@ -2774,7 +2820,13 @@ export default function App() {
                       <section className="surface">
                         <div className="section-heading">
                           <div>
-                            <h2>{t.app.results.workspace}</h2>
+                            <h2
+                              {...resultParts.anchor('cases')}
+                              id={caseList}
+                              tabIndex={-1}
+                            >
+                              {t.app.results.workspace}
+                            </h2>
                             <p>{t.app.results.workspaceIntro}</p>
                           </div>
                           <Button
@@ -2830,8 +2882,12 @@ export default function App() {
                             </div>
                           </div>
                         </div>
-                        <div style={{ overflowX: 'auto' }}>
-                          <Table>
+                        <RecordFrame name={listName} className="results-frame">
+                          <table
+                            data-slot="table"
+                            className="w-full caption-bottom text-sm"
+                            aria-label={listName}
+                          >
                             <TableHeader>
                               <TableRow>
                                 {t.app.results.columns.map((h, i) => (
@@ -2841,8 +2897,8 @@ export default function App() {
                             </TableHeader>
                             <TableBody>
                               {rows
-                                .slice(page * 30, (page + 1) * 30)
-                                .map((tx) => {
+                                .slice(listShown.from, listShown.to)
+                                .map((tx, i) => {
                                   const activeCase = result.cases.find((c) =>
                                     c.sourceTrace.some(
                                       (trace) => trace.sourceRowId === tx.id,
@@ -2852,6 +2908,21 @@ export default function App() {
                                     tx.side === 'supplier'
                                       ? matchedBySupplier.get(tx.id)
                                       : undefined;
+                                  const status = match
+                                    ? match.kind === 'auto'
+                                      ? 'auto'
+                                      : 'manual'
+                                    : activeCase.classification ===
+                                        'AMOUNT_VARIANCE'
+                                      ? 'amountVariance'
+                                      : activeCase.classification ===
+                                          'PAYMENT_CANDIDATE'
+                                        ? 'paymentCandidate'
+                                        : activeCase.status === 'Rejected'
+                                          ? 'rejected'
+                                          : activeCase.status === 'Needs Review'
+                                            ? 'needsReview'
+                                            : 'unmatched';
                                   return (
                                     <TableRow key={tx.id}>
                                       <TableCell>
@@ -2883,36 +2954,18 @@ export default function App() {
                                         </div>
                                       </TableCell>
                                       <TableCell>
-                                        <span
-                                          className={`status ${match ? 'good' : 'warn'}`}
+                                        <StatusBadge
+                                          tone={supplierCaseTone[status]}
+                                          status={status}
                                         >
-                                          {
-                                            t.app.results.status[
-                                              match
-                                                ? match.kind === 'auto'
-                                                  ? 'auto'
-                                                  : 'manual'
-                                                : activeCase.classification ===
-                                                    'AMOUNT_VARIANCE'
-                                                  ? 'amountVariance'
-                                                  : activeCase.classification ===
-                                                      'PAYMENT_CANDIDATE'
-                                                    ? 'paymentCandidate'
-                                                    : activeCase.status ===
-                                                        'Rejected'
-                                                      ? 'rejected'
-                                                      : activeCase.status ===
-                                                          'Needs Review'
-                                                        ? 'needsReview'
-                                                        : 'unmatched'
-                                            ]
-                                          }
-                                        </span>
+                                          {t.app.results.status[status]}
+                                        </StatusBadge>
                                       </TableCell>
                                       <TableCell>
                                         <Button
                                           size="sm"
                                           variant="outline"
+                                          id={`${caseRow}-${listShown.from + i}`}
                                           disabled={!!busy}
                                           onClick={() => setSelected(tx.id)}
                                         >
@@ -2932,46 +2985,20 @@ export default function App() {
                                   );
                                 })}
                             </TableBody>
-                          </Table>
-                        </div>
+                          </table>
+                        </RecordFrame>
                         {!rows.length && (
                           <div className="empty">{t.app.results.empty}</div>
                         )}
                         <div className="surface-footer">
-                          <span>
-                            {t.app.results.pageSummary(
-                              rows.length,
-                              page + 1,
-                              Math.max(1, Math.ceil(rows.length / 30)),
-                            )}
-                          </span>
-                          <Pagination
-                            aria-label={t.app.results.pagination}
-                            style={{ width: 'auto', margin: 0 }}
-                          >
-                            <PaginationContent>
-                              <PaginationItem>
-                                <Button
-                                  variant="ghost"
-                                  aria-label={t.app.results.previousPage}
-                                  disabled={page === 0}
-                                  onClick={() => setPage((p) => p - 1)}
-                                >
-                                  <BackArrow size={16} />
-                                </Button>
-                              </PaginationItem>
-                              <PaginationItem>
-                                <Button
-                                  variant="ghost"
-                                  aria-label={t.app.results.nextPage}
-                                  disabled={(page + 1) * 30 >= rows.length}
-                                  onClick={() => setPage((p) => p + 1)}
-                                >
-                                  <ForwardArrow size={16} />
-                                </Button>
-                              </PaginationItem>
-                            </PaginationContent>
-                          </Pagination>
+                          <span>{t.app.results.cases(rows.length)}</span>
+                          <RecordPager
+                            label={listName}
+                            length={rows.length}
+                            page={page}
+                            onPage={setPage}
+                            size={30}
+                          />
                         </div>
                       </section>
                       {selected && (
@@ -2980,14 +3007,22 @@ export default function App() {
                           result={result}
                           id={selected}
                           busy={!!busy}
-                          onClose={() => setSelected('')}
-                          onLink={(d) =>
+                          reviewed={auditEvents.some(
+                            (e) =>
+                              e.action === 'review' && e.ids.includes(selected),
+                          )}
+                          onClose={() => {
+                            returnToCase(selected, rows);
+                            setSelected('');
+                          }}
+                          onLink={(d) => {
+                            decidedCase.current = selected;
                             void reconcile([...decisions, d], rejected, {
                               action: 'link',
                               ids: [d.supplierId, d.ledgerId],
                               note: d.note,
-                            })
-                          }
+                            });
+                          }}
                           onUnlink={(a, b, note) => {
                             const match = result.matches.find(
                               (m) => m.supplierId === a && m.ledgerId === b,
@@ -3003,6 +3038,7 @@ export default function App() {
                                   ...(match.ledgerIds ?? [b]),
                                 ]
                               : [a, b];
+                            decidedCase.current = selected;
                             void reconcile(
                               decisions.filter((d) => d.supplierId !== a),
                               [...rejected, `${a}|${b}`],
@@ -3506,7 +3542,7 @@ function SourceConfiguration({
           aria-label={c.edit(side)}
         >
           <Pencil size={14} />
-          {open ? t.app.scope.close : t.app.scope.advanced}
+          {t.app.scope.editShort}
         </Button>
       </div>
       {mapping.mode === 'split' && !mapping.directionEvidence && (

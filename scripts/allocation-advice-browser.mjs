@@ -29,6 +29,28 @@ import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import {
+  assertStatusBadges,
+  statusBadgesRead,
+} from './status-badge-support.mjs';
+import {
+  assertSectionFocus,
+  sectionFocusRead,
+} from './section-focus-support.mjs';
+
+// The status badge in this section (UX-3): a status on this list, and no
+// other, takes the agreed tone.
+const BADGE_LABEL = 'allocation advice';
+const BADGES = [
+  {
+    name: 'lines',
+    column: 4,
+    rows: 'tr[data-advice-line]',
+    attr: 'data-advice-line',
+    at: 1,
+    agreed: [],
+  },
+];
 
 const root = path.resolve(process.env.ALL_ADVICE_DIST ?? 'dist');
 const SUITE = process.env.ALL_ADVICE_SUITE;
@@ -227,6 +249,11 @@ async function review(page, w, times = {}) {
     .click();
   await settled(page, 'shown');
   times.review = Date.now() - t;
+  await assertSectionFocus(
+    page,
+    w.locator('[data-allocation-advice]'),
+    BADGE_LABEL,
+  );
 }
 async function pages(w, pager, selector, read, only) {
   const found = [];
@@ -251,6 +278,7 @@ const endsOf = (list) => {
 async function shown(w, c) {
   const section = w.locator('[data-allocation-advice]');
   if (!(await section.count())) return { state: 'absent' };
+  await assertStatusBadges(section, BADGES, BADGE_LABEL);
   const state = await section.getAttribute('data-advice-state');
   if (state === 'refused') {
     // A refusal the page does not show is a difference, not a wait.
@@ -441,16 +469,19 @@ try {
         await source
           .getByRole('heading', { name: given.names[side], exact: true })
           .waitFor();
-        await source
-          .getByLabel(`${SIDES[side]}: I reviewed`, { exact: false })
-          .check();
       }
+      // The scope is typed by hand, so the manual path stays checked: the
+      // card's fields are opened as an accountant would, and its one box
+      // confirms the three tables and the scope (UX-5(d)).
+      const fields = w.locator('[data-scope-card] details');
+      if ((await fields.getAttribute('open')) === null)
+        await fields.locator('summary').click();
       for (const [key, label] of Object.entries(SCOPE))
         await w.getByLabel(label, { exact: true }).fill(given.scope[key]);
       await w
         .getByLabel(
-          'I reviewed the entity, ledger, supplier, account, currency and snapshot before these allocations.',
-          { exact: true },
+          'I reviewed the available payments, the open invoices and the proposed remittance',
+          { exact: false },
         )
         .check();
       await w
@@ -607,6 +638,8 @@ try {
   for (const [k, v] of Object.entries(report.summary.checks)) assert.ok(v, k);
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
+  console.log('status badges read:', statusBadgesRead(BADGE_LABEL, ['lines']));
+  console.log('section focus read:', sectionFocusRead(BADGE_LABEL));
 } finally {
   await browser?.close();
   server.close();

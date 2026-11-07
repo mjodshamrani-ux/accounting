@@ -79,15 +79,15 @@ export async function verifyTemplateLifecycle(context, url) {
         .getByText(`synthetic-cycle-${run}.csv`, { exact: true })
         .waitFor();
       await page
-        .getByRole('button', { name: 'إلغاء', exact: true })
+        .getByRole('button', { name: 'ألغِ', exact: true })
         .waitFor({ state: 'hidden' });
     }
     await page
-      .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+      .getByRole('button', { name: 'أكّد البيانات', exact: true })
       .click();
     if (run === 1) {
       await page
-        .getByRole('button', { name: 'تعديل كشف المورد', exact: true })
+        .getByRole('button', { name: 'عدّل كشف المورد', exact: true })
         .click();
       const card = page.locator('section.surface').filter({
         has: page.getByRole('heading', { name: 'كشف المورد', exact: true }),
@@ -96,7 +96,7 @@ export async function verifyTemplateLifecycle(context, url) {
         .getByText('إعدادات القراءة ونوع التقرير', { exact: true })
         .click();
       await card
-        .getByRole('button', { name: 'استعادة القالب', exact: true })
+        .getByRole('button', { name: 'استعد القالب', exact: true })
         .click();
       await page
         .getByText(
@@ -114,11 +114,11 @@ export async function verifyTemplateLifecycle(context, url) {
       '2',
     );
     await page
-      .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
+      .getByRole('button', { name: 'أعدّ ورقة العمل', exact: true })
       .click();
     const pending = page.waitForEvent('download');
     await page
-      .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
+      .getByRole('button', { name: 'نزّل مسودة Excel', exact: true })
       .click();
     const book = new ExcelJS.Workbook();
     await book.xlsx.readFile(await (await pending).path());
@@ -139,7 +139,7 @@ export async function verifyTemplateLifecycle(context, url) {
       .getByRole('button', { name: 'تسوية جديدة', exact: true })
       .click();
     await page
-      .getByRole('button', { name: 'مسح الجلسة والبدء من جديد', exact: true })
+      .getByRole('button', { name: 'امسح الجلسة وابدأ من جديد', exact: true })
       .click();
     await page
       .getByRole('button', { name: 'جرّب المثال', exact: true })

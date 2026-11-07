@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
+import { Amount } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
@@ -15,7 +16,12 @@ import {
 } from '@/lib/reconciliation/fixed-assets-sections';
 import type { AssetSectionsReplayInput } from '@/lib/reconciliation/fixed-assets-sections-io';
 import { fixedAssetsSectionsCopy } from '@/lib/i18n/fixed-assets-sections';
-import './intercompany-batch-panel.css';
+import { RecordTable } from '@/components/record-table';
+import './review-section.css';
+import { ClosedReason } from './decision-platform';
+import { assetSectionTone, toned } from '@/lib/status-tone';
+import { useResultFocus } from '@/components/result-focus';
+import { SectionResultHeading } from '@/components/section-result';
 
 type Picked = {
   name: string;
@@ -24,88 +30,11 @@ type Picked = {
   confirmed: boolean;
 };
 type ScopeKey = (typeof FA_SECTIONS_SCOPE_FIELDS)[number];
-const PAGE = 50;
-// Integer minor units as the engine returns them, with their sign, shown with
-// the scope currency's decimals; never a float.
-function minorText(value: number, decimals: number) {
-  const digits = String(Math.abs(value)).padStart(decimals + 1, '0');
-  const text = decimals
-    ? `${digits.slice(0, -decimals)}.${digits.slice(-decimals)}`
-    : digits;
-  return value < 0 ? `-${text}` : text;
-}
 const blankScope = () =>
   Object.fromEntries(FA_SECTIONS_SCOPE_FIELDS.map((k) => [k, ''])) as Record<
     ScopeKey,
     string
   >;
-
-function Paged({
-  headers,
-  rows,
-  label,
-  marks,
-  pager,
-}: {
-  headers: string[];
-  rows: string[][];
-  label: string;
-  marks: Record<string, string>[];
-  pager: string;
-}) {
-  const { lang } = useI18n();
-  const copy = fixedAssetsSectionsCopy[lang];
-  const [page, setPage] = useState(0);
-  const pages = Math.max(1, Math.ceil(rows.length / PAGE)),
-    safe = Math.min(page, pages - 1);
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table aria-label={label}>
-          <thead>
-            <tr>
-              {headers.map((h) => (
-                <th key={h}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * PAGE, safe * PAGE + PAGE).map((row, i) => (
-              <tr key={i} {...marks[safe * PAGE + i]}>
-                {row.map((v, j) => (
-                  <td key={j}>
-                    <bdi>{v}</bdi>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {pages > 1 && (
-        <div className="gl-tb-actions" data-fas-pager={pager}>
-          <Button
-            variant="outline"
-            disabled={!safe}
-            onClick={() => setPage(safe - 1)}
-          >
-            {copy.previous}
-          </Button>
-          <span>
-            {safe + 1} / {pages} · {rows.length}
-          </span>
-          <Button
-            variant="outline"
-            disabled={safe + 1 >= pages}
-            onClick={() => setPage(safe + 1)}
-          >
-            {copy.next}
-          </Button>
-        </div>
-      )}
-    </>
-  );
-}
 
 export function FixedAssetsSectionsPanel() {
   const { lang } = useI18n();
@@ -119,6 +48,7 @@ export function FixedAssetsSectionsPanel() {
     [refused, setRefused] = useState(''),
     [busy, setBusy] = useState(false),
     [error, setError] = useState('');
+  const { heading: resultHeading, reveal } = useResultFocus();
   const runtime = useRef({
     serial: 0,
     controller: null as AbortController | null,
@@ -168,6 +98,7 @@ export function FixedAssetsSectionsPanel() {
     setRefused('');
     setError('');
   };
+  const checkWhy = useId();
   const ready = files.every((f) => f?.confirmed) && scopeConfirmed;
   function check() {
     const input: AssetSectionsReplayInput = {
@@ -205,12 +136,15 @@ export function FixedAssetsSectionsPanel() {
       (v) => {
         setResult(v.result);
         setRefused(v.refused);
+        reveal();
       },
     );
   }
   const decimals = result?.decimals ?? 2;
+  // Integer minor units as the engine returns them, with their sign, read at
+  // the scope currency's decimals through the shared component.
   const amount = (minor: number | null) =>
-    minor === null ? copy.none : minorText(minor, decimals);
+    minor === null ? copy.none : <Amount minor={minor} decimals={decimals} />;
   const rowList = (rows: number[]) =>
     rows.length ? rows.join(copy.list) : copy.none;
   const coded = (codes: string[]) =>
@@ -264,7 +198,10 @@ export function FixedAssetsSectionsPanel() {
                     if (f)
                       void perform(
                         async () => {
-                          if (f.size > MAX_FILE_BYTES || !/\.csv$/i.test(f.name))
+                          if (
+                            f.size > MAX_FILE_BYTES ||
+                            !/\.csv$/i.test(f.name)
+                          )
                             throw Error('FA_SECTIONS_SOURCE');
                           const original = await f.arrayBuffer();
                           const sha256 = Array.from(
@@ -350,7 +287,11 @@ export function FixedAssetsSectionsPanel() {
           </label>
         </fieldset>
         <div className="gl-tb-actions workspace-run-actions">
-          <Button disabled={busy || !ready} onClick={check}>
+          <Button
+            disabled={busy || !ready}
+            aria-describedby={checkWhy}
+            onClick={check}
+          >
             {copy.check}
           </Button>
           {busy && (
@@ -359,10 +300,19 @@ export function FixedAssetsSectionsPanel() {
             </Button>
           )}
         </div>
+        <ClosedReason
+          id={checkWhy}
+          closed={!ready}
+          waits="check"
+          label={copy.check}
+        />
         {error && (
           <p role="alert" data-fas-error>
             {error}
           </p>
+        )}
+        {(result || refused) && (
+          <SectionResultHeading title={copy.title} heading={resultHeading} />
         )}
         {refused && (
           <div role="alert" data-fas-refused={refused}>
@@ -391,9 +341,7 @@ export function FixedAssetsSectionsPanel() {
                 result.assets.length,
               )}
             </p>
-            <p
-              data-fas-inventory={JSON.stringify(result.inventory.register)}
-            >
+            <p data-fas-inventory={JSON.stringify(result.inventory.register)}>
               {copy.inventory(
                 Object.values(result.inventory.register).reduce(
                   (a, b) => a + b,
@@ -419,9 +367,13 @@ export function FixedAssetsSectionsPanel() {
             <h3>
               {copy.accountsTitle} ({result.accounts.length})
             </h3>
-            <Paged
+            <RecordTable
+              status={{
+                column: 8,
+                of: (i) => toned(assetSectionTone, result.accounts[i].status),
+              }}
               label={copy.accountsTitle}
-              pager="accounts"
+              pager={{ 'data-fas-pager': 'accounts' }}
               headers={copy.accountHeaders}
               rows={result.accounts.map((a) => [
                 a.account,
@@ -446,9 +398,9 @@ export function FixedAssetsSectionsPanel() {
                 <h3>
                   {copy.unmappedTitle} ({result.unmapped.length})
                 </h3>
-                <Paged
+                <RecordTable
                   label={copy.unmappedTitle}
-                  pager="unmapped"
+                  pager={{ 'data-fas-pager': 'unmapped' }}
                   headers={copy.unmappedHeaders}
                   rows={result.unmapped.map(([cat, comp, code]) => [
                     cat,
@@ -466,9 +418,9 @@ export function FixedAssetsSectionsPanel() {
                 <h3>
                   {copy.unplacedTitle} ({result.unplaced.length})
                 </h3>
-                <Paged
+                <RecordTable
                   label={copy.unplacedTitle}
-                  pager="unplaced"
+                  pager={{ 'data-fas-pager': 'unplaced' }}
                   headers={copy.unplacedHeaders}
                   rows={result.unplaced.map(([role, row, code]) => [
                     copy.roles[
@@ -488,9 +440,13 @@ export function FixedAssetsSectionsPanel() {
             <h3>
               {copy.sectionsTitle} ({result.sections.length})
             </h3>
-            <Paged
+            <RecordTable
+              status={{
+                column: 5,
+                of: (i) => toned(assetSectionTone, result.sections[i][5]),
+              }}
               label={copy.sectionsTitle}
-              pager="sections"
+              pager={{ 'data-fas-pager': 'sections' }}
               headers={copy.sectionHeadersTable}
               rows={result.sections.map((s) => [
                 String(s[0]),
@@ -510,9 +466,13 @@ export function FixedAssetsSectionsPanel() {
             <h3>
               {copy.assetsTitle} ({result.assets.length})
             </h3>
-            <Paged
+            <RecordTable
+              status={{
+                column: 9,
+                of: (i) => toned(assetSectionTone, result.assets[i].status),
+              }}
               label={copy.assetsTitle}
-              pager="assets"
+              pager={{ 'data-fas-pager': 'assets' }}
               headers={copy.assetHeaders}
               rows={result.assets.map((a) => [
                 a.section,

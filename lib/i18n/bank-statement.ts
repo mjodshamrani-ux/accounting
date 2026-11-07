@@ -245,8 +245,6 @@ const ar = {
   export: 'نزّل ورقة عمل الكشف',
   exportNote:
     'ملف Excel يتضمن الكشف والدفتر الأصليين وأدلة المراجعة كاملة، فشاركه بقدر ما تشارك الأصلين.',
-  previous: 'السابق',
-  next: 'التالي',
   errors: {
     'statement-reading':
       'تعذرت قراءة نص PDF بأمان. قد يكون ممسوحًا ضوئيًا أو نصه مقصوصًا؛ لا يُقرأ PDF مصوَّر.',
@@ -567,8 +565,6 @@ const en: typeof ar = {
   export: 'Download the statement workpaper',
   exportNote:
     'The Excel file includes the original statement and cashbook and the complete review evidence; share it as you would the originals.',
-  previous: 'Previous',
-  next: 'Next',
   errors: {
     'statement-reading':
       'The PDF text could not be read safely. It may be scanned or its text clipped; image PDFs are not read.',

@@ -116,17 +116,21 @@ const icons = {
 export function ReconciliationDirectory({
   entries,
   disabled,
+  waitingFor = 'tools',
   onSelect,
   activeDomain = 'supplier',
 }: {
   entries: { id: ReconciliationDomain; title: string }[];
   disabled: boolean;
+  /** Why it is closed: the tools are being prepared, or work is running. */
+  waitingFor?: 'tools' | 'work';
   onSelect: (domain: ReconciliationDomain) => void;
   activeDomain?: ReconciliationDomain;
   compact?: boolean;
 }) {
   const { lang, dir } = useI18n();
   const copy = reconciliationDirectoryCopy[lang];
+  const waiting = waitingFor === 'work' ? copy.waitingWork : copy.waitingTools;
   const uid = useId();
   const current = entries.find((entry) => entry.id === activeDomain);
   const Icon = icons[activeDomain];
@@ -152,6 +156,7 @@ export function ReconciliationDirectory({
               id={`${uid}-select`}
               data-reconciliation-type-select
               aria-label={copy.title}
+              aria-describedby={`${uid}-description`}
               value={activeDomain}
               disabled={disabled}
               onChange={(event) => {
@@ -190,7 +195,17 @@ export function ReconciliationDirectory({
         </span>
       </div>
       <div className="directory-selected-info">
-        <p id={`${uid}-description`}>{copy[activeDomain][0]}</p>
+        {/* While the selector is closed its reason takes the description's
+            place, and each keeps the room of the other (data-reserve), so
+            the card keeps its height when the tools are ready (UX-3). */}
+        <p
+          id={`${uid}-description`}
+          data-reserve={disabled ? copy[activeDomain][0] : copy.waitingTools}
+        >
+          <span className="reserve-now">
+            {disabled ? waiting : copy[activeDomain][0]}
+          </span>
+        </p>
         <details className="directory-selected-scope" key={activeDomain}>
           <summary>
             {copy.limits}
@@ -203,9 +218,7 @@ export function ReconciliationDirectory({
           </div>
         </details>
       </div>
-      {disabled && (
-        <output className="directory-waiting">{copy.waiting}</output>
-      )}
+      {disabled && <output className="directory-waiting">{waiting}</output>}
     </section>
   );
 }

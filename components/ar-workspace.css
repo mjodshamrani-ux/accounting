@@ -43,11 +43,10 @@
   justify-content: space-between;
   gap: 12px;
 }
-.ar-case-heading .status {
+.ar-case-heading .status-badge {
   flex: 0 1 auto;
   min-width: 0;
   max-width: 100%;
-  display: inline-block;
   white-space: normal;
   text-align: start;
 }
@@ -59,6 +58,8 @@
 .ar-workspace .ar-case-members {
   display: grid;
   gap: 12px;
+  /* The case's status stands apart from its first member card. */
+  margin-block: 12px 0;
   padding: 0;
   list-style: none;
 }

@@ -1,6 +1,8 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import type { ResultAnchor } from '@/components/result-index';
+import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { RecordRows } from '@/components/record-table';
 import { useI18n } from '@/lib/i18n/context';
 import {
   domainEvidenceCopy,
@@ -15,6 +17,7 @@ import {
   type DomainEvidenceAnswer,
 } from '@/lib/reconciliation/domain-assistant';
 import { money } from '@/lib/reconciliation/core';
+import { ClosedReason } from './decision-platform';
 
 export function DomainEvidenceAssistant({
   result,
@@ -22,7 +25,10 @@ export function DomainEvidenceAssistant({
   busy,
   replay,
   verifiedAnswer,
+  anchor,
 }: {
+  /** Where the result index takes the reader (UX-4). */
+  anchor?: ResultAnchor;
   result: DomainEvidenceSnapshot['result'];
   snapshot?: () => DomainEvidenceSnapshot;
   verifiedAnswer?: (question: string) => Promise<DomainEvidenceAnswer>;
@@ -35,6 +41,7 @@ export function DomainEvidenceAssistant({
   const t = domainEvidenceCopy(lang);
   const [answer, setAnswer] = useState<DomainEvidenceAnswer | null>(null);
   const [question, setQuestion] = useState('');
+  const askWhy = useId();
   const [previous, setPrevious] = useState(result);
   const [checking, setChecking] = useState(false);
   const [citationPage, setCitationPage] = useState(0);
@@ -62,6 +69,7 @@ export function DomainEvidenceAssistant({
     const id = ++request.current;
     const displayed = result;
     setAnswer(null);
+    setCitationPage(0);
     setChecking(true);
     let next: DomainEvidenceAnswer;
     try {
@@ -98,6 +106,7 @@ export function DomainEvidenceAssistant({
     <section
       className="surface pad stack"
       data-domain-evidence-assistant
+      {...anchor}
       aria-busy={checking}
     >
       <h3>{t.title}</h3>
@@ -131,10 +140,20 @@ export function DomainEvidenceAssistant({
           disabled={busy || checking}
           onChange={(e) => setQuestion(e.target.value)}
         />
-        <Button type="submit" disabled={busy || checking || !question.trim()}>
+        <Button
+          type="submit"
+          aria-describedby={askWhy}
+          disabled={busy || checking || !question.trim()}
+        >
           {t.ask}
         </Button>
       </form>
+      <ClosedReason
+        id={askWhy}
+        closed={!question.trim()}
+        waits="ask"
+        label={t.ask}
+      />
       {checking && <output>{t.checking}</output>}
       {answer && (
         <div
@@ -218,62 +237,21 @@ export function DomainEvidenceAssistant({
                   <summary>
                     {t.citations} ({answer.citations.length})
                   </summary>
-                  <div className="gl-tb-table">
-                    <table>
-                      <thead>
-                        <tr>
-                          {t.citationHeaders.map((h) => (
-                            <th key={h}>{h}</th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {answer.citations
-                          .slice(citationPage * 50, citationPage * 50 + 50)
-                          .map((c, i) => (
-                            <tr key={i}>
-                              {[
-                                c.page,
-                                c.line,
-                                c.field,
-                                c.text,
-                                c.recordId,
-                                c.hash,
-                              ].map((v, j) => (
-                                <td
-                                  key={j}
-                                  style={{ overflowWrap: 'anywhere' }}
-                                >
-                                  {v}
-                                </td>
-                              ))}
-                            </tr>
-                          ))}
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="actions">
-                    <Button
-                      variant="outline"
-                      disabled={!citationPage}
-                      onClick={() => setCitationPage(citationPage - 1)}
-                    >
-                      {t.previous}
-                    </Button>
-                    <span>
-                      {citationPage + 1} /{' '}
-                      {Math.max(1, Math.ceil(answer.citations.length / 50))}
-                    </span>
-                    <Button
-                      variant="outline"
-                      disabled={
-                        (citationPage + 1) * 50 >= answer.citations.length
-                      }
-                      onClick={() => setCitationPage(citationPage + 1)}
-                    >
-                      {t.nextPage}
-                    </Button>
-                  </div>
+                  <RecordRows
+                    label={t.citations}
+                    headers={t.citationHeaders}
+                    rows={answer.citations}
+                    page={citationPage}
+                    onPage={setCitationPage}
+                    cells={(c) => [
+                      c.page,
+                      c.line,
+                      c.field,
+                      c.text,
+                      c.recordId,
+                      c.hash,
+                    ]}
+                  />
                 </details>
               )}
             </>

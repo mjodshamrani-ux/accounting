@@ -365,7 +365,7 @@ async function verifyPrivacyNavigation(page) {
       document.getElementById('privacy-detail-title'),
   );
   await page
-    .getByRole('button', { name: 'إغلاق الخصوصية', exact: true })
+    .getByRole('button', { name: 'أغلق حدود الخصوصية', exact: true })
     .click();
   await page.waitForFunction(
     () =>
@@ -723,7 +723,7 @@ async function verifyUploadInteractions(page) {
     );
     assert.equal(
       await uploadPage
-        .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+        .getByRole('button', { name: 'أكّد البيانات', exact: true })
         .isDisabled(),
       true,
     );
@@ -1070,7 +1070,7 @@ export async function verifyBrandLanding(page) {
     () => document.querySelector('.document-scene')?.dataset.running === 'true',
   );
   const pause = scene.getByRole('button', {
-    name: 'إيقاف الحركة التوضيحية',
+    name: 'أوقف الحركة التوضيحية',
     exact: true,
   });
   assert.equal(await pause.getAttribute('aria-pressed'), 'false');
@@ -1101,7 +1101,7 @@ export async function verifyBrandLanding(page) {
     'scrolling back never overrides the user pause',
   );
   await scene
-    .getByRole('button', { name: 'تشغيل الحركة التوضيحية', exact: true })
+    .getByRole('button', { name: 'شغّل الحركة التوضيحية', exact: true })
     .click();
   await page.waitForFunction(
     () => document.querySelector('.document-scene')?.dataset.running === 'true',

@@ -145,11 +145,18 @@
   line-height: 1.9;
   margin-top: 6px;
 }
+/* Announced only: the reason is shown in place of the path's description
+   (UX-3). */
 .directory-waiting {
-  display: block;
-  color: #6d778b;
-  font-size: 11px;
-  margin-top: 12px;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 @media (max-width: 650px) {
   .reconciliation-directory {

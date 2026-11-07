@@ -2,7 +2,6 @@ import { stockCopy } from './inventory-register.ts';
 // Only generic table/review controls are shared; asset component facts and claims are independent.
 const controls = (c: typeof stockCopy.en) => ({
   back: c.back,
-  roleConfirm: c.roleConfirm,
   members: c.members,
   missing: c.missing,
   issues: c.issues,
@@ -19,15 +18,14 @@ const controls = (c: typeof stockCopy.en) => ({
   kinds: c.kinds,
   actions: c.actions,
   failed: c.failed,
-  previous: c.previous,
-  next: c.next,
 });
 const en = {
   ...controls(stockCopy.en),
   scopePrefix: 'Asset scope ',
   title: 'Posted fixed assets / GL component evidence',
   intro:
-    'Compare supplied posted cost, accumulated depreciation, impairment and carrying amount. Each evidenced component/account is checked independently; matching net values cannot hide component differences.',
+    'Compare supplied cost, accumulated depreciation, impairment and net.',
+  introDetail: 'Each evidenced component/account is checked independently; matching net values cannot hide component differences.',
   claim:
     'This checks supplied component consistency. It does not calculate depreciation, useful life or valuation, create postings, establish existence or ownership, authenticate sources or certify ERP completeness.',
   family:
@@ -48,7 +46,7 @@ const en = {
     'Component',
     'Cell presence',
     'Original amount text',
-    'Minor units',
+    'Amount',
     'Valuation reference',
     'Original member ID',
     'Source SHA-256',
@@ -70,9 +68,40 @@ const en = {
     'Independent supplied asset policy evidence',
     'Selected asset GL balances',
   ],
-  scopeTitle: 'Confirmed asset snapshot scope',
-  scopeConfirm:
-    'I confirmed the complete asset snapshot scope and selected component GL account set.',
+  // «ما فهمناه من ملفاتك» (UX-5(d)): what the four originals say on every
+  // row, and the one confirmation that carries the four source attestations
+  // and the scope attestation.
+  cardSummary: <T>(
+    entity: T,
+    assetLedger: T,
+    glLedger: T,
+    asOf: T,
+    currency: T,
+    rows: number,
+  ) => [
+    entity,
+    ', ',
+    assetLedger,
+    ' against ',
+    glLedger,
+    ', as of ',
+    asOf,
+    ', in ',
+    currency,
+    `; ${rows} rows read from the four files.`,
+  ],
+  cardConfirm: <T>(entity: T, asOf: T) => [
+    "I reviewed the posted asset component register, the proposed asset component / GL mapping, the independent supplied asset policy evidence and the selected asset GL balances (each one's role and family) and their common scope in every field above, with the selected component GL account set: ",
+    entity,
+    ', as of ',
+    asOf,
+    '. This confirms the reading and the scope; it accepts no asset.',
+  ],
+  // The one value each of these fields takes in this family.
+  only: {
+    currencyBasis: 'Functional',
+    postingStatus: 'Posted',
+  },
   scope: {
     entity: 'Entity',
     assetLedger: 'Asset ledger',
@@ -98,8 +127,9 @@ const en = {
   accept: 'Approve whole asset scope',
   reject: 'Reject whole asset scope',
   undo: 'Undo asset decision',
-  units:
-    'All financial numbers below are integer monetary minor units at the declared currency precision. Cost, accumulated depreciation, impairment and carrying amount remain separate.',
+  amountsIn: 'Amounts in',
+  componentsNote:
+    'Cost, accumulated depreciation, impairment and carrying amount remain separate.',
   status: {
     'source-error': 'Source blocked; financial totals withheld',
     missing: 'Component evidence or account coverage missing',
@@ -115,24 +145,28 @@ const en = {
     impairment: 'Accumulated impairment',
     carrying: 'Carrying amount',
   },
-  totals: ['Component', 'Register minor', 'GL minor'],
+  tableNames: {
+    totals: 'Component totals',
+    comparisons: 'Comparison by account and component',
+  },
+  totals: ['Component', 'Register', 'GL'],
   comparisons: [
     'GL account',
     'Complete GL dimensions',
     'Component',
-    'Register minor',
-    'GL normal minor',
-    'Difference minor',
+    'Register',
+    'GL normal',
+    'Difference, register minus GL',
   ],
   records: [
     [
       'Source row',
       'Asset ID',
       'Complete asset dimensions',
-      'Cost minor',
-      'Accumulated depreciation minor',
-      'Impairment minor',
-      'Carrying amount minor',
+      'Cost',
+      'Accumulated depreciation',
+      'Impairment',
+      'Carrying amount',
       'Valuation reference',
     ],
     [
@@ -166,10 +200,10 @@ const en = {
       'GL account',
       'Complete GL dimensions',
       'Account class',
-      'Debit minor',
-      'Credit minor',
+      'Debit',
+      'Credit',
       'Component',
-      'Normal minor',
+      'Normal balance',
     ],
   ],
   missingHeaders: ['Missing evidence', 'Source', 'Source row', 'Component'],
@@ -189,7 +223,7 @@ const en = {
     IDENTITY: 'Literal identity/reference',
     NUMBER: 'Exact nonnegative number',
     PRECISION: 'Currency precision',
-    BOUND: 'Scaled amount bound',
+    BOUND: 'Amount bound',
     CARRYING_EQUATION:
       'Carrying amount must equal cost less accumulated depreciation and impairment',
     COMPONENT: 'Declared cost/depreciation/impairment component',
@@ -210,7 +244,8 @@ const ar: typeof en = {
   scopePrefix: 'نطاق الأصول: ',
   title: 'الأصول الثابتة المرحلة وأدلة مكونات الأستاذ',
   intro:
-    'قارن الكلفة والاستهلاك المتراكم والانخفاض والصافي المقدمة. يفحص كل مكون وحساب ودليله مستقلًا؛ لا يخفي تطابق الصافي فرق المكونات.',
+    'قارن الكلفة والاستهلاك المتراكم والانخفاض والصافي المقدمة.',
+  introDetail: 'يفحص كل مكون وحساب ودليله مستقلًا؛ لا يخفي تطابق الصافي فرق المكونات.',
   claim:
     'هذا فحص اتساق المكونات المقدمة. لا يحتسب استهلاكًا أو عمرًا أو تقييمًا، ولا ينشئ قيودًا أو يثبت الوجود أو الملكية أو أصالة المصادر أو اكتمال نظام المنشأة.',
   family:
@@ -231,7 +266,7 @@ const ar: typeof en = {
     'المكون',
     'وجود الخلية',
     'نص المبلغ الأصلي',
-    'وحدات صغرى',
+    'المبلغ',
     'مرجع القيمة',
     'معرف العضو الأصلي',
     'بصمة المصدر SHA-256',
@@ -253,8 +288,36 @@ const ar: typeof en = {
     'دليل سياسة الأصول المستقل المقدم',
     'أرصدة مكونات الأصول في الأستاذ المحددة',
   ],
-  scopeTitle: 'نطاق رصيد الأصول المؤكد',
-  scopeConfirm: 'أكدت نطاق الأصول الكامل ومجموعة حسابات مكوناتها في الأستاذ.',
+  cardSummary: <T>(
+    entity: T,
+    assetLedger: T,
+    glLedger: T,
+    asOf: T,
+    currency: T,
+    rows: number,
+  ) => [
+    entity,
+    '، ',
+    assetLedger,
+    ' مقابل ',
+    glLedger,
+    '، كما في ',
+    asOf,
+    '، بعملة ',
+    currency,
+    `؛ الصفوف المقروءة من الملفات الأربعة: ${rows}.`,
+  ],
+  cardConfirm: <T>(entity: T, asOf: T) => [
+    'راجعت سجل مكونات الأصول المرحل وخريطة مكونات الأصول والأستاذ المقترحة ودليل سياسة الأصول المستقل المقدم وأرصدة مكونات الأصول في الأستاذ المحددة (دور كل منها وعائلته) ونطاقها المشترك بكل حقوله أعلاه، ومعه مجموعة حسابات المكونات المحددة في الأستاذ: ',
+    entity,
+    '، كما في ',
+    asOf,
+    '؛ وهذا تأكيد للقراءة والنطاق، لا قبول لأصل.',
+  ],
+  only: {
+    currencyBasis: 'وظيفية',
+    postingStatus: 'مرحّلة',
+  },
   scope: {
     entity: 'الكيان',
     assetLedger: 'دفتر الأصول',
@@ -280,8 +343,8 @@ const ar: typeof en = {
   accept: 'اعتمد كامل نطاق الأصول',
   reject: 'ارفض كامل نطاق الأصول',
   undo: 'تراجع عن قرار الأصول',
-  units:
-    'كل القيم المالية المعروضة أعداد صحيحة بوحدة العملة الصغرى وفق دقتها المعلنة. تبقى الكلفة والاستهلاك المتراكم والانخفاض والصافي مستقلة.',
+  amountsIn: 'المبالغ بعملة',
+  componentsNote: 'تبقى الكلفة والاستهلاك المتراكم والانخفاض والصافي مستقلة.',
   status: {
     'source-error': 'المصدر محجوب؛ الإجماليات غير محسوبة',
     missing: 'دليل المكونات أو تغطية الحسابات ناقص',
@@ -297,24 +360,28 @@ const ar: typeof en = {
     impairment: 'الانخفاض المتراكم',
     carrying: 'الصافي الدفتري',
   },
-  totals: ['المكون', 'السجل بوحدة صغرى', 'الأستاذ بوحدة صغرى'],
+  tableNames: {
+    totals: 'مجاميع المكونات',
+    comparisons: 'المقارنة حسب الحساب والمكون',
+  },
+  totals: ['المكون', 'السجل', 'الأستاذ'],
   comparisons: [
     'حساب الأستاذ',
     'أبعاد الأستاذ كاملة',
     'المكون',
-    'السجل بوحدة صغرى',
-    'صافي المكون بوحدة صغرى',
-    'الفرق بوحدة صغرى',
+    'السجل',
+    'صافي المكون في الأستاذ',
+    'الفرق، السجل ناقص الأستاذ',
   ],
   records: [
     [
       'صف المصدر',
       'معرف الأصل',
       'أبعاد الأصل كاملة',
-      'الكلفة بوحدة صغرى',
-      'الاستهلاك المتراكم بوحدة صغرى',
-      'الانخفاض بوحدة صغرى',
-      'الصافي بوحدة صغرى',
+      'الكلفة',
+      'الاستهلاك المتراكم',
+      'الانخفاض',
+      'الصافي',
       'مرجع القيمة',
     ],
     [
@@ -348,10 +415,10 @@ const ar: typeof en = {
       'حساب الأستاذ',
       'أبعاد الأستاذ كاملة',
       'التصنيف',
-      'المدين بوحدة صغرى',
-      'الدائن بوحدة صغرى',
+      'المدين',
+      'الدائن',
       'المكون',
-      'صافي المكون بوحدة صغرى',
+      'صافي المكون',
     ],
   ],
   missingHeaders: ['الدليل المفقود', 'المصدر', 'صف المصدر', 'المكون'],
@@ -371,7 +438,7 @@ const ar: typeof en = {
     IDENTITY: 'الهوية أو المرجع الحرفي',
     NUMBER: 'عدد غير سالب دقيق',
     PRECISION: 'دقة العملة',
-    BOUND: 'حد القيمة بوحدة صغرى',
+    BOUND: 'حد المبلغ المسموح',
     CARRYING_EQUATION:
       'الصافي يجب أن يساوي الكلفة ناقص الاستهلاك المتراكم والانخفاض',
     COMPONENT: 'مكون الكلفة أو الاستهلاك أو الانخفاض المعلن',

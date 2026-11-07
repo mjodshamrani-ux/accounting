@@ -26,6 +26,34 @@ import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import {
+  assertStatusBadges,
+  statusBadgesRead,
+} from './status-badge-support.mjs';
+import {
+  assertSectionFocus,
+  sectionFocusRead,
+} from './section-focus-support.mjs';
+
+// The status badge in this section (UX-3): a status on this list, and no
+// other, takes the agreed tone.
+const BADGE_LABEL = 'gateway batches';
+const BADGES = [
+  {
+    name: 'batches',
+    column: 11,
+    rows: 'tr[data-pgb-batch]',
+    attr: 'data-pgb-batch-status',
+    agreed: ['consistent'],
+  },
+  {
+    name: 'payouts',
+    column: 7,
+    rows: 'tr[data-pgb-payout]',
+    attr: 'data-pgb-payout-status',
+    agreed: ['consistent'],
+  },
+];
 
 const root = path.resolve(process.env.PG_BATCHES_DIST ?? 'dist');
 const SUITE = process.env.PG_BATCHES_SUITE;
@@ -96,11 +124,16 @@ const WORDS = {
     check: 'راجع الدفعات',
   },
 };
+// The page writes an amount at the scope's decimals with grouped thousands
+// and the minus first; written here on its own, not taken from the
+// application.
 const minor = (v, decimals) => {
-  const digits = String(v).padStart(decimals + 1, '0');
-  return decimals
-    ? `${digits.slice(0, -decimals)}.${digits.slice(-decimals)}`
-    : digits;
+  const digits = String(Math.abs(v)).padStart(decimals + 1, '0');
+  const whole = (decimals ? digits.slice(0, -decimals) : digits).replace(
+    /\B(?=(\d{3})+(?!\d))/gu,
+    ',',
+  );
+  return `${v < 0 ? '-' : ''}${whole}${decimals ? `.${digits.slice(-decimals)}` : ''}`;
 };
 
 async function suiteCases(folder, oracle, dense) {
@@ -210,14 +243,18 @@ async function load(page, pgb, c, lang = 'en') {
     .first()
     .waitFor({ timeout: 600000 });
   await idle(page);
+  await assertSectionFocus(page, pgb, BADGE_LABEL);
 }
 // Every row of one paged table, page after page; a dense story only on its
 // first and last pages.
 async function rows(pgb, pager, selector, read, dense) {
   const found = [];
   const bar = pgb.locator(`[data-pgb-pager="${pager}"]`);
+  // The shared pager names the page, then the number of pages (UX-3).
   const pages = (await bar.count())
-    ? Number(/\/\s*(\d+)/.exec(await bar.locator('span').textContent())[1])
+    ? Number(
+        /(\d+)\D+(\d+)/u.exec(await bar.locator('output').textContent())[2],
+      )
     : 1;
   for (let page = 0; page < pages; page++) {
     if (!dense || page === 0 || page === pages - 1)
@@ -229,6 +266,7 @@ async function rows(pgb, pager, selector, read, dense) {
 }
 const cells = (r) => r.locator('td').allTextContents();
 async function shown(pgb, dense) {
+  await assertStatusBadges(pgb, BADGES, BADGE_LABEL);
   const state = await pgb.getAttribute('data-pgb-state');
   const refusal = pgb.locator('[data-pgb-refused]');
   if (await refusal.count())
@@ -552,6 +590,11 @@ try {
   for (const [k, v] of Object.entries(report.summary.checks)) assert.ok(v, k);
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
+  console.log(
+    'status badges read:',
+    statusBadgesRead(BADGE_LABEL, ['batches', 'payouts']),
+  );
+  console.log('section focus read:', sectionFocusRead(BADGE_LABEL));
 } finally {
   await browser?.close();
   await new Promise((resolve) => server.close(resolve));
