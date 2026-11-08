@@ -342,6 +342,86 @@ def check_nothing_cut(book, rows, styles):
                  f'{ref} needs {tall:.0f} points, has {heights.get(r, 0)}')
 
 
+def check_breaks(book, rows, sections):
+    """A page broken by hand is broken above a section's heading, or above a
+    later row of the table waiting for review that is not under its head,
+    never inside what a heading names; a sheet short enough for one page is
+    not broken at all (its own estimate: a row as tall as written, else 15
+    points and the title 19.6, against 700 points, well inside a page); and
+    no heading is left at a page's foot (check_pages)."""
+    part = book.parts[book.sheets[0][1]].decode()
+    _, heights = book.geometry(book.names[0])
+    m = re.search(r'<rowBreaks count="(\d+)" manualBreakCount="(\d+)">'
+                  r'(.*?)</rowBreaks>', part, re.S)
+    ids = []
+    if m:
+        ids = [int(x) for x in re.findall(
+            r'<brk id="(\d+)" max="16383" man="1"/>', m.group(3))]
+        need(len(ids) == int(m.group(1)) == int(m.group(2)) ==
+             m.group(3).count('<brk '), 'BREAK', 'count')
+        need(ids == sorted(set(ids)), 'BREAK', 'order')
+        tall = sum(heights.get(r) or (19.6 if r == 0 else 15)
+                   for r in range(len(rows)))
+        need(tall > 700, 'BREAK', f'a sheet of {tall:.0f} points is broken')
+    else:
+        need('<brk ' not in part and '<rowBreaks' not in part, 'BREAK',
+             'a break outside its list')
+    allowed = {s['at'] for s in sections}
+    for s in sections:
+        if s['evidence'] != 'Cases':
+            continue
+        for k, (i, row) in enumerate(s['rows']):
+            above = s['rows'][k - 1][1] if k else None
+            if k and text(row[0]) and not (
+                    text(above[0]) and book.styles.bold(above[0][2])):
+                allowed.add(i)
+    for i in ids:
+        need(i in allowed, 'BREAK', f'a page broken above row {i + 1}')
+    check_pages(rows, sections, heights, set(ids))
+
+
+def check_pages(rows, sections, heights, breaks):
+    """No heading is left at a page's foot with what it names on the next:
+    a section, or a table's heading with its head and first row (in the
+    receivables, the first document with its movements), that clearly does
+    not fit what is left of its page is broken above. Paged by the checker's
+    own estimate (A4 at the sheet's margins as LibreOffice prints it: 748.5
+    points of rows, a row as tall as written, else 15, the title 19.6). A
+    finding is a heading that ends no more than 5 points past its page, so
+    may still be printed on it, while its group runs more than 5 points past
+    the page; a heading that ends further past goes to the next page with
+    its group, and is not one. The 5 points stand for the estimate's error
+    (LibreOffice draws a row set to a height about half a point shorter)."""
+    page, margin = 748.5, 5
+    tall = [heights.get(r) or (19.6 if r == 0 else 15) for r in range(len(rows))]
+    groups = {}
+    for s in sections:
+        members = [i for i, _ in s['rows']]
+        last = members[-1] if members else s['at']
+        if s['evidence'] in ('Cases', 'Decisions') and len(members) > 1:
+            # Under a head, its first row; in a list of documents with no
+            # head, the first document with its movements.
+            if blank(rows[members[1]][0]):
+                k = 1
+                while k < len(members) and blank(rows[members[k]][0]):
+                    k += 1
+                last = members[k - 1]
+            else:
+                last = members[1]
+        groups[s['at']] = last
+    used = 0
+    for r, h in enumerate(tall):
+        if r in breaks:
+            used = 0
+        last = groups.get(r)
+        if last is not None and used > 0:
+            group = sum(tall[r:last + 1])
+            need(not (used + tall[r] <= page + margin and
+                      used + group > page + margin and group <= page),
+                 'BREAK', f'the heading in row {r + 1} is left at the foot of a page')
+        used = used + h if used + h <= page else h
+
+
 def layout(book, evidence, lang, expected):
     """Title, then sections, each opened by a bold first cell with nothing in
     the second, naming the evidence sheet behind it; every row under a
@@ -367,6 +447,7 @@ def layout(book, evidence, lang, expected):
     need([s['evidence'] for s in sections] == expected,
          'SECTIONS', str([s['evidence'] for s in sections]))
     check_nothing_cut(book, rows, styles)
+    check_breaks(book, rows, sections)
     claim = sections[-1]
     for s in sections:
         for i, row in s['rows']:
@@ -972,6 +1053,9 @@ def plants(data):
     yield 'dangling font', 'STYLE_INDEX', _edit(data, 'xl/styles.xml', _dangle)
     yield 'evidence changed', 'EVIDENCE_CHANGED', _edit(
         data, 'xl/worksheets/sheet1.xml', lambda x: x.replace('</sheetData>', '<row r="999"/></sheetData>'))
+    yield 'break in a sheet that fits', 'BREAK', in_sheet(
+        lambda x: x.replace('</worksheet>', '<rowBreaks count="1" manualBreakCount="1">'
+                            '<brk id="12" max="16383" man="1"/></rowBreaks></worksheet>'))
     yield 'sheet not first', 'SHEET_ORDER', _edit(
         data, 'xl/workbook.xml', lambda x: re.sub(
             r'<sheets>(<sheet [^>]*/>)(<sheet [^>]*/>)', r'<sheets>\2\1', x))
@@ -992,6 +1076,9 @@ def clearing_plants(data):
     clear = 'أعضاء متعادلة بقرار بشري مسجل'
     reopen = 'أُلغي الاعتماد وبقيت المجموعة للمراجعة'
     residual = 'حزمة المرجع غير متعادلة؛ لا اختيار لجزء منها'
+    yield 'break under a table head', 'BREAK', _edit(data, sheet, lambda x: x.replace(
+        '</worksheet>', '<rowBreaks count="1" manualBreakCount="1"><brk id="{}" max="16383"'
+        ' man="1"/></rowBreaks></worksheet>'.format(_cell(x, 'القرار'))))
     yield 'decision without its reason', 'DECISION_REASON', row_edit(
         clear, 0, lambda r: re.sub(r'<c r="C\d+"[^>]*>.*?</c>', '', r))
     yield 'decision said as the other', 'DECISION_ACTION', row_edit(
@@ -1055,8 +1142,18 @@ def ar_plants(data):
     yield 'record total changed', 'TOTAL', row_edit(
         'التراصف', 1, lambda r: re.sub(
             r'<v>(\d+)</v>', lambda m: f'<v>{int(m.group(1)) + 1}</v>', r, count=1))
+    yield 'break inside a section', 'BREAK', _edit(data, sheet, lambda x: re.sub(
+        r'<brk id="(\d+)"', lambda m: f'<brk id="{int(m.group(1)) + 1}"', x, count=1))
     yield 'type as its code', 'RAW_CODE', row_edit(
         'فاتورة', 0, lambda r: r.replace('فاتورة', 'invoice', 1))
+
+
+def page_plants(data):
+    """A sheet that needs its break, printed without it: its heading would
+    end about a point past its page by the checker's estimate, which only
+    the 5 points it allows for the estimate's error still count as on it."""
+    yield 'break dropped', 'BREAK', _edit(data, _first_sheet(data), lambda x: re.sub(
+        r'<rowBreaks .*?</rowBreaks>', '', x, flags=re.S))
 
 
 def _self_test_one(folder, case, generic):
@@ -1089,6 +1186,7 @@ def self_test(folder):
     found = _self_test_one(folder, pick('same-net-different-turnover'), plants)
     found += _self_test_one(folder, pick('clearing-reopened'), clearing_plants)
     found += _self_test_one(folder, pick('ar-reopened'), ar_plants)
+    found += _self_test_one(folder, pick('ar-unreadable'), page_plants)
     return found
 
 

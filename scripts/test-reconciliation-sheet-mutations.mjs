@@ -316,8 +316,8 @@ const mutations = [
   [
     'ar-matched-listed',
     'lib/reconciliation/ar-sheet.ts',
-    "          .filter((c) => c.status === 'review')\n          .flatMap(",
-    "          .filter((c) => c.status !== '')\n          .flatMap(",
+    "const review = result.cases.filter((c) => c.status === 'review');",
+    "const review = result.cases.filter((c) => c.status !== '');",
   ],
   // A record without a total is written as zero.
   [
@@ -353,6 +353,55 @@ const mutations = [
     'lib/reconciliation/clearing-sheet.ts',
     'hash: result.sourceHash',
     'hash: result.context',
+  ],
+  // UX-6(b), printing. The page is never broken by hand.
+  [
+    'print-never-broken',
+    'lib/reconciliation/reconciliation-sheet.ts',
+    'if (tall.reduce((a, b) => a + b, 0) <= ONE_PAGE) return [];',
+    'return [];',
+  ],
+  // A break one row below a group's first row, inside it.
+  [
+    'print-break-inside',
+    'lib/reconciliation/reconciliation-sheet.ts',
+    'breaks.push(r);',
+    'breaks.push(r + 1);',
+  ],
+  // A group taller than a page is sent to a page of its own.
+  [
+    'print-tall-group-alone',
+    'lib/reconciliation/reconciliation-sheet.ts',
+    'if (used + group > PAGE && group <= PAGE) {',
+    'if (used + group > PAGE) {',
+  ],
+  // The planner forgets what the page already holds.
+  [
+    'print-page-not-counted',
+    'lib/reconciliation/reconciliation-sheet.ts',
+    'used = used + height > PAGE ? height : used + height;',
+    'used = 0;',
+  ],
+  // The groups are not handed to the writer.
+  [
+    'print-groups-dropped',
+    'lib/reconciliation/reconciliation-sheet.ts',
+    'return { name: w.name, language, widths: WIDTHS, rows, keep };',
+    'return { name: w.name, language, widths: WIDTHS, rows };',
+  ],
+  // The sign-off is not kept whole.
+  [
+    'print-sign-off-split',
+    'lib/reconciliation/reconciliation-sheet.ts',
+    "          { line: true },\n        ]);\n      whole();",
+    "          { line: true },\n        ]);",
+  ],
+  // An AR document is not kept with its movements.
+  [
+    'print-ar-document-split',
+    'lib/reconciliation/ar-sheet.ts',
+    '        blocks: review.map((c) => 1 + c.ids.length),\n',
+    '',
   ],
 ];
 

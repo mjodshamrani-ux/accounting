@@ -1216,3 +1216,82 @@ void test('the real worker writes the AR sheet in the language asked, and the bi
     port.terminate();
   }
 });
+
+void test('a printed page is broken above a whole section or document, never inside one; a sheet that fits one page is not broken', async () => {
+  const breaks = (xml: string) => {
+    const list = /<rowBreaks count="(\d+)" manualBreakCount="(\d+)">([\s\S]*?)<\/rowBreaks>/.exec(xml);
+    if (!list) return [];
+    const ids = [...list[3].matchAll(/<brk id="(\d+)" max="16383" man="1"\/>/g)].map(
+      (m) => Number(m[1]),
+    );
+    assert.deepEqual([Number(list[1]), Number(list[2])], [ids.length, ids.length]);
+    return ids;
+  };
+  // The zero-based row whose first cell says label: a break stands above it.
+  const above = (
+    rows: Awaited<ReturnType<typeof sheetParts>>['rows'],
+    label: string,
+  ) => {
+    const row = rows.find((r) => r.cells[0]?.col === 'A' && r.cells[0].text === label);
+    assert.ok(row, label);
+    return row.n - 1;
+  };
+  // A GL/TB sheet fits one page: no break.
+  const { state: gl, result: glResult } = await glTbCase('positive');
+  for (const lang of ['ar', 'en'] as const) {
+    const { xml } = await sheetParts(await exportGlTbWorkpaper(gl, glResult, lang));
+    assert.equal(breaks(xml).length, 0, lang);
+    assert.ok(!xml.includes('<brk'), lang);
+  }
+  // A reopened AR document runs past one page. In English the page is
+  // broken above the recorded decisions, so their heading, head and first
+  // decision print together, as LibreOffice showed them cut apart; in
+  // Arabic, above the sign-off, so both its lines print with its heading.
+  const { state, result } = await arCase('positive', 'reopen');
+  const words = reconciliationSheetCopy;
+  const en = await sheetParts(await exportArWorkpaper(state, result, 'en'));
+  assert.deepEqual(breaks(en.xml), [above(en.rows, words.en.decisions)]);
+  const arabic = await sheetParts(await exportArWorkpaper(state, result, 'ar'));
+  assert.deepEqual(breaks(arabic.xml), [above(arabic.rows, words.ar.signature)]);
+  // The document waiting for review is kept whole with its two movements,
+  // and with the heading above it, as the first of its list.
+  const sheet = arSheet(state, result, 'en');
+  const heading = sheet.rows.findIndex(
+    (r) => r[0] && 'text' in r[0] && r[0].text === words.en.receivables.review,
+  );
+  assert.deepEqual(sheet.rows[heading + 1].slice(0, 2), [
+    { text: 'Invoice', style: 'value' },
+    { text: 'I001', style: 'value' },
+  ]);
+  assert.ok(
+    sheet.keep?.some(([a, b]) => a === heading && b === heading + 3),
+    JSON.stringify(sheet.keep),
+  );
+  // Laid out from sections: 43 rows, then a section of three that would not
+  // fit what is left of the first page, is broken above that section's
+  // heading; with 10 rows first, all fits and nothing is broken; and a
+  // section taller than a page is not sent to a page of its own.
+  const { state: base } = await clearingCase('none');
+  const evidence = await exportClearing(base, reconcileClearing(base));
+  const pairs = (title: string, n: number) => ({
+    kind: 'pairs' as const,
+    title,
+    rows: Array.from({ length: n }, (_, i) => ({
+      label: `${title} ${i + 1}`,
+      value: { text: 'x', style: 'value' as const },
+    })),
+  });
+  const laid = async (...sections: ReturnType<typeof pairs>[]) =>
+    sheetParts(
+      await addReconciliationSheet(
+        evidence,
+        composeSheet('en', { title: 'Synthetic', sections }),
+      ),
+    );
+  const straddles = await laid(pairs('First', 43), pairs('Second', 3));
+  assert.deepEqual(breaks(straddles.xml), [above(straddles.rows, 'Second')]);
+  const fits = await laid(pairs('First', 10), pairs('Second', 3));
+  assert.deepEqual(breaks(fits.xml), []);
+  const tall = await laid(pairs('First', 3), pairs('Long', 60), pairs('Last', 3));
+  assert.ok(!breaks(tall.xml).includes(above(tall.rows, 'Long')));
+});

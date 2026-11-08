@@ -50,6 +50,10 @@ export type ReconciliationSheet = {
   /** Column widths in characters, one per column used. */
   widths: number[];
   rows: SheetCell[][];
+  /** Rows printed on one page where they fit, each as its first and last
+   * row: a section's heading with its rows, a table's heading with its head
+   * and first block, then each block of more than one row. */
+  keep?: [number, number][];
 };
 
 const MAIN = 'http://schemas.openxmlformats.org/spreadsheetml/2006/main';
@@ -248,6 +252,50 @@ function wrapPlan(sheet: ReconciliationSheet) {
   return { wrapped, heights };
 }
 
+/**
+ * Where the printed sheet is broken by hand (UX-6(b)). Excel and LibreOffice
+ * break a page wherever the next row does not fit, which left a section's
+ * heading, a table's head or half the sign-off at the foot of a page with
+ * what it names on the next. A sheet whose rows fit one page is given no
+ * break; a longer one is broken above any group of rows that would not fit
+ * what is left of its page, where the group fits a page. A4 portrait at the
+ * sheet's margins holds 748 points of rows as LibreOffice prints them
+ * (measured: a row ending 748.5 points below the top margin fits, one ending
+ * at 749 does not); the plan uses 746, so a row two points taller than
+ * estimated still fits. A row is as tall as written when its text wraps, 20
+ * points for the title and 15 otherwise, as LibreOffice draws them.
+ */
+const ONE_PAGE = 748;
+const PAGE = 746;
+function pageBreaks(
+  sheet: ReconciliationSheet,
+  heights: Map<number, number>,
+) {
+  const tall = sheet.rows.map(
+    (cells, r) =>
+      heights.get(r) ??
+      (cells.some((c) => c && 'text' in c && c.style === 'title') ? 20 : 15),
+  );
+  if (tall.reduce((a, b) => a + b, 0) <= ONE_PAGE) return [];
+  const groups = new Map((sheet.keep ?? []).map(([a, b]) => [a, b]));
+  const breaks: number[] = [];
+  let used = 0;
+  tall.forEach((height, r) => {
+    const last = groups.get(r);
+    if (last !== undefined && used > 0) {
+      let group = 0;
+      for (let i = r; i <= last; i++) group += tall[i];
+      if (used + group > PAGE && group <= PAGE) {
+        breaks.push(r);
+        used = 0;
+      }
+    }
+    // Past the plan, the reader breaks where the next row does not fit.
+    used = used + height > PAGE ? height : used + height;
+  });
+  return breaks;
+}
+
 /** The styles the sheet uses, appended after every existing one, so each
  * index the evidence sheets hold keeps its meaning. */
 function appendStyles(
@@ -444,6 +492,8 @@ function sheetXml(
     )
     .join('');
   const last = sheet.rows.length || 1;
+  // A break stands above the row it names (zero-based).
+  const breaks = pageBreaks(sheet, heights);
   return (
     '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n' +
     `<worksheet xmlns="${MAIN}" xmlns:r="${REL}">` +
@@ -455,6 +505,9 @@ function sheetXml(
     `<sheetData>${rows.join('')}</sheetData>` +
     '<pageMargins left="0.5" right="0.5" top="0.6" bottom="0.6" header="0.3" footer="0.3"/>' +
     '<pageSetup paperSize="9" orientation="portrait" fitToWidth="1" fitToHeight="0"/>' +
+    (breaks.length
+      ? `<rowBreaks count="${breaks.length}" manualBreakCount="${breaks.length}">${breaks.map((r) => `<brk id="${r}" max="16383" man="1"/>`).join('')}</rowBreaks>`
+      : '') +
     '</worksheet>'
   );
 }
@@ -579,6 +632,10 @@ export type SheetSection =
        * of records under each document does. */
       head: string[];
       rows: SheetCell[][];
+      /** Rows that belong together on a printed page, as counts in order: a
+       * document and its movements. Each row stands alone where none is
+       * given. */
+      blocks?: number[];
     }
   | { kind: 'signature' }
   | { kind: 'claim'; text: string; evidence: string };
@@ -605,8 +662,13 @@ export function composeSheet(
 ): ReconciliationSheet {
   const w = reconciliationSheetCopy[sheetLanguage(language)];
   const rows: SheetCell[][] = [[text(w.name, 'title')], [text(title, 'subtitle')]];
+  const keep: [number, number][] = [];
+  // From this section's heading to the last row written.
+  const whole = () => keep.push([at, rows.length - 1]);
+  let at = 0;
   const heading = (name: string, evidence?: string) => {
     rows.push([]);
+    at = rows.length;
     rows.push([
       text(name, 'section'),
       null,
@@ -632,6 +694,7 @@ export function composeSheet(
       heading(section.title, section.evidence);
       for (const r of section.rows)
         rows.push([text(r.label, 'label'), r.value]);
+      whole();
     } else if (section.kind === 'sources') {
       if (!section.sources.length) continue;
       heading(section.title, section.evidence);
@@ -639,6 +702,7 @@ export function composeSheet(
         rows.push([text(s.role, 'label'), text(s.name, 'value')]);
         rows.push([text(w.fingerprint, 'note'), text(s.hash, 'hash')]);
       }
+      whole();
     } else if (section.kind === 'strip') {
       heading(section.title, section.evidence);
       for (const t of section.totals ?? [])
@@ -666,12 +730,25 @@ export function composeSheet(
       }
       for (const m of section.more ?? [])
         rows.push([text(m.label, 'label'), text(m.value, 'value')]);
+      whole();
     } else if (section.kind === 'table') {
       if (!section.rows.length) continue;
+      const blocks = section.blocks ?? section.rows.map(() => 1);
+      if (blocks.reduce((a, b) => a + b, 0) !== section.rows.length)
+        fail('BLOCKS');
       heading(section.title, section.evidence);
       if (section.head.length)
         rows.push(section.head.map((h) => text(h, 'head')));
-      rows.push(...section.rows);
+      // The heading and head go with the first block; a later block of more
+      // than one row stays whole.
+      let start = at,
+        next = 0;
+      for (const size of blocks) {
+        rows.push(...section.rows.slice(next, next + size));
+        next += size;
+        if (rows.length - 1 > start) keep.push([start, rows.length - 1]);
+        start = rows.length;
+      }
     } else if (section.kind === 'signature') {
       heading(w.signature);
       for (const who of [w.prepared, w.reviewed])
@@ -681,10 +758,12 @@ export function composeSheet(
           text(w.date, 'label'),
           { line: true },
         ]);
+      whole();
     } else {
       heading(w.claim, section.evidence);
       rows.push([text(section.text, 'note')]);
+      whole();
     }
   }
-  return { name: w.name, language, widths: WIDTHS, rows };
+  return { name: w.name, language, widths: WIDTHS, rows, keep };
 }

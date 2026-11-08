@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 66344,
-      "sha256": "e8535a214e51e2b4d0eb63050e2d07a3d280e2ea0d5a854664493ab1d3c751c8",
+      "bytes": 66449,
+      "sha256": "9cec39efceaeda8fb0af852b6a199f40a394032f3ac5963702b9949c6a290c6f",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 27168,
-      "sha256": "4f997111d155ff31e92cba2c78d25feea8ed4c0e938aa3a980a3a70e996f39fc",
+      "bytes": 27279,
+      "sha256": "d6be1f9dd77b061211833c1985a8295f2a80f2b4685c5e207ca5314048537692",
       "kind": "text"
     },
     {
@@ -36151,14 +36151,14 @@
     },
     {
       "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
-      "bytes": 183046,
-      "sha256": "7a3ae07d876dc6932049374e71de18814c6b8543014a955cf46619bfe6a9435d",
+      "bytes": 185990,
+      "sha256": "e8dc9b0b64ef9724d1ef52ec84efe7e9d0331569738276ede413e88d91cda2fa",
       "kind": "text"
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 512320,
-      "sha256": "10ab9c32f4169823374e4cb391869ae95ecb578565d38db18e657d293991274d",
+      "bytes": 514681,
+      "sha256": "dfe35f69ca150dd0a61f6c92c69cbd1093f1e2a79c78e8d15407c7a9dee6b7e1",
       "kind": "text"
     },
     {
@@ -44469,8 +44469,8 @@
     },
     {
       "path": "docs/reference/LESSONS-INDEX.ar.md",
-      "bytes": 57535,
-      "sha256": "d996bb2e5d379aadad038f38c82a5060d793bc196cf24fa1a80f4eadfbbf33c5",
+      "bytes": 58647,
+      "sha256": "96e48d1facf7d631ebac1b351c38c1b2210e95118d0ee1c802f82447b415bd6a",
       "kind": "text"
     },
     {
@@ -73481,8 +73481,8 @@
     },
     {
       "path": "docs/roadmap/ux.ar.md",
-      "bytes": 47194,
-      "sha256": "0e3e5741ac90983531e9eaeb5f561041bbd143586355d402ed05c515be205048",
+      "bytes": 47632,
+      "sha256": "f86960b2d6abd083e60a68b2887770d19caf1fb1ebb9392d2622a4e2510b32a5",
       "kind": "text"
     },
     {
@@ -73823,20 +73823,20 @@
     },
     {
       "path": "docs/audits/UX-6-RECONCILIATION-SHEET.ar.md",
-      "bytes": 66095,
-      "sha256": "e6f9c14d97aef961d10a705e14405c405f3a8badadf30511f82e7ff8779ef7f9",
+      "bytes": 74328,
+      "sha256": "7c019e6eaed39afb708b9f685541816073bede9a2a578a4b89f3a15f970cb9f7",
       "kind": "text"
     },
     {
       "path": "audit/reconciliation-sheet/README.ar.md",
-      "bytes": 7640,
-      "sha256": "a12993741d177e123ff328aeb77d58532cbdb3175e08bd64f0cd7ac7db7af55a",
+      "bytes": 9038,
+      "sha256": "c87f5bc73eacb39cf28ff5d9a90f069f2dbe3fb523dd12042efdddd5f643e496",
       "kind": "text"
     },
     {
       "path": "audit/reconciliation-sheet/check_sheet.py",
-      "bytes": 51764,
-      "sha256": "a1f6f62f28d71e27ba5584a5ecb267988e0481486a61f67be9b653bc379f4712",
+      "bytes": 56853,
+      "sha256": "174b19a71c2c20589e9afd7fba2fd1fbffe16b7e96b0e3b89d3894fda2b06c01",
       "kind": "text"
     },
     {
@@ -73865,8 +73865,8 @@
     },
     {
       "path": "lib/reconciliation/reconciliation-sheet.ts",
-      "bytes": 24556,
-      "sha256": "7cfb5cc6ae9da1c3175cdc303a3c9863022182f45dc098a774df486430c15590",
+      "bytes": 27806,
+      "sha256": "6daaeb609b18fbdcdb750c4c6a1d99172c4a65f8687eb709750087cb396a4de6",
       "kind": "text"
     },
     {
@@ -73877,8 +73877,8 @@
     },
     {
       "path": "scripts/test-reconciliation-sheet-mutations.mjs",
-      "bytes": 15207,
-      "sha256": "818ee7073cf620be08636089c9fae4f6e548e6ac884ad737375dfd0c30c62f22",
+      "bytes": 16779,
+      "sha256": "152a7b05908de6ed2aca432431d94269c7fdf1f3149467f80958793631aed780",
       "kind": "text"
     },
     {
@@ -73889,8 +73889,8 @@
     },
     {
       "path": "tests/reconciliation-sheet.test.ts",
-      "bytes": 46134,
-      "sha256": "4efcc0b1b6fab4f306fb1cb593abfd633274692421333786ab177276bdd738bf",
+      "bytes": 49897,
+      "sha256": "e36daf74069024d61ea05656d1db049fb7aaa897d432e7d278ec4ffff6dc035f",
       "kind": "text"
     },
     {
@@ -73901,8 +73901,8 @@
     },
     {
       "path": "lib/reconciliation/ar-sheet.ts",
-      "bytes": 5704,
-      "sha256": "96276ce3d18a97d0ef2bb3caf8b2b5f70d38858f7d6f83e41b8dc0cc5d2d924b",
+      "bytes": 5831,
+      "sha256": "9b4f006fc376d800948efb3f5bdad87b821c6bbaeb67ce18e4805a65a180d48b",
       "kind": "text"
     }
   ],
@@ -73914,21 +73914,21 @@
       "kind": "text"
     },
     {
-      "path": "assets/ar-io-DvExBlTa.js",
+      "path": "assets/ar-io-B4R0R8L4.js",
       "bytes": 12931,
-      "sha256": "2a3b84690ee571a81aaee9c0496e780c4a9362b030a3bfb880dc8a11768a04ea",
+      "sha256": "7194040f1d9d45b35b85d5956cf15b89b99fff29cfcd3bb19c54651cbdadd6f9",
       "kind": "text"
     },
     {
-      "path": "assets/bank-adjustment-io-C90IijD7.js",
+      "path": "assets/bank-adjustment-io-D1MOTaPB.js",
       "bytes": 12101,
-      "sha256": "248cae52059adc5598cbaab54fa8495e6418cdf65203fd07affccc900109ff26",
+      "sha256": "3d763e5e1e9e8fdc52bc9a6dd15627e13350dd25e8d5f9913f751122d4bd75f7",
       "kind": "text"
     },
     {
-      "path": "assets/bank-io-BAWWj6uC.js",
+      "path": "assets/bank-io-D732qnnS.js",
       "bytes": 6331,
-      "sha256": "b5a6754610dee27dde3b340e49a42c83e45e24dfeb9b6b001698b82b023869cb",
+      "sha256": "b26ccdb56c89fc01a8876e61fc3f05ff0805c15fe11c943bde496b3c652568eb",
       "kind": "text"
     },
     {
@@ -73964,15 +73964,15 @@
       }
     },
     {
-      "path": "assets/fixed-assets-io-CeatcB1K.js",
+      "path": "assets/fixed-assets-io-BONtHrfF.js",
       "bytes": 9102,
-      "sha256": "65253cc0f4eea9257e862095292c8d6681a1c8e6df246627ba6c4c805370d98a",
+      "sha256": "01eb9034e4709d26a93b6d9061bef72815edb54188ad5559b291453d73f6d11a",
       "kind": "text"
     },
     {
-      "path": "assets/gl-tb-io-DgUT89nw.js",
+      "path": "assets/gl-tb-io-pA1LYt2E.js",
       "bytes": 2185,
-      "sha256": "97c9e3f9c8b81e7f519bf898e31fd21550f5e9b31faea279c5195ca84fd82b39",
+      "sha256": "88f6a46f3c1239c7f65b77cc4b4e41a85e08591c2791ee561731944f268e56d1",
       "kind": "text"
     },
     {
@@ -73982,32 +73982,32 @@
       "kind": "text"
     },
     {
-      "path": "assets/index-BnhCK84j.js",
-      "bytes": 6984518,
-      "sha256": "0ff2f576c04771fb31662e2f4903db673c9c6d5959268c7db70a220ea831b9ca",
+      "path": "assets/index-DeizEyz-.js",
+      "bytes": 6985349,
+      "sha256": "213dde85dd25f9b70fab90bb2011936b0f994225ff80977bda8620d23324f8a8",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
-        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1B section, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1C matrix, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only; rebuilt from reviewed INV-1F-G4 original PDF Worker, versioned local sessions and request-bound decisions; fixed G3 accounting and locked dependencies, unchanged local fonts/artwork and no financial network processing; synthetic lifecycle proofs only; rebuilt from reviewed INV-1F-G5a original-bound PDF workbook transport and complete local evidence chunks; unchanged accounting policy, locked dependencies and local fonts/artwork; no PDF UI activation or financial network processing; rebuilt from reviewed INV-1F-G5b original-bound native PDF workspace, deterministic read-only evidence assistant and bilingual full-evidence workbook labels; unchanged financial policy, frozen source oracle, locked dependencies, licensed local fonts and original upload artwork; no new model, OCR approval or financial network processing; preserved legacy inventory export filename and verified native PDF language-specific download filenames, no accounting or privacy policy change; rebuilt from reviewed BNK-PDF-1 G1 glyph-ink clip test, proved word geometry and the bank statement reader (not wired into the interface) with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G3 bank statement session lifecycle and its four worker actions with main-thread recomputation (not wired into the interface), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G4 bank statement path in the bank workspace (explicit source-type choice, statement and cashbook upload, decisions, session and Excel through the existing worker actions), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G5 bank statement path without main-thread freezes (client verified reading kept once per bytes and scope, page-sized PDF turns on the main thread, tables built per shown page), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G6 native statement reader (amount headers aligned with their column's end, heading words read in order from joined runs), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G7 guarded PDF reader (right-to-left runs ordered by glyph so a ligature of several letters keeps its mapped order, and a DR balance printed as its own run read in right-to-left tables), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G8 guarded PDF reader and statement reader (drawings and rows judged by proved glyph ink, a DR run after its amount in either direction, Arabic-Indic dates as touching runs, typed cashbook amounts by value), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G10 guarded PDF reader (a rectangle traced back to its start read as closed, drawings and neighbouring rows judged by each proved glyph box where the replay reproduces the run), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G12 guarded PDF reader (white or coloured text judged visible by the ink its glyph outlines prove, as the clip test already was), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G15 workbook preparation (core properties ExcelJS would refuse only for their prefixes left out of the copy it reads), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G16 cashbook reading (a cashbook row whose six cells carry an issue the generic workbook reader recorded is refused), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G17 word reading (a space glyph the writer drew between two words is kept however tight the kerning sets them), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from the reviewed SUP-2 S1 supplier case builder (the parts of one payment without its explicit bank or receipt identity are one review candidate, never a match), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt again for the later reviewed source changes on this branch (SUP-2 S2 to S4, AR-1 PDF A2 to A5, and WF-1 ROLL-1 W1 to W3, REPORT-1 R2 and R3, REVIEW-1 R1 and R2, MAP-1 M1 to M3, TOL-1 T1 to T3 and the two-month cycle run; the A5 reader reads a period in its printed order and a minus set apart from its amount in a right-to-left table; W1 lets the bank statement matcher leave withheld items out and reads the proposed roll session format; W3 lets the worker and the bank workspace carry open items from a previous printed statement session, as candidates for review only; REPORT-1 adds a reconciliation sheet, REVIEW-1 an exceptions-first review queue with group decisions, MAP-1 cashbook column maps the accountant chooses and keeps on the device, and TOL-1 T1 to T3 a tolerance the accountant declares in the bank workspace, applied by the bank statement library, kept in the session and shown in the workbook; the cycle run makes a period that carries keep what its cashbook columns left out and bind its decisions to those columns; IC-1c adds the review-only batch section of the intercompany workspace and its worker action; GLT-1c adds the review-only sections and pages section of the GL and TB workspace, its worker action and the gl-tb-sections-1 engine it calls; FIN-1c adds the review-only hierarchical statement section of the TB and financial position workspace, its worker action and the tb-financial-hierarchy-1 engine it calls; PAY-1c adds the review-only long payroll register section of the payroll workspace, its worker action and the payroll-long-register-1 engine it calls; INV-2c adds the review-only movement bridge section of the inventory workspace, its worker action and the inventory-movement-bridge-1 engine it calls; INV-3c adds the register links section of the inventory workspace and a separate links workbook through a new worker action, the evidence workbook unchanged; CLR-1c adds the review-only clearing groups section of the clearing workspace, its worker action and the clearing-groups-1 engine it calls, the clearing decisions unchanged; ALL-1c adds the review-only advice review section of the allocation workspace, its worker action and the allocation-advice-review-1 engine it calls, the allocation decisions unchanged, and the INV-3 links workbook writes its source page cell in another form with the same meaning; PG-1c adds the review-only batches and deposits section of the payment gateway workspace, its worker action and the payment-gateway-batches-1 engine it calls; FA-1c adds the review-only asset register by section of the fixed-assets workspace, its worker action and the fixed-assets-sections-1 engine it calls; and after the 30 October audit the FA-1 reader names its own errors and throws any other instead of reading it as SOURCE, and the result section of the long asset family carries its own data hook for its browser acceptance; and after the bank results audit the movement tables of the bank workspace keep words, amounts, identities and dates whole and scroll inside their frame, and a held printed statement states the detail of its reader in the words of the page with its amounts at the precision of the currency; after the rest of that audit the movement path says why its decisions are closed, gives the case status its own column, pages each table on its own and takes the reader to the evidence of a movement and back to its row; and in UX-1 the amounts on the main screens of the workspaces read in major units at the precision of the currency through one left-to-right component, each difference naming its direction, with the interface copy in Western digits; and in its second part the nine review sections read their amounts and quantities through the same component and the English trial balance statuses read as words; and in its third part the split-section totals and the multiline review result of the supplier workspace read in major units through the same component; and in UX-2 a run, an example or a restored session takes the reader to the result heading in every workspace, a decision does not; and in UX-3 the evidence tables of six workspaces and of the nine review sections share one record table, named, framed and paged alike, its pager described and its frame marking the side where columns continue; and in its later step the GL and TB, allocation, receivables, clearing and bank workspaces and the PDF field sources of the evidence assistant join the same table, each table on its own page; and in its last step the supplier page and its source reading reviews take the same table and frame, so every table pages with one pager, the page size each table had kept, and the page buttons of a PDF file name themselves apart from those of a table; and in its third step the decision platform writes once the conditions six workspaces put on their decision buttons, says under them what is open and why the rest is closed, returns the focus to what a decision changed, and gives the closed Ask and Check buttons a shown reason; and the reading issues list of the supplier page wraps its long reasons again on the record table instead of cutting them off; and the decision platform reaches receivables, clearing, allocation and the bank with its balance reconciliation, clearing by hand opens only on a selection its engine accepts, and a decision keeps the reader on the page of what it decided; and the decision platform reaches the source reading reviews, the five review sections and the invoice overlap review of the supplier workspace, the review of a transaction, the PDF review and the image reader, where every closed button says what opens it and a decision returns the focus to what it changed; and a click on the crop image of the image reader is no longer a frame; and long text in the receivables and payment gateway record tables wraps between words instead of being cut, the source description shown by its fields; and source rows, member identities and the members of a decision are shown by their fields in eight workspaces and the supplier reading issues, not as JSON; and the status of a case in the receivables, supplier, clearing and bank results reads as a badge, its word with an icon and a tone that gives the agreed tone only to a status the engine or a recorded decision settled; and the eight review sections with a status column draw the status of each row as the same badge through a status column of the record table; and a record table with no row is one quiet line that names it and says it has none, instead of column headers over nothing; and after their own run the nine review sections take the focus to one shared heading of their result, and so do the six source reviews of the supplier page after their own reading and the image reader after it creates a rows record, whose counts stand on lines of their own; and a commit or an undo in the invoice overlap review records the scope it gives the supplier page as the choice of the reviewer, so the page no longer stays held after it; and the first page no longer moves when the comparison tool is ready, the startup line announced and not drawn and the closed reason of the type selector shown in place of its description; and a cell of a record table outside the bank workspace is never cut off, keeping its whole line while the table scrolls inside its frame; and a line whose sentence changes at startup keeps the room of the longer one, the type selector naming why it is closed; and in UX-4 the head of each result reads as an alignment strip from the engine result, empty evidence sections fold into one line and a result index follows the strip; and in UX-5 each workspace shows its example and saved session at the start, its buttons say what they do, its introduction takes two lines and a card reads the scope the files write and asks for one confirmation; and in UX-6(a) the GL and TB workpaper the worker hands to the page begins with a reconciliation sheet in the language of the interface, its evidence sheets byte for byte as the existing export writes them, and the strip and that sheet read what they say from one function; and in UX-6(b) the clearing workpaper begins with the same sheet, saying the groups left for review and each recorded decision with the reason the reviewer gave, and a text of the sheet that does not fit its room wraps in its cell on a row written tall enough; and then the customer AR workpaper begins with the same sheet, saying each document left for review with its movements from the two records, the total of each record or why there is none, and each recorded decision with the reason the reviewer gave, the page writing the same workpaper to compare with what the worker sent), with unchanged locked dependencies and local assets; synthetic proofs only (earlier rebuilds repeated the S1 note, corrected in A5, and the W3 note, corrected in MAP-1 M3)"
+        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1B section, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1C matrix, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only; rebuilt from reviewed INV-1F-G4 original PDF Worker, versioned local sessions and request-bound decisions; fixed G3 accounting and locked dependencies, unchanged local fonts/artwork and no financial network processing; synthetic lifecycle proofs only; rebuilt from reviewed INV-1F-G5a original-bound PDF workbook transport and complete local evidence chunks; unchanged accounting policy, locked dependencies and local fonts/artwork; no PDF UI activation or financial network processing; rebuilt from reviewed INV-1F-G5b original-bound native PDF workspace, deterministic read-only evidence assistant and bilingual full-evidence workbook labels; unchanged financial policy, frozen source oracle, locked dependencies, licensed local fonts and original upload artwork; no new model, OCR approval or financial network processing; preserved legacy inventory export filename and verified native PDF language-specific download filenames, no accounting or privacy policy change; rebuilt from reviewed BNK-PDF-1 G1 glyph-ink clip test, proved word geometry and the bank statement reader (not wired into the interface) with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G3 bank statement session lifecycle and its four worker actions with main-thread recomputation (not wired into the interface), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G4 bank statement path in the bank workspace (explicit source-type choice, statement and cashbook upload, decisions, session and Excel through the existing worker actions), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G5 bank statement path without main-thread freezes (client verified reading kept once per bytes and scope, page-sized PDF turns on the main thread, tables built per shown page), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G6 native statement reader (amount headers aligned with their column's end, heading words read in order from joined runs), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G7 guarded PDF reader (right-to-left runs ordered by glyph so a ligature of several letters keeps its mapped order, and a DR balance printed as its own run read in right-to-left tables), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G8 guarded PDF reader and statement reader (drawings and rows judged by proved glyph ink, a DR run after its amount in either direction, Arabic-Indic dates as touching runs, typed cashbook amounts by value), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G10 guarded PDF reader (a rectangle traced back to its start read as closed, drawings and neighbouring rows judged by each proved glyph box where the replay reproduces the run), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G12 guarded PDF reader (white or coloured text judged visible by the ink its glyph outlines prove, as the clip test already was), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G15 workbook preparation (core properties ExcelJS would refuse only for their prefixes left out of the copy it reads), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G16 cashbook reading (a cashbook row whose six cells carry an issue the generic workbook reader recorded is refused), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G17 word reading (a space glyph the writer drew between two words is kept however tight the kerning sets them), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from the reviewed SUP-2 S1 supplier case builder (the parts of one payment without its explicit bank or receipt identity are one review candidate, never a match), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt again for the later reviewed source changes on this branch (SUP-2 S2 to S4, AR-1 PDF A2 to A5, and WF-1 ROLL-1 W1 to W3, REPORT-1 R2 and R3, REVIEW-1 R1 and R2, MAP-1 M1 to M3, TOL-1 T1 to T3 and the two-month cycle run; the A5 reader reads a period in its printed order and a minus set apart from its amount in a right-to-left table; W1 lets the bank statement matcher leave withheld items out and reads the proposed roll session format; W3 lets the worker and the bank workspace carry open items from a previous printed statement session, as candidates for review only; REPORT-1 adds a reconciliation sheet, REVIEW-1 an exceptions-first review queue with group decisions, MAP-1 cashbook column maps the accountant chooses and keeps on the device, and TOL-1 T1 to T3 a tolerance the accountant declares in the bank workspace, applied by the bank statement library, kept in the session and shown in the workbook; the cycle run makes a period that carries keep what its cashbook columns left out and bind its decisions to those columns; IC-1c adds the review-only batch section of the intercompany workspace and its worker action; GLT-1c adds the review-only sections and pages section of the GL and TB workspace, its worker action and the gl-tb-sections-1 engine it calls; FIN-1c adds the review-only hierarchical statement section of the TB and financial position workspace, its worker action and the tb-financial-hierarchy-1 engine it calls; PAY-1c adds the review-only long payroll register section of the payroll workspace, its worker action and the payroll-long-register-1 engine it calls; INV-2c adds the review-only movement bridge section of the inventory workspace, its worker action and the inventory-movement-bridge-1 engine it calls; INV-3c adds the register links section of the inventory workspace and a separate links workbook through a new worker action, the evidence workbook unchanged; CLR-1c adds the review-only clearing groups section of the clearing workspace, its worker action and the clearing-groups-1 engine it calls, the clearing decisions unchanged; ALL-1c adds the review-only advice review section of the allocation workspace, its worker action and the allocation-advice-review-1 engine it calls, the allocation decisions unchanged, and the INV-3 links workbook writes its source page cell in another form with the same meaning; PG-1c adds the review-only batches and deposits section of the payment gateway workspace, its worker action and the payment-gateway-batches-1 engine it calls; FA-1c adds the review-only asset register by section of the fixed-assets workspace, its worker action and the fixed-assets-sections-1 engine it calls; and after the 30 October audit the FA-1 reader names its own errors and throws any other instead of reading it as SOURCE, and the result section of the long asset family carries its own data hook for its browser acceptance; and after the bank results audit the movement tables of the bank workspace keep words, amounts, identities and dates whole and scroll inside their frame, and a held printed statement states the detail of its reader in the words of the page with its amounts at the precision of the currency; after the rest of that audit the movement path says why its decisions are closed, gives the case status its own column, pages each table on its own and takes the reader to the evidence of a movement and back to its row; and in UX-1 the amounts on the main screens of the workspaces read in major units at the precision of the currency through one left-to-right component, each difference naming its direction, with the interface copy in Western digits; and in its second part the nine review sections read their amounts and quantities through the same component and the English trial balance statuses read as words; and in its third part the split-section totals and the multiline review result of the supplier workspace read in major units through the same component; and in UX-2 a run, an example or a restored session takes the reader to the result heading in every workspace, a decision does not; and in UX-3 the evidence tables of six workspaces and of the nine review sections share one record table, named, framed and paged alike, its pager described and its frame marking the side where columns continue; and in its later step the GL and TB, allocation, receivables, clearing and bank workspaces and the PDF field sources of the evidence assistant join the same table, each table on its own page; and in its last step the supplier page and its source reading reviews take the same table and frame, so every table pages with one pager, the page size each table had kept, and the page buttons of a PDF file name themselves apart from those of a table; and in its third step the decision platform writes once the conditions six workspaces put on their decision buttons, says under them what is open and why the rest is closed, returns the focus to what a decision changed, and gives the closed Ask and Check buttons a shown reason; and the reading issues list of the supplier page wraps its long reasons again on the record table instead of cutting them off; and the decision platform reaches receivables, clearing, allocation and the bank with its balance reconciliation, clearing by hand opens only on a selection its engine accepts, and a decision keeps the reader on the page of what it decided; and the decision platform reaches the source reading reviews, the five review sections and the invoice overlap review of the supplier workspace, the review of a transaction, the PDF review and the image reader, where every closed button says what opens it and a decision returns the focus to what it changed; and a click on the crop image of the image reader is no longer a frame; and long text in the receivables and payment gateway record tables wraps between words instead of being cut, the source description shown by its fields; and source rows, member identities and the members of a decision are shown by their fields in eight workspaces and the supplier reading issues, not as JSON; and the status of a case in the receivables, supplier, clearing and bank results reads as a badge, its word with an icon and a tone that gives the agreed tone only to a status the engine or a recorded decision settled; and the eight review sections with a status column draw the status of each row as the same badge through a status column of the record table; and a record table with no row is one quiet line that names it and says it has none, instead of column headers over nothing; and after their own run the nine review sections take the focus to one shared heading of their result, and so do the six source reviews of the supplier page after their own reading and the image reader after it creates a rows record, whose counts stand on lines of their own; and a commit or an undo in the invoice overlap review records the scope it gives the supplier page as the choice of the reviewer, so the page no longer stays held after it; and the first page no longer moves when the comparison tool is ready, the startup line announced and not drawn and the closed reason of the type selector shown in place of its description; and a cell of a record table outside the bank workspace is never cut off, keeping its whole line while the table scrolls inside its frame; and a line whose sentence changes at startup keeps the room of the longer one, the type selector naming why it is closed; and in UX-4 the head of each result reads as an alignment strip from the engine result, empty evidence sections fold into one line and a result index follows the strip; and in UX-5 each workspace shows its example and saved session at the start, its buttons say what they do, its introduction takes two lines and a card reads the scope the files write and asks for one confirmation; and in UX-6(a) the GL and TB workpaper the worker hands to the page begins with a reconciliation sheet in the language of the interface, its evidence sheets byte for byte as the existing export writes them, and the strip and that sheet read what they say from one function; and in UX-6(b) the clearing workpaper begins with the same sheet, saying the groups left for review and each recorded decision with the reason the reviewer gave, and a text of the sheet that does not fit its room wraps in its cell on a row written tall enough; and then the customer AR workpaper begins with the same sheet, saying each document left for review with its movements from the two records, the total of each record or why there is none, and each recorded decision with the reason the reviewer gave, the page writing the same workpaper to compare with what the worker sent; and a sheet longer than a printed page is broken by hand above a section, a table head with its first block, or a document with its movements that would not fit what is left of its page), with unchanged locked dependencies and local assets; synthetic proofs only (earlier rebuilds repeated the S1 note, corrected in A5, and the W3 note, corrected in MAP-1 M3)"
       }
     },
     {
-      "path": "assets/inventory-pdf-assistant-kxgNLSGo.js",
+      "path": "assets/inventory-pdf-assistant-DBsDIidB.js",
       "bytes": 1671,
-      "sha256": "484941d2108ea4c457f86b84e964925d1a807957f6f56dacbe9d9e5bd4504f65",
+      "sha256": "3ab9a519e91c93229616a806a144975df130fdfc59dc8cf0d42251a99896a195",
       "kind": "text"
     },
     {
-      "path": "assets/inventory-pdf-workbook-Bag-XdIN.js",
+      "path": "assets/inventory-pdf-workbook-BW8FXTSQ.js",
       "bytes": 475,
-      "sha256": "c0bac7fbe3904c2aa71b0e1c34d7dcc7471ded2625388f73a3d2624117eaa65b",
+      "sha256": "6f68c8a7bc43a3f23a981638c72cbf32adec8cfacf18db9e0719680a655e7e09",
       "kind": "text"
     },
     {
-      "path": "assets/inventory-register-io-D9kgqFbq.js",
+      "path": "assets/inventory-register-io-2-I5G0nW.js",
       "kind": "text",
       "bytes": 27466,
-      "sha256": "ab3b0509c9040f3fbf4e67de3212a0cf50c89c3a71cb957eae96f492e84316cf"
+      "sha256": "02106f9c21b61403449ed7a59ae453358d8b0b0b8dca83d633d838eff8d97fe3"
     },
     {
       "path": "assets/jszip.min-Lqf3Qs4v.js",
@@ -74188,7 +74188,7 @@
     {
       "path": "index.html",
       "bytes": 4299,
-      "sha256": "5b119cadf45f6adb22fe0e5b23423ea5fe463f7c72c0acbd60032b261f1a391a",
+      "sha256": "52fd5a728beb6a12f99b617b69a587ba3d6957d98deec0d820f82005302dafd3",
       "kind": "text"
     },
     {
@@ -74222,9 +74222,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/bank-statement-lifecycle-C8NLrJOp.js",
+      "path": "assets/bank-statement-lifecycle-DV4PoeSp.js",
       "bytes": 30423,
-      "sha256": "f5975591fe4d95232354076ca95dccad55f01ed317f0249b8fd2529f0415293e",
+      "sha256": "0540e2f58fe9f0cadd840f9b4a8fd1da315f85bf02060950c3fdc70bbfd10fe6",
       "kind": "text"
     },
     {
@@ -74240,9 +74240,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/allocation-advice-io-CiV-E5PF.js",
+      "path": "assets/allocation-advice-io-4fbUYzXe.js",
       "bytes": 3033,
-      "sha256": "d25d83eaa6fb50c5e9dfa6cd89a846faf0eeafd70742303145fddd062553b7e1",
+      "sha256": "43f5d49f326b129dc5c90f36cc3e3ff9f640fe06d257722f3d20493c9acb7c21",
       "kind": "text"
     },
     {
@@ -74282,9 +74282,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/ar-sheet-JWGGJcYa.js",
-      "bytes": 22071,
-      "sha256": "ff5f7020c25698b9e26e999c45e84252602446632e06dd7d77d4bc878fd01a54",
+      "path": "assets/ar-sheet-2w_J2Ksr.js",
+      "bytes": 22883,
+      "sha256": "df8c650b1b8c2212784d1e14b142ccc2d26a3620b2584c9171210eebb26e69b4",
       "kind": "text"
     }
   ]

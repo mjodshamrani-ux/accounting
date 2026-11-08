@@ -38,6 +38,7 @@ export function arSheet(
   const owner = new Map(
     result.cases.flatMap((c) => c.ids.map((id) => [id, c] as const)),
   );
+  const review = result.cases.filter((c) => c.status === 'review');
   const total = (minor: number | null): SheetCell =>
     minor === null
       ? value(t.unavailableTotal)
@@ -106,9 +107,9 @@ export function arSheet(
         title: t.review,
         evidence: 'Cases',
         head: [],
-        rows: result.cases
-          .filter((c) => c.status === 'review')
-          .flatMap((c) => [
+        // Each document stays on one printed page with its movements.
+        blocks: review.map((c) => 1 + c.ids.length),
+        rows: review.flatMap((c) => [
             [value(kind(c.kind)), value(c.document), value(reason(c.reason))],
             ...c.ids.map((id): SheetCell[] => {
               const r = row.get(id)!;
