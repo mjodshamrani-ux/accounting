@@ -35,6 +35,10 @@ import {
   type ClearingInput,
 } from '../lib/reconciliation/clearing.ts';
 import { exportClearing } from '../lib/reconciliation/clearing-io.ts';
+import type { ArInput } from '../lib/reconciliation/ar.ts';
+import { arDemoReadings, arDemoScope } from '../lib/reconciliation/ar-demo.ts';
+import { exportAr, replayAr } from '../lib/reconciliation/ar-io.ts';
+import { arSheet, exportArWorkpaper } from '../lib/reconciliation/ar-sheet.ts';
 import {
   clearingDemoReading,
   clearingDemoScope,
@@ -926,6 +930,288 @@ void test('the real worker writes the clearing sheet in the language asked, and 
       client.request('clearing-export', { state, result }),
       /RECONCILIATION_SHEET_LANGUAGE/,
     );
+  } finally {
+    port.terminate();
+  }
+});
+
+/** A frozen AR case, with no decision, a reopen, or a reopen then a human
+ * confirmation of the first matched pair. */
+async function arCase(
+  name: string,
+  decisions: 'none' | 'reopen' | 'reconfirm' = 'none',
+) {
+  const files = await Promise.all(
+    (['ledger', 'statement'] as const).map(async (side) =>
+      readFile(
+        `${name}-${side}.csv`,
+        new Uint8Array(
+          await fsRead(
+            new URL(`../audit/ar-limited/frozen/${name}-${side}.csv`, import.meta.url),
+          ),
+        ).buffer,
+      ),
+    ),
+  );
+  const state: ArInput = {
+    files: files as ArInput['files'],
+    readings: structuredClone(arDemoReadings),
+    scope: { ...arDemoScope },
+    events: [],
+  };
+  let { result } = await replayAr(state);
+  if (decisions !== 'none') {
+    const first = result.cases.find(
+      (c) => c.status === 'matched' && c.ids.length === 2,
+    )!;
+    state.events.push({
+      context: result.context,
+      at: '2026-10-06T00:00:00.000Z',
+      action: 'reopen',
+      ids: first.ids,
+      note: 'Synthetic document correspondence reopened for review',
+    });
+    if (decisions === 'reconfirm')
+      state.events.push({
+        context: result.context,
+        at: '2026-10-06T00:00:00.000Z',
+        action: 'accept',
+        ids: first.ids,
+        note: 'Synthetic source documents independently rechecked',
+      });
+    ({ result } = await replayAr(state));
+  }
+  return { state, result };
+}
+
+void test('receivables: the evidence stays byte for byte, each document left for review with its movements, each decision with its reason', async () => {
+  for (const [name, decisions] of [
+    ['positive', 'none'],
+    ['positive', 'reopen'],
+    ['positive', 'reconfirm'],
+    ['amount-difference', 'none'],
+    ['duplicate-own-document', 'none'],
+  ] as const)
+    for (const lang of ['ar', 'en'] as const) {
+      const { state, result } = await arCase(name, decisions);
+      const what = `${name}/${decisions}/${lang}`;
+      const evidence = await exportAr(state, result);
+      const book = await addReconciliationSheet(
+        evidence,
+        arSheet(state, result, lang),
+      );
+      const before = await parts(evidence),
+        after = await parts(book);
+      for (const [part, bytes] of before)
+        if (!WORKBOOK_PARTS.includes(part))
+          assert.deepEqual(after.get(part), bytes, `${what}: ${part}`);
+      const w = reconciliationSheetCopy[lang],
+        t = w.receivables;
+      const { rows } = await firstSheet(
+        await exportArWorkpaper(state, result, lang),
+      );
+      assert.equal(rows[1][0], t.title, what);
+      const scale = 10 ** result.decimals;
+      // Each record's own total, as the strip draws it at either end.
+      result.totals.forEach((minor, side) =>
+        assert.deepEqual(
+          rows[rowOf(rows, t.sides[side])].slice(0, 2),
+          [t.sides[side], result.sources[side].name],
+          `${what}: source ${side}`,
+        ),
+      );
+      const strip = rowOf(rows, w.alignment);
+      result.totals.forEach((minor, side) =>
+        assert.deepEqual(
+          rows[strip + 1 + side].slice(0, 2),
+          [t.sides[side], minor === null ? t.unavailableTotal : minor / scale],
+          `${what}: total ${side}`,
+        ),
+      );
+      // Each document left for review: its type, number and reason, then
+      // each movement with its record, amount and date.
+      const byId = new Map(result.rows.map((r) => [r.id, r]));
+      const waiting = result.cases.filter((c) => c.status === 'review');
+      if (!waiting.length)
+        assert.equal(
+          rows.findIndex((r) => r[0] === t.review),
+          -1,
+          `${what}: nothing waits, so no review section`,
+        );
+      let at = waiting.length ? rowOf(rows, t.review) + 1 : 0;
+      for (const c of waiting) {
+        assert.deepEqual(
+          rows[at++].slice(0, 3),
+          [
+            t.kind[c.kind as keyof typeof t.kind],
+            c.document,
+            t.reason[c.reason as keyof typeof t.reason],
+          ],
+          `${what}: ${c.id}`,
+        );
+        for (const id of c.ids) {
+          const r = byId.get(id)!;
+          assert.deepEqual(
+            rows[at++],
+            [null, t.sides[r.side], r.amount / scale, r.date],
+            `${what}: ${id}`,
+          );
+        }
+      }
+      // Each decision: what it did, its document and the reason given.
+      const head = rows.findIndex((r) => r[0] === w.decision);
+      if (!state.events.length) assert.equal(head, -1, 'no decision, no table');
+      state.events.forEach((event, i) => {
+        const target = result.cases.find((c) => c.ids.includes(event.ids[0]))!;
+        assert.deepEqual(
+          rows[head + 1 + i],
+          [
+            t.reason[
+              event.action === 'accept' ? 'human-confirmation' : 'reopened'
+            ],
+            t.kind[target.kind as keyof typeof t.kind],
+            target.document,
+            event.note,
+          ],
+          `${what}: decision ${i + 1}`,
+        );
+      });
+      assert.deepEqual(rows[rowOf(rows, t.valid)].slice(0, 2), [
+        t.valid,
+        result.rows.length,
+      ]);
+      assert.deepEqual(rows[rowOf(rows, t.errors)].slice(0, 2), [
+        t.errors,
+        result.inventory.filter((i) => i.kind === 'error').length,
+      ]);
+      assert.equal(rows.at(-1)![0], t.claim);
+    }
+});
+
+void test('receivables: a statement with an unreadable amount counts its reading error, and every document waits for it', async () => {
+  const { state } = await arCase('positive');
+  const statement = new TextDecoder().decode(state.files[1].original!);
+  state.files[1] = await readFile(
+    'positive-statement.csv',
+    new TextEncoder().encode(
+      statement.trimEnd() +
+        '\nS999,invoice,I999,2026-09-20,unread,Synthetic Seller,AR Book,C0001,1200,SAR,,Unread amount\n',
+    ).buffer,
+  );
+  const { result } = await replayAr(state);
+  const errors = result.inventory.filter((i) => i.kind === 'error').length;
+  assert.equal(errors, 1);
+  for (const lang of ['ar', 'en'] as const) {
+    const t = reconciliationSheetCopy[lang].receivables;
+    const { rows } = await firstSheet(
+      await exportArWorkpaper(state, result, lang),
+    );
+    assert.deepEqual(rows[rowOf(rows, t.errors)].slice(0, 2), [t.errors, 1]);
+    const waiting = result.cases.filter((c) => c.status === 'review');
+    assert.equal(waiting.length, result.cases.length);
+    assert.equal(
+      rows.filter((r) => r[2] === t.reason['source-errors']).length,
+      waiting.length + 1,
+      'each document, and the main reason in the strip',
+    );
+  }
+});
+
+void test('receivables: a record without a total says why, and its words are the screen words', async () => {
+  const { state, result } = await arCase('positive');
+  const missing = structuredClone(result);
+  missing.totals = [missing.totals[0], null];
+  for (const lang of ['ar', 'en'] as const) {
+    const t = reconciliationSheetCopy[lang].receivables;
+    const sheet = arSheet(state, missing, lang);
+    const at = sheet.rows.findIndex(
+      (r) => r[0] && 'text' in r[0] && r[0].text === reconciliationSheetCopy[lang].alignment,
+    );
+    assert.deepEqual(sheet.rows[at + 2][1], {
+      text: t.unavailableTotal,
+      style: 'value',
+    });
+  }
+  for (const [lang, locale] of [
+    ['ar', ar],
+    ['en', en],
+  ] as const) {
+    const t = reconciliationSheetCopy[lang].receivables;
+    const screen = locale.arDocuments as Record<string, unknown>;
+    for (const key of Object.keys(t) as (keyof typeof t)[]) {
+      if (key === 'claim') continue;
+      if (key === 'fields')
+        for (const [field, word] of Object.entries(t.fields))
+          assert.equal(
+            word,
+            (screen.fields as Record<string, string>)[field],
+            `${lang} fields.${field}`,
+          );
+      else assert.deepEqual(t[key], screen[key], `${lang} receivables.${key}`);
+    }
+  }
+  const wb = new ExcelJS.Workbook();
+  await wb.xlsx.load(await exportAr(state, result));
+  const claim = wb
+    .getWorksheet('Summary')!
+    .getRows(1, 40)!
+    .find((r) => r.getCell(1).value === 'Economic coverage')!
+    .getCell(2).value;
+  assert.equal(reconciliationSheetCopy.en.receivables.claim, claim);
+});
+
+void test('the real worker writes the AR sheet in the language asked, and the binding refuses a request without one', async () => {
+  const { state, result } = await arCase('positive', 'reopen');
+  // What the worker itself sent, before the page checks it; and, when set,
+  // another workbook put in its place.
+  const sent: ArrayBuffer[] = [];
+  let replaced: ArrayBuffer | null = null;
+  const port = new GlTbBindingPort((response, deliver) => {
+    if (response.action === 'ar-export' && response.ok) {
+      sent.push((response.value as ArrayBuffer).slice(0));
+      if (replaced) response = { ...response, value: replaced.slice(0) };
+    }
+    deliver(response);
+  });
+  const names = async (bytes: ArrayBuffer) => {
+    const book = new ExcelJS.Workbook();
+    await book.xlsx.load(bytes);
+    return book.worksheets.slice(0, 2).map((s) => s.name);
+  };
+  try {
+    const client = createWorkerClient(() => port);
+    for (const lang of ['ar', 'en'] as const) {
+      const reply = await client
+        .request<ArrayBuffer>('ar-export', { state, result, lang })
+        .catch((error: unknown) => error);
+      // The worker wrote the language asked, whatever the page then does.
+      assert.deepEqual(await names(sent.at(-1)!), [
+        reconciliationSheetCopy[lang].name,
+        'Summary',
+      ]);
+      // And the page, writing the same workpaper itself, accepted it.
+      assert.ok(reply instanceof ArrayBuffer, `the page accepted the ${lang} workpaper`);
+      assert.deepEqual(await names(reply), [
+        reconciliationSheetCopy[lang].name,
+        'Summary',
+      ]);
+    }
+    // A reply in the other language is not the one asked for.
+    replaced = sent[0];
+    await assert.rejects(
+      client.request('ar-export', { state, result, lang: 'en' }),
+      /AR_WORKER_BINDING/,
+    );
+    replaced = null;
+    // Refused by the binding before the worker, with no language or another.
+    for (const payload of [
+      { state, result },
+      { state, result, lang: 'fr' },
+    ])
+      await assert.rejects(
+        client.request('ar-export', payload),
+        /AR_WORKER_INPUT/,
+      );
   } finally {
     port.terminate();
   }

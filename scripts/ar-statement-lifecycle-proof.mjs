@@ -30,6 +30,7 @@ const { readArStatementPdf } = await lib('ar-statement-pdf.ts');
 const { snapshotArRequest, validateArWorkerResponse } = await lib(
   'ar-worker-binding.ts',
 );
+const { exportArWorkpaper } = await lib('ar-sheet.ts');
 
 await mkdir(out, { recursive: true });
 const facts = JSON.parse(
@@ -185,14 +186,19 @@ for (const action of ['ar-reconcile', 'ar-save', 'ar-export']) {
   const replay = await replayAr(input);
   const payload =
     action === 'ar-export'
-      ? snapshotArRequest(action, { state: replay.state, result: replay.result })
+      ? snapshotArRequest(action, {
+          state: replay.state,
+          result: replay.result,
+          lang: 'en',
+        })
       : snapshotArRequest(action, input);
   const value =
     action === 'ar-reconcile'
       ? replay
       : action === 'ar-save'
         ? await saveAr(input)
-        : await exportAr(replay.state, replay.result);
+        : // The worker hands the page the workpaper (UX-6).
+          await exportArWorkpaper(replay.state, replay.result, 'en');
   await validateArWorkerResponse(action, value, payload);
   binding[action] = 'accepted';
 }

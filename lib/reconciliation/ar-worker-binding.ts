@@ -165,11 +165,18 @@ export function snapshotArRequest(action: string, payload: unknown): unknown {
   if (action === 'ar-reconcile' || action === 'ar-save')
     return snapshotArInput(payload as unknown as ArInput);
   if (action === 'ar-export') {
-    if (!keys(payload, ['state', 'result']) || !isRecord(payload.result))
+    // The request names the interface's language, in which the workpaper's
+    // reconciliation sheet is written (UX-6); nothing else is added.
+    if (
+      !keys(payload, ['state', 'result', 'lang']) ||
+      !isRecord(payload.result) ||
+      (payload.lang !== 'ar' && payload.lang !== 'en')
+    )
       throw Error('AR_WORKER_INPUT');
     return {
       state: snapshotArInput(payload.state as ArInput),
       result: structuredClone(payload.result),
+      lang: payload.lang,
     };
   }
   if (action === 'ar-restore') {
@@ -509,9 +516,11 @@ export async function validateArWorkerResponse(
     return value;
   }
   if (action === 'ar-export') {
-    const expected = await io.exportAr(
+    const sheet = await import('./ar-sheet.ts');
+    const expected = await sheet.exportArWorkpaper(
       payload.state as ArInput,
       payload.result as ArResult,
+      payload.lang,
     );
     bytes(expected, AR_WORKER_EXPORT_LIMIT);
     if (!same(await inspectExport(value), await inspectExport(expected)))

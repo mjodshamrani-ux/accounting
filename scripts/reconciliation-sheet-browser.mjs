@@ -174,3 +174,96 @@ export async function clearingSheetSaysScreen(
   }
   return { rows: grid.length, waiting: count };
 }
+
+/** Section headings the receivables sheet writes, in the words the page
+ * gives the same things (the badge's status word for what waits). */
+const AR_HEADINGS = {
+  ar: { alignment: 'التراصف', review: 'للمراجعة' },
+  en: { alignment: 'Alignment', review: 'Needs review' },
+};
+
+/**
+ * UX-6(b), receivables: the strip and each record's own total at its ends,
+ * as the page draws them; each document the page shows as waiting for
+ * review, in its order, with its type, number and reason, then each of its
+ * movements with its record, amount and date; and the decisions the run
+ * recorded, each with the reviewer's reason.
+ */
+export async function arSheetSaysScreen(
+  page,
+  { file, lang, result, decisions },
+) {
+  const grid = await readSheet(file, lang);
+  await stripSaysScreen(grid, result);
+  // Each record's total, right under the alignment heading, in side order.
+  const strip = grid.findIndex((r) => r[0] === AR_HEADINGS[lang].alignment);
+  assert.ok(strip >= 0, 'the alignment section');
+  for (const side of [0, 1]) {
+    const paper = result.locator(
+      `[data-alignment-strip] [data-strip-side="${side}"]`,
+    );
+    const name = (await paper.locator('.alignment-strip__role').innerText()).trim();
+    const total = (await paper.locator('[data-strip-total]').innerText()).trim();
+    const row = grid[strip + 1 + side];
+    assert.equal(row[0], name, `side ${side}: the record's name`);
+    same(total, row[1], `side ${side}: its total`);
+  }
+  // Each document the page shows waiting, as the sheet lists it.
+  const waiting = page
+    .getByTestId('ar-case')
+    .filter({ has: page.locator('[data-status="review"]') });
+  const count = await waiting.count();
+  const section = grid.findIndex((r) => r[0] === AR_HEADINGS[lang].review);
+  if (!count) assert.equal(section, -1, 'nothing waits, so no review section');
+  else assert.ok(section >= 0, 'the review section');
+  let at = section + 1;
+  for (let i = 0; i < count; i++) {
+    const c = waiting.nth(i);
+    const [kind, document] = (await c.locator('h3').innerText())
+      .trim()
+      .split(/:\s+/u);
+    const badge = (await c.locator('[data-status="review"]').innerText()).trim();
+    const reason = badge.split(' · ').slice(1).join(' · ').trim();
+    assert.deepEqual(
+      grid[at++].slice(0, 3),
+      [kind, document, reason],
+      `document ${i + 1}: its type, number and reason`,
+    );
+    for (const li of await c.locator('.ar-case-members > li').all()) {
+      const row = grid[at++];
+      const side = (
+        await li.locator('.ar-member-heading span').first().innerText()
+      ).trim();
+      const amount = (await li.locator('.ar-member-amount').innerText()).trim();
+      const date = (
+        await li.locator('dl.ar-member-meta bdi').first().innerText()
+      ).trim();
+      assert.equal(row[0], null, `${document}: a movement under its document`);
+      assert.equal(row[1], side, `${document}: the movement's record`);
+      same(amount, row[2], `${document}: the movement's amount`);
+      assert.equal(row[3], date, `${document}: the movement's date`);
+    }
+  }
+  if (count)
+    assert.ok(
+      grid[at].every((c) => c === null),
+      'the documents waiting and no more',
+    );
+  const head = grid.findIndex((r) => r[0] === decisions.head);
+  if (!decisions.rows.length) assert.equal(head, -1, 'no decision, no table');
+  else {
+    assert.ok(head >= 0, `the sheet has the decisions «${decisions.head}»`);
+    decisions.rows.forEach((d, i) =>
+      assert.deepEqual(
+        grid[head + 1 + i],
+        d,
+        `decision ${i + 1}: what it did, its document, the reason given`,
+      ),
+    );
+    assert.ok(
+      grid[head + 1 + decisions.rows.length].every((c) => c === null),
+      'the recorded decisions and no more',
+    );
+  }
+  return { rows: grid.length, waiting: count };
+}

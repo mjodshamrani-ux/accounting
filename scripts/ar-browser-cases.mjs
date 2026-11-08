@@ -3,6 +3,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
 import { stripCount, stripTotals } from './alignment-strip-read.mjs';
+import { arSheetSaysScreen } from './reconciliation-sheet-browser.mjs';
 
 // The AR result's figures, read where each is said: the rows read and the
 // reading errors in the figure grid; the matched documents and each record's
@@ -281,14 +282,49 @@ export async function verifyAr(page, url, out = 'work/qa') {
     .waitFor();
   const metrics = () => arFigures(page);
   assert.deepEqual(await metrics(), ['6', '3', '0', '35.00', '35.00']);
-  async function exportBook(name) {
+  async function exportBook(name, label = 'Download AR workpaper') {
     const request = page.waitForEvent('download');
-    await page
-      .getByRole('button', { name: 'Download AR workpaper', exact: true })
-      .click();
+    await page.getByRole('button', { name: label, exact: true }).click();
     await (await request).saveAs(`${out}/${name}`);
   }
+  // UX-6(b): the workpaper opens on the reconciliation sheet, which says
+  // what the strip, each record's total and the documents waiting say, and
+  // each decision this run recorded: the words the page leaves on the
+  // document it touched, its type and number, and the reason typed for it.
+  const arResult = page.locator('[data-ar-workspace]');
+  const recorded = [];
+  const caseOf = (heading) =>
+    page
+      .getByTestId('ar-case')
+      .filter({ has: page.getByRole('heading', { name: heading, exact: true }) });
+  const reasonOn = async (heading) =>
+    (await caseOf(heading).locator('[data-status]').innerText())
+      .split(' · ')
+      .slice(1)
+      .join(' · ')
+      .trim();
+  const typed = () =>
+    page
+      .getByRole('textbox', { name: /^(Document review reason|سبب مراجعة المستند)/u })
+      .inputValue();
+  // Each decision as the page said it once it took effect: the words on
+  // the document it touched, its heading and the reason typed.
+  const decided = (lang, rows = recorded) => ({
+    head: lang === 'ar' ? 'القرار' : 'Decision',
+    rows: rows.map(([heading, note, word]) => {
+      const [kind, document] = heading.split(/:\s+/u);
+      return [word, kind, document, note];
+    }),
+  });
+  const sheetSays = async (name, lang = 'en', rows = recorded) =>
+    arSheetSaysScreen(page, {
+      file: `${out}/${name}`,
+      lang,
+      result: arResult,
+      decisions: decided(lang, rows),
+    });
   await exportBook('ar-direct.xlsx');
+  await sheetSays('ar-direct.xlsx');
   await page
     .getByLabel('Document review reason', { exact: true })
     .fill('Synthetic original document correspondence reopened for review');
@@ -299,6 +335,7 @@ export async function verifyAr(page, url, out = 'work/qa') {
     })
     .getByRole('button', { name: 'Reopen document pair', exact: true })
     .click();
+  const reopenNote = await typed();
   // The reopened pair says so in its own case; the alignment strip above the
   // cases (UX-4) names the same reason as the main one of what waits.
   await page
@@ -310,8 +347,10 @@ export async function verifyAr(page, url, out = 'work/qa') {
       exact: false,
     })
     .waitFor();
+  recorded.push(['Invoice: I001', reopenNote, await reasonOn('Invoice: I001')]);
   assert.deepEqual(await metrics(), ['6', '2', '0', '35.00', '35.00']);
   await exportBook('ar-reopened.xlsx');
+  await sheetSays('ar-reopened.xlsx');
   const sessionRequest = page.waitForEvent('download');
   await page
     .getByRole('button', { name: 'Save AR session', exact: true })
@@ -343,6 +382,12 @@ export async function verifyAr(page, url, out = 'work/qa') {
       exact: true,
     })
     .waitFor();
+  // In Arabic the same workpaper opens on the sheet in Arabic; the document
+  // reopened is named as the page names it in Arabic.
+  await exportBook('ar-reopened-ar.xlsx', 'نزّل ورقة عمل ذمم العملاء');
+  await sheetSays('ar-reopened-ar.xlsx', 'ar', [
+    ['فاتورة: I001', reopenNote, await reasonOn('فاتورة: I001')],
+  ]);
   await page.screenshot({ path: `${out}/ar-ar.png`, fullPage: true });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.getByRole('button', { name: 'EN English', exact: true }).click();
@@ -371,17 +416,21 @@ export async function verifyAr(page, url, out = 'work/qa') {
     .waitFor();
   assert.deepEqual(await metrics(), ['6', '2', '0', '35.00', '35.00']);
   await exportBook('ar-restored.xlsx');
+  await sheetSays('ar-restored.xlsx');
   await page
     .getByLabel('Document review reason', { exact: true })
     .fill('Synthetic sources rechecked; confirm exact document counterpart');
   await page
     .getByRole('button', { name: 'Record human confirmation', exact: true })
     .click();
+  const confirmNote = await typed();
   await page
     .getByText('Human confirmation · Exact correspondence', { exact: false })
     .waitFor();
+  recorded.push(['Invoice: I001', confirmNote, await reasonOn('Invoice: I001')]);
   assert.deepEqual(await metrics(), ['6', '3', '0', '35.00', '35.00']);
   await exportBook('ar-reconfirmed.xlsx');
+  await sheetSays('ar-reconfirmed.xlsx');
   await openFields();
   await page.getByLabel('Customer ID', { exact: true }).fill('OTHER');
   assert.equal(await page.getByTestId('ar-metrics').count(), 0);
@@ -441,6 +490,8 @@ export async function verifyAr(page, url, out = 'work/qa') {
     0,
   );
   await exportBook('ar-negative.xlsx');
+  // New originals leave no decision behind, and the sheet records none.
+  await sheetSays('ar-negative.xlsx', 'en', []);
   // A period in another layout never fills a date field: on a fresh page, a
   // scope-details pair whose blocks write the period as DD/MM/YYYY, rewritten
   // here by key row from a frozen pair.
@@ -507,6 +558,7 @@ export async function verifyAr(page, url, out = 'work/qa') {
           'the card reads the mapped columns, not unmapped ones',
           'a scope block is read once; a period in another layout is asked',
           'native amount difference stays review-only',
+          'the reconciliation sheet says what the page says, in English and Arabic (UX-6(b))',
         ],
         files: [
           'ar-direct.xlsx',
@@ -514,6 +566,7 @@ export async function verifyAr(page, url, out = 'work/qa') {
           'ar-restored.xlsx',
           'ar-reconfirmed.xlsx',
           'ar-negative.xlsx',
+          'ar-reopened-ar.xlsx',
         ],
       },
       null,

@@ -86,6 +86,18 @@ class Controls(unittest.TestCase):
   parts=specimen()
   with tempfile.TemporaryDirectory() as d:
    p=Path(d)/'own-checker-control.xlsx';write_raw_book(parts[0],p);self.assertEqual(c.read_workbook(p),parts[0]);parts=list(parts);parts[0]=c.read_workbook(p);self.assertTrue(self.run_claim(parts)['passed'])
+ def test_reconciliation_sheet_first(self):
+  # UX-6: one reconciliation sheet before the nine is set aside; anywhere
+  # else, or under another name, the evidence order fails.
+  parts=specimen()
+  for first in c.RECONCILIATION_SHEETS:
+   with self.subTest(first=first),tempfile.TemporaryDirectory() as d:
+    p=Path(d)/'with-sheet.xlsx';write_raw_book({first:[['x']],**parts[0]},p)
+    self.assertEqual(c.read_workbook(p),parts[0])
+  for book in ({**parts[0],'Reconciliation sheet':[['x']]},{'Notes':[['x']],**parts[0]}):
+   with self.subTest(names=list(book)[:1]+list(book)[-1:]),tempfile.TemporaryDirectory() as d:
+    p=Path(d)/'other.xlsx';write_raw_book(book,p)
+    with self.assertRaises(c.CheckFailure):c.read_workbook(p)
  def test_native_original_lexeme_and_concealment(self):
   spec=importlib.util.spec_from_file_location('checker_control_oracle',c.DEFAULT_PREP/'oracle/ar_oracle.py');oracle=importlib.util.module_from_spec(spec);spec.loader.exec_module(oracle)
   bundle_path=c.DEFAULT_PREP/'fixtures/one-invoice-open-differs/bundle.json';bundle,actual=c.oracle_for(c.DEFAULT_PREP,bundle_path)

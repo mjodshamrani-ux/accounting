@@ -263,6 +263,90 @@ const mutations = [
     "        (!cells[next] ||\n          ('text' in cells[next]! && !(cells[next] as { text: string }).text));",
     '        true;',
   ],
+  // UX-6(b), receivables. The worker ignores the language for AR.
+  [
+    'ar-worker-language-ignored',
+    'lib/reconciliation/worker.ts',
+    'exportArWorkpaper(\n        payload.state,\n        payload.result,\n        payload.lang,',
+    "exportArWorkpaper(\n        payload.state,\n        payload.result,\n        'ar',",
+  ],
+  // The AR binding lets any language through to the worker.
+  [
+    'ar-binding-language-unchecked',
+    'lib/reconciliation/ar-worker-binding.ts',
+    "(payload.lang !== 'ar' && payload.lang !== 'en')",
+    'false',
+  ],
+  // The page checks the worker's reply against the evidence alone.
+  [
+    'ar-binding-expects-evidence-only',
+    'lib/reconciliation/ar-worker-binding.ts',
+    'const expected = await sheet.exportArWorkpaper(\n      payload.state as ArInput,\n      payload.result as ArResult,\n      payload.lang,\n    );',
+    'void sheet;\n    const expected = await io.exportAr(\n      payload.state as ArInput,\n      payload.result as ArResult,\n    );',
+  ],
+  // The AR sheet is written in English whatever the language asked.
+  [
+    'ar-language-not-followed',
+    'lib/reconciliation/ar-sheet.ts',
+    'arSheet(state, result, language)',
+    "arSheet(state, result, 'en')",
+  ],
+  // A decision is written without the reason the reviewer gave.
+  [
+    'ar-decision-reason-dropped',
+    'lib/reconciliation/ar-sheet.ts',
+    '            value(event.note),',
+    '            value(t.note),',
+  ],
+  // A reopen is said as a confirmation.
+  [
+    'ar-decision-action-swapped',
+    'lib/reconciliation/ar-sheet.ts',
+    "event.action === 'accept' ? 'human-confirmation' : 'reopened',",
+    "event.action === 'accept' ? 'human-confirmation' : 'human-confirmation',",
+  ],
+  // A movement is attributed to the other record.
+  [
+    'ar-member-side-swapped',
+    'lib/reconciliation/ar-sheet.ts',
+    '                value(t.sides[r.side]),',
+    '                value(t.sides[1 - r.side]),',
+  ],
+  // Matched documents are listed for review too.
+  [
+    'ar-matched-listed',
+    'lib/reconciliation/ar-sheet.ts',
+    "          .filter((c) => c.status === 'review')\n          .flatMap(",
+    "          .filter((c) => c.status !== '')\n          .flatMap(",
+  ],
+  // A record without a total is written as zero.
+  [
+    'ar-missing-total-as-zero',
+    'lib/reconciliation/ar-sheet.ts',
+    '      ? value(t.unavailableTotal)',
+    '      ? { minor: 0, decimals: result.decimals }',
+  ],
+  // Each record is given the other's total.
+  [
+    'ar-totals-swapped',
+    'lib/reconciliation/ar-sheet.ts',
+    '          value: total(minor),',
+    '          value: total(result.totals[1 - side]),',
+  ],
+  // Reading errors are not counted.
+  [
+    'ar-errors-uncounted',
+    'lib/reconciliation/ar-sheet.ts',
+    "count: result.inventory.filter((i) => i.kind === 'error').length,",
+    "count: result.inventory.filter((i) => i.kind === 'none').length,",
+  ],
+  // A movement's date is not the one it carries.
+  [
+    'ar-member-date-dropped',
+    'lib/reconciliation/ar-sheet.ts',
+    '                value(r.date),',
+    '                value(result.scope.start),',
+  ],
   // The source is named by its fingerprint's file but given another hash.
   [
     'clearing-source-hash',

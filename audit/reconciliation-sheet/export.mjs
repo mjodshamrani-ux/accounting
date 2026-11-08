@@ -5,7 +5,10 @@
 // a clear again, a reopen of a reference group), and the source changed to
 // give every reason the engine gives: a header that does not establish the
 // reference role, a duplicate posting, a group over the limit, a zero net,
-// and texts that look like formulas or escapes. Synthetic sources only.
+// and texts that look like formulas or escapes. Customer AR (6(b)): each
+// frozen ar-limited-1 contract, the positive one with a reopen and with a
+// reopen then a human confirmation, and a statement with an unreadable row so
+// its total is unavailable. Synthetic sources only.
 import { readFile as fsRead, mkdir, writeFile } from 'node:fs/promises';
 import { readFile } from '../../lib/reconciliation/io.ts';
 import { GL_TB_VERSION } from '../../lib/reconciliation/gl-tb.ts';
@@ -18,6 +21,12 @@ import {
 } from '../../lib/reconciliation/clearing-demo.ts';
 import { exportClearing } from '../../lib/reconciliation/clearing-io.ts';
 import { exportClearingWorkpaper } from '../../lib/reconciliation/clearing-sheet.ts';
+import {
+  arDemoReadings,
+  arDemoScope,
+} from '../../lib/reconciliation/ar-demo.ts';
+import { exportAr, replayAr } from '../../lib/reconciliation/ar-io.ts';
+import { exportArWorkpaper } from '../../lib/reconciliation/ar-sheet.ts';
 
 const out = process.argv[2] ?? 'work/reconciliation-sheet';
 const root = 'audit/gl-tb/frozen/';
@@ -161,6 +170,127 @@ for (const c of clearingCases) {
     await writeFile(
       `${out}/${written[lang]}`,
       new Uint8Array(await exportClearingWorkpaper(input, result, lang)),
+    );
+  }
+  cases.push(written);
+}
+const arRoot = 'audit/ar-limited/frozen/';
+const arCases = [
+  ...['positive', 'amount-difference', 'type-collision',
+    'receipt-is-not-invoice-allocation', 'duplicate-own-document'].map(
+    (name) => ({ name: `ar-${name}`, source: name, steps: [] }),
+  ),
+  { name: 'ar-reopened', source: 'positive', steps: ['reopen'] },
+  { name: 'ar-reconfirmed', source: 'positive', steps: ['reopen', 'accept'] },
+  { name: 'ar-unreadable', source: 'positive', steps: [], unread: true },
+  { name: 'ar-scope-details', scopeDetails: true, steps: [] },
+  { name: 'ar-scope-broken', scopeDetails: true, broken: true, steps: [] },
+  // No detail on either side: one item for the whole scope waits, with no
+  // document number.
+  { name: 'ar-empty-source', scopeDetails: true, empty: true, steps: [] },
+];
+// The scope-details family (ar-scope-details-1): one scope block over its
+// details; a statement without its closing marker cannot be read whole, so
+// its total is unavailable.
+const scopeSource = (side, broken, empty) =>
+  [
+    'AR_SCOPE,1',
+    'Scope ID,SCOPE-1',
+    `Source role,${side === 0 ? 'company-ar-ledger' : 'company-issued-customer-statement'}`,
+    'Perspective,seller-receivable',
+    'Amount basis,original-movement',
+    'Entity,Synthetic Seller',
+    'Ledger,AR Book',
+    'Customer,C0001',
+    'Account,1200',
+    'Currency,SAR',
+    'Period start,2026-09-01',
+    'Period end,2026-09-30',
+    'Scope reference,Synthetic source reference',
+    'DETAILS',
+    'Parent scope ID,Posting ID,Document type,Own document number,Posting date,Original signed amount,Related invoice,Open balance,Description',
+    ...(empty
+      ? []
+      : [
+          `SCOPE-1,${side ? 'S' : 'L'}-001,invoice,INV-001,2026-09-10,100.00,,${side ? '40.00' : '90.00'},Synthetic invoice`,
+          `SCOPE-1,${side ? 'S' : 'L'}-002,invoice,INV-002,2026-09-12,${side ? '75.00' : '70.00'},,,Synthetic invoice`,
+        ]),
+    ...(broken && side === 1 ? [] : ['END_DETAILS']),
+  ].join('\n');
+const scopeReading = (side) => ({
+  family: 'ar-scope-details-1',
+  sheet: 0,
+  header: 14,
+  parent: 0,
+  posting: 1,
+  kind: 2,
+  document: 3,
+  date: 4,
+  amount: 5,
+  related: 6,
+  open: 7,
+  description: 8,
+  role: side === 0 ? 'company-ar-ledger' : 'company-issued-customer-statement',
+  perspective: 'seller-receivable',
+  basis: 'original-movement',
+  confirmed: true,
+});
+for (const c of arCases) {
+  const files = await Promise.all(
+    ['ledger', 'statement'].map(async (side, index) => {
+      if (c.scopeDetails)
+        return readFile(
+          `scope-${side}.csv`,
+          new TextEncoder().encode(scopeSource(index, c.broken, c.empty)).buffer,
+        );
+      let text = await fsRead(`${arRoot}${c.source}-${side}.csv`, 'utf8');
+      if (c.unread && side === 'statement')
+        text =
+          text.trimEnd() +
+          '\nS999,invoice,I999,2026-09-20,unread,Synthetic Seller,AR Book,C0001,1200,SAR,,Unread amount\n';
+      return readFile(`${c.source}-${side}.csv`, new TextEncoder().encode(text).buffer);
+    }),
+  );
+  const input = {
+    files,
+    readings: c.scopeDetails
+      ? [scopeReading(0), scopeReading(1)]
+      : structuredClone(arDemoReadings),
+    scope: { ...arDemoScope },
+    events: [],
+  };
+  let { result } = await replayAr(input);
+  const first = result.cases.find((r) => r.status === 'matched' && r.ids.length === 2);
+  for (const action of c.steps) {
+    input.events.push({
+      context: result.context,
+      at: '2026-10-06T00:00:00.000Z',
+      action,
+      ids: first.ids,
+      note:
+        action === 'reopen'
+          ? 'Synthetic document correspondence reopened for review'
+          : 'Synthetic source documents independently rechecked',
+    });
+    ({ result } = await replayAr(input));
+  }
+  const written = {
+    workspace: 'ar',
+    case: c.name,
+    evidence: `${c.name}-evidence.xlsx`,
+    reasons: [...new Set(result.cases.map((r) => r.reason))],
+    totals: result.totals,
+    decisions: input.events.length,
+  };
+  await writeFile(
+    `${out}/${written.evidence}`,
+    new Uint8Array(await exportAr(input, result)),
+  );
+  for (const lang of ['ar', 'en']) {
+    written[lang] = `${c.name}-${lang}.xlsx`;
+    await writeFile(
+      `${out}/${written[lang]}`,
+      new Uint8Array(await exportArWorkpaper(input, result, lang)),
     );
   }
   cases.push(written);

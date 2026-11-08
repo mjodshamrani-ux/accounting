@@ -512,11 +512,13 @@ def most_frequent(codes):
     return best
 
 
-def words_of(pairs, code_name):
-    """One word for each code, a different word for each code."""
+def words_of(pairs, code_name, codes=None):
+    """One word for each code, a different word for each code, and no word
+    that is an engine code."""
+    codes = CLEARING_CODES if codes is None else codes
     word = {}
     for code, said in pairs:
-        need(said not in CLEARING_CODES, 'RAW_CODE', f'{code_name} {said}')
+        need(said not in codes, 'RAW_CODE', f'{code_name} {said}')
         need(word.setdefault(code, said) == said, code_name.upper(),
              f'{code} said two ways')
     need(len(set(word.values())) == len(word), code_name.upper(),
@@ -680,10 +682,198 @@ def check_clearing(evidence, book, lang, summary):
     return {'status': status, 'rows': len(rows)}
 
 
+AR_SCOPE = ['entity', 'ledger', 'customer', 'account', 'currency', 'start',
+            'end']
+AR_CODES = {'exact-own-document', 'source-errors', 'empty-source',
+            'duplicate-document', 'missing-counterpart', 'amount-difference',
+            'date-difference', 'related-conflict', 'unverified-document-role',
+            'reopened', 'human-confirmation', 'accept', 'reopen', 'matched',
+            'review', 'invoice', 'credit-note', 'receipt', 'scope',
+            'own-document', 'none'}
+
+
+def check_ar(evidence, book, lang, summary):
+    """The customer AR sheet against its evidence: Movements, Cases,
+    Membership, both inventories, Decisions and Sources."""
+    decimals = int(summary['Decimals'])
+    unit = Decimal(10) ** decimals
+    rows_of = lambda name: [dict(zip(evidence.table(name)[0], r))
+                            for r in evidence.table(name)[1:]]
+    movements = {m['Movement ID']: m for m in rows_of('Movements')}
+    need(len(movements) == int(summary['Valid movements']), 'EVIDENCE_READ',
+         'valid')
+    cases = rows_of('Cases')
+    members = {}
+    for m in rows_of('Membership'):
+        members.setdefault(m['Case ID'], []).append(m['Movement ID'])
+    for c in cases:
+        need(len(members.get(c['Case ID'], [])) == int(c['Member count']),
+             'EVIDENCE_READ', f'members of {c["Case ID"]}')
+    errors = sum(1 for name in ('Ledger inventory', 'Statement inventory')
+                 for r in rows_of(name) if r['Kind'] == 'error')
+    need(errors == int(summary['Reading errors']), 'EVIDENCE_READ', 'errors')
+    matched = [c for c in cases if c['Status'] == 'matched']
+    review = [c for c in cases if c['Status'] == 'review']
+    need(len(matched) + len(review) == len(cases), 'EVIDENCE_READ', 'statuses')
+    need(len(matched) == int(summary['Matched document pairs']),
+         'EVIDENCE_READ', 'matched')
+    decisions = rows_of('Decisions')
+    sources = {}
+    for r in rows_of('Sources'):
+        src = sources.setdefault(int(r['Side']), {
+            'name': r['Source name'], 'hash': r['Source SHA-256'], 'chunks': []})
+        src['chunks'].append((int(r['Chunk']), r['Original bytes base64']))
+    for side, src in sources.items():
+        data = base64.b64decode(''.join(c for _, c in sorted(src['chunks'])),
+                                validate=True)
+        need(hashlib.sha256(data).hexdigest() == src['hash'], 'EVIDENCE_READ',
+             f'source {side} fingerprint')
+    totals = [summary['Ledger total minor units'],
+              summary['Statement total minor units']]
+    owner = {mid: c for c in cases for mid in members.get(c['Case ID'], [])}
+
+    expected = (['Summary', 'Sources', None, 'Summary'] +
+                (['Cases'] if review else []) +
+                (['Decisions'] if decisions else []) + [None, 'Summary'])
+    rows, styles, line, sections = layout(book, evidence, lang, expected)
+    scope, srcs, strip, results = sections[:4]
+    table = sections[4] if review else None
+    taken = sections[4 + (1 if review else 0)] if decisions else None
+    sign, claim = sections[-2:]
+
+    # Scope: the seven fields in the evidence's order.
+    need(len(scope['rows']) == len(AR_SCOPE), 'SCOPE', 'seven fields')
+    for key, (_, row) in zip(AR_SCOPE, scope['rows']):
+        need(text(row[0]) and text(row[1]) and row[1][1] == summary[key],
+             'SCOPE', key)
+
+    # Sources: each record by its role, its file and its whole fingerprint,
+    # itself the SHA-256 of the original bytes the evidence holds.
+    need(len(srcs['rows']) == 4, 'SOURCES', 'two sources')
+    side_word = {}
+    for side in (0, 1):
+        (_, named), (_, printed) = srcs['rows'][2 * side:2 * side + 2]
+        need(text(named[0]) and text(named[1]) and
+             named[1][1] == sources[side]['name'], 'SOURCES', f'side {side}')
+        side_word[side] = named[0][1]
+        need(text(printed[1]) and HEX64.match(printed[1][1]) and
+             printed[1][1] == sources[side]['hash'], 'FINGERPRINT',
+             f'side {side}')
+    need(side_word[0] != side_word[1], 'SOURCES', 'two records one name')
+
+    # The documents left for review, read first so the strip's main reason
+    # can be read in the words they give.
+    reason_word, kind_word = {}, {}
+    if review:
+        it = iter(table['rows'])
+        reasons, kinds = [], []
+        for c in review:
+            _, head = next(it, (None, [None] * 4))
+            need(text(head[0]) and text(head[2]),
+                 'REVIEW', f'{c["Case ID"]} heading')
+            # Its number as the evidence gives it; an item for the whole
+            # scope has none, and the sheet writes none.
+            need(text(head[1]) and head[1][1] == c['Own document number']
+                 if c['Own document number'] else blank(head[1]), 'REVIEW',
+                 f'{c["Case ID"]} document')
+            kinds.append((c['Document type'], head[0][1]))
+            reasons.append((c['Reason'], head[2][1]))
+            for mid in members.get(c['Case ID'], []):
+                m = movements[mid]
+                _, row = next(it, (None, [None] * 4))
+                need(blank(row[0]) and text(row[1]) and
+                     row[1][1] == side_word[int(m['Side'])], 'REVIEW_MEMBERS',
+                     f'{mid} record')
+                need(number(row[2]) and
+                     row[2][1] == Decimal(m['Amount minor units']) / unit,
+                     'REVIEW_NET', f'{mid}: {row[2]}')
+                need(text(row[3]) and row[3][1] == m['Posting date'],
+                     'REVIEW_MEMBERS', f'{mid} date')
+        need(next(it, None) is None, 'REVIEW', 'rows more than the documents')
+        reason_word = words_of(reasons, 'reason', AR_CODES)
+        kind_word = words_of(kinds, 'kind', AR_CODES)
+
+    # Alignment: each record's own total, then the strip's three cells.
+    lines = [row for _, row in strip['rows']]
+    for side in (0, 1):
+        total = lines.pop(0)
+        need(text(total[0]) and total[0][1] == side_word[side], 'TOTAL',
+             f'side {side} name')
+        if totals[side] == '':
+            need(text(total[1]), 'TOTAL', f'side {side}: no total, a reason')
+        else:
+            need(number(total[1]) and
+                 total[1][1] == Decimal(totals[side]) / unit, 'TOTAL',
+                 f'side {side}: {total[1]}')
+    agreed = lines.pop(0)
+    need(number(agreed[1]) and agreed[1][1] == len(matched), 'AGREED_COUNT',
+         f'{agreed[1]} != {len(matched)}')
+    unit_note = lines.pop(0)
+    need(blank(unit_note[0]) and text(unit_note[1]), 'STRIP', 'unit note')
+    waiting = lines.pop(0)
+    need(text(waiting[0]) and number(waiting[1]) and
+         waiting[1][1] == len(review), 'REVIEW_COUNT',
+         f'{waiting[1]} != {len(review)}')
+    if review:
+        main = lines.pop(0)
+        top = most_frequent([c['Reason'] for c in review])
+        need(text(main[1]) and text(main[2]) and
+             main[2][1] == reason_word[top], 'MAIN_REASON',
+             f'{main[2]} is not the word for {top}')
+    gap = lines.pop(0)
+    need(text(gap[1]), 'GAP', 'not computed, said in words')
+    note = lines.pop(0)
+    need(text(note[1]), 'GAP', 'note')
+    need(not lines, 'STRIP', f'{len(lines)} rows more')
+
+    # The figures beside the strip: valid movements and reading errors.
+    need(len(results['rows']) == 2, 'RESULTS', 'two figures')
+    for (_, row), value in zip(results['rows'], [len(movements), errors]):
+        need(text(row[0]) and number(row[1]) and row[1][1] == value,
+             'RESULTS', f'{row[0]}: {row[1]} != {value}')
+
+    # Each recorded decision: what it did, its document, the reason given.
+    if decisions:
+        rows_ = taken['rows']
+        need(all(text(c) and styles.bold(c[2]) for c in rows_[0][1][:4]),
+             'DECISIONS', 'head')
+        need(len(rows_) == 1 + len(decisions), 'DECISIONS',
+             f'{len(rows_) - 1} != {len(decisions)}')
+        pairs, kinds = [], []
+        for e, (_, row) in zip(decisions, rows_[1:]):
+            target = owner[json.loads(e['Members JSON'])[0]]
+            need(text(row[0]), 'DECISION_ACTION', e['Sequence'])
+            pairs.append((e['Action'], row[0][1]))
+            need(text(row[1]) and text(row[2]) and
+                 row[2][1] == target['Own document number'],
+                 'DECISION_MEMBERS', e['Sequence'])
+            kinds.append((target['Document type'], row[1][1]))
+            need(text(row[3]) and row[3][1] == e['Note'], 'DECISION_REASON',
+                 f'decision {e["Sequence"]} without its reason')
+        action_word = words_of(pairs, 'decision_action', AR_CODES)
+        for code, said in kinds:
+            need(kind_word.setdefault(code, said) == said, 'KIND',
+                 f'{code} said two ways')
+        if 'reopen' in action_word and 'reopened' in reason_word:
+            need(action_word['reopen'] == reason_word['reopened'],
+                 'DECISION_ACTION', 'reopen said apart from the document it left')
+
+    check_sign_and_claim(sign, claim, line, lang, summary['Economic coverage'])
+
+    numbers = sum(1 for row in rows for c in row if number(c))
+    expected = (sum(1 for t in totals if t != '') + 2 + 2 +
+                sum(len(members.get(c['Case ID'], [])) for c in review))
+    need(numbers == expected, 'STRAY_NUMBER', f'{numbers} != {expected}')
+    status = 'source-errors' if errors else 'review' if review else 'matched'
+    return {'status': status, 'rows': len(rows)}
+
+
 PROFILES = {'gl-trial-balance-consistency': check_gl_tb,
-            'single-account-clearing': check_clearing}
+            'single-account-clearing': check_clearing,
+            'customer-ar-document-comparison': check_ar}
 WORKSPACES = {'gl-tb': 'gl-trial-balance-consistency',
-              'clearing': 'single-account-clearing'}
+              'clearing': 'single-account-clearing',
+              'ar': 'customer-ar-document-comparison'}
 
 
 def verify(folder):
@@ -838,6 +1028,37 @@ def clearing_plants(data):
         'الفجوة', 0, lambda r: re.sub(r'<v>(\d)', r'<v>-\1', r, count=1))
 
 
+def ar_plants(data):
+    """Faults a customer AR workpaper can carry: in the documents left for
+    review and their movements, each record's total and its decisions."""
+    sheet = _first_sheet(data)
+
+    def row_edit(label, offset, change):
+        def go(x):
+            n = _cell(x, label) + offset
+            old = _row(x, n)
+            return x.replace(old, change(old), 1)
+        return _edit(data, sheet, go)
+
+    reopened = 'أُلغي الاعتماد وبقي زوج المستندات للمراجعة'
+    ledger, statement = 'سجل ذمم العملاء', 'كشف العميل الصادر عن الشركة'
+    yield 'decision without its reason', 'DECISION_REASON', row_edit(
+        reopened, 0, lambda r: re.sub(r'<c r="D\d+"[^>]*>.*?</c>', '', r))
+    yield 'decision on another document', 'DECISION_MEMBERS', row_edit(
+        reopened, 0, lambda r: r.replace('>I001<', '>I002<', 1))
+    yield 'movement amount changed', 'REVIEW_NET', row_edit(
+        'فاتورة', 1, lambda r: re.sub(
+            r'(<c r="C\d+"[^>]*><v>)(\d+)',
+            lambda m: f'{m.group(1)}{int(m.group(2)) + 1}', r, count=1))
+    yield 'movement from the other record', 'REVIEW_MEMBERS', row_edit(
+        'فاتورة', 2, lambda r: r.replace(statement, ledger, 1))
+    yield 'record total changed', 'TOTAL', row_edit(
+        'التراصف', 1, lambda r: re.sub(
+            r'<v>(\d+)</v>', lambda m: f'<v>{int(m.group(1)) + 1}</v>', r, count=1))
+    yield 'type as its code', 'RAW_CODE', row_edit(
+        'فاتورة', 0, lambda r: r.replace('فاتورة', 'invoice', 1))
+
+
 def _self_test_one(folder, case, generic):
     good = (folder / case['ar']).read_bytes()
     target = folder / 'self-test-ar.xlsx'
@@ -867,6 +1088,7 @@ def self_test(folder):
     pick = lambda name: next(c for c in manifest['cases'] if c['case'] == name)
     found = _self_test_one(folder, pick('same-net-different-turnover'), plants)
     found += _self_test_one(folder, pick('clearing-reopened'), clearing_plants)
+    found += _self_test_one(folder, pick('ar-reopened'), ar_plants)
     return found
 
 

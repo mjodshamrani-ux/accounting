@@ -59,6 +59,47 @@ export type ReconciliationSheetCopy = {
      * («Economic coverage»), in the interface's language. */
     claim: string;
   };
+  receivables: {
+    title: string;
+    sides: [string, string];
+    unavailableTotal: string;
+    start: string;
+    end: string;
+    results: string;
+    valid: string;
+    errors: string;
+    review: string;
+    note: string;
+    fields: Record<
+      | 'entity'
+      | 'ledger'
+      | 'customer'
+      | 'account'
+      | 'currency'
+      | 'kind'
+      | 'document'
+      | 'date',
+      string
+    >;
+    kind: Record<'invoice' | 'credit-note' | 'receipt' | 'scope', string>;
+    reason: Record<
+      | 'exact-own-document'
+      | 'source-errors'
+      | 'empty-source'
+      | 'duplicate-document'
+      | 'missing-counterpart'
+      | 'amount-difference'
+      | 'date-difference'
+      | 'related-conflict'
+      | 'unverified-document-role'
+      | 'reopened'
+      | 'human-confirmation',
+      string
+    >;
+    /** The engine's claim as the evidence's Summary sheet writes it
+     * («Economic coverage»), in the interface's language. */
+    claim: string;
+  };
   glTb: {
     title: string;
     fields: Record<
@@ -164,6 +205,51 @@ export const reconciliationSheetCopy: Record<
       claim:
         'لم يُتحقق منه استقلالًا؛ مقاصة الحركات ليست إثباتًا لاكتمال فترة الحساب',
     },
+    receivables: {
+      title: 'مستندات ذمم العملاء',
+      sides: ['سجل ذمم العملاء', 'كشف العميل الصادر عن الشركة'],
+      unavailableTotal: 'غير متاح بسبب عيب المصدر',
+      start: 'بداية الفترة',
+      end: 'نهاية الفترة',
+      results: 'نتيجة مقارنة مستندات ذمم العملاء',
+      valid: 'الحركات الصالحة',
+      errors: 'أخطاء القراءة',
+      review: 'للمراجعة',
+      note: 'سبب مراجعة المستند',
+      fields: {
+        entity: 'الكيان',
+        ledger: 'الدفتر',
+        customer: 'معرف العميل',
+        account: 'الحساب',
+        currency: 'العملة',
+        kind: 'نوع المستند',
+        document: 'رقم المستند الأصلي',
+        date: 'تاريخ الترحيل',
+      },
+      kind: {
+        invoice: 'فاتورة',
+        'credit-note': 'إشعار دائن',
+        receipt: 'قبض',
+        scope: 'النطاق',
+      },
+      reason: {
+        'exact-own-document':
+          'اتفق المستند الأصلي الفريد والنوع والتاريخ والمبلغ الموقع',
+        'source-errors': 'أخطاء القراءة تمنع الاعتماد',
+        'empty-source': 'لا توجد تفاصيل للمقارنة؛ لا يثبت ذلك اكتمال الكشف',
+        'duplicate-document': 'هوية المستند لها حركات متنافسة',
+        'missing-counterpart': 'لا نظير بنفس المستند الأصلي والنوع',
+        'amount-difference': 'اختلف المبلغ الأصلي الموقع',
+        'date-difference': 'اختلف تاريخ الترحيل',
+        'related-conflict': 'تعارض دليل الفاتورة المرتبطة',
+        'unverified-document-role':
+          'العنوان المختار لا يثبت دور رقم المستند الأصلي',
+        reopened: 'أُلغي الاعتماد وبقي زوج المستندات للمراجعة',
+        'human-confirmation': 'نظير دقيق مع تأكيد بشري مسجل',
+      },
+      claim:
+        'لم يُتحقق منه استقلالًا؛ مقارنة المستندات ليست تخصيصًا للمقبوضات ولا تسوية للأرصدة ولا إثباتًا للاكتمال',
+    },
     glTb: {
       title: 'اتساق الأستاذ وميزان المراجعة',
       fields: {
@@ -263,6 +349,54 @@ export const reconciliationSheetCopy: Record<
       },
       claim:
         'Not independently verified; clearing of movements is not proof that the account period is complete.',
+    },
+    receivables: {
+      title: 'Customer AR documents',
+      sides: ['Company AR ledger', 'Company-issued customer statement'],
+      unavailableTotal: 'Unavailable because of a source defect',
+      start: 'Period start',
+      end: 'Period end',
+      results: 'AR document comparison result',
+      valid: 'Valid movements',
+      errors: 'Reading errors',
+      review: 'Needs review',
+      note: 'Document review reason',
+      fields: {
+        entity: 'Entity',
+        ledger: 'Ledger',
+        customer: 'Customer ID',
+        account: 'Account',
+        currency: 'Currency',
+        kind: 'Document type',
+        document: 'Own document number',
+        date: 'Posting date',
+      },
+      kind: {
+        invoice: 'Invoice',
+        'credit-note': 'Credit note',
+        receipt: 'Receipt',
+        scope: 'Scope',
+      },
+      reason: {
+        'exact-own-document':
+          'Unique own document, type, date and signed amount agree',
+        'source-errors': 'Reading errors block approval',
+        'empty-source':
+          'No details to compare; this does not prove statement completeness',
+        'duplicate-document': 'Document identity has competing movements',
+        'missing-counterpart':
+          'No counterpart with the same own document and type',
+        'amount-difference': 'Original signed amounts differ',
+        'date-difference': 'Posting dates differ',
+        'related-conflict': 'Related invoice evidence conflicts',
+        'unverified-document-role':
+          'Selected header does not establish the own document role',
+        reopened: 'Approval cancelled; document pair remains for review',
+        'human-confirmation':
+          'Exact correspondence with recorded human confirmation',
+      },
+      claim:
+        'Not independently verified. Document comparison is not receipt allocation, balance reconciliation or proof of completeness.',
     },
     glTb: {
       title: 'GL and trial balance consistency',

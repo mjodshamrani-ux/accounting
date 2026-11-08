@@ -565,6 +565,9 @@ export type SheetSection =
       evidence?: string;
       cells: StripCellView[];
       decimals: number;
+      /** Each record's own total, as the strip draws it at either end:
+       * the record's name, then its total or why it has none. */
+      totals?: { label: string; value: SheetCell }[];
       /** Rows the screen shows beside the strip (what is missing). */
       more?: { label: string; value: string }[];
     }
@@ -572,6 +575,8 @@ export type SheetSection =
       kind: 'table';
       title: string;
       evidence: string;
+      /** The table's head; none where each row says what it is, as a list
+       * of records under each document does. */
       head: string[];
       rows: SheetCell[][];
     }
@@ -636,6 +641,8 @@ export function composeSheet(
       }
     } else if (section.kind === 'strip') {
       heading(section.title, section.evidence);
+      for (const t of section.totals ?? [])
+        rows.push([text(t.label, 'label'), t.value]);
       for (const cell of section.cells) {
         const value: SheetCell[] =
           cell.value.kind === 'text'
@@ -662,7 +669,8 @@ export function composeSheet(
     } else if (section.kind === 'table') {
       if (!section.rows.length) continue;
       heading(section.title, section.evidence);
-      rows.push(section.head.map((h) => text(h, 'head')));
+      if (section.head.length)
+        rows.push(section.head.map((h) => text(h, 'head')));
       rows.push(...section.rows);
     } else if (section.kind === 'signature') {
       heading(w.signature);

@@ -931,7 +931,9 @@ export function ArWorkspace({
                     download(
                       await workerTask(
                         'ar-export',
-                        { state: input(), result },
+                        // The reconciliation sheet is written in the
+                        // interface's language (UX-6).
+                        { state: input(), result, lang },
                         signal,
                       ),
                       'tarasuf-ar.xlsx',

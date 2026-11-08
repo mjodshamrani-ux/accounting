@@ -43,7 +43,8 @@ import { replayGatewayBatches } from './payment-gateway-batches-io.ts';
 import { replayAssetSections } from './fixed-assets-sections-io.ts';
 import { replayGlTb, saveGlTb, restoreGlTb } from './gl-tb-io.ts';
 import { exportGlTbWorkpaper } from './gl-tb-sheet.ts';
-import { replayAr, saveAr, restoreAr, exportAr } from './ar-io.ts';
+import { replayAr, saveAr, restoreAr } from './ar-io.ts';
+import { exportArWorkpaper } from './ar-sheet.ts';
 import { snapshotArRequest } from './ar-worker-binding.ts';
 import { assertInputFormats } from './input-readiness.ts';
 import { saveSession, restoreSession } from './session.ts';
@@ -174,7 +175,11 @@ self.onmessage = async (event: MessageEvent) => {
     else if (action === 'ar-save') value = await saveAr(payload);
     else if (action === 'ar-restore') value = await restoreAr(payload.buffer);
     else if (action === 'ar-export')
-      value = await exportAr(payload.state, payload.result);
+      value = await exportArWorkpaper(
+        payload.state,
+        payload.result,
+        payload.lang,
+      );
     else if (action === 'clearing-reconcile')
       value = await replayClearing(payload);
     else if (action === 'clearing-save') value = await saveClearing(payload);

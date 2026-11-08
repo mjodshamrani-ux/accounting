@@ -176,6 +176,10 @@ jobs:
         env:
           AR_STATEMENT_BROWSER_DIR: ${{ runner.temp }}/ar-statement-browser
         run: pnpm test:ar-statement:browser
+      - name: Independently verify the reconciliation sheet first in the customer statement PDF workpapers the page downloaded, in English and Arabic, against their own evidence sheets (UX-6(b))
+        run: |
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download en "${{ runner.temp }}"/ar-statement-browser/en-*.xlsx
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download ar "${{ runner.temp }}"/ar-statement-browser/ar-*.xlsx
       - name: Verify a period that carries in the bank workspace through the actual Worker, sealed outcomes on screen, keyboard decision, sessions and independently checked Excel (WF-1 ROLL-1 W3)
         env:
           BANK_ROLL_BROWSER_DIR: ${{ runner.temp }}/bank-roll-browser
@@ -228,6 +232,12 @@ jobs:
           AR_SCOPE_BROWSER_DIR: ${{ runner.temp }}/ar-scope-details-browser
           AR_SCOPE_CHECK_DIR: ${{ runner.temp }}/ar-scope-details-browser-check
         run: pnpm test:ar-scope-details:browser
+      - name: Independently verify the reconciliation sheet first in the 114 AR scope-details workpapers the page downloaded, in Arabic and English, against their own evidence sheets (UX-6(b))
+        run: |
+          dir="${{ runner.temp }}/ar-scope-details-browser"
+          attempt="$dir/$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["attempt"])' "$dir/LATEST.json")"
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download ar "$attempt"/ar-*/*.xlsx
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download en "$attempt"/en-*/*.xlsx
       - name: Verify twelve-type entry, readiness, navigation and retained supplier state
         run: |
           pnpm test:browser:reconciliation-entry
@@ -401,6 +411,11 @@ jobs:
           python3 audit/ar-limited/check_export.py work/qa/ar-direct.xlsx work/qa/ar-reconfirmed.xlsx
           python3 audit/ar-limited/check_export.py --reopened work/qa/ar-reopened.xlsx work/qa/ar-restored.xlsx
           python3 audit/ar-limited/check_export.py --contract amount-difference work/qa/ar-negative.xlsx
+      - name: Independently verify the reconciliation sheet first in the customer AR workpapers the page downloaded, in English and in Arabic, against their own evidence sheets, and the Arabic download's evidence (UX-6(b))
+        run: |
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download en work/qa/ar-direct.xlsx work/qa/ar-reopened.xlsx work/qa/ar-restored.xlsx work/qa/ar-reconfirmed.xlsx work/qa/ar-negative.xlsx
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download ar work/qa/ar-reopened-ar.xlsx
+          python3 audit/ar-limited/check_export.py --reopened work/qa/ar-reopened-ar.xlsx
       - name: Verify partial results through the Arabic and English interface
         run: |
           node audit/partial-input/browser/run.mjs ci-partial isolated
