@@ -3,7 +3,11 @@ import { readFile as fsRead } from 'node:fs/promises';
 import test from 'node:test';
 import ExcelJS from 'exceljs';
 import JSZip from 'jszip';
-import { financialStrip, glTbStrip } from '../lib/alignment-strip.ts';
+import {
+  financialStrip,
+  glTbStrip,
+  intercompanyStrip,
+} from '../lib/alignment-strip.ts';
 import { stripView } from '../lib/alignment-strip-view.ts';
 import { alignmentStripCopy } from '../lib/i18n/alignment-strip.ts';
 import { ar } from '../lib/i18n/locales/ar.ts';
@@ -84,6 +88,17 @@ import {
   exportFinancialWorkpaper,
   financialSheet,
 } from '../lib/reconciliation/financial-sheet.ts';
+import {
+  finishedIntercompany,
+  intercompanyTruth,
+} from '../audit/intercompany/fixtures.ts';
+import { intercompanyCopy } from '../lib/i18n/intercompany.ts';
+import { IC_SCOPE_FIELDS } from '../lib/reconciliation/intercompany.ts';
+import { exportIntercompany } from '../lib/reconciliation/intercompany-io.ts';
+import {
+  exportIntercompanyWorkpaper,
+  intercompanySheet,
+} from '../lib/reconciliation/intercompany-sheet.ts';
 
 // UX-6(a): the reconciliation sheet is added to a workpaper whose evidence is
 // already written, and leaves that evidence byte for byte as it was. Its words
@@ -2410,6 +2425,296 @@ void test('the real worker writes the financial position sheet in the language a
     }
     await assert.rejects(
       client.request('tb-financial-export', { state, result }),
+      /RECONCILIATION_SHEET_LANGUAGE/,
+    );
+  } finally {
+    port.terminate();
+  }
+});
+
+// UX-6(c), intercompany: frozen cases with the decisions their story
+// records, and without them, covering every state the engine gives a result
+// and a pair, an attestation given and not, and three precisions.
+const INTERCOMPANY_CASES = [
+  'pending',
+  'undo',
+  'reject',
+  'reject-undo-accept',
+  'amount-difference',
+  'one-counterparty-missing',
+  'missing-relationship',
+  'future-right-timing-evidence',
+  'incomplete-inventory',
+  'timing-with-present-counterpart',
+  'jpy',
+  'kwd',
+];
+const INTERCOMPANY_ONLY = {
+  currencyBasis: 'functional',
+  fxPolicy: 'same-currency-no-conversion',
+  postingStatus: 'posted',
+} as const;
+
+void test('intercompany: the evidence stays byte for byte, the result state, debit, credit and net by side, each pair with its state, review and figures, each decision with its reason', async () => {
+  const seen = new Set<string>(),
+    pairSeen = new Set<string>();
+  for (const name of INTERCOMPANY_CASES)
+    for (const lang of ['ar', 'en'] as const) {
+      assert.ok(
+        intercompanyTruth.cases.some((c) => c.name === name && !c.reject),
+        name,
+      );
+      const { state, result } = await finishedIntercompany(name);
+      seen.add(result.status);
+      for (const p of result.pairs) pairSeen.add(`${p.status}/${p.review}`);
+      const evidence = await exportIntercompany(state, result);
+      const book = await addReconciliationSheet(
+        evidence,
+        intercompanySheet(result, lang),
+      );
+      const before = await parts(evidence),
+        after = await parts(book);
+      for (const [part, bytes] of before)
+        if (!WORKBOOK_PARTS.includes(part))
+          assert.deepEqual(after.get(part), bytes, `${name}: ${part}`);
+      const w = reconciliationSheetCopy[lang],
+        t = w.intercompany;
+      const { rows } = await firstSheet(
+        await exportIntercompanyWorkpaper(state, result, lang),
+      );
+      assert.equal(rows[1][0], t.title, name);
+      const unit = 10 ** result.decimals;
+      const amount = (minor: number | null | undefined) =>
+        minor === null || minor === undefined ? '—' : minor / unit;
+      const blank = (at: number, what: string) =>
+        assert.deepEqual(
+          rows[at] ?? [null, null, null, null],
+          [null, null, null, null],
+          `${name}: ${what} end`,
+        );
+      // The scope in the screen's words; the three one-option fields in the
+      // card's words for their one value.
+      IC_SCOPE_FIELDS.forEach((key, i) =>
+        assert.deepEqual(
+          rows[rowOf(rows, t.scope[i])].slice(0, 2),
+          [
+            t.scope[i],
+            key in INTERCOMPANY_ONLY &&
+            result.scope[key] ===
+              INTERCOMPANY_ONLY[key as keyof typeof INTERCOMPANY_ONLY]
+              ? t.only[key as keyof typeof INTERCOMPANY_ONLY]
+              : result.scope[key],
+          ],
+          `${name}: ${key}`,
+        ),
+      );
+      // The four sources by their roles and whole fingerprints.
+      result.sources.forEach((source, i) => {
+        const at = rows.findIndex(
+          (r) => r[0] === t.roles[i] && r[1] === source.name,
+        );
+        assert.ok(at >= 0, `${name}: ${t.roles[i]}`);
+        assert.deepEqual(rows[at + 1].slice(0, 2), [
+          w.fingerprint,
+          source.hash,
+        ]);
+      });
+      // The strip, cell by cell, from the function the screen draws with,
+      // its reason in the screen's words; then the result's state as the
+      // screen's heading writes it, the alignment's last row.
+      const s = alignmentStripCopy[lang];
+      const status = (code: string) =>
+        (t.status as Record<string, string>)[code];
+      assert.deepEqual(rows[rowOf(rows, s.review)].slice(0, 2), [
+        s.review,
+        result.pairs.filter((p) => p.review === 'needs-review').length,
+      ]);
+      for (const cell of stripView(intercompanyStrip(result), s, {
+        reason: status,
+        state: status(result.status),
+      })) {
+        const at = rowOf(rows, cell.label),
+          row = rows[at];
+        if (cell.value.kind === 'count')
+          assert.deepEqual(
+            row.slice(1),
+            cell.value.of === undefined
+              ? [cell.value.count, null, null]
+              : [cell.value.count, w.of, cell.value.of],
+          );
+        else if (cell.value.kind === 'amount')
+          assert.equal(row[1], cell.value.minor / unit, `${name}: the gap`);
+        else assert.equal(row[1], cell.value.text, `${name}: ${cell.cell}`);
+        cell.notes.forEach((n, i) =>
+          assert.deepEqual(
+            rows[at + 1 + i].slice(0, 3),
+            [null, n.text, n.value ?? null],
+            `${name}: ${cell.cell} note ${i + 1}`,
+          ),
+        );
+      }
+      const stateAt = rowOf(rows, s.state);
+      assert.deepEqual(
+        rows[stateAt].slice(0, 2),
+        [s.state, status(result.status)],
+        `${name}: the result's state`,
+      );
+      assert.ok(status(result.status), `${name}: a word for the state`);
+      blank(stateAt + 1, 'the alignment');
+      // The supplied inventory attestation, written once given.
+      const attest = headingOf(rows, t.completenessTitle, 'Summary', lang);
+      if (!result.completeness.confirmed)
+        assert.equal(attest, -1, `${name}: no attestation, no section`);
+      else {
+        assert.deepEqual(rows[attest + 1].slice(0, 2), [
+          t.completeReference,
+          result.completeness.reference,
+        ]);
+        assert.deepEqual(rows[attest + 2].slice(0, 2), [
+          t.completeNote,
+          result.completeness.note,
+        ]);
+        blank(attest + 3, 'the attestation');
+      }
+      // Debit, credit and net by side, where the engine computes them, on
+      // one printed page.
+      const sides = headingOf(rows, t.tableNames.totals, 'Totals', lang);
+      if (!result.totals) assert.equal(sides, -1, `${name}: no totals`);
+      else {
+        assert.deepEqual(rows[sides + 1], t.totals);
+        result.totals.forEach((total, k) =>
+          assert.deepEqual(rows[sides + 2 + k], [
+            t.roles[k],
+            total.debit / unit,
+            total.credit / unit,
+            total.net / unit,
+          ]),
+        );
+        blank(sides + 4, 'the totals');
+        assert.ok(
+          intercompanySheet(result, lang).keep!.some(
+            ([from, to]) => from === sides && to === sides + 3,
+          ),
+          `${name}: the totals are kept whole`,
+        );
+      }
+      // Every pair as the screen draws it: its relation, state and review,
+      // then its two nets and the residual, or the screen's dash where the
+      // engine computes none.
+      const pairs = headingOf(rows, t.pairs, 'Pairs', lang);
+      if (!result.pairs.length)
+        assert.equal(pairs, -1, `${name}: no pair, no table`);
+      const kept = intercompanySheet(result, lang).keep!;
+      result.pairs.forEach((p, k) => {
+        const at = pairs + 1 + 4 * k;
+        // A pair prints with its figures, the first with the heading.
+        assert.ok(
+          kept.some(([from, to]) => from === (k ? at : pairs) && to === at + 3),
+          `${name}: ${p.relationId} kept whole`,
+        );
+        assert.deepEqual(
+          rows[at],
+          [p.relationId, status(p.status), status(p.review), null],
+          `${name}: ${p.relationId}`,
+        );
+        (
+          [
+            [t.residualFigures[0], p.left?.net],
+            [t.residualFigures[1], p.right?.net],
+            [t.residualFigures[2], p.residual],
+          ] as const
+        ).forEach(([label, minor], j) =>
+          assert.deepEqual(
+            rows[at + 1 + j],
+            [null, label, amount(minor), null],
+            `${name}: ${p.relationId} ${label}`,
+          ),
+        );
+      });
+      if (result.pairs.length)
+        blank(pairs + 1 + 4 * result.pairs.length, 'the pairs');
+      // Each recorded decision: its button's word, the relation and its
+      // time, then the reference and the explanation given.
+      const events = headingOf(rows, w.decisions, 'Events', lang);
+      if (!result.events.length)
+        assert.equal(events, -1, `${name}: no decisions, no table`);
+      result.events.forEach((e, k) => {
+        const at = events + 1 + 2 * k;
+        assert.deepEqual(rows[at].slice(0, 3), [t[e.type], e.relationId, e.at]);
+        assert.deepEqual(rows[at + 1].slice(0, 3), [null, e.reference, e.note]);
+      });
+      if (result.events.length)
+        blank(events + 1 + 2 * result.events.length, 'the decisions');
+      assert.equal(rows.at(-1)![0], t.claim);
+    }
+  // The cases cover a result of every state the engine gives, and a pair
+  // of every state and review.
+  assert.deepEqual([...seen].sort(), [
+    'consistent-with-evidence',
+    'difference',
+    'missing',
+    'needs-review',
+    'source-error',
+  ]);
+  assert.deepEqual([...pairSeen].sort(), [
+    'blocked/needs-review',
+    'difference/needs-review',
+    'missing/needs-review',
+    'ready/accepted',
+    'ready/needs-review',
+    'ready/rejected',
+    'timing-evidence/needs-review',
+  ]);
+});
+
+void test('intercompany: the words are the screen words, and the claim in English is the evidence words', async () => {
+  for (const lang of ['ar', 'en'] as const) {
+    const t = reconciliationSheetCopy[lang].intercompany;
+    for (const key of Object.keys(t) as (keyof typeof t)[])
+      if (key !== 'claim')
+        assert.deepEqual(
+          t[key],
+          (intercompanyCopy[lang] as Record<string, unknown>)[key],
+          `${lang} intercompany.${key}`,
+        );
+  }
+  const { state, result } = await finishedIntercompany('pending');
+  const wb = new ExcelJS.Workbook();
+  await wb.xlsx.load(await exportIntercompany(state, result));
+  const claim = wb
+    .getWorksheet('Summary')!
+    .getRows(1, 40)!
+    .find((r) => r.getCell(1).value === 'Claim')!
+    .getCell(2).value;
+  assert.equal(reconciliationSheetCopy.en.intercompany.claim, claim);
+  assert.notEqual(reconciliationSheetCopy.ar.intercompany.claim, claim);
+});
+
+void test('the real worker writes the intercompany sheet in the language asked, and refuses none', async () => {
+  const { state, result } = await finishedIntercompany('reject');
+  const port = new GlTbBindingPort();
+  try {
+    const client = createWorkerClient(() => port);
+    for (const lang of ['ar', 'en'] as const) {
+      const bytes = await client.request<ArrayBuffer>('intercompany-export', {
+        state,
+        result,
+        lang,
+      });
+      const book = new ExcelJS.Workbook();
+      await book.xlsx.load(bytes);
+      assert.deepEqual(
+        book.worksheets.slice(0, 2).map((s) => s.name),
+        [reconciliationSheetCopy[lang].name, 'Summary'],
+      );
+      const { rows } = await firstSheet(bytes);
+      assert.equal(
+        rows[1][0],
+        reconciliationSheetCopy[lang].intercompany.title,
+      );
+    }
+    await assert.rejects(
+      client.request('intercompany-export', { state, result }),
       /RECONCILIATION_SHEET_LANGUAGE/,
     );
   } finally {

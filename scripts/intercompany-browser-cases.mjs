@@ -1,4 +1,5 @@
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import { intercompanySheetSaysScreen } from './reconciliation-sheet-browser.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 export async function verifyIntercompany(
@@ -161,11 +162,22 @@ export async function verifyIntercompany(
         new Promise((done) => requestAnimationFrame(() => setTimeout(done, 0))),
     );
   }
-  const download = async (name, file) => {
+  // UX-6(c): each workpaper opens on the reconciliation sheet, in the
+  // interface's language, and it says what this page shows.
+  const sheets = [];
+  const download = async (name, file, lang = 'en') => {
     const pending = page.waitForEvent('download');
     await button(name).click();
     await (await pending).saveAs(`${out}/${file}`);
     await wait();
+    if (file.endsWith('.xlsx'))
+      sheets.push({
+        file,
+        ...(await intercompanySheetSaysScreen(page, {
+          file: `${out}/${file}`,
+          lang,
+        })),
+      });
   };
   await button('Open a synthetic intercompany example').click();
   await status.waitFor();
@@ -208,6 +220,11 @@ export async function verifyIntercompany(
   await wait();
   assert.equal(await status.innerText(), 'Whole pair review required');
   await download('Export intercompany evidence', 'ui-reject.xlsx');
+  // The same result in Arabic: the language changes, the review stays.
+  await page.getByRole('button', { name: 'AR العربية', exact: true }).click();
+  await download('صدّر أدلة معاملات المنشآت', 'ui-reject-ar.xlsx', 'ar');
+  await page.getByRole('button', { name: 'EN English', exact: true }).click();
+  assert.equal(await status.innerText(), 'Whole pair review required');
   await w
     .getByLabel('Restore intercompany session', { exact: true })
     .setInputFiles(`${out}/ui-session.json`);
@@ -462,7 +479,8 @@ export async function verifyIntercompany(
   }
   return {
     scopeCard: true,
-    downloads: 6,
+    downloads: 7,
+    sheets,
     wholePairMembers: 2,
     malformedPhysicalRejectionMembers: 3,
     languages: 2,

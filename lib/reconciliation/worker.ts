@@ -9,7 +9,8 @@ import {readAssetFile,replayAsset,saveAsset,restoreAsset,exportAsset} from './fi
 import { readStockFile, replayStock, saveStock, restoreStock, exportStock, exportStockLinks } from './inventory-register-io.ts';
 import { replayGateway, saveGateway, restoreGateway, exportGateway } from './payment-gateway-io.ts';
 import { readGatewayFile } from './payment-gateway-source.ts';
-import { replayIntercompany, saveIntercompany, restoreIntercompany, exportIntercompany } from './intercompany-io.ts';
+import { replayIntercompany, saveIntercompany, restoreIntercompany } from './intercompany-io.ts';
+import { exportIntercompanyWorkpaper } from './intercompany-sheet.ts';
 import { readIntercompanyFile } from './intercompany-source.ts';
 import { replayIntercompanyBatches } from './intercompany-batch-io.ts';
 import { replayGlTbSections } from './gl-tb-sections-io.ts';
@@ -162,7 +163,7 @@ self.onmessage = async (event: MessageEvent) => {
     else if (action === 'intercompany-reconcile') value = await replayIntercompany(payload);
     else if (action === 'intercompany-save') value = await saveIntercompany(payload);
     else if (action === 'intercompany-restore') value = await restoreIntercompany(payload.buffer);
-    else if (action === 'intercompany-export') value = await exportIntercompany(payload.state, payload.result);
+    else if (action === 'intercompany-export') value = await exportIntercompanyWorkpaper(payload.state, payload.result, payload.lang);
     else if (action === 'intercompany-batch-reconcile') value = await replayIntercompanyBatches(payload);
     else if (action === 'gl-tb-sections-reconcile') value = await replayGlTbSections(payload);
     else if (action === 'tb-financial-hierarchy-reconcile') value = await replayFinancialHierarchy(payload);

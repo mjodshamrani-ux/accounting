@@ -22,7 +22,9 @@
 // for both of a case's exports, as the evidence writes its export time in
 // Export Metadata. Trial balance and financial position (6(c)): every
 // frozen case the export accepts, with the decisions its story records, and
-// one with eighteen decisions built here. Synthetic sources only.
+// one with eighteen decisions built here. Intercompany (6(c)): every frozen
+// case the engine accepts, with the decisions its story records, and one
+// with fifteen decisions built here. Synthetic sources only.
 import { readFile as fsRead, mkdir, writeFile } from 'node:fs/promises';
 import { readFile } from '../../lib/reconciliation/io.ts';
 import { GL_TB_VERSION } from '../../lib/reconciliation/gl-tb.ts';
@@ -66,6 +68,13 @@ import {
 import { reconcileFinancialPosition } from '../../lib/reconciliation/tb-financial.ts';
 import { exportFinancialPosition } from '../../lib/reconciliation/tb-financial-io.ts';
 import { exportFinancialWorkpaper } from '../../lib/reconciliation/financial-sheet.ts';
+import {
+  finishedIntercompany,
+  intercompanyTruth,
+} from '../intercompany/fixtures.ts';
+import { reconcileIntercompany } from '../../lib/reconciliation/intercompany.ts';
+import { exportIntercompany } from '../../lib/reconciliation/intercompany-io.ts';
+import { exportIntercompanyWorkpaper } from '../../lib/reconciliation/intercompany-sheet.ts';
 
 const out = process.argv[2] ?? 'work/reconciliation-sheet';
 const root = 'audit/gl-tb/frozen/';
@@ -544,6 +553,62 @@ for (const { name, state, result } of financials) {
     await writeFile(
       `${out}/${written[lang]}`,
       new Uint8Array(await exportFinancialWorkpaper(state, result, lang)),
+    );
+  }
+  cases.push(written);
+}
+// Intercompany (6(c)): every frozen case the engine accepts, with the
+// decisions its story records, and one built here whose three pairs are each
+// approved, undone, rejected, undone and approved again, fifteen decisions,
+// so the sheet runs over a page.
+const intercompanies = [];
+for (const c of intercompanyTruth.cases)
+  if (!c.reject)
+    intercompanies.push({
+      name: `intercompany-${c.name}`,
+      ...(await finishedIntercompany(c.name)),
+    });
+{
+  const { state } = await finishedIntercompany('pending');
+  let result = reconcileIntercompany(state);
+  for (const type of ['accept', 'undo', 'reject', 'undo', 'accept'])
+    for (const pair of result.pairs) {
+      const n = state.events.length;
+      state.events = [
+        ...state.events,
+        {
+          id: `E-${n + 1}`,
+          type,
+          relationId: pair.relationId,
+          memberIds: pair.members.map((m) => m.id),
+          context: result.context,
+          at: `2026-10-07T00:00:00.${String(n).padStart(3, '0')}Z`,
+          reference: 'Synthetic second review',
+          note: `Synthetic: pair ${pair.relationId} reviewed again, ${type}`,
+        },
+      ];
+      result = reconcileIntercompany(state);
+    }
+  intercompanies.push({ name: 'intercompany-long-decisions', state, result });
+}
+for (const { name, state, result } of intercompanies) {
+  const written = {
+    workspace: 'intercompany',
+    case: name,
+    evidence: `${name}-evidence.xlsx`,
+    status: result.status,
+    pairs: result.pairs.length,
+    decisions: result.events.length,
+  };
+  await writeFile(
+    `${out}/${written.evidence}`,
+    new Uint8Array(await exportIntercompany(state, result)),
+  );
+  for (const lang of ['ar', 'en']) {
+    written[lang] = `${name}-${lang}.xlsx`;
+    await writeFile(
+      `${out}/${written[lang]}`,
+      new Uint8Array(await exportIntercompanyWorkpaper(state, result, lang)),
     );
   }
   cases.push(written);

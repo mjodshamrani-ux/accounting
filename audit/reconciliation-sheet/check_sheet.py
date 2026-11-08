@@ -1,6 +1,6 @@
 """Independent check of the reconciliation sheet (UX-6) in GL/TB, clearing,
-customer AR, bank movement, payment allocation, supplier, and trial balance
-and financial position workpapers.
+customer AR, bank movement, payment allocation, supplier, trial balance and
+financial position, and intercompany workpapers.
 
 Reads each workpaper with zipfile and ElementTree only, with no product code,
 and checks, against the evidence sheets as this checker reads them:
@@ -61,7 +61,18 @@ and checks, against the evidence sheets as this checker reads them:
   difference; the completeness attestation with its reason, once given; the
   trial balance's three figures; the position by basis; each line with its
   class and state in words and its difference or a dash; each decision with
-  its line, time, evidence reference and the reason the reviewer gave.
+  its line, time, evidence reference and the reason the reviewer gave;
+- in an intercompany workpaper (UX-6(c)), read from its Summary, Left and
+  Right entries, Pairs, Pair members, Totals, Events, Event members and
+  Sources, the evidence held to itself first (each entry's net its debit
+  less its credit, each side's totals the sum of its entries, each pair's
+  nets its entries' and its residual their sum, each decision holding its
+  whole pair): the seventeen scope fields; the four sources; the pairs
+  ready, those waiting with their main reason, and the result's state in
+  words; the completeness attestation with its explanation, once given;
+  debit, credit and net by side; each pair with its state and review in
+  words, its two nets and its residual or a dash; each decision with its
+  relation, time, reference and the explanation the reviewer gave.
 
 Which checks apply is read from the evidence's own Summary (Domain); the
 supplier workbook names none, and is known by its own evidence sheets.
@@ -112,16 +123,21 @@ SUPPLIER_TABLES = ('Needs Review', 'Unmatched', 'Review History')
 # The financial position's tables: the position by basis and the statement
 # lines, each under its head.
 FINANCIAL_TABLES = ('Grand totals', 'Lines')
+# The intercompany tables: debit, credit and net by side under its head, and
+# the counterpart pairs, each pair an item with its figures.
+INTERCOMPANY_TABLES = ('Totals', 'Pairs')
 # Every table whose heading goes with its head and first row (with no head,
 # its first item), the rest running on: those above, in allocation the value
-# ledger of each side and the active allocations, the supplier's, and the
-# financial position's.
+# ledger of each side and the active allocations, the supplier's, the
+# financial position's and the intercompany's.
 TABLES = (REVIEW_TABLES + DECISION_TABLES + ('Value ledger', 'Active links') +
-          SUPPLIER_TABLES + FINANCIAL_TABLES)
+          SUPPLIER_TABLES + FINANCIAL_TABLES + INTERCOMPANY_TABLES)
 # Tables a page may be broken above a later item of, an item that is not the
 # first under its head: a case or document with its members, an active
-# allocation with its two sides, a decision, an unmatched case.
-ITEM_TABLES = REVIEW_TABLES + ('Active links', 'Events') + SUPPLIER_TABLES
+# allocation with its two sides, a decision, an unmatched case, a
+# counterpart pair with its figures.
+ITEM_TABLES = (REVIEW_TABLES + ('Active links', 'Events') + SUPPLIER_TABLES +
+               ('Pairs',))
 
 
 class Fault(AssertionError):
@@ -1953,20 +1969,270 @@ def check_financial(evidence, book, lang, summary):
     return {'status': summary['Status'], 'rows': len(rows)}
 
 
+IC_SCOPE = ['entityA', 'entityB', 'ledgerA', 'ledgerB', 'accountA', 'accountB',
+            'dimensionsA', 'dimensionsB', 'currency', 'currencyBasis',
+            'fxPolicy', 'postingStatus', 'postingLayer', 'start', 'end', 'asOf',
+            'policyVersion']
+IC_ONLY = {'currencyBasis': 'functional',
+           'fxPolicy': 'same-currency-no-conversion', 'postingStatus': 'posted'}
+IC_CODES = {'source-error', 'missing', 'difference', 'needs-review',
+            'consistent-with-evidence', 'blocked', 'ready', 'timing-evidence',
+            'accepted', 'rejected', 'accept', 'reject', 'undo', 'functional',
+            'same-currency-no-conversion', 'posted', 'left', 'right'}
+
+
+def check_intercompany(evidence, book, lang, summary):
+    """The intercompany sheet against its evidence: Summary, Left and Right
+    entries, Pairs, Pair members, Totals, Events, Event members and Sources.
+    The evidence is held to itself first: each entry's net is its debit less
+    its credit; each side's totals are the sums of its entries; each pair's
+    nets are its entries' and its residual their sum, none where a side is
+    missing or the sources hold an error; each decision names a pair and
+    holds that pair's members."""
+    decimals = int(summary['Decimals'])
+    unit = Decimal(10) ** decimals
+    rows_of = lambda name: [dict(zip(evidence.table(name)[0], r))
+                            for r in evidence.table(name)[1:]]
+    entries = [rows_of('Left entries'), rows_of('Right entries')]
+    pairs = rows_of('Pairs')
+    members = rows_of('Pair members')
+    totals = rows_of('Totals')
+    events = rows_of('Events')
+    held = rows_of('Event members')
+    error = summary['Status'] == 'source-error'
+    by_id = [{e['Record ID']: e for e in side} for side in entries]
+    for side in entries:
+        for e in side:
+            need(int(e['Net']) == int(e['Debit']) - int(e['Credit']),
+                 'EVIDENCE_READ', f'{e["Record ID"]} net')
+    need(len(totals) == (0 if error else 2), 'EVIDENCE_READ', 'totals by side')
+    for k, t in enumerate(totals):
+        need(t['Side'] == ('left', 'right')[k], 'EVIDENCE_READ', 'totals side')
+        for f in ('Debit', 'Credit', 'Net'):
+            need(int(t[f]) == sum(int(e[f]) for e in entries[k]),
+                 'EVIDENCE_READ', f'{t["Side"]} {f}')
+    for p in pairs:
+        nets = []
+        for k, (rid, net) in enumerate([('Left record ID', 'Left net'),
+                                        ('Right record ID', 'Right net')]):
+            if p[rid] == '':
+                need(p[net] == '', 'EVIDENCE_READ', f'{p["Relation ID"]} {net}')
+                nets.append(None)
+            else:
+                need(p[net] == by_id[k][p[rid]]['Net'], 'EVIDENCE_READ',
+                     f'{p["Relation ID"]} {net}')
+                nets.append(int(p[net]))
+        if error or None in nets:
+            need(p['Residual'] == '', 'EVIDENCE_READ',
+                 f'{p["Relation ID"]} residual without both sides')
+        else:
+            need(int(p['Residual']) == nets[0] + nets[1], 'EVIDENCE_READ',
+                 f'{p["Relation ID"]} residual')
+        need((p['Status'] == 'blocked') == error, 'EVIDENCE_READ',
+             f'{p["Relation ID"]} blocked')
+    by_pair = {p['Relation ID']: p for p in pairs}
+    for e in events:
+        need(e['Relation ID'] in by_pair, 'EVIDENCE_READ', f'{e["Event ID"]} pair')
+        need(sorted(m['Record ID'] for m in held
+                    if m['Event ID'] == e['Event ID']) ==
+             sorted(m['Record ID'] for m in members
+                    if m['Relation ID'] == e['Relation ID']), 'EVIDENCE_READ',
+             f'{e["Event ID"]} holds its whole pair')
+    sources = {}
+    for r in rows_of('Sources'):
+        src = sources.setdefault(int(r['Source']), {
+            'name': r['Name'], 'hash': r['Hash'], 'chunks': []})
+        src['chunks'].append((int(r['Chunk']), r['Original base64']))
+    for side, src in sources.items():
+        data = base64.b64decode(''.join(c for _, c in sorted(src['chunks'])),
+                                validate=True)
+        need(hashlib.sha256(data).hexdigest() == src['hash'], 'EVIDENCE_READ',
+             f'source {side} fingerprint')
+    need(sorted(sources) == [0, 1, 2, 3], 'EVIDENCE_READ', 'four sources')
+    confirmed = summary['Completeness confirmed'] == 'true'
+
+    expected = (['Summary', 'Sources', None] +
+                (['Summary'] if confirmed else []) +
+                (['Totals'] if totals else []) +
+                (['Pairs'] if pairs else []) +
+                (['Events'] if events else []) + [None, 'Summary'])
+    rows, styles, line, sections = layout(book, evidence, lang, expected)
+    scope, srcs, strip = sections[:3]
+    rest = sections[3:-2]
+    attest = rest.pop(0) if confirmed else None
+    sides = rest.pop(0) if totals else None
+    table = rest.pop(0) if pairs else None
+    taken = rest.pop(0) if events else None
+    sign, claim = sections[-2:]
+    # Every state the sheet says, one word a code across the sheet: the
+    # result's, each pair's state and review, and the strip's main reason.
+    states = []
+
+    # Scope: the seventeen fields in the engine's order, the one-option three
+    # in the card's words.
+    need(len(scope['rows']) == len(IC_SCOPE), 'SCOPE', 'seventeen fields')
+    for key, (_, row) in zip(IC_SCOPE, scope['rows']):
+        need(text(row[0]) and text(row[1]), 'SCOPE', key)
+        if key in IC_ONLY and summary[key] == IC_ONLY[key]:
+            need(row[1][1] not in IC_CODES, 'RAW_CODE', key)
+            seen_words(lang, f'intercompany {key}', [(summary[key], row[1][1])])
+        else:
+            need(row[1][1] == summary[key], 'SCOPE', key)
+
+    # Sources: the four roles, each file and its whole fingerprint, the
+    # SHA-256 of the original bytes.
+    need(len(srcs['rows']) == 8, 'SOURCES', 'four sources')
+    roles = []
+    for side in (0, 1, 2, 3):
+        (_, named), (_, printed) = srcs['rows'][2 * side:2 * side + 2]
+        need(text(named[0]) and text(named[1]) and
+             named[1][1] == sources[side]['name'], 'SOURCES', f'source {side}')
+        roles.append(named[0][1])
+        need(text(printed[1]) and HEX64.match(printed[1][1]) and
+             printed[1][1] == sources[side]['hash'], 'FINGERPRINT',
+             f'source {side}')
+    need(len(set(roles)) == 4, 'SOURCES', 'two sources one name')
+
+    # Alignment: the pairs ready of all, those waiting with the state most of
+    # them stand in, the gap the engine does not compute, then the result's
+    # state.
+    srows = [row for _, row in strip['rows']]
+    agreed = srows.pop(0)
+    ready = sum(1 for p in pairs if p['Status'] == 'ready')
+    need(number(agreed[1]) and agreed[1][1] == ready and text(agreed[2]) and
+         number(agreed[3]) and agreed[3][1] == len(pairs), 'AGREED_COUNT',
+         f'{agreed[1]} of {agreed[3]}')
+    unit_note = srows.pop(0)
+    need(blank(unit_note[0]) and text(unit_note[1]), 'STRIP', 'unit note')
+    waits = srows.pop(0)
+    waiting = [p['Status'] for p in pairs if p['Review'] == 'needs-review']
+    need(number(waits[1]) and waits[1][1] == len(waiting), 'REVIEW_COUNT',
+         f'{waits[1]} != {len(waiting)}')
+    if waiting:
+        reason = srows.pop(0)
+        need(blank(reason[0]) and text(reason[1]) and text(reason[2]),
+             'STRIP', 'main reason')
+        states.append((most_frequent(waiting), reason[2][1]))
+    gap = srows.pop(0)
+    note = srows.pop(0)
+    need(text(gap[0]) and text(gap[1]) and blank(note[0]) and text(note[1]),
+         'GAP', 'not computed')
+    state = srows.pop(0) if srows else [None] * 4
+    need(text(state[0]) and text(state[1]), 'RESULT_STATE',
+         'the result without its state')
+    states.append((summary['Status'], state[1][1]))
+    need(not srows, 'STRIP', f'{len(srows)} rows more')
+
+    # The completeness attestation: the reference and the explanation the
+    # reviewer gave.
+    if confirmed:
+        need(len(attest['rows']) == 2, 'ATTESTATION', 'two rows')
+        (_, ref), (_, why) = attest['rows']
+        need(text(ref[0]) and text(ref[1]) and
+             ref[1][1] == summary['Completeness reference'], 'ATTESTATION',
+             'reference')
+        need(text(why[0]) and text(why[1]) and
+             why[1][1] == summary['Completeness reason'], 'ATTESTATION_REASON',
+             'attestation without its reason')
+
+    # Debit, credit and net by side, each side named as the sources name it.
+    if totals:
+        head, *body = sides['rows']
+        need(all(text(c) and styles.bold(c[2]) for c in head[1][:4]),
+             'TOTALS', 'head')
+        need(len(body) == 2, 'TOTALS', 'two sides')
+        for k, (t, (_, row)) in enumerate(zip(totals, body)):
+            need(text(row[0]) and row[0][1] == roles[k], 'TOTALS',
+                 f'{t["Side"]} named {row[0]}')
+            for c, f in ((1, 'Debit'), (2, 'Credit'), (3, 'Net')):
+                v = Decimal(t[f]) / unit
+                need(number(row[c]) and row[c][1] == v, 'TOTALS',
+                     f'{t["Side"]} {f}: {row[c]} != {v}')
+
+    # Each pair in the evidence's order: its relation, its state and review
+    # in words, then its left net, right net and residual, each named the
+    # same way in every pair, a dash where the engine computes none.
+    figures = 0
+    if pairs:
+        it = iter(table['rows'])
+        labels = []
+        for p in pairs:
+            _, head = next(it, (None, [None] * 4))
+            need(text(head[0]) and head[0][1] == p['Relation ID'], 'PAIR',
+                 f'{p["Relation ID"]} named {head[0]}')
+            need(text(head[1]), 'PAIR_STATE', p['Relation ID'])
+            need(text(head[2]), 'PAIR_REVIEW', p['Relation ID'])
+            need(blank(head[3]), 'PAIR', f'{p["Relation ID"]} more')
+            states.append((p['Status'], head[1][1]))
+            states.append((p['Review'], head[2][1]))
+            said = []
+            for key in ('Left net', 'Right net', 'Residual'):
+                _, row = next(it, (None, [None] * 4))
+                need(blank(row[0]) and text(row[1]), 'PAIR_FIGURE',
+                     f'{p["Relation ID"]} {key}')
+                said.append(row[1][1])
+                if p[key] == '':
+                    need(text(row[2]) and row[2][1] == '—', 'PAIR_FIGURE',
+                         f'{p["Relation ID"]} {key}: {row[2]}')
+                else:
+                    v = Decimal(p[key]) / unit
+                    need(number(row[2]) and row[2][1] == v, 'PAIR_FIGURE',
+                         f'{p["Relation ID"]} {key}: {row[2]} != {v}')
+                    figures += 1
+            labels.append(tuple(said))
+        need(next(it, None) is None, 'PAIRS', 'rows more than the pairs')
+        need(len(set(labels)) == 1 and len(set(labels[0])) == 3,
+             'PAIR_FIGURE', 'each figure named one way')
+    words_of(states, 'state', IC_CODES)
+    seen_words(lang, 'intercompany state', states)
+
+    # Each recorded decision: what it did, the relation and its time, then
+    # the reference and the explanation the reviewer gave.
+    if events:
+        it = iter(taken['rows'])
+        actions = []
+        for e in events:
+            _, head = next(it, (None, [None] * 4))
+            need(text(head[0]), 'DECISION_ACTION', e['Event ID'])
+            actions.append((e['Type'], head[0][1]))
+            need(text(head[1]) and head[1][1] == e['Relation ID'],
+                 'DECISION_PAIR', e['Event ID'])
+            need(text(head[2]) and head[2][1] == e['UTC time'],
+                 'DECISION_TIME', e['Event ID'])
+            _, said = next(it, (None, [None] * 4))
+            need(blank(said[0]), 'DECISIONS', e['Event ID'])
+            need(text(said[1]) and said[1][1] == e['Reference'],
+                 'DECISION_REFERENCE', e['Event ID'])
+            need(text(said[2]) and said[2][1] == e['Note'], 'DECISION_REASON',
+                 f'decision {e["Event ID"]} without its reason')
+        need(next(it, None) is None, 'DECISIONS', 'rows more than the decisions')
+        words_of(actions, 'decision_action', IC_CODES)
+        seen_words(lang, 'intercompany decision', actions)
+
+    check_sign_and_claim(sign, claim, line, lang, summary['Claim'])
+
+    numbers = sum(1 for row in rows for c in row if number(c))
+    expected = 3 + (6 if totals else 0) + figures
+    need(numbers == expected, 'STRAY_NUMBER', f'{numbers} != {expected}')
+    return {'status': summary['Status'], 'rows': len(rows)}
+
+
 PROFILES = {'gl-trial-balance-consistency': check_gl_tb,
             'single-account-clearing': check_clearing,
             'customer-ar-document-comparison': check_ar,
             'bank-cash-movements': check_bank,
             'payment-allocation': check_allocation,
             'supplier-statement-comparison': check_supplier,
-            'tb-financial-position': check_financial}
+            'tb-financial-position': check_financial,
+            'intercompany-ledger': check_intercompany}
 WORKSPACES = {'gl-tb': 'gl-trial-balance-consistency',
               'clearing': 'single-account-clearing',
               'ar': 'customer-ar-document-comparison',
               'bank': 'bank-cash-movements',
               'allocation': 'payment-allocation',
               'supplier': 'supplier-statement-comparison',
-              'financial': 'tb-financial-position'}
+              'financial': 'tb-financial-position',
+              'intercompany': 'intercompany-ledger'}
 
 
 def verify(folder):
@@ -2346,6 +2612,82 @@ def financial_plants(data):
         'أساس العملة', 0, lambda r: r.replace('>وظيفية<', '>functional<', 1))
 
 
+def intercompany_plants(data):
+    """Faults an intercompany workpaper can carry: in its decisions, its
+    pairs, its totals by side, its attestation, its strip, its state and its
+    scope, in a sheet whose three pairs were each approved, undone, rejected,
+    undone and approved again."""
+    sheet = _first_sheet(data)
+
+    def row_edit(label, offset, change):
+        def go(x):
+            n = _cell(x, label) + offset
+            old = _row(x, n)
+            return x.replace(old, change(old), 1)
+        return _edit(data, sheet, go)
+
+    plus = lambda col: lambda r: re.sub(
+        rf'(<c r="{col}\d+"[^>]*><v>)(-?\d+)',
+        lambda m: f'{m.group(1)}{int(m.group(2)) + 1}', r, count=1)
+    drop = lambda col: lambda r: re.sub(rf'<c r="{col}\d+"[^>]*>.*?</c>', '', r)
+    accept, reject = 'اعتمد الزوج كاملًا', 'ارفض الزوج كاملًا'
+    undo = 'تراجع عن قرار الزوج'
+    yield 'decision without its reason', 'DECISION_REASON', row_edit(
+        reject, 1, drop('C'))
+    yield 'rejection said as an approval', 'DECISION_ACTION', row_edit(
+        reject, 0, lambda r: r.replace(f'>{reject}<', f'>{accept}<', 1))
+    yield 'undo of another pair', 'DECISION_PAIR', row_edit(
+        undo, 0, lambda r: r.replace('>R-001<', '>R-002<', 1))
+    yield 'decision reference changed', 'DECISION_REFERENCE', row_edit(
+        undo, 1, lambda r: r.replace('>Synthetic second review<',
+                                     '>Another review<', 1))
+    yield 'decision time changed', 'DECISION_TIME', row_edit(
+        accept, 0, lambda r: r.replace('.000Z<', '.999Z<', 1))
+    yield 'approved pair said as rejected', 'STATE', row_edit(
+        'R-002', 0, lambda r: r.replace('>معتمد<', '>مرفوض<', 1))
+    yield 'pair state as its code', 'RAW_CODE', row_edit(
+        'R-003', 0, lambda r: r.replace('>جاهز للمراجعة<', '>ready<', 1))
+    yield 'residual changed', 'PAIR_FIGURE', row_edit('R-001', 3, plus('C'))
+    yield 'left net changed', 'PAIR_FIGURE', row_edit('R-002', 1, plus('C'))
+    yield 'pair as another pair', 'PAIR', row_edit(
+        'R-003', 0, lambda r: r.replace('>R-003<', '>R-009<', 1))
+    yield 'side credit changed', 'TOTALS', row_edit('الطرف', 1, plus('C'))
+    yield 'side named as the other', 'TOTALS', row_edit(
+        'الطرف', 1, lambda r: r.replace('>دفتر المنشأة اليسرى<',
+                                        '>دفتر المنشأة اليمنى<', 1))
+    yield 'attestation explanation changed', 'ATTESTATION_REASON', row_edit(
+        'تفسير اكتمال معاملات المنشآت', 0,
+        lambda r: r.replace('>All supplied', '>Some', 1))
+    yield 'aligned count changed', 'AGREED_COUNT', row_edit(
+        'تراصف', 0, plus('B'))
+    yield 'result state said as a review', 'STATE', row_edit(
+        'حالة النتيجة', 0,
+        lambda r: r.replace('>متسق ضمن الأدلة المؤكدة<', '>معتمد<', 1))
+    yield 'one-option field as its code', 'RAW_CODE', row_edit(
+        'سياسة التحويل', 0, lambda r: r.replace(
+            '>العملة نفسها بلا تحويل<', '>same-currency-no-conversion<', 1))
+
+
+def intercompany_missing_plants(data):
+    """Faults in a sheet whose left entry has no counterpart: the figure the
+    engine does not compute, and the state that alone says evidence is
+    missing."""
+    sheet = _first_sheet(data)
+
+    def go(x):
+        n = _cell(x, 'R-001') + 2
+        old = _row(x, n)
+        new = re.sub(r'<c r="(C\d+)" t="inlineStr"( s="\d+")><is><t[^>]*>—'
+                     r'</t></is></c>', r'<c r="\1"\2><v>0</v></c>', old)
+        return x.replace(old, new, 1)
+    yield 'missing figure written as zero', 'PAIR_FIGURE', _edit(data, sheet, go)
+
+    def gone(x):
+        return x.replace(_row(x, _cell(x, 'حالة النتيجة')), '', 1)
+    yield 'the result without its state', 'RESULT_STATE', _edit(
+        data, sheet, gone)
+
+
 def page_plants(data):
     """A sheet that needs its break, printed without it: its heading would
     end about a point past its page by the checker's estimate, which only
@@ -2389,6 +2731,10 @@ def self_test(folder):
     found += _self_test_one(folder, pick('allocation-undo'), allocation_plants)
     found += _self_test_one(folder, pick('supplier-decided'), supplier_plants)
     found += _self_test_one(folder, pick('financial-reject'), financial_plants)
+    found += _self_test_one(folder, pick('intercompany-long-decisions'),
+                            intercompany_plants)
+    found += _self_test_one(folder, pick('intercompany-one-counterparty-missing'),
+                            intercompany_missing_plants)
     return found
 
 

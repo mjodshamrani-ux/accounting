@@ -635,7 +635,7 @@ export function IntercompanyWorkspace({
                 (signal) =>
                   workerTask<ArrayBuffer>(
                     'intercompany-export',
-                    { state: state(), result },
+                    { state: state(), result, lang },
                     signal,
                   ),
                 (b) =>

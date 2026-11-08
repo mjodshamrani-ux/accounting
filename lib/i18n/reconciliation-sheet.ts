@@ -305,6 +305,42 @@ export type ReconciliationSheetCopy = {
      * interface's language; the English is the evidence's words exactly. */
     claim: string;
   };
+  /** The intercompany sheet (UX-6(c)), in the workspace's own words (the
+   * screen's catalogue, held equal key by key by a test). */
+  intercompany: {
+    title: string;
+    /** The seventeen scope fields, in the engine's order. */
+    scope: string[];
+    /** The one value each of these fields takes in this family. */
+    only: Record<'currencyBasis' | 'fxPolicy' | 'postingStatus', string>;
+    roles: string[];
+    status: Record<
+      | 'source-error'
+      | 'missing'
+      | 'difference'
+      | 'needs-review'
+      | 'consistent-with-evidence'
+      | 'blocked'
+      | 'ready'
+      | 'timing-evidence'
+      | 'accepted'
+      | 'rejected',
+      string
+    >;
+    completenessTitle: string;
+    completeReference: string;
+    completeNote: string;
+    tableNames: { totals: string };
+    totals: string[];
+    pairs: string;
+    residualFigures: string[];
+    accept: string;
+    reject: string;
+    undo: string;
+    /** The engine's claim as the evidence's Summary sheet writes it, in the
+     * interface's language; the English is the evidence's words exactly. */
+    claim: string;
+  };
 };
 
 export const reconciliationSheetCopy: Record<
@@ -650,6 +686,67 @@ export const reconciliationSheetCopy: Record<
       decisionReason: 'سبب القرار',
       claim:
         'اتساق مع أدلة العرض المقدمة والمؤكدة وحدها؛ لا رأي في أصالة المصدر ولا في اكتمال نظام الموارد ولا في العرض العادل ولا في الامتثال للمعايير المحاسبية',
+    },
+    intercompany: {
+      title: 'أدلة معاملات المنشآت المنفصلة',
+      scope: [
+        'المنشأة اليسرى',
+        'المنشأة اليمنى',
+        'الدفتر الأيسر',
+        'الدفتر الأيمن',
+        'الحساب الأيسر',
+        'الحساب الأيمن',
+        'الأبعاد الكاملة اليسرى',
+        'الأبعاد الكاملة اليمنى',
+        'العملة',
+        'أساس العملة',
+        'سياسة التحويل',
+        'حالة الترحيل',
+        'طبقة الترحيل',
+        'بداية الفترة',
+        'نهاية الفترة',
+        'التاريخ المرجعي',
+        'إصدار السياسة',
+      ],
+      only: {
+        currencyBasis: 'وظيفية',
+        fxPolicy: 'العملة نفسها بلا تحويل',
+        postingStatus: 'مرحّلة',
+      },
+      roles: [
+        'دفتر المنشأة اليسرى',
+        'دفتر المنشأة اليمنى',
+        'أدلة العلاقة المستقلة',
+        'أدلة التوقيت المستقلة',
+      ],
+      status: {
+        'source-error': 'أدلة المصدر غير صالحة',
+        missing: 'أدلة مطلوبة ناقصة',
+        difference: 'فرق معاملة قائم',
+        'needs-review': 'تلزم مراجعة الأزواج كاملة',
+        'consistent-with-evidence': 'متسق ضمن الأدلة المؤكدة',
+        blocked: 'محجوب',
+        ready: 'جاهز للمراجعة',
+        'timing-evidence': 'تفسير توقيت؛ النظير خارج هذه الفترة',
+        accepted: 'معتمد',
+        rejected: 'مرفوض',
+      },
+      completenessTitle: 'جرد المعاملات المورّدة',
+      completeReference: 'مرجع اكتمال معاملات المنشآت',
+      completeNote: 'تفسير اكتمال معاملات المنشآت',
+      tableNames: { totals: 'المدين والدائن والصافي لكل طرف' },
+      totals: ['الطرف', 'المدين', 'الدائن', 'الصافي'],
+      pairs: 'أزواج المعاملات',
+      residualFigures: [
+        'صافي اليسار',
+        'صافي اليمين',
+        'المتبقي، صافي اليسار زائد صافي اليمين',
+      ],
+      accept: 'اعتمد الزوج كاملًا',
+      reject: 'ارفض الزوج كاملًا',
+      undo: 'تراجع عن قرار الزوج',
+      claim:
+        'اتساق معاملات الدفترين المتبادلة المورّدة مع أدلة العلاقة المؤكدة وحدها؛ لا رأي في ترحيل ولا حذف ولا توحيد ولا في أصالة المصدر ولا في اكتمال نظام الموارد',
     },
   },
   en: {
@@ -1004,6 +1101,68 @@ export const reconciliationSheetCopy: Record<
       decisionReason: 'Decision reason',
       claim:
         'Consistency with supplied confirmed presentation evidence only; no source authenticity, ERP completeness, fair-presentation or accounting-standards compliance opinion',
+    },
+    intercompany: {
+      title: 'Intercompany transaction evidence',
+      scope: [
+        'Left entity',
+        'Right entity',
+        'Left ledger',
+        'Right ledger',
+        'Left account',
+        'Right account',
+        'Left complete dimensions',
+        'Right complete dimensions',
+        'Currency',
+        'Currency basis',
+        'FX policy',
+        'Posting status',
+        'Posting layer',
+        'Period start',
+        'Period end',
+        'As of',
+        'Policy version',
+      ],
+      only: {
+        currencyBasis: 'Functional',
+        fxPolicy: 'Same currency, no conversion',
+        postingStatus: 'Posted',
+      },
+      roles: [
+        'Left entity ledger',
+        'Right entity ledger',
+        'Independent relationship evidence',
+        'Independent timing evidence',
+      ],
+      status: {
+        'source-error': 'Source evidence is invalid',
+        missing: 'Required evidence is missing',
+        difference: 'A transaction difference remains',
+        'needs-review': 'Whole pair review required',
+        'consistent-with-evidence': 'Consistent within confirmed evidence',
+        blocked: 'Blocked',
+        ready: 'Ready for review',
+        'timing-evidence':
+          'Timing explanation; counterpart remains outside this period',
+        accepted: 'Accepted',
+        rejected: 'Rejected',
+      },
+      completenessTitle: 'Supplied transaction inventory',
+      completeReference: 'Intercompany completeness reference',
+      completeNote: 'Intercompany completeness explanation',
+      tableNames: { totals: 'Debit, credit and net by side' },
+      totals: ['Side', 'Debit', 'Credit', 'Net'],
+      pairs: 'Counterpart pairs',
+      residualFigures: [
+        'Left net',
+        'Right net',
+        'Residual, left net plus right net',
+      ],
+      accept: 'Approve whole pair',
+      reject: 'Reject whole pair',
+      undo: 'Undo pair decision',
+      claim:
+        'Consistency of supplied reciprocal ledger transactions with confirmed relationship evidence only; no posting, elimination, consolidation, source authenticity or ERP completeness opinion',
     },
   },
 };

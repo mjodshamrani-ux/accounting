@@ -1,6 +1,6 @@
 // UX-6: one mutant for each guard the reconciliation sheet adds, as the
 // design record declares them (docs/audits/UX-6-RECONCILIATION-SHEET.ar.md,
-// section 7), GL/TB in 6(a), the case workspaces in 6(b) and the trial balance and financial position in 6(c). Each mutant changes one product file at one anchor in a private
+// section 7), GL/TB in 6(a), the case workspaces in 6(b), and the trial balance and financial position and intercompany in 6(c). Each mutant changes one product file at one anchor in a private
 // copy of the tree; it is killed only when a test fails by an assertion
 // (DEV-22), never by a syntax error, a crash or a timeout.
 //
@@ -843,6 +843,161 @@ const mutations = [
     'lib/i18n/reconciliation-sheet.ts',
     "'Consistency with supplied confirmed presentation evidence only;",
     "'Consistency with supplied presentation evidence only;",
+  ],
+  // UX-6(c), intercompany. The worker writes the sheet in Arabic whatever
+  // the page asked.
+  [
+    'intercompany-worker-language-ignored',
+    'lib/reconciliation/worker.ts',
+    'exportIntercompanyWorkpaper(payload.state, payload.result, payload.lang)',
+    "exportIntercompanyWorkpaper(payload.state, payload.result, 'ar')",
+  ],
+  // The sheet is written in English whatever the language asked.
+  [
+    'intercompany-language-not-followed',
+    'lib/reconciliation/intercompany-sheet.ts',
+    'intercompanySheet(result, language));',
+    "intercompanySheet(result, 'en'));",
+  ],
+  // A one-option scope field written as the engine's code.
+  [
+    'intercompany-scope-code-written',
+    'lib/reconciliation/intercompany-sheet.ts',
+    '? t.only[key as keyof typeof ONLY]\n      : v;',
+    '? v\n      : v;',
+  ],
+  // Each source under another's role.
+  [
+    'intercompany-sources-swapped',
+    'lib/reconciliation/intercompany-sheet.ts',
+    'role: t.roles[i],',
+    'role: t.roles[3 - i],',
+  ],
+  // The attestation written though it was never given.
+  [
+    'intercompany-attestation-unconfirmed-written',
+    'lib/reconciliation/intercompany-sheet.ts',
+    'rows: result.completeness.confirmed\n',
+    'rows: result.completeness\n',
+  ],
+  // The attestation's reference written where its explanation stands.
+  [
+    'intercompany-attestation-note-dropped',
+    'lib/reconciliation/intercompany-sheet.ts',
+    'value: value(result.completeness.note),',
+    'value: value(result.completeness.reference),',
+  ],
+  // Each side's totals under the other side's name.
+  [
+    'intercompany-sides-swapped',
+    'lib/reconciliation/intercompany-sheet.ts',
+    "{ text: t.roles[i], style: 'label' },",
+    "{ text: t.roles[1 - i], style: 'label' },",
+  ],
+  // A side's net written where its credit stands.
+  [
+    'intercompany-net-for-credit',
+    'lib/reconciliation/intercompany-sheet.ts',
+    'money(s.credit),',
+    'money(s.net),',
+  ],
+  // The totals by side left to break between the two sides.
+  [
+    'intercompany-totals-split',
+    'lib/reconciliation/intercompany-sheet.ts',
+    '...(sides.length ? { blocks: [sides.length] } : {}),',
+    '',
+  ],
+  // A pair printed apart from its figures.
+  [
+    'intercompany-pair-split',
+    'lib/reconciliation/intercompany-sheet.ts',
+    'blocks: result.pairs.map(() => 4),',
+    'blocks: result.pairs.flatMap(() => [1, 3]),',
+  ],
+  // Each pair given the result's state instead of its own.
+  [
+    'intercompany-pair-state-of-result',
+    'lib/reconciliation/intercompany-sheet.ts',
+    'value(status(p.status)),',
+    'value(status(result.status)),',
+  ],
+  // A pair's review written as the engine's code.
+  [
+    'intercompany-pair-review-as-code',
+    'lib/reconciliation/intercompany-sheet.ts',
+    'value(status(p.review)),',
+    'value(p.review),',
+  ],
+  // A figure the engine does not compute written as nil.
+  [
+    'intercompany-missing-figure-as-zero',
+    'lib/reconciliation/intercompany-sheet.ts',
+    "minor === null || minor === undefined ? value('—') : money(minor);",
+    'money(minor ?? 0);',
+  ],
+  // The left net written where the right net stands, and where the residual
+  // stands.
+  [
+    'intercompany-right-net-of-left',
+    'lib/reconciliation/intercompany-sheet.ts',
+    'figure(p.right?.net)]',
+    'figure(p.left?.net)]',
+  ],
+  [
+    'intercompany-residual-of-left',
+    'lib/reconciliation/intercompany-sheet.ts',
+    'figure(p.residual)]',
+    'figure(p.left?.net)]',
+  ],
+  // The result's state left out from under the strip.
+  [
+    'intercompany-state-dropped',
+    'lib/reconciliation/intercompany-sheet.ts',
+    'more: [\n          {\n            label: alignmentStripCopy[language].state,\n            value: status(result.status),\n          },\n        ],',
+    'more: [],',
+  ],
+  // The strip's main reason as the engine's code.
+  [
+    'intercompany-strip-reason-as-code',
+    'lib/reconciliation/intercompany-sheet.ts',
+    '{ reason: status, state: status(result.status) },',
+    '{ state: status(result.status) },',
+  ],
+  // A decision written without the explanation the reviewer gave.
+  [
+    'intercompany-decision-reason-dropped',
+    'lib/reconciliation/intercompany-sheet.ts',
+    '[null, value(e.reference), value(e.note)],',
+    '[null, value(e.reference), null],',
+  ],
+  // Every decision said as an approval.
+  [
+    'intercompany-decision-said-as-accept',
+    'lib/reconciliation/intercompany-sheet.ts',
+    'value(t[e.type])',
+    'value(t.accept)',
+  ],
+  // A decision named by its own number instead of its pair's.
+  [
+    'intercompany-decision-pair-dropped',
+    'lib/reconciliation/intercompany-sheet.ts',
+    'value(e.relationId), value(e.at)]',
+    'value(e.id), value(e.at)]',
+  ],
+  // A word of the sheet that is not the screen's, and a claim that is not
+  // the evidence's.
+  [
+    'intercompany-word-off-screen',
+    'lib/i18n/reconciliation-sheet.ts',
+    "pairs: 'Counterpart pairs',",
+    "pairs: 'Pairs',",
+  ],
+  [
+    'intercompany-claim-off-evidence',
+    'lib/i18n/reconciliation-sheet.ts',
+    "'Consistency of supplied reciprocal ledger transactions with confirmed relationship evidence only;",
+    "'Consistency of supplied reciprocal ledger transactions only;",
   ],
 ];
 

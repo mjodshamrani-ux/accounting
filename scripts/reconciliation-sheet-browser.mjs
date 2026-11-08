@@ -908,3 +908,170 @@ export async function financialSheetSaysScreen(page, { file, lang }) {
   if (events.length) blankRow(taken + 1 + 2 * events.length, 'the decisions');
   return { rows: grid.length, lines: count, decisions: events.length };
 }
+
+const INTERCOMPANY_WORDS = {
+  ar: {
+    state: 'حالة النتيجة',
+    decisions: 'القرارات المسجلة',
+    complete: 'راجعت اكتمال المعاملات والعلاقات وأدلة التوقيت المورّدة.',
+    completeReference: 'مرجع اكتمال معاملات المنشآت',
+    completeNote: 'تفسير اكتمال معاملات المنشآت',
+    totals: 'المدين والدائن والصافي لكل طرف',
+  },
+  en: {
+    state: 'Result status',
+    decisions: 'Recorded decisions',
+    complete:
+      'I reviewed the complete supplied transactions, relationships and timing evidence.',
+    completeReference: 'Intercompany completeness reference',
+    completeNote: 'Intercompany completeness explanation',
+    totals: 'Debit, credit and net by side',
+  },
+};
+
+/**
+ * UX-6(c), intercompany: the strip as the page draws it, and under it the
+ * result's state as the page's heading writes it; the attestation as the
+ * page holds it, once given; debit, credit and net by side as the page's
+ * table has them; every pair the page lists, by its heading's relation,
+ * state and review, then its three figures; and every decision in the
+ * page's history, with the relation, its time, the reference and the
+ * explanation. Each section holds what the page shows and no more.
+ */
+export async function intercompanySheetSaysScreen(page, { file, lang }) {
+  const grid = await readSheet(file, lang);
+  const w = page.locator('[data-intercompany-workspace]');
+  await stripSaysScreen(grid, w);
+  const words = INTERCOMPANY_WORDS[lang];
+  const blankRow = (at, what) =>
+    assert.ok(
+      (grid[at] ?? [null]).every((c) => c === null),
+      `${what} and no more`,
+    );
+  // A section by the evidence it stands in, after a given row.
+  const section = (evidence, after = -1) =>
+    grid.findIndex(
+      (r, i) => i > after && r[0] !== null && r[1] === null && r[3] === evidence,
+    );
+  // The result's state, the alignment's last row, as the heading says it.
+  const heading = (
+    await w.locator('[data-intercompany-status]').innerText()
+  ).trim();
+  const state = grid.findIndex((r) => r[0] === words.state);
+  assert.ok(state >= 0, "the result's state");
+  assert.deepEqual(
+    grid[state].slice(0, 2),
+    [words.state, heading],
+    "the result's state as the page's heading writes it",
+  );
+  blankRow(state + 1, 'the alignment');
+  // The attestation, as the page holds it, once given.
+  const attest = grid.findIndex(
+    (r, i) =>
+      i > state &&
+      r[1] === null &&
+      r[3] === 'Summary' &&
+      grid[i + 1]?.[0] === words.completeReference,
+  );
+  if (await w.getByLabel(words.complete, { exact: true }).isChecked()) {
+    assert.ok(attest >= 0, 'the attestation');
+    for (const [k, label] of [
+      [1, words.completeReference],
+      [2, words.completeNote],
+    ])
+      assert.deepEqual(
+        grid[attest + k].slice(0, 2),
+        [label, await w.getByLabel(label, { exact: true }).inputValue()],
+        label,
+      );
+    blankRow(attest + 3, 'the attestation');
+  } else assert.equal(attest, -1, 'no attestation, no section');
+  // Debit, credit and net by side: the page's table, head and rows; none
+  // where the page draws none.
+  const sides = section('Totals');
+  const totals = w.locator(`table[aria-label="${words.totals}"]`);
+  if (!(await totals.count())) assert.equal(sides, -1, 'no totals, no table');
+  else {
+    assert.ok(sides >= 0, 'debit, credit and net by side');
+    assert.equal(grid[sides][0], words.totals, 'the totals heading');
+    const head = (await totals.locator('thead th').allTextContents()).map((x) =>
+      x.trim(),
+    );
+    assert.deepEqual(grid[sides + 1], head, 'the totals head');
+    const body = await totals
+      .locator('tbody tr')
+      .evaluateAll((rows) =>
+        rows.map((r) =>
+          Array.from(r.querySelectorAll('th,td')).map((c) =>
+            c.textContent.trim(),
+          ),
+        ),
+      );
+    body.forEach((cells, k) =>
+      cells.forEach((text, j) =>
+        same(text, grid[sides + 2 + k][j], `totals row ${k + 1} cell ${j + 1}`),
+      ),
+    );
+    blankRow(sides + 2 + body.length, 'the totals');
+  }
+  // Every pair: «relation · state · review», then its three figures.
+  const items = w.locator('section[data-intercompany-pair]');
+  const count = await items.count();
+  const listed = Number(
+    (await w.locator('h3', { hasText: /\(\d+\)$/u }).first().innerText())
+      .trim()
+      .match(/\((\d+)\)$/u)[1],
+  );
+  assert.equal(count, listed, 'the page lists every pair');
+  const pairs = section('Pairs');
+  if (!count) assert.equal(pairs, -1, 'no pair, no table');
+  else assert.ok(pairs >= 0, 'the pairs');
+  for (let k = 0; k < count; k++) {
+    const item = items.nth(k);
+    const parts = (await item.locator('h3').textContent()).trim().split(' · ');
+    const at = pairs + 1 + 4 * k;
+    assert.deepEqual(
+      grid[at],
+      [...parts, null],
+      `pair ${parts[0]}: its relation, state and review`,
+    );
+    const own = await figuresIn(item.locator(':scope > p'));
+    assert.equal(own.length, 3, `pair ${parts[0]}: three figures`);
+    own.forEach(([label, amount], j) => {
+      assert.equal(grid[at + 1 + j][0], null, `pair ${parts[0]}: ${label}`);
+      assert.equal(grid[at + 1 + j][1], label, `pair ${parts[0]}: ${label}`);
+      same(amount, grid[at + 1 + j][2], `pair ${parts[0]}: ${label}`);
+    });
+  }
+  if (count) blankRow(pairs + 1 + 4 * count, 'the pairs');
+  // Every decision in the page's history: what it did, the relation and
+  // its time, then the reference and the explanation.
+  const events = await w
+    .locator('[data-evidence-section="events"] tbody tr')
+    .evaluateAll((rows) =>
+      rows.map((r) =>
+        Array.from(r.querySelectorAll('th,td')).map((c) => c.textContent.trim()),
+      ),
+    );
+  const taken = section('Events');
+  if (!events.length) assert.equal(taken, -1, 'no decision, no table');
+  else {
+    assert.ok(taken >= 0, 'the recorded decisions');
+    assert.equal(grid[taken][0], words.decisions, 'the decisions heading');
+  }
+  events.forEach(([type, relation, time, reference, reason], k) => {
+    const row = taken + 1 + 2 * k;
+    assert.deepEqual(
+      grid[row].slice(0, 3),
+      [type, relation, time],
+      `decision ${k + 1}: what it did, the pair and its time`,
+    );
+    assert.deepEqual(
+      grid[row + 1].slice(0, 3),
+      [null, reference, reason],
+      `decision ${k + 1}: the reference and the explanation given`,
+    );
+  });
+  if (events.length) blankRow(taken + 1 + 2 * events.length, 'the decisions');
+  return { rows: grid.length, pairs: count, decisions: events.length };
+}
