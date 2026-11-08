@@ -1,6 +1,6 @@
-// UX-6(a): one mutant for each guard the reconciliation sheet adds, as the
+// UX-6: one mutant for each guard the reconciliation sheet adds, as the
 // design record declares them (docs/audits/UX-6-RECONCILIATION-SHEET.ar.md,
-// section 7). Each mutant changes one product file at one anchor in a private
+// section 7), GL/TB in 6(a) and clearing in 6(b). Each mutant changes one product file at one anchor in a private
 // copy of the tree; it is killed only when a test fails by an assertion
 // (DEV-22), never by a syntax error, a crash or a timeout.
 //
@@ -162,8 +162,113 @@ const mutations = [
   [
     'worker-language-ignored',
     'lib/reconciliation/worker.ts',
-    '        payload.lang,\n      );',
-    "        'ar',\n      );",
+    'exportGlTbWorkpaper(\n        payload.state,\n        payload.result,\n        payload.lang,',
+    "exportGlTbWorkpaper(\n        payload.state,\n        payload.result,\n        'ar',",
+  ],
+  // UX-6(b), clearing. The worker ignores the language for clearing.
+  [
+    'clearing-worker-language-ignored',
+    'lib/reconciliation/worker.ts',
+    'exportClearingWorkpaper(\n        payload.state,\n        payload.result,\n        payload.lang,',
+    "exportClearingWorkpaper(\n        payload.state,\n        payload.result,\n        'ar',",
+  ],
+  // The clearing sheet is written in English whatever the language asked.
+  [
+    'clearing-language-not-followed',
+    'lib/reconciliation/clearing-sheet.ts',
+    'clearingSheet(state, result, language),',
+    "clearingSheet(state, result, 'en'),",
+  ],
+  // A decision is written without the reason the reviewer gave.
+  [
+    'decision-reason-dropped',
+    'lib/reconciliation/clearing-sheet.ts',
+    "{ text: event.note, style: 'value' },",
+    "{ text: t.note, style: 'value' },",
+  ],
+  // A reopen is said as a clear.
+  [
+    'decision-action-swapped',
+    'lib/reconciliation/clearing-sheet.ts',
+    "event.action === 'clear' ? 'human-decision' : 'reopened',",
+    "event.action === 'clear' ? 'human-decision' : 'human-decision',",
+  ],
+  // Members are written as the engine's row ids, not the postings.
+  [
+    'members-as-ids',
+    'lib/reconciliation/clearing-sheet.ts',
+    'ids.map((id) => posting.get(id) ?? id)',
+    'ids.map((id) => id)',
+  ],
+  // Every group is listed for review, cleared ones too.
+  [
+    'cleared-listed-for-review',
+    'lib/reconciliation/clearing-sheet.ts',
+    "          .filter((c) => c.status === 'review')\n          .map((c) => [",
+    "          .filter((c) => c.status !== '')\n          .map((c) => [",
+  ],
+  // A group with no reference is written with an empty reference.
+  [
+    'no-reference-unsaid',
+    'lib/reconciliation/clearing-sheet.ts',
+    '{ text: c.reference || t.missing, style: \'value\' },',
+    '{ text: c.reference || t.reference, style: \'value\' },',
+  ],
+  // A group's reason is written as the engine's code.
+  [
+    'reason-as-code',
+    'lib/reconciliation/clearing-sheet.ts',
+    "            { text: reason(c.reason), style: 'value' },",
+    "            { text: c.reason, style: 'value' },",
+  ],
+  // Cleared movements are counted as groups.
+  [
+    'cleared-counted-as-groups',
+    'lib/reconciliation/clearing-sheet.ts',
+    '.reduce((n, c) => n + c.ids.length, 0),',
+    '.reduce((n) => n + 1, 0),',
+  ],
+  // Reading errors are not counted.
+  [
+    'errors-uncounted',
+    'lib/reconciliation/clearing-sheet.ts',
+    "count: result.inventory.filter((r) => r.kind === 'error')",
+    "count: result.inventory.filter((r) => r.kind === 'none')",
+  ],
+  // A text longer than its room is not wrapped.
+  [
+    'wrap-dropped',
+    'lib/reconciliation/reconciliation-sheet.ts',
+    '      wrapped.add(`${r}:${c}`);',
+    '      void r;',
+  ],
+  // A wrapped text's row is not given its height.
+  [
+    'row-height-dropped',
+    'lib/reconciliation/reconciliation-sheet.ts',
+    "`<row r=\"${r + 1}\"${height ? ` ht=\"${height}\" customHeight=\"1\"` : ''}>",
+    "`<row r=\"${r + 1}\"${height ? '' : ''}>",
+  ],
+  // A wrapped text's row is given one line's height.
+  [
+    'row-one-line',
+    'lib/reconciliation/reconciliation-sheet.ts',
+    'lineCount(cell.text, capacity) * LINE[cell.style] + 2,',
+    'LINE[cell.style] + 2,',
+  ],
+  // A text's room runs on past a cell that holds a value.
+  [
+    'room-past-value',
+    'lib/reconciliation/reconciliation-sheet.ts',
+    "        (!cells[next] ||\n          ('text' in cells[next]! && !(cells[next] as { text: string }).text));",
+    '        true;',
+  ],
+  // The source is named by its fingerprint's file but given another hash.
+  [
+    'clearing-source-hash',
+    'lib/reconciliation/clearing-sheet.ts',
+    'hash: result.sourceHash',
+    'hash: result.context',
   ],
 ];
 

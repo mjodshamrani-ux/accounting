@@ -34,7 +34,9 @@ const same = (screen, sheet, what) => {
   else assert.equal(screen, sheet, what);
 };
 
-export async function sheetSaysScreen(page, { file, lang, result, table }) {
+/** The first sheet of a download as rows of four cells, after its place,
+ * its name and its direction are checked. */
+export async function readSheet(file, lang) {
   const book = new ExcelJS.Workbook();
   await book.xlsx.readFile(file);
   const sheet = book.worksheets[0];
@@ -49,9 +51,18 @@ export async function sheetSaysScreen(page, { file, lang, result, table }) {
   sheet.eachRow({ includeEmpty: true }, (row, n) => {
     rows[n - 1] = [1, 2, 3, 4].map((c) => cellValue(row.getCell(c)));
   });
-  const grid = Array.from(rows, (r) => r ?? [null, null, null, null]);
+  return Array.from(rows, (r) => r ?? [null, null, null, null]);
+}
 
-  // The strip: each cell as the page draws it.
+export async function sheetSaysScreen(page, { file, lang, result, table }) {
+  const grid = await readSheet(file, lang);
+  await stripSaysScreen(grid, result);
+  await tableSaysScreen(grid, table);
+  return { rows: grid.length };
+}
+
+/** The strip: each cell's label, value and notes as the page draws them. */
+export async function stripSaysScreen(grid, result) {
   const strip = result.locator('[data-alignment-strip]');
   for (const name of ['agreed', 'review', 'gap']) {
     const cell = strip.locator(`[data-strip-cell="${name}"]`);
@@ -71,8 +82,10 @@ export async function sheetSaysScreen(page, { file, lang, result, table }) {
       said.push(grid[i][2] === null ? `${grid[i][1]}` : `${grid[i][1]}: ${grid[i][2]}`);
     assert.equal(said.join(' · '), note, `${name}: notes`);
   }
+}
 
-  // The table: each row as the page draws it.
+/** A table the sheet repeats whole: its head, then each row as drawn. */
+export async function tableSaysScreen(grid, table) {
   const head = await table.locator('thead th').allInnerTexts();
   const top = grid.findIndex((r) => r[0] === head[0].trim());
   assert.ok(top >= 0, `the sheet has the table «${head[0]}»`);
@@ -89,5 +102,75 @@ export async function sheetSaysScreen(page, { file, lang, result, table }) {
       same(text, grid[top + 1 + i][j], `table row ${i + 1} cell ${j + 1}`),
     );
   }
-  return { rows: grid.length };
+}
+
+/**
+ * UX-6(b), clearing: the groups the page shows as waiting for review, in its
+ * order, are the sheet's review table: members, reference, net and the reason
+ * the page writes under the basis; and the sheet's decisions are those the
+ * run recorded, each with the reviewer's reason. The words for each heading
+ * come from the page's own table head.
+ */
+export async function clearingSheetSaysScreen(
+  page,
+  { file, lang, result, decisions },
+) {
+  const grid = await readSheet(file, lang);
+  await stripSaysScreen(grid, result);
+  const table = result.locator('table').filter({
+    has: page.locator('[data-testid="clearing-case"]'),
+  });
+  const head = (await table.locator('thead th').allInnerTexts()).map((h) =>
+    h.trim(),
+  );
+  const waiting = table
+    .locator('[data-testid="clearing-case"]')
+    .filter({ has: page.locator('[data-status="review"]') });
+  const count = await waiting.count();
+  const top = grid.findIndex((r) => r[0] === head[0]);
+  if (!count) {
+    assert.equal(top, -1, 'no group waits, so no review table');
+  } else {
+    assert.ok(top >= 0, `the sheet has the table «${head[0]}»`);
+    assert.deepEqual(
+      grid[top],
+      [head[0], head[1], head[2], head[4]],
+      'the review table head: members, reference, net, the basis column',
+    );
+    for (let i = 0; i < count; i++) {
+      const cells = waiting.nth(i).locator('th, td');
+      const [members, reference, net] = (await cells.allInnerTexts()).map(
+        (t) => t.trim(),
+      );
+      const reason = (
+        await cells.nth(4).locator('.muted').innerText()
+      ).trim();
+      const row = grid[top + 1 + i];
+      assert.equal(row[0], members, `review row ${i + 1}: members`);
+      assert.equal(row[1], reference, `review row ${i + 1}: reference`);
+      same(net, row[2], `review row ${i + 1}: net`);
+      assert.equal(row[3], reason, `review row ${i + 1}: reason`);
+    }
+    assert.ok(
+      grid[top + 1 + count].every((c) => c === null),
+      'the review table holds the waiting groups and no more',
+    );
+  }
+  const at = grid.findIndex((r) => r[0] === decisions.head);
+  if (!decisions.rows.length) assert.equal(at, -1, 'no decision, no table');
+  else {
+    assert.ok(at >= 0, `the sheet has the decisions «${decisions.head}»`);
+    decisions.rows.forEach((d, i) =>
+      assert.deepEqual(
+        grid[at + 1 + i].slice(0, 3),
+        d,
+        `decision ${i + 1}: what it did, its members, the reason given`,
+      ),
+    );
+    assert.ok(
+      grid[at + 1 + decisions.rows.length].every((c) => c === null),
+      'the recorded decisions and no more',
+    );
+  }
+  return { rows: grid.length, waiting: count };
 }

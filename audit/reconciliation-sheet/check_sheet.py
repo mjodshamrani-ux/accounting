@@ -1,4 +1,5 @@
-"""Independent check of the reconciliation sheet (UX-6) in GL/TB workpapers.
+"""Independent check of the reconciliation sheet (UX-6) in GL/TB and
+clearing workpapers.
 
 Reads each workpaper with zipfile and ElementTree only, with no product code,
 and checks, against the evidence sheets as this checker reads them:
@@ -17,7 +18,18 @@ and checks, against the evidence sheets as this checker reads them:
   difference with its sign and how many more, every balance at the
   currency's precision, and what is missing;
 - every row carries something (the giving rule): a heading, a value, a
-  fingerprint or a line to sign on; the sign-off lines are empty.
+  fingerprint or a line to sign on; the sign-off lines are empty;
+- in a clearing workpaper (UX-6(b)), read from its Movements, Cases,
+  Membership, Source inventory and Decisions sheets: the scope and the
+  source's fingerprint as its Summary gives them; the strip's counts of
+  cleared and waiting groups, its main reason in the words the review table
+  gives that reason, the account net; the valid, cleared and error counts;
+  each group left for review with its members as postings, its reference,
+  its net and its reason in words, one word a reason; and each recorded
+  decision in order with its members and the reason the reviewer gave,
+  one word an action, the reopen said as the group it left in review.
+
+Which checks apply is read from the evidence's own Summary (Domain).
 
 Usage: check_sheet.py FOLDER            check every case in FOLDER/cases.json
        check_sheet.py --self-test FOLDER  plant faults and require each found
@@ -29,8 +41,10 @@ import base64
 import hashlib
 import io
 import json
+import math
 import re
 import sys
+import unicodedata
 import zipfile
 from decimal import Decimal
 from pathlib import Path
@@ -128,6 +142,19 @@ class Book:
         return [[grid.get(r, {}).get(i) for i in range(width)]
                 for r in range(last + 1)]
 
+    def geometry(self, name):
+        """Column widths, and each row's written height (0 if none)."""
+        root = ET.fromstring(self.parts[self.part(name)])
+        widths = {}
+        for col in root.findall('s:cols/s:col', NS):
+            for i in range(int(col.get('min')), int(col.get('max')) + 1):
+                widths[i - 1] = float(col.get('width'))
+        heights = {}
+        for row in root.findall('s:sheetData/s:row', NS):
+            if row.get('customHeight') in ('1', 'true'):
+                heights[int(row.attrib['r']) - 1] = float(row.get('ht', '0'))
+        return widths, heights
+
     def table(self, name):
         """An evidence sheet as text by header, as its own reader sees it."""
         out = []
@@ -170,6 +197,17 @@ class Styles:
     def bold(self, style):
         font = self.lists['fonts'][int(self.lists['cellXfs'][style].get('fontId', '0'))]
         return font.find('s:b', NS) is not None
+
+    def font(self, style):
+        font = self.lists['fonts'][int(self.lists['cellXfs'][style].get('fontId', '0'))]
+        size = font.find('s:sz', NS)
+        name = font.find('s:name', NS)
+        return (float(size.get('val')) if size is not None else 11.0,
+                name.get('val') if name is not None else 'Calibri')
+
+    def wraps(self, style):
+        align = self.lists['cellXfs'][style].find('s:alignment', NS)
+        return align is not None and align.get('wrapText') in ('1', 'true')
 
     def line(self, style):
         xf = self.lists['cellXfs'][style]
@@ -219,35 +257,98 @@ def check_case(folder, case, lang):
     sheet_xml = book.parts[part].decode()
     need(' t="s"' not in sheet_xml, 'SHARED_STRING')
     need(('rightToLeft="1"' in sheet_xml) == (lang == 'ar'), 'DIRECTION')
+    domain = {r[0]: r[1] for r in evidence.table('Summary')[1:]}.get('Domain')
+    need(WORKSPACES[case['workspace']] == domain, 'MANIFEST', str(domain))
     return check_content(evidence, book, lang)
 
 
 def check_content(evidence, book, lang):
+    """The sheet's figures against the evidence, by the workspace the
+    evidence names in its own Summary."""
     summary = {r[0]: r[1] for r in evidence.table('Summary')[1:]}
-    decimals = int(summary['Decimals'])
-    unit = Decimal(10) ** decimals
-    balances = {r[0]: r[1:4] for r in evidence.table('Balances')[1:]}
-    need(list(balances) == FIELDS, 'EVIDENCE_READ', 'Balances')
-    sources = {}
-    for r in evidence.table('Sources')[1:]:
-        s = sources.setdefault(r[0], {'name': r[2], 'hash': r[3], 'chunks': []})
-        s['chunks'].append((int(r[5]), r[6]))
-    for side, s in sources.items():
-        data = base64.b64decode(''.join(c for _, c in sorted(s['chunks'])),
-                                validate=True)
-        need(hashlib.sha256(data).hexdigest() == s['hash'], 'EVIDENCE_READ',
-             f'source {side} fingerprint')
-    missing = json.loads(summary['Missing'])
+    profile = PROFILES.get(summary.get('Domain'))
+    need(profile is not None, 'EVIDENCE_READ', f'domain {summary.get("Domain")}')
+    return profile(evidence, book, lang, summary)
 
+
+text = lambda c: c is not None and c[0] == 'text' and c[1] != ''
+number = lambda c: c is not None and c[0] == 'number'
+blank = lambda c: c is None or (c[0] == 'text' and c[1] == '') or c[0] == 'empty'
+
+
+def shown(raw):
+    """A stored text as a spreadsheet shows it (OOXML ST_Xstring)."""
+    return re.sub(r'_x([0-9a-fA-F]{4})_', lambda m: chr(int(m.group(1), 16)), raw)
+
+
+def text_units(text):
+    """Characters counted by width: a wide one (CJK, an emoji, beyond the
+    basic plane) two, a combining mark none, any other one."""
+    n = 0
+    for ch in text:
+        if unicodedata.category(ch).startswith('M'):
+            continue
+        cp = ord(ch)
+        n += 2 if (cp > 0xffff or 0x1100 <= cp <= 0x115f or
+                   0x2e80 <= cp <= 0xa4cf or 0xac00 <= cp <= 0xd7a3 or
+                   0xf900 <= cp <= 0xfaff or 0xff00 <= cp <= 0xff60) else 1
+    return n
+
+
+def lines_needed(text, capacity):
+    count = 0
+    for paragraph in text.split('\n'):
+        count += 1
+        line = 0
+        for word in paragraph.split(' '):
+            w = text_units(word)
+            if line and line + 1 + w <= capacity:
+                line += 1 + w
+                continue
+            if line:
+                count += 1
+            extra = max(0, math.ceil(w / capacity) - 1)
+            count += extra
+            line = w - extra * capacity
+    return count
+
+
+def check_nothing_cut(book, rows, styles):
+    """No text is cut: one that cannot run on whole into the empty cells
+    after it wraps in its own cell, on a row written tall enough for its
+    lines. Estimated more leniently than the sheet writes it (a character
+    nine tenths of a digit, a line 1.25 of the font's size), so only a text
+    that cannot fit is a finding."""
+    widths, heights = book.geometry(book.names[0])
+    for r, row in enumerate(rows):
+        for c, cell in enumerate(row):
+            if not text(cell):
+                continue
+            room = widths.get(c, 0)
+            k = c + 1
+            while k < len(widths) and (k >= len(row) or blank(row[k])):
+                room += widths.get(k, 0)
+                k += 1
+            size, family = styles.font(cell[2])
+            scale = size / 11 * (6.4 / 7 * 11 / 8 if 'Courier' in family else 1) * 0.9
+            said = shown(cell[1])
+            if '\n' not in said and text_units(said) * scale <= room - 1:
+                continue
+            ref = f'row {r + 1} column {c + 1}'
+            need(styles.wraps(cell[2]), 'CUT', f'{ref} runs past its room')
+            capacity = max(1, math.floor(widths.get(c, 1) / scale) - 1)
+            tall = lines_needed(said, capacity) * size * 1.25
+            need(heights.get(r, 0) >= tall, 'CUT',
+                 f'{ref} needs {tall:.0f} points, has {heights.get(r, 0)}')
+
+
+def layout(book, evidence, lang, expected):
+    """Title, then sections, each opened by a bold first cell with nothing in
+    the second, naming the evidence sheet behind it; every row under a
+    section carries something (the giving rule)."""
     rows = book.rows(book.names[0])
     styles = book.styles
-    text = lambda c: c is not None and c[0] == 'text' and c[1] != ''
-    number = lambda c: c is not None and c[0] == 'number'
-    blank = lambda c: c is None or (c[0] == 'text' and c[1] == '') or c[0] == 'empty'
     line = lambda c: c is not None and c[0] == 'empty' and styles.line(c[2])
-
-    # Title and subtitle; then sections, each opened by a bold first cell
-    # with nothing in the second.
     need(text(rows[0][0]) and rows[0][0][1] == NAMES[lang], 'TITLE')
     need(text(rows[1][0]), 'TITLE')
     sections, current = [], None
@@ -263,19 +364,50 @@ def check_content(evidence, book, lang):
         else:
             need(current is not None, 'GIVING', f'row {i + 1} before a section')
             current['rows'].append((i, row))
-    need([s['evidence'] for s in sections] ==
-         ['Summary', 'Sources', None, 'Balances', None, 'Summary'],
+    need([s['evidence'] for s in sections] == expected,
          'SECTIONS', str([s['evidence'] for s in sections]))
-    scope, srcs, strip, table, sign, claim = sections
-
-    # The giving rule: every row under a section carries a value beside its
-    # label, or is a note row with its words in the second cell, a table
-    # head, a sign-off row or the claim.
+    check_nothing_cut(book, rows, styles)
+    claim = sections[-1]
     for s in sections:
         for i, row in s['rows']:
             carries = any(text(c) or number(c) or line(c) for c in row[1:])
             need(carries or (s is claim and text(row[0])), 'GIVING',
                  f'row {i + 1} carries nothing')
+    return rows, styles, line, sections
+
+
+def check_sign_and_claim(sign, claim, line, lang, words):
+    # Sign-off: who and when, left empty for people.
+    need(len(sign['rows']) == 2, 'SIGN_OFF', 'two rows')
+    for _, row in sign['rows']:
+        need(text(row[0]) and line(row[1]) and text(row[2]) and line(row[3]),
+             'SIGN_OFF', 'lines left empty')
+    # The engine's claim, in English the evidence's own words.
+    need(len(claim['rows']) == 1 and text(claim['rows'][0][1][0]), 'CLAIM')
+    if lang == 'en':
+        need(claim['rows'][0][1][0][1] == words, 'CLAIM', 'words')
+
+
+def check_gl_tb(evidence, book, lang, summary):
+    decimals = int(summary['Decimals'])
+    unit = Decimal(10) ** decimals
+    balances = {r[0]: r[1:4] for r in evidence.table('Balances')[1:]}
+    need(list(balances) == FIELDS, 'EVIDENCE_READ', 'Balances')
+    sources = {}
+    for r in evidence.table('Sources')[1:]:
+        s = sources.setdefault(r[0], {'name': r[2], 'hash': r[3], 'chunks': []})
+        s['chunks'].append((int(r[5]), r[6]))
+    for side, s in sources.items():
+        data = base64.b64decode(''.join(c for _, c in sorted(s['chunks'])),
+                                validate=True)
+        need(hashlib.sha256(data).hexdigest() == s['hash'], 'EVIDENCE_READ',
+             f'source {side} fingerprint')
+    missing = json.loads(summary['Missing'])
+
+    rows, styles, line, sections = layout(
+        book, evidence, lang,
+        ['Summary', 'Sources', None, 'Balances', None, 'Summary'])
+    scope, srcs, strip, table, sign, claim = sections
 
     # Scope: the ten fields in the evidence's order, the fixed two in words.
     need(len(scope['rows']) == len(SCOPE), 'SCOPE', 'ten fields')
@@ -349,16 +481,7 @@ def check_content(evidence, book, lang):
                 need(number(c) and c[1] == Decimal(value) / unit, 'BALANCE_VALUE',
                      f'{field}: {c} != {Decimal(value) / unit}')
 
-    # Sign-off: who and when, left empty for people.
-    need(len(sign['rows']) == 2, 'SIGN_OFF', 'two rows')
-    for _, row in sign['rows']:
-        need(text(row[0]) and line(row[1]) and text(row[2]) and line(row[3]),
-             'SIGN_OFF', 'lines left empty')
-
-    # The engine's claim, in English the evidence's own words.
-    need(len(claim['rows']) == 1 and text(claim['rows'][0][1][0]), 'CLAIM')
-    if lang == 'en':
-        need(claim['rows'][0][1][0][1] == summary['Claim'], 'CLAIM', 'words')
+    check_sign_and_claim(sign, claim, line, lang, summary['Claim'])
 
     # Every number in the sheet is one of those checked above.
     numbers = sum(1 for row in rows for c in row if number(c))
@@ -369,21 +492,215 @@ def check_content(evidence, book, lang):
     return {'status': summary['Status'], 'rows': len(rows)}
 
 
+CLEARING_SCOPE = ['Entity (user declared)', 'Ledger (user declared)',
+                  'Account', 'Currency', 'Start', 'End']
+CLEARING_CODES = {'reference-zero', 'residual', 'unverified-reference-role',
+                  'missing-reference', 'source-errors', 'group-limit',
+                  'human-decision', 'reopened', 'clear', 'reopen', 'cleared',
+                  'review', 'explicit-reference', 'none'}
+
+
+def most_frequent(codes):
+    """The code given most often, ties to the first in order."""
+    counts = {}
+    for c in codes:
+        counts[c] = counts.get(c, 0) + 1
+    best, most = None, 0
+    for c, n in counts.items():
+        if n > most:
+            best, most = c, n
+    return best
+
+
+def words_of(pairs, code_name):
+    """One word for each code, a different word for each code."""
+    word = {}
+    for code, said in pairs:
+        need(said not in CLEARING_CODES, 'RAW_CODE', f'{code_name} {said}')
+        need(word.setdefault(code, said) == said, code_name.upper(),
+             f'{code} said two ways')
+    need(len(set(word.values())) == len(word), code_name.upper(),
+         'two codes said one way')
+    return word
+
+
+def check_clearing(evidence, book, lang, summary):
+    decimals = int(summary['Decimals'])
+    unit = Decimal(10) ** decimals
+    head = lambda t: {name: i for i, name in enumerate(t[0])}
+    movements = evidence.table('Movements')
+    m = head(movements)
+    posting = {r[m['ID']]: r[m['Posting ID']] for r in movements[1:]}
+    total = sum(int(r[m['Amount minor units']]) for r in movements[1:])
+    need(str(total) == summary['Total minor units'], 'EVIDENCE_READ', 'total')
+    need(len(movements) - 1 == int(summary['Valid movement count']),
+         'EVIDENCE_READ', 'valid count')
+    cases = evidence.table('Cases')
+    cases = [dict(zip(cases[0], r)) for r in cases[1:]]
+    members = {}
+    membership = evidence.table('Membership')
+    for r in membership[1:]:
+        members.setdefault(r[0], []).append(r[1])
+    for c in cases:
+        need(len(members.get(c['Case ID'], [])) == int(c['Member count']),
+             'EVIDENCE_READ', f'members of {c["Case ID"]}')
+    inventory = evidence.table('Source inventory')
+    errors = sum(1 for r in inventory[1:] if r[1] == 'error')
+    need(errors == int(summary['Error count']), 'EVIDENCE_READ', 'errors')
+    cleared = [c for c in cases if c['Status'] == 'cleared']
+    review = [c for c in cases if c['Status'] == 'review']
+    need(len(cleared) + len(review) == len(cases), 'EVIDENCE_READ', 'statuses')
+    need(sum(int(c['Member count']) for c in cleared) ==
+         int(summary['Cleared movement count']), 'EVIDENCE_READ', 'cleared')
+    decisions = evidence.table('Decisions')
+    decisions = [dict(zip(decisions[0], r)) for r in decisions[1:]]
+    said = lambda ids: ', '.join(posting[i] for i in ids)
+
+    expected = (['Summary', 'Summary', None, 'Summary'] +
+                (['Cases'] if review else []) +
+                (['Decisions'] if decisions else []) + [None, 'Summary'])
+    rows, styles, line, sections = layout(book, evidence, lang, expected)
+    scope, srcs, strip, results = sections[:4]
+    table = sections[4] if review else None
+    taken = sections[4 + (1 if review else 0)] if decisions else None
+    sign, claim = sections[-2:]
+
+    # Scope: the six fields in the evidence's order.
+    need(len(scope['rows']) == len(CLEARING_SCOPE), 'SCOPE', 'six fields')
+    for key, (_, row) in zip(CLEARING_SCOPE, scope['rows']):
+        need(text(row[0]) and text(row[1]) and row[1][1] == summary[key],
+             'SCOPE', key)
+
+    # The source: its file, then the whole fingerprint the evidence gives.
+    need(len(srcs['rows']) == 2, 'SOURCES', 'one source')
+    (_, named), (_, printed) = srcs['rows']
+    need(text(named[1]) and named[1][1] == summary['Source name'],
+         'SOURCES', 'name')
+    need(text(printed[1]) and HEX64.match(printed[1][1]) and
+         printed[1][1] == summary['Source SHA-256'], 'FINGERPRINT', 'source')
+
+    # The review table first, so the strip's main reason can be read in
+    # the words the table gives each reason.
+    reason_word = {}
+    if review:
+        rows_ = table['rows']
+        need(all(text(c) and styles.bold(c[2]) for c in rows_[0][1][:4]),
+             'REVIEW', 'head')
+        need(len(rows_) == 1 + len(review), 'REVIEW',
+             f'{len(rows_) - 1} != {len(review)}')
+        missing = set()
+        pairs = []
+        for c, (_, row) in zip(review, rows_[1:]):
+            need(text(row[0]) and row[0][1] == said(members[c['Case ID']]),
+                 'REVIEW_MEMBERS', c['Case ID'])
+            if c['Clearing reference']:
+                need(text(row[1]) and row[1][1] == c['Clearing reference'],
+                     'REVIEW', f'{c["Case ID"]} reference')
+            else:
+                need(text(row[1]), 'REVIEW', f'{c["Case ID"]} no reference')
+                missing.add(row[1][1])
+            need(number(row[2]) and row[2][1] == Decimal(c['Net minor units']) / unit,
+                 'REVIEW_NET', f'{c["Case ID"]}: {row[2]}')
+            need(text(row[3]), 'REVIEW', f'{c["Case ID"]} reason')
+            pairs.append((c['Reason'], row[3][1]))
+        need(len(missing) <= 1, 'REVIEW', 'no reference said two ways')
+        need(not missing & {c['Clearing reference'] for c in cases},
+             'REVIEW', 'no reference said as a reference')
+        reason_word = words_of(pairs, 'reason')
+
+    # Alignment: what the screen's strip says, from the evidence.
+    lines = [row for _, row in strip['rows']]
+    agreed = lines.pop(0)
+    need(number(agreed[1]) and agreed[1][1] == len(cleared), 'AGREED_COUNT',
+         f'{agreed[1]} != {len(cleared)}')
+    need(blank(agreed[2]) and blank(agreed[3]), 'AGREED_COUNT', 'no of')
+    unit_note = lines.pop(0)
+    need(blank(unit_note[0]) and text(unit_note[1]), 'STRIP', 'unit note')
+    waiting = lines.pop(0)
+    need(text(waiting[0]) and number(waiting[1]) and
+         waiting[1][1] == len(review), 'REVIEW_COUNT',
+         f'{waiting[1]} != {len(review)}')
+    if review:
+        main = lines.pop(0)
+        top = most_frequent([c['Reason'] for c in review])
+        need(blank(main[0]) and text(main[1]) and text(main[2]) and
+             main[2][1] == reason_word[top], 'MAIN_REASON',
+             f'{main[2]} is not the word for {top}')
+    gap = lines.pop(0)
+    if total:
+        need(number(gap[1]) and gap[1][1] == Decimal(total) / unit, 'GAP',
+             f'{gap[1]} != {Decimal(total) / unit}')
+        name_row = lines.pop(0)
+        need(text(name_row[1]) and text(name_row[2]), 'GAP', 'name and direction')
+    else:
+        need(text(gap[1]), 'GAP', 'no figure without a difference')
+        note = lines.pop(0)
+        need(text(note[1]) and number(note[2]) and note[2][1] == 1, 'GAP',
+             'compared')
+    need(not lines, 'STRIP', f'{len(lines)} rows more')
+
+    # The figures beside the strip: valid, cleared, errors.
+    need(len(results['rows']) == 3, 'RESULTS', 'three figures')
+    for (_, row), value in zip(results['rows'],
+                               [len(movements) - 1,
+                                sum(int(c['Member count']) for c in cleared),
+                                errors]):
+        need(text(row[0]) and number(row[1]) and row[1][1] == value,
+             'RESULTS', f'{row[0]}: {row[1]} != {value}')
+
+    # Each recorded decision: what it did, its members, the reason given.
+    if decisions:
+        rows_ = taken['rows']
+        need(all(text(c) and styles.bold(c[2]) for c in rows_[0][1][:3]),
+             'DECISIONS', 'head')
+        need(len(rows_) == 1 + len(decisions), 'DECISIONS',
+             f'{len(rows_) - 1} != {len(decisions)}')
+        pairs = []
+        for e, (_, row) in zip(decisions, rows_[1:]):
+            need(text(row[0]), 'DECISION_ACTION', e['Sequence'])
+            pairs.append((e['Action'], row[0][1]))
+            need(text(row[1]) and row[1][1] == said(e['Members'].split('\n')),
+                 'DECISION_MEMBERS', e['Sequence'])
+            need(text(row[2]) and row[2][1] == e['Note'], 'DECISION_REASON',
+                 f'decision {e["Sequence"]} without its reason')
+        action_word = words_of(pairs, 'decision_action')
+        # A reopened group in review is said in the reopen's own words.
+        if 'reopen' in action_word and 'reopened' in reason_word:
+            need(action_word['reopen'] == reason_word['reopened'],
+                 'DECISION_ACTION', 'reopen said apart from the group it left')
+
+    check_sign_and_claim(sign, claim, line, lang, summary['Economic coverage'])
+
+    # Every number in the sheet is one of those checked above.
+    numbers = sum(1 for row in rows for c in row if number(c))
+    expected = 3 + 3 + len(review)
+    need(numbers == expected, 'STRAY_NUMBER', f'{numbers} != {expected}')
+    status = ('source-errors' if errors else
+              'review' if review else 'cleared')
+    return {'status': status, 'rows': len(rows)}
+
+
+PROFILES = {'gl-trial-balance-consistency': check_gl_tb,
+            'single-account-clearing': check_clearing}
+WORKSPACES = {'gl-tb': 'gl-trial-balance-consistency',
+              'clearing': 'single-account-clearing'}
+
+
 def verify(folder):
     manifest = json.loads((folder / 'cases.json').read_text())
-    need(manifest['syntheticOnly'] is True and manifest['workspace'] == 'gl-tb',
-         'MANIFEST')
+    need(manifest['syntheticOnly'] is True, 'MANIFEST')
     report = []
     for case in manifest['cases']:
+        need(case['workspace'] in WORKSPACES, 'MANIFEST', case['workspace'])
         for lang in ('ar', 'en'):
-            report.append({'case': case['case'], 'lang': lang,
-                           **check_case(folder, case, lang)})
+            report.append({'workspace': case['workspace'], 'case': case['case'],
+                           'lang': lang, **check_case(folder, case, lang)})
     return report
 
 
 # Planted faults: each changes one thing in a good workpaper and must be
-# found with its code. A decision without its reason has no GL/TB form; it
-# is planted when decisions enter the sheet (UX-6(b)).
+# found with its code. GL/TB has no decisions; a decision without its reason
+# is planted in a clearing workpaper.
 def _first_sheet(data):
     book = Book(data)
     return book.sheets[0][1]
@@ -405,14 +722,14 @@ def _edit(data, part, change):
 
 def _cell(xml, label):
     """The row number of the row whose first cell says label."""
-    m = re.search(r'<row r="(\d+)"><c r="A\d+"[^>]*><is><t[^>]*>'
+    m = re.search(r'<row r="(\d+)"[^>]*><c r="A\d+"[^>]*><is><t[^>]*>'
                   + re.escape(label) + '</t>', xml)
     assert m, label
     return int(m.group(1))
 
 
 def _row(xml, n):
-    return re.search(rf'<row r="{n}">.*?</row>', xml).group(0)
+    return re.search(rf'<row r="{n}"[^>]*>.*?</row>', xml).group(0)
 
 
 def _dangle(styles):
@@ -470,10 +787,58 @@ def plants(data):
             r'<sheets>(<sheet [^>]*/>)(<sheet [^>]*/>)', r'<sheets>\2\1', x))
 
 
-def self_test(folder):
-    manifest = json.loads((folder / 'cases.json').read_text())
-    case = next(c for c in manifest['cases']
-                if c['case'] == 'same-net-different-turnover')
+def clearing_plants(data):
+    """Faults a clearing workpaper can carry: in its review table, its
+    recorded decisions, the strip's main reason and the figures beside it."""
+    sheet = _first_sheet(data)
+
+    def row_edit(label, offset, change):
+        def go(x):
+            n = _cell(x, label) + offset
+            old = _row(x, n)
+            return x.replace(old, change(old), 1)
+        return _edit(data, sheet, go)
+
+    clear = 'أعضاء متعادلة بقرار بشري مسجل'
+    reopen = 'أُلغي الاعتماد وبقيت المجموعة للمراجعة'
+    residual = 'حزمة المرجع غير متعادلة؛ لا اختيار لجزء منها'
+    yield 'decision without its reason', 'DECISION_REASON', row_edit(
+        clear, 0, lambda r: re.sub(r'<c r="C\d+"[^>]*>.*?</c>', '', r))
+    yield 'decision said as the other', 'DECISION_ACTION', row_edit(
+        clear, 0, lambda r: r.replace(clear, reopen, 1))
+    yield 'decision members changed', 'DECISION_MEMBERS', row_edit(
+        clear, 0, lambda r: r.replace('P006, P007', 'P006, P008', 1))
+    yield 'review net changed', 'REVIEW_NET', row_edit(
+        'P008, P009', 0, lambda r: re.sub(
+            r'(<c r="C\d+"[^>]*><v>)(\d+)',
+            lambda m: f'{m.group(1)}{int(m.group(2)) + 1}', r, count=1))
+    yield 'review members changed', 'REVIEW_MEMBERS', row_edit(
+        'P008, P009', 0, lambda r: r.replace('P008, P009', 'P009, P008', 1))
+    yield 'reason as its code', 'RAW_CODE', row_edit(
+        'P008, P009', 0, lambda r: r.replace(residual, 'residual', 1))
+    yield 'review case dropped', 'REVIEW', _edit(data, sheet, lambda x: x.replace(
+        _row(x, _cell(x, 'P008, P009')), '', 1))
+    yield 'main reason another', 'MAIN_REASON', row_edit(
+        'ينتظر قرارك', 1, lambda r: r.replace(residual, reopen, 1))
+    yield 'cleared count changed', 'RESULTS', row_edit(
+        'حركات مسوّاة', 0, lambda r: re.sub(
+            r'<v>(\d+)</v>', lambda m: f'<v>{int(m.group(1)) + 1}</v>', r, count=1))
+    yield 'waiting count changed', 'REVIEW_COUNT', row_edit(
+        'ينتظر قرارك', 0, lambda r: re.sub(
+            r'<v>(\d+)</v>', lambda m: f'<v>{int(m.group(1)) + 1}</v>', r, count=1))
+    yield 'reason cut short', 'CUT', row_edit(
+        'P008, P009', 0, lambda r: re.sub(r' ht="[^"]*" customHeight="1"', '', r))
+    yield 'reason unwrapped', 'CUT', row_edit(
+        'P008, P009', 0, lambda r: re.sub(
+            r'(<c r="D\d+" t="inlineStr" s=")\d+(")',
+            lambda m: m.group(1) + re.search(
+                r'<c r="B\d+" t="inlineStr" s="(\d+)"', r).group(1) + m.group(2),
+            r, count=1))
+    yield 'gap sign flipped', 'GAP', row_edit(
+        'الفجوة', 0, lambda r: re.sub(r'<v>(\d)', r'<v>-\1', r, count=1))
+
+
+def _self_test_one(folder, case, generic):
     good = (folder / case['ar']).read_bytes()
     target = folder / 'self-test-ar.xlsx'
     one = {**case, 'ar': target.name}
@@ -481,18 +846,27 @@ def self_test(folder):
     try:
         target.write_bytes(good)
         check_case(folder, one, 'ar')
-        for name, code, data in plants(good):
+        for name, code, data in generic(good):
             target.write_bytes(data)
             try:
                 check_case(folder, one, 'ar')
             except Fault as fault:
                 need(str(fault).startswith(code), 'SELF_TEST',
                      f'{name}: found {fault}, expected {code}')
-                found.append({'plant': name, 'code': code})
+                found.append({'workspace': case['workspace'], 'plant': name,
+                              'code': str(fault).split(':')[0]})
                 continue
-            raise Fault(f'SELF_TEST: {name} was not found')
+            raise Fault(f'SELF_TEST: {case["workspace"]} {name} was not found')
     finally:
         target.unlink(missing_ok=True)
+    return found
+
+
+def self_test(folder):
+    manifest = json.loads((folder / 'cases.json').read_text())
+    pick = lambda name: next(c for c in manifest['cases'] if c['case'] == name)
+    found = _self_test_one(folder, pick('same-net-different-turnover'), plants)
+    found += _self_test_one(folder, pick('clearing-reopened'), clearing_plants)
     return found
 
 

@@ -136,9 +136,125 @@ function appendTo(styles: string, tag: string, child: string, add: string[]) {
   );
 }
 
+/** A character's width in the sheet's column units, each counted as wide
+ * as a digit of the 11-point Calibri the widths are counted in: the style's
+ * font size against 11, and for the fingerprint's 8-point Courier New, whose
+ * every glyph is 0.6 of its size, 6.4 pixels against the digit's 7. */
+const SCALE: Record<SheetTextStyle, number> = {
+  title: 16 / 11,
+  subtitle: 12 / 11,
+  section: 12 / 11,
+  head: 1,
+  label: 1,
+  value: 1,
+  hash: 0.92,
+  note: 9 / 11,
+};
+/** One line's height in points, by the style's font size. */
+const LINE: Record<SheetTextStyle, number> = {
+  title: 22,
+  subtitle: 16,
+  section: 16,
+  head: 15,
+  label: 15,
+  value: 15,
+  hash: 11,
+  note: 12,
+};
+/** Characters a cell shows in a line, counted wide so a row is never
+ * written shorter than its text: a wide character (CJK, an emoji, anything
+ * beyond the basic plane) two, a combining mark none, any other one. */
+function units(text: string) {
+  let n = 0;
+  for (const ch of text) {
+    if (/\p{M}/u.test(ch)) continue;
+    const cp = ch.codePointAt(0)!;
+    n +=
+      cp > 0xffff ||
+      (cp >= 0x1100 && cp <= 0x115f) ||
+      (cp >= 0x2e80 && cp <= 0xa4cf) ||
+      (cp >= 0xac00 && cp <= 0xd7a3) ||
+      (cp >= 0xf900 && cp <= 0xfaff) ||
+      (cp >= 0xff00 && cp <= 0xff60)
+        ? 2
+        : 1;
+  }
+  return n;
+}
+/** Lines a text takes when it wraps at a capacity, word by word, a word
+ * longer than a line broken across lines. */
+function lineCount(text: string, capacity: number) {
+  let count = 0;
+  for (const paragraph of text.split('\n')) {
+    count++;
+    let line = 0;
+    for (const word of paragraph.split(' ')) {
+      const w = units(word);
+      if (line && line + 1 + w <= capacity) {
+        line += 1 + w;
+        continue;
+      }
+      if (line) count++;
+      const extra = Math.max(0, Math.ceil(w / capacity) - 1);
+      count += extra;
+      line = w - extra * capacity;
+    }
+  }
+  return count;
+}
+/**
+ * Which texts wrap, and how tall their rows are written. A text runs on into
+ * the empty cells after it in its row, whole, as the fingerprint must (UX-3
+ * fixed it cut on the screen); one longer than that room, or with a line
+ * break, wraps in its own cell, and its row is given the height of its
+ * lines, since not every reader measures a row (UX-6(b): a reviewer's
+ * reason, a long list of members).
+ */
+function wrapPlan(sheet: ReconciliationSheet) {
+  const wrapped = new Set<string>(),
+    heights = new Map<number, number>();
+  sheet.rows.forEach((cells, r) =>
+    cells.forEach((cell, c) => {
+      if (!cell || !('text' in cell) || !cell.text) return;
+      let room = sheet.widths[c] ?? 0;
+      for (
+        let next = c + 1;
+        next < sheet.widths.length &&
+        (!cells[next] ||
+          ('text' in cells[next]! && !(cells[next] as { text: string }).text));
+        next++
+      )
+        room += sheet.widths[next];
+      const scale = SCALE[cell.style];
+      if (
+        !cell.text.includes('\n') &&
+        units(cell.text) * scale <= room - 1
+      )
+        return;
+      wrapped.add(`${r}:${c}`);
+      const capacity = Math.max(
+        1,
+        Math.floor((sheet.widths[c] ?? 1) / scale) - 1,
+      );
+      heights.set(
+        r,
+        Math.max(
+          heights.get(r) ?? 15,
+          lineCount(cell.text, capacity) * LINE[cell.style] + 2,
+        ),
+      );
+    }),
+  );
+  return { wrapped, heights };
+}
+
 /** The styles the sheet uses, appended after every existing one, so each
  * index the evidence sheets hold keeps its meaning. */
-function appendStyles(styles: string, sheet: ReconciliationSheet) {
+function appendStyles(
+  styles: string,
+  sheet: ReconciliationSheet,
+  wrapped: Set<string>,
+) {
   const size = (tag: string, child: string) =>
     styleList(styles, tag, child)?.entries ?? fail('STYLES');
   const fonts = size('fonts', 'font'),
@@ -186,11 +302,10 @@ function appendStyles(styles: string, sheet: ReconciliationSheet) {
     (f) =>
       `<numFmt numFmtId="${f.id}" formatCode="${xml(AMOUNT_FORMAT(f.d))}"/>`,
   );
-  // No text wraps: a row's height is not measured by every reader, so a long
-  // text runs on into the empty cells beside it, whole, as the fingerprint
-  // must (UX-3 fixed it cut on the screen).
-  const align = () =>
-    `<alignment horizontal="${rtl ? 'right' : 'left'}" vertical="top" readingOrder="${rtl ? 2 : 1}"/>`;
+  // A text wraps only where its plan says (`wrapPlan`); elsewhere it runs on
+  // into the empty cells beside it.
+  const align = (wrap = false) =>
+    `<alignment horizontal="${rtl ? 'right' : 'left'}" vertical="top"${wrap ? ' wrapText="1"' : ''} readingOrder="${rtl ? 2 : 1}"/>`;
   const textStyles: SheetTextStyle[] = [
     'title',
     'subtitle',
@@ -203,22 +318,32 @@ function appendStyles(styles: string, sheet: ReconciliationSheet) {
   ];
   const xf: string[] = [];
   const index = new Map<string, number>();
-  for (const s of textStyles) {
-    const font = fonts + (s === 'label' ? FONT.value : FONT[s]);
-    const border = s === 'head' ? ` borderId="${borders}" applyBorder="1"` : '';
-    index.set(s, xfs + xf.length);
-    xf.push(
-      `<xf numFmtId="0" fontId="${font}" fillId="0"${border || ' borderId="0"'} xfId="0" applyFont="1" applyAlignment="1">${align()}</xf>`,
-    );
-  }
+  const wrapStyles = new Set(
+    [...wrapped].map((at) => {
+      const [r, c] = at.split(':').map(Number);
+      return (sheet.rows[r][c] as { style: SheetTextStyle }).style;
+    }),
+  );
+  for (const wrap of [false, true])
+    for (const s of textStyles) {
+      if (wrap && !wrapStyles.has(s)) continue;
+      const font = fonts + (s === 'label' ? FONT.value : FONT[s]);
+      const border =
+        s === 'head' ? ` borderId="${borders}" applyBorder="1"` : '';
+      index.set(wrap ? `${s}:wrap` : s, xfs + xf.length);
+      xf.push(
+        `<xf numFmtId="0" fontId="${font}" fillId="0"${border || ' borderId="0"'} xfId="0" applyFont="1" applyAlignment="1">${align(wrap)}</xf>`,
+      );
+    }
   // A number keeps a left-to-right reading order in either language, so its
   // sign stays before it («-50.00», never «50.00-»); it aligns where the
-  // sheet's text starts.
-  const start = `<alignment horizontal="${rtl ? 'right' : 'left'}" readingOrder="1"/>`;
+  // sheet's text starts. Every number stands at the top of its row, as the
+  // text does, level with its label when a text beside it wraps.
+  const start = `<alignment horizontal="${rtl ? 'right' : 'left'}" vertical="top" readingOrder="1"/>`;
   for (const f of formats) {
     index.set(`amount:${f.d}`, xfs + xf.length);
     xf.push(
-      `<xf numFmtId="${f.id}" fontId="${fonts + FONT.value}" fillId="0" borderId="0" xfId="0" applyFont="1" applyNumberFormat="1"/>`,
+      `<xf numFmtId="${f.id}" fontId="${fonts + FONT.value}" fillId="0" borderId="0" xfId="0" applyFont="1" applyNumberFormat="1" applyAlignment="1"><alignment vertical="top"/></xf>`,
     );
     index.set(`amount:${f.d}:start`, xfs + xf.length);
     xf.push(
@@ -273,7 +398,11 @@ function checkCells(sheet: ReconciliationSheet) {
     }
 }
 
-function sheetXml(sheet: ReconciliationSheet, index: Map<string, number>) {
+function sheetXml(
+  sheet: ReconciliationSheet,
+  index: Map<string, number>,
+  { wrapped, heights }: ReturnType<typeof wrapPlan>,
+) {
   const rows: string[] = [];
   let width = 0;
   sheet.rows.forEach((cells, r) => {
@@ -284,8 +413,11 @@ function sheetXml(sheet: ReconciliationSheet, index: Map<string, number>) {
       const ref = `${column(c)}${r + 1}`;
       if ('text' in cell) {
         if (!cell.text) return;
+        const style = wrapped.has(`${r}:${c}`)
+          ? `${cell.style}:wrap`
+          : cell.style;
         out.push(
-          `<c r="${ref}" t="inlineStr" s="${index.get(cell.style)}"><is><t xml:space="preserve">${cellText(cell.text)}</t></is></c>`,
+          `<c r="${ref}" t="inlineStr" s="${index.get(style)}"><is><t xml:space="preserve">${cellText(cell.text)}</t></is></c>`,
         );
       } else if ('minor' in cell) {
         out.push(
@@ -299,7 +431,11 @@ function sheetXml(sheet: ReconciliationSheet, index: Map<string, number>) {
         );
       }
     });
-    if (out.length) rows.push(`<row r="${r + 1}">${out.join('')}</row>`);
+    const height = heights.get(r);
+    if (out.length)
+      rows.push(
+        `<row r="${r + 1}"${height ? ` ht="${height}" customHeight="1"` : ''}>${out.join('')}</row>`,
+      );
   });
   const cols = sheet.widths
     .map(
@@ -368,8 +504,13 @@ export async function addReconciliationSheet(
       ...[...workbook.matchAll(/sheetId="(\d+)"/g)].map((m) => Number(m[1])),
     ) + 1;
   if (!/<sheets>/.test(workbook)) fail('WORKBOOK');
-  const { styles: nextStyles, index } = appendStyles(styles, sheet);
-  zip.file(`xl/worksheets/${part}`, sheetXml(sheet, index));
+  const plan = wrapPlan(sheet);
+  const { styles: nextStyles, index } = appendStyles(
+    styles,
+    sheet,
+    plan.wrapped,
+  );
+  zip.file(`xl/worksheets/${part}`, sheetXml(sheet, index, plan));
   zip.file('xl/styles.xml', nextStyles);
   zip.file(
     'xl/workbook.xml',

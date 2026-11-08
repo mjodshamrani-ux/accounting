@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
 import { stripGap } from './alignment-strip-read.mjs';
+import { clearingSheetSaysScreen } from './reconciliation-sheet-browser.mjs';
 import ExcelJS from 'exceljs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -259,7 +260,46 @@ export async function verifyClearing(page, url, out = 'work/qa') {
     await page.getByRole('button', { name: button, exact: true }).click();
     await (await event).saveAs(path);
   };
+  // UX-6(b): the workpaper opens on the reconciliation sheet, which says what
+  // the strip and the groups waiting for review say, and each decision this
+  // run recorded: in the words the page gives the reason it leaves on the
+  // group it touched, its members and the reason typed for it.
+  const result = page.locator('[aria-labelledby="clearing-result-title"]');
+  const reasonOn = async (members) =>
+    (
+      await page
+        .getByTestId('clearing-case')
+        .filter({ hasText: members })
+        .locator('th, td')
+        .nth(4)
+        .locator('.muted')
+        .innerText()
+    ).trim();
+  // A textarea's accessible name takes in its value once filled, so the
+  // label is matched by its start.
+  const typed = () =>
+    page
+      .getByRole('textbox', { name: /^Review decision reason/u })
+      .inputValue();
+  const recorded = [['P006, P007', await typed()]];
   await save('Download clearing workpaper', `${out}/clearing-manual.xlsx`);
+  const decided = async (lang) => ({
+    head: lang === 'ar' ? 'القرار' : 'Decision',
+    rows: await Promise.all(
+      recorded.map(async ([members, note]) => [
+        await reasonOn(members),
+        members,
+        note,
+      ]),
+    ),
+  });
+  await clearingSheetSaysScreen(page, {
+    file: `${out}/clearing-manual.xlsx`,
+    lang: 'en',
+    result,
+    decisions: await decided('en'),
+  });
+  recorded.push(['P001, P002, P003', await typed()]);
   await page
     .getByTestId('clearing-case')
     .filter({ hasText: 'P001, P002, P003' })
@@ -272,6 +312,13 @@ export async function verifyClearing(page, url, out = 'work/qa') {
   );
   await save('Save clearing session', `${out}/clearing-session.json`);
   await save('Download clearing workpaper', `${out}/clearing-reopened.xlsx`);
+  const reopened = await decided('en');
+  await clearingSheetSaysScreen(page, {
+    file: `${out}/clearing-reopened.xlsx`,
+    lang: 'en',
+    result,
+    decisions: reopened,
+  });
   // Both domain workspaces retain their local state across navigation.
   await page
     .locator('select[data-reconciliation-type-select]')
@@ -283,6 +330,14 @@ export async function verifyClearing(page, url, out = 'work/qa') {
     .getByRole('heading', { name: 'نتيجة المقاصة', exact: true })
     .waitFor();
   assert.deepEqual(await metric(), ['9', '4', '0', '10.00']);
+  // In Arabic the same workpaper opens on the sheet in Arabic.
+  await save('نزّل ورقة عمل المقاصة', `${out}/clearing-reopened-ar.xlsx`);
+  await clearingSheetSaysScreen(page, {
+    file: `${out}/clearing-reopened-ar.xlsx`,
+    lang: 'ar',
+    result,
+    decisions: await decided('ar'),
+  });
   await page.screenshot({ path: `${out}/clearing-ar.png`, fullPage: true });
   await page.setViewportSize({ width: 390, height: 844 });
   assert.ok(
@@ -316,6 +371,12 @@ export async function verifyClearing(page, url, out = 'work/qa') {
     'the restored session is confirmed',
   );
   await save('Download clearing workpaper', `${out}/clearing-restored.xlsx`);
+  await clearingSheetSaysScreen(page, {
+    file: `${out}/clearing-restored.xlsx`,
+    lang: 'en',
+    result,
+    decisions: reopened,
+  });
   await openFields();
   await card.getByLabel('Ledger', { exact: true }).fill('Changed ledger');
   assert.equal(
@@ -480,10 +541,12 @@ export async function verifyClearing(page, url, out = 'work/qa') {
           'scope invalidation',
           'file replacement',
           'sheet and header row changes',
+          'reconciliation sheet first, in English and Arabic, says the strip, the groups waiting and each recorded decision with its reason',
         ],
         files: [
           'clearing-manual.xlsx',
           'clearing-reopened.xlsx',
+          'clearing-reopened-ar.xlsx',
           'clearing-restored.xlsx',
         ],
       },

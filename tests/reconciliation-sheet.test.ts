@@ -30,6 +30,19 @@ import {
   type SheetCell,
 } from '../lib/reconciliation/reconciliation-sheet.ts';
 import { createWorkerClient } from '../lib/reconciliation/worker-client.ts';
+import {
+  reconcileClearing,
+  type ClearingInput,
+} from '../lib/reconciliation/clearing.ts';
+import { exportClearing } from '../lib/reconciliation/clearing-io.ts';
+import {
+  clearingDemoReading,
+  clearingDemoScope,
+} from '../lib/reconciliation/clearing-demo.ts';
+import {
+  clearingSheet,
+  exportClearingWorkpaper,
+} from '../lib/reconciliation/clearing-sheet.ts';
 import { GlTbBindingPort } from './helpers/gl-tb-binding-port.ts';
 
 // UX-6(a): the reconciliation sheet is added to a workpaper whose evidence is
@@ -571,5 +584,349 @@ void test('every frozen GL/TB case, in either language, yields a sheet whose fig
         `${c.name}: four columns`,
       );
     }
+  }
+});
+
+// UX-6(b), clearing: the case workspace whose sheet carries the decisions
+// recorded with their reasons.
+async function clearingCase(decisions: 'none' | 'clear' | 'reopen') {
+  const bytes = await fsRead(
+    new URL('../audit/clearing/frozen/source.csv', import.meta.url),
+  );
+  const input: ClearingInput = {
+    file: await readFile('clearing.csv', new Uint8Array(bytes).buffer),
+    reading: { ...clearingDemoReading },
+    scope: { ...clearingDemoScope },
+    events: [],
+  };
+  let result = reconcileClearing(input);
+  if (decisions !== 'none') {
+    // The two movements without a reference that offset each other.
+    const pair = result.cases
+      .filter((c) => c.reason === 'missing-reference')
+      .flatMap((c) => c.ids);
+    assert.equal(pair.length, 2);
+    input.events.push({
+      context: result.context,
+      action: 'clear',
+      ids: pair,
+      note: 'Synthetic offsetting pair, same contract',
+    });
+    result = reconcileClearing(input);
+    if (decisions === 'reopen') {
+      input.events.push({
+        context: result.context,
+        action: 'reopen',
+        ids: pair,
+        note: 'Synthetic reopen pending the contract copy',
+      });
+      result = reconcileClearing(input);
+    }
+  }
+  return { state: input, result };
+}
+
+void test('clearing: the evidence stays byte for byte, and the sheet says the decisions with their reasons', async () => {
+  for (const decisions of ['none', 'clear', 'reopen'] as const)
+    for (const lang of ['ar', 'en'] as const) {
+      const { state, result } = await clearingCase(decisions);
+      const evidence = await exportClearing(state, result);
+      const book = await addReconciliationSheet(
+        evidence,
+        clearingSheet(state, result, lang),
+      );
+      const before = await parts(evidence),
+        after = await parts(book);
+      for (const [part, bytes] of before)
+        if (!WORKBOOK_PARTS.includes(part))
+          assert.deepEqual(after.get(part), bytes, `${decisions}: ${part}`);
+      const w = reconciliationSheetCopy[lang],
+        t = w.clearing;
+      const { rows } = await firstSheet(
+        await exportClearingWorkpaper(state, result, lang),
+      );
+      assert.equal(rows[1][0], t.title);
+      const posting = new Map(result.rows.map((r) => [r.id, r.posting]));
+      const members = (ids: string[]) =>
+        ids.map((id) => posting.get(id)).join(', ');
+      // What the engine left for a person, each with its net and reason.
+      const review = result.cases.filter((c) => c.status === 'review');
+      const top = rowOf(rows, t.members);
+      assert.deepEqual(rows[top], [t.members, t.reference, t.net, t.basis]);
+      review.forEach((c, i) =>
+        assert.deepEqual(rows[top + 1 + i], [
+          members(c.ids),
+          c.reference || t.missing,
+          c.net / 10 ** result.decimals,
+          t.reason[c.reason as keyof typeof t.reason],
+        ]),
+      );
+      // Each decision, what it did and the reason the reviewer gave.
+      const head = rows.findIndex((r) => r[0] === w.decision);
+      if (!state.events.length) assert.equal(head, -1, 'no decisions, no table');
+      state.events.forEach((event, i) =>
+        assert.deepEqual(rows[head + 1 + i].slice(0, 3), [
+          t.reason[event.action === 'clear' ? 'human-decision' : 'reopened'],
+          members(event.ids),
+          event.note,
+        ]),
+      );
+      // The figures beside the strip.
+      assert.deepEqual(rows[rowOf(rows, t.valid)].slice(0, 2), [
+        t.valid,
+        result.rows.length,
+      ]);
+      assert.deepEqual(rows[rowOf(rows, t.cleared)].slice(0, 2), [
+        t.cleared,
+        result.cases
+          .filter((c) => c.status === 'cleared')
+          .reduce((n, c) => n + c.ids.length, 0),
+      ]);
+      assert.deepEqual(rows[rowOf(rows, t.errors)].slice(0, 2), [
+        t.errors,
+        result.inventory.filter((r) => r.kind === 'error').length,
+      ]);
+      // The source by its file and whole fingerprint.
+      const source = rowOf(rows, t.upload);
+      assert.deepEqual(rows[source].slice(0, 2), [t.upload, state.file.name]);
+      assert.deepEqual(rows[source + 1].slice(0, 2), [
+        w.fingerprint,
+        result.sourceHash,
+      ]);
+      assert.equal(rows.at(-1)![0], t.claim);
+    }
+});
+
+void test('clearing: a source with errors counts them, and every group waits for that reason', async () => {
+  // The frozen source with its first movement written twice: both rows are
+  // errors, so nothing clears and every group waits for the source.
+  const lines = (
+    await fsRead(
+      new URL('../audit/clearing/frozen/source.csv', import.meta.url),
+      'utf8',
+    )
+  )
+    .trimEnd()
+    .split('\n');
+  const state: ClearingInput = {
+    file: await readFile(
+      'clearing.csv',
+      new TextEncoder().encode([...lines, lines[1]].join('\n') + '\n')
+        .buffer as ArrayBuffer,
+    ),
+    reading: { ...clearingDemoReading },
+    scope: { ...clearingDemoScope },
+    events: [],
+  };
+  const result = reconcileClearing(state);
+  const errors = result.inventory.filter((r) => r.kind === 'error').length;
+  assert.equal(errors, 2, 'both rows of the posting written twice');
+  for (const lang of ['ar', 'en'] as const) {
+    const t = reconciliationSheetCopy[lang].clearing;
+    const { rows } = await firstSheet(
+      await exportClearingWorkpaper(state, result, lang),
+    );
+    assert.deepEqual(rows[rowOf(rows, t.errors)].slice(0, 2), [t.errors, 2]);
+    assert.deepEqual(rows[rowOf(rows, t.cleared)].slice(0, 2), [t.cleared, 0]);
+    const top = rowOf(rows, t.members);
+    const waiting = result.cases.filter((c) => c.status === 'review');
+    assert.equal(waiting.length, result.cases.length);
+    waiting.forEach((_, i) =>
+      assert.equal(rows[top + 1 + i][3], t.reason['source-errors']),
+    );
+  }
+});
+
+/** The first sheet's XML, its cell formats, and each row's cells. */
+async function sheetParts(book: ArrayBuffer) {
+  const all = await parts(book);
+  const workbook = decode(all.get('xl/workbook.xml'));
+  const rid = /<sheet [^>]*r:id="([^"]+)"/.exec(workbook)![1];
+  const target = new RegExp(`Id="${rid}"[^>]*Target="([^"]+)"`).exec(
+    decode(all.get('xl/_rels/workbook.xml.rels')),
+  )![1];
+  const xml = decode(all.get(`xl/${target.replace(/^\/?xl\//, '')}`));
+  const xfs = [
+    ...decode(all.get('xl/styles.xml'))
+      .match(/<cellXfs[^>]*>([\s\S]*?)<\/cellXfs>/)![1]
+      .matchAll(/<xf [^>]*?(?:\/>|>[\s\S]*?<\/xf>)/g),
+  ].map((m) => m[0]);
+  const rows = [...xml.matchAll(/<row r="(\d+)"([^>]*)>([\s\S]*?)<\/row>/g)].map(
+    (m) => ({
+      n: Number(m[1]),
+      height: Number(/ht="([\d.]+)"/.exec(m[2])?.[1] ?? 0),
+      custom: m[2].includes('customHeight="1"'),
+      cells: [
+        ...m[3].matchAll(/<c r="([A-Z]+)\d+"[^>]*?s="(\d+)"[^>]*?(?:\/>|>([\s\S]*?)<\/c>)/g),
+      ].map((c) => ({
+        col: c[1],
+        wrap: xfs[Number(c[2])].includes('wrapText="1"'),
+        text: /<t[^>]*>([\s\S]*?)<\/t>/.exec(c[3] ?? '')?.[1] ?? null,
+      })),
+    }),
+  );
+  return { xml, rows };
+}
+
+void test('a text longer than the room beside it wraps in its own cell, its row written tall enough; a text that fits runs on', async () => {
+  const note =
+    'Synthetic reviewer reason, long enough to need several lines in its column: the two postings offset under the same contract, read from the copy.';
+  const { state } = await clearingCase('none');
+  let result = reconcileClearing(state);
+  const pair = result.cases
+    .filter((c) => c.reason === 'missing-reference')
+    .flatMap((c) => c.ids);
+  state.events.push({ context: result.context, action: 'clear', ids: pair, note });
+  result = reconcileClearing(state);
+  for (const lang of ['ar', 'en'] as const) {
+    const { rows } = await sheetParts(
+      await exportClearingWorkpaper(state, result, lang),
+    );
+    const row = rows.find((r) => r.cells.some((c) => c.text === note))!;
+    const cell = row.cells.find((c) => c.text === note)!;
+    assert.equal(cell.col, 'C', `${lang}: the reason in its own cell`);
+    assert.equal(cell.wrap, true, `${lang}: the long reason wraps`);
+    // 150 characters in a column 22 wide: no fewer than seven lines of 15
+    // points, so no line of it is cut.
+    assert.ok(row.custom && row.height >= 7 * 15, `${lang}: ${row.height}`);
+    // Its members, short, stay on one line, unwrapped.
+    assert.equal(row.cells.find((c) => c.col === 'B')!.wrap, false);
+  }
+  // The room is the cell and the empty cells after it: a text of 60
+  // characters runs on from the first column when the three after it are
+  // empty, and wraps when the second holds a value.
+  const long = 'word '.repeat(12).trim();
+  const evidence = await exportClearing(state, result);
+  const { rows: laid } = await sheetParts(
+    await addReconciliationSheet(
+      evidence,
+      composeSheet('en', {
+        title: 'Synthetic',
+        sections: [
+          {
+            kind: 'table',
+            title: 'Synthetic table',
+            evidence: 'Summary',
+            head: ['One', 'Two', 'Three', 'Four'],
+            rows: [
+              [{ text: long, style: 'value' }, null, null, null],
+              [
+                { text: long, style: 'value' },
+                { text: 'ref', style: 'value' },
+                null,
+                null,
+              ],
+            ],
+          },
+        ],
+      }),
+    ),
+  );
+  const [runs, wraps] = laid.filter((r) =>
+    r.cells.some((c) => c.text === long),
+  );
+  assert.deepEqual(
+    [runs.cells[0].wrap, runs.custom, wraps.cells[0].wrap, wraps.custom],
+    [false, false, true, true],
+  );
+  // A GL/TB sheet whose texts all fit is written as before: nothing wraps,
+  // no row is given a height.
+  const { state: gl, result: glResult } = await glTbCase('positive');
+  for (const lang of ['ar', 'en'] as const) {
+    const { xml, rows } = await sheetParts(
+      await exportGlTbWorkpaper(gl, glResult, lang),
+    );
+    assert.ok(!xml.includes('customHeight'), `${lang}: no row height`);
+    assert.ok(rows.every((r) => r.cells.every((c) => !c.wrap)), lang);
+  }
+});
+
+void test('clearing: the words are the screen words, and the claim in English is the evidence words', async () => {
+  for (const [lang, locale] of [
+    ['ar', ar],
+    ['en', en],
+  ] as const) {
+    const t = reconciliationSheetCopy[lang].clearing;
+    for (const key of Object.keys(t) as (keyof typeof t)[])
+      if (key !== 'claim')
+        assert.deepEqual(
+          t[key],
+          (locale.clearing as Record<string, unknown>)[key],
+          `${lang} clearing.${key}`,
+        );
+  }
+  const { state, result } = await clearingCase('none');
+  const wb = new ExcelJS.Workbook();
+  await wb.xlsx.load(await exportClearing(state, result));
+  const claim = wb
+    .getWorksheet('Summary')!
+    .getRows(1, 40)!
+    .find((r) => r.getCell(1).value === 'Economic coverage')!
+    .getCell(2).value;
+  assert.equal(reconciliationSheetCopy.en.clearing.claim, claim);
+});
+
+/** A stored text as a spreadsheet reads it: each _xHHHH_ is the character it
+ * names (OOXML ST_Xstring). ExcelJS decodes shared strings so, but returns an
+ * inline string as stored. */
+const ooxmlText = (stored: string) =>
+  stored.replace(/_x([0-9a-fA-F]{4})_/g, (_, hex: string) =>
+    String.fromCharCode(Number.parseInt(hex, 16)),
+  );
+
+void test('a source name that looks like a formula or an escape reads back from the sheet as it was written', async () => {
+  const name =
+    '= مصدر عربي 🧾 é _x0041_ _X0041_ _x005F_x0041_ \u007f.csv';
+  const { state } = await clearingCase('none');
+  state.file.name = name;
+  for (const lang of ['ar', 'en'] as const) {
+    const book = await exportClearingWorkpaper(
+      state,
+      reconcileClearing(state),
+      lang,
+    );
+    const { rows } = await firstSheet(book);
+    const stored = rows[
+      rowOf(rows, reconciliationSheetCopy[lang].clearing.upload)
+    ][1] as string;
+    // Stored escaped, and read as written: a literal escape stays literal,
+    // not the character it would name, as the evidence's own cell reads.
+    const wb = new ExcelJS.Workbook();
+    await wb.xlsx.load(book);
+    const evidence = wb
+      .getWorksheet('Summary')!
+      .getRows(1, 40)!
+      .find((r) => r.getCell(1).value === 'Source name')!
+      .getCell(2).value;
+    assert.equal(evidence, name);
+    assert.notEqual(stored, name);
+    assert.equal(ooxmlText(stored), name);
+  }
+});
+
+void test('the real worker writes the clearing sheet in the language asked, and refuses none', async () => {
+  const { state, result } = await clearingCase('clear');
+  const port = new GlTbBindingPort();
+  try {
+    const client = createWorkerClient(() => port);
+    for (const lang of ['ar', 'en'] as const) {
+      const bytes = await client.request<ArrayBuffer>('clearing-export', {
+        state,
+        result,
+        lang,
+      });
+      const book = new ExcelJS.Workbook();
+      await book.xlsx.load(bytes);
+      assert.deepEqual(
+        book.worksheets.slice(0, 2).map((s) => s.name),
+        [reconciliationSheetCopy[lang].name, 'Summary'],
+      );
+    }
+    await assert.rejects(
+      client.request('clearing-export', { state, result }),
+      /RECONCILIATION_SHEET_LANGUAGE/,
+    );
+  } finally {
+    port.terminate();
   }
 });

@@ -59,8 +59,8 @@ import {
   replayClearing,
   saveClearing,
   restoreClearing,
-  exportClearing,
 } from './clearing-io.ts';
+import { exportClearingWorkpaper } from './clearing-sheet.ts';
 self.onmessage = async (event: MessageEvent) => {
   const input: unknown = event.data;
   if (!isRequest(input)) return;
@@ -181,7 +181,11 @@ self.onmessage = async (event: MessageEvent) => {
     else if (action === 'clearing-restore')
       value = await restoreClearing(payload.buffer);
     else if (action === 'clearing-export')
-      value = await exportClearing(payload.state, payload.result);
+      value = await exportClearingWorkpaper(
+        payload.state,
+        payload.result,
+        payload.lang,
+      );
     else if (action === 'save-session') {
       payload.files = [
         await replayReviewedVisualSource(payload.files[0]),

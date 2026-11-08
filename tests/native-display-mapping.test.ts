@@ -885,7 +885,13 @@ void test('actual worker replay/save/old restore/export prevents false-clean fle
                 result: record(good.value).result,
                 review: record(positive).review,
               }
-            : { state, result: goodResult },
+            : {
+                state,
+                result: goodResult,
+                // The request names the interface's language (UX-6), so the
+                // refusal below is the stale result's, not the language's.
+                ...(domain === 'clearing' ? { lang: 'en' } : {}),
+              },
         );
         assert.equal(
           exported.ok,

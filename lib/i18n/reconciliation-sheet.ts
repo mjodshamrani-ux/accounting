@@ -21,6 +21,44 @@ export type ReconciliationSheetCopy = {
   /** Between a count and what it is counted among, as the strip writes
    * them in one phrase («6 من 6»), here each in its own cell. */
   of: string;
+  /** Over the recorded decisions: what was decided. */
+  decisions: string;
+  decision: string;
+  clearing: {
+    title: string;
+    upload: string;
+    entity: string;
+    ledger: string;
+    account: string;
+    currency: string;
+    start: string;
+    end: string;
+    results: string;
+    valid: string;
+    cleared: string;
+    errors: string;
+    review: string;
+    members: string;
+    reference: string;
+    net: string;
+    basis: string;
+    note: string;
+    missing: string;
+    reason: Record<
+      | 'reference-zero'
+      | 'residual'
+      | 'unverified-reference-role'
+      | 'missing-reference'
+      | 'source-errors'
+      | 'group-limit'
+      | 'human-decision'
+      | 'reopened',
+      string
+    >;
+    /** The engine's claim as the evidence's Summary sheet writes it
+     * («Economic coverage»), in the interface's language. */
+    claim: string;
+  };
   glTb: {
     title: string;
     fields: Record<
@@ -90,6 +128,42 @@ export const reconciliationSheetCopy: Record<
     claim: 'ما يثبته المحرك',
     evidence: 'في الأدلة',
     of: 'من',
+    decisions: 'القرارات المسجلة',
+    decision: 'القرار',
+    clearing: {
+      title: 'مقاصة داخل حساب واحد',
+      upload: 'ملف حركات المقاصة',
+      entity: 'الكيان',
+      ledger: 'الدفتر',
+      account: 'الحساب',
+      currency: 'العملة',
+      start: 'بداية الفترة',
+      end: 'نهاية الفترة',
+      results: 'نتيجة المقاصة',
+      valid: 'حركات صالحة',
+      cleared: 'حركات مسوّاة',
+      errors: 'أخطاء قراءة',
+      review: 'تحتاج مراجعة',
+      members: 'الأعضاء',
+      reference: 'مرجع المقاصة',
+      net: 'الصافي',
+      basis: 'الدليل',
+      note: 'سبب قرار المراجعة',
+      missing: 'بلا مرجع مقاصة',
+      reason: {
+        'reference-zero': 'مرجع كامل وصافي صفر',
+        residual: 'حزمة المرجع غير متعادلة؛ لا اختيار لجزء منها',
+        'unverified-reference-role':
+          'رأس العمود لا يثبت دور مرجع المقاصة؛ يحتاج قرارًا بشريًا',
+        'missing-reference': 'غياب دليل العلاقة؛ المبلغ وحده لا يكفي',
+        'source-errors': 'أخطاء المصدر تمنع الاعتماد',
+        'group-limit': 'المجموعة تتجاوز 100 عضو',
+        'human-decision': 'أعضاء متعادلة بقرار بشري مسجل',
+        reopened: 'أُلغي الاعتماد وبقيت المجموعة للمراجعة',
+      },
+      claim:
+        'لم يُتحقق منه استقلالًا؛ مقاصة الحركات ليست إثباتًا لاكتمال فترة الحساب',
+    },
     glTb: {
       title: 'اتساق الأستاذ وميزان المراجعة',
       fields: {
@@ -153,6 +227,43 @@ export const reconciliationSheetCopy: Record<
     claim: 'What the engine establishes',
     evidence: 'In the evidence',
     of: 'of',
+    decisions: 'Recorded decisions',
+    decision: 'Decision',
+    clearing: {
+      title: 'Single-account clearing',
+      upload: 'Clearing movements file',
+      entity: 'Entity',
+      ledger: 'Ledger',
+      account: 'Account',
+      currency: 'Currency',
+      start: 'Period start',
+      end: 'Period end',
+      results: 'Clearing result',
+      valid: 'Valid movements',
+      cleared: 'Cleared movements',
+      errors: 'Reading errors',
+      review: 'Needs review',
+      members: 'Members',
+      reference: 'Clearing reference',
+      net: 'Net',
+      basis: 'Evidence',
+      note: 'Review decision reason',
+      missing: 'No clearing reference',
+      reason: {
+        'reference-zero': 'Whole reference offsets to zero',
+        residual: 'Reference bucket does not offset; no subset is selected',
+        'unverified-reference-role':
+          'Column header does not establish a clearing-reference role; a human decision is needed',
+        'missing-reference':
+          'Relationship evidence is missing; amount alone is insufficient',
+        'source-errors': 'Source errors block approval',
+        'group-limit': 'Group exceeds 100 members',
+        'human-decision': 'Offsetting members with a recorded human decision',
+        reopened: 'Approval cancelled; group remains for review',
+      },
+      claim:
+        'Not independently verified; clearing of movements is not proof that the account period is complete.',
+    },
     glTb: {
       title: 'GL and trial balance consistency',
       fields: {

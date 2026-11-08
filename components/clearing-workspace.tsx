@@ -848,7 +848,9 @@ export function ClearingWorkspace({
                   void perform(async (signal) => {
                     const bytes = await workerTask<ArrayBuffer>(
                       'clearing-export',
-                      { state: input(), result },
+                      // The reconciliation sheet is written in the
+                      // interface's language (UX-6).
+                      { state: input(), result, lang },
                       signal,
                     );
                     if (!signal.aborted)
