@@ -100,6 +100,41 @@ export type ReconciliationSheetCopy = {
      * («Economic coverage»), in the interface's language. */
     claim: string;
   };
+  bank: {
+    title: string;
+    sides: [string, string];
+    fields: Record<
+      'entity' | 'ledger' | 'account' | 'currency' | 'start' | 'end',
+      string
+    >;
+    caseStatus: Record<
+      'matched-evidence' | 'matched-manual' | 'needs-review' | 'source-error',
+      string
+    >;
+    reasons: Record<
+      | 'explicit-identity'
+      | 'human-review'
+      | 'undone'
+      | 'source-error'
+      | 'missing-identity'
+      | 'missing-counterpart'
+      | 'member-limit'
+      | 'policy-members'
+      | 'reversal-origin-conflict'
+      | 'incomplete-reversal'
+      | 'amount-difference'
+      | 'timing-review',
+      string
+    >;
+    caseKinds: Record<'reference' | 'missing' | 'human', string>;
+    difference: string;
+    members: string;
+    reference: string;
+    reason: string;
+    /** The engine's claim as the evidence's Summary sheet writes it
+     * («Claim»), in the interface's language. */
+    claim: string;
+  };
   glTb: {
     title: string;
     fields: Record<
@@ -250,6 +285,49 @@ export const reconciliationSheetCopy: Record<
       claim:
         'لم يُتحقق منه استقلالًا؛ مقارنة المستندات ليست تخصيصًا للمقبوضات ولا تسوية للأرصدة ولا إثباتًا للاكتمال',
     },
+    bank: {
+      title: 'حركات البنك ودفتر النقدية',
+      sides: ['كشف البنك', 'دفتر النقدية'],
+      fields: {
+        entity: 'الكيان',
+        ledger: 'الدفتر',
+        account: 'حساب البنك',
+        currency: 'العملة',
+        start: 'بداية الفترة',
+        end: 'نهاية الفترة',
+      },
+      caseStatus: {
+        'matched-evidence': 'مطابقة بهوية مصدر صريحة',
+        'matched-manual': 'مطابقة بمراجعة بشرية موثقة',
+        'needs-review': 'تحتاج مراجعة',
+        'source-error': 'خطأ مصدر',
+      },
+      reasons: {
+        'explicit-identity': 'هوية مصدر صريحة كاملة',
+        'human-review': 'مراجعة بشرية موثقة',
+        undone: 'ألغيت؛ تحتاج مراجعة',
+        'source-error': 'أخطاء المصدر تحجب الاعتماد',
+        'missing-identity': 'هوية التسوية غائبة',
+        'missing-counterpart': 'طرف المقارنة غائب',
+        'member-limit': 'المجموعة الكاملة تتجاوز حد الأعضاء',
+        'policy-members': 'تعارض سياسة المصدر أو أدوار الأعضاء الكاملة',
+        'reversal-origin-conflict': 'أصول العكس تعود إلى تسويات مختلفة',
+        'incomplete-reversal': 'عضوية عكس المجموعة الأصلية ناقصة',
+        'amount-difference': 'فرق قيمة',
+        'timing-review': 'تاريخ الحركة أو القيمة يحتاج مراجعة',
+      },
+      caseKinds: {
+        reference: 'هوية تسوية صريحة',
+        missing: 'هوية غائبة',
+        human: 'ربط بشري لحركة مقابل حركة',
+      },
+      difference: 'البنك ناقص الدفتر',
+      members: 'الأعضاء الكاملة',
+      reference: 'مرجع الدليل',
+      reason: 'سبب القرار أو الإلغاء',
+      claim:
+        'مقارنة حركات فقط؛ لا جسر للرصيد الافتتاحي أو الختامي، ولا ترحيل في نظام المنشأة، ولا ضمان لأصالة المصدر أو اكتمال الفترة',
+    },
     glTb: {
       title: 'اتساق الأستاذ وميزان المراجعة',
       fields: {
@@ -397,6 +475,51 @@ export const reconciliationSheetCopy: Record<
       },
       claim:
         'Not independently verified. Document comparison is not receipt allocation, balance reconciliation or proof of completeness.',
+    },
+    bank: {
+      title: 'Bank and cashbook movements',
+      sides: ['Bank statement', 'Cashbook'],
+      fields: {
+        entity: 'Entity',
+        ledger: 'Ledger',
+        account: 'Bank account',
+        currency: 'Currency',
+        start: 'Period start',
+        end: 'Period end',
+      },
+      caseStatus: {
+        'matched-evidence': 'Matched by explicit source identity',
+        'matched-manual': 'Matched by documented human review',
+        'needs-review': 'Needs review',
+        'source-error': 'Source error',
+      },
+      reasons: {
+        'explicit-identity': 'Explicit complete source identity',
+        'human-review': 'Documented human review',
+        undone: 'Undone; requires review',
+        'source-error': 'Source errors block approval',
+        'missing-identity': 'No settlement identity',
+        'missing-counterpart': 'Missing counterpart',
+        'member-limit': 'Complete group exceeds member limit',
+        'policy-members': 'Policy or complete member roles conflict',
+        'reversal-origin-conflict':
+          'Reversal origins name different settlements',
+        'incomplete-reversal':
+          'Original group reversal membership is incomplete',
+        'amount-difference': 'Amount difference',
+        'timing-review': 'Movement or value dates require review',
+      },
+      caseKinds: {
+        reference: 'Explicit settlement identity',
+        missing: 'Missing identity',
+        human: 'Human one-to-one pairing',
+      },
+      difference: 'Bank minus cashbook',
+      members: 'Complete members',
+      reference: 'Evidence reference',
+      reason: 'Decision or undo reason',
+      claim:
+        'Movement comparison only; no opening/closing balance bridge, ERP posting, source authenticity or period completeness assurance',
     },
     glTb: {
       title: 'GL and trial balance consistency',

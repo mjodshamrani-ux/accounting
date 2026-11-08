@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import { bankSheetSaysScreen } from './reconciliation-sheet-browser.mjs';
 import { mkdir, readFile, copyFile, writeFile } from 'node:fs/promises';
 export async function verifyBank(page, url, out = 'work/qa') {
   await mkdir(out, { recursive: true });
@@ -375,8 +376,24 @@ export async function verifyBank(page, url, out = 'work/qa') {
       `${width}px: the page overflows`,
     );
   }
-  async function exportFile(file) {
-    await download('Download bank movement workpaper', file);
+  // Every workpaper the page downloads opens on the reconciliation sheet,
+  // which says what the screen says (UX-6(b)).
+  const sheets = [];
+  async function exportFile(file, lang = 'en') {
+    await download(
+      lang === 'ar'
+        ? 'نزّل ورقة عمل حركات البنك'
+        : 'Download bank movement workpaper',
+      file,
+    );
+    sheets.push({
+      file,
+      ...(await bankSheetSaysScreen(page, {
+        file: `${out}/${file}`,
+        lang,
+        result: page.getByTestId('bank-result').locator('..'),
+      })),
+    });
   }
   async function eventCount(n) {
     await page.waitForFunction(
@@ -654,6 +671,8 @@ export async function verifyBank(page, url, out = 'work/qa') {
       })
       .click();
     await page.setViewportSize({ width, height: 844 });
+    // In Arabic the same example downloads with the sheet in Arabic.
+    if (lang === 'ar') await exportFile('bank-example-ar.xlsx', 'ar');
     assert.ok(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth + 1,
@@ -666,5 +685,9 @@ export async function verifyBank(page, url, out = 'work/qa') {
     });
   }
   await page.setViewportSize({ width: 1440, height: 1000 });
-  return { downloads: 12, synthetic: true, movementOnly: true };
+  assert.ok(
+    sheets.some((s) => s.waiting) && sheets.some((s) => s.decisions),
+    'a sheet with a case waiting and one with a decision',
+  );
+  return { downloads: 13, synthetic: true, movementOnly: true, sheets };
 }

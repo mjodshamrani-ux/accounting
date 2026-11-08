@@ -24,7 +24,8 @@ import {
   restoreBankAdjustments,
   exportBankAdjustments,
 } from './bank-adjustment-io.ts';
-import { replayBank, saveBank, restoreBank, exportBank } from './bank-io.ts';
+import { replayBank, saveBank, restoreBank } from './bank-io.ts';
+import { exportBankWorkpaper } from './bank-movements-sheet.ts';
 import {
   replayAnyStatement,
   saveAnyStatement,
@@ -96,7 +97,11 @@ self.onmessage = async (event: MessageEvent) => {
     else if (action === 'bank-restore')
       value = await restoreBank(payload.buffer);
     else if (action === 'bank-export')
-      value = await exportBank(payload.state, payload.result);
+      value = await exportBankWorkpaper(
+        payload.state,
+        payload.result,
+        payload.lang,
+      );
     else if (action === 'bank-statement-reconcile')
       value = await replayAnyStatement(payload);
     else if (action === 'bank-statement-save')

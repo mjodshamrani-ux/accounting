@@ -1,5 +1,5 @@
 """Independent financial/source/evidence ZIP tamper regressions; no product imports."""
-import unittest,copy,tempfile,zipfile,json
+import unittest,copy,tempfile,zipfile,json,re
 from pathlib import Path
 from check_export import verify,sheets,NS
 import xml.etree.ElementTree as ET
@@ -26,6 +26,40 @@ class BankOracle(unittest.TestCase):
             for suffix in ['', '-restored']:
                 self.assertTrue(verify(EXPORT/f'{name}-native{suffix}.xlsx',name,[EXPORT/f'{name}-source-{i}.xlsx' for i in [0,1]])['passed']);checked+=1
         self.assertEqual(checked,110)
+    def test_reconciliation_sheet_first_only(self):
+        # The page's workpaper (UX-6): the sheet first, set aside here and
+        # checked by audit/reconciliation-sheet/check_sheet.py; the evidence
+        # after it is held to the same profile as without it.
+        for name in ['individual','no-identity']:
+            for lang,title in [('ar','ورقة التسوية'),('en','Reconciliation sheet')]:
+                file=f'{name}-workpaper-{lang}.xlsx'
+                with zipfile.ZipFile(EXPORT/file) as z:
+                    self.assertIn(f'name="{title}"',z.read('xl/workbook.xml').decode())
+                self.assertTrue(verify(EXPORT/file,name)['passed'])
+                self.assertEqual(set(sheets(EXPORT/file)),set(sheets(EXPORT/f'{name}.xlsx')))
+        file='no-identity-workpaper-en.xlsx'
+        with zipfile.ZipFile(EXPORT/file) as z:
+            book=z.read('xl/workbook.xml').decode();styles=z.read('xl/styles.xml').decode()
+        first,second=re.findall(r'<sheet [^>]*/>',book)[:2]
+        sheet_xfs=len(ET.fromstring(styles).find('s:cellXfs',NS))-1
+        custom=re.search(r'<numFmt numFmtId="(\d+)"',styles).group(1)
+        def moved(name,data):
+            return data.decode().replace(first+second,second+first).encode() if name=='xl/workbook.xml' else data
+        def hidden(name,data):
+            return data.decode().replace(first,first.replace('<sheet ','<sheet state="hidden" '),1).encode() if name=='xl/workbook.xml' else data
+        def borrowed(name,data):
+            # An evidence cell drawn with one of the sheet's styles.
+            # The evidence keeps its parts; the sheet takes the next one.
+            return re.sub(rb'<c r="A1"( s="\d+")?',f'<c r="A1" s="{sheet_xfs}"'.encode(),data,count=1) if name=='xl/worksheets/sheet1.xml' else data
+        def formatted(name,data):
+            # An evidence style given the sheet's amount format.
+            return data.decode().replace('<xf numFmtId="0" fontId="1"',f'<xf numFmtId="{custom}" fontId="1"',1).encode() if name=='xl/styles.xml' else data
+        for edit in [moved,hidden,borrowed,formatted]:
+            with self.assertRaises(AssertionError,msg=edit.__name__):verify(self.altered(file,edit),'no-identity')
+        def custom_alone(name,data):
+            # Without the sheet, a custom format is refused as before.
+            return data.decode().replace('<fonts',f'<numFmts count="1"><numFmt numFmtId="{custom}" formatCode="0.00"/></numFmts><fonts',1).encode() if name=='xl/styles.xml' else data
+        with self.assertRaises(AssertionError):verify(self.altered('individual.xlsx',custom_alone),'individual')
     def test_amount_sign_and_group_sum_tampering(self):
         for sheet,col in [('Movements','N'),('Movements','O'),('Groups','H'),('Groups','J')]:
             with self.assertRaises(AssertionError):verify(self.replace('outgoing-fees.xlsx',sheet,2,col,999),'outgoing-fees')

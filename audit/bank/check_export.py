@@ -6,36 +6,48 @@ import xml.etree.ElementTree as ET
 from datetime import date,timedelta
 NS = {'s': 'http://schemas.openxmlformats.org/spreadsheetml/2006/main'}
 R = '{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id'
+# The page's workpaper opens on the reconciliation sheet (UX-6), named in the
+# interface's language; its own styles follow the evidence's in each list.
+RECONCILIATION_SHEETS = ('ورقة التسوية', 'Reconciliation sheet')
 
 
-def display_styles(archive, native=False):
+def display_styles(archive, native=False, used=None):
     """Known workpaper display profile, independently enforced from raw values.
 
     Exports use General and a bold header. Native fixture sources additionally
     use built-in 0.00 and date formats. Arbitrary Excel formatting is outside
     this audit contract; a correct raw value must not hide a misleading view.
+
+    With `used`, the workpaper opens on the reconciliation sheet: the cell
+    formats the evidence sheets use, and the fonts and borders they name, are
+    held to this profile, and the sheet's own (fonts, borders, number formats
+    and cell formats after the evidence's) are left to
+    audit/reconciliation-sheet/check_sheet.py, which checks that sheet.
     """
     def shape(node):
         return (node.tag.split('}')[-1], tuple(sorted(node.attrib.items())),
                 tuple(shape(child) for child in node))
     xml = ET.fromstring(archive.read('xl/styles.xml'))
+    xfs = xml.find('s:cellXfs', NS)
+    assert xfs is not None and len(xfs)
+    held = list(xfs) if used is None else [xfs[i] for i in sorted(used)]
     custom = xml.find('s:numFmts', NS)
-    assert custom is None or len(custom) == 0, 'unsupported custom display format'
+    assert used is not None or custom is None or len(custom) == 0, 'unsupported custom display format'
     default_font = ET.fromstring('<font><color theme="1"/><family val="2"/><scheme val="minor"/><sz val="11"/><name val="Calibri"/></font>')
     allowed_fonts = {shape(default_font), shape(ET.fromstring('<font><b/></font>'))}
     fonts = xml.find('s:fonts', NS)
-    assert fonts is not None and len(fonts) and all(shape(f) in allowed_fonts for f in fonts), 'unsupported font visibility'
+    named = range(len(fonts)) if used is None else {0} | {int(xf.get('fontId','0')) for xf in held}
+    assert fonts is not None and len(fonts) and all(0 <= i < len(fonts) and shape(fonts[i]) in allowed_fonts for i in named), 'unsupported font visibility'
     fills = xml.find('s:fills', NS)
     assert fills is not None and [shape(f) for f in fills] == [shape(ET.fromstring('<fill><patternFill patternType="none"/></fill>')), shape(ET.fromstring('<fill><patternFill patternType="gray125"/></fill>'))], 'unsupported cell background'
     borders = xml.find('s:borders', NS)
-    assert borders is not None and [shape(b) for b in borders] == [shape(ET.fromstring('<border><left/><right/><top/><bottom/><diagonal/></border>'))], 'unsupported border display'
+    empty_border = shape(ET.fromstring('<border><left/><right/><top/><bottom/><diagonal/></border>'))
+    assert borders is not None and ([shape(b) for b in borders] == [empty_border] if used is None else shape(borders[0]) == empty_border), 'unsupported border display'
     styles = xml.find('s:cellStyleXfs', NS)
     assert styles is not None and [shape(x) for x in styles] == [shape(ET.fromstring('<xf numFmtId="0" fontId="0" fillId="0" borderId="0"/>'))], 'unsupported inherited style'
     dxfs = xml.find('s:dxfs', NS)
     assert dxfs is None or not len(dxfs), 'unsupported conditional display style'
-    xfs = xml.find('s:cellXfs', NS)
-    assert xfs is not None and len(xfs)
-    for xf in xfs:
+    for xf in held:
         assert not len(xf) and set(xf.attrib) <= {'numFmtId','fontId','fillId','borderId','xfId','applyFont','applyNumberFormat'}, 'unsupported cell display attributes'
         assert xf.get('numFmtId','0') in ({'0','2','14'} if native else {'0'}), 'unsupported number display format'
         assert xf.get('fillId','0') == xf.get('borderId','0') == xf.get('xfId','0') == '0'
@@ -53,21 +65,39 @@ def display_styles(archive, native=False):
     return [xf.get('numFmtId','0') for xf in xfs]
 
 
+def _style_refs(xml):
+    """Every cell format a sheet part names: its cells, rows and columns."""
+    return {int(node.get('s' if node.tag.endswith('}c') or node.tag.endswith('}row') else 'style','0'))
+            for node in xml.iter() if node.tag.rsplit('}',1)[-1] in ('c','row','col')}
+
+
 def sheets(path, native=False):
     result = {}
     with zipfile.ZipFile(path) as archive:
-        styles = display_styles(archive, native)
+        workbook = ET.fromstring(archive.read('xl/workbook.xml'))
+        relations = {node.attrib['Id']: node.attrib['Target'].lstrip('/') for node in ET.fromstring(archive.read('xl/_rels/workbook.xml.rels'))}
+        source_sheets = workbook.findall('s:sheets/s:sheet', NS)
+        part = lambda sheet: (lambda t: t if t.startswith('xl/') else 'xl/' + t)(relations[sheet.attrib[R]])
+        # The reconciliation sheet, first only, in an export: set aside here,
+        # its styles after every one the evidence uses.
+        sheet_first = not native and bool(source_sheets) and source_sheets[0].get('name') in RECONCILIATION_SHEETS
+        assert not any(s.get('name') in RECONCILIATION_SHEETS for s in source_sheets[1 if sheet_first else 0:]), 'reconciliation sheet out of place'
+        used = None
+        if sheet_first:
+            assert source_sheets[0].get('state','visible') == 'visible', 'hidden export sheet'
+            used = {0}.union(*(_style_refs(ET.fromstring(archive.read(part(s)))) for s in source_sheets[1:]))
+            own = _style_refs(ET.fromstring(archive.read(part(source_sheets[0])))) - {0}
+            assert not own or max(used) < min(own), 'reconciliation sheet styles among the evidence styles'
+            source_sheets = source_sheets[1:]
+        styles = display_styles(archive, native, used)
         style_count = len(styles)
         strings = []
         if 'xl/sharedStrings.xml' in archive.namelist():
             nodes=ET.fromstring(archive.read('xl/sharedStrings.xml')).findall('s:si',NS)
             assert all(len(n)==1 and n[0].tag=='{'+NS['s']+'}t' for n in nodes), 'unsupported hidden/rich string content'
             strings = [n[0].text or '' for n in nodes]
-        workbook = ET.fromstring(archive.read('xl/workbook.xml'))
         properties = workbook.find('s:workbookPr', NS)
         assert properties is None or properties.get('date1904','0') in ['0','false'], 'unsupported workbook date system'
-        relations = {node.attrib['Id']: node.attrib['Target'].lstrip('/') for node in ET.fromstring(archive.read('xl/_rels/workbook.xml.rels'))}
-        source_sheets = workbook.findall('s:sheets/s:sheet', NS)
         for key in ['name','sheetId',R]:
             values = [s.get(key) for s in source_sheets]
             assert all(values) and len(values)==len(set(v.casefold() if key=='name' else v for v in values)), 'duplicate or missing sheet identity'

@@ -551,7 +551,12 @@ void test('P1 actual worker message handler enforces reconcile/save/old restore/
         ['bank-reconcile', b],
         ['bank-save', b],
         ['bank-restore', { buffer: legacy(b, 'bank') }],
-        ['bank-export', { state: b, result: reconcileBank(await bank()) }],
+        // With the interface's language (UX-6), so the source display is
+        // what refuses the export.
+        [
+          'bank-export',
+          { state: b, result: reconcileBank(await bank()), lang: 'en' },
+        ],
       ] as const) {
         const reply = await request(action, payload);
         assert.equal(reply.ok, false, `${name}/${action}`);

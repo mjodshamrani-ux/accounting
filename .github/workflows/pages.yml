@@ -389,6 +389,10 @@ jobs:
           python3 audit/bank/check_export.py --contract wrong-fee-parent work/qa/bank-source-error.xlsx
           python3 audit/bank/check_export.py --native-sources work/qa/bank-native-source-0.xlsx work/qa/bank-native-source-1.xlsx work/qa/bank-native.xlsx
           python3 audit/bank/check_export.py --native-sources work/qa/bank-native-source-0.xlsx work/qa/bank-native-source-1.xlsx work/qa/bank-native-restored.xlsx
+      - name: Independently verify the reconciliation sheet first in the bank movement workpapers the page downloaded, in English and in Arabic, against their own evidence sheets (UX-6(b))
+        run: |
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download en work/qa/bank-direct.xlsx work/qa/bank-restored.xlsx work/qa/bank-individual.xlsx work/qa/bank-timing-manual.xlsx work/qa/bank-timing-restored.xlsx work/qa/bank-timing-undo.xlsx work/qa/bank-noidentity-manual.xlsx work/qa/bank-noidentity-undo.xlsx work/qa/bank-policy-error.xlsx work/qa/bank-source-error.xlsx work/qa/bank-native.xlsx work/qa/bank-native-restored.xlsx
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download ar work/qa/bank-example-ar.xlsx
       - name: Independently verify allocation and GL/TB browser downloads
         run: |
           python3 audit/allocation/check_export.py work/qa/allocation-direct.xlsx work/qa/allocation-restored.xlsx

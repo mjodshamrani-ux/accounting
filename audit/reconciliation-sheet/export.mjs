@@ -8,7 +8,10 @@
 // and texts that look like formulas or escapes. Customer AR (6(b)): each
 // frozen ar-limited-1 contract, the positive one with a reopen and with a
 // reopen then a human confirmation, and a statement with an unreadable row so
-// its total is unavailable. Synthetic sources only.
+// its total is unavailable. Bank movements (6(b)): every frozen
+// bank-cash-movements-1 case with the decisions its contract records, so
+// every reason the engine gives, a source error and an empty source among
+// them. Synthetic sources only.
 import { readFile as fsRead, mkdir, writeFile } from 'node:fs/promises';
 import { readFile } from '../../lib/reconciliation/io.ts';
 import { GL_TB_VERSION } from '../../lib/reconciliation/gl-tb.ts';
@@ -27,6 +30,9 @@ import {
 } from '../../lib/reconciliation/ar-demo.ts';
 import { exportAr, replayAr } from '../../lib/reconciliation/ar-io.ts';
 import { exportArWorkpaper } from '../../lib/reconciliation/ar-sheet.ts';
+import { bankTruth, finishedBank } from '../bank/fixtures.ts';
+import { exportBank } from '../../lib/reconciliation/bank-io.ts';
+import { exportBankWorkpaper } from '../../lib/reconciliation/bank-movements-sheet.ts';
 
 const out = process.argv[2] ?? 'work/reconciliation-sheet';
 const root = 'audit/gl-tb/frozen/';
@@ -291,6 +297,29 @@ for (const c of arCases) {
     await writeFile(
       `${out}/${written[lang]}`,
       new Uint8Array(await exportArWorkpaper(input, result, lang)),
+    );
+  }
+  cases.push(written);
+}
+for (const c of bankTruth.cases) {
+  const { state, result } = await finishedBank(c);
+  const name = `bank-${c.name}`;
+  const written = {
+    workspace: 'bank',
+    case: name,
+    evidence: `${name}-evidence.xlsx`,
+    reasons: [...new Set(result.cases.map((g) => g.reason))],
+    decisions: state.events.length,
+  };
+  await writeFile(
+    `${out}/${written.evidence}`,
+    new Uint8Array(await exportBank(state, result)),
+  );
+  for (const lang of ['ar', 'en']) {
+    written[lang] = `${name}-${lang}.xlsx`;
+    await writeFile(
+      `${out}/${written[lang]}`,
+      new Uint8Array(await exportBankWorkpaper(state, result, lang)),
     );
   }
   cases.push(written);

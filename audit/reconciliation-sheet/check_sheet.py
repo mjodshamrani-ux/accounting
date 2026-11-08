@@ -67,6 +67,10 @@ FIELDS = ['openingDebit', 'openingCredit', 'periodDebit', 'periodCredit',
 CODES = {'functional', 'posted', 'consistent', 'difference', 'inconsistent',
          'missing', 'source-error'}
 HEX64 = re.compile(r'^[0-9a-f]{64}$')
+# The evidence sheets the tables waiting for review and of recorded decisions
+# stand in, as each workspace names them.
+REVIEW_TABLES = ('Cases', 'Groups')
+DECISION_TABLES = ('Decisions', 'Events')
 
 
 class Fault(AssertionError):
@@ -368,7 +372,7 @@ def check_breaks(book, rows, sections):
              'a break outside its list')
     allowed = {s['at'] for s in sections}
     for s in sections:
-        if s['evidence'] != 'Cases':
+        if s['evidence'] not in REVIEW_TABLES:
             continue
         for k, (i, row) in enumerate(s['rows']):
             above = s['rows'][k - 1][1] if k else None
@@ -398,7 +402,7 @@ def check_pages(rows, sections, heights, breaks):
     for s in sections:
         members = [i for i, _ in s['rows']]
         last = members[-1] if members else s['at']
-        if s['evidence'] in ('Cases', 'Decisions') and len(members) > 1:
+        if s['evidence'] in REVIEW_TABLES + DECISION_TABLES and len(members) > 1:
             # Under a head, its first row; in a list of documents with no
             # head, the first document with its movements.
             if blank(rows[members[1]][0]):
@@ -949,12 +953,189 @@ def check_ar(evidence, book, lang, summary):
     return {'status': status, 'rows': len(rows)}
 
 
+BANK_SCOPE = ['entity', 'ledger', 'account', 'currency', 'start', 'end']
+BANK_CODES = {'explicit-identity', 'human-review', 'undone', 'source-error',
+              'missing-identity', 'missing-counterpart', 'member-limit',
+              'policy-members', 'reversal-origin-conflict',
+              'incomplete-reversal', 'amount-difference', 'timing-review',
+              'reference', 'missing', 'human', 'accept', 'undo',
+              'matched-evidence', 'matched-manual', 'needs-review'}
+
+
+def check_bank(evidence, book, lang, summary):
+    """The bank movements sheet against its evidence: Movements, Groups,
+    Group members, Events, Event members and Sources."""
+    decimals = int(summary['Decimals'])
+    unit = Decimal(10) ** decimals
+    rows_of = lambda name: [dict(zip(evidence.table(name)[0], r))
+                            for r in evidence.table(name)[1:]]
+    movements = {m['ID']: m for m in rows_of('Movements')}
+    signed = next(k for k in evidence.table('Movements')[0]
+                  if k in ('Signed minor units', 'Calculated signed minor units'))
+    groups = rows_of('Groups')
+    members = {}
+    for m in rows_of('Group members'):
+        members.setdefault(m['Case ID'], []).append((int(m['Side']), m['Member ID']))
+    events = rows_of('Events')
+    taken_by = {}
+    for m in rows_of('Event members'):
+        taken_by.setdefault(m['Decision'], []).append((int(m['Side']), m['Member ID']))
+    need(all(mid in movements for c in members.values() for _, mid in c) and
+         all(mid in movements for e in taken_by.values() for _, mid in e),
+         'EVIDENCE_READ', 'members are movements')
+    sources = {}
+    for r in rows_of('Sources'):
+        src = sources.setdefault(int(r['Side']), {
+            'name': r['Name'], 'hash': r['SHA256'], 'chunks': []})
+        src['chunks'].append((int(r['Chunk index']), r['Base64']))
+    for side, src in sources.items():
+        data = base64.b64decode(''.join(c for _, c in sorted(src['chunks'])),
+                                validate=True)
+        need(hashlib.sha256(data).hexdigest() == src['hash'], 'EVIDENCE_READ',
+             f'source {side} fingerprint')
+    need(sorted(sources) == [0, 1], 'EVIDENCE_READ', 'two sources')
+    matched = [g for g in groups
+               if g['Status'] in ('matched-evidence', 'matched-manual')]
+    waiting = [g for g in groups
+               if g['Status'] in ('needs-review', 'source-error')]
+    need(len(matched) + len(waiting) == len(groups), 'EVIDENCE_READ', 'statuses')
+    reference = lambda mid: movements[mid]['Own reference']
+
+    expected = (['Summary', 'Sources', None] +
+                (['Groups'] if waiting else []) +
+                (['Events'] if events else []) + [None, 'Summary'])
+    rows, styles, line, sections = layout(book, evidence, lang, expected)
+    scope, srcs, strip = sections[:3]
+    table = sections[3] if waiting else None
+    taken = sections[3 + (1 if waiting else 0)] if events else None
+    sign, claim = sections[-2:]
+
+    # Scope: the six fields in the evidence's order.
+    need(len(scope['rows']) == len(BANK_SCOPE), 'SCOPE', 'six fields')
+    for key, (_, row) in zip(BANK_SCOPE, scope['rows']):
+        need(text(row[0]) and text(row[1]) and row[1][1] == summary[key],
+             'SCOPE', key)
+
+    # Sources: the statement and the cashbook by their roles, each file and
+    # its whole fingerprint, itself the SHA-256 of the original bytes.
+    need(len(srcs['rows']) == 4, 'SOURCES', 'two sources')
+    side_word = {}
+    for side in (0, 1):
+        (_, named), (_, printed) = srcs['rows'][2 * side:2 * side + 2]
+        need(text(named[0]) and text(named[1]) and
+             named[1][1] == sources[side]['name'], 'SOURCES', f'side {side}')
+        side_word[side] = named[0][1]
+        need(text(printed[1]) and HEX64.match(printed[1][1]) and
+             printed[1][1] == sources[side]['hash'], 'FINGERPRINT',
+             f'side {side}')
+    need(side_word[0] != side_word[1], 'SOURCES', 'two records one name')
+
+    # The cases left for review, read first so the strip's main reason can
+    # be read in the words they give: each one's kind, its identity where it
+    # has one, its reason, the difference the engine computed, then each
+    # complete member with its side, signed amount and own reference.
+    reason_word, labels = {}, set()
+    if waiting:
+        it = iter(table['rows'])
+        reasons, kinds = [], []
+        for g in waiting:
+            _, head = next(it, (None, [None] * 4))
+            need(text(head[0]) and text(head[2]), 'REVIEW',
+                 f'{g["Case ID"]} heading')
+            need(text(head[1]) and head[1][1] == g['Source identity']
+                 if g['Kind'] == 'reference' else blank(head[1]), 'REVIEW',
+                 f'{g["Case ID"]} identity')
+            kinds.append((g['Kind'], head[0][1]))
+            reasons.append((g['Reason'], head[2][1]))
+            _, gap = next(it, (None, [None] * 4))
+            need(blank(gap[0]) and text(gap[1]) and number(gap[2]) and
+                 gap[2][1] == Decimal(g['Difference minor units']) / unit,
+                 'REVIEW_NET', f'{g["Case ID"]}: {gap[2]}')
+            labels.add(gap[1][1])
+            for side, mid in members.get(g['Case ID'], []):
+                m = movements[mid]
+                _, row = next(it, (None, [None] * 4))
+                need(blank(row[0]) and text(row[1]) and
+                     row[1][1] == side_word[side] and int(m['Side']) == side,
+                     'REVIEW_MEMBERS', f'{mid} side')
+                need(number(row[2]) and
+                     row[2][1] == Decimal(m[signed]) / unit,
+                     'REVIEW_NET', f'{mid}: {row[2]}')
+                need(text(row[3]) and row[3][1] == m['Own reference'],
+                     'REVIEW_MEMBERS', f'{mid} reference')
+        need(next(it, None) is None, 'REVIEW', 'rows more than the cases')
+        need(len(labels) == 1, 'REVIEW', 'the difference said two ways')
+        reason_word = words_of(reasons, 'reason', BANK_CODES)
+        words_of(kinds, 'kind', BANK_CODES)
+
+    # Alignment: the strip's three cells; no total at either end.
+    lines = [row for _, row in strip['rows']]
+    agreed = lines.pop(0)
+    need(number(agreed[1]) and agreed[1][1] == len(matched), 'AGREED_COUNT',
+         f'{agreed[1]} != {len(matched)}')
+    unit_note = lines.pop(0)
+    need(blank(unit_note[0]) and text(unit_note[1]), 'STRIP', 'unit note')
+    review = lines.pop(0)
+    need(text(review[0]) and number(review[1]) and
+         review[1][1] == len(waiting), 'REVIEW_COUNT',
+         f'{review[1]} != {len(waiting)}')
+    if waiting:
+        main = lines.pop(0)
+        top = most_frequent([g['Reason'] for g in waiting])
+        need(text(main[1]) and text(main[2]) and
+             main[2][1] == reason_word[top], 'MAIN_REASON',
+             f'{main[2]} is not the word for {top}')
+    gap = lines.pop(0)
+    need(text(gap[1]), 'GAP', 'not computed, said in words')
+    note = lines.pop(0)
+    need(text(note[1]), 'GAP', 'note')
+    need(not lines, 'STRIP', f'{len(lines)} rows more')
+
+    # Each recorded decision: what it did, its members by their own
+    # references, the evidence reference and the reason given.
+    if events:
+        rows_ = taken['rows']
+        need(all(text(c) and styles.bold(c[2]) for c in rows_[0][1][:4]),
+             'DECISIONS', 'head')
+        need(len(rows_) == 1 + len(events), 'DECISIONS',
+             f'{len(rows_) - 1} != {len(events)}')
+        pairs = []
+        for e, (_, row) in zip(events, rows_[1:]):
+            need(text(row[0]), 'DECISION_ACTION', e['Index'])
+            pairs.append((e['Type'], row[0][1]))
+            taken_ids = taken_by.get(e['Decision'], [])
+            said = ' · '.join(reference(mid) for side, mid in taken_ids
+                              if side == 0) + ' · ' + ' · '.join(
+                reference(mid) for side, mid in taken_ids if side == 1)
+            need(text(row[1]) and row[1][1] == said, 'DECISION_MEMBERS',
+                 e['Index'])
+            need(text(row[2]) and row[2][1] == e['Evidence reference'],
+                 'DECISION_REFERENCE', e['Index'])
+            need(text(row[3]) and row[3][1] == e['Reason'], 'DECISION_REASON',
+                 f'decision {e["Index"]} without its reason')
+        action_word = words_of(pairs, 'decision_action', BANK_CODES)
+        if 'undo' in action_word and 'undone' in reason_word:
+            need(action_word['undo'] == reason_word['undone'],
+                 'DECISION_ACTION', 'an undo said apart from the case it left')
+
+    check_sign_and_claim(sign, claim, line, lang, summary['Claim'])
+
+    numbers = sum(1 for row in rows for c in row if number(c))
+    expected = 2 + sum(1 + len(members.get(g['Case ID'], [])) for g in waiting)
+    need(numbers == expected, 'STRAY_NUMBER', f'{numbers} != {expected}')
+    status = ('source-errors' if summary['Status'] == 'source-error' else
+              'review' if waiting else 'matched')
+    return {'status': status, 'rows': len(rows)}
+
+
 PROFILES = {'gl-trial-balance-consistency': check_gl_tb,
             'single-account-clearing': check_clearing,
-            'customer-ar-document-comparison': check_ar}
+            'customer-ar-document-comparison': check_ar,
+            'bank-cash-movements': check_bank}
 WORKSPACES = {'gl-tb': 'gl-trial-balance-consistency',
               'clearing': 'single-account-clearing',
-              'ar': 'customer-ar-document-comparison'}
+              'ar': 'customer-ar-document-comparison',
+              'bank': 'bank-cash-movements'}
 
 
 def verify(folder):
@@ -1148,6 +1329,41 @@ def ar_plants(data):
         'فاتورة', 0, lambda r: r.replace('فاتورة', 'invoice', 1))
 
 
+def bank_plants(data):
+    """Faults a bank movements workpaper can carry: in the case left for
+    review, its difference and members, and in its decisions."""
+    sheet = _first_sheet(data)
+
+    def row_edit(label, offset, change):
+        def go(x):
+            n = _cell(x, label) + offset
+            old = _row(x, n)
+            return x.replace(old, change(old), 1)
+        return _edit(data, sheet, go)
+
+    plus = lambda r: re.sub(r'(<c r="C\d+"[^>]*><v>)(-?\d+)',
+                            lambda m: f'{m.group(1)}{int(m.group(2)) + 1}',
+                            r, count=1)
+    case, accept, undone = 'هوية تسوية صريحة', 'مراجعة بشرية موثقة', 'ألغيت؛ تحتاج مراجعة'
+    yield 'decision without its reason', 'DECISION_REASON', row_edit(
+        accept, 0, lambda r: re.sub(r'<c r="D\d+"[^>]*>.*?</c>', '', r))
+    yield 'undo said as the approval', 'DECISION_ACTION', row_edit(
+        undone, 0, lambda r: r.replace(undone, accept, 1))
+    yield 'decision members changed', 'DECISION_MEMBERS', row_edit(
+        accept, 0, lambda r: r.replace('B1 · L1', 'L1 · B1', 1))
+    yield 'evidence reference changed', 'DECISION_REFERENCE', row_edit(
+        accept, 0, lambda r: r.replace('Synthetic reviewed evidence',
+                                       'Synthetic other evidence', 1))
+    yield 'difference changed', 'REVIEW_NET', row_edit(case, 1, plus)
+    yield 'member amount changed', 'REVIEW_NET', row_edit(case, 3, plus)
+    yield 'member from the other side', 'REVIEW_MEMBERS', row_edit(
+        case, 2, lambda r: r.replace('كشف البنك', 'دفتر النقدية', 1))
+    yield 'settlement identity changed', 'REVIEW', row_edit(
+        case, 0, lambda r: r.replace('>S1<', '>S9<', 1))
+    yield 'reason as its code', 'RAW_CODE', row_edit(
+        case, 0, lambda r: r.replace(undone, 'undone', 1))
+
+
 def page_plants(data):
     """A sheet that needs its break, printed without it: its heading would
     end about a point past its page by the checker's estimate, which only
@@ -1187,6 +1403,7 @@ def self_test(folder):
     found += _self_test_one(folder, pick('clearing-reopened'), clearing_plants)
     found += _self_test_one(folder, pick('ar-reopened'), ar_plants)
     found += _self_test_one(folder, pick('ar-unreadable'), page_plants)
+    found += _self_test_one(folder, pick('bank-timing-after-cutoff'), bank_plants)
     return found
 
 

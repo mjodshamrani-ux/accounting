@@ -403,6 +403,83 @@ const mutations = [
     '        blocks: review.map((c) => 1 + c.ids.length),\n',
     '',
   ],
+  // UX-6(b), bank movements. The worker ignores the language for bank.
+  [
+    'bank-worker-language-ignored',
+    'lib/reconciliation/worker.ts',
+    'exportBankWorkpaper(\n        payload.state,\n        payload.result,\n        payload.lang,',
+    "exportBankWorkpaper(\n        payload.state,\n        payload.result,\n        'ar',",
+  ],
+  // The bank sheet is written in English whatever the language asked.
+  [
+    'bank-language-not-followed',
+    'lib/reconciliation/bank-movements-sheet.ts',
+    'bankMovementsSheet(state, result, language)',
+    "bankMovementsSheet(state, result, 'en')",
+  ],
+  // Matched cases are listed for review too.
+  [
+    'bank-matched-listed',
+    'lib/reconciliation/bank-movements-sheet.ts',
+    "(c) => c.status === 'needs-review' || c.status === 'source-error',",
+    "(c) => c.status !== '',",
+  ],
+  // A case a source error holds is not listed as waiting.
+  [
+    'bank-source-error-not-listed',
+    'lib/reconciliation/bank-movements-sheet.ts',
+    "(c) => c.status === 'needs-review' || c.status === 'source-error',",
+    "(c) => c.status === 'needs-review',",
+  ],
+  // The bank side's total stands where the difference does.
+  [
+    'bank-difference-of-bank',
+    'lib/reconciliation/bank-movements-sheet.ts',
+    '{ minor: c.deltaMinor, decimals: result.decimals }',
+    '{ minor: c.bankMinor, decimals: result.decimals }',
+  ],
+  // A member's amount without its sign.
+  [
+    'bank-member-unsigned',
+    'lib/reconciliation/bank-movements-sheet.ts',
+    '{ minor: r.signed, decimals: result.decimals }',
+    '{ minor: r.amount, decimals: result.decimals }',
+  ],
+  // A case without a settlement identity is given its internal key.
+  [
+    'bank-identity-for-every-kind',
+    'lib/reconciliation/bank-movements-sheet.ts',
+    "c.kind === 'reference' ? value(c.key) : null",
+    'value(c.key)',
+  ],
+  // A case's members out of the order the evidence lists them.
+  [
+    'bank-members-out-of-order',
+    'lib/reconciliation/bank-movements-sheet.ts',
+    '...c.cashIds.map(member),',
+    '...c.cashIds.map(member).reverse(),',
+  ],
+  // A decision without the reason the reviewer gave.
+  [
+    'bank-decision-reason-dropped',
+    'lib/reconciliation/bank-movements-sheet.ts',
+    '          value(event.note),\n',
+    '          null,\n',
+  ],
+  // An undo said as the approval.
+  [
+    'bank-undo-said-as-accept',
+    'lib/reconciliation/bank-movements-sheet.ts',
+    "event.type === 'accept' ? 'human-review' : 'undone'",
+    "'human-review'",
+  ],
+  // A word of the sheet that is not the screen's.
+  [
+    'bank-word-off-screen',
+    'lib/i18n/reconciliation-sheet.ts',
+    "difference: 'Bank minus cashbook',",
+    "difference: 'Bank less cashbook',",
+  ],
 ];
 
 const sha = (s) => createHash('sha256').update(s).digest('hex'),

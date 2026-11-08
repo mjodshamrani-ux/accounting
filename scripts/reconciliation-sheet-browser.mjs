@@ -30,7 +30,11 @@ const cellValue = (cell) => {
 const same = (screen, sheet, what) => {
   const n = screenNumber(screen);
   if (typeof sheet === 'number')
-    assert.equal(n, sheet, `${what}: «${screen}» on the screen, ${sheet} in the sheet`);
+    assert.equal(
+      n,
+      sheet,
+      `${what}: «${screen}» on the screen, ${sheet} in the sheet`,
+    );
   else assert.equal(screen, sheet, what);
 };
 
@@ -40,7 +44,11 @@ export async function readSheet(file, lang) {
   const book = new ExcelJS.Workbook();
   await book.xlsx.readFile(file);
   const sheet = book.worksheets[0];
-  assert.equal(sheet.name, NAMES[lang], 'the sheet is first, named in the interface language');
+  assert.equal(
+    sheet.name,
+    NAMES[lang],
+    'the sheet is first, named in the interface language',
+  );
   assert.equal(book.worksheets[1].name, 'Summary', 'the evidence follows it');
   assert.equal(
     Boolean(sheet.views?.[0]?.rightToLeft),
@@ -66,8 +74,12 @@ export async function stripSaysScreen(grid, result) {
   const strip = result.locator('[data-alignment-strip]');
   for (const name of ['agreed', 'review', 'gap']) {
     const cell = strip.locator(`[data-strip-cell="${name}"]`);
-    const label = (await cell.locator('.alignment-strip__label').innerText()).trim();
-    const value = (await cell.locator('.alignment-strip__value').innerText()).trim();
+    const label = (
+      await cell.locator('.alignment-strip__label').innerText()
+    ).trim();
+    const value = (
+      await cell.locator('.alignment-strip__value').innerText()
+    ).trim();
     const notes = cell.locator('.alignment-strip__note');
     const note = (await notes.count()) ? (await notes.innerText()).trim() : '';
     const at = grid.findIndex((r) => r[0] === label);
@@ -78,8 +90,14 @@ export async function stripSaysScreen(grid, result) {
       assert.equal(value, `${b} ${c} ${d}`, `${name}: value`);
     } else same(value, b, `${name}: value`);
     const said = [];
-    for (let i = at + 1; i < grid.length && grid[i][0] === null && grid[i][1] !== null; i++)
-      said.push(grid[i][2] === null ? `${grid[i][1]}` : `${grid[i][1]}: ${grid[i][2]}`);
+    for (
+      let i = at + 1;
+      i < grid.length && grid[i][0] === null && grid[i][1] !== null;
+      i++
+    )
+      said.push(
+        grid[i][2] === null ? `${grid[i][1]}` : `${grid[i][1]}: ${grid[i][2]}`,
+      );
     assert.equal(said.join(' · '), note, `${name}: notes`);
   }
 }
@@ -97,7 +115,9 @@ export async function tableSaysScreen(grid, table) {
   const body = table.locator('tbody tr');
   const count = await body.count();
   for (let i = 0; i < count; i++) {
-    const cells = (await body.nth(i).locator('th, td').allInnerTexts()).map((t) => t.trim());
+    const cells = (await body.nth(i).locator('th, td').allInnerTexts()).map(
+      (t) => t.trim(),
+    );
     cells.forEach((text, j) =>
       same(text, grid[top + 1 + i][j], `table row ${i + 1} cell ${j + 1}`),
     );
@@ -139,12 +159,10 @@ export async function clearingSheetSaysScreen(
     );
     for (let i = 0; i < count; i++) {
       const cells = waiting.nth(i).locator('th, td');
-      const [members, reference, net] = (await cells.allInnerTexts()).map(
-        (t) => t.trim(),
+      const [members, reference, net] = (await cells.allInnerTexts()).map((t) =>
+        t.trim(),
       );
-      const reason = (
-        await cells.nth(4).locator('.muted').innerText()
-      ).trim();
+      const reason = (await cells.nth(4).locator('.muted').innerText()).trim();
       const row = grid[top + 1 + i];
       assert.equal(row[0], members, `review row ${i + 1}: members`);
       assert.equal(row[1], reference, `review row ${i + 1}: reference`);
@@ -202,8 +220,12 @@ export async function arSheetSaysScreen(
     const paper = result.locator(
       `[data-alignment-strip] [data-strip-side="${side}"]`,
     );
-    const name = (await paper.locator('.alignment-strip__role').innerText()).trim();
-    const total = (await paper.locator('[data-strip-total]').innerText()).trim();
+    const name = (
+      await paper.locator('.alignment-strip__role').innerText()
+    ).trim();
+    const total = (
+      await paper.locator('[data-strip-total]').innerText()
+    ).trim();
     const row = grid[strip + 1 + side];
     assert.equal(row[0], name, `side ${side}: the record's name`);
     same(total, row[1], `side ${side}: its total`);
@@ -222,7 +244,9 @@ export async function arSheetSaysScreen(
     const [kind, document] = (await c.locator('h3').innerText())
       .trim()
       .split(/:\s+/u);
-    const badge = (await c.locator('[data-status="review"]').innerText()).trim();
+    const badge = (
+      await c.locator('[data-status="review"]').innerText()
+    ).trim();
     const reason = badge.split(' · ').slice(1).join(' · ').trim();
     assert.deepEqual(
       grid[at++].slice(0, 3),
@@ -266,4 +290,110 @@ export async function arSheetSaysScreen(
     );
   }
   return { rows: grid.length, waiting: count };
+}
+
+/** The words the bank sheet gives a decision: the words the page gives the
+ * reason it leaves, by the decision type the page's table shows. */
+const BANK_DECISIONS = {
+  ar: { اعتماد: 'مراجعة بشرية موثقة', إلغاء: 'ألغيت؛ تحتاج مراجعة' },
+  en: { Accept: 'Documented human review', Undo: 'Undone; requires review' },
+};
+/** The review section's heading: the status word the page writes. */
+const BANK_HEADINGS = {
+  ar: { review: 'تحتاج مراجعة', decision: 'القرار' },
+  en: { review: 'Needs review', decision: 'Decision' },
+};
+
+/**
+ * UX-6(b), bank movements: the strip as the page draws it; each case the
+ * page shows waiting (needs review, or held by a source error), in its
+ * order, with its kind, its settlement identity where it has one, its
+ * reason and the bank minus cashbook difference, then each complete member
+ * with its side, amount and own reference as the page's tables give them;
+ * and each dated decision the page lists, with its members, its evidence
+ * reference and the reviewer's reason. Tables are read by their text, so a
+ * folded section reads as an open one.
+ */
+export async function bankSheetSaysScreen(page, { file, lang, result }) {
+  const grid = await readSheet(file, lang);
+  await stripSaysScreen(grid, result);
+  const section = (name) =>
+    page.locator(`[data-bank-movement-table="${name}"]`);
+  const cells = async (row) =>
+    (await row.locator('th, td').allTextContents()).map((t) => t.trim());
+  // Each movement's amount, by its side and own reference.
+  const amounts = new Map();
+  for (const row of await section('movements').locator('tbody tr').all()) {
+    const c = await cells(row);
+    amounts.set(`${c[0]}|${c[2]}`, c[10]);
+  }
+  const waiting = section('cases')
+    .locator('tbody tr')
+    .filter({
+      has: page.locator(
+        '[data-status="needs-review"], [data-status="source-error"]',
+      ),
+    });
+  const count = await waiting.count();
+  const top = grid.findIndex((r) => r[0] === BANK_HEADINGS[lang].review);
+  if (!count) assert.equal(top, -1, 'nothing waits, so no review section');
+  else assert.ok(top >= 0, 'the review section');
+  let at = top + 1;
+  for (let i = 0; i < count; i++) {
+    const [identity, kind, , , , difference, members, , reason] = await cells(
+      waiting.nth(i),
+    );
+    assert.deepEqual(
+      grid[at++].slice(0, 3),
+      [kind, identity === kind ? null : identity, reason],
+      `case ${i + 1}: its kind, identity and reason`,
+    );
+    const gap = grid[at++];
+    assert.equal(gap[0], null, `case ${i + 1}: its difference under it`);
+    same(difference, gap[2], `case ${i + 1}: bank minus cashbook`);
+    // «Bank statement: B1 · B2; Cashbook: L1», each side's members.
+    const listed = members.split('; ').flatMap((part) => {
+      const cut = part.indexOf(':');
+      const side = part.slice(0, cut).trim();
+      return part
+        .slice(cut + 1)
+        .split(' · ')
+        .map((ref) => ref.trim())
+        .filter(Boolean)
+        .map((ref) => [side, ref]);
+    });
+    for (const [side, ref] of listed) {
+      const row = grid[at++];
+      assert.equal(row[0], null, `${ref}: a member under its case`);
+      assert.equal(row[1], side, `${ref}: its side`);
+      assert.equal(row[3], ref, `${ref}: its own reference`);
+      const amount = amounts.get(`${side}|${ref}`);
+      assert.ok(amount, `${ref}: the page lists the movement`);
+      same(amount, row[2], `${ref}: its amount`);
+    }
+  }
+  if (count)
+    assert.ok(
+      grid[at].every((c) => c === null),
+      'the cases waiting and no more',
+    );
+  const events = await section('events').locator('tbody tr').all();
+  const head = grid.findIndex((r) => r[0] === BANK_HEADINGS[lang].decision);
+  if (!events.length) assert.equal(head, -1, 'no decision, no table');
+  else {
+    assert.ok(head >= 0, 'the recorded decisions');
+    for (const [i, row] of events.entries()) {
+      const [, type, , reference, note, members] = await cells(row);
+      assert.deepEqual(
+        grid[head + 1 + i],
+        [BANK_DECISIONS[lang][type], members, reference, note],
+        `decision ${i + 1}: what it did, its members, reference and reason`,
+      );
+    }
+    assert.ok(
+      grid[head + 1 + events.length].every((c) => c === null),
+      'the recorded decisions and no more',
+    );
+  }
+  return { rows: grid.length, waiting: count, decisions: events.length };
 }

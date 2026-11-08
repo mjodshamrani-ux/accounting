@@ -771,7 +771,9 @@ export function BankWorkspace({
                         download(
                           await workerTask(
                             'bank-export',
-                            { state: input(), result },
+                            // The reconciliation sheet is written in the
+                            // interface's language (UX-6).
+                            { state: input(), result, lang },
                             signal,
                           ),
                           'tarasuf-bank-workpaper.xlsx',

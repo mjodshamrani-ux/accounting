@@ -48,6 +48,12 @@ import {
   exportClearingWorkpaper,
 } from '../lib/reconciliation/clearing-sheet.ts';
 import { GlTbBindingPort } from './helpers/gl-tb-binding-port.ts';
+import { bankTruth, finishedBank } from '../audit/bank/fixtures.ts';
+import { exportBank } from '../lib/reconciliation/bank-io.ts';
+import {
+  bankMovementsSheet,
+  exportBankWorkpaper,
+} from '../lib/reconciliation/bank-movements-sheet.ts';
 
 // UX-6(a): the reconciliation sheet is added to a workpaper whose evidence is
 // already written, and leaves that evidence byte for byte as it was. Its words
@@ -104,8 +110,10 @@ const sheetNames = (workbook: string) =>
   [...workbook.matchAll(/<sheet [^>]*name="([^"]*)"/g)].map((m) => m[1]);
 /** Each style list's body, and its count as written. */
 function styleLists(styles: string) {
-  const lists: Record<string, { count: number; entries: number; body: string }> =
-    {};
+  const lists: Record<
+    string,
+    { count: number; entries: number; body: string }
+  > = {};
   for (const [tag, child] of [
     ['numFmts', 'numFmt'],
     ['fonts', 'font'],
@@ -164,7 +172,8 @@ void test('the evidence stays byte for byte: only the four workbook parts change
         if (was[tag]) assert.ok(list.body.startsWith(was[tag].body), tag);
       }
       for (const xf of now.cellXfs.body.matchAll(/<xf [^>]*>/g)) {
-        const id = (key: string) => Number(new RegExp(`${key}="(\\d+)"`).exec(xf[0])![1]);
+        const id = (key: string) =>
+          Number(new RegExp(`${key}="(\\d+)"`).exec(xf[0])![1]);
         assert.ok(id('fontId') < now.fonts.entries, xf[0]);
         assert.ok(id('borderId') < now.borders.entries, xf[0]);
         assert.ok(id('fillId') < now.fills.entries, xf[0]);
@@ -176,9 +185,9 @@ void test('the evidence stays byte for byte: only the four workbook parts change
       }
       // A number keeps a left-to-right reading order in either language, so
       // its sign stays before it in print («-50.00», never «50.00-»).
-      const xfs = [...now.cellXfs.body.matchAll(/<xf [^>]*?(?:\/>|>[\s\S]*?<\/xf>)/g)].map(
-        (m) => m[0],
-      );
+      const xfs = [
+        ...now.cellXfs.body.matchAll(/<xf [^>]*?(?:\/>|>[\s\S]*?<\/xf>)/g),
+      ].map((m) => m[0]);
       const sheetPart = decode(after.get('xl/worksheets/sheet11.xml'));
       for (const c of sheetPart.matchAll(/<c r="[A-Z]+\d+" s="(\d+)"><v>/g))
         assert.doesNotMatch(xfs[Number(c[1])], /readingOrder="2"/, c[0]);
@@ -247,7 +256,10 @@ void test('the real worker hands the page the workpaper with the sheet first, in
         book.worksheets.slice(0, 2).map((s) => s.name),
         [reconciliationSheetCopy[lang].name, 'Summary'],
       );
-      assert.equal(book.getWorksheet('Summary')!.getCell('B4').value, 'consistent');
+      assert.equal(
+        book.getWorksheet('Summary')!.getCell('B4').value,
+        'consistent',
+      );
     }
     await assert.rejects(
       client.request('gl-tb-export', { state, result }),
@@ -274,7 +286,10 @@ async function firstSheet(book: ArrayBuffer) {
           : (v as string | number);
     });
   });
-  return { sheet, rows: Array.from(rows, (r) => r ?? [null, null, null, null]) };
+  return {
+    sheet,
+    rows: Array.from(rows, (r) => r ?? [null, null, null, null]),
+  };
 }
 const rowOf = (rows: (string | number | null)[][], label: string) => {
   const at = rows.findIndex((r) => r[0] === label);
@@ -313,7 +328,10 @@ void test('the sheet says what the screen says: scope, sources, the strip, every
       for (const [side, source] of result.sources.entries()) {
         const at = rowOf(rows, t.sides[side]);
         assert.equal(rows[at][1], source.name);
-        assert.deepEqual(rows[at + 1].slice(0, 2), [w.fingerprint, source.hash]);
+        assert.deepEqual(rows[at + 1].slice(0, 2), [
+          w.fingerprint,
+          source.hash,
+        ]);
       }
       // The strip, cell by cell, from the function the screen draws with.
       const view = stripView(glTbStrip(result), s, {
@@ -376,9 +394,14 @@ void test('the sheet says what the screen says: scope, sources, the strip, every
         if (!filled.length) continue;
         const heading =
           i < 2 ||
-          [w.scope, w.sources, w.alignment, t.balances, w.signature, w.claim].includes(
-            String(row[0]),
-          ) ||
+          [
+            w.scope,
+            w.sources,
+            w.alignment,
+            t.balances,
+            w.signature,
+            w.claim,
+          ].includes(String(row[0])) ||
           i === head ||
           i === rows.length - 1;
         assert.ok(
@@ -419,7 +442,10 @@ void test('the words are the screen words: the GL/TB catalogue and the strip as 
   assert.notEqual(reconciliationSheetCopy.ar.glTb.claim, claim);
 });
 
-const tiny = (rows: SheetCell[][], language: 'ar' | 'en' = 'en'): ReconciliationSheet => ({
+const tiny = (
+  rows: SheetCell[][],
+  language: 'ar' | 'en' = 'en',
+): ReconciliationSheet => ({
   name: 'First',
   language,
   widths: [10],
@@ -481,7 +507,10 @@ void test('guards: a selected tab, a taken or invalid name, and values the sheet
   assert.match(styles, /<fonts count="\d+"/);
   miscounted.file(
     'xl/styles.xml',
-    styles.replace(/<fonts count="(\d+)"/, (_, n) => `<fonts count="${Number(n) + 1}"`),
+    styles.replace(
+      /<fonts count="(\d+)"/,
+      (_, n) => `<fonts count="${Number(n) + 1}"`,
+    ),
   );
   await assert.rejects(
     addReconciliationSheet(
@@ -528,13 +557,12 @@ void test('a name tied to a sheet position keeps its sheet when the first sheet 
     two.pageSetup.printArea = 'A1:B2';
   });
   const before = decode((await parts(book)).get('xl/workbook.xml'));
-  const local = (xml: string) =>
-    Number(/localSheetId="(\d+)"/.exec(xml)![1]);
+  const local = (xml: string) => Number(/localSheetId="(\d+)"/.exec(xml)![1]);
   assert.equal(sheetNames(before)[local(before)], 'Two');
   const after = decode(
-    (await parts(await addReconciliationSheet(book, tiny([[{ count: 1 }]])))).get(
-      'xl/workbook.xml',
-    ),
+    (
+      await parts(await addReconciliationSheet(book, tiny([[{ count: 1 }]])))
+    ).get('xl/workbook.xml'),
   );
   assert.deepEqual(sheetNames(after), ['First', 'One', 'Two']);
   assert.equal(sheetNames(after)[local(after)], 'Two');
@@ -667,7 +695,8 @@ void test('clearing: the evidence stays byte for byte, and the sheet says the de
       );
       // Each decision, what it did and the reason the reviewer gave.
       const head = rows.findIndex((r) => r[0] === w.decision);
-      if (!state.events.length) assert.equal(head, -1, 'no decisions, no table');
+      if (!state.events.length)
+        assert.equal(head, -1, 'no decisions, no table');
       state.events.forEach((event, i) =>
         assert.deepEqual(rows[head + 1 + i].slice(0, 3), [
           t.reason[event.action === 'clear' ? 'human-decision' : 'reopened'],
@@ -755,20 +784,22 @@ async function sheetParts(book: ArrayBuffer) {
       .match(/<cellXfs[^>]*>([\s\S]*?)<\/cellXfs>/)![1]
       .matchAll(/<xf [^>]*?(?:\/>|>[\s\S]*?<\/xf>)/g),
   ].map((m) => m[0]);
-  const rows = [...xml.matchAll(/<row r="(\d+)"([^>]*)>([\s\S]*?)<\/row>/g)].map(
-    (m) => ({
-      n: Number(m[1]),
-      height: Number(/ht="([\d.]+)"/.exec(m[2])?.[1] ?? 0),
-      custom: m[2].includes('customHeight="1"'),
-      cells: [
-        ...m[3].matchAll(/<c r="([A-Z]+)\d+"[^>]*?s="(\d+)"[^>]*?(?:\/>|>([\s\S]*?)<\/c>)/g),
-      ].map((c) => ({
-        col: c[1],
-        wrap: xfs[Number(c[2])].includes('wrapText="1"'),
-        text: /<t[^>]*>([\s\S]*?)<\/t>/.exec(c[3] ?? '')?.[1] ?? null,
-      })),
-    }),
-  );
+  const rows = [
+    ...xml.matchAll(/<row r="(\d+)"([^>]*)>([\s\S]*?)<\/row>/g),
+  ].map((m) => ({
+    n: Number(m[1]),
+    height: Number(/ht="([\d.]+)"/.exec(m[2])?.[1] ?? 0),
+    custom: m[2].includes('customHeight="1"'),
+    cells: [
+      ...m[3].matchAll(
+        /<c r="([A-Z]+)\d+"[^>]*?s="(\d+)"[^>]*?(?:\/>|>([\s\S]*?)<\/c>)/g,
+      ),
+    ].map((c) => ({
+      col: c[1],
+      wrap: xfs[Number(c[2])].includes('wrapText="1"'),
+      text: /<t[^>]*>([\s\S]*?)<\/t>/.exec(c[3] ?? '')?.[1] ?? null,
+    })),
+  }));
   return { xml, rows };
 }
 
@@ -780,7 +811,12 @@ void test('a text longer than the room beside it wraps in its own cell, its row 
   const pair = result.cases
     .filter((c) => c.reason === 'missing-reference')
     .flatMap((c) => c.ids);
-  state.events.push({ context: result.context, action: 'clear', ids: pair, note });
+  state.events.push({
+    context: result.context,
+    action: 'clear',
+    ids: pair,
+    note,
+  });
   result = reconcileClearing(state);
   for (const lang of ['ar', 'en'] as const) {
     const { rows } = await sheetParts(
@@ -841,7 +877,10 @@ void test('a text longer than the room beside it wraps in its own cell, its row 
       await exportGlTbWorkpaper(gl, glResult, lang),
     );
     assert.ok(!xml.includes('customHeight'), `${lang}: no row height`);
-    assert.ok(rows.every((r) => r.cells.every((c) => !c.wrap)), lang);
+    assert.ok(
+      rows.every((r) => r.cells.every((c) => !c.wrap)),
+      lang,
+    );
   }
 });
 
@@ -879,8 +918,7 @@ const ooxmlText = (stored: string) =>
   );
 
 void test('a source name that looks like a formula or an escape reads back from the sheet as it was written', async () => {
-  const name =
-    '= مصدر عربي 🧾 é _x0041_ _X0041_ _x005F_x0041_ \u007f.csv';
+  const name = '= مصدر عربي 🧾 é _x0041_ _X0041_ _x005F_x0041_ \u007f.csv';
   const { state } = await clearingCase('none');
   state.file.name = name;
   for (const lang of ['ar', 'en'] as const) {
@@ -935,6 +973,168 @@ void test('the real worker writes the clearing sheet in the language asked, and 
   }
 });
 
+/** A frozen bank-cash-movements-1 case with the decisions its contract
+ * records. */
+const bankCase = (name: string) => {
+  const c = bankTruth.cases.find((c: { name: string }) => c.name === name);
+  assert.ok(c, name);
+  return finishedBank(c);
+};
+
+void test('bank: the evidence stays byte for byte, each case left for review with its difference and members, each decision with its reason', async () => {
+  for (const name of [
+    'no-identity',
+    'timing-after-cutoff',
+    'wrong-fee-parent',
+    'individual',
+    'outgoing-fees',
+    'empty-sources',
+  ])
+    for (const lang of ['ar', 'en'] as const) {
+      const { state, result } = await bankCase(name);
+      const evidence = await exportBank(state, result);
+      const book = await addReconciliationSheet(
+        evidence,
+        bankMovementsSheet(state, result, lang),
+      );
+      const before = await parts(evidence),
+        after = await parts(book);
+      for (const [part, bytes] of before)
+        if (!WORKBOOK_PARTS.includes(part))
+          assert.deepEqual(after.get(part), bytes, `${name}: ${part}`);
+      const w = reconciliationSheetCopy[lang],
+        t = w.bank;
+      const { rows } = await firstSheet(
+        await exportBankWorkpaper(state, result, lang),
+      );
+      assert.equal(rows[1][0], t.title, name);
+      const record = new Map(result.records.map((r) => [r.id, r]));
+      const unit = 10 ** result.decimals;
+      // What the strip counts as waiting, each case with its kind, its
+      // identity where it has one, its reason, the engine's difference, then
+      // each complete member with its side, signed amount and reference.
+      const waiting = result.cases.filter(
+        (c) => c.status === 'needs-review' || c.status === 'source-error',
+      );
+      const top = rows.findIndex((r) => r[0] === t.caseStatus['needs-review']);
+      if (!waiting.length) assert.equal(top, -1, `${name}: nothing waits`);
+      let at = top + 1;
+      for (const c of waiting) {
+        assert.deepEqual(
+          rows[at++].slice(0, 3),
+          [
+            t.caseKinds[c.kind],
+            c.kind === 'reference' ? c.key : null,
+            t.reasons[c.reason],
+          ],
+          `${name} ${c.id}`,
+        );
+        assert.deepEqual(rows[at++].slice(0, 3), [
+          null,
+          t.difference,
+          c.deltaMinor / unit,
+        ]);
+        for (const id of [...c.bankIds, ...c.cashIds]) {
+          const r = record.get(id)!;
+          assert.deepEqual(rows[at++], [
+            null,
+            t.sides[r.side],
+            r.signed / unit,
+            r.reference,
+          ]);
+        }
+      }
+      // Each decision: what it did, its members, the reference and reason.
+      const names = (ids: string[]) =>
+        ids.map((id) => record.get(id)!.reference).join(' · ');
+      const head = rows.findIndex((r) => r[0] === w.decision);
+      if (!state.events.length)
+        assert.equal(head, -1, 'no decisions, no table');
+      else
+        assert.deepEqual(rows[head], [
+          w.decision,
+          t.members,
+          t.reference,
+          t.reason,
+        ]);
+      state.events.forEach((event, i) =>
+        assert.deepEqual(rows[head + 1 + i], [
+          t.reasons[event.type === 'accept' ? 'human-review' : 'undone'],
+          `${names(event.bankIds)} · ${names(event.cashIds)}`,
+          event.reference,
+          event.note,
+        ]),
+      );
+      // The two sources by their roles and whole fingerprints.
+      for (const side of [0, 1] as const) {
+        const source = rowOf(rows, t.sides[side]);
+        assert.deepEqual(rows[source].slice(0, 2), [
+          t.sides[side],
+          result.sources[side].name,
+        ]);
+        assert.deepEqual(rows[source + 1].slice(0, 2), [
+          w.fingerprint,
+          result.sources[side].hash,
+        ]);
+      }
+      assert.equal(rows.at(-1)![0], t.claim);
+    }
+});
+
+void test('bank: the words are the screen words, and the claim in English is the evidence words', async () => {
+  for (const [lang, locale] of [
+    ['ar', ar],
+    ['en', en],
+  ] as const) {
+    const t = reconciliationSheetCopy[lang].bank;
+    for (const key of Object.keys(t) as (keyof typeof t)[])
+      if (key !== 'claim')
+        assert.deepEqual(
+          t[key],
+          (locale.bank as Record<string, unknown>)[key],
+          `${lang} bank.${key}`,
+        );
+  }
+  const { state, result } = await bankCase('individual');
+  const wb = new ExcelJS.Workbook();
+  await wb.xlsx.load(await exportBank(state, result));
+  const claim = wb
+    .getWorksheet('Summary')!
+    .getRows(1, 40)!
+    .find((r) => r.getCell(1).value === 'Claim')!
+    .getCell(2).value;
+  assert.equal(reconciliationSheetCopy.en.bank.claim, claim);
+});
+
+void test('the real worker writes the bank movements sheet in the language asked, and refuses none', async () => {
+  const { state, result } = await bankCase('no-identity');
+  const port = new GlTbBindingPort();
+  try {
+    const client = createWorkerClient(() => port);
+    for (const lang of ['ar', 'en'] as const) {
+      const bytes = await client.request<ArrayBuffer>('bank-export', {
+        state,
+        result,
+        lang,
+      });
+      const book = new ExcelJS.Workbook();
+      await book.xlsx.load(bytes);
+      assert.deepEqual(
+        book.worksheets.slice(0, 2).map((s) => s.name),
+        [reconciliationSheetCopy[lang].name, 'Summary'],
+      );
+      const { rows } = await firstSheet(bytes);
+      assert.equal(rows[1][0], reconciliationSheetCopy[lang].bank.title);
+    }
+    await assert.rejects(
+      client.request('bank-export', { state, result }),
+      /RECONCILIATION_SHEET_LANGUAGE/,
+    );
+  } finally {
+    port.terminate();
+  }
+});
+
 /** A frozen AR case, with no decision, a reopen, or a reopen then a human
  * confirmation of the first matched pair. */
 async function arCase(
@@ -947,7 +1147,10 @@ async function arCase(
         `${name}-${side}.csv`,
         new Uint8Array(
           await fsRead(
-            new URL(`../audit/ar-limited/frozen/${name}-${side}.csv`, import.meta.url),
+            new URL(
+              `../audit/ar-limited/frozen/${name}-${side}.csv`,
+              import.meta.url,
+            ),
           ),
         ).buffer,
       ),
@@ -1125,7 +1328,10 @@ void test('receivables: a record without a total says why, and its words are the
     const t = reconciliationSheetCopy[lang].receivables;
     const sheet = arSheet(state, missing, lang);
     const at = sheet.rows.findIndex(
-      (r) => r[0] && 'text' in r[0] && r[0].text === reconciliationSheetCopy[lang].alignment,
+      (r) =>
+        r[0] &&
+        'text' in r[0] &&
+        r[0].text === reconciliationSheetCopy[lang].alignment,
     );
     assert.deepEqual(sheet.rows[at + 2][1], {
       text: t.unavailableTotal,
@@ -1190,7 +1396,10 @@ void test('the real worker writes the AR sheet in the language asked, and the bi
         'Summary',
       ]);
       // And the page, writing the same workpaper itself, accepted it.
-      assert.ok(reply instanceof ArrayBuffer, `the page accepted the ${lang} workpaper`);
+      assert.ok(
+        reply instanceof ArrayBuffer,
+        `the page accepted the ${lang} workpaper`,
+      );
       assert.deepEqual(await names(reply), [
         reconciliationSheetCopy[lang].name,
         'Summary',
@@ -1219,12 +1428,18 @@ void test('the real worker writes the AR sheet in the language asked, and the bi
 
 void test('a printed page is broken above a whole section or document, never inside one; a sheet that fits one page is not broken', async () => {
   const breaks = (xml: string) => {
-    const list = /<rowBreaks count="(\d+)" manualBreakCount="(\d+)">([\s\S]*?)<\/rowBreaks>/.exec(xml);
+    const list =
+      /<rowBreaks count="(\d+)" manualBreakCount="(\d+)">([\s\S]*?)<\/rowBreaks>/.exec(
+        xml,
+      );
     if (!list) return [];
-    const ids = [...list[3].matchAll(/<brk id="(\d+)" max="16383" man="1"\/>/g)].map(
-      (m) => Number(m[1]),
+    const ids = [
+      ...list[3].matchAll(/<brk id="(\d+)" max="16383" man="1"\/>/g),
+    ].map((m) => Number(m[1]));
+    assert.deepEqual(
+      [Number(list[1]), Number(list[2])],
+      [ids.length, ids.length],
     );
-    assert.deepEqual([Number(list[1]), Number(list[2])], [ids.length, ids.length]);
     return ids;
   };
   // The zero-based row whose first cell says label: a break stands above it.
@@ -1232,14 +1447,18 @@ void test('a printed page is broken above a whole section or document, never ins
     rows: Awaited<ReturnType<typeof sheetParts>>['rows'],
     label: string,
   ) => {
-    const row = rows.find((r) => r.cells[0]?.col === 'A' && r.cells[0].text === label);
+    const row = rows.find(
+      (r) => r.cells[0]?.col === 'A' && r.cells[0].text === label,
+    );
     assert.ok(row, label);
     return row.n - 1;
   };
   // A GL/TB sheet fits one page: no break.
   const { state: gl, result: glResult } = await glTbCase('positive');
   for (const lang of ['ar', 'en'] as const) {
-    const { xml } = await sheetParts(await exportGlTbWorkpaper(gl, glResult, lang));
+    const { xml } = await sheetParts(
+      await exportGlTbWorkpaper(gl, glResult, lang),
+    );
     assert.equal(breaks(xml).length, 0, lang);
     assert.ok(!xml.includes('<brk'), lang);
   }
@@ -1252,7 +1471,9 @@ void test('a printed page is broken above a whole section or document, never ins
   const en = await sheetParts(await exportArWorkpaper(state, result, 'en'));
   assert.deepEqual(breaks(en.xml), [above(en.rows, words.en.decisions)]);
   const arabic = await sheetParts(await exportArWorkpaper(state, result, 'ar'));
-  assert.deepEqual(breaks(arabic.xml), [above(arabic.rows, words.ar.signature)]);
+  assert.deepEqual(breaks(arabic.xml), [
+    above(arabic.rows, words.ar.signature),
+  ]);
   // The document waiting for review is kept whole with its two movements,
   // and with the heading above it, as the first of its list.
   const sheet = arSheet(state, result, 'en');
@@ -1292,6 +1513,10 @@ void test('a printed page is broken above a whole section or document, never ins
   assert.deepEqual(breaks(straddles.xml), [above(straddles.rows, 'Second')]);
   const fits = await laid(pairs('First', 10), pairs('Second', 3));
   assert.deepEqual(breaks(fits.xml), []);
-  const tall = await laid(pairs('First', 3), pairs('Long', 60), pairs('Last', 3));
+  const tall = await laid(
+    pairs('First', 3),
+    pairs('Long', 60),
+    pairs('Last', 3),
+  );
   assert.ok(!breaks(tall.xml).includes(above(tall.rows, 'Long')));
 });
