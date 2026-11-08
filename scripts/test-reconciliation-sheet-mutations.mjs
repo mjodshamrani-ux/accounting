@@ -480,6 +480,104 @@ const mutations = [
     "difference: 'Bank minus cashbook',",
     "difference: 'Bank less cashbook',",
   ],
+  // UX-6(b), payment allocation. The worker ignores the language.
+  [
+    'allocation-worker-language-ignored',
+    'lib/reconciliation/worker.ts',
+    'exportAllocationWorkpaper(\n        payload.state,\n        payload.result,\n        payload.lang,',
+    "exportAllocationWorkpaper(\n        payload.state,\n        payload.result,\n        'ar',",
+  ],
+  // The sheet is written in English whatever the language asked.
+  [
+    'allocation-language-not-followed',
+    'lib/reconciliation/allocation-sheet.ts',
+    'allocationSheet(result, language)',
+    "allocationSheet(result, 'en')",
+  ],
+  // The strip says the result ready even when a source error holds it.
+  [
+    'allocation-state-not-followed',
+    'lib/reconciliation/allocation-sheet.ts',
+    "state: result.status === 'ready' ? t.ready : t.sourceError,",
+    'state: t.ready,',
+  ],
+  // An item's original amount stands where what is available does.
+  [
+    'allocation-original-for-available',
+    'lib/reconciliation/allocation-sheet.ts',
+    'money(b.available),\n          money(b.allocated),',
+    'money(b.original),\n          money(b.allocated),',
+  ],
+  // What is available stands where what remains does.
+  [
+    'allocation-available-for-remaining',
+    'lib/reconciliation/allocation-sheet.ts',
+    'money(b.remaining),',
+    'money(b.available),',
+  ],
+  // Each side's ledger lists the other side's items.
+  [
+    'allocation-ledger-sides-swapped',
+    'lib/reconciliation/allocation-sheet.ts',
+    '.filter((i) => i.side === side)',
+    '.filter((i) => i.side !== side && i.side !== 2)',
+  ],
+  // The allocations an undo took back are listed as active.
+  [
+    'allocation-undone-listed',
+    'lib/reconciliation/allocation-sheet.ts',
+    'blocks: result.links.map(() => 3),\n        rows: result.links.flatMap((l) => [',
+    "blocks: result.events\n          .flatMap((e) => (e.type === 'allocate' ? e.links : []))\n          .map(() => 3),\n        rows: result.events\n          .flatMap((e) => (e.type === 'allocate' ? e.links : []))\n          .flatMap((l) => [",
+  ],
+  // An allocation without the reason its basis gives.
+  [
+    'allocation-link-reason-dropped',
+    'lib/reconciliation/allocation-sheet.ts',
+    'value(l.basis.reason),',
+    'null,',
+  ],
+  // An allocation's basis named by its proof line, not its reference.
+  [
+    'allocation-link-reference-of-proof',
+    'lib/reconciliation/allocation-sheet.ts',
+    'value(l.basis.reference),',
+    'value(l.basis.proofId),',
+  ],
+  // The invoice an allocation joins named as its payment.
+  [
+    'allocation-invoice-as-payment',
+    'lib/reconciliation/allocation-sheet.ts',
+    'value(item.get(l.invoiceId)!.reference),',
+    'value(item.get(l.paymentId)!.reference),',
+  ],
+  // A decision without the reason given.
+  [
+    'allocation-decision-reason-dropped',
+    'lib/reconciliation/allocation-sheet.ts',
+    '            value(e.note),\n',
+    '            null,\n',
+  ],
+  // An undo without the decision it undoes.
+  [
+    'allocation-undo-target-dropped',
+    'lib/reconciliation/allocation-sheet.ts',
+    "e.type === 'undo' ? value(`→ ${e.target}`) : null,",
+    'null,',
+  ],
+  // An undo said as an allocation.
+  [
+    'allocation-undo-said-as-allocate',
+    'lib/reconciliation/allocation-sheet.ts',
+    '[value(t.eventTypes[e.type]), value(e.id), value(e.at)],',
+    '[value(t.eventTypes.allocate), value(e.id), value(e.at)],',
+  ],
+  // A word of the sheet that is not the screen's.
+  [
+    'allocation-word-off-screen',
+    'lib/i18n/reconciliation-sheet.ts',
+    "activeAllocations: 'Active allocations',",
+    "activeAllocations: 'Allocations in force',",
+  ],
 ];
 
 const sha = (s) => createHash('sha256').update(s).digest('hex'),
@@ -498,7 +596,15 @@ try {
         'tests/reconciliation-sheet.test.ts',
         'tests/alignment-strip-view.test.ts',
       ],
-      { cwd: temp, encoding: 'utf8', timeout: 180000 },
+      // Room for a failing test's whole report: a byte-for-byte comparison
+      // prints every byte, and output past the buffer would end the run as
+      // an error rather than as the assertion that killed the mutant.
+      {
+        cwd: temp,
+        encoding: 'utf8',
+        timeout: 180000,
+        maxBuffer: 256 * 1024 * 1024,
+      },
     );
   const baseline = run();
   await writeFile(join(output, 'baseline.log'), baseline.stdout + baseline.stderr);

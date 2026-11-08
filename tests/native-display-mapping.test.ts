@@ -890,7 +890,9 @@ void test('actual worker replay/save/old restore/export prevents false-clean fle
                 result: goodResult,
                 // The request names the interface's language (UX-6), so the
                 // refusal below is the stale result's, not the language's.
-                ...(domain === 'clearing' || domain === 'ar'
+                ...(domain === 'clearing' ||
+                domain === 'ar' ||
+                domain === 'allocation'
                   ? { lang: 'en' }
                   : {}),
               },

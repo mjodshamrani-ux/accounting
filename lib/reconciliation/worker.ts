@@ -37,8 +37,8 @@ import {
   replayAllocation,
   saveAllocation,
   restoreAllocation,
-  exportAllocation,
 } from './allocation-io.ts';
+import { exportAllocationWorkpaper } from './allocation-sheet.ts';
 import { replayAllocationAdvice } from './allocation-advice-io.ts';
 import { replayGatewayBatches } from './payment-gateway-batches-io.ts';
 import { replayAssetSections } from './fixed-assets-sections-io.ts';
@@ -117,7 +117,11 @@ self.onmessage = async (event: MessageEvent) => {
     else if (action === 'allocation-restore')
       value = await restoreAllocation(payload.buffer);
     else if (action === 'allocation-export')
-      value = await exportAllocation(payload.state, payload.result);
+      value = await exportAllocationWorkpaper(
+        payload.state,
+        payload.result,
+        payload.lang,
+      );
     else if (action === 'allocation-advice-review')
       value = await replayAllocationAdvice(payload);
     else if (action === 'payment-gateway-batches-reconcile')

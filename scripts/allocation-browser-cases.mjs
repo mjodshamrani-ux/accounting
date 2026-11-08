@@ -2,8 +2,12 @@ import assert from 'node:assert/strict';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import ExcelJS from 'exceljs';
+import { allocationSheetSaysScreen } from './reconciliation-sheet-browser.mjs';
 export async function verifyAllocation(page, url, out = 'work/qa') {
   await mkdir(out, { recursive: true });
+  // UX-6(b): each workpaper opens on the reconciliation sheet, in the
+  // interface's language, and it says what this page shows (download below).
+  const sheets = [];
   await page.goto(url);
   await page.getByRole('button', { name: 'AR العربية', exact: true }).click();
   await openDomainWorkspace(page, 'allocation');
@@ -14,6 +18,7 @@ export async function verifyAllocation(page, url, out = 'work/qa') {
     .getByRole('button', { name: 'افتح مثال تخصيص اصطناعيًا', exact: true })
     .click();
   await page.getByTestId('allocation-result').waitFor();
+  await download('نزّل ورقة التخصيص', 'allocation-example-ar.xlsx', 'ar');
   await page.getByRole('button', { name: 'EN English', exact: true }).click();
   const sides = ['Available payments', 'Open invoices', 'Proposed remittance'],
     truth = JSON.parse(
@@ -229,10 +234,19 @@ export async function verifyAllocation(page, url, out = 'work/qa') {
           Array.from(r.querySelectorAll('td,th')).map((c) => c.textContent),
         ),
       );
-  async function download(button, file) {
+  async function download(button, file, lang = 'en') {
     const request = page.waitForEvent('download');
     await page.getByRole('button', { name: button, exact: true }).click();
     await (await request).saveAs(out + '/' + file);
+    if (file.endsWith('.xlsx'))
+      sheets.push({
+        file,
+        ...(await allocationSheetSaysScreen(page, {
+          file: `${out}/${file}`,
+          lang,
+          result: page.getByTestId('allocation-result'),
+        })),
+      });
   }
   await upload('one-to-many');
   assert.ok((await moneyRows()).every((r) => r[4] === '0.00'));
@@ -480,7 +494,9 @@ export async function verifyAllocation(page, url, out = 'work/qa') {
     await page.getByRole('button', { name: 'EN English', exact: true }).click();
   }
   await page.setViewportSize({ width: 1280, height: 900 });
+  assert.equal(sheets.length, 8, 'every workpaper downloaded was read');
   console.log(
     'Allocation browser: native three-source replay, atomic rejection, undo, source invalidation, domain retention, AR/EN and mobile passed.',
   );
+  return { downloads: sheets.length, sheets };
 }

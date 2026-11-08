@@ -54,6 +54,16 @@ import {
   bankMovementsSheet,
   exportBankWorkpaper,
 } from '../lib/reconciliation/bank-movements-sheet.ts';
+import {
+  allocationTruth,
+  finishedFixture,
+} from '../audit/allocation/fixtures.ts';
+import { ALLOCATION_SCOPE_FIELDS } from '../lib/reconciliation/allocation.ts';
+import { exportAllocation } from '../lib/reconciliation/allocation-io.ts';
+import {
+  allocationSheet,
+  exportAllocationWorkpaper,
+} from '../lib/reconciliation/allocation-sheet.ts';
 
 // UX-6(a): the reconciliation sheet is added to a workpaper whose evidence is
 // already written, and leaves that evidence byte for byte as it was. Its words
@@ -1128,6 +1138,240 @@ void test('the real worker writes the bank movements sheet in the language asked
     }
     await assert.rejects(
       client.request('bank-export', { state, result }),
+      /RECONCILIATION_SHEET_LANGUAGE/,
+    );
+  } finally {
+    port.terminate();
+  }
+});
+
+/** A frozen allocation-snapshot-1 case with the decisions its contract
+ * records (a refused action is not recorded). */
+const allocationCase = (name: string) => {
+  const c = allocationTruth.cases.find((c) => c.name === name);
+  assert.ok(c, name);
+  return finishedFixture(c);
+};
+/** A section's heading row: its title, then the evidence it stands in. */
+const headingOf = (
+  rows: (string | number | null)[][],
+  title: string,
+  evidence: string,
+  lang: 'ar' | 'en',
+) =>
+  rows.findIndex(
+    (r) =>
+      r[0] === title &&
+      r[1] === null &&
+      r[2] === reconciliationSheetCopy[lang].evidence &&
+      r[3] === evidence,
+  );
+
+void test('allocation: the evidence stays byte for byte, the value ledger by side, each active allocation with its basis and members, each decision with its reason', async () => {
+  for (const name of [
+    'one-to-many',
+    'many-to-one',
+    'stages',
+    'undo',
+    'two-choices',
+    'part-paid',
+    'no-evidence',
+    'currency-mismatch',
+  ])
+    for (const lang of ['ar', 'en'] as const) {
+      const { state, result } = await allocationCase(name);
+      const evidence = await exportAllocation(state, result);
+      const book = await addReconciliationSheet(
+        evidence,
+        allocationSheet(result, lang),
+      );
+      const before = await parts(evidence),
+        after = await parts(book);
+      for (const [part, bytes] of before)
+        if (!WORKBOOK_PARTS.includes(part))
+          assert.deepEqual(after.get(part), bytes, `${name}: ${part}`);
+      const w = reconciliationSheetCopy[lang],
+        t = w.allocation;
+      const { rows } = await firstSheet(
+        await exportAllocationWorkpaper(state, result, lang),
+      );
+      assert.equal(rows[1][0], t.paymentAllocation, name);
+      const unit = 10 ** result.decimals;
+      // The strip: the links decided, the result's state in the screen's
+      // words.
+      const s = alignmentStripCopy[lang];
+      assert.deepEqual(rows[rowOf(rows, s.agreed)].slice(0, 2), [
+        s.agreed,
+        result.links.length,
+      ]);
+      assert.deepEqual(rows[rowOf(rows, s.state)].slice(0, 2), [
+        s.state,
+        result.status === 'ready' ? t.ready : t.sourceError,
+      ]);
+      // The scope in the screen's words, each field's value as the result
+      // holds it.
+      ALLOCATION_SCOPE_FIELDS.forEach((field, i) =>
+        assert.deepEqual(rows[rowOf(rows, t.fields[i])].slice(0, 2), [
+          t.fields[i],
+          result.scope[field],
+        ]),
+      );
+      // The three sources by their roles and whole fingerprints.
+      for (const side of [0, 1, 2] as const) {
+        const source = rowOf(rows, t.sides[side]);
+        assert.deepEqual(rows[source].slice(0, 2), [
+          t.sides[side],
+          result.sources[side].name,
+        ]);
+        assert.deepEqual(rows[source + 1].slice(0, 2), [
+          w.fingerprint,
+          result.sources[side].hash,
+        ]);
+      }
+      // The value ledger of each side, every item by its own reference with
+      // what is available, allocated and remaining, as the result holds them.
+      const balance = new Map(result.balances.map((b) => [b.id, b]));
+      for (const side of [0, 1] as const) {
+        const items = result.items.filter((i) => i.side === side);
+        const top = headingOf(rows, t.sides[side], 'Value ledger', lang);
+        if (!items.length) {
+          assert.equal(top, -1, `${name}: no item, no table`);
+          continue;
+        }
+        assert.deepEqual(rows[top + 1], [
+          t.ownReference,
+          t.available,
+          t.allocated,
+          t.remaining,
+        ]);
+        items.forEach((item, k) => {
+          const b = balance.get(item.id)!;
+          assert.deepEqual(rows[top + 2 + k], [
+            item.reference,
+            b.available / unit,
+            b.allocated / unit,
+            b.remaining / unit,
+          ]);
+        });
+        assert.deepEqual(rows[top + 2 + items.length], [
+          null,
+          null,
+          null,
+          null,
+        ]);
+      }
+      // Each active allocation: its basis, reference and reason, then the
+      // payment and the invoice it joins, each with the amount it takes.
+      const reference = new Map(result.items.map((i) => [i.id, i.reference]));
+      const links = headingOf(rows, t.activeAllocations, 'Active links', lang);
+      if (!result.links.length)
+        assert.equal(links, -1, `${name}: nothing active, no table`);
+      result.links.forEach((l, k) => {
+        const at = links + 1 + 3 * k;
+        assert.deepEqual(rows[at].slice(0, 3), [
+          t.basisTypes[l.basis.kind],
+          l.basis.reference,
+          l.basis.reason,
+        ]);
+        assert.deepEqual(rows[at + 1], [
+          null,
+          t.sides[0],
+          l.amount / unit,
+          reference.get(l.paymentId),
+        ]);
+        assert.deepEqual(rows[at + 2], [
+          null,
+          t.sides[1],
+          l.amount / unit,
+          reference.get(l.invoiceId),
+        ]);
+      });
+      // The active allocations and no more: one an undo took back is not
+      // listed, even when a later decision allocates the same link.
+      if (result.links.length)
+        assert.deepEqual(
+          rows[links + 1 + 3 * result.links.length],
+          [null, null, null, null],
+          `${name}: the active allocations end`,
+        );
+      // Each dated decision: what it did, its number and time, then the
+      // reason given, an undo with the decision it undoes.
+      const events = headingOf(rows, w.decisions, 'Events', lang);
+      if (!state.events.length)
+        assert.equal(events, -1, `${name}: no decisions, no table`);
+      state.events.forEach((e, k) => {
+        const at = events + 1 + 2 * k;
+        assert.deepEqual(rows[at].slice(0, 3), [
+          t.eventTypes[e.type],
+          e.id,
+          e.at,
+        ]);
+        assert.deepEqual(rows[at + 1].slice(0, 3), [
+          null,
+          e.type === 'undo' ? `→ ${e.target}` : null,
+          e.note,
+        ]);
+      });
+      if (state.events.length)
+        assert.deepEqual(
+          rows[events + 1 + 2 * state.events.length],
+          [null, null, null, null],
+          `${name}: the decisions end`,
+        );
+      assert.equal(rows.at(-1)![0], t.claim);
+    }
+});
+
+void test('allocation: the words are the screen words, and the claim in English is the evidence words', async () => {
+  for (const [lang, locale] of [
+    ['ar', ar],
+    ['en', en],
+  ] as const) {
+    const t = reconciliationSheetCopy[lang].allocation;
+    for (const key of Object.keys(t) as (keyof typeof t)[])
+      if (key !== 'claim')
+        assert.deepEqual(
+          t[key],
+          (locale.allocation as Record<string, unknown>)[key],
+          `${lang} allocation.${key}`,
+        );
+  }
+  const { state, result } = await allocationCase('one-to-many');
+  const wb = new ExcelJS.Workbook();
+  await wb.xlsx.load(await exportAllocation(state, result));
+  const claim = wb
+    .getWorksheet('Summary')!
+    .getRows(1, 40)!
+    .find((r) => r.getCell(1).value === 'Claim')!
+    .getCell(2).value;
+  assert.equal(reconciliationSheetCopy.en.allocation.claim, claim);
+});
+
+void test('the real worker writes the allocation sheet in the language asked, and refuses none', async () => {
+  const { state, result } = await allocationCase('undo');
+  const port = new GlTbBindingPort();
+  try {
+    const client = createWorkerClient(() => port);
+    for (const lang of ['ar', 'en'] as const) {
+      const bytes = await client.request<ArrayBuffer>('allocation-export', {
+        state,
+        result,
+        lang,
+      });
+      const book = new ExcelJS.Workbook();
+      await book.xlsx.load(bytes);
+      assert.deepEqual(
+        book.worksheets.slice(0, 2).map((s) => s.name),
+        [reconciliationSheetCopy[lang].name, 'Summary'],
+      );
+      const { rows } = await firstSheet(bytes);
+      assert.equal(
+        rows[1][0],
+        reconciliationSheetCopy[lang].allocation.paymentAllocation,
+      );
+    }
+    await assert.rejects(
+      client.request('allocation-export', { state, result }),
       /RECONCILIATION_SHEET_LANGUAGE/,
     );
   } finally {

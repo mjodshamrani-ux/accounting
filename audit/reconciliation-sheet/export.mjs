@@ -11,7 +11,11 @@
 // its total is unavailable. Bank movements (6(b)): every frozen
 // bank-cash-movements-1 case with the decisions its contract records, so
 // every reason the engine gives, a source error and an empty source among
-// them. Synthetic sources only.
+// them. Payment allocation (6(b)): every frozen allocation-snapshot-1 case
+// with the decisions its contract records (a refused one is not recorded),
+// one whose human allocation rests on an external confirmation, and a long
+// one built here, thirty payments each allocated in full to its invoice by
+// its advice line, so the sheet runs over pages. Synthetic sources only.
 import { readFile as fsRead, mkdir, writeFile } from 'node:fs/promises';
 import { readFile } from '../../lib/reconciliation/io.ts';
 import { GL_TB_VERSION } from '../../lib/reconciliation/gl-tb.ts';
@@ -33,6 +37,18 @@ import { exportArWorkpaper } from '../../lib/reconciliation/ar-sheet.ts';
 import { bankTruth, finishedBank } from '../bank/fixtures.ts';
 import { exportBank } from '../../lib/reconciliation/bank-io.ts';
 import { exportBankWorkpaper } from '../../lib/reconciliation/bank-movements-sheet.ts';
+import {
+  allocationFixture,
+  allocationTruth,
+  finishedFixture,
+  fixtureEvent,
+} from '../allocation/fixtures.ts';
+import {
+  ALLOCATION_HEADERS,
+  reconcileAllocation,
+} from '../../lib/reconciliation/allocation.ts';
+import { exportAllocation } from '../../lib/reconciliation/allocation-io.ts';
+import { exportAllocationWorkpaper } from '../../lib/reconciliation/allocation-sheet.ts';
 
 const out = process.argv[2] ?? 'work/reconciliation-sheet';
 const root = 'audit/gl-tb/frozen/';
@@ -320,6 +336,93 @@ for (const c of bankTruth.cases) {
     await writeFile(
       `${out}/${written[lang]}`,
       new Uint8Array(await exportBankWorkpaper(state, result, lang)),
+    );
+  }
+  cases.push(written);
+}
+// Allocation: the frozen cases, then the two built here.
+const allocations = [];
+for (const c of allocationTruth.cases)
+  allocations.push({
+    name: `allocation-${c.name}`,
+    ...(await finishedFixture(c)),
+  });
+{
+  // The two-choices decision, its basis an external confirmation.
+  const c = allocationTruth.cases.find((c) => c.name === 'two-choices');
+  const { state } = await finishedFixture(c);
+  for (const e of state.events)
+    if (e.type === 'allocate')
+      for (const l of e.links)
+        l.basis = {
+          ...l.basis,
+          kind: 'external-confirmation',
+          reference: 'Synthetic supplier confirmation SC-7',
+        };
+  allocations.push({
+    name: 'allocation-external-confirmation',
+    state,
+    result: reconcileAllocation(state),
+  });
+}
+{
+  // Thirty payments, each allocated in full to its own invoice by its own
+  // advice line in one decision.
+  const scope = allocationTruth.scope;
+  const meta = [
+    scope.entity,
+    scope.ledger,
+    scope.party,
+    scope.account,
+    scope.currency,
+    scope.cutoff,
+    scope.basis,
+  ];
+  const n = Array.from({ length: 30 }, (_, i) => i + 1);
+  const csv = (side, rows) =>
+    [ALLOCATION_HEADERS[side], ...rows].map((r) => r.join(',')).join('\n') +
+    '\n';
+  const texts = [
+    csv(0, n.map((i) => [`P${i}`, '2026-09-20', ...meta, 100 + i, 100 + i])),
+    csv(1, n.map((i) => [`I${i}`, '2026-08-15', ...meta, 100 + i, 100 + i])),
+    csv(2, n.map((i) => [`R${i}`, ...meta, `P${i}`, `I${i}`, 100 + i])),
+  ];
+  const state = await allocationFixture('one-to-many');
+  state.files = await Promise.all(
+    texts.map((text, side) =>
+      readFile(`long-${side}.csv`, new TextEncoder().encode(text).buffer),
+    ),
+  );
+  state.events.push(
+    fixtureEvent(
+      { type: 'remittance', id: 'D1', proofs: n.map((i) => `R${i}`) },
+      reconcileAllocation(state),
+    ),
+  );
+  allocations.push({
+    name: 'allocation-long',
+    state,
+    result: reconcileAllocation(state),
+  });
+}
+for (const { name, state, result } of allocations) {
+  const written = {
+    workspace: 'allocation',
+    case: name,
+    evidence: `${name}-evidence.xlsx`,
+    status: result.status,
+    links: result.links.length,
+    decisions: state.events.length,
+  };
+  await writeFile(
+    `${out}/${written.evidence}`,
+    new Uint8Array(await exportAllocation(state, result)),
+  );
+  for (const lang of ['ar', 'en']) {
+    written[lang] = `${name}-${lang}.xlsx`;
+    await writeFile(
+      `${out}/${written[lang]}`,
+      new Uint8Array(await exportAllocationWorkpaper(state, result, lang)),
     );
   }
   cases.push(written);

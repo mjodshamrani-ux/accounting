@@ -135,6 +135,27 @@ export type ReconciliationSheetCopy = {
      * («Claim»), in the interface's language. */
     claim: string;
   };
+  allocation: {
+    paymentAllocation: string;
+    sides: [string, string, string];
+    /** The scope's fields, in ALLOCATION_SCOPE_FIELDS order. */
+    fields: string[];
+    eventTypes: Record<'allocate' | 'undo', string>;
+    basisTypes: Record<
+      'remittance' | 'external-confirmation' | 'accountant-review',
+      string
+    >;
+    ready: string;
+    sourceError: string;
+    ownReference: string;
+    available: string;
+    allocated: string;
+    remaining: string;
+    activeAllocations: string;
+    /** The engine's claim as the evidence's Summary sheet writes it
+     * («Claim»), in the interface's language. */
+    claim: string;
+  };
   glTb: {
     title: string;
     fields: Record<
@@ -328,6 +349,37 @@ export const reconciliationSheetCopy: Record<
       claim:
         'مقارنة حركات فقط؛ لا جسر للرصيد الافتتاحي أو الختامي، ولا ترحيل في نظام المنشأة، ولا ضمان لأصالة المصدر أو اكتمال الفترة',
     },
+    allocation: {
+      paymentAllocation: 'تخصيص الدفعات',
+      sides: ['الدفعات المتاحة', 'الفواتير المفتوحة', 'إشعار التخصيص المقترح'],
+      fields: [
+        'الكيان',
+        'الدفتر',
+        'المورد',
+        'حساب الذمة',
+        'العملة',
+        'تاريخ اللقطة',
+        'أساس اللقطة',
+      ],
+      eventTypes: {
+        allocate: 'تخصيص',
+        undo: 'إلغاء',
+      },
+      basisTypes: {
+        remittance: 'إشعار تخصيص',
+        'external-confirmation': 'تأكيد خارجي',
+        'accountant-review': 'مراجعة محاسب',
+      },
+      ready: 'جاهز للمراجعة؛ لا اعتماد تلقائي',
+      sourceError: 'أخطاء المصدر تمنع التخصيص',
+      ownReference: 'رقم المستند',
+      available: 'المتاح',
+      allocated: 'المخصص',
+      remaining: 'المتبقي',
+      activeAllocations: 'التخصيصات النشطة',
+      claim:
+        'تخصيص مقترح على المتاح المعلن قبل التخصيص؛ لا ترحيل في نظام المنشأة، ولا ضمان لأصالة المصدر',
+    },
     glTb: {
       title: 'اتساق الأستاذ وميزان المراجعة',
       fields: {
@@ -520,6 +572,37 @@ export const reconciliationSheetCopy: Record<
       reason: 'Decision or undo reason',
       claim:
         'Movement comparison only; no opening/closing balance bridge, ERP posting, source authenticity or period completeness assurance',
+    },
+    allocation: {
+      paymentAllocation: 'Payment allocation',
+      sides: ['Available payments', 'Open invoices', 'Proposed remittance'],
+      fields: [
+        'Entity',
+        'Ledger',
+        'Supplier',
+        'Payable account',
+        'Currency',
+        'Snapshot date',
+        'Snapshot basis',
+      ],
+      eventTypes: {
+        allocate: 'allocate',
+        undo: 'undo',
+      },
+      basisTypes: {
+        remittance: 'remittance',
+        'external-confirmation': 'external confirmation',
+        'accountant-review': 'accountant review',
+      },
+      ready: 'Ready for review; no automatic allocation',
+      sourceError: 'Source errors block allocation',
+      ownReference: 'Own reference',
+      available: 'Available',
+      allocated: 'Allocated',
+      remaining: 'Remaining',
+      activeAllocations: 'Active allocations',
+      claim:
+        'Proposed allocation against declared pre-allocation capacities; no ERP posting or source authenticity assurance',
     },
     glTb: {
       title: 'GL and trial balance consistency',

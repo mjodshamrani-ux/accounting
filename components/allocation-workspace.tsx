@@ -418,7 +418,8 @@ export function AllocationWorkspace({
   }
   function exportWorkpaper() {
     if (!result) return;
-    const owned = structuredClone({ state: input(), result });
+    // The reconciliation sheet is written in the interface's language (UX-6).
+    const owned = structuredClone({ state: input(), result, lang });
     return perform(
       (signal) => workerTask<ArrayBuffer>('allocation-export', owned, signal),
       (buffer) =>

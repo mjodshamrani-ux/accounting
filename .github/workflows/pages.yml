@@ -406,6 +406,10 @@ jobs:
           python3 audit/gl-tb/check_export.py --contract zero-activity work/qa/gl-tb-zero.xlsx
           python3 audit/gl-tb/check_export.py --contract missing-tb work/qa/gl-tb-missing.xlsx
           python3 audit/gl-tb/check_export.py --contract dimensions-mismatch work/qa/gl-tb-scope-error.xlsx
+      - name: Independently verify the reconciliation sheet first in the payment allocation workpapers the page downloaded, in English and in Arabic, against their own evidence sheets (UX-6(b))
+        run: |
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download en work/qa/allocation-direct.xlsx work/qa/allocation-restored.xlsx work/qa/allocation-undo.xlsx work/qa/allocation-overrun.xlsx work/qa/allocation-native.xlsx work/qa/allocation-native-restored.xlsx work/qa/allocation-source-error.xlsx
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download ar work/qa/allocation-example-ar.xlsx
       - name: Independently verify the reconciliation sheet of the GL/TB browser downloads in English and Arabic (UX-6)
         run: |
           python3 -B audit/reconciliation-sheet/check_sheet.py --download en work/qa/gl-tb-direct.xlsx work/qa/gl-tb-native.xlsx work/qa/gl-tb-native-restored.xlsx work/qa/gl-tb-turnover.xlsx work/qa/gl-tb-zero.xlsx work/qa/gl-tb-missing.xlsx work/qa/gl-tb-scope-error.xlsx

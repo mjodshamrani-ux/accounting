@@ -397,3 +397,143 @@ export async function bankSheetSaysScreen(page, { file, lang, result }) {
   }
   return { rows: grid.length, waiting: count, decisions: events.length };
 }
+
+/** The sheet's words the allocation page does not write: the heading over
+ * the recorded decisions, and an undo as the page names it. */
+const ALLOCATION_WORDS = {
+  ar: { decisions: 'القرارات المسجلة', undo: 'إلغاء' },
+  en: { decisions: 'Recorded decisions', undo: 'undo' },
+};
+
+/**
+ * UX-6(b), payment allocation: the strip as the page draws it; the value
+ * ledger the page lists, each side under its name, every item by its own
+ * reference with what is available, allocated and remaining; each active
+ * allocation the page lists, with its basis, reference and reason, then the
+ * payment and the invoice it joins with the amount; and each dated decision
+ * the page lists, with its number, time and reason, an undo with the
+ * decision it undoes. Each section holds what the page shows and no more.
+ */
+export async function allocationSheetSaysScreen(page, { file, lang, result }) {
+  const grid = await readSheet(file, lang);
+  await stripSaysScreen(grid, result);
+  const blankRow = (at, what) =>
+    assert.ok(
+      (grid[at] ?? [null]).every((c) => c === null),
+      `${what} and no more`,
+    );
+  const heading = (title, evidence) =>
+    grid.findIndex((r) => r[0] === title && r[1] === null && r[3] === evidence);
+  // The value ledger: the page's one table, its rows grouped by side.
+  const ledger = result.getByTestId('allocation-ledger');
+  const head = (await ledger.locator('thead th').allTextContents()).map((t) =>
+    t.trim(),
+  );
+  const bySide = new Map();
+  for (const row of await ledger.locator('tbody tr').all()) {
+    const c = (await row.locator('th, td').allTextContents()).map((t) =>
+      t.trim(),
+    );
+    if (!bySide.has(c[0])) bySide.set(c[0], []);
+    bySide.get(c[0]).push(c);
+  }
+  if (!bySide.size)
+    assert.equal(
+      grid.findIndex((r) => r[3] === 'Value ledger'),
+      -1,
+      'no item, no value ledger',
+    );
+  for (const [side, items] of bySide) {
+    const top = heading(side, 'Value ledger');
+    assert.ok(top >= 0, `${side}: its value ledger`);
+    assert.deepEqual(
+      grid[top + 1],
+      [head[1], head[3], head[4], head[5]],
+      `${side}: the head`,
+    );
+    items.forEach((c, k) => {
+      const row = grid[top + 2 + k];
+      assert.equal(row[0], c[1], `${side} ${c[1]}: its own reference`);
+      same(c[3], row[1], `${side} ${c[1]}: available`);
+      same(c[4], row[2], `${side} ${c[1]}: allocated`);
+      same(c[5], row[3], `${side} ${c[1]}: remaining`);
+    });
+    blankRow(top + 2 + items.length, `${side}: the items`);
+  }
+  // Active allocations: «P → I: amount · basis · reference · reason».
+  const [title, lines] = await result
+    .locator('[data-result-part="allocations"]')
+    .evaluate((h) => {
+      // The lines the page writes under the heading, up to its pager.
+      const out = [];
+      let line = h.nextElementSibling;
+      while (line?.tagName === 'P') {
+        out.push(line.textContent.trim());
+        line = line.nextElementSibling;
+      }
+      return [h.textContent.trim(), out];
+    });
+  const links = heading(title, 'Active links');
+  if (!lines.length) assert.equal(links, -1, 'nothing active, no table');
+  else assert.ok(links >= 0, 'the active allocations');
+  const sides = [...bySide.keys()];
+  lines.forEach((text, k) => {
+    const [first, basis, reference, reason] = text.split(' · ');
+    const m = /^(.*) → (.*): (.*)$/u.exec(first);
+    assert.ok(m, `allocation ${k + 1}: «${first}»`);
+    const [, payment, invoice, amount] = m;
+    const at = links + 1 + 3 * k;
+    assert.deepEqual(
+      grid[at].slice(0, 3),
+      [basis, reference, reason],
+      `allocation ${k + 1}: its basis, reference and reason`,
+    );
+    for (const [row, side, ref] of [
+      [grid[at + 1], sides[0], payment],
+      [grid[at + 2], sides[1], invoice],
+    ]) {
+      assert.equal(row[0], null, `${ref}: under its allocation`);
+      assert.equal(row[1], side, `${ref}: its side`);
+      assert.equal(row[3], ref, `${ref}: its own reference`);
+      same(amount, row[2], `${ref}: the amount`);
+    }
+  });
+  if (lines.length) blankRow(links + 1 + 3 * lines.length, 'the allocations');
+  // Dated decisions: «id · type · time · reason», an undo «… → target».
+  const events = await result
+    .getByTestId('allocation-event')
+    .locator('p')
+    .allTextContents();
+  const words = ALLOCATION_WORDS[lang];
+  const taken = heading(words.decisions, 'Events');
+  if (!events.length) assert.equal(taken, -1, 'no decision, no table');
+  else assert.ok(taken >= 0, 'the recorded decisions');
+  events.forEach((text, k) => {
+    const [id, type, at, ...rest] = text.trim().split(' · ');
+    let note = rest.join(' · '),
+      target = null;
+    if (type === words.undo) {
+      const m = /^(.*) → (\S+)$/u.exec(note);
+      assert.ok(m, `decision ${id}: the decision it undoes`);
+      [, note, target] = m;
+    }
+    const row = taken + 1 + 2 * k;
+    assert.deepEqual(
+      grid[row].slice(0, 3),
+      [type, id, at],
+      `decision ${id}: what it did, its number and time`,
+    );
+    assert.deepEqual(
+      grid[row + 1].slice(0, 3),
+      [null, target === null ? null : `→ ${target}`, note],
+      `decision ${id}: the reason given`,
+    );
+  });
+  if (events.length) blankRow(taken + 1 + 2 * events.length, 'the decisions');
+  return {
+    rows: grid.length,
+    items: [...bySide.values()].flat().length,
+    links: lines.length,
+    decisions: events.length,
+  };
+}

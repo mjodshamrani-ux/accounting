@@ -1,5 +1,5 @@
-"""Independent check of the reconciliation sheet (UX-6) in GL/TB and
-clearing workpapers.
+"""Independent check of the reconciliation sheet (UX-6) in GL/TB, clearing,
+customer AR, bank movement and payment allocation workpapers.
 
 Reads each workpaper with zipfile and ElementTree only, with no product code,
 and checks, against the evidence sheets as this checker reads them:
@@ -27,7 +27,15 @@ and checks, against the evidence sheets as this checker reads them:
   each group left for review with its members as postings, its reference,
   its net and its reason in words, one word a reason; and each recorded
   decision in order with its members and the reason the reviewer gave,
-  one word an action, the reopen said as the group it left in review.
+  one word an action, the reopen said as the group it left in review;
+- in a payment allocation workpaper (UX-6(b)), read from its Value ledger,
+  Active links, Events and Sources sheets: the ledger held to the active
+  links; the scope and the three sources; the links decided and the state
+  in words; each side's ledger under its source's name, every item with what
+  is available, allocated and remaining; each active allocation with its
+  basis, reference and reason, then its payment and invoice with the
+  amount; each dated decision with its number, time, the decision an undo
+  undoes and the reason the reviewer gave.
 
 Which checks apply is read from the evidence's own Summary (Domain).
 
@@ -71,6 +79,14 @@ HEX64 = re.compile(r'^[0-9a-f]{64}$')
 # stand in, as each workspace names them.
 REVIEW_TABLES = ('Cases', 'Groups')
 DECISION_TABLES = ('Decisions', 'Events')
+# Every table whose heading goes with its head and first row (with no head,
+# its first item), the rest running on: those above, and in allocation the
+# value ledger of each side and the active allocations.
+TABLES = REVIEW_TABLES + DECISION_TABLES + ('Value ledger', 'Active links')
+# Tables a page may be broken above a later item of, an item that is not the
+# first under its head: a case or document with its members, an active
+# allocation with its two sides, a decision.
+ITEM_TABLES = REVIEW_TABLES + ('Active links', 'Events')
 
 
 class Fault(AssertionError):
@@ -348,8 +364,8 @@ def check_nothing_cut(book, rows, styles):
 
 def check_breaks(book, rows, sections):
     """A page broken by hand is broken above a section's heading, or above a
-    later row of the table waiting for review that is not under its head,
-    never inside what a heading names; a sheet short enough for one page is
+    later item of a table of items (ITEM_TABLES) that is not under its head,
+    never inside what a heading names or inside an item; a sheet short enough for one page is
     not broken at all (its own estimate: a row as tall as written, else 15
     points and the title 19.6, against 700 points, well inside a page); and
     no heading is left at a page's foot (check_pages)."""
@@ -372,7 +388,7 @@ def check_breaks(book, rows, sections):
              'a break outside its list')
     allowed = {s['at'] for s in sections}
     for s in sections:
-        if s['evidence'] not in REVIEW_TABLES:
+        if s['evidence'] not in ITEM_TABLES:
             continue
         for k, (i, row) in enumerate(s['rows']):
             above = s['rows'][k - 1][1] if k else None
@@ -402,7 +418,7 @@ def check_pages(rows, sections, heights, breaks):
     for s in sections:
         members = [i for i, _ in s['rows']]
         last = members[-1] if members else s['at']
-        if s['evidence'] in REVIEW_TABLES + DECISION_TABLES and len(members) > 1:
+        if s['evidence'] in TABLES and len(members) > 1:
             # Under a head, its first row; in a list of documents with no
             # head, the first document with its movements.
             if blank(rows[members[1]][0]):
@@ -1128,14 +1144,196 @@ def check_bank(evidence, book, lang, summary):
     return {'status': status, 'rows': len(rows)}
 
 
+ALLOCATION_SCOPE = ['entity', 'ledger', 'party', 'account', 'currency',
+                    'cutoff', 'basis']
+ALLOCATION_CODES = {'ready', 'source-error', 'allocate', 'undo', 'remittance',
+                    'external-confirmation', 'accountant-review'}
+# The screen's English words for these are the engine's codes themselves
+# («allocate», «undo», «remittance»), so in English they are words.
+ALLOCATION_ENGLISH = {'allocate', 'undo', 'remittance'}
+
+
+def check_allocation(evidence, book, lang, summary):
+    """The payment allocation sheet against its evidence: Value ledger,
+    Active links, Events and Sources. The ledger is checked against the
+    active links as well: what each item has allocated is the sum of the
+    active links on it, and what remains is what is available less that."""
+    decimals = int(summary['Decimals'])
+    unit = Decimal(10) ** decimals
+    rows_of = lambda name: [dict(zip(evidence.table(name)[0], r))
+                            for r in evidence.table(name)[1:]]
+    ledger = rows_of('Value ledger')
+    items = {i['ID']: i for i in ledger}
+    links = rows_of('Active links')
+    events = rows_of('Events')
+    need(all(l['Payment ID'] in items and items[l['Payment ID']]['Side'] == '0'
+             and l['Invoice ID'] in items and items[l['Invoice ID']]['Side'] == '1'
+             for l in links), 'EVIDENCE_READ', 'links join a payment and an invoice')
+    for i in ledger:
+        taken = sum(int(l['Amount minor units']) for l in links
+                    if i['ID'] in (l['Payment ID'], l['Invoice ID']))
+        need(int(i['Allocated minor units']) == taken and
+             int(i['Remaining minor units']) ==
+             int(i['Available minor units']) - taken, 'EVIDENCE_READ',
+             f'{i["ID"]} allocated and remaining')
+    active = {e['ID'] for e in events if e['Active'] == 'true'}
+    need({l['Decision'] for l in links} <= active, 'EVIDENCE_READ',
+         'active links of active decisions')
+    sources = {}
+    for r in rows_of('Sources'):
+        src = sources.setdefault(int(r['Side']), {
+            'name': r['Source name'], 'hash': r['Source SHA-256'], 'chunks': []})
+        src['chunks'].append((int(r['Chunk']), r['Original bytes base64']))
+    for side, src in sources.items():
+        data = base64.b64decode(''.join(c for _, c in sorted(src['chunks'])),
+                                validate=True)
+        need(hashlib.sha256(data).hexdigest() == src['hash'], 'EVIDENCE_READ',
+             f'source {side} fingerprint')
+    need(sorted(sources) == [0, 1, 2], 'EVIDENCE_READ', 'three sources')
+    codes = ALLOCATION_CODES - (ALLOCATION_ENGLISH if lang == 'en' else set())
+    by_side = {side: [i for i in ledger if i['Side'] == str(side)]
+               for side in (0, 1)}
+
+    expected = (['Summary', 'Sources', None] +
+                ['Value ledger' for side in (0, 1) if by_side[side]] +
+                (['Active links'] if links else []) +
+                (['Events'] if events else []) + [None, 'Summary'])
+    rows, styles, line, sections = layout(book, evidence, lang, expected)
+    scope, srcs, strip = sections[:3]
+    rest = sections[3:-2]
+    tables = {side: rest.pop(0) for side in (0, 1) if by_side[side]}
+    active_table = rest.pop(0) if links else None
+    taken = rest.pop(0) if events else None
+    sign, claim = sections[-2:]
+
+    # Scope: the seven fields in the evidence's order.
+    need(len(scope['rows']) == len(ALLOCATION_SCOPE), 'SCOPE', 'seven fields')
+    for key, (_, row) in zip(ALLOCATION_SCOPE, scope['rows']):
+        need(text(row[0]) and text(row[1]) and row[1][1] == summary[key],
+             'SCOPE', key)
+
+    # Sources: the payments, the invoices and the remittance by their roles,
+    # each file and its whole fingerprint, the SHA-256 of the original bytes.
+    need(len(srcs['rows']) == 6, 'SOURCES', 'three sources')
+    side_word = {}
+    for side in (0, 1, 2):
+        (_, named), (_, printed) = srcs['rows'][2 * side:2 * side + 2]
+        need(text(named[0]) and text(named[1]) and
+             named[1][1] == sources[side]['name'], 'SOURCES', f'side {side}')
+        side_word[side] = named[0][1]
+        need(text(printed[1]) and HEX64.match(printed[1][1]) and
+             printed[1][1] == sources[side]['hash'], 'FINGERPRINT',
+             f'side {side}')
+    need(len(set(side_word.values())) == 3, 'SOURCES', 'two records one name')
+
+    # Alignment: the links decided, the result's state in words, the gap not
+    # computed; no total at either end.
+    lines = [row for _, row in strip['rows']]
+    agreed = lines.pop(0)
+    need(number(agreed[1]) and agreed[1][1] == len(links), 'AGREED_COUNT',
+         f'{agreed[1]} != {len(links)}')
+    unit_note = lines.pop(0)
+    need(blank(unit_note[0]) and text(unit_note[1]), 'STRIP', 'unit note')
+    state = lines.pop(0)
+    need(text(state[0]) and text(state[1]) and not number(state[1]),
+         'REVIEW_COUNT', 'the state in words')
+    words_of([(summary['Status'], state[1][1])], 'state', codes)
+    gap = lines.pop(0)
+    need(text(gap[1]), 'GAP', 'not computed, said in words')
+    note = lines.pop(0)
+    need(text(note[1]), 'GAP', 'note')
+    need(not lines, 'STRIP', f'{len(lines)} rows more')
+
+    # The value ledger of each side, under its side's name: every item by its
+    # own reference, what is available, allocated and remaining.
+    for side, table in tables.items():
+        need(rows[table['at']][0][1] == side_word[side], 'LEDGER',
+             f'side {side} named {rows[table["at"]][0][1]}')
+        head, *body = table['rows']
+        need(all(text(c) and styles.bold(c[2]) for c in head[1][:4]),
+             'LEDGER', 'head')
+        need(len(body) == len(by_side[side]), 'LEDGER',
+             f'side {side}: {len(body)} != {len(by_side[side])}')
+        for i, (_, row) in zip(by_side[side], body):
+            need(text(row[0]) and row[0][1] == i['Own reference'], 'LEDGER',
+                 f'{i["ID"]} reference')
+            for c, key in zip((1, 2, 3), ('Available minor units',
+                                          'Allocated minor units',
+                                          'Remaining minor units')):
+                need(number(row[c]) and
+                     row[c][1] == Decimal(i[key]) / unit, 'LEDGER',
+                     f'{i["ID"]} {key}: {row[c]}')
+
+    # Each active allocation: its basis, the basis's reference and reason,
+    # then the payment and the invoice it joins, each with the amount.
+    if links:
+        it = iter(active_table['rows'])
+        bases = []
+        for l in links:
+            _, head = next(it, (None, [None] * 4))
+            need(text(head[0]), 'LINK', f'{l["Decision"]}:{l["Index"]} basis')
+            bases.append((l['Basis'], head[0][1]))
+            need(text(head[1]) and head[1][1] == l['Basis reference'],
+                 'LINK_REFERENCE', f'{l["Decision"]}:{l["Index"]}')
+            need(text(head[2]) and head[2][1] == l['Reason'], 'LINK_REASON',
+                 f'allocation {l["Decision"]}:{l["Index"]} without its reason')
+            for side, key in ((0, 'Payment ID'), (1, 'Invoice ID')):
+                _, row = next(it, (None, [None] * 4))
+                need(blank(row[0]) and text(row[1]) and
+                     row[1][1] == side_word[side], 'LINK_MEMBERS',
+                     f'{l[key]} side')
+                need(number(row[2]) and
+                     row[2][1] == Decimal(l['Amount minor units']) / unit,
+                     'LINK_AMOUNT', f'{l[key]}: {row[2]}')
+                need(text(row[3]) and
+                     row[3][1] == items[l[key]]['Own reference'],
+                     'LINK_MEMBERS', f'{l[key]} reference')
+        need(next(it, None) is None, 'LINK', 'rows more than the allocations')
+        words_of(bases, 'basis', codes)
+
+    # Each dated decision: what it did, its number and time, then the reason
+    # given, an undo pointing to the decision it undoes.
+    if events:
+        it = iter(taken['rows'])
+        actions = []
+        for e in events:
+            _, head = next(it, (None, [None] * 4))
+            need(text(head[0]), 'DECISION_ACTION', e['ID'])
+            actions.append((e['Type'], head[0][1]))
+            need(text(head[1]) and head[1][1] == e['ID'], 'DECISION_NUMBER',
+                 e['ID'])
+            need(text(head[2]) and head[2][1] == e['UTC device time'],
+                 'DECISION_TIME', e['ID'])
+            _, said = next(it, (None, [None] * 4))
+            need(blank(said[0]), 'DECISION_TARGET', e['ID'])
+            need(text(said[1]) and said[1][1] == f'→ {e["Undo target"]}'
+                 if e['Type'] == 'undo' else blank(said[1]),
+                 'DECISION_TARGET', e['ID'])
+            need(text(said[2]) and said[2][1] == e['Note'], 'DECISION_REASON',
+                 f'decision {e["ID"]} without its reason')
+        need(next(it, None) is None, 'DECISIONS', 'rows more than the decisions')
+        words_of(actions, 'decision_action', codes)
+
+    check_sign_and_claim(sign, claim, line, lang, summary['Claim'])
+
+    numbers = sum(1 for row in rows for c in row if number(c))
+    expected = 1 + 3 * len(ledger) + 2 * len(links)
+    need(numbers == expected, 'STRAY_NUMBER', f'{numbers} != {expected}')
+    status = ('source-errors' if summary['Status'] == 'source-error' else
+              'allocated' if links else 'unallocated')
+    return {'status': status, 'rows': len(rows)}
+
+
 PROFILES = {'gl-trial-balance-consistency': check_gl_tb,
             'single-account-clearing': check_clearing,
             'customer-ar-document-comparison': check_ar,
-            'bank-cash-movements': check_bank}
+            'bank-cash-movements': check_bank,
+            'payment-allocation': check_allocation}
 WORKSPACES = {'gl-tb': 'gl-trial-balance-consistency',
               'clearing': 'single-account-clearing',
               'ar': 'customer-ar-document-comparison',
-              'bank': 'bank-cash-movements'}
+              'bank': 'bank-cash-movements',
+              'allocation': 'payment-allocation'}
 
 
 def verify(folder):
@@ -1364,6 +1562,44 @@ def bank_plants(data):
         case, 0, lambda r: r.replace(undone, 'undone', 1))
 
 
+def allocation_plants(data):
+    """Faults a payment allocation workpaper can carry: in its value ledger,
+    its active allocations with their basis, and its dated decisions."""
+    sheet = _first_sheet(data)
+
+    def row_edit(label, offset, change):
+        def go(x):
+            n = _cell(x, label) + offset
+            old = _row(x, n)
+            return x.replace(old, change(old), 1)
+        return _edit(data, sheet, go)
+
+    plus = lambda col: lambda r: re.sub(
+        rf'(<c r="{col}\d+"[^>]*><v>)(-?\d+)',
+        lambda m: f'{m.group(1)}{int(m.group(2)) + 1}', r, count=1)
+    drop = lambda col: lambda r: re.sub(rf'<c r="{col}\d+"[^>]*>.*?</c>', '', r)
+    basis, allocate, undo = 'إشعار تخصيص', 'تخصيص', 'إلغاء'
+    yield 'decision without its reason', 'DECISION_REASON', row_edit(
+        undo, 1, drop('C'))
+    yield 'undo said as the allocation', 'DECISION_ACTION', row_edit(
+        undo, 0, lambda r: r.replace(f'>{undo}<', f'>{allocate}<', 1))
+    yield 'undo of another decision', 'DECISION_TARGET', row_edit(
+        undo, 1, lambda r: r.replace('→ D1', '→ D2', 1))
+    yield 'decision time changed', 'DECISION_TIME', row_edit(
+        undo, 0, lambda r: r.replace('T18:00', 'T19:00', 1))
+    yield 'allocation without its reason', 'LINK_REASON', row_edit(
+        basis, 0, drop('C'))
+    yield 'allocation reference changed', 'LINK_REFERENCE', row_edit(
+        basis, 0, lambda r: r.replace('>R1<', '>R2<', 1))
+    yield 'allocation amount changed', 'LINK_AMOUNT', row_edit(
+        basis, 1, plus('C'))
+    yield 'invoice said as a payment', 'LINK_MEMBERS', row_edit(
+        basis, 2, lambda r: r.replace('الفواتير المفتوحة', 'الدفعات المتاحة', 1))
+    yield 'remaining changed', 'LEDGER', row_edit('P1', 0, plus('D'))
+    yield 'basis as its code', 'RAW_CODE', row_edit(
+        basis, 0, lambda r: r.replace(f'>{basis}<', '>remittance<', 1))
+
+
 def page_plants(data):
     """A sheet that needs its break, printed without it: its heading would
     end about a point past its page by the checker's estimate, which only
@@ -1404,6 +1640,7 @@ def self_test(folder):
     found += _self_test_one(folder, pick('ar-reopened'), ar_plants)
     found += _self_test_one(folder, pick('ar-unreadable'), page_plants)
     found += _self_test_one(folder, pick('bank-timing-after-cutoff'), bank_plants)
+    found += _self_test_one(folder, pick('allocation-undo'), allocation_plants)
     return found
 
 
