@@ -884,6 +884,7 @@ void test('actual worker replay/save/old restore/export prevents false-clean fle
                 files,
                 result: record(good.value).result,
                 review: record(positive).review,
+                lang: 'en',
               }
             : {
                 state,

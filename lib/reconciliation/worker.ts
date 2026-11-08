@@ -49,7 +49,9 @@ import { exportArWorkpaper } from './ar-sheet.ts';
 import { snapshotArRequest } from './ar-worker-binding.ts';
 import { assertInputFormats } from './input-readiness.ts';
 import { saveSession, restoreSession } from './session.ts';
-import { readFile, exportWorkbook, replayNativeHeaderSource } from './io.ts';
+import { readFile, replayNativeHeaderSource } from './io.ts';
+import { exportSupplierWorkpaper } from './supplier-sheet.ts';
+import { sheetLanguage } from './reconciliation-sheet.ts';
 import { normalizeSource } from './core.ts';
 import { reconcileSupplierStatement } from './supplier-reconciliation.ts';
 import { ENGINE_VERSION } from './types.ts';
@@ -239,6 +241,8 @@ self.onmessage = async (event: MessageEvent) => {
         payload.side,
       );
     else if (action === 'export') {
+      // The language first: a request without one is refused before any work.
+      const lang = sheetLanguage(payload.lang);
       payload.files = [
         await replayReviewedVisualSource(payload.files[0]),
         await replayReviewedVisualSource(payload.files[1]),
@@ -248,10 +252,11 @@ self.onmessage = async (event: MessageEvent) => {
         [payload.result.supplier.mapping, payload.result.ledger.mapping],
         payload.result.scope,
       );
-      value = await exportWorkbook(
+      value = await exportSupplierWorkpaper(
         payload.result,
         payload.files,
         payload.review,
+        lang,
         (stage, milliseconds) => {
           timings[stage] = milliseconds;
         },

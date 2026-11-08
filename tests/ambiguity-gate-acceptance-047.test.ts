@@ -187,6 +187,7 @@ void test('047 the worker refuses an unanswered ambiguity on reconcile, compare 
               ledger: { ...ready.ledger, mapping: bare[1] },
             },
             review: { checked: true, name: 'Simulated reviewer', notes: '' },
+            lang: 'en',
           }
         : { files, mappings: bare, scope, decisions: [], rejected: [] };
     let id = 0;
@@ -223,6 +224,7 @@ void test('047 the worker refuses an unanswered ambiguity on reconcile, compare 
       files,
       result: value.result,
       review: { checked: true, name: 'Simulated reviewer', notes: '' },
+      lang: 'en',
     });
     assert.equal(exported.ok, true);
     assert.ok((exported.value as ArrayBuffer).byteLength > 0);

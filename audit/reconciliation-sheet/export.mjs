@@ -15,7 +15,12 @@
 // with the decisions its contract records (a refused one is not recorded),
 // one whose human allocation rests on an external confirmation, and a long
 // one built here, thirty payments each allocated in full to its invoice by
-// its advice line, so the sheet runs over pages. Synthetic sources only.
+// its advice line, so the sheet runs over pages. Suppliers (6(b)): every case
+// of supplier-cases.ts, the page's example in memory and from its bytes, its
+// balances confirmed or unproven, its decisions, an empty scope, three
+// decimals, a long one and the frozen partial-reading cases; the clock is held
+// for both of a case's exports, as the evidence writes its export time in
+// Export Metadata. Synthetic sources only.
 import { readFile as fsRead, mkdir, writeFile } from 'node:fs/promises';
 import { readFile } from '../../lib/reconciliation/io.ts';
 import { GL_TB_VERSION } from '../../lib/reconciliation/gl-tb.ts';
@@ -49,6 +54,9 @@ import {
 } from '../../lib/reconciliation/allocation.ts';
 import { exportAllocation } from '../../lib/reconciliation/allocation-io.ts';
 import { exportAllocationWorkpaper } from '../../lib/reconciliation/allocation-sheet.ts';
+import { exportWorkbook } from '../../lib/reconciliation/io.ts';
+import { exportSupplierWorkpaper } from '../../lib/reconciliation/supplier-sheet.ts';
+import { supplierCases } from './supplier-cases.ts';
 
 const out = process.argv[2] ?? 'work/reconciliation-sheet';
 const root = 'audit/gl-tb/frozen/';
@@ -423,6 +431,54 @@ for (const { name, state, result } of allocations) {
     await writeFile(
       `${out}/${written[lang]}`,
       new Uint8Array(await exportAllocationWorkpaper(state, result, lang)),
+    );
+  }
+  cases.push(written);
+}
+// The export time the evidence writes, held for both of a case's exports.
+const RealDate = Date;
+async function atFixedTime(run) {
+  const fixed = RealDate.parse('2026-09-01T10:00:00.000Z');
+  globalThis.Date = class extends RealDate {
+    constructor(...args) {
+      super(...(args.length ? args : [fixed]));
+    }
+    static now() {
+      return fixed;
+    }
+  };
+  try {
+    return await run();
+  } finally {
+    globalThis.Date = RealDate;
+  }
+}
+for (const { name, result, files, review } of await supplierCases()) {
+  const written = {
+    workspace: 'supplier',
+    case: name,
+    evidence: `${name}-evidence.xlsx`,
+    review: result.cases.filter(
+      (c) => c.status === 'Needs Review' || c.status === 'Rejected',
+    ).length,
+    unmatched: result.caseCounts.unmatchedCases,
+    decisions: review.events.filter((e) => e.action !== 'compare').length,
+  };
+  await writeFile(
+    `${out}/${written.evidence}`,
+    new Uint8Array(
+      await atFixedTime(() => exportWorkbook(result, files, review)),
+    ),
+  );
+  for (const lang of ['ar', 'en']) {
+    written[lang] = `${name}-${lang}.xlsx`;
+    await writeFile(
+      `${out}/${written[lang]}`,
+      new Uint8Array(
+        await atFixedTime(() =>
+          exportSupplierWorkpaper(result, files, review, lang),
+        ),
+      ),
     );
   }
   cases.push(written);

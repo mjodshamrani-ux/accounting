@@ -126,6 +126,7 @@ for (const c of await recomputeCases()) {
     : null;
   const exported = paths.reconcile.ok
     ? await send('export', {
+        lang: 'en',
         result: paths.reconcile.value.result,
         files: c.files,
         review,
@@ -133,6 +134,7 @@ for (const c of await recomputeCases()) {
     : null;
   const exportedRestored = restore?.ok
     ? await send('export', {
+        lang: 'en',
         result: restore.value.result,
         files: restore.value.files,
         review,
@@ -149,7 +151,12 @@ for (const c of await recomputeCases()) {
     export: await outcome(exported),
     exportRestored: await outcome(exportedRestored),
     workerExportOfCoreResult: await outcome(
-      await send('export', { result: core, files: c.files, review }),
+      await send('export', {
+        lang: 'en',
+        result: core,
+        files: c.files,
+        review,
+      }),
     ),
     directExportOfCoreResult: await direct(() =>
       io.exportWorkbook(core, c.files, review),
@@ -161,12 +168,22 @@ for (const c of await recomputeCases()) {
     const amount = structuredClone(result);
     amount.supplier.transactions[0].amount += 1;
     record.tampered.amountBeforeExport = await outcome(
-      await send('export', { result: amount, files: c.files, review }),
+      await send('export', {
+        lang: 'en',
+        result: amount,
+        files: c.files,
+        review,
+      }),
     );
     if (result.rejectedPairs.length) {
       const unrejected = { ...structuredClone(result), rejectedPairs: [] };
       record.tampered.rejectionDroppedBeforeExport = await outcome(
-        await send('export', { result: unrejected, files: c.files, review }),
+        await send('export', {
+          lang: 'en',
+          result: unrejected,
+          files: c.files,
+          review,
+        }),
       );
     }
     // A malformed result, alone and with a second fault that stops the
@@ -177,7 +194,12 @@ for (const c of await recomputeCases()) {
     ]) {
       const malformed = { ...structuredClone(result), matches: null, scope };
       record.tampered[`${name}.workerExport`] = await outcome(
-        await send('export', { result: malformed, files: c.files, review }),
+        await send('export', {
+          lang: 'en',
+          result: malformed,
+          files: c.files,
+          review,
+        }),
       );
       record.tampered[`${name}.directExport`] = await direct(() =>
         io.exportWorkbook(malformed, c.files, review),
@@ -188,7 +210,12 @@ for (const c of await recomputeCases()) {
       const dropped = structuredClone(result);
       dropped.matches = dropped.matches.filter((m) => m.kind !== 'manual');
       record.tampered.manualDecisionDroppedBeforeExport = await outcome(
-        await send('export', { result: dropped, files: c.files, review }),
+        await send('export', {
+          lang: 'en',
+          result: dropped,
+          files: c.files,
+          review,
+        }),
       );
     }
   }
@@ -223,7 +250,12 @@ for (const c of await recomputeCases()) {
       // A result computed under the stale choice, sent straight to export.
       const stale = coreResult({ ...c, mappings });
       record.tampered[`formatChoice.${name}.workerExport`] = await outcome(
-        await send('export', { result: stale, files: c.files, review }),
+        await send('export', {
+          lang: 'en',
+          result: stale,
+          files: c.files,
+          review,
+        }),
       );
       record.tampered[`formatChoice.${name}.directExport`] = await direct(() =>
         io.exportWorkbook(stale, c.files, review),
@@ -286,6 +318,7 @@ for (const c of await recomputeCases()) {
       if (other.reconcile.ok)
         record.tampered[`direction.${name}.export`] = await outcome(
           await send('export', {
+            lang: 'en',
             result: other.reconcile.value.result,
             files: c.files,
             review,
@@ -297,7 +330,12 @@ for (const c of await recomputeCases()) {
         claimed.ledger.mapping = mapping;
         record.tampered[`direction.${name}.claimAddedBeforeExport`] =
           await outcome(
-            await send('export', { result: claimed, files: c.files, review }),
+            await send('export', {
+              lang: 'en',
+              result: claimed,
+              files: c.files,
+              review,
+            }),
           );
         record.tampered[`direction.${name}.directExport`] = await direct(() =>
           io.exportWorkbook(claimed, c.files, review),
@@ -361,7 +399,12 @@ for (const c of await recomputeCases()) {
         compare: await outcome(await send('compare', payload)),
         restore: await outcome(await restoreWith(mappings)),
         workerExport: await outcome(
-          await send('export', { result: unchecked, files, review }),
+          await send('export', {
+            lang: 'en',
+            result: unchecked,
+            files,
+            review,
+          }),
         ),
         directExport: await direct(() =>
           io.exportWorkbook(unchecked, files, review),

@@ -3,6 +3,8 @@ import ExcelJS from 'exceljs';
 import { demoFiles, demoScope } from '../lib/reconciliation/demo.ts';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
 import { stripGap } from './alignment-strip-read.mjs';
+import { copyFile } from 'node:fs/promises';
+import { supplierSheetSaysScreen } from './reconciliation-sheet-browser.mjs';
 
 const ARABIC = /[\u0600-\u06FF]/;
 // Arabic that stays Arabic in English mode: the sample documents' own text
@@ -323,14 +325,26 @@ export async function verifyLanguages(page, url) {
   const downloadEvent = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Download Excel draft' }).click();
   const workbook = new ExcelJS.Workbook();
-  await workbook.xlsx.readFile(await (await downloadEvent).path());
-  // The workpaper is the same audit record in either language.
-  assert.equal(workbook.worksheets[0].name, 'Summary');
+  const englishDraft = await (await downloadEvent).path();
+  await workbook.xlsx.readFile(englishDraft);
+  // The workpaper is the same audit record in either language, after the
+  // reconciliation sheet in the interface's language (UX-6(b)).
+  assert.equal(workbook.worksheets[0].name, 'Reconciliation sheet');
+  assert.equal(workbook.worksheets[1].name, 'Summary');
   assert.equal(workbook.getWorksheet('Matches').rowCount, 3);
   await page
     .getByRole('status')
     .filter({ hasText: 'The workpaper is ready' })
     .waitFor();
+  // The sheet says what the page says; nothing was decided in this run. The
+  // checker reads the same download in CI.
+  await copyFile(englishDraft, 'work/qa/supplier-draft-en.xlsx');
+  await supplierSheetSaysScreen(page, {
+    file: 'work/qa/supplier-draft-en.xlsx',
+    lang: 'en',
+    result: page,
+    decisions: [],
+  });
 
   // Right to left again, with the notes and step intact.
   await switchTo(page, 'ar');

@@ -156,6 +156,54 @@ export type ReconciliationSheetCopy = {
      * («Claim»), in the interface's language. */
     claim: string;
   };
+  supplier: {
+    title: string;
+    /** The two sources as the page names them. */
+    sides: [string, string];
+    /** A transaction's side as the results table names it. */
+    sideShort: Record<'supplier' | 'ledger', string>;
+    fields: Record<
+      'supplier' | 'entity' | 'account' | 'currency' | 'cutoff',
+      string
+    >;
+    /** A case's state as the results table writes it. */
+    status: Record<
+      | 'auto'
+      | 'manual'
+      | 'amountVariance'
+      | 'paymentCandidate'
+      | 'rejected'
+      | 'needsReview'
+      | 'unmatched',
+      string
+    >;
+    reviewedStillOpen: string;
+    unmatched: string;
+    noReference: string;
+    reference: string;
+    reason: string;
+    balances: Record<
+      | 'heading'
+      | 'supplierBalance'
+      | 'ledgerBalance'
+      | 'notAvailable'
+      | 'balanceCheck'
+      | 'consistentConfirmed'
+      | 'consistentUnconfirmed'
+      | 'notProven'
+      | 'openingAdjustment'
+      | 'itemAdjustment'
+      | 'adjusted'
+      | 'residual',
+      string
+    >;
+    /** A source built with no original file, as the evidence says it. */
+    noOriginal: string;
+    /** The engine's claim as the evidence's Summary sheet writes it
+     * («Workbook Mode»), whole or partial, in the interface's language;
+     * the English is the evidence's words exactly. */
+    claim: Record<'verified' | 'partial', string>;
+  };
   glTb: {
     title: string;
     fields: Record<
@@ -380,6 +428,52 @@ export const reconciliationSheetCopy: Record<
       claim:
         'تخصيص مقترح على المتاح المعلن قبل التخصيص؛ لا ترحيل في نظام المنشأة، ولا ضمان لأصالة المصدر',
     },
+    supplier: {
+      title: 'تسوية الموردين',
+      sides: ['كشف المورد', 'تقرير الحسابات الدائنة'],
+      sideShort: { supplier: 'المورد', ledger: 'الدفتر' },
+      fields: {
+        supplier: 'المورد',
+        entity: 'الجهة القانونية',
+        account: 'الحساب',
+        currency: 'العملة',
+        cutoff: 'تاريخ المقارنة',
+      },
+      status: {
+        auto: 'مطابقة آلية',
+        manual: 'تأكيد يدوي',
+        amountVariance: 'فرق مبلغ',
+        paymentCandidate: 'مجموعة مقترحة للمطابقة',
+        rejected: 'اقتراح مرفوض',
+        needsReview: 'يحتاج مراجعة',
+        unmatched: 'غير مطابق',
+      },
+      reviewedStillOpen: 'تمت مراجعته وما زال غير مطابق',
+      unmatched: 'دون مقابل',
+      noReference: 'بلا مرجع',
+      reference: 'المرجع',
+      reason: 'سبب القرار',
+      balances: {
+        heading: 'الأرصدة وحالة التسوية',
+        supplierBalance: 'رصيد المورد',
+        ledgerBalance: 'رصيد الدفتر',
+        notAvailable: 'غير متاح',
+        balanceCheck: 'التحقق من الأرصدة',
+        consistentConfirmed: 'الأرصدة متسقة حسابيًا وتغطية الفترة مؤكدة',
+        consistentUnconfirmed: 'الأرصدة متسقة حسابيًا وتغطية الفترة تحتاج تأكيدك',
+        notProven: 'لم نتمكن من إثبات اتساق الأرصدة',
+        openingAdjustment: 'فرق افتتاحي لم يُثبت سببه',
+        itemAdjustment: 'صافي أثر حركات التسوية',
+        adjusted: 'الرصيد المعدل حسابيًا',
+        residual: 'الفرق المتبقي حسابيًا',
+      },
+      noOriginal: 'لا ملف أصلي',
+      claim: {
+        verified: 'لقطة محاسبية متحقق منها للمراجعة؛ لا تعني إعلان تسوية كاملة',
+        partial:
+          'لقطة جزئية للحركات للمراجعة. ملاحظات القراءة ما زالت مفتوحة؛ والمجاميع تشمل الحركات المعالجة وحدها. ليست تسوية مكتملة',
+      },
+    },
     glTb: {
       title: 'اتساق الأستاذ وميزان المراجعة',
       fields: {
@@ -603,6 +697,55 @@ export const reconciliationSheetCopy: Record<
       activeAllocations: 'Active allocations',
       claim:
         'Proposed allocation against declared pre-allocation capacities; no ERP posting or source authenticity assurance',
+    },
+    supplier: {
+      title: 'Supplier reconciliation',
+      sides: ['Supplier statement', 'Accounts payable report'],
+      sideShort: { supplier: 'Supplier', ledger: 'AP ledger' },
+      fields: {
+        supplier: 'Supplier',
+        entity: 'Legal entity',
+        account: 'Account',
+        currency: 'Currency',
+        cutoff: 'Cut-off date',
+      },
+      status: {
+        auto: 'Automatic match',
+        manual: 'Manual confirmation',
+        amountVariance: 'Amount difference',
+        paymentCandidate: 'Suggested group for matching',
+        rejected: 'Rejected suggestion',
+        needsReview: 'Needs Review',
+        unmatched: 'Unmatched',
+      },
+      reviewedStillOpen: 'Reviewed, still unmatched',
+      unmatched: 'Unmatched',
+      noReference: 'No reference',
+      reference: 'Reference',
+      reason: 'Reason for the decision',
+      balances: {
+        heading: 'Balances and reconciliation status',
+        supplierBalance: 'Supplier balance',
+        ledgerBalance: 'AP ledger balance',
+        notAvailable: 'Not available',
+        balanceCheck: 'Balance check',
+        consistentConfirmed:
+          'The balances are arithmetically consistent and period coverage is confirmed',
+        consistentUnconfirmed:
+          'The balances are arithmetically consistent; period coverage needs your confirmation',
+        notProven: 'We could not establish that the balances are consistent',
+        openingAdjustment: 'Opening difference with no established cause',
+        itemAdjustment: 'Net effect of reconciling items',
+        adjusted: 'Arithmetically adjusted balance',
+        residual: 'Remaining arithmetic difference',
+      },
+      noOriginal: 'No original file',
+      claim: {
+        verified:
+          'Verified accounting snapshot for review; not a declaration of full reconciliation.',
+        partial:
+          'Partial transaction snapshot for review. Reading issues remain open; totals cover processed transactions only. Not a complete reconciliation.',
+      },
     },
     glTb: {
       title: 'GL and trial balance consistency',

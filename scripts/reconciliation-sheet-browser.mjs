@@ -537,3 +537,169 @@ export async function allocationSheetSaysScreen(page, { file, lang, result }) {
     decisions: events.length,
   };
 }
+
+/** The supplier page's words the comparison steps by, and the sheet's
+ * headings over what the page does not draw as a table of its own. */
+const SUPPLIER_WORDS = {
+  ar: {
+    back: 'عُد إلى المراجعة',
+    forward: 'أعدّ ورقة العمل',
+    unmatched: 'دون مقابل',
+    review: /^يحتاج مراجعة \(\d+\)$/u,
+    reviewHeading: 'يحتاج مراجعة',
+    decisions: 'القرارات المسجلة',
+    decided: {
+      link: 'تأكيد يدوي',
+      unlink: 'اقتراح مرفوض',
+      review: 'تمت مراجعته وما زال غير مطابق',
+    },
+  },
+  en: {
+    back: 'Back to review',
+    forward: 'Prepare the workpaper',
+    unmatched: 'Unmatched',
+    review: /^Needs Review \(\d+\)$/u,
+    reviewHeading: 'Needs Review',
+    decisions: 'Recorded decisions',
+    decided: {
+      link: 'Manual confirmation',
+      unlink: 'Rejected suggestion',
+      review: 'Reviewed, still unmatched',
+    },
+  },
+};
+
+/**
+ * UX-6(b), suppliers: on the workpaper step, the strip and every balance
+ * line as the page draws them; back on the review step, each case the
+ * review tab lists, in its order, with its state as the table writes it, its
+ * first member's side and reference, and as many members as the row counts,
+ * and each case the unmatched tab lists with its date, side, amount and
+ * reference; then the decisions the run recorded, each in the word the
+ * screen gives the state it leaves, with the reason the reviewer typed. The
+ * page is left on the workpaper step, as it was. Each section holds what
+ * the page shows and no more.
+ */
+export async function supplierSheetSaysScreen(
+  page,
+  { file, lang, result, decisions },
+) {
+  const w = SUPPLIER_WORDS[lang];
+  const grid = await readSheet(file, lang);
+  await stripSaysScreen(grid, result);
+  const ends = (at, what) =>
+    assert.ok(
+      at >= grid.length || grid[at].every((c) => c === null),
+      `${what} and no more`,
+    );
+  // The balances, where the workpaper step writes them.
+  const lines = page.locator('.balance-lines > div');
+  const heading = (
+    await page
+      .locator('.surface')
+      .filter({ has: lines.first() })
+      .locator('h2')
+      .first()
+      .innerText()
+      .catch(() => '')
+  ).trim();
+  const balances = heading ? grid.findIndex((r) => r[0] === heading) : -1;
+  if (!(await lines.count()))
+    assert.ok(
+      !heading || balances === -1,
+      'no balances on the page, none in the sheet',
+    );
+  else {
+    assert.ok(balances >= 0, 'the balances section');
+    const count = await lines.count();
+    for (let i = 0; i < count; i++) {
+      const [label, said] = (
+        await lines.nth(i).locator('span, bdi').allInnerTexts()
+      ).map((t) => t.trim());
+      assert.equal(grid[balances + 1 + i][0], label, `balance line ${i + 1}`);
+      same(said, grid[balances + 1 + i][1], `balance ${label}`);
+    }
+    ends(balances + 1 + count, 'the balance lines');
+  }
+  // Back to the review step, where the tabs list the cases.
+  await page.getByRole('button', { name: w.back, exact: true }).click();
+  const rowsOf = async () => {
+    const body = page.locator('.results-frame table tbody tr');
+    await page.locator('.results-frame table').waitFor();
+    const out = [];
+    for (const row of await body.all()) {
+      const cell = row.locator('td');
+      out.push({
+        side: (await cell.nth(0).innerText()).split('·')[0].trim(),
+        date: (await cell.nth(1).innerText()).trim(),
+        reference: (await cell.nth(2).locator('bdi').innerText()).trim(),
+        amount: (await cell.nth(3).innerText()).split('\n')[0].trim(),
+        members: (await cell.nth(3).locator('.muted').innerText())
+          .match(/(\d+):(\d+)/u)
+          .slice(1, 3)
+          .reduce((a, b) => a + Number(b), 0),
+        state: (await cell.nth(4).innerText()).trim(),
+      });
+    }
+    return out;
+  };
+  await page.getByRole('tab', { name: w.review }).click();
+  const waiting = await rowsOf();
+  const top = grid.findIndex((r) => r[0] === w.reviewHeading && r[1] === null);
+  if (!waiting.length) assert.equal(top, -1, 'nothing waits, no section');
+  else assert.ok(top >= 0, 'the review section');
+  let at = top + 1;
+  for (const [i, c] of waiting.entries()) {
+    assert.deepEqual(
+      [grid[at][0], grid[at][1], grid[at][3]],
+      [c.state, c.side, c.reference],
+      `review case ${i + 1}: its state, first member's side and reference`,
+    );
+    at++;
+    for (let k = 1; k < c.members; k++, at++)
+      assert.ok(
+        grid[at][0] === null && grid[at][1] !== null,
+        `review case ${i + 1}: member ${k + 1} under it`,
+      );
+  }
+  if (waiting.length) ends(at, 'the review cases');
+  await page.getByRole('tab', { name: w.unmatched, exact: true }).click();
+  const alone = await rowsOf();
+  const first = grid.findIndex((r) => r[0] === w.unmatched && r[1] === null);
+  if (!alone.length) assert.equal(first, -1, 'nothing unmatched, no section');
+  else assert.ok(first >= 0, 'the unmatched section');
+  for (const [i, c] of alone.entries()) {
+    const row = grid[first + 1 + i];
+    assert.deepEqual(
+      [row[0], row[1], row[3]],
+      [c.date, c.side, c.reference],
+      `unmatched case ${i + 1}: its date, side and reference`,
+    );
+    same(c.amount, row[2], `unmatched case ${i + 1}: its amount`);
+  }
+  if (alone.length) ends(first + 1 + alone.length, 'the unmatched cases');
+  // The decisions the run recorded, each with the reason typed.
+  const head = grid.findIndex((r) => r[0] === w.decisions && r[1] === null);
+  if (!decisions.length) assert.equal(head, -1, 'no decision, no table');
+  else {
+    assert.ok(head >= 0, 'the recorded decisions');
+    decisions.forEach(([action, note], i) => {
+      const row = grid[head + 2 + i];
+      assert.equal(
+        row[0],
+        w.decided[action],
+        `decision ${i + 1}: what it left`,
+      );
+      assert.ok(row[1], `decision ${i + 1}: its members`);
+      assert.equal(row[2], note, `decision ${i + 1}: the reason typed`);
+    });
+    ends(head + 2 + decisions.length, 'the recorded decisions');
+  }
+  await page.getByRole('button', { name: w.forward }).click();
+  return {
+    rows: grid.length,
+    waiting: waiting.length,
+    unmatched: alone.length,
+    decisions: decisions.length,
+  };
+}

@@ -211,7 +211,12 @@ for (const supplierFault of SOURCE_FAULTS)
       );
       assert.equal(
         replyKind(
-          await worker.send('export', { result: unchecked, files, review }),
+          await worker.send('export', {
+            result: unchecked,
+            files,
+            review,
+            lang: 'en',
+          }),
         ),
         want,
         'worker export',
@@ -316,7 +321,14 @@ void test('an export of a proven direction with an edited explanation still succ
   const bytes = await exportWorkbook(claimed, files, review);
   assert.ok(bytes.byteLength > 0);
   assert.equal(
-    replyKind(await worker.send('export', { result: claimed, files, review })),
+    replyKind(
+      await worker.send('export', {
+        result: claimed,
+        files,
+        review,
+        lang: 'en',
+      }),
+    ),
     'ok',
   );
 });

@@ -30,7 +30,8 @@ import {
   verifyWorkflowBrand,
 } from './brand-browser-cases.mjs';
 import { createServer } from 'node:http';
-import { readFile, mkdir } from 'node:fs/promises';
+import { readFile, mkdir, copyFile } from 'node:fs/promises';
+import { supplierSheetSaysScreen } from './reconciliation-sheet-browser.mjs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
@@ -393,12 +394,16 @@ try {
   const wb = new ExcelJS.Workbook();
   await wb.xlsx.readFile(downloaded);
   assert.equal(wb.getWorksheet('Matches').rowCount, 2);
-  assert.equal(wb.worksheets[0].name, 'Summary');
+  // UX-6(b): the reconciliation sheet first, in the interface's language,
+  // then the evidence as it was.
+  assert.equal(wb.worksheets[0].name, 'ورقة التسوية');
+  assert.equal(wb.worksheets[1].name, 'Summary');
   assert.deepEqual(
     wb.worksheets
       .filter((sheet) => sheet.state === 'visible')
       .map((sheet) => sheet.name),
     [
+      'ورقة التسوية',
       'Summary',
       'Matches',
       'Needs Review',
@@ -411,6 +416,15 @@ try {
   );
   assert.ok(wb.getWorksheet('Review History').rowCount >= 3);
   assert.equal(wb.getWorksheet('Parsed Supplier Source').rowCount, 10);
+  // The sheet says what the page says, and the one decision with its reason;
+  // the checker reads the same download in CI.
+  await copyFile(downloaded, 'work/qa/supplier-draft-ar.xlsx');
+  await supplierSheetSaysScreen(page, {
+    file: 'work/qa/supplier-draft-ar.xlsx',
+    lang: 'ar',
+    result: page,
+    decisions: [['unlink', 'إعادة مراجعة المصدر — اختبار اصطناعي']],
+  });
   await page.screenshot({ path: 'work/qa/export.png', fullPage: true });
   // A settings edit discards the previous result: pressing compare is the
   // confirmation, so a stale comparison can never survive an input change.

@@ -21,7 +21,7 @@ import {
   exportGlTbWorkpaper,
   glTbSheet,
 } from '../lib/reconciliation/gl-tb-sheet.ts';
-import { readFile } from '../lib/reconciliation/io.ts';
+import { exportWorkbook, readFile } from '../lib/reconciliation/io.ts';
 import {
   addReconciliationSheet,
   composeSheet,
@@ -64,6 +64,16 @@ import {
   allocationSheet,
   exportAllocationWorkpaper,
 } from '../lib/reconciliation/allocation-sheet.ts';
+import {
+  exportSupplierWorkpaper,
+  supplierSheet,
+} from '../lib/reconciliation/supplier-sheet.ts';
+import { readingStatus } from '../lib/reconciliation/reading-issues.ts';
+import { reconciliationDirectoryCopy } from '../lib/i18n/reconciliation-directory.ts';
+import {
+  supplierCases,
+  type SupplierCase,
+} from '../audit/reconciliation-sheet/supplier-cases.ts';
 
 // UX-6(a): the reconciliation sheet is added to a workpaper whose evidence is
 // already written, and leaves that evidence byte for byte as it was. Its words
@@ -1763,4 +1773,343 @@ void test('a printed page is broken above a whole section or document, never ins
     pairs('Last', 3),
   );
   assert.ok(!breaks(tall.xml).includes(above(tall.rows, 'Long')));
+});
+
+const supplierAll = await supplierCases();
+const supplierCase = (name: string): SupplierCase =>
+  structuredClone(supplierAll.find((c) => c.name === `supplier-${name}`)!);
+
+void test('supplier: the evidence stays byte for byte, the balances as the workpaper step writes them, each case under review with its members, each unmatched one, each decision with its reason', async () => {
+  for (const name of [
+    'example',
+    'example-bytes',
+    'balance-unproven',
+    'decided',
+    'blank-scope',
+    'three-decimals',
+    'partial-PR03',
+    'partial-PR12',
+  ])
+    for (const lang of ['ar', 'en'] as const) {
+      const { result, files, review } = supplierCase(name);
+      const evidence = await exportWorkbook(result, files, review);
+      const book = await addReconciliationSheet(
+        evidence,
+        supplierSheet(result, files, review, lang),
+      );
+      const before = await parts(evidence),
+        after = await parts(book);
+      assert.deepEqual(
+        [...after.keys()].filter((k) => !before.has(k)),
+        [
+          `xl/worksheets/sheet${[...before.keys()].filter((k) => /^xl\/worksheets\/sheet\d+\.xml$/.test(k)).length + 1}.xml`,
+        ],
+        `${name}: one sheet part added`,
+      );
+      for (const [part, bytes] of before)
+        if (!WORKBOOK_PARTS.includes(part))
+          assert.deepEqual(after.get(part), bytes, `${name} ${lang}: ${part}`);
+      const w = reconciliationSheetCopy[lang],
+        t = w.supplier,
+        b = t.balances,
+        s = alignmentStripCopy[lang];
+      const { rows } = await firstSheet(
+        await exportSupplierWorkpaper(result, files, review, lang),
+      );
+      assert.equal(rows[1][0], t.title, name);
+      const unit = 10 ** result.scope.decimals;
+      const blankRow = [null, null, null, null];
+      // The scope: each field the evidence's Summary writes, in the screen's
+      // words; one it leaves empty is not written.
+      const scopeAt = headingOf(rows, w.scope, 'Summary', lang);
+      const written = [
+        [t.fields.supplier, result.scope.supplier],
+        [t.fields.entity, result.scope.entity],
+        [t.fields.account, result.scope.account],
+        [t.fields.currency, result.scope.currency],
+        [t.fields.cutoff, result.scope.cutoff],
+      ].filter(([, v]) => v);
+      written.forEach(([label, v], k) =>
+        assert.deepEqual(rows[scopeAt + 1 + k].slice(0, 2), [label, v], name),
+      );
+      assert.deepEqual(rows[scopeAt + 1 + written.length], blankRow);
+      // The two sources by the page's names for them, each with its whole
+      // fingerprint, or the word for a source built with no original file.
+      for (const side of [0, 1] as const) {
+        const at = rowOf(rows, t.sides[side]);
+        assert.deepEqual(rows[at].slice(0, 2), [
+          t.sides[side],
+          files[side].name,
+        ]);
+        assert.deepEqual(rows[at + 1].slice(0, 2), [
+          w.fingerprint,
+          files[side].sha256 ?? t.noOriginal,
+        ]);
+      }
+      // The strip: the cases aligned, those waiting and those without a
+      // counterpart, and the closing difference where the engine computed it.
+      const counts = result.caseCounts;
+      assert.deepEqual(rows[rowOf(rows, s.agreed)].slice(0, 2), [
+        s.agreed,
+        counts.autoMatchedCases + counts.manualMatches,
+      ]);
+      const review0 = rowOf(rows, s.review);
+      assert.deepEqual(rows[review0].slice(0, 2), [
+        s.review,
+        counts.needsReviewCases,
+      ]);
+      assert.deepEqual(rows[review0 + 1].slice(1, 3), [
+        s.alone,
+        counts.unmatchedCases,
+      ]);
+      assert.deepEqual(
+        rows[rowOf(rows, s.gap)].slice(0, 2),
+        [
+          s.gap,
+          result.bridge === null
+            ? s.notComputed
+            : result.bridge.delta
+              ? result.bridge.delta / unit
+              : s.noDifference,
+        ],
+        name,
+      );
+      // The balances, where the workpaper step writes them.
+      const balances = headingOf(
+        rows,
+        b.heading,
+        'Reconciliation Bridge',
+        lang,
+      );
+      if (!result.scope.coverageConfirmed && !result.bridge)
+        assert.equal(balances, -1, `${name}: no balances section`);
+      else {
+        const minor = (v: number | null) =>
+          v === null ? b.notAvailable : v / unit;
+        const expected: [string, string | number][] = [
+          [b.supplierBalance, minor(result.supplier.closing)],
+          [b.ledgerBalance, minor(result.ledger.closing)],
+          [
+            b.balanceCheck,
+            result.bridge
+              ? result.balanceComparable
+                ? b.consistentConfirmed
+                : b.consistentUnconfirmed
+              : b.notProven,
+          ],
+          ...(result.bridge
+            ? ([
+                [b.openingAdjustment, result.bridge.openingAdjustment / unit],
+                [b.itemAdjustment, result.bridge.itemAdjustment / unit],
+                [b.adjusted, result.bridge.adjusted / unit],
+                [b.residual, result.bridge.residual / unit],
+              ] as [string, number][])
+            : []),
+        ];
+        expected.forEach((row, k) =>
+          assert.deepEqual(rows[balances + 1 + k].slice(0, 2), row, name),
+        );
+        assert.deepEqual(rows[balances + 1 + expected.length], blankRow);
+      }
+      // Each case the review tab lists, in the result's order: its state in
+      // the table's word on its first member, then every member with its
+      // side, signed amount and reference.
+      const waiting = result.cases.filter(
+        (c) => c.status === 'Needs Review' || c.status === 'Rejected',
+      );
+      const reviewAt = headingOf(
+        rows,
+        t.status.needsReview,
+        'Needs Review',
+        lang,
+      );
+      if (!waiting.length) assert.equal(reviewAt, -1, `${name}: none waits`);
+      let at = reviewAt + 1;
+      for (const c of waiting) {
+        const word =
+          t.status[
+            c.classification === 'AMOUNT_VARIANCE'
+              ? 'amountVariance'
+              : c.classification === 'PAYMENT_CANDIDATE'
+                ? 'paymentCandidate'
+                : c.status === 'Rejected'
+                  ? 'rejected'
+                  : 'needsReview'
+          ];
+        [...c.supplierMembers, ...c.ledgerMembers].forEach((tx, i) =>
+          assert.deepEqual(
+            rows[at++],
+            [
+              i ? null : word,
+              t.sideShort[tx.side],
+              tx.amount / unit,
+              tx.reference || t.noReference,
+            ],
+            `${name}: ${c.caseId}`,
+          ),
+        );
+      }
+      if (waiting.length)
+        assert.deepEqual(rows[at], blankRow, `${name}: the review cases end`);
+      // Each case the unmatched tab lists: its first member's date, side and
+      // reference, with the case's amount.
+      const unmatched = result.cases.filter((c) => c.status === 'Unmatched');
+      const unmatchedAt = headingOf(rows, t.unmatched, 'Unmatched', lang);
+      if (!unmatched.length) assert.equal(unmatchedAt, -1);
+      unmatched.forEach((c, k) => {
+        const tx = c.supplierMembers[0] ?? c.ledgerMembers[0];
+        assert.deepEqual(rows[unmatchedAt + 1 + k], [
+          tx.date,
+          t.sideShort[tx.side],
+          (c.supplierMembers.length ? c.supplierTotal : c.ledgerTotal) / unit,
+          tx.reference || t.noReference,
+        ]);
+      });
+      if (unmatched.length)
+        assert.deepEqual(
+          rows[unmatchedAt + 1 + unmatched.length],
+          blankRow,
+          `${name}: the unmatched cases end`,
+        );
+      // Each decision recorded, in its order, in the word the screen gives
+      // the state it leaves, its members by their references, the reason as
+      // written; a comparison run is not a decision.
+      const decisions = review.events.filter((e) => e.action !== 'compare');
+      const eventsAt = headingOf(rows, w.decisions, 'Review History', lang);
+      if (!decisions.length) assert.equal(eventsAt, -1, `${name}: no decision`);
+      else {
+        assert.deepEqual(rows[eventsAt + 1].slice(0, 3), [
+          w.decision,
+          t.reference,
+          t.reason,
+        ]);
+        const all = [
+          ...result.supplier.transactions,
+          ...result.ledger.transactions,
+        ];
+        decisions.forEach((e, k) =>
+          assert.deepEqual(rows[eventsAt + 2 + k].slice(0, 3), [
+            e.action === 'link'
+              ? t.status.manual
+              : e.action === 'unlink'
+                ? t.status.rejected
+                : t.reviewedStillOpen,
+            e.ids
+              .map((id) => all.find((tx) => tx.id === id)!.reference)
+              .join(' · '),
+            e.note,
+          ]),
+        );
+        assert.deepEqual(
+          rows[eventsAt + 2 + decisions.length],
+          blankRow,
+          `${name}: the decisions end`,
+        );
+      }
+      assert.equal(
+        rows.at(-1)![0],
+        readingStatus([result.supplier, result.ledger]).partial
+          ? t.claim.partial
+          : t.claim.verified,
+        name,
+      );
+    }
+});
+
+void test('supplier: the words are the screen words, and the claim and a missing original in English are the evidence words', async () => {
+  for (const [lang, locale] of [
+    ['ar', ar],
+    ['en', en],
+  ] as const) {
+    const t = reconciliationSheetCopy[lang].supplier,
+      app = locale.app;
+    assert.equal(t.title, reconciliationDirectoryCopy[lang].supplierTitle);
+    assert.deepEqual(t.sides, app.sides);
+    assert.deepEqual(t.sideShort, app.sideShort);
+    assert.deepEqual(t.fields, app.scopeFields);
+    assert.deepEqual(t.status, app.results.status);
+    assert.equal(t.reviewedStillOpen, app.results.reviewedStillOpen);
+    assert.equal(t.unmatched, app.results.tabUnmatched);
+    assert.equal(t.noReference, app.results.noReference);
+    assert.equal(t.reference, app.results.columns[2]);
+    assert.equal(t.reason, locale.transactionReview.noteLabel);
+    const { heading, ...lines } = t.balances;
+    assert.equal(heading, app.finish.balancesHeading);
+    for (const [key, word] of Object.entries(lines))
+      assert.equal(
+        word,
+        (app.finish as Record<string, unknown>)[key],
+        `${lang} finish.${key}`,
+      );
+  }
+  const summary = async (c: SupplierCase) => {
+    const wb = new ExcelJS.Workbook();
+    await wb.xlsx.load(await exportWorkbook(c.result, c.files, c.review));
+    const field = (sheet: string, label: string) =>
+      wb
+        .getWorksheet(sheet)!
+        .getRows(1, 60)!
+        .find((r) => r.getCell(1).value === label)!
+        .getCell(2).value;
+    return {
+      mode: field('Summary', 'Workbook Mode'),
+      hash: field('Export Metadata', 'Supplier SHA-256'),
+    };
+  };
+  const t = reconciliationSheetCopy.en.supplier;
+  const example = await summary(supplierCase('example'));
+  assert.equal(example.mode, t.claim.verified);
+  assert.equal(example.hash, t.noOriginal);
+  assert.equal(
+    (await summary(supplierCase('partial-PR03'))).mode,
+    t.claim.partial,
+  );
+});
+
+void test('the real worker writes the supplier sheet in the language asked, and refuses none before any work', async () => {
+  const { result, files, review } = supplierCase('decided');
+  // A refused request ends its worker, and the client starts a new one for
+  // the next, as the page's does.
+  const ports: GlTbBindingPort[] = [];
+  try {
+    const client = createWorkerClient(() => {
+      const port = new GlTbBindingPort();
+      ports.push(port);
+      return port;
+    });
+    for (const lang of ['ar', 'en'] as const) {
+      const bytes = await client.request<ArrayBuffer>('export', {
+        result,
+        files,
+        review,
+        lang,
+      });
+      const book = new ExcelJS.Workbook();
+      await book.xlsx.load(bytes);
+      assert.deepEqual(
+        book.worksheets.slice(0, 2).map((s) => s.name),
+        [reconciliationSheetCopy[lang].name, 'Summary'],
+      );
+      const { rows } = await firstSheet(bytes);
+      assert.equal(rows[1][0], reconciliationSheetCopy[lang].supplier.title);
+    }
+    await assert.rejects(
+      client.request('export', { result, files, review }),
+      /RECONCILIATION_SHEET_LANGUAGE/,
+    );
+    // The language is refused before the export recomputes anything: a
+    // stale result with no language is refused for the language.
+    const stale = structuredClone(result);
+    stale.supplier.transactions[0].amount += 1;
+    await assert.rejects(
+      client.request('export', { result: stale, files, review, lang: 'fr' }),
+      /RECONCILIATION_SHEET_LANGUAGE/,
+    );
+    await assert.rejects(
+      client.request('export', { result: stale, files, review, lang: 'en' }),
+      /لا تطابق إعادة الحساب/,
+    );
+  } finally {
+    for (const port of ports) port.terminate();
+  }
 });

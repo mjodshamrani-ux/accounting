@@ -251,6 +251,7 @@ void test('046 real worker entry rejects invalid formats for reconcile, compare 
               files: [file, ledgerFile],
               result: partial,
               review: { checked: true, name: 'Synthetic reviewer', notes: '' },
+              lang: 'en',
             }
           : {
               files: [file, ledgerFile],

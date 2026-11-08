@@ -1539,7 +1539,13 @@ export default function App() {
             })
           : await workerTask<ArrayBuffer>(
               'export',
-              { result, files, review: { ...review, events: auditEvents } },
+              {
+                result,
+                files,
+                review: { ...review, events: auditEvents },
+                // The sheet first, in the interface's language (UX-6).
+                lang: dir === 'rtl' ? 'ar' : 'en',
+              },
               signal,
             );
         if (!alive()) return;

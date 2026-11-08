@@ -1,6 +1,6 @@
 // UX-6: one mutant for each guard the reconciliation sheet adds, as the
 // design record declares them (docs/audits/UX-6-RECONCILIATION-SHEET.ar.md,
-// section 7), GL/TB in 6(a) and clearing in 6(b). Each mutant changes one product file at one anchor in a private
+// section 7), GL/TB in 6(a) and the case workspaces in 6(b). Each mutant changes one product file at one anchor in a private
 // copy of the tree; it is killed only when a test fails by an assertion
 // (DEV-22), never by a syntax error, a crash or a timeout.
 //
@@ -577,6 +577,131 @@ const mutations = [
     'lib/i18n/reconciliation-sheet.ts',
     "activeAllocations: 'Active allocations',",
     "activeAllocations: 'Allocations in force',",
+  ],
+  // UX-6(b), suppliers. The worker ignores the language.
+  [
+    'supplier-worker-language-ignored',
+    'lib/reconciliation/worker.ts',
+    'const lang = sheetLanguage(payload.lang);',
+    "const lang = sheetLanguage('ar');",
+  ],
+  // The sheet is written in English whatever the language asked.
+  [
+    'supplier-language-not-followed',
+    'lib/reconciliation/supplier-sheet.ts',
+    'supplierSheet(result, files, review, language),',
+    "supplierSheet(result, files, review, 'en'),",
+  ],
+  // A field the evidence leaves empty is written, empty.
+  [
+    'supplier-empty-scope-written',
+    'lib/reconciliation/supplier-sheet.ts',
+    ').filter(([, text]) => text);',
+    ').filter(() => true);',
+  ],
+  // A source with no original file is written with no word for it.
+  [
+    'supplier-no-original-unsaid',
+    'lib/reconciliation/supplier-sheet.ts',
+    'hash: files[side].sha256 ?? t.noOriginal,',
+    "hash: files[side].sha256 ?? '',",
+  ],
+  // The balances are written only where the engine computed a bridge.
+  [
+    'supplier-balances-only-with-bridge',
+    'lib/reconciliation/supplier-sheet.ts',
+    'result.scope.coverageConfirmed || bridge',
+    'bridge',
+  ],
+  // The balance check never says the coverage is confirmed.
+  [
+    'supplier-balance-check-unconfirmed',
+    'lib/reconciliation/supplier-sheet.ts',
+    '? b.consistentConfirmed',
+    '? b.consistentUnconfirmed',
+  ],
+  // The residual stands where the adjusted balance does.
+  [
+    'supplier-residual-for-adjusted',
+    'lib/reconciliation/supplier-sheet.ts',
+    'value: amount(bridge.adjusted, true),',
+    'value: amount(bridge.residual, true),',
+  ],
+  // The review tab's rejected suggestions are left out.
+  [
+    'supplier-rejected-left-out',
+    'lib/reconciliation/supplier-sheet.ts',
+    "(c) => c.status === 'Needs Review' || c.status === 'Rejected',",
+    "(c) => c.status === 'Needs Review',",
+  ],
+  // A rejected suggestion said as a case that needs review.
+  [
+    'supplier-rejected-said-as-review',
+    'lib/reconciliation/supplier-sheet.ts',
+    "? 'rejected'",
+    "? 'needsReview'",
+  ],
+  // A member's amount without its sign.
+  [
+    'supplier-member-unsigned',
+    'lib/reconciliation/supplier-sheet.ts',
+    'value(t.sideShort[tx.side]),\n              amount(tx.amount),',
+    'value(t.sideShort[tx.side]),\n              amount(Math.abs(tx.amount)),',
+  ],
+  // A member named by its normalized reference, not the one it reads.
+  [
+    'supplier-reference-normalized',
+    'lib/reconciliation/supplier-sheet.ts',
+    'tx.reference || t.noReference',
+    'tx.normalizedReference || t.noReference',
+  ],
+  // An unmatched ledger case written with the supplier side's total.
+  [
+    'supplier-unmatched-supplier-total',
+    'lib/reconciliation/supplier-sheet.ts',
+    'amount(c.supplierMembers.length ? c.supplierTotal : c.ledgerTotal),',
+    'amount(c.supplierTotal),',
+  ],
+  // Every decision said as a manual link.
+  [
+    'supplier-decision-said-as-link',
+    'lib/reconciliation/supplier-sheet.ts',
+    'value(decided[event.action]),',
+    'value(decided.link),',
+  ],
+  // A decision with only its first member.
+  [
+    'supplier-decision-first-member',
+    'lib/reconciliation/supplier-sheet.ts',
+    '                    event.ids\n',
+    '                    event.ids.slice(0, 1)\n',
+  ],
+  // A decision without the reason given.
+  [
+    'supplier-decision-reason-dropped',
+    'lib/reconciliation/supplier-sheet.ts',
+    '                  value(event.note),\n',
+    '                  null,\n',
+  ],
+  // A partial snapshot claimed as a verified one.
+  [
+    'supplier-partial-claimed-verified',
+    'lib/reconciliation/supplier-sheet.ts',
+    'text: reading.partial ? t.claim.partial : t.claim.verified,',
+    'text: t.claim.verified,',
+  ],
+  // A word of the sheet that is not the screen's, and one not the evidence's.
+  [
+    'supplier-word-off-screen',
+    'lib/i18n/reconciliation-sheet.ts',
+    "reviewedStillOpen: 'Reviewed, still unmatched',",
+    "reviewedStillOpen: 'Reviewed, not matched',",
+  ],
+  [
+    'supplier-word-off-evidence',
+    'lib/i18n/reconciliation-sheet.ts',
+    "noOriginal: 'No original file',",
+    "noOriginal: 'No original source',",
   ],
 ];
 

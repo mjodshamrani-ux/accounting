@@ -1,5 +1,5 @@
 """Independent check of the reconciliation sheet (UX-6) in GL/TB, clearing,
-customer AR, bank movement and payment allocation workpapers.
+customer AR, bank movement, payment allocation and supplier workpapers.
 
 Reads each workpaper with zipfile and ElementTree only, with no product code,
 and checks, against the evidence sheets as this checker reads them:
@@ -35,9 +35,24 @@ and checks, against the evidence sheets as this checker reads them:
   is available, allocated and remaining; each active allocation with its
   basis, reference and reason, then its payment and invoice with the
   amount; each dated decision with its number, time, the decision an undo
-  undoes and the reason the reviewer gave.
+  undoes and the reason the reviewer gave;
+- in a supplier workpaper (UX-6(b)), read from its Summary, Run Settings,
+  Export Metadata, Match Evidence, transaction sheets, Needs Review,
+  Unmatched, Reconciliation Bridge, Diagnostics and Review History, its
+  counts and bridge held to its case sheets and balances first: the scope
+  fields its Summary writes; each source's file and fingerprint as Export
+  Metadata writes it (it holds no original bytes to hash); the cases
+  aligned, waiting and alone, and the closing difference; both closings,
+  the balance check in words as the engine's comparability gives it, and
+  the bridge's four figures; each case the review tab lists with its state
+  in words and every member with its side, signed amount and reference;
+  each unmatched case with its date, side, amount and reference; each
+  decision with its members and the reason the reviewer gave, one word an
+  action and one a state across the run, the undone match said as the case
+  it leaves.
 
-Which checks apply is read from the evidence's own Summary (Domain).
+Which checks apply is read from the evidence's own Summary (Domain); the
+supplier workbook names none, and is known by its own evidence sheets.
 
 Usage: check_sheet.py FOLDER            check every case in FOLDER/cases.json
        check_sheet.py --self-test FOLDER  plant faults and require each found
@@ -79,14 +94,18 @@ HEX64 = re.compile(r'^[0-9a-f]{64}$')
 # stand in, as each workspace names them.
 REVIEW_TABLES = ('Cases', 'Groups')
 DECISION_TABLES = ('Decisions', 'Events')
+# The supplier's tables: the cases the review tab lists, those the unmatched
+# tab lists, and its decisions.
+SUPPLIER_TABLES = ('Needs Review', 'Unmatched', 'Review History')
 # Every table whose heading goes with its head and first row (with no head,
-# its first item), the rest running on: those above, and in allocation the
-# value ledger of each side and the active allocations.
-TABLES = REVIEW_TABLES + DECISION_TABLES + ('Value ledger', 'Active links')
+# its first item), the rest running on: those above, in allocation the value
+# ledger of each side and the active allocations, and the supplier's.
+TABLES = (REVIEW_TABLES + DECISION_TABLES + ('Value ledger', 'Active links') +
+          SUPPLIER_TABLES)
 # Tables a page may be broken above a later item of, an item that is not the
 # first under its head: a case or document with its members, an active
-# allocation with its two sides, a decision.
-ITEM_TABLES = REVIEW_TABLES + ('Active links', 'Events')
+# allocation with its two sides, a decision, an unmatched case.
+ITEM_TABLES = REVIEW_TABLES + ('Active links', 'Events') + SUPPLIER_TABLES
 
 
 class Fault(AssertionError):
@@ -135,14 +154,17 @@ class Book:
     def part(self, name):
         return dict(self.sheets)[name]
 
-    def rows(self, name):
-        """Rows of four or more cells: (kind, value, style) or None."""
+    def rows(self, name, formulas=False):
+        """Rows of four or more cells: (kind, value, style) or None. A cell
+        with a formula is refused unless formulas are allowed, as in an
+        evidence sheet, where the value its writer stored is read."""
         root = ET.fromstring(self.parts[self.part(name)])
         grid = {}
         for row in root.findall('s:sheetData/s:row', NS):
             r = int(row.attrib['r']) - 1
             for c in row.findall('s:c', NS):
-                need(c.find('s:f', NS) is None, 'FORMULA', c.attrib['r'])
+                need(formulas or c.find('s:f', NS) is None, 'FORMULA',
+                     c.attrib['r'])
                 t = c.get('t')
                 style = int(c.get('s', '0'))
                 v = c.find('s:v', NS)
@@ -178,8 +200,8 @@ class Book:
     def table(self, name):
         """An evidence sheet as text by header, as its own reader sees it."""
         out = []
-        for row in self.rows(name):
-            out.append(['' if c is None else
+        for row in self.rows(name, formulas=True):
+            out.append(['' if c is None or c[0] == 'empty' else
                         str(c[1]) if c[0] != 'number' else _plain(c[1])
                         for c in row])
         return out
@@ -277,7 +299,7 @@ def check_case(folder, case, lang):
     sheet_xml = book.parts[part].decode()
     need(' t="s"' not in sheet_xml, 'SHARED_STRING')
     need(('rightToLeft="1"' in sheet_xml) == (lang == 'ar'), 'DIRECTION')
-    domain = {r[0]: r[1] for r in evidence.table('Summary')[1:]}.get('Domain')
+    domain = domain_of(evidence)
     need(WORKSPACES[case['workspace']] == domain, 'MANIFEST', str(domain))
     return check_content(evidence, book, lang)
 
@@ -286,9 +308,27 @@ def check_content(evidence, book, lang):
     """The sheet's figures against the evidence, by the workspace the
     evidence names in its own Summary."""
     summary = {r[0]: r[1] for r in evidence.table('Summary')[1:]}
-    profile = PROFILES.get(summary.get('Domain'))
-    need(profile is not None, 'EVIDENCE_READ', f'domain {summary.get("Domain")}')
+    domain = domain_of(evidence)
+    profile = PROFILES.get(domain)
+    need(profile is not None, 'EVIDENCE_READ', f'domain {domain}')
     return profile(evidence, book, lang, summary)
+
+
+# The supplier workbook names no domain in its Summary; it is known by its
+# own evidence sheets and its Summary's Workbook Mode.
+SUPPLIER_SHEETS = {'Summary', 'Matches', 'Needs Review', 'Unmatched',
+                   'Reconciliation Bridge', 'Review Sign-off', 'Match Evidence',
+                   'Review History', 'Run Settings', 'Export Metadata',
+                   'Supplier transactions', 'Ledger transactions', 'Diagnostics'}
+
+
+def domain_of(evidence):
+    summary = {r[0]: r[1] for r in evidence.table('Summary')[1:]}
+    if 'Domain' in summary:
+        return summary['Domain']
+    if SUPPLIER_SHEETS <= set(evidence.names) and 'Workbook Mode' in summary:
+        return 'supplier-statement-comparison'
+    return None
 
 
 text = lambda c: c is not None and c[0] == 'text' and c[1] != ''
@@ -1324,16 +1364,336 @@ def check_allocation(evidence, book, lang, summary):
     return {'status': status, 'rows': len(rows)}
 
 
+SUPPLIER_SCOPE = ['Supplier', 'Entity', 'AP Control Account', 'Currency',
+                  'Cut-off Date']
+SUPPLIER_CODES = {'Matched', 'Needs Review', 'Unmatched', 'Rejected',
+                  'EXACT_1_TO_1', 'EXACT_1_TO_MANY', 'EXACT_MANY_TO_1',
+                  'EXACT_MANY_TO_MANY', 'AMOUNT_VARIANCE', 'PAYMENT_CANDIDATE',
+                  'SUPPLIER_ONLY', 'LEDGER_ONLY', 'REJECTED_CANDIDATE',
+                  'AMBIGUOUS_CANDIDATE', 'supplier', 'ledger', 'link',
+                  'unlink', 'review', 'compare', 'PERIOD_COVERAGE_CONFIRMED',
+                  'PERIOD_COVERAGE_UNCONFIRMED'}
+# The screen's English word for a case that needs review is the engine's
+# status itself («Needs Review»), so in English it is a word.
+SUPPLIER_ENGLISH = {'Needs Review'}
+NO_ORIGINAL = 'No original file'
+# Words a run has seen, by language and kind: each code said one way, and two
+# codes never said the same way, across every workpaper the run reads.
+WORDS_SEEN = {}
+
+
+def seen_words(lang, kind, pairs):
+    word = WORDS_SEEN.setdefault((lang, kind), {})
+    for code, said in pairs:
+        need(word.setdefault(code, said) == said, kind.upper(),
+             f'{code} said two ways in the run')
+    need(len(set(word.values())) == len(word), kind.upper(),
+         'two codes said one way in the run')
+
+
+def excel_date(serial):
+    """A date cell's stored serial (1900 system) as the result writes it."""
+    import datetime
+    day = datetime.date(1899, 12, 30) + datetime.timedelta(
+        days=int(Decimal(serial)))
+    return day.isoformat()
+
+
+def check_supplier(evidence, book, lang, summary):
+    """The supplier sheet against its evidence: Summary, Export Metadata and
+    Run Settings for the scope and sources, Match Evidence and the two
+    transaction sheets for each case's members, Needs Review and Unmatched for
+    the cases each tab lists, Reconciliation Bridge and Diagnostics for the
+    balances, Review History for the decisions. The evidence is held to
+    itself first: its counts to its case sheets, its bridge to its balances.
+    The fingerprints are the evidence's own (Export Metadata); this workbook
+    holds no original bytes to hash."""
+    rows_of = lambda name: [dict(zip(evidence.table(name)[0], r))
+                            for r in evidence.table(name)[1:]]
+    pairs_of = lambda name: {r[0]: r[1] for r in evidence.table(name)[1:]}
+    settings = pairs_of('Run Settings')
+    metadata = pairs_of('Export Metadata')
+    scope_json = json.loads(settings['Scope'])
+    unit = Decimal(10) ** int(scope_json['decimals'])
+    tx = {}
+    for name, side in (('Supplier transactions', 'supplier'),
+                       ('Ledger transactions', 'ledger')):
+        for r in rows_of(name):
+            tx[r['المعرف']] = {'side': side, 'reference': r['المرجع الأصلي'],
+                               'amount': Decimal(r['المبلغ الموحد'])}
+    members = {}
+    for r in rows_of('Match Evidence'):
+        members.setdefault(r['Case ID'], []).append(r)
+    for case_id, ms in members.items():
+        for m in ms:
+            need(m['Source Row ID'] in tx and
+                 tx[m['Source Row ID']]['side'] == m['Side'] and
+                 Decimal(m['Amount']) == tx[m['Source Row ID']]['amount'],
+                 'EVIDENCE_READ', f'{case_id} member {m["Source Row ID"]}')
+    waiting = rows_of('Needs Review')
+    unmatched = rows_of('Unmatched')
+    matched = rows_of('Matches')
+    count = lambda key: int(Decimal(summary[key]))
+    need(count('Auto Matched Cases') + count('Manual Matches') == len(matched),
+         'EVIDENCE_READ', 'matched cases')
+    need(count('Needs Review Cases') ==
+         sum(1 for c in waiting if c['Status'] == 'Needs Review'),
+         'EVIDENCE_READ', 'cases that need review')
+    need(count('Unmatched Cases') == len(unmatched), 'EVIDENCE_READ',
+         'unmatched cases')
+    need(all(c['Case ID'] in members for c in waiting + unmatched),
+         'EVIDENCE_READ', 'every listed case has its members')
+    bridged = summary['Bridge Status'].startswith('Arithmetic bridge available')
+    confirmed = (summary['Coverage Confirmation Status'] ==
+                 'PERIOD_COVERAGE_CONFIRMED')
+    money = lambda key: None if summary[key] == '' else Decimal(summary[key])
+    closing = (money('Supplier Closing Balance'),
+               money('Ledger Closing Balance'))
+    opening = next((Decimal(r[4]) for r in evidence.table(
+        'Reconciliation Bridge')[1:] if r[0] == 'OPENING_DIFFERENCE'),
+        Decimal(0))
+    if bridged:
+        delta = money('Closing Difference')
+        need(delta == closing[0] - closing[1], 'EVIDENCE_READ',
+             'closing difference')
+        item = money('Net Bridge Adjustments') - opening
+        adjusted, residual = money('Adjusted Supplier Balance'), money('Residual')
+        need(adjusted == closing[0] + opening + item and
+             residual == adjusted - closing[1], 'EVIDENCE_READ', 'bridge')
+    # Comparable as the engine defines it: a bridge, coverage confirmed, and
+    # no exclusion the engine names as unproven for the balances.
+    unproven = any(r[0] == 'EXCLUDED_MOVEMENT_MEMBERSHIP' and
+                   'لم يُثبت اكتمال تسوية الأرصدة' in r[1]
+                   for r in evidence.table('Diagnostics')[1:])
+    balance_code = ('not-proven' if not bridged else
+                    'confirmed' if confirmed and not unproven else
+                    'unconfirmed')
+    shown = confirmed or bridged
+    decisions = [r for r in rows_of('Review History') if r['Action'] != 'compare']
+    codes = SUPPLIER_CODES - (SUPPLIER_ENGLISH if lang == 'en' else set())
+
+    expected = (['Summary', 'Export Metadata', None] +
+                (['Reconciliation Bridge'] if shown else []) +
+                (['Needs Review'] if waiting else []) +
+                (['Unmatched'] if unmatched else []) +
+                (['Review History'] if decisions else []) + [None, 'Summary'])
+    rows, styles, line, sections = layout(book, evidence, lang, expected)
+    scope, srcs, strip = sections[:3]
+    rest = sections[3:-2]
+    balances = rest.pop(0) if shown else None
+    review_table = rest.pop(0) if waiting else None
+    alone_table = rest.pop(0) if unmatched else None
+    taken = rest.pop(0) if decisions else None
+    sign, claim = sections[-2:]
+
+    # Scope: each field the evidence's Summary writes, in its order; an empty
+    # one is not written.
+    fields = [(key, excel_date(summary[key]) if key == 'Cut-off Date'
+               else summary[key]) for key in SUPPLIER_SCOPE if summary[key]]
+    need(len(scope['rows']) == len(fields), 'SCOPE',
+         f'{len(scope["rows"])} != {len(fields)} fields')
+    for (key, value), (_, row) in zip(fields, scope['rows']):
+        need(text(row[0]) and text(row[1]) and row[1][1] == value, 'SCOPE', key)
+    need(len({row[0][1] for _, row in scope['rows']}) == len(fields), 'SCOPE',
+         'two fields one name')
+
+    # Sources: the statement and the ledger by their roles, each file and its
+    # whole fingerprint as the evidence writes it, or the word for none.
+    need(len(srcs['rows']) == 4, 'SOURCES', 'two sources')
+    side_role = {}
+    for side, label in enumerate(('Supplier', 'Ledger')):
+        (_, named), (_, printed) = srcs['rows'][2 * side:2 * side + 2]
+        need(text(named[0]) and text(named[1]) and
+             named[1][1] == settings[f'{label} filename'], 'SOURCES', label)
+        side_role[side] = named[0][1]
+        fingerprint = metadata[f'{label} SHA-256']
+        if fingerprint == NO_ORIGINAL:
+            need(text(printed[1]) and not HEX64.match(printed[1][1]) and
+                 (lang == 'ar' or printed[1][1] == NO_ORIGINAL),
+                 'FINGERPRINT', f'{label}: no original file')
+        else:
+            need(text(printed[1]) and HEX64.match(printed[1][1]) and
+                 printed[1][1] == fingerprint, 'FINGERPRINT', label)
+    need(side_role[0] != side_role[1], 'SOURCES', 'two records one name')
+
+    # Alignment: the cases aligned, those waiting with those alone beside
+    # them, and the closing difference where the engine computed it.
+    lines = [row for _, row in strip['rows']]
+    agreed = lines.pop(0)
+    need(number(agreed[1]) and agreed[1][1] ==
+         count('Auto Matched Cases') + count('Manual Matches'), 'AGREED_COUNT',
+         f'{agreed[1]}')
+    unit_note = lines.pop(0)
+    need(blank(unit_note[0]) and text(unit_note[1]), 'STRIP', 'unit note')
+    waits = lines.pop(0)
+    need(number(waits[1]) and waits[1][1] == count('Needs Review Cases'),
+         'REVIEW_COUNT', f'{waits[1]}')
+    alone = lines.pop(0)
+    need(blank(alone[0]) and text(alone[1]) and number(alone[2]) and
+         alone[2][1] == count('Unmatched Cases'), 'ALONE_COUNT', f'{alone[2]}')
+    gap = lines.pop(0)
+    note = lines.pop(0)
+    numbers_expected = 3
+    if bridged and delta != 0:
+        need(number(gap[1]) and gap[1][1] == delta / 1, 'GAP', f'{gap[1]}')
+        need(text(note[1]) and text(note[2]), 'GAP', 'what and between')
+        numbers_expected += 1
+    elif bridged:
+        need(text(gap[1]) and number(note[2]) and note[2][1] == 1, 'GAP',
+             'no difference, one compared')
+        numbers_expected += 1
+    else:
+        need(text(gap[1]) and text(note[1]) and not number(note[2]), 'GAP',
+             'not computed')
+    need(not lines, 'STRIP', f'{len(lines)} rows more')
+
+    # The balances as the workpaper step writes them: both closings, the
+    # balance check in words, then the bridge's four figures.
+    if shown:
+        lines = [row for _, row in balances['rows']]
+        for side in (0, 1):
+            row = lines.pop(0)
+            if closing[side] is None:
+                need(text(row[1]) and not number(row[1]), 'BALANCE',
+                     f'closing {side} not available')
+            else:
+                need(number(row[1]) and row[1][1] == closing[side], 'BALANCE',
+                     f'closing {side}: {row[1]}')
+                numbers_expected += 1
+        said = lines.pop(0)
+        need(text(said[0]) and text(said[1]) and not number(said[1]),
+             'BALANCE_CHECK', 'in words')
+        need(said[1][1] not in codes, 'RAW_CODE', said[1][1])
+        seen_words(lang, 'balance_check', [(balance_code, said[1][1])])
+        if bridged:
+            for figure in (opening, item, adjusted, residual):
+                row = lines.pop(0)
+                need(number(row[1]) and row[1][1] == figure, 'BALANCE',
+                     f'{row[0]}: {row[1]} != {figure}')
+            numbers_expected += 4
+        need(not lines, 'BALANCE', f'{len(lines)} rows more')
+
+    reference_word = []
+
+    def reference(row_id, cell, code):
+        known = tx.get(row_id)
+        if known is None:
+            need(text(cell) and cell[1] == row_id, code, row_id)
+        elif known['reference']:
+            need(text(cell) and cell[1] == known['reference'], code, row_id)
+        else:
+            need(text(cell), code, f'{row_id} without its reference word')
+            reference_word.append(('none', cell[1]))
+
+    sides = []
+    states = []
+    # Each case the review tab lists: its state on its first member, then
+    # every member with its side, signed amount and reference.
+    if waiting:
+        it = iter(review_table['rows'])
+        for c in waiting:
+            state = ('amountVariance' if c['Classification'] == 'AMOUNT_VARIANCE'
+                     else 'paymentCandidate'
+                     if c['Classification'] == 'PAYMENT_CANDIDATE'
+                     else 'rejected' if c['Status'] == 'Rejected'
+                     else 'needsReview')
+            for k, m in enumerate(members[c['Case ID']]):
+                _, row = next(it, (None, [None] * 4))
+                if k == 0:
+                    need(text(row[0]), 'CASE_STATE', c['Case ID'])
+                    states.append((state, row[0][1]))
+                else:
+                    need(blank(row[0]), 'CASE_STATE', f'{c["Case ID"]} member')
+                need(text(row[1]), 'MEMBER_SIDE', m['Source Row ID'])
+                sides.append((m['Side'], row[1][1]))
+                need(number(row[2]) and row[2][1] == Decimal(m['Amount']),
+                     'MEMBER_AMOUNT', f'{m["Source Row ID"]}: {row[2]}')
+                reference(m['Source Row ID'], row[3], 'MEMBER_REFERENCE')
+                numbers_expected += 1
+        need(next(it, None) is None, 'CASE_STATE', 'rows more than the members')
+
+    # Each case the unmatched tab lists, one row: its first member's date,
+    # side and reference, with the case's amount.
+    if unmatched:
+        it = iter(alone_table['rows'])
+        for c in unmatched:
+            first = members[c['Case ID']][0]
+            need(first['Side'] == c['Side'], 'EVIDENCE_READ', c['Case ID'])
+            _, row = next(it, (None, [None] * 4))
+            need(text(row[0]) and row[0][1] == excel_date(c['Date']),
+                 'UNMATCHED_DATE', c['Case ID'])
+            need(text(row[1]), 'MEMBER_SIDE', c['Case ID'])
+            sides.append((c['Side'], row[1][1]))
+            need(number(row[2]) and row[2][1] == Decimal(c['Amount']),
+                 'UNMATCHED_AMOUNT', f'{c["Case ID"]}: {row[2]}')
+            reference(first['Source Row ID'], row[3], 'UNMATCHED_REFERENCE')
+            numbers_expected += 1
+        need(next(it, None) is None, 'UNMATCHED', 'rows more than the cases')
+
+    # Each decision in its order: what it left in words, its members by
+    # their references, the reason as the reviewer wrote it.
+    actions = []
+    if decisions:
+        head, *body = taken['rows']
+        need(all(text(c) and styles.bold(c[2]) for c in head[1][:3]),
+             'DECISIONS', 'head')
+        need(len(body) == len(decisions), 'DECISIONS',
+             f'{len(body)} != {len(decisions)}')
+        for e, (_, row) in zip(decisions, body):
+            need(text(row[0]), 'DECISION_ACTION', e['Action'])
+            actions.append((e['Action'], row[0][1]))
+            ids = e['Source Row IDs'].split(' | ') if e['Source Row IDs'] else []
+            named = [tx[i]['reference'] if i in tx and tx[i]['reference']
+                     else None if i in tx else i for i in ids]
+            if None in named:
+                need(text(row[1]), 'DECISION_MEMBERS', e['Source Row IDs'])
+            else:
+                need(text(row[1]) and row[1][1] == ' · '.join(named),
+                     'DECISION_MEMBERS', e['Source Row IDs'])
+            need(text(row[2]) and row[2][1] == e['User Reason']
+                 if e['User Reason'] else blank(row[2]), 'DECISION_REASON',
+                 f'decision {e["Action"]} without its reason')
+
+    words = {
+        'member_side': words_of(sides, 'member_side', codes) if sides else {},
+        'case_state': words_of(states, 'case_state', codes) if states else {},
+        'decision_action': (words_of(actions, 'decision_action', codes)
+                            if actions else {}),
+        'no_reference': words_of(reference_word, 'member_reference', codes)
+        if reference_word else {},
+    }
+    if sides:
+        need(set(words['member_side'].values()).isdisjoint(
+            side_role.values()), 'MEMBER_SIDE', 'a source role for a side')
+    for kind, word in words.items():
+        seen_words(lang, kind, word.items())
+    if 'unlink' in words['decision_action'] and 'rejected' in words['case_state']:
+        need(words['decision_action']['unlink'] == words['case_state']['rejected'],
+             'DECISION_ACTION', 'an undone match said unlike the case it leaves')
+
+    check_sign_and_claim(sign, claim, line, lang, summary['Workbook Mode'])
+
+    numbers = sum(1 for row in rows for c in row if number(c))
+    need(numbers == numbers_expected, 'STRAY_NUMBER',
+         f'{numbers} != {numbers_expected}')
+    partial = summary['Workbook Mode'].startswith('Partial')
+    status = ('partial' if partial else
+              'bridged' if bridged else 'transactions-only')
+    return {'status': status, 'rows': len(rows)}
+
+
 PROFILES = {'gl-trial-balance-consistency': check_gl_tb,
             'single-account-clearing': check_clearing,
             'customer-ar-document-comparison': check_ar,
             'bank-cash-movements': check_bank,
-            'payment-allocation': check_allocation}
+            'payment-allocation': check_allocation,
+            'supplier-statement-comparison': check_supplier}
 WORKSPACES = {'gl-tb': 'gl-trial-balance-consistency',
               'clearing': 'single-account-clearing',
               'ar': 'customer-ar-document-comparison',
               'bank': 'bank-cash-movements',
-              'allocation': 'payment-allocation'}
+              'allocation': 'payment-allocation',
+              'supplier': 'supplier-statement-comparison'}
 
 
 def verify(folder):
@@ -1600,6 +1960,72 @@ def allocation_plants(data):
         basis, 0, lambda r: r.replace(f'>{basis}<', '>remittance<', 1))
 
 
+def supplier_plants(data):
+    """Faults a supplier workpaper can carry: in its scope and sources, its
+    strip and balances, each case under review with its members, each
+    unmatched case, and its decisions with their reasons."""
+    sheet = _first_sheet(data)
+
+    def row_edit(label, offset, change):
+        def go(x):
+            n = _cell(x, label) + offset
+            old = _row(x, n)
+            return x.replace(old, change(old), 1)
+        return _edit(data, sheet, go)
+
+    def row_with(said, change):
+        def go(x):
+            old = next(r for r in re.findall(r'<row r="\d+"[^>]*>.*?</row>', x)
+                       if said in r)
+            return x.replace(old, change(old), 1)
+        return _edit(data, sheet, go)
+
+    plus = lambda col: lambda r: re.sub(
+        rf'(<c r="{col}\d+"[^>]*><v>)(-?\d+)',
+        lambda m: f'{m.group(1)}{int(m.group(2)) + 1}', r, count=1)
+    drop = lambda col: lambda r: re.sub(rf'<c r="{col}\d+"[^>]*>.*?</c>', '', r)
+    swap = lambda a, b: lambda r: r.replace(f'>{a}<', f'>{b}<', 1)
+    link = 'تأكيد يدوي'
+    variance, waiting = 'فرق مبلغ', 'يحتاج مراجعة'
+    yield 'decision without its reason', 'DECISION_REASON', row_edit(
+        link, 0, drop('C'))
+    yield 'a link said as the undo', 'DECISION_ACTION', row_edit(
+        link, 0, swap(link, 'اقتراح مرفوض'))
+    yield 'an undone match said unlike its case', 'DECISION_ACTION', row_with(
+        'PAY-101 · PAY-101', swap('اقتراح مرفوض', 'فك الربط'))
+    yield 'decision members changed', 'DECISION_MEMBERS', row_edit(
+        link, 0, lambda r: r.replace('INV-001 · INV001', 'INV-001 · INV-002', 1))
+    yield 'member amount changed', 'MEMBER_AMOUNT', row_edit(
+        variance, 1, plus('C'))
+    yield 'member on the other side', 'MEMBER_SIDE', row_edit(
+        variance, 0, swap('المورد', 'الدفتر'))
+    yield 'member reference changed', 'MEMBER_REFERENCE', row_edit(
+        variance, 1, swap('INV-003', 'INV-004'))
+    yield 'case state as its code', 'RAW_CODE', row_edit(
+        variance, 0, swap(variance, 'AMOUNT_VARIANCE'))
+    yield 'case state said as another', 'CASE_STATE', row_edit(
+        variance, 0, swap(variance, waiting))
+    yield 'unmatched amount changed', 'UNMATCHED_AMOUNT', row_edit(
+        '2026-08-22', 0, plus('C'))
+    yield 'unmatched date changed', 'UNMATCHED_DATE', row_edit(
+        '2026-08-22', 0, swap('2026-08-22', '2026-08-23'))
+    yield 'unmatched reference changed', 'UNMATCHED_REFERENCE', row_edit(
+        '2026-08-22', 0, swap('INV-004', 'INV-044'))
+    yield 'residual changed', 'BALANCE', row_edit(
+        'الفرق المتبقي حسابيًا', 0, plus('B'))
+    yield 'balance check said as not proven', 'BALANCE_CHECK', row_edit(
+        'التحقق من الأرصدة', 0, swap(
+            'الأرصدة متسقة حسابيًا وتغطية الفترة تحتاج تأكيدك',
+            'لم نتمكن من إثبات اتساق الأرصدة'))
+    yield 'unmatched count changed', 'ALONE_COUNT', row_with(
+        'بلا مقابل', plus('C'))
+    yield 'fingerprint cut', 'FINGERPRINT', row_edit(
+        'كشف المورد', 1, lambda r: re.sub(r'([0-9a-f]{63})[0-9a-f]<', r'\1<', r))
+    yield 'scope value changed', 'SCOPE', row_edit(
+        'الجهة القانونية', 0, swap('شركة التدريب (اصطناعية)',
+                                    'شركة أخرى (اصطناعية)'))
+
+
 def page_plants(data):
     """A sheet that needs its break, printed without it: its heading would
     end about a point past its page by the checker's estimate, which only
@@ -1641,6 +2067,7 @@ def self_test(folder):
     found += _self_test_one(folder, pick('ar-unreadable'), page_plants)
     found += _self_test_one(folder, pick('bank-timing-after-cutoff'), bank_plants)
     found += _self_test_one(folder, pick('allocation-undo'), allocation_plants)
+    found += _self_test_one(folder, pick('supplier-decided'), supplier_plants)
     return found
 
 
