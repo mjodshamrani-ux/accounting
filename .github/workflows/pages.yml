@@ -64,6 +64,12 @@ jobs:
         run: |
           node --experimental-strip-types audit/gl-tb/export-fixture.mjs
           python3 -m unittest discover -s audit/gl-tb -p 'test_*.py' -v
+      - name: Independently verify the reconciliation sheet (UX-6) against its evidence, byte for byte, with planted faults and a mutant per guard
+        env:
+          RECONCILIATION_SHEET_MUTATION_DIR: ${{ runner.temp }}/reconciliation-sheet-mutations
+        run: |
+          pnpm test:reconciliation-sheet
+          pnpm test:reconciliation-sheet:mutations
       - name: Independently verify customer AR original documents, decisions and replay workpapers
         run: |
           node --experimental-strip-types audit/ar-limited/export-fixture.mjs
@@ -381,6 +387,10 @@ jobs:
           python3 audit/gl-tb/check_export.py --contract zero-activity work/qa/gl-tb-zero.xlsx
           python3 audit/gl-tb/check_export.py --contract missing-tb work/qa/gl-tb-missing.xlsx
           python3 audit/gl-tb/check_export.py --contract dimensions-mismatch work/qa/gl-tb-scope-error.xlsx
+      - name: Independently verify the reconciliation sheet of the GL/TB browser downloads in English and Arabic (UX-6)
+        run: |
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download en work/qa/gl-tb-direct.xlsx work/qa/gl-tb-native.xlsx work/qa/gl-tb-native-restored.xlsx work/qa/gl-tb-turnover.xlsx work/qa/gl-tb-zero.xlsx work/qa/gl-tb-missing.xlsx work/qa/gl-tb-scope-error.xlsx
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download ar work/qa/gl-tb-direct-ar.xlsx
       - name: Independently verify customer AR browser downloads
         run: |
           python3 audit/ar-limited/check_export.py work/qa/ar-direct.xlsx work/qa/ar-reconfirmed.xlsx

@@ -1,6 +1,12 @@
 import { Amount } from '@/components/amount';
 import type { AlignmentStrip as Strip } from '@/lib/alignment-strip';
 import { scaledText } from '@/lib/amount-text';
+import {
+  stripNoteText,
+  stripValueText,
+  stripView,
+  type StripCellView,
+} from '@/lib/alignment-strip-view';
 import { alignmentStripCopy } from '@/lib/i18n/alignment-strip';
 import { useI18n } from '@/lib/i18n/context';
 import type { ResultAnchor } from '@/components/result-index';
@@ -58,38 +64,26 @@ export function AlignmentStrip({
 }) {
   const { lang } = useI18n();
   const c = alignmentStripCopy[lang];
-  const itemName = (key: string) => c.names[key] ?? name(key);
   // An amount inside the sentence keeps its own left-to-right run, as it does
   // where it is drawn: marked here, isolated when the sentence is written.
   const money = (minor: number) =>
     `${MARK}${scaledText(minor, decimals)}${MARK}`;
+  // What each cell says, from the function the reconciliation sheet reads
+  // too (UX-6), so the screen and the sheet say the same thing.
+  const [agreedCell, reviewCell, gapCell] = stripView(strip, c, {
+    reason,
+    name,
+    state,
+  });
+  const valueText = (cell: StripCellView) =>
+    stripValueText(cell.value, c, money);
 
-  const agreedValue =
-    strip.agreed.of === null
-      ? String(strip.agreed.count)
-      : c.of(strip.agreed.count, strip.agreed.of);
-  const agreedNote = c.units[strip.agreed.unit];
+  const agreedValue = valueText(agreedCell);
+  const agreedNote = stripNoteText(agreedCell.notes);
 
   const review = strip.review;
-  const reviewValue =
-    review.kind === 'count'
-      ? String(review.count)
-      : review.kind === 'whole'
-        ? c.whole[review.review][0]
-        : (state ?? review.status);
-  const reviewNote =
-    review.kind === 'count'
-      ? [
-          review.reason !== null && review.count > 0
-            ? `${c.mainReason}: ${reason(review.reason)}`
-            : null,
-          review.alone !== undefined ? `${c.alone}: ${review.alone}` : null,
-        ]
-          .filter(Boolean)
-          .join(' · ')
-      : review.kind === 'whole'
-        ? c.whole[review.review][1]
-        : '';
+  const reviewValue = valueText(reviewCell);
+  const reviewNote = stripNoteText(reviewCell.notes);
   const waiting =
     review.kind === 'count'
       ? review.count > 0
@@ -97,36 +91,15 @@ export function AlignmentStrip({
 
   const gap = strip.gap;
   const first = gap.kind === 'figures' ? gap.items[0] : undefined;
-  const gapNote =
-    gap.kind === 'figures'
-      ? first
-        ? [
-            `${itemName(first.name)}: ${c.between[first.between]}`,
-            gap.items.length > 1
-              ? `${c.moreDifferences}: ${gap.items.length - 1}`
-              : null,
-          ]
-            .filter(Boolean)
-            .join(' · ')
-        : `${c.compared}: ${gap.compared}`
-      : gap.kind === 'not-computed'
-        ? c.notComputedNote
-        : (state ?? gap.status);
-  const gapText =
-    gap.kind === 'figures'
-      ? first
-        ? money(first.minor)
-        : c.noDifference
-      : gap.kind === 'not-computed'
-        ? c.notComputed
-        : c.blocked;
+  const gapNote = stripNoteText(gapCell.notes);
+  const gapText = valueText(gapCell);
 
   // Each record's own total, where the engine gives one.
   const total = (i: number) => {
     const minor = strip.totals?.[i];
     return minor === undefined ? undefined : minor;
   };
-  const reviewLabel = review.kind === 'state' ? c.state : c.review;
+  const reviewLabel = reviewCell.label;
   const sentence = c.sentence({
     reviewLabel,
     sides: sides

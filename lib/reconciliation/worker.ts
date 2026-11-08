@@ -41,7 +41,8 @@ import {
 import { replayAllocationAdvice } from './allocation-advice-io.ts';
 import { replayGatewayBatches } from './payment-gateway-batches-io.ts';
 import { replayAssetSections } from './fixed-assets-sections-io.ts';
-import { replayGlTb, saveGlTb, restoreGlTb, exportGlTb } from './gl-tb-io.ts';
+import { replayGlTb, saveGlTb, restoreGlTb } from './gl-tb-io.ts';
+import { exportGlTbWorkpaper } from './gl-tb-sheet.ts';
 import { replayAr, saveAr, restoreAr, exportAr } from './ar-io.ts';
 import { snapshotArRequest } from './ar-worker-binding.ts';
 import { assertInputFormats } from './input-readiness.ts';
@@ -164,7 +165,11 @@ self.onmessage = async (event: MessageEvent) => {
     else if (action === 'gl-tb-restore')
       value = await restoreGlTb(payload.buffer);
     else if (action === 'gl-tb-export')
-      value = await exportGlTb(payload.state, payload.result);
+      value = await exportGlTbWorkpaper(
+        payload.state,
+        payload.result,
+        payload.lang,
+      );
     else if (action === 'ar-reconcile') value = await replayAr(payload);
     else if (action === 'ar-save') value = await saveAr(payload);
     else if (action === 'ar-restore') value = await restoreAr(payload.buffer);

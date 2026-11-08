@@ -116,9 +116,12 @@ void test('binding: four CSV/XLSX pairs preserve independent six components, ses
         ['direct', value],
         ['restored', restored],
       ] as const) {
+        // The request names the interface's language (UX-6); one export
+        // in each, so the independent check reads both.
         const bytes = await client.request<ArrayBuffer>('gl-tb-export', {
           state: state.state,
           result: state.result,
+          lang: name === 'direct' ? 'ar' : 'en',
         });
         assert.ok(bytes.byteLength > 0);
         if (output) {
@@ -391,6 +394,7 @@ void test('binding: corrupt requested originals and session are rejected; stale 
       createWorkerClient(() => exportPort).request('gl-tb-export', {
         state: input,
         result: changed,
+        lang: 'en',
       }),
       /GL_TB_STALE_RESULT/,
     );

@@ -3,6 +3,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import ExcelJS from 'exceljs';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import { sheetSaysScreen } from './reconciliation-sheet-browser.mjs';
 export async function verifyGlTb(page, url, out = 'work/qa') {
   await mkdir(out, { recursive: true });
   await page.goto(url);
@@ -222,6 +223,38 @@ export async function verifyGlTb(page, url, out = 'work/qa') {
     ['300.00', '300.00', '0.00'],
   );
   await exportBook('gl-tb-direct.xlsx');
+  // UX-6(a): the workpaper opens on the reconciliation sheet, in the
+  // interface's language, saying what the strip and the balances say on the
+  // screen; then the same in Arabic, from the same result.
+  const result = page.getByTestId('gl-tb-result'),
+    balances = page.getByTestId('gl-tb-balances');
+  await sheetSaysScreen(page, {
+    file: `${out}/gl-tb-direct.xlsx`,
+    lang: 'en',
+    result,
+    table: balances,
+  });
+  await page.getByRole('button', { name: 'AR العربية', exact: true }).click();
+  await page
+    .getByTestId('gl-tb-status')
+    .getByText('متسق ضمن النطاق المعلن', { exact: true })
+    .waitFor();
+  const arabic = page.waitForEvent('download');
+  await page
+    .getByRole('button', { name: 'نزّل ورقة عمل الأستاذ والميزان', exact: true })
+    .click();
+  await (await arabic).saveAs(`${out}/gl-tb-direct-ar.xlsx`);
+  await sheetSaysScreen(page, {
+    file: `${out}/gl-tb-direct-ar.xlsx`,
+    lang: 'ar',
+    result,
+    table: balances,
+  });
+  await page.getByRole('button', { name: 'EN English', exact: true }).click();
+  await page
+    .getByTestId('gl-tb-status')
+    .getByText('Consistent in the declared scope', { exact: true })
+    .waitFor();
   for (const [side, label] of [
     'GL detail and balances',
     'Trial balance source',
@@ -468,8 +501,10 @@ export async function verifyGlTb(page, url, out = 'work/qa') {
         preservedDomains: true,
         mobileWidths: [390, 320],
         languages: ['ar', 'en'],
+        reconciliationSheet: ['en', 'ar'],
         exports: [
           'gl-tb-direct.xlsx',
+          'gl-tb-direct-ar.xlsx',
           'gl-tb-native.xlsx',
           'gl-tb-native-restored.xlsx',
           'gl-tb-turnover.xlsx',

@@ -584,6 +584,7 @@ void test('P1 actual worker message handler enforces reconcile/save/old restore/
       const exported = await request('gl-tb-export', {
         state: g,
         result: value.result,
+        lang: 'en',
       });
       assert.equal(exported.ok, true, name);
       const book = new ExcelJS.Workbook();
@@ -597,6 +598,7 @@ void test('P1 actual worker message handler enforces reconcile/save/old restore/
           await request('gl-tb-export', {
             state: g,
             result: { ...value.result, status: 'consistent' },
+            lang: 'en',
           })
         ).ok,
         false,

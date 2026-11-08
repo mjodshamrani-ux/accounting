@@ -654,7 +654,9 @@ export function GlTbWorkspace({
                   download(
                     await workerTask(
                       'gl-tb-export',
-                      { state: input(), result },
+                      // The reconciliation sheet is written in the
+                      // interface's language (UX-6).
+                      { state: input(), result, lang },
                       signal,
                     ),
                     'tarasuf-gl-tb-workpaper.xlsx',
