@@ -703,3 +703,208 @@ export async function supplierSheetSaysScreen(
     decisions: decisions.length,
   };
 }
+
+/** The financial position page's words its decision buttons and the sheet's
+ * decisions share, and the labels the page gives what it draws as figures
+ * and fields rather than tables of their own. */
+const FINANCIAL_WORDS = {
+  ar: {
+    decisions: 'القرارات المسجلة',
+    accept: 'اعتمد البند كاملًا',
+    reject: 'ارفض البند كاملًا',
+    undo: 'ألغ القرار',
+    trialBalance: ['مدين الميزان', 'دائن الميزان', 'الفرق، المدين ناقص الدائن'],
+    positionEquation: 'معادلة المركز',
+    attestationReference: 'مرجع الإقرار',
+    attestationReason: 'سبب الإقرار',
+    completeness:
+      'راجعت اكتمال الحسابات والأبعاد والربط والأدلة وجميع بنود القائمة المقدمة',
+  },
+  en: {
+    decisions: 'Recorded decisions',
+    accept: 'Accept whole line',
+    reject: 'Reject whole line',
+    undo: 'Undo decision',
+    trialBalance: [
+      'Trial balance debit',
+      'Trial balance credit',
+      'Residual, debit minus credit',
+    ],
+    positionEquation: 'Position equation',
+    attestationReference: 'Attestation reference',
+    attestationReason: 'Attestation reason',
+    completeness:
+      'I reviewed completeness of supplied accounts, dimensions, mappings, evidence and statement lines',
+  },
+};
+
+/** The figures in an element, as the page writes them: «label amount»,
+ * the amount «—» where there is none. */
+const figuresIn = (locator) =>
+  locator.locator('.tarasuf-figure').evaluateAll((items) =>
+    items.map((f) => [
+      f.firstChild.textContent.trim(),
+      (f.querySelector('.tarasuf-amount') ?? f.lastChild).textContent.trim(),
+    ]),
+  );
+
+/**
+ * UX-6(c), trial balance and financial position: the strip as the page
+ * draws it; the attestation as the page holds it, once given; the trial
+ * balance's three figures; the position by basis, the page's table turned;
+ * every statement line the page lists, by its number, with its class, its
+ * state and the difference; and every decision in the page's history, with
+ * the line, its time, the evidence reference and the reason. Each section
+ * holds what the page shows and no more.
+ */
+export async function financialSheetSaysScreen(page, { file, lang }) {
+  const grid = await readSheet(file, lang);
+  const w = page.locator('[data-financial-workspace]');
+  await stripSaysScreen(grid, w);
+  const words = FINANCIAL_WORDS[lang];
+  const blankRow = (at, what) =>
+    assert.ok(
+      (grid[at] ?? [null]).every((c) => c === null),
+      `${what} and no more`,
+    );
+  // A section by the evidence it stands in, after a given row.
+  const section = (evidence, after = -1) =>
+    grid.findIndex(
+      (r, i) => i > after && r[0] !== null && r[1] === null && r[3] === evidence,
+    );
+  const scopeEnd = section('Sources');
+  // The attestation, as the page holds it, once given: a Summary section
+  // whose first row is the reference.
+  const summaries = grid
+    .map((r, i) => i)
+    .filter(
+      (i) => i > scopeEnd && grid[i][1] === null && grid[i][3] === 'Summary',
+    );
+  const attest = summaries.find(
+    (i) => grid[i + 1]?.[0] === words.attestationReference,
+  );
+  if (await w.getByLabel(words.completeness, { exact: true }).isChecked()) {
+    assert.ok(attest !== undefined, 'the attestation');
+    for (const [k, label] of [
+      [1, words.attestationReference],
+      [2, words.attestationReason],
+    ])
+      assert.deepEqual(
+        grid[attest + k].slice(0, 2),
+        [label, await w.getByLabel(label, { exact: true }).inputValue()],
+        label,
+      );
+    blankRow(attest + 3, 'the attestation');
+  } else assert.equal(attest, undefined, 'no attestation, no section');
+  // The trial balance's three figures, by the labels the page gives them.
+  const all = await figuresIn(w.locator('.workspace-results'));
+  const tbFigures = words.trialBalance.map((label) =>
+    all.find(([l]) => l === label),
+  );
+  assert.ok(tbFigures.every(Boolean), 'the page writes the trial balance');
+  const tb = summaries.find(
+    (i) => grid[i + 1]?.[0] === words.trialBalance[0],
+  );
+  if (tbFigures[0][1] === '—')
+    assert.equal(tb, undefined, 'no trial balance, no section');
+  else {
+    assert.ok(tb !== undefined, 'the trial balance');
+    tbFigures.forEach(([label, amount], k) => {
+      assert.equal(grid[tb + 1 + k][0], label, `trial balance ${k + 1}`);
+      same(amount, grid[tb + 1 + k][1], label);
+    });
+    blankRow(tb + 4, 'the trial balance');
+  }
+  // The position by basis: the page's rows are the bases, the sheet's the
+  // figures, each figure's row named as the page's column is.
+  let head = null,
+    bases = [];
+  for (const t of await w.locator('table').all()) {
+    const h = (await t.locator('thead th').allTextContents()).map((x) =>
+      x.trim(),
+    );
+    if (h.at(-1) === words.positionEquation) {
+      head = h;
+      bases = await t
+        .locator('tbody tr')
+        .evaluateAll((rows) =>
+          rows.map((r) =>
+            Array.from(r.querySelectorAll('th,td')).map((c) =>
+              c.textContent.trim(),
+            ),
+          ),
+        );
+    }
+  }
+  assert.ok(head, 'the page draws the position by basis');
+  const position = section('Grand totals');
+  if (!bases.length) assert.equal(position, -1, 'no position, no table');
+  else {
+    assert.ok(position >= 0, 'the position');
+    assert.equal(grid[position + 1][0], head[0], 'the position head');
+    head.slice(1).forEach((label, k) => {
+      const row = grid[position + 2 + k];
+      assert.equal(row[0], label, `position: ${label}`);
+      bases.forEach((b, j) =>
+        same(b[1 + k], row[1 + j], `position: ${label}, ${b[0]}`),
+      );
+    });
+    blankRow(position + 2 + head.length - 1, 'the position');
+  }
+  // Every statement line: «number · label · class · state», then its three
+  // figures, the difference last.
+  const items = w.locator('section:has(> h3[data-decision-item])');
+  const count = await items.count();
+  const lines = section('Lines');
+  if (!count) assert.equal(lines, -1, 'no line, no table');
+  else {
+    assert.ok(lines >= 0, 'the statement lines');
+    for (let k = 0; k < count; k++) {
+      const item = items.nth(k);
+      const parts = (await item.locator('h3').textContent())
+        .trim()
+        .split(' · ');
+      const [number, cls, state] = [parts[0], parts.at(-2), parts.at(-1)];
+      const row = grid[lines + 2 + k];
+      assert.deepEqual(
+        row.slice(0, 3),
+        [number, cls, state],
+        `line ${number}: its number, class and state`,
+      );
+      const own = await figuresIn(item.locator(':scope > p'));
+      assert.equal(own.length, 3, `line ${number}: three figures`);
+      same(own[2][1], row[3], `line ${number}: the difference`);
+    }
+    blankRow(lines + 2 + count, 'the statement lines');
+  }
+  // Every decision in the page's history: what it did, the line and its
+  // time, then the evidence reference and the reason.
+  const events = await w
+    .locator('[data-evidence-section="events"] tbody tr')
+    .evaluateAll((rows) =>
+      rows.map((r) =>
+        Array.from(r.querySelectorAll('th,td')).map((c) => c.textContent.trim()),
+      ),
+    );
+  const taken = section('Events');
+  if (!events.length) assert.equal(taken, -1, 'no decision, no table');
+  else {
+    assert.ok(taken >= 0, 'the recorded decisions');
+    assert.equal(grid[taken][0], words.decisions, 'the decisions heading');
+  }
+  events.forEach(([type, line, , time, reference, reason], k) => {
+    const row = taken + 1 + 2 * k;
+    assert.deepEqual(
+      grid[row].slice(0, 3),
+      [words[type], line, time],
+      `decision ${k + 1}: what it did, the line and its time`,
+    );
+    assert.deepEqual(
+      grid[row + 1].slice(0, 3),
+      [null, reference, reason],
+      `decision ${k + 1}: the reference and the reason given`,
+    );
+  });
+  if (events.length) blankRow(taken + 1 + 2 * events.length, 'the decisions');
+  return { rows: grid.length, lines: count, decisions: events.length };
+}

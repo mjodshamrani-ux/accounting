@@ -638,7 +638,8 @@ export function FinancialWorkspace({
                 (signal) =>
                   workerTask<ArrayBuffer>(
                     'tb-financial-export',
-                    { state: state(), result },
+                    // The sheet first, in the interface's language (UX-6).
+                    { state: state(), result, lang },
                     signal,
                   ),
                 (b) =>

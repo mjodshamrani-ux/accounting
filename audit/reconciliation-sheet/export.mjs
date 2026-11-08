@@ -20,7 +20,9 @@
 // balances confirmed or unproven, its decisions, an empty scope, three
 // decimals, a long one and the frozen partial-reading cases; the clock is held
 // for both of a case's exports, as the evidence writes its export time in
-// Export Metadata. Synthetic sources only.
+// Export Metadata. Trial balance and financial position (6(c)): every
+// frozen case the export accepts, with the decisions its story records, and
+// one with eighteen decisions built here. Synthetic sources only.
 import { readFile as fsRead, mkdir, writeFile } from 'node:fs/promises';
 import { readFile } from '../../lib/reconciliation/io.ts';
 import { GL_TB_VERSION } from '../../lib/reconciliation/gl-tb.ts';
@@ -57,6 +59,13 @@ import { exportAllocationWorkpaper } from '../../lib/reconciliation/allocation-s
 import { exportWorkbook } from '../../lib/reconciliation/io.ts';
 import { exportSupplierWorkpaper } from '../../lib/reconciliation/supplier-sheet.ts';
 import { supplierCases } from './supplier-cases.ts';
+import {
+  financialTruth,
+  finishedFinancial,
+} from '../tb-financial/fixtures.ts';
+import { reconcileFinancialPosition } from '../../lib/reconciliation/tb-financial.ts';
+import { exportFinancialPosition } from '../../lib/reconciliation/tb-financial-io.ts';
+import { exportFinancialWorkpaper } from '../../lib/reconciliation/financial-sheet.ts';
 
 const out = process.argv[2] ?? 'work/reconciliation-sheet';
 const root = 'audit/gl-tb/frozen/';
@@ -479,6 +488,62 @@ for (const { name, result, files, review } of await supplierCases()) {
           exportSupplierWorkpaper(result, files, review, lang),
         ),
       ),
+    );
+  }
+  cases.push(written);
+}
+// Trial balance and financial position (6(c)): every frozen case the
+// export accepts, with the decisions its story records, and one built here
+// whose six lines are accepted, undone and accepted again, eighteen
+// decisions, so the sheet runs over a page.
+const financials = [];
+for (const c of financialTruth.cases)
+  if (!c.reject)
+    financials.push({
+      name: `financial-${c.name}`,
+      ...(await finishedFinancial(c.name)),
+    });
+{
+  const { state } = await finishedFinancial('whole-post-closing');
+  let result = reconcileFinancialPosition(state);
+  for (const type of ['undo', 'accept'])
+    for (const line of result.lines) {
+      const n = state.events.length;
+      state.events = [
+        ...state.events,
+        {
+          id: `decision-${n}`,
+          type,
+          context: result.context,
+          lineId: line.lineId,
+          mappingIds: line.members.map((m) => m.mappingId),
+          at: `2026-10-07T00:00:00.${String(n).padStart(3, '0')}Z`,
+          reference: 'Synthetic second review',
+          note: `Synthetic: line ${line.lineId} reviewed again, ${type}`,
+        },
+      ];
+      result = reconcileFinancialPosition(state);
+    }
+  financials.push({ name: 'financial-long-decisions', state, result });
+}
+for (const { name, state, result } of financials) {
+  const written = {
+    workspace: 'financial',
+    case: name,
+    evidence: `${name}-evidence.xlsx`,
+    status: result.status,
+    lines: result.lines.length,
+    decisions: result.events.length,
+  };
+  await writeFile(
+    `${out}/${written.evidence}`,
+    new Uint8Array(await exportFinancialPosition(state, result)),
+  );
+  for (const lang of ['ar', 'en']) {
+    written[lang] = `${name}-${lang}.xlsx`;
+    await writeFile(
+      `${out}/${written[lang]}`,
+      new Uint8Array(await exportFinancialWorkpaper(state, result, lang)),
     );
   }
   cases.push(written);

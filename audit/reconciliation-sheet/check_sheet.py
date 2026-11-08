@@ -1,5 +1,6 @@
 """Independent check of the reconciliation sheet (UX-6) in GL/TB, clearing,
-customer AR, bank movement, payment allocation and supplier workpapers.
+customer AR, bank movement, payment allocation, supplier, and trial balance
+and financial position workpapers.
 
 Reads each workpaper with zipfile and ElementTree only, with no product code,
 and checks, against the evidence sheets as this checker reads them:
@@ -49,7 +50,18 @@ and checks, against the evidence sheets as this checker reads them:
   each unmatched case with its date, side, amount and reference; each
   decision with its members and the reason the reviewer gave, one word an
   action and one a state across the run, the undone match said as the case
-  it leaves.
+  it leaves;
+- in a trial balance and financial position workpaper (UX-6(c)), read from
+  its Summary, Lines, Line members, Grand totals, Events, Event members and
+  Sources, the evidence held to itself first (each line's calculated figure
+  the sum of its members' contributions, its difference calculated less
+  reported, the equation, the trial balance's residual, each decision
+  holding its whole line): the twelve scope fields; the four sources; the
+  comparisons with no difference, the lines waiting and the first
+  difference; the completeness attestation with its reason, once given; the
+  trial balance's three figures; the position by basis; each line with its
+  class and state in words and its difference or a dash; each decision with
+  its line, time, evidence reference and the reason the reviewer gave.
 
 Which checks apply is read from the evidence's own Summary (Domain); the
 supplier workbook names none, and is known by its own evidence sheets.
@@ -97,11 +109,15 @@ DECISION_TABLES = ('Decisions', 'Events')
 # The supplier's tables: the cases the review tab lists, those the unmatched
 # tab lists, and its decisions.
 SUPPLIER_TABLES = ('Needs Review', 'Unmatched', 'Review History')
+# The financial position's tables: the position by basis and the statement
+# lines, each under its head.
+FINANCIAL_TABLES = ('Grand totals', 'Lines')
 # Every table whose heading goes with its head and first row (with no head,
 # its first item), the rest running on: those above, in allocation the value
-# ledger of each side and the active allocations, and the supplier's.
+# ledger of each side and the active allocations, the supplier's, and the
+# financial position's.
 TABLES = (REVIEW_TABLES + DECISION_TABLES + ('Value ledger', 'Active links') +
-          SUPPLIER_TABLES)
+          SUPPLIER_TABLES + FINANCIAL_TABLES)
 # Tables a page may be broken above a later item of, an item that is not the
 # first under its head: a case or document with its members, an active
 # allocation with its two sides, a decision, an unmatched case.
@@ -1682,18 +1698,275 @@ def check_supplier(evidence, book, lang, summary):
     return {'status': status, 'rows': len(rows)}
 
 
+FINANCIAL_SCOPE = ['entity', 'ledger', 'currency', 'currencyBasis',
+                   'postingStatus', 'postingLayer', 'start', 'end', 'asOf',
+                   'chartVersion', 'mapVersion', 'closingBasis']
+FINANCIAL_ONLY = {'currencyBasis': 'functional', 'postingStatus': 'posted',
+                  'closingBasis': 'post-closing'}
+FINANCIAL_CODES = {'source-error', 'missing', 'inconsistent', 'difference',
+                   'needs-review', 'consistent-with-evidence', 'blocked',
+                   'accepted', 'rejected', 'current-asset', 'noncurrent-asset',
+                   'current-liability', 'noncurrent-liability', 'equity',
+                   'accept', 'reject', 'undo', 'functional', 'posted',
+                   'post-closing'}
+POSITION = ['Assets', 'Liabilities', 'Equity', 'Equation']
+
+
+def check_financial(evidence, book, lang, summary):
+    """The trial balance and financial position sheet against its evidence:
+    Summary, Lines, Line members, Grand totals, Events, Event members and
+    Sources. The evidence is held to itself first: each line's calculated
+    figure is the sum of its members' contributions and its difference is
+    calculated less reported; the position equation is assets less
+    liabilities less equity; the trial balance's residual is its debit less
+    its credit; each decision names a line and holds that line's members."""
+    decimals = int(summary['Decimals'])
+    unit = Decimal(10) ** decimals
+    rows_of = lambda name: [dict(zip(evidence.table(name)[0], r))
+                            for r in evidence.table(name)[1:]]
+    lines = rows_of('Lines')
+    members = rows_of('Line members')
+    grand = {r['Basis']: r for r in rows_of('Grand totals')}
+    events = rows_of('Events')
+    held = rows_of('Event members')
+    for l in lines:
+        own = [m for m in members if m['Line ID'] == l['Line ID']]
+        if l['Calculated minor units'] != '':
+            need(int(l['Calculated minor units']) ==
+                 sum(int(m['Contribution minor units']) for m in own),
+                 'EVIDENCE_READ', f'{l["Line ID"]} calculated')
+            need(int(l['Difference minor units']) ==
+                 int(l['Calculated minor units']) -
+                 int(l['Reported minor units']), 'EVIDENCE_READ',
+                 f'{l["Line ID"]} difference')
+        else:
+            need(l['Difference minor units'] == '', 'EVIDENCE_READ',
+                 f'{l["Line ID"]} difference without its figure')
+    need(sorted(grand) in ([], ['calculated', 'reported']), 'EVIDENCE_READ',
+         'grand totals by basis')
+    for g in grand.values():
+        need(int(g['Equation minor units']) ==
+             int(g['Assets minor units']) - int(g['Liabilities minor units']) -
+             int(g['Equity minor units']), 'EVIDENCE_READ',
+             f'{g["Basis"]} equation')
+    tb = [summary[f'TB {k} minor units'] for k in ('debit', 'credit', 'residual')]
+    need(all(v == '' for v in tb) or all(v != '' for v in tb), 'EVIDENCE_READ',
+         'trial balance')
+    has_tb = tb[0] != ''
+    if has_tb:
+        need(int(tb[2]) == int(tb[0]) - int(tb[1]), 'EVIDENCE_READ',
+             'trial balance residual')
+    by_line = {l['Line ID']: l for l in lines}
+    for e in events:
+        need(e['Line ID'] in by_line, 'EVIDENCE_READ', f'{e["ID"]} line')
+        need(sorted(m['Mapping ID'] for m in held
+                    if m['Decision'] == e['Index']) ==
+             sorted(m['Mapping ID'] for m in members
+                    if m['Line ID'] == e['Line ID']), 'EVIDENCE_READ',
+             f'{e["ID"]} holds its whole line')
+    sources = {}
+    for r in rows_of('Sources'):
+        src = sources.setdefault(int(r['Source']), {
+            'name': r['Name'], 'hash': r['SHA256'], 'chunks': []})
+        src['chunks'].append((int(r['Chunk index']), r['Base64']))
+    for side, src in sources.items():
+        data = base64.b64decode(''.join(c for _, c in sorted(src['chunks'])),
+                                validate=True)
+        need(hashlib.sha256(data).hexdigest() == src['hash'], 'EVIDENCE_READ',
+             f'source {side} fingerprint')
+    need(sorted(sources) == [0, 1, 2, 3], 'EVIDENCE_READ', 'four sources')
+    confirmed = summary['Completeness confirmed'] == 'true'
+
+    expected = (['Summary', 'Sources', None] +
+                (['Summary'] if confirmed else []) +
+                (['Summary'] if has_tb else []) +
+                (['Grand totals'] if grand else []) +
+                (['Lines'] if lines else []) +
+                (['Events'] if events else []) + [None, 'Summary'])
+    rows, styles, line, sections = layout(book, evidence, lang, expected)
+    scope, srcs, strip = sections[:3]
+    rest = sections[3:-2]
+    attest = rest.pop(0) if confirmed else None
+    trial = rest.pop(0) if has_tb else None
+    position = rest.pop(0) if grand else None
+    table = rest.pop(0) if lines else None
+    taken = rest.pop(0) if events else None
+    sign, claim = sections[-2:]
+
+    # Scope: the twelve fields in the engine's order, the one-option three in
+    # the card's words.
+    need(len(scope['rows']) == len(FINANCIAL_SCOPE), 'SCOPE', 'twelve fields')
+    for key, (_, row) in zip(FINANCIAL_SCOPE, scope['rows']):
+        need(text(row[0]) and text(row[1]), 'SCOPE', key)
+        if key in FINANCIAL_ONLY and summary[key] == FINANCIAL_ONLY[key]:
+            need(row[1][1] not in FINANCIAL_CODES, 'RAW_CODE', key)
+            seen_words(lang, f'financial {key}', [(summary[key], row[1][1])])
+        else:
+            need(row[1][1] == summary[key], 'SCOPE', key)
+
+    # Sources: the four roles, each file and its whole fingerprint, the
+    # SHA-256 of the original bytes.
+    need(len(srcs['rows']) == 8, 'SOURCES', 'four sources')
+    roles = []
+    for side in (0, 1, 2, 3):
+        (_, named), (_, printed) = srcs['rows'][2 * side:2 * side + 2]
+        need(text(named[0]) and text(named[1]) and
+             named[1][1] == sources[side]['name'], 'SOURCES', f'source {side}')
+        roles.append(named[0][1])
+        need(text(printed[1]) and HEX64.match(printed[1][1]) and
+             printed[1][1] == sources[side]['hash'], 'FINGERPRINT',
+             f'source {side}')
+    need(len(set(roles)) == 4, 'SOURCES', 'two sources one name')
+
+    # Alignment: the comparisons with no difference (the trial balance's
+    # residual, then each line), the lines waiting, then the first
+    # difference with how many more, or why there is none.
+    values = ([int(tb[2])] if has_tb else []) + [
+        None if l['Difference minor units'] == '' else
+        int(l['Difference minor units']) for l in lines]
+    computed = [v for v in values if v is not None]
+    nonzero = [v for v in computed if v != 0]
+    srows = [row for _, row in strip['rows']]
+    agreed = srows.pop(0)
+    need(number(agreed[1]) and agreed[1][1] == values.count(0) and
+         text(agreed[2]) and number(agreed[3]) and agreed[3][1] == len(values),
+         'AGREED_COUNT', f'{agreed[1]} of {agreed[3]}')
+    unit_note = srows.pop(0)
+    need(blank(unit_note[0]) and text(unit_note[1]), 'STRIP', 'unit note')
+    waits = srows.pop(0)
+    waiting = sum(1 for l in lines if l['Review'] == 'needs-review')
+    need(number(waits[1]) and waits[1][1] == waiting, 'REVIEW_COUNT',
+         f'{waits[1]} != {waiting}')
+    gap = srows.pop(0)
+    note = srows.pop(0)
+    strip_numbers = 3
+    if nonzero:
+        need(number(gap[1]) and gap[1][1] == Decimal(nonzero[0]) / unit, 'GAP',
+             f'{gap[1]} != {Decimal(nonzero[0]) / unit}')
+        need(text(note[1]) and text(note[2]), 'GAP', 'name and direction')
+        strip_numbers += 1
+        if len(nonzero) > 1:
+            more = srows.pop(0)
+            need(number(more[2]) and more[2][1] == len(nonzero) - 1, 'GAP',
+                 'how many more')
+            strip_numbers += 1
+    elif computed:
+        need(text(gap[1]) and number(note[2]) and
+             note[2][1] == len(computed), 'GAP', 'no difference, compared')
+        strip_numbers += 1
+    else:
+        need(text(gap[1]) and text(note[1]) and not number(note[2]), 'GAP',
+             'not computed, the state said')
+        words_of([(summary['Status'], note[1][1])], 'state', FINANCIAL_CODES)
+    need(not srows, 'STRIP', f'{len(srows)} rows more')
+
+    # The completeness attestation: the reference and the reason the
+    # reviewer gave.
+    if confirmed:
+        need(len(attest['rows']) == 2, 'ATTESTATION', 'two rows')
+        (_, ref), (_, why) = attest['rows']
+        need(text(ref[0]) and text(ref[1]) and
+             ref[1][1] == summary['Completeness reference'], 'ATTESTATION',
+             'reference')
+        need(text(why[0]) and text(why[1]) and
+             why[1][1] == summary['Completeness reason'], 'ATTESTATION_REASON',
+             'attestation without its reason')
+
+    # The trial balance: debit, credit and the residual between them.
+    if has_tb:
+        need(len(trial['rows']) == 3, 'TRIAL_BALANCE', 'three figures')
+        for (_, row), v in zip(trial['rows'], tb):
+            need(text(row[0]) and number(row[1]) and
+                 row[1][1] == Decimal(v) / unit, 'TRIAL_BALANCE',
+                 f'{row[1]} != {Decimal(v) / unit}')
+
+    # The position by basis: assets, liabilities, equity and the equation,
+    # each with its calculated and reported figure.
+    if grand:
+        head, *body = position['rows']
+        need(all(text(c) and styles.bold(c[2]) for c in head[1][:3]),
+             'POSITION', 'head')
+        need(len(body) == 4, 'POSITION', 'four figures')
+        for key, (_, row) in zip(POSITION, body):
+            need(text(row[0]), 'POSITION', key)
+            for c, basis in ((1, 'calculated'), (2, 'reported')):
+                v = Decimal(grand[basis][f'{key} minor units']) / unit
+                need(number(row[c]) and row[c][1] == v, 'POSITION',
+                     f'{basis} {key}: {row[c]} != {v}')
+
+    # Each statement line by its number, its class and its state in words,
+    # and the difference, or a dash where the engine computes none.
+    if lines:
+        head, *body = table['rows']
+        need(all(text(c) and styles.bold(c[2]) for c in head[1][:4]),
+             'LINES', 'head')
+        need(len(body) == len(lines), 'LINES', f'{len(body)} != {len(lines)}')
+        classes, states = [], []
+        for l, (_, row) in zip(lines, body):
+            need(text(row[0]) and row[0][1] == l['Line ID'], 'LINE',
+                 f'{l["Line ID"]} named {row[0]}')
+            need(text(row[1]), 'LINE_CLASS', l['Line ID'])
+            classes.append((l['Class'], row[1][1]))
+            need(text(row[2]), 'LINE_STATE', l['Line ID'])
+            states.append((l['Review'], row[2][1]))
+            if l['Difference minor units'] == '':
+                need(text(row[3]) and row[3][1] == '—', 'LINE_DIFFERENCE',
+                     f'{l["Line ID"]}: {row[3]}')
+            else:
+                v = Decimal(l['Difference minor units']) / unit
+                need(number(row[3]) and row[3][1] == v, 'LINE_DIFFERENCE',
+                     f'{l["Line ID"]}: {row[3]} != {v}')
+        words_of(classes, 'line_class', FINANCIAL_CODES)
+        words_of(states, 'line_state', FINANCIAL_CODES)
+        seen_words(lang, 'financial class', classes)
+        seen_words(lang, 'financial line state', states)
+
+    # Each recorded decision: what it did, the line and its time, then the
+    # evidence reference and the reason the reviewer gave.
+    if events:
+        it = iter(taken['rows'])
+        actions = []
+        for e in events:
+            _, head = next(it, (None, [None] * 4))
+            need(text(head[0]), 'DECISION_ACTION', e['ID'])
+            actions.append((e['Type'], head[0][1]))
+            need(text(head[1]) and head[1][1] == e['Line ID'], 'DECISION_LINE',
+                 e['ID'])
+            need(text(head[2]) and head[2][1] == e['Device UTC'],
+                 'DECISION_TIME', e['ID'])
+            _, said = next(it, (None, [None] * 4))
+            need(blank(said[0]), 'DECISIONS', e['ID'])
+            need(text(said[1]) and said[1][1] == e['Evidence reference'],
+                 'DECISION_REFERENCE', e['ID'])
+            need(text(said[2]) and said[2][1] == e['Reason'], 'DECISION_REASON',
+                 f'decision {e["ID"]} without its reason')
+        need(next(it, None) is None, 'DECISIONS', 'rows more than the decisions')
+        words_of(actions, 'decision_action', FINANCIAL_CODES)
+        seen_words(lang, 'financial decision', actions)
+
+    check_sign_and_claim(sign, claim, line, lang, summary['Claim'])
+
+    numbers = sum(1 for row in rows for c in row if number(c))
+    expected = (strip_numbers + (3 if has_tb else 0) + (8 if grand else 0) +
+                sum(1 for l in lines if l['Difference minor units'] != ''))
+    need(numbers == expected, 'STRAY_NUMBER', f'{numbers} != {expected}')
+    return {'status': summary['Status'], 'rows': len(rows)}
+
+
 PROFILES = {'gl-trial-balance-consistency': check_gl_tb,
             'single-account-clearing': check_clearing,
             'customer-ar-document-comparison': check_ar,
             'bank-cash-movements': check_bank,
             'payment-allocation': check_allocation,
-            'supplier-statement-comparison': check_supplier}
+            'supplier-statement-comparison': check_supplier,
+            'tb-financial-position': check_financial}
 WORKSPACES = {'gl-tb': 'gl-trial-balance-consistency',
               'clearing': 'single-account-clearing',
               'ar': 'customer-ar-document-comparison',
               'bank': 'bank-cash-movements',
               'allocation': 'payment-allocation',
-              'supplier': 'supplier-statement-comparison'}
+              'supplier': 'supplier-statement-comparison',
+              'financial': 'tb-financial-position'}
 
 
 def verify(folder):
@@ -2026,6 +2299,53 @@ def supplier_plants(data):
                                     'شركة أخرى (اصطناعية)'))
 
 
+def financial_plants(data):
+    """Faults a trial balance and financial position workpaper can carry: in
+    its decisions, its statement lines, its position, its trial balance, its
+    attestation, its strip and its scope."""
+    sheet = _first_sheet(data)
+
+    def row_edit(label, offset, change):
+        def go(x):
+            n = _cell(x, label) + offset
+            old = _row(x, n)
+            return x.replace(old, change(old), 1)
+        return _edit(data, sheet, go)
+
+    plus = lambda col: lambda r: re.sub(
+        rf'(<c r="{col}\d+"[^>]*><v>)(-?\d+)',
+        lambda m: f'{m.group(1)}{int(m.group(2)) + 1}', r, count=1)
+    drop = lambda col: lambda r: re.sub(rf'<c r="{col}\d+"[^>]*>.*?</c>', '', r)
+    accept, reject, undo = 'اعتمد البند كاملًا', 'ارفض البند كاملًا', 'ألغ القرار'
+    yield 'decision without its reason', 'DECISION_REASON', row_edit(
+        reject, 1, drop('C'))
+    yield 'rejection said as an acceptance', 'DECISION_ACTION', row_edit(
+        reject, 0, lambda r: r.replace(f'>{reject}<', f'>{accept}<', 1))
+    yield 'undo of another line', 'DECISION_LINE', row_edit(
+        undo, 0, lambda r: r.replace('>REC<', '>CAP<', 1))
+    yield 'decision reference changed', 'DECISION_REFERENCE', row_edit(
+        undo, 1, lambda r: r.replace('>Frozen independent line review<',
+                                     '>Another review<', 1))
+    yield 'rejected line said as accepted', 'LINE_STATE', row_edit(
+        'REC', 0, lambda r: r.replace('>مرفوض<', '>معتمد بالدليل<', 1))
+    yield 'line difference changed', 'LINE_DIFFERENCE', row_edit(
+        'PPE', 0, plus('D'))
+    yield 'line as another line', 'LINE', row_edit(
+        'PAY', 0, lambda r: r.replace('>PAY<', '>LOAN<', 1))
+    yield 'line class as its code', 'RAW_CODE', row_edit(
+        'CAP', 0, lambda r: r.replace('>حقوق الملكية<', '>equity<', 1))
+    yield 'position figure changed', 'POSITION', row_edit(
+        'الأصول', 0, plus('B'))
+    yield 'trial balance credit changed', 'TRIAL_BALANCE', row_edit(
+        'دائن الميزان', 0, plus('B'))
+    yield 'attestation reason changed', 'ATTESTATION_REASON', row_edit(
+        'سبب الإقرار', 0, lambda r: r.replace('>All four original', '>Some', 1))
+    yield 'aligned count changed', 'AGREED_COUNT', row_edit(
+        'تراصف', 0, plus('B'))
+    yield 'one-option field as its code', 'RAW_CODE', row_edit(
+        'أساس العملة', 0, lambda r: r.replace('>وظيفية<', '>functional<', 1))
+
+
 def page_plants(data):
     """A sheet that needs its break, printed without it: its heading would
     end about a point past its page by the checker's estimate, which only
@@ -2068,6 +2388,7 @@ def self_test(folder):
     found += _self_test_one(folder, pick('bank-timing-after-cutoff'), bank_plants)
     found += _self_test_one(folder, pick('allocation-undo'), allocation_plants)
     found += _self_test_one(folder, pick('supplier-decided'), supplier_plants)
+    found += _self_test_one(folder, pick('financial-reject'), financial_plants)
     return found
 
 

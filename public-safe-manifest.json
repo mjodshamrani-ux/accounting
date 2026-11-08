@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 109202,
-      "sha256": "170cc0249d103bfac57b1b98703b10c288aa7a5021f2e9cacca4843c2c18a90d",
+      "bytes": 109832,
+      "sha256": "100ee0a9a4b2f6eb7ecc0ab893d77f4876b3ae820b1b81d85e9f3e4dde99ce20",
       "kind": "text"
     },
     {
@@ -35457,8 +35457,8 @@
     },
     {
       "path": "components/tb-financial-workspace.tsx",
-      "bytes": 34079,
-      "sha256": "1f2819b5dc1a0c5566339f16a68d2291c755d46ee6e76eb94c5a4a69734268a8",
+      "bytes": 34161,
+      "sha256": "39ba526879cccba926b32fe85c75a16d91eed2a81a93813696938e8ef27155b9",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 67142,
-      "sha256": "92a3fd10e843fd012402df7f1535c3c91886dd489ceff52f224c611abc0799b2",
+      "bytes": 67431,
+      "sha256": "7aa0293b20713df4e98db51c151a125f4e43ff4c884361b4de4f05b3c412cf63",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 27798,
-      "sha256": "89b566ef7ab2bda56a655fc12ecb20ffb91bc6d8d30f003910dd12d5992f06f4",
+      "bytes": 27962,
+      "sha256": "afe2c660153bb55218d4370f900c48b62e8cfb230d176d709485958829c5b20e",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 522556,
-      "sha256": "0c5f1e8edb8fc163bb410f68cef9d4ced34da0b6b0c4e0e2ee40a39f4b4abb2f",
+      "bytes": 525281,
+      "sha256": "8fb7d68114dff9975d2dcebdd6828f46e75cfaab5f12c35a3f5ba23492bfd4cc",
       "kind": "text"
     },
     {
@@ -37377,8 +37377,8 @@
     },
     {
       "path": "lib/reconciliation/worker.ts",
-      "bytes": 14721,
-      "sha256": "f2c8d634ccd10cb99d35f3a680f55cfc36ed1a6c99f807f72b2956c94eca27cc",
+      "bytes": 14815,
+      "sha256": "0c167c7df2d4023bf3ffb0a5ea835374d770e55055495126bd83fa2b877a6dfc",
       "kind": "text"
     },
     {
@@ -38237,8 +38237,8 @@
     },
     {
       "path": "scripts/tb-financial-browser-cases.mjs",
-      "bytes": 16124,
-      "sha256": "612c5caa2d5bcbc9a2716442a9add55162ad61e84193bb5c8a763f743eda215c",
+      "bytes": 16909,
+      "sha256": "2b24e27e13aca66141c5f09b43aea8d92ff8100c982146451bf7a30b277e2a90",
       "kind": "text"
     },
     {
@@ -73481,8 +73481,8 @@
     },
     {
       "path": "docs/roadmap/ux.ar.md",
-      "bytes": 50085,
-      "sha256": "879fdb1874fe6985d280fddc9d980270772d2ebb68cc6a595be9becc1c8c21d6",
+      "bytes": 50973,
+      "sha256": "c11586cdf6b1304658757b296900322780acc4c72b47dea17139fe068430f9fb",
       "kind": "text"
     },
     {
@@ -73823,26 +73823,26 @@
     },
     {
       "path": "docs/audits/UX-6-RECONCILIATION-SHEET.ar.md",
-      "bytes": 122477,
-      "sha256": "0219c0ca5cb619afc62c4e39dc5d2737de95841dc662bf38ed16db6d8f046b93",
+      "bytes": 138594,
+      "sha256": "45e7fe69f4e5adb6f70d8fd3cd5bad8f12ff311bb98cc9abc924aa0fe60ff3fb",
       "kind": "text"
     },
     {
       "path": "audit/reconciliation-sheet/README.ar.md",
-      "bytes": 16789,
-      "sha256": "84c5d5a4954b8e70bce474de8e658ab07895f6f14924464d9daf214787d0879e",
+      "bytes": 19041,
+      "sha256": "f9b2ac2a1f1eceadd13dd0ec7e12926b32b3ce90fe282eb891b154ce92beab3b",
       "kind": "text"
     },
     {
       "path": "audit/reconciliation-sheet/check_sheet.py",
-      "bytes": 102623,
-      "sha256": "666275474506930425565cdb5fb7d47b21aa50dd0cee6f91cbaefab79f440d07",
+      "bytes": 119267,
+      "sha256": "59892252e834557d39546cc3e496c7153f31bb0dbd0208a355ca15401f09b6fc",
       "kind": "text"
     },
     {
       "path": "audit/reconciliation-sheet/export.mjs",
-      "bytes": 16919,
-      "sha256": "2b2a97301b4b524768b295d921dd848de08571e96a5dc5454621820b174cedae",
+      "bytes": 19318,
+      "sha256": "596762a9af8cde308c4dcf35f7b0bf6908e7b9593d1d534cff6ac2dc98dee341",
       "kind": "text"
     },
     {
@@ -73853,8 +73853,8 @@
     },
     {
       "path": "lib/i18n/reconciliation-sheet.ts",
-      "bytes": 29860,
-      "sha256": "ff39e08ae58d074c7631cdfc8b955a1d2df5c17dcb80b72b6fdbf4723fe30e27",
+      "bytes": 37245,
+      "sha256": "1ca3171bf64853b40778b1f6ac24a7658cf40c028499ece0a034d1a27fa06222",
       "kind": "text"
     },
     {
@@ -73871,14 +73871,14 @@
     },
     {
       "path": "scripts/reconciliation-sheet-browser.mjs",
-      "bytes": 27139,
-      "sha256": "89633d96c715bac7a4c4a56e7f96279b019191034d0035e6dc0ffd74ec593202",
+      "bytes": 35208,
+      "sha256": "905555a954a8db73b15daedab6268c7e04a33ba9f95c2e4edf8ebbdb03f53148",
       "kind": "text"
     },
     {
       "path": "scripts/test-reconciliation-sheet-mutations.mjs",
-      "bytes": 27628,
-      "sha256": "bddfd966e2a0c6a4b4ba8ed2b567c1841bad84d9b9ee81611947d04b91470c96",
+      "bytes": 32510,
+      "sha256": "c98a015e74613890935d22ce5d2a81a7e11fde1ba542880d01b3d8e951936a01",
       "kind": "text"
     },
     {
@@ -73889,8 +73889,8 @@
     },
     {
       "path": "tests/reconciliation-sheet.test.ts",
-      "bytes": 77922,
-      "sha256": "6ee3bdb102a604703b91dd63350559fe6968363d1d554bdaa967dc4584ffd467",
+      "bytes": 88713,
+      "sha256": "7c6a57124c12cc89311a80875131824114f21834fa7139dbdb1f25d69bb84caa",
       "kind": "text"
     },
     {
@@ -73928,6 +73928,12 @@
       "bytes": 9293,
       "sha256": "d4809fecefc65e6e2bda78908017af16ccd643fa559077edeaf96bb1c208dd19",
       "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/financial-sheet.ts",
+      "bytes": 6689,
+      "sha256": "52a3795051e3b089bddaba381e051c6254d8d8691cd98602788a8dabb1245ba2",
+      "kind": "text"
     }
   ],
   "distribution": [
@@ -73938,21 +73944,21 @@
       "kind": "text"
     },
     {
-      "path": "assets/ar-io-BKYIPLF_.js",
+      "path": "assets/ar-io-ffagOFsd.js",
       "bytes": 12931,
-      "sha256": "07a924c7f693b52ee3e935ee4120830f3cec11c64bbec978ee4b9df4cfd1bf7d",
+      "sha256": "50a23213e90bbab74de98650e8c50a8fbc6ff2fc8d03d638eb0832ac5e23be96",
       "kind": "text"
     },
     {
-      "path": "assets/bank-adjustment-io-LwyDbCvY.js",
+      "path": "assets/bank-adjustment-io-Cb4Jmy55.js",
       "bytes": 12101,
-      "sha256": "e5a2983190c0e68765d8eea4b9fbb47ca8b20efa2ef6f01185cbe5187d34b085",
+      "sha256": "d21964c21c31078b3705ea5341b44c1ece893d9a24eaa13d84bfeb995bf182c1",
       "kind": "text"
     },
     {
-      "path": "assets/bank-io-BqMP0YY_.js",
+      "path": "assets/bank-io-BeWkX9bB.js",
       "bytes": 6331,
-      "sha256": "e2a0d244669586f13f5cd370ec766b89d3bb9ba69f12f7a1eed435e6c38c8e71",
+      "sha256": "82bd2b1b7a96fccd7400434ca0ba1eb0c64eccba429e6541ae3652a3447a5b18",
       "kind": "text"
     },
     {
@@ -73988,15 +73994,15 @@
       }
     },
     {
-      "path": "assets/fixed-assets-io-C_WmgAFQ.js",
+      "path": "assets/fixed-assets-io-BBmAzQhp.js",
       "bytes": 9102,
-      "sha256": "020078d5930a9f2fa7ff3b46d2f3df828183352de25ee4a531915aded4a4b260",
+      "sha256": "35f9d3b02b686bbe03c44cfcc3410193e0ea8af3040f231d4716f57842000f76",
       "kind": "text"
     },
     {
-      "path": "assets/gl-tb-io-G7sXuRIC.js",
+      "path": "assets/gl-tb-io-CGr4y3qB.js",
       "bytes": 2185,
-      "sha256": "65d69a2bfabb9482d1224567801b35923e0d985410a6a5913e05d5f9c042dc47",
+      "sha256": "04a98cb03fd750c59495453fd81d0604a8deeba514f5018cf2b46576f9669a74",
       "kind": "text"
     },
     {
@@ -74006,9 +74012,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/index-C28Aonib.js",
-      "bytes": 7000913,
-      "sha256": "116b022d1bd08a72f24fe789f38bc3a9491d738b1efbde702c37bf7e1f73ef43",
+      "path": "assets/index-B6qXCyCB.js",
+      "bytes": 7007780,
+      "sha256": "100b40433114bf57715080fbdc106282929d122aa175cd352c7c85c2c8bb8cc6",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
@@ -74016,22 +74022,22 @@
       }
     },
     {
-      "path": "assets/inventory-pdf-assistant-Bf8NkovG.js",
+      "path": "assets/inventory-pdf-assistant-Cv-VJGHU.js",
       "bytes": 1671,
-      "sha256": "eca7017658203ccd42ba29b6a3b2fae0cd6761da9a65ea3bf8e20b501cfbc098",
+      "sha256": "e7c339d277c139ffd258f59a50d5290b233ecf5069866cb97b256dba46887882",
       "kind": "text"
     },
     {
-      "path": "assets/inventory-pdf-workbook-IelTuHy2.js",
+      "path": "assets/inventory-pdf-workbook-CiwDJR0j.js",
       "bytes": 475,
-      "sha256": "ed48967ed8bf4421c55477533ea52383033c1fbc59a056c80fc20a93d735b598",
+      "sha256": "82a3390354aa82c18b5066415bc85f49d79ddab4d606fa34d3406e38f13500e1",
       "kind": "text"
     },
     {
-      "path": "assets/inventory-register-io-BkSL9kYh.js",
+      "path": "assets/inventory-register-io-chl0pBAU.js",
       "kind": "text",
       "bytes": 27466,
-      "sha256": "f81722da4bbafc859ee8a61fad9f87b97acb257ea9b913a754e18707456874da"
+      "sha256": "bdbc6a1a69bd80ca56737a2d20dd3f2ab12c9be484f33a4de003f3de9e24a9cf"
     },
     {
       "path": "assets/jszip.min-Lqf3Qs4v.js",
@@ -74212,7 +74218,7 @@
     {
       "path": "index.html",
       "bytes": 4299,
-      "sha256": "aa55d39e8b1225e57167395c3c59b8aff236d5990781efe7309920d46032014c",
+      "sha256": "1ce932e388a24137dd8035bedbbcdf9cffb1505a6b9ee8a1f313c02b3aab5916",
       "kind": "text"
     },
     {
@@ -74246,9 +74252,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/bank-statement-lifecycle-BBVITrqX.js",
+      "path": "assets/bank-statement-lifecycle-BXgsrPvB.js",
       "bytes": 30423,
-      "sha256": "7c2489d65c73f6b66d41c8cfc511e2267147a9c46c3ffd07a6b53b8fe61f883b",
+      "sha256": "158e9902c061e4de415e6cbae9182639562bb7b35a93ee65bdf02f11667e3a6c",
       "kind": "text"
     },
     {
@@ -74264,9 +74270,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/allocation-advice-io-PK9Ww7E7.js",
+      "path": "assets/allocation-advice-io-DJp7wbnP.js",
       "bytes": 3033,
-      "sha256": "62b0a365f5b83da8fa218530a7863cd4fdc25124c6bae75a8d63e1dc67f38677",
+      "sha256": "414c443c0c242c6fc94144943379d2e3e0412bf10635c262b28acfe0369ef5a2",
       "kind": "text"
     },
     {
@@ -74306,9 +74312,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/ar-sheet-Cb6kMKzu.js",
-      "bytes": 31356,
-      "sha256": "74d9cd234b41a146d3c053f81034632fd13f9113479de8d145a291b263d7754e",
+      "path": "assets/ar-sheet-D7myJyxK.js",
+      "bytes": 35759,
+      "sha256": "d84c5f21d3b64240fab1db45e8f02030d080461a3b51bdd7a64859c9630a2a0e",
       "kind": "text"
     }
   ]

@@ -1,6 +1,7 @@
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { financialSheetSaysScreen } from './reconciliation-sheet-browser.mjs';
 export async function verifyFinancial(
   page,
   url,
@@ -159,11 +160,22 @@ export async function verifyFinancial(
     assert.equal(await status.getAttribute('data-financial-status'), key);
     assert.equal(await status.innerText(), LABEL[key]);
   };
-  const download = async (name, file) => {
+  // UX-6(c): each workpaper opens on the reconciliation sheet, in the
+  // interface's language, and it says what this page shows.
+  const sheets = [];
+  const download = async (name, file, lang = 'en') => {
     const p = page.waitForEvent('download');
     await button(name).click();
     await (await p).saveAs(`${out}/${file}`);
     await wait();
+    if (file.endsWith('.xlsx'))
+      sheets.push({
+        file,
+        ...(await financialSheetSaysScreen(page, {
+          file: `${out}/${file}`,
+          lang,
+        })),
+      });
   };
   await button('Open a synthetic example').click();
   await status.waitFor();
@@ -203,6 +215,11 @@ export async function verifyFinancial(
   await wait();
   await shows('needs-review');
   await download('Export evidence', 'ui-reject.xlsx');
+  // The same result in Arabic: the language changes, the review stays.
+  await page.getByRole('button', { name: 'AR العربية', exact: true }).click();
+  await download('صدّر الأدلة', 'ui-reject-ar.xlsx', 'ar');
+  await page.getByRole('button', { name: 'EN English', exact: true }).click();
+  await shows('needs-review');
   await w
     .getByLabel('Restore session', { exact: true })
     .setInputFiles(`${out}/ui-session.json`);
@@ -386,7 +403,8 @@ export async function verifyFinancial(
   }
   return {
     scopeCard: true,
-    downloads: 5,
+    downloads: 6,
+    sheets,
     wholeLineMembers: 2,
     languages: 2,
     mobileWidths: [320, 390],

@@ -254,6 +254,57 @@ export type ReconciliationSheetCopy = {
      * interface's language; the English is the evidence's words exactly. */
     claim: string;
   };
+  /** The trial balance and financial position sheet (UX-6(c)), in the
+   * workspace's own words (the screen's catalogue, held equal by a test). */
+  financial: {
+    trialBalanceAndFinancialPosition: string;
+    /** The twelve scope fields, in the engine's order. */
+    scope: string[];
+    /** The one value each of these fields takes in this family. */
+    only: Record<'currencyBasis' | 'postingStatus' | 'closingBasis', string>;
+    roles: string[];
+    status: Record<
+      | 'source-error'
+      | 'missing'
+      | 'inconsistent'
+      | 'difference'
+      | 'needs-review'
+      | 'consistent-with-evidence'
+      | 'blocked'
+      | 'accepted'
+      | 'rejected',
+      string
+    >;
+    suppliedInventoryAttestation: string;
+    attestationReference: string;
+    attestationReason: string;
+    trialBalanceFigures: string[];
+    tableNames: Record<'byClass' | 'position', string>;
+    basis: string;
+    assets: string;
+    liabilities: string;
+    equity: string;
+    positionEquation: string;
+    lineFigures: string[];
+    statementLines: string;
+    line: string;
+    class: string;
+    state: string;
+    categories: Record<
+      | 'current-asset'
+      | 'noncurrent-asset'
+      | 'current-liability'
+      | 'noncurrent-liability'
+      | 'equity',
+      string
+    >;
+    decisionLabels: Record<'accept' | 'reject' | 'undo', string>;
+    decisionReference: string;
+    decisionReason: string;
+    /** The engine's claim as the evidence's Summary sheet writes it, in the
+     * interface's language; the English is the evidence's words exactly. */
+    claim: string;
+  };
 };
 
 export const reconciliationSheetCopy: Record<
@@ -522,6 +573,83 @@ export const reconciliationSheetCopy: Record<
       },
       claim:
         'اتساق داخلي في النطاق المعلن؛ ولم يُتحقق من أصالة المصدر ولا من الاكتمال الاقتصادي',
+    },
+    financial: {
+      trialBalanceAndFinancialPosition: 'ميزان المراجعة والمركز المالي',
+      scope: [
+        'المنشأة',
+        'الدفتر',
+        'العملة',
+        'أساس العملة',
+        'حالة الترحيل',
+        'طبقة الترحيل',
+        'بداية الفترة',
+        'نهاية الفترة',
+        'تاريخ القائمة',
+        'نسخة دليل الحسابات',
+        'نسخة الربط',
+        'أساس الإقفال',
+      ],
+      only: {
+        currencyBasis: 'وظيفية',
+        postingStatus: 'مرحّلة',
+        closingBasis: 'بعد الإقفال',
+      },
+      roles: [
+        'ميزان المراجعة',
+        'الربط المقترح',
+        'دليل العرض المستقل',
+        'قائمة المركز المالي',
+      ],
+      status: {
+        'source-error': 'خطأ مصدر',
+        missing: 'دليل أو ربط ناقص',
+        inconsistent: 'معادلات غير متسقة',
+        difference: 'فروق بنود',
+        'needs-review': 'يحتاج مراجعة',
+        'consistent-with-evidence': 'متسق مع الأدلة المقدمة',
+        blocked: 'محجوب',
+        accepted: 'معتمد بالدليل',
+        rejected: 'مرفوض',
+      },
+      suppliedInventoryAttestation: 'إقرار اكتمال الجرد المقدم',
+      attestationReference: 'مرجع الإقرار',
+      attestationReason: 'سبب الإقرار',
+      trialBalanceFigures: [
+        'مدين الميزان',
+        'دائن الميزان',
+        'الفرق، المدين ناقص الدائن',
+      ],
+      tableNames: {
+        byClass: 'حسب الأساس والفئة',
+        position: 'المركز المالي حسب الأساس',
+      },
+      basis: 'الأساس',
+      assets: 'الأصول',
+      liabilities: 'الالتزامات',
+      equity: 'حقوق الملكية',
+      positionEquation: 'معادلة المركز',
+      lineFigures: ['المحسوب', 'المقدم', 'الفرق، المحسوب ناقص المقدم'],
+      statementLines: 'بنود القائمة',
+      line: 'البند',
+      class: 'الصنف',
+      state: 'الحالة',
+      categories: {
+        'current-asset': 'أصول متداولة',
+        'noncurrent-asset': 'أصول غير متداولة',
+        'current-liability': 'التزامات متداولة',
+        'noncurrent-liability': 'التزامات غير متداولة',
+        equity: 'حقوق الملكية',
+      },
+      decisionLabels: {
+        accept: 'اعتمد البند كاملًا',
+        reject: 'ارفض البند كاملًا',
+        undo: 'ألغ القرار',
+      },
+      decisionReference: 'مرجع القرار',
+      decisionReason: 'سبب القرار',
+      claim:
+        'اتساق مع أدلة العرض المقدمة والمؤكدة وحدها؛ لا رأي في أصالة المصدر ولا في اكتمال نظام الموارد ولا في العرض العادل ولا في الامتثال للمعايير المحاسبية',
     },
   },
   en: {
@@ -795,6 +923,87 @@ export const reconciliationSheetCopy: Record<
       },
       claim:
         'Internal consistency in the declared scope; source authenticity and economic completeness unverified',
+    },
+    financial: {
+      trialBalanceAndFinancialPosition: 'Trial balance and financial position',
+      scope: [
+        'Entity',
+        'Ledger',
+        'Currency',
+        'Currency basis',
+        'Posting status',
+        'Posting layer',
+        'Period start',
+        'Period end',
+        'As of',
+        'Chart version',
+        'Map version',
+        'Closing basis',
+      ],
+      only: {
+        currencyBasis: 'Functional',
+        postingStatus: 'Posted',
+        closingBasis: 'Post-closing',
+      },
+      roles: [
+        'Trial balance',
+        'Proposed mapping',
+        'Independent presentation evidence',
+        'Financial position',
+      ],
+      status: {
+        'source-error': 'Source evidence is invalid',
+        missing: 'Evidence or mapping is missing',
+        inconsistent: 'The statement equations do not hold',
+        difference: 'Line differences remain',
+        'needs-review': 'Needs review',
+        'consistent-with-evidence': 'Consistent with the evidence provided',
+        blocked: 'Blocked',
+        accepted: 'Accepted on evidence',
+        rejected: 'Rejected',
+      },
+      suppliedInventoryAttestation: 'Supplied inventory attestation',
+      attestationReference: 'Attestation reference',
+      attestationReason: 'Attestation reason',
+      trialBalanceFigures: [
+        'Trial balance debit',
+        'Trial balance credit',
+        'Residual, debit minus credit',
+      ],
+      tableNames: {
+        byClass: 'By basis and class',
+        position: 'Financial position by basis',
+      },
+      basis: 'Basis',
+      assets: 'Assets',
+      liabilities: 'Liabilities',
+      equity: 'Equity',
+      positionEquation: 'Position equation',
+      lineFigures: [
+        'Calculated',
+        'Reported',
+        'Difference, calculated minus reported',
+      ],
+      statementLines: 'Statement lines',
+      line: 'Line',
+      class: 'Class',
+      state: 'State',
+      categories: {
+        'current-asset': 'Current assets',
+        'noncurrent-asset': 'Noncurrent assets',
+        'current-liability': 'Current liabilities',
+        'noncurrent-liability': 'Noncurrent liabilities',
+        equity: 'Equity',
+      },
+      decisionLabels: {
+        accept: 'Accept whole line',
+        reject: 'Reject whole line',
+        undo: 'Undo decision',
+      },
+      decisionReference: 'Decision reference',
+      decisionReason: 'Decision reason',
+      claim:
+        'Consistency with supplied confirmed presentation evidence only; no source authenticity, ERP completeness, fair-presentation or accounting-standards compliance opinion',
     },
   },
 };

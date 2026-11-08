@@ -1,6 +1,6 @@
 // UX-6: one mutant for each guard the reconciliation sheet adds, as the
 // design record declares them (docs/audits/UX-6-RECONCILIATION-SHEET.ar.md,
-// section 7), GL/TB in 6(a) and the case workspaces in 6(b). Each mutant changes one product file at one anchor in a private
+// section 7), GL/TB in 6(a), the case workspaces in 6(b) and the trial balance and financial position in 6(c). Each mutant changes one product file at one anchor in a private
 // copy of the tree; it is killed only when a test fails by an assertion
 // (DEV-22), never by a syntax error, a crash or a timeout.
 //
@@ -702,6 +702,147 @@ const mutations = [
     'lib/i18n/reconciliation-sheet.ts',
     "noOriginal: 'No original file',",
     "noOriginal: 'No original source',",
+  ],
+  // UX-6(c), trial balance and financial position. The worker writes the
+  // sheet in Arabic whatever the page asked.
+  [
+    'financial-worker-language-ignored',
+    'lib/reconciliation/worker.ts',
+    "        payload.result,\n        payload.lang,\n      );\n    else if (action === 'gl-tb-reconcile')",
+    "        payload.result,\n        'ar',\n      );\n    else if (action === 'gl-tb-reconcile')",
+  ],
+  // The sheet is written in English whatever the language asked.
+  [
+    'financial-language-not-followed',
+    'lib/reconciliation/financial-sheet.ts',
+    'financialSheet(result, language));',
+    "financialSheet(result, 'en'));",
+  ],
+  // A one-option scope field written as the engine's code.
+  [
+    'financial-scope-code-written',
+    'lib/reconciliation/financial-sheet.ts',
+    '? t.only[key as keyof typeof ONLY]\n      : v;',
+    '? v\n      : v;',
+  ],
+  // Each source under another's role.
+  [
+    'financial-sources-swapped',
+    'lib/reconciliation/financial-sheet.ts',
+    'role: t.roles[i],',
+    'role: t.roles[3 - i],',
+  ],
+  // The attestation written though it was never given.
+  [
+    'financial-attestation-unconfirmed-written',
+    'lib/reconciliation/financial-sheet.ts',
+    'rows: result.completeness.confirmed\n',
+    'rows: result.completeness\n',
+  ],
+  // The attestation's reference written where its reason stands.
+  [
+    'financial-attestation-reason-dropped',
+    'lib/reconciliation/financial-sheet.ts',
+    'value: value(result.completeness.note),',
+    'value: value(result.completeness.reference),',
+  ],
+  // The residual written where the trial balance's credit stands.
+  [
+    'financial-residual-for-credit',
+    'lib/reconciliation/financial-sheet.ts',
+    '[result.tb.debit, result.tb.credit, result.tb.residual]',
+    '[result.tb.debit, result.tb.residual, result.tb.residual]',
+  ],
+  // The calculated and reported figures of the position swapped.
+  [
+    'financial-bases-swapped',
+    'lib/reconciliation/financial-sheet.ts',
+    'money(position.calculated[key]),\n        money(position.reported[key]),',
+    'money(position.reported[key]),\n        money(position.calculated[key]),',
+  ],
+  // The position equation left out.
+  [
+    'financial-equation-dropped',
+    'lib/reconciliation/financial-sheet.ts',
+    "['equation', t.positionEquation],",
+    '',
+  ],
+  // The position by basis left to break between its figures.
+  [
+    'financial-position-split',
+    'lib/reconciliation/financial-sheet.ts',
+    '...(figures.length ? { blocks: [figures.length] } : {}),',
+    '',
+  ],
+  // Each line given the result's state instead of its own.
+  [
+    'financial-line-state-of-result',
+    'lib/reconciliation/financial-sheet.ts',
+    'value(t.status[l.review]),',
+    'value(t.status[result.status]),',
+  ],
+  // A line's class written as the engine's code.
+  [
+    'financial-line-class-as-code',
+    'lib/reconciliation/financial-sheet.ts',
+    'value(t.categories[l.category]),',
+    'value(l.category),',
+  ],
+  // A difference the engine does not compute written as nil.
+  [
+    'financial-missing-difference-as-zero',
+    'lib/reconciliation/financial-sheet.ts',
+    "minor === null ? value('—') : money(minor);",
+    'money(minor ?? 0);',
+  ],
+  // The reported figure written where the difference stands.
+  [
+    'financial-difference-of-reported',
+    'lib/reconciliation/financial-sheet.ts',
+    'difference(l.difference),',
+    'difference(l.reported),',
+  ],
+  // A decision written without the reason the reviewer gave.
+  [
+    'financial-decision-reason-dropped',
+    'lib/reconciliation/financial-sheet.ts',
+    '[null, value(e.reference), value(e.note)],',
+    '[null, value(e.reference), null],',
+  ],
+  // Every decision said as an acceptance.
+  [
+    'financial-decision-said-as-accept',
+    'lib/reconciliation/financial-sheet.ts',
+    'value(t.decisionLabels[e.type])',
+    'value(t.decisionLabels.accept)',
+  ],
+  // A decision named by its own number instead of its line's.
+  [
+    'financial-decision-line-dropped',
+    'lib/reconciliation/financial-sheet.ts',
+    'value(e.lineId), value(e.at)]',
+    'value(e.id), value(e.at)]',
+  ],
+  // The strip says the result's state as the engine's code.
+  [
+    'financial-strip-state-as-code',
+    'lib/reconciliation/financial-sheet.ts',
+    'state: t.status[result.status],',
+    'state: result.status,',
+  ],
+  // A word of the sheet that is not the screen's, and a claim that is not
+  // the evidence's.
+  [
+    'financial-word-off-screen',
+    'lib/i18n/reconciliation-sheet.ts',
+    "positionEquation: 'Position equation',",
+    "positionEquation: 'Equation',",
+  ],
+  [
+    'financial-claim-off-evidence',
+    'lib/i18n/reconciliation-sheet.ts',
+    "'Consistency with supplied confirmed presentation evidence only;",
+    "'Consistency with supplied presentation evidence only;",
   ],
 ];
 

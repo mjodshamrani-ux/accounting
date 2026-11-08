@@ -3,7 +3,7 @@ import { readFile as fsRead } from 'node:fs/promises';
 import test from 'node:test';
 import ExcelJS from 'exceljs';
 import JSZip from 'jszip';
-import { glTbStrip } from '../lib/alignment-strip.ts';
+import { financialStrip, glTbStrip } from '../lib/alignment-strip.ts';
 import { stripView } from '../lib/alignment-strip-view.ts';
 import { alignmentStripCopy } from '../lib/i18n/alignment-strip.ts';
 import { ar } from '../lib/i18n/locales/ar.ts';
@@ -74,6 +74,16 @@ import {
   supplierCases,
   type SupplierCase,
 } from '../audit/reconciliation-sheet/supplier-cases.ts';
+import {
+  financialTruth,
+  finishedFinancial,
+} from '../audit/tb-financial/fixtures.ts';
+import { FINANCIAL_SCOPE_FIELDS } from '../lib/reconciliation/tb-financial.ts';
+import { exportFinancialPosition } from '../lib/reconciliation/tb-financial-io.ts';
+import {
+  exportFinancialWorkpaper,
+  financialSheet,
+} from '../lib/reconciliation/financial-sheet.ts';
 
 // UX-6(a): the reconciliation sheet is added to a workpaper whose evidence is
 // already written, and leaves that evidence byte for byte as it was. Its words
@@ -2111,5 +2121,298 @@ void test('the real worker writes the supplier sheet in the language asked, and 
     );
   } finally {
     for (const port of ports) port.terminate();
+  }
+});
+
+// UX-6(c), the trial balance and financial position: frozen cases with the
+// decisions their story records, and without them.
+const FINANCIAL_CASES = [
+  'whole-post-closing',
+  'pending',
+  'undo',
+  'reject',
+  'reject-undo-accept',
+  'offsetting-line-differences',
+  'unbalanced-tb',
+  'incomplete-attestation',
+  'missing-mapping',
+  'empty-tb',
+  'wrong-sign',
+  'kwd-three-decimals',
+];
+const FINANCIAL_ONLY = {
+  currencyBasis: 'functional',
+  postingStatus: 'posted',
+  closingBasis: 'post-closing',
+} as const;
+
+void test('financial position: the evidence stays byte for byte, the trial balance, the position by basis, each line with its state and difference, each decision with its reason', async () => {
+  const seen = new Set<string>();
+  for (const name of FINANCIAL_CASES)
+    for (const lang of ['ar', 'en'] as const) {
+      assert.ok(
+        financialTruth.cases.some((c) => c.name === name && !c.reject),
+        name,
+      );
+      const { state, result } = await finishedFinancial(name);
+      seen.add(result.status);
+      const evidence = await exportFinancialPosition(state, result);
+      const book = await addReconciliationSheet(
+        evidence,
+        financialSheet(result, lang),
+      );
+      const before = await parts(evidence),
+        after = await parts(book);
+      for (const [part, bytes] of before)
+        if (!WORKBOOK_PARTS.includes(part))
+          assert.deepEqual(after.get(part), bytes, `${name}: ${part}`);
+      const w = reconciliationSheetCopy[lang],
+        t = w.financial;
+      const { rows } = await firstSheet(
+        await exportFinancialWorkpaper(state, result, lang),
+      );
+      assert.equal(rows[1][0], t.trialBalanceAndFinancialPosition, name);
+      const unit = 10 ** result.decimals;
+      const blank = (at: number, what: string) =>
+        assert.deepEqual(
+          rows[at] ?? [null, null, null, null],
+          [null, null, null, null],
+          `${name}: ${what} end`,
+        );
+      // The scope in the screen's words; the three one-option fields in the
+      // card's words for their one value.
+      FINANCIAL_SCOPE_FIELDS.forEach((key, i) =>
+        assert.deepEqual(
+          rows[rowOf(rows, t.scope[i])].slice(0, 2),
+          [
+            t.scope[i],
+            key in FINANCIAL_ONLY &&
+            result.scope[key] ===
+              FINANCIAL_ONLY[key as keyof typeof FINANCIAL_ONLY]
+              ? t.only[key as keyof typeof FINANCIAL_ONLY]
+              : result.scope[key],
+          ],
+          `${name}: ${key}`,
+        ),
+      );
+      // The four sources by their roles and whole fingerprints.
+      result.sources.forEach((source, i) => {
+        const at = rows.findIndex(
+          (r) => r[0] === t.roles[i] && r[1] === source.name,
+        );
+        assert.ok(at >= 0, `${name}: ${t.roles[i]}`);
+        assert.deepEqual(rows[at + 1].slice(0, 2), [
+          w.fingerprint,
+          source.hash,
+        ]);
+      });
+      // The strip, cell by cell, from the function the screen draws with,
+      // the result's state in the screen's words.
+      const s = alignmentStripCopy[lang];
+      assert.deepEqual(rows[rowOf(rows, s.review)].slice(0, 2), [
+        s.review,
+        result.lines.filter((l) => l.review === 'needs-review').length,
+      ]);
+      for (const cell of stripView(financialStrip(result), s, {
+        state: t.status[result.status],
+      })) {
+        const at = rowOf(rows, cell.label),
+          row = rows[at];
+        if (cell.value.kind === 'count')
+          assert.deepEqual(
+            row.slice(1),
+            cell.value.of === undefined
+              ? [cell.value.count, null, null]
+              : [cell.value.count, w.of, cell.value.of],
+          );
+        else if (cell.value.kind === 'amount')
+          assert.equal(row[1], cell.value.minor / unit, `${name}: the gap`);
+        else assert.equal(row[1], cell.value.text, `${name}: ${cell.cell}`);
+        cell.notes.forEach((n, i) =>
+          assert.deepEqual(
+            rows[at + 1 + i].slice(0, 3),
+            [null, n.text, n.value ?? null],
+            `${name}: ${cell.cell} note ${i + 1}`,
+          ),
+        );
+      }
+      // The completeness attestation, written once given.
+      const attest = headingOf(
+        rows,
+        t.suppliedInventoryAttestation,
+        'Summary',
+        lang,
+      );
+      if (!result.completeness.confirmed)
+        assert.equal(attest, -1, `${name}: no attestation, no section`);
+      else {
+        assert.deepEqual(rows[attest + 1].slice(0, 2), [
+          t.attestationReference,
+          result.completeness.reference,
+        ]);
+        assert.deepEqual(rows[attest + 2].slice(0, 2), [
+          t.attestationReason,
+          result.completeness.note,
+        ]);
+        blank(attest + 3, 'the attestation');
+      }
+      // The trial balance's three figures, where the engine reads one.
+      const tb = headingOf(rows, t.roles[0], 'Summary', lang);
+      if (!result.tb) assert.equal(tb, -1, `${name}: no trial balance`);
+      else {
+        [result.tb.debit, result.tb.credit, result.tb.residual].forEach(
+          (minor, i) =>
+            assert.deepEqual(rows[tb + 1 + i].slice(0, 2), [
+              t.trialBalanceFigures[i],
+              minor / unit,
+            ]),
+        );
+        blank(tb + 4, 'the trial balance');
+      }
+      // The position by basis: each figure a row, calculated and reported.
+      const position = headingOf(
+        rows,
+        t.tableNames.position,
+        'Grand totals',
+        lang,
+      );
+      if (!result.grandTotals)
+        assert.equal(position, -1, `${name}: no position`);
+      else {
+        assert.deepEqual(rows[position + 1].slice(0, 3), [
+          t.basis,
+          t.lineFigures[0],
+          t.lineFigures[1],
+        ]);
+        (
+          [
+            ['assets', t.assets],
+            ['liabilities', t.liabilities],
+            ['equity', t.equity],
+            ['equation', t.positionEquation],
+          ] as const
+        ).forEach(([key, label], k) =>
+          assert.deepEqual(rows[position + 2 + k].slice(0, 3), [
+            label,
+            result.grandTotals!.calculated[key] / unit,
+            result.grandTotals!.reported[key] / unit,
+          ]),
+        );
+        blank(position + 6, 'the position');
+        // The four figures print on one page, with the heading and head.
+        assert.ok(
+          financialSheet(result, lang).keep!.some(
+            ([from, to]) => from === position && to === position + 5,
+          ),
+          `${name}: the position is kept whole`,
+        );
+      }
+      // Every statement line by its number, its class, its state and the
+      // difference, or the screen's dash where the engine computes none.
+      const lines = headingOf(rows, t.statementLines, 'Lines', lang);
+      if (!result.lines.length)
+        assert.equal(lines, -1, `${name}: no line, no table`);
+      else {
+        assert.deepEqual(rows[lines + 1], [
+          t.line,
+          t.class,
+          t.state,
+          t.lineFigures[2],
+        ]);
+        result.lines.forEach((l, k) =>
+          assert.deepEqual(rows[lines + 2 + k], [
+            l.lineId,
+            t.categories[l.category],
+            t.status[l.review],
+            l.difference === null ? '—' : l.difference / unit,
+          ]),
+        );
+        blank(lines + 2 + result.lines.length, 'the lines');
+      }
+      // Each recorded decision: its button's word, the line and its time,
+      // then the evidence reference and the reason given.
+      const events = headingOf(rows, w.decisions, 'Events', lang);
+      if (!result.events.length)
+        assert.equal(events, -1, `${name}: no decisions, no table`);
+      result.events.forEach((e, k) => {
+        const at = events + 1 + 2 * k;
+        assert.deepEqual(rows[at].slice(0, 3), [
+          t.decisionLabels[e.type],
+          e.lineId,
+          e.at,
+        ]);
+        assert.deepEqual(rows[at + 1].slice(0, 3), [null, e.reference, e.note]);
+      });
+      if (result.events.length)
+        blank(events + 1 + 2 * result.events.length, 'the decisions');
+      assert.equal(rows.at(-1)![0], t.claim);
+    }
+  // The cases cover a result of every state the engine gives.
+  assert.deepEqual([...seen].sort(), [
+    'consistent-with-evidence',
+    'difference',
+    'inconsistent',
+    'missing',
+    'needs-review',
+    'source-error',
+  ]);
+});
+
+void test('financial position: the words are the screen words, and the claim in English is the evidence words', async () => {
+  for (const [lang, locale] of [
+    ['ar', ar],
+    ['en', en],
+  ] as const) {
+    const t = reconciliationSheetCopy[lang].financial;
+    for (const key of Object.keys(t) as (keyof typeof t)[])
+      if (key !== 'claim')
+        assert.deepEqual(
+          t[key],
+          (locale.financial as Record<string, unknown>)[key],
+          `${lang} financial.${key}`,
+        );
+  }
+  const { state, result } = await finishedFinancial('whole-post-closing');
+  const wb = new ExcelJS.Workbook();
+  await wb.xlsx.load(await exportFinancialPosition(state, result));
+  const claim = wb
+    .getWorksheet('Summary')!
+    .getRows(1, 40)!
+    .find((r) => r.getCell(1).value === 'Claim')!
+    .getCell(2).value;
+  assert.equal(reconciliationSheetCopy.en.financial.claim, claim);
+  assert.notEqual(reconciliationSheetCopy.ar.financial.claim, claim);
+});
+
+void test('the real worker writes the financial position sheet in the language asked, and refuses none', async () => {
+  const { state, result } = await finishedFinancial('reject');
+  const port = new GlTbBindingPort();
+  try {
+    const client = createWorkerClient(() => port);
+    for (const lang of ['ar', 'en'] as const) {
+      const bytes = await client.request<ArrayBuffer>('tb-financial-export', {
+        state,
+        result,
+        lang,
+      });
+      const book = new ExcelJS.Workbook();
+      await book.xlsx.load(bytes);
+      assert.deepEqual(
+        book.worksheets.slice(0, 2).map((s) => s.name),
+        [reconciliationSheetCopy[lang].name, 'Summary'],
+      );
+      const { rows } = await firstSheet(bytes);
+      assert.equal(
+        rows[1][0],
+        reconciliationSheetCopy[lang].financial
+          .trialBalanceAndFinancialPosition,
+      );
+    }
+    await assert.rejects(
+      client.request('tb-financial-export', { state, result }),
+      /RECONCILIATION_SHEET_LANGUAGE/,
+    );
+  } finally {
+    port.terminate();
   }
 });

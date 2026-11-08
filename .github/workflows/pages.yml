@@ -353,6 +353,10 @@ jobs:
         run: |
           python3 -B audit/reconciliation-sheet/check_sheet.py --download ar work/qa/supplier-draft-ar.xlsx work/qa/layered-0-direct.xlsx work/qa/layered-0-restored.xlsx work/qa/layered-1-direct.xlsx work/qa/layered-1-restored.xlsx work/qa/typed-0-direct.xlsx work/qa/typed-0-restored.xlsx work/qa/typed-1-direct.xlsx work/qa/typed-1-restored.xlsx
           python3 -B audit/reconciliation-sheet/check_sheet.py --download en work/qa/supplier-draft-en.xlsx
+      - name: Independently verify the reconciliation sheet first in the trial balance and financial position workpapers the page downloaded, in English and Arabic, against their own evidence sheets (UX-6(c))
+        run: |
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download en work/tb-financial/browser/ui-pending.xlsx work/tb-financial/browser/ui-accepted.xlsx work/tb-financial/browser/ui-undo.xlsx work/tb-financial/browser/ui-reject.xlsx work/tb-financial/browser/ui-restored.xlsx
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download ar work/tb-financial/browser/ui-reject-ar.xlsx
       - name: Independently verify the real OCR browser review record
         run: python3 audit/visual-cell-review/check_record.py work/qa/p6-reviewed.json work/qa/p6-source.png
       - name: Independently verify the manually selected Arabic crop from real browser OCR
