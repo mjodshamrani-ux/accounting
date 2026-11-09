@@ -1,6 +1,6 @@
 // UX-6: one mutant for each guard the reconciliation sheet adds, as the
 // design record declares them (docs/audits/UX-6-RECONCILIATION-SHEET.ar.md,
-// section 7), GL/TB in 6(a), the case workspaces in 6(b), and the trial balance and financial position, intercompany, payment gateways, inventory and fixed assets in 6(c). Each mutant changes one product file at one anchor in a private
+// section 7), GL/TB in 6(a), the case workspaces in 6(b), and the trial balance and financial position, intercompany, payment gateways, inventory, fixed assets and payroll in 6(c). Each mutant changes one product file at one anchor in a private
 // copy of the tree; it is killed only when a test fails by an assertion
 // (DEV-22), never by a syntax error, a crash or a timeout.
 //
@@ -1582,6 +1582,211 @@ const mutations = [
     'lib/i18n/reconciliation-sheet.ts',
     "undo: 'تراجع عن قرار الأصول',",
     "undo: 'ألغ قرار الأصول',",
+  ],
+  // UX-6(c), payroll. The worker writes the sheet in the language the
+  // request names, and refuses none or a third before any work.
+  [
+    "payroll-worker-language-ignored",
+    "lib/reconciliation/worker.ts",
+    "exportPayrollWorkpaper(payload.state, payload.result, payload.lang)",
+    "exportPayrollWorkpaper(payload.state, payload.result, 'en')",
+  ],
+  // The sheet in English whatever the language asked.
+  [
+    "payroll-language-not-followed",
+    "lib/reconciliation/payroll-sheet.ts",
+    "payrollSheet(owned, sources, language),",
+    "payrollSheet(owned, sources, 'en'),",
+  ],
+  // A one-option field written as its code.
+  [
+    "payroll-scope-code-written",
+    "lib/reconciliation/payroll-sheet.ts",
+    "? t.only[key as keyof typeof ONLY]\n      : v;",
+    "? v\n      : v;",
+  ],
+  // The sources under each other's roles.
+  [
+    "payroll-sources-swapped",
+    "lib/reconciliation/payroll-sheet.ts",
+    "role: t.roles[i],",
+    "role: t.roles[4 - i],",
+  ],
+  // The strip's components named by their keys.
+  [
+    "payroll-strip-component-code",
+    "lib/reconciliation/payroll-sheet.ts",
+    "          name: component,\n",
+    "",
+  ],
+  // An attestation not given written anyway.
+  [
+    "payroll-attestation-unconfirmed-written",
+    "lib/reconciliation/payroll-sheet.ts",
+    "rows: result.completeness.confirmed\n          ?",
+    "rows: true\n          ?",
+  ],
+  // The attestation without its explanation.
+  [
+    "payroll-attestation-note-dropped",
+    "lib/reconciliation/payroll-sheet.ts",
+    "              {\n                label: t.completeNote,\n                value: value(result.completeness.note),\n              },\n",
+    "",
+  ],
+  // The register's figure under the GL's heading.
+  [
+    "payroll-totals-reordered",
+    "lib/reconciliation/payroll-sheet.ts",
+    "money(totals.register[PAYROLL_AMOUNT_KEYS[i]]),\n              money(totals.gl[c]),",
+    "money(totals.gl[c]),\n              money(totals.register[PAYROLL_AMOUNT_KEYS[i]]),",
+  ],
+  // Every component set against the register's gross, not the figure the
+  // screen takes for it.
+  [
+    "payroll-totals-register-gross",
+    "lib/reconciliation/payroll-sheet.ts",
+    "money(totals.register[PAYROLL_AMOUNT_KEYS[i]]),",
+    "money(totals.register[PAYROLL_AMOUNT_KEYS[0]]),",
+  ],
+  // A component total written as its key.
+  [
+    "payroll-totals-component-code",
+    "lib/reconciliation/payroll-sheet.ts",
+    "value(t.components[c]),",
+    "value(c),",
+  ],
+  // The component totals printed row by row, so a page may break inside.
+  [
+    "payroll-totals-split",
+    "lib/reconciliation/payroll-sheet.ts",
+    "blocks: totals ? [PAYROLL_COMPONENTS.length] : [],",
+    "blocks: totals ? PAYROLL_COMPONENTS.map(() => 1) : [],",
+  ],
+  // Amounts at two decimals whatever the currency.
+  [
+    "payroll-precision-fixed",
+    "lib/reconciliation/payroll-sheet.ts",
+    "    minor,\n    decimals: result.decimals,\n  });",
+    "    minor,\n    decimals: 2,\n  });",
+  ],
+  // The bank outflow under the register net's heading.
+  [
+    "payroll-bank-reordered",
+    "lib/reconciliation/payroll-sheet.ts",
+    "[figure(bank.register), figure(bank.bank), figure(bank.difference)]",
+    "[figure(bank.bank), figure(bank.register), figure(bank.difference)]",
+  ],
+  // The bank comparison under the totals' headings.
+  [
+    "payroll-bank-head-other",
+    "lib/reconciliation/payroll-sheet.ts",
+    "head: t.bank,",
+    "head: t.totals,",
+  ],
+  // The bank comparison said to stand in the Summary.
+  [
+    "payroll-bank-evidence-other",
+    "lib/reconciliation/payroll-sheet.ts",
+    "evidence: 'Bank comparison',",
+    "evidence: 'Summary',",
+  ],
+  // The GL figure under the register's heading.
+  [
+    "payroll-comparison-figure-shifted",
+    "lib/reconciliation/payroll-sheet.ts",
+    "[label(t.comparisons[3]), figure(c.register)],",
+    "[label(t.comparisons[3]), figure(c.gl)],",
+  ],
+  // A figure the engine does not compute written as zero.
+  [
+    "payroll-dash-as-zero",
+    "lib/reconciliation/payroll-sheet.ts",
+    "minor === null || minor === undefined ? value('—') : money(minor);",
+    "money(minor ?? 0);",
+  ],
+  // A comparison without its dimensions.
+  [
+    "payroll-dimensions-dropped",
+    "lib/reconciliation/payroll-sheet.ts",
+    "value(c.dimensions || '—')",
+    "value('—')",
+  ],
+  // A comparison's component written as its key.
+  [
+    "payroll-component-as-code",
+    "lib/reconciliation/payroll-sheet.ts",
+    "value(component(c.component))",
+    "value(c.component)",
+  ],
+  // The GL figure under the register's heading word.
+  [
+    "payroll-comparison-label-shifted",
+    "lib/reconciliation/payroll-sheet.ts",
+    "[label(t.comparisons[4]), figure(c.gl)],",
+    "[label(t.comparisons[3]), figure(c.gl)],",
+  ],
+  // The comparisons printed as one block, so a page may break inside one.
+  [
+    "payroll-comparison-blocks-merged",
+    "lib/reconciliation/payroll-sheet.ts",
+    "blocks: result.comparisons.map(() => 5),",
+    "blocks: [5 * result.comparisons.length],",
+  ],
+  // The result's state left out under the strip.
+  [
+    "payroll-state-dropped",
+    "lib/reconciliation/payroll-sheet.ts",
+    "        more: [\n          {\n            label: alignmentStripCopy[language].state,\n            value: status(result.status),\n          },\n        ],",
+    "        more: [],",
+  ],
+  // The result's state written as its code.
+  [
+    "payroll-state-as-code",
+    "lib/reconciliation/payroll-sheet.ts",
+    "            label: alignmentStripCopy[language].state,\n            value: status(result.status),",
+    "            label: alignmentStripCopy[language].state,\n            value: result.status,",
+  ],
+  // A decision written as its code.
+  [
+    "payroll-decision-as-code",
+    "lib/reconciliation/payroll-sheet.ts",
+    "[value(t[e.type]), value(e.at)]",
+    "[value(e.type), value(e.at)]",
+  ],
+  // A decision without its time.
+  [
+    "payroll-decision-time-dropped",
+    "lib/reconciliation/payroll-sheet.ts",
+    "[value(t[e.type]), value(e.at)]",
+    "[value(t[e.type])]",
+  ],
+  // A decision without the explanation the reviewer gave.
+  [
+    "payroll-decision-reason-dropped",
+    "lib/reconciliation/payroll-sheet.ts",
+    "[null, value(e.reference), value(e.note)]",
+    "[null, value(e.reference)]",
+  ],
+  // The English claim not the evidence's words.
+  [
+    "payroll-claim-off-evidence",
+    "lib/i18n/reconciliation-sheet.ts",
+    "'Consistency of supplied posted payroll components, evidenced GL expense and liability roles, disbursement clearing and one supplied bank outflow; no tax calculation, posting, transfer initiation or proof each employee received payment',",
+    "'Consistency of supplied posted payroll components, evidenced GL expense and liability roles, disbursement clearing and one supplied bank outflow; no tax calculation or posting',",
+  ],
+  // The Arabic claim left in English.
+  [
+    "payroll-arabic-claim-untranslated",
+    "lib/i18n/reconciliation-sheet.ts",
+    "'اتساق مكونات الرواتب المرحلة المقدمة مع أدوار المصروف والالتزام في الأستاذ المثبتة بالأدلة ورفع الالتزام عند الصرف وصرف بنكي مقدم واحد؛ لا حساب للضرائب ولا قيد ولا بدء تحويل ولا إثبات أن كل موظف قبض أجره',",
+    "'Consistency of supplied posted payroll components, evidenced GL expense and liability roles, disbursement clearing and one supplied bank outflow; no tax calculation, posting, transfer initiation or proof each employee received payment',",
+  ],
+  // An Arabic button word not the screen's.
+  [
+    "payroll-undo-other-word",
+    "lib/i18n/reconciliation-sheet.ts",
+    "undo: 'تراجع عن قرار الرواتب',",
+    "undo: 'ألغ قرار الرواتب',",
   ],
 ];
 

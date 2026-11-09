@@ -684,7 +684,7 @@ export function PayrollWorkspace({
                 (signal) =>
                   workerTask<ArrayBuffer>(
                     'payroll-export',
-                    { state: state(), result },
+                    { state: state(), result, lang },
                     signal,
                   ),
                 (b) =>

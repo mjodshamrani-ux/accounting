@@ -142,6 +142,22 @@ import {
 } from '../audit/reconciliation-sheet/fixed-assets-cases.ts';
 import { AssetLongPort } from './helpers/fixed-assets-long-port.ts';
 import { rezip, setCell } from './helpers/workbook-xml.ts';
+import { payrollStrip } from '../lib/alignment-strip.ts';
+import { payrollCopy } from '../lib/i18n/payroll.ts';
+import {
+  PAYROLL_AMOUNT_KEYS,
+  PAYROLL_COMPONENTS,
+  PAYROLL_FIELDS,
+} from '../lib/reconciliation/payroll.ts';
+import { exportPayroll } from '../lib/reconciliation/payroll-io.ts';
+import {
+  exportPayrollWorkpaper,
+  payrollSheet,
+} from '../lib/reconciliation/payroll-sheet.ts';
+import {
+  payrollCase,
+  type PayrollCase,
+} from '../audit/reconciliation-sheet/payroll-cases.ts';
 
 // UX-6(a): the reconciliation sheet is added to a workpaper whose evidence is
 // already written, and leaves that evidence byte for byte as it was. Its words
@@ -3947,5 +3963,375 @@ void test('the real worker writes the fixed-assets sheet in the language asked, 
     );
   } finally {
     ports.forEach((p) => p.terminate());
+  }
+});
+
+// UX-6(c), payroll: frozen cases of every state the engine gives, a
+// component and a bank difference, a source error, missing evidence with no
+// comparison, an empty bank payout, opposed differences that net to zero and
+// the JPY and KWD precision; then the positive case attested and decided in
+// turn, and fifteen decisions so the sheet runs over a page.
+const PAYROLL_CASES = [
+  'seven-components-and-bank-positive',
+  'gross-expense-one-minor-difference',
+  'bank-one-minor-difference',
+  'gross-missing',
+  'empty-gl',
+  'empty-bank',
+  'opposed-account-differences-zero-grand',
+  'jpy-precision-positive',
+  'kwd-precision-positive',
+  'attested',
+  'accepted',
+  'rejected',
+  'undone',
+  'many-decisions',
+];
+const PAYROLL_ONLY = {
+  currencyBasis: 'functional',
+  postingStatus: 'posted',
+} as const;
+
+/** What the payroll sheet says, held to the result it was written from. */
+async function payrollSays(
+  name: string,
+  { state, result }: PayrollCase,
+  lang: 'ar' | 'en',
+) {
+  const evidence = await exportPayroll(state, result);
+  const sources = state.files.map((f) => ({ name: f.name, sha256: f.sha256 }));
+  const composed = payrollSheet(result, sources, lang);
+  const book = await addReconciliationSheet(evidence, composed);
+  const before = await parts(evidence),
+    after = await parts(book);
+  for (const [part, bytes] of before)
+    if (!WORKBOOK_PARTS.includes(part))
+      assert.deepEqual(after.get(part), bytes, `${name}: ${part}`);
+  const workpaper = await exportPayrollWorkpaper(state, result, lang);
+  // The worker's workpaper is the one composed here, part for part.
+  const handed = await parts(workpaper);
+  for (const [part, bytes] of after)
+    if (part !== 'docProps/core.xml')
+      assert.deepEqual(handed.get(part), bytes, `${name}: handed ${part}`);
+  const w = reconciliationSheetCopy[lang],
+    t = w.payroll;
+  const { rows } = await firstSheet(workpaper);
+  assert.equal(rows[1][0], t.title, name);
+  const unit = 10 ** result.decimals;
+  const blank = (at: number, what: string) =>
+    assert.deepEqual(
+      rows[at] ?? [null, null, null, null],
+      [null, null, null, null],
+      `${name}: ${what} end`,
+    );
+  const kept = composed.keep!;
+  // The scope in the screen's words; the two one-option fields in the card's
+  // words for their one value.
+  const scope = headingOf(rows, w.scope, 'Summary', lang);
+  assert.ok(scope >= 0, `${name}: the scope names its evidence`);
+  PAYROLL_FIELDS.forEach((key, i) =>
+    assert.deepEqual(
+      rows[scope + 1 + i].slice(0, 2),
+      [
+        t.scope[i],
+        key in PAYROLL_ONLY &&
+        result.scope[key] === PAYROLL_ONLY[key as keyof typeof PAYROLL_ONLY]
+          ? t.only[key as keyof typeof PAYROLL_ONLY]
+          : result.scope[key],
+      ],
+      `${name}: ${key}`,
+    ),
+  );
+  blank(scope + 1 + PAYROLL_FIELDS.length, 'the scope');
+  // The five sources by their roles and whole fingerprints.
+  const srcs = headingOf(rows, w.sources, 'Sources', lang);
+  assert.ok(srcs >= 0, `${name}: the sources name their evidence`);
+  state.files.forEach((file, i) => {
+    assert.deepEqual(rows[srcs + 1 + 2 * i].slice(0, 2), [
+      t.roles[i],
+      file.name,
+    ]);
+    assert.deepEqual(rows[srcs + 2 + 2 * i].slice(0, 2), [
+      w.fingerprint,
+      file.sha256,
+    ]);
+  });
+  blank(srcs + 1 + 2 * state.files.length, 'the sources');
+  // The strip, cell by cell, from the function the screen draws with and
+  // the components in the screen's words; then the result's state as the
+  // screen's heading writes it.
+  const s = alignmentStripCopy[lang];
+  const status = (code: string) => (t.status as Record<string, string>)[code];
+  const component = (key: string) =>
+    (t.components as Record<string, string>)[key];
+  for (const cell of stripView(payrollStrip(result), s, {
+    name: component,
+    state: status(result.status),
+  })) {
+    const at = rowOf(rows, cell.label),
+      row = rows[at];
+    if (cell.value.kind === 'count')
+      assert.deepEqual(
+        row.slice(1),
+        cell.value.of === undefined
+          ? [cell.value.count, null, null]
+          : [cell.value.count, w.of, cell.value.of],
+      );
+    else if (cell.value.kind === 'amount')
+      assert.equal(row[1], cell.value.minor / unit, `${name}: the gap`);
+    else assert.equal(row[1], cell.value.text, `${name}: ${cell.cell}`);
+    cell.notes.forEach((n, i) =>
+      assert.deepEqual(
+        rows[at + 1 + i].slice(0, 3),
+        [null, n.text, n.value ?? null],
+        `${name}: ${cell.cell} note ${i + 1}`,
+      ),
+    );
+  }
+  const stateAt = rowOf(rows, s.state);
+  assert.deepEqual(
+    rows[stateAt].slice(0, 2),
+    [s.state, status(result.status)],
+    `${name}: the result's state`,
+  );
+  assert.ok(status(result.status), `${name}: a word for the state`);
+  blank(stateAt + 1, 'the alignment');
+  // The supplied payroll and payout attestation, written once given.
+  const attest = headingOf(rows, t.completenessTitle, 'Summary', lang);
+  if (!result.completeness.confirmed)
+    assert.equal(attest, -1, `${name}: no attestation, no section`);
+  else {
+    assert.deepEqual(rows[attest + 1].slice(0, 2), [
+      t.completeReference,
+      result.completeness.reference,
+    ]);
+    assert.deepEqual(rows[attest + 2].slice(0, 2), [
+      t.completeNote,
+      result.completeness.note,
+    ]);
+    blank(attest + 3, 'the attestation');
+  }
+  // The component totals, the screen's table with its three headings and
+  // seven rows, the register's figure for each component as the screen
+  // takes it, where the engine computes them, on one printed page.
+  const totals = headingOf(rows, t.tableNames.totals, 'Summary', lang);
+  if (!result.totals) assert.equal(totals, -1, `${name}: no totals`);
+  else {
+    assert.deepEqual(rows[totals + 1], [...t.totals, null]);
+    PAYROLL_COMPONENTS.forEach((c, i) =>
+      assert.deepEqual(
+        rows[totals + 2 + i],
+        [
+          t.components[c],
+          result.totals!.register[PAYROLL_AMOUNT_KEYS[i]] / unit,
+          result.totals!.gl[c] / unit,
+          null,
+        ],
+        `${name}: ${c} total`,
+      ),
+    );
+    blank(totals + 2 + PAYROLL_COMPONENTS.length, 'the totals');
+    assert.ok(
+      kept.some(
+        ([from, to]) =>
+          from === totals && to === totals + 1 + PAYROLL_COMPONENTS.length,
+      ),
+      `${name}: the totals are kept whole`,
+    );
+  }
+  // The register net against the bank outflow, the screen's one row, a dash
+  // where none is computed.
+  const figure = (minor: number | null) =>
+    minor === null ? '—' : minor / unit;
+  const bank = headingOf(rows, t.tableNames.bank, 'Bank comparison', lang);
+  assert.ok(bank >= 0, `${name}: the bank comparison names its evidence`);
+  assert.deepEqual(rows[bank + 1], [...t.bank, null]);
+  assert.deepEqual(
+    rows[bank + 2],
+    [
+      figure(result.bankComparison.register),
+      figure(result.bankComparison.bank),
+      figure(result.bankComparison.difference),
+      null,
+    ],
+    `${name}: the bank comparison`,
+  );
+  blank(bank + 3, 'the bank comparison');
+  // Each comparison: the account and its complete dimensions, then its
+  // component and its three figures by the screen's headings, a dash where
+  // none is computed; each kept whole on its page.
+  const comparisons = headingOf(
+    rows,
+    t.tableNames.comparisons,
+    'Component comparisons',
+    lang,
+  );
+  if (!result.comparisons.length)
+    assert.equal(comparisons, -1, `${name}: no comparisons, no table`);
+  result.comparisons.forEach((c, k) => {
+    const at = comparisons + 1 + 5 * k;
+    assert.deepEqual(rows[at].slice(0, 3), [
+      c.account,
+      c.dimensions || '—',
+      null,
+    ]);
+    assert.deepEqual(
+      rows[at + 1].slice(0, 3),
+      [t.comparisons[2], t.components[c.component], null],
+      `${name}: ${c.account} component`,
+    );
+    [c.register, c.gl, c.difference].forEach((minor, f) =>
+      assert.deepEqual(
+        rows[at + 2 + f].slice(0, 3),
+        [t.comparisons[3 + f], figure(minor), null],
+        `${name}: ${c.account} ${c.component} ${t.comparisons[3 + f]}`,
+      ),
+    );
+    if (k)
+      assert.ok(
+        kept.some(([from, to]) => from === at && to === at + 4),
+        `${name}: comparison ${k + 1} kept whole`,
+      );
+  });
+  if (result.comparisons.length)
+    blank(comparisons + 1 + 5 * result.comparisons.length, 'the comparisons');
+  // Each recorded decision: its button's word and its time, then the
+  // reference and the explanation given.
+  const events = headingOf(rows, w.decisions, 'Events', lang);
+  if (!result.events.length)
+    assert.equal(events, -1, `${name}: no decisions, no table`);
+  result.events.forEach((e, k) => {
+    const at = events + 1 + 2 * k;
+    assert.deepEqual(rows[at].slice(0, 3), [t[e.type], e.at, null]);
+    assert.deepEqual(rows[at + 1].slice(0, 3), [null, e.reference, e.note]);
+    if (k)
+      assert.ok(
+        kept.some(([from, to]) => from === at && to === at + 1),
+        `${name}: decision ${k + 1} kept whole`,
+      );
+  });
+  if (result.events.length)
+    blank(events + 1 + 2 * result.events.length, 'the decisions');
+  assert.ok(
+    headingOf(rows, w.claim, 'Summary', lang) >= 0,
+    `${name}: the claim names its evidence`,
+  );
+  assert.equal(rows.at(-1)![0], t.claim);
+  return result;
+}
+
+void test('payroll: the evidence stays byte for byte, the result state, the component totals, the bank comparison, each comparison, each decision with its reason', async () => {
+  const seen = new Set<string>(),
+    reviews = new Set<string>(),
+    precisions = new Set<number>(),
+    dashes = new Set<string>(),
+    bankDashes = new Set<string>();
+  for (const name of PAYROLL_CASES) {
+    const value = await payrollCase(name);
+    for (const lang of ['ar', 'en'] as const) {
+      const result = await payrollSays(name, structuredClone(value), lang);
+      seen.add(result.status);
+      reviews.add(result.review);
+      precisions.add(result.decimals);
+      if (result.comparisons.some((c) => c.difference === null))
+        dashes.add(name);
+      if (result.bankComparison.difference === null) bankDashes.add(name);
+    }
+  }
+  // The cases cover a result of every state the engine gives, every review,
+  // three precisions, and a figure not computed in either table.
+  assert.deepEqual([...seen].sort(), [
+    'consistent-with-evidence',
+    'difference',
+    'missing',
+    'needs-review',
+    'source-error',
+  ]);
+  assert.deepEqual([...reviews].sort(), [
+    'accepted',
+    'needs-review',
+    'rejected',
+  ]);
+  assert.deepEqual(
+    [...precisions].sort((a, b) => a - b),
+    [0, 2, 3],
+  );
+  assert.ok(dashes.size > 0, 'a comparison with no figure computed');
+  assert.ok(bankDashes.size > 0, 'a bank comparison with no figure computed');
+});
+
+void test('payroll: the words are the screen words, and the claim in English is the evidence words', async () => {
+  for (const lang of ['ar', 'en'] as const) {
+    const t = reconciliationSheetCopy[lang].payroll;
+    const screen = payrollCopy[lang] as unknown as Record<string, unknown>;
+    for (const key of Object.keys(t) as (keyof typeof t)[])
+      if (key === 'scope')
+        assert.deepEqual(
+          t.scope,
+          PAYROLL_FIELDS.map(
+            (f) => (screen.scope as Record<string, string>)[f],
+          ),
+          `${lang} payroll.scope`,
+        );
+      else if (key === 'completenessTitle')
+        assert.equal(t[key], screen.completeTitle, `${lang} ${key}`);
+      else if (key === 'bank')
+        assert.deepEqual(t[key], screen.bankComparison, `${lang} ${key}`);
+      else if (key !== 'claim')
+        assert.deepEqual(t[key], screen[key], `${lang} payroll.${key}`);
+  }
+  const { state, result } = await payrollCase(
+    'seven-components-and-bank-positive',
+  );
+  const wb = new ExcelJS.Workbook();
+  await wb.xlsx.load(await exportPayroll(state, result));
+  const claim = wb
+    .getWorksheet('Summary')!
+    .getRows(1, 40)!
+    .find((r) => r.getCell(1).value === 'Claim')!
+    .getCell(2).value as string;
+  assert.equal(reconciliationSheetCopy.en.payroll.claim, claim);
+  assert.notEqual(
+    reconciliationSheetCopy.ar.payroll.claim,
+    reconciliationSheetCopy.en.payroll.claim,
+  );
+});
+
+void test('the real worker writes the payroll sheet in the language asked, and refuses none or a third before any work', async () => {
+  const { state, result } = await payrollCase('rejected');
+  // A refusal retires the worker (DEV-102), so each worker the client asks
+  // for is a fresh one.
+  const ports: GlTbBindingPort[] = [];
+  try {
+    const client = createWorkerClient(() => {
+      const port = new GlTbBindingPort();
+      ports.push(port);
+      return port;
+    });
+    for (const lang of ['ar', 'en'] as const) {
+      const bytes = await client.request<ArrayBuffer>('payroll-export', {
+        state,
+        result,
+        lang,
+      });
+      const book = new ExcelJS.Workbook();
+      await book.xlsx.load(bytes);
+      assert.deepEqual(
+        book.worksheets.slice(0, 2).map((s) => s.name),
+        [reconciliationSheetCopy[lang].name, 'Summary'],
+      );
+      const { rows } = await firstSheet(bytes);
+      assert.equal(rows[1][0], reconciliationSheetCopy[lang].payroll.title);
+    }
+    await assert.rejects(
+      client.request('payroll-export', { state, result }),
+      /RECONCILIATION_SHEET_LANGUAGE/,
+    );
+    await assert.rejects(
+      client.request('payroll-export', { state, result, lang: 'fr' }),
+      /RECONCILIATION_SHEET_LANGUAGE/,
+    );
+  } finally {
+    ports.forEach((port) => port.terminate());
   }
 });

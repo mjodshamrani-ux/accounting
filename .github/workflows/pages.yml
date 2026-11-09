@@ -396,6 +396,10 @@ jobs:
         run: |
           python3 -B audit/reconciliation-sheet/check_sheet.py --download en work/fixed-assets/browser/ui-pending.xlsx work/fixed-assets/browser/ui-accepted.xlsx work/fixed-assets/browser/ui-undo.xlsx work/fixed-assets/browser/ui-reject.xlsx work/fixed-assets/browser/ui-restored.xlsx work/fixed-assets/browser/ui-malformed-reject.xlsx work/fixed-assets/browser/ui-unmapped-zero.xlsx work/fixed-assets/browser/ui-opposite-differences.xlsx work/fixed-assets/browser/ui-net-masked-components.xlsx
           python3 -B audit/reconciliation-sheet/check_sheet.py --download ar work/fixed-assets/browser/ui-reject-ar.xlsx
+      - name: Independently verify the reconciliation sheet first in the payroll workpapers the page downloaded, in English and Arabic, against their own evidence sheets (UX-6(c))
+        run: |
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download en work/payroll/full-app-browser-payroll/ui-pending.xlsx work/payroll/full-app-browser-payroll/ui-accepted.xlsx work/payroll/full-app-browser-payroll/ui-undo.xlsx work/payroll/full-app-browser-payroll/ui-reject.xlsx work/payroll/full-app-browser-payroll/ui-restored.xlsx work/payroll/full-app-browser-payroll/ui-malformed-reject.xlsx work/payroll/full-app-browser-payroll/ui-unmapped-zero.xlsx work/payroll/full-app-browser-payroll/ui-opposite-differences.xlsx work/payroll/full-app-browser-payroll/ui-net-masked-components.xlsx work/payroll/full-app-browser-payroll/ui-bank-difference.xlsx work/payroll/full-app-browser-payroll/ui-net-cleared.xlsx work/payroll/full-app-browser-payroll/ui-malformed-bank-reject.xlsx
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download ar work/payroll/full-app-browser-payroll/ui-reject-ar.xlsx
       - name: Independently verify the real OCR browser review record
         run: python3 audit/visual-cell-review/check_record.py work/qa/p6-reviewed.json work/qa/p6-source.png
       - name: Independently verify the manually selected Arabic crop from real browser OCR

@@ -453,6 +453,53 @@ export type ReconciliationSheetCopy = {
      * interface's language; the English is the evidence's words exactly. */
     claim: string;
   };
+  payroll: {
+    title: string;
+    /** The nineteen scope fields, in the engine's order. */
+    scope: string[];
+    /** The one value each of these fields takes in this family. */
+    only: Record<'currencyBasis' | 'postingStatus', string>;
+    roles: string[];
+    status: Record<
+      | 'source-error'
+      | 'missing'
+      | 'difference'
+      | 'needs-review'
+      | 'consistent-with-evidence'
+      | 'accepted'
+      | 'rejected',
+      string
+    >;
+    completenessTitle: string;
+    completeReference: string;
+    completeNote: string;
+    /** The seven components, each in the screen's word. */
+    components: Record<
+      | 'gross-expense'
+      | 'employee-deduction-payable'
+      | 'net-payable'
+      | 'employer-expense'
+      | 'employer-payable'
+      | 'net-clearing'
+      | 'bank-cash',
+      string
+    >;
+    tableNames: { totals: string; bank: string; comparisons: string };
+    /** The three headings of the screen's table of component totals. */
+    totals: string[];
+    /** The three headings of the screen's register net against the bank
+     * outflow. */
+    bank: string[];
+    /** The six headings of the screen's comparison by account and
+     * component. */
+    comparisons: string[];
+    accept: string;
+    reject: string;
+    undo: string;
+    /** The engine's claim as the evidence's Summary sheet writes it, in the
+     * interface's language; the English is the evidence's words exactly. */
+    claim: string;
+  };
 };
 
 export const reconciliationSheetCopy: Record<
@@ -1043,6 +1090,83 @@ export const reconciliationSheetCopy: Record<
       undo: 'تراجع عن قرار الأصول',
       claim:
         'اتساق الكلفة والاستهلاك المتراكم والانخفاض والصافي الدفتري للأصول المرحلة المقدمة مع ربط المكونات المثبت بالأدلة وحسابات الأستاذ المحددة؛ لا رأي في طريقة احتساب الاستهلاك ولا في التقييم ولا في قيد ولا في الوجود ولا في الاكتمال',
+    },
+    payroll: {
+      title: 'الرواتب المرحلة وأدلة الأستاذ والصرف البنكي',
+      scope: [
+        'الكيان',
+        'معرف المسير',
+        'دفتر الرواتب',
+        'دفتر الأستاذ',
+        'العملة',
+        'أساس العملة',
+        'حالة الترحيل',
+        'طبقة الترحيل',
+        'بدء الفترة',
+        'نهاية الفترة',
+        'يوم قيد الرواتب',
+        'يوم الصرف',
+        'حساب البنك',
+        'مرجع دفعة الصرف',
+        'إصدار دليل الحسابات',
+        'إصدار الخريطة',
+        'إصدار سياسة الرواتب',
+        'إصدار ربط البنك',
+        'إصدار مجموعة الحسابات',
+      ],
+      only: { currencyBasis: 'وظيفية', postingStatus: 'مرحّلة' },
+      roles: [
+        'مسير الموظفين المرحل',
+        'خريطة مكونات الموظفين والأستاذ المقترحة',
+        'دليل سياسة الرواتب المستقل المقدم',
+        'قيود الرواتب والصرف المرحلة المحددة',
+        'الصرف البنكي المرحل المستقل',
+      ],
+      status: {
+        'source-error': 'المصدر محجوب؛ الإجماليات غير محسوبة',
+        missing: 'دليل الرواتب أو تغطية الحسابات ناقص',
+        difference: 'فرق مكون رواتب أو صرف بنكي',
+        'needs-review': 'مراجعة كامل الرواتب مطلوبة',
+        'consistent-with-evidence': 'متسق ضمن الأدلة المؤكدة',
+        accepted: 'معتمد',
+        rejected: 'مرفوض',
+      },
+      completenessTitle: 'تصريح الرواتب والصرف المقدمة',
+      completeReference: 'مرجع اكتمال الرواتب',
+      completeNote: 'توضيح اكتمال الرواتب',
+      components: {
+        'gross-expense': 'مصروف إجمالي الأجور',
+        'employee-deduction-payable': 'التزام خصومات الموظفين',
+        'net-payable': 'التزام صافي الأجور',
+        'employer-expense': 'مصروف مساهمة صاحب العمل',
+        'employer-payable': 'التزام مساهمة صاحب العمل',
+        'net-clearing': 'رفع التزام الصافي عند الصرف',
+        'bank-cash': 'الصرف من حساب البنك',
+      },
+      tableNames: {
+        totals: 'مجاميع المكونات',
+        bank: 'صافي المسير مقابل الصرف البنكي',
+        comparisons: 'المقارنة حسب الحساب والمكون',
+      },
+      totals: ['المكون', 'المتوقع من المسير', 'صافي الأستاذ'],
+      bank: [
+        'صافي المسير',
+        'الصرف البنكي',
+        'الفرق، صافي المسير ناقص الصرف البنكي',
+      ],
+      comparisons: [
+        'حساب الأستاذ',
+        'أبعاد الأستاذ كاملة',
+        'المكون',
+        'المسير',
+        'صافي الأستاذ',
+        'الفرق، المسير ناقص الأستاذ',
+      ],
+      accept: 'اعتمد كامل نطاق الرواتب',
+      reject: 'ارفض كامل نطاق الرواتب',
+      undo: 'تراجع عن قرار الرواتب',
+      claim:
+        'اتساق مكونات الرواتب المرحلة المقدمة مع أدوار المصروف والالتزام في الأستاذ المثبتة بالأدلة ورفع الالتزام عند الصرف وصرف بنكي مقدم واحد؛ لا حساب للضرائب ولا قيد ولا بدء تحويل ولا إثبات أن كل موظف قبض أجره',
     },
   },
   en: {
@@ -1639,6 +1763,83 @@ export const reconciliationSheetCopy: Record<
       undo: 'Undo asset decision',
       claim:
         'Consistency of supplied posted asset cost, accumulated depreciation, impairment and carrying amount with evidenced component mapping and selected GL accounts; no depreciation algorithm, valuation, posting, existence or completeness opinion',
+    },
+    payroll: {
+      title: 'Posted payroll / GL and bank payout evidence',
+      scope: [
+        'Entity',
+        'Payroll run',
+        'Payroll ledger',
+        'GL ledger',
+        'Currency',
+        'Currency basis',
+        'Posting status',
+        'Posting layer',
+        'Period start',
+        'Period end',
+        'Payroll posting date',
+        'Payment date',
+        'Bank account',
+        'Payout reference',
+        'Chart version',
+        'Map version',
+        'Payroll policy version',
+        'Bank mapping version',
+        'Account set version',
+      ],
+      only: { currencyBasis: 'Functional', postingStatus: 'Posted' },
+      roles: [
+        'Posted employee payroll register',
+        'Proposed employee component / GL mapping',
+        'Independent supplied payroll policy evidence',
+        'Selected posted payroll and disbursement GL entries',
+        'Independent posted bank payout',
+      ],
+      status: {
+        'source-error': 'Source blocked; financial totals withheld',
+        missing: 'Payroll evidence or account coverage missing',
+        difference: 'Payroll component or bank payout difference',
+        'needs-review': 'Whole payroll review required',
+        'consistent-with-evidence': 'Consistent within confirmed evidence',
+        accepted: 'Accepted',
+        rejected: 'Rejected',
+      },
+      completenessTitle: 'Supplied payroll and payout attestation',
+      completeReference: 'Payroll completeness reference',
+      completeNote: 'Payroll completeness explanation',
+      components: {
+        'gross-expense': 'Gross expense',
+        'employee-deduction-payable': 'Employee deduction liability',
+        'net-payable': 'Net payable',
+        'employer-expense': 'Employer contribution expense',
+        'employer-payable': 'Employer contribution liability',
+        'net-clearing': 'Net liability clearing',
+        'bank-cash': 'Bank cash outflow',
+      },
+      tableNames: {
+        totals: 'Component totals',
+        bank: 'Register net against the bank outflow',
+        comparisons: 'Comparison by account and component',
+      },
+      totals: ['Component', 'Expected from register', 'GL normal'],
+      bank: [
+        'Register net',
+        'Bank outflow',
+        'Difference, register net minus bank outflow',
+      ],
+      comparisons: [
+        'GL account',
+        'Complete GL dimensions',
+        'Component',
+        'Register',
+        'GL normal',
+        'Difference, register minus GL',
+      ],
+      accept: 'Approve whole payroll scope',
+      reject: 'Reject whole payroll scope',
+      undo: 'Undo payroll decision',
+      claim:
+        'Consistency of supplied posted payroll components, evidenced GL expense and liability roles, disbursement clearing and one supplied bank outflow; no tax calculation, posting, transfer initiation or proof each employee received payment',
     },
   },
 };

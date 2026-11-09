@@ -30,8 +30,9 @@
 // cases, its evidence in each language. Fixed assets (6(c)): every frozen
 // case of the flat family and of the long one (components in rows), the
 // flat positive one attested and decided, one with fifteen decisions built
-// here, and the long positive one attested and approved. Synthetic sources
-// only.
+// here, and the long positive one attested and approved. Payroll (6(c)):
+// every frozen case of the family, the positive one attested and decided,
+// and one with fifteen decisions built here. Synthetic sources only.
 import { readFile as fsRead, mkdir, writeFile } from 'node:fs/promises';
 import { readFile } from '../../lib/reconciliation/io.ts';
 import { GL_TB_VERSION } from '../../lib/reconciliation/gl-tb.ts';
@@ -110,6 +111,13 @@ import {
 } from './fixed-assets-cases.ts';
 import { exportAsset } from '../../lib/reconciliation/fixed-assets-io.ts';
 import { exportAssetWorkpaper } from '../../lib/reconciliation/fixed-assets-sheet.ts';
+import {
+  payrollCase,
+  payrollFrozenNames,
+  payrollStories,
+} from './payroll-cases.ts';
+import { exportPayroll } from '../../lib/reconciliation/payroll-io.ts';
+import { exportPayrollWorkpaper } from '../../lib/reconciliation/payroll-sheet.ts';
 
 const out = process.argv[2] ?? 'work/reconciliation-sheet';
 const root = 'audit/gl-tb/frozen/';
@@ -796,6 +804,37 @@ for (const name of [
   assets++;
 }
 console.error(JSON.stringify({ fixedAssetCases: assets }));
+
+// Payroll (6(c)): every frozen case of the family, every state the engine
+// gives and three precisions among them, then the positive case attested and
+// decided in turn, and fifteen decisions; its evidence in each language.
+let payrolls = 0;
+for (const name of [...payrollFrozenNames, ...Object.keys(payrollStories)]) {
+  const { state, result } = await payrollCase(name);
+  const id = `payroll-${name}`;
+  const written = {
+    workspace: 'payroll',
+    case: id,
+    evidence: `${id}-evidence.xlsx`,
+    status: result.status,
+    review: result.review,
+    decisions: result.events.length,
+  };
+  await writeFile(
+    `${out}/${written.evidence}`,
+    new Uint8Array(await exportPayroll(state, result)),
+  );
+  for (const lang of ['ar', 'en']) {
+    written[lang] = `${id}-${lang}.xlsx`;
+    await writeFile(
+      `${out}/${written[lang]}`,
+      new Uint8Array(await exportPayrollWorkpaper(state, result, lang)),
+    );
+  }
+  cases.push(written);
+  payrolls++;
+}
+console.error(JSON.stringify({ payrollCases: payrolls }));
 await writeFile(
   `${out}/cases.json`,
   JSON.stringify({ syntheticOnly: true, cases }, null, 1),

@@ -4,9 +4,10 @@ import { exportStockPdfWorkpaper, exportStockWorkpaper } from './inventory-sheet
 import { readStockPdf } from './inventory-pdf-preview.ts';
 import { askStockPdf } from './inventory-pdf-assistant.ts';
 import { snapshotStockPdfRequest } from './inventory-pdf-request.ts';
-import {readPayrollFile,replayPayroll,savePayroll,restorePayroll,exportPayroll} from './payroll-io.ts';
+import {readPayrollFile,replayPayroll,savePayroll,restorePayroll} from './payroll-io.ts';
 import {readAssetFile,replayAsset,saveAsset,restoreAsset} from './fixed-assets-io.ts';
 import { exportAssetWorkpaper } from './fixed-assets-sheet.ts';
+import { exportPayrollWorkpaper } from './payroll-sheet.ts';
 import { readStockFile, replayStock, saveStock, restoreStock, exportStockLinks } from './inventory-register-io.ts';
 import { replayGateway, saveGateway, restoreGateway } from './payment-gateway-io.ts';
 import { readGatewayFile } from './payment-gateway-source.ts';
@@ -139,7 +140,7 @@ self.onmessage = async (event: MessageEvent) => {
     else if (action === 'payroll-reconcile') value = await replayPayroll(payload);
     else if (action === 'payroll-save') value = await savePayroll(payload);
     else if (action === 'payroll-restore') value = await restorePayroll(payload.buffer);
-    else if (action === 'payroll-export') value = await exportPayroll(payload.state,payload.result);
+    else if (action === 'payroll-export') value = await exportPayrollWorkpaper(payload.state, payload.result, payload.lang);
     else if (action === 'asset-read') value = await readAssetFile(payload.name,payload.buffer);
     else if (action === 'asset-reconcile') value = await replayAsset(payload);
     else if (action === 'asset-save') value = await saveAsset(payload);
