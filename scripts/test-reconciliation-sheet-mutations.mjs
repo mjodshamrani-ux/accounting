@@ -1025,6 +1025,166 @@ const mutations = [
     "'Consistency of supplied reciprocal ledger transactions with confirmed relationship evidence only;",
     "'Consistency of supplied reciprocal ledger transactions only;",
   ],
+  // UX-6(c), payment gateways. The worker writes the sheet in Arabic
+  // whatever the page asked.
+  [
+    'gateway-worker-language-ignored',
+    'lib/reconciliation/worker.ts',
+    'exportGatewayWorkpaper(payload.state, payload.result, payload.lang)',
+    "exportGatewayWorkpaper(payload.state, payload.result, 'ar')",
+  ],
+  // The gateway binding lets any language through to the worker.
+  [
+    'gateway-binding-language-unchecked',
+    'lib/reconciliation/payment-gateway-worker-binding.ts',
+    "(payload.lang !== 'ar' && payload.lang !== 'en')",
+    'false',
+  ],
+  // The page writes its own copy in Arabic, whatever it asked the worker.
+  [
+    'gateway-binding-language-ignored',
+    'lib/reconciliation/payment-gateway-worker-binding.ts',
+    '      payload.result as import(\'./payment-gateway.ts\').GatewayResult,\n      payload.lang,\n    );',
+    "      payload.result as import('./payment-gateway.ts').GatewayResult,\n      'ar',\n    );",
+  ],
+  // The page checks the worker's reply against the evidence alone.
+  [
+    'gateway-binding-expects-evidence-only',
+    'lib/reconciliation/payment-gateway-worker-binding.ts',
+    "const sheet = await import('./payment-gateway-sheet.ts');\n    const expected = await sheet.exportGatewayWorkpaper(\n      payload.state as GatewayInput,\n      payload.result as import('./payment-gateway.ts').GatewayResult,\n      payload.lang,\n    );",
+    "const expected = await io.exportGateway(\n      payload.state as GatewayInput,\n      payload.result as import('./payment-gateway.ts').GatewayResult,\n    );",
+  ],
+  // The sheet is written in English whatever the language asked.
+  [
+    'gateway-language-not-followed',
+    'lib/reconciliation/payment-gateway-sheet.ts',
+    'gatewaySheet(result, language));',
+    "gatewaySheet(result, 'en'));",
+  ],
+  // A one-option scope field written as the engine's code.
+  [
+    'gateway-scope-code-written',
+    'lib/reconciliation/payment-gateway-sheet.ts',
+    '? t.only[key as keyof typeof ONLY]\n      : v;',
+    '? v\n      : v;',
+  ],
+  // Each source under another's role.
+  [
+    'gateway-sources-swapped',
+    'lib/reconciliation/payment-gateway-sheet.ts',
+    'role: t.roles[i],',
+    'role: t.roles[3 - i],',
+  ],
+  // The attestation written though it was never given.
+  [
+    'gateway-attestation-unconfirmed-written',
+    'lib/reconciliation/payment-gateway-sheet.ts',
+    'rows: result.completeness.confirmed\n',
+    'rows: result.completeness\n',
+  ],
+  // The attestation's reference written where its explanation stands.
+  [
+    'gateway-attestation-note-dropped',
+    'lib/reconciliation/payment-gateway-sheet.ts',
+    'value: value(result.completeness.note),',
+    'value: value(result.completeness.reference),',
+  ],
+  // The calculated totals under each other's headings.
+  [
+    'gateway-totals-reordered',
+    'lib/reconciliation/payment-gateway-sheet.ts',
+    'rows: result.totals ? [result.totals.map(money)] : [],',
+    'rows: result.totals ? [[...result.totals].reverse().map(money)] : [],',
+  ],
+  // A figure written at a fixed precision, not the result's.
+  [
+    'gateway-precision-fixed',
+    'lib/reconciliation/payment-gateway-sheet.ts',
+    '    minor,\n    decimals: result.decimals,',
+    '    minor,\n    decimals: 2,',
+  ],
+  // The last residual left out; the residuals under each other's words;
+  // the first residual written for all five.
+  [
+    'gateway-residual-dropped',
+    'lib/reconciliation/payment-gateway-sheet.ts',
+    'rows: (result.residuals ?? []).map(',
+    'rows: (result.residuals ?? []).slice(0, 4).map(',
+  ],
+  [
+    'gateway-residual-label-shifted',
+    'lib/reconciliation/payment-gateway-sheet.ts',
+    'label: t.residuals[i],',
+    'label: t.residuals[4 - i],',
+  ],
+  [
+    'gateway-residual-as-first',
+    'lib/reconciliation/payment-gateway-sheet.ts',
+    'value: money(minor),',
+    'value: money(result.residuals![0]),',
+  ],
+  // The result's state left out from under the strip, or written as the
+  // engine's code there and in the strip's blocked cell.
+  [
+    'gateway-state-dropped',
+    'lib/reconciliation/payment-gateway-sheet.ts',
+    'more: [\n          {\n            label: alignmentStripCopy[language].state,\n            value: status(result.status),\n          },\n        ],',
+    'more: [],',
+  ],
+  [
+    'gateway-state-as-code',
+    'lib/reconciliation/payment-gateway-sheet.ts',
+    '            value: status(result.status),',
+    '            value: result.status,',
+  ],
+  [
+    'gateway-blocked-state-as-code',
+    'lib/reconciliation/payment-gateway-sheet.ts',
+    '          state: status(result.status),',
+    '          state: result.status,',
+  ],
+  // A decision written without the explanation the reviewer gave.
+  [
+    'gateway-decision-reason-dropped',
+    'lib/reconciliation/payment-gateway-sheet.ts',
+    '[null, value(e.reference), value(e.note)],',
+    '[null, value(e.reference), null],',
+  ],
+  // Every decision said as an approval.
+  [
+    'gateway-decision-said-as-accept',
+    'lib/reconciliation/payment-gateway-sheet.ts',
+    'value(t[e.type])',
+    'value(t.accept)',
+  ],
+  // A decision named by its own number instead of its batch.
+  [
+    'gateway-decision-batch-dropped',
+    'lib/reconciliation/payment-gateway-sheet.ts',
+    'value(e.batchId), value(e.at)]',
+    'value(e.id), value(e.at)]',
+  ],
+  // A decision printed apart from its reference and explanation.
+  [
+    'gateway-decisions-split',
+    'lib/reconciliation/payment-gateway-sheet.ts',
+    'blocks: result.events.map(() => 2),',
+    'blocks: result.events.flatMap(() => [1, 1]),',
+  ],
+  // A word of the sheet that is not the screen's, and a claim that is not
+  // the evidence's.
+  [
+    'gateway-word-off-screen',
+    'lib/i18n/reconciliation-sheet.ts',
+    "residuals: 'Residuals, calculated minus summary',",
+    "residuals: 'Residuals',",
+  ],
+  [
+    'gateway-claim-off-evidence',
+    'lib/i18n/reconciliation-sheet.ts',
+    "'Consistency of supplied sales, refunds and independently evidenced fees with one gateway settlement and bank credit only;",
+    "'Consistency of supplied sales and refunds with one gateway settlement and bank credit only;",
+  ],
 ];
 
 assert.equal(

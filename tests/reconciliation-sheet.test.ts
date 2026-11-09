@@ -5,6 +5,7 @@ import ExcelJS from 'exceljs';
 import JSZip from 'jszip';
 import {
   financialStrip,
+  gatewayStrip,
   glTbStrip,
   intercompanyStrip,
 } from '../lib/alignment-strip.ts';
@@ -99,6 +100,14 @@ import {
   exportIntercompanyWorkpaper,
   intercompanySheet,
 } from '../lib/reconciliation/intercompany-sheet.ts';
+import { gatewayCopy } from '../lib/i18n/payment-gateway.ts';
+import { PG_SCOPE_FIELDS } from '../lib/reconciliation/payment-gateway.ts';
+import { exportGateway } from '../lib/reconciliation/payment-gateway-io.ts';
+import {
+  exportGatewayWorkpaper,
+  gatewaySheet,
+} from '../lib/reconciliation/payment-gateway-sheet.ts';
+import { gatewayCase } from '../audit/reconciliation-sheet/gateway-cases.ts';
 
 // UX-6(a): the reconciliation sheet is added to a workpaper whose evidence is
 // already written, and leaves that evidence byte for byte as it was. Its words
@@ -2745,6 +2754,323 @@ void test('the real worker writes the intercompany sheet in the language asked, 
     }
     await assert.rejects(
       client.request('intercompany-export', { state, result }),
+      /RECONCILIATION_SHEET_LANGUAGE/,
+    );
+  } finally {
+    port.terminate();
+  }
+});
+
+// UX-6(c), payment gateways: frozen cases with the decisions their story
+// records, the declared JPY and KWD precision, the signed kind, and a batch
+// with fifteen decisions; every state the engine gives a result and every
+// review, an attestation given and not, and three precisions.
+const GATEWAY_CASES = [
+  'pending',
+  'accepted',
+  'reject',
+  'undo',
+  'incomplete',
+  'gross-errors-net-cancels',
+  'negative-net',
+  'fee-proof-missing',
+  'missing-settlement',
+  'extra-settlement',
+  'currency-JPY',
+  'currency-KWD',
+  'signed-kwd-three-decimal',
+  'signed-sar-mixed',
+  'long-decisions',
+];
+const GATEWAY_ONLY = {
+  currencyBasis: 'functional',
+  fxPolicy: 'same-currency-no-conversion',
+} as const;
+
+void test('gateway: the evidence stays byte for byte, the result state, the totals, the five residuals, each decision with its reason', async () => {
+  const seen = new Set<string>(),
+    reviews = new Set<string>(),
+    precisions = new Set<number>(),
+    families = new Set<string>();
+  for (const name of GATEWAY_CASES)
+    for (const lang of ['ar', 'en'] as const) {
+      const { state, result } = await gatewayCase(name);
+      seen.add(result.status);
+      reviews.add(result.review);
+      precisions.add(result.decimals);
+      families.add(result.readings[0].family);
+      const evidence = await exportGateway(state, result);
+      const book = await addReconciliationSheet(
+        evidence,
+        gatewaySheet(result, lang),
+      );
+      const before = await parts(evidence),
+        after = await parts(book);
+      for (const [part, bytes] of before)
+        if (!WORKBOOK_PARTS.includes(part))
+          assert.deepEqual(after.get(part), bytes, `${name}: ${part}`);
+      const w = reconciliationSheetCopy[lang],
+        t = w.gateway;
+      const { rows } = await firstSheet(
+        await exportGatewayWorkpaper(state, result, lang),
+      );
+      assert.equal(rows[1][0], t.title, name);
+      const unit = 10 ** result.decimals;
+      const blank = (at: number, what: string) =>
+        assert.deepEqual(
+          rows[at] ?? [null, null, null, null],
+          [null, null, null, null],
+          `${name}: ${what} end`,
+        );
+      const kept = gatewaySheet(result, lang).keep!;
+      // The scope in the screen's words; the two one-option fields in the
+      // card's words for their one value.
+      PG_SCOPE_FIELDS.forEach((key, i) =>
+        assert.deepEqual(
+          rows[rowOf(rows, t.scope[i])].slice(0, 2),
+          [
+            t.scope[i],
+            key in GATEWAY_ONLY &&
+            result.scope[key] === GATEWAY_ONLY[key as keyof typeof GATEWAY_ONLY]
+              ? t.only[key as keyof typeof GATEWAY_ONLY]
+              : result.scope[key],
+          ],
+          `${name}: ${key}`,
+        ),
+      );
+      // The four sources by their roles and whole fingerprints.
+      result.sources.forEach((source, i) => {
+        const at = rows.findIndex(
+          (r) => r[0] === t.roles[i] && r[1] === source.name,
+        );
+        assert.ok(at >= 0, `${name}: ${t.roles[i]}`);
+        assert.deepEqual(rows[at + 1].slice(0, 2), [
+          w.fingerprint,
+          source.hash,
+        ]);
+      });
+      // The strip, cell by cell, from the function the screen draws with;
+      // then the result's state as the screen's heading writes it, the
+      // alignment's last row.
+      const s = alignmentStripCopy[lang];
+      const status = (code: string) =>
+        (t.status as Record<string, string>)[code];
+      for (const cell of stripView(gatewayStrip(result), s, {
+        state: status(result.status),
+      })) {
+        const at = rowOf(rows, cell.label),
+          row = rows[at];
+        if (cell.value.kind === 'count')
+          assert.deepEqual(
+            row.slice(1),
+            cell.value.of === undefined
+              ? [cell.value.count, null, null]
+              : [cell.value.count, w.of, cell.value.of],
+          );
+        else if (cell.value.kind === 'amount')
+          assert.equal(row[1], cell.value.minor / unit, `${name}: the gap`);
+        else assert.equal(row[1], cell.value.text, `${name}: ${cell.cell}`);
+        cell.notes.forEach((n, i) =>
+          assert.deepEqual(
+            rows[at + 1 + i].slice(0, 3),
+            [null, n.text, n.value ?? null],
+            `${name}: ${cell.cell} note ${i + 1}`,
+          ),
+        );
+      }
+      const stateAt = rowOf(rows, s.state);
+      assert.deepEqual(
+        rows[stateAt].slice(0, 2),
+        [s.state, status(result.status)],
+        `${name}: the result's state`,
+      );
+      assert.ok(status(result.status), `${name}: a word for the state`);
+      blank(stateAt + 1, 'the alignment');
+      // The supplied batch inventory attestation, written once given.
+      const attest = headingOf(rows, t.completenessTitle, 'Summary', lang);
+      if (!result.completeness.confirmed)
+        assert.equal(attest, -1, `${name}: no attestation, no section`);
+      else {
+        assert.deepEqual(rows[attest + 1].slice(0, 2), [
+          t.completeReference,
+          result.completeness.reference,
+        ]);
+        assert.deepEqual(rows[attest + 2].slice(0, 2), [
+          t.completeNote,
+          result.completeness.note,
+        ]);
+        blank(attest + 3, 'the attestation');
+      }
+      // The calculated totals, the screen's table, where the engine
+      // computes them, on one printed page.
+      const totals = headingOf(rows, t.tableNames.totals, 'Totals', lang);
+      if (!result.totals) assert.equal(totals, -1, `${name}: no totals`);
+      else {
+        assert.deepEqual(rows[totals + 1], t.totals);
+        assert.deepEqual(
+          rows[totals + 2],
+          result.totals.map((m) => m / unit),
+          `${name}: the totals`,
+        );
+        blank(totals + 3, 'the totals');
+        assert.ok(
+          kept.some(([from, to]) => from === totals && to === totals + 2),
+          `${name}: the totals are kept whole`,
+        );
+      }
+      // The five residuals, each by its word, where the engine computes
+      // them, on one printed page.
+      const residuals = headingOf(
+        rows,
+        t.tableNames.residuals,
+        'Residuals',
+        lang,
+      );
+      if (!result.residuals)
+        assert.equal(residuals, -1, `${name}: no residuals`);
+      else {
+        assert.equal(result.residuals.length, 5);
+        result.residuals.forEach((minor, k) =>
+          assert.deepEqual(
+            rows[residuals + 1 + k].slice(0, 2),
+            [t.residuals[k], minor / unit],
+            `${name}: residual ${k + 1}`,
+          ),
+        );
+        blank(residuals + 6, 'the residuals');
+        assert.ok(
+          kept.some(([from, to]) => from === residuals && to === residuals + 5),
+          `${name}: the residuals are kept whole`,
+        );
+      }
+      // Each recorded decision: its button's word, the batch and its time,
+      // then the reference and the explanation given.
+      const events = headingOf(rows, w.decisions, 'Events', lang);
+      if (!result.events.length)
+        assert.equal(events, -1, `${name}: no decisions, no table`);
+      result.events.forEach((e, k) => {
+        const at = events + 1 + 2 * k;
+        assert.deepEqual(rows[at].slice(0, 3), [t[e.type], e.batchId, e.at]);
+        assert.deepEqual(rows[at + 1].slice(0, 3), [null, e.reference, e.note]);
+        if (k)
+          assert.ok(
+            kept.some(([from, to]) => from === at && to === at + 1),
+            `${name}: decision ${k + 1} kept whole`,
+          );
+      });
+      if (result.events.length)
+        blank(events + 1 + 2 * result.events.length, 'the decisions');
+      assert.equal(rows.at(-1)![0], t.claim);
+    }
+  // The cases cover a result of every state the engine gives, every
+  // review, three precisions and both transaction families.
+  assert.deepEqual([...seen].sort(), [
+    'consistent-with-evidence',
+    'difference',
+    'missing',
+    'needs-review',
+    'source-error',
+  ]);
+  assert.deepEqual([...reviews].sort(), [
+    'accepted',
+    'needs-review',
+    'rejected',
+  ]);
+  assert.deepEqual(
+    [...precisions].sort((a, b) => a - b),
+    [0, 2, 3],
+  );
+  assert.deepEqual([...families].sort(), [
+    'payment-gateway-batch-1',
+    'payment-gateway-signed-kind-1',
+  ]);
+});
+
+void test('gateway: the words are the screen words, and the claim in English is the evidence words', async () => {
+  for (const lang of ['ar', 'en'] as const) {
+    const t = reconciliationSheetCopy[lang].gateway;
+    for (const key of Object.keys(t) as (keyof typeof t)[])
+      if (key !== 'claim')
+        assert.deepEqual(
+          t[key],
+          (gatewayCopy[lang] as Record<string, unknown>)[key],
+          `${lang} gateway.${key}`,
+        );
+  }
+  const { state, result } = await gatewayCase('pending');
+  const wb = new ExcelJS.Workbook();
+  await wb.xlsx.load(await exportGateway(state, result));
+  const claim = wb
+    .getWorksheet('Summary')!
+    .getRows(1, 40)!
+    .find((r) => r.getCell(1).value === 'Claim')!
+    .getCell(2).value;
+  assert.equal(reconciliationSheetCopy.en.gateway.claim, claim);
+  assert.notEqual(reconciliationSheetCopy.ar.gateway.claim, claim);
+});
+
+void test('the real worker writes the payment gateway sheet in the language asked, and the binding refuses a request without one', async () => {
+  const { state, result } = await gatewayCase('reject');
+  // What the worker itself sent, before the page checks it; and, when set,
+  // another workbook put in its place.
+  const sent: ArrayBuffer[] = [];
+  let replaced: ArrayBuffer | null = null;
+  const port = new GlTbBindingPort((response, deliver) => {
+    if (response.action === 'gateway-export' && response.ok) {
+      sent.push((response.value as ArrayBuffer).slice(0));
+      if (replaced) response = { ...response, value: replaced.slice(0) };
+    }
+    deliver(response);
+  });
+  const names = async (bytes: ArrayBuffer) => {
+    const book = new ExcelJS.Workbook();
+    await book.xlsx.load(bytes);
+    return book.worksheets.slice(0, 2).map((s) => s.name);
+  };
+  try {
+    const client = createWorkerClient(() => port);
+    for (const lang of ['ar', 'en'] as const) {
+      const reply = await client
+        .request<ArrayBuffer>('gateway-export', { state, result, lang })
+        .catch((error: unknown) => error);
+      // The worker wrote the language asked, whatever the page then does.
+      assert.deepEqual(await names(sent.at(-1)!), [
+        reconciliationSheetCopy[lang].name,
+        'Summary',
+      ]);
+      // And the page, writing the same workpaper itself, accepted it.
+      assert.ok(
+        reply instanceof ArrayBuffer,
+        `the page accepted the ${lang} workpaper`,
+      );
+      assert.deepEqual(await names(reply), [
+        reconciliationSheetCopy[lang].name,
+        'Summary',
+      ]);
+      const { rows } = await firstSheet(reply);
+      assert.equal(rows[1][0], reconciliationSheetCopy[lang].gateway.title);
+    }
+    // A reply in the other language is not the one asked for.
+    replaced = sent[0];
+    await assert.rejects(
+      client.request('gateway-export', { state, result, lang: 'en' }),
+      /PG_WORKER_BINDING/,
+    );
+    replaced = null;
+    // Refused by the binding before the worker, with no language or another;
+    // and the worker's export, asked without one, refuses it before any work.
+    const before = sent.length;
+    for (const payload of [
+      { state, result },
+      { state, result, lang: 'fr' },
+    ])
+      await assert.rejects(
+        client.request('gateway-export', payload),
+        /PG_WORKER_INPUT/,
+      );
+    assert.equal(sent.length, before, 'the worker saw no refused request');
+    await assert.rejects(
+      exportGatewayWorkpaper(state, result, undefined),
       /RECONCILIATION_SHEET_LANGUAGE/,
     );
   } finally {

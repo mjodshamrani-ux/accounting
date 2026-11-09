@@ -1101,3 +1101,157 @@ export async function intercompanySheetSaysScreen(page, { file, lang }) {
   if (events.length) blankRow(taken + 1 + 2 * events.length, 'the decisions');
   return { rows: grid.length, pairs: count, decisions: events.length };
 }
+
+const GATEWAY_WORDS = {
+  ar: {
+    decisions: 'القرارات المسجلة',
+    complete:
+      'راجعت جميع المعاملات وتفاصيل الرسوم المستقلة والتسوية وحركة الإيداع المورّدة.',
+    completeReference: 'مرجع اكتمال بوابة الدفع',
+    completeNote: 'شرح اكتمال بوابة الدفع',
+    totals: 'المجاميع المحسوبة',
+    residuals: 'الفروق، المحسوب ناقص الملخص',
+  },
+  en: {
+    decisions: 'Recorded decisions',
+    complete:
+      'I reviewed all supplied transactions, independent fee detail, settlement and bank credit.',
+    completeReference: 'Gateway completeness reference',
+    completeNote: 'Gateway completeness explanation',
+    totals: 'Calculated totals',
+    residuals: 'Residuals, calculated minus summary',
+  },
+};
+
+/** A record table's head and body cells, as the page writes them. */
+async function tableCells(table) {
+  const head = (await table.locator('thead th').allTextContents()).map((x) =>
+    x.trim(),
+  );
+  const body = await table
+    .locator('tbody tr')
+    .evaluateAll((rows) =>
+      rows.map((r) =>
+        Array.from(r.querySelectorAll('th,td')).map((c) => c.textContent.trim()),
+      ),
+    );
+  return { head, body };
+}
+
+/**
+ * UX-6(c), payment gateways: the strip as the page draws it, and under it
+ * the result's state as the page's heading writes it; the attestation as the
+ * page holds it, once given; the calculated totals as the page's table has
+ * them; the five residuals, each by its heading on the page with its
+ * figure; and every decision in the page's history, with the batch, its
+ * time, the reference and the explanation. Each section holds what the page
+ * shows and no more.
+ */
+export async function gatewaySheetSaysScreen(page, { file, lang }) {
+  const grid = await readSheet(file, lang);
+  const w = page.locator('[data-gateway-workspace]');
+  await stripSaysScreen(grid, w);
+  await stateSaysHeading(grid, w.locator('[data-gateway-status]'), lang);
+  const words = GATEWAY_WORDS[lang];
+  const blankRow = (at, what) =>
+    assert.ok(
+      (grid[at] ?? [null]).every((c) => c === null),
+      `${what} and no more`,
+    );
+  // A section by the evidence it stands in, after a given row.
+  const section = (evidence, after = -1) =>
+    grid.findIndex(
+      (r, i) => i > after && r[0] !== null && r[1] === null && r[3] === evidence,
+    );
+  const state = grid.findIndex((r) => r[0] === RESULT_STATE[lang]);
+  // The attestation, as the page holds it, once given.
+  const attest = grid.findIndex(
+    (r, i) =>
+      i > state &&
+      r[1] === null &&
+      r[3] === 'Summary' &&
+      grid[i + 1]?.[0] === words.completeReference,
+  );
+  if (await w.getByLabel(words.complete, { exact: true }).isChecked()) {
+    assert.ok(attest >= 0, 'the attestation');
+    for (const [k, label] of [
+      [1, words.completeReference],
+      [2, words.completeNote],
+    ])
+      assert.deepEqual(
+        grid[attest + k].slice(0, 2),
+        [label, await w.getByLabel(label, { exact: true }).inputValue()],
+        label,
+      );
+    blankRow(attest + 3, 'the attestation');
+  } else assert.equal(attest, -1, 'no attestation, no section');
+  // The calculated totals: the page's table, head and row; none where the
+  // page has no row.
+  const totals = section('Totals');
+  const shown = await tableCells(
+    w.locator(`table[aria-label="${words.totals}"]`),
+  );
+  if (!shown.body.length) assert.equal(totals, -1, 'no totals, no table');
+  else {
+    assert.ok(totals >= 0, 'the calculated totals');
+    assert.equal(grid[totals][0], words.totals, 'the totals heading');
+    assert.deepEqual(grid[totals + 1], shown.head, 'the totals head');
+    assert.equal(shown.body.length, 1, 'one row of totals');
+    shown.body[0].forEach((text, j) =>
+      same(text, grid[totals + 2][j], `totals cell ${j + 1}`),
+    );
+    blankRow(totals + 3, 'the totals');
+  }
+  // The five residuals: each heading of the page's table with its figure,
+  // a row each; none where the page has no row.
+  const residuals = section('Residuals');
+  const owed = await tableCells(
+    w.locator(`table[aria-label="${words.residuals}"]`),
+  );
+  if (!owed.body.length) assert.equal(residuals, -1, 'no residuals, no list');
+  else {
+    assert.ok(residuals >= 0, 'the residuals');
+    assert.equal(grid[residuals][0], words.residuals, 'the residuals heading');
+    assert.equal(owed.head.length, 5, 'five residuals on the page');
+    owed.head.forEach((label, k) => {
+      assert.equal(grid[residuals + 1 + k][0], label, `residual ${k + 1}`);
+      same(owed.body[0][k], grid[residuals + 1 + k][1], `residual ${label}`);
+    });
+    blankRow(residuals + 6, 'the residuals');
+  }
+  // Every decision in the page's history: what it did, the batch and its
+  // time, then the reference and the explanation.
+  const events = await w
+    .locator('[data-evidence-section="events"] tbody tr')
+    .evaluateAll((rows) =>
+      rows.map((r) =>
+        Array.from(r.querySelectorAll('th,td')).map((c) => c.textContent.trim()),
+      ),
+    );
+  const taken = section('Events');
+  if (!events.length) assert.equal(taken, -1, 'no decision, no table');
+  else {
+    assert.ok(taken >= 0, 'the recorded decisions');
+    assert.equal(grid[taken][0], words.decisions, 'the decisions heading');
+  }
+  events.forEach(([type, batch, time, reference, reason], k) => {
+    const row = taken + 1 + 2 * k;
+    assert.deepEqual(
+      grid[row].slice(0, 3),
+      [type, batch, time],
+      `decision ${k + 1}: what it did, the batch and its time`,
+    );
+    assert.deepEqual(
+      grid[row + 1].slice(0, 3),
+      [null, reference, reason],
+      `decision ${k + 1}: the reference and the explanation given`,
+    );
+  });
+  if (events.length) blankRow(taken + 1 + 2 * events.length, 'the decisions');
+  return {
+    rows: grid.length,
+    totals: shown.body.length,
+    residuals: owed.body.length ? 5 : 0,
+    decisions: events.length,
+  };
+}

@@ -2236,6 +2236,270 @@ def check_intercompany(evidence, book, lang, summary):
     return {'status': summary['Status'], 'rows': len(rows)}
 
 
+PG_SCOPE = ['entity', 'gateway', 'merchantAccount', 'bankAccount',
+            'dimensions', 'currency', 'currencyBasis', 'fxPolicy', 'start',
+            'end', 'asOf', 'policyVersion', 'batchId']
+PG_ONLY = {'currencyBasis': 'functional',
+           'fxPolicy': 'same-currency-no-conversion'}
+PG_CODES = {'source-error', 'missing', 'difference', 'needs-review',
+            'consistent-with-evidence', 'ready', 'accepted', 'rejected',
+            'accept', 'reject', 'undo', 'functional',
+            'same-currency-no-conversion', 'sale', 'refund'}
+
+
+def check_gateway(evidence, book, lang, summary):
+    """The payment gateway sheet against its evidence: Summary,
+    Transactions, Fee evidence, Settlement, Payout, Totals, Residuals,
+    Missing, Issues, Inventory, Events, Event members and Sources. The
+    evidence is held to itself first: the totals are the sums of the
+    transactions by kind and of the evidenced fees, none where a source holds
+    an error; the five residuals are the totals less the one settlement's,
+    and its net less the one bank credit, none otherwise; the result's state
+    follows from the issues, the missing evidence, the residuals, the
+    attestation and the review; each decision names the batch and holds
+    every non-blank original row of the four files."""
+    decimals = int(summary['Decimals'])
+    unit = Decimal(10) ** decimals
+    rows_of = lambda name: [dict(zip(evidence.table(name)[0], r))
+                            for r in evidence.table(name)[1:]]
+    transactions = rows_of('Transactions')
+    fees = rows_of('Fee evidence')
+    settlement = rows_of('Settlement')
+    payout = rows_of('Payout')
+    totals = rows_of('Totals')
+    residuals = rows_of('Residuals')
+    issues = rows_of('Issues')
+    missing = rows_of('Missing')
+    inventory = rows_of('Inventory')
+    events = rows_of('Events')
+    held = rows_of('Event members')
+    signed = summary.get('Transaction family') == 'payment-gateway-signed-kind-1'
+    amount = 'Canonical magnitude minor units' if signed else 'Amount'
+    error = bool(issues)
+    need(len(totals) == (0 if error else 1), 'EVIDENCE_READ', 'totals')
+    figures = None
+    if totals:
+        gross = sum(int(t[amount]) for t in transactions if t['Kind'] == 'sale')
+        refunds = sum(int(t[amount]) for t in transactions
+                      if t['Kind'] == 'refund')
+        evidenced = sum(int(f['Amount']) for f in fees)
+        figures = [gross, refunds, evidenced, gross - refunds - evidenced]
+        need([int(totals[0][k]) for k in ('Gross sales', 'Refunds',
+              'Evidenced fees', 'Calculated net')] == figures,
+             'EVIDENCE_READ', 'totals from the records')
+    computed = not error and len(settlement) == 1 and len(payout) == 1
+    need(len(residuals) == (1 if computed else 0), 'EVIDENCE_READ',
+         'residuals')
+    gaps = None
+    if residuals:
+        s = settlement[0]
+        gaps = [figures[0] - int(s['Gross sales']),
+                figures[1] - int(s['Refunds']),
+                figures[2] - int(s['Fees']),
+                figures[3] - int(s['Net']),
+                int(s['Net']) - int(payout[0]['Credit'])]
+        need([int(residuals[0][k]) for k in ('Gross sales', 'Refunds', 'Fees',
+              'Net', 'Bank credit')] == gaps, 'EVIDENCE_READ',
+             'residuals from the totals, the settlement and the bank credit')
+    confirmed = summary['Completeness confirmed'] == 'true'
+    state = ('source-error' if error else 'missing' if missing else
+             'difference' if gaps and any(gaps) else
+             'consistent-with-evidence' if confirmed and
+             summary['Review'] == 'accepted' else 'needs-review')
+    need(summary['Status'] == state, 'EVIDENCE_READ',
+         f'state {summary["Status"]} != {state}')
+    batch = sorted(json.dumps([summary['Version'], int(r['Source']), r['Hash'],
+                               0, int(r['Source row'])], separators=(',', ':'))
+                   for r in inventory if int(r['Source row']) > 1 and
+                   r['Kind'] not in ('header', 'blank'))
+    for e in events:
+        need(e['Batch ID'] == summary['batchId'], 'EVIDENCE_READ',
+             f'{e["Event ID"]} batch')
+        need(sorted(m['Record ID'] for m in held
+                    if m['Event ID'] == e['Event ID']) == batch,
+             'EVIDENCE_READ', f'{e["Event ID"]} holds the whole batch')
+    sources = {}
+    for r in rows_of('Sources'):
+        src = sources.setdefault(int(r['Source']), {
+            'name': r['Name'], 'hash': r['Hash'], 'chunks': []})
+        src['chunks'].append((int(r['Chunk']), r['Original base64']))
+    for side, src in sources.items():
+        data = base64.b64decode(''.join(c for _, c in sorted(src['chunks'])),
+                                validate=True)
+        need(hashlib.sha256(data).hexdigest() == src['hash'], 'EVIDENCE_READ',
+             f'source {side} fingerprint')
+    need(sorted(sources) == [0, 1, 2, 3], 'EVIDENCE_READ', 'four sources')
+
+    expected = (['Summary', 'Sources', None] +
+                (['Summary'] if confirmed else []) +
+                (['Totals'] if totals else []) +
+                (['Residuals'] if residuals else []) +
+                (['Events'] if events else []) + [None, 'Summary'])
+    rows, styles, line, sections = layout(book, evidence, lang, expected)
+    scope, srcs, strip = sections[:3]
+    rest = sections[3:-2]
+    attest = rest.pop(0) if confirmed else None
+    table = rest.pop(0) if totals else None
+    gap_list = rest.pop(0) if residuals else None
+    taken = rest.pop(0) if events else None
+    sign, claim = sections[-2:]
+    # Every state the sheet says, one word a code across the sheet: the
+    # result's, under the strip and in the strip's gap when nothing is
+    # computed.
+    states = []
+
+    # Scope: the thirteen fields in the engine's order, the one-option two in
+    # the card's words.
+    need(len(scope['rows']) == len(PG_SCOPE), 'SCOPE', 'thirteen fields')
+    for key, (_, row) in zip(PG_SCOPE, scope['rows']):
+        need(text(row[0]) and text(row[1]), 'SCOPE', key)
+        if key in PG_ONLY and summary[key] == PG_ONLY[key]:
+            need(row[1][1] not in PG_CODES, 'RAW_CODE', key)
+            seen_words(lang, f'gateway {key}', [(summary[key], row[1][1])])
+        else:
+            need(row[1][1] == summary[key], 'SCOPE', key)
+
+    # Sources: the four roles, each file and its whole fingerprint, the
+    # SHA-256 of the original bytes.
+    need(len(srcs['rows']) == 8, 'SOURCES', 'four sources')
+    roles = []
+    for side in (0, 1, 2, 3):
+        (_, named), (_, printed) = srcs['rows'][2 * side:2 * side + 2]
+        need(text(named[0]) and text(named[1]) and
+             named[1][1] == sources[side]['name'], 'SOURCES', f'source {side}')
+        roles.append(named[0][1])
+        need(text(printed[1]) and HEX64.match(printed[1][1]) and
+             printed[1][1] == sources[side]['hash'], 'FINGERPRINT',
+             f'source {side}')
+    need(len(set(roles)) == 4, 'SOURCES', 'two sources one name')
+
+    # Alignment: the residuals at zero of the five, the whole batch's review,
+    # the first residual that is not zero with how many more, or none, or
+    # the state where none is computed; then the result's state.
+    srows = [row for _, row in strip['rows']]
+    agreed = srows.pop(0)
+    zero = sum(1 for g in gaps if g == 0) if gaps else 0
+    need(number(agreed[1]) and agreed[1][1] == zero, 'AGREED_COUNT',
+         f'{agreed[1]} != {zero}')
+    if gaps:
+        need(text(agreed[2]) and number(agreed[3]) and agreed[3][1] == 5,
+             'AGREED_COUNT', f'of {agreed[3]}')
+    else:
+        need(blank(agreed[2]) and blank(agreed[3]), 'AGREED_COUNT',
+             'of what is not computed')
+    unit_note = srows.pop(0)
+    need(blank(unit_note[0]) and text(unit_note[1]), 'STRIP', 'unit note')
+    review = srows.pop(0)
+    review_note = srows.pop(0)
+    need(text(review[0]) and text(review[1]) and blank(review_note[0]) and
+         text(review_note[1]), 'REVIEW_COUNT', 'the whole batch review')
+    need(review[1][1] not in PG_CODES and review_note[1][1] not in PG_CODES,
+         'RAW_CODE', 'review')
+    # What awaits a decision: the whole batch while it waits, nothing once
+    # decided, one word each across the run; and one note a review.
+    seen_words(lang, 'gateway awaiting',
+               [(summary['Review'] == 'needs-review', review[1][1])])
+    seen_words(lang, 'gateway review note',
+               [(summary['Review'], review_note[1][1])])
+    gap = srows.pop(0)
+    numbers_strip = 1 + (1 if gaps else 0)
+    if gaps and any(gaps):
+        first = next(g for g in gaps if g)
+        need(number(gap[1]) and gap[1][1] == Decimal(first) / unit, 'GAP',
+             f'{gap[1]} != {first}')
+        named = srows.pop(0)
+        need(blank(named[0]) and text(named[1]) and text(named[2]), 'GAP',
+             'the first residual named')
+        numbers_strip += 1
+        more = sum(1 for g in gaps if g) - 1
+        if more:
+            others = srows.pop(0)
+            need(blank(others[0]) and text(others[1]) and number(others[2]) and
+                 others[2][1] == more, 'GAP', f'{others[2]} != {more}')
+            numbers_strip += 1
+    elif gaps:
+        compared = srows.pop(0)
+        need(text(gap[1]) and blank(compared[0]) and text(compared[1]) and
+             number(compared[2]) and compared[2][1] == 5, 'GAP',
+             'no difference in five')
+        numbers_strip += 1
+    else:
+        note = srows.pop(0)
+        need(text(gap[1]) and blank(note[0]) and text(note[1]), 'GAP',
+             'not computed, the state said')
+        states.append((summary['Status'], note[1][1]))
+    said = srows.pop(0) if srows else [None] * 4
+    need(text(said[0]) and text(said[1]), 'RESULT_STATE',
+         'the result without its state')
+    states.append((summary['Status'], said[1][1]))
+    need(not srows, 'STRIP', f'{len(srows)} rows more')
+    words_of(states, 'state', PG_CODES)
+    seen_words(lang, 'gateway state', states)
+
+    # The batch inventory attestation: the reference and the explanation the
+    # reviewer gave.
+    if confirmed:
+        need(len(attest['rows']) == 2, 'ATTESTATION', 'two rows')
+        (_, ref), (_, why) = attest['rows']
+        need(text(ref[0]) and text(ref[1]) and
+             ref[1][1] == summary['Completeness reference'], 'ATTESTATION',
+             'reference')
+        need(text(why[0]) and text(why[1]) and
+             why[1][1] == summary['Completeness reason'], 'ATTESTATION_REASON',
+             'attestation without its reason')
+
+    # The calculated totals: the four headings and the one row.
+    if totals:
+        head, *body = table['rows']
+        need(all(text(c) and styles.bold(c[2]) for c in head[1][:4]),
+             'TOTALS', 'head')
+        need(len(body) == 1, 'TOTALS', 'one row')
+        for c, v in enumerate(figures):
+            cell = body[0][1][c]
+            need(number(cell) and cell[1] == Decimal(v) / unit, 'TOTALS',
+                 f'column {c + 1}: {cell} != {v}')
+
+    # The five residuals, each named once and as the screen names it.
+    if residuals:
+        need(len(gap_list['rows']) == 5, 'RESIDUALS', 'five residuals')
+        labels = []
+        for k, (_, row) in enumerate(gap_list['rows']):
+            need(text(row[0]), 'RESIDUALS', f'residual {k + 1} named')
+            labels.append(row[0][1])
+            need(number(row[1]) and row[1][1] == Decimal(gaps[k]) / unit,
+                 'RESIDUALS', f'residual {k + 1}: {row[1]} != {gaps[k]}')
+        need(len(set(labels)) == 5, 'RESIDUALS', 'each residual named once')
+
+    # Each recorded decision: what it did, the batch and its time, then the
+    # reference and the explanation the reviewer gave.
+    if events:
+        it = iter(taken['rows'])
+        actions = []
+        for e in events:
+            _, head = next(it, (None, [None] * 4))
+            need(text(head[0]), 'DECISION_ACTION', e['Event ID'])
+            actions.append((e['Type'], head[0][1]))
+            need(text(head[1]) and head[1][1] == e['Batch ID'],
+                 'DECISION_BATCH', e['Event ID'])
+            need(text(head[2]) and head[2][1] == e['UTC time'],
+                 'DECISION_TIME', e['Event ID'])
+            _, words = next(it, (None, [None] * 4))
+            need(blank(words[0]), 'DECISIONS', e['Event ID'])
+            need(text(words[1]) and words[1][1] == e['Reference'],
+                 'DECISION_REFERENCE', e['Event ID'])
+            need(text(words[2]) and words[2][1] == e['Note'], 'DECISION_REASON',
+                 f'decision {e["Event ID"]} without its reason')
+        need(next(it, None) is None, 'DECISIONS', 'rows more than the decisions')
+        words_of(actions, 'decision_action', PG_CODES)
+        seen_words(lang, 'gateway decision', actions)
+
+    check_sign_and_claim(sign, claim, line, lang, summary['Claim'])
+
+    numbers = sum(1 for row in rows for c in row if number(c))
+    expected = numbers_strip + (4 if totals else 0) + (5 if residuals else 0)
+    need(numbers == expected, 'STRAY_NUMBER', f'{numbers} != {expected}')
+    return {'status': summary['Status'], 'rows': len(rows)}
+
 PROFILES = {'gl-trial-balance-consistency': check_gl_tb,
             'single-account-clearing': check_clearing,
             'customer-ar-document-comparison': check_ar,
@@ -2243,7 +2507,8 @@ PROFILES = {'gl-trial-balance-consistency': check_gl_tb,
             'payment-allocation': check_allocation,
             'supplier-statement-comparison': check_supplier,
             'tb-financial-position': check_financial,
-            'intercompany-ledger': check_intercompany}
+            'intercompany-ledger': check_intercompany,
+            'payment-gateway-batch': check_gateway}
 WORKSPACES = {'gl-tb': 'gl-trial-balance-consistency',
               'clearing': 'single-account-clearing',
               'ar': 'customer-ar-document-comparison',
@@ -2251,7 +2516,8 @@ WORKSPACES = {'gl-tb': 'gl-trial-balance-consistency',
               'allocation': 'payment-allocation',
               'supplier': 'supplier-statement-comparison',
               'financial': 'tb-financial-position',
-              'intercompany': 'intercompany-ledger'}
+              'intercompany': 'intercompany-ledger',
+              'gateway': 'payment-gateway-batch'}
 
 
 def verify(folder):
@@ -2717,6 +2983,101 @@ def intercompany_missing_plants(data):
         data, sheet, gone)
 
 
+def gateway_plants(data):
+    """Faults a payment gateway workpaper can carry: in its decisions, its
+    residuals, its totals, its attestation, its strip, its state and its
+    scope, in a sheet whose whole batch was approved, undone, rejected and
+    undone three times over, and approved: fifteen decisions."""
+    sheet = _first_sheet(data)
+
+    def row_edit(label, offset, change):
+        def go(x):
+            n = _cell(x, label) + offset
+            old = _row(x, n)
+            return x.replace(old, change(old), 1)
+        return _edit(data, sheet, go)
+
+    plus = lambda col: lambda r: re.sub(
+        rf'(<c r="{col}\d+"[^>]*><v>)(-?\d+)',
+        lambda m: f'{m.group(1)}{int(m.group(2)) + 1}', r, count=1)
+    drop = lambda col: lambda r: re.sub(rf'<c r="{col}\d+"[^>]*>.*?</c>', '', r)
+    accept, reject = 'اعتمد الدفعة كاملة', 'ارفض الدفعة كاملة'
+    undo = 'ألغ قرار الدفعة'
+    yield 'decision without its reason', 'DECISION_REASON', row_edit(
+        reject, 1, drop('C'))
+    yield 'rejection said as an approval', 'DECISION_ACTION', row_edit(
+        reject, 0, lambda r: r.replace(f'>{reject}<', f'>{accept}<', 1))
+    yield 'undo of another batch', 'DECISION_BATCH', row_edit(
+        undo, 0, lambda r: r.replace('>BATCH-001<', '>BATCH-002<', 1))
+    yield 'decision reference changed', 'DECISION_REFERENCE', row_edit(
+        undo, 1, lambda r: r.replace('>Synthetic second review<',
+                                     '>Another review<', 1))
+    yield 'decision time changed', 'DECISION_TIME', row_edit(
+        accept, 0, lambda r: r.replace('.000Z<', '.999Z<', 1))
+    yield 'fee residual changed', 'RESIDUALS', row_edit(
+        'فرق الرسوم، المحسوب ناقص الملخص', 0, plus('B'))
+    yield 'residual named as another', 'RESIDUALS', row_edit(
+        'فرق المرتجعات، المحسوب ناقص الملخص', 0, lambda r: r.replace(
+            '>فرق المرتجعات، المحسوب ناقص الملخص<',
+            '>فرق المبيعات، المحسوب ناقص الملخص<', 1))
+    yield 'evidenced fees changed', 'TOTALS', row_edit(
+        'إجمالي المبيعات', 1, plus('C'))
+    yield 'attestation explanation changed', 'ATTESTATION_REASON', row_edit(
+        'شرح اكتمال بوابة الدفع', 0,
+        lambda r: r.replace('>All supplied', '>Some', 1))
+    yield 'aligned count changed', 'AGREED_COUNT', row_edit(
+        'تراصف', 0, plus('B'))
+    yield 'approved batch said as rejected', 'GATEWAY REVIEW NOTE', row_edit(
+        'ينتظر قرارك', 1, lambda r: r.replace(
+            '>قُبلت النتيجة بقرار مسجل<', '>رُفضت النتيجة بقرار مسجل<', 1))
+    yield 'result state said as a review', 'GATEWAY STATE', row_edit(
+        'حالة النتيجة', 0,
+        lambda r: r.replace('>متسقة ضمن الأدلة المؤكدة<', '>معتمدة<', 1))
+    yield 'one-option field as its code', 'RAW_CODE', row_edit(
+        'سياسة الصرف', 0, lambda r: r.replace(
+            '>العملة نفسها بلا تحويل<', '>same-currency-no-conversion<', 1))
+
+
+def gateway_difference_plants(data):
+    """Faults in a sheet whose gross sales and refunds both differ from the
+    settlement while its net agrees: the first residual in the strip, how
+    many more there are, and the result's state."""
+    sheet = _first_sheet(data)
+
+    def row_edit(label, offset, change):
+        def go(x):
+            n = _cell(x, label) + offset
+            old = _row(x, n)
+            return x.replace(old, change(old), 1)
+        return _edit(data, sheet, go)
+
+    plus = lambda col: lambda r: re.sub(
+        rf'(<c r="{col}\d+"[^>]*><v>)(-?\d+)',
+        lambda m: f'{m.group(1)}{int(m.group(2)) + 1}', r, count=1)
+    yield 'first residual changed in the strip', 'GAP', row_edit(
+        'الفجوة', 0, plus('B'))
+    yield 'residuals not zero miscounted', 'GAP', row_edit(
+        'الفجوة', 2, plus('C'))
+
+    def gone(x):
+        return x.replace(_row(x, _cell(x, 'حالة النتيجة')), '', 1)
+    yield 'the result without its state', 'RESULT_STATE', _edit(
+        data, sheet, gone)
+
+
+def gateway_error_plants(data):
+    """A fault in a sheet whose source holds an error, where the strip's gap
+    says the state the engine computes no residual in: that state said as
+    another."""
+    sheet = _first_sheet(data)
+
+    def go(x):
+        n = _cell(x, 'الفجوة') + 1
+        old = _row(x, n)
+        return x.replace(old, old.replace('>أدلة المصدر غير صالحة<',
+                                          '>الأدلة المطلوبة ناقصة<', 1), 1)
+    yield 'state in the gap said as another', 'STATE', _edit(data, sheet, go)
+
 def page_plants(data):
     """A sheet that needs its break, printed without it: its heading would
     end about a point past its page by the checker's estimate, which only
@@ -2764,6 +3125,12 @@ def self_test(folder):
                             intercompany_plants)
     found += _self_test_one(folder, pick('intercompany-one-counterparty-missing'),
                             intercompany_missing_plants)
+    found += _self_test_one(folder, pick('gateway-long-decisions'),
+                            gateway_plants)
+    found += _self_test_one(folder, pick('gateway-gross-errors-net-cancels'),
+                            gateway_difference_plants)
+    found += _self_test_one(folder, pick('gateway-extra-settlement'),
+                            gateway_error_plants)
     return found
 
 

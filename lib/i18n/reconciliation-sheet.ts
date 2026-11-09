@@ -346,6 +346,40 @@ export type ReconciliationSheetCopy = {
      * interface's language; the English is the evidence's words exactly. */
     claim: string;
   };
+  /** The payment gateway sheet (UX-6(c)), in the workspace's own words (the
+   * screen's catalogue, held equal key by key by a test). */
+  gateway: {
+    title: string;
+    /** The thirteen scope fields, in the engine's order. */
+    scope: string[];
+    /** The one value each of these fields takes in this family. */
+    only: Record<'currencyBasis' | 'fxPolicy', string>;
+    roles: string[];
+    status: Record<
+      | 'source-error'
+      | 'missing'
+      | 'difference'
+      | 'needs-review'
+      | 'consistent-with-evidence'
+      | 'ready'
+      | 'accepted'
+      | 'rejected',
+      string
+    >;
+    completenessTitle: string;
+    completeReference: string;
+    completeNote: string;
+    tableNames: { totals: string; residuals: string };
+    totals: string[];
+    /** The five residuals, each in the screen's words. */
+    residuals: string[];
+    accept: string;
+    reject: string;
+    undo: string;
+    /** The engine's claim as the evidence's Summary sheet writes it, in the
+     * interface's language; the English is the evidence's words exactly. */
+    claim: string;
+  };
 };
 
 export const reconciliationSheetCopy: Record<
@@ -758,6 +792,69 @@ export const reconciliationSheetCopy: Record<
       undo: 'تراجع عن قرار الزوج',
       claim:
         'اتساق معاملات الدفترين المتبادلة المورّدة مع أدلة العلاقة المؤكدة وحدها؛ لا رأي في ترحيل ولا حذف ولا توحيد ولا في أصالة المصدر ولا في اكتمال نظام الموارد',
+    },
+    gateway: {
+      title: 'أدلة دفعة بوابة الدفع',
+      scope: [
+        'المنشأة',
+        'بوابة الدفع',
+        'حساب التاجر',
+        'الحساب البنكي',
+        'الأبعاد الكاملة',
+        'العملة',
+        'أساس العملة',
+        'سياسة الصرف',
+        'بداية الفترة',
+        'نهاية الفترة',
+        'التاريخ المرجعي',
+        'إصدار السياسة',
+        'معرف دفعة التسوية',
+      ],
+      only: {
+        currencyBasis: 'وظيفية',
+        fxPolicy: 'العملة نفسها بلا تحويل',
+      },
+      roles: [
+        'مبيعات ومرتجعات البوابة',
+        'أدلة الرسوم المستقلة',
+        'ملخص تسوية البوابة',
+        'أدلة الإيداع البنكي',
+      ],
+      status: {
+        'source-error': 'أدلة المصدر غير صالحة',
+        missing: 'الأدلة المطلوبة ناقصة',
+        difference: 'يوجد فرق في دفعة التسوية',
+        'needs-review': 'تلزم مراجعة الدفعة كاملة',
+        'consistent-with-evidence': 'متسقة ضمن الأدلة المؤكدة',
+        ready: 'جاهزة للمراجعة',
+        accepted: 'معتمدة',
+        rejected: 'مرفوضة',
+      },
+      completenessTitle: 'جرد الدفعة المورّدة',
+      completeReference: 'مرجع اكتمال بوابة الدفع',
+      completeNote: 'شرح اكتمال بوابة الدفع',
+      tableNames: {
+        totals: 'المجاميع المحسوبة',
+        residuals: 'الفروق، المحسوب ناقص الملخص',
+      },
+      totals: [
+        'إجمالي المبيعات',
+        'المرتجعات',
+        'الرسوم المثبتة',
+        'الصافي المحسوب',
+      ],
+      residuals: [
+        'فرق المبيعات، المحسوب ناقص الملخص',
+        'فرق المرتجعات، المحسوب ناقص الملخص',
+        'فرق الرسوم، المحسوب ناقص الملخص',
+        'فرق الصافي، المحسوب ناقص الملخص',
+        'فرق الإيداع، صافي الملخص ناقص إيداع البنك',
+      ],
+      accept: 'اعتمد الدفعة كاملة',
+      reject: 'ارفض الدفعة كاملة',
+      undo: 'ألغ قرار الدفعة',
+      claim:
+        'اتساق المبيعات والمرتجعات المورّدة والرسوم المثبتة بأدلة مستقلة مع تسوية بوابة واحدة وإيداع بنكي واحد فقط؛ لا رأي في قيد ولا في الاعتراف بالإيراد ولا في مشروعية الرسم ولا في أصالة المصدر ولا في اكتماله',
     },
   },
   en: {
@@ -1181,6 +1278,64 @@ export const reconciliationSheetCopy: Record<
       undo: 'Undo pair decision',
       claim:
         'Consistency of supplied reciprocal ledger transactions with confirmed relationship evidence only; no posting, elimination, consolidation, source authenticity or ERP completeness opinion',
+    },
+    gateway: {
+      title: 'Payment gateway batch evidence',
+      scope: [
+        'Entity',
+        'Gateway',
+        'Merchant account',
+        'Bank account',
+        'Complete dimensions',
+        'Currency',
+        'Currency basis',
+        'FX policy',
+        'Period start',
+        'Period end',
+        'As of',
+        'Policy version',
+        'Batch ID',
+      ],
+      only: {
+        currencyBasis: 'Functional',
+        fxPolicy: 'Same currency, no conversion',
+      },
+      roles: [
+        'Gateway sales and refunds',
+        'Independent fee evidence',
+        'Gateway settlement summary',
+        'Bank credit evidence',
+      ],
+      status: {
+        'source-error': 'Source evidence is invalid',
+        missing: 'Required evidence is missing',
+        difference: 'A batch difference remains',
+        'needs-review': 'Whole batch review required',
+        'consistent-with-evidence': 'Consistent within confirmed evidence',
+        ready: 'Ready for review',
+        accepted: 'Accepted',
+        rejected: 'Rejected',
+      },
+      completenessTitle: 'Supplied batch inventory',
+      completeReference: 'Gateway completeness reference',
+      completeNote: 'Gateway completeness explanation',
+      tableNames: {
+        totals: 'Calculated totals',
+        residuals: 'Residuals, calculated minus summary',
+      },
+      totals: ['Gross sales', 'Refunds', 'Evidenced fees', 'Calculated net'],
+      residuals: [
+        'Gross sales residual, calculated minus summary',
+        'Refund residual, calculated minus summary',
+        'Fee residual, calculated minus summary',
+        'Net residual, calculated minus summary',
+        'Bank credit residual, summary net minus bank credit',
+      ],
+      accept: 'Approve whole batch',
+      reject: 'Reject whole batch',
+      undo: 'Undo batch decision',
+      claim:
+        'Consistency of supplied sales, refunds and independently evidenced fees with one gateway settlement and bank credit only; no posting, revenue recognition, fee legitimacy, source authenticity or completeness opinion',
     },
   },
 };

@@ -671,7 +671,7 @@ export function GatewayWorkspace({
                 (signal) =>
                   workerTask<ArrayBuffer>(
                     'gateway-export',
-                    { state: state(), result },
+                    { state: state(), result, lang },
                     signal,
                   ),
                 (b) =>

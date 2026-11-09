@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
+import JSZip from 'jszip';
 import { finishedGateway } from '../audit/payment-gateway/fixtures.ts';
 import {
   createWorkerClient,
@@ -14,7 +15,12 @@ import {
   exportGateway,
 } from '../lib/reconciliation/payment-gateway-io.ts';
 import { readGatewayFile } from '../lib/reconciliation/payment-gateway-source.ts';
-import { snapshotGatewayInput } from '../lib/reconciliation/payment-gateway-worker-binding.ts';
+import {
+  snapshotGatewayInput,
+  snapshotGatewayRequest,
+  validateGatewayWorkerResponse,
+} from '../lib/reconciliation/payment-gateway-worker-binding.ts';
+import { exportGatewayWorkpaper } from '../lib/reconciliation/payment-gateway-sheet.ts';
 import { MAX_FILE_BYTES } from '../lib/reconciliation/types.ts';
 import type { GatewayInput } from '../lib/reconciliation/payment-gateway.ts';
 import { readFile } from 'node:fs/promises';
@@ -200,11 +206,11 @@ void test('gateway save and export bind downloaded contents to the captured call
     const wrong =
       action === 'gateway-save'
         ? await saveGateway(foreign.state)
-        : await exportGateway(foreign.state, foreign.result);
+        : await exportGatewayWorkpaper(foreign.state, foreign.result, 'en');
     const payload =
       action === 'gateway-save'
         ? base.state
-        : { state: base.state, result: base.result };
+        : { state: base.state, result: base.result, lang: 'en' };
     const p = port(() => wrong),
       client = createWorkerClient(() => p.worker);
     await assert.rejects(client.request(action, payload), /PG_WORKER_BINDING/);
@@ -212,17 +218,24 @@ void test('gateway save and export bind downloaded contents to the captured call
   const p = port((r) =>
     r.action === 'gateway-save'
       ? saveGateway(r.payload as GatewayInput)
-      : exportGateway(
+      : // The worker hands the page the workpaper, its reconciliation sheet
+        // in the language the request names (UX-6).
+        exportGatewayWorkpaper(
           (r.payload as typeof base).state,
           (r.payload as typeof base).result,
+          (r.payload as { lang: string }).lang,
         ),
   );
   const client = createWorkerClient(() => p.worker);
   const saved = await client.request<ArrayBuffer>('gateway-save', base.state);
   assert.deepEqual((await restoreGateway(saved)).result, base.result);
-  const workbook = await client.request<ArrayBuffer>('gateway-export', base);
+  const workbook = await client.request<ArrayBuffer>('gateway-export', {
+    ...base,
+    lang: 'en',
+  });
   const parsed = new ExcelJS.Workbook();
   await parsed.xlsx.load(workbook);
+  assert.equal(parsed.worksheets[0].name, 'Reconciliation sheet');
   assert.equal(
     parsed.getWorksheet('Summary')!.getRow(5).getCell(2).text,
     base.result.status,
@@ -231,17 +244,63 @@ void test('gateway save and export bind downloaded contents to the captured call
 
 void test('gateway export rejects display masking even with unchanged underlying money values', async () => {
   const base = await finishedGateway('pending'),
-    exported = await exportGateway(base.state, base.result);
-  const book = new ExcelJS.Workbook();
-  await book.xlsx.load(exported);
-  book.getWorksheet('Totals')!.getCell('A2').numFmt = ';;;';
-  const masked = Uint8Array.from(
-    new Uint8Array(await book.xlsx.writeBuffer()),
-  ).buffer;
-  const p = port(() => masked),
+    exported = await exportGatewayWorkpaper(base.state, base.result, 'en');
+  // The mask is written into the workpaper's own parts, so nothing but the
+  // display of one evidence cell changes: an ExcelJS round trip changes the
+  // sheets' models by itself, masked or not, and could not tell the mask.
+  const zip = await JSZip.loadAsync(exported),
+    book = await zip.file('xl/workbook.xml')!.async('string'),
+    rels = await zip.file('xl/_rels/workbook.xml.rels')!.async('string'),
+    id = /<sheet [^>]*name="Totals"[^>]*r:id="(rId\d+)"/.exec(book)![1],
+    target = new RegExp(`Id="${id}"[^>]*Target="([^"]+)"`).exec(rels)![1],
+    part = 'xl/' + target.replace(/^\/?xl\//, ''),
+    sheet = await zip.file(part)!.async('string'),
+    styles = await zip.file('xl/styles.xml')!.async('string');
+  // A2's style, or the default style where the cell names none.
+  const cell = /<c r="A2"(?: s="(\d+)")?/.exec(sheet)!,
+    xfs = /<cellXfs count="(\d+)">([\s\S]*?)<\/cellXfs>/.exec(styles)!,
+    xf = [...xfs[2].matchAll(/<xf [^>]*?(?:\/>|>[\s\S]*?<\/xf>)/g)][
+      Number(cell[1] ?? 0)
+    ][0],
+    hidden = xf
+      .replace(/numFmtId="\d+"/, 'numFmtId="200"')
+      .replace('<xf ', '<xf applyNumberFormat="1" '),
+    count = Number(xfs[1]);
+  const masked = styles
+    .replace(
+      /<numFmts count="(\d+)">/,
+      (_, n) =>
+        `<numFmts count="${Number(n) + 1}"><numFmt numFmtId="200" formatCode=";;;"/>`,
+    )
+    .replace(
+      xfs[0],
+      `<cellXfs count="${count + 1}">${xfs[2]}${hidden}</cellXfs>`,
+    );
+  assert.notEqual(masked, styles);
+  zip.file('xl/styles.xml', masked);
+  zip.file(part, sheet.replace(cell[0], `<c r="A2" s="${count}"`));
+  const bytes = await zip.generateAsync({ type: 'arraybuffer' });
+  const payload = snapshotGatewayRequest('gateway-export', {
+    ...base,
+    lang: 'en',
+  });
+  // The workpaper as written is accepted; the same with one cell's display
+  // masked is not.
+  assert.ok(
+    (await validateGatewayWorkerResponse(
+      'gateway-export',
+      exported,
+      payload,
+    )) instanceof ArrayBuffer,
+  );
+  await assert.rejects(
+    validateGatewayWorkerResponse('gateway-export', bytes, payload),
+    /PG_WORKER_BINDING/,
+  );
+  const p = port(() => bytes),
     client = createWorkerClient(() => p.worker);
   await assert.rejects(
-    client.request('gateway-export', base),
+    client.request('gateway-export', { ...base, lang: 'en' }),
     /PG_WORKER_BINDING/,
   );
 });
@@ -344,8 +403,10 @@ void test('signed gateway worker preserves raw sign and magnitude through reconc
       return saveGateway(r.payload as GatewayInput);
     if (r.action === 'gateway-restore')
       return restoreGateway((r.payload as { buffer: ArrayBuffer }).buffer);
-    const payload = r.payload as Awaited<ReturnType<typeof replayGateway>>;
-    return exportGateway(payload.state, payload.result);
+    const payload = r.payload as Awaited<ReturnType<typeof replayGateway>> & {
+      lang: string;
+    };
+    return exportGatewayWorkpaper(payload.state, payload.result, payload.lang);
   });
   const client = createWorkerClient(() => p.worker);
   const checked = await client.request<
@@ -373,10 +434,10 @@ void test('signed gateway worker preserves raw sign and magnitude through reconc
     buffer: saved,
   });
   assert.deepEqual(restored.result, checked.result);
-  const exported = await client.request<ArrayBuffer>(
-    'gateway-export',
-    restored,
-  );
+  const exported = await client.request<ArrayBuffer>('gateway-export', {
+    ...restored,
+    lang: 'ar',
+  });
   const book = new ExcelJS.Workbook();
   await book.xlsx.load(exported);
   const row = book.getWorksheet('Transactions')!.getRow(3);
@@ -389,8 +450,8 @@ void test('gateway export snapshots its expected result and original sources bef
   const checked = await replayGateway(await signedInput());
   const caller = structuredClone(checked);
   const p = port((r) => {
-    const input = r.payload as typeof checked;
-    return exportGateway(input.state, input.result);
+    const input = r.payload as typeof checked & { lang: string };
+    return exportGatewayWorkpaper(input.state, input.result, input.lang);
   });
   const client = createWorkerClient(() => {
     caller.result.status = 'difference';
@@ -398,11 +459,70 @@ void test('gateway export snapshots its expected result and original sources bef
     new Uint8Array(caller.state.files[3].original!)[0] ^= 1;
     return p.worker;
   });
-  const exported = await client.request<ArrayBuffer>('gateway-export', caller);
+  const exported = await client.request<ArrayBuffer>('gateway-export', {
+    ...caller,
+    lang: 'en',
+  });
   const book = new ExcelJS.Workbook();
   await book.xlsx.load(exported);
   assert.equal(
     book.getWorksheet('Transactions')!.getRow(3).getCell(7).text,
     '-20.00',
   );
+});
+
+void test('gateway export requests name the interface language and nothing more (UX-6)', async () => {
+  const base = await finishedGateway('pending');
+  for (const payload of [
+    { state: base.state, result: base.result },
+    { state: base.state, result: base.result, lang: 'fr' },
+    { state: base.state, result: base.result, lang: undefined },
+    { state: base.state, result: base.result, lang: 'en', extra: true },
+  ])
+    assert.throws(
+      () => snapshotGatewayRequest('gateway-export', payload),
+      /PG_WORKER_INPUT/,
+    );
+  for (const lang of ['ar', 'en'] as const) {
+    const payload = snapshotGatewayRequest('gateway-export', {
+      state: base.state,
+      result: base.result,
+      lang,
+    });
+    assert.equal((payload as { lang: string }).lang, lang);
+    // The workpaper as the worker writes it is accepted, and is the
+    // regenerated one; the evidence alone, and a workpaper in the other
+    // language, are not the one requested.
+    const workpaper = await exportGatewayWorkpaper(
+      base.state,
+      base.result,
+      lang,
+    );
+    const accepted = await validateGatewayWorkerResponse(
+      'gateway-export',
+      workpaper,
+      payload,
+    );
+    assert.ok(accepted instanceof ArrayBuffer);
+    await assert.rejects(
+      validateGatewayWorkerResponse(
+        'gateway-export',
+        await exportGateway(base.state, base.result),
+        payload,
+      ),
+      /PG_WORKER_BINDING/,
+    );
+    await assert.rejects(
+      validateGatewayWorkerResponse(
+        'gateway-export',
+        await exportGatewayWorkpaper(
+          base.state,
+          base.result,
+          lang === 'ar' ? 'en' : 'ar',
+        ),
+        payload,
+      ),
+      /PG_WORKER_BINDING/,
+    );
+  }
 });

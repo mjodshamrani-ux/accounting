@@ -75,6 +75,14 @@ import {
 import { reconcileIntercompany } from '../../lib/reconciliation/intercompany.ts';
 import { exportIntercompany } from '../../lib/reconciliation/intercompany-io.ts';
 import { exportIntercompanyWorkpaper } from '../../lib/reconciliation/intercompany-sheet.ts';
+import { readdir } from 'node:fs/promises';
+import {
+  gatewayCase,
+  gatewayCurrencyNames,
+  gatewayFrozenNames,
+} from './gateway-cases.ts';
+import { exportGateway } from '../../lib/reconciliation/payment-gateway-io.ts';
+import { exportGatewayWorkpaper } from '../../lib/reconciliation/payment-gateway-sheet.ts';
 
 const out = process.argv[2] ?? 'work/reconciliation-sheet';
 const root = 'audit/gl-tb/frozen/';
@@ -613,6 +621,56 @@ for (const { name, state, result } of intercompanies) {
   }
   cases.push(written);
 }
+// Payment gateways (6(c)): every frozen PG case the engine accepts, with the
+// decisions its story records; the declared JPY and KWD precision; every
+// signed-kind bundle the engine accepts (the native XLSX bundles are read
+// through the page's display path, and the cell-limit bundles are refused,
+// as their own gates expect); and one batch built here with fifteen
+// decisions, so the sheet runs over a page.
+const gateways = [];
+for (const name of [
+  ...gatewayFrozenNames,
+  ...gatewayCurrencyNames.map((code) => `currency-${code}`),
+  'long-decisions',
+])
+  gateways.push({ name: `gateway-${name}`, ...(await gatewayCase(name)) });
+const refusedSigned = [];
+for (const bundle of (
+  await readdir(new URL('../payment-gateway-signed/fixtures/', import.meta.url))
+).sort())
+  try {
+    gateways.push({
+      name: `gateway-signed-${bundle}`,
+      ...(await gatewayCase(`signed-${bundle}`)),
+    });
+  } catch (error) {
+    refusedSigned.push(`${bundle}: ${error.message}`);
+  }
+for (const { name, state, result } of gateways) {
+  const written = {
+    workspace: 'gateway',
+    case: name,
+    evidence: `${name}-evidence.xlsx`,
+    status: result.status,
+    review: result.review,
+    decisions: result.events.length,
+  };
+  await writeFile(
+    `${out}/${written.evidence}`,
+    new Uint8Array(await exportGateway(state, result)),
+  );
+  for (const lang of ['ar', 'en']) {
+    written[lang] = `${name}-${lang}.xlsx`;
+    await writeFile(
+      `${out}/${written[lang]}`,
+      new Uint8Array(await exportGatewayWorkpaper(state, result, lang)),
+    );
+  }
+  cases.push(written);
+}
+console.error(
+  JSON.stringify({ gatewayCases: gateways.length, refusedSigned }),
+);
 await writeFile(
   `${out}/cases.json`,
   JSON.stringify({ syntheticOnly: true, cases }, null, 1),

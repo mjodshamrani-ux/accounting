@@ -1,4 +1,5 @@
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import { gatewaySheetSaysScreen } from './reconciliation-sheet-browser.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 export async function verifyGateway(
@@ -165,11 +166,22 @@ export async function verifyGateway(
         new Promise((done) => requestAnimationFrame(() => setTimeout(done, 0))),
     );
   }
-  const download = async (name, file) => {
+  // UX-6(c): each workpaper opens on the reconciliation sheet, in the
+  // interface's language, and it says what this page shows.
+  const sheets = [];
+  const download = async (name, file, lang = 'en') => {
     const pending = page.waitForEvent('download');
     await button(name).click();
     await (await pending).saveAs(`${out}/${file}`);
     await wait();
+    if (file.endsWith('.xlsx'))
+      sheets.push({
+        file,
+        ...(await gatewaySheetSaysScreen(page, {
+          file: `${out}/${file}`,
+          lang,
+        })),
+      });
   };
   await button('Open a synthetic gateway example').click();
   await status.waitFor();
@@ -207,6 +219,11 @@ export async function verifyGateway(
   await button('Reject whole batch').click();
   await wait();
   await download('Export gateway evidence', 'ui-reject.xlsx');
+  // The same result in Arabic: the language changes, the review stays.
+  await page.getByRole('button', { name: 'AR العربية', exact: true }).click();
+  await download('صدّر أدلة بوابة الدفع', 'ui-reject-ar.xlsx', 'ar');
+  await page.getByRole('button', { name: 'EN English', exact: true }).click();
+  assert.equal(await status.innerText(), 'Whole batch review required');
   await w
     .getByLabel('Restore gateway session', { exact: true })
     .setInputFiles(`${out}/ui-session.json`);
@@ -514,7 +531,8 @@ export async function verifyGateway(
   }
   return {
     scopeCard: true,
-    downloads: 9,
+    downloads: 10,
+    sheets,
     declaredCommaMembers: 11,
     wholeBatchMembers: 7,
     malformedBatchMembers: 8,

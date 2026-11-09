@@ -28,6 +28,7 @@ SCOPE_HEADERS = ["Entity", "Gateway", "Merchant account", "Bank account", "Compl
 VALUES = [["Transaction ID", "Kind", "Posting date", "Amount", "Reference"], ["Evidence ID", "Fee ID", "Amount", "Reference", "Valid from", "Valid to"], ["Settlement ID", "Settlement date", "Gross sales", "Refunds", "Fees", "Net", "Payout ID", "Reference"], ["Payout ID", "Value date", "Credit", "Reference"]]
 SIGNED_VALUES = ["Transaction ID", "Kind", "Posting date", "Signed amount", "Reference"]
 CLAIM = "Consistency of supplied sales, refunds and independently evidenced fees with one gateway settlement and bank credit only; no posting, revenue recognition, fee legitimacy, source authenticity or completeness opinion"
+RECONCILIATION_SHEETS = ("ورقة التسوية", "Reconciliation sheet")
 NAMES = ["Summary", "Transactions", "Fee evidence", "Settlement", "Payout", "Totals", "Residuals", "Missing", "Issues", "Cell evidence", "Inventory", "Reading", "Events", "Event members", "Sources"]
 HEADERS = {"Summary": ["Field", "Value"], "Totals": ["Gross sales", "Refunds", "Evidenced fees", "Calculated net"], "Residuals": ["Gross sales", "Refunds", "Fees", "Net", "Bank credit"], "Missing": ["Kind"], "Issues": ["Code", "Source", "Source row", "Key"], "Cell evidence": ["Source", "Hash", "Sheet", "Sheet name", "Source row", "Column", "Header", "Value"], "Inventory": ["Source", "Hash", "Source row", "Kind", "Errors"], "Reading": ["Source", "Sheet", "Role", "Family", "Confirmed"], "Events": ["Sequence", "Event ID", "Type", "Batch ID", "UTC time", "Reference", "Note", "Context"], "Event members": ["Sequence", "Event ID", "Record ID"], "Sources": ["Source", "Name", "Hash", "Chunk", "Original base64"]}
 SS = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
@@ -136,6 +137,26 @@ def parse_book(raw, *, original=False, signed_batch=False):
         date1904 = wb.find(f"{{{SS}}}workbookPr")
         is1904 = date1904 is not None and date1904.get("date1904") in ("1", "true")
         sheets = wb.findall(f"{{{SS}}}sheets/{{{SS}}}sheet")
+        if not original:
+            # The page's workpaper (UX-6): the reconciliation sheet, first
+            # only and visible, is set aside here (its own checker is
+            # audit/reconciliation-sheet/check_sheet.py), its cell formats
+            # after every one the evidence uses; the fifteen evidence sheets
+            # after it are held exactly as without it.
+            first = bool(sheets) and sheets[0].get("name") in RECONCILIATION_SHEETS
+            require(not any(s.get("name") in RECONCILIATION_SHEETS for s in sheets[1 if first else 0:]), "reconciliation sheet out of place")
+            if first:
+                require(sheets[0].get("state", "visible") == "visible", "hidden reconciliation sheet")
+                def part(info):
+                    rid = info.get(f"{{{R}}}id")
+                    require(rid in rels and rels[rid].get("Type") == R + "/worksheet" and rels[rid].get("TargetMode") != "External", "worksheet relationship missing")
+                    return resolve("xl/workbook.xml", rels[rid].get("Target", ""))
+                def refs(target):
+                    return {int(node.get("s" if node.tag.rsplit("}", 1)[-1] in ("c", "row") else "style", "0")) for node in xml(z.read(target)).iter() if node.tag.rsplit("}", 1)[-1] in ("c", "row", "col")}
+                used = {0}.union(*(refs(part(info)) for info in sheets[1:]))
+                own = refs(part(sheets[0])) - {0}
+                require(not own or max(used) < min(own), "reconciliation sheet styles among the evidence styles")
+                sheets = sheets[1:]
         require(len(sheets) == (1 if original else 15), "worksheet count")
         result = {}
         for sheet_info in sheets:
