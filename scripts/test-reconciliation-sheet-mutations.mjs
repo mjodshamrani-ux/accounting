@@ -5,6 +5,11 @@
 // (DEV-22), never by a syntax error, a crash or a timeout.
 //
 //   node scripts/test-reconciliation-sheet-mutations.mjs
+//
+// CI runs the catalogue in shards, as it runs the accounting gate:
+// RECONCILIATION_SHEET_MUTATION_SHARD=i/N takes every Nth mutant by its
+// place in the list, from the i-th, so across the N shards each mutant runs
+// once; without it every mutant runs.
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -1022,6 +1027,29 @@ const mutations = [
   ],
 ];
 
+assert.equal(
+  new Set(mutations.map(([name]) => name)).size,
+  mutations.length,
+  'every mutant has its own name',
+);
+const shardValue = process.env.RECONCILIATION_SHEET_MUTATION_SHARD;
+let shard;
+if (shardValue !== undefined) {
+  const match = /^([1-9]\d*)\/([1-9]\d*)$/.exec(shardValue);
+  assert.ok(
+    match,
+    'RECONCILIATION_SHEET_MUTATION_SHARD must be a one-based index/count',
+  );
+  shard = { index: Number(match[1]), count: Number(match[2]) };
+  assert.ok(
+    shard.index <= shard.count && shard.count <= mutations.length,
+    'RECONCILIATION_SHEET_MUTATION_SHARD requires 1 <= index <= count <= mutants',
+  );
+}
+const selected = mutations.filter(
+  (_, i) => !shard || i % shard.count === shard.index - 1,
+);
+
 const sha = (s) => createHash('sha256').update(s).digest('hex'),
   temp = await createPrivateTree();
 try {
@@ -1052,7 +1080,7 @@ try {
   await writeFile(join(output, 'baseline.log'), baseline.stdout + baseline.stderr);
   assert.ok(completedSuccessfully(baseline), 'baseline');
   const results = [];
-  for (const [name, target, find, replacement] of mutations) {
+  for (const [name, target, find, replacement] of selected) {
     const file = join(temp, target),
       source = await readFile(file, 'utf8');
     assert.equal(source.split(find).length, 2, `${name}: unique anchor`);
@@ -1084,6 +1112,8 @@ try {
     JSON.stringify(
       {
         baselinePassed: true,
+        available: mutations.length,
+        ...(shard ? { shard } : {}),
         mutations: results,
         passed: results.every((r) => r.detected),
       },
@@ -1093,7 +1123,10 @@ try {
   );
   const survivors = results.filter((r) => !r.detected).map((r) => r.name);
   assert.deepEqual(survivors, [], 'every mutant is killed by an assertion');
-  console.log(`${results.length}/${mutations.length} mutants killed by an assertion`);
+  console.log(
+    `${results.length}/${selected.length} mutants killed by an assertion` +
+      (shard ? ` (shard ${shard.index}/${shard.count} of ${mutations.length})` : ''),
+  );
 } finally {
   await removePrivateTree(temp);
 }

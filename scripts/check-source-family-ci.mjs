@@ -63,6 +63,7 @@ const deployGated = [
   'source-family-proofs',
   'family-source-proofs',
   'ux-census-start',
+  'reconciliation-sheet-mutations',
 ];
 {
   const deploy = structuredClone(workflow.jobs.deploy);
@@ -75,6 +76,37 @@ const deployGated = [
   }
   deploy.needs = baseline.jobs.deploy.needs;
   assert.deepEqual(deploy, baseline.jobs.deploy);
+}
+// The reconciliation sheet (UX-6): its gate in the build, and a mutant per
+// guard beside it in shards 1..N, each named and run as i/N (the runner
+// takes every Nth mutant by its place), so each mutant still runs once.
+{
+  assert(
+    workflow.jobs.build.steps.some(
+      (s) => s.run === 'pnpm test:reconciliation-sheet',
+    ),
+    'The reconciliation sheet gate runs in the build',
+  );
+  const job = workflow.jobs['reconciliation-sheet-mutations'];
+  const shards = job.strategy.matrix.shard;
+  const count = shards.length;
+  assert.deepEqual(
+    shards,
+    Array.from({ length: count }, (_, i) => i + 1),
+  );
+  assert.equal(job.strategy['fail-fast'], false);
+  assert.equal(
+    job.name,
+    `Reconciliation sheet mutation gate (\${{ matrix.shard }}/${count})`,
+  );
+  const step = job.steps.find(
+    (s) => s.run === 'pnpm test:reconciliation-sheet:mutations',
+  );
+  assert(step, 'The reconciliation sheet mutants run in their own job');
+  assert.equal(
+    step.env.RECONCILIATION_SHEET_MUTATION_SHARD,
+    `\${{ matrix.shard }}/${count}`,
+  );
 }
 // The mutation gate may be split into more shards than the frozen 0.4.43
 // job as its catalogue grows, never fewer: shards 1..N, each named and run
