@@ -298,6 +298,26 @@ const BANK_DECISIONS = {
   ar: { اعتماد: 'مراجعة بشرية موثقة', إلغاء: 'ألغيت؛ تحتاج مراجعة' },
   en: { Accept: 'Documented human review', Undo: 'Undone; requires review' },
 };
+/** The strip's word for the result's state, the alignment's last row. */
+const RESULT_STATE = { ar: 'حالة النتيجة', en: 'Result status' };
+
+/** The result's state under the strip, as the page's heading writes it,
+ * and nothing after it in the alignment. */
+async function stateSaysHeading(grid, heading, lang) {
+  const said = (await heading.innerText()).trim();
+  const at = grid.findIndex((r) => r[0] === RESULT_STATE[lang]);
+  assert.ok(at >= 0, "the result's state");
+  assert.deepEqual(
+    grid[at].slice(0, 2),
+    [RESULT_STATE[lang], said],
+    "the result's state as the page's heading writes it",
+  );
+  assert.ok(
+    (grid[at + 1] ?? [null]).every((c) => c === null),
+    'the alignment and no more',
+  );
+}
+
 /** The review section's heading: the status word the page writes. */
 const BANK_HEADINGS = {
   ar: { review: 'تحتاج مراجعة', decision: 'القرار' },
@@ -317,6 +337,11 @@ const BANK_HEADINGS = {
 export async function bankSheetSaysScreen(page, { file, lang, result }) {
   const grid = await readSheet(file, lang);
   await stripSaysScreen(grid, result);
+  await stateSaysHeading(
+    grid,
+    page.locator('[data-testid="bank-result"]'),
+    lang,
+  );
   const section = (name) =>
     page.locator(`[data-bank-movement-table="${name}"]`);
   const cells = async (row) =>
@@ -761,6 +786,7 @@ export async function financialSheetSaysScreen(page, { file, lang }) {
   const grid = await readSheet(file, lang);
   const w = page.locator('[data-financial-workspace]');
   await stripSaysScreen(grid, w);
+  await stateSaysHeading(grid, w.locator('[data-financial-status]'), lang);
   const words = FINANCIAL_WORDS[lang];
   const blankRow = (at, what) =>
     assert.ok(

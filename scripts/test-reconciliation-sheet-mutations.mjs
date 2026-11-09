@@ -844,6 +844,27 @@ const mutations = [
     "'Consistency with supplied confirmed presentation evidence only;",
     "'Consistency with supplied presentation evidence only;",
   ],
+  // The result's state left out from under the strip in the bank and the
+  // financial position sheets, whose headings write it; and the bank's said
+  // as the engine's code.
+  [
+    'bank-state-dropped',
+    'lib/reconciliation/bank-movements-sheet.ts',
+    'more: [\n          {\n            label: alignmentStripCopy[language].state,\n            value: t.status[result.status],\n          },\n        ],',
+    'more: [],',
+  ],
+  [
+    'bank-state-as-code',
+    'lib/reconciliation/bank-movements-sheet.ts',
+    'value: t.status[result.status],',
+    'value: result.status,',
+  ],
+  [
+    'financial-state-dropped',
+    'lib/reconciliation/financial-sheet.ts',
+    'more: [\n          {\n            label: alignmentStripCopy[language].state,\n            value: t.status[result.status],\n          },\n        ],',
+    'more: [],',
+  ],
   // UX-6(c), intercompany. The worker writes the sheet in Arabic whatever
   // the page asked.
   [

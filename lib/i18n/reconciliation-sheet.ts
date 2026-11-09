@@ -107,6 +107,11 @@ export type ReconciliationSheetCopy = {
       'entity' | 'ledger' | 'account' | 'currency' | 'start' | 'end',
       string
     >;
+    /** The result's state, as the screen's heading writes it. */
+    status: Record<
+      'empty' | 'movements-consistent' | 'needs-review' | 'source-error',
+      string
+    >;
     caseStatus: Record<
       'matched-evidence' | 'matched-manual' | 'needs-review' | 'source-error',
       string
@@ -451,6 +456,12 @@ export const reconciliationSheetCopy: Record<
         currency: 'العملة',
         start: 'بداية الفترة',
         end: 'نهاية الفترة',
+      },
+      status: {
+        empty: 'لا حركات صالحة',
+        'movements-consistent': 'تطابقت الحركات المقدمة؛ إقفال الأرصدة منفصل',
+        'needs-review': 'حالات الحركات تحتاج مراجعة',
+        'source-error': 'أخطاء المصدر تحجب كل اعتماد',
       },
       caseStatus: {
         'matched-evidence': 'مطابقة بهوية مصدر صريحة',
@@ -857,6 +868,13 @@ export const reconciliationSheetCopy: Record<
         currency: 'Currency',
         start: 'Period start',
         end: 'Period end',
+      },
+      status: {
+        empty: 'No valid movements',
+        'movements-consistent':
+          'Supplied movements matched; balance closure remains separate',
+        'needs-review': 'Movement cases need review',
+        'source-error': 'Source errors block all approval',
       },
       caseStatus: {
         'matched-evidence': 'Matched by explicit source identity',

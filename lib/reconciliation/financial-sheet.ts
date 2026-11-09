@@ -102,6 +102,15 @@ export function financialSheet(
           state: t.status[result.status],
         }),
         decimals: result.decimals,
+        // The result's state, as the screen's heading over the strip writes
+        // it: the strip counts comparisons, and says it only when the engine
+        // computes no difference.
+        more: [
+          {
+            label: alignmentStripCopy[language].state,
+            value: t.status[result.status],
+          },
+        ],
       },
       {
         // The reviewer's attestation that the supplied inventory is

@@ -58,7 +58,8 @@ and checks, against the evidence sheets as this checker reads them:
   reported, the equation, the trial balance's residual, each decision
   holding its whole line): the twelve scope fields; the four sources; the
   comparisons with no difference, the lines waiting and the first
-  difference; the completeness attestation with its reason, once given; the
+  difference, and the result's state under the strip (in a bank movement
+  workpaper too); the completeness attestation with its reason, once given; the
   trial balance's three figures; the position by basis; each line with its
   class and state in words and its difference or a dash; each decision with
   its line, time, evidence reference and the reason the reviewer gave;
@@ -1042,6 +1043,7 @@ def check_ar(evidence, book, lang, summary):
 
 
 BANK_SCOPE = ['entity', 'ledger', 'account', 'currency', 'start', 'end']
+BANK_STATES = {'empty', 'movements-consistent', 'needs-review', 'source-error'}
 BANK_CODES = {'explicit-identity', 'human-review', 'undone', 'source-error',
               'missing-identity', 'missing-counterpart', 'member-limit',
               'policy-members', 'reversal-origin-conflict',
@@ -1177,6 +1179,13 @@ def check_bank(evidence, book, lang, summary):
     need(text(gap[1]), 'GAP', 'not computed, said in words')
     note = lines.pop(0)
     need(text(note[1]), 'GAP', 'note')
+    # The result's state under the strip, as the page's heading writes it:
+    # a word, one word for each state across the run.
+    state = lines.pop(0) if lines else [None] * 4
+    need(text(state[0]) and text(state[1]), 'RESULT_STATE',
+         'the result without its state')
+    need(state[1][1] not in BANK_STATES, 'RAW_CODE', f'state {state[1][1]}')
+    seen_words(lang, 'bank result state', [(summary['Status'], state[1][1])])
     need(not lines, 'STRIP', f'{len(lines)} rows more')
 
     # Each recorded decision: what it did, its members by their own
@@ -1874,6 +1883,16 @@ def check_financial(evidence, book, lang, summary):
         need(text(gap[1]) and text(note[1]) and not number(note[2]), 'GAP',
              'not computed, the state said')
         words_of([(summary['Status'], note[1][1])], 'state', FINANCIAL_CODES)
+    # The result's state under the strip, as the page's heading writes it,
+    # the word the gap's note gives it where the engine computes nothing.
+    state = srows.pop(0) if srows else [None] * 4
+    need(text(state[0]) and text(state[1]), 'RESULT_STATE',
+         'the result without its state')
+    said = [(summary['Status'], state[1][1])]
+    if not computed:
+        said.append((summary['Status'], note[1][1]))
+    words_of(said, 'state', FINANCIAL_CODES)
+    seen_words(lang, 'financial result state', said)
     need(not srows, 'STRIP', f'{len(srows)} rows more')
 
     # The completeness attestation: the reference and the reason the
@@ -2460,6 +2479,11 @@ def bank_plants(data):
     yield 'reason as its code', 'RAW_CODE', row_edit(
         case, 0, lambda r: r.replace(undone, 'undone', 1))
 
+    def gone(x):
+        return x.replace(_row(x, _cell(x, 'حالة النتيجة')), '', 1)
+    yield 'the result without its state', 'RESULT_STATE', _edit(
+        data, sheet, gone)
+
 
 def allocation_plants(data):
     """Faults a payment allocation workpaper can carry: in its value ledger,
@@ -2610,6 +2634,11 @@ def financial_plants(data):
         'تراصف', 0, plus('B'))
     yield 'one-option field as its code', 'RAW_CODE', row_edit(
         'أساس العملة', 0, lambda r: r.replace('>وظيفية<', '>functional<', 1))
+
+    def gone(x):
+        return x.replace(_row(x, _cell(x, 'حالة النتيجة')), '', 1)
+    yield 'the result without its state', 'RESULT_STATE', _edit(
+        data, sheet, gone)
 
 
 def intercompany_plants(data):

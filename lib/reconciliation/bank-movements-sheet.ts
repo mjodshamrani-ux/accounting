@@ -86,6 +86,14 @@ export function bankMovementsSheet(
           reason,
         }),
         decimals: result.decimals,
+        // The result's state, as the screen's heading over the strip writes
+        // it: the strip counts cases, and does not say it.
+        more: [
+          {
+            label: alignmentStripCopy[language].state,
+            value: t.status[result.status],
+          },
+        ],
       },
       {
         // What the engine left for a person, each case as the screen lists

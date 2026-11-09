@@ -1027,6 +1027,7 @@ const bankCase = (name: string) => {
 };
 
 void test('bank: the evidence stays byte for byte, each case left for review with its difference and members, each decision with its reason', async () => {
+  const seen = new Set<string>();
   for (const name of [
     'no-identity',
     'timing-after-cutoff',
@@ -1122,8 +1123,30 @@ void test('bank: the evidence stays byte for byte, each case left for review wit
           result.sources[side].hash,
         ]);
       }
+      // The result's state, as the screen's heading writes it, the
+      // alignment's last row.
+      seen.add(result.status);
+      const strip = alignmentStripCopy[lang],
+        stateAt = rowOf(rows, strip.state);
+      assert.deepEqual(
+        rows[stateAt].slice(0, 2),
+        [strip.state, t.status[result.status]],
+        `${name}: the result's state`,
+      );
+      assert.deepEqual(
+        rows[stateAt + 1] ?? [null, null, null, null],
+        [null, null, null, null],
+        `${name}: the alignment end`,
+      );
       assert.equal(rows.at(-1)![0], t.claim);
     }
+  // The cases give a result of every state the engine gives.
+  assert.deepEqual([...seen].sort(), [
+    'empty',
+    'movements-consistent',
+    'needs-review',
+    'source-error',
+  ]);
 });
 
 void test('bank: the words are the screen words, and the claim in English is the evidence words', async () => {
@@ -2228,6 +2251,13 @@ void test('financial position: the evidence stays byte for byte, the trial balan
         s.review,
         result.lines.filter((l) => l.review === 'needs-review').length,
       ]);
+      const stateAt = rowOf(rows, s.state);
+      assert.deepEqual(
+        rows[stateAt].slice(0, 2),
+        [s.state, t.status[result.status]],
+        `${name}: the result's state`,
+      );
+      blank(stateAt + 1, 'the alignment');
       for (const cell of stripView(financialStrip(result), s, {
         state: t.status[result.status],
       })) {
