@@ -61,7 +61,7 @@
     "test:bank-wd:proof": "node --experimental-strip-types audit/bank-withdrawal-deposit/prove.mjs && node --experimental-strip-types audit/bank-withdrawal-deposit/lifecycle-proof.mjs",
     "test:bank-wd:browser": "node --experimental-strip-types scripts/bank-wd-browser.mjs",
     "test:fixed-assets-long": "node --experimental-strip-types --test tests/fixed-assets-long.test.ts tests/fixed-assets-long-io.test.ts tests/fixed-assets-long-worker.test.ts",
-    "test:fixed-assets-long:proof": "ASSET_LONG_REPORT_DIR=\"${ASSET_LONG_REPORT_DIR:-work/fixed-assets-long-proof}\" node --experimental-strip-types scripts/prove-fixed-assets-long.mjs && python3 -B audit/fixed-assets-long/check-evidence.py \"${ASSET_LONG_REPORT_DIR:-work/fixed-assets-long-proof}\"",
+    "test:fixed-assets-long:proof": "ASSET_LONG_REPORT_DIR=\"${ASSET_LONG_REPORT_DIR:-work/fixed-assets-long-proof}\" node --experimental-strip-types scripts/prove-fixed-assets-long.mjs && python3 -B audit/fixed-assets-long/check-evidence.py \"${ASSET_LONG_REPORT_DIR:-work/fixed-assets-long-proof}\" && python3 -B audit/fixed-assets-long/test-evidence.py \"${ASSET_LONG_REPORT_DIR:-work/fixed-assets-long-proof}\"",
     "test:fixed-assets-long:mutations": "node scripts/test-fixed-assets-long-mutations.mjs",
     "test:fixed-assets-long:oracle": "python3 -B -m unittest discover -s audit/fixed-assets-long/oracle -p test_oracle.py -v && python3 -B scripts/check-fixed-assets-long-oracle.py",
     "test:fixed-assets-long:browser": "node --experimental-strip-types scripts/fixed-assets-long-browser.mjs",

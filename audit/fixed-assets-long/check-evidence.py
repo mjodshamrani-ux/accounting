@@ -17,6 +17,15 @@ import zipfile
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parent
+# UX-6(c): the workpaper the page downloads opens on one reconciliation
+# sheet in the interface's language. That one sheet is set aside by an
+# independent helper (ZIP and XML only) and checked by
+# audit/reconciliation-sheet/check_sheet.py; the evidence sheets after it
+# are held here to their unchanged rules. A sheet out of place, hidden, alone
+# or with a cell format among the evidence's is refused by the helper.
+_spec = importlib.util.spec_from_file_location('reconciliation_sheet_set_aside', ROOT.parent / 'reconciliation-sheet' / 'set_aside.py')
+SET_ASIDE = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(SET_ASIDE)
 VERSION = 'fixed-assets-posted-components-gl-1'
 LONG = 'fixed-assets-long-components-gl-1'
 ORACLE_SHA = '5d5e9abd877b4e758663af40c28863ff5375252b039d784a415e6cc9fb3babd0'
@@ -45,12 +54,13 @@ def col(address):
 
 def workbook(path):
     with zipfile.ZipFile(path) as z:
+        first, _ = SET_ASIDE.set_aside(z)
         strings = []
         if 'xl/sharedStrings.xml' in z.namelist():
             strings = [''.join(si.itertext()) for si in ET.fromstring(z.read('xl/sharedStrings.xml'))]
         relationships = {e.attrib['Id']: e.attrib['Target'].lstrip('/') for e in ET.fromstring(z.read('xl/_rels/workbook.xml.rels'))}
         result = {}
-        for s in ET.fromstring(z.read('xl/workbook.xml')).find('s:sheets', NS):
+        for s in list(ET.fromstring(z.read('xl/workbook.xml')).find('s:sheets', NS))[1 if first else 0:]:
             require(s.attrib.get('state', 'visible') == 'visible', f'{path}: hidden sheet')
             target = relationships[s.attrib['{'+NS['r']+'}id']]
             target = target if target.startswith('xl/') else 'xl/' + target

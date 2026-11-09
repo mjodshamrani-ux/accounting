@@ -46,13 +46,14 @@ void test('actual asset worker reads four CSV originals, reconciles forged cache
         await client.request<ArrayBuffer>('asset-export', {
           state,
           result: expected.result,
+          lang: 'en',
         })
       ).byteLength > 0,
     );
     const stale = structuredClone(expected.result);
     stale.totals!.register.cost++;
     await assert.rejects(
-      client.request('asset-export', { state, result: stale }),
+      client.request('asset-export', { state, result: stale, lang: 'ar' }),
       /STALE_EXPORT/,
     );
   } finally {
@@ -126,9 +127,12 @@ void test('actual worker replies with forged totals, context, original bytes, pa
       await assert.rejects(
         client.request(
           action,
-          action === 'asset-save' ? state : { state, result },
+          action === 'asset-save' ? state : { state, result, lang: 'en' },
         ),
       );
+      // The request reached the worker: refused for its forged reply, not
+      // before it.
+      assert.equal(ports.length, 1, action);
     } finally {
       ports.forEach((p) => p.terminate());
     }

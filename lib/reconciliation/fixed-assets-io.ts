@@ -551,10 +551,14 @@ export async function validateAssetWorkerResponse(
     )
       throw Error('ASSET_REQUEST_BINDING');
   } else if (action === 'asset-export') {
-    // Compare native cell values, since ZIP metadata is not an accounting identity.
-    const expected = await exportAsset(
+    // Compare native cell values, since ZIP metadata is not an accounting
+    // identity: the workpaper as the worker writes it, the reconciliation
+    // sheet first in the language the request names.
+    const { exportAssetWorkpaper } = await import('./fixed-assets-sheet.ts');
+    const expected = await exportAssetWorkpaper(
       payload.state as AssetInput,
       payload.result as AssetResult,
+      payload.lang,
     );
     const inspect = async (buffer: ArrayBuffer) => {
       const book = new ExcelJS.Workbook();

@@ -27,7 +27,11 @@
 // with fifteen decisions built here. Inventory (6(c)): every frozen case of
 // the posted register family, its positive one attested and decided, one
 // with fifteen decisions built here, and the printed register's frozen
-// cases, its evidence in each language. Synthetic sources only.
+// cases, its evidence in each language. Fixed assets (6(c)): every frozen
+// case of the flat family and of the long one (components in rows), the
+// flat positive one attested and decided, one with fifteen decisions built
+// here, and the long positive one attested and approved. Synthetic sources
+// only.
 import { readFile as fsRead, mkdir, writeFile } from 'node:fs/promises';
 import { readFile } from '../../lib/reconciliation/io.ts';
 import { GL_TB_VERSION } from '../../lib/reconciliation/gl-tb.ts';
@@ -98,6 +102,14 @@ import {
   exportStockPdfWorkpaper,
   exportStockWorkpaper,
 } from '../../lib/reconciliation/inventory-sheet.ts';
+import {
+  assetFrozenNames,
+  assetLongNames,
+  assetStories,
+  fixedAssetsCase,
+} from './fixed-assets-cases.ts';
+import { exportAsset } from '../../lib/reconciliation/fixed-assets-io.ts';
+import { exportAssetWorkpaper } from '../../lib/reconciliation/fixed-assets-sheet.ts';
 
 const out = process.argv[2] ?? 'work/reconciliation-sheet';
 const root = 'audit/gl-tb/frozen/';
@@ -748,6 +760,42 @@ await withInventoryPdfCases(async (code, { state, result }) => {
 console.error(
   JSON.stringify({ inventoryCases: inventories.length, printed }),
 );
+// Fixed assets (6(c)): every frozen case of both register families, every
+// state the engine gives and three precisions; the flat positive one
+// attested, then accepted, rejected, accepted and undone, and fifteen
+// decisions built here so the sheet runs over a page; and the long positive
+// one attested and approved.
+let assets = 0;
+for (const name of [
+  ...assetFrozenNames,
+  ...assetLongNames,
+  ...Object.keys(assetStories),
+]) {
+  const { state, result } = await fixedAssetsCase(name);
+  const id = `fixed-assets-${name}`;
+  const written = {
+    workspace: 'fixed-assets',
+    case: id,
+    evidence: `${id}-evidence.xlsx`,
+    status: result.status,
+    review: result.review,
+    decisions: result.events.length,
+  };
+  await writeFile(
+    `${out}/${written.evidence}`,
+    new Uint8Array(await exportAsset(state, result)),
+  );
+  for (const lang of ['ar', 'en']) {
+    written[lang] = `${id}-${lang}.xlsx`;
+    await writeFile(
+      `${out}/${written[lang]}`,
+      new Uint8Array(await exportAssetWorkpaper(state, result, lang)),
+    );
+  }
+  cases.push(written);
+  assets++;
+}
+console.error(JSON.stringify({ fixedAssetCases: assets }));
 await writeFile(
   `${out}/cases.json`,
   JSON.stringify({ syntheticOnly: true, cases }, null, 1),

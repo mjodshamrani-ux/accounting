@@ -1,4 +1,5 @@
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import { fixedAssetsSheetSaysScreen } from './reconciliation-sheet-browser.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 export async function verifyAsset(
@@ -20,11 +21,22 @@ export async function verifyAsset(
           .querySelector('[data-asset-workspace]')
           ?.getAttribute('aria-busy') === 'false',
     );
-  const download = async (name, file) => {
+  // UX-6(c): each workpaper opens on the reconciliation sheet, in the
+  // interface's language, and it says what this page shows.
+  const sheets = [];
+  const download = async (name, file, lang = 'en') => {
     const pending = page.waitForEvent('download');
     await button(name).click();
     await (await pending).saveAs(`${out}/${file}`);
     await wait();
+    if (file.endsWith('.xlsx'))
+      sheets.push({
+        file,
+        ...(await fixedAssetsSheetSaysScreen(page, {
+          file: `${out}/${file}`,
+          lang,
+        })),
+      });
   };
   const sample = async () => {
     await button('Open a synthetic asset example').click();
@@ -249,6 +261,11 @@ export async function verifyAsset(
   await button('Reject whole asset scope').click();
   await wait();
   await download('Export asset evidence', 'ui-reject.xlsx');
+  // The same result in Arabic: the language changes, the review stays.
+  await page.getByRole('button', { name: 'AR العربية', exact: true }).click();
+  await download('صدّر أدلة الأصول', 'ui-reject-ar.xlsx', 'ar');
+  await page.getByRole('button', { name: 'EN English', exact: true }).click();
+  assert.equal(await status.innerText(), 'Whole asset review required');
   await w
     .getByLabel('Restore asset session', { exact: true })
     .setInputFiles(`${out}/ui-session.json`);
@@ -485,9 +502,11 @@ export async function verifyAsset(
     .fill('changed');
   assert.equal(await status.count(), 0);
   assert.equal(await button('Export asset evidence').isEnabled(), false);
+  assert.equal(sheets.length, 10, 'every downloaded workpaper checked');
   const result = {
     scopeCard: true,
-    downloadedBooks: 9,
+    downloadedBooks: 10,
+    sheets,
     wholeMembers: 17,
     malformedMembers: 18,
     componentsSeparate: true,

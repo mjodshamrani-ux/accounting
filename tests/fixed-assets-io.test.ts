@@ -285,7 +285,7 @@ void test('asset worker response guard checks full recomputed component result, 
     validateWorkerValue(
       'asset-export',
       { buffer: new ArrayBuffer(4) },
-      { state, result: fresh.result },
+      { state, result: fresh.result, lang: 'en' },
     ),
   );
 });

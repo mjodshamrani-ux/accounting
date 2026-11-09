@@ -5,7 +5,8 @@ import { readStockPdf } from './inventory-pdf-preview.ts';
 import { askStockPdf } from './inventory-pdf-assistant.ts';
 import { snapshotStockPdfRequest } from './inventory-pdf-request.ts';
 import {readPayrollFile,replayPayroll,savePayroll,restorePayroll,exportPayroll} from './payroll-io.ts';
-import {readAssetFile,replayAsset,saveAsset,restoreAsset,exportAsset} from './fixed-assets-io.ts';
+import {readAssetFile,replayAsset,saveAsset,restoreAsset} from './fixed-assets-io.ts';
+import { exportAssetWorkpaper } from './fixed-assets-sheet.ts';
 import { readStockFile, replayStock, saveStock, restoreStock, exportStockLinks } from './inventory-register-io.ts';
 import { replayGateway, saveGateway, restoreGateway } from './payment-gateway-io.ts';
 import { readGatewayFile } from './payment-gateway-source.ts';
@@ -143,7 +144,7 @@ self.onmessage = async (event: MessageEvent) => {
     else if (action === 'asset-reconcile') value = await replayAsset(payload);
     else if (action === 'asset-save') value = await saveAsset(payload);
     else if (action === 'asset-restore') value = await restoreAsset(payload.buffer);
-    else if (action === 'asset-export') value = await exportAsset(payload.state,payload.result);
+    else if (action === 'asset-export') value = await exportAssetWorkpaper(payload.state, payload.result, payload.lang);
     else if (action === 'stock-pdf-reconcile') value = await replayStockPdfOriginals(payload);
     else if (action === 'stock-pdf-save') value = await saveStockPdf(payload);
     else if (action === 'stock-pdf-restore') value = await restoreStockPdf(payload.buffer);

@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 """Targeted corruption controls for the independent lifecycle evidence checker.
 
-Run against an explicit completed attempt. Every mutation refreshes the local
-artifact digest so the semantic test cannot pass merely through a hash mismatch.
+Run against an explicit completed attempt, or the proof folder whose
+LAST-ATTEMPT.json names one (as check-evidence.py reads it). Every mutation
+refreshes the local artifact digest so the semantic test cannot pass merely
+through a hash mismatch.
 """
 import copy
 import importlib.util
 import json
 from pathlib import Path
+import re
 import shutil
 import sys
 import tempfile
@@ -19,6 +22,11 @@ spec = importlib.util.spec_from_file_location('asset_evidence_checker', Path(__f
 checker = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(checker)
 ATTEMPT = Path(sys.argv.pop(1)).resolve()
+if not (ATTEMPT / 'REPORT.json').exists():
+    POINTER = checker.read_json(ATTEMPT / 'LAST-ATTEMPT.json')
+    checker.require(isinstance(POINTER.get('attempt'),str) and POINTER['attempt'].startswith('attempt-') and Path(POINTER['attempt']).name == POINTER['attempt'], 'Explicit attempt pointer')
+    ATTEMPT = ATTEMPT / POINTER['attempt']
+    checker.require(POINTER.get('passed') is True and checker.sha((ATTEMPT/'REPORT.json').read_bytes()) == POINTER.get('reportSha256'), 'Pointer binds exact successful current report')
 REPORT = checker.read_json(ATTEMPT / 'REPORT.json')
 ENGINE = checker.oracle()
 
@@ -61,6 +69,43 @@ class EvidenceControls(unittest.TestCase):
         with zipfile.ZipFile(folder / filename,'w',zipfile.ZIP_DEFLATED) as z:
             for name, content in contents.items(): z.writestr(name,content)
         self.refresh(folder,entry,filename)
+
+    def rewrite_book(self, folder, entry, edit, filename='direct.xlsx'):
+        with zipfile.ZipFile(folder / filename) as z:
+            contents = {n:z.read(n) for n in z.namelist()}
+        contents['xl/workbook.xml'] = edit(contents['xl/workbook.xml'].decode()).encode()
+        with zipfile.ZipFile(folder / filename,'w',zipfile.ZIP_DEFLATED) as z:
+            for name, content in contents.items(): z.writestr(name,content)
+        self.refresh(folder,entry,filename)
+
+    def test_the_reconciliation_sheet_is_set_aside_in_either_language(self):
+        # UX-6(c): the page's workpaper opens on the reconciliation sheet, in
+        # English on the direct export and in Arabic on the restored one; the
+        # seventeen evidence sheets after it are read as before.
+        folder, entry = self.fixture()
+        names = []
+        for filename in ('direct.xlsx','restored.xlsx'):
+            with zipfile.ZipFile(folder / filename) as z:
+                names.append(ET.fromstring(z.read('xl/workbook.xml')).find('s:sheets',checker.NS)[0].attrib['name'])
+            book = checker.workbook(folder / filename)
+            self.assertEqual((len(book), list(book)[0]), (17, 'Summary'), filename)
+        self.assertEqual(names, ['Reconciliation sheet', 'ورقة التسوية'])
+
+    def test_a_sheet_out_of_place_or_hidden_is_refused(self):
+        def second(text):
+            first, summary = re.findall(r'<sheet [^>]*/>', text)[:2]
+            return text.replace(first + summary, summary + first, 1)
+        folder, entry = self.fixture()
+        self.rewrite_book(folder,entry,second)
+        with self.assertRaisesRegex(AssertionError,'RECONCILIATION_SHEET_ORDER'): checker.verify(folder,entry,ENGINE)
+        folder, entry = self.fixture('10-all-zero-members-retained')
+        self.rewrite_book(folder,entry,lambda text: text.replace('<sheet name="Reconciliation sheet"','<sheet state="hidden" name="Reconciliation sheet"',1))
+        with self.assertRaisesRegex(AssertionError,'RECONCILIATION_SHEET_VISIBILITY'): checker.verify(folder,entry,ENGINE)
+
+    def test_the_evidence_after_the_sheet_keeps_native_integers(self):
+        folder, entry = self.fixture()
+        self.mutate_xlsx(folder,entry,'GL balances','G2','1.5')
+        with self.assertRaisesRegex(AssertionError,'nonintegral native number'): checker.verify(folder,entry,ENGINE)
 
     def test_real_evidence_passes(self):
         folder, entry = self.fixture()

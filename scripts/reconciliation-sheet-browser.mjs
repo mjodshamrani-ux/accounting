@@ -1435,3 +1435,180 @@ export async function inventorySheetSaysScreen(page, { file, lang, printed }) {
     decisions: events.length,
   };
 }
+
+// The fixed-assets page's words, as this check holds them apart from the
+// product's catalogue.
+const ASSET_WORDS = {
+  ar: {
+    decisions: 'القرارات المسجلة',
+    complete:
+      'راجعت الأصول المقدمة وخرائط الكلفة والاستهلاك والانخفاض وأدلتها وكل حساب أستاذ محدد بما فيه المكونات والحسابات الصفرية.',
+    completeReference: 'مرجع اكتمال الأصول',
+    completeNote: 'توضيح اكتمال الأصول',
+    totals: 'مجاميع المكونات',
+    comparisons: 'المقارنة حسب الحساب والمكون',
+    // The history's word for each decision, and the word its button writes,
+    // which the sheet writes.
+    actions: {
+      اعتماد: 'اعتمد كامل نطاق الأصول',
+      رفض: 'ارفض كامل نطاق الأصول',
+      إلغاء: 'تراجع عن قرار الأصول',
+    },
+  },
+  en: {
+    decisions: 'Recorded decisions',
+    complete:
+      'I reviewed all supplied assets, the cost/depreciation/impairment mappings and evidence, and every selected GL account including zero components and accounts.',
+    completeReference: 'Asset completeness reference',
+    completeNote: 'Asset completeness explanation',
+    totals: 'Component totals',
+    comparisons: 'Comparison by account and component',
+    actions: {
+      Approve: 'Approve whole asset scope',
+      Reject: 'Reject whole asset scope',
+      Undo: 'Undo asset decision',
+    },
+  },
+};
+
+/**
+ * UX-6(c), fixed assets: the strip as the page draws it, and under it the
+ * result's state as the page's heading writes it; the attestation as the
+ * page holds it, once given; the component totals as the page's table has
+ * them, none where the page shows no figure in it; each comparison, the
+ * page's row as a block: the account and its complete dimensions, its
+ * component, then its three figures each by the page's heading, a dash where
+ * the page shows one; and every decision in the page's history, its
+ * button's word, its time, the reference and the explanation. Each section
+ * holds what the page shows and no more.
+ */
+export async function fixedAssetsSheetSaysScreen(page, { file, lang }) {
+  const grid = await readSheet(file, lang);
+  const w = page.locator('[data-asset-workspace]');
+  await stripSaysScreen(grid, w);
+  await stateSaysHeading(grid, w.locator('[data-asset-status]'), lang);
+  const words = ASSET_WORDS[lang];
+  const blankRow = (at, what) =>
+    assert.ok(
+      (grid[at] ?? [null]).every((c) => c === null),
+      `${what} and no more`,
+    );
+  // A section by the evidence it stands in, after a given row.
+  const section = (evidence, after = -1) =>
+    grid.findIndex(
+      (r, i) => i > after && r[0] !== null && r[1] === null && r[3] === evidence,
+    );
+  for (const evidence of ['Summary', 'Sources'])
+    assert.ok(section(evidence) >= 0, `a section in ${evidence}`);
+  const state = grid.findIndex((r) => r[0] === RESULT_STATE[lang]);
+  // The attestation, as the page holds it, once given.
+  const attest = grid.findIndex(
+    (r, i) =>
+      i > state &&
+      r[1] === null &&
+      r[3] === 'Summary' &&
+      grid[i + 1]?.[0] === words.completeReference,
+  );
+  if (await w.getByLabel(words.complete, { exact: true }).isChecked()) {
+    assert.ok(attest >= 0, 'the attestation');
+    for (const [k, label] of [
+      [1, words.completeReference],
+      [2, words.completeNote],
+    ])
+      assert.deepEqual(
+        grid[attest + k].slice(0, 2),
+        [label, await w.getByLabel(label, { exact: true }).inputValue()],
+        label,
+      );
+    blankRow(attest + 3, 'the attestation');
+  } else assert.equal(attest, -1, 'no attestation, no section');
+  // The component totals: the page's table, its head and its four rows;
+  // none where the page shows a dash for every total.
+  const totals = grid.findIndex(
+    (r) => r[0] === words.totals && r[3] === 'Summary',
+  );
+  const shown = await tableCells(
+    w.locator(`table[aria-label="${words.totals}"]`),
+  );
+  assert.equal(shown.body.length, 4, 'four components on the page');
+  if (shown.body.every((cells) => cells[1] === '—' && cells[2] === '—'))
+    assert.equal(totals, -1, 'no totals, no table');
+  else {
+    assert.ok(totals >= 0, 'the component totals');
+    assert.deepEqual(grid[totals + 1].slice(0, 3), shown.head, 'the head');
+    shown.body.forEach((cells, i) =>
+      cells.forEach((text, j) =>
+        same(text, grid[totals + 2 + i][j], `total ${i + 1} cell ${j + 1}`),
+      ),
+    );
+    blankRow(totals + 6, 'the component totals');
+  }
+  // Each comparison: the page's row as a block, the account and its
+  // complete dimensions, its component, then each figure by the page's
+  // heading.
+  const compared = section('Component comparisons');
+  const rows = await tableCells(
+    w.locator(`table[aria-label="${words.comparisons}"]`),
+  );
+  if (!rows.body.length) assert.equal(compared, -1, 'no comparison, no table');
+  else {
+    assert.ok(compared >= 0, 'the comparison by account and component');
+    assert.equal(grid[compared][0], words.comparisons, 'the heading');
+    assert.equal(rows.head.length, 6, 'six headings on the page');
+  }
+  rows.body.forEach((cells, k) => {
+    const at = compared + 1 + 5 * k;
+    assert.deepEqual(
+      grid[at],
+      [cells[0], cells[1] || '—', null, null],
+      `comparison ${k + 1}: the account and its dimensions`,
+    );
+    assert.deepEqual(
+      grid[at + 1],
+      [rows.head[2], cells[2], null, null],
+      `comparison ${k + 1}: its component`,
+    );
+    for (let f = 3; f < 6; f++) {
+      assert.equal(grid[at + f - 1][0], rows.head[f], `${cells[0]} ${f}`);
+      same(cells[f], grid[at + f - 1][1], `${cells[0]} ${rows.head[f]}`);
+    }
+  });
+  if (rows.body.length)
+    blankRow(compared + 1 + 5 * rows.body.length, 'the comparisons');
+  // Every decision in the page's history: its button's word and its time,
+  // then the reference and the explanation.
+  const events = await w
+    .locator('[data-evidence-section="events"] tbody tr')
+    .evaluateAll((list) =>
+      list.map((r) =>
+        Array.from(r.querySelectorAll('th,td')).map((c) => c.textContent.trim()),
+      ),
+    );
+  const taken = section('Events');
+  if (!events.length) assert.equal(taken, -1, 'no decision, no table');
+  else {
+    assert.ok(taken >= 0, 'the recorded decisions');
+    assert.equal(grid[taken][0], words.decisions, 'the decisions heading');
+  }
+  events.forEach(([, type, time, reference, reason], k) => {
+    const row = taken + 1 + 2 * k;
+    assert.ok(words.actions[type], `decision ${k + 1}: ${type} is a decision`);
+    assert.deepEqual(
+      grid[row].slice(0, 3),
+      [words.actions[type], time, null],
+      `decision ${k + 1}: its button's word and its time`,
+    );
+    assert.deepEqual(
+      grid[row + 1].slice(0, 3),
+      [null, reference, reason],
+      `decision ${k + 1}: the reference and the explanation given`,
+    );
+  });
+  if (events.length) blankRow(taken + 1 + 2 * events.length, 'the decisions');
+  return {
+    rows: grid.length,
+    totals: totals >= 0 ? 4 : 0,
+    comparisons: rows.body.length,
+    decisions: events.length,
+  };
+}

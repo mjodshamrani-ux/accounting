@@ -415,6 +415,44 @@ export type ReconciliationSheetCopy = {
      * writes for it. */
     claim: string;
   };
+  fixedAssets: {
+    title: string;
+    /** The twelve scope fields, in the engine's order. */
+    scope: string[];
+    /** The one value each of these fields takes in this family. */
+    only: Record<'currencyBasis' | 'postingStatus', string>;
+    roles: string[];
+    status: Record<
+      | 'source-error'
+      | 'missing'
+      | 'difference'
+      | 'needs-review'
+      | 'consistent-with-evidence'
+      | 'accepted'
+      | 'rejected',
+      string
+    >;
+    completenessTitle: string;
+    completeReference: string;
+    completeNote: string;
+    /** The four components, each in the screen's word. */
+    components: Record<
+      'cost' | 'depreciation' | 'impairment' | 'carrying',
+      string
+    >;
+    tableNames: { totals: string; comparisons: string };
+    /** The three headings of the screen's table of component totals. */
+    totals: string[];
+    /** The six headings of the screen's comparison by account and
+     * component. */
+    comparisons: string[];
+    accept: string;
+    reject: string;
+    undo: string;
+    /** The engine's claim as the evidence's Summary sheet writes it, in the
+     * interface's language; the English is the evidence's words exactly. */
+    claim: string;
+  };
 };
 
 export const reconciliationSheetCopy: Record<
@@ -945,6 +983,66 @@ export const reconciliationSheetCopy: Record<
       undo: 'ألغ قرار المخزون',
       claim:
         'مقارنة القيم المرحلة المقدمة بالخريطة والسياسة وحسابات المخزون المحددة دون تقييم المخزون أو جمع كمياته أو إنشاء قيود أو إبداء رأي في اكتمال المصادر',
+    },
+    fixedAssets: {
+      title: 'الأصول الثابتة المرحلة وأدلة مكونات الأستاذ',
+      scope: [
+        'الكيان',
+        'دفتر الأصول',
+        'دفتر الأستاذ',
+        'العملة',
+        'أساس العملة',
+        'حالة الترحيل',
+        'طبقة الترحيل',
+        'التاريخ',
+        'إصدار دليل الحسابات',
+        'إصدار الخريطة',
+        'إصدار سياسة المكونات',
+        'إصدار مجموعة حسابات الأصول',
+      ],
+      only: { currencyBasis: 'وظيفية', postingStatus: 'مرحّلة' },
+      roles: [
+        'سجل مكونات الأصول المرحل',
+        'خريطة مكونات الأصول والأستاذ المقترحة',
+        'دليل سياسة الأصول المستقل المقدم',
+        'أرصدة مكونات الأصول في الأستاذ المحددة',
+      ],
+      status: {
+        'source-error': 'المصدر محجوب؛ الإجماليات غير محسوبة',
+        missing: 'دليل المكونات أو تغطية الحسابات ناقص',
+        difference: 'فرق حساب في مكون مستقل',
+        'needs-review': 'مراجعة كامل الأصول مطلوبة',
+        'consistent-with-evidence': 'متسق ضمن الأدلة المؤكدة',
+        accepted: 'معتمد',
+        rejected: 'مرفوض',
+      },
+      completenessTitle: 'تصريح الأصول المقدمة',
+      completeReference: 'مرجع اكتمال الأصول',
+      completeNote: 'توضيح اكتمال الأصول',
+      components: {
+        cost: 'الكلفة',
+        depreciation: 'الاستهلاك المتراكم',
+        impairment: 'الانخفاض المتراكم',
+        carrying: 'الصافي الدفتري',
+      },
+      tableNames: {
+        totals: 'مجاميع المكونات',
+        comparisons: 'المقارنة حسب الحساب والمكون',
+      },
+      totals: ['المكون', 'السجل', 'الأستاذ'],
+      comparisons: [
+        'حساب الأستاذ',
+        'أبعاد الأستاذ كاملة',
+        'المكون',
+        'السجل',
+        'صافي المكون في الأستاذ',
+        'الفرق، السجل ناقص الأستاذ',
+      ],
+      accept: 'اعتمد كامل نطاق الأصول',
+      reject: 'ارفض كامل نطاق الأصول',
+      undo: 'تراجع عن قرار الأصول',
+      claim:
+        'اتساق الكلفة والاستهلاك المتراكم والانخفاض والصافي الدفتري للأصول المرحلة المقدمة مع ربط المكونات المثبت بالأدلة وحسابات الأستاذ المحددة؛ لا رأي في طريقة احتساب الاستهلاك ولا في التقييم ولا في قيد ولا في الوجود ولا في الاكتمال',
     },
   },
   en: {
@@ -1481,6 +1579,66 @@ export const reconciliationSheetCopy: Record<
       undo: 'Undo inventory decision',
       claim:
         'Supplied posted carrying value consistency with evidenced mapping and selected inventory GL accounts; no valuation, quantity aggregation, posting or completeness opinion',
+    },
+    fixedAssets: {
+      title: 'Posted fixed assets / GL component evidence',
+      scope: [
+        'Entity',
+        'Asset ledger',
+        'GL ledger',
+        'Currency',
+        'Currency basis',
+        'Posting status',
+        'Posting layer',
+        'As of',
+        'Chart version',
+        'Map version',
+        'Component policy version',
+        'Asset account set version',
+      ],
+      only: { currencyBasis: 'Functional', postingStatus: 'Posted' },
+      roles: [
+        'Posted asset component register',
+        'Proposed asset component / GL mapping',
+        'Independent supplied asset policy evidence',
+        'Selected asset GL balances',
+      ],
+      status: {
+        'source-error': 'Source blocked; financial totals withheld',
+        missing: 'Component evidence or account coverage missing',
+        difference: 'Per-component account difference',
+        'needs-review': 'Whole asset review required',
+        'consistent-with-evidence': 'Consistent within confirmed evidence',
+        accepted: 'Accepted',
+        rejected: 'Rejected',
+      },
+      completenessTitle: 'Supplied asset attestation',
+      completeReference: 'Asset completeness reference',
+      completeNote: 'Asset completeness explanation',
+      components: {
+        cost: 'Cost',
+        depreciation: 'Accumulated depreciation',
+        impairment: 'Accumulated impairment',
+        carrying: 'Carrying amount',
+      },
+      tableNames: {
+        totals: 'Component totals',
+        comparisons: 'Comparison by account and component',
+      },
+      totals: ['Component', 'Register', 'GL'],
+      comparisons: [
+        'GL account',
+        'Complete GL dimensions',
+        'Component',
+        'Register',
+        'GL normal',
+        'Difference, register minus GL',
+      ],
+      accept: 'Approve whole asset scope',
+      reject: 'Reject whole asset scope',
+      undo: 'Undo asset decision',
+      claim:
+        'Consistency of supplied posted asset cost, accumulated depreciation, impairment and carrying amount with evidenced component mapping and selected GL accounts; no depreciation algorithm, valuation, posting, existence or completeness opinion',
     },
   },
 };

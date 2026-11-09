@@ -150,19 +150,24 @@ INTERCOMPANY_TABLES = ('Totals', 'Pairs')
 # The inventory's comparison by account, each account an item with its
 # figures.
 INVENTORY_TABLES = ('Account comparisons',)
+# The fixed assets' comparison by account and component, each comparison an
+# item with its component and figures.
+FIXED_ASSETS_TABLES = ('Component comparisons',)
 # Every table whose heading goes with its head and first row (with no head,
 # its first item), the rest running on: those above, in allocation the value
 # ledger of each side and the active allocations, the supplier's, the
-# financial position's, the intercompany's and the inventory's.
+# financial position's, the intercompany's, the inventory's and the fixed
+# assets'.
 TABLES = (REVIEW_TABLES + DECISION_TABLES + ('Value ledger', 'Active links') +
           SUPPLIER_TABLES + FINANCIAL_TABLES + INTERCOMPANY_TABLES +
-          INVENTORY_TABLES)
+          INVENTORY_TABLES + FIXED_ASSETS_TABLES)
 # Tables a page may be broken above a later item of, an item that is not the
 # first under its head: a case or document with its members, an active
 # allocation with its two sides, a decision, an unmatched case, a
-# counterpart pair with its figures, an account with its figures.
+# counterpart pair with its figures, an account with its figures, an account
+# and component with its figures.
 ITEM_TABLES = (REVIEW_TABLES + ('Active links', 'Events') + SUPPLIER_TABLES +
-               ('Pairs',) + INVENTORY_TABLES)
+               ('Pairs',) + INVENTORY_TABLES + FIXED_ASSETS_TABLES)
 
 
 class Fault(AssertionError):
@@ -389,8 +394,10 @@ def domain_of(evidence):
     summary = {r[0]: r[1] for r in evidence.table('Summary')[1:]}
     if 'Domain' in summary:
         return summary['Domain']
-    # The inventory workbook names its family by its version.
-    if summary.get('Version') == 'inventory-posted-register-gl-1':
+    # The inventory and fixed-assets workbooks name their family by its
+    # version.
+    if summary.get('Version') in ('inventory-posted-register-gl-1',
+                                  'fixed-assets-posted-components-gl-1'):
         return summary['Version']
     if SUPPLIER_SHEETS <= set(evidence.names) and 'Workbook Mode' in summary:
         return 'supplier-statement-comparison'
@@ -2867,6 +2874,301 @@ def check_inventory(evidence, book, lang, summary):
     need(numbers == expected, 'STRAY_NUMBER', f'{numbers} != {expected}')
     return {'status': summary['Status'], 'rows': len(rows)}
 
+FA_SCOPE = ['entity', 'assetLedger', 'glLedger', 'currency', 'currencyBasis',
+            'postingStatus', 'postingLayer', 'asOf', 'chartVersion',
+            'mapVersion', 'componentPolicyVersion', 'assetAccountSetVersion']
+FA_ONLY = {'currencyBasis': 'functional', 'postingStatus': 'posted'}
+FA_COMPONENTS = ['cost', 'depreciation', 'impairment', 'carrying']
+FA_CODES = {'source-error', 'missing', 'difference', 'needs-review',
+            'consistent-with-evidence', 'ready', 'accepted', 'rejected',
+            'accept', 'reject', 'undo', 'functional', 'posted',
+            *FA_COMPONENTS}
+FA_FIGURES = ['Register minor', 'GL minor', 'Difference minor']
+
+
+def check_fixed_assets(evidence, book, lang, summary):
+    """The fixed-assets sheet against its evidence: Summary, Component
+    comparisons, Missing, Issues, Inventory, Events, Event members and
+    Sources, on either register family (the long one's components in rows
+    read the same way here). The evidence is held to itself first: each
+    comparison's difference is its register figure less its GL figure, none
+    where either is not computed; the totals are none exactly where a source
+    holds an error; the financial state and the result's state follow from
+    the issues, the missing evidence, the differences, the attestation and
+    the review; each decision holds the whole scope, every row of the four
+    files after its first but the blank ones; each source's fingerprint is
+    the SHA-256 of its bytes. The totals are the engine's and are not
+    summed here from the comparisons: a component's register total holds
+    every asset, mapped or not."""
+    decimals = int(summary['Decimals'])
+    unit = Decimal(10) ** decimals
+    rows_of = lambda name: [dict(zip(evidence.table(name)[0], r))
+                            for r in evidence.table(name)[1:]]
+    comparisons = rows_of('Component comparisons')
+    issues = rows_of('Issues')
+    missing = rows_of('Missing')
+    inventory = rows_of('Inventory')
+    events = rows_of('Events')
+    held = rows_of('Event members')
+    for c in comparisons:
+        need(c['Component'] in FA_COMPONENTS[:3], 'EVIDENCE_READ',
+             f'{c["GL account"]} component {c["Component"]}')
+        if c['Difference minor'] != '':
+            need(c['Register minor'] != '' and c['GL minor'] != '' and
+                 int(c['Difference minor']) ==
+                 int(c['Register minor']) - int(c['GL minor']),
+                 'EVIDENCE_READ', f'{c["GL account"]} difference')
+        else:
+            need(c['Register minor'] == '' or c['GL minor'] == '',
+                 'EVIDENCE_READ', f'{c["GL account"]} difference not computed')
+    totals = summary['Register cost minor'] != ''
+    need(all((summary[f'{side} {k} minor'] != '') == totals
+             for side in ('Register', 'GL') for k in FA_COMPONENTS) and
+         totals == (not issues), 'EVIDENCE_READ',
+         'totals none exactly where a source holds an error')
+    computed = [int(c['Difference minor']) for c in comparisons
+                if c['Difference minor'] != '']
+    financial = ('source-error' if issues else 'missing' if missing else
+                 'difference' if any(c['Difference minor'] != '0'
+                                     for c in comparisons) else 'ready')
+    need(summary['Financial'] == financial, 'EVIDENCE_READ',
+         f'financial {summary["Financial"]} != {financial}')
+    confirmed = summary['Completeness confirmed'] == 'true'
+    state = (financial if financial != 'ready' else
+             'consistent-with-evidence' if summary['Review'] == 'accepted'
+             else 'needs-review')
+    need(summary['Status'] == state, 'EVIDENCE_READ',
+         f'state {summary["Status"]} != {state}')
+    need(summary['Review'] != 'accepted' or (confirmed and
+                                             financial == 'ready'),
+         'EVIDENCE_READ', 'an approval without its attestation')
+    sources = {}
+    for r in rows_of('Sources'):
+        src = sources.setdefault(int(r['Source']), {
+            'name': r['Name'], 'hash': r['SHA256'], 'chunks': []})
+        src['chunks'].append((int(r['Part']), r['Base64']))
+    for side, src in sources.items():
+        data = base64.b64decode(''.join(c for _, c in sorted(src['chunks'])),
+                                validate=True)
+        need(hashlib.sha256(data).hexdigest() == src['hash'], 'EVIDENCE_READ',
+             f'source {side} fingerprint')
+    need(sorted(sources) == [0, 1, 2, 3], 'EVIDENCE_READ', 'four sources')
+    scope = {json.dumps([summary['Version'], int(r['Source']),
+                         sources[int(r['Source'])]['hash'], 0,
+                         int(r['Source row'])], separators=(',', ':'))
+             for r in inventory if int(r['Source row']) > 1 and
+             r['Kind'] not in ('header', 'blank')}
+    for e in events:
+        ids = sorted(m['Member ID'] for m in held
+                     if m['Event ID'] == e['Event ID'])
+        need(ids == sorted(scope) and int(e['Member count']) == len(ids),
+             'EVIDENCE_READ', f'{e["Event ID"]} holds the whole scope')
+
+    expected = (['Summary', 'Sources', None] +
+                (['Summary'] if confirmed else []) +
+                (['Summary'] if totals else []) +
+                (['Component comparisons'] if comparisons else []) +
+                (['Events'] if events else []) + [None, 'Summary'])
+    rows, styles, line, sections = layout(book, evidence, lang, expected)
+    scope_s, srcs, strip = sections[:3]
+    rest = sections[3:-2]
+    attest = rest.pop(0) if confirmed else None
+    table = rest.pop(0) if totals else None
+    compared = rest.pop(0) if comparisons else None
+    taken = rest.pop(0) if events else None
+    sign, claim = sections[-2:]
+    # Every state the sheet says, one word a code across the sheet; every
+    # component, one word a code across the sheet.
+    states, components = [], []
+
+    # Scope: the twelve fields in the engine's order, the one-option two in
+    # the card's words.
+    need(len(scope_s['rows']) == len(FA_SCOPE), 'SCOPE', 'twelve fields')
+    for key, (_, row) in zip(FA_SCOPE, scope_s['rows']):
+        need(text(row[0]) and text(row[1]), 'SCOPE', key)
+        if key in FA_ONLY and summary[key] == FA_ONLY[key]:
+            need(row[1][1] not in FA_CODES, 'RAW_CODE', key)
+            seen_words(lang, f'fixed assets {key}', [(summary[key], row[1][1])])
+        else:
+            need(row[1][1] == summary[key], 'SCOPE', key)
+
+    # Sources: the four roles, each file and its whole fingerprint, the
+    # SHA-256 of the original bytes.
+    need(len(srcs['rows']) == 8, 'SOURCES', 'four sources')
+    roles = []
+    for side in (0, 1, 2, 3):
+        (_, said), (_, printed_hash) = srcs['rows'][2 * side:2 * side + 2]
+        need(text(said[0]) and text(said[1]) and
+             said[1][1] == sources[side]['name'], 'SOURCES', f'source {side}')
+        roles.append(said[0][1])
+        need(text(printed_hash[1]) and HEX64.match(printed_hash[1][1]) and
+             printed_hash[1][1] == sources[side]['hash'], 'FINGERPRINT',
+             f'source {side}')
+    need(len(set(roles)) == 4, 'SOURCES', 'two sources one name')
+    seen_words(lang, 'fixed assets roles', [(i, r) for i, r in enumerate(roles)])
+
+    # Alignment: the comparisons with no difference of all compared, the
+    # whole scope's review, the first difference by its component with how
+    # many more, or none in what was compared, or the state where nothing
+    # is; then the result's state.
+    srows = [row for _, row in strip['rows']]
+    agreed = srows.pop(0)
+    zero = sum(1 for d in computed if d == 0)
+    need(number(agreed[1]) and agreed[1][1] == zero and text(agreed[2]) and
+         number(agreed[3]) and agreed[3][1] == len(comparisons),
+         'AGREED_COUNT', f'{agreed[1]} of {agreed[3]}')
+    unit_note = srows.pop(0)
+    need(blank(unit_note[0]) and text(unit_note[1]), 'STRIP', 'unit note')
+    review = srows.pop(0)
+    review_note = srows.pop(0)
+    need(text(review[0]) and text(review[1]) and blank(review_note[0]) and
+         text(review_note[1]), 'REVIEW_COUNT', 'the whole scope review')
+    need(review[1][1] not in FA_CODES and review_note[1][1] not in FA_CODES,
+         'RAW_CODE', 'review')
+    seen_words(lang, 'fixed assets awaiting',
+               [(summary['Review'] == 'needs-review', review[1][1])])
+    seen_words(lang, 'fixed assets review note',
+               [(summary['Review'], review_note[1][1])])
+    gap = srows.pop(0)
+    numbers_strip = 2
+    if any(computed):
+        first = next(c for c in comparisons
+                     if c['Difference minor'] not in ('', '0'))
+        need(number(gap[1]) and
+             gap[1][1] == Decimal(first['Difference minor']) / unit, 'GAP',
+             f'{gap[1]} != {first["Difference minor"]}')
+        said = srows.pop(0)
+        need(blank(said[0]) and text(said[1]) and text(said[2]), 'GAP',
+             f'the first difference named {said[1]}')
+        components.append((first['Component'], said[1][1]))
+        numbers_strip += 1
+        more = sum(1 for d in computed if d) - 1
+        if more:
+            others = srows.pop(0)
+            need(blank(others[0]) and text(others[1]) and number(others[2]) and
+                 others[2][1] == more, 'GAP', f'{others[2]} != {more}')
+            numbers_strip += 1
+    elif computed:
+        none = srows.pop(0)
+        need(text(gap[1]) and blank(none[0]) and text(none[1]) and
+             number(none[2]) and none[2][1] == len(computed), 'GAP',
+             f'no difference in {len(computed)}')
+        numbers_strip += 1
+    else:
+        note = srows.pop(0)
+        need(text(gap[1]) and blank(note[0]) and text(note[1]), 'GAP',
+             'not computed, the state said')
+        states.append((summary['Status'], note[1][1]))
+    result = srows.pop(0) if srows else [None] * 4
+    need(text(result[0]) and text(result[1]), 'RESULT_STATE',
+         'the result without its state')
+    states.append((summary['Status'], result[1][1]))
+    need(not srows, 'STRIP', f'{len(srows)} rows more')
+    words_of(states, 'state', FA_CODES)
+    seen_words(lang, 'fixed assets state', states)
+
+    # The supplied asset attestation: the reference and the explanation the
+    # reviewer gave.
+    if confirmed:
+        need(len(attest['rows']) == 2, 'ATTESTATION', 'two rows')
+        (_, ref), (_, why) = attest['rows']
+        need(text(ref[0]) and text(ref[1]) and
+             ref[1][1] == summary['Completeness reference'], 'ATTESTATION',
+             'reference')
+        need(text(why[0]) and text(why[1]) and
+             why[1][1] == summary['Completeness note'], 'ATTESTATION_REASON',
+             'attestation without its reason')
+
+    # The component totals: the three headings, then each component in the
+    # engine's order with its register and GL totals.
+    if totals:
+        head, *body = table['rows']
+        need(all(text(c) and styles.bold(c[2]) for c in head[1][:3]) and
+             blank(head[1][3]), 'TOTALS', 'head')
+        need(len(body) == 4, 'TOTALS', 'four components')
+        for key, (_, row) in zip(FA_COMPONENTS, body):
+            need(text(row[0]) and blank(row[3]), 'TOTALS', key)
+            components.append((key, row[0][1]))
+            for c, side in ((1, 'Register'), (2, 'GL')):
+                v = Decimal(summary[f'{side} {key} minor']) / unit
+                need(number(row[c]) and row[c][1] == v, 'TOTALS',
+                     f'{side} {key}: {row[c]} != {v}')
+
+    # Each comparison in the evidence's order: the account and its complete
+    # dimensions, then its component, then its three figures each named the
+    # same way in every comparison, a dash where the engine computes none.
+    figures = 0
+    if comparisons:
+        it = iter(compared['rows'])
+        labels = []
+        for c in comparisons:
+            _, head = next(it, (None, [None] * 4))
+            need(text(head[0]) and head[0][1] == c['GL account'], 'ACCOUNT',
+                 f'{c["GL account"]} named {head[0]}')
+            need(text(head[1]) and head[1][1] == (c['GL dimensions'] or '—'),
+                 'ACCOUNT', f'{c["GL account"]} dimensions {head[1]}')
+            need(blank(head[2]) and blank(head[3]), 'ACCOUNT',
+                 f'{c["GL account"]} more')
+            _, which = next(it, (None, [None] * 4))
+            need(text(which[0]) and text(which[1]) and blank(which[2]),
+                 'COMPONENT', f'{c["GL account"]} component')
+            components.append((c['Component'], which[1][1]))
+            said = [which[0][1]]
+            for key in FA_FIGURES:
+                _, row = next(it, (None, [None] * 4))
+                need(text(row[0]) and blank(row[2]), 'ACCOUNT_FIGURE',
+                     f'{c["GL account"]} {key}')
+                said.append(row[0][1])
+                if c[key] == '':
+                    need(text(row[1]) and row[1][1] == '—', 'ACCOUNT_FIGURE',
+                         f'{c["GL account"]} {key}: {row[1]}')
+                else:
+                    v = Decimal(c[key]) / unit
+                    need(number(row[1]) and row[1][1] == v, 'ACCOUNT_FIGURE',
+                         f'{c["GL account"]} {key}: {row[1]} != {v}')
+                    figures += 1
+            labels.append(tuple(said))
+        need(next(it, None) is None, 'ACCOUNTS',
+             'rows more than the comparisons')
+        need(len(set(labels)) == 1 and len(set(labels[0])) == 4,
+             'ACCOUNT_FIGURE', 'each figure named one way')
+    words_of(components, 'component', FA_CODES)
+    seen_words(lang, 'fixed assets component', components)
+
+    # Each recorded decision: what it did and its time, then the reference
+    # and the explanation the reviewer gave.
+    if events:
+        it = iter(taken['rows'])
+        actions = []
+        for e in events:
+            _, head = next(it, (None, [None] * 4))
+            need(text(head[0]), 'DECISION_ACTION', e['Event ID'])
+            actions.append((e['Type'], head[0][1]))
+            need(text(head[1]) and head[1][1] == e['At'], 'DECISION_TIME',
+                 e['Event ID'])
+            need(blank(head[2]), 'DECISIONS', e['Event ID'])
+            _, words = next(it, (None, [None] * 4))
+            need(blank(words[0]), 'DECISIONS', e['Event ID'])
+            need(text(words[1]) and words[1][1] == e['Reference'],
+                 'DECISION_REFERENCE', e['Event ID'])
+            need(text(words[2]) and words[2][1] == e['Note'], 'DECISION_REASON',
+                 f'decision {e["Event ID"]} without its reason')
+        need(next(it, None) is None, 'DECISIONS', 'rows more than the decisions')
+        words_of(actions, 'decision_action', FA_CODES)
+        seen_words(lang, 'fixed assets decision', actions)
+
+    check_sign_and_claim(sign, claim, line, lang, summary['Claim'])
+    if lang == 'ar':
+        need(claim['rows'][0][1][0][1] != summary['Claim'], 'CLAIM',
+             'the Arabic claim left in English')
+    seen_words(lang, 'fixed assets claim',
+               [(summary['Claim'], claim['rows'][0][1][0][1])])
+
+    numbers = sum(1 for row in rows for c in row if number(c))
+    expected = numbers_strip + (8 if totals else 0) + figures
+    need(numbers == expected, 'STRAY_NUMBER', f'{numbers} != {expected}')
+    return {'status': summary['Status'], 'rows': len(rows)}
+
 PROFILES = {'gl-trial-balance-consistency': check_gl_tb,
             'single-account-clearing': check_clearing,
             'customer-ar-document-comparison': check_ar,
@@ -2876,7 +3178,8 @@ PROFILES = {'gl-trial-balance-consistency': check_gl_tb,
             'tb-financial-position': check_financial,
             'intercompany-ledger': check_intercompany,
             'payment-gateway-batch': check_gateway,
-            'inventory-posted-register-gl-1': check_inventory}
+            'inventory-posted-register-gl-1': check_inventory,
+            'fixed-assets-posted-components-gl-1': check_fixed_assets}
 WORKSPACES = {'gl-tb': 'gl-trial-balance-consistency',
               'clearing': 'single-account-clearing',
               'ar': 'customer-ar-document-comparison',
@@ -2886,7 +3189,8 @@ WORKSPACES = {'gl-tb': 'gl-trial-balance-consistency',
               'financial': 'tb-financial-position',
               'intercompany': 'intercompany-ledger',
               'gateway': 'payment-gateway-batch',
-              'inventory': 'inventory-posted-register-gl-1'}
+              'inventory': 'inventory-posted-register-gl-1',
+              'fixed-assets': 'fixed-assets-posted-components-gl-1'}
 
 
 def verify(folder):
@@ -3565,6 +3869,130 @@ def inventory_error_plants(data):
             '>فرق قيمة مرحلة على مستوى الحساب<', 1), 1)
     yield 'state in the gap said as another', 'STATE', _edit(data, sheet, other)
 
+
+def fixed_assets_plants(data):
+    """Faults a fixed-assets workpaper can carry: in its decisions, its
+    attestation, its component totals, its comparisons, its strip, its
+    state, its scope, its sources and its claim, in a sheet whose whole
+    scope was approved, undone, rejected and undone three times over, and
+    approved: fifteen decisions."""
+    sheet = _first_sheet(data)
+
+    def row_edit(label, offset, change):
+        def go(x):
+            n = _cell(x, label) + offset
+            old = _row(x, n)
+            new = change(old)
+            assert new != old, label
+            return x.replace(old, new, 1)
+        return _edit(data, sheet, go)
+
+    plus = lambda col: lambda r: re.sub(
+        rf'(<c r="{col}\d+"[^>]*><v>)(-?\d+)',
+        lambda m: f'{m.group(1)}{int(m.group(2)) + 1}', r, count=1)
+    drop = lambda col: lambda r: re.sub(rf'<c r="{col}\d+"[^>]*>.*?</c>', '', r)
+    swap = lambda old, new: lambda r: r.replace(f'>{old}<', f'>{new}<', 1)
+    accept, reject = 'اعتمد كامل نطاق الأصول', 'ارفض كامل نطاق الأصول'
+    undo = 'تراجع عن قرار الأصول'
+    yield 'decision without its reason', 'DECISION_REASON', row_edit(
+        reject, 1, drop('C'))
+    yield 'rejection said as an approval', 'DECISION_ACTION', row_edit(
+        reject, 0, swap(reject, accept))
+    yield 'decision reference changed', 'DECISION_REFERENCE', row_edit(
+        undo, 1, swap('Synthetic asset review', 'Another review'))
+    yield 'decision time changed', 'DECISION_TIME', row_edit(
+        accept, 0, lambda r: r.replace('.000Z<', '.999Z<', 1))
+    yield 'attestation explanation changed', 'ATTESTATION_REASON', row_edit(
+        'توضيح اكتمال الأصول', 0,
+        lambda r: r.replace('>Synthetic: every', '>Synthetic: some', 1))
+    yield 'a component total changed', 'TOTALS', row_edit(
+        'الاستهلاك المتراكم', 0, plus('B'))
+    yield 'a total under another component', 'COMPONENT', row_edit(
+        'الانخفاض المتراكم', 0, swap('الانخفاض المتراكم', 'الاستهلاك المتراكم'))
+    yield 'a comparison figure changed', 'ACCOUNT_FIGURE', row_edit(
+        'السجل', 0, plus('B'))
+    yield 'a comparison named by another account', 'ACCOUNT', row_edit(
+        'GL-cost', 0, swap('GL-cost', 'GL-other'))
+    yield 'a comparison said as another component', 'COMPONENT', row_edit(
+        'GL-depreciation', 1, swap('الاستهلاك المتراكم', 'الكلفة'))
+    yield 'aligned count changed', 'AGREED_COUNT', row_edit(
+        'تراصف', 0, plus('B'))
+    yield 'approved scope said as rejected', 'FIXED ASSETS REVIEW NOTE', row_edit(
+        'ينتظر قرارك', 1, swap('قُبلت النتيجة بقرار مسجل',
+                               'رُفضت النتيجة بقرار مسجل'))
+    yield 'result state said as an approval', 'FIXED ASSETS STATE', row_edit(
+        'حالة النتيجة', 0, swap('متسق ضمن الأدلة المؤكدة', 'معتمد'))
+    yield 'one-option field as its code', 'RAW_CODE', row_edit(
+        'أساس العملة', 0, swap('وظيفية', 'functional'))
+    yield 'a scope field changed', 'SCOPE', row_edit(
+        'دفتر الأصول', 0, swap('ASSET-BOOK', 'ASSET-OTHER'))
+    yield 'a source fingerprint changed', 'FINGERPRINT', row_edit(
+        'البصمة SHA-256', 0, lambda r: r.replace('>b4b3', '>c4b3', 1))
+    yield 'the claim in other words', 'FIXED ASSETS CLAIM', row_edit(
+        'اتساق الكلفة والاستهلاك المتراكم والانخفاض والصافي الدفتري للأصول '
+        'المرحلة المقدمة مع ربط المكونات المثبت بالأدلة وحسابات الأستاذ '
+        'المحددة؛ لا رأي في طريقة احتساب الاستهلاك ولا في التقييم ولا في قيد '
+        'ولا في الوجود ولا في الاكتمال', 0,
+        lambda r: r.replace('>اتساق', '>تطابق', 1))
+
+
+def fixed_assets_difference_plants(data):
+    """Faults in a sheet whose cost differs by one minor unit: the first
+    difference changed in the strip or named by another component, a
+    comparison's dimensions, and the result without its state."""
+    sheet = _first_sheet(data)
+
+    def row_edit(label, offset, change):
+        def go(x):
+            n = _cell(x, label) + offset
+            old = _row(x, n)
+            new = change(old)
+            assert new != old, label
+            return x.replace(old, new, 1)
+        return _edit(data, sheet, go)
+
+    plus = lambda col: lambda r: re.sub(
+        rf'(<c r="{col}\d+"[^>]*><v>)(-?\d+)',
+        lambda m: f'{m.group(1)}{int(m.group(2)) + 1}', r, count=1)
+    swap = lambda old, new: lambda r: r.replace(f'>{old}<', f'>{new}<', 1)
+    yield 'first difference changed in the strip', 'GAP', row_edit(
+        'الفجوة', 0, plus('B'))
+    yield 'first difference named by another component', 'COMPONENT', row_edit(
+        'الفجوة', 1, swap('الكلفة', 'الانخفاض المتراكم'))
+    yield 'a comparison dimension changed', 'ACCOUNT', row_edit(
+        'GL-cost', 0, swap('branch=01', 'branch=02'))
+
+    def gone(x):
+        return x.replace(_row(x, _cell(x, 'حالة النتيجة')), '', 1)
+    yield 'the result without its state', 'RESULT_STATE', _edit(
+        data, sheet, gone)
+
+
+def fixed_assets_error_plants(data):
+    """Faults in a sheet whose source holds an error: a figure the engine
+    does not compute said as a zero, and the state the strip's gap says
+    said as another."""
+    sheet = _first_sheet(data)
+
+    def zero(x):
+        n = _cell(x, 'الفرق، السجل ناقص الأستاذ')
+        old = _row(x, n)
+        new = re.sub(r'<c r="(B\d+)" t="inlineStr"( s="\d+")><is><t[^>]*>—</t>'
+                     r'</is></c>', r'<c r="\1"\2><v>0</v></c>', old, count=1)
+        assert new != old
+        return x.replace(old, new, 1)
+    yield 'an uncomputed figure said as zero', 'ACCOUNT_FIGURE', _edit(
+        data, sheet, zero)
+
+    def other(x):
+        n = _cell(x, 'الفجوة') + 1
+        old = _row(x, n)
+        new = old.replace('>المصدر محجوب؛ الإجماليات غير محسوبة<',
+                          '>فرق حساب في مكون مستقل<', 1)
+        assert new != old
+        return x.replace(old, new, 1)
+    yield 'state in the gap said as another', 'STATE', _edit(data, sheet, other)
+
 def page_plants(data):
     """A sheet that needs its break, printed without it: its heading would
     end about a point past its page by the checker's estimate, which only
@@ -3624,6 +4052,13 @@ def self_test(folder):
                             gateway_difference_plants)
     found += _self_test_one(folder, pick('gateway-extra-settlement'),
                             gateway_error_plants)
+    found += _self_test_one(folder, pick('fixed-assets-many-decisions'),
+                            fixed_assets_plants)
+    found += _self_test_one(folder,
+                            pick('fixed-assets-cost-one-minor-difference'),
+                            fixed_assets_difference_plants)
+    found += _self_test_one(folder, pick('fixed-assets-cost-missing'),
+                            fixed_assets_error_plants)
     return found
 
 

@@ -125,6 +125,23 @@ import {
   type InventoryCase,
   type InventoryPdfCase,
 } from '../audit/reconciliation-sheet/inventory-cases.ts';
+import { assetStrip } from '../lib/alignment-strip.ts';
+import { assetCopy } from '../lib/i18n/fixed-assets.ts';
+import {
+  ASSET_COMPONENTS,
+  ASSET_FIELDS,
+} from '../lib/reconciliation/fixed-assets.ts';
+import { exportAsset } from '../lib/reconciliation/fixed-assets-io.ts';
+import {
+  exportAssetWorkpaper,
+  fixedAssetsSheet,
+} from '../lib/reconciliation/fixed-assets-sheet.ts';
+import {
+  fixedAssetsCase,
+  type FixedAssetsCase,
+} from '../audit/reconciliation-sheet/fixed-assets-cases.ts';
+import { AssetLongPort } from './helpers/fixed-assets-long-port.ts';
+import { rezip, setCell } from './helpers/workbook-xml.ts';
 
 // UX-6(a): the reconciliation sheet is added to a workpaper whose evidence is
 // already written, and leaves that evidence byte for byte as it was. Its words
@@ -3522,5 +3539,413 @@ void test('the real worker writes the inventory sheet in the language asked on b
   } finally {
     port.terminate();
     printedPort.terminate();
+  }
+});
+
+// UX-6(c), fixed assets: frozen cases of the flat family, each state the
+// engine gives and three precisions; the long family's (components in
+// rows), a source error among them and its positive one attested and
+// approved; and the flat positive one attested and decided, and fifteen
+// decisions. The exporter writes every frozen case of both families.
+const FIXED_ASSETS_CASES = [
+  'three-components-positive',
+  'cost-one-minor-difference',
+  'cost-missing',
+  'empty-gl',
+  'empty-register',
+  'jpy-zero-precision-positive',
+  'kwd-three-precision-positive',
+  'attested',
+  'accepted',
+  'rejected',
+  'undone',
+  'many-decisions',
+  'long-01-two-assets-separated',
+  'long-42-malformed-last-row-width',
+  'long-accepted',
+];
+const ASSET_ONLY = {
+  currencyBasis: 'functional',
+  postingStatus: 'posted',
+} as const;
+
+/** What the fixed-assets sheet says, held to the result it was written
+ * from. */
+async function fixedAssetsSays(
+  name: string,
+  { state, result }: FixedAssetsCase,
+  lang: 'ar' | 'en',
+) {
+  const evidence = await exportAsset(state, result);
+  const sources = state.files.map((f) => ({ name: f.name, sha256: f.sha256 }));
+  const composed = fixedAssetsSheet(result, sources, lang);
+  const book = await addReconciliationSheet(evidence, composed);
+  const before = await parts(evidence),
+    after = await parts(book);
+  for (const [part, bytes] of before)
+    if (!WORKBOOK_PARTS.includes(part))
+      assert.deepEqual(after.get(part), bytes, `${name}: ${part}`);
+  const workpaper = await exportAssetWorkpaper(state, result, lang);
+  // The worker's workpaper is the one composed here, part for part.
+  const handed = await parts(workpaper);
+  for (const [part, bytes] of after)
+    if (part !== 'docProps/core.xml')
+      assert.deepEqual(handed.get(part), bytes, `${name}: handed ${part}`);
+  const w = reconciliationSheetCopy[lang],
+    t = w.fixedAssets;
+  const { rows } = await firstSheet(workpaper);
+  assert.equal(rows[1][0], t.title, name);
+  const unit = 10 ** result.decimals;
+  const blank = (at: number, what: string) =>
+    assert.deepEqual(
+      rows[at] ?? [null, null, null, null],
+      [null, null, null, null],
+      `${name}: ${what} end`,
+    );
+  const kept = composed.keep!;
+  // The scope in the screen's words; the two one-option fields in the card's
+  // words for their one value.
+  const scope = headingOf(rows, w.scope, 'Summary', lang);
+  assert.ok(scope >= 0, `${name}: the scope names its evidence`);
+  ASSET_FIELDS.forEach((key, i) =>
+    assert.deepEqual(
+      rows[scope + 1 + i].slice(0, 2),
+      [
+        t.scope[i],
+        key in ASSET_ONLY &&
+        result.scope[key] === ASSET_ONLY[key as keyof typeof ASSET_ONLY]
+          ? t.only[key as keyof typeof ASSET_ONLY]
+          : result.scope[key],
+      ],
+      `${name}: ${key}`,
+    ),
+  );
+  // The four sources by their roles and whole fingerprints.
+  const srcs = headingOf(rows, w.sources, 'Sources', lang);
+  assert.ok(srcs >= 0, `${name}: the sources name their evidence`);
+  state.files.forEach((file, i) => {
+    assert.deepEqual(rows[srcs + 1 + 2 * i].slice(0, 2), [
+      t.roles[i],
+      file.name,
+    ]);
+    assert.deepEqual(rows[srcs + 2 + 2 * i].slice(0, 2), [
+      w.fingerprint,
+      file.sha256,
+    ]);
+  });
+  // The strip, cell by cell, from the function the screen draws with and
+  // the components in the screen's words; then the result's state as the
+  // screen's heading writes it.
+  const s = alignmentStripCopy[lang];
+  const status = (code: string) => (t.status as Record<string, string>)[code];
+  const component = (key: string) =>
+    (t.components as Record<string, string>)[key];
+  for (const cell of stripView(assetStrip(result), s, {
+    name: component,
+    state: status(result.status),
+  })) {
+    const at = rowOf(rows, cell.label),
+      row = rows[at];
+    if (cell.value.kind === 'count')
+      assert.deepEqual(
+        row.slice(1),
+        cell.value.of === undefined
+          ? [cell.value.count, null, null]
+          : [cell.value.count, w.of, cell.value.of],
+      );
+    else if (cell.value.kind === 'amount')
+      assert.equal(row[1], cell.value.minor / unit, `${name}: the gap`);
+    else assert.equal(row[1], cell.value.text, `${name}: ${cell.cell}`);
+    cell.notes.forEach((n, i) =>
+      assert.deepEqual(
+        rows[at + 1 + i].slice(0, 3),
+        [null, n.text, n.value ?? null],
+        `${name}: ${cell.cell} note ${i + 1}`,
+      ),
+    );
+  }
+  const stateAt = rowOf(rows, s.state);
+  assert.deepEqual(
+    rows[stateAt].slice(0, 2),
+    [s.state, status(result.status)],
+    `${name}: the result's state`,
+  );
+  assert.ok(status(result.status), `${name}: a word for the state`);
+  blank(stateAt + 1, 'the alignment');
+  // The supplied asset attestation, written once given.
+  const attest = headingOf(rows, t.completenessTitle, 'Summary', lang);
+  if (!result.completeness.confirmed)
+    assert.equal(attest, -1, `${name}: no attestation, no section`);
+  else {
+    assert.deepEqual(rows[attest + 1].slice(0, 2), [
+      t.completeReference,
+      result.completeness.reference,
+    ]);
+    assert.deepEqual(rows[attest + 2].slice(0, 2), [
+      t.completeNote,
+      result.completeness.note,
+    ]);
+    blank(attest + 3, 'the attestation');
+  }
+  // The component totals, the screen's table with its three headings and
+  // four rows, where the engine computes them, on one printed page.
+  const totals = headingOf(rows, t.tableNames.totals, 'Summary', lang);
+  if (!result.totals) assert.equal(totals, -1, `${name}: no totals`);
+  else {
+    assert.deepEqual(rows[totals + 1], [...t.totals, null]);
+    [...ASSET_COMPONENTS, 'carrying' as const].forEach((k, i) =>
+      assert.deepEqual(
+        rows[totals + 2 + i],
+        [
+          t.components[k],
+          result.totals!.register[k] / unit,
+          result.totals!.gl[k] / unit,
+          null,
+        ],
+        `${name}: ${k} total`,
+      ),
+    );
+    blank(totals + 6, 'the totals');
+    assert.ok(
+      kept.some(([from, to]) => from === totals && to === totals + 5),
+      `${name}: the totals are kept whole`,
+    );
+  }
+  // Each comparison: the account and its complete dimensions, then its
+  // component and its three figures by the screen's headings, a dash where
+  // none is computed; each kept whole on its page.
+  const comparisons = headingOf(
+    rows,
+    t.tableNames.comparisons,
+    'Component comparisons',
+    lang,
+  );
+  if (!result.comparisons.length)
+    assert.equal(comparisons, -1, `${name}: no comparisons, no table`);
+  const figure = (minor: number | null) =>
+    minor === null ? '—' : minor / unit;
+  result.comparisons.forEach((c, k) => {
+    const at = comparisons + 1 + 5 * k;
+    assert.deepEqual(rows[at].slice(0, 3), [
+      c.account,
+      c.dimensions || '—',
+      null,
+    ]);
+    assert.deepEqual(
+      rows[at + 1].slice(0, 3),
+      [t.comparisons[2], t.components[c.component], null],
+      `${name}: ${c.account} component`,
+    );
+    [c.register, c.gl, c.difference].forEach((minor, f) =>
+      assert.deepEqual(
+        rows[at + 2 + f].slice(0, 3),
+        [t.comparisons[3 + f], figure(minor), null],
+        `${name}: ${c.account} ${c.component} ${t.comparisons[3 + f]}`,
+      ),
+    );
+    if (k)
+      assert.ok(
+        kept.some(([from, to]) => from === at && to === at + 4),
+        `${name}: comparison ${k + 1} kept whole`,
+      );
+  });
+  if (result.comparisons.length)
+    blank(comparisons + 1 + 5 * result.comparisons.length, 'the comparisons');
+  // Each recorded decision: its button's word and its time, then the
+  // reference and the explanation given.
+  const events = headingOf(rows, w.decisions, 'Events', lang);
+  if (!result.events.length)
+    assert.equal(events, -1, `${name}: no decisions, no table`);
+  result.events.forEach((e, k) => {
+    const at = events + 1 + 2 * k;
+    assert.deepEqual(rows[at].slice(0, 3), [t[e.type], e.at, null]);
+    assert.deepEqual(rows[at + 1].slice(0, 3), [null, e.reference, e.note]);
+    if (k)
+      assert.ok(
+        kept.some(([from, to]) => from === at && to === at + 1),
+        `${name}: decision ${k + 1} kept whole`,
+      );
+  });
+  if (result.events.length)
+    blank(events + 1 + 2 * result.events.length, 'the decisions');
+  assert.ok(
+    headingOf(rows, w.claim, 'Summary', lang) >= 0,
+    `${name}: the claim names its evidence`,
+  );
+  assert.equal(rows.at(-1)![0], t.claim);
+  return result;
+}
+
+void test('fixed assets: the evidence stays byte for byte, the result state, the component totals, each comparison, each decision with its reason', async () => {
+  const seen = new Set<string>(),
+    reviews = new Set<string>(),
+    precisions = new Set<number>(),
+    families = new Set<string>(),
+    dashes = new Set<string>();
+  for (const name of FIXED_ASSETS_CASES) {
+    const value = await fixedAssetsCase(name);
+    for (const lang of ['ar', 'en'] as const) {
+      const result = await fixedAssetsSays(name, structuredClone(value), lang);
+      seen.add(result.status);
+      reviews.add(result.review);
+      precisions.add(result.decimals);
+      families.add(result.readings[0].family);
+      if (result.comparisons.some((c) => c.difference === null))
+        dashes.add(name);
+    }
+  }
+  // The cases cover a result of every state the engine gives, every review,
+  // three precisions, both register families and a figure not computed.
+  assert.deepEqual([...seen].sort(), [
+    'consistent-with-evidence',
+    'difference',
+    'missing',
+    'needs-review',
+    'source-error',
+  ]);
+  assert.deepEqual([...reviews].sort(), [
+    'accepted',
+    'needs-review',
+    'rejected',
+  ]);
+  assert.deepEqual(
+    [...precisions].sort((a, b) => a - b),
+    [0, 2, 3],
+  );
+  assert.deepEqual([...families].sort(), [
+    'fixed-assets-long-components-gl-1',
+    'fixed-assets-posted-components-gl-1',
+  ]);
+  assert.ok(dashes.size > 0, 'a comparison with no figure computed');
+});
+
+void test('fixed assets: the words are the screen words, and the claim in English is the evidence words', async () => {
+  for (const lang of ['ar', 'en'] as const) {
+    const t = reconciliationSheetCopy[lang].fixedAssets;
+    const screen = assetCopy[lang] as unknown as Record<string, unknown>;
+    for (const key of Object.keys(t) as (keyof typeof t)[])
+      if (key === 'scope')
+        assert.deepEqual(
+          t.scope,
+          ASSET_FIELDS.map((f) => (screen.scope as Record<string, string>)[f]),
+          `${lang} fixedAssets.scope`,
+        );
+      else if (key === 'completenessTitle')
+        assert.equal(t[key], screen.completeTitle, `${lang} ${key}`);
+      else if (key !== 'claim')
+        assert.deepEqual(t[key], screen[key], `${lang} fixedAssets.${key}`);
+  }
+  for (const name of [
+    'three-components-positive',
+    'long-01-two-assets-separated',
+  ]) {
+    const { state, result } = await fixedAssetsCase(name);
+    const wb = new ExcelJS.Workbook();
+    await wb.xlsx.load(await exportAsset(state, result));
+    const claim = wb
+      .getWorksheet('Summary')!
+      .getRows(1, 40)!
+      .find((r) => r.getCell(1).value === 'Claim')!
+      .getCell(2).value as string;
+    assert.equal(reconciliationSheetCopy.en.fixedAssets.claim, claim, name);
+  }
+  assert.notEqual(
+    reconciliationSheetCopy.ar.fixedAssets.claim,
+    reconciliationSheetCopy.en.fixedAssets.claim,
+  );
+});
+
+void test('the real worker writes the fixed-assets sheet in the language asked, and the page refuses a request without one or a reply that is not the one asked for', async () => {
+  const { state, result } = await fixedAssetsCase('rejected');
+  const sent: ArrayBuffer[] = [];
+  let replace: ((bytes: ArrayBuffer) => Promise<ArrayBuffer>) | null = null;
+  const ports: AssetLongPort[] = [];
+  // A port to the real worker; a reply the page refuses retires its worker,
+  // so the client is given a fresh one each time it asks.
+  const client = createWorkerClient(() => {
+    const port = new AssetLongPort((response, deliver) => {
+      if (response.action === 'asset-export' && response.ok) {
+        sent.push((response.value as ArrayBuffer).slice(0));
+        if (replace) {
+          const change = replace;
+          void change(response.value as ArrayBuffer).then((value) =>
+            deliver({ ...response, value }),
+          );
+          return;
+        }
+      }
+      deliver(response);
+    });
+    ports.push(port);
+    return port;
+  });
+  const names = async (bytes: ArrayBuffer) => {
+    const book = new ExcelJS.Workbook();
+    await book.xlsx.load(bytes);
+    return book.worksheets.slice(0, 2).map((s) => s.name);
+  };
+  try {
+    for (const lang of ['ar', 'en'] as const) {
+      const reply = await client
+        .request<ArrayBuffer>('asset-export', { state, result, lang })
+        .catch((error: unknown) => error);
+      assert.deepEqual(await names(sent.at(-1)!), [
+        reconciliationSheetCopy[lang].name,
+        'Summary',
+      ]);
+      assert.ok(
+        reply instanceof ArrayBuffer,
+        `the page accepted ${lang}: ${String(reply)}`,
+      );
+      const { rows } = await firstSheet(reply);
+      assert.equal(rows[1][0], reconciliationSheetCopy[lang].fixedAssets.title);
+    }
+    // A request without a language, with a third or with another key is
+    // refused before the worker, while it is alive.
+    const before = sent.length,
+      workers = ports.length;
+    for (const payload of [
+      { state, result },
+      { state, result, lang: 'fr' },
+      { state, result, lang: 'en', extra: true },
+    ])
+      await assert.rejects(
+        client.request('asset-export', payload),
+        /ASSET_WORKER_INPUT/,
+      );
+    assert.equal(sent.length, before, 'no refused request reached the worker');
+    assert.equal(ports.length, workers, 'the worker was not retired');
+    // The worker's reply re-zipped unchanged is accepted: a refusal below is
+    // the change's, not the rewrite's.
+    replace = rezip;
+    assert.ok(
+      (await client.request('asset-export', {
+        state,
+        result,
+        lang: 'en',
+      })) instanceof ArrayBuffer,
+      'the reply re-zipped unchanged',
+    );
+    // A reply in the other language, or with one cell of the sheet changed,
+    // is not the one asked for.
+    const english = sent.at(-1)!;
+    replace = async () => english.slice(0);
+    await assert.rejects(
+      client.request('asset-export', { state, result, lang: 'ar' }),
+      /ASSET_REQUEST_BINDING/,
+    );
+    replace = (bytes) =>
+      setCell(bytes, reconciliationSheetCopy.en.name, 'A2', 'Another title');
+    await assert.rejects(
+      client.request('asset-export', { state, result, lang: 'en' }),
+      /ASSET_REQUEST_BINDING/,
+    );
+    replace = null;
+    await assert.rejects(
+      exportAssetWorkpaper(state, result, undefined),
+      /RECONCILIATION_SHEET_LANGUAGE/,
+    );
+  } finally {
+    ports.forEach((p) => p.terminate());
   }
 });

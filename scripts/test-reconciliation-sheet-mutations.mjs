@@ -1,6 +1,6 @@
 // UX-6: one mutant for each guard the reconciliation sheet adds, as the
 // design record declares them (docs/audits/UX-6-RECONCILIATION-SHEET.ar.md,
-// section 7), GL/TB in 6(a), the case workspaces in 6(b), and the trial balance and financial position, intercompany, payment gateways and inventory in 6(c). Each mutant changes one product file at one anchor in a private
+// section 7), GL/TB in 6(a), the case workspaces in 6(b), and the trial balance and financial position, intercompany, payment gateways, inventory and fixed assets in 6(c). Each mutant changes one product file at one anchor in a private
 // copy of the tree; it is killed only when a test fails by an assertion
 // (DEV-22), never by a syntax error, a crash or a timeout.
 //
@@ -1381,6 +1381,207 @@ const mutations = [
     'lib/i18n/reconciliation-sheet.ts',
     "completenessTitle: 'تصريح جرد المخزون المقدم',",
     "completenessTitle: 'تصريح جرد الأصول المقدمة',",
+  ],  // UX-6(c), fixed assets. The worker writes the sheet in the language the
+  // request names; the page refuses a request without one, with a third or
+  // with another key, and compares the reply with the workpaper it writes
+  // itself in that language.
+  [
+    'asset-worker-language-ignored',
+    'lib/reconciliation/worker.ts',
+    "exportAssetWorkpaper(payload.state, payload.result, payload.lang)",
+    "exportAssetWorkpaper(payload.state, payload.result, 'en')",
+  ],
+  [
+    'asset-request-language-unchecked',
+    'lib/reconciliation/worker-client.ts',
+    "Object.keys(payload).sort().join('|') !== 'lang|result|state' ||\n              (payload.lang !== 'ar' && payload.lang !== 'en')",
+    "Object.keys(payload).sort().join('|') !== 'lang|result|state'",
+  ],
+  [
+    'asset-request-keys-unchecked',
+    'lib/reconciliation/worker-client.ts',
+    "Object.keys(payload).sort().join('|') !== 'lang|result|state' ||\n",
+    '',
+  ],
+  [
+    'asset-binding-expects-evidence-only',
+    'lib/reconciliation/fixed-assets-io.ts',
+    "const { exportAssetWorkpaper } = await import('./fixed-assets-sheet.ts');\n    const expected = await exportAssetWorkpaper(\n      payload.state as AssetInput,\n      payload.result as AssetResult,\n      payload.lang,\n    );",
+    'const expected = await exportAsset(\n      payload.state as AssetInput,\n      payload.result as AssetResult,\n    );',
+  ],
+  [
+    'asset-binding-language-ignored',
+    'lib/reconciliation/fixed-assets-io.ts',
+    '      payload.result as AssetResult,\n      payload.lang,\n    );',
+    "      payload.result as AssetResult,\n      'en',\n    );",
+  ],
+  // The sheet in English whatever the language asked.
+  [
+    'asset-language-not-followed',
+    'lib/reconciliation/fixed-assets-sheet.ts',
+    'fixedAssetsSheet(owned, sources, language),',
+    "fixedAssetsSheet(owned, sources, 'en'),",
+  ],
+  // A one-option field written as its code.
+  [
+    'asset-scope-code-written',
+    'lib/reconciliation/fixed-assets-sheet.ts',
+    '? t.only[key as keyof typeof ONLY]\n      : v;',
+    '? v\n      : v;',
+  ],
+  // The sources under each other's roles.
+  [
+    'asset-sources-swapped',
+    'lib/reconciliation/fixed-assets-sheet.ts',
+    'role: t.roles[i],',
+    'role: t.roles[3 - i],',
+  ],
+  // The strip's components named by their keys.
+  [
+    'asset-strip-component-code',
+    'lib/reconciliation/fixed-assets-sheet.ts',
+    '          name: component,\n',
+    '',
+  ],
+  // An attestation not given written anyway.
+  [
+    'asset-attestation-unconfirmed-written',
+    'lib/reconciliation/fixed-assets-sheet.ts',
+    'rows: result.completeness.confirmed\n          ?',
+    'rows: true\n          ?',
+  ],
+  // The attestation without its explanation.
+  [
+    'asset-attestation-note-dropped',
+    'lib/reconciliation/fixed-assets-sheet.ts',
+    '              {\n                label: t.completeNote,\n                value: value(result.completeness.note),\n              },\n',
+    '',
+  ],
+  // The register's total under the GL's heading.
+  [
+    'asset-totals-reordered',
+    'lib/reconciliation/fixed-assets-sheet.ts',
+    'money(totals.register[k]),\n              money(totals.gl[k]),',
+    'money(totals.gl[k]),\n              money(totals.register[k]),',
+  ],
+  // A component total written as its key.
+  [
+    'asset-totals-component-code',
+    'lib/reconciliation/fixed-assets-sheet.ts',
+    'value(t.components[k]),',
+    'value(k),',
+  ],
+  // The component totals printed row by row, so a page may break inside.
+  [
+    'asset-totals-split',
+    'lib/reconciliation/fixed-assets-sheet.ts',
+    'blocks: totals ? [4] : [],',
+    'blocks: totals ? [1, 1, 1, 1] : [],',
+  ],
+  // Amounts at two decimals whatever the currency.
+  [
+    'asset-precision-fixed',
+    'lib/reconciliation/fixed-assets-sheet.ts',
+    '    minor,\n    decimals: result.decimals,\n  });',
+    '    minor,\n    decimals: 2,\n  });',
+  ],
+  // The GL figure under the register's heading.
+  [
+    'asset-comparison-figure-shifted',
+    'lib/reconciliation/fixed-assets-sheet.ts',
+    '[label(t.comparisons[3]), figure(c.register)],',
+    '[label(t.comparisons[3]), figure(c.gl)],',
+  ],
+  // A figure the engine does not compute written as zero.
+  [
+    'asset-dash-as-zero',
+    'lib/reconciliation/fixed-assets-sheet.ts',
+    "minor === null || minor === undefined ? value('—') : money(minor);",
+    'money(minor ?? 0);',
+  ],
+  // A comparison without its dimensions.
+  [
+    'asset-dimensions-dropped',
+    'lib/reconciliation/fixed-assets-sheet.ts',
+    "value(c.dimensions || '—')",
+    "value('—')",
+  ],
+  // A comparison's component written as its key.
+  [
+    'asset-component-as-code',
+    'lib/reconciliation/fixed-assets-sheet.ts',
+    'value(component(c.component))',
+    'value(c.component)',
+  ],
+  // The GL figure under the register's heading word.
+  [
+    'asset-comparison-label-shifted',
+    'lib/reconciliation/fixed-assets-sheet.ts',
+    '[label(t.comparisons[4]), figure(c.gl)],',
+    '[label(t.comparisons[3]), figure(c.gl)],',
+  ],
+  // The comparisons printed as one block, so a page may break inside one.
+  [
+    'asset-comparison-blocks-merged',
+    'lib/reconciliation/fixed-assets-sheet.ts',
+    'blocks: result.comparisons.map(() => 5),',
+    'blocks: [5 * result.comparisons.length],',
+  ],
+  // The result's state left out under the strip.
+  [
+    'asset-state-dropped',
+    'lib/reconciliation/fixed-assets-sheet.ts',
+    '        more: [\n          {\n            label: alignmentStripCopy[language].state,\n            value: status(result.status),\n          },\n        ],',
+    '        more: [],',
+  ],
+  // The result's state written as its code.
+  [
+    'asset-state-as-code',
+    'lib/reconciliation/fixed-assets-sheet.ts',
+    '            label: alignmentStripCopy[language].state,\n            value: status(result.status),',
+    '            label: alignmentStripCopy[language].state,\n            value: result.status,',
+  ],
+  // A decision written as its code.
+  [
+    'asset-decision-as-code',
+    'lib/reconciliation/fixed-assets-sheet.ts',
+    '[value(t[e.type]), value(e.at)]',
+    '[value(e.type), value(e.at)]',
+  ],
+  // A decision without its time.
+  [
+    'asset-decision-time-dropped',
+    'lib/reconciliation/fixed-assets-sheet.ts',
+    '[value(t[e.type]), value(e.at)]',
+    '[value(t[e.type])]',
+  ],
+  // A decision without the explanation the reviewer gave.
+  [
+    'asset-decision-reason-dropped',
+    'lib/reconciliation/fixed-assets-sheet.ts',
+    '[null, value(e.reference), value(e.note)]',
+    '[null, value(e.reference)]',
+  ],
+  // The English claim not the evidence's words.
+  [
+    'asset-claim-off-evidence',
+    'lib/i18n/reconciliation-sheet.ts',
+    "'Consistency of supplied posted asset cost, accumulated depreciation, impairment and carrying amount with evidenced component mapping and selected GL accounts; no depreciation algorithm, valuation, posting, existence or completeness opinion',",
+    "'Consistency of supplied posted asset cost, accumulated depreciation, impairment and carrying amount with evidenced component mapping and selected GL accounts; no valuation or posting opinion',",
+  ],
+  // The Arabic claim left in English.
+  [
+    'asset-arabic-claim-untranslated',
+    'lib/i18n/reconciliation-sheet.ts',
+    "'اتساق الكلفة والاستهلاك المتراكم والانخفاض والصافي الدفتري للأصول المرحلة المقدمة مع ربط المكونات المثبت بالأدلة وحسابات الأستاذ المحددة؛ لا رأي في طريقة احتساب الاستهلاك ولا في التقييم ولا في قيد ولا في الوجود ولا في الاكتمال',",
+    "'Consistency of supplied posted asset cost, accumulated depreciation, impairment and carrying amount with evidenced component mapping and selected GL accounts; no depreciation algorithm, valuation, posting, existence or completeness opinion',",
+  ],
+  // An Arabic button word not the screen's.
+  [
+    'asset-undo-other-word',
+    'lib/i18n/reconciliation-sheet.ts',
+    "undo: 'تراجع عن قرار الأصول',",
+    "undo: 'ألغ قرار الأصول',",
   ],
 ];
 

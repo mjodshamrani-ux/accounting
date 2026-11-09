@@ -355,6 +355,14 @@ jobs:
         run: |
           test -x "$MIZAN_CHROMIUM"
           pnpm test:fixed-assets-long:browser
+      - name: Independently verify the reconciliation sheet first in the long assets workpapers the page downloaded, direct and restored, in Arabic and English, against their own evidence sheets (UX-6(c))
+        run: |
+          shopt -s nullglob
+          for lang in ar en; do
+            files=("${{ runner.temp }}"/fixed-assets-long-browser/attempt-*/$lang-*/*.xlsx)
+            test ${#files[@]} -eq 36
+            python3 -B audit/reconciliation-sheet/check_sheet.py --download $lang "${files[@]}"
+          done
       - name: Independently verify human clearing and reopened memberships after UI and session replay
         run: |
           python3 audit/clearing/check_export.py --cleared 7 work/qa/clearing-manual.xlsx
@@ -384,6 +392,10 @@ jobs:
         run: |
           python3 -B audit/reconciliation-sheet/check_sheet.py --download en work/inventory-register/browser/ui-pending.xlsx work/inventory-register/browser/ui-accepted.xlsx work/inventory-register/browser/ui-undo.xlsx work/inventory-register/browser/ui-reject.xlsx work/inventory-register/browser/ui-restored.xlsx work/inventory-register/browser/ui-malformed-reject.xlsx work/inventory-register/browser/ui-unmapped-zero.xlsx work/inventory-register/browser/ui-opposite-differences.xlsx
           python3 -B audit/reconciliation-sheet/check_sheet.py --download ar work/inventory-register/browser/ui-reject-ar.xlsx
+      - name: Independently verify the reconciliation sheet first in the fixed-assets workpapers the page downloaded, in English and Arabic, against their own evidence sheets (UX-6(c))
+        run: |
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download en work/fixed-assets/browser/ui-pending.xlsx work/fixed-assets/browser/ui-accepted.xlsx work/fixed-assets/browser/ui-undo.xlsx work/fixed-assets/browser/ui-reject.xlsx work/fixed-assets/browser/ui-restored.xlsx work/fixed-assets/browser/ui-malformed-reject.xlsx work/fixed-assets/browser/ui-unmapped-zero.xlsx work/fixed-assets/browser/ui-opposite-differences.xlsx work/fixed-assets/browser/ui-net-masked-components.xlsx
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download ar work/fixed-assets/browser/ui-reject-ar.xlsx
       - name: Independently verify the real OCR browser review record
         run: python3 audit/visual-cell-review/check_record.py work/qa/p6-reviewed.json work/qa/p6-source.png
       - name: Independently verify the manually selected Arabic crop from real browser OCR
@@ -539,7 +551,7 @@ jobs:
           SPECIALIZED_FAULT_OUTPUT_DIR: ${{ runner.temp }}/specialized-fault-evidence
         run: pnpm test:specialized-faults
   reconciliation-sheet-mutations:
-    name: Reconciliation sheet mutation gate (${{ matrix.shard }}/3)
+    name: Reconciliation sheet mutation gate (${{ matrix.shard }}/4)
     runs-on: ubuntu-latest
     timeout-minutes: 45
     strategy:
@@ -549,6 +561,7 @@ jobs:
           - 1
           - 2
           - 3
+          - 4
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
@@ -566,7 +579,7 @@ jobs:
       - name: Require a test assertion to kill every mutant of the reconciliation sheet's guards (UX-6), this shard's share of the catalogue by place
         env:
           RECONCILIATION_SHEET_MUTATION_DIR: ${{ runner.temp }}/reconciliation-sheet-mutations
-          RECONCILIATION_SHEET_MUTATION_SHARD: ${{ matrix.shard }}/3
+          RECONCILIATION_SHEET_MUTATION_SHARD: ${{ matrix.shard }}/4
         run: pnpm test:reconciliation-sheet:mutations
   bank-statement-interface-mutations:
     name: Bank statement interface mutations in built browser copies (BNK-PDF-1 G5)

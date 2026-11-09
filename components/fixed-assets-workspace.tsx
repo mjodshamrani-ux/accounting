@@ -700,7 +700,7 @@ export function AssetWorkspace({
                 (signal) =>
                   workerTask<ArrayBuffer>(
                     'asset-export',
-                    { state: state(), result },
+                    { state: state(), result, lang },
                     signal,
                   ),
                 (b) =>
