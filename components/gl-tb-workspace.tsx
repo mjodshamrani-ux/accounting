@@ -38,6 +38,8 @@ import {
   glTbDemo,
 } from '@/lib/reconciliation/gl-tb-demo';
 import { GlTbSectionsPanel } from '@/components/gl-tb-sections-panel';
+import { SheetPrint, useSheetPrint } from '@/components/reconciliation-sheet-print';
+import { sheetPrintCopy } from '@/lib/i18n/sheet-print';
 import { ScopeCard, Sentence } from '@/components/scope-card';
 import { scopeCardCopy } from '@/lib/i18n/scope-card';
 import { useDeclaredScope } from '@/hooks/use-declared-scope';
@@ -92,6 +94,15 @@ const freshReading = (side: number): GlTbReading => ({
   ...glDemoReadings[side],
   confirmed: false,
 });
+// The reconciliation sheet on paper (UX-6(d)), composed on the page by the
+// function the worker writes the workbook's first sheet with, loaded when a
+// result is shown.
+const composeSheet = async (result: GlTbResult, language: 'ar' | 'en') =>
+  (await import('@/lib/reconciliation/gl-tb-sheet')).glTbSheet(
+    result,
+    language,
+  );
+
 function download(buffer: ArrayBuffer, name: string, type: string) {
   const url = URL.createObjectURL(new Blob([buffer], { type })),
     anchor = document.createElement('a');
@@ -121,6 +132,7 @@ export function GlTbWorkspace({
     [busy, setBusy] = useState(false),
     [failed, setFailed] = useState(false),
     [page, setPage] = useState(0);
+  const paper = useSheetPrint(result, lang, composeSheet);
   const serial = useRef(0),
     controller = useRef<AbortController | null>(null);
   useEffect(
@@ -667,6 +679,9 @@ export function GlTbWorkspace({
             >
               {t.export}
             </Button>
+            <Button disabled={busy} onClick={paper.print}>
+              {sheetPrintCopy[lang].print}
+            </Button>
           </div>
           <h3 {...resultParts.anchor('evidence')}>{t.inventory}</h3>
           <RecordRows
@@ -714,6 +729,7 @@ export function GlTbWorkspace({
               ];
             }}
           />
+          <SheetPrint sheet={paper.sheet} />
         </section>
       )}
       <GlTbSectionsPanel />

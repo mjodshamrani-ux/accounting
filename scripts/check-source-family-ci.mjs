@@ -560,6 +560,9 @@ const separate = {
   'review-platform-interface-mutations': [
     'test:review-platform:interface-mutations',
   ],
+  'sheet-print-interface-mutations': [
+    'test:sheet-print:interface-mutations',
+  ],
   'clearing-groups-browser': [
     'test:clr-groups:browser',
     'test:clr-groups:h1-browser',

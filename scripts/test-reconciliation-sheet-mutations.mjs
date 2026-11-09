@@ -1,6 +1,6 @@
 // UX-6: one mutant for each guard the reconciliation sheet adds, as the
 // design record declares them (docs/audits/UX-6-RECONCILIATION-SHEET.ar.md,
-// section 7), GL/TB in 6(a), the case workspaces in 6(b), and the trial balance and financial position, intercompany, payment gateways, inventory, fixed assets and payroll in 6(c). Each mutant changes one product file at one anchor in a private
+// section 7), GL/TB in 6(a), the case workspaces in 6(b), and the trial balance and financial position, intercompany, payment gateways, inventory, fixed assets and payroll in 6(c), and the sheet on paper in 6(d). Each mutant changes one product file at one anchor in a private
 // copy of the tree; it is killed only when a test fails by an assertion
 // (DEV-22), never by a syntax error, a crash or a timeout.
 //
@@ -1788,6 +1788,59 @@ const mutations = [
     "undo: 'تراجع عن قرار الرواتب',",
     "undo: 'ألغ قرار الرواتب',",
   ],
+
+  // UX-6(d): the sheet on paper (lib/reconciliation/sheet-print.ts), held to
+  // the model by tests/reconciliation-sheet-print.test.ts, whose cases reach
+  // amounts at three and at no decimals that no browser example reaches.
+  // An amount printed at two decimals whatever its currency's precision.
+  [
+    'print-amount-fixed-precision',
+    'lib/reconciliation/sheet-print.ts',
+    'text: sheetAmountText(cell.minor, cell.decimals),',
+    'text: sheetAmountText(cell.minor, 2),',
+  ],
+  // A precision the workbook's format does not write, printed anyway.
+  [
+    'print-decimals-unchecked',
+    'lib/reconciliation/sheet-print.ts',
+    'decimals < 0 || decimals > 4)',
+    'decimals < 0)',
+  ],
+  // An amount that is not a whole number of minor units, printed anyway.
+  [
+    'print-amount-unchecked',
+    'lib/reconciliation/sheet-print.ts',
+    'if (!Number.isSafeInteger(minor))',
+    'if (!Number.isFinite(minor))',
+  ],
+  // A row wider than the sheet cut to its width instead of refused.
+  [
+    'print-wide-row-cut',
+    'lib/reconciliation/sheet-print.ts',
+    '(cells) => cells.length > n)',
+    '(cells) => cells.length > n + 99)',
+  ],
+  // The opening amount's place lost.
+  [
+    'print-start-lost',
+    'lib/reconciliation/sheet-print.ts',
+    'start: cell.start === true,',
+    'start: false,',
+  ],
+  // The rows the model keeps on one page printed as rows on their own.
+  [
+    'print-keep-forgotten',
+    'lib/reconciliation/sheet-print.ts',
+    'keep: range !== null,',
+    'keep: false,',
+  ],
+  // The columns at the model's widths in characters, not in proportion.
+  [
+    'print-widths-not-proportional',
+    'lib/reconciliation/sheet-print.ts',
+    'widths: sheet.widths.map((w) => (100 * w) / total),',
+    'widths: sheet.widths.map((w) => w + 0 * total),',
+  ],
 ];
 
 assert.equal(
@@ -1828,6 +1881,7 @@ try {
         '--test-reporter=tap',
         'tests/reconciliation-sheet.test.ts',
         'tests/alignment-strip-view.test.ts',
+        'tests/reconciliation-sheet-print.test.ts',
       ],
       // Room for a failing test's whole report: a byte-for-byte comparison
       // prints every byte, and output past the buffer would end the run as

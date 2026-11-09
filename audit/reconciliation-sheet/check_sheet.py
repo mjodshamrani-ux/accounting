@@ -102,6 +102,9 @@ Usage: check_sheet.py FOLDER            check every case in FOLDER/cases.json
        check_sheet.py --self-test FOLDER  plant faults and require each found
        check_sheet.py --download LANG FILE...  a page download: the sheet and
                                           its figures, without an evidence copy
+       check_sheet.py --print LANG FILE GRID  a page download as above, and
+                                          the sheet the page printed (UX-6(d)),
+                                          GRID its rows as JSON, cell for cell
 """
 
 import base64
@@ -4592,6 +4595,63 @@ def check_download(path, lang):
     return check_content(book, book, lang)
 
 
+def displayed(book, cell):
+    """A cell's text as the workbook shows it: a text as it is stored, read
+    back from its escapes; an amount by its own number format, which must be
+    the sheet's (#,##0.00;-#,##0.00;0.00 at some precision); a count whole;
+    nothing for an empty cell or a line to sign on."""
+    if cell is None or cell[0] == 'empty':
+        return ''
+    kind, value, style = cell
+    if kind in ('text', 'shared'):
+        return shown(value)
+    need(kind == 'number', 'PRINT_KIND', str(kind))
+    fid = int(book.styles.lists['cellXfs'][style].get('numFmtId', '0'))
+    if fid in (0, 1):
+        need(value == value.to_integral_value(), 'PRINT_COUNT', str(value))
+        return str(int(value))
+    codes = {int(f.get('numFmtId')): f.get('formatCode')
+             for f in book.styles.lists.get('numFmts', [])}
+    code = codes.get(fid, '')
+    m = re.fullmatch(r'#,##0(\.0+)?;-#,##0(\.0+)?;0(\.0+)?', code)
+    need(m is not None and m.group(1) == m.group(2) == m.group(3),
+         'PRINT_FORMAT', code)
+    places = len(m.group(1) or '.') - 1
+    return f'{value:,.{places}f}'
+
+
+def check_print(path, grid_path, lang):
+    """The sheet the page printed against the sheet the page downloaded:
+    the same rows in the same order, and in each the same text in each
+    column, a text the page lets run over the empty cells after it (its
+    span) taken as it would lie in the workbook. The download is checked
+    first, as --download checks it."""
+    report = check_download(path, lang)
+    book = Book(Path(path).read_bytes())
+    rows = book.rows(book.names[0])
+    printed = json.loads(Path(grid_path).read_text(encoding='utf-8'))
+    need(printed.get('lang') == lang, 'PRINT_LANGUAGE',
+         f"{printed.get('lang')} != {lang}")
+    need(printed.get('dir') == ('rtl' if lang == 'ar' else 'ltr'),
+         'PRINT_DIRECTION', str(printed.get('dir')))
+    grid = printed['rows']
+    need(len(grid) == len(rows), 'PRINT_ROWS', f'{len(grid)} != {len(rows)}')
+    cells = 0
+    for r, (stored, shown_row) in enumerate(zip(rows, grid)):
+        columns = []
+        for c in shown_row:
+            need(isinstance(c.get('span'), int) and c['span'] >= 1,
+                 'PRINT_SPAN', f'row {r + 1}')
+            columns += [c['text']] + [''] * (c['span'] - 1)
+        for i in range(max(len(stored), len(columns))):
+            want = displayed(book, stored[i]) if i < len(stored) else ''
+            got = columns[i] if i < len(columns) else ''
+            need(want == got, 'PRINT_CELL',
+                 f'row {r + 1} column {i + 1}: {want!r} printed {got!r}')
+            cells += bool(want)
+    return {**report, 'rows': len(rows), 'cells': cells}
+
+
 if __name__ == '__main__':
     args = sys.argv[1:]
     if args and args[0] == '--download':
@@ -4600,6 +4660,10 @@ if __name__ == '__main__':
         report = [check_download(f, lang) for f in files]
         print(json.dumps({'passed': True, 'downloads': len(report),
                           'statuses': sorted({r['status'] for r in report})}))
+    elif args and args[0] == '--print':
+        need(len(args) == 4 and args[1] in NAMES, 'USAGE')
+        report = check_print(args[2], args[3], args[1])
+        print(json.dumps({'passed': True, **report}, ensure_ascii=False))
     elif args and args[0] == '--self-test':
         found = self_test(Path(args[1]))
         print(json.dumps({'passed': True, 'plants': found}, ensure_ascii=False,

@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 117072,
-      "sha256": "e06e194e5edb2e3cc2932699c5e083ed9e4d9bf2c9bbe429b6024eca1b2f8bed",
+      "bytes": 118554,
+      "sha256": "b104b1300d3fac248bae4a7407a3272461415bc01999dd81f30fbfe4529d717b",
       "kind": "text"
     },
     {
@@ -35337,8 +35337,8 @@
     },
     {
       "path": "components/gl-tb-workspace.tsx",
-      "bytes": 24293,
-      "sha256": "befa902a9aea1268ad8339712a48edf992b5d17b9191386be1510d8cba5534aa",
+      "bytes": 25006,
+      "sha256": "ea9b4d579f1da26f9a5e3ad1e4abe86d2d908db68e8c0f1a475aa02388850a47",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 69256,
-      "sha256": "b07e73e4704fbed09e75a4156d708ab095860f7716d9efacbc81a1c81b202019",
+      "bytes": 69674,
+      "sha256": "7efa5588cc7b1080a5b12511cf978bd0546bd611ee9d15424bd95f8c023aa7b2",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 29166,
-      "sha256": "5dd5a75d8fd2c00c31fd6b32e77770ac0ce53321788716c1c4066899647d119e",
+      "bytes": 29321,
+      "sha256": "08ef827705ec45f048dc8f6b4bd4fc9f9814624dd821bc72e0039250d1028b72",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 549709,
-      "sha256": "723b9b5b34a4244436862ad363fc63841a312b5d724b4aa8e16ce1ea2ec8ed30",
+      "bytes": 554504,
+      "sha256": "e90a439bfc8bd2aba4b66c2a842d8934cee8976e40804d2089297dd3e80da13a",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 63192,
-      "sha256": "a050b3c3dd0a9a0877800eadb78a1cd1435686fad3ab3010dd1def04ed0cee7d",
+      "bytes": 63458,
+      "sha256": "499b2f0349432c79649e3415c7105d80a7f5953426a815859ab452048e52c6de",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 22358,
-      "sha256": "92f741079775688113393f2c4ffc3b75200a8fdeed96a629ef900e068f921c38",
+      "bytes": 22446,
+      "sha256": "0e5011234e0221e6fbff9c279686e73eee73f057be7c70fb6e99e3011c0efceb",
       "kind": "text"
     },
     {
@@ -73481,8 +73481,8 @@
     },
     {
       "path": "docs/roadmap/ux.ar.md",
-      "bytes": 57473,
-      "sha256": "83826457dc07eaec1e77d576b249395154033af90280784ef6d6a94d97c20ad8",
+      "bytes": 58193,
+      "sha256": "fc5aacbd90a284e26afa70ad9c38b841e8e0155c7a1812a61a6a4f1c61aee797",
       "kind": "text"
     },
     {
@@ -73823,8 +73823,8 @@
     },
     {
       "path": "docs/audits/UX-6-RECONCILIATION-SHEET.ar.md",
-      "bytes": 284783,
-      "sha256": "19842c4734ce1b8748b72e3bfdffd4299108cc7701b91e29b882e580cdb67242",
+      "bytes": 297656,
+      "sha256": "78b0ad00b328e216ff512442c01af4c86688ea1688006bc134986130d270d719",
       "kind": "text"
     },
     {
@@ -73835,8 +73835,8 @@
     },
     {
       "path": "audit/reconciliation-sheet/check_sheet.py",
-      "bytes": 232123,
-      "sha256": "99857dfbf0a97b051c9ef280616efec11ef7872652762a3681c9e591ff0c922f",
+      "bytes": 235269,
+      "sha256": "7991d3d4a00fc9c9f75340f975b307a0e742bc788cd8bd58f0d3353c2f9173ec",
       "kind": "text"
     },
     {
@@ -73877,8 +73877,8 @@
     },
     {
       "path": "scripts/test-reconciliation-sheet-mutations.mjs",
-      "bytes": 70314,
-      "sha256": "99ab84bf066af8d63676d02fa2a173dcad15b5bf614aca7213e761b17274206c",
+      "bytes": 72196,
+      "sha256": "056dc4f7a094f7d5199a46e1efd9c740ab32a376c019435631fb94a1d4703257",
       "kind": "text"
     },
     {
@@ -74024,6 +74024,48 @@
       "bytes": 8118,
       "sha256": "893861534be273e4243a566696d1160bcdd91de1674fa9e60606069f89623bc0",
       "kind": "text"
+    },
+    {
+      "path": "components/reconciliation-sheet-print.css",
+      "bytes": 3401,
+      "sha256": "7943e22a8ba5dbbddfba2bc79394cc6677c1eb0e309b94da71769bf3b798a9b2",
+      "kind": "text"
+    },
+    {
+      "path": "components/reconciliation-sheet-print.tsx",
+      "bytes": 4153,
+      "sha256": "341b05467696c66a29f9a8bb81c9f101d1b324ead78d9ba4d2f1b9ae00db8dd5",
+      "kind": "text"
+    },
+    {
+      "path": "lib/i18n/sheet-print.ts",
+      "bytes": 393,
+      "sha256": "35b3428396c34495cffab4465e702656d73192799cf8260ac84ac52bddcc53b9",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/sheet-print.ts",
+      "bytes": 3769,
+      "sha256": "b7a058b8122bf8c49febfd71a0cc1b07eb380ef55ac232fd73a05ed1c31aa89c",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/reconciliation-sheet-print-browser.mjs",
+      "bytes": 21647,
+      "sha256": "d5225b93570308b3eb083deb5933074025e96924272ec9006cd9796749c154f7",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-sheet-print-interface-mutations.mjs",
+      "bytes": 7523,
+      "sha256": "733f1bcf1ad9b4bcca8230477a7e11f7f7158c51be5275ca8b9d18d09915499c",
+      "kind": "text"
+    },
+    {
+      "path": "tests/reconciliation-sheet-print.test.ts",
+      "bytes": 8947,
+      "sha256": "a40990b7b22f827656ea7138618aae35b6fdb33a71f57b8deb661c4b35d25e41",
+      "kind": "text"
     }
   ],
   "distribution": [
@@ -74034,21 +74076,21 @@
       "kind": "text"
     },
     {
-      "path": "assets/ar-io-CWB-ydga.js",
+      "path": "assets/ar-io-D6kmoVJG.js",
       "bytes": 12931,
-      "sha256": "97a3528bccfe1289a5e306cb10be102dcb2412a5beb15a0338149bebc590aca6",
+      "sha256": "125936e985ecf7799295f8fa802caaffc0bff1353d900c4a453d95d393d94db0",
       "kind": "text"
     },
     {
-      "path": "assets/bank-adjustment-io-BVZSlcq6.js",
+      "path": "assets/bank-adjustment-io-DDRd8Jlf.js",
       "bytes": 12101,
-      "sha256": "f4510a343c297a11b968867059195bc8c961db19bf4069c21250a24409cd8519",
+      "sha256": "44cdb34519880b59ff76ee70b6aa3d38ae6a60ecb64bb688de732cb83ce4d1e1",
       "kind": "text"
     },
     {
-      "path": "assets/bank-io-1duJlOpw.js",
+      "path": "assets/bank-io-DKgsr-Cp.js",
       "bytes": 6331,
-      "sha256": "b6901ccfadea22ff596369a9811cff0bd26198692db5d446163b04803e455326",
+      "sha256": "0cbe5c01b01d20069bad62ae9167aca30caa4a3c1363a0d243fb44069e48f8b9",
       "kind": "text"
     },
     {
@@ -74084,27 +74126,27 @@
       }
     },
     {
-      "path": "assets/fixed-assets-io-Bt_jaVY-.js",
+      "path": "assets/fixed-assets-io-CDU-NRdx.js",
       "bytes": 9928,
-      "sha256": "039175b6c0fb64e7efef888e7beb14acfe529c7e5dd748ae79a76129281266a1",
+      "sha256": "4c166d62c730fa94c50053d41d8ea470af231ea7d3b22fc346ab025a2bcbd49f",
       "kind": "text"
     },
     {
-      "path": "assets/gl-tb-io-qFa40AGy.js",
+      "path": "assets/gl-tb-io-DWAXYtNR.js",
       "bytes": 2185,
-      "sha256": "1284692fe14e17ee33b6d9459221386a6fc73f8d785788dfd718032d42568500",
+      "sha256": "d10d3a580977feab906bdfeaeff990925a88eb689e6f745309df795733034228",
       "kind": "text"
     },
     {
-      "path": "assets/index-Bqb31UXt.css",
-      "bytes": 286718,
-      "sha256": "852432c7475cc9713a8e317f0fa7dbb01c33ff6629fa36554b850c9820813fb1",
+      "path": "assets/index-b5dHjzml.css",
+      "bytes": 289211,
+      "sha256": "747b50ce80aef09a44ceb69fe6d9e2cdaf8aee023271ec025c384d3c0e8dcf1a",
       "kind": "text"
     },
     {
-      "path": "assets/index-CEiMgs1x.js",
-      "bytes": 7041440,
-      "sha256": "45c0a8c4be7cf2d30eb94b67177867f1f6bc6bca98cb50228b51930ad9048acb",
+      "path": "assets/index-Dx48wdnV.js",
+      "bytes": 7044715,
+      "sha256": "29956dda2a57b51fcbc2fe5610e2ab2a0557a38709a123e0f47404fbb53671b5",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
@@ -74112,16 +74154,16 @@
       }
     },
     {
-      "path": "assets/inventory-pdf-assistant-BsCjs6_G.js",
+      "path": "assets/inventory-pdf-assistant-nrL55rdq.js",
       "bytes": 1671,
-      "sha256": "72e4a63d1b7e71748e006e1aadede5dc69e9da6326df70d9993bf0b6ae1d311d",
+      "sha256": "4e2ffa43e0aafb3ed4b7dfa46b3992aeca6e08d44fb7055b2421105f7968cbe0",
       "kind": "text"
     },
     {
-      "path": "assets/inventory-register-io-BoAd0405.js",
+      "path": "assets/inventory-register-io-FAM0_i3S.js",
       "kind": "text",
       "bytes": 27473,
-      "sha256": "70710a2e7a915f17bd16ca49c6bf999eae2779f6f0e71736c9349c0c4d6f9ea4"
+      "sha256": "8f0dc17369a8ae5b2e88efb53ed5f8868a5f153a932645f5e289399ffcb7c07e"
     },
     {
       "path": "assets/jszip.min-Lqf3Qs4v.js",
@@ -74302,7 +74344,7 @@
     {
       "path": "index.html",
       "bytes": 4299,
-      "sha256": "57f7c5e68a7d5ab589c73f0cf6030d1aabea9f378cf9d434b5c456c862a05501",
+      "sha256": "fe0b2a8e6188d1261affbb8efa666a375a9ad7d818686124cc4391fbfd3dc5ef",
       "kind": "text"
     },
     {
@@ -74336,9 +74378,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/bank-statement-lifecycle-CEgR-6ng.js",
+      "path": "assets/bank-statement-lifecycle-DYDfiyi4.js",
       "bytes": 30423,
-      "sha256": "2922e69fbf5f52806a81cc05cf516d807b819ff3babe58bfd7e31bf0924b6536",
+      "sha256": "8790fa9d03c6de3c292e6b39c9ff83b8a2eaf96cae1be70abc56d3db2594e12f",
       "kind": "text"
     },
     {
@@ -74354,9 +74396,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/allocation-advice-io-BkTSDsO0.js",
+      "path": "assets/allocation-advice-io-zzrRb5HQ.js",
       "bytes": 3033,
-      "sha256": "8836624894737414c31f96d3c5ed97b9839dcf79887a04f36097c0efefe3a5fc",
+      "sha256": "4555792007ebb529a9b80fd61120a0c77c023119afac695c5f3d68f879f93945",
       "kind": "text"
     },
     {
@@ -74396,33 +74438,39 @@
       "kind": "text"
     },
     {
-      "path": "assets/ar-sheet-x14uFBOd.js",
+      "path": "assets/ar-sheet-7DzvvaeD.js",
       "bytes": 2040,
-      "sha256": "f491703cac855c278c30e77e6c684ff02e3e98e4432fa257530196118110f277",
+      "sha256": "a816d699c1b638f0e9a53e892106c4c5ad96b7009ced31549f832d5ffce83c97",
       "kind": "text"
     },
     {
-      "path": "assets/payment-gateway-sheet-By2EdJw4.js",
+      "path": "assets/payment-gateway-sheet-Y0CGntzB.js",
       "bytes": 1719,
-      "sha256": "80b0bbe8570e48cc86abe5d5f4ef525e2505fd4739b6418988e1dccfcebb7172",
+      "sha256": "9de386c650268d81d778c9ce2cf97a0ccb107e563f31903a3ac490a14a97a93a",
       "kind": "text"
     },
     {
-      "path": "assets/reconciliation-sheet--t_3yq4v.js",
+      "path": "assets/reconciliation-sheet-D74Y4Rgg.js",
       "bytes": 55263,
-      "sha256": "36fab181a2ecd792c82b1f80f7f14ed6c933d00ad4dc661ad5bb50b14d4ba113",
+      "sha256": "833ffbee918e42e2c1145d871c1708cad8ffbacf9d07687a562d4fe919055df0",
       "kind": "text"
     },
     {
-      "path": "assets/inventory-sheet-Cid3ypKI.js",
+      "path": "assets/inventory-sheet-daeZXSI7.js",
       "bytes": 2764,
-      "sha256": "ade8a43b59b66c3b596cf98243ce24b3cf80ce3f82dab0ea8bbd63ab7c66c0d6",
+      "sha256": "83e79c5e38d840273a8c695b64a536d35a872f1d699cd8171a4f4a7cc0ccd1de",
       "kind": "text"
     },
     {
-      "path": "assets/fixed-assets-sheet-BdbIuBP9.js",
+      "path": "assets/fixed-assets-sheet-Dvo0Tlf0.js",
       "bytes": 2130,
-      "sha256": "b89a664b9b7c0355e72387b08954ec1a5ce8029c163957430ead7ed9055d5f75",
+      "sha256": "c0450977f1edba74dd907cebb85ab5fa9e8a0b3f05d3475c37aac52514cce2fe",
+      "kind": "text"
+    },
+    {
+      "path": "assets/gl-tb-sheet-CQeaa7oE.js",
+      "bytes": 1226,
+      "sha256": "842cbe632fabc9fc55988499e5cb32285ce3bdb55e7395bc3def353e88ce5d0e",
       "kind": "text"
     }
   ]
