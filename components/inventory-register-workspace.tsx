@@ -976,7 +976,7 @@ export function StockWorkspace({
                     pdf ? 'stock-pdf-export' : 'stock-export',
                     pdf
                       ? { state: pdfState(), result, language: lang }
-                      : { state: state(), result },
+                      : { state: state(), result, lang },
                     signal,
                   ),
                 (b) =>

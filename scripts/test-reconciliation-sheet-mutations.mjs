@@ -1,6 +1,6 @@
 // UX-6: one mutant for each guard the reconciliation sheet adds, as the
 // design record declares them (docs/audits/UX-6-RECONCILIATION-SHEET.ar.md,
-// section 7), GL/TB in 6(a), the case workspaces in 6(b), and the trial balance and financial position and intercompany in 6(c). Each mutant changes one product file at one anchor in a private
+// section 7), GL/TB in 6(a), the case workspaces in 6(b), and the trial balance and financial position, intercompany, payment gateways and inventory in 6(c). Each mutant changes one product file at one anchor in a private
 // copy of the tree; it is killed only when a test fails by an assertion
 // (DEV-22), never by a syntax error, a crash or a timeout.
 //
@@ -1184,6 +1184,203 @@ const mutations = [
     'lib/i18n/reconciliation-sheet.ts',
     "'Consistency of supplied sales, refunds and independently evidenced fees with one gateway settlement and bank credit only;",
     "'Consistency of supplied sales and refunds with one gateway settlement and bank credit only;",
+  ],
+  // UX-6(c), inventory. The worker writes the posted register's sheet in
+  // Arabic whatever the page asked.
+  [
+    'inventory-worker-language-ignored',
+    'lib/reconciliation/worker.ts',
+    'exportStockWorkpaper(payload.state, payload.result, payload.lang)',
+    "exportStockWorkpaper(payload.state, payload.result, 'ar')",
+  ],
+  // The request lets any language through to the worker.
+  [
+    'inventory-request-language-unchecked',
+    'lib/reconciliation/inventory-register-request.ts',
+    "(payload.lang !== 'ar' && payload.lang !== 'en')",
+    'false',
+  ],
+  // The page writes its own copy in Arabic, whatever it asked the worker.
+  [
+    'inventory-binding-language-ignored',
+    'lib/reconciliation/inventory-register-worker-binding.ts',
+    '      payload.result as StockResult,\n      payload.lang,\n    );',
+    "      payload.result as StockResult,\n      'ar',\n    );",
+  ],
+  // The page checks the worker's reply against the evidence alone.
+  [
+    'inventory-binding-expects-evidence-only',
+    'lib/reconciliation/inventory-register-worker-binding.ts',
+    "const sheet = await import('./inventory-sheet.ts');\n    const expected = await sheet.exportStockWorkpaper(\n      payload.state as StockInput,\n      payload.result as StockResult,\n      payload.lang,\n    );",
+    'const expected = await io.exportStock(\n      payload.state as StockInput,\n      payload.result as StockResult,\n    );',
+  ],
+  // The printed register's request lets any language through.
+  [
+    'inventory-pdf-request-language-unchecked',
+    'lib/reconciliation/inventory-pdf-request.ts',
+    "!['ar', 'en'].includes(payload.language as string) ||",
+    '',
+  ],
+  // The page checks the printed register's reply against its evidence alone.
+  [
+    'inventory-pdf-binding-expects-evidence-only',
+    'lib/reconciliation/inventory-pdf-lifecycle.ts',
+    'const expected = await exportStockPdfWorkpaper(\n      requested as StockPdfExportRequest,\n    );',
+    "const expected = await (await import('./inventory-pdf-workbook.ts')).exportStockPdf(\n      requested as StockPdfExportRequest,\n    );",
+  ],
+  // The posted register's sheet is written in English whatever was asked.
+  [
+    'inventory-language-not-followed',
+    'lib/reconciliation/inventory-sheet.ts',
+    'inventorySheet(owned, sources, language),',
+    "inventorySheet(owned, sources, 'en'),",
+  ],
+  // The printed register's sheet is written in English whatever was asked.
+  [
+    'inventory-pdf-language-not-followed',
+    'lib/reconciliation/inventory-sheet.ts',
+    '      ownSources(captured.state.files),\n      language,',
+    "      ownSources(captured.state.files),\n      'en',",
+  ],
+  // The Arabic printed register's sheet names its evidence sheets in English.
+  [
+    'inventory-pdf-evidence-named-in-english',
+    'lib/reconciliation/inventory-sheet.ts',
+    'arabic ? inventoryPdfWorkbookLabel : undefined,',
+    'undefined,',
+  ],
+  // A one-option scope field written as its code.
+  [
+    'inventory-scope-code-written',
+    'lib/reconciliation/inventory-sheet.ts',
+    '      ? t.only[key as keyof typeof ONLY]\n      : v;',
+    '      ? v\n      : v;',
+  ],
+  // Each source under another's role.
+  [
+    'inventory-sources-swapped',
+    'lib/reconciliation/inventory-sheet.ts',
+    'role: t.roles[i],',
+    'role: t.roles[3 - i],',
+  ],
+  // The attestation written though not given.
+  [
+    'inventory-attestation-unconfirmed-written',
+    'lib/reconciliation/inventory-sheet.ts',
+    'rows: result.completeness.confirmed',
+    'rows: true',
+  ],
+  // The attestation's explanation replaced by its reference.
+  [
+    'inventory-attestation-note-dropped',
+    'lib/reconciliation/inventory-sheet.ts',
+    'value: value(result.completeness.note),',
+    'value: value(result.completeness.reference),',
+  ],
+  // The register value and the GL net under each other's headings.
+  [
+    'inventory-totals-reordered',
+    'lib/reconciliation/inventory-sheet.ts',
+    '[[money(result.totals.registerMinor), money(result.totals.glMinor)]]',
+    '[[money(result.totals.glMinor), money(result.totals.registerMinor)]]',
+  ],
+  // Every figure at two decimals whatever the currency.
+  [
+    'inventory-precision-fixed',
+    'lib/reconciliation/inventory-sheet.ts',
+    '    minor,\n    decimals: result.decimals,',
+    '    minor,\n    decimals: 2,',
+  ],
+  // An account's debit written as its credit.
+  [
+    'inventory-account-figure-shifted',
+    'lib/reconciliation/inventory-sheet.ts',
+    'figure(c.debitMinor)',
+    'figure(c.creditMinor)',
+  ],
+  // A figure the engine does not compute written as zero.
+  [
+    'inventory-dash-as-zero',
+    'lib/reconciliation/inventory-sheet.ts',
+    "minor === null || minor === undefined ? value('—') : money(minor);",
+    'money(minor ?? 0);',
+  ],
+  // An account without its dimensions.
+  [
+    'inventory-dimensions-dropped',
+    'lib/reconciliation/inventory-sheet.ts',
+    "value(c.dimensions || '—')",
+    "value('—')",
+  ],
+  // An account's debit under the register value's heading.
+  [
+    'inventory-account-label-shifted',
+    'lib/reconciliation/inventory-sheet.ts',
+    "[{ text: t.comparisons[3], style: 'label' }, figure(c.debitMinor)],",
+    "[{ text: t.comparisons[2], style: 'label' }, figure(c.debitMinor)],",
+  ],
+  // The accounts printed as one block, so a page may break inside one.
+  [
+    'inventory-account-blocks-merged',
+    'lib/reconciliation/inventory-sheet.ts',
+    'blocks: result.comparisons.map(() => 6),',
+    'blocks: [6 * result.comparisons.length],',
+  ],
+  // The result's state left out under the strip.
+  [
+    'inventory-state-dropped',
+    'lib/reconciliation/inventory-sheet.ts',
+    '        more: [\n          {\n            label: alignmentStripCopy[language].state,\n            value: status(result.status),\n          },\n        ],',
+    '        more: [],',
+  ],
+  // The result's state written as its code.
+  [
+    'inventory-state-as-code',
+    'lib/reconciliation/inventory-sheet.ts',
+    '            label: alignmentStripCopy[language].state,\n            value: status(result.status),',
+    '            label: alignmentStripCopy[language].state,\n            value: result.status,',
+  ],
+  // A decision written as its code.
+  [
+    'inventory-decision-as-code',
+    'lib/reconciliation/inventory-sheet.ts',
+    '[value(t[e.type]), value(e.at)]',
+    '[value(e.type), value(e.at)]',
+  ],
+  // A decision without its time.
+  [
+    'inventory-decision-time-dropped',
+    'lib/reconciliation/inventory-sheet.ts',
+    '[value(t[e.type]), value(e.at)]',
+    '[value(t[e.type])]',
+  ],
+  // A decision without the explanation the reviewer gave.
+  [
+    'inventory-decision-reason-dropped',
+    'lib/reconciliation/inventory-sheet.ts',
+    '[null, value(e.reference), value(e.note)]',
+    '[null, value(e.reference)]',
+  ],
+  // The English claim not the evidence's words.
+  [
+    'inventory-claim-off-evidence',
+    'lib/i18n/reconciliation-sheet.ts',
+    "'Supplied posted carrying value consistency with evidenced mapping and selected inventory GL accounts; no valuation, quantity aggregation, posting or completeness opinion',",
+    "'Supplied posted carrying value consistency with evidenced mapping and selected inventory GL accounts; no valuation or posting opinion',",
+  ],
+  // The Arabic claim not the words the Arabic evidence writes for it.
+  [
+    'inventory-arabic-claim-off-evidence',
+    'lib/i18n/reconciliation-sheet.ts',
+    "'مقارنة القيم المرحلة المقدمة بالخريطة والسياسة وحسابات المخزون المحددة دون تقييم المخزون أو جمع كمياته أو إنشاء قيود أو إبداء رأي في اكتمال المصادر',",
+    "'اتساق القيمة الدفترية المرحّلة المقدمة مع أدلة الربط وحسابات مخزون الأستاذ المختارة فقط؛ لا رأي في التقييم ولا تجميع للكميات ولا في الترحيل ولا في الاكتمال',",
+  ],
+  // The Arabic attestation named for the assets, not the inventory.
+  [
+    'inventory-attestation-title-other-word',
+    'lib/i18n/reconciliation-sheet.ts',
+    "completenessTitle: 'تصريح جرد المخزون المقدم',",
+    "completenessTitle: 'تصريح جرد الأصول المقدمة',",
   ],
 ];
 

@@ -15,7 +15,7 @@ export const STOCK_PDF_EXPORT_LIMIT = 96 * 1024 * 1024;
 export type StockPdfExportRequest = {
   state: StockPdfState;
   result: StockResult;
-  language?: 'ar' | 'en';
+  language: 'ar' | 'en';
 };
 export type StockPdfAskRequest = {
   state: StockPdfState;
@@ -160,12 +160,10 @@ export function snapshotStockPdfRequest(
   if (action === 'stock-pdf-export') {
     if (
       !pdfPlain(payload) ||
-      !(
-        pdfKeys(payload, ['state', 'result']) ||
-        pdfKeys(payload, ['state', 'result', 'language'])
-      ) ||
-      (Object.hasOwn(payload, 'language') &&
-        !['ar', 'en'].includes(payload.language as string)) ||
+      // The language names the PDF evidence's words and, since UX-6, the
+      // workpaper's reconciliation sheet; a request names it.
+      !pdfKeys(payload, ['state', 'result', 'language']) ||
+      !['ar', 'en'].includes(payload.language as string) ||
       !pdfPlain(payload.result)
     )
       throw Error('STOCK_PDF_EXPORT_REQUEST');
@@ -173,9 +171,7 @@ export function snapshotStockPdfRequest(
     return {
       state: snapshotStockPdfState(payload.state),
       result: snapshotStockPdfTransport(payload.result) as StockResult,
-      ...(Object.hasOwn(payload, 'language')
-        ? { language: payload.language as 'ar' | 'en' }
-        : {}),
+      language: payload.language as 'ar' | 'en',
     };
   }
   if (

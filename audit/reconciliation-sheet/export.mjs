@@ -24,7 +24,10 @@
 // frozen case the export accepts, with the decisions its story records, and
 // one with eighteen decisions built here. Intercompany (6(c)): every frozen
 // case the engine accepts, with the decisions its story records, and one
-// with fifteen decisions built here. Synthetic sources only.
+// with fifteen decisions built here. Inventory (6(c)): every frozen case of
+// the posted register family, its positive one attested and decided, one
+// with fifteen decisions built here, and the printed register's frozen
+// cases, its evidence in each language. Synthetic sources only.
 import { readFile as fsRead, mkdir, writeFile } from 'node:fs/promises';
 import { readFile } from '../../lib/reconciliation/io.ts';
 import { GL_TB_VERSION } from '../../lib/reconciliation/gl-tb.ts';
@@ -83,6 +86,18 @@ import {
 } from './gateway-cases.ts';
 import { exportGateway } from '../../lib/reconciliation/payment-gateway-io.ts';
 import { exportGatewayWorkpaper } from '../../lib/reconciliation/payment-gateway-sheet.ts';
+import {
+  inventoryCase,
+  inventoryFrozenNames,
+  inventoryStories,
+  withInventoryPdfCases,
+} from './inventory-cases.ts';
+import { exportStock } from '../../lib/reconciliation/inventory-register-io.ts';
+import { exportStockPdf } from '../../lib/reconciliation/inventory-pdf-workbook.ts';
+import {
+  exportStockPdfWorkpaper,
+  exportStockWorkpaper,
+} from '../../lib/reconciliation/inventory-sheet.ts';
 
 const out = process.argv[2] ?? 'work/reconciliation-sheet';
 const root = 'audit/gl-tb/frozen/';
@@ -670,6 +685,68 @@ for (const { name, state, result } of gateways) {
 }
 console.error(
   JSON.stringify({ gatewayCases: gateways.length, refusedSigned }),
+);
+// Inventory (6(c)): every frozen case of the posted register family, every
+// state the engine gives; the positive one attested, then accepted,
+// rejected, accepted and undone, and fifteen decisions built here so the
+// sheet runs over a page; and the printed register's frozen cases, each as
+// read and the ready ones attested and approved, whose evidence is written
+// in the language of its sheet, the Arabic naming its sheets in Arabic.
+const inventories = [];
+for (const name of [...inventoryFrozenNames, ...Object.keys(inventoryStories)])
+  inventories.push({ name: `inventory-${name}`, ...(await inventoryCase(name)) });
+for (const { name, state, result } of inventories) {
+  const written = {
+    workspace: 'inventory',
+    case: name,
+    evidence: `${name}-evidence.xlsx`,
+    status: result.status,
+    review: result.review,
+    decisions: result.events.length,
+  };
+  await writeFile(
+    `${out}/${written.evidence}`,
+    new Uint8Array(await exportStock(state, result)),
+  );
+  for (const lang of ['ar', 'en']) {
+    written[lang] = `${name}-${lang}.xlsx`;
+    await writeFile(
+      `${out}/${written[lang]}`,
+      new Uint8Array(await exportStockWorkpaper(state, result, lang)),
+    );
+  }
+  cases.push(written);
+}
+let printed = 0;
+await withInventoryPdfCases(async (code, { state, result }) => {
+  const name = `inventory-${code}`;
+  const written = {
+    workspace: 'inventory',
+    case: name,
+    evidence: {},
+    status: result.status,
+    review: result.review,
+    decisions: result.events.length,
+  };
+  for (const language of ['ar', 'en']) {
+    written.evidence[language] = `${name}-evidence-${language}.xlsx`;
+    await writeFile(
+      `${out}/${written.evidence[language]}`,
+      new Uint8Array(await exportStockPdf({ state, result, language })),
+    );
+    written[language] = `${name}-${language}.xlsx`;
+    await writeFile(
+      `${out}/${written[language]}`,
+      new Uint8Array(
+        await exportStockPdfWorkpaper({ state, result, language }),
+      ),
+    );
+  }
+  cases.push(written);
+  printed++;
+});
+console.error(
+  JSON.stringify({ inventoryCases: inventories.length, printed }),
 );
 await writeFile(
   `${out}/cases.json`,

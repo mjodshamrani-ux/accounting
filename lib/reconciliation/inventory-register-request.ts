@@ -113,7 +113,22 @@ export function snapshotStockRequest(action: string, payload: unknown): unknown 
   if (!plain(payload)) throw Error('STOCK_WORKER_INPUT');
   if (action === 'stock-reconcile' || action === 'stock-save')
     return snapshotStockInputRequest(payload as unknown as StockInput);
-  if (action === 'stock-export' || action === 'stock-links-export') {
+  if (action === 'stock-export') {
+    // The request names the interface's language, in which the workpaper's
+    // reconciliation sheet is written (UX-6); nothing else is added.
+    if (
+      !keys(payload, ['state', 'result', 'lang']) ||
+      !plain(payload.result) ||
+      (payload.lang !== 'ar' && payload.lang !== 'en')
+    )
+      throw Error('STOCK_WORKER_INPUT');
+    return {
+      state: snapshotStockInputRequest(payload.state as StockInput),
+      result: snapshotStockTransportData(payload.result),
+      lang: payload.lang,
+    };
+  }
+  if (action === 'stock-links-export') {
     if (!keys(payload, ['state', 'result']) || !plain(payload.result))
       throw Error('STOCK_WORKER_INPUT');
     return { state: snapshotStockInputRequest(payload.state as StockInput), result: snapshotStockTransportData(payload.result) };

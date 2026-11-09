@@ -164,6 +164,15 @@ jobs:
         env:
           INV_PDF_WORKSPACE_BROWSER_DIR: ${{ runner.temp }}/inventory-pdf-workspace-ui
         run: pnpm test:inventory-pdf:workspace-browser
+      - name: Independently verify the reconciliation sheet first in the printed inventory register workpapers the page downloaded, in English and Arabic, the Arabic naming its evidence sheets in Arabic (UX-6(c))
+        run: |
+          shopt -s nullglob
+          ar=("${{ runner.temp }}"/inventory-pdf-workspace-ui/run-*/INV1F-*-ar.xlsx)
+          en=()
+          for f in "${{ runner.temp }}"/inventory-pdf-workspace-ui/run-*/INV1F-*.xlsx; do [[ $f == *-ar.xlsx ]] || en+=("$f"); done
+          test ${#ar[@]} -gt 0 && test ${#en[@]} -gt 0
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download ar "${ar[@]}"
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download en "${en[@]}"
       - name: Verify bank statement uploads through the actual Worker, oracle-equal matches, decisions, sessions and independently checked Excel (BNK-PDF-1 G4)
         env:
           BNK_G4_BROWSER_DIR: ${{ runner.temp }}/bank-statement-workspace-browser
@@ -216,6 +225,16 @@ jobs:
         env:
           INV_COLUMN_BROWSER_DIR: ${{ runner.temp }}/inventory-column-browser
         run: pnpm test:inventory-column:browser
+      - name: Independently verify the reconciliation sheet first in the sectioned, matrix, hierarchy and column inventory workpapers the pages downloaded, in Arabic and English (UX-6(c))
+        run: |
+          shopt -s nullglob
+          for dir in inventory-section-browser inventory-matrix-browser inventory-hierarchy-browser inventory-column-browser; do
+            for lang in ar en; do
+              files=("${{ runner.temp }}"/$dir/run-*/*-$lang/*.xlsx)
+              test ${#files[@]} -gt 0
+              python3 -B audit/reconciliation-sheet/check_sheet.py --download $lang "${files[@]}"
+            done
+          done
       - name: Verify signed-kind gateway actual Worker, Arabic and English mobile downloads independently
         env:
           MIZAN_CHROMIUM: /usr/bin/google-chrome
@@ -361,6 +380,10 @@ jobs:
         run: |
           python3 -B audit/reconciliation-sheet/check_sheet.py --download en work/payment-gateway/browser/ui-pending.xlsx work/payment-gateway/browser/ui-accepted.xlsx work/payment-gateway/browser/ui-undo.xlsx work/payment-gateway/browser/ui-reject.xlsx work/payment-gateway/browser/ui-restored.xlsx work/payment-gateway/browser/ui-malformed-reject.xlsx work/payment-gateway/browser/ui-missing-fee.xlsx work/payment-gateway/browser/ui-gross-cancel.xlsx work/payment-gateway/browser/ui-declared-comma-reject.xlsx
           python3 -B audit/reconciliation-sheet/check_sheet.py --download ar work/payment-gateway/browser/ui-reject-ar.xlsx
+      - name: Independently verify the reconciliation sheet first in the inventory workpapers the page downloaded, in English and Arabic, against their own evidence sheets (UX-6(c))
+        run: |
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download en work/inventory-register/browser/ui-pending.xlsx work/inventory-register/browser/ui-accepted.xlsx work/inventory-register/browser/ui-undo.xlsx work/inventory-register/browser/ui-reject.xlsx work/inventory-register/browser/ui-restored.xlsx work/inventory-register/browser/ui-malformed-reject.xlsx work/inventory-register/browser/ui-unmapped-zero.xlsx work/inventory-register/browser/ui-opposite-differences.xlsx
+          python3 -B audit/reconciliation-sheet/check_sheet.py --download ar work/inventory-register/browser/ui-reject-ar.xlsx
       - name: Independently verify the real OCR browser review record
         run: python3 audit/visual-cell-review/check_record.py work/qa/p6-reviewed.json work/qa/p6-source.png
       - name: Independently verify the manually selected Arabic crop from real browser OCR

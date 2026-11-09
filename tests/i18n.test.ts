@@ -194,6 +194,20 @@ void test('each workspace intro is short, and its detail is kept', async () => {
   }
 });
 
+// The supplied inventory attestation is named for the inventory, as its two
+// fields are and as the English says (UX-6(c)): its Arabic title said
+// «الأصول», the fixed assets workspace's word, over fields that say «جرد
+// المخزون». The reconciliation sheet writes these words as the screen does.
+void test('the inventory attestation is named for the inventory, as its fields are', async () => {
+  const { stockCopy } = await import('../lib/i18n/inventory-register.ts');
+  const { ar: a, en: e } = stockCopy;
+  for (const words of [a.completeTitle, a.completeReference, a.completeNote])
+    assert.ok(words.includes('جرد المخزون'), words);
+  assert.ok(!a.completeTitle.includes('الأصول'), a.completeTitle);
+  assert.ok(e.completeTitle.includes('inventory'), e.completeTitle);
+  assert.ok(e.completeReference.startsWith('Inventory'), e.completeReference);
+});
+
 void test('English interface copy contains no Arabic', () => {
   const allowed = [
     'العربية', // the Arabic option, named in Arabic in both languages

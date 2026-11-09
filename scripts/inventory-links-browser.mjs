@@ -283,14 +283,39 @@ function judge(c, seen) {
     differ.push('other unlinked records');
   return differ;
 }
+// The export ends in a download or in the page's refusal. A refusal fails
+// here by assertion as soon as it shows, not by waiting out the download: a
+// request the page refuses never reaches the worker, so no download comes
+// (UX-6(c): the evidence export now asks for the interface's language). The
+// page clears its message when the task starts, so it is watched after.
+async function downloadOrRefusal(page, w, start) {
+  const pending = page.waitForEvent('download', { timeout: 600000 });
+  pending.catch(() => {});
+  await start();
+  const alert = w.locator('[data-stock-error]');
+  const refused = alert
+    .waitFor({ state: 'visible', timeout: 600000 })
+    .then(() => alert.innerText());
+  refused.catch(() => {});
+  const first = await Promise.race([
+    pending.then((download) => ({ download })),
+    refused.then((error) => ({ error })),
+  ]);
+  assert.ok(
+    first.download,
+    `the links export was refused on the page: ${first.error}`,
+  );
+  return first.download;
+}
 async function exportLinks(page, w, c, times) {
   const t = Date.now();
-  const pending = page.waitForEvent('download', { timeout: 600000 });
-  await w
-    .getByRole('button', { name: 'Export register links', exact: true })
-    .click();
+  const download = await downloadOrRefusal(page, w, () =>
+    w
+      .getByRole('button', { name: 'Export register links', exact: true })
+      .click(),
+  );
   const file = path.join(out, `${c.id}-links.xlsx`);
-  await (await pending).saveAs(file);
+  await download.saveAs(file);
   await idle(page);
   times.export = Date.now() - t;
   try {
@@ -412,9 +437,9 @@ try {
         exact: true,
       });
       await button.focus();
-      const pending = page.waitForEvent('download', { timeout: 600000 });
-      await page.keyboard.press('Enter');
-      report.checks.keyboard = !!(await pending);
+      report.checks.keyboard = !!(await downloadOrRefusal(page, w, () =>
+        page.keyboard.press('Enter'),
+      ));
       await idle(page);
     }
   }

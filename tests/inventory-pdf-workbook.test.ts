@@ -4,6 +4,8 @@ import ExcelJS from 'exceljs';
 import { Worker } from 'node:worker_threads';
 import { replayStockPdfOriginals } from '../lib/reconciliation/inventory-register.ts';
 import { exportStockPdf } from '../lib/reconciliation/inventory-pdf-workbook.ts';
+import { exportStockPdfWorkpaper } from '../lib/reconciliation/inventory-sheet.ts';
+import { rezip, setCell } from './helpers/workbook-xml.ts';
 import { stockPdfTextParts } from '../lib/reconciliation/inventory-pdf-workbook-evidence.ts';
 import { validateStockPdfWorkerResponse } from '../lib/reconciliation/inventory-pdf-lifecycle.ts';
 import { snapshotStockPdfRequest } from '../lib/reconciliation/inventory-pdf-request.ts';
@@ -19,9 +21,15 @@ import {
 } from './helpers/inventory-pdf-lifecycle-fixture.ts';
 const fixture = await pdfLifecycleFixture();
 test.after(fixture.close);
+// An export request names its language (UX-6): the PDF evidence's words and
+// the workpaper's reconciliation sheet.
 const payload = async (code = 'P02') => {
   const state = await fixture.input(code);
-  return { state, result: (await replayStockPdfOriginals(state)).result };
+  return {
+    state,
+    result: (await replayStockPdfOriginals(state)).result,
+    language: 'en' as const,
+  };
 };
 async function book(bytes: ArrayBuffer) {
   const b = new ExcelJS.Workbook();
@@ -139,7 +147,9 @@ void test('G5a output records complete accept and undo history, never a fresh au
     const prior = await replayStockPdfOriginals(s);
     s.events.push(pdfDecision(prior, type, 'event-' + s.events.length));
     const r = (await replayStockPdfOriginals(s)).result;
-    const b = await book(await exportStockPdf({ state: s, result: r }));
+    const b = await book(
+      await exportStockPdf({ state: s, result: r, language: 'en' }),
+    );
     assert.equal(
       new Map(rows(b, 'Summary').map(([k, v]) => [k, v])).get('Review'),
       r.review,
@@ -236,30 +246,40 @@ void test('G5a changed source, context, choices or old financial cache cannot au
 void test('G5a returned workbook cannot replace a captured request, even if valid and self-consistent', async () => {
   const a = await payload('P02'),
     foreign = await payload('P03');
-  const bytes = await exportStockPdf(foreign);
+  // The worker's reply is the workpaper (UX-6): the evidence, then the
+  // reconciliation sheet first.
+  const bytes = await exportStockPdfWorkpaper(foreign);
   await assert.rejects(
     () => validateStockPdfWorkerResponse('stock-pdf-export', bytes, a),
     /STOCK_PDF_WORKER_EXPORT_BINDING/,
   );
-  const expected = await exportStockPdf(a);
+  const expected = await exportStockPdfWorkpaper(a);
   assert.ok(
     await validateStockPdfWorkerResponse('stock-pdf-export', expected, a),
   );
 });
 void test('G5a altered amounts, literal text, membership, source bytes and extra ZIP payload are refused', async () => {
   const p = await payload(),
-    valid = await exportStockPdf(p);
-  for (const [name, row, column, replacement] of [
-    ['Summary', 19, 2, 0],
-    ['Register', 2, 7, 999],
-    ['PDF links', 2, 3, 'foreign-member'],
-    ['PDF literals', 2, 10, 'foreign literal'],
-    ['PDF evidence', 2, 5, '{}'],
-    ['Sources', 2, 8, 'AAAA'],
+    valid = await exportStockPdfWorkpaper(p);
+  // Each change is written into the workpaper's own parts, one cell, all
+  // else as written: an ExcelJS round trip rewrites every part and would be
+  // refused unchanged. The workpaper re-zipped unchanged is accepted.
+  assert.ok(
+    (await validateStockPdfWorkerResponse(
+      'stock-pdf-export',
+      await rezip(valid),
+      p,
+    )) instanceof ArrayBuffer,
+  );
+  for (const [name, ref, replacement] of [
+    ['Summary', 'B19', 0],
+    ['Register', 'G2', 999],
+    ['PDF links', 'C2', 'foreign-member'],
+    ['PDF literals', 'J2', 'foreign literal'],
+    ['PDF evidence', 'E2', '{}'],
+    ['Sources', 'H2', 'AAAA'],
   ] as const) {
-    const b = await book(valid);
-    b.getWorksheet(name)!.getCell(row, column).value = replacement;
-    const tampered = new Uint8Array(await b.xlsx.writeBuffer()).buffer;
+    const tampered = await setCell(valid, name, ref, replacement);
     await assert.rejects(
       () => validateStockPdfWorkerResponse('stock-pdf-export', tampered, p),
       /STOCK_PDF_WORKER_EXPORT_BINDING/,
@@ -281,7 +301,7 @@ void test('G5a chunk boundaries preserve UTF-16 surrogate pairs without truncati
 });
 void test('G5a worker validation owns returned ZIP and requested evidence before awaiting', async () => {
   const p = await payload(),
-    valid = await exportStockPdf(p);
+    valid = await exportStockPdfWorkpaper(p);
   const pending = validateStockPdfWorkerResponse('stock-pdf-export', valid, p);
   new Uint8Array(valid).fill(0);
   p.result.review = 'accepted';
@@ -307,7 +327,9 @@ void test('G5a formula-like names and reviewer text remain literal workbook stri
   e.note = 'Note +CMD';
   s.events.push(e);
   const result = (await replayStockPdfOriginals(s)).result;
-  const b = await book(await exportStockPdf({ state: s, result }));
+  const b = await book(
+    await exportStockPdf({ state: s, result, language: 'en' }),
+  );
   assert.equal(rows(b, 'Sources')[0][2], s.files[0].name);
   assert.equal(rows(b, 'Events')[0][4], e.reference);
   assert.equal(rows(b, 'Events')[0][5], e.note);

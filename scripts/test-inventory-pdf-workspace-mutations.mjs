@@ -59,7 +59,7 @@ const mutations = [
     'const captured = snapshotStockPdfTransport(value);',
     'const captured = value;',
   ],
-  ['ignore-workbook-language', workbook, "captured.language ?? 'en',", "'en',"],
+  ['ignore-workbook-language', workbook, 'captured.language,', "'en',"],
   [
     'mislabel-quantity',
     labels,

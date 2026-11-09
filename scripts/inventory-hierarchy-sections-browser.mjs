@@ -10,6 +10,7 @@ import {
   openWorkspaceDisclosures,
 } from './domain-navigation-support.mjs';
 import { stockCopy } from '../lib/i18n/inventory-register.ts';
+import { inventorySheetSaysScreen } from './reconciliation-sheet-browser.mjs';
 import {
   STOCK_FIELDS,
   STOCK_SCOPE_HEADERS,
@@ -67,7 +68,8 @@ const origin = `http://127.0.0.1:${server.address().port}`;
 const errors = [],
   external = [],
   posts = [],
-  results = [];
+  results = [],
+  sheets = [];
 let browser, currentPage;
 try {
   browser = await chromium.launch({
@@ -152,6 +154,18 @@ try {
       await (await pending).saveAs(path.join(dir, file));
       await wait();
       assert.equal(await w.getByRole('alert').count(), 0);
+      // UX-6(c): the workpaper opens on the reconciliation sheet, in the
+      // interface's language, and it says what this page shows.
+      if (file.endsWith('.xlsx'))
+        sheets.push({
+          file,
+          lang,
+          ...(await inventorySheetSaysScreen(page, {
+            file: path.join(dir, file),
+            lang,
+            printed: false,
+          })),
+        });
     };
     for (const i of [0, 3, 1, 2]) {
       await openWorkspaceDisclosures(w);
@@ -330,9 +344,14 @@ try {
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
   assert.deepEqual(posts, []);
+  assert.ok(
+    sheets.length > 0 && new Set(sheets.map((s) => s.lang)).size === 2,
+    'workpapers checked in both languages',
+  );
   await writeFile(
     path.join(out, 'checks.json'),
-    JSON.stringify({ results, errors, external, posts }, null, 2) + '\n',
+    JSON.stringify({ results, sheets, errors, external, posts }, null, 2) +
+      '\n',
   );
   console.log(JSON.stringify({ out, results, errors, external, posts }));
 } catch (error) {

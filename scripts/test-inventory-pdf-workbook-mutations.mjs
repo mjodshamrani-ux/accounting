@@ -37,8 +37,8 @@ const mutations = [
   [
     'borrow-expected-result',
     request,
-    "result: snapshotStockPdfTransport(payload.result) as StockResult,\n      ...(Object.hasOwn(payload, 'language')",
-    "result: payload.result as StockResult,\n      ...(Object.hasOwn(payload, 'language')",
+    "result: snapshotStockPdfTransport(payload.result) as StockResult,\n      language: payload.language as 'ar' | 'en',",
+    "result: payload.result as StockResult,\n      language: payload.language as 'ar' | 'en',",
   ],
   [
     'skip-returned-workbook-binding',
@@ -94,6 +94,7 @@ if (report.baselinePassed)
         'audit/inventory-register',
         'tests/helpers/inventory-pdf-lifecycle-fixture.ts',
         'tests/helpers/bank-wd-worker.mjs',
+        'tests/helpers/workbook-xml.ts',
         test,
         'package.json',
       ])

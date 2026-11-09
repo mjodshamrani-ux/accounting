@@ -1,6 +1,6 @@
 """Independent check of the reconciliation sheet (UX-6) in GL/TB, clearing,
 customer AR, bank movement, payment allocation, supplier, trial balance and
-financial position, and intercompany workpapers.
+financial position, intercompany, payment gateway and inventory workpapers.
 
 Reads each workpaper with zipfile and ElementTree only, with no product code,
 and checks, against the evidence sheets as this checker reads them:
@@ -73,10 +73,30 @@ and checks, against the evidence sheets as this checker reads them:
   words; the completeness attestation with its explanation, once given;
   debit, credit and net by side; each pair with its state and review in
   words, its two nets and its residual or a dash; each decision with its
-  relation, time, reference and the explanation the reviewer gave.
+  relation, time, reference and the explanation the reviewer gave;
+- in an inventory workpaper (UX-6(c)), on the posted register's path and the
+  printed register's, read from its Summary, Account comparisons, Missing,
+  Issues, Inventory, Events, Event members and Sources (and PDF records),
+  the evidence held to itself first (each account's GL net its debit less
+  its credit, its difference the register value less the GL net, the
+  totals none exactly where a source holds an error, the result's state
+  from the issues, the missing evidence, the differences, the attestation
+  and the review, each decision holding every row of the four files after
+  its first but the blank ones, the printed register by its records):
+  the twelve scope fields; the four sources; the accounts with no
+  difference, the whole scope's review, the first difference by its account
+  and dimensions with how many more, and the result's state; the inventory
+  attestation with its explanation, once given; the register value against
+  the GL; each account with its five figures or a dash; each decision with
+  its time, reference and the explanation the reviewer gave; and the claim,
+  in Arabic the words the Arabic printed-register workpaper writes for it.
+  That workpaper names its evidence sheets, headings and fixed words in
+  Arabic; it is read in English by the frozen label list its own checker
+  holds (audit/inventory-pdf-workspace/labels.ar.json).
 
-Which checks apply is read from the evidence's own Summary (Domain); the
-supplier workbook names none, and is known by its own evidence sheets.
+Which checks apply is read from the evidence's own Summary (Domain, or the
+inventory family's Version); the supplier workbook names none, and is known
+by its own evidence sheets.
 
 Usage: check_sheet.py FOLDER            check every case in FOLDER/cases.json
        check_sheet.py --self-test FOLDER  plant faults and require each found
@@ -127,18 +147,22 @@ FINANCIAL_TABLES = ('Grand totals', 'Lines')
 # The intercompany tables: debit, credit and net by side under its head, and
 # the counterpart pairs, each pair an item with its figures.
 INTERCOMPANY_TABLES = ('Totals', 'Pairs')
+# The inventory's comparison by account, each account an item with its
+# figures.
+INVENTORY_TABLES = ('Account comparisons',)
 # Every table whose heading goes with its head and first row (with no head,
 # its first item), the rest running on: those above, in allocation the value
 # ledger of each side and the active allocations, the supplier's, the
-# financial position's and the intercompany's.
+# financial position's, the intercompany's and the inventory's.
 TABLES = (REVIEW_TABLES + DECISION_TABLES + ('Value ledger', 'Active links') +
-          SUPPLIER_TABLES + FINANCIAL_TABLES + INTERCOMPANY_TABLES)
+          SUPPLIER_TABLES + FINANCIAL_TABLES + INTERCOMPANY_TABLES +
+          INVENTORY_TABLES)
 # Tables a page may be broken above a later item of, an item that is not the
 # first under its head: a case or document with its members, an active
 # allocation with its two sides, a decision, an unmatched case, a
-# counterpart pair with its figures.
+# counterpart pair with its figures, an account with its figures.
 ITEM_TABLES = (REVIEW_TABLES + ('Active links', 'Events') + SUPPLIER_TABLES +
-               ('Pairs',))
+               ('Pairs',) + INVENTORY_TABLES)
 
 
 class Fault(AssertionError):
@@ -318,7 +342,11 @@ def check_evidence(evidence, book):
 
 
 def check_case(folder, case, lang):
-    evidence = Book((folder / case['evidence']).read_bytes())
+    # One evidence for both languages, or one in each (the printed
+    # register's, written in the language of its sheet).
+    copy = case['evidence']
+    evidence = Book((folder / (copy[lang] if isinstance(copy, dict) else copy))
+                    .read_bytes())
     book = Book((folder / case[lang]).read_bytes())
     part = check_evidence(evidence, book)
     need(book.names == [NAMES[lang]] + evidence.names, 'SHEET_ORDER',
@@ -340,6 +368,7 @@ def check_case(folder, case, lang):
 def check_content(evidence, book, lang):
     """The sheet's figures against the evidence, by the workspace the
     evidence names in its own Summary."""
+    evidence = english(evidence)
     summary = {r[0]: r[1] for r in evidence.table('Summary')[1:]}
     domain = domain_of(evidence)
     profile = PROFILES.get(domain)
@@ -356,9 +385,13 @@ SUPPLIER_SHEETS = {'Summary', 'Matches', 'Needs Review', 'Unmatched',
 
 
 def domain_of(evidence):
+    evidence = english(evidence)
     summary = {r[0]: r[1] for r in evidence.table('Summary')[1:]}
     if 'Domain' in summary:
         return summary['Domain']
+    # The inventory workbook names its family by its version.
+    if summary.get('Version') == 'inventory-posted-register-gl-1':
+        return summary['Version']
     if SUPPLIER_SHEETS <= set(evidence.names) and 'Workbook Mode' in summary:
         return 'supplier-statement-comparison'
     return None
@@ -532,6 +565,9 @@ def layout(book, evidence, lang, expected):
             evidence_note = row[3][1] if text(row[3]) else None
             if evidence_note is not None:
                 need(evidence_note in evidence.names, 'EVIDENCE_NOTE', evidence_note)
+                # The Arabic printed-register workpaper's sheets, named in
+                # Arabic, by their English names from here on.
+                evidence_note = INVENTORY_EN.get(evidence_note, evidence_note)
             current = {'at': i, 'evidence': evidence_note, 'rows': []}
             sections.append(current)
         else:
@@ -2500,6 +2536,337 @@ def check_gateway(evidence, book, lang, summary):
     need(numbers == expected, 'STRAY_NUMBER', f'{numbers} != {expected}')
     return {'status': summary['Status'], 'rows': len(rows)}
 
+# The Arabic printed-register workpaper names its evidence sheets, their
+# headings and the Summary's fixed words in Arabic. It is read in English by
+# the frozen label list its own workspace checker holds
+# (audit/inventory-pdf-workspace/labels.ar.json), never by the product's.
+INVENTORY_AR = json.loads((Path(__file__).resolve().parents[1] /
+                           'inventory-pdf-workspace' / 'labels.ar.json')
+                          .read_text(encoding='utf-8'))
+INVENTORY_EN = {v: k for k, v in INVENTORY_AR.items()}
+# The Summary fields whose values the Arabic workpaper writes in words.
+INVENTORY_AR_VALUES = {'Claim', 'Register minor basis', 'Status', 'Financial',
+                       'Review', 'Scope confirmed', 'Completeness confirmed'}
+
+
+class Labelled:
+    """An evidence workbook that names its sheets in Arabic, read in English:
+    its sheet names, each sheet's headings, and the Summary's fields and
+    fixed words. Its parts, styles and rows stay as they were written."""
+
+    def __init__(self, book):
+        self.raw = book
+        self.parts, self.styles, self.sheets = book.parts, book.styles, book.sheets
+        self.names = [INVENTORY_EN.get(n, n) for n in book.names]
+
+    def table(self, name):
+        need(name in INVENTORY_AR and INVENTORY_AR[name] in self.raw.names,
+             'EVIDENCE_READ', f'Arabic {name}')
+        rows = self.raw.table(INVENTORY_AR[name])
+        english = lambda word, what: (need(word in INVENTORY_EN, 'EVIDENCE_READ',
+                                           f'{name} {what} {word}'),
+                                      INVENTORY_EN[word])[1]
+        out = [[english(h, 'heading') if h else '' for h in rows[0]]]
+        for row in rows[1:]:
+            row = list(row)
+            if name == 'Summary':
+                row[0] = english(row[0], 'field')
+                if row[0] in INVENTORY_AR_VALUES:
+                    row[1] = english(row[1], 'word')
+            out.append(row)
+        return out
+
+
+def english(evidence):
+    """The evidence as its English reader sees it."""
+    if 'Summary' not in evidence.names and \
+            INVENTORY_AR['Summary'] in evidence.names:
+        return Labelled(evidence)
+    return evidence
+
+
+INV_SCOPE = ['entity', 'inventoryLedger', 'glLedger', 'currency',
+             'currencyBasis', 'postingStatus', 'postingLayer', 'asOf',
+             'chartVersion', 'mapVersion', 'valuationPolicyVersion',
+             'inventoryAccountSetVersion']
+INV_ONLY = {'currencyBasis': 'functional', 'postingStatus': 'posted'}
+INV_CODES = {'source-error', 'missing', 'difference', 'needs-review',
+             'consistent-with-evidence', 'ready', 'accepted', 'rejected',
+             'accept', 'reject', 'undo', 'functional', 'posted'}
+INV_FIGURES = ['Register minor', 'Debit minor', 'Credit minor', 'GL minor',
+               'Difference minor']
+
+
+def check_inventory(evidence, book, lang, summary):
+    """The inventory sheet against its evidence: Summary, Account
+    comparisons, Missing, Issues, Inventory, Events, Event members and
+    Sources, with PDF records on the printed register's path. The evidence
+    is held to itself first: each account's GL net is its debit less its
+    credit and its difference the register value less the GL net, none where
+    either is not computed; the totals are none exactly where a source holds
+    an error; the result's state follows from the issues, the missing
+    evidence, the differences, the attestation and the review; each decision
+    holds the whole scope, every row of the four files after its first but
+    the blank ones (the sectioned, matrix and hierarchy registers' scope and
+    structure rows among them; the printed register by its records). The
+    register total is not the sum of the accounts: a supported value whose
+    account no GL row names stays in it."""
+    decimals = int(summary['Decimals'])
+    unit = Decimal(10) ** decimals
+    rows_of = lambda name: [dict(zip(evidence.table(name)[0], r))
+                            for r in evidence.table(name)[1:]]
+    comparisons = rows_of('Account comparisons')
+    issues = rows_of('Issues')
+    missing = rows_of('Missing')
+    inventory = rows_of('Inventory')
+    events = rows_of('Events')
+    held = rows_of('Event members')
+    for c in comparisons:
+        if c['GL minor'] != '':
+            need(c['Debit minor'] != '' and int(c['GL minor']) ==
+                 int(c['Debit minor']) - int(c['Credit minor']),
+                 'EVIDENCE_READ', f'{c["GL account"]} GL net')
+        if c['Difference minor'] != '':
+            need(c['Register minor'] != '' and c['GL minor'] != '' and
+                 int(c['Difference minor']) ==
+                 int(c['Register minor']) - int(c['GL minor']),
+                 'EVIDENCE_READ', f'{c["GL account"]} difference')
+    totals = summary['Register minor'] != ''
+    need(totals == (summary['GL minor'] != '') and totals == (not issues),
+         'EVIDENCE_READ', 'totals none exactly where a source holds an error')
+    computed = [int(c['Difference minor']) for c in comparisons
+                if c['Difference minor'] != '']
+    confirmed = summary['Completeness confirmed'] == 'true'
+    state = ('source-error' if issues else 'missing' if missing else
+             'difference' if any(computed) else
+             'consistent-with-evidence' if confirmed and
+             summary['Review'] == 'accepted' else 'needs-review')
+    need(summary['Status'] == state, 'EVIDENCE_READ',
+         f'state {summary["Status"]} != {state}')
+    sources = {}
+    for r in rows_of('Sources'):
+        src = sources.setdefault(int(r['Source']), {
+            'name': r['Name'], 'hash': r['SHA256'], 'chunks': []})
+        src['chunks'].append((int(r['Part']), r['Base64']))
+    for side, src in sources.items():
+        data = base64.b64decode(''.join(c for _, c in sorted(src['chunks'])),
+                                validate=True)
+        need(hashlib.sha256(data).hexdigest() == src['hash'], 'EVIDENCE_READ',
+             f'source {side} fingerprint')
+    need(sorted(sources) == [0, 1, 2, 3], 'EVIDENCE_READ', 'four sources')
+    printed = 'PDF records' in evidence.names
+    scope = set()
+    if printed:
+        scope |= {r['Record ID'] for r in rows_of('PDF records')}
+    scope |= {json.dumps([summary['Version'], int(r['Source']),
+                          sources[int(r['Source'])]['hash'], 0,
+                          int(r['Source row'])], separators=(',', ':'))
+              for r in inventory if int(r['Source row']) > 1 and
+              r['Kind'] not in ('header', 'blank') and
+              not (printed and r['Source'] == '0')}
+    for e in events:
+        ids = sorted(m['Member ID'] for m in held
+                     if m['Event ID'] == e['Event ID'])
+        need(ids == sorted(scope) and int(e['Member count']) == len(ids),
+             'EVIDENCE_READ', f'{e["Event ID"]} holds the whole scope')
+
+    expected = (['Summary', 'Sources', None] +
+                (['Summary'] if confirmed else []) +
+                (['Summary'] if totals else []) +
+                (['Account comparisons'] if comparisons else []) +
+                (['Events'] if events else []) + [None, 'Summary'])
+    rows, styles, line, sections = layout(
+        book, getattr(evidence, 'raw', evidence), lang, expected)
+    scope_s, srcs, strip = sections[:3]
+    rest = sections[3:-2]
+    attest = rest.pop(0) if confirmed else None
+    table = rest.pop(0) if totals else None
+    accounts = rest.pop(0) if comparisons else None
+    taken = rest.pop(0) if events else None
+    sign, claim = sections[-2:]
+    # Every state the sheet says, one word a code across the sheet: the
+    # result's, under the strip and in the strip's gap when nothing is
+    # computed.
+    states = []
+
+    # Scope: the twelve fields in the engine's order, the one-option two in
+    # the card's words.
+    need(len(scope_s['rows']) == len(INV_SCOPE), 'SCOPE', 'twelve fields')
+    for key, (_, row) in zip(INV_SCOPE, scope_s['rows']):
+        need(text(row[0]) and text(row[1]), 'SCOPE', key)
+        if key in INV_ONLY and summary[key] == INV_ONLY[key]:
+            need(row[1][1] not in INV_CODES, 'RAW_CODE', key)
+            seen_words(lang, f'inventory {key}', [(summary[key], row[1][1])])
+        else:
+            need(row[1][1] == summary[key], 'SCOPE', key)
+
+    # Sources: the four roles, each file and its whole fingerprint, the
+    # SHA-256 of the original bytes.
+    need(len(srcs['rows']) == 8, 'SOURCES', 'four sources')
+    roles = []
+    for side in (0, 1, 2, 3):
+        (_, said), (_, printed_hash) = srcs['rows'][2 * side:2 * side + 2]
+        need(text(said[0]) and text(said[1]) and
+             said[1][1] == sources[side]['name'], 'SOURCES', f'source {side}')
+        roles.append(said[0][1])
+        need(text(printed_hash[1]) and HEX64.match(printed_hash[1][1]) and
+             printed_hash[1][1] == sources[side]['hash'], 'FINGERPRINT',
+             f'source {side}')
+    need(len(set(roles)) == 4, 'SOURCES', 'two sources one name')
+
+    # Alignment: the accounts with no difference of all compared, the whole
+    # scope's review, the first difference by its account and dimensions
+    # with how many more, or none in what was compared, or the state where
+    # nothing is; then the result's state.
+    srows = [row for _, row in strip['rows']]
+    agreed = srows.pop(0)
+    zero = sum(1 for d in computed if d == 0)
+    need(number(agreed[1]) and agreed[1][1] == zero and text(agreed[2]) and
+         number(agreed[3]) and agreed[3][1] == len(comparisons),
+         'AGREED_COUNT', f'{agreed[1]} of {agreed[3]}')
+    unit_note = srows.pop(0)
+    need(blank(unit_note[0]) and text(unit_note[1]), 'STRIP', 'unit note')
+    review = srows.pop(0)
+    review_note = srows.pop(0)
+    need(text(review[0]) and text(review[1]) and blank(review_note[0]) and
+         text(review_note[1]), 'REVIEW_COUNT', 'the whole scope review')
+    need(review[1][1] not in INV_CODES and review_note[1][1] not in INV_CODES,
+         'RAW_CODE', 'review')
+    seen_words(lang, 'inventory awaiting',
+               [(summary['Review'] == 'needs-review', review[1][1])])
+    seen_words(lang, 'inventory review note',
+               [(summary['Review'], review_note[1][1])])
+    gap = srows.pop(0)
+    numbers_strip = 2
+    if any(computed):
+        first = next(c for c in comparisons
+                     if c['Difference minor'] not in ('', '0'))
+        need(number(gap[1]) and
+             gap[1][1] == Decimal(first['Difference minor']) / unit, 'GAP',
+             f'{gap[1]} != {first["Difference minor"]}')
+        name = (f'{first["GL account"]} · {first["GL dimensions"]}'
+                if first['GL dimensions'] else first['GL account'])
+        said = srows.pop(0)
+        need(blank(said[0]) and text(said[1]) and said[1][1] == name and
+             text(said[2]), 'GAP', f'the first difference named {said[1]}')
+        numbers_strip += 1
+        more = sum(1 for d in computed if d) - 1
+        if more:
+            others = srows.pop(0)
+            need(blank(others[0]) and text(others[1]) and number(others[2]) and
+                 others[2][1] == more, 'GAP', f'{others[2]} != {more}')
+            numbers_strip += 1
+    elif computed:
+        compared = srows.pop(0)
+        need(text(gap[1]) and blank(compared[0]) and text(compared[1]) and
+             number(compared[2]) and compared[2][1] == len(computed), 'GAP',
+             f'no difference in {len(computed)}')
+        numbers_strip += 1
+    else:
+        note = srows.pop(0)
+        need(text(gap[1]) and blank(note[0]) and text(note[1]), 'GAP',
+             'not computed, the state said')
+        states.append((summary['Status'], note[1][1]))
+    result = srows.pop(0) if srows else [None] * 4
+    need(text(result[0]) and text(result[1]), 'RESULT_STATE',
+         'the result without its state')
+    states.append((summary['Status'], result[1][1]))
+    need(not srows, 'STRIP', f'{len(srows)} rows more')
+    words_of(states, 'state', INV_CODES)
+    seen_words(lang, 'inventory state', states)
+
+    # The supplied inventory attestation: the reference and the explanation
+    # the reviewer gave.
+    if confirmed:
+        need(len(attest['rows']) == 2, 'ATTESTATION', 'two rows')
+        (_, ref), (_, why) = attest['rows']
+        need(text(ref[0]) and text(ref[1]) and
+             ref[1][1] == summary['Completeness reference'], 'ATTESTATION',
+             'reference')
+        need(text(why[0]) and text(why[1]) and
+             why[1][1] == summary['Completeness note'], 'ATTESTATION_REASON',
+             'attestation without its reason')
+
+    # The register value against the GL: the two headings and the one row.
+    if totals:
+        head, *body = table['rows']
+        need(all(text(c) and styles.bold(c[2]) for c in head[1][:2]) and
+             blank(head[1][2]), 'TOTALS', 'head')
+        need(len(body) == 1, 'TOTALS', 'one row')
+        for c, key in enumerate(('Register minor', 'GL minor')):
+            cell = body[0][1][c]
+            v = Decimal(summary[key]) / unit
+            need(number(cell) and cell[1] == v, 'TOTALS',
+                 f'{key}: {cell} != {v}')
+
+    # Each account in the evidence's order: the account and its complete
+    # dimensions, then its five figures each named the same way in every
+    # account, a dash where the engine computes none.
+    figures = 0
+    if comparisons:
+        it = iter(accounts['rows'])
+        labels = []
+        for c in comparisons:
+            _, head = next(it, (None, [None] * 4))
+            need(text(head[0]) and head[0][1] == c['GL account'], 'ACCOUNT',
+                 f'{c["GL account"]} named {head[0]}')
+            need(text(head[1]) and head[1][1] == (c['GL dimensions'] or '—'),
+                 'ACCOUNT', f'{c["GL account"]} dimensions {head[1]}')
+            need(blank(head[2]) and blank(head[3]), 'ACCOUNT',
+                 f'{c["GL account"]} more')
+            said = []
+            for key in INV_FIGURES:
+                _, row = next(it, (None, [None] * 4))
+                need(text(row[0]) and blank(row[2]), 'ACCOUNT_FIGURE',
+                     f'{c["GL account"]} {key}')
+                said.append(row[0][1])
+                if c[key] == '':
+                    need(text(row[1]) and row[1][1] == '—', 'ACCOUNT_FIGURE',
+                         f'{c["GL account"]} {key}: {row[1]}')
+                else:
+                    v = Decimal(c[key]) / unit
+                    need(number(row[1]) and row[1][1] == v, 'ACCOUNT_FIGURE',
+                         f'{c["GL account"]} {key}: {row[1]} != {v}')
+                    figures += 1
+            labels.append(tuple(said))
+        need(next(it, None) is None, 'ACCOUNTS', 'rows more than the accounts')
+        need(len(set(labels)) == 1 and len(set(labels[0])) == 5,
+             'ACCOUNT_FIGURE', 'each figure named one way')
+
+    # Each recorded decision: what it did and its time, then the reference
+    # and the explanation the reviewer gave.
+    if events:
+        it = iter(taken['rows'])
+        actions = []
+        for e in events:
+            _, head = next(it, (None, [None] * 4))
+            need(text(head[0]), 'DECISION_ACTION', e['Event ID'])
+            actions.append((e['Type'], head[0][1]))
+            need(text(head[1]) and head[1][1] == e['At'], 'DECISION_TIME',
+                 e['Event ID'])
+            need(blank(head[2]), 'DECISIONS', e['Event ID'])
+            _, words = next(it, (None, [None] * 4))
+            need(blank(words[0]), 'DECISIONS', e['Event ID'])
+            need(text(words[1]) and words[1][1] == e['Reference'],
+                 'DECISION_REFERENCE', e['Event ID'])
+            need(text(words[2]) and words[2][1] == e['Note'], 'DECISION_REASON',
+                 f'decision {e["Event ID"]} without its reason')
+        need(next(it, None) is None, 'DECISIONS', 'rows more than the decisions')
+        words_of(actions, 'decision_action', INV_CODES)
+        seen_words(lang, 'inventory decision', actions)
+
+    check_sign_and_claim(sign, claim, line, lang, summary['Claim'])
+    # In Arabic, the claim as the Arabic workpaper's Summary writes it, by
+    # the frozen label list.
+    if lang == 'ar':
+        need(claim['rows'][0][1][0][1] == INVENTORY_AR[summary['Claim']],
+             'CLAIM', 'Arabic words')
+
+    numbers = sum(1 for row in rows for c in row if number(c))
+    expected = numbers_strip + (2 if totals else 0) + figures
+    need(numbers == expected, 'STRAY_NUMBER', f'{numbers} != {expected}')
+    return {'status': summary['Status'], 'rows': len(rows)}
+
 PROFILES = {'gl-trial-balance-consistency': check_gl_tb,
             'single-account-clearing': check_clearing,
             'customer-ar-document-comparison': check_ar,
@@ -2508,7 +2875,8 @@ PROFILES = {'gl-trial-balance-consistency': check_gl_tb,
             'supplier-statement-comparison': check_supplier,
             'tb-financial-position': check_financial,
             'intercompany-ledger': check_intercompany,
-            'payment-gateway-batch': check_gateway}
+            'payment-gateway-batch': check_gateway,
+            'inventory-posted-register-gl-1': check_inventory}
 WORKSPACES = {'gl-tb': 'gl-trial-balance-consistency',
               'clearing': 'single-account-clearing',
               'ar': 'customer-ar-document-comparison',
@@ -2517,7 +2885,8 @@ WORKSPACES = {'gl-tb': 'gl-trial-balance-consistency',
               'supplier': 'supplier-statement-comparison',
               'financial': 'tb-financial-position',
               'intercompany': 'intercompany-ledger',
-              'gateway': 'payment-gateway-batch'}
+              'gateway': 'payment-gateway-batch',
+              'inventory': 'inventory-posted-register-gl-1'}
 
 
 def verify(folder):
@@ -3078,6 +3447,124 @@ def gateway_error_plants(data):
                                           '>الأدلة المطلوبة ناقصة<', 1), 1)
     yield 'state in the gap said as another', 'STATE', _edit(data, sheet, go)
 
+def inventory_plants(data):
+    """Faults an inventory workpaper can carry: in its decisions, its
+    attestation, its totals, its accounts, its strip, its state, its scope,
+    its sources and its claim, in a sheet whose whole scope was approved,
+    undone, rejected and undone three times over, and approved: fifteen
+    decisions."""
+    sheet = _first_sheet(data)
+
+    def row_edit(label, offset, change):
+        def go(x):
+            n = _cell(x, label) + offset
+            old = _row(x, n)
+            return x.replace(old, change(old), 1)
+        return _edit(data, sheet, go)
+
+    plus = lambda col: lambda r: re.sub(
+        rf'(<c r="{col}\d+"[^>]*><v>)(-?\d+)',
+        lambda m: f'{m.group(1)}{int(m.group(2)) + 1}', r, count=1)
+    drop = lambda col: lambda r: re.sub(rf'<c r="{col}\d+"[^>]*>.*?</c>', '', r)
+    swap = lambda old, new: lambda r: r.replace(f'>{old}<', f'>{new}<', 1)
+    accept, reject = 'اعتمد كامل نطاق المخزون', 'ارفض كامل نطاق المخزون'
+    undo = 'ألغ قرار المخزون'
+    yield 'decision without its reason', 'DECISION_REASON', row_edit(
+        reject, 1, drop('C'))
+    yield 'rejection said as an approval', 'DECISION_ACTION', row_edit(
+        reject, 0, swap(reject, accept))
+    yield 'decision reference changed', 'DECISION_REFERENCE', row_edit(
+        undo, 1, swap('Synthetic inventory review', 'Another review'))
+    yield 'decision time changed', 'DECISION_TIME', row_edit(
+        accept, 0, lambda r: r.replace('.000Z<', '.999Z<', 1))
+    yield 'attestation explanation changed', 'ATTESTATION_REASON', row_edit(
+        'توضيح اكتمال جرد المخزون', 0,
+        lambda r: r.replace('>Synthetic: every', '>Synthetic: some', 1))
+    yield 'register value against the GL changed', 'TOTALS', row_edit(
+        'قيمة السجل المرتبطة بأدلة الأستاذ', 1, plus('A'))
+    yield 'an account debit changed', 'ACCOUNT_FIGURE', row_edit(
+        'المدين', 0, plus('B'))
+    yield 'an account named as another', 'ACCOUNT', row_edit(
+        'INV-1', 0, swap('INV-1', 'INV-2'))
+    yield 'aligned count changed', 'AGREED_COUNT', row_edit(
+        'تراصف', 0, plus('B'))
+    yield 'approved scope said as rejected', 'INVENTORY REVIEW NOTE', row_edit(
+        'ينتظر قرارك', 1, swap('قُبلت النتيجة بقرار مسجل',
+                               'رُفضت النتيجة بقرار مسجل'))
+    yield 'result state said as an approval', 'INVENTORY STATE', row_edit(
+        'حالة النتيجة', 0, swap('متسق ضمن الأدلة المؤكدة', 'معتمد'))
+    yield 'one-option field as its code', 'RAW_CODE', row_edit(
+        'أساس العملة', 0, swap('وظيفية', 'functional'))
+    yield 'a scope field changed', 'SCOPE', row_edit(
+        'دفتر المخزون', 0, swap('STOCK-BOOK', 'STOCK-OTHER'))
+    yield 'a source fingerprint changed', 'FINGERPRINT', row_edit(
+        'البصمة SHA-256', 0, lambda r: r.replace('>7def', '>8def', 1))
+    yield 'the claim in other words', 'CLAIM', row_edit(
+        'مقارنة القيم المرحلة المقدمة بالخريطة والسياسة وحسابات المخزون '
+        'المحددة دون تقييم المخزون أو جمع كمياته أو إنشاء قيود أو إبداء رأي '
+        'في اكتمال المصادر', 0, lambda r: r.replace('>مقارنة', '>مطابقة', 1))
+
+
+def inventory_printed_plants(data):
+    """Faults in the printed register's Arabic sheet, whose evidence names
+    its sheets in Arabic: two accounts differ, the first by the strip, then
+    how many more, the first named by another account, an account's
+    dimensions, the result without its state, and an evidence sheet named
+    in English, which this workbook does not hold."""
+    sheet = _first_sheet(data)
+
+    def row_edit(label, offset, change):
+        def go(x):
+            n = _cell(x, label) + offset
+            old = _row(x, n)
+            return x.replace(old, change(old), 1)
+        return _edit(data, sheet, go)
+
+    plus = lambda col: lambda r: re.sub(
+        rf'(<c r="{col}\d+"[^>]*><v>)(-?\d+)',
+        lambda m: f'{m.group(1)}{int(m.group(2)) + 1}', r, count=1)
+    swap = lambda old, new: lambda r: r.replace(f'>{old}<', f'>{new}<', 1)
+    yield 'first difference changed in the strip', 'GAP', row_edit(
+        'الفجوة', 0, plus('B'))
+    yield 'differences more miscounted', 'GAP', row_edit(
+        'الفجوة', 2, plus('C'))
+    yield 'first difference named by another account', 'GAP', row_edit(
+        'الفجوة', 1, swap('INV-RAW · branch=10', 'INV-RAW · branch=20'))
+    yield 'an account dimension changed', 'ACCOUNT', row_edit(
+        'INV-RAW', 0, swap('branch=10', 'branch=11'))
+    yield 'evidence named in English', 'EVIDENCE_NOTE', row_edit(
+        'المصادر', 0, swap('الأصول', 'Sources'))
+
+    def gone(x):
+        return x.replace(_row(x, _cell(x, 'حالة النتيجة')), '', 1)
+    yield 'the result without its state', 'RESULT_STATE', _edit(
+        data, sheet, gone)
+
+
+def inventory_error_plants(data):
+    """Faults in a sheet whose source holds an error: a figure the engine
+    does not compute said as a zero, and the state the strip's gap says
+    said as another."""
+    sheet = _first_sheet(data)
+
+    def zero(x):
+        n = _cell(x, 'الفرق، السجل ناقص الأستاذ')
+        old = _row(x, n)
+        new = re.sub(r'<c r="(B\d+)" t="inlineStr"( s="\d+")><is><t[^>]*>—</t>'
+                     r'</is></c>', r'<c r="\1"\2><v>0</v></c>', old, count=1)
+        assert new != old
+        return x.replace(old, new, 1)
+    yield 'an uncomputed figure said as zero', 'ACCOUNT_FIGURE', _edit(
+        data, sheet, zero)
+
+    def other(x):
+        n = _cell(x, 'الفجوة') + 1
+        old = _row(x, n)
+        return x.replace(old, old.replace(
+            '>المصدر محجوب؛ المجاميع المالية غير متاحة<',
+            '>فرق قيمة مرحلة على مستوى الحساب<', 1), 1)
+    yield 'state in the gap said as another', 'STATE', _edit(data, sheet, other)
+
 def page_plants(data):
     """A sheet that needs its break, printed without it: its heading would
     end about a point past its page by the checker's estimate, which only
@@ -3127,6 +3614,12 @@ def self_test(folder):
                             intercompany_missing_plants)
     found += _self_test_one(folder, pick('gateway-long-decisions'),
                             gateway_plants)
+    found += _self_test_one(folder, pick('inventory-long-decisions'),
+                            inventory_plants)
+    found += _self_test_one(folder, pick('inventory-pdf-N04'),
+                            inventory_printed_plants)
+    found += _self_test_one(folder, pick('inventory-quantity-fraction-not-exact'),
+                            inventory_error_plants)
     found += _self_test_one(folder, pick('gateway-gross-errors-net-cancels'),
                             gateway_difference_plants)
     found += _self_test_one(folder, pick('gateway-extra-settlement'),
@@ -3140,7 +3633,8 @@ def check_download(path, lang):
     evidence sheets in the same workbook."""
     book = Book(Path(path).read_bytes())
     need(book.names[0] == NAMES[lang], 'SHEET_ORDER', str(book.names[:2]))
-    need(book.names[1] == 'Summary', 'SHEET_ORDER', 'evidence after the sheet')
+    need(book.names[1] in ('Summary', INVENTORY_AR['Summary']), 'SHEET_ORDER',
+         'evidence after the sheet')
     part = book.parts[book.sheets[0][1]].decode()
     need(' t="s"' not in part, 'SHARED_STRING')
     need(('rightToLeft="1"' in part) == (lang == 'ar'), 'DIRECTION')

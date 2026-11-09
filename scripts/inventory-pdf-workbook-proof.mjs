@@ -57,6 +57,7 @@ try {
       const bytes = await client.request('stock-pdf-export', {
         state: replay.state,
         result: replay.result,
+        language: 'en',
       });
       await writeFile(
         path.join(out, name + '-' + phase + '.xlsx'),

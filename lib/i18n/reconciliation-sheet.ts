@@ -380,6 +380,41 @@ export type ReconciliationSheetCopy = {
      * interface's language; the English is the evidence's words exactly. */
     claim: string;
   };
+  inventory: {
+    title: string;
+    /** The twelve scope fields, in the engine's order. */
+    scope: string[];
+    /** The one value each of these fields takes in this family. */
+    only: Record<'currencyBasis' | 'postingStatus', string>;
+    roles: string[];
+    status: Record<
+      | 'source-error'
+      | 'missing'
+      | 'difference'
+      | 'needs-review'
+      | 'consistent-with-evidence'
+      | 'accepted'
+      | 'rejected',
+      string
+    >;
+    completenessTitle: string;
+    completeReference: string;
+    completeNote: string;
+    tableNames: { totals: string; comparisons: string };
+    /** The two headings of the screen's table of the register against the
+     * GL. */
+    totals: string[];
+    /** The seven headings of the screen's comparison by account. */
+    comparisons: string[];
+    accept: string;
+    reject: string;
+    undo: string;
+    /** The engine's claim as the evidence's Summary sheet writes it, in the
+     * interface's language; the English is the evidence's words exactly, and
+     * the Arabic the words the Arabic printed-register workpaper's Summary
+     * writes for it. */
+    claim: string;
+  };
 };
 
 export const reconciliationSheetCopy: Record<
@@ -855,6 +890,61 @@ export const reconciliationSheetCopy: Record<
       undo: 'ألغ قرار الدفعة',
       claim:
         'اتساق المبيعات والمرتجعات المورّدة والرسوم المثبتة بأدلة مستقلة مع تسوية بوابة واحدة وإيداع بنكي واحد فقط؛ لا رأي في قيد ولا في الاعتراف بالإيراد ولا في مشروعية الرسم ولا في أصالة المصدر ولا في اكتماله',
+    },
+    inventory: {
+      title: 'سجل المخزون المرحل وأدلة الأستاذ',
+      scope: [
+        'الكيان',
+        'دفتر المخزون',
+        'دفتر الأستاذ',
+        'العملة',
+        'أساس العملة',
+        'حالة الترحيل',
+        'طبقة الترحيل',
+        'التاريخ',
+        'إصدار دليل الحسابات',
+        'إصدار الخريطة',
+        'إصدار سياسة التقييم',
+        'إصدار مجموعة حسابات المخزون',
+      ],
+      only: { currencyBasis: 'وظيفية', postingStatus: 'مرحّلة' },
+      roles: [
+        'سجل المخزون المرحل',
+        'خريطة الصنف والأستاذ المقترحة',
+        'دليل السياسة المستقل المقدم',
+        'أرصدة مخزون الأستاذ المحددة',
+      ],
+      status: {
+        'source-error': 'المصدر محجوب؛ المجاميع المالية غير متاحة',
+        missing: 'دليل أو تغطية حساب مفقودان',
+        difference: 'فرق قيمة مرحلة على مستوى الحساب',
+        'needs-review': 'تلزم مراجعة كامل المخزون',
+        'consistent-with-evidence': 'متسق ضمن الأدلة المؤكدة',
+        accepted: 'معتمد',
+        rejected: 'مرفوض',
+      },
+      completenessTitle: 'تصريح جرد المخزون المقدم',
+      completeReference: 'مرجع اكتمال جرد المخزون',
+      completeNote: 'توضيح اكتمال جرد المخزون',
+      tableNames: {
+        totals: 'قيمة السجل مقابل الأستاذ',
+        comparisons: 'المقارنة حسب الحساب',
+      },
+      totals: ['قيمة السجل المرتبطة بأدلة الأستاذ', 'صافي الأستاذ'],
+      comparisons: [
+        'حساب الأستاذ',
+        'أبعاد الأستاذ الكاملة',
+        'قيمة السجل',
+        'المدين',
+        'الدائن',
+        'صافي الأستاذ',
+        'الفرق، السجل ناقص الأستاذ',
+      ],
+      accept: 'اعتمد كامل نطاق المخزون',
+      reject: 'ارفض كامل نطاق المخزون',
+      undo: 'ألغ قرار المخزون',
+      claim:
+        'مقارنة القيم المرحلة المقدمة بالخريطة والسياسة وحسابات المخزون المحددة دون تقييم المخزون أو جمع كمياته أو إنشاء قيود أو إبداء رأي في اكتمال المصادر',
     },
   },
   en: {
@@ -1336,6 +1426,61 @@ export const reconciliationSheetCopy: Record<
       undo: 'Undo batch decision',
       claim:
         'Consistency of supplied sales, refunds and independently evidenced fees with one gateway settlement and bank credit only; no posting, revenue recognition, fee legitimacy, source authenticity or completeness opinion',
+    },
+    inventory: {
+      title: 'Posted inventory register / GL evidence',
+      scope: [
+        'Entity',
+        'Inventory ledger',
+        'GL ledger',
+        'Currency',
+        'Currency basis',
+        'Posting status',
+        'Posting layer',
+        'As of',
+        'Chart version',
+        'Map version',
+        'Valuation policy version',
+        'Inventory account set version',
+      ],
+      only: { currencyBasis: 'Functional', postingStatus: 'Posted' },
+      roles: [
+        'Posted inventory register',
+        'Proposed item / GL mapping',
+        'Independent supplied policy evidence',
+        'Selected inventory GL balances',
+      ],
+      status: {
+        'source-error': 'Source blocked; financial totals withheld',
+        missing: 'Evidence or account coverage missing',
+        difference: 'Per-account carrying value difference',
+        'needs-review': 'Whole inventory review required',
+        'consistent-with-evidence': 'Consistent within confirmed evidence',
+        accepted: 'Accepted',
+        rejected: 'Rejected',
+      },
+      completenessTitle: 'Supplied inventory attestation',
+      completeReference: 'Inventory completeness reference',
+      completeNote: 'Inventory completeness explanation',
+      tableNames: {
+        totals: 'Register value against the GL',
+        comparisons: 'Comparison by account',
+      },
+      totals: ['Register value supported by GL mapping', 'GL net'],
+      comparisons: [
+        'GL account',
+        'Complete GL dimensions',
+        'Register value',
+        'Debit',
+        'Credit',
+        'GL net',
+        'Difference, register minus GL',
+      ],
+      accept: 'Approve whole inventory scope',
+      reject: 'Reject whole inventory scope',
+      undo: 'Undo inventory decision',
+      claim:
+        'Supplied posted carrying value consistency with evidenced mapping and selected inventory GL accounts; no valuation, quantity aggregation, posting or completeness opinion',
     },
   },
 };

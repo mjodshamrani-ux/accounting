@@ -123,10 +123,14 @@ export async function validateStockPdfWorkerResponse(
   if (action === 'stock-pdf-export') {
     pdfBytes(value, STOCK_PDF_EXPORT_LIMIT);
     const returned = value.slice(0);
-    const { exportStockPdf } = await import('./inventory-pdf-workbook.ts');
+    // The workpaper as the worker writes it: the PDF evidence, then the
+    // reconciliation sheet first in the language the request names.
+    const { exportStockPdfWorkpaper } = await import('./inventory-sheet.ts');
     const { sameStockWorkbook } =
       await import('./inventory-register-worker-binding.ts');
-    const expected = await exportStockPdf(requested as StockPdfExportRequest);
+    const expected = await exportStockPdfWorkpaper(
+      requested as StockPdfExportRequest,
+    );
     if (!(await sameStockWorkbook(returned, expected)))
       throw Error('STOCK_PDF_WORKER_EXPORT_BINDING');
     return expected;

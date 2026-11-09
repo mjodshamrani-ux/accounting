@@ -108,6 +108,23 @@ import {
   gatewaySheet,
 } from '../lib/reconciliation/payment-gateway-sheet.ts';
 import { gatewayCase } from '../audit/reconciliation-sheet/gateway-cases.ts';
+import { stockStrip } from '../lib/alignment-strip.ts';
+import { stockCopy } from '../lib/i18n/inventory-register.ts';
+import { inventoryPdfWorkbookLabel } from '../lib/i18n/inventory-pdf-workbook.ts';
+import { STOCK_FIELDS } from '../lib/reconciliation/inventory-register.ts';
+import { exportStock } from '../lib/reconciliation/inventory-register-io.ts';
+import { exportStockPdf } from '../lib/reconciliation/inventory-pdf-workbook.ts';
+import {
+  exportStockPdfWorkpaper,
+  exportStockWorkpaper,
+  inventorySheet,
+} from '../lib/reconciliation/inventory-sheet.ts';
+import {
+  inventoryCase,
+  withInventoryPdfCases,
+  type InventoryCase,
+  type InventoryPdfCase,
+} from '../audit/reconciliation-sheet/inventory-cases.ts';
 
 // UX-6(a): the reconciliation sheet is added to a workpaper whose evidence is
 // already written, and leaves that evidence byte for byte as it was. Its words
@@ -3075,5 +3092,435 @@ void test('the real worker writes the payment gateway sheet in the language aske
     );
   } finally {
     port.terminate();
+  }
+});
+
+// UX-6(c), inventory: frozen cases of the posted register family, each state
+// the engine gives; the positive one attested and decided, and fifteen
+// decisions; and the printed register's cases, whose Arabic workpaper names
+// its evidence sheets in Arabic.
+const INVENTORY_CASES = [
+  'independent-units-positive',
+  'difference-one-minor',
+  'opposite-account-differences-zero-grand',
+  'unit-mismatch',
+  'empty-gl',
+  'quantity-fraction-not-exact',
+  'attested',
+  'accepted',
+  'rejected',
+  'undone',
+  'long-decisions',
+];
+const INVENTORY_PRINTED = ['pdf-P01', 'pdf-P01-accepted', 'pdf-N04', 'pdf-N01'];
+const INVENTORY_ONLY = {
+  currencyBasis: 'functional',
+  postingStatus: 'posted',
+} as const;
+
+/** What the inventory sheet says, held to the result it was written from. */
+async function inventorySays(
+  name: string,
+  said:
+    | { printed: false; value: InventoryCase }
+    | { printed: true; value: InventoryPdfCase },
+  lang: 'ar' | 'en',
+) {
+  const { state, result } = said.value;
+  // The evidence as its export writes it, and how that workbook names its
+  // sheets: the Arabic printed register's in Arabic.
+  const arabic = said.printed && lang === 'ar';
+  const named = (sheet: string) =>
+    arabic ? inventoryPdfWorkbookLabel(sheet) : sheet;
+  const evidence = said.printed
+    ? await exportStockPdf({ ...said.value, language: lang })
+    : await exportStock(said.value.state, said.value.result);
+  const sources = state.files.map((f) => ({ name: f.name, sha256: f.sha256 }));
+  const composed = inventorySheet(
+    result,
+    sources,
+    lang,
+    arabic ? inventoryPdfWorkbookLabel : undefined,
+  );
+  const book = await addReconciliationSheet(evidence, composed);
+  const before = await parts(evidence),
+    after = await parts(book);
+  for (const [part, bytes] of before)
+    if (!WORKBOOK_PARTS.includes(part))
+      assert.deepEqual(after.get(part), bytes, `${name}: ${part}`);
+  const workpaper = said.printed
+    ? await exportStockPdfWorkpaper({ ...said.value, language: lang })
+    : await exportStockWorkpaper(said.value.state, said.value.result, lang);
+  // The worker's workpaper is the one composed here, part for part.
+  const handed = await parts(workpaper);
+  for (const [part, bytes] of after)
+    if (part !== 'docProps/core.xml')
+      assert.deepEqual(handed.get(part), bytes, `${name}: handed ${part}`);
+  const w = reconciliationSheetCopy[lang],
+    t = w.inventory;
+  const { rows } = await firstSheet(workpaper);
+  assert.equal(rows[1][0], t.title, name);
+  const unit = 10 ** result.decimals;
+  const blank = (at: number, what: string) =>
+    assert.deepEqual(
+      rows[at] ?? [null, null, null, null],
+      [null, null, null, null],
+      `${name}: ${what} end`,
+    );
+  const kept = composed.keep!;
+  // The scope in the screen's words; the two one-option fields in the card's
+  // words for their one value.
+  const scope = headingOf(rows, w.scope, named('Summary'), lang);
+  assert.ok(scope >= 0, `${name}: the scope names its evidence`);
+  STOCK_FIELDS.forEach((key, i) =>
+    assert.deepEqual(
+      rows[scope + 1 + i].slice(0, 2),
+      [
+        t.scope[i],
+        key in INVENTORY_ONLY &&
+        result.scope[key] === INVENTORY_ONLY[key as keyof typeof INVENTORY_ONLY]
+          ? t.only[key as keyof typeof INVENTORY_ONLY]
+          : result.scope[key],
+      ],
+      `${name}: ${key}`,
+    ),
+  );
+  // The four sources by their roles and whole fingerprints.
+  const srcs = headingOf(rows, w.sources, named('Sources'), lang);
+  assert.ok(srcs >= 0, `${name}: the sources name their evidence`);
+  state.files.forEach((file, i) => {
+    assert.deepEqual(rows[srcs + 1 + 2 * i].slice(0, 2), [
+      t.roles[i],
+      file.name,
+    ]);
+    assert.deepEqual(rows[srcs + 2 + 2 * i].slice(0, 2), [
+      w.fingerprint,
+      file.sha256,
+    ]);
+  });
+  // The strip, cell by cell, from the function the screen draws with; then
+  // the result's state as the screen's heading writes it.
+  const s = alignmentStripCopy[lang];
+  const status = (code: string) => (t.status as Record<string, string>)[code];
+  for (const cell of stripView(stockStrip(result), s, {
+    state: status(result.status),
+  })) {
+    const at = rowOf(rows, cell.label),
+      row = rows[at];
+    if (cell.value.kind === 'count')
+      assert.deepEqual(
+        row.slice(1),
+        cell.value.of === undefined
+          ? [cell.value.count, null, null]
+          : [cell.value.count, w.of, cell.value.of],
+      );
+    else if (cell.value.kind === 'amount')
+      assert.equal(row[1], cell.value.minor / unit, `${name}: the gap`);
+    else assert.equal(row[1], cell.value.text, `${name}: ${cell.cell}`);
+    cell.notes.forEach((n, i) =>
+      assert.deepEqual(
+        rows[at + 1 + i].slice(0, 3),
+        [null, n.text, n.value ?? null],
+        `${name}: ${cell.cell} note ${i + 1}`,
+      ),
+    );
+  }
+  const stateAt = rowOf(rows, s.state);
+  assert.deepEqual(
+    rows[stateAt].slice(0, 2),
+    [s.state, status(result.status)],
+    `${name}: the result's state`,
+  );
+  assert.ok(status(result.status), `${name}: a word for the state`);
+  blank(stateAt + 1, 'the alignment');
+  // The supplied inventory attestation, written once given.
+  const attest = headingOf(rows, t.completenessTitle, named('Summary'), lang);
+  if (!result.completeness.confirmed)
+    assert.equal(attest, -1, `${name}: no attestation, no section`);
+  else {
+    assert.deepEqual(rows[attest + 1].slice(0, 2), [
+      t.completeReference,
+      result.completeness.reference,
+    ]);
+    assert.deepEqual(rows[attest + 2].slice(0, 2), [
+      t.completeNote,
+      result.completeness.note,
+    ]);
+    blank(attest + 3, 'the attestation');
+  }
+  // The register value against the GL, the screen's table, where the
+  // engine computes it, on one printed page.
+  const totals = headingOf(rows, t.tableNames.totals, named('Summary'), lang);
+  if (!result.totals) assert.equal(totals, -1, `${name}: no totals`);
+  else {
+    assert.deepEqual(rows[totals + 1], [...t.totals, null, null]);
+    assert.deepEqual(rows[totals + 2], [
+      result.totals.registerMinor / unit,
+      result.totals.glMinor / unit,
+      null,
+      null,
+    ]);
+    blank(totals + 3, 'the totals');
+    assert.ok(
+      kept.some(([from, to]) => from === totals && to === totals + 2),
+      `${name}: the totals are kept whole`,
+    );
+  }
+  // Each account: the account and its complete dimensions, then its five
+  // figures by the screen's headings, a dash where none is computed; each
+  // account kept whole on its page.
+  const accounts = headingOf(
+    rows,
+    t.tableNames.comparisons,
+    named('Account comparisons'),
+    lang,
+  );
+  if (!result.comparisons.length)
+    assert.equal(accounts, -1, `${name}: no accounts, no table`);
+  const figure = (minor: number | null) =>
+    minor === null ? '—' : minor / unit;
+  result.comparisons.forEach((c, k) => {
+    const at = accounts + 1 + 6 * k;
+    assert.deepEqual(rows[at].slice(0, 2), [c.account, c.dimensions || '—']);
+    [
+      c.registerMinor,
+      c.debitMinor,
+      c.creditMinor,
+      c.glMinor,
+      c.differenceMinor,
+    ].forEach((minor, f) =>
+      assert.deepEqual(
+        rows[at + 1 + f].slice(0, 3),
+        [t.comparisons[2 + f], figure(minor), null],
+        `${name}: ${c.account} ${t.comparisons[2 + f]}`,
+      ),
+    );
+    if (k)
+      assert.ok(
+        kept.some(([from, to]) => from === at && to === at + 5),
+        `${name}: account ${k + 1} kept whole`,
+      );
+  });
+  if (result.comparisons.length)
+    blank(accounts + 1 + 6 * result.comparisons.length, 'the accounts');
+  // Each recorded decision: its button's word and its time, then the
+  // reference and the explanation given.
+  const events = headingOf(rows, w.decisions, named('Events'), lang);
+  if (!result.events.length)
+    assert.equal(events, -1, `${name}: no decisions, no table`);
+  result.events.forEach((e, k) => {
+    const at = events + 1 + 2 * k;
+    assert.deepEqual(rows[at].slice(0, 3), [t[e.type], e.at, null]);
+    assert.deepEqual(rows[at + 1].slice(0, 3), [null, e.reference, e.note]);
+    if (k)
+      assert.ok(
+        kept.some(([from, to]) => from === at && to === at + 1),
+        `${name}: decision ${k + 1} kept whole`,
+      );
+  });
+  if (result.events.length)
+    blank(events + 1 + 2 * result.events.length, 'the decisions');
+  // The claim names the Summary as the workbook names it.
+  assert.ok(
+    headingOf(rows, w.claim, named('Summary'), lang) >= 0,
+    `${name}: the claim names its evidence`,
+  );
+  assert.equal(rows.at(-1)![0], t.claim);
+  return result;
+}
+
+void test('inventory: the evidence stays byte for byte, the result state, the register against the GL, each account, each decision with its reason', async () => {
+  const seen = new Set<string>(),
+    reviews = new Set<string>(),
+    precisions = new Set<number>();
+  const note = (result: InventoryCase['result']) => {
+    seen.add(result.status);
+    reviews.add(result.review);
+    precisions.add(result.decimals);
+  };
+  for (const name of INVENTORY_CASES)
+    for (const lang of ['ar', 'en'] as const)
+      note(
+        await inventorySays(
+          name,
+          { printed: false, value: await inventoryCase(name) },
+          lang,
+        ),
+      );
+  const printed: string[] = [];
+  await withInventoryPdfCases(async (name, value) => {
+    if (!INVENTORY_PRINTED.includes(name)) return;
+    printed.push(name);
+    for (const lang of ['ar', 'en'] as const)
+      note(
+        await inventorySays(
+          name,
+          { printed: true, value: structuredClone(value) },
+          lang,
+        ),
+      );
+  });
+  assert.deepEqual(printed, INVENTORY_PRINTED);
+  // The cases cover a result of every state the engine gives, every review
+  // and two precisions.
+  assert.deepEqual([...seen].sort(), [
+    'consistent-with-evidence',
+    'difference',
+    'missing',
+    'needs-review',
+    'source-error',
+  ]);
+  assert.deepEqual([...reviews].sort(), [
+    'accepted',
+    'needs-review',
+    'rejected',
+  ]);
+  assert.deepEqual(
+    [...precisions].sort((a, b) => a - b),
+    [2, 3],
+  );
+});
+
+void test('inventory: the words are the screen words, and the claim the evidence words in either language', async () => {
+  for (const lang of ['ar', 'en'] as const) {
+    const t = reconciliationSheetCopy[lang].inventory;
+    const screen = stockCopy[lang] as unknown as Record<string, unknown>;
+    for (const key of Object.keys(t) as (keyof typeof t)[])
+      if (key === 'scope')
+        assert.deepEqual(
+          t.scope,
+          STOCK_FIELDS.map((f) => (screen.scope as Record<string, string>)[f]),
+          `${lang} inventory.scope`,
+        );
+      else if (key === 'completenessTitle')
+        assert.equal(t[key], screen.completeTitle, `${lang} ${key}`);
+      else if (key !== 'claim')
+        assert.deepEqual(t[key], screen[key], `${lang} inventory.${key}`);
+  }
+  const { state, result } = await inventoryCase('independent-units-positive');
+  const wb = new ExcelJS.Workbook();
+  await wb.xlsx.load(await exportStock(state, result));
+  const claim = wb
+    .getWorksheet('Summary')!
+    .getRows(1, 40)!
+    .find((r) => r.getCell(1).value === 'Claim')!
+    .getCell(2).value as string;
+  assert.equal(reconciliationSheetCopy.en.inventory.claim, claim);
+  // In Arabic, the words the Arabic printed-register workpaper's Summary
+  // writes for the same claim.
+  assert.equal(
+    reconciliationSheetCopy.ar.inventory.claim,
+    inventoryPdfWorkbookLabel(claim),
+  );
+});
+
+void test('the real worker writes the inventory sheet in the language asked on both paths, and the bindings refuse a request without one', async () => {
+  const { state, result } = await inventoryCase('rejected');
+  const sent: Record<string, ArrayBuffer[]> = {};
+  let replaced: ArrayBuffer | null = null;
+  // A port to the real worker; a reply the page refuses retires its worker,
+  // so each path has its own.
+  const open = () =>
+    new GlTbBindingPort((response, deliver) => {
+      if (
+        (response.action === 'stock-export' ||
+          response.action === 'stock-pdf-export') &&
+        response.ok
+      ) {
+        (sent[response.action] ??= []).push(
+          (response.value as ArrayBuffer).slice(0),
+        );
+        if (replaced) response = { ...response, value: replaced.slice(0) };
+      }
+      deliver(response);
+    });
+  const port = open(),
+    printedPort = open();
+  const names = async (bytes: ArrayBuffer) => {
+    const book = new ExcelJS.Workbook();
+    await book.xlsx.load(bytes);
+    return book.worksheets.slice(0, 2).map((s) => s.name);
+  };
+  try {
+    const client = createWorkerClient(() => port);
+    for (const lang of ['ar', 'en'] as const) {
+      const reply = await client
+        .request<ArrayBuffer>('stock-export', { state, result, lang })
+        .catch((error: unknown) => error);
+      assert.deepEqual(await names(sent['stock-export'].at(-1)!), [
+        reconciliationSheetCopy[lang].name,
+        'Summary',
+      ]);
+      assert.ok(
+        reply instanceof ArrayBuffer,
+        `the page accepted ${lang}: ${String(reply)}`,
+      );
+      const { rows } = await firstSheet(reply);
+      assert.equal(rows[1][0], reconciliationSheetCopy[lang].inventory.title);
+    }
+    // A request without a language, or with a third, is refused before the
+    // worker; asked while the worker is alive, so that one let through
+    // fails here by its answer, not by waiting on a retired worker.
+    const before = sent['stock-export'].length;
+    for (const payload of [
+      { state, result },
+      { state, result, lang: 'fr' },
+    ])
+      await assert.rejects(
+        client.request('stock-export', payload),
+        /STOCK_WORKER_INPUT/,
+      );
+    assert.equal(sent['stock-export'].length, before, 'no refused request');
+    // A reply in the other language is not the one asked for; refusing it
+    // retires the worker.
+    replaced = sent['stock-export'][0];
+    await assert.rejects(
+      client.request('stock-export', { state, result, lang: 'en' }),
+      /STOCK_WORKER_BINDING/,
+    );
+    replaced = null;
+    await assert.rejects(
+      exportStockWorkpaper(state, result, undefined),
+      /RECONCILIATION_SHEET_LANGUAGE/,
+    );
+    // The printed register: the Arabic evidence names its sheets in Arabic.
+    const printed = createWorkerClient(() => printedPort);
+    await withInventoryPdfCases(async (name, value) => {
+      if (name !== 'pdf-P01-accepted') return;
+      for (const language of ['ar', 'en'] as const) {
+        const reply = await printed
+          .request<ArrayBuffer>('stock-pdf-export', { ...value, language })
+          .catch((error: unknown) => error);
+        assert.ok(
+          reply instanceof ArrayBuffer,
+          `the page accepted ${language}: ${String(reply)}`,
+        );
+        assert.deepEqual(await names(reply), [
+          reconciliationSheetCopy[language].name,
+          language === 'ar' ? inventoryPdfWorkbookLabel('Summary') : 'Summary',
+        ]);
+      }
+      // Refused before the worker, while it is alive (as above).
+      const before = sent['stock-pdf-export'].length;
+      for (const payload of [value, { ...value, language: 'fr' }])
+        await assert.rejects(
+          printed.request('stock-pdf-export', payload),
+          /STOCK_PDF_EXPORT_REQUEST/,
+        );
+      assert.equal(
+        sent['stock-pdf-export'].length,
+        before,
+        'no refused request',
+      );
+      replaced = sent['stock-pdf-export'][0];
+      await assert.rejects(
+        printed.request('stock-pdf-export', { ...value, language: 'en' }),
+        /STOCK_PDF_WORKER_EXPORT_BINDING/,
+      );
+      replaced = null;
+    });
+  } finally {
+    port.terminate();
+    printedPort.terminate();
   }
 });

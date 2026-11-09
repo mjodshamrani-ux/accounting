@@ -10,6 +10,7 @@ import {
   restoreStock,
   exportStock,
 } from '../lib/reconciliation/inventory-register-io.ts';
+import { exportStockWorkpaper } from '../lib/reconciliation/inventory-sheet.ts';
 import {
   STOCK_VERSION,
   STOCK_ROLES,
@@ -41,6 +42,8 @@ const tracked = [
   'audit/inventory-section-components/generate.py',
   'audit/inventory-section-components/oracle.py',
   'audit/inventory-section-components/check_export.py',
+  'audit/reconciliation-sheet/set_aside.py',
+  'lib/reconciliation/inventory-sheet.ts',
   'audit/inventory-section-components/INPUT-MANIFEST.json',
   'scripts/inventory-section-components-proof.mjs',
 ];
@@ -56,6 +59,7 @@ const report = {
   financialStories: 1,
   cases: [],
   exports: [],
+  workpapers: [],
   passed: false,
 };
 const scope = {
@@ -157,6 +161,30 @@ try {
       sha256: sha(await readFile(file)),
       checker: checked,
     });
+    // UX-6(c): the page's workpaper, the reconciliation sheet first, read by
+    // the same checker by the same rule, in either language.
+    if (kind !== 'restored')
+      for (const lang of ['ar', 'en']) {
+        const paper = id + '-' + kind + '-workpaper-' + lang + '.xlsx';
+        await writeFile(
+          join(output, paper),
+          new Uint8Array(
+            await exportStockWorkpaper(value.state, value.result, lang),
+          ),
+        );
+        const receipt = JSON.parse(
+          run('check_export.py', [
+            '--workbook',
+            join(output, paper),
+            '--case-dir',
+            join(sources, 'cases', id),
+            ...(mode ? ['--' + mode] : []),
+          ]),
+        );
+        assert.equal(receipt.pass, true, paper);
+        assert.deepEqual(receipt, checked, paper);
+        report.workpapers.push({ id, kind, lang, file: paper });
+      }
   }
   for (const entry of index.cases) {
     const expected = truth.cases.find((value) => value.id === entry.id);
@@ -232,6 +260,7 @@ try {
   }
   assert.equal(report.cases.length, 12);
   assert.equal(report.exports.length, 16);
+  assert.equal(report.workpapers.length, 20);
   for (const [file, digest] of Object.entries(sourceHashes))
     assert.equal(
       sha(await readFile(join(root, file))),

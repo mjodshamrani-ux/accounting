@@ -16,6 +16,7 @@ import { inventoryPdfCopy } from '../lib/i18n/inventory-pdf.ts';
 import { recordTableCopy } from '../lib/i18n/record-table.ts';
 import { domainEvidenceCopy } from '../lib/i18n/domain-evidence.ts';
 import { STOCK_FIELDS } from '../lib/reconciliation/inventory-register.ts';
+import { inventorySheetSaysScreen } from './reconciliation-sheet-browser.mjs';
 import { money } from '../lib/reconciliation/core.ts';
 import {
   openDomainWorkspace,
@@ -63,7 +64,8 @@ const results = {},
   errors = [],
   external = [],
   nonGet = [],
-  checks = [];
+  checks = [],
+  sheets = [];
 let browser, current;
 try {
   browser = await chromium.launch({
@@ -181,6 +183,19 @@ try {
         );
       await received.saveAs(path.join(out, file));
       await wait();
+      // UX-6(c): the workpaper opens on the reconciliation sheet, in the
+      // interface's language, and it says what this page shows; the Arabic
+      // one names its evidence sheets as its Arabic evidence does.
+      if (k === 'export')
+        sheets.push({
+          file,
+          lang,
+          ...(await inventorySheetSaysScreen(page, {
+            file: path.join(out, file),
+            lang,
+            printed: true,
+          })),
+        });
     };
     for (const i of [0, 3, 1, 2]) {
       await openWorkspaceDisclosures(w);
@@ -868,10 +883,15 @@ await writeFile(
   independent.stdout + independent.stderr,
 );
 assert.equal(independent.status, 0, independent.stderr);
+assert.ok(
+  sheets.length > 0 && new Set(sheets.map((s) => s.lang)).size === 2,
+  'workpapers checked in both languages',
+);
 const report = {
   passed: true,
   out,
   checks,
+  sheets,
   independent: JSON.parse(independent.stdout),
   errors,
   external,

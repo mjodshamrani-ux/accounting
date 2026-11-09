@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import ExcelJS from 'exceljs';
 
 /**
@@ -39,8 +40,9 @@ const same = (screen, sheet, what) => {
 };
 
 /** The first sheet of a download as rows of four cells, after its place,
- * its name and its direction are checked. */
-export async function readSheet(file, lang) {
+ * its name and its direction are checked; `summary` is the evidence's first
+ * sheet as that workbook names it. */
+export async function readSheet(file, lang, summary = 'Summary') {
   const book = new ExcelJS.Workbook();
   await book.xlsx.readFile(file);
   const sheet = book.worksheets[0];
@@ -49,7 +51,7 @@ export async function readSheet(file, lang) {
     NAMES[lang],
     'the sheet is first, named in the interface language',
   );
-  assert.equal(book.worksheets[1].name, 'Summary', 'the evidence follows it');
+  assert.equal(book.worksheets[1].name, summary, 'the evidence follows it');
   assert.equal(
     Boolean(sheet.views?.[0]?.rightToLeft),
     lang === 'ar',
@@ -1252,6 +1254,184 @@ export async function gatewaySheetSaysScreen(page, { file, lang }) {
     rows: grid.length,
     totals: shown.body.length,
     residuals: owed.body.length ? 5 : 0,
+    decisions: events.length,
+  };
+}
+
+const INVENTORY_WORDS = {
+  ar: {
+    decisions: 'القرارات المسجلة',
+    complete:
+      'راجعت السجل المقدم وكل الخرائط وأدلة السياسة وكل حساب أستاذ مقدم بما فيه الحساب الصفري.',
+    completeReference: 'مرجع اكتمال جرد المخزون',
+    completeNote: 'توضيح اكتمال جرد المخزون',
+    totals: 'قيمة السجل مقابل الأستاذ',
+    comparisons: 'المقارنة حسب الحساب',
+    // The history's word for each decision, and the word its button writes,
+    // which the sheet writes.
+    actions: {
+      اعتماد: 'اعتمد كامل نطاق المخزون',
+      رفض: 'ارفض كامل نطاق المخزون',
+      إلغاء: 'ألغ قرار المخزون',
+    },
+  },
+  en: {
+    decisions: 'Recorded decisions',
+    complete:
+      'I reviewed the supplied register, all proposed mappings, policy evidence and every supplied GL account, including zero accounts.',
+    completeReference: 'Inventory completeness reference',
+    completeNote: 'Inventory completeness explanation',
+    totals: 'Register value against the GL',
+    comparisons: 'Comparison by account',
+    actions: {
+      Approve: 'Approve whole inventory scope',
+      Reject: 'Reject whole inventory scope',
+      Undo: 'Undo inventory decision',
+    },
+  },
+};
+// The Arabic printed-register workpaper names its evidence sheets in Arabic,
+// by the frozen label list its own checker holds.
+const INVENTORY_ARABIC_SHEETS = JSON.parse(
+  readFileSync(
+    new URL('../audit/inventory-pdf-workspace/labels.ar.json', import.meta.url),
+    'utf8',
+  ),
+);
+
+/**
+ * UX-6(c), inventory: the strip as the page draws it, and under it the
+ * result's state as the page's heading writes it; the attestation as the
+ * page holds it, once given; the register value against the GL as the
+ * page's table has it; each account, the page's row as a block, its five
+ * figures each by the page's heading, a dash where the page shows one; and
+ * every decision in the page's history, its button's word, its time, the
+ * reference and the explanation. On the printed register's Arabic
+ * workpaper, each section names its evidence sheet in Arabic. Each section
+ * holds what the page shows and no more.
+ */
+export async function inventorySheetSaysScreen(page, { file, lang, printed }) {
+  const arabic = printed && lang === 'ar';
+  const named = (sheet) => (arabic ? INVENTORY_ARABIC_SHEETS[sheet] : sheet);
+  const grid = await readSheet(file, lang, named('Summary'));
+  const w = page.locator('[data-stock-workspace]');
+  await stripSaysScreen(grid, w);
+  await stateSaysHeading(grid, w.locator('[data-stock-status]'), lang);
+  const words = INVENTORY_WORDS[lang];
+  const blankRow = (at, what) =>
+    assert.ok(
+      (grid[at] ?? [null]).every((c) => c === null),
+      `${what} and no more`,
+    );
+  // A section by the evidence it stands in, after a given row.
+  const section = (evidence, after = -1) =>
+    grid.findIndex(
+      (r, i) =>
+        i > after && r[0] !== null && r[1] === null && r[3] === named(evidence),
+    );
+  for (const evidence of ['Summary', 'Sources'])
+    assert.ok(section(evidence) >= 0, `a section in ${named(evidence)}`);
+  const state = grid.findIndex((r) => r[0] === RESULT_STATE[lang]);
+  // The attestation, as the page holds it, once given.
+  const attest = grid.findIndex(
+    (r, i) =>
+      i > state &&
+      r[1] === null &&
+      r[3] === named('Summary') &&
+      grid[i + 1]?.[0] === words.completeReference,
+  );
+  if (await w.getByLabel(words.complete, { exact: true }).isChecked()) {
+    assert.ok(attest >= 0, 'the attestation');
+    for (const [k, label] of [
+      [1, words.completeReference],
+      [2, words.completeNote],
+    ])
+      assert.deepEqual(
+        grid[attest + k].slice(0, 2),
+        [label, await w.getByLabel(label, { exact: true }).inputValue()],
+        label,
+      );
+    blankRow(attest + 3, 'the attestation');
+  } else assert.equal(attest, -1, 'no attestation, no section');
+  // The register value against the GL: the page's table, head and row;
+  // none where the page has no row.
+  const totals = grid.findIndex(
+    (r) => r[0] === words.totals && r[3] === named('Summary'),
+  );
+  const shown = await tableCells(
+    w.locator(`table[aria-label="${words.totals}"]`),
+  );
+  if (!shown.body.length) assert.equal(totals, -1, 'no totals, no table');
+  else {
+    assert.ok(totals >= 0, 'the register value against the GL');
+    assert.deepEqual(grid[totals + 1].slice(0, 2), shown.head, 'the head');
+    assert.equal(shown.body.length, 1, 'one row');
+    shown.body[0].forEach((text, j) =>
+      same(text, grid[totals + 2][j], `register against GL cell ${j + 1}`),
+    );
+    blankRow(totals + 3, 'the register value against the GL');
+  }
+  // Each account: the page's row as a block, the account and its complete
+  // dimensions, then each figure by the page's heading.
+  const accounts = section('Account comparisons');
+  const compared = await tableCells(
+    w.locator(`table[aria-label="${words.comparisons}"]`),
+  );
+  if (!compared.body.length)
+    assert.equal(accounts, -1, 'no accounts, no table');
+  else {
+    assert.ok(accounts >= 0, 'the comparison by account');
+    assert.equal(grid[accounts][0], words.comparisons, 'the accounts heading');
+    assert.equal(compared.head.length, 7, 'seven headings on the page');
+  }
+  compared.body.forEach((cells, k) => {
+    const at = accounts + 1 + 6 * k;
+    assert.deepEqual(
+      grid[at],
+      [cells[0], cells[1] || '—', null, null],
+      `account ${k + 1}: the account and its dimensions`,
+    );
+    for (let f = 2; f < 7; f++) {
+      assert.equal(grid[at + f - 1][0], compared.head[f], `${cells[0]} ${f}`);
+      same(cells[f], grid[at + f - 1][1], `${cells[0]} ${compared.head[f]}`);
+    }
+  });
+  if (compared.body.length)
+    blankRow(accounts + 1 + 6 * compared.body.length, 'the accounts');
+  // Every decision in the page's history: its button's word and its time,
+  // then the reference and the explanation.
+  const events = await w
+    .locator('[data-evidence-section="events"] tbody tr')
+    .evaluateAll((rows) =>
+      rows.map((r) =>
+        Array.from(r.querySelectorAll('th,td')).map((c) => c.textContent.trim()),
+      ),
+    );
+  const taken = section('Events');
+  if (!events.length) assert.equal(taken, -1, 'no decision, no table');
+  else {
+    assert.ok(taken >= 0, 'the recorded decisions');
+    assert.equal(grid[taken][0], words.decisions, 'the decisions heading');
+  }
+  events.forEach(([, type, time, reference, reason], k) => {
+    const row = taken + 1 + 2 * k;
+    assert.ok(words.actions[type], `decision ${k + 1}: ${type} is a decision`);
+    assert.deepEqual(
+      grid[row].slice(0, 3),
+      [words.actions[type], time, null],
+      `decision ${k + 1}: its button's word and its time`,
+    );
+    assert.deepEqual(
+      grid[row + 1].slice(0, 3),
+      [null, reference, reason],
+      `decision ${k + 1}: the reference and the explanation given`,
+    );
+  });
+  if (events.length) blankRow(taken + 1 + 2 * events.length, 'the decisions');
+  return {
+    rows: grid.length,
+    totals: shown.body.length,
+    accounts: compared.body.length,
     decisions: events.length,
   };
 }
