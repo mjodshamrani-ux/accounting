@@ -75,11 +75,15 @@
    ellipsis, so a source row or a long column name was read only in part.
    Such a cell wraps between words instead, and a source row's fields
    (RecordFields) stay whole, so a date, an identity or a hyphenated word
-   never breaks. */
+   never breaks. It wraps at spaces only (break-word): the workspace lets
+   its text break anywhere, which let a column shrink below its longest
+   word, and at 13 px a gateway header broke inside a word in a browser that
+   draws text a little wider (UX-8(c), DEV-107). */
 [data-record-wrap] {
   white-space: normal;
   max-width: none;
   overflow: visible;
+  overflow-wrap: break-word;
 }
 .record-field {
   white-space: nowrap;
