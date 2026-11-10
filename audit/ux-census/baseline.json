@@ -1,8 +1,8 @@
 {
   "note": "Interface census baseline: each metric summed over the four states of a domain (Arabic and English at 390 and 1440 px) after its synthetic example ran. Recorded by scripts/ux-census-browser.mjs --record; the gate fails on any change.",
   "recorded": {
-    "commit": "58f84de292ef6756f4a478e6d61e090f1b74a3f4",
-    "date": "2026-11-02",
+    "commit": "240f2b65673e57db7b2ae65dde3dc8b3b7ab36de",
+    "date": "2026-11-10",
     "chromium": "141.0.7390.37"
   },
   "metrics": [
@@ -21,7 +21,9 @@
     "emptyTable",
     "zeroCounter",
     "commandAsNoun",
-    "longIntro"
+    "longIntro",
+    "lowContrast",
+    "smallText"
   ],
   "domains": {
     "supplier": {
@@ -40,7 +42,9 @@
       "emptyTable": 0,
       "zeroCounter": 0,
       "commandAsNoun": 0,
-      "longIntro": 0
+      "longIntro": 0,
+      "lowContrast": 12,
+      "smallText": 184
     },
     "clearing": {
       "minorUnits": 0,
@@ -58,7 +62,9 @@
       "emptyTable": 0,
       "zeroCounter": 0,
       "commandAsNoun": 0,
-      "longIntro": 0
+      "longIntro": 0,
+      "lowContrast": 24,
+      "smallText": 196
     },
     "ar": {
       "minorUnits": 0,
@@ -76,7 +82,9 @@
       "emptyTable": 0,
       "zeroCounter": 0,
       "commandAsNoun": 0,
-      "longIntro": 0
+      "longIntro": 0,
+      "lowContrast": 28,
+      "smallText": 456
     },
     "gl-tb": {
       "minorUnits": 0,
@@ -94,7 +102,9 @@
       "emptyTable": 0,
       "zeroCounter": 0,
       "commandAsNoun": 0,
-      "longIntro": 0
+      "longIntro": 0,
+      "lowContrast": 40,
+      "smallText": 240
     },
     "allocation": {
       "minorUnits": 0,
@@ -112,7 +122,9 @@
       "emptyTable": 0,
       "zeroCounter": 0,
       "commandAsNoun": 0,
-      "longIntro": 0
+      "longIntro": 0,
+      "lowContrast": 28,
+      "smallText": 208
     },
     "bank": {
       "minorUnits": 0,
@@ -130,7 +142,9 @@
       "emptyTable": 0,
       "zeroCounter": 0,
       "commandAsNoun": 0,
-      "longIntro": 0
+      "longIntro": 0,
+      "lowContrast": 36,
+      "smallText": 280
     },
     "tb-financial": {
       "minorUnits": 0,
@@ -148,7 +162,9 @@
       "emptyTable": 0,
       "zeroCounter": 0,
       "commandAsNoun": 0,
-      "longIntro": 0
+      "longIntro": 0,
+      "lowContrast": 48,
+      "smallText": 432
     },
     "intercompany": {
       "minorUnits": 0,
@@ -166,7 +182,9 @@
       "emptyTable": 0,
       "zeroCounter": 0,
       "commandAsNoun": 0,
-      "longIntro": 0
+      "longIntro": 0,
+      "lowContrast": 68,
+      "smallText": 392
     },
     "gateway": {
       "minorUnits": 0,
@@ -184,7 +202,9 @@
       "emptyTable": 0,
       "zeroCounter": 0,
       "commandAsNoun": 0,
-      "longIntro": 0
+      "longIntro": 0,
+      "lowContrast": 52,
+      "smallText": 404
     },
     "stock": {
       "minorUnits": 0,
@@ -202,7 +222,9 @@
       "emptyTable": 0,
       "zeroCounter": 0,
       "commandAsNoun": 0,
-      "longIntro": 0
+      "longIntro": 0,
+      "lowContrast": 48,
+      "smallText": 740
     },
     "assets": {
       "minorUnits": 0,
@@ -220,7 +242,9 @@
       "emptyTable": 0,
       "zeroCounter": 0,
       "commandAsNoun": 0,
-      "longIntro": 0
+      "longIntro": 0,
+      "lowContrast": 48,
+      "smallText": 760
     },
     "payroll": {
       "minorUnits": 0,
@@ -238,7 +262,9 @@
       "emptyTable": 0,
       "zeroCounter": 0,
       "commandAsNoun": 0,
-      "longIntro": 0
+      "longIntro": 0,
+      "lowContrast": 76,
+      "smallText": 1100
     }
   }
 }

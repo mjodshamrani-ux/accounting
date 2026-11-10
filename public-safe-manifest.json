@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 71385,
-      "sha256": "99200d468ca33a3601b1c0573b6f3ef1aff047744f4049fa772b2ae240361335",
+      "bytes": 71775,
+      "sha256": "3715c0aa2837f7cb0fff26609a771e938b74391840da3f38297f4932ae55889c",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 30243,
-      "sha256": "0f47f116ecd47bb8f717ae2ab2469f15f76a9c355c9534eb773f58c905dc26ec",
+      "bytes": 30394,
+      "sha256": "1ea8abcd241120dc36a3792e63c27d35b4dafd39340a60acfa4bc7a1fa1b7f6e",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 586662,
-      "sha256": "5b5587c837de38d2dfed652bb34b8aece2a36ac637bb473228e547410c2cd50f",
+      "bytes": 589555,
+      "sha256": "8f591f403a19fbcb15891e88404843d877a0dac6f80fde0ff68d64c3bbbd6cab",
       "kind": "text"
     },
     {
@@ -73343,14 +73343,14 @@
     },
     {
       "path": "audit/ux-census/README.ar.md",
-      "bytes": 42875,
-      "sha256": "a9595bfef0edd19f376f2695940a5fb7fb46c27337b8b1cba0cb4e0096550414",
+      "bytes": 45844,
+      "sha256": "2a201f80936e2193e329284d48b1d848368594ec66d4f29aa1608c2ad845a6c4",
       "kind": "text"
     },
     {
       "path": "audit/ux-census/baseline.json",
-      "bytes": 6005,
-      "sha256": "6b5d2db87a697a9348b4d4172fef1c308d0c688e43cde53a7e2641cee09ff926",
+      "bytes": 6630,
+      "sha256": "7526e93a549201755a3a4a9acb3c49185b34dd2e8cefe568421723b95b39d269",
       "kind": "text"
     },
     {
@@ -73373,8 +73373,8 @@
     },
     {
       "path": "scripts/ux-census-support.mjs",
-      "bytes": 24271,
-      "sha256": "2d3e92a2d502df3ee4a9d09ccb41186085a89ba5f46ab2d73dac498c1fb75acd",
+      "bytes": 30518,
+      "sha256": "699f1c67fb3d81758784a74f5102929e2c989ab3ac4fef2f66fd093445d29b5d",
       "kind": "text"
     },
     {
@@ -73481,8 +73481,8 @@
     },
     {
       "path": "docs/roadmap/ux.ar.md",
-      "bytes": 61213,
-      "sha256": "5b32f3a6a667b29062d8b5478ab163d82491cfe2d816c74f0d0f092aef73503b",
+      "bytes": 61883,
+      "sha256": "c1a52d4a96f205b1d39114ca4687c5b4cf3f4977a54d360edb8c8f26de9fa164",
       "kind": "text"
     },
     {
@@ -74125,6 +74125,12 @@
       "path": "tests/stage-acts.test.ts",
       "bytes": 5229,
       "sha256": "27f4ab47b30df343dc380e6d286b1db2e8ac25b5c5f96714b0cde41578e902fe",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/UX-8-IDENTITY.ar.md",
+      "bytes": 10908,
+      "sha256": "5437477a59829e911b047916f5a1a9cdef5715603370c30167f871d17d0bd9af",
       "kind": "text"
     }
   ],

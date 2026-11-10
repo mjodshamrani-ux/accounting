@@ -41,6 +41,8 @@ export const METRICS = [
   'zeroCounter',
   'commandAsNoun',
   'longIntro',
+  'lowContrast',
+  'smallText',
 ];
 
 // The decision each workspace offers after its example, by the names the
@@ -406,6 +408,136 @@ export function censusInPage(selector) {
       introSamples.push(`${lines}: ${p.textContent.trim().slice(0, 40)}`);
     return true;
   }).length;
+  // Text the reader sees standing under 4.5 to 1 against what is drawn
+  // behind it, and text drawn under 13 px (UX-8; audit D2 found 11 and 12 px
+  // text at 4.23 to 4.41). Counted once per element that holds the text.
+  // Colours are read through a canvas, so any colour space the styles use
+  // becomes sRGB. The backdrop is every background up the tree, laid over
+  // white from the first opaque one down; a gradient gives each of its stops
+  // as a backdrop the text may stand on, and the worst one counts. The text
+  // takes its own alpha and the opacity of every ancestor in the panel. A
+  // disabled control is not counted for contrast (WCAG 1.4.3 exempts an
+  // inactive control), nor what is hidden from assistive technology as
+  // decoration; text over an image is not measured and is counted apart.
+  const paint = document.createElement('canvas').getContext('2d', {
+    willReadFrequently: true,
+  });
+  const rgba = (css) => {
+    paint.clearRect(0, 0, 1, 1);
+    paint.fillStyle = '#000';
+    paint.fillStyle = css;
+    paint.fillRect(0, 0, 1, 1);
+    const [r, g, b, a] = paint.getImageData(0, 0, 1, 1).data;
+    return [r, g, b, a / 255];
+  };
+  const over = ([r, g, b, a], [R, G, B]) => [
+    r * a + R * (1 - a),
+    g * a + G * (1 - a),
+    b * a + B * (1 - a),
+  ];
+  const luminance = (rgb) => {
+    const [r, g, b] = rgb.map((v) => {
+      const c = v / 255;
+      return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+    });
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  };
+  const contrast = (a, b) => {
+    const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+    return (hi + 0.05) / (lo + 0.05);
+  };
+  const inactive =
+    'button:disabled, input:disabled, select:disabled, textarea:disabled, fieldset:disabled, [aria-disabled="true"]';
+  const holders = new Set(texts.map((node) => node.parentElement));
+  const contrastSamples = [];
+  const smallSamples = [];
+  // How the counts spread, for the design record: each failing colour on
+  // its worst backdrop, and each size under 13 px.
+  const contrastPairs = {};
+  const smallSizes = {};
+  const hex = (rgb) =>
+    '#' + rgb.map((v) => Math.round(v).toString(16).padStart(2, '0')).join('');
+  // The palette the panel draws with, as the reader sees it: each text
+  // colour, each surface and each border colour, by role (UX-8 sets its
+  // target on these, not on the stylesheets, which also paint the art).
+  const palette = { text: {}, surface: {}, border: {} };
+  const tally = (role, css) => {
+    const c = rgba(css);
+    if (c[3] === 0) return;
+    const key = hex(c.slice(0, 3)) + (c[3] < 1 ? `/${c[3].toFixed(2)}` : '');
+    palette[role][key] = (palette[role][key] ?? 0) + 1;
+  };
+  for (const el of root.querySelectorAll('*')) {
+    if (el.closest('svg') || !visible(el)) continue;
+    const own = getComputedStyle(el);
+    tally('surface', own.backgroundColor);
+    for (const side of ['Top', 'Right', 'Bottom', 'Left'])
+      if (parseFloat(own[`border${side}Width`]) > 0)
+        tally('border', own[`border${side}Color`]);
+  }
+  let lowContrast = 0,
+    contrastUnmeasured = 0,
+    smallText = 0;
+  for (const el of holders) {
+    if (el.closest('svg, [aria-hidden="true"]')) continue;
+    const style = getComputedStyle(el);
+    tally('text', style.color);
+    const size = parseFloat(style.fontSize);
+    const words = el.textContent.trim().replace(/\s+/gu, ' ').slice(0, 40);
+    if (size < 13) {
+      smallText++;
+      smallSizes[`${size}px`] = (smallSizes[`${size}px`] ?? 0) + 1;
+      if (smallSamples.length < 5) smallSamples.push(`${size}px: ${words}`);
+    }
+    if (el.closest(inactive)) continue;
+    // Each layer is the set of colours it may show: one for a fill, every
+    // stop for a gradient. The walk ends at a layer that hides what is under.
+    const layers = [];
+    let alpha = 1,
+      image = false;
+    for (let at = el; at; at = at.parentElement) {
+      const own = getComputedStyle(at);
+      if (/url\(/u.test(own.backgroundImage)) image = true;
+      const stops =
+        own.backgroundImage === 'none'
+          ? []
+          : (own.backgroundImage.match(/rgba?\([^)]*\)/gu) ?? []).map(rgba);
+      const fill = rgba(own.backgroundColor);
+      if (stops.length) layers.push(stops);
+      if (fill[3] > 0) layers.push([fill]);
+      if (image) break;
+      if (fill[3] >= 1 || (stops.length && stops.every((c) => c[3] >= 1)))
+        break;
+    }
+    for (let at = el; at && root.contains(at); at = at.parentElement)
+      alpha *= parseFloat(getComputedStyle(at).opacity);
+    if (image) {
+      contrastUnmeasured++;
+      continue;
+    }
+    // Layers were read from the text outward; the fill of an element lies
+    // under its own gradient, so it was read after it.
+    let backdrops = [[255, 255, 255]];
+    for (const layer of layers.reverse())
+      backdrops = layer.flatMap((colour) =>
+        backdrops.map((under) => over(colour, under)),
+      );
+    const ink = rgba(style.color);
+    let ratio = Infinity,
+      worst = null;
+    for (const backdrop of backdrops) {
+      const drawn = over([ink[0], ink[1], ink[2], ink[3] * alpha], backdrop);
+      const r = contrast(drawn, backdrop);
+      if (r < ratio) [ratio, worst] = [r, `${hex(drawn)} on ${hex(backdrop)}`];
+    }
+    if (ratio < 4.5) {
+      lowContrast++;
+      const pair = `${worst} ${ratio.toFixed(2)}`;
+      contrastPairs[pair] = (contrastPairs[pair] ?? 0) + 1;
+      if (contrastSamples.length < 5)
+        contrastSamples.push(`${ratio.toFixed(2)}: ${words}`);
+    }
+  }
   return {
     cells,
     controls: buttons.length,
@@ -436,6 +568,14 @@ export function censusInPage(selector) {
     nounSamples,
     longIntro,
     introSamples,
+    lowContrast,
+    contrastSamples,
+    contrastPairs,
+    contrastUnmeasured,
+    smallText,
+    smallSamples,
+    smallSizes,
+    palette,
   };
 }
 
@@ -578,6 +718,16 @@ export function plantInPage(selector) {
   heading.append(intro);
   root.append(heading);
   planted.push('longIntro');
+  // Grey text on white at 2.85 to 1, and text at 11 px, as the audit found
+  // text of the result screens at 4.23 and at 11 and 12 px (D2).
+  const faint = document.createElement('p');
+  faint.textContent = 'planted faint words';
+  faint.style.cssText = 'color:#999999;background:#ffffff;font-size:14px';
+  const tiny = document.createElement('p');
+  tiny.textContent = 'planted tiny words';
+  tiny.style.cssText = 'color:#0a1b2e;background:#ffffff;font-size:11px';
+  root.append(faint, tiny);
+  planted.push('lowContrast', 'smallText');
   return planted;
 }
 
