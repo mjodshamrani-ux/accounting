@@ -14,15 +14,32 @@ const displayFontFamilies = [
   'serif',
 ];
 const displayFontStack = '"Thmanyah Serif Display", "Noto Sans Arabic", serif';
-const latinDisplayFontFamilies = ['Arial', 'Helvetica', 'sans-serif'];
+const latinDisplayFontFamilies = ['DM Serif Display', 'Georgia', 'serif'];
 const displayFontSha256 =
   'd36da84ee5423145415425bdd9c10dc27f57a66afec031bd7b78e662572846ce';
+// The Latin display face of English headings (UX-8), as its package
+// publishes it; see public/fonts/DMSerifDisplay-PROVENANCE.txt.
+const latinDisplayFontFile = 'dm-serif-display-latin-400-normal.woff2';
+const latinDisplayFontSha256 =
+  'fdf61e20fd2c0108e0ea28da4daca0035205b4b7fc031a3974b865b704de160a';
 const fontFamilies = (value) =>
   value.split(',').map((family) => family.trim().replace(/^["']|["']$/g, ''));
 const narrowWorkflowType = new WeakMap();
 const layoutWidths = [320, 390, 768, 820, 1024, 1280];
 
 async function verifyLocalDisplayDistribution(page) {
+  for (const directory of ['../public/fonts/', '../dist/fonts/'])
+    assert.equal(
+      createHash('sha256')
+        .update(
+          await readFile(
+            new URL(`${directory}${latinDisplayFontFile}`, import.meta.url),
+          ),
+        )
+        .digest('hex'),
+      latinDisplayFontSha256,
+      `${directory}: the Latin display font bytes are the published ones`,
+    );
   for (const directory of ['../public/fonts/', '../dist/fonts/'])
     assert.equal(
       createHash('sha256')
@@ -53,6 +70,17 @@ async function verifyLocalDisplayDistribution(page) {
         .map((rule) => ({
           src: rule.style.src,
           weight: rule.style.fontWeight,
+        })),
+      latinRules: rules
+        .filter(
+          (rule) =>
+            rule instanceof CSSFontFaceRule &&
+            /DM Serif Display/i.test(rule.style.fontFamily),
+        )
+        .map((rule) => ({
+          src: rule.style.src,
+          weight: rule.style.fontWeight,
+          style: rule.style.fontStyle,
         })),
       loadedDisplayFaces: [...document.fonts]
         .filter((face) => /Thmanyah Serif Display/i.test(face.family))
@@ -92,6 +120,17 @@ async function verifyLocalDisplayDistribution(page) {
     /\/fonts\/thmanyah-serif-display-bold\.woff2/,
   );
   assert.equal(assets.displayRules[0].weight, '700');
+  assert.equal(
+    assets.latinRules.length,
+    1,
+    'one Latin display face is declared, at its one weight',
+  );
+  assert.match(
+    assets.latinRules[0].src,
+    /^url\("?(?:\.\.)?\/fonts\/dm-serif-display-latin-400-normal\.woff2"?\) format\("woff2"\)$/,
+  );
+  assert.equal(assets.latinRules[0].weight, '400');
+  assert.equal(assets.latinRules[0].style, 'normal');
   assert.deepEqual(
     assets.loadedDisplayFaces,
     [{ status: 'loaded', weight: '700' }],
@@ -216,7 +255,11 @@ export async function verifyDisplayTypography(page) {
             : latinDisplayFontFamilies,
           `${heading.text}: intentional language display stack`,
         );
-        assert.equal(heading.weight, '700');
+        assert.equal(
+          heading.weight,
+          heading.language === 'ar' ? '700' : '400',
+          `${heading.text}: the weight its display face has`,
+        );
         assert.ok(
           heading.text &&
             heading.width > 0 &&

@@ -20,7 +20,8 @@ Read current [AGENTS](../../../../AGENTS.md) and [CLAUDE](../../../../CLAUDE.md)
 | Functional tokens | Existing `--primary: #6738D3`, secondary text `#64748B`, border `#E3E7EF`; inspect consumers before replacing shades |
 | Supporting colors | Indigo `#6366F1`, gray `#94A3B8`; gray is not an automatic small-text color on white |
 | Arabic display | Genuine local **Thmanyah Serif Display Bold 700**, live text; no synthesized weight, stretched letters or substitute font |
-| Body/fields | Local Noto Sans Arabic; English display uses current Arial/Helvetica stack |
+| Body/fields | Local Noto Sans Arabic |
+| English display | Local **DM Serif Display 400** (UX-8), its one weight, asked for at 400; Georgia and serif only as fallback |
 | Wordmark | Approved Arabic string in [brand.ts](../../../../lib/brand.ts) remains Arabic in EN; preserve diacritics and elongation characters |
 
 These are observed values, not a new token file. Reuse semantic tokens and variants; justify additions by a missing role. Measure contrast in the actual state. Status colors need words/icons; a gradient never certifies financial success.
@@ -31,6 +32,7 @@ These are observed values, not a new token file. Reuse semantic tokens and varia
 | --- | --- |
 | Logo/headings | [brand.tsx](../../../../components/brand.tsx), [mark SVG](../../../../public/brand/tarasuf-mark.svg): original paths, aspect `82/116`, per-instance `useId`, no RTL mirroring |
 | Font | [font](../../../../public/fonts/thmanyah-serif-display-bold.woff2), [license](../../../../public/fonts/Thmanyah-LICENSE.txt), [provenance](../../../../public/fonts/Thmanyah-PROVENANCE.txt): preserve bytes and verify actual rendered glyph font |
+| Latin font | [font](../../../../public/fonts/dm-serif-display-latin-400-normal.woff2), [license](../../../../public/fonts/DMSerifDisplay-OFL.txt), [provenance](../../../../public/fonts/DMSerifDisplay-PROVENANCE.txt): same rule; preloaded with the page, draws English text only |
 | Intro | [document-scene.tsx](../../../../components/document-scene.tsx), [scene CSS](../../../../app/document-scene.css): A4 ratio, clips, layer order, local IDs |
 | Shared upload | [source-upload.tsx](../../../../components/source-upload.tsx), [workspace-chrome.tsx](../../../../components/workspace-chrome.tsx): UploadIllustration and genuine input |
 | Features/privacy/process | [feature-art.tsx](../../../../components/feature-art.tsx), [landing.tsx](../../../../components/landing.tsx), [landing CSS](../../../../app/landing-details.css) |

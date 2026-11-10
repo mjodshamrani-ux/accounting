@@ -23,9 +23,11 @@ confirmed by the project owner before this restoration.
 
 Arabic display headings and the Arabic brand use this real 700 face; no glyphs,
 shaping tables, spacing, outlines or metadata were altered. English display
-headings use Arial/Helvetica, while body and accounting controls retain the
-local Noto Sans Arabic variable face. The Arabic brand keeps Thmanyah in both
-interface languages. Browser-generated bold/italic is disabled, and Arabic
-text uses normal kerning, joining and letter spacing.
+headings use the local DM Serif Display face at its one weight, 400 (see
+DMSerifDisplay-OFL.txt and DMSerifDisplay-PROVENANCE.txt), while body and
+accounting controls retain the local Noto Sans Arabic variable face. The
+Arabic brand keeps Thmanyah in both interface languages. Browser-generated
+bold/italic is disabled, and Arabic text uses normal kerning, joining and
+letter spacing.
 
 All font assets are served by the application origin without a runtime CDN.

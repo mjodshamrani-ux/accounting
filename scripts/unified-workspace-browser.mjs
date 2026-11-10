@@ -9,7 +9,8 @@ import path from 'node:path';
 import { chromium } from 'playwright';
 
 const root = path.resolve(import.meta.dirname, '..');
-const dist = path.join(root, 'dist');
+// A mutation gate serves its own private build (UX-8(b)).
+const dist = process.env.UNIFIED_WORKSPACE_DIST ?? path.join(root, 'dist');
 const proofRoot =
   process.env.MIZAN_PROOF_DIR ?? path.join(root, 'work/qa-unified-workspace');
 await mkdir(proofRoot, { recursive: true });
@@ -107,6 +108,26 @@ const fonts = [
     path: '/fonts/noto-sans-arabic-variable.woff2',
     sha256: '802ec442ca217cf586882350bf8090f7a18f4cbf6cbc8659e82a1ebc282b2ebc',
   },
+  // English display headings only (UX-8). It is preloaded with the page in
+  // either language, so a switch to English after files are open asks the
+  // network for nothing; it draws only English text.
+  {
+    family: 'DM Serif Display',
+    path: '/fonts/dm-serif-display-latin-400-normal.woff2',
+    sha256: 'fdf61e20fd2c0108e0ea28da4daca0035205b4b7fc031a3974b865b704de160a',
+    languages: ['en'],
+  },
+];
+const fontsFor = (language) =>
+  fonts.filter((font) => !font.languages || font.languages.includes(language));
+// The English display headings of the first page, each asked of the browser
+// for the font that drew its glyphs (UX-8).
+const latinDisplayHeadings = [
+  '[data-display-heading="heroLine1"]',
+  '[data-display-heading="heroLine2"]',
+  '.tarasuf-benefits-heading h2',
+  '.tarasuf-benefit h3',
+  '.tarasuf-privacy-formal-heading h2',
 ];
 const report = {
   synthetic: true,
@@ -480,7 +501,7 @@ async function fontProof(page, language) {
       weight: face.weight,
     })),
   );
-  for (const font of fonts)
+  for (const font of fontsFor(language))
     assert.ok(
       faces.some(
         (face) => face.family === font.family && face.status === 'loaded',
@@ -508,7 +529,54 @@ async function fontProof(page, language) {
       ),
       'Arabic workflow heading actually uses the official custom font',
     );
-  return { faces, logo, heading };
+  // Every glyph of each English display heading is drawn by the local Latin
+  // face, at the one weight it has, with no fallback for any glyph; the
+  // Arabic headings keep the authentic bold face (UX-8).
+  const display = [];
+  for (const selector of latinDisplayHeadings) {
+    const used = await usedFonts(page, selector);
+    const style = await page
+      .locator(selector)
+      .first()
+      .evaluate((element) => {
+        const computed = getComputedStyle(element);
+        return {
+          weight: computed.fontWeight,
+          synthesis: computed.fontSynthesis,
+        };
+      });
+    display.push({ selector, used, ...style });
+    const drawn = used.filter((font) => font.glyphCount > 0);
+    if (language === 'en') {
+      assert.deepEqual(
+        drawn.map((font) => [font.familyName, font.isCustomFont]),
+        [['DM Serif Display', true]],
+        `${selector}: every English display glyph is drawn by the local DM Serif Display face`,
+      );
+      assert.equal(
+        style.weight,
+        '400',
+        `${selector}: English display text asks for the one weight its face has`,
+      );
+    } else {
+      assert.ok(
+        drawn.length > 0 &&
+          drawn.every(
+            (font) =>
+              font.isCustomFont &&
+              font.familyName.toLowerCase() === fonts[0].family.toLowerCase(),
+          ),
+        `${selector}: Arabic display glyphs are drawn by the authentic face`,
+      );
+      assert.equal(style.weight, '700', `${selector}: Arabic display is bold`);
+    }
+    assert.equal(
+      style.synthesis,
+      'none',
+      `${selector}: the browser draws no bold or italic of its own`,
+    );
+  }
+  return { faces, logo, heading, display };
 }
 
 try {

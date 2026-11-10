@@ -44,7 +44,7 @@
 
 ## الخط الأصلي
 
-العناوين العربية والكلمة البصرية: **Thmanyah Serif Display Bold 700**. النص والحقول: **Noto Sans Arabic** المحلي. العناوين الإنجليزية: خط لاتيني واضح وفق المتغير الحالي Arial/Helvetica. `font-synthesis: none` يمنع توليد وزن مزيف.
+العناوين العربية والكلمة البصرية: **Thmanyah Serif Display Bold 700**. النص والحقول: **Noto Sans Arabic** المحلي. العناوين الإنجليزية: **DM Serif Display** المحلي بوزنه الوحيد 400، اختير في [UX-8](../audits/UX-8-IDENTITY.ar.md#4-الخط-اللاتيني-المقارنة-والاختيار) بمقارنة مرسومة؛ ويطلب العنوان الإنجليزي الوزن 400 نفسه فلا يُبحث عن أثقل منه. `font-synthesis: none` يمنع توليد وزن مزيف.
 
 ملف الخط [thmanyah-serif-display-bold.woff2](../../public/fonts/thmanyah-serif-display-bold.woff2) بحجم 81988 بايت وبصمة:
 
@@ -53,6 +53,8 @@ d36da84ee5423145415425bdd9c10dc27f57a66afec031bd7b78e662572846ce
 ```
 
 صاحب المشروع أكد تصريح استضافة خط الويب. يحفظ [الترخيص](../../public/fonts/Thmanyah-LICENSE.txt) و[المصدر والمقارنة بالأصل](../../public/fonts/Thmanyah-PROVENANCE.txt)؛ لا يمنح المستودع حقوقًا عامة إضافية للخط. لا نستبدله بمحاكاة أو SVG نصي أو تمديد أفقي أو خط آخر يحمل الاسم نفسه. التحقق يشمل البايتات والخط الذي رسم الحروف فعلًا، لا `font-family` فقط. لا خطوط من CDN.
+
+والخط اللاتيني [dm-serif-display-latin-400-normal.woff2](../../public/fonts/dm-serif-display-latin-400-normal.woff2) بحجم 24744 بايتًا وبصمة `fdf61e20fd2c0108e0ea28da4daca0035205b4b7fc031a3974b865b704de160a`، كما تنشره حزمة `@fontsource/dm-serif-display` 5.3.0، برخصة [SIL OFL 1.1](../../public/fonts/DMSerifDisplay-OFL.txt) و[سجل أصله](../../public/fonts/DMSerifDisplay-PROVENANCE.txt). ويُحمّل مسبقًا مع الصفحة في اللغتين كما يُحمّل Noto، فإن تحولت الصفحة إلى الإنجليزية بعد فتح الملفات لم تطلب من الشبكة شيئًا، ولا يرسم إلا العناوين الإنجليزية. ويسأل فحص المساحة الموحدة المتصفح عن الخط الذي رسم كل عنوان إنجليزي.
 
 ## الصفحة الموحدة
 

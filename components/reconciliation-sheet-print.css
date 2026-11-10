@@ -82,7 +82,7 @@
   }
 
   :root .sheet-print table td[data-sheet-style='title'] {
-    font: 700 17pt/1.2 var(--font-display);
+    font: var(--font-display-weight) 17pt/1.2 var(--font-display);
   }
 
   :root .sheet-print table td[data-sheet-style='subtitle'] {

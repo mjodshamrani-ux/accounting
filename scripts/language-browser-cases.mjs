@@ -6,6 +6,7 @@ import { openDomainWorkspace } from './domain-navigation-support.mjs';
 import { stripGap } from './alignment-strip-read.mjs';
 import { copyFile } from 'node:fs/promises';
 import { supplierSheetSaysScreen } from './reconciliation-sheet-browser.mjs';
+import { verifyDisplayTypography } from './brand-browser-cases.mjs';
 
 const ARABIC = /[\u0600-\u06FF]/;
 // The records the stage's first act draws on its synthetic papers and quotes
@@ -292,6 +293,9 @@ export async function verifyLanguages(page, url) {
   );
   assert.equal(english.title, 'Tarasuf — Local Accounting Reconciliation');
   await page.getByRole('heading', { name: 'Review workspace' }).waitFor();
+  // The English display headings of the shared first page, in the Latin
+  // display face at its one weight, unclipped at 320, 390 and 1440 (UX-8).
+  await verifyDisplayTypography(page);
   assert.deepEqual(
     await metrics(page),
     arabicMetrics,
