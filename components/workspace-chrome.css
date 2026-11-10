@@ -75,7 +75,7 @@
   border-radius: 6px;
   background: #eee8fb;
   color: #6540a4;
-  font-size: 12px;
+  font-size: var(--type-xs);
 }
 .workspace-supporting-content,
 .workspace-advanced__content {
@@ -196,7 +196,7 @@
 }
 .workspace-intro__context {
   color: #637088;
-  font-size: 12px;
+  font-size: var(--type-xs);
   line-height: 1.95;
   grid-column: 1 / -1;
   align-self: start;
@@ -207,7 +207,7 @@
 }
 .reconciliation-workspace .workspace-intro__context > summary {
   padding: 10px 14px;
-  font-size: 12px;
+  font-size: var(--type-xs);
 }
 .workspace-intro__context-content {
   display: grid;
@@ -365,7 +365,7 @@
   border-radius: 12px;
   background: #fafbfe;
   color: #64738b;
-  font-size: 12px;
+  font-size: var(--type-xs);
   line-height: 1.8;
   cursor: pointer;
   flex: none;
@@ -451,7 +451,7 @@
 }
 .workspace-file-input__formats {
   color: #61718a;
-  font-size: 12px;
+  font-size: var(--type-xs);
   font-weight: 450;
   line-height: 1.9;
 }
@@ -642,7 +642,7 @@
   align-items: stretch;
   gap: 8px;
   color: #49566b;
-  font-size: 12px;
+  font-size: var(--type-xs);
   font-weight: 550;
 }
 .reconciliation-workspace
@@ -679,7 +679,7 @@
   border-radius: 10px;
   background: #f6f7fb;
   color: #546077;
-  font-size: 12px;
+  font-size: var(--type-xs);
   font-weight: 450;
   line-height: 1.9;
 }
@@ -717,7 +717,7 @@
 .reconciliation-workspace th {
   background: #f7f8fc;
   color: #586983;
-  font-size: 12px;
+  font-size: var(--type-xs);
   font-weight: 650;
 }
 .reconciliation-workspace tbody tr:last-child td {
@@ -727,7 +727,7 @@
   background: #fcfbff;
 }
 .reconciliation-workspace :is(pre, code) {
-  font-size: 11px;
+  font-size: var(--type-xs);
 }
 .reconciliation-workspace pre {
   padding: 14px;
@@ -772,7 +772,7 @@
   background: var(--background);
   box-shadow: 0 3px 12px #0a1b2e02;
   color: #6b768a;
-  font-size: 12px;
+  font-size: var(--type-xs);
 }
 .reconciliation-workspace [data-testid$='-metrics'] strong {
   display: block;
@@ -895,7 +895,7 @@
   }
   .reconciliation-workspace input[type='file']:not(.workspace-toolbar input) {
     padding: 14px 10px;
-    font-size: 11px;
+    font-size: var(--type-xs);
   }
   .reconciliation-workspace :is(.gl-tb-grid, .clearing-grid) {
     grid-template-columns: 1fr;

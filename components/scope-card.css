@@ -24,7 +24,7 @@
   align-items: stretch;
   gap: 8px;
   color: #49566b;
-  font-size: 12px;
+  font-size: var(--type-xs);
   font-weight: 550;
 }
 .reconciliation-workspace .scope-card__field > .hint {
@@ -40,7 +40,7 @@
   margin: 0;
   padding-inline-start: 18px;
   color: #546077;
-  font-size: 12px;
+  font-size: var(--type-xs);
   line-height: 1.9;
 }
 /* The one confirmation keeps its box beside its sentence at every width. */

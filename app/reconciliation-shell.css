@@ -32,7 +32,7 @@
   display: none;
 }
 .reconciliation-shell .workspace-header--embedded button {
-  font-size: 11px;
+  font-size: var(--type-xs);
   color: #7b7290;
   border-color: transparent;
   background: transparent;
@@ -65,7 +65,7 @@
   max-width: 100%;
 }
 .reconciliation-shell .workspace-intro__context {
-  font-size: 11px;
+  font-size: var(--type-xs);
 }
 .reconciliation-shell .workspace-file-input {
   min-height: 170px;

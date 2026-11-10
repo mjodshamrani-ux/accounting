@@ -48,7 +48,7 @@
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   max-width: 100%;
-  font-size: 0.8rem;
+  font-size: var(--type-xs);
 }
 :is(.gl-tb-table, .record-frame) {
   min-width: 0;
@@ -106,7 +106,7 @@
 /* A record table with no row is one quiet line that names it (UX-3). */
 .record-empty {
   margin: 6px 0 14px;
-  color: #64748b;
+  color: var(--text-secondary);
   font-size: 13px;
 }
 /* A name on the line of empty sections (UX-4) stays whole where it fits,

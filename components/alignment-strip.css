@@ -64,7 +64,7 @@
   overflow-wrap: break-word;
 }
 .alignment-strip__total {
-  font-size: 0.8rem;
+  font-size: var(--type-xs);
   color: #475569;
   font-variant-numeric: tabular-nums;
 }
@@ -85,7 +85,7 @@
 }
 .alignment-strip__label,
 .alignment-strip__note {
-  font-size: 0.78rem;
+  font-size: var(--type-xs);
   color: #475569;
   overflow-wrap: break-word;
 }
@@ -153,7 +153,7 @@
     padding-inline: 0.55rem;
   }
   .alignment-strip__role {
-    font-size: 0.78rem;
+    font-size: var(--type-xs);
   }
 }
 /* Why a record has no total, in words, where its total would stand. */

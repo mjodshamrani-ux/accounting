@@ -46,7 +46,7 @@
   --color-input: var(--border);
   --color-ring: #7c3aed;
   --color-muted: #f6f8fc;
-  --color-muted-foreground: #64748b;
+  --color-muted-foreground: #637088;
   --color-popover: #fff;
   --color-popover-foreground: #0a1b2e;
   --color-accent: #eef0ff;
@@ -68,6 +68,11 @@
   background: var(--background);
   font-synthesis: none;
   --font-display-weight: 700;
+  /* UX-8(c): one secondary voice and the smallest size a reader meets in a
+     workspace. #637088 reads 5.0:1 on white and 4.71:1 on the panel's
+     #f7f8fc; the first page and its art keep their own sizes. */
+  --text-secondary: #637088;
+  --type-xs: 13px;
 }
 /* The Latin display face has one weight; English headings ask for it, so no
    heavier face is sought and none is drawn by the browser. */
@@ -188,7 +193,7 @@ h1 {
   color: #667886;
   padding: 7px 11px;
   border: 1px solid var(--border);
-  font-size: 12px;
+  font-size: var(--type-xs);
   border-radius: 6px;
   white-space: nowrap;
 }
@@ -284,7 +289,7 @@ h3 {
 .dropzone small {
   display: block;
   color: #6b778b;
-  font-size: 12px;
+  font-size: var(--type-xs);
   margin-top: 18px;
 }
 .surface-footer {
@@ -340,7 +345,7 @@ h3 {
   margin-top: 24px;
   text-align: center;
   color: #667187;
-  font-size: 12px;
+  font-size: var(--type-xs);
   line-height: 1.8;
 }
 .form-grid {
@@ -480,7 +485,7 @@ th {
   text-align: left;
 }
 .metric small {
-  font-size: 12px;
+  font-size: var(--type-xs);
   color: #687489;
 }
 .mono {
@@ -666,7 +671,7 @@ th {
 .hint {
   font-size: 13px;
   line-height: 1.8;
-  color: #6b7c8a;
+  color: var(--text-secondary);
   margin-top: 6px;
 }
 .hint.warn {
@@ -1177,7 +1182,7 @@ body {
 .version-badge {
   border-radius: 20px;
   background: white;
-  font-size: 10px;
+  font-size: var(--type-xs);
   padding: 5px 10px;
   color: #6c7486;
 }
@@ -1194,7 +1199,7 @@ body {
   font-weight: 650;
 }
 .section-heading p {
-  font-size: 12px;
+  font-size: var(--type-xs);
   margin-top: 6px;
 }
 .section-heading > svg {
@@ -1248,12 +1253,12 @@ body {
   font-weight: 650;
 }
 .dropzone p {
-  font-size: 12px;
+  font-size: var(--type-xs);
   margin: 8px 0 18px;
   overflow-wrap: anywhere;
 }
 .file-button {
-  font-size: 12px;
+  font-size: var(--type-xs);
   font-weight: 600;
   border-color: #d5dceb;
   padding: 10px 18px;
@@ -1266,7 +1271,7 @@ body {
   border-color: #986bd9;
 }
 .dropzone small {
-  font-size: 10px;
+  font-size: var(--type-xs);
   line-height: 1.95;
   color: #69758a;
   max-width: 280px;
@@ -1279,7 +1284,7 @@ body {
 }
 .surface-footer > span {
   color: #64718a;
-  font-size: 11px;
+  font-size: var(--type-xs);
 }
 .surface-footer > span > svg {
   color: #7d59bb;
@@ -1329,18 +1334,18 @@ body {
   font-size: 13px;
 }
 .demo-strip p {
-  font-size: 11px;
+  font-size: var(--type-xs);
   margin-top: 4px;
   color: #63718a;
 }
 .footnote {
-  color: #6b7587;
-  font-size: 10px;
+  color: var(--text-secondary);
+  font-size: var(--type-xs);
   line-height: 2;
   margin-top: 25px;
 }
 .field {
-  font-size: 12px;
+  font-size: var(--type-xs);
   gap: 9px;
 }
 .field input,
@@ -1366,7 +1371,7 @@ body {
 }
 .hint,
 .muted {
-  font-size: 12px;
+  font-size: var(--type-xs);
   line-height: 1.95;
 }
 .reading-summary,
@@ -1382,7 +1387,7 @@ body {
   box-shadow: 0 3px 12px #0a1b2e02;
 }
 .metric span {
-  font-size: 12px;
+  font-size: var(--type-xs);
 }
 .metric strong {
   color: #182b48;
@@ -1390,7 +1395,7 @@ body {
   font-size: 28px;
 }
 .metric small {
-  font-size: 11px;
+  font-size: var(--type-xs);
 }
 .notice {
   border-radius: 11px;
@@ -1431,7 +1436,7 @@ body {
   outline: 1px solid transparent;
   background: #edf2f7;
   color: #576e80;
-  font-size: 12px;
+  font-size: var(--type-xs);
 }
 .status-badge__icon {
   flex: none;
@@ -1468,7 +1473,7 @@ body {
 th {
   background: #f7f8fc;
   color: #586983;
-  font-size: 12px;
+  font-size: var(--type-xs);
 }
 td {
   font-size: 13px;
@@ -1477,11 +1482,11 @@ td {
   border-radius: 10px;
 }
 .visual-reader {
-  font-size: 12px;
+  font-size: var(--type-xs);
 }
 .visual-reader summary {
   color: #61537c;
-  font-size: 12px;
+  font-size: var(--type-xs);
 }
 .landing-details {
   max-width: 1136px;
@@ -1823,12 +1828,12 @@ td {
     gap: 0;
   }
   .page-heading > .stack [data-slot='button'] {
-    font-size: 10px;
+    font-size: var(--type-xs);
     padding-inline: 8px;
     gap: 5px;
   }
   .page-heading p {
-    font-size: 11px;
+    font-size: var(--type-xs);
     margin-top: 12px;
   }
   .section-heading {
@@ -1838,7 +1843,7 @@ td {
     font-size: 15px;
   }
   .section-heading p {
-    font-size: 10px;
+    font-size: var(--type-xs);
   }
   .file-grid {
     padding: 0 16px 20px;
@@ -1848,17 +1853,17 @@ td {
     padding: 24px 15px 20px;
   }
   .dropzone p {
-    font-size: 11px;
+    font-size: var(--type-xs);
   }
   .dropzone small {
-    font-size: 9px;
+    font-size: var(--type-xs);
   }
   .surface-footer {
     padding: 16px;
     gap: 12px;
   }
   .surface-footer > span {
-    font-size: 10px;
+    font-size: var(--type-xs);
   }
   .surface-footer > [data-slot='button'] {
     flex: 1 1 100%;
@@ -1868,13 +1873,13 @@ td {
     gap: 13px;
   }
   .demo-strip strong {
-    font-size: 12px;
+    font-size: var(--type-xs);
   }
   .demo-strip p {
-    font-size: 10px;
+    font-size: var(--type-xs);
   }
   .footnote {
-    font-size: 9px;
+    font-size: var(--type-xs);
   }
   .metric {
     padding: 16px;
@@ -2291,7 +2296,7 @@ td {
     font-size: 19px;
   }
   .upload-surface .section-heading p {
-    font-size: 12px;
+    font-size: var(--type-xs);
   }
   .upload-surface .file-grid {
     padding: 0 14px;
@@ -2332,7 +2337,7 @@ td {
     justify-content: flex-start;
   }
   .upload-surface .surface-footer > span {
-    font-size: 12px;
+    font-size: var(--type-xs);
   }
   .hero-privacy {
     font-size: 12px;
@@ -2341,10 +2346,10 @@ td {
     font-size: 13px;
   }
   .footnote {
-    font-size: 12px;
+    font-size: var(--type-xs);
   }
   .demo-strip p {
-    font-size: 12px;
+    font-size: var(--type-xs);
   }
   .site-footer p {
     font-size: 12px;
@@ -2455,4 +2460,9 @@ td {
   display: inline-flex;
   flex-wrap: wrap;
   gap: 0.25rem 1.25rem;
+}
+/* UX-8(c): the eyebrow and the buttons are shared with the first page, which
+   keeps its own sizes; inside a workspace they read at the floor. */
+[data-domain-panel] :is(.eyebrow, [data-slot='button']) {
+  font-size: var(--type-xs);
 }

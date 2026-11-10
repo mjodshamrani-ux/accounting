@@ -65,7 +65,7 @@
   border-radius: 10px;
   background: #f6f7fb;
   color: #546077;
-  font-size: 12px;
+  font-size: var(--type-xs);
   line-height: 1.9;
   cursor: pointer;
 }
@@ -91,7 +91,7 @@
 }
 .bank-source-mode small {
   grid-column: 2;
-  font-size: 12px;
+  font-size: var(--type-xs);
   line-height: 1.7;
 }
 
