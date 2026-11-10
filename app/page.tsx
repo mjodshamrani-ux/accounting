@@ -32,6 +32,11 @@ import { GlTbWorkspace } from '@/components/gl-tb-workspace';
 import { ArWorkspace } from '@/components/ar-workspace';
 import { headerLabels } from '@/lib/reconciliation/header-view';
 import { ClearingWorkspace } from '@/components/clearing-workspace';
+import {
+  SheetPrint,
+  useSheetPrint,
+} from '@/components/reconciliation-sheet-print';
+import { sheetPrintCopy } from '@/lib/i18n/sheet-print';
 import type { restoreSession } from '@/lib/reconciliation/session';
 import { VisualReader } from '@/components/visual-reader';
 import {
@@ -374,6 +379,33 @@ function ReadingIssueList({
     </details>
   );
 }
+
+// The sheet on paper (UX-6(d)), composed on the page by the function the
+// worker writes the workbook's first sheet with, from the result, sources
+// and review the export sends.
+const composeSupplierSheet = async (
+  {
+    result,
+    files,
+    review,
+  }: {
+    result: Comparison;
+    files: [SourceFile, SourceFile];
+    review: {
+      checked: boolean;
+      name: string;
+      notes: string;
+      events: AuditEvent[];
+    };
+  },
+  language: 'ar' | 'en',
+) =>
+  (await import('@/lib/reconciliation/supplier-sheet')).supplierSheet(
+    result,
+    files,
+    review,
+    language,
+  );
 
 // The cases a results tab lists, each by its first member, as the search
 // narrows them: the list itself, and where a transaction stands in it after a
@@ -1527,6 +1559,29 @@ export default function App() {
       },
     );
   }
+  // The export writes the sheet unless an accepted overlap group stands:
+  // then its own review writes the workbook, with no sheet, so none is
+  // printed. The supplier panel stays in the page while hidden, so the
+  // table is given only while it is the workspace shown.
+  const overlapExport = !!result?.matches.some(
+    (match) => match.reviewedAggregate,
+  );
+  const printed = useMemo(
+    () =>
+      domain === 'supplier' && result && !overlapExport && files[0] && files[1]
+        ? {
+            result,
+            files: [files[0], files[1]] as [SourceFile, SourceFile],
+            review: { ...review, events: auditEvents },
+          }
+        : null,
+    [domain, result, overlapExport, files, review, auditEvents],
+  );
+  const paper = useSheetPrint(
+    printed,
+    dir === 'rtl' ? 'ar' : 'en',
+    composeSupplierSheet,
+  );
   async function download() {
     if (!result) return;
     await task(
@@ -3237,17 +3292,37 @@ export default function App() {
                           </Button>
                           <Button
                             variant="outline"
+                            onClick={() => void paper.print()}
+                            disabled={!!busy || overlapExport}
+                            aria-describedby={
+                              overlapExport ? 'supplier-print-held' : undefined
+                            }
+                          >
+                            {sheetPrintCopy[dir === 'rtl' ? 'ar' : 'en'].print}
+                          </Button>
+                          <Button
+                            variant="outline"
                             onClick={() => setStep(2)}
                             disabled={!!busy}
                           >
                             {t.app.finish.backToReview}
                           </Button>
                         </div>
+                        {overlapExport && (
+                          <p className="muted" id="supplier-print-held">
+                            {
+                              sheetPrintCopy[dir === 'rtl' ? 'ar' : 'en']
+                                .heldOverlap
+                            }
+                          </p>
+                        )}
                       </section>
                     </div>
                   )}
                 </>
               )}
+              {/* Drawn only while the page prints, wherever the step. */}
+              <SheetPrint sheet={paper.sheet} />
               <footer className="footnote">
                 {t.app.shell.footnote}
                 <br />

@@ -1,21 +1,25 @@
 // UX-6(d): the reconciliation sheet on paper says what the downloaded sheet
 // says, and nothing else prints.
 //
-// In each workspace with its print (GL/TB, and the case workspaces clearing,
-// receivables, bank movements and allocation), in Arabic and in English, the
-// check runs the workspace's own synthetic example and requires:
+// In each workspace with its print (GL/TB, and the case workspaces suppliers,
+// clearing, receivables, bank movements and allocation), in Arabic and in
+// English, the check runs the workspace's own synthetic example and requires:
 // - the print table to be in the page only while the page prints, from the
 //   browser's beforeprint to its afterprint (the check dispatches them as the
 //   browser does, and page.pdf fires them itself), never drawn on the screen
 //   even then, gone after it, and drawn by the workspace on the screen alone
-//   while another workspace with a result of its own is kept hidden;
+//   while another workspace with a result of its own is kept hidden (the
+//   suppliers in the GL/TB check, whose panel stays in the page hidden, and
+//   GL/TB in the others);
 // - in print media, nothing visible but the table and the way down to it;
 // - the table to equal the first sheet of the workbook the page downloads,
 //   row for row and cell for cell, as the independent checker reads the
 //   workbook (audit/reconciliation-sheet/check_sheet.py --print, which also
 //   checks the download against its own evidence sheets); and the checker to
 //   refuse a table with a row left out, a figure changed, a fingerprint cut
-//   or the other language, so its agreement means something;
+//   (or, where the example's sources have no original file, the words the
+//   sheet writes in its place) or the other language, so its agreement means
+//   something;
 // - the printed A4 pages counted and recorded; and on A4 and on a small
 //   page, where breaks fall in more places, no group the sheet keeps
 //   together split over two pages unless it starts at the top of one (a
@@ -24,7 +28,8 @@
 // - the chunks loaded to compose the sheet recorded, and whether ExcelJS and
 //   JSZip were already loaded with the page;
 // - the print command, from the keyboard, pressed as soon as the result is
-//   shown while the sheet's module is held back, to wait and print the
+//   shown (for the suppliers, in their workpaper step, with a reviewer's name
+//   and notes) while the sheet's module is held back, to wait and print the
 //   whole sheet; the table to follow a change of language, never printed in
 //   the other language when the page prints in the same moment as the
 //   change, and the command pressed at once after it to print it in that
@@ -32,6 +37,9 @@
 //   case workspace, after a decision, the table to carry its reason and to
 //   equal the sheet downloaded then; and no table once the result it was
 //   composed for is gone.
+// The suppliers' other export, after a group is accepted in the overlap
+// review, writes no sheet; the main integration check
+// (scripts/supplier-main-overlap-browser.mjs) holds the command there.
 //
 // Synthetic examples only. The check reads the screen and the download; it
 // does not prove a printer, another browser or a device.
@@ -91,7 +99,75 @@ const scopeDrop = async (panel, lang) => {
 // Each workspace with its print: the module its sheet is composed by, how
 // its example runs, which button downloads its workpaper, a decision the
 // sheet must then say, and a change that drops its result.
+const SUPPLIER = {
+  ar: {
+    run: 'تحقق وقارن',
+    prepare: 'أعدّ ورقة العمل',
+    reviewer: 'اسم المراجع',
+    notes: 'ملاحظات المراجعة',
+    back: 'عُد إلى المراجعة',
+    unmatched: 'دون مقابل',
+    details: 'تفاصيل الحالة',
+    reason: 'سبب القرار',
+    reviewOnly: 'سجّل مراجعة دون مطابقة',
+    edit: 'عدّل الإعدادات',
+  },
+  en: {
+    run: 'Check and compare',
+    prepare: 'Prepare the workpaper',
+    reviewer: 'Reviewer name',
+    notes: 'Review notes',
+    back: 'Back to review',
+    unmatched: 'Unmatched',
+    details: 'Case details',
+    reason: 'Reason for the decision',
+    reviewOnly: 'Record review without a match',
+    edit: 'Edit settings',
+  },
+};
+const supplierButton = (panel, lang, word) =>
+  panel.getByRole('button', { name: SUPPLIER[lang][word], exact: true });
+// The supplier page exports from its workpaper step, where the reviewer's
+// name and notes are written; the sheet says them.
+const supplierWorkpaper = async (panel, lang) => {
+  await supplierButton(panel, lang, 'prepare').click();
+  await panel
+    .getByRole('textbox', { name: SUPPLIER[lang].reviewer, exact: true })
+    .fill(lang === 'ar' ? 'مراجع اصطناعي' : 'Synthetic reviewer');
+  await panel
+    .getByRole('textbox', { name: SUPPLIER[lang].notes, exact: true })
+    .fill(lang === 'ar' ? 'ملاحظة اصطناعية للطباعة' : 'Synthetic print note');
+};
+
 const WORKSPACES = {
+  supplier: {
+    chunk: 'supplier',
+    result: '[data-result-part="cases"]',
+    export: {
+      ar: 'نزّل مسودة Excel',
+      en: 'Download Excel draft',
+    },
+    // The example opens both sources and the scope; the check compares.
+    run: (panel, lang) => supplierButton(panel, lang, 'run').click(),
+    ready: supplierWorkpaper,
+    decide: async (panel, lang) => {
+      await supplierButton(panel, lang, 'back').click();
+      await panel
+        .getByRole('tab', { name: SUPPLIER[lang].unmatched, exact: true })
+        .click();
+      await supplierButton(panel, lang, 'details').first().click();
+      await panel
+        .getByRole('textbox', { name: SUPPLIER[lang].reason, exact: true })
+        .fill(NOTE[lang]);
+      await supplierButton(panel, lang, 'reviewOnly').click();
+      await supplierButton(panel, lang, 'prepare').click();
+    },
+    // Editing the settings gives the result up and returns to the scope.
+    drop: async (panel, lang) => {
+      await supplierButton(panel, lang, 'back').click();
+      await supplierButton(panel, lang, 'edit').click();
+    },
+  },
   'gl-tb': {
     chunk: 'gl-tb',
     result: '[data-testid="gl-tb-result"]',
@@ -352,7 +428,7 @@ try {
           .click();
         // Another workspace with a result of its own, kept hidden while this
         // one is shown: when the page prints, it draws nothing.
-        const neighbour = domain === 'gl-tb' ? 'clearing' : 'gl-tb';
+        const neighbour = domain === 'gl-tb' ? 'supplier' : 'gl-tb';
         const kept = await openDomainWorkspace(page, neighbour, {
           advanced: true,
           requiredSources: false,
@@ -373,6 +449,7 @@ try {
           .click();
         if (spec.run) await spec.run(panel, lang);
         await panel.locator(spec.result).waitFor({ timeout: 60000 });
+        if (spec.ready) await spec.ready(panel, lang);
 
         // The command, pressed as soon as the result is shown.
         watch.at(`${stage}: command before the sheet`);
@@ -525,7 +602,26 @@ try {
         // movement example's sheet counts cases and has no gap to state).
         const amount =
           find((t) => /^-?[\d,]+\.\d+$/.test(t)) ?? first((t) => /^\d+$/.test(t));
-        const hash = first((t) => /^[0-9a-f]{64}$/.test(t));
+        // The fingerprint, or what the sheet writes in its place: the
+        // supplier example's sources are built in memory, with no original
+        // file, and its sheet says so on the fingerprint's row.
+        const fingerprintAt = () => {
+          const r = table.rows.findIndex((row) =>
+            row.some((cell) => cell.text.includes('SHA-256')),
+          );
+          if (r < 0) return null;
+          const label = table.rows[r].findIndex((cell) =>
+            cell.text.includes('SHA-256'),
+          );
+          const c = table.rows[r].findIndex(
+            (cell, at) => at > label && cell.text,
+          );
+          return c < 0 ? null : [r, c];
+        };
+        const hash =
+          find((t) => /^[0-9a-f]{64}$/.test(t)) ??
+          fingerprintAt() ??
+          first(() => false);
         const plants = [
           {
             name: 'a row left out',

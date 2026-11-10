@@ -63,6 +63,9 @@ const { ar } = await import(
 const { invoiceOverlapIntegratedCopy } = await import(
   pathToFileURL(path.join(repo, 'lib/i18n/invoice-overlap-review.ts'))
 );
+const { sheetPrintCopy } = await import(
+  pathToFileURL(path.join(repo, 'lib/i18n/sheet-print.ts'))
+);
 const { verifyAllocation } = await import(
   pathToFileURL(path.join(repo, 'scripts/allocation-browser-cases.mjs'))
 );
@@ -343,6 +346,60 @@ async function decisions(panel, t, c, beforeCommit) {
   await panel.locator('[data-overlap-active-receipt]').waitFor();
   return choices;
 }
+// UX-6(d): with an accepted group the group review writes the workpaper,
+// with no reconciliation sheet, so the print command is held with its reason
+// and nothing is drawn while the page prints; after the undo the worker
+// writes it again, and the command prints its sheet.
+async function printCommand(page, t, lang, held, label) {
+  await button(page, t.app.results.prepareWorkpaper).click();
+  await page
+    .getByRole('textbox', { name: t.app.finish.reviewerLabel, exact: true })
+    .waitFor();
+  const command = button(page, sheetPrintCopy[lang].print);
+  // A page without the command fails here by assertion, not by a timeout.
+  assert.equal(
+    await command.count(),
+    1,
+    `${label}: the print command is in the workpaper step`,
+  );
+  assert.equal(
+    await command.isDisabled(),
+    held,
+    `${label}: the print command is ${held ? 'held' : 'offered'}`,
+  );
+  if (held)
+    assert.equal(
+      await page
+        .locator(`[id="${await command.getAttribute('aria-describedby')}"]`)
+        .innerText(),
+      sheetPrintCopy[lang].heldOverlap,
+      `${label}: the held command says why`,
+    );
+  const drawn = () =>
+    page.evaluate(() => {
+      dispatchEvent(new Event('beforeprint'));
+      const n = document.querySelectorAll('[data-sheet-print]').length;
+      dispatchEvent(new Event('afterprint'));
+      return n;
+    });
+  // Composition is asynchronous: wait long enough for a sheet to appear.
+  const until = Date.now() + (held ? 4000 : 15000);
+  let tables = await drawn();
+  while (Date.now() < until && (held ? tables === 0 : tables !== 1)) {
+    await page.waitForTimeout(200);
+    tables = await drawn();
+  }
+  assert.equal(
+    tables,
+    held ? 0 : 1,
+    held
+      ? `${label}: no sheet is drawn while the page prints, as the download has none`
+      : `${label}: after the undo the sheet is drawn while the page prints`,
+  );
+  await button(page, t.app.finish.backToReview).click();
+  await page.locator('[data-result-part="cases"]').waitFor();
+}
+
 async function workbook(page, panel, t, c, label) {
   const file = await download(
     page,
@@ -677,6 +734,8 @@ try {
         c,
         `${c.id}-${lang}-accepted`,
       );
+      at(`${c.id}-${lang}: print held`);
+      await printCommand(page, t, lang, true, `${c.id}-${lang}`);
       at(`${c.id}-${lang}: session`);
       const session = await download(
         page,
@@ -745,6 +804,8 @@ try {
         c,
         `${c.id}-${lang}`,
       );
+      at(`${c.id}-${lang}: print offered`);
+      await printCommand(page, t, lang, false, `${c.id}-${lang}-undone`);
       at(`${c.id}-${lang}: restore`);
       await page.goto(url);
       await idle(page);

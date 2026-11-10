@@ -3,7 +3,11 @@
 // result and the language shown, or waits for it before printing, is built
 // into a private copy of the application, and the print check
 // (scripts/reconciliation-sheet-print-browser.mjs, against that build) must
-// fail with an assertion. A survivor is behaviour no browser check holds.
+// fail with an assertion; a defect in the suppliers' other export, after a
+// group is accepted in the overlap review, must fail the main integration
+// check (scripts/supplier-main-overlap-browser.mjs) the same way. Both pass
+// on the unmutated build first. A survivor is behaviour no browser check
+// holds.
 //   node scripts/test-sheet-print-interface-mutations.mjs
 import {
   cp,
@@ -31,6 +35,7 @@ const output =
 await mkdir(output, { recursive: true });
 const out = await mkdtemp(join(output, 'run-'));
 const acceptance = 'scripts/reconciliation-sheet-print-browser.mjs';
+const overlapAcceptance = 'scripts/supplier-main-overlap-browser.mjs';
 const PAPER = 'lib/reconciliation/sheet-print.ts';
 const VIEW = 'components/reconciliation-sheet-print.tsx';
 const STYLE = 'components/reconciliation-sheet-print.css';
@@ -39,6 +44,9 @@ const CLEARING = 'components/clearing-workspace.tsx';
 const AR = 'components/ar-workspace.tsx';
 const BANK = 'components/bank-workspace.tsx';
 const ALLOCATION = 'components/allocation-workspace.tsx';
+const SUPPLIER = 'app/page.tsx';
+// A mutant held by another check than the print check is written as an
+// object that names it (`held`).
 const mutations = [
   [
     'group-loses-its-last-row',
@@ -157,6 +165,53 @@ const mutations = [
 `,
     '',
   ],
+  // The suppliers compose from the result, sources and review the export
+  // sends, while their workspace is the one shown, and not at all when an
+  // accepted overlap group writes the workbook without a sheet.
+  [
+    'supplier-sheet-without-its-decisions',
+    SUPPLIER,
+    `            files: [files[0], files[1]] as [SourceFile, SourceFile],
+            review: { ...review, events: auditEvents },`,
+    `            files: [files[0], files[1]] as [SourceFile, SourceFile],
+            review: { ...review, events: [] },`,
+  ],
+  [
+    'supplier-table-while-another-is-shown',
+    SUPPLIER,
+    "domain === 'supplier' && result && !overlapExport",
+    'result && !overlapExport',
+  ],
+  [
+    'supplier-command-left-out',
+    SUPPLIER,
+    `                          <Button
+                            variant="outline"
+                            onClick={() => void paper.print()}
+                            disabled={!!busy || overlapExport}
+                            aria-describedby={
+                              overlapExport ? 'supplier-print-held' : undefined
+                            }
+                          >
+                            {sheetPrintCopy[dir === 'rtl' ? 'ar' : 'en'].print}
+                          </Button>
+`,
+    '',
+  ],
+  {
+    id: 'supplier-sheet-with-an-accepted-group',
+    file: SUPPLIER,
+    from: "domain === 'supplier' && result && !overlapExport",
+    to: "domain === 'supplier' && result",
+    held: 'overlap',
+  },
+  {
+    id: 'supplier-command-not-held',
+    file: SUPPLIER,
+    from: 'disabled={!!busy || overlapExport}',
+    to: 'disabled={!!busy}',
+    held: 'overlap',
+  },
 ];
 const buildInputs = [
   'app',
@@ -187,7 +242,14 @@ for (const dir of ['app', 'components', 'hooks', 'lib'])
       ).matchAll(/['"](?:\.\.\/)+audit\/([^/'"]+)\//g))
         auditDirs.add(`audit/${m[1]}`);
 buildInputs.push(...[...auditDirs].sort((a, b) => a.localeCompare(b)));
-const files = [...new Set(mutations.map(([, file]) => file)), acceptance];
+const faults = mutations.map((m) =>
+  Array.isArray(m) ? m : [m.id, m.file, m.from, m.to, m.held],
+);
+const files = [
+  ...new Set(faults.map(([, file]) => file)),
+  acceptance,
+  overlapAcceptance,
+];
 const digest = (b) => createHash('sha256').update(b).digest('hex');
 const before = Object.fromEntries(
   await Promise.all(
@@ -212,21 +274,36 @@ function build(tree) {
   }
   return null;
 }
-const run = (tree) => {
+const accept = (tree, held) =>
+  held === 'overlap'
+    ? spawnSync(
+        process.execPath,
+        [
+          '--experimental-strip-types',
+          overlapAcceptance,
+          '--skip-pending-allocation',
+        ],
+        {
+          ...options(root),
+          env: {
+            ...process.env,
+            MIZAN_DIST_DIR: join(tree, 'dist'),
+            MIZAN_PROOF_DIR: join(tree, 'work/main-integration'),
+          },
+        },
+      )
+    : spawnSync(process.execPath, ['--experimental-strip-types', acceptance], {
+        ...options(root),
+        env: {
+          ...process.env,
+          RECONCILIATION_SHEET_PRINT_DIST: join(tree, 'dist'),
+          RECONCILIATION_SHEET_PRINT_DIR: join(tree, 'work/print-browser'),
+        },
+      });
+const run = (tree, held) => {
   const failed = build(tree);
   if (failed) return { ...failed, buildFailed: true };
-  return spawnSync(
-    process.execPath,
-    ['--experimental-strip-types', acceptance],
-    {
-      ...options(root),
-      env: {
-        ...process.env,
-        RECONCILIATION_SHEET_PRINT_DIST: join(tree, 'dist'),
-        RECONCILIATION_SHEET_PRINT_DIR: join(tree, 'work/print-browser'),
-      },
-    },
-  );
+  return accept(tree, held);
 };
 const log = (name, r) =>
   writeFile(join(out, name + '.log'), (r.stdout ?? '') + (r.stderr ?? ''));
@@ -243,13 +320,17 @@ const report = { baselinePassed: false, mutations: [], passed: false };
   try {
     const baseline = run(tree);
     await log('baseline', baseline);
-    report.baselinePassed = completedSuccessfully(baseline);
+    // The same build, under the main integration check.
+    const overlap = baseline.buildFailed ? baseline : accept(tree, 'overlap');
+    await log('baseline-overlap', overlap);
+    report.baselinePassed =
+      completedSuccessfully(baseline) && completedSuccessfully(overlap);
   } finally {
     await removePrivateTree(tree);
   }
 }
 if (report.baselinePassed)
-  for (const [id, file, from, to] of mutations) {
+  for (const [id, file, from, to, held] of faults) {
     const tree = await privateTree();
     try {
       const target = join(tree, file);
@@ -257,7 +338,7 @@ if (report.baselinePassed)
       if (text.split(from).length !== 2)
         throw Error('Mutation anchor drift: ' + id);
       await writeFile(target, text.replace(from, to));
-      const result = run(tree);
+      const result = run(tree, held);
       await log(id, result);
       report.mutations.push({
         id,
