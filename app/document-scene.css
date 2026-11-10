@@ -10,28 +10,116 @@
   box-sizing: border-box;
 }
 
+/* Three layers in the scene's own 560 × 490 frame: the platform behind, the
+   two papers, and the platform face in front. The papers are elements of
+   their own so that a paper can turn in perspective (UX-7). */
 .document-scene__stage {
+  position: relative;
   width: 100%;
   aspect-ratio: 560 / 490;
   pointer-events: none;
 }
 
 .document-scene__art {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
   overflow: visible;
 }
 
+.document-scene__papers {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.document-scene__art--front {
+  z-index: 2;
+}
+
+/* A paper is 196 × 277.2 of the frame, its top at 27; the left one starts at
+   78 and the right one at 286. */
+.document-scene__slot {
+  position: absolute;
+  top: 5.5102%;
+  width: 35%;
+  height: 56.5714%;
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.document-scene__slot--left {
+  left: 13.9286%;
+}
+
+.document-scene__slot--right {
+  left: 51.0714%;
+}
+
+/* One record (clearing): the paper stands upright at the middle, 182. */
+.document-scene__slot--left[data-centred='true'] {
+  transform: translateX(53.0612%);
+}
+
+.document-scene__slot--right[data-centred='true'] {
+  transform: translateX(-53.0612%);
+}
+
+.document-scene__slot[data-absent='true'] {
+  visibility: hidden;
+}
+
 .document-scene__float {
+  width: 100%;
+  height: 100%;
   animation: document-scene-rise 9s cubic-bezier(0.45, 0, 0.55, 1) infinite;
   animation-play-state: paused;
-  transform-box: view-box;
   will-change: auto;
 }
 
 .document-scene__float--supplier {
   animation-delay: -3s;
+}
+
+.document-scene__sheet {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 100%;
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.document-scene__slot--left .document-scene__sheet {
+  transform: rotate(-5deg);
+}
+
+.document-scene__slot--right .document-scene__sheet {
+  transform: rotate(5deg);
+}
+
+.document-scene__slot[data-centred='true'] .document-scene__sheet {
+  transform: rotate(0deg);
+}
+
+.document-scene[data-running='false'] .document-scene__slot,
+.document-scene[data-running='false'] .document-scene__sheet {
+  transition: none;
+}
+
+.document-scene__turn {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  container-type: inline-size;
+}
+
+.document-scene__paper-art {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
 
 .document-scene__paper-scan {
@@ -51,33 +139,110 @@
   animation-delay: -5.9s;
 }
 
+/* Live text over the drawing, in the paper's units (196 to its width). */
 .document-scene__file-type {
+  position: absolute;
+  top: 6.4935%;
+  left: 10.2041%;
+  display: inline-flex;
+  align-items: center;
+  gap: calc(100cqw * 5 / 196);
+  height: 9.0188%;
+  max-width: 66.3265%;
+  padding-inline: calc(100cqw * 8 / 196);
+  border-radius: calc(100cqw * 6 / 196);
   font-family: Arial, sans-serif;
-  font-size: 10px;
+  font-size: calc(100cqw * 10 / 196);
   font-weight: 700;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  white-space: nowrap;
 }
 
+.document-scene__file-type svg {
+  width: calc(100cqw * 10 / 196);
+  height: calc(100cqw * 13 / 196);
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+
+.document-scene__file-type--supplier {
+  color: #386fd4;
+  background: #eef4ff;
+}
+
+.document-scene__file-type--ledger {
+  color: #7951cb;
+  background: #f3eefc;
+}
+
+/* The name ends at 176 in either language, as the drawn title did, and
+   sits in the band between the mark (bottom 43) and the table's head (106),
+   from 48 to 100: one line at its middle, near the drawn baseline of 72, or
+   two lines filling it. */
 .document-scene__paper-title {
+  position: absolute;
+  top: 17.316%;
+  right: 10.2041%;
+  left: 10.2041%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 18.759%;
+  color: #24354d;
   font-family: 'Noto Sans Arabic', Arial, sans-serif;
-  font-size: 16px;
+  font-size: calc(100cqw * 16 / 196);
   font-weight: 600;
-  letter-spacing: normal;
   font-synthesis: none;
-  fill: #24354d;
+  letter-spacing: normal;
+  line-height: 1.3;
+  text-align: right;
+}
+
+.document-scene__paper-title-text {
+  display: block;
+}
+
+.document-scene__paper-title[data-size='m'] {
+  font-size: calc(100cqw * 14 / 196);
+}
+
+.document-scene__paper-title[data-size='s'] {
+  font-size: calc(100cqw * 12.5 / 196);
+}
+
+.document-scene__paper-title[data-size='xs'] {
+  font-size: calc(100cqw * 11 / 196);
 }
 
 .document-scene__caption {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  color: #69768b;
+  font: inherit;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.document-scene__caption-line {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   gap: 12px;
   min-height: 44px;
-  color: #69768b;
-  font: inherit;
-  font-size: 11px;
-  line-height: 1.7;
+}
+
+.document-scene__type {
+  flex-basis: 100%;
+  color: #24354d;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
 }
 
 .document-scene__caption-separator {
@@ -85,6 +250,49 @@
   height: 2px;
   border-radius: 50%;
   background: #9ba6b9;
+}
+
+/* Every type's sources share one cell; only the chosen one shows, and the
+   cell keeps the room of the longest. */
+.document-scene__sources {
+  display: grid;
+  width: 100%;
+}
+
+.document-scene__source-list {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: start;
+  gap: 6px 10px;
+}
+
+.document-scene__source-list[data-current='false'] {
+  visibility: hidden;
+}
+
+.document-scene__source {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 2px 8px;
+  max-width: 100%;
+  padding-inline-start: 9px;
+  border-inline-start: 3px solid #3373c9;
+  color: #24354d;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.document-scene__source--second {
+  border-inline-start-color: #7944c7;
+}
+
+.document-scene__source-formats {
+  color: #526278;
+  font-size: 12px;
+  white-space: nowrap;
 }
 
 .document-scene__motion-toggle {
@@ -136,13 +344,14 @@
   animation-play-state: running;
 }
 
+/* 9 of the paper's 277.2. */
 @keyframes document-scene-rise {
   0%,
   100% {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-9px);
+    transform: translateY(-3.2468%);
   }
 }
 
@@ -160,9 +369,8 @@
   .document-scene {
     max-width: 380px;
   }
-  .document-scene__caption {
+  .document-scene__caption-line {
     gap: 9px;
-    font-size: 11px;
   }
 }
 
@@ -171,7 +379,9 @@
   .document-scene .document-scene__paper-scan {
     animation: none;
   }
-  .document-scene .document-scene__motion-toggle {
+  .document-scene .document-scene__motion-toggle,
+  .document-scene .document-scene__slot,
+  .document-scene .document-scene__sheet {
     transition: none;
   }
 }

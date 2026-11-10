@@ -1226,9 +1226,8 @@ export const en: Messages = {
       'The review record could not be opened or saved. No values were added to reconciliation.',
   },
   scene: {
-    supplierPaper: 'First record',
-    ledgerPaper: 'Second record',
-    caption: 'Illustration of reading and comparing records',
+    illustration: 'Illustration',
+    sources: 'Sources for this type:',
     motionReducedLabel:
       'Animation is off because of your reduced-motion setting',
     playLabel: 'Play the illustration animation',

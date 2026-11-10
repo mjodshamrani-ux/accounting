@@ -18,6 +18,7 @@ import { LanguageSwitcher } from './language-switcher';
 import { UploadIllustration } from './source-upload';
 import { Button } from './ui/button';
 import { useI18n } from '@/lib/i18n/context';
+import { acceptFormats } from '@/lib/i18n/type-stage';
 import { workspaceCopy } from '@/lib/i18n/workspace';
 import {
   useReconciliationNavigation,
@@ -216,10 +217,8 @@ export function WorkspaceFileInput(
   const { lang } = useI18n();
   const [dragging, setDragging] = useState(false);
   const dragDepth = useRef(0);
-  const formats = props.accept
-    ?.split(',')
-    .map((format) => format.trim().replace(/^\./, '').toUpperCase())
-    .join(' / ');
+  // The type stage writes a role's formats with the same function (UX-7).
+  const formats = props.accept ? acceptFormats(props.accept) : undefined;
   return (
     <span
       className="workspace-file-input"

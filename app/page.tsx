@@ -1720,6 +1720,42 @@ export default function App() {
     setNotice(null);
     setWorkspaceDrafts((previous) => ({ ...previous, supplier: false }));
   }
+  const directoryEntries: { id: ReconciliationDomain; title: string }[] = [
+    {
+      id: 'supplier',
+      title:
+        reconciliationDirectoryCopy[dir === 'rtl' ? 'ar' : 'en'].supplierTitle,
+    },
+    { id: 'clearing', title: t.clearing.entry },
+    { id: 'ar', title: t.arDocuments.entry },
+    { id: 'gl-tb', title: t.glTb.entry },
+    { id: 'allocation', title: t.allocation.entry },
+    { id: 'bank', title: t.bank.entry },
+    {
+      id: 'tb-financial',
+      title: t.financial.trialBalanceAndFinancialPosition,
+    },
+    {
+      id: 'intercompany',
+      title: intercompanyCopy[dir === 'rtl' ? 'ar' : 'en'].title,
+    },
+    {
+      id: 'gateway',
+      title: gatewayCopy[dir === 'rtl' ? 'ar' : 'en'].title,
+    },
+    {
+      id: 'stock',
+      title: stockCopy[dir === 'rtl' ? 'ar' : 'en'].title,
+    },
+    {
+      id: 'assets',
+      title: assetCopy[dir === 'rtl' ? 'ar' : 'en'].title,
+    },
+    {
+      id: 'payroll',
+      title: payrollCopy[dir === 'rtl' ? 'ar' : 'en'].title,
+    },
+  ];
   return (
     <ReconciliationNavigationProvider value={{ domain, reportActivity }}>
       <div
@@ -1792,7 +1828,13 @@ export default function App() {
           data-reconciliation-content
           role={nativeMainDomains.has(domain) ? undefined : 'main'}
         >
-          <LandingIntro primaryHeading={showLanding} />
+          <LandingIntro
+            primaryHeading={showLanding}
+            domain={domain}
+            typeTitles={Object.fromEntries(
+              directoryEntries.map((entry) => [entry.id, entry.title]),
+            )}
+          />
           <ReconciliationDirectory
             activeDomain={domain}
             disabled={
@@ -1801,43 +1843,7 @@ export default function App() {
             waitingFor={
               busy || workspaceActivity[domain]?.busy ? 'work' : 'tools'
             }
-            entries={[
-              {
-                id: 'supplier',
-                title:
-                  reconciliationDirectoryCopy[dir === 'rtl' ? 'ar' : 'en']
-                    .supplierTitle,
-              },
-              { id: 'clearing', title: t.clearing.entry },
-              { id: 'ar', title: t.arDocuments.entry },
-              { id: 'gl-tb', title: t.glTb.entry },
-              { id: 'allocation', title: t.allocation.entry },
-              { id: 'bank', title: t.bank.entry },
-              {
-                id: 'tb-financial',
-                title: t.financial.trialBalanceAndFinancialPosition,
-              },
-              {
-                id: 'intercompany',
-                title: intercompanyCopy[dir === 'rtl' ? 'ar' : 'en'].title,
-              },
-              {
-                id: 'gateway',
-                title: gatewayCopy[dir === 'rtl' ? 'ar' : 'en'].title,
-              },
-              {
-                id: 'stock',
-                title: stockCopy[dir === 'rtl' ? 'ar' : 'en'].title,
-              },
-              {
-                id: 'assets',
-                title: assetCopy[dir === 'rtl' ? 'ar' : 'en'].title,
-              },
-              {
-                id: 'payroll',
-                title: payrollCopy[dir === 'rtl' ? 'ar' : 'en'].title,
-              },
-            ]}
+            entries={directoryEntries}
             onSelect={(next) => {
               if (next === 'supplier' && domain === 'supplier') {
                 workflowHeading.current?.scrollIntoView({

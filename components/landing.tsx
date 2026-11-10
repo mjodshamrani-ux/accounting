@@ -17,6 +17,7 @@ import { FeatureArt } from '@/components/feature-art';
 import { ForwardArrow, ForwardDownArrow } from '@/components/direction';
 import { useI18n } from '@/lib/i18n/context';
 import { navigateToReconciliationDirectory } from '@/components/reconciliation-directory';
+import type { ReconciliationDomain } from '@/lib/i18n/reconciliation-directory';
 import '@/app/landing-details.css';
 
 /** Sections stay readable when motion or intersection observation is unavailable. */
@@ -115,8 +116,13 @@ function useLandingReveal(root: RefObject<HTMLDivElement | null>) {
 
 export function LandingIntro({
   primaryHeading = true,
+  domain = 'supplier',
+  typeTitles = {},
 }: {
   primaryHeading?: boolean;
+  /** The chosen type, whose roles the two papers wear (UX-7). */
+  domain?: ReconciliationDomain;
+  typeTitles?: Partial<Record<ReconciliationDomain, string>>;
 }) {
   const { t } = useI18n();
   const l = t.landing;
@@ -153,7 +159,7 @@ export function LandingIntro({
             <LockKeyhole size={14} /> {l.privacyNote}
           </p>
         </div>
-        <DocumentScene />
+        <DocumentScene domain={domain} titles={typeTitles} />
       </div>
       <div className="hero-bottomline">
         <span>{l.bottomline[0]}</span>
