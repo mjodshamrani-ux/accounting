@@ -45,8 +45,15 @@ const AR = 'components/ar-workspace.tsx';
 const BANK = 'components/bank-workspace.tsx';
 const ALLOCATION = 'components/allocation-workspace.tsx';
 const SUPPLIER = 'app/page.tsx';
+const FINANCIAL = 'components/tb-financial-workspace.tsx';
+const INTERCOMPANY = 'components/intercompany-workspace.tsx';
+const GATEWAY = 'components/payment-gateway-workspace.tsx';
+const STOCK = 'components/inventory-register-workspace.tsx';
+const ASSETS = 'components/fixed-assets-workspace.tsx';
+const PAYROLL = 'components/payroll-workspace.tsx';
 // A mutant held by another check than the print check is written as an
-// object that names it (`held`).
+// object that names it (`held`); one the print check holds in some of its
+// workspaces only names them (`only`), and the check runs those alone.
 const mutations = [
   [
     'group-loses-its-last-row',
@@ -212,6 +219,126 @@ const mutations = [
     to: 'disabled={!!busy}',
     held: 'overlap',
   },
+  // The family workspaces stay in the page hidden while another is shown:
+  // each composes only while it is the one shown, and each is the hidden
+  // one in another's check (payroll in the financial position's, then each
+  // in the next one's). They compose from what their export sends: the
+  // result, and in assets, payroll and inventory each file by its name and
+  // fingerprint (the printed register first on its path, whose Arabic sheet
+  // names its evidence sheets as that workbook does).
+  {
+    id: 'financial-command-left-out',
+    file: FINANCIAL,
+    // The command as the workspace writes it, beside its export.
+    from: `          <Button
+            variant="outline"
+            disabled={busy || !result}
+            onClick={paper.print}
+          >
+            {sheetPrintCopy[lang].print}
+          </Button>
+`,
+    to: '',
+    only: ['tb-financial'],
+  },
+  {
+    id: 'financial-table-while-hidden',
+    file: FINANCIAL,
+    from: 'useSheetPrint(active ? result : null, lang, composeSheet)',
+    to: 'useSheetPrint(result, lang, composeSheet)',
+    only: ['intercompany'],
+  },
+  {
+    id: 'intercompany-table-while-hidden',
+    file: INTERCOMPANY,
+    from: 'useSheetPrint(active ? result : null, lang, composeSheet)',
+    to: 'useSheetPrint(result, lang, composeSheet)',
+    only: ['gateway'],
+  },
+  {
+    id: 'intercompany-table-left-out',
+    file: INTERCOMPANY,
+    from: '<SheetPrint sheet={paper.sheet} />',
+    to: '',
+    only: ['intercompany'],
+  },
+  {
+    id: 'gateway-table-while-hidden',
+    file: GATEWAY,
+    from: 'useSheetPrint(active ? result : null, lang, composeSheet)',
+    to: 'useSheetPrint(result, lang, composeSheet)',
+    only: ['stock'],
+  },
+  {
+    id: 'gateway-language-not-followed',
+    file: GATEWAY,
+    from: 'useSheetPrint(active ? result : null, lang, composeSheet)',
+    to: "useSheetPrint(active ? result : null, 'ar', composeSheet)",
+    only: ['gateway'],
+  },
+  {
+    id: 'stock-table-while-hidden',
+    file: STOCK,
+    from: '      active && result\n        ? {',
+    to: '      result\n        ? {',
+    only: ['assets'],
+  },
+  {
+    id: 'stock-sheet-without-its-files',
+    file: STOCK,
+    from: '    files.map((f) => ({ name: f.name, sha256: f.sha256 })),',
+    to: '    [],',
+    only: ['stock'],
+  },
+  {
+    id: 'stock-printed-register-names-left-out',
+    file: STOCK,
+    from: "pdf && language === 'ar' && !!result.pdfEvidence",
+    to: 'false',
+    only: ['stock-pdf'],
+  },
+  {
+    id: 'stock-printed-register-not-first',
+    file: STOCK,
+    from: 'files: [pdf ?? files[0], ...files.slice(1)] as {',
+    to: 'files: [files[0], ...files.slice(1)] as {',
+    only: ['stock-pdf'],
+  },
+  {
+    id: 'assets-table-while-hidden',
+    file: ASSETS,
+    from: '() => (active && result ? { result, files: files as SourceFile[] } : null),',
+    to: '() => (result ? { result, files: files as SourceFile[] } : null),',
+    only: ['payroll'],
+  },
+  {
+    id: 'assets-sheet-without-its-files',
+    file: ASSETS,
+    from: '    files.map((f) => ({ name: f.name, sha256: f.sha256 })),',
+    to: '    [],',
+    only: ['assets'],
+  },
+  {
+    id: 'payroll-table-while-hidden',
+    file: PAYROLL,
+    from: '() => (active && result ? { result, files: files as SourceFile[] } : null),',
+    to: '() => (result ? { result, files: files as SourceFile[] } : null),',
+    only: ['tb-financial'],
+  },
+  {
+    id: 'payroll-sheet-without-its-files',
+    file: PAYROLL,
+    from: '    files.map((f) => ({ name: f.name, sha256: f.sha256 })),',
+    to: '    [],',
+    only: ['payroll'],
+  },
+  {
+    id: 'payroll-command-open-without-result',
+    file: PAYROLL,
+    from: '            disabled={busy || !result}\n            onClick={paper.print}',
+    to: '            disabled={busy}\n            onClick={paper.print}',
+    only: ['payroll'],
+  },
 ];
 const buildInputs = [
   'app',
@@ -243,7 +370,7 @@ for (const dir of ['app', 'components', 'hooks', 'lib'])
         auditDirs.add(`audit/${m[1]}`);
 buildInputs.push(...[...auditDirs].sort((a, b) => a.localeCompare(b)));
 const faults = mutations.map((m) =>
-  Array.isArray(m) ? m : [m.id, m.file, m.from, m.to, m.held],
+  Array.isArray(m) ? m : [m.id, m.file, m.from, m.to, m.held, m.only],
 );
 const files = [
   ...new Set(faults.map(([, file]) => file)),
@@ -274,7 +401,7 @@ function build(tree) {
   }
   return null;
 }
-const accept = (tree, held) =>
+const accept = (tree, held, only) =>
   held === 'overlap'
     ? spawnSync(
         process.execPath,
@@ -298,12 +425,13 @@ const accept = (tree, held) =>
           ...process.env,
           RECONCILIATION_SHEET_PRINT_DIST: join(tree, 'dist'),
           RECONCILIATION_SHEET_PRINT_DIR: join(tree, 'work/print-browser'),
+          RECONCILIATION_SHEET_PRINT_ONLY: only?.join(',') ?? '',
         },
       });
-const run = (tree, held) => {
+const run = (tree, held, only) => {
   const failed = build(tree);
   if (failed) return { ...failed, buildFailed: true };
-  return accept(tree, held);
+  return accept(tree, held, only);
 };
 const log = (name, r) =>
   writeFile(join(out, name + '.log'), (r.stdout ?? '') + (r.stderr ?? ''));
@@ -330,7 +458,7 @@ const report = { baselinePassed: false, mutations: [], passed: false };
   }
 }
 if (report.baselinePassed)
-  for (const [id, file, from, to, held] of faults) {
+  for (const [id, file, from, to, held, only] of faults) {
     const tree = await privateTree();
     try {
       const target = join(tree, file);
@@ -338,11 +466,12 @@ if (report.baselinePassed)
       if (text.split(from).length !== 2)
         throw Error('Mutation anchor drift: ' + id);
       await writeFile(target, text.replace(from, to));
-      const result = run(tree, held);
+      const result = run(tree, held, only);
       await log(id, result);
       report.mutations.push({
         id,
         file,
+        only: only ?? null,
         // A mutant that does not build is not a caught behaviour.
         killed: !result.buildFailed && isAssertionKill(result),
         buildFailed: !!result.buildFailed,

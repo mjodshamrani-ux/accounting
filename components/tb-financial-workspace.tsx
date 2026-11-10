@@ -48,6 +48,11 @@ import type {
 } from '@/lib/reconciliation/declared-scope';
 import './workspace-record.css';
 import {
+  SheetPrint,
+  useSheetPrint,
+} from '@/components/reconciliation-sheet-print';
+import { sheetPrintCopy } from '@/lib/i18n/sheet-print';
+import {
   DecisionButtons,
   DecisionHint,
   useDecisionFocus,
@@ -112,6 +117,14 @@ const readings = () =>
     family: FINANCIAL_VERSION,
     confirmed: false,
   })) as FinancialInput['readings'];
+// The sheet on paper (UX-6(d)), composed on the page by the function the
+// worker writes the workbook's first sheet with, from the result the export
+// sends (the financial position sheet reads the result alone).
+const composeSheet = async (result: FinancialResult, language: 'ar' | 'en') =>
+  (await import('@/lib/reconciliation/financial-sheet')).financialSheet(
+    result,
+    language,
+  );
 function download(buffer: ArrayBuffer, name: string, type: string) {
   const url = URL.createObjectURL(new Blob([buffer], { type })),
     a = document.createElement('a');
@@ -154,6 +167,9 @@ export function FinancialWorkspace({
   });
   const [events, setEvents] = useState<FinancialEvent[]>([]),
     [result, setResult] = useState<FinancialResult | null>(null);
+  // Composed only while this workspace is the one shown: it stays in the
+  // page hidden otherwise, and would draw its table when another prints.
+  const paper = useSheetPrint(active ? result : null, lang, composeSheet);
   const [busy, setBusy] = useState(false),
     [error, setError] = useState(''),
     [reference, setReference] = useState(''),
@@ -653,7 +669,15 @@ export function FinancialWorkspace({
           >
             {t.financial.exportEvidence}
           </Button>
+          <Button
+            variant="outline"
+            disabled={busy || !result}
+            onClick={paper.print}
+          >
+            {sheetPrintCopy[lang].print}
+          </Button>
         </div>
+        <SheetPrint sheet={paper.sheet} />
         {error && (
           <p role="alert">
             {error.startsWith('TB_FIN_')

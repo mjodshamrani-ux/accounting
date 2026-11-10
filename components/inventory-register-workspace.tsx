@@ -84,6 +84,8 @@ import type {
   ScopeOrigin,
 } from '@/lib/reconciliation/declared-scope';
 import './workspace-record.css';
+import { SheetPrint, useSheetPrint } from '@/components/reconciliation-sheet-print';
+import { sheetPrintCopy } from '@/lib/i18n/sheet-print';
 import {
   DecisionButtons,
   DecisionHint,
@@ -194,6 +196,39 @@ function registerBlock(
     return sourceScope(register) ?? undefined;
   return undefined;
 }
+// The sheet on paper (UX-6(d)), composed on the page by the function the
+// worker writes the workbook's first sheet with, from what the export sends
+// on its path: the result, and the four files each by its name and
+// fingerprint, the printed register first where there is one, as `pdfState`
+// sends them. On the printed register's path the Arabic sheet names its
+// evidence sheets as that workbook names them, by the worker's rule: the
+// Arabic language and the register's evidence in the result.
+const composeSheet = async (
+  {
+    result,
+    files,
+    pdf,
+  }: {
+    result: StockResult;
+    files: { name: string; sha256?: string }[];
+    pdf: boolean;
+  },
+  language: 'ar' | 'en',
+) => {
+  const [{ inventorySheet }, { inventoryPdfWorkbookLabel }] =
+    await Promise.all([
+      import('@/lib/reconciliation/inventory-sheet'),
+      import('@/lib/i18n/inventory-pdf-workbook'),
+    ]);
+  return inventorySheet(
+    result,
+    files.map((f) => ({ name: f.name, sha256: f.sha256 })),
+    language,
+    pdf && language === 'ar' && !!result.pdfEvidence
+      ? inventoryPdfWorkbookLabel
+      : undefined,
+  );
+};
 function download(buffer: ArrayBuffer, name: string, type: string) {
   const url = URL.createObjectURL(new Blob([buffer], { type })),
     a = document.createElement('a');
@@ -258,6 +293,25 @@ export function StockWorkspace({
   });
   const [events, setEvents] = useState<StockEvent[]>([]),
     [result, setResult] = useState<StockResult | null>(null);
+  // Composed only while this workspace is the one shown: it stays in the
+  // page hidden otherwise, and would draw its table when another prints.
+  // The files are the ones the result was read from, for any change to
+  // them drops it.
+  const printed = useMemo(
+    () =>
+      active && result
+        ? {
+            result,
+            files: [pdf ?? files[0], ...files.slice(1)] as {
+              name: string;
+              sha256?: string;
+            }[],
+            pdf: !!pdf,
+          }
+        : null,
+    [active, result, files, pdf],
+  );
+  const paper = useSheetPrint(printed, lang, composeSheet);
   const pdfTables = useMemo(
     () => (result?.pdfEvidence ? stockPdfWorkbookTables(result, false) : []),
     [result],
@@ -992,7 +1046,15 @@ export function StockWorkspace({
           >
             {copy.export}
           </Button>
+          <Button
+            variant="outline"
+            disabled={busy || !result}
+            onClick={paper.print}
+          >
+            {sheetPrintCopy[lang].print}
+          </Button>
         </div>
+        <SheetPrint sheet={paper.sheet} />
         {pdf && result && <p className="muted">{pdfCopy.exportNote}</p>}
         {error && (
           <p role="alert" data-stock-error>

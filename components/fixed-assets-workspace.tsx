@@ -1,6 +1,13 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { FixedAssetsSectionsPanel } from '@/components/fixed-assets-sections-panel';
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
+import {
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { Amount } from '@/components/amount';
 import { AlignmentStrip } from '@/components/alignment-strip';
@@ -54,6 +61,11 @@ import type {
   ScopeOrigin,
 } from '@/lib/reconciliation/declared-scope';
 import './workspace-record.css';
+import {
+  SheetPrint,
+  useSheetPrint,
+} from '@/components/reconciliation-sheet-print';
+import { sheetPrintCopy } from '@/lib/i18n/sheet-print';
 import {
   DecisionButtons,
   DecisionHint,
@@ -110,6 +122,19 @@ const readings = () =>
     family: ASSET_VERSION,
     confirmed: false,
   })) as AssetInput['readings'];
+// The sheet on paper (UX-6(d)), composed on the page by the function the
+// worker writes the workbook's first sheet with, from what the export sends:
+// the result, and the four files each by its name and fingerprint, as the
+// worker names them.
+const composeSheet = async (
+  { result, files }: { result: AssetResult; files: SourceFile[] },
+  language: 'ar' | 'en',
+) =>
+  (await import('@/lib/reconciliation/fixed-assets-sheet')).fixedAssetsSheet(
+    result,
+    files.map((f) => ({ name: f.name, sha256: f.sha256 })),
+    language,
+  );
 function download(buffer: ArrayBuffer, name: string, type: string) {
   const url = URL.createObjectURL(new Blob([buffer], { type })),
     a = document.createElement('a');
@@ -153,6 +178,15 @@ export function AssetWorkspace({
   });
   const [events, setEvents] = useState<AssetEvent[]>([]),
     [result, setResult] = useState<AssetResult | null>(null);
+  // Composed only while this workspace is the one shown: it stays in the
+  // page hidden otherwise, and would draw its table when another prints.
+  // The files are the ones the result was read from, for any change to
+  // them drops it.
+  const printed = useMemo(
+    () => (active && result ? { result, files: files as SourceFile[] } : null),
+    [active, result, files],
+  );
+  const paper = useSheetPrint(printed, lang, composeSheet);
   const [busy, setBusy] = useState(false),
     [error, setError] = useState(''),
     [reference, setReference] = useState(''),
@@ -714,7 +748,15 @@ export function AssetWorkspace({
           >
             {copy.export}
           </Button>
+          <Button
+            variant="outline"
+            disabled={busy || !result}
+            onClick={paper.print}
+          >
+            {sheetPrintCopy[lang].print}
+          </Button>
         </div>
+        <SheetPrint sheet={paper.sheet} />
         {error && <p role="alert">{copy.failed}</p>}
         {result && (
           <section className="workspace-results" data-asset-result>

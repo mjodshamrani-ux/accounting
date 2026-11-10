@@ -1,16 +1,20 @@
 // UX-6(d): the reconciliation sheet on paper says what the downloaded sheet
 // says, and nothing else prints.
 //
-// In each workspace with its print (GL/TB, and the case workspaces suppliers,
-// clearing, receivables, bank movements and allocation), in Arabic and in
-// English, the check runs the workspace's own synthetic example and requires:
+// In each workspace with its print (GL/TB; the case workspaces suppliers,
+// clearing, receivables, bank movements and allocation; and the family
+// workspaces financial position, intercompany, payment gateway, inventory,
+// fixed assets and payroll, with inventory also on its printed register's
+// path from the synthetic INV1F-P01 originals), in Arabic and in English,
+// the check runs the workspace's own synthetic example and requires:
 // - the print table to be in the page only while the page prints, from the
 //   browser's beforeprint to its afterprint (the check dispatches them as the
 //   browser does, and page.pdf fires them itself), never drawn on the screen
 //   even then, gone after it, and drawn by the workspace on the screen alone
 //   while another workspace with a result of its own is kept hidden (the
-//   suppliers in the GL/TB check, whose panel stays in the page hidden, and
-//   GL/TB in the others);
+//   suppliers in the GL/TB check, whose panel stays in the page hidden; GL/TB
+//   in the case workspaces'; and in each family workspace's another family
+//   workspace, for they too stay in the page hidden);
 // - in print media, nothing visible but the table and the way down to it;
 // - the table to equal the first sheet of the workbook the page downloads,
 //   row for row and cell for cell, as the independent checker reads the
@@ -34,9 +38,9 @@
 //   the other language when the page prints in the same moment as the
 //   change, and the command pressed at once after it to print it in that
 //   language; in a
-//   case workspace, after a decision, the table to carry its reason and to
-//   equal the sheet downloaded then; and no table once the result it was
-//   composed for is gone.
+//   case or family workspace, after a decision, the table to carry its
+//   reason and to equal the sheet downloaded then; and no table once the
+//   result it was composed for is gone, nor a command that is still open.
 // The suppliers' other export, after a group is accepted in the overlap
 // review, writes no sheet; the main integration check
 // (scripts/supplier-main-overlap-browser.mjs) holds the command there.
@@ -45,13 +49,18 @@
 // does not prove a printer, another browser or a device.
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import path from 'node:path';
 import { chromium } from 'playwright';
 import { getDocumentProxy } from 'unpdf';
-import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import {
+  openDomainWorkspace,
+  openWorkspaceDisclosures,
+} from './domain-navigation-support.mjs';
 import { stageWatchdog } from './stage-watchdog.mjs';
+import { DECISIONS } from './ux-census-support.mjs';
 
 const root = path.resolve(import.meta.dirname, '..');
 const dist = path.resolve(
@@ -137,6 +146,130 @@ const supplierWorkpaper = async (panel, lang) => {
   await panel
     .getByRole('textbox', { name: SUPPLIER[lang].notes, exact: true })
     .fill(lang === 'ar' ? 'ملاحظة اصطناعية للطباعة' : 'Synthetic print note');
+};
+
+// The family workspaces stay in the page hidden while another is shown. A
+// decision rejects a whole line, pair, batch or scope with a reference and
+// the reason, on the first item that takes it; withdrawing the card's
+// confirmation drops the result.
+const REFERENCE = {
+  ar: 'مرجع اصطناعي للطباعة',
+  en: 'Synthetic print reference',
+};
+const familyDecide = (decisions) => async (panel, lang) => {
+  await openWorkspaceDisclosures(panel, { requiredSources: false });
+  const [reference, reason] = DECISIONS[decisions].fields[lang];
+  await panel.getByLabel(reference, { exact: true }).fill(REFERENCE[lang]);
+  await panel.getByLabel(reason, { exact: true }).fill(NOTE[lang]);
+  const reject = panel.getByRole('button', {
+    name: DECISIONS[decisions].press[lang][0],
+    exact: true,
+  });
+  for (let i = 0; i < (await reject.count()); i++)
+    if (await reject.nth(i).isEnabled()) return reject.nth(i).click();
+  throw Error(`${decisions}/${lang}: no decision is open`);
+};
+const cardDrop = async (panel) => {
+  const box = panel.locator('.scope-card__confirm input').first();
+  for (const fold of await box.locator('xpath=ancestor::details').all())
+    if ((await fold.getAttribute('open')) === null)
+      await fold.locator(':scope > summary').click();
+  await box.uncheck();
+};
+// Each family workspace is, in another's check, the one kept hidden with a
+// result of its own (payroll for the financial position, then each for the
+// next), so each one's hold on its table while hidden is checked.
+const family = (chunk, decisions, exported, neighbour) => ({
+  chunk,
+  result: '[data-result-heading="result"]',
+  export: exported,
+  neighbour,
+  decide: familyDecide(decisions),
+  drop: cardDrop,
+});
+// The printed register's path in the inventory workspace: the synthetic
+// INV1F-P01 originals, generated as the PDF lifecycle fixture generates
+// them and checked against their sealed manifest, opened through the native
+// file inputs; the card is confirmed from what the four files say, and the
+// check runs.
+const STOCK = {
+  ar: {
+    roles: [
+      'سجل المخزون المرحل',
+      'خريطة الصنف والأستاذ المقترحة',
+      'دليل السياسة المستقل المقدم',
+      'أرصدة مخزون الأستاذ المحددة',
+    ],
+    confirm: 'راجعت سجل المخزون المرحل',
+    compare: 'افحص المخزون والأستاذ',
+  },
+  en: {
+    roles: [
+      'Posted inventory register',
+      'Proposed item / GL mapping',
+      'Independent supplied policy evidence',
+      'Selected inventory GL balances',
+    ],
+    confirm: 'I reviewed the posted inventory register',
+    compare: 'Check inventory / GL',
+  },
+};
+let printedSources = null;
+const printedRegister = async () => {
+  if (!printedSources) {
+    const dir = path.join(out, 'inventory-pdf-sources');
+    execFileSync(
+      'python3',
+      [
+        '-B',
+        path.join(root, 'audit/inventory-pdf-foundation/generate.py'),
+        '--output-dir',
+        dir,
+        '--include-scope-controls',
+      ],
+      { timeout: 60000 },
+    );
+    const manifest = JSON.parse(
+      await readFile(
+        path.join(root, 'audit/inventory-pdf-foundation/INPUT-MANIFEST.v2.json'),
+        'utf8',
+      ),
+    );
+    for (const f of manifest.files) {
+      const bytes = await readFile(path.join(dir, f.path));
+      assert.equal(bytes.length, f.bytes, f.path);
+      assert.equal(
+        createHash('sha256').update(bytes).digest('hex'),
+        f.sha256,
+        f.path,
+      );
+    }
+    printedSources = path.join(dir, 'INV1F-P01');
+  }
+  return printedSources;
+};
+const stockIdle = (panel) =>
+  panel
+    .locator('[data-stock-workspace][aria-busy="false"]')
+    .waitFor({ timeout: 60000 });
+const openPrintedRegister = async (panel, lang) => {
+  const sources = await printedRegister();
+  for (const i of [0, 3, 1, 2]) {
+    await openWorkspaceDisclosures(panel);
+    await panel
+      .getByLabel(STOCK[lang].roles[i], { exact: true })
+      .setInputFiles(
+        path.join(
+          sources,
+          ['register.pdf', 'mapping.csv', 'policy.csv', 'gl.csv'][i],
+        ),
+      );
+    await stockIdle(panel);
+  }
+  await panel.getByLabel(STOCK[lang].confirm, { exact: false }).check();
+  await panel
+    .getByRole('button', { name: STOCK[lang].compare, exact: true })
+    .click();
 };
 
 const WORKSPACES = {
@@ -307,6 +440,53 @@ const WORKSPACES = {
     },
     drop: scopeDrop,
   },
+  'tb-financial': family(
+    'financial',
+    'tb-financial',
+    { ar: 'صدّر الأدلة', en: 'Export evidence' },
+    'payroll',
+  ),
+  intercompany: family(
+    'intercompany',
+    'intercompany',
+    { ar: 'صدّر أدلة معاملات المنشآت', en: 'Export intercompany evidence' },
+    'tb-financial',
+  ),
+  gateway: family(
+    'payment-gateway',
+    'gateway',
+    { ar: 'صدّر أدلة بوابة الدفع', en: 'Export gateway evidence' },
+    'intercompany',
+  ),
+  stock: family(
+    'inventory',
+    'stock',
+    { ar: 'صدّر أدلة المخزون', en: 'Export inventory evidence' },
+    'gateway',
+  ),
+  // The same workspace on its other path: the printed register.
+  'stock-pdf': {
+    ...family(
+      'inventory',
+      'stock',
+      { ar: 'صدّر أدلة المخزون', en: 'Export inventory evidence' },
+      'assets',
+    ),
+    panel: 'stock',
+    load: openPrintedRegister,
+  },
+  assets: family(
+    'fixed-assets',
+    'assets',
+    { ar: 'صدّر أدلة الأصول', en: 'Export asset evidence' },
+    'stock',
+  ),
+  payroll: family(
+    'payroll',
+    'payroll',
+    { ar: 'صدّر أدلة الرواتب', en: 'Export payroll evidence' },
+    'assets',
+  ),
 };
 
 const server = createServer(async (req, res) => {
@@ -395,9 +575,18 @@ const watch = stageWatchdog({ page: () => activePage });
 const results = [];
 const errors = [];
 
+// Every workspace by default; a comma-separated list in
+// RECONCILIATION_SHEET_PRINT_ONLY runs only those (to work on one), and the
+// result says so.
+const only = process.env.RECONCILIATION_SHEET_PRINT_ONLY
+  ? process.env.RECONCILIATION_SHEET_PRINT_ONLY.split(',')
+  : null;
+for (const name of only ?? [])
+  assert.ok(name in WORKSPACES, `no workspace ${name} in the check`);
 try {
   for (const [domain, spec] of Object.entries(WORKSPACES))
     for (const [lang, words] of Object.entries(LANGUAGES)) {
+      if (only && !only.includes(domain)) continue;
       const stage = `${domain}/${lang}`;
       watch.at(`${stage}: example`);
       const context = await browser.newContext({
@@ -428,25 +617,29 @@ try {
           .click();
         // Another workspace with a result of its own, kept hidden while this
         // one is shown: when the page prints, it draws nothing.
-        const neighbour = domain === 'gl-tb' ? 'supplier' : 'gl-tb';
-        const kept = await openDomainWorkspace(page, neighbour, {
-          advanced: true,
-          requiredSources: false,
-        });
+        const neighbour =
+          spec.neighbour ?? (domain === 'gl-tb' ? 'supplier' : 'gl-tb');
+        const kept = await openDomainWorkspace(
+          page,
+          WORKSPACES[neighbour].panel ?? neighbour,
+          { advanced: true, requiredSources: false },
+        );
         await kept.getByRole('button', { name: words.example }).first().click();
         if (WORKSPACES[neighbour].run)
           await WORKSPACES[neighbour].run(kept, lang);
         await kept
           .locator(WORKSPACES[neighbour].result)
           .waitFor({ timeout: 60000 });
-        const panel = await openDomainWorkspace(page, domain, {
+        const panel = await openDomainWorkspace(page, spec.panel ?? domain, {
           advanced: true,
           requiredSources: false,
         });
-        await panel
-          .getByRole('button', { name: words.example })
-          .first()
-          .click();
+        if (spec.load) await spec.load(panel, lang);
+        else
+          await panel
+            .getByRole('button', { name: words.example })
+            .first()
+            .click();
         if (spec.run) await spec.run(panel, lang);
         await panel.locator(spec.result).waitFor({ timeout: 60000 });
         if (spec.ready) await spec.ready(panel, lang);
@@ -865,6 +1058,16 @@ try {
           0,
           `${stage}: no table once its result is gone, even while the page prints`,
         );
+        // Nor the command: gone with the result, or closed as the export
+        // beside it is.
+        const command = panel.getByRole('button', {
+          name: words.print,
+          exact: true,
+        });
+        assert.ok(
+          !(await command.count()) || (await command.isDisabled()),
+          `${stage}: once its result is gone the print command is not offered`,
+        );
 
         results.push({
           domain,
@@ -900,6 +1103,6 @@ try {
 }
 await writeFile(
   path.join(out, 'result.json'),
-  JSON.stringify({ passed: true, prints: results }, null, 1),
+  JSON.stringify({ passed: true, only, prints: results }, null, 1),
 );
-console.log(JSON.stringify({ passed: true, prints: results.length }));
+console.log(JSON.stringify({ passed: true, only, prints: results.length }));
