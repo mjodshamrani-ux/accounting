@@ -1,9 +1,11 @@
 // UX-7(c) interface mutations: each planted defect in the three supplier
 // acts (shown with another type, under it or on its papers; following one
-// another after a pick or not at all; the pressed act and its sentence; the
-// final state when paused; waiting off screen; records leaving the table or
-// jumping; the state before the move or never; the sentences keeping one
-// place; the relation in one act only; hidden buttons taking the focus) is
+// another after a pick, not at all, or on a timer with motion reduced; the
+// pressed act and its sentence; the final state when paused; waiting off
+// screen, or running only when the whole scene is seen; records leaving the
+// table or jumping; the state before the move or never; the state reaching
+// the edge of the stage; the sentences keeping one place; the relation in one
+// act only; hidden buttons taking the focus) is
 // built into a private copy of the application, and the acts check
 // (scripts/stage-acts-browser.mjs, against that build) must fail with an
 // assertion. It passes on the unmutated build first. A survivor is behaviour
@@ -142,12 +144,39 @@ const mutations = [
   ],
   ['the-relation-in-every-act', SCENE, "{playing.id === 'names' && (", '{('],
   [
+    // The acts follow one another by a timer that does not know the motion
+    // is reduced; with motion reduced none may follow another (UX-7(d)).
+    'acts-follow-on-a-timer',
+    SCENE,
+    `  const [actRun, setActRun] = useState(0);
+`,
+    `  const [actRun, setActRun] = useState(0);
+  useEffect(() => {
+    if (!autoplay) return;
+    const timer = window.setTimeout(
+      () => setAct((index) => (index + 1) % 3),
+      7200,
+    );
+    return () => window.clearTimeout(timer);
+  }, [act, autoplay]);
+`,
+  ],
+  [
     'seen-by-the-whole-scene',
     SCENE,
     `    const target =
       element.current?.querySelector('.document-scene__stage') ??
       element.current;`,
     `    const target = element.current;`,
+  ],
+  [
+    // The state and its reason fill the stage to its edges on a narrow
+    // stage, as they did when the check let them touch it (DEV-107).
+    'the-state-runs-to-the-edge',
+    STYLE,
+    `  width: max-content;
+  max-width: calc(100% - 1.5em);`,
+    `  width: max-content;`,
   ],
   [
     'hidden-buttons-take-the-focus',
@@ -245,6 +274,17 @@ const report = { baselinePassed: false, mutations: [], passed: false };
     const baseline = run(tree);
     await log('baseline', baseline);
     report.baselinePassed = completedSuccessfully(baseline);
+    // The run's records stay on the runner; a failing baseline prints the end
+    // of its log, so the job log says why.
+    if (!report.baselinePassed)
+      process.stderr.write(
+        `baseline failed (${baseline.buildFailed ? 'build, ' : ''}exit ${baseline.status}, signal ${baseline.signal}); its log ends:\n` +
+          ((baseline.stdout ?? '') + (baseline.stderr ?? ''))
+            .split('\n')
+            .slice(-60)
+            .join('\n') +
+          '\n',
+      );
   } finally {
     await removePrivateTree(tree);
   }

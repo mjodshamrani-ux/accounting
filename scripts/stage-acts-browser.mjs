@@ -13,7 +13,8 @@
 // Geometry, at 1440, 390 and 320 px: 32 samples of each act hold every record
 // and frame inside its paper's table, every moving record between where it
 // starts and where it ends with no step over half its travel, the state
-// unseen before the move ends, and the words over the stage inside it.
+// unseen before the move ends, and the words over the stage inside it with
+// 4 px to spare.
 //   node --experimental-strip-types scripts/stage-acts-browser.mjs
 // STAGE_ACTS_DIST names another build (a mutation gate's copy).
 import assert from 'node:assert/strict';
@@ -256,6 +257,17 @@ try {
           `${where}: drawn in the final state`,
         );
         expectAct(acts, copy, 0, `${where} first`);
+        // Before any act is picked the acts would follow one another, so a
+        // whole act is waited out here: with motion reduced none follows.
+        if (width === 1440) {
+          await page.waitForTimeout(ACT_MS + 800);
+          expectAct(
+            await page.evaluate(readActs),
+            copy,
+            0,
+            `${where}: with motion reduced, a whole act later, the first act stays`,
+          );
+        }
         const tops = new Set([acts.lineTop]);
         for (const [index, id] of ids.entries()) {
           await page
@@ -605,6 +617,8 @@ try {
               );
             animations.forEach((animation) => animation.pause());
             const frame = stage.getBoundingClientRect();
+            // The words over the stage keep this many pixels from its edges.
+            const edge = 4;
             const list = [];
             for (let k = 0; k <= 32; k += 1) {
               // The last sample stops short of the end, which would end the act.
@@ -677,12 +691,20 @@ try {
                 ),
               ].map((element) => {
                 const box = element.getBoundingClientRect();
+                // Inside, with room to spare: text a browser draws a little
+                // wider than this one still fits (DEV-107).
                 return {
                   inside:
-                    box.left >= frame.left - 0.5 &&
-                    box.right <= frame.right + 0.5 &&
-                    box.top >= frame.top - 0.5 &&
-                    box.bottom <= frame.bottom + 0.5,
+                    box.left >= frame.left + edge &&
+                    box.right <= frame.right - edge &&
+                    box.top >= frame.top + edge &&
+                    box.bottom <= frame.bottom - edge,
+                  room: Math.min(
+                    box.left - frame.left,
+                    frame.right - box.right,
+                    box.top - frame.top,
+                    frame.bottom - box.bottom,
+                  ),
                   opacity: Number(getComputedStyle(element).opacity),
                   state: element.matches('.document-scene__act-state'),
                 };
@@ -718,7 +740,7 @@ try {
               assert.equal(
                 word.inside,
                 true,
-                `${where}, sample ${sample.k}: the words over the stage stay inside it`,
+                `${where}, sample ${sample.k}: the words over the stage stay inside it, 4 px from its edges (${word.room.toFixed(1)})`,
               );
               if (word.state && sample.progress < 0.55)
                 assert.equal(
