@@ -154,10 +154,14 @@ for (const file of [
   'app/page.tsx',
   'components/workspace-chrome.tsx',
   'components/workspace-chrome.css',
-  'dist/index.html',
   'scripts/unified-workspace-browser.mjs',
 ])
   report.bindings[file] = sha(await readFile(path.join(root, file)));
+// The page of the build this check serves, which a mutation gate builds
+// apart from the repository (UX-8(b)).
+report.bindings['dist/index.html'] = sha(
+  await readFile(path.join(dist, 'index.html')),
+);
 
 const server = createServer(async (req, res) => {
   try {
