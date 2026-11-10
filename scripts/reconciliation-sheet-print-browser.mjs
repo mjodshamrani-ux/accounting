@@ -1,16 +1,20 @@
 // UX-6(d): the reconciliation sheet on paper says what the downloaded sheet
 // says, and nothing else prints.
 //
-// In each workspace with its print, in Arabic and in English, the check runs
-// the workspace's own synthetic example and requires:
-// - the print table to exist for the result and never to be drawn on the
-//   screen;
+// In each workspace with its print (GL/TB, and the case workspaces clearing,
+// receivables, bank movements and allocation), in Arabic and in English, the
+// check runs the workspace's own synthetic example and requires:
+// - the print table to be in the page only while the page prints, from the
+//   browser's beforeprint to its afterprint (the check dispatches them as the
+//   browser does, and page.pdf fires them itself), never drawn on the screen
+//   even then, gone after it, and drawn by the workspace on the screen alone
+//   while another workspace with a result of its own is kept hidden;
 // - in print media, nothing visible but the table and the way down to it;
 // - the table to equal the first sheet of the workbook the page downloads,
 //   row for row and cell for cell, as the independent checker reads the
 //   workbook (audit/reconciliation-sheet/check_sheet.py --print, which also
 //   checks the download against its own evidence sheets); and the checker to
-//   refuse a table with a row left out, an amount changed, a fingerprint cut
+//   refuse a table with a row left out, a figure changed, a fingerprint cut
 //   or the other language, so its agreement means something;
 // - the printed A4 pages counted and recorded; and on A4 and on a small
 //   page, where breaks fall in more places, no group the sheet keeps
@@ -21,10 +25,13 @@
 //   JSZip were already loaded with the page;
 // - the print command, from the keyboard, pressed as soon as the result is
 //   shown while the sheet's module is held back, to wait and print the
-//   whole sheet; the table to follow a change of language, never drawn
-//   beside the command in the other language after the change, and the
-//   command pressed at once after it to print it in that language; and no
-//   table once the result it was composed for is gone.
+//   whole sheet; the table to follow a change of language, never printed in
+//   the other language when the page prints in the same moment as the
+//   change, and the command pressed at once after it to print it in that
+//   language; in a
+//   case workspace, after a decision, the table to carry its reason and to
+//   equal the sheet downloaded then; and no table once the result it was
+//   composed for is gone.
 //
 // Synthetic examples only. The check reads the screen and the download; it
 // does not prove a printer, another browser or a device.
@@ -63,10 +70,30 @@ const LANGUAGES = {
   },
 };
 
-// Each workspace with its print: how its example runs, which button
-// downloads its workpaper, and a change that drops its result.
+// The reason a decision in the check is recorded with, which the printed
+// sheet must then carry.
+const NOTE = {
+  ar: 'سبب اصطناعي لقرار في فحص الطباعة',
+  en: 'Synthetic print check decision reason',
+};
+// A change to the declared entity: the result rested on the scope it was
+// run with, and goes.
+const scopeDrop = async (panel, lang) => {
+  const entity = panel
+    .getByLabel(lang === 'ar' ? 'الكيان' : 'Entity', { exact: true })
+    .first();
+  for (const fold of await entity.locator('xpath=ancestor::details').all())
+    if ((await fold.getAttribute('open')) === null)
+      await fold.locator(':scope > summary').click();
+  await entity.fill((await entity.inputValue()) + ' X');
+};
+
+// Each workspace with its print: the module its sheet is composed by, how
+// its example runs, which button downloads its workpaper, a decision the
+// sheet must then say, and a change that drops its result.
 const WORKSPACES = {
   'gl-tb': {
+    chunk: 'gl-tb',
     result: '[data-testid="gl-tb-result"]',
     export: {
       ar: 'نزّل ورقة عمل الأستاذ والميزان',
@@ -84,6 +111,125 @@ const WORKSPACES = {
       );
       await family.selectOption(other);
     },
+  },
+  clearing: {
+    chunk: 'clearing',
+    result: '[aria-labelledby="clearing-result-title"]',
+    export: {
+      ar: 'نزّل ورقة عمل المقاصة',
+      en: 'Download clearing workpaper',
+    },
+    // The example opens the ledger; the check runs it.
+    run: (panel, lang) =>
+      panel
+        .getByRole('button', {
+          name: lang === 'ar' ? 'افحص المقاصة' : 'Check clearing',
+          exact: true,
+        })
+        .click(),
+    decide: async (panel, lang) => {
+      await panel
+        .getByLabel(
+          lang === 'ar' ? 'سبب قرار المراجعة' : 'Review decision reason',
+          { exact: true },
+        )
+        .fill(NOTE[lang]);
+      await panel
+        .getByRole('button', {
+          name: lang === 'ar' ? 'ألغ مقاصة المجموعة' : 'Reopen cleared group',
+          exact: true,
+        })
+        .first()
+        .click();
+    },
+    drop: scopeDrop,
+  },
+  ar: {
+    chunk: 'ar',
+    result: '[data-result-heading="result"]',
+    export: {
+      ar: 'نزّل ورقة عمل ذمم العملاء',
+      en: 'Download AR workpaper',
+    },
+    decide: async (panel, lang) => {
+      await panel
+        .getByLabel(
+          lang === 'ar' ? 'سبب مراجعة المستند' : 'Document review reason',
+          { exact: true },
+        )
+        .fill(NOTE[lang]);
+      await panel
+        .getByRole('button', {
+          name: lang === 'ar' ? 'أعد فتح زوج المستندات' : 'Reopen document pair',
+          exact: true,
+        })
+        .first()
+        .click();
+    },
+    drop: scopeDrop,
+  },
+  bank: {
+    chunk: 'bank-movements',
+    result: '[data-testid="bank-result"]',
+    export: {
+      ar: 'نزّل ورقة عمل حركات البنك',
+      en: 'Download bank movement workpaper',
+    },
+    decide: async (panel, lang) => {
+      await panel
+        .getByLabel(lang === 'ar' ? 'مرجع الدليل' : 'Evidence reference', {
+          exact: true,
+        })
+        .fill(lang === 'ar' ? 'مرجع اصطناعي للطباعة' : 'Synthetic print reference');
+      await panel
+        .getByLabel(
+          lang === 'ar' ? 'سبب القرار أو الإلغاء' : 'Decision or undo reason',
+          { exact: true },
+        )
+        .fill(NOTE[lang]);
+      await panel
+        .getByRole('button', {
+          name:
+            lang === 'ar'
+              ? 'ألغ حالة الحركات كاملة'
+              : 'Undo complete movement case',
+          exact: true,
+        })
+        .first()
+        .click();
+    },
+    drop: scopeDrop,
+  },
+  allocation: {
+    chunk: 'allocation',
+    result: '[data-testid="allocation-result"]',
+    export: {
+      ar: 'نزّل ورقة التخصيص',
+      en: 'Download allocation workpaper',
+    },
+    decide: async (panel, lang) => {
+      await panel
+        .getByLabel(
+          lang === 'ar' ? 'سبب القرار أو الإلغاء' : 'Decision or undo reason',
+          { exact: true },
+        )
+        .fill(NOTE[lang]);
+      for (const box of await panel
+        .getByTestId('allocation-proof')
+        .locator('input')
+        .all())
+        if (await box.isEnabled()) await box.check();
+      await panel
+        .getByRole('button', {
+          name:
+            lang === 'ar'
+              ? 'اعتمد الخطوط المحددة كاملة'
+              : 'Approve selected advice atomically',
+          exact: true,
+        })
+        .click();
+    },
+    drop: scopeDrop,
   },
 };
 
@@ -131,7 +277,9 @@ function check(lang, xlsx, grid) {
 // text and the columns each covers.
 const readTable = (page) =>
   page.evaluate(() => {
-    const sheet = document.querySelector('[data-sheet-print]');
+    const sheet = document.querySelector(
+      '[data-domain-panel]:not([hidden]) [data-sheet-print]',
+    );
     return {
       lang: sheet.getAttribute('lang'),
       dir: sheet.getAttribute('dir'),
@@ -140,6 +288,24 @@ const readTable = (page) =>
       ),
     };
   });
+
+// The page prints: the browser says so before it lays the page out for
+// print and again after. What prints is read in between.
+const whilePrinting = async (page, read) => {
+  await page.evaluate(() => dispatchEvent(new Event('beforeprint')));
+  try {
+    return await read();
+  } finally {
+    await page.evaluate(() => dispatchEvent(new Event('afterprint')));
+  }
+};
+// Outside printing the table is not in the page; after a print it goes.
+const notInPage = async (page) => {
+  const until = Date.now() + 5000;
+  const count = () => page.locator('[data-sheet-print]').count();
+  while ((await count()) && Date.now() < until) await page.waitForTimeout(50);
+  return count();
+};
 
 await mkdir(out, { recursive: true });
 await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
@@ -184,6 +350,19 @@ try {
         await page
           .getByRole('button', { name: words.button, exact: true })
           .click();
+        // Another workspace with a result of its own, kept hidden while this
+        // one is shown: when the page prints, it draws nothing.
+        const neighbour = domain === 'gl-tb' ? 'clearing' : 'gl-tb';
+        const kept = await openDomainWorkspace(page, neighbour, {
+          advanced: true,
+          requiredSources: false,
+        });
+        await kept.getByRole('button', { name: words.example }).first().click();
+        if (WORKSPACES[neighbour].run)
+          await WORKSPACES[neighbour].run(kept, lang);
+        await kept
+          .locator(WORKSPACES[neighbour].result)
+          .waitFor({ timeout: 60000 });
         const panel = await openDomainWorkspace(page, domain, {
           advanced: true,
           requiredSources: false,
@@ -192,18 +371,27 @@ try {
           .getByRole('button', { name: words.example })
           .first()
           .click();
+        if (spec.run) await spec.run(panel, lang);
         await panel.locator(spec.result).waitFor({ timeout: 60000 });
 
         // The command, pressed as soon as the result is shown.
         watch.at(`${stage}: command before the sheet`);
+        // In place of the browser's print: its events around the moment the
+        // page is laid out for print, and what is drawn in that moment.
         await page.evaluate(() => {
           window.printed = [];
           window.print = () => {
-            const sheet = document.querySelector('[data-sheet-print]');
+            dispatchEvent(new Event('beforeprint'));
+            const sheet = document.querySelector(
+              '[data-domain-panel]:not([hidden]) [data-sheet-print]',
+            );
             window.printed.push({
               lang: sheet?.getAttribute('lang') ?? null,
               rows: sheet ? sheet.querySelectorAll('tr').length : 0,
+              display: sheet ? getComputedStyle(sheet).display : null,
+              tables: document.querySelectorAll('[data-sheet-print]').length,
             });
+            dispatchEvent(new Event('afterprint'));
           };
         });
         const printed = async (n) => {
@@ -231,30 +419,40 @@ try {
         );
         await press(words.print);
 
-        // The table is composed for the result; a page without it fails
-        // here by assertion, not by a timeout.
+        // The table is composed for the result and drawn when the page
+        // prints; a page without it fails here by assertion, not by a
+        // timeout.
         watch.at(`${stage}: composed`);
         const sheet = page.locator('[data-sheet-print]');
-        const until = Date.now() + 20000;
-        while (!(await sheet.count()) && Date.now() < until)
-          await page.waitForTimeout(100);
-        assert.equal(
-          await sheet.count(),
-          1,
+        const early = (await printed(1))[0];
+        assert.ok(
+          early?.rows > 0,
           `${stage}: the result's sheet is composed for print`,
         );
         assert.equal(
-          await sheet.evaluate((el) => getComputedStyle(el).display),
+          early.display,
           'none',
-          `${stage}: the table is never drawn on the screen`,
+          `${stage}: the table is never drawn on the screen, not even while the page prints`,
+        );
+        assert.equal(
+          early.tables,
+          1,
+          `${stage}: while the page prints only the workspace on the screen draws its table`,
         );
         assert.deepEqual(
-          (await printed(1))[0],
+          { lang: early.lang, rows: early.rows },
           {
             lang,
-            rows: await page.locator('[data-sheet-print] tr').count(),
+            rows: await whilePrinting(page, () =>
+              page.locator('[data-sheet-print] tr').count(),
+            ),
           },
           `${stage}: pressed before the sheet is composed, the command waits and prints it whole`,
+        );
+        assert.equal(
+          await notInPage(page),
+          0,
+          `${stage}: outside printing the table is not in the page`,
         );
         const loaded = await page.evaluate(() =>
           performance
@@ -263,7 +461,7 @@ try {
         );
         const chunk = (re) => loaded.find((e) => re.test(e.name));
         assert.ok(
-          chunk(new RegExp(`^${domain}-sheet-`)),
+          chunk(new RegExp(`^${spec.chunk}-sheet-`)),
           `${stage}: the sheet is composed by its own module, loaded for it`,
         );
 
@@ -280,6 +478,7 @@ try {
 
         // In print media: nothing visible but the table and the way to it.
         watch.at(`${stage}: print media`);
+        await page.evaluate(() => dispatchEvent(new Event('beforeprint')));
         await page.emulateMedia({ media: 'print' });
         const stray = await page.evaluate(() =>
           [...document.body.querySelectorAll('*')]
@@ -299,6 +498,10 @@ try {
 
         // The table against the download, by the independent checker.
         const table = await readTable(page);
+        // No emulation after it, not screen: page.pdf lays out in the
+        // emulated media.
+        await page.emulateMedia({ media: null });
+        await page.evaluate(() => dispatchEvent(new Event('afterprint')));
         const grid = path.join(out, `${domain}-${lang}.print.json`);
         await writeFile(grid, JSON.stringify(table));
         const agreed = check(lang, xlsx, grid);
@@ -307,13 +510,21 @@ try {
           `${stage}: the printed table is the downloaded sheet: ${agreed.code} ${agreed.said ?? ''}`,
         );
         // The checker refuses a table that is not the sheet.
-        const first = (test) => {
+        const find = (test) => {
           for (const [r, row] of table.rows.entries())
             for (const [c, cell] of row.entries())
               if (test(cell.text)) return [r, c];
-          throw Error(`${stage}: no cell to plant in`);
+          return null;
         };
-        const amount = first((t) => /^-?[\d,]+\.\d+$/.test(t));
+        const first = (test) => {
+          const at = find(test);
+          if (!at) throw Error(`${stage}: no cell to plant in`);
+          return at;
+        };
+        // An amount, or a count where the sheet has no amount (the bank
+        // movement example's sheet counts cases and has no gap to state).
+        const amount =
+          find((t) => /^-?[\d,]+\.\d+$/.test(t)) ?? first((t) => /^\d+$/.test(t));
         const hash = first((t) => /^[0-9a-f]{64}$/.test(t));
         const plants = [
           {
@@ -322,7 +533,7 @@ try {
             plant: (g) => g.rows.pop(),
           },
           {
-            name: 'an amount changed',
+            name: 'a figure changed',
             code: 'PRINT_CELL',
             plant: (g) => (g.rows[amount[0]][amount[1]].text += '1'),
           },
@@ -354,25 +565,36 @@ try {
 
         // The pages: each row carries a marker the PDF gives back in order,
         // out of the flow so the layout is the same.
+        // page.pdf fires beforeprint and afterprint itself; the markers are
+        // written by a listener the check adds after the page's own, so the
+        // table is drawn when they are written.
         watch.at(`${stage}: pages`);
         await page.evaluate(() => {
-          [...document.querySelectorAll('[data-sheet-print] tr')].forEach(
-            (tr, i) => {
-              const mark = document.createElement('span');
-              mark.dataset.printMark = '';
-              mark.textContent = ` R${i}R `;
-              mark.style.cssText =
-                'position:absolute;font:3px monospace;color:#fff;';
-              tr.cells[0].prepend(mark);
-            },
-          );
+          window.markRows = () =>
+            document
+              .querySelectorAll(
+                '[data-domain-panel]:not([hidden]) [data-sheet-print] tr',
+              )
+              .forEach((tr, i) => {
+                const mark = document.createElement('span');
+                mark.dataset.printMark = '';
+                mark.textContent = ` R${i}R `;
+                mark.style.cssText =
+                  'position:absolute;font:3px monospace;color:#fff;';
+                tr.cells[0].prepend(mark);
+              });
+          addEventListener('beforeprint', window.markRows);
         });
-        const groups = await page.evaluate(() =>
-          [...document.querySelectorAll('[data-sheet-print] tbody')].map(
-            (tbody) => ({
+        const groups = await whilePrinting(page, () =>
+          page.evaluate(() =>
+            [
+              ...document.querySelectorAll(
+                '[data-domain-panel]:not([hidden]) [data-sheet-print] tbody',
+              ),
+            ].map((tbody) => ({
               keep: tbody.hasAttribute('data-sheet-keep'),
               rows: tbody.rows.length,
-            }),
+            })),
           ),
         );
         // Each row's page in a print; every row printed once; and a kept
@@ -420,62 +642,54 @@ try {
         const onSmall = await paged('-small');
         await small.evaluate((style) => style.remove());
         await page.evaluate(() =>
-          document
-            .querySelectorAll('[data-print-mark]')
-            .forEach((m) => m.remove()),
+          removeEventListener('beforeprint', window.markRows),
+        );
+        assert.equal(
+          await notInPage(page),
+          0,
+          `${stage}: after the page prints the table is gone from it`,
         );
 
         // The command prints the drawn table, from the keyboard; and right
         // after a change of language, before the table is composed again,
         // it waits for it and prints it in that language.
         watch.at(`${stage}: command`);
-        await page.emulateMedia({ media: 'screen' });
         await press(words.print);
         assert.deepEqual(
           (await printed(2))[1],
-          { lang, rows: table.rows.length },
+          { lang, rows: table.rows.length, display: 'none', tables: 1 },
           `${stage}: the command prints the sheet`,
+        );
+        assert.equal(
+          await notInPage(page),
+          0,
+          `${stage}: after the command prints the table is gone from the page`,
         );
         watch.at(`${stage}: language`);
         const otherLang = lang === 'ar' ? 'en' : 'ar';
-        // From the change on, after every change to the page: a table drawn
-        // beside the command must be the one composed in the command's
-        // language, never the one composed before the change.
-        await page.evaluate((commands) => {
-          window.sheetLanguages = { seen: [], wrong: [] };
-          const look = () => {
-            const panel = document.querySelector(
-              '[data-domain-panel]:not([hidden])',
-            );
-            const sheet = panel?.querySelector('[data-sheet-print]');
-            const command = [...(panel?.querySelectorAll('button') ?? [])]
-              .map((b) => b.textContent.trim())
-              .find((text) => Object.values(commands).includes(text));
-            if (!sheet || !command) return;
-            const said = Object.keys(commands).find(
-              (l) => commands[l] === command,
-            );
-            const drawn = sheet.getAttribute('lang');
-            window.sheetLanguages.seen.push(said);
-            if (drawn !== said)
-              window.sheetLanguages.wrong.push({ command: said, sheet: drawn });
-          };
-          window.sheetWatch = new MutationObserver(look);
-          window.sheetWatch.observe(document.body, {
-            subtree: true,
-            childList: true,
-            characterData: true,
-            attributes: true,
-          });
-        }, Object.fromEntries(
-          Object.entries(LANGUAGES).map(([l, w]) => [l, w.print]),
-        ));
-        await page
+        // The page printed by the browser in the same moment as the change,
+        // before the table is composed again: what it draws is never the
+        // table composed in the language left.
+        const switcher = await page
           .getByRole('button', {
             name: LANGUAGES[otherLang].button,
             exact: true,
           })
-          .click();
+          .elementHandle();
+        const atTheChange = await switcher.evaluate((button) => {
+          button.click();
+          dispatchEvent(new Event('beforeprint'));
+          const drawn = document
+            .querySelector('[data-domain-panel]:not([hidden]) [data-sheet-print]')
+            ?.getAttribute('lang');
+          dispatchEvent(new Event('afterprint'));
+          return drawn ?? null;
+        });
+        assert.notEqual(
+          atTheChange,
+          lang,
+          `${stage}: a table composed in one language is never printed after a change to the other`,
+        );
         await press(LANGUAGES[otherLang].print);
         assert.equal(
           (await printed(3))[2]?.lang,
@@ -483,30 +697,63 @@ try {
           `${stage}: printed at once after a change of language, the sheet is in that language`,
         );
         assert.equal(
-          (await readTable(page)).rows[0][0].text,
+          (await whilePrinting(page, () => readTable(page))).rows[0][0].text,
           LANGUAGES[otherLang].title,
           `${stage}: the table is composed again in the other language`,
-        );
-        const languages = await page.evaluate(() => {
-          window.sheetWatch.disconnect();
-          return window.sheetLanguages;
-        });
-        assert.ok(
-          languages.seen.includes(otherLang),
-          `${stage}: the table was watched beside the command in the other language`,
-        );
-        assert.deepEqual(
-          languages.wrong,
-          [],
-          `${stage}: a table composed in one language is never drawn beside the other's command`,
         );
         await page
           .getByRole('button', { name: words.button, exact: true })
           .click();
 
+        // After a decision the table is composed again and is the sheet the
+        // page downloads then, by the independent checker.
+        let decided = null;
+        if (spec.decide) {
+          watch.at(`${stage}: decided`);
+          await spec.decide(panel, lang);
+          const until = Date.now() + 20000;
+          const carries = () =>
+            whilePrinting(page, () =>
+              page.evaluate(
+                (note) =>
+                  !!document
+                    .querySelector(
+                      '[data-domain-panel]:not([hidden]) [data-sheet-print]',
+                    )
+                    ?.textContent.includes(note),
+                NOTE[lang],
+              ),
+            );
+          while (!(await carries()) && Date.now() < until)
+            await page.waitForTimeout(100);
+          const after = await whilePrinting(page, () => readTable(page));
+          assert.ok(
+            after.rows.some((row) =>
+              row.some((cell) => cell.text.includes(NOTE[lang])),
+            ),
+            `${stage}: after a decision the table carries its reason`,
+          );
+          const [download] = await Promise.all([
+            page.waitForEvent('download', { timeout: 60000 }),
+            panel
+              .getByRole('button', { name: spec.export[lang], exact: true })
+              .click(),
+          ]);
+          const xlsx = path.join(out, `${domain}-${lang}-decided.xlsx`);
+          await download.saveAs(xlsx);
+          const grid = path.join(out, `${domain}-${lang}-decided.print.json`);
+          await writeFile(grid, JSON.stringify(after));
+          const again = check(lang, xlsx, grid);
+          assert.ok(
+            again.passed,
+            `${stage}: after a decision the printed table is the downloaded sheet: ${again.code} ${again.said ?? ''}`,
+          );
+          decided = { rows: after.rows.length, cells: again.report.cells };
+        }
+
         // No table once its result is gone.
         watch.at(`${stage}: dropped`);
-        await spec.drop(panel);
+        await spec.drop(panel, lang);
         const gone = Date.now() + 10000;
         while ((await panel.locator(spec.result).count()) && Date.now() < gone)
           await page.waitForTimeout(100);
@@ -516,9 +763,11 @@ try {
           `${stage}: the change drops the result`,
         );
         assert.equal(
-          await sheet.count(),
+          await whilePrinting(page, () =>
+            panel.locator('[data-sheet-print]').count(),
+          ),
           0,
-          `${stage}: no table once its result is gone`,
+          `${stage}: no table once its result is gone, even while the page prints`,
         );
 
         results.push({
@@ -530,6 +779,7 @@ try {
           firstRowOnEachPage: onPage.map((p) => Math.min(...p)),
           smallPages: onSmall.length,
           groups: groups.filter((g) => g.keep).length,
+          decided,
           sheetChunks: loaded
             .filter((e) => /-sheet-/.test(e.name))
             .map((e) => e.name),
@@ -537,7 +787,7 @@ try {
             loaded.some(
               (e) =>
                 e.name.startsWith(n) &&
-                e.at < chunk(new RegExp(`^${domain}-sheet-`)).at,
+                e.at < chunk(new RegExp(`^${spec.chunk}-sheet-`)).at,
             ),
           ),
         });

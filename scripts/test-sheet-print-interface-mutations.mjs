@@ -35,6 +35,10 @@ const PAPER = 'lib/reconciliation/sheet-print.ts';
 const VIEW = 'components/reconciliation-sheet-print.tsx';
 const STYLE = 'components/reconciliation-sheet-print.css';
 const GLTB = 'components/gl-tb-workspace.tsx';
+const CLEARING = 'components/clearing-workspace.tsx';
+const AR = 'components/ar-workspace.tsx';
+const BANK = 'components/bank-workspace.tsx';
+const ALLOCATION = 'components/allocation-workspace.tsx';
 const mutations = [
   [
     'group-loses-its-last-row',
@@ -94,6 +98,25 @@ const mutations = [
     'break-inside: avoid;',
     'break-inside: auto;',
   ],
+  // The table is in the page only while the page prints (DEV-105).
+  [
+    'kept-in-the-page',
+    VIEW,
+    '() => (printing && sheet ? sheetPrint(sheet) : null),',
+    '() => (sheet ? sheetPrint(sheet) : null),',
+  ],
+  [
+    'left-after-printing',
+    VIEW,
+    'const after = () => setPrinting(false);',
+    'const after = () => {};',
+  ],
+  [
+    'drawn-too-late',
+    VIEW,
+    'flushSync(() => setPrinting(true));',
+    'setPrinting(true);',
+  ],
   [
     'sheet-outlives-its-composition',
     VIEW,
@@ -105,6 +128,34 @@ const mutations = [
     GLTB,
     'useSheetPrint(result, lang, composeSheet)',
     "useSheetPrint(result, 'en', composeSheet)",
+  ],
+  // The case workspaces compose from the state and result the export sends.
+  [
+    'clearing-sheet-without-its-decisions',
+    CLEARING,
+    '{ state: { file, reading, scope, events }, result }',
+    '{ state: { file, reading, scope, events: [] }, result }',
+  ],
+  [
+    'ar-language-not-followed',
+    AR,
+    'useSheetPrint(printed, lang, composeSheet)',
+    "useSheetPrint(printed, 'ar', composeSheet)",
+  ],
+  [
+    'bank-table-left-out',
+    BANK,
+    '<SheetPrint sheet={paper.sheet} />',
+    '',
+  ],
+  [
+    'allocation-command-left-out',
+    ALLOCATION,
+    `            <Button disabled={busy} onClick={paper.print}>
+              {sheetPrintCopy[lang].print}
+            </Button>
+`,
+    '',
   ],
 ];
 const buildInputs = [

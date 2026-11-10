@@ -49,6 +49,8 @@ import type {
   DeclaredScopeRule,
   ScopeOrigin,
 } from '@/lib/reconciliation/declared-scope';
+import { SheetPrint, useSheetPrint } from '@/components/reconciliation-sheet-print';
+import { sheetPrintCopy } from '@/lib/i18n/sheet-print';
 import './clearing-workspace.css';
 
 const freshReading = (): ClearingReading => ({
@@ -143,6 +145,19 @@ function download(bytes: ArrayBuffer, name: string, type: string) {
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
+
+// The sheet on paper (UX-6(d)), composed on the page by the function the
+// worker writes the workbook's first sheet with, from the state and result
+// the export sends.
+const composeSheet = async (
+  { state, result }: { state: ClearingInput; result: ClearingResult },
+  language: 'ar' | 'en',
+) =>
+  (await import('@/lib/reconciliation/clearing-sheet')).clearingSheet(
+    state,
+    result,
+    language,
+  );
 
 export function ClearingWorkspace({
   active,
@@ -254,6 +269,14 @@ export function ClearingWorkspace({
     }
   }
   const input = (): ClearingInput => ({ file: file!, reading, scope, events });
+  const printed = useMemo(
+    () =>
+      file && result
+        ? { state: { file, reading, scope, events }, result }
+        : null,
+    [file, reading, scope, events, result],
+  );
+  const paper = useSheetPrint(printed, lang, composeSheet);
   const check = () =>
     perform(async (signal) =>
       shown(await workerTask('clearing-reconcile', input(), signal)),
@@ -864,7 +887,11 @@ export function ClearingWorkspace({
               >
                 {t.export}
               </Button>
+              <Button disabled={busy} onClick={paper.print}>
+                {sheetPrintCopy[lang].print}
+              </Button>
             </div>
+            <SheetPrint sheet={paper.sheet} />
           </section>
         )}
         {file && (

@@ -48,6 +48,8 @@ import type {
   DeclaredScopeRule,
   ScopeOrigin,
 } from '@/lib/reconciliation/declared-scope';
+import { SheetPrint, useSheetPrint } from '@/components/reconciliation-sheet-print';
+import { sheetPrintCopy } from '@/lib/i18n/sheet-print';
 import './workspace-record.css';
 
 type AllocationScopeField = (typeof ALLOCATION_SCOPE_FIELDS)[number];
@@ -83,6 +85,15 @@ const hinted = (
   field === 'account' ||
   field === 'currency' ||
   field === 'cutoff';
+
+// The sheet on paper (UX-6(d)), composed on the page by the function the
+// worker writes the workbook's first sheet with, from the result the export
+// sends (the allocation sheet reads the result alone).
+const composeSheet = async (result: AllocationResult, language: 'ar' | 'en') =>
+  (await import('@/lib/reconciliation/allocation-sheet')).allocationSheet(
+    result,
+    language,
+  );
 
 export function AllocationWorkspace({
   active,
@@ -140,6 +151,7 @@ export function AllocationWorkspace({
     [drafts, setDrafts] = useState([
       { paymentId: '', invoiceId: '', amount: '' },
     ]);
+  const paper = useSheetPrint(result, lang, composeSheet);
   // The card's scope and where each value came from (UX-5(d)).
   const card = useDeclaredScope({
     initial: fresh,
@@ -716,6 +728,9 @@ export function AllocationWorkspace({
             <Button disabled={busy} onClick={() => void exportWorkpaper()}>
               {t.downloadAllocationWorkpaper}
             </Button>
+            <Button disabled={busy} onClick={paper.print}>
+              {sheetPrintCopy[lang].print}
+            </Button>
           </div>
           <RecordRows
             label={t.valueLedger}
@@ -1044,6 +1059,7 @@ export function AllocationWorkspace({
               result.inventory.length,
             )}
           </details>
+          <SheetPrint sheet={paper.sheet} />
         </section>
       )}
       {result && (

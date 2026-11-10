@@ -67,6 +67,8 @@ import {
   type ArCardField,
 } from '@/lib/ar-scope-card';
 import './clearing-workspace.css';
+import { SheetPrint, useSheetPrint } from '@/components/reconciliation-sheet-print';
+import { sheetPrintCopy } from '@/lib/i18n/sheet-print';
 import './ar-workspace.css';
 const columns = [
   'posting',
@@ -184,6 +186,19 @@ function download(bytes: ArrayBuffer, name: string, type: string) {
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
+// The sheet on paper (UX-6(d)), composed on the page by the function the
+// worker writes the workbook's first sheet with, from the state and result
+// the export sends.
+const composeSheet = async (
+  { state, result }: { state: ArInput; result: ArResult },
+  language: 'ar' | 'en',
+) =>
+  (await import('@/lib/reconciliation/ar-sheet')).arSheet(
+    state,
+    result,
+    language,
+  );
+
 export function ArWorkspace({
   active,
   onBack,
@@ -299,6 +314,22 @@ export function ArWorkspace({
     scope,
     events,
   });
+  const printed = useMemo(
+    () =>
+      files[0] && files[1] && result
+        ? {
+            state: {
+              files: files as ArInput['files'],
+              readings,
+              scope,
+              events,
+            },
+            result,
+          }
+        : null,
+    [files, readings, scope, events, result],
+  );
+  const paper = useSheetPrint(printed, lang, composeSheet);
   function cancel() {
     serial.current++;
     controller.current?.abort();
@@ -944,6 +975,9 @@ export function ArWorkspace({
               >
                 {t.export}
               </Button>
+              <Button onClick={paper.print}>
+                {sheetPrintCopy[lang].print}
+              </Button>
             </div>
             {result.cases.slice(casesShown.from, casesShown.to).map((c, i) => (
               <article key={c.id} data-testid="ar-case" className="ar-case">
@@ -1130,6 +1164,7 @@ export function ArWorkspace({
               i.error ? t.readingIssue : '',
             ]}
           />
+          <SheetPrint sheet={paper.sheet} />
         </section>
       )}
     </main>

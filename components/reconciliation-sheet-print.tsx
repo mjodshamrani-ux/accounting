@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 import type { ReconciliationSheet } from '@/lib/reconciliation/reconciliation-sheet';
 import { sheetPrint, type PrintCell } from '@/lib/reconciliation/sheet-print';
 import './reconciliation-sheet-print.css';
@@ -28,11 +29,34 @@ function Cell({ cell }: { cell: PrintCell }) {
  * The reconciliation sheet on paper (UX-6(d)): the model the workbook's
  * first sheet is written from, laid out row for row and cell for cell. It is
  * never drawn on the screen; in print it is all that prints (see
- * `reconciliation-sheet-print.css`).
+ * `reconciliation-sheet-print.css`). It is in the page only while the page
+ * prints, from the browser's `beforeprint` to its `afterprint`; a workspace
+ * not on the screen renders nothing, so only the one shown draws its sheet.
+ * Kept in the page undrawn, the sheet of a long review put 135,143 elements
+ * in it and made every click on the page slower (DEV-105).
  */
-export function SheetPrint({ sheet }: { sheet: ReconciliationSheet | null }) {
-  if (!sheet) return null;
-  const paper = sheetPrint(sheet);
+export const SheetPrint = memo(function SheetPrint({
+  sheet,
+}: {
+  sheet: ReconciliationSheet | null;
+}) {
+  const [printing, setPrinting] = useState(false);
+  useEffect(() => {
+    // Drawn at once, before the browser lays the page out for print.
+    const before = () => flushSync(() => setPrinting(true));
+    const after = () => setPrinting(false);
+    window.addEventListener('beforeprint', before);
+    window.addEventListener('afterprint', after);
+    return () => {
+      window.removeEventListener('beforeprint', before);
+      window.removeEventListener('afterprint', after);
+    };
+  }, []);
+  const paper = useMemo(
+    () => (printing && sheet ? sheetPrint(sheet) : null),
+    [printing, sheet],
+  );
+  if (!paper) return null;
   return (
     <div
       className="sheet-print"
@@ -66,7 +90,7 @@ export function SheetPrint({ sheet }: { sheet: ReconciliationSheet | null }) {
       </table>
     </div>
   );
-}
+});
 
 /**
  * The sheet of the result on the screen, composed on the page by the same
@@ -75,7 +99,7 @@ export function SheetPrint({ sheet }: { sheet: ReconciliationSheet | null }) {
  * are the ones shown: none while there is no result, and a composition that
  * arrives late for a result no longer shown is dropped. `compose` is defined
  * once, outside the component. `print` waits for the composition, then
- * prints.
+ * prints; `SheetPrint` draws the sheet when the browser says it prints.
  */
 export function useSheetPrint<R>(
   result: R | null | undefined,
@@ -114,7 +138,7 @@ export function useSheetPrint<R>(
       : null;
   const print = useCallback(async () => {
     if (!(await pending.current)) return;
-    // The table is drawn before the browser lays the page out for print.
+    // The composed sheet reaches `SheetPrint` before the browser prints.
     await new Promise((resolve) =>
       requestAnimationFrame(() => requestAnimationFrame(resolve)),
     );

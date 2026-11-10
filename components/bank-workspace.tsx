@@ -8,7 +8,14 @@ import {
 import { EvidenceSections } from '@/components/evidence-sections';
 import { bankStrip } from '@/lib/alignment-strip';
 import { BankAdjustmentWorkspace } from './bank-adjustment-workspace';
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
+import {
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
 import { useResultFocus } from '@/components/result-focus';
 import { useDecisionFocus } from '@/components/decision-platform';
 import { RecordRows } from '@/components/record-table';
@@ -61,6 +68,8 @@ import type {
   ScopeOrigin,
 } from '@/lib/reconciliation/declared-scope';
 import './workspace-record.css';
+import { SheetPrint, useSheetPrint } from '@/components/reconciliation-sheet-print';
+import { sheetPrintCopy } from '@/lib/i18n/sheet-print';
 import './bank-workspace.css';
 const freshScope = (): BankScope => ({
   ...bankDemoScope,
@@ -107,6 +116,19 @@ function download(buffer: ArrayBuffer, name: string, type: string) {
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
+// The sheet on paper (UX-6(d)), composed on the page by the function the
+// worker writes the workbook's first sheet with, from the state and result
+// the export sends.
+const composeSheet = async (
+  { state, result }: { state: BankInput; result: BankResult },
+  language: 'ar' | 'en',
+) =>
+  (await import('@/lib/reconciliation/bank-movements-sheet')).bankMovementsSheet(
+    state,
+    result,
+    language,
+  );
+
 export function BankWorkspace({
   active,
   onBack,
@@ -214,6 +236,22 @@ export function BankWorkspace({
     scope,
     events,
   });
+  const printed = useMemo(
+    () =>
+      files[0] && files[1] && result
+        ? {
+            state: {
+              files: files as BankInput['files'],
+              readings,
+              scope,
+              events,
+            },
+            result,
+          }
+        : null,
+    [files, readings, scope, events, result],
+  );
+  const paper = useSheetPrint(printed, lang, composeSheet);
   function install(v: { state: BankInput; result: BankResult }) {
     setFiles(v.state.files);
     setReadings(v.state.readings);
@@ -784,6 +822,9 @@ export function BankWorkspace({
                   >
                     {t.export}
                   </Button>
+                  <Button onClick={paper.print}>
+                    {sheetPrintCopy[lang].print}
+                  </Button>
                 </div>
                 <label>
                   {t.reference}
@@ -1095,6 +1136,7 @@ export function BankWorkspace({
                   ]}
                 />
               </fieldset>
+              <SheetPrint sheet={paper.sheet} />
             </>
           )}
         </main>
