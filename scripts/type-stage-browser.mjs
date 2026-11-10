@@ -151,6 +151,28 @@ const readStage = (domain) => {
     currentLists: scene.querySelectorAll(
       '.document-scene__source-list[data-current="true"]',
     ).length,
+    // Suppliers: the three obstacles (UX-7(c)).
+    acts: current?.dataset.stageActs === 'true',
+    actButtons: [
+      ...(current?.querySelectorAll('.document-scene__act-button') ?? []),
+    ].map((button) => ({
+      title: button.textContent.trim(),
+      pressed: button.getAttribute('aria-pressed'),
+    })),
+    actLine: current
+      ?.querySelector('.document-scene__act-line[data-current="true"]')
+      ?.textContent.trim(),
+    // Buttons of a type not shown must not take the focus: neither drawn nor
+    // visible. A button with no box (display: none) is hidden too.
+    hiddenButtonsShown: [
+      ...scene.querySelectorAll(
+        '.document-scene__source-list[data-current="false"] button',
+      ),
+    ].filter(
+      (button) =>
+        button.getClientRects().length > 0 &&
+        getComputedStyle(button).visibility !== 'hidden',
+    ).length,
     selectTop: Math.round(select.getBoundingClientRect().top + window.scrollY),
     selectedTitle: select.selectedOptions[0].textContent.trim(),
   };
@@ -249,19 +271,51 @@ try {
             'supplier',
             `${where}: the first role reads first, on the blue paper`,
           );
-          assert.deepEqual(
-            stage.sources,
-            stage.inputs.map((input) => ({
-              name: input.name,
-              formats: formats(input.accept),
-            })),
-            `${where}: the sources under the stage are the workspace's, in order`,
-          );
+          if (domain === 'supplier') {
+            // The three obstacles stand where the sources would: three
+            // buttons, one pressed, and its sentence naming both papers.
+            assert.equal(stage.acts, true, `${where}: the obstacles show`);
+            assert.ok(
+              stage.typeTitle?.toLowerCase().includes(title.toLowerCase()),
+              `${where}: the obstacles' title names the type as the list does (${stage.typeTitle})`,
+            );
+            assert.equal(stage.actButtons.length, 3, `${where}: three acts`);
+            assert.equal(
+              stage.actButtons.filter((button) => button.pressed === 'true')
+                .length,
+              1,
+              `${where}: one act is pressed`,
+            );
+            assert.ok(
+              stage.actLine &&
+                stage.papers.every((paper) =>
+                  stage.actLine
+                    .toLowerCase()
+                    .includes(paper.name.toLowerCase()),
+                ),
+              `${where}: the act's sentence names both papers (${stage.actLine})`,
+            );
+          } else {
+            assert.equal(stage.acts, false, `${where}: no obstacles here`);
+            assert.deepEqual(
+              stage.sources,
+              stage.inputs.map((input) => ({
+                name: input.name,
+                formats: formats(input.accept),
+              })),
+              `${where}: the sources under the stage are the workspace's, in order`,
+            );
+            assert.equal(
+              stage.typeTitle,
+              title,
+              `${where}: the stage names the type as the list does`,
+            );
+          }
           assert.equal(stage.currentLists, 1, `${where}: one type shows`);
           assert.equal(
-            stage.typeTitle,
-            title,
-            `${where}: the stage names the type as the list does`,
+            stage.hiddenButtonsShown,
+            0,
+            `${where}: the buttons of a type not shown are hidden`,
           );
           assert.equal(stage.selectedTitle, title);
           if (stage.inputs.length === 1)

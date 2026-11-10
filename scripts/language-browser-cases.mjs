@@ -1,16 +1,25 @@
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
 import { demoFiles, demoScope } from '../lib/reconciliation/demo.ts';
+import { stageActNames } from '../lib/i18n/stage-acts.ts';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
 import { stripGap } from './alignment-strip-read.mjs';
 import { copyFile } from 'node:fs/promises';
 import { supplierSheetSaysScreen } from './reconciliation-sheet-browser.mjs';
 
 const ARABIC = /[\u0600-\u06FF]/;
+// The records the stage's first act draws on its synthetic papers and quotes
+// in its sentence (UX-7(c)): each paper's header and reference, data in the
+// paper's own words in both languages. They are removed whole.
+const stageRecords = Object.values(stageActNames).flatMap((paper) => [
+  paper.head,
+  paper.reference,
+]);
 // Arabic that stays Arabic in English mode: the sample documents' own text
-// (user data), the brand wordmark, the Arabic language option and one digit
-// example.
+// (user data), the stage's records, the brand wordmark, the Arabic language
+// option and one digit example.
 const allowedArabic = [
+  ...stageRecords,
   ...demoFiles.flatMap((file) =>
     file.sheets.flatMap((sheet) => [sheet.name, ...sheet.rows.flat()]),
   ),
@@ -24,6 +33,13 @@ const allowedArabic = [
 ]
   .filter((text) => ARABIC.test(text))
   .sort((a, b) => b.length - a.length);
+// Text with its data removed: source row IDs (supplier:0:2) and the stage's
+// records. Each record goes whole, so a stray "No" elsewhere is still copy.
+const withoutData = (text) =>
+  stageRecords.reduce(
+    (rest, record) => rest.split(record).join(''),
+    text.replace(/\b(?:supplier|ledger):\d+:\d+\b/g, ''),
+  );
 // Latin words the Arabic interface uses as they are: formats, units, codes.
 const allowedLatin = new Set(
   'PDF Excel CSV XLSX PNG JPEG MB SAR KWD Diagnostics AR EN English Shift Enter Escape TARASUF'.split(
@@ -142,7 +158,7 @@ async function assertNoStrayEnglish(page, where) {
     const words = (await visibleText(page, stockNotice))
       // Source row IDs (supplier:0:2) and the sample's own Latin data are data,
       // not interface copy.
-      .map((text) => text.replace(/\b(?:supplier|ledger):\d+:\d+\b/g, ''))
+      .map(withoutData)
       .flatMap((text) => text.match(/[A-Za-z]{2,}/g) ?? [])
       .filter((word) => !allowedLatin.has(word));
     const sampleLatin = new Set(
@@ -174,7 +190,7 @@ async function assertNoStrayEnglish(page, where) {
   // Also inspect the original live supplier/review view after returning; its
   // session and selected tab must survive the stock boundary inspection.
   const originalWords = (await visibleText(page))
-    .map((text) => text.replace(/\b(?:supplier|ledger):\d+:\d+\b/g, ''))
+    .map(withoutData)
     .flatMap((text) => text.match(/[A-Za-z]{2,}/g) ?? []);
   const sampleLatin = new Set(
     demoFiles.flatMap((file) =>

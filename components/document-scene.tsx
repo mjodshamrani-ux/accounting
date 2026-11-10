@@ -1,7 +1,20 @@
-import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
+import {
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type AnimationEvent,
+  type CSSProperties,
+} from 'react';
 import '../app/document-scene.css';
 import { useI18n } from '@/lib/i18n/context';
 import type { ReconciliationDomain } from '@/lib/i18n/reconciliation-directory';
+import {
+  stageActNames,
+  stageActsCopy,
+  type StageActId,
+} from '@/lib/i18n/stage-acts';
 import {
   acceptFormats,
   typeStageRoles,
@@ -27,6 +40,136 @@ const roleIndex = (kind: Kind) => (kind === 'supplier' ? 0 : 1);
 const roleOf = (lang: 'ar' | 'en', domain: ReconciliationDomain, kind: Kind) =>
   typeStageRoles[lang][domain][roleIndex(kind)];
 
+// The three obstacles of supplier reconciliation (UX-7(c)) are acted on the
+// papers' tables with synthetic records, in the papers' own units: each act
+// holds still until 30% of its 7.2 s, moves until 55% and then shows its
+// state. Each row is 28 units, inside the table (20 to 176 by 106 to 224).
+const INK_ROW = 28;
+type InkRow = { y: number; text: string; dy?: number; amount?: boolean };
+type InkPaper = { head?: string; rows: InkRow[]; frame?: [number, number] };
+const ACT_INK: Record<StageActId, Record<Kind, InkPaper>> = {
+  // Two names for one reference: the two lines rise under their headers.
+  names: {
+    supplier: {
+      head: stageActNames.statement.head,
+      rows: [
+        {
+          y: 156,
+          text: stageActNames.statement.reference,
+          dy: -28,
+          amount: true,
+        },
+      ],
+    },
+    ledger: {
+      head: stageActNames.report.head,
+      rows: [
+        { y: 156, text: stageActNames.report.reference, dy: -28, amount: true },
+      ],
+    },
+  },
+  // One invoice and its lines: the three lines gather under one frame.
+  lines: {
+    ledger: {
+      rows: [{ y: 128, text: 'INV-2207', amount: true }],
+      frame: [125, 34],
+    },
+    supplier: {
+      rows: [
+        { y: 128, text: 'INV-2207' },
+        { y: 162, text: 'INV-2207', dy: -6 },
+        { y: 196, text: 'INV-2207', dy: -12 },
+      ],
+      frame: [125, 90],
+    },
+  },
+  // One transfer and its payments: the three payments meet.
+  payments: {
+    supplier: {
+      rows: [{ y: 128, text: 'TRF-5310', amount: true }],
+      frame: [125, 34],
+    },
+    ledger: {
+      rows: [
+        { y: 128, text: 'PAY-61' },
+        { y: 162, text: 'PAY-62', dy: -26 },
+        { y: 196, text: 'PAY-63', dy: -52 },
+      ],
+      frame: [125, 50],
+    },
+  },
+};
+
+function ActInk({ act, kind }: { act: StageActId; kind: Kind }) {
+  const ink = ACT_INK[act][kind];
+  const first = kind === 'supplier';
+  const accent = first ? '#386FD4' : '#7951CB';
+  return (
+    <g className="document-scene__act-ink" data-act-ink={act} direction="ltr">
+      {ink.head && (
+        <text className="document-scene__ink-head" x="29" y="121" fill={accent}>
+          {ink.head}
+        </text>
+      )}
+      {ink.rows.map((row, index) => (
+        <g
+          key={index}
+          className={
+            row.dy
+              ? 'document-scene__ink-row document-scene__ink-move'
+              : 'document-scene__ink-row'
+          }
+          data-act-motion={row.dy ? 'move' : undefined}
+          data-ink-dy={row.dy ?? 0}
+          style={
+            row.dy
+              ? ({ '--ink-dy': `${row.dy}px` } as CSSProperties)
+              : undefined
+          }
+        >
+          <rect
+            x="24"
+            y={row.y}
+            width="148"
+            height={INK_ROW}
+            rx="5"
+            fill={first ? '#F4F8FE' : '#F8F5FD'}
+            stroke={first ? '#CFDDF5' : '#DED3F3'}
+          />
+          <text className="document-scene__ink-ref" x="32" y={row.y + 22}>
+            {row.text}
+          </text>
+          {row.amount && (
+            <rect
+              x="130"
+              y={row.y + 12}
+              width="34"
+              height="4"
+              rx="2"
+              fill={accent}
+              opacity=".55"
+            />
+          )}
+        </g>
+      ))}
+      {ink.frame && (
+        <rect
+          className="document-scene__ink-frame"
+          data-act-motion="frame"
+          x="21"
+          y={ink.frame[0]}
+          width="154"
+          height={ink.frame[1]}
+          rx="7"
+          fill="none"
+          stroke={accent}
+          strokeWidth="1.6"
+        />
+      )}
+    </g>
+  );
+}
+
 /** A long role name takes a smaller size so it fits two lines of the paper. */
 function titleSize(name: string) {
   return name.length <= 14
@@ -49,6 +192,7 @@ function StatementSheet({
   side,
   centred,
   turn,
+  ink,
 }: {
   kind: Kind;
   prefix: string;
@@ -56,6 +200,8 @@ function StatementSheet({
   side: 'left' | 'right';
   centred: boolean;
   turn: (element: HTMLDivElement | null) => void;
+  /** The act the paper's table plays, with a key that restarts it. */
+  ink?: { act: StageActId; run: string };
 }) {
   const { lang, dir } = useI18n();
   const first = kind === 'supplier';
@@ -79,6 +225,7 @@ function StatementSheet({
           <div className="document-scene__turn" ref={turn}>
             <svg
               className="document-scene__paper-art"
+              data-act={ink?.act}
               viewBox={`0 0 ${PAPER_WIDTH} ${PAPER_HEIGHT}`}
               fill="none"
               focusable="false"
@@ -187,6 +334,7 @@ function StatementSheet({
                 {[0, 1, 2].map((column) => (
                   <rect
                     key={column}
+                    className="document-scene__table-head-bar"
                     x={[29, 78, 139][column]}
                     y="116"
                     width={[27, 37, 25][column]}
@@ -232,6 +380,7 @@ function StatementSheet({
                 <circle cx="154" cy="247" r="2" fill={accent} opacity=".5" />
                 <circle cx="165" cy="247" r="2" fill="#D4DCE9" />
                 <circle cx="176" cy="247" r="2" fill="#D4DCE9" />
+                {ink && <ActInk key={ink.run} act={ink.act} kind={kind} />}
               </g>
               <g
                 className="document-scene__paper-scan-window"
@@ -313,6 +462,11 @@ export function DocumentScene({
   const [shown, setShown] = useState(domain);
   const turns = useRef<Partial<Record<Kind, HTMLDivElement | null>>>({});
   const turning = useRef(false);
+  // The three supplier acts: which one plays, whether they follow one another
+  // (until the reader picks one), and a count that restarts the one shown.
+  const [act, setAct] = useState(0);
+  const [autoplay, setAutoplay] = useState(true);
+  const [actRun, setActRun] = useState(0);
 
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -322,7 +476,11 @@ export function DocumentScene({
     updateVisibility();
     preference.addEventListener('change', updatePreference);
     document.addEventListener('visibilitychange', updateVisibility);
-    const target = element.current;
+    // The motion is on the stage; the sources and acts under it are words that
+    // do not move. So the stage is what must be seen for the motion to run.
+    const target =
+      element.current?.querySelector('.document-scene__stage') ??
+      element.current;
     const observer =
       typeof IntersectionObserver === 'undefined'
         ? undefined
@@ -341,6 +499,22 @@ export function DocumentScene({
 
   const running = inView && pageVisible && !paused && !reducedMotion;
   const roles = typeStageRoles[lang][shown];
+  const acts = stageActsCopy[lang];
+  // The acts are performed on the supplier papers only: their capabilities
+  // are in the supplier engine. With motion reduced or paused an act is drawn
+  // in its final state and the acts do not follow one another.
+  const playing = shown === 'supplier' ? acts.acts[act] : undefined;
+  const actRunKey = `${act}-${actRun}`;
+  const pickAct = (index: number) => {
+    setAct(index);
+    setAutoplay(false);
+    setActRun((count) => count + 1);
+  };
+  const actEnded = (event: AnimationEvent) => {
+    if (event.animationName !== 'document-scene-act-clock' || !autoplay) return;
+    setAct((index) => (index + 1) % acts.acts.length);
+    setActRun((count) => count + 1);
+  };
   // The first role reads first: on the right in Arabic, on the left in English.
   const sideOf = (kind: Kind) =>
     (kind === 'supplier') === (dir === 'ltr') ? 'left' : 'right';
@@ -410,6 +584,9 @@ export function DocumentScene({
       data-running={running ? 'true' : 'false'}
       data-stage-domain={shown}
       data-stage-target={domain}
+      data-act={playing?.id}
+      data-act-final={motionAllowed ? 'false' : 'true'}
+      data-act-autoplay={autoplay ? 'true' : 'false'}
     >
       <div className="document-scene__stage" aria-hidden="true">
         <svg
@@ -581,9 +758,48 @@ export function DocumentScene({
               turn={(turn) => {
                 turns.current[kind] = turn;
               }}
+              ink={playing && { act: playing.id, run: actRunKey }}
             />
           ))}
         </div>
+        {playing && (
+          <div
+            className="document-scene__act-stage"
+            key={actRunKey}
+            data-act-stage={playing.id}
+          >
+            {playing.id === 'names' && (
+              <span
+                className="document-scene__act-relation"
+                data-act-motion="relate"
+                lang={lang}
+                dir={dir}
+              >
+                {acts.relation}
+              </span>
+            )}
+            <span
+              className="document-scene__act-state"
+              data-act-motion="state"
+              lang={lang}
+              dir={dir}
+            >
+              {playing.state}
+              {playing.reason && (
+                <span className="document-scene__act-reason">
+                  {playing.reason}
+                </span>
+              )}
+            </span>
+            {motionAllowed && (
+              <span
+                className="document-scene__act-clock"
+                data-act-motion="clock"
+                onAnimationEnd={actEnded}
+              />
+            )}
+          </div>
+        )}
         <svg
           className="document-scene__art document-scene__art--front"
           viewBox="0 0 560 490"
@@ -702,7 +918,12 @@ export function DocumentScene({
                 : t.scene.pause}
           </button>
         </span>
-        <StageSources domain={domain} titles={titles} />
+        <StageSources
+          domain={domain}
+          titles={titles}
+          act={act}
+          onPick={pickAct}
+        />
       </figcaption>
     </figure>
   );
@@ -718,16 +939,66 @@ export function DocumentScene({
 function StageSources({
   domain,
   titles,
+  act,
+  onPick,
 }: {
   domain: ReconciliationDomain;
   titles: Partial<Record<ReconciliationDomain, string>>;
+  act: number;
+  onPick: (index: number) => void;
 }) {
   const { t, lang } = useI18n();
   const all = typeStageRoles[lang];
+  const acts = stageActsCopy[lang];
   return (
-    <span className="document-scene__sources">
+    <div className="document-scene__sources">
       {(Object.keys(all) as ReconciliationDomain[]).map((candidate) => {
         const current = candidate === domain;
+        // Suppliers: the three obstacles, their titles read together as
+        // buttons and the sentence of the one shown under them. The progress
+        // of the acts is not announced; the sentence is read where it stands.
+        if (candidate === 'supplier')
+          return (
+            <div
+              key={candidate}
+              className="document-scene__source-list document-scene__acts"
+              data-stage-sources={candidate}
+              data-stage-acts="true"
+              data-current={current ? 'true' : 'false'}
+              aria-hidden={current ? undefined : 'true'}
+            >
+              <span className="document-scene__type">{acts.title}</span>
+              <span className="document-scene__acts-mark">{acts.mark}</span>
+              <fieldset className="document-scene__act-buttons">
+                <legend className="sr-only">{acts.group}</legend>
+                {acts.acts.map((item, index) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className="document-scene__act-button"
+                    data-act-button={item.id}
+                    aria-pressed={index === act}
+                    onClick={() => onPick(index)}
+                  >
+                    {item.title}
+                  </button>
+                ))}
+              </fieldset>
+              <span className="document-scene__act-lines">
+                {acts.acts.map((item, index) => (
+                  <span
+                    key={item.id}
+                    className="document-scene__act-line"
+                    data-act-line={item.id}
+                    data-current={index === act ? 'true' : 'false'}
+                    aria-hidden={index === act ? undefined : 'true'}
+                  >
+                    {item.line}
+                  </span>
+                ))}
+              </span>
+            </div>
+          );
         return (
           <span
             key={candidate}
@@ -752,6 +1023,6 @@ function StageSources({
           </span>
         );
       })}
-    </span>
+    </div>
   );
 }

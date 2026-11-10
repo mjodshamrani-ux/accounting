@@ -385,17 +385,25 @@ const sceneWidths = [...layoutWidths, 1440];
 export { sceneFacts, sceneWidths };
 
 /** Facts of the scene now, in screen pixels and in each paper's own units.
- * Given a sample, it first seeks every animation of the stage to that
- * sixteenth of its cycle, in the same task as the reading: the timeline does
- * not advance within a task and the layout queries apply the seeked time, so
- * a running animation cannot move between the seek and the reading. */
+ * Given a sample, it first seeks every repeating animation of the stage (the
+ * floats and the scans) to that sixteenth of its cycle, in the same task as
+ * the reading: the timeline does not advance within a task and the layout
+ * queries apply the seeked time, so a running animation cannot move between
+ * the seek and the reading. An act of the supplier stage runs once; seeking
+ * it to its end would end it and start the next, so it is left alone. */
 function sceneFacts(sample) {
   const stage = document.querySelector('.document-scene__stage');
   if (typeof sample === 'number')
-    stage.getAnimations({ subtree: true }).forEach((animation) => {
-      const duration = Number(animation.effect.getComputedTiming().duration);
-      animation.currentTime = (duration * sample) / 16;
-    });
+    stage
+      .getAnimations({ subtree: true })
+      .filter(
+        (animation) =>
+          animation.effect.getComputedTiming().iterations === Infinity,
+      )
+      .forEach((animation) => {
+        const duration = Number(animation.effect.getComputedTiming().duration);
+        animation.currentTime = (duration * sample) / 16;
+      });
   const frame = stage.getBoundingClientRect();
   const portal = stage
     .querySelector('.document-scene__portal-back')
@@ -686,7 +694,11 @@ export async function verifySceneGeometry(page) {
         window.__sceneTimes = document
           .querySelector('.document-scene__stage')
           .getAnimations({ subtree: true })
-          .map((animation) => animation.currentTime);
+          .filter(
+            (animation) =>
+              animation.effect.getComputedTiming().iterations === Infinity,
+          )
+          .map((animation) => [animation, animation.currentTime]);
       });
       try {
         for (let sample = 0; sample <= 16; sample += 1)
@@ -694,12 +706,8 @@ export async function verifySceneGeometry(page) {
             samples.push({ ...paper, sample });
       } finally {
         await page.evaluate(() => {
-          document
-            .querySelector('.document-scene__stage')
-            .getAnimations({ subtree: true })
-            .forEach((animation, index) => {
-              animation.currentTime = window.__sceneTimes[index];
-            });
+          for (const [animation, time] of window.__sceneTimes)
+            animation.currentTime = time;
         });
       }
       for (const sample of samples) {
@@ -1207,7 +1215,9 @@ export async function verifyBrandLanding(page) {
       document.querySelector('.document-scene')?.dataset.running === 'false',
   );
   assert.equal(
-    await scene.getByRole('button').getAttribute('aria-pressed'),
+    await scene
+      .locator('.document-scene__motion-toggle')
+      .getAttribute('aria-pressed'),
     'true',
   );
   await page.waitForFunction(() => {
@@ -1261,7 +1271,10 @@ export async function verifyBrandLanding(page) {
       ].every((element) => getComputedStyle(element).animationName === 'none')
     );
   });
-  assert.equal(await scene.getByRole('button').isDisabled(), true);
+  assert.equal(
+    await scene.locator('.document-scene__motion-toggle').isDisabled(),
+    true,
+  );
   assert.equal(
     await page.evaluate(
       () =>

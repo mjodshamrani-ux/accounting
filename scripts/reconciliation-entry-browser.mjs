@@ -139,7 +139,7 @@ try {
               .getAnimations({ subtree: true })
               .every((animation) =>
                 animation.effect.target.matches(
-                  '.document-scene__float, .document-scene__paper-scan',
+                  '.document-scene__float, .document-scene__paper-scan, [data-act-motion]',
                 ),
               )
           );
@@ -193,6 +193,13 @@ try {
                 '.document-scene__source-list[data-current="true"] .document-scene__source-name',
               ),
             ].map((name) => name.textContent.trim()),
+            // Suppliers show their three obstacles instead (UX-7(c)): the
+            // sentence of the act shown, which names both sources.
+            actLine: document
+              .querySelector(
+                '.document-scene__source-list[data-current="true"] .document-scene__act-line[data-current="true"]',
+              )
+              ?.textContent.trim(),
             typeTitle: document
               .querySelector(
                 '.document-scene__source-list[data-current="true"] .document-scene__type',
@@ -231,21 +238,37 @@ try {
           evidence.selected,
           `${stage}: the stage shows the chosen type`,
         );
-        assert.equal(
-          evidence.typeTitle,
-          evidence.selectedTitle,
-          `${stage}: the stage names the chosen type as the list does`,
+        // Suppliers show their three obstacles instead of the two sources.
+        const acts = evidence.selected === 'supplier';
+        assert.ok(
+          acts
+            ? evidence.typeTitle
+                ?.toLowerCase()
+                .includes(evidence.selectedTitle.toLowerCase())
+            : evidence.typeTitle === evidence.selectedTitle,
+          `${stage}: the stage names the chosen type as the list does (${evidence.typeTitle})`,
         );
         assert.ok(
           evidence.papers.length > 0,
           `${stage}: the papers wear roles`,
         );
         assert.ok(evidence.papers.every((title) => title.length > 0));
-        assert.deepEqual(
-          evidence.papers,
-          evidence.sources,
-          `${stage}: the papers read the sources named under them, in order`,
-        );
+        if (acts)
+          assert.ok(
+            !!evidence.actLine &&
+              evidence.sources.length === 0 &&
+              evidence.papers.length === 2 &&
+              evidence.papers.every((title) =>
+                evidence.actLine.toLowerCase().includes(title.toLowerCase()),
+              ),
+            `${stage}: the supplier act under the stage names both papers (${evidence.actLine})`,
+          );
+        else
+          assert.deepEqual(
+            evidence.papers,
+            evidence.sources,
+            `${stage}: the papers read the sources named under them, in order`,
+          );
         return evidence;
       }
       result.sharedPage = [await sharedPage('initial supplier entry')];

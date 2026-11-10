@@ -18,6 +18,7 @@
   width: 100%;
   aspect-ratio: 560 / 490;
   pointer-events: none;
+  container-type: inline-size;
 }
 
 .document-scene__art {
@@ -137,6 +138,178 @@
 
 .document-scene__paper-scan--ledger {
   animation-delay: -5.9s;
+}
+
+/* The supplier acts (UX-7(c)): the table's placeholder rows give way to the
+   act's records; each act holds still to 30% of its 7.2 s, moves to 55% and
+   then shows its state. Only transform and opacity move. */
+.document-scene__paper-art[data-act] .document-scene__table-row,
+.document-scene__paper-art[data-act] .document-scene__table-head-bar {
+  opacity: 0;
+}
+
+.document-scene__ink-head {
+  font:
+    700 10px 'Noto Sans Arabic',
+    Arial,
+    sans-serif;
+}
+
+.document-scene__ink-ref {
+  fill: #24354d;
+  font:
+    600 18px 'Noto Sans Arabic',
+    Arial,
+    sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.document-scene__ink-move {
+  transform-box: view-box;
+  animation: document-scene-ink-move 7200ms cubic-bezier(0.45, 0, 0.55, 1) both;
+  animation-play-state: paused;
+}
+
+.document-scene__ink-frame {
+  animation: document-scene-ink-frame 7200ms linear both;
+  animation-play-state: paused;
+}
+
+/* The words over the stage, in the frame's units (560 to its width): the
+   relation between the two heads, and the state under the papers. */
+.document-scene__act-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.document-scene__act-relation,
+.document-scene__act-state {
+  position: absolute;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 0 0.6em;
+  border-radius: 999px;
+  font-family: 'Noto Sans Arabic', Arial, sans-serif;
+  font-size: clamp(10px, calc(100cqw * 12 / 560), 13px);
+  font-weight: 600;
+  line-height: 1.35;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+/* At the height of the two raised lines, 169 of 490. */
+.document-scene__act-relation {
+  top: 31.6%;
+  padding: 0.2em 0.7em;
+  border: 1px solid #c9d6ee;
+  background: #ffffff;
+  color: #24354d;
+  animation: document-scene-act-relate 7200ms linear both;
+  animation-play-state: paused;
+}
+
+/* Under the papers and above the platform, from 309 of 490. */
+.document-scene__act-state {
+  top: 63.06%;
+  padding: 0.25em 0.8em;
+  background: #24354d;
+  color: #ffffff;
+  animation: document-scene-act-state 7200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-play-state: paused;
+}
+
+.document-scene__act-reason {
+  font-weight: 400;
+}
+
+.document-scene__act-reason::before {
+  content: '·';
+  margin-inline-end: 0.6em;
+}
+
+/* Times the act; nothing is drawn. */
+.document-scene__act-clock {
+  position: absolute;
+  width: 0;
+  height: 0;
+  animation: document-scene-act-clock 7200ms linear both;
+  animation-play-state: paused;
+}
+
+.document-scene[data-running='true'] .document-scene__ink-move,
+.document-scene[data-running='true'] .document-scene__ink-frame,
+.document-scene[data-running='true'] .document-scene__act-relation,
+.document-scene[data-running='true'] .document-scene__act-state,
+.document-scene[data-running='true'] .document-scene__act-clock {
+  animation-play-state: running;
+}
+
+/* Motion reduced or paused: the act in its final state, still. */
+.document-scene[data-act-final='true'] .document-scene__ink-move {
+  animation: none;
+  transform: translateY(var(--ink-dy));
+}
+
+.document-scene[data-act-final='true'] .document-scene__ink-frame,
+.document-scene[data-act-final='true'] .document-scene__act-relation,
+.document-scene[data-act-final='true'] .document-scene__act-state {
+  animation: none;
+  opacity: 1;
+}
+
+@keyframes document-scene-ink-move {
+  0%,
+  30% {
+    transform: translateY(0);
+  }
+  55%,
+  100% {
+    transform: translateY(var(--ink-dy));
+  }
+}
+
+@keyframes document-scene-ink-frame {
+  0%,
+  52% {
+    opacity: 0;
+  }
+  60%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes document-scene-act-relate {
+  0%,
+  30% {
+    opacity: 0;
+  }
+  42%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes document-scene-act-state {
+  0%,
+  55% {
+    opacity: 0;
+  }
+  63%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes document-scene-act-clock {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 /* Live text over the drawing, in the paper's units (196 to its width). */
@@ -295,6 +468,85 @@
   white-space: nowrap;
 }
 
+/* The three obstacles under the stage: their titles together, the mark,
+   and the sentence of the act shown, each sentence in the same cell so the
+   longest keeps the room. */
+.document-scene__acts {
+  gap: 8px;
+}
+
+.document-scene__acts-mark {
+  flex-basis: 100%;
+  color: #69768b;
+  font-size: 11px;
+  text-align: center;
+}
+
+.document-scene__act-buttons {
+  display: flex;
+  flex-basis: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.document-scene__act-button {
+  min-height: 44px;
+  padding: 6px 14px;
+  border: 1px solid #d5deec;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #3d4c63;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.4;
+  cursor: pointer;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease;
+}
+
+.document-scene__act-button:hover {
+  border-color: #9fb4d8;
+  color: #0a1b2e;
+}
+
+.document-scene__act-button[aria-pressed='true'] {
+  border-color: #386fd4;
+  background: #eef4ff;
+  color: #0a1b2e;
+  font-weight: 600;
+}
+
+.document-scene__act-button:focus-visible {
+  outline: 2px solid #2d8cff;
+  outline-offset: 3px;
+}
+
+.document-scene__act-lines {
+  display: grid;
+  flex-basis: 100%;
+}
+
+.document-scene__act-line {
+  grid-area: 1 / 1;
+  max-width: 36em;
+  margin-inline: auto;
+  color: #24354d;
+  font-size: 15px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.document-scene__act-line[data-current='false'] {
+  visibility: hidden;
+}
+
 .document-scene__motion-toggle {
   display: inline-flex;
   align-items: center;
@@ -376,8 +628,19 @@
 
 @media (prefers-reduced-motion: reduce) {
   .document-scene .document-scene__float,
-  .document-scene .document-scene__paper-scan {
+  .document-scene .document-scene__paper-scan,
+  .document-scene .document-scene__ink-frame,
+  .document-scene .document-scene__act-relation,
+  .document-scene .document-scene__act-state,
+  .document-scene .document-scene__act-clock {
     animation: none;
+  }
+  .document-scene .document-scene__ink-move {
+    animation: none;
+    transform: translateY(var(--ink-dy));
+  }
+  .document-scene .document-scene__act-button {
+    transition: none;
   }
   .document-scene .document-scene__motion-toggle,
   .document-scene .document-scene__slot,

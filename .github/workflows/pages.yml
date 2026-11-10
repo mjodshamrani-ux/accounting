@@ -288,6 +288,14 @@ jobs:
         env:
           TYPE_STAGE_DIR: ${{ runner.temp }}/type-stage
         run: pnpm test:browser:type-stage
+      - name: With suppliers chosen, Arabic and English at 1440, 390 and 320 px, the three obstacles under the stage say the words of their copy, one pressed and its sentence shown in one place; with motion reduced each act is drawn in its final state and none follows another, the buttons answer the keyboard, and another type shows no act; with motion on the acts follow one another, wait off screen, show their final state when paused and stay when picked; and every record stays inside its paper's table, moves without jumping, and the state shows only after the move (UX-7(c))
+        env:
+          STAGE_ACTS_DIR: ${{ runner.temp }}/stage-acts
+        run: pnpm test:browser:stage-acts
+      - name: Plant ten wordings into a copy of the supplier acts (a claim the engine does not make, the review it leaves out, another source, a mark or title that drops what it must say) and require their honesty test to refuse each (UX-7(c))
+        env:
+          STAGE_ACTS_COPY_MUTATION_DIR: ${{ runner.temp }}/stage-acts-copy-mutations
+        run: pnpm test:stage-acts:copy-mutations
       - name: In the ten workspaces with decisions, Arabic and English at 390 px, no closed button goes without a shown sentence that says why, approval stays closed while that sentence says it waits, and after a decision the focus is on what it changed, on the page that shows it (UX-3)
         run: pnpm test:browser:decision-platform
       - name: The helper that asks where the focus rests after a decision sees a page that passes the decided item on its way and rests with it out of view, and passes the same page without that late scroll (DEV-93)
@@ -1341,6 +1349,29 @@ jobs:
         env:
           TYPE_STAGE_MUTATION_DIR: ${{ runner.temp }}/type-stage-interface-mutations
         run: pnpm test:type-stage:interface-mutations
+  stage-acts-interface-mutations:
+    name: Supplier acts interface mutations in built browser copies (UX-7(c))
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted supplier acts defect and require the acts check to catch it
+        env:
+          STAGE_ACTS_MUTATION_DIR: ${{ runner.temp }}/stage-acts-interface-mutations
+        run: pnpm test:stage-acts:interface-mutations
   clearing-groups-browser:
     name: Clearing groups in the built application, the 37 sealed CLR-1 stories and the 27 of holdout H1 in the clearing workspace against the recorded runs (CLR-1c and CLR-1d)
     runs-on: ubuntu-latest
