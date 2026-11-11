@@ -41,6 +41,7 @@ const copied = [
   'audit/payroll',
   'audit/reconciliation-sheet',
   'audit/inventory-links-foundation/frozen',
+  'audit/gl-tb/frozen',
   'package.json',
 ];
 const mutations = [
@@ -181,6 +182,48 @@ const mutations = [
     THREAD,
     "const link = result.links[index];",
     "const link = result.links[index] ?? result.links[0];",
+  ],
+  [
+    "gltb-other-components",
+    THREAD,
+    "    .filter((c) => c.field === field)\n",
+    "    .filter((c) => c.field !== field)\n",
+  ],
+  [
+    "gltb-tb-first",
+    THREAD,
+    "    .filter((c) => c.field === field)\n",
+    "    .filter((c) => c.field === field)\n    .reverse()\n",
+  ],
+  [
+    "gltb-first-cell-only",
+    THREAD,
+    "      c.cells.flatMap((cell) => {\n",
+    "      c.cells.slice(0, 1).flatMap((cell) => {\n",
+  ],
+  [
+    "gltb-every-traced-cell",
+    THREAD,
+    "              .filter((trace) => trace.column === cell.column)\n",
+    "",
+  ],
+  [
+    "gltb-file-of-the-gl",
+    THREAD,
+    "        const source = result.sources[c.side];\n",
+    "        const source = result.sources[0];\n",
+  ],
+  [
+    "gltb-source-index-gl",
+    THREAD,
+    "            source: c.side,\n",
+    "            source: 0,\n",
+  ],
+  [
+    "gltb-row-shifted",
+    THREAD,
+    "            place: { row: record.row },\n            cells: record.trace\n",
+    "            place: { row: record.row + 1 },\n            cells: record.trace\n",
   ],
 ];
 const files = [THREAD, ...tests];

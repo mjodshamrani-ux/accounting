@@ -30,6 +30,10 @@
 // expectations name for it (EXPECTED.json, from the story's own oracle, not
 // from the engine), each cell as the file holds it, read here with this
 // check's own CSV reader, for two of the files quote every field.
+// And in the GL and TB comparison, with the frozen case positive: each
+// balance component opens every GL row of its kind (opening, movement or
+// closing, read from the file here), then the TB row, each with the one cell
+// of its column, and the drawer's three figures are the table's.
 //   node scripts/evidence-thread-browser.mjs
 // EVIDENCE_THREAD_DIST names another build (a mutation gate's copy).
 import assert from 'node:assert/strict';
@@ -982,6 +986,187 @@ assert.equal(
   await drawer.count(),
   0,
   'stock: a change of type closes the evidence',
+);
+
+// UX-10(d), the GL and TB comparison: the balance components of the frozen
+// case positive, uploaded through the workspace's own file inputs.
+const GLTB = 'audit/gl-tb/frozen';
+const glTbFiles = await Promise.all(
+  ['gl', 'tb'].map(async (side) =>
+    csvRows(await readFile(`${GLTB}/positive-${side}.csv`, 'utf8')),
+  ),
+);
+const glTbWords = {
+  en: { sides: ['GL detail and balances', 'Trial balance source'] },
+  ar: { sides: ['تفاصيل الأستاذ وأرصدته', 'مصدر ميزان المراجعة'] },
+};
+const GL_KINDS = ['opening', 'opening', 'movement', 'movement', 'closing', 'closing'];
+const TB_COLUMNS = [
+  'Opening debit',
+  'Opening credit',
+  'Period debit',
+  'Period credit',
+  'Closing debit',
+  'Closing credit',
+];
+await page.setViewportSize({ width: 1440, height: 900 });
+await page.emulateMedia({ reducedMotion: null });
+await openDomainWorkspace(page, 'gl-tb');
+for (const [side, label] of glTbWords.en.sides.entries()) {
+  const file = `positive-${side ? 'tb' : 'gl'}.csv`;
+  await page
+    .getByLabel(label, { exact: true })
+    .setInputFiles(path.resolve(`${GLTB}/${file}`));
+  await page.getByRole('heading', { name: file, exact: true }).waitFor();
+}
+await page.evaluate(
+  () => new Promise((done) => requestAnimationFrame(() => setTimeout(done, 0))),
+);
+await page
+  .getByLabel('I reviewed the GL detail and balances and the trial balance source', {
+    exact: false,
+  })
+  .check();
+await page
+  .getByRole('button', { name: 'Verify GL/TB consistency', exact: true })
+  .click();
+await page.getByTestId('gl-tb-result').waitFor();
+let glTbRows = 0;
+for (const [lang, width, motion] of [
+  ['en', 1440, 'no-preference'],
+  ['ar', 390, 'reduce'],
+]) {
+  if ((await page.evaluate(() => document.documentElement.lang)) !== lang)
+    await page
+      .getByRole('button', {
+        name: lang === 'ar' ? 'AR العربية' : 'EN English',
+        exact: true,
+      })
+      .click();
+  await page.setViewportSize({ width, height: 900 });
+  await page.emulateMedia({ reducedMotion: motion });
+  const tw = threadWords[lang],
+    what = `gl-tb ${lang} ${width} px ${motion}`;
+  const table = page.getByTestId('gl-tb-balances').locator('table');
+  const head = await table.locator('thead th').allInnerTexts();
+  assert.equal(head[0].trim(), tw.way, `${what}: the way in opens each row`);
+  const count = await table.locator('tbody tr').count();
+  assert.equal(count, 6, `${what}: six balance components`);
+  for (let i = 0; i < count; i++) {
+    const row = table.locator('tbody tr').nth(i),
+      component = (await row.locator('th').innerText()).trim(),
+      figures = (await row.locator('td:not(:first-child)').allInnerTexts()).map(
+        (x) => x.trim(),
+      );
+    const way = row.getByRole('button', {
+      name: `${tw.way} · ${component}`,
+      exact: true,
+    });
+    assert.equal(await way.count(), 1, `${what} ${component}: the way in`);
+    assert.equal(await way.getAttribute('aria-expanded'), 'false', what);
+    await way.click();
+    await drawer.waitFor();
+    await arrived();
+    assert.equal(await way.getAttribute('aria-expanded'), 'true', what);
+    assert.equal(
+      await way.getAttribute('aria-controls'),
+      await drawer.getAttribute('id'),
+      `${what}: the way in names the drawer`,
+    );
+    const opened = await focused();
+    assert.deepEqual([opened.tag, opened.inDrawer], ['H2', true], what);
+    assert.equal(
+      opened.text,
+      `${tw.heading} · ${component}`,
+      `${what}: the heading names the component`,
+    );
+    // Every GL row of the component's kind, in file order, then the TB row.
+    const [gl] = glTbFiles,
+      kind = gl[0].indexOf('Record kind');
+    const want = [
+      ...gl
+        .map((r, at) => [r, at + 1])
+        .filter(([r], at) => at > 0 && r[kind] === GL_KINDS[i])
+        .map(([, n]) => [0, n]),
+      [1, 2],
+    ];
+    const sources = await drawn();
+    assert.deepEqual(
+      sources.map((s) => [s.source, s.row]),
+      want,
+      `${what} ${component}: the GL rows of its kind, then the TB row`,
+    );
+    for (const s of sources) {
+      assert.equal(s.role, glTbWords[lang].sides[s.source], `${what}: role`);
+      const file = glTbFiles[s.source],
+        header = s.source === 0 ? (i % 2 ? 'Credit' : 'Debit') : TB_COLUMNS[i],
+        column = file[0].indexOf(header) + 1;
+      assert.ok(column > 0, `${what}: the column ${header}`);
+      assert.deepEqual(
+        s.cells,
+        [[header, String(column), file[s.row - 1][column - 1]]],
+        `${what} ${component} row ${s.row}: the one cell of its column`,
+      );
+    }
+    glTbRows += sources.length;
+    assert.deepEqual(
+      (
+        await drawer
+          .locator('.evidence-drawer__amount .tarasuf-amount')
+          .allInnerTexts()
+      ).map((x) => x.trim()),
+      figures,
+      `${what} ${component}: the table's figures`,
+    );
+    assert.equal(
+      await page.locator('tr[data-thread-open]').count(),
+      1,
+      `${what}: the row is marked`,
+    );
+    if (i % 2)
+      await drawer.getByRole('button', { name: tw.back, exact: true }).click();
+    else await drawer.getByRole('heading', { level: 2 }).press('Escape');
+    await closed();
+    assert.equal(await drawer.count(), 0, `${what}: it closes`);
+    assert.equal(
+      await page.evaluate(() =>
+        document.activeElement?.getAttribute('aria-expanded'),
+      ),
+      'false',
+      `${what}: the focus returns to the way in`,
+    );
+    assert.ok(
+      (
+        await page.evaluate(() => document.activeElement?.textContent ?? '')
+      ).includes(component),
+      `${what}: the same way in`,
+    );
+  }
+  report.push(`gl-tb ${lang} ${width} ${motion}`);
+}
+await page.emulateMedia({ reducedMotion: null });
+await page.setViewportSize({ width: 1440, height: 900 });
+await page.getByRole('button', { name: 'EN English', exact: true }).click();
+// Opening and closing: one GL row and the TB row each; the period: the two
+// movements and the TB row. Twice.
+assert.equal(glTbRows, 2 * (2 + 2 + 3 + 3 + 2 + 2), `gl-tb rows: ${glTbRows}`);
+report.push(`gl-tb rows held to their files: ${glTbRows}`);
+// A change of type closes it.
+await page
+  .getByTestId('gl-tb-balances')
+  .getByRole('button', { name: /^Review source rows · / })
+  .first()
+  .click();
+await drawer.waitFor();
+await page
+  .locator('select[data-reconciliation-type-select]')
+  .selectOption('bank');
+await openDomainWorkspace(page, 'gl-tb');
+await page.getByTestId('gl-tb-result').waitFor();
+assert.equal(
+  await drawer.count(),
+  0,
+  'gl-tb: a change of type closes the evidence',
 );
 
 assert.deepEqual(errors, [], 'no page error');

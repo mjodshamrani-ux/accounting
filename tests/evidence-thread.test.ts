@@ -4,6 +4,7 @@ import {
   assetThread,
   bankThread,
   allocationThread,
+  glTbThread,
   payrollBankThread,
   payrollThread,
   stockThread,
@@ -26,6 +27,13 @@ import {
   type StockInput,
 } from '../lib/reconciliation/inventory-register.ts';
 import { replayStock } from '../lib/reconciliation/inventory-register-io.ts';
+import {
+  BALANCE_FIELDS,
+  GL_TB_VERSION,
+  reconcileGlTb,
+  type GlTbInput,
+} from '../lib/reconciliation/gl-tb.ts';
+import { readFile as readSource } from '../lib/reconciliation/io.ts';
 import { readFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import type { BankResult } from '../lib/reconciliation/bank.ts';
@@ -318,6 +326,144 @@ void test('an inventory record read from a page or a matrix column shows its pla
       cells: null,
     },
   ]);
+});
+
+// The GL and TB frozen cases, with their sealed amounts by component.
+const GLTB = new URL('../audit/gl-tb/frozen/', import.meta.url);
+const glTbTruth = JSON.parse(
+  await readFile(new URL('expected.json', GLTB), 'utf8'),
+) as {
+  scope: GlTbInput['scope'];
+  cases: {
+    name: string;
+    status: string;
+    glAmounts: number[] | null;
+    tbAmounts: number[] | null;
+  }[];
+};
+// A money cell of the cases in minor units, read here: digits with at most
+// two decimals, an optional minus and thousands commas.
+function minor(text: string) {
+  const m = /^(-?)([\d,]+)(?:\.(\d{1,2}))?$/u.exec(text.trim());
+  assert.ok(m, `a money cell: ${JSON.stringify(text)}`);
+  const units =
+    Number(m[2].replace(/,/gu, '')) * 100 + Number((m[3] ?? '').padEnd(2, '0'));
+  return m[1] ? -units : units;
+}
+const TB_FIELD_HEADERS = [
+  'Opening debit',
+  'Opening credit',
+  'Period debit',
+  'Period credit',
+  'Closing debit',
+  'Closing credit',
+];
+const GL_KINDS = ['opening', 'opening', 'movement', 'movement', 'closing', 'closing'];
+
+void test('a GL and TB balance component opens each cell the engine summed, GL rows then the TB row, and they add up to the sealed amounts', async () => {
+  let components = 0,
+    cells = 0;
+  for (const c of glTbTruth.cases) {
+    const files = await Promise.all(
+      ['gl', 'tb'].map(async (side) => {
+        const bytes = await readFile(new URL(`${c.name}-${side}.csv`, GLTB));
+        return readSource(
+          `${c.name}-${side}.csv`,
+          bytes.buffer.slice(
+            bytes.byteOffset,
+            bytes.byteOffset + bytes.byteLength,
+          ),
+        );
+      }),
+    );
+    const input: GlTbInput = {
+      files: files as GlTbInput['files'],
+      readings: [
+        { sheet: 0, role: 'gl-detail', family: GL_TB_VERSION, confirmed: true },
+        {
+          sheet: 0,
+          role: 'trial-balance',
+          family: GL_TB_VERSION,
+          confirmed: true,
+        },
+      ],
+      scope: { ...glTbTruth.scope, confirmed: true },
+    };
+    const result = reconcileGlTb(input);
+    const rows = files.map((f) => csv(f.original!));
+    BALANCE_FIELDS.forEach((field, i) => {
+      const thread = glTbThread(result, field),
+        what = `${c.name} ${field}`;
+      const gl = thread.filter((s) => s.source === 0),
+        tb = thread.filter((s) => s.source === 1);
+      assert.deepEqual(
+        thread.map((s) => s.source),
+        [...gl, ...tb].map((s) => s.source),
+        `${what}: GL rows first, then TB`,
+      );
+      for (const s of thread) {
+        assert.equal(s.name, files[s.source].name, `${what}: the file`);
+        assert.equal(s.role, result.sources[s.source].role, `${what}: role`);
+        assert.ok('row' in s.place, `${what}: a row`);
+        const file = rows[s.source],
+          row = file[s.place.row - 1];
+        assert.ok(row, `${what}: row ${s.place.row} is in the file`);
+        assert.equal(s.cells?.length, 1, `${what}: the one cell summed`);
+        const [cell] = s.cells!;
+        assert.equal(cell.text, row[cell.column - 1], `${what}: cell text`);
+        assert.equal(
+          file[0][cell.column - 1],
+          s.source === 0
+            ? i % 2
+              ? 'Credit'
+              : 'Debit'
+            : TB_FIELD_HEADERS[i],
+          `${what}: the column of the component`,
+        );
+        assert.equal(cell.field, file[0][cell.column - 1], `${what}: header`);
+        if (s.source === 0)
+          assert.equal(
+            row[file[0].indexOf('Record kind')],
+            GL_KINDS[i],
+            `${what}: a GL row of the component's kind`,
+          );
+        cells++;
+      }
+      // The cells add up to the figure the table shows, and where the case
+      // records its amounts, to the sealed amount too. A side the engine
+      // could not total draws no cell.
+      const glSum = gl.reduce((n, s) => n + minor(s.cells![0].text), 0),
+        tbCells = tb.map((s) => minor(s.cells![0].text));
+      if (result.gl) {
+        assert.equal(glSum, result.gl[field], `${what}: GL sum`);
+        // Every GL row of the component's kind, and no other, read from the
+        // file here. A case with a source error leaves the rows in error out
+        // of its totals by design, and is held by its sum alone.
+        const kind = rows[0][0].indexOf('Record kind');
+        if (c.status !== 'source-error')
+          assert.deepEqual(
+            gl.map((s) => ('row' in s.place ? s.place.row : 0)),
+            rows[0]
+              .map((r, at) => [r, at + 1] as const)
+              .filter(([r], at) => at > 0 && r[kind] === GL_KINDS[i])
+              .map(([, n]) => n),
+            `${what}: every GL row of its kind`,
+          );
+      }
+      else assert.deepEqual(gl, [], `${what}: no GL total, no GL cell`);
+      if (result.tb)
+        assert.deepEqual(tbCells, [result.tb[field]], `${what}: the TB cell`);
+      else assert.deepEqual(tb, [], `${what}: no TB total, no TB cell`);
+      if (c.glAmounts) assert.equal(glSum, c.glAmounts[i], `${what}: sealed GL`);
+      if (c.tbAmounts)
+        assert.deepEqual(tbCells, [c.tbAmounts[i]], `${what}: sealed TB`);
+      components++;
+    });
+  }
+  assert.ok(
+    components === glTbTruth.cases.length * 6 && cells > 100,
+    `${components} components, ${cells} cells`,
+  );
 });
 
 void test('a bank movement and an allocation item open the row they were read from with the cells the reader traced, and an unknown row opens nothing', () => {

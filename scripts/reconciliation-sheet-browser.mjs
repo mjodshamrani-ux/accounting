@@ -104,9 +104,16 @@ export async function stripSaysScreen(grid, result) {
   }
 }
 
-/** A table the sheet repeats whole: its head, then each row as drawn. */
+/** A table the sheet repeats whole: its head, then each row as drawn. The
+ * way to a row's evidence (UX-10) is the page's and not the sheet's: where
+ * the page draws it first, each row must have it, and it is set aside. */
 export async function tableSaysScreen(grid, table) {
-  const head = await table.locator('thead th').allInnerTexts();
+  let head = (await table.locator('thead th').allInnerTexts()).map((h) =>
+    h.trim(),
+  );
+  const ways = Object.values(THREAD_WAY),
+    way = ways.includes(head[0]);
+  if (way) head = head.slice(1);
   const top = grid.findIndex((r) => r[0] === head[0].trim());
   assert.ok(top >= 0, `the sheet has the table «${head[0]}»`);
   assert.deepEqual(
@@ -117,9 +124,16 @@ export async function tableSaysScreen(grid, table) {
   const body = table.locator('tbody tr');
   const count = await body.count();
   for (let i = 0; i < count; i++) {
-    const cells = (await body.nth(i).locator('th, td').allInnerTexts()).map(
+    let cells = (await body.nth(i).locator('th, td').allInnerTexts()).map(
       (t) => t.trim(),
     );
+    if (way) {
+      assert.ok(
+        ways.some((w) => cells[0].startsWith(w)),
+        `table row ${i + 1}: the way to its evidence`,
+      );
+      cells = cells.slice(1);
+    }
     cells.forEach((text, j) =>
       same(text, grid[top + 1 + i][j], `table row ${i + 1} cell ${j + 1}`),
     );

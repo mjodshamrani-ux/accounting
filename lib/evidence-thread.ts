@@ -1,5 +1,6 @@
 import type { AllocationResult } from './reconciliation/allocation.ts';
 import type { BankResult } from './reconciliation/bank.ts';
+import type { BalanceField, GlTbResult } from './reconciliation/gl-tb.ts';
 import {
   ASSET_ROLES,
   type AssetResult,
@@ -212,4 +213,33 @@ export function stockThread(
         : null,
     };
   });
+}
+
+/** A balance component of the GL and TB comparison: each original cell the
+ * engine says contributed to it, GL first and then TB, as the engine lists
+ * them; each source is the row of that cell, with that cell alone. A side
+ * the engine could not total names no cell, and so draws none. */
+export function glTbThread(result: GlTbResult, field: BalanceField): Thread {
+  const records = new Map(result.rows.map((r) => [r.id, r]));
+  return result.components
+    .filter((c) => c.field === field)
+    .flatMap((c) =>
+      c.cells.flatMap((cell) => {
+        const record = records.get(cell.id);
+        if (!record) return [];
+        const source = result.sources[c.side];
+        return [
+          {
+            source: c.side,
+            role: source.role,
+            name: source.name,
+            sheet: source.sheet,
+            place: { row: record.row },
+            cells: record.trace
+              .filter((trace) => trace.column === cell.column)
+              .map(({ column, field, text }) => ({ column, field, text })),
+          },
+        ];
+      }),
+    );
 }

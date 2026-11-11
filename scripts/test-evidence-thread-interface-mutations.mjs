@@ -8,8 +8,9 @@
 // (scripts/evidence-thread-browser.mjs, against that build) must fail with an
 // assertion. It passes on the unmutated build first. A survivor is behaviour
 // no browser check holds. UX-10(d) adds the fixed assets, the payroll and the
-// inventory's register rows that do not link: whose row the drawer opens,
-// the roles, the heading, the way in that names its row, and the marked row.
+// inventory's register rows that do not link, and the GL and TB balance
+// components: whose row the drawer opens, the roles, the heading or the
+// figures, the way in that names its row, and the marked row.
 //
 // Not planted: the drawer's motion outside its reduced-motion guard. The
 // page's own rule (app/globals.css) sets every animation to none under
@@ -52,6 +53,7 @@ const BANK = 'components/bank-workspace.tsx';
 const ASSETS = 'components/fixed-assets-workspace.tsx';
 const PAYROLL = 'components/payroll-workspace.tsx';
 const STOCK = 'components/inventory-register-workspace.tsx';
+const GLTB = 'components/gl-tb-workspace.tsx';
 const HOOK = 'hooks/use-evidence-thread.ts';
 const mutations = [
   [
@@ -273,6 +275,43 @@ const mutations = [
     STOCK,
     "                      ...thread.mark('unlinked', i),\n",
     '',
+  ],
+  // The GL and TB balance components (UX-10(d)).
+  [
+    "gltb-thread-of-the-first-component",
+    GLTB,
+    "        ? BALANCE_FIELDS[thread.open.at]\n",
+    "        ? BALANCE_FIELDS[0]\n",
+  ],
+  [
+    "gltb-way-opens-the-first-row",
+    GLTB,
+    "onClick={() => thread.show('balances', i)}",
+    "onClick={() => thread.show('balances', 0)}",
+  ],
+  [
+    "gltb-roles-all-gl",
+    GLTB,
+    "role={(s) => t.sides[s.source]}",
+    "role={() => t.sides[0]}",
+  ],
+  [
+    "gltb-difference-figure-left-out",
+    GLTB,
+    "[t.difference, result.differences?.[opened]],",
+    "[t.difference, result.gl?.[opened]],",
+  ],
+  [
+    "gltb-way-does-not-name-its-row",
+    GLTB,
+    "                <span className=\"sr-only\">\n                  {' · '}\n                  {t.components[field]}\n                </span>\n",
+    "",
+  ],
+  [
+    "gltb-row-not-marked",
+    GLTB,
+    "            mark={(_, i) => thread.mark('balances', i)}\n",
+    "",
   ],
   [
     'hook-keeps-it-on-type-change',

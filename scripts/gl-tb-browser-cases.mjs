@@ -218,7 +218,8 @@ export async function verifyGlTb(page, url, out = 'work/qa') {
       .getByTestId('gl-tb-balances')
       .locator('tbody tr')
       .nth(2)
-      .locator('td')
+      // The way to the row's sources comes first (UX-10).
+      .locator('td:not(:first-child)')
       .allTextContents(),
     ['300.00', '300.00', '0.00'],
   );
@@ -389,7 +390,7 @@ export async function verifyGlTb(page, url, out = 'work/qa') {
           .getByTestId('gl-tb-balances')
           .locator('tbody tr')
           .nth(2)
-          .locator('td')
+          .locator('td:not(:first-child)')
           .allTextContents(),
         ['300.00', '350.00', '-50.00'],
       );
