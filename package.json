@@ -17,7 +17,7 @@
     "test:browser": "node --experimental-strip-types scripts/prepare-browser-fixtures.mjs && node --experimental-strip-types scripts/browser-test.mjs",
     "test:browser:main-integration": "node --experimental-strip-types scripts/supplier-main-overlap-browser.mjs",
     "test:browser:startup-readiness": "node scripts/startup-readiness-browser.mjs",
-    "test:startup-weight": "node scripts/startup-weight-check.mjs dist --require engine,workspaces",
+    "test:startup-weight": "node scripts/startup-weight-check.mjs dist --require engine,workspaces,libraries,budget",
     "test:browser:workspace-loading": "node scripts/workspace-loading-browser.mjs",
     "test:browser:domain-navigation": "node scripts/domain-navigation-browser.mjs",
     "test:browser:reconciliation-entry": "node scripts/reconciliation-entry-browser.mjs",

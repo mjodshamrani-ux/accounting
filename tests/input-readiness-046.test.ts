@@ -226,7 +226,11 @@ void test('046 real worker entry rejects invalid formats for reconcile, compare 
   const worker: {
     onmessage?: (event: { data: unknown }) => Promise<void>;
     postMessage: (value: Record<string, unknown>) => void;
+    importScripts: () => void;
   } = {
+    // Browser dependencies identify worker hosts by this property; since
+    // UX-9(d) ExcelJS and JSZip first load inside this stand-in.
+    importScripts() {},
     postMessage(value) {
       messages.push(value);
     },

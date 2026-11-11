@@ -960,7 +960,14 @@ export default function App() {
     pendingDomainFocus.current = null;
     const target =
       domain === 'supplier' ? workflowHeading.current : domainHeading(domain);
-    if (!target) pendingDomainFocus.current = domain;
+    if (!target) {
+      pendingDomainFocus.current = domain;
+      // Until its code arrives the panel says so in one line; the page goes
+      // there at once, as it went to the workspace before UX-9(c).
+      domainPanels.current
+        ?.querySelector(`[data-domain-panel="${domain}"]`)
+        ?.scrollIntoView({ behavior: 'instant', block: 'start' });
+    }
     target?.scrollIntoView({ behavior: 'instant', block: 'start' });
     target?.focus({ preventScroll: true });
   }, [domain]);

@@ -111,6 +111,22 @@ void test('ExcelJS or JSZip preloaded fails libraries', async () => {
   ]);
 });
 
+void test('ExcelJS or JSZip merged into a chunk of another name fails libraries', async () => {
+  const dist = await build(
+    {
+      'vendor-X3.js':
+        'var n=t(((t,n)=>{(function(e){(typeof self<`u`?self:this).ExcelJS=e()})}));' +
+        'var m=t(((t,n)=>{(function(e){(typeof self<`u`?self:this).JSZip=e()})}));',
+      'own-X4.js': 'const ExcelJS={};ExcelJS.Workbook=class{};export{ExcelJS};',
+    },
+    ['vendor-X3.js', 'own-X4.js'],
+  );
+  const result = await checkStartupWeight(dist, ['libraries']);
+  assert.deepEqual(result.failures, [
+    'libraries: assets/vendor-X3.js is loaded at startup',
+  ]);
+});
+
 void test('startup scripts over the budget fail budget, and only budget', async () => {
   const noise = randomBytes(BUDGET_GZIP + 10_000).toString('base64');
   const dist = await build({ 'side-C.js': `const s="${noise}";` });

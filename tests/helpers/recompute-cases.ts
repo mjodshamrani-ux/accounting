@@ -344,7 +344,13 @@ export async function productionWorker(workerModule: string) {
   const worker: {
     onmessage?: (event: { data: unknown }) => Promise<void>;
     postMessage: (value: WorkerReply) => void;
-  } = { postMessage: (value) => void replies.push(value) };
+    importScripts: () => void;
+  } = {
+    // Browser dependencies identify worker hosts by this property; since
+    // UX-9(d) ExcelJS and JSZip first load inside this stand-in.
+    importScripts() {},
+    postMessage: (value) => void replies.push(value),
+  };
   const previous = Object.getOwnPropertyDescriptor(globalThis, 'self');
   Object.defineProperty(globalThis, 'self', {
     value: worker,

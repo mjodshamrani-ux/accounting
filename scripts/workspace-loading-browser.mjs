@@ -1,9 +1,13 @@
 // UX-9(c) browser acceptance on the built page: the code of a workspace is
-// not requested before its type is chosen; the first choice requests it, its
-// heading takes the focus when it appears, and a second choice requests
+// not requested before its type is chosen; the first choice requests it, the
+// page goes at once to its panel, which says in one line that the tools are
+// opening, its heading takes the focus when it appears, and a second choice requests
 // nothing; a load that fails says so under a heading that takes the focus
-// and offers to reload the page, after which the type opens. Kept work
-// across types is proven by test:browser:unified-workspace.
+// and offers to reload the page, after which the type opens. UX-9(d): none
+// of this requests ExcelJS or JSZip; they load where a workbook is read or
+// written, which the running-balance and split-section browser checks prove
+// by downloading and checking workbooks. Kept work across types is proven by
+// test:browser:unified-workspace.
 //   MIZAN_CHROMIUM=... node scripts/workspace-loading-browser.mjs
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
@@ -50,6 +54,7 @@ const browser = await chromium.launch({
 });
 const WORKSPACE_CHUNK =
   /\/assets\/(payroll|fixed-assets|inventory-register|payment-gateway|intercompany|tb-financial|bank|allocation|gl-tb|ar|clearing)-workspace-[\w-]+\.js$/;
+const LIBRARY_CHUNK = /\/assets\/(exceljs|jszip)\.min-[\w-]+\.js$/;
 const results = [];
 
 // A wait that runs out fails as an assertion naming what did not happen,
@@ -63,7 +68,7 @@ async function within(promise, message) {
   }
 }
 
-async function open(language, width, failFirst) {
+async function open(language, width, failFirst, holdFirst) {
   const context = await browser.newContext({
     viewport: { width, height: 900 },
   });
@@ -75,12 +80,22 @@ async function open(language, width, failFirst) {
     }
   }, language);
   const requested = [];
+  const libraries = [];
   let failed = 0;
+  let held = 0;
+  let release;
+  const hold = new Promise((resolve) => (release = resolve));
   await context.route('**/*', async (route) => {
     const url = route.request().url();
     if (!url.startsWith(base)) return route.abort();
     const chunk = WORKSPACE_CHUNK.exec(new URL(url).pathname);
     if (chunk) requested.push(chunk[1]);
+    const library = LIBRARY_CHUNK.exec(new URL(url).pathname);
+    if (library) libraries.push(library[1]);
+    if (chunk && chunk[1] === holdFirst && held === 0) {
+      held++;
+      await hold;
+    }
     if (chunk && chunk[1] === failFirst && failed === 0) {
       failed++;
       return route.abort('internetdisconnected');
@@ -100,7 +115,7 @@ async function open(language, width, failFirst) {
     null,
     { timeout: 120000 },
   );
-  return { context, page, requested, errors };
+  return { context, page, requested, libraries, errors, release };
 }
 
 async function choose(page, domain) {
@@ -138,13 +153,45 @@ for (const { language, width, copy } of [
 ]) {
   // First choice, second choice, return.
   {
-    const { context, page, requested, errors } = await open(language, width);
+    const { context, page, requested, libraries, errors, release } = await open(
+      language,
+      width,
+      undefined,
+      'bank',
+    );
     assert.deepEqual(
       requested,
       [],
       `${language}: no workspace code before a type is chosen`,
     );
+    assert.deepEqual(
+      libraries,
+      [],
+      `${language}: no ExcelJS or JSZip before a type is chosen`,
+    );
     await choose(page, 'bank');
+    // While its code is held, the page is where the workspace will be and
+    // the panel says so in one line.
+    const loading = page.locator(
+      '[data-domain-panel="bank"] [data-workspace-loading]',
+    );
+    await within(
+      loading.waitFor({ state: 'visible', timeout: 10000 }),
+      `${language}: while the code loads the panel says so`,
+    );
+    assert.equal(
+      (await loading.textContent()).trim(),
+      copy.app.shell.workspaceLoading,
+      `${language}: the line says the tools are opening`,
+    );
+    assert.ok(
+      await loading.evaluate((el) => {
+        const box = el.getBoundingClientRect();
+        return box.top >= 0 && box.bottom <= innerHeight;
+      }),
+      `${language}: the page is where the workspace will be`,
+    );
+    release();
     const heading = await focusedHeading(page, 'bank');
     assert.ok(
       await heading.jsonValue(),
@@ -171,6 +218,11 @@ for (const { language, width, copy } of [
       ['bank', 'payroll'],
       `${language}: a type chosen again requests nothing`,
     );
+    assert.deepEqual(
+      libraries,
+      [],
+      `${language}: choosing types requests no ExcelJS or JSZip`,
+    );
     assert.deepEqual(errors, [], `${language}: no page error`);
     results.push({
       language,
@@ -182,7 +234,7 @@ for (const { language, width, copy } of [
   }
   // A failed load, then a reload.
   {
-    const { context, page, requested, errors } = await open(
+    const { context, page, requested, libraries, errors } = await open(
       language,
       width,
       'clearing',
@@ -253,6 +305,11 @@ for (const { language, width, copy } of [
       requested,
       ['clearing', 'clearing'],
       `${language}: the reloaded page requests the code again`,
+    );
+    assert.deepEqual(
+      libraries,
+      [],
+      `${language}: a failed load and a reload request no ExcelJS or JSZip`,
     );
     assert.deepEqual(errors, [], `${language}: no page error`);
     results.push({

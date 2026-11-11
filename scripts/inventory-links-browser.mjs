@@ -309,11 +309,38 @@ async function downloadOrRefusal(page, w, start) {
 }
 async function exportLinks(page, w, c, times) {
   const t = Date.now();
-  const download = await downloadOrRefusal(page, w, () =>
-    w
-      .getByRole('button', { name: 'Export register links', exact: true })
-      .click(),
-  );
+  const button = w.getByRole('button', {
+    name: 'Export register links',
+    exact: true,
+  });
+  const download = await downloadOrRefusal(page, w, async () => {
+    try {
+      await button.click({ timeout: 120000 });
+    } catch (error) {
+      if (error?.name !== 'TimeoutError') throw error;
+      // A click that waits out its time says what held it (DEV-22). In CI on
+      // 24c3a58 one waited ten minutes on the first story; it did not recur
+      // locally on that build or the next.
+      const state = await button.evaluate((el) => {
+        const box = el.getBoundingClientRect();
+        const style = getComputedStyle(el);
+        return {
+          disabled: el.disabled,
+          busy: el.closest('[data-stock-workspace]')?.getAttribute('aria-busy'),
+          box: [box.x, box.y, box.width, box.height].map(Math.round),
+          visibility: style.visibility,
+          display: style.display,
+          hiddenOrInert: !!el.closest('[hidden], [inert]'),
+          scrollY: Math.round(scrollY),
+          error:
+            document.querySelector('[data-stock-error]')?.textContent ?? null,
+        };
+      });
+      assert.fail(
+        `${c.id}: the links export could not be pressed in two minutes: ${JSON.stringify(state)}`,
+      );
+    }
+  });
   const file = path.join(out, `${c.id}-links.xlsx`);
   await download.saveAs(file);
   await idle(page);

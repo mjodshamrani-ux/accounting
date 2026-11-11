@@ -8,7 +8,8 @@
 // engine:     no startup file holds Vite's inline worker, the engine text.
 // workspaces: each of the eleven workspaces has its own chunk, none of them
 //             at startup.
-// libraries:  no ExcelJS or JSZip chunk at startup.
+// libraries:  no ExcelJS or JSZip at startup, by chunk name or by the global
+//             each UMD bundle names as it defines itself.
 // budget:     the startup scripts are at most BUDGET_GZIP bytes with gzip -9.
 import { readFile, readdir } from 'node:fs/promises';
 import { gzipSync } from 'node:zlib';
@@ -34,6 +35,14 @@ export const REQUIREMENTS = ['engine', 'workspaces', 'libraries', 'budget'];
 // and, failing that, a data URL of it.
 const INLINE_WORKER = 'data:text/javascript;charset=utf-8,';
 const LIBRARY = /^(exceljs\.min|jszip\.min)-[\w-]+\.js$/;
+// The bundler can merge a library into a chunk of another name (seen when one
+// startup module imported ExcelJS: no exceljs.min chunk, 818,974 bytes at
+// startup). Both are UMD bundles that assign their global as they define
+// themselves, and that assignment survives the merge.
+const LIBRARY_GLOBAL = [
+  /\.ExcelJS=[A-Za-z_$][\w$]*\(\)/,
+  /\.JSZip=[A-Za-z_$][\w$]*\(\)/,
+];
 
 const staticImports = (code) => {
   const found = new Set();
@@ -93,9 +102,14 @@ export async function checkStartupWeight(dist, required) {
           failures.push(`workspaces: ${a} is loaded at startup`);
     }
   if (required.includes('libraries'))
-    for (const f of files)
-      if (LIBRARY.test(path.posix.basename(f)))
+    for (const [f, bytes] of contents) {
+      const text = bytes.toString('latin1');
+      if (
+        LIBRARY.test(path.posix.basename(f)) ||
+        LIBRARY_GLOBAL.some((global) => global.test(text))
+      )
         failures.push(`libraries: ${f} is loaded at startup`);
+    }
   let gzip = 0;
   let raw = 0;
   for (const [, bytes] of contents) {

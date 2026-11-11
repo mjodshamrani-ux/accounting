@@ -1,4 +1,3 @@
-import JSZip from 'jszip';
 import { SaxesParser } from 'saxes';
 import type { SaxesTagNS } from 'saxes';
 import { MAX_ROWS, MAX_SHEETS } from './types.ts';
@@ -608,6 +607,8 @@ export async function prepareXlsxForExcelJs(
   original: ArrayBuffer,
   numericIssuesBySheet?: Map<string, NumericLexemeIssue[]>,
 ): Promise<ArrayBuffer> {
+  // UX-9(d): JSZip loads here, where an archive is opened, not with the page.
+  const { default: JSZip } = await import('jszip');
   const archive = await JSZip.loadAsync(original);
   let changed = false;
   // Document properties are metadata no reader here uses. Core properties

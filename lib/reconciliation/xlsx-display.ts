@@ -1,4 +1,3 @@
-import JSZip from 'jszip';
 import { SaxesParser } from 'saxes';
 import type ExcelJS from 'exceljs';
 import type { SheetData } from './types.ts';
@@ -57,6 +56,8 @@ function parse(
  * hidden auxiliary sheets and their existing merged-header certificates.
  */
 export async function xlsxDisplayContext(buffer: ArrayBuffer) {
+  // UX-9(d): JSZip loads here, where an archive is opened, not with the page.
+  const { default: JSZip } = await import('jszip');
   const zip = await JSZip.loadAsync(buffer);
   const xml = async (name: string) => zip.file(name)?.async('string');
   const theme: string[] = [],

@@ -1,4 +1,4 @@
-import ExcelJS from 'exceljs';
+import type ExcelJS from 'exceljs';
 import { readFile } from './io.ts';
 import { prepareVerifiedSources } from './source-preparation.ts';
 import { invoiceGroupSourcesFromVerifiedReading } from './invoice-group-search.ts';
@@ -758,6 +758,9 @@ export class InvoiceOverlapReviewLedger {
       binding = inputBinding(input),
       epoch = this.#epoch,
       s = await this.#prepare(input);
+    // UX-9(d): ExcelJS loads here, after the state is taken and before the
+    // binding check, so a change made while it loads refuses the export.
+    const { default: ExcelJS } = await import('exceljs');
     this.#assertBinding(s, start);
     const used = this.#activeRows(s),
       state = this.state;
