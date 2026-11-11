@@ -10,12 +10,12 @@
 // no browser check holds. UX-10(d) adds the fixed assets, the payroll and the
 // inventory's register rows that do not link, the GL and TB balance
 // components, the clearing cases, the receivables cases, the lines of the
-// financial position and the intercompany pairs: whose row the drawer
-// opens, the roles, the file, the heading or the figures, the way in that
-// names its row, the marked row, card (its frame and the frame's motion) or
-// section heading (its shade and its motion), the financial lines' and the
-// pairs' way back to their own page, and a decision that leaves the old
-// evidence open.
+// financial position, the intercompany pairs and the payment gateway's
+// totals and residuals: whose row the drawer opens, the roles, the file, the
+// heading or the figures, the way in that names its row, the marked row,
+// card (its frame and the frame's motion) or section heading (its shade and
+// its motion), the financial lines' and the pairs' way back to their own
+// page, and a decision that leaves the old evidence open.
 //
 // Not planted: the drawer's motion outside its reduced-motion guard. The
 // page's own rule (app/globals.css) sets every animation to none under
@@ -65,6 +65,7 @@ const CLEARING = 'components/clearing-workspace.tsx';
 const AR = 'components/ar-workspace.tsx';
 const FINANCIAL = 'components/tb-financial-workspace.tsx';
 const INTERCOMPANY = 'components/intercompany-workspace.tsx';
+const GATEWAY = 'components/payment-gateway-workspace.tsx';
 const HOOK = 'hooks/use-evidence-thread.ts';
 const mutations = [
   [
@@ -565,6 +566,66 @@ const mutations = [
     INTERCOMPANY,
     "  const thread = useEvidenceThread(active, result),\n    words = evidenceThreadCopy[lang],\n    opened =\n      result && thread.open?.table === 'pairs'",
     "  const thread = useEvidenceThread(active, null),\n    words = evidenceThreadCopy[lang],\n    opened =\n      result && thread.open?.table === 'pairs'",
+  ],
+  [
+    "gw-totals-no-way-in",
+    GATEWAY,
+    "? [[wayIn('totals'), ...amounts(result.totals)]]",
+    "? [['', ...amounts(result.totals)]]",
+  ],
+  [
+    "gw-residuals-no-way-in",
+    GATEWAY,
+    "? [[wayIn('residuals'), ...amounts(result.residuals)]]",
+    "? [['', ...amounts(result.residuals)]]",
+  ],
+  [
+    "gw-way-not-named",
+    GATEWAY,
+    "      <span className=\"sr-only\">\n        {' · '}\n        {result?.scope.batchId} · {copy.tableNames[table]}\n      </span>\n",
+    "",
+  ],
+  [
+    "gw-way-opens-the-totals",
+    GATEWAY,
+    "onClick={() => thread.show(table, 0)}",
+    "onClick={() => thread.show('totals', 0)}",
+  ],
+  [
+    "gw-row-not-marked",
+    GATEWAY,
+    "              marks={[thread.mark('residuals', 0)]}\n",
+    "",
+  ],
+  [
+    "gw-rows-of-the-totals",
+    GATEWAY,
+    "thread={gatewayThread(result, opened)}",
+    "thread={gatewayThread(result, 'totals')}",
+  ],
+  [
+    "gw-every-row-from-the-transactions",
+    GATEWAY,
+    "                  thread={gatewayThread(result, opened)}\n                  role={(s) => copy.roles[s.source]}",
+    "                  thread={gatewayThread(result, opened)}\n                  role={() => copy.roles[0]}",
+  ],
+  [
+    "gw-figures-of-the-totals",
+    GATEWAY,
+    "items={copy[opened].map((label, i) => [label, figures[i]])}",
+    "items={copy.totals.map((label, i) => [label, result.totals?.[i]])}",
+  ],
+  [
+    "gw-heading-without-batch",
+    GATEWAY,
+    "heading={`${words.heading} · ${result.scope.batchId} · ${copy.tableNames[opened]}`}",
+    "heading={`${words.heading} · ${copy.tableNames[opened]}`}",
+  ],
+  [
+    "gw-decision-keeps-it",
+    GATEWAY,
+    "  const thread = useEvidenceThread(active, result),\n    words = evidenceThreadCopy[lang],\n    opened = result && thread.open",
+    "  const thread = useEvidenceThread(active, null),\n    words = evidenceThreadCopy[lang],\n    opened = result && thread.open",
   ],
   [
     'hook-keeps-it-on-type-change',

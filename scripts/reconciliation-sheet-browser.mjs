@@ -1146,8 +1146,9 @@ const GATEWAY_WORDS = {
 };
 
 /** A record table's head and body cells, as the page writes them. */
-// A comparison row opens with the way to its evidence (UX-10). The sheet has
-// no such column: it is required where the page draws it, then set aside.
+// A comparison row, and a gateway batch's totals and residuals, open with the
+// way to their evidence (UX-10). The sheet has no such column: it is required
+// where the page draws it, then set aside.
 const THREAD_WAY = { en: 'Review source rows', ar: 'راجع صفوف المصدر' };
 function withoutWay({ head, body }, lang, what) {
   if (!body.length) return { head, body };
@@ -1221,8 +1222,10 @@ export async function gatewaySheetSaysScreen(page, { file, lang }) {
   // The calculated totals: the page's table, head and row; none where the
   // page has no row.
   const totals = section('Totals');
-  const shown = await tableCells(
-    w.locator(`table[aria-label="${words.totals}"]`),
+  const shown = withoutWay(
+    await tableCells(w.locator(`table[aria-label="${words.totals}"]`)),
+    lang,
+    'the totals',
   );
   if (!shown.body.length) assert.equal(totals, -1, 'no totals, no table');
   else {
@@ -1238,8 +1241,10 @@ export async function gatewaySheetSaysScreen(page, { file, lang }) {
   // The five residuals: each heading of the page's table with its figure,
   // a row each; none where the page has no row.
   const residuals = section('Residuals');
-  const owed = await tableCells(
-    w.locator(`table[aria-label="${words.residuals}"]`),
+  const owed = withoutWay(
+    await tableCells(w.locator(`table[aria-label="${words.residuals}"]`)),
+    lang,
+    'the residuals',
   );
   if (!owed.body.length) assert.equal(residuals, -1, 'no residuals, no list');
   else {

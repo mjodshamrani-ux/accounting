@@ -6,6 +6,7 @@ import type { ClearingResult } from './reconciliation/clearing.ts';
 import type { BalanceField, GlTbResult } from './reconciliation/gl-tb.ts';
 import type { FinancialResult } from './reconciliation/tb-financial.ts';
 import type { IntercompanyResult } from './reconciliation/intercompany.ts';
+import type { GatewayResult } from './reconciliation/payment-gateway.ts';
 import {
   ASSET_ROLES,
   type AssetResult,
@@ -420,4 +421,53 @@ export function intercompanyThread(
     ...pair.members.map((m) => m.id),
     ...pair.timing.map((t) => t.id),
   ]);
+}
+
+/** The two tables of a payment gateway batch: the calculated totals, summed
+ * from the transactions and the fee evidence, and the residuals, which set
+ * those totals against the settlement summary and its net against the
+ * payout. */
+export type GatewayTable = 'totals' | 'residuals';
+type GatewayRole = GatewayResult['sources'][number]['role'];
+const GATEWAY_TOTALS: readonly GatewayRole[] = ['transactions', 'fee-evidence'];
+
+/** A payment gateway batch, from one of its tables: each row the engine made
+ * a member of the batch, in the engine's order, from the sources that table
+ * draws on (the transactions and the fee evidence for the totals, and with
+ * them the settlement summary and the payout for the residuals), with every
+ * cell the result keeps for it under its header. A member is named by the
+ * engine's own id, which holds its source and row. */
+export function gatewayThread(
+  result: GatewayResult,
+  table: GatewayTable,
+): Thread {
+  const byRow = new Map<string, ThreadCell[]>();
+  for (const { source, row, column, field, text } of result.cells) {
+    const key = `${source}:${row}`,
+      found = byRow.get(key) ?? [];
+    found.push({ column, field, text });
+    byRow.set(key, found);
+  }
+  return result.memberIds.flatMap((id): Thread => {
+    const [, source, , , row] = JSON.parse(id) as [
+      string,
+      number,
+      string,
+      number,
+      number,
+    ];
+    const named = result.sources[source];
+    if (!named || (table === 'totals' && !GATEWAY_TOTALS.includes(named.role)))
+      return [];
+    return [
+      {
+        source,
+        role: named.role,
+        name: named.name,
+        sheet: named.sheet,
+        place: { row },
+        cells: byRow.get(`${source}:${row}`) ?? [],
+      },
+    ];
+  });
 }

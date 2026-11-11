@@ -46,6 +46,12 @@
 // example (the frozen case pending) at its sealed rows, and a story of 54
 // pairs written here, with one-sided pairs, timing evidence and a
 // transaction written twice, at the rows worked out from its files.
+// And in the payment gateway, whose batch has two tables of one row: the
+// totals open the transaction and fee rows they sum, the residuals every row
+// of the batch, worked out from the files (and in the example, the frozen
+// case pending, held to its seal); the signed example too; a decision
+// closes the drawer; and a batch of sixty transactions with a row of empty
+// cells, uploaded through the inputs, opens every row but that one.
 //   node scripts/evidence-thread-browser.mjs
 // EVIDENCE_THREAD_DIST names another build (a mutation gate's copy).
 import assert from 'node:assert/strict';
@@ -2495,6 +2501,331 @@ assert.equal(
   await drawer.count(),
   0,
   'intercompany: a change of type closes the evidence',
+);
+
+
+// The payment gateway (UX-10(d)). A batch has two tables of one row each:
+// its totals open the transaction and fee rows they sum, and its residuals
+// every row of the batch. Those are the rows under each file's header that
+// hold any text, of the files the table draws on, in file order, worked out
+// here from the files.
+const PGF = 'audit/payment-gateway/frozen';
+const pgWords = {
+  en: [
+    'Gateway sales and refunds',
+    'Independent fee evidence',
+    'Gateway settlement summary',
+    'Bank credit evidence',
+  ],
+  ar: [
+    'مبيعات ومرتجعات البوابة',
+    'أدلة الرسوم المستقلة',
+    'ملخص تسوية البوابة',
+    'أدلة الإيداع البنكي',
+  ],
+};
+const pgTables = {
+  en: ['Calculated totals', 'Residuals, calculated minus summary'],
+  ar: ['المجاميع المحسوبة', 'الفروق، المحسوب ناقص الملخص'],
+};
+const pgw = page.locator('[data-gateway-workspace]');
+const pgIdle = async () => {
+  for (const deadline = Date.now() + 60000; Date.now() < deadline;) {
+    if ((await pgw.getAttribute('aria-busy')) === 'false') return;
+    await page.waitForTimeout(100);
+  }
+  throw Error('the gateway workspace stayed busy for a minute');
+};
+const pgRowsInFiles = (files) => (table) =>
+  (table ? [0, 1, 2, 3] : [0, 1]).flatMap((source) =>
+    files[source].flatMap((r, n) =>
+      n > 0 && r.some((v) => v.trim()) ? [[source, n + 1]] : [],
+    ),
+  );
+let pgRows = 0;
+// Each table of the batch, opened in turn: the way in names the batch and
+// the table, the drawer's heading names them, its figures are the row's,
+// its sources are the story's rows, each held to its file, the row is
+// marked, and the way back or Escape returns the focus to the same way in.
+async function followBatch(lang, width, motion, story) {
+  const tw = threadWords[lang],
+    what = `gateway ${story.name} ${lang} ${width} px ${motion}`;
+  for (const [t, label] of pgTables[lang].entries()) {
+    watch.at(`${what}: ${label}`);
+    const table = pgw.locator(`table[aria-label="${label}"]`),
+      head = (await table.locator('thead th').allInnerTexts()).map((x) =>
+        x.trim(),
+      );
+    assert.equal(head[0], tw.way, `${what} ${label}: the way in opens the row`);
+    const row = table.locator('tbody tr');
+    assert.equal(await row.count(), 1, `${what} ${label}: one row`);
+    const cells = (await row.locator('td, th').allInnerTexts()).map((x) =>
+        x.trim(),
+      ),
+      named = `${story.batch} · ${label}`,
+      way = row.getByRole('button', {
+        name: `${tw.way} · ${named}`,
+        exact: true,
+      });
+    assert.equal(await way.count(), 1, `${what} ${label}: the way in`);
+    assert.equal(await way.getAttribute('aria-expanded'), 'false', what);
+    await way.click();
+    await drawer.waitFor();
+    await arrived();
+    assert.equal(await way.getAttribute('aria-expanded'), 'true', what);
+    assert.equal(
+      await way.getAttribute('aria-controls'),
+      await drawer.getAttribute('id'),
+      `${what}: the way in names the drawer`,
+    );
+    const opened = await focused();
+    assert.deepEqual([opened.tag, opened.inDrawer], ['H2', true], what);
+    assert.equal(
+      opened.text,
+      `${tw.heading} · ${named}`,
+      `${what}: the heading names the batch and the table`,
+    );
+    // Each figure whole and in its place, as the row shows it.
+    assert.deepEqual(
+      (
+        await drawer
+          .locator('.evidence-drawer__amount .tarasuf-amount')
+          .allInnerTexts()
+      ).map((x) => x.trim()),
+      cells.slice(1),
+      `${what} ${label}: the row's figures`,
+    );
+    const sources = await arDrawn(),
+      rowOf = (s) => Number(s.place.Row ?? s.place['الصف']);
+    assert.deepEqual(
+      sources.map((s) => [s.source, rowOf(s)]),
+      story.rows(t),
+      `${what} ${label}: the rows`,
+    );
+    for (const s of sources) {
+      assert.equal(s.role, pgWords[lang][s.source], `${what}: role`);
+      assert.equal(
+        s.place.File ?? s.place['الملف'],
+        story.names[s.source],
+        `${what}: the file`,
+      );
+      heldToFile({ ...s, row: rowOf(s) }, story.files, `${what} ${label}`);
+    }
+    pgRows += sources.length;
+    assert.equal(
+      await page.locator('tr[data-thread-open]').count(),
+      1,
+      `${what}: one row marked`,
+    );
+    assert.equal(await row.getAttribute('data-thread-open'), '', what);
+    if (t)
+      await drawer.getByRole('button', { name: tw.back, exact: true }).click();
+    else await drawer.getByRole('heading', { level: 2 }).press('Escape');
+    await closed();
+    assert.equal(await drawer.count(), 0, `${what}: it closes`);
+    assert.equal(
+      await page.evaluate(() =>
+        document.activeElement?.getAttribute('aria-expanded'),
+      ),
+      'false',
+      `${what}: the focus returns to the way in`,
+    );
+    assert.ok(
+      (
+        await page.evaluate(() => document.activeElement?.textContent ?? '')
+      ).includes(named),
+      `${what}: the same way in`,
+    );
+  }
+  report.push(`gateway ${story.name} ${lang} ${width} ${motion}`);
+}
+const pgExample = await Promise.all(
+  [0, 1, 2, 3].map(async (i) =>
+    csvRows(await readFile(`${PGF}/pending-${i}.csv`, 'utf8')),
+  ),
+);
+// This check's own reading of the files agrees with the seal: the rows
+// the engine read as each file's role.
+const pgSealed = JSON.parse(await readFile(`${PGF}/expected.json`, 'utf8'))
+  .cases.find((c) => c.name === 'pending')
+  .expected.inventory.filter((r) => r.kind !== 'header' && r.kind !== 'blank')
+  .map((r) => [r.source, r.row]);
+assert.deepEqual(pgRowsInFiles(pgExample)(1), pgSealed, 'gateway seal');
+const pgExampleStory = {
+  name: 'example',
+  batch: 'BATCH-001',
+  files: pgExample,
+  names: [0, 1, 2, 3].map((i) => `pending-${i}.csv`),
+  rows: pgRowsInFiles(pgExample),
+};
+await page.setViewportSize({ width: 1440, height: 900 });
+await page.emulateMedia({ reducedMotion: null });
+watch.at('gateway: open the workspace');
+await openDomainWorkspace(page, 'gateway');
+await pgw
+  .getByRole('button', {
+    name: 'Open a synthetic gateway example',
+    exact: true,
+  })
+  .click();
+await pgw.locator('[data-gateway-status]').waitFor();
+await pgIdle();
+for (const [lang, width, motion] of [
+  ['en', 1440, 'no-preference'],
+  ['ar', 390, 'reduce'],
+]) {
+  if ((await page.evaluate(() => document.documentElement.lang)) !== lang)
+    await page
+      .getByRole('button', {
+        name: lang === 'ar' ? 'AR العربية' : 'EN English',
+        exact: true,
+      })
+      .click();
+  await page.setViewportSize({ width, height: 900 });
+  await page.emulateMedia({ reducedMotion: motion });
+  await followBatch(lang, width, motion, pgExampleStory);
+}
+await page.emulateMedia({ reducedMotion: null });
+await page.setViewportSize({ width: 1440, height: 900 });
+await page.getByRole('button', { name: 'EN English', exact: true }).click();
+// Totals: three transactions and two fees; residuals: those, the
+// settlement and the payout. Twice, in English and in Arabic.
+assert.equal(pgRows, 2 * (5 + 7), `gateway example rows: ${pgRows}`);
+// The signed example: its own files, read with the signed amount column.
+watch.at('gateway: the signed example');
+const PGS = 'audit/payment-gateway-signed/fixtures/sar-mixed';
+const pgSigned = await Promise.all(
+  [0, 1, 2, 3].map(async (i) =>
+    csvRows(await readFile(`${PGS}/${i}.csv`, 'utf8')),
+  ),
+);
+await pgw
+  .getByRole('button', {
+    name: 'Open a synthetic signed amount example',
+    exact: true,
+  })
+  .click();
+await pgw.getByText('signed-0.csv', { exact: true }).first().waitFor();
+await pgIdle();
+pgRows = 0;
+await followBatch('en', 1440, 'no-preference', {
+  name: 'signed',
+  batch: 'SYNTH-BATCH-01',
+  files: pgSigned,
+  names: [0, 1, 2, 3].map((i) => `signed-${i}.csv`),
+  rows: pgRowsInFiles(pgSigned),
+});
+const pgSignedRows = pgRows;
+assert.ok(pgSignedRows > 4, `gateway signed rows: ${pgSignedRows}`);
+// A decision changes the result, and closes the evidence of the old one.
+watch.at('gateway: a decision');
+await pgw
+  .getByLabel('Gateway decision reference', { exact: true })
+  .fill('Synthetic independent browser reference');
+await pgw
+  .getByLabel('Gateway decision explanation', { exact: true })
+  .fill('Synthetic batch evidence reviewed for the browser check');
+await pgw
+  .getByRole('button', {
+    name: `Review source rows · SYNTH-BATCH-01 · ${pgTables.en[1]}`,
+    exact: true,
+  })
+  .click();
+await drawer.waitFor();
+await pgw
+  .getByRole('button', { name: 'Reject whole batch', exact: true })
+  .click();
+await pgIdle();
+await closed();
+assert.equal(await drawer.count(), 0, 'gateway: a decision closes it');
+// A long batch, written here and uploaded through the file inputs: sixty
+// transactions with a row of empty cells among them, which is no row of
+// the batch, and four fees, against the example's settlement and payout.
+watch.at('gateway: the long story');
+const pgLongFiles = [
+  [
+    pgExample[0][0],
+    ...Array.from({ length: 60 }, (_, k) => {
+      const r = [...pgExample[0][1]];
+      [r[0], r[1], r[3], r[4]] = [
+        `T-${String(k + 1).padStart(3, '0')}`,
+        k % 7 === 3 ? 'refund' : 'sale',
+        `${k + 1}.00`,
+        `Order ${k + 1}`,
+      ];
+      return r;
+    }).flatMap((r, k) => (k === 30 ? [r.map(() => ''), r] : [r])),
+  ],
+  [
+    pgExample[1][0],
+    ...Array.from({ length: 4 }, (_, k) => {
+      const r = [...pgExample[1][1]];
+      [r[0], r[1], r[2]] = [`E-${k + 1}`, `F-${k + 1}`, `${k + 1}.00`];
+      return r;
+    }),
+  ],
+  pgExample[2],
+  pgExample[3],
+];
+const pgLong = {
+  name: 'long',
+  batch: 'BATCH-001',
+  files: pgLongFiles,
+  names: [0, 1, 2, 3].map((i) => `gateway-long-${i}.csv`),
+  rows: pgRowsInFiles(pgLongFiles),
+};
+// On a fresh page, as a reader starts one: the examples' scope is not the
+// story's.
+await page.reload();
+if ((await page.evaluate(() => document.documentElement.lang)) !== 'en')
+  await page.getByRole('button', { name: 'EN English', exact: true }).click();
+await openDomainWorkspace(page, 'gateway');
+for (const [i, rows] of pgLongFiles.entries()) {
+  await writeFile(
+    path.join(out, pgLong.names[i]),
+    rows.map((r) => r.join(',')).join('\n') + '\n',
+  );
+  await pgw
+    .locator('.workspace-source')
+    .filter({ has: page.getByLabel(pgWords.en[i], { exact: true }) })
+    .locator('input[type="file"]')
+    .setInputFiles(path.join(out, pgLong.names[i]));
+  await pgIdle();
+  await pgw.getByText(pgLong.names[i], { exact: true }).waitFor();
+}
+await pgw
+  .getByLabel(
+    'I reviewed the gateway sales and refunds, the independent fee evidence, the gateway settlement summary and the bank credit evidence',
+    { exact: false },
+  )
+  .check();
+await pgw
+  .getByRole('button', { name: 'Check gateway batch', exact: true })
+  .click();
+await pgIdle();
+await pgw.locator(`table[aria-label="${pgTables.en[1]}"] tbody tr`).waitFor();
+await page.setViewportSize({ width: 1024, height: 900 });
+pgRows = 0;
+await followBatch('en', 1024, 'no-preference', pgLong);
+// Totals: sixty transactions and four fees; residuals: those, the
+// settlement and the payout. The row of empty cells is in neither.
+assert.equal(pgRows, 64 + 66, `gateway long rows: ${pgRows}`);
+// A change of type closes it.
+await pgw
+  .getByRole('button', { name: /^Review source rows · BATCH-001 · / })
+  .first()
+  .click();
+await drawer.waitFor();
+await page
+  .locator('select[data-reconciliation-type-select]')
+  .selectOption('bank');
+watch.at('gateway: open the workspace again');
+await openDomainWorkspace(page, 'gateway');
+await pgw.locator('[data-gateway-status]').waitFor();
+assert.equal(
+  await drawer.count(),
+  0,
+  'gateway: a change of type closes the evidence',
 );
 
 watch.stop();

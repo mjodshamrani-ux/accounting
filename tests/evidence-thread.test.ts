@@ -7,14 +7,21 @@ import {
   arThread,
   clearingThread,
   financialThread,
+  gatewayThread,
   glTbThread,
   intercompanyThread,
   payrollBankThread,
   payrollThread,
   stockThread,
+  type GatewayTable,
   type Thread,
   type ThreadLabel,
 } from '../lib/evidence-thread.ts';
+import { reconcileGateway } from '../lib/reconciliation/payment-gateway.ts';
+import {
+  gatewayFixture,
+  gatewayTruth,
+} from '../audit/payment-gateway/fixtures.ts';
 import {
   assetFrozenNames,
   assetLongNames,
@@ -1139,6 +1146,81 @@ void test('an intercompany pair opens its relationship row, then every ledger ro
       doubled >= 2 &&
       cells >= 13_567,
     `${cases} cases, ${pairs} pairs (${sealed} sealed, ${oneSided} one-sided, ${timed} with timing evidence, ${doubled} with a transaction written twice), ${cells} cells`,
+  );
+});
+
+const PG_ROLES = ['transactions', 'fee-evidence', 'settlement', 'payout'];
+
+void test('a payment gateway batch opens, from its totals, the transaction and fee rows they sum, and from its residuals every row of the batch, as the files have them', async () => {
+  let cases = 0,
+    totals = 0,
+    residuals = 0,
+    sealed = 0,
+    rows = 0,
+    cells = 0;
+  for (const c of gatewayTruth.cases) {
+    // The one case the engine refuses outright has no table to open.
+    if (c.status.startsWith('throws:')) continue;
+    const state = await gatewayFixture(c.name),
+      result = reconcileGateway(state);
+    cases++;
+    const tables: [GatewayTable, number[] | null, number[]][] = [
+      ['totals', result.totals, [0, 1]],
+      ['residuals', result.residuals, [0, 1, 2, 3]],
+    ];
+    for (const [table, shown, from] of tables) {
+      if (!shown) continue;
+      const thread = gatewayThread(result, table),
+        what = `${c.name} ${table}`;
+      heldToSources(thread, state.files, PG_ROLES, what);
+      for (const s of thread)
+        assert.equal(
+          s.sheet,
+          state.files[s.source].sheets[0].name,
+          `${what}: sheet`,
+        );
+      // The rows, worked out from the files here: each row under the header
+      // that holds any text, of each source the table draws on, in source
+      // order and then in row order.
+      assert.deepEqual(
+        thread.map((s) => [s.source, 'row' in s.place ? s.place.row : 0]),
+        from.flatMap((source) =>
+          csv(state.files[source].original!).flatMap((row, i) =>
+            i > 0 && row.some((v) => v.trim()) ? [[source, i + 1]] : [],
+          ),
+        ),
+        `${what}: the rows`,
+      );
+      // Where the case is sealed, each row's cells are the sealed ones.
+      if (c.expected) {
+        for (const s of thread) {
+          const row = 'row' in s.place ? s.place.row : 0;
+          assert.deepEqual(
+            s.cells,
+            c.expected.cells
+              .filter((e) => e.source === s.source && e.row === row)
+              .map(({ column, field, text }) => ({ column, field, text })),
+            `${what}: the sealed cells of row ${row}`,
+          );
+        }
+        sealed++;
+      }
+      if (table === 'totals') totals++;
+      else residuals++;
+      rows += thread.length;
+      cells += thread.reduce((n, s) => n + (s.cells?.length ?? 0), 0);
+    }
+  }
+  // As measured on the frozen set: two cases have totals and no residuals
+  // (a source missing), and the cases in source error have neither.
+  assert.ok(
+    cases >= 42 &&
+      totals >= 21 &&
+      residuals >= 19 &&
+      sealed >= 40 &&
+      rows >= 204 &&
+      cells >= 3_770,
+    `${cases} cases, ${totals} totals and ${residuals} residuals shown (${sealed} sealed), ${rows} rows, ${cells} cells`,
   );
 });
 

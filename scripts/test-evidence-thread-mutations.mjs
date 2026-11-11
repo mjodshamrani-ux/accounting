@@ -47,6 +47,7 @@ const copied = [
   'audit/ar-scope-details/fixtures',
   'audit/tb-financial',
   'audit/intercompany',
+  'audit/payment-gateway',
   'package.json',
 ];
 const mutations = [
@@ -522,6 +523,66 @@ const mutations = [
     THREAD,
     "  const pair = result.pairs[index];\n  if (!pair) return [];",
     "  const pair = result.pairs[index] ?? result.pairs.at(-1);\n  if (!pair) return [];",
+  ],
+  [
+    "gw-totals-from-every-source",
+    THREAD,
+    "(table === 'totals' && !GATEWAY_TOTALS.includes(named.role))",
+    "(table === 'totals' && !named)",
+  ],
+  [
+    "gw-residuals-from-the-totals-sources",
+    THREAD,
+    "(table === 'totals' && !GATEWAY_TOTALS.includes(named.role))",
+    "!GATEWAY_TOTALS.includes(named.role)",
+  ],
+  [
+    "gw-totals-without-fees",
+    THREAD,
+    "const GATEWAY_TOTALS: readonly GatewayRole[] = ['transactions', 'fee-evidence'];",
+    "const GATEWAY_TOTALS: readonly GatewayRole[] = ['transactions'];",
+  ],
+  [
+    "gw-members-reversed",
+    THREAD,
+    "  return result.memberIds.flatMap((id): Thread => {",
+    "  return [...result.memberIds].reverse().flatMap((id): Thread => {",
+  ],
+  [
+    "gw-row-from-the-sheet-position",
+    THREAD,
+    "const [, source, , , row] = JSON.parse(id)",
+    "const [, source, , row] = JSON.parse(id)",
+  ],
+  [
+    "gw-source-of-the-first-file",
+    THREAD,
+    "    const named = result.sources[source];",
+    "    const named = result.sources[0];",
+  ],
+  [
+    "gw-cells-of-the-next-row",
+    THREAD,
+    "        cells: byRow.get(`${source}:${row}`) ?? [],",
+    "        cells: byRow.get(`${source}:${row + 1}`) ?? [],",
+  ],
+  [
+    "gw-last-cell-only",
+    THREAD,
+    "      found = byRow.get(key) ?? [];",
+    "      found: ThreadCell[] = [];",
+  ],
+  [
+    "gw-field-is-text",
+    THREAD,
+    "    found.push({ column, field, text });",
+    "    found.push({ column, field: text, text });",
+  ],
+  [
+    "gw-sheet-null",
+    THREAD,
+    "        sheet: named.sheet,\n        place: { row },",
+    "        sheet: null,\n        place: { row },",
   ],
 ];
 const files = [THREAD, ...tests];
