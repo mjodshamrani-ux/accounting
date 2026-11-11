@@ -30,17 +30,21 @@ await mkdir(output, { recursive: true });
 const out = await mkdtemp(path.join(output, 'run-'));
 const fixture = await pdfLifecycleFixture();
 await cp(fixture.root, path.join(out, 'sources'), { recursive: true });
-// Vite's production inline Worker is a JS string literal in the entry chunk.
+// Vite's production inline Worker is a JS string literal in one built chunk:
+// the entry until UX-9(b), its own chunk since, which the entry imports.
 // Extract only that literal, evaluate in an empty VM and run those exact bytes.
-const entries = (await readdir(path.join(dist, 'assets'))).filter((f) =>
-  /^index-[A-Za-z0-9_-]+\.js$/.test(f),
-);
-assert.equal(entries.length, 1);
+const inlineMarker =
+  /new Blob\(\[`URL\.revokeObjectURL\(import\.meta\.url\);`,([A-Za-z_$][\w$]*)\]/;
+const entries = [];
+for (const f of await readdir(path.join(dist, 'assets')))
+  if (
+    f.endsWith('.js') &&
+    inlineMarker.test(await readFile(path.join(dist, 'assets', f), 'utf8'))
+  )
+    entries.push(f);
+assert.equal(entries.length, 1, 'Expected one chunk with the inline Worker');
 const entry = await readFile(path.join(dist, 'assets', entries[0]), 'utf8');
-const marker =
-  /new Blob\(\[`URL\.revokeObjectURL\(import\.meta\.url\);`,([A-Za-z_$][\w$]*)\]/.exec(
-    entry,
-  );
+const marker = inlineMarker.exec(entry);
 assert.ok(marker, 'Expected production inline Worker marker');
 const assignment = new RegExp('\\b' + marker[1] + '=([\\"\'])', 'g');
 let match,
