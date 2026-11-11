@@ -151,7 +151,7 @@ jobs:
       - run: pnpm build
       - name: Verify reviewed distribution immediately after build
         run: node scripts/public-content-check.mjs --dist
-      - name: Verify what the first page loads before anything runs leaves out the engine text (UX-9)
+      - name: Verify what the first page loads before anything runs leaves out the engine text and the code of the eleven workspaces (UX-9)
         run: pnpm test:startup-weight
       - run: pnpm exec playwright install --with-deps chromium
       - name: Verify PDF inventory built browser Worker, original sessions and reviewed financial membership
@@ -259,6 +259,7 @@ jobs:
         run: |
           pnpm test:browser:reconciliation-entry
           pnpm test:browser:startup-readiness
+          pnpm test:browser:workspace-loading
           pnpm test:browser:domain-navigation
           pnpm test:browser:main-integration
       - name: Verify official fonts and unified workspace sources with retained work
