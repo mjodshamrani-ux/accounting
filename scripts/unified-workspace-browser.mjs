@@ -400,29 +400,52 @@ async function assertSharedUploadInteraction(control, domain) {
   };
 }
 
-async function snapshot(panel) {
-  return panel.evaluate((element) => ({
-    sources: [
-      ...element.querySelectorAll(
-        '.source-card__description, .workspace-source p, .workspace-source h3',
-      ),
-    ].map((node) => node.textContent.trim()),
-    inputs: [
-      ...element.querySelectorAll('input:not([type="file"]), select, textarea'),
-    ]
-      .filter((input) => !input.matches('[data-reconciliation-type-select]'))
-      .map((input) => ({
-        tag: input.tagName,
-        type: input.type,
-        value: input.value,
-        checked: input.checked,
-      })),
-    fileSelections: [...element.querySelectorAll('input[type="file"]')].map(
-      (input) =>
-        [...input.files].map((file) => ({ name: file.name, size: file.size })),
-    ),
-  }));
+// A workspace's code loads when its type is first chosen (UX-9(c)), so a
+// round trip through another type mounts that workspace beside the supplier
+// page. `skip` names the panels mounted during the round trip: what was on
+// the page before must come back unchanged, and nothing else may be added.
+async function snapshot(panel, skip = []) {
+  return panel.evaluate((element, skip) => {
+    const kept = (node) =>
+      !skip.some((id) => node.closest(`[data-domain-panel="${id}"]`));
+    return {
+      sources: [
+        ...element.querySelectorAll(
+          '.source-card__description, .workspace-source p, .workspace-source h3',
+        ),
+      ]
+        .filter(kept)
+        .map((node) => node.textContent.trim()),
+      inputs: [
+        ...element.querySelectorAll(
+          'input:not([type="file"]), select, textarea',
+        ),
+      ]
+        .filter(kept)
+        .filter((input) => !input.matches('[data-reconciliation-type-select]'))
+        .map((input) => ({
+          tag: input.tagName,
+          type: input.type,
+          value: input.value,
+          checked: input.checked,
+        })),
+      fileSelections: [...element.querySelectorAll('input[type="file"]')]
+        .filter(kept)
+        .map((input) =>
+          [...input.files].map((file) => ({
+            name: file.name,
+            size: file.size,
+          })),
+        ),
+    };
+  }, skip);
 }
+const mountedPanels = (page) =>
+  page.evaluate(() =>
+    [...document.querySelectorAll('[data-domain-panel]')]
+      .filter((panel) => panel.firstElementChild)
+      .map((panel) => panel.getAttribute('data-domain-panel')),
+  );
 
 async function selectType(page, domain) {
   const type = page.locator(selector);
@@ -1204,6 +1227,7 @@ try {
         );
       }
       const before = await snapshot(supplier);
+      const mountedBefore = await mountedPanels(page);
       await selectType(page, 'supplier');
       assert.deepEqual(
         await snapshot(supplier),
@@ -1217,8 +1241,16 @@ try {
         'hidden supplier sources keep the leave-page warning',
       );
       await selectType(page, 'supplier');
+      const opened = (await mountedPanels(page)).filter(
+        (id) => !mountedBefore.includes(id),
+      );
       assert.deepEqual(
-        await snapshot(supplier),
+        opened,
+        ['bank'],
+        'the round trip mounts only the workspace it opened',
+      );
+      assert.deepEqual(
+        await snapshot(supplier, opened),
         before,
         'type-selection round trip retains supplier sources and inputs',
       );
