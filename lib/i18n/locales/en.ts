@@ -311,7 +311,6 @@ export const en: Messages = {
     available: 'Available',
     allocated: 'Allocated',
     remaining: 'Remaining',
-    cellEvidence: 'Cell evidence',
     decisionOrUndoReason: 'Decision or undo reason',
     adviceLinesForReview: 'Advice lines for review',
     used: ' — used',

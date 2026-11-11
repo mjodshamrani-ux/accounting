@@ -303,7 +303,6 @@ export const ar = {
     available: 'المتاح',
     allocated: 'المخصص',
     remaining: 'المتبقي',
-    cellEvidence: 'أثر الخلية',
     decisionOrUndoReason: 'سبب القرار أو الإلغاء',
     adviceLinesForReview: 'خطوط إشعار للمراجعة',
     used: ' — مستخدم',

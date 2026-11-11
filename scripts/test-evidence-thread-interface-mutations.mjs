@@ -11,13 +11,14 @@
 // inventory's register rows that do not link, the GL and TB balance
 // components, the clearing cases, the receivables cases, the lines of the
 // financial position, the intercompany pairs, the payment gateway's
-// totals and residuals and the supplier's cases: whose row the drawer
-// opens, the roles, the file, the heading or the figures, the way in that
-// names its row, the marked row,
+// totals and residuals, the supplier's cases and the allocation's value
+// ledger items: whose row the drawer opens, the roles, the file, the
+// heading or the figures, the way in that names its row, the marked row,
 // card (its frame and the frame's motion) or section heading (its shade and
 // its motion), the financial lines' and the pairs' way back to their own
-// page, a decision that leaves the old evidence open, and the supplier's
-// way back to the case's page and the list change or step that closes it.
+// page, a decision that leaves the old evidence open, the supplier's way
+// back to the case's page and the list change or step that closes it, and
+// the allocation's way back to the item's page.
 //
 // A mutant whose check stops with no verdict (a timeout, a page that no
 // longer answers) is checked once more on the same build, and both runs are
@@ -74,6 +75,7 @@ const AR = 'components/ar-workspace.tsx';
 const FINANCIAL = 'components/tb-financial-workspace.tsx';
 const INTERCOMPANY = 'components/intercompany-workspace.tsx';
 const GATEWAY = 'components/payment-gateway-workspace.tsx';
+const ALLOCATION = 'components/allocation-workspace.tsx';
 const PAGE = 'app/page.tsx';
 const HOOK = 'hooks/use-evidence-thread.ts';
 const mutations = [
@@ -707,6 +709,66 @@ const mutations = [
     PAGE,
     "      domain === 'supplier' && step === 2,",
     "      domain === 'supplier',",
+  ],
+  [
+    "al-way-not-named",
+    ALLOCATION,
+    "                  <span className=\"sr-only\">\n                    {' · '}\n                    {sides[i.side]} · {i.reference}\n                  </span>\n",
+    "",
+  ],
+  [
+    "al-way-opens-the-first-item",
+    ALLOCATION,
+    "onClick={() => thread.show('items', at)}",
+    "onClick={() => thread.show('items', 0)}",
+  ],
+  [
+    "al-row-not-marked",
+    ALLOCATION,
+    "            mark={(_, at) => thread.mark('items', at)}\n",
+    "",
+  ],
+  [
+    "al-heading-without-reference",
+    ALLOCATION,
+    "heading={`${threadWords.heading} · ${sides[openedItem.item.side]} · ${openedItem.item.reference}`}",
+    "heading={`${threadWords.heading} · ${sides[openedItem.item.side]}`}",
+  ],
+  [
+    "al-allocated-of-the-original",
+    ALLOCATION,
+    "                      [t.allocated, b.allocated],",
+    "                      [t.allocated, b.original],",
+  ],
+  [
+    "al-remaining-of-the-available",
+    ALLOCATION,
+    "                      [t.remaining, b.remaining],",
+    "                      [t.remaining, b.available],",
+  ],
+  [
+    "al-row-of-the-first-item",
+    ALLOCATION,
+    "thread={allocationThread(result, openedItem.item.id)}",
+    "thread={allocationThread(result, result.items[0].id)}",
+  ],
+  [
+    "al-role-of-the-payments",
+    ALLOCATION,
+    "                role={(s) => sides[s.source]}",
+    "                role={() => sides[0]}",
+  ],
+  [
+    "al-back-stays-on-the-page",
+    ALLOCATION,
+    "                setPages((p) => ({ ...p, items: pageOfRow(openedItem.at) }));\n",
+    "",
+  ],
+  [
+    "al-decision-keeps-it",
+    ALLOCATION,
+    "  const thread = useEvidenceThread(active, result),\n    threadWords = evidenceThreadCopy[lang];",
+    "  const thread = useEvidenceThread(active, null),\n    threadWords = evidenceThreadCopy[lang];",
   ],
   [
     'hook-keeps-it-on-type-change',

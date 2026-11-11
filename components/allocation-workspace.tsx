@@ -20,7 +20,11 @@ import {
 import { useI18n } from '@/lib/i18n/context';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
 import { parseMoney } from '@/lib/reconciliation/core';
-import { Amount } from '@/components/amount';
+import { Amount, Figures } from '@/components/amount';
+import { EvidenceDrawer, ThreadSources } from '@/components/evidence-drawer';
+import { useEvidenceThread } from '@/hooks/use-evidence-thread';
+import { allocationThread } from '@/lib/evidence-thread';
+import { evidenceThreadCopy } from '@/lib/i18n/evidence-thread';
 import { AlignmentStrip } from '@/components/alignment-strip';
 import { ResultIndex, useResultParts } from '@/components/result-index';
 import { allocationStrip } from '@/lib/alignment-strip';
@@ -40,7 +44,7 @@ import {
 } from '@/lib/reconciliation/allocation-demo';
 import { AllocationAdvicePanel } from './allocation-advice-panel';
 import { RecordPager, RecordRows } from './record-table';
-import { recordPage } from '@/lib/record-page';
+import { pageOfRow, recordPage } from '@/lib/record-page';
 import { ScopeCard, Sentence } from '@/components/scope-card';
 import { scopeCardCopy } from '@/lib/i18n/scope-card';
 import { useDeclaredScope } from '@/hooks/use-declared-scope';
@@ -450,7 +454,16 @@ export function AllocationWorkspace({
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
+  // Each item of the value ledger opens the row it was read from, with the
+  // cells the reader traced for its amount (UX-10). A new result, a change
+  // of type or another session closes it.
+  const thread = useEvidenceThread(active, result),
+    threadWords = evidenceThreadCopy[lang];
   if (!active) return null;
+  const openedItem =
+    result && thread.open?.table === 'items'
+      ? { at: thread.open.at, item: result.items[thread.open.at] }
+      : undefined;
   const fmt = (v: number) => <Amount minor={v} decimals={result!.decimals} />,
     balances = new Map(result?.balances.map((b) => [b.id, b])),
     usedProofs = new Set(
@@ -735,39 +748,73 @@ export function AllocationWorkspace({
           <RecordRows
             label={t.valueLedger}
             headers={[
+              threadWords.way,
               t.side,
               t.ownReference,
               t.original,
               t.available,
               t.allocated,
               t.remaining,
-              t.cellEvidence,
             ]}
             rows={result.items}
-            rowHeader={1}
+            rowHeader={2}
             page={pages.items ?? 0}
             onPage={turn('items')}
             anchor={resultParts.anchor('figures')}
             frame={{ 'data-testid': 'allocation-ledger' }}
-            cells={(i) => {
+            mark={(_, at) => thread.mark('items', at)}
+            cells={(i, at) => {
               const b = balances.get(i.id)!;
               return [
+                <Button
+                  key="thread"
+                  variant="outline"
+                  {...thread.way('items', at)}
+                  onClick={() => thread.show('items', at)}
+                >
+                  {threadWords.way}
+                  <span className="sr-only">
+                    {' · '}
+                    {sides[i.side]} · {i.reference}
+                  </span>
+                </Button>,
                 sides[i.side],
                 i.reference,
                 ...[b.original, b.available, b.allocated, b.remaining].map(fmt),
-                <details key="cells">
-                  <summary>
-                    {result.sources[i.side].name} · {i.row}
-                  </summary>
-                  {i.traces.map((x) => (
-                    <p key={x.field}>
-                      {x.field}: {x.text} · {x.column}
-                    </p>
-                  ))}
-                </details>,
               ];
             }}
           />
+          {openedItem && (
+            <EvidenceDrawer
+              id={thread.id}
+              headingRef={thread.heading}
+              heading={`${threadWords.heading} · ${sides[openedItem.item.side]} · ${openedItem.item.reference}`}
+              back={threadWords.back}
+              onBack={() => {
+                setPages((p) => ({ ...p, items: pageOfRow(openedItem.at) }));
+                thread.back();
+              }}
+              amount={
+                <Figures
+                  decimals={result.decimals}
+                  items={(() => {
+                    const b = balances.get(openedItem.item.id)!;
+                    return [
+                      [t.original, b.original],
+                      [t.available, b.available],
+                      [t.allocated, b.allocated],
+                      [t.remaining, b.remaining],
+                    ] as const;
+                  })()}
+                />
+              }
+            >
+              <ThreadSources
+                thread={allocationThread(result, openedItem.item.id)}
+                role={(s) => sides[s.source]}
+              />
+            </EvidenceDrawer>
+          )}
           <fieldset
             {...resultParts.anchor('decision')}
             disabled={busy || result.status !== 'ready'}

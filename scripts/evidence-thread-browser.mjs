@@ -3206,6 +3206,351 @@ await page.locator('select[data-reconciliation-type-select]').selectOption('bank
 await openDomainWorkspace(page, 'supplier');
 assert.equal(await drawer.count(), 0, 'supplier: a change of type closes it');
 
+// UX-10(d), allocation: each item of the value ledger, a payment or an
+// invoice, opens the one row it was read from, with the two amount cells the
+// reader traced for it, and shows its four figures as its row does. The
+// example writes the frozen case one-to-many byte for byte. A story of 63
+// items written here, each file's columns in another order, is read through
+// the workspace's own file inputs and fills two pages. Each item's row is
+// found here by its identifier in its file, read with this check's reader.
+const ALF = 'audit/allocation/frozen';
+const alOrder = (a, b) => (a < b ? -1 : Number(a > b));
+const alSides = {
+  en: ['Available payments', 'Open invoices', 'Proposed remittance'],
+  ar: ['الدفعات المتاحة', 'الفواتير المفتوحة', 'إشعار التخصيص المقترح'],
+};
+const AL_ID = ['Payment ID', 'Invoice ID'],
+  AL_TRACED = ['Original amount', 'Available amount'];
+const alw = page.locator('[data-allocation-workspace]');
+const alIdle = async () => {
+  for (const deadline = Date.now() + 60000; Date.now() < deadline; ) {
+    if ((await alw.getAttribute('aria-busy')) === 'false') return;
+    await page.waitForTimeout(100);
+  }
+  throw Error('the allocation workspace stayed busy for a minute');
+};
+const alLedger = alw.getByTestId('allocation-ledger');
+const alPager = (name) =>
+  alw
+    .getByRole('navigation', { name: 'Pages of Value ledger', exact: true })
+    .getByRole('button', { name, exact: true });
+let alOpened = 0;
+// Every item on the page shown, opened in turn: the way in names its side
+// and its reference, the drawer's heading names them, its figures are the
+// row's, its one source is the item's file at the row that holds its
+// identifier, with the two traced cells as the file holds them, the row is
+// marked, and the way back or Escape returns the focus to the same way in.
+async function followItems(lang, width, motion, story) {
+  const tw = threadWords[lang],
+    what = `allocation ${story.name} ${lang} ${width} px ${motion}`,
+    head = (await alLedger.locator('thead th').allInnerTexts()).map((x) =>
+      x.trim(),
+    );
+  assert.equal(head[0], tw.way, `${what}: the way in opens the row`);
+  const rows = alLedger.locator('tbody tr'),
+    count = await rows.count(),
+    seen = [];
+  assert.ok(count > 0, `${what}: items`);
+  for (let n = 0; n < count; n++) {
+    const row = rows.nth(n),
+      cells = (await row.locator('td, th').allInnerTexts()).map((x) =>
+        x.trim(),
+      ),
+      [, sideName, reference] = cells,
+      side = alSides[lang].indexOf(sideName),
+      named = `${sideName} · ${reference}`;
+    watch.at(`${what}: ${named}`);
+    assert.ok(side === 0 || side === 1, `${what}: ${named} is an item`);
+    const file = story.files[side],
+      id = file[0].indexOf(AL_ID[side]),
+      at = file.findIndex((r, i) => i > 0 && r[id] === reference);
+    assert.equal(
+      file.filter((r, i) => i > 0 && r[id] === reference).length,
+      1,
+      `${what} ${named}: one row of its file holds it`,
+    );
+    const way = row.getByRole('button', {
+      name: `${tw.way} · ${named}`,
+      exact: true,
+    });
+    assert.equal(await way.count(), 1, `${what} ${named}: the way in`);
+    assert.equal(await way.getAttribute('aria-expanded'), 'false', what);
+    await way.click();
+    await drawer.waitFor();
+    await arrived();
+    assert.equal(await way.getAttribute('aria-expanded'), 'true', what);
+    assert.equal(
+      await way.getAttribute('aria-controls'),
+      await drawer.getAttribute('id'),
+      `${what}: the way in names the drawer`,
+    );
+    const opened = await focused();
+    assert.deepEqual([opened.tag, opened.inDrawer], ['H2', true], what);
+    assert.equal(
+      opened.text,
+      `${tw.heading} · ${named}`,
+      `${what}: the heading names the item`,
+    );
+    assert.deepEqual(
+      (
+        await drawer
+          .locator('.evidence-drawer__amount .tarasuf-amount')
+          .allInnerTexts()
+      ).map((x) => x.trim()),
+      cells.slice(3),
+      `${what} ${named}: the item's four figures`,
+    );
+    const sources = await arDrawn();
+    assert.deepEqual(
+      sources.map((s) => [
+        s.source,
+        s.role,
+        s.place.File ?? s.place['الملف'],
+        s.place.Sheet ?? s.place['الورقة'],
+        Number(s.place.Row ?? s.place['الصف']),
+        s.missing,
+      ]),
+      [[side, sideName, story.names[side], 'CSV', at + 1, undefined]],
+      `${what} ${named}: the one row it was read from`,
+    );
+    assert.deepEqual(
+      sources[0].cells,
+      AL_TRACED.map((field) => {
+        const c = file[0].indexOf(field);
+        return [field, String(c + 1), file[at][c]];
+      }),
+      `${what} ${named}: the traced cells as the file holds them`,
+    );
+    assert.equal(
+      await page.locator('tr[data-thread-open]').count(),
+      1,
+      `${what}: one row marked`,
+    );
+    assert.equal(await row.getAttribute('data-thread-open'), '', what);
+    if (n % 2)
+      await drawer.getByRole('button', { name: tw.back, exact: true }).click();
+    else await drawer.getByRole('heading', { level: 2 }).press('Escape');
+    await closed();
+    assert.equal(await drawer.count(), 0, `${what}: it closes`);
+    assert.equal(
+      await page.evaluate(() =>
+        document.activeElement?.getAttribute('aria-expanded'),
+      ),
+      'false',
+      `${what}: the focus returns to the way in`,
+    );
+    assert.ok(
+      (
+        await page.evaluate(() => document.activeElement?.textContent ?? '')
+      ).endsWith(named),
+      `${what}: the same way in`,
+    );
+    seen.push(`${side}:${reference}`);
+    alOpened++;
+  }
+  report.push(`allocation ${story.name} ${lang} ${width} ${motion}`);
+  return seen;
+}
+// Every data row of the payments and the invoices, by side and identifier.
+const alItemsOf = (files) =>
+  [0, 1].flatMap((side) =>
+    files[side]
+      .slice(1)
+      .map((r) => `${side}:${r[files[side][0].indexOf(AL_ID[side])]}`),
+  );
+const alExample = {
+  name: 'example',
+  files: await Promise.all(
+    [0, 1, 2].map(async (i) =>
+      csvRows(await readFile(`${ALF}/one-to-many-${i}.csv`, 'utf8')),
+    ),
+  ),
+  names: [0, 1, 2].map((i) => `synthetic-allocation-${i}.csv`),
+};
+watch.at('allocation: open the workspace');
+await page.setViewportSize({ width: 1440, height: 900 });
+await page.emulateMedia({ reducedMotion: null });
+await supplierLang('en');
+await openDomainWorkspace(page, 'allocation');
+await alw
+  .getByRole('button', {
+    name: 'Open synthetic allocation example',
+    exact: true,
+  })
+  .click();
+await alw.getByTestId('allocation-result').waitFor();
+await alIdle();
+// One payment and three invoices, in both languages.
+for (const [lang, width, motion] of [
+  ['en', 1440, 'no-preference'],
+  ['ar', 390, 'reduce'],
+]) {
+  await supplierLang(lang);
+  await page.setViewportSize({ width, height: 900 });
+  await page.emulateMedia({ reducedMotion: motion });
+  assert.deepEqual(
+    (await followItems(lang, width, motion, alExample)).sort(alOrder),
+    alItemsOf(alExample.files).sort(alOrder),
+    `allocation example ${lang}: every item once`,
+  );
+}
+await page.emulateMedia({ reducedMotion: null });
+await page.setViewportSize({ width: 1440, height: 900 });
+await supplierLang('en');
+// A decision changes the result, and closes the evidence of the old one;
+// the payment then opens with the figures the decision left, the seal's.
+watch.at('allocation: a decision');
+const alPayment = () =>
+  alLedger.getByRole('button', {
+    name: `${threadWords.en.way} · ${alSides.en[0]} · P1`,
+    exact: true,
+  });
+await alPayment().click();
+await drawer.waitFor();
+await alw
+  .getByLabel('Decision or undo reason', { exact: true })
+  .fill('Synthetic advice explicitly states this distribution');
+for (const box of await alw.getByTestId('allocation-proof').locator('input').all())
+  if (await box.isEnabled()) await box.check();
+await alw
+  .getByRole('button', { name: 'Approve selected advice atomically', exact: true })
+  .click();
+await alw.getByTestId('allocation-event').first().waitFor();
+await alIdle();
+await closed();
+assert.equal(await drawer.count(), 0, 'allocation: a decision closes it');
+const alSealed = JSON.parse(await readFile(`${ALF}/expected.json`, 'utf8'))
+  .cases.find((c) => c.name === 'one-to-many').balances['0:P1'];
+await alPayment().click();
+await drawer.waitFor();
+assert.deepEqual(
+  (
+    await drawer
+      .locator('.evidence-drawer__amount .tarasuf-amount')
+      .allInnerTexts()
+  ).map((x) => x.trim()),
+  alSealed.map((v) =>
+    (v / 100).toLocaleString('en', { minimumFractionDigits: 2 }),
+  ),
+  'allocation: the payment opens with the figures the decision left',
+);
+await drawer.getByRole('heading', { level: 2 }).press('Escape');
+await closed();
+// The long story: three payments and sixty invoices, the payments' columns
+// reversed and the invoices' turned by four, with one remittance line.
+watch.at('allocation: the long story');
+const alHeaders = alExample.files.map((f) => f[0]),
+  alScope = alExample.files[0][1].slice(2, 9),
+  alTurned = (header, order) => (row) => order.map((h) => row[header.indexOf(h)]);
+const alOrders = [
+  [...alHeaders[0]].reverse(),
+  [...alHeaders[1].slice(4), ...alHeaders[1].slice(0, 4)],
+  alHeaders[2],
+];
+const alLongRows = [
+  [
+    ['P-01', '2026-09-20', ...alScope, '5000.00', '4000.00'],
+    ['P-02', '2026-09-21', ...alScope, '3000.50', '3000.50'],
+    ['P-03', '2026-09-22', ...alScope, '1200.00', '1.00'],
+  ],
+  Array.from({ length: 60 }, (_, k) => {
+    const original = `${101 + k}.${String((k * 7) % 100).padStart(2, '0')}`;
+    return [
+      `I-${String(k + 1).padStart(3, '0')}`,
+      '2026-08-15',
+      ...alScope,
+      original,
+      k % 4 ? original : `${51 + k}.00`,
+    ];
+  }),
+  [['R-01', ...alScope, 'P-01', 'I-001', '10.00']],
+];
+const alLongFiles = alLongRows.map((rows, side) => [
+  alOrders[side],
+  ...rows.map(alTurned(alHeaders[side], alOrders[side])),
+]);
+const alLong = {
+  name: 'long',
+  files: alLongFiles,
+  names: [0, 1, 2].map((i) => `allocation-long-${i}.csv`),
+};
+await page.reload();
+await supplierLang('en');
+await openDomainWorkspace(page, 'allocation');
+for (const [side, rows] of alLongFiles.entries()) {
+  const file = path.join(out, alLong.names[side]);
+  await writeFile(file, rows.map((r) => r.join(',')).join('\n') + '\n');
+  assert.deepEqual(
+    csvRows(await readFile(file, 'utf8')),
+    rows,
+    `allocation long: file ${side} reads back`,
+  );
+  const source = alw.getByTestId(`allocation-source-${side}`);
+  await source.getByLabel(alSides.en[side], { exact: true }).setInputFiles(file);
+  await source
+    .getByRole('heading', { name: alLong.names[side], exact: true })
+    .waitFor();
+}
+await page.evaluate(
+  () => new Promise((done) => requestAnimationFrame(() => setTimeout(done, 0))),
+);
+await alw
+  .getByLabel(
+    'I reviewed the available payments, the open invoices and the proposed remittance',
+    { exact: false },
+  )
+  .check();
+await alw.getByRole('button', { name: 'Read value ledger', exact: true }).click();
+await alw.getByTestId('allocation-result').waitFor();
+await alIdle();
+await page.setViewportSize({ width: 1024, height: 900 });
+const alFirst = await followItems('en', 1024, 'no-preference', alLong);
+await alPager('Next page').click();
+await alLedger.locator('tbody tr').nth(13).waitFor({ state: 'detached' });
+const alSecond = await followItems('en', 1024, 'no-preference', alLong);
+assert.deepEqual(
+  [alFirst.length, alSecond.length],
+  [50, 13],
+  'allocation long: two pages',
+);
+assert.deepEqual(
+  [...alFirst, ...alSecond].sort(alOrder),
+  alItemsOf(alLongFiles).sort(alOrder),
+  'allocation long: every item once',
+);
+// The way back, after the ledger was turned while the drawer was open,
+// turns it back to the item's page and returns to its way in.
+watch.at('allocation: the way back over pages');
+const alLast = alLedger.locator('tbody tr').last(),
+  alLastName = (await alLast.getByRole('button').textContent()).trim();
+await alLast.getByRole('button').click();
+await drawer.waitFor();
+await arrived();
+await alPager('Previous page').click();
+await alLedger.locator('tbody tr').nth(13).waitFor();
+assert.equal(
+  await alLedger.getByRole('button', { name: alLastName, exact: true }).count(),
+  0,
+  'allocation long: the item is off the page shown',
+);
+await drawer.getByRole('button', { name: threadWords.en.back, exact: true }).click();
+await closed();
+assert.equal(await drawer.count(), 0, 'allocation: the way back closes it');
+assert.equal(
+  (await focused()).text.trim(),
+  alLastName,
+  "allocation long: the way back returns to the item on its own page",
+);
+report.push('allocation long: way back over two pages');
+// Four items twice, and the story's 63.
+assert.equal(alOpened, 2 * 4 + 63, `allocation: items opened: ${alOpened}`);
+// A change of type closes it.
+await alLedger.getByRole('button').first().click();
+await drawer.waitFor();
+await page.locator('select[data-reconciliation-type-select]').selectOption('bank');
+await openDomainWorkspace(page, 'allocation');
+assert.equal(await drawer.count(), 0, 'allocation: a change of type closes it');
+
 watch.stop();
 assert.deepEqual(errors, [], 'no page error');
 await browser.close();

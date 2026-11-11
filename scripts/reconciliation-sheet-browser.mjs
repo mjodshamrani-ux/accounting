@@ -472,15 +472,25 @@ export async function allocationSheetSaysScreen(page, { file, lang, result }) {
   const heading = (title, evidence) =>
     grid.findIndex((r) => r[0] === title && r[1] === null && r[3] === evidence);
   // The value ledger: the page's one table, its rows grouped by side.
+  // Each item leads with the way to its evidence (UX-10), which the sheet
+  // does not have: it is required where the page draws it, then set aside.
   const ledger = result.getByTestId('allocation-ledger');
-  const head = (await ledger.locator('thead th').allTextContents()).map((t) =>
-    t.trim(),
+  const { head, body } = withoutWay(
+    {
+      head: (await ledger.locator('thead th').allTextContents()).map((t) =>
+        t.trim(),
+      ),
+      body: await Promise.all(
+        (await ledger.locator('tbody tr').all()).map(async (row) =>
+          (await row.locator('th, td').allTextContents()).map((t) => t.trim()),
+        ),
+      ),
+    },
+    lang,
+    'the value ledger',
   );
   const bySide = new Map();
-  for (const row of await ledger.locator('tbody tr').all()) {
-    const c = (await row.locator('th, td').allTextContents()).map((t) =>
-      t.trim(),
-    );
+  for (const c of body) {
     if (!bySide.has(c[0])) bySide.set(c[0], []);
     bySide.get(c[0]).push(c);
   }

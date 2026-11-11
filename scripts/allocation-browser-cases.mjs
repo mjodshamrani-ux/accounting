@@ -225,8 +225,10 @@ export async function verifyAllocation(page, url, out = 'work/qa') {
       .click();
     await page.getByTestId('allocation-event').first().waitFor();
   }
-  const moneyRows = () =>
-    page
+  // Each item leads with the way to its evidence (UX-10); the figures
+  // follow it, as they did before.
+  const moneyRows = async () => {
+    const rows = await page
       .getByTestId('allocation-ledger')
       .locator('tbody tr')
       .evaluateAll((rows) =>
@@ -234,6 +236,10 @@ export async function verifyAllocation(page, url, out = 'work/qa') {
           Array.from(r.querySelectorAll('td,th')).map((c) => c.textContent),
         ),
       );
+    for (const r of rows)
+      assert.match(r[0], /^(Review source rows|راجع صفوف المصدر)/u);
+    return rows.map((r) => r.slice(1));
+  };
   async function download(button, file, lang = 'en') {
     const request = page.waitForEvent('download');
     await page.getByRole('button', { name: button, exact: true }).click();

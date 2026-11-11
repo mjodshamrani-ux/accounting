@@ -182,15 +182,23 @@ export async function verifyActualAllocationPending(
       await button(workspace(), t.readValueLedger).click();
       await page.getByTestId('allocation-result').waitFor();
       await idle();
-      const rows = () =>
-        page
-          .getByTestId('allocation-ledger')
-          .locator('tbody tr')
-          .evaluateAll((rs) =>
-            rs.map((r) =>
-              Array.from(r.querySelectorAll('td,th')).map((c) => c.textContent),
-            ),
-          );
+      // Each item leads with the way to its evidence (UX-10).
+      const rows = async () =>
+        (
+          await page
+            .getByTestId('allocation-ledger')
+            .locator('tbody tr')
+            .evaluateAll((rs) =>
+              rs.map((r) =>
+                Array.from(r.querySelectorAll('td,th')).map(
+                  (c) => c.textContent,
+                ),
+              ),
+            )
+        ).map((r) => {
+          assert.match(r[0], /^(Review source rows|راجع صفوف المصدر)/u);
+          return r.slice(1);
+        });
       const baseline = await rows();
       assert.ok(
         baseline.every(
