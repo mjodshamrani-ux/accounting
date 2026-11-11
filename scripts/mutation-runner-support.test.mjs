@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { chmod, cp, lstat, mkdir, readFile, symlink, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { completedSuccessfully, describeRun, isAssertionKill, createPrivateTree, removePrivateTree } from './mutation-runner-support.mjs';
+import { completedSuccessfully, describeRun, endedWithoutVerdict, isAssertionKill, createPrivateTree, removePrivateTree } from './mutation-runner-support.mjs';
 
 const assertion = { status: 1, signal: null, stdout: 'error: ERR_ASSERTION', stderr: '' };
 void test('only a completed assertion failure is a mutation kill', () => {
@@ -23,6 +23,24 @@ void test('only a completed assertion failure is a mutation kill', () => {
   assert.equal(completedSuccessfully({ status: 0, signal: null }), true);
   assert.equal(completedSuccessfully({ status: 0, signal: null, error: { code: 'ETIMEDOUT' } }), false);
   assert.equal(completedSuccessfully({ status: 0, signal: 'SIGTERM' }), false);
+});
+
+void test('a check with no verdict on a mutant that built is told apart from a kill, a pass and a failed build', () => {
+  const passed = { status: 0, signal: null, stdout: '{"passed":true}', stderr: '' };
+  const stalled = {
+    status: 1,
+    signal: null,
+    stdout: 'stage: bank: open the workspace\nStalled; the page then: {"answers":false,"error":"no answer in 5 s"}\n',
+    stderr: 'page.waitForFunction: Timeout 20000ms exceeded.\nTimeoutError',
+  };
+  assert.equal(endedWithoutVerdict(assertion), false);
+  assert.equal(endedWithoutVerdict(passed), false);
+  assert.equal(endedWithoutVerdict({ ...stalled, buildFailed: true }), false);
+  assert.equal(endedWithoutVerdict({ ...assertion, buildFailed: true }), false);
+  assert.equal(endedWithoutVerdict(stalled), true);
+  assert.equal(endedWithoutVerdict({ ...assertion, signal: 'SIGTERM', status: null }), true);
+  assert.equal(endedWithoutVerdict({ ...assertion, error: { code: 'ETIMEDOUT' } }), true);
+  assert.equal(endedWithoutVerdict({ ...stalled, stdout: 'SyntaxError ERR_ASSERTION' }), true);
 });
 
 void test('a failing run is described by how it ended and the end of its output', () => {

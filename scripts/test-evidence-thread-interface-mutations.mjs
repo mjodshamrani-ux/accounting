@@ -19,6 +19,11 @@
 // page, a decision that leaves the old evidence open, and the supplier's
 // way back to the case's page and the list change or step that closes it.
 //
+// A mutant whose check stops with no verdict (a timeout, a page that no
+// longer answers) is checked once more on the same build, and both runs are
+// kept; only an assertion kills it, and a check that passes is a survivor
+// (DEV-117).
+//
 // Not planted: the drawer's motion outside its reduced-motion guard. The
 // page's own rule (app/globals.css) sets every animation to none under
 // reduced motion, so that mutant draws the same page; it survived its first
@@ -46,6 +51,7 @@ import {
   removePrivateTree,
   completedSuccessfully,
   describeRun,
+  endedWithoutVerdict,
   isAssertionKill,
 } from './mutation-runner-support.mjs';
 
@@ -835,8 +841,26 @@ if (report.baselinePassed)
       if (text.split(from).length !== 2)
         throw Error('Mutation anchor drift: ' + id);
       await writeFile(target, text.replace(from, to));
-      const result = run(tree);
+      let result = run(tree);
       await log(id, result);
+      // A check that stopped with no verdict on a mutant that built (a page
+      // that no longer answered, a timeout) said nothing about the
+      // behaviour; it is run once more on the same build, and both runs are
+      // logged and recorded. Only an assertion is a kill, and a check that
+      // passes is a survivor (DEV-117).
+      let noVerdict = null;
+      if (endedWithoutVerdict(result)) {
+        process.stderr.write(
+          describeRun(id, result, 'stopped with no verdict; its check runs once more'),
+        );
+        noVerdict = {
+          exitCode: result.status,
+          signal: result.signal,
+          error: result.error?.message ?? null,
+        };
+        result = accept(tree);
+        await log(`${id}.again`, result);
+      }
       // A mutant that does not build is not a caught behaviour.
       const killed = !result.buildFailed && isAssertionKill(result);
       if (!killed)
@@ -849,6 +873,7 @@ if (report.baselinePassed)
         exitCode: result.status,
         signal: result.signal,
         error: result.error?.message ?? null,
+        noVerdict,
       });
     } catch (error) {
       process.stderr.write(`${id} did not run: ${error.stack}\n`);
@@ -878,6 +903,7 @@ console.log(
       killed: report.mutations.filter((r) => r.killed).length,
       total: mutations.length,
       survivors: report.mutations.filter((r) => !r.killed).map((r) => r.id),
+      ranTwice: report.mutations.filter((r) => r.noVerdict).map((r) => r.id),
     },
     null,
     2,
