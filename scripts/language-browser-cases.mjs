@@ -1,13 +1,26 @@
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
 import { demoFiles, demoScope } from '../lib/reconciliation/demo.ts';
+import { stageActNames } from '../lib/i18n/stage-acts.ts';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import { stripGap } from './alignment-strip-read.mjs';
+import { copyFile } from 'node:fs/promises';
+import { supplierSheetSaysScreen } from './reconciliation-sheet-browser.mjs';
+import { verifyDisplayTypography } from './brand-browser-cases.mjs';
 
-const ARABIC = /[؀-ۿ]/;
+const ARABIC = /[\u0600-\u06FF]/;
+// The records the stage's first act draws on its synthetic papers and quotes
+// in its sentence (UX-7(c)): each paper's header and reference, data in the
+// paper's own words in both languages. They are removed whole.
+const stageRecords = Object.values(stageActNames).flatMap((paper) => [
+  paper.head,
+  paper.reference,
+]);
 // Arabic that stays Arabic in English mode: the sample documents' own text
-// (user data), the brand wordmark, the Arabic language option and one digit
-// example.
+// (user data), the stage's records, the brand wordmark, the Arabic language
+// option and one digit example.
 const allowedArabic = [
+  ...stageRecords,
   ...demoFiles.flatMap((file) =>
     file.sheets.flatMap((sheet) => [sheet.name, ...sheet.rows.flat()]),
   ),
@@ -21,6 +34,13 @@ const allowedArabic = [
 ]
   .filter((text) => ARABIC.test(text))
   .sort((a, b) => b.length - a.length);
+// Text with its data removed: source row IDs (supplier:0:2) and the stage's
+// records. Each record goes whole, so a stray "No" elsewhere is still copy.
+const withoutData = (text) =>
+  stageRecords.reduce(
+    (rest, record) => rest.split(record).join(''),
+    text.replace(/\b(?:supplier|ledger):\d+:\d+\b/g, ''),
+  );
 // Latin words the Arabic interface uses as they are: formats, units, codes.
 const allowedLatin = new Set(
   'PDF Excel CSV XLSX PNG JPEG MB SAR KWD Diagnostics AR EN English Shift Enter Escape TARASUF'.split(
@@ -139,7 +159,7 @@ async function assertNoStrayEnglish(page, where) {
     const words = (await visibleText(page, stockNotice))
       // Source row IDs (supplier:0:2) and the sample's own Latin data are data,
       // not interface copy.
-      .map((text) => text.replace(/\b(?:supplier|ledger):\d+:\d+\b/g, ''))
+      .map(withoutData)
       .flatMap((text) => text.match(/[A-Za-z]{2,}/g) ?? [])
       .filter((word) => !allowedLatin.has(word));
     const sampleLatin = new Set(
@@ -171,7 +191,7 @@ async function assertNoStrayEnglish(page, where) {
   // Also inspect the original live supplier/review view after returning; its
   // session and selected tab must survive the stock boundary inspection.
   const originalWords = (await visibleText(page))
-    .map((text) => text.replace(/\b(?:supplier|ledger):\d+:\d+\b/g, ''))
+    .map(withoutData)
     .flatMap((text) => text.match(/[A-Za-z]{2,}/g) ?? []);
   const sampleLatin = new Set(
     demoFiles.flatMap((file) =>
@@ -205,7 +225,12 @@ async function documentLanguage(page) {
 }
 
 async function metrics(page) {
-  return page.locator('.metric strong').allInnerTexts();
+  return [
+    ...(await page.locator('.metric strong').allInnerTexts()),
+    // The balance difference, which the alignment strip says as its gap and
+    // the figure grid no longer repeats (UX-4).
+    await stripGap(page.locator(':has(> .metric-grid)')),
+  ];
 }
 
 async function switchTo(page, code) {
@@ -268,6 +293,9 @@ export async function verifyLanguages(page, url) {
   );
   assert.equal(english.title, 'Tarasuf — Local Accounting Reconciliation');
   await page.getByRole('heading', { name: 'Review workspace' }).waitFor();
+  // The English display headings of the shared first page, in the Latin
+  // display face at its one weight, unclipped at 320, 390 and 1440 (UX-8).
+  await verifyDisplayTypography(page);
   assert.deepEqual(
     await metrics(page),
     arabicMetrics,
@@ -317,14 +345,26 @@ export async function verifyLanguages(page, url) {
   const downloadEvent = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Download Excel draft' }).click();
   const workbook = new ExcelJS.Workbook();
-  await workbook.xlsx.readFile(await (await downloadEvent).path());
-  // The workpaper is the same audit record in either language.
-  assert.equal(workbook.worksheets[0].name, 'Summary');
+  const englishDraft = await (await downloadEvent).path();
+  await workbook.xlsx.readFile(englishDraft);
+  // The workpaper is the same audit record in either language, after the
+  // reconciliation sheet in the interface's language (UX-6(b)).
+  assert.equal(workbook.worksheets[0].name, 'Reconciliation sheet');
+  assert.equal(workbook.worksheets[1].name, 'Summary');
   assert.equal(workbook.getWorksheet('Matches').rowCount, 3);
   await page
     .getByRole('status')
     .filter({ hasText: 'The workpaper is ready' })
     .waitFor();
+  // The sheet says what the page says; nothing was decided in this run. The
+  // checker reads the same download in CI.
+  await copyFile(englishDraft, 'work/qa/supplier-draft-en.xlsx');
+  await supplierSheetSaysScreen(page, {
+    file: 'work/qa/supplier-draft-en.xlsx',
+    lang: 'en',
+    result: page,
+    decisions: [],
+  });
 
   // Right to left again, with the notes and step intact.
   await switchTo(page, 'ar');

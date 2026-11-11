@@ -117,11 +117,18 @@ export function snapshotGatewayRequest(
   if (action === 'gateway-reconcile' || action === 'gateway-save')
     return snapshotGatewayInput(payload as unknown as GatewayInput);
   if (action === 'gateway-export') {
-    if (!keys(payload, ['state', 'result']) || !plain(payload.result))
+    // The request names the interface's language, in which the workpaper's
+    // reconciliation sheet is written (UX-6); nothing else is added.
+    if (
+      !keys(payload, ['state', 'result', 'lang']) ||
+      !plain(payload.result) ||
+      (payload.lang !== 'ar' && payload.lang !== 'en')
+    )
       throw Error('PG_WORKER_INPUT');
     return {
       state: snapshotGatewayInput(payload.state as GatewayInput),
       result: structuredClone(payload.result),
+      lang: payload.lang,
     };
   }
   if (action === 'gateway-read' || action === 'gateway-restore') {
@@ -233,9 +240,13 @@ export async function validateGatewayWorkerResponse(
     return value;
   }
   if (action === 'gateway-export') {
-    const expected = await io.exportGateway(
+    // The workpaper as the worker writes it: the evidence, then the
+    // reconciliation sheet first in the language the request names.
+    const sheet = await import('./payment-gateway-sheet.ts');
+    const expected = await sheet.exportGatewayWorkpaper(
       payload.state as GatewayInput,
       payload.result as import('./payment-gateway.ts').GatewayResult,
+      payload.lang,
     );
     const { default: JSZip } = await import('jszip');
     const { default: ExcelJS } = await import('exceljs');

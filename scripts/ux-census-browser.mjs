@@ -14,12 +14,15 @@ import path from 'node:path';
 import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
 import {
+  DECISIONS,
   DOMAINS,
   METRICS,
   STATES,
   censusInPage,
   compare,
   focusInPage,
+  comparePalette,
+  paletteSizes,
   plantInPage,
   sumStates,
 } from './ux-census-support.mjs';
@@ -134,6 +137,66 @@ async function runExample(page, panel, domain, language) {
   await settle(page);
   return label;
 }
+// Waits until a condition holds, polling, or fails with what was awaited.
+async function until(check, what, timeout = 30000) {
+  const end = Date.now() + timeout;
+  while (!(await check())) {
+    assert.ok(Date.now() < end, `timed out waiting for ${what}`);
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+}
+// Decides as the reader would (UX-3): runs or selects first where the
+// workspace asks for it, fills the fields its decisions need, presses the
+// first open decision button of the recipe, and waits until the decision is
+// applied: the workspace was busy and is no longer, and the fields are open
+// again. A recipe whose words no longer match fails here instead of
+// counting nothing.
+async function decide(page, panel, recipe, language) {
+  if (recipe.run) {
+    await panel
+      .getByRole('button', { name: recipe.run[language], exact: true })
+      .click({ timeout: 5000 });
+    await until(
+      async () => !(await panel.locator('[aria-busy="true"]').count()),
+      `${language}: the run`,
+    );
+  }
+  // Each field is held by its element, found once by its label: the label
+  // text Playwright matches takes in what a field wrapped in its label
+  // holds.
+  const fields = await Promise.all(
+    recipe.fields[language].map((label) =>
+      panel.getByLabel(label, { exact: true }).elementHandle({ timeout: 5000 }),
+    ),
+  );
+  for (const [i, field] of fields.entries())
+    await field.fill(
+      i === fields.length - 1
+        ? 'UX census decision, to read where the focus goes'
+        : 'UX census reference',
+    );
+  if (recipe.select) await panel.locator(recipe.select).first().check();
+  let button = null;
+  for (const name of recipe.press[language]) {
+    const buttons = panel.getByRole('button', { name, exact: true });
+    for (let i = 0; i < (await buttons.count()) && !button; i++)
+      if (await buttons.nth(i).isEnabled()) button = buttons.nth(i);
+    if (button) break;
+  }
+  assert.ok(button, `${language}: an open decision to make`);
+  const busy = panel.locator('[aria-busy="true"]');
+  await button.click();
+  // The decision runs in the worker; a reply faster than this look is not
+  // waited for.
+  await until(async () => (await busy.count()) > 0, 'busy', 2000).catch(
+    () => {},
+  );
+  await until(
+    async () => !(await busy.count()) && (await fields[0].isEnabled()),
+    `${language}: the decision applied`,
+  );
+  await settle(page);
+}
 async function measureDomain(domain) {
   const states = [];
   for (const language of ['ar', 'en']) {
@@ -166,7 +229,18 @@ async function measureDomain(domain) {
           ...census,
           focusLost: i === 0 && !focus.inside ? 1 : 0,
           focus,
+          focusAfterDecision: 0,
         });
+      }
+      // Focus is read once per language after a decision too, once every
+      // state of the language is measured, since a decision changes them.
+      const recipe = DECISIONS[domain];
+      if (recipe) {
+        await decide(page, panel, recipe, language);
+        const decided = await page.evaluate(focusInPage, selector);
+        const first = states[states.length - widths.length];
+        first.focusAfterDecision = decided.inside ? 0 : 1;
+        first.decisionFocus = decided;
       }
     } finally {
       await context.close();
@@ -213,15 +287,66 @@ try {
     const planted = await page.evaluate(plantInPage, selector);
     await settle(page);
     const after = await page.evaluate(censusInPage, selector);
-    for (const metric of METRICS.filter((m) => m !== 'focusLost')) {
+    assert.equal(
+      after.disabledUnexplained - before.disabledUnexplained,
+      2,
+      'disabledUnexplained: a button described by an empty element and one described by text not shown are both counted',
+    );
+    for (const metric of METRICS.filter(
+      (m) => m !== 'focusLost' && m !== 'focusAfterDecision',
+    )) {
       assert.ok(planted.includes(metric), `${metric}: the fault was planted`);
       assert.ok(
         after[metric] > before[metric],
         `${metric}: a planted fault is counted (${before[metric]} → ${after[metric]})`,
       );
     }
+    // The palette: a box in colours of its own adds one to each role, and
+    // a run with more colours than recorded fails (UX-8(d)).
+    for (const role of ['text', 'surface', 'border'])
+      assert.ok(
+        Object.keys(after.palette[role]).length >
+          Object.keys(before.palette[role]).length,
+        `palette.${role}: a planted colour is counted`,
+      );
+    const grown = comparePalette(
+      paletteSizes({ bank: { states: [before] } }),
+      paletteSizes({ bank: { states: [after] } }),
+    ).increases;
+    for (const role of ['text', 'surface', 'border'])
+      assert.ok(
+        grown.some((line) => line.startsWith(`palette.${role}: `)),
+        `palette.${role}: more colours than recorded fail`,
+      );
     report.domains.bank = { before, after, planted };
     await context.close();
+    // The decision recipes: the census decides where it has one, and a
+    // recipe whose words do not match the page fails instead of counting
+    // nothing (UX-3).
+    const decision = await open('ar', 390);
+    try {
+      const payroll = await openDomainWorkspace(decision.page, 'payroll', {
+        advanced: true,
+        requiredSources: false,
+      });
+      await runExample(decision.page, payroll, 'payroll', 'ar');
+      await assert.rejects(
+        decide(
+          decision.page,
+          payroll,
+          { fields: { ar: ['حقل غير موجود', 'ولا هذا'] }, press: { ar: [] } },
+          'ar',
+        ),
+        'a recipe that does not match the page fails',
+      );
+      await decide(decision.page, payroll, DECISIONS.payroll, 'ar');
+      report.decision = await decision.page.evaluate(
+        focusInPage,
+        '[data-domain-panel="payroll"]',
+      );
+    } finally {
+      await decision.context.close();
+    }
   } else {
     for (const domain of DOMAINS) {
       const states = await measureDomain(domain);
@@ -233,6 +358,12 @@ try {
     const current = Object.fromEntries(
       Object.entries(report.domains).map(([d, v]) => [d, v.sum]),
     );
+    report.palette = paletteSizes(report.domains);
+    console.log(
+      `palette       ${Object.entries(report.palette)
+        .map(([r, n]) => `${r}=${n}`)
+        .join(' ')}`,
+    );
     if (record) {
       const commit = execFileSync('git', ['rev-parse', 'HEAD'], {
         cwd: root,
@@ -242,7 +373,7 @@ try {
         baselinePath,
         JSON.stringify(
           {
-            note: 'Interface census baseline: each metric summed over the four states of a domain (Arabic and English at 390 and 1440 px) after its synthetic example ran. Recorded by scripts/ux-census-browser.mjs --record; the gate fails on any change.',
+            note: 'Interface census baseline: each metric summed over the four states of a domain (Arabic and English at 390 and 1440 px) after its synthetic example ran, and the number of different text, surface and border colours the panels drew over all of them. Recorded by scripts/ux-census-browser.mjs --record; the gate fails on any change, and on a palette above the ceilings the UX-8 record declared.',
             recorded: {
               commit,
               date: new Date().toISOString().slice(0, 10),
@@ -250,6 +381,7 @@ try {
             },
             metrics: METRICS,
             domains: current,
+            palette: report.palette,
           },
           null,
           2,
@@ -261,6 +393,9 @@ try {
     } else {
       const baseline = JSON.parse(await readFile(baselinePath, 'utf8'));
       const diff = compare(baseline.domains, current);
+      const palette = comparePalette(baseline.palette, report.palette);
+      for (const key of ['increases', 'decreases', 'missing'])
+        diff[key].push(...palette[key]);
       report.baseline = baseline.recorded;
       report.diff = diff;
       const lines = [];

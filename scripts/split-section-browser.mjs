@@ -9,6 +9,12 @@ import { chromium } from 'playwright';
 import { ar } from '../lib/i18n/locales/ar.ts';
 import { en } from '../lib/i18n/locales/en.ts';
 import { splitSectionReviewCopy } from '../lib/i18n/split-section-review.ts';
+import { closedSay, settledOn } from './decision-platform-support.mjs';
+import {
+  assertSectionFocus,
+  sectionFocusRead,
+} from './section-focus-support.mjs';
+import { stageWatchdog } from './stage-watchdog.mjs';
 const root = path.resolve(
   process.env.P4_BROWSER_REPORT_DIR ||
     process.env.P4_REPORT_DIR ||
@@ -16,6 +22,35 @@ const root = path.resolve(
 );
 await mkdir(root, { recursive: true });
 const hash = (bytes) => createHash('sha256').update(bytes).digest('hex');
+// Money as the accountant reads it (UX-1), written here without the product's
+// formatter: a printed cell to minor units, and minor units to major text with
+// thousands grouped and the minus first.
+const minorOf = (text) => {
+  const m = /^(-?)(\d[\d,]*)(?:\.(\d{1,2}))?$/u.exec(text);
+  assert.ok(m, `printed amount ${JSON.stringify(text)}`);
+  return BigInt(
+    `${m[1]}${m[2].replaceAll(',', '')}${(m[3] ?? '').padEnd(2, '0')}`,
+  );
+};
+const major = (minor) => {
+  const value = BigInt(minor);
+  const digits = (value < 0n ? -value : value).toString().padStart(3, '0');
+  const whole = digits.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/gu, ',');
+  return `${value < 0n ? '-' : ''}${whole}.${digits.slice(-2)}`;
+};
+const amounts = (text) =>
+  text.match(/(?<![\d,.])-?\d{1,3}(?:,\d{3})*\.\d{2}(?!\d)/gu) ?? [];
+const totalKinds = new Set([
+  'carried',
+  'brought',
+  'page-total',
+  'section-total',
+  'grand-total',
+]);
+const isMovement = (row) =>
+  row.kind
+    ? row.kind === 'movement'
+    : /^\d{4}-\d{2}-\d{2}$/u.test(row.values[0]);
 const ids = [
   'P05-carry-and-component-totals',
   'P02-zero-and-separated-sections',
@@ -86,8 +121,10 @@ const save = () =>
     path.join(root, 'observations.json'),
     JSON.stringify(report, null, 2),
   );
-const dist = path.resolve('dist');
+const dist = path.resolve(process.env.MIZAN_DIST_DIR ?? 'dist');
 let browser, server, activePage;
+// A stall says which case it stopped in (scripts/stage-watchdog.mjs).
+const watch = stageWatchdog({ page: () => activePage });
 async function choose(page, control, value, label) {
   if ((await control.evaluate((el) => el.tagName)) === 'SELECT')
     await control.selectOption(value);
@@ -275,6 +312,7 @@ try {
       const locale = lang === 'ar' ? ar : en;
       const t = splitSectionReviewCopy(lang);
       const key = `${lang}-${id}`;
+      watch.at(key);
       const context = await browser.newContext({
         acceptDownloads: true,
         viewport: { width: 1440, height: 1000 },
@@ -326,6 +364,13 @@ try {
       }
       await panel.getByTestId('split-section-inspect').click();
       await idle(panel);
+      // The result present (UX-3): the reading's result heading takes the
+      // focus and names the review.
+      await assertSectionFocus(
+        page,
+        page.getByTestId('split-section-picker'),
+        'split section review',
+      );
       const actualRows = await panel
         .getByTestId('split-section-inventory')
         .locator('tbody tr')
@@ -366,6 +411,15 @@ try {
         );
         await panel.getByTestId('split-section-select-all').click();
         await idle(panel);
+        // UX-3: every closed button says what opens it, and the sentence
+        // under the decisions says they wait for what is still missing.
+        await closedSay(panel, key);
+        const hint = panel.locator('[data-decision-hint]');
+        assert.equal(
+          await hint.getAttribute('data-decision-hint'),
+          'before',
+          `${key}: the decisions wait`,
+        );
         const movements = panel.getByTestId('split-section-movement');
         for (let i = 0; i < (await movements.count()); i++) {
           await movements.nth(i).locator('summary').focus();
@@ -391,6 +445,35 @@ try {
         observation.totals = await panel
           .getByTestId('split-section-total')
           .allTextContents();
+        // Gross totals and each printed total row read in major units at the
+        // reading's two decimals, derived from the frozen truth (UX-1).
+        const moved = fixture.truth.inventory.filter(isMovement);
+        const debit = moved.reduce((s, row) => s + minorOf(row.values[3]), 0n);
+        const credit = moved.reduce((s, row) => s + minorOf(row.values[4]), 0n);
+        if (fixture.truth.totals)
+          assert.deepEqual(
+            [debit, credit, debit - credit],
+            ['debitMinor', 'creditMinor', 'netMinor'].map((k) =>
+              BigInt(fixture.truth.totals[k]),
+            ),
+          );
+        observation.gross = await panel
+          .getByTestId('split-section-gross')
+          .allTextContents();
+        assert.deepEqual(observation.gross.map(amounts), [
+          [debit, credit, debit - credit].map(major),
+        ]);
+        assert.deepEqual(
+          observation.totals.map(amounts),
+          fixture.truth.inventory
+            .filter((row) => totalKinds.has(row.kind))
+            .map((row) => {
+              const [d, c] = [row.values[3], row.values[4]].map((v) =>
+                major(minorOf(v)),
+              );
+              return [d, d, c, c];
+            }),
+        );
         await panel
           .getByTestId('split-section-reviewer')
           .fill('SYNTHETIC REVIEWER');
@@ -409,9 +492,19 @@ try {
           'derivedSourceUnderstood',
         ])
           await panel.getByTestId(`split-section-ack-${key}`).check();
+        assert.equal(
+          await hint.getAttribute('data-decision-hint'),
+          'open',
+          `${key}: both decisions open`,
+        );
         await panel.getByTestId('split-section-accept').click();
         await idle(panel);
         await panel.getByTestId('split-section-receipt').waitFor();
+        await settledOn(
+          page,
+          panel.getByTestId('split-section-receipt'),
+          `${key}: approval`,
+        );
         await panel.getByTestId('split-section-apply').click();
         await idle(panel);
         await panel.getByTestId('split-section-artifact').waitFor();
@@ -476,6 +569,7 @@ try {
           await panel.getByTestId('split-section-status').innerText(),
           t.blocked,
         );
+        await closedSay(panel, key);
         assert.ok(
           (
             await panel
@@ -512,6 +606,7 @@ try {
       await save();
       await context.close();
     }
+  console.log('section focus read:', sectionFocusRead('split section review'));
   report.passed = true;
   await save();
   console.log(
@@ -534,6 +629,7 @@ try {
   await save();
   throw e;
 } finally {
+  watch.stop();
   await browser?.close();
   if (server)
     await new Promise((resolve) => {

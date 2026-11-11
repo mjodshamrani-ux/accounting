@@ -15,6 +15,27 @@ import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import {
+  assertStatusBadges,
+  statusBadgesRead,
+} from './status-badge-support.mjs';
+import {
+  assertSectionFocus,
+  sectionFocusRead,
+} from './section-focus-support.mjs';
+
+// The status badge in this section (UX-3): a status on this list, and no
+// other, takes the agreed tone.
+const BADGE_LABEL = 'GL and TB sections';
+const BADGES = [
+  {
+    name: 'accounts',
+    column: 2,
+    rows: 'tr[data-gls-account]',
+    attr: 'data-gls-status',
+    agreed: ['consistent'],
+  },
+];
 
 const root = path.resolve(process.env.GLS_DIST ?? 'dist');
 // GLS_SUITE names another sealed suite with the same layout; the language,
@@ -75,9 +96,15 @@ const STATUS = {
   متسق: 'consistent',
 };
 const byText = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
+// The page writes an amount at the run's decimals with grouped thousands and
+// the minus first; written here on its own, not taken from the application.
 const minor = (v, d) => {
-  const digits = String(v).padStart(d + 1, '0');
-  return d ? `${digits.slice(0, -d)}.${digits.slice(-d)}` : digits;
+  const digits = String(Math.abs(v)).padStart(d + 1, '0');
+  const whole = (d ? digits.slice(0, -d) : digits).replace(
+    /\B(?=(\d{3})+(?!\d))/gu,
+    ',',
+  );
+  return `${v < 0 ? '-' : ''}${whole}${d ? `.${digits.slice(-d)}` : ''}`;
 };
 // What the English page should write for an account's components, from the
 // sealed expectation: every component, or only those that differ.
@@ -159,6 +186,7 @@ async function load(page, gls, sid) {
     .click();
   await gls.locator('[data-gls-result], [data-gls-error]').first().waitFor();
   await idle(page);
+  await assertSectionFocus(page, gls, BADGE_LABEL);
   assert.equal(
     await gls.locator('[data-gls-error]').count(),
     0,
@@ -171,6 +199,7 @@ async function load(page, gls, sid) {
   );
 }
 async function shown(gls) {
+  await assertStatusBadges(gls, BADGES, BADGE_LABEL);
   const accounts = {};
   for (;;) {
     for (const row of await gls.locator('tr[data-gls-account]').all()) {
@@ -383,6 +412,11 @@ try {
   for (const [k, v] of Object.entries(report.summary.checks)) assert.ok(v, k);
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
+  console.log(
+    'status badges read:',
+    statusBadgesRead(BADGE_LABEL, ['accounts']),
+  );
+  console.log('section focus read:', sectionFocusRead(BADGE_LABEL));
 } finally {
   await browser?.close();
   await new Promise((resolve) => server.close(resolve));

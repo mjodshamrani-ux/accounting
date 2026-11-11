@@ -31,8 +31,7 @@ const en = {
   groupsTitle: 'Groups',
   groupHeaders: ['Reference', 'Members', 'Net', 'Status', 'Reasons', 'Held by'],
   noReference: 'No reference',
-  member: (row: number, posting: string, amount: string) =>
-    `row ${row} · ${posting} · ${amount}`,
+  member: (row: number, posting: string) => `row ${row} · ${posting}`,
   heldBy: (row: number, code: string) => `row ${row} (${code})`,
   duplicates: (rows: number[]) => `rows ${rows.join(', ')} are equal`,
   status: { cleared: 'Cleared', review: 'To review' } as Record<string, string>,
@@ -66,9 +65,6 @@ const en = {
   } as Record<string, string>,
   noFaulty: 'No faulty line.',
   blank: (rows: number[]) => `Blank lines: ${rows.join(', ')}`,
-  previous: 'Previous page',
-  next: 'Next page',
-  page: (page: number, pages: number) => `Page ${page} of ${pages}`,
 };
 
 const ar: typeof en = {
@@ -99,7 +95,7 @@ const ar: typeof en = {
   groupsTitle: 'المجموعات',
   groupHeaders: ['المرجع', 'الأعضاء', 'الصافي', 'الحالة', 'الأسباب', 'يوقفها'],
   noReference: 'بلا مرجع',
-  member: (row, posting, amount) => `الصف ${row} · ${posting} · ${amount}`,
+  member: (row, posting) => `الصف ${row} · ${posting}`,
   heldBy: (row, code) => `الصف ${row} (${code})`,
   duplicates: (rows) => `الصفوف ${rows.join('، ')} متساوية`,
   status: { cleared: 'تُصفّى', review: 'للمراجعة' },
@@ -127,9 +123,6 @@ const ar: typeof en = {
   },
   noFaulty: 'لا سطر معيب.',
   blank: (rows) => `أسطر فارغة: ${rows.join('، ')}`,
-  previous: 'الصفحة السابقة',
-  next: 'الصفحة التالية',
-  page: (page, pages) => `الصفحة ${page} من ${pages}`,
 };
 
 export const clearingGroupsCopy = { en, ar };

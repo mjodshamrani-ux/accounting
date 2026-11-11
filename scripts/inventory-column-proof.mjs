@@ -11,6 +11,7 @@ import {
   restoreStock,
   exportStock,
 } from '../lib/reconciliation/inventory-register-io.ts';
+import { exportStockWorkpaper } from '../lib/reconciliation/inventory-sheet.ts';
 import {
   STOCK_VERSION,
   STOCK_ROLES,
@@ -44,6 +45,7 @@ const report = {
   out,
   cases: [],
   exports: [],
+  workpapers: [],
   passed: false,
   exportControls: [],
 };
@@ -60,6 +62,8 @@ const tracked = [
   'audit/inventory-column-hierarchy/oracle.py',
   'audit/inventory-column-hierarchy/INPUT-MANIFEST.v3.json',
   'audit/inventory-column-hierarchy/check_export.py',
+  'audit/reconciliation-sheet/set_aside.py',
+  'lib/reconciliation/inventory-sheet.ts',
 ];
 const sha = (b) => createHash('sha256').update(b).digest('hex');
 const sourceHashes = Object.fromEntries(
@@ -197,6 +201,30 @@ try {
         );
         assert.equal(receipt.pass_, true);
         report.exports.push({ file: path.basename(p), receipt });
+        // UX-6(c): the page's workpaper, the reconciliation sheet first,
+        // read by the same checker by the same rule, in either language.
+        if (suffix === 'direct')
+          for (const lang of ['ar', 'en']) {
+            const paper = p.replace(/\.xlsx$/, '-workpaper-' + lang + '.xlsx');
+            await writeFile(
+              paper,
+              new Uint8Array(
+                await exportStockWorkpaper(value.state, value.result, lang),
+              ),
+            );
+            const read = JSON.parse(
+              python('check_export.py', [
+                '--workbook',
+                paper,
+                '--case-dir',
+                path.join(sources, c.id),
+                '--mode',
+                mode,
+              ]),
+            );
+            assert.equal(read.pass_, true, paper);
+            report.workpapers.push({ file: path.basename(paper), lang });
+          }
       }
     }
   }
@@ -205,6 +233,7 @@ try {
   report.exportControls = await checkColumnExportControls(out, sources);
   assert.equal(report.cases.length, 20);
   assert.equal(report.exports.length, 48);
+  assert.equal(report.workpapers.length, 48);
   report.passed = true;
 } finally {
   await writeFile(

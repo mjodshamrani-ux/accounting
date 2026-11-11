@@ -4,6 +4,7 @@ import { bankTruth,bankFixture,finishedBank,bankEvent } from './fixtures.ts';
 import { readFile } from '../../lib/reconciliation/io.ts';
 import { reconcileBank } from '../../lib/reconciliation/bank.ts';
 import { exportBank,saveBank,restoreBank } from '../../lib/reconciliation/bank-io.ts';
+import { exportBankWorkpaper } from '../../lib/reconciliation/bank-movements-sheet.ts';
 await mkdir('work/bank/exports',{recursive:true});
 for(const c of bankTruth.cases){const {state,result}=await finishedBank(c);await writeFile(`work/bank/exports/${c.name}.xlsx`,new Uint8Array(await exportBank(state,result)));const restored=await restoreBank(await saveBank(state));await writeFile(`work/bank/exports/${c.name}-restored.xlsx`,new Uint8Array(await exportBank(restored.state,restored.result)));}
 for(const name of ['outgoing-fees','timing-after-cutoff']){
@@ -16,4 +17,7 @@ for(const name of ['outgoing-fees','timing-after-cutoff']){
  for(const [i,a]of c.actions.entries())if(!a.reject)state.events.push(bankEvent(a,reconcileBank(state),`D${i+1}`));
  await writeFile(`work/bank/exports/${name}-native.xlsx`,new Uint8Array(await exportBank(state,reconcileBank(state))));const restored=await restoreBank(await saveBank(state));await writeFile(`work/bank/exports/${name}-native-restored.xlsx`,new Uint8Array(await exportBank(restored.state,restored.result)));
 }
-console.log('106 CSV workbooks + 4 native workbooks and 4 native sources generated; synthetic only');
+// The workpaper as the page downloads it (UX-6): the reconciliation sheet
+// first, in either language, then this evidence.
+for(const name of ['individual','no-identity']){const {state,result}=await finishedBank(bankTruth.cases.find(c=>c.name===name));for(const lang of ['ar','en'])await writeFile(`work/bank/exports/${name}-workpaper-${lang}.xlsx`,new Uint8Array(await exportBankWorkpaper(state,result,lang)));}
+console.log('106 CSV workbooks + 4 native workbooks, 4 native sources and 4 workpapers generated; synthetic only');

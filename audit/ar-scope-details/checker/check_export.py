@@ -13,6 +13,12 @@ from xml.etree import ElementTree as E
 HERE = Path(__file__).resolve().parent
 DEFAULT_PREP = HERE.parent if (HERE.parent/'oracle/ar_oracle.py').exists() else HERE.parents[1] / 'ar-scope-details-preparation-20261011'
 SHEETS = ['Summary','Movements','Cases','Membership','Ledger inventory','Statement inventory','Reading','Decisions','Sources']
+# UX-6: the workpaper the page downloads opens on one reconciliation sheet,
+# named in the interface's language, before the nine evidence sheets. It is read
+# through the same raw checks, then set aside: its figures are checked against
+# these sheets by audit/reconciliation-sheet/check_sheet.py. Anywhere but first,
+# or under another name, the order fails as before.
+RECONCILIATION_SHEETS = ('ورقة التسوية','Reconciliation sheet')
 HEADERS = {
  'Summary':['Property','Value'],
  'Movements':['Movement ID','Side','Source row','Posting ID','Document type','Own document number','Posting date','Amount minor units','Related invoice','Description','Case ID','Status','Basis','Related evidence JSON'],
@@ -104,6 +110,8 @@ def read_workbook(path):
      while len(rows[n-1])<=c:rows[n-1].append('')
      rows[n-1][c]=raw
    book[name]=rows
+  first=next(iter(book),None)
+  if first in RECONCILIATION_SHEETS:del book[first]
   eq(list(book),SHEETS,'all nine worksheets and order')
   return book
 

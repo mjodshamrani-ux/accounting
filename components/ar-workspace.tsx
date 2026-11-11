@@ -1,5 +1,10 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
-import { useEffect, useRef, useState } from 'react';
+import { AlignmentStrip } from '@/components/alignment-strip';
+import { ResultIndex, useResultParts } from '@/components/result-index';
+import { arStrip } from '@/lib/alignment-strip';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
+import { useResultFocus } from '@/components/result-focus';
+import { NoteHint, useDecisionFocus } from '@/components/decision-platform';
 import {
   WorkspaceHeader,
   WorkspaceIntro,
@@ -8,9 +13,12 @@ import {
   WorkspaceFileInput,
   WorkspaceSources,
   WorkspaceAdvanced,
+  WorkspaceStart,
 } from './workspace-chrome';
 import { Button } from './ui/button';
 import { useI18n } from '@/lib/i18n/context';
+import { decisionPlatformCopy } from '@/lib/i18n/decision-platform';
+import { noteReady } from '@/lib/decision-platform';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
 import { money } from '@/lib/reconciliation/core';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
@@ -35,7 +43,32 @@ import {
   arDemoReadings,
   arDemoScope,
 } from '@/lib/reconciliation/ar-demo';
+import {
+  RecordFields,
+  RecordPager,
+  RecordRows,
+} from '@/components/record-table';
+import { pageOfRow, recordPage } from '@/lib/record-page';
+import { StatusBadge } from '@/components/status-badge';
+import { arCaseTone } from '@/lib/status-tone';
+import { ScopeCard, Sentence } from '@/components/scope-card';
+import { scopeCardCopy } from '@/lib/i18n/scope-card';
+import { useDeclaredScope } from '@/hooks/use-declared-scope';
+import type {
+  DeclaredScopeRule,
+  ScopeOrigin,
+} from '@/lib/reconciliation/declared-scope';
+import {
+  AR_CARD_FIELDS,
+  AR_CARD_HEADERS,
+  arCardBlock,
+  arCardHeaders,
+  arCardKind,
+  type ArCardField,
+} from '@/lib/ar-scope-card';
 import './clearing-workspace.css';
+import { SheetPrint, useSheetPrint } from '@/components/reconciliation-sheet-print';
+import { sheetPrintCopy } from '@/lib/i18n/sheet-print';
 import './ar-workspace.css';
 const columns = [
   'posting',
@@ -66,15 +99,46 @@ const readingColumn = (reading: ArReading, key: string) => {
   const value: unknown = Reflect.get(reading, key);
   return typeof value === 'number' ? value : -1;
 };
-const scopeFields = [
-  'entity',
-  'ledger',
-  'customer',
-  'account',
-  'currency',
-  'start',
-  'end',
-] as const;
+// The card «ما فهمناه من ملفاتك» (UX-5(d)): the currency starts from SAR,
+// marked as the default, while no file writes it; the period takes only
+// YYYY-MM-DD; the other fields are asked until the files agree on them.
+const isoDate = (v: string) => /^\d{4}-\d{2}-\d{2}$/.test(v);
+const cardRules: DeclaredScopeRule<ArCardField>[] = AR_CARD_FIELDS.map(
+  (field) =>
+    field === 'currency'
+      ? { field, fallback: 'SAR' }
+      : field === 'start' || field === 'end'
+        ? { field, accepts: isoDate }
+        : { field },
+);
+const cardColumns = AR_CARD_FIELDS.map((field) => ({
+  field,
+  header: AR_CARD_HEADERS[field],
+}));
+const freshOrigins = () =>
+  Object.fromEntries(
+    cardRules.map((r) => [
+      r.field,
+      r.fallback === undefined ? 'question' : 'default',
+    ]),
+  ) as Record<ArCardField, ScopeOrigin>;
+// What each side gives the card, as its reader reads it. A printed
+// statement is read by the worker at the run, not before: before the run
+// it has no sheets to read and its headers name no column (arCardHeaders),
+// and after a run it is held without sheets at all, so the card is given
+// only files that hold sheets.
+const cardFilesOf = (files: readonly (SourceFile | null)[]) =>
+  files.map((file) => (file && Array.isArray(file.sheets) ? file : null));
+const cardSheets = (readings: readonly ArReading[]) =>
+  readings.map((r) => (r as { sheet?: number }).sheet ?? 0);
+const cardHeadersOf = (
+  files: readonly (SourceFile | null)[],
+  readings: readonly ArReading[],
+) => readings.map((r, side) => arCardHeaders(files[side], r));
+const cardBlocksOf = (
+  files: readonly (SourceFile | null)[],
+  readings: readonly ArReading[],
+) => readings.map((r, side) => arCardBlock(files[side], r));
 const freshReading = (side: number): ArReading => ({
   ...arDemoReadings[side],
   ...Object.fromEntries(columns.map((k) => [k, -1])),
@@ -122,6 +186,19 @@ function download(bytes: ArrayBuffer, name: string, type: string) {
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
+// The sheet on paper (UX-6(d)), composed on the page by the function the
+// worker writes the workbook's first sheet with, from the state and result
+// the export sends.
+const composeSheet = async (
+  { state, result }: { state: ArInput; result: ArResult },
+  language: 'ar' | 'en',
+) =>
+  (await import('@/lib/reconciliation/ar-sheet')).arSheet(
+    state,
+    result,
+    language,
+  );
+
 export function ArWorkspace({
   active,
   onBack,
@@ -129,7 +206,7 @@ export function ArWorkspace({
   active: boolean;
   onBack: () => void;
 }) {
-  const { t: catalogue } = useI18n(),
+  const { t: catalogue, lang } = useI18n(),
     t = catalogue.arDocuments;
   const [files, setFiles] = useState<[SourceFile | null, SourceFile | null]>([
     null,
@@ -139,8 +216,28 @@ export function ArWorkspace({
     freshReading(0),
     freshReading(1),
   ]);
-  const [scope, setScope] = useState(freshScope),
-    [events, setEvents] = useState<ArEvent[]>([]),
+  // The card's scope and where each value came from (UX-5(d)): a new file,
+  // sheet, family or column mapping changes what the sides say; what they
+  // agree on fills the fields the accountant has not entered, and a value
+  // it changes drops the confirmation.
+  const cardFiles = useMemo(() => cardFilesOf(files), [files]),
+    cardHeaders = useMemo(
+      () => cardHeadersOf(files, readings),
+      [files, readings],
+    ),
+    cardBlocks = useMemo(() => cardBlocksOf(files, readings), [files, readings]);
+  const card = useDeclaredScope({
+    initial: () => ({ scope: freshScope(), origins: freshOrigins() }),
+    rules: cardRules,
+    columns: cardColumns,
+    files: cardFiles,
+    sheets: cardSheets(readings),
+    labels: t.sides,
+    headers: cardHeaders,
+    blocks: cardBlocks,
+  });
+  const { scope, origins, suggestions } = card;
+  const [events, setEvents] = useState<ArEvent[]>([]),
     [result, setResult] = useState<ArResult | null>(null);
   const [busy, setBusy] = useState(false),
     [error, setError] = useState(false),
@@ -169,13 +266,29 @@ export function ArWorkspace({
   function install(value: { state: ArInput; result: ArResult }) {
     setFiles(value.state.files);
     setReadings(value.state.readings);
-    setScope(value.state.scope);
+    card.install(
+      value.state.scope,
+      cardFilesOf(value.state.files),
+      cardSheets(value.state.readings),
+      cardBlocksOf(value.state.files, value.state.readings),
+      cardHeadersOf(value.state.files, value.state.readings),
+    );
     setEvents(value.state.events);
     setResult(value.result);
     setPage(0);
     setInventoryPage(0);
     setMemberPages({});
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const resultParts = useResultParts(['summary', 'explain', 'figures', 'cases', 'evidence']);
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
+  // An example that only loads sources takes the reader to what it loaded.
+  const { heading: loadedHeading, reveal: revealLoaded } = useResultFocus();
   async function perform(work: (signal: AbortSignal) => Promise<void>) {
     const id = ++serial.current,
       control = new AbortController();
@@ -201,12 +314,44 @@ export function ArWorkspace({
     scope,
     events,
   });
+  const printed = useMemo(
+    () =>
+      files[0] && files[1] && result
+        ? {
+            state: {
+              files: files as ArInput['files'],
+              readings,
+              scope,
+              events,
+            },
+            result,
+          }
+        : null,
+    [files, readings, scope, events, result],
+  );
+  const paper = useSheetPrint(printed, lang, composeSheet);
   function cancel() {
     serial.current++;
     controller.current?.abort();
     controller.current = null;
     setBusy(false);
   }
+  const unknown = scopeCardCopy[lang].unknown;
+  // A value inside a sentence, isolated so mixed scripts keep their order;
+  // a date, a code or a ledger is never split across lines.
+  const scopeValue = (v: string, whole = false) => (
+    <bdi className={whole ? 'scope-card__whole' : undefined}>
+      {v || unknown}
+    </bdi>
+  );
+  // The rows the card read on one side: as many as any scope field read.
+  const rowsReadOn = (label: string) =>
+    Math.max(
+      0,
+      ...AR_CARD_FIELDS.flatMap((k) =>
+        suggestions[k].read.filter((r) => r.label === label).map((r) => r.rows),
+      ),
+    );
   async function upload(side: 0 | 1, file: File) {
     // Only the customer statement may be a PDF; the ledger stays a table.
     const pdf = side === 1 && /\.pdf$/i.test(file.name);
@@ -229,6 +374,10 @@ export function ArWorkspace({
       const next = [...files] as typeof files;
       next[side] = source;
       setFiles(next);
+      // A new file's reading starts unconfirmed, as do a new family, sheet
+      // or column below: that alone leaves the one box unticked until the
+      // accountant confirms again (the card's own scope confirmation drops
+      // only when a value changes).
       setReadings((previous) => {
         const next = [...previous] as typeof readings;
         next[side] = pdf
@@ -238,38 +387,49 @@ export function ArWorkspace({
             : freshReading(side);
         return next;
       });
-      setScope((previous) => ({ ...previous, confirmed: false }));
       invalidate();
     });
   }
   const check = () =>
     perform(async (signal) =>
-      install(await workerTask('ar-reconcile', input(), signal)),
+      shown(await workerTask('ar-reconcile', input(), signal)),
     );
+  // The decision platform (UX-3): a decision needs a review reason of eight
+  // characters, as the engine requires, and the sentence under the reason
+  // says so; after a decision the focus returns to the pair's heading, on
+  // the page that shows it, not to the page.
+  const hint = useId(),
+    caseHeading = useId(),
+    settle = useDecisionFocus();
+  const headingAt = (at: number) => `${caseHeading}-${at}`;
   const decide = (action: ArEvent['action'], target: ArCase) =>
-    perform(async (signal) =>
-      install(
-        await workerTask(
-          'ar-reconcile',
-          {
-            ...input(),
-            events: [
-              ...events,
-              {
-                context: result!.context,
-                at: new Date().toISOString(),
-                action,
-                ids: target.ids,
-                note,
-              },
-            ],
-          },
-          signal,
-        ),
-      ),
-    );
+    perform(async (signal) => {
+      const value = await workerTask<{ state: ArInput; result: ArResult }>(
+        'ar-reconcile',
+        {
+          ...input(),
+          events: [
+            ...events,
+            {
+              context: result!.context,
+              at: new Date().toISOString(),
+              action,
+              ids: target.ids,
+              note,
+            },
+          ],
+        },
+        signal,
+      );
+      install(value);
+      const at = value.result.cases.findIndex((c) => c.id === target.id);
+      if (at < 0) return;
+      setPage(pageOfRow(at));
+      settle(headingAt(at));
+    });
   const rowById = new Map(result?.rows.map((r) => [r.id, r]));
   if (!active) return null;
+  const casesShown = recordPage(result?.cases.length ?? 0, page);
   return (
     <main
       className="app-shell clearing-workspace ar-workspace reconciliation-workspace"
@@ -282,20 +442,20 @@ export function ArWorkspace({
         disabled={busy}
         hasWork={files.some(Boolean)}
       />
-      <WorkspaceIntro title={t.title} intro={t.intro}>
+      <WorkspaceIntro title={t.title} intro={t.intro} detail={t.introDetail}>
         <p>{t.limits}</p>
         <p>{t.pdfLimits}</p>
       </WorkspaceIntro>
       <fieldset disabled={busy}>
-        <WorkspaceAdvanced>
+        <WorkspaceStart>
           <div className="clearing-actions workspace-toolbar">
-            <Button
+            <Button variant="outline"
               onClick={() =>
                 perform(async (signal) => {
                   const source: SourceFile[] = [];
                   for (const demo of arDemo())
                     source.push(await workerTask('read', demo, signal));
-                  install(
+                  shown(
                     await workerTask(
                       'ar-reconcile',
                       {
@@ -319,13 +479,21 @@ export function ArWorkspace({
                   const sources: SourceFile[] = [];
                   for (const demo of arScopeDemo())
                     sources.push(await workerTask('read', demo, signal));
-                  setFiles(sources as ArInput['files']);
-                  setReadings([
+                  const loaded: [ArReading, ArReading] = [
                     suggestArScopeReading(sources[0], 0),
                     suggestArScopeReading(sources[1], 1),
-                  ]);
-                  setScope({ ...arScopeDemoScope });
+                  ];
+                  setFiles(sources as ArInput['files']);
+                  setReadings(loaded);
+                  card.install(
+                    { ...arScopeDemoScope },
+                    sources,
+                    cardSheets(loaded),
+                    cardBlocksOf(sources, loaded),
+                    cardHeadersOf(sources, loaded),
+                  );
                   invalidate();
+                  revealLoaded();
                 })
               }
             >
@@ -345,7 +513,7 @@ export function ArWorkspace({
                       return;
                     }
                     void perform(async (signal) =>
-                      install(
+                      shown(
                         await workerTask(
                           'ar-restore',
                           { buffer: await file.arrayBuffer() },
@@ -358,7 +526,7 @@ export function ArWorkspace({
               />
             </label>
           </div>
-        </WorkspaceAdvanced>
+        </WorkspaceStart>
         <WorkspaceGroupTitle kind="sources" />
         <WorkspaceSources
           primaryIndices={[0, 1]}
@@ -374,7 +542,11 @@ export function ArWorkspace({
                 key={side}
                 data-testid={`ar-source-${side}`}
               >
-                <h2>
+                <h2
+                  ref={side === 0 ? loadedHeading : undefined}
+                  tabIndex={side === 0 ? -1 : undefined}
+                  data-result-heading={side === 0 ? 'loaded' : undefined}
+                >
                   <WorkspaceSourceHeading>
                     {t.sides[side]}
                   </WorkspaceSourceHeading>
@@ -397,22 +569,6 @@ export function ArWorkspace({
                     <h3>{source.name}</h3>
                     <p data-ar-statement-pdf>{t.pdfStatement}</p>
                     <p>{t.pdfReading}</p>
-                    <label className="clearing-confirm">
-                      <input
-                        type="checkbox"
-                        checked={r.confirmed}
-                        onChange={(event) => {
-                          const next = [...readings] as typeof readings;
-                          next[side] = {
-                            ...r,
-                            confirmed: event.target.checked,
-                          };
-                          setReadings(next);
-                          invalidate();
-                        }}
-                      />
-                      {t.sides[side]}: {t.pdfReadingConfirm}
-                    </label>
                   </>
                 )}
                 {source && !isStatementReading(r) && (
@@ -434,7 +590,6 @@ export function ArWorkspace({
                               ? suggestArScopeReading(source, side, r.sheet)
                               : { ...freshReading(side), sheet: r.sheet };
                           setReadings(next);
-                          setScope({ ...scope, confirmed: false });
                           invalidate();
                         }}
                       >
@@ -462,7 +617,6 @@ export function ArWorkspace({
                                 sheet: Number(event.target.value),
                               };
                           setReadings(next);
-                          setScope({ ...scope, confirmed: false });
                           invalidate();
                         }}
                       >
@@ -511,7 +665,9 @@ export function ArWorkspace({
                                   .map((values, index) => (
                                     <tr key={index}>
                                       <td>{index + 1}</td>
-                                      <td>{values.join(' | ')}</td>
+                                      <td data-record-wrap>
+                                        <RecordFields values={values} />
+                                      </td>
                                     </tr>
                                   ))}
                               </tbody>
@@ -536,7 +692,6 @@ export function ArWorkspace({
                                   confirmed: false,
                                 } as ArReading;
                                 setReadings(next);
-                                setScope({ ...scope, confirmed: false });
                                 invalidate();
                               }}
                             >
@@ -560,61 +715,87 @@ export function ArWorkspace({
                       )}
                     </div>
                     {isArScopeReading(r) && <p>{t.openLimit}</p>}
-                    <label className="clearing-confirm">
-                      <input
-                        type="checkbox"
-                        checked={r.confirmed}
-                        onChange={(event) => {
-                          const next = [...readings] as typeof readings;
-                          next[side] = {
-                            ...r,
-                            confirmed: event.target.checked,
-                          };
-                          setReadings(next);
-                          invalidate();
-                        }}
-                      />
-                      {t.sides[side]}: {t.readingConfirm}
-                    </label>
                   </>
                 )}
               </section>
             );
           })}
         </WorkspaceSources>
-        <section className="workspace-scope" hidden={!(files[0] && files[1])}>
-          <WorkspaceGroupTitle kind="scope" />
-          <div className="clearing-grid">
-            {scopeFields.map((key) => (
-              <label key={key}>
-                {key === 'start' || key === 'end' ? t[key] : t.fields[key]}
-                <input
-                  type={key === 'start' || key === 'end' ? 'date' : 'text'}
-                  value={scope[key]}
-                  onChange={(event) => {
-                    setScope({
-                      ...scope,
-                      [key]: event.target.value,
-                      confirmed: false,
-                    });
-                    invalidate();
-                  }}
-                />
-              </label>
-            ))}
-          </div>
-          <label className="clearing-confirm">
-            <input
-              type="checkbox"
-              checked={scope.confirmed}
-              onChange={(event) => {
-                setScope({ ...scope, confirmed: event.target.checked });
-                invalidate();
-              }}
+        <ScopeCard
+          hidden={!(files[0] && files[1])}
+          summary={
+            <Sentence
+              parts={t.cardSummary(
+                scopeValue(scope.entity),
+                scopeValue(scope.ledger, true),
+                scopeValue(scope.customer, true),
+                scopeValue(scope.account, true),
+                scopeValue(scope.start, true),
+                scopeValue(scope.end, true),
+                scopeValue(scope.currency, true),
+                ([0, 1] as const)
+                  .map((side) =>
+                    t.cardRead(
+                      t.sides[side],
+                      arCardKind(files[side], readings[side]),
+                      rowsReadOn(t.sides[side]),
+                    ),
+                  )
+                  .join(t.cardReadJoin),
+              )}
             />
-            {t.scopeConfirm}
-          </label>
-        </section>
+          }
+          rows={AR_CARD_FIELDS.map((k) => ({
+            key: k,
+            label: k === 'start' || k === 'end' ? t[k] : t.fields[k],
+            origin: origins[k],
+            value: scope[k],
+            fixed: false,
+            suggestion: suggestions[k],
+            control: (describedBy: string) => (
+              <input
+                aria-label={k === 'start' || k === 'end' ? t[k] : t.fields[k]}
+                aria-describedby={describedBy}
+                type={k === 'start' || k === 'end' ? 'date' : 'text'}
+                value={scope[k]}
+                onChange={(event) => {
+                  card.edit(k, event.target.value);
+                  invalidate();
+                }}
+              />
+            ),
+          }))}
+          confirm={
+            <label className="scope-card__confirm">
+              <input
+                type="checkbox"
+                checked={readings.every((r) => r.confirmed) && scope.confirmed}
+                onChange={(event) => {
+                  const confirmed = event.target.checked;
+                  setReadings(
+                    (previous) =>
+                      previous.map((r) => ({
+                        ...r,
+                        confirmed,
+                      })) as typeof readings,
+                  );
+                  card.confirm(confirmed);
+                  invalidate();
+                }}
+              />
+              <span>
+                <Sentence
+                  parts={t.cardConfirm(
+                    scopeValue(scope.entity),
+                    scopeValue(scope.customer, true),
+                    scopeValue(scope.start, true),
+                    scopeValue(scope.end, true),
+                  )}
+                />
+              </span>
+            </label>
+          }
+        />
         <Button
           disabled={
             !files[0] ||
@@ -638,8 +819,17 @@ export function ArWorkspace({
       {error && <p role="alert">{t.error}</p>}
       {result && (
         <section>
-          <h2>{t.results}</h2>
+          <h2 {...resultParts.anchor('summary')} ref={resultHeading} tabIndex={-1} data-result-heading="result">{t.results}</h2>
+          <AlignmentStrip
+            strip={arStrip(result)}
+            sides={[t.sides[0], t.sides[1]]}
+            decimals={result.decimals}
+            reason={(code) => t.reason[code as keyof typeof t.reason] ?? code}
+            missing={t.unavailableTotal}
+          />
+          <ResultIndex map={resultParts} />
           <DomainEvidenceAssistant
+            anchor={resultParts.anchor('explain')}
             result={result}
             snapshot={() => ({ domain: 'ar', input: input(), result })}
             busy={busy}
@@ -722,28 +912,14 @@ export function ArWorkspace({
               ) : null}
             </section>
           )}
-          <div className="clearing-grid" data-testid="ar-metrics">
+          <div {...resultParts.anchor('figures')} className="clearing-grid" data-testid="ar-metrics">
+            {/* What the strip says (matched documents, each record's total)
+                is not repeated here (UX-4). */}
             {[
               [t.valid, result.rows.length],
               [
-                t.matched,
-                result.cases.filter((c) => c.status === 'matched').length,
-              ],
-              [
                 t.errors,
                 result.inventory.filter((i) => i.kind === 'error').length,
-              ],
-              [
-                t.ledgerTotal,
-                result.totals[0] === null
-                  ? t.unavailableTotal
-                  : money(result.totals[0], result.decimals),
-              ],
-              [
-                t.statementTotal,
-                result.totals[1] === null
-                  ? t.unavailableTotal
-                  : money(result.totals[1], result.decimals),
               ],
             ].map(([label, value]) => (
               <div key={String(label)}>
@@ -752,16 +928,20 @@ export function ArWorkspace({
               </div>
             ))}
           </div>
-          <fieldset disabled={busy}>
+          <fieldset {...resultParts.anchor('cases')} disabled={busy}>
             <label>
               {t.note}
               <textarea
                 aria-label={t.note}
+                aria-describedby={hint}
                 maxLength={200}
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
               />
             </label>
+            <NoteHint id={hint} note={note} label={t.note}>
+              {decisionPlatformCopy[lang].receivables}
+            </NoteHint>
             <div className="clearing-actions">
               <Button
                 onClick={() =>
@@ -782,7 +962,9 @@ export function ArWorkspace({
                     download(
                       await workerTask(
                         'ar-export',
-                        { state: input(), result },
+                        // The reconciliation sheet is written in the
+                        // interface's language (UX-6).
+                        { state: input(), result, lang },
                         signal,
                       ),
                       'tarasuf-ar.xlsx',
@@ -793,29 +975,35 @@ export function ArWorkspace({
               >
                 {t.export}
               </Button>
+              <Button onClick={paper.print}>
+                {sheetPrintCopy[lang].print}
+              </Button>
             </div>
-            {result.cases.slice(page * 50, (page + 1) * 50).map((c) => (
+            {result.cases.slice(casesShown.from, casesShown.to).map((c, i) => (
               <article key={c.id} data-testid="ar-case" className="ar-case">
-                <div className="ar-case-heading">
+                <div
+                  className="ar-case-heading"
+                  id={headingAt(casesShown.from + i)}
+                  tabIndex={-1}
+                  data-decision-item
+                >
                   <h3>
                     {t.kind[c.kind]}: {c.document}
                   </h3>
-                  <span
-                    className={`status ${c.status === 'matched' ? 'good' : 'warn'}`}
-                  >
+                  <StatusBadge tone={arCaseTone(c.status)} status={c.status}>
                     {c.status === 'matched'
                       ? c.basis === 'human-confirmation'
                         ? t.human
                         : t.automatic
                       : t.review}{' '}
                     · {t.reason[c.reason]}
-                  </span>
+                  </StatusBadge>
                 </div>
                 <ul className="ar-case-members">
                   {c.ids
                     .slice(
-                      (memberPages[c.id] ?? 0) * 50,
-                      ((memberPages[c.id] ?? 0) + 1) * 50,
+                      recordPage(c.ids.length, memberPages[c.id] ?? 0).from,
+                      recordPage(c.ids.length, memberPages[c.id] ?? 0).to,
                     )
                     .map((id) => {
                       const r = rowById.get(id)!;
@@ -915,45 +1103,22 @@ export function ArWorkspace({
                       );
                     })}
                 </ul>
-                {c.ids.length > 50 && (
-                  <div className="clearing-actions">
-                    <Button
-                      variant="outline"
-                      disabled={(memberPages[c.id] ?? 0) === 0}
-                      onClick={() =>
-                        setMemberPages({
-                          ...memberPages,
-                          [c.id]: (memberPages[c.id] ?? 0) - 1,
-                        })
-                      }
-                    >
-                      {t.prev}
-                    </Button>
-                    <span>
-                      {(memberPages[c.id] ?? 0) + 1}/
-                      {Math.ceil(c.ids.length / 50)}
-                    </span>
-                    <Button
-                      variant="outline"
-                      disabled={
-                        ((memberPages[c.id] ?? 0) + 1) * 50 >= c.ids.length
-                      }
-                      onClick={() =>
-                        setMemberPages({
-                          ...memberPages,
-                          [c.id]: (memberPages[c.id] ?? 0) + 1,
-                        })
-                      }
-                    >
-                      {t.next}
-                    </Button>
-                  </div>
-                )}
+                <RecordPager
+                  label={`${t.kind[c.kind]}: ${c.document}`}
+                  length={c.ids.length}
+                  page={memberPages[c.id] ?? 0}
+                  onPage={(to) =>
+                    setMemberPages({ ...memberPages, [c.id]: to })
+                  }
+                />
                 {c.note && <p>{c.note}</p>}
                 {c.status === 'matched' ? (
                   <Button
                     variant="outline"
-                    disabled={note.trim().length < 8}
+                    data-decision-action="reopen"
+                    data-decision-target={headingAt(casesShown.from + i)}
+                    aria-describedby={`${hint} ${headingAt(casesShown.from + i)}`}
+                    disabled={!noteReady(note)}
                     onClick={() => decide('reopen', c)}
                   >
                     {t.reopen}
@@ -963,7 +1128,10 @@ export function ArWorkspace({
                     c.reason,
                   ) && (
                     <Button
-                      disabled={note.trim().length < 8}
+                      data-decision-action="accept"
+                      data-decision-target={headingAt(casesShown.from + i)}
+                      aria-describedby={`${hint} ${headingAt(casesShown.from + i)}`}
+                      disabled={!noteReady(note)}
                       onClick={() => decide('accept', c)}
                     >
                       {t.accept}
@@ -972,79 +1140,31 @@ export function ArWorkspace({
                 )}
               </article>
             ))}
-            <div className="clearing-actions">
-              <Button
-                variant="outline"
-                disabled={page === 0}
-                onClick={() => setPage(page - 1)}
-              >
-                {t.prev}
-              </Button>
-              <span>
-                {page + 1}/{Math.max(1, Math.ceil(result.cases.length / 50))}
-              </span>
-              <Button
-                variant="outline"
-                disabled={(page + 1) * 50 >= result.cases.length}
-                onClick={() => setPage(page + 1)}
-              >
-                {t.next}
-              </Button>
-            </div>
+            <RecordPager
+              label={t.results}
+              length={result.cases.length}
+              page={page}
+              onPage={setPage}
+            />
           </fieldset>
-          <h2>{t.inventory}</h2>
-          <div className="clearing-scroll">
-            <table>
-              <thead>
-                <tr>
-                  <th>{t.inventory}</th>
-                  <th>{t.row}</th>
-                  <th>{t.valid}</th>
-                  <th>{t.errors}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {result.inventory
-                  .slice(inventoryPage * 50, (inventoryPage + 1) * 50)
-                  .map((i) => (
-                    <tr key={`${i.side}:${i.row}`}>
-                      <td>
-                        {t.sides[i.side]} · {t.inventoryKind[i.kind]}
-                      </td>
-                      <td>
-                        {i.pdf
-                          ? `${t.page} ${i.pdf.page} · ${t.line} ${i.pdf.line}`
-                          : i.row}
-                      </td>
-                      <td>{i.values.join(' | ')}</td>
-                      <td>{i.error ? t.readingIssue : ''}</td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="clearing-actions">
-            <Button
-              variant="outline"
-              disabled={busy || inventoryPage === 0}
-              onClick={() => setInventoryPage(inventoryPage - 1)}
-            >
-              {t.prev}
-            </Button>
-            <span>
-              {inventoryPage + 1}/
-              {Math.max(1, Math.ceil(result.inventory.length / 50))}
-            </span>
-            <Button
-              variant="outline"
-              disabled={
-                busy || (inventoryPage + 1) * 50 >= result.inventory.length
-              }
-              onClick={() => setInventoryPage(inventoryPage + 1)}
-            >
-              {t.next}
-            </Button>
-          </div>
+          <h2 {...resultParts.anchor('evidence')}>{t.inventory}</h2>
+          <RecordRows
+            label={t.inventory}
+            headers={[t.inventory, t.row, t.valid, t.errors]}
+            page={inventoryPage}
+            onPage={setInventoryPage}
+            rows={result.inventory}
+            wrap={[0, 2]}
+            cells={(i) => [
+              `${t.sides[i.side]} · ${t.inventoryKind[i.kind]}`,
+              i.pdf
+                ? `${t.page} ${i.pdf.page} · ${t.line} ${i.pdf.line}`
+                : i.row,
+              <RecordFields key="values" values={i.values} />,
+              i.error ? t.readingIssue : '',
+            ]}
+          />
+          <SheetPrint sheet={paper.sheet} />
         </section>
       )}
     </main>

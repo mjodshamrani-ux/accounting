@@ -9,6 +9,9 @@ import path from 'node:path';
 import { chromium } from 'playwright';
 import { sectionDerivedReviewCopy } from '../lib/i18n/section-derived-review.ts';
 import { sourceStructureReviewCopy } from '../lib/i18n/source-structure-review.ts';
+import { closedSay, settledOn } from './decision-platform-support.mjs';
+import { assertSectionFocus, sectionFocusRead } from './section-focus-support.mjs';
+import { stageWatchdog } from './stage-watchdog.mjs';
 import { en } from '../lib/i18n/locales/en.ts';
 import { ar } from '../lib/i18n/locales/ar.ts';
 import { readFile as readNativeFile } from '../lib/reconciliation/io.ts';
@@ -71,7 +74,7 @@ for (const spec of [...contract.positiveCases, ...contract.negativeCases]) {
     mapping: { ...defaultMapping(), ...familyContract.mapping }, cuts: caseContract?.cuts || familyContract.cuts,
     allowedBands: familyContract.allowedBands });
 }
-const dist = path.resolve('dist');
+const dist = path.resolve(process.env.MIZAN_DIST_DIR ?? 'dist');
 const distFiles = {};
 const walk = async (dir) => {
   for (const entry of await readdir(dir, { withFileTypes: true })) {
@@ -92,6 +95,8 @@ const report = { version: contract.version, synthetic: true, fieldAcceptance: fa
   processPid: process.pid, browser: null, cases: [], requests: [], errors: [], passed: false };
 const save = () => writeFile(path.join(proofRoot, 'observations.json'), JSON.stringify(report, null, 2) + '\n');
 let activePage;
+// A stall says which case it stopped in (scripts/stage-watchdog.mjs).
+const watch = stageWatchdog({ page: () => activePage });
 let browser;
 let server;
 const noFinancialResult = async (page) => assert.equal(await page.locator('.metric').count(), 0,
@@ -281,6 +286,7 @@ try {
     const t = sectionDerivedReviewCopy(lang);
     const st = sourceStructureReviewCopy(lang);
     const key = `${lang}-${spec.id}`;
+    watch.at(key);
     const context = await browser.newContext({ viewport: { width: 1440, height: 1000 }, acceptDownloads: true, serviceWorkers: 'block' });
     await context.route('**/*', async (route) => {
       const request = route.request();
@@ -308,6 +314,9 @@ try {
     await structure.locator('[data-review-scope-attestation]').check();
     await structure.getByRole('button', { name: st.run, exact: true }).click();
     await structure.locator('[data-section-side="supplier"]').waitFor();
+    // The result present (UX-3): each review's result heading takes the focus
+    // after its own run and names the review.
+    await assertSectionFocus(page, structure, 'source structure review');
     for (const side of ['supplier', 'ledger']) {
       const sourceSection = structure.locator(`[data-section-side="${side}"]`);
       if (diagnosticOnly(spec)) diagnostics[side] = await diagnosticCitations(sourceSection, fixture);
@@ -339,10 +348,12 @@ try {
     await panel.getByText(t.busy, { exact: true }).waitFor({ state: 'detached' });
     if (diagnosticOnly(spec)) await panel.getByRole('alert').waitFor();
     else await panel.locator('[data-derived-reviewer]').waitFor();
+    await assertSectionFocus(page, disclosure, 'derived sections review');
     assert.equal(await panel.locator('[data-derived-proposal]').count(), fixture.expected.proposals.length);
     for (const [index, proposal] of fixture.expected.proposals.entries())
       await assertCitations(panel.locator('[data-derived-proposal]').nth(index), 'data-derived-cell', proposalCells(proposal, fixture.expected, fixture.mapping));
     if (diagnosticOnly(spec)) {
+      await closedSay(panel, key);
       assert.equal(await panel.locator('[data-derived-reviewer]').count(), 0, 'refused inspection has no review form or receipt');
       assert.equal(await panel.getByRole('button', { name: t.accept, exact: true }).count(), 0);
       for (const label of [t.downloadCsv, t.downloadProvenance, t.downloadOriginal])
@@ -374,13 +385,18 @@ try {
         await panel.getByText(t.busy, { exact: true }).waitFor({ state: 'detached' });
       }
       assert.equal(await panel.getByRole('button', { name: t.accept, exact: true }).isEnabled(), false, 'missing reviewer/rationale/acknowledgements refuse review');
+      // UX-3: every closed button says what opens it; the decisions wait, named.
+      await closedSay(panel, key);
+      assert.equal(await panel.locator('[data-decision-hint]').getAttribute('data-decision-hint'), 'before', `${key}: the decisions wait`);
       await panel.locator('[data-derived-reviewer]').fill('Synthetic Accountant A');
       assert.equal(await panel.getByRole('button', { name: t.accept, exact: true }).isEnabled(), false, 'reviewer alone is insufficient');
       await panel.locator('[data-derived-rationale]').fill('Reviewed every native PDF row, each physical parent and continuation cell, original header bands and signed literals. This is source interpretation only.');
       assert.equal(await panel.getByRole('button', { name: t.accept, exact: true }).isEnabled(), false, 'unreviewed acknowledgements refuse review');
       await acknowledge(panel);
+      assert.equal(await panel.locator('[data-decision-hint]').getAttribute('data-decision-hint'), 'open', `${key}: the decisions open`);
       await panel.getByRole('button', { name: t.accept, exact: true }).click();
       await panel.getByRole('button', { name: t.apply, exact: true }).waitFor();
+      await settledOn(page, panel.locator('[data-decision-state]'), `${key}: approval`);
       await panel.locator('[data-derived-reviewer]').fill('Synthetic Accountant B');
       assert.equal(await panel.getByRole('button', { name: t.apply, exact: true }).count(), 0, 'reviewer edit invalidates receipt');
       await acknowledge(panel);
@@ -460,6 +476,8 @@ try {
     await context.close();
   }
   for (const [file, originalHash] of Object.entries(frozenFiles)) assert.equal(sha(await readFile(file)), originalHash, `read-only source/frozen truth ${file}`);
+  console.log('section focus read:', sectionFocusRead('source structure review'), sectionFocusRead('derived sections review'));
+  watch.at('independent check');
   report.completedAt = new Date().toISOString();
   report.passed = true;
   await save();
@@ -477,6 +495,7 @@ try {
   await save();
   throw error;
 } finally {
+  watch.stop();
   if (browser) await browser.close();
   if (server) await new Promise((resolve) => { server.close(resolve); server.closeAllConnections(); });
 }

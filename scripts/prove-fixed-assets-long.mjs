@@ -61,13 +61,18 @@ async function persist(name, state, truthCase, phase) {
   const session = await client.request('asset-save', state);
   const restored = await client.request('asset-restore', { buffer: session });
   assert.deepEqual(restored.result, direct.result);
+  // The workpaper the page downloads, its reconciliation sheet first in the
+  // language asked (UX-6(c)): the direct one in English, the restored one in
+  // Arabic, so the checker reads the evidence after the sheet in both.
   const directExport = await client.request('asset-export', {
     state: direct.state,
     result: direct.result,
+    lang: 'en',
   });
   const restoredExport = await client.request('asset-export', {
     state: restored.state,
     result: restored.result,
+    lang: 'ar',
   });
   for (const [file, bytes] of [
     ['session.json', session],

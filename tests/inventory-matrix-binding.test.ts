@@ -10,9 +10,11 @@ import {
   STOCK_VERSION, STOCK_MATRIX_FAMILY, STOCK_ROLES, type StockInput, type StockEvent,
 } from '../lib/reconciliation/inventory-register.ts';
 import {
-  readStockFile, replayStock, saveStock, exportStock,
+  readStockFile, replayStock, saveStock,
 } from '../lib/reconciliation/inventory-register-io.ts';
 import { createWorkerClient, type WorkerPort } from '../lib/reconciliation/worker-client.ts';
+import { exportStockWorkpaper } from '../lib/reconciliation/inventory-sheet.ts';
+import { rezip, setCell } from './helpers/workbook-xml.ts';
 import { WORKER_CHANNEL } from '../lib/reconciliation/protocol.ts';
 
 // Reuse the learned P04 matrix story for transport regression only. The
@@ -156,7 +158,7 @@ for (const xlsx of [false, true]) void test(`INV-1C actual worker ${xlsx ? 'XLSX
     assert.equal(envelope.version, STOCK_VERSION); assert.equal(envelope.readings[0].family, STOCK_MATRIX_FAMILY);
     assert.ok(envelope.files.every((file: Record<string, unknown>) => !Object.hasOwn(file, 'sheets')));
     assert.deepEqual(await client.request('stock-restore', { buffer: session }), accepted);
-    const original = await client.request<ArrayBuffer>('stock-export', accepted);
+    const original = await client.request<ArrayBuffer>('stock-export', { ...accepted, lang: 'en' });
     const book = new ExcelJS.Workbook(); await book.xlsx.load(original);
     const register = book.getWorksheet('Register')!, headers = register.getRow(1).values as unknown[];
     const column = headers.indexOf('Source column'); assert.ok(column > 0);
@@ -189,11 +191,11 @@ void test('INV-1C equal-text neighboring column citations and unique money total
 void test('INV-1C a valid equal-money foreign matrix cannot replace read/reconcile/restore/save/export caller originals', async () => {
   const base = await replayStock(await input()), other = await foreign(base.state); truth(base);
   assert.deepEqual(base.result.totals, other.result.totals); assert.notEqual(base.result.context, other.result.context);
-  const session = await saveStock(base.state), foreignSession = await saveStock(other.state), foreignExport = await exportStock(other.state, other.result);
+  const session = await saveStock(base.state), foreignSession = await saveStock(other.state), foreignExport = await exportStockWorkpaper(other.state, other.result, 'en');
   for (const [action, payload, response] of [
     ['stock-read', { name: base.state.files[0].name, buffer: base.state.files[0].original }, other.state.files[0]],
     ['stock-reconcile', base.state, other], ['stock-restore', { buffer: session }, other],
-    ['stock-save', base.state, foreignSession], ['stock-export', base, foreignExport],
+    ['stock-save', base.state, foreignSession], ['stock-export', { ...base, lang: 'en' }, foreignExport],
   ] as const) {
     const p = port(() => response);
     await assert.rejects(createWorkerClient(() => p.worker).request(action, payload), /STOCK_WORKER_BINDING/);
@@ -217,11 +219,17 @@ void test('INV-1C logical column IDs do not authorize an incomplete physical rev
 
 void test('INV-1C a money-correct workpaper with another source column is rejected by caller-bound export', async () => {
   const base = await replayStock(await input()); truth(base);
-  const original = await exportStock(base.state, base.result), book = new ExcelJS.Workbook(); await book.xlsx.load(original);
+  const original = await exportStockWorkpaper(base.state, base.result, 'en'), book = new ExcelJS.Workbook(); await book.xlsx.load(original);
   const register = book.getWorksheet('Register')!, headers = register.getRow(1).values as unknown[];
   const column = headers.indexOf('Source column'); assert.ok(column > 0);
-  register.getRow(2).getCell(column).value = 3;
-  const falseWorkbook = Uint8Array.from(new Uint8Array(await book.xlsx.writeBuffer())).buffer;
+  // The other column is written into the workpaper's own Register part, one
+  // cell, all else as written: an ExcelJS round trip rewrites every part and
+  // would be refused unchanged. The workpaper re-zipped unchanged is accepted.
+  const letter = (n: number): string => (n > 26 ? letter(Math.floor((n - 1) / 26)) : '') + String.fromCharCode(65 + ((n - 1) % 26));
+  const asked = { ...base, lang: 'en' as const };
+  const control = port(async () => rezip(original));
+  assert.ok((await createWorkerClient(() => control.worker).request<ArrayBuffer>('stock-export', asked)).byteLength > 0);
+  const falseWorkbook = await setCell(original, 'Register', `${letter(column)}2`, 3);
   const p = port(() => falseWorkbook);
-  await assert.rejects(createWorkerClient(() => p.worker).request('stock-export', base), /STOCK_WORKER_BINDING/);
+  await assert.rejects(createWorkerClient(() => p.worker).request('stock-export', asked), /STOCK_WORKER_BINDING/);
 });

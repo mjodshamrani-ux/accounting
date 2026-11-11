@@ -24,7 +24,7 @@
 .tarasuf-benefits-heading h2,
 .tarasuf-privacy-formal-heading h2 {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: var(--font-display-weight);
   font-synthesis: none;
   color: #0a1b2e;
   line-height: 1.5;
@@ -103,7 +103,7 @@
   font-synthesis: none;
   font-size: clamp(23px, 2.3vw, 30px);
   color: #192c48;
-  font-weight: 700;
+  font-weight: var(--font-display-weight);
   letter-spacing: normal;
   line-height: 1.6;
 }

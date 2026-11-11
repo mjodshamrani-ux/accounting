@@ -3,6 +3,12 @@ import {
   verifyActualAllocationPending,
 } from './supplier-main-pending-browser.mjs';
 import assert from 'node:assert/strict';
+import { closedSay, settledOn } from './decision-platform-support.mjs';
+import {
+  assertSectionFocus,
+  sectionFocusRead,
+} from './section-focus-support.mjs';
+import { stageWatchdog } from './stage-watchdog.mjs';
 import { createServer } from 'node:http';
 import { readFile, mkdir, mkdtemp, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
@@ -56,6 +62,9 @@ const { ar } = await import(
 );
 const { invoiceOverlapIntegratedCopy } = await import(
   pathToFileURL(path.join(repo, 'lib/i18n/invoice-overlap-review.ts'))
+);
+const { sheetPrintCopy } = await import(
+  pathToFileURL(path.join(repo, 'lib/i18n/sheet-print.ts'))
 );
 const { verifyAllocation } = await import(
   pathToFileURL(path.join(repo, 'scripts/allocation-browser-cases.mjs'))
@@ -128,6 +137,11 @@ const browser = await chromium.launch({
   executablePath: process.env.MIZAN_CHROMIUM,
 });
 let active;
+// Where the check is, so a stall says where it stopped: after four minutes
+// on one stage it prints the stage and the page's state and exits
+// (scripts/stage-watchdog.mjs).
+const watchdog = stageWatchdog({ page: () => active });
+const at = watchdog.at;
 const report = {
   servedIndexSha256,
   truthSha256: manifest.truthSha256,
@@ -194,6 +208,9 @@ async function openInspect(page, t, beforeInspect) {
   await panel.locator('[data-overlap-scope-ack]').check();
   await button(panel, t.inspect).click();
   await panel.locator('[data-overlap-component]').waitFor();
+  // The result present (UX-3): the reading's result heading takes the focus
+  // and names the review.
+  await assertSectionFocus(page, panel, 'invoice overlap review');
   return panel;
 }
 async function currencyDriftProbe(
@@ -242,6 +259,17 @@ async function currencyDriftProbe(
   assert.equal(await currency.inputValue(), 'SAR');
 }
 async function decisions(panel, t, c, beforeCommit) {
+  // UX-3: before the fields are written, every closed button of the review
+  // says what opens it, and each component's sentence says what it waits for.
+  await closedSay(panel, `${c.id}: overlap`);
+  assert.equal(
+    await panel
+      .locator('[data-overlap-component] [data-decision-hint]')
+      .first()
+      .getAttribute('data-decision-hint'),
+    'before',
+    `${c.id}: the component's decisions wait`,
+  );
   await panel
     .locator('[data-overlap-reviewer]')
     .fill('Native synthetic source reviewer');
@@ -290,6 +318,13 @@ async function decisions(panel, t, c, beforeCommit) {
   const component = panel.locator('[data-overlap-component]');
   await component.locator('[data-overlap-rows-ack]').check();
   await component.locator('[data-overlap-decisions-ack]').check();
+  assert.equal(
+    await component
+      .locator('[data-decision-hint]')
+      .getAttribute('data-decision-hint'),
+    'open',
+    `${c.id}: the component's decisions open`,
+  );
   if (beforeCommit) await beforeCommit();
   await button(component, t.commit).click();
   await panel
@@ -299,11 +334,72 @@ async function decisions(panel, t, c, beforeCommit) {
     .locator('strong')
     .getByText(String(c.accept.length), { exact: true })
     .waitFor();
+  // The commit makes the review read its sources again: the focus is on the
+  // review's title, not on the page.
+  await settledOn(
+    panel.page(),
+    panel.locator('h2[data-decision-item]'),
+    `${c.id}: the commit`,
+  );
   await panel.locator('[data-overlap-scope-ack]').check();
   await button(panel, t.inspect).click();
   await panel.locator('[data-overlap-active-receipt]').waitFor();
   return choices;
 }
+// UX-6(d): with an accepted group the group review writes the workpaper,
+// with no reconciliation sheet, so the print command is held with its reason
+// and nothing is drawn while the page prints; after the undo the worker
+// writes it again, and the command prints its sheet.
+async function printCommand(page, t, lang, held, label) {
+  await button(page, t.app.results.prepareWorkpaper).click();
+  await page
+    .getByRole('textbox', { name: t.app.finish.reviewerLabel, exact: true })
+    .waitFor();
+  const command = button(page, sheetPrintCopy[lang].print);
+  // A page without the command fails here by assertion, not by a timeout.
+  assert.equal(
+    await command.count(),
+    1,
+    `${label}: the print command is in the workpaper step`,
+  );
+  assert.equal(
+    await command.isDisabled(),
+    held,
+    `${label}: the print command is ${held ? 'held' : 'offered'}`,
+  );
+  if (held)
+    assert.equal(
+      await page
+        .locator(`[id="${await command.getAttribute('aria-describedby')}"]`)
+        .innerText(),
+      sheetPrintCopy[lang].heldOverlap,
+      `${label}: the held command says why`,
+    );
+  const drawn = () =>
+    page.evaluate(() => {
+      dispatchEvent(new Event('beforeprint'));
+      const n = document.querySelectorAll('[data-sheet-print]').length;
+      dispatchEvent(new Event('afterprint'));
+      return n;
+    });
+  // Composition is asynchronous: wait long enough for a sheet to appear.
+  const until = Date.now() + (held ? 4000 : 15000);
+  let tables = await drawn();
+  while (Date.now() < until && (held ? tables === 0 : tables !== 1)) {
+    await page.waitForTimeout(200);
+    tables = await drawn();
+  }
+  assert.equal(
+    tables,
+    held ? 0 : 1,
+    held
+      ? `${label}: no sheet is drawn while the page prints, as the download has none`
+      : `${label}: after the undo the sheet is drawn while the page prints`,
+  );
+  await button(page, t.app.finish.backToReview).click();
+  await page.locator('[data-result-part="cases"]').waitFor();
+}
+
 async function workbook(page, panel, t, c, label) {
   const file = await download(
     page,
@@ -560,6 +656,7 @@ try {
       await context.addInitScript(holdOriginalWorkerReplies);
       const page = await context.newPage();
       active = page;
+      at(`${c.id}-${lang}: sources`);
       const errors = [];
       page.on('pageerror', (e) => errors.push(e.message));
       const t = lang === 'en' ? en : ar,
@@ -584,6 +681,7 @@ try {
         await idle(page);
       }
       await button(page, t.app.upload.next).click();
+      at(`${c.id}-${lang}: scope and comparison`);
       await freshScope(page, t);
       const baselineSnapshot = await mainSnapshot(page, t);
       await responsive(page, `${c.id}-${lang}-baseline`);
@@ -592,6 +690,7 @@ try {
         value: 'SAR',
         probeRequested: c.id === 'A' && lang === 'en',
       };
+      at(`${c.id}-${lang}: overlap reading`);
       const panel = await openInspect(
         page,
         ot,
@@ -607,6 +706,7 @@ try {
               )
           : undefined,
       );
+      at(`${c.id}-${lang}: decisions and commit`);
       const choices = await decisions(
         panel,
         ot,
@@ -626,6 +726,7 @@ try {
       }
       await metrics(page, t, c.afterCommit);
       await responsive(page, `${c.id}-${lang}-accepted`);
+      at(`${c.id}-${lang}: workbook`);
       const exportProof = await workbook(
         page,
         panel,
@@ -633,6 +734,9 @@ try {
         c,
         `${c.id}-${lang}-accepted`,
       );
+      at(`${c.id}-${lang}: print held`);
+      await printCommand(page, t, lang, true, `${c.id}-${lang}`);
+      at(`${c.id}-${lang}: session`);
       const session = await download(
         page,
         button(page, t.app.results.saveSession),
@@ -656,6 +760,7 @@ try {
       ).click();
       await page.locator('[data-overlap-active-receipt]').waitFor();
       await metrics(page, t, c.afterCommit);
+      at(`${c.id}-${lang}: handoff`);
       await handoff(page, t, `${c.id}-${lang}-handoff`);
       await metrics(page, t, c.afterCommit);
       await page
@@ -664,6 +769,7 @@ try {
       await button(page, t.app.results.caseDetails).first().click();
       await button(page, ot.wholeComponentUndo).click();
       await metrics(page, t, c.afterCommit);
+      at(`${c.id}-${lang}: undo`);
       const live = page.getByTestId('invoice-overlap-review');
       if (!(await live.locator('[data-overlap-active-receipt]').count())) {
         await live.locator('[data-overlap-scope-ack]').check();
@@ -683,6 +789,11 @@ try {
       await live
         .locator('[data-overlap-active-receipt]')
         .waitFor({ state: 'detached' });
+      await settledOn(
+        page,
+        live.locator('h2[data-decision-item]'),
+        `${c.id}-${lang}: the undo`,
+      );
       await metrics(page, t, c.afterUndo);
       const afterUndoSnapshot = await mainSnapshot(page, t);
       assert.deepEqual(afterUndoSnapshot, baselineSnapshot);
@@ -693,6 +804,9 @@ try {
         c,
         `${c.id}-${lang}`,
       );
+      at(`${c.id}-${lang}: print offered`);
+      await printCommand(page, t, lang, false, `${c.id}-${lang}-undone`);
+      at(`${c.id}-${lang}: restore`);
       await page.goto(url);
       await idle(page);
       await page
@@ -742,9 +856,15 @@ try {
       viewport: { width: 1440, height: 1000 },
     });
     active = legacy;
+    at('existing allocation');
     await verifyAllocation(legacy, url, path.join(out, 'existing-allocation'));
     report.allocationLegacy = true;
   }
+  console.log(
+    'section focus read:',
+    sectionFocusRead('invoice overlap review'),
+  );
+  if (options.pending) at('pending allocation');
   if (options.pending)
     report.actualAllocationPending = await verifyActualAllocationPending(
       browser,
@@ -772,6 +892,7 @@ try {
   }
   throw error;
 } finally {
+  watchdog.stop();
   await browser.close();
   await new Promise((resolve) => server.close(resolve));
 }

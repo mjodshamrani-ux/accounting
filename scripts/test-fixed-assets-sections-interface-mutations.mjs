@@ -94,10 +94,11 @@ const mutations = [
     'const decimals = 2;',
   ],
   [
+    // The section's amounts take their sign from the shared formatter.
     'negative-sign-dropped',
-    PANEL,
-    '  return value < 0 ? `-${text}` : text;',
-    '  return text;',
+    'lib/reconciliation/core.ts',
+    "const sign = value < 0 ? '-' : '';",
+    "const sign = '';",
   ],
   [
     'gl-shown-as-register',
@@ -171,7 +172,12 @@ const mutations = [
     'a.valuation ?? copy.none,',
     'copy.none,',
   ],
-  ['assets-pager-unmarked', PANEL, 'pager="assets"', 'pager="asset-list"'],
+  [
+    'assets-pager-unmarked',
+    PANEL,
+    "'data-fas-pager': 'assets'",
+    "'data-fas-pager': 'asset-list'",
+  ],
   [
     'summary-sections-as-assets',
     PANEL,
@@ -300,6 +306,18 @@ const report = { baselinePassed: false, mutations: [], passed: false };
     const baseline = run(tree);
     await log('baseline', baseline);
     report.baselinePassed = completedSuccessfully(baseline);
+    // The run's records stay on the runner; a failing baseline prints the end
+    // of its log and how it ended (a timeout ends it with a signal), so the
+    // job log says why.
+    if (!report.baselinePassed)
+      process.stderr.write(
+        `baseline failed (${baseline.buildFailed ? 'build, ' : ''}exit ${baseline.status}, signal ${baseline.signal}, ${baseline.error?.message ?? 'no error'}); its log ends:\n` +
+          ((baseline.stdout ?? '') + (baseline.stderr ?? ''))
+            .split('\n')
+            .slice(-60)
+            .join('\n') +
+          '\n',
+      );
   } finally {
     await removePrivateTree(tree);
   }

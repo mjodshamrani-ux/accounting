@@ -11,7 +11,7 @@
 }
 .ar-workspace article {
   padding-block: 1rem;
-  border-bottom: 1px solid #e1e6ed;
+  border-bottom: 1px solid var(--border);
 }
 .ar-workspace ul {
   padding-inline-start: 1.2rem;
@@ -19,7 +19,7 @@
 .ar-source-evidence {
   margin-block: 0.75rem;
   padding: 0.85rem 1rem;
-  border: 1px solid var(--workspace-border, #e1e6ed);
+  border: 1px solid var(--border);
   border-radius: 0.75rem;
 }
 .ar-source-evidence summary {
@@ -43,30 +43,31 @@
   justify-content: space-between;
   gap: 12px;
 }
-.ar-case-heading .status {
+.ar-case-heading .status-badge {
   flex: 0 1 auto;
   min-width: 0;
   max-width: 100%;
-  display: inline-block;
   white-space: normal;
   text-align: start;
 }
 .ar-case-reason {
   margin-block: 8px 18px;
-  color: var(--muted, #64748b);
+  color: var(--text-secondary);
   font-size: 13px;
 }
 .ar-workspace .ar-case-members {
   display: grid;
   gap: 12px;
+  /* The case's status stands apart from its first member card. */
+  margin-block: 12px 0;
   padding: 0;
   list-style: none;
 }
 .ar-case-members > li {
   padding: 18px;
-  border: 1px solid var(--border, #e1e6ed);
+  border: 1px solid var(--border);
   border-radius: 13px;
-  background: var(--soft, #f8f9fc);
+  background: var(--surface-quiet);
 }
 .ar-member-heading {
   font-size: 13px;
@@ -75,27 +76,27 @@
 .ar-member-amount {
   font-size: 22px;
   font-variant-numeric: tabular-nums;
-  color: var(--ink, #20334a);
+  color: var(--text);
 }
 .ar-member-meta {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 130px), 1fr));
   gap: 12px;
   margin-block: 16px 0;
-  font-size: 12px;
+  font-size: var(--type-xs);
 }
 .ar-member-meta dt {
-  color: var(--muted, #64748b);
+  color: var(--text-secondary);
   margin-bottom: 4px;
 }
 .ar-member-meta dd {
   margin: 0;
-  color: var(--ink, #20334a);
+  color: var(--text);
 }
 .ar-member-description {
   margin-block: 14px 0;
-  font-size: 12px;
-  color: var(--muted, #64748b);
+  font-size: var(--type-xs);
+  color: var(--text-secondary);
 }
 @media (max-width: 600px) {
   .ar-case-members > li {

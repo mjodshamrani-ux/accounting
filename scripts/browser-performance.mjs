@@ -528,12 +528,12 @@ try {
           .getByLabel(label, { exact: true })
           .waitFor({ state: 'attached' });
         await page
-          .getByRole('button', { name: 'إلغاء', exact: true })
+          .getByRole('button', { name: 'ألغِ', exact: true })
           .waitFor({ state: 'hidden' });
         entry.stages['upload' + i + 'Ms'] = performance.now() - start;
       }
       await page
-        .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+        .getByRole('button', { name: 'أكّد البيانات', exact: true })
         .click();
       const compare = page.getByRole('button', {
         name: 'تحقق وقارن',
@@ -550,10 +550,10 @@ try {
       const prepareStart = performance.now();
       measuredPhase = 'prepare-export';
       await page
-        .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
+        .getByRole('button', { name: 'أعدّ ورقة العمل', exact: true })
         .click();
       await page
-        .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
+        .getByRole('button', { name: 'نزّل مسودة Excel', exact: true })
         .waitFor();
       entry.stages.prepareExportScreenMs = performance.now() - prepareStart;
       const exportStart = performance.now();
@@ -561,7 +561,7 @@ try {
       exportSampleTimer = setInterval(sample, 20);
       const download = page.waitForEvent('download', { timeout: 55000 });
       await page
-        .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
+        .getByRole('button', { name: 'نزّل مسودة Excel', exact: true })
         .click();
       const saved = await download;
       downloadPath = path.join(output, `export-${run.size}-${run.format}.xlsx`);
@@ -724,7 +724,7 @@ try {
             window.__bench.requests.filter((r) => r.action === 'export').length,
         );
         await page
-          .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
+          .getByRole('button', { name: 'نزّل مسودة Excel', exact: true })
           .dblclick();
         const exportsAfter = await page.evaluate(
           () =>
@@ -740,7 +740,7 @@ try {
           window.__bench.requests.filter((r) => r.action === 'export').at(-1),
         );
         const cancelStart = performance.now();
-        await page.getByRole('button', { name: 'إلغاء', exact: true }).click();
+        await page.getByRole('button', { name: 'ألغِ', exact: true }).click();
         await page.getByText('أُلغيت العملية.', { exact: true }).waitFor();
         entry.cancelToVisibleMs = performance.now() - cancelStart;
         const termination = await page.evaluate(
@@ -765,7 +765,7 @@ try {
         const retryStart = performance.now();
         const retry = page.waitForEvent('download', { timeout: 55000 });
         await page
-          .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
+          .getByRole('button', { name: 'نزّل مسودة Excel', exact: true })
           .click();
         await (
           await retry

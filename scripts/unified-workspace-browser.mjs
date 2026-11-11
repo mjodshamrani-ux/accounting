@@ -9,7 +9,8 @@ import path from 'node:path';
 import { chromium } from 'playwright';
 
 const root = path.resolve(import.meta.dirname, '..');
-const dist = path.join(root, 'dist');
+// A mutation gate serves its own private build (UX-8(b)).
+const dist = process.env.UNIFIED_WORKSPACE_DIST ?? path.join(root, 'dist');
 const proofRoot =
   process.env.MIZAN_PROOF_DIR ?? path.join(root, 'work/qa-unified-workspace');
 await mkdir(proofRoot, { recursive: true });
@@ -107,6 +108,26 @@ const fonts = [
     path: '/fonts/noto-sans-arabic-variable.woff2',
     sha256: '802ec442ca217cf586882350bf8090f7a18f4cbf6cbc8659e82a1ebc282b2ebc',
   },
+  // English display headings only (UX-8). It is preloaded with the page in
+  // either language, so a switch to English after files are open asks the
+  // network for nothing; it draws only English text.
+  {
+    family: 'DM Serif Display',
+    path: '/fonts/dm-serif-display-latin-400-normal.woff2',
+    sha256: 'fdf61e20fd2c0108e0ea28da4daca0035205b4b7fc031a3974b865b704de160a',
+    languages: ['en'],
+  },
+];
+const fontsFor = (language) =>
+  fonts.filter((font) => !font.languages || font.languages.includes(language));
+// The English display headings of the first page, each asked of the browser
+// for the font that drew its glyphs (UX-8).
+const latinDisplayHeadings = [
+  '[data-display-heading="heroLine1"]',
+  '[data-display-heading="heroLine2"]',
+  '.tarasuf-benefits-heading h2',
+  '.tarasuf-benefit h3',
+  '.tarasuf-privacy-formal-heading h2',
 ];
 const report = {
   synthetic: true,
@@ -133,10 +154,14 @@ for (const file of [
   'app/page.tsx',
   'components/workspace-chrome.tsx',
   'components/workspace-chrome.css',
-  'dist/index.html',
   'scripts/unified-workspace-browser.mjs',
 ])
   report.bindings[file] = sha(await readFile(path.join(root, file)));
+// The page of the build this check serves, which a mutation gate builds
+// apart from the repository (UX-8(b)).
+report.bindings['dist/index.html'] = sha(
+  await readFile(path.join(dist, 'index.html')),
+);
 
 const server = createServer(async (req, res) => {
   try {
@@ -480,7 +505,7 @@ async function fontProof(page, language) {
       weight: face.weight,
     })),
   );
-  for (const font of fonts)
+  for (const font of fontsFor(language))
     assert.ok(
       faces.some(
         (face) => face.family === font.family && face.status === 'loaded',
@@ -508,7 +533,54 @@ async function fontProof(page, language) {
       ),
       'Arabic workflow heading actually uses the official custom font',
     );
-  return { faces, logo, heading };
+  // Every glyph of each English display heading is drawn by the local Latin
+  // face, at the one weight it has, with no fallback for any glyph; the
+  // Arabic headings keep the authentic bold face (UX-8).
+  const display = [];
+  for (const selector of latinDisplayHeadings) {
+    const used = await usedFonts(page, selector);
+    const style = await page
+      .locator(selector)
+      .first()
+      .evaluate((element) => {
+        const computed = getComputedStyle(element);
+        return {
+          weight: computed.fontWeight,
+          synthesis: computed.fontSynthesis,
+        };
+      });
+    display.push({ selector, used, ...style });
+    const drawn = used.filter((font) => font.glyphCount > 0);
+    if (language === 'en') {
+      assert.deepEqual(
+        drawn.map((font) => [font.familyName, font.isCustomFont]),
+        [['DM Serif Display', true]],
+        `${selector}: every English display glyph is drawn by the local DM Serif Display face`,
+      );
+      assert.equal(
+        style.weight,
+        '400',
+        `${selector}: English display text asks for the one weight its face has`,
+      );
+    } else {
+      assert.ok(
+        drawn.length > 0 &&
+          drawn.every(
+            (font) =>
+              font.isCustomFont &&
+              font.familyName.toLowerCase() === fonts[0].family.toLowerCase(),
+          ),
+        `${selector}: Arabic display glyphs are drawn by the authentic face`,
+      );
+      assert.equal(style.weight, '700', `${selector}: Arabic display is bold`);
+    }
+    assert.equal(
+      style.synthesis,
+      'none',
+      `${selector}: the browser draws no bold or italic of its own`,
+    );
+  }
+  return { faces, logo, heading, display };
 }
 
 try {
@@ -676,6 +748,26 @@ try {
           1,
           `${domain}: shared workflow intro`,
         );
+        // UX-5: the intro reads in two lines at a phone's width; what it said
+        // beyond that opens first in its scope details, which start closed.
+        assert.equal(
+          await panel.locator('.workspace-intro:visible').evaluate((intro) => {
+            const details = intro.querySelector(
+              ':scope > details.workspace-intro__context',
+            );
+            const first = details?.querySelector(
+              '.workspace-intro__context-content > :first-child',
+            );
+            return (
+              !!details &&
+              !details.open &&
+              !!first?.matches('p.workspace-intro__detail') &&
+              !!first.textContent.trim()
+            );
+          }),
+          true,
+          `${domain}: the intro's detail opens first in its scope details`,
+        );
         const workspace = panel.locator('.reconciliation-workspace').first();
         if (domain === 'bank') {
           const minimums = await panel.evaluate((element) => ({
@@ -713,6 +805,63 @@ try {
           true,
           `${domain}: advanced details start collapsed`,
         );
+        // UX-5: the workspace's example and a session saved on this device
+        // are ways to start, shown under the intro before the sources, not
+        // advanced options: one named row, nothing to open first, the
+        // example as a button and the session as the native file input,
+        // each reached from the keyboard in that order.
+        const start = workspace.locator('[data-workspace-start]');
+        assert.equal(await start.count(), 1, `${domain}: one start row`);
+        assert.equal(
+          await start.evaluate(
+            (row) =>
+              row.checkVisibility() &&
+              !row.closest('details') &&
+              row.tagName === 'FIELDSET' &&
+              !!row.querySelector(':scope > legend')?.textContent.trim() &&
+              !!(
+                row.compareDocumentPosition(
+                  row
+                    .closest('.reconciliation-workspace')
+                    .querySelector('[data-workspace-sources]'),
+                ) & Node.DOCUMENT_POSITION_FOLLOWING
+              ),
+          ),
+          true,
+          `${domain}: the start row is shown, named and before the sources, inside no disclosure`,
+        );
+        const examples = start.locator('button:visible');
+        assert.ok(
+          (await examples.count()) >= 1,
+          `${domain}: the example is in the start row`,
+        );
+        const session = start.locator('input[type="file"]');
+        assert.equal(
+          await session.count(),
+          1,
+          `${domain}: one saved-session input in the start row`,
+        );
+        assert.equal(
+          await session.evaluate(
+            (input) =>
+              !input.disabled &&
+              input.accept === '.json' &&
+              !!input.closest('label')?.checkVisibility() &&
+              !!(
+                input.getAttribute('aria-label') || input.labels?.[0]?.innerText
+              )?.trim(),
+          ),
+          true,
+          `${domain}: the saved-session input is named, open and shown by its label`,
+        );
+        await examples.last().focus();
+        await page.keyboard.press('Tab');
+        assert.equal(
+          await session.evaluate((input) => document.activeElement === input),
+          true,
+          `${domain}: Tab goes from the example to the saved session`,
+        );
+        await page.evaluate(() => document.activeElement?.blur());
         if (sourceCounts[domain] > 2) {
           assert.equal(
             await supporting.count(),
@@ -830,6 +979,13 @@ try {
             '',
             `${domain}: completing the primary pair reveals required evidence naturally`,
           );
+        // A workspace whose files fill the card «ما فهمناه من ملفاتك» (UX-5(d))
+        // folds the fields under its sentence when nothing is asked; an
+        // accountant opens them to edit one.
+        const folded = panel.locator(
+          '[data-scope-card]:visible > details:not([open]) > summary',
+        );
+        if (await folded.count()) await folded.click();
         const draft = panel
           .locator(
             'input[type="text"]:visible:not([disabled]):not([readonly]), input:not([type]):visible:not([disabled]):not([readonly])',

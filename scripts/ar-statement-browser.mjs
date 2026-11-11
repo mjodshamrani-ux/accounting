@@ -19,6 +19,8 @@ import { chromium } from 'playwright';
 import { ar } from '../lib/i18n/locales/ar.ts';
 import { en } from '../lib/i18n/locales/en.ts';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import { stripCount } from './alignment-strip-read.mjs';
+import { keepReplies } from './worker-replies.mjs';
 
 const root = path.resolve(import.meta.dirname, '..');
 const suite = path.join(root, 'audit/ar-statement-foundation');
@@ -98,6 +100,9 @@ const contexts = quick
 const runs = [];
 const errors = [];
 const external = [];
+// Ends of the strip judged with no total, so the check cannot pass without
+// ever meeting one.
+let missingTotals = 0;
 try {
   for (const [lang, width] of contexts) {
     const copy = (lang === 'ar' ? ar : en).arDocuments;
@@ -118,6 +123,9 @@ try {
       external.push(url);
       return route.abort();
     });
+    // The worker replies, so the strip's ends can be judged by the engine's
+    // own totals (UX-4).
+    await context.addInitScript(keepReplies);
     const page = await context.newPage();
     // One chooser listener for the page: a listener per chooser races the key.
     const choosers = [];
@@ -133,20 +141,27 @@ try {
     await openDomainWorkspace(page, 'ar');
     const w = page.locator('[data-ar-workspace]');
     const button = (name) => w.getByRole('button', { name, exact: true });
-    const wait = () =>
-      page.waitForFunction(
-        () =>
-          document
-            .querySelector('[data-ar-workspace]')
-            ?.getAttribute('aria-busy') === 'false',
-      );
-    const metric = async (label) =>
-      w
-        .getByTestId('ar-metrics')
-        .locator('div')
-        .filter({ has: page.locator('span', { hasText: label }) })
-        .locator('strong')
-        .innerText();
+    // Idle again, or a page error said at once as a failed assertion: a
+    // workspace that throws while rendering is gone, never idle.
+    const wait = async () => {
+      for (const deadline = Date.now() + 60000; Date.now() < deadline; ) {
+        assert.deepEqual(errors, [], 'no page error while the workspace works');
+        if (
+          await page.evaluate(
+            () =>
+              document
+                .querySelector('[data-ar-workspace]')
+                ?.getAttribute('aria-busy') === 'false',
+          )
+        )
+          return;
+        await page.waitForTimeout(100);
+      }
+      throw Error('the receivables workspace stayed busy for a minute');
+    };
+    // Matched document pairs, as the alignment strip counts them; the
+    // figure grid no longer repeats the count (UX-4).
+    const matched = () => stripCount(w, 'agreed');
     const download = async (name, file) => {
       const pending = page.waitForEvent('download');
       await button(name).click();
@@ -198,18 +213,41 @@ try {
         await ledger
           .getByLabel(`${copy.sides[0]}: ${copy.fields[field]}`, { exact: true })
           .selectOption(String(position));
-      await ledger.getByRole('checkbox').check();
       await openStatement(id, keyboard);
       const statement = w.getByTestId('ar-source-1');
       assert.ok(await statement.locator('[data-ar-statement-pdf]').isVisible());
-      // A printed statement has no columns or family to choose.
+      // A printed statement has no columns or family to choose, and no box
+      // of its own: the card's one confirmation carries its role (UX-5(d)).
       assert.equal(await statement.locator('select').count(), 0, `${id} selects`);
-      const confirm = statement.getByRole('checkbox');
-      assert.equal(await confirm.isChecked(), false, `${id} role unconfirmed`);
-      if (keyboard) {
-        await confirm.focus();
-        await page.keyboard.press('Space');
-      } else await confirm.check();
+      assert.equal(
+        await statement.getByRole('checkbox').count(),
+        0,
+        `${id} no box of its own`,
+      );
+      // The worker reads a printed statement at the run, not before: the
+      // card reads the ledger alone, and says so.
+      const card = w.locator('[data-scope-card]');
+      const summary = await card.locator('[data-scope-summary]').innerText();
+      assert.ok(
+        summary.endsWith(
+          `${copy.cardReadJoin}${copy.cardRead(copy.sides[1], 'printed', 0)}.`,
+        ),
+        `${lang}/${id} the sentence says the statement is read at the run: ${summary}`,
+      );
+      const entityHint = (
+        await card.locator('[data-scope-field="entity"] .hint').textContent()
+      ).trim();
+      assert.ok(
+        !entityHint.includes(copy.sides[1]),
+        `${lang}/${id} no value is read from the printed statement: ${entityHint}`,
+      );
+      const one = w.getByLabel(copy.cardConfirm('', '', '', '')[0], {
+        exact: false,
+      });
+      assert.equal(await one.isChecked(), false, `${id} role unconfirmed`);
+      const fields = card.locator('details');
+      if ((await fields.getAttribute('open')) === null)
+        await fields.locator('summary').click();
       for (const field of [
         'entity',
         'ledger',
@@ -227,7 +265,11 @@ try {
             { exact: true },
           )
           .fill(s.scope[field]);
-      await w.getByLabel(copy.scopeConfirm, { exact: true }).check();
+      if (keyboard) {
+        await one.focus();
+        await page.keyboard.press('Space');
+      } else await one.click();
+      assert.equal(await one.isChecked(), true, `${id} confirmed`);
       if (keyboard) {
         await button(copy.run).focus();
         await page.keyboard.press('Enter');
@@ -237,12 +279,44 @@ try {
     };
     const judge = async (id) => {
       const want = expected[id];
-      assert.equal(Number(await metric(copy.matched)), want.matched, `${id} matched`);
+      assert.equal(Number(await matched()), want.matched, `${id} matched`);
       assert.equal(
         await w.locator('[data-ar-status]').count(),
         want.status === 'source-error' ? 1 : 0,
         `${id} status`,
       );
+      // Each record's total is said at its end of the strip: the engine's
+      // amount, or, where the engine gives none, why (UX-4); judged by the
+      // reply the page drew its result from, not by the page.
+      const totals = await page.evaluate(
+        () =>
+          globalThis.alignmentReplies
+            .map((r) => r.value?.result ?? r.value)
+            .findLast((v) => Array.isArray(v?.totals) && Array.isArray(v?.cases))
+            ?.totals,
+      );
+      assert.ok(totals, `${id} reply`);
+      const ends = w.locator('[data-alignment-strip] [data-strip-total]');
+      assert.deepEqual(
+        await ends.evaluateAll((items) =>
+          items.map((e) =>
+            e.hasAttribute('data-missing')
+              ? null
+              : e.querySelector('[data-amount-minor]')?.getAttribute('data-amount-minor'),
+          ),
+        ),
+        totals.map((total) => (total === null ? null : String(total))),
+        `${id} totals at the strip's ends`,
+      );
+      for (const [i, total] of totals.entries())
+        if (total === null) {
+          missingTotals++;
+          assert.equal(
+            (await ends.nth(i).innerText()).trim(),
+            copy.unavailableTotal,
+            `${lang}/${id}: why total ${i + 1} is missing`,
+          );
+        }
       const sections = w.locator('[data-ar-statement-sections] tbody tr');
       assert.equal(await sections.count(), want.sections.length, `${id} sections`);
       for (const [i, s] of want.sections.entries())
@@ -295,10 +369,10 @@ try {
       await download(copy.save, session);
       const checked = check(id, workbook);
       // Restoring the session gives the same result on screen.
-      const before = await metric(copy.matched);
+      const before = await matched();
       await w.getByLabel(copy.restore, { exact: true }).setInputFiles(session);
       await wait();
-      assert.equal(await metric(copy.matched), before, `${id} restored`);
+      assert.equal(await matched(), before, `${id} restored`);
       await judge(id);
       runs.push({ lang, width, id, keyboard, checked });
     }
@@ -308,13 +382,22 @@ try {
     const first = w.getByTestId('ar-case').filter({ hasText: 'INV-1001' });
     await first.getByRole('button', { name: copy.reopen, exact: true }).click();
     await wait();
-    assert.equal(Number(await metric(copy.matched)), expected.A01.matched - 1);
+    assert.equal(Number(await matched()), expected.A01.matched - 1);
     const decided = path.join(out, `${lang}-${width}-A01-reopened.xlsx`);
     await download(copy.export, decided);
     runs.push({ lang, width, id: 'A01-reopened', checked: check('A01', decided, ['INV-1001']) });
     // Replacing the statement drops the result made from the old one.
     await openStatement('A04');
     assert.equal(await w.locator('[data-ar-statement-sections]').count(), 0, 'stale result');
+    // The new statement arrives unconfirmed, though the ledger and the scope
+    // were confirmed: its own reading keeps the one box unticked and the
+    // check closed until the accountant confirms again.
+    assert.equal(
+      await w.getByLabel(copy.cardConfirm('', '', '', '')[0], { exact: false }).isChecked(),
+      false,
+      'a new statement drops the one confirmation',
+    );
+    assert.equal(await button(copy.run).isDisabled(), true, 'the check waits for it');
     await context.close();
   }
 } finally {
@@ -323,8 +406,10 @@ try {
 }
 assert.deepEqual(errors, []);
 assert.deepEqual(external, []);
+assert.ok(missingTotals > 0, 'a story with no total for a record was judged');
 const summary = {
   runs: runs.length,
+  missingTotals,
   stories: ids,
   contexts: contexts.map(([lang, width]) => `${lang}-${width}`),
   checked: runs.every((r) => r.checked.story),

@@ -219,6 +219,20 @@ async function responsive(page, directory, phase) {
   await page.setViewportSize({ width: 1440, height: 1000 });
   return measurements;
 }
+// The card's one confirmation (UX-5(d)), found by its sentence's first
+// words in the reader's language; it carries both source attestations and
+// the scope attestation.
+const confirmBox = (panel, t) =>
+  panel.getByLabel(t.cardConfirm('', '', '')[0].split(' (')[0], {
+    exact: false,
+  });
+// The card's fields fold under its sentence when nothing is asked; an
+// accountant opens them to type.
+async function openScopeFields(panel) {
+  const fields = panel.locator('[data-scope-card] details');
+  if ((await fields.getAttribute('open')) === null)
+    await fields.locator('summary').click();
+}
 async function setup(page, panel, t, fixture) {
   for (const side of [0, 1]) {
     const source = panel.getByTestId(`bank-source-${side}`),
@@ -249,15 +263,16 @@ async function setup(page, panel, t, fixture) {
     );
     await family.selectOption(expected);
     assert.equal(await family.inputValue(), expected);
-    await source
-      .getByLabel(`${t.sides[side]} ${t.sourceConfirm}`, { exact: true })
-      .check();
   }
+  // The scope is typed by hand, so the manual path stays checked: the card's
+  // fields are opened as an accountant would, and its one box confirms both
+  // tables and the scope (UX-5(d)).
+  await openScopeFields(panel);
   for (const [key, label] of Object.entries(t.fields))
     await panel
       .getByLabel(label, { exact: true })
       .fill(fixture.facts.scope[key]);
-  await panel.getByLabel(t.scopeConfirm, { exact: true }).check();
+  await confirmBox(panel, t).check();
   const compare = panel.getByRole('button', { name: t.compare, exact: true });
   assert.equal(await compare.isEnabled(), true);
   await compare.focus();
@@ -729,15 +744,7 @@ try {
             });
           await family.selectOption(canonicalFamily);
           assert.equal(await panel.getByTestId('bank-result').count(), 0);
-          assert.equal(
-            await panel
-              .getByTestId(`bank-source-${wdSide}`)
-              .getByLabel(`${t.sides[wdSide]} ${t.sourceConfirm}`, {
-                exact: true,
-              })
-              .isChecked(),
-            false,
-          );
+          assert.equal(await confirmBox(panel, t).isChecked(), false);
           assert.equal(
             await panel
               .getByRole('button', { name: t.compare, exact: true })
@@ -781,8 +788,8 @@ try {
           );
           if (fixture.id === '58-native-text-xlsx') {
             // Invalidate the previous result through the actual scope control.
-            await panel.getByLabel(t.scopeConfirm, { exact: true }).uncheck();
-            await panel.getByLabel(t.scopeConfirm, { exact: true }).check();
+            await confirmBox(panel, t).uncheck();
+            await confirmBox(panel, t).check();
             assert.equal(await panel.getByTestId('bank-result').count(), 0);
             const cancelled = await page.evaluate(
               async (labels) => {

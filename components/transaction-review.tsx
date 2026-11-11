@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -13,6 +13,8 @@ import { explainResult } from '@/lib/reconciliation/assistant';
 import { money } from '@/lib/reconciliation/core';
 import type { Comparison, Decision } from '@/lib/reconciliation/types';
 import { useI18n } from '@/lib/i18n/context';
+import { decisionPlatformCopy } from '@/lib/i18n/decision-platform';
+import { useDecisionFocus } from '@/components/decision-platform';
 import { invoiceOverlapIntegratedCopy } from '@/lib/i18n/invoice-overlap-review';
 export function TransactionReview({
   result,
@@ -23,10 +25,12 @@ export function TransactionReview({
   onUnlink,
   onReview,
   onGroupReview,
+  reviewed = false,
 }: {
   result: Comparison;
   id: string;
   busy: boolean;
+  reviewed?: boolean;
   onClose: () => void;
   onLink: (d: Decision) => void;
   onUnlink: (supplierId: string, ledgerId: string, note: string) => void;
@@ -37,6 +41,11 @@ export function TransactionReview({
   const [query, setQuery] = useState(''),
     [candidate, setCandidate] = useState(''),
     [note, setNote] = useState('');
+  // The sentence under the decisions says which are open and what the
+  // others wait for; a recorded review is shown, and takes the focus (UX-3).
+  const hint = useId(),
+    reviewLine = useId();
+  const settle = useDecisionFocus();
   const all = [...result.supplier.transactions, ...result.ledger.transactions];
   const tx = all.find((t) => t.id === id);
   if (!tx) return null;
@@ -62,6 +71,23 @@ export function TransactionReview({
   // With a transaction id the engine explains that transaction; the wording of
   // the question does not change the answer.
   const explanation = explainResult(result, m.assistant.presets.explain, id);
+  const r = m.transactionReview;
+  const linkReady = !!chosen && chosen.amount === tx.amount;
+  const hintKey = !note.trim()
+    ? 'reason'
+    : match
+      ? 'unlink'
+      : linkReady
+        ? 'both'
+        : 'link';
+  const hintText =
+    hintKey === 'reason'
+      ? decisionPlatformCopy[lang].reason(r.noteLabel)
+      : hintKey === 'unlink'
+        ? decisionPlatformCopy[lang].review.opens(r.unlink)
+        : hintKey === 'both'
+          ? r.hint.both(r.link, r.reviewOnly)
+          : r.hint.link(r.reviewOnly, r.link);
   return (
     <section className="review-detail stack" aria-label={m.transactionReview.region}>
       <div className="actions" style={{ justifyContent: 'space-between' }}>
@@ -121,8 +147,14 @@ export function TransactionReview({
           )}
         </>
       )}
+      {reviewed && (
+        <p className="muted" id={reviewLine} tabIndex={-1} data-decision-state>
+          {m.app.results.reviewedStillOpen}
+        </p>
+      )}
       <Textarea
         aria-label={m.transactionReview.noteLabel}
+        aria-describedby={match?.reviewedAggregate ? undefined : hint}
         placeholder={m.transactionReview.notePlaceholder}
         maxLength={1000}
         value={note}
@@ -136,6 +168,7 @@ export function TransactionReview({
         ) : match ? (
           <Button
             variant="outline"
+            aria-describedby={hint}
             disabled={busy || !note.trim()}
             onClick={() => onUnlink(match.supplierId, match.ledgerId, note)}
           >
@@ -144,6 +177,7 @@ export function TransactionReview({
         ) : (
           <>
             <Button
+              aria-describedby={hint}
               disabled={
                 busy || !chosen || chosen.amount !== tx.amount || !note.trim()
               }
@@ -159,10 +193,12 @@ export function TransactionReview({
             </Button>
             <Button
               variant="outline"
+              aria-describedby={hint}
               disabled={busy || !note.trim()}
               onClick={() => {
                 onReview(id, note);
                 setNote('');
+                settle(reviewLine);
               }}
             >
               {m.transactionReview.reviewOnly}
@@ -170,6 +206,11 @@ export function TransactionReview({
           </>
         )}
       </div>
+      {!match?.reviewedAggregate && (
+        <p id={hint} className="decision-hint" data-decision-hint={hintKey}>
+          {hintText}
+        </p>
+      )}
     </section>
   );
 }

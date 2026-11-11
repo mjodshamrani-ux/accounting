@@ -5,6 +5,10 @@ from zipfile import ZipFile
 import xml.etree.ElementTree as ET
 from decimal import Decimal
 from oracle import inspect,read,SCOPE,coordinate
+import importlib.util as _importlib_util
+_spec = _importlib_util.spec_from_file_location('reconciliation_sheet_set_aside', Path(__file__).resolve().parents[1] / 'reconciliation-sheet' / 'set_aside.py')
+SET_ASIDE = _importlib_util.module_from_spec(_spec)
+_spec.loader.exec_module(SET_ASIDE)
 NS='{http://schemas.openxmlformats.org/spreadsheetml/2006/main}'
 REL='{http://schemas.openxmlformats.org/officeDocument/2006/relationships}'
 DRAW='{http://schemas.openxmlformats.org/drawingml/2006/main}'
@@ -27,24 +31,30 @@ def read_workbook(path):
         if 'xl/theme/theme1.xml' in names:
             dark = xml('xl/theme/theme1.xml').find(DRAW + 'themeElements/' + DRAW + 'clrScheme/' + DRAW + 'dk1')
             assert dark is not None and len(dark) == 1 and dark[0].get('lastClr', dark[0].get('val')) == '000000', 'OUTPUT_DISPLAY_THEME'
+        # UX-6: a workpaper may open on the reconciliation sheet. It is set
+        # aside, and the evidence's display profile held on the cell formats
+        # the evidence sheets name (with them, the one font they may use);
+        # the sheet's own are checked by audit/reconciliation-sheet.
+        first, held = SET_ASIDE.set_aside(archive)
         styles = xml('xl/styles.xml') if 'xl/styles.xml' in names else None
         xfs = []
         if styles is not None:
-            assert not styles.findall(NS + 'numFmts/' + NS + 'numFmt') and not styles.findall(NS + 'dxfs/' + NS + 'dxf'), 'OUTPUT_DISPLAY_FORMAT'
-            for font in styles.findall(NS + 'fonts/' + NS + 'font'):
+            assert (held is not None or not styles.findall(NS + 'numFmts/' + NS + 'numFmt')) and not styles.findall(NS + 'dxfs/' + NS + 'dxf'), 'OUTPUT_DISPLAY_FORMAT'
+            fonts = styles.findall(NS + 'fonts/' + NS + 'font')
+            for font in fonts if held is None else fonts[:1]:
                 assert font.find(NS + 'vanish') is None and font.find(NS + 'strike') is None, 'OUTPUT_DISPLAY_FONT'
                 color = font.find(NS + 'color')
                 assert color is None or dict(color.attrib) in [{'theme':'1'}, {'rgb':'FF000000'}], 'OUTPUT_DISPLAY_FONT'
                 size = font.find(NS + 'sz')
                 assert size is None or Decimal(size.get('val', '0')) >= 10, 'OUTPUT_DISPLAY_FONT'
             xfs = styles.findall(NS + 'cellXfs/' + NS + 'xf')
-            assert all(xf.get('numFmtId', '0') == '0' and xf.get('fillId', '0') == '0' and xf.get('fontId', '0') == '0' and xf.find(NS + 'alignment') is None and not any(key.startswith('apply') for key in xf.attrib) for xf in xfs), 'OUTPUT_DISPLAY_XF'
+            assert all(xf.get('numFmtId', '0') == '0' and xf.get('fillId', '0') == '0' and xf.get('fontId', '0') == '0' and xf.find(NS + 'alignment') is None and not any(key.startswith('apply') for key in xf.attrib) for xf in (xfs if held is None else [xfs[i] for i in sorted(held) if i < len(xfs)])), 'OUTPUT_DISPLAY_XF'
         strings = [''.join(t.text or '' for t in si.iter(NS + 't')) for si in xml('xl/sharedStrings.xml')] if 'xl/sharedStrings.xml' in names else []
         relationships = list(xml('xl/_rels/workbook.xml.rels'))
         assert len({e.get('Id') for e in relationships}) == len(relationships), 'DUPLICATE_RELATIONSHIP'
         links = {e.get('Id'): e for e in relationships}
         tables, used = {}, set()
-        for sheet in xml('xl/workbook.xml').findall(NS + 'sheets/' + NS + 'sheet'):
+        for sheet in xml('xl/workbook.xml').findall(NS + 'sheets/' + NS + 'sheet')[1 if first else 0:]:
             name = sheet.get('name'); assert name not in tables and sheet.get('state') in [None, 'visible'], 'SHEET_IDENTITY'
             link = links[sheet.get(REL + 'id')]
             assert link.get('TargetMode') != 'External' and link.get('Type', '').endswith('/worksheet'), 'SHEET_RELATIONSHIP'

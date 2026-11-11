@@ -7,6 +7,7 @@ import { chromium } from 'playwright';
 import { ar } from '../lib/i18n/locales/ar.ts';
 import { en } from '../lib/i18n/locales/en.ts';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import { stripCount } from './alignment-strip-read.mjs';
 
 const root = path.resolve(import.meta.dirname, '..');
 assert(process.argv.slice(2).every((x) => x === '--quick'));
@@ -86,6 +87,8 @@ const cases = [],
   lifecycle = [];
 let activePage;
 let passed = false;
+// Cases where the card was required to read a side's scope block.
+let blockReadings = 0;
 const index = () => ({
   schema: 'ar-scope-details-browser-evidence-1',
   quick,
@@ -212,6 +215,22 @@ try {
         });
         return session;
       };
+      // Whether a CSV scope-details file states Period start once in its
+      // AR_SCOPE block, by this check's own split of its bytes.
+      const blockStatesStart = async (file) => {
+        if (!/\.csv$/iu.test(file)) return false;
+        const text = await readFile(file, 'utf8');
+        if (text.includes('"')) return false;
+        const rows = text.split(/\r?\n/u).map((line) => line.split(','));
+        if (rows[0][0] !== 'AR_SCOPE') return false;
+        const keys = [];
+        for (const row of rows.slice(1)) {
+          if (!row.some((cell) => cell.trim())) continue;
+          if (row[0] === 'DETAILS') break;
+          keys.push(row[0]);
+        }
+        return keys.filter((key) => key === 'Period start').length === 1;
+      };
       const load = async (name) => {
         const folder = path.join(fixtures, name),
           bundleFile = path.join(folder, 'bundle.json');
@@ -253,8 +272,36 @@ try {
                 exact: true,
               })
               .selectOption('7');
-          await source.getByRole('checkbox').check();
         }
+        // UX-5(d): the card reads a scope-details file's block, the period
+        // included, and nothing of the period from a table read row by row.
+        // Where this check's own split finds the block stating Period start
+        // once, the card must name that side's block for it.
+        const card = w.locator('[data-scope-card]'),
+          blockWord = lang === 'ar' ? 'كتلة النطاق' : 'scope block';
+        const startText = await card
+          .locator('[data-scope-field="start"]')
+          .textContent();
+        for (const side of [0, 1]) {
+          const said = `${copy.sides[side]}: ${blockWord}`;
+          if (bundle.families[side] === 'ar-limited-1')
+            assert.ok(
+              !startText.includes(`${copy.sides[side]}:`),
+              `${lang}/${name}: no period is read from a table read row by row`,
+            );
+          else if (
+            await blockStatesStart(path.join(folder, bundle.files[side]))
+          ) {
+            assert.ok(
+              startText.includes(said),
+              `${lang}/${name}: the period read from side ${side}'s scope block: ${startText}`,
+            );
+            blockReadings += 1;
+          }
+        }
+        const fields = card.locator('details');
+        if ((await fields.getAttribute('open')) === null)
+          await fields.locator('summary').click();
         for (const field of [
           'entity',
           'ledger',
@@ -272,7 +319,16 @@ try {
               { exact: true },
             )
             .fill(bundle.scope[field]);
-        await w.getByLabel(copy.scopeConfirm, { exact: true }).check();
+        const one = w.getByLabel(copy.cardConfirm('', '', '', '')[0], {
+          exact: false,
+        });
+        assert.equal(
+          await one.isChecked(),
+          false,
+          `${lang}/${name} unconfirmed`,
+        );
+        await one.click();
+        assert.equal(await one.isChecked(), true, `${lang}/${name} confirmed`);
         await button(copy.run).click();
         await wait();
         assert.equal(
@@ -282,7 +338,7 @@ try {
         );
         const truth = truths[name].expected;
         assert.equal(
-          Number(await metric(copy.matched)),
+          Number(await stripCount(w, 'agreed')),
           truth.matchedPairCount,
           name,
         );
@@ -328,13 +384,13 @@ try {
             .getByRole('button', { name: copy.reopen, exact: true })
             .click();
           await wait();
-          assert.equal(Number(await metric(copy.matched)), 2);
+          assert.equal(Number(await stripCount(w, 'agreed')), 2);
           const reopened = await pair(name, 'reopened', bundle, 2);
           await w
             .locator('input[type="file"][accept=".json"]')
             .setInputFiles(reopened);
           await wait();
-          assert.equal(Number(await metric(copy.matched)), 2);
+          assert.equal(Number(await stripCount(w, 'agreed')), 2);
           await w
             .getByLabel(copy.note, { exact: true })
             .fill('Synthetic explicit document confirmation');
@@ -344,15 +400,23 @@ try {
             .getByRole('button', { name: copy.accept, exact: true })
             .click();
           await wait();
-          assert.equal(Number(await metric(copy.matched)), 3);
+          assert.equal(Number(await stripCount(w, 'agreed')), 3);
           const accepted = await pair(name, 'accepted', bundle, 3);
           await w
             .locator('input[type="file"][accept=".json"]')
             .setInputFiles(accepted);
           await wait();
-          assert.equal(Number(await metric(copy.matched)), 3);
+          assert.equal(Number(await stripCount(w, 'agreed')), 3);
           await pair(name, 'restored', bundle, 3);
-          const before = await w.getByTestId('ar-metrics').innerText();
+          // What the result says, in the figure grid and in the alignment
+          // strip's sentence, which says the matched documents and totals
+          // the grid no longer repeats (UX-4).
+          const shown = async () =>
+            [
+              await w.getByTestId('ar-metrics').innerText(),
+              await w.locator('[data-strip-sentence]').innerText(),
+            ].join('\n');
+          const before = await shown();
           const workers = await page.evaluate(() => window.__arWorkerCount);
           await page.evaluate(() => {
             window.__arDelay = true;
@@ -363,10 +427,10 @@ try {
           await button(copy.cancel).click();
           await wait();
           await page.waitForTimeout(1700);
-          assert.equal(await w.getByTestId('ar-metrics').innerText(), before);
+          assert.equal(await shown(), before);
           await button(copy.run).click();
           await wait();
-          assert.equal(await w.getByTestId('ar-metrics').innerText(), before);
+          assert.equal(await shown(), before);
           assert((await page.evaluate(() => window.__arWorkerCount)) > workers);
           lifecycle.push({
             lang,
@@ -395,7 +459,7 @@ try {
       );
       await button(copy.sample).click();
       await wait();
-      assert.equal(Number(await metric(copy.matched)), 3);
+      assert.equal(Number(await stripCount(w, 'agreed')), 3);
       assert.equal(
         await w
           .getByTestId('ar-source-0')
@@ -415,6 +479,8 @@ try {
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
   assert.deepEqual(nonGet, []);
+  assert.ok(blockReadings > 0, 'the card read at least one scope block');
+  console.log(`the card read a side's scope block in ${blockReadings} loads`);
   passed = true;
 } catch (error) {
   if (activePage) {

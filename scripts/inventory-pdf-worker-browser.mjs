@@ -225,6 +225,7 @@ try {
               await window.g4.request('stock-pdf-export', {
                 state: value.state,
                 result: value.result,
+                language: 'en',
               }),
             );
           phases[phase] = {

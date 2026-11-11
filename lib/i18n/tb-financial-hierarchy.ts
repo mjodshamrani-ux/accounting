@@ -82,8 +82,6 @@ const en = {
     'noncurrent-liability': 'Noncurrent liabilities',
     equity: 'Equity',
   } as Record<string, string>,
-  previous: 'Previous',
-  next: 'Next',
   codes: {
     BYTES: 'The file is larger than 131,072 bytes',
     CSV: 'The file is not readable UTF-8 CSV (a quote out of place, or bytes that are not UTF-8)',
@@ -214,8 +212,6 @@ const ar: typeof en = {
     'noncurrent-liability': 'المطلوبات غير المتداولة',
     equity: 'حقوق الملكية',
   },
-  previous: 'السابق',
-  next: 'التالي',
   codes: {
     BYTES: 'الملف أكبر من 131,072 بايت',
     CSV: 'الملف ليس CSV مقروءًا بترميز UTF-8 (علامة اقتباس في غير موضعها، أو بايتات ليست UTF-8)',

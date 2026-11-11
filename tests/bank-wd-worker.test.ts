@@ -105,6 +105,8 @@ void test('WD real worker dispatch replays B1 and six B2.2 original sources, sav
       await client.request<ArrayBuffer>('bank-export', {
         state: back.state,
         result: back.result,
+        // The bank request names the interface's language (UX-6).
+        lang: 'en',
       }),
     );
     const current = structuredClone(bank);

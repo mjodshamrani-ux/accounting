@@ -4,10 +4,7 @@ import {
   STOCK_PDF_SESSION_FORMAT,
   type StockPdfState,
 } from '../lib/reconciliation/inventory-pdf-request.ts';
-import {
-  inventoryCompanionScope,
-  type StockPdfPreview,
-} from '../lib/reconciliation/inventory-pdf-preview.ts';
+import type { StockPdfPreview } from '../lib/reconciliation/inventory-pdf-preview.ts';
 import type { StockPdfReplay } from '../lib/reconciliation/inventory-register.ts';
 import type { DomainEvidenceAnswer } from '../lib/reconciliation/domain-assistant.ts';
 import { stockPdfWorkbookTables } from '../lib/reconciliation/inventory-pdf-workbook-evidence.ts';
@@ -28,7 +25,21 @@ import {
 import { stockHierarchyCitationRows } from '../lib/reconciliation/inventory-hierarchy-evidence.ts';
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { InventoryMovementBridgePanel } from '@/components/inventory-movement-bridge-panel';
-import { useEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useId, useRef, useState, useMemo, type ReactNode } from 'react';
+import { useResultFocus } from '@/components/result-focus';
+import { Amount, Quantity } from '@/components/amount';
+import { AlignmentStrip } from '@/components/alignment-strip';
+import { ResultIndex, useResultParts } from '@/components/result-index';
+import {
+  EvidenceSections,
+  type EvidenceSection,
+} from '@/components/evidence-sections';
+import { stockStrip } from '@/lib/alignment-strip';
+import {
+  RecordFields,
+  RecordTable,
+  identityFields,
+} from '@/components/record-table';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -38,6 +49,7 @@ import {
   WorkspaceFileInput,
   WorkspaceSources,
   WorkspaceAdvanced,
+  WorkspaceStart,
 } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { workerTask } from '@/lib/reconciliation/client';
@@ -64,7 +76,22 @@ import {
 } from '@/lib/reconciliation/inventory-section-evidence';
 import { stockMatrixCitationRows } from '@/lib/reconciliation/inventory-matrix-evidence';
 import { stockCopy } from '@/lib/i18n/inventory-register';
-import './gl-tb-workspace.css';
+import { ScopeCard, Sentence } from '@/components/scope-card';
+import { scopeCardCopy } from '@/lib/i18n/scope-card';
+import { useDeclaredScope } from '@/hooks/use-declared-scope';
+import type {
+  DeclaredScopeRule,
+  ScopeOrigin,
+} from '@/lib/reconciliation/declared-scope';
+import './workspace-record.css';
+import { SheetPrint, useSheetPrint } from '@/components/reconciliation-sheet-print';
+import { sheetPrintCopy } from '@/lib/i18n/sheet-print';
+import {
+  DecisionButtons,
+  DecisionHint,
+  useDecisionFocus,
+} from './decision-platform';
+import type { DecisionInput } from '@/lib/decision-platform';
 const emptyScope = (): StockScope =>
   ({
     ...Object.fromEntries(STOCK_FIELDS.map((k) => [k, ''])),
@@ -72,6 +99,44 @@ const emptyScope = (): StockScope =>
     postingStatus: 'posted',
     confirmed: false,
   }) as StockScope;
+type StockField = (typeof STOCK_FIELDS)[number];
+// What the card may put in each field (UX-5(d)): the two one-option selects
+// take only the value the engine accepts, and start from it while no file
+// has the column; the date takes only YYYY-MM-DD.
+const ONLY = {
+  currencyBasis: 'functional',
+  postingStatus: 'posted',
+} as const;
+const oneOption = (k: StockField): k is keyof typeof ONLY => k in ONLY;
+const isDate = (k: StockField) => k === 'asOf';
+const isoDate = (v: string) => /^\d{4}-\d{2}-\d{2}$/.test(v);
+const scopeRules: DeclaredScopeRule<StockField>[] = STOCK_FIELDS.map(
+  (field) =>
+    oneOption(field)
+      ? {
+          field,
+          fallback: ONLY[field],
+          accepts: (v) => v === ONLY[field],
+          fixed: true,
+        }
+      : isDate(field)
+        ? { field, accepts: isoDate }
+        : { field },
+);
+// The flat originals write the scope columns on every row, as the engine's
+// row check reads them; a structured or printed register writes its scope
+// once, in its scope block, which its own engine compares with the scope.
+const scopeColumns = STOCK_FIELDS.map((field, i) => ({
+  field,
+  header: STOCK_SCOPE_HEADERS[i],
+}));
+const freshOrigins = () =>
+  Object.fromEntries(
+    scopeRules.map((r) => [
+      r.field,
+      r.fallback === undefined ? 'question' : 'default',
+    ]),
+  ) as Record<StockField, ScopeOrigin>;
 const readings = () =>
   STOCK_ROLES.map((role) => ({
     sheet: 0,
@@ -120,6 +185,50 @@ function sourceScope(file: SourceFile): Partial<StockScope> | null {
     ? scope
     : null;
 }
+/** The register's scope block, where its family writes one: the printed
+ *  register's scope lines, or a structured register's Scope rows. */
+function registerBlock(
+  register: SourceFile | null,
+  preview: StockPdfPreview | null,
+): Partial<StockScope> | undefined {
+  if (preview) return preview.scope;
+  if (register && structured(register))
+    return sourceScope(register) ?? undefined;
+  return undefined;
+}
+// The sheet on paper (UX-6(d)), composed on the page by the function the
+// worker writes the workbook's first sheet with, from what the export sends
+// on its path: the result, and the four files each by its name and
+// fingerprint, the printed register first where there is one, as `pdfState`
+// sends them. On the printed register's path the Arabic sheet names its
+// evidence sheets as that workbook names them, by the worker's rule: the
+// Arabic language and the register's evidence in the result.
+const composeSheet = async (
+  {
+    result,
+    files,
+    pdf,
+  }: {
+    result: StockResult;
+    files: { name: string; sha256?: string }[];
+    pdf: boolean;
+  },
+  language: 'ar' | 'en',
+) => {
+  const [{ inventorySheet }, { inventoryPdfWorkbookLabel }] =
+    await Promise.all([
+      import('@/lib/reconciliation/inventory-sheet'),
+      import('@/lib/i18n/inventory-pdf-workbook'),
+    ]);
+  return inventorySheet(
+    result,
+    files.map((f) => ({ name: f.name, sha256: f.sha256 })),
+    language,
+    pdf && language === 'ar' && !!result.pdfEvidence
+      ? inventoryPdfWorkbookLabel
+      : undefined,
+  );
+};
 function download(buffer: ArrayBuffer, name: string, type: string) {
   const url = URL.createObjectURL(new Blob([buffer], { type })),
     a = document.createElement('a');
@@ -127,66 +236,6 @@ function download(buffer: ArrayBuffer, name: string, type: string) {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-function Table({
-  headers,
-  rows,
-  marks,
-  pager,
-}: {
-  headers: string[];
-  rows: (string | number | null)[][];
-  marks?: Record<string, string>[];
-  pager?: string;
-}) {
-  const { lang } = useI18n();
-  const copy = stockCopy[lang];
-  const [page, setPage] = useState(0);
-  const safe = Math.min(page, Math.max(0, Math.ceil(rows.length / 50) - 1));
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table>
-          <thead>
-            <tr>
-              {headers.map((h, i) => (
-                <th key={i}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i} {...marks?.[safe * 50 + i]}>
-                {row.map((v, j) => (
-                  <td key={j}>{v ?? '—'}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="gl-tb-actions" data-stock-pager={pager}>
-        <Button
-          variant="outline"
-          disabled={!safe}
-          onClick={() => setPage(safe - 1)}
-        >
-          {copy.previous}
-        </Button>
-        <span>
-          {safe + 1} / {Math.max(1, Math.ceil(rows.length / 50))} ·{' '}
-          {rows.length}
-        </span>
-        <Button
-          variant="outline"
-          disabled={(safe + 1) * 50 >= rows.length}
-          onClick={() => setPage(safe + 1)}
-        >
-          {copy.next}
-        </Button>
-      </div>
-    </>
-  );
 }
 export function StockWorkspace({
   active,
@@ -219,8 +268,24 @@ export function StockWorkspace({
       l.items.map((i) => maps[l.page - 1]?.get(i) ?? '').join(' '),
     ]);
   }, [pdf]);
-  const [reading, setReading] = useState(readings),
-    [scope, setScope] = useState(emptyScope);
+  const [reading, setReading] = useState(readings);
+  // The card's scope and where each value came from (UX-5(d)): a new file
+  // fills what the four files agree on into the fields the accountant has
+  // not entered, and a value it changes drops the confirmation.
+  const blocks = useMemo(
+    () => [registerBlock(files[0], pdf), undefined, undefined, undefined],
+    [files, pdf],
+  );
+  const card = useDeclaredScope({
+    initial: () => ({ scope: emptyScope(), origins: freshOrigins() }),
+    rules: scopeRules,
+    columns: scopeColumns,
+    files,
+    sheets: reading.map((r) => r.sheet),
+    labels: copy.roles,
+    blocks,
+  });
+  const { scope, origins, suggestions } = card;
   const [complete, setComplete] = useState<StockInput['completeness']>({
     confirmed: false,
     reference: '',
@@ -228,6 +293,25 @@ export function StockWorkspace({
   });
   const [events, setEvents] = useState<StockEvent[]>([]),
     [result, setResult] = useState<StockResult | null>(null);
+  // Composed only while this workspace is the one shown: it stays in the
+  // page hidden otherwise, and would draw its table when another prints.
+  // The files are the ones the result was read from, for any change to
+  // them drops it.
+  const printed = useMemo(
+    () =>
+      active && result
+        ? {
+            result,
+            files: [pdf ?? files[0], ...files.slice(1)] as {
+              name: string;
+              sha256?: string;
+            }[],
+            pdf: !!pdf,
+          }
+        : null,
+    [active, result, files, pdf],
+  );
+  const paper = useSheetPrint(printed, lang, composeSheet);
   const pdfTables = useMemo(
     () => (result?.pdfEvidence ? stockPdfWorkbookTables(result, false) : []),
     [result],
@@ -285,13 +369,28 @@ export function StockWorkspace({
     };
   }
   type Replay = { state: StockInput; result: StockResult } | StockPdfReplay;
-  function install(v: Replay) {
-    if (!('version' in v)) {
+  // A printed register restored from a session comes with its preview and
+  // its companions, which are not on screen yet when the session installs.
+  function install(
+    v: Replay,
+    printed?: { preview: StockPdfPreview; companion: SourceFile[] },
+  ) {
+    const fromPdf = 'version' in v;
+    if (!fromPdf) {
       setPdf(null);
       setFiles(v.state.files);
     }
     setReading(v.result.readings);
-    setScope(v.state.scope);
+    card.install(
+      v.state.scope,
+      fromPdf ? [null, ...(printed?.companion ?? files.slice(1))] : v.state.files,
+      v.result.readings.map((r) => r.sheet),
+      [
+        fromPdf
+          ? registerBlock(null, printed?.preview ?? pdf)
+          : registerBlock(v.state.files[0], null),
+      ],
+    );
     setComplete(v.state.completeness);
     setEvents(v.state.events);
     setResult(v.result);
@@ -344,6 +443,21 @@ export function StockWorkspace({
       );
     return { replay, preview, companion };
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const resultParts = useResultParts([
+    'summary',
+    'explain',
+    'figures',
+    'links',
+    'decision',
+    'evidence',
+  ]);
+  const shown: typeof install = (v, printed) => {
+    install(v, printed);
+    reveal();
+  };
   async function perform<T>(
     work: (signal: AbortSignal) => Promise<T>,
     apply: (v: T) => void,
@@ -371,6 +485,43 @@ export function StockWorkspace({
       }
     }
   }
+  function updateScope(key: StockField, value: string) {
+    card.edit(key, value);
+    invalidate();
+  }
+  const unknown = scopeCardCopy[lang].unknown;
+  // A value inside a sentence, isolated so mixed scripts keep their order;
+  // a date, a code or a ledger is never split across lines.
+  const scopeValue = (v: string, whole = false) => (
+    <bdi className={whole ? 'scope-card__whole' : undefined}>
+      {v || unknown}
+    </bdi>
+  );
+  // Rows read from the files that write the scope on every row; a register
+  // that states it once, in its scope block, is said apart.
+  const rowsRead = Math.max(
+    0,
+    ...STOCK_FIELDS.map((k) =>
+      suggestions[k].read
+        .filter((r) => !r.block)
+        .reduce((n, r) => n + r.rows, 0),
+    ),
+  );
+  const blockRead = STOCK_FIELDS.some((k) =>
+    suggestions[k].read.some((r) => r.block),
+  );
+  // "The four files" only when each of the four was read row by row; a
+  // printed register refused before its scope lines is not one of them.
+  const rowSources = new Set(
+    STOCK_FIELDS.flatMap((k) =>
+      suggestions[k].read.filter((r) => !r.block).map((r) => r.label),
+    ),
+  );
+  const said = blockRead
+    ? 'block'
+    : rowSources.size === copy.roles.length
+      ? 'four'
+      : 'files';
   const ready =
     hasRegister &&
     files.slice(1).every(Boolean) &&
@@ -396,7 +547,6 @@ export function StockWorkspace({
           const next = [...reading] as StockInput['readings'];
           next[0] = { ...next[0], family: STOCK_PDF_FAMILY, confirmed: false };
           setReading(next);
-          setScope({ ...emptyScope(), ...value.scope, confirmed: false });
           setComplete({ ...complete, confirmed: false });
         },
       );
@@ -413,18 +563,6 @@ export function StockWorkspace({
       },
       (value) => {
         if (source === 0) setPdf(null);
-        if (pdf && source !== 0) {
-          const explicit = inventoryCompanionScope(value);
-          setScope((previous) => ({
-            ...previous,
-            ...Object.fromEntries(
-              Object.entries(explicit).filter(
-                ([key]) => !previous[key as keyof StockScope],
-              ),
-            ),
-            confirmed: false,
-          }));
-        }
         const next = [...files];
         next[source] = value;
         setFiles(next);
@@ -444,21 +582,6 @@ export function StockWorkspace({
                     : STOCK_VERSION,
           confirmed: false,
         };
-        if (source === 0 && structured(value)) {
-          const suggested = sourceScope(value);
-          if (suggested)
-            setScope({ ...emptyScope(), ...suggested, confirmed: false });
-          else setScope({ ...scope, confirmed: false });
-        } else if (
-          source === 0 &&
-          [
-            STOCK_SECTION_FAMILY,
-            STOCK_MATRIX_FAMILY,
-            STOCK_HIERARCHY_FAMILY,
-            STOCK_COLUMN_FAMILY,
-          ].includes(reading[0].family)
-        )
-          setScope({ ...scope, confirmed: false });
         setReading(r);
         setComplete({ ...complete, confirmed: false });
         invalidate();
@@ -497,8 +620,17 @@ export function StockWorkspace({
         state: StockInput;
         result: StockResult;
       }>('stock-reconcile', s, signal);
-    }, install);
+    }, shown);
   }
+  // The decision platform (UX-3): after a decision the focus returns to the
+  // line that holds the state, not to the page.
+  const hint = useId(),
+    decisionState = useId(),
+    settle = useDecisionFocus();
+  const decided: typeof install = (v) => {
+    install(v);
+    settle(decisionState);
+  };
   async function decide(type: StockEvent['type']) {
     if (!result) return;
     const e: StockEvent = {
@@ -510,23 +642,59 @@ export function StockWorkspace({
       reference,
       note,
     };
-    await perform((signal) => compute(signal, [...events, e]), install);
+    await perform((signal) => compute(signal, [...events, e]), decided);
   }
   const status = (value: string) =>
     (copy.status as Record<string, string>)[value] ?? value;
-  const canAccept =
-    result &&
-    complete.confirmed &&
-    !result.issues.length &&
-    !result.missing.length &&
-    result.financial === 'ready';
+  // What the decision buttons open on, as before: approval also needs the
+  // completeness confirmation and a ready result, and the sentence under the
+  // buttons says which of these is missing.
+  const decision: DecisionInput | null = result
+    ? {
+        reference,
+        reason: note,
+        members: result.memberIds.length,
+        review: result.review,
+        acceptBlock: !complete.confirmed
+          ? 'unconfirmed'
+          : result.issues.length
+            ? 'source-error'
+            : result.missing.length
+              ? 'missing'
+              : result.financial === 'ready'
+                ? null
+                : result.financial,
+      }
+    : null;
+  // Money is shown in major units at the currency's precision, and the
+  // register's quantity as a decimal at its own precision; the engine keeps
+  // both as integers. Register values: item, dimensions, quantity, unit,
+  // quantity precision, posted value, valuation reference. GL values:
+  // account, dimensions, class, debit, credit.
+  const amount = (minor: number | null | undefined) => (
+    <Amount minor={minor} decimals={result?.decimals ?? 2} />
+  );
+  const recordCells = (role: number, values: (string | number | null)[]) =>
+    values.map((v, j): ReactNode =>
+      role === 0 && j === 2 && typeof v === 'number' ? (
+        <Quantity key={j} scaled={v} precision={Number(values[4])} />
+      ) : ((role === 0 && j === 5) || (role === 3 && (j === 3 || j === 4))) &&
+        typeof v === 'number' ? (
+        <Amount key={j} minor={v} decimals={result?.decimals ?? 2} />
+      ) : (
+        v
+      ),
+    );
   const detail = (
     title: string,
     headers: string[],
-    rows: (string | number | null)[][],
+    rows: (ReactNode | null)[][],
     fingerprint?: string,
+    wrap?: readonly number[],
+    hook?: Record<`data-${string}`, string>,
   ) => (
     <WorkspaceAdvanced
+      hook={hook}
       summary={
         <>
           {title} ({rows.length})
@@ -538,9 +706,26 @@ export function StockWorkspace({
           <bdi>{fingerprint}</bdi>
         </p>
       )}
-      <Table headers={headers} rows={rows} />
+      <RecordTable source={title} headers={headers} rows={rows} wrap={wrap} />
     </WorkspaceAdvanced>
   );
+  // An evidence section of the result: drawn as above when it holds
+  // something, named on the line of empty sections when it does not (UX-4).
+  const section = (
+    key: string,
+    title: string,
+    headers: string[],
+    rows: (ReactNode | null)[][],
+    fingerprint?: string,
+    wrap?: readonly number[],
+  ): EvidenceSection => ({
+    key,
+    name: title,
+    count: rows.length,
+    node: detail(title, headers, rows, fingerprint, wrap, {
+      'data-evidence-section': key,
+    }),
+  });
   return (
     <div hidden={!active}>
       <section
@@ -554,13 +739,13 @@ export function StockWorkspace({
           disabled={busy}
           hasWork={sources.some(Boolean)}
         />
-        <WorkspaceIntro title={copy.title} intro={copy.intro}>
+        <WorkspaceIntro title={copy.title} intro={copy.intro} detail={copy.introDetail}>
           <p>{copy.claim}</p>
           <p>{copy.family}</p>
         </WorkspaceIntro>
-        <WorkspaceAdvanced>
+        <WorkspaceStart>
           <div className="gl-tb-actions workspace-toolbar">
-            <Button disabled={busy} onClick={() => void demo()}>
+            <Button variant="outline" disabled={busy} onClick={() => void demo()}>
               {copy.demo}
             </Button>
             <label>
@@ -579,15 +764,15 @@ export function StockWorkspace({
                         if ('replay' in value) {
                           setPdf(value.preview);
                           setFiles([null, ...value.companion]);
-                          install(value.replay);
-                        } else install(value);
+                          shown(value.replay, value);
+                        } else shown(value);
                       },
                     );
                 }}
               />
             </label>
           </div>
-        </WorkspaceAdvanced>
+        </WorkspaceStart>
         <WorkspaceGroupTitle kind="sources" />
         <WorkspaceSources
           primaryIndices={[0, 3]}
@@ -614,19 +799,6 @@ export function StockWorkspace({
                     <bdi>{pdf.name}</bdi>
                   </p>
                   <p>{pdfCopy.detected}</p>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={reading[0].confirmed}
-                      onChange={(e) => {
-                        const next = [...reading] as StockInput['readings'];
-                        next[0] = { ...next[0], confirmed: e.target.checked };
-                        setReading(next);
-                        invalidate();
-                      }}
-                    />
-                    {copy.roleConfirm}
-                  </label>
                   <Button
                     variant="outline"
                     onClick={() =>
@@ -654,19 +826,6 @@ export function StockWorkspace({
                   <p>
                     <bdi>{files[i]!.name}</bdi>
                   </p>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={reading[i].confirmed}
-                      onChange={(e) => {
-                        const next = [...reading] as StockInput['readings'];
-                        next[i] = { ...next[i], confirmed: e.target.checked };
-                        setReading(next);
-                        invalidate();
-                      }}
-                    />
-                    {copy.roleConfirm}
-                  </label>
                   {i === 0 && structured(files[i]!) && (
                     <p>
                       {reading[i].family === STOCK_COLUMN_FAMILY
@@ -713,38 +872,81 @@ export function StockWorkspace({
           ))}
         </WorkspaceSources>
         <fieldset disabled={busy} hidden={!(hasRegister && files[3])}>
-          <legend>{copy.scopeTitle}</legend>
-          <div className="gl-tb-grid">
-            {STOCK_FIELDS.map((k) => (
-              <label key={k}>
-                {copy.scope[k]}
+          <ScopeCard
+            hidden={!(hasRegister && files[3])}
+            summary={
+              <Sentence
+                parts={copy.cardSummary(
+                  scopeValue(scope.entity),
+                  scopeValue(scope.inventoryLedger, true),
+                  scopeValue(scope.glLedger, true),
+                  scopeValue(scope.asOf, true),
+                  scopeValue(scope.currency, true),
+                  rowsRead,
+                  said,
+                )}
+              />
+            }
+            rows={STOCK_FIELDS.map((k) => {
+              const name = copy.scopePrefix + copy.scope[k];
+              return {
+                key: k,
+                label: copy.scope[k],
+                origin: origins[k],
+                value: scope[k],
+                fixed: oneOption(k),
+                suggestion: suggestions[k],
+                control: (describedBy: string) =>
+                  oneOption(k) ? (
+                    <select
+                      aria-label={name}
+                      aria-describedby={describedBy}
+                      value={scope[k]}
+                      onChange={(e) => updateScope(k, e.target.value)}
+                    >
+                      <option value={ONLY[k]}>{copy.only[k]}</option>
+                    </select>
+                  ) : (
+                    <input
+                      aria-label={name}
+                      aria-describedby={describedBy}
+                      type={isDate(k) ? 'date' : 'text'}
+                      maxLength={500}
+                      value={scope[k]}
+                      onChange={(e) => updateScope(k, e.target.value)}
+                    />
+                  ),
+              };
+            })}
+            confirm={
+              <label className="scope-card__confirm">
                 <input
-                  aria-label={copy.scopePrefix + copy.scope[k]}
-                  maxLength={500}
-                  value={scope[k]}
+                  type="checkbox"
+                  checked={reading.every((r) => r.confirmed) && scope.confirmed}
                   onChange={(e) => {
-                    setScope({
-                      ...scope,
-                      [k]: e.target.value,
-                      confirmed: false,
-                    });
+                    const confirmed = e.target.checked;
+                    setReading(
+                      (previous) =>
+                        previous.map((r) => ({
+                          ...r,
+                          confirmed,
+                        })) as StockInput['readings'],
+                    );
+                    card.confirm(confirmed);
                     invalidate();
                   }}
                 />
+                <span>
+                  <Sentence
+                    parts={copy.cardConfirm(
+                      scopeValue(scope.entity),
+                      scopeValue(scope.asOf, true),
+                    )}
+                  />
+                </span>
               </label>
-            ))}
-          </div>
-          <label>
-            <input
-              type="checkbox"
-              checked={scope.confirmed}
-              onChange={(e) => {
-                setScope({ ...scope, confirmed: e.target.checked });
-                invalidate();
-              }}
-            />
-            {copy.scopeConfirm}
-          </label>
+            }
+          />
         </fieldset>
         <WorkspaceAdvanced summary={copy.completeTitle}>
           <fieldset disabled={busy}>
@@ -792,7 +994,7 @@ export function StockWorkspace({
           )}
           <Button
             disabled={busy || !ready}
-            onClick={() => void perform((signal) => compute(signal), install)}
+            onClick={() => void perform((signal) => compute(signal), shown)}
           >
             {copy.compare}
           </Button>
@@ -828,7 +1030,7 @@ export function StockWorkspace({
                     pdf ? 'stock-pdf-export' : 'stock-export',
                     pdf
                       ? { state: pdfState(), result, language: lang }
-                      : { state: state(), result },
+                      : { state: state(), result, lang },
                     signal,
                   ),
                 (b) =>
@@ -844,7 +1046,15 @@ export function StockWorkspace({
           >
             {copy.export}
           </Button>
+          <Button
+            variant="outline"
+            disabled={busy || !result}
+            onClick={paper.print}
+          >
+            {sheetPrintCopy[lang].print}
+          </Button>
         </div>
+        <SheetPrint sheet={paper.sheet} />
         {pdf && result && <p className="muted">{pdfCopy.exportNote}</p>}
         {error && (
           <p role="alert" data-stock-error>
@@ -853,8 +1063,25 @@ export function StockWorkspace({
         )}
         {result && (
           <section className="workspace-results">
+            <h2
+              {...resultParts.anchor('summary')}
+              data-stock-status
+              ref={resultHeading}
+              tabIndex={-1}
+              data-result-heading="result"
+            >
+              {status(result.status)}
+            </h2>
+            <AlignmentStrip
+              strip={stockStrip(result)}
+              sides={[copy.roles[0], copy.roles[3]]}
+              decimals={result.decimals}
+              state={status(result.status)}
+            />
+            <ResultIndex map={resultParts} />
             {pdf ? (
               <DomainEvidenceAssistant
+                anchor={resultParts.anchor('explain')}
                 result={result}
                 busy={busy}
                 verifiedAnswer={async (question) => {
@@ -873,6 +1100,7 @@ export function StockWorkspace({
               />
             ) : (
               <DomainEvidenceAssistant
+                anchor={resultParts.anchor('explain')}
                 result={result}
                 snapshot={() => ({
                   domain: 'inventory-register',
@@ -966,31 +1194,40 @@ export function StockWorkspace({
                 copy.observationHeaders,
                 stockSourceObservations(files),
               )}
-            <h2 data-stock-status>{status(result.status)}</h2>
             <p>
-              {copy.units} · {result.scope.currency} · {result.decimals}
+              {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>.{' '}
+              {copy.quantityNote}
             </p>
-            <Table
+            <RecordTable
+              anchor={resultParts.anchor('figures')}
+              label={copy.tableNames.totals}
               headers={copy.totals}
               rows={
                 result.totals
-                  ? [[result.totals.registerMinor, result.totals.glMinor]]
+                  ? [
+                      [
+                        amount(result.totals.registerMinor),
+                        amount(result.totals.glMinor),
+                      ],
+                    ]
                   : []
               }
             />
-            <Table
+            <RecordTable
+              label={copy.tableNames.comparisons}
               headers={copy.comparisons}
               rows={result.comparisons.map((v) => [
                 v.account,
                 v.dimensions,
-                v.registerMinor,
-                v.debitMinor,
-                v.creditMinor,
-                v.glMinor,
-                v.differenceMinor,
+                amount(v.registerMinor),
+                amount(v.debitMinor),
+                amount(v.creditMinor),
+                amount(v.glMinor),
+                amount(v.differenceMinor),
               ])}
             />
             <section
+              {...resultParts.anchor('links')}
               data-stock-links
               data-stock-linked={
                 result.links.filter((l) => l.status === 'linked').length
@@ -1006,9 +1243,10 @@ export function StockWorkspace({
               {result.links.some((l) => l.status === 'unlinked') ? (
                 <>
                   <h4>{copy.unlinkedTitle}</h4>
-                  <Table
+                  <RecordTable
+                    label={copy.unlinkedTitle}
                     headers={copy.unlinkedHeaders}
-                    pager="unlinked"
+                    pager={{ 'data-stock-pager': 'unlinked' }}
                     rows={result.links
                       .filter((l) => l.status === 'unlinked')
                       .map((l) => [
@@ -1046,9 +1284,10 @@ export function StockWorkspace({
               {result.unlinked.length > 0 && (
                 <>
                   <h4>{copy.othersTitle}</h4>
-                  <Table
+                  <RecordTable
+                    label={copy.othersTitle}
                     headers={copy.othersHeaders}
-                    pager="others"
+                    pager={{ 'data-stock-pager': 'others' }}
                     rows={result.unlinked.map((u) => [
                       copy.linkRoles[u.role],
                       u.record?.row ?? null,
@@ -1093,11 +1332,12 @@ export function StockWorkspace({
                 </div>
               )}
             </section>
-            <fieldset disabled={busy}>
+            <fieldset {...resultParts.anchor('decision')} disabled={busy} data-decision-platform>
               <legend>{copy.decision}</legend>
               <label>
                 {copy.reference}
                 <input
+                  aria-describedby={hint}
                   maxLength={2000}
                   value={reference}
                   onChange={(e) => setReference(e.target.value)}
@@ -1106,138 +1346,161 @@ export function StockWorkspace({
               <label>
                 {copy.note}
                 <input
+                  aria-describedby={hint}
                   maxLength={2000}
                   value={note}
                   onChange={(e) => setNote(e.target.value)}
                 />
               </label>
-              <p>
+              <p id={decisionState} tabIndex={-1} data-decision-state>
                 {status(result.review)} · {copy.members}:{' '}
                 {result.memberIds.length}
               </p>
-              <div className="gl-tb-actions">
-                {(['accept', 'reject', 'undo'] as const).map((type) => (
-                  <Button
-                    key={type}
-                    variant="outline"
-                    disabled={
-                      busy ||
-                      !reference.trim() ||
-                      !note.trim() ||
-                      !result.memberIds.length ||
-                      (type === 'undo'
-                        ? result.review === 'needs-review'
-                        : result.review !== 'needs-review') ||
-                      (type === 'accept' && !canAccept)
-                    }
-                    onClick={() => void decide(type)}
-                  >
-                    {copy[type]}
-                  </Button>
-                ))}
-              </div>
+              {decision && (
+                <>
+                  <DecisionButtons
+                    input={decision}
+                    labels={copy}
+                    busy={busy}
+                    describedBy={hint}
+                    onDecide={(type) => void decide(type)}
+                  />
+                  <DecisionHint
+                    id={hint}
+                    input={decision}
+                    labels={{ reference: copy.reference, reason: copy.note }}
+                  />
+                </>
+              )}
             </fieldset>
-            {result.records.map((rows, i) => (
-              <div key={i}>
-                {detail(
-                  copy.roles[i],
-                  i === 0 && (result.matrixEvidence || result.columnEvidence)
+            <EvidenceSections
+              anchor={resultParts.anchor('evidence')}
+              sections={[
+                ...result.records.map((rows, i) => ({
+                  key: `records.${i}`,
+                  name: copy.roles[i],
+                  count: rows.length,
+                  node: (
+                    <div>
+                      {detail(
+                        copy.roles[i],
+                        i === 0 &&
+                          (result.matrixEvidence || result.columnEvidence)
+                          ? [
+                              copy.records[i][0],
+                              copy.matrixSourceColumn,
+                              ...copy.records[i].slice(1),
+                            ]
+                          : copy.records[i],
+                        rows.map((v) => [
+                          v.row,
+                          ...(i === 0 &&
+                          (result.matrixEvidence || result.columnEvidence)
+                            ? [v.column ?? null]
+                            : []),
+                          ...recordCells(i, v.values),
+                        ]),
+                        undefined,
+                        undefined,
+                        { 'data-evidence-section': `records.${i}` },
+                      )}
+                    </div>
+                  ),
+                })),
+                section(
+                  'memberIds',
+                  copy.members,
+                  copy.memberHeaders,
+                  result.memberIds.map((id) => {
+                    const v = JSON.parse(id);
+                    return [
+                      copy.roles[v[1]],
+                      v[4],
+                      <RecordFields key="id" values={identityFields(id)} />,
+                    ];
+                  }),
+                  undefined,
+                  [2],
+                ),
+                section(
+                  'missing',
+                  copy.missing,
+                  [copy.missing],
+                  result.missing.map((v) => {
+                    const at = v.indexOf(':'),
+                      kind = v.slice(0, at),
+                      key = v.slice(at + 1);
+                    return [
+                      (copy.missingKinds as Record<string, string>)[kind] +
+                        ' · ' +
+                        (kind === 'source' ? copy.roles[Number(key)] : key),
+                    ];
+                  }),
+                ),
+                section(
+                  'issues',
+                  copy.issues,
+                  result.matrixEvidence || result.columnEvidence
                     ? [
-                        copy.records[i][0],
+                        copy.issueHeaders[0],
+                        copy.issueHeaders[1],
                         copy.matrixSourceColumn,
-                        ...copy.records[i].slice(1),
+                        ...copy.issueHeaders.slice(2),
                       ]
-                    : copy.records[i],
-                  rows.map((v) => [
+                    : copy.issueHeaders,
+                  result.issues.map((v) => [
+                    copy.roles[v.source] ?? copy.title,
                     v.row,
-                    ...(i === 0 &&
-                    (result.matrixEvidence || result.columnEvidence)
+                    ...(result.matrixEvidence || result.columnEvidence
                       ? [v.column ?? null]
                       : []),
-                    ...v.values,
+                    (copy.codes as Record<string, string>)[v.code] ??
+                      (pdf ? inventoryPdfIssue(lang, v.code) : copy.failed),
                   ]),
-                )}
-              </div>
-            ))}
-            {detail(
-              copy.members,
-              copy.memberHeaders,
-              result.memberIds.map((id) => {
-                const v = JSON.parse(id);
-                return [copy.roles[v[1]], v[4], id];
-              }),
-            )}
-            {detail(
-              copy.missing,
-              [copy.missing],
-              result.missing.map((v) => {
-                const at = v.indexOf(':'),
-                  kind = v.slice(0, at),
-                  key = v.slice(at + 1);
-                return [
-                  (copy.missingKinds as Record<string, string>)[kind] +
-                    ' · ' +
-                    (kind === 'source' ? copy.roles[Number(key)] : key),
-                ];
-              }),
-            )}
-            {detail(
-              copy.issues,
-              result.matrixEvidence || result.columnEvidence
-                ? [
-                    copy.issueHeaders[0],
-                    copy.issueHeaders[1],
-                    copy.matrixSourceColumn,
-                    ...copy.issueHeaders.slice(2),
-                  ]
-                : copy.issueHeaders,
-              result.issues.map((v) => [
-                copy.roles[v.source] ?? copy.title,
-                v.row,
-                ...(result.matrixEvidence || result.columnEvidence
-                  ? [v.column ?? null]
-                  : []),
-                (copy.codes as Record<string, string>)[v.code] ??
-                  (pdf ? inventoryPdfIssue(lang, v.code) : copy.failed),
-              ]),
-            )}
-            {detail(
-              copy.cells,
-              copy.cellHeaders,
-              result.cells.map((v) => [
-                copy.roles[v.source],
-                v.row,
-                v.column,
-                v.field,
-                v.text,
-              ]),
-            )}
-            {detail(
-              copy.inventory,
-              copy.inventoryHeaders,
-              result.inventory.map((v) => [
-                copy.roles[v.source],
-                v.row,
-                copy.kinds[v.kind],
-              ]),
-            )}
-            {detail(
-              copy.events,
-              copy.eventHeaders,
-              result.events.map((v) => [
-                v.id,
-                copy.actions[v.type],
-                v.at,
-                v.reference,
-                v.note,
-                v.memberIds.length,
-              ]),
-            )}
-            {detail(
-              copy.sources,
-              copy.sourceHeaders,
-              sources.map((f, i) => [copy.roles[i], f!.name, f!.sha256!]),
-            )}
+                ),
+                section(
+                  'cells',
+                  copy.cells,
+                  copy.cellHeaders,
+                  result.cells.map((v) => [
+                    copy.roles[v.source],
+                    v.row,
+                    v.column,
+                    v.field,
+                    v.text,
+                  ]),
+                ),
+                section(
+                  'inventory',
+                  copy.inventory,
+                  copy.inventoryHeaders,
+                  result.inventory.map((v) => [
+                    copy.roles[v.source],
+                    v.row,
+                    copy.kinds[v.kind],
+                  ]),
+                ),
+                section(
+                  'events',
+                  copy.events,
+                  copy.eventHeaders,
+                  result.events.map((v) => [
+                    v.id,
+                    copy.actions[v.type],
+                    v.at,
+                    v.reference,
+                    v.note,
+                    v.memberIds.length,
+                  ]),
+                ),
+                section(
+                  'sources',
+                  copy.sources,
+                  copy.sourceHeaders,
+                  sources.map((f, i) => [copy.roles[i], f!.name, f!.sha256!]),
+                ),
+              ]}
+            />
           </section>
         )}
         <InventoryMovementBridgePanel />

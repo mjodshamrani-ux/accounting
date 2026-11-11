@@ -6,6 +6,9 @@ import { readFile, writeFile, mkdir, mkdtemp } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { chromium } from 'playwright';
+import { scopeCardCopy } from '../lib/i18n/scope-card.ts';
+import { ar as arCatalog } from '../lib/i18n/locales/ar.ts';
+import { en as enCatalog } from '../lib/i18n/locales/en.ts';
 
 const root = path.resolve(import.meta.dirname, '..');
 const dist = path.join(root, 'dist');
@@ -18,6 +21,61 @@ const out = await mkdtemp(
   path.join(proofRoot, baseline ? 'baseline-' : 'verification-'),
 );
 const sha = (bytes) => createHash('sha256').update(bytes).digest('hex');
+// What the allocation files say about each scope field, read here from the
+// CSV bytes with this check's own split, not the app's reader (UX-5(d)).
+const allocationScopeHeaders = {
+  entity: 'Entity',
+  ledger: 'Ledger',
+  party: 'Party',
+  account: 'Account',
+  currency: 'Currency',
+  cutoff: 'Snapshot date',
+  basis: 'Allocation basis',
+};
+// The five fields a supplier comparison may carry into an allocation.
+const carriedFields = new Set([
+  'entity',
+  'party',
+  'account',
+  'currency',
+  'cutoff',
+]);
+async function allocationFilesSay(names, labels) {
+  const tables = [];
+  for (const [side, name] of names.entries()) {
+    const text = await readFile(
+      path.join(root, 'audit/allocation/frozen', name),
+      'utf8',
+    );
+    assert.ok(
+      !text.includes('"'),
+      'the frozen allocation sources are unquoted',
+    );
+    const [head, ...rows] = text
+      .split(/\r?\n/u)
+      .filter((line) => line.trim())
+      .map((line) => line.split(','));
+    tables.push({ label: labels[side], head, rows });
+  }
+  return Object.fromEntries(
+    Object.entries(allocationScopeHeaders).map(([key, header]) => {
+      const counts = new Map(),
+        read = [];
+      for (const { label, head, rows } of tables) {
+        const at = head.indexOf(header);
+        assert.ok(at >= 0, `${header} is a column of ${label}`);
+        read.push({ label, rows: rows.length });
+        for (const row of rows) {
+          const value = (row[at] ?? '').trim(),
+            bySide = counts.get(value) ?? new Map();
+          bySide.set(label, (bySide.get(label) ?? 0) + 1);
+          counts.set(value, bySide);
+        }
+      }
+      return [key, { header, read, counts }];
+    }),
+  );
+}
 const domains = [
   'clearing',
   'ar',
@@ -381,7 +439,7 @@ try {
       }
       await page
         .getByRole('button', {
-          name: language === 'ar' ? 'تأكيد البيانات' : 'Confirm data',
+          name: language === 'ar' ? 'أكّد البيانات' : 'Confirm data',
           exact: true,
         })
         .click();
@@ -401,6 +459,7 @@ try {
       const supplierSnapshot = await page
         .locator('.in-session:visible')
         .innerText();
+      const note = `handoff-retained-${language}-${width}`;
       for (let attempt = 1; attempt <= 2; attempt++) {
         await handoffButton.click();
         const allocation = page.locator(
@@ -462,12 +521,89 @@ try {
                   .disabled,
             );
           }
+          // The card fills after the file is shown; wait for that paint.
+          await page.evaluate(
+            () =>
+              new Promise((done) =>
+                requestAnimationFrame(() => setTimeout(done, 0)),
+              ),
+          );
+          // What the supplier comparison carried is marked as such, and the
+          // allocation files never write over it: where they hold the same
+          // value the card says so with their column and rows; where they
+          // hold another, it asks, with their values listed and the fields
+          // open. Every other field comes from the files.
+          const copy = scopeCardCopy[language];
+          const said = await allocationFilesSay(
+            ['one-to-one-0.csv', 'one-to-one-1.csv'],
+            (language === 'ar' ? arCatalog : enCatalog).allocation.sides,
+          );
+          const card = allocation.locator('[data-scope-card]');
+          assert.equal(
+            await card.count(),
+            1,
+            'the allocation files show the card «ما فهمناه من ملفاتك»',
+          );
+          let carried = 0,
+            asked = 0;
+          for (const [key, { header, read, counts }] of Object.entries(said)) {
+            const field = card.locator(`[data-scope-field="${key}"]`);
+            const origin = await field.getAttribute('data-origin'),
+              value = await field.locator('input').inputValue(),
+              hint = (await field.locator('.hint').textContent()).trim(),
+              listed = (await field.locator('li').allTextContents()).map((t) =>
+                t.trim(),
+              );
+            assert.equal(counts.size, 1, `${key}: one value in the two files`);
+            const [fileValue] = counts.keys();
+            if (origin !== 'handoff') {
+              assert.equal(origin, 'file', `${key}: from the files`);
+              assert.equal(value, fileValue, `${key}: the files' value`);
+              assert.equal(hint, copy.fromFile(header, read));
+              continue;
+            }
+            carried += 1;
+            assert.ok(carriedFields.has(key), `${key} is not a carried field`);
+            assert.ok(value, `${key}: a carried value is never empty`);
+            if (value === fileValue) {
+              assert.equal(hint, copy.fromHandoffSame(header, read), key);
+              assert.deepEqual(listed, [], `${key}: nothing to ask`);
+            } else {
+              asked += 1;
+              assert.equal(hint, copy.fromHandoffOther, key);
+              assert.deepEqual(
+                listed,
+                [...counts].flatMap(([v, bySide]) =>
+                  [...bySide].map(
+                    ([side, n]) => `${copy.quote(v)} ${copy.valueIn(side, n)}`,
+                  ),
+                ),
+                `${key}: the files' values are listed under the carried one`,
+              );
+            }
+          }
+          assert.ok(carried > 0, 'the supplier comparison carried a value');
+          assert.equal(
+            await card.locator('details').getAttribute('open'),
+            asked ? '' : null,
+            'the fields open exactly when a carried value meets another',
+          );
+          cases.push({
+            domain: 'allocation-handoff-scope',
+            language,
+            width,
+            carried,
+            asked,
+            status: 'PASS',
+          });
+          // Opened as an accountant would before typing.
+          if ((await card.locator('details').getAttribute('open')) === null)
+            await card.locator('details summary').click();
           const allocationDraft = allocation
             .locator(
               '.workspace-scope input[type="text"]:visible:not([readonly])',
             )
             .first();
-          const note = `handoff-retained-${language}-${width}`;
           await allocationDraft.fill(note);
           assert.equal(
             await allocationDraft.inputValue(),
@@ -515,6 +651,17 @@ try {
             'type selection preserves every handoff scope input',
           );
         }
+        // A fresh handoff starts a fresh scope: what was typed under the
+        // previous one is gone with its files.
+        if (attempt === 2)
+          assert.ok(
+            (
+              await allocation
+                .locator('[data-scope-card] input')
+                .evaluateAll((inputs) => inputs.map((input) => input.value))
+            ).every((value) => value !== note),
+            'a fresh handoff does not keep the scope typed under the last one',
+          );
         if (attempt === 2)
           await page.screenshot({
             path: path.join(out, `${language}-${width}-handoff.png`),

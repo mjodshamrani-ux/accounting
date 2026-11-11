@@ -21,10 +21,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 import { chromium } from 'playwright';
-import {
-  openDomainWorkspace,
-  workspaceSource,
-} from './domain-navigation-support.mjs';
+import { openDomainWorkspace } from './domain-navigation-support.mjs';
 
 const root = path.resolve(process.env.INV_LINKS_DIST ?? 'dist');
 const SUITE = process.env.INV_LINKS_SUITE;
@@ -153,20 +150,25 @@ async function load(page, w, c, times) {
       .getByLabel(role, { exact: true })
       .setInputFiles(path.join(c.folder, `${c.id}-${FILES[i]}.csv`));
     await idle(page);
-    await workspaceSource(w, role).getByRole('checkbox').check();
   }
   times.read = Date.now() - t;
+  // UX-5(d): the card reads the scope from the four files; each field must
+  // equal the case's declared scope, and the one confirmation, unticked
+  // until the accountant ticks it, carries the four sources and the scope.
   const scope = await json(path.join(c.folder, `${c.id}-scope.json`));
   for (const [k, label] of Object.entries(SCOPE))
-    await w
-      .getByLabel('Inventory scope ' + label, { exact: true })
-      .fill(scope[k]);
-  await w
-    .getByLabel(
-      'I confirmed the complete snapshot scope and the selected inventory GL account set.',
-      { exact: true },
-    )
-    .check();
+    assert.equal(
+      await w
+        .getByLabel('Inventory scope ' + label, { exact: true })
+        .inputValue(),
+      scope[k],
+      `${c.id}: ${label} read from the files`,
+    );
+  const confirm = w.getByLabel(
+    "I reviewed the posted inventory register, the proposed item / GL mapping, the independent supplied policy evidence and the selected inventory GL balances (each one's role and family) and their common scope",
+  );
+  assert.equal(await confirm.isChecked(), false, `${c.id}: not confirmed`);
+  await confirm.check();
   t = Date.now();
   await w
     .getByRole('button', { name: 'Check inventory / GL', exact: true })
@@ -174,14 +176,48 @@ async function load(page, w, c, times) {
   await idle(page);
   times.check = Date.now() - t;
 }
+// Reads a register table page by page, and checks its pages as the reader
+// meets them (the shared record table of UX-3): no pager when the rows fit
+// one page; otherwise both buttons described by the line naming the page
+// and its rows, that line agreeing with the rows on screen, a button closed
+// only at its end, and the focus kept on the pager when the last page closes
+// the button just pressed.
 async function rows(w, pager, selector, read) {
   const found = [];
+  const bar = w.locator(`[data-stock-pager="${pager}"]`);
   for (;;) {
-    for (const row of await w.locator(selector).all())
-      found.push(await read(row));
-    const next = w.locator(`[data-stock-pager="${pager}"] button`).last();
-    if (!(await next.count()) || (await next.isDisabled())) break;
-    await next.click();
+    const shown = await w.locator(selector).all();
+    for (const row of shown) found.push(await read(row));
+    if (!(await bar.count())) {
+      assert.ok(found.length <= 50, `${pager}: ${found.length} rows, no pager`);
+      break;
+    }
+    const at = await bar.evaluate((nav) => {
+      const [previous, next] = nav.querySelectorAll('button');
+      const line = nav.querySelector('output');
+      return {
+        described: [previous, next].map(
+          (b) => b.getAttribute('aria-describedby') === line.id && !!line.id,
+        ),
+        closed: [previous.disabled, next.disabled],
+        focus:
+          document.activeElement === previous
+            ? 'previous'
+            : document.activeElement === next
+              ? 'next'
+              : 'elsewhere',
+        figures: (line.textContent.match(/\d+/gu) ?? []).map(Number),
+      };
+    });
+    const [page, pages, from, to, of] = at.figures;
+    assert.deepEqual(at.described, [true, true], `${pager}: described`);
+    assert.ok(of > 50 && pages > 1, `${pager}: a pager for ${of} rows`);
+    assert.equal(to - from + 1, shown.length, `${pager}: rows ${from}–${to}`);
+    assert.deepEqual(at.closed, [page === 1, page === pages], `${pager}: ends`);
+    if (page > 1 && page === pages)
+      assert.equal(at.focus, 'previous', `${pager}: focus on the last page`);
+    if (page === pages) break;
+    await bar.locator('button').last().click();
   }
   return found;
 }
@@ -247,14 +283,39 @@ function judge(c, seen) {
     differ.push('other unlinked records');
   return differ;
 }
+// The export ends in a download or in the page's refusal. A refusal fails
+// here by assertion as soon as it shows, not by waiting out the download: a
+// request the page refuses never reaches the worker, so no download comes
+// (UX-6(c): the evidence export now asks for the interface's language). The
+// page clears its message when the task starts, so it is watched after.
+async function downloadOrRefusal(page, w, start) {
+  const pending = page.waitForEvent('download', { timeout: 600000 });
+  pending.catch(() => {});
+  await start();
+  const alert = w.locator('[data-stock-error]');
+  const refused = alert
+    .waitFor({ state: 'visible', timeout: 600000 })
+    .then(() => alert.innerText());
+  refused.catch(() => {});
+  const first = await Promise.race([
+    pending.then((download) => ({ download })),
+    refused.then((error) => ({ error })),
+  ]);
+  assert.ok(
+    first.download,
+    `the links export was refused on the page: ${first.error}`,
+  );
+  return first.download;
+}
 async function exportLinks(page, w, c, times) {
   const t = Date.now();
-  const pending = page.waitForEvent('download', { timeout: 600000 });
-  await w
-    .getByRole('button', { name: 'Export register links', exact: true })
-    .click();
+  const download = await downloadOrRefusal(page, w, () =>
+    w
+      .getByRole('button', { name: 'Export register links', exact: true })
+      .click(),
+  );
   const file = path.join(out, `${c.id}-links.xlsx`);
-  await (await pending).saveAs(file);
+  await download.saveAs(file);
   await idle(page);
   times.export = Date.now() - t;
   try {
@@ -357,6 +418,10 @@ try {
       const w = await open(page, 'en');
       await load(page, w, byId.L02, {});
       const before = await w.locator('[data-stock-links]').count();
+      // The fields are folded once read; the accountant opens them to type.
+      const fields = w.locator('[data-scope-card] details');
+      assert.equal(await fields.evaluate((d) => d.open), false, 'folded');
+      await fields.locator(':scope > summary').click();
       await w
         .getByLabel('Inventory scope Map version', { exact: true })
         .fill('MAP-CHANGED');
@@ -372,9 +437,9 @@ try {
         exact: true,
       });
       await button.focus();
-      const pending = page.waitForEvent('download', { timeout: 600000 });
-      await page.keyboard.press('Enter');
-      report.checks.keyboard = !!(await pending);
+      report.checks.keyboard = !!(await downloadOrRefusal(page, w, () =>
+        page.keyboard.press('Enter'),
+      ));
       await idle(page);
     }
   }

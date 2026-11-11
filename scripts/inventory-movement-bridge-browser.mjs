@@ -19,6 +19,34 @@ import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import {
+  assertStatusBadges,
+  statusBadgesRead,
+} from './status-badge-support.mjs';
+import {
+  assertSectionFocus,
+  sectionFocusRead,
+} from './section-focus-support.mjs';
+
+// The status badge in this section (UX-3): a status on this list, and no
+// other, takes the agreed tone.
+const BADGE_LABEL = 'inventory bridge';
+const BADGES = [
+  {
+    name: 'positions',
+    column: 2,
+    rows: 'tr[data-imb-position]',
+    attr: 'data-imb-position-status',
+    agreed: ['consistent'],
+  },
+  {
+    name: 'accounts',
+    column: 1,
+    rows: 'tr[data-imb-account]',
+    attr: 'data-imb-account-status',
+    agreed: ['consistent'],
+  },
+];
 
 const root = path.resolve(process.env.IMB_DIST ?? 'dist');
 const SUITE = process.env.IMB_SUITE;
@@ -83,15 +111,20 @@ const KIND = {
   'مردود إلى مورد': 'return-out',
 };
 // An integer of EXPECTED (a number, or text past the safe range) with its
-// decimals, as a reader writes it.
+// decimals, grouped thousands and the minus first, as the page writes it;
+// written here on its own, not taken from the application.
 const fixed = (v, decimals) => {
   if (v === null || v === undefined) return '—';
   const n = BigInt(String(v)),
     sign = n < 0n ? '-' : '',
     digits = String(n < 0n ? -n : n).padStart(decimals + 1, '0');
+  const whole = (decimals ? digits.slice(0, -decimals) : digits).replace(
+    /\B(?=(\d{3})+(?!\d))/gu,
+    ',',
+  );
   return decimals
-    ? `${sign}${digits.slice(0, -decimals)}.${digits.slice(-decimals)}`
-    : `${sign}${digits}`;
+    ? `${sign}${whole}.${digits.slice(-decimals)}`
+    : `${sign}${whole}`;
 };
 const pair = (p, d) =>
   p ? `${fixed(p.quantity, 3)} · ${fixed(p.value, d)}` : '—';
@@ -185,6 +218,7 @@ async function load(page, imb, c) {
     .click();
   await imb.locator('[data-imb-result], [data-imb-error]').first().waitFor();
   await idle(page);
+  await assertSectionFocus(page, imb, BADGE_LABEL);
   assert.equal(
     await imb.locator('[data-imb-error]').count(),
     0,
@@ -217,6 +251,7 @@ const attr = async (imb, selector, name) =>
     ? await imb.locator(selector).first().getAttribute(name)
     : null;
 async function shown(imb) {
+  await assertStatusBadges(imb, BADGES, BADGE_LABEL);
   const result = imb.locator('[data-imb-result]');
   const status = await result.getAttribute('data-imb-status');
   const verdict = await imb.locator('[data-imb-verdict]').textContent();
@@ -560,6 +595,11 @@ try {
   for (const [k, v] of Object.entries(report.summary.checks)) assert.ok(v, k);
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
+  console.log(
+    'status badges read:',
+    statusBadgesRead(BADGE_LABEL, ['positions', 'accounts']),
+  );
+  console.log('section focus read:', sectionFocusRead(BADGE_LABEL));
 } finally {
   await browser?.close();
   await new Promise((resolve) => server.close(resolve));

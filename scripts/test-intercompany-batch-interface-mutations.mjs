@@ -77,8 +77,8 @@ const mutations = [
   [
     'residual-two-decimals',
     PANEL,
-    '          minorText(r.residual, batch.decimals),\n',
-    '          minorText(r.residual, 2),\n',
+    '          amount(r.residual, batch.decimals),\n',
+    '          amount(r.residual, 2),\n',
   ],
   [
     'unassigned-not-shown',

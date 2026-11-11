@@ -78,6 +78,8 @@ void test('integrated actual worker alternates TB/bank/assets and reverse throug
       const book = await client.request<ArrayBuffer>(`${item.domain}-export`, {
         state: restored.state,
         result: restored.result,
+        // Each of the three requests names the interface's language (UX-6).
+        lang: 'en',
       });
       assert.deepEqual([...new Uint8Array(book).subarray(0, 2)], [80, 75]);
     }

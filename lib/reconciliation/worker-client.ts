@@ -149,11 +149,22 @@ export function createWorkerClient(
         try {
           if (action === 'asset-reconcile' || action === 'asset-save')
             payload = snapshotAsset(payload as AssetInput);
-          else if (action === 'asset-export' && isRecord(payload))
+          else if (action === 'asset-export') {
+            // The request names the interface's language, in which the
+            // workpaper's reconciliation sheet is written (UX-6); nothing
+            // else is added.
+            if (
+              !isRecord(payload) ||
+              Object.keys(payload).sort().join('|') !== 'lang|result|state' ||
+              (payload.lang !== 'ar' && payload.lang !== 'en')
+            )
+              throw Error('ASSET_WORKER_INPUT');
             payload = {
               state: snapshotAsset(payload.state as AssetInput),
               result: structuredClone(payload.result),
+              lang: payload.lang,
             };
+          }
           else if (action === 'asset-read' || action === 'asset-restore') {
             if (
               !isRecord(payload) ||

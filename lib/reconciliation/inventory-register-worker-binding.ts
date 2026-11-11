@@ -342,7 +342,14 @@ export async function validateStockWorkerResponse(action: string, value: unknown
     return captured;
   }
   if (action === 'stock-export') {
-    const expected = await io.exportStock(payload.state as StockInput, payload.result as StockResult);
+    // The workpaper as the worker writes it: the evidence, then the
+    // reconciliation sheet first in the language the request names.
+    const sheet = await import('./inventory-sheet.ts');
+    const expected = await sheet.exportStockWorkpaper(
+      payload.state as StockInput,
+      payload.result as StockResult,
+      payload.lang,
+    );
     if (!await sameStockWorkbook(captured as ArrayBuffer, expected)) throw Error('STOCK_WORKER_BINDING');
     return expected;
   }

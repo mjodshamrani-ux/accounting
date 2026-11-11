@@ -4,9 +4,9 @@
   position: relative;
   padding: 24px;
   margin: 0;
-  border: 1px solid #dbe4f2;
+  border: 1px solid var(--border-strong);
   border-radius: 17px;
-  background: linear-gradient(155deg, #fff 10%, #f4f8ff);
+  background: linear-gradient(155deg, var(--surface) 10%, var(--source-a-tint));
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -21,7 +21,7 @@
   clear: both;
 }
 .reconciliation-workspace .workspace-batch-source > p {
-  color: #63718a;
+  color: var(--text-secondary);
   font-size: 13px;
   line-height: 1.9;
   overflow-wrap: anywhere;
@@ -33,6 +33,6 @@
   font-weight: 650;
 }
 .intercompany-batch [data-ic-batch] {
-  border-top: 1px solid #dbe4f2;
+  border-top: 1px solid var(--border-strong);
   padding-block: 12px;
 }

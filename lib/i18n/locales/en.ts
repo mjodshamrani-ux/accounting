@@ -36,7 +36,8 @@ export const en: Messages = {
     title: 'Bank and cashbook movements',
     back: 'Supplier reconciliation',
     intro:
-      'Compare one bank account in one currency and period with the owner’s cashbook. Local source identities and explicit financial roles are required.',
+      'Compare one bank account in one currency and period with the owner’s cashbook.',
+    introDetail: 'Local source identities and explicit financial roles are required.',
     claim:
       'This compares movements only. Opening and closing balances, a balance bridge, source authenticity and period completeness remain separate. Matching a movement keeps its outside-period value-date item.',
     limits:
@@ -58,10 +59,35 @@ export const en: Messages = {
       'blank-inactive': 'Inactive side blank in the original',
       'explicit-zero-inactive': 'Written zero on the inactive side',
     },
-    sourceConfirm:
-      'I reviewed this table’s source roles, company cash directions, booked or posted status, settlement identities and fee or reversal evidence.',
-    scopeConfirm:
-      'I reviewed the common entity, ledger, bank account, currency and period. This is a movement comparison; it does not close balances.',
+    // Sentences in parts, so the screen can isolate each value (UX-5(d)).
+    cardSummary: <T>(
+      entity: T,
+      account: T,
+      start: T,
+      end: T,
+      currency: T,
+      rows: number,
+    ) => [
+      entity,
+      ', bank account ',
+      account,
+      ', ',
+      start,
+      ' to ',
+      end,
+      ', in ',
+      currency,
+      `; ${rows} rows read from the two files.`,
+    ],
+    cardConfirm: <T>(entity: T, start: T, end: T) => [
+      'I reviewed the bank statement and the cashbook (source roles, company cash directions, booked or posted status, settlement identities and fee or reversal evidence) and their common scope in every field above: ',
+      entity,
+      ', ',
+      start,
+      ' to ',
+      end,
+      '. This is a movement comparison; it does not close balances.',
+    ],
     compare: 'Compare bank movements',
     cancel: 'Cancel operation',
     failed:
@@ -197,8 +223,6 @@ export const en: Messages = {
       movement: 'Movement',
       error: 'Error',
     },
-    previous: 'Previous',
-    next: 'Next',
     retainedTiming:
       'Value dates outside the period stay visible after approval and undo; they are inputs to a later balance reconciliation.',
     caseState: 'Status',
@@ -237,16 +261,42 @@ export const en: Messages = {
     backToSuppliers: 'Back to suppliers',
     paymentAllocation: 'Payment allocation',
     intro:
-      'Allocate available value to invoices with explicit evidence or human review. Allocated + remaining = available for each side.',
+      'Allocate available value to invoices with explicit evidence or human review.',
+    introDetail: 'Allocated + remaining = available for each side.',
     limits:
       'Use a snapshot before the proposed allocations; exclude advice already applied to these capacities. No accounting-system posting. Changing a source or scope clears this session’s decisions.',
     openSyntheticAllocationExample: 'Open synthetic allocation example',
     restoreAllocationSession: 'Restore allocation session',
     sheet: 'Sheet',
-    sourceConfirm:
-      'I reviewed the table roles, available capacity and advice timing',
-    scopeConfirm:
-      'I reviewed the entity, ledger, supplier, account, currency and snapshot before these allocations.',
+    // Sentences in parts, so the screen can isolate each value (UX-5(d)).
+    cardSummary: <T>(
+      entity: T,
+      supplier: T,
+      account: T,
+      cutoff: T,
+      currency: T,
+      rows: number,
+    ) => [
+      entity,
+      ', supplier ',
+      supplier,
+      ', account ',
+      account,
+      ', snapshot on ',
+      cutoff,
+      ', in ',
+      currency,
+      `; ${rows} rows read from the files.`,
+    ],
+    cardConfirm: <T>(entity: T, supplier: T, cutoff: T) => [
+      'I reviewed the available payments, the open invoices and the proposed remittance (table roles, available capacity and advice timing) and their common scope in every field above: ',
+      entity,
+      ', supplier ',
+      supplier,
+      ', snapshot on ',
+      cutoff,
+      ', before these allocations.',
+    ],
     readValueLedger: 'Read value ledger',
     failure:
       'Operation rejected. Review source, evidence, amount and capacity; the previous state was retained.',
@@ -280,8 +330,6 @@ export const en: Messages = {
     undoDecision: 'Undo decision',
     activeAllocations: 'Active allocations',
     inventoryOfEverySourceRow: 'Inventory of every source row',
-    previous: 'Previous',
-    next: 'Next',
   },
   glTb: {
     functionalLabel: 'Functional',
@@ -290,7 +338,8 @@ export const en: Messages = {
     title: 'GL and trial balance consistency',
     back: 'Supplier reconciliation',
     intro:
-      'Verify one account in a declared scope. Opening balances, period debit and credit, and closing balances remain separate in each source. Files stay local.',
+      'Verify one account in a declared scope.',
+    introDetail: 'Opening balances, period debit and credit, and closing balances remain separate in each source. Files stay local.',
     limits:
       'CSV/XLSX with exact English role headers. GL has opening, movement and closing records. Choose the TB layout: six balance columns, or three opening, period and closing rows with one snapshot ID and explicit debit and credit in each row. First row is the header. ISO dates, explicit nonnegative decimals, written zeros, functional currency and posted records only. No unknown columns, net-only amounts or balances borrowed from the other source.',
     claim:
@@ -307,8 +356,6 @@ export const en: Messages = {
     cancel: 'Cancel processing',
     sides: ['GL detail and balances', 'Trial balance source'],
     sheet: 'Sheet',
-    sourceConfirm:
-      'I reviewed this table: all balance roles and complete financial dimensions, posted scope, posting layer and functional currency are explicit.',
     fields: {
       entity: 'Entity',
       ledger: 'Ledger',
@@ -321,8 +368,37 @@ export const en: Messages = {
       start: 'Period start',
       end: 'Period end',
     },
-    scopeConfirm:
-      'I reviewed the common entity, ledger, account, complete dimensions, functional currency, posted scope, layer and period. Blank amounts are not zeros.',
+    // The UX-5(d) card: what the files say, and the one confirmation that
+    // carries the two source attestations and the scope attestation. In
+    // parts, so the screen can isolate each value.
+    cardSummary: <T>(
+      entity: T,
+      account: T,
+      start: T,
+      end: T,
+      currency: T,
+      rows: number,
+    ) => [
+      entity,
+      ', account ',
+      account,
+      ', ',
+      start,
+      ' to ',
+      end,
+      ', in ',
+      currency,
+      `; ${rows} rows read from the two files.`,
+    ],
+    cardConfirm: <T>(entity: T, start: T, end: T) => [
+      'I reviewed the GL detail and balances and the trial balance source, and their common scope in every field above: ',
+      entity,
+      ', ',
+      start,
+      ' to ',
+      end,
+      '. Balance roles, complete dimensions, posted scope, posting layer and functional currency are explicit, and blank amounts are not zeros.',
+    ],
     compare: 'Verify GL/TB consistency',
     result: 'GL/TB result',
     save: 'Save GL/TB session',
@@ -347,6 +423,7 @@ export const en: Messages = {
     gl: 'GL',
     tb: 'Trial balance',
     difference: 'GL minus TB',
+    balances: 'GL and trial balance by component',
     glBridge: 'GL closing minus opening and period net',
     tbBridge: 'TB closing minus opening and period net',
     missing: 'Missing',
@@ -390,15 +467,14 @@ export const en: Messages = {
     failure:
       'Cannot complete this operation under the GL/TB source policy. Check native source roles, readable headers, explicit amounts and the confirmed scope. The previous source remains available if upload fails.',
     error: 'Reason',
-    previous: 'Previous rows',
-    next: 'Next rows',
   },
   arDocuments: {
     title: 'Customer AR documents',
     entry: 'Customer AR reconciliation',
     back: 'Supplier reconciliation',
     intro:
-      'Compare a company AR ledger with its company-issued customer statement in the seller receivable perspective. Files stay local; no postings or payment allocations are created.',
+      'Compare a company AR ledger with its company-issued customer statement.',
+    introDetail: 'The comparison takes the seller receivable perspective. Files stay local; no postings or payment allocations are created.',
     limits:
       'Two CSV/XLSX tables with a header in the first row. Compare original signed movements, not open balances. Invoice is positive; receipt and credit note are negative. ISO dates and plain decimals without thousands separators. One entity, ledger, customer, account, currency and period. Buyer-side AP statements are outside this policy. This first source family requires one matching role header for each field shown below; a related invoice or generic reference is not an own document number.',
     family: 'Source structure',
@@ -441,10 +517,59 @@ export const en: Messages = {
       parent: 'Parent scope ID',
       open: 'Descriptive open balance',
     },
-    readingConfirm:
-      'I reviewed this source: seller receivable perspective, original movements, and the selected column meanings. Related invoice is not the own document number.',
-    scopeConfirm:
-      'I reviewed the common entity, ledger, customer, account, currency and period. The source rows must agree with this scope.',
+    // «ما فهمناه من ملفاتك» (UX-5(d)): the scope the two sources write,
+    // each side read as its reader reads it, and the one confirmation that
+    // carries what the two reading boxes, the printed statement box and the
+    // scope box each said. In parts, so the screen can isolate each value.
+    cardSummary: <T>(
+      entity: T,
+      ledger: T,
+      customer: T,
+      account: T,
+      start: T,
+      end: T,
+      currency: T,
+      read: string,
+    ) => [
+      entity,
+      ', ',
+      ledger,
+      ', customer ',
+      customer,
+      ', account ',
+      account,
+      ', ',
+      start,
+      ' to ',
+      end,
+      ', in ',
+      currency,
+      `; read from ${read}.`,
+    ],
+    cardRead: (
+      side: string,
+      kind: 'rows' | 'block' | 'printed' | 'none',
+      rows: number,
+    ) =>
+      kind === 'rows'
+        ? `${side}: rows ${rows}`
+        : kind === 'block'
+          ? `${side}: its scope block`
+          : kind === 'printed'
+            ? `${side}: read at the run`
+            : `${side}: no file yet`,
+    cardReadJoin: ' and ',
+    cardConfirm: <T>(entity: T, customer: T, start: T, end: T) => [
+      'I reviewed the company AR ledger and the company-issued customer statement, each in the seller receivable perspective with original movements, the column meanings chosen for each (a related invoice is not the own document number), a printed statement being the one the company issued, and their common scope in every field above: ',
+      entity,
+      ', customer ',
+      customer,
+      ', ',
+      start,
+      ' to ',
+      end,
+      '. The source rows must agree with this scope. This confirms the reading and the scope; it accepts no document.',
+    ],
     start: 'Period start',
     end: 'Period end',
     run: 'Compare AR documents',
@@ -452,17 +577,12 @@ export const en: Messages = {
     working: 'Verifying locally',
     results: 'AR document comparison result',
     valid: 'Valid movements',
-    matched: 'Matched document pairs',
     errors: 'Reading errors',
-    ledgerTotal: 'Ledger readable total',
-    statementTotal: 'Statement readable total',
     note: 'Document review reason',
     reopen: 'Reopen document pair',
     accept: 'Record human confirmation',
     save: 'Save AR session',
     export: 'Download AR workpaper',
-    prev: 'Previous',
-    next: 'Next',
     row: 'Row',
     inventory: 'Original source inventory',
     review: 'Needs review',
@@ -511,8 +631,6 @@ export const en: Messages = {
     pdfStatement: 'Printed customer statement (PDF)',
     pdfReading:
       'Read from the PDF itself: the document header, each section header and its column headings. Nothing is inferred from amounts or positions outside the declared headings.',
-    pdfReadingConfirm:
-      'I confirm this PDF is the customer statement the company issued, in the seller receivable perspective, with original movement amounts.',
     sections: 'Statement sections',
     section: 'Section',
     customerName: 'Customer name',
@@ -553,7 +671,8 @@ export const en: Messages = {
     title: 'Single-account clearing',
     back: 'Supplier reconciliation',
     intro:
-      'Clear offsetting movements using an explicit clearing reference or a recorded review decision. Files stay local; no postings are created.',
+      'Clear offsetting movements by an explicit clearing reference or a review decision.',
+    introDetail: 'Files stay local; no postings are created.',
     limits:
       'One CSV or XLSX movement table. ISO dates and plain decimal amounts without thousands separators. Unique posting IDs and an account and currency on every row. This checks movements; it does not prove period completeness.',
     upload: 'Clearing movements file',
@@ -578,8 +697,45 @@ export const en: Messages = {
     ledger: 'Ledger',
     start: 'Period start',
     end: 'Period end',
-    confirm:
-      'I reviewed the column meanings and scope: movements belong to one entity, ledger and account; debit is positive and credit is negative.',
+    // «ما فهمناه من ملفاتك» (UX-5(d)): the account and currency the mapped
+    // columns write on every row, the entity, ledger and period the
+    // accountant gives, and one confirmation. In parts, so the screen can
+    // isolate each value.
+    cardSummary: <T>(
+      entity: T,
+      ledger: T,
+      account: T,
+      start: T,
+      end: T,
+      currency: T,
+      rows: number,
+    ) => [
+      entity,
+      ', ',
+      ledger,
+      ', account ',
+      account,
+      ', ',
+      start,
+      ' to ',
+      end,
+      ', in ',
+      currency,
+      `; ${rows} rows read from the movements file.`,
+    ],
+    cardConfirm: <T>(entity: T, ledger: T, account: T, start: T, end: T) => [
+      'I reviewed the column meanings and scope: movements belong to one entity, ledger and account; debit is positive and credit is negative; and their scope in every field above: ',
+      entity,
+      ', ',
+      ledger,
+      ', account ',
+      account,
+      ', ',
+      start,
+      ' to ',
+      end,
+      '. This confirms the reading and the scope; it clears no movement.',
+    ],
     run: 'Check clearing',
     cancel: 'Cancel processing',
     working: 'Verifying locally',
@@ -587,7 +743,6 @@ export const en: Messages = {
     valid: 'Valid movements',
     cleared: 'Cleared movements',
     errors: 'Reading errors',
-    total: 'Net of readable movements',
     row: 'Row',
     status: 'Status',
     basis: 'Evidence',
@@ -602,8 +757,6 @@ export const en: Messages = {
     automatic: 'Whole explicit reference',
     human: 'Human decision',
     none: 'No approval evidence',
-    prev: 'Previous',
-    next: 'Next',
     source: 'Original source',
     missing: 'No clearing reference',
     error:
@@ -648,6 +801,9 @@ export const en: Messages = {
     resume: 'Resume effort measurement',
     finish: 'Finish effort measurement',
     export: 'Export effort record',
+    // What opens starting and exporting (UX-3).
+    startWaits: 'a case type is chosen',
+    exportWaits: 'the measurement is finished',
     newMeasurement:
       'Start a new record and discard the previous measurement from this window',
     stage: 'Effort measurement stage',
@@ -788,6 +944,13 @@ export const en: Messages = {
     unlink: 'Unlink and return to review',
     link: 'Confirm link manually',
     reviewOnly: 'Record review without a match',
+    // What the decisions wait for once the reason is written (UX-3).
+    hint: {
+      link: (review: string, link: string) =>
+        `“${review}” is open; “${link}” waits for a counterpart transaction with the same amount.`,
+      both: (link: string, review: string) =>
+        `“${link}” and “${review}” are open.`,
+    },
   },
   common: {
     listSeparator: '; ',
@@ -813,15 +976,16 @@ export const en: Messages = {
     noteColumn: 'Note',
     beforeTable: 'Before the table',
     headerRow: 'Header row',
-    previousPage: 'Previous page',
-    nextPage: 'Next page',
+    previousPage: 'Previous PDF page',
+    nextPage: 'Next PDF page',
     jumpPage: 'Page number',
     goToPage: 'Go to page',
-    pageOf: (page: number, pages: number) => `Page ${page} of ${pages}`,
-    previousRows: 'Previous rows',
-    nextRows: 'Next rows',
-    rangeOf: (from: number, to: number, total: number) =>
-      `${from}–${to} of ${total}`,
+    // What opens “Go to page” and “Apply boundaries and re-read” (UX-3).
+    jumpWaits: {
+      number: (pages: number) => `a page number from 1 to ${pages} is written`,
+      other: 'a page other than the one shown is written',
+    },
+    pageOf: (page: number, pages: number) => `PDF page ${page} of ${pages}`,
     hideCuts: 'Hide column boundaries',
     editCuts: 'Edit column boundaries',
     cutsField:
@@ -830,6 +994,7 @@ export const en: Messages = {
     cutsHint:
       'Measure from the left edge of the page. 25, 45, 65 splits it into four columns. Place each boundary in the gap between two columns, or leave the field empty to read the page as one column.',
     applyCuts: 'Apply boundaries and re-read',
+    applyWaits: 'the boundaries differ from those in use',
     undoCuts: 'Undo the change',
     cutsInvalid:
       'Enter numbers separated by commas or spaces, such as 25, 45, 65.',
@@ -920,6 +1085,12 @@ export const en: Messages = {
       'This reviews the range and row inventory only. It neither confirms unreviewed values nor resolves unreadable rows. Changing a row, value or frame cancels it.',
     covered: 'Range review recorded',
     pending: 'Range review not recorded',
+    // What the range review waits for, first missing first (UX-3).
+    coverageWaits: {
+      unclassified: 'every row has a type',
+      exclusions: 'every excluded row is checked',
+      crops: 'every reviewed crop in the range is linked to a row',
+    },
     unassigned: (n: number) =>
       `Reviewed crops inside the range not linked to a row or reviewed exclusion: ${n}`,
     counts: (
@@ -969,6 +1140,11 @@ export const en: Messages = {
     confirm:
       'I checked the column meanings, currency, signs and scope of this image',
     use: 'Use reviewed values in comparison',
+    // What using the table waits for besides its fields (UX-3).
+    useNeeds: {
+      coverage: 'the range review recorded above',
+      headers: 'header evidence for every column',
+    },
     busy: 'Verifying the reviewed source',
     failed:
       'The source could not be verified. Check header and currency evidence, period and formats.',
@@ -990,6 +1166,8 @@ export const en: Messages = {
     addCrop: 'Select a value from the image',
     changeCrop: 'Change the selected crop',
     useCrop: 'Use this crop',
+    // What opens using a crop and saving the record (UX-3).
+    useCropWaits: 'a frame is drawn around the value',
     cancelCrop: 'Cancel selection',
     removeCrop: 'Remove this value',
     selectSurface: 'Select a crop from the original image',
@@ -1019,9 +1197,12 @@ export const en: Messages = {
     reviewed: 'This value was checked against the crop',
     pending: 'This value has not been reviewed',
     confirm: 'Confirm this value review',
+    confirmWaits:
+      'a role is chosen and the value is written as shown in the original',
     count: (reviewed: number, total: number) =>
       `${reviewed} reviewed values out of ${total} recorded — this does not confirm complete page coverage`,
     save: 'Save review record',
+    saveWaits: 'a value from the image is recorded',
     restore: 'Open saved review record',
     restoreLabel: 'Image review record in JSON format',
     saving: 'Checking the image and values before saving',
@@ -1045,9 +1226,8 @@ export const en: Messages = {
       'The review record could not be opened or saved. No values were added to reconciliation.',
   },
   scene: {
-    supplierPaper: 'First record',
-    ledgerPaper: 'Second record',
-    caption: 'Illustration of reading and comparing records',
+    illustration: 'Illustration',
+    sources: 'Sources for this type:',
     motionReducedLabel:
       'Animation is off because of your reduced-motion setting',
     playLabel: 'Play the illustration animation',
@@ -1236,10 +1416,6 @@ export const en: Messages = {
       row: (row: number) => `Row ${row}`,
       page: (page: number) => `PDF page ${page}`,
       noOriginal: 'Not associated with a data row',
-      previous: 'Previous issues',
-      next: 'Next issues',
-      range: (from: number, to: number, total: number) =>
-        `${from}–${to} of ${total}`,
     },
     processing: {
       preparingRead: 'Preparing to read the PDF pages on your device',
@@ -1287,7 +1463,6 @@ export const en: Messages = {
     },
     notices: {
       cancelled: 'The operation was cancelled.',
-      demo: 'This is a sample for trying Tarasuf. Review the amount direction and comparison settings before you start.',
       sessionSaved:
         'The session file contains the sources and notes without encryption. Save it in a private location on your device.',
       sessionRestored:
@@ -1338,6 +1513,8 @@ export const en: Messages = {
       stepLater: ' — upcoming',
       demoBanner:
         'You are using a sample for trying Tarasuf, not company data or real transactions.',
+      demoAdvice:
+        'Review the amount direction and comparison settings before you compare.',
       restartEngine: 'Restart the engine',
       engineLoading: 'Preparing the comparison tool…',
       footnote:
@@ -1387,8 +1564,8 @@ export const en: Messages = {
       dateWindow: (days: number) =>
         `· Allowed date difference: ${plural(days, 'day', 'days')}`,
       edit: 'Edit reconciliation scope',
-      close: 'Close',
-      advanced: 'Advanced options',
+      // The visible word on the pencil, inside its name "Edit reconciliation scope".
+      editShort: 'Edit',
       needBoth:
         'We could not determine the cut-off date or the currency. Add them under “Advanced options”.',
       needCutoff:
@@ -1438,6 +1615,9 @@ export const en: Messages = {
         'I have checked that both reports cover the same period and verified the balances I entered. This confirmation is required only when reconciling balances.',
       run: 'Check and compare',
       backToFiles: 'Back to files',
+      moreReviews: 'More reviews of the two sources',
+      moreReviewsIntro:
+        'Optional; none is needed to compare. Each review checks one aspect of the two sources, and allocation opens a separate payment allocation workflow.',
       attestation:
         'By starting the comparison, you confirm that both files relate to the same supplier, entity, account, and currency, and that the amount direction shown is correct.',
     },
@@ -1451,8 +1631,6 @@ export const en: Messages = {
       manualMatchesHint: 'Matches confirmed by the reviewer',
       unmatchedCases: 'Unmatched cases',
       unmatchedRows: (rows: number) => `Transactions from both files: ${rows}`,
-      balanceDifference: 'Balance difference',
-      balancesUnverified: 'Balances not verified',
       skippedRows: 'Rows not read',
       skippedRowsHint:
         'The comparison is incomplete until these rows are reviewed',
@@ -1494,11 +1672,7 @@ export const en: Messages = {
       caseDetails: 'Case details',
       reviewedStillOpen: 'Reviewed, still unmatched',
       empty: 'There are no transactions in this list.',
-      pageSummary: (cases: number, page: number, pages: number) =>
-        `Cases: ${cases} · Page ${page} of ${pages}`,
-      pagination: 'Pagination',
-      previousPage: 'Previous page',
-      nextPage: 'Next page',
+      cases: (cases: number) => `Cases: ${cases}`,
       prepareWorkpaper: 'Prepare the workpaper',
     },
     finish: {
@@ -1628,9 +1802,12 @@ export const en: Messages = {
     },
   },
   financial: {
-    trialBalanceDebitsCreditsResidual:
-      'Trial balance debit / credit / residual',
-    amount: 'Amount in minor units',
+    trialBalanceFigures: [
+      'Trial balance debit',
+      'Trial balance credit',
+      'Residual, debit minus credit',
+    ],
+    amount: 'Amount',
     categories: {
       'current-asset': 'Current assets',
       'noncurrent-asset': 'Noncurrent assets',
@@ -1645,20 +1822,53 @@ export const en: Messages = {
     back: 'Back',
     trialBalanceAndFinancialPosition: 'Trial balance and financial position',
     reviewAccountsDimensionsMappingSignsPeriodAndCurrency:
-      'Review accounts, dimensions, mapping, signs, period and currency against four separate originals. Equal totals alone do not prove classification.',
+      'Review accounts, dimensions, mapping, signs, period and currency in four separate originals.',
+    introDetail: 'Equal totals alone do not prove classification.',
     theResultIsConsistencyWithSuppliedPresentationEvidence:
       'The result is consistency with supplied presentation evidence only; it does not establish source authenticity, ledger completeness, fair presentation or accounting standards compliance.',
     currentFamilyWholePostClosingTrialBalanceOne:
       'Current family: whole post-closing trial balance, one functional currency, one sheet per original, with no reclassification. Up to 8 MB per original and 20,000 rows total. Native Excel monetary cells require the two-decimal format.',
-    syntheticExample: 'Synthetic example',
+    syntheticExample: 'Open a synthetic example',
     restoreSession: 'Restore session',
     cancelOperation: 'Cancel operation',
     noOriginalUploaded: 'No original uploaded',
-    iReviewedThisOriginalAndConfirmItsRole:
-      'I reviewed this original and confirm its role, family and sole sheet',
-    confirmedComparisonScope: 'Confirmed comparison scope',
-    iConfirmTheScopeAgreesAcrossAllFour:
-      'I confirm the scope agrees across all four originals',
+    // The UX-5(d) card: what the four files say, and the one confirmation
+    // that carries the four source attestations and the scope attestation.
+    // In parts, so the screen can isolate each value.
+    cardSummary: <T>(
+      entity: T,
+      ledger: T,
+      start: T,
+      end: T,
+      currency: T,
+      rows: number,
+    ) => [
+      entity,
+      ', ledger ',
+      ledger,
+      ', ',
+      start,
+      ' to ',
+      end,
+      ', in ',
+      currency,
+      `; ${rows} rows read from the four files.`,
+    ],
+    cardConfirm: <T>(entity: T, start: T, end: T) => [
+      'I reviewed the trial balance, the proposed mapping, the independent presentation evidence and the financial position (each one\'s role, family and sole sheet) and their common scope in every field above: ',
+      entity,
+      ', ',
+      start,
+      ' to ',
+      end,
+      '. This confirms the reading and the scope; it accepts no statement line.',
+    ],
+    // The one value each of these fields takes in this family.
+    only: {
+      currencyBasis: 'Functional',
+      postingStatus: 'Posted',
+      closingBasis: 'Post-closing',
+    },
     suppliedInventoryAttestation: 'Supplied inventory attestation',
     iReviewedCompletenessOfSuppliedAccountsDimensionsMappings:
       'I reviewed completeness of supplied accounts, dimensions, mappings, evidence and statement lines',
@@ -1672,8 +1882,7 @@ export const en: Messages = {
     accounts: 'Accounts',
     statementLines: 'Statement lines',
     preservedSourceRows: 'Preserved source rows',
-    allAmountsBelowAreIntegerMinorUnitsDecimals:
-      'All amounts below are integer minor units; decimals',
+    amountsIn: 'Amounts in',
     basisLabels: {
       calculated: 'calculated',
       reported: 'reported',
@@ -1685,15 +1894,17 @@ export const en: Messages = {
     reviewDecisionEvidence: 'Review decision evidence',
     decisionReference: 'Decision reference',
     decisionReason: 'Decision reason',
-    calculatedReportedDifference: 'Calculated / Reported / Difference',
+    lineFigures: ['Calculated', 'Reported', 'Difference, calculated minus reported'],
     allMappingMembersAndEvidence: 'All mapping members and evidence',
     mapping: 'Mapping',
     account: 'Account',
     dimensions: 'Dimensions',
     evidence: 'Evidence',
     contribution: 'Contribution',
-    previousLines: 'Previous lines',
-    nextLines: 'Next lines',
+    tableNames: {
+      byClass: 'By basis and class',
+      position: 'Financial position by basis',
+    },
     sourceInventoryAndErrors: 'Source inventory and errors',
     source: 'Source',
     row: 'Row',
@@ -1740,17 +1951,15 @@ export const en: Messages = {
       'Closing basis',
     ],
     status: {
-      'source-error': 'source-error',
-      missing: 'missing',
-      inconsistent: 'inconsistent',
-      difference: 'difference',
-      'needs-review': 'needs-review',
-      'consistent-with-evidence': 'consistent-with-evidence',
-      blocked: 'blocked',
-      accepted: 'accepted',
-      rejected: 'rejected',
+      'source-error': 'Source evidence is invalid',
+      missing: 'Evidence or mapping is missing',
+      inconsistent: 'The statement equations do not hold',
+      difference: 'Line differences remain',
+      'needs-review': 'Needs review',
+      'consistent-with-evidence': 'Consistent with the evidence provided',
+      blocked: 'Blocked',
+      accepted: 'Accepted on evidence',
+      rejected: 'Rejected',
     },
-    previous: 'Previous',
-    next: 'Next',
   },
 };

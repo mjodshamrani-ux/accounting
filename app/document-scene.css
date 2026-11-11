@@ -10,28 +10,117 @@
   box-sizing: border-box;
 }
 
+/* Three layers in the scene's own 560 × 490 frame: the platform behind, the
+   two papers, and the platform face in front. The papers are elements of
+   their own so that a paper can turn in perspective (UX-7). */
 .document-scene__stage {
+  position: relative;
   width: 100%;
   aspect-ratio: 560 / 490;
   pointer-events: none;
+  container-type: inline-size;
 }
 
 .document-scene__art {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
   overflow: visible;
 }
 
+.document-scene__papers {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.document-scene__art--front {
+  z-index: 2;
+}
+
+/* A paper is 196 × 277.2 of the frame, its top at 27; the left one starts at
+   78 and the right one at 286. */
+.document-scene__slot {
+  position: absolute;
+  top: 5.5102%;
+  width: 35%;
+  height: 56.5714%;
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.document-scene__slot--left {
+  left: 13.9286%;
+}
+
+.document-scene__slot--right {
+  left: 51.0714%;
+}
+
+/* One record (clearing): the paper stands upright at the middle, 182. */
+.document-scene__slot--left[data-centred='true'] {
+  transform: translateX(53.0612%);
+}
+
+.document-scene__slot--right[data-centred='true'] {
+  transform: translateX(-53.0612%);
+}
+
+.document-scene__slot[data-absent='true'] {
+  visibility: hidden;
+}
+
 .document-scene__float {
+  width: 100%;
+  height: 100%;
   animation: document-scene-rise 9s cubic-bezier(0.45, 0, 0.55, 1) infinite;
   animation-play-state: paused;
-  transform-box: view-box;
   will-change: auto;
 }
 
 .document-scene__float--supplier {
   animation-delay: -3s;
+}
+
+.document-scene__sheet {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 100%;
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.document-scene__slot--left .document-scene__sheet {
+  transform: rotate(-5deg);
+}
+
+.document-scene__slot--right .document-scene__sheet {
+  transform: rotate(5deg);
+}
+
+.document-scene__slot[data-centred='true'] .document-scene__sheet {
+  transform: rotate(0deg);
+}
+
+.document-scene[data-running='false'] .document-scene__slot,
+.document-scene[data-running='false'] .document-scene__sheet {
+  transition: none;
+}
+
+.document-scene__turn {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  container-type: inline-size;
+}
+
+.document-scene__paper-art {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
 
 .document-scene__paper-scan {
@@ -51,33 +140,290 @@
   animation-delay: -5.9s;
 }
 
-.document-scene__file-type {
-  font-family: Arial, sans-serif;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.2px;
+/* The supplier acts (UX-7(c)): the table's placeholder rows give way to the
+   act's records; each act holds still to 30% of its 7.2 s, moves to 55% and
+   then shows its state. Only transform and opacity move. */
+.document-scene__paper-art[data-act] .document-scene__table-row,
+.document-scene__paper-art[data-act] .document-scene__table-head-bar {
+  opacity: 0;
 }
 
-.document-scene__paper-title {
-  font-family: 'Noto Sans Arabic', Arial, sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: normal;
-  font-synthesis: none;
+.document-scene__ink-head {
+  font:
+    700 10px 'Noto Sans Arabic',
+    Arial,
+    sans-serif;
+}
+
+.document-scene__ink-ref {
   fill: #24354d;
+  font:
+    600 18px 'Noto Sans Arabic',
+    Arial,
+    sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.document-scene__ink-move {
+  transform-box: view-box;
+  animation: document-scene-ink-move 7200ms cubic-bezier(0.45, 0, 0.55, 1) both;
+  animation-play-state: paused;
+}
+
+.document-scene__ink-frame {
+  animation: document-scene-ink-frame 7200ms linear both;
+  animation-play-state: paused;
+}
+
+/* The words over the stage, in the frame's units (560 to its width): the
+   relation between the two heads, and the state under the papers. */
+.document-scene__act-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.document-scene__act-relation,
+.document-scene__act-state {
+  position: absolute;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 0 0.6em;
+  border-radius: 999px;
+  font-family: 'Noto Sans Arabic', Arial, sans-serif;
+  font-size: clamp(10px, calc(100cqw * 12 / 560), 13px);
+  font-weight: 600;
+  line-height: 1.35;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+/* At the height of the two raised lines, 169 of 490. */
+.document-scene__act-relation {
+  top: 31.6%;
+  padding: 0.2em 0.7em;
+  border: 1px solid #c9d6ee;
+  background: #ffffff;
+  color: #24354d;
+  animation: document-scene-act-relate 7200ms linear both;
+  animation-play-state: paused;
+}
+
+/* Under the papers and above the platform, from 309 of 490. The state and
+   its reason keep 0.75em from each side of the stage. On a narrow stage the
+   reason goes under the state: the longest, in English at 320 px, would fill
+   the stage on one line. */
+.document-scene__act-state {
+  top: 63.06%;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: max-content;
+  max-width: calc(100% - 1.5em);
+  padding: 0.25em 0.8em;
+  border-radius: 0.95em;
+  background: #24354d;
+  color: #ffffff;
+  animation: document-scene-act-state 7200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-play-state: paused;
+}
+
+.document-scene__act-reason {
+  font-weight: 400;
+}
+
+.document-scene__act-reason::before {
+  content: '·';
+  margin-inline-end: 0.6em;
+}
+
+/* Times the act; nothing is drawn. */
+.document-scene__act-clock {
+  position: absolute;
+  width: 0;
+  height: 0;
+  animation: document-scene-act-clock 7200ms linear both;
+  animation-play-state: paused;
+}
+
+.document-scene[data-running='true'] .document-scene__ink-move,
+.document-scene[data-running='true'] .document-scene__ink-frame,
+.document-scene[data-running='true'] .document-scene__act-relation,
+.document-scene[data-running='true'] .document-scene__act-state,
+.document-scene[data-running='true'] .document-scene__act-clock {
+  animation-play-state: running;
+}
+
+/* Motion reduced or paused: the act in its final state, still. */
+.document-scene[data-act-final='true'] .document-scene__ink-move {
+  animation: none;
+  transform: translateY(var(--ink-dy));
+}
+
+.document-scene[data-act-final='true'] .document-scene__ink-frame,
+.document-scene[data-act-final='true'] .document-scene__act-relation,
+.document-scene[data-act-final='true'] .document-scene__act-state {
+  animation: none;
+  opacity: 1;
+}
+
+@keyframes document-scene-ink-move {
+  0%,
+  30% {
+    transform: translateY(0);
+  }
+  55%,
+  100% {
+    transform: translateY(var(--ink-dy));
+  }
+}
+
+@keyframes document-scene-ink-frame {
+  0%,
+  52% {
+    opacity: 0;
+  }
+  60%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes document-scene-act-relate {
+  0%,
+  30% {
+    opacity: 0;
+  }
+  42%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes document-scene-act-state {
+  0%,
+  55% {
+    opacity: 0;
+  }
+  63%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes document-scene-act-clock {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Live text over the drawing, in the paper's units (196 to its width). */
+.document-scene__file-type {
+  position: absolute;
+  top: 6.4935%;
+  left: 10.2041%;
+  display: inline-flex;
+  align-items: center;
+  gap: calc(100cqw * 5 / 196);
+  height: 9.0188%;
+  max-width: 66.3265%;
+  padding-inline: calc(100cqw * 8 / 196);
+  border-radius: calc(100cqw * 6 / 196);
+  font-family: Arial, sans-serif;
+  font-size: calc(100cqw * 10 / 196);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.document-scene__file-type svg {
+  width: calc(100cqw * 10 / 196);
+  height: calc(100cqw * 13 / 196);
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+
+.document-scene__file-type--supplier {
+  color: #386fd4;
+  background: #eef4ff;
+}
+
+.document-scene__file-type--ledger {
+  color: #7951cb;
+  background: #f3eefc;
+}
+
+/* The name ends at 176 in either language, as the drawn title did, and
+   sits in the band between the mark (bottom 43) and the table's head (106),
+   from 48 to 100: one line at its middle, near the drawn baseline of 72, or
+   two lines filling it. */
+.document-scene__paper-title {
+  position: absolute;
+  top: 17.316%;
+  right: 10.2041%;
+  left: 10.2041%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 18.759%;
+  color: #24354d;
+  font-family: 'Noto Sans Arabic', Arial, sans-serif;
+  font-size: calc(100cqw * 16 / 196);
+  font-weight: 600;
+  font-synthesis: none;
+  letter-spacing: normal;
+  line-height: 1.3;
+  text-align: right;
+}
+
+.document-scene__paper-title-text {
+  display: block;
+}
+
+.document-scene__paper-title[data-size='m'] {
+  font-size: calc(100cqw * 14 / 196);
+}
+
+.document-scene__paper-title[data-size='s'] {
+  font-size: calc(100cqw * 12.5 / 196);
+}
+
+.document-scene__paper-title[data-size='xs'] {
+  font-size: calc(100cqw * 11 / 196);
 }
 
 .document-scene__caption {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  color: #69768b;
+  font: inherit;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.document-scene__caption-line {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   gap: 12px;
   min-height: 44px;
-  color: #69768b;
-  font: inherit;
-  font-size: 11px;
-  line-height: 1.7;
+}
+
+.document-scene__type {
+  flex-basis: 100%;
+  color: #24354d;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
 }
 
 .document-scene__caption-separator {
@@ -85,6 +431,128 @@
   height: 2px;
   border-radius: 50%;
   background: #9ba6b9;
+}
+
+/* Every type's sources share one cell; only the chosen one shows, and the
+   cell keeps the room of the longest. */
+.document-scene__sources {
+  display: grid;
+  width: 100%;
+}
+
+.document-scene__source-list {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: start;
+  gap: 6px 10px;
+}
+
+.document-scene__source-list[data-current='false'] {
+  visibility: hidden;
+}
+
+.document-scene__source {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 2px 8px;
+  max-width: 100%;
+  padding-inline-start: 9px;
+  border-inline-start: 3px solid #3373c9;
+  color: #24354d;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.document-scene__source--second {
+  border-inline-start-color: #7944c7;
+}
+
+.document-scene__source-formats {
+  color: #526278;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* The three obstacles under the stage: their titles together, the mark,
+   and the sentence of the act shown, each sentence in the same cell so the
+   longest keeps the room. */
+.document-scene__acts {
+  gap: 8px;
+}
+
+.document-scene__acts-mark {
+  flex-basis: 100%;
+  color: #69768b;
+  font-size: 11px;
+  text-align: center;
+}
+
+.document-scene__act-buttons {
+  display: flex;
+  flex-basis: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.document-scene__act-button {
+  min-height: 44px;
+  padding: 6px 14px;
+  border: 1px solid #d5deec;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #3d4c63;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.4;
+  cursor: pointer;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease;
+}
+
+.document-scene__act-button:hover {
+  border-color: #9fb4d8;
+  color: #0a1b2e;
+}
+
+.document-scene__act-button[aria-pressed='true'] {
+  border-color: #386fd4;
+  background: #eef4ff;
+  color: #0a1b2e;
+  font-weight: 600;
+}
+
+.document-scene__act-button:focus-visible {
+  outline: 2px solid #2d8cff;
+  outline-offset: 3px;
+}
+
+.document-scene__act-lines {
+  display: grid;
+  flex-basis: 100%;
+}
+
+.document-scene__act-line {
+  grid-area: 1 / 1;
+  max-width: 36em;
+  margin-inline: auto;
+  color: #24354d;
+  font-size: 15px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.document-scene__act-line[data-current='false'] {
+  visibility: hidden;
 }
 
 .document-scene__motion-toggle {
@@ -136,13 +604,14 @@
   animation-play-state: running;
 }
 
+/* 9 of the paper's 277.2. */
 @keyframes document-scene-rise {
   0%,
   100% {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-9px);
+    transform: translateY(-3.2468%);
   }
 }
 
@@ -160,18 +629,30 @@
   .document-scene {
     max-width: 380px;
   }
-  .document-scene__caption {
+  .document-scene__caption-line {
     gap: 9px;
-    font-size: 11px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .document-scene .document-scene__float,
-  .document-scene .document-scene__paper-scan {
+  .document-scene .document-scene__paper-scan,
+  .document-scene .document-scene__ink-frame,
+  .document-scene .document-scene__act-relation,
+  .document-scene .document-scene__act-state,
+  .document-scene .document-scene__act-clock {
     animation: none;
   }
-  .document-scene .document-scene__motion-toggle {
+  .document-scene .document-scene__ink-move {
+    animation: none;
+    transform: translateY(var(--ink-dy));
+  }
+  .document-scene .document-scene__act-button {
+    transition: none;
+  }
+  .document-scene .document-scene__motion-toggle,
+  .document-scene .document-scene__slot,
+  .document-scene .document-scene__sheet {
     transition: none;
   }
 }

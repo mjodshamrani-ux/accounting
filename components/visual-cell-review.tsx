@@ -1,6 +1,7 @@
 /* oxlint-disable jsx-a11y/prefer-tag-over-role -- SVG supplies a crop viewport and needs an accessible image role. */
 import { useId, useState } from 'react';
 import { Button } from './ui/button';
+import { ClosedReason, useDecisionFocus } from './decision-platform';
 import { useI18n } from '@/lib/i18n/context';
 import {
   editVisualCell,
@@ -28,7 +29,12 @@ export function VisualCellReview({
 }) {
   const { t } = useI18n(),
     v = t.visualReview;
-  const cropId = useId();
+  const cropId = useId(),
+    stateLine = useId(),
+    confirmWhy = useId();
+  // Confirming says what opens it, and takes the focus to the line that
+  // states the review (UX-3).
+  const settle = useDecisionFocus();
   const page = record.draft.pages[0],
     word = page.words.find((w) => w.id === wordId)!;
   const cell = record.cells.find((c) => c.wordId === wordId);
@@ -125,16 +131,32 @@ export function VisualCellReview({
         </label>
       </div>
       <small>{v.valueHint}</small>
-      <output className={cell?.review ? 'notice' : 'hint'}>
+      <output
+        id={stateLine}
+        tabIndex={-1}
+        data-decision-state
+        className={cell?.review ? 'notice' : 'hint'}
+      >
         {cell?.review ? v.reviewed : v.pending}
       </output>
       <Button
         variant="outline"
+        aria-describedby={`${stateLine} ${confirmWhy}`}
         disabled={disabled || !cell || !!cell.review}
-        onClick={() => onConfirm(wordId)}
+        onClick={() => {
+          onConfirm(wordId);
+          settle(stateLine);
+        }}
       >
         {v.confirm}
       </Button>
+      <ClosedReason
+        id={confirmWhy}
+        closed={!cell}
+        waits="step"
+        label={v.confirm}
+        step={v.confirmWaits}
+      />
     </section>
   );
 }

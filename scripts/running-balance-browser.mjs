@@ -11,12 +11,18 @@ import {
   runningBalanceCopy,
   runningDiagnostic,
 } from '../lib/i18n/running-balance-review.ts';
+import { closedSay, settledOn } from './decision-platform-support.mjs';
+import {
+  assertSectionFocus,
+  sectionFocusRead,
+} from './section-focus-support.mjs';
+import { stageWatchdog } from './stage-watchdog.mjs';
 
 const root = path.resolve(
   process.env.RUNNING_BROWSER_REPORT_DIR || '../evidence/running-browser',
 );
 const frozen = path.resolve('audit/running-balance/frozen');
-const dist = path.resolve('dist');
+const dist = path.resolve(process.env.MIZAN_DIST_DIR ?? 'dist');
 await mkdir(root, { recursive: true });
 const hash = (b) => createHash('sha256').update(b).digest('hex');
 const ids = [
@@ -64,6 +70,8 @@ const save = () =>
     JSON.stringify(report, null, 2) + '\n',
   );
 let server, browser, activePage;
+// A stall says which case it stopped in (scripts/stage-watchdog.mjs).
+const watch = stageWatchdog({ page: () => activePage });
 async function choose(page, control, value, label) {
   if ((await control.evaluate((el) => el.tagName)) === 'SELECT')
     await control.selectOption(value);
@@ -159,6 +167,7 @@ try {
       const fixture = fixtures.get(id);
       const locale = lang === 'ar' ? ar : en;
       const t = runningBalanceCopy[lang];
+      watch.at(`${lang}-${id}`);
       const directory = path.join(root, lang, id);
       await mkdir(directory, { recursive: true });
       const context = await browser.newContext({
@@ -242,6 +251,11 @@ try {
       await page.getByTestId('running-balance-toggle').click();
       const panel = page.getByTestId('running-balance-panel');
       await panel.getByTestId('running-balance-source').selectOption('0');
+      // UX-3: reading waits for the confirmed column cuts, and says so.
+      assert.ok(
+        await closedSay(panel, `${lang}-${id}`),
+        `${lang}-${id}: reading is closed before the cuts are confirmed`,
+      );
       await panel.getByTestId('running-balance-cuts-ack').check();
       const cancelled = await page.evaluate(async () => {
         document
@@ -267,6 +281,13 @@ try {
       }
       await panel.getByTestId('running-balance-inspect').click();
       await idle(panel);
+      // The result present (UX-3): the reading's result heading takes the
+      // focus and names the review.
+      await assertSectionFocus(
+        page,
+        page.getByTestId('running-balance-disclosure'),
+        'running balance review',
+      );
       const actualRows = await panel
         .getByTestId('running-balance-inventory')
         .locator('tbody tr')
@@ -306,6 +327,15 @@ try {
         );
         await panel.getByTestId('running-balance-select-all').click();
         await idle(panel);
+        // UX-3: every closed button says what opens it, and the decisions
+        // wait, named, for the reviewer, the rationale and the confirmations.
+        await closedSay(panel, `${lang}-${id}`);
+        const hint = panel.locator('[data-decision-hint]');
+        assert.equal(
+          await hint.getAttribute('data-decision-hint'),
+          'before',
+          `${lang}-${id}: the decisions wait`,
+        );
         const first = panel.getByTestId('running-balance-movement').first();
         await first.locator('summary').focus();
         await first.locator('summary').press('Enter');
@@ -331,8 +361,18 @@ try {
           'derivedSourceUnderstood',
         ])
           await panel.getByTestId(`running-balance-ack-${key}`).check();
+        assert.equal(
+          await hint.getAttribute('data-decision-hint'),
+          'open',
+          `${lang}-${id}: both decisions open`,
+        );
         await panel.getByTestId('running-balance-accept').click();
         await panel.getByTestId('running-balance-receipt').waitFor();
+        await settledOn(
+          page,
+          panel.getByTestId('running-balance-receipt'),
+          `${lang}-${id}: approval`,
+        );
         // Reviewer edits invalidate a concrete live receipt; a fresh decision is required.
         await panel
           .getByTestId('running-balance-rationale')
@@ -456,6 +496,10 @@ try {
   assert.deepEqual(report.nonGetRequests, []);
   assert.deepEqual(report.failedRequests, []);
   assert.equal(report.cases.length, 22);
+  console.log(
+    'section focus read:',
+    sectionFocusRead('running balance review'),
+  );
   report.passed = true;
   await save();
   console.log(JSON.stringify({ passed: true, cases: 22, workbooks: 36 }));
@@ -476,6 +520,7 @@ try {
   }
   throw error;
 } finally {
+  watch.stop();
   await browser?.close();
   if (server)
     await new Promise((resolve) => {

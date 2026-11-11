@@ -12,8 +12,8 @@ import {
   replayAr,
   saveAr,
   restoreAr,
-  exportAr,
 } from '../lib/reconciliation/ar-io.ts';
+import { exportArWorkpaper } from '../lib/reconciliation/ar-sheet.ts';
 import {
   createWorkerClient,
   type WorkerPort,
@@ -185,8 +185,14 @@ async function dispatched(request: Request) {
   if (request.action === 'ar-save') return saveAr(request.payload as ArInput);
   if (request.action === 'ar-restore')
     return restoreAr((request.payload as { buffer: ArrayBuffer }).buffer);
-  const payload = request.payload as { state: ArInput; result: ArResult };
-  return exportAr(payload.state, payload.result);
+  // The worker hands the page the workpaper, its reconciliation sheet in
+  // the language the request names (UX-6).
+  const payload = request.payload as {
+    state: ArInput;
+    result: ArResult;
+    lang: string;
+  };
+  return exportArWorkpaper(payload.state, payload.result, payload.lang);
 }
 
 for (const scopeDetails of [false, true]) {
@@ -205,7 +211,7 @@ for (const scopeDetails of [false, true]) {
       });
       const promise = client.request<Envelope | ArrayBuffer>(
         action,
-        action === 'ar-export' ? { state: caller, result } : caller,
+        action === 'ar-export' ? { state: caller, result, lang: 'en' } : caller,
       );
       await tick();
       caller.scope.entity = 'after-await';
@@ -263,13 +269,13 @@ for (const scopeDetails of [false, true]) {
       b,
       await saveAr(foreign),
       b,
-      await exportAr(foreign, b.result),
+      await exportArWorkpaper(foreign, b.result, 'en'),
     ];
     const payloads = [
       base,
       base,
       { buffer: session },
-      { state: base, result: a.result },
+      { state: base, result: a.result, lang: 'en' },
     ];
     for (const [index, action] of [
       'ar-reconcile',
@@ -459,10 +465,20 @@ void test('AR rejects trailing session/export bytes and workbook corruption beyo
       snapshotArRequest('ar-save', base),
     ),
   );
-  const exported = await exportAr(base, result),
+  const exported = await exportArWorkpaper(base, result, 'en'),
     appended = new Uint8Array(exported.byteLength + 1);
   appended.set(new Uint8Array(exported));
-  const payload = snapshotArRequest('ar-export', { state: base, result });
+  const payload = snapshotArRequest('ar-export', {
+    state: base,
+    result,
+    lang: 'en',
+  });
+  // The workpaper as the worker writes it is accepted; each change below is
+  // what makes it refused.
+  assert.ok(
+    (await validateArWorkerResponse('ar-export', exported, payload)) instanceof
+      ArrayBuffer,
+  );
   await assert.rejects(
     validateArWorkerResponse('ar-export', appended.buffer, payload),
     /AR_WORKER_EXPORT/,
@@ -552,8 +568,8 @@ void test('AR worker dispatch snapshots originals and choices before its first a
 void test('AR reply copying includes export bytes, and malformed result additions fail exact comparison', async () => {
   const base = await fixture(true),
     expected = await replayAr(base),
-    payload = { state: base, result: expected.result },
-    bytes = await exportAr(base, expected.result);
+    payload = { state: base, result: expected.result, lang: 'en' },
+    bytes = await exportArWorkpaper(base, expected.result, 'en');
   const port = new Port(),
     client = createWorkerClient(() => port),
     request = client.request<ArrayBuffer>('ar-export', payload);
@@ -572,11 +588,39 @@ void test('AR reply copying includes export bytes, and malformed result addition
   );
 });
 
+void test('AR export requests name the interface language and nothing more (UX-6)', async () => {
+  const base = await fixture(),
+    result = (await replayAr(base)).result;
+  for (const payload of [
+    { state: base, result },
+    { state: base, result, lang: 'fr' },
+    { state: base, result, lang: undefined },
+    { state: base, result, lang: 'en', extra: true },
+  ])
+    assert.throws(
+      () => snapshotArRequest('ar-export', payload),
+      /AR_WORKER_INPUT/,
+    );
+  for (const lang of ['ar', 'en'] as const) {
+    const payload = snapshotArRequest('ar-export', { state: base, result, lang });
+    assert.equal((payload as { lang: string }).lang, lang);
+    // A workpaper in the other language is not the one requested.
+    await assert.rejects(
+      validateArWorkerResponse(
+        'ar-export',
+        await exportArWorkpaper(base, result, lang === 'ar' ? 'en' : 'ar'),
+        payload,
+      ),
+      /AR_WORKER_BINDING/,
+    );
+  }
+});
+
 void test('AR export rejects oversized ZIP expansion metadata and mismatched CRC before accepting content', async () => {
   const base = await fixture(),
     result = (await replayAr(base)).result,
-    exported = await exportAr(base, result),
-    payload = snapshotArRequest('ar-export', { state: base, result });
+    exported = await exportArWorkpaper(base, result, 'en'),
+    payload = snapshotArRequest('ar-export', { state: base, result, lang: 'en' });
   const oversized = exported.slice(0),
     view = new DataView(oversized),
     central = view.getUint32(oversized.byteLength - 22 + 16, true);

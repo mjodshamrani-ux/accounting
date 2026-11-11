@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import { bankSheetSaysScreen } from './reconciliation-sheet-browser.mjs';
 import { mkdir, readFile, copyFile, writeFile } from 'node:fs/promises';
 export async function verifyBank(page, url, out = 'work/qa') {
   await mkdir(out, { recursive: true });
@@ -17,15 +18,120 @@ export async function verifyBank(page, url, out = 'work/qa') {
   const truth = JSON.parse(
       await readFile('audit/bank/frozen/expected.json', 'utf8'),
     ),
-    sides = ['Bank statement', 'Cashbook'],
-    scopeLabels = [
-      'Entity',
-      'Ledger',
-      'Bank account',
-      'Currency',
-      'Period start',
-      'Period end',
-    ];
+    sides = ['Bank statement', 'Cashbook'];
+  const workspace = page.locator('main.bank-workspace'),
+    card = workspace.locator('[data-scope-card]');
+  // The card's one confirmation (UX-5(d)) carries both source attestations
+  // and the scope attestation; its label names the two sources.
+  const confirmBox = () =>
+    workspace.getByLabel('I reviewed the bank statement and the cashbook', {
+      exact: false,
+    });
+  const runButton = () =>
+    workspace.getByRole('button', {
+      name: 'Compare bank movements',
+      exact: true,
+    });
+  // The fields fold under the card's sentence when nothing is asked; an
+  // accountant opens them to change one.
+  async function openFields() {
+    const fields = card.locator('details');
+    if ((await fields.getAttribute('open')) === null)
+      await fields.locator('summary').click();
+  }
+  // What the card says each field holds, read here from the CSV bytes with
+  // this check's own split, not the app's reader: every non-blank data row of
+  // both files, the six scope columns by header. The native case copies
+  // workbooks written from the same CSV text, so the same answer holds.
+  const scopeHeaders = {
+    entity: 'Entity',
+    ledger: 'Ledger',
+    account: 'Bank account',
+    currency: 'Currency',
+    start: 'Period start',
+    end: 'Period end',
+  };
+  async function filesSay(name, dir = 'audit/bank/frozen') {
+    const tables = [];
+    for (const [side, label] of sides.entries()) {
+      const text = await readFile(`${dir}/${name}-${side}.csv`, 'utf8');
+      assert.ok(!text.includes('"'), 'the bank sources are unquoted');
+      const [head, ...body] = text
+        .split(/\r?\n/u)
+        .filter((line) => line.trim())
+        .map((line) => line.split(','));
+      tables.push({ label, head, body });
+    }
+    return Object.fromEntries(
+      Object.entries(scopeHeaders).map(([key, header]) => {
+        const counts = new Map(),
+          read = [];
+        let rows = 0;
+        for (const { label, head, body } of tables) {
+          const at = head.indexOf(header);
+          assert.ok(at >= 0, `${header} is a column of ${label}`);
+          read.push(`${label}: rows ${body.length}`);
+          for (const row of body) {
+            rows += 1;
+            const value = (row[at] ?? '').trim(),
+              bySide = counts.get(value) ?? new Map();
+            bySide.set(label, (bySide.get(label) ?? 0) + 1);
+            counts.set(value, bySide);
+          }
+        }
+        return [key, { header, rows, read, counts }];
+      }),
+    );
+  }
+  async function cardField(key) {
+    const field = card.locator(`[data-scope-field="${key}"]`);
+    return {
+      origin: await field.getAttribute('data-origin'),
+      value: await field.locator('input').inputValue(),
+      // textContent: the fields are folded when nothing is asked.
+      hint: (await field.locator('.hint').textContent()).trim(),
+      values: (await field.locator('li').allTextContents()).map((t) =>
+        t.trim(),
+      ),
+    };
+  }
+  // Every field the files agree on holds their value, marked from the file
+  // with its column and each file's rows; the sentence says the same.
+  async function cardSaysFiles(name, dir, when) {
+    assert.equal(
+      await card.count(),
+      1,
+      `${name} ${when}: the files show the card «ما فهمناه من ملفاتك»`,
+    );
+    const said = await filesSay(name, dir);
+    for (const [key, { header, read, counts }] of Object.entries(said)) {
+      assert.equal(counts.size, 1, `${name}: one ${key} in the two files`);
+      const [value] = counts.keys(),
+        shown = await cardField(key);
+      assert.equal(
+        shown.value,
+        value,
+        `${name} ${when}: ${key} from the files`,
+      );
+      assert.equal(shown.origin, 'file', `${name} ${when}: ${key} as theirs`);
+      assert.equal(
+        shown.hint,
+        `From the file: column ${header} · ${read.join(' · ')}`,
+        `${name} ${when}: ${key} names its column and each file's rows`,
+      );
+    }
+    const one = (key) => said[key].counts.keys().next().value;
+    assert.equal(
+      await card.locator('[data-scope-summary]').innerText(),
+      `${one('entity')}, bank account ${one('account')}, ${one('start')} to ${one('end')}, in ${one('currency')}; ${said.entity.rows} rows read from the two files.`,
+      `${name} ${when}: the sentence says the files' scope`,
+    );
+    assert.equal(
+      await card.locator('[data-scope-summary] bdi').count(),
+      5,
+      'each value in the sentence is isolated from the words around it',
+    );
+  }
   const table = (heading) =>
     page
       .getByRole('heading', { name: heading, exact: true })
@@ -34,7 +140,7 @@ export async function verifyBank(page, url, out = 'work/qa') {
   const rows = (heading) => table(heading).locator('tbody tr');
   const section = (heading) =>
     page.getByRole('heading', { name: heading, exact: true }).locator('..');
-  async function upload(name, native = false, dir = 'audit/bank/frozen') {
+  async function load(name, native = false, dir = 'audit/bank/frozen') {
     for (const side of [0, 1]) {
       let file = `${dir}/${name}-${side}.csv`;
       if (native) {
@@ -44,24 +150,39 @@ export async function verifyBank(page, url, out = 'work/qa') {
       const source = page.getByTestId(`bank-source-${side}`);
       await source.getByLabel(sides[side], { exact: true }).setInputFiles(file);
       await source.getByText(file.split('/').at(-1), { exact: true }).waitFor();
-      await source
-        .getByLabel(`${sides[side]} I reviewed this table`, { exact: false })
-        .check();
     }
-    for (const [i, label] of scopeLabels.entries())
-      await page
-        .getByLabel(label, { exact: true })
-        .fill(Object.values(truth.scope)[i]);
-    await page
-      .getByLabel(
-        'I reviewed the common entity, ledger, bank account, currency and period. This is a movement comparison; it does not close balances.',
-        { exact: true },
-      )
-      .check();
-    await page
-      .getByRole('button', { name: 'Compare bank movements', exact: true })
-      .click();
+    // The card fills after the file is shown; wait for that paint to pass.
+    await page.evaluate(
+      () =>
+        new Promise((done) => requestAnimationFrame(() => setTimeout(done, 0))),
+    );
+  }
+  // The two files fill the card; nothing is confirmed and the run stays
+  // closed until the accountant confirms with the one box.
+  async function upload(name, native = false, dir = 'audit/bank/frozen') {
+    await load(name, native, dir);
+    await cardSaysFiles(name, dir, 'loaded');
+    assert.equal(
+      await card.locator('details').getAttribute('open'),
+      null,
+      `${name}: with nothing to ask, the fields stay folded`,
+    );
+    assert.equal(
+      await confirmBox().isChecked(),
+      false,
+      `${name}: a suggestion never confirms`,
+    );
+    assert.equal(
+      await runButton().isEnabled(),
+      false,
+      `${name}: the run waits for the accountant's confirmation`,
+    );
+    await confirmBox().check();
+    await runButton().click();
     await page.getByTestId('bank-result').waitFor();
+    // After the run the files are put back; what they hold still shows as
+    // theirs.
+    await cardSaysFiles(name, dir, 'after the run');
   }
   async function evidence() {
     await page
@@ -176,7 +297,7 @@ export async function verifyBank(page, url, out = 'work/qa') {
     assert.equal(await rows('Every original source row').count(), 50);
     assert.equal(await rows('Whole movement cases').count(), 30);
     const next = (heading) =>
-      section(heading).getByRole('button', { name: 'Next', exact: true });
+      section(heading).getByRole('button', { name: 'Next page', exact: true });
     assert.equal(
       await next('Original movements').count(),
       1,
@@ -213,7 +334,7 @@ export async function verifyBank(page, url, out = 'work/qa') {
       const found = [];
       // The movement result's own tables, whatever their class.
       const cells = document.querySelectorAll(
-        '[data-testid="bank-result"] ~ fieldset .gl-tb-table :is(th, td)',
+        '[data-testid="bank-result"] ~ fieldset :is(.gl-tb-table, .record-frame) :is(th, td)',
       );
       for (const cell of cells) {
         const walker = document.createTreeWalker(cell, NodeFilter.SHOW_TEXT, {
@@ -255,8 +376,24 @@ export async function verifyBank(page, url, out = 'work/qa') {
       `${width}px: the page overflows`,
     );
   }
-  async function exportFile(file) {
-    await download('Download bank movement workpaper', file);
+  // Every workpaper the page downloads opens on the reconciliation sheet,
+  // which says what the screen says (UX-6(b)).
+  const sheets = [];
+  async function exportFile(file, lang = 'en') {
+    await download(
+      lang === 'ar'
+        ? 'نزّل ورقة عمل حركات البنك'
+        : 'Download bank movement workpaper',
+      file,
+    );
+    sheets.push({
+      file,
+      ...(await bankSheetSaysScreen(page, {
+        file: `${out}/${file}`,
+        lang,
+        result: page.getByTestId('bank-result').locator('..'),
+      })),
+    });
   }
   async function eventCount(n) {
     await page.waitForFunction(
@@ -393,7 +530,7 @@ export async function verifyBank(page, url, out = 'work/qa') {
   await ownPages();
   const later = await evidenceFocus(4);
   await section('Original movements')
-    .getByRole('button', { name: 'Previous', exact: true })
+    .getByRole('button', { name: 'Previous page', exact: true })
     .click();
   await page
     .getByRole('button', {
@@ -471,6 +608,7 @@ export async function verifyBank(page, url, out = 'work/qa') {
       'Supplied movements matched',
     ),
   );
+  await openFields();
   await page
     .getByLabel('Entity', { exact: true })
     .fill('Changed synthetic owner');
@@ -481,6 +619,40 @@ export async function verifyBank(page, url, out = 'work/qa') {
       .isEnabled(),
     false,
   );
+  assert.equal((await cardField('entity')).origin, 'user');
+  // Rows that disagree leave the field a question: emptied, the fields
+  // open, each value shown with its file and count. New files never write
+  // over the accountant's entry.
+  await load('account-mismatch');
+  const entity = await cardField('entity');
+  assert.equal(entity.value, 'Changed synthetic owner', 'the entry is kept');
+  assert.equal(entity.origin, 'user');
+  assert.equal(entity.hint, 'Your entry');
+  const mixed = await filesSay('account-mismatch');
+  assert.equal(mixed.account.counts.size, 2, 'the two files differ in account');
+  const account = await cardField('account');
+  assert.equal(account.origin, 'question');
+  assert.equal(account.value, '', 'a disagreement is never filled');
+  assert.equal(account.hint, 'The rows disagree, so enter the value');
+  assert.deepEqual(
+    account.values,
+    [...mixed.account.counts].flatMap(([value, bySide]) =>
+      [...bySide].map(([side, n]) => `“${value}” in ${side}: ${n}`),
+    ),
+  );
+  assert.equal(await card.locator('details').getAttribute('open'), '');
+  assert.equal(await confirmBox().isChecked(), false);
+  await page.getByLabel('Entity', { exact: true }).fill(truth.scope.entity);
+  await page
+    .getByLabel('Bank account', { exact: true })
+    .fill(truth.scope.account);
+  assert.equal(
+    await card.locator('details').getAttribute('open'),
+    '',
+    'answering the last question does not fold the field being typed in',
+  );
+  await confirmBox().check();
+  assert.equal(await runButton().isEnabled(), true);
   await page
     .getByRole('button', {
       name: 'Open synthetic bank movement example',
@@ -499,6 +671,8 @@ export async function verifyBank(page, url, out = 'work/qa') {
       })
       .click();
     await page.setViewportSize({ width, height: 844 });
+    // In Arabic the same example downloads with the sheet in Arabic.
+    if (lang === 'ar') await exportFile('bank-example-ar.xlsx', 'ar');
     assert.ok(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth + 1,
@@ -511,5 +685,9 @@ export async function verifyBank(page, url, out = 'work/qa') {
     });
   }
   await page.setViewportSize({ width: 1440, height: 1000 });
-  return { downloads: 12, synthetic: true, movementOnly: true };
+  assert.ok(
+    sheets.some((s) => s.waiting) && sheets.some((s) => s.decisions),
+    'a sheet with a case waiting and one with a decision',
+  );
+  return { downloads: 13, synthetic: true, movementOnly: true, sheets };
 }

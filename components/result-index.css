@@ -1,0 +1,100 @@
+/* The result index (UX-4): under the alignment strip, and under the top bar
+   while the reader scrolls through the result (the top bar is 88 px tall,
+   75 px from 750 px down). No colour says that anything agreed: the part
+   being read is marked in the neutral ink of the page. */
+.result-index {
+  position: sticky;
+  top: 88px;
+  z-index: 30;
+  padding-block: 6px;
+  border-block: 1px solid var(--border);
+  background: var(--background);
+}
+.result-index__toggle {
+  display: none;
+}
+.result-index__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.result-index__list a {
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--text-label);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.result-index__list a:hover {
+  background: var(--surface-quiet);
+}
+.result-index__list a[aria-current='location'] {
+  border-color: var(--border-strong);
+  background: var(--surface-quiet);
+  color: var(--foreground);
+}
+/* A surface hides what overflows it (globals.css), which makes it a scroll
+   container that the index would stick inside and never to the window; a
+   result that holds the index clips instead, which draws the same. */
+.surface:has(> [data-result-index]) {
+  overflow: clip;
+}
+[data-result-part]:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+@media (max-width: 750px) {
+  .result-index {
+    top: 75px;
+  }
+}
+/* A narrow screen: one line, the list behind one button that names the part
+   being read. */
+@media (max-width: 639px) {
+  .result-index__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    min-height: 40px;
+    padding: 6px 4px;
+    border: 0;
+    background: none;
+    color: var(--text-label);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .result-index__current {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--foreground);
+  }
+  .result-index__current svg {
+    transition: transform 0.15s ease;
+  }
+  .result-index[data-open] .result-index__current svg {
+    transform: rotate(180deg);
+  }
+  .result-index:not([data-open]) .result-index__list {
+    display: none;
+  }
+  .result-index[data-open] .result-index__list {
+    padding-block: 6px 2px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .result-index__current svg {
+    transition: none;
+  }
+}

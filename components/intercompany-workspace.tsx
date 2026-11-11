@@ -1,6 +1,19 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { IntercompanyBatchPanel } from '@/components/intercompany-batch-panel';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
+import { useResultFocus } from '@/components/result-focus';
+import { Amount, Figures } from '@/components/amount';
+import { AlignmentStrip } from '@/components/alignment-strip';
+import { ResultIndex, useResultParts } from '@/components/result-index';
+import { EvidenceSections } from '@/components/evidence-sections';
+import { intercompanyStrip } from '@/lib/alignment-strip';
+import {
+  RecordFields,
+  RecordPager,
+  RecordTable,
+  memberPlace,
+} from '@/components/record-table';
+import { pageOfRow, recordPage } from '@/lib/record-page';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -10,6 +23,7 @@ import {
   WorkspaceFileInput,
   WorkspaceSources,
   WorkspaceAdvanced,
+  WorkspaceStart,
 } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { workerTask } from '@/lib/reconciliation/client';
@@ -18,6 +32,8 @@ import {
   IC_VERSION,
   IC_ROLES,
   IC_SCOPE_FIELDS,
+  IC_SCOPE_HEADERS,
+  IC_LEDGER_SCOPE_COLUMNS,
   type IntercompanyInput,
   type IntercompanyScope,
   type IntercompanyResult,
@@ -28,7 +44,25 @@ import {
   intercompanyDemoScope,
 } from '@/lib/reconciliation/intercompany-demo';
 import { intercompanyCopy } from '@/lib/i18n/intercompany';
-import './gl-tb-workspace.css';
+import { ScopeCard, Sentence } from '@/components/scope-card';
+import { scopeCardCopy } from '@/lib/i18n/scope-card';
+import { useDeclaredScope } from '@/hooks/use-declared-scope';
+import type {
+  DeclaredScopeRule,
+  ScopeOrigin,
+} from '@/lib/reconciliation/declared-scope';
+import './workspace-record.css';
+import {
+  SheetPrint,
+  useSheetPrint,
+} from '@/components/reconciliation-sheet-print';
+import { sheetPrintCopy } from '@/lib/i18n/sheet-print';
+import {
+  DecisionButtons,
+  DecisionHint,
+  useDecisionFocus,
+} from './decision-platform';
+import type { AcceptBlock } from '@/lib/decision-platform';
 const emptyScope = (): IntercompanyScope => ({
   entityA: '',
   entityB: '',
@@ -49,6 +83,46 @@ const emptyScope = (): IntercompanyScope => ({
   policyVersion: '',
   confirmed: false,
 });
+type IcScopeField = (typeof IC_SCOPE_FIELDS)[number];
+// What the card may put in each field (UX-5(d)): the three one-option
+// selects take only the value the engine accepts, and start from it while no
+// file has the column; the three dates take only YYYY-MM-DD.
+const ONLY = {
+  currencyBasis: 'functional',
+  fxPolicy: 'same-currency-no-conversion',
+  postingStatus: 'posted',
+} as const;
+const oneOption = (k: IcScopeField): k is keyof typeof ONLY => k in ONLY;
+const isDate = (k: IcScopeField) =>
+  k === 'start' || k === 'end' || k === 'asOf';
+const isoDate = (v: string) => /^\d{4}-\d{2}-\d{2}$/.test(v);
+const scopeRules: DeclaredScopeRule<IcScopeField>[] = IC_SCOPE_FIELDS.map(
+  (field) =>
+    oneOption(field)
+      ? {
+          field,
+          fallback: ONLY[field],
+          accepts: (v) => v === ONLY[field],
+          fixed: true,
+        }
+      : isDate(field)
+        ? { field, accepts: isoDate }
+        : { field },
+);
+const scopeColumns = IC_SCOPE_FIELDS.map((field, i) => ({
+  field,
+  header: IC_SCOPE_HEADERS[i],
+}));
+// The two ledgers write their own side's entity, ledger, account and
+// dimensions under their own columns; the evidence files under the scope's.
+const sourceColumns = [...IC_LEDGER_SCOPE_COLUMNS, undefined, undefined];
+const freshOrigins = () =>
+  Object.fromEntries(
+    scopeRules.map((r) => [
+      r.field,
+      r.fallback === undefined ? 'question' : 'default',
+    ]),
+  ) as Record<IcScopeField, ScopeOrigin>;
 const readings = () =>
   IC_ROLES.map((role) => ({
     sheet: 0,
@@ -56,6 +130,16 @@ const readings = () =>
     family: IC_VERSION,
     confirmed: false,
   })) as IntercompanyInput['readings'];
+// The sheet on paper (UX-6(d)), composed on the page by the function the
+// worker writes the workbook's first sheet with, from the result the export sends (the intercompany sheet reads the result alone).
+const composeSheet = async (
+  result: IntercompanyResult,
+  language: 'ar' | 'en',
+) =>
+  (await import('@/lib/reconciliation/intercompany-sheet')).intercompanySheet(
+    result,
+    language,
+  );
 function download(buffer: ArrayBuffer, name: string, type: string) {
   const url = URL.createObjectURL(new Blob([buffer], { type })),
     a = document.createElement('a');
@@ -63,62 +147,6 @@ function download(buffer: ArrayBuffer, name: string, type: string) {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-function Table({
-  headers,
-  rows,
-}: {
-  headers: string[];
-  rows: (string | number | null)[][];
-}) {
-  const { lang } = useI18n();
-  const copy = intercompanyCopy[lang];
-  const [page, setPage] = useState(0);
-  const safe = Math.min(page, Math.max(0, Math.ceil(rows.length / 50) - 1));
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table>
-          <thead>
-            <tr>
-              {headers.map((h, i) => (
-                <th key={i}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i}>
-                {row.map((v, j) => (
-                  <td key={j}>{v ?? '—'}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="gl-tb-actions">
-        <Button
-          variant="outline"
-          disabled={!safe}
-          onClick={() => setPage(safe - 1)}
-        >
-          {copy.previous}
-        </Button>
-        <span>
-          {safe + 1} / {Math.max(1, Math.ceil(rows.length / 50))} ·{' '}
-          {rows.length}
-        </span>
-        <Button
-          variant="outline"
-          disabled={(safe + 1) * 50 >= rows.length}
-          onClick={() => setPage(safe + 1)}
-        >
-          {copy.next}
-        </Button>
-      </div>
-    </>
-  );
 }
 export function IntercompanyWorkspace({
   active,
@@ -135,8 +163,20 @@ export function IntercompanyWorkspace({
     null,
     null,
   ]);
-  const [reading, setReading] = useState(readings),
-    [scope, setScope] = useState(emptyScope);
+  const [reading, setReading] = useState(readings);
+  // The card's scope and where each value came from (UX-5(d)): a new file
+  // fills what the four files agree on into the fields the accountant has
+  // not entered, and a value it changes drops the confirmation.
+  const card = useDeclaredScope({
+    initial: () => ({ scope: emptyScope(), origins: freshOrigins() }),
+    rules: scopeRules,
+    columns: scopeColumns,
+    files,
+    sheets: reading.map((r) => r.sheet),
+    labels: copy.roles,
+    headers: sourceColumns,
+  });
+  const { scope, origins, suggestions } = card;
   const [complete, setComplete] = useState<IntercompanyInput['completeness']>({
     confirmed: false,
     reference: '',
@@ -144,6 +184,9 @@ export function IntercompanyWorkspace({
   });
   const [events, setEvents] = useState<IntercompanyEvent[]>([]),
     [result, setResult] = useState<IntercompanyResult | null>(null);
+  // Composed only while this workspace is the one shown: it stays in the
+  // page hidden otherwise, and would draw its table when another prints.
+  const paper = useSheetPrint(active ? result : null, lang, composeSheet);
   const [busy, setBusy] = useState(false),
     [error, setError] = useState(''),
     [reference, setReference] = useState(''),
@@ -188,12 +231,31 @@ export function IntercompanyWorkspace({
   }) {
     setFiles(v.state.files);
     setReading(v.state.readings);
-    setScope(v.state.scope);
+    card.install(
+      v.state.scope,
+      v.state.files,
+      v.state.readings.map((r) => r.sheet),
+    );
     setComplete(v.state.completeness);
     setEvents(v.state.events);
     setPairPage(0);
     setResult(v.result);
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const resultParts = useResultParts([
+    'summary',
+    'explain',
+    'figures',
+    'decision',
+    'pairs',
+    'evidence',
+  ]);
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
   async function perform<T>(
     work: (signal: AbortSignal) => Promise<T>,
     apply: (v: T) => void,
@@ -219,6 +281,24 @@ export function IntercompanyWorkspace({
       }
     }
   }
+  function updateScope(key: IcScopeField, value: string) {
+    card.edit(key, value);
+    invalidate();
+  }
+  const unknown = scopeCardCopy[lang].unknown;
+  // A value inside a sentence, isolated so mixed scripts keep their order;
+  // a date or a currency code is never split across lines.
+  const scopeValue = (v: string, whole = false) => (
+    <bdi className={whole ? 'scope-card__whole' : undefined}>
+      {v || unknown}
+    </bdi>
+  );
+  const rowsRead = Math.max(
+    0,
+    ...IC_SCOPE_FIELDS.map((k) =>
+      suggestions[k].read.reduce((n, r) => n + r.rows, 0),
+    ),
+  );
   const ready =
     files.every(Boolean) &&
     reading.every((r) => r.confirmed) &&
@@ -278,8 +358,15 @@ export function IntercompanyWorkspace({
         state: IntercompanyInput;
         result: IntercompanyResult;
       }>('intercompany-reconcile', s, signal);
-    }, install);
+    }, shown);
   }
+  // The decision platform (UX-3): after a decision on a pair the focus
+  // returns to that pair's heading, which holds its state, on the page that
+  // shows it, not to the page.
+  const hint = useId(),
+    pairHeading = useId(),
+    settle = useDecisionFocus();
+  const headingAt = (at: number) => `${pairHeading}-${at}`;
   async function decide(relation: string, type: IntercompanyEvent['type']) {
     if (!result) return;
     const p = result.pairs.find((p) => p.relationId === relation)!;
@@ -300,17 +387,32 @@ export function IntercompanyWorkspace({
           { ...state(), events: [...events, e] },
           signal,
         ),
-      install,
+      (v) => {
+        install(v);
+        const at = v.result.pairs.findIndex((q) => q.relationId === relation);
+        if (at < 0) return;
+        setPairPage(pageOfRow(at));
+        settle(headingAt(at));
+      },
     );
   }
+  const pairsShown = recordPage(result?.pairs.length ?? 0, pairPage);
   const status = (value: string) =>
     (copy.status as Record<string, string>)[value] ?? value;
-  const canAccept =
-    result &&
-    complete.confirmed &&
-    !result.issues.length &&
-    !result.missing.length &&
-    result.pairs.every((p) => p.status === 'ready');
+  // What the decision buttons open on, as before: approval also needs the
+  // completeness confirmation and every pair ready, and the sentence under
+  // the fields says which of these is missing.
+  const acceptBlock: AcceptBlock | null = !result
+    ? null
+    : !complete.confirmed
+      ? 'unconfirmed'
+      : result.issues.length
+        ? 'source-error'
+        : result.missing.length
+          ? 'missing'
+          : result.pairs.every((p) => p.status === 'ready')
+            ? null
+            : 'pairs';
   return (
     <div hidden={!active}>
       <section
@@ -324,13 +426,21 @@ export function IntercompanyWorkspace({
           disabled={busy}
           hasWork={files.some(Boolean)}
         />
-        <WorkspaceIntro title={copy.title} intro={copy.intro}>
+        <WorkspaceIntro
+          title={copy.title}
+          intro={copy.intro}
+          detail={copy.introDetail}
+        >
           <p>{copy.claim}</p>
           <p>{copy.family}</p>
         </WorkspaceIntro>
-        <WorkspaceAdvanced>
+        <WorkspaceStart>
           <div className="gl-tb-actions workspace-toolbar">
-            <Button disabled={busy} onClick={() => void demo()}>
+            <Button
+              variant="outline"
+              disabled={busy}
+              onClick={() => void demo()}
+            >
               {copy.demo}
             </Button>
             <label>
@@ -353,7 +463,7 @@ export function IntercompanyWorkspace({
                         { buffer: await f.arrayBuffer() },
                         signal,
                       );
-                    }, install);
+                    }, shown);
                 }}
               />
             </label>
@@ -363,7 +473,7 @@ export function IntercompanyWorkspace({
               </Button>
             )}
           </div>
-        </WorkspaceAdvanced>
+        </WorkspaceStart>
         <WorkspaceGroupTitle kind="sources" />
         <WorkspaceSources
           primaryIndices={[0, 1]}
@@ -385,55 +495,85 @@ export function IntercompanyWorkspace({
                 }}
               />
               <p>{files[i]?.name ?? copy.empty}</p>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={reading[i].confirmed}
-                  disabled={!files[i]}
-                  onChange={(e) => {
-                    const r = [...reading] as IntercompanyInput['readings'];
-                    r[i] = { ...r[i], confirmed: e.target.checked };
-                    setReading(r);
-                    invalidate();
-                  }}
-                />
-                {copy.readingConfirm}
-              </label>
             </fieldset>
           ))}
         </WorkspaceSources>
         <fieldset disabled={busy} hidden={!(files[0] && files[1])}>
-          <legend>{copy.scopeTitle}</legend>
-          <div className="gl-tb-grid">
-            {IC_SCOPE_FIELDS.map((k, i) => (
-              <label key={k}>
-                {copy.scope[i]}
+          <ScopeCard
+            hidden={!(files[0] && files[1])}
+            summary={
+              <Sentence
+                parts={copy.cardSummary(
+                  scopeValue(scope.entityA),
+                  scopeValue(scope.entityB),
+                  scopeValue(scope.start, true),
+                  scopeValue(scope.end, true),
+                  scopeValue(scope.currency, true),
+                  rowsRead,
+                )}
+              />
+            }
+            rows={IC_SCOPE_FIELDS.map((k, i) => {
+              const name = `${copy.scopePrefix} ${copy.scope[i]}`;
+              return {
+                key: k,
+                label: copy.scope[i],
+                origin: origins[k],
+                value: scope[k],
+                fixed: oneOption(k),
+                suggestion: suggestions[k],
+                control: (describedBy: string) =>
+                  oneOption(k) ? (
+                    <select
+                      aria-label={name}
+                      aria-describedby={describedBy}
+                      value={scope[k]}
+                      onChange={(e) => updateScope(k, e.target.value)}
+                    >
+                      <option value={ONLY[k]}>{copy.only[k]}</option>
+                    </select>
+                  ) : (
+                    <input
+                      aria-label={name}
+                      aria-describedby={describedBy}
+                      type={isDate(k) ? 'date' : 'text'}
+                      value={scope[k]}
+                      onChange={(e) => updateScope(k, e.target.value)}
+                    />
+                  ),
+              };
+            })}
+            confirm={
+              <label className="scope-card__confirm">
                 <input
-                  aria-label={`${copy.scopePrefix} ${copy.scope[i]}`}
-                  value={scope[k]}
+                  type="checkbox"
+                  checked={reading.every((r) => r.confirmed) && scope.confirmed}
                   onChange={(e) => {
-                    setScope({
-                      ...scope,
-                      [k]: e.target.value,
-                      confirmed: false,
-                    });
+                    const confirmed = e.target.checked;
+                    setReading(
+                      (previous) =>
+                        previous.map((r) => ({
+                          ...r,
+                          confirmed,
+                        })) as IntercompanyInput['readings'],
+                    );
+                    card.confirm(confirmed);
                     invalidate();
                   }}
                 />
+                <span>
+                  <Sentence
+                    parts={copy.cardConfirm(
+                      scopeValue(scope.entityA),
+                      scopeValue(scope.entityB),
+                      scopeValue(scope.start, true),
+                      scopeValue(scope.end, true),
+                    )}
+                  />
+                </span>
               </label>
-            ))}
-          </div>
-          <label>
-            <input
-              type="checkbox"
-              checked={scope.confirmed}
-              onChange={(e) => {
-                setScope({ ...scope, confirmed: e.target.checked });
-                invalidate();
-              }}
-            />
-            {copy.scopeConfirm}
-          </label>
+            }
+          />
         </fieldset>
         <WorkspaceAdvanced summary={copy.completenessTitle}>
           <fieldset disabled={busy}>
@@ -481,7 +621,7 @@ export function IntercompanyWorkspace({
                     state: IntercompanyInput;
                     result: IntercompanyResult;
                   }>('intercompany-reconcile', state(), signal),
-                install,
+                shown,
               )
             }
           >
@@ -513,7 +653,7 @@ export function IntercompanyWorkspace({
                 (signal) =>
                   workerTask<ArrayBuffer>(
                     'intercompany-export',
-                    { state: state(), result },
+                    { state: state(), result, lang },
                     signal,
                   ),
                 (b) =>
@@ -527,7 +667,15 @@ export function IntercompanyWorkspace({
           >
             {copy.export}
           </Button>
+          <Button
+            variant="outline"
+            disabled={busy || !result}
+            onClick={paper.print}
+          >
+            {sheetPrintCopy[lang].print}
+          </Button>
         </div>
+        <SheetPrint sheet={paper.sheet} />
         {error && (
           <p role="alert">
             {error.startsWith('IC_') || error.startsWith('BANK_NATIVE_DISPLAY')
@@ -537,8 +685,25 @@ export function IntercompanyWorkspace({
         )}
         {result && (
           <section className="workspace-results">
-            <h2 data-intercompany-status>{status(result.status)}</h2>
+            <h2
+              {...resultParts.anchor('summary')}
+              data-intercompany-status
+              ref={resultHeading}
+              tabIndex={-1}
+              data-result-heading="result"
+            >
+              {status(result.status)}
+            </h2>
+            <AlignmentStrip
+              strip={intercompanyStrip(result)}
+              sides={[copy.roles[0], copy.roles[1]]}
+              decimals={result.decimals}
+              reason={status}
+              state={status(result.status)}
+            />
+            <ResultIndex map={resultParts} />
             <DomainEvidenceAssistant
+              anchor={resultParts.anchor('explain')}
               result={result}
               snapshot={() => ({
                 domain: 'intercompany',
@@ -548,55 +713,86 @@ export function IntercompanyWorkspace({
               busy={busy}
             />
             <p>
-              {copy.units}: {result.decimals} · {result.scope.currency}
+              {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>
             </p>
-            <Table
+            <RecordTable
+              anchor={resultParts.anchor('figures')}
+              label={copy.tableNames.totals}
               headers={copy.totals}
               rows={
                 result.totals
                   ? result.totals.map((t, i) => [
                       copy.roles[i],
-                      t.debit,
-                      t.credit,
-                      t.net,
+                      ...(['debit', 'credit', 'net'] as const).map((k) => (
+                        <Amount
+                          key={k}
+                          minor={t[k]}
+                          decimals={result.decimals}
+                        />
+                      )),
                     ])
                   : []
               }
             />
-            <fieldset disabled={busy}>
+            <fieldset
+              {...resultParts.anchor('decision')}
+              disabled={busy}
+              data-decision-platform
+            >
               <legend>{copy.decisionTitle}</legend>
               <label>
                 {copy.reference}
                 <input
+                  aria-describedby={hint}
                   value={reference}
                   onChange={(e) => setReference(e.target.value)}
                 />
               </label>
               <label>
                 {copy.note}
-                <input value={note} onChange={(e) => setNote(e.target.value)} />
+                <input
+                  aria-describedby={hint}
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                />
               </label>
+              <DecisionHint
+                id={hint}
+                input={{ reference, reason: note, review: 'each', acceptBlock }}
+                labels={{ reference: copy.reference, reason: copy.note }}
+              />
             </fieldset>
-            <h3>
+            <h3 {...resultParts.anchor('pairs')}>
               {copy.pairs} ({result.pairs.length})
             </h3>
-            {result.pairs.slice(pairPage * 50, pairPage * 50 + 50).map((p) => (
+            {result.pairs.slice(pairsShown.from, pairsShown.to).map((p, i) => (
               <section
                 key={p.relationRecord}
                 data-intercompany-pair={p.relationId}
               >
-                <h3>
+                <h3
+                  id={headingAt(pairsShown.from + i)}
+                  tabIndex={-1}
+                  data-decision-item
+                >
                   {p.relationId} · {status(p.status)} · {status(p.review)}
                 </h3>
                 <p>
-                  {copy.residual}: {p.left?.net ?? '—'} / {p.right?.net ?? '—'}{' '}
-                  / {p.residual ?? '—'}
+                  <Figures
+                    decimals={result.decimals}
+                    items={[
+                      [copy.residualFigures[0], p.left?.net],
+                      [copy.residualFigures[1], p.right?.net],
+                      [copy.residualFigures[2], p.residual],
+                    ]}
+                  />
                 </p>
                 <details>
                   <summary>
                     {copy.entries} ({p.members.length})
                   </summary>
-                  <Table
+                  <RecordTable
+                    label={`${copy.entries} · ${p.relationId}`}
                     headers={copy.pairHeaders}
                     rows={p.members.map((e) => [
                       p.relationId,
@@ -606,143 +802,186 @@ export function IntercompanyWorkspace({
                       e.account,
                       e.dimensions,
                       e.date,
-                      e.debit,
-                      e.credit,
-                      e.net,
+                      ...(['debit', 'credit', 'net'] as const).map((k) => (
+                        <Amount
+                          key={k}
+                          minor={e[k]}
+                          decimals={result.decimals}
+                        />
+                      )),
                     ])}
                   />
                 </details>
-                <div className="gl-tb-actions">
-                  {(['accept', 'reject', 'undo'] as const).map((type) => (
-                    <Button
-                      variant="outline"
-                      key={type}
-                      disabled={
-                        busy ||
-                        !reference.trim() ||
-                        !note.trim() ||
-                        !p.members.length ||
-                        (type === 'undo'
-                          ? p.review === 'needs-review'
-                          : p.review !== 'needs-review') ||
-                        (type === 'accept' && !canAccept)
-                      }
-                      onClick={() => void decide(p.relationId, type)}
-                    >
-                      {copy[type]}
-                    </Button>
-                  ))}
-                </div>
+                <DecisionButtons
+                  input={{
+                    reference,
+                    reason: note,
+                    members: p.members.length,
+                    review: p.review,
+                    acceptBlock,
+                  }}
+                  labels={copy}
+                  busy={busy}
+                  describedBy={`${hint} ${headingAt(pairsShown.from + i)}`}
+                  target={headingAt(pairsShown.from + i)}
+                  onDecide={(type) => void decide(p.relationId, type)}
+                />
               </section>
             ))}
-            <div className="gl-tb-actions">
-              <Button
-                variant="outline"
-                disabled={!pairPage}
-                onClick={() => setPairPage(pairPage - 1)}
-              >
-                {copy.previous}
-              </Button>
-              <span>
-                {pairPage + 1} /{' '}
-                {Math.max(1, Math.ceil(result.pairs.length / 50))}
-              </span>
-              <Button
-                variant="outline"
-                disabled={(pairPage + 1) * 50 >= result.pairs.length}
-                onClick={() => setPairPage(pairPage + 1)}
-              >
-                {copy.next}
-              </Button>
-            </div>
-            <details>
-              <summary>
-                {copy.relations} ({result.relations.length})
-              </summary>
-              <Table
-                headers={copy.relationHeaders}
-                rows={result.relations.map((r) => [
-                  r.relationId,
-                  r.leftId,
-                  r.rightId,
-                  r.validFrom,
-                  r.validTo,
-                  r.reference,
-                ])}
-              />
-            </details>
-            <details>
-              <summary>
-                {copy.timing} ({result.timing.length})
-              </summary>
-              <Table
-                headers={copy.timingHeaders}
-                rows={result.timing.map((r) => [
-                  r.evidenceId,
-                  r.side,
-                  r.transactionId,
-                  r.counterpartyTransactionId,
-                  r.date,
-                  r.amount,
-                  r.reference,
-                ])}
-              />
-            </details>
-            <details>
-              <summary>
-                {copy.missing} ({result.missing.length})
-              </summary>
-              <Table
-                headers={copy.missingHeaders}
-                rows={result.missing.map((r) => [r.kind, r.key])}
-              />
-            </details>
-            <details>
-              <summary>
-                {copy.issues} ({result.issues.length})
-              </summary>
-              <Table
-                headers={copy.issueHeaders}
-                rows={result.issues.map((r) => [
-                  r.code,
-                  copy.roles[r.source],
-                  r.row || copy.aggregate,
-                  r.key,
-                  r.related,
-                ])}
-              />
-            </details>
-            <details>
-              <summary>
-                {copy.inventory} ({result.inventory.length})
-              </summary>
-              <Table
-                headers={copy.inventoryHeaders}
-                rows={result.inventory.map((r) => [
-                  copy.roles[r.source],
-                  r.row,
-                  r.kind,
-                  r.errors.join(', '),
-                  JSON.stringify(r.values),
-                ])}
-              />
-            </details>
-            <details>
-              <summary>
-                {copy.history} ({events.length})
-              </summary>
-              <Table
-                headers={copy.eventHeaders}
-                rows={events.map((e) => [
-                  copy[e.type],
-                  e.relationId,
-                  e.at,
-                  e.reference,
-                  e.note,
-                  JSON.stringify(e.memberIds),
-                ])}
-              />
-            </details>
+            <RecordPager
+              label={copy.pairs}
+              length={result.pairs.length}
+              page={pairPage}
+              onPage={setPairPage}
+            />
+            <EvidenceSections
+              anchor={resultParts.anchor('evidence')}
+              sections={[
+                {
+                  key: 'relations',
+                  name: copy.relations,
+                  count: result.relations.length,
+                  node: (
+                    <details data-evidence-section="relations">
+                      <summary>
+                        {copy.relations} ({result.relations.length})
+                      </summary>
+                      <RecordTable
+                        label={copy.relations}
+                        headers={copy.relationHeaders}
+                        rows={result.relations.map((r) => [
+                          r.relationId,
+                          r.leftId,
+                          r.rightId,
+                          r.validFrom,
+                          r.validTo,
+                          r.reference,
+                        ])}
+                      />
+                    </details>
+                  ),
+                },
+                {
+                  key: 'timing',
+                  name: copy.timing,
+                  count: result.timing.length,
+                  node: (
+                    <details data-evidence-section="timing">
+                      <summary>
+                        {copy.timing} ({result.timing.length})
+                      </summary>
+                      <RecordTable
+                        label={copy.timing}
+                        headers={copy.timingHeaders}
+                        rows={result.timing.map((r) => [
+                          r.evidenceId,
+                          r.side,
+                          r.transactionId,
+                          r.counterpartyTransactionId,
+                          r.date,
+                          r.amount,
+                          r.reference,
+                        ])}
+                      />
+                    </details>
+                  ),
+                },
+                {
+                  key: 'missing',
+                  name: copy.missing,
+                  count: result.missing.length,
+                  node: (
+                    <details data-evidence-section="missing">
+                      <summary>
+                        {copy.missing} ({result.missing.length})
+                      </summary>
+                      <RecordTable
+                        label={copy.missing}
+                        headers={copy.missingHeaders}
+                        rows={result.missing.map((r) => [r.kind, r.key])}
+                      />
+                    </details>
+                  ),
+                },
+                {
+                  key: 'issues',
+                  name: copy.issues,
+                  count: result.issues.length,
+                  node: (
+                    <details data-evidence-section="issues">
+                      <summary>
+                        {copy.issues} ({result.issues.length})
+                      </summary>
+                      <RecordTable
+                        label={copy.issues}
+                        headers={copy.issueHeaders}
+                        rows={result.issues.map((r) => [
+                          r.code,
+                          copy.roles[r.source],
+                          r.row || copy.aggregate,
+                          r.key,
+                          r.related,
+                        ])}
+                      />
+                    </details>
+                  ),
+                },
+                {
+                  key: 'inventory',
+                  name: copy.inventory,
+                  count: result.inventory.length,
+                  node: (
+                    <details data-evidence-section="inventory">
+                      <summary>
+                        {copy.inventory} ({result.inventory.length})
+                      </summary>
+                      <RecordTable
+                        label={copy.inventory}
+                        headers={copy.inventoryHeaders}
+                        rows={result.inventory.map((r) => [
+                          copy.roles[r.source],
+                          r.row,
+                          r.kind,
+                          r.errors.join(', '),
+                          <RecordFields key="values" values={r.values} />,
+                        ])}
+                        wrap={[4]}
+                      />
+                    </details>
+                  ),
+                },
+                {
+                  key: 'events',
+                  name: copy.history,
+                  count: events.length,
+                  node: (
+                    <details data-evidence-section="events">
+                      <summary>
+                        {copy.history} ({events.length})
+                      </summary>
+                      <RecordTable
+                        label={copy.history}
+                        headers={copy.eventHeaders}
+                        rows={events.map((e) => [
+                          copy[e.type],
+                          e.relationId,
+                          e.at,
+                          e.reference,
+                          e.note,
+                          <RecordFields
+                            key="members"
+                            values={e.memberIds.map((id) =>
+                              memberPlace(id, copy.roles),
+                            )}
+                          />,
+                        ])}
+                        wrap={[5]}
+                      />
+                    </details>
+                  ),
+                },
+              ]}
+            />
           </section>
         )}
         <IntercompanyBatchPanel />

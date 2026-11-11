@@ -126,6 +126,24 @@ try {
         ].map((selector) => document.querySelector(selector)),
       );
       async function sharedPage(stage) {
+        // The stage turns to a new type when it is seen again (UX-7): look
+        // at it, let it settle, then put the page back where it was.
+        const scrolled = await page.evaluate(() => window.scrollY);
+        await page.locator('.document-scene').scrollIntoViewIfNeeded();
+        await page.waitForFunction(() => {
+          const scene = document.querySelector('.document-scene');
+          return (
+            scene.dataset.stageDomain === scene.dataset.stageTarget &&
+            scene
+              .querySelector('.document-scene__stage')
+              .getAnimations({ subtree: true })
+              .every((animation) =>
+                animation.effect.target.matches(
+                  '.document-scene__float, .document-scene__paper-scan, [data-act-motion]',
+                ),
+              )
+          );
+        });
         const evidence = await page.evaluate((initial) => {
           const selectors = [
             '.landing-intro',
@@ -156,13 +174,51 @@ try {
             privacyTarget: document
               .querySelector('.site-footer .footer-privacy-link')
               ?.getAttribute('href'),
-            papers: [
-              ...document.querySelectorAll('.document-scene__paper-title'),
-            ].map((paper) => paper.textContent.trim()),
-            caption: document.querySelector('.document-scene__caption')
-              ?.textContent,
+            papers: [...document.querySelectorAll('.document-scene__sheet')]
+              .filter(
+                (paper) => getComputedStyle(paper).visibility === 'visible',
+              )
+              .map((paper) => ({
+                x: paper.getBoundingClientRect().left,
+                name: paper
+                  .querySelector('.document-scene__paper-title')
+                  .textContent.trim(),
+              }))
+              .sort((a, b) =>
+                document.documentElement.dir === 'rtl' ? b.x - a.x : a.x - b.x,
+              )
+              .map((paper) => paper.name),
+            sources: [
+              ...document.querySelectorAll(
+                '.document-scene__source-list[data-current="true"] .document-scene__source-name',
+              ),
+            ].map((name) => name.textContent.trim()),
+            // Suppliers show their three obstacles instead (UX-7(c)): the
+            // sentence of the act shown, which names both sources.
+            actLine: document
+              .querySelector(
+                '.document-scene__source-list[data-current="true"] .document-scene__act-line[data-current="true"]',
+              )
+              ?.textContent.trim(),
+            typeTitle: document
+              .querySelector(
+                '.document-scene__source-list[data-current="true"] .document-scene__type',
+              )
+              ?.textContent.trim(),
+            shownType:
+              document.querySelector('.document-scene')?.dataset.stageDomain,
+            selected: document.querySelector(
+              'select[data-reconciliation-type-select]',
+            ).value,
+            selectedTitle: document
+              .querySelector('select[data-reconciliation-type-select]')
+              .selectedOptions[0].textContent.trim(),
           };
         }, sharedSections);
+        await page.evaluate(
+          (top) => window.scrollTo({ top, behavior: 'instant' }),
+          scrolled,
+        );
         assert.equal(
           evidence.sections.every(
             ({ count, retained, rendered }) =>
@@ -174,15 +230,45 @@ try {
         assert.equal(evidence.visibleTitles, 1, `${stage}: one visible h1`);
         assert.equal(evidence.brandTarget, '#top');
         assert.equal(evidence.privacyTarget, '#privacy-details');
-        assert.equal(evidence.papers.length, 2);
-        assert.ok(evidence.papers.every((title) => title.length > 0));
+        // UX-7 (the owner's fifth decision): the shared illustration wears the
+        // roles of the chosen type, in reading order, and names the type as
+        // the type list does. It replaces the rule that it named no type.
         assert.equal(
-          /supplier|AP ledger|المورد/i.test(
-            evidence.papers.join(' ') + evidence.caption,
-          ),
-          false,
-          `${stage}: the shared illustration describes reconciliation generally`,
+          evidence.shownType,
+          evidence.selected,
+          `${stage}: the stage shows the chosen type`,
         );
+        // Suppliers show their three obstacles instead of the two sources.
+        const acts = evidence.selected === 'supplier';
+        assert.ok(
+          acts
+            ? evidence.typeTitle
+                ?.toLowerCase()
+                .includes(evidence.selectedTitle.toLowerCase())
+            : evidence.typeTitle === evidence.selectedTitle,
+          `${stage}: the stage names the chosen type as the list does (${evidence.typeTitle})`,
+        );
+        assert.ok(
+          evidence.papers.length > 0,
+          `${stage}: the papers wear roles`,
+        );
+        assert.ok(evidence.papers.every((title) => title.length > 0));
+        if (acts)
+          assert.ok(
+            !!evidence.actLine &&
+              evidence.sources.length === 0 &&
+              evidence.papers.length === 2 &&
+              evidence.papers.every((title) =>
+                evidence.actLine.toLowerCase().includes(title.toLowerCase()),
+              ),
+            `${stage}: the supplier act under the stage names both papers (${evidence.actLine})`,
+          );
+        else
+          assert.deepEqual(
+            evidence.papers,
+            evidence.sources,
+            `${stage}: the papers read the sources named under them, in order`,
+          );
         return evidence;
       }
       result.sharedPage = [await sharedPage('initial supplier entry')];

@@ -1,15 +1,19 @@
 import { replayStockPdfOriginals } from './inventory-register.ts';
 import { saveStockPdf, restoreStockPdf } from './inventory-pdf-lifecycle.ts';
-import { exportStockPdf } from './inventory-pdf-workbook.ts';
+import { exportStockPdfWorkpaper, exportStockWorkpaper } from './inventory-sheet.ts';
 import { readStockPdf } from './inventory-pdf-preview.ts';
 import { askStockPdf } from './inventory-pdf-assistant.ts';
 import { snapshotStockPdfRequest } from './inventory-pdf-request.ts';
-import {readPayrollFile,replayPayroll,savePayroll,restorePayroll,exportPayroll} from './payroll-io.ts';
-import {readAssetFile,replayAsset,saveAsset,restoreAsset,exportAsset} from './fixed-assets-io.ts';
-import { readStockFile, replayStock, saveStock, restoreStock, exportStock, exportStockLinks } from './inventory-register-io.ts';
-import { replayGateway, saveGateway, restoreGateway, exportGateway } from './payment-gateway-io.ts';
+import {readPayrollFile,replayPayroll,savePayroll,restorePayroll} from './payroll-io.ts';
+import {readAssetFile,replayAsset,saveAsset,restoreAsset} from './fixed-assets-io.ts';
+import { exportAssetWorkpaper } from './fixed-assets-sheet.ts';
+import { exportPayrollWorkpaper } from './payroll-sheet.ts';
+import { readStockFile, replayStock, saveStock, restoreStock, exportStockLinks } from './inventory-register-io.ts';
+import { replayGateway, saveGateway, restoreGateway } from './payment-gateway-io.ts';
 import { readGatewayFile } from './payment-gateway-source.ts';
-import { replayIntercompany, saveIntercompany, restoreIntercompany, exportIntercompany } from './intercompany-io.ts';
+import { replayIntercompany, saveIntercompany, restoreIntercompany } from './intercompany-io.ts';
+import { exportIntercompanyWorkpaper } from './intercompany-sheet.ts';
+import { exportGatewayWorkpaper } from './payment-gateway-sheet.ts';
 import { readIntercompanyFile } from './intercompany-source.ts';
 import { replayIntercompanyBatches } from './intercompany-batch-io.ts';
 import { replayGlTbSections } from './gl-tb-sections-io.ts';
@@ -17,14 +21,16 @@ import { replayFinancialHierarchy } from './tb-financial-hierarchy-io.ts';
 import { replayLongRegister } from './payroll-long-register-io.ts';
 import { replayMovementBridge } from './inventory-movement-bridge-io.ts';
 import { replayClearingGroups } from './clearing-groups-io.ts';
-import { replayFinancialPosition, saveFinancialPosition, restoreFinancialPosition, exportFinancialPosition } from './tb-financial-io.ts';
+import { replayFinancialPosition, saveFinancialPosition, restoreFinancialPosition } from './tb-financial-io.ts';
+import { exportFinancialWorkpaper } from './financial-sheet.ts';
 import {
   replayBankAdjustments,
   saveBankAdjustments,
   restoreBankAdjustments,
   exportBankAdjustments,
 } from './bank-adjustment-io.ts';
-import { replayBank, saveBank, restoreBank, exportBank } from './bank-io.ts';
+import { replayBank, saveBank, restoreBank } from './bank-io.ts';
+import { exportBankWorkpaper } from './bank-movements-sheet.ts';
 import {
   replayAnyStatement,
   saveAnyStatement,
@@ -36,17 +42,21 @@ import {
   replayAllocation,
   saveAllocation,
   restoreAllocation,
-  exportAllocation,
 } from './allocation-io.ts';
+import { exportAllocationWorkpaper } from './allocation-sheet.ts';
 import { replayAllocationAdvice } from './allocation-advice-io.ts';
 import { replayGatewayBatches } from './payment-gateway-batches-io.ts';
 import { replayAssetSections } from './fixed-assets-sections-io.ts';
-import { replayGlTb, saveGlTb, restoreGlTb, exportGlTb } from './gl-tb-io.ts';
-import { replayAr, saveAr, restoreAr, exportAr } from './ar-io.ts';
+import { replayGlTb, saveGlTb, restoreGlTb } from './gl-tb-io.ts';
+import { exportGlTbWorkpaper } from './gl-tb-sheet.ts';
+import { replayAr, saveAr, restoreAr } from './ar-io.ts';
+import { exportArWorkpaper } from './ar-sheet.ts';
 import { snapshotArRequest } from './ar-worker-binding.ts';
 import { assertInputFormats } from './input-readiness.ts';
 import { saveSession, restoreSession } from './session.ts';
-import { readFile, exportWorkbook, replayNativeHeaderSource } from './io.ts';
+import { readFile, replayNativeHeaderSource } from './io.ts';
+import { exportSupplierWorkpaper } from './supplier-sheet.ts';
+import { sheetLanguage } from './reconciliation-sheet.ts';
 import { normalizeSource } from './core.ts';
 import { reconcileSupplierStatement } from './supplier-reconciliation.ts';
 import { ENGINE_VERSION } from './types.ts';
@@ -58,8 +68,8 @@ import {
   replayClearing,
   saveClearing,
   restoreClearing,
-  exportClearing,
 } from './clearing-io.ts';
+import { exportClearingWorkpaper } from './clearing-sheet.ts';
 self.onmessage = async (event: MessageEvent) => {
   const input: unknown = event.data;
   if (!isRequest(input)) return;
@@ -94,7 +104,11 @@ self.onmessage = async (event: MessageEvent) => {
     else if (action === 'bank-restore')
       value = await restoreBank(payload.buffer);
     else if (action === 'bank-export')
-      value = await exportBank(payload.state, payload.result);
+      value = await exportBankWorkpaper(
+        payload.state,
+        payload.result,
+        payload.lang,
+      );
     else if (action === 'bank-statement-reconcile')
       value = await replayAnyStatement(payload);
     else if (action === 'bank-statement-save')
@@ -110,7 +124,11 @@ self.onmessage = async (event: MessageEvent) => {
     else if (action === 'allocation-restore')
       value = await restoreAllocation(payload.buffer);
     else if (action === 'allocation-export')
-      value = await exportAllocation(payload.state, payload.result);
+      value = await exportAllocationWorkpaper(
+        payload.state,
+        payload.result,
+        payload.lang,
+      );
     else if (action === 'allocation-advice-review')
       value = await replayAllocationAdvice(payload);
     else if (action === 'payment-gateway-batches-reconcile')
@@ -122,33 +140,33 @@ self.onmessage = async (event: MessageEvent) => {
     else if (action === 'payroll-reconcile') value = await replayPayroll(payload);
     else if (action === 'payroll-save') value = await savePayroll(payload);
     else if (action === 'payroll-restore') value = await restorePayroll(payload.buffer);
-    else if (action === 'payroll-export') value = await exportPayroll(payload.state,payload.result);
+    else if (action === 'payroll-export') value = await exportPayrollWorkpaper(payload.state, payload.result, payload.lang);
     else if (action === 'asset-read') value = await readAssetFile(payload.name,payload.buffer);
     else if (action === 'asset-reconcile') value = await replayAsset(payload);
     else if (action === 'asset-save') value = await saveAsset(payload);
     else if (action === 'asset-restore') value = await restoreAsset(payload.buffer);
-    else if (action === 'asset-export') value = await exportAsset(payload.state,payload.result);
+    else if (action === 'asset-export') value = await exportAssetWorkpaper(payload.state, payload.result, payload.lang);
     else if (action === 'stock-pdf-reconcile') value = await replayStockPdfOriginals(payload);
     else if (action === 'stock-pdf-save') value = await saveStockPdf(payload);
     else if (action === 'stock-pdf-restore') value = await restoreStockPdf(payload.buffer);
-    else if (action === 'stock-pdf-export') value = await exportStockPdf(payload);
+    else if (action === 'stock-pdf-export') value = await exportStockPdfWorkpaper(payload);
     else if (action === 'stock-pdf-read') value = await readStockPdf(payload);
     else if (action === 'stock-pdf-ask') value = await askStockPdf(payload);
     else if (action === 'stock-read') value = await readStockFile(payload.name,payload.buffer);
     else if (action === 'stock-reconcile') value = await replayStock(payload);
     else if (action === 'stock-save') value = await saveStock(payload);
     else if (action === 'stock-restore') value = await restoreStock(payload.buffer);
-    else if (action === 'stock-export') value = await exportStock(payload.state,payload.result);
+    else if (action === 'stock-export') value = await exportStockWorkpaper(payload.state, payload.result, payload.lang);
     else if (action === 'stock-links-export') value = await exportStockLinks(payload.state,payload.result);
     else if (action === 'gateway-reconcile') value = await replayGateway(payload);
     else if (action === 'gateway-save') value = await saveGateway(payload);
     else if (action === 'gateway-restore') value = await restoreGateway(payload.buffer);
-    else if (action === 'gateway-export') value = await exportGateway(payload.state,payload.result);
+    else if (action === 'gateway-export') value = await exportGatewayWorkpaper(payload.state, payload.result, payload.lang);
     else if (action === 'intercompany-read') value = await readIntercompanyFile(payload.name, payload.buffer);
     else if (action === 'intercompany-reconcile') value = await replayIntercompany(payload);
     else if (action === 'intercompany-save') value = await saveIntercompany(payload);
     else if (action === 'intercompany-restore') value = await restoreIntercompany(payload.buffer);
-    else if (action === 'intercompany-export') value = await exportIntercompany(payload.state, payload.result);
+    else if (action === 'intercompany-export') value = await exportIntercompanyWorkpaper(payload.state, payload.result, payload.lang);
     else if (action === 'intercompany-batch-reconcile') value = await replayIntercompanyBatches(payload);
     else if (action === 'gl-tb-sections-reconcile') value = await replayGlTbSections(payload);
     else if (action === 'tb-financial-hierarchy-reconcile') value = await replayFinancialHierarchy(payload);
@@ -158,25 +176,42 @@ self.onmessage = async (event: MessageEvent) => {
     else if (action === 'tb-financial-reconcile') value = await replayFinancialPosition(payload);
     else if (action === 'tb-financial-save') value = await saveFinancialPosition(payload);
     else if (action === 'tb-financial-restore') value = await restoreFinancialPosition(payload.buffer);
-    else if (action === 'tb-financial-export') value = await exportFinancialPosition(payload.state, payload.result);
+    else if (action === 'tb-financial-export')
+      value = await exportFinancialWorkpaper(
+        payload.state,
+        payload.result,
+        payload.lang,
+      );
     else if (action === 'gl-tb-reconcile') value = await replayGlTb(payload);
     else if (action === 'gl-tb-save') value = await saveGlTb(payload);
     else if (action === 'gl-tb-restore')
       value = await restoreGlTb(payload.buffer);
     else if (action === 'gl-tb-export')
-      value = await exportGlTb(payload.state, payload.result);
+      value = await exportGlTbWorkpaper(
+        payload.state,
+        payload.result,
+        payload.lang,
+      );
     else if (action === 'ar-reconcile') value = await replayAr(payload);
     else if (action === 'ar-save') value = await saveAr(payload);
     else if (action === 'ar-restore') value = await restoreAr(payload.buffer);
     else if (action === 'ar-export')
-      value = await exportAr(payload.state, payload.result);
+      value = await exportArWorkpaper(
+        payload.state,
+        payload.result,
+        payload.lang,
+      );
     else if (action === 'clearing-reconcile')
       value = await replayClearing(payload);
     else if (action === 'clearing-save') value = await saveClearing(payload);
     else if (action === 'clearing-restore')
       value = await restoreClearing(payload.buffer);
     else if (action === 'clearing-export')
-      value = await exportClearing(payload.state, payload.result);
+      value = await exportClearingWorkpaper(
+        payload.state,
+        payload.result,
+        payload.lang,
+      );
     else if (action === 'save-session') {
       payload.files = [
         await replayReviewedVisualSource(payload.files[0]),
@@ -216,6 +251,8 @@ self.onmessage = async (event: MessageEvent) => {
         payload.side,
       );
     else if (action === 'export') {
+      // The language first: a request without one is refused before any work.
+      const lang = sheetLanguage(payload.lang);
       payload.files = [
         await replayReviewedVisualSource(payload.files[0]),
         await replayReviewedVisualSource(payload.files[1]),
@@ -225,10 +262,11 @@ self.onmessage = async (event: MessageEvent) => {
         [payload.result.supplier.mapping, payload.result.ledger.mapping],
         payload.result.scope,
       );
-      value = await exportWorkbook(
+      value = await exportSupplierWorkpaper(
         payload.result,
         payload.files,
         payload.review,
+        lang,
         (stage, milliseconds) => {
           timings[stage] = milliseconds;
         },

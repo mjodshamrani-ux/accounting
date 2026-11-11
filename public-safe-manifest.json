@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 96357,
-      "sha256": "10f03e89ec452dc83e8d640c413934d0edc8412fe1983deeef9d648abd046073",
+      "bytes": 123620,
+      "sha256": "c6370e5cd7fd92c76a56e10ebad1caa78d61fdf1446978c07843e1934e417e1e",
       "kind": "text"
     },
     {
@@ -46,38 +46,38 @@
     {
       "path": "README.md",
       "bytes": 7128,
-      "sha256": "58f18b0d890838b43ff0097280ce115e969d7dfea109d4b6b55db4392ca7de78",
+      "sha256": "d689ca9fd166644c2c2e04031317e4a3143f25180f8c21eb8417e5143e72912a",
       "kind": "text"
     },
     {
       "path": "app/document-scene.css",
-      "bytes": 3286,
-      "sha256": "b75515d5989ca16e8dafa4cff3ea31445156a7d5ca0edc56b04ba2c39add8db9",
+      "bytes": 13968,
+      "sha256": "41b304c92ca1b83b9cbadd3c35f47875d98a8c0149ff72874f648f3155203d4f",
       "kind": "text"
     },
     {
       "path": "app/globals.css",
-      "bytes": 44019,
-      "sha256": "64718f8f0736b39e4c5b245f97b9dfb14b91f3f4610d1b06d269a489766d0952",
+      "bytes": 51240,
+      "sha256": "1a56f04e478947f648381c7666450280b2366913545bc8723c990c4e0c11defb",
       "kind": "text"
     },
     {
       "path": "app/landing-details.css",
-      "bytes": 20670,
-      "sha256": "acec0ae3a9272fc280decced0fddb00da872578983d7c88793fe31cc02c52ce4",
+      "bytes": 20716,
+      "sha256": "f550000eea688f648a9ab1d494c8c1e0f13f281a69fa357791baf567dfbf94a9",
       "kind": "text"
     },
     {
       "path": "app/page.tsx",
-      "bytes": 146908,
-      "sha256": "389e1a3cf5230199f918247f5360ab12650173a40c9715e98eb861b192d8b354",
+      "bytes": 151864,
+      "sha256": "88dd312a2daf3bcf7d20dac017c91b7be02ef6c549115d32cb96626e1c67e207",
       "kind": "text"
     },
     {
       "path": "app/reconciliation-shell.css",
       "kind": "text",
-      "bytes": 2572,
-      "sha256": "25640585faef52d3aa0149992e797627436a50392435b1cbf8b212c59ed07e9b"
+      "bytes": 2721,
+      "sha256": "177c9469c4c1ef83f4e962711af5575e0bb0ff26f688b9d0411e20d49f4a628e"
     },
     {
       "path": "audit/allocation-handoff-v1/frozen/expected.json",
@@ -705,8 +705,8 @@
     },
     {
       "path": "audit/ar-scope-details/checker/README.md",
-      "bytes": 6372,
-      "sha256": "07864843de9392acee777ecf13da7098254bfe78a62b93821a27effc6daaf093",
+      "bytes": 6735,
+      "sha256": "8147a74629a5a0fb010af412cb40c69c064701ac96c3774a9b5ee8d4bedccc0a",
       "kind": "text",
       "provenance": {
         "type": "synthetic",
@@ -715,8 +715,8 @@
     },
     {
       "path": "audit/ar-scope-details/checker/check_export.py",
-      "bytes": 38438,
-      "sha256": "4a185a41584fa5334bdbdfe12d3cb826cfe3a4afa5a7f2eaab716390024e086c",
+      "bytes": 38964,
+      "sha256": "e20824c1ecbb90246294f04be332383c861f06ebc63feb73f527175022ca776e",
       "kind": "text",
       "provenance": {
         "type": "synthetic",
@@ -745,8 +745,8 @@
     },
     {
       "path": "audit/ar-scope-details/checker/test_check_export.py",
-      "bytes": 12544,
-      "sha256": "8c5778da5b4ff3bd782a1d8903e6d0c273e4ab157d24330ce3c97d442165350a",
+      "bytes": 13274,
+      "sha256": "ee672c123f44b9f923cf1ddf63d60e2df64640a72a5d6e8a5482fc507356645c",
       "kind": "text",
       "provenance": {
         "type": "synthetic",
@@ -7005,14 +7005,14 @@
     },
     {
       "path": "audit/bank/check_export.py",
-      "bytes": 21253,
-      "sha256": "f891e48718ffa6a8d48f4cfbb0f26ddf67afcc29492361c97b0dce879454ba1c",
+      "bytes": 23463,
+      "sha256": "02b921f4e3f4bf57dab631fcfe380068c98d5326f2cfa1238f91c033e0e75ee6",
       "kind": "text"
     },
     {
       "path": "audit/bank/export-fixture.mjs",
-      "bytes": 1987,
-      "sha256": "3fa1b2ea6f482a6ce1bd136d0553b304dcd06719fe1b7d941d97e09be45fe2a5",
+      "bytes": 2503,
+      "sha256": "859f3180e23dc98a673985293c1034d9c4ac2c119988f4727e6b7ded2caf212d",
       "kind": "text"
     },
     {
@@ -7671,8 +7671,8 @@
     },
     {
       "path": "audit/bank/test_checker.py",
-      "bytes": 12748,
-      "sha256": "be231794c23fcd4012cff5d696bef105b5d6e9d7d328e07803ffc67e66cc41d1",
+      "bytes": 15380,
+      "sha256": "e8556b990670945efdaaf2552b38ca4598859cec24edeab4a90ef498066cb810",
       "kind": "text"
     },
     {
@@ -7795,8 +7795,8 @@
     },
     {
       "path": "audit/fixed-assets-long/LIFECYCLE-README.md",
-      "bytes": 4208,
-      "sha256": "2e28f97c15016bb7c1a39b126e72bea7256a0121d5145cb294918f9f05f1e3c9",
+      "bytes": 5407,
+      "sha256": "8b87c406d8b9b5298a60ade3fe26b1b87c1efec3c15fdc4482702bbcb34bb2b0",
       "kind": "text"
     },
     {
@@ -7819,8 +7819,8 @@
     },
     {
       "path": "audit/fixed-assets-long/check-evidence.py",
-      "bytes": 19212,
-      "sha256": "d80c0d2fca676147e4c118a261f29285760bd9dcb7e394f24b2653f2d7ec28fc",
+      "bytes": 19924,
+      "sha256": "0699ab2d08feec25dfb8dfd7c39b5c1ea48dd0cfeecaa250902e934ae0787404",
       "kind": "text"
     },
     {
@@ -9487,8 +9487,8 @@
     },
     {
       "path": "audit/fixed-assets-long/test-evidence.py",
-      "bytes": 6102,
-      "sha256": "ff710d3122f916bd35ee252906aae5a8bff53fce5b2d47168b0a4b3f3b67b94b",
+      "bytes": 9085,
+      "sha256": "07d2487df8e149c83e7615200d124d80648b01c847fafc57672329716fab9257",
       "kind": "text"
     },
     {
@@ -13765,8 +13765,8 @@
     },
     {
       "path": "audit/inventory-column-hierarchy/check_export.py",
-      "bytes": 16279,
-      "sha256": "5810f3be5b70fedd0e8a2544f341c9d5cb8ade6b7714b7cbc7692e1324bca645",
+      "bytes": 17086,
+      "sha256": "9888ddd85268f618aa711cf808458be85dcf2e4a6abacde36d06da2a18ed5774",
       "kind": "text"
     },
     {
@@ -13813,8 +13813,8 @@
     },
     {
       "path": "audit/inventory-hierarchy-sections/check_export.py",
-      "bytes": 13306,
-      "sha256": "b926a2ef909f0c12063eaf9dc4a908eb065b5b87999284c3aa9720c074b37220",
+      "bytes": 14113,
+      "sha256": "dbea6b2ecf6a98f3fdb091036cf79a0a43a8f0df36a7c73fabcd4b8e1d12afd3",
       "kind": "text"
     },
     {
@@ -13879,8 +13879,8 @@
     },
     {
       "path": "audit/inventory-pdf-foundation/check_control.py",
-      "bytes": 10492,
-      "sha256": "6c04df663d08fc7de2a10a9d64b03e6f1c9d6d9a1d138d0cf2b5189de883179a",
+      "bytes": 11299,
+      "sha256": "b270d4ed7a9085299fa04735325cdda5a7aaa5006543bbd38b7dc9173549501d",
       "kind": "text"
     },
     {
@@ -15236,14 +15236,14 @@
     {
       "path": "audit/inventory-section-components/check_export.py",
       "kind": "text",
-      "bytes": 20833,
-      "sha256": "4c41aa95f9b61e10850b744a70fe0c039324fa943c5748da7a8a2ed6259d44a8"
+      "bytes": 21640,
+      "sha256": "3aaf1de23b8ea036bc4a2229fd44c907f1b0bc27081c2fb9dd0a8a8416e10874"
     },
     {
       "path": "audit/inventory-section-components/contract.json",
       "kind": "text",
-      "bytes": 12821,
-      "sha256": "84f53dacc2a8bd4fbe09a69ab97a5f6faf8ca025b527c7af56e40990ed175f83"
+      "bytes": 14387,
+      "sha256": "44e2c80b92522ac37a7e30e1429438754a78ae031c83e5f82129ed8aa88df851"
     },
     {
       "path": "audit/inventory-section-components/generate.py",
@@ -15326,14 +15326,14 @@
     {
       "path": "audit/inventory-transposed-register/check_export.py",
       "kind": "text",
-      "bytes": 20009,
-      "sha256": "42c3d9e20d9e1a23cbac8e2fbb3122fccb54dd3edf6221fba9da4285bd8543dd"
+      "bytes": 20816,
+      "sha256": "d54c9facbd403abc03639281dc6270e04739373209d47a47f24db5025314cca6"
     },
     {
       "path": "audit/inventory-transposed-register/contract.json",
       "kind": "text",
-      "bytes": 16008,
-      "sha256": "b9135bc54c2b30e55e7d7879675ba28e51687ca23fea52ed98e56b196e31c693"
+      "bytes": 17659,
+      "sha256": "18f478dfae4b5febf847a843858822ab772c993cf83608f87340db0f6049feaf"
     },
     {
       "path": "audit/inventory-transposed-register/export_control.py",
@@ -15385,8 +15385,8 @@
     },
     {
       "path": "audit/large-statements/browser/run.mjs",
-      "bytes": 24764,
-      "sha256": "6be321118535bced84a33aecf195d6fff1275156a1c6dda812ef7f23a173ede2",
+      "bytes": 24854,
+      "sha256": "5d81a8d53952e608909e723b7ac1880361c5c3b65d5067f24aa26b7e482592cf",
       "kind": "text"
     },
     {
@@ -21509,8 +21509,8 @@
     },
     {
       "path": "audit/partial-input/browser/run.mjs",
-      "bytes": 18618,
-      "sha256": "421fbadaeb4e4ed713c2d700c3111f658c6df6aebac3dfc124f9a6f94bd6e5c0",
+      "bytes": 18777,
+      "sha256": "bce21caf42887135cb0acfb8aaa590ef86fd3e5d8b515ba09ba88dfc2ea20400",
       "kind": "text"
     },
     {
@@ -35241,44 +35241,44 @@
     },
     {
       "path": "components/allocation-workspace.tsx",
-      "bytes": 28503,
-      "sha256": "b3a5123cb71594f56b14f79a138d333d37bd3e2a246620f9d6cbf4b7476fddb2",
+      "bytes": 36590,
+      "sha256": "db927db14e4ad62d05af589eec0d1820c2e1333b3213445a3ac37104b98c4b4f",
       "kind": "text"
     },
     {
       "path": "components/ar-workspace.css",
-      "bytes": 2107,
-      "sha256": "f75ec764cbaa6aa3716de44653fe0a3c2b66aa999c82911e25e18aa2e2c13542",
+      "bytes": 2161,
+      "sha256": "70d38b8a0930d69d130a3c421c74b120418330bf60d0d7d50cada1b80b80d688",
       "kind": "text"
     },
     {
       "path": "components/ar-workspace.tsx",
-      "bytes": 37766,
-      "sha256": "8d90bb218b66c730244edacf62548873067e47dd7f7a45cce9bc0bb93629e4cf",
+      "bytes": 43621,
+      "sha256": "3c6e95e77cd50a6cbc9e98a8400eca5ddf7649aab55c58df9f9eacc746cab683",
       "kind": "text"
     },
     {
       "path": "components/bank-adjustment-workspace.css",
-      "bytes": 329,
-      "sha256": "fcc6e74480fd7766fc166e0523b99e6579557230e7826d8fafb7c40ba7755758",
+      "bytes": 342,
+      "sha256": "00d856c9ebbb1dc43929c31aed1e5355107432f8f8a58ee46be97ac11ca54342",
       "kind": "text"
     },
     {
       "path": "components/bank-adjustment-workspace.tsx",
-      "bytes": 27993,
-      "sha256": "5867a31c577380e0494fbd97d01340caa867940c479087d5ba8d58d142fbc65d",
+      "bytes": 30555,
+      "sha256": "acbf68096b8a24713d4c80362264860bd5799300992c84c5037e589d259a0199",
       "kind": "text"
     },
     {
       "path": "components/bank-workspace.css",
-      "bytes": 5016,
-      "sha256": "232e1bd8bed2c498b631fe6d2768f7a2b44883946d8251b306ae77c2fbc338fa",
+      "bytes": 5170,
+      "sha256": "c1163a51fbd7dcd8b45ff6e6fbfa74abd0ef93c35366638117ef746474f43a0f",
       "kind": "text"
     },
     {
       "path": "components/bank-workspace.tsx",
-      "bytes": 35354,
-      "sha256": "8fe4e8c3f4b51eb3ea4a9eff8116b90bced700172725c0d5efd279a19cdfdd77",
+      "bytes": 42315,
+      "sha256": "121e7fe4540659a560515d72a3706b5977b1b4f0069878b2eca7d8740ed88d93",
       "kind": "text"
     },
     {
@@ -35289,14 +35289,14 @@
     },
     {
       "path": "components/clearing-workspace.css",
-      "bytes": 1892,
-      "sha256": "9c51bd04813279daa22c6da05a7f99555a35045d10d0fa0fb2001c5bd7619705",
+      "bytes": 1878,
+      "sha256": "1ef1be1bace9540912e149f1d9f552866e72b2774a62dc240c6b7623bb3a9740",
       "kind": "text"
     },
     {
       "path": "components/clearing-workspace.tsx",
-      "bytes": 23988,
-      "sha256": "70247f436266315380b82bc4df875153533822fd92b61f37f3210fd9e247f5be",
+      "bytes": 31172,
+      "sha256": "8e0bf502b050c42de39ca49f8a24c57b2e594f95aceb12645772f52bfb8e61bd",
       "kind": "text"
     },
     {
@@ -35307,14 +35307,14 @@
     },
     {
       "path": "components/document-scene.tsx",
-      "bytes": 16907,
-      "sha256": "c6eef2e4e37d087df7d3022ff682802d6eac2fd43715f32dccfa046cf41d77ed",
+      "bytes": 34840,
+      "sha256": "eb665a260695270d67a008507a61ee834778d3fc696f66c2b91bc43e78be79e5",
       "kind": "text"
     },
     {
       "path": "components/domain-evidence-assistant.tsx",
-      "bytes": 9497,
-      "sha256": "521d39b86a4a958a53594a1e3c92e268b599d6725f95144c96e9c26c02f15f72",
+      "bytes": 8322,
+      "sha256": "29ea174f030ceffad14dadd39a82563c5c81146f848b5f727cc8b2da6fdeaa92",
       "kind": "text"
     },
     {
@@ -35325,20 +35325,20 @@
     },
     {
       "path": "components/fixed-assets-workspace.tsx",
-      "bytes": 25625,
-      "sha256": "eb6781d5659bd5f5ae83e250f8c95f82e8c7ac36d2b7f57deb8f3551f3370d5b",
+      "bytes": 34649,
+      "sha256": "39cd080521f17232c67f13a25bd32e076c0d18805b5456ba825a45c215ec6a00",
       "kind": "text"
     },
     {
-      "path": "components/gl-tb-workspace.css",
-      "bytes": 2280,
-      "sha256": "fb88d20bebec554fe915b2b68b7f2af1f9c89651d4ec534dd2607b002fdb6688",
+      "path": "components/workspace-record.css",
+      "bytes": 7219,
+      "sha256": "f47e00422cbbb3e97f485bc50ae7a3be1e1d48304ed8e1859cab98bbe32743b4",
       "kind": "text"
     },
     {
       "path": "components/gl-tb-workspace.tsx",
-      "bytes": 21223,
-      "sha256": "6b07936168d2b2ed8301a3ce3b4d818162bb78f55064d65f0c0640a8f81d07a6",
+      "bytes": 25006,
+      "sha256": "ea9b4d579f1da26f9a5e3ad1e4abe86d2d908db68e8c0f1a475aa02388850a47",
       "kind": "text"
     },
     {
@@ -35349,26 +35349,26 @@
     },
     {
       "path": "components/intercompany-workspace.tsx",
-      "bytes": 23221,
-      "sha256": "942f761f0cc83b28ada34d02dec9496fa68f9219368336e907483ad0fbd95699",
+      "bytes": 33287,
+      "sha256": "9f9269df23f97634ba2bddbba78a160c90d52c47407b1e7cf4863a37aae94032",
       "kind": "text"
     },
     {
       "path": "components/inventory-register-workspace.tsx",
-      "bytes": 41561,
-      "sha256": "af1df756d1cae1932a864221797463d22d12b10a38955f99af7396c5aa23c8aa",
+      "bytes": 52185,
+      "sha256": "cc2066f58bb0e39e5068aca5d976060b2e59cb5f67de8f4950865a32115550f3",
       "kind": "text"
     },
     {
       "path": "components/invoice-overlap-review.tsx",
-      "bytes": 37325,
-      "sha256": "592d52e93b93001ee59a3bba4a9194185de786f46b8ea56990b54d93fe64b7aa",
+      "bytes": 40219,
+      "sha256": "e208b8ebbf09abd0a473d21ac973d28ccf04965e5413db71690f123bab523957",
       "kind": "text"
     },
     {
       "path": "components/landing.tsx",
-      "bytes": 15292,
-      "sha256": "a5d46a587856e298c4efd059aa17e1c39fa6b065d093d2d7b00e0f03b618821b",
+      "bytes": 15612,
+      "sha256": "6ad85e35bfda0539612da5ceff6d2d87cc8d54a5c37d3d377dc58086aabcf596",
       "kind": "text"
     },
     {
@@ -35379,38 +35379,38 @@
     },
     {
       "path": "components/multiline-source-review.tsx",
-      "bytes": 15714,
-      "sha256": "ac24187a735804962137d11ec8a4ee6681abb05b21f4411d78e538b73b08d59a",
+      "bytes": 18311,
+      "sha256": "f9f8cf3ef6a7543c5879128074fee0fb38172ccac8a85e9898614e3d54fda0b5",
       "kind": "text"
     },
     {
       "path": "components/payment-gateway-workspace.tsx",
-      "bytes": 23374,
-      "sha256": "b9a61bea3b962ca58deac0a04ddef014775fc365c6d3f576b2ac6aebd430db20",
+      "bytes": 34132,
+      "sha256": "6ad87d4bdb232b963d0a1caa02b86b66583e1e003daf737d2343f14c26022a64",
       "kind": "text"
     },
     {
       "path": "components/payroll-workspace.tsx",
-      "bytes": 24230,
-      "sha256": "bbed647c71132cfbeb9a1e366952b1df7e114c320705af61c6522dc516133e98",
+      "bytes": 33505,
+      "sha256": "fb19b2ee6113393a33ee481b16d962655b6d81df11e22486efd6b18c2494ce2c",
       "kind": "text"
     },
     {
       "path": "components/pdf-review.tsx",
-      "bytes": 9949,
-      "sha256": "2d4e6994da34cbf57ae91c9166f72ae0fad7f92f6c78cb7ed16de47cb986d453",
+      "bytes": 10841,
+      "sha256": "337f0a79896dbf6614ccb64602e6fe530a742166d1e597980f35f2c04f5cbb2c",
       "kind": "text"
     },
     {
       "path": "components/reconciliation-directory.css",
-      "bytes": 3697,
-      "sha256": "a08aa1c4c804dedbd023cbdf80a5e847f16f7dd8da07c8ad5ebbc02e79412952",
+      "bytes": 3872,
+      "sha256": "48c30561be8359632914774bd0bb0e328591a156e218f3327d86b23bb97de020",
       "kind": "text"
     },
     {
       "path": "components/reconciliation-directory.tsx",
-      "bytes": 6550,
-      "sha256": "a420d2614dd22d9678c94dd293e1ee36267e964662ff84465b95ad9b7f1d5ca6",
+      "bytes": 7220,
+      "sha256": "dde16fc5e6a77cfb56a4fc2de2419d51153dcad967dfdd9e81627b333a1e0e68",
       "kind": "text"
     },
     {
@@ -35421,50 +35421,50 @@
     },
     {
       "path": "components/running-balance-review.css",
-      "bytes": 5785,
-      "sha256": "2cfc432f6afa7d63a86490dd497f3fe7b447a2d2cfcacaade1c39831a006a573",
+      "bytes": 6199,
+      "sha256": "9f2ddeeddfed4791b6b33bac486564438c4a607aad244e9034683df050bbc733",
       "kind": "text"
     },
     {
       "path": "components/running-balance-review.tsx",
-      "bytes": 34344,
-      "sha256": "9f1364fdf231f806c141ec78d8f8deb774636fabdb956cc934642a4d0d77ccd8",
+      "bytes": 35025,
+      "sha256": "5ba22b98fd4dfbd3d1386b3b602c93d1eb640bff504dbc63a8d26a5a4d9c667c",
       "kind": "text"
     },
     {
       "path": "components/section-derived-review.tsx",
-      "bytes": 24969,
-      "sha256": "051c2b6ef0f3e0d192b16f7e36b69ec411bbcb480766d5246e705587c6983d5f",
+      "bytes": 27254,
+      "sha256": "619b13d4134849462a08ebae3b82fbb19a977aced47cfc17220a9b0c40498b5e",
       "kind": "text"
     },
     {
       "path": "components/source-structure-review.tsx",
-      "bytes": 17333,
-      "sha256": "4609cab34105e0fcfb753bc8d2fd834dc44907cc96795d5de75d40a7ac0657ea",
+      "bytes": 17487,
+      "sha256": "b1c4e974b3ded11a3f59b13634bb2afadb8f8460746e3ea692447ec6cae8238a",
       "kind": "text"
     },
     {
       "path": "components/source-upload.tsx",
-      "bytes": 8115,
-      "sha256": "53a27ff7597a72bdc8475ce14ebd087aa67f778e2a497963c55d0df950e2ecb7",
+      "bytes": 8475,
+      "sha256": "e1984f73dce0b3c743dd7ae494cb377fe41019c77669157d72a13529ba23bad6",
       "kind": "text"
     },
     {
       "path": "components/split-section-review.tsx",
-      "bytes": 28200,
-      "sha256": "cad736d0d99cbdc28fd0bcdf45271be418e0d9efae8a10a1604cc92c73a9820a",
+      "bytes": 29565,
+      "sha256": "9263dc9cb1e2b8c8baf6a3293f16163ebe53be15db4979dccc379990a5e4234c",
       "kind": "text"
     },
     {
       "path": "components/tb-financial-workspace.tsx",
-      "bytes": 25674,
-      "sha256": "f982a8a9f42303ed92a49647063de65585609d078edd004125a34800f7ee25bf",
+      "bytes": 35166,
+      "sha256": "d6e4e21cf045680e5d4290cc5543f49ed125e52cfbcd6f6815b09983c49488a4",
       "kind": "text"
     },
     {
       "path": "components/transaction-review.tsx",
-      "bytes": 5984,
-      "sha256": "f2e24ce3f83f4b2b9cd13e2d09325abc13dd10c5c4bfac72c4dae01499bd160c",
+      "bytes": 7481,
+      "sha256": "69f83e136dcb7a13a3c3a9384c758adee109c0ef49c2d1d2773fa4c47f658aaf",
       "kind": "text"
     },
     {
@@ -35829,56 +35829,56 @@
     },
     {
       "path": "components/visual-accounting-review.tsx",
-      "bytes": 10005,
-      "sha256": "9b6eb2ea259f219ec7868e46d2a7dc53553eae2d299e7271df58240721ca9210",
+      "bytes": 11040,
+      "sha256": "75497408251aae17b9490f12dbe2ab0b3180d6ff5735fd87a07a573bcccb98ef",
       "kind": "text"
     },
     {
       "path": "components/visual-cell-review.tsx",
-      "bytes": 4347,
-      "sha256": "09584ffd01fa7472163368a6a2bb507ba4f4cb497b8af1086d4db923998a3fec",
+      "bytes": 4958,
+      "sha256": "1dddecf3d267bd11ae05ec12f04f483caba81e6fa054627986d7639e6be20ec3",
       "kind": "text"
     },
     {
       "path": "components/visual-crop-picker.tsx",
-      "bytes": 5892,
-      "sha256": "3b97315b481be5878d6d88bab792ada334d6be30f89fd0c2d1d0d8d10ba2a66e",
+      "bytes": 6856,
+      "sha256": "b93ea87a5095abc5ab83a55218e7840f253885d727ffee125b3f842b35ec8e29",
       "kind": "text"
     },
     {
       "path": "components/visual-reader.tsx",
-      "bytes": 21926,
-      "sha256": "4619091b107dd9adebe5b4374c72b929e57acca6d1e576c7be4ab194bf8b8dcb",
+      "bytes": 22478,
+      "sha256": "560f33013caec64dbe6460ab20acb9e3b5e47bcc572ad7f2fe383dcc54dc7614",
       "kind": "text"
     },
     {
       "path": "components/visual-region-review.tsx",
-      "bytes": 4257,
-      "sha256": "d6b6a3f6cf00097b155591595f69886f77ed120d7efd3e6a1889fe73d1f14eb4",
+      "bytes": 4876,
+      "sha256": "e4a83e4c3ee39b73e2fdf2cd2dfa083ef6236c3c4188bb36c7c765990b2408c3",
       "kind": "text"
     },
     {
       "path": "components/visual-review-effort.tsx",
-      "bytes": 9138,
-      "sha256": "c8c52693f19047903ef5e985451f3640a10e1fe0946d4d5d2c5b5a6805c61ff7",
+      "bytes": 10167,
+      "sha256": "0f7943d5be00674135c0dc55824675d9639db192e85c58f96481846e77e24313",
       "kind": "text"
     },
     {
       "path": "components/visual-table-review.tsx",
-      "bytes": 15189,
-      "sha256": "3ea4d307edc82f7f60fd1d6395a0d788f5d9815c8106840181009bd7830ccdb1",
+      "bytes": 17135,
+      "sha256": "2ca240226ffcac7161af434182168e4e2e0708d1939b9d733d6e573cb3137f60",
       "kind": "text"
     },
     {
       "path": "components/workspace-chrome.css",
-      "bytes": 23381,
-      "sha256": "6a64080af4f1c848b858cfd30781e7b724a78f40e796ad19809c65a4efa5a466",
+      "bytes": 24771,
+      "sha256": "c82458f4f53137553d0b608c7919bc19d1e000c8fa762c10d07b0b1ad77b9bc2",
       "kind": "text"
     },
     {
       "path": "components/workspace-chrome.tsx",
-      "bytes": 7275,
-      "sha256": "c742b5d47ae8da4cea20885808e326fc5c86360a5d08321bbf1624176eaeca5c",
+      "bytes": 8438,
+      "sha256": "f5800b5fad70d8b88bdc211e233bf878fa209bf725019502fbf114cfe614300d",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 60573,
-      "sha256": "94e3d4ace48e5296db37fc989525ddee149732e774f1d3bb26dd3f2d41b126a2",
+      "bytes": 72369,
+      "sha256": "6ba37ec261a9a664286c896b0cc06a674742718ad8f5349bd81d208fbf98cab6",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 23459,
-      "sha256": "7f23709aa51430194b3a03ec42f58bca1059b3bf1008e81dc0afc3ccb99a7aec",
+      "bytes": 30714,
+      "sha256": "adee8ea4e7b36b572a221d003ea47b72dfbd118f057f473fc1a234dff052b2d8",
       "kind": "text"
     },
     {
@@ -36020,8 +36020,8 @@
     {
       "path": "docs/WORKSPACE-IDENTITY.ar.md",
       "kind": "text",
-      "bytes": 12836,
-      "sha256": "5be666541440a5ac628e386e65710af629532e00540ece0538d4da0ebf788d51"
+      "bytes": 13198,
+      "sha256": "4c06148f49d2e36c6de91374810df5cbf264b32e5b6042049b4066eb3bc97ce7"
     },
     {
       "path": "docs/audits/C0-SOURCE-DIVERSITY.ar.md",
@@ -36145,20 +36145,20 @@
     },
     {
       "path": "docs/reference/DESIGN.ar.md",
-      "bytes": 10253,
-      "sha256": "b46ce383a9d939812239f299ff87f89216355c82e00c0e77a22653e825b644ac",
+      "bytes": 49988,
+      "sha256": "fcae502b66e038bc677001eac6fdd05b45e3144a302e8293908c144fe9bf68d8",
       "kind": "text"
     },
     {
       "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
-      "bytes": 146261,
-      "sha256": "d5cf30d7fe61300b5087c7279d2b72d5ff53a6609fffb0ab99a646905b61cc46",
+      "bytes": 226599,
+      "sha256": "edb3c12ad9f59252a2b1b0b4f9ca37553a70ef4459a5da562d3dd083d21a3f0b",
       "kind": "text"
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 161229,
-      "sha256": "d63f032fd671f54c7f1e7fd4084de75ffa1d9834a25b84fa042ce55842cc28c3",
+      "bytes": 596415,
+      "sha256": "15930299bd35382e3715e87980f57abcf92c0d070bb3f48c32fb04e1862c2b6f",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 84958,
-      "sha256": "eeb166bf3f8db4c90245a6a2b114edf3c0a7c4fce534b04b12d9483d1f37ea90",
+      "bytes": 58620,
+      "sha256": "f8dddfb2a29a39cd0614e77cb4e88a90d301a9ecc6ed94204847cc935d7f3011",
       "kind": "text"
     },
     {
@@ -36182,13 +36182,13 @@
     {
       "path": "docs/reference/VISUAL-IMPLEMENTATION.ar.md",
       "kind": "text",
-      "bytes": 39082,
-      "sha256": "46de720b23b282cb579e25a2cf8451ff6d3bc3455937c8b5834f6b51bd2cda5b"
+      "bytes": 48199,
+      "sha256": "9f7ac27f57e2e06361e70a1610645f234080491a7cb95993af755b0a0deb9e4d"
     },
     {
       "path": "docs/roadmap/README.ar.md",
-      "bytes": 8513,
-      "sha256": "3e415116c8999f5bfa49f6ec388f1f2f0882a3b71d63488e7c29d238b7beb613",
+      "bytes": 8957,
+      "sha256": "08100043e9fea3bee7e5e2afa34144fc6b5730101ac60e2b238250ba9fcac0e2",
       "kind": "text"
     },
     {
@@ -36351,26 +36351,26 @@
     },
     {
       "path": "index.html",
-      "bytes": 2974,
-      "sha256": "6cde24d24f7114298b1ca78b6a34b882bdb2bcf73018d6761ef011500face462",
+      "bytes": 3130,
+      "sha256": "ad152b39894e8273ada9765295159a16dd5c14d6e695595ca360379c7a2458e8",
       "kind": "text"
     },
     {
       "path": "lib/brand.ts",
       "bytes": 835,
-      "sha256": "2225f673675decec1a32fd8d68b3f8fad3a9ba3c2d4e432aa93c7182f5ad6787",
+      "sha256": "b9260e0b2576ffc1c3f9e12f017363202b5d9802bb10204f52945c0e35106efa",
       "kind": "text"
     },
     {
       "path": "lib/i18n/allocation-workflow-handoff.ts",
-      "bytes": 2243,
-      "sha256": "99a78cfd402a5b78c40f9bada5df3cdd385cd66a1e0549122bbae6487208f06d",
+      "bytes": 2249,
+      "sha256": "143533d01a68c90464e0202f14ee4a61b1464dba67811d1a2fb0310a67eaf22f",
       "kind": "text"
     },
     {
       "path": "lib/i18n/bank-adjustment.ts",
-      "bytes": 13733,
-      "sha256": "f2674c28943a20b7176477b202c4d264b672f0875c32caab0570a475d011c4eb",
+      "bytes": 14720,
+      "sha256": "f4e45378a72c3ce2946717f8914ac84719963e343c52b8d24896abe4283aa4a8",
       "kind": "text"
     },
     {
@@ -36381,8 +36381,8 @@
     },
     {
       "path": "lib/i18n/domain-evidence.ts",
-      "bytes": 11374,
-      "sha256": "2811f528ab5817b028dc56291516afdad825fe99704bfc661a0c8caf229ef84d",
+      "bytes": 11284,
+      "sha256": "10d3a805fd5c6cd7da2601218ace48d7baf1756b187b16d8671fc23e8b603b43",
       "kind": "text"
     },
     {
@@ -36399,26 +36399,26 @@
     },
     {
       "path": "lib/i18n/fixed-assets.ts",
-      "bytes": 16338,
-      "sha256": "8644531e13a18321623e154cb5137c5911f3f2b82254f282a7f0ef0abeae2281",
+      "bytes": 17971,
+      "sha256": "ea1a7433dffbf3a1d0ff5a2ed5f165e374cbb8a720629ef7b15a2f8534e834d8",
       "kind": "text"
     },
     {
       "path": "lib/i18n/intercompany.ts",
-      "bytes": 9829,
-      "sha256": "461757baccc73bc6a494179c96495b5dd34ef7d12e073db9f0c4bdd52d169ec0",
+      "bytes": 11686,
+      "sha256": "e638d005f5ac88e63c0e5bbb4e78ed96b5894a1de03b9aad176465cc2c1a5a73",
       "kind": "text"
     },
     {
       "path": "lib/i18n/inventory-register.ts",
-      "bytes": 31113,
-      "sha256": "7da9fe3478f79ae780ac9e0731d9dcefae8fdc0db41cc7a34cfcf1db9a24c439",
+      "bytes": 33307,
+      "sha256": "d26e622818d6c885a973962f89732b1f6b46a06c94093de1206c137f869d2190",
       "kind": "text"
     },
     {
       "path": "lib/i18n/invoice-overlap-review.ts",
-      "bytes": 14074,
-      "sha256": "84c8501a251cdd44279dc1feb91b5f1147568c76bc1264bfb0077054a3ef97fa",
+      "bytes": 14608,
+      "sha256": "4f7125453ca705f01f38d58c17bd027e6b462b825d749b36645fbbb1779fa90b",
       "kind": "text"
     },
     {
@@ -36429,14 +36429,14 @@
     },
     {
       "path": "lib/i18n/locales/ar.ts",
-      "bytes": 104494,
-      "sha256": "c08a1398d21dc8ba79048a21a476ee867902bf4fd14c9d8db87e807f5c034c78",
+      "bytes": 109439,
+      "sha256": "64244532e2f6f6ff03711639542fcbbf92d8d327e2cb064dcdb44d25e5349722",
       "kind": "text"
     },
     {
       "path": "lib/i18n/locales/en.ts",
-      "bytes": 83632,
-      "sha256": "b18dfcffac5d657cfd6625e61868064dee31e8917bc651d70c38abf63b18b66d",
+      "bytes": 89294,
+      "sha256": "dbb953f6cdfc5e00ed013e64be4c6039f10c08bc8978251fd14453b64b67d952",
       "kind": "text"
     },
     {
@@ -36447,50 +36447,50 @@
     },
     {
       "path": "lib/i18n/multiline-source-review.ts",
-      "bytes": 9056,
-      "sha256": "aac6e173b8b737236a70d2c828817803d9f7c0bfc11bb3af5d00fd3bf210503b",
+      "bytes": 9219,
+      "sha256": "2e3ce20af0f2e92d2eab23ed5e1806a267a7a85738730a6d9b6fea110ef43b26",
       "kind": "text"
     },
     {
       "path": "lib/i18n/payment-gateway.ts",
-      "bytes": 12114,
-      "sha256": "1f9a50e614e65344f22e49c29c0ab57e288fca258f69f028f221fca67ea0b1c2",
+      "bytes": 14359,
+      "sha256": "83e81583b851aa28c2e39470c02b51f887aba7a133f1518dc900f5cd8f1acc3c",
       "kind": "text"
     },
     {
       "path": "lib/i18n/payroll.ts",
-      "bytes": 18376,
-      "sha256": "015916e0f84be9c488539b2e7a632af6ad00302df08823f62a6079663364f0a7",
+      "bytes": 20877,
+      "sha256": "3088395b5797df3227560f1564f00a397d520ebe4c42d8fc6081f0370e09f36f",
       "kind": "text"
     },
     {
       "path": "lib/i18n/reconciliation-directory.ts",
-      "bytes": 7642,
-      "sha256": "bf33e9cae4d7c6ac21a6d3c1f93f5aed709b110f81eb9834d464588fed527342",
+      "bytes": 7885,
+      "sha256": "bd714dd5a9e4f761d4e97b56c077806c8c11a17f73151306b3b5b996e6f4576c",
       "kind": "text"
     },
     {
       "path": "lib/i18n/running-balance-review.ts",
-      "bytes": 10938,
-      "sha256": "98181000aac7664704ea73bfa41f8aa898ca6bd66144bdc9b1914684c1971505",
+      "bytes": 11267,
+      "sha256": "825d7e54b5bb823f5319c76684ae1166ddcce792dda10f006f0efd773b95ec9b",
       "kind": "text"
     },
     {
       "path": "lib/i18n/section-derived-review.ts",
-      "bytes": 12351,
-      "sha256": "76e5fa8b0290e2e4e2c33cf2101a051afd1ef55aed8a3e05b00e54bab7db5541",
+      "bytes": 12607,
+      "sha256": "ffffdc57f5cd4ae73851b5a84007635a3b08a23f53b2106f0f74568cae4a99c6",
       "kind": "text"
     },
     {
       "path": "lib/i18n/source-structure-review.ts",
-      "bytes": 7804,
-      "sha256": "79aadfa1bc5a6a6938f76404068a213f7c1038539f7d3686f623ada40b995d7a",
+      "bytes": 7634,
+      "sha256": "243cb26e1c70cb50528fe5c5ccb12d4ae797f57726a13eb4095f14c825e39fec",
       "kind": "text"
     },
     {
       "path": "lib/i18n/split-section-review.ts",
-      "bytes": 14206,
-      "sha256": "ec12b940dbd27b229a30e80d14d0ee37d4ffb983b83f521f0043e0aabab47b5e",
+      "bytes": 14207,
+      "sha256": "bedb6190df2210b42980cbc6a4a59a1d3e2c7f0c20cf71837a2b74b3a8a02d79",
       "kind": "text"
     },
     {
@@ -36501,8 +36501,8 @@
     },
     {
       "path": "lib/i18n/workspace.ts",
-      "bytes": 1089,
-      "sha256": "18af9325c1d39cfbb520112466d40d2a5096db77e04c2985636a6a46a697bc8d",
+      "bytes": 1207,
+      "sha256": "508a529de834d886cb20eb1e3330ef1056f4cbbacf862075401cbfcc86a83492",
       "kind": "text"
     },
     {
@@ -36531,8 +36531,8 @@
     },
     {
       "path": "lib/reconciliation/allocation.ts",
-      "bytes": 15831,
-      "sha256": "64311453a08eecb5306c3f7706764d59f6d4fcd3fdb7bfdbc16cc3dde7bcc7fa",
+      "bytes": 16083,
+      "sha256": "e4f0818f9281c6328958175d36f13d81b61cd5cab798959f5d13b6784437b45b",
       "kind": "text"
     },
     {
@@ -36567,8 +36567,8 @@
     },
     {
       "path": "lib/reconciliation/ar-worker-binding.ts",
-      "bytes": 16697,
-      "sha256": "65433db64f5cb60477f25cdda04690489c5f24a91ba197edee78cf0892550862",
+      "bytes": 17034,
+      "sha256": "26bf4a83e5adddc6bfe6a6957442a87cb0789ae29a8c24a6d5e2b2c0a0a48e66",
       "kind": "text"
     },
     {
@@ -36633,8 +36633,8 @@
     },
     {
       "path": "lib/reconciliation/bank.ts",
-      "bytes": 26582,
-      "sha256": "ea8e0187ec2566b9eab0b065db8dfe98d10409f55a2858440c4be633f09535d4",
+      "bytes": 26904,
+      "sha256": "13b877131042dd8723083df11e2e74c1cd40458a5e4f9dd551a4f14062ba6a14",
       "kind": "text"
     },
     {
@@ -36729,8 +36729,8 @@
     },
     {
       "path": "lib/reconciliation/fixed-assets-io.ts",
-      "bytes": 16387,
-      "sha256": "1c58f2bf29e44d002e9e754cfb03d1562983323238a9cc9bb06834732c2b2265",
+      "bytes": 16613,
+      "sha256": "a918f36f9d0fb7987093948d8639e58910c80f7edfd8bd48e99bfca0f82a316c",
       "kind": "text"
     },
     {
@@ -36759,8 +36759,8 @@
     },
     {
       "path": "lib/reconciliation/gl-tb.ts",
-      "bytes": 17360,
-      "sha256": "2807ccc41fa4573d4870935822037c0735233a91a40973600f936dd6a73fe607",
+      "bytes": 17577,
+      "sha256": "1387375568157ad4b87d81d91c8268431fb0cd53e9c9ba3304eb48d71237a6d1",
       "kind": "text"
     },
     {
@@ -36825,8 +36825,8 @@
     },
     {
       "path": "lib/reconciliation/intercompany.ts",
-      "bytes": 30155,
-      "sha256": "98cd590cf8a2c5f4d74ed9799106e982959ea8b498914f2e22281458925f1873",
+      "bytes": 30876,
+      "sha256": "198a5cb8474a45457a3fed2a50acf81052290d72296f32c72c5b0d647f9e6540",
       "kind": "text"
     },
     {
@@ -36867,8 +36867,8 @@
     },
     {
       "path": "lib/reconciliation/inventory-pdf-lifecycle.ts",
-      "bytes": 5332,
-      "sha256": "359a01ed72e99196e2cb8fa97d6f2b7546f5614b79ad97893f3f3f0ad8925f18",
+      "bytes": 5498,
+      "sha256": "c4bf778364d7eb9aac4069bea868dfd1187a3b1be326b2b8416b464c39c0e477",
       "kind": "text"
     },
     {
@@ -36879,8 +36879,8 @@
     },
     {
       "path": "lib/reconciliation/inventory-pdf-request.ts",
-      "bytes": 8115,
-      "sha256": "1c699927686f10779273fd8367abbf1600a728dfdb21763d23b4e073039b6ad1",
+      "bytes": 8069,
+      "sha256": "dab61b364fd5f2cf43d9fe521699567120cf14687b276f4d7c30c3878f7404af",
       "kind": "text"
     },
     {
@@ -36904,14 +36904,14 @@
     {
       "path": "lib/reconciliation/inventory-register-request.ts",
       "kind": "text",
-      "bytes": 6085,
-      "sha256": "bcea9a97bd7a18b8f990201c8f3f075d6b1264c38f05952d4929af547439f58a"
+      "bytes": 6610,
+      "sha256": "39484f5d009ab64893a2777e28164ea0c100c2ad0730d9b9312a8aa3a992f5b1"
     },
     {
       "path": "lib/reconciliation/inventory-register-worker-binding.ts",
       "kind": "text",
-      "bytes": 14983,
-      "sha256": "32f2acae315fab370ff117a2d5be44b374316d89ab8dff156ee73de29eccdb7e"
+      "bytes": 15228,
+      "sha256": "f7d089b47eba7b735356336836587cbd7343aa85a91a644744154efb0e1a0876"
     },
     {
       "path": "lib/reconciliation/inventory-register.ts",
@@ -37047,8 +37047,8 @@
     },
     {
       "path": "lib/reconciliation/payment-gateway-worker-binding.ts",
-      "bytes": 8783,
-      "sha256": "e158bb1dc876a99f9328783bd7a4326f46d7714e2f06a5f478b833ca4ef75bec",
+      "bytes": 9271,
+      "sha256": "feafcdd33209ddb49846689f9b8f918952597317db312d9ac08a86d599342b12",
       "kind": "text"
     },
     {
@@ -37371,14 +37371,14 @@
     },
     {
       "path": "lib/reconciliation/worker-client.ts",
-      "bytes": 27612,
-      "sha256": "f2f8b04495c3cb96024090e02c62171dd37d02a9b69884247e994bdab3053269",
+      "bytes": 28074,
+      "sha256": "503ae9c28c60d8f83cee6ca42eba6e47359b291663dd20c8d9ed29f753590bfa",
       "kind": "text"
     },
     {
       "path": "lib/reconciliation/worker.ts",
-      "bytes": 13955,
-      "sha256": "5858d56693aa986355623599822c85106c468fba09c48015848e5fe2658894b8",
+      "bytes": 15158,
+      "sha256": "1165c6ae41e988d7485303cad61bdaaa557dd437d8d5b4640e9acc6b33119c19",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 59915,
-      "sha256": "599d5e50a3240b5d59edd236ba196ff12dcca4c2da13c3763e43fba46e9a2e2f",
+      "bytes": 64246,
+      "sha256": "8f46f4ced36e173808c82e3b92dc1909f08ed96fc19c7d64efc3ce322f035f71",
       "kind": "text"
     },
     {
@@ -37491,8 +37491,8 @@
     },
     {
       "path": "public/fonts/README.txt",
-      "bytes": 1793,
-      "sha256": "11cb45a5b44a8ed5cf5685fcbf0427b699e564c130d1896720486b850832f4a2",
+      "bytes": 1895,
+      "sha256": "3d05be7c73a16c0dc0a69c17e2702c4577896fd7b7a110edfcaed5dcba5442bc",
       "kind": "text"
     },
     {
@@ -37529,8 +37529,8 @@
     },
     {
       "path": "scripts/acceptance-ar-pixel-diff.mjs",
-      "bytes": 8327,
-      "sha256": "12d33d7e37b1c918c38f342184d809c6c6a4c9b9b5fa4056d18e51f797bef762",
+      "bytes": 8319,
+      "sha256": "9872f00e9d91863542f82cd4d8ed1c5be3dfbb62b92a7b938d363b932b79c13d",
       "kind": "text"
     },
     {
@@ -37541,14 +37541,14 @@
     },
     {
       "path": "scripts/acceptance-export-parity.mjs",
-      "bytes": 5349,
-      "sha256": "32b9f2e850e7979419e9917830ec2159c95cb880501664ffb75965cd6ded7482",
+      "bytes": 5343,
+      "sha256": "5110a202ea0803e6dd55d0e972a326bac797686863d6cfcfaa544f7771df32fc",
       "kind": "text"
     },
     {
       "path": "scripts/acceptance-export-transition.mjs",
-      "bytes": 14229,
-      "sha256": "2a11c6595ed0371ded63431977a87524bcaf9f2896cf758b321a523ba689ac13",
+      "bytes": 14219,
+      "sha256": "4dd8e02df245f1151e4e0cb7b70a4bb267dd9e7310b4e5587a185141077ab5e9",
       "kind": "text"
     },
     {
@@ -37559,20 +37559,20 @@
     },
     {
       "path": "scripts/allocation-browser-cases.mjs",
-      "bytes": 10201,
-      "sha256": "65173529bc7a9facbfe5c6fe892b13ae1b62ea4b59dfaf9048dd7770a358b2a7",
+      "bytes": 19161,
+      "sha256": "2486ad452d79399c4ef7cb3ac1b38a16756865c881895a02cb8591a793916938",
       "kind": "text"
     },
     {
       "path": "scripts/ar-browser-cases.mjs",
-      "bytes": 11413,
-      "sha256": "4f34dfa975d4beeee596a41175759cfdb64b5c78f30bdf32d1fb056e0b4c883f",
+      "bytes": 23752,
+      "sha256": "6237a78360a6439168c0624e908be3f3c379a6d603cc5c97f3b415ba94de839a",
       "kind": "text"
     },
     {
       "path": "scripts/ar-scope-details-browser.mjs",
-      "bytes": 15254,
-      "sha256": "c62388d11076064cfdaa1b7c0c4e2855d59ca896ae08bf2094f049a6526e868d",
+      "bytes": 18205,
+      "sha256": "e3afed43586d4ae16207a7fb648b9444cd14498bec5b7b97c767c774ced9f923",
       "kind": "text"
     },
     {
@@ -37601,26 +37601,26 @@
     },
     {
       "path": "scripts/bank-browser-cases.mjs",
-      "bytes": 18855,
-      "sha256": "90f9ed4a94c131c89f9390d1cbf5b4bf24185358a54a26c44f2138a974f955f4",
+      "bytes": 26189,
+      "sha256": "76d664f62dcf49cfcc2853346576047441bdbb8d662e888e955f4eddb14f9bca",
       "kind": "text"
     },
     {
       "path": "scripts/bank-wd-browser.mjs",
-      "bytes": 34224,
-      "sha256": "5fb21df7199bf44a762b69a5e626124742f146838160ef28af1bcc180b758855",
+      "bytes": 34651,
+      "sha256": "8d7a1bea3e2a97180819569abf7e72218b34038b99bf4e9020c9db65429282ec",
       "kind": "text"
     },
     {
       "path": "scripts/brand-browser-cases.mjs",
-      "bytes": 43643,
-      "sha256": "8909c81cfbaee0f38760e8ba38568064eb4fd0fa0d037ba5de9622598e3e66c8",
+      "bytes": 51122,
+      "sha256": "4860c1a06f3d2a5e96c03478047b0208a146bad8d74de7ef2ac4529f50d37485",
       "kind": "text"
     },
     {
       "path": "scripts/browser-acceptance-047.mjs",
-      "bytes": 14535,
-      "sha256": "42e472a2478a16efe12d12c11ddf9d46a2075d00145c77291443b4fd35d08170",
+      "bytes": 14527,
+      "sha256": "ad149e01b8f89e999d4252096b11a188239262b530a0cfe1295ae83f2f382a2d",
       "kind": "text"
     },
     {
@@ -37631,20 +37631,20 @@
     },
     {
       "path": "scripts/browser-performance.mjs",
-      "bytes": 34848,
-      "sha256": "bfe098aedba892b5941fc3145ff10a25bc2016d22421a16c41979f62175ba186",
+      "bytes": 34832,
+      "sha256": "dddf4b2f0dddadb3403e0a68225a21636493eafadf1f89ac4be62828aa9b36b9",
       "kind": "text"
     },
     {
       "path": "scripts/browser-same-source.mjs",
-      "bytes": 4787,
-      "sha256": "0220a469cc5da7a55af4ecbd53adefafabc378ac2e21476576a60fa4d090adbc",
+      "bytes": 4785,
+      "sha256": "45b1a640cb8372ee555c3c527795fa00a6540019f4aa3e6559032bb707a3227c",
       "kind": "text"
     },
     {
       "path": "scripts/browser-test.mjs",
-      "bytes": 77973,
-      "sha256": "b58857e7fbdfc576b5ffead20191dbcc8e946325d43ccb4d6dce61f61ffce4b4",
+      "bytes": 83167,
+      "sha256": "8b0501f63420aafc5d3b2ccb989a78e28d89bd9d70a781ce2ca07ab41ca474fc",
       "kind": "text"
     },
     {
@@ -37667,8 +37667,8 @@
     },
     {
       "path": "scripts/check-payment-gateway-signed-exports.py",
-      "bytes": 37801,
-      "sha256": "eb18ac7c5b2d2f7822dab1ceba7939b57034dd0db32234f8ecb8929b4a13c48a",
+      "bytes": 39453,
+      "sha256": "e2fba0466d69657476341cf23c61dadf6428ee51589676d3d63455fda482c0de",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 20531,
-      "sha256": "64d56538d6ec448c19322c97529c151986d4f8ce6351ea0f5f5dd81856e9b44e",
+      "bytes": 22446,
+      "sha256": "0e5011234e0221e6fbff9c279686e73eee73f057be7c70fb6e99e3011c0efceb",
       "kind": "text"
     },
     {
@@ -37691,14 +37691,14 @@
     },
     {
       "path": "scripts/clearing-browser-cases.mjs",
-      "bytes": 8682,
-      "sha256": "13263e4bfdc1d8c01f6166dae4cd36972b13c64bf9136113c7ccd5b90f64522b",
+      "bytes": 21563,
+      "sha256": "f1f14f27e23b5a6dbabcbf712b689b095bda996822827eba7414bc2f157ec1c3",
       "kind": "text"
     },
     {
       "path": "scripts/domain-assistant-browser-cases.mjs",
-      "bytes": 6051,
-      "sha256": "51a7a4c3c6a96e7f943e64d47ae205a32039f086723532c99f7ac12d43aac79b",
+      "bytes": 6375,
+      "sha256": "d3d3d7c614aa1195aaede82d383ee6298c75f4737966c034e20ca4e56d631b09",
       "kind": "text"
     },
     {
@@ -37709,14 +37709,14 @@
     },
     {
       "path": "scripts/domain-assistant-lock-browser-test.mjs",
-      "bytes": 6968,
-      "sha256": "75f5909a4a44aff74216fd715fc82dc1cbf7fa5aa87afa651292c29b4fcaf4bd",
+      "bytes": 7241,
+      "sha256": "29a492c0e2e1fe71e5b1693cb1ac675cca253ce541f1e8b67d4c1e067be2eb43",
       "kind": "text"
     },
     {
       "path": "scripts/domain-navigation-browser.mjs",
-      "bytes": 19820,
-      "sha256": "f429bed25eac3c3eda29ae43cd4a367e1fffb56d6b4ce4845195a61f4e3355e6",
+      "bytes": 25745,
+      "sha256": "57b6f83c6feca9c89bf80cf4ad38dc98e9a04e95b2fadf45f703d4240a6a1334",
       "kind": "text"
     },
     {
@@ -37739,8 +37739,8 @@
     },
     {
       "path": "scripts/fixed-assets-browser-cases.mjs",
-      "bytes": 8436,
-      "sha256": "2722aa69331707cc9439590c2d1cc240514a68ef63c05c457e2e1047f2abc01f",
+      "bytes": 20680,
+      "sha256": "f0f51dabda961500dc40bf8a84350891c7202dafe37c34b0250ae92245ab22a0",
       "kind": "text"
     },
     {
@@ -37757,8 +37757,8 @@
     },
     {
       "path": "scripts/fixed-assets-long-browser.mjs",
-      "bytes": 24539,
-      "sha256": "d23bda41f8325f4f83907fca65dda32db8e537348f34e7461370e120e727cd14",
+      "bytes": 27021,
+      "sha256": "f8e5e66010aae5aedc45c863b3868b547cc853a974060cdd9ca4bdf93bccfb5f",
       "kind": "text"
     },
     {
@@ -37781,14 +37781,14 @@
     },
     {
       "path": "scripts/gl-tb-browser-cases.mjs",
-      "bytes": 10486,
-      "sha256": "26eda9165382123a1a7be17753e52e302f53e5738c1c77449cb83801446efd2c",
+      "bytes": 20044,
+      "sha256": "77699c2405088c7a7a5155f6355f7c36e9def7222d977962e8494e79aad42fdd",
       "kind": "text"
     },
     {
       "path": "scripts/gl-tb-vertical-browser.mjs",
-      "bytes": 31733,
-      "sha256": "50162d914840c6793bbd7a494e5caf1c816a84b0c2df1981b68fdc6c04c318aa",
+      "bytes": 31797,
+      "sha256": "09e12fefc4cde6f324c851b3f25c1e77ceded2dba026d3818ff10d6cd876b361",
       "kind": "text"
     },
     {
@@ -37811,8 +37811,8 @@
     },
     {
       "path": "scripts/intercompany-browser-cases.mjs",
-      "bytes": 7797,
-      "sha256": "21f5d487db35064cd04e5c8c6c3dd606d6c032ada5a224f9ac766c9da5387e98",
+      "bytes": 20256,
+      "sha256": "ba55841dcce35785dee0ebd402807790a7044ea500730c52ef62c9096fe32a95",
       "kind": "text"
     },
     {
@@ -37823,8 +37823,8 @@
     },
     {
       "path": "scripts/inventory-column-browser.mjs",
-      "bytes": 12467,
-      "sha256": "b59b8556e15027b5d187344d449b2ef842b02186d119d1b4b961ac07c21cc442",
+      "bytes": 13939,
+      "sha256": "485e65409a61ed1960bc3c1882f2e1d2cb6b0914f8118ec62216cf38ce101415",
       "kind": "text"
     },
     {
@@ -37841,8 +37841,8 @@
     },
     {
       "path": "scripts/inventory-column-proof.mjs",
-      "bytes": 6675,
-      "sha256": "100f9bc8448ca76d1f48fc5e01fc22475a08645a3f89b10169e42ab4c050091f",
+      "bytes": 7825,
+      "sha256": "612d5d669ba2ba0344324335b1df9571915e18d7de64196769d12047ec9a75f1",
       "kind": "text"
     },
     {
@@ -37853,14 +37853,14 @@
     },
     {
       "path": "scripts/inventory-hierarchy-sections-browser.mjs",
-      "bytes": 11611,
-      "sha256": "bd295ab9acbed450f03e0c603fcb20f14d30410b1fb2f1dfe4865f535db57116",
+      "bytes": 13083,
+      "sha256": "b59d3a291dc411516b3a7785497a3d13b7c31c6dbaf1b37aefdcc561efa57869",
       "kind": "text"
     },
     {
       "path": "scripts/inventory-hierarchy-sections-proof.mjs",
-      "bytes": 6523,
-      "sha256": "76130b3c6bedd6372ca9d802c06ec1b0ba9d2d6058d7fc9cda1b25a610e0e87e",
+      "bytes": 7673,
+      "sha256": "a08f9cda8e6a18f79a3e4ae71a951f9c435d6554770ba40a3f3aa4b79a958b38",
       "kind": "text"
     },
     {
@@ -37895,14 +37895,14 @@
     },
     {
       "path": "scripts/inventory-pdf-worker-browser.mjs",
-      "bytes": 11222,
-      "sha256": "f4933cd85346d1718bc2eace667c976fb0c42e6a2c1c43b947b71f0b972bca59",
+      "bytes": 11254,
+      "sha256": "130479c2dddf6b954c05d2514fe27483ea3eaf2980898a2d43136be178b6c3f9",
       "kind": "text"
     },
     {
       "path": "scripts/inventory-register-browser-cases.mjs",
-      "bytes": 7814,
-      "sha256": "3f9b72de118e7cd03baf495d3f775f19a211102fc04a96dc82640f6ca0a16a30",
+      "bytes": 20432,
+      "sha256": "f4c38c80f0dee7b32f944bf972c1c0c57a0c0d4e23cb6d3685456620e95591a6",
       "kind": "text"
     },
     {
@@ -37920,31 +37920,31 @@
     {
       "path": "scripts/inventory-section-components-browser.mjs",
       "kind": "text",
-      "bytes": 14418,
-      "sha256": "1b478ff522abd50890fa207824762dabe38ae40e36cf9976e0aacf3ce4eaf498"
+      "bytes": 17422,
+      "sha256": "32fea60712f4f77a72ec400392bbb2520cbe9457a5ef26011d8cad6d2f4973b3"
     },
     {
       "path": "scripts/inventory-section-components-proof.mjs",
       "kind": "text",
-      "bytes": 8489,
-      "sha256": "70696c577ee55b5dd3aa57fe9b5c3837821d9e7464db6a8a79ce1af1da5fa319"
+      "bytes": 9621,
+      "sha256": "2dbf1444f36b0901cd3f678742beb05cff930962e5a2e16228eecf1a50b6690b"
     },
     {
       "path": "scripts/inventory-transposed-register-browser.mjs",
       "kind": "text",
-      "bytes": 15451,
-      "sha256": "ba78f5be6907af3500dd9caf04f927638ae277966f669da8ebca799aa4c632a3"
+      "bytes": 16923,
+      "sha256": "a4014f9b526903fd782437d2af1032b546e1f5b00fca4cef40a43ac70838bd30"
     },
     {
       "path": "scripts/inventory-transposed-register-proof.mjs",
       "kind": "text",
-      "bytes": 9173,
-      "sha256": "4ae4248dd9f84965d802e3473c98471df003ffca343ff8c5e51bada933977857"
+      "bytes": 10305,
+      "sha256": "787b4e7ea8c4d8061dec48fa6c07b5a52837638b467fd0270b4d41ab585be9a2"
     },
     {
       "path": "scripts/language-browser-cases.mjs",
-      "bytes": 13133,
-      "sha256": "eeea3058010f2b4c43346c1bd495c631f387f59a6bcc8704727bb0ee5cf88c42",
+      "bytes": 14938,
+      "sha256": "f32f38f3ba4a2a5587b663176cce4f1d6953ca90c411cd3412c7c0997bfe6a0e",
       "kind": "text"
     },
     {
@@ -37955,8 +37955,8 @@
     },
     {
       "path": "scripts/lifecycle-browser-cases.mjs",
-      "bytes": 5569,
-      "sha256": "e8c23d7cac278269d9eb42c72717bbae5dba2cdd6069d4df5561d67e8ebfb29a",
+      "bytes": 5555,
+      "sha256": "8bd57f74b71a9b4d8d1ef9b52012226e46fdc059f8582eac445d30284631b1af",
       "kind": "text"
     },
     {
@@ -37973,14 +37973,14 @@
     },
     {
       "path": "scripts/multiline-source-review-browser-cases.mjs",
-      "bytes": 14634,
-      "sha256": "3e76a68101a3d593b793e1a96e047c654a82da951674a77bdd63db825796515e",
+      "bytes": 16661,
+      "sha256": "be821245dd52f07804bcd1295ec0644c559311a27cba62349b41ba688657048c",
       "kind": "text"
     },
     {
       "path": "scripts/multiline-source-review-browser-test.mjs",
-      "bytes": 3701,
-      "sha256": "bf108a548fb89d12eb6c21aabb3453118759e24a85075a2d21dfa68aca187847",
+      "bytes": 4140,
+      "sha256": "0e4e615451f2af7763d5720ed82c3dbb3e2ab02ec01d74471211dfcaa248acc2",
       "kind": "text"
     },
     {
@@ -37997,8 +37997,8 @@
     },
     {
       "path": "scripts/overlap-derived-browser.mjs",
-      "bytes": 23656,
-      "sha256": "52b1d9070c3dcbafb9bfba46b4b1fa4482c548b842600975ad40450f101fc0f2",
+      "bytes": 28434,
+      "sha256": "befcdd8dfeaadaee4ac30d74d081e8940f8c9cdcc825c431a480ad4b9b00f96b",
       "kind": "text"
     },
     {
@@ -38021,8 +38021,8 @@
     },
     {
       "path": "scripts/payment-gateway-browser-cases.mjs",
-      "bytes": 9364,
-      "sha256": "1a8b2da515b4605b7c355d900689a6fa50937c5fb33a477349586e16eb220072",
+      "bytes": 23170,
+      "sha256": "ac1f0e307480b8b6a5daef1f5577c239135be8485aad3830416f5782894ed031",
       "kind": "text"
     },
     {
@@ -38033,8 +38033,8 @@
     },
     {
       "path": "scripts/payment-gateway-signed-browser.mjs",
-      "bytes": 14518,
-      "sha256": "2940ea1075513ce2b7c9572380cd134fc306c1153b1a0c204efb61fce00c8e95",
+      "bytes": 14946,
+      "sha256": "9100b1ec78cc085d7bb6f50fa19de358247eba07ac42d8eaab6553390bbe3d44",
       "kind": "text"
     },
     {
@@ -38045,8 +38045,8 @@
     },
     {
       "path": "scripts/payroll-browser-cases.mjs",
-      "bytes": 10112,
-      "sha256": "3a24cdc0e7c4dda3d29f2f37dea776cb5f79396f1c13857ec6cfd49a87f7375c",
+      "bytes": 22536,
+      "sha256": "1d703d448b6000dd75916fa6dc29903153f0e823444aabe1f5f36986f8b661b2",
       "kind": "text"
     },
     {
@@ -38099,8 +38099,8 @@
     },
     {
       "path": "scripts/prove-fixed-assets-long.mjs",
-      "bytes": 8045,
-      "sha256": "035ea40c862ebf76c31be409fb216b945adbcfd59118fe7464a4174a6c92ccf6",
+      "bytes": 8304,
+      "sha256": "6b681201f4f495e33084b36d5e2f1c59472dbb840d4150920d4d4cbce03eac13",
       "kind": "text"
     },
     {
@@ -38117,14 +38117,14 @@
     },
     {
       "path": "scripts/recompute-snapshot.mjs",
-      "bytes": 14379,
-      "sha256": "a64b8eeb938ea9c42bb5ced24beb18aada649646de53a3726e88a03fa0636a1d",
+      "bytes": 14941,
+      "sha256": "55d914782257be3ced814dbda023512c64bbb2b97bf1e34007b504be7843d6df",
       "kind": "text"
     },
     {
       "path": "scripts/reconciliation-entry-browser.mjs",
-      "bytes": 14394,
-      "sha256": "c32985ad711c0fbd777b5d9bd526fc9183fe88cb729ff838ebe9617702509d63",
+      "bytes": 18171,
+      "sha256": "933be773b34c84bd01bac77098dfea2a5bee5c8e6d25ceec9b2b8f405c772447",
       "kind": "text"
     },
     {
@@ -38135,14 +38135,14 @@
     },
     {
       "path": "scripts/review-effort-browser-cases.mjs",
-      "bytes": 11869,
-      "sha256": "2e1235559e6582d994f9c97a99e3ed486a5e8f289760b0294a755c308ceca804",
+      "bytes": 12509,
+      "sha256": "7ccd19da6e131344dbc3f363e3eee9c182c2a8a2ada8dfab69812572935511fc",
       "kind": "text"
     },
     {
       "path": "scripts/running-balance-browser.mjs",
-      "bytes": 16098,
-      "sha256": "eb94e922b089aa4946a171eeea9a5e2a02bf1d6d7c4a4ce0ce5baabc144f2b47",
+      "bytes": 17815,
+      "sha256": "9b4b44e3adecfb9ae3e15a65cc3fb61e49b7c1a447d5cfe293375f3495ebb368",
       "kind": "text"
     },
     {
@@ -38153,8 +38153,8 @@
     },
     {
       "path": "scripts/section-families-browser.mjs",
-      "bytes": 33917,
-      "sha256": "7128e9267798ec733e6343995806036b23a574a26f55d6b997c04e63d0a90ee3",
+      "bytes": 35275,
+      "sha256": "b0e10ac0bb8c9644f1febbbaf57cb4acf8c2fbec8a9cddfa122c613259b89076",
       "kind": "text"
     },
     {
@@ -38183,14 +38183,14 @@
     },
     {
       "path": "scripts/source-structure-review-browser.mjs",
-      "bytes": 12496,
-      "sha256": "1c94a14c041c7dd3dd7ac6b605f846708017b367bee8ff2330bfeaae900c29af",
+      "bytes": 12889,
+      "sha256": "141099e2173bbb39ec04bbf70152515da9b9dfaede1330d8cbb5e6cac094ca3a",
       "kind": "text"
     },
     {
       "path": "scripts/specialized-domain-assistant-browser-cases.mjs",
-      "bytes": 12548,
-      "sha256": "485cefe57fc89379942ccfb744903e34d2c3bfc0045f5ec457d15da5b057d2d1",
+      "bytes": 12871,
+      "sha256": "e88a01894d79ed4f135ac4fcc63f1bda5ea82fcaae8d056e912dc9da2a800b87",
       "kind": "text"
     },
     {
@@ -38213,32 +38213,32 @@
     },
     {
       "path": "scripts/split-section-browser.mjs",
-      "bytes": 17893,
-      "sha256": "292934a6632806d449ebcd6dc253048d3b0710c7d7bced86e89941d7921d917b",
+      "bytes": 21633,
+      "sha256": "e15a53f492f95b588230df198ed9675f5248bd68006403c3228fce33e5643584",
       "kind": "text"
     },
     {
       "path": "scripts/startup-readiness-browser.mjs",
-      "bytes": 8673,
-      "sha256": "977e9eb3ef663ac889df1faa4dcc2231f2e8e7f906c32ef86ec781030b8d0e37",
+      "bytes": 13667,
+      "sha256": "de864f6207daaf2c69c49fb9fb095bfb7e52a81f6a61537abfa230a5ab4959fd",
       "kind": "text"
     },
     {
       "path": "scripts/supplier-main-overlap-browser.mjs",
-      "bytes": 26789,
-      "sha256": "dbc5a46e382bb795ede48032998cc51a8b1eb2eab0c654df0f25848879e265e9",
+      "bytes": 31291,
+      "sha256": "d41b8df535cddbc6e235aec4ec14edcf798b4cf5ba69b40dee18fa22662a91b7",
       "kind": "text"
     },
     {
       "path": "scripts/supplier-main-pending-browser.mjs",
-      "bytes": 9982,
-      "sha256": "4f2a9bbe806cd4893affdded0e8b976733e764af601d2cf00303c4a4b8c8df3b",
+      "bytes": 10343,
+      "sha256": "cb2dbcc3a157d0813708929653f6dc2eba116a697f057f8821458576a5c6a486",
       "kind": "text"
     },
     {
       "path": "scripts/tb-financial-browser-cases.mjs",
-      "bytes": 4964,
-      "sha256": "45ccb0058e294eb35931320d895a2ac3646681cf05f5929a5a0918a3e96e0a9b",
+      "bytes": 16909,
+      "sha256": "2b24e27e13aca66141c5f09b43aea8d92ff8100c982146451bf7a30b277e2a90",
       "kind": "text"
     },
     {
@@ -38388,8 +38388,8 @@
     {
       "path": "scripts/unified-workspace-browser.mjs",
       "kind": "text",
-      "bytes": 38250,
-      "sha256": "b135ae702c5c7c242085c18116e7c35c3f090d816cd56a1811e550e4309d502f"
+      "bytes": 44680,
+      "sha256": "44b6fdfdab355b618122359b1ad38ab2ad93bee0496baf495fca701ca151fd43"
     },
     {
       "path": "scripts/unknown-credit-browser-cases.mjs",
@@ -38411,38 +38411,38 @@
     },
     {
       "path": "scripts/visual-accounting-browser-cases.mjs",
-      "bytes": 9097,
-      "sha256": "e1bd7dd5fd09d49e92110452cf9dba4b58e66e7278970dd661106f49a8f78d70",
+      "bytes": 9787,
+      "sha256": "8a9537db5ca85e232347c2318dce5d6d7542ad677c88c60592bf69f733b8020d",
       "kind": "text"
     },
     {
       "path": "scripts/visual-browser-cases.mjs",
-      "bytes": 16407,
-      "sha256": "894ad126b9257ef01d613a3194898266c966f7aca5a5b0a0c071bc849584cacb",
+      "bytes": 16403,
+      "sha256": "3679947eb144432d31f50094fc98aa2d9b38c5fb280a30228e50749e682f3e27",
       "kind": "text"
     },
     {
       "path": "scripts/visual-region-browser-cases.mjs",
-      "bytes": 10297,
-      "sha256": "9fdfe74abe8da20b73142e6738c04f0435c45601bb4d2ff064a321d53798d863",
+      "bytes": 12396,
+      "sha256": "3a1d72e8c1580d946473fc952ae70a44fb5cd4ae8c39568afae38e4b4089a1d3",
       "kind": "text"
     },
     {
       "path": "scripts/visual-review-browser-cases.mjs",
-      "bytes": 7956,
-      "sha256": "9cc1034b798402170bf2506ba858f34130983c1c1cae75cb3bad0dd940b183cc",
+      "bytes": 8569,
+      "sha256": "564305bd67aea6257a1cfba774990e60a6e459d575a1bad2f1eda5a0343d3107",
       "kind": "text"
     },
     {
       "path": "scripts/visual-split-browser-cases.mjs",
-      "bytes": 9365,
-      "sha256": "678135944450d770c58dd3e3ed84180284a35149beaab538c5eea5b4bb23d476",
+      "bytes": 9351,
+      "sha256": "3065a0e07d2a630f86b65c5b62591048eacc48c62f6fed2d27c0985f53d56c3c",
       "kind": "text"
     },
     {
       "path": "scripts/visual-table-browser-cases.mjs",
-      "bytes": 11625,
-      "sha256": "8db080f57d04357f5daeac702560b7ee8649b1c0a58d620b738fa05365f634cb",
+      "bytes": 13727,
+      "sha256": "dd06dfcf02d3d20b31437a6ef6c89fe289e43ec07604a822b2cf074f714f8416",
       "kind": "text"
     },
     {
@@ -38489,8 +38489,8 @@
     },
     {
       "path": "tests/ambiguity-gate-acceptance-047.test.ts",
-      "bytes": 9359,
-      "sha256": "0f3176d9e2ee602278909b708395b86fd737697bc60dd9d0d326b8a308b2a2a7",
+      "bytes": 9401,
+      "sha256": "371e80c82e4d60fcf253b4c5f0b3293a3ff6c571fb994dd08fcd5e80664dd29a",
       "kind": "text"
     },
     {
@@ -38525,8 +38525,8 @@
     },
     {
       "path": "tests/ar-worker-binding.test.ts",
-      "bytes": 22104,
-      "sha256": "93d4c154f32e9d94670c1a766842422a0822190386c9d3563fd0fb87e5546ae3",
+      "bytes": 23649,
+      "sha256": "096cf0b5d7d9ea891d66d2f8eb7d41be8f0bb6170b6c400625268130cb7ddbf7",
       "kind": "text"
     },
     {
@@ -38595,8 +38595,8 @@
     },
     {
       "path": "tests/bank-wd-worker.test.ts",
-      "bytes": 7346,
-      "sha256": "63888a488b1b7a0af4ef806a7736e15669663fdc5b3dc519a2507560f9acb0b8",
+      "bytes": 7433,
+      "sha256": "06df0049c34a1d0aa2caf0017eeac391959e4157efa1a8770b0cf432bb60b893",
       "kind": "text"
     },
     {
@@ -38691,8 +38691,8 @@
     },
     {
       "path": "tests/fixed-assets-io.test.ts",
-      "bytes": 11508,
-      "sha256": "1458a0f2c01d564cab84c77609368b7668b16897e32852844416c4b18f482a4e",
+      "bytes": 11520,
+      "sha256": "ff88ba18469a7efdf973a46406031be4c63db0a582518169d79bae8716d6a78d",
       "kind": "text"
     },
     {
@@ -38703,8 +38703,8 @@
     },
     {
       "path": "tests/fixed-assets-long-worker.test.ts",
-      "bytes": 7626,
-      "sha256": "c0eaa1e609265e03b5934e461d112530991e372b602888fd65e96e0c8ee23731",
+      "bytes": 7812,
+      "sha256": "a5cbfbfb36fef22b06a8a49eba856f0bfb6e97b03a4fbebb992e8d307fe5206b",
       "kind": "text"
     },
     {
@@ -39539,8 +39539,8 @@
     },
     {
       "path": "tests/gl-tb-binding.test.ts",
-      "bytes": 13931,
-      "sha256": "0b02c10de03b5dbcd73de24aecc33005b901467a4bef60638c351ff4821f28bf",
+      "bytes": 14130,
+      "sha256": "37ff5e34b02e111f01f6d89f910839217713a8ee8409978d3952c24cc37f6074",
       "kind": "text"
     },
     {
@@ -39707,8 +39707,8 @@
     },
     {
       "path": "tests/i18n.test.ts",
-      "bytes": 9750,
-      "sha256": "b83a8e13696a00c525f3bf4397d5440ccdba22c83d34032b5266e00ae93ad1a7",
+      "bytes": 19232,
+      "sha256": "96bdaf57005916b05397e505d94ab643b15f6b318df8bf273e262e6fee9a7b06",
       "kind": "text"
     },
     {
@@ -39725,8 +39725,8 @@
     },
     {
       "path": "tests/input-readiness-046.test.ts",
-      "bytes": 10501,
-      "sha256": "8aec18c80199074042c8a1c61565e03a9d53c848dfa8438092044e955699d919",
+      "bytes": 10527,
+      "sha256": "188baa0522c54043540139360c93793a997eb8094426022ac897949609e6e617",
       "kind": "text"
     },
     {
@@ -39798,8 +39798,8 @@
     {
       "path": "tests/inventory-matrix-binding.test.ts",
       "kind": "text",
-      "bytes": 14428,
-      "sha256": "5af4da5e5ab25c154b775d9e600957a1302f0520e95b2800ce24ba92308594aa"
+      "bytes": 15161,
+      "sha256": "0b43a8918eef51e5abb4b3c803114d6053f5ca5f276d6fbc0ff4d6b941765a3b"
     },
     {
       "path": "tests/inventory-matrix-native.test.ts",
@@ -39852,8 +39852,8 @@
     {
       "path": "tests/inventory-section-components-binding.test.ts",
       "kind": "text",
-      "bytes": 20647,
-      "sha256": "564126e39bb84a18278b16843d8a9bc6c227bb0f261e0658272aa59a1296f2dc"
+      "bytes": 21185,
+      "sha256": "998fd582b5034c9dba7a31bd7445cc7272653adf54885433495c7752187017fb"
     },
     {
       "path": "tests/inventory-section-components-core.test.ts",
@@ -39983,8 +39983,8 @@
     },
     {
       "path": "tests/native-display-mapping.test.ts",
-      "bytes": 29556,
-      "sha256": "91fad0eb4684f5e7b29ffda5af9142fbee4d35cdcf311d00b29004f38b09966f",
+      "bytes": 29964,
+      "sha256": "2a00cbebe29df1f01b6062be7c5c9d0ad5b5b6eae159bf6e6c3d862cb3008802",
       "kind": "text"
     },
     {
@@ -40055,8 +40055,8 @@
     },
     {
       "path": "tests/payment-gateway-worker-binding.test.ts",
-      "bytes": 13853,
-      "sha256": "dc765cf205df84683b2194caa528b918f6fe401b4301d7250736f4f2339f3baf",
+      "bytes": 18148,
+      "sha256": "4c1d4d9a7cc05da17e18f99fa6f90d4aa3f0143b2a43c17ac47ef721a7d3dff1",
       "kind": "text"
     },
     {
@@ -40193,8 +40193,8 @@
     },
     {
       "path": "tests/recompute-parity.test.ts",
-      "bytes": 17732,
-      "sha256": "a87e2d9d63475208d3914541d6b64dba2572fe3e32eef94c044b762caa5f0dc4",
+      "bytes": 17744,
+      "sha256": "68adc83f5b82c32a525848b8a784153f4ded8b7c63e11d3b9e03bf5b1620dcfe",
       "kind": "text"
     },
     {
@@ -40415,20 +40415,20 @@
     },
     {
       "path": "tests/source-display-entry.test.ts",
-      "bytes": 17592,
-      "sha256": "0920c288517d5d474bd057773de74e13b5066cf81004eaa6ac52f31dcce748ba",
+      "bytes": 17789,
+      "sha256": "4055ebaba7f7b693260111fc5ee766402cdecb01062b1dfeca7e706fa26490df",
       "kind": "text"
     },
     {
       "path": "tests/source-families-integration.test.ts",
-      "bytes": 5749,
-      "sha256": "fc9bf1f9303946e9f47db0b06c69e8c4276bbbe4419636e56ef8c3c6db07eb04",
+      "bytes": 5846,
+      "sha256": "30123b6091eb26bd2c2e0138eb7836be9d8267b973c506949d48d4f7034ba55d",
       "kind": "text"
     },
     {
       "path": "tests/source-preparation.test.ts",
-      "bytes": 11110,
-      "sha256": "2fcece743a4421f9fcb7b449101534e95fcc8dcde48f15f0087cb33d5e693fad",
+      "bytes": 11245,
+      "sha256": "ca55d35d86f808fa9a988600ac561ce5c9b8a97d92d5d80d6e033403db53b0c8",
       "kind": "text"
     },
     {
@@ -40697,26 +40697,26 @@
     },
     {
       "path": "lib/reconciliation/inventory-pdf-workbook.ts",
-      "bytes": 1081,
-      "sha256": "eff7925eb52a63c773f3b754dd65eb26670c1cc995fe9aeae3fc3f38d04d19fc",
+      "bytes": 1073,
+      "sha256": "dd67ac90ade01a28da223f4e11efb98e26a19bdd239c0a3d50d05a1ab38a1fe9",
       "kind": "text"
     },
     {
       "path": "scripts/inventory-pdf-workbook-proof.mjs",
-      "bytes": 12394,
-      "sha256": "7df5d34a6ac3465f9e1fc2d306783acaa0273c5a2db2c44e5822545c73233e1b",
+      "bytes": 12418,
+      "sha256": "b2accb32542ee8f752dbf5bfe7e47e14e86cc6a2525ba9b51760026849abb4b8",
       "kind": "text"
     },
     {
       "path": "scripts/test-inventory-pdf-workbook-mutations.mjs",
-      "bytes": 4483,
-      "sha256": "445ace9fe46f7f3ed1285312aee66a16945da35dbdeb5064d356cdb36f142672",
+      "bytes": 4532,
+      "sha256": "cf8b2f5c8ab305fb612af1cdd1c545c704cfaa280fa7439c34f3f7c2682f6eff",
       "kind": "text"
     },
     {
       "path": "tests/inventory-pdf-workbook.test.ts",
-      "bytes": 13327,
-      "sha256": "d238dde1f8d476b332aee486522592099678e2c413596e66be9e545cd69b6a69",
+      "bytes": 14084,
+      "sha256": "362367ba8b4cdaae98007d93ba021b6bc9d797b5c001bbfedc63b7cfb7bbbe09",
       "kind": "text"
     },
     {
@@ -40757,8 +40757,8 @@
     },
     {
       "path": "lib/i18n/inventory-pdf.ts",
-      "bytes": 4187,
-      "sha256": "093997fbecaf177e931d6f5134b08d4324193ff7190d772db761a0c88f62dfb7",
+      "bytes": 4185,
+      "sha256": "76bc70dc975c894a384bca1933c719bfe3d2742a6212a3f9fe09916db2f6dcb4",
       "kind": "text"
     },
     {
@@ -40775,20 +40775,20 @@
     },
     {
       "path": "scripts/inventory-pdf-workspace-browser.mjs",
-      "bytes": 18414,
-      "sha256": "02be95e43ca6eec4ff452481d3e73f3796d32e48e23cea357847471de4ff265b",
+      "bytes": 32237,
+      "sha256": "812c595df0e02092971bcebb8bffb007bd697cdf570f7afc2bac6c57d22ffd3f",
       "kind": "text"
     },
     {
       "path": "scripts/test-inventory-pdf-workspace-mutations.mjs",
-      "bytes": 4619,
-      "sha256": "5fe37497fc293cb613e40f501d3dbeaac865cf87d1a84473614d54da5933c3df",
+      "bytes": 4611,
+      "sha256": "70fe80e1c10cf83e639aab1142ed706c3a97b3142a4fb1f26af4e11bce9b1252",
       "kind": "text"
     },
     {
       "path": "tests/inventory-pdf-workspace.test.ts",
-      "bytes": 9863,
-      "sha256": "3c6eafda3d34776281754de3c34d4e52ff0910a54ac13f21d4b78491c349e54d",
+      "bytes": 10410,
+      "sha256": "92b7ca4d5eb8d4c3dbe764b72bc2d2345183df640b3010eb9f17c7463623c731",
       "kind": "text"
     },
     {
@@ -41399,8 +41399,8 @@
     },
     {
       "path": "components/bank-statement-workspace.tsx",
-      "bytes": 56063,
-      "sha256": "07881f0399ac6c9837eacaf53c72c00acb943275f0e3af26e3ab63869a25d56e",
+      "bytes": 55635,
+      "sha256": "35af2ce9386c2cfc57bd972b296f136f0997569f30279efd111d746556cc399c",
       "kind": "text"
     },
     {
@@ -41411,8 +41411,8 @@
     },
     {
       "path": "lib/i18n/bank-statement.ts",
-      "bytes": 31757,
-      "sha256": "80abf231314b6a4e86298b52f67978e4d8ebbaa87424b8049378d980031e81f5",
+      "bytes": 31665,
+      "sha256": "90a462e81eee912aa2cde35c6be0330b5c4b5b4e15b19cc2be2ba2ae908239d9",
       "kind": "text"
     },
     {
@@ -41423,8 +41423,8 @@
     },
     {
       "path": "scripts/bank-statement-workspace-browser.mjs",
-      "bytes": 36958,
-      "sha256": "18c63a49c468f4fe2abbf79b63efb0933cdb40f9d2d3a3d7b372d495de5abaa9",
+      "bytes": 36847,
+      "sha256": "a0066ae8438b90a823ef8597bea7e4e2b37ec967525cdd362ea7840e0760582b",
       "kind": "text"
     },
     {
@@ -41833,8 +41833,8 @@
     },
     {
       "path": "scripts/bank-statement-holdout-browser.mjs",
-      "bytes": 13965,
-      "sha256": "5725cdd2be787bdb86e96be7c50dd6e5ef69eb81c985617e07eb9aed3cee327b",
+      "bytes": 13851,
+      "sha256": "e86a6524e6fb392971e905e39e6401379f7756b3b00a6e85c0d8d4f63bf450c6",
       "kind": "text"
     },
     {
@@ -44469,8 +44469,8 @@
     },
     {
       "path": "docs/reference/LESSONS-INDEX.ar.md",
-      "bytes": 45005,
-      "sha256": "da18d13ae803496a462d6da234c551d2681675cc0309e37920abb80b42b215ca",
+      "bytes": 71656,
+      "sha256": "5a62d25d55fbf86ef4d036cc8dfcd588cba8147f82aa62bab98e25e3c701ab84",
       "kind": "text"
     },
     {
@@ -46897,8 +46897,8 @@
     },
     {
       "path": "scripts/ar-statement-lifecycle-proof.mjs",
-      "bytes": 11507,
-      "sha256": "86143029287c468d69138373d06c8a77b5c0724620607d85ac0a515e75375c92",
+      "bytes": 11690,
+      "sha256": "6659dbc019c44145508da19d92083b024e8084d78d273177b4a36afb73cb3512",
       "kind": "text"
     },
     {
@@ -46921,14 +46921,14 @@
     },
     {
       "path": "scripts/ar-statement-browser.mjs",
-      "bytes": 12730,
-      "sha256": "8234c343ac0ca611888c79890aa30bc388812de21d399e680e799f3c0bd0c3c7",
+      "bytes": 16489,
+      "sha256": "471a06f114722e9796a58d81793336723de5e32763b413dd393f5187a186e8ac",
       "kind": "text"
     },
     {
       "path": "scripts/test-ar-statement-interface-mutations.mjs",
-      "bytes": 7129,
-      "sha256": "241aa7c761a5804e773f41face2f613bcea80bb5933d4db87c14145257118c90",
+      "bytes": 7039,
+      "sha256": "378747ea94d17dd9db1c6c94f007145d6c0f06ec933358cc4ee186743e0e8fba",
       "kind": "text"
     },
     {
@@ -48291,8 +48291,8 @@
     },
     {
       "path": "scripts/bank-roll-browser.mjs",
-      "bytes": 27515,
-      "sha256": "f113137ebba860a4ee0386a62d287ec8bfe5d7ded9614e875e54a21bfeaed244",
+      "bytes": 27404,
+      "sha256": "ff1d7c004344792020ad9a6352517ec87bd97037c458152890b4d1fd2dac3354",
       "kind": "text"
     },
     {
@@ -50049,8 +50049,8 @@
     },
     {
       "path": "scripts/bank-sheet-browser.mjs",
-      "bytes": 35011,
-      "sha256": "127747943543497a278f0972485dd36985e3de8032370b639576df27d61d8106",
+      "bytes": 34900,
+      "sha256": "b8feefe2569a8ed285033069ade758f99a7d7025ed32c834a31737d2c132fc8f",
       "kind": "text"
     },
     {
@@ -51191,8 +51191,8 @@
     },
     {
       "path": "scripts/bank-review-browser.mjs",
-      "bytes": 32925,
-      "sha256": "eb321cffc8751f385c6722998208ca2b7697cef6db8a4221e72cf79481a374d7",
+      "bytes": 32964,
+      "sha256": "a964614ef475bf89d9c0e1fb103328f301538a91e4483a0879169540333cb0f2",
       "kind": "text"
     },
     {
@@ -52341,8 +52341,8 @@
     },
     {
       "path": "components/bank-cashbook-columns.tsx",
-      "bytes": 17773,
-      "sha256": "4ec0c802b9ea32a7cb88eee891a6980c11c889fb07480941c146cbc9424f790d",
+      "bytes": 17478,
+      "sha256": "6790d228e00dde1f70b24d13ad56aa5e7ed9151b893dc60a25b2862c6b0efd2f",
       "kind": "text"
     },
     {
@@ -52359,8 +52359,8 @@
     },
     {
       "path": "scripts/bank-map-browser.mjs",
-      "bytes": 36488,
-      "sha256": "f114ee3b31469c8189b4249943deccbea80895f6bf9effa208450be62472368e",
+      "bytes": 36375,
+      "sha256": "39fad3b20a64118bee33f4a2f254c3fc7a1b832013508c1a238f3112522231a1",
       "kind": "text"
     },
     {
@@ -53437,8 +53437,8 @@
     },
     {
       "path": "scripts/bank-tolerance-browser.mjs",
-      "bytes": 30097,
-      "sha256": "eed79b21a88d1b128df5855bacdd0fa79bb7ecbff657ddcc5e7791b1a184ef7c",
+      "bytes": 29986,
+      "sha256": "402b5e238a0705214b6da239082a1ae4e7ec897d5f9eba74334bd7fb6c88a9bb",
       "kind": "text"
     },
     {
@@ -56372,15 +56372,15 @@
       "kind": "text"
     },
     {
-      "path": "components/intercompany-batch-panel.css",
-      "bytes": 976,
-      "sha256": "8024c209d26b2a145e389733840ef9ac64a116adb00b27e1eeaf70a8e65d67a6",
+      "path": "components/review-section.css",
+      "bytes": 1039,
+      "sha256": "01c6abeb6df4469c7611cfa773d99dabb00978a5c466c801a637f18d6b016cf5",
       "kind": "text"
     },
     {
       "path": "components/intercompany-batch-panel.tsx",
-      "bytes": 13125,
-      "sha256": "054ac01059a0dcd2c543a9092d010032dd261a86877fa3f8d863c7f12cfe6ae3",
+      "bytes": 12528,
+      "sha256": "f32311a51b75b22d2132b2c0a86bbfb64da98b771d103d0a9a00dcfe3cd6c8e0",
       "kind": "text"
     },
     {
@@ -56391,8 +56391,8 @@
     },
     {
       "path": "lib/i18n/intercompany-batch.ts",
-      "bytes": 7346,
-      "sha256": "0c31c0d5b62fbb19df4a50790928c41e49038919fc2d9f91efef579ef2f40c7c",
+      "bytes": 7254,
+      "sha256": "69ca36d9f07143fd3d1fa1dedfeb7b2393230a8d1571460b0bb2abb1b15873a5",
       "kind": "text"
     },
     {
@@ -56403,14 +56403,14 @@
     },
     {
       "path": "scripts/intercompany-batch-browser.mjs",
-      "bytes": 12492,
-      "sha256": "ccb67801ed70acb62a51d7b5c689d360077e4258fea587a11cb18e1daa577bb5",
+      "bytes": 13619,
+      "sha256": "b73c275619a6221345234dad1eb046c75cec616c71d8ce602384156834c75879",
       "kind": "text"
     },
     {
       "path": "scripts/test-intercompany-batch-interface-mutations.mjs",
-      "bytes": 7107,
-      "sha256": "90b500d7cece7652a5031bb6e6c03acce2d589258701ce50d2d42f49e2d7e48a",
+      "bytes": 7101,
+      "sha256": "b7d8f2aa9fbc85616876c428e7ba252cf95cd0debdc8c7f1569e9fdab81ef3d3",
       "kind": "text"
     },
     {
@@ -57711,8 +57711,8 @@
     },
     {
       "path": "components/gl-tb-sections-panel.tsx",
-      "bytes": 13435,
-      "sha256": "42edcb4cb62937a41b6f46e4c98880e46004a149a4d97ca0a3833d4ec92e32a9",
+      "bytes": 12739,
+      "sha256": "1ffabc84988460d341b0882c9e9456704f8f604ff57cc8a31cd99063357ff2c8",
       "kind": "text"
     },
     {
@@ -57723,20 +57723,20 @@
     },
     {
       "path": "lib/i18n/gl-tb-sections.ts",
-      "bytes": 9387,
-      "sha256": "dc9acec6f1055acdf37af18663d6311a33b60e0dc10f6687c8dfd95a9a3a304e",
+      "bytes": 9295,
+      "sha256": "4186a5eca4cacf00d23467adc404509f7f41fb76e47c418fe71be4d17561ff7c",
       "kind": "text"
     },
     {
       "path": "scripts/gl-tb-sections-browser.mjs",
-      "bytes": 13255,
-      "sha256": "26ee7b2ea38b315b4180a687174742064aa7cb05e38beed2d8f8bbaec5cd3cca",
+      "bytes": 14285,
+      "sha256": "2cc9d36297b105acbc0e07a5959442eb8851950d7a0ef988084d771f7dd4b199",
       "kind": "text"
     },
     {
       "path": "scripts/test-gl-tb-sections-interface-mutations.mjs",
-      "bytes": 7467,
-      "sha256": "c20dd2b00abd9c93ba77c64acab7db30cd130ed201851043c975c96f09fc73b0",
+      "bytes": 7463,
+      "sha256": "a294a7b78149d96acd7376a11e68e4288cf46c54ee93e6a1572d0d146f2892d6",
       "kind": "text"
     },
     {
@@ -59397,8 +59397,8 @@
     },
     {
       "path": "components/tb-financial-hierarchy-panel.tsx",
-      "bytes": 15372,
-      "sha256": "e2e95eb57eb7539d03a093a19fcabc653d71c029356d783333d84e83442e5ff1",
+      "bytes": 14346,
+      "sha256": "818f3f6d6ef5e7acc0efd4d436a2481fe6e470383a2ee4ed1c2f6310c5dbbc16",
       "kind": "text"
     },
     {
@@ -59415,20 +59415,20 @@
     },
     {
       "path": "lib/i18n/tb-financial-hierarchy.ts",
-      "bytes": 14084,
-      "sha256": "ed8789fb01f1c3e64a8e20ec897a9ad9b9f8c8583598b466cca3b033ed2768c6",
+      "bytes": 13992,
+      "sha256": "a885aa08679b4deafe607c2e5f073c6ba8678da5e34da563116776331f8020cc",
       "kind": "text"
     },
     {
       "path": "scripts/tb-financial-hierarchy-browser.mjs",
-      "bytes": 14548,
-      "sha256": "b0a534579ebb6664f445715a55dcb46d5ff09a3e87c71c823b3110b9b6a13241",
+      "bytes": 15014,
+      "sha256": "e9156c500d0c52b1a8dac8cf4a1a6890bffee3640315e0e16d2dfbc193ced303",
       "kind": "text"
     },
     {
       "path": "scripts/test-tb-financial-hierarchy-interface-mutations.mjs",
-      "bytes": 8232,
-      "sha256": "8f1a245e206b0a815b65a73f66b9bd5ba97e9b6bdf92cd73e76d9e210ef9b76b",
+      "bytes": 8245,
+      "sha256": "a48c38d73f356ab9b294d57e90698b2ebeea99a1d880a28866ddd439168f4f06",
       "kind": "text"
     },
     {
@@ -60583,8 +60583,8 @@
     },
     {
       "path": "components/payroll-long-register-panel.tsx",
-      "bytes": 16490,
-      "sha256": "aee741712e1e71016c790476edeb37455c8c9bf8f9416aef4fb80174ee2e96bf",
+      "bytes": 15807,
+      "sha256": "d4df606253308e661a4c417b9668e2c588fb3f8d7bcc1fa1afdff2638fd8847f",
       "kind": "text"
     },
     {
@@ -60601,20 +60601,20 @@
     },
     {
       "path": "lib/i18n/payroll-long-register.ts",
-      "bytes": 10245,
-      "sha256": "03832c8f51a109d06c05700618a9d97e040973f62946ff9a850eccb26bb92c7a",
+      "bytes": 10153,
+      "sha256": "cf5ee1c6c5e8177626f4efbd7c2afe6074169869316e78010925669cccf15ff2",
       "kind": "text"
     },
     {
       "path": "scripts/payroll-long-register-browser.mjs",
-      "bytes": 14708,
-      "sha256": "b89d3da0a640fead161d6915335c0dadcd9c66e4d22438c6e59d168402b15aeb",
+      "bytes": 15729,
+      "sha256": "efffff3cf9b5460e112a234d60e7524b0cc238595452010e48db0c148dfab98d",
       "kind": "text"
     },
     {
       "path": "scripts/test-payroll-long-register-interface-mutations.mjs",
-      "bytes": 8289,
-      "sha256": "c694ccff370f21f4d5f07121c76afb898b53599fe205a105d0bb36d2be8335ab",
+      "bytes": 8258,
+      "sha256": "6c40abed023a3a8dd67ca86ba996f6a5e9b6b03154ff2d547713e8e304e577d7",
       "kind": "text"
     },
     {
@@ -62357,8 +62357,8 @@
     },
     {
       "path": "components/inventory-movement-bridge-panel.tsx",
-      "bytes": 22092,
-      "sha256": "52d76368465a17e4d5de3c0f63bd7bbf0e2d850e140b7bf5f3f4395bbae748e7",
+      "bytes": 21981,
+      "sha256": "1171a9388f3afd4fbabc68ac37fbcb6414cb3d99631be63e7dda104bc35a807e",
       "kind": "text"
     },
     {
@@ -62375,20 +62375,20 @@
     },
     {
       "path": "lib/i18n/inventory-movement-bridge.ts",
-      "bytes": 15291,
-      "sha256": "e6aa51427fab879c6bfa9878320556e193c458c355e9be661aad7f6204ba3e07",
+      "bytes": 15199,
+      "sha256": "d208fe47164cb5491d67e6d6546f00726ee3c180b90716883ba4a72c7b330129",
       "kind": "text"
     },
     {
       "path": "scripts/inventory-movement-bridge-browser.mjs",
-      "bytes": 20076,
-      "sha256": "4ff45eac0ebdbb22286153e40cc8b1c01bb8ac3cbb9b1cdb32509295655dc17d",
+      "bytes": 21193,
+      "sha256": "c72550c686577490dfe5b1b2f3a70d02b3e5016edc12484a32e385e404e60eec",
       "kind": "text"
     },
     {
       "path": "scripts/test-inventory-movement-bridge-interface-mutations.mjs",
-      "bytes": 11234,
-      "sha256": "db31d90deababbe23dcd8e5115540f9c528f2a0435685aaf8c3d65a08e67b9d2",
+      "bytes": 11379,
+      "sha256": "d26a271ac0e1d0d65c4810202188d8cf6cf8741d16e99d3674bfd11f21f96ea5",
       "kind": "text"
     },
     {
@@ -64133,14 +64133,14 @@
     },
     {
       "path": "scripts/inventory-links-browser.mjs",
-      "bytes": 14405,
-      "sha256": "3dbfffaad9a377011559328d070aaa049cbacda41cb096ebb578caa272657ff2",
+      "bytes": 17653,
+      "sha256": "d789e7b5f608f420d787facc5e7dedc13842238d6862e89fb8b648f718ee059d",
       "kind": "text"
     },
     {
       "path": "scripts/test-inventory-links-interface-mutations.mjs",
-      "bytes": 8566,
-      "sha256": "b386524eb85bee9f7511fa66136b349b87c90121204bdcaed05b853d97488066",
+      "bytes": 9697,
+      "sha256": "90fd56075d1324375dd0a50c7a5711baebc0395355495d2ce19060d6656a77ac",
       "kind": "text"
     },
     {
@@ -65231,8 +65231,8 @@
     },
     {
       "path": "components/clearing-groups-panel.tsx",
-      "bytes": 9248,
-      "sha256": "352d9d482857170f78d36911f4726b9aaa3de0f50922f932188d87455dd77034",
+      "bytes": 7285,
+      "sha256": "1b682b40dc3a48f3ce0d1abeb10e9c619569a40ebb522614a97d08dfe94a8b6d",
       "kind": "text"
     },
     {
@@ -65249,8 +65249,8 @@
     },
     {
       "path": "lib/i18n/clearing-groups.ts",
-      "bytes": 8741,
-      "sha256": "4344c697ec0b3b3e0050f88d99c9c125b6c18fa1f8b6a738caec1718adec627e",
+      "bytes": 8423,
+      "sha256": "5aeaf3598ddd4da943a57d877f1980c402a22c1672ac7953813db48359e49168",
       "kind": "text"
     },
     {
@@ -65261,14 +65261,14 @@
     },
     {
       "path": "scripts/clearing-groups-browser.mjs",
-      "bytes": 16845,
-      "sha256": "8cec7362168502ccc60e51b65ddd0ee6bb4094167e793499dcdbe3a49b5637f9",
+      "bytes": 17741,
+      "sha256": "30b2f38f5db2ba0d9da7abe322d741b17f9e95d670234a9537d694a716042bd0",
       "kind": "text"
     },
     {
       "path": "scripts/test-clearing-groups-interface-mutations.mjs",
-      "bytes": 8540,
-      "sha256": "a2954908bdc6f140f6f3380731964c6a9e01f6d9e4789d4492012a814031b78a",
+      "bytes": 8435,
+      "sha256": "57f3a5cc47b077a254397ec10f4c678f8662aa4a7712dcba0e6eb2faf95aac87",
       "kind": "text"
     },
     {
@@ -67137,8 +67137,8 @@
     },
     {
       "path": "components/allocation-advice-panel.tsx",
-      "bytes": 8879,
-      "sha256": "2f6fca27d47c3060e4378270206259aaaa21999c547a157c851d7c797a0b1844",
+      "bytes": 7343,
+      "sha256": "45b4906496e4424e166e0d6fb1ae290e2d058305672cfbe2b50e028b5b1d0905",
       "kind": "text"
     },
     {
@@ -67155,20 +67155,20 @@
     },
     {
       "path": "lib/i18n/allocation-advice.ts",
-      "bytes": 6841,
-      "sha256": "b37fc19479995405c0299126ee399345b99471cd474ddcc200603bcd57540278",
+      "bytes": 6617,
+      "sha256": "62a07cc8cb6c4e68dde90ce4a5121fba72b76f0f657f3ed985ce8b3a0f2e5148",
       "kind": "text"
     },
     {
       "path": "scripts/allocation-advice-browser.mjs",
-      "bytes": 20960,
-      "sha256": "9961dbd349b3f33e87461d0bd1aa59fd4f8211312e4321808704db985d607d83",
+      "bytes": 21998,
+      "sha256": "1efd81dffe8e0f99a7f1c56939e3d948ddef3802925fdc9c47f98c09c6ed3dcf",
       "kind": "text"
     },
     {
       "path": "scripts/test-allocation-advice-interface-mutations.mjs",
-      "bytes": 8715,
-      "sha256": "d77c582513b2dc3bdc3b8ee46c1656d00f790a2f4885d602bdfd8de405aba955",
+      "bytes": 8645,
+      "sha256": "1c7b103415f6bd041fcb6cf65a3712f9f2393c8855eef079d949e36e99658964",
       "kind": "text"
     },
     {
@@ -68683,8 +68683,8 @@
     },
     {
       "path": "components/payment-gateway-batches-panel.tsx",
-      "bytes": 17050,
-      "sha256": "98f3af2e76a9da1568fed83b624a62f1d6b335d67731e50224130aca1bbf7020",
+      "bytes": 16563,
+      "sha256": "efdfd826a2e4f67c3e89b724ae39292818807caf818cb566610a6899cd880969",
       "kind": "text"
     },
     {
@@ -68695,20 +68695,20 @@
     },
     {
       "path": "lib/i18n/payment-gateway-batches.ts",
-      "bytes": 11397,
-      "sha256": "52f37351d20697a2c3d11bc9d160d83d6ca8e610778b73c9e206ecf3bfedf788",
+      "bytes": 11263,
+      "sha256": "6021706fc86fba87b669af5c776bd84d5e7b96230d73ea8a7c0d378b09f6f72b",
       "kind": "text"
     },
     {
       "path": "scripts/payment-gateway-batches-browser.mjs",
-      "bytes": 20472,
-      "sha256": "bf344226c4f705ff21391321ae6fab194f2ba1696f2a139702104822c41c1ae0",
+      "bytes": 21753,
+      "sha256": "77bcc47c6446d9138e9ec4c8bcdaed4003a64a65967c55a96e668ce6051c04e7",
       "kind": "text"
     },
     {
       "path": "scripts/test-payment-gateway-batches-interface-mutations.mjs",
-      "bytes": 9923,
-      "sha256": "825ba6f2ee165dcdcd46345e7d695254aae287bcb63b36af1337f3ebac2730c7",
+      "bytes": 9896,
+      "sha256": "3d7dbecc9c38db6efa7ecf19c3b08a98e545b9cde327aa6ffa99fb46ad2fbaa9",
       "kind": "text"
     },
     {
@@ -71315,8 +71315,8 @@
     },
     {
       "path": "components/fixed-assets-sections-panel.tsx",
-      "bytes": 18160,
-      "sha256": "44e915ff11e53de59ed4d5eed71d4ed2a8f8d98d49a0cb4667c00151a1b30ae9",
+      "bytes": 17721,
+      "sha256": "c305abb8a3364c54d394a75d31c5d050f450c3dcb60155e2a5a614a725416af2",
       "kind": "text"
     },
     {
@@ -71327,20 +71327,20 @@
     },
     {
       "path": "lib/i18n/fixed-assets-sections.ts",
-      "bytes": 13705,
-      "sha256": "dafbfb0505489c4a42f8c9bc5bd7b3814bcb15c3ac7b1a2ff0f5739b17e215bc",
+      "bytes": 13571,
+      "sha256": "da5513ffef964f2f94928ccbc35c00e7fa3a916d6aa679722bd73dd52b82363b",
       "kind": "text"
     },
     {
       "path": "scripts/fixed-assets-sections-browser.mjs",
-      "bytes": 26921,
-      "sha256": "3f2548f75fe79c220aaac2e48f7f8a4b40df62736e73f316fb1fdea4547b0406",
+      "bytes": 28328,
+      "sha256": "8bf7178ffde5b8237f1c7d7a0f75b8a19671ba297ff74fde767c39df367c108c",
       "kind": "text"
     },
     {
       "path": "scripts/test-fixed-assets-sections-interface-mutations.mjs",
-      "bytes": 11166,
-      "sha256": "ffe0bf90865e00896fcae07da0b4af215a15a67cf8e4be8db81a66645adf6b44",
+      "bytes": 11886,
+      "sha256": "0985d4d3a074f102183081e94ad54c57017bf07f1f70575dbf58a605f8db38c1",
       "kind": "text"
     },
     {
@@ -72425,8 +72425,8 @@
     },
     {
       "path": "scripts/lint-invisible-originals.json",
-      "bytes": 7246,
-      "sha256": "8620fc01e9e0007dbe44ec20afd7ea0da31a9a04245242cfa4d0dd43377d3950",
+      "bytes": 6905,
+      "sha256": "0e7f9dab2b221b00284ac8e7a62e2678d8fc690e09401617c442ea75d5f043df",
       "kind": "text"
     },
     {
@@ -73343,38 +73343,38 @@
     },
     {
       "path": "audit/ux-census/README.ar.md",
-      "bytes": 6916,
-      "sha256": "f90b61fd9590eaa8e35c4ce19119b8bf1b50122cfdbbb4ae185928a16a285cc1",
+      "bytes": 47211,
+      "sha256": "20b21b81a8c8fbce48ac8787f9b8013db06afc774d7381ded2ba57a9e755aa96",
       "kind": "text"
     },
     {
       "path": "audit/ux-census/baseline.json",
-      "bytes": 3161,
-      "sha256": "96cf710c6e696c309ea477538491c004a815323ae1b5c7c9db715d92af0baa9f",
+      "bytes": 6819,
+      "sha256": "8c0c8b5b30a311d485c80c05b2df2f4ce38de0454f80fe46ee8aa4334435b024",
       "kind": "text"
     },
     {
       "path": "docs/audits/UX-AUDIT-2026-10.ar.md",
-      "bytes": 28844,
-      "sha256": "1db02fb43b67a5a50744c6f721119cad97fefb6ba9550d19370f0acae1e782f0",
+      "bytes": 29844,
+      "sha256": "866919325da7effb5d7fbe70c9774db64c99ec4b1ac2b4723845f64ad64cce88",
       "kind": "text"
     },
     {
       "path": "scripts/ux-census-browser.mjs",
-      "bytes": 10460,
-      "sha256": "f420364088aebd71b3cb288f1760b1c62ca773391f44adc6d8f3c89220467a54",
+      "bytes": 15976,
+      "sha256": "cb66e554cb3ffd8ab6a4e4fb66b3094aa8dd47b6cadea945286834a9905b1923",
       "kind": "text"
     },
     {
       "path": "scripts/ux-census-browser.test.mjs",
-      "bytes": 3293,
-      "sha256": "5a9a5d00a42d5df6885088d62cfd6015a053233ab2fb5b3398cfaf822587ed25",
+      "bytes": 6197,
+      "sha256": "5decbc87526f4264308e72b6f918a6b99d702179c35d8d2cc70bd7d7a74019b6",
       "kind": "text"
     },
     {
       "path": "scripts/ux-census-support.mjs",
-      "bytes": 9416,
-      "sha256": "2f2ce3b2200a28780b1980215947bab654bb0bb7f802d72a1f9218081c77a804",
+      "bytes": 32703,
+      "sha256": "423c988b91d4348858c50bac2e63335129e0d57383f9addade2e293ea4b7b6e0",
       "kind": "text"
     },
     {
@@ -73427,8 +73427,8 @@
     },
     {
       "path": ".agents/skills/tarasuf-ui-craft/references/identity.md",
-      "bytes": 4646,
-      "sha256": "3f88b559ef54510a2ad6fbbcd901c8750000b84ab7d222413d7188cd68c6dc07",
+      "bytes": 5440,
+      "sha256": "e288c3ebd888ba94abf74d24c9f9d99c4462ea3dbc2caf63ba742b5ab053d8b9",
       "kind": "text"
     },
     {
@@ -73472,6 +73472,694 @@
       "bytes": 4883,
       "sha256": "a001ab5d61dd9878965c205b2ddb2e326b2338a171c2789df681f56574b1e139",
       "kind": "text"
+    },
+    {
+      "path": "components/amount.tsx",
+      "bytes": 1852,
+      "sha256": "09f09df3db9e2419a6e312675e67dbe3b363331b9475fe380dfdb6ce20048751",
+      "kind": "text"
+    },
+    {
+      "path": "docs/roadmap/ux.ar.md",
+      "bytes": 63091,
+      "sha256": "d1204a55df7eeee9129540cbf917bc4f61930102919caa731b21d458f6c42238",
+      "kind": "text"
+    },
+    {
+      "path": "lib/amount-text.ts",
+      "bytes": 1304,
+      "sha256": "19c8b6d77b94291740fd5a2ed62babe552d2caf1499306bd9c6d7fbd38c8532a",
+      "kind": "text"
+    },
+    {
+      "path": "tests/amount-text.test.ts",
+      "bytes": 2224,
+      "sha256": "b2d3de1c852732c01b090575c04077abd4648ea16feecd08e1f1ab5cb8ac0d51",
+      "kind": "text"
+    },
+    {
+      "path": "components/result-focus.ts",
+      "bytes": 1353,
+      "sha256": "402b05b8d27468b96ada85868d6d8d9ad926a1e32103d7716d20f8e35e7a4065",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/result-focus-browser.mjs",
+      "bytes": 14439,
+      "sha256": "9610b74299bd35a5d15b5eb8b3becbc963c0f766f56d81080ed6edeeecec2fe9",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/visual-identity-browser.mjs",
+      "bytes": 15482,
+      "sha256": "1e7df237c4e40d72ae996bbb16b20321e126f92b5a803268f15628044a23ec2e",
+      "kind": "text"
+    },
+    {
+      "path": "components/record-table.tsx",
+      "bytes": 12323,
+      "sha256": "5c6937c3df6bb3044887f434106e4d02b89248132ba3b53e9d2a4a6afbecaec7",
+      "kind": "text"
+    },
+    {
+      "path": "lib/i18n/record-table.ts",
+      "bytes": 1300,
+      "sha256": "04c5b06a55a5547300066bed279df5ae95055dd2b8651e9372187864c7d675ab",
+      "kind": "text"
+    },
+    {
+      "path": "lib/record-page.ts",
+      "bytes": 879,
+      "sha256": "6123de5e5d30b99ed2c20c73947d79bb950150cea37266a94e6cda61a42381fd",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/record-table-browser.mjs",
+      "bytes": 36300,
+      "sha256": "6888f67e04c934092707b47eb809d6d79c79b8c91e8a6d8c75a854bc5f6292f1",
+      "kind": "text"
+    },
+    {
+      "path": "tests/record-page.test.ts",
+      "bytes": 3903,
+      "sha256": "50da7944ff7ea0332fb7b3d5ebe6487d6d3f85c6574a8c721187022e9a8c14f8",
+      "kind": "text"
+    },
+    {
+      "path": "components/decision-platform.tsx",
+      "bytes": 7091,
+      "sha256": "efdb2cdfaea9b6fdcdc2cd18b88ab1e06dfd3ff37e521045d2c6b9bcc1739f7d",
+      "kind": "text"
+    },
+    {
+      "path": "lib/decision-platform.ts",
+      "bytes": 5225,
+      "sha256": "566b663a5107a4be8d4e183e5d7266f691c3cbed648239193dfa1d625a2069be",
+      "kind": "text"
+    },
+    {
+      "path": "lib/i18n/decision-platform.ts",
+      "bytes": 9171,
+      "sha256": "18b5f064427489e82d3fa31a6f8920dc53db9bc69463bd07949f42f89da3a64b",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/decision-platform-browser.mjs",
+      "bytes": 26738,
+      "sha256": "e3e71d60a02d44ca25a67b8bbdced325d041412ea5aeb595e5bb9ac8653dfeb6",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-decision-platform-interface-mutations.mjs",
+      "bytes": 9548,
+      "sha256": "8a25cbc51fdaf8886367074993b7e17cce2a52cae0b037db2985e05f68503291",
+      "kind": "text"
+    },
+    {
+      "path": "tests/decision-platform.test.ts",
+      "bytes": 11940,
+      "sha256": "134d910eded63b39b42729d915727c3e673ce8e36fc0ae9dff0a266d79c8102a",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/decision-platform-support.mjs",
+      "bytes": 4411,
+      "sha256": "ac3f73d29e7b3e4dc38e979adfc6f4df4948142c157c1b1e82ec3c6822b78d39",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/review-platform-browser.mjs",
+      "bytes": 11540,
+      "sha256": "956f2fc3794272619541ac9575d4630381c60a177666102fdc8ec367db8564a2",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-review-platform-interface-mutations.mjs",
+      "bytes": 14661,
+      "sha256": "b12ce2a499306af6223e1b6c6c48f560786811ee11e657b6127999095800cb8e",
+      "kind": "text"
+    },
+    {
+      "path": "components/status-badge.tsx",
+      "bytes": 923,
+      "sha256": "c41aee864b564154b15a32b82d182e30aeadb03914ae76c1ded6be20694a423e",
+      "kind": "text"
+    },
+    {
+      "path": "lib/status-tone.ts",
+      "bytes": 5111,
+      "sha256": "0311313d07b8b9eb4f28b8a548bf2ee2e4a58bb7e10d0da573ec5730e11486ff",
+      "kind": "text"
+    },
+    {
+      "path": "tests/status-tone.test.ts",
+      "bytes": 3916,
+      "sha256": "7426051e6489fcee7817ed7ff86d0e46c2580d6de8f6beda739cb64e620df138",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/status-badge-support.mjs",
+      "bytes": 4466,
+      "sha256": "d226245a8e624f294bf265b48a31fe2b86229f6301ce3f6c34a148b311eb4d1c",
+      "kind": "text"
+    },
+    {
+      "path": "components/section-result.tsx",
+      "bytes": 775,
+      "sha256": "75096d8d002e3ffeb5dd364cf2816ff899fd235f7371a3182724df343deb146b",
+      "kind": "text"
+    },
+    {
+      "path": "lib/i18n/section-result.ts",
+      "bytes": 289,
+      "sha256": "c3ab2026566dd98252dd17286c325e90e81fc861c7d30a1929e8587d9e3cd36b",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/section-focus-support.mjs",
+      "bytes": 3489,
+      "sha256": "4dbb238a8269d8ec30f003b4824425624640066aafd8d01b56a38af3b7342d6c",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/decision-platform-support-self-test.mjs",
+      "bytes": 2245,
+      "sha256": "8c3b4307aaa319147e3b66dfc1e472bd5f85e42dbc7a4d7de5b79ce3f9d0fd6c",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/stage-watchdog-self-test.mjs",
+      "bytes": 5176,
+      "sha256": "7fe4e0f187cbef1b6123b9eae5e4fb1949b62e023d9cd50e01d8ae7a6b649fce",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/stage-watchdog.mjs",
+      "bytes": 3287,
+      "sha256": "a9ac885605abd0b6a4f4928c21358b8ec4d70668b1d0cde4564a4008d5d8bd9a",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/UX-4-ALIGNMENT-STRIP.ar.md",
+      "bytes": 29111,
+      "sha256": "d3cab66852a6e896015016eb32cd17b8650feb3137c811356608b6d3f4712608",
+      "kind": "text"
+    },
+    {
+      "path": "lib/alignment-strip.ts",
+      "bytes": 12713,
+      "sha256": "1b20e46fcc045fc33e01cf6c3711cb7b0dd6393f455ed0cef0adb575777fa740",
+      "kind": "text"
+    },
+    {
+      "path": "tests/alignment-strip.test.ts",
+      "bytes": 11636,
+      "sha256": "3bab3fe560b462201976ab193f4365d016f820a2503ec04cb7cee1c9fcc1cb1c",
+      "kind": "text"
+    },
+    {
+      "path": "components/alignment-strip.css",
+      "bytes": 4998,
+      "sha256": "58fa49350fc2b90e77f3d39959a69f3c18cf019dec24d9c2364d4f0fc0711068",
+      "kind": "text"
+    },
+    {
+      "path": "components/alignment-strip.tsx",
+      "bytes": 8056,
+      "sha256": "032d10c53cf8befac4798823597f58a7bcd174da0c83514be2b4c0882aca1a36",
+      "kind": "text"
+    },
+    {
+      "path": "lib/i18n/alignment-strip.ts",
+      "bytes": 6127,
+      "sha256": "82d587c264fbdc2a86ba3889bb6f33959f5d04fd5a12f8c22f013a2a8700a404",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/alignment-strip-browser.mjs",
+      "bytes": 21371,
+      "sha256": "2a55eabf10ef8f4735f060fa266325996041425f357e9725e03fb07b7021f9de",
+      "kind": "text"
+    },
+    {
+      "path": "components/evidence-sections.tsx",
+      "bytes": 2529,
+      "sha256": "38e601dfb0e91748f864f47353c6c0717a16958c96bb8cd5b6847a8ecd043118",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/result-map-browser.mjs",
+      "bytes": 40201,
+      "sha256": "e1068a890dd310001250270f96cd04e02b4590b2e5b44064825affe3f7dfc284",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/worker-replies.mjs",
+      "bytes": 1188,
+      "sha256": "7a93a9d2be03f3f101d5317a2b58037ad5fb095963b32cf2716e7de82e11fc8b",
+      "kind": "text"
+    },
+    {
+      "path": "components/result-index.css",
+      "bytes": 2535,
+      "sha256": "1a539e99ddac9b97897d2e4500e39314a0c20642f50a965e830ec4b02007129b",
+      "kind": "text"
+    },
+    {
+      "path": "components/result-index.tsx",
+      "bytes": 5890,
+      "sha256": "8faa0c848c9cce2f6512acad5c5eb2d8d49a8af194585b30d7e1fb9675aac30b",
+      "kind": "text"
+    },
+    {
+      "path": "lib/i18n/result-index.ts",
+      "bytes": 1192,
+      "sha256": "01a1f7dafc5a55293da6aece8fba50c0bbff855a67970549d899ade8ead21737",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/alignment-strip-read.mjs",
+      "bytes": 1241,
+      "sha256": "5d8f4440c21f00e309f60b7b9fef098bc56f62eaa7d439941880c6cabc3ea6a3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ux-census/start.json",
+      "bytes": 796,
+      "sha256": "42a5ac0d75db18b83fcb3115f8b8bed00083b6ee0d151f2347bf602248555d16",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/UX-5-START.ar.md",
+      "bytes": 36961,
+      "sha256": "32b548c1c6d3e1f8a29729eff27e74934fd67d47f1273b45e226fb1d15c59cb4",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/ux-census-start-browser.mjs",
+      "bytes": 10441,
+      "sha256": "6afb18dd86890d023957bfa287cf15c3e1a1fbc3a4829e704105c68cfe022c1e",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/ux-census-start.mjs",
+      "bytes": 22808,
+      "sha256": "143db83ede8ae1019889d3da2f12d89f0ba86a0bbfa567a5330fc860819881cd",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/ux-census-start.test.mjs",
+      "bytes": 3779,
+      "sha256": "18d49d5e0622bd8a25e94bd8f110ba5b24d1e48bb7c4b8d4942a2349981d368b",
+      "kind": "text"
+    },
+    {
+      "path": "components/scope-card.css",
+      "bytes": 1570,
+      "sha256": "4d0cb37748714cd5def3567806ea08e96ec591e4781b54df338ba5b5f5140e61",
+      "kind": "text"
+    },
+    {
+      "path": "components/scope-card.tsx",
+      "bytes": 5253,
+      "sha256": "9797afb8858325e843019e342e8e6261b8ddcad310f6c57299b40ce075b2ad8c",
+      "kind": "text"
+    },
+    {
+      "path": "lib/i18n/scope-card.ts",
+      "bytes": 4027,
+      "sha256": "6daddf88040a4fd4589d6a8efbf423dfdaa9c3810ea3155dc91ea4780387c24f",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/declared-scope.ts",
+      "bytes": 8801,
+      "sha256": "9ef637534c2f8d104a389d2bfca8c229714b033fd0996c9b5e854f09f6620e15",
+      "kind": "text"
+    },
+    {
+      "path": "tests/declared-scope.test.ts",
+      "bytes": 15310,
+      "sha256": "806378739db171bd458844b659e27409a7ab6d8f3a4e55156c57fbdb1a655b4f",
+      "kind": "text"
+    },
+    {
+      "path": "hooks/use-declared-scope.ts",
+      "bytes": 5511,
+      "sha256": "39bc536c650605207f322ea426c0cfaedf93a07362182b9224bb922dc624f663",
+      "kind": "text"
+    },
+    {
+      "path": "lib/ar-scope-card.ts",
+      "bytes": 3692,
+      "sha256": "0331bd6768e2b5083b6e5f67c94202020991db9469fa5d52fab59f90dc04492c",
+      "kind": "text"
+    },
+    {
+      "path": "tests/ar-scope-card.test.ts",
+      "bytes": 3423,
+      "sha256": "c62bb2ee207d539c7684d32932dcf017708d20bd496d4be4b822082e6f8b152a",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/UX-6-RECONCILIATION-SHEET.ar.md",
+      "bytes": 327447,
+      "sha256": "29430ef9cab82f1c7f23f4e96396839be907d2cf390cec7eec27746549d7b12e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/reconciliation-sheet/README.ar.md",
+      "bytes": 40977,
+      "sha256": "831cac84f0f16bda4b98bbb43592bd08537de583f7c4618f3bbd9101e3c43d51",
+      "kind": "text"
+    },
+    {
+      "path": "audit/reconciliation-sheet/check_sheet.py",
+      "bytes": 235269,
+      "sha256": "7991d3d4a00fc9c9f75340f975b307a0e742bc788cd8bd58f0d3353c2f9173ec",
+      "kind": "text"
+    },
+    {
+      "path": "audit/reconciliation-sheet/export.mjs",
+      "bytes": 29590,
+      "sha256": "599f396d822a5a559c86ec865f6da0f2167e1deb332fdd9153cbd72b6a44c6f2",
+      "kind": "text"
+    },
+    {
+      "path": "lib/alignment-strip-view.ts",
+      "bytes": 4585,
+      "sha256": "0971913aed8510a28041632af29fe4eff9d020ecafb78ff3bf494cd3bdb6ecaa",
+      "kind": "text"
+    },
+    {
+      "path": "lib/i18n/reconciliation-sheet.ts",
+      "bytes": 70549,
+      "sha256": "3c21505850faad21b742dfda7349f038400b20583a32d9edb1d26c1c034e5765",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/gl-tb-sheet.ts",
+      "bytes": 3588,
+      "sha256": "0cdb8a64141a9adc4842844cb9ffc84a3067bc098b38cd171fd4c714a1db60e9",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/reconciliation-sheet.ts",
+      "bytes": 27806,
+      "sha256": "6daaeb609b18fbdcdb750c4c6a1d99172c4a65f8687eb709750087cb396a4de6",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/reconciliation-sheet-browser.mjs",
+      "bytes": 71497,
+      "sha256": "d7fbc553206c2a292a20af485a95f7d67369c70f86256be72a0098c98af1241d",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-reconciliation-sheet-mutations.mjs",
+      "bytes": 72196,
+      "sha256": "056dc4f7a094f7d5199a46e1efd9c740ab32a376c019435631fb94a1d4703257",
+      "kind": "text"
+    },
+    {
+      "path": "tests/alignment-strip-view.test.ts",
+      "bytes": 5597,
+      "sha256": "5af4ad12ec17ef972230e0afe8f657a6ba0f92ce7c540a753704be7250ef96f4",
+      "kind": "text"
+    },
+    {
+      "path": "tests/reconciliation-sheet.test.ts",
+      "bytes": 159254,
+      "sha256": "5f9c3253f71f7a5a07df26643b9ef79df6d73abca21ab229ea022944eee28e1f",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/clearing-sheet.ts",
+      "bytes": 4938,
+      "sha256": "dc881b0f19bd99ca9f97b2bdce92a083658a57a5e88fa36660b701a470287f26",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/ar-sheet.ts",
+      "bytes": 5831,
+      "sha256": "9b4f006fc376d800948efb3f5bdad87b821c6bbaeb67ce18e4805a65a180d48b",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/bank-movements-sheet.ts",
+      "bytes": 5708,
+      "sha256": "ece16eaa3a127abe4d6d9b49b7e49a424a38fcb11e897c74b880937df6b3661b",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/allocation-sheet.ts",
+      "bytes": 5536,
+      "sha256": "136b78927284c897f1cd3ea9796df25e014bd08ad70e5cade12d6dd6b5d76ef0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/reconciliation-sheet/supplier-cases.ts",
+      "bytes": 7624,
+      "sha256": "471689ce49e3085388be870921da3450f193c1619b4ce3c799a25571307ac10f",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/supplier-sheet.ts",
+      "bytes": 9293,
+      "sha256": "d4809fecefc65e6e2bda78908017af16ccd643fa559077edeaf96bb1c208dd19",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/financial-sheet.ts",
+      "bytes": 7030,
+      "sha256": "c53288df25f869c0e49c89e3876cea4fac08f460a6dcfdcae684b2f428cf3d15",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/intercompany-sheet.ts",
+      "bytes": 6665,
+      "sha256": "de28bf51250b47dbf11dd52c4df76c6c81e70caedf3eb936a96e5c80b14ded1d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-signed/export-workpapers.mjs",
+      "bytes": 1299,
+      "sha256": "e2f96a2fb855de890931ffb9ed483ba13953fad31c1216c6b4ad9ebaf5bdea1a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway-signed/test_sheet_first.py",
+      "bytes": 4863,
+      "sha256": "9ccce473ce141c6484e222d5a02eaa883e6121ebfd3075963fd3a67b8231c9fb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/reconciliation-sheet/gateway-cases.ts",
+      "bytes": 4741,
+      "sha256": "4f34be57475f770e83e2b966f9a0fee7c81dcb838792b02a7f8f307a5ef54614",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/payment-gateway-sheet.ts",
+      "bytes": 5839,
+      "sha256": "186baa63a665b3b031eedcfc10d3e5751a27f9fda33592b4aeaea01b609be0ae",
+      "kind": "text"
+    },
+    {
+      "path": "audit/reconciliation-sheet/inventory-cases.ts",
+      "bytes": 4842,
+      "sha256": "144ddcf1c75b9611b8b7fd0f50fb089a71555a73dd6c4954c9c8c9e688e07641",
+      "kind": "text"
+    },
+    {
+      "path": "audit/reconciliation-sheet/inventory-workpapers.mjs",
+      "bytes": 1194,
+      "sha256": "6b9ff958a1537bf12148a8b641f325306aa76a55a16b6f4e9c09f4439925bbe9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/reconciliation-sheet/set_aside.py",
+      "bytes": 3014,
+      "sha256": "b06397c7d9944c5fadfbc7c7ee718b8f6cce12eb0eac8e5d3c9c08ba30bfd895",
+      "kind": "text"
+    },
+    {
+      "path": "audit/reconciliation-sheet/test_set_aside.py",
+      "bytes": 7849,
+      "sha256": "91ffe8a74aaba5ac66d22c13039106b3a3a13ae2c2f1451f8232b9488f4cfb89",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/inventory-sheet.ts",
+      "bytes": 8496,
+      "sha256": "d50574d91339081a4e2cbbdf06156ab6903eefe936e2b01265a76e0c4afb1190",
+      "kind": "text"
+    },
+    {
+      "path": "tests/helpers/workbook-xml.ts",
+      "bytes": 4976,
+      "sha256": "2c192f69809ee085103055e1876f825227afc530b5c1e71c0104e43eea8828e9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/reconciliation-sheet/fixed-assets-cases.ts",
+      "bytes": 4049,
+      "sha256": "f2c10b7e660b55a21c559127507429150db676683b8133902dbf93cdd1c572f9",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/fixed-assets-sheet.ts",
+      "bytes": 7456,
+      "sha256": "07b2cb9c85d2c93610366f3fc384833c8b362f034a53f56954c925bb8b2ba488",
+      "kind": "text"
+    },
+    {
+      "path": "audit/reconciliation-sheet/payroll-cases.ts",
+      "bytes": 3073,
+      "sha256": "7b5f18b93a81387c9dd867470d0429a081c6016aa04946ea13c75d2aacd16ed6",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/payroll-sheet.ts",
+      "bytes": 8118,
+      "sha256": "893861534be273e4243a566696d1160bcdd91de1674fa9e60606069f89623bc0",
+      "kind": "text"
+    },
+    {
+      "path": "components/reconciliation-sheet-print.css",
+      "bytes": 3452,
+      "sha256": "5490aa326280f931118e5e76c4f5dc337e3d1d33b45118112285052e2af6ec4c",
+      "kind": "text"
+    },
+    {
+      "path": "components/reconciliation-sheet-print.tsx",
+      "bytes": 5202,
+      "sha256": "dffb7e8e7a842b7b1d27acb1a1962e5fe5d9509e2f8523ba7237fe821cf59c54",
+      "kind": "text"
+    },
+    {
+      "path": "lib/i18n/sheet-print.ts",
+      "bytes": 838,
+      "sha256": "6f525e474fe59d606ce9d69269c28d7fc12d13587795200fae75ff75ec05cbc4",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/sheet-print.ts",
+      "bytes": 3769,
+      "sha256": "b7a058b8122bf8c49febfd71a0cc1b07eb380ef55ac232fd73a05ed1c31aa89c",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/reconciliation-sheet-print-browser.mjs",
+      "bytes": 41984,
+      "sha256": "51ddaeece64bfdeb4d7e6dbf1445ebc8cb394650d2363f9e9f735c457c1ad7e5",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-sheet-print-interface-mutations.mjs",
+      "bytes": 16225,
+      "sha256": "67f336465ab06ec59bc24aba14dedd6d831cd3f50e0a5dbd4012f1c545c16a27",
+      "kind": "text"
+    },
+    {
+      "path": "tests/reconciliation-sheet-print.test.ts",
+      "bytes": 8947,
+      "sha256": "a40990b7b22f827656ea7138618aae35b6fdb33a71f57b8deb661c4b35d25e41",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/UX-7-FIRST-PAGE.ar.md",
+      "bytes": 58123,
+      "sha256": "23d362263538e27a4b0aadee0aa9de12126f59b77e576083533a5a39b3294ebd",
+      "kind": "text"
+    },
+    {
+      "path": "lib/i18n/type-stage.ts",
+      "bytes": 4760,
+      "sha256": "d2990fa78b37c87884c6790ab711194c89c65675291a4740642c630d493997be",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-type-stage-interface-mutations.mjs",
+      "bytes": 9215,
+      "sha256": "c196d235c6e2aedf73ae8c697210b87526e39c8ad2b641c8337d2ade22ff5122",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/type-stage-browser.mjs",
+      "bytes": 23889,
+      "sha256": "971846e35dfb6dd67e4992773425e08f27bd07d16d1186be8468f065d3fe8035",
+      "kind": "text"
+    },
+    {
+      "path": "tests/type-stage.test.ts",
+      "bytes": 3050,
+      "sha256": "3f41305fac57f4e073c81daceb12be48f94ad735ea89d8a54b5b0f71b0744261",
+      "kind": "text"
+    },
+    {
+      "path": "lib/i18n/stage-acts.ts",
+      "bytes": 4839,
+      "sha256": "5793f8def22c0c33bbd2f1472bd3d12ff811ff7d12ba940d3f1192571ce1fc00",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/stage-acts-browser.mjs",
+      "bytes": 31569,
+      "sha256": "7049369a9da01a265fc5edbe30b431843ce197b37a3f351ac4ab67333b659876",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-stage-acts-copy-mutations.mjs",
+      "bytes": 5291,
+      "sha256": "e616d0b45b48a9f57be21b7c71f05441d3cb3f09002045bccf83027d1d414385",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-stage-acts-interface-mutations.mjs",
+      "bytes": 10123,
+      "sha256": "1c779de130e7ad9fb5b63237bbbe15771cc912ff6f2aba61a8ab76be365e7268",
+      "kind": "text"
+    },
+    {
+      "path": "tests/stage-acts.test.ts",
+      "bytes": 5229,
+      "sha256": "27f4ab47b30df343dc380e6d286b1db2e8ac25b5c5f96714b0cde41578e902fe",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/UX-8-IDENTITY.ar.md",
+      "bytes": 27060,
+      "sha256": "1ed1342af7df8a66fe9e614dce196353558e2566ec3958fb9d5e36fe80c85213",
+      "kind": "text"
+    },
+    {
+      "path": "public/fonts/DMSerifDisplay-OFL.txt",
+      "bytes": 4599,
+      "sha256": "e9d4ced9825bf03a6b634c37fe8ae974f6d1b80fbb0bd3ae9b089987e4dc541b",
+      "kind": "text"
+    },
+    {
+      "path": "public/fonts/DMSerifDisplay-PROVENANCE.txt",
+      "bytes": 1911,
+      "sha256": "f48a0889184eab40eecbc380e1d9f71c1fccae631ad84744fe965f9dac7f9b16",
+      "kind": "text"
+    },
+    {
+      "path": "public/fonts/dm-serif-display-latin-400-normal.woff2",
+      "bytes": 24744,
+      "sha256": "fdf61e20fd2c0108e0ea28da4daca0035205b4b7fc031a3974b865b704de160a",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "licensed-vendor",
+        "description": "Unchanged DM Serif Display Latin subset (weight 400) as published by @fontsource/dm-serif-display 5.3.0, with its SIL Open Font License in public/fonts/DMSerifDisplay-OFL.txt and its source and hash in public/fonts/DMSerifDisplay-PROVENANCE.txt."
+      }
+    },
+    {
+      "path": "scripts/test-latin-font-interface-mutations.mjs",
+      "bytes": 7665,
+      "sha256": "29830bf3e5655b36f2ea7d723f422777c97c19152126068e3fc04d26c25a30ad",
+      "kind": "text"
     }
   ],
   "distribution": [
@@ -73482,21 +74170,21 @@
       "kind": "text"
     },
     {
-      "path": "assets/ar-io-Csi5sQsw.js",
+      "path": "assets/ar-io-3eMY8Q2k.js",
       "bytes": 12931,
-      "sha256": "739104b32a01728e03b0596c7ab6d55dcc42a20efcdc5bc6da159f5075e44c35",
+      "sha256": "4475d1599a1fa9674999e79d08f554d8daa74e3fc0a93a37337164e426b71c40",
       "kind": "text"
     },
     {
-      "path": "assets/bank-adjustment-io-BvGbJUfF.js",
+      "path": "assets/bank-adjustment-io-CZmQ57LK.js",
       "bytes": 12101,
-      "sha256": "2baa5b69e11978a0cd287f07479574f627284160d670411fd5b1b4b16193fd31",
+      "sha256": "26d2c77c2e9e12f2131b036964ca5cb18679fd40499d0f5c35c1ac9d3172602f",
       "kind": "text"
     },
     {
-      "path": "assets/bank-io-BfV5X8ax.js",
+      "path": "assets/bank-io-Nxn3Liqi.js",
       "bytes": 6331,
-      "sha256": "8e9b75527d4e1e258956e5867e656edfd4ec43cb533ec1d05d1120a49177fcb8",
+      "sha256": "24e9ab6ae868515e1a16fa3b93e32a64f9920e0d4a023ea53a265accc982b3ae",
       "kind": "text"
     },
     {
@@ -73518,7 +74206,7 @@
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
-        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only; rebuilt from reviewed INV-1F-G4 original PDF Worker, versioned local sessions and request-bound decisions; fixed G3 accounting and locked dependencies, unchanged local fonts/artwork and no financial network processing; synthetic lifecycle proofs only; rebuilt from reviewed BNK-PDF-1 G1 glyph-ink clip test, proved word geometry and the bank statement reader (not wired into the interface) with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G3 bank statement session lifecycle and its four worker actions with main-thread recomputation (not wired into the interface), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G5 bank statement path without main-thread freezes (client verified reading kept once per bytes and scope, page-sized PDF turns on the main thread, tables built per shown page), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G7 guarded PDF reader (right-to-left runs ordered by glyph so a ligature of several letters keeps its mapped order, and a DR balance printed as its own run read in right-to-left tables), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G8 guarded PDF reader and statement reader (drawings and rows judged by proved glyph ink, a DR run after its amount in either direction, Arabic-Indic dates as touching runs, typed cashbook amounts by value), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G10 guarded PDF reader (a rectangle traced back to its start read as closed, drawings and neighbouring rows judged by each proved glyph box where the replay reproduces the run), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G12 guarded PDF reader (white or coloured text judged visible by the ink its glyph outlines prove, as the clip test already was), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G15 workbook preparation (core properties ExcelJS would refuse only for their prefixes left out of the copy it reads), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G16 cashbook reading (a cashbook row whose six cells carry an issue the generic workbook reader recorded is refused), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G17 word reading (a space glyph the writer drew between two words is kept however tight the kerning sets them), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from the reviewed SUP-2 S1 supplier case builder (the parts of one payment without its explicit bank or receipt identity are one review candidate, never a match), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt again for the later reviewed source changes on this branch (SUP-2 S2 to S4, AR-1 PDF A2 to A5, and WF-1 ROLL-1 W1 to W3, REPORT-1 R2 and R3, REVIEW-1 R1 and R2, MAP-1 M1 to M3, TOL-1 T1 to T3 and the two-month cycle run; the A5 reader reads a period in its printed order and a minus set apart from its amount in a right-to-left table; W1 lets the bank statement matcher leave withheld items out and reads the proposed roll session format; W3 lets the worker and the bank workspace carry open items from a previous printed statement session, as candidates for review only; REPORT-1 adds a reconciliation sheet, REVIEW-1 an exceptions-first review queue with group decisions, MAP-1 cashbook column maps the accountant chooses and keeps on the device, and TOL-1 T1 to T3 a tolerance the accountant declares in the bank workspace, applied by the bank statement library, kept in the session and shown in the workbook; the cycle run makes a period that carries keep what its cashbook columns left out and bind its decisions to those columns; IC-1c adds the review-only batch section of the intercompany workspace and its worker action; GLT-1c adds the review-only sections and pages section of the GL and TB workspace, its worker action and the gl-tb-sections-1 engine it calls; FIN-1c adds the review-only hierarchical statement section of the TB and financial position workspace, its worker action and the tb-financial-hierarchy-1 engine it calls; PAY-1c adds the review-only long payroll register section of the payroll workspace, its worker action and the payroll-long-register-1 engine it calls; INV-2c adds the review-only movement bridge section of the inventory workspace, its worker action and the inventory-movement-bridge-1 engine it calls; INV-3c adds the register links section of the inventory workspace and a separate links workbook through a new worker action, the evidence workbook unchanged; CLR-1c adds the review-only clearing groups section of the clearing workspace, its worker action and the clearing-groups-1 engine it calls, the clearing decisions unchanged), with unchanged locked dependencies and local assets; synthetic proofs only (earlier rebuilds repeated the S1 note, corrected in A5, and the W3 note, corrected in MAP-1 M3)"
+        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only; rebuilt from reviewed INV-1F-G4 original PDF Worker, versioned local sessions and request-bound decisions; fixed G3 accounting and locked dependencies, unchanged local fonts/artwork and no financial network processing; synthetic lifecycle proofs only; rebuilt from reviewed BNK-PDF-1 G1 glyph-ink clip test, proved word geometry and the bank statement reader (not wired into the interface) with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G3 bank statement session lifecycle and its four worker actions with main-thread recomputation (not wired into the interface), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G5 bank statement path without main-thread freezes (client verified reading kept once per bytes and scope, page-sized PDF turns on the main thread, tables built per shown page), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G7 guarded PDF reader (right-to-left runs ordered by glyph so a ligature of several letters keeps its mapped order, and a DR balance printed as its own run read in right-to-left tables), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G8 guarded PDF reader and statement reader (drawings and rows judged by proved glyph ink, a DR run after its amount in either direction, Arabic-Indic dates as touching runs, typed cashbook amounts by value), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G10 guarded PDF reader (a rectangle traced back to its start read as closed, drawings and neighbouring rows judged by each proved glyph box where the replay reproduces the run), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G12 guarded PDF reader (white or coloured text judged visible by the ink its glyph outlines prove, as the clip test already was), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G15 workbook preparation (core properties ExcelJS would refuse only for their prefixes left out of the copy it reads), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G16 cashbook reading (a cashbook row whose six cells carry an issue the generic workbook reader recorded is refused), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G17 word reading (a space glyph the writer drew between two words is kept however tight the kerning sets them), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from the reviewed SUP-2 S1 supplier case builder (the parts of one payment without its explicit bank or receipt identity are one review candidate, never a match), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt again for the later reviewed source changes on this branch (SUP-2 S2 to S4, AR-1 PDF A2 to A5, and WF-1 ROLL-1 W1 to W3, REPORT-1 R2 and R3, REVIEW-1 R1 and R2, MAP-1 M1 to M3, TOL-1 T1 to T3 and the two-month cycle run; the A5 reader reads a period in its printed order and a minus set apart from its amount in a right-to-left table; W1 lets the bank statement matcher leave withheld items out and reads the proposed roll session format; W3 lets the worker and the bank workspace carry open items from a previous printed statement session, as candidates for review only; REPORT-1 adds a reconciliation sheet, REVIEW-1 an exceptions-first review queue with group decisions, MAP-1 cashbook column maps the accountant chooses and keeps on the device, and TOL-1 T1 to T3 a tolerance the accountant declares in the bank workspace, applied by the bank statement library, kept in the session and shown in the workbook; the cycle run makes a period that carries keep what its cashbook columns left out and bind its decisions to those columns; IC-1c adds the review-only batch section of the intercompany workspace and its worker action; GLT-1c adds the review-only sections and pages section of the GL and TB workspace, its worker action and the gl-tb-sections-1 engine it calls; FIN-1c adds the review-only hierarchical statement section of the TB and financial position workspace, its worker action and the tb-financial-hierarchy-1 engine it calls; PAY-1c adds the review-only long payroll register section of the payroll workspace, its worker action and the payroll-long-register-1 engine it calls; INV-2c adds the review-only movement bridge section of the inventory workspace, its worker action and the inventory-movement-bridge-1 engine it calls; INV-3c adds the register links section of the inventory workspace and a separate links workbook through a new worker action, the evidence workbook unchanged; CLR-1c adds the review-only clearing groups section of the clearing workspace, its worker action and the clearing-groups-1 engine it calls, the clearing decisions unchanged; ALL-1c adds the review-only advice review section of the allocation workspace, its worker action and the allocation-advice-review-1 engine it calls, the allocation decisions unchanged, and the INV-3 links workbook writes its source page cell in another form with the same meaning; PG-1c adds the review-only batches and deposits section of the payment gateway workspace, its worker action and the payment-gateway-batches-1 engine it calls; FA-1c adds the review-only asset register by section of the fixed-assets workspace, its worker action and the fixed-assets-sections-1 engine it calls; and after the 30 October audit the FA-1 reader names its own errors and throws any other instead of reading it as SOURCE, and the result section of the long asset family carries its own data hook for its browser acceptance; and after the bank results audit the movement tables of the bank workspace keep words, amounts, identities and dates whole and scroll inside their frame, and a held printed statement states the detail of its reader in the words of the page with its amounts at the precision of the currency; after the rest of that audit the movement path says why its decisions are closed, gives the case status its own column, pages each table on its own and takes the reader to the evidence of a movement and back to its row; and in UX-1 the amounts on the main screens of the workspaces read in major units at the precision of the currency through one left-to-right component, each difference naming its direction, with the interface copy in Western digits; and in its second part the nine review sections read their amounts and quantities through the same component and the English trial balance statuses read as words; and in its third part the split-section totals and the multiline review result of the supplier workspace read in major units through the same component; and in UX-2 a run, an example or a restored session takes the reader to the result heading in every workspace, a decision does not; and in UX-3 the evidence tables of six workspaces and of the nine review sections share one record table, named, framed and paged alike, its pager described and its frame marking the side where columns continue; and in its later step the GL and TB, allocation, receivables, clearing and bank workspaces and the PDF field sources of the evidence assistant join the same table, each table on its own page; and in its last step the supplier page and its source reading reviews take the same table and frame, so every table pages with one pager, the page size each table had kept, and the page buttons of a PDF file name themselves apart from those of a table; and in its third step the decision platform writes once the conditions six workspaces put on their decision buttons, says under them what is open and why the rest is closed, returns the focus to what a decision changed, and gives the closed Ask and Check buttons a shown reason; and the reading issues list of the supplier page wraps its long reasons again on the record table instead of cutting them off; and the decision platform reaches receivables, clearing, allocation and the bank with its balance reconciliation, clearing by hand opens only on a selection its engine accepts, and a decision keeps the reader on the page of what it decided; and the decision platform reaches the source reading reviews, the five review sections and the invoice overlap review of the supplier workspace, the review of a transaction, the PDF review and the image reader, where every closed button says what opens it and a decision returns the focus to what it changed; and a click on the crop image of the image reader is no longer a frame; and long text in the receivables and payment gateway record tables wraps between words instead of being cut, the source description shown by its fields; and source rows, member identities and the members of a decision are shown by their fields in eight workspaces and the supplier reading issues, not as JSON; and the status of a case in the receivables, supplier, clearing and bank results reads as a badge, its word with an icon and a tone that gives the agreed tone only to a status the engine or a recorded decision settled; and the eight review sections with a status column draw the status of each row as the same badge through a status column of the record table; and a record table with no row is one quiet line that names it and says it has none, instead of column headers over nothing; and after their own run the nine review sections take the focus to one shared heading of their result, and so do the six source reviews of the supplier page after their own reading and the image reader after it creates a rows record, whose counts stand on lines of their own; and a commit or an undo in the invoice overlap review records the scope it gives the supplier page as the choice of the reviewer, so the page no longer stays held after it; and the first page no longer moves when the comparison tool is ready, the startup line announced and not drawn and the closed reason of the type selector shown in place of its description; and a cell of a record table outside the bank workspace is never cut off, keeping its whole line while the table scrolls inside its frame; and a line whose sentence changes at startup keeps the room of the longer one, the type selector naming why it is closed; and in UX-4 the head of each result reads as an alignment strip from the engine result, empty evidence sections fold into one line and a result index follows the strip; and in UX-5 each workspace shows its example and saved session at the start, its buttons say what they do, its introduction takes two lines and a card reads the scope the files write and asks for one confirmation; and in UX-6(a) the GL and TB workpaper the worker hands to the page begins with a reconciliation sheet in the language of the interface, its evidence sheets byte for byte as the existing export writes them, and the strip and that sheet read what they say from one function; and in UX-6(b) the clearing workpaper begins with the same sheet, saying the groups left for review and each recorded decision with the reason the reviewer gave, and a text of the sheet that does not fit its room wraps in its cell on a row written tall enough; and then the customer AR workpaper begins with the same sheet, saying each document left for review with its movements from the two records, the total of each record or why there is none, and each recorded decision with the reason the reviewer gave, the page writing the same workpaper to compare with what the worker sent; and a sheet longer than a printed page is broken by hand above a section, a table head with its first block, or a document with its movements that would not fit what is left of its page; and then the bank movements workpaper begins with the same sheet, saying each case left for review with the bank minus cashbook difference and its complete members, and each recorded decision with its members, evidence reference and the reason the reviewer gave; and then the payment allocation workpaper begins with the same sheet, saying the value ledger of each side, each active allocation with its basis, reference and reason and the payment and invoice it joins, and each dated decision with the reason the reviewer gave; and then the supplier workpaper begins with the same sheet, saying the balances and their bridge where the workpaper step writes them, each case the review and unmatched tabs list, and each recorded decision with the reason the reviewer gave, the worker refusing an export without a language; and in UX-6(c) the trial balance and financial position workpaper, then the intercompany workpaper, begin with the same sheet, the intercompany one saying the state of the result under the strip, debit, credit and net by side, each counterpart pair with its two nets and its residual, and each recorded decision with the explanation the reviewer gave, and the bank movement and the trial balance and financial position sheets then saying the state of the result under the strip as their result headings write it; and then the payment gateway workpaper, and the inventory workpaper of the posted and the printed register, begin with the same sheet, the inventory one naming the Arabic evidence sheets of the printed register by their Arabic names, and then the fixed assets workpaper of both register families, saying the component totals and each comparison by account and component, and then the payroll workpaper, saying the seven component totals and the register net against the bank payout; and in UX-6(d) a command beside the export of the GL and TB, clearing, receivables, bank movement and allocation workspaces prints the reconciliation sheet alone, laid out from the same model the workbook writes and drawn in the page only while the page prints), with unchanged locked dependencies and local assets; synthetic proofs only (earlier rebuilds repeated the S1 note, corrected in A5, and the W3 note, corrected in MAP-1 M3)"
       }
     },
     {
@@ -73532,50 +74220,44 @@
       }
     },
     {
-      "path": "assets/fixed-assets-io-DK1KJaFQ.js",
-      "bytes": 9099,
-      "sha256": "989e05a7cb977a2b0ae3fc8a0f0f1304654aedee38cc914c515789c8440f60c7",
+      "path": "assets/fixed-assets-io-D0xqHuSV.js",
+      "bytes": 9928,
+      "sha256": "6348881af74d119eeb78837cb5575870ef49b09df6928799aab792c5ce71f896",
       "kind": "text"
     },
     {
-      "path": "assets/gl-tb-io-DDJ9BjsS.js",
+      "path": "assets/gl-tb-io-B-JuNqmn.js",
       "bytes": 2185,
-      "sha256": "3e9a96b21e46c0ca2816c030755759270e12ca5f1a5937318d6d87fc4f950036",
+      "sha256": "ed1bcb99913b625974bc2bf174d2ef18b4427da0ebaf272894075f497e7f667b",
       "kind": "text"
     },
     {
-      "path": "assets/index-DSic2CKq.css",
-      "bytes": 278893,
-      "sha256": "377f1005d114039ee61224adcf9e978ff61ec86b9d80cb4018ae74ac4840cc1e",
+      "path": "assets/index-B9TfdlRR.css",
+      "bytes": 303927,
+      "sha256": "4119063c7f4570033253a17527a892271aa420903278cf34ffe15fea37e477c0",
       "kind": "text"
     },
     {
-      "path": "assets/index-Cik_GetN.js",
-      "bytes": 6889148,
-      "sha256": "ab69a87f501090c172d85508f8e80949080559ea7d37c1a4b73528ee3a32dc7e",
+      "path": "assets/index-CJV5CflZ.js",
+      "bytes": 7063383,
+      "sha256": "fe1d288e5bfa93483b8a86716b422afe7dd52896f95bc46e1445518118668810",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
-        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1B section, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1C matrix, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only; rebuilt from reviewed INV-1F-G4 original PDF Worker, versioned local sessions and request-bound decisions; fixed G3 accounting and locked dependencies, unchanged local fonts/artwork and no financial network processing; synthetic lifecycle proofs only; rebuilt from reviewed INV-1F-G5a original-bound PDF workbook transport and complete local evidence chunks; unchanged accounting policy, locked dependencies and local fonts/artwork; no PDF UI activation or financial network processing; rebuilt from reviewed INV-1F-G5b original-bound native PDF workspace, deterministic read-only evidence assistant and bilingual full-evidence workbook labels; unchanged financial policy, frozen source oracle, locked dependencies, licensed local fonts and original upload artwork; no new model, OCR approval or financial network processing; preserved legacy inventory export filename and verified native PDF language-specific download filenames, no accounting or privacy policy change; rebuilt from reviewed BNK-PDF-1 G1 glyph-ink clip test, proved word geometry and the bank statement reader (not wired into the interface) with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G3 bank statement session lifecycle and its four worker actions with main-thread recomputation (not wired into the interface), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G4 bank statement path in the bank workspace (explicit source-type choice, statement and cashbook upload, decisions, session and Excel through the existing worker actions), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G5 bank statement path without main-thread freezes (client verified reading kept once per bytes and scope, page-sized PDF turns on the main thread, tables built per shown page), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G6 native statement reader (amount headers aligned with their column's end, heading words read in order from joined runs), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G7 guarded PDF reader (right-to-left runs ordered by glyph so a ligature of several letters keeps its mapped order, and a DR balance printed as its own run read in right-to-left tables), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G8 guarded PDF reader and statement reader (drawings and rows judged by proved glyph ink, a DR run after its amount in either direction, Arabic-Indic dates as touching runs, typed cashbook amounts by value), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G10 guarded PDF reader (a rectangle traced back to its start read as closed, drawings and neighbouring rows judged by each proved glyph box where the replay reproduces the run), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G12 guarded PDF reader (white or coloured text judged visible by the ink its glyph outlines prove, as the clip test already was), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G15 workbook preparation (core properties ExcelJS would refuse only for their prefixes left out of the copy it reads), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G16 cashbook reading (a cashbook row whose six cells carry an issue the generic workbook reader recorded is refused), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G17 word reading (a space glyph the writer drew between two words is kept however tight the kerning sets them), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from the reviewed SUP-2 S1 supplier case builder (the parts of one payment without its explicit bank or receipt identity are one review candidate, never a match), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt again for the later reviewed source changes on this branch (SUP-2 S2 to S4, AR-1 PDF A2 to A5, and WF-1 ROLL-1 W1 to W3, REPORT-1 R2 and R3, REVIEW-1 R1 and R2, MAP-1 M1 to M3, TOL-1 T1 to T3 and the two-month cycle run; the A5 reader reads a period in its printed order and a minus set apart from its amount in a right-to-left table; W1 lets the bank statement matcher leave withheld items out and reads the proposed roll session format; W3 lets the worker and the bank workspace carry open items from a previous printed statement session, as candidates for review only; REPORT-1 adds a reconciliation sheet, REVIEW-1 an exceptions-first review queue with group decisions, MAP-1 cashbook column maps the accountant chooses and keeps on the device, and TOL-1 T1 to T3 a tolerance the accountant declares in the bank workspace, applied by the bank statement library, kept in the session and shown in the workbook; the cycle run makes a period that carries keep what its cashbook columns left out and bind its decisions to those columns; IC-1c adds the review-only batch section of the intercompany workspace and its worker action; GLT-1c adds the review-only sections and pages section of the GL and TB workspace, its worker action and the gl-tb-sections-1 engine it calls; FIN-1c adds the review-only hierarchical statement section of the TB and financial position workspace, its worker action and the tb-financial-hierarchy-1 engine it calls; PAY-1c adds the review-only long payroll register section of the payroll workspace, its worker action and the payroll-long-register-1 engine it calls; INV-2c adds the review-only movement bridge section of the inventory workspace, its worker action and the inventory-movement-bridge-1 engine it calls; INV-3c adds the register links section of the inventory workspace and a separate links workbook through a new worker action, the evidence workbook unchanged; CLR-1c adds the review-only clearing groups section of the clearing workspace, its worker action and the clearing-groups-1 engine it calls, the clearing decisions unchanged; ALL-1c adds the review-only advice review section of the allocation workspace, its worker action and the allocation-advice-review-1 engine it calls, the allocation decisions unchanged, and the INV-3 links workbook writes its source page cell in another form with the same meaning; PG-1c adds the review-only batches and deposits section of the payment gateway workspace, its worker action and the payment-gateway-batches-1 engine it calls; FA-1c adds the review-only asset register by section of the fixed-assets workspace, its worker action and the fixed-assets-sections-1 engine it calls; and after the 30 October audit the FA-1 reader names its own errors and throws any other instead of reading it as SOURCE, and the result section of the long asset family carries its own data hook for its browser acceptance; and after the bank results audit the movement tables of the bank workspace keep words, amounts, identities and dates whole and scroll inside their frame, and a held printed statement states the detail of its reader in the words of the page with its amounts at the precision of the currency; after the rest of that audit the movement path says why its decisions are closed, gives the case status its own column, pages each table on its own and takes the reader to the evidence of a movement and back to its row), with unchanged locked dependencies and local assets; synthetic proofs only (earlier rebuilds repeated the S1 note, corrected in A5, and the W3 note, corrected in MAP-1 M3)"
+        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1B section, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1C matrix, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only; rebuilt from reviewed INV-1F-G4 original PDF Worker, versioned local sessions and request-bound decisions; fixed G3 accounting and locked dependencies, unchanged local fonts/artwork and no financial network processing; synthetic lifecycle proofs only; rebuilt from reviewed INV-1F-G5a original-bound PDF workbook transport and complete local evidence chunks; unchanged accounting policy, locked dependencies and local fonts/artwork; no PDF UI activation or financial network processing; rebuilt from reviewed INV-1F-G5b original-bound native PDF workspace, deterministic read-only evidence assistant and bilingual full-evidence workbook labels; unchanged financial policy, frozen source oracle, locked dependencies, licensed local fonts and original upload artwork; no new model, OCR approval or financial network processing; preserved legacy inventory export filename and verified native PDF language-specific download filenames, no accounting or privacy policy change; rebuilt from reviewed BNK-PDF-1 G1 glyph-ink clip test, proved word geometry and the bank statement reader (not wired into the interface) with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G3 bank statement session lifecycle and its four worker actions with main-thread recomputation (not wired into the interface), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G4 bank statement path in the bank workspace (explicit source-type choice, statement and cashbook upload, decisions, session and Excel through the existing worker actions), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G5 bank statement path without main-thread freezes (client verified reading kept once per bytes and scope, page-sized PDF turns on the main thread, tables built per shown page), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G6 native statement reader (amount headers aligned with their column's end, heading words read in order from joined runs), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G7 guarded PDF reader (right-to-left runs ordered by glyph so a ligature of several letters keeps its mapped order, and a DR balance printed as its own run read in right-to-left tables), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G8 guarded PDF reader and statement reader (drawings and rows judged by proved glyph ink, a DR run after its amount in either direction, Arabic-Indic dates as touching runs, typed cashbook amounts by value), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G10 guarded PDF reader (a rectangle traced back to its start read as closed, drawings and neighbouring rows judged by each proved glyph box where the replay reproduces the run), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G12 guarded PDF reader (white or coloured text judged visible by the ink its glyph outlines prove, as the clip test already was), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G15 workbook preparation (core properties ExcelJS would refuse only for their prefixes left out of the copy it reads), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G16 cashbook reading (a cashbook row whose six cells carry an issue the generic workbook reader recorded is refused), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G17 word reading (a space glyph the writer drew between two words is kept however tight the kerning sets them), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from the reviewed SUP-2 S1 supplier case builder (the parts of one payment without its explicit bank or receipt identity are one review candidate, never a match), with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt again for the later reviewed source changes on this branch (SUP-2 S2 to S4, AR-1 PDF A2 to A5, and WF-1 ROLL-1 W1 to W3, REPORT-1 R2 and R3, REVIEW-1 R1 and R2, MAP-1 M1 to M3, TOL-1 T1 to T3 and the two-month cycle run; the A5 reader reads a period in its printed order and a minus set apart from its amount in a right-to-left table; W1 lets the bank statement matcher leave withheld items out and reads the proposed roll session format; W3 lets the worker and the bank workspace carry open items from a previous printed statement session, as candidates for review only; REPORT-1 adds a reconciliation sheet, REVIEW-1 an exceptions-first review queue with group decisions, MAP-1 cashbook column maps the accountant chooses and keeps on the device, and TOL-1 T1 to T3 a tolerance the accountant declares in the bank workspace, applied by the bank statement library, kept in the session and shown in the workbook; the cycle run makes a period that carries keep what its cashbook columns left out and bind its decisions to those columns; IC-1c adds the review-only batch section of the intercompany workspace and its worker action; GLT-1c adds the review-only sections and pages section of the GL and TB workspace, its worker action and the gl-tb-sections-1 engine it calls; FIN-1c adds the review-only hierarchical statement section of the TB and financial position workspace, its worker action and the tb-financial-hierarchy-1 engine it calls; PAY-1c adds the review-only long payroll register section of the payroll workspace, its worker action and the payroll-long-register-1 engine it calls; INV-2c adds the review-only movement bridge section of the inventory workspace, its worker action and the inventory-movement-bridge-1 engine it calls; INV-3c adds the register links section of the inventory workspace and a separate links workbook through a new worker action, the evidence workbook unchanged; CLR-1c adds the review-only clearing groups section of the clearing workspace, its worker action and the clearing-groups-1 engine it calls, the clearing decisions unchanged; ALL-1c adds the review-only advice review section of the allocation workspace, its worker action and the allocation-advice-review-1 engine it calls, the allocation decisions unchanged, and the INV-3 links workbook writes its source page cell in another form with the same meaning; PG-1c adds the review-only batches and deposits section of the payment gateway workspace, its worker action and the payment-gateway-batches-1 engine it calls; FA-1c adds the review-only asset register by section of the fixed-assets workspace, its worker action and the fixed-assets-sections-1 engine it calls; and after the 30 October audit the FA-1 reader names its own errors and throws any other instead of reading it as SOURCE, and the result section of the long asset family carries its own data hook for its browser acceptance; and after the bank results audit the movement tables of the bank workspace keep words, amounts, identities and dates whole and scroll inside their frame, and a held printed statement states the detail of its reader in the words of the page with its amounts at the precision of the currency; after the rest of that audit the movement path says why its decisions are closed, gives the case status its own column, pages each table on its own and takes the reader to the evidence of a movement and back to its row; and in UX-1 the amounts on the main screens of the workspaces read in major units at the precision of the currency through one left-to-right component, each difference naming its direction, with the interface copy in Western digits; and in its second part the nine review sections read their amounts and quantities through the same component and the English trial balance statuses read as words; and in its third part the split-section totals and the multiline review result of the supplier workspace read in major units through the same component; and in UX-2 a run, an example or a restored session takes the reader to the result heading in every workspace, a decision does not; and in UX-3 the evidence tables of six workspaces and of the nine review sections share one record table, named, framed and paged alike, its pager described and its frame marking the side where columns continue; and in its later step the GL and TB, allocation, receivables, clearing and bank workspaces and the PDF field sources of the evidence assistant join the same table, each table on its own page; and in its last step the supplier page and its source reading reviews take the same table and frame, so every table pages with one pager, the page size each table had kept, and the page buttons of a PDF file name themselves apart from those of a table; and in its third step the decision platform writes once the conditions six workspaces put on their decision buttons, says under them what is open and why the rest is closed, returns the focus to what a decision changed, and gives the closed Ask and Check buttons a shown reason; and the reading issues list of the supplier page wraps its long reasons again on the record table instead of cutting them off; and the decision platform reaches receivables, clearing, allocation and the bank with its balance reconciliation, clearing by hand opens only on a selection its engine accepts, and a decision keeps the reader on the page of what it decided; and the decision platform reaches the source reading reviews, the five review sections and the invoice overlap review of the supplier workspace, the review of a transaction, the PDF review and the image reader, where every closed button says what opens it and a decision returns the focus to what it changed; and a click on the crop image of the image reader is no longer a frame; and long text in the receivables and payment gateway record tables wraps between words instead of being cut, the source description shown by its fields; and source rows, member identities and the members of a decision are shown by their fields in eight workspaces and the supplier reading issues, not as JSON; and the status of a case in the receivables, supplier, clearing and bank results reads as a badge, its word with an icon and a tone that gives the agreed tone only to a status the engine or a recorded decision settled; and the eight review sections with a status column draw the status of each row as the same badge through a status column of the record table; and a record table with no row is one quiet line that names it and says it has none, instead of column headers over nothing; and after their own run the nine review sections take the focus to one shared heading of their result, and so do the six source reviews of the supplier page after their own reading and the image reader after it creates a rows record, whose counts stand on lines of their own; and a commit or an undo in the invoice overlap review records the scope it gives the supplier page as the choice of the reviewer, so the page no longer stays held after it; and the first page no longer moves when the comparison tool is ready, the startup line announced and not drawn and the closed reason of the type selector shown in place of its description; and a cell of a record table outside the bank workspace is never cut off, keeping its whole line while the table scrolls inside its frame; and a line whose sentence changes at startup keeps the room of the longer one, the type selector naming why it is closed; and in UX-4 the head of each result reads as an alignment strip from the engine result, empty evidence sections fold into one line and a result index follows the strip; and in UX-5 each workspace shows its example and saved session at the start, its buttons say what they do, its introduction takes two lines and a card reads the scope the files write and asks for one confirmation; and in UX-6(a) the GL and TB workpaper the worker hands to the page begins with a reconciliation sheet in the language of the interface, its evidence sheets byte for byte as the existing export writes them, and the strip and that sheet read what they say from one function; and in UX-6(b) the clearing workpaper begins with the same sheet, saying the groups left for review and each recorded decision with the reason the reviewer gave, and a text of the sheet that does not fit its room wraps in its cell on a row written tall enough; and then the customer AR workpaper begins with the same sheet, saying each document left for review with its movements from the two records, the total of each record or why there is none, and each recorded decision with the reason the reviewer gave, the page writing the same workpaper to compare with what the worker sent; and a sheet longer than a printed page is broken by hand above a section, a table head with its first block, or a document with its movements that would not fit what is left of its page; and then the bank movements workpaper begins with the same sheet, saying each case left for review with the bank minus cashbook difference and its complete members, and each recorded decision with its members, evidence reference and the reason the reviewer gave; and then the payment allocation workpaper begins with the same sheet, saying the value ledger of each side, each active allocation with its basis, reference and reason and the payment and invoice it joins, and each dated decision with the reason the reviewer gave; and then the supplier workpaper begins with the same sheet, saying the balances and their bridge where the workpaper step writes them, each case the review and unmatched tabs list, and each recorded decision with the reason the reviewer gave, the worker refusing an export without a language; and in UX-6(c) the trial balance and financial position workpaper, then the intercompany workpaper, begin with the same sheet, the intercompany one saying the state of the result under the strip, debit, credit and net by side, each counterpart pair with its two nets and its residual, and each recorded decision with the explanation the reviewer gave, and the bank movement and the trial balance and financial position sheets then saying the state of the result under the strip as their result headings write it; and then the payment gateway workpaper, and the inventory workpaper of the posted and the printed register, begin with the same sheet, the inventory one naming the Arabic evidence sheets of the printed register by their Arabic names, and then the fixed assets workpaper of both register families, saying the component totals and each comparison by account and component, and then the payroll workpaper, saying the seven component totals and the register net against the bank payout; and in UX-6(d) a command beside the export of the GL and TB, clearing, receivables, bank movement, allocation, supplier, financial position, intercompany, payment gateway, inventory (on both its paths), fixed assets and payroll workspaces prints the reconciliation sheet alone, each family workspace composing it only while it is the one shown (held in the supplier workspace while an accepted overlap group writes a workbook without it), laid out from the same model the workbook writes and drawn in the page only while the page prints); and in UX-7(b) the two papers of the first page wear the two roles of the chosen type as its workspace names its inputs, the first on the side where reading starts and one paper for clearing, and turn about their upright axis in CSS perspective when the type changes; and in UX-7(c), with the supplier type, they act three obstacles of supplier reconciliation on synthetic records, each ending on the state the supplier engine shows, under three titles the reader can pick, the motion running while its stage is seen; and in UX-7(d) the state of an act and its reason keep room on each side of the stage, the reason going under the state when the stage is narrow; and in UX-8(b) the English display headings are drawn by a local DM Serif Display face at its one weight, preloaded with the page in either language; and in UX-8(c) the text of the workspaces reads in one secondary colour and never under 13 px, with unchanged locked dependencies and local assets; synthetic proofs only (earlier rebuilds repeated the S1 note, corrected in A5, and the W3 note, corrected in MAP-1 M3)"
       }
     },
     {
-      "path": "assets/inventory-pdf-assistant-C6VKyfuN.js",
-      "bytes": 1671,
-      "sha256": "a05d1b1df7da2ce154f7e25a051ab8ee0c6c3950868bb07600aa7f0701270e21",
+      "path": "assets/inventory-pdf-assistant-D4UkZyUE.js",
+      "bytes": 1672,
+      "sha256": "7367206e186f5667d595db18c603d679ae3083574b0113471641b2ad457cf0d8",
       "kind": "text"
     },
     {
-      "path": "assets/inventory-pdf-workbook-DisR4q5K.js",
-      "bytes": 475,
-      "sha256": "d34b3c3348bdc72666503f0c2ea49f329dcd6bca2207a09df55d158a845b55d7",
-      "kind": "text"
-    },
-    {
-      "path": "assets/inventory-register-io-BomfdW4u.js",
+      "path": "assets/inventory-register-io-D79S0RyN.js",
       "kind": "text",
-      "bytes": 27466,
-      "sha256": "74075d4a22770d14f29b0aaafc45e63345302d43afe6d54d1936441e2db79179"
+      "bytes": 22418,
+      "sha256": "5d8b0334e2582e9fbad84ee13936e6e0468331c92019850e7a8a5674f9dd9983"
     },
     {
       "path": "assets/jszip.min-Lqf3Qs4v.js",
@@ -73588,15 +74270,15 @@
       }
     },
     {
-      "path": "assets/payment-gateway-io-BPbmd7Vi.js",
-      "bytes": 6391,
-      "sha256": "efb80eddd8e730b9e2cfaa53bd272d4cc9ba686a13eb140c2251e0031b822620",
+      "path": "assets/payment-gateway-io-B2KxaPLu.js",
+      "bytes": 6377,
+      "sha256": "dd9dd566cc9ef36e5ecc3bf0932a0f0796b3b6023049669e41470577a2400b5e",
       "kind": "text"
     },
     {
-      "path": "assets/payment-gateway-source-DvA2ZTc0.js",
-      "bytes": 6798,
-      "sha256": "271ca28b32165854c8c509251e7eb2ebe61667d39c7c2ce4cd768815ac5d5398",
+      "path": "assets/payment-gateway-source-B_RsaUXf.js",
+      "bytes": 6832,
+      "sha256": "6e8783c113f8953b112628359269ee12e87e360a9b9b5b4bb5f9e4faed6bbeea",
       "kind": "text"
     },
     {
@@ -73626,9 +74308,9 @@
       }
     },
     {
-      "path": "assets/clearing-_AqJZaFq.js",
-      "bytes": 218623,
-      "sha256": "c80bae382d43a82b8fd340d25414cd1f6726045fe68c3a9bfb696307481198bd",
+      "path": "assets/clearing-CHeGF6m5.js",
+      "bytes": 218834,
+      "sha256": "557c0002c57e1ef28808f448f074db046be850919872ccdc294b0b9006f25e73",
       "kind": "text"
     },
     {
@@ -73717,8 +74399,8 @@
     },
     {
       "path": "fonts/README.txt",
-      "bytes": 1793,
-      "sha256": "11cb45a5b44a8ed5cf5685fcbf0427b699e564c130d1896720486b850832f4a2",
+      "bytes": 1895,
+      "sha256": "3d05be7c73a16c0dc0a69c17e2702c4577896fd7b7a110edfcaed5dcba5442bc",
       "kind": "text"
     },
     {
@@ -73755,8 +74437,8 @@
     },
     {
       "path": "index.html",
-      "bytes": 4299,
-      "sha256": "8820920fe80f986c6c862f6da145806fc666d7fc4af98dd4bd0dd3d2503b076d",
+      "bytes": 4455,
+      "sha256": "750f230af0ed35d50faeeb3d6526ae4ba3527612225d917e1c7884fb8300c6ed",
       "kind": "text"
     },
     {
@@ -73790,9 +74472,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/bank-statement-lifecycle-DgbgXb_s.js",
+      "path": "assets/bank-statement-lifecycle-nJ66Ikbp.js",
       "bytes": 30423,
-      "sha256": "a055a0b69bed9d1764ae94f906e6b492bd7e96b6897a445272f134e0a6fbc34d",
+      "sha256": "99a94117d4eabfdcb1892026b341c0c8d82694e667c18a2b5dafafb8c9b4ccb8",
       "kind": "text"
     },
     {
@@ -73802,15 +74484,15 @@
       "kind": "text"
     },
     {
-      "path": "assets/clearing-groups-io-BuL037NX.js",
+      "path": "assets/clearing-groups-io-V7nICq3E.js",
       "bytes": 722,
-      "sha256": "a410cc5b5fabf54bf7281ea19e32fd3085c1d01fa746c0e8d82ac21b356274fe",
+      "sha256": "c1c0bcd2f9cc8bb80a584cb660b883299a576d7edca42071986e4e1cefbebe6c",
       "kind": "text"
     },
     {
-      "path": "assets/allocation-advice-io-DCqpDYAv.js",
-      "bytes": 3033,
-      "sha256": "e98fc7f97e750df87de59d1171421b0d280da293728a5fba1a022985c707a79f",
+      "path": "assets/allocation-advice-io-DklUZO25.js",
+      "bytes": 457,
+      "sha256": "8dba9869a812e28be0850487595cf65d6b57805879de05e45389d702e88030ee",
       "kind": "text"
     },
     {
@@ -73842,6 +74524,124 @@
       "bytes": 1503,
       "sha256": "add555da4416c178ca49e16c4cf62970c635b3232ca966238cb4b201065386f5",
       "kind": "text"
+    },
+    {
+      "path": "assets/inventory-pdf-preview-Coq_VkQm.js",
+      "bytes": 388,
+      "sha256": "7489f62850adb5abfb8a1407b673ec2d97ea41d122fc12cf029dbbaf63a2621a",
+      "kind": "text"
+    },
+    {
+      "path": "assets/ar-sheet-CCEw0RCW.js",
+      "bytes": 2045,
+      "sha256": "d44ea4372249c836c53a1505818e235d0816db97d85bc4de9220fcaf12f0fff6",
+      "kind": "text"
+    },
+    {
+      "path": "assets/payment-gateway-sheet-CdDzXKuq.js",
+      "bytes": 1719,
+      "sha256": "07823d0cc7e9ce5513b6e1191084f4f26859bb89c1155f5ea0ed5d38bae71124",
+      "kind": "text"
+    },
+    {
+      "path": "assets/reconciliation-sheet-Buvpznoq.js",
+      "bytes": 55263,
+      "sha256": "ef3da7116ea7a59ba537a9c2477f1c332c076c3379e3fe57e84ac36b65e8bef9",
+      "kind": "text"
+    },
+    {
+      "path": "assets/inventory-sheet-DxniPRN4.js",
+      "bytes": 2838,
+      "sha256": "9b9ae132ff16be4cb374d74fbc1ae980b5ac628d86e3c82c44283e4f92e14c45",
+      "kind": "text"
+    },
+    {
+      "path": "assets/fixed-assets-sheet-ELnUzydK.js",
+      "bytes": 2152,
+      "sha256": "9e09c701d04dc6a7651d4bcf7f41cb9667bf05724f805a2dc546a29c415fb9fa",
+      "kind": "text"
+    },
+    {
+      "path": "assets/gl-tb-sheet-DjIZB0X1.js",
+      "bytes": 1226,
+      "sha256": "59a67d497f0801aa44d1afe8f6714f8ba3d8e046efb304c9f6bc95b73fc7c0c5",
+      "kind": "text"
+    },
+    {
+      "path": "assets/allocation-io-DCRyi0_c.js",
+      "bytes": 2666,
+      "sha256": "95e253d687a92ffe5a3d6ad934c44f1af9396121cbea1037bada2817e096665d",
+      "kind": "text"
+    },
+    {
+      "path": "assets/allocation-sheet-VGIgQUnT.js",
+      "bytes": 1654,
+      "sha256": "a66ffca33f7b542dfbd8365dfaf735770a6fbab0b410abd00e6983f043240054",
+      "kind": "text"
+    },
+    {
+      "path": "assets/bank-movements-sheet-COe6FRom.js",
+      "bytes": 1765,
+      "sha256": "ce876d81a5af542d22090ba0b23a6e532db73dd3dc95d5442c84e7ee37960290",
+      "kind": "text"
+    },
+    {
+      "path": "assets/clearing-sheet-xCWPBHNq.js",
+      "bytes": 1802,
+      "sha256": "dd63e988a10393bcb7eabb8197e04189735f50f90040d8dd5d2a5279835a315e",
+      "kind": "text"
+    },
+    {
+      "path": "assets/supplier-sheet-BQI4lGhn.js",
+      "bytes": 3050,
+      "sha256": "c5fcbdccfa2a07f7041bc6f21971512084d0fa8b0240526bbe90d9416eb62a65",
+      "kind": "text"
+    },
+    {
+      "path": "assets/financial-sheet-C-dJikeL.js",
+      "bytes": 2343,
+      "sha256": "9535d4e3427445c55f33855d5789098764b7deab41c0d81e8d0cb45bc1c83171",
+      "kind": "text"
+    },
+    {
+      "path": "assets/intercompany-sheet-BoHlGOCz.js",
+      "bytes": 2096,
+      "sha256": "8b3b62775d37d225059b10b944be78a9e208aedd4c9ec36573c69ff0b293ee36",
+      "kind": "text"
+    },
+    {
+      "path": "assets/inventory-pdf-workbook-Ce_AmKZG.js",
+      "bytes": 5200,
+      "sha256": "36c7f4a33b9ecc76ea1d89b8a964f4eae88f3f283bc9bab4a491b3525ee35002",
+      "kind": "text"
+    },
+    {
+      "path": "assets/payroll-sheet-Co4z41jF.js",
+      "bytes": 2167,
+      "sha256": "f6b243d1f5e7a25e6eb21916e58e3cf7d40174dc055d40872d68b79b7a25bfaa",
+      "kind": "text"
+    },
+    {
+      "path": "fonts/DMSerifDisplay-OFL.txt",
+      "bytes": 4599,
+      "sha256": "e9d4ced9825bf03a6b634c37fe8ae974f6d1b80fbb0bd3ae9b089987e4dc541b",
+      "kind": "text"
+    },
+    {
+      "path": "fonts/DMSerifDisplay-PROVENANCE.txt",
+      "bytes": 1911,
+      "sha256": "f48a0889184eab40eecbc380e1d9f71c1fccae631ad84744fe965f9dac7f9b16",
+      "kind": "text"
+    },
+    {
+      "path": "fonts/dm-serif-display-latin-400-normal.woff2",
+      "bytes": 24744,
+      "sha256": "fdf61e20fd2c0108e0ea28da4daca0035205b4b7fc031a3974b865b704de160a",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "licensed-vendor",
+        "description": "Unchanged DM Serif Display Latin subset (weight 400) as published by @fontsource/dm-serif-display 5.3.0, with its SIL Open Font License in public/fonts/DMSerifDisplay-OFL.txt and its source and hash in public/fonts/DMSerifDisplay-PROVENANCE.txt."
+      }
     }
   ]
 }

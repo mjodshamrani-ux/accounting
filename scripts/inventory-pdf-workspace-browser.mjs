@@ -11,9 +11,13 @@ import {
   pdfScope,
 } from '../tests/helpers/inventory-pdf-lifecycle-fixture.ts';
 import { stockCopy } from '../lib/i18n/inventory-register.ts';
+import { scopeCardCopy } from '../lib/i18n/scope-card.ts';
 import { inventoryPdfCopy } from '../lib/i18n/inventory-pdf.ts';
+import { recordTableCopy } from '../lib/i18n/record-table.ts';
 import { domainEvidenceCopy } from '../lib/i18n/domain-evidence.ts';
 import { STOCK_FIELDS } from '../lib/reconciliation/inventory-register.ts';
+import { inventorySheetSaysScreen } from './reconciliation-sheet-browser.mjs';
+import { money } from '../lib/reconciliation/core.ts';
 import {
   openDomainWorkspace,
   openWorkspaceDisclosures,
@@ -60,7 +64,8 @@ const results = {},
   errors = [],
   external = [],
   nonGet = [],
-  checks = [];
+  checks = [],
+  sheets = [];
 let browser, current;
 try {
   browser = await chromium.launch({
@@ -178,6 +183,19 @@ try {
         );
       await received.saveAs(path.join(out, file));
       await wait();
+      // UX-6(c): the workpaper opens on the reconciliation sheet, in the
+      // interface's language, and it says what this page shows; the Arabic
+      // one names its evidence sheets as its Arabic evidence does.
+      if (k === 'export')
+        sheets.push({
+          file,
+          lang,
+          ...(await inventorySheetSaysScreen(page, {
+            file: path.join(out, file),
+            lang,
+            printed: true,
+          })),
+        });
     };
     for (const i of [0, 3, 1, 2]) {
       await openWorkspaceDisclosures(w);
@@ -192,7 +210,6 @@ try {
         ),
       );
       await wait();
-      await workspaceSource(w, t().roles[i]).getByRole('checkbox').check();
     }
     if (code === 'P02') {
       const pending = page.waitForEvent('download');
@@ -217,7 +234,85 @@ try {
         pdfScope[field],
         code + ': scope ' + field,
       );
-    await w.getByLabel(t().scopeConfirm, { exact: true }).check();
+    // UX-5(d): the printed register states its scope once, in its scope
+    // lines, and the three other originals on every row; the card says so
+    // for each, and its one confirmation carries the four sources and the
+    // scope.
+    // A register refused for its page sequence (N01, N02 in the sealed
+    // contract) is not read past its pages, so its scope lines are not
+    // read: the card must not name it, and the three companions give the
+    // scope alone. The engine then refuses the register as before.
+    const unread = g3Contract.sourceErrors[code] === 'PAGE_SEQUENCE',
+      // The companions' data rows, from their bytes: every row writes the
+      // scope (own split; the synthetic CSVs quote no line breaks).
+      companionRows = (
+        await Promise.all(
+          ['mapping.csv', 'policy.csv', 'gl.csv'].map((f) =>
+            readFile(path.join(out, 'sources', name, f), 'utf8'),
+          ),
+        )
+      ).reduce(
+        (n, text) => n + text.split(/\r?\n/).filter((l) => l.trim()).length - 1,
+        0,
+      );
+    const cardSays = async (when) => {
+      const block = lang === 'ar' ? 'كتلة النطاق' : 'scope block';
+      for (const field of STOCK_FIELDS) {
+        const row = w.locator(`[data-scope-field="${field}"]`);
+        assert.equal(
+          await row.getAttribute('data-origin'),
+          'file',
+          `${code} ${when}: ${field} from the files`,
+        );
+        const hint = (await row.locator('.hint').textContent()).trim();
+        assert.equal(
+          hint.includes(`${t().roles[0]}: ${block}`),
+          !unread,
+          `${code} ${when}: ${field} read from the printed register's scope lines: ${hint}`,
+        );
+        assert.equal(
+          hint.includes(t().roles[0]),
+          !unread,
+          `${code} ${when}: ${field} names the register only when it was read: ${hint}`,
+        );
+        for (const i of [1, 2, 3])
+          assert.ok(
+            hint.includes(`${t().roles[i]}: `),
+            `${code} ${when}: ${field} read from ${t().roles[i]}: ${hint}`,
+          );
+      }
+      const summary = w.locator('[data-scope-card] [data-scope-summary]');
+      assert.equal(
+        (await summary.innerText()).trim(),
+        t()
+          .cardSummary(
+            pdfScope.entity,
+            pdfScope.inventoryLedger,
+            pdfScope.glLedger,
+            pdfScope.asOf,
+            pdfScope.currency,
+            companionRows,
+            unread ? 'files' : 'block',
+          )
+          .join(''),
+        `${code} ${when}: the sentence says what was read`,
+      );
+      assert.equal(
+        await summary.locator('bdi').count(),
+        5,
+        `${code} ${when}: each value in the sentence is isolated`,
+      );
+    };
+    await cardSays('loaded');
+    const confirmBox = w.getByLabel(t().cardConfirm('', '')[0], {
+      exact: false,
+    });
+    assert.equal(
+      await confirmBox.isChecked(),
+      false,
+      code + ': a suggestion never confirms',
+    );
+    await confirmBox.check();
     const phases = {};
     const capture = async (phase) => {
       const r = (await last('stock-pdf-reconcile')).result;
@@ -250,11 +345,46 @@ try {
               ),
             })),
           );
-        const rendered = (headers, rows) => {
+        // A table with no row is one quiet line that names it (UX-3); an
+        // evidence section with no row is named, under its key, on the one
+        // line of empty sections instead (UX-4).
+        const quiet = await w
+          .locator('.workspace-results [data-record-empty]')
+          .evaluateAll((nodes) => nodes.map((n) => n.textContent.trim()));
+        const emptySections = await w
+          .locator(
+            '.workspace-results [data-empty-sections] [data-empty-section]',
+          )
+          .evaluateAll((nodes) =>
+            nodes.map((n) => [n.dataset.emptySection, n.textContent.trim()]),
+          );
+        const rendered = (label, headers, rows, section) => {
           const found = tables.filter(
             (table) =>
               JSON.stringify(table.headers) === JSON.stringify(headers),
           );
+          if (!rows.length) {
+            assert.equal(
+              found.length,
+              0,
+              name + ': no table of headers over no row ' + label,
+            );
+            if (section) {
+              assert.deepEqual(
+                emptySections.filter(([key]) => key === section.key),
+                [[section.key, section.name]],
+                name + ': the line of empty sections names ' + section.name,
+              );
+              return;
+            }
+            assert.equal(
+              quiet.filter((line) => line === recordTableCopy[lang].none(label))
+                .length,
+              1,
+              name + ': one quiet line says ' + label + ' has none',
+            );
+            return;
+          }
           assert.equal(
             found.length,
             1,
@@ -265,26 +395,47 @@ try {
             rows.map((row) => row.map((v) => String(v ?? '—'))).slice(0, 50),
           );
         };
+        // The page shows money in major units at the currency's precision and
+        // a register quantity at its own precision; the engine's integers are
+        // formatted here independently of the page before comparing.
+        const amount = (v) =>
+          v === null || v === undefined ? v : money(v, r.decimals);
         rendered(
+          t().tableNames.totals,
           t().totals,
-          r.totals ? [[r.totals.registerMinor, r.totals.glMinor]] : [],
+          r.totals
+            ? [[amount(r.totals.registerMinor), amount(r.totals.glMinor)]]
+            : [],
         );
         rendered(
+          t().tableNames.comparisons,
           t().comparisons,
           r.comparisons.map((c) => [
             c.account,
             c.dimensions,
-            c.registerMinor,
-            c.debitMinor,
-            c.creditMinor,
-            c.glMinor,
-            c.differenceMinor,
+            amount(c.registerMinor),
+            amount(c.debitMinor),
+            amount(c.creditMinor),
+            amount(c.glMinor),
+            amount(c.differenceMinor),
           ]),
         );
+        const recordCell = (role, values) =>
+          values.map((v, j) =>
+            role === 0 && j === 2 && typeof v === 'number'
+              ? money(v, Number(values[4]))
+              : ((role === 0 && j === 5) ||
+                    (role === 3 && (j === 3 || j === 4))) &&
+                  typeof v === 'number'
+                ? amount(v)
+                : v,
+          );
         for (const [i, records] of r.records.entries())
           rendered(
+            recordTableCopy[lang].rowsOf(t().roles[i]),
             t().records[i],
-            records.map((v) => [v.row, ...v.values]),
+            records.map((v) => [v.row, ...recordCell(i, v.values)]),
+            { key: `records.${i}`, name: t().roles[i] },
           );
         await download(
           'export',
@@ -386,6 +537,7 @@ try {
       assert.deepEqual(restored, phases.unreviewed);
       assert.equal(restored.financial, 'source-error');
       assert.equal(restored.totals, null);
+      await cardSays('restored cold');
       assert.equal(
         await w.locator('[data-stock-status]').innerText(),
         t().status['source-error'],
@@ -412,6 +564,16 @@ try {
       assert.equal(
         await w.locator('[data-stock-status]').innerText(),
         t().status[phases.accepted.status],
+      );
+      // The card reads the restored register's scope lines, not those of
+      // whatever was on screen before the session.
+      await cardSays('restored cold');
+      assert.equal(
+        await w
+          .getByLabel(t().cardConfirm('', '')[0], { exact: false })
+          .isChecked(),
+        true,
+        'P02 restored cold: the confirmation the session ran with',
       );
       checks.push('cold PDF session restores accepted original-bound result');
     }
@@ -491,6 +653,192 @@ try {
         fullPage: false,
       });
     }
+    if (code === 'P01') {
+      // Another printed register drops the one confirmation, even with the
+      // same scope; the accountant ticks it again for the new original.
+      await openWorkspaceDisclosures(w);
+      await w
+        .getByLabel(t().roles[0], { exact: true })
+        .setInputFiles(path.join(out, 'sources', 'INV1F-P03', 'register.pdf'));
+      await wait();
+      const again = w.getByLabel(t().cardConfirm('', '')[0], { exact: false });
+      assert.equal(
+        await again.isChecked(),
+        false,
+        'P01: a new register drops the confirmation',
+      );
+      assert.equal(
+        await button('compare').isEnabled(),
+        false,
+        'P01: no run before it is confirmed again',
+      );
+      await again.check();
+      assert.equal(
+        await button('compare').isEnabled(),
+        true,
+        'P01: confirmed again, the run opens',
+      );
+      checks.push('a new printed register drops the one confirmation');
+      // A field only the register's scope lines state: the three companions
+      // are written without their Chart version column (own split), so the
+      // card reads that field from the register alone. Restored on a fresh
+      // page, the session is read with its own register, so the field is
+      // still from the file, not the accountant's entry.
+      const only = path.join(out, 'sources', 'INV1F-P01-register-only');
+      await mkdir(only, { recursive: true });
+      for (const f of ['mapping.csv', 'policy.csv', 'gl.csv']) {
+        const lines = (
+          await readFile(path.join(out, 'sources', 'INV1F-P01', f), 'utf8')
+        )
+          .split(/\r?\n/)
+          .filter((l) => l.trim());
+        const at = lines[0].split(',').indexOf('Chart version');
+        assert.ok(at >= 0, f + ' writes Chart version');
+        assert.ok(
+          lines.every(
+            (l) =>
+              !l.includes('"') &&
+              l.split(',').length === lines[0].split(',').length,
+          ),
+          f + ': unquoted rows of one width, so a plain split is exact',
+        );
+        await writeFile(
+          path.join(only, f),
+          lines
+            .map((l) =>
+              l
+                .split(',')
+                .filter((_, i) => i !== at)
+                .join(','),
+            )
+            .join('\n') + '\n',
+        );
+      }
+      const onlyRegister = async (when) => {
+        const row = w.locator('[data-scope-field="chartVersion"]');
+        assert.equal(
+          await row.getAttribute('data-origin'),
+          'file',
+          `${when}: Chart version from the register's scope lines`,
+        );
+        const hint = (await row.locator('.hint').textContent()).trim();
+        assert.ok(hint.includes(`${t().roles[0]}: `), `${when}: ${hint}`);
+        for (const i of [1, 2, 3])
+          assert.ok(!hint.includes(t().roles[i]), `${when}: ${hint}`);
+      };
+      await page.reload();
+      await openDomainWorkspace(page, 'stock');
+      for (const i of [0, 3, 1, 2]) {
+        await openWorkspaceDisclosures(w);
+        await w
+          .getByLabel(t().roles[i], { exact: true })
+          .setInputFiles(
+            i === 0
+              ? path.join(out, 'sources', 'INV1F-P01', 'register.pdf')
+              : path.join(only, ['', 'mapping.csv', 'policy.csv', 'gl.csv'][i]),
+          );
+        await wait();
+      }
+      await onlyRegister('P01 register-only field');
+      await w.getByLabel(t().cardConfirm('', '')[0], { exact: false }).check();
+      await button('compare').click();
+      await wait();
+      await download('save', 'register-only-session.json');
+      await page.reload();
+      await openDomainWorkspace(page, 'stock');
+      await openWorkspaceDisclosures(w);
+      await w
+        .getByLabel(t().restore, { exact: true })
+        .setInputFiles(path.join(out, 'register-only-session.json'));
+      await wait();
+      await onlyRegister('P01 register-only field restored cold');
+      checks.push('a field only the register states survives a cold restore');
+      // A mapping whose every row names another entity than the register's
+      // scope lines: the field is a question before any run, listing the
+      // register's value as its scope block and each file's with its rows.
+      const other = path.join(out, 'sources', 'INV1F-P01-other-entity');
+      await mkdir(other, { recursive: true });
+      const mapping = (
+        await readFile(
+          path.join(out, 'sources', 'INV1F-P01', 'mapping.csv'),
+          'utf8',
+        )
+      )
+        .split(/\r?\n/)
+        .filter((l) => l.trim());
+      const entityAt = mapping[0].split(',').indexOf('Entity');
+      assert.ok(entityAt >= 0);
+      await writeFile(
+        path.join(other, 'mapping.csv'),
+        mapping
+          .map((l, i) =>
+            i
+              ? l
+                  .split(',')
+                  .map((c, j) => (j === entityAt ? 'Other Owner' : c))
+                  .join(',')
+              : l,
+          )
+          .join('\n') + '\n',
+      );
+      await page.reload();
+      await openDomainWorkspace(page, 'stock');
+      for (const i of [0, 3, 1, 2]) {
+        await openWorkspaceDisclosures(w);
+        await w
+          .getByLabel(t().roles[i], { exact: true })
+          .setInputFiles(
+            i === 1
+              ? path.join(other, 'mapping.csv')
+              : path.join(
+                  out,
+                  'sources',
+                  'INV1F-P01',
+                  ['register.pdf', '', 'policy.csv', 'gl.csv'][i],
+                ),
+          );
+        await wait();
+      }
+      const entity = w.locator('[data-scope-field="entity"]');
+      assert.equal(
+        await entity.getAttribute('data-origin'),
+        'question',
+        'P01 other entity: a question',
+      );
+      assert.equal(
+        await w
+          .getByLabel(t().scopePrefix + t().scope.entity, { exact: true })
+          .inputValue(),
+        '',
+        'P01 other entity: a disagreement is never filled',
+      );
+      const rowsOf = async (dir, f) =>
+        (await readFile(path.join(dir, f), 'utf8'))
+          .split(/\r?\n/)
+          .filter((l) => l.trim()).length - 1;
+      const say = scopeCardCopy[lang];
+      assert.deepEqual(
+        (await entity.locator('li').allTextContents())
+          .map((x) => x.trim())
+          .sort(),
+        [
+          `${say.quote(pdfScope.entity)} ${say.valueIn(t().roles[0], 1, true)}`,
+          `${say.quote(pdfScope.entity)} ${say.valueIn(t().roles[2], await rowsOf(path.join(out, 'sources', 'INV1F-P01'), 'policy.csv'))}`,
+          `${say.quote(pdfScope.entity)} ${say.valueIn(t().roles[3], await rowsOf(path.join(out, 'sources', 'INV1F-P01'), 'gl.csv'))}`,
+          `${say.quote('Other Owner')} ${say.valueIn(t().roles[1], await rowsOf(other, 'mapping.csv'))}`,
+        ].sort(),
+        "P01 other entity: the register's value as its scope block, each file's with its rows",
+      );
+      assert.ok(
+        (await entity.locator('li').allTextContents()).some((x) =>
+          x.includes(lang === 'ar' ? 'كتلة النطاق' : 'scope block'),
+        ),
+        'P01 other entity: the block is named as a block',
+      );
+      checks.push(
+        "a companion against the register's scope lines is a question",
+      );
+    }
     checks.push(
       name + ' actual upload scope decisions assistant bilingual exports',
     );
@@ -535,10 +883,15 @@ await writeFile(
   independent.stdout + independent.stderr,
 );
 assert.equal(independent.status, 0, independent.stderr);
+assert.ok(
+  sheets.length > 0 && new Set(sheets.map((s) => s.lang)).size === 2,
+  'workpapers checked in both languages',
+);
 const report = {
   passed: true,
   out,
   checks,
+  sheets,
   independent: JSON.parse(independent.stdout),
   errors,
   external,

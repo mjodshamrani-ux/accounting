@@ -31,13 +31,13 @@ async function shot(server, width, screen) {
     await page.getByRole('heading', { name: 'مساحة المراجعة' }).waitFor();
   }
   if (screen === 'export') {
-    await page.getByRole('button', { name: 'إعداد ورقة العمل' }).click();
+    await page.getByRole('button', { name: 'أعدّ ورقة العمل' }).click();
     await page.getByRole('heading', { name: 'ملاحظات المراجعة وتنزيل الملف' }).waitFor();
   }
   const idle = () => page.waitForFunction(() => !document.querySelector('.notice.loading'));
   if (screen === 'options') {
-    await page.getByRole('button', { name: 'تعديل نطاق المقارنة', exact: true }).click();
-    await page.getByRole('button', { name: 'تعديل كشف المورد', exact: true }).click();
+    await page.getByRole('button', { name: 'عدّل نطاق المقارنة', exact: true }).click();
+    await page.getByRole('button', { name: 'عدّل كشف المورد', exact: true }).click();
     await page.getByText('استبعاد صف مع توضيح السبب').click();
     await page.getByText('مصادر القيم المقترحة').click().catch(() => {});
   }
@@ -74,7 +74,7 @@ async function shot(server, width, screen) {
     await idle();
     await page.getByLabel('تقرير الحسابات الدائنة', { exact: true }).setInputFiles({ name: 'ledger-april.csv', mimeType: 'text/csv', buffer: ledgerCsv });
     await idle();
-    await page.getByRole('button', { name: 'تأكيد البيانات', exact: true }).click();
+    await page.getByRole('button', { name: 'أكّد البيانات', exact: true }).click();
     await page.getByRole('button', { name: 'تحقق وقارن', exact: true }).waitFor();
   }
   await page.addStyleTag({ content: '.topbar{visibility:hidden!important} *{caret-color:transparent!important}' });

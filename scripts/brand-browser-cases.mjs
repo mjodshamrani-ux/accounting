@@ -14,15 +14,32 @@ const displayFontFamilies = [
   'serif',
 ];
 const displayFontStack = '"Thmanyah Serif Display", "Noto Sans Arabic", serif';
-const latinDisplayFontFamilies = ['Arial', 'Helvetica', 'sans-serif'];
+const latinDisplayFontFamilies = ['DM Serif Display', 'Georgia', 'serif'];
 const displayFontSha256 =
   'd36da84ee5423145415425bdd9c10dc27f57a66afec031bd7b78e662572846ce';
+// The Latin display face of English headings (UX-8), as its package
+// publishes it; see public/fonts/DMSerifDisplay-PROVENANCE.txt.
+const latinDisplayFontFile = 'dm-serif-display-latin-400-normal.woff2';
+const latinDisplayFontSha256 =
+  'fdf61e20fd2c0108e0ea28da4daca0035205b4b7fc031a3974b865b704de160a';
 const fontFamilies = (value) =>
   value.split(',').map((family) => family.trim().replace(/^["']|["']$/g, ''));
 const narrowWorkflowType = new WeakMap();
 const layoutWidths = [320, 390, 768, 820, 1024, 1280];
 
 async function verifyLocalDisplayDistribution(page) {
+  for (const directory of ['../public/fonts/', '../dist/fonts/'])
+    assert.equal(
+      createHash('sha256')
+        .update(
+          await readFile(
+            new URL(`${directory}${latinDisplayFontFile}`, import.meta.url),
+          ),
+        )
+        .digest('hex'),
+      latinDisplayFontSha256,
+      `${directory}: the Latin display font bytes are the published ones`,
+    );
   for (const directory of ['../public/fonts/', '../dist/fonts/'])
     assert.equal(
       createHash('sha256')
@@ -53,6 +70,17 @@ async function verifyLocalDisplayDistribution(page) {
         .map((rule) => ({
           src: rule.style.src,
           weight: rule.style.fontWeight,
+        })),
+      latinRules: rules
+        .filter(
+          (rule) =>
+            rule instanceof CSSFontFaceRule &&
+            /DM Serif Display/i.test(rule.style.fontFamily),
+        )
+        .map((rule) => ({
+          src: rule.style.src,
+          weight: rule.style.fontWeight,
+          style: rule.style.fontStyle,
         })),
       loadedDisplayFaces: [...document.fonts]
         .filter((face) => /Thmanyah Serif Display/i.test(face.family))
@@ -92,6 +120,17 @@ async function verifyLocalDisplayDistribution(page) {
     /\/fonts\/thmanyah-serif-display-bold\.woff2/,
   );
   assert.equal(assets.displayRules[0].weight, '700');
+  assert.equal(
+    assets.latinRules.length,
+    1,
+    'one Latin display face is declared, at its one weight',
+  );
+  assert.match(
+    assets.latinRules[0].src,
+    /^url\("?(?:\.\.)?\/fonts\/dm-serif-display-latin-400-normal\.woff2"?\) format\("woff2"\)$/,
+  );
+  assert.equal(assets.latinRules[0].weight, '400');
+  assert.equal(assets.latinRules[0].style, 'normal');
   assert.deepEqual(
     assets.loadedDisplayFaces,
     [{ status: 'loaded', weight: '700' }],
@@ -216,7 +255,11 @@ export async function verifyDisplayTypography(page) {
             : latinDisplayFontFamilies,
           `${heading.text}: intentional language display stack`,
         );
-        assert.equal(heading.weight, '700');
+        assert.equal(
+          heading.weight,
+          heading.language === 'ar' ? '700' : '400',
+          `${heading.text}: the weight its display face has`,
+        );
         assert.ok(
           heading.text &&
             heading.width > 0 &&
@@ -365,7 +408,7 @@ async function verifyPrivacyNavigation(page) {
       document.getElementById('privacy-detail-title'),
   );
   await page
-    .getByRole('button', { name: 'إغلاق الخصوصية', exact: true })
+    .getByRole('button', { name: 'أغلق حدود الخصوصية', exact: true })
     .click();
   await page.waitForFunction(
     () =>
@@ -378,19 +421,144 @@ async function verifyPrivacyNavigation(page) {
   );
 }
 
-async function verifySceneGeometry(page) {
+// The intro scene in three layers (UX-7): the platform behind, the two papers
+// as elements of their own, the platform face in front. Every property the
+// single drawing was held to holds here, in the frame of the stage.
+const sceneWidths = [...layoutWidths, 1440];
+export { sceneFacts, sceneWidths };
+
+/** Facts of the scene now, in screen pixels and in each paper's own units.
+ * Given a sample, it first seeks every repeating animation of the stage (the
+ * floats and the scans) to that sixteenth of its cycle, in the same task as
+ * the reading: the timeline does not advance within a task and the layout
+ * queries apply the seeked time, so a running animation cannot move between
+ * the seek and the reading. An act of the supplier stage runs once; seeking
+ * it to its end would end it and start the next, so it is left alone. */
+function sceneFacts(sample) {
+  const stage = document.querySelector('.document-scene__stage');
+  if (typeof sample === 'number')
+    stage
+      .getAnimations({ subtree: true })
+      .filter(
+        (animation) =>
+          animation.effect.getComputedTiming().iterations === Infinity,
+      )
+      .forEach((animation) => {
+        const duration = Number(animation.effect.getComputedTiming().duration);
+        animation.currentTime = (duration * sample) / 16;
+      });
+  const frame = stage.getBoundingClientRect();
+  const portal = stage
+    .querySelector('.document-scene__portal-back')
+    .getBoundingClientRect();
+  const allowance = 0.5;
+  const inside = (inner, outer) =>
+    inner.left >= outer.left - allowance &&
+    inner.top >= outer.top - allowance &&
+    inner.right <= outer.right + allowance &&
+    inner.bottom <= outer.bottom + allowance;
+  const resolveClip = (element) => {
+    const match = element
+      ?.getAttribute('clip-path')
+      ?.match(/^url\(["']?#([^"')]+)["']?\)$/);
+    return match ? document.getElementById(match[1]) : null;
+  };
+  const localBounds = (element, base) => {
+    const box = element.getBBox();
+    const transform = base
+      .getScreenCTM()
+      .inverse()
+      .multiply(element.getScreenCTM());
+    const points = [
+      [box.x, box.y],
+      [box.x + box.width, box.y],
+      [box.x, box.y + box.height],
+      [box.x + box.width, box.y + box.height],
+    ].map(([x, y]) => new DOMPoint(x, y).matrixTransform(transform));
+    return {
+      left: Math.min(...points.map((point) => point.x)),
+      right: Math.max(...points.map((point) => point.x)),
+      top: Math.min(...points.map((point) => point.y)),
+      bottom: Math.max(...points.map((point) => point.y)),
+    };
+  };
+  const papers = [...stage.querySelectorAll('.document-scene__sheet')].map(
+    (paper) => {
+      const art = paper.querySelector('.document-scene__paper-art');
+      const body = paper.querySelector('.document-scene__paper');
+      const edge = paper.querySelector('.document-scene__paper-edge');
+      const scan = paper.querySelector('.document-scene__paper-scan');
+      const scanClip = resolveClip(
+        scan?.closest('.document-scene__paper-scan-window'),
+      );
+      const transform = body.getScreenCTM();
+      const turn = paper.querySelector('.document-scene__turn');
+      const unit = turn.clientWidth / 196;
+      const title = paper.querySelector('.document-scene__paper-title');
+      const text = paper.querySelector('.document-scene__paper-title-text');
+      const chip = paper.querySelector('.document-scene__file-type');
+      const lineHeight = parseFloat(getComputedStyle(title).lineHeight);
+      const edgeBox = edge.getBoundingClientRect();
+      return {
+        kind: paper.dataset.paperKind,
+        shown: getComputedStyle(paper).visibility === 'visible',
+        bodyY: body.getBoundingClientRect().top - frame.top,
+        scanY: scan && localBounds(scan.querySelector('path'), art).top,
+        contained: inside(body.getBoundingClientRect(), frame),
+        edgeContained: inside(edgeBox, frame),
+        paperClearsRim: edgeBox.bottom < portal.top,
+        undistorted:
+          Math.abs(
+            Math.hypot(transform.a, transform.b) -
+              Math.hypot(transform.c, transform.d),
+          ) < 0.001 &&
+          Math.abs(transform.a * transform.c + transform.b * transform.d) <
+            0.001,
+        scanContained:
+          !!scan &&
+          !!scanClip &&
+          (() => {
+            const clip = scanClip.querySelector('rect').getBBox();
+            const scanBox = localBounds(scan, art);
+            return (
+              scanBox.left >= clip.x - 0.1 &&
+              scanBox.top >= clip.y - 0.1 &&
+              scanBox.right <= clip.x + clip.width + 0.1 &&
+              scanBox.bottom <= clip.y + clip.height + 0.1
+            );
+          })(),
+        // The name sits in its band from 48 to 100 between the mark (bottom
+        // 43.5) and the table (top 106), in two lines at most, and the chip of
+        // formats ends before the mark at 153; in the paper's own units.
+        titleBand:
+          title.offsetTop / unit >= 43.5 &&
+          (title.offsetTop + title.offsetHeight) / unit <= 106,
+        titleFits:
+          text.offsetHeight <= title.clientHeight + 0.5 &&
+          text.scrollWidth <= title.clientWidth + 0.5 &&
+          Math.round(text.offsetHeight / lineHeight) <= 2,
+        chipFits:
+          chip.scrollWidth <= chip.clientWidth + 0.5 &&
+          (chip.offsetLeft + chip.offsetWidth) / unit < 153,
+      };
+    },
+  );
+  return { frame: { width: frame.width, height: frame.height }, papers };
+}
+
+export async function verifySceneGeometry(page) {
   const viewport = page.viewportSize();
   try {
-    for (const width of layoutWidths) {
+    for (const width of sceneWidths) {
       await page.setViewportSize({ width, height: 844 });
       await page.locator('.document-scene').scrollIntoViewIfNeeded();
       const geometry = await page
-        .locator('.document-scene__art')
-        .evaluate(async (art) => {
+        .locator('.document-scene__stage')
+        .evaluate(async (stage) => {
           await document.fonts.ready;
-          const view = art.viewBox.baseVal;
-          const rect = art.getBoundingClientRect();
-          const papers = [...art.querySelectorAll('.document-scene__sheet')];
+          const frame = stage.getBoundingClientRect();
+          const arts = [...stage.querySelectorAll('.document-scene__art')];
+          const papers = [...stage.querySelectorAll('.document-scene__sheet')];
           const bounds = (box) => ({
             left: box.x,
             top: box.y,
@@ -407,21 +575,6 @@ async function verifySceneGeometry(page) {
               ?.getAttribute('clip-path')
               ?.match(/^url\(["']?#([^"')]+)["']?\)$/);
             return match ? document.getElementById(match[1]) : null;
-          };
-          const transformedBounds = (element, transform) => {
-            const box = element.getBBox();
-            const points = [
-              [box.x, box.y],
-              [box.x + box.width, box.y],
-              [box.x, box.y + box.height],
-              [box.x + box.width, box.y + box.height],
-            ].map(([x, y]) => new DOMPoint(x, y).matrixTransform(transform));
-            return {
-              left: Math.min(...points.map((point) => point.x)),
-              right: Math.max(...points.map((point) => point.x)),
-              top: Math.min(...points.map((point) => point.y)),
-              bottom: Math.max(...points.map((point) => point.y)),
-            };
           };
           const content = papers.map((paper) => {
             const body = paper.querySelector('.document-scene__paper');
@@ -462,98 +615,53 @@ async function verifySceneGeometry(page) {
                 ),
             };
           });
-          const animations = art.getAnimations({ subtree: true });
-          const floatAnimations = animations.filter((animation) =>
-            animation.effect.target.matches('.document-scene__float'),
-          );
-          const scanAnimations = animations.filter((animation) =>
-            animation.effect.target.matches('.document-scene__paper-scan'),
-          );
-          const times = animations.map((animation) => animation.currentTime);
-          const samples = [];
-          try {
-            // Seek the real animation, including its negative phase delays, across
-            // a complete cycle without replacing CSS keyframes or play state.
-            for (let sample = 0; sample <= 16; sample += 1) {
-              animations.forEach((animation) => {
-                const duration = Number(
-                  animation.effect.getComputedTiming().duration,
-                );
-                animation.currentTime = (duration * sample) / 16;
-              });
-              await new Promise((resolve) => requestAnimationFrame(resolve));
-              const rootInverse = art.getScreenCTM().inverse();
-              const portal = art.querySelector('.document-scene__portal-back');
-              const portalBounds =
-                portal &&
-                transformedBounds(
-                  portal,
-                  rootInverse.multiply(portal.getScreenCTM()),
-                );
-              for (const paper of papers) {
-                const body = paper.querySelector('.document-scene__paper');
-                const transform = rootInverse.multiply(body.getScreenCTM());
-                const scan = paper.querySelector('.document-scene__paper-scan');
-                const scanClipRect = resolveClip(
-                  scan?.closest('.document-scene__paper-scan-window'),
-                )?.querySelector('rect');
-                const scanTransform =
-                  scan &&
-                  paper.getScreenCTM().inverse().multiply(scan.getScreenCTM());
-                const edge = paper.querySelector('.document-scene__paper-edge');
-                const edgeBounds =
-                  edge &&
-                  transformedBounds(
-                    edge,
-                    rootInverse.multiply(edge.getScreenCTM()),
-                  );
-                samples.push({
-                  kind: paper.dataset.paperKind,
-                  sample,
-                  contained: contained(
-                    transformedBounds(body, transform),
-                    bounds(view),
-                  ),
-                  scanContained:
-                    !!scanClipRect &&
-                    !!scanTransform &&
-                    contained(
-                      transformedBounds(scan, scanTransform),
-                      bounds(scanClipRect.getBBox()),
-                    ),
-                  paperClearsRim:
-                    !!portalBounds &&
-                    !!edgeBounds &&
-                    contained(edgeBounds, bounds(view)) &&
-                    edgeBounds.bottom < portalBounds.top,
-                  undistorted:
-                    Math.abs(
-                      Math.hypot(transform.a, transform.b) -
-                        Math.hypot(transform.c, transform.d),
-                    ) < 0.001 &&
-                    Math.abs(
-                      transform.a * transform.c + transform.b * transform.d,
-                    ) < 0.001,
-                });
-              }
-            }
-          } finally {
-            animations.forEach((animation, index) => {
-              animation.currentTime = times[index];
-            });
-          }
+          const animations = stage.getAnimations({ subtree: true });
           return {
+            frameWidth: frame.width,
             proportionate:
-              Math.abs(rect.width / rect.height - view.width / view.height) <
-              0.01,
+              Math.abs(frame.width / frame.height - 560 / 490) < 0.01 &&
+              arts.every((art) => {
+                const view = art.viewBox.baseVal;
+                const box = art.getBoundingClientRect();
+                return (
+                  view.width === 560 &&
+                  view.height === 490 &&
+                  Math.abs(box.width - frame.width) < 0.5 &&
+                  Math.abs(box.height - frame.height) < 0.5
+                );
+              }),
+            layers: arts.length,
             content,
-            samples,
-            floatAnimations: floatAnimations.length,
-            scanAnimations: scanAnimations.length,
-            clipsResolve: [...art.querySelectorAll('[clip-path]')].every(
+            floatAnimations: animations.filter((animation) =>
+              animation.effect.target.matches('.document-scene__float'),
+            ).length,
+            scanAnimations: animations.filter((animation) =>
+              animation.effect.target.matches('.document-scene__paper-scan'),
+            ).length,
+            // A repeating animation ends each cycle where it began when its
+            // last keyframe is its first.
+            loops: animations
+              .filter(
+                (animation) =>
+                  animation.effect.getComputedTiming().iterations === Infinity,
+              )
+              .map((animation) => {
+                const frames = animation.effect.getKeyframes();
+                return {
+                  name: animation.animationName,
+                  first: frames[0]?.transform,
+                  last: frames.at(-1)?.transform,
+                  from: frames[0]?.computedOffset,
+                  to: frames.at(-1)?.computedOffset,
+                };
+              }),
+            clipsResolve: [...stage.querySelectorAll('[clip-path]')].every(
               (element) => {
                 const clip = resolveClip(element);
-                return clip?.localName === 'clipPath' && art.contains(clip);
+                return (
+                  clip?.localName === 'clipPath' &&
+                  element.ownerSVGElement.contains(clip)
+                );
               },
             ),
             uniqueSvgIds: (() => {
@@ -567,8 +675,9 @@ async function verifySceneGeometry(page) {
       assert.equal(
         geometry.proportionate,
         true,
-        `${width}px: the whole illustration scales proportionally`,
+        `${width}px: the whole illustration scales proportionally, its layers in one frame`,
       );
+      assert.equal(geometry.layers, 2, 'the platform behind and in front');
       assert.deepEqual(geometry.content.map((paper) => paper.kind).sort(), [
         'ledger',
         'supplier',
@@ -584,6 +693,19 @@ async function verifySceneGeometry(page) {
         'each paper has its own scan animation',
       );
       assert.equal(
+        geometry.loops.length,
+        4,
+        'the two floats and the two scans repeat',
+      );
+      for (const loop of geometry.loops)
+        assert.ok(
+          loop.from === 0 &&
+            loop.to === 1 &&
+            typeof loop.first === 'string' &&
+            loop.first === loop.last,
+          `${width}px: each cycle of ${loop.name} ends where it began (${JSON.stringify(loop)})`,
+        );
+      assert.equal(
         geometry.uniqueSvgIds,
         true,
         'SVG definition ids must be unique across the page',
@@ -591,7 +713,7 @@ async function verifySceneGeometry(page) {
       assert.equal(
         geometry.clipsResolve,
         true,
-        'all paper clip references must resolve inside their illustration',
+        'all paper clip references must resolve inside their own drawing',
       );
       for (const paper of geometry.content) {
         assert.ok(
@@ -607,15 +729,71 @@ async function verifySceneGeometry(page) {
           `${width}px ${paper.kind}: text and table must fit inside the paper, with a valid local content clip (${JSON.stringify(paper)})`,
         );
       }
-      for (const sample of geometry.samples) {
+      // Seek the real animations, including their negative phase delays,
+      // across a complete cycle without replacing CSS keyframes or play
+      // state; sample 16 is the cycle's end, which must meet sample 0.
+      const samples = [];
+      await page.evaluate(() => {
+        window.__sceneTimes = document
+          .querySelector('.document-scene__stage')
+          .getAnimations({ subtree: true })
+          .filter(
+            (animation) =>
+              animation.effect.getComputedTiming().iterations === Infinity,
+          )
+          .map((animation) => [animation, animation.currentTime]);
+      });
+      try {
+        for (let sample = 0; sample <= 16; sample += 1)
+          for (const paper of (await page.evaluate(sceneFacts, sample)).papers)
+            samples.push({ ...paper, sample });
+      } finally {
+        await page.evaluate(() => {
+          for (const [animation, time] of window.__sceneTimes)
+            animation.currentTime = time;
+        });
+      }
+      for (const sample of samples) {
         assert.equal(
           sample.contained &&
+            sample.edgeContained &&
             sample.undistorted &&
             sample.scanContained &&
             sample.paperClearsRim,
           true,
-          `${width}px ${sample.kind}, animation sample ${sample.sample}: paper cannot escape, stretch or cross the portal rim; its scan stays confined to its own paper`,
+          `${width}px ${sample.kind}, animation sample ${sample.sample}: paper cannot escape, stretch or cross the portal rim; its scan stays confined to its own paper (${JSON.stringify(sample)})`,
         );
+        assert.equal(
+          sample.titleBand && sample.titleFits && sample.chipFits,
+          true,
+          `${width}px ${sample.kind}, sample ${sample.sample}: the role's name stays in its band in two lines at most and its formats end before the mark (${JSON.stringify(sample)})`,
+        );
+      }
+      // No jump: the rise is 9 units of the 560-unit frame over half of 9 s,
+      // so a sixteenth of the cycle moves a paper well under 3 units; the
+      // scan travels 152 of the paper's units over half of 8.5 s, under 40
+      // per sample. That each cycle ends where it began is read from the
+      // keyframes above: sample 16 is sample 0 again by construction, so the
+      // samples cannot show it.
+      const riseStep = (3 * geometry.frameWidth) / 560;
+      for (const kind of ['ledger', 'supplier']) {
+        const series = samples.filter((sample) => sample.kind === kind);
+        for (let index = 1; index < series.length; index += 1) {
+          const floatStep = Math.abs(
+            series[index].bodyY - series[index - 1].bodyY,
+          );
+          const scanStep = Math.abs(
+            series[index].scanY - series[index - 1].scanY,
+          );
+          assert.ok(
+            floatStep < riseStep,
+            `${width}px ${kind}: the paper jumps ${floatStep}px between samples ${index - 1} and ${index}`,
+          );
+          assert.ok(
+            scanStep < 40,
+            `${width}px ${kind}: the scan jumps ${scanStep} units between samples ${index - 1} and ${index}`,
+          );
+        }
       }
     }
   } finally {
@@ -723,7 +901,7 @@ async function verifyUploadInteractions(page) {
     );
     assert.equal(
       await uploadPage
-        .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+        .getByRole('button', { name: 'أكّد البيانات', exact: true })
         .isDisabled(),
       true,
     );
@@ -1070,7 +1248,7 @@ export async function verifyBrandLanding(page) {
     () => document.querySelector('.document-scene')?.dataset.running === 'true',
   );
   const pause = scene.getByRole('button', {
-    name: 'إيقاف الحركة التوضيحية',
+    name: 'أوقف الحركة التوضيحية',
     exact: true,
   });
   assert.equal(await pause.getAttribute('aria-pressed'), 'false');
@@ -1080,7 +1258,9 @@ export async function verifyBrandLanding(page) {
       document.querySelector('.document-scene')?.dataset.running === 'false',
   );
   assert.equal(
-    await scene.getByRole('button').getAttribute('aria-pressed'),
+    await scene
+      .locator('.document-scene__motion-toggle')
+      .getAttribute('aria-pressed'),
     'true',
   );
   await page.waitForFunction(() => {
@@ -1101,7 +1281,7 @@ export async function verifyBrandLanding(page) {
     'scrolling back never overrides the user pause',
   );
   await scene
-    .getByRole('button', { name: 'تشغيل الحركة التوضيحية', exact: true })
+    .getByRole('button', { name: 'شغّل الحركة التوضيحية', exact: true })
     .click();
   await page.waitForFunction(
     () => document.querySelector('.document-scene')?.dataset.running === 'true',
@@ -1134,7 +1314,10 @@ export async function verifyBrandLanding(page) {
       ].every((element) => getComputedStyle(element).animationName === 'none')
     );
   });
-  assert.equal(await scene.getByRole('button').isDisabled(), true);
+  assert.equal(
+    await scene.locator('.document-scene__motion-toggle').isDisabled(),
+    true,
+  );
   assert.equal(
     await page.evaluate(
       () =>

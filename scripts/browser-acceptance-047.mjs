@@ -118,7 +118,7 @@ for (const entry of await acceptanceCases()) {
       record.stage = 'read';
     } else {
       const confirm = page.getByRole('button', {
-        name: 'تأكيد البيانات',
+        name: 'أكّد البيانات',
         exact: true,
       });
       if ((await confirm.count()) && (await confirm.isDisabled())) {
@@ -148,7 +148,7 @@ for (const entry of await acceptanceCases()) {
         .waitFor({ state: 'visible', timeout: 5000 })
         .catch(async () => {
           const toggle = page.getByRole('button', {
-            name: 'تعديل نطاق المقارنة',
+            name: 'عدّل نطاق المقارنة',
             exact: true,
           });
           if (await visible(toggle)) await toggle.click();
@@ -235,12 +235,12 @@ for (const entry of await acceptanceCases()) {
             await page.locator('.metric').nth(0).locator('strong').innerText(),
           );
           await page
-            .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
+            .getByRole('button', { name: 'أعدّ ورقة العمل', exact: true })
             .click();
           await settled(page);
           const download = page.waitForEvent('download');
           await page
-            .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
+            .getByRole('button', { name: 'نزّل مسودة Excel', exact: true })
             .click();
           const saved = await (await download).path();
           const bytes = await readFile(saved);

@@ -15,8 +15,10 @@ import {
   type StockEvent,
 } from '../lib/reconciliation/inventory-register.ts';
 import {
-  readStockFile, replayStock, saveStock, restoreStock, exportStock,
+  readStockFile, replayStock, saveStock, restoreStock,
 } from '../lib/reconciliation/inventory-register-io.ts';
+import { exportStockWorkpaper } from '../lib/reconciliation/inventory-sheet.ts';
+import { formulaCell, maskCell, rezip } from './helpers/workbook-xml.ts';
 import {
   snapshotStockInputRequest,
   snapshotStockTransportData,
@@ -175,7 +177,7 @@ for (const xlsx of [false, true]) void test(`INV-1B actual worker ${xlsx ? 'Exce
     assert.ok(envelope.files.every((file: Record<string, unknown>) => !Object.hasOwn(file, 'sheets')));
     const restored = await client.request<typeof checked>('stock-restore', { buffer: session });
     assert.deepEqual(restored, accepted);
-    const workbook = await client.request<ArrayBuffer>('stock-export', accepted);
+    const workbook = await client.request<ArrayBuffer>('stock-export', { ...accepted, lang: 'en' });
     const book = new ExcelJS.Workbook(); await book.xlsx.load(workbook);
     const sourcesSheet = book.getWorksheet('Sources')!;
     assert.equal(sourcesSheet.getRow(2).getCell(4).text, xlsx ? 'Supplied stock' : 'CSV');
@@ -270,28 +272,34 @@ void test('INV-1B returned originals and accounting evidence are captured before
 
 void test('INV-1B save and export reject valid foreign outputs while serving exact caller originals', async () => {
   const base = await replayStock(await input()), other = await foreign(base.state);
+  // The export reply is the workpaper (UX-6), and a foreign one is a whole
+  // valid workpaper of another scope.
+  type Export = typeof base & { lang: 'ar' | 'en' };
+  const asked: Export = { ...base, lang: 'en' };
   for (const action of ['stock-save', 'stock-export'] as const) {
-    const response = action === 'stock-save' ? await saveStock(other.state) : await exportStock(other.state, other.result);
-    const p = port(() => response), payload = action === 'stock-save' ? base.state : base;
+    const response = action === 'stock-save' ? await saveStock(other.state) : await exportStockWorkpaper(other.state, other.result, 'en');
+    const p = port(() => response), payload = action === 'stock-save' ? base.state : asked;
     await assert.rejects(createWorkerClient(() => p.worker).request(action, payload), /STOCK_WORKER_BINDING/);
   }
   const p = port((request) => request.action === 'stock-save'
     ? saveStock(request.payload as StockInput)
-    : exportStock((request.payload as typeof base).state, (request.payload as typeof base).result));
+    : exportStockWorkpaper((request.payload as Export).state, (request.payload as Export).result, (request.payload as Export).lang));
   const client = createWorkerClient(() => p.worker);
   assert.deepEqual((await restoreStock(await client.request('stock-save', base.state))).result, base.result);
-  assert.ok((await client.request<ArrayBuffer>('stock-export', base)).byteLength > 0);
+  assert.ok((await client.request<ArrayBuffer>('stock-export', asked)).byteLength > 0);
 });
 
 void test('INV-1B export rejects hidden numeric display, formula replacement, unknown ZIP content and forged expanded-size metadata', async () => {
-  const base = await replayStock(await input()), original = await exportStock(base.state, base.result);
+  const base = await replayStock(await input()), original = await exportStockWorkpaper(base.state, base.result, 'en');
+  const asked = { ...base, lang: 'en' as const };
+  // Each change is written into the workpaper's own parts, one cell, all else
+  // as written: an ExcelJS round trip rewrites every part and would be
+  // refused unchanged. The workpaper re-zipped unchanged is accepted.
+  const control = port(async () => rezip(original));
+  assert.ok((await createWorkerClient(() => control.worker).request<ArrayBuffer>('stock-export', asked)).byteLength > 0);
   const corruptions: ArrayBuffer[] = [];
-  const book = new ExcelJS.Workbook(); await book.xlsx.load(original);
-  book.getWorksheet('Register')!.getCell('I2').numFmt = ';;;';
-  corruptions.push(Uint8Array.from(new Uint8Array(await book.xlsx.writeBuffer())).buffer);
-  const formula = new ExcelJS.Workbook(); await formula.xlsx.load(original);
-  formula.getWorksheet('Register')!.getCell('I2').value = { formula: '60000', result: 60000 };
-  corruptions.push(Uint8Array.from(new Uint8Array(await formula.xlsx.writeBuffer())).buffer);
+  corruptions.push(await maskCell(original, 'Register', 'I2'));
+  corruptions.push(await formulaCell(original, 'Register', 'I2', 60000));
   const zip = await JSZip.loadAsync(original); zip.file('private-unexpected.txt', 'Unexpected output');
   corruptions.push(await zip.generateAsync({ type: 'arraybuffer' }));
   const badSize = original.slice(0), bytes = new DataView(badSize);
@@ -299,7 +307,7 @@ void test('INV-1B export rejects hidden numeric display, formula replacement, un
   bytes.setUint32(central + 24, 192 * 1024 * 1024 + 1, true); corruptions.push(badSize);
   for (const output of corruptions) {
     const p = port(() => output);
-    await assert.rejects(createWorkerClient(() => p.worker).request('stock-export', base), /STOCK_WORKER_(?:BINDING|EXPORT_CAPACITY|EXPORT_ENVELOPE)/);
+    await assert.rejects(createWorkerClient(() => p.worker).request('stock-export', asked), /STOCK_WORKER_(?:BINDING|EXPORT_CAPACITY|EXPORT_ENVELOPE)/);
   }
 });
 

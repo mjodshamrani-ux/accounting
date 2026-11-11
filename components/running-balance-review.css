@@ -14,10 +14,10 @@
   place-items: center;
   flex: 0 0 44px;
   height: 44px;
-  border: 1px solid #d9e7f5;
+  border: 1px solid var(--border-strong);
   border-radius: 14px;
-  background: #f3f8fe;
-  color: #2475cc;
+  background: var(--source-a-tint);
+  color: var(--source-a-ink);
 }
 .running-review__heading > div {
   flex: 1;
@@ -25,8 +25,8 @@
 }
 .running-review__eyebrow {
   display: block;
-  color: #526c87;
-  font-size: 11px;
+  color: var(--text-label);
+  font-size: var(--type-xs);
   letter-spacing: 0.03em;
   margin-bottom: 7px;
 }
@@ -34,11 +34,11 @@
   margin: 0;
   font-size: 19px;
   line-height: 1.5;
-  color: #14283f;
+  color: var(--text);
 }
 .running-review__heading p {
   margin: 8px 0 0;
-  color: #627084;
+  color: var(--text-secondary);
   font-size: 13px;
   line-height: 1.8;
 }
@@ -51,16 +51,16 @@
 }
 .running-review__body {
   padding: 24px;
-  border-top: 1px solid #e8edf4;
+  border-top: 1px solid var(--border);
   display: grid;
   gap: 22px;
 }
 .running-review__limit {
   padding: 14px 16px;
-  border-inline-start: 3px solid #5291d5;
+  border-inline-start: 3px solid var(--source-a-ink);
   border-radius: 8px;
-  background: #f6f9fd;
-  color: #52657c;
+  background: var(--surface-quiet);
+  color: var(--text-label);
   font-size: 13px;
   line-height: 1.9;
   margin: 0;
@@ -82,12 +82,12 @@
   width: 100%;
   max-width: 100%;
   min-height: 44px;
-  border: 1px solid #dce4ee;
+  border: 1px solid var(--border-strong);
   border-radius: 10px;
   padding: 10px 12px;
-  background: #fff;
+  background: var(--surface);
   font: inherit;
-  color: #23374e;
+  color: var(--text);
 }
 .running-review__check {
   display: flex;
@@ -99,7 +99,7 @@
 .running-review__check input {
   margin-top: 5px;
   flex: 0 0 16px;
-  accent-color: #2876c5;
+  accent-color: var(--source-a-ink);
 }
 .running-review__actions {
   display: flex;
@@ -108,18 +108,18 @@
   gap: 10px;
 }
 .running-review__actions output {
-  color: #60758b;
-  font-size: 12px;
+  color: var(--text-secondary);
+  font-size: var(--type-xs);
 }
 .running-review__status {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #236a50;
+  color: var(--tone-success-text);
   font-size: 14px;
 }
 .running-review__status.is-blocked {
-  color: #9c4b34;
+  color: var(--tone-danger-text);
 }
 .running-review__stats {
   display: grid;
@@ -128,22 +128,22 @@
 }
 .running-review__stats > div {
   min-width: 0;
-  border: 1px solid #e4eaf2;
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 16px;
-  background: #fbfcfe;
+  background: var(--surface-quiet);
 }
 .running-review__stats span {
   display: block;
-  color: #68798e;
-  font-size: 11px;
+  color: var(--text-secondary);
+  font-size: var(--type-xs);
   line-height: 1.8;
 }
 .running-review__stats strong {
   display: block;
   margin-top: 8px;
   font-size: 20px;
-  color: #14283f;
+  color: var(--text);
   overflow-wrap: anywhere;
   font-variant-numeric: tabular-nums;
 }
@@ -155,51 +155,45 @@
 .running-review h3 {
   font-size: 15px;
   margin: 0;
-  color: #263c55;
-}
-.running-review__scroll {
-  max-width: 100%;
-  overflow: auto;
-  border: 1px solid #e5ebf3;
-  border-radius: 12px;
+  color: var(--text);
 }
 .running-review table {
   width: 100%;
   min-width: 720px;
   border-collapse: collapse;
   text-align: start;
-  font-size: 12px;
+  font-size: var(--type-xs);
 }
 .running-review th {
-  background: #f6f8fb;
-  color: #65758a;
-  font-size: 11px;
+  background: var(--surface-quiet);
+  color: var(--text-secondary);
+  font-size: var(--type-xs);
   font-weight: 500;
 }
 .running-review th,
 .running-review td {
   padding: 12px;
-  border-bottom: 1px solid #edf1f6;
+  border-bottom: 1px solid var(--border);
   text-align: start;
   vertical-align: top;
 }
 .running-review td {
-  color: #263c55;
+  color: var(--text);
   overflow-wrap: anywhere;
 }
 .running-review td button {
   min-height: 30px;
-  font-size: 11px;
+  font-size: var(--type-xs);
 }
 .running-review details {
-  border: 1px solid #e5ebf3;
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 14px 16px;
   min-width: 0;
 }
 .running-review summary {
   cursor: pointer;
-  color: #2d4763;
+  color: var(--text-label);
   font-size: 13px;
   line-height: 1.9;
   overflow-wrap: anywhere;
@@ -210,24 +204,24 @@
 .running-review__proof {
   display: grid;
   gap: 5px;
-  background: #f7f9fc;
+  background: var(--surface-quiet);
   padding: 12px;
   border-radius: 8px;
-  color: #526a85;
-  font-size: 11px;
+  color: var(--text-label);
+  font-size: var(--type-xs);
   overflow-wrap: anywhere;
 }
 .running-review__proof code {
   white-space: pre-wrap;
-  color: #223d5d;
+  color: var(--text);
 }
 .running-review__decision {
   display: grid;
   gap: 16px;
   padding: 20px;
-  border: 1px solid #dde7f3;
+  border: 1px solid var(--border-strong);
   border-radius: 14px;
-  background: #fbfdff;
+  background: var(--surface-quiet);
 }
 .running-review__form {
   display: grid;
@@ -238,26 +232,26 @@
   display: grid;
   gap: 8px;
   min-width: 0;
-  color: #52657c;
-  font-size: 12px;
+  color: var(--text-label);
+  font-size: var(--type-xs);
 }
 .running-review textarea {
   resize: vertical;
   min-height: 74px;
   padding: 10px 12px;
-  border: 1px solid #dce4ee;
+  border: 1px solid var(--border-strong);
   border-radius: 9px;
-  background: #fff;
+  background: var(--surface);
   font: inherit;
-  color: #23374e;
+  color: var(--text);
 }
 .running-review__artifact {
   display: grid;
   gap: 14px;
   padding: 18px;
-  border: 1px solid #dbe7e0;
+  border: 1px solid var(--tone-success-border);
   border-radius: 12px;
-  background: #f7fbf8;
+  background: var(--tone-success-surface);
 }
 .running-review__artifact p,
 .running-review__body > p {
@@ -266,9 +260,9 @@
   font-size: 13px;
 }
 .running-review__error {
-  color: #9c4b34;
+  color: var(--tone-danger-text);
   padding: 12px;
-  background: #fff7f4;
+  background: var(--tone-danger-surface);
   border-radius: 10px;
 }
 @media (max-width: 640px) {

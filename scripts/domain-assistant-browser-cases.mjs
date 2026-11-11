@@ -32,7 +32,7 @@ export async function verifyDomainAssistant(
     [
       'financial',
       'Trial balance and financial position',
-      'Synthetic example',
+      'Open a synthetic example',
       4,
     ],
     [
@@ -164,6 +164,13 @@ export async function verifyDomainAssistant(
     });
   }
   // A real source/scope change removes the prior explanation immediately.
+  // The scope's fields are folded under the card (UX-5(d)); the accountant
+  // opens them to edit one.
+  const gatewayFields = page.locator(
+    '[data-gateway-workspace] [data-scope-card] details',
+  );
+  if ((await gatewayFields.getAttribute('open')) === null)
+    await gatewayFields.locator('summary').click();
   await page
     .getByLabel('Gateway scope Policy version', { exact: true })
     .fill('Changed policy');

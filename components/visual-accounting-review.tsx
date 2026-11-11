@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { useI18n } from '@/lib/i18n/context';
 import { Button } from './ui/button';
+import { ReviewHint, type ReviewNeed } from './decision-platform';
 import {
   createVisualAccountingRecord,
   saveVisualAccountingRecord,
@@ -51,6 +52,7 @@ export function VisualAccountingReview({
     [busy, setBusy] = useState(false),
     [error, setError] = useState(false);
   const checked = confirmedTable === table;
+  const hint = useId();
   useEffect(() => {
     onBusy?.(busy);
     return () => onBusy?.(false);
@@ -114,7 +116,34 @@ export function VisualAccountingReview({
     currency: v.currency,
     periodStart: v.start,
     cutoff: v.cutoff,
+    multiplier: v.direction,
+    numberFormat: v.numberFormat,
+    dateFormat: v.dateFormat,
   };
+  // What using the table still waits for, in the order it is set on the
+  // page, under the button that waits for it (UX-3).
+  const needs: ReviewNeed[] = [
+    ...(table.coverage ? [] : [{ text: v.useNeeds.coverage }]),
+    ...(headers.some((h) => !h) ? [{ text: v.useNeeds.headers }] : []),
+    ...(!table.grid.roles.includes('currency') && !currencyProof
+      ? [{ field: v.currencyProof }]
+      : []),
+    ...(
+      [
+        'supplier',
+        'entity',
+        'currency',
+        'periodStart',
+        'cutoff',
+        'multiplier',
+        'numberFormat',
+        'dateFormat',
+      ] as const
+    )
+      .filter((k) => !fields[k])
+      .map((k) => ({ field: labels[k] })),
+    ...(checked ? [] : [{ confirmation: v.confirm }]),
+  ];
   return (
     <details className="visual-accounting-review stack">
       <summary>{v.title}</summary>
@@ -289,6 +318,7 @@ export function VisualAccountingReview({
       )}
       <Button
         variant="outline"
+        aria-describedby={hint}
         onClick={() => void transfer()}
         disabled={
           disabled ||
@@ -311,6 +341,7 @@ export function VisualAccountingReview({
       >
         {busy ? v.busy : v.use}
       </Button>
+      <ReviewHint id={hint} needs={needs} opens={v.use} />
       <p className="hint">{v.limits}</p>
     </details>
   );

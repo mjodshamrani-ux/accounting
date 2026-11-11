@@ -69,7 +69,7 @@ const payload = (c: RecomputeCase, mappings = c.mappings) => ({
   rejected: c.rejected,
 });
 const exported = (result: Comparison, files = resolved[0].files) =>
-  worker.send('export', { result, files, review });
+  worker.send('export', { result, files, review, lang: 'en' });
 const value = <T>(reply: WorkerReply) => {
   assert.equal(reply.ok, true, reply.error);
   return reply.value as T;

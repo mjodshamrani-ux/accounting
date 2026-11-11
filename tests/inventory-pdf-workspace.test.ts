@@ -8,6 +8,7 @@ import {
 import { readStockFile } from '../lib/reconciliation/inventory-register-io.ts';
 import { askStockPdf } from '../lib/reconciliation/inventory-pdf-assistant.ts';
 import { exportStockPdf } from '../lib/reconciliation/inventory-pdf-workbook.ts';
+import { exportStockPdfWorkpaper } from '../lib/reconciliation/inventory-sheet.ts';
 import { validateStockPdfWorkerResponse } from '../lib/reconciliation/inventory-pdf-lifecycle.ts';
 import { snapshotStockPdfRequest } from '../lib/reconciliation/inventory-pdf-request.ts';
 import { replayStockPdfOriginals } from '../lib/reconciliation/inventory-register.ts';
@@ -198,10 +199,13 @@ void test('G5b request rejects extra authority, oversized question and unsupport
       }),
     /STOCK_PDF_ASK_REQUEST/,
   );
-  assert.throws(
-    () => snapshotStockPdfRequest('stock-pdf-export', { ...p, language: 'fr' }),
-    /STOCK_PDF_EXPORT_REQUEST/,
-  );
+  // An export request names one of the two languages (UX-6): none, or a
+  // third, is refused before any work.
+  for (const request of [p, { ...p, language: 'fr' }])
+    assert.throws(
+      () => snapshotStockPdfRequest('stock-pdf-export', request),
+      /STOCK_PDF_EXPORT_REQUEST/,
+    );
   assert.throws(
     () =>
       snapshotStockPdfRequest('stock-pdf-read', {
@@ -229,7 +233,9 @@ void test('G5b AR workbook translates labels and direction while retaining origi
   const p = await payload('P03');
   const english = new ExcelJS.Workbook(),
     arabic = new ExcelJS.Workbook();
-  await english.xlsx.load((await exportStockPdf(p)) as never);
+  await english.xlsx.load(
+    (await exportStockPdf({ ...p, language: 'en' })) as never,
+  );
   const bytes = await exportStockPdf({ ...p, language: 'ar' });
   await arabic.xlsx.load(bytes as never);
   const register = arabic.getWorksheet('السجل');
@@ -251,13 +257,20 @@ void test('G5b AR workbook translates labels and direction while retaining origi
       for (let row = 2; row <= source.rowCount; row++)
         assert.deepEqual(dest.getRow(row).values, source.getRow(row).values);
   }
+  // The worker's reply is the workpaper (UX-6): an Arabic one is not the
+  // English one requested, and is the Arabic one requested.
+  const workpaper = await exportStockPdfWorkpaper({ ...p, language: 'ar' });
   await assert.rejects(
-    () => validateStockPdfWorkerResponse('stock-pdf-export', bytes, p),
+    () =>
+      validateStockPdfWorkerResponse('stock-pdf-export', workpaper, {
+        ...p,
+        language: 'en',
+      }),
     /STOCK_PDF_WORKER_EXPORT_BINDING/,
   );
   const returned = await validateStockPdfWorkerResponse(
     'stock-pdf-export',
-    bytes,
+    workpaper,
     { ...p, language: 'ar' },
   );
   assert.ok(returned instanceof ArrayBuffer);

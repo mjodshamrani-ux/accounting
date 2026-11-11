@@ -22,6 +22,28 @@ import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import {
+  assertStatusBadges,
+  statusBadgesRead,
+} from './status-badge-support.mjs';
+import {
+  assertSectionFocus,
+  sectionFocusRead,
+} from './section-focus-support.mjs';
+
+// The status badge in this section (UX-3): a status on this list, and no
+// other, takes the agreed tone.
+const BADGE_LABEL = 'clearing groups';
+const BADGES = [
+  {
+    name: 'groups',
+    column: 3,
+    rows: 'tr[data-group]',
+    attr: 'data-group',
+    at: 3,
+    agreed: ['cleared'],
+  },
+];
 
 const root = path.resolve(process.env.CLR_GROUPS_DIST ?? 'dist');
 const SUITE = process.env.CLR_GROUPS_SUITE;
@@ -176,6 +198,11 @@ async function load(page, w, c, times) {
     '[data-clearing-groups][data-groups-state="shown"], [data-clearing-groups][data-groups-state="refused"]',
   );
   times.check = Date.now() - t;
+  await assertSectionFocus(
+    page,
+    w.locator('[data-clearing-groups]'),
+    BADGE_LABEL,
+  );
   return { loaded: true };
 }
 async function pages(w, pager, selector, read, only) {
@@ -192,6 +219,7 @@ async function pages(w, pager, selector, read, only) {
 }
 async function shown(w, c) {
   const section = w.locator('[data-clearing-groups]');
+  await assertStatusBadges(section, BADGES, BADGE_LABEL);
   const state = await section.getAttribute('data-groups-state');
   if (state === 'refused')
     return {
@@ -443,6 +471,11 @@ try {
       .getByRole('button', { name: 'Show the clearing groups', exact: true })
       .click();
     await settled(page, '[data-clearing-groups][data-groups-state="refused"]');
+    await assertSectionFocus(
+      page,
+      w.locator('[data-clearing-groups]'),
+      BADGE_LABEL,
+    );
     const alert = w.locator('[data-groups-refused]');
     report.checks.refusal =
       (await alert.getAttribute('data-groups-refused')) === 'COLUMNS' &&
@@ -489,6 +522,8 @@ try {
   for (const [k, v] of Object.entries(report.summary.checks)) assert.ok(v, k);
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
+  console.log('status badges read:', statusBadgesRead(BADGE_LABEL, ['groups']));
+  console.log('section focus read:', sectionFocusRead(BADGE_LABEL));
 } finally {
   await browser?.close();
   server.close();

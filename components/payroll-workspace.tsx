@@ -1,5 +1,26 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
-import { useEffect, useRef, useState } from 'react';
+import {
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
+import { useResultFocus } from '@/components/result-focus';
+import { Amount } from '@/components/amount';
+import { AlignmentStrip } from '@/components/alignment-strip';
+import { ResultIndex, useResultParts } from '@/components/result-index';
+import {
+  EvidenceSections,
+  type EvidenceSection,
+} from '@/components/evidence-sections';
+import { payrollStrip } from '@/lib/alignment-strip';
+import {
+  RecordFields,
+  RecordTable,
+  identityFields,
+} from '@/components/record-table';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -9,6 +30,7 @@ import {
   WorkspaceFileInput,
   WorkspaceSources,
   WorkspaceAdvanced,
+  WorkspaceStart,
 } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { workerTask } from '@/lib/reconciliation/client';
@@ -17,6 +39,7 @@ import {
   PAYROLL_VERSION,
   PAYROLL_ROLES,
   PAYROLL_FIELDS,
+  PAYROLL_SCOPE_HEADERS,
   PAYROLL_COMPONENTS,
   PAYROLL_AMOUNT_KEYS,
   type PayrollInput,
@@ -30,7 +53,25 @@ import {
 } from '@/lib/reconciliation/payroll-demo';
 import { payrollCopy } from '@/lib/i18n/payroll';
 import { PayrollLongRegisterPanel } from '@/components/payroll-long-register-panel';
-import './gl-tb-workspace.css';
+import { ScopeCard, Sentence } from '@/components/scope-card';
+import { scopeCardCopy } from '@/lib/i18n/scope-card';
+import { useDeclaredScope } from '@/hooks/use-declared-scope';
+import type {
+  DeclaredScopeRule,
+  ScopeOrigin,
+} from '@/lib/reconciliation/declared-scope';
+import './workspace-record.css';
+import {
+  SheetPrint,
+  useSheetPrint,
+} from '@/components/reconciliation-sheet-print';
+import { sheetPrintCopy } from '@/lib/i18n/sheet-print';
+import {
+  DecisionButtons,
+  DecisionHint,
+  useDecisionFocus,
+} from './decision-platform';
+import type { DecisionInput } from '@/lib/decision-platform';
 const emptyScope = (): PayrollScope =>
   ({
     ...Object.fromEntries(PAYROLL_FIELDS.map((k) => [k, ''])),
@@ -38,6 +79,49 @@ const emptyScope = (): PayrollScope =>
     postingStatus: 'posted',
     confirmed: false,
   }) as PayrollScope;
+type PayrollField = (typeof PAYROLL_FIELDS)[number];
+// What the card may put in each field (UX-5(d)): the two one-option selects
+// take only the value the engine accepts, and start from it while no file
+// has the column; the four dates take only YYYY-MM-DD.
+const ONLY = {
+  currencyBasis: 'functional',
+  postingStatus: 'posted',
+} as const;
+const oneOption = (k: PayrollField): k is keyof typeof ONLY => k in ONLY;
+const DATES: readonly PayrollField[] = [
+  'periodStart',
+  'periodEnd',
+  'payrollPostingDate',
+  'paymentDate',
+];
+const isDate = (k: PayrollField) => DATES.includes(k);
+const isoDate = (v: string) => /^\d{4}-\d{2}-\d{2}$/.test(v);
+const scopeRules: DeclaredScopeRule<PayrollField>[] = PAYROLL_FIELDS.map(
+  (field) =>
+    oneOption(field)
+      ? {
+          field,
+          fallback: ONLY[field],
+          accepts: (v) => v === ONLY[field],
+          fixed: true,
+        }
+      : isDate(field)
+        ? { field, accepts: isoDate }
+        : { field },
+);
+// The five originals write the nineteen scope columns on every row, as the
+// engine's row check reads them.
+const scopeColumns = PAYROLL_FIELDS.map((field, i) => ({
+  field,
+  header: PAYROLL_SCOPE_HEADERS[i],
+}));
+const freshOrigins = () =>
+  Object.fromEntries(
+    scopeRules.map((r) => [
+      r.field,
+      r.fallback === undefined ? 'question' : 'default',
+    ]),
+  ) as Record<PayrollField, ScopeOrigin>;
 const readings = () =>
   PAYROLL_ROLES.map((role) => ({
     sheet: 0,
@@ -45,6 +129,19 @@ const readings = () =>
     family: PAYROLL_VERSION,
     confirmed: false,
   })) as PayrollInput['readings'];
+// The sheet on paper (UX-6(d)), composed on the page by the function the
+// worker writes the workbook's first sheet with, from what the export sends:
+// the result, and the five files each by its name and fingerprint, as the
+// worker names them.
+const composeSheet = async (
+  { result, files }: { result: PayrollResult; files: SourceFile[] },
+  language: 'ar' | 'en',
+) =>
+  (await import('@/lib/reconciliation/payroll-sheet')).payrollSheet(
+    result,
+    files.map((f) => ({ name: f.name, sha256: f.sha256 })),
+    language,
+  );
 function download(buffer: ArrayBuffer, name: string, type: string) {
   const url = URL.createObjectURL(new Blob([buffer], { type })),
     a = document.createElement('a');
@@ -52,62 +149,6 @@ function download(buffer: ArrayBuffer, name: string, type: string) {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-function Table({
-  headers,
-  rows,
-}: {
-  headers: string[];
-  rows: (string | number | null)[][];
-}) {
-  const { lang } = useI18n();
-  const copy = payrollCopy[lang];
-  const [page, setPage] = useState(0);
-  const safe = Math.min(page, Math.max(0, Math.ceil(rows.length / 50) - 1));
-  return (
-    <>
-      <div className="gl-tb-table">
-        <table>
-          <thead>
-            <tr>
-              {headers.map((h, i) => (
-                <th key={i}>{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.slice(safe * 50, safe * 50 + 50).map((row, i) => (
-              <tr key={i}>
-                {row.map((v, j) => (
-                  <td key={j}>{v ?? '—'}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="gl-tb-actions">
-        <Button
-          variant="outline"
-          disabled={!safe}
-          onClick={() => setPage(safe - 1)}
-        >
-          {copy.previous}
-        </Button>
-        <span>
-          {safe + 1} / {Math.max(1, Math.ceil(rows.length / 50))} ·{' '}
-          {rows.length}
-        </span>
-        <Button
-          variant="outline"
-          disabled={(safe + 1) * 50 >= rows.length}
-          onClick={() => setPage(safe + 1)}
-        >
-          {copy.next}
-        </Button>
-      </div>
-    </>
-  );
 }
 export function PayrollWorkspace({
   active,
@@ -125,8 +166,19 @@ export function PayrollWorkspace({
     null,
     null,
   ]);
-  const [reading, setReading] = useState(readings),
-    [scope, setScope] = useState(emptyScope);
+  const [reading, setReading] = useState(readings);
+  // The card's scope and where each value came from (UX-5(d)): a new file
+  // fills what the five files agree on into the fields the accountant has
+  // not entered, and a value it changes drops the confirmation.
+  const card = useDeclaredScope({
+    initial: () => ({ scope: emptyScope(), origins: freshOrigins() }),
+    rules: scopeRules,
+    columns: scopeColumns,
+    files,
+    sheets: reading.map((r) => r.sheet),
+    labels: copy.roles,
+  });
+  const { scope, origins, suggestions } = card;
   const [complete, setComplete] = useState<PayrollInput['completeness']>({
     confirmed: false,
     reference: '',
@@ -134,6 +186,15 @@ export function PayrollWorkspace({
   });
   const [events, setEvents] = useState<PayrollEvent[]>([]),
     [result, setResult] = useState<PayrollResult | null>(null);
+  // Composed only while this workspace is the one shown: it stays in the
+  // page hidden otherwise, and would draw its table when another prints.
+  // The files are the ones the result was read from, for any change to
+  // them drops it.
+  const printed = useMemo(
+    () => (active && result ? { result, files: files as SourceFile[] } : null),
+    [active, result, files],
+  );
+  const paper = useSheetPrint(printed, lang, composeSheet);
   const [busy, setBusy] = useState(false),
     [error, setError] = useState(''),
     [reference, setReference] = useState(''),
@@ -173,11 +234,29 @@ export function PayrollWorkspace({
   function install(v: { state: PayrollInput; result: PayrollResult }) {
     setFiles(v.state.files);
     setReading(v.state.readings);
-    setScope(v.state.scope);
+    card.install(
+      v.state.scope,
+      v.state.files,
+      v.state.readings.map((r) => r.sheet),
+    );
     setComplete(v.state.completeness);
     setEvents(v.state.events);
     setResult(v.result);
   }
+  // A run, an example or a restored session takes the reader to the result;
+  // a decision inside the result does not (UX-2).
+  const { heading: resultHeading, reveal } = useResultFocus();
+  const resultParts = useResultParts([
+    'summary',
+    'explain',
+    'figures',
+    'decision',
+    'evidence',
+  ]);
+  const shown: typeof install = (v) => {
+    install(v);
+    reveal();
+  };
   async function perform<T>(
     work: (signal: AbortSignal) => Promise<T>,
     apply: (v: T) => void,
@@ -210,6 +289,24 @@ export function PayrollWorkspace({
     reading.every((r) => r.confirmed) &&
     scope.confirmed &&
     PAYROLL_FIELDS.every((k) => scope[k]);
+  function updateScope(key: PayrollField, value: string) {
+    card.edit(key, value);
+    invalidate();
+  }
+  const unknown = scopeCardCopy[lang].unknown;
+  // A value inside a sentence, isolated so mixed scripts keep their order;
+  // a date, a code or a ledger is never split across lines.
+  const scopeValue = (v: string, whole = false) => (
+    <bdi className={whole ? 'scope-card__whole' : undefined}>
+      {v || unknown}
+    </bdi>
+  );
+  const rowsRead = Math.max(
+    0,
+    ...PAYROLL_FIELDS.map((k) =>
+      suggestions[k].read.reduce((n, r) => n + r.rows, 0),
+    ),
+  );
   async function upload(file: File, source: number) {
     await perform(
       async (signal) => {
@@ -264,8 +361,17 @@ export function PayrollWorkspace({
         state: PayrollInput;
         result: PayrollResult;
       }>('payroll-reconcile', s, signal);
-    }, install);
+    }, shown);
   }
+  // The decision platform (UX-3): after a decision the focus returns to the
+  // line that holds the state, not to the page.
+  const hint = useId(),
+    decisionState = useId(),
+    settle = useDecisionFocus();
+  const decided: typeof install = (v) => {
+    install(v);
+    settle(decisionState);
+  };
   async function decide(type: PayrollEvent['type']) {
     if (!result) return;
     const e: PayrollEvent = {
@@ -284,24 +390,44 @@ export function PayrollWorkspace({
           { ...state(), events: [...events, e] },
           signal,
         ),
-      install,
+      decided,
     );
   }
   const status = (value: string) =>
     (copy.status as Record<string, string>)[value] ?? value;
-  const canAccept =
-    result &&
-    complete.confirmed &&
-    !result.issues.length &&
-    !result.missing.length &&
-    result.financial === 'ready';
+  // What the decision buttons open on, as before: approval also needs the
+  // completeness confirmation and a ready result, and the sentence under the
+  // buttons says which of these is missing.
+  const decision: DecisionInput | null = result
+    ? {
+        reference,
+        reason: note,
+        members: result.memberIds.length,
+        review: result.review,
+        acceptBlock: !complete.confirmed
+          ? 'unconfirmed'
+          : result.issues.length
+            ? 'source-error'
+            : result.missing.length
+              ? 'missing'
+              : result.financial === 'ready'
+                ? null
+                : result.financial,
+      }
+    : null;
+  const amount = (minor: number | null | undefined) => (
+    <Amount minor={minor} decimals={result?.decimals ?? 2} />
+  );
   const detail = (
     title: string,
     headers: string[],
-    rows: (string | number | null)[][],
+    rows: (ReactNode | null)[][],
     fingerprint?: string,
+    wrap?: readonly number[],
+    hook?: Record<`data-${string}`, string>,
   ) => (
     <WorkspaceAdvanced
+      hook={hook}
       summary={
         <>
           {title} ({rows.length})
@@ -313,9 +439,26 @@ export function PayrollWorkspace({
           <bdi>{fingerprint}</bdi>
         </p>
       )}
-      <Table headers={headers} rows={rows} />
+      <RecordTable source={title} headers={headers} rows={rows} wrap={wrap} />
     </WorkspaceAdvanced>
   );
+  // An evidence section of the result: drawn as above when it holds
+  // something, named on the line of empty sections when it does not (UX-4).
+  const section = (
+    key: string,
+    title: string,
+    headers: string[],
+    rows: (ReactNode | null)[][],
+    fingerprint?: string,
+    wrap?: readonly number[],
+  ): EvidenceSection => ({
+    key,
+    name: title,
+    count: rows.length,
+    node: detail(title, headers, rows, fingerprint, wrap, {
+      'data-evidence-section': key,
+    }),
+  });
   return (
     <div hidden={!active}>
       <section
@@ -329,13 +472,21 @@ export function PayrollWorkspace({
           disabled={busy}
           hasWork={files.some(Boolean)}
         />
-        <WorkspaceIntro title={copy.title} intro={copy.intro}>
+        <WorkspaceIntro
+          title={copy.title}
+          intro={copy.intro}
+          detail={copy.introDetail}
+        >
           <p>{copy.claim}</p>
           <p>{copy.family}</p>
         </WorkspaceIntro>
-        <WorkspaceAdvanced>
+        <WorkspaceStart>
           <div className="gl-tb-actions workspace-toolbar">
-            <Button disabled={busy} onClick={() => void demo()}>
+            <Button
+              variant="outline"
+              disabled={busy}
+              onClick={() => void demo()}
+            >
               {copy.demo}
             </Button>
             <label>
@@ -359,7 +510,7 @@ export function PayrollWorkspace({
                         { buffer: await f.arrayBuffer() },
                         signal,
                       );
-                    }, install);
+                    }, shown);
                 }}
               />
             </label>
@@ -369,7 +520,7 @@ export function PayrollWorkspace({
               </Button>
             )}
           </div>
-        </WorkspaceAdvanced>
+        </WorkspaceStart>
         <WorkspaceGroupTitle kind="sources" />
         <WorkspaceSources
           primaryIndices={[0, 3]}
@@ -395,19 +546,6 @@ export function PayrollWorkspace({
                   <p>
                     <bdi>{files[i]!.name}</bdi>
                   </p>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={reading[i].confirmed}
-                      onChange={(e) => {
-                        const next = [...reading] as PayrollInput['readings'];
-                        next[i] = { ...next[i], confirmed: e.target.checked };
-                        setReading(next);
-                        invalidate();
-                      }}
-                    />
-                    {copy.roleConfirm}
-                  </label>
                   {detail(
                     copy.roles[i],
                     files[i]!.sheets[0].rows[0] ?? [],
@@ -420,38 +558,84 @@ export function PayrollWorkspace({
           ))}
         </WorkspaceSources>
         <fieldset disabled={busy} hidden={!(files[0] && files[3])}>
-          <legend>{copy.scopeTitle}</legend>
-          <div className="gl-tb-grid">
-            {PAYROLL_FIELDS.map((k) => (
-              <label key={k}>
-                {copy.scope[k]}
+          <ScopeCard
+            hidden={!(files[0] && files[3])}
+            summary={
+              <Sentence
+                parts={copy.cardSummary(
+                  scopeValue(scope.payrollRun, true),
+                  scopeValue(scope.entity),
+                  scopeValue(scope.payrollLedger, true),
+                  scopeValue(scope.glLedger, true),
+                  scopeValue(scope.periodStart, true),
+                  scopeValue(scope.periodEnd, true),
+                  scopeValue(scope.paymentDate, true),
+                  scopeValue(scope.currency, true),
+                  rowsRead,
+                )}
+              />
+            }
+            rows={PAYROLL_FIELDS.map((k) => {
+              const name = copy.scopePrefix + copy.scope[k];
+              return {
+                key: k,
+                label: copy.scope[k],
+                origin: origins[k],
+                value: scope[k],
+                fixed: oneOption(k),
+                suggestion: suggestions[k],
+                control: (describedBy: string) =>
+                  oneOption(k) ? (
+                    <select
+                      aria-label={name}
+                      aria-describedby={describedBy}
+                      value={scope[k]}
+                      onChange={(e) => updateScope(k, e.target.value)}
+                    >
+                      <option value={ONLY[k]}>{copy.only[k]}</option>
+                    </select>
+                  ) : (
+                    <input
+                      aria-label={name}
+                      aria-describedby={describedBy}
+                      type={isDate(k) ? 'date' : 'text'}
+                      maxLength={500}
+                      value={scope[k]}
+                      onChange={(e) => updateScope(k, e.target.value)}
+                    />
+                  ),
+              };
+            })}
+            confirm={
+              <label className="scope-card__confirm">
                 <input
-                  aria-label={copy.scopePrefix + copy.scope[k]}
-                  maxLength={500}
-                  value={scope[k]}
+                  type="checkbox"
+                  checked={reading.every((r) => r.confirmed) && scope.confirmed}
                   onChange={(e) => {
-                    setScope({
-                      ...scope,
-                      [k]: e.target.value,
-                      confirmed: false,
-                    });
+                    const confirmed = e.target.checked;
+                    setReading(
+                      (previous) =>
+                        previous.map((r) => ({
+                          ...r,
+                          confirmed,
+                        })) as PayrollInput['readings'],
+                    );
+                    card.confirm(confirmed);
                     invalidate();
                   }}
                 />
+                <span>
+                  <Sentence
+                    parts={copy.cardConfirm(
+                      scopeValue(scope.payrollRun, true),
+                      scopeValue(scope.entity),
+                      scopeValue(scope.paymentDate, true),
+                    )}
+                  />
+                </span>
               </label>
-            ))}
-          </div>
-          <label>
-            <input
-              type="checkbox"
-              checked={scope.confirmed}
-              onChange={(e) => {
-                setScope({ ...scope, confirmed: e.target.checked });
-                invalidate();
-              }}
-            />
-            {copy.scopeConfirm}
-          </label>
+            }
+          />
         </fieldset>
         <WorkspaceAdvanced summary={copy.completeTitle}>
           <fieldset disabled={busy}>
@@ -502,7 +686,7 @@ export function PayrollWorkspace({
                     state(),
                     signal,
                   ),
-                install,
+                shown,
               )
             }
           >
@@ -534,7 +718,7 @@ export function PayrollWorkspace({
                 (signal) =>
                   workerTask<ArrayBuffer>(
                     'payroll-export',
-                    { state: state(), result },
+                    { state: state(), result, lang },
                     signal,
                   ),
                 (b) =>
@@ -548,15 +732,43 @@ export function PayrollWorkspace({
           >
             {copy.export}
           </Button>
+          <Button
+            variant="outline"
+            disabled={busy || !result}
+            onClick={paper.print}
+          >
+            {sheetPrintCopy[lang].print}
+          </Button>
         </div>
+        <SheetPrint sheet={paper.sheet} />
         {error && <p role="alert">{copy.failed}</p>}
         {result && (
           <section className="workspace-results">
-            <h2 data-payroll-status>{status(result.status)}</h2>
+            <h2
+              {...resultParts.anchor('summary')}
+              data-payroll-status
+              ref={resultHeading}
+              tabIndex={-1}
+              data-result-heading="result"
+            >
+              {status(result.status)}
+            </h2>
+            <AlignmentStrip
+              strip={payrollStrip(result)}
+              sides={[copy.roles[0], copy.roles[3]]}
+              decimals={result.decimals}
+              name={(key) =>
+                copy.components[key as keyof typeof copy.components] ?? key
+              }
+              state={status(result.status)}
+            />
+            <ResultIndex map={resultParts} />
             <p>
-              {copy.units} · {result.scope.currency} · {result.decimals}
+              {copy.amountsIn} <bdi dir="ltr">{result.scope.currency}</bdi>.{' '}
+              {copy.componentsNote}
             </p>
             <DomainEvidenceAssistant
+              anchor={resultParts.anchor('explain')}
               result={result}
               snapshot={() => ({ domain: 'payroll', input: state(), result })}
               busy={busy}
@@ -579,40 +791,49 @@ export function PayrollWorkspace({
                 };
               }}
             />
-            <Table
+            <RecordTable
+              anchor={resultParts.anchor('figures')}
+              label={copy.tableNames.totals}
               headers={copy.totals}
               rows={PAYROLL_COMPONENTS.map((c, i) => [
                 copy.components[c],
-                result.totals?.register[PAYROLL_AMOUNT_KEYS[i]] ?? null,
-                result.totals?.gl[c] ?? null,
+                amount(result.totals?.register[PAYROLL_AMOUNT_KEYS[i]]),
+                amount(result.totals?.gl[c]),
               ])}
             />
-            <Table
+            <RecordTable
+              label={copy.tableNames.bank}
               headers={copy.bankComparison}
               rows={[
                 [
-                  result.bankComparison.register,
-                  result.bankComparison.bank,
-                  result.bankComparison.difference,
+                  amount(result.bankComparison.register),
+                  amount(result.bankComparison.bank),
+                  amount(result.bankComparison.difference),
                 ],
               ]}
             />
-            <Table
+            <RecordTable
+              label={copy.tableNames.comparisons}
               headers={copy.comparisons}
               rows={result.comparisons.map((v) => [
                 v.account,
                 v.dimensions,
                 copy.components[v.component],
-                v.register,
-                v.gl,
-                v.difference,
+                amount(v.register),
+                amount(v.gl),
+                amount(v.difference),
               ])}
             />
-            <fieldset disabled={busy}>
+            <fieldset
+              {...resultParts.anchor('decision')}
+              disabled={busy}
+              data-decision-platform
+            >
               <legend>{copy.decision}</legend>
               <label>
                 {copy.reference}
                 <input
+                  aria-describedby={hint}
                   maxLength={2000}
                   value={reference}
                   onChange={(e) => setReference(e.target.value)}
@@ -621,181 +842,201 @@ export function PayrollWorkspace({
               <label>
                 {copy.note}
                 <input
+                  aria-describedby={hint}
                   maxLength={2000}
                   value={note}
                   onChange={(e) => setNote(e.target.value)}
                 />
               </label>
-              <p>
+              <p id={decisionState} tabIndex={-1} data-decision-state>
                 {status(result.review)} · {copy.members}:{' '}
                 {result.memberIds.length}
               </p>
-              <div className="gl-tb-actions">
-                {(['accept', 'reject', 'undo'] as const).map((type) => (
-                  <Button
-                    key={type}
-                    variant="outline"
-                    disabled={
-                      busy ||
-                      !reference.trim() ||
-                      !note.trim() ||
-                      !result.memberIds.length ||
-                      (type === 'undo'
-                        ? result.review === 'needs-review'
-                        : result.review !== 'needs-review') ||
-                      (type === 'accept' && !canAccept)
-                    }
-                    onClick={() => void decide(type)}
-                  >
-                    {copy[type]}
-                  </Button>
-                ))}
-              </div>
+              {decision && (
+                <>
+                  <DecisionButtons
+                    input={decision}
+                    labels={copy}
+                    busy={busy}
+                    describedBy={hint}
+                    onDecide={(type) => void decide(type)}
+                  />
+                  <DecisionHint
+                    id={hint}
+                    input={decision}
+                    labels={{ reference: copy.reference, reason: copy.note }}
+                  />
+                </>
+              )}
             </fieldset>
-            {detail(
-              copy.roles[0],
-              copy.records[0],
-              result.records[0].map((v) => [
-                v.row,
-                v.employee,
-                v.dimensions,
-                v.gross,
-                v.deductions,
-                v.employer,
-                v.net,
-                v.payrollReference,
-              ]),
-            )}
-            {detail(
-              copy.roles[1],
-              copy.records[1],
-              result.records[1].map((v) => [
-                v.row,
-                v.id,
-                v.employee,
-                v.dimensions,
-                copy.components[v.component],
-                v.account,
-                v.glDimensions,
-                v.evidence,
-              ]),
-            )}
-            {detail(
-              copy.roles[2],
-              copy.records[2],
-              result.records[2].map((v) => [
-                v.row,
-                v.id,
-                v.employee,
-                v.dimensions,
-                copy.components[v.component],
-                v.payrollReference,
-                v.account,
-                v.glDimensions,
-                v.accountClass,
-                v.sign,
-                v.basis,
-                v.validFrom,
-                v.validTo,
-                v.reference,
-              ]),
-            )}
-            {detail(
-              copy.roles[3],
-              copy.records[3],
-              result.records[3].map((v) => [
-                v.row,
-                v.id,
-                v.phase,
-                copy.components[v.component],
-                v.account,
-                v.glDimensions,
-                v.accountClass,
-                v.debit,
-                v.credit,
-                v.entryDate,
-                v.postingReference,
-                v.normal,
-              ]),
-            )}
-            {detail(
-              copy.roles[4],
-              copy.records[4],
-              result.records[4].map((v) => [
-                v.row,
-                v.id,
-                v.bankAccount,
-                v.direction,
-                v.amount,
-                v.valueDate,
-                v.payoutReference,
-              ]),
-            )}
-            {detail(
-              copy.members,
-              copy.memberHeaders,
-              result.memberIds.map((id) => {
-                const v = JSON.parse(id);
-                return [copy.roles[v[1]], v[4], id];
-              }),
-            )}
-            {detail(
-              copy.missing,
-              copy.missingHeaders,
-              result.missing.map((v) => [
-                (copy.missingKinds as Record<string, string>)[v.reason] ??
-                  v.reason,
-                copy.roles[v.source],
-                v.row,
-                v.component ? copy.components[v.component] : '',
-              ]),
-            )}
-            {detail(
-              copy.issues,
-              copy.issueHeaders,
-              result.issues.map((v) => [
-                copy.roles[v.source] ?? copy.title,
-                v.row,
-                (copy.codes as Record<string, string>)[v.code] ?? copy.failed,
-              ]),
-            )}
-            {detail(
-              copy.cells,
-              copy.cellHeaders,
-              result.cells.map((v) => [
-                copy.roles[v.source],
-                v.row,
-                v.column,
-                v.field,
-                v.text,
-              ]),
-            )}
-            {detail(
-              copy.inventory,
-              copy.inventoryHeaders,
-              result.inventory.map((v) => [
-                copy.roles[v.source],
-                v.row,
-                copy.kinds[v.kind],
-              ]),
-            )}
-            {detail(
-              copy.events,
-              copy.eventHeaders,
-              result.events.map((v) => [
-                v.id,
-                copy.actions[v.type],
-                v.at,
-                v.reference,
-                v.note,
-                v.memberIds.length,
-              ]),
-            )}
-            {detail(
-              copy.sources,
-              copy.sourceHeaders,
-              files.map((f, i) => [copy.roles[i], f!.name, f!.sha256!]),
-            )}
+            <EvidenceSections
+              anchor={resultParts.anchor('evidence')}
+              sections={[
+                section(
+                  'records.0',
+                  copy.roles[0],
+                  copy.records[0],
+                  result.records[0].map((v) => [
+                    v.row,
+                    v.employee,
+                    v.dimensions,
+                    amount(v.gross),
+                    amount(v.deductions),
+                    amount(v.employer),
+                    amount(v.net),
+                    v.payrollReference,
+                  ]),
+                ),
+                section(
+                  'records.1',
+                  copy.roles[1],
+                  copy.records[1],
+                  result.records[1].map((v) => [
+                    v.row,
+                    v.id,
+                    v.employee,
+                    v.dimensions,
+                    copy.components[v.component],
+                    v.account,
+                    v.glDimensions,
+                    v.evidence,
+                  ]),
+                ),
+                section(
+                  'records.2',
+                  copy.roles[2],
+                  copy.records[2],
+                  result.records[2].map((v) => [
+                    v.row,
+                    v.id,
+                    v.employee,
+                    v.dimensions,
+                    copy.components[v.component],
+                    v.payrollReference,
+                    v.account,
+                    v.glDimensions,
+                    v.accountClass,
+                    v.sign,
+                    v.basis,
+                    v.validFrom,
+                    v.validTo,
+                    v.reference,
+                  ]),
+                ),
+                section(
+                  'records.3',
+                  copy.roles[3],
+                  copy.records[3],
+                  result.records[3].map((v) => [
+                    v.row,
+                    v.id,
+                    v.phase,
+                    copy.components[v.component],
+                    v.account,
+                    v.glDimensions,
+                    v.accountClass,
+                    amount(v.debit),
+                    amount(v.credit),
+                    v.entryDate,
+                    v.postingReference,
+                    amount(v.normal),
+                  ]),
+                ),
+                section(
+                  'records.4',
+                  copy.roles[4],
+                  copy.records[4],
+                  result.records[4].map((v) => [
+                    v.row,
+                    v.id,
+                    v.bankAccount,
+                    v.direction,
+                    amount(v.amount),
+                    v.valueDate,
+                    v.payoutReference,
+                  ]),
+                ),
+                section(
+                  'memberIds',
+                  copy.members,
+                  copy.memberHeaders,
+                  result.memberIds.map((id) => {
+                    const v = JSON.parse(id);
+                    return [
+                      copy.roles[v[1]],
+                      v[4],
+                      <RecordFields key="id" values={identityFields(id)} />,
+                    ];
+                  }),
+                  undefined,
+                  [2],
+                ),
+                section(
+                  'missing',
+                  copy.missing,
+                  copy.missingHeaders,
+                  result.missing.map((v) => [
+                    (copy.missingKinds as Record<string, string>)[v.reason] ??
+                      v.reason,
+                    copy.roles[v.source],
+                    v.row,
+                    v.component ? copy.components[v.component] : '',
+                  ]),
+                ),
+                section(
+                  'issues',
+                  copy.issues,
+                  copy.issueHeaders,
+                  result.issues.map((v) => [
+                    copy.roles[v.source] ?? copy.title,
+                    v.row,
+                    (copy.codes as Record<string, string>)[v.code] ??
+                      copy.failed,
+                  ]),
+                ),
+                section(
+                  'cells',
+                  copy.cells,
+                  copy.cellHeaders,
+                  result.cells.map((v) => [
+                    copy.roles[v.source],
+                    v.row,
+                    v.column,
+                    v.field,
+                    v.text,
+                  ]),
+                ),
+                section(
+                  'inventory',
+                  copy.inventory,
+                  copy.inventoryHeaders,
+                  result.inventory.map((v) => [
+                    copy.roles[v.source],
+                    v.row,
+                    copy.kinds[v.kind],
+                  ]),
+                ),
+                section(
+                  'events',
+                  copy.events,
+                  copy.eventHeaders,
+                  result.events.map((v) => [
+                    v.id,
+                    copy.actions[v.type],
+                    v.at,
+                    v.reference,
+                    v.note,
+                    v.memberIds.length,
+                  ]),
+                ),
+                section(
+                  'sources',
+                  copy.sources,
+                  copy.sourceHeaders,
+                  files.map((f, i) => [copy.roles[i], f!.name, f!.sha256!]),
+                ),
+              ]}
+            />
           </section>
         )}
         <PayrollLongRegisterPanel />

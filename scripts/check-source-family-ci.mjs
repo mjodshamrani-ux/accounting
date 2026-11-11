@@ -62,6 +62,8 @@ const deployGated = [
   'domain-oracle-mutants',
   'source-family-proofs',
   'family-source-proofs',
+  'ux-census-start',
+  'reconciliation-sheet-mutations',
 ];
 {
   const deploy = structuredClone(workflow.jobs.deploy);
@@ -74,6 +76,37 @@ const deployGated = [
   }
   deploy.needs = baseline.jobs.deploy.needs;
   assert.deepEqual(deploy, baseline.jobs.deploy);
+}
+// The reconciliation sheet (UX-6): its gate in the build, and a mutant per
+// guard beside it in shards 1..N, each named and run as i/N (the runner
+// takes every Nth mutant by its place), so each mutant still runs once.
+{
+  assert(
+    workflow.jobs.build.steps.some(
+      (s) => s.run === 'pnpm test:reconciliation-sheet',
+    ),
+    'The reconciliation sheet gate runs in the build',
+  );
+  const job = workflow.jobs['reconciliation-sheet-mutations'];
+  const shards = job.strategy.matrix.shard;
+  const count = shards.length;
+  assert.deepEqual(
+    shards,
+    Array.from({ length: count }, (_, i) => i + 1),
+  );
+  assert.equal(job.strategy['fail-fast'], false);
+  assert.equal(
+    job.name,
+    `Reconciliation sheet mutation gate (\${{ matrix.shard }}/${count})`,
+  );
+  const step = job.steps.find(
+    (s) => s.run === 'pnpm test:reconciliation-sheet:mutations',
+  );
+  assert(step, 'The reconciliation sheet mutants run in their own job');
+  assert.equal(
+    step.env.RECONCILIATION_SHEET_MUTATION_SHARD,
+    `\${{ matrix.shard }}/${count}`,
+  );
 }
 // The mutation gate may be split into more shards than the frozen 0.4.43
 // job as its catalogue grows, never fewer: shards 1..N, each named and run
@@ -348,6 +381,20 @@ const required = [
   'test:ux-census:unit',
   'test:browser:ux-census:self-test',
   'test:browser:ux-census',
+  'test:browser:ux-census:start:self-test',
+  'test:browser:ux-census:start',
+  'test:multiline-review:browser',
+  'test:source-structure:browser',
+  'test:overlap-derived:browser',
+  'test:browser:result-focus',
+  'test:browser:visual-identity:self-test',
+  'test:browser:record-table',
+  'test:browser:alignment-strip',
+  'test:browser:result-map',
+  'test:browser:decision-platform',
+  'test:browser:decision-platform:self-test',
+  'test:browser:stage-watchdog:self-test',
+  'test:browser:review-platform',
 ];
 const deployed = ['build', ...deployGated].flatMap(
   (name) => workflow.jobs[name].steps,
@@ -506,6 +553,15 @@ const separate = {
   ],
   'inventory-links-interface-mutations': [
     'test:inv-links:interface-mutations',
+  ],
+  'decision-platform-interface-mutations': [
+    'test:decision-platform:interface-mutations',
+  ],
+  'review-platform-interface-mutations': [
+    'test:review-platform:interface-mutations',
+  ],
+  'sheet-print-interface-mutations': [
+    'test:sheet-print:interface-mutations',
   ],
   'clearing-groups-browser': [
     'test:clr-groups:browser',

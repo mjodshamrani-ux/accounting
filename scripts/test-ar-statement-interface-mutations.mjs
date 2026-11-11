@@ -52,8 +52,8 @@ const mutations = [
   [
     'replaced-statement-keeps-result',
     AR,
-    '      setScope((previous) => ({ ...previous, confirmed: false }));\n      invalidate();\n',
-    '      setScope((previous) => ({ ...previous, confirmed: false }));\n',
+    '        return next;\n      });\n      invalidate();\n',
+    '        return next;\n      });\n',
   ],
   [
     'every-section-compared',
@@ -76,8 +76,8 @@ const mutations = [
   [
     'printed-place-shown-as-row',
     AR,
-    '                        {i.pdf\n                          ?',
-    '                        {false\n                          ?',
+    '              i.pdf\n                ? `${t.page}',
+    '              false\n                ? `${t.page}',
   ],
 ];
 // Everything `pnpm build` reads; the acceptance and the frozen statements are

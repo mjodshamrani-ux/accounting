@@ -18,7 +18,7 @@
   min-width: 0;
   min-height: 5rem;
   padding: 0.5rem;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--border-strong);
   border-radius: 0.4rem;
   background: var(--background);
 }
@@ -26,7 +26,7 @@
 .bank-source-basis {
   margin-block: 0.75rem;
   line-height: 1.7;
-  color: #637088;
+  color: var(--text-secondary);
 }
 
 /* A movement's evidence takes focus when it opens; its heading clears the
@@ -35,7 +35,7 @@
   scroll-margin-block-start: 6rem;
 }
 .bank-movement-evidence > h2:focus-visible {
-  outline: 3px solid #8a69dc;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
@@ -61,18 +61,18 @@
   column-gap: 10px;
   row-gap: 0.25rem;
   padding: 12px 14px;
-  border: 1px solid transparent;
+  border: 1px solid var(--border);
   border-radius: 10px;
-  background: #f6f7fb;
-  color: #546077;
-  font-size: 12px;
+  background: var(--surface);
+  color: var(--text-label);
+  font-size: var(--type-xs);
   line-height: 1.9;
   cursor: pointer;
 }
 .reconciliation-workspace .bank-source-mode label:has(input:checked) {
-  border-color: #d9cdf6;
-  background: #f2eefb;
-  color: #573790;
+  border-color: var(--border-accent-strong);
+  background: var(--surface-accent-strong);
+  color: var(--text-accent);
 }
 .reconciliation-workspace .bank-source-mode input[type='radio'] {
   flex: 0 0 auto;
@@ -83,7 +83,7 @@
   padding: 0;
   border: 0;
   box-shadow: none;
-  accent-color: #6738d3;
+  accent-color: var(--primary);
 }
 .bank-source-mode strong {
   font-size: 13px;
@@ -91,7 +91,7 @@
 }
 .bank-source-mode small {
   grid-column: 2;
-  font-size: 12px;
+  font-size: var(--type-xs);
   line-height: 1.7;
 }
 
@@ -133,11 +133,11 @@
 }
 /* Movement tables scroll inside their frame rather than breaking words or
    amounts mid-token, as the statement tables below do. */
-.bank-movement-table .gl-tb-table table {
+.bank-movement-table .record-frame table {
   min-width: 60rem;
 }
 .bank-movement-table :is(th, td),
-.bank-workspace .bank-movement-table .gl-tb-table td button {
+.bank-workspace .bank-movement-table .record-frame td button {
   overflow-wrap: normal;
   word-break: normal;
 }
@@ -147,12 +147,12 @@
   white-space: nowrap;
 }
 /* Statement tables scroll inside their frame rather than breaking words. */
-.bank-statement-result .gl-tb-table table {
+.bank-statement-result .record-frame table {
   min-width: 52rem;
 }
 .bank-statement-result
   [data-bank-statement-table='summary']
-  .gl-tb-table
+  .record-frame
   table {
   min-width: 0;
 }
@@ -177,7 +177,7 @@
   padding-block-start: 0.75rem;
   border-block-start: 1px solid var(--border);
 }
-.bank-statement-result [data-bank-statement-table='sheet'] .gl-tb-table table {
+.bank-statement-result [data-bank-statement-table='sheet'] .record-frame table {
   min-width: 0;
 }
 .bank-statement-result [data-bank-statement-table='sheet'] td:first-child {
@@ -206,5 +206,5 @@
   margin-block-start: 0.4rem;
 }
 .bank-statement-members small {
-  color: #637088;
+  color: var(--text-secondary);
 }

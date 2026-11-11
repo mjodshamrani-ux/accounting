@@ -52,7 +52,7 @@ async function verifySplitCase(page, baseUrl, lang) {
     await form.locator('summary').click();
     assert.ok(
       await page
-        .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+        .getByRole('button', { name: 'أكّد البيانات', exact: true })
         .isDisabled(),
       'restoring evidence alone must not import accounting data',
     );
@@ -94,7 +94,7 @@ async function verifySplitCase(page, baseUrl, lang) {
     await form.getByRole('alert').waitFor();
     assert.ok(
       await page
-        .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+        .getByRole('button', { name: 'أكّد البيانات', exact: true })
         .isDisabled(),
       'currency contradiction cannot silently import',
     );
@@ -123,7 +123,7 @@ async function verifySplitCase(page, baseUrl, lang) {
       () => !document.querySelector('.notice.loading'),
     );
     await page
-      .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+      .getByRole('button', { name: 'أكّد البيانات', exact: true })
       .click();
     await page.locator('.visual-accounting-bound').waitFor();
     assert.equal(
@@ -156,11 +156,11 @@ async function verifySplitCase(page, baseUrl, lang) {
       return bytes;
     }
     await page
-      .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
+      .getByRole('button', { name: 'أعدّ ورقة العمل', exact: true })
       .click();
-    await download('تنزيل ورقة عمل جزئية', `work/qa/p6-split-${lang}-ar.xlsx`);
+    await download('نزّل ورقة عمل جزئية', `work/qa/p6-split-${lang}-ar.xlsx`);
     const session = await download(
-      'حفظ الجلسة للمتابعة لاحقًا',
+      'احفظ الجلسة للمتابعة لاحقًا',
       `work/qa/p6-split-${lang}-session.json`,
     );
     const wire = JSON.parse(session.toString('utf8'));
@@ -192,9 +192,9 @@ async function verifySplitCase(page, baseUrl, lang) {
       .getByRole('button', { name: 'تسوية جديدة', exact: true })
       .click();
     await page
-      .getByRole('button', { name: 'مسح الجلسة والبدء من جديد', exact: true })
+      .getByRole('button', { name: 'امسح الجلسة وابدأ من جديد', exact: true })
       .click();
-    await page.getByLabel('استئناف جلسة محلية', { exact: true }).setInputFiles({
+    await page.getByLabel('استأنف جلسة محلية', { exact: true }).setInputFiles({
       name: 'reviewed-session.json',
       mimeType: 'application/json',
       buffer: session,
@@ -207,10 +207,10 @@ async function verifySplitCase(page, baseUrl, lang) {
       '3',
     );
     await page
-      .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
+      .getByRole('button', { name: 'أعدّ ورقة العمل', exact: true })
       .click();
     await download(
-      'تنزيل ورقة عمل جزئية',
+      'نزّل ورقة عمل جزئية',
       `work/qa/p6-split-${lang}-restored.xlsx`,
     );
     assert.deepEqual(violations, []);
