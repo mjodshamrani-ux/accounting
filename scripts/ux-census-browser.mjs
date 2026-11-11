@@ -21,6 +21,8 @@ import {
   censusInPage,
   compare,
   focusInPage,
+  comparePalette,
+  paletteSizes,
   plantInPage,
   sumStates,
 } from './ux-census-support.mjs';
@@ -299,6 +301,23 @@ try {
         `${metric}: a planted fault is counted (${before[metric]} → ${after[metric]})`,
       );
     }
+    // The palette: a box in colours of its own adds one to each role, and
+    // a run with more colours than recorded fails (UX-8(d)).
+    for (const role of ['text', 'surface', 'border'])
+      assert.ok(
+        Object.keys(after.palette[role]).length >
+          Object.keys(before.palette[role]).length,
+        `palette.${role}: a planted colour is counted`,
+      );
+    const grown = comparePalette(
+      paletteSizes({ bank: { states: [before] } }),
+      paletteSizes({ bank: { states: [after] } }),
+    ).increases;
+    for (const role of ['text', 'surface', 'border'])
+      assert.ok(
+        grown.some((line) => line.startsWith(`palette.${role}: `)),
+        `palette.${role}: more colours than recorded fail`,
+      );
     report.domains.bank = { before, after, planted };
     await context.close();
     // The decision recipes: the census decides where it has one, and a
@@ -339,6 +358,12 @@ try {
     const current = Object.fromEntries(
       Object.entries(report.domains).map(([d, v]) => [d, v.sum]),
     );
+    report.palette = paletteSizes(report.domains);
+    console.log(
+      `palette       ${Object.entries(report.palette)
+        .map(([r, n]) => `${r}=${n}`)
+        .join(' ')}`,
+    );
     if (record) {
       const commit = execFileSync('git', ['rev-parse', 'HEAD'], {
         cwd: root,
@@ -348,7 +373,7 @@ try {
         baselinePath,
         JSON.stringify(
           {
-            note: 'Interface census baseline: each metric summed over the four states of a domain (Arabic and English at 390 and 1440 px) after its synthetic example ran. Recorded by scripts/ux-census-browser.mjs --record; the gate fails on any change.',
+            note: 'Interface census baseline: each metric summed over the four states of a domain (Arabic and English at 390 and 1440 px) after its synthetic example ran, and the number of different text, surface and border colours the panels drew over all of them. Recorded by scripts/ux-census-browser.mjs --record; the gate fails on any change, and on a palette above the ceilings the UX-8 record declared.',
             recorded: {
               commit,
               date: new Date().toISOString().slice(0, 10),
@@ -356,6 +381,7 @@ try {
             },
             metrics: METRICS,
             domains: current,
+            palette: report.palette,
           },
           null,
           2,
@@ -367,6 +393,9 @@ try {
     } else {
       const baseline = JSON.parse(await readFile(baselinePath, 'utf8'));
       const diff = compare(baseline.domains, current);
+      const palette = comparePalette(baseline.palette, report.palette);
+      for (const key of ['increases', 'decreases', 'missing'])
+        diff[key].push(...palette[key]);
       report.baseline = baseline.recorded;
       report.diff = diff;
       const lines = [];

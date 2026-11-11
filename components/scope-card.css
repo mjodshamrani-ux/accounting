@@ -23,7 +23,7 @@
   flex-direction: column;
   align-items: stretch;
   gap: 8px;
-  color: #49566b;
+  color: var(--text-label);
   font-size: var(--type-xs);
   font-weight: 550;
 }
@@ -34,12 +34,12 @@
 .reconciliation-workspace .scope-card__field[data-origin='question'] input,
 .reconciliation-workspace .scope-card__field:has(> .hint.warn) input,
 .reconciliation-workspace .scope-card__field[data-origin='question'] select {
-  border-color: #d4ab62;
+  border-color: var(--tone-warning-border);
 }
 .reconciliation-workspace .scope-card__values {
   margin: 0;
   padding-inline-start: 18px;
-  color: #546077;
+  color: var(--text-label);
   font-size: var(--type-xs);
   line-height: 1.9;
 }

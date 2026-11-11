@@ -35,7 +35,7 @@
   min-width: 0;
   flex: 1 1 10rem;
   padding: 0.5rem;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--border-strong);
   border-radius: 0.4rem;
   background: var(--background);
 }
@@ -64,7 +64,7 @@
 :is(.gl-tb-table, .record-frame) th {
   padding: 0.6rem;
   text-align: start;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--border);
   vertical-align: top;
 }
 :is(.gl-tb-table, .record-frame) td:last-child {
@@ -142,7 +142,7 @@
     inset -14px 0 12px -12px rgb(15 23 42 / 24%);
 }
 :is(.record-frame, .results-frame, .preview):focus-visible {
-  outline: 2px solid #6738d3;
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 /* The pages of a record table: two buttons around the line that names the
@@ -209,7 +209,7 @@
 .decision-hint {
   margin-block: 0.75rem;
   line-height: 1.7;
-  color: #637088;
+  color: var(--text-secondary);
 }
 :is([data-decision-state], [data-decision-item], h3[tabindex='-1']) {
   scroll-margin-block-start: 6rem;
@@ -219,6 +219,16 @@
   [data-decision-item],
   h3[tabindex='-1']
 ):focus-visible {
-  outline: 3px solid #8a69dc;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
+}
+/* UX-8(d): a shadcn table row draws its rule in the current text colour
+   unless told otherwise; in a workspace it takes the border token. */
+[data-domain-panel] [data-slot='table-row'] {
+  border-color: var(--border);
+}
+/* A tab that is not chosen speaks in the secondary voice rather than in the
+   foreground at 60 %, which drew a colour of its own. */
+[data-domain-panel] [data-slot='tabs-trigger']:not([data-active]):not(:hover) {
+  color: var(--text-secondary);
 }

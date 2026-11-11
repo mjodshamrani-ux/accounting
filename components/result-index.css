@@ -7,7 +7,7 @@
   top: 88px;
   z-index: 30;
   padding-block: 6px;
-  border-block: 1px solid #e2e6ef;
+  border-block: 1px solid var(--border);
   background: var(--background);
 }
 .result-index__toggle {
@@ -26,18 +26,18 @@
   padding: 6px 12px;
   border: 1px solid transparent;
   border-radius: 999px;
-  color: #40516b;
+  color: var(--text-label);
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
 }
 .result-index__list a:hover {
-  background: #f1f4fa;
+  background: var(--surface-quiet);
 }
 .result-index__list a[aria-current='location'] {
-  border-color: #c9d3ea;
-  background: #f4f6fc;
+  border-color: var(--border-strong);
+  background: var(--surface-quiet);
   color: var(--foreground);
 }
 /* A surface hides what overflows it (globals.css), which makes it a scroll
@@ -47,7 +47,7 @@
   overflow: clip;
 }
 [data-result-part]:focus-visible {
-  outline: 3px solid #8a69dc;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
 }
 @media (max-width: 750px) {
@@ -68,7 +68,7 @@
     padding: 6px 4px;
     border: 0;
     background: none;
-    color: #40516b;
+    color: var(--text-label);
     font: inherit;
     font-size: 13px;
     font-weight: 600;

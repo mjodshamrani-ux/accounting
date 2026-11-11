@@ -1,7 +1,7 @@
 {
-  "note": "Interface census baseline: each metric summed over the four states of a domain (Arabic and English at 390 and 1440 px) after its synthetic example ran. Recorded by scripts/ux-census-browser.mjs --record; the gate fails on any change.",
+  "note": "Interface census baseline: each metric summed over the four states of a domain (Arabic and English at 390 and 1440 px) after its synthetic example ran, and the number of different text, surface and border colours the panels drew over all of them. Recorded by scripts/ux-census-browser.mjs --record; the gate fails on any change, and on a palette above the ceilings the UX-8 record declared.",
   "recorded": {
-    "commit": "88f99f3bba6a2b0eb883e3b3d554618495662591",
+    "commit": "e91b33a7b2e23aea5c0cd1d31e38db53761cfc93",
     "date": "2026-11-10",
     "chromium": "141.0.7390.37"
   },
@@ -266,5 +266,10 @@
       "lowContrast": 0,
       "smallText": 0
     }
+  },
+  "palette": {
+    "text": 7,
+    "surface": 7,
+    "border": 8
   }
 }

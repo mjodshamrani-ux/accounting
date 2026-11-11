@@ -728,6 +728,14 @@ export function plantInPage(selector) {
   tiny.style.cssText = 'color:#0a1b2e;background:#ffffff;font-size:11px';
   root.append(faint, tiny);
   planted.push('lowContrast', 'smallText');
+  // A box in a text, surface and border colour of its own, as the
+  // workspaces drew 35, 21 and 36 colours before UX-8(d).
+  const box = document.createElement('div');
+  box.textContent = 'planted palette';
+  box.style.cssText =
+    'color:#2f4f4f;background:#fdf6e3;border:1px solid #8fbc8f';
+  root.append(box);
+  planted.push('palette');
   return planted;
 }
 
@@ -767,5 +775,59 @@ export function compare(baseline, current) {
   }
   for (const domain of Object.keys(baseline))
     if (!(domain in current)) missing.push(`${domain}: not measured`);
+  return { increases, decreases, missing };
+}
+
+/**
+ * The ceilings the UX-8 design record declared for the colours a workspace
+ * draws, before UX-8(d) changed a stylesheet (docs/audits/UX-8-IDENTITY.ar.md
+ * §6). A run above one fails, whatever the baseline says.
+ */
+export const PALETTE_CEILING = Object.freeze({
+  text: 12,
+  surface: 8,
+  border: 8,
+});
+
+/**
+ * The workspace palette of a run: how many different colours, by role, the
+ * panels drew over every state of every domain (UX-8(d)).
+ */
+export function paletteSizes(domains) {
+  const roles = { text: new Set(), surface: new Set(), border: new Set() };
+  for (const { states } of Object.values(domains))
+    for (const state of states)
+      for (const role of Object.keys(roles))
+        for (const colour of Object.keys(state.palette?.[role] ?? {}))
+          roles[role].add(colour);
+  return Object.fromEntries(
+    Object.entries(roles).map(([role, set]) => [role, set.size]),
+  );
+}
+
+/**
+ * Compares a run's palette with the recorded one and with the declared
+ * ceilings: more colours than either is a new defect, fewer than recorded an
+ * improvement the baseline must record.
+ */
+export function comparePalette(recorded, current) {
+  const increases = [],
+    decreases = [],
+    missing = [];
+  for (const [role, ceiling] of Object.entries(PALETTE_CEILING)) {
+    const now = current[role];
+    if (now > ceiling)
+      increases.push(
+        `palette.${role}: ${now} colours, above the ${ceiling} the UX-8 record declared`,
+      );
+    if (!recorded || !(role in recorded)) {
+      missing.push(`palette.${role}: no baseline`);
+      continue;
+    }
+    if (now > recorded[role])
+      increases.push(`palette.${role}: ${recorded[role]} → ${now}`);
+    else if (now < recorded[role])
+      decreases.push(`palette.${role}: ${recorded[role]} → ${now}`);
+  }
   return { increases, decreases, missing };
 }

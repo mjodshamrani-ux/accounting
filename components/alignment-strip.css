@@ -23,7 +23,7 @@
   grid-template-columns: fit-content(12rem) minmax(0, 1fr) fit-content(12rem);
   border: 1px solid var(--border);
   border-radius: 14px;
-  background: #f6f8fc;
+  background: var(--surface-quiet);
   overflow: hidden;
 }
 .alignment-strip[data-sides='1'] .alignment-strip__drawn {
@@ -47,13 +47,21 @@
   inset-inline-end: 0;
   width: 12px;
   height: 12px;
-  background: linear-gradient(225deg, #f6f8fc 50%, var(--border) 50%);
+  background: linear-gradient(
+    225deg,
+    var(--surface-quiet) 50%,
+    var(--border) 50%
+  );
 }
 :root[dir='rtl'] .alignment-strip__paper::after {
-  background: linear-gradient(135deg, #f6f8fc 50%, var(--border) 50%);
+  background: linear-gradient(
+    135deg,
+    var(--surface-quiet) 50%,
+    var(--border) 50%
+  );
 }
 .alignment-strip__paper[data-strip-side='0'] {
-  border-inline-end: 3px solid #2c5be8;
+  border-inline-end: 3px solid var(--source-a-ink);
 }
 .alignment-strip__paper[data-strip-side='1'] {
   border-inline-start: 3px solid var(--primary);
@@ -65,7 +73,7 @@
 }
 .alignment-strip__total {
   font-size: var(--type-xs);
-  color: #475569;
+  color: var(--text-label);
   font-variant-numeric: tabular-nums;
 }
 .alignment-strip__cells {
@@ -86,7 +94,7 @@
 .alignment-strip__label,
 .alignment-strip__note {
   font-size: var(--type-xs);
-  color: #475569;
+  color: var(--text-label);
   overflow-wrap: break-word;
 }
 .alignment-strip__value {
@@ -101,13 +109,13 @@
   font-weight: 600;
 }
 .alignment-strip__value[data-quiet] {
-  color: #475569;
+  color: var(--text-label);
 }
 .alignment-strip__cell[data-tone='review'] .alignment-strip__value {
-  color: #8e641e;
+  color: var(--tone-warning-text);
 }
 .alignment-strip__cell[data-tone='difference'] .alignment-strip__value {
-  color: #8a4b0f;
+  color: var(--tone-difference-text);
 }
 @media (max-width: 640px) {
   .alignment-strip__drawn,

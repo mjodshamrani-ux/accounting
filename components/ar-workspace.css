@@ -11,7 +11,7 @@
 }
 .ar-workspace article {
   padding-block: 1rem;
-  border-bottom: 1px solid #e1e6ed;
+  border-bottom: 1px solid var(--border);
 }
 .ar-workspace ul {
   padding-inline-start: 1.2rem;
@@ -19,7 +19,7 @@
 .ar-source-evidence {
   margin-block: 0.75rem;
   padding: 0.85rem 1rem;
-  border: 1px solid var(--workspace-border, #e1e6ed);
+  border: 1px solid var(--border);
   border-radius: 0.75rem;
 }
 .ar-source-evidence summary {
@@ -65,9 +65,9 @@
 }
 .ar-case-members > li {
   padding: 18px;
-  border: 1px solid var(--border, #e1e6ed);
+  border: 1px solid var(--border);
   border-radius: 13px;
-  background: var(--soft, #f8f9fc);
+  background: var(--surface-quiet);
 }
 .ar-member-heading {
   font-size: 13px;
@@ -76,7 +76,7 @@
 .ar-member-amount {
   font-size: 22px;
   font-variant-numeric: tabular-nums;
-  color: var(--ink, #20334a);
+  color: var(--text);
 }
 .ar-member-meta {
   display: grid;
@@ -91,7 +91,7 @@
 }
 .ar-member-meta dd {
   margin: 0;
-  color: var(--ink, #20334a);
+  color: var(--text);
 }
 .ar-member-description {
   margin-block: 14px 0;

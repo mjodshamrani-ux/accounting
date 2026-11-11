@@ -17,7 +17,7 @@ Read current [AGENTS](../../../../AGENTS.md) and [CLAUDE](../../../../CLAUDE.md)
 | --- | --- |
 | Surfaces/text | White `#FFFFFF`, navy `#0A1B2E`, pale surface `#F6F8FC` |
 | Brand gradient | Blue `#2D8CFF` → purple `#7C3AED`; logo, native artwork and deliberate emphasis |
-| Functional tokens | Existing `--primary: #6738D3`, one secondary text `#637088` (`--text-secondary`, UX-8(c)), workspace text never under 13 px (`--type-xs`), border `#E3E7EF`; inspect consumers before replacing shades |
+| Functional tokens | Existing `--primary: #6738D3`, one secondary text `#637088` (`--text-secondary`, UX-8(c)), workspace text never under 13 px (`--type-xs`), border `#E3E7EF`. Since UX-8(d) workspaces draw from role tokens in `:root` (`--text*`, `--surface*`, `--border*`, `--tone-*`); secondary text never sits on `--surface-accent-strong`. The census fails above 7 text, 7 surface and 8 border colours recorded (ceilings 12, 8, 8), and a unit test fails above 30 hex colours in the workspace stylesheets. Reuse a token; add one only with a named role and a measurement |
 | Supporting colors | Indigo `#6366F1`, gray `#94A3B8`; gray is not an automatic small-text color on white |
 | Arabic display | Genuine local **Thmanyah Serif Display Bold 700**, live text; no synthesized weight, stretched letters or substitute font |
 | Body/fields | Local Noto Sans Arabic |
