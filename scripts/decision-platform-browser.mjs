@@ -23,6 +23,7 @@ import {
 } from './domain-navigation-support.mjs';
 import { DECISIONS } from './ux-census-support.mjs';
 import { closedSay, focused, pause } from './decision-platform-support.mjs';
+import { pageState } from './stage-watchdog.mjs';
 
 const dist = path.resolve(
   process.env.DECISION_PLATFORM_DIST ??
@@ -58,6 +59,18 @@ const browser = await chromium.launch({
 });
 const external = [],
   errors = [];
+// The page and the step the check is on, said when a wait times out.
+let current = null,
+  where = 'start';
+// Each workspace panel on the page: shown or hidden, and how many advanced
+// disclosures it holds.
+const panelsOf = async (page) =>
+  page.evaluate(() =>
+    [...document.querySelectorAll('[data-domain-panel]')].map(
+      (p) =>
+        `${p.getAttribute('data-domain-panel')}: ${p.checkVisibility() ? 'shown' : 'hidden'}, ${p.querySelectorAll('details[data-workspace-advanced]').length} advanced disclosures`,
+    ),
+  );
 const words = {
   ar: { language: 'AR العربية', example: /مثال/u },
   en: { language: 'EN English', example: /example|sample/iu },
@@ -106,6 +119,7 @@ async function open(language) {
     return route.abort();
   });
   const page = await context.newPage();
+  current = page;
   page.on('pageerror', (error) => errors.push(error.message));
   await page.goto(base + '/');
   await page
@@ -189,6 +203,7 @@ let checked = 0,
 try {
   for (const language of ['ar', 'en']) {
     for (const [domain, recipe] of Object.entries(DECISIONS)) {
+      where = `${domain}/${language}`;
       const { context, page } = await open(language);
       const panel = await openDomainWorkspace(page, domain, {
         advanced: true,
@@ -531,6 +546,7 @@ try {
 
   // A receivables list longer than a page: a decision on its second page
   // leaves the reader on that page, with the focus on the pair decided.
+  where = 'long receivables list';
   const { context, page } = await open('en');
   const panel = await openDomainWorkspace(page, 'ar', {
     advanced: true,
@@ -637,6 +653,17 @@ try {
   await context.close();
   assert.deepEqual(external, [], 'all requests remain local');
   assert.deepEqual(errors, [], 'no browser page errors');
+} catch (error) {
+  // A wait that times out says where it stopped and what the page showed:
+  // in CI on 6a1d27b one waited 30 s for the first workspace's disclosures
+  // on a fresh page, and the same build run here was caught by assertion.
+  if (!(error instanceof assert.AssertionError) && current) {
+    const panels = await panelsOf(current).catch(String);
+    process.stderr.write(
+      `Decision platform stopped at ${where}: ${JSON.stringify({ page: await pageState(current), panels, errors }, null, 2)}\n`,
+    );
+  }
+  throw error;
 } finally {
   await browser.close();
   await new Promise((resolve) => server.close(resolve));
