@@ -8,6 +8,17 @@ export function completedSuccessfully(result) {
   return !result.error && result.signal === null && result.status === 0;
 }
 
+// The run's records stay on the runner. A failing baseline, or a mutant the
+// acceptance did not catch, is described in the job log by how its run ended
+// and the end of what it printed, so the job log says why.
+export function describeRun(name, result, how, lines = 60) {
+  const output = (result.stdout ?? '') + (result.stderr ?? '');
+  return `${name} ${how} (exit ${result.status}, signal ${result.signal}, ` +
+    `error ${result.error?.message ?? null}, ` +
+    `build ${result.buildFailed ? 'failed' : 'passed'}); its log ends:\n` +
+    output.split('\n').slice(-lines).join('\n') + '\n';
+}
+
 export function isAssertionKill(result) {
   const output = (result.stdout ?? '') + (result.stderr ?? '');
   return !result.error && result.signal === null &&

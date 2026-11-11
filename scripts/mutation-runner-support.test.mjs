@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { chmod, cp, lstat, mkdir, readFile, symlink, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { completedSuccessfully, isAssertionKill, createPrivateTree, removePrivateTree } from './mutation-runner-support.mjs';
+import { completedSuccessfully, describeRun, isAssertionKill, createPrivateTree, removePrivateTree } from './mutation-runner-support.mjs';
 
 const assertion = { status: 1, signal: null, stdout: 'error: ERR_ASSERTION', stderr: '' };
 void test('only a completed assertion failure is a mutation kill', () => {
@@ -23,6 +23,18 @@ void test('only a completed assertion failure is a mutation kill', () => {
   assert.equal(completedSuccessfully({ status: 0, signal: null }), true);
   assert.equal(completedSuccessfully({ status: 0, signal: null, error: { code: 'ETIMEDOUT' } }), false);
   assert.equal(completedSuccessfully({ status: 0, signal: 'SIGTERM' }), false);
+});
+
+void test('a failing run is described by how it ended and the end of its output', () => {
+  const output = Array.from({ length: 80 }, (_, i) => `line ${i}`).join('\n');
+  const told = describeRun('restored-sheet-dropped', { status: 1, signal: null, stdout: output, stderr: 'TimeoutError: waiting for locator' }, 'was not caught');
+  assert.match(told, /^restored-sheet-dropped was not caught \(exit 1, signal null, error null, build passed\); its log ends:\n/);
+  assert.match(told, /TimeoutError: waiting for locator\n$/);
+  assert.equal(told.includes('line 19\n'), false, 'only the last 60 lines');
+  assert.equal(told.includes('\nline 20\n'), true);
+  const failed = describeRun('baseline', { status: null, signal: 'SIGTERM', error: { message: 'spawnSync node ETIMEDOUT' }, buildFailed: true, stdout: '', stderr: '' }, 'failed');
+  assert.match(failed, /^baseline failed \(exit null, signal SIGTERM, error spawnSync node ETIMEDOUT, build failed\)/);
+  assert.equal(describeRun('m', { status: 1, signal: null, stdout: 'a\nb\nc', stderr: '' }, 'x', 2).endsWith('b\nc\n'), true);
 });
 
 void test('a real timed-out child exiting 7 after ERR_ASSERTION earns no kill', () => {
