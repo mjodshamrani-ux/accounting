@@ -40,6 +40,11 @@ import {
   clearingDemoScope,
 } from '@/lib/reconciliation/clearing-demo';
 import { RecordRows } from '@/components/record-table';
+import { Figures } from '@/components/amount';
+import { EvidenceDrawer, ThreadSources } from '@/components/evidence-drawer';
+import { useEvidenceThread } from '@/hooks/use-evidence-thread';
+import { clearingThread } from '@/lib/evidence-thread';
+import { evidenceThreadCopy } from '@/lib/i18n/evidence-thread';
 import { StatusBadge } from '@/components/status-badge';
 import { clearingGroupTone } from '@/lib/status-tone';
 import { ScopeCard, Sentence } from '@/components/scope-card';
@@ -277,6 +282,16 @@ export function ClearingWorkspace({
     [file, reading, scope, events, result],
   );
   const paper = useSheetPrint(printed, lang, composeSheet);
+  // Each case opens the movement rows the engine put in it, every cell as
+  // the reader recorded it (UX-10). The table keeps its own page, which a
+  // decision moves to the group it changed; the way back takes it to the
+  // case's page.
+  const thread = useEvidenceThread(active, result),
+    words = evidenceThreadCopy[lang],
+    opened =
+      result && thread.open?.table === 'cases'
+        ? { at: thread.open.at, case: result.cases[thread.open.at] }
+        : null;
   const check = () =>
     perform(async (signal) =>
       shown(await workerTask('clearing-reconcile', input(), signal)),
@@ -735,6 +750,7 @@ export function ClearingWorkspace({
               anchor={resultParts.anchor('groups')}
               label={t.results}
               headers={[
+                words.way,
                 t.members,
                 t.reference,
                 t.net,
@@ -745,9 +761,24 @@ export function ClearingWorkspace({
               page={page}
               onPage={setPage}
               rows={result.cases}
-              mark={() => ({ 'data-testid': 'clearing-case' })}
+              mark={(_, at) => ({
+                'data-testid': 'clearing-case',
+                ...thread.mark('cases', at),
+              })}
               target={(_, at) => rowAt(at)}
               cells={(c, at) => [
+                <Button
+                  key="thread"
+                  variant="outline"
+                  {...thread.way('cases', at)}
+                  onClick={() => thread.show('cases', at)}
+                >
+                  {words.way}
+                  <span className="sr-only">
+                    {' · '}
+                    {c.ids.map((id) => owners.get(id)?.posting).join(', ')}
+                  </span>
+                </Button>,
                 <label key="members">
                   <input
                     type="checkbox"
@@ -804,6 +835,29 @@ export function ClearingWorkspace({
                 </div>,
               ]}
             />
+            {opened?.case && (
+              <EvidenceDrawer
+                id={thread.id}
+                headingRef={thread.heading}
+                heading={`${words.heading} · ${opened.case.ids.map((id) => owners.get(id)?.posting).join(', ')}`}
+                back={words.back}
+                onBack={() => {
+                  setPage(pageOfRow(opened.at));
+                  thread.back();
+                }}
+                amount={
+                  <Figures
+                    decimals={result.decimals}
+                    items={[[t.net, opened.case.net]]}
+                  />
+                }
+              >
+                <ThreadSources
+                  thread={clearingThread(result, file?.name ?? '', opened.at)}
+                  role={() => t.upload}
+                />
+              </EvidenceDrawer>
+            )}
             <label>
               {t.note}
               <textarea

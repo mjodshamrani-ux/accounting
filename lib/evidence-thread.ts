@@ -1,5 +1,6 @@
 import type { AllocationResult } from './reconciliation/allocation.ts';
 import type { BankResult } from './reconciliation/bank.ts';
+import type { ClearingResult } from './reconciliation/clearing.ts';
 import type { BalanceField, GlTbResult } from './reconciliation/gl-tb.ts';
 import {
   ASSET_ROLES,
@@ -242,4 +243,40 @@ export function glTbThread(result: GlTbResult, field: BalanceField): Thread {
         ];
       }),
     );
+}
+
+/** A clearing case: each movement row the engine put in it, in the case's
+ * order. The result keeps every row of the sheet as the reader recorded it,
+ * with no header for each cell; a cell's header is the text of its column in
+ * the header row the reading names. The account has one source, which the
+ * engine gives no role name: the thread calls it `movements`. */
+export function clearingThread(
+  result: ClearingResult,
+  name: string,
+  index: number,
+): Thread {
+  const found = result.cases[index];
+  if (!found) return [];
+  const rows = new Map(result.rows.map((r) => [r.id, r.row])),
+    lines = new Map(result.inventory.map((i) => [i.row, i.values])),
+    header = lines.get(result.reading.header + 1) ?? [];
+  return found.ids.flatMap((id) => {
+    const row = rows.get(id);
+    if (row === undefined) return [];
+    return [
+      {
+        source: 0,
+        role: 'movements',
+        name,
+        sheet: result.sheet,
+        place: { row },
+        cells:
+          lines.get(row)?.map((text, i) => ({
+            column: i + 1,
+            field: header[i] ?? '',
+            text,
+          })) ?? null,
+      },
+    ];
+  });
 }

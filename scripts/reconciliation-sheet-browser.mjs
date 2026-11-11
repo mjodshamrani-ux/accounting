@@ -145,7 +145,9 @@ export async function tableSaysScreen(grid, table) {
  * order, are the sheet's review table: members, reference, net and the reason
  * the page writes under the basis; and the sheet's decisions are those the
  * run recorded, each with the reviewer's reason. The words for each heading
- * come from the page's own table head.
+ * come from the page's own table head. Each case opens with the way to its
+ * source rows (UX-10), which the sheet has not: it is required, then set
+ * aside.
  */
 export async function clearingSheetSaysScreen(
   page,
@@ -156,9 +158,11 @@ export async function clearingSheetSaysScreen(
   const table = result.locator('table').filter({
     has: page.locator('[data-testid="clearing-case"]'),
   });
-  const head = (await table.locator('thead th').allInnerTexts()).map((h) =>
+  const drawn = (await table.locator('thead th').allInnerTexts()).map((h) =>
     h.trim(),
   );
+  assert.equal(drawn[0], THREAD_WAY[lang], 'the way to the source rows');
+  const head = drawn.slice(1);
   const waiting = table
     .locator('[data-testid="clearing-case"]')
     .filter({ has: page.locator('[data-status="review"]') });
@@ -175,10 +179,11 @@ export async function clearingSheetSaysScreen(
     );
     for (let i = 0; i < count; i++) {
       const cells = waiting.nth(i).locator('th, td');
-      const [members, reference, net] = (await cells.allInnerTexts()).map((t) =>
-        t.trim(),
+      const [way, members, reference, net] = (await cells.allInnerTexts()).map(
+        (t) => t.trim(),
       );
-      const reason = (await cells.nth(4).locator('.muted').innerText()).trim();
+      assert.ok(way.startsWith(THREAD_WAY[lang]), `review row ${i + 1}: ${way}`);
+      const reason = (await cells.nth(5).locator('.muted').innerText()).trim();
       const row = grid[top + 1 + i];
       assert.equal(row[0], members, `review row ${i + 1}: members`);
       assert.equal(row[1], reference, `review row ${i + 1}: reference`);

@@ -4,6 +4,7 @@ import {
   assetThread,
   bankThread,
   allocationThread,
+  clearingThread,
   glTbThread,
   payrollBankThread,
   payrollThread,
@@ -37,6 +38,15 @@ import { readFile as readSource } from '../lib/reconciliation/io.ts';
 import { readFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import type { BankResult } from '../lib/reconciliation/bank.ts';
+import {
+  reconcileClearing,
+  type ClearingInput,
+  type ClearingReading,
+} from '../lib/reconciliation/clearing.ts';
+import {
+  clearingDemoReading,
+  clearingDemoScope,
+} from '../lib/reconciliation/clearing-demo.ts';
 import type { AllocationResult } from '../lib/reconciliation/allocation.ts';
 
 // The thread is held to the source bytes themselves: each file is read here
@@ -464,6 +474,183 @@ void test('a GL and TB balance component opens each cell the engine summed, GL r
     components === glTbTruth.cases.length * 6 && cells > 100,
     `${components} components, ${cells} cells`,
   );
+});
+
+const CLEARING = new URL('../audit/clearing/frozen/', import.meta.url);
+
+// A clearing story: the frozen file as it is, or rewritten here so that a
+// blank row and a row in error sit between movements, or the columns come in
+// another order. The engine reads the first row as the header, and only it. The members of each case
+// are named by posting identifier, read from the frozen file with the
+// expected groups, so that no story's answer comes from the engine.
+async function clearingStories() {
+  const bytes = await readFile(new URL('source.csv', CLEARING)),
+    expected = JSON.parse(
+      await readFile(new URL('expected.json', CLEARING), 'utf8'),
+    ) as {
+      automaticGroups: number[][];
+      unlinkedRows: number[];
+      residualGroup: { rows: number[] };
+      manualDecision: { rows: number[]; note: string };
+    };
+  const frozen = csv(
+      bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength),
+    ),
+    posting = (row: number) => frozen[row - 1][0];
+  const groups = [
+    ...expected.automaticGroups,
+    expected.residualGroup.rows,
+  ].map((g) => g.map(posting));
+  const apart = expected.unlinkedRows.map((r) => [posting(r)]),
+    decided = expected.manualDecision.rows.map(posting);
+  const write = (rows: string[][]) =>
+    rows.map((r) => r.join(',')).join('\n') + '\n';
+  const order = [6, 5, 4, 3, 2, 1, 0];
+  return {
+    expected,
+    stories: [
+      {
+        name: 'frozen',
+        text: write(frozen),
+        reading: { ...clearingDemoReading },
+        groups: [...groups, ...apart],
+      },
+      {
+        name: 'blank and error rows',
+        text: write([
+          ...frozen.slice(0, 4),
+          [''],
+          ['P099', 'C001', '2026-13-40', '5.00', '2150', 'SAR', 'Bad date'],
+          ...frozen.slice(4),
+        ]),
+        reading: { ...clearingDemoReading },
+        groups: null,
+        error: 'P099',
+      },
+      {
+        name: 'columns in another order',
+        text: write(frozen.map((r) => order.map((c) => r[c]))),
+        reading: {
+          ...clearingDemoReading,
+          posting: 6,
+          reference: 5,
+          date: 4,
+          amount: 3,
+          account: 2,
+          currency: 1,
+          description: 0,
+        } satisfies ClearingReading,
+        groups: [...groups, ...apart],
+      },
+      {
+        name: 'decided by hand',
+        text: write(frozen),
+        reading: { ...clearingDemoReading },
+        decide: expected.manualDecision,
+        groups: [...groups, decided],
+      },
+    ],
+  };
+}
+
+void test('a clearing case opens each movement row the engine put in it, every cell under its header as the file has it', async () => {
+  const { stories } = await clearingStories();
+  let cases = 0,
+    cells = 0;
+  for (const story of stories) {
+    const bytes = new TextEncoder().encode(story.text);
+    const input: ClearingInput = {
+      file: await readSource('clearing.csv', bytes.buffer as ArrayBuffer),
+      reading: story.reading,
+      scope: { ...clearingDemoScope },
+      events: [],
+    };
+    if (story.decide) {
+      const first = reconcileClearing(input),
+        rows = csv(bytes.buffer as ArrayBuffer);
+      input.events.push({
+        context: first.context,
+        action: 'clear',
+        ids: first.rows
+          .filter((r) => story.decide!.rows.includes(r.row))
+          .map((r) => {
+            assert.equal(
+              r.posting,
+              rows[r.row - 1][story.reading.posting],
+              `${story.name}: decided row`,
+            );
+            return r.id;
+          }),
+        note: story.decide.note,
+      });
+    }
+    const result = reconcileClearing(input),
+      file = csv(bytes.buffer as ArrayBuffer),
+      header = file[story.reading.header],
+      at = header.indexOf('Posting ID');
+    assert.ok(at >= 0, `${story.name}: the header row is the one read`);
+    const members: string[][] = [];
+    result.cases.forEach((c, i) => {
+      const thread = clearingThread(result, 'clearing.csv', i),
+        what = `${story.name} case ${i}`;
+      assert.deepEqual(
+        thread.map((s) => ('row' in s.place ? s.place.row : 0)),
+        c.ids.map((id) => result.rows.find((r) => r.id === id)!.row),
+        `${what}: one row per member, in the case's order`,
+      );
+      for (const s of thread) {
+        assert.equal(s.source, 0, `${what}: the one source`);
+        assert.equal(s.role, 'movements', `${what}: role`);
+        assert.equal(s.name, 'clearing.csv', `${what}: the file`);
+        assert.equal(s.sheet, result.sheet, `${what}: the sheet`);
+        assert.ok('row' in s.place, `${what}: a row`);
+        const row = file[s.place.row - 1];
+        assert.ok(row, `${what}: row ${s.place.row} is in the file`);
+        assert.equal(s.cells?.length, row.length, `${what}: every cell`);
+        s.cells!.forEach((cell, j) => {
+          assert.equal(cell.column, j + 1, `${what}: column`);
+          assert.equal(cell.text, row[j], `${what}: cell text`);
+          assert.equal(cell.field, header[j], `${what}: header`);
+          cells++;
+        });
+      }
+      members.push(
+        thread.map((s) => ('row' in s.place ? file[s.place.row - 1][at] : '')),
+      );
+      cases++;
+    });
+    const sorted = (groups: string[][]) =>
+      groups.map((g) => [...g].sort().join(' ')).sort();
+    if (story.groups)
+      assert.deepEqual(
+        sorted(members),
+        sorted(story.groups),
+        `${story.name}: the members of each case`,
+      );
+    // Every movement the file has is in one case, and the row in error in
+    // none; a story that moves rows keeps its members.
+    if (story.error) {
+      assert.ok(
+        !members.flat().includes(story.error),
+        `${story.name}: the row in error opens from no case`,
+      );
+      assert.deepEqual(
+        members.flat().sort(),
+        file
+          .slice(story.reading.header + 1)
+          .map((r) => r[at])
+          .filter((p) => p && p !== story.error)
+          .sort(),
+        `${story.name}: every movement in one case`,
+      );
+    }
+    assert.deepEqual(
+      clearingThread(result, 'clearing.csv', result.cases.length),
+      [],
+      `${story.name}: an unknown case opens nothing`,
+    );
+  }
+  assert.ok(cases >= 18 && cells > 200, `${cases} cases, ${cells} cells`);
 });
 
 void test('a bank movement and an allocation item open the row they were read from with the cells the reader traced, and an unknown row opens nothing', () => {

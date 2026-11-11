@@ -1169,6 +1169,216 @@ assert.equal(
   'gl-tb: a change of type closes the evidence',
 );
 
+// UX-10(d), clearing: each case of the synthetic example, which writes the
+// frozen file byte for byte, opens the movement rows the engine put in it.
+// The members of each case come from the seal, by row, and are named here
+// by the posting identifiers the file holds in those rows.
+const CLEARING = 'audit/clearing/frozen';
+const clearingFile = csvRows(
+  await readFile(`${CLEARING}/source.csv`, 'utf8'),
+);
+const clearingSeal = JSON.parse(
+  await readFile(`${CLEARING}/expected.json`, 'utf8'),
+);
+const postingOf = (row) => clearingFile[row - 1][0];
+const groupsOf = (groups) =>
+  groups.map((g) => g.map(postingOf).sort().join(', ')).sort();
+const clearingWords = {
+  en: {
+    role: 'Clearing movements file',
+    amount: 'Amount in the table',
+    net: 'Net',
+  },
+  ar: {
+    role: 'ملف حركات المقاصة',
+    amount: 'المبلغ في الجدول',
+    net: 'الصافي',
+  },
+};
+const clearing = page.locator('main.clearing-workspace');
+const cases = () =>
+  clearing
+    .locator('table')
+    .filter({ has: page.getByTestId('clearing-case') });
+await page.setViewportSize({ width: 1440, height: 900 });
+await page.emulateMedia({ reducedMotion: null });
+await openDomainWorkspace(page, 'clearing');
+await page
+  .getByRole('button', { name: 'Open synthetic clearing example', exact: true })
+  .click();
+await page.getByRole('button', { name: 'Check clearing', exact: true }).click();
+await page.getByRole('heading', { name: 'Clearing result', exact: true }).waitFor();
+let clearingRows = 0;
+async function followCases(lang, width, motion, groups) {
+  const tw = threadWords[lang],
+    what = `clearing ${lang} ${width} px ${motion}`;
+  const head = await cases().locator('thead th').allInnerTexts();
+  assert.equal(head[0].trim(), tw.way, `${what}: the way in opens each case`);
+  const count = await cases().locator('tbody tr').count();
+  const members = [];
+  for (let i = 0; i < count; i++) {
+    const row = cases().locator('tbody tr').nth(i),
+      [, named, , net] = (await row.locator('td').allInnerTexts()).map((x) =>
+        x.trim(),
+      );
+    const way = row.getByRole('button', {
+      name: `${tw.way} · ${named}`,
+      exact: true,
+    });
+    assert.equal(await way.count(), 1, `${what} ${named}: the way in`);
+    assert.equal(await way.getAttribute('aria-expanded'), 'false', what);
+    await way.click();
+    await drawer.waitFor();
+    await arrived();
+    assert.equal(await way.getAttribute('aria-expanded'), 'true', what);
+    assert.equal(
+      await way.getAttribute('aria-controls'),
+      await drawer.getAttribute('id'),
+      `${what}: the way in names the drawer`,
+    );
+    const opened = await focused();
+    assert.deepEqual([opened.tag, opened.inDrawer], ['H2', true], what);
+    assert.equal(
+      opened.text,
+      `${tw.heading} · ${named}`,
+      `${what}: the heading names the case`,
+    );
+    const sources = await drawn();
+    assert.deepEqual(
+      sources.map((s) => postingOf(s.row)).join(', '),
+      named,
+      `${what} ${named}: its member rows, in the case's order`,
+    );
+    for (const s of sources) {
+      assert.equal(s.source, 0, `${what}: the one source`);
+      assert.equal(s.role, clearingWords[lang].role, `${what}: role`);
+      heldToFile(s, [clearingFile], `${what} ${named}`);
+    }
+    assert.deepEqual(
+      await drawer
+        .locator('[data-thread-source]')
+        .evaluateAll((sections) =>
+          sections.map((s) => s.querySelector('dd bdi')?.textContent.trim()),
+        ),
+      sources.map(() => 'synthetic-clearing.csv'),
+      `${what}: the example's file`,
+    );
+    assert.equal(
+      (await drawer.locator('.evidence-drawer__amount').innerText())
+        .replace(/\s+/gu, ' ')
+        .trim(),
+      `${clearingWords[lang].amount}: ${clearingWords[lang].net} ${net}`,
+      `${what} ${named}: the table's net`,
+    );
+    assert.equal(
+      await page.locator('tr[data-thread-open]').count(),
+      1,
+      `${what}: the case is marked`,
+    );
+    clearingRows += sources.length;
+    members.push(named);
+    if (i % 2)
+      await drawer.getByRole('button', { name: tw.back, exact: true }).click();
+    else await drawer.getByRole('heading', { level: 2 }).press('Escape');
+    await closed();
+    assert.equal(await drawer.count(), 0, `${what}: it closes`);
+    assert.equal(
+      await page.evaluate(() =>
+        document.activeElement?.getAttribute('aria-expanded'),
+      ),
+      'false',
+      `${what}: the focus returns to the way in`,
+    );
+    assert.ok(
+      (
+        await page.evaluate(() => document.activeElement?.textContent ?? '')
+      ).includes(named),
+      `${what}: the same way in`,
+    );
+  }
+  assert.deepEqual(
+    members.map((m) => m.split(', ').sort().join(', ')).sort(),
+    groupsOf(groups),
+    `${what}: the sealed members of each case`,
+  );
+  report.push(`clearing ${lang} ${width} ${motion}`);
+}
+const sealedCases = [
+  ...clearingSeal.automaticGroups,
+  clearingSeal.residualGroup.rows,
+  ...clearingSeal.unlinkedRows.map((r) => [r]),
+];
+for (const [lang, width, motion] of [
+  ['en', 1440, 'no-preference'],
+  ['ar', 390, 'reduce'],
+]) {
+  if ((await page.evaluate(() => document.documentElement.lang)) !== lang)
+    await page
+      .getByRole('button', {
+        name: lang === 'ar' ? 'AR العربية' : 'EN English',
+        exact: true,
+      })
+      .click();
+  await page.setViewportSize({ width, height: 900 });
+  await page.emulateMedia({ reducedMotion: motion });
+  await followCases(lang, width, motion, sealedCases);
+}
+await page.emulateMedia({ reducedMotion: null });
+await page.setViewportSize({ width: 1440, height: 900 });
+await page.getByRole('button', { name: 'EN English', exact: true }).click();
+// Three, two, two, one and one rows, twice.
+assert.equal(clearingRows, 2 * 9, `clearing rows: ${clearingRows}`);
+// A decision changes the result, and closes the evidence of the old one: the
+// two unlinked postings cleared by hand open as one case.
+const [lone] = clearingSeal.unlinkedRows.map(postingOf);
+await cases()
+  .getByRole('button', { name: `Review source rows · ${lone}`, exact: true })
+  .click();
+await drawer.waitFor();
+for (const row of clearingSeal.manualDecision.rows)
+  await clearing
+    .getByLabel(`Members: ${postingOf(row)}`, { exact: true })
+    .check();
+await clearing
+  .getByLabel('Review decision reason', { exact: true })
+  .fill(clearingSeal.manualDecision.note);
+await clearing
+  .getByRole('button', {
+    name: 'Record human clearing for selected members',
+    exact: true,
+  })
+  .click();
+await page.waitForFunction(() =>
+  document
+    .querySelector('[data-testid="clearing-metrics"]')
+    ?.textContent.includes('Cleared movements7'),
+);
+assert.equal(await drawer.count(), 0, 'clearing: a decision closes it');
+clearingRows = 0;
+await followCases('en', 1440, 'no-preference', [
+  ...clearingSeal.automaticGroups,
+  clearingSeal.residualGroup.rows,
+  clearingSeal.manualDecision.rows,
+]);
+assert.equal(clearingRows, 9, `clearing rows after the decision: ${clearingRows}`);
+report.push('clearing rows held to their file: 18, then 9 after a decision');
+// A change of type closes it.
+await cases()
+  .getByRole('button', { name: /^Review source rows · / })
+  .first()
+  .click();
+await drawer.waitFor();
+await page
+  .locator('select[data-reconciliation-type-select]')
+  .selectOption('bank');
+await openDomainWorkspace(page, 'clearing');
+await cases().waitFor();
+assert.equal(
+  await drawer.count(),
+  0,
+  'clearing: a change of type closes the evidence',
+);
+
 assert.deepEqual(errors, [], 'no page error');
 await browser.close();
 server.close();

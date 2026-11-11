@@ -42,6 +42,7 @@ const copied = [
   'audit/reconciliation-sheet',
   'audit/inventory-links-foundation/frozen',
   'audit/gl-tb/frozen',
+  'audit/clearing/frozen',
   'package.json',
 ];
 const mutations = [
@@ -224,6 +225,78 @@ const mutations = [
     THREAD,
     "            place: { row: record.row },\n            cells: record.trace\n",
     "            place: { row: record.row + 1 },\n            cells: record.trace\n",
+  ],
+  [
+    "clearing-unknown-case-not-empty",
+    THREAD,
+    "const found = result.cases[index];",
+    "const found = result.cases[index] ?? result.cases[0];",
+  ],
+  [
+    "clearing-other-case",
+    THREAD,
+    "const found = result.cases[index];",
+    "const found = result.cases[index + 1];",
+  ],
+  [
+    "clearing-first-member-only",
+    THREAD,
+    "  return found.ids.flatMap((id) => {\n",
+    "  return found.ids.slice(0, 1).flatMap((id) => {\n",
+  ],
+  [
+    "clearing-members-reversed",
+    THREAD,
+    "  return found.ids.flatMap((id) => {\n",
+    "  return [...found.ids].reverse().flatMap((id) => {\n",
+  ],
+  [
+    "clearing-row-shifted",
+    THREAD,
+    "        place: { row },\n        cells:\n          lines",
+    "        place: { row: row + 1 },\n        cells:\n          lines",
+  ],
+  [
+    "clearing-cells-of-next-row",
+    THREAD,
+    "          lines.get(row)?.map((text, i) => ({\n",
+    "          lines.get(row + 1)?.map((text, i) => ({\n",
+  ],
+  [
+    "clearing-empty-cells-dropped",
+    THREAD,
+    "          lines.get(row)?.map((text, i) => ({\n",
+    "          lines.get(row)?.filter((text) => text).map((text, i) => ({\n",
+  ],
+  [
+    "clearing-header-from-a-movement",
+    THREAD,
+    "    header = lines.get(result.reading.header + 1) ?? [];",
+    "    header = lines.get(result.reading.header + 2) ?? [];",
+  ],
+  [
+    "clearing-column-from-zero",
+    THREAD,
+    "            column: i + 1,\n            field: header[i] ?? '',",
+    "            column: i,\n            field: header[i] ?? '',",
+  ],
+  [
+    "clearing-header-shifted",
+    THREAD,
+    "            field: header[i] ?? '',",
+    "            field: header[i + 1] ?? '',",
+  ],
+  [
+    "clearing-name-is-the-sheet",
+    THREAD,
+    "        name,\n        sheet: result.sheet,",
+    "        name: result.sheet,\n        sheet: result.sheet,",
+  ],
+  [
+    "clearing-sheet-dropped",
+    THREAD,
+    "        name,\n        sheet: result.sheet,",
+    "        name,\n        sheet: null,",
   ],
 ];
 const files = [THREAD, ...tests];

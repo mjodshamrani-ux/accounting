@@ -8,9 +8,10 @@
 // (scripts/evidence-thread-browser.mjs, against that build) must fail with an
 // assertion. It passes on the unmutated build first. A survivor is behaviour
 // no browser check holds. UX-10(d) adds the fixed assets, the payroll and the
-// inventory's register rows that do not link, and the GL and TB balance
-// components: whose row the drawer opens, the roles, the heading or the
-// figures, the way in that names its row, and the marked row.
+// inventory's register rows that do not link, the GL and TB balance
+// components and the clearing cases: whose row the drawer opens, the roles,
+// the file, the heading or the figures, the way in that names its row, the
+// marked row, and, in clearing, a decision that leaves the old evidence open.
 //
 // Not planted: the drawer's motion outside its reduced-motion guard. The
 // page's own rule (app/globals.css) sets every animation to none under
@@ -18,7 +19,9 @@
 // run as an equivalent mutant (docs/audits/UX-10-EVIDENCE-THREAD.ar.md §9).
 // Nor the shared hook's return to the row's page: the comparison tables of
 // the asset and payroll examples hold one page, so no check can see it there
-// (the bank's own way back to its page is planted above).
+// (the bank's own way back to its page is planted above). The clearing
+// example's five cases hold one page too, so its own way back to the case's
+// page is not planted either.
 //   node scripts/test-evidence-thread-interface-mutations.mjs
 import {
   cp,
@@ -54,6 +57,7 @@ const ASSETS = 'components/fixed-assets-workspace.tsx';
 const PAYROLL = 'components/payroll-workspace.tsx';
 const STOCK = 'components/inventory-register-workspace.tsx';
 const GLTB = 'components/gl-tb-workspace.tsx';
+const CLEARING = 'components/clearing-workspace.tsx';
 const HOOK = 'hooks/use-evidence-thread.ts';
 const mutations = [
   [
@@ -312,6 +316,59 @@ const mutations = [
     GLTB,
     "            mark={(_, i) => thread.mark('balances', i)}\n",
     "",
+  ],
+  [
+    'clearing-heading-of-the-first-case',
+    CLEARING,
+    '        ? { at: thread.open.at, case: result.cases[thread.open.at] }\n',
+    '        ? { at: thread.open.at, case: result.cases[0] }\n',
+  ],
+  [
+    'clearing-way-opens-the-first-case',
+    CLEARING,
+    "onClick={() => thread.show('cases', at)}",
+    "onClick={() => thread.show('cases', 0)}",
+  ],
+  [
+    'clearing-rows-of-the-next-case',
+    CLEARING,
+    "thread={clearingThread(result, file?.name ?? '', opened.at)}",
+    "thread={clearingThread(result, file?.name ?? '', opened.at + 1)}",
+  ],
+  [
+    'clearing-file-not-named',
+    CLEARING,
+    "thread={clearingThread(result, file?.name ?? '', opened.at)}",
+    "thread={clearingThread(result, '', opened.at)}",
+  ],
+  [
+    'clearing-net-of-the-account',
+    CLEARING,
+    'items={[[t.net, opened.case.net]]}',
+    'items={[[t.net, result.total]]}',
+  ],
+  [
+    'clearing-way-not-named',
+    CLEARING,
+    "                  <span className=\"sr-only\">\n                    {' · '}\n                    {c.ids.map((id) => owners.get(id)?.posting).join(', ')}\n                  </span>\n",
+    '',
+  ],
+  [
+    'clearing-case-not-marked',
+    CLEARING,
+    "                ...thread.mark('cases', at),\n",
+    '',
+  ],
+  // The workspace tells the hook nothing that changes with the result, so a
+  // decision leaves the old evidence open. Its first plant passed the file
+  // instead, and survived as an equivalent mutant: each reply from the
+  // worker installs a new file object with the new result
+  // (docs/audits/UX-10-EVIDENCE-THREAD.ar.md §13).
+  [
+    'clearing-decision-keeps-it',
+    CLEARING,
+    '  const thread = useEvidenceThread(active, result),',
+    '  const thread = useEvidenceThread(active, null),',
   ],
   [
     'hook-keeps-it-on-type-change',
