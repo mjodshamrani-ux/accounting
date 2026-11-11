@@ -259,9 +259,10 @@ jobs:
         run: |
           pnpm test:browser:reconciliation-entry
           pnpm test:browser:startup-readiness
-          pnpm test:browser:workspace-loading
           pnpm test:browser:domain-navigation
           pnpm test:browser:main-integration
+      - name: Verify each workspace's code is requested when its type is first chosen, its heading takes the focus, and a failed load offers a page reload (UX-9)
+        run: pnpm test:browser:workspace-loading
       - name: Verify official fonts and unified workspace sources with retained work
         run: pnpm test:browser:unified-workspace
       - name: Count the interface defect classes of the October 2026 audit in every workspace against the recorded baseline, after the census proves it counts each planted fault

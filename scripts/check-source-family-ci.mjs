@@ -395,6 +395,9 @@ const required = [
   'test:browser:decision-platform:self-test',
   'test:browser:stage-watchdog:self-test',
   'test:browser:review-platform',
+  // UX-9: what the first page loads, and each workspace loaded on first choice.
+  'test:startup-weight',
+  'test:browser:workspace-loading',
 ];
 const deployed = ['build', ...deployGated].flatMap(
   (name) => workflow.jobs[name].steps,
