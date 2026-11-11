@@ -7,7 +7,9 @@
 // application, and the evidence thread check
 // (scripts/evidence-thread-browser.mjs, against that build) must fail with an
 // assertion. It passes on the unmutated build first. A survivor is behaviour
-// no browser check holds.
+// no browser check holds. UX-10(d) adds the fixed assets, the payroll and the
+// inventory's register rows that do not link: whose row the drawer opens,
+// the roles, the heading, the way in that names its row, and the marked row.
 //
 // Not planted: the drawer's motion outside its reduced-motion guard. The
 // page's own rule (app/globals.css) sets every animation to none under
@@ -49,6 +51,7 @@ const STYLE = 'components/evidence-drawer.css';
 const BANK = 'components/bank-workspace.tsx';
 const ASSETS = 'components/fixed-assets-workspace.tsx';
 const PAYROLL = 'components/payroll-workspace.tsx';
+const STOCK = 'components/inventory-register-workspace.tsx';
 const HOOK = 'hooks/use-evidence-thread.ts';
 const mutations = [
   [
@@ -227,6 +230,49 @@ const mutations = [
     PAYROLL,
     'thread={payrollThread(result, labels, thread.open.at)}',
     'thread={payrollThread(result, labels, 0)}',
+  ],
+  // The inventory's register rows that do not link (UX-10(d)).
+  [
+    'stock-thread-of-the-table-row-not-its-link',
+    STOCK,
+    `                          opened.at,
+`,
+    `                          unlinkedLinks.indexOf(opened),
+`,
+  ],
+  [
+    'stock-way-opens-the-first-row',
+    STOCK,
+    "onClick={() => thread.show('unlinked', i)}",
+    "onClick={() => thread.show('unlinked', 0)}",
+  ],
+  [
+    'stock-roles-all-register',
+    STOCK,
+    'role={(s) => copy.roles[s.source]}',
+    'role={() => copy.roles[0]}',
+  ],
+  [
+    'stock-heading-without-dimensions',
+    STOCK,
+    'heading={`${words.heading} · ${opened.link.item} · ${opened.link.dimensions}`}',
+    'heading={`${words.heading} · ${opened.link.item}`}',
+  ],
+  [
+    'stock-way-does-not-name-its-row',
+    STOCK,
+    `                        <span className="sr-only">
+                          {' · '}
+                          {l.item} · {l.dimensions}
+                        </span>
+`,
+    '',
+  ],
+  [
+    'stock-row-not-marked',
+    STOCK,
+    "                      ...thread.mark('unlinked', i),\n",
+    '',
   ],
   [
     'hook-keeps-it-on-type-change',

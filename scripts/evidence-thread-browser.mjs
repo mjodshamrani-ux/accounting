@@ -23,6 +23,13 @@
 // account and component, each cell as the file holds it, with the table's
 // figures; the payroll register net opens every bank payout row; Escape and
 // the way back close it, and a change of type does too.
+// And in the inventory, with the sealed INV-3 story L26, whose four files
+// are read through the workspace's own file inputs: in English at 1440 px
+// and in Arabic at 390 px, each register row that does not link opens
+// itself, then the mapping, policy evidence and GL rows the sealed
+// expectations name for it (EXPECTED.json, from the story's own oracle, not
+// from the engine), each cell as the file holds it, read here with this
+// check's own CSV reader, for two of the files quote every field.
 //   node scripts/evidence-thread-browser.mjs
 // EVIDENCE_THREAD_DIST names another build (a mutation gate's copy).
 import assert from 'node:assert/strict';
@@ -754,6 +761,228 @@ assert.ok(
   `payroll rows: ${followedRows.payroll}`,
 );
 report.push(`rows held to their files: ${JSON.stringify(followedRows)}`);
+
+// UX-10(d), the inventory: the register rows of L26 that do not link.
+const LINKS = 'audit/inventory-links-foundation/frozen';
+const STOCK_FILES = ['register', 'mapping', 'evidence', 'gl'];
+// This check's own CSV reader: a byte order mark, quoted fields, doubled
+// quotes and CRLF, which the story's writers use.
+function csvRows(text) {
+  const rows = [];
+  let row = [],
+    cell = '',
+    quoted = false;
+  text = text.replace(/^\uFEFF/u, '');
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (quoted) {
+      if (c === '"' && text[i + 1] === '"') {
+        cell += '"';
+        i++;
+      } else if (c === '"') quoted = false;
+      else cell += c;
+    } else if (c === '"') quoted = true;
+    else if (c === ',') {
+      row.push(cell);
+      cell = '';
+    } else if (c === '\n' || c === '\r') {
+      if (c === '\r' && text[i + 1] === '\n') i++;
+      row.push(cell);
+      rows.push(row);
+      row = [];
+      cell = '';
+    } else cell += c;
+  }
+  if (cell !== '' || row.length) {
+    row.push(cell);
+    rows.push(row);
+  }
+  return rows;
+}
+const stockWords = {
+  en: {
+    title: 'Register rows that do not link, and why',
+    roles: [
+      'Posted inventory register',
+      'Proposed item / GL mapping',
+      'Independent supplied policy evidence',
+      'Selected inventory GL balances',
+    ],
+  },
+  ar: {
+    title: 'صفوف السجل التي لا تُربط، ولماذا',
+    roles: [
+      'سجل المخزون المرحل',
+      'خريطة الصنف والأستاذ المقترحة',
+      'دليل السياسة المستقل المقدم',
+      'أرصدة مخزون الأستاذ المحددة',
+    ],
+  },
+};
+const stockFiles = await Promise.all(
+  STOCK_FILES.map(async (role) =>
+    csvRows(await readFile(`${LINKS}/L26-${role}.csv`, 'utf8')),
+  ),
+);
+const sealed = JSON.parse(
+  await readFile(`${LINKS}/EXPECTED.json`, 'utf8'),
+).stories.L26.links.filter((l) => l[1] === 'unlinked');
+assert.ok(sealed.length >= 6, 'L26 has its unlinked register rows');
+await page.setViewportSize({ width: 1440, height: 900 });
+await page.emulateMedia({ reducedMotion: null });
+if ((await page.evaluate(() => document.documentElement.lang)) !== 'en')
+  await page.getByRole('button', { name: 'EN English', exact: true }).click();
+await openDomainWorkspace(page, 'stock');
+const stock = page.locator('[data-stock-workspace]');
+const stockIdle = () =>
+  page.waitForFunction(
+    () =>
+      document
+        .querySelector('[data-stock-workspace]')
+        ?.getAttribute('aria-busy') === 'false',
+    null,
+    { timeout: 120000 },
+  );
+for (const [i, role] of stockWords.en.roles.entries()) {
+  await stock
+    .getByLabel(role, { exact: true })
+    .setInputFiles(path.resolve(`${LINKS}/L26-${STOCK_FILES[i]}.csv`));
+  await stockIdle();
+}
+await stock
+  .getByLabel(
+    "I reviewed the posted inventory register, the proposed item / GL mapping, the independent supplied policy evidence and the selected inventory GL balances (each one's role and family) and their common scope",
+  )
+  .check();
+await stock
+  .getByRole('button', { name: 'Check inventory / GL', exact: true })
+  .click();
+await stockIdle();
+let stockRows = 0;
+for (const [lang, width, motion] of [
+  ['en', 1440, 'no-preference'],
+  ['ar', 390, 'reduce'],
+]) {
+  if ((await page.evaluate(() => document.documentElement.lang)) !== lang)
+    await page
+      .getByRole('button', {
+        name: lang === 'ar' ? 'AR العربية' : 'EN English',
+        exact: true,
+      })
+      .click();
+  await page.setViewportSize({ width, height: 900 });
+  await page.emulateMedia({ reducedMotion: motion });
+  const tw = threadWords[lang],
+    sw = stockWords[lang],
+    what = `stock ${lang} ${width} px ${motion}`;
+  const table = stock.locator(`table[aria-label="${sw.title}"]`);
+  const head = await table.locator('thead th').allInnerTexts();
+  assert.equal(head[0].trim(), tw.way, `${what}: the way in opens each row`);
+  const count = await table.locator('tbody tr').count();
+  assert.equal(count, sealed.length, `${what}: every unlinked row is shown`);
+  for (let i = 0; i < count; i++) {
+    const row = table.locator('tbody tr').nth(i),
+      number = Number(await row.getAttribute('data-stock-unlinked-row')),
+      cells = (await row.locator('td').allInnerTexts()).map((x) => x.trim()),
+      [, , item, dimensions] = cells,
+      want = sealed.find((l) => l[0] === number);
+    assert.ok(want, `${what}: row ${number} is one the seal names`);
+    const way = row.getByRole('button', {
+      name: `${tw.way} · ${item} · ${dimensions}`,
+      exact: true,
+    });
+    assert.equal(await way.count(), 1, `${what} row ${number}: the way in`);
+    assert.equal(await way.getAttribute('aria-expanded'), 'false', what);
+    await way.click();
+    await drawer.waitFor();
+    await arrived();
+    assert.equal(await way.getAttribute('aria-expanded'), 'true', what);
+    assert.equal(
+      await way.getAttribute('aria-controls'),
+      await drawer.getAttribute('id'),
+      `${what}: the way in names the drawer`,
+    );
+    const opened = await focused();
+    assert.deepEqual([opened.tag, opened.inDrawer], ['H2', true], what);
+    assert.equal(
+      opened.text,
+      `${tw.heading} · ${item} · ${dimensions}`,
+      `${what}: the heading names the register row`,
+    );
+    const [, , , maps, evidence, , gl] = want;
+    const sources = await drawn();
+    assert.deepEqual(
+      sources.map((s) => [s.source, s.row]),
+      [
+        [0, number],
+        ...maps.map((m) => [1, m]),
+        ...evidence.map((e) => [2, e]),
+        ...gl.map((g) => [3, g]),
+      ],
+      `${what} row ${number}: the register row, then the rows the seal names`,
+    );
+    for (const s of sources) {
+      assert.equal(s.role, sw.roles[s.source], `${what}: the role`);
+      heldToFile(s, stockFiles, `${what} row ${number}`);
+    }
+    // The register row is the one of this item and its dimensions.
+    const register = stockFiles[0],
+      own = register[number - 1];
+    assert.deepEqual(
+      [own[register[0].indexOf('Item ID')], own[register[0].indexOf('Item dimensions')]],
+      [item, dimensions],
+      `${what} row ${number}: its item and dimensions`,
+    );
+    stockRows += sources.length;
+    assert.equal(
+      await page.locator('tr[data-thread-open]').count(),
+      1,
+      `${what}: the row is marked`,
+    );
+    if (i % 2) {
+      await drawer.getByRole('button', { name: tw.back, exact: true }).click();
+    } else await drawer.getByRole('heading', { level: 2 }).press('Escape');
+    await closed();
+    assert.equal(await drawer.count(), 0, `${what}: it closes`);
+    assert.equal(
+      await page.evaluate(() =>
+        document.activeElement?.getAttribute('aria-expanded'),
+      ),
+      'false',
+      `${what}: the focus returns to the way in`,
+    );
+    assert.equal(
+      (
+        await page.evaluate(() => document.activeElement?.textContent ?? '')
+      ).includes(`${item} · ${dimensions}`),
+      true,
+      `${what}: the same way in`,
+    );
+  }
+  report.push(`stock ${lang} ${width} ${motion}`);
+}
+await page.emulateMedia({ reducedMotion: null });
+await page.setViewportSize({ width: 1440, height: 900 });
+await page.getByRole('button', { name: 'EN English', exact: true }).click();
+// Six rows, each its register row and the rows the seal names (14), twice.
+assert.equal(stockRows, 2 * (6 + 14), `stock rows: ${stockRows}`);
+report.push(`stock rows held to their files: ${stockRows}`);
+// A change of type closes it.
+await stock
+  .getByRole('button', { name: /^Review source rows · / })
+  .first()
+  .click();
+await drawer.waitFor();
+await page
+  .locator('select[data-reconciliation-type-select]')
+  .selectOption('bank');
+await openDomainWorkspace(page, 'stock');
+await stock.locator('[data-stock-links]').waitFor();
+assert.equal(
+  await drawer.count(),
+  0,
+  'stock: a change of type closes the evidence',
+);
 
 assert.deepEqual(errors, [], 'no page error');
 await browser.close();

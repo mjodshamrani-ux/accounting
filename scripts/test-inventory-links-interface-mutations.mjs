@@ -57,8 +57,8 @@ const mutations = [
   [
     'mapping-rows-not-shown',
     PANEL,
-    "'data-stock-unlinked-related': JSON.stringify([\n                          l.mappings.map((m) => m.row),",
-    "'data-stock-unlinked-related': JSON.stringify([\n                          [],",
+    "'data-stock-unlinked-related': JSON.stringify([\n                        l.mappings.map((m) => m.row),",
+    "'data-stock-unlinked-related': JSON.stringify([\n                        [],",
   ],
   [
     'linked-count-of-every-row',

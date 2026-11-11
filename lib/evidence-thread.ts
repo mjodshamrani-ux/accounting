@@ -8,6 +8,11 @@ import {
   PAYROLL_ROLES,
   type PayrollResult,
 } from './reconciliation/payroll.ts';
+import {
+  STOCK_ROLES,
+  type StockRecordRef,
+  type StockResult,
+} from './reconciliation/inventory-register.ts';
 
 /**
  * The evidence thread (UX-10): for one row of a result, the source records
@@ -169,4 +174,42 @@ export function payrollBankThread(
     labels,
     result.bankComparison.bankRows.map((row): [number, number] => [BANK, row]),
   );
+}
+
+/** An inventory register row the engine read as a link (INV-3): the
+ * register row, then the mapping, policy evidence and GL rows the engine
+ * names for it, in that order. A record read from a page, or from a column
+ * of a matrix, is not one row of cells: its place is shown and its cells
+ * are not, for the result does not keep them by row. */
+export function stockThread(
+  result: StockResult,
+  labels: readonly ThreadLabel[],
+  index: number,
+): Thread {
+  const link = result.links[index];
+  if (!link) return [];
+  const refs: [number, StockRecordRef][] = [
+    [0, link],
+    ...link.mappings.map((m): [number, StockRecordRef] => [1, m]),
+    ...link.evidence.map((e): [number, StockRecordRef] => [2, e]),
+    ...link.gl.map((g): [number, StockRecordRef] => [3, g]),
+  ];
+  return refs.map(([source, ref]) => {
+    const plain = ref.page === undefined && ref.column === undefined;
+    return {
+      source,
+      role: STOCK_ROLES[source],
+      name: labels[source]?.name ?? '',
+      sheet: labels[source]?.sheet ?? null,
+      place:
+        ref.page === undefined
+          ? { row: ref.row }
+          : { page: ref.page, line: ref.row },
+      cells: plain
+        ? result.cells
+            .filter((c) => c.source === source && c.row === ref.row)
+            .map(({ column, field, text }) => ({ column, field, text }))
+        : null,
+    };
+  });
 }

@@ -40,6 +40,7 @@ const copied = [
   'audit/fixed-assets-long',
   'audit/payroll',
   'audit/reconciliation-sheet',
+  'audit/inventory-links-foundation/frozen',
   'package.json',
 ];
 const mutations = [
@@ -88,8 +89,8 @@ const mutations = [
   [
     "label-of-first-source",
     THREAD,
-    "name: labels[source]?.name ?? '',",
-    "name: labels[0]?.name ?? '',",
+    "    role: roles[source],\n    name: labels[source]?.name ?? '',",
+    "    role: roles[source],\n    name: labels[0]?.name ?? '',",
   ],
   [
     "role-shifted",
@@ -126,6 +127,60 @@ const mutations = [
     THREAD,
     "  const comparison = result.comparisons[index];\n  if (!comparison) return [];\n  return familySources(result.cells, ASSET_ROLES",
     "  const comparison = result.comparisons[index] ?? result.comparisons[0];\n  if (!comparison) return [];\n  return familySources(result.cells, ASSET_ROLES",
+  ],
+  [
+    "stock-register-source-wrong",
+    THREAD,
+    "    [0, link],",
+    "    [1, link],",
+  ],
+  [
+    "stock-mappings-dropped",
+    THREAD,
+    "    ...link.mappings.map((m): [number, StockRecordRef] => [1, m]),\n",
+    "",
+  ],
+  [
+    "stock-evidence-as-mapping",
+    THREAD,
+    "...link.evidence.map((e): [number, StockRecordRef] => [2, e]),",
+    "...link.evidence.map((e): [number, StockRecordRef] => [1, e]),",
+  ],
+  [
+    "stock-gl-dropped",
+    THREAD,
+    "    ...link.gl.map((g): [number, StockRecordRef] => [3, g]),\n",
+    "",
+  ],
+  [
+    "stock-label-of-first-source",
+    THREAD,
+    "      role: STOCK_ROLES[source],\n      name: labels[source]?.name ?? '',",
+    "      role: STOCK_ROLES[source],\n      name: labels[0]?.name ?? '',",
+  ],
+  [
+    "stock-page-read-as-row",
+    THREAD,
+    "        ref.page === undefined\n          ? { row: ref.row }\n          : { page: ref.page, line: ref.row },",
+    "        { row: ref.row },",
+  ],
+  [
+    "stock-column-cells-kept",
+    THREAD,
+    "const plain = ref.page === undefined && ref.column === undefined;",
+    "const plain = ref.page === undefined;",
+  ],
+  [
+    "stock-cells-any-source",
+    THREAD,
+    ".filter((c) => c.source === source && c.row === ref.row)",
+    ".filter((c) => c.row === ref.row)",
+  ],
+  [
+    "stock-unknown-link-not-empty",
+    THREAD,
+    "const link = result.links[index];",
+    "const link = result.links[index] ?? result.links[0];",
   ],
 ];
 const files = [THREAD, ...tests];

@@ -85,6 +85,10 @@ import type {
 } from '@/lib/reconciliation/declared-scope';
 import './workspace-record.css';
 import { SheetPrint, useSheetPrint } from '@/components/reconciliation-sheet-print';
+import { EvidenceDrawer, ThreadSources } from '@/components/evidence-drawer';
+import { useEvidenceThread } from '@/hooks/use-evidence-thread';
+import { stockThread } from '@/lib/evidence-thread';
+import { evidenceThreadCopy } from '@/lib/i18n/evidence-thread';
 import { sheetPrintCopy } from '@/lib/i18n/sheet-print';
 import {
   DecisionButtons,
@@ -312,6 +316,20 @@ export function StockWorkspace({
     [active, result, files, pdf],
   );
   const paper = useSheetPrint(printed, lang, composeSheet);
+  // Each register row that does not link opens itself and the mapping,
+  // policy evidence and GL rows the engine names for it (UX-10). A row of
+  // the table is named by its place in the table, and `at` is its link.
+  const thread = useEvidenceThread(active, result),
+    words = evidenceThreadCopy[lang],
+    unlinkedLinks = result
+      ? result.links.flatMap((link, at) =>
+          link.status === 'unlinked' ? [{ link, at }] : [],
+        )
+      : [],
+    opened =
+      thread.open?.table === 'unlinked'
+        ? unlinkedLinks[thread.open.at]
+        : undefined;
   const pdfTables = useMemo(
     () => (result?.pdfEvidence ? stockPdfWorkbookTables(result, false) : []),
     [result],
@@ -1245,38 +1263,73 @@ export function StockWorkspace({
                   <h4>{copy.unlinkedTitle}</h4>
                   <RecordTable
                     label={copy.unlinkedTitle}
-                    headers={copy.unlinkedHeaders}
+                    headers={[words.way, ...copy.unlinkedHeaders]}
                     pager={{ 'data-stock-pager': 'unlinked' }}
-                    rows={result.links
-                      .filter((l) => l.status === 'unlinked')
-                      .map((l) => [
-                        l.column === undefined ? l.row : `${l.row} · ${l.column}`,
-                        l.item,
-                        l.dimensions,
-                        l.reasons
-                          .map((c) => `${copy.linkReasons[c]} (${c})`)
-                          .join(copy.linkSemi),
-                        l.mappings.map((m) => m.row).join(copy.linkComma) ||
-                          null,
-                        l.evidence.map((e) => e.row).join(copy.linkComma) ||
-                          null,
+                    {...thread.paging('unlinked')}
+                    rows={unlinkedLinks.map(({ link: l }, i) => [
+                      <Button
+                        key="thread"
+                        variant="outline"
+                        {...thread.way('unlinked', i)}
+                        onClick={() => thread.show('unlinked', i)}
+                      >
+                        {words.way}
+                        <span className="sr-only">
+                          {' · '}
+                          {l.item} · {l.dimensions}
+                        </span>
+                      </Button>,
+                      l.column === undefined ? l.row : `${l.row} · ${l.column}`,
+                      l.item,
+                      l.dimensions,
+                      l.reasons
+                        .map((c) => `${copy.linkReasons[c]} (${c})`)
+                        .join(copy.linkSemi),
+                      l.mappings.map((m) => m.row).join(copy.linkComma) ||
+                        null,
+                      l.evidence.map((e) => e.row).join(copy.linkComma) ||
+                        null,
+                      l.account &&
+                        `${l.account.account} · ${l.account.dimensions}`,
+                    ])}
+                    marks={unlinkedLinks.map(({ link: l }, i) => ({
+                      ...thread.mark('unlinked', i),
+                      'data-stock-unlinked-row': String(l.row),
+                      'data-stock-unlinked-reasons': l.reasons.join(' '),
+                      'data-stock-unlinked-related': JSON.stringify([
+                        l.mappings.map((m) => m.row),
+                        l.evidence.map((e) => e.row),
                         l.account &&
-                          `${l.account.account} · ${l.account.dimensions}`,
-                      ])}
-                    marks={result.links
-                      .filter((l) => l.status === 'unlinked')
-                      .map((l) => ({
-                        'data-stock-unlinked-row': String(l.row),
-                        'data-stock-unlinked-reasons': l.reasons.join(' '),
-                        'data-stock-unlinked-related': JSON.stringify([
-                          l.mappings.map((m) => m.row),
-                          l.evidence.map((e) => e.row),
-                          l.account &&
-                            `${l.account.account}|${l.account.dimensions}`,
-                          l.gl.map((g) => g.row),
-                        ]),
-                      }))}
+                          `${l.account.account}|${l.account.dimensions}`,
+                        l.gl.map((g) => g.row),
+                      ]),
+                    }))}
                   />
+                  {opened && (
+                    <EvidenceDrawer
+                      id={thread.id}
+                      headingRef={thread.heading}
+                      heading={`${words.heading} · ${opened.link.item} · ${opened.link.dimensions}`}
+                      back={words.back}
+                      onBack={thread.back}
+                    >
+                      <ThreadSources
+                        thread={stockThread(
+                          result,
+                          sources.map((f, i) => ({
+                            name: f?.name ?? '',
+                            sheet:
+                              (f &&
+                                'sheets' in f &&
+                                f.sheets[result.readings[i].sheet]?.name) ||
+                              null,
+                          })),
+                          opened.at,
+                        )}
+                        role={(s) => copy.roles[s.source]}
+                      />
+                    </EvidenceDrawer>
+                  )}
                 </>
               ) : (
                 <p data-stock-all-linked>{copy.allLinked}</p>

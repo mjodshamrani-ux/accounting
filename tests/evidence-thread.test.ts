@@ -6,6 +6,7 @@ import {
   allocationThread,
   payrollBankThread,
   payrollThread,
+  stockThread,
   type Thread,
   type ThreadLabel,
 } from '../lib/evidence-thread.ts';
@@ -19,6 +20,14 @@ import {
   payrollFrozenNames,
 } from '../audit/reconciliation-sheet/payroll-cases.ts';
 import type { SourceFile } from '../lib/reconciliation/types.ts';
+import {
+  STOCK_ROLES,
+  STOCK_VERSION,
+  type StockInput,
+} from '../lib/reconciliation/inventory-register.ts';
+import { replayStock } from '../lib/reconciliation/inventory-register-io.ts';
+import { readFile, readdir } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import type { BankResult } from '../lib/reconciliation/bank.ts';
 import type { AllocationResult } from '../lib/reconciliation/allocation.ts';
 
@@ -161,6 +170,154 @@ void test('a payroll comparison opens its GL row and register rows, and the regi
     assert.deepEqual(payrollThread(result, labels, -1), []);
   }
   assert.ok(comparisons > 20 && banks > 5, `${comparisons}, ${banks} read`);
+});
+
+// The INV-3 stories, sealed before the links were built: four CSV files and
+// a scope each, read from their bytes as the product replays them.
+const LINKS = new URL(
+  '../audit/inventory-links-foundation/frozen/',
+  import.meta.url,
+);
+async function linksStory(sid: string): Promise<StockInput> {
+  const scope = JSON.parse(
+    await readFile(new URL(`${sid}-scope.json`, LINKS), 'utf8'),
+  ) as StockInput['scope'];
+  const files = await Promise.all(
+    ['register', 'mapping', 'evidence', 'gl'].map(async (role) => {
+      const bytes = await readFile(new URL(`${sid}-${role}.csv`, LINKS));
+      return {
+        name: `${sid}-${role}.csv`,
+        original: bytes.buffer.slice(
+          bytes.byteOffset,
+          bytes.byteOffset + bytes.byteLength,
+        ),
+        sha256: createHash('sha256').update(bytes).digest('hex'),
+        sheets: [],
+      } as unknown as SourceFile;
+    }),
+  );
+  return {
+    files: files as StockInput['files'],
+    readings: STOCK_ROLES.map((role) => ({
+      sheet: 0,
+      role,
+      family: STOCK_VERSION,
+      confirmed: true,
+    })) as StockInput['readings'],
+    scope: { ...scope, confirmed: true },
+    completeness: { confirmed: false, reference: '', note: '' },
+    events: [],
+  };
+}
+
+void test('an inventory register row opens itself, then the mapping, policy evidence and GL rows the engine names for it, linked or not, as the files have them', async () => {
+  const stories = [
+    ...new Set(
+      (await readdir(LINKS))
+        .map((f) => /^(L\d+)-register\.csv$/u.exec(f)?.[1])
+        .filter((s): s is string => !!s),
+    ),
+  ].sort();
+  assert.ok(stories.length >= 20, `${stories.length} stories`);
+  let links = 0,
+    unlinked = 0,
+    related = 0;
+  for (const sid of stories) {
+    const state = await linksStory(sid);
+    let result;
+    try {
+      ({ result } = await replayStock(state));
+    } catch {
+      continue; // a story the family refuses has no rows to open
+    }
+    const labels = state.files.map((f) => ({ name: f.name, sheet: null }));
+    result.links.forEach((link, i) => {
+      const thread = stockThread(result, labels, i);
+      const what = `${sid} link ${i}`;
+      assert.deepEqual(
+        thread.map((s) => [s.source, 'row' in s.place ? s.place.row : null]),
+        [
+          [0, link.row],
+          ...link.mappings.map((m) => [1, m.row]),
+          ...link.evidence.map((e) => [2, e.row]),
+          ...link.gl.map((g) => [3, g.row]),
+        ],
+        `${what}: the register row, then the rows the engine names`,
+      );
+      heldToSources(thread, state.files, STOCK_ROLES, what);
+      // The register row is the item and dimensions the link is for, in
+      // whatever order the file puts its columns.
+      const register = thread[0].cells!,
+        text = (field: string) => register.find((c) => c.field === field)?.text;
+      assert.equal(text('Item ID'), link.item, `${what}: the item`);
+      assert.equal(text('Item dimensions'), link.dimensions, `${what}: dims`);
+      links++;
+      if (link.status === 'unlinked') unlinked++;
+      related += thread.length - 1;
+    });
+    assert.deepEqual(stockThread(result, labels, result.links.length), []);
+  }
+  assert.ok(
+    links > 300 && unlinked >= 20 && related > 600,
+    `${links} links, ${unlinked} unlinked, ${related} related rows read`,
+  );
+});
+
+void test('an inventory record read from a page or a matrix column shows its place and says its cells are not kept by row', () => {
+  const result = {
+    links: [
+      {
+        id: 'r1',
+        row: 4,
+        page: 2,
+        item: 'A',
+        dimensions: 'x',
+        status: 'linked',
+        reasons: [],
+        mappings: [{ id: 'm1', row: 3, key: 'k' }],
+        evidence: [],
+        account: null,
+        gl: [{ id: 'g1', row: 5, column: 2 }],
+      },
+    ],
+    cells: [
+      { source: 0, row: 4, column: 1, field: 'Item ID', text: 'A' },
+      { source: 1, row: 3, column: 1, field: 'Mapping ID', text: 'M' },
+      { source: 3, row: 5, column: 2, field: 'GL account', text: '1' },
+    ],
+  } as unknown as Parameters<typeof stockThread>[0];
+  const labels = [
+    { name: 'register.pdf', sheet: null },
+    { name: 'map.csv', sheet: null },
+    { name: 'policy.csv', sheet: null },
+    { name: 'gl.xlsx', sheet: 'GL' },
+  ];
+  assert.deepEqual(stockThread(result, labels, 0), [
+    {
+      source: 0,
+      role: 'register',
+      name: 'register.pdf',
+      sheet: null,
+      place: { page: 2, line: 4 },
+      cells: null,
+    },
+    {
+      source: 1,
+      role: 'mapping',
+      name: 'map.csv',
+      sheet: null,
+      place: { row: 3 },
+      cells: [{ column: 1, field: 'Mapping ID', text: 'M' }],
+    },
+    {
+      source: 3,
+      role: 'gl',
+      name: 'gl.xlsx',
+      sheet: 'GL',
+      place: { row: 5 },
+      cells: null,
+    },
+  ]);
 });
 
 void test('a bank movement and an allocation item open the row they were read from with the cells the reader traced, and an unknown row opens nothing', () => {
