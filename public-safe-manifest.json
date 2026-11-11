@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 72369,
-      "sha256": "6ba37ec261a9a664286c896b0cc06a674742718ad8f5349bd81d208fbf98cab6",
+      "bytes": 72838,
+      "sha256": "a27cdfe4a554b26fd156c8a8a0fcce806c9944c32bd87389113e6eab826cf901",
       "kind": "text"
     },
     {
@@ -73481,8 +73481,8 @@
     },
     {
       "path": "docs/roadmap/ux.ar.md",
-      "bytes": 63091,
-      "sha256": "d1204a55df7eeee9129540cbf917bc4f61930102919caa731b21d458f6c42238",
+      "bytes": 63548,
+      "sha256": "4e18b7d250fa4e3bde74886701e0cc95535cd8b4ec75f9e2687778dd59c52c53",
       "kind": "text"
     },
     {
@@ -74159,6 +74159,18 @@
       "path": "scripts/test-latin-font-interface-mutations.mjs",
       "bytes": 7665,
       "sha256": "29830bf3e5655b36f2ea7d723f422777c97c19152126068e3fc04d26c25a30ad",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/UX-9-WEIGHT.ar.md",
+      "bytes": 13760,
+      "sha256": "73b37e3e6c466f2053b88e68bf265bd3f555cd4986d8312c1cc4b4c0c57bf5cf",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/startup-weight-measure.mjs",
+      "bytes": 8088,
+      "sha256": "b9dfbafdee24cafe680136912cbfd473a36a95df4ed9652617602eeff2542785",
       "kind": "text"
     }
   ],
