@@ -348,11 +348,12 @@ export async function bankSheetSaysScreen(page, { file, lang, result }) {
     page.locator(`[data-bank-movement-table="${name}"]`);
   const cells = async (row) =>
     (await row.locator('th, td').allTextContents()).map((t) => t.trim());
-  // Each movement's amount, by its side and own reference.
+  // Each movement's amount, by its side and own reference. The way to its
+  // evidence opens the row (UX-10).
   const amounts = new Map();
   for (const row of await section('movements').locator('tbody tr').all()) {
     const c = await cells(row);
-    amounts.set(`${c[0]}|${c[2]}`, c[10]);
+    amounts.set(`${c[1]}|${c[3]}`, c[11]);
   }
   const waiting = section('cases')
     .locator('tbody tr')

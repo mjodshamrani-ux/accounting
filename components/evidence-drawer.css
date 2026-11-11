@@ -1,0 +1,117 @@
+/* The evidence thread (UX-10). From 1024 px a column fixed at the inline end
+   of the screen, under the top bar (88 px) and over the result index (30);
+   below it a sheet from the bottom, at most 70% of the screen. It is over the
+   page and not in it, so opening or closing it moves nothing. With motion it
+   slides in from its side in 160 ms; with reduced motion it is simply there. */
+.evidence-drawer {
+  --evidence-drawer-from: translateX(100%);
+  position: fixed;
+  z-index: 35;
+  inset-block: 88px 0;
+  inset-inline-end: 0;
+  inline-size: 420px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 16px 20px 24px;
+  border-inline-start: 1px solid var(--border-strong);
+  background: var(--background);
+  box-shadow: var(--shadow-panel);
+}
+:root[dir='rtl'] .evidence-drawer {
+  --evidence-drawer-from: translateX(-100%);
+}
+.evidence-drawer > h2 {
+  margin-block: 0 12px;
+  font-size: 18px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.evidence-drawer > h2:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+.evidence-drawer__amount {
+  margin-block: 12px 0;
+}
+.evidence-drawer__source {
+  margin-block-start: 20px;
+}
+.evidence-drawer__source > h3 {
+  margin-block: 0 8px;
+  font-size: 16px;
+}
+.evidence-drawer__place {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin-block: 0 12px;
+}
+.evidence-drawer__place > div {
+  display: flex;
+  gap: 6px;
+  min-inline-size: 0;
+}
+.evidence-drawer__place dt {
+  color: var(--text-secondary);
+}
+.evidence-drawer__place dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.evidence-drawer__missing {
+  color: var(--text-secondary);
+}
+
+/* The row whose evidence is open stays marked while it is. */
+tr[data-thread-open] > * {
+  background: var(--surface-quiet);
+  box-shadow: inset 0 -2px 0 var(--focus-ring);
+}
+
+@media (max-width: 1023px) {
+  .evidence-drawer {
+    --evidence-drawer-from: translateY(100%);
+    inset-block: auto 0;
+    inset-inline: 0;
+    inline-size: auto;
+    max-block-size: 70vh;
+    border-inline-start: 0;
+    border-block-start: 1px solid var(--border-strong);
+    border-start-start-radius: 12px;
+    border-start-end-radius: 12px;
+  }
+  :root[dir='rtl'] .evidence-drawer {
+    --evidence-drawer-from: translateY(100%);
+  }
+  /* While the sheet is open, whatever the page brings into view stops above
+     it, so the rest of the page stays within reach. Nothing moves. */
+  :root:has(.evidence-drawer) {
+    scroll-padding-block-end: 70vh;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .evidence-drawer {
+    animation: evidence-drawer-in 160ms ease-out;
+  }
+  tr[data-thread-open] > * {
+    animation: evidence-row-in 160ms ease-out;
+  }
+}
+@keyframes evidence-drawer-in {
+  from {
+    transform: var(--evidence-drawer-from);
+  }
+}
+@keyframes evidence-row-in {
+  from {
+    background: transparent;
+    box-shadow: inset 0 -2px 0 transparent;
+  }
+}
+
+@media print {
+  .evidence-drawer {
+    display: none;
+  }
+}

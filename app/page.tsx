@@ -25,6 +25,9 @@ import '@/components/bank-adjustment-workspace.css';
 import '@/components/bank-workspace.css';
 import '@/components/clearing-workspace.css';
 import '@/components/ar-workspace.css';
+// The evidence drawer (UX-10) came after them, and comes last, so that the
+// mark on the row it opened wins over the record table's own cell rules.
+import '@/components/evidence-drawer.css';
 import { payrollCopy } from '@/lib/i18n/payroll';
 import { assetCopy } from '@/lib/i18n/fixed-assets';
 import { stockCopy } from '@/lib/i18n/inventory-register';

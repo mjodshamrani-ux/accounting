@@ -262,18 +262,31 @@ export async function verifyBank(page, url, out = 'work/qa') {
       return {
         tag: a.tagName,
         text: a.textContent,
-        row: a.closest('tr')?.children[2]?.textContent ?? null,
+        row: a.closest('tr')?.children[3]?.textContent ?? null,
         inView: box.top >= (bar ? bar.bottom : 0) && box.bottom <= innerHeight,
       };
     });
+  // The evidence drawer slides in for 160 ms with motion (UX-10); where it
+  // ends is what the reader sees.
+  const arrived = () =>
+    page
+      .locator('[data-evidence-drawer]')
+      .evaluate((e) =>
+        Promise.all(e.getAnimations().map((a) => a.finished)),
+      );
   // Opening a movement's evidence on a phone takes the reader to it, and the
-  // way back returns to that movement's row.
+  // way back returns to that movement's row. The way in opens the row and
+  // names its movement (UX-10).
   async function evidenceFocus(index) {
     const row = rows('Original movements').nth(index),
-      ref = await row.locator('td').nth(2).innerText();
+      ref = await row.locator('td').nth(3).innerText();
     await row
-      .getByRole('button', { name: 'Review source cells', exact: true })
+      .getByRole('button', {
+        name: `Review source cells · ${ref}`,
+        exact: true,
+      })
       .click();
+    await arrived();
     const opened = await focused();
     assert.equal(opened.tag, 'H2', 'the evidence takes focus when it opens');
     assert.ok(opened.text.startsWith('Source cell evidence'), opened.text);
@@ -288,7 +301,94 @@ export async function verifyBank(page, url, out = 'work/qa') {
     const back = await focused();
     assert.equal(back.row, ref, 'the way back returns to the same movement');
     assert.ok(back.inView, 'the movement is in view');
+    assert.equal(
+      await page.locator('[data-evidence-drawer]').count(),
+      0,
+      'the way back closes the evidence',
+    );
     return ref;
+  }
+  // The evidence thread (UX-10). The drawer is fixed over the page, so the
+  // table does not move when it opens or closes. The row stays marked and
+  // its way in stays reachable beside the drawer. The drawer names the row
+  // the movement was read from. Escape closes it and returns the focus to the
+  // row's button. With motion it slides in for 160 ms; with reduced motion it
+  // is simply there.
+  async function threadDrawer(width, motion) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.emulateMedia({ reducedMotion: motion });
+    const what = `${width} px, ${motion}`,
+      frame = () =>
+        section('Original movements').evaluate((e) => {
+          const r = e.getBoundingClientRect();
+          return [r.x, r.y + scrollY, r.width, r.height];
+        }),
+      row = rows('Original movements').nth(1),
+      ref = await row.locator('td').nth(3).innerText(),
+      place = await row.locator('td').nth(2).innerText(),
+      button = row.getByRole('button', {
+        name: `Review source cells · ${ref}`,
+        exact: true,
+      }),
+      drawer = page.locator('[data-evidence-drawer]');
+    const before = await frame();
+    await button.click();
+    await drawer.waitFor();
+    assert.deepEqual(await frame(), before, `${what}: the table stays put`);
+    assert.equal(await button.getAttribute('aria-expanded'), 'true', what);
+    assert.equal(
+      await button.getAttribute('aria-controls'),
+      await drawer.getAttribute('id'),
+      `${what}: the way in names the drawer`,
+    );
+    const marked = page.locator('tr[data-thread-open]');
+    assert.equal(await marked.count(), 1, `${what}: one row is marked`);
+    assert.equal(await marked.locator('td').nth(3).innerText(), ref, what);
+    assert.equal(
+      await drawer.locator('[data-thread-row]').innerText(),
+      place,
+      `${what}: the drawer names the row the movement was read from`,
+    );
+    const style = await drawer.evaluate((e) => {
+      const s = getComputedStyle(e);
+      return [s.position, s.animationName, s.animationDuration];
+    });
+    assert.deepEqual(
+      style,
+      motion === 'reduce'
+        ? ['fixed', 'none', '0s']
+        : ['fixed', 'evidence-drawer-in', '0.16s'],
+      what,
+    );
+    if (width >= 1024)
+      assert.deepEqual(
+        await page.evaluate(() =>
+          [...document.querySelectorAll('[data-bank-evidence-for]')]
+            .filter((b) => {
+              const r = b.getBoundingClientRect();
+              if (r.bottom < 0 || r.top > innerHeight) return false;
+              const hit = document.elementFromPoint(
+                r.x + r.width / 2,
+                r.y + r.height / 2,
+              );
+              return !!hit?.closest('[data-evidence-drawer]');
+            })
+            .map((b) => b.textContent),
+        ),
+        [],
+        `${what}: no way in is under the drawer`,
+      );
+    await drawer.getByRole('heading', { level: 2 }).press('Escape');
+    assert.equal(await drawer.count(), 0, `${what}: Escape closes it`);
+    assert.deepEqual(await frame(), before, `${what}: the table stays put`);
+    const back = await focused();
+    assert.deepEqual(
+      [back.tag, back.row],
+      ['BUTTON', ref],
+      `${what}: Escape returns to the row's way in`,
+    );
+    assert.equal(await button.getAttribute('aria-expanded'), 'false', what);
+    await page.emulateMedia({ reducedMotion: null });
   }
   // Each table pages on its own: turning the movements leaves the cases and
   // the source rows where they are.
@@ -408,18 +508,53 @@ export async function verifyBank(page, url, out = 'work/qa') {
   }
   await exportFile('bank-direct.xlsx');
   await download('Save bank movement session', 'bank-session.json');
+  // Each movement's way to its evidence names the movement (UX-10).
+  const ways = page.getByRole('button', { name: /^Review source cells · / });
+  assert.equal(
+    await ways.count(),
+    await rows('Original movements').count(),
+    'each way to the evidence names its movement',
+  );
+  // An open evidence does not outlive a change of type, nor a restored
+  // session (UX-10).
+  await page
+    .getByRole('button', { name: /^Review source cells · / })
+    .first()
+    .click();
+  await page.locator('[data-evidence-drawer]').waitFor();
   await page
     .locator('select[data-reconciliation-type-select]')
     .selectOption('supplier');
   await openDomainWorkspace(page, 'bank');
   assert.equal(await rows('Original movements').count(), 4);
+  assert.equal(
+    await page.locator('[data-evidence-drawer]').count(),
+    0,
+    'a change of type closes the evidence',
+  );
+  await page
+    .getByRole('button', { name: /^Review source cells · / })
+    .first()
+    .click();
+  await page.locator('[data-evidence-drawer]').waitFor();
   await page
     .getByLabel('Restore bank movement session', { exact: true })
     .setInputFiles(`${out}/bank-session.json`);
   await page.getByTestId('bank-result').waitFor();
+  // The result shown before stays until the session is read, so the check
+  // waits a while for the evidence to close, then requires it.
+  await page
+    .locator('[data-evidence-drawer]')
+    .waitFor({ state: 'detached', timeout: 15000 })
+    .catch(() => {});
+  assert.equal(
+    await page.locator('[data-evidence-drawer]').count(),
+    0,
+    'a restored session closes the evidence',
+  );
   await exportFile('bank-restored.xlsx');
   await page
-    .getByRole('button', { name: 'Review source cells', exact: true })
+    .getByRole('button', { name: /^Review source cells · / })
     .first()
     .click();
   assert.equal(
@@ -486,8 +621,8 @@ export async function verifyBank(page, url, out = 'work/qa') {
   await evidence();
   const record = await rows('Original movements').evaluateAll((rows) =>
     rows.map((r) => ({
-      side: r.children[0].textContent,
-      ref: r.children[2].textContent,
+      side: r.children[1].textContent,
+      ref: r.children[3].textContent,
     })),
   );
   assert.equal(record.length, 2);
@@ -529,6 +664,16 @@ export async function verifyBank(page, url, out = 'work/qa') {
   await evidenceFocus(3);
   await ownPages();
   const later = await evidenceFocus(4);
+  // With the evidence open, the reader turns the movements to another page;
+  // the way back still returns to its movement, on that movement's page.
+  await rows('Original movements')
+    .nth(4)
+    .getByRole('button', {
+      name: `Review source cells · ${later}`,
+      exact: true,
+    })
+    .click();
+  await arrived();
   await section('Original movements')
     .getByRole('button', { name: 'Previous page', exact: true })
     .click();
@@ -548,6 +693,9 @@ export async function verifyBank(page, url, out = 'work/qa') {
   await upload('balanced-extra-members');
   await wholeTokens(1440);
   await wholeTokens(390);
+  for (const width of [1440, 1024, 390])
+    for (const motion of ['no-preference', 'reduce'])
+      await threadDrawer(width, motion);
   await page.setViewportSize({ width: 1440, height: 1050 });
   await evidence();
   assert.equal(
