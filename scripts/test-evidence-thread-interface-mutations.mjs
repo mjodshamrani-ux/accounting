@@ -9,10 +9,12 @@
 // assertion. It passes on the unmutated build first. A survivor is behaviour
 // no browser check holds. UX-10(d) adds the fixed assets, the payroll and the
 // inventory's register rows that do not link, the GL and TB balance
-// components, the clearing cases and the receivables cases: whose row the
-// drawer opens, the roles, the file, the heading or the figures, the way in
-// that names its row, the marked row or card (its frame and the frame's
-// motion), and a decision that leaves the old evidence open.
+// components, the clearing cases, the receivables cases and the lines of the
+// financial position: whose row the drawer opens, the roles, the file, the
+// heading or the figures, the way in that names its row, the marked row,
+// card (its frame and the frame's motion) or line heading (its shade and its
+// motion), the financial lines' way back to their own page, and a decision
+// that leaves the old evidence open.
 //
 // Not planted: the drawer's motion outside its reduced-motion guard. The
 // page's own rule (app/globals.css) sets every animation to none under
@@ -60,6 +62,7 @@ const STOCK = 'components/inventory-register-workspace.tsx';
 const GLTB = 'components/gl-tb-workspace.tsx';
 const CLEARING = 'components/clearing-workspace.tsx';
 const AR = 'components/ar-workspace.tsx';
+const FINANCIAL = 'components/tb-financial-workspace.tsx';
 const HOOK = 'hooks/use-evidence-thread.ts';
 const mutations = [
   [
@@ -428,6 +431,78 @@ const mutations = [
     STYLE,
     '    animation: evidence-card-in 160ms ease-out;\n',
     '',
+  ],
+  [
+    "fin-no-way-in",
+    FINANCIAL,
+    "                <div className=\"gl-tb-actions\">\n                  <Button\n                    variant=\"outline\"\n                    {...thread.way('lines', linesShown.from + i)}\n                    onClick={() => thread.show('lines', linesShown.from + i)}\n                  >\n                    {words.way}\n                    <span className=\"sr-only\">\n                      {' · '}\n                      {l.lineId} · {l.label}\n                    </span>\n                  </Button>\n                </div>\n",
+    "",
+  ],
+  [
+    "fin-way-not-named",
+    FINANCIAL,
+    "                    <span className=\"sr-only\">\n                      {' · '}\n                      {l.lineId} · {l.label}\n                    </span>\n",
+    "",
+  ],
+  [
+    "fin-way-opens-the-first-line",
+    FINANCIAL,
+    "onClick={() => thread.show('lines', linesShown.from + i)}",
+    "onClick={() => thread.show('lines', 0)}",
+  ],
+  [
+    "fin-line-not-marked",
+    FINANCIAL,
+    "                {...thread.mark('lines', linesShown.from + i)}\n",
+    "",
+  ],
+  [
+    "fin-rows-of-the-next-line",
+    FINANCIAL,
+    "thread={financialThread(result, opened.at)}",
+    "thread={financialThread(result, opened.at + 1)}",
+  ],
+  [
+    "fin-every-row-from-the-trial-balance",
+    FINANCIAL,
+    "role={(s) => t.financial.roles[s.source]}",
+    "role={() => t.financial.roles[0]}",
+  ],
+  [
+    "fin-way-back-keeps-the-page",
+    FINANCIAL,
+    "                  setLinePage(pageOfRow(opened.at));\n",
+    "",
+  ],
+  [
+    "fin-figures-cut",
+    FINANCIAL,
+    "                      [t.financial.lineFigures[2], opened.line.difference],\n",
+    "",
+  ],
+  [
+    "fin-heading-without-label",
+    FINANCIAL,
+    "heading={`${words.heading} · ${opened.line.lineId} · ${opened.line.label}`}",
+    "heading={`${words.heading} · ${opened.line.lineId}`}",
+  ],
+  [
+    "fin-decision-keeps-it",
+    FINANCIAL,
+    "  const thread = useEvidenceThread(active, result),\n    words = evidenceThreadCopy[lang],\n    opened =\n      result && thread.open?.table === 'lines'",
+    "  const thread = useEvidenceThread(active, null),\n    words = evidenceThreadCopy[lang],\n    opened =\n      result && thread.open?.table === 'lines'",
+  ],
+  [
+    "line-heading-not-marked",
+    STYLE,
+    "tr[data-thread-open] > *,\nsection[data-thread-open] > h3 {\n  background",
+    "tr[data-thread-open] > * {\n  background",
+  ],
+  [
+    "line-mark-without-motion",
+    STYLE,
+    "  tr[data-thread-open] > *,\n  section[data-thread-open] > h3 {\n    animation",
+    "  tr[data-thread-open] > * {\n    animation",
   ],
   [
     'hook-keeps-it-on-type-change',

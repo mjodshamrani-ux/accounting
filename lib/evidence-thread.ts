@@ -4,6 +4,7 @@ import type { ArScopeDetailsReading } from './reconciliation/ar-scope-details.ts
 import type { BankResult } from './reconciliation/bank.ts';
 import type { ClearingResult } from './reconciliation/clearing.ts';
 import type { BalanceField, GlTbResult } from './reconciliation/gl-tb.ts';
+import type { FinancialResult } from './reconciliation/tb-financial.ts';
 import {
   ASSET_ROLES,
   type AssetResult,
@@ -336,6 +337,52 @@ export function arThread(result: ArResult, index: number): Thread {
             field: header[at] ?? '',
             text,
           })) ?? null,
+      },
+    ];
+  });
+}
+
+/** A line of the statement of financial position: the line's own row in the
+ * statement, then for each member the engine put on it, in the engine's
+ * order, the trial-balance account row, the mapping row that put the account
+ * on this line and the evidence row that mapping cites. The result keeps
+ * every row of the four sources with each cell under its header; a record
+ * the result does not list draws nothing. */
+export function financialThread(
+  result: FinancialResult,
+  index: number,
+): Thread {
+  const line = result.lines[index];
+  if (!line) return [];
+  const ids = [
+      line.id,
+      ...line.members.flatMap((m) => [
+        m.accountRecord,
+        m.mappingRecord,
+        m.evidenceRecord,
+      ]),
+    ],
+    records = new Map(result.inventory.map((r) => [r.id, r])),
+    wanted = new Set(ids),
+    cells = new Map<string, ThreadCell[]>();
+  for (const c of result.cells) {
+    if (!wanted.has(c.id)) continue;
+    const kept = cells.get(c.id) ?? [];
+    kept.push({ column: c.column, field: c.field, text: c.text });
+    cells.set(c.id, kept);
+  }
+  return ids.flatMap((id): Thread => {
+    const record = records.get(id);
+    if (!record) return [];
+    const source = result.sources[record.source];
+    return [
+      {
+        source: record.source,
+        role: source.role,
+        name: source.name,
+        sheet: source.sheet,
+        place: { row: record.row },
+        cells: cells.get(id) ?? [],
       },
     ];
   });

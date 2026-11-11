@@ -34,6 +34,13 @@
 // balance component opens every GL row of its kind (opening, movement or
 // closing, read from the file here), then the TB row, each with the one cell
 // of its column, and the drawer's three figures are the table's.
+// And in the clearing and the receivables, each case opens its movements.
+// And in the financial position: each statement line opens its own row,
+// then the trial-balance, mapping and evidence rows of each member, held to
+// the files; in the example (the frozen case whole-post-closing) they are
+// the sealed rows; in a story of 57 lines written here with those rows in
+// other orders, they are worked out from the files; its line headings are
+// marked, a decision closes the drawer, and the way back returns over pages.
 //   node scripts/evidence-thread-browser.mjs
 // EVIDENCE_THREAD_DIST names another build (a mutation gate's copy).
 import assert from 'node:assert/strict';
@@ -42,6 +49,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import { stageWatchdog } from './stage-watchdog.mjs';
 
 // A run that stalls, an action or a wait that times out (DEV-117), says what
 // the page was doing before it fails as it would have: whether the page
@@ -165,11 +173,18 @@ const context = await browser.newContext({
 context.setDefaultTimeout(20000);
 const page = await context.newPage();
 stalledPage = page;
+// A wait that has no timeout of its own, such as an evaluate on a page that
+// stops drawing frames (DEV-95), is stopped after four minutes on one stage,
+// with the stage and the page's state; it would otherwise stop only at the
+// gate's own limit, with nothing printed.
+const watch = stageWatchdog({ page: () => stalledPage });
+watch.at('bank: the files');
 const errors = [];
 page.on('pageerror', (error) => errors.push(error.message));
 await page.goto(base);
 if ((await page.evaluate(() => document.documentElement.lang)) !== 'en')
   await page.getByRole('button', { name: 'EN English', exact: true }).click();
+watch.at('bank: open the workspace');
 await openDomainWorkspace(page, 'bank');
 for (const side of [0, 1]) {
   const source = page.getByTestId(`bank-source-${side}`);
@@ -227,6 +242,7 @@ const closed = () =>
 async function follow(lang, width, motion, index) {
   const w = words[lang],
     what = `${lang} ${width} px ${motion}`;
+  watch.at(`bank ${what}: ${index}`);
   await page.setViewportSize({ width, height: 900 });
   await page.emulateMedia({ reducedMotion: motion });
   const row = rows().nth(index),
@@ -399,6 +415,7 @@ async function follow(lang, width, motion, index) {
 // The way back, after the table was turned while the drawer was open, turns
 // it back to the movement's page and returns to its way in.
 async function wayBack(lang) {
+  watch.at(`bank ${lang}: the way back`);
   const w = words[lang],
     pager = (name) =>
       movements.getByRole('button', { name, exact: true }).first();
@@ -463,6 +480,7 @@ await opened();
 await page
   .locator('select[data-reconciliation-type-select]')
   .selectOption('supplier');
+watch.at('bank: open the workspace');
 await openDomainWorkspace(page, 'bank');
 await rows().first().waitFor();
 assert.equal(await drawer.count(), 0, 'a change of type closes the evidence');
@@ -608,6 +626,7 @@ async function followFamily(name, lang, width, motion) {
   const head = await table.locator('thead th').allInnerTexts();
   assert.equal(head[0].trim(), tw.way, `${what}: the way in opens each row`);
   for (let i = 0; i < count; i++) {
+    watch.at(`${what}: ${i}`);
     const row = table.locator('tbody tr').nth(i),
       cells = (await row.locator('td, th').allInnerTexts()).map((x) =>
         x.trim(),
@@ -867,6 +886,7 @@ await page.setViewportSize({ width: 1440, height: 900 });
 await page.emulateMedia({ reducedMotion: null });
 if ((await page.evaluate(() => document.documentElement.lang)) !== 'en')
   await page.getByRole('button', { name: 'EN English', exact: true }).click();
+watch.at('stock: open the workspace');
 await openDomainWorkspace(page, 'stock');
 const stock = page.locator('[data-stock-workspace]');
 const stockIdle = () =>
@@ -916,6 +936,7 @@ for (const [lang, width, motion] of [
   const count = await table.locator('tbody tr').count();
   assert.equal(count, sealed.length, `${what}: every unlinked row is shown`);
   for (let i = 0; i < count; i++) {
+    watch.at(`${what}: ${i}`);
     const row = table.locator('tbody tr').nth(i),
       number = Number(await row.getAttribute('data-stock-unlinked-row')),
       cells = (await row.locator('td').allInnerTexts()).map((x) => x.trim()),
@@ -1011,6 +1032,7 @@ await drawer.waitFor();
 await page
   .locator('select[data-reconciliation-type-select]')
   .selectOption('bank');
+watch.at('stock: open the workspace');
 await openDomainWorkspace(page, 'stock');
 await stock.locator('[data-stock-links]').waitFor();
 assert.equal(
@@ -1042,6 +1064,7 @@ const TB_COLUMNS = [
 ];
 await page.setViewportSize({ width: 1440, height: 900 });
 await page.emulateMedia({ reducedMotion: null });
+watch.at('gl-tb: open the workspace');
 await openDomainWorkspace(page, 'gl-tb');
 for (const [side, label] of glTbWords.en.sides.entries()) {
   const file = `positive-${side ? 'tb' : 'gl'}.csv`;
@@ -1084,6 +1107,7 @@ for (const [lang, width, motion] of [
   const count = await table.locator('tbody tr').count();
   assert.equal(count, 6, `${what}: six balance components`);
   for (let i = 0; i < count; i++) {
+    watch.at(`${what}: ${i}`);
     const row = table.locator('tbody tr').nth(i),
       component = (await row.locator('th').innerText()).trim(),
       figures = (await row.locator('td:not(:first-child)').allInnerTexts()).map(
@@ -1192,6 +1216,7 @@ await drawer.waitFor();
 await page
   .locator('select[data-reconciliation-type-select]')
   .selectOption('bank');
+watch.at('gl-tb: open the workspace');
 await openDomainWorkspace(page, 'gl-tb');
 await page.getByTestId('gl-tb-result').waitFor();
 assert.equal(
@@ -1233,6 +1258,7 @@ const cases = () =>
     .filter({ has: page.getByTestId('clearing-case') });
 await page.setViewportSize({ width: 1440, height: 900 });
 await page.emulateMedia({ reducedMotion: null });
+watch.at('clearing: open the workspace');
 await openDomainWorkspace(page, 'clearing');
 await page
   .getByRole('button', { name: 'Open synthetic clearing example', exact: true })
@@ -1248,6 +1274,7 @@ async function followCases(lang, width, motion, groups) {
   const count = await cases().locator('tbody tr').count();
   const members = [];
   for (let i = 0; i < count; i++) {
+    watch.at(`${what}: ${i}`);
     const row = cases().locator('tbody tr').nth(i),
       [, named, , net] = (await row.locator('td').allInnerTexts()).map((x) =>
         x.trim(),
@@ -1402,6 +1429,7 @@ await drawer.waitFor();
 await page
   .locator('select[data-reconciliation-type-select]')
   .selectOption('bank');
+watch.at('clearing: open the workspace');
 await openDomainWorkspace(page, 'clearing');
 await cases().waitFor();
 assert.equal(
@@ -1477,6 +1505,7 @@ async function followAr(lang, width, motion, judge) {
   const count = await arw.getByTestId('ar-case').count();
   assert.ok(count > 0, `${what}: cases`);
   for (let i = 0; i < count; i++) {
+    watch.at(`${what}: ${i}`);
     const card = arw.getByTestId('ar-case').nth(i),
       heading = (await card.locator('h3').innerText()).trim();
     const way = card.getByRole('button', {
@@ -1584,6 +1613,7 @@ const judgeExample = async (heading, sources, what) => {
 };
 await page.setViewportSize({ width: 1440, height: 900 });
 await page.emulateMedia({ reducedMotion: null });
+watch.at('ar: open the workspace');
 await openDomainWorkspace(page, 'ar');
 await page
   .getByRole('button', { name: 'Open synthetic AR example', exact: true })
@@ -1745,10 +1775,401 @@ await drawer.waitFor();
 await page
   .locator('select[data-reconciliation-type-select]')
   .selectOption('bank');
+watch.at('ar: open the workspace');
 await openDomainWorkspace(page, 'ar');
 await arw.getByTestId('ar-case').first().waitFor();
 assert.equal(await drawer.count(), 0, 'ar: a change of type closes the evidence');
 
+// UX-10(d), the financial position: each statement line opens its own row in
+// the statement, then for each member the trial-balance row of its account,
+// the mapping row that puts the account on the line and the evidence row the
+// mapping cites. The example writes the frozen case whole-post-closing byte
+// for byte, and its rows are the sealed ones. A second story, written here,
+// has 57 lines over two pages, eight of them of two accounts, with its trial
+// balance, mapping and evidence rows each in another order; it is read
+// through the workspace's own file inputs, and the rows of each line are
+// worked out here from the files, by the identifiers they hold.
+const FIN = 'audit/tb-financial/frozen';
+const finWords = {
+  en: [
+    'Trial balance',
+    'Proposed mapping',
+    'Independent presentation evidence',
+    'Financial position',
+  ],
+  ar: [
+    'ميزان المراجعة',
+    'الربط المقترح',
+    'دليل العرض المستقل',
+    'قائمة المركز المالي',
+  ],
+};
+const fin = page.locator('[data-financial-workspace]');
+const finIdle = async () => {
+  for (const deadline = Date.now() + 60000; Date.now() < deadline; ) {
+    if ((await fin.getAttribute('aria-busy')) === 'false') return;
+    await page.waitForTimeout(100);
+  }
+  throw Error('the financial position workspace stayed busy for a minute');
+};
+const finLines = () => fin.locator('section:has(> h3[data-decision-item])');
+// The rows a line must open, worked out from the four files: its statement
+// row, then for each mapping row that names the line, in the file's order,
+// the trial-balance row of the account and dimensions it names, the mapping
+// row itself and the evidence row of the evidence identifier it names.
+function rowsInFiles(files) {
+  const at = (source, name) => files[source][0].indexOf(name),
+    find = (source, test) =>
+      files[source].findIndex((r, n) => n > 0 && test(r)) + 1;
+  return (lineId) => [
+    [3, find(3, (r) => r[at(3, 'Line ID')] === lineId)],
+    ...files[1].flatMap((m, n) =>
+      n === 0 || m[at(1, 'Line ID')] !== lineId
+        ? []
+        : [
+            [
+              0,
+              find(
+                0,
+                (r) =>
+                  r[at(0, 'Account ID')] === m[at(1, 'Account ID')] &&
+                  r[at(0, 'Complete dimensions')] ===
+                    m[at(1, 'Complete dimensions')],
+              ),
+            ],
+            [1, n + 1],
+            [2, find(2, (r) => r[at(2, 'Evidence ID')] === m[at(1, 'Evidence ID')])],
+          ],
+    ),
+  ];
+}
+const finExample = await Promise.all(
+  [0, 1, 2, 3].map(async (i) =>
+    csvRows(await readFile(`${FIN}/whole-post-closing-${i}.csv`, 'utf8')),
+  ),
+);
+const finSealed = JSON.parse(
+  await readFile(`${FIN}/expected.json`, 'utf8'),
+).cases.find((c) => c.name === 'whole-post-closing').financialFacts;
+const sealedRows = new Map(
+  finSealed.lines.map((l) => [
+    l.id,
+    [
+      [3, l.row],
+      ...l.members.flatMap((m) => [
+        [0, m.accountRow],
+        [1, m.mappingRow],
+        [2, m.evidenceRow],
+      ]),
+    ],
+  ]),
+);
+// This check's own reading of the files agrees with the seal.
+for (const [id, rows] of sealedRows)
+  assert.deepEqual(rowsInFiles(finExample)(id), rows, `financial seal ${id}`);
+let finRows = 0;
+// Each line given, opened in turn: the way in names it, the drawer's heading
+// names it and shows the line's figures as the line does, its sources are
+// the rows the story names, each held to its file, the line's heading is
+// marked as a row is, and the way back or Escape returns the focus to the
+// same way in.
+async function followLines(lang, width, motion, story, only) {
+  const tw = threadWords[lang],
+    what = `financial ${story.name} ${lang} ${width} px ${motion}`;
+  const count = await finLines().count();
+  assert.ok(count > 0, `${what}: lines`);
+  const followed = [];
+  for (const i of only ?? [...Array(count).keys()]) {
+    watch.at(`${what}: ${i}`);
+    const line = finLines().nth(i),
+      heading = line.locator('> h3'),
+      [lineId, label] = (await heading.innerText()).trim().split(' · ');
+    const way = line.getByRole('button', {
+      name: `${tw.way} · ${lineId} · ${label}`,
+      exact: true,
+    });
+    assert.equal(await way.count(), 1, `${what} ${lineId}: the way in`);
+    assert.equal(await way.getAttribute('aria-expanded'), 'false', what);
+    const styleOf = () =>
+      heading.evaluate((e) => {
+        const s = getComputedStyle(e);
+        return {
+          background: s.backgroundColor,
+          shadow: s.boxShadow,
+          animation: [s.animationName, s.animationDuration],
+        };
+      });
+    const before = await styleOf(),
+      figures = (await line.locator('> p').first().innerText())
+        .replace(/\s+/gu, ' ')
+        .trim();
+    await way.click();
+    await drawer.waitFor();
+    await arrived();
+    assert.equal(await way.getAttribute('aria-expanded'), 'true', what);
+    assert.equal(
+      await way.getAttribute('aria-controls'),
+      await drawer.getAttribute('id'),
+      `${what}: the way in names the drawer`,
+    );
+    const opened = await focused();
+    assert.deepEqual([opened.tag, opened.inDrawer], ['H2', true], what);
+    assert.equal(
+      opened.text,
+      `${tw.heading} · ${lineId} · ${label}`,
+      `${what}: the heading names the line`,
+    );
+    const amount = (
+      await drawer.locator('.evidence-drawer__amount').innerText()
+    )
+      .replace(/\s+/gu, ' ')
+      .trim();
+    assert.ok(
+      figures && amount.endsWith(figures),
+      `${what} ${lineId}: the line's figures, ${amount}`,
+    );
+    const sources = await arDrawn(),
+      rowOf = (s) => Number(s.place.Row ?? s.place['الصف']);
+    assert.deepEqual(
+      sources.map((s) => [s.source, rowOf(s)]),
+      story.rows(lineId),
+      `${what} ${lineId}: the rows`,
+    );
+    for (const s of sources) {
+      assert.equal(s.role, finWords[lang][s.source], `${what}: role`);
+      assert.equal(
+        s.place.File ?? s.place['الملف'],
+        story.names[s.source],
+        `${what}: the file`,
+      );
+      heldToFile({ ...s, row: rowOf(s) }, story.files, `${what} ${lineId}`);
+    }
+    finRows += sources.length;
+    // A line is not a table row: its heading is shaded and underlined as a
+    // row is, and with motion it comes in 160 ms.
+    assert.equal(
+      await fin.locator('section[data-thread-open]').count(),
+      1,
+      `${what}: the line is marked`,
+    );
+    assert.equal(await line.getAttribute('data-thread-open'), '', what);
+    const after = await styleOf();
+    assert.notEqual(after.background, before.background, `${what}: shaded`);
+    assert.match(after.shadow, /0px -2px 0px 0px inset/u, `${what}: underlined`);
+    assert.deepEqual(
+      after.animation,
+      motion === 'reduce' ? ['none', '0s'] : ['evidence-row-in', '0.16s'],
+      `${what}: the mark's motion`,
+    );
+    if (i % 2)
+      await drawer.getByRole('button', { name: tw.back, exact: true }).click();
+    else await drawer.getByRole('heading', { level: 2 }).press('Escape');
+    await closed();
+    assert.equal(await drawer.count(), 0, `${what}: it closes`);
+    assert.equal(
+      await page.evaluate(() =>
+        document.activeElement?.getAttribute('aria-expanded'),
+      ),
+      'false',
+      `${what}: the focus returns to the way in`,
+    );
+    assert.ok(
+      (
+        await page.evaluate(() => document.activeElement?.textContent ?? '')
+      ).includes(`${lineId} · ${label}`),
+      `${what}: the same way in`,
+    );
+    followed.push(lineId);
+  }
+  report.push(`financial ${story.name} ${lang} ${width} ${motion}`);
+  return followed;
+}
+const example = {
+  name: 'example',
+  files: finExample,
+  names: [0, 1, 2, 3].map((i) => `whole-post-closing-${i}.csv`),
+  rows: (id) => sealedRows.get(id),
+};
+await page.setViewportSize({ width: 1440, height: 900 });
+await page.emulateMedia({ reducedMotion: null });
+watch.at('tb-financial: open the workspace');
+await openDomainWorkspace(page, 'tb-financial');
+await fin
+  .getByRole('button', { name: 'Open a synthetic example', exact: true })
+  .click();
+await fin.locator('[data-financial-status]').waitFor();
+await finIdle();
+for (const [lang, width, motion] of [
+  ['en', 1440, 'no-preference'],
+  ['ar', 390, 'reduce'],
+]) {
+  if ((await page.evaluate(() => document.documentElement.lang)) !== lang)
+    await page
+      .getByRole('button', {
+        name: lang === 'ar' ? 'AR العربية' : 'EN English',
+        exact: true,
+      })
+      .click();
+  await page.setViewportSize({ width, height: 900 });
+  await page.emulateMedia({ reducedMotion: motion });
+  assert.deepEqual(
+    await followLines(lang, width, motion, example),
+    [...sealedRows.keys()],
+    `financial ${lang}: every sealed line`,
+  );
+}
+await page.emulateMedia({ reducedMotion: null });
+await page.setViewportSize({ width: 1440, height: 900 });
+await page.getByRole('button', { name: 'EN English', exact: true }).click();
+assert.equal(finRows, 2 * (6 + 3 * 7), `financial example rows: ${finRows}`);
+// A decision changes the result, and closes the evidence of the old one.
+await fin
+  .getByLabel('Decision reference', { exact: true })
+  .fill('Synthetic independent browser reference');
+await fin
+  .getByLabel('Decision reason', { exact: true })
+  .fill('Original whole-line accounts and independent presentation evidence reviewed');
+const cash = finLines().first();
+await cash
+  .getByRole('button', { name: 'Review source rows · CASH · Cash', exact: true })
+  .click();
+await drawer.waitFor();
+await cash.getByRole('button', { name: 'Accept whole line', exact: true }).click();
+await finIdle();
+await cash.getByText('Accepted', { exact: false }).first().waitFor();
+assert.equal(await drawer.count(), 0, 'financial: a decision closes it');
+// The long story, through the file inputs.
+const scopeCells = finExample[0][1].slice(-12),
+  longRows = [[], [], [], []];
+let longTotal = 0;
+for (let k = 1; k <= 56; k++) {
+  const id = `L${String(k).padStart(2, '0')}`,
+    accounts = k % 7 === 0 ? [`${k}A`, `${k}B`] : [`${k}A`];
+  let amount = 0;
+  for (const [j, a] of accounts.entries()) {
+    const value = k * 10 + j;
+    amount += value;
+    longTotal += value;
+    longRows[0].push([a, 'none', `Account ${a}`, 'current-asset', `${value}.00`, '0.00']);
+    longRows[1].push([`M-${a}`, a, 'none', id, 'debit-positive', `P-${a}`]);
+    longRows[2].push([
+      `P-${a}`, a, 'none', 'current-asset', id, `Line ${k}`, 'current-asset',
+      'debit-positive', '2026-01-01', '2026-12-31', `Synthetic presentation document ${a}`,
+    ]);
+  }
+  longRows[3].push([id, `Line ${k}`, 'current-asset', `${amount}.00`]);
+}
+longRows[0].push(['900', 'none', 'Capital', 'equity', '0.00', `${longTotal}.00`]);
+longRows[1].push(['M-900', '900', 'none', 'CAP', 'credit-positive', 'P-900']);
+longRows[2].push([
+  'P-900', '900', 'none', 'equity', 'CAP', 'Capital', 'equity', 'credit-positive',
+  '2026-01-01', '2026-12-31', 'Synthetic presentation document 900',
+]);
+longRows[3].push(['CAP', 'Capital', 'equity', `${longTotal}.00`]);
+// The trial balance reversed, the mapping turned by twenty rows, the evidence
+// odd rows first; the statement in its own order.
+const longOrder = [
+  [...longRows[0]].reverse(),
+  [...longRows[1].slice(20), ...longRows[1].slice(0, 20)],
+  [...longRows[2].filter((_, i) => i % 2), ...longRows[2].filter((_, i) => !(i % 2))],
+  longRows[3],
+];
+const longFiles = longOrder.map((rows, i) => [
+  finExample[i][0],
+  ...rows.map((r) => [...r, ...scopeCells]),
+]);
+const long = {
+  name: 'long',
+  files: longFiles,
+  names: [0, 1, 2, 3].map((i) => `financial-long-${i}.csv`),
+  rows: rowsInFiles(longFiles),
+};
+for (const [i, rows] of longFiles.entries()) {
+  await writeFile(
+    path.join(out, long.names[i]),
+    rows.map((r) => r.join(',')).join('\n') + '\n',
+  );
+  await fin
+    .locator('.workspace-source')
+    .filter({ has: page.getByLabel(finWords.en[i], { exact: true }) })
+    .locator('input[type="file"]')
+    .setInputFiles(path.join(out, long.names[i]));
+  await finIdle();
+  await fin.getByText(long.names[i], { exact: true }).waitFor();
+}
+await fin
+  .getByLabel(
+    'I reviewed the trial balance, the proposed mapping, the independent presentation evidence and the financial position',
+    { exact: false },
+  )
+  .check();
+await fin
+  .getByLabel(
+    'I reviewed completeness of supplied accounts, dimensions, mappings, evidence and statement lines',
+    { exact: true },
+  )
+  .check();
+await fin
+  .getByRole('button', { name: 'Check mapping and amounts', exact: true })
+  .click();
+await finIdle();
+await finLines().first().waitFor();
+const finPager = (name) =>
+  fin
+    .getByRole('navigation', { name: 'Pages of Statement lines', exact: true })
+    .getByRole('button', { name, exact: true });
+await page.setViewportSize({ width: 1024, height: 900 });
+finRows = 0;
+const firstPage = await followLines('en', 1024, 'no-preference', long, [0, 6, 49]);
+await finPager('Next page').click();
+await finLines().first().waitFor();
+const secondPage = await followLines('en', 1024, 'no-preference', long);
+assert.deepEqual(
+  [...firstPage, ...secondPage],
+  ['L01', 'L07', 'L50', 'L51', 'L52', 'L53', 'L54', 'L55', 'L56', 'CAP'],
+  'financial long: the lines followed, over two pages',
+);
+// Ten lines, two of them (L07 and L56) of two accounts.
+assert.equal(finRows, 10 + 3 * (10 + 2), `financial long rows: ${finRows}`);
+// The way back, after the lines were turned while the drawer was open, turns
+// them back to the line's page and returns to its way in.
+await finLines()
+  .last()
+  .getByRole('button', { name: 'Review source rows · CAP · Capital', exact: true })
+  .click();
+await drawer.waitFor();
+await arrived();
+await finPager('Previous page').click();
+await finLines().first().getByText('L01', { exact: false }).first().waitFor();
+await drawer.getByRole('button', { name: threadWords.en.back, exact: true }).click();
+await closed();
+assert.equal(await drawer.count(), 0, 'financial: the way back closes it');
+assert.ok(
+  (await page.evaluate(() => document.activeElement?.textContent ?? '')).includes(
+    'CAP · Capital',
+  ),
+  "financial: the way back returns to the line's way in, on its own page",
+);
+report.push('financial long: way back over two pages');
+// A change of type closes it.
+await finLines()
+  .first()
+  .getByRole('button', { name: /^Review source rows · / })
+  .click();
+await drawer.waitFor();
+await page
+  .locator('select[data-reconciliation-type-select]')
+  .selectOption('bank');
+watch.at('tb-financial: open the workspace');
+await openDomainWorkspace(page, 'tb-financial');
+await finLines().first().waitFor();
+assert.equal(
+  await drawer.count(),
+  0,
+  'financial: a change of type closes the evidence',
+);
+
+watch.stop();
 assert.deepEqual(errors, [], 'no page error');
 await browser.close();
 server.close();

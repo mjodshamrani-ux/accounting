@@ -39,6 +39,10 @@ import {
 } from '@/lib/reconciliation/tb-financial';
 import { financialDemo } from '@/lib/reconciliation/tb-financial-demo';
 import { TbFinancialHierarchyPanel } from '@/components/tb-financial-hierarchy-panel';
+import { EvidenceDrawer, ThreadSources } from '@/components/evidence-drawer';
+import { useEvidenceThread } from '@/hooks/use-evidence-thread';
+import { financialThread } from '@/lib/evidence-thread';
+import { evidenceThreadCopy } from '@/lib/i18n/evidence-thread';
 import { ScopeCard, Sentence } from '@/components/scope-card';
 import { scopeCardCopy } from '@/lib/i18n/scope-card';
 import { useDeclaredScope } from '@/hooks/use-declared-scope';
@@ -403,6 +407,16 @@ export function FinancialWorkspace({
           ['source-error', 'missing', 'inconsistent', 'difference'] as const
         ).find((s) => s === result.status) ?? null);
   const linesShown = recordPage(result?.lines.length ?? 0, linePage);
+  // Each statement line opens its own row, then the account, mapping and
+  // evidence rows of each member the engine put on it (UX-10). The lines keep
+  // their own page, which a decision moves to the line it changed; the way
+  // back takes them to the line's page.
+  const thread = useEvidenceThread(active, result),
+    words = evidenceThreadCopy[lang],
+    opened =
+      result && thread.open?.table === 'lines'
+        ? { at: thread.open.at, line: result.lines[thread.open.at] }
+        : null;
   const status = (value: string) =>
     (t.financial.status as Record<string, string>)[value] ?? value;
   return (
@@ -818,7 +832,10 @@ export function FinancialWorkspace({
               {t.financial.statementLines}
             </h3>
             {result.lines.slice(linesShown.from, linesShown.to).map((l, i) => (
-              <section key={l.id}>
+              <section
+                key={l.id}
+                {...thread.mark('lines', linesShown.from + i)}
+              >
                 <h3
                   id={headingAt(linesShown.from + i)}
                   tabIndex={-1}
@@ -837,6 +854,19 @@ export function FinancialWorkspace({
                     ]}
                   />
                 </p>
+                <div className="gl-tb-actions">
+                  <Button
+                    variant="outline"
+                    {...thread.way('lines', linesShown.from + i)}
+                    onClick={() => thread.show('lines', linesShown.from + i)}
+                  >
+                    {words.way}
+                    <span className="sr-only">
+                      {' · '}
+                      {l.lineId} · {l.label}
+                    </span>
+                  </Button>
+                </div>
                 <details>
                   <summary>
                     {t.financial.allMappingMembersAndEvidence} (
@@ -885,6 +915,33 @@ export function FinancialWorkspace({
               page={linePage}
               onPage={setLinePage}
             />
+            {opened?.line && (
+              <EvidenceDrawer
+                id={thread.id}
+                headingRef={thread.heading}
+                heading={`${words.heading} · ${opened.line.lineId} · ${opened.line.label}`}
+                back={words.back}
+                onBack={() => {
+                  setLinePage(pageOfRow(opened.at));
+                  thread.back();
+                }}
+                amount={
+                  <Figures
+                    decimals={result.decimals}
+                    items={[
+                      [t.financial.lineFigures[0], opened.line.calculated],
+                      [t.financial.lineFigures[1], opened.line.reported],
+                      [t.financial.lineFigures[2], opened.line.difference],
+                    ]}
+                  />
+                }
+              >
+                <ThreadSources
+                  thread={financialThread(result, opened.at)}
+                  role={(s) => t.financial.roles[s.source]}
+                />
+              </EvidenceDrawer>
+            )}
             <EvidenceSections
               anchor={resultParts.anchor('evidence')}
               sections={[

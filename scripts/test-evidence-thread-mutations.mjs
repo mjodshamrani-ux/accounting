@@ -45,6 +45,7 @@ const copied = [
   'audit/clearing/frozen',
   'audit/ar-limited/frozen',
   'audit/ar-scope-details/fixtures',
+  'audit/tb-financial',
   'package.json',
 ];
 const mutations = [
@@ -383,6 +384,101 @@ const mutations = [
     THREAD,
     "        role: source.role,\n        name: source.name,\n        sheet: source.sheet,\n        place: { row: row.row },",
     "        role: source.role,\n        name: result.sources[0].name,\n        sheet: source.sheet,\n        place: { row: row.row },",
+  ],  [
+    "fin-line-row-dropped",
+    THREAD,
+    "      line.id,\n      ...line.members.flatMap",
+    "      ...line.members.flatMap",
+  ],
+  [
+    "fin-account-dropped",
+    THREAD,
+    "        m.accountRecord,\n        m.mappingRecord,",
+    "        m.mappingRecord,",
+  ],
+  [
+    "fin-mapping-dropped",
+    THREAD,
+    "        m.accountRecord,\n        m.mappingRecord,\n        m.evidenceRecord,",
+    "        m.accountRecord,\n        m.evidenceRecord,",
+  ],
+  [
+    "fin-evidence-dropped",
+    THREAD,
+    "        m.mappingRecord,\n        m.evidenceRecord,\n      ]),",
+    "        m.mappingRecord,\n      ]),",
+  ],
+  [
+    "fin-account-evidence-swapped",
+    THREAD,
+    "        m.accountRecord,\n        m.mappingRecord,\n        m.evidenceRecord,",
+    "        m.evidenceRecord,\n        m.mappingRecord,\n        m.accountRecord,",
+  ],
+  [
+    "fin-first-member-only",
+    THREAD,
+    "      ...line.members.flatMap((m) => [",
+    "      ...line.members.slice(0, 1).flatMap((m) => [",
+  ],
+  [
+    "fin-members-reversed",
+    THREAD,
+    "      ...line.members.flatMap((m) => [",
+    "      ...[...line.members].reverse().flatMap((m) => [",
+  ],
+  [
+    "fin-unknown-line-opens-last",
+    THREAD,
+    "  const line = result.lines[index];\n  if (!line) return [];\n  const ids = [",
+    "  const line = result.lines[index] ?? result.lines.at(-1);\n  if (!line) return [];\n  const ids = [",
+  ],
+  [
+    "fin-cells-of-the-line",
+    THREAD,
+    "        cells: cells.get(id) ?? [],",
+    "        cells: cells.get(ids[0]) ?? [],",
+  ],
+  [
+    "fin-last-cell-only",
+    THREAD,
+    "    const kept = cells.get(c.id) ?? [];",
+    "    const kept: ThreadCell[] = [];",
+  ],
+  [
+    "fin-column-from-zero",
+    THREAD,
+    "    kept.push({ column: c.column, field: c.field, text: c.text });",
+    "    kept.push({ column: c.column - 1, field: c.field, text: c.text });",
+  ],
+  [
+    "fin-field-is-text",
+    THREAD,
+    "    kept.push({ column: c.column, field: c.field, text: c.text });",
+    "    kept.push({ column: c.column, field: c.text, text: c.text });",
+  ],
+  [
+    "fin-source-of-the-line",
+    THREAD,
+    "        source: record.source,\n        role: source.role,",
+    "        source: 3,\n        role: source.role,",
+  ],
+  [
+    "fin-role-of-the-balance",
+    THREAD,
+    "    const source = result.sources[record.source];",
+    "    const source = result.sources[0];",
+  ],
+  [
+    "fin-row-shifted",
+    THREAD,
+    "        place: { row: record.row },\n        cells: cells.get(id) ?? [],",
+    "        place: { row: record.row + 1 },\n        cells: cells.get(id) ?? [],",
+  ],
+  [
+    "fin-sheet-null",
+    THREAD,
+    "        sheet: source.sheet,\n        place: { row: record.row },\n        cells: cells.get(id)",
+    "        sheet: null,\n        place: { row: record.row },\n        cells: cells.get(id)",
   ],
 ];
 const files = [THREAD, ...tests];

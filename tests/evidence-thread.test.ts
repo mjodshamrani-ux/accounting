@@ -6,6 +6,7 @@ import {
   allocationThread,
   arThread,
   clearingThread,
+  financialThread,
   glTbThread,
   payrollBankThread,
   payrollThread,
@@ -58,6 +59,10 @@ import {
 import { readArFile } from '../lib/reconciliation/ar-source.ts';
 import { arDemoReadings, arDemoScope } from '../lib/reconciliation/ar-demo.ts';
 import type { AllocationResult } from '../lib/reconciliation/allocation.ts';
+import {
+  financialTruth,
+  finishedFinancial,
+} from '../audit/tb-financial/fixtures.ts';
 
 // The thread is held to the source bytes themselves: each file is read here
 // with its own small CSV reader, not the engine's, and every cell the thread
@@ -902,6 +907,114 @@ void test('a line of a printed customer statement opens its page and line, and s
     },
   ]);
   assert.deepEqual(arThread(result, 1), []);
+});
+
+const FINANCIAL_ROLES = [
+  'trial-balance',
+  'proposed-mapping',
+  'presentation-evidence',
+  'financial-position',
+];
+
+// The text of a thread source's cell under one header, as the thread shows it.
+const cellOf = (s: Thread[number], field: string) =>
+  s.cells?.find((c) => c.field === field)?.text;
+
+void test('a line of the financial position opens its statement row, then the account, mapping and evidence rows of each member, as the files have them', async () => {
+  let cases = 0,
+    lines = 0,
+    sealed = 0,
+    members = 0,
+    several = 0,
+    none = 0,
+    cells = 0;
+  for (const c of financialTruth.cases) {
+    if (c.reject) continue;
+    const { state, result } = await finishedFinancial(c.name);
+    cases++;
+    const facts = c.financialFacts;
+    result.lines.forEach((line, i) => {
+      const thread = financialThread(result, i),
+        what = `${c.name} line ${line.lineId}`,
+        places = thread.map((s) => [
+          s.source,
+          'row' in s.place ? s.place.row : 0,
+        ]);
+      heldToSources(thread, state.files, FINANCIAL_ROLES, what);
+      for (const s of thread)
+        assert.equal(
+          s.sheet,
+          state.files[s.source].sheets[0].name,
+          `${what}: sheet`,
+        );
+      // The line's own row first, then three rows for each member, in the
+      // engine's order: what the files say at those rows names the line and
+      // each member, account, mapping and evidence alike.
+      assert.equal(thread.length, 1 + 3 * line.members.length, what);
+      assert.deepEqual(places[0], [3, line.row], `${what}: the line's row`);
+      assert.equal(cellOf(thread[0], 'Line ID'), line.lineId, what);
+      line.members.forEach((m, k) => {
+        const [account, mapping, proof] = thread.slice(1 + 3 * k, 4 + 3 * k);
+        assert.deepEqual(
+          [account.source, mapping.source, proof.source],
+          [0, 1, 2],
+          `${what}: member ${m.mappingId} sources`,
+        );
+        assert.equal(cellOf(account, 'Account ID'), m.account, what);
+        assert.equal(cellOf(account, 'Complete dimensions'), m.dimensions, what);
+        assert.equal(cellOf(mapping, 'Mapping ID'), m.mappingId, what);
+        assert.equal(cellOf(mapping, 'Line ID'), line.lineId, what);
+        assert.equal(cellOf(mapping, 'Evidence ID'), m.evidenceId, what);
+        assert.equal(cellOf(proof, 'Evidence ID'), m.evidenceId, what);
+        members++;
+      });
+      // Where the case is sealed with its facts, the rows are the sealed
+      // ones, found without the engine.
+      const truth = facts?.lines.find((l) => l.id === line.lineId);
+      if (truth) {
+        assert.deepEqual(
+          places,
+          [
+            [3, truth.row],
+            ...truth.members.flatMap((m) => [
+              [0, m.accountRow],
+              [1, m.mappingRow],
+              [2, m.evidenceRow],
+            ]),
+          ],
+          `${what}: the sealed rows`,
+        );
+        sealed++;
+      }
+      if (line.members.length > 1) several++;
+      if (!line.members.length) none++;
+      cells += thread.reduce((n, s) => n + (s.cells?.length ?? 0), 0);
+      lines++;
+    });
+    if (facts)
+      assert.equal(
+        result.lines.length,
+        facts.lines.length,
+        `${c.name}: every sealed line`,
+      );
+    assert.deepEqual(
+      financialThread(result, result.lines.length),
+      [],
+      `${c.name}: an unknown line opens nothing`,
+    );
+  }
+  // As measured on the frozen set: lines of one, two and three members, and
+  // lines of a blocked case whose members the engine could not name.
+  assert.ok(
+    cases >= 57 &&
+      lines >= 336 &&
+      sealed >= 120 &&
+      members >= 368 &&
+      several >= 53 &&
+      none >= 22 &&
+      cells >= 27_088,
+    `${cases} cases, ${lines} lines (${sealed} sealed, ${several} of several members, ${none} of none), ${members} members, ${cells} cells`,
+  );
 });
 
 void test('a bank movement and an allocation item open the row they were read from with the cells the reader traced, and an unknown row opens nothing', () => {
