@@ -125,6 +125,15 @@ article[data-thread-open] {
   }
 }
 
+/* A row's way in wraps between its words and never inside one. The
+   workspace lets every button break anywhere, so in a narrow table of many
+   columns the gateway's way in shrank below its longest word at 390 px and
+   broke inside it; held to its words, its column keeps them whole and the
+   table scrolls inside its frame (UX-10(d), DEV-107). */
+.reconciliation-workspace button[data-thread-way]:not(.language-switch button) {
+  overflow-wrap: break-word;
+}
+
 @media print {
   .evidence-drawer {
     display: none;

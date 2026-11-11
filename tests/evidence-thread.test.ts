@@ -13,11 +13,19 @@ import {
   payrollBankThread,
   payrollThread,
   stockThread,
+  supplierThread,
   type GatewayTable,
   type Thread,
   type ThreadLabel,
 } from '../lib/evidence-thread.ts';
 import { reconcileGateway } from '../lib/reconciliation/payment-gateway.ts';
+import {
+  compare,
+  inferMapping,
+  normalizeSource,
+} from '../lib/reconciliation/core.ts';
+import { demoFiles, demoScope } from '../lib/reconciliation/demo.ts';
+import { demoMappings } from '../lib/reconciliation/demo.ts';
 import {
   gatewayFixture,
   gatewayTruth,
@@ -1221,6 +1229,192 @@ void test('a payment gateway batch opens, from its totals, the transaction and f
       rows >= 204 &&
       cells >= 3_770,
     `${cases} cases, ${totals} totals and ${residuals} residuals shown (${sealed} sealed), ${rows} rows, ${cells} cells`,
+  );
+});
+
+// The supplier stories this test writes: invoices, a payment and a credit
+// note on the statement, the ledger with some of them, one at another amount
+// and one of its own, each file in its own order, some with a title row
+// above the header. Synthetic only.
+function supplierStory(k: number) {
+  const rows = (side: 'supplier' | 'ledger') => {
+    const out: string[][] = [];
+    for (let i = 1; i <= 6 + (k % 5); i++) {
+      if (side === 'ledger' && i % 4 === 0) continue;
+      const amount = side === 'ledger' && i === 3 ? 100 * i + 7 : 100 * i;
+      out.push([
+        `2026-08-${String(2 + i).padStart(2, '0')}`,
+        `INV-${k}-${i}`,
+        `Synthetic invoice ${i}`,
+        `${amount.toLocaleString('en-US')}.00`,
+      ]);
+    }
+    out.push(
+      side === 'supplier'
+        ? ['2026-08-20', `PAY-${k}`, 'Synthetic payment', '-150.00']
+        : ['2026-08-21', `LOCAL-${k}`, 'Ledger only accrual', '75.00'],
+    );
+    if (side === 'supplier' && k % 2)
+      out.push(['2026-08-22', `CN-${k}`, 'Synthetic credit note', '-40.00']);
+    return k % 3 ? out.reverse() : out;
+  };
+  const header = ['Date', 'Reference', 'Description', 'Amount'];
+  const titled = k % 4 === 1;
+  return (['supplier', 'ledger'] as const).map((side) => ({
+    side,
+    titled,
+    text:
+      [
+        ...(titled ? [[`Synthetic ${side} statement ${k}`, '', '', '']] : []),
+        header,
+        ...rows(side),
+      ]
+        .map((r) => r.map((v) => (v.includes(',') ? `"${v}"` : v)).join(','))
+        .join('\n') + '\n',
+  }));
+}
+const SUPPLIER_ROLES = ['supplier', 'ledger'];
+/** Every source of a supplier thread against the files read here: the
+ * case's traced rows, in order, each with every cell of its row in the file
+ * under the header row of its reading. */
+function supplierHeld(
+  thread: Thread,
+  result: ReturnType<typeof compare>,
+  rows: readonly (readonly string[][])[],
+  headerRows: readonly number[],
+  id: string,
+  what: string,
+  names: readonly string[],
+) {
+  const found = result.cases.find((c) =>
+    c.sourceTrace.some((t) => t.sourceRowId === id),
+  )!;
+  assert.deepEqual(
+    thread.map((s) => [s.source, 'row' in s.place ? s.place.row : 0]),
+    found.sourceTrace.map((t) => [t.side === 'supplier' ? 0 : 1, t.row]),
+    `${what}: the case's rows, in its order`,
+  );
+  let cells = 0;
+  for (const s of thread) {
+    assert.equal(s.role, SUPPLIER_ROLES[s.source], `${what}: role`);
+    assert.equal(s.name, names[s.source], `${what}: the file`);
+    assert.ok('row' in s.place && s.cells, `${what}: cells drawn`);
+    const file = rows[s.source],
+      line = file[s.place.row - 1],
+      header = file[headerRows[s.source]];
+    assert.deepEqual(
+      s.cells,
+      line.map((text, i) => ({ column: i + 1, field: header[i] ?? '', text })),
+      `${what}: row ${s.place.row} of the ${s.role} as the file has it`,
+    );
+    cells += s.cells.length;
+  }
+  return cells;
+}
+
+void test('a supplier result row opens every row the engine traced for its case, as the files have them, and none of a file it was not computed from', async () => {
+  // The example: files held in the page without a SHA-256, drawn by the
+  // sheet fingerprint the engine records instead.
+  const scope = { ...demoScope, confirmed: true, coverageConfirmed: true };
+  const demo = compare(
+    normalizeSource(demoFiles[0], demoMappings[0], scope, 'supplier'),
+    normalizeSource(demoFiles[1], demoMappings[1], scope, 'ledger'),
+    scope,
+  );
+  let rowsOpened = 0,
+    cells = 0,
+    stories = 0,
+    grouped = 0;
+  for (const tx of [
+    ...demo.supplier.transactions,
+    ...demo.ledger.transactions,
+  ]) {
+    const thread = supplierThread(demo, demoFiles, tx.id);
+    cells += supplierHeld(
+      thread,
+      demo,
+      demoFiles.map((f) => f.sheets[0].rows),
+      [0, 0],
+      tx.id,
+      `example ${tx.side} ${tx.row}`,
+      demoFiles.map((f) => f.name),
+    );
+    rowsOpened++;
+  }
+  assert.deepEqual(supplierThread(demo, demoFiles, 'no-such-row'), []);
+  // Stories written here as CSV bytes, read by the application's reader
+  // and by this test's own.
+  for (let k = 0; k < 24; k++) {
+    const story = supplierStory(k);
+    const files = await Promise.all(
+      story.map((f) =>
+        readSource(
+          `${f.side}-${k}.csv`,
+          new TextEncoder().encode(f.text).buffer as ArrayBuffer,
+        ),
+      ),
+    );
+    const headerRows = story.map((f) => (f.titled ? 1 : 0));
+    const read = files.map((file, i) =>
+      normalizeSource(
+        file,
+        inferMapping(file, 0, headerRows[i]),
+        scope,
+        story[i].side,
+      ),
+    );
+    const result = compare(read[0], read[1], scope);
+    const rows = story.map((f) => csv(new TextEncoder().encode(f.text).buffer as ArrayBuffer));
+    assert.ok(
+      result.supplier.transactions.length >= 7 &&
+        result.ledger.transactions.length >= 5,
+      `story ${k}: rows read`,
+    );
+    for (const tx of [
+      ...result.supplier.transactions,
+      ...result.ledger.transactions,
+    ]) {
+      const thread = supplierThread(result, files, tx.id);
+      cells += supplierHeld(
+        thread,
+        result,
+        rows,
+        headerRows,
+        tx.id,
+        `story ${k} ${tx.side} ${tx.row}`,
+        files.map((f) => f.name),
+      );
+      if (thread.length > 1) grouped++;
+      rowsOpened++;
+    }
+    // A file the result was not computed from draws no cells: the ledger
+    // with one cell changed under the same name, or under another name.
+    const id = result.supplier.transactions[0].id;
+    const changed = await readSource(
+      `ledger-${k}.csv`,
+      new TextEncoder().encode(story[1].text.replace('Ledger only', 'Ledger-only'))
+        .buffer as ArrayBuffer,
+    );
+    const renamed = { ...files[1], name: `other-${k}.csv` };
+    for (const [other, why] of [
+      [changed, 'changed'],
+      [renamed, 'renamed'],
+    ] as const) {
+      const drawn = supplierThread(result, [files[0], other], id);
+      for (const s of drawn)
+        assert.equal(
+          s.cells === null,
+          s.source === 1,
+          `story ${k}: the ${why} ledger draws no cells, the statement does`,
+        );
+    }
+    stories++;
+  }
+  // As measured: the example's 14 rows and the stories', 304 of them in a
+  // case of more than one row.
+  assert.ok(
+    stories >= 24 && rowsOpened >= 416 && grouped >= 304 && cells >= 2_954,
+    `${stories} stories, ${rowsOpened} rows opened (${grouped} with more than one row), ${cells} cells`,
   );
 });
 

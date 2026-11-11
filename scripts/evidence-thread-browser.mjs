@@ -52,6 +52,14 @@
 // case pending, held to its seal); the signed example too; a decision
 // closes the drawer; and a batch of sixty transactions with a row of empty
 // cells, uploaded through the inputs, opens every row but that one.
+// And in the supplier comparison, whose list has a row for each case: in
+// every tab and on every page, each case opens every row the engine traced
+// for it, from both files, each cell as the file holds it; the cases of the
+// three lists draw every row of both files once. The example (the page's
+// own files) in English at 1440 px and in Arabic at 390 px with reduced
+// motion; a story of 81 rows written here and uploaded through the inputs,
+// whose matched list spans two pages, and the way back over them. Another
+// tab, a search, leaving the review step and a change of type close it.
 //   node scripts/evidence-thread-browser.mjs
 // EVIDENCE_THREAD_DIST names another build (a mutation gate's copy).
 import assert from 'node:assert/strict';
@@ -60,6 +68,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import { demoFiles } from '../lib/reconciliation/demo.ts';
 import { stageWatchdog } from './stage-watchdog.mjs';
 
 // A run that stalls, an action or a wait that times out (DEV-117), says what
@@ -2827,6 +2836,375 @@ assert.equal(
   0,
   'gateway: a change of type closes the evidence',
 );
+
+// The supplier comparison: every row of each of its three lists, on every
+// page, opens every row the engine traced for its case. The example's files
+// are the page's own (lib/reconciliation/demo.ts), each with its header in
+// the first row; a story of 81 rows written here is uploaded through the
+// page's two file inputs and held to its files with this check's own reader.
+const supWords = {
+  en: {
+    side: ['Supplier', 'AP ledger'],
+    tabs: ['Unmatched', 'Matched', /^Needs Review \(\d+\)$/u],
+    example: 'Try the sample',
+    run: 'Check and compare',
+    next: 'Next page',
+    search: 'Search results',
+  },
+  ar: {
+    side: ['المورد', 'الدفتر'],
+    tabs: ['دون مقابل', 'المطابقات', /^يحتاج مراجعة \(\d+\)$/u],
+    example: 'جرّب المثال',
+    run: 'تحقق وقارن',
+    next: 'الصفحة التالية',
+    search: 'البحث في النتائج',
+  },
+};
+const supList = page.locator('section.surface').filter({
+    has: page.locator('.results-frame'),
+  }),
+  supRowsOf = () => supList.locator('.results-frame table tbody tr');
+let supRows = 0,
+  supOpened = 0;
+// One row of the list shown: its way in names its side and row, the drawer
+// is named the same, its amount and members are the row's, its sources are
+// the case's (the row itself among them), each held to its file.
+async function followSupplierRow(lang, what, row, story, closeBy) {
+  const tw = threadWords[lang],
+    sw = supWords[lang],
+    way = row.locator('td').first().getByRole('button');
+  const name = (await way.textContent()).trim(),
+    [, side, own] = name.match(/^.+ · (.+) · (\d+)$/u) ?? [];
+  assert.equal(name, `${tw.way} · ${side} · ${own}`, `${what}: ${name}`);
+  const sideAt = sw.side.indexOf(side);
+  assert.ok(sideAt >= 0, `${what}: a side named ${side}`);
+  const cells = row.locator('td');
+  assert.equal(
+    (await cells.nth(1).innerText()).trim(),
+    `${side} · ${own}`,
+    `${what}: the way in names the row's own source and row`,
+  );
+  const amount = (
+      await cells.nth(4).evaluate((e) => e.firstChild.textContent)
+    ).trim(),
+    [, x, y] = (await cells.nth(4).locator('.muted').innerText())
+      .trim()
+      .match(/^(\d+):(\d+)/u)
+      .map(Number);
+  assert.equal(await way.getAttribute('aria-expanded'), 'false', what);
+  await way.click();
+  await drawer.waitFor();
+  await arrived();
+  assert.equal(await way.getAttribute('aria-expanded'), 'true', what);
+  assert.equal(
+    await way.getAttribute('aria-controls'),
+    await drawer.getAttribute('id'),
+    `${what}: the way in names the drawer`,
+  );
+  const opened = await focused();
+  assert.deepEqual([opened.tag, opened.inDrawer], ['H2', true], what);
+  assert.equal(
+    opened.text,
+    `${tw.heading} · ${side} · ${own}`,
+    `${what}: the heading names the side and the row`,
+  );
+  assert.equal(
+    (await drawer.locator('[data-thread-amount]').innerText()).trim(),
+    amount,
+    `${what}: the case's amount as the row shows it`,
+  );
+  const sources = await arDrawn(),
+    rowOf = (s) => Number(s.place.Row ?? s.place['الصف']);
+  assert.deepEqual(
+    [0, 1].map((n) => sources.filter((s) => s.source === n).length),
+    [x, y],
+    `${what}: every member of the case, ${x}:${y}`,
+  );
+  assert.ok(
+    sources.some((s) => s.source === sideAt && rowOf(s) === Number(own)),
+    `${what}: the row itself is among them`,
+  );
+  for (const s of sources) {
+    assert.equal(s.role, sw.side[s.source], `${what}: role`);
+    assert.equal(
+      s.place.File ?? s.place['الملف'],
+      story.names[s.source],
+      `${what}: the file`,
+    );
+    assert.equal(s.place.Sheet ?? s.place['الورقة'], 'CSV', `${what}: sheet`);
+    assert.equal(s.missing, undefined, `${what}: its cells are drawn`);
+    heldToFile({ ...s, row: rowOf(s) }, story.files, `${what} ${side} ${own}`);
+  }
+  supRows += sources.length;
+  supOpened++;
+  const places = sources.map((s) => `${s.source}:${rowOf(s)}`);
+  assert.equal(
+    await page.locator('tr[data-thread-open]').count(),
+    1,
+    `${what}: one row marked`,
+  );
+  assert.equal(await row.getAttribute('data-thread-open'), '', what);
+  if (closeBy === 'back')
+    await drawer.getByRole('button', { name: tw.back, exact: true }).click();
+  else await drawer.getByRole('heading', { level: 2 }).press('Escape');
+  await closed();
+  assert.equal(await drawer.count(), 0, `${what}: it closes`);
+  const back = await focused();
+  assert.equal(
+    back.text.trim(),
+    name,
+    `${what}: the focus returns to the same way in`,
+  );
+  return places;
+}
+// Every row of each list, on every page of it. Each list's row is a case;
+// the cases of the three lists together draw every row of both files once.
+async function followSupplier(lang, width, motion, story) {
+  const sw = supWords[lang],
+    tw = threadWords[lang],
+    what = `supplier ${story.name} ${lang} ${width} px ${motion}`;
+  await page.setViewportSize({ width, height: 900 });
+  await page.emulateMedia({ reducedMotion: motion });
+  const counts = [],
+    places = [];
+  for (const tab of sw.tabs) {
+    await supList.getByRole('tab', { name: tab, exact: true }).click();
+    const head = (
+      await supList.locator('.results-frame thead th').allInnerTexts()
+    ).map((x) => x.trim());
+    assert.equal(head[0], tw.way, `${what}: the way in heads the list`);
+    let seen = 0;
+    for (let at = 0; ; at++) {
+      watch.at(`${what}: ${tab} page ${at + 1}`);
+      const count = await supRowsOf().count();
+      for (let i = 0; i < count; i++)
+        places.push(
+          ...(await followSupplierRow(
+            lang,
+            `${what} ${tab} page ${at + 1} row ${i + 1}`,
+            supRowsOf().nth(i),
+            story,
+            i % 2 ? 'back' : 'escape',
+          )),
+        );
+      seen += count;
+      const next = supList.getByRole('button', { name: sw.next, exact: true });
+      if (!(await next.count()) || (await next.isDisabled())) break;
+      await next.click();
+    }
+    counts.push(seen);
+  }
+  assert.deepEqual(
+    places.toSorted(),
+    story.files
+      .flatMap((rows, source) =>
+        rows.slice(1).map((_, n) => `${source}:${n + 2}`),
+      )
+      .toSorted(),
+    `${what}: the cases draw every row of both files, once`,
+  );
+  report.push(
+    `supplier ${story.name} ${lang} ${width} ${motion}: ${counts.join(' / ')} cases`,
+  );
+  return counts;
+}
+async function supplierLang(lang) {
+  if ((await page.evaluate(() => document.documentElement.lang)) !== lang)
+    await page
+      .getByRole('button', {
+        name: lang === 'ar' ? 'AR العربية' : 'EN English',
+        exact: true,
+      })
+      .click();
+}
+const supExample = {
+  name: 'example',
+  files: demoFiles.map((f) => f.sheets[0].rows),
+  names: demoFiles.map((f) => f.name),
+};
+await page.setViewportSize({ width: 1440, height: 900 });
+await page.emulateMedia({ reducedMotion: null });
+watch.at('supplier: the example');
+await supplierLang('en');
+const supPanel = await openDomainWorkspace(page, 'supplier');
+await supPanel
+  .getByRole('button', { name: supWords.en.example, exact: true })
+  .click();
+await supPanel
+  .getByRole('button', { name: supWords.en.run, exact: true })
+  .click();
+await supRowsOf().first().waitFor();
+const supExampleCounts = [];
+for (const [lang, width, motion] of [
+  ['en', 1440, 'no-preference'],
+  ['ar', 390, 'reduce'],
+]) {
+  await supplierLang(lang);
+  supExampleCounts.push(await followSupplier(lang, width, motion, supExample));
+}
+await page.emulateMedia({ reducedMotion: null });
+await page.setViewportSize({ width: 1440, height: 900 });
+await supplierLang('en');
+// The same cases in both languages: five without a counterpart, two
+// matched and two to review, over eight supplier rows and six ledger rows.
+assert.deepEqual(
+  supExampleCounts,
+  [
+    [5, 2, 2],
+    [5, 2, 2],
+  ],
+  'supplier example: the same lists in both languages',
+);
+// Another list closes it: a tab, then a search.
+const supWay = () => supRowsOf().first().locator('td').first().getByRole('button');
+await supList.getByRole('tab', { name: 'Matched', exact: true }).click();
+await supWay().click();
+await drawer.waitFor();
+await supList.getByRole('tab', { name: 'Unmatched', exact: true }).click();
+await closed();
+assert.equal(await drawer.count(), 0, 'supplier: another tab closes it');
+await supWay().click();
+await drawer.waitFor();
+await supList
+  .getByRole('textbox', { name: 'Search results', exact: true })
+  .fill('INV');
+await closed();
+assert.equal(await drawer.count(), 0, 'supplier: a search closes it');
+await supList
+  .getByRole('textbox', { name: 'Search results', exact: true })
+  .fill('');
+// Leaving the review step closes it, as the keyboard leaves it: to the
+// workpaper and back.
+await supWay().click();
+await drawer.waitFor();
+for (const name of ['Prepare the workpaper', 'Back to review']) {
+  const step = page.getByRole('button', { name, exact: true });
+  await step.waitFor();
+  await step.focus();
+  await page.keyboard.press('Enter');
+}
+await supRowsOf().first().waitFor();
+assert.equal(
+  await drawer.count(),
+  0,
+  'supplier: leaving the review step closes it',
+);
+// A story of 81 rows written here: forty-one supplier rows (forty invoices
+// and a payment), forty ledger rows (thirty-five of those invoices, one at
+// another amount and four of its own), its columns in another order than
+// the example's, uploaded through the page's file inputs.
+watch.at('supplier: the long story');
+const supHeader = ['Reference', 'Posting date', 'Amount', 'Narrative'];
+const supLongFiles = [
+  [
+    supHeader,
+    ...Array.from({ length: 40 }, (_, k) => [
+      `SINV-${k + 1}`,
+      `2026-08-${String(1 + (k % 28)).padStart(2, '0')}`,
+      `${(k + 1) * 10}.00`,
+      `Synthetic invoice ${k + 1}`,
+    ]),
+    ['SPAY-1', '2026-08-29', '-55.00', 'Synthetic payment'],
+  ],
+  [
+    supHeader,
+    ...Array.from({ length: 40 }, (_, k) =>
+      k % 10 === 9
+        ? [
+            `LOCAL-${k + 1}`,
+            `2026-08-${String(1 + (k % 28)).padStart(2, '0')}`,
+            `${k + 3}.00`,
+            `Ledger only ${k + 1}`,
+          ]
+        : [
+            `SINV-${k + 1}`,
+            `2026-08-${String(1 + (k % 28)).padStart(2, '0')}`,
+            `${(k + 1) * 10 + (k === 4 ? 1 : 0)}.00`,
+            `Synthetic invoice ${k + 1}`,
+          ],
+    ),
+  ],
+];
+const supLong = {
+  name: 'long',
+  files: supLongFiles,
+  names: ['supplier-long.csv', 'ledger-long.csv'],
+};
+await page.reload();
+await supplierLang('en');
+const supLongPanel = await openDomainWorkspace(page, 'supplier');
+for (const [i, label] of [
+  'Supplier statement',
+  'Accounts payable report',
+].entries()) {
+  const file = path.join(out, supLong.names[i]);
+  await writeFile(file, supLongFiles[i].map((r) => r.join(',')).join('\n') + '\n');
+  await supLongPanel.getByLabel(label, { exact: true }).setInputFiles(file);
+  await supLongPanel.getByText(supLong.names[i], { exact: true }).first().waitFor();
+}
+// The files as this check reads them back from the bytes it wrote.
+for (const [i, rows] of supLongFiles.entries())
+  assert.deepEqual(
+    csvRows(await readFile(path.join(out, supLong.names[i]), 'utf8')),
+    rows,
+    `supplier long: file ${i} reads back`,
+  );
+await supLongPanel.getByRole('button', { name: 'Confirm data', exact: true }).click();
+await supLongPanel.getByLabel('Currency', { exact: true }).fill('SAR');
+await supLongPanel.getByLabel('Cut-off date', { exact: true }).fill('2026-08-31');
+await supLongPanel
+  .getByRole('button', { name: supWords.en.run, exact: true })
+  .click();
+await supRowsOf().first().waitFor();
+const supLongCounts = await followSupplier(
+  'en',
+  1024,
+  'no-preference',
+  supLong,
+);
+assert.ok(
+  supLongCounts[1] > 30,
+  `supplier long: the matched list has more than a page: ${supLongCounts.join(' ')}`,
+);
+// The way back returns to the row's own page after the list was turned.
+watch.at('supplier: the way back over pages');
+await supList.getByRole('tab', { name: 'Unmatched', exact: true }).click();
+await supList.getByRole('tab', { name: 'Matched', exact: true }).click();
+await supList.getByRole('button', { name: 'Next page', exact: true }).click();
+const supTurned = supRowsOf().nth(3),
+  supTurnedName = (
+    await supTurned.locator('td').first().getByRole('button').textContent()
+  ).trim();
+await supTurned.locator('td').first().getByRole('button').click();
+await drawer.waitFor();
+await supList
+  .getByRole('button', { name: 'Previous page', exact: true })
+  .click();
+assert.ok(
+  !(await supList.getByText(supTurnedName.split(' · ').slice(1).join(' · '), {
+    exact: true,
+  }).count()),
+  'supplier long: the row is off the page shown',
+);
+await drawer.getByRole('button', { name: threadWords.en.back, exact: true }).click();
+await closed();
+assert.equal(
+  (await focused()).text.trim(),
+  supTurnedName,
+  'supplier long: the way back returns to the row on its page',
+);
+// Fourteen rows of the example twice, and the story's 81.
+assert.deepEqual(
+  [supOpened, supRows],
+  [2 * 9 + supLongCounts.reduce((a, b) => a + b, 0), 2 * 14 + 81],
+  'supplier: cases opened and rows drawn',
+);
+// A change of type closes it.
+await supWay().click();
+await drawer.waitFor();
+await page.locator('select[data-reconciliation-type-select]').selectOption('bank');
+await openDomainWorkspace(page, 'supplier');
+assert.equal(await drawer.count(), 0, 'supplier: a change of type closes it');
 
 watch.stop();
 assert.deepEqual(errors, [], 'no page error');

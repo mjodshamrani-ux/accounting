@@ -675,17 +675,23 @@ export async function supplierSheetSaysScreen(
     await page.locator('.results-frame table').waitFor();
     const out = [];
     for (const row of await body.all()) {
+      // The first cell is the way to the row's evidence (UX-10), which the
+      // sheet does not have.
       const cell = row.locator('td');
+      assert.ok(
+        (await cell.nth(0).innerText()).startsWith(THREAD_WAY[lang]),
+        'a case row opens with the way to its evidence',
+      );
       out.push({
-        side: (await cell.nth(0).innerText()).split('·')[0].trim(),
-        date: (await cell.nth(1).innerText()).trim(),
-        reference: (await cell.nth(2).locator('bdi').innerText()).trim(),
-        amount: (await cell.nth(3).innerText()).split('\n')[0].trim(),
-        members: (await cell.nth(3).locator('.muted').innerText())
+        side: (await cell.nth(1).innerText()).split('·')[0].trim(),
+        date: (await cell.nth(2).innerText()).trim(),
+        reference: (await cell.nth(3).locator('bdi').innerText()).trim(),
+        amount: (await cell.nth(4).innerText()).split('\n')[0].trim(),
+        members: (await cell.nth(4).locator('.muted').innerText())
           .match(/(\d+):(\d+)/u)
           .slice(1, 3)
           .reduce((a, b) => a + Number(b), 0),
-        state: (await cell.nth(4).innerText()).trim(),
+        state: (await cell.nth(5).innerText()).trim(),
       });
     }
     return out;
@@ -1146,9 +1152,9 @@ const GATEWAY_WORDS = {
 };
 
 /** A record table's head and body cells, as the page writes them. */
-// A comparison row, and a gateway batch's totals and residuals, open with the
-// way to their evidence (UX-10). The sheet has no such column: it is required
-// where the page draws it, then set aside.
+// A comparison row, a gateway batch's totals and residuals, and a supplier
+// case row open with the way to their evidence (UX-10). The sheet has no
+// such column: it is required where the page draws it, then set aside.
 const THREAD_WAY = { en: 'Review source rows', ar: 'راجع صفوف المصدر' };
 function withoutWay({ head, body }, lang, what) {
   if (!body.length) return { head, body };

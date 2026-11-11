@@ -7,6 +7,7 @@ import type { BalanceField, GlTbResult } from './reconciliation/gl-tb.ts';
 import type { FinancialResult } from './reconciliation/tb-financial.ts';
 import type { IntercompanyResult } from './reconciliation/intercompany.ts';
 import type { GatewayResult } from './reconciliation/payment-gateway.ts';
+import type { Comparison, SourceFile } from './reconciliation/types.ts';
 import {
   ASSET_ROLES,
   type AssetResult,
@@ -469,5 +470,76 @@ export function gatewayThread(
         cells: byRow.get(`${source}:${row}`) ?? [],
       },
     ];
+  });
+}
+
+/** Where the supplier engine says a side's rows came from: the file's
+ * SHA-256, or for a file read without one a fingerprint of the sheet's
+ * cells, then the sheet. The engine's own recipe (core.ts), written here so
+ * that the projection loads no engine; if the two ever part, no cells are
+ * drawn, and the tests and the browser check see it. */
+function supplierOrigin(file: SourceFile, sheet: number) {
+  if (file.sha256) return `${file.sha256}#${sheet}`;
+  const text = JSON.stringify(file.sheets[sheet]?.rows ?? []);
+  let h1 = 0xdeadbeef,
+    h2 = 0x41c6ce57;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761);
+    h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1 =
+    Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^
+    Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 =
+    Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^
+    Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return `content:${(h2 >>> 0).toString(16)}${(h1 >>> 0).toString(16)}:${text.length}#${sheet}`;
+}
+
+/** A row of the supplier results: every source row the engine traced for
+ * its case, in the case's order, from the supplier statement (0) or the AP
+ * ledger (1). The result keeps each row's side, sheet and row, not its
+ * cells: the cells drawn are the texts the reader read at that row of the
+ * file the result was computed from, under the header row the reading
+ * names, and only when that file is the one the result recorded for its
+ * side (the same name and origin). Otherwise the row is drawn by its place
+ * alone. A row is named by its transaction id. */
+export function supplierThread(
+  result: Comparison,
+  files: readonly (SourceFile | null)[],
+  id: string,
+): Thread {
+  const found = result.cases.find((c) =>
+    c.sourceTrace.some((t) => t.sourceRowId === id),
+  );
+  if (!found) return [];
+  const sides = [result.supplier, result.ledger];
+  return found.sourceTrace.map((trace): ThreadSource => {
+    const source = trace.side === 'supplier' ? 0 : 1,
+      read = sides[source],
+      file = files[source],
+      rows =
+        file &&
+        file.name === read.sourceName &&
+        supplierOrigin(file, read.mapping.sheet) === read.sourceOrigin
+          ? file.sheets[read.mapping.sheet]?.rows
+          : undefined,
+      line = rows?.[trace.row - 1],
+      header = rows?.[read.mapping.header] ?? [];
+    return {
+      source,
+      role: trace.side,
+      name: read.sourceName,
+      sheet: trace.sheet,
+      place: { row: trace.row },
+      cells: line
+        ? line.map((said, n) => ({
+            column: n + 1,
+            field: header[n] ?? '',
+            text: said,
+          }))
+        : null,
+    };
   });
 }

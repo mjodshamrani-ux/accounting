@@ -10,12 +10,14 @@
 // no browser check holds. UX-10(d) adds the fixed assets, the payroll and the
 // inventory's register rows that do not link, the GL and TB balance
 // components, the clearing cases, the receivables cases, the lines of the
-// financial position, the intercompany pairs and the payment gateway's
-// totals and residuals: whose row the drawer opens, the roles, the file, the
-// heading or the figures, the way in that names its row, the marked row,
+// financial position, the intercompany pairs, the payment gateway's
+// totals and residuals and the supplier's cases: whose row the drawer
+// opens, the roles, the file, the heading or the figures, the way in that
+// names its row, the marked row,
 // card (its frame and the frame's motion) or section heading (its shade and
 // its motion), the financial lines' and the pairs' way back to their own
-// page, and a decision that leaves the old evidence open.
+// page, a decision that leaves the old evidence open, and the supplier's
+// way back to the case's page and the list change or step that closes it.
 //
 // Not planted: the drawer's motion outside its reduced-motion guard. The
 // page's own rule (app/globals.css) sets every animation to none under
@@ -66,6 +68,7 @@ const AR = 'components/ar-workspace.tsx';
 const FINANCIAL = 'components/tb-financial-workspace.tsx';
 const INTERCOMPANY = 'components/intercompany-workspace.tsx';
 const GATEWAY = 'components/payment-gateway-workspace.tsx';
+const PAGE = 'app/page.tsx';
 const HOOK = 'hooks/use-evidence-thread.ts';
 const mutations = [
   [
@@ -626,6 +629,78 @@ const mutations = [
     GATEWAY,
     "  const thread = useEvidenceThread(active, result),\n    words = evidenceThreadCopy[lang],\n    opened = result && thread.open",
     "  const thread = useEvidenceThread(active, null),\n    words = evidenceThreadCopy[lang],\n    opened = result && thread.open",
+  ],
+  [
+    "sup-list-not-headed",
+    PAGE,
+    "                                <TableHead>{threadWords.way}</TableHead>\n",
+    "",
+  ],
+  [
+    "sup-way-not-named",
+    PAGE,
+    "                                          <span className=\"sr-only\">\n                                            {' · '}\n                                            {t.app.sideShort[tx.side]} ·{' '}\n                                            {tx.row}\n                                          </span>\n",
+    "",
+  ],
+  [
+    "sup-way-opens-the-first-row",
+    PAGE,
+    "thread.show('transactions', at)",
+    "thread.show('transactions', 0)",
+  ],
+  [
+    "sup-row-not-marked",
+    PAGE,
+    "                                      {...thread.mark('transactions', at)}\n",
+    "",
+  ],
+  [
+    "sup-heading-without-row",
+    PAGE,
+    "heading={`${threadWords.heading} · ${t.app.sideShort[threadOpen.side]} · ${threadOpen.row}`}",
+    "heading={`${threadWords.heading} · ${t.app.sideShort[threadOpen.side]}`}",
+  ],
+  [
+    "sup-back-stays-on-the-page",
+    PAGE,
+    "                            if (shown >= 0) setPage(pageOfRow(shown, 30));\n",
+    "",
+  ],
+  [
+    "sup-amount-of-the-ledger",
+    PAGE,
+    "                                    threadCase.supplierMembers.length\n                                      ? threadCase.supplierTotal\n                                      : threadCase.ledgerTotal,",
+    "                                    threadCase.ledgerTotal,",
+  ],
+  [
+    "sup-trace-of-the-first-row",
+    PAGE,
+    "                              files,\n                              threadOpen.id,\n",
+    "                              files,\n                              result.supplier.transactions[0].id,\n",
+  ],
+  [
+    "sup-files-swapped",
+    PAGE,
+    "                            thread={supplierThread(\n                              result,\n                              files,\n",
+    "                            thread={supplierThread(\n                              result,\n                              [files[1], files[0]],\n",
+  ],
+  [
+    "sup-role-of-the-statement",
+    PAGE,
+    "                              t.app.sideShort[s.role as 'supplier' | 'ledger']",
+    "                              t.app.sideShort.supplier",
+  ],
+  [
+    "sup-tab-keeps-it",
+    PAGE,
+    "    () => ({ result, tab, query }),\n    [result, tab, query],",
+    "    () => ({ result }),\n    [result],",
+  ],
+  [
+    "sup-step-keeps-it",
+    PAGE,
+    "      domain === 'supplier' && step === 2,",
+    "      domain === 'supplier',",
   ],
   [
     'hook-keeps-it-on-type-change',

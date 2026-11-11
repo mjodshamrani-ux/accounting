@@ -584,6 +584,72 @@ const mutations = [
     "        sheet: named.sheet,\n        place: { row },",
     "        sheet: null,\n        place: { row },",
   ],
+  [
+    "sup-origin-unchecked",
+    THREAD,
+    "        supplierOrigin(file, read.mapping.sheet) === read.sourceOrigin\n",
+    "        true\n",
+  ],
+  [
+    "sup-name-unchecked",
+    THREAD,
+    "        file.name === read.sourceName &&\n",
+    "",
+  ],
+  [
+    "sup-row-from-zero",
+    THREAD,
+    "      line = rows?.[trace.row - 1],",
+    "      line = rows?.[trace.row],",
+  ],
+  [
+    "sup-header-of-the-first-row",
+    THREAD,
+    "      header = rows?.[read.mapping.header] ?? [];",
+    "      header = rows?.[0] ?? [];",
+  ],
+  [
+    "sup-sides-swapped",
+    THREAD,
+    "    const source = trace.side === 'supplier' ? 0 : 1,",
+    "    const source = trace.side === 'supplier' ? 1 : 0,",
+  ],
+  [
+    "sup-first-trace-only",
+    THREAD,
+    "  return found.sourceTrace.map((trace): ThreadSource => {",
+    "  return found.sourceTrace.slice(0, 1).map((trace): ThreadSource => {",
+  ],
+  [
+    "sup-fingerprint-drifts",
+    THREAD,
+    "  let h1 = 0xdeadbeef,\n    h2 = 0x41c6ce57;\n  for (let i = 0; i < text.length; i++) {\n    const ch = text.charCodeAt(i);\n    h1 = Math.imul(h1 ^ ch, 2654435761);",
+    "  let h1 = 0xdeadbeee,\n    h2 = 0x41c6ce57;\n  for (let i = 0; i < text.length; i++) {\n    const ch = text.charCodeAt(i);\n    h1 = Math.imul(h1 ^ ch, 2654435761);",
+  ],
+  [
+    "sup-case-of-the-first-row",
+    THREAD,
+    "  const found = result.cases.find((c) =>\n    c.sourceTrace.some((t) => t.sourceRowId === id),\n  );\n  if (!found) return [];\n  const sides",
+    "  const found = result.cases.find((c) =>\n    c.sourceTrace.some((t) => t.sourceRowId === id),\n  ) && result.cases[0];\n  if (!found) return [];\n  const sides",
+  ],
+  [
+    "sup-field-is-text",
+    THREAD,
+    "            field: header[n] ?? '',\n            text: said,\n",
+    "            field: said,\n            text: said,\n",
+  ],
+  [
+    "sup-column-from-zero",
+    THREAD,
+    "            column: n + 1,",
+    "            column: n,",
+  ],
+  [
+    "sup-name-of-the-statement",
+    THREAD,
+    "      name: read.sourceName,\n      sheet: trace.sheet,",
+    "      name: result.supplier.sourceName,\n      sheet: trace.sheet,",
+  ],
 ];
 const files = [THREAD, ...tests];
 const digest = (b) => createHash('sha256').update(b).digest('hex');
