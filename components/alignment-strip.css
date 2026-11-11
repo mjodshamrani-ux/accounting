@@ -117,10 +117,15 @@
 .alignment-strip__cell[data-tone='difference'] .alignment-strip__value {
   color: var(--tone-difference-text);
 }
+/* Each record's column is never narrower than its longest word: since UX-8
+   a source name is never under 13 px, and at 320 px "disbursement" had a
+   fraction of a pixel to spare in a half, so a browser whose Latin face is
+   a little wider broke it inside the word (DEV-107). The other record
+   gives up the room; both stay side by side. */
 @media (max-width: 640px) {
   .alignment-strip__drawn,
   .alignment-strip[data-sides='1'] .alignment-strip__drawn {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(min-content, 1fr) minmax(min-content, 1fr);
   }
   .alignment-strip__paper[data-strip-side='0'] {
     grid-column: 1;
