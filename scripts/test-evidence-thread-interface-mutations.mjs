@@ -13,6 +13,9 @@
 // page's own rule (app/globals.css) sets every animation to none under
 // reduced motion, so that mutant draws the same page; it survived its first
 // run as an equivalent mutant (docs/audits/UX-10-EVIDENCE-THREAD.ar.md §9).
+// Nor the shared hook's return to the row's page: the comparison tables of
+// the asset and payroll examples hold one page, so no check can see it there
+// (the bank's own way back to its page is planted above).
 //   node scripts/test-evidence-thread-interface-mutations.mjs
 import {
   cp,
@@ -44,6 +47,9 @@ const acceptance = 'scripts/evidence-thread-browser.mjs';
 const DRAWER = 'components/evidence-drawer.tsx';
 const STYLE = 'components/evidence-drawer.css';
 const BANK = 'components/bank-workspace.tsx';
+const ASSETS = 'components/fixed-assets-workspace.tsx';
+const PAYROLL = 'components/payroll-workspace.tsx';
+const HOOK = 'hooks/use-evidence-thread.ts';
 const mutations = [
   [
     'drawer-in-the-page',
@@ -188,6 +194,71 @@ const mutations = [
     BANK,
     'thread={bankThread(result, evidence.id)}',
     'thread={bankThread(result, result.records[0].id)}',
+  ],
+  // UX-10(d): the fixed assets and the payroll, through the shared hook.
+  [
+    'asset-thread-of-the-first-comparison',
+    ASSETS,
+    `                    opened.at,
+`,
+    `                    0,
+`,
+  ],
+  [
+    'asset-roles-all-register',
+    ASSETS,
+    'role={(s) => copy.roles[s.source]}',
+    'role={() => copy.roles[0]}',
+  ],
+  [
+    'asset-difference-figure-left-out',
+    ASSETS,
+    '[copy.comparisons[5], opened.row.difference],',
+    '[copy.comparisons[5], opened.row.register],',
+  ],
+  [
+    'payroll-bank-rows-left-out',
+    PAYROLL,
+    'thread={payrollBankThread(result, labels)}',
+    'thread={[]}',
+  ],
+  [
+    'payroll-thread-of-the-first-comparison',
+    PAYROLL,
+    'thread={payrollThread(result, labels, thread.open.at)}',
+    'thread={payrollThread(result, labels, 0)}',
+  ],
+  [
+    'hook-keeps-it-on-type-change',
+    HOOK,
+    `    setSeen({ shown, result });
+    setOpen(null);`,
+    `    setSeen({ shown, result });`,
+  ],
+  [
+    'hook-way-back-keeps-it-open',
+    HOOK,
+    `      setFocus({ ...open, to: 'row' });
+      setOpen(null);`,
+    `      setFocus({ ...open, to: 'row' });`,
+  ],
+  [
+    'hook-focus-stays',
+    HOOK,
+    '    element?.focus({ preventScroll: true });',
+    '',
+  ],
+  [
+    'hook-drawer-not-named',
+    HOOK,
+    "'aria-controls': isOpen(table, at) ? id : undefined,",
+    "'aria-controls': undefined,",
+  ],
+  [
+    'hook-row-not-marked',
+    HOOK,
+    "isOpen(table, at) ? { 'data-thread-open': '' } : undefined,",
+    'undefined,',
   ],
 ];
 const buildInputs = [

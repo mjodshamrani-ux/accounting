@@ -35325,8 +35325,8 @@
     },
     {
       "path": "components/fixed-assets-workspace.tsx",
-      "bytes": 34649,
-      "sha256": "39cd080521f17232c67f13a25bd32e076c0d18805b5456ba825a45c215ec6a00",
+      "bytes": 37090,
+      "sha256": "22e3a4fcff8e22a66b51ca61f8afe8f1e35f4426072555f968f4271dff347e04",
       "kind": "text"
     },
     {
@@ -35391,8 +35391,8 @@
     },
     {
       "path": "components/payroll-workspace.tsx",
-      "bytes": 33505,
-      "sha256": "fb19b2ee6113393a33ee481b16d962655b6d81df11e22486efd6b18c2494ce2c",
+      "bytes": 37518,
+      "sha256": "f6fa0c27dbb33f32265465535bdf937c508605091305aa16aa5b3570b6eeceb8",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 74348,
-      "sha256": "bd8cb0af400af8cf01bd82d8b3cb0c5b2c6110dbabb091ea4591aa00fe0dbf42",
+      "bytes": 74582,
+      "sha256": "9a14cf4d885c7c56f7220632be9ae6136d353c062e7f7376473d743b5a010ddc",
       "kind": "text"
     },
     {
@@ -73481,8 +73481,8 @@
     },
     {
       "path": "docs/roadmap/ux.ar.md",
-      "bytes": 65192,
-      "sha256": "7aba3ddc8b4deb343fea456ded42611291596dbb50d8146a0f3ee0f92b56bd95",
+      "bytes": 65257,
+      "sha256": "e9bd604bc3b93772349fac4b1b6ff9f869b8267a469d5f283f2e965edd78359d",
       "kind": "text"
     },
     {
@@ -73871,8 +73871,8 @@
     },
     {
       "path": "scripts/reconciliation-sheet-browser.mjs",
-      "bytes": 71549,
-      "sha256": "49e94b7212b42900d3de2e651fc40910a5631747366da18c127b181691bbf085",
+      "bytes": 72276,
+      "sha256": "66a65a13e4b5c5c991ec33b334c59897158576eac5844c48e8b567eab4e77305",
       "kind": "text"
     },
     {
@@ -74211,8 +74211,8 @@
     },
     {
       "path": "docs/audits/UX-10-EVIDENCE-THREAD.ar.md",
-      "bytes": 25348,
-      "sha256": "88e8dc29d0e051168336a91a8d724c693d26b03db9af35e4eb94ad3b2f991feb",
+      "bytes": 28888,
+      "sha256": "1c9360e49ad8c6364ea5b208f341000d1563fa65d903cebd8d5e903428ac34ea",
       "kind": "text"
     },
     {
@@ -74247,20 +74247,26 @@
     },
     {
       "path": "lib/i18n/evidence-thread.ts",
-      "bytes": 1165,
-      "sha256": "f65f6e1449f5c93cd727b9cf70af2664f417cc86bd382ec9f3f2391c74de2594",
+      "bytes": 1535,
+      "sha256": "61f31e6df134ab640c67645abed01a1629ea8e5d5c6c7e9f17360862d88ab6f9",
       "kind": "text"
     },
     {
       "path": "scripts/evidence-thread-browser.mjs",
-      "bytes": 16119,
-      "sha256": "d0799dab37f52d692b27c885cf85e6b01a6a59c14d0c86660cc1420457ef0dcb",
+      "bytes": 29059,
+      "sha256": "a7216202455896944fc8b0435b0c22d79ef01e4b5789740726212af77a33c396",
       "kind": "text"
     },
     {
       "path": "scripts/test-evidence-thread-interface-mutations.mjs",
-      "bytes": 9670,
-      "sha256": "733f56dbe535596664fe1c884ad16b988eb164dc95eafbb0be51a332139e1d3f",
+      "bytes": 11541,
+      "sha256": "5e4db092eb6c6208968a27fdb5f28bb6bb0d680954b2519369bd78ed4b6d1dcd",
+      "kind": "text"
+    },
+    {
+      "path": "hooks/use-evidence-thread.ts",
+      "bytes": 2576,
+      "sha256": "82100012d34b2d048a7277c783d0752caaa4e2d4e70f335042a6517aebfcffc9",
       "kind": "text"
     }
   ],

@@ -1127,6 +1127,17 @@ const GATEWAY_WORDS = {
 };
 
 /** A record table's head and body cells, as the page writes them. */
+// A comparison row opens with the way to its evidence (UX-10). The sheet has
+// no such column: it is required where the page draws it, then set aside.
+const THREAD_WAY = { en: 'Review source rows', ar: 'راجع صفوف المصدر' };
+function withoutWay({ head, body }, lang, what) {
+  if (!body.length) return { head, body };
+  assert.equal(head[0], THREAD_WAY[lang], `${what}: the way to the evidence`);
+  for (const row of body)
+    assert.ok(row[0].startsWith(THREAD_WAY[lang]), `${what}: ${row[0]}`);
+  return { head: head.slice(1), body: body.map((row) => row.slice(1)) };
+}
+
 async function tableCells(table) {
   const head = (await table.locator('thead th').allTextContents()).map((x) =>
     x.trim(),
@@ -1548,8 +1559,10 @@ export async function fixedAssetsSheetSaysScreen(page, { file, lang }) {
   // complete dimensions, its component, then each figure by the page's
   // heading.
   const compared = section('Component comparisons');
-  const rows = await tableCells(
-    w.locator(`table[aria-label="${words.comparisons}"]`),
+  const rows = withoutWay(
+    await tableCells(w.locator(`table[aria-label="${words.comparisons}"]`)),
+    lang,
+    'the comparisons',
   );
   if (!rows.body.length) assert.equal(compared, -1, 'no comparison, no table');
   else {
@@ -1727,8 +1740,10 @@ export async function payrollSheetSaysScreen(page, { file, lang }) {
   // The register net against the bank outflow: the page's one row under its
   // three headings, a dash where the page shows one.
   const bank = section('Bank comparison');
-  const banked = await tableCells(
-    w.locator(`table[aria-label="${words.bank}"]`),
+  const banked = withoutWay(
+    await tableCells(w.locator(`table[aria-label="${words.bank}"]`)),
+    lang,
+    'the bank comparison',
   );
   assert.equal(banked.body.length, 1, 'one bank row on the page');
   assert.ok(bank >= 0, 'the bank comparison');
@@ -1742,8 +1757,10 @@ export async function payrollSheetSaysScreen(page, { file, lang }) {
   // complete dimensions, its component, then each figure by the page's
   // heading.
   const compared = section('Component comparisons');
-  const rows = await tableCells(
-    w.locator(`table[aria-label="${words.comparisons}"]`),
+  const rows = withoutWay(
+    await tableCells(w.locator(`table[aria-label="${words.comparisons}"]`)),
+    lang,
+    'the comparisons',
   );
   if (!rows.body.length) assert.equal(compared, -1, 'no comparison, no table');
   else {

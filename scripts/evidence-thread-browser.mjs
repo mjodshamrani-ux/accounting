@@ -16,6 +16,13 @@
 // - Escape closes it and returns the focus to the same way in; the way back
 //   does the same on the movement's own page after the table was turned;
 // - another run and a change of type each close it.
+// Then (UX-10(d)) in the fixed assets and the payroll, with their examples,
+// whose files are frozen cases read here: in English and Arabic at 1440,
+// 1024 and 390 px, every comparison opens the GL row of its account (and
+// component) and then exactly the register rows whose mapping names that
+// account and component, each cell as the file holds it, with the table's
+// figures; the payroll register net opens every bank payout row; Escape and
+// the way back close it, and a change of type does too.
 //   node scripts/evidence-thread-browser.mjs
 // EVIDENCE_THREAD_DIST names another build (a mutation gate's copy).
 import assert from 'node:assert/strict';
@@ -278,9 +285,10 @@ async function follow(lang, width, motion, index) {
   );
   const amount = drawer.locator('.evidence-drawer__amount');
   assert.equal(await amount.count(), 1, `${what}: the amount is shown`);
-  assert.ok(
-    (await amount.innerText()).includes(cells[11]),
-    `${what}: the amount as the table shows it`,
+  assert.equal(
+    (await amount.locator('.bank-movement-amount').innerText()).trim(),
+    cells[11],
+    `${what}: the amount, whole, as the table shows it`,
   );
   const shown = await drawer
     .locator('[data-thread-source] tbody tr')
@@ -416,6 +424,337 @@ await page
 await openDomainWorkspace(page, 'bank');
 await rows().first().waitFor();
 assert.equal(await drawer.count(), 0, 'a change of type closes the evidence');
+
+// UX-10(d): in the fixed assets and the payroll, each comparison by account
+// and component opens the GL row it compares, then the register rows of
+// that account and component; the payroll register net opens the bank
+// payout rows. Each example's files are a frozen case, read here with this
+// check's own split, and the rows each thread must hold are worked out here
+// from them: the GL row of the account (and, in the payroll, of the
+// component), and the register rows whose mapping row names that account
+// and component.
+const caseRows = async (dir, count) =>
+  Promise.all(
+    Array.from({ length: count }, async (_, s) =>
+      (await readFile(`${dir}/source-${s}.csv`, 'utf8'))
+        .split(/\r?\n/u)
+        .filter((line) => line.trim())
+        .map((line) => line.split(',')),
+    ),
+  );
+const column = (rows, name) => {
+  const at = rows[0].indexOf(name);
+  assert.ok(at >= 0, `the column ${name}`);
+  return at;
+};
+const families = {
+  assets: {
+    workspace: '[data-asset-workspace]',
+    status: '[data-asset-status]',
+    dir: 'audit/fixed-assets/cases/three-components-positive',
+    sources: 4,
+    party: 'Asset ID',
+    example: {
+      en: 'Open a synthetic asset example',
+      ar: 'افتح مثال أصول اصطناعي',
+    },
+    roles: {
+      en: [
+        'Posted asset component register',
+        'Proposed asset component / GL mapping',
+        'Independent supplied asset policy evidence',
+        'Selected asset GL balances',
+      ],
+      ar: [
+        'سجل مكونات الأصول المرحل',
+        'خريطة مكونات الأصول والأستاذ المقترحة',
+        'دليل سياسة الأصول المستقل المقدم',
+        'أرصدة مكونات الأصول في الأستاذ المحددة',
+      ],
+    },
+    comparisons: {
+      en: 'Comparison by account and component',
+      ar: 'المقارنة حسب الحساب والمكون',
+    },
+  },
+  payroll: {
+    workspace: '[data-payroll-workspace]',
+    status: '[data-payroll-status]',
+    dir: 'audit/payroll/cases/seven-components-and-bank-positive',
+    sources: 5,
+    party: 'Employee ID',
+    example: {
+      en: 'Open a synthetic payroll example',
+      ar: 'افتح مثال رواتب اصطناعي',
+    },
+    roles: {
+      en: [
+        'Posted employee payroll register',
+        'Proposed employee component / GL mapping',
+        'Independent supplied payroll policy evidence',
+        'Selected posted payroll and disbursement GL entries',
+        'Independent posted bank payout',
+      ],
+      ar: [
+        'مسير الموظفين المرحل',
+        'خريطة مكونات الموظفين والأستاذ المقترحة',
+        'دليل سياسة الرواتب المستقل المقدم',
+        'قيود الرواتب والصرف المرحلة المحددة',
+        'الصرف البنكي المرحل المستقل',
+      ],
+    },
+    comparisons: {
+      en: 'Comparison by account and component',
+      ar: 'المقارنة حسب الحساب والمكون',
+    },
+    bank: {
+      en: 'Register net against the bank outflow',
+      ar: 'صافي المسير مقابل الصرف البنكي',
+    },
+  },
+};
+const threadWords = {
+  en: {
+    way: 'Review source rows',
+    heading: 'Source rows',
+    back: 'Back to the row in its table',
+  },
+  ar: {
+    way: 'راجع صفوف المصدر',
+    heading: 'صفوف المصدر',
+    back: 'عُد إلى الصف في جدوله',
+  },
+};
+// The drawer's sources as drawn: each one's source index, role, row and
+// cells [header, column, text].
+const drawn = () =>
+  drawer.locator('[data-thread-source]').evaluateAll((sections) =>
+    sections.map((s) => ({
+      source: Number(s.getAttribute('data-thread-source')),
+      role: s.querySelector('h3')?.textContent.trim(),
+      row: Number(s.querySelector('[data-thread-row]')?.textContent),
+      cells: [...s.querySelectorAll('tbody tr')].map((tr) =>
+        [...tr.children].map((c) => c.textContent.trim()),
+      ),
+    })),
+  );
+// A drawn source against its file: every cell of the row it names, in
+// order, with the file's header and text.
+function heldToFile(source, files, what) {
+  const rows = files[source.source],
+    row = rows[source.row - 1];
+  assert.ok(source.row > 1 && row, `${what}: row ${source.row} of a file`);
+  assert.deepEqual(
+    source.cells,
+    row.map((text, i) => [rows[0][i], String(i + 1), text]),
+    `${what}: every cell of row ${source.row} as the file holds it`,
+  );
+}
+const followedRows = { assets: 0, payroll: 0 };
+async function followFamily(name, lang, width, motion) {
+  const f = families[name],
+    w = page.locator(f.workspace),
+    tw = threadWords[lang],
+    what = `${name} ${lang} ${width} px ${motion}`;
+  await page.setViewportSize({ width, height: 900 });
+  await page.emulateMedia({ reducedMotion: motion });
+  const files = await caseRows(f.dir, f.sources),
+    [register, mapping, , gl] = files;
+  const table = w.locator(`table[aria-label="${f.comparisons[lang]}"]`),
+    count = await table.locator('tbody tr').count();
+  assert.ok(count >= 3, `${what}: comparisons are shown`);
+  const head = await table.locator('thead th').allInnerTexts();
+  assert.equal(head[0].trim(), tw.way, `${what}: the way in opens each row`);
+  for (let i = 0; i < count; i++) {
+    const row = table.locator('tbody tr').nth(i),
+      cells = (await row.locator('td, th').allInnerTexts()).map((x) =>
+        x.trim(),
+      ),
+      [, account, , component] = cells,
+      way = row.getByRole('button', {
+        name: `${tw.way} · ${account} · ${component}`,
+        exact: true,
+      });
+    assert.equal(await way.count(), 1, `${what} ${account}: the way in`);
+    assert.equal(await way.getAttribute('aria-expanded'), 'false', what);
+    await way.click();
+    await drawer.waitFor();
+    await arrived();
+    assert.equal(await way.getAttribute('aria-expanded'), 'true', what);
+    assert.equal(
+      await way.getAttribute('aria-controls'),
+      await drawer.getAttribute('id'),
+      `${what}: the way in names the drawer`,
+    );
+    const opened = await focused();
+    assert.deepEqual([opened.tag, opened.inDrawer], ['H2', true], what);
+    assert.equal(
+      opened.text,
+      `${tw.heading} · ${account} · ${component}`,
+      `${what}: the heading names the comparison`,
+    );
+    const sources = await drawn();
+    // The GL row first: the one of this account, and in the payroll of
+    // this component.
+    const glSource = sources[0];
+    assert.equal(glSource?.source, 3, `${what} ${account}: the GL row first`);
+    assert.equal(glSource.role, f.roles[lang][3], `${what}: the GL role`);
+    heldToFile(glSource, files, `${what} ${account} GL`);
+    const glRow = gl[glSource.row - 1];
+    assert.equal(glRow[column(gl, 'GL account')], account, `${what}: account`);
+    const components =
+      name === 'payroll'
+        ? [glRow[column(gl, 'Component')]]
+        : [
+            ...new Set(
+              mapping
+                .slice(1)
+                .filter((m) => m[column(mapping, 'GL account')] === account)
+                .map((m) => m[column(mapping, 'Component')]),
+            ),
+          ];
+    assert.equal(components.length, 1, `${what}: one component maps there`);
+    // Then the register rows mapped to this account and component.
+    const parties = new Set(
+      mapping
+        .slice(1)
+        .filter(
+          (m) =>
+            m[column(mapping, 'GL account')] === account &&
+            m[column(mapping, 'Component')] === components[0],
+        )
+        .map((m) => m[column(mapping, f.party)]),
+    );
+    const expected = register
+      .map((r, at) => [r, at + 1])
+      .filter(([r], at) => at > 0 && parties.has(r[column(register, f.party)]))
+      .map(([, number]) => number);
+    assert.deepEqual(
+      sources.slice(1).map((s) => [s.source, s.row]),
+      expected.map((number) => [0, number]),
+      `${what} ${account}: the register rows of the account and component`,
+    );
+    for (const s of sources.slice(1)) {
+      assert.equal(s.role, f.roles[lang][0], `${what}: the register role`);
+      heldToFile(s, files, `${what} ${account} register`);
+    }
+    followedRows[name] += sources.length;
+    // Each figure whole and in its place, as the table shows it: a part of
+    // one figure inside another is not the same figure.
+    assert.deepEqual(
+      (
+        await drawer
+          .locator('.evidence-drawer__amount .tarasuf-amount')
+          .allInnerTexts()
+      ).map((x) => x.trim()),
+      cells.slice(4),
+      `${what} ${account}: the table's figures`,
+    );
+    assert.equal(
+      await page.locator('tr[data-thread-open]').count(),
+      1,
+      `${what}: the row is marked`,
+    );
+    await drawer.getByRole('heading', { level: 2 }).press('Escape');
+    await closed();
+    assert.equal(await drawer.count(), 0, `${what}: Escape closes it`);
+    assert.equal(
+      await page.evaluate(() =>
+        document.activeElement?.getAttribute('aria-expanded'),
+      ),
+      'false',
+      `${what}: Escape returns to the way in`,
+    );
+    assert.equal(
+      (
+        await page.evaluate(() => document.activeElement?.textContent ?? '')
+      ).includes(account),
+      true,
+      `${what}: the same way in`,
+    );
+  }
+  if (!f.bank) return;
+  // The register net against the bank: every bank payout row.
+  const bankTable = w.locator(`table[aria-label="${f.bank[lang]}"]`);
+  await bankTable
+    .getByRole('button', { name: `${tw.way} · ${f.bank[lang]}`, exact: true })
+    .click();
+  await drawer.waitFor();
+  await arrived();
+  const sources = await drawn();
+  assert.ok(files[4].length > 1, `${what}: the case has bank rows`);
+  assert.deepEqual(
+    sources.map((s) => [s.source, s.row]),
+    files[4].slice(1).map((_, at) => [4, at + 2]),
+    `${what}: every bank payout row`,
+  );
+  followedRows[name] += sources.length;
+  for (const s of sources) {
+    assert.equal(s.role, f.roles[lang][4], `${what}: the bank role`);
+    heldToFile(s, files, `${what} bank`);
+  }
+  await drawer.getByRole('button', { name: tw.back, exact: true }).click();
+  await closed();
+  assert.equal(await drawer.count(), 0, `${what}: the way back closes it`);
+}
+for (const name of ['assets', 'payroll']) {
+  const f = families[name];
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.emulateMedia({ reducedMotion: null });
+  if ((await page.evaluate(() => document.documentElement.lang)) !== 'en')
+    await page.getByRole('button', { name: 'EN English', exact: true }).click();
+  await openDomainWorkspace(page, name);
+  const w = page.locator(f.workspace);
+  await w.getByRole('button', { name: f.example.en, exact: true }).click();
+  await w.locator(f.status).waitFor();
+  await page.waitForFunction(
+    (sel) => document.querySelector(sel)?.getAttribute('aria-busy') === 'false',
+    f.workspace,
+  );
+  for (const [lang, width, motion] of [
+    ['en', 1440, 'no-preference'],
+    ['en', 390, 'reduce'],
+    ['ar', 1024, 'reduce'],
+    ['ar', 390, 'no-preference'],
+  ]) {
+    if ((await page.evaluate(() => document.documentElement.lang)) !== lang)
+      await page
+        .getByRole('button', {
+          name: lang === 'ar' ? 'AR العربية' : 'EN English',
+          exact: true,
+        })
+        .click();
+    await followFamily(name, lang, width, motion);
+    report.push(`${name} ${lang} ${width} ${motion}`);
+  }
+  // A change of type closes it.
+  await page.getByRole('button', { name: 'EN English', exact: true }).click();
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await w
+    .getByRole('button', { name: /^Review source rows · / })
+    .first()
+    .click();
+  await drawer.waitFor();
+  await page
+    .locator('select[data-reconciliation-type-select]')
+    .selectOption('bank');
+  await openDomainWorkspace(page, name);
+  await w.locator(f.status).waitFor();
+  assert.equal(
+    await drawer.count(),
+    0,
+    `${name}: a change of type closes the evidence`,
+  );
+}
+await page.emulateMedia({ reducedMotion: null });
+// Every comparison opened its GL row and at least one register row.
+assert.ok(followedRows.assets >= 4 * 3 * 2, `asset rows: ${followedRows.assets}`);
+assert.ok(
+  followedRows.payroll >= 4 * 7 * 2 + 4,
+  `payroll rows: ${followedRows.payroll}`,
+);
+report.push(`rows held to their files: ${JSON.stringify(followedRows)}`);
+
 assert.deepEqual(errors, [], 'no page error');
 await browser.close();
 server.close();

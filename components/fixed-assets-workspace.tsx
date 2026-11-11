@@ -9,7 +9,11 @@ import {
   type ReactNode,
 } from 'react';
 import { useResultFocus } from '@/components/result-focus';
-import { Amount } from '@/components/amount';
+import { Amount, Figures } from '@/components/amount';
+import { EvidenceDrawer, ThreadSources } from '@/components/evidence-drawer';
+import { useEvidenceThread } from '@/hooks/use-evidence-thread';
+import { assetThread } from '@/lib/evidence-thread';
+import { evidenceThreadCopy } from '@/lib/i18n/evidence-thread';
 import { AlignmentStrip } from '@/components/alignment-strip';
 import { ResultIndex, useResultParts } from '@/components/result-index';
 import {
@@ -187,6 +191,14 @@ export function AssetWorkspace({
     [active, result, files],
   );
   const paper = useSheetPrint(printed, lang, composeSheet);
+  // Each comparison opens the GL row it compares and the register rows the
+  // engine assigned to it (UX-10).
+  const thread = useEvidenceThread(active, result),
+    words = evidenceThreadCopy[lang],
+    opened =
+      result && thread.open?.table === 'comparisons'
+        ? { at: thread.open.at, row: result.comparisons[thread.open.at] }
+        : null;
   const [busy, setBusy] = useState(false),
     [error, setError] = useState(''),
     [reference, setReference] = useState(''),
@@ -823,8 +835,24 @@ export function AssetWorkspace({
             />
             <RecordTable
               label={copy.tableNames.comparisons}
-              headers={copy.comparisons}
-              rows={result.comparisons.map((v) => [
+              headers={[words.way, ...copy.comparisons]}
+              {...thread.paging('comparisons')}
+              marks={result.comparisons.map((_, i) =>
+                thread.mark('comparisons', i),
+              )}
+              rows={result.comparisons.map((v, i) => [
+                <Button
+                  key="thread"
+                  variant="outline"
+                  {...thread.way('comparisons', i)}
+                  onClick={() => thread.show('comparisons', i)}
+                >
+                  {words.way}
+                  <span className="sr-only">
+                    {' · '}
+                    {v.account} · {copy.components[v.component]}
+                  </span>
+                </Button>,
                 v.account,
                 v.dimensions,
                 copy.components[v.component],
@@ -833,6 +861,37 @@ export function AssetWorkspace({
                 amount(v.difference),
               ])}
             />
+            {opened?.row && (
+              <EvidenceDrawer
+                id={thread.id}
+                headingRef={thread.heading}
+                heading={`${words.heading} · ${opened.row.account} · ${copy.components[opened.row.component]}`}
+                back={words.back}
+                onBack={thread.back}
+                amount={
+                  <Figures
+                    decimals={result.decimals}
+                    items={[
+                      [copy.comparisons[3], opened.row.register],
+                      [copy.comparisons[4], opened.row.gl],
+                      [copy.comparisons[5], opened.row.difference],
+                    ]}
+                  />
+                }
+              >
+                <ThreadSources
+                  thread={assetThread(
+                    result,
+                    files.map((f, i) => ({
+                      name: f?.name ?? '',
+                      sheet: f?.sheets[result.readings[i].sheet]?.name ?? null,
+                    })),
+                    opened.at,
+                  )}
+                  role={(s) => copy.roles[s.source]}
+                />
+              </EvidenceDrawer>
+            )}
             <fieldset
               {...resultParts.anchor('decision')}
               disabled={busy}
