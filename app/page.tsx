@@ -10,28 +10,32 @@ import {
 } from '@/components/reconciliation-navigation';
 import type { ReconciliationDomain } from '@/lib/i18n/reconciliation-directory';
 import './reconciliation-shell.css';
-import { PayrollWorkspace } from '@/components/payroll-workspace';
+// The stylesheets the workspaces bring, imported here in the order the page
+// met them when it imported the workspaces itself (UX-9(c)). The page keeps
+// one stylesheet in its earlier order, so no rule meets another in a new
+// order; tests/workspace-styles.test.ts requires each one to stay here.
+import '@/components/alignment-strip.css';
+import '@/components/result-index.css';
+import '@/components/workspace-chrome.css';
+import '@/components/review-section.css';
+import '@/components/scope-card.css';
+import '@/components/workspace-record.css';
+import '@/components/reconciliation-sheet-print.css';
+import '@/components/bank-adjustment-workspace.css';
+import '@/components/bank-workspace.css';
+import '@/components/clearing-workspace.css';
+import '@/components/ar-workspace.css';
 import { payrollCopy } from '@/lib/i18n/payroll';
-import { AssetWorkspace } from '@/components/fixed-assets-workspace';
 import { assetCopy } from '@/lib/i18n/fixed-assets';
-import { StockWorkspace } from '@/components/inventory-register-workspace';
 import { stockCopy } from '@/lib/i18n/inventory-register';
-import { GatewayWorkspace } from '@/components/payment-gateway-workspace';
 import { gatewayCopy } from '@/lib/i18n/payment-gateway';
-import { IntercompanyWorkspace } from '@/components/intercompany-workspace';
 import { intercompanyCopy } from '@/lib/i18n/intercompany';
-import { FinancialWorkspace } from '@/components/tb-financial-workspace';
-import { BankWorkspace } from '@/components/bank-workspace';
-import { AllocationWorkspace } from '@/components/allocation-workspace';
 import {
   createAllocationWorkflowHandoff,
   type AllocationWorkflowHandoff,
 } from '@/lib/reconciliation/allocation-workflow-handoff';
 import { allocationWorkflowHandoffCopy } from '@/lib/i18n/allocation-workflow-handoff';
-import { GlTbWorkspace } from '@/components/gl-tb-workspace';
-import { ArWorkspace } from '@/components/ar-workspace';
 import { headerLabels } from '@/lib/reconciliation/header-view';
-import { ClearingWorkspace } from '@/components/clearing-workspace';
 import {
   SheetPrint,
   useSheetPrint,
@@ -141,6 +145,7 @@ import { StatusBadge } from '@/components/status-badge';
 import { supplierCaseTone } from '@/lib/status-tone';
 import { recordPage } from '@/lib/record-page';
 import { workerTask, prepareWorker } from '@/lib/reconciliation/client';
+import { deferredWorkspace } from '@/components/deferred-workspace';
 import type { ProcessingProgress } from '@/lib/reconciliation/processing-progress';
 import {
   readingStatus,
@@ -187,6 +192,52 @@ import { demoFiles, demoMappings, demoScope } from '@/lib/reconciliation/demo';
 import { AlignmentStrip } from '@/components/alignment-strip';
 import { ResultIndex, useResultParts } from '@/components/result-index';
 import { supplierStrip } from '@/lib/alignment-strip';
+// UX-9(c): each workspace's code loads the first time its type is chosen and
+// the workspace then stays mounted, hidden while another type is shown, so its
+// work is kept (components/deferred-workspace.tsx).
+const PayrollWorkspace = deferredWorkspace(() =>
+  import('@/components/payroll-workspace').then((m) => m.PayrollWorkspace),
+);
+const AssetWorkspace = deferredWorkspace(() =>
+  import('@/components/fixed-assets-workspace').then((m) => m.AssetWorkspace),
+);
+const StockWorkspace = deferredWorkspace(() =>
+  import('@/components/inventory-register-workspace').then(
+    (m) => m.StockWorkspace,
+  ),
+);
+const GatewayWorkspace = deferredWorkspace(() =>
+  import('@/components/payment-gateway-workspace').then(
+    (m) => m.GatewayWorkspace,
+  ),
+);
+const IntercompanyWorkspace = deferredWorkspace(() =>
+  import('@/components/intercompany-workspace').then(
+    (m) => m.IntercompanyWorkspace,
+  ),
+);
+const FinancialWorkspace = deferredWorkspace(() =>
+  import('@/components/tb-financial-workspace').then(
+    (m) => m.FinancialWorkspace,
+  ),
+);
+const BankWorkspace = deferredWorkspace(() =>
+  import('@/components/bank-workspace').then((m) => m.BankWorkspace),
+);
+const AllocationWorkspace = deferredWorkspace(() =>
+  import('@/components/allocation-workspace').then(
+    (m) => m.AllocationWorkspace,
+  ),
+);
+const GlTbWorkspace = deferredWorkspace(() =>
+  import('@/components/gl-tb-workspace').then((m) => m.GlTbWorkspace),
+);
+const ArWorkspace = deferredWorkspace(() =>
+  import('@/components/ar-workspace').then((m) => m.ArWorkspace),
+);
+const ClearingWorkspace = deferredWorkspace(() =>
+  import('@/components/clearing-workspace').then((m) => m.ClearingWorkspace),
+);
 // These existing workspaces supply their own native main landmark. Keep the
 // shared content element stable; changing its tag on navigation would remount
 // the accounting work stored beneath it.
@@ -465,6 +516,10 @@ export default function App() {
   const [workspaceActivity, setWorkspaceActivity] = useState<
     Partial<Record<ReconciliationDomain, WorkspaceActivity>>
   >({});
+  // The types chosen so far: their workspaces are mounted (UX-9(c)).
+  const [openedDomains, setOpenedDomains] = useState<
+    ReadonlySet<ReconciliationDomain>
+  >(() => new Set());
   const [workspaceDrafts, setWorkspaceDrafts] = useState<
     Partial<Record<ReconciliationDomain, boolean>>
   >({});
@@ -892,18 +947,37 @@ export default function App() {
       workflowHeading.current?.focus({ preventScroll: true });
     }
   }, [step, showLanding, domain]);
+  // A workspace whose code is still loading has no heading yet; the focus
+  // goes to it when it appears, unless another type was chosen meanwhile.
+  const pendingDomainFocus = useRef<ReconciliationDomain | null>(null);
+  const domainHeading = (id: ReconciliationDomain) =>
+    domainPanels.current
+      ?.querySelector(`[data-domain-panel="${id}"]`)
+      ?.querySelector<HTMLElement>('h1, h2');
   useEffect(() => {
     if (previousDomain.current === domain) return;
     previousDomain.current = domain;
+    pendingDomainFocus.current = null;
     const target =
-      domain === 'supplier'
-        ? workflowHeading.current
-        : domainPanels.current
-            ?.querySelector(`[data-domain-panel="${domain}"]`)
-            ?.querySelector<HTMLElement>('h1, h2');
+      domain === 'supplier' ? workflowHeading.current : domainHeading(domain);
+    if (!target) {
+      pendingDomainFocus.current = domain;
+      // Until its code arrives the panel says so in one line; the page goes
+      // there at once, as it went to the workspace before UX-9(c).
+      domainPanels.current
+        ?.querySelector(`[data-domain-panel="${domain}"]`)
+        ?.scrollIntoView({ behavior: 'instant', block: 'start' });
+    }
     target?.scrollIntoView({ behavior: 'instant', block: 'start' });
     target?.focus({ preventScroll: true });
   }, [domain]);
+  const workspaceLoaded = (id: ReconciliationDomain) => {
+    if (pendingDomainFocus.current !== id) return;
+    pendingDomainFocus.current = null;
+    const target = domainHeading(id);
+    target?.scrollIntoView({ behavior: 'instant', block: 'start' });
+    target?.focus({ preventScroll: true });
+  };
   useEffect(() => {
     if (privacy) {
       privacyHeading.current?.scrollIntoView({ block: 'start' });
@@ -1156,6 +1230,11 @@ export default function App() {
     setProcessingProgress(null);
     mainOverlapReview.invalidatePending();
     setMainOverlapOpen(false);
+    setOpenedDomains((opened) =>
+      next === 'supplier' || opened.has(next)
+        ? opened
+        : new Set([...opened, next]),
+    );
     setDomain(next);
   }
   function openFreshAllocation() {
@@ -1903,34 +1982,46 @@ export default function App() {
           <div ref={domainPanels} hidden={domain === 'supplier'}>
             <div data-domain-panel="payroll" hidden={domain !== 'payroll'}>
               <WorkspaceIdentityProvider domain="payroll">
-                <PayrollWorkspace
-                  active={domain === 'payroll'}
-                  onBack={() => navigateDomain('supplier')}
-                />
+                {openedDomains.has('payroll') && (
+                  <PayrollWorkspace
+                    active={domain === 'payroll'}
+                    onBack={() => navigateDomain('supplier')}
+                    onReady={() => workspaceLoaded('payroll')}
+                  />
+                )}
               </WorkspaceIdentityProvider>
             </div>
             <div data-domain-panel="assets" hidden={domain !== 'assets'}>
               <WorkspaceIdentityProvider domain="assets">
-                <AssetWorkspace
-                  active={domain === 'assets'}
-                  onBack={() => navigateDomain('supplier')}
-                />
+                {openedDomains.has('assets') && (
+                  <AssetWorkspace
+                    active={domain === 'assets'}
+                    onBack={() => navigateDomain('supplier')}
+                    onReady={() => workspaceLoaded('assets')}
+                  />
+                )}
               </WorkspaceIdentityProvider>
             </div>
             <div data-domain-panel="stock" hidden={domain !== 'stock'}>
               <WorkspaceIdentityProvider domain="stock">
-                <StockWorkspace
-                  active={domain === 'stock'}
-                  onBack={() => navigateDomain('supplier')}
-                />
+                {openedDomains.has('stock') && (
+                  <StockWorkspace
+                    active={domain === 'stock'}
+                    onBack={() => navigateDomain('supplier')}
+                    onReady={() => workspaceLoaded('stock')}
+                  />
+                )}
               </WorkspaceIdentityProvider>
             </div>
             <div data-domain-panel="gateway" hidden={domain !== 'gateway'}>
               <WorkspaceIdentityProvider domain="gateway">
-                <GatewayWorkspace
-                  active={domain === 'gateway'}
-                  onBack={() => navigateDomain('supplier')}
-                />
+                {openedDomains.has('gateway') && (
+                  <GatewayWorkspace
+                    active={domain === 'gateway'}
+                    onBack={() => navigateDomain('supplier')}
+                    onReady={() => workspaceLoaded('gateway')}
+                  />
+                )}
               </WorkspaceIdentityProvider>
             </div>
             <div
@@ -1938,10 +2029,13 @@ export default function App() {
               hidden={domain !== 'intercompany'}
             >
               <WorkspaceIdentityProvider domain="intercompany">
-                <IntercompanyWorkspace
-                  active={domain === 'intercompany'}
-                  onBack={() => navigateDomain('supplier')}
-                />
+                {openedDomains.has('intercompany') && (
+                  <IntercompanyWorkspace
+                    active={domain === 'intercompany'}
+                    onBack={() => navigateDomain('supplier')}
+                    onReady={() => workspaceLoaded('intercompany')}
+                  />
+                )}
               </WorkspaceIdentityProvider>
             </div>
             <div
@@ -1949,18 +2043,24 @@ export default function App() {
               hidden={domain !== 'tb-financial'}
             >
               <WorkspaceIdentityProvider domain="tb-financial">
-                <FinancialWorkspace
-                  active={domain === 'tb-financial'}
-                  onBack={() => navigateDomain('supplier')}
-                />
+                {openedDomains.has('tb-financial') && (
+                  <FinancialWorkspace
+                    active={domain === 'tb-financial'}
+                    onBack={() => navigateDomain('supplier')}
+                    onReady={() => workspaceLoaded('tb-financial')}
+                  />
+                )}
               </WorkspaceIdentityProvider>
             </div>
             <div data-domain-panel="bank" hidden={domain !== 'bank'}>
               <WorkspaceIdentityProvider domain="bank">
-                <BankWorkspace
-                  active={domain === 'bank'}
-                  onBack={() => navigateDomain('supplier')}
-                />
+                {openedDomains.has('bank') && (
+                  <BankWorkspace
+                    active={domain === 'bank'}
+                    onBack={() => navigateDomain('supplier')}
+                    onReady={() => workspaceLoaded('bank')}
+                  />
+                )}
               </WorkspaceIdentityProvider>
             </div>
             <div
@@ -1968,36 +2068,48 @@ export default function App() {
               hidden={domain !== 'allocation'}
             >
               <WorkspaceIdentityProvider domain="allocation">
-                <AllocationWorkspace
-                  key={allocationHandoff?.revision ?? 'direct-allocation'}
-                  handoff={allocationHandoff ?? undefined}
-                  active={domain === 'allocation'}
-                  onBack={() => navigateDomain('supplier')}
-                />
+                {openedDomains.has('allocation') && (
+                  <AllocationWorkspace
+                    key={allocationHandoff?.revision ?? 'direct-allocation'}
+                    handoff={allocationHandoff ?? undefined}
+                    active={domain === 'allocation'}
+                    onBack={() => navigateDomain('supplier')}
+                    onReady={() => workspaceLoaded('allocation')}
+                  />
+                )}
               </WorkspaceIdentityProvider>
             </div>
             <div data-domain-panel="gl-tb" hidden={domain !== 'gl-tb'}>
               <WorkspaceIdentityProvider domain="gl-tb">
-                <GlTbWorkspace
-                  active={domain === 'gl-tb'}
-                  onBack={() => navigateDomain('supplier')}
-                />
+                {openedDomains.has('gl-tb') && (
+                  <GlTbWorkspace
+                    active={domain === 'gl-tb'}
+                    onBack={() => navigateDomain('supplier')}
+                    onReady={() => workspaceLoaded('gl-tb')}
+                  />
+                )}
               </WorkspaceIdentityProvider>
             </div>
             <div data-domain-panel="ar" hidden={domain !== 'ar'}>
               <WorkspaceIdentityProvider domain="ar">
-                <ArWorkspace
-                  active={domain === 'ar'}
-                  onBack={() => navigateDomain('supplier')}
-                />
+                {openedDomains.has('ar') && (
+                  <ArWorkspace
+                    active={domain === 'ar'}
+                    onBack={() => navigateDomain('supplier')}
+                    onReady={() => workspaceLoaded('ar')}
+                  />
+                )}
               </WorkspaceIdentityProvider>
             </div>
             <div data-domain-panel="clearing" hidden={domain !== 'clearing'}>
               <WorkspaceIdentityProvider domain="clearing">
-                <ClearingWorkspace
-                  active={domain === 'clearing'}
-                  onBack={() => navigateDomain('supplier')}
-                />
+                {openedDomains.has('clearing') && (
+                  <ClearingWorkspace
+                    active={domain === 'clearing'}
+                    onBack={() => navigateDomain('supplier')}
+                    onReady={() => workspaceLoaded('clearing')}
+                  />
+                )}
               </WorkspaceIdentityProvider>
             </div>
           </div>

@@ -15,7 +15,7 @@ import {
 } from './header-view.ts';
 import { inferMapping } from './core.ts';
 import type { ProcessingProgress } from './processing-progress.ts';
-import ExcelJS from 'exceljs';
+import type ExcelJS from 'exceljs';
 import {
   ENGINE_VERSION,
   MAX_FILE_BYTES,
@@ -359,6 +359,8 @@ export async function readFile(
     throw new Error('اختر ملف XLSX أو CSV أو PDF نصيًا.');
   checkZip(buffer);
   await validateZipContents(buffer);
+  // UX-9(d): ExcelJS loads here, where a workbook is read, not with the page.
+  const { default: ExcelJS } = await import('exceljs');
   const workbook = new ExcelJS.Workbook();
   const numericLexemeIssues = new Map<
     string,
@@ -782,6 +784,8 @@ export async function exportWorkbook(
     throw new Error(
       'Reviewed invoice aggregates require their live supplier review coordinator to export.',
     );
+  // UX-9(d): ExcelJS loads here, before the first stage is timed.
+  const { default: ExcelJS } = await import('exceljs');
   let stageStarted = performance.now();
   const measured = (stage: string) => {
     const now = performance.now();

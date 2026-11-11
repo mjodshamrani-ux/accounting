@@ -1,4 +1,3 @@
-import ExcelJS from 'exceljs';
 import { readFile } from './io.ts';
 import { excelExportText, validateExportText } from './export-text.ts';
 import { defaultMapping, type Mapping, type SourceFile } from './types.ts';
@@ -860,6 +859,8 @@ export async function exportSplitWorkbook(
 ): Promise<ArrayBuffer> {
   const operation = new SectionOperation(options);
   const artifact = await revalidateSplitArtifact(input, options);
+  // UX-9(d): ExcelJS loads here, where a workbook is made, not with the page.
+  const { default: ExcelJS } = await import('exceljs');
   operation.check();
   const workbook = new ExcelJS.Workbook();
   workbook.creator = 'Tarasuf';

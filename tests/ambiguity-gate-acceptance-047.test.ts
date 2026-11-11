@@ -161,7 +161,13 @@ void test('047 the worker refuses an unanswered ambiguity on reconcile, compare 
   const worker: {
     onmessage?: (event: { data: unknown }) => Promise<void>;
     postMessage: (value: Record<string, unknown>) => void;
-  } = { postMessage: (value) => void messages.push(value) };
+    importScripts: () => void;
+  } = {
+    // Browser dependencies identify worker hosts by this property; since
+    // UX-9(d) ExcelJS and JSZip first load inside this stand-in.
+    importScripts() {},
+    postMessage: (value) => void messages.push(value),
+  };
   const previous = Object.getOwnPropertyDescriptor(globalThis, 'self');
   Object.defineProperty(globalThis, 'self', {
     value: worker,

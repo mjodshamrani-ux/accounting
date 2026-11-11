@@ -190,6 +190,22 @@ async function expectSoon(page, predicate, arg, message, timeout = 5000) {
   }
 }
 
+// Since UX-9(c) a panel shows a loading line until the code of its workspace
+// arrives; the papers are read against the sources of that workspace.
+const sourcesArrive = (page, domain, where) =>
+  expectSoon(
+    page,
+    ({ domain, group }) =>
+      !!document.querySelector(`[data-domain-panel="${domain}"] ${group}`),
+    {
+      domain,
+      group:
+        domain === 'supplier' ? '.file-grid' : '.workspace-primary-sources',
+    },
+    `${where}: the workspace's sources arrive`,
+    30000,
+  );
+
 const turning = () =>
   [...document.querySelectorAll('.document-scene__turn')].flatMap((turn) =>
     turn.getAnimations(),
@@ -240,6 +256,7 @@ try {
           await page
             .locator(`[data-domain-panel="${domain}"]`)
             .waitFor({ state: 'visible' });
+          await sourcesArrive(page, domain, where);
           // Motion is reduced: the papers change at once, wherever the page is.
           await expectSoon(
             page,
@@ -371,6 +388,7 @@ try {
       // Off screen the papers wait: choosing a type scrolls its workspace in.
       await type.selectOption('bank');
       await page.locator('[data-domain-panel="bank"]').waitFor();
+      await sourcesArrive(page, 'bank', `${language} bank`);
       await page.waitForTimeout(400);
       const waiting = await page.evaluate(readStage, 'bank');
       assert.equal(
@@ -508,6 +526,7 @@ try {
       // A turn that runs unpaused settles in its own time.
       await type.selectOption('clearing');
       await page.locator('[data-domain-panel="clearing"]').waitFor();
+      await sourcesArrive(page, 'clearing', `${language} clearing`);
       await page.waitForTimeout(300);
       const started = Date.now();
       await scene.scrollIntoViewIfNeeded();
@@ -539,6 +558,7 @@ try {
         .click();
       await type.selectOption('payroll');
       await page.locator('[data-domain-panel="payroll"]').waitFor();
+      await sourcesArrive(page, 'payroll', `${language} payroll`);
       await expectSoon(
         page,
         () =>
@@ -569,6 +589,7 @@ try {
       await page.emulateMedia({ reducedMotion: 'reduce' });
       await type.selectOption('ar');
       await page.locator('[data-domain-panel="ar"]').waitFor();
+      await sourcesArrive(page, 'ar', `${language} ar`);
       await expectSoon(
         page,
         () =>

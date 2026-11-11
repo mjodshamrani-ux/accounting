@@ -1517,6 +1517,11 @@ export const en: Messages = {
         'Review the amount direction and comparison settings before you compare.',
       restartEngine: 'Restart the engine',
       engineLoading: 'Preparing the comparison tool…',
+      workspaceLoading: 'Opening the tools for this type…',
+      workspaceLoadFailedTitle: 'The tools for this type could not be opened',
+      workspaceLoadFailed:
+        'The connection may have dropped, or a newer version of the site was published. Save what you want to keep in the other types, then reload the page.',
+      workspaceReload: 'Reload the page',
       footnote:
         'The results support your review and are not an accounting approval. Save the session or download the workpaper before closing if you want to keep them.',
       footnotePrivacy: 'Privacy and version limits',
