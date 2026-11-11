@@ -9,9 +9,10 @@
 // assertion. It passes on the unmutated build first. A survivor is behaviour
 // no browser check holds. UX-10(d) adds the fixed assets, the payroll and the
 // inventory's register rows that do not link, the GL and TB balance
-// components and the clearing cases: whose row the drawer opens, the roles,
-// the file, the heading or the figures, the way in that names its row, the
-// marked row, and, in clearing, a decision that leaves the old evidence open.
+// components, the clearing cases and the receivables cases: whose row the
+// drawer opens, the roles, the file, the heading or the figures, the way in
+// that names its row, the marked row or card (its frame and the frame's
+// motion), and a decision that leaves the old evidence open.
 //
 // Not planted: the drawer's motion outside its reduced-motion guard. The
 // page's own rule (app/globals.css) sets every animation to none under
@@ -58,6 +59,7 @@ const PAYROLL = 'components/payroll-workspace.tsx';
 const STOCK = 'components/inventory-register-workspace.tsx';
 const GLTB = 'components/gl-tb-workspace.tsx';
 const CLEARING = 'components/clearing-workspace.tsx';
+const AR = 'components/ar-workspace.tsx';
 const HOOK = 'hooks/use-evidence-thread.ts';
 const mutations = [
   [
@@ -369,6 +371,63 @@ const mutations = [
     CLEARING,
     '  const thread = useEvidenceThread(active, result),',
     '  const thread = useEvidenceThread(active, null),',
+  ],
+  [
+    'ar-heading-of-the-first-case',
+    AR,
+    '        ? { at: thread.open.at, case: result.cases[thread.open.at] }\n',
+    '        ? { at: thread.open.at, case: result.cases[0] }\n',
+  ],
+  [
+    'ar-way-opens-the-first-case',
+    AR,
+    "onClick={() => thread.show('cases', casesShown.from + i)}",
+    "onClick={() => thread.show('cases', 0)}",
+  ],
+  [
+    'ar-movements-of-the-next-case',
+    AR,
+    'thread={arThread(result, opened.at)}',
+    'thread={arThread(result, opened.at + 1)}',
+  ],
+  [
+    'ar-every-movement-from-the-ledger',
+    AR,
+    'role={(s) => t.sides[s.source]}',
+    'role={() => t.sides[0]}',
+  ],
+  [
+    'ar-way-not-named',
+    AR,
+    "                    <span className=\"sr-only\">\n                      {' · '}\n                      {t.kind[c.kind]}: {c.document}\n                    </span>\n",
+    '',
+  ],
+  [
+    'ar-case-not-marked',
+    AR,
+    "                {...thread.mark('cases', casesShown.from + i)}\n",
+    '',
+  ],
+  [
+    'ar-decision-keeps-it',
+    AR,
+    '  const thread = useEvidenceThread(active, result),',
+    '  const thread = useEvidenceThread(active, null),',
+  ],
+  [
+    'card-not-framed',
+    STYLE,
+    `article[data-thread-open] {
+  box-shadow: 0 0 0 2px var(--focus-ring);
+}`,
+    `article[data-thread-open] {
+}`,
+  ],
+  [
+    'card-frame-without-motion',
+    STYLE,
+    '    animation: evidence-card-in 160ms ease-out;\n',
+    '',
   ],
   [
     'hook-keeps-it-on-type-change',

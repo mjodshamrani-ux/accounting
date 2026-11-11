@@ -49,6 +49,10 @@ import {
   RecordRows,
 } from '@/components/record-table';
 import { pageOfRow, recordPage } from '@/lib/record-page';
+import { EvidenceDrawer, ThreadSources } from '@/components/evidence-drawer';
+import { useEvidenceThread } from '@/hooks/use-evidence-thread';
+import { arThread } from '@/lib/evidence-thread';
+import { evidenceThreadCopy } from '@/lib/i18n/evidence-thread';
 import { StatusBadge } from '@/components/status-badge';
 import { arCaseTone } from '@/lib/status-tone';
 import { ScopeCard, Sentence } from '@/components/scope-card';
@@ -427,6 +431,15 @@ export function ArWorkspace({
       setPage(pageOfRow(at));
       settle(headingAt(at));
     });
+  // Each case opens the movements the engine put in it, from either record
+  // (UX-10). The cases keep their own page, which a decision moves to the
+  // pair it changed; the way back takes them to the case's page.
+  const thread = useEvidenceThread(active, result),
+    words = evidenceThreadCopy[lang],
+    opened =
+      result && thread.open?.table === 'cases'
+        ? { at: thread.open.at, case: result.cases[thread.open.at] }
+        : null;
   const rowById = new Map(result?.rows.map((r) => [r.id, r]));
   if (!active) return null;
   const casesShown = recordPage(result?.cases.length ?? 0, page);
@@ -980,7 +993,12 @@ export function ArWorkspace({
               </Button>
             </div>
             {result.cases.slice(casesShown.from, casesShown.to).map((c, i) => (
-              <article key={c.id} data-testid="ar-case" className="ar-case">
+              <article
+                key={c.id}
+                data-testid="ar-case"
+                className="ar-case"
+                {...thread.mark('cases', casesShown.from + i)}
+              >
                 <div
                   className="ar-case-heading"
                   id={headingAt(casesShown.from + i)}
@@ -998,6 +1016,17 @@ export function ArWorkspace({
                       : t.review}{' '}
                     · {t.reason[c.reason]}
                   </StatusBadge>
+                  <Button
+                    variant="outline"
+                    {...thread.way('cases', casesShown.from + i)}
+                    onClick={() => thread.show('cases', casesShown.from + i)}
+                  >
+                    {words.way}
+                    <span className="sr-only">
+                      {' · '}
+                      {t.kind[c.kind]}: {c.document}
+                    </span>
+                  </Button>
                 </div>
                 <ul className="ar-case-members">
                   {c.ids
@@ -1147,6 +1176,23 @@ export function ArWorkspace({
               onPage={setPage}
             />
           </fieldset>
+          {opened?.case && (
+            <EvidenceDrawer
+              id={thread.id}
+              headingRef={thread.heading}
+              heading={`${words.heading} · ${t.kind[opened.case.kind]}: ${opened.case.document}`}
+              back={words.back}
+              onBack={() => {
+                setPage(pageOfRow(opened.at));
+                thread.back();
+              }}
+            >
+              <ThreadSources
+                thread={arThread(result, opened.at)}
+                role={(s) => t.sides[s.source]}
+              />
+            </EvidenceDrawer>
+          )}
           <h2 {...resultParts.anchor('evidence')}>{t.inventory}</h2>
           <RecordRows
             label={t.inventory}

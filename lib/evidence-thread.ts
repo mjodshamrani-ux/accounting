@@ -1,4 +1,6 @@
 import type { AllocationResult } from './reconciliation/allocation.ts';
+import type { ArResult } from './reconciliation/ar.ts';
+import type { ArScopeDetailsReading } from './reconciliation/ar-scope-details.ts';
 import type { BankResult } from './reconciliation/bank.ts';
 import type { ClearingResult } from './reconciliation/clearing.ts';
 import type { BalanceField, GlTbResult } from './reconciliation/gl-tb.ts';
@@ -274,6 +276,64 @@ export function clearingThread(
           lines.get(row)?.map((text, i) => ({
             column: i + 1,
             field: header[i] ?? '',
+            text,
+          })) ?? null,
+      },
+    ];
+  });
+}
+
+// The reading family whose header is a detail-header row inside the sheet.
+// Named here and not imported, so that the projection loads no reader.
+const AR_SCOPE_DETAILS: ArScopeDetailsReading['family'] = 'ar-scope-details-1';
+
+/** A receivables document pair or review case: each movement the engine put
+ * in it, in the case's order, from either record. A movement read from a
+ * sheet is its row, with every cell as the reader recorded it under the
+ * header row its reading names: the first row, or the detail-header row of a
+ * scope block. A line of a printed statement is its page and line, whose
+ * cells the result does not keep by column. The scope cells a movement
+ * inherits from its block are not drawn here: the case keeps them, with
+ * their own row and column, in its source evidence. */
+export function arThread(result: ArResult, index: number): Thread {
+  const pair = result.cases[index];
+  if (!pair) return [];
+  const rows = new Map(result.rows.map((r) => [r.id, r])),
+    lines = new Map(
+      result.inventory.map((i) => [`${i.side}:${i.row}`, i.values]),
+    );
+  return pair.ids.flatMap((id): Thread => {
+    const row = rows.get(id);
+    if (!row) return [];
+    const source = result.sources[row.side];
+    if (row.pdf)
+      return [
+        {
+          source: row.side,
+          role: source.role,
+          name: source.name,
+          sheet: null,
+          place: { page: row.pdf.page, line: row.pdf.line },
+          cells: null,
+        },
+      ];
+    const reading = result.readings[row.side],
+      head =
+        'family' in reading && reading.family === AR_SCOPE_DETAILS
+          ? reading.header + 1
+          : 1,
+      header = lines.get(`${row.side}:${head}`) ?? [];
+    return [
+      {
+        source: row.side,
+        role: source.role,
+        name: source.name,
+        sheet: source.sheet,
+        place: { row: row.row },
+        cells:
+          lines.get(`${row.side}:${row.row}`)?.map((text, at) => ({
+            column: at + 1,
+            field: header[at] ?? '',
             text,
           })) ?? null,
       },

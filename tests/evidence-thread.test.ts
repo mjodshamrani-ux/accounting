@@ -4,6 +4,7 @@ import {
   assetThread,
   bankThread,
   allocationThread,
+  arThread,
   clearingThread,
   glTbThread,
   payrollBankThread,
@@ -47,6 +48,15 @@ import {
   clearingDemoReading,
   clearingDemoScope,
 } from '../lib/reconciliation/clearing-demo.ts';
+import {
+  reconcileAr,
+  suggestArScopeReading,
+  type ArInput,
+  type ArReading,
+  type ArResult,
+} from '../lib/reconciliation/ar.ts';
+import { readArFile } from '../lib/reconciliation/ar-source.ts';
+import { arDemoReadings, arDemoScope } from '../lib/reconciliation/ar-demo.ts';
 import type { AllocationResult } from '../lib/reconciliation/allocation.ts';
 
 // The thread is held to the source bytes themselves: each file is read here
@@ -651,6 +661,247 @@ void test('a clearing case opens each movement row the engine put in it, every c
     );
   }
   assert.ok(cases >= 18 && cells > 200, `${cases} cases, ${cells} cells`);
+});
+
+const AR_LIMITED = new URL('../audit/ar-limited/frozen/', import.meta.url),
+  AR_SCOPE = new URL('../audit/ar-scope-details/fixtures/', import.meta.url);
+const bufferOf = (bytes: Uint8Array) =>
+  bytes.buffer.slice(
+    bytes.byteOffset,
+    bytes.byteOffset + bytes.byteLength,
+  ) as ArrayBuffer;
+
+// A receivables case as the files hold it: each source the thread draws is a
+// row of its record, every cell under the header row the test finds in the
+// file itself (the first row, or the row after the DETAILS marker of a scope
+// block), and a pair the engine matched names one document in both records.
+function arHeldToFiles(
+  result: ArResult,
+  files: string[][][],
+  what: string,
+): { cases: number; cells: number; pairs: string[][] } {
+  let cells = 0;
+  const pairs: string[][] = [];
+  const headerOf = (side: number) => {
+    const file = files[side],
+      details = file.findIndex((r) => r[0] === 'DETAILS');
+    return details >= 0 ? details + 1 : 0;
+  };
+  result.cases.forEach((c, i) => {
+    const thread = arThread(result, i),
+      at = `${what} case ${i}`;
+    assert.deepEqual(
+      thread.map((s) => [s.source, 'row' in s.place ? s.place.row : 0]),
+      c.ids.map((id) => {
+        const r = result.rows.find((row) => row.id === id)!;
+        return [r.side, r.row];
+      }),
+      `${at}: one source per member, in the case's order`,
+    );
+    for (const s of thread) {
+      assert.equal(s.role, result.sources[s.source].role, `${at}: role`);
+      assert.equal(s.name, result.sources[s.source].name, `${at}: the file`);
+      assert.equal(s.sheet, result.sources[s.source].sheet, `${at}: sheet`);
+      assert.ok('row' in s.place, `${at}: a row`);
+      const file = files[s.source],
+        header = file[headerOf(s.source)],
+        row = file[s.place.row - 1];
+      assert.ok(row && s.place.row - 1 > headerOf(s.source), `${at}: a row`);
+      assert.equal(s.cells?.length, row.length, `${at}: every cell`);
+      s.cells!.forEach((cell, j) => {
+        assert.equal(cell.column, j + 1, `${at}: column`);
+        assert.equal(cell.text, row[j], `${at}: cell text`);
+        assert.equal(cell.field, header[j], `${at}: header`);
+        cells++;
+      });
+    }
+    if (c.status === 'matched' && c.kind !== 'scope') {
+      // The two members name one document, as the files write it.
+      const named = thread.map((s) => {
+        const file = files[s.source],
+          header = file[headerOf(s.source)],
+          row = file[s.place && 'row' in s.place ? s.place.row - 1 : 0];
+        return [
+          row[header.indexOf('Document type')],
+          row[header.indexOf('Own document number')],
+        ].join(' ');
+      });
+      assert.deepEqual(
+        thread.map((s) => s.source).sort((a, b) => a - b),
+        [0, 1],
+        `${at}: a pair, one movement from each record`,
+      );
+      assert.equal(named[0], named[1], `${at}: one document in both`);
+      pairs.push(thread.map((s) => String('row' in s.place && s.place.row)));
+    }
+  });
+  assert.deepEqual(
+    arThread(result, result.cases.length),
+    [],
+    `${what}: an unknown case opens nothing`,
+  );
+  return { cases: result.cases.length, cells, pairs };
+}
+
+void test('a receivables case opens each movement the engine put in it, from either record, every cell under its header as the files have it', async () => {
+  let cases = 0,
+    cells = 0,
+    matched = 0;
+  const sealed = JSON.parse(
+    await readFile(new URL('expected.json', AR_LIMITED), 'utf8'),
+  ) as {
+    cases: {
+      name: string;
+      requiredPairs: number[][];
+      automaticPairCount: number;
+    }[];
+  };
+  for (const c of sealed.cases) {
+    const bytes = await Promise.all(
+      ['ledger', 'statement'].map((side) =>
+        readFile(new URL(`${c.name}-${side}.csv`, AR_LIMITED)),
+      ),
+    );
+    const input: ArInput = {
+      files: (await Promise.all(
+        bytes.map((b, side) =>
+          readSource(`${c.name}-${side}.csv`, bufferOf(b)),
+        ),
+      )) as ArInput['files'],
+      readings: arDemoReadings,
+      scope: arDemoScope,
+      events: [],
+    };
+    const result = reconcileAr(input),
+      files = bytes.map((b) => csv(bufferOf(b)));
+    const held = arHeldToFiles(result, files, c.name);
+    // The matched pairs are the sealed ones, by row in each record.
+    assert.deepEqual(
+      held.pairs.map((p) => p.join(':')).sort(),
+      c.requiredPairs.map((p) => p.join(':')).sort(),
+      `${c.name}: the sealed pairs`,
+    );
+    assert.equal(held.pairs.length, c.automaticPairCount, c.name);
+    cases += held.cases;
+    cells += held.cells;
+    matched += held.pairs.length;
+  }
+  // The scope-and-details family, in each sealed bundle written as CSV.
+  const truths = JSON.parse(
+    await readFile(new URL('TRUTHS.json', AR_SCOPE), 'utf8'),
+  ) as Record<string, { expected: { matchedPairCount?: number } }>;
+  let bundles = 0;
+  for (const entry of await readdir(AR_SCOPE, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue;
+    const root = new URL(`${entry.name}/`, AR_SCOPE),
+      bundle = JSON.parse(await readFile(new URL('bundle.json', root), 'utf8'));
+    if (!bundle.files.every((f: string) => f.endsWith('.csv'))) continue;
+    const bytes = await Promise.all(
+      bundle.files.map((f: string) => readFile(new URL(f, root))),
+    );
+    const files = await Promise.all(
+      bundle.files.map((f: string, side: number) =>
+        readArFile(
+          f,
+          bufferOf(bytes[side]),
+          bundle.families[side] === 'ar-scope-details-1'
+            ? ({
+                family: 'ar-scope-details-1',
+                sheet: bundle.sheets[side],
+              } as ArReading)
+            : undefined,
+        ),
+      ),
+    );
+    const readings = files.map((file, side) => {
+      if (bundle.families[side] !== 'ar-scope-details-1')
+        return {
+          ...arDemoReadings[side as 0 | 1],
+          sheet: bundle.sheets[side],
+          confirmed: bundle.readingConfirmed[side],
+        };
+      const reading = suggestArScopeReading(
+        file,
+        side as 0 | 1,
+        bundle.sheets[side],
+      );
+      reading.confirmed = bundle.readingConfirmed[side];
+      if (bundle.selectedAmountHeaders)
+        reading.amount = file.sheets[reading.sheet].rows[
+          reading.header
+        ].indexOf(bundle.selectedAmountHeaders[side]);
+      return reading;
+    });
+    const result = reconcileAr({
+      files: files as ArInput['files'],
+      readings: readings as ArInput['readings'],
+      scope: bundle.scope,
+      events: [],
+    });
+    const held = arHeldToFiles(
+      result,
+      bytes.map((b) => csv(bufferOf(b))),
+      entry.name,
+    );
+    const truth = truths[entry.name]?.expected.matchedPairCount;
+    if (truth !== undefined)
+      assert.equal(held.pairs.length, truth, `${entry.name}: sealed pairs`);
+    cases += held.cases;
+    cells += held.cells;
+    matched += held.pairs.length;
+    bundles++;
+  }
+  assert.ok(
+    bundles >= 68 && cases >= 97 && matched >= 37 && cells >= 1335,
+    `${bundles} bundles, ${cases} cases, ${matched} pairs, ${cells} cells`,
+  );
+});
+
+void test('a line of a printed customer statement opens its page and line, and says its cells are not kept', () => {
+  const result = {
+    sources: [
+      { hash: 'a', name: 'ledger.csv', sheet: 'CSV', role: 'company-ar-ledger' },
+      {
+        hash: 'b',
+        name: 'statement.pdf',
+        sheet: 'PDF',
+        role: 'company-issued-customer-statement',
+      },
+    ],
+    readings: [arDemoReadings[0], { family: 'ar-statement-pdf-1' }],
+    rows: [
+      { id: 'l', side: 0, row: 2 },
+      { id: 'p', side: 1, row: 7, pdf: { page: 2, line: 4, items: [9, 10] } },
+    ],
+    inventory: [
+      { side: 0, row: 1, kind: 'header', values: ['Posting ID', 'Kind'] },
+      { side: 0, row: 2, kind: 'movement', values: ['L001', 'invoice'] },
+      { side: 1, row: 7, kind: 'movement', values: ['INV-1 100.00'] },
+    ],
+    cases: [{ id: 'c', ids: ['p', 'l'] }],
+  } as unknown as ArResult;
+  assert.deepEqual(arThread(result, 0), [
+    {
+      source: 1,
+      role: 'company-issued-customer-statement',
+      name: 'statement.pdf',
+      sheet: null,
+      place: { page: 2, line: 4 },
+      cells: null,
+    },
+    {
+      source: 0,
+      role: 'company-ar-ledger',
+      name: 'ledger.csv',
+      sheet: 'CSV',
+      place: { row: 2 },
+      cells: [
+        { column: 1, field: 'Posting ID', text: 'L001' },
+        { column: 2, field: 'Kind', text: 'invoice' },
+      ],
+    },
+  ]);
+  assert.deepEqual(arThread(result, 1), []);
 });
 
 void test('a bank movement and an allocation item open the row they were read from with the cells the reader traced, and an unknown row opens nothing', () => {

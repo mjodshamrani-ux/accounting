@@ -62,10 +62,14 @@
   color: var(--text-secondary);
 }
 
-/* The row whose evidence is open stays marked while it is. */
+/* The row whose evidence is open stays marked while it is, and so does a
+   case drawn as a card (the receivables), by its frame. */
 tr[data-thread-open] > * {
   background: var(--surface-quiet);
   box-shadow: inset 0 -2px 0 var(--focus-ring);
+}
+article[data-thread-open] {
+  box-shadow: 0 0 0 2px var(--focus-ring);
 }
 
 @media (max-width: 1023px) {
@@ -97,6 +101,9 @@ tr[data-thread-open] > * {
   tr[data-thread-open] > * {
     animation: evidence-row-in 160ms ease-out;
   }
+  article[data-thread-open] {
+    animation: evidence-card-in 160ms ease-out;
+  }
 }
 @keyframes evidence-drawer-in {
   from {
@@ -107,6 +114,11 @@ tr[data-thread-open] > * {
   from {
     background: transparent;
     box-shadow: inset 0 -2px 0 transparent;
+  }
+}
+@keyframes evidence-card-in {
+  from {
+    box-shadow: 0 0 0 2px transparent;
   }
 }
 

@@ -43,6 +43,8 @@ const copied = [
   'audit/inventory-links-foundation/frozen',
   'audit/gl-tb/frozen',
   'audit/clearing/frozen',
+  'audit/ar-limited/frozen',
+  'audit/ar-scope-details/fixtures',
   'package.json',
 ];
 const mutations = [
@@ -297,6 +299,90 @@ const mutations = [
     THREAD,
     "        name,\n        sheet: result.sheet,",
     "        name,\n        sheet: null,",
+  ],
+  [
+    "ar-unknown-case-not-empty",
+    THREAD,
+    "const pair = result.cases[index];",
+    "const pair = result.cases[index] ?? result.cases[0];",
+  ],
+  [
+    "ar-other-case",
+    THREAD,
+    "const pair = result.cases[index];",
+    "const pair = result.cases[index + 1];",
+  ],
+  [
+    "ar-first-member-only",
+    THREAD,
+    "  return pair.ids.flatMap((id): Thread => {\n",
+    "  return pair.ids.slice(0, 1).flatMap((id): Thread => {\n",
+  ],
+  [
+    "ar-members-reversed",
+    THREAD,
+    "  return pair.ids.flatMap((id): Thread => {\n",
+    "  return [...pair.ids].reverse().flatMap((id): Thread => {\n",
+  ],
+  [
+    "ar-printed-line-as-a-row",
+    THREAD,
+    "    if (row.pdf)\n",
+    "    if (row.pdf && false)\n",
+  ],
+  [
+    "ar-page-and-line-swapped",
+    THREAD,
+    "          place: { page: row.pdf.page, line: row.pdf.line },\n",
+    "          place: { page: row.pdf.line, line: row.pdf.page },\n",
+  ],
+  [
+    "ar-printed-line-keeps-the-sheet",
+    THREAD,
+    "          sheet: null,\n          place: { page: row.pdf.page",
+    "          sheet: source.sheet,\n          place: { page: row.pdf.page",
+  ],
+  [
+    "ar-header-always-first",
+    THREAD,
+    "          ? reading.header + 1\n",
+    "          ? 1\n",
+  ],
+  [
+    "ar-header-of-the-other-record",
+    THREAD,
+    "      header = lines.get(`${row.side}:${head}`) ?? [];",
+    "      header = lines.get(`${1 - row.side}:${head}`) ?? [];",
+  ],
+  [
+    "ar-cells-of-the-other-record",
+    THREAD,
+    "          lines.get(`${row.side}:${row.row}`)?.map((text, at) => ({\n",
+    "          lines.get(`${1 - row.side}:${row.row}`)?.map((text, at) => ({\n",
+  ],
+  [
+    "ar-column-from-zero",
+    THREAD,
+    "            column: at + 1,\n",
+    "            column: at,\n",
+  ],
+  [
+    "ar-header-shifted",
+    THREAD,
+    "            field: header[at] ?? '',\n",
+    "            field: header[at + 1] ?? '',\n",
+  ],
+  [
+    "ar-role-of-the-ledger",
+    THREAD,
+    "        role: source.role,\n        name: source.name,\n        sheet: source.sheet,\n        place: { row: row.row },",
+    "        role: result.sources[0].role,\n        name: source.name,\n        sheet: source.sheet,\n        place: { row: row.row },",
+  ],
+  [
+    "ar-file-of-the-ledger",
+    THREAD,
+    "        role: source.role,\n        name: source.name,\n        sheet: source.sheet,\n        place: { row: row.row },",
+    "        role: source.role,\n        name: result.sources[0].name,\n        sheet: source.sheet,\n        place: { row: row.row },",
   ],
 ];
 const files = [THREAD, ...tests];

@@ -43,6 +43,36 @@ import path from 'node:path';
 import { chromium } from 'playwright';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
 
+// A run that stalls, an action or a wait that times out (DEV-117), says what
+// the page was doing before it fails as it would have: whether the page
+// still answers, which regions are busy, and what alerts it shows. Any other
+// error fails as before, unchanged; the exit code is 1 either way.
+let stalledPage = null;
+process.on('uncaughtException', async (error) => {
+  if (error?.name === 'TimeoutError' && stalledPage) {
+    const state = await Promise.race([
+      stalledPage
+        .evaluate(() => ({
+          answers: true,
+          busy: [...document.querySelectorAll('[aria-busy]')].map((e) =>
+            [e.tagName, e.className, e.getAttribute('aria-busy')].join(' '),
+          ),
+          alerts: [...document.querySelectorAll('[role="alert"]')].map((e) =>
+            e.textContent.trim().slice(0, 200),
+          ),
+          drawer: !!document.querySelector('[data-evidence-drawer]'),
+          focus: document.activeElement?.tagName ?? null,
+        }))
+        .catch((e) => ({ answers: false, error: e.message })),
+      new Promise((done) =>
+        setTimeout(() => done({ answers: false, error: 'no answer in 5 s' }), 5000),
+      ),
+    ]);
+    console.error(`Stalled; the page then: ${JSON.stringify(state)}`);
+  }
+  console.error(error);
+  process.exit(1);
+});
 const root = path.resolve(process.env.EVIDENCE_THREAD_DIST ?? 'dist');
 const out = path.resolve(
   process.env.EVIDENCE_THREAD_DIR ?? 'work/qa-evidence-thread',
@@ -134,6 +164,7 @@ const context = await browser.newContext({
 });
 context.setDefaultTimeout(20000);
 const page = await context.newPage();
+stalledPage = page;
 const errors = [];
 page.on('pageerror', (error) => errors.push(error.message));
 await page.goto(base);
@@ -1378,6 +1409,345 @@ assert.equal(
   0,
   'clearing: a change of type closes the evidence',
 );
+
+// UX-10(d), receivables: each document pair of the synthetic example, which
+// writes the frozen positive pair byte for byte, opens its two movements,
+// each held to its file; then the printed statement of story A01 of the
+// AR-1 foundation opens each of its lines by page and line, as its seal
+// names them, and says its cells are not kept.
+const ARL = 'audit/ar-limited/frozen',
+  ARS = 'audit/ar-statement-foundation/frozen';
+const arFiles = await Promise.all(
+  ['ledger', 'statement'].map(async (side) =>
+    csvRows(await readFile(`${ARL}/positive-${side}.csv`, 'utf8')),
+  ),
+);
+const arSealed = JSON.parse(
+  await readFile(`${ARL}/expected.json`, 'utf8'),
+).cases.find((c) => c.name === 'positive');
+const arWords = {
+  en: {
+    sides: ['Company AR ledger', 'Company-issued customer statement'],
+    file: 'File',
+    page: 'Page',
+    line: 'Line',
+    sheet: 'Sheet',
+    notKept:
+      'The result does not keep the text of this record’s cells. Its place is shown above.',
+  },
+  ar: { sides: ['سجل ذمم العملاء', 'كشف العميل الصادر عن الشركة'] },
+};
+const arw = page.locator('[data-ar-workspace]');
+const arIdle = async () => {
+  for (const deadline = Date.now() + 60000; Date.now() < deadline; ) {
+    if ((await arw.getAttribute('aria-busy')) === 'false') return;
+    await page.waitForTimeout(100);
+  }
+  throw Error('the receivables workspace stayed busy for a minute');
+};
+// The drawer's sources with their place as drawn: the row, or the page and
+// line, the sheet if any, and whether it says its cells are not kept.
+const arDrawn = () =>
+  drawer.locator('[data-thread-source]').evaluateAll((sections) =>
+    sections.map((s) => {
+      const place = Object.fromEntries(
+        [...s.querySelectorAll('.evidence-drawer__place > div')].map((d) => [
+          d.querySelector('dt').textContent.trim(),
+          d.querySelector('dd').textContent.trim(),
+        ]),
+      );
+      return {
+        source: Number(s.getAttribute('data-thread-source')),
+        role: s.querySelector('h3')?.textContent.trim(),
+        place,
+        missing: s.querySelector('.evidence-drawer__missing')?.textContent.trim(),
+        cells: [...s.querySelectorAll('tbody tr')].map((tr) =>
+          [...tr.children].map((c) => c.textContent.trim()),
+        ),
+      };
+    }),
+  );
+let arRows = 0;
+// Each case of the result, opened in turn: the way in names it, the drawer's
+// heading names it, its sources are judged by `judge`, the case is marked,
+// and the way back or Escape returns the focus to the same way in.
+async function followAr(lang, width, motion, judge) {
+  const tw = threadWords[lang],
+    what = `ar ${lang} ${width} px ${motion}`;
+  const count = await arw.getByTestId('ar-case').count();
+  assert.ok(count > 0, `${what}: cases`);
+  for (let i = 0; i < count; i++) {
+    const card = arw.getByTestId('ar-case').nth(i),
+      heading = (await card.locator('h3').innerText()).trim();
+    const way = card.getByRole('button', {
+      name: `${tw.way} · ${heading}`,
+      exact: true,
+    });
+    assert.equal(await way.count(), 1, `${what} ${heading}: the way in`);
+    assert.equal(await way.getAttribute('aria-expanded'), 'false', what);
+    const shadowOf = () => card.evaluate((e) => getComputedStyle(e).boxShadow);
+    const closedShadow = await shadowOf();
+    await way.click();
+    await drawer.waitFor();
+    await arrived();
+    assert.equal(await way.getAttribute('aria-expanded'), 'true', what);
+    assert.equal(
+      await way.getAttribute('aria-controls'),
+      await drawer.getAttribute('id'),
+      `${what}: the way in names the drawer`,
+    );
+    const opened = await focused();
+    assert.deepEqual([opened.tag, opened.inDrawer], ['H2', true], what);
+    assert.equal(
+      opened.text,
+      `${tw.heading} · ${heading}`,
+      `${what}: the heading names the case`,
+    );
+    const sources = await arDrawn();
+    for (const s of sources)
+      assert.equal(s.role, arWords[lang].sides[s.source], `${what}: role`);
+    await judge(heading, sources, `${what} ${heading}`);
+    arRows += sources.length;
+    assert.equal(
+      await arw.locator('article[data-thread-open]').count(),
+      1,
+      `${what}: the case is marked`,
+    );
+    assert.equal(
+      await card.getAttribute('data-thread-open'),
+      '',
+      `${what}: this case`,
+    );
+    // A card has no row to shade: its frame is drawn, a ring of 2 px in
+    // place of the faint shadow every card has, and with motion it comes in
+    // 160 ms; with reduced motion it is simply there.
+    const frame = await card.evaluate((e) => {
+      const s = getComputedStyle(e);
+      return { shadow: s.boxShadow, animation: [s.animationName, s.animationDuration] };
+    });
+    assert.notEqual(frame.shadow, closedShadow, `${what}: the case is framed`);
+    assert.match(frame.shadow, /\b0px 0px 0px 2px\b/u, `${what}: a 2 px ring`);
+    assert.deepEqual(
+      frame.animation,
+      motion === 'reduce' ? ['none', '0s'] : ['evidence-card-in', '0.16s'],
+      `${what}: the frame's motion`,
+    );
+    if (i % 2)
+      await drawer.getByRole('button', { name: tw.back, exact: true }).click();
+    else await drawer.getByRole('heading', { level: 2 }).press('Escape');
+    await closed();
+    assert.equal(await drawer.count(), 0, `${what}: it closes`);
+    assert.equal(
+      await page.evaluate(() =>
+        document.activeElement?.getAttribute('aria-expanded'),
+      ),
+      'false',
+      `${what}: the focus returns to the way in`,
+    );
+    assert.ok(
+      (
+        await page.evaluate(() => document.activeElement?.textContent ?? '')
+      ).includes(heading),
+      `${what}: the same way in`,
+    );
+  }
+  report.push(`ar ${lang} ${width} ${motion}`);
+  return count;
+}
+// The example: a pair is one movement from each record, both read whole
+// from their files, and the pairs are the sealed ones.
+const examplePairs = [];
+const judgeExample = async (heading, sources, what) => {
+  assert.deepEqual(
+    sources.map((s) => s.source).sort(),
+    [0, 1],
+    `${what}: one movement from each record`,
+  );
+  const named = ['synthetic-ar-ledger.csv', 'synthetic-customer-statement.csv'];
+  for (const s of sources) {
+    const row = Number(s.place.Row ?? s.place['الصف']);
+    assert.equal(
+      s.place.File ?? s.place['الملف'],
+      named[s.source],
+      `${what}: the example's file`,
+    );
+    heldToFile({ ...s, row }, arFiles, what);
+  }
+  examplePairs.push(
+    [0, 1]
+      .map((side) => {
+        const s = sources.find((x) => x.source === side);
+        return s.place.Row ?? s.place['الصف'];
+      })
+      .join(':'),
+  );
+};
+await page.setViewportSize({ width: 1440, height: 900 });
+await page.emulateMedia({ reducedMotion: null });
+await openDomainWorkspace(page, 'ar');
+await page
+  .getByRole('button', { name: 'Open synthetic AR example', exact: true })
+  .click();
+await page.getByTestId('ar-metrics').waitFor();
+await arIdle();
+for (const [lang, width, motion] of [
+  ['en', 1440, 'no-preference'],
+  ['ar', 390, 'reduce'],
+]) {
+  if ((await page.evaluate(() => document.documentElement.lang)) !== lang)
+    await page
+      .getByRole('button', {
+        name: lang === 'ar' ? 'AR العربية' : 'EN English',
+        exact: true,
+      })
+      .click();
+  await page.setViewportSize({ width, height: 900 });
+  await page.emulateMedia({ reducedMotion: motion });
+  examplePairs.length = 0;
+  const count = await followAr(lang, width, motion, judgeExample);
+  assert.deepEqual(
+    examplePairs.sort((a, b) => a.localeCompare(b)),
+    arSealed.requiredPairs.map((p) => p.join(':')).sort(),
+    `ar ${lang}: the sealed pairs`,
+  );
+  assert.equal(count, arSealed.automaticPairCount, `ar ${lang}: the cases`);
+}
+await page.emulateMedia({ reducedMotion: null });
+await page.setViewportSize({ width: 1440, height: 900 });
+await page.getByRole('button', { name: 'EN English', exact: true }).click();
+assert.equal(arRows, 2 * 2 * 3, `ar rows: ${arRows}`);
+// A decision changes the result, and closes the evidence of the old one.
+const invoice = arw.getByTestId('ar-case').filter({
+  has: page.getByRole('heading', { name: 'Invoice: I001', exact: true }),
+});
+await invoice
+  .getByRole('button', { name: 'Review source rows · Invoice: I001', exact: true })
+  .click();
+await drawer.waitFor();
+await arw
+  .getByLabel('Document review reason', { exact: true })
+  .fill('Synthetic original document correspondence reopened for review');
+await invoice
+  .getByRole('button', { name: 'Reopen document pair', exact: true })
+  .click();
+await arIdle();
+await invoice
+  .getByText('Approval cancelled; document pair remains for review', {
+    exact: false,
+  })
+  .waitFor();
+assert.equal(await drawer.count(), 0, 'ar: a decision closes it');
+// The printed statement: each pair opens the ledger row, held to its file,
+// and the statement line at the page and line the seal names, with no sheet
+// and no cells.
+const a01 = JSON.parse(
+  await readFile(`${ARS}/stories.json`, 'utf8'),
+).stories.find((s) => s.id === 'A01');
+const a01Sealed = JSON.parse(await readFile(`${ARS}/EXPECTED.json`, 'utf8'))
+  .stories.A01;
+const a01Ledger = csvRows(await readFile(`${ARS}/A01-ledger.csv`, 'utf8'));
+await arw
+  .getByTestId('ar-source-0')
+  .locator('input[type="file"]')
+  .setInputFiles(path.resolve(`${ARS}/A01-ledger.csv`));
+await arIdle();
+for (const [position, label] of [
+  'Unique posting ID',
+  'Document type',
+  'Own document number',
+  'Posting date',
+  'Original signed amount',
+  'Entity',
+  'Ledger',
+  'Customer ID',
+  'Account',
+  'Currency',
+  'Related invoice',
+  'Description',
+].entries())
+  await arw
+    .getByLabel(`Company AR ledger: ${label}`, { exact: true })
+    .selectOption(String(position));
+await arw
+  .getByTestId('ar-source-1')
+  .locator('input[type="file"]')
+  .setInputFiles(path.resolve(`${ARS}/A01-statement.pdf`));
+await arIdle();
+const arCard = arw.locator('[data-scope-card]');
+if ((await arCard.locator('details').getAttribute('open')) === null)
+  await arCard.locator('details summary').click();
+for (const [field, label] of [
+  ['entity', 'Entity'],
+  ['ledger', 'Ledger'],
+  ['customer', 'Customer ID'],
+  ['account', 'Account'],
+  ['currency', 'Currency'],
+  ['start', 'Period start'],
+  ['end', 'Period end'],
+])
+  await arw.getByLabel(label, { exact: true }).fill(a01.scope[field]);
+await arw
+  .getByLabel(
+    'I reviewed the company AR ledger and the company-issued customer statement',
+    { exact: false },
+  )
+  .click();
+await arw
+  .getByRole('button', { name: 'Compare AR documents', exact: true })
+  .click();
+await arIdle();
+const posting = a01Ledger[0].indexOf('Posting ID');
+const printed = [];
+const judgePrinted = async (heading, sources, what) => {
+  const document = heading.split(/:\s+/u).at(-1),
+    sealed = a01Sealed.cases.find((c) => c.document === document);
+  assert.ok(sealed, `${what}: a sealed case`);
+  const ledger = sources.filter((s) => s.source === 0),
+    lines = sources.filter((s) => s.source === 1);
+  assert.deepEqual(
+    ledger.map((s) => a01Ledger[Number(s.place.Row) - 1][posting]),
+    sealed.ledger,
+    `${what}: the sealed ledger rows`,
+  );
+  for (const s of ledger) {
+    assert.equal(s.place.File, 'A01-ledger.csv', `${what}: the ledger file`);
+    heldToFile({ ...s, row: Number(s.place.Row) }, [a01Ledger], what);
+  }
+  assert.deepEqual(
+    lines.map((s) => [Number(s.place.Page), Number(s.place.Line)]),
+    sealed.statement,
+    `${what}: the sealed statement lines`,
+  );
+  for (const s of lines) {
+    assert.equal(s.place.File, 'A01-statement.pdf', `${what}: the PDF`);
+    assert.equal(s.place.Sheet, undefined, `${what}: a page has no sheet`);
+    assert.equal(s.place.Row, undefined, `${what}: and no row`);
+    assert.equal(s.missing, arWords.en.notKept, `${what}: cells not kept`);
+    assert.deepEqual(s.cells, [], `${what}: no cell drawn`);
+  }
+  printed.push(document);
+};
+arRows = 0;
+const printedCount = await followAr('en', 1440, 'no-preference', judgePrinted);
+assert.equal(printedCount, a01Sealed.cases.length, 'ar printed: the cases');
+assert.deepEqual(
+  printed.sort((a, b) => a.localeCompare(b)),
+  a01Sealed.cases.map((c) => c.document).sort(),
+  'ar printed: every sealed case',
+);
+report.push(`ar printed statement: ${arRows} sources over ${printedCount} cases`);
+// A change of type closes it.
+await arw
+  .getByRole('button', { name: /^Review source rows · / })
+  .first()
+  .click();
+await drawer.waitFor();
+await page
+  .locator('select[data-reconciliation-type-select]')
+  .selectOption('bank');
+await openDomainWorkspace(page, 'ar');
+await arw.getByTestId('ar-case').first().waitFor();
+assert.equal(await drawer.count(), 0, 'ar: a change of type closes the evidence');
 
 assert.deepEqual(errors, [], 'no page error');
 await browser.close();
