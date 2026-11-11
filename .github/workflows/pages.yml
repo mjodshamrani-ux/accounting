@@ -1684,7 +1684,7 @@ jobs:
       - name: Plant each FA-1 engine, replay, protocol or binding defect and require its tests to fail by assertion
         run: pnpm test:fa-sections:mutations
   domain-oracle-mutants:
-    name: Domain oracle mutants AI-1 and IC-1 to FA-1 beside the build
+    name: Domain oracle mutants AI-1, UX-10 and IC-1 to FA-1 beside the build
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -1703,6 +1703,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Plant each AI-1 column-role adapter defect and require its tests to fail by assertion
         run: pnpm test:column-role:mutations
+      - name: Plant each UX-10 evidence-thread defect and require its tests to fail by assertion
+        run: pnpm test:evidence-thread:mutations
       - name: Plant each defect in the IC-1 independent oracle and require it to be caught
         run: pnpm test:ic-batch:oracle-mutants
       - name: Plant each defect in the GLT-1 independent oracle and require it to be caught

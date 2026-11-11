@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 124067,
-      "sha256": "ea6bc5cfe7b84a50c7771717d7c287839c4b91b88a765e094314ae3291b209d5",
+      "bytes": 124220,
+      "sha256": "34ac8f699ebd087535229faa230efaa0ad8476a37bcf56d929753a017534d6aa",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 64515,
-      "sha256": "68c8be8905e751f648a3a5cb7930f75d6283f98d8f7f64dcf06ec18c39f0d4e9",
+      "bytes": 64643,
+      "sha256": "900233852de270efe7f820adfbd0e891455b320f22370ba47f4f1a8c7cf3a19f",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 22588,
-      "sha256": "6ee96161b1820d730bb6734099d98dcb1924448ca8808633eedf54ac5d813dff",
+      "bytes": 22626,
+      "sha256": "8cc88dd5f65d21f3e4fe704e8bbf8af9f3059cda01af9603e5ed261ef00dc6a3",
       "kind": "text"
     },
     {
@@ -74211,8 +74211,26 @@
     },
     {
       "path": "docs/audits/UX-10-EVIDENCE-THREAD.ar.md",
-      "bytes": 14065,
-      "sha256": "db4e8650b26edfda164dc168f85d8cb5bd41af2a0b912d2c90b038142f7a2118",
+      "bytes": 17343,
+      "sha256": "549e9f619fd9c42d2fae50128b783333707c57d3a4637d24e8093cb3ef720353",
+      "kind": "text"
+    },
+    {
+      "path": "lib/evidence-thread.ts",
+      "bytes": 5166,
+      "sha256": "f87fd3738dbd38160066a905aa412fa5d5f1ea23a7b83b131318045536df2a58",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-evidence-thread-mutations.mjs",
+      "bytes": 6801,
+      "sha256": "2a0345bd5f6707a5e26ab2f382985a51ed28535fb698f3bc6306282671cee3f8",
+      "kind": "text"
+    },
+    {
+      "path": "tests/evidence-thread.test.ts",
+      "bytes": 7419,
+      "sha256": "392396b42240e1da0ff07495069d0ee3b749e04df48f81ad4bf70295a1bea5f3",
       "kind": "text"
     }
   ],

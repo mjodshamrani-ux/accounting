@@ -463,6 +463,7 @@ for (const name of required) {
 const separate = {
   'domain-oracle-mutants': [
     'test:column-role:mutations',
+    'test:evidence-thread:mutations',
     'test:ic-batch:oracle-mutants',
     'test:glt-sections:oracle-mutants',
     'test:fin-hierarchy:oracle-mutants',
