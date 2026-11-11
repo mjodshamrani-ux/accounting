@@ -9,12 +9,13 @@
 // assertion. It passes on the unmutated build first. A survivor is behaviour
 // no browser check holds. UX-10(d) adds the fixed assets, the payroll and the
 // inventory's register rows that do not link, the GL and TB balance
-// components, the clearing cases, the receivables cases and the lines of the
-// financial position: whose row the drawer opens, the roles, the file, the
-// heading or the figures, the way in that names its row, the marked row,
-// card (its frame and the frame's motion) or line heading (its shade and its
-// motion), the financial lines' way back to their own page, and a decision
-// that leaves the old evidence open.
+// components, the clearing cases, the receivables cases, the lines of the
+// financial position and the intercompany pairs: whose row the drawer
+// opens, the roles, the file, the heading or the figures, the way in that
+// names its row, the marked row, card (its frame and the frame's motion) or
+// section heading (its shade and its motion), the financial lines' and the
+// pairs' way back to their own page, and a decision that leaves the old
+// evidence open.
 //
 // Not planted: the drawer's motion outside its reduced-motion guard. The
 // page's own rule (app/globals.css) sets every animation to none under
@@ -63,6 +64,7 @@ const GLTB = 'components/gl-tb-workspace.tsx';
 const CLEARING = 'components/clearing-workspace.tsx';
 const AR = 'components/ar-workspace.tsx';
 const FINANCIAL = 'components/tb-financial-workspace.tsx';
+const INTERCOMPANY = 'components/intercompany-workspace.tsx';
 const HOOK = 'hooks/use-evidence-thread.ts';
 const mutations = [
   [
@@ -503,6 +505,66 @@ const mutations = [
     STYLE,
     "  tr[data-thread-open] > *,\n  section[data-thread-open] > h3 {\n    animation",
     "  tr[data-thread-open] > * {\n    animation",
+  ],
+  [
+    "ic-no-way-in",
+    INTERCOMPANY,
+    "                <div className=\"gl-tb-actions\">\n                  <Button\n                    variant=\"outline\"\n                    {...thread.way('pairs', pairsShown.from + i)}\n                    onClick={() => thread.show('pairs', pairsShown.from + i)}\n                  >\n                    {words.way}\n                    <span className=\"sr-only\">\n                      {' · '}\n                      {p.relationId}\n                    </span>\n                  </Button>\n                </div>\n",
+    "",
+  ],
+  [
+    "ic-way-not-named",
+    INTERCOMPANY,
+    "                    <span className=\"sr-only\">\n                      {' · '}\n                      {p.relationId}\n                    </span>\n",
+    "",
+  ],
+  [
+    "ic-way-opens-the-first-pair",
+    INTERCOMPANY,
+    "onClick={() => thread.show('pairs', pairsShown.from + i)}",
+    "onClick={() => thread.show('pairs', 0)}",
+  ],
+  [
+    "ic-pair-not-marked",
+    INTERCOMPANY,
+    "                {...thread.mark('pairs', pairsShown.from + i)}\n",
+    "",
+  ],
+  [
+    "ic-rows-of-the-next-pair",
+    INTERCOMPANY,
+    "thread={intercompanyThread(result, opened.at)}",
+    "thread={intercompanyThread(result, opened.at + 1)}",
+  ],
+  [
+    "ic-every-row-from-the-left-ledger",
+    INTERCOMPANY,
+    "role={(s) => copy.roles[s.source]}",
+    "role={() => copy.roles[0]}",
+  ],
+  [
+    "ic-way-back-keeps-the-page",
+    INTERCOMPANY,
+    "                  setPairPage(pageOfRow(opened.at));\n",
+    "",
+  ],
+  [
+    "ic-figures-cut",
+    INTERCOMPANY,
+    "                      [copy.residualFigures[2], opened.pair.residual],\n",
+    "",
+  ],
+  [
+    "ic-heading-without-pair",
+    INTERCOMPANY,
+    "heading={`${words.heading} · ${opened.pair.relationId}`}",
+    "heading={words.heading}",
+  ],
+  [
+    "ic-decision-keeps-it",
+    INTERCOMPANY,
+    "  const thread = useEvidenceThread(active, result),\n    words = evidenceThreadCopy[lang],\n    opened =\n      result && thread.open?.table === 'pairs'",
+    "  const thread = useEvidenceThread(active, null),\n    words = evidenceThreadCopy[lang],\n    opened =\n      result && thread.open?.table === 'pairs'",
   ],
   [
     'hook-keeps-it-on-type-change',

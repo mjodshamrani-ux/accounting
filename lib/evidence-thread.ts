@@ -5,6 +5,7 @@ import type { BankResult } from './reconciliation/bank.ts';
 import type { ClearingResult } from './reconciliation/clearing.ts';
 import type { BalanceField, GlTbResult } from './reconciliation/gl-tb.ts';
 import type { FinancialResult } from './reconciliation/tb-financial.ts';
+import type { IntercompanyResult } from './reconciliation/intercompany.ts';
 import {
   ASSET_ROLES,
   type AssetResult,
@@ -342,27 +343,23 @@ export function arThread(result: ArResult, index: number): Thread {
   });
 }
 
-/** A line of the statement of financial position: the line's own row in the
- * statement, then for each member the engine put on it, in the engine's
- * order, the trial-balance account row, the mapping row that put the account
- * on this line and the evidence row that mapping cites. The result keeps
- * every row of the four sources with each cell under its header; a record
- * the result does not list draws nothing. */
-export function financialThread(
-  result: FinancialResult,
-  index: number,
-): Thread {
-  const line = result.lines[index];
-  if (!line) return [];
-  const ids = [
-      line.id,
-      ...line.members.flatMap((m) => [
-        m.accountRecord,
-        m.mappingRecord,
-        m.evidenceRecord,
-      ]),
-    ],
-    records = new Map(result.inventory.map((r) => [r.id, r])),
+/** A result that keeps every row of its sources by record: each record's
+ * source and row, and its cells under the headers the engine gave them. */
+type Recorded = {
+  sources: readonly { name: string; sheet: string; role: string }[];
+  inventory: readonly { id: string; source: number; row: number }[];
+  cells: readonly {
+    id: string;
+    column: number;
+    field: string;
+    text: string;
+  }[];
+};
+
+/** The records named, in the order given, each its row with every cell the
+ * result keeps for it. A record the result does not list draws nothing. */
+function recordedSources(result: Recorded, ids: readonly string[]): Thread {
+  const records = new Map(result.inventory.map((r) => [r.id, r])),
     wanted = new Set(ids),
     cells = new Map<string, ThreadCell[]>();
   for (const c of result.cells) {
@@ -386,4 +383,41 @@ export function financialThread(
       },
     ];
   });
+}
+
+/** A line of the statement of financial position: the line's own row in the
+ * statement, then for each member the engine put on it, in the engine's
+ * order, the trial-balance account row, the mapping row that put the account
+ * on this line and the evidence row that mapping cites. */
+export function financialThread(
+  result: FinancialResult,
+  index: number,
+): Thread {
+  const line = result.lines[index];
+  if (!line) return [];
+  return recordedSources(result, [
+    line.id,
+    ...line.members.flatMap((m) => [
+      m.accountRecord,
+      m.mappingRecord,
+      m.evidenceRecord,
+    ]),
+  ]);
+}
+
+/** An intercompany pair: the relationship row that names it, then every
+ * ledger row the engine read for the transactions the relationship names,
+ * from either entity, in the engine's order (a transaction written twice is
+ * two rows), then the timing evidence the engine attached to the pair. */
+export function intercompanyThread(
+  result: IntercompanyResult,
+  index: number,
+): Thread {
+  const pair = result.pairs[index];
+  if (!pair) return [];
+  return recordedSources(result, [
+    pair.relationRecord,
+    ...pair.members.map((m) => m.id),
+    ...pair.timing.map((t) => t.id),
+  ]);
 }

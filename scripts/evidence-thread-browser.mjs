@@ -41,6 +41,11 @@
 // the sealed rows; in a story of 57 lines written here with those rows in
 // other orders, they are worked out from the files; its line headings are
 // marked, a decision closes the drawer, and the way back returns over pages.
+// And in the intercompany pairs, the same way: each pair opens its
+// relationship row, every ledger row it names and its timing evidence; the
+// example (the frozen case pending) at its sealed rows, and a story of 54
+// pairs written here, with one-sided pairs, timing evidence and a
+// transaction written twice, at the rows worked out from its files.
 //   node scripts/evidence-thread-browser.mjs
 // EVIDENCE_THREAD_DIST names another build (a mutation gate's copy).
 import assert from 'node:assert/strict';
@@ -1867,25 +1872,37 @@ const sealedRows = new Map(
 // This check's own reading of the files agrees with the seal.
 for (const [id, rows] of sealedRows)
   assert.deepEqual(rowsInFiles(finExample)(id), rows, `financial seal ${id}`);
-let finRows = 0;
-// Each line given, opened in turn: the way in names it, the drawer's heading
-// names it and shows the line's figures as the line does, its sources are
+// The financial lines and the intercompany pairs are sections, each with
+// its heading and figures; a kind says which workspace, which sections,
+// the words for each source's role and the name a section goes by.
+const finKind = {
+  name: 'financial',
+  w: fin,
+  items: finLines,
+  roles: finWords,
+  named: (parts) => parts.slice(0, 2).join(' · '),
+  rows: 0,
+};
+// Each section given, opened in turn: the way in names it, the drawer's
+// heading names it and shows the section's figures as the section does, its sources are
 // the rows the story names, each held to its file, the line's heading is
 // marked as a row is, and the way back or Escape returns the focus to the
 // same way in.
-async function followLines(lang, width, motion, story, only) {
+async function followSections(kind, lang, width, motion, story, only) {
   const tw = threadWords[lang],
-    what = `financial ${story.name} ${lang} ${width} px ${motion}`;
-  const count = await finLines().count();
+    what = `${kind.name} ${story.name} ${lang} ${width} px ${motion}`;
+  const count = await kind.items().count();
   assert.ok(count > 0, `${what}: lines`);
   const followed = [];
   for (const i of only ?? [...Array(count).keys()]) {
     watch.at(`${what}: ${i}`);
-    const line = finLines().nth(i),
+    const line = kind.items().nth(i),
       heading = line.locator('> h3'),
-      [lineId, label] = (await heading.innerText()).trim().split(' · ');
+      parts = (await heading.innerText()).trim().split(' · '),
+      [lineId] = parts,
+      named = kind.named(parts);
     const way = line.getByRole('button', {
-      name: `${tw.way} · ${lineId} · ${label}`,
+      name: `${tw.way} · ${named}`,
       exact: true,
     });
     assert.equal(await way.count(), 1, `${what} ${lineId}: the way in`);
@@ -1916,7 +1933,7 @@ async function followLines(lang, width, motion, story, only) {
     assert.deepEqual([opened.tag, opened.inDrawer], ['H2', true], what);
     assert.equal(
       opened.text,
-      `${tw.heading} · ${lineId} · ${label}`,
+      `${tw.heading} · ${named}`,
       `${what}: the heading names the line`,
     );
     const amount = (
@@ -1936,7 +1953,7 @@ async function followLines(lang, width, motion, story, only) {
       `${what} ${lineId}: the rows`,
     );
     for (const s of sources) {
-      assert.equal(s.role, finWords[lang][s.source], `${what}: role`);
+      assert.equal(s.role, kind.roles[lang][s.source], `${what}: role`);
       assert.equal(
         s.place.File ?? s.place['الملف'],
         story.names[s.source],
@@ -1944,11 +1961,11 @@ async function followLines(lang, width, motion, story, only) {
       );
       heldToFile({ ...s, row: rowOf(s) }, story.files, `${what} ${lineId}`);
     }
-    finRows += sources.length;
+    kind.rows += sources.length;
     // A line is not a table row: its heading is shaded and underlined as a
     // row is, and with motion it comes in 160 ms.
     assert.equal(
-      await fin.locator('section[data-thread-open]').count(),
+      await kind.w.locator('section[data-thread-open]').count(),
       1,
       `${what}: the line is marked`,
     );
@@ -1976,12 +1993,12 @@ async function followLines(lang, width, motion, story, only) {
     assert.ok(
       (
         await page.evaluate(() => document.activeElement?.textContent ?? '')
-      ).includes(`${lineId} · ${label}`),
+      ).includes(`${named}`),
       `${what}: the same way in`,
     );
     followed.push(lineId);
   }
-  report.push(`financial ${story.name} ${lang} ${width} ${motion}`);
+  report.push(`${kind.name} ${story.name} ${lang} ${width} ${motion}`);
   return followed;
 }
 const example = {
@@ -2013,7 +2030,7 @@ for (const [lang, width, motion] of [
   await page.setViewportSize({ width, height: 900 });
   await page.emulateMedia({ reducedMotion: motion });
   assert.deepEqual(
-    await followLines(lang, width, motion, example),
+    await followSections(finKind, lang, width, motion, example),
     [...sealedRows.keys()],
     `financial ${lang}: every sealed line`,
   );
@@ -2021,7 +2038,11 @@ for (const [lang, width, motion] of [
 await page.emulateMedia({ reducedMotion: null });
 await page.setViewportSize({ width: 1440, height: 900 });
 await page.getByRole('button', { name: 'EN English', exact: true }).click();
-assert.equal(finRows, 2 * (6 + 3 * 7), `financial example rows: ${finRows}`);
+assert.equal(
+  finKind.rows,
+  2 * (6 + 3 * 7),
+  `financial example rows: ${finKind.rows}`,
+);
 // A decision changes the result, and closes the evidence of the old one.
 await fin
   .getByLabel('Decision reference', { exact: true })
@@ -2119,18 +2140,22 @@ const finPager = (name) =>
     .getByRole('navigation', { name: 'Pages of Statement lines', exact: true })
     .getByRole('button', { name, exact: true });
 await page.setViewportSize({ width: 1024, height: 900 });
-finRows = 0;
-const firstPage = await followLines('en', 1024, 'no-preference', long, [0, 6, 49]);
+finKind.rows = 0;
+const firstPage = await followSections(finKind, 'en', 1024, 'no-preference', long, [0, 6, 49]);
 await finPager('Next page').click();
 await finLines().first().waitFor();
-const secondPage = await followLines('en', 1024, 'no-preference', long);
+const secondPage = await followSections(finKind, 'en', 1024, 'no-preference', long);
 assert.deepEqual(
   [...firstPage, ...secondPage],
   ['L01', 'L07', 'L50', 'L51', 'L52', 'L53', 'L54', 'L55', 'L56', 'CAP'],
   'financial long: the lines followed, over two pages',
 );
 // Ten lines, two of them (L07 and L56) of two accounts.
-assert.equal(finRows, 10 + 3 * (10 + 2), `financial long rows: ${finRows}`);
+assert.equal(
+  finKind.rows,
+  10 + 3 * (10 + 2),
+  `financial long rows: ${finKind.rows}`,
+);
 // The way back, after the lines were turned while the drawer was open, turns
 // them back to the line's page and returns to its way in.
 await finLines()
@@ -2167,6 +2192,309 @@ assert.equal(
   await drawer.count(),
   0,
   'financial: a change of type closes the evidence',
+);
+
+// UX-10(d), intercompany: each pair opens its relationship row, then every
+// ledger row the relationship names, from either entity (a transaction
+// written twice is two rows), then the timing evidence attached to it. The
+// example writes the frozen case pending byte for byte, and its rows are the
+// sealed ones. A second story, written here, has 54 pairs over two pages:
+// six of them one-sided with timing evidence, one with its left transaction
+// written twice, and its ledgers and timing evidence each in another order.
+// It is read through the workspace's own file inputs, and the rows of each
+// pair are worked out here from the files.
+const ICF = 'audit/intercompany/frozen';
+const icWords = {
+  en: [
+    'Left entity ledger',
+    'Right entity ledger',
+    'Independent relationship evidence',
+    'Independent timing evidence',
+  ],
+  ar: [
+    'دفتر المنشأة اليسرى',
+    'دفتر المنشأة اليمنى',
+    'أدلة العلاقة المستقلة',
+    'أدلة التوقيت المستقلة',
+  ],
+};
+const icw = page.locator('[data-intercompany-workspace]');
+const icIdle = async () => {
+  for (const deadline = Date.now() + 60000; Date.now() < deadline; ) {
+    if ((await icw.getAttribute('aria-busy')) === 'false') return;
+    await page.waitForTimeout(100);
+  }
+  throw Error('the intercompany workspace stayed busy for a minute');
+};
+const icPairs = () => icw.locator('section[data-intercompany-pair]');
+const icKind = {
+  name: 'intercompany',
+  w: icw,
+  items: icPairs,
+  roles: icWords,
+  named: (parts) => parts[0],
+  rows: 0,
+};
+// The rows a pair must open, worked out from the four files: its
+// relationship row; every row of the left ledger, then of the right, whose
+// transaction identifier is the one the relationship names, in the file's
+// order; then, for each side whose transaction is written once, the timing
+// rows of that side and transaction, in the file's order.
+function icRowsInFiles(files) {
+  const at = (source, name) => files[source][0].indexOf(name),
+    rowsOf = (source, test) =>
+      files[source].flatMap((r, n) => (n > 0 && test(r) ? [n + 1] : []));
+  return (relationId) => {
+    const relation = rowsOf(2, (r) => r[at(2, 'Relation ID')] === relationId);
+    assert.equal(relation.length, 1, `${relationId}: one relationship row`);
+    const named = files[2][relation[0] - 1],
+      ids = [
+        named[at(2, 'Left transaction ID')],
+        named[at(2, 'Right transaction ID')],
+      ],
+      ledgers = [0, 1].map((side) =>
+        rowsOf(side, (r) => r[at(side, 'Transaction ID')] === ids[side]),
+      );
+    return [
+      [2, relation[0]],
+      ...ledgers.flatMap((rows, side) => rows.map((row) => [side, row])),
+      ...[0, 1].flatMap((side) =>
+        ledgers[side].length !== 1
+          ? []
+          : rowsOf(
+              3,
+              (r) =>
+                r[at(3, 'Side')] === (side ? 'right' : 'left') &&
+                r[at(3, 'Transaction ID')] === ids[side],
+            ).map((row) => [3, row]),
+      ),
+    ];
+  };
+}
+const icExample = await Promise.all(
+  [0, 1, 2, 3].map(async (i) =>
+    csvRows(await readFile(`${ICF}/pending-${i}.csv`, 'utf8')),
+  ),
+);
+const icSealed = new Map(
+  JSON.parse(await readFile(`${ICF}/expected.json`, 'utf8'))
+    .cases.find((c) => c.name === 'pending')
+    .financialFacts.groups.map((g) => [
+      g.id,
+      [
+        [2, g.relationRow],
+        ...(g.left ? [[0, g.left.row]] : []),
+        ...(g.right ? [[1, g.right.row]] : []),
+        ...g.timing.map((t) => [3, t.row]),
+      ],
+    ]),
+);
+// This check's own reading of the files agrees with the seal.
+for (const [id, rows] of icSealed)
+  assert.deepEqual(icRowsInFiles(icExample)(id), rows, `intercompany seal ${id}`);
+const icExampleStory = {
+  name: 'example',
+  files: icExample,
+  names: [0, 1, 2, 3].map((i) => `pending-${i}.csv`),
+  rows: (id) => icSealed.get(id),
+};
+await page.setViewportSize({ width: 1440, height: 900 });
+await page.emulateMedia({ reducedMotion: null });
+watch.at('intercompany: open the workspace');
+await openDomainWorkspace(page, 'intercompany');
+await icw
+  .getByRole('button', {
+    name: 'Open a synthetic intercompany example',
+    exact: true,
+  })
+  .click();
+await icPairs().first().waitFor();
+await icIdle();
+for (const [lang, width, motion] of [
+  ['en', 1440, 'no-preference'],
+  ['ar', 390, 'reduce'],
+]) {
+  if ((await page.evaluate(() => document.documentElement.lang)) !== lang)
+    await page
+      .getByRole('button', {
+        name: lang === 'ar' ? 'AR العربية' : 'EN English',
+        exact: true,
+      })
+      .click();
+  await page.setViewportSize({ width, height: 900 });
+  await page.emulateMedia({ reducedMotion: motion });
+  assert.deepEqual(
+    await followSections(icKind, lang, width, motion, icExampleStory),
+    [...icSealed.keys()],
+    `intercompany ${lang}: every sealed pair`,
+  );
+}
+await page.emulateMedia({ reducedMotion: null });
+await page.setViewportSize({ width: 1440, height: 900 });
+await page.getByRole('button', { name: 'EN English', exact: true }).click();
+assert.equal(icKind.rows, 2 * 3 * 3, `intercompany example rows: ${icKind.rows}`);
+// A decision changes the result, and closes the evidence of the old one.
+watch.at('intercompany: a decision');
+await icw
+  .getByLabel('Intercompany decision reference', { exact: true })
+  .fill('Synthetic independent browser reference');
+await icw
+  .getByLabel('Intercompany decision explanation', { exact: true })
+  .fill(
+    'Original whole reciprocal transactions and independent relationship evidence reviewed',
+  );
+const firstPair = icPairs().first();
+await firstPair
+  .getByRole('button', { name: 'Review source rows · R-001', exact: true })
+  .click();
+await drawer.waitFor();
+await firstPair
+  .getByRole('button', { name: 'Approve whole pair', exact: true })
+  .click();
+await icIdle();
+await closed();
+assert.equal(await drawer.count(), 0, 'intercompany: a decision closes it');
+// The long story, through the file inputs.
+watch.at('intercompany: the long story');
+const icTiming = csvRows(
+  await readFile(`${ICF}/future-left-timing-evidence-3.csv`, 'utf8'),
+);
+const icRows = [[], [], [], []];
+for (let k = 1; k <= 54; k++) {
+  const n = String(k).padStart(3, '0'),
+    [a, b] = [`A-${n}`, `B-${n}`],
+    amount = `${k}.00`,
+    oneSided = k % 9 === 0;
+  const left = [...icExample[0][1]];
+  [left[5], left[6], left[8], left[9]] = [a, b, amount, '0.00'];
+  icRows[0].push(left);
+  if (k === 20) icRows[0].push([...left]);
+  if (!oneSided) {
+    const right = [...icExample[1][1]];
+    [right[5], right[6], right[8], right[9]] = [b, a, '0.00', amount];
+    icRows[1].push(right);
+  }
+  const relation = [...icExample[2][1]];
+  [relation[0], relation[1], relation[2], relation[11]] = [
+    `R-${n}`,
+    a,
+    b,
+    `Independent reciprocal document ${n}`,
+  ];
+  if (oneSided) relation[8] = '2026-10-01';
+  icRows[2].push(relation);
+  if (oneSided) {
+    const timing = [...icTiming[1]];
+    [timing[0], timing[2], timing[3], timing[4], timing[5]] = [
+      `T-${n}`,
+      a,
+      b,
+      '2026-10-01',
+      `-${amount}`,
+    ];
+    icRows[3].push(timing);
+  }
+}
+// The left ledger reversed, the right turned by 25 rows, the timing
+// evidence reversed; the relationships in their own order.
+const icLongFiles = [
+  [...icRows[0]].reverse(),
+  [...icRows[1].slice(25), ...icRows[1].slice(0, 25)],
+  icRows[2],
+  [...icRows[3]].reverse(),
+].map((rows, i) => [i === 3 ? icTiming[0] : icExample[i][0], ...rows]);
+const icLong = {
+  name: 'long',
+  files: icLongFiles,
+  names: [0, 1, 2, 3].map((i) => `intercompany-long-${i}.csv`),
+  rows: icRowsInFiles(icLongFiles),
+};
+for (const [i, rows] of icLongFiles.entries()) {
+  await writeFile(
+    path.join(out, icLong.names[i]),
+    rows.map((r) => r.join(',')).join('\n') + '\n',
+  );
+  await icw
+    .locator('.workspace-source')
+    .filter({ has: page.getByLabel(icWords.en[i], { exact: true }) })
+    .locator('input[type="file"]')
+    .setInputFiles(path.join(out, icLong.names[i]));
+  await icIdle();
+  await icw.getByText(icLong.names[i], { exact: true }).waitFor();
+}
+await icw
+  .getByLabel(
+    'I reviewed the left and right entity ledgers, the independent relationship evidence and the independent timing evidence',
+    { exact: false },
+  )
+  .check();
+await icw
+  .getByLabel(
+    'I reviewed the complete supplied transactions, relationships and timing evidence.',
+    { exact: true },
+  )
+  .check();
+await icw
+  .getByRole('button', { name: 'Check reciprocal transactions', exact: true })
+  .click();
+await icIdle();
+await icPairs().first().waitFor();
+const icPager = (name) =>
+  icw
+    .getByRole('navigation', { name: 'Pages of Counterpart pairs', exact: true })
+    .getByRole('button', { name, exact: true });
+await page.setViewportSize({ width: 1024, height: 900 });
+icKind.rows = 0;
+const icFirst = await followSections(icKind, 'en', 1024, 'no-preference', icLong, [0, 8, 19]);
+await icPager('Next page').click();
+await icPairs().first().waitFor();
+const icSecond = await followSections(icKind, 'en', 1024, 'no-preference', icLong);
+assert.deepEqual(
+  [...icFirst, ...icSecond],
+  ['R-001', 'R-009', 'R-020', 'R-051', 'R-052', 'R-053', 'R-054'],
+  'intercompany long: the pairs followed, over two pages',
+);
+// R-001, R-051 to R-053: three rows each; R-009 and R-054: the relationship,
+// the left row and the timing row; R-020: the relationship, the left row
+// twice and the right row.
+assert.equal(icKind.rows, 4 * 3 + 2 * 3 + 4, `intercompany long rows: ${icKind.rows}`);
+// The way back, after the pairs were turned while the drawer was open, turns
+// them back to the pair's page and returns to its way in.
+watch.at('intercompany: the way back');
+await icPairs()
+  .last()
+  .getByRole('button', { name: 'Review source rows · R-054', exact: true })
+  .click();
+await drawer.waitFor();
+await arrived();
+await icPager('Previous page').click();
+await icPairs().first().getByText('R-001', { exact: false }).first().waitFor();
+await drawer.getByRole('button', { name: threadWords.en.back, exact: true }).click();
+await closed();
+assert.equal(await drawer.count(), 0, 'intercompany: the way back closes it');
+assert.ok(
+  (await page.evaluate(() => document.activeElement?.textContent ?? '')).includes(
+    'R-054',
+  ),
+  "intercompany: the way back returns to the pair's way in, on its own page",
+);
+report.push('intercompany long: way back over two pages');
+// A change of type closes it.
+await icPairs()
+  .first()
+  .getByRole('button', { name: /^Review source rows · / })
+  .click();
+await drawer.waitFor();
+await page
+  .locator('select[data-reconciliation-type-select]')
+  .selectOption('bank');
+watch.at('intercompany: open the workspace again');
+await openDomainWorkspace(page, 'intercompany');
+await icPairs().first().waitFor();
+assert.equal(
+  await drawer.count(),
+  0,
+  'intercompany: a change of type closes the evidence',
 );
 
 watch.stop();

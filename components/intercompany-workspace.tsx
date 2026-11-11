@@ -44,6 +44,10 @@ import {
   intercompanyDemoScope,
 } from '@/lib/reconciliation/intercompany-demo';
 import { intercompanyCopy } from '@/lib/i18n/intercompany';
+import { EvidenceDrawer, ThreadSources } from '@/components/evidence-drawer';
+import { useEvidenceThread } from '@/hooks/use-evidence-thread';
+import { intercompanyThread } from '@/lib/evidence-thread';
+import { evidenceThreadCopy } from '@/lib/i18n/evidence-thread';
 import { ScopeCard, Sentence } from '@/components/scope-card';
 import { scopeCardCopy } from '@/lib/i18n/scope-card';
 import { useDeclaredScope } from '@/hooks/use-declared-scope';
@@ -397,6 +401,16 @@ export function IntercompanyWorkspace({
     );
   }
   const pairsShown = recordPage(result?.pairs.length ?? 0, pairPage);
+  // Each pair opens its relationship row, then every ledger row it names and
+  // its timing evidence (UX-10). The pairs keep their own page, which a
+  // decision moves to the pair it changed; the way back takes them to the
+  // pair's page.
+  const thread = useEvidenceThread(active, result),
+    words = evidenceThreadCopy[lang],
+    opened =
+      result && thread.open?.table === 'pairs'
+        ? { at: thread.open.at, pair: result.pairs[thread.open.at] }
+        : null;
   const status = (value: string) =>
     (copy.status as Record<string, string>)[value] ?? value;
   // What the decision buttons open on, as before: approval also needs the
@@ -769,6 +783,7 @@ export function IntercompanyWorkspace({
               <section
                 key={p.relationRecord}
                 data-intercompany-pair={p.relationId}
+                {...thread.mark('pairs', pairsShown.from + i)}
               >
                 <h3
                   id={headingAt(pairsShown.from + i)}
@@ -787,6 +802,19 @@ export function IntercompanyWorkspace({
                     ]}
                   />
                 </p>
+                <div className="gl-tb-actions">
+                  <Button
+                    variant="outline"
+                    {...thread.way('pairs', pairsShown.from + i)}
+                    onClick={() => thread.show('pairs', pairsShown.from + i)}
+                  >
+                    {words.way}
+                    <span className="sr-only">
+                      {' · '}
+                      {p.relationId}
+                    </span>
+                  </Button>
+                </div>
                 <details>
                   <summary>
                     {copy.entries} ({p.members.length})
@@ -834,6 +862,33 @@ export function IntercompanyWorkspace({
               page={pairPage}
               onPage={setPairPage}
             />
+            {opened?.pair && (
+              <EvidenceDrawer
+                id={thread.id}
+                headingRef={thread.heading}
+                heading={`${words.heading} · ${opened.pair.relationId}`}
+                back={words.back}
+                onBack={() => {
+                  setPairPage(pageOfRow(opened.at));
+                  thread.back();
+                }}
+                amount={
+                  <Figures
+                    decimals={result.decimals}
+                    items={[
+                      [copy.residualFigures[0], opened.pair.left?.net],
+                      [copy.residualFigures[1], opened.pair.right?.net],
+                      [copy.residualFigures[2], opened.pair.residual],
+                    ]}
+                  />
+                }
+              >
+                <ThreadSources
+                  thread={intercompanyThread(result, opened.at)}
+                  role={(s) => copy.roles[s.source]}
+                />
+              </EvidenceDrawer>
+            )}
             <EvidenceSections
               anchor={resultParts.anchor('evidence')}
               sections={[

@@ -8,6 +8,7 @@ import {
   clearingThread,
   financialThread,
   glTbThread,
+  intercompanyThread,
   payrollBankThread,
   payrollThread,
   stockThread,
@@ -63,6 +64,10 @@ import {
   financialTruth,
   finishedFinancial,
 } from '../audit/tb-financial/fixtures.ts';
+import {
+  intercompanyTruth,
+  finishedIntercompany,
+} from '../audit/intercompany/fixtures.ts';
 
 // The thread is held to the source bytes themselves: each file is read here
 // with its own small CSV reader, not the engine's, and every cell the thread
@@ -105,12 +110,15 @@ function csv(bytes: ArrayBuffer): string[][] {
 const labelsOf = (files: readonly SourceFile[]): ThreadLabel[] =>
   files.map((f) => ({ name: f.name, sheet: f.sheets[0]?.name ?? null }));
 
-/** Every source and cell of a thread, against the files read here. */
+/** Every source and cell of a thread, against the files read here. A cell
+ * past the end of the header row has no header in the file: its header is
+ * `unheaded(column)`, the name the engine gives such a column. */
 function heldToSources(
   thread: Thread,
   files: readonly SourceFile[],
   roles: readonly string[],
   what: string,
+  unheaded: (column: number) => string = () => '',
 ) {
   for (const s of thread) {
     assert.equal(s.name, files[s.source].name, `${what}: source name`);
@@ -127,7 +135,11 @@ function heldToSources(
     );
     for (const c of s.cells) {
       assert.equal(c.text, row[c.column - 1], `${what}: cell text`);
-      assert.equal(c.field, rows[0][c.column - 1] ?? '', `${what}: header`);
+      assert.equal(
+        c.field,
+        rows[0][c.column - 1] ?? unheaded(c.column),
+        `${what}: header`,
+      );
     }
   }
 }
@@ -1014,6 +1026,119 @@ void test('a line of the financial position opens its statement row, then the ac
       none >= 22 &&
       cells >= 27_088,
     `${cases} cases, ${lines} lines (${sealed} sealed, ${several} of several members, ${none} of none), ${members} members, ${cells} cells`,
+  );
+});
+
+const IC_ROLES = [
+  'left-ledger',
+  'right-ledger',
+  'relationship-evidence',
+  'timing-evidence',
+];
+
+void test('an intercompany pair opens its relationship row, then every ledger row it names and its timing evidence, as the files have them', async () => {
+  let cases = 0,
+    pairs = 0,
+    sealed = 0,
+    oneSided = 0,
+    timed = 0,
+    doubled = 0,
+    cells = 0;
+  for (const c of intercompanyTruth.cases) {
+    if (c.reject) continue;
+    const { state, result } = await finishedIntercompany(c.name);
+    cases++;
+    const facts = c.financialFacts;
+    result.pairs.forEach((pair, i) => {
+      const thread = intercompanyThread(result, i),
+        what = `${c.name} pair ${pair.relationId}`,
+        places = thread.map((s) => [
+          s.source,
+          'row' in s.place ? s.place.row : 0,
+        ]);
+      heldToSources(
+        thread,
+        state.files,
+        IC_ROLES,
+        what,
+        (column) => `Column ${column}`,
+      );
+      for (const s of thread)
+        assert.equal(
+          s.sheet,
+          state.files[s.source].sheets[0].name,
+          `${what}: sheet`,
+        );
+      // The relationship row first, then the ledger rows, then the timing
+      // evidence, each as the engine lists them; what the files hold at
+      // those rows names the pair and the transactions it pairs.
+      assert.equal(
+        thread.length,
+        1 + pair.members.length + pair.timing.length,
+        what,
+      );
+      const [relation] = thread,
+        ledger = thread.slice(1, 1 + pair.members.length),
+        timing = thread.slice(1 + pair.members.length);
+      assert.equal(relation.source, 2, `${what}: the relationship first`);
+      assert.equal(cellOf(relation, 'Relation ID'), pair.relationId, what);
+      for (const s of ledger)
+        assert.equal(
+          cellOf(s, 'Transaction ID'),
+          cellOf(
+            relation,
+            s.source === 0 ? 'Left transaction ID' : 'Right transaction ID',
+          ),
+          `${what}: the ledger row the relationship names`,
+        );
+      for (const s of timing) assert.equal(s.source, 3, `${what}: timing`);
+      // Where the case is sealed with its facts, the rows are the sealed
+      // ones, found without the engine.
+      const truth = facts?.groups.find((g) => g.id === pair.relationId);
+      if (truth) {
+        assert.deepEqual(
+          places,
+          [
+            [2, truth.relationRow],
+            ...(truth.left ? [[0, truth.left.row]] : []),
+            ...(truth.right ? [[1, truth.right.row]] : []),
+            ...truth.timing.map((t) => [3, t.row]),
+          ],
+          `${what}: the sealed rows`,
+        );
+        sealed++;
+      }
+      if (!pair.left || !pair.right) oneSided++;
+      if (pair.timing.length) timed++;
+      if (pair.members.length > 2) doubled++;
+      cells += thread.reduce((n, s) => n + (s.cells?.length ?? 0), 0);
+      pairs++;
+    });
+    if (facts)
+      assert.equal(
+        result.pairs.length,
+        facts.groups.length,
+        `${c.name}: every sealed pair`,
+      );
+    assert.deepEqual(
+      intercompanyThread(result, result.pairs.length),
+      [],
+      `${c.name}: an unknown pair opens nothing`,
+    );
+  }
+  // As measured on the frozen set: pairs missing one side, pairs with timing
+  // evidence, and pairs whose transaction is written twice in one ledger
+  // (duplicate-left-entry, malformed-duplicate-contender), whose thread
+  // draws both rows.
+  assert.ok(
+    cases >= 71 &&
+      pairs >= 203 &&
+      sealed >= 76 &&
+      oneSided >= 35 &&
+      timed >= 8 &&
+      doubled >= 2 &&
+      cells >= 13_567,
+    `${cases} cases, ${pairs} pairs (${sealed} sealed, ${oneSided} one-sided, ${timed} with timing evidence, ${doubled} with a transaction written twice), ${cells} cells`,
   );
 });
 
