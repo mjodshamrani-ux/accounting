@@ -6,6 +6,13 @@
 // platform browser acceptance (scripts/decision-platform-browser.mjs,
 // against that build) must fail with an assertion. A survivor is behaviour
 // no check holds.
+//
+// A mutant whose check stops with no verdict (a timeout, a page that no
+// longer answers) is checked once more on the same build, and both runs are
+// kept; only an assertion kills it, and a check that passes is a survivor
+// (DEV-117). In CI on bcf0641 the check of balance-step-hidden printed
+// nothing in its ten minutes; the check now names each step and stops a
+// stalled one after four.
 //   node scripts/test-decision-platform-interface-mutations.mjs
 import {
   cp,
@@ -24,6 +31,7 @@ import {
   removePrivateTree,
   completedSuccessfully,
   describeRun,
+  endedWithoutVerdict,
   isAssertionKill,
 } from './mutation-runner-support.mjs';
 
@@ -227,20 +235,19 @@ function build(tree) {
   }
   return null;
 }
+// The acceptance against a tree already built.
+const accept = (tree) =>
+  spawnSync(process.execPath, ['--experimental-strip-types', acceptance], {
+    ...options(root),
+    env: {
+      ...process.env,
+      DECISION_PLATFORM_DIST: join(tree, 'dist'),
+    },
+  });
 const run = (tree) => {
   const failed = build(tree);
   if (failed) return { ...failed, buildFailed: true };
-  return spawnSync(
-    process.execPath,
-    ['--experimental-strip-types', acceptance],
-    {
-      ...options(root),
-      env: {
-        ...process.env,
-        DECISION_PLATFORM_DIST: join(tree, 'dist'),
-      },
-    },
-  );
+  return accept(tree);
 };
 const log = (name, r) =>
   writeFile(join(out, name + '.log'), (r.stdout ?? '') + (r.stderr ?? ''));
@@ -273,8 +280,26 @@ if (report.baselinePassed)
       if (text.split(from).length !== 2)
         throw Error('Mutation anchor drift: ' + id);
       await writeFile(target, text.replace(from, to));
-      const result = run(tree);
+      let result = run(tree);
       await log(id, result);
+      // A check that stopped with no verdict on a mutant that built (a page
+      // that no longer answered, a timeout) said nothing about the
+      // behaviour; it is run once more on the same build, and both runs are
+      // logged and recorded. Only an assertion is a kill, and a check that
+      // passes is a survivor (DEV-117).
+      let noVerdict = null;
+      if (endedWithoutVerdict(result)) {
+        process.stderr.write(
+          describeRun(id, result, 'stopped with no verdict; its check runs once more'),
+        );
+        noVerdict = {
+          exitCode: result.status,
+          signal: result.signal,
+          error: result.error?.message ?? null,
+        };
+        result = accept(tree);
+        await log(`${id}.again`, result);
+      }
       // A mutant that does not build is not a caught behaviour.
       const killed = !result.buildFailed && isAssertionKill(result);
       if (!killed)
@@ -287,6 +312,7 @@ if (report.baselinePassed)
         exitCode: result.status,
         signal: result.signal,
         error: result.error?.message ?? null,
+        noVerdict,
       });
     } catch (error) {
       process.stderr.write(`${id} did not run: ${error.stack}\n`);
@@ -316,6 +342,7 @@ console.log(
       killed: report.mutations.filter((r) => r.killed).length,
       total: mutations.length,
       survivors: report.mutations.filter((r) => !r.killed).map((r) => r.id),
+      ranTwice: report.mutations.filter((r) => r.noVerdict).map((r) => r.id),
     },
     null,
     2,

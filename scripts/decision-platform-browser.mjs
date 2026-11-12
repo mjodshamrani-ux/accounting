@@ -23,7 +23,7 @@ import {
 } from './domain-navigation-support.mjs';
 import { DECISIONS } from './ux-census-support.mjs';
 import { closedSay, focused, pause } from './decision-platform-support.mjs';
-import { pageState } from './stage-watchdog.mjs';
+import { pageState, stageWatchdog } from './stage-watchdog.mjs';
 
 const dist = path.resolve(
   process.env.DECISION_PLATFORM_DIST ??
@@ -62,6 +62,15 @@ const external = [],
 // The page and the step the check is on, said when a wait times out.
 let current = null,
   where = 'start';
+// A step that stops with no error (a page that no longer answers leaves an
+// evaluate waiting with no timeout) is stopped after four minutes with its
+// step and the page's state, inside the gate's ten. On bcf0641 in CI one
+// check here printed nothing in those ten minutes (DEV-117).
+const watch = stageWatchdog({ page: () => current });
+const enterStep = (step) => {
+  where = step;
+  watch.at(step);
+};
 // Each workspace panel on the page: shown or hidden, and how many advanced
 // disclosures it holds.
 const panelsOf = async (page) =>
@@ -203,7 +212,7 @@ let checked = 0,
 try {
   for (const language of ['ar', 'en']) {
     for (const [domain, recipe] of Object.entries(DECISIONS)) {
-      where = `${domain}/${language}`;
+      enterStep(`${domain}/${language}`);
       const { context, page } = await open(language);
       const panel = await openDomainWorkspace(page, domain, {
         advanced: true,
@@ -546,7 +555,7 @@ try {
 
   // A receivables list longer than a page: a decision on its second page
   // leaves the reader on that page, with the focus on the pair decided.
-  where = 'long receivables list';
+  enterStep('long receivables list');
   const { context, page } = await open('en');
   const panel = await openDomainWorkspace(page, 'ar', {
     advanced: true,
@@ -665,6 +674,7 @@ try {
   }
   throw error;
 } finally {
+  watch.stop();
   await browser.close();
   await new Promise((resolve) => server.close(resolve));
 }
