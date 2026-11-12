@@ -18,12 +18,21 @@
 // its motion), the financial lines' and the pairs' way back to their own
 // page, a decision that leaves the old evidence open, the supplier's way
 // back to the case's page and the list change or step that closes it, and
-// the allocation's way back to the item's page.
+// the allocation's way back to the item's page. Then the accounts of the
+// GL/TB sections panel: their way in, marked row, heading, components,
+// files, roles, headerless cells and the sentence that says so, their way
+// back to their page and the fold that closes them; and one drawer on the
+// page, which an account's drawer opening closes.
 //
 // A mutant whose check stops with no verdict (a timeout, a page that no
 // longer answers) is checked once more on the same build, and both runs are
 // kept; only an assertion kills it, and a check that passes is a survivor
 // (DEV-117).
+//
+// EVIDENCE_THREAD_MUTATION_SHARD=i/N takes every Nth mutant by its place in
+// the catalogue, from the i-th: CI runs the catalogue in three shards, each
+// with its own baseline, since a mutant late in the check runs nearly all of
+// it before it fails (UX-10 record §22). Without it, every mutant runs.
 //
 // Not planted: the drawer's motion outside its reduced-motion guard. The
 // page's own rule (app/globals.css) sets every animation to none under
@@ -33,7 +42,10 @@
 // the asset and payroll examples hold one page, so no check can see it there
 // (the bank's own way back to its page is planted above). The clearing
 // example's five cases hold one page too, so its own way back to the case's
-// page is not planted either.
+// page is not planted either. Nor a GL/TB sections drawer that a change of
+// type leaves open: the GL/TB workspace draws nothing while hidden, so the
+// panel and its drawer are removed with it; that mutant survived its first
+// run as an equivalent one (docs/audits/UX-10-EVIDENCE-THREAD.ar.md §22).
 //   node scripts/test-evidence-thread-interface-mutations.mjs
 import {
   cp,
@@ -76,6 +88,7 @@ const FINANCIAL = 'components/tb-financial-workspace.tsx';
 const INTERCOMPANY = 'components/intercompany-workspace.tsx';
 const GATEWAY = 'components/payment-gateway-workspace.tsx';
 const ALLOCATION = 'components/allocation-workspace.tsx';
+const SECTIONS = 'components/gl-tb-sections-panel.tsx';
 const PAGE = 'app/page.tsx';
 const HOOK = 'hooks/use-evidence-thread.ts';
 const mutations = [
@@ -771,6 +784,84 @@ const mutations = [
     "  const thread = useEvidenceThread(active, null),\n    threadWords = evidenceThreadCopy[lang];",
   ],
   [
+    "gls-way-not-named",
+    SECTIONS,
+    "                    {a.account}\n                    {a.dimensions && ` \u00b7 ${a.dimensions}`}\n",
+    "",
+  ],
+  [
+    "gls-way-opens-the-first-account",
+    SECTIONS,
+    "onClick={() => thread.show('accounts', i)}",
+    "onClick={() => thread.show('accounts', 0)}",
+  ],
+  [
+    "gls-row-not-marked",
+    SECTIONS,
+    "                ...thread.mark('accounts', i),\n",
+    "",
+  ],
+  [
+    "gls-heading-without-dimensions",
+    SECTIONS,
+    "                    ? [opened.account.dimensions]\n",
+    "                    ? []\n",
+  ],
+  [
+    "gls-amount-of-the-first-account",
+    SECTIONS,
+    "? show(opened.account, result.decimals)",
+    "? show(result.accounts[0], result.decimals)",
+  ],
+  [
+    "gls-files-not-passed",
+    SECTIONS,
+    "[gl?.file ?? null, tb?.file ?? null]",
+    "[null, null]",
+  ],
+  [
+    "gls-files-swapped",
+    SECTIONS,
+    "[gl?.file ?? null, tb?.file ?? null]",
+    "[tb?.file ?? null, gl?.file ?? null]",
+  ],
+  [
+    "gls-role-of-the-gl",
+    SECTIONS,
+    "role={(s) => copy.files[s.source === 0 ? 'gl' : 'tb']}",
+    "role={() => copy.files.gl}",
+  ],
+  [
+    "gls-header-left-blank",
+    SECTIONS,
+    "                  field={(c) => c.field || undefined}\n",
+    "",
+  ],
+  [
+    "gls-note-not-shown",
+    SECTIONS,
+    "                <p>{copy.threadNote}</p>\n",
+    "",
+  ],
+  [
+    "gls-back-stays-on-the-page",
+    SECTIONS,
+    "              {...thread.paging('accounts')}\n",
+    "",
+  ],
+  [
+    "gls-folding-keeps-it",
+    SECTIONS,
+    "useEvidenceThread(expanded, result)",
+    "useEvidenceThread(true, result)",
+  ],
+  [
+    "hook-another-drawer-stays",
+    HOOK,
+    "      if ((event as CustomEvent<string>).detail !== id) setOpen(null);",
+    "      if ((event as CustomEvent<string>).detail !== id) return;",
+  ],
+  [
     'hook-keeps-it-on-type-change',
     HOOK,
     `    setSeen({ shown, result });
@@ -832,7 +923,21 @@ for (const dir of ['app', 'components', 'hooks', 'lib'])
       ).matchAll(/['"](?:\.\.\/)+audit\/([^/'"]+)\//g))
         auditDirs.add(`audit/${m[1]}`);
 buildInputs.push(...[...auditDirs].sort((a, b) => a.localeCompare(b)));
-const faults = mutations;
+if (new Set(mutations.map(([id]) => id)).size !== mutations.length)
+  throw Error('Every mutant has its own name');
+const shardValue = process.env.EVIDENCE_THREAD_MUTATION_SHARD;
+let shard = null;
+if (shardValue !== undefined) {
+  const match = /^([1-9]\d*)\/([1-9]\d*)$/.exec(shardValue);
+  if (!match)
+    throw Error('EVIDENCE_THREAD_MUTATION_SHARD must be a one-based index/count');
+  shard = { index: Number(match[1]), count: Number(match[2]) };
+  if (shard.index > shard.count || shard.count > mutations.length)
+    throw Error('EVIDENCE_THREAD_MUTATION_SHARD requires 1 <= index <= count <= mutants');
+}
+const faults = mutations.filter(
+  (_, i) => !shard || i % shard.count === shard.index - 1,
+);
 const files = [...new Set(faults.map(([, file]) => file)), acceptance];
 const digest = (b) => createHash('sha256').update(b).digest('hex');
 const before = Object.fromEntries(
@@ -954,7 +1059,7 @@ for (const [p, hash] of Object.entries(before))
     throw Error('Mutation touched source');
 report.passed =
   report.baselinePassed &&
-  report.mutations.length === mutations.length &&
+  report.mutations.length === faults.length &&
   report.mutations.every((r) => r.killed);
 await writeFile(join(out, 'checks.json'), JSON.stringify(report, null, 2));
 console.log(
@@ -962,8 +1067,10 @@ console.log(
     {
       out,
       baselinePassed: report.baselinePassed,
+      shard: shardValue ?? null,
       killed: report.mutations.filter((r) => r.killed).length,
-      total: mutations.length,
+      total: faults.length,
+      catalogue: mutations.length,
       survivors: report.mutations.filter((r) => !r.killed).map((r) => r.id),
       ranTwice: report.mutations.filter((r) => r.noVerdict).map((r) => r.id),
     },

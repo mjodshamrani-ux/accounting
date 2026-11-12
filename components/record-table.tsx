@@ -325,6 +325,7 @@ export function RecordTable({
     headers: readonly ReactNode[];
     rows: ReactNode[][];
     marks?: (RecordHook | undefined)[];
+    rowHeader?: number;
     wrap?: readonly number[];
     wrapHeaders?: boolean;
     status?: {

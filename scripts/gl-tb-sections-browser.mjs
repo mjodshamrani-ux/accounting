@@ -25,12 +25,13 @@ import {
 } from './section-focus-support.mjs';
 
 // The status badge in this section (UX-3): a status on this list, and no
-// other, takes the agreed tone.
+// other, takes the agreed tone. Its column follows the way in to the
+// account's evidence (UX-10).
 const BADGE_LABEL = 'GL and TB sections';
 const BADGES = [
   {
     name: 'accounts',
-    column: 2,
+    column: 3,
     rows: 'tr[data-gls-account]',
     attr: 'data-gls-status',
     agreed: ['consistent'],
@@ -203,6 +204,7 @@ async function shown(gls) {
   const accounts = {};
   for (;;) {
     for (const row of await gls.locator('tr[data-gls-account]').all()) {
+      // The account heads its row; the cells after it, from the way in.
       const cells = await row.locator('td').allTextContents();
       accounts[await row.getAttribute('data-gls-account')] = {
         status: await row.getAttribute('data-gls-status'),

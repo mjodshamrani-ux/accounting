@@ -28,6 +28,10 @@ import { ClosedReason } from './decision-platform';
 import { glSectionTone, toned } from '@/lib/status-tone';
 import { useResultFocus } from '@/components/result-focus';
 import { SectionResultHeading } from '@/components/section-result';
+import { EvidenceDrawer, ThreadSources } from '@/components/evidence-drawer';
+import { useEvidenceThread } from '@/hooks/use-evidence-thread';
+import { glTbSectionsThread } from '@/lib/evidence-thread';
+import { evidenceThreadCopy } from '@/lib/i18n/evidence-thread';
 
 type Picked = { file: SourceFile; confirmed: boolean };
 type Field = (typeof GLS_SCOPE_FIELDS)[number];
@@ -39,7 +43,8 @@ const blankScope = () =>
 
 export function GlTbSectionsPanel() {
   const { lang } = useI18n();
-  const copy = glTbSectionsCopy[lang];
+  const copy = glTbSectionsCopy[lang],
+    words = evidenceThreadCopy[lang];
   const [gl, setGl] = useState<Picked | null>(null),
     [tb, setTb] = useState<Picked | null>(null),
     [scope, setScope] = useState(blankScope),
@@ -48,6 +53,16 @@ export function GlTbSectionsPanel() {
     [busy, setBusy] = useState(false),
     [error, setError] = useState('');
   const { heading: resultHeading, reveal } = useResultFocus();
+  // Each account opens the GL section rows and TB rows the engine read for
+  // it (UX-10). The drawer closes when the section is folded or the result
+  // changes; the workspace draws no panel while it is hidden, so a change of
+  // type removes the panel and its drawer with it.
+  const [expanded, setExpanded] = useState(false);
+  const thread = useEvidenceThread(expanded, result),
+    opened =
+      result && thread.open?.table === 'accounts'
+        ? { at: thread.open.at, account: result.accounts[thread.open.at] }
+        : undefined;
   const runtime = useRef({
     serial: 0,
     controller: null as AbortController | null,
@@ -205,7 +220,11 @@ export function GlTbSectionsPanel() {
         .filter(([, n]) => n)
     : [];
   return (
-    <details className="intercompany-batch" data-gls-details>
+    <details
+      className="intercompany-batch"
+      data-gls-details
+      onToggle={(e) => setExpanded(e.currentTarget.open)}
+    >
       <summary>{copy.title}</summary>
       <section
         className="workspace-results"
@@ -301,13 +320,28 @@ export function GlTbSectionsPanel() {
             </p>
             <RecordTable
               status={{
-                column: 2,
+                column: 3,
                 of: (i) => toned(glSectionTone, result.accounts[i].status),
               }}
               label={copy.accounts}
               pager={{ 'data-gls-pager': 'accounts' }}
-              headers={copy.headers}
-              rows={result.accounts.map((a) => [
+              {...thread.paging('accounts')}
+              headers={[words.way, ...copy.headers]}
+              rowHeader={1}
+              rows={result.accounts.map((a, i) => [
+                <Button
+                  key="thread"
+                  variant="outline"
+                  {...thread.way('accounts', i)}
+                  onClick={() => thread.show('accounts', i)}
+                >
+                  {words.way}
+                  <span className="sr-only">
+                    {' · '}
+                    {a.account}
+                    {a.dimensions && ` · ${a.dimensions}`}
+                  </span>
+                </Button>,
                 a.account,
                 a.dimensions,
                 copy.status[a.status],
@@ -319,12 +353,44 @@ export function GlTbSectionsPanel() {
                 show(a, result.decimals),
                 where(a),
               ])}
-              marks={result.accounts.map((a) => ({
+              marks={result.accounts.map((a, i) => ({
                 'data-gls-account': a.key,
                 'data-gls-status': a.status,
                 'data-gls-codes': a.codes.join(' '),
+                ...thread.mark('accounts', i),
               }))}
             />
+            {opened && (
+              <EvidenceDrawer
+                id={thread.id}
+                headingRef={thread.heading}
+                heading={[
+                  words.heading,
+                  opened.account.account,
+                  ...(opened.account.dimensions
+                    ? [opened.account.dimensions]
+                    : []),
+                ].join(' · ')}
+                back={words.back}
+                onBack={thread.back}
+                amount={
+                  opened.account.gl || opened.account.tb
+                    ? show(opened.account, result.decimals)
+                    : undefined
+                }
+              >
+                <p>{copy.threadNote}</p>
+                <ThreadSources
+                  thread={glTbSectionsThread(
+                    result,
+                    [gl?.file ?? null, tb?.file ?? null],
+                    opened.at,
+                  )}
+                  role={(s) => copy.files[s.source === 0 ? 'gl' : 'tb']}
+                  field={(c) => c.field || undefined}
+                />
+              </EvidenceDrawer>
+            )}
             {result.excludedSections.length > 0 && (
               <section
                 data-gls-excluded-sections={result.excludedSections

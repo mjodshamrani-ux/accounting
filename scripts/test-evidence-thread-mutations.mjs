@@ -48,6 +48,8 @@ const copied = [
   'audit/tb-financial',
   'audit/intercompany',
   'audit/payment-gateway',
+  'audit/gl-tb-sections-foundation/frozen',
+  'audit/gl-tb-sections-holdout-h1/frozen',
   'package.json',
 ];
 const mutations = [
@@ -649,6 +651,78 @@ const mutations = [
     THREAD,
     "      name: read.sourceName,\n      sheet: trace.sheet,",
     "      name: result.supplier.sourceName,\n      sheet: trace.sheet,",
+  ],
+  [
+    "gls-fingerprint-ignored",
+    THREAD,
+    "      sheet = file?.sha256 === read.hash ? file.sheets[0] : undefined,",
+    "      sheet = file ? file.sheets[0] : undefined,",
+  ],
+  [
+    "gls-row-from-zero",
+    THREAD,
+    "      cells = sheet?.rows[row - 1];",
+    "      cells = sheet?.rows[row];",
+  ],
+  [
+    "gls-column-from-zero",
+    THREAD,
+    "({ column: n + 1, field: '', text })",
+    "({ column: n, field: '', text })",
+  ],
+  [
+    "gls-header-invented",
+    THREAD,
+    "({ column: n + 1, field: '', text })",
+    "({ column: n + 1, field: String(n + 1), text })",
+  ],
+  [
+    "gls-sections-dropped",
+    THREAD,
+    "    ...account.sections.map((s) => line(0, s.row)),\n",
+    "",
+  ],
+  [
+    "gls-tb-rows-dropped",
+    THREAD,
+    "    ...account.rows.map((r) => line(1, r.row)),\n",
+    "",
+  ],
+  [
+    "gls-tb-rows-of-the-gl",
+    THREAD,
+    "    ...account.rows.map((r) => line(1, r.row)),",
+    "    ...account.rows.map((r) => line(0, r.row)),",
+  ],
+  [
+    "gls-tb-rows-first",
+    THREAD,
+    "    ...account.sections.map((s) => line(0, s.row)),\n    ...account.rows.map((r) => line(1, r.row)),",
+    "    ...account.rows.map((r) => line(1, r.row)),\n    ...account.sections.map((s) => line(0, s.row)),",
+  ],
+  [
+    "gls-next-account",
+    THREAD,
+    "  const account = result.accounts[index];\n  if (!account) return [];\n  const line =",
+    "  const account = result.accounts[index + 1];\n  if (!account) return [];\n  const line =",
+  ],
+  [
+    "gls-sheet-without-the-file",
+    THREAD,
+    "      sheet: sheet?.name ?? null,",
+    "      sheet: 'CSV',",
+  ],
+  [
+    "gls-name-of-the-gl",
+    THREAD,
+    "      name: read.name,\n      sheet: sheet?.name ?? null,",
+    "      name: result.sources[0].name,\n      sheet: sheet?.name ?? null,",
+  ],
+  [
+    "gls-role-of-the-gl",
+    THREAD,
+    "      role: read.role,\n      name: read.name,\n      sheet: sheet?.name",
+    "      role: result.sources[0].role,\n      name: read.name,\n      sheet: sheet?.name",
   ],
 ];
 const files = [THREAD, ...tests];

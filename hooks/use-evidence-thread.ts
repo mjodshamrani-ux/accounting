@@ -3,11 +3,16 @@ import { pageOfRow } from '@/lib/record-page';
 
 type Row = { table: string; at: number };
 
+// The event a thread sends as its drawer opens, naming its own id.
+const OPENED = 'evidence-thread-opened';
+
 /**
  * The evidence thread of a workspace (UX-10): which row of which result
  * table has its drawer open, the focus that follows opening it and the way
  * back, and each table's page, so that the way back returns to the row's own
- * page. One drawer at a time: another row replaces it. It closes when the
+ * page. One drawer at a time: another row replaces it, and opening it
+ * closes the drawer of any other thread on the page, such as that of the
+ * table above a section panel, with no focus moved. It closes when the
  * workspace is hidden (`shown` false) and when the result changes, so no
  * evidence of an older result stays in view. A row is named by its table and
  * its index in that table.
@@ -30,6 +35,13 @@ export function useEvidenceThread(shown: boolean, result: unknown) {
     isOpen = (table: string, at: number) =>
       open?.table === table && open.at === at;
   useEffect(() => {
+    const other = (event: Event) => {
+      if ((event as CustomEvent<string>).detail !== id) setOpen(null);
+    };
+    document.addEventListener(OPENED, other);
+    return () => document.removeEventListener(OPENED, other);
+  }, [id]);
+  useEffect(() => {
     if (!focus) return;
     const element =
       focus.to === 'drawer'
@@ -49,6 +61,7 @@ export function useEvidenceThread(shown: boolean, result: unknown) {
       onPage: (to: number) => setPages((p) => ({ ...p, [table]: to })),
     }),
     show: (table: string, at: number) => {
+      document.dispatchEvent(new CustomEvent(OPENED, { detail: id }));
       setOpen({ table, at });
       setFocus({ table, at, to: 'drawer' });
     },

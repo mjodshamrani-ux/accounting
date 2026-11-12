@@ -4,6 +4,7 @@ import type { ArScopeDetailsReading } from './reconciliation/ar-scope-details.ts
 import type { BankResult } from './reconciliation/bank.ts';
 import type { ClearingResult } from './reconciliation/clearing.ts';
 import type { BalanceField, GlTbResult } from './reconciliation/gl-tb.ts';
+import type { GlsResult } from './reconciliation/gl-tb-sections.ts';
 import type { FinancialResult } from './reconciliation/tb-financial.ts';
 import type { IntercompanyResult } from './reconciliation/intercompany.ts';
 import type { GatewayResult } from './reconciliation/payment-gateway.ts';
@@ -249,6 +250,44 @@ export function glTbThread(result: GlTbResult, field: BalanceField): Thread {
         ];
       }),
     );
+}
+
+/** An account of the GL sections and TB pages comparison (GLT-1c): the row
+ * that opens each GL section the engine read for it, then each TB row it
+ * read for it, in the engine's order. The result keeps those rows, not their
+ * cells: the cells drawn are the texts the reader read at that row of the
+ * file the panel holds, and only when that file is the one the result was
+ * computed from (the same fingerprint). Otherwise the row is drawn by its
+ * place alone. The engine names no header for these cells, since a section
+ * row opens its section and a TB page names its columns in a row the result
+ * does not keep; each cell keeps its column. */
+export function glTbSectionsThread(
+  result: GlsResult,
+  files: readonly (SourceFile | null)[],
+  index: number,
+): Thread {
+  const account = result.accounts[index];
+  if (!account) return [];
+  const line = (source: number, row: number): ThreadSource => {
+    const read = result.sources[source],
+      file = files[source],
+      sheet = file?.sha256 === read.hash ? file.sheets[0] : undefined,
+      cells = sheet?.rows[row - 1];
+    return {
+      source,
+      role: read.role,
+      name: read.name,
+      sheet: sheet?.name ?? null,
+      place: { row },
+      cells: cells
+        ? cells.map((text, n) => ({ column: n + 1, field: '', text }))
+        : null,
+    };
+  };
+  return [
+    ...account.sections.map((s) => line(0, s.row)),
+    ...account.rows.map((r) => line(1, r.row)),
+  ];
 }
 
 /** A clearing case: each movement row the engine put in it, in the case's

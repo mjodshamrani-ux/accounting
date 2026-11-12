@@ -52,6 +52,9 @@ const en = {
   files: { gl: 'GL', tb: 'TB' },
   glRow: 'GL section row',
   tbRow: 'TB row',
+  // The evidence thread of an account (UX-10).
+  threadNote:
+    'The result keeps the row of each section and each TB line, not the row that heads its columns: each cell is shown by its column, as the file has it.',
   components: {
     openingDebit: 'Opening debit',
     openingCredit: 'Opening credit',
@@ -142,6 +145,8 @@ const ar: typeof en = {
   files: { gl: 'GL', tb: 'الميزان' },
   glRow: 'صف قسم GL',
   tbRow: 'صف الميزان',
+  threadNote:
+    'تحفظ النتيجة صف كل قسم وكل سطر من الميزان، لا الصف الذي يحمل رؤوس أعمدته: فتُعرض كل خلية بعمودها كما في الملف.',
   components: {
     openingDebit: 'افتتاح مدين',
     openingCredit: 'افتتاح دائن',

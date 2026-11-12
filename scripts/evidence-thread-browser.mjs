@@ -60,6 +60,16 @@
 // motion; a story of 81 rows written here and uploaded through the inputs,
 // whose matched list spans two pages, and the way back over them. Another
 // tab, a search, leaving the review step and a change of type close it.
+// And in the allocation's value ledger: each payment or invoice opens the row
+// it was read from, with its two traced cells and its four figures; the
+// example, then a story of 63 items over two pages with its columns in other
+// orders; a decision closes it.
+// And in the GL/TB sections panel (GLT-1c): each account opens the row that
+// opens each of its GL sections and each of its TB rows, worked out here from
+// the files, every cell by its column; sealed stories on two pages, in
+// Arabic at 390 px and from a holdout; opening it closes the drawer above and
+// the other way round; folding the panel, another run and a change of type
+// close it.
 //   node scripts/evidence-thread-browser.mjs
 // EVIDENCE_THREAD_DIST names another build (a mutation gate's copy).
 import assert from 'node:assert/strict';
@@ -3550,6 +3560,408 @@ await drawer.waitFor();
 await page.locator('select[data-reconciliation-type-select]').selectOption('bank');
 await openDomainWorkspace(page, 'allocation');
 assert.equal(await drawer.count(), 0, 'allocation: a change of type closes it');
+
+// UX-10(d), GL sections and TB pages (GLT-1c): each account of the sections
+// panel opens the row that opens each GL section the engine read for it,
+// then each TB row it read for it, with every cell as the file holds it, by
+// its column (the result keeps no header for these cells), and shows its
+// components as its row does. Sealed stories are read through the panel's
+// own file inputs; the rows an account must open are worked out here from
+// the two files, with this check's own reader, by the contract's labels and
+// columns. Opening it closes the drawer of the table above, and the other
+// way round; folding the panel, another run and a change of type close it.
+const GLS_F = 'audit/gl-tb-sections-foundation/frozen',
+  GLS_H = 'audit/gl-tb-sections-holdout-h1/frozen';
+const glsWords = {
+  en: {
+    roles: ['GL', 'TB'],
+    amount: 'Amount in the table',
+    note: 'The result keeps the row of each section and each TB line, not the row that heads its columns: each cell is shown by its column, as the file has it.',
+  },
+  ar: {
+    roles: ['GL', 'الميزان'],
+    amount: 'المبلغ في الجدول',
+    note: 'تحفظ النتيجة صف كل قسم وكل سطر من الميزان، لا الصف الذي يحمل رؤوس أعمدته: فتُعرض كل خلية بعمودها كما في الملف.',
+  },
+};
+// The rows each account must open, from the files: the row that opens each
+// GL section whose labels name the account and its dimensions, then each TB
+// account row of a page whose column row names them, in the files' order;
+// only sections and pages whose scope labels are the run's.
+function glsRowsInFiles(gl, tb, scope) {
+  const strip = (v) => (v ?? '').replace(/^ +| +$/g, '');
+  const wide = (r) => {
+    let n = r.length;
+    while (n && !strip(r[n - 1])) n--;
+    return n;
+  };
+  const blocks = (rows, start, end) => {
+    const found = [];
+    let b = null;
+    for (const [i, r] of rows.entries()) {
+      if (!wide(r)) continue;
+      const first = strip(r[0]);
+      if (first === start) {
+        b = { row: i + 1, labels: {}, columns: null, body: [] };
+        found.push(b);
+      } else if (!b) continue;
+      else if (first === end) b = null;
+      else if (!b.columns && wide(r) > 2) b.columns = r.map(strip);
+      else if (!b.columns) b.labels[first] = strip(r[1]);
+      else b.body.push({ row: i + 1, cells: r });
+    }
+    return found;
+  };
+  const inScope = (b) =>
+    Object.entries(scope).every(([label, v]) => b.labels[label] === v);
+  const want = new Map();
+  const add = (key, at) => want.set(key, [...(want.get(key) ?? []), at]);
+  for (const b of blocks(gl, 'Section', 'End section'))
+    if (inScope(b))
+      add(`${b.labels.Account}|${b.labels['Complete dimensions']}`, [0, b.row]);
+  for (const b of blocks(tb, 'Page', 'End page'))
+    if (inScope(b) && b.columns) {
+      const at = (name) => b.columns.indexOf(name);
+      for (const r of b.body)
+        if (strip(r.cells[at('Row type')]) === 'account')
+          add(
+            `${strip(r.cells[at('Account')])}|${strip(r.cells[at('Complete dimensions')])}`,
+            [1, r.row],
+          );
+    }
+  return want;
+}
+async function glsStory(dir, sid) {
+  const files = await Promise.all(
+    ['gl', 'tb'].map(async (role) =>
+      csvRows(await readFile(`${dir}/${sid}-${role}.csv`, 'utf8')),
+    ),
+  );
+  const scope = JSON.parse(await readFile(`${dir}/${sid}-scope.json`, 'utf8'));
+  return {
+    dir,
+    sid,
+    files,
+    scope,
+    names: ['gl', 'tb'].map((role) => `${sid}-${role}.csv`),
+    want: glsRowsInFiles(files[0], files[1], scope),
+  };
+}
+const glsScopeInputs = {
+  entity: 'Entity',
+  ledger: 'Ledger',
+  currency: 'Currency',
+  currencyBasis: 'Currency basis',
+  postingStatus: 'Posting status',
+  postingLayer: 'Posting layer',
+  start: 'Period start',
+  end: 'Period end',
+};
+const glsCheck = /^(Check every account|افحص كل حساب)$/;
+let gls = null;
+const glsIdle = async () => {
+  for (const deadline = Date.now() + 60000; Date.now() < deadline; ) {
+    if ((await gls.getAttribute('aria-busy')) === 'false') return;
+    await page.waitForTimeout(100);
+  }
+  throw Error('the sections panel stayed busy for a minute');
+};
+async function glsLoad(story) {
+  const sets = gls.locator('fieldset');
+  for (const i of [0, 1]) {
+    await sets
+      .nth(i)
+      .locator('input[type="file"]')
+      .setInputFiles(path.resolve(`${story.dir}/${story.names[i]}`));
+    await glsIdle();
+    await sets.nth(i).locator('input[type="checkbox"]').check();
+  }
+  for (const [k, label] of Object.entries(glsScopeInputs))
+    await gls.locator(`[data-gls-scope="${k}"]`).fill(story.scope[label]);
+  await gls.locator('[data-gls-scope-confirm]').check();
+  await gls.getByRole('button', { name: glsCheck }).click();
+  await gls.locator('[data-gls-result]').waitFor();
+  await glsIdle();
+}
+const glsRows = () => gls.locator('tr[data-gls-account]');
+const glsPager = (name) =>
+  gls
+    .locator('[data-gls-pager="accounts"]')
+    .getByRole('button', { name, exact: true });
+let glsOpened = 0;
+// The accounts at `indices` of the page shown, opened in turn: the way in
+// names the account and its dimensions, the drawer's heading names them, its
+// amount is the row's components, its sources are the rows worked out from
+// the files, each cell as the file holds it by its column, the row is
+// marked, and the way back or Escape returns the focus to the same way in.
+async function followAccounts(lang, width, motion, story, indices) {
+  const tw = threadWords[lang],
+    gw = glsWords[lang],
+    what = `gl-tb sections ${story.sid} ${lang} ${width} px ${motion}`,
+    head = (
+      await gls
+        .locator('table:has(tr[data-gls-account]) thead th')
+        .allInnerTexts()
+    ).map((x) => x.trim());
+  assert.equal(head[0], tw.way, `${what}: the way in opens the row`);
+  const seen = [];
+  for (const n of indices) {
+    const row = glsRows().nth(n),
+      key = await row.getAttribute('data-gls-account'),
+      cells = (await row.locator('th, td').allTextContents()).map((x) =>
+        x.trim(),
+      ),
+      [, account, dims] = cells,
+      components = cells[5],
+      named = dims ? `${account} · ${dims}` : account;
+    watch.at(`${what}: ${named}`);
+    assert.equal(key, `${account}|${dims}`, `${what}: ${named} is the row's`);
+    const want = story.want.get(key) ?? [];
+    assert.ok(want.length, `${what} ${named}: the files name its rows`);
+    const way = row.getByRole('button', {
+      name: `${tw.way} · ${named}`,
+      exact: true,
+    });
+    assert.equal(await way.count(), 1, `${what} ${named}: the way in`);
+    assert.equal(await way.getAttribute('aria-expanded'), 'false', what);
+    await way.click();
+    await drawer.waitFor();
+    await arrived();
+    assert.equal(await way.getAttribute('aria-expanded'), 'true', what);
+    assert.equal(
+      await way.getAttribute('aria-controls'),
+      await drawer.getAttribute('id'),
+      `${what}: the way in names the drawer`,
+    );
+    const opened = await focused();
+    assert.deepEqual([opened.tag, opened.inDrawer], ['H2', true], what);
+    assert.equal(
+      opened.text,
+      `${tw.heading} · ${named}`,
+      `${what}: the heading names the account`,
+    );
+    const amount = drawer.locator('.evidence-drawer__amount');
+    if (components)
+      assert.equal(
+        (await amount.textContent()).trim(),
+        `${gw.amount}: ${components}`,
+        `${what} ${named}: its components as the row shows them`,
+      );
+    else assert.equal(await amount.count(), 0, `${what} ${named}: no amount`);
+    assert.equal(
+      await drawer.getByText(gw.note, { exact: true }).count(),
+      1,
+      `${what}: it says the cells have no header`,
+    );
+    const sources = await arDrawn();
+    assert.deepEqual(
+      sources.map((s) => [
+        s.source,
+        s.role,
+        s.place.File ?? s.place['الملف'],
+        s.place.Sheet ?? s.place['الورقة'],
+        Number(s.place.Row ?? s.place['الصف']),
+        s.missing,
+      ]),
+      want.map(([source, at]) => [
+        source,
+        gw.roles[source],
+        story.names[source],
+        'CSV',
+        at,
+        undefined,
+      ]),
+      `${what} ${named}: each section and TB row the files name for it`,
+    );
+    for (const [k, [source, at]] of want.entries())
+      assert.deepEqual(
+        sources[k].cells,
+        story.files[source][at - 1].map((text, c) => [
+          '—',
+          String(c + 1),
+          text.trim(),
+        ]),
+        `${what} ${named}: row ${at} of ${story.names[source]} as the file holds it`,
+      );
+    assert.equal(
+      await page.locator('tr[data-thread-open]').count(),
+      1,
+      `${what}: one row marked`,
+    );
+    assert.equal(await row.getAttribute('data-thread-open'), '', what);
+    if (n % 2)
+      await drawer.getByRole('button', { name: tw.back, exact: true }).click();
+    else await drawer.getByRole('heading', { level: 2 }).press('Escape');
+    await closed();
+    assert.equal(await drawer.count(), 0, `${what}: it closes`);
+    assert.equal(
+      await page.evaluate(() =>
+        document.activeElement?.getAttribute('aria-expanded'),
+      ),
+      'false',
+      `${what}: the focus returns to the way in`,
+    );
+    assert.ok(
+      (
+        await page.evaluate(() => document.activeElement?.textContent ?? '')
+      ).endsWith(named),
+      `${what}: the same way in`,
+    );
+    seen.push(key);
+    glsOpened++;
+  }
+  report.push(`gl-tb sections ${story.sid} ${lang} ${width} ${motion}`);
+  return seen;
+}
+const range = (from, to) => Array.from({ length: to - from }, (_, i) => from + i);
+watch.at('gl-tb sections: the files');
+await page.reload();
+await supplierLang('en');
+await page.setViewportSize({ width: 1440, height: 900 });
+await page.emulateMedia({ reducedMotion: null });
+const gtPanel = await openDomainWorkspace(page, 'gl-tb');
+// The comparison above the panel, for the one drawer on the page.
+for (const [side, label] of glTbWords.en.sides.entries()) {
+  const file = `positive-${side ? 'tb' : 'gl'}.csv`;
+  await page
+    .getByLabel(label, { exact: true })
+    .setInputFiles(path.resolve(`${GLTB}/${file}`));
+  await page.getByRole('heading', { name: file, exact: true }).waitFor();
+}
+await page.evaluate(
+  () => new Promise((done) => requestAnimationFrame(() => setTimeout(done, 0))),
+);
+await page
+  .getByLabel('I reviewed the GL detail and balances and the trial balance source', {
+    exact: false,
+  })
+  .check();
+await page
+  .getByRole('button', { name: 'Verify GL/TB consistency', exact: true })
+  .click();
+await page.getByTestId('gl-tb-result').waitFor();
+const glsDetails = gtPanel.locator('details[data-gls-details]');
+if ((await glsDetails.getAttribute('open')) === null)
+  await glsDetails.locator(':scope > summary').click();
+gls = glsDetails.locator('[data-gls]');
+// Sixty accounts on two pages: five of the first page and all of the second.
+const glsLong = await glsStory(GLS_F, 'T29');
+await glsLoad(glsLong);
+assert.equal(await glsRows().count(), 50, 'gl-tb sections T29: a full page');
+await followAccounts('en', 1440, 'no-preference', glsLong, range(0, 5));
+await glsPager('Next page').click();
+await glsRows().nth(10).waitFor({ state: 'detached' });
+const glsSecond = await followAccounts(
+  'en',
+  1440,
+  'no-preference',
+  glsLong,
+  range(0, 10),
+);
+assert.equal(glsSecond.length, 10, 'gl-tb sections T29: the second page');
+// The way back, after the accounts were turned while the drawer was open,
+// turns them back to the account's page and returns to its way in.
+watch.at('gl-tb sections: the way back over pages');
+const glsLast = glsRows().last(),
+  glsLastName = (await glsLast.getByRole('button').textContent()).trim();
+await glsLast.getByRole('button').click();
+await drawer.waitFor();
+await arrived();
+await glsPager('Previous page').click();
+await glsRows().nth(10).waitFor();
+assert.equal(
+  await gls.getByRole('button', { name: glsLastName, exact: true }).count(),
+  0,
+  'gl-tb sections T29: the account is off the page shown',
+);
+await drawer.getByRole('button', { name: threadWords.en.back, exact: true }).click();
+await closed();
+assert.equal(await drawer.count(), 0, 'gl-tb sections: the way back closes it');
+assert.equal(
+  (await focused()).text.trim(),
+  glsLastName,
+  'gl-tb sections T29: the way back returns to the account on its own page',
+);
+report.push('gl-tb sections T29: way back over two pages');
+// One drawer on the page: an account's closes the balance component's
+// above, and the other way round.
+watch.at('gl-tb sections: one drawer on the page');
+const gtWay = page
+  .getByTestId('gl-tb-balances')
+  .getByRole('button', { name: /^Review source rows · / })
+  .first();
+await gtWay.click();
+await drawer.waitFor();
+const glsFirst = glsRows().first().getByRole('button');
+// The focus is on the heading of the drawer just opened; any other drawer
+// still open is then counted by the assertion, not waited for.
+const inDrawer = (name) =>
+  page.waitForFunction(
+    (heading) =>
+      document.activeElement?.closest('[data-evidence-drawer]') &&
+      document.activeElement.textContent.endsWith(heading),
+    name,
+  );
+await glsFirst.click();
+await inDrawer(
+  (await glsFirst.textContent()).slice(threadWords.en.way.length),
+);
+assert.equal(
+  await page.locator('[data-evidence-drawer]').count(),
+  1,
+  'gl-tb sections: the account closes the component above',
+);
+assert.equal(await gtWay.getAttribute('aria-expanded'), 'false');
+assert.equal(await glsFirst.getAttribute('aria-expanded'), 'true');
+await gtWay.click();
+await inDrawer((await gtWay.textContent()).slice(threadWords.en.way.length));
+assert.equal(
+  await page.locator('[data-evidence-drawer]').count(),
+  1,
+  'gl-tb sections: the component closes the account',
+);
+assert.equal(await glsFirst.getAttribute('aria-expanded'), 'false');
+await drawer.getByRole('heading', { level: 2 }).press('Escape');
+await closed();
+// Folding the panel closes it, and so does another run.
+watch.at('gl-tb sections: folding and another run');
+await glsFirst.click();
+await drawer.waitFor();
+await glsDetails.locator(':scope > summary').click();
+await closed();
+assert.equal(await drawer.count(), 0, 'gl-tb sections: folding closes it');
+await glsDetails.locator(':scope > summary').click();
+await glsFirst.click();
+await drawer.waitFor();
+await gls.getByRole('button', { name: glsCheck }).click();
+await gls.locator('[data-gls-result]').waitFor();
+await glsIdle();
+await closed();
+assert.equal(await drawer.count(), 0, 'gl-tb sections: another run closes it');
+// Arabic, right to left, at 390 px with reduced motion: Arabic dimensions.
+watch.at('gl-tb sections: Arabic');
+await supplierLang('ar');
+await page.setViewportSize({ width: 390, height: 900 });
+await page.emulateMedia({ reducedMotion: 'reduce' });
+const glsArabic = await glsStory(GLS_F, 'T17');
+await glsLoad(glsArabic);
+await followAccounts('ar', 390, 'reduce', glsArabic, range(0, await glsRows().count()));
+// A holdout from another writer, which quotes its fields.
+watch.at('gl-tb sections: a holdout');
+await supplierLang('en');
+await page.setViewportSize({ width: 1024, height: 900 });
+await page.emulateMedia({ reducedMotion: null });
+const glsHoldout = await glsStory(GLS_H, 'H02');
+await glsLoad(glsHoldout);
+await followAccounts('en', 1024, 'no-preference', glsHoldout, range(0, await glsRows().count()));
+// Five and ten of T29, the two of T17 and the three of H02.
+assert.equal(glsOpened, 5 + 10 + 2 + 3, `gl-tb sections: accounts opened: ${glsOpened}`);
+// A change of type closes it.
+await glsRows().first().getByRole('button').click();
+await drawer.waitFor();
+await page.locator('select[data-reconciliation-type-select]').selectOption('bank');
+await openDomainWorkspace(page, 'gl-tb');
+assert.equal(await drawer.count(), 0, 'gl-tb sections: a change of type closes it');
 
 watch.stop();
 assert.deepEqual(errors, [], 'no page error');

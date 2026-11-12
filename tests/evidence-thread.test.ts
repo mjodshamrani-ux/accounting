@@ -8,6 +8,7 @@ import {
   clearingThread,
   financialThread,
   gatewayThread,
+  glTbSectionsThread,
   glTbThread,
   intercompanyThread,
   payrollBankThread,
@@ -53,6 +54,13 @@ import {
   type GlTbInput,
 } from '../lib/reconciliation/gl-tb.ts';
 import { readFile as readSource } from '../lib/reconciliation/io.ts';
+import {
+  GLS_PAGE_LABELS,
+  GLS_SCOPE_FIELDS,
+  GLS_VERSION,
+  reconcileGlTbSections,
+  type GlsScope,
+} from '../lib/reconciliation/gl-tb-sections.ts';
 import { readFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import type { BankResult } from '../lib/reconciliation/bank.ts';
@@ -1477,4 +1485,165 @@ void test('a bank movement and an allocation item open the row they were read fr
     },
   ]);
   assert.deepEqual(allocationThread(allocation, 'missing'), []);
+});
+
+// The row of a TB page that names its columns, found here from the file as
+// this test reads it: the first row after the page's start row with more
+// than two cells, trailing empty cells aside.
+function tbColumns(rows: string[][], row: number): string[] {
+  const trim = (v: string) => v.replace(/^ +| +$/g, '');
+  const wide = (r: string[]) => {
+    let n = r.length;
+    while (n && !trim(r[n - 1])) n--;
+    return n;
+  };
+  let start = row - 1;
+  while (start > 0 && trim(rows[start][0] ?? '') !== 'Page') start--;
+  const head = rows.slice(start + 1, row - 1).find((r) => wide(r) > 2);
+  assert.ok(head, `the page above row ${row} names its columns`);
+  return head.map(trim);
+}
+
+void test('a GL sections and TB pages account opens the row of each GL section and each TB row the engine read for it, as the files have them, and none of a file it was not computed from', async () => {
+  const trim = (v: string) => v.replace(/^ +| +$/g, '');
+  let stories = 0,
+    accounts = 0,
+    sections = 0,
+    tbRows = 0,
+    cells = 0,
+    both = 0;
+  for (const dir of [
+    'audit/gl-tb-sections-foundation/frozen',
+    'audit/gl-tb-sections-holdout-h1/frozen',
+  ]) {
+    const sids = (await readdir(dir))
+      .filter((n) => n.endsWith('-scope.json'))
+      .map((n) => n.slice(0, -'-scope.json'.length))
+      .sort();
+    for (const sid of sids) {
+      const bytes = await Promise.all(
+        ['gl', 'tb'].map(async (role) => {
+          const b = await readFile(`${dir}/${sid}-${role}.csv`);
+          return b.buffer.slice(
+            b.byteOffset,
+            b.byteOffset + b.byteLength,
+          ) as ArrayBuffer;
+        }),
+      );
+      const files = await Promise.all(
+        bytes.map((b, i) => readSource(`${sid}-${['gl', 'tb'][i]}.csv`, b)),
+      );
+      const labels = JSON.parse(
+        await readFile(`${dir}/${sid}-scope.json`, 'utf8'),
+      ) as Record<string, string>;
+      const scope = {
+        ...Object.fromEntries(
+          GLS_SCOPE_FIELDS.map((k, i) => [k, labels[GLS_PAGE_LABELS[i]]]),
+        ),
+        confirmed: true,
+      } as GlsScope;
+      const result = reconcileGlTbSections({
+        files: [files[0], files[1]],
+        readings: [
+          { sheet: 0, role: 'gl-sections', family: GLS_VERSION, confirmed: true },
+          { sheet: 0, role: 'tb-pages', family: GLS_VERSION, confirmed: true },
+        ],
+        scope,
+      });
+      const rows = bytes.map((b) => csv(b));
+      for (const [i, account] of result.accounts.entries()) {
+        const thread = glTbSectionsThread(result, files, i);
+        const what = `${sid} ${account.key}`;
+        assert.equal(
+          thread.length,
+          account.sections.length + account.rows.length,
+          `${what}: each section and TB row the engine read`,
+        );
+        for (const [k, s] of thread.entries()) {
+          const gl = k < account.sections.length,
+            source = gl ? 0 : 1,
+            row = gl
+              ? account.sections[k].row
+              : account.rows[k - account.sections.length].row;
+          assert.equal(s.source, source, `${what}: the source`);
+          assert.equal(s.role, ['gl-sections', 'tb-pages'][source]);
+          assert.equal(s.name, files[source].name, `${what}: the file`);
+          assert.equal(s.sheet, 'CSV', `${what}: the sheet`);
+          assert.deepEqual(s.place, { row }, `${what}: the row`);
+          const line = rows[source][row - 1];
+          assert.deepEqual(
+            s.cells,
+            line.map((text, n) => ({ column: n + 1, field: '', text })),
+            `${what}: row ${row} as the file has it`,
+          );
+          // The row is what the engine says it is, read here on its own: a
+          // section's opening row with its id, or the account's TB row.
+          if (gl) {
+            assert.equal(trim(line[0]), 'Section', `${what}: a section`);
+            assert.equal(
+              trim(line[1]),
+              account.sections[k].id ?? trim(line[1]),
+              `${what}: the section's id`,
+            );
+            sections++;
+          } else {
+            const head = tbColumns(rows[1], row);
+            assert.equal(
+              trim(line[head.indexOf('Account')]),
+              account.account,
+              `${what}: the TB row of the account`,
+            );
+            assert.equal(
+              trim(line[head.indexOf('Complete dimensions')]),
+              account.dimensions,
+              `${what}: the TB row of its dimensions`,
+            );
+            tbRows++;
+          }
+          cells += s.cells?.length ?? 0;
+        }
+        if (account.sections.length && account.rows.length) both++;
+        accounts++;
+      }
+      assert.deepEqual(
+        glTbSectionsThread(result, files, result.accounts.length),
+        [],
+        `${sid}: no account past the last opens nothing`,
+      );
+      // A file the result was not computed from draws no cells, and no
+      // sheet, for its side: the TB with one byte changed.
+      if (result.accounts.length) {
+        const changed = await readSource(
+          files[1].name,
+          new TextEncoder().encode(
+            new TextDecoder().decode(bytes[1]).replace(/\n?$/u, '\n\n'),
+          ).buffer as ArrayBuffer,
+        );
+        for (const [i] of result.accounts.entries())
+          for (const s of glTbSectionsThread(result, [files[0], changed], i))
+            assert.equal(
+              s.cells === null && s.sheet === null,
+              s.source === 1,
+              `${sid}: the changed TB draws its rows by place alone`,
+            );
+        assert.ok(
+          glTbSectionsThread(result, [null, null], 0).every(
+            (s) => s.cells === null && s.sheet === null,
+          ),
+          `${sid}: no file held, every row by its place alone`,
+        );
+      }
+      stories++;
+    }
+  }
+  // As measured: the 29 sealed stories and the 18 of H1.
+  assert.ok(
+    stories >= 47 &&
+      accounts >= 325 &&
+      sections >= 316 &&
+      tbRows >= 317 &&
+      both >= 305 &&
+      cells >= 3_887,
+    `${stories} stories, ${accounts} accounts, ${sections} sections, ${tbRows} TB rows, ${both} with both, ${cells} cells`,
+  );
 });
