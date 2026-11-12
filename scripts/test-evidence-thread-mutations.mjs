@@ -50,6 +50,8 @@ const copied = [
   'audit/payment-gateway',
   'audit/gl-tb-sections-foundation/frozen',
   'audit/gl-tb-sections-holdout-h1/frozen',
+  'audit/payroll-long-register-foundation/frozen',
+  'audit/payroll-long-register-holdout-h1/frozen',
   'package.json',
 ];
 const mutations = [
@@ -723,6 +725,65 @@ const mutations = [
     THREAD,
     "      role: read.role,\n      name: read.name,\n      sheet: sheet?.name",
     "      role: result.sources[0].role,\n      name: read.name,\n      sheet: sheet?.name",
+  ],  [
+    "plr-row-from-zero",
+    THREAD,
+    "    place: { row },\n    cells: null,\n  }));",
+    "    place: { row: row - 1 },\n    cells: null,\n  }));",
+  ],
+  [
+    "plr-next-employee",
+    THREAD,
+    "const employee = result.employees[index];",
+    "const employee = result.employees[index + 1];",
+  ],
+  [
+    "plr-past-the-last-opens-the-last",
+    THREAD,
+    "const employee = result.employees[index];",
+    "const employee =\n    result.employees[Math.min(index, result.employees.length - 1)];",
+  ],
+  [
+    "plr-last-row-dropped",
+    THREAD,
+    "return employee.rows.map((row) => ({",
+    "return employee.rows.slice(0, -1).map((row) => ({",
+  ],
+  [
+    "plr-rows-reversed",
+    THREAD,
+    "return employee.rows.map((row) => ({",
+    "return [...employee.rows].reverse().map((row) => ({",
+  ],
+  [
+    "plr-cells-invented",
+    THREAD,
+    "    sheet: null,\n    place: { row },\n    cells: null,",
+    "    sheet: null,\n    place: { row },\n    cells: [],",
+  ],
+  [
+    "plr-sheet-named",
+    THREAD,
+    "    sheet: null,\n    place: { row },\n    cells: null,",
+    "    sheet: result.file.name,\n    place: { row },\n    cells: null,",
+  ],
+  [
+    "plr-name-of-the-hash",
+    THREAD,
+    "    name: result.file.name,",
+    "    name: result.file.sha256,",
+  ],
+  [
+    "plr-role-wrong",
+    THREAD,
+    "LONG_REGISTER: PlrReading['role'] = 'long-register';",
+    "LONG_REGISTER: PlrReading['role'] = 'register';",
+  ],
+  [
+    "plr-source-wrong",
+    THREAD,
+    "    source: 0,\n    role: LONG_REGISTER,",
+    "    source: 1,\n    role: LONG_REGISTER,",
   ],
 ];
 const files = [THREAD, ...tests];

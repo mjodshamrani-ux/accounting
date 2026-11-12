@@ -10,6 +10,7 @@ import {
   gatewayThread,
   glTbSectionsThread,
   glTbThread,
+  payrollRegisterThread,
   intercompanyThread,
   payrollBankThread,
   payrollThread,
@@ -61,6 +62,12 @@ import {
   reconcileGlTbSections,
   type GlsScope,
 } from '../lib/reconciliation/gl-tb-sections.ts';
+import {
+  PLR_ROLE,
+  PLR_VERSION,
+  reconcileLongRegister,
+  type PlrLabel,
+} from '../lib/reconciliation/payroll-long-register.ts';
 import { readFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import type { BankResult } from '../lib/reconciliation/bank.ts';
@@ -1645,5 +1652,128 @@ void test('a GL sections and TB pages account opens the row of each GL section a
       both >= 305 &&
       cells >= 3_887,
     `${stories} stories, ${accounts} accounts, ${sections} sections, ${tbRows} TB rows, ${both} with both, ${cells} cells`,
+  );
+});
+
+// The row of a payroll section that names its columns, found here from the
+// file as this test reads it: the first row after the section's start row
+// with more than two cells, trailing empty cells aside.
+function sectionColumns(rows: string[][], row: number): string[] {
+  const trim = (v: string) => v.replace(/^ +| +$/g, '');
+  const wide = (r: string[]) => {
+    let n = r.length;
+    while (n && !trim(r[n - 1])) n--;
+    return n;
+  };
+  let start = row - 1;
+  while (start > 0 && trim(rows[start][0] ?? '') !== 'Section') start--;
+  const head = rows.slice(start + 1, row - 1).find((r) => wide(r) > 2);
+  assert.ok(head, `the section above row ${row} names its columns`);
+  return head.map(trim);
+}
+
+void test('an employee of the long payroll register opens every row the engine read a line of it from, by its place, and no cell', async () => {
+  const trim = (v: string) => v.replace(/^ +| +$/g, '');
+  let stories = 0,
+    employees = 0,
+    rowsOpened = 0,
+    sealedLines = 0;
+  for (const dir of [
+    'audit/payroll-long-register-foundation/frozen',
+    'audit/payroll-long-register-holdout-h1/frozen',
+  ]) {
+    const sealed = JSON.parse(
+      await readFile(`${dir}/EXPECTED.json`, 'utf8'),
+    ).stories;
+    for (const sid of Object.keys(sealed).sort()) {
+      const raw = await readFile(`${dir}/${sid}-register.csv`);
+      const bytes = new Uint8Array(raw);
+      const fields = JSON.parse(
+        await readFile(`${dir}/${sid}-scope.json`, 'utf8'),
+      ) as Record<PlrLabel, string>;
+      const result = reconcileLongRegister({
+        files: [
+          {
+            name: `${sid}-register.csv`,
+            sha256: createHash('sha256').update(bytes).digest('hex'),
+            bytes,
+          },
+        ],
+        readings: [{ role: PLR_ROLE, family: PLR_VERSION, confirmed: true }],
+        scope: { confirmed: true, fields },
+      });
+      // A register the engine refuses whole (its encoding, its quoting) has
+      // no employee, and is not read here either.
+      const rows = result.employees.length
+        ? csv(
+            raw.buffer.slice(
+              raw.byteOffset,
+              raw.byteOffset + raw.byteLength,
+            ) as ArrayBuffer,
+          )
+        : [];
+      const want = sealed[sid].employees ?? {};
+      for (const [i, e] of result.employees.entries()) {
+        const what = `${sid} ${e.key}`;
+        const thread = payrollRegisterThread(result, i);
+        assert.deepEqual(
+          thread,
+          e.rows.map((row) => ({
+            source: 0,
+            role: PLR_ROLE,
+            name: `${sid}-register.csv`,
+            sheet: null,
+            place: { row },
+            cells: null,
+          })),
+          `${what}: each row the engine read for it, by its place`,
+        );
+        // Each row is a line of this employee, read here on its own under
+        // its section's column row, in the order of the file; and an
+        // employee the seal decides opens its sealed lines (the seal lists
+        // them by id, the file need not: H29 writes the net line first).
+        assert.ok(
+          e.rows.every((row, n) => !n || row > e.rows[n - 1]),
+          `${what}: its rows in the order of the file`,
+        );
+        const ids = e.rows.map((row) => {
+          const head = sectionColumns(rows, row),
+            line = rows[row - 1];
+          assert.equal(
+            `${trim(line[head.indexOf('Employee ID')])}|${trim(line[head.indexOf('Employee dimensions')])}`,
+            e.key,
+            `${what}: row ${row} is a line of the employee`,
+          );
+          return trim(line[head.indexOf('Line ID')]);
+        });
+        const sealedEmployee = want[e.key];
+        if (sealedEmployee?.lines) {
+          assert.deepEqual(
+            [...ids].sort(),
+            sealedEmployee.lines.map((l: [string]) => l[0]).sort(),
+            `${what}: the sealed lines`,
+          );
+          sealedLines += ids.length;
+        }
+        rowsOpened += thread.length;
+        employees++;
+      }
+      assert.deepEqual(
+        payrollRegisterThread(result, result.employees.length),
+        [],
+        `${sid}: no employee past the last opens nothing`,
+      );
+      stories++;
+    }
+  }
+  // Measured on the two sealed sets: 70 stories, 502 employees, 2,530
+  // rows, 2,218 of them sealed lines. A floor, so a story that stops being
+  // read fails here rather than passing on fewer employees.
+  assert.ok(
+    stories >= 70 &&
+      employees >= 502 &&
+      rowsOpened >= 2530 &&
+      sealedLines >= 2218,
+    `${stories} stories, ${employees} employees, ${rowsOpened} rows, ${sealedLines} sealed lines`,
   );
 });

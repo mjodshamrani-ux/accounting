@@ -70,6 +70,11 @@
 // Arabic at 390 px and from a holdout; opening it closes the drawer above and
 // the other way round; folding the panel, another run and a change of type
 // close it.
+// And in the long payroll register panel (PAY-1c): each employee opens every
+// row the engine placed under it, by its place, headed by the sealed line at
+// that row, with the sealed figures; a story of 120 employees over three
+// pages, a held employee in Arabic at 390 px, and two holdouts; the same
+// one drawer, folding, another run and a change of type.
 //   node scripts/evidence-thread-browser.mjs
 // EVIDENCE_THREAD_DIST names another build (a mutation gate's copy).
 import assert from 'node:assert/strict';
@@ -3962,6 +3967,417 @@ await drawer.waitFor();
 await page.locator('select[data-reconciliation-type-select]').selectOption('bank');
 await openDomainWorkspace(page, 'gl-tb');
 assert.equal(await drawer.count(), 0, 'gl-tb sections: a change of type closes it');
+
+// UX-10(d), the long payroll register (PAY-1c): each employee of the panel
+// opens every row the engine placed under it, in the order of the file, by
+// its place alone (the result keeps no text of its cells), each headed by
+// the line as the engine read it: its ID, component, kind and amount; an
+// employee the engine held keeps no reading of its lines, and its rows are
+// headed by the register's role. The drawer's figures are the employee's
+// earnings, deductions and printed net. Sealed stories are read through the
+// panel's own file input; an employee's rows are worked out here from the
+// file, with this check's own reader: the lines of the sections whose scope
+// labels are the run's; and the headings and figures are the seal's. Opening
+// it closes the drawer of the comparison above, and the other way round;
+// folding the panel, another run and a change of type close it.
+const PLR_F = 'audit/payroll-long-register-foundation/frozen',
+  PLR_H = 'audit/payroll-long-register-holdout-h1/frozen';
+const plrCurrencies = JSON.parse(
+  await readFile('audit/payroll-long-register-foundation/contract.json', 'utf8'),
+).reading.currencies;
+const plrWords = {
+  en: {
+    role: 'Long register: payroll register (CSV)',
+    line: 'Line',
+    kinds: {
+      earning: 'Earning',
+      deduction: 'Deduction',
+      employer: 'Employer contribution',
+      net: 'Net',
+    },
+    figures: ['Earnings', 'Deductions', 'Net printed'],
+    note: 'Each row below is a line the engine placed under this employee, in the order of the file, headed by the line as the engine read it.',
+    held: 'The engine held this employee, so the result keeps no reading of its lines: each row below is shown by its place alone.',
+    notKept:
+      'The result does not keep the text of this record’s cells. Its place is shown above.',
+  },
+  ar: {
+    role: 'المسير الطويل: ملف المسير (CSV)',
+    line: 'السطر',
+    kinds: {
+      earning: 'استحقاق',
+      deduction: 'استقطاع',
+      employer: 'مساهمة صاحب العمل',
+      net: 'صافٍ',
+    },
+    figures: ['الاستحقاق', 'الاستقطاع', 'الصافي المطبوع'],
+    note: 'كل صف أدناه سطر وضعه المحرك تحت هذا الموظف، بترتيب الملف، وعنوانه السطر كما قرأه المحرك.',
+    held: 'أوقف المحرك هذا الموظف، فلا تحفظ النتيجة قراءةً لأسطره: يُعرض كل صف أدناه بموضعه وحده.',
+    notKept: 'النتيجة لا تحفظ نصوص خلايا هذا السجل. وموضعه مذكور أعلاه.',
+  },
+};
+// An amount at the run's decimals, grouped, the minus first: written here
+// on its own, not taken from the application.
+const plrAmount = (v, decimals) => {
+  const sign = v < 0 ? '-' : '',
+    digits = String(Math.abs(v)).padStart(decimals + 1, '0'),
+    whole = (decimals ? digits.slice(0, -decimals) : digits).replace(
+      /\B(?=(\d{3})+(?!\d))/gu,
+      ',',
+    );
+  return decimals ? `${sign}${whole}.${digits.slice(-decimals)}` : `${sign}${whole}`;
+};
+// Each employee's lines in the file: every line of a section whose scope
+// labels are the run's, by its employee and dimensions, in the file's order,
+// with its row and its line ID.
+function plrLinesInFile(rows, scope) {
+  const strip = (v) => (v ?? '').replace(/^ +| +$/g, '');
+  const wide = (r) => {
+    let n = r.length;
+    while (n && !strip(r[n - 1])) n--;
+    return n;
+  };
+  const want = new Map();
+  let b = null;
+  for (const [i, r] of rows.entries()) {
+    if (!wide(r)) continue;
+    const first = strip(r[0]);
+    if (first === 'Section') b = { labels: {}, columns: null };
+    else if (!b) continue;
+    else if (first === 'End section') b = null;
+    else if (!b.columns && wide(r) > 2) b.columns = r.map(strip);
+    else if (!b.columns) b.labels[first] = strip(r[1]);
+    else if (
+      wide(r) > 2 &&
+      Object.entries(scope).every(([label, v]) => b.labels[label] === v)
+    ) {
+      const at = (name) => strip(r[b.columns.indexOf(name)]);
+      const key = `${at('Employee ID')}|${at('Employee dimensions')}`;
+      want.set(key, [...(want.get(key) ?? []), { row: i + 1, id: at('Line ID') }]);
+    }
+  }
+  return want;
+}
+async function plrStory(dir, sid) {
+  const scope = JSON.parse(await readFile(`${dir}/${sid}-scope.json`, 'utf8'));
+  return {
+    dir,
+    sid,
+    scope,
+    name: `${sid}-register.csv`,
+    decimals: plrCurrencies[scope.Currency] ?? 2,
+    want: plrLinesInFile(
+      csvRows(await readFile(`${dir}/${sid}-register.csv`, 'utf8')),
+      scope,
+    ),
+    sealed: JSON.parse(await readFile(`${dir}/EXPECTED.json`, 'utf8')).stories[sid]
+      .employees,
+  };
+}
+const plrCheck = /^(Check the register|افحص المسير)$/;
+let plr = null;
+const plrIdle = async () => {
+  for (const deadline = Date.now() + 60000; Date.now() < deadline; ) {
+    if ((await plr.getAttribute('aria-busy')) === 'false') return;
+    await page.waitForTimeout(100);
+  }
+  throw Error('the long register panel stayed busy for a minute');
+};
+async function plrLoad(story) {
+  await plr
+    .locator('input[data-plr-file]')
+    .setInputFiles(path.resolve(`${story.dir}/${story.name}`));
+  await plrIdle();
+  await plr.locator('[data-plr-confirm]').check();
+  for (const [label, v] of Object.entries(story.scope))
+    await plr.locator(`[data-plr-scope="${label}"]`).fill(v);
+  await plr.locator('[data-plr-scope-confirm]').check();
+  await plr.getByRole('button', { name: plrCheck }).click();
+  await plr.locator('[data-plr-result]').waitFor();
+  await plrIdle();
+  // The rule above holds for this story: it names the employees shown.
+  const shownKeys = await plr
+    .locator('tr[data-plr-employee]')
+    .evaluateAll((rows) => rows.map((r) => r.getAttribute('data-plr-employee')));
+  assert.ok(shownKeys.length, `long register ${story.sid}: employees`);
+  for (const key of shownKeys)
+    assert.ok(story.want.has(key), `long register ${story.sid}: ${key} in the file`);
+}
+const plrRows = () => plr.locator('tr[data-plr-employee]');
+const plrPager = (name) =>
+  plr
+    .locator('[data-plr-pager="employees"]')
+    .getByRole('button', { name, exact: true });
+let plrOpened = 0;
+// The employees at `indices` of the page shown, opened in turn: the way in
+// names the employee and its dimensions, the drawer's heading names them,
+// its figures are the seal's, its sources are the rows worked out from the
+// file, each by its place, headed by the seal's line at that row, the row is
+// marked, and the way back or Escape returns the focus to the same way in.
+async function followEmployees(lang, width, motion, story, indices) {
+  const tw = threadWords[lang],
+    pw = plrWords[lang],
+    what = `long register ${story.sid} ${lang} ${width} px ${motion}`,
+    head = (
+      await plr
+        .locator('table:has(tr[data-plr-employee]) thead th')
+        .allInnerTexts()
+    ).map((x) => x.trim());
+  assert.equal(head[0], tw.way, `${what}: the way in opens the row`);
+  const seen = [];
+  for (const n of indices) {
+    const row = plrRows().nth(n),
+      key = await row.getAttribute('data-plr-employee'),
+      [, employee, dims] = (await row.locator('th, td').allTextContents()).map(
+        (x) => x.trim(),
+      ),
+      named = dims ? `${employee} · ${dims}` : employee;
+    watch.at(`${what}: ${named}`);
+    assert.equal(key, `${employee}|${dims}`, `${what}: ${named} is the row's`);
+    const lines = story.want.get(key) ?? [],
+      sealed = story.sealed[key];
+    assert.ok(lines.length && sealed, `${what} ${named}: the file and the seal`);
+    const way = row.getByRole('button', {
+      name: `${tw.way} · ${named}`,
+      exact: true,
+    });
+    assert.equal(await way.count(), 1, `${what} ${named}: the way in`);
+    assert.equal(await way.getAttribute('aria-expanded'), 'false', what);
+    await way.click();
+    await drawer.waitFor();
+    await arrived();
+    assert.equal(await way.getAttribute('aria-expanded'), 'true', what);
+    assert.equal(
+      await way.getAttribute('aria-controls'),
+      await drawer.getAttribute('id'),
+      `${what}: the way in names the drawer`,
+    );
+    const opened = await focused();
+    assert.deepEqual([opened.tag, opened.inDrawer], ['H2', true], what);
+    assert.equal(
+      opened.text,
+      `${tw.heading} · ${named}`,
+      `${what}: the heading names the employee`,
+    );
+    const figures = drawer.locator('.evidence-drawer__amount .tarasuf-figure');
+    const decided = sealed.status !== 'held';
+    if (decided)
+      assert.deepEqual(
+        (await figures.allInnerTexts()).map((x) => x.trim()),
+        ['earnings', 'deductions', 'net'].map(
+          (k, i) => `${pw.figures[i]} ${plrAmount(sealed[k], story.decimals)}`,
+        ),
+        `${what} ${named}: its earnings, deductions and printed net`,
+      );
+    else
+      assert.equal(
+        await drawer.locator('.evidence-drawer__amount').count(),
+        0,
+        `${what} ${named}: a held employee has no figures`,
+      );
+    assert.equal(
+      await drawer.getByText(decided ? pw.note : pw.held, { exact: true }).count(),
+      1,
+      `${what} ${named}: it says what each row is`,
+    );
+    const byId = new Map((sealed.lines ?? []).map((l) => [l[0], l]));
+    const sources = await arDrawn();
+    assert.deepEqual(
+      sources.map((s) => [
+        s.source,
+        s.role,
+        s.place.File ?? s.place['الملف'],
+        s.place.Sheet ?? s.place['الورقة'],
+        Number(s.place.Row ?? s.place['الصف']),
+        s.missing,
+        s.cells.length,
+      ]),
+      lines.map(({ row, id }) => {
+        const l = byId.get(id);
+        return [
+          0,
+          decided
+            ? `${pw.line} ${id} · ${l[1]} · ${pw.kinds[l[2]]} · ${plrAmount(l[3], story.decimals)}`
+            : pw.role,
+          story.name,
+          undefined,
+          row,
+          pw.notKept,
+          0,
+        ];
+      }),
+      `${what} ${named}: each of its rows in the file, headed by its line`,
+    );
+    // A decided employee opens every line the seal gives it, and no other.
+    const byCode = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
+    if (decided)
+      assert.deepEqual(
+        lines.map((l) => l.id).sort(byCode),
+        [...byId.keys()].sort(byCode),
+        `${what} ${named}: its sealed lines`,
+      );
+    assert.equal(
+      await page.locator('tr[data-thread-open]').count(),
+      1,
+      `${what}: one row marked`,
+    );
+    assert.equal(await row.getAttribute('data-thread-open'), '', what);
+    if (n % 2)
+      await drawer.getByRole('button', { name: tw.back, exact: true }).click();
+    else await drawer.getByRole('heading', { level: 2 }).press('Escape');
+    await closed();
+    assert.equal(await drawer.count(), 0, `${what}: it closes`);
+    assert.equal(
+      await page.evaluate(() =>
+        document.activeElement?.getAttribute('aria-expanded'),
+      ),
+      'false',
+      `${what}: the focus returns to the way in`,
+    );
+    assert.ok(
+      (
+        await page.evaluate(() => document.activeElement?.textContent ?? '')
+      ).endsWith(named),
+      `${what}: the same way in`,
+    );
+    seen.push(key);
+    plrOpened++;
+  }
+  report.push(`long register ${story.sid} ${lang} ${width} ${motion}`);
+  return seen;
+}
+watch.at('long register: the files');
+await page.reload();
+await supplierLang('en');
+await page.setViewportSize({ width: 1440, height: 900 });
+await page.emulateMedia({ reducedMotion: null });
+await openDomainWorkspace(page, 'payroll');
+// The comparison above the panel, for the one drawer on the page.
+const plrWorkspace = page.locator(families.payroll.workspace);
+await plrWorkspace
+  .getByRole('button', { name: families.payroll.example.en, exact: true })
+  .click();
+await plrWorkspace.locator(families.payroll.status).waitFor();
+await page.waitForFunction(
+  (sel) => document.querySelector(sel)?.getAttribute('aria-busy') === 'false',
+  families.payroll.workspace,
+);
+const plrDetails = plrWorkspace.locator('details[data-plr-details]');
+if ((await plrDetails.getAttribute('open')) === null)
+  await plrDetails.locator(':scope > summary').click();
+plr = plrDetails.locator('[data-plr]');
+// 120 employees on three pages: five of the first page and ten of the
+// third.
+const plrLong = await plrStory(PLR_F, 'P38');
+await plrLoad(plrLong);
+assert.equal(await plrRows().count(), 50, 'long register P38: a full page');
+await followEmployees('en', 1440, 'no-preference', plrLong, range(0, 5));
+await plrPager('Next page').click();
+await plrPager('Next page').click();
+await plrRows().nth(20).waitFor({ state: 'detached' });
+const plrThird = await followEmployees(
+  'en',
+  1440,
+  'no-preference',
+  plrLong,
+  range(0, 10),
+);
+assert.equal(plrThird.length, 10, 'long register P38: the third page');
+// The way back, after the employees were turned while the drawer was open,
+// turns them back to the employee's page and returns to its way in.
+watch.at('long register: the way back over pages');
+const plrLast = plrRows().last(),
+  plrLastName = (await plrLast.getByRole('button').textContent()).trim();
+await plrLast.getByRole('button').click();
+await drawer.waitFor();
+await arrived();
+await plrPager('Previous page').click();
+await plrRows().nth(20).waitFor();
+assert.equal(
+  await plr.getByRole('button', { name: plrLastName, exact: true }).count(),
+  0,
+  'long register P38: the employee is off the page shown',
+);
+await drawer.getByRole('button', { name: threadWords.en.back, exact: true }).click();
+await closed();
+assert.equal(await drawer.count(), 0, 'long register: the way back closes it');
+assert.equal(
+  (await focused()).text.trim(),
+  plrLastName,
+  'long register P38: the way back returns to the employee on its own page',
+);
+report.push('long register P38: way back over three pages');
+// One drawer on the page: an employee's closes the comparison's above, and
+// the other way round. The comparison's ways come first on the page.
+watch.at('long register: one drawer on the page');
+const plrAbove = plrWorkspace
+  .getByRole('button', { name: /^Review source rows · / })
+  .first();
+await plrAbove.click();
+await drawer.waitFor();
+const plrFirst = plrRows().first().getByRole('button');
+await plrFirst.click();
+await inDrawer((await plrFirst.textContent()).slice(threadWords.en.way.length));
+assert.equal(
+  await page.locator('[data-evidence-drawer]').count(),
+  1,
+  'long register: the employee closes the comparison above',
+);
+assert.equal(await plrAbove.getAttribute('aria-expanded'), 'false');
+assert.equal(await plrFirst.getAttribute('aria-expanded'), 'true');
+await plrAbove.click();
+await inDrawer((await plrAbove.textContent()).slice(threadWords.en.way.length));
+assert.equal(
+  await page.locator('[data-evidence-drawer]').count(),
+  1,
+  'long register: the comparison closes the employee',
+);
+assert.equal(await plrFirst.getAttribute('aria-expanded'), 'false');
+await drawer.getByRole('heading', { level: 2 }).press('Escape');
+await closed();
+// Folding the panel closes it, and so does another run.
+watch.at('long register: folding and another run');
+await plrFirst.click();
+await drawer.waitFor();
+await plrDetails.locator(':scope > summary').click();
+await closed();
+assert.equal(await drawer.count(), 0, 'long register: folding closes it');
+await plrDetails.locator(':scope > summary').click();
+await plrFirst.click();
+await drawer.waitFor();
+await plr.getByRole('button', { name: plrCheck }).click();
+await plr.locator('[data-plr-result]').waitFor();
+await plrIdle();
+await closed();
+assert.equal(await drawer.count(), 0, 'long register: another run closes it');
+// Arabic, right to left, at 390 px with reduced motion: a held employee.
+watch.at('long register: Arabic');
+await supplierLang('ar');
+await page.setViewportSize({ width: 390, height: 900 });
+await page.emulateMedia({ reducedMotion: 'reduce' });
+const plrArabic = await plrStory(PLR_F, 'P04');
+await plrLoad(plrArabic);
+await followEmployees('ar', 390, 'reduce', plrArabic, range(0, await plrRows().count()));
+// Two holdouts from other writers: one with old Mac line ends that writes an
+// employee's net line first, one with a section of another scope and a held
+// employee.
+watch.at('long register: holdouts');
+await supplierLang('en');
+await page.setViewportSize({ width: 1024, height: 900 });
+await page.emulateMedia({ reducedMotion: null });
+for (const sid of ['H29', 'H08']) {
+  const story = await plrStory(PLR_H, sid);
+  await plrLoad(story);
+  await followEmployees('en', 1024, 'no-preference', story, range(0, await plrRows().count()));
+}
+// Five and ten of P38, the two of P04, the two of H29 and the one of H08.
+assert.equal(plrOpened, 5 + 10 + 2 + 2 + 1, `long register: employees opened: ${plrOpened}`);
+// A change of type closes it: the workspace stays drawn while hidden.
+await plrRows().first().getByRole('button').click();
+await drawer.waitFor();
+await page.locator('select[data-reconciliation-type-select]').selectOption('bank');
+await openDomainWorkspace(page, 'payroll');
+assert.equal(await drawer.count(), 0, 'long register: a change of type closes it');
 
 watch.stop();
 assert.deepEqual(errors, [], 'no page error');

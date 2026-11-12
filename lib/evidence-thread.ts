@@ -5,6 +5,10 @@ import type { BankResult } from './reconciliation/bank.ts';
 import type { ClearingResult } from './reconciliation/clearing.ts';
 import type { BalanceField, GlTbResult } from './reconciliation/gl-tb.ts';
 import type { GlsResult } from './reconciliation/gl-tb-sections.ts';
+import type {
+  PlrReading,
+  PlrResult,
+} from './reconciliation/payroll-long-register.ts';
 import type { FinancialResult } from './reconciliation/tb-financial.ts';
 import type { IntercompanyResult } from './reconciliation/intercompany.ts';
 import type { GatewayResult } from './reconciliation/payment-gateway.ts';
@@ -288,6 +292,31 @@ export function glTbSectionsThread(
     ...account.sections.map((s) => line(0, s.row)),
     ...account.rows.map((r) => line(1, r.row)),
   ];
+}
+
+// The role of the long payroll register, named here and not imported, so
+// that the projection loads no reader.
+const LONG_REGISTER: PlrReading['role'] = 'long-register';
+
+/** An employee of the long payroll register (PAY-1c): each row the engine
+ * read one of the employee's lines from, in the engine's order. The engine
+ * reads the register's bytes with its own reader and keeps those rows, not
+ * their cells, and the panel holds only the bytes. Each row is drawn by its
+ * place alone, and nothing here reads the bytes again. */
+export function payrollRegisterThread(
+  result: PlrResult,
+  index: number,
+): Thread {
+  const employee = result.employees[index];
+  if (!employee) return [];
+  return employee.rows.map((row) => ({
+    source: 0,
+    role: LONG_REGISTER,
+    name: result.file.name,
+    sheet: null,
+    place: { row },
+    cells: null,
+  }));
 }
 
 /** A clearing case: each movement row the engine put in it, in the case's

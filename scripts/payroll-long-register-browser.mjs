@@ -27,12 +27,13 @@ import {
 } from './section-focus-support.mjs';
 
 // The status badge in this section (UX-3): a status on this list, and no
-// other, takes the agreed tone.
+// other, takes the agreed tone. Its column follows the way in to the
+// employee's evidence (UX-10).
 const BADGE_LABEL = 'long payroll register';
 const BADGES = [
   {
     name: 'employees',
-    column: 2,
+    column: 3,
     rows: 'tr[data-plr-employee]',
     attr: 'data-plr-employee-status',
     agreed: ['consistent'],
@@ -201,6 +202,7 @@ async function shown(plr) {
       codes: (await r.getAttribute('data-plr-employee-codes'))
         .split(' ')
         .filter(Boolean),
+      // The employee heads its row; the cells after it, from the way in.
       cells: await r.locator('td').allTextContents(),
     }),
   );

@@ -49,6 +49,12 @@ const en = {
     'Rows',
   ],
   lines: 'Lines of each employee',
+  // The evidence drawer of an employee (UX-10).
+  threadNote:
+    'Each row below is a line the engine placed under this employee, in the order of the file, headed by the line as the engine read it.',
+  threadHeld:
+    'The engine held this employee, so the result keeps no reading of its lines: each row below is shown by its place alone.',
+  threadLine: 'Line',
   lineHeaders: ['Employee', 'Line ID', 'Component', 'Kind', 'Amount', 'Row'],
   kinds: {
     earning: 'Earning',
@@ -154,6 +160,11 @@ const ar: typeof en = {
     'الصفوف',
   ],
   lines: 'أسطر كل موظف',
+  threadNote:
+    'كل صف أدناه سطر وضعه المحرك تحت هذا الموظف، بترتيب الملف، وعنوانه السطر كما قرأه المحرك.',
+  threadHeld:
+    'أوقف المحرك هذا الموظف، فلا تحفظ النتيجة قراءةً لأسطره: يُعرض كل صف أدناه بموضعه وحده.',
+  threadLine: 'السطر',
   lineHeaders: ['الموظف', 'معرف السطر', 'المكون', 'النوع', 'المبلغ', 'الصف'],
   kinds: {
     earning: 'استحقاق',

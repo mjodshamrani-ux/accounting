@@ -6,7 +6,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import { Amount } from '@/components/amount';
+import { Amount, Figures } from '@/components/amount';
 import { Button } from '@/components/ui/button';
 import { WorkspaceFileInput, WorkspaceSourceHeading } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
@@ -28,6 +28,10 @@ import { ClosedReason } from './decision-platform';
 import { payrollEmployeeTone, toned } from '@/lib/status-tone';
 import { useResultFocus } from '@/components/result-focus';
 import { SectionResultHeading } from '@/components/section-result';
+import { EvidenceDrawer, ThreadSources } from '@/components/evidence-drawer';
+import { useEvidenceThread } from '@/hooks/use-evidence-thread';
+import { payrollRegisterThread } from '@/lib/evidence-thread';
+import { evidenceThreadCopy } from '@/lib/i18n/evidence-thread';
 
 type Picked = {
   name: string;
@@ -44,9 +48,10 @@ const blankScope = () =>
   >;
 const SUMS = ['earnings', 'deductions', 'employer', 'net'] as const;
 
-export function PayrollLongRegisterPanel() {
+export function PayrollLongRegisterPanel({ active }: { active: boolean }) {
   const { lang } = useI18n();
-  const copy = payrollLongRegisterCopy[lang];
+  const copy = payrollLongRegisterCopy[lang],
+    words = evidenceThreadCopy[lang];
   const [file, setFile] = useState<Picked | null>(null);
   const [scope, setScope] = useState(blankScope),
     [scopeConfirmed, setScopeConfirmed] = useState(false);
@@ -54,6 +59,15 @@ export function PayrollLongRegisterPanel() {
     [busy, setBusy] = useState(false),
     [error, setError] = useState('');
   const { heading: resultHeading, reveal } = useResultFocus();
+  // Each employee opens the rows the engine placed under it (UX-10). The
+  // workspace stays drawn while another type is shown, so the drawer closes
+  // when it is hidden, when the panel is folded and when the result changes.
+  const [expanded, setExpanded] = useState(false);
+  const thread = useEvidenceThread(active && expanded, result),
+    opened =
+      result && thread.open?.table === 'employees'
+        ? { at: thread.open.at, employee: result.employees[thread.open.at] }
+        : undefined;
   const runtime = useRef({
     serial: 0,
     controller: null as AbortController | null,
@@ -149,7 +163,11 @@ export function PayrollLongRegisterPanel() {
       )
     : [];
   return (
-    <details className="intercompany-batch" data-plr-details>
+    <details
+      className="intercompany-batch"
+      data-plr-details
+      onToggle={(e) => setExpanded(e.currentTarget.open)}
+    >
       <summary>{copy.title}</summary>
       <section
         className="workspace-results"
@@ -330,7 +348,7 @@ export function PayrollLongRegisterPanel() {
                     </h3>
                     <RecordTable
                       status={{
-                        column: 2,
+                        column: 3,
                         of: (i) =>
                           toned(
                             payrollEmployeeTone,
@@ -339,8 +357,23 @@ export function PayrollLongRegisterPanel() {
                       }}
                       label={copy.employees}
                       pager={{ 'data-plr-pager': 'employees' }}
-                      headers={copy.employeeHeaders}
-                      rows={result.employees.map((e) => [
+                      {...thread.paging('employees')}
+                      headers={[words.way, ...copy.employeeHeaders]}
+                      rowHeader={1}
+                      rows={result.employees.map((e, i) => [
+                        <Button
+                          key="thread"
+                          variant="outline"
+                          {...thread.way('employees', i)}
+                          onClick={() => thread.show('employees', i)}
+                        >
+                          {words.way}
+                          <span className="sr-only">
+                            {' · '}
+                            {e.employee}
+                            {e.dims && ` · ${e.dims}`}
+                          </span>
+                        </Button>,
                         e.employee,
                         e.dims,
                         copy.status[e.status],
@@ -353,12 +386,75 @@ export function PayrollLongRegisterPanel() {
                         e.payee ?? '—',
                         e.rows.join(', '),
                       ])}
-                      marks={result.employees.map((e) => ({
+                      marks={result.employees.map((e, i) => ({
                         'data-plr-employee': e.key,
                         'data-plr-employee-status': e.status,
                         'data-plr-employee-codes': e.codes.join(' '),
+                        ...thread.mark('employees', i),
                       }))}
                     />
+                    {opened && (
+                      <EvidenceDrawer
+                        id={thread.id}
+                        headingRef={thread.heading}
+                        heading={[
+                          words.heading,
+                          opened.employee.employee,
+                          ...(opened.employee.dims
+                            ? [opened.employee.dims]
+                            : []),
+                        ].join(' · ')}
+                        back={words.back}
+                        onBack={thread.back}
+                        amount={
+                          opened.employee.lines ? (
+                            <Figures
+                              decimals={decimals}
+                              items={[
+                                [
+                                  copy.employeeHeaders[4],
+                                  opened.employee.earnings,
+                                ],
+                                [
+                                  copy.employeeHeaders[5],
+                                  opened.employee.deductions,
+                                ],
+                                [copy.employeeHeaders[7], opened.employee.net],
+                              ]}
+                            />
+                          ) : undefined
+                        }
+                      >
+                        <p>
+                          {opened.employee.lines
+                            ? copy.threadNote
+                            : copy.threadHeld}
+                        </p>
+                        <ThreadSources
+                          thread={payrollRegisterThread(result, opened.at)}
+                          role={(s) => {
+                            // The line the engine read at this row, from
+                            // the result; a held employee keeps none.
+                            const line = opened.employee.lines?.find(
+                              (l) => 'row' in s.place && l.row === s.place.row,
+                            );
+                            return line ? (
+                              <>
+                                {copy.threadLine} <bdi>{line.id}</bdi>
+                                {' · '}
+                                <bdi>{line.component}</bdi>
+                                {' · '}
+                                {copy.kinds[line.kind]}
+                                {' · '}
+                                {amount(line.amount)}
+                              </>
+                            ) : (
+                              copy.role
+                            );
+                          }}
+                        />
+                      </EvidenceDrawer>
+                    )}
                   </section>
                 )}
                 {result.employees.some((e) => e.lines) && (

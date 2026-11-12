@@ -32,7 +32,7 @@ export function Figures({
 }: {
   items: readonly (readonly [
     label: string,
-    minor: number | null | undefined,
+    minor: number | string | null | undefined,
   ])[];
   decimals: number;
 }) {

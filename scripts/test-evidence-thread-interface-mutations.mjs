@@ -22,7 +22,12 @@
 // GL/TB sections panel: their way in, marked row, heading, components,
 // files, roles, headerless cells and the sentence that says so, their way
 // back to their page and the fold that closes them; and one drawer on the
-// page, which an account's drawer opening closes.
+// page, which an account's drawer opening closes. Then the employees of the
+// long payroll register panel: their way in, its column, the marked row,
+// the heading, the figures (none for a held employee), the line that heads
+// each row with its kind and amount, the sentence and the role of a held
+// employee's rows, the way back to their page, and the fold and the change
+// of type that close them (this workspace stays drawn while hidden).
 //
 // A mutant whose check stops with no verdict (a timeout, a page that no
 // longer answers) is checked once more on the same build, and both runs are
@@ -89,6 +94,7 @@ const INTERCOMPANY = 'components/intercompany-workspace.tsx';
 const GATEWAY = 'components/payment-gateway-workspace.tsx';
 const ALLOCATION = 'components/allocation-workspace.tsx';
 const SECTIONS = 'components/gl-tb-sections-panel.tsx';
+const REGISTER = 'components/payroll-long-register-panel.tsx';
 const PAGE = 'app/page.tsx';
 const HOOK = 'hooks/use-evidence-thread.ts';
 const mutations = [
@@ -854,6 +860,102 @@ const mutations = [
     SECTIONS,
     "useEvidenceThread(expanded, result)",
     "useEvidenceThread(true, result)",
+  ],
+  [
+    "plr-way-not-named",
+    REGISTER,
+    "                            {e.employee}\n                            {e.dims && ` · ${e.dims}`}\n",
+    "",
+  ],
+  [
+    "plr-way-opens-the-first-employee",
+    REGISTER,
+    "onClick={() => thread.show('employees', i)}",
+    "onClick={() => thread.show('employees', 0)}",
+  ],
+  [
+    "plr-row-not-marked",
+    REGISTER,
+    "                        ...thread.mark('employees', i),\n",
+    "",
+  ],
+  [
+    "plr-way-in-header-left-blank",
+    REGISTER,
+    "headers={[words.way, ...copy.employeeHeaders]}",
+    "headers={['', ...copy.employeeHeaders]}",
+  ],
+  [
+    "plr-heading-without-dimensions",
+    REGISTER,
+    "                            ? [opened.employee.dims]\n",
+    "                            ? []\n",
+  ],
+  [
+    "plr-earnings-of-the-first-employee",
+    REGISTER,
+    "                                  opened.employee.earnings,\n",
+    "                                  result.employees[0].earnings,\n",
+  ],
+  [
+    "plr-net-is-the-employer",
+    REGISTER,
+    "[copy.employeeHeaders[7], opened.employee.net]",
+    "[copy.employeeHeaders[7], opened.employee.employer]",
+  ],
+  [
+    "plr-held-shows-figures",
+    REGISTER,
+    "                          opened.employee.lines ? (\n                            <Figures",
+    "                          opened.employee ? (\n                            <Figures",
+  ],
+  [
+    "plr-note-for-a-held-one",
+    REGISTER,
+    "                            ? copy.threadNote\n                            : copy.threadHeld}",
+    "                            ? copy.threadNote\n                            : copy.threadNote}",
+  ],
+  [
+    "plr-line-of-another-row",
+    REGISTER,
+    "(l) => 'row' in s.place && l.row === s.place.row,",
+    "(l) => 'row' in s.place && l.row !== s.place.row,",
+  ],
+  [
+    "plr-line-without-amount",
+    REGISTER,
+    "                                {copy.kinds[line.kind]}\n                                {' · '}\n                                {amount(line.amount)}\n",
+    "                                {copy.kinds[line.kind]}\n",
+  ],
+  [
+    "plr-kind-as-the-engine-writes-it",
+    REGISTER,
+    "{copy.kinds[line.kind]}",
+    "{line.kind}",
+  ],
+  [
+    "plr-held-row-without-role",
+    REGISTER,
+    "                            ) : (\n                              copy.role\n                            );",
+    "                            ) : (\n                              copy.employees\n                            );",
+  ],
+  [
+    "plr-back-stays-on-the-page",
+    REGISTER,
+    "                      {...thread.paging('employees')}\n",
+    "",
+  ],
+  [
+    "plr-folding-keeps-it",
+    REGISTER,
+    "useEvidenceThread(active && expanded, result)",
+    "useEvidenceThread(active, result)",
+  ],
+  [
+    "plr-type-change-keeps-it",
+    REGISTER,
+    "useEvidenceThread(active && expanded, result)",
+    "useEvidenceThread(expanded, result)",
   ],
   [
     "hook-another-drawer-stays",

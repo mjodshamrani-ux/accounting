@@ -1130,7 +1130,7 @@ export function PayrollWorkspace({
             />
           </section>
         )}
-        <PayrollLongRegisterPanel />
+        <PayrollLongRegisterPanel active={active} />
       </section>
     </div>
   );
