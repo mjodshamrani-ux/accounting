@@ -22,6 +22,7 @@ import {
   removePrivateTree,
   completedSuccessfully,
   isAssertionKill,
+  describeRun,
 } from './mutation-runner-support.mjs';
 
 const root = resolve(import.meta.dirname, '..');
@@ -305,6 +306,8 @@ const report = { baselinePassed: false, mutations: [], passed: false };
     const baseline = run(tree);
     await log('baseline', baseline);
     report.baselinePassed = completedSuccessfully(baseline);
+    if (!report.baselinePassed)
+      process.stderr.write(describeRun('baseline', baseline, 'failed'));
   } finally {
     await removePrivateTree(tree);
   }
@@ -320,11 +323,17 @@ if (report.baselinePassed)
       await writeFile(target, text.replace(from, to));
       const result = run(tree);
       await log(id, result);
+      // A mutant that does not build is not a caught behaviour.
+      const killed = !result.buildFailed && isAssertionKill(result);
+      // How a survivor ended is printed, for its log stays in the runner's
+      // temporary folder: a run that stalls, crashes or times out is not
+      // caught either, and only its log tells it from a missed defect.
+      if (!killed)
+        process.stderr.write(describeRun(id, result, 'was not caught'));
       report.mutations.push({
         id,
         file,
-        // A mutant that does not build is not a caught behaviour.
-        killed: !result.buildFailed && isAssertionKill(result),
+        killed,
         buildFailed: !!result.buildFailed,
         exitCode: result.status,
         signal: result.signal,

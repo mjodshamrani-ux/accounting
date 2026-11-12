@@ -25,6 +25,9 @@ import '@/components/bank-adjustment-workspace.css';
 import '@/components/bank-workspace.css';
 import '@/components/clearing-workspace.css';
 import '@/components/ar-workspace.css';
+// The evidence drawer (UX-10) came after them, and comes last, so that the
+// mark on the row it opened wins over the record table's own cell rules.
+import '@/components/evidence-drawer.css';
 import { payrollCopy } from '@/lib/i18n/payroll';
 import { assetCopy } from '@/lib/i18n/fixed-assets';
 import { stockCopy } from '@/lib/i18n/inventory-register';
@@ -143,7 +146,11 @@ import {
 } from '@/components/record-table';
 import { StatusBadge } from '@/components/status-badge';
 import { supplierCaseTone } from '@/lib/status-tone';
-import { recordPage } from '@/lib/record-page';
+import { pageOfRow, recordPage } from '@/lib/record-page';
+import { EvidenceDrawer, ThreadSources } from '@/components/evidence-drawer';
+import { useEvidenceThread } from '@/hooks/use-evidence-thread';
+import { supplierThread } from '@/lib/evidence-thread';
+import { evidenceThreadCopy } from '@/lib/i18n/evidence-thread';
 import { workerTask, prepareWorker } from '@/lib/reconciliation/client';
 import { deferredWorkspace } from '@/components/deferred-workspace';
 import type { ProcessingProgress } from '@/lib/reconciliation/processing-progress';
@@ -512,7 +519,7 @@ export default function App() {
     | 'assets'
     | 'payroll'
   >('supplier');
-  const { t, dir, say } = useI18n();
+  const { t, dir, say, lang } = useI18n();
   const [workspaceActivity, setWorkspaceActivity] = useState<
     Partial<Record<ReconciliationDomain, WorkspaceActivity>>
   >({});
@@ -1736,6 +1743,39 @@ export default function App() {
           : t.app.results.tabUnmatched
     }`,
     listShown = recordPage(rows.length, page, 30);
+  // Each row of the results opens every row the engine traced for its case
+  // (UX-10). A row is named by its place among the result's transactions,
+  // which does not move when the page does; the way back returns to its page
+  // in the list shown. Another tab or search is another list, so it closes,
+  // as leaving the review step does.
+  const threadList = useMemo(
+    () => ({ result, tab, query }),
+    [result, tab, query],
+  );
+  const thread = useEvidenceThread(
+      domain === 'supplier' && step === 2,
+      threadList,
+    ),
+    threadWords = evidenceThreadCopy[lang],
+    threadIndex = useMemo(
+      () =>
+        new Map(
+          (result
+            ? [...result.supplier.transactions, ...result.ledger.transactions]
+            : []
+          ).map((tx, at) => [tx.id, { tx, at }]),
+        ),
+      [result],
+    ),
+    threadOpen =
+      result && thread.open?.table === 'transactions'
+        ? [...threadIndex.values()].find((v) => v.at === thread.open?.at)?.tx
+        : undefined,
+    threadCase =
+      threadOpen &&
+      result?.cases.find((c) =>
+        c.sourceTrace.some((trace) => trace.sourceRowId === threadOpen.id),
+      );
   const startSyntheticDemo = useEffectEvent(() => {
     if (files.some(Boolean) || busy)
       throw new Error('Cannot replace an active session');
@@ -3069,6 +3109,7 @@ export default function App() {
                           >
                             <TableHeader>
                               <TableRow>
+                                <TableHead>{threadWords.way}</TableHead>
                                 {t.app.results.columns.map((h, i) => (
                                   <TableHead key={i}>{h}</TableHead>
                                 ))}
@@ -3102,8 +3143,29 @@ export default function App() {
                                           : activeCase.status === 'Needs Review'
                                             ? 'needsReview'
                                             : 'unmatched';
+                                  const at = threadIndex.get(tx.id)?.at ?? -1;
                                   return (
-                                    <TableRow key={tx.id}>
+                                    <TableRow
+                                      key={tx.id}
+                                      {...thread.mark('transactions', at)}
+                                    >
+                                      <TableCell>
+                                        <Button
+                                          size="sm"
+                                          variant="outline"
+                                          {...thread.way('transactions', at)}
+                                          onClick={() =>
+                                            thread.show('transactions', at)
+                                          }
+                                        >
+                                          {threadWords.way}
+                                          <span className="sr-only">
+                                            {' · '}
+                                            {t.app.sideShort[tx.side]} ·{' '}
+                                            {tx.row}
+                                          </span>
+                                        </Button>
+                                      </TableCell>
                                       <TableCell>
                                         {t.app.sideShort[tx.side]} · {tx.row}
                                       </TableCell>
@@ -3180,6 +3242,47 @@ export default function App() {
                           />
                         </div>
                       </section>
+                      {threadOpen && threadCase && (
+                        <EvidenceDrawer
+                          id={thread.id}
+                          headingRef={thread.heading}
+                          heading={`${threadWords.heading} · ${t.app.sideShort[threadOpen.side]} · ${threadOpen.row}`}
+                          back={threadWords.back}
+                          onBack={() => {
+                            const shown = rows.findIndex(
+                              (tx) => tx.id === threadOpen.id,
+                            );
+                            if (shown >= 0) setPage(pageOfRow(shown, 30));
+                            thread.back();
+                          }}
+                          amount={
+                            <span className="tarasuf-figures">
+                              <span className="tarasuf-figure">
+                                {t.app.results.columns[3]}{' '}
+                                <bdi className="mono" data-thread-amount>
+                                  {money(
+                                    threadCase.supplierMembers.length
+                                      ? threadCase.supplierTotal
+                                      : threadCase.ledgerTotal,
+                                    scope.decimals,
+                                  )}
+                                </bdi>
+                              </span>
+                            </span>
+                          }
+                        >
+                          <ThreadSources
+                            thread={supplierThread(
+                              result,
+                              files,
+                              threadOpen.id,
+                            )}
+                            role={(s) =>
+                              t.app.sideShort[s.role as 'supplier' | 'ledger']
+                            }
+                          />
+                        </EvidenceDrawer>
+                      )}
                       {selected && (
                         <TransactionReview
                           key={selected}

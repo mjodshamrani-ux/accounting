@@ -327,7 +327,10 @@ async function evidence(page, t, facts) {
         .locator('tbody tr')
         .evaluateAll((rows) =>
           rows.map((row) =>
-            [...row.querySelectorAll('td')].map((td) => td.textContent),
+            // The way to the row's sources comes first (UX-10).
+            [...row.querySelectorAll('td:not(:first-child)')].map(
+              (td) => td.textContent,
+            ),
           ),
         ),
       fields.map((key) => [

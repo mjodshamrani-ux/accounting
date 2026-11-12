@@ -15,7 +15,11 @@ import {
 import { useI18n } from '@/lib/i18n/context';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
-import { Amount } from '@/components/amount';
+import { Amount, Figures } from '@/components/amount';
+import { EvidenceDrawer, ThreadSources } from '@/components/evidence-drawer';
+import { useEvidenceThread } from '@/hooks/use-evidence-thread';
+import { glTbThread } from '@/lib/evidence-thread';
+import { evidenceThreadCopy } from '@/lib/i18n/evidence-thread';
 import { AlignmentStrip } from '@/components/alignment-strip';
 import { ResultIndex, useResultParts } from '@/components/result-index';
 import { glTbStrip } from '@/lib/alignment-strip';
@@ -133,6 +137,14 @@ export function GlTbWorkspace({
     [failed, setFailed] = useState(false),
     [page, setPage] = useState(0);
   const paper = useSheetPrint(result, lang, composeSheet);
+  // Each balance component opens the GL and TB cells the engine summed for
+  // it, each in its row (UX-10).
+  const thread = useEvidenceThread(active, result),
+    words = evidenceThreadCopy[lang],
+    opened =
+      result && thread.open?.table === 'balances'
+        ? BALANCE_FIELDS[thread.open.at]
+        : undefined;
   const serial = useRef(0),
     controller = useRef<AbortController | null>(null);
   useEffect(
@@ -633,17 +645,54 @@ export function GlTbWorkspace({
           )}
           <RecordRows
             label={t.balances}
-            headers={[t.component, t.gl, t.tb, t.difference]}
+            headers={[words.way, t.component, t.gl, t.tb, t.difference]}
             rows={BALANCE_FIELDS}
-            rowHeader={0}
+            rowHeader={1}
             frame={{ 'data-testid': 'gl-tb-balances' }}
-            cells={(field) => [
+            mark={(_, i) => thread.mark('balances', i)}
+            cells={(field, i) => [
+              <Button
+                key="thread"
+                variant="outline"
+                {...thread.way('balances', i)}
+                onClick={() => thread.show('balances', i)}
+              >
+                {words.way}
+                <span className="sr-only">
+                  {' · '}
+                  {t.components[field]}
+                </span>
+              </Button>,
               t.components[field],
               formatted(result.gl?.[field]),
               formatted(result.tb?.[field]),
               formatted(result.differences?.[field]),
             ]}
           />
+          {opened && (
+            <EvidenceDrawer
+              id={thread.id}
+              headingRef={thread.heading}
+              heading={`${words.heading} · ${t.components[opened]}`}
+              back={words.back}
+              onBack={thread.back}
+              amount={
+                <Figures
+                  decimals={result.decimals}
+                  items={[
+                    [t.gl, result.gl?.[opened]],
+                    [t.tb, result.tb?.[opened]],
+                    [t.difference, result.differences?.[opened]],
+                  ]}
+                />
+              }
+            >
+              <ThreadSources
+                thread={glTbThread(result, opened)}
+                role={(s) => t.sides[s.source]}
+              />
+            </EvidenceDrawer>
+          )}
           <div className="gl-tb-actions">
             <Button
               disabled={busy}

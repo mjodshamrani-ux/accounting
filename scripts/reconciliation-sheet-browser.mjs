@@ -104,9 +104,16 @@ export async function stripSaysScreen(grid, result) {
   }
 }
 
-/** A table the sheet repeats whole: its head, then each row as drawn. */
+/** A table the sheet repeats whole: its head, then each row as drawn. The
+ * way to a row's evidence (UX-10) is the page's and not the sheet's: where
+ * the page draws it first, each row must have it, and it is set aside. */
 export async function tableSaysScreen(grid, table) {
-  const head = await table.locator('thead th').allInnerTexts();
+  let head = (await table.locator('thead th').allInnerTexts()).map((h) =>
+    h.trim(),
+  );
+  const ways = Object.values(THREAD_WAY),
+    way = ways.includes(head[0]);
+  if (way) head = head.slice(1);
   const top = grid.findIndex((r) => r[0] === head[0].trim());
   assert.ok(top >= 0, `the sheet has the table «${head[0]}»`);
   assert.deepEqual(
@@ -117,9 +124,16 @@ export async function tableSaysScreen(grid, table) {
   const body = table.locator('tbody tr');
   const count = await body.count();
   for (let i = 0; i < count; i++) {
-    const cells = (await body.nth(i).locator('th, td').allInnerTexts()).map(
+    let cells = (await body.nth(i).locator('th, td').allInnerTexts()).map(
       (t) => t.trim(),
     );
+    if (way) {
+      assert.ok(
+        ways.some((w) => cells[0].startsWith(w)),
+        `table row ${i + 1}: the way to its evidence`,
+      );
+      cells = cells.slice(1);
+    }
     cells.forEach((text, j) =>
       same(text, grid[top + 1 + i][j], `table row ${i + 1} cell ${j + 1}`),
     );
@@ -131,7 +145,9 @@ export async function tableSaysScreen(grid, table) {
  * order, are the sheet's review table: members, reference, net and the reason
  * the page writes under the basis; and the sheet's decisions are those the
  * run recorded, each with the reviewer's reason. The words for each heading
- * come from the page's own table head.
+ * come from the page's own table head. Each case opens with the way to its
+ * source rows (UX-10), which the sheet has not: it is required, then set
+ * aside.
  */
 export async function clearingSheetSaysScreen(
   page,
@@ -142,9 +158,11 @@ export async function clearingSheetSaysScreen(
   const table = result.locator('table').filter({
     has: page.locator('[data-testid="clearing-case"]'),
   });
-  const head = (await table.locator('thead th').allInnerTexts()).map((h) =>
+  const drawn = (await table.locator('thead th').allInnerTexts()).map((h) =>
     h.trim(),
   );
+  assert.equal(drawn[0], THREAD_WAY[lang], 'the way to the source rows');
+  const head = drawn.slice(1);
   const waiting = table
     .locator('[data-testid="clearing-case"]')
     .filter({ has: page.locator('[data-status="review"]') });
@@ -161,10 +179,11 @@ export async function clearingSheetSaysScreen(
     );
     for (let i = 0; i < count; i++) {
       const cells = waiting.nth(i).locator('th, td');
-      const [members, reference, net] = (await cells.allInnerTexts()).map((t) =>
-        t.trim(),
+      const [way, members, reference, net] = (await cells.allInnerTexts()).map(
+        (t) => t.trim(),
       );
-      const reason = (await cells.nth(4).locator('.muted').innerText()).trim();
+      assert.ok(way.startsWith(THREAD_WAY[lang]), `review row ${i + 1}: ${way}`);
+      const reason = (await cells.nth(5).locator('.muted').innerText()).trim();
       const row = grid[top + 1 + i];
       assert.equal(row[0], members, `review row ${i + 1}: members`);
       assert.equal(row[1], reference, `review row ${i + 1}: reference`);
@@ -348,11 +367,12 @@ export async function bankSheetSaysScreen(page, { file, lang, result }) {
     page.locator(`[data-bank-movement-table="${name}"]`);
   const cells = async (row) =>
     (await row.locator('th, td').allTextContents()).map((t) => t.trim());
-  // Each movement's amount, by its side and own reference.
+  // Each movement's amount, by its side and own reference. The way to its
+  // evidence opens the row (UX-10).
   const amounts = new Map();
   for (const row of await section('movements').locator('tbody tr').all()) {
     const c = await cells(row);
-    amounts.set(`${c[0]}|${c[2]}`, c[10]);
+    amounts.set(`${c[1]}|${c[3]}`, c[11]);
   }
   const waiting = section('cases')
     .locator('tbody tr')
@@ -655,17 +675,23 @@ export async function supplierSheetSaysScreen(
     await page.locator('.results-frame table').waitFor();
     const out = [];
     for (const row of await body.all()) {
+      // The first cell is the way to the row's evidence (UX-10), which the
+      // sheet does not have.
       const cell = row.locator('td');
+      assert.ok(
+        (await cell.nth(0).innerText()).startsWith(THREAD_WAY[lang]),
+        'a case row opens with the way to its evidence',
+      );
       out.push({
-        side: (await cell.nth(0).innerText()).split('·')[0].trim(),
-        date: (await cell.nth(1).innerText()).trim(),
-        reference: (await cell.nth(2).locator('bdi').innerText()).trim(),
-        amount: (await cell.nth(3).innerText()).split('\n')[0].trim(),
-        members: (await cell.nth(3).locator('.muted').innerText())
+        side: (await cell.nth(1).innerText()).split('·')[0].trim(),
+        date: (await cell.nth(2).innerText()).trim(),
+        reference: (await cell.nth(3).locator('bdi').innerText()).trim(),
+        amount: (await cell.nth(4).innerText()).split('\n')[0].trim(),
+        members: (await cell.nth(4).locator('.muted').innerText())
           .match(/(\d+):(\d+)/u)
           .slice(1, 3)
           .reduce((a, b) => a + Number(b), 0),
-        state: (await cell.nth(4).innerText()).trim(),
+        state: (await cell.nth(5).innerText()).trim(),
       });
     }
     return out;
@@ -1126,6 +1152,18 @@ const GATEWAY_WORDS = {
 };
 
 /** A record table's head and body cells, as the page writes them. */
+// A comparison row, a gateway batch's totals and residuals, and a supplier
+// case row open with the way to their evidence (UX-10). The sheet has no
+// such column: it is required where the page draws it, then set aside.
+const THREAD_WAY = { en: 'Review source rows', ar: 'راجع صفوف المصدر' };
+function withoutWay({ head, body }, lang, what) {
+  if (!body.length) return { head, body };
+  assert.equal(head[0], THREAD_WAY[lang], `${what}: the way to the evidence`);
+  for (const row of body)
+    assert.ok(row[0].startsWith(THREAD_WAY[lang]), `${what}: ${row[0]}`);
+  return { head: head.slice(1), body: body.map((row) => row.slice(1)) };
+}
+
 async function tableCells(table) {
   const head = (await table.locator('thead th').allTextContents()).map((x) =>
     x.trim(),
@@ -1190,8 +1228,10 @@ export async function gatewaySheetSaysScreen(page, { file, lang }) {
   // The calculated totals: the page's table, head and row; none where the
   // page has no row.
   const totals = section('Totals');
-  const shown = await tableCells(
-    w.locator(`table[aria-label="${words.totals}"]`),
+  const shown = withoutWay(
+    await tableCells(w.locator(`table[aria-label="${words.totals}"]`)),
+    lang,
+    'the totals',
   );
   if (!shown.body.length) assert.equal(totals, -1, 'no totals, no table');
   else {
@@ -1207,8 +1247,10 @@ export async function gatewaySheetSaysScreen(page, { file, lang }) {
   // The five residuals: each heading of the page's table with its figure,
   // a row each; none where the page has no row.
   const residuals = section('Residuals');
-  const owed = await tableCells(
-    w.locator(`table[aria-label="${words.residuals}"]`),
+  const owed = withoutWay(
+    await tableCells(w.locator(`table[aria-label="${words.residuals}"]`)),
+    lang,
+    'the residuals',
   );
   if (!owed.body.length) assert.equal(residuals, -1, 'no residuals, no list');
   else {
@@ -1547,8 +1589,10 @@ export async function fixedAssetsSheetSaysScreen(page, { file, lang }) {
   // complete dimensions, its component, then each figure by the page's
   // heading.
   const compared = section('Component comparisons');
-  const rows = await tableCells(
-    w.locator(`table[aria-label="${words.comparisons}"]`),
+  const rows = withoutWay(
+    await tableCells(w.locator(`table[aria-label="${words.comparisons}"]`)),
+    lang,
+    'the comparisons',
   );
   if (!rows.body.length) assert.equal(compared, -1, 'no comparison, no table');
   else {
@@ -1726,8 +1770,10 @@ export async function payrollSheetSaysScreen(page, { file, lang }) {
   // The register net against the bank outflow: the page's one row under its
   // three headings, a dash where the page shows one.
   const bank = section('Bank comparison');
-  const banked = await tableCells(
-    w.locator(`table[aria-label="${words.bank}"]`),
+  const banked = withoutWay(
+    await tableCells(w.locator(`table[aria-label="${words.bank}"]`)),
+    lang,
+    'the bank comparison',
   );
   assert.equal(banked.body.length, 1, 'one bank row on the page');
   assert.ok(bank >= 0, 'the bank comparison');
@@ -1741,8 +1787,10 @@ export async function payrollSheetSaysScreen(page, { file, lang }) {
   // complete dimensions, its component, then each figure by the page's
   // heading.
   const compared = section('Component comparisons');
-  const rows = await tableCells(
-    w.locator(`table[aria-label="${words.comparisons}"]`),
+  const rows = withoutWay(
+    await tableCells(w.locator(`table[aria-label="${words.comparisons}"]`)),
+    lang,
+    'the comparisons',
   );
   if (!rows.body.length) assert.equal(compared, -1, 'no comparison, no table');
   else {

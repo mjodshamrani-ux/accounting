@@ -271,7 +271,7 @@ export async function verifyClearing(page, url, out = 'work/qa') {
         .getByTestId('clearing-case')
         .filter({ hasText: members })
         .locator('th, td')
-        .nth(4)
+        .nth(5)
         .locator('.muted')
         .innerText()
     ).trim();

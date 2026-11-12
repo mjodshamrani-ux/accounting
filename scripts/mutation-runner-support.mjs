@@ -27,6 +27,16 @@ export function isAssertionKill(result) {
     !/SyntaxError|ERR_MODULE_NOT_FOUND|MODULE_NOT_FOUND|ERR_UNKNOWN_FILE_EXTENSION|ERR_UNSUPPORTED_DIR_IMPORT|ERR_PACKAGE_PATH_NOT_EXPORTED|ERR_PACKAGE_IMPORT_NOT_DEFINED/.test(output);
 }
 
+// A mutant that built, and whose acceptance neither completed nor failed an
+// assertion, has no verdict: the check stopped on a timeout, a page that no
+// longer answered, a signal or a crash, before saying whether the behaviour
+// it holds was there (DEV-117). A gate may run that check once more on the
+// same build. Only an assertion in that run is a kill, and a check that
+// completes is a survivor.
+export function endedWithoutVerdict(result) {
+  return !result.buildFailed && !completedSuccessfully(result) && !isAssertionKill(result);
+}
+
 const privateTrees = new Set();
 export async function createPrivateTree(reusable = false) {
   const path = await mkdtemp(join(tmpdir(), reusable ? 'mizan-mutant-private-' : 'mizan-mutant-'));

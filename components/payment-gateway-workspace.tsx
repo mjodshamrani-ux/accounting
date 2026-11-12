@@ -2,7 +2,11 @@ import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant'
 import { PaymentGatewayBatchesPanel } from '@/components/payment-gateway-batches-panel';
 import { useEffect, useId, useRef, useState } from 'react';
 import { useResultFocus } from '@/components/result-focus';
-import { Amount } from '@/components/amount';
+import { Amount, Figures } from '@/components/amount';
+import { EvidenceDrawer, ThreadSources } from '@/components/evidence-drawer';
+import { useEvidenceThread } from '@/hooks/use-evidence-thread';
+import { gatewayThread, type GatewayTable } from '@/lib/evidence-thread';
+import { evidenceThreadCopy } from '@/lib/i18n/evidence-thread';
 import { AlignmentStrip } from '@/components/alignment-strip';
 import { ResultIndex, useResultParts } from '@/components/result-index';
 import { EvidenceSections } from '@/components/evidence-sections';
@@ -175,6 +179,13 @@ export function GatewayWorkspace({
   // Composed only while this workspace is the one shown: it stays in the
   // page hidden otherwise, and would draw its table when another prints.
   const paper = useSheetPrint(active ? result : null, lang, composeSheet);
+  // The totals open the transaction and fee rows they sum, and the residuals
+  // every row of the batch, each with its cells (UX-10). Each table has one
+  // row, so a table names its row.
+  const thread = useEvidenceThread(active, result),
+    words = evidenceThreadCopy[lang],
+    opened = result && thread.open ? (thread.open.table as GatewayTable) : null,
+    figures = opened && result?.[opened];
   const [busy, setBusy] = useState(false),
     [error, setError] = useState(''),
     [reference, setReference] = useState(''),
@@ -382,6 +393,20 @@ export function GatewayWorkspace({
     values.map((v, i) => (
       <Amount key={i} minor={v} decimals={result?.decimals ?? 2} />
     ));
+  const wayIn = (table: GatewayTable) => (
+    <Button
+      key="thread"
+      variant="outline"
+      {...thread.way(table, 0)}
+      onClick={() => thread.show(table, 0)}
+    >
+      {words.way}
+      <span className="sr-only">
+        {' · '}
+        {result?.scope.batchId} · {copy.tableNames[table]}
+      </span>
+    </Button>
+  );
   const status = (value: string) =>
     (copy.status as Record<string, string>)[value] ?? value;
   // What the decision buttons open on, as before: approval also needs the
@@ -746,15 +771,45 @@ export function GatewayWorkspace({
             <RecordTable
               anchor={resultParts.anchor('figures')}
               label={copy.tableNames.totals}
-              headers={copy.totals}
-              rows={result.totals ? [amounts(result.totals)] : []}
+              headers={[words.way, ...copy.totals]}
+              marks={[thread.mark('totals', 0)]}
+              rows={
+                result.totals
+                  ? [[wayIn('totals'), ...amounts(result.totals)]]
+                  : []
+              }
             />
             <RecordTable
               label={copy.tableNames.residuals}
               wrapHeaders
-              headers={copy.residuals}
-              rows={result.residuals ? [amounts(result.residuals)] : []}
+              headers={[words.way, ...copy.residuals]}
+              marks={[thread.mark('residuals', 0)]}
+              rows={
+                result.residuals
+                  ? [[wayIn('residuals'), ...amounts(result.residuals)]]
+                  : []
+              }
             />
+            {opened && figures && (
+              <EvidenceDrawer
+                id={thread.id}
+                headingRef={thread.heading}
+                heading={`${words.heading} · ${result.scope.batchId} · ${copy.tableNames[opened]}`}
+                back={words.back}
+                onBack={thread.back}
+                amount={
+                  <Figures
+                    decimals={result.decimals}
+                    items={copy[opened].map((label, i) => [label, figures[i]])}
+                  />
+                }
+              >
+                <ThreadSources
+                  thread={gatewayThread(result, opened)}
+                  role={(s) => copy.roles[s.source]}
+                />
+              </EvidenceDrawer>
+            )}
             <fieldset
               {...resultParts.anchor('decision')}
               disabled={busy}

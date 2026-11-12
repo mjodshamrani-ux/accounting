@@ -8,7 +8,11 @@ import {
   type ReactNode,
 } from 'react';
 import { useResultFocus } from '@/components/result-focus';
-import { Amount } from '@/components/amount';
+import { Amount, Figures } from '@/components/amount';
+import { EvidenceDrawer, ThreadSources } from '@/components/evidence-drawer';
+import { useEvidenceThread } from '@/hooks/use-evidence-thread';
+import { payrollBankThread, payrollThread } from '@/lib/evidence-thread';
+import { evidenceThreadCopy } from '@/lib/i18n/evidence-thread';
 import { AlignmentStrip } from '@/components/alignment-strip';
 import { ResultIndex, useResultParts } from '@/components/result-index';
 import {
@@ -195,6 +199,15 @@ export function PayrollWorkspace({
     [active, result, files],
   );
   const paper = useSheetPrint(printed, lang, composeSheet);
+  // Each comparison opens the GL row it compares and the register rows the
+  // engine assigned to it, and the register net opens the bank payout rows
+  // it is compared with (UX-10). One drawer for both tables.
+  const thread = useEvidenceThread(active, result),
+    words = evidenceThreadCopy[lang],
+    labels = files.map((f, i) => ({
+      name: f?.name ?? '',
+      sheet: f?.sheets[(result?.readings ?? reading)[i].sheet]?.name ?? null,
+    }));
   const [busy, setBusy] = useState(false),
     [error, setError] = useState(''),
     [reference, setReference] = useState(''),
@@ -803,9 +816,22 @@ export function PayrollWorkspace({
             />
             <RecordTable
               label={copy.tableNames.bank}
-              headers={copy.bankComparison}
+              headers={[words.way, ...copy.bankComparison]}
+              marks={[thread.mark('bank', 0)]}
               rows={[
                 [
+                  <Button
+                    key="thread"
+                    variant="outline"
+                    {...thread.way('bank', 0)}
+                    onClick={() => thread.show('bank', 0)}
+                  >
+                    {words.way}
+                    <span className="sr-only">
+                      {' · '}
+                      {copy.tableNames.bank}
+                    </span>
+                  </Button>,
                   amount(result.bankComparison.register),
                   amount(result.bankComparison.bank),
                   amount(result.bankComparison.difference),
@@ -814,8 +840,24 @@ export function PayrollWorkspace({
             />
             <RecordTable
               label={copy.tableNames.comparisons}
-              headers={copy.comparisons}
-              rows={result.comparisons.map((v) => [
+              headers={[words.way, ...copy.comparisons]}
+              {...thread.paging('comparisons')}
+              marks={result.comparisons.map((_, i) =>
+                thread.mark('comparisons', i),
+              )}
+              rows={result.comparisons.map((v, i) => [
+                <Button
+                  key="thread"
+                  variant="outline"
+                  {...thread.way('comparisons', i)}
+                  onClick={() => thread.show('comparisons', i)}
+                >
+                  {words.way}
+                  <span className="sr-only">
+                    {' · '}
+                    {v.account} · {copy.components[v.component]}
+                  </span>
+                </Button>,
                 v.account,
                 v.dimensions,
                 copy.components[v.component],
@@ -824,6 +866,55 @@ export function PayrollWorkspace({
                 amount(v.difference),
               ])}
             />
+            {thread.open?.table === 'bank' && (
+              <EvidenceDrawer
+                id={thread.id}
+                headingRef={thread.heading}
+                heading={`${words.heading} · ${copy.tableNames.bank}`}
+                back={words.back}
+                onBack={thread.back}
+                amount={
+                  <Figures
+                    decimals={result.decimals}
+                    items={[
+                      [copy.bankComparison[0], result.bankComparison.register],
+                      [copy.bankComparison[1], result.bankComparison.bank],
+                      [copy.bankComparison[2], result.bankComparison.difference],
+                    ]}
+                  />
+                }
+              >
+                <ThreadSources
+                  thread={payrollBankThread(result, labels)}
+                  role={(s) => copy.roles[s.source]}
+                />
+              </EvidenceDrawer>
+            )}
+            {thread.open?.table === 'comparisons' &&
+              result.comparisons[thread.open.at] && (
+                <EvidenceDrawer
+                  id={thread.id}
+                  headingRef={thread.heading}
+                  heading={`${words.heading} · ${result.comparisons[thread.open.at].account} · ${copy.components[result.comparisons[thread.open.at].component]}`}
+                  back={words.back}
+                  onBack={thread.back}
+                  amount={
+                    <Figures
+                      decimals={result.decimals}
+                      items={[
+                        [copy.comparisons[3], result.comparisons[thread.open.at].register],
+                        [copy.comparisons[4], result.comparisons[thread.open.at].gl],
+                        [copy.comparisons[5], result.comparisons[thread.open.at].difference],
+                      ]}
+                    />
+                  }
+                >
+                  <ThreadSources
+                    thread={payrollThread(result, labels, thread.open.at)}
+                    role={(s) => copy.roles[s.source]}
+                  />
+                </EvidenceDrawer>
+              )}
             <fieldset
               {...resultParts.anchor('decision')}
               disabled={busy}

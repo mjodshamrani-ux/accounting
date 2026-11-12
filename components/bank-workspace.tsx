@@ -19,6 +19,8 @@ import {
 import { useResultFocus } from '@/components/result-focus';
 import { useDecisionFocus } from '@/components/decision-platform';
 import { RecordRows } from '@/components/record-table';
+import { EvidenceDrawer, ThreadSources } from '@/components/evidence-drawer';
+import { bankThread } from '@/lib/evidence-thread';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -199,8 +201,19 @@ export function BankWorkspace({
     [],
   );
   const decisionHint = useId();
-  // Opening a movement's evidence takes the reader to it, and returning takes
-  // them back to that movement's row, after the render that shows either.
+  const drawerId = `bank-evidence-${useId().replace(/:/g, '')}`;
+  // The evidence of a hidden workspace or of the other source type is not
+  // left open behind it: hiding the movements closes it (UX-10).
+  const movementsShown = active && mode === 'movements',
+    [wereShown, setWereShown] = useState(movementsShown);
+  if (movementsShown !== wereShown) {
+    setWereShown(movementsShown);
+    if (!movementsShown) setEvidenceId('');
+  }
+  // Opening a movement's evidence takes the reader to its drawer, and
+  // returning takes them back to that movement's row, after the render that
+  // shows either. The drawer is fixed over the page, so opening it scrolls
+  // nothing (UX-10).
   const evidenceHeading = useRef<HTMLHeadingElement>(null),
     [focusRequest, setFocusRequest] = useState<{
       to: 'evidence' | 'row';
@@ -214,9 +227,7 @@ export function BankWorkspace({
         : document.querySelector<HTMLElement>(
             `[data-bank-evidence-for="${CSS.escape(focusRequest.id)}"]`,
           );
-    element?.scrollIntoView({
-      block: focusRequest.to === 'evidence' ? 'start' : 'center',
-    });
+    if (focusRequest.to === 'row') element?.scrollIntoView({ block: 'center' });
     element?.focus({ preventScroll: true });
   }, [focusRequest]);
   function invalidate() {
@@ -383,6 +394,7 @@ export function BankWorkspace({
     target?: (r: T, at: number) => string,
     hook?: Record<`data-${string}`, string>,
     anchor?: ResultAnchor,
+    mark?: (r: T, at: number) => Record<`data-${string}`, string> | undefined,
   ) {
     return (
       <section
@@ -397,6 +409,7 @@ export function BankWorkspace({
           headers={headers}
           rows={data}
           cells={cells}
+          mark={mark}
           target={target}
           page={pages[name] ?? 0}
           onPage={(to) => setPages((p) => ({ ...p, [name]: to }))}
@@ -455,11 +468,14 @@ export function BankWorkspace({
     setEvidenceId(record);
     setFocusRequest({ to: 'evidence', id: record });
   }
+  // The way back closes the evidence and returns the reader to the
+  // movement's row, on its page of the table (UX-10).
   function backToMovement() {
     const index = result?.records.findIndex((r) => r.id === evidenceId) ?? -1;
     if (index < 0) return;
     setPages((p) => ({ ...p, movements: pageOfRow(index) }));
     setFocusRequest({ to: 'row', id: evidenceId });
+    setEvidenceId('');
   }
   const locked = busy || balanceBusy || statement.busy;
   return (
@@ -963,7 +979,10 @@ export function BankWorkspace({
                 {table(
                   'movements',
                   t.movements,
+                  // The way to a movement's evidence opens each row, on the
+                  // side the drawer never covers (UX-10).
                   [
+                    t.reviewCells,
                     t.side,
                     t.row,
                     t.own,
@@ -975,10 +994,25 @@ export function BankWorkspace({
                     t.parent,
                     t.reverses,
                     t.amount,
-                    t.reviewCells,
                   ],
                   result.records,
                   (r) => [
+                    <Button
+                      key="evidence"
+                      variant="outline"
+                      data-bank-evidence-for={r.id}
+                      aria-expanded={evidenceId === r.id}
+                      aria-controls={
+                        evidenceId === r.id ? drawerId : undefined
+                      }
+                      onClick={() => openEvidence(r.id)}
+                    >
+                      {t.reviewCells}
+                      <span className="sr-only">
+                        {' · '}
+                        {r.reference}
+                      </span>
+                    </Button>,
                     t.sides[r.side],
                     r.row,
                     id(r.reference),
@@ -990,59 +1024,55 @@ export function BankWorkspace({
                     r.parent && id(r.parent),
                     r.reverses && id(r.reverses),
                     amount(r.signed),
-                    <Button
-                      key="evidence"
-                      variant="outline"
-                      data-bank-evidence-for={r.id}
-                      onClick={() => openEvidence(r.id)}
-                    >
-                      {t.reviewCells}
-                    </Button>,
                   ],
                   undefined,
                   undefined,
                   resultParts.anchor('movements'),
+                  (r) =>
+                    r.id === evidenceId
+                      ? { 'data-thread-open': '' }
+                      : undefined,
                 )}
                 {evidence && (
-                  <section className="bank-movement-evidence">
-                    <h2 ref={evidenceHeading} tabIndex={-1}>
-                      {t.evidence} · {t.sides[evidence.side]} ·{' '}
-                      {evidence.reference} · {t.row} {evidence.row}
-                    </h2>
-                    <Button variant="outline" onClick={backToMovement}>
-                      {t.backToMovement}
-                    </Button>
-                    <RecordRows
-                      label={`${t.evidence} · ${evidence.reference}`}
-                      headers={[
-                        t.field,
-                        t.column,
-                        t.original,
-                        ...(evidence.withdrawalDeposit
-                          ? [t.cashCellState]
-                          : []),
-                      ]}
-                      rows={evidence.traces}
-                      cells={(c) => [
-                        t.sourceFields[c.field as keyof typeof t.sourceFields],
-                        c.column,
-                        c.text,
-                        ...(evidence.withdrawalDeposit
-                          ? [
-                              c.field === 'Withdrawal' || c.field === 'Deposit'
-                                ? t.cashCellStates[
-                                    evidence.withdrawalDeposit[
-                                      c.field === 'Withdrawal'
-                                        ? 'withdrawal'
-                                        : 'deposit'
-                                    ].state
-                                  ]
-                                : '',
-                            ]
-                          : []),
-                      ]}
+                  <EvidenceDrawer
+                    id={drawerId}
+                    headingRef={evidenceHeading}
+                    heading={
+                      <>
+                        {t.evidence} · {t.sides[evidence.side]} ·{' '}
+                        {evidence.reference} · {t.row} {evidence.row}
+                      </>
+                    }
+                    back={t.backToMovement}
+                    onBack={backToMovement}
+                    amount={amount(evidence.signed)}
+                  >
+                    <ThreadSources
+                      thread={bankThread(result, evidence.id)}
+                      role={(s) => t.sides[s.source as 0 | 1]}
+                      field={(c) =>
+                        t.sourceFields[c.field as keyof typeof t.sourceFields]
+                      }
+                      extra={
+                        evidence.withdrawalDeposit
+                          ? {
+                              header: t.cashCellState,
+                              cell: (c) =>
+                                c.field === 'Withdrawal' ||
+                                c.field === 'Deposit'
+                                  ? t.cashCellStates[
+                                      evidence.withdrawalDeposit![
+                                        c.field === 'Withdrawal'
+                                          ? 'withdrawal'
+                                          : 'deposit'
+                                      ].state
+                                    ]
+                                  : '',
+                            }
+                          : undefined
+                      }
                     />
-                  </section>
+                  </EvidenceDrawer>
                 )}
                 <EvidenceSections
                   anchor={resultParts.anchor('evidence')}

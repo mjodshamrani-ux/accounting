@@ -638,7 +638,7 @@ try {
             t.status[fixture.facts.expected.status],
           );
           await panel
-            .getByRole('button', { name: t.reviewCells, exact: true })
+            .getByRole('button', { name: new RegExp(`^${t.reviewCells} · `) })
             .first()
             .click();
           const evidence = panel
@@ -658,7 +658,7 @@ try {
               .locator('tbody tr')
               .filter({ hasText: t.sides[1] })
               .first()
-              .getByRole('button', { name: t.reviewCells, exact: true })
+              .getByRole('button', { name: new RegExp(`^${t.reviewCells} · `) })
               .click();
           // Arabic translated field names are compared using the catalogue, not English literals.
           const wdEvidence = await evidence.evaluateAll((rows) =>
@@ -696,6 +696,14 @@ try {
             directory,
             'source-evidence',
           );
+          // The evidence drawer covers the inline end of the page while it
+          // is open (UX-10); the reader goes back before deciding.
+          await panel
+            .getByRole('button', { name: t.backToMovement, exact: true })
+            .click();
+          await panel.locator('[data-evidence-drawer]').waitFor({
+            state: 'detached',
+          });
           await panel
             .getByLabel(t.reference, { exact: true })
             .fill('Synthetic frozen WD browser original');

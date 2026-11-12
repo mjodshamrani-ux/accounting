@@ -240,7 +240,8 @@ async function shown(w) {
         Number(await r.getAttribute('data-stock-unlinked-row')),
         (await r.getAttribute('data-stock-unlinked-reasons')).split(' '),
         JSON.parse(await r.getAttribute('data-stock-unlinked-related')),
-        (await r.locator('td').nth(3).textContent()) ?? '',
+        // The way to the row's sources comes first (UX-10).
+        (await r.locator('td').nth(4).textContent()) ?? '',
       ],
     ),
     others: await rows(
