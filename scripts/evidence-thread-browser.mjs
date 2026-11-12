@@ -75,6 +75,13 @@
 // that row, with the sealed figures; a story of 120 employees over three
 // pages, a held employee in Arabic at 390 px, and two holdouts; the same
 // one drawer, folding, another run and a change of type.
+// And in the movement bridges panel (INV-2c): each position opens every
+// register row the engine placed under it, by its place, headed by the
+// sealed line at that row, with the sealed figures; each GL account its rows
+// of the GL summary, worked out from the file, and an account with none has
+// no way in; sixty positions on two pages, held positions in Arabic at
+// 390 px, a holdout; the same one drawer with the links above, folding,
+// another run and a change of type.
 //   node scripts/evidence-thread-browser.mjs
 // EVIDENCE_THREAD_DIST names another build (a mutation gate's copy).
 import assert from 'node:assert/strict';
@@ -4378,6 +4385,534 @@ await drawer.waitFor();
 await page.locator('select[data-reconciliation-type-select]').selectOption('bank');
 await openDomainWorkspace(page, 'payroll');
 assert.equal(await drawer.count(), 0, 'long register: a change of type closes it');
+
+// UX-10(d), the movement bridges (INV-2c): each position of the panel opens
+// every register row the engine placed under it, in the order of the file,
+// by its place alone (the result keeps no text of its cells), each headed by
+// the line as the engine read it: its movement ID, kind, quantity and value;
+// a position the engine held keeps no reading of its lines, and its rows are
+// headed by the register's role. The drawer's figures are the position's
+// opening, computed closing and printed closing. Each GL account opens its
+// rows of the GL summary, worked out here from the file with this check's
+// own reader; an account the GL summary does not carry, or a GL summary the
+// engine refuses as a file, has no way in. The figures are the account's
+// register, GL and difference. The positions' rows, lines and figures are
+// the seal's (EXPECTED.json, from the stories' own oracle, not the engine),
+// each row held to the file. Sealed stories are read through the panel's own
+// file inputs. Opening it closes the drawer of the links above, and the
+// other way round; folding the panel, another run and a change of type close
+// it.
+const IMB_F = 'audit/inventory-movement-foundation/frozen',
+  IMB_H = 'audit/inventory-movement-holdout-h1/frozen';
+const imbCurrencies = JSON.parse(
+  await readFile('audit/inventory-movement-foundation/contract.json', 'utf8'),
+).reading.currencies;
+const imbKinds = {
+  en: {
+    opening: 'Opening',
+    closing: 'Closing',
+    receipt: 'Receipt',
+    issue: 'Issue',
+    'transfer-in': 'Transfer in',
+    'transfer-out': 'Transfer out',
+    'adjustment-in': 'Adjustment in',
+    'adjustment-out': 'Adjustment out',
+    'return-in': 'Customer return',
+    'return-out': 'Return to supplier',
+  },
+  ar: {
+    opening: 'افتتاح',
+    closing: 'ختام',
+    receipt: 'استلام',
+    issue: 'صرف',
+    'transfer-in': 'تحويل وارد',
+    'transfer-out': 'تحويل صادر',
+    'adjustment-in': 'تسوية بالزيادة',
+    'adjustment-out': 'تسوية بالنقص',
+    'return-in': 'مردود من عميل',
+    'return-out': 'مردود إلى مورد',
+  },
+};
+const imbWords = {
+  en: {
+    roles: [
+      'Movement bridges: movement register (CSV)',
+      'Movement bridges: GL summary (CSV)',
+    ],
+    line: 'Line',
+    position: ['Opening', 'Computed closing', 'Printed closing'],
+    account: ['Register', 'GL', 'Register − GL'],
+    note: 'Each row below is a line the engine placed under this position, in the order of the file, headed by the line as the engine read it.',
+    held: 'The engine held this position, so the result keeps no reading of its lines: each row below is shown by its place alone.',
+    glNote:
+      'Each row below is a row the engine read for this account in the GL summary, in the order of the file. The register lines of the account are not drawn here: each position in the table above opens its own.',
+    notKept:
+      'The result does not keep the text of this record’s cells. Its place is shown above.',
+  },
+  ar: {
+    roles: ['جسور الحركة: سجل الحركة (CSV)', 'جسور الحركة: ملخص GL (CSV)'],
+    line: 'السطر',
+    position: ['الافتتاح', 'الختام المحسوب', 'الختام المطبوع'],
+    account: ['السجل', 'GL', 'السجل − GL'],
+    note: 'كل صف أدناه سطر وضعه المحرك تحت هذا المركز، بترتيب الملف، وعنوانه السطر كما قرأه المحرك.',
+    held: 'أوقف المحرك هذا المركز، فلا تحفظ النتيجة قراءةً لأسطره: يُعرض كل صف أدناه بموضعه وحده.',
+    glNote:
+      'كل صف أدناه صف قرأه المحرك لهذا الحساب في ملخص GL، بترتيب الملف. ولا تُرسم هنا أسطر السجل للحساب: كل مركز في الجدول أعلاه يفتح صفوفه.',
+    notKept: 'النتيجة لا تحفظ نصوص خلايا هذا السجل. وموضعه مذكور أعلاه.',
+  },
+};
+// A pair of quantity (three decimals) and value, and the four sides of an
+// account, as the table writes them, with this check's own figures.
+const imbPair = (p, d) =>
+  p ? `${plrAmount(Number(p.quantity), 3)} · ${plrAmount(Number(p.value), d)}` : '—';
+const imbSide = (s, d) =>
+  s
+    ? ['opening', 'debit', 'credit', 'closing']
+        .map((k) => plrAmount(Number(s[k]), d))
+        .join(' · ')
+    : '—';
+async function imbStory(dir, sid) {
+  const scope = JSON.parse(await readFile(`${dir}/${sid}-scope.json`, 'utf8')),
+    names = [`${sid}-register.csv`, `${sid}-gl.csv`],
+    [register, gl] = await Promise.all(
+      names.map(async (n) => csvRows(await readFile(`${dir}/${n}`, 'utf8'))),
+    ),
+    sealed = JSON.parse(await readFile(`${dir}/EXPECTED.json`, 'utf8')).stories[
+      sid
+    ];
+  const strip = (v) => (v ?? '').replace(/^ +| +$/g, '');
+  // The GL rows that name each account, read here; none when the engine
+  // refuses the GL summary as a file (the seal says so in its run).
+  const glRows = new Map();
+  if (!sealed.run.includes('GL_FILE')) {
+    const head = gl.find((r) => r.some((v) => strip(v))).map(strip),
+      at = head.indexOf('GL account');
+    assert.ok(at >= 0, `bridges ${sid}: the GL summary names its accounts`);
+    for (const [i, r] of gl.entries()) {
+      const a = strip(r[at]);
+      if (a && a !== 'GL account') glRows.set(a, [...(glRows.get(a) ?? []), i + 1]);
+    }
+  }
+  const head = register.find((r) => r.some((v) => strip(v))).map(strip);
+  return {
+    dir,
+    sid,
+    scope,
+    names,
+    decimals: imbCurrencies[scope.Currency] ?? 2,
+    sealed,
+    glRows,
+    // The register row at a place, by its column names.
+    cell: (row, name) => strip(register[row - 1]?.[head.indexOf(name)]),
+  };
+}
+let imb = null;
+const imbIdle = async () => {
+  for (const deadline = Date.now() + 60000; Date.now() < deadline; ) {
+    if ((await imb.getAttribute('aria-busy')) === 'false') return;
+    await page.waitForTimeout(100);
+  }
+  throw Error('the bridges panel stayed busy for a minute');
+};
+const imbCheck = /^(Check the bridges|افحص الجسور)$/;
+async function imbLoad(story) {
+  for (const [i, role] of ['movement-register', 'gl-summary'].entries()) {
+    await imb
+      .locator(`input[data-imb-file="${role}"]`)
+      .setInputFiles(path.resolve(`${story.dir}/${story.names[i]}`));
+    await imbIdle();
+    await imb.locator(`[data-imb-confirm="${role}"]`).check();
+  }
+  for (const [k, v] of Object.entries(story.scope)) {
+    const field = imb.locator(`[data-imb-scope="${k}"]`);
+    if (k === 'Negative balances') await field.selectOption(v);
+    else await field.fill(v);
+  }
+  await imb.locator('[data-imb-scope-confirm]').check();
+  await imb.getByRole('button', { name: imbCheck }).click();
+  await imb.locator('[data-imb-result]').waitFor();
+  await imbIdle();
+}
+const imbPositions = () => imb.locator('tr[data-imb-position]');
+const imbAccounts = () => imb.locator('tr[data-imb-account]');
+const imbPager = (name) =>
+  imb
+    .locator('[data-imb-pager="positions"]')
+    .getByRole('button', { name, exact: true });
+let imbOpened = 0;
+// One row opened: its way in, the drawer's heading, figures, note and
+// sources, the row marked, and the way back or Escape to the same way in.
+async function imbFollow(what, row, n, named, want) {
+  const tw = threadWords[want.lang];
+  const way = row.getByRole('button', {
+    name: `${tw.way} · ${named}`,
+    exact: true,
+  });
+  assert.equal(await way.count(), 1, `${what} ${named}: the way in`);
+  assert.equal(await way.getAttribute('aria-expanded'), 'false', what);
+  await way.click();
+  await drawer.waitFor();
+  await arrived();
+  assert.equal(await way.getAttribute('aria-expanded'), 'true', what);
+  assert.equal(
+    await way.getAttribute('aria-controls'),
+    await drawer.getAttribute('id'),
+    `${what}: the way in names the drawer`,
+  );
+  const opened = await focused();
+  assert.deepEqual([opened.tag, opened.inDrawer], ['H2', true], what);
+  assert.equal(
+    opened.text,
+    `${tw.heading} · ${named}`,
+    `${what}: the heading names the row`,
+  );
+  const figures = drawer.locator('.evidence-drawer__amount .tarasuf-figure');
+  if (want.figures)
+    assert.deepEqual(
+      (await figures.allInnerTexts()).map((x) => x.trim()),
+      want.figures,
+      `${what} ${named}: its figures as the table shows them`,
+    );
+  else
+    assert.equal(
+      await drawer.locator('.evidence-drawer__amount').count(),
+      0,
+      `${what} ${named}: no figures`,
+    );
+  assert.equal(
+    await drawer.getByText(want.note, { exact: true }).count(),
+    1,
+    `${what} ${named}: it says what each row is`,
+  );
+  const sources = await arDrawn();
+  assert.deepEqual(
+    sources.map((s) => [
+      s.source,
+      s.role,
+      s.place.File ?? s.place['الملف'],
+      s.place.Sheet ?? s.place['الورقة'],
+      Number(s.place.Row ?? s.place['الصف']),
+      s.missing,
+      s.cells.length,
+    ]),
+    want.sources,
+    `${what} ${named}: each of its rows in the file`,
+  );
+  assert.equal(
+    await page.locator('tr[data-thread-open]').count(),
+    1,
+    `${what}: one row marked`,
+  );
+  assert.equal(await row.getAttribute('data-thread-open'), '', what);
+  if (n % 2)
+    await drawer.getByRole('button', { name: tw.back, exact: true }).click();
+  else await drawer.getByRole('heading', { level: 2 }).press('Escape');
+  await closed();
+  assert.equal(await drawer.count(), 0, `${what}: it closes`);
+  assert.equal(
+    await page.evaluate(() =>
+      document.activeElement?.getAttribute('aria-expanded'),
+    ),
+    'false',
+    `${what}: the focus returns to the way in`,
+  );
+  assert.ok(
+    (
+      await page.evaluate(() => document.activeElement?.textContent ?? '')
+    ).endsWith(named),
+    `${what}: the same way in`,
+  );
+  imbOpened++;
+}
+// The positions at `indices` of the page shown, opened in turn.
+async function imbFollowPositions(lang, width, motion, story, indices) {
+  const tw = threadWords[lang],
+    iw = imbWords[lang],
+    what = `bridges ${story.sid} ${lang} ${width} px ${motion}`,
+    head = (
+      await imb
+        .locator('table:has(tr[data-imb-position]) thead th')
+        .allInnerTexts()
+    ).map((x) => x.trim());
+  assert.equal(head[0], tw.way, `${what}: the way in opens the position`);
+  for (const n of indices) {
+    const row = imbPositions().nth(n),
+      key = await row.getAttribute('data-imb-position'),
+      [, item, dims] = (await row.locator('th, td').allTextContents()).map(
+        (x) => x.trim(),
+      ),
+      named = dims ? `${item} · ${dims}` : item;
+    watch.at(`${what}: ${named}`);
+    assert.equal(key, `${item}|${dims}`, `${what}: ${named} is the row's`);
+    const sealed = story.sealed.positions[key];
+    assert.ok(sealed, `${what} ${named}: the seal`);
+    const decided = sealed.status !== 'held',
+      byId = new Map((sealed.lines ?? []).map((l) => [l[0], l]));
+    const ids = sealed.rows.map((r) => {
+      assert.equal(
+        `${story.cell(r, 'Item ID')}|${story.cell(r, 'Item dimensions')}`,
+        key,
+        `${what} ${named}: row ${r} is a line of the position`,
+      );
+      return story.cell(r, 'Movement ID');
+    });
+    const byCode = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
+    if (decided)
+      assert.deepEqual(
+        [...ids].sort(byCode),
+        [...byId.keys()].sort(byCode),
+        `${what} ${named}: its rows are its sealed lines`,
+      );
+    await imbFollow(what, row, n, named, {
+      lang,
+      figures: decided
+        ? ['opening', 'computed', 'closing'].map(
+            (k, i) => `${iw.position[i]} ${imbPair(sealed[k], story.decimals)}`,
+          )
+        : null,
+      note: decided ? iw.note : iw.held,
+      sources: sealed.rows.map((r, i) => {
+        const l = byId.get(ids[i]);
+        return [
+          0,
+          decided
+            ? `${iw.line} ${l[0]} · ${imbKinds[lang][l[1]]} · ${plrAmount(l[2], 3)} · ${plrAmount(l[3], story.decimals)}`
+            : iw.roles[0],
+          story.names[0],
+          undefined,
+          r,
+          iw.notKept,
+          0,
+        ];
+      }),
+    });
+  }
+  report.push(`bridges ${story.sid} positions ${lang} ${width} ${motion}`);
+}
+// Every account: a way in on those whose GL rows the file holds, opened in
+// turn, and none on the others.
+async function imbFollowAccounts(lang, width, motion, story) {
+  const iw = imbWords[lang],
+    what = `bridges ${story.sid} accounts ${lang} ${width} px ${motion}`,
+    count = await imbAccounts().count();
+  assert.equal(
+    count,
+    Object.keys(story.sealed.accounts).length,
+    `${what}: every sealed account`,
+  );
+  let ways = 0;
+  for (let n = 0; n < count; n++) {
+    const row = imbAccounts().nth(n),
+      account = await row.getAttribute('data-imb-account'),
+      [, shown] = (await row.locator('th, td').allTextContents()).map((x) =>
+        x.trim(),
+      );
+    watch.at(`${what}: ${account}`);
+    assert.equal(shown, account, `${what}: ${account} heads its row`);
+    const rows = story.glRows.get(account) ?? [],
+      sealed = story.sealed.accounts[account];
+    if (!rows.length) {
+      assert.equal(
+        await row.getByRole('button').count(),
+        0,
+        `${what} ${account}: no GL row, no way in`,
+      );
+      continue;
+    }
+    await imbFollow(what, row, ways++, account, {
+      lang,
+      figures:
+        sealed.register || sealed.gl
+          ? ['register', 'gl', 'difference'].map(
+              (k, i) => `${iw.account[i]} ${imbSide(sealed[k], story.decimals)}`,
+            )
+          : null,
+      note: iw.glNote,
+      sources: rows.map((r) => [
+        1,
+        iw.roles[1],
+        story.names[1],
+        undefined,
+        r,
+        iw.notKept,
+        0,
+      ]),
+    });
+  }
+  report.push(`bridges ${story.sid} accounts ${lang} ${width} ${motion}`);
+  return ways;
+}
+watch.at('bridges: the links above');
+await page.reload();
+await supplierLang('en');
+await page.setViewportSize({ width: 1440, height: 900 });
+await page.emulateMedia({ reducedMotion: null });
+await openDomainWorkspace(page, 'stock');
+// The links of L26 above the panel, for the one drawer on the page.
+for (const [i, role] of stockWords.en.roles.entries()) {
+  await stock
+    .getByLabel(role, { exact: true })
+    .setInputFiles(path.resolve(`${LINKS}/L26-${STOCK_FILES[i]}.csv`));
+  await stockIdle();
+}
+await stock
+  .getByLabel(
+    "I reviewed the posted inventory register, the proposed item / GL mapping, the independent supplied policy evidence and the selected inventory GL balances (each one's role and family) and their common scope",
+  )
+  .check();
+await stock
+  .getByRole('button', { name: 'Check inventory / GL', exact: true })
+  .click();
+await stockIdle();
+await stock.locator('[data-stock-links]').waitFor();
+const imbDetails = stock.locator('details[data-imb-details]');
+if ((await imbDetails.getAttribute('open')) === null)
+  await imbDetails.locator(':scope > summary').click();
+imb = imbDetails.locator('[data-imb]');
+// Sixty positions on two pages: five of the first page and the ten of the
+// second; then its four accounts. The fifth of the first page is the one
+// position the engine finds inconsistent, its printed closing a cent off
+// the computed one: the only place the drawer's two closings differ.
+watch.at('bridges: M41');
+const imbLong = await imbStory(IMB_F, 'M41');
+await imbLoad(imbLong);
+assert.equal(await imbPositions().count(), 50, 'bridges M41: a full page');
+assert.equal(
+  await imbPositions().nth(44).getAttribute('data-imb-position-status'),
+  'inconsistent',
+  'bridges M41: the inconsistent position',
+);
+await imbFollowPositions('en', 1440, 'no-preference', imbLong, [0, 1, 2, 3, 44]);
+await imbPager('Next page').click();
+await imbPositions().nth(20).waitFor({ state: 'detached' });
+await imbFollowPositions('en', 1440, 'no-preference', imbLong, range(0, 10));
+assert.equal(
+  await imbFollowAccounts('en', 1440, 'no-preference', imbLong),
+  4,
+  'bridges M41: four accounts',
+);
+// The way back, after the positions were turned while the drawer was open,
+// turns them back to the position's page and returns to its way in.
+watch.at('bridges: the way back over pages');
+const imbLast = imbPositions().last(),
+  imbLastName = (await imbLast.getByRole('button').textContent()).trim();
+await imbLast.getByRole('button').click();
+await drawer.waitFor();
+await arrived();
+await imbPager('Previous page').click();
+await imbPositions().nth(20).waitFor();
+assert.equal(
+  await imb.getByRole('button', { name: imbLastName, exact: true }).count(),
+  0,
+  'bridges M41: the position is off the page shown',
+);
+await drawer.getByRole('button', { name: threadWords.en.back, exact: true }).click();
+await closed();
+assert.equal(await drawer.count(), 0, 'bridges: the way back closes it');
+assert.equal(
+  (await focused()).text.trim(),
+  imbLastName,
+  'bridges M41: the way back returns to the position on its own page',
+);
+report.push('bridges M41: way back over two pages');
+// One drawer on the page: a position's closes the links' above, and the
+// other way round. The links' ways come first on the page.
+watch.at('bridges: one drawer on the page');
+const imbAbove = stock
+  .getByRole('button', { name: /^Review source rows · / })
+  .first();
+await imbAbove.click();
+await drawer.waitFor();
+const imbFirst = imbPositions().first().getByRole('button');
+await imbFirst.click();
+await inDrawer((await imbFirst.textContent()).slice(threadWords.en.way.length));
+assert.equal(
+  await page.locator('[data-evidence-drawer]').count(),
+  1,
+  'bridges: the position closes the links above',
+);
+assert.equal(await imbAbove.getAttribute('aria-expanded'), 'false');
+assert.equal(await imbFirst.getAttribute('aria-expanded'), 'true');
+await imbAbove.click();
+await inDrawer((await imbAbove.textContent()).slice(threadWords.en.way.length));
+assert.equal(
+  await page.locator('[data-evidence-drawer]').count(),
+  1,
+  'bridges: the links close the position',
+);
+assert.equal(await imbFirst.getAttribute('aria-expanded'), 'false');
+await drawer.getByRole('heading', { level: 2 }).press('Escape');
+await closed();
+// Folding the panel closes it, and so does another run.
+watch.at('bridges: folding and another run');
+const imbAccount = imbAccounts().first().getByRole('button');
+await imbAccount.click();
+await drawer.waitFor();
+await imbDetails.locator(':scope > summary').click();
+await closed();
+assert.equal(await drawer.count(), 0, 'bridges: folding closes it');
+await imbDetails.locator(':scope > summary').click();
+await imbFirst.click();
+await drawer.waitFor();
+await imb.getByRole('button', { name: imbCheck }).click();
+await imb.locator('[data-imb-result]').waitFor();
+await imbIdle();
+await closed();
+assert.equal(await drawer.count(), 0, 'bridges: another run closes it');
+// Arabic, right to left, at 390 px with reduced motion: three positions and
+// three accounts the engine held.
+watch.at('bridges: Arabic');
+await supplierLang('ar');
+await page.setViewportSize({ width: 390, height: 900 });
+await page.emulateMedia({ reducedMotion: 'reduce' });
+const imbHeld = await imbStory(IMB_F, 'M06');
+await imbLoad(imbHeld);
+await imbFollowPositions('ar', 390, 'reduce', imbHeld, range(0, await imbPositions().count()));
+const imbHeldWays = await imbFollowAccounts('ar', 390, 'reduce', imbHeld);
+// An account the register names and the GL summary does not carry, and a
+// GL summary refused as a file: no way in; then a holdout from another
+// writer, its 80 positions over two pages.
+watch.at('bridges: accounts with no GL row, and a holdout');
+await supplierLang('en');
+await page.setViewportSize({ width: 1024, height: 900 });
+await page.emulateMedia({ reducedMotion: null });
+const imbAbsent = await imbStory(IMB_F, 'M23');
+assert.ok(
+  imbAbsent.sealed.accounts['1320'].codes.includes('GL_ABSENT') &&
+    !imbAbsent.glRows.has('1320'),
+  'bridges M23: an account the GL summary does not carry',
+);
+await imbLoad(imbAbsent);
+await imbFollowPositions('en', 1024, 'no-preference', imbAbsent, range(0, await imbPositions().count()));
+const imbAbsentWays = await imbFollowAccounts('en', 1024, 'no-preference', imbAbsent);
+const imbRefused = await imbStory(IMB_F, 'M36');
+await imbLoad(imbRefused);
+assert.equal(
+  await imbFollowAccounts('en', 1024, 'no-preference', imbRefused),
+  0,
+  'bridges M36: a refused GL summary opens no account',
+);
+const imbHoldout = await imbStory(IMB_H, 'H31');
+await imbLoad(imbHoldout);
+await imbFollowPositions('en', 1024, 'no-preference', imbHoldout, range(0, 3));
+const imbHoldoutWays = await imbFollowAccounts('en', 1024, 'no-preference', imbHoldout);
+// Fifteen positions and four accounts of M41; M06's, M23's and H31's.
+assert.equal(
+  imbOpened,
+  15 + 4 + 3 + imbHeldWays + 2 + imbAbsentWays + 3 + imbHoldoutWays,
+  `bridges: rows opened: ${imbOpened}`,
+);
+assert.deepEqual(
+  [imbHeldWays, imbAbsentWays, imbHoldoutWays],
+  [3, 2, 5],
+  'bridges: the accounts with a GL row',
+);
+// A change of type closes it: the workspace stays drawn while hidden.
+await imbPositions().first().getByRole('button').click();
+await drawer.waitFor();
+await page.locator('select[data-reconciliation-type-select]').selectOption('bank');
+await openDomainWorkspace(page, 'stock');
+assert.equal(await drawer.count(), 0, 'bridges: a change of type closes it');
 
 watch.stop();
 assert.deepEqual(errors, [], 'no page error');

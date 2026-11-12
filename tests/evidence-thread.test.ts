@@ -10,6 +10,8 @@ import {
   gatewayThread,
   glTbSectionsThread,
   glTbThread,
+  movementAccountThread,
+  movementPositionThread,
   payrollRegisterThread,
   intercompanyThread,
   payrollBankThread,
@@ -68,6 +70,14 @@ import {
   reconcileLongRegister,
   type PlrLabel,
 } from '../lib/reconciliation/payroll-long-register.ts';
+import {
+  IMB_ROLES,
+  IMB_VERSION,
+  reconcileMovementBridge,
+  type ImbFile,
+  type ImbReading,
+  type ImbScopeField,
+} from '../lib/reconciliation/inventory-movement-bridge.ts';
 import { readFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import type { BankResult } from '../lib/reconciliation/bank.ts';
@@ -1775,5 +1785,180 @@ void test('an employee of the long payroll register opens every row the engine r
       rowsOpened >= 2530 &&
       sealedLines >= 2218,
     `${stories} stories, ${employees} employees, ${rowsOpened} rows, ${sealedLines} sealed lines`,
+  );
+});
+
+void test('a position of the inventory movement bridge opens every register row the engine placed under it, and a GL account its rows of the GL summary, by their place and no cell', async () => {
+  const trim = (v: string) => v.replace(/^ +| +$/g, '');
+  // The file's rows, read here on their own, and the columns of its first
+  // row that is not blank.
+  const table = (raw: Buffer) => {
+    const rows = csv(
+      raw.buffer.slice(
+        raw.byteOffset,
+        raw.byteOffset + raw.byteLength,
+      ) as ArrayBuffer,
+    );
+    const head = rows.find((r) => r.some((v) => trim(v)));
+    assert.ok(head, 'the file has a row that is not blank');
+    const at = (name: string) => {
+      const n = head.map(trim).indexOf(name);
+      assert.ok(n >= 0, `the file has the column ${name}`);
+      return n;
+    };
+    return { rows, at };
+  };
+  const thread = (name: string, source: 0 | 1, rows: number[]) =>
+    rows.map((row) => ({
+      source,
+      role: IMB_ROLES[source],
+      name,
+      sheet: null,
+      place: { row },
+      cells: null,
+    }));
+  let stories = 0,
+    positions = 0,
+    accounts = 0,
+    registerRows = 0,
+    glRows = 0,
+    sealedRows = 0;
+  for (const dir of [
+    'audit/inventory-movement-foundation/frozen',
+    'audit/inventory-movement-holdout-h1/frozen',
+  ]) {
+    const sealed = JSON.parse(
+      await readFile(`${dir}/EXPECTED.json`, 'utf8'),
+    ).stories;
+    for (const sid of Object.keys(sealed).sort()) {
+      const names = [`${sid}-register.csv`, `${sid}-gl.csv`] as const;
+      const raws = await Promise.all(names.map((n) => readFile(`${dir}/${n}`)));
+      const files = raws.map((raw, i) => {
+        const bytes = new Uint8Array(raw);
+        return {
+          name: names[i],
+          sha256: createHash('sha256').update(bytes).digest('hex'),
+          bytes,
+        };
+      }) as [ImbFile, ImbFile];
+      const readings = IMB_ROLES.map((role) => ({
+        role,
+        family: IMB_VERSION,
+        confirmed: true,
+      })) as [ImbReading, ImbReading];
+      const fields = JSON.parse(
+        await readFile(`${dir}/${sid}-scope.json`, 'utf8'),
+      ) as Record<ImbScopeField, string>;
+      const result = reconcileMovementBridge({
+        files,
+        readings,
+        scope: { confirmed: true, fields },
+      });
+      // A file the engine refuses whole (its encoding, its quoting, its
+      // columns) gives no position or account row, and is not read here.
+      if (result.positions.length) {
+        const register = table(raws[0]),
+          item = register.at('Item ID'),
+          dims = register.at('Item dimensions'),
+          id = register.at('Movement ID');
+        const want = sealed[sid].positions ?? {};
+        for (const [i, p] of result.positions.entries()) {
+          const what = `${sid} ${p.key}`;
+          const opened = movementPositionThread(result, i);
+          assert.deepEqual(
+            opened,
+            thread(names[0], 0, p.rows),
+            `${what}: each register row the engine placed under it, by its place`,
+          );
+          assert.ok(
+            p.rows.length > 0 &&
+              p.rows.every((row, n) => !n || row > p.rows[n - 1]),
+            `${what}: its rows, in the order of the file`,
+          );
+          const ids = p.rows.map((row) => {
+            const line = register.rows[row - 1];
+            assert.equal(
+              `${trim(line[item])}|${trim(line[dims])}`,
+              p.key,
+              `${what}: row ${row} is a line of the position`,
+            );
+            return trim(line[id]);
+          });
+          // The seal names each position's rows and, for a position it
+          // judges, its lines by id.
+          const sealedPosition = want[p.key];
+          if (sealedPosition) {
+            assert.deepEqual(
+              p.rows,
+              sealedPosition.rows,
+              `${what}: the sealed rows`,
+            );
+            if (sealedPosition.lines)
+              assert.deepEqual(
+                [...ids].sort(),
+                sealedPosition.lines.map((l: [string]) => l[0]).sort(),
+                `${what}: the sealed lines`,
+              );
+            sealedRows += p.rows.length;
+          }
+          registerRows += opened.length;
+          positions++;
+        }
+      }
+      assert.deepEqual(
+        movementPositionThread(result, result.positions.length),
+        [],
+        `${sid}: no position past the last opens nothing`,
+      );
+      if (result.accounts.length) {
+        // The rows of the GL summary that name each account, found here on
+        // their own; a GL summary the engine refuses as a file gives none.
+        const named = new Map<string, number[]>();
+        if (!result.run.includes('GL_FILE')) {
+          const gl = table(raws[1]),
+            account = gl.at('GL account');
+          for (const [n, line] of gl.rows.entries()) {
+            const a = trim(line[account] ?? '');
+            if (!a || a === 'GL account') continue;
+            named.set(a, [...(named.get(a) ?? []), n + 1]);
+          }
+        }
+        for (const [i, a] of result.accounts.entries()) {
+          const what = `${sid} account ${a.account}`;
+          const opened = movementAccountThread(result, i);
+          assert.deepEqual(
+            opened,
+            thread(names[1], 1, a.rows),
+            `${what}: each GL summary row the engine read for it, by its place`,
+          );
+          assert.deepEqual(
+            a.rows,
+            named.get(a.account) ?? [],
+            `${what}: the rows of the GL summary that name it`,
+          );
+          glRows += opened.length;
+          accounts++;
+        }
+      }
+      assert.deepEqual(
+        movementAccountThread(result, result.accounts.length),
+        [],
+        `${sid}: no account past the last opens nothing`,
+      );
+      stories++;
+    }
+  }
+  // Measured on the two sealed sets: 79 stories, 306 positions, 152
+  // accounts, 1,425 register rows, all of them sealed, and 148 GL rows. A
+  // floor, so a story that stops being read fails here rather than passing
+  // on fewer rows.
+  assert.ok(
+    stories >= 79 &&
+      positions >= 306 &&
+      accounts >= 152 &&
+      registerRows >= 1425 &&
+      glRows >= 148 &&
+      sealedRows >= 1425,
+    `${stories} stories, ${positions} positions, ${accounts} accounts, ${registerRows} register rows, ${glRows} GL rows, ${sealedRows} sealed rows`,
   );
 });

@@ -94,6 +94,14 @@ const en = {
     'GL rows',
   ],
   sides: 'opening · debit · credit · closing',
+  // The evidence drawer of a position and of an account (UX-10).
+  threadNote:
+    'Each row below is a line the engine placed under this position, in the order of the file, headed by the line as the engine read it.',
+  threadHeld:
+    'The engine held this position, so the result keeps no reading of its lines: each row below is shown by its place alone.',
+  threadLine: 'Line',
+  threadAccount:
+    'Each row below is a row the engine read for this account in the GL summary, in the order of the file. The register lines of the account are not drawn here: each position in the table above opens its own.',
   excluded: 'Lines posted outside the period (excluded)',
   dated: 'Lines in the period that happened outside it',
   unseen: 'Returns whose origin is not in the register',
@@ -254,6 +262,13 @@ const ar: typeof en = {
     'صفوف GL',
   ],
   sides: 'الافتتاح · المدين · الدائن · الختام',
+  threadNote:
+    'كل صف أدناه سطر وضعه المحرك تحت هذا المركز، بترتيب الملف، وعنوانه السطر كما قرأه المحرك.',
+  threadHeld:
+    'أوقف المحرك هذا المركز، فلا تحفظ النتيجة قراءةً لأسطره: يُعرض كل صف أدناه بموضعه وحده.',
+  threadLine: 'السطر',
+  threadAccount:
+    'كل صف أدناه صف قرأه المحرك لهذا الحساب في ملخص GL، بترتيب الملف. ولا تُرسم هنا أسطر السجل للحساب: كل مركز في الجدول أعلاه يفتح صفوفه.',
   excluded: 'أسطر قُيدت خارج الفترة (مستبعدة)',
   dated: 'أسطر في الفترة وقعت خارجها',
   unseen: 'مردودات أصلها ليس في السجل',

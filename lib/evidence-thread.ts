@@ -5,6 +5,7 @@ import type { BankResult } from './reconciliation/bank.ts';
 import type { ClearingResult } from './reconciliation/clearing.ts';
 import type { BalanceField, GlTbResult } from './reconciliation/gl-tb.ts';
 import type { GlsResult } from './reconciliation/gl-tb-sections.ts';
+import type { ImbResult } from './reconciliation/inventory-movement-bridge.ts';
 import type {
   PlrReading,
   PlrResult,
@@ -317,6 +318,49 @@ export function payrollRegisterThread(
     place: { row },
     cells: null,
   }));
+}
+
+/** The rows the engine names in one file of the inventory movement bridge
+ * (INV-2c), by their place. The engine reads both files' bytes with its own
+ * reader and keeps rows, not cells, and the panel holds only the bytes. Each
+ * row is drawn by its place alone, and nothing here reads the bytes again.
+ * The file's name and role are those the result keeps for it. */
+function movementBridgeRows(
+  result: ImbResult,
+  source: 0 | 1,
+  rows: readonly number[] | undefined,
+): Thread {
+  const file = result.files[source];
+  if (!rows || !file) return [];
+  return rows.map((at) => ({
+    source,
+    role: file.role,
+    name: file.name,
+    sheet: null,
+    place: { row: at },
+    cells: null,
+  }));
+}
+
+/** A position of the movement bridge, one item and its dimensions: each
+ * register row the engine placed under it, in the order of the file. */
+export function movementPositionThread(
+  result: ImbResult,
+  index: number,
+): Thread {
+  return movementBridgeRows(result, 0, result.positions[index]?.rows);
+}
+
+/** A GL account of the movement bridge: each row of the GL summary the
+ * engine read for it, in the order of the file. The register side of the
+ * account is summed from positions, which the result does not list under the
+ * account, so their rows are not drawn here; each position opens its own. An
+ * account the GL summary does not carry opens nothing. */
+export function movementAccountThread(
+  result: ImbResult,
+  index: number,
+): Thread {
+  return movementBridgeRows(result, 1, result.accounts[index]?.rows);
 }
 
 /** A clearing case: each movement row the engine put in it, in the case's

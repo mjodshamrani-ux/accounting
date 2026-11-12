@@ -52,6 +52,8 @@ const copied = [
   'audit/gl-tb-sections-holdout-h1/frozen',
   'audit/payroll-long-register-foundation/frozen',
   'audit/payroll-long-register-holdout-h1/frozen',
+  'audit/inventory-movement-foundation/frozen',
+  'audit/inventory-movement-holdout-h1/frozen',
   'package.json',
 ];
 const mutations = [
@@ -784,6 +786,96 @@ const mutations = [
     THREAD,
     "    source: 0,\n    role: LONG_REGISTER,",
     "    source: 1,\n    role: LONG_REGISTER,",
+  ],
+  [
+    "imb-row-from-zero",
+    THREAD,
+    "    place: { row: at },",
+    "    place: { row: at - 1 },",
+  ],
+  [
+    "imb-next-position",
+    THREAD,
+    "movementBridgeRows(result, 0, result.positions[index]?.rows)",
+    "movementBridgeRows(result, 0, result.positions[index + 1]?.rows)",
+  ],
+  [
+    "imb-past-the-last-position-opens-the-last",
+    THREAD,
+    "movementBridgeRows(result, 0, result.positions[index]?.rows)",
+    "movementBridgeRows(\n    result,\n    0,\n    result.positions[Math.min(index, result.positions.length - 1)]?.rows,\n  )",
+  ],
+  [
+    "imb-next-account",
+    THREAD,
+    "movementBridgeRows(result, 1, result.accounts[index]?.rows)",
+    "movementBridgeRows(result, 1, result.accounts[index + 1]?.rows)",
+  ],
+  [
+    "imb-past-the-last-account-opens-the-last",
+    THREAD,
+    "movementBridgeRows(result, 1, result.accounts[index]?.rows)",
+    "movementBridgeRows(\n    result,\n    1,\n    result.accounts[Math.min(index, result.accounts.length - 1)]?.rows,\n  )",
+  ],
+  [
+    "imb-account-opens-the-register",
+    THREAD,
+    "movementBridgeRows(result, 1, result.accounts[index]?.rows)",
+    "movementBridgeRows(result, 0, result.accounts[index]?.rows)",
+  ],
+  [
+    "imb-account-opens-a-position",
+    THREAD,
+    "movementBridgeRows(result, 1, result.accounts[index]?.rows)",
+    "movementBridgeRows(result, 1, result.positions[index]?.rows)",
+  ],
+  [
+    "imb-last-row-dropped",
+    THREAD,
+    "return rows.map((at) => ({",
+    "return rows.slice(0, -1).map((at) => ({",
+  ],
+  [
+    "imb-rows-reversed",
+    THREAD,
+    "return rows.map((at) => ({",
+    "return [...rows].reverse().map((at) => ({",
+  ],
+  [
+    "imb-cells-invented",
+    THREAD,
+    "    place: { row: at },\n    cells: null,",
+    "    place: { row: at },\n    cells: [],",
+  ],
+  [
+    "imb-sheet-named",
+    THREAD,
+    "    sheet: null,\n    place: { row: at },",
+    "    sheet: file.name,\n    place: { row: at },",
+  ],
+  [
+    "imb-name-of-the-hash",
+    THREAD,
+    "    role: file.role,\n    name: file.name,",
+    "    role: file.role,\n    name: file.sha256,",
+  ],
+  [
+    "imb-role-of-the-register",
+    THREAD,
+    "    role: file.role,\n    name: file.name,",
+    "    role: result.files[0].role,\n    name: file.name,",
+  ],
+  [
+    "imb-source-of-the-register",
+    THREAD,
+    "  return rows.map((at) => ({\n    source,",
+    "  return rows.map((at) => ({\n    source: 0,",
+  ],
+  [
+    "imb-file-of-the-other-side",
+    THREAD,
+    "const file = result.files[source];",
+    "const file = result.files[1 - source];",
   ],
 ];
 const files = [THREAD, ...tests];

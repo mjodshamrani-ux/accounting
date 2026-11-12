@@ -34,14 +34,14 @@ const BADGE_LABEL = 'inventory bridge';
 const BADGES = [
   {
     name: 'positions',
-    column: 2,
+    column: 3,
     rows: 'tr[data-imb-position]',
     attr: 'data-imb-position-status',
     agreed: ['consistent'],
   },
   {
     name: 'accounts',
-    column: 1,
+    column: 2,
     rows: 'tr[data-imb-account]',
     attr: 'data-imb-account-status',
     agreed: ['consistent'],
@@ -271,7 +271,9 @@ async function shown(imb) {
       codes: (await r.getAttribute('data-imb-position-codes'))
         .split(' ')
         .filter(Boolean),
-      cells: await r.locator('td').allTextContents(),
+      // The item heads its row; the cells from it on, after the way in
+      // (UX-10).
+      cells: (await r.locator('th, td').allTextContents()).slice(1),
     }),
   );
   const flows = await rows(imb, 'flows', 'tr[data-imb-flow]', async (r) => {
@@ -301,7 +303,8 @@ async function shown(imb) {
       codes: (await r.getAttribute('data-imb-account-codes'))
         .split(' ')
         .filter(Boolean),
-      cells: await r.locator('td').allTextContents(),
+      // The account heads its row; the cells from it on, after the way in.
+      cells: (await r.locator('th, td').allTextContents()).slice(1),
     }),
   );
   const totals = {};

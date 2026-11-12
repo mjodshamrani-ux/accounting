@@ -33,6 +33,13 @@ import { ClosedReason } from './decision-platform';
 import { inventoryBridgeTone, toned } from '@/lib/status-tone';
 import { useResultFocus } from '@/components/result-focus';
 import { SectionResultHeading } from '@/components/section-result';
+import { EvidenceDrawer, ThreadSources } from '@/components/evidence-drawer';
+import { useEvidenceThread } from '@/hooks/use-evidence-thread';
+import {
+  movementAccountThread,
+  movementPositionThread,
+} from '@/lib/evidence-thread';
+import { evidenceThreadCopy } from '@/lib/i18n/evidence-thread';
 
 type Picked = {
   name: string;
@@ -47,9 +54,10 @@ const blankScope = () =>
   >;
 const SIDES = ['opening', 'debit', 'credit', 'closing'] as const;
 
-export function InventoryMovementBridgePanel() {
+export function InventoryMovementBridgePanel({ active }: { active: boolean }) {
   const { lang } = useI18n();
-  const copy = inventoryMovementBridgeCopy[lang];
+  const copy = inventoryMovementBridgeCopy[lang],
+    words = evidenceThreadCopy[lang];
   const [files, setFiles] = useState<[Picked | null, Picked | null]>([
     null,
     null,
@@ -60,6 +68,20 @@ export function InventoryMovementBridgePanel() {
     [busy, setBusy] = useState(false),
     [error, setError] = useState('');
   const { heading: resultHeading, reveal } = useResultFocus();
+  // The evidence thread (UX-10): a position opens the register rows the
+  // engine placed under it, an account its rows of the GL summary, one
+  // drawer at a time. It closes when the panel is folded, the workspace is
+  // hidden or the result changes.
+  const [expanded, setExpanded] = useState(false);
+  const thread = useEvidenceThread(active && expanded, result),
+    openPosition =
+      result && thread.open?.table === 'positions'
+        ? { at: thread.open.at, position: result.positions[thread.open.at] }
+        : undefined,
+    openAccount =
+      result && thread.open?.table === 'accounts'
+        ? { at: thread.open.at, account: result.accounts[thread.open.at] }
+        : undefined;
   const runtime = useRef({
     serial: 0,
     controller: null as AbortController | null,
@@ -195,7 +217,11 @@ export function InventoryMovementBridgePanel() {
       )
     : [];
   return (
-    <details className="intercompany-batch" data-imb-details>
+    <details
+      className="intercompany-batch"
+      data-imb-details
+      onToggle={(e) => setExpanded(e.currentTarget.open)}
+    >
       <summary>{copy.title}</summary>
       <section
         className="workspace-results"
@@ -411,7 +437,7 @@ export function InventoryMovementBridgePanel() {
                     </h3>
                     <RecordTable
                       status={{
-                        column: 2,
+                        column: 3,
                         of: (i) =>
                           toned(
                             inventoryBridgeTone,
@@ -420,8 +446,23 @@ export function InventoryMovementBridgePanel() {
                       }}
                       label={copy.positions}
                       pager={{ 'data-imb-pager': 'positions' }}
-                      headers={copy.positionHeaders}
-                      rows={result.positions.map((p) => [
+                      {...thread.paging('positions')}
+                      headers={[words.way, ...copy.positionHeaders]}
+                      rowHeader={1}
+                      rows={result.positions.map((p, i) => [
+                        <Button
+                          key="thread"
+                          variant="outline"
+                          {...thread.way('positions', i)}
+                          onClick={() => thread.show('positions', i)}
+                        >
+                          {words.way}
+                          <span className="sr-only">
+                            {' · '}
+                            {p.item}
+                            {p.dims && ` · ${p.dims}`}
+                          </span>
+                        </Button>,
                         p.item,
                         p.dims,
                         copy.status[p.status],
@@ -435,12 +476,86 @@ export function InventoryMovementBridgePanel() {
                         pair(p.closing),
                         p.rows.join(comma),
                       ])}
-                      marks={result.positions.map((p) => ({
+                      marks={result.positions.map((p, i) => ({
                         'data-imb-position': p.key,
                         'data-imb-position-status': p.status,
                         'data-imb-position-codes': p.codes.join(' '),
+                        ...thread.mark('positions', i),
                       }))}
                     />
+                    {openPosition && (
+                      <EvidenceDrawer
+                        id={thread.id}
+                        headingRef={thread.heading}
+                        heading={[
+                          words.heading,
+                          openPosition.position.item,
+                          ...(openPosition.position.dims
+                            ? [openPosition.position.dims]
+                            : []),
+                        ].join(' · ')}
+                        back={words.back}
+                        onBack={thread.back}
+                        amount={
+                          openPosition.position.lines ? (
+                            <span className="tarasuf-figures">
+                              {(
+                                [
+                                  [
+                                    copy.positionHeaders[6],
+                                    openPosition.position.opening,
+                                  ],
+                                  [
+                                    copy.positionHeaders[9],
+                                    openPosition.position.computed,
+                                  ],
+                                  [
+                                    copy.positionHeaders[10],
+                                    openPosition.position.closing,
+                                  ],
+                                ] as const
+                              ).map(([label, p]) => (
+                                <span key={label} className="tarasuf-figure">
+                                  {label} {pair(p)}
+                                </span>
+                              ))}
+                            </span>
+                          ) : undefined
+                        }
+                      >
+                        <p>
+                          {openPosition.position.lines
+                            ? copy.threadNote
+                            : copy.threadHeld}
+                        </p>
+                        <ThreadSources
+                          thread={movementPositionThread(
+                            result,
+                            openPosition.at,
+                          )}
+                          role={(s) => {
+                            // The line the engine read at this row, from
+                            // the result; a held position keeps none.
+                            const line = openPosition.position.lines?.find(
+                              (l) => 'row' in s.place && l.row === s.place.row,
+                            );
+                            return line ? (
+                              <>
+                                {copy.threadLine} <bdi>{line.id}</bdi>
+                                {' · '}
+                                {copy.kinds[line.kind]}
+                                {' · '}
+                                {quantity(line.quantity)}
+                                {' · '}
+                                {amount(line.value)}
+                              </>
+                            ) : (
+                              copy.roles[0]
+                            );
+                          }}
+                        />
+                      </EvidenceDrawer>
+                    )}
                   </section>
                 )}
                 {result.positions.some((p) => p.flows) && (
@@ -508,14 +623,34 @@ export function InventoryMovementBridgePanel() {
                     </h3>
                     <RecordTable
                       status={{
-                        column: 1,
+                        column: 2,
                         of: (i) =>
                           toned(inventoryBridgeTone, result.accounts[i].status),
                       }}
                       label={copy.accounts}
                       pager={{ 'data-imb-pager': 'accounts' }}
-                      headers={copy.accountHeaders}
-                      rows={result.accounts.map((a) => [
+                      {...thread.paging('accounts')}
+                      headers={[words.way, ...copy.accountHeaders]}
+                      rowHeader={1}
+                      rows={result.accounts.map((a, i) => [
+                        // An account the GL summary does not carry has no
+                        // row the engine names, so no way in.
+                        a.rows.length ? (
+                          <Button
+                            key="thread"
+                            variant="outline"
+                            {...thread.way('accounts', i)}
+                            onClick={() => thread.show('accounts', i)}
+                          >
+                            {words.way}
+                            <span className="sr-only">
+                              {' · '}
+                              {a.account}
+                            </span>
+                          </Button>
+                        ) : (
+                          '—'
+                        ),
                         a.account,
                         copy.accountStatus[a.status],
                         a.codes.map(reason).join(semi) || '—',
@@ -524,12 +659,58 @@ export function InventoryMovementBridgePanel() {
                         side(a.difference),
                         a.rows.join(comma) || '—',
                       ])}
-                      marks={result.accounts.map((a) => ({
+                      marks={result.accounts.map((a, i) => ({
                         'data-imb-account': a.account,
                         'data-imb-account-status': a.status,
                         'data-imb-account-codes': a.codes.join(' '),
+                        ...thread.mark('accounts', i),
                       }))}
                     />
+                    {openAccount && (
+                      <EvidenceDrawer
+                        id={thread.id}
+                        headingRef={thread.heading}
+                        heading={[
+                          words.heading,
+                          openAccount.account.account,
+                        ].join(' · ')}
+                        back={words.back}
+                        onBack={thread.back}
+                        amount={
+                          openAccount.account.register ||
+                          openAccount.account.gl ? (
+                            <span className="tarasuf-figures">
+                              {(
+                                [
+                                  [
+                                    copy.accountHeaders[3],
+                                    openAccount.account.register,
+                                  ],
+                                  [
+                                    copy.accountHeaders[4],
+                                    openAccount.account.gl,
+                                  ],
+                                  [
+                                    copy.accountHeaders[5],
+                                    openAccount.account.difference,
+                                  ],
+                                ] as const
+                              ).map(([label, s]) => (
+                                <span key={label} className="tarasuf-figure">
+                                  {label} {side(s)}
+                                </span>
+                              ))}
+                            </span>
+                          ) : undefined
+                        }
+                      >
+                        <p>{copy.threadAccount}</p>
+                        <ThreadSources
+                          thread={movementAccountThread(result, openAccount.at)}
+                          role={() => copy.roles[1]}
+                        />
+                      </EvidenceDrawer>
+                    )}
                   </section>
                 )}
                 {(

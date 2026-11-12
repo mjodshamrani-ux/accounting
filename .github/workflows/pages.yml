@@ -1358,7 +1358,7 @@ jobs:
           TYPE_STAGE_MUTATION_DIR: ${{ runner.temp }}/type-stage-interface-mutations
         run: pnpm test:type-stage:interface-mutations
   evidence-thread-interface-mutations:
-    name: Evidence thread interface mutations in built browser copies (UX-10(c)) (${{ matrix.shard }}/3)
+    name: Evidence thread interface mutations in built browser copies (UX-10(c)) (${{ matrix.shard }}/4)
     runs-on: ubuntu-latest
     timeout-minutes: 120
     strategy:
@@ -1368,6 +1368,7 @@ jobs:
           - 1
           - 2
           - 3
+          - 4
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
@@ -1386,7 +1387,7 @@ jobs:
       - name: Build each planted evidence thread defect and require the evidence thread check to catch it, this shard's share of the catalogue by place
         env:
           EVIDENCE_THREAD_MUTATION_DIR: ${{ runner.temp }}/evidence-thread-interface-mutations
-          EVIDENCE_THREAD_MUTATION_SHARD: ${{ matrix.shard }}/3
+          EVIDENCE_THREAD_MUTATION_SHARD: ${{ matrix.shard }}/4
         run: pnpm test:evidence-thread:interface-mutations
   stage-acts-interface-mutations:
     name: Supplier acts interface mutations in built browser copies (UX-7(c))

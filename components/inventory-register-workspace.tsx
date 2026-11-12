@@ -1556,7 +1556,7 @@ export function StockWorkspace({
             />
           </section>
         )}
-        <InventoryMovementBridgePanel />
+        <InventoryMovementBridgePanel active={active} />
       </section>
     </div>
   );

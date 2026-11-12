@@ -27,7 +27,13 @@
 // the heading, the figures (none for a held employee), the line that heads
 // each row with its kind and amount, the sentence and the role of a held
 // employee's rows, the way back to their page, and the fold and the change
-// of type that close them (this workspace stays drawn while hidden).
+// of type that close them (this workspace stays drawn while hidden). Then
+// the positions and GL accounts of the movement bridges panel: their way in
+// and its column, an account with no GL row that has none, the marked rows,
+// the heading, the figures (none for a held position or account), the line
+// that heads each row with its kind, quantity and value, the sentences and
+// roles, the way back to the position's page, and the fold and the change
+// of type that close them.
 //
 // A mutant whose check stops with no verdict (a timeout, a page that no
 // longer answers) is checked once more on the same build, and both runs are
@@ -35,9 +41,9 @@
 // (DEV-117).
 //
 // EVIDENCE_THREAD_MUTATION_SHARD=i/N takes every Nth mutant by its place in
-// the catalogue, from the i-th: CI runs the catalogue in three shards, each
+// the catalogue, from the i-th: CI runs the catalogue in four shards, each
 // with its own baseline, since a mutant late in the check runs nearly all of
-// it before it fails (UX-10 record §22). Without it, every mutant runs.
+// it before it fails (UX-10 record §22, §24). Without it, every mutant runs.
 //
 // Not planted: the drawer's motion outside its reduced-motion guard. The
 // page's own rule (app/globals.css) sets every animation to none under
@@ -95,6 +101,7 @@ const GATEWAY = 'components/payment-gateway-workspace.tsx';
 const ALLOCATION = 'components/allocation-workspace.tsx';
 const SECTIONS = 'components/gl-tb-sections-panel.tsx';
 const REGISTER = 'components/payroll-long-register-panel.tsx';
+const BRIDGES = 'components/inventory-movement-bridge-panel.tsx';
 const PAGE = 'app/page.tsx';
 const HOOK = 'hooks/use-evidence-thread.ts';
 const mutations = [
@@ -954,6 +961,150 @@ const mutations = [
   [
     "plr-type-change-keeps-it",
     REGISTER,
+    "useEvidenceThread(active && expanded, result)",
+    "useEvidenceThread(expanded, result)",
+  ],
+  [
+    "imb-way-not-named",
+    BRIDGES,
+    "                            {p.item}\n                            {p.dims && ` · ${p.dims}`}\n",
+    "",
+  ],
+  [
+    "imb-way-opens-the-first-position",
+    BRIDGES,
+    "onClick={() => thread.show('positions', i)}",
+    "onClick={() => thread.show('positions', 0)}",
+  ],
+  [
+    "imb-position-not-marked",
+    BRIDGES,
+    "                        ...thread.mark('positions', i),\n",
+    "",
+  ],
+  [
+    "imb-way-in-header-left-blank",
+    BRIDGES,
+    "headers={[words.way, ...copy.positionHeaders]}",
+    "headers={['', ...copy.positionHeaders]}",
+  ],
+  [
+    "imb-heading-without-dimensions",
+    BRIDGES,
+    "                            ? [openPosition.position.dims]\n",
+    "                            ? []\n",
+  ],
+  [
+    "imb-opening-of-the-first-position",
+    BRIDGES,
+    "                                    openPosition.position.opening,\n",
+    "                                    result.positions[0].opening,\n",
+  ],
+  [
+    "imb-printed-closing-is-the-computed",
+    BRIDGES,
+    "                                    openPosition.position.closing,\n",
+    "                                    openPosition.position.computed,\n",
+  ],
+  [
+    "imb-held-shows-figures",
+    BRIDGES,
+    "                          openPosition.position.lines ? (\n",
+    "                          openPosition.position ? (\n",
+  ],
+  [
+    "imb-note-for-a-held-one",
+    BRIDGES,
+    "                            ? copy.threadNote\n                            : copy.threadHeld}",
+    "                            ? copy.threadNote\n                            : copy.threadNote}",
+  ],
+  [
+    "imb-line-of-another-row",
+    BRIDGES,
+    "(l) => 'row' in s.place && l.row === s.place.row,",
+    "(l) => 'row' in s.place && l.row !== s.place.row,",
+  ],
+  [
+    "imb-line-without-value",
+    BRIDGES,
+    "                                {quantity(line.quantity)}\n                                {' · '}\n                                {amount(line.value)}\n",
+    "                                {quantity(line.quantity)}\n",
+  ],
+  [
+    "imb-kind-as-the-engine-writes-it",
+    BRIDGES,
+    "{copy.kinds[line.kind]}",
+    "{line.kind}",
+  ],
+  [
+    "imb-held-row-without-role",
+    BRIDGES,
+    "                              copy.roles[0]\n",
+    "                              ''\n",
+  ],
+  [
+    "imb-back-stays-on-the-page",
+    BRIDGES,
+    "                      {...thread.paging('positions')}\n",
+    "",
+  ],
+  [
+    "imb-account-with-no-gl-row-opens",
+    BRIDGES,
+    "                        a.rows.length ? (",
+    "                        a ? (",
+  ],
+  [
+    "imb-account-way-not-named",
+    BRIDGES,
+    "                              {' · '}\n                              {a.account}\n",
+    "",
+  ],
+  [
+    "imb-account-way-opens-the-first",
+    BRIDGES,
+    "onClick={() => thread.show('accounts', i)}",
+    "onClick={() => thread.show('accounts', 0)}",
+  ],
+  [
+    "imb-account-not-marked",
+    BRIDGES,
+    "                        ...thread.mark('accounts', i),\n",
+    "",
+  ],
+  [
+    "imb-account-gl-is-the-register",
+    BRIDGES,
+    "                                    openAccount.account.gl,\n",
+    "                                    openAccount.account.register,\n",
+  ],
+  [
+    "imb-held-account-shows-figures",
+    BRIDGES,
+    "                          openAccount.account.register ||\n                          openAccount.account.gl ? (",
+    "                          openAccount.account ? (",
+  ],
+  [
+    "imb-account-note-of-a-position",
+    BRIDGES,
+    "<p>{copy.threadAccount}</p>",
+    "<p>{copy.threadNote}</p>",
+  ],
+  [
+    "imb-account-role-of-the-register",
+    BRIDGES,
+    "role={() => copy.roles[1]}",
+    "role={() => copy.roles[0]}",
+  ],
+  [
+    "imb-folding-keeps-it",
+    BRIDGES,
+    "onToggle={(e) => setExpanded(e.currentTarget.open)}",
+    "onToggle={() => setExpanded(true)}",
+  ],
+  [
+    "imb-type-change-keeps-it",
+    BRIDGES,
     "useEvidenceThread(active && expanded, result)",
     "useEvidenceThread(expanded, result)",
   ],
